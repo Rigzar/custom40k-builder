@@ -241,7 +241,13 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     }
   }
 
-  const abilitiesList = u.abilities;
+  const equipMods = parseEquipMods(armEquip);
+  const abilitiesList = [
+    ...u.abilities,
+    ...equipMods.grantedAbilities.filter(ab =>
+      !u.abilities.some(a => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())
+    ),
+  ];
   const traitList = item.traits.map(t => t.name);
   const powerList = item.powers.map(p => `${p.powerName} (${p.disciplineName})`);
   const prayerList = item.prayers;
@@ -298,20 +304,31 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
       {/* ── Stats bar ── */}
       <div style={{
         backgroundColor: '#f5f1ea',
-        borderBottom: `2px solid ${color}`,
+        borderBottom: equipMods.invulnSave !== null ? 'none' : `2px solid ${color}`,
         padding: '5px 10px 4px',
       }}>
-        {modelsToShow.map((m, mi) => (
-          <StatRow
-            key={mi}
-            keys={statKeys}
-            stats={m.stats as Record<string, string>}
-            mod={mod}
-            showLabels={mi === 0}
-            modelLabel={modelsToShow.length > 1 ? m.name : undefined}
-          />
-        ))}
+        {modelsToShow.map((m, mi) => {
+          const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
+          return (
+            <StatRow
+              key={mi}
+              keys={statKeys}
+              stats={modStats}
+              mod={mod}
+              showLabels={mi === 0}
+              modelLabel={modelsToShow.length > 1 ? m.name : undefined}
+            />
+          );
+        })}
       </div>
+      {equipMods.invulnSave !== null && (
+        <div style={{
+          backgroundColor: '#f5f1ea', borderBottom: `2px solid ${color}`,
+          padding: '2px 10px 3px', fontSize: '.72em', fontWeight: 700, color: color,
+        }}>
+          Invulnerable Save: {equipMods.invulnSave}+
+        </div>
+      )}
 
       {/* ── Body ── */}
       <div style={{ display: 'flex', alignItems: 'stretch' }}>
@@ -343,10 +360,15 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
           </table>
 
           {armEquip.length > 0 && (
-            <div style={{ padding: '4px 8px', borderTop: `1px dotted ${color}`, fontSize: '.78em', color: '#333' }}>
-              <span style={{ fontWeight: 700 }}>Equipment: </span>
+            <div style={{ padding: '5px 8px', borderTop: `1px dotted ${color}` }}>
+              <div style={{ fontWeight: 700, fontSize: '.68em', textTransform: 'uppercase', color: color, letterSpacing: '.06em', marginBottom: 3 }}>
+                Equipment
+              </div>
               {armEquip.map((eq, i) => (
-                <span key={i}>{eq.name}{eq.desc ? ` (${eq.desc})` : ''}{i < armEquip.length - 1 ? ', ' : ''}</span>
+                <div key={i} style={{ fontSize: '.76em', lineHeight: 1.45, marginBottom: 2, color: '#222' }}>
+                  <span style={{ fontWeight: 700 }}>{eq.name}</span>
+                  {eq.desc && <span style={{ color: '#555', marginLeft: 4 }}>— {eq.desc}</span>}
+                </div>
               ))}
             </div>
           )}
@@ -509,6 +531,56 @@ function unitStatValues(u: Unit): number[] {
 // Normalize raw stat averages to 0-10
 const POWER_MAX = [14, 6, 10, 16, 5, 5]; // Move, Attacks, Tough, Wounds, Save(inv), Shoot(inv)
 
+// ── Equipment mod parsing ─────────────────────────────────────────────────────
+const EQUIP_STAT_MAP: [RegExp, string][] = [
+  [/\+(\d+)\s+toughness/i, 'T'],
+  [/\+(\d+)\s+attacks?/i,  'A'],
+  [/\+(\d+)\s+strength/i,  'S'],
+  [/\+(\d+)\s+wounds?/i,   'W'],
+  [/\+(\d+)"\s+movement/i, 'M'],
+  [/\+(\d+)\s+initiative/i,'I'],
+  [/\+(\d+)\s+leadership/i,'LD'],
+];
+
+interface EquipMods {
+  statDeltas: Partial<Record<string, number>>;
+  armorSave: number | null;
+  invulnSave: number | null;
+  grantedAbilities: string[];
+}
+
+function parseEquipMods(items: { name: string; desc: string }[]): EquipMods {
+  const mods: EquipMods = { statDeltas: {}, armorSave: null, invulnSave: null, grantedAbilities: [] };
+  for (const { desc } of items) {
+    if (!desc) continue;
+    for (const [re, key] of EQUIP_STAT_MAP) {
+      const m = desc.match(re);
+      if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]);
+    }
+    const armor = desc.match(/(\d)\+\s+armou?r\s+save/i);
+    if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }
+    const invuln = desc.match(/(\d)\+\s+invulnerable\s+save/i);
+    if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }
+    for (const match of Array.from(desc.matchAll(/"([^"]+)"/g))) {
+      const ab = match[1];
+      if (!mods.grantedAbilities.includes(ab)) mods.grantedAbilities.push(ab);
+    }
+  }
+  return mods;
+}
+
+function applyEquipDeltas(stats: Record<string, string>, mods: EquipMods, isVehicle: boolean): Record<string, string> {
+  const result = { ...stats };
+  for (const [key, delta] of Object.entries(mods.statDeltas)) {
+    if (result[key] !== undefined) result[key] = applyDelta(result[key], delta);
+  }
+  if (!isVehicle && mods.armorSave !== null) {
+    const existing = result.SV?.match(/(\d+)\+/);
+    if (!existing || mods.armorSave < parseInt(existing[1])) result.SV = `${mods.armorSave}+`;
+  }
+  return result;
+}
+
 // ── Summary page ──────────────────────────────────────────────────────────────
 const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers'] as const;
 const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers'];
@@ -643,6 +715,18 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     return s + (u ? computeUnitPoints(item, u) : 0);
   }, 0);
 
+  // Collect all unique abilities for the reference section
+  const allAbilities = new Map<string, string>();
+  for (const item of army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    for (const ab of u.abilities) {
+      const ci = ab.indexOf(':');
+      const name = (ci > 0 && ci < 40 ? ab.slice(0, ci) : ab).trim();
+      if (!allAbilities.has(name)) allAbilities.set(name, ab);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#1a1a1e' }}>
 
@@ -713,6 +797,50 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                   <div style={{ fontWeight: 600, color: '#111', fontSize: '.85em' }}>{value}</div>
                 </div>
               ))}
+            </div>
+            {rule?.notes && rule.notes.length > 0 && (
+              <div style={{ padding: '8px 14px', borderTop: `1px solid ${primaryColor}` }}>
+                <div style={{ fontWeight: 700, fontSize: '.68em', textTransform: 'uppercase', color: '#666', letterSpacing: '.05em', marginBottom: 5 }}>
+                  Archetype Rules
+                </div>
+                {rule.notes.map((note, ni) => (
+                  <div key={ni} style={{ fontSize: '.82em', color: '#111', lineHeight: 1.45, marginBottom: 3 }}>{note}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {allAbilities.size > 0 && (
+          <div style={{
+            marginBottom: 24, pageBreakInside: 'avoid', breakInside: 'avoid',
+            border: `2px solid ${primaryColor}`, backgroundColor: '#fff',
+            ['--ac' as string]: primaryColor,
+          }}>
+            <div style={{
+              backgroundColor: primaryColor, color: '#fff',
+              padding: '6px 14px', fontWeight: 700, textTransform: 'uppercase',
+              letterSpacing: '.06em', fontSize: '.85em',
+            }}>
+              Special Rules
+            </div>
+            <div style={{
+              padding: '8px 14px',
+              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px 20px',
+            }}>
+              {[...allAbilities.values()].map(ab => {
+                const ci = ab.indexOf(':');
+                const split = ci > 0 && ci < 40;
+                return (
+                  <div key={ab} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.45, color: '#222', paddingBottom: 4 }}>
+                    {split
+                      ? <><span style={{ fontWeight: 700 }}>{ab.slice(0, ci + 1)}</span>{' '}
+                          <span dangerouslySetInnerHTML={{ __html: highlightRules(ab.slice(ci + 1).trim()) }} /></>
+                      : <span style={{ fontWeight: 700 }}>{ab}</span>
+                    }
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
