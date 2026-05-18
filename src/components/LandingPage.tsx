@@ -55,14 +55,6 @@ const CATEGORIES: Category[] = [
       { key: 'leagues_of_votann', name: 'Leagues of Votann',  available: true },
     ],
   },
-  {
-    name: 'Supplement',
-    borderColor: 'border-zinc-600',
-    labelColor: 'text-zinc-400',
-    factions: [
-      { key: 'horus_heresy', name: 'Horus Heresy Space Marines', available: true },
-    ],
-  },
 ];
 
 function formatDate(ts: number): string {
