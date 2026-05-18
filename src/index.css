@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+* { box-sizing: border-box; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
+#root { min-height: 100vh; }
+
+@media print {
+  /* Hide the dark overlay shell, leave only the white printable content */
+  .fixed.z-50 {
+    position: static !important;
+    background: white !important;
+    overflow: visible !important;
+  }
+  #root { min-width: 960px; }
+}

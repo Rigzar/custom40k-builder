@@ -1,0 +1,3803 @@
+{
+  "faction": "Necrons",
+  "slot_to_units": {
+    "HQ": [
+      "Ancient Destructor Lord",
+      "Cryptek",
+      "Lord",
+      "Royal Warden",
+      "Skorpekh Lord"
+    ],
+    "Troops": [
+      "Flayed Ones",
+      "Immortals",
+      "Warriors"
+    ],
+    "Elites": [
+      "C'tan Shard",
+      "C'tan Shard of the Deceiver",
+      "C'tan Shard of the Dragon",
+      "C'tan Shard of the Nightbringer",
+      "Canoptek Reanimator",
+      "Canoptek Spyders",
+      "Cryptothralls",
+      "Deathmarks",
+      "Hexmark Destroyer",
+      "Lychguard",
+      "Pariahs",
+      "Plasmacyte",
+      "Skorpekh Destroyers",
+      "Triarch Stalker"
+    ],
+    "Fast Attack": [
+      "Canoptek Scarabs",
+      "Canoptek Wraiths",
+      "Ophydian Destroyers",
+      "Tomb Blades",
+      "Triarch Praetorians"
+    ],
+    "Heavy Support": [
+      "Annihilation Barge",
+      "Canoptek Doomstalker",
+      "Doomsday Ark",
+      "Lokhust Destroyers",
+      "Monolith"
+    ],
+    "Dedicated Transport": [
+      "Ghost Ark",
+      "Catacomb Command Barge"
+    ],
+    "Fortifications": [
+      "Convergence of Dominion"
+    ],
+    "Flyers": [
+      "Doom Scythe",
+      "Night Scythe"
+    ]
+  },
+  "units": {
+    "Ancient Destructor Lord": {
+      "name": "Ancient Destructor Lord",
+      "models": [
+        {
+          "name": "Nekrosor Lord",
+          "points": 420,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "7",
+            "T": "7",
+            "W": "7",
+            "I": "4",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Nekrosor Lord is equipped with: Enmitic annihilator; Hyperhpase harvester.",
+      "weapons": [
+        {
+          "name": "Blade tail",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flurry(2)"
+        },
+        {
+          "name": "Enmitic disintegrators",
+          "range": "12\"",
+          "type": "Rapid Fire 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Deflagrate(5+)"
+        },
+        {
+          "name": "Unmaker Gauntlet",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Flurry(2), Unwieldy"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Only one Nekrosor Lord per army.",
+          "constraint": {
+            "type": "unique_upgrade"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        }
+      ],
+      "abilities": [
+        "Favoured enemy(everything), Furious Charge, Regeneration(1)",
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0).",
+        "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself."
+      ],
+      "unit_type": "Jump Pack, Monstrous Creature, KEYWORD, Lord, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 420
+    },
+    "Cryptek": {
+      "name": "Cryptek",
+      "models": [
+        {
+          "name": "Cryptek",
+          "points": 30,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "3",
+            "A": "2",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [
+        {
+          "name": "Dynasty Scion",
+          "points": 45,
+          "min": 0,
+          "max": 0,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "3",
+            "A": "2",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "equipped_with": "A Cryptek is equipped with: -.",
+      "weapons": [],
+      "option_groups": [
+        {
+          "header": "May be upgraded to one of the following. Each specialisation is unique per army",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Chronomancer",
+              "points": 15
+            },
+            {
+              "name": "Dynasty Scion",
+              "points": 15
+            },
+            {
+              "name": "Plasmancer",
+              "points": 15
+            },
+            {
+              "name": "Psychomancer",
+              "points": 15
+            },
+            {
+              "name": "Technomancer",
+              "points": 15
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Command squad, Regeneration(1)",
+        "Royal Court: If an Overlord is present, up to four Crypteks can be chosen that do not occupy an HQ slot. If a Lord is present, up to two Crypteks can be chosen that do not occupy an HQ slot.",
+        "Upgrades:",
+        "Chronomancer: The model additionally grants +1 Initiative to itself and its attached unit.",
+        "Dynasty Scion: The model gains an improved profile (see above) and has access to Lord equipment in the Armory, instead of Cryptek.",
+        "Plasmancer: Automatic wounds caused by equipment from this model trigger on a 3+.",
+        "Psychomancer: Once per turn, an enemy unit within 18\" suffers a cumulative -1 penalty to its Leadership until the next Rally phase.",
+        "Technomancer: Once per turn, one Reanimation Protocol roll for a unit within 6\" is automatically successfull."
+      ],
+      "unit_type": "Character model, Infantry, KEYWORD, Cryptek, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 30
+    },
+    "Lord": {
+      "name": "Lord",
+      "models": [
+        {
+          "name": "Lord",
+          "points": 115,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "4",
+            "I": "4",
+            "A": "3",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [
+        {
+          "name": "Overlord",
+          "points": 130,
+          "min": 0,
+          "max": 0,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "5",
+            "I": "4",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "equipped_with": "A Lord is equipped with: -.",
+      "weapons": [],
+      "option_groups": [
+        {
+          "header": "One Lord per army can be upgraded to an Overlord for +15 points.",
+          "constraint": {
+            "type": "unique_upgrade"
+          },
+          "choices": [],
+          "inline_pts": 15,
+          "variant_link": "Overlord",
+          "is_unique_per_army": true
+        }
+      ],
+      "abilities": [
+        "Regeneration(1)",
+        "My Will Be Done: Select one <Necron> unit during your Reinforcement phase. The unit gains the \"Fearless\" ability until the end of the current battle round.",
+        "Overlord: An Overlord may use My Will Be Done a second time.",
+        "Royal Court: If an Overlord is present, up to four Lords can be chosen that do not occupy an HQ slot.",
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+      ],
+      "unit_type": "Character model, Infantry, KEYWORD, Lord, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 115
+    },
+    "Royal Warden": {
+      "name": "Royal Warden",
+      "models": [
+        {
+          "name": "Royal Warden",
+          "points": 86,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "3",
+            "A": "2",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Royal Warden is equipped with: Relic tesla carbine.",
+      "weapons": [
+        {
+          "name": "Relic gauss blaster",
+          "range": "30\"",
+          "type": "Rapid Fire 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Relic tesla carbine",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla, AT(-1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap its Relic tesla carbine with a Relic gauss blaster for +8 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 8,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Command squad, Regeneration(1)",
+        "Royal Court: If an Overlord is present, up to four Royal Wardens can be chosen that do not occupy an HQ slot. If a Lord is present, up to two Royal Wardens can be chosen that do not occupy an HQ slot.",
+        "Relentless March: The model and its attached unit may shoot “Rapid fire” weapons at full range with a \"Move & Shoot\" order and ignores the to hit penalty for \"Advance\" orders with \"Assault\" weapons."
+      ],
+      "unit_type": "Character model, Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 86
+    },
+    "Skorpekh Lord": {
+      "name": "Skorpekh Lord",
+      "models": [
+        {
+          "name": "Skorpekh Lord",
+          "points": 287,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "6",
+            "T": "6",
+            "W": "6",
+            "I": "4",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Skorpekh Lord is equipped with: Enmitic annihilator; Hyperhpase harvester.",
+      "weapons": [
+        {
+          "name": "Enmitic annihilator",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Hyperphase harvester",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Flurry(2), Unwieldy"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Favoured enemy(everything), Furious Charge, Move through cover, Regeneration(1)",
+        "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+      ],
+      "unit_type": "Character model, Monstrous Creature, KEYWORD, Lord, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 287
+    },
+    "Flayed Ones": {
+      "name": "Flayed Ones",
+      "models": [
+        {
+          "name": "Flayed Ones",
+          "points": 22,
+          "min": 5,
+          "max": 20,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "6+",
+            "S": "4",
+            "T": "4",
+            "W": "1",
+            "I": "4",
+            "A": "1",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Flayer claws.",
+      "weapons": [
+        {
+          "name": "Flayer claws",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flurry(2), Shred"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Deep strike, Infiltrator, Reanimation Protocols, Terrifying(-1)"
+      ],
+      "unit_type": "Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 110
+    },
+    "Immortals": {
+      "name": "Immortals",
+      "models": [
+        {
+          "name": "Immortal",
+          "points": 43,
+          "min": 5,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "2",
+            "A": "1",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Tesla carbine.",
+      "weapons": [
+        {
+          "name": "Disruptor field",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Gauss blaster",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Tesla carbine",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "5",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla, AT(-1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "The unit can swap their Tesla carbines",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Gauss Blaster",
+              "points": 4
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Disruptor field",
+              "points": 2
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Reanimation Protocols"
+      ],
+      "unit_type": "Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 215
+    },
+    "Warriors": {
+      "name": "Warriors",
+      "models": [
+        {
+          "name": "Warrior",
+          "points": 19,
+          "min": 10,
+          "max": 20,
+          "stats": {
+            "M": "6\"",
+            "WS": "4+",
+            "BS": "4+",
+            "S": "4",
+            "T": "4",
+            "W": "1",
+            "I": "2",
+            "A": "1",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Gauss flayer.",
+      "weapons": [
+        {
+          "name": "Disruptor field",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Gauss flayer",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Gauss reaper",
+          "range": "12\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Gauss"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "The unit can swap their Gauss flayers",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Gauss reaper",
+              "points": 5
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Disruptor field",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Reanimation Protocols"
+      ],
+      "unit_type": "Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 10,
+      "min_cost": 190
+    },
+    "C'tan Shard": {
+      "name": "C'tan Shard",
+      "models": [
+        {
+          "name": "C'tan Shard",
+          "points": 257,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "6",
+            "T": "7",
+            "W": "6",
+            "I": "4",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A C'tan Shard is equipped with: C'tan close combat weapon.",
+      "weapons": [
+        {
+          "name": "C'tan close combat weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "An army can contain only one C'tan Shard.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Fearless, Regeneration(1), Terrifying(-1)",
+        "Necrodermis: The model has a 4+ invulnerability save. If it loses its last wound, it explodes like a vehicle.",
+        "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
+      ],
+      "unit_type": "Monstrous Creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": true,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 257
+    },
+    "C'tan Shard of the Deceiver": {
+      "name": "C'tan Shard of the Deceiver",
+      "models": [
+        {
+          "name": "Deceiver",
+          "points": 280,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "6",
+            "T": "7",
+            "W": "6",
+            "I": "5",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Deceiver is equipped with: Golden Fists.",
+      "weapons": [
+        {
+          "name": "Golden Fists",
+          "range": "-",
+          "type": "Melee",
+          "s": "T",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "An army can contain only one C'tan Shard.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Deflect, Fearless, Hit & Run, Parry, Regeneration(1), Terrifying(-1)",
+        "Great Illusion: At the beginning of the first battle round, the Deceiver can remove up to three units from his own army from the field and relocate them within his own deployment zone. Alternatively, each unit can also be placed in reserve.",
+        "Necrodermis: The model has a 4+ invulnerability save. If it loses its last wound, it explodes like a vehicle.",
+        "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
+      ],
+      "unit_type": "Monstrous Creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": true,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 280
+    },
+    "C'tan Shard of the Dragon": {
+      "name": "C'tan Shard of the Dragon",
+      "models": [
+        {
+          "name": "Dragon",
+          "points": 300,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "6",
+            "T": "7",
+            "W": "6",
+            "I": "4",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Dragon is equipped with: Spear of the Dragon.",
+      "weapons": [],
+      "option_groups": [
+        {
+          "header": "An army can contain only one C'tan Shard.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Fearless, Regeneration(1), Terrifying(-1)",
+        "Necrodermis: The model has a 4+ invulnerability save. If it loses its last wound, it explodes like a vehicle.",
+        "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
+      ],
+      "unit_type": "Monstrous Creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": true,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 300
+    },
+    "C'tan Shard of the Nightbringer": {
+      "name": "C'tan Shard of the Nightbringer",
+      "models": [
+        {
+          "name": "Nightbringer",
+          "points": 315,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "6",
+            "T": "7",
+            "W": "6",
+            "I": "4",
+            "A": "5",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Nightbringer is equipped with: Arc lightning; Scythe of the Nightbringer.",
+      "weapons": [
+        {
+          "name": "Arc lightning",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Scythe of the Nightbringer",
+          "range": "-",
+          "type": "Melee",
+          "s": "+4",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(2), Shield breaker(-3)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "An army can contain only one C'tan Shard.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Fearless, Regeneration(1), Terrifying(-1)",
+        "Necrodermis: The model has a 4+ invulnerability save. If it loses its last wound, it explodes like a vehicle.",
+        "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
+      ],
+      "unit_type": "Monstrous Creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": true,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 315
+    },
+    "Canoptek Reanimator": {
+      "name": "Canoptek Reanimator",
+      "models": [
+        {
+          "name": "Reanimator",
+          "points": 166,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "4+",
+            "BS": "4+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "2",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Reanimator is a single model and equipped with: Atomiser beam; Reanimator claws.",
+      "weapons": [
+        {
+          "name": "Atomiser beam",
+          "range": "12\"",
+          "type": "Assault 3",
+          "s": "6",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Reanimator claws",
+          "range": "-",
+          "type": "Melee",
+          "s": "T",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Squadron",
+        "Containment field: The model has a 5+ invulnerability save.",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Nanoscarab reanimator beam: Instead of using the Atomiser beam, you may target a friendly <Necron> unit within 12\". The target immediately succeeds at 2 Reanimation Protocol rolls."
+      ],
+      "unit_type": "Walker, KEYWORD, Canoptek",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 166
+    },
+    "Canoptek Spyders": {
+      "name": "Canoptek Spyders",
+      "models": [
+        {
+          "name": "Spyder",
+          "points": 54,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "4+",
+            "BS": "4+",
+            "S": "6",
+            "T": "6",
+            "W": "3",
+            "I": "2",
+            "A": "3",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Automaton claws.",
+      "weapons": [
+        {
+          "name": "Automaton claws",
+          "range": "-",
+          "type": "Melee",
+          "s": "T",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Particle beamer",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any number of models can each be equipped with: +5 points Dark prison, +5 points Fabricator claw array, +27 points two Particle beamers.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 5,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Squadron",
+        "Dark prison: The model can dispel 1 psychic power per battle round.",
+        "Fabricator claw array: At the end of its movement, the model can attempt to repair a vehicle within 3\". On a 4+, an \"Immobilized\" or \"Weapon Destroyed\" result is removed from the vehicle, or 1 hull point is restored.",
+        "Scarab hive: At the end of its movement, the model can repair up to 3 points of damage to a unit of Canoptek Scarabs within 3\". Slain models can be revived with this ability if at least a single Canoptek Scarab model from its unit is still alive."
+      ],
+      "unit_type": "Monstrous Creature, KEYWORD, Canoptek",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 54
+    },
+    "Cryptothralls": {
+      "name": "Cryptothralls",
+      "models": [
+        {
+          "name": "Cryptothrall",
+          "points": 45,
+          "min": 2,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "4+",
+            "BS": "4+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "2",
+            "A": "2",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Scouring eye; Scythed limbs.",
+      "weapons": [
+        {
+          "name": "Scouring eye",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Scythed limbs",
+          "range": "-",
+          "type": "Melee",
+          "s": "T",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "For every Cryptek you may select a unit of Technothralls that take up no Elite-slot.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Bodyguard, Regeneration(1)",
+        "Servant: The unit cannot contest or hold mission objectives.",
+        "Systematic Vigour: If a Cryptek is attached to the unit, each Technothrall gains a bonus of +1 on to hit rolls. Technothralls do not prevent a Cryptek from joining another unit."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 2,
+      "min_cost": 90
+    },
+    "Deathmarks": {
+      "name": "Deathmarks",
+      "models": [
+        {
+          "name": "Deathmark",
+          "points": 65,
+          "min": 5,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "2+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "2",
+            "A": "1",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Synaptic disintegrator.",
+      "weapons": [
+        {
+          "name": "Synaptic disintegrator",
+          "range": "36\"",
+          "type": "Assault 1",
+          "s": "5",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Suppression"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Deep strike, Reanimation Protocols",
+        "Aetheric Interception: Deathmarks roll two dice less for scatter when deep striking. Additionally, once an enemy unit emerges from reserve, a Deathmark unit that has not yet used its order this round of combat may perform an intercept. The Deathmark unit is removed from the field or from reserves and immediately deployed within 18\" of the enemy reserve unit. The Deathmarks can then fire at that unit as if it had been given the \"Move & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action."
+      ],
+      "unit_type": "Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 5,
+      "min_cost": 325
+    },
+    "Hexmark Destroyer": {
+      "name": "Hexmark Destroyer",
+      "models": [
+        {
+          "name": "Hexmark Destroyer",
+          "points": 92,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "2",
+            "A": "2",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Hexmark Destroyer is equipped with: Enmitic disintegrator pistol.",
+      "weapons": [
+        {
+          "name": "Enmitic disintegrator pistol",
+          "range": "18\"",
+          "type": "Pistol 6",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Deflagrate(5+)"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Command squad, Deep strike, Regeneration(1)",
+        "Royal Assassin: For each Lord or Skorpekh Lord, a Hexmark Destructor can be chosen that does not occupy an elite slot."
+      ],
+      "unit_type": "Character model, Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 92
+    },
+    "Lychguard": {
+      "name": "Lychguard",
+      "models": [
+        {
+          "name": "Lychguard",
+          "points": 67,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "3",
+            "A": "2",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Dispersion shield and Hyperphase sword.",
+      "weapons": [
+        {
+          "name": "Hyperphase sword",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Flurry(1)"
+        },
+        {
+          "name": "War scythe",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Slow(-2)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model can swap its Dispersion shield and Hyperphase sword",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "War scythe",
+              "points": 16
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every HQ unit, you may pick one Lychguard unit.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Bodyguard, Command squad, Reanimation Protocols",
+        "Dispersion shield: The model gains a 5+ invulnerability save and the abilities \"Deflect\" and \"Parry\".",
+        "Varguard: If a single Lychguard model is selected, it becomes a character model."
+      ],
+      "unit_type": "Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 67
+    },
+    "Pariahs": {
+      "name": "Pariahs",
+      "models": [
+        {
+          "name": "Pariah",
+          "points": 52,
+          "min": 4,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Void scythe with inbuilt Gauss caster.",
+      "weapons": [
+        {
+          "name": "Gauss caster",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Void scythe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Shield breaker(-3), Unwieldy"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Psionic Abomination: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 4,
+      "min_cost": 208
+    },
+    "Plasmacyte": {
+      "name": "Plasmacyte",
+      "models": [],
+      "variant_models": [
+        {
+          "name": "Plasmacyte",
+          "points": 15,
+          "min": 0,
+          "max": 0,
+          "stats": {
+            "M": "6\"",
+            "WS": "-",
+            "BS": "-",
+            "S": "4",
+            "T": "5",
+            "W": "1",
+            "I": "-",
+            "A": "-",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "equipped_with": "A Plasmacyte is a character model and equipped with: -.",
+      "weapons": [],
+      "option_groups": [
+        {
+          "header": "For each started 500 points game size, one Plasmacyte may be taken without using up an Elite slot.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 500,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Command squad",
+        "Infused Madness: At the start of any activation, roll 1D6 for each model in the unit that the Plasmacyte has joined. On each 1 or 2, the unit suffers one Mortal Wound. Models killed by this ability are removed from play and Reanimation Protocols cannot be used. All surviving models gain the special rules \"Decimate\", \"Lance(1)\" and \"Quick(1)\" for melee attacks until the start of their next activation. A Plasmacyte receives the same movement and deployment rules as the unit it joins. Can only affect <Necron> units. Each Plasmacyte may use this ability once per game.",
+        "Servant: The unit cannot contest or hold mission objectives."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 0,
+      "min_cost": 0
+    },
+    "Skorpekh Destroyers": {
+      "name": "Skorpekh Destroyers",
+      "models": [
+        {
+          "name": "Destroyer",
+          "points": 48,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "3",
+            "A": "1",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Hyperphase threshers.",
+      "weapons": [
+        {
+          "name": "Hyperphase reap-blade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Flurry(2), Slow(-1)"
+        },
+        {
+          "name": "Hyperphase threshers",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Flurry(2)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "For every 3 Destroyers, one Destroyer may swap their Hyperphase threshers",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Hyperphase reap-blade",
+              "points": 7
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Massive(1), Move through cover, Reanimation Protocols"
+      ],
+      "unit_type": "Infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 144
+    },
+    "Triarch Stalker": {
+      "name": "Triarch Stalker",
+      "models": [
+        {
+          "name": "Stalker",
+          "points": 157,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "2",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Stalker is a single model and equipped with: Particle shredder.",
+      "weapons": [
+        {
+          "name": "Particle shredder",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Barrage"
+        },
+        {
+          "name": "Reinforced forelimbs",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Twin heavy gauss cannon",
+          "range": "36\"",
+          "type": "Assault 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can replace the Particle shredder",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Heat ray",
+              "points": 36
+            },
+            {
+              "name": "Twin heavy gauss cannon",
+              "points": 83
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Reinforced forelimbs",
+              "points": 13
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Move through cover, Squadron",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase.",
+        "Targeting relay: After scoring a hit on an enemy unit, the next friendly unit firing on the same target can re-roll one failed to hit and wound roll.",
+        "Reinforced forelimbs: The model gains WS 3+ and +2 A."
+      ],
+      "unit_type": "Walker",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 157
+    },
+    "Canoptek Scarabs": {
+      "name": "Canoptek Scarabs",
+      "models": [
+        {
+          "name": "Scarab swarm",
+          "points": 16,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "12\"",
+            "WS": "4+",
+            "BS": "6+",
+            "S": "3",
+            "T": "3",
+            "W": "3",
+            "I": "2",
+            "A": "3",
+            "LD": "10",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Feeder mandibles.",
+      "weapons": [
+        {
+          "name": "Feeder mandibles",
+          "range": "-",
+          "type": "Melee",
+          "s": "T",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "The unit can take one upgrade",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Bloodswarm Scarabs",
+              "points": 5
+            },
+            {
+              "name": "Flensing Scarabs",
+              "points": 5
+            },
+            {
+              "name": "Frenzied Scarabs",
+              "points": 5
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Mindless, Swarm, Use cover",
+        "Explosion: Scarab swarms may explode at the end of their movement. For each base remaining, an enemy unit within 3\" suffers a hit with S: 5 AP: 0 D: 1; Explosive. All Scarab swarms in the unit are removed after the explosion.",
+        "Upgrades:",
+        "Bloodswarm Scarabs: Flayed Ones that deep strike within 6\" do not scatter.",
+        "Flensing Scarabs: Melee attacks gain \"Poison(2+)\".",
+        "Frenzied Scarabs: The model gains +1 Initiative."
+      ],
+      "unit_type": "Jet bike, KEYWORD, Canoptek",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 3,
+      "min_cost": 48
+    },
+    "Canoptek Wraiths": {
+      "name": "Canoptek Wraiths",
+      "models": [
+        {
+          "name": "Wraith",
+          "points": 71,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "12\"",
+            "WS": "4+",
+            "BS": "4+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Vicious claws.",
+      "weapons": [
+        {
+          "name": "Particle caster",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Transdimensional beamer",
+          "range": "12\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "Deadly(5+), Decimate, Haywire"
+        },
+        {
+          "name": "Vicious claws",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model can each be equipped with one of the following",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Particle caster",
+              "points": 2
+            },
+            {
+              "name": "Transdimensional beamer",
+              "points": 12
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "All models can additionally be equipped with",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Whip coils",
+              "points": 5
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself.",
+        "Wraith form: The model gains a 4+ invulnerability save."
+      ],
+      "unit_type": "Jet bike, Monstrous Infantry, KEYWORD, Canoptek",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 3,
+      "min_cost": 213
+    },
+    "Ophydian Destroyers": {
+      "name": "Ophydian Destroyers",
+      "models": [
+        {
+          "name": "Destroyer",
+          "points": 52,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "3",
+            "A": "1",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Hyperphase threshers.",
+      "weapons": [
+        {
+          "name": "Hyperphase reap-blade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Flurry(2), Slow(-1)"
+        },
+        {
+          "name": "Hyperphase threshers",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Flurry(2)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "For every 3 Destroyers, one Destroyer may swap their Hyperphase threshers",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Hyperphase reap-blade",
+              "points": 6
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Infiltrator, Massive(1), Parry, Reanimation Protocols",
+        "Tunneling Horrors: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
+      ],
+      "unit_type": "Jump pack infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 3,
+      "min_cost": 156
+    },
+    "Tomb Blades": {
+      "name": "Tomb Blades",
+      "models": [
+        {
+          "name": "Tomb Blades",
+          "points": 47,
+          "min": 3,
+          "max": 9,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "2",
+            "A": "1",
+            "LD": "10",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Twin tesla carbine.",
+      "weapons": [
+        {
+          "name": "Particle beamer",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Twin gauss blaster",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Twin tesla carbine",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla, AT(-1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "The unit can choose one of the following upgrades",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Nebuloscope",
+              "points": 14
+            },
+            {
+              "name": "Shadowloom & shieldvanes",
+              "points": 22
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can swap its Twin tesla carbines",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Twin gauss blaster",
+              "points": 7
+            },
+            {
+              "name": "Particle beamer",
+              "points": 10
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Massive(2), Reanimation Protocols",
+        "Upgrades:",
+        "Nebuloscope: Ranged attacks gain \"Seeking\".",
+        "Shadowloom and shieldvanes: The model gains a 3+ armor save and a  5+ invulnerability save."
+      ],
+      "unit_type": "Jet bike, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 3,
+      "min_cost": 141
+    },
+    "Triarch Praetorians": {
+      "name": "Triarch Praetorians",
+      "models": [
+        {
+          "name": "Praetorian",
+          "points": 59,
+          "min": 5,
+          "max": 10,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "3",
+            "A": "2",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Particle caster; Voidblade.",
+      "weapons": [
+        {
+          "name": "Particle caster",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Voidblade",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Shield breaker(-3)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model can swap its Particle casters and Voidblades",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Rod of covenant",
+              "points": 8
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Reanimation Protocols"
+      ],
+      "unit_type": "Jump pack infantry, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 5,
+      "min_cost": 295
+    },
+    "Annihilation Barge": {
+      "name": "Annihilation Barge",
+      "models": [
+        {
+          "name": "Annihilation Barge",
+          "points": 208,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "2",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Annihilation Barge is a single model and equipped with: Tesla cannon, Twin tesla destructor.",
+      "weapons": [
+        {
+          "name": "Gauss cannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Tesla cannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla"
+        },
+        {
+          "name": "Twin tesla destructor",
+          "range": "24\"",
+          "type": "Heavy 8",
+          "s": "7",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can replace the Tesla cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Gauss cannon",
+              "points": 25
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 208
+    },
+    "Canoptek Doomstalker": {
+      "name": "Canoptek Doomstalker",
+      "models": [
+        {
+          "name": "Doomstalker",
+          "points": 224,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "4+",
+            "BS": "4+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "2",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Doomstalker is a single model and equipped with: Doomsday blaster; Twin gauss flayer.",
+      "weapons": [
+        {
+          "name": "Doomsday blaster",
+          "range": "36\"",
+          "type": "Rapid Fire 2",
+          "s": "8",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Twin gauss flayer",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Gauss"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Containment field: The model has a 5+ invulnerability save.",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Sentinel construct: If a friendly unit is charged within 12\", the Dominator Strider can also fire Overwatch."
+      ],
+      "unit_type": "Squadron, Walker, KEYWORD, Canoptek",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "is_squadron": true,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 224
+    },
+    "Doomsday Ark": {
+      "name": "Doomsday Ark",
+      "models": [
+        {
+          "name": "Doomsday Ark",
+          "points": 417,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "2",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Doomsday Ark is a single model and equipped with: Doomsday cannon; two Gauss flayer arrays.",
+      "weapons": [
+        {
+          "name": "Gauss flayer array",
+          "range": "24\"",
+          "type": "Rapid Fire 5",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Gauss"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Anti-Grav",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Power surge: The Doomsday cannon's \"High energy\" profile may only be used with a \"Stand & Shoot\" command.",
+        "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 417
+    },
+    "Lokhust Destroyers": {
+      "name": "Lokhust Destroyers",
+      "models": [
+        {
+          "name": "Destroyer",
+          "points": 108,
+          "min": 1,
+          "max": 3,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "6",
+            "W": "3",
+            "I": "2",
+            "A": "1",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every Destroyer is equipped with: Gauss cannon.",
+      "weapons": [
+        {
+          "name": "Enmitic exterminator",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Barrage"
+        },
+        {
+          "name": "Gauss cannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Heavy gauss cannon",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any Destroyer can swap their Gaus cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Enmitic exterminator",
+              "points": 8
+            },
+            {
+              "name": "Heavy gauss cannon",
+              "points": 25
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Reanimation Protocols"
+      ],
+      "unit_type": "Jet bike, KEYWORD, Necron",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 108
+    },
+    "Monolith": {
+      "name": "Monolith",
+      "models": [
+        {
+          "name": "Monolith",
+          "points": 594,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "7",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "14",
+            "I": "2",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Monolith is a single model and equipped with: Four Gauss flux arcs; Teleport homer; Particle whip.",
+      "weapons": [
+        {
+          "name": "Gauss flux arc",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Particle whip",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(4), Barrage, Suppression, Tank hunter"
+        },
+        {
+          "name": "Death ray",
+          "range": "12\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "AT(4)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can replace the four Gauss flux arcs",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "four Death rays",
+              "points": 148
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Deep strike",
+        "Gate of Eternity: Instead of using its particle whip, a Monolith can teleport a friendly <Necron> unit to it. Remove the target unit from the battlefield and redeploy it within 3\" of the Monolith.",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Lumbering: The model can never move more than 6\". If it arrives via Deep strike from reserve and would land on top of an enemy unit, move all models as little as possible to make room for the Monolith."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 594
+    },
+    "Ghost Ark": {
+      "name": "Ghost Ark",
+      "models": [
+        {
+          "name": "Ghost Ark",
+          "points": 264,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "2",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Ghost Ark is a single model and equipped with: Two Gauss flayer arrays.",
+      "weapons": [
+        {
+          "name": "Gauss flayer array",
+          "range": "24\"",
+          "type": "Rapid Fire 5",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Gauss"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Anti-Grav",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase.",
+        "Repair Barge: During the Reinforcement Phase, you may target up to three units that are either within 3\" of it or are on board as passengers. Each unit automatically succeeds at 1 Reanimation Protocol roll. The same unit can be targeted multiple times.",
+        "Transport: This model has a transport capacity of 10 models."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 264
+    },
+    "Catacomb Command Barge": {
+      "name": "Catacomb Command Barge",
+      "models": [
+        {
+          "name": "Catacomb Command Barge",
+          "points": 205,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "2+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "2",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Catacomb Command Barge is a single model and equipped with: Tesla cannon.",
+      "weapons": [
+        {
+          "name": "Gauss cannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Gauss"
+        },
+        {
+          "name": "Tesla cannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can only be taken by an Overlord. The Overlord must start the game embarked on the Command Barge.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can replace the Tesla cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Gauss cannon",
+              "points": 32
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav",
+        "Chariot: The Overlord is transported by the Catacomb Command Barge (CCB) and can leave it at any time. No other model may be transported by the CCB. The Overlord can fight normally in melee while being embarked in the CCB.",
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Quantum shielding: The model increases its armor values by +2 on each side, up to a maximum of 14. If it suffers a penetrating hit, it loses this bonus until the next Reinforcement phase."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 205
+    },
+    "Convergence of Dominion": {
+      "name": "Convergence of Dominion",
+      "models": [
+        {
+          "name": "Starstele",
+          "points": 135,
+          "min": 1,
+          "max": 3,
+          "stats": {
+            "M": "-",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "-",
+            "A": "-",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Starstele is a single model and equipped with: -.",
+      "weapons": [],
+      "option_groups": [],
+      "abilities": [
+        "Squadron",
+        "Activation: All Starsteles start the game deactivated. They can be activated by holding them like a mission objective at the end of the battle round. If an active Starstele is hold like a mission objective, it may instead activate an inactive one.",
+        "Buried in the earth: After all units (including infiltrators) have been set up, deploy all Starsteles from your army. Set them up via Deep strike rules outside the enemies deployment zone. The unit always scatters, even if a \"hit\" is rolled for the scatter die (follow the small arrow on it for direction) and can never stray closer than 1\" to another unit, terrain, the enemies deployment zone or the edge of the field. Reduce the deviation only enough to place the model.",
+        "Dolmen gate network: All of your active Startsteles are connected and act like a transport vehicle (with the same restrictions in regards to which passengers may use it). This means a unit may embark in one active Starstele and disembark in another the next turn. Each Starstele may only be used once per battle round to either have a unit embark on it, or disembark from it. The Starstele always counts as having moved 6\". Units arriving from reserves may exit from a Starstele instead of other deployment methods, if they could embark on it in the first place.",
+        "Inactive: The model may only be targeted by the enemy after it has been activated.",
+        "Mark of Dominion: Enemy models within 12\" of an inactive Starstele receive a -1 penalty to manifest a psychic power. If the Starstele is active, the penalty increases to -2.",
+        "Unmanned: A Starstele can't contest or capture mission objectives."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fortifications",
+      "default_size": 1,
+      "min_cost": 135
+    },
+    "Doom Scythe": {
+      "name": "Doom Scythe",
+      "models": [
+        {
+          "name": "Doom Scythe",
+          "points": 334,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "2",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Doom Scythe is a single model and equipped with: Heavy death ray; Twin tesla destructor.",
+      "weapons": [
+        {
+          "name": "Heavy death ray",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "10",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "AT(4)"
+        },
+        {
+          "name": "Twin tesla destructor",
+          "range": "36\"",
+          "type": "Assault 8",
+          "s": "7",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla, AT(-1)"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order."
+      ],
+      "unit_type": "Flyer",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Flyers",
+      "default_size": 1,
+      "min_cost": 334
+    },
+    "Night Scythe": {
+      "name": "Night Scythe",
+      "models": [
+        {
+          "name": "Night Scythe",
+          "points": 225,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "2",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Night Scythe is a single model and equipped with: Twin tesla destructor.",
+      "weapons": [
+        {
+          "name": "Twin tesla destructor",
+          "range": "36\"",
+          "type": "Assault 8",
+          "s": "7",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Tesla"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
+        "Transport: This model has a transport capacity of 12 models. If the model is destroyed, passengers do not suffer damage, but are placed in reserve. They will automatically appear via Deep strike the next time they activate. Passengers may disembark even if the model is not in hover mode."
+      ],
+      "unit_type": "Flyer",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Flyers",
+      "default_size": 1,
+      "min_cost": 225
+    }
+  },
+  "armory_general": {
+    "name": "Armory",
+    "weapons": [
+      {
+        "name": "Abyssal lance",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 24,
+        "p_char": null,
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Explosive, Suppression"
+          }
+        ]
+      },
+      {
+        "name": "Aeonstave",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 30,
+        "p_char": null,
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Explosive, Shield breaker(-3)"
+          }
+        ]
+      },
+      {
+        "name": "Eldritch lance",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 34,
+        "p_char": null,
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2)"
+          }
+        ]
+      },
+      {
+        "name": "Entropic lance",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "Unique",
+        "p_unit": 20,
+        "p_char": null,
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "4",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armor piercing(5+), Explosive"
+          }
+        ]
+      },
+      {
+        "name": "Fire gauntlet",
+        "term_compat": false,
+        "range": "9\"",
+        "type": "Assault 4",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Flames",
+        "p_unit": 13,
+        "p_char": 13
+      },
+      {
+        "name": "Hyperphase glaive",
+        "term_compat": false,
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "AT(1), Quick(+1), Flurry(1)",
+        "p_unit": null,
+        "p_char": 17
+      },
+      {
+        "name": "Hyperphase sword",
+        "term_compat": false,
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Flurry(1)",
+        "p_unit": null,
+        "p_char": 8
+      },
+      {
+        "name": "Lord of the Storm",
+        "term_compat": false,
+        "range": "36\"",
+        "type": "Assault 2",
+        "s": "7",
+        "ap": "-2",
+        "d": "2",
+        "abilities": "AT(1)",
+        "p_unit": null,
+        "p_char": 52
+      },
+      {
+        "name": "Tachyon arrow",
+        "term_compat": false,
+        "range": "Unlimited",
+        "type": "Assault 1",
+        "s": "10",
+        "ap": "-5",
+        "d": "3",
+        "abilities": "Ammunition(1), AT(5), Beam",
+        "p_unit": null,
+        "p_char": 26
+      },
+      {
+        "name": "Staff of light",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 28,
+        "p_char": 28,
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Assault 3",
+            "s": "5",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "-"
+          }
+        ]
+      },
+      {
+        "name": "Plasmic lance",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 23,
+        "p_char": null,
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Quick(+1)"
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Assault 2",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1), Haywire"
+          }
+        ]
+      },
+      {
+        "name": "Voidblade",
+        "term_compat": false,
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Shield breaker(-3)",
+        "p_unit": null,
+        "p_char": 11
+      },
+      {
+        "name": "Voidscythe",
+        "term_compat": false,
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "AT(1), Shield breaker(-3)",
+        "p_unit": null,
+        "p_char": 20
+      },
+      {
+        "name": "War scythe",
+        "term_compat": false,
+        "range": "-",
+        "type": "Melee",
+        "s": "x2",
+        "ap": "-3",
+        "d": "3",
+        "abilities": "AT(3), Slow(-2)",
+        "p_unit": null,
+        "p_char": 30
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Atomic Energy Manipulator",
+        "term_compat": false,
+        "desc": "Once per game, the model can boost a friendly infantry unit within 3\" range. Roll 1D3: \n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Unique.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Canoptek Cloak",
+        "term_compat": false,
+        "desc": "The model gains the \"Jump pack\" special rule. At the end of its activation, it can heal a friendly Canoptek unit within 6\" for 1 Wound, 1 permanent vehicle damage or 1 Hull point.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Canoptek Control Node",
+        "term_compat": false,
+        "desc": "At the start of the activation, pick a single friendly <Canoptek> unit within 12\". It gets +1 to hit rolls until the end of its activation.",
+        "p_unit": 15,
+        "p_char": null
+      },
+      {
+        "name": "Chronometron",
+        "term_compat": false,
+        "desc": "The model and its attached unit gain a 6+ invulnerability save against ranged attacks. In addition, the model and an attached unit gain a +3 bonus for pursuit rolls.",
+        "p_unit": 20,
+        "p_char": null
+      },
+      {
+        "name": "Countertemporal Nanomines",
+        "term_compat": false,
+        "desc": "Once per battle, this unit can place Countertemporal nanomine while moving. This must be placed within 1\" of the unit and more than 3\" away from enemy units. The first enemy unit that comes within 3\" of the nanomine suffers 1D3+1 wounds with Strength: 4, AP: -4, D: 1. Vehicles suffer 1D3 glancing hits.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Destroyer body",
+        "term_compat": false,
+        "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound and the ability \"Jet bike\". Only for Infantry.",
+        "p_unit": null,
+        "p_char": 53
+      },
+      {
+        "name": "Empyric Overcharger",
+        "term_compat": false,
+        "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Unique.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Gaze of the flame",
+        "term_compat": false,
+        "desc": "Enemy units gain no bonus attack when charging and suffer a -1 penalty to Leadership while in melee.",
+        "p_unit": null,
+        "p_char": 10
+      },
+      {
+        "name": "Grand strategist",
+        "term_compat": false,
+        "desc": "After all units have been placed in the Deployment phase, the Lord may remove and redeploy one of his units. Unique.",
+        "p_unit": null,
+        "p_char": 5
+      },
+      {
+        "name": "Harbinger of Despair",
+        "term_compat": false,
+        "desc": "Pick an enemy unit within 18\" and roll 3D6 during your activation. If your result is higher than the target's Leadership value, the target gains a Battleshock token.",
+        "p_unit": 15,
+        "p_char": null
+      },
+      {
+        "name": "Harbinger of Destruction",
+        "term_compat": false,
+        "desc": "Roll 5D6 during your activation. For every 4+ an enemy unit within 24\" suffers an automatic wound with S:4 AP:-1 Dmg:1, Seeking.",
+        "p_unit": 24,
+        "p_char": null
+      },
+      {
+        "name": "Illuminor",
+        "term_compat": false,
+        "desc": "The model's Rites of Reanimation ability has no range limit anymore. Unique.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Lightning field",
+        "term_compat": false,
+        "desc": "The model gains the \"Retribution(3)\" ability.",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Living Lightning",
+        "term_compat": false,
+        "desc": "Roll 1D6 for every enemy model in the same close combat with this model. On a 4+ it suffers an automatic wound with S:4 AP:-1 D:1.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Master-crafted weapon",
+        "term_compat": false,
+        "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon separately.",
+        "p_unit": 2,
+        "p_char": 2
+      },
+      {
+        "name": "Mindshackel Scarab",
+        "term_compat": false,
+        "desc": "Randomly choose an enemy model in base contact. If it fails a Leadership test with 2D6, it attacks its own unit. Does not work with units consisting of a single model (like characters). Ammo(1).",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Nightmare Shroud",
+        "term_compat": false,
+        "desc": "Instead of firing a weapon, the Nightmare shroud can be used. All enemy units within a 12\" radius must pass a Leadership test with a -1 penalty or gain a Battleshock token. Can't be used during Defensive fire. Ammo(1). Unique.",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Nullstone field generator",
+        "term_compat": false,
+        "desc": "The model and its attached unit gain the \"Aegis(4+)\" ability.",
+        "p_unit": null,
+        "p_char": 10
+      },
+      {
+        "name": "Orb of Reanimation",
+        "term_compat": false,
+        "desc": "Can be used during the Reinforcement phase to automatically succeed on 3 Reanimation Protocol rolls. Ammo(1), Unique.",
+        "p_unit": null,
+        "p_char": 50
+      },
+      {
+        "name": "Phase adjuster",
+        "term_compat": false,
+        "desc": "The model gains a 5+ invulnerability save.",
+        "p_unit": 8,
+        "p_char": 20
+      },
+      {
+        "name": "Phase shifter",
+        "term_compat": false,
+        "desc": "The model gains a 4+ invulnerability save.",
+        "p_unit": null,
+        "p_char": 35
+      },
+      {
+        "name": "Phylactery",
+        "term_compat": false,
+        "desc": "Roll a die the first time the Lord is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
+        "p_unit": null,
+        "p_char": 15
+      },
+      {
+        "name": "Sempiternal weave",
+        "term_compat": false,
+        "desc": "The model gains a 2+ armor save.",
+        "p_unit": 16,
+        "p_char": 18
+      },
+      {
+        "name": "Shadow ankh",
+        "term_compat": false,
+        "desc": "The model may attempt to deny one psychic power per battle round and receives a +1 bonus to the roll.",
+        "p_unit": null,
+        "p_char": 5
+      },
+      {
+        "name": "Skorpekh body",
+        "term_compat": false,
+        "desc": "The model gains +1 Toughness, +1 Initiative, +1 Wound and the ability \"Move through cover\". Only for Infantry.",
+        "p_unit": 16,
+        "p_char": null
+      },
+      {
+        "name": "Solar impulse",
+        "term_compat": false,
+        "desc": "During the model's activation, the solar impulse can be used once to give all units on the table a -1 hit penalty until the end of the battle round. Unique.",
+        "p_unit": 20,
+        "p_char": 20
+      },
+      {
+        "name": "Teleport homing beacon",
+        "term_compat": false,
+        "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Tesseract labyrinth",
+        "term_compat": false,
+        "desc": "At the start of your activation, pick a wounded enemy model in base contact. It must pass a Strength test or is immediately removed. One use only.",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Timesplinter mantle",
+        "term_compat": false,
+        "desc": "The model gains a 4+ invulnerability save.",
+        "p_unit": 12,
+        "p_char": null
+      },
+      {
+        "name": "Tomb world relic",
+        "term_compat": false,
+        "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Translocation shroud",
+        "term_compat": false,
+        "desc": "The model gains \"Anti-Grav\" and always advances 6\" when using an \"Advance\" order without rolling for it.",
+        "p_unit": null,
+        "p_char": 4
+      },
+      {
+        "name": "Trophy",
+        "term_compat": false,
+        "desc": "The model gains the ability \"Terrifying(-1)\".",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Veil of darkness",
+        "term_compat": false,
+        "desc": "The Lord can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the deep strike rules. Additionally, the model and its attached unit gain the \"Deep strike\" ability. Unique.",
+        "p_unit": null,
+        "p_char": 40
+      },
+      {
+        "name": "Additional armor",
+        "term_compat": false,
+        "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
+      },
+      {
+        "name": "Improved targeting",
+        "term_compat": false,
+        "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
+      },
+      {
+        "name": "Jammer",
+        "term_compat": false,
+        "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deep strike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "p_unit": 15,
+        "p_char": null,
+        "category": "vehicle"
+      },
+      {
+        "name": "Smoke Launcher",
+        "term_compat": false,
+        "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "p_unit": 15,
+        "p_char": null,
+        "category": "vehicle"
+      }
+    ],
+    "daemon_weapons": []
+  },
+  "armory_marks": {},
+  "armory_legions": {
+    "Dynasty": {
+      "name": "Dynasty Armory",
+      "weapons": [],
+      "equipment": [
+        {
+          "name": "Bloodshroud",
+          "term_compat": false,
+          "desc": "During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\". Novokh only.",
+          "p_unit": null,
+          "p_char": 10
+        },
+        {
+          "name": "Dominance Weapon",
+          "term_compat": false,
+          "desc": "The model gains the \"Decimate\" ability with all melee attacks. Mephrit only.",
+          "p_unit": null,
+          "p_char": 10
+        },
+        {
+          "name": "Domination Staff",
+          "term_compat": false,
+          "desc": "Select one enemy model in direct base contact. The model suffers a -2 penalty to its Initiative for the remaining battleround. Szarekhan only.",
+          "p_unit": null,
+          "p_char": 10
+        },
+        {
+          "name": "Starfire Mantle",
+          "term_compat": false,
+          "desc": "When the model moves over an enemy unit, it inflicts 1 Mortal Wound. Nephrekh only.",
+          "p_unit": null,
+          "p_char": 5
+        },
+        {
+          "name": "Stormshroud",
+          "term_compat": false,
+          "desc": "One melee weapon of the model gains the \"Soul burn(5+)\" ability. Sautekh only.",
+          "p_unit": null,
+          "p_char": 10
+        },
+        {
+          "name": "Yth Engrams",
+          "term_compat": false,
+          "desc": "The model may re-roll any one die per activation. Nihilakh only.",
+          "p_unit": null,
+          "p_char": 5
+        }
+      ],
+      "daemon_weapons": []
+    }
+  },
+  "archetypes": [
+    {
+      "name": "Canoptek Court",
+      "desc": "- Can only select Crypteks as HQ units.\n- Up to two Crypteks may be taken for every HQ slot.\n- <Canoptek> units gain the \"Objective secured!\" ability."
+    },
+    {
+      "name": "Destroyer Cult",
+      "desc": "- The army has access to the following units only, regardless of other traits:\n- Crypteks with Skorpekh body, Lords with Destroyer bodies, Skorpekh Lords\n- Flayed Ones\n- Canoptek Reanimators, Canoptek Spyders, C'tan Shards (any), Plasmacytes, Skorpekh Destroyers\n- Canoptek Scarabs, Canoptek Wraiths, Ophydian Destroyers\n- Canoptek Doomstalkers, Lokhust Destroyers\n- Skorpekh Destroyers can be taken as Troops."
+    },
+    {
+      "name": "Obeisance Phalanx",
+      "desc": "- A Lord or Overlord must be taken as an HQ selection.\n- Lychguard and Triarch Praetorians can be taken as Troops.\n- No other Troop units may be selected."
+    },
+    {
+      "name": "Yngir",
+      "desc": "- One C'tan shard (any kind) counts as an HQ selection.\n- The model gains +1 Strength, +1 Toughness, +1 Initiative, +1 Attacks and a 2+ armor save.\n- The range for each C'tan power is increased by 6\" and it knows the \"Time's Arrow\" power. \n- It costs an additional +85 points.\n- Pariahs can be taken as Troops."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Channeling Solar Energies",
+      "desc": "The army has access to equipment from the Nephrekh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Extermination of all Life",
+      "desc": "The army has access to equipment from the Szarekhan dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Industrial Slaughter",
+      "desc": "The army has access to equipment from the Novokh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Secure Borders",
+      "desc": "The army has access to equipment from the Nihilakh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Starkillers",
+      "desc": "The army has access to equipment from the Mephrit dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "The Lord of the Storm",
+      "desc": "The army has access to equipment from the Sautekh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Arise against Interlopers",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Awakened by Murder",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Eternal Conquerors",
+      "desc": "The unit prevents 1 RPoint from being lost for itself and gains 1 temporary RPoint each Reinforcement phase, if it is within 6\" of an objective marker. Only for <Necron> units.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "-",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Immovable Phalanx",
+      "desc": "If the unit uses Stand & Shoot, it gains a +1 bonus to armor saves until its next activation. Can't be combined with \"Merciless hunters\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "-",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Interplanetary Invasors",
+      "desc": "Vehicle units can fire all weapons, if they move up to 12\". Only for vehicles.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Isolationists",
+      "desc": "The unit's \"Rapid Fire\" weapons gain +1 Strength when being resolved against targets that are within half weapon range.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Masters of the Martial",
+      "desc": "The unit can re-roll one hit roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Merciless Hunters",
+      "desc": "The unit can fire \"Rapid Fire\" weapons twice at full range with a \"Stand & Shoot\" order. Can't be combined with \"Immovable phalanx\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "-",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "RAD-wreathed",
+      "desc": "Enemy units within 3\" of the unit suffer a -1 penalty to their Toughness.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Relentless Expansionism",
+      "desc": "The unit gains the \"Vanguard\" ability . Can't be combined with \"Translocation beams\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Solar Fury",
+      "desc": "The unit's weapons increase their range by 3\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Superior Artisans",
+      "desc": "The unit can re-roll one armor penetration or wound roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The unmerciful Horde",
+      "desc": "The unit can re-roll failed Leadership tests.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "-",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Translocation Beams",
+      "desc": "The unit automatically advances 6\" instead of rolling for it, ignoring terrain. Can't be combined with \"Relentless expansionism\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Vassal Dynasty",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_veh": "0",
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Vengeful Stars",
+      "desc": "The unit's ranged attacks gain a -1 AP bonus when being resolved against targets that are within half weapon range.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Warrior Nobles",
+      "desc": "The unit can re-roll one (additional) hit and one (additional) wound roll per activation. Only for HQ units.",
+      "pts_unit": "-",
+      "pts_char": "0",
+      "pts_veh": "-",
+      "enables_second_legacy": false
+    }
+  ],
+  "animosity": {},
+  "disciplines": {
+    "Powers of the C'tan": [
+      {
+        "name": "Anti-matter Meteor",
+        "range": "12\"",
+        "target": "Enemy unit",
+        "effect": "Creatures suffer 1D6 automatic wounds with S: 10 AP: -2 D: 1; Seeking. \nVehicles suffer 1D3 glancing hits with AT(1); Seeking.",
+        "duration": "Immediately",
+        "complexity": "Simple"
+      },
+      {
+        "name": "Cosmic Fire",
+        "range": "12\"",
+        "target": "Enemy unit",
+        "effect": "Roll 1D6 for each model in the target unit. For every 3+ it suffers an automatic wound with S: 5 AP: 0 D: 1; Sunder(2). Can't cause more than 10 wounds in a single activation.",
+        "duration": "Immediately",
+        "complexity": "Simple"
+      },
+      {
+        "name": "Time's Arrow (only for Star Vampire C'tans)",
+        "range": "12\"",
+        "target": "Enemy unit",
+        "effect": "The target suffers one automatic hit with S: D AP: -4 D: 3; AT(4), Seeking.",
+        "duration": "Immediately",
+        "complexity": "Simple"
+      },
+      {
+        "name": "Form Matter",
+        "range": "12\"",
+        "target": "Piece of terrain",
+        "effect": "Change the terrain feature type to any combination:\n- Normal terrain / Difficult terrain / Dangerous terrain\n- No Cover / Light cover / Heavy cover",
+        "duration": "Until the end of the game",
+        "complexity": "Simple"
+      },
+      {
+        "name": "Transdimensional Manipulation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "effect": "The caster may heal a friendly <Canoptek> or <Necron> unit for 1D3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first.",
+        "duration": "Immediately",
+        "complexity": "Simple"
+      }
+    ]
+  },
+  "pacts": [],
+  "prayers": [],
+  "daemonkin": {
+    "Khorne": {
+      "description": "",
+      "items": []
+    },
+    "Slaanesh": {
+      "description": "",
+      "items": []
+    },
+    "Tzeentch": {
+      "description": "",
+      "items": []
+    },
+    "Nurgle": {
+      "description": "",
+      "items": []
+    }
+  },
+  "allied": {}
+}

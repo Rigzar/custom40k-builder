@@ -1,0 +1,230 @@
+import { useArmyStore } from '../store/army';
+import { ENGAGEMENTS } from '../engine/engagements';
+import { getArchetypeRule } from '../engine/archetypes';
+import type { EngagementType, Mark } from '../types/army';
+
+export function ArmyConfig() {
+  const {
+    data, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool,
+    setEngagement, setPointLimit, setHqMark, setArchetype, setLegacy, setLegacy2, setTraitPool,
+  } = useArmyStore();
+  if (!data) return null;
+
+  const rule = getArchetypeRule(archetype);
+  const marks = Object.keys(data.animosity) as Mark[];
+  const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
+
+  // Cult archetypes force the HQ mark
+  const forcedMark = rule?.forcedMark as Mark | undefined;
+
+  const noLegacy = rule?.noLegacy ?? false;
+  const noTraits = rule?.noTraits ?? false;
+  const hasSecondLegacyTrait = traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
+  const hasMarks = Object.keys(data.animosity).length > 0;
+
+  // Undivided-only legacies restrict which units can be used
+  const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter'];
+
+  function handleSetArchetype(a: string) {
+    setArchetype(a);
+    const r = getArchetypeRule(a);
+    if (r?.forcedMark) setHqMark(r.forcedMark as Mark);
+  }
+
+  return (
+    <div className="space-y-3">
+      {/* Engagement type */}
+      <div>
+        <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Battle Type</div>
+        <div className="flex gap-1">
+          {engKeys.map(e => (
+            <button
+              key={e}
+              onClick={() => setEngagement(e)}
+              className={`flex-1 py-1.5 text-[11px] uppercase tracking-wide border transition-colors
+                ${engagement === e
+                  ? 'bg-amber-800 border-amber-600 text-white'
+                  : 'bg-zinc-800 border-zinc-600 text-zinc-400 hover:text-amber-400'
+                }`}
+            >
+              {ENGAGEMENTS[e].name}
+            </button>
+          ))}
+        </div>
+        <div className="text-[10px] text-zinc-500 mt-1">{ENGAGEMENTS[engagement].notes}</div>
+      </div>
+
+      {/* Point limit */}
+      <div className="flex items-center gap-2">
+        <label className="text-[11px] text-zinc-400 w-24">Points Limit</label>
+        <input
+          type="number"
+          value={pointLimit}
+          onChange={e => setPointLimit(Number(e.target.value))}
+          step={250}
+          className="w-24 bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600"
+        />
+      </div>
+
+      {/* HQ Mark — only for Chaos factions */}
+      {hasMarks && <div>
+        <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">HQ Mark</div>
+        {forcedMark ? (
+          <div className="flex items-center gap-2 px-2 py-1 bg-zinc-800 border border-zinc-600 text-amber-500 text-sm">
+            <span>{forcedMark}</span>
+            <span className="text-zinc-500 text-[10px] italic">(forced by archetype)</span>
+          </div>
+        ) : (
+          <select
+            value={hqMark}
+            onChange={e => setHqMark(e.target.value as Mark)}
+            className="w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600"
+          >
+            {marks.map(m => <option key={m} value={m}>{m}</option>)}
+          </select>
+        )}
+      </div>}
+
+      {/* Archetype */}
+      <div>
+        <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Archetype</div>
+        <select
+          value={archetype}
+          onChange={e => handleSetArchetype(e.target.value)}
+          disabled={engagement === 'skirmish'}
+          className={`w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600
+            ${engagement === 'skirmish' ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          <option value="">— none —</option>
+          {data.archetypes.map(a => <option key={a.name} value={a.name}>{a.name}</option>)}
+        </select>
+        {engagement === 'skirmish' && (
+          <div className="text-[10px] text-red-500 mt-1">Not available in Skirmish.</div>
+        )}
+        {archetype && (
+          <div className="text-[10px] text-zinc-500 mt-1 border-l-2 border-amber-800 pl-2 space-y-0.5">
+            <div>{data.archetypes.find(a => a.name === archetype)?.desc}</div>
+          </div>
+        )}
+        {rule && rule.notes.length > 0 && (
+          <ul className="mt-1 space-y-0.5">
+            {rule.notes.map((n, i) => (
+              <li key={i} className="text-[10px] text-amber-700/80 pl-2 border-l border-amber-900">
+                {n}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Legacy */}
+      {noLegacy ? (
+        <div className="px-2 py-2 bg-zinc-900 border border-zinc-700 text-[11px] text-zinc-500 italic">
+          Legacies not available with archetype <span className="text-amber-700">{archetype}</span>.
+        </div>
+      ) : (
+        <div>
+          <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Legacy</div>
+          <select
+            value={legacy}
+            onChange={e => setLegacy(e.target.value)}
+            className="w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600"
+          >
+            <option value="">— none —</option>
+            {data.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
+          </select>
+          {legacy && undividedLegacies.includes(legacy) && (
+            <div className="text-[10px] text-amber-600/80 mt-1 pl-2 border-l border-amber-900">
+              This legacy requires all units to be Undivided.
+            </div>
+          )}
+
+          {/* 2nd Legacy: only available when a trait that enables it is active */}
+          {hasSecondLegacyTrait ? (
+            <>
+              <select
+                value={legacy2}
+                onChange={e => setLegacy2(e.target.value)}
+                className="w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm mt-1 focus:outline-none focus:border-amber-600"
+              >
+                <option value="">— 2nd legacy (none) —</option>
+                {data.legacies.filter(l => l.name !== legacy).map(l => (
+                  <option key={l.name} value={l.name}>{l.name}</option>
+                ))}
+              </select>
+              {legacy2 && undividedLegacies.includes(legacy2) && (
+                <div className="text-[10px] text-amber-600/80 mt-1 pl-2 border-l border-amber-900">
+                  This legacy requires all units to be Undivided.
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="mt-1 px-2 py-1 text-[10px] text-zinc-600 italic border border-zinc-700 bg-zinc-900">
+              2nd Legacy only available when the second-legion trait is active.
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Army Traits */}
+      {noTraits ? (
+        <div className="px-2 py-2 bg-zinc-900 border border-zinc-700 text-[11px] text-zinc-500 italic">
+          Traits not available with archetype <span className="text-amber-700">{archetype}</span>.
+        </div>
+      ) : (
+        <div>
+          <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Army Traits</div>
+          <div className="text-[10px] text-zinc-500 mb-2">
+            Max 2. All main-faction units with veteran abilities receive the selected traits.
+          </div>
+          {[0, 1].map(slot => (
+            <select
+              key={slot}
+              value={traitPool[slot] ?? ''}
+              onChange={e => {
+                const val = e.target.value;
+                const newPool = [
+                  slot === 0 ? val : (traitPool[0] ?? ''),
+                  slot === 1 ? val : (traitPool[1] ?? ''),
+                ].filter(Boolean) as string[];
+                setTraitPool(newPool);
+              }}
+              className="w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm mb-1 focus:outline-none focus:border-amber-600"
+            >
+              <option value="">— none —</option>
+              {data.traits
+                .filter(t => t.name !== (slot === 0 ? traitPool[1] : traitPool[0]))
+                .map(t => (
+                  <option key={t.name} value={t.name}>{t.name}</option>
+                ))
+              }
+            </select>
+          ))}
+          {traitPool.length > 0 && (
+            <div className="mt-1 space-y-1">
+              {traitPool.map(name => {
+                const t = data.traits.find(tr => tr.name === name);
+                if (!t) return null;
+                const hasUnitCost = [t.pts_unit, t.pts_char, t.pts_veh].some(
+                  v => v && v !== '-' && v.toLowerCase() !== 'special',
+                );
+                return (
+                  <div key={name} className="text-[10px] pl-2 border-l border-amber-900">
+                    <span className="text-amber-400 font-semibold">{name}</span>
+                    {!hasUnitCost && (
+                      <span className="text-blue-400 ml-1">(army effect)</span>
+                    )}
+                    {t.pts_unit && t.pts_unit !== '-' && (
+                      <span className="text-amber-600 ml-1">+{t.pts_unit} pts/unit</span>
+                    )}
+                    <span className="text-zinc-500 ml-1">— {t.desc}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

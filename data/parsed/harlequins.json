@@ -1,0 +1,1257 @@
+{
+  "faction": "Harlequins",
+  "slot_to_units": {
+    "HQ": [
+      "Great Harlequin"
+    ],
+    "Troops": [
+      "Troupe"
+    ],
+    "Elites": [
+      "Death Jester",
+      "Shadowseer",
+      "Solitaire"
+    ],
+    "Fast Attack": [
+      "Skyweavers"
+    ],
+    "Heavy Support": [
+      "Harlequin Wraithlord",
+      "Voidweaver"
+    ],
+    "Dedicated Transport": [
+      "Starweaver"
+    ],
+    "Fortifications": [],
+    "Flyers": []
+  },
+  "units": {
+    "Great Harlequin": {
+      "name": "Great Harlequin",
+      "models": [
+        {
+          "name": "Great Harlequin",
+          "points": 73,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "8\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "3",
+            "T": "3",
+            "W": "3",
+            "I": "7",
+            "A": "5",
+            "LD": "9",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Solitaire is equipped with: Great Harlequin weapons.",
+      "weapons": [
+        {
+          "name": "Great Harlequin weapons",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "Precision(5+)"
+        },
+        {
+          "name": "Plasma grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Only one Great Harlequin per army.",
+          "constraint": {
+            "type": "unique_upgrade"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        }
+      ],
+      "abilities": [
+        "Anti-grav, Deflect, Parry, Terrifying(-1), <Harlequins>",
+        "Cegorach’s Favour: The model may re-roll any one die per activation.",
+        "Holo-suit: The model gains a 4+ invulnerability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 73
+    },
+    "Troupe": {
+      "name": "Troupe",
+      "models": [
+        {
+          "name": "Player",
+          "points": 23,
+          "min": 5,
+          "max": 12,
+          "stats": {
+            "M": "8\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "5",
+            "A": "2",
+            "LD": "8",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [
+        {
+          "name": "Lead Player",
+          "points": 46,
+          "min": 0,
+          "max": 0,
+          "stats": {
+            "M": "8\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "2",
+            "I": "5",
+            "A": "3",
+            "LD": "9",
+            "SV": "6+"
+          }
+        }
+      ],
+      "equipped_with": "Every model is equipped with: Harlequin weapons; Plasma grenade; Shuriken pistol.",
+      "weapons": [
+        {
+          "name": "Fusion pistol",
+          "range": "6\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Melta"
+        },
+        {
+          "name": "Harlequin weapons",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Precision(5+)"
+        },
+        {
+          "name": "Neuro disruptor",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "*",
+          "ap": "*",
+          "d": "*",
+          "abilities": "Neuro disruptor"
+        },
+        {
+          "name": "Plasma grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Shuriken pistol",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model may replace its Shuriken pistol",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Fusion pistol",
+              "points": 6
+            },
+            {
+              "name": "Neuro disruptor",
+              "points": 8
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "One model may be upgraded to a Lead Player for +23 points and gains access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 23,
+          "variant_link": "Lead Player",
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-grav, Deflect, Parry, Terrifying(-1), <Harlequins>",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Neuro disruptor: Roll 3D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 115
+    },
+    "Death Jester": {
+      "name": "Death Jester",
+      "models": [
+        {
+          "name": "Death Jester",
+          "points": 64,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "8\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "3",
+            "T": "3",
+            "W": "2",
+            "I": "5",
+            "A": "3",
+            "LD": "9",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Harlequin weapons; Plasma grenade; Shrieker cannon.",
+      "weapons": [
+        {
+          "name": "Bright lance",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Lance(+2)"
+        },
+        {
+          "name": "Harlequin weapons",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Precision(5+)"
+        },
+        {
+          "name": "Plasma grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Shrieker cannon",
+          "range": "30\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Bio-explosion, Poison(2+), Shuriken, Suppression"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Every model can swap their Shrieker cannon",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Shuriken cannon",
+              "points": 0
+            },
+            {
+              "name": "Aeldari missile launcher",
+              "points": 26
+            },
+            {
+              "name": "Bright lance",
+              "points": 45
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>",
+        "Bio-explosion: If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking.",
+        "Holo-suit: The model gains a 4+ invulnerability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 64
+    },
+    "Shadowseer": {
+      "name": "Shadowseer",
+      "models": [
+        {
+          "name": "Shadowseer",
+          "points": 66,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "8\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "3",
+            "T": "3",
+            "W": "2",
+            "I": "5",
+            "A": "3",
+            "LD": "9",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Shadowseer is equipped with: Plasma grenades.",
+      "weapons": [
+        {
+          "name": "Plasma grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1), <Harlequins>",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 66
+    },
+    "Solitaire": {
+      "name": "Solitaire",
+      "models": [
+        {
+          "name": "Solitaire",
+          "points": 94,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "3",
+            "T": "3",
+            "W": "3",
+            "I": "7",
+            "A": "5",
+            "LD": "10",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Solitaire is equipped with: Solitaire weapons.",
+      "weapons": [
+        {
+          "name": "Solitaire weapons",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "Deadly(5+), Precision(4+)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Only one Solitaire per army.",
+          "constraint": {
+            "type": "unique_upgrade"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        }
+      ],
+      "abilities": [
+        "Anti-grav, Deep strike, Deflect, Fearless, Parry, Terrifying(-1), <Harlequins>",
+        "Blitz: Once per battle you can make a Blitz move. Add 1D6\" to the Charge and Attack characteristics until the end of this turn.",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Impossible Form: The model can't be targeted by anything outside of 18\".",
+        "Path of Damnation: The model can never be joined by other units."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 94
+    },
+    "Skyweavers": {
+      "name": "Skyweavers",
+      "models": [
+        {
+          "name": "Skyweaver",
+          "points": 81,
+          "min": 2,
+          "max": 6,
+          "stats": {
+            "M": "14\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "3",
+            "T": "4",
+            "W": "3",
+            "I": "5",
+            "A": "4",
+            "LD": "8",
+            "SV": "6+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Twin shuriken catapult; Zephyrglaive.",
+      "weapons": [
+        {
+          "name": "Haywire cannon",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive, Haywire"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Star bolas",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Twin shuriken catapult",
+          "range": "18\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Zephyrglaive",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Quick(+1), Precision(5+)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model may replace its Zephyrglaive",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Star bolas",
+              "points": 7
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Any model may replace its Haywire cannon",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Haywire cannon",
+              "points": 8
+            },
+            {
+              "name": "Shuriken cannon",
+              "points": 9
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "One model may be upgraded to a Lead Player for +17 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 17,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Deflect, Parry, Terrifying(-1), <Harlequins>",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover."
+      ],
+      "unit_type": "Jetbike",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 2,
+      "min_cost": 162
+    },
+    "Harlequin Wraithlord": {
+      "name": "Harlequin Wraithlord",
+      "models": [
+        {
+          "name": "Wraithlord",
+          "points": 260,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "8\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "7",
+            "T": "8",
+            "W": "6",
+            "I": "4",
+            "A": "3",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Wraithlord is equipped with: 2 Shuriken catapults; Wraithbone fists.",
+      "weapons": [
+        {
+          "name": "Aeldari flamer",
+          "range": "12\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Bright lance",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Lance(+2)"
+        },
+        {
+          "name": "Ghostglaive",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Flurry(1)"
+        },
+        {
+          "name": "Scatter laser",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Shuriken catapult",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Starcannon",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Wraithbone fists",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap both Shuriken catapults",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "2 Aeldari flamers",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with Ghostglaive for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with two of the following",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Scatter laser",
+              "points": 19
+            },
+            {
+              "name": "Shuriken cannon",
+              "points": 20
+            },
+            {
+              "name": "Aeldari missile launcher",
+              "points": 41
+            },
+            {
+              "name": "Starcannon",
+              "points": 49
+            },
+            {
+              "name": "Bright lance",
+              "points": 56
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Squadron, Terrifying(-1), <Harlequins>, <Wraith>",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+      ],
+      "unit_type": "Monstrous Creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 260
+    },
+    "Voidweaver": {
+      "name": "Voidweaver",
+      "models": [
+        {
+          "name": "Voidweaver",
+          "points": 238,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "10",
+            "SIDE": "10",
+            "REAR": "10",
+            "I": "5",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Voidweaver is equipped with: Haywire cannon; 2 Shuriken cannons.",
+      "weapons": [
+        {
+          "name": "Haywire cannon",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive, Haywire"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can replace its Haywire cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Prismatic cannon",
+              "points": 29
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Fast, Open, Squadron, <Harlequins>",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 238
+    },
+    "Starweaver": {
+      "name": "Starweaver",
+      "models": [
+        {
+          "name": "Starweaver",
+          "points": 226,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "14\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "10",
+            "SIDE": "10",
+            "REAR": "10",
+            "I": "5",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Starweaver is equipped with: 2 Shuriken cannons.",
+      "weapons": [
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Anti-Grav, Fast, Open, <Harlequins>",
+        "Holo-suit: The model gains a 4+ invulnerability save.",
+        "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover.",
+        "Transport: This model has a transport capacity of 6 infantry models."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 226
+    }
+  },
+  "armory_general": {
+    "name": "Armory",
+    "weapons": [
+      {
+        "name": "Hallucinogen grenade launcher",
+        "term_compat": false,
+        "range": "18\"",
+        "type": "Assault 1",
+        "s": "3",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Suppression",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Haywire grenade",
+        "term_compat": false,
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "3",
+        "ap": "0",
+        "d": "1",
+        "abilities": "AT(2), Haywire",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Miststave",
+        "term_compat": false,
+        "range": "-",
+        "type": "Melee",
+        "s": "+3",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Force weapon",
+        "p_unit": null,
+        "p_char": 6
+      },
+      {
+        "name": "Neuro disruptor",
+        "term_compat": false,
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "*",
+        "ap": "*",
+        "d": "*",
+        "abilities": "Neuro disruptor (see Troupe)",
+        "p_unit": null,
+        "p_char": 11
+      },
+      {
+        "name": "Shuriken pistol",
+        "term_compat": false,
+        "range": "12\"",
+        "type": "Assault 1",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Shuriken",
+        "p_unit": null,
+        "p_char": 3
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Cegorach’s Coil",
+        "term_compat": false,
+        "desc": "After finishing a Charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for each 1\" distance travelled during the Charge. Unique.",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Cegorach’s Rose",
+        "term_compat": false,
+        "desc": "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+). Unique.",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Crescendo",
+        "term_compat": false,
+        "desc": "A \"Pistol\" type weapon of the model gains +1 shot per activation. The point cost is the same as the weapon that gets this equipment. Unique.",
+        "p_unit": null,
+        "p_char": null
+      },
+      {
+        "name": "D-field",
+        "term_compat": false,
+        "desc": "If the model makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
+        "p_unit": null,
+        "p_char": 10
+      },
+      {
+        "name": "Eldar jetbike",
+        "term_compat": false,
+        "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a twin shuriken catapult and the ability \"Jet bike\". Only for infantry.",
+        "p_unit": null,
+        "p_char": 41
+      },
+      {
+        "name": "Marksman honours",
+        "term_compat": false,
+        "desc": "The model gains +1 Ballistic skill.",
+        "p_unit": 4,
+        "p_char": 5
+      },
+      {
+        "name": "Mask of Secrets",
+        "term_compat": false,
+        "desc": "Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model and its attached unit.",
+        "p_unit": 5,
+        "p_char": 5
+      },
+      {
+        "name": "Master-crafted weapon",
+        "term_compat": false,
+        "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        "p_unit": 2,
+        "p_char": 2
+      },
+      {
+        "name": "Phase field",
+        "term_compat": false,
+        "desc": "The model gains the \"Stealth\" ability.",
+        "p_unit": null,
+        "p_char": 10
+      },
+      {
+        "name": "Psychic training",
+        "term_compat": false,
+        "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        "p_unit": null,
+        "p_char": 5
+      },
+      {
+        "name": "Relic of the Black Library",
+        "term_compat": false,
+        "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "p_unit": null,
+        "p_char": 10
+      },
+      {
+        "name": "Starmist Raiment",
+        "term_compat": false,
+        "desc": "The model may activate its Starmist Raiment to gain a 3+ invulnerability save until the start of its next activation. Ammunition(1), Unique.",
+        "p_unit": null,
+        "p_char": 25
+      },
+      {
+        "name": "Swordsman honours",
+        "term_compat": false,
+        "desc": "The model gains +1 Weapon skill.",
+        "p_unit": 4,
+        "p_char": 5
+      },
+      {
+        "name": "Teleport homing beacon",
+        "term_compat": false,
+        "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "The Laughing God’s Eye",
+        "term_compat": false,
+        "desc": "The model and all friendly units within 6\" gain the \"Aegis (5+)\" ability.",
+        "p_unit": 10,
+        "p_char": 10
+      },
+      {
+        "name": "Holo-field",
+        "term_compat": false,
+        "desc": "Roll one die for each glancing and penetrating hit against the model. You may substitute any of the following vehicle damage results with your own roll.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Improved targeting",
+        "term_compat": false,
+        "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
+      },
+      {
+        "name": "Jammer",
+        "term_compat": false,
+        "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "p_unit": 15,
+        "p_char": null,
+        "category": "vehicle"
+      },
+      {
+        "name": "Night shield",
+        "term_compat": false,
+        "desc": "Enemy models reduce their weapons range by 12\" (to a minimum of 6\"), if they target the bearer.",
+        "p_unit": 10,
+        "p_char": null
+      },
+      {
+        "name": "Smoke Launcher",
+        "term_compat": false,
+        "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "p_unit": 15,
+        "p_char": null,
+        "category": "vehicle"
+      },
+      {
+        "name": "Spirit stones",
+        "term_compat": false,
+        "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "p_unit": 5,
+        "p_char": null
+      }
+    ],
+    "daemon_weapons": []
+  },
+  "armory_marks": {},
+  "armory_legions": {},
+  "archetypes": [],
+  "legacies": [],
+  "traits": [],
+  "animosity": {},
+  "disciplines": {
+    "Phantasmancy": [
+      {
+        "name": "Fog of Dreams",
+        "type": "Augmentation",
+        "range": "18\"",
+        "target": "Friendly model",
+        "cast_value": "5",
+        "effect": "The target can't be selected by anything outside of 12\" as its target.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Mirror of Minds",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy model",
+        "cast_value": "6",
+        "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the target’s total is greater than the Psyker’s total, nothing happens. If the Psyker’s total is greater than or equal to the target’s total, the target model suffers one Mortal Wound. Continue this roll off until the target is dead or beats the Psyker's roll.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Misdirection",
+        "type": "Augmentation",
+        "range": "18\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target can not be selected for a Charge command.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Twilight Pathways",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + Attached unit",
+        "cast_value": "6",
+        "effect": "The target may immediately move up to its Movement value.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Veil of Tears",
+        "type": "Malediction",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target can't selected any units outside of 18\" as its target.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Shards of Light",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "The target suffers six automatic hits with Strength: 5 AP: -1 D: 1; Seeking. Additionally, it gains one Battleshock token.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      }
+    ]
+  },
+  "pacts": [],
+  "prayers": [],
+  "daemonkin": {
+    "Khorne": {
+      "description": "",
+      "items": []
+    },
+    "Slaanesh": {
+      "description": "",
+      "items": []
+    },
+    "Tzeentch": {
+      "description": "",
+      "items": []
+    },
+    "Nurgle": {
+      "description": "",
+      "items": []
+    }
+  },
+  "allied": {}
+}
