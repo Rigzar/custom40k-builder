@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useArmyStore } from './store/army';
 import { SlotPanel } from './components/SlotPanel';
 import { ArmyConfig } from './components/ArmyConfig';
@@ -11,10 +11,11 @@ import { PrintView } from './components/PrintView';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import type { FactionData } from './types/data';
+import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 
 type Page = 'landing' | 'builder';
 
-const FACTION_NAMES: Record<string, string> = {
+export const FACTION_NAMES: Record<string, string> = {
   chaos_space_marines:  'Chaos Space Marines',
   chaos_daemons:        'Chaos Daemons',
   space_marines:        'Space Marines',
@@ -36,6 +37,55 @@ const FACTION_NAMES: Record<string, string> = {
   horus_heresy:         'Horus Heresy Space Marines',
 };
 
+// ── Inline army name editor ─────────────────────────────────────────────────
+function ArmyNameEditor() {
+  const { armyName, setArmyName } = useArmyStore();
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function startEdit() {
+    setDraft(armyName);
+    setEditing(true);
+    setTimeout(() => inputRef.current?.select(), 0);
+  }
+
+  function commit() {
+    const name = draft.trim();
+    if (name) setArmyName(name);
+    setEditing(false);
+  }
+
+  if (editing) {
+    return (
+      <input
+        ref={inputRef}
+        autoFocus
+        value={draft}
+        onChange={e => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={e => {
+          if (e.key === 'Enter') commit();
+          if (e.key === 'Escape') setEditing(false);
+        }}
+        className="bg-zinc-800 border border-amber-700 text-amber-300 text-sm px-2 py-0.5 outline-none w-44 min-w-0"
+        maxLength={60}
+      />
+    );
+  }
+
+  return (
+    <button
+      onClick={startEdit}
+      title="Click to rename army"
+      className="text-zinc-300 text-sm hover:text-amber-400 transition-colors truncate max-w-[200px] flex items-center gap-1"
+    >
+      {armyName || <span className="text-zinc-500 italic">Unnamed Army</span>}
+      <span className="text-zinc-600 text-[10px]">✎</span>
+    </button>
+  );
+}
+
 // ── Compact status bar shown in the sticky header ──────────────────────────
 function HeaderStatus() {
   const { data, ...state } = useArmyStore();
@@ -55,7 +105,6 @@ function HeaderStatus() {
 
   return (
     <div className="flex items-center gap-3">
-      {/* Points bar */}
       <div className="flex items-center gap-2">
         <span className={`text-sm font-bold tabular-nums ${over ? 'text-red-400' : 'text-amber-400'}`}>
           {total}
@@ -69,7 +118,6 @@ function HeaderStatus() {
         <span className="text-zinc-500 text-xs tabular-nums">{state.pointLimit} pts</span>
       </div>
 
-      {/* Validation badge */}
       {errors > 0 ? (
         <span className="text-[11px] text-red-400 border border-red-800/70 px-1.5 py-0.5 leading-none">✗ {errors}</span>
       ) : warns > 0 ? (
@@ -83,13 +131,21 @@ function HeaderStatus() {
 
 // ── Main App ────────────────────────────────────────────────────────────────
 export default function App() {
-  const { setData, data } = useArmyStore();
-  const [page, setPage]                   = useState<Page>('landing');
-  const [selectedFaction, setSelectedFaction] = useState<string | null>(null);
-  const [loadingFaction, setLoadingFaction]   = useState(false);
-  const [showRef, setShowRef]             = useState(false);
-  const [showPrint, setShowPrint]         = useState(false);
+  const store = useArmyStore();
+  const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
+          hqMark, archetype, legacy, legacy2, traitPool, importRoster } = store;
 
+  const [page, setPage]                         = useState<Page>('landing');
+  const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
+  const [loadingFaction, setLoadingFaction]     = useState(false);
+  const [showRef, setShowRef]                   = useState(false);
+  const [showPrint, setShowPrint]               = useState(false);
+  const [savedMsg, setSavedMsg]                 = useState('');
+  const pendingLoad = useRef<SavedArmy | null>(null);
+
+  const { saves, saveArmy, deleteArmy } = useSavedArmies();
+
+  // Faction loader
   useEffect(() => {
     if (!selectedFaction) return;
     setLoadingFaction(true);
@@ -123,20 +179,73 @@ export default function App() {
       .then(m => {
         setData((m as { default: unknown }).default as FactionData);
         setLoadingFaction(false);
+        // If there's a pending army to restore, do it now
+        if (pendingLoad.current) {
+          const save = pendingLoad.current;
+          pendingLoad.current = null;
+          importRoster(JSON.stringify(save.state));
+        }
       })
       .catch(e => {
         console.error('Error loading faction data', e);
         setLoadingFaction(false);
       });
-  }, [selectedFaction, setData]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFaction]);
+
+  function handleBuild() {
+    // Auto-assign name if empty
+    if (!armyName.trim() && selectedFaction) {
+      setArmyName(`${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`);
+    }
+    setPage('builder');
+  }
+
+  function handleSaveArmy() {
+    if (!data || !selectedFaction) return;
+
+    const total = army.reduce((s, i) => {
+      const u = resolveUnit(i, data);
+      return s + (u ? computeUnitPoints(i, u) : 0);
+    }, 0);
+
+    const name = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
+
+    // Find existing save with same name+faction to overwrite
+    const existing = saves.find(s => s.name === name && s.factionKey === selectedFaction);
+
+    const entry: SavedArmy = {
+      id: existing?.id ?? `save-${Date.now()}`,
+      name,
+      factionKey: selectedFaction,
+      factionLabel: FACTION_NAMES[selectedFaction] ?? selectedFaction,
+      savedAt: Date.now(),
+      totalPts: total,
+      unitCount: army.length,
+      state: { armyName: name, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army },
+    };
+
+    saveArmy(entry);
+    setSavedMsg('Saved!');
+    setTimeout(() => setSavedMsg(''), 2000);
+  }
+
+  function handleLoadArmy(save: SavedArmy) {
+    pendingLoad.current = save;
+    setSelectedFaction(save.factionKey);
+    setPage('builder');
+  }
 
   if (page === 'landing') {
     return (
       <LandingPage
         selectedFaction={selectedFaction}
         loading={loadingFaction}
+        saves={saves}
         onSelectFaction={setSelectedFaction}
-        onBuild={() => setPage('builder')}
+        onBuild={handleBuild}
+        onLoadArmy={handleLoadArmy}
+        onDeleteArmy={deleteArmy}
       />
     );
   }
@@ -149,12 +258,13 @@ export default function App() {
       {/* ── Sticky header ── */}
       <header className="sticky top-0 z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
         <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
-          {/* Title */}
+          {/* Title + faction + editable army name */}
           <div className="flex items-baseline gap-2 mr-auto min-w-0">
             <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0">
               Custom40k
             </h1>
-            <span className="text-zinc-400 text-sm truncate">{factionLabel}</span>
+            <span className="text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
+            <ArmyNameEditor />
           </div>
 
           {/* Points + validation */}
@@ -162,6 +272,18 @@ export default function App() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            {data && (
+              <button
+                onClick={handleSaveArmy}
+                className={`text-[11px] uppercase tracking-wide border px-3 py-1 transition-colors
+                  ${savedMsg
+                    ? 'text-green-400 border-green-700 bg-green-900/20'
+                    : 'text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800'
+                  }`}
+              >
+                {savedMsg || 'Save Army'}
+              </button>
+            )}
             {data && (
               <button
                 onClick={() => setShowRef(true)}
@@ -193,20 +315,16 @@ export default function App() {
 
         {/* ── Sidebar ── */}
         <aside className="space-y-2">
-          {/* 1. Unit Catalogue — open by default (most-used) */}
           <CollapsiblePanel title="Unit Catalogue" defaultOpen>
             <SlotPanel />
           </CollapsiblePanel>
 
-          {/* 2. Configuration — collapsed by default (already set on landing) */}
           <CollapsiblePanel title="Configuration">
             <ArmyConfig />
           </CollapsiblePanel>
 
-          {/* 3. Validation — has its own dynamic border color, self-collapsible */}
           <ValidationPanel />
 
-          {/* 4. Export / Import */}
           <div className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 px-3 pb-3">
             <div className="text-[11px] uppercase tracking-widest text-amber-600 py-2 border-b border-zinc-700 mb-1">
               Army
@@ -221,10 +339,8 @@ export default function App() {
         </main>
       </div>
 
-      {/* ── Print view ── */}
       {showPrint && <PrintView onClose={() => setShowPrint(false)} />}
 
-      {/* ── Reference modal ── */}
       {showRef && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-start justify-center p-6 overflow-y-auto"

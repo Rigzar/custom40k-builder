@@ -45,6 +45,7 @@ export interface RosterEntry {
 }
 
 export interface ArmyState {
+  armyName: string;
   faction: string;
   engagement: EngagementType;
   pointLimit: number;

@@ -1,5 +1,6 @@
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
+import type { SavedArmy } from '../hooks/useSavedArmies';
 
 interface FactionDef {
   key: string;
@@ -64,19 +65,29 @@ const CATEGORIES: Category[] = [
   },
 ];
 
+function formatDate(ts: number): string {
+  const d = new Date(ts);
+  return d.toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
+}
+
 interface Props {
   selectedFaction: string | null;
   loading: boolean;
+  saves: SavedArmy[];
   onSelectFaction: (key: string) => void;
   onBuild: () => void;
+  onLoadArmy: (save: SavedArmy) => void;
+  onDeleteArmy: (id: string) => void;
 }
 
-export function LandingPage({ selectedFaction, loading, onSelectFaction, onBuild }: Props) {
+export function LandingPage({
+  selectedFaction, loading, saves,
+  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy,
+}: Props) {
   const { data } = useArmyStore();
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      {/* Header */}
       <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-5 text-center">
         <h1 className="text-amber-500 font-bold uppercase tracking-widest text-2xl mb-1">
           Custom40k Army Builder
@@ -88,7 +99,53 @@ export function LandingPage({ selectedFaction, loading, onSelectFaction, onBuild
 
       <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10">
 
-        {/* Faction selection */}
+        {/* ── Saved armies ── */}
+        {saves.length > 0 && (
+          <section>
+            <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
+              Saved Armies
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {saves.map(save => (
+                <div
+                  key={save.id}
+                  className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-3 flex flex-col gap-2"
+                >
+                  <div className="flex items-start justify-between gap-2 min-w-0">
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-zinc-100 truncate">{save.name}</div>
+                      <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{save.factionLabel}</div>
+                    </div>
+                    <button
+                      onClick={() => onDeleteArmy(save.id)}
+                      className="text-zinc-600 hover:text-red-400 text-lg leading-none shrink-0 transition-colors"
+                      title="Delete save"
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-3 text-[11px] text-zinc-500">
+                    <span>{save.unitCount} units</span>
+                    <span>·</span>
+                    <span>{save.totalPts} pts</span>
+                    <span>·</span>
+                    <span>{formatDate(save.savedAt)}</span>
+                  </div>
+
+                  <button
+                    onClick={() => onLoadArmy(save)}
+                    className="mt-1 w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/30 border border-amber-800/60 text-amber-400 hover:bg-amber-800/40 transition-colors"
+                  >
+                    Load Army
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Faction selection ── */}
         <section>
           <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
             Faction
@@ -136,7 +193,7 @@ export function LandingPage({ selectedFaction, loading, onSelectFaction, onBuild
           </div>
         </section>
 
-        {/* Army configuration — shown after faction selected */}
+        {/* ── Army configuration — shown after faction selected ── */}
         {selectedFaction && (
           <section>
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
@@ -156,7 +213,7 @@ export function LandingPage({ selectedFaction, loading, onSelectFaction, onBuild
           </section>
         )}
 
-        {/* Build button */}
+        {/* ── Build button ── */}
         {data && selectedFaction && (
           <div className="flex justify-center pt-2">
             <button

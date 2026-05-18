@@ -78,6 +78,7 @@ export interface ArmyStore extends ArmyState {
   data: FactionData | null;
   setData: (d: FactionData) => void;
 
+  setArmyName: (n: string) => void;
   setEngagement: (e: EngagementType) => void;
   setPointLimit: (n: number) => void;
   setHqMark: (m: Mark) => void;
@@ -105,6 +106,7 @@ export interface ArmyStore extends ArmyState {
 }
 
 const defaultState: ArmyState = {
+  armyName: '',
   faction: 'Chaos Space Marines',
   engagement: 'pitched',
   pointLimit: 3000,
@@ -141,6 +143,8 @@ export const useArmyStore = create<ArmyStore>()(
         }
         return { data: d };
       }),
+
+      setArmyName: (n: string) => set({ armyName: n }),
 
       setEngagement: (e: EngagementType) => set({
         engagement: e,
@@ -272,9 +276,9 @@ export const useArmyStore = create<ArmyStore>()(
     {
       name: 'custom40k-army',
       partialize: (s: ArmyStore) => ({
-        faction: s.faction, engagement: s.engagement, pointLimit: s.pointLimit,
-        hqMark: s.hqMark, archetype: s.archetype, legacy: s.legacy, legacy2: s.legacy2,
-        traitPool: s.traitPool, army: s.army,
+        armyName: s.armyName, faction: s.faction, engagement: s.engagement,
+        pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
+        legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, army: s.army,
       }),
     }
   )
