@@ -12,6 +12,8 @@ import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import type { FactionData } from './types/data';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
+import { SavedArmiesModal } from './components/SavedArmiesModal';
+import { ChangelogModal } from './components/ChangelogModal';
 
 type Page = 'landing' | 'builder';
 
@@ -140,6 +142,8 @@ export default function App() {
   const [loadingFaction, setLoadingFaction]     = useState(false);
   const [showRef, setShowRef]                   = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
+  const [showArmies, setShowArmies]             = useState(false);
+  const [showChangelog, setShowChangelog]       = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad = useRef<SavedArmy | null>(null);
 
@@ -246,6 +250,7 @@ export default function App() {
         onBuild={handleBuild}
         onLoadArmy={handleLoadArmy}
         onDeleteArmy={deleteArmy}
+        onShowChangelog={() => setShowChangelog(true)}
       />
     );
   }
@@ -271,7 +276,7 @@ export default function App() {
           <HeaderStatus />
 
           {/* Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             {data && (
               <button
                 onClick={handleSaveArmy}
@@ -281,9 +286,15 @@ export default function App() {
                     : 'text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800'
                   }`}
               >
-                {savedMsg || 'Save Army'}
+                {savedMsg || 'Save'}
               </button>
             )}
+            <button
+              onClick={() => setShowArmies(true)}
+              className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+            >
+              My Armies
+            </button>
             {data && (
               <button
                 onClick={() => setShowRef(true)}
@@ -297,9 +308,15 @@ export default function App() {
                 onClick={() => setShowPrint(true)}
                 className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
               >
-                Print List
+                Print
               </button>
             )}
+            <button
+              onClick={() => setShowChangelog(true)}
+              className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+            >
+              Updates
+            </button>
             <button
               onClick={() => setPage('landing')}
               className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
@@ -339,9 +356,11 @@ export default function App() {
         </main>
       </div>
 
-      {showPrint && <PrintView onClose={() => setShowPrint(false)} />}
+      {showPrint    && <PrintView onClose={() => setShowPrint(false)} />}
+      {showArmies   && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
+      {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
 
-      {showRef && (
+      {showRef && !showArmies && !showChangelog && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-start justify-center p-6 overflow-y-auto"
           onClick={e => e.target === e.currentTarget && setShowRef(false)}

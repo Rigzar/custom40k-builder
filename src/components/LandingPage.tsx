@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
+import { ChangelogModal } from './ChangelogModal';
 import type { SavedArmy } from '../hooks/useSavedArmies';
+import { CHANGELOG } from '../data/changelog';
 
 interface FactionDef {
   key: string;
@@ -70,24 +73,39 @@ interface Props {
   onBuild: () => void;
   onLoadArmy: (save: SavedArmy) => void;
   onDeleteArmy: (id: string) => void;
+  onShowChangelog: () => void;
 }
 
 export function LandingPage({
   selectedFaction, loading, saves,
-  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy,
+  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowChangelog,
 }: Props) {
   const { data } = useArmyStore();
+  const [showChangelog, setShowChangelog] = useState(false);
+  const latestVersion = CHANGELOG[0]?.version ?? '';
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-5 text-center">
-        <h1 className="text-amber-500 font-bold uppercase tracking-widest text-2xl mb-1">
-          Custom40k Army Builder
-        </h1>
-        <p className="text-zinc-500 text-sm">
-          Select your faction and configure your army to begin
-        </p>
+      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-5">
+        <div className="flex items-center justify-between max-w-screen-lg mx-auto">
+          <div className="flex-1 text-center">
+            <h1 className="text-amber-500 font-bold uppercase tracking-widest text-2xl mb-1">
+              Custom40k Army Builder
+            </h1>
+            <p className="text-zinc-500 text-sm">
+              Select your faction and configure your army to begin
+            </p>
+          </div>
+          <button
+            onClick={() => { setShowChangelog(true); onShowChangelog(); }}
+            className="shrink-0 ml-4 text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
+          >
+            Updates <span className="text-amber-700">v{latestVersion}</span>
+          </button>
+        </div>
       </header>
+
+      {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
 
       <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10">
 
