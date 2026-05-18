@@ -3520,7 +3520,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 27
+      "min_cost": 27,
+      "is_priest": true
     },
     "Ratlings": {
       "name": "Ratlings",
@@ -9639,7 +9640,48 @@
     ]
   },
   "pacts": [],
-  "prayers": [],
+  "prayers": [
+    {
+      "name": "Catechism of Repugnance",
+      "range": "-",
+      "target": "Self + attached unit",
+      "effect": "Ranged attacks of the target within half weapon range gain an additional -1 AP.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Chorus of Spiritual Fortitude",
+      "range": "-",
+      "target": "Self + attached unit",
+      "effect": "The target gains the \"Aegis(5+)\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psalm of Righteous Smiting",
+      "range": "-",
+      "target": "Self",
+      "effect": "The target gains +1 Strength and -1 AP for melee attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Refrain of Blazing Piety",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "effect": "The target suffers three automatic hits with Strength: 5 AP: -1 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "War Hymn",
+      "range": "-",
+      "target": "Self + attached unit",
+      "effect": "All models of the target gain +1 Attack.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ],
   "daemonkin": {
     "Khorne": {
       "description": "",

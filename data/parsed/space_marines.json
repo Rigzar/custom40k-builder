@@ -12896,6 +12896,316 @@
         "duration": "Instant",
         "complexity": "Basic"
       }
+    ],
+    "Geokinesis (Legacy)": [
+      {
+        "name": "Aspect of Stone",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "5",
+        "effect": "The target gains +3 Strength and +3 Toughness.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Fortify",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target improves its Saving throw by +1.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Iron Inferno",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target suffers one automatic hit per model with S: 3 AP: 0 D: 1; Armor piercing(5+), Grav, Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Tectonic Purge",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "Reduce enemy Charge movements that target the model or its attached unit by 4\".",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Wrack and Ruin",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The enemy unit must make two Dangerous Terrain test.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Chasm",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "Select a target and roll 2D6 - (the target's current Movement value). It suffers the difference in Mortal Wounds.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      }
+    ],
+    "Interromancy (Legacy)": [
+      {
+        "name": "Aversion",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "5",
+        "effect": "The target gains the (cumulative) \"Deflect\" and \"Parry\" abilities.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Engulfing Fear",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target must pass a Leadership test with a -2 penalty.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Mind Spike",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy model",
+        "cast_value": "6",
+        "effect": "The target suffers one Mortal Wound.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Mind Worm",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target suffers -1 Initiative.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Righteous Repugnance",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target receives a +1 bonus to all hit rolls.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Mind Wipe",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "Assign a randomly chosen command face down to the target.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      }
+    ],
+    "Sanguine (Legacy)": [
+      {
+        "name": "Burning Blood",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "Roll 2D6 and subtract the average Toughness value of the target unit. It suffers the difference in automatic wounds with Strength: 4 AP: 0 D: 1; Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Unleashed Rage",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "All models of the target gain the \"Berserker(5+)\" and \"Blind rage\" abilities.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Angelic Sword",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "6",
+        "effect": "The target gains +4 Strength and +2 Attacks.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Angelic Wings",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "6",
+        "effect": "The target unit gains +6\" Movement, +1 Initiative and the \"Anti-Grav\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Blood Lance",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Target point",
+        "cast_value": "7",
+        "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with Strength: 8 AP: -2 D: 2; AT(2), Lance(1), Seeking. Vehicles are hit twice.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Sanguine Shield",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target unit gains a 5+ invulnerability save.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      }
+    ],
+    "Stormspeaking (Legacy)": [
+      {
+        "name": "Blasting Gale",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "The target's Movement is halved, rounding up.",
+        "duration": "Until the target's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Eye of the Storm",
+        "type": "Witchfire",
+        "range": "12\" radius",
+        "target": "Self",
+        "cast_value": "6",
+        "effect": "Roll 1D6 for each enemy unit in range, adding +1 if the unit is a Flyer or has Anti-Grav. On a 3+, the unit suffers one Mortal Wound.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Lightning Call",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy model",
+        "cast_value": "7",
+        "effect": "The target suffers 2D6 hits with Strength: 7 AP: -2 D: 1; AT(1), Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Ride the Winds",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "The target gains the Frenzy(2\") and Haste(2\") abilities.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Spirits of Chogoris",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target receives a -1 penalty to their Leadership and to all hit rolls.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Storm-Wreathed",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "5",
+        "effect": "The target of this unit's charge moves may not use Defensive Reactions.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      }
+    ],
+    "Tempestus (Legacy)": [
+      {
+        "name": "Awoken Instincts",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "The target gains the \"Favoured enemy\", \"Furious charge\" and \"Move through cover\" abilities.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Hurricane",
+        "type": "Malediction",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "The enemy unit must make a Dangerous Terrain test the next time it activates, and its movement is hindered accordingly. Also affects units that normally ignore terrain or remain stationary.",
+        "duration": "Until the target's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Lightning Strike",
+        "type": "Witchfire",
+        "range": "48\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target suffers four hits with Strength: 7 AP: -2 D: 1; AT(1), Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Maw of the World Wolf",
+        "type": "Witchfire",
+        "range": "12\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "Draw a straight 1\" wide line from the caster in any direction. All creatures touched by the line must pass an initiative test or suffer one Mortal Wound. Vehicles suffer an automatic Hull point loss with not save allowed.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Stormcaller",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "6",
+        "effect": "The target gains the benefit of cover.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Thunderblast",
+        "type": "Witchfire",
+        "range": "6\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "All models of the target suffer an automatic wound with Strength: 4 AP: 0 D: 1; Seeking. Additionally, the target gains one Battleshock token.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      }
     ]
   },
   "pacts": [],

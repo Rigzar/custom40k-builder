@@ -22,34 +22,40 @@ function isCultOnlyDisc(name: string): boolean {
   return lc.includes('cult') && lc.includes('only');
 }
 
+/** True when the discipline requires an active Legacy (e.g. "Geokinesis (Legacy)"). */
+function isLegacyDisc(name: string): boolean {
+  return name.includes('(Legacy)');
+}
+
 export function PsychicModal({ item, unit, onClose }: Props) {
-  const { data, archetype, addPower, removePower, addPrayer, removePrayer } = useArmyStore();
+  const { data, archetype, legacy, legacy2, addPower, removePower, addPrayer, removePrayer } = useArmyStore();
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+  const hasActiveLegacy = !!(legacy || legacy2);
   const hasPrayers = unit.is_priest && (data.prayers ?? []).length > 0;
   const hasPowers = unit.is_psyker && Object.keys(data.disciplines ?? {}).length > 0;
 
   const [tab, setTab] = useState<ModalTab>(hasPowers ? 'powers' : 'prayers');
 
   // ── Discipline filtering ──────────────────────────────────────────────────
-  // Fixed logic:
-  // 1. Mark-only disciplines (e.g. "Change (Tzeentch only)"): only for psykers with that mark
-  // 2. Cult-only disciplines: only for units with a specific (non-Undivided) locked mark
-  // 3. Everything else: available to all psykers
+  // 1. Mark-only (e.g. "Change (Tzeentch only)"): only for psykers with that mark
+  // 2. Cult-only: only for units with a specific (non-Undivided) locked mark
+  // 3. Legacy (e.g. "Geokinesis (Legacy)"): only when army has an active Legacy
+  // 4. Everything else: available to all psykers
   const allowedDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
     if (isMarkOnlyDisc(name)) {
-      // Must have the matching specific mark
       if (!effectiveMark || effectiveMark === 'Undivided') return false;
       const lc = name.toLowerCase();
       return MARK_NAMES.some(m => lc.includes(m) && effectiveMark.toLowerCase() === m);
     }
     if (isCultOnlyDisc(name)) {
-      // Only for locked-mark cult units
       return !!(unit.locked_mark && unit.locked_mark !== 'Undivided');
     }
-    // General disciplines — available to all psykers
+    if (isLegacyDisc(name)) {
+      return hasActiveLegacy;
+    }
     return true;
   });
 
