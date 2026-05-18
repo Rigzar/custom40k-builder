@@ -1,73 +1,30 @@
-# React + TypeScript + Vite
+# Custom 40k Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An army list builder for tabletop wargames set in a custom Warhammer 40,000 / Horus Heresy ruleset.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Army building** — Add units across all slots (HQ, Troops, Elites, Fast Attack, Heavy Support, Transport, Flyers, Fortifications)
+- **Points tracking** — Live points calculation with engagement limits (Skirmish, Strike Force, Onslaught, Grand Tournament)
+- **Armory system** — Per-unit weapon and equipment selection from general, mark, and legion armouries
+- **Veteran abilities** — Per-unit veteran ability selection with slot enforcement
+- **Traits** — Army-wide trait selection with per-unit cost calculation
+- **Archetypes & Legacies** — Faction-specific army configurations and special rules
+- **Psychic powers** — Discipline and power selection for psyker units, per-faction
+- **Prayers** — Prayer selection for priest units
+- **Print view** — Formatted army sheet for play
 
-## React Compiler
+## Factions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Chaos Space Marines · Space Marines · Grey Knights · Eldar · Chaos Daemons · Imperial Guard · Inquisition · Genestealer Cults · Harlequins · Leagues of Votann · Orks · Necrons · Adeptus Custodes · Adeptus Mechanicus · Adeptus Sororitas · Dark Eldar · Tau Empire · Assassins · Horus Heresy
 
-## Expanding the ESLint configuration
+## Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React · TypeScript · Vite · Zustand · Tailwind CSS
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Development
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
