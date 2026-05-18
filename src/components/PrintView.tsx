@@ -728,7 +728,13 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#1a1a1e' }}>
+    <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#1a1a1e' }}>
+      <style>{`
+        @media print {
+          body > *:not(#pv-root) { display: none !important; }
+          #pv-root { position: static !important; overflow: visible !important; background: #fff !important; }
+        }
+      `}</style>
 
       {/* Toolbar — hidden on print */}
       <div className="print:hidden sticky top-0 z-10 bg-zinc-900 border-b border-zinc-700 px-4 py-2 flex items-center justify-between gap-4">
