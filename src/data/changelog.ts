@@ -7,6 +7,19 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.6',
+    date: '2026-05-18',
+    title: 'Radar charts, slot order & cloud sync',
+    changes: [
+      'Print view: unit cards now always appear in slot order (HQ → Troops → Elites → …)',
+      'Summary page: replaced bar charts with 2 spider/radar charts',
+      '  · Unit Composition — shows proportion of each slot type in the army',
+      '  · Army Power — radar over Move / Attacks / Toughness / Wounds / Save / Shoot',
+      'Cloud sync: sync armies across devices using a personal Sync Key (Supabase backend)',
+      'Cloud sync panel in the Army sidebar — Push / Pull / Import from another key',
+    ],
+  },
+  {
     version: '0.5',
     date: '2026-05-18',
     title: 'Load armies & army codes',

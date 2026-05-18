@@ -14,6 +14,7 @@ import type { FactionData } from './types/data';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { ChangelogModal } from './components/ChangelogModal';
+import { CloudSyncPanel } from './components/CloudSyncPanel';
 
 type Page = 'landing' | 'builder';
 
@@ -347,6 +348,7 @@ export default function App() {
               Army
             </div>
             <ExportImport />
+            <CloudSyncPanel />
           </div>
         </aside>
 

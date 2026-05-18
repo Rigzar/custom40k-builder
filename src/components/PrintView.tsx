@@ -3,6 +3,7 @@ import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
+import { SLOT_ORDER } from '../engine/engagements';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
@@ -422,30 +423,97 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   );
 }
 
-// ── Bar chart ─────────────────────────────────────────────────────────────────
-function BarChart({ title, data, suffix = '' }: {
-  title: string; data: [number | string, number][]; suffix?: string;
+// ── Radar / spider chart (pure SVG) ──────────────────────────────────────────
+function RadarChart({ labels, values, color, title, size = 190 }: {
+  labels: string[]; values: number[]; color: string; title: string; size?: number;
 }) {
-  const max = Math.max(...data.map(d => d[1]), 1);
+  const n = labels.length;
+  const cx = size / 2;
+  const cy = size / 2;
+  const rData  = size * 0.36;
+  const rLabel = size * 0.48;
+  const angle  = (i: number) => (Math.PI * 2 * i / n) - Math.PI / 2;
+  const pt     = (i: number, frac: number) => [
+    cx + frac * rData * Math.cos(angle(i)),
+    cy + frac * rData * Math.sin(angle(i)),
+  ] as [number, number];
+
+  const fracs   = values.map(v => Math.min(Math.max(v, 0) / 10, 1));
+  const dataPts = fracs.map((f, i) => pt(i, f));
+  const poly    = dataPts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+
+  const gridPath = (level: number) =>
+    Array.from({ length: n }, (_, i) => pt(i, level))
+      .map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`)
+      .join(' ') + 'Z';
+
   return (
-    <div>
-      <div style={{ fontWeight: 700, fontSize: '.72em', marginBottom: 5, textTransform: 'uppercase', letterSpacing: '.06em', color: '#444' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+      <div style={{ fontWeight: 700, fontSize: '.72em', textTransform: 'uppercase', letterSpacing: '.06em', color: '#444' }}>
         {title}
       </div>
-      {data.map(([key, pts]) => (
-        <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '.75em', marginBottom: 3 }}>
-          <span style={{ width: '2.6em', textAlign: 'right', fontWeight: 700, flexShrink: 0, color: '#333' }}>{key}{suffix}</span>
-          <div style={{ flex: 1, background: '#ddd8ce', height: 11, overflow: 'hidden' }}>
-            <div style={{ width: `${(pts / max) * 100}%`, height: '100%', backgroundColor: 'var(--ac)' }} />
-          </div>
-          <span style={{ width: '3em', color: '#555', flexShrink: 0 }}>{pts}p</span>
-        </div>
-      ))}
+      <svg width={size} height={size} style={{ overflow: 'visible' }}>
+        {/* Grid rings */}
+        {[0.25, 0.5, 0.75, 1.0].map(lv => (
+          <path key={lv} d={gridPath(lv)} fill="none"
+            stroke={lv === 1 ? '#c8c0b4' : '#e0dbd0'}
+            strokeWidth={lv === 1 ? 1.2 : 0.6} />
+        ))}
+        {/* Axis spokes */}
+        {Array.from({ length: n }, (_, i) => {
+          const [x, y] = pt(i, 1);
+          return <line key={i} x1={cx.toFixed(1)} y1={cy.toFixed(1)} x2={x.toFixed(1)} y2={y.toFixed(1)} stroke="#d8d0c8" strokeWidth={0.6} />;
+        })}
+        {/* Data polygon */}
+        <polygon points={poly} fill={`${color}28`} stroke={color} strokeWidth={2} strokeLinejoin="round" />
+        {/* Data points */}
+        {dataPts.map(([x, y], i) => (
+          <circle key={i} cx={x.toFixed(1)} cy={y.toFixed(1)} r={3} fill={color} />
+        ))}
+        {/* Labels */}
+        {labels.map((label, i) => {
+          const a = angle(i);
+          const lx = cx + rLabel * Math.cos(a);
+          const ly = cy + rLabel * Math.sin(a);
+          return (
+            <text key={i} x={lx.toFixed(1)} y={ly.toFixed(1)}
+              textAnchor="middle" dominantBaseline="middle"
+              fontSize="8.5" fontWeight="700" fontFamily="'Trebuchet MS', sans-serif" fill="#555">
+              {label}
+            </text>
+          );
+        })}
+      </svg>
     </div>
   );
 }
 
+// ── Stat helpers ───────────────────────────────────────────────────────────────
+const parseMove    = (s: string) => { const m = (s ?? '').match(/(\d+)/); return m ? parseInt(m[1]) : 6; };
+const parseNum     = (s: string) => { const m = (s ?? '').match(/(\d+)/); return m ? parseInt(m[1]) : 0; };
+const parseSaveInv = (s: string) => { const m = (s ?? '').match(/(\d+)\+/); return m ? 7 - parseInt(m[1]) : 2; };
+
+function unitStatValues(u: Unit): number[] {
+  const st = u.models[0]?.stats ?? {};
+  const move    = parseMove(st.M  ?? '6"');
+  const attacks = parseNum(st.A   ?? '1');
+  const tough   = u.is_vehicle
+    ? Math.round((parseNum(st.FRONT ?? '10') + parseNum(st.SIDE ?? '10') + parseNum(st.REAR ?? '10')) / 3)
+    : parseNum(st.T ?? '4');
+  const wounds  = u.is_vehicle ? parseNum(st.HP ?? '3') * 2 : parseNum(st.W ?? '1');
+  const save    = u.is_vehicle ? Math.min(parseSaveInv(st.FRONT ?? '3+'), 5) : parseSaveInv(st.SV ?? '4+');
+  const shoot   = parseSaveInv(st.BS ?? '4+');
+  return [move, attacks, tough, wounds, save, shoot];
+}
+
+// Normalize raw stat averages to 0-10
+const POWER_MAX = [14, 6, 10, 16, 5, 5]; // Move, Attacks, Tough, Wounds, Save(inv), Shoot(inv)
+
 // ── Summary page ──────────────────────────────────────────────────────────────
+const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers'] as const;
+const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers'];
+const COMP_MAX    = [2, 4, 2, 2, 2, 2, 1]; // pitched battle caps used as reference
+
 function SummaryPage({ army, data, color, factionName }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string;
 }) {
@@ -453,32 +521,38 @@ function SummaryPage({ army, data, color, factionName }: {
     const u = resolveUnit(item, data);
     if (!u) return [];
     const pts = computeUnitPoints(item, u);
-    const primaryModel = u.models[0];
     const wPerModel = u.is_vehicle
-      ? parseInt(primaryModel?.stats.HP ?? '1')
-      : parseInt(primaryModel?.stats.W ?? '1');
+      ? parseInt(u.models[0]?.stats.HP ?? '1')
+      : parseInt(u.models[0]?.stats.W  ?? '1');
     const totalW = item.size * (isNaN(wPerModel) ? 1 : wPerModel);
     return [{ item, u, pts, totalW }];
   });
 
-  const sorted = [...units].sort((a, b) => b.pts - a.pts);
+  // Sort unit list by slot order
+  const slotIdx = (slot: string) => { const i = SLOT_ORDER.indexOf(slot as typeof SLOT_ORDER[number]); return i === -1 ? 99 : i; };
+  const sortedBySlot = [...units].sort((a, b) => slotIdx(a.item.slot) - slotIdx(b.item.slot));
+
   const grandPts = units.reduce((s, x) => s + x.pts, 0);
   const grandW   = units.reduce((s, x) => s + x.totalW, 0);
 
-  const parseStatNum = (u: Unit, stat: string): number => {
-    const raw = (u.models[0]?.stats as Record<string, string>)?.[stat] ?? '';
-    const m = raw.match(/\d+/);
-    return m ? parseInt(m[0]) : 0;
-  };
+  // Chart 1 — Composition by slot
+  const compValues = COMP_SLOTS.map((slot, i) => {
+    const effectiveSlot = slot === 'Transport' ? 'Dedicated Transport' : slot;
+    const count = army.filter(item => item.slot === effectiveSlot).length;
+    return Math.min((count / COMP_MAX[i]) * 10, 10);
+  });
 
-  const buildBar = (getter: (x: typeof units[0]) => number): [number, number][] => {
-    const map = new Map<number, number>();
-    for (const x of units) {
-      const v = getter(x);
-      map.set(v, (map.get(v) ?? 0) + x.pts);
-    }
-    return [...map.entries()].sort((a, b) => a[0] - b[0]);
-  };
+  // Chart 2 — Army power (average stats normalized 0-10)
+  const statSums = [0, 0, 0, 0, 0, 0];
+  let statCount = 0;
+  for (const { u } of units) {
+    const vals = unitStatValues(u);
+    vals.forEach((v, i) => { statSums[i] += v; });
+    statCount++;
+  }
+  const powerValues = statCount === 0
+    ? [0, 0, 0, 0, 0, 0]
+    : statSums.map((s, i) => Math.min((s / statCount / POWER_MAX[i]) * 10, 10));
 
   return (
     <div style={{
@@ -486,6 +560,7 @@ function SummaryPage({ army, data, color, factionName }: {
       border: `2px solid ${color}`, backgroundColor: '#fff',
       ['--ac' as string]: color,
     }}>
+      {/* Header */}
       <div style={{
         backgroundColor: color, color: '#fff',
         padding: '8px 14px', display: 'flex', justifyContent: 'space-between',
@@ -497,7 +572,7 @@ function SummaryPage({ army, data, color, factionName }: {
 
       <div style={{ display: 'flex' }}>
         {/* Unit list */}
-        <div style={{ flex: 1, borderRight: `2px solid ${color}` }}>
+        <div style={{ flex: 1.4, borderRight: `2px solid ${color}` }}>
           <div style={{
             display: 'grid', gridTemplateColumns: '1fr 2.6rem 3.2rem 3.2rem',
             backgroundColor: '#f5f1ea', fontWeight: 700, fontSize: '.74em',
@@ -510,14 +585,19 @@ function SummaryPage({ army, data, color, factionName }: {
             <span style={{ textAlign: 'right' }}>Pts</span>
           </div>
 
-          {sorted.map((x, i) => (
+          {sortedBySlot.map((x, i) => (
             <div key={x.item.id} style={{
               display: 'grid', gridTemplateColumns: '1fr 2.6rem 3.2rem 3.2rem',
               padding: '2px 10px', fontSize: '.8em',
               backgroundColor: i % 2 === 1 ? '#f5f1ea' : '#fff',
               borderBottom: '1px dotted #ccc', color: '#111',
             }}>
-              <span>{x.u.name}</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <span style={{ fontSize: '.72em', color: color, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.04em', width: '4.2em', flexShrink: 0 }}>
+                  {x.item.slot.replace('Dedicated Transport', 'Transport').replace('Fortifications', 'Forts')}
+                </span>
+                {x.u.name}
+              </span>
               <span style={{ textAlign: 'right', color: '#555' }}>{x.totalW}</span>
               <span style={{ textAlign: 'right', color: '#555' }}>{x.totalW > 0 ? (x.pts / x.totalW).toFixed(1) : '—'}</span>
               <span style={{ textAlign: 'right', fontWeight: 700 }}>{x.pts}</span>
@@ -536,11 +616,12 @@ function SummaryPage({ army, data, color, factionName }: {
           </div>
         </div>
 
-        {/* Charts */}
-        <div style={{ flex: 1, padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <BarChart title="Toughness" data={buildBar(x => parseStatNum(x.u, 'T'))} />
-          <BarChart title="Movement"  data={buildBar(x => parseStatNum(x.u, 'M'))} suffix='"' />
-          <BarChart title="Save"      data={buildBar(x => parseStatNum(x.u, 'SV'))} suffix="+" />
+        {/* Radar charts */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '8px 4px', borderRight: `2px solid ${color}` }}>
+          <RadarChart title="Unit Composition" labels={COMP_LABELS} values={compValues} color={color} size={185} />
+        </div>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '8px 4px' }}>
+          <RadarChart title="Army Power" labels={['Move', 'Attacks', 'Tough', 'Wounds', 'Save', 'Shoot']} values={powerValues} color={color} size={185} />
         </div>
       </div>
     </div>
@@ -593,9 +674,14 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           <SummaryPage army={army} data={data} color={primaryColor} factionName={data.faction} />
         )}
 
-        {army.map(item => (
-          <UnitPrintCard key={item.id} item={item} data={data} />
-        ))}
+        {[...army]
+          .sort((a, b) => {
+            const ai = SLOT_ORDER.indexOf(a.slot as typeof SLOT_ORDER[number]);
+            const bi = SLOT_ORDER.indexOf(b.slot as typeof SLOT_ORDER[number]);
+            return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
+          })
+          .map(item => <UnitPrintCard key={item.id} item={item} data={data} />)
+        }
 
         {(archetype || legacy || engagement) && (
           <div style={{
