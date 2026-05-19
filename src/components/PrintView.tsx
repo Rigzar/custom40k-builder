@@ -243,7 +243,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
 
   const equipMods = parseEquipMods(armEquip);
   const abilitiesList = [
-    ...u.abilities,
+    ...u.abilities.filter(ab => !/^\d+$/.test(ab.trim())),
     ...equipMods.grantedAbilities.filter(ab =>
       !u.abilities.some(a => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())
     ),
@@ -731,8 +731,9 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#1a1a1e' }}>
       <style>{`
         @media print {
-          body > *:not(#pv-root) { display: none !important; }
-          #pv-root { position: static !important; overflow: visible !important; background: #fff !important; }
+          body, #root { background: #fff !important; }
+          body > *:not(#root), #root > *:not(#pv-root) { display: none !important; }
+          #pv-root { position: static !important; overflow: visible !important; height: auto !important; background: #fff !important; }
         }
       `}</style>
 

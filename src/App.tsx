@@ -140,7 +140,9 @@ export default function App() {
           hqMark, archetype, legacy, legacy2, traitPool, importRoster } = store;
 
   const [page, setPage]                         = useState<Page>('landing');
-  const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
+  const [selectedFaction, setSelectedFaction]   = useState<string | null>(
+    () => sessionStorage.getItem('selectedFaction')
+  );
   const [loadingFaction, setLoadingFaction]     = useState(false);
   const [showRef, setShowRef]                   = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
@@ -149,12 +151,14 @@ export default function App() {
   const [showBugReport, setShowBugReport]       = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad = useRef<SavedArmy | null>(null);
+  const restoringSession = useRef(!!sessionStorage.getItem('selectedFaction'));
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 
   // Faction loader
   useEffect(() => {
     if (!selectedFaction) return;
+    sessionStorage.setItem('selectedFaction', selectedFaction);
     setLoadingFaction(true);
 
     const loaders: Record<string, () => Promise<unknown>> = {
@@ -192,6 +196,11 @@ export default function App() {
           const save = pendingLoad.current;
           pendingLoad.current = null;
           importRoster(JSON.stringify(save.state));
+        }
+        // Restore builder page after a page refresh
+        if (restoringSession.current) {
+          restoringSession.current = false;
+          setPage('builder');
         }
       })
       .catch(e => {
@@ -328,7 +337,7 @@ export default function App() {
               Bug
             </button>
             <button
-              onClick={() => setPage('landing')}
+              onClick={() => { sessionStorage.removeItem('selectedFaction'); setPage('landing'); }}
               className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
             >
               ← Faction
