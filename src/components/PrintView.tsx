@@ -5,7 +5,7 @@ import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/poin
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
-import { parseAbility, lookupRuleGeneric } from '../data/coreRules';
+import { lookupRuleGeneric } from '../data/coreRules';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
