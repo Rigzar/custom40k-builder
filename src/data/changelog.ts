@@ -101,6 +101,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Added: Known Issues tab in the Updates modal — lists ongoing limitations and already-fixed bugs so users don\'t report duplicates',
       'Fixed: "Updates" button removed from the builder header (it remains on the home screen)',
       'Fixed: Pitched Battle default points now correctly migrates saved rosters from 3000 to 2500 pts on first load',
+      'Fixed: Print view showed "pitched" instead of "Pitched Battle" under Engagement Type (affected all factions)',
     ],
   },
   {

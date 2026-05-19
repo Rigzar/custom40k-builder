@@ -3,7 +3,7 @@ import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
-import { SLOT_ORDER } from '../engine/engagements';
+import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
@@ -793,7 +793,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10,
             }}>
               {[
-                engagement && ['Engagement', engagement],
+                engagement && ['Engagement', ENGAGEMENTS[engagement]?.name ?? engagement],
                 archetype  && ['Archetype', archetype],
                 legacy     && ['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')],
                 ['Points', `${totalPts} / ${pointLimit} pts · ${army.length} units`],
