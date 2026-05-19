@@ -37,10 +37,10 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
     notes: 'HQ ≤150 pts · non-Troops ≤300 pts · no Archetypes · no Squadrons > 1 model',
   },
   pitched: {
-    name: 'Pitched Battle', range: '2500–3500 pts', default: 3000,
+    name: 'Pitched Battle', range: '2500–3500 pts', default: 2500,
     aop: {
-      HQ: [1,2], Troops: [2,4], Elites: [0,2], 'Fast Attack': [0,2],
-      'Heavy Support': [0,2], 'Dedicated Transport': [0,2], Fortifications: [0,1], Flyers: [0,1],
+      HQ: [1,2], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
+      'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,1],
     },
     multiAop: true, minTroopsRatio: 0.25, statCaps: false,
     notes: 'Standard engagement · ≥25% Troops · multi-AOP allowed',

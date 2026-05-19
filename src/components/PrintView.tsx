@@ -584,7 +584,7 @@ function applyEquipDeltas(stats: Record<string, string>, mods: EquipMods, isVehi
 // ── Summary page ──────────────────────────────────────────────────────────────
 const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers'] as const;
 const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers'];
-const COMP_MAX    = [2, 4, 2, 2, 2, 2, 1]; // pitched battle caps used as reference
+const COMP_MAX    = [2, 6, 3, 3, 3, 3, 1]; // pitched battle caps used as reference
 
 function SummaryPage({ army, data, color, factionName }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string;
