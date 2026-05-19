@@ -7,6 +7,16 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.6',
+    date: '2026-05-19',
+    title: 'Bug fixes — refresh, print & abilities',
+    changes: [
+      'Fixed: Refreshing the page now returns to the builder instead of the landing page',
+      'Fixed: Print view was showing a blank page — CSS corrected',
+      'Fixed: Standalone numbers (1–6 from D6 result tables) no longer appear as abilities in the print view',
+    ],
+  },
+  {
     version: '0.5',
     date: '2026-05-19',
     title: 'Tyranids & bug reporting',
