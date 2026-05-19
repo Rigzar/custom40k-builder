@@ -4,6 +4,7 @@ import type { Unit, Model, Weapon, Choice, ArmoryItem, FactionData } from '../ty
 import { useArmyStore } from '../store/army';
 import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
 import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
+import { parseAbility } from '../data/coreRules';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -105,7 +106,7 @@ export function UnitCard({ item }: Props) {
   const isMainFaction = item.unitName in data.units;
   const unitTraitsInPool = data.traits.filter(t => {
     if (!traitPool.includes(t.name)) return false;
-    const hasNumericCost = [t.pts_unit, t.pts_char, t.pts_veh].some(
+    const hasNumericCost = [t.pts_unit, t.pts_char, t.pts_monster, t.pts_veh].some(
       v => v && v !== '-' && v.toLowerCase() !== 'special',
     );
     return hasNumericCost;
@@ -548,10 +549,17 @@ export function UnitCard({ item }: Props) {
               <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
                 Abilities ({u.abilities.length})
               </summary>
-              <div className="mt-2 space-y-1">
-                {u.abilities.map((a, i) => (
-                  <div key={i} className="text-[11px] text-zinc-400 border-b border-zinc-700/40 py-1">{a}</div>
-                ))}
+              <div className="mt-2 space-y-2">
+                {u.abilities.flatMap((a, i) =>
+                  parseAbility(a).map((part, j) => (
+                    <div key={`${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                      <div className="text-[11px] text-zinc-200 font-medium">{part.displayName}</div>
+                      {part.description && (
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                      )}
+                    </div>
+                  ))
+                )}
               </div>
             </details>
           )}

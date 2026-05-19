@@ -5,6 +5,7 @@ import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/poin
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
+import { parseAbility, lookupRuleGeneric } from '../data/coreRules';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
@@ -741,15 +742,81 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     return s + (u ? computeUnitPoints(item, u) : 0);
   }, 0);
 
-  // Collect all unique abilities for the reference section
-  const allAbilities = new Map<string, string>();
+  // Collect all unique rules for the Special Rules reference section.
+  // Uses the generic (non-parameterized) form so "Terrifying(-1)" and "Terrifying(-2)"
+  // collapse into a single "Terrifying(X)" entry.
+  // Map: generic display name → description (or null)
+  const allSpecialRules = new Map<string, string | null>();
+  const addRule = (name: string, desc: string | null) => {
+    if (!allSpecialRules.has(name)) allSpecialRules.set(name, desc);
+  };
+
+  // Parse an ability string into generic (non-parameterized) parts for the reference section.
+  const parseGeneric = (raw: string) => {
+    const trimmed = raw.trim();
+    const colonIdx = trimmed.indexOf(': ');
+    if (colonIdx > 0 && colonIdx < 70 && trimmed.length - colonIdx > 10) {
+      // "Name: description" custom rule — keep as-is
+      addRule(trimmed.slice(0, colonIdx).trim(), trimmed.slice(colonIdx + 2).trim());
+      return;
+    }
+    for (const token of trimmed.split(',')) {
+      const t = token.trim();
+      if (!t) continue;
+      const found = lookupRuleGeneric(t);
+      if (found) addRule(found.displayName, found.description);
+      else addRule(t, null);
+    }
+  };
+
   for (const item of army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
+
+    // Unit abilities
     for (const ab of u.abilities) {
-      const ci = ab.indexOf(':');
-      const name = (ci > 0 && ci < 40 ? ab.slice(0, ci) : ab).trim();
-      if (!allAbilities.has(name)) allAbilities.set(name, ab);
+      if (/^\d+$/.test(ab.trim())) continue;
+      parseGeneric(ab);
+    }
+
+    // Weapons this unit actually shows (mirrors UnitPrintCard logic)
+    const optWpnNames = new Set<string>();
+    for (const g of u.option_groups)
+      for (const c of g.choices)
+        if (u.weapons.some(w => w.name === c.name)) optWpnNames.add(c.name);
+    const selWpnNames = new Set<string>();
+    for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+      const g = u.option_groups[Number(gi)];
+      if (!g) continue;
+      for (const [ci, qty] of Object.entries(ch)) {
+        if (ci === '__inline' || !qty) continue;
+        const choice = g.choices[parseInt(ci)];
+        if (choice && optWpnNames.has(choice.name)) selWpnNames.add(choice.name);
+      }
+    }
+    const shownWeapons = u.weapons.filter(w => !optWpnNames.has(w.name) || selWpnNames.has(w.name));
+    for (const w of shownWeapons) {
+      if (w.abilities && w.abilities !== '-') parseGeneric(w.abilities);
+    }
+
+    // Armory items: weapon profiles → collect ability rules; equipment → collect description
+    for (const sel of item.armory) {
+      const isEquip = sel.section === 'equipment' || sel.section === 'daemon_weapons';
+      const arm = findArmoryItem(data, sel.itemName);
+      if (!arm) continue;
+      if (isEquip) {
+        if (arm.desc) addRule(sel.itemName, arm.desc);
+        continue;
+      }
+      if (arm.profiles && arm.profiles.length > 0) {
+        for (const p of arm.profiles) {
+          if (p.abilities && p.abilities !== '-') parseGeneric(p.abilities);
+        }
+      } else if (arm.range) {
+        if (arm.abilities && arm.abilities !== '-') parseGeneric(arm.abilities);
+      } else {
+        if (arm.desc) addRule(sel.itemName, arm.desc);
+      }
     }
   }
 
@@ -845,7 +912,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
-        {allAbilities.size > 0 && (
+        {allSpecialRules.size > 0 && (
           <div style={{
             marginBottom: 24, pageBreakInside: 'avoid', breakInside: 'avoid',
             border: `2px solid ${primaryColor}`, backgroundColor: '#fff',
@@ -862,19 +929,17 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               padding: '8px 14px',
               display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px 20px',
             }}>
-              {[...allAbilities.values()].map(ab => {
-                const ci = ab.indexOf(':');
-                const split = ci > 0 && ci < 40;
-                return (
-                  <div key={ab} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.45, color: '#222', paddingBottom: 4 }}>
-                    {split
-                      ? <><span style={{ fontWeight: 700 }}>{ab.slice(0, ci + 1)}</span>{' '}
-                          <span dangerouslySetInnerHTML={{ __html: highlightRules(ab.slice(ci + 1).trim()) }} /></>
-                      : <span style={{ fontWeight: 700 }}>{ab}</span>
+              {[...allSpecialRules.entries()]
+                .sort(([a], [b]) => a.localeCompare(b))
+                .map(([name, desc]) => (
+                  <div key={name} style={{ breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.45, color: '#222', paddingBottom: 4 }}>
+                    {desc
+                      ? <><span style={{ fontWeight: 700 }}>{name}:</span>{' '}<span style={{ color: '#444' }}>{desc}</span></>
+                      : <span style={{ fontWeight: 700 }}>{name}</span>
                     }
                   </div>
-                );
-              })}
+                ))
+              }
             </div>
           </div>
         )}

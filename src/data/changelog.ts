@@ -43,9 +43,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-11',
-    status: 'known',
+    status: 'fixed',
     title: 'Special rule descriptions show name only — no rules text',
-    description: 'Some abilities (e.g. "Fearless", "Infiltrate", "Aegis(5+)") appear as names without their full rules text. Other abilities do include the description. A Core Rules glossary is needed to fill in the missing descriptions.',
+    description: 'Fixed in v0.12 — a Core Rules glossary now covers all standard weapon abilities (AT, Barrage, Poison, etc.) and model special rules (Fearless, Deep Strike, Daemon, etc.). Each rule in the unit abilities list now shows its full description.',
   },
   {
     id: 'ki-12',
@@ -137,27 +137,39 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.12',
+    date: '2026-05-19',
+    title: 'Descripciones de reglas en cartas y roster impreso',
+    changes: [
+      'Las reglas especiales ahora muestran su texto completo en la carta de unidad — AT, Barrage, Fearless, Deep Strike y muchas más ya no aparecen solo como un nombre',
+      'Reglas con un valor propio como Terrifying(-2) o Poison(4+) muestran la descripción con ese número ya incluido',
+      'Las reglas propias de la facción (escritas como "Nombre: texto") mantienen su descripción original y se muestran junto a las reglas estándar',
+      'En el roster impreso, la sección Special Rules ahora incluye también las habilidades de las armas y el equipo de armería — ordenadas de la A a la Z',
+      'Reglas con distintos valores (p.ej. Terrifying(-1) y Terrifying(-2)) aparecen como una sola entrada en el glosario impreso, sin repetirse',
+    ],
+  },
+  {
     version: '0.11',
     date: '2026-05-19',
-    title: 'Chaos Daemons archetype fix & trait per-Wound cost',
+    title: 'Arquetipos Chaos Daemons y coste real de los traits',
     changes: [
-      'Fixed: Chaos Daemons archetype dropdown no longer shows footnote constraints ("ᴷ Only for models with Mark of Khorne" etc.) as selectable archetypes',
-      'Fixed: Trait costs are now correctly multiplied by unit size — a 5-pt trait on a 5-model unit adds 25 pts, not 5',
-      'Fixed: Trait costs marked with * additionally multiply by Wounds (or HP for vehicles) per model',
-      'Fixed: Monstrous Creatures now use their own trait cost column — separate from normal infantry and vehicles',
-      'Fixed: Vehicle trait costs now read from the correct column in the source data (was reading the Monster/Creature column)',
-      'Tracking: Poison stacking rule (take the higher value) — under investigation',
+      'El desplegable de arquetipos de Chaos Daemons ya no muestra las notas al pie (ᴷ ᴺ ˢ ᵀ) como si fueran arquetipos seleccionables',
+      'Los traits ahora cuestan lo que toca: un trait de 5 pts en una escuadra de 5 modelos son 25 pts en total, no 5 planos',
+      'Los traits marcados con * también multiplican por las Heridas (o Hull Points en vehículos) de cada modelo, tal como dicen las reglas',
+      'Las Criaturas Monstruosas usan su propia columna de puntos para los traits, no la de infantería ni la de vehículos',
+      'Los vehículos leían la columna equivocada para los traits — corregido',
+      'Revisando cómo funciona el apilamiento de Poison cuando una misma unidad lo tiene a distintos valores',
     ],
   },
   {
     version: '0.10',
     date: '2026-05-19',
-    title: 'GK + Inquisition allies, known issue tracking',
+    title: 'Grey Knights + aliados Inquisición',
     changes: [
-      'Fixed: Grey Knights can now select Inquisition units directly — all 13 Inquisition units available in the GK unit catalogue without a separate army',
-      'Tracking: Ability descriptions missing for reference-only rules (e.g. "Fearless" with no text)',
-      'Tracking: Trait costs marked with * (per-model multiplier) under investigation',
-      'Tracking: Allied detachment (second army in same list) added to pipeline',
+      'Los Grey Knights ya pueden elegir unidades de la Inquisición directamente desde su propio catálogo — sin necesidad de construir un segundo ejército',
+      'Anotado para investigar: algunas reglas especiales aparecen solo con el nombre y sin descripción (p.ej. "Fearless" sin texto)',
+      'Anotado para investigar: el multiplicador de los traits marcados con *',
+      'Añadido al roadmap: destacamentos aliados (una segunda facción en el mismo ejército)',
     ],
   },
   {
