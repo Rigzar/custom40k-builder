@@ -37,6 +37,7 @@ export const FACTION_NAMES: Record<string, string> = {
   genestealer_cults:    'Genestealer Cults',
   harlequins:           'Harlequins',
   leagues_of_votann:    'Leagues of Votann',
+  tyranids:             'Tyranids',
   horus_heresy:         'Horus Heresy Space Marines',
 };
 
@@ -175,6 +176,7 @@ export default function App() {
       genestealer_cults:    () => import('../data/parsed/genestealer_cults.json'),
       harlequins:           () => import('../data/parsed/harlequins.json'),
       leagues_of_votann:    () => import('../data/parsed/leagues_of_votann.json'),
+      tyranids:             () => import('../data/parsed/tyranids.json'),
       horus_heresy:         () => import('../data/parsed/horus_heresy.json'),
     };
 

@@ -7,10 +7,11 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '0.4',
+    version: '0.5',
     date: '2026-05-19',
-    title: 'Bug reporting & cleanup',
+    title: 'Tyranids & bug reporting',
     changes: [
+      'Added: Tyranids — 40 units across HQ, Troops, Elites, Fast Attack, Heavy Support and Flyers',
       'Added: Bug report button in the header — opens GitHub with the form pre-filled',
       'Added: Report a bug link in the Army panel also points to GitHub',
       'Removed: Cloud sync (Supabase backend) — Push / Pull / Sync Key panel dropped',

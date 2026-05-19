@@ -56,6 +56,7 @@ const CATEGORIES: Category[] = [
       { key: 'genestealer_cults', name: 'Genestealer Cults',  available: true },
       { key: 'harlequins',        name: 'Harlequins',         available: true },
       { key: 'leagues_of_votann', name: 'Leagues of Votann',  available: true },
+      { key: 'tyranids',          name: 'Tyranids',           available: true },
     ],
   },
 ];
