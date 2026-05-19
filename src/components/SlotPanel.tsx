@@ -4,6 +4,7 @@ import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
+import { SLOT_ICONS } from '../assets/slotIcons';
 
 interface SlotEntry {
   name: string;
@@ -124,7 +125,12 @@ export function SlotPanel() {
               className="w-full flex justify-between items-center px-3 py-2 text-left hover:bg-zinc-700 transition-colors"
               onClick={() => setOpen(o => ({ ...o, [slot]: !o[slot] }))}
             >
-              <span className="text-[11px] uppercase tracking-widest text-amber-600">{slot}</span>
+              <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-amber-600">
+                {SLOT_ICONS[slot] && (
+                  <img src={SLOT_ICONS[slot]} alt="" className="w-4 h-4 opacity-70" style={{ filter: 'invert(1)' }} />
+                )}
+                {slot}
+              </span>
               <span className={`text-[11px] ${countColor}`}>
                 {used}/{max} <span className="text-zinc-600">(min {min})</span>
               </span>

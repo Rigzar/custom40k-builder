@@ -4,6 +4,7 @@ import { useArmyStore } from '../store/army';
 import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
+import { SLOT_ICONS } from '../assets/slotIcons';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
@@ -307,7 +308,10 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
                 </span>
               )}
             </div>
-            <div style={{ color: 'rgba(255,255,255,.72)', fontSize: '.68em', marginTop: 3, letterSpacing: '.03em' }}>
+            <div style={{ color: 'rgba(255,255,255,.72)', fontSize: '.68em', marginTop: 3, letterSpacing: '.03em', display: 'flex', alignItems: 'center', gap: 5 }}>
+              {SLOT_ICONS[item.slot] && (
+                <img src={SLOT_ICONS[item.slot]} alt="" style={{ width: 14, height: 14, opacity: .75, filter: 'invert(1)' }} />
+              )}
               {item.slot} · {u.unit_type}{effectiveMark ? ` · Mark of ${effectiveMark}` : ''}
               {u.equipped_with ? ` — ${u.equipped_with}` : ''}
             </div>

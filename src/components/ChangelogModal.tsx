@@ -7,16 +7,33 @@ const STATUS_LABEL: Record<IssueStatus, string> = {
   known:         'Known',
   investigating: 'Investigating',
   fixed:         'Fixed',
+  by_design:     'By Design',
+  planned:       'Planned',
 };
 
 const STATUS_COLOR: Record<IssueStatus, string> = {
   known:         'text-amber-400 border-amber-700',
   investigating: 'text-blue-400 border-blue-700',
   fixed:         'text-green-500 border-green-700',
+  by_design:     'text-zinc-400 border-zinc-600',
+  planned:       'text-purple-400 border-purple-700',
 };
+
+function relativeDate(dateStr: string): string {
+  const today = new Date().toISOString().slice(0, 10);
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  if (dateStr === today) return 'Today';
+  if (dateStr === yesterday) return 'Yesterday';
+  return dateStr;
+}
 
 export function ChangelogModal({ onClose }: Props) {
   const [tab, setTab] = useState<'changelog' | 'issues'>('changelog');
+  const today = new Date().toISOString().slice(0, 10);
+
+  const openIssues    = KNOWN_ISSUES.filter(i => i.status !== 'fixed' && i.status !== 'planned');
+  const plannedIssues = KNOWN_ISSUES.filter(i => i.status === 'planned');
+  const fixedIssues   = KNOWN_ISSUES.filter(i => i.status === 'fixed');
 
   return (
     <div
@@ -52,41 +69,49 @@ export function ChangelogModal({ onClose }: Props) {
 
         {tab === 'changelog' && (
           <div className="p-4 space-y-6">
-            {CHANGELOG.map(entry => (
-              <div key={entry.version}>
-                <div className="flex items-baseline gap-3 mb-2">
-                  <span className="text-amber-500 font-bold text-sm">v{entry.version}</span>
-                  <span className="text-zinc-100 text-sm font-semibold">{entry.title}</span>
-                  <span className="text-zinc-600 text-[11px] ml-auto">{entry.date}</span>
+            {CHANGELOG.map(entry => {
+              const isToday = entry.date === today;
+              return (
+                <div key={entry.version}>
+                  <div className="flex items-baseline gap-3 mb-2">
+                    <span className="text-amber-500 font-bold text-sm">v{entry.version}</span>
+                    {isToday && (
+                      <span className="text-[10px] uppercase tracking-wide bg-amber-700/30 text-amber-400 border border-amber-700/50 px-1.5 py-0.5 leading-none">
+                        New
+                      </span>
+                    )}
+                    <span className="text-zinc-100 text-sm font-semibold">{entry.title}</span>
+                    <span className="text-zinc-600 text-[11px] ml-auto">{relativeDate(entry.date)}</span>
+                  </div>
+                  <ul className="space-y-1 pl-3 border-l border-zinc-700">
+                    {entry.changes.map((c, i) => {
+                      const isAdded   = c.startsWith('Added:');
+                      const isRemoved = c.startsWith('Removed:');
+                      const isFixed   = c.startsWith('Fixed:');
+                      const color = isAdded ? 'text-green-500' : isRemoved ? 'text-red-500' : isFixed ? 'text-blue-400' : 'text-amber-800';
+                      return (
+                        <li key={i} className="text-[12px] text-zinc-400 leading-snug">
+                          <span className={`${color} mr-1`}>—</span>{c}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
-                <ul className="space-y-1 pl-3 border-l border-zinc-700">
-                  {entry.changes.map((c, i) => {
-                    const isAdded   = c.startsWith('Added:');
-                    const isRemoved = c.startsWith('Removed:');
-                    const isFixed   = c.startsWith('Fixed:');
-                    const color = isAdded ? 'text-green-500' : isRemoved ? 'text-red-500' : isFixed ? 'text-blue-400' : 'text-amber-800';
-                    return (
-                      <li key={i} className="text-[12px] text-zinc-400 leading-snug">
-                        <span className={`${color} mr-1`}>—</span>{c}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 
         {tab === 'issues' && (
           <div className="p-4 space-y-4">
             <p className="text-zinc-500 text-[12px]">
-              Check here before reporting a bug — if it's listed as Fixed or Known we already have it covered.
+              Check here before reporting a bug — if it's listed we already have it covered.
             </p>
 
-            {/* Open issues */}
+            {/* Open & By Design */}
             <div className="space-y-2">
               <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">Open</h4>
-              {KNOWN_ISSUES.filter(i => i.status !== 'fixed').map(issue => (
+              {openIssues.map(issue => (
                 <div key={issue.id} className="bg-zinc-800 border border-zinc-700 p-3">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <span className="text-zinc-200 text-sm font-semibold leading-snug">{issue.title}</span>
@@ -99,10 +124,28 @@ export function ChangelogModal({ onClose }: Props) {
               ))}
             </div>
 
-            {/* Fixed issues */}
+            {/* Planned */}
+            {plannedIssues.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">In the Pipeline</h4>
+                {plannedIssues.map(issue => (
+                  <div key={issue.id} className="bg-zinc-900 border border-zinc-800 border-l-2 border-l-purple-800 p-3">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <span className="text-zinc-300 text-sm font-semibold leading-snug">{issue.title}</span>
+                      <span className={`text-[10px] uppercase tracking-wide border px-1.5 py-0.5 shrink-0 ${STATUS_COLOR[issue.status]}`}>
+                        {STATUS_LABEL[issue.status]}
+                      </span>
+                    </div>
+                    <p className="text-zinc-500 text-[12px] leading-snug">{issue.description}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Fixed */}
             <div className="space-y-2">
               <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">Already Fixed</h4>
-              {KNOWN_ISSUES.filter(i => i.status === 'fixed').map(issue => (
+              {fixedIssues.map(issue => (
                 <div key={issue.id} className="bg-zinc-900 border border-zinc-800 p-3 opacity-70">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <span className="text-zinc-400 text-sm font-semibold leading-snug line-through">{issue.title}</span>

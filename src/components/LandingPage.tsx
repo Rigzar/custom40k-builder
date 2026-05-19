@@ -235,6 +235,54 @@ export function LandingPage({
             </button>
           </div>
         )}
+
+        {/* ── Supplements ── */}
+        <section>
+          <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-1">Supplements</h2>
+          <p className="text-zinc-600 text-[11px] mb-4">
+            Expansion rule sets that add new units and options to the core game.
+          </p>
+          <div className="flex flex-wrap gap-3">
+
+            {/* Horus Heresy */}
+            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-red-900 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
+                  <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
+                </div>
+                <span className="text-[10px] border border-green-800 text-green-600 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Available</span>
+              </div>
+              <p className="text-zinc-500 text-[12px] leading-snug">
+                Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.
+              </p>
+              <button
+                onClick={() => onSelectFaction('horus_heresy')}
+                className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-red-900/20 border border-red-900/50 text-red-400 hover:bg-red-900/40 transition-colors"
+              >
+                Browse Supplement ▶
+              </button>
+            </div>
+
+            {/* Escalation — Coming Soon */}
+            <div className="bg-zinc-900 border-2 border-zinc-800 border-l-4 border-l-zinc-700 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2 opacity-60">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <div className="text-zinc-400 font-bold text-sm uppercase tracking-wide">Escalation</div>
+                  <div className="text-zinc-600 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
+                </div>
+                <span className="text-[10px] border border-zinc-700 text-zinc-600 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Coming Soon</span>
+              </div>
+              <p className="text-zinc-600 text-[12px] leading-snug">
+                Super-heavy vehicles, Lords of War, and Titans for all factions. New engagement rules for massive battles.
+              </p>
+              <div className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 border border-zinc-800 text-zinc-700 cursor-not-allowed">
+                Not Yet Available
+              </div>
+            </div>
+
+          </div>
+        </section>
       </div>
     </div>
   );

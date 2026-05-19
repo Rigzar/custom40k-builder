@@ -5,7 +5,7 @@ export interface ChangelogEntry {
   changes: string[];
 }
 
-export type IssueStatus = 'known' | 'investigating' | 'fixed';
+export type IssueStatus = 'known' | 'investigating' | 'fixed' | 'by_design' | 'planned';
 
 export interface KnownIssue {
   id: string;
@@ -19,34 +19,65 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-1',
     status: 'known',
-    title: 'Some units missing from a faction',
-    description: 'Not all units from every codex are in the app yet. We are adding them gradually from official sources.',
+    title: 'Some units are missing from certain factions',
+    description: 'Unit coverage is still being verified faction by faction. Factions with known gaps: Chaos Space Marines (some Daemon Engines), Imperial Guard (some vehicle squadrons), Necrons (some Canoptek units), Orks (some clan-specific units), Eldar (some Aspect Warrior variants). All others are being checked. Report a specific missing unit with the Bug button.',
   },
   {
     id: 'ki-2',
     status: 'known',
     title: 'Army data saves only in this browser',
-    description: 'Armies are stored in your browser\'s local storage. Clearing your browser data or switching devices will lose your saves. Use Export JSON to back up your rosters.',
+    description: 'Armies are stored in your browser\'s local storage. Clearing browser data or switching devices will lose your saves. Use Export JSON to back up rosters. A full account/cloud system is being considered for a future update.',
   },
   {
     id: 'ki-3',
     status: 'known',
-    title: 'Print layout varies by browser',
-    description: 'The print view is optimised for Chrome/Edge. In Firefox or Safari the card layout may shift slightly. Use "Print" in Chrome for best results.',
+    title: 'Print layout and app not optimised for mobile or non-Chrome browsers',
+    description: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
   },
   {
     id: 'ki-4',
-    status: 'known',
-    title: 'Allied units do not receive veteran traits',
-    description: 'Veteran traits only apply to units from the main faction. Allied detachment units intentionally skip trait costs.',
+    status: 'by_design',
+    title: 'Allied units do not receive the main faction\'s veteran traits',
+    description: 'This is intentional: veteran trait upgrades (e.g. Veterans of the Long War) apply only to units from your main faction. Allied detachment units belong to a separate faction and therefore do not take those upgrades. If you believe this contradicts a specific codex rule, use the Bug button to flag it.',
+  },
+  // ── Planned ───────────────────────────────────────────────────────────────
+  {
+    id: 'ki-p1',
+    status: 'planned',
+    title: 'Account system & cloud army storage',
+    description: 'A login/account system that lets you save armies in the cloud and access them from any device. Currently being designed — no release date yet.',
   },
   {
-    id: 'ki-5',
-    status: 'known',
-    title: 'Horus Heresy not available as a playable faction',
-    description: 'Horus Heresy Space Marines data exists for import compatibility but is not selectable in the faction list yet.',
+    id: 'ki-p2',
+    status: 'planned',
+    title: 'Escalation supplement — Lords of War',
+    description: 'A new supplement adding Lords of War, super-heavy vehicles and Titans across all factions. Will introduce a dedicated slot and special engagement rules. Coming in a future update.',
   },
   // ── Fixed ─────────────────────────────────────────────────────────────────
+  {
+    id: 'ki-f7',
+    status: 'fixed',
+    title: 'No visual feedback when adding an item in the Armory',
+    description: 'Fixed in v0.7 — the row now flashes green and shows ✓ Added when an item is selected.',
+  },
+  {
+    id: 'ki-f8',
+    status: 'fixed',
+    title: 'Unit print card showed all possible weapons, not just equipped ones',
+    description: 'Fixed in v0.7 — cards now show only default equipment plus whatever optional weapons were selected.',
+  },
+  {
+    id: 'ki-f9',
+    status: 'fixed',
+    title: 'Print view showed "pitched" instead of "Pitched Battle"',
+    description: 'Fixed in v0.7 — Engagement Type now shows the full display name for all engagement types.',
+  },
+  {
+    id: 'ki-f3',
+    status: 'fixed',
+    title: 'Pitched Battle default was 3000 pts instead of 2500',
+    description: 'Fixed in v0.7 — a store migration corrects saved rosters that still had 3000 pts stored in the browser.',
+  },
   {
     id: 'ki-f1',
     status: 'fixed',
@@ -58,12 +89,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     status: 'fixed',
     title: 'Refreshing the page sent you back to the home screen',
     description: 'Fixed in v0.6 — refreshing now returns you to the builder with your faction and army intact.',
-  },
-  {
-    id: 'ki-f3',
-    status: 'fixed',
-    title: 'Pitched Battle default was 3000 pts instead of 2500',
-    description: 'Fixed in v0.7.1 — a data migration now corrects saved rosters that still had 3000 pts stored in the browser.',
   },
   {
     id: 'ki-f4',
@@ -83,19 +108,24 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Daemon ability numbers (1–6) appeared as unit abilities in print',
     description: 'Fixed in v0.6 — standalone dice-result numbers are filtered out from the ability list.',
   },
-  {
-    id: 'ki-f7',
-    status: 'fixed',
-    title: 'No visual feedback when adding an item in the Armory',
-    description: 'Fixed in v0.7 — the row now flashes green and shows ✓ Added when an item is selected.',
-  },
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.8',
+    date: '2026-05-19',
+    title: 'Slot icons & supplements section',
+    changes: [
+      'Added: Slot icons (HQ, Troops, Elites, Fast Attack, Heavy Support, Transport, Fortifications, Flyers) appear in the unit catalogue and on print cards',
+      'Added: Supplements section on the home screen — Horus Heresy is now listed as a browsable supplement',
+      'Added: Escalation supplement teaser (Lords of War) — coming soon',
+      'Added: Known Issues improvements — By Design and Planned categories; more specific faction gaps listed',
+    ],
+  },
+  {
     version: '0.7',
     date: '2026-05-19',
-    title: 'Armory feedback, Known Issues & header cleanup',
+    title: 'Armory feedback, Known Issues tab & weapon fix',
     changes: [
       'Added: Visual feedback in the Armory modal — the row flashes green and shows ✓ Added when an item is selected',
       'Added: Known Issues tab in the Updates modal — lists ongoing limitations and already-fixed bugs so users don\'t report duplicates',
