@@ -60,6 +60,7 @@ export interface Unit {
   keywords: string[];
   is_vehicle: boolean;
   is_character: boolean;
+  is_monster: boolean;
   is_psyker: boolean;
   is_priest?: boolean;
   is_squadron?: boolean;
@@ -119,6 +120,7 @@ export interface Trait {
   desc: string;
   pts_unit: string | null;
   pts_char: string | null;
+  pts_monster: string | null;
   pts_veh: string | null;
   /** True for traits whose description says the army must select a second Legacy. */
   enables_second_legacy?: boolean;

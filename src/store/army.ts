@@ -20,6 +20,7 @@ function parseTraitPts(raw: string | null | undefined): number | null {
 function isArmyOnlyTrait(t: Trait): boolean {
   return parseTraitPts(t.pts_unit) === null
     && parseTraitPts(t.pts_char) === null
+    && parseTraitPts(t.pts_monster) === null
     && parseTraitPts(t.pts_veh) === null;
 }
 
@@ -61,6 +62,7 @@ function applyArmyTraits(
         if (!def) return null;
         const raw = unit.is_vehicle ? def.pts_veh
           : unit.is_character ? def.pts_char
+          : unit.is_monster ? def.pts_monster
           : def.pts_unit;
         const pts = parseTraitPts(raw);
         if (pts === null) return null; // trait cost is "-" for this unit type

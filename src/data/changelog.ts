@@ -51,7 +51,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-12',
     status: 'fixed',
     title: 'Trait costs marked with * were not calculated per Wound',
-    description: 'Fixed in v0.11 — traits with a * cost (e.g. "Iron Within, Iron Without" in CSM: 2*, "Purity of Faith" in Space Marines: 2*) now correctly calculate as points × Wounds × unit size instead of a flat fee.',
+    description: 'Fixed in v0.11 — all trait costs now multiply by unit size (a 5-pt trait on 5 models = 25 pts). Traits marked with * additionally multiply by Wounds per model (e.g. "Iron Within, Iron Without" CSM: 2* = 2 × W × size).',
   },
   // ── Planned ───────────────────────────────────────────────────────────────
   {
@@ -142,7 +142,10 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: 'Chaos Daemons archetype fix & trait per-Wound cost',
     changes: [
       'Fixed: Chaos Daemons archetype dropdown no longer shows footnote constraints ("ᴷ Only for models with Mark of Khorne" etc.) as selectable archetypes',
-      'Fixed: Trait costs marked with * now correctly calculate as points × Wounds × unit size instead of a flat fee',
+      'Fixed: Trait costs are now correctly multiplied by unit size — a 5-pt trait on a 5-model unit adds 25 pts, not 5',
+      'Fixed: Trait costs marked with * additionally multiply by Wounds (or HP for vehicles) per model',
+      'Fixed: Monstrous Creatures now use their own trait cost column — separate from normal infantry and vehicles',
+      'Fixed: Vehicle trait costs now read from the correct column in the source data (was reading the Monster/Creature column)',
       'Tracking: Poison stacking rule (take the higher value) — under investigation',
     ],
   },

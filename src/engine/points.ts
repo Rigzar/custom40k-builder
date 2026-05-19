@@ -77,7 +77,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit): number {
       const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
       total += t.points * woundsPerModel * item.size;
     } else {
-      total += t.points;
+      total += t.points * item.size;
     }
   }
 
