@@ -15,6 +15,7 @@ export interface KnownIssue {
 }
 
 export const KNOWN_ISSUES: KnownIssue[] = [
+  // ── Open ──────────────────────────────────────────────────────────────────
   {
     id: 'ki-1',
     status: 'known',
@@ -44,6 +45,49 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     status: 'known',
     title: 'Horus Heresy not available as a playable faction',
     description: 'Horus Heresy Space Marines data exists for import compatibility but is not selectable in the faction list yet.',
+  },
+  // ── Fixed ─────────────────────────────────────────────────────────────────
+  {
+    id: 'ki-f1',
+    status: 'fixed',
+    title: 'Print view showed a blank page',
+    description: 'Fixed in v0.6 — the roster now opens in a new window and prints correctly.',
+  },
+  {
+    id: 'ki-f2',
+    status: 'fixed',
+    title: 'Refreshing the page sent you back to the home screen',
+    description: 'Fixed in v0.6 — refreshing now returns you to the builder with your faction and army intact.',
+  },
+  {
+    id: 'ki-f3',
+    status: 'fixed',
+    title: 'Pitched Battle default was 3000 pts instead of 2500',
+    description: 'Fixed in v0.6 — default point limit is now 2500 and slot limits match the rules (Troops 2–6, Elites/FA/HS 0–3).',
+  },
+  {
+    id: 'ki-f4',
+    status: 'fixed',
+    title: 'Army name from previous faction appeared in new faction',
+    description: 'Fixed in v0.6 — switching factions now clears the army name.',
+  },
+  {
+    id: 'ki-f5',
+    status: 'fixed',
+    title: 'Troops slot showed "Raptors/Legionnaires" for non-CSM factions',
+    description: 'Fixed in v0.6 — the label now only appears for Chaos Space Marines.',
+  },
+  {
+    id: 'ki-f6',
+    status: 'fixed',
+    title: 'Daemon ability numbers (1–6) appeared as unit abilities in print',
+    description: 'Fixed in v0.6 — standalone dice-result numbers are filtered out from the ability list.',
+  },
+  {
+    id: 'ki-f7',
+    status: 'fixed',
+    title: 'No visual feedback when adding an item in the Armory',
+    description: 'Fixed in v0.7 — the row now flashes green and shows ✓ Added when an item is selected.',
   },
 ];
 

@@ -78,21 +78,42 @@ export function ChangelogModal({ onClose }: Props) {
         )}
 
         {tab === 'issues' && (
-          <div className="p-4 space-y-3">
-            <p className="text-zinc-500 text-[12px] mb-4">
-              These are limitations we already know about — no need to report them again. Use the Bug button for anything not listed here.
+          <div className="p-4 space-y-4">
+            <p className="text-zinc-500 text-[12px]">
+              Check here before reporting a bug — if it's listed as Fixed or Known we already have it covered.
             </p>
-            {KNOWN_ISSUES.map(issue => (
-              <div key={issue.id} className="bg-zinc-800 border border-zinc-700 p-3">
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <span className="text-zinc-200 text-sm font-semibold leading-snug">{issue.title}</span>
-                  <span className={`text-[10px] uppercase tracking-wide border px-1.5 py-0.5 shrink-0 ${STATUS_COLOR[issue.status]}`}>
-                    {STATUS_LABEL[issue.status]}
-                  </span>
+
+            {/* Open issues */}
+            <div className="space-y-2">
+              <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">Open</h4>
+              {KNOWN_ISSUES.filter(i => i.status !== 'fixed').map(issue => (
+                <div key={issue.id} className="bg-zinc-800 border border-zinc-700 p-3">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <span className="text-zinc-200 text-sm font-semibold leading-snug">{issue.title}</span>
+                    <span className={`text-[10px] uppercase tracking-wide border px-1.5 py-0.5 shrink-0 ${STATUS_COLOR[issue.status]}`}>
+                      {STATUS_LABEL[issue.status]}
+                    </span>
+                  </div>
+                  <p className="text-zinc-500 text-[12px] leading-snug">{issue.description}</p>
                 </div>
-                <p className="text-zinc-500 text-[12px] leading-snug">{issue.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Fixed issues */}
+            <div className="space-y-2">
+              <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">Already Fixed</h4>
+              {KNOWN_ISSUES.filter(i => i.status === 'fixed').map(issue => (
+                <div key={issue.id} className="bg-zinc-900 border border-zinc-800 p-3 opacity-70">
+                  <div className="flex items-start justify-between gap-2 mb-1">
+                    <span className="text-zinc-400 text-sm font-semibold leading-snug line-through">{issue.title}</span>
+                    <span className={`text-[10px] uppercase tracking-wide border px-1.5 py-0.5 shrink-0 ${STATUS_COLOR[issue.status]}`}>
+                      {STATUS_LABEL[issue.status]}
+                    </span>
+                  </div>
+                  <p className="text-zinc-600 text-[12px] leading-snug">{issue.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
