@@ -729,15 +729,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
 
   return (
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#1a1a1e' }}>
-      <style>{`
-        @media print {
-          body, #root { background: #fff !important; }
-          body > *:not(#root), #root > *:not(#pv-root) { display: none !important; }
-          #pv-root { position: static !important; overflow: visible !important; height: auto !important; background: #fff !important; }
-        }
-      `}</style>
-
-      {/* Toolbar — hidden on print */}
+      {/* Toolbar */}
       <div className="print:hidden sticky top-0 z-10 bg-zinc-900 border-b border-zinc-700 px-4 py-2 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="text-amber-400 font-bold text-sm uppercase tracking-widest">{data.faction}</span>
@@ -746,7 +738,16 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           {legacy && <span className="text-zinc-500 text-xs">{legacy}{legacy2 ? ` · ${legacy2}` : ''}</span>}
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => window.print()}
+          <button onClick={() => {
+              const el = document.getElementById('pv-printable');
+              if (!el) return;
+              const win = window.open('', '_blank');
+              if (!win) return;
+              win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Army Roster</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Trebuchet MS',sans-serif;background:#fff;padding:16px}@media print{body{padding:0}}</style></head><body>${el.innerHTML}</body></html>`);
+              win.document.close();
+              win.focus();
+              setTimeout(() => { win.print(); }, 400);
+            }}
             className="px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-sm uppercase tracking-wide transition-colors">
             Print
           </button>
@@ -758,7 +759,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Printable area */}
-      <div className="max-w-3xl mx-auto px-4 py-6 print:px-0 print:py-0 print:max-w-none"
+      <div id="pv-printable" className="max-w-3xl mx-auto px-4 py-6"
         style={{ background: '#fff', minHeight: '100vh' }}>
 
         {army.length > 0 && (
