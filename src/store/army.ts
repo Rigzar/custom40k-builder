@@ -81,6 +81,10 @@ export interface ArmyStore extends ArmyState {
   data: FactionData | null;
   setData: (d: FactionData) => void;
 
+  alliedData: FactionData | null;
+  setAlliedData: (d: FactionData | null) => void;
+  setAlliedFaction: (key: string | null) => void;
+
   setArmyName: (n: string) => void;
   setEngagement: (e: EngagementType) => void;
   setPointLimit: (n: number) => void;
@@ -128,6 +132,7 @@ export const useArmyStore = create<ArmyStore>()(
     (set, get) => ({
       ...defaultState,
       data: null,
+      alliedData: null,
 
       setData: (d: FactionData) => set(s => {
         // When loading a different faction, reset all army-specific state so
@@ -143,9 +148,26 @@ export const useArmyStore = create<ArmyStore>()(
             legacy2: '',
             traitPool: [],
             hqMark: 'Undivided' as Mark,
+            alliedFaction: undefined,
+            alliedData: null,
           };
         }
         return { data: d };
+      }),
+
+      setAlliedData: (d) => set((s) => {
+        if (!d || !s.alliedFaction || !s.data) return { alliedData: d };
+        const newData: FactionData = {
+          ...s.data,
+          allied: { ...(s.data.allied ?? {}), [s.alliedFaction]: { slot_to_units: d.slot_to_units, units: d.units } },
+        };
+        return { alliedData: d, data: newData };
+      }),
+
+      setAlliedFaction: (key) => set((s) => {
+        const prev = s.alliedFaction;
+        const army = prev ? s.army.filter(e => e.factionSource !== prev) : s.army;
+        return { alliedFaction: key ?? undefined, alliedData: null, army };
       }),
 
       setArmyName: (n: string) => set({ armyName: n }),
@@ -275,7 +297,7 @@ export const useArmyStore = create<ArmyStore>()(
         } catch { /* ignore malformed */ }
       },
 
-      clearArmy: () => set({ ...defaultState, data: get().data }),
+      clearArmy: () => set({ ...defaultState, data: get().data, alliedData: null }),
     }),
     {
       name: 'custom40k-army',
@@ -294,6 +316,7 @@ export const useArmyStore = create<ArmyStore>()(
         armyName: s.armyName, faction: s.faction, engagement: s.engagement,
         pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
         legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, army: s.army,
+        alliedFaction: s.alliedFaction,
       }),
     }
   )

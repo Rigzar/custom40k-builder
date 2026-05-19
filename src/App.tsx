@@ -8,6 +8,7 @@ import { ReferencePanel } from './components/ReferencePanel';
 import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
 import { PrintView } from './components/PrintView';
+import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import type { FactionData } from './types/data';
@@ -138,7 +139,8 @@ function HeaderStatus() {
 export default function App() {
   const store = useArmyStore();
   const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
-          hqMark, archetype, legacy, legacy2, traitPool, importRoster } = store;
+          hqMark, archetype, legacy, legacy2, traitPool, importRoster,
+          alliedFaction, setAlliedData } = store;
 
   const [page, setPage]                         = useState<Page>('landing');
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(
@@ -156,34 +158,35 @@ export default function App() {
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 
+  // Shared faction data loaders (used for both primary and allied faction loading)
+  const loaders: Record<string, () => Promise<unknown>> = {
+    chaos_space_marines:  () => import('../data/parsed/chaos_space_marines.json'),
+    chaos_daemons:        () => import('../data/parsed/chaos_daemons.json'),
+    space_marines:        () => import('../data/parsed/space_marines.json'),
+    imperial_guard:       () => import('../data/parsed/imperial_guard.json'),
+    adeptus_mechanicus:   () => import('../data/parsed/adeptus_mechanicus.json'),
+    adeptus_custodes:     () => import('../data/parsed/adeptus_custodes.json'),
+    adeptus_sororitas:    () => import('../data/parsed/adeptus_sororitas.json'),
+    grey_knights:         () => import('../data/parsed/grey_knights.json'),
+    inquisition:          () => import('../data/parsed/inquisition.json'),
+    assassins:            () => import('../data/parsed/assassins.json'),
+    tau_empire:           () => import('../data/parsed/tau_empire.json'),
+    necrons:              () => import('../data/parsed/necrons.json'),
+    orks:                 () => import('../data/parsed/orks.json'),
+    eldar:                () => import('../data/parsed/eldar.json'),
+    dark_eldar:           () => import('../data/parsed/dark_eldar.json'),
+    genestealer_cults:    () => import('../data/parsed/genestealer_cults.json'),
+    harlequins:           () => import('../data/parsed/harlequins.json'),
+    leagues_of_votann:    () => import('../data/parsed/leagues_of_votann.json'),
+    tyranids:             () => import('../data/parsed/tyranids.json'),
+    horus_heresy:         () => import('../data/parsed/horus_heresy.json'),
+  };
+
   // Faction loader
   useEffect(() => {
     if (!selectedFaction) return;
     sessionStorage.setItem('selectedFaction', selectedFaction);
     setLoadingFaction(true);
-
-    const loaders: Record<string, () => Promise<unknown>> = {
-      chaos_space_marines:  () => import('../data/parsed/chaos_space_marines.json'),
-      chaos_daemons:        () => import('../data/parsed/chaos_daemons.json'),
-      space_marines:        () => import('../data/parsed/space_marines.json'),
-      imperial_guard:       () => import('../data/parsed/imperial_guard.json'),
-      adeptus_mechanicus:   () => import('../data/parsed/adeptus_mechanicus.json'),
-      adeptus_custodes:     () => import('../data/parsed/adeptus_custodes.json'),
-      adeptus_sororitas:    () => import('../data/parsed/adeptus_sororitas.json'),
-      grey_knights:         () => import('../data/parsed/grey_knights.json'),
-      inquisition:          () => import('../data/parsed/inquisition.json'),
-      assassins:            () => import('../data/parsed/assassins.json'),
-      tau_empire:           () => import('../data/parsed/tau_empire.json'),
-      necrons:              () => import('../data/parsed/necrons.json'),
-      orks:                 () => import('../data/parsed/orks.json'),
-      eldar:                () => import('../data/parsed/eldar.json'),
-      dark_eldar:           () => import('../data/parsed/dark_eldar.json'),
-      genestealer_cults:    () => import('../data/parsed/genestealer_cults.json'),
-      harlequins:           () => import('../data/parsed/harlequins.json'),
-      leagues_of_votann:    () => import('../data/parsed/leagues_of_votann.json'),
-      tyranids:             () => import('../data/parsed/tyranids.json'),
-      horus_heresy:         () => import('../data/parsed/horus_heresy.json'),
-    };
 
     const loader = loaders[selectedFaction];
     if (!loader) { setLoadingFaction(false); return; }
@@ -210,6 +213,20 @@ export default function App() {
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFaction]);
+
+  // Allied faction data loader — watches alliedFaction and injects data into the store
+  useEffect(() => {
+    if (!alliedFaction) {
+      setAlliedData(null);
+      return;
+    }
+    const loader = loaders[alliedFaction];
+    if (!loader) return;
+    loader()
+      .then(m => setAlliedData((m as { default: unknown }).default as FactionData))
+      .catch(e => console.error('Error loading allied faction data', e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [alliedFaction]);
 
   function handleBuild() {
     // Auto-assign name if empty
@@ -348,6 +365,10 @@ export default function App() {
         <aside className="space-y-2">
           <CollapsiblePanel title="Unit Catalogue" defaultOpen>
             <SlotPanel />
+          </CollapsiblePanel>
+
+          <CollapsiblePanel title="Allied Detachment" defaultOpen>
+            <AlliedDetachmentPanel primaryFaction={selectedFaction} />
           </CollapsiblePanel>
 
           <CollapsiblePanel title="Configuration">

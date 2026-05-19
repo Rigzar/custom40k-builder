@@ -56,4 +56,5 @@ export interface ArmyState {
   legacy2: string;
   traitPool: string[];
   army: RosterEntry[];
+  alliedFaction?: string;
 }

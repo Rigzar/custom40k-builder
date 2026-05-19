@@ -56,9 +56,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ── Planned ───────────────────────────────────────────────────────────────
   {
     id: 'ki-p3',
-    status: 'planned',
+    status: 'fixed',
     title: 'Allied detachment — add a second faction as allies in the same list',
-    description: 'The ability to include a detachment from a second faction in the same army list. Currently you need two separate armies. This is a nice-to-have feature, not blocking.',
+    description: 'Implemented in v0.13 — a full Allied Detachment panel lets you pick a second faction as allies, shows their relationship (Battle Brothers / Allies of Convenience / Desperate Allies), and provides a mini force org (0–1 HQ, 1–2 Troops, 0–1 Elites/FA/HS). Allied units are validated separately from the main force org.',
   },
   {
     id: 'ki-p1',
@@ -136,6 +136,19 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.13',
+    date: '2026-05-19',
+    title: 'Allied detachment system',
+    changes: [
+      'New: Allied Detachment panel in the sidebar — pick a second faction as allies with a mini force org (0–1 HQ, 1–2 Troops, 0–1 Elites / Fast Attack / Heavy Support, 0–3 Transports)',
+      'New: 16×16 Allied Matrix — shows Battle Brothers (green), Allies of Convenience (yellow) and Desperate Allies (red) with full relationship descriptions',
+      'New: Allied faction data is loaded on demand and injected into the store so resolveUnit can find allied units',
+      'New: Allied AOP validation is separate from the main force org — allied units do not count toward main slot mins/maxes',
+      'New: Removing an allied faction or switching primary faction clears all allied units automatically',
+      'New: Elites / Fast Attack / Heavy Support in the allied detachment are limited to 1 per Troop unit taken',
+    ],
+  },
   {
     version: '0.12',
     date: '2026-05-19',

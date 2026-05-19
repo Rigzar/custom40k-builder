@@ -26,6 +26,18 @@ export interface Engagement {
   notes: string;
 }
 
+/** Mini-AOP for allied detachments. */
+export const ALLIED_AOP: AopLimits = {
+  HQ:                    [0, 1],
+  Troops:                [1, 2],
+  Elites:                [0, 1],
+  'Fast Attack':         [0, 1],
+  'Heavy Support':       [0, 1],
+  'Dedicated Transport': [0, 3],
+  Fortifications:        [0, 0],
+  Flyers:                [0, 0],
+};
+
 export const ENGAGEMENTS: Record<string, Engagement> = {
   skirmish: {
     name: 'Skirmish', range: '1000–1500 pts', default: 1250,
