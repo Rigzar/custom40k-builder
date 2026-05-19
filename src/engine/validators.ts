@@ -272,8 +272,8 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         return s + (u ? computeUnitPoints(i, u) : 0);
       }, 0);
     const ratio = troopsPts / total;
-    const label = rule?.troopsCount !== 'all'
-      ? `Qualifying Troops (${rule?.troopsCount === 'locked' ? 'locked mark' : 'Raptors/Legionnaires'})`
+    const label = (rule && rule.troopsCount !== 'all')
+      ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : 'Raptors/Legionnaires'})`
       : 'Troops';
     if (ratio < eng.minTroopsRatio) {
       items.push({

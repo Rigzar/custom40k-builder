@@ -9,13 +9,15 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '0.6',
     date: '2026-05-19',
-    title: 'Bug fixes — refresh, print, slots & points',
+    title: 'Bug fixes — refresh, print, slots & names',
     changes: [
       'Fixed: Refreshing the page now returns to the builder instead of the landing page',
       'Fixed: Print view was showing a blank page — CSS corrected',
       'Fixed: Standalone numbers (1–6 from D6 result tables) no longer appear as abilities in the print view',
       'Fixed: Pitched Battle default points changed from 3000 to 2500',
       'Fixed: Pitched Battle slot limits — Troops up to 6, Elites / Fast Attack / Heavy Support up to 3',
+      'Fixed: Troops validation label no longer shows "Raptors/Legionnaires" for non-CSM factions',
+      'Fixed: Army name from a previous session no longer carries over when switching factions',
     ],
   },
   {

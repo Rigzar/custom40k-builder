@@ -109,7 +109,7 @@ const defaultState: ArmyState = {
   armyName: '',
   faction: 'Chaos Space Marines',
   engagement: 'pitched',
-  pointLimit: 3000,
+  pointLimit: 2500,
   hqMark: 'Undivided',
   archetype: '',
   legacy: '',
@@ -134,6 +134,7 @@ export const useArmyStore = create<ArmyStore>()(
           return {
             data: d,
             army: [],
+            armyName: '',
             archetype: '',
             legacy: '',
             legacy2: '',
