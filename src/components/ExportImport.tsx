@@ -156,14 +156,9 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
             Import JSON
           </button>
           <span className="text-zinc-700 text-[10px]">·</span>
-          <a
-            href="https://github.com/Rigzar/custom40k-builder/issues/new?labels=bug"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[10px] text-zinc-600 hover:text-zinc-400 underline underline-offset-2"
-          >
-            Report a bug
-          </a>
+          <span className="text-[10px] text-zinc-600">
+            Use the <span className="text-red-500/70">Bug</span> button in the header to report issues
+          </span>
         </div>
       )}
     </div>
