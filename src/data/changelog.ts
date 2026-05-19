@@ -34,7 +34,32 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Print layout and app not optimised for mobile or non-Chrome browsers',
     description: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
   },
+  // ── Open / Investigating ──────────────────────────────────────────────────
+  {
+    id: 'ki-10',
+    status: 'fixed',
+    title: 'Grey Knights could not select Inquisition units',
+    description: 'Fixed in v0.10 — all 13 Inquisition units now appear in the Grey Knights unit catalogue under their respective slots, with [Allied] label.',
+  },
+  {
+    id: 'ki-11',
+    status: 'known',
+    title: 'Special rule descriptions show name only — no rules text',
+    description: 'Some abilities (e.g. "Fearless", "Infiltrate", "Aegis(5+)") appear as names without their full rules text. Other abilities do include the description. A Core Rules glossary is needed to fill in the missing descriptions.',
+  },
+  {
+    id: 'ki-12',
+    status: 'investigating',
+    title: 'Trait costs marked with * may not be calculated per model',
+    description: 'Some traits (e.g. "Iron Within, Iron Without" in CSM) have costs listed as "2*" or "5*" in the source data, which may indicate a per-model cost. Currently the asterisk is ignored and a flat cost is applied. Verifying the correct rule interpretation.',
+  },
   // ── Planned ───────────────────────────────────────────────────────────────
+  {
+    id: 'ki-p3',
+    status: 'planned',
+    title: 'Allied detachment — add a second faction as allies in the same list',
+    description: 'The ability to include a detachment from a second faction in the same army list. Currently you need two separate armies. This is a nice-to-have feature, not blocking.',
+  },
   {
     id: 'ki-p1',
     status: 'planned',
@@ -105,6 +130,17 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.10',
+    date: '2026-05-19',
+    title: 'GK + Inquisition allies, known issue tracking',
+    changes: [
+      'Fixed: Grey Knights can now select Inquisition units directly — all 13 Inquisition units available in the GK unit catalogue without a separate army',
+      'Tracking: Ability descriptions missing for reference-only rules (e.g. "Fearless" with no text)',
+      'Tracking: Trait costs marked with * (per-model multiplier) under investigation',
+      'Tracking: Allied detachment (second army in same list) added to pipeline',
+    ],
+  },
   {
     version: '0.9',
     date: '2026-05-19',

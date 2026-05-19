@@ -81,17 +81,31 @@ export function SlotPanel() {
         if (!u) continue;
 
         if (rule.alliedMarkFilter === 'forced') {
-          // Only units whose locked_mark matches the forced mark
           if (!u.locked_mark || u.locked_mark !== rule.forcedMark) continue;
         } else if (rule.alliedMarkFilter === 'hq_mark') {
-          // Units with matching locked_mark or no locked mark
           if (u.locked_mark && u.locked_mark !== hqMark) continue;
         }
-        // 'all': no filter
 
         const effSlot = getEffectiveSlot(name, originalSlot, rule);
         if (effectiveSlotUnits[effSlot]) {
           effectiveSlotUnits[effSlot].push({ name, factionSource: rule.alliedFaction, minCost: u.min_cost });
+        }
+      }
+    }
+  }
+
+  // Base allied factions — always available regardless of archetype (e.g. GK + Inquisition)
+  for (const alliedKey of data.base_allied ?? []) {
+    if (rule?.alliedFaction === alliedKey) continue; // already handled above
+    const alliedData = data.allied?.[alliedKey];
+    if (!alliedData) continue;
+    for (const [originalSlot, names] of Object.entries(alliedData.slot_to_units)) {
+      for (const name of names) {
+        const u = alliedData.units[name];
+        if (!u) continue;
+        const effSlot = getEffectiveSlot(name, originalSlot, rule);
+        if (effectiveSlotUnits[effSlot]) {
+          effectiveSlotUnits[effSlot].push({ name, factionSource: alliedKey, minCost: u.min_cost });
         }
       }
     }

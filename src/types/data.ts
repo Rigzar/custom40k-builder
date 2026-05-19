@@ -162,4 +162,6 @@ export interface FactionData {
   daemonkin: Record<string, DaemonkinGod>;
   /** Allied faction data keyed by faction slug (e.g. 'chaos_daemons') */
   allied?: Record<string, AlliedFaction>;
+  /** Allied factions always available regardless of archetype (e.g. GK + Inquisition) */
+  base_allied?: string[];
 }
