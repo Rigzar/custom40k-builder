@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 
-type Mode = 'exportJson' | 'importJson' | 'exportCode' | 'importCode' | null;
+type Mode = 'importJson' | 'exportCode' | 'importCode' | null;
 
 function toCode(obj: unknown): string {
   return btoa(unescape(encodeURIComponent(JSON.stringify(obj))));
@@ -11,7 +11,7 @@ function fromCode(code: string): unknown {
   return JSON.parse(decodeURIComponent(escape(atob(code.trim()))));
 }
 
-export function ExportImport() {
+export function ExportImport({ onPrint }: { onPrint?: () => void }) {
   const {
     army, engagement, hqMark, archetype, legacy, legacy2,
     traitPool, faction, pointLimit, armyName, importRoster, clearArmy,
@@ -23,15 +23,19 @@ export function ExportImport() {
 
   const stateSnapshot = { armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army };
 
-  function doExportJson() {
-    setText(JSON.stringify(stateSnapshot, null, 2));
-    setMode('exportJson');
+  function doExportCode() {
+    setText(toCode(stateSnapshot));
+    setMode('exportCode');
   }
 
-  function doExportCode() {
-    const code = toCode(stateSnapshot);
-    setText(code);
-    setMode('exportCode');
+  function doDownloadJson() {
+    const blob = new Blob([JSON.stringify(stateSnapshot, null, 2)], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `${armyName || faction || 'army'}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   async function copyToClipboard() {
@@ -71,11 +75,19 @@ export function ExportImport() {
           Import Code
         </button>
         <button
-          onClick={doExportJson}
+          onClick={doDownloadJson}
           className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-zinc-600 text-zinc-500 hover:bg-zinc-700 uppercase tracking-wide"
         >
-          JSON
+          ↓ JSON
         </button>
+        {onPrint && (
+          <button
+            onClick={onPrint}
+            className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-zinc-600 text-zinc-500 hover:bg-zinc-700 uppercase tracking-wide"
+          >
+            Print
+          </button>
+        )}
         <button
           onClick={() => { if (confirm('Clear the entire army?')) clearArmy(); }}
           className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-red-800 text-red-400 hover:bg-red-900/30 uppercase tracking-wide"
@@ -84,8 +96,8 @@ export function ExportImport() {
         </button>
       </div>
 
-      {/* Export: Code or JSON */}
-      {(mode === 'exportCode' || mode === 'exportJson') && (
+      {/* Export Code */}
+      {mode === 'exportCode' && (
         <div className="space-y-2">
           <textarea
             id="export-textarea"
@@ -104,15 +116,11 @@ export function ExportImport() {
           >
             {copied ? 'Copied!' : 'Copy to clipboard'}
           </button>
-          <p className="text-[10px] text-zinc-600">
-            {mode === 'exportCode'
-              ? 'Share this code with anyone — paste it with "Import Code" on any device.'
-              : 'Full JSON for backup or manual editing.'}
-          </p>
+          <p className="text-[10px] text-zinc-600">Share this code with anyone — paste it with "Import Code" on any device.</p>
         </div>
       )}
 
-      {/* Import: Code or JSON */}
+      {/* Import Code or JSON */}
       {(mode === 'importCode' || mode === 'importJson') && (
         <div className="space-y-2">
           <textarea
@@ -138,14 +146,25 @@ export function ExportImport() {
         </div>
       )}
 
-      {/* Import JSON button — tucked away for power users */}
+      {/* Footer links */}
       {!mode && (
-        <button
-          onClick={() => { setText(''); setMode('importJson'); }}
-          className="text-[10px] text-zinc-600 hover:text-zinc-400 underline underline-offset-2"
-        >
-          Import JSON
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => { setText(''); setMode('importJson'); }}
+            className="text-[10px] text-zinc-600 hover:text-zinc-400 underline underline-offset-2"
+          >
+            Import JSON
+          </button>
+          <span className="text-zinc-700 text-[10px]">·</span>
+          <a
+            href="https://github.com/Rigzar/custom40k-builder/issues/new?labels=bug"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-zinc-600 hover:text-zinc-400 underline underline-offset-2"
+          >
+            Report a bug
+          </a>
+        </div>
       )}
     </div>
   );

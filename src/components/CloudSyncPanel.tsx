@@ -130,5 +130,5 @@ const SQL_SETUP = `CREATE TABLE army_saves (
   updated_at timestamptz DEFAULT now()
 );
 ALTER TABLE army_saves ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "public" ON army_saves
-  FOR ALL USING (true) WITH CHECK (true);`;
+CREATE POLICY "public_select" ON army_saves FOR SELECT USING (true);
+CREATE POLICY "public_insert" ON army_saves FOR INSERT WITH CHECK (true);`;

@@ -14,7 +14,7 @@ import type { FactionData } from './types/data';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { ChangelogModal } from './components/ChangelogModal';
-import { CloudSyncPanel } from './components/CloudSyncPanel';
+import { BugReportModal } from './components/BugReportModal';
 
 type Page = 'landing' | 'builder';
 
@@ -145,6 +145,7 @@ export default function App() {
   const [showPrint, setShowPrint]               = useState(false);
   const [showArmies, setShowArmies]             = useState(false);
   const [showChangelog, setShowChangelog]       = useState(false);
+  const [showBugReport, setShowBugReport]       = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad = useRef<SavedArmy | null>(null);
 
@@ -319,6 +320,12 @@ export default function App() {
               Updates
             </button>
             <button
+              onClick={() => setShowBugReport(true)}
+              className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
+            >
+              Bug
+            </button>
+            <button
               onClick={() => setPage('landing')}
               className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
             >
@@ -347,8 +354,7 @@ export default function App() {
             <div className="text-[11px] uppercase tracking-widest text-amber-600 py-2 border-b border-zinc-700 mb-1">
               Army
             </div>
-            <ExportImport />
-            <CloudSyncPanel />
+            <ExportImport onPrint={() => setShowPrint(true)} />
           </div>
         </aside>
 
@@ -361,6 +367,12 @@ export default function App() {
       {showPrint    && <PrintView onClose={() => setShowPrint(false)} />}
       {showArmies   && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
       {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
+      {showBugReport && (
+        <BugReportModal
+          onClose={() => setShowBugReport(false)}
+          currentFaction={selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : undefined}
+        />
+      )}
 
       {showRef && !showArmies && !showChangelog && (
         <div

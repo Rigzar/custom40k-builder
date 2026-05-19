@@ -23,11 +23,17 @@ export function ChangelogModal({ onClose }: Props) {
                 <span className="text-zinc-600 text-[11px] ml-auto">{entry.date}</span>
               </div>
               <ul className="space-y-1 pl-3 border-l border-zinc-700">
-                {entry.changes.map((c, i) => (
-                  <li key={i} className="text-[12px] text-zinc-400 leading-snug">
-                    <span className="text-amber-800 mr-1">—</span>{c}
-                  </li>
-                ))}
+                {entry.changes.map((c, i) => {
+                  const isAdded   = c.startsWith('Added:');
+                  const isRemoved = c.startsWith('Removed:');
+                  const isFixed   = c.startsWith('Fixed:');
+                  const color = isAdded ? 'text-green-500' : isRemoved ? 'text-red-500' : isFixed ? 'text-blue-400' : 'text-amber-800';
+                  return (
+                    <li key={i} className="text-[12px] text-zinc-400 leading-snug">
+                      <span className={`${color} mr-1`}>—</span>{c}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
