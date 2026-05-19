@@ -102,6 +102,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Fixed: "Updates" button removed from the builder header (it remains on the home screen)',
       'Fixed: Pitched Battle default points now correctly migrates saved rosters from 3000 to 2500 pts on first load',
       'Fixed: Print view showed "pitched" instead of "Pitched Battle" under Engagement Type (affected all factions)',
+      'Fixed: Unit cards in the print view now show only default equipment + selected optional weapons, not all possible weapons in the entry',
     ],
   },
   {

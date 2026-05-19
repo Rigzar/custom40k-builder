@@ -214,8 +214,30 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     ? [variant, ...u.models.filter(m => m.max > 0).slice(1)]
     : u.models.filter(m => m.max > 0);
 
-  const defaultRanged = u.weapons.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
-  const defaultMelee  = u.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee');
+  // Weapons that appear as choices in any option group are optional — only show if selected.
+  // Weapons not in any option group are always-equipped default gear.
+  const optionalWeaponNames = new Set<string>();
+  for (const g of u.option_groups) {
+    for (const c of g.choices) {
+      if (u.weapons.some(w => w.name === c.name)) optionalWeaponNames.add(c.name);
+    }
+  }
+  const selectedWeaponNames = new Set<string>();
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = u.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      const choice = g.choices[parseInt(ci)];
+      if (choice && optionalWeaponNames.has(choice.name)) selectedWeaponNames.add(choice.name);
+    }
+  }
+  const weaponsToShow = u.weapons.filter(w =>
+    !optionalWeaponNames.has(w.name) || selectedWeaponNames.has(w.name)
+  );
+
+  const defaultRanged = weaponsToShow.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
+  const defaultMelee  = weaponsToShow.filter(w => w.range === 'Melee' || w.type === 'Melee');
   const armRanged: Weapon[] = [];
   const armMelee: Weapon[] = [];
   const armEquip: { name: string; desc: string }[] = [];
