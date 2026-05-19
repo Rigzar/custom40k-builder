@@ -325,12 +325,6 @@ export default function App() {
               </button>
             )}
             <button
-              onClick={() => setShowChangelog(true)}
-              className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-            >
-              Updates
-            </button>
-            <button
               onClick={() => setShowBugReport(true)}
               className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
             >

@@ -5,7 +5,59 @@ export interface ChangelogEntry {
   changes: string[];
 }
 
+export type IssueStatus = 'known' | 'investigating' | 'fixed';
+
+export interface KnownIssue {
+  id: string;
+  status: IssueStatus;
+  title: string;
+  description: string;
+}
+
+export const KNOWN_ISSUES: KnownIssue[] = [
+  {
+    id: 'ki-1',
+    status: 'known',
+    title: 'Some units missing from a faction',
+    description: 'Not all units from every codex are in the app yet. We are adding them gradually from official sources.',
+  },
+  {
+    id: 'ki-2',
+    status: 'known',
+    title: 'Army data saves only in this browser',
+    description: 'Armies are stored in your browser\'s local storage. Clearing your browser data or switching devices will lose your saves. Use Export JSON to back up your rosters.',
+  },
+  {
+    id: 'ki-3',
+    status: 'known',
+    title: 'Print layout varies by browser',
+    description: 'The print view is optimised for Chrome/Edge. In Firefox or Safari the card layout may shift slightly. Use "Print" in Chrome for best results.',
+  },
+  {
+    id: 'ki-4',
+    status: 'known',
+    title: 'Allied units do not receive veteran traits',
+    description: 'Veteran traits only apply to units from the main faction. Allied detachment units intentionally skip trait costs.',
+  },
+  {
+    id: 'ki-5',
+    status: 'known',
+    title: 'Horus Heresy not available as a playable faction',
+    description: 'Horus Heresy Space Marines data exists for import compatibility but is not selectable in the faction list yet.',
+  },
+];
+
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.7',
+    date: '2026-05-19',
+    title: 'Armory feedback, Known Issues & header cleanup',
+    changes: [
+      'Added: Visual feedback in the Armory modal — the row flashes green and shows ✓ Added when an item is selected',
+      'Added: Known Issues tab in the Updates modal — lists ongoing limitations so users don\'t report duplicates',
+      'Fixed: "Updates" button removed from the builder header (it remains on the home screen)',
+    ],
+  },
   {
     version: '0.6',
     date: '2026-05-19',

@@ -26,6 +26,7 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
   const { data, legacy, legacy2, archetype, addArmoryItem } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
+  const [lastAdded, setLastAdded] = useState<string | null>(null);
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
@@ -99,6 +100,8 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
       points: pts,
       isCharacter: isChar,
     });
+    setLastAdded(arm.name);
+    setTimeout(() => setLastAdded(null), 1500);
   }
 
   const armory = getArmory();
@@ -196,13 +199,14 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
                         regular={legEq.regular} veteran={legEq.veteran} vehicle={legEq.vehicle}
                         isChar={isChar} isVehicle={isVehicle}
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+                        lastAdded={lastAdded}
                         onAdd={arm => add(arm, legName, section)}
                       />
                     ) : (
                       legItems.length === 0
                         ? <div className="text-zinc-500 italic text-sm text-center py-4">No items in this section</div>
                         : legItems.map((arm, i) => (
-                          <ArmoryItemRow key={i} arm={arm} isChar={isChar} onAdd={() => add(arm, legName, section)} />
+                          <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => add(arm, legName, section)} />
                         ))
                     )}
                   </div>
@@ -213,6 +217,7 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
               regular={regularEquip} veteran={veteranEquip} vehicle={vehicleEquip}
               isChar={isChar} isVehicle={isVehicle}
               armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+              lastAdded={lastAdded}
               onAdd={arm => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', section)}
             />
           ) : (
@@ -223,6 +228,7 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
                 : items.map((arm, i) => (
                   <ArmoryItemRow
                     key={i} arm={arm} isChar={isChar}
+                    justAdded={lastAdded === arm.name}
                     onAdd={() => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', section)}
                   />
                 ));
@@ -251,6 +257,7 @@ interface EquipGroupsProps {
   armoryVetMax: number | null;
   veteranItemsUsed: number;
   veteranSlotsFull: boolean;
+  lastAdded: string | null;
   onAdd: (arm: ArmoryItem) => void;
 }
 
@@ -258,6 +265,7 @@ function EquipmentGroups({
   regular, veteran, vehicle,
   isChar, isVehicle,
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
+  lastAdded,
   onAdd,
 }: EquipGroupsProps) {
   const hasAnything = regular.length > 0 || veteran.length > 0 || vehicle.length > 0;
@@ -271,7 +279,7 @@ function EquipmentGroups({
       {regular.length > 0 && (
         <div className="space-y-1">
           {regular.map((arm, i) => (
-            <ArmoryItemRow key={i} arm={arm} isChar={isChar} onAdd={() => onAdd(arm)} />
+            <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => onAdd(arm)} />
           ))}
         </div>
       )}
@@ -296,6 +304,7 @@ function EquipmentGroups({
               <ArmoryItemRow
                 key={i} arm={arm} isChar={isChar}
                 disabled={armoryVetMax !== null && veteranSlotsFull}
+                justAdded={lastAdded === arm.name}
                 onAdd={() => onAdd(arm)}
               />
             ))}
@@ -311,7 +320,7 @@ function EquipmentGroups({
           </div>
           <div className="space-y-1">
             {vehicle.map((arm, i) => (
-              <ArmoryItemRow key={i} arm={arm} isChar={isChar} onAdd={() => onAdd(arm)} />
+              <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => onAdd(arm)} />
             ))}
           </div>
         </div>
@@ -323,11 +332,12 @@ function EquipmentGroups({
 // ── Item rows ────────────────────────────────────────────────────────────────
 
 function ArmoryItemRow({
-  arm, isChar, disabled = false, onAdd,
+  arm, isChar, disabled = false, justAdded = false, onAdd,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
   disabled?: boolean;
+  justAdded?: boolean;
   onAdd: () => void;
 }) {
   const charPrice = parsePrice(arm.p_char);
@@ -338,15 +348,20 @@ function ArmoryItemRow({
     <button
       onClick={onAdd}
       disabled={disabled}
-      className={`w-full flex justify-between items-start px-3 py-2 border text-left gap-2 transition-colors
+      className={`w-full flex justify-between items-start px-3 py-2 border text-left gap-2 transition-all duration-200
         ${disabled
           ? 'bg-zinc-800 border-zinc-700 opacity-40 cursor-not-allowed'
-          : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700'
+          : justAdded
+            ? 'bg-green-900/30 border-green-600'
+            : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700'
         }`}
     >
       <div className="min-w-0">
         <div className="flex items-center gap-1 flex-wrap">
-          <span className="text-zinc-200 text-sm font-medium">{arm.name}</span>
+          <span className={`text-sm font-medium transition-colors ${justAdded ? 'text-green-400' : 'text-zinc-200'}`}>
+            {arm.name}
+          </span>
+          {justAdded && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
           {arm.term_compat && (
             <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">Term</span>
           )}
@@ -354,7 +369,7 @@ function ArmoryItemRow({
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
         <ArmoryWeaponStats arm={arm} />
       </div>
-      <span className="text-amber-500 font-bold text-sm whitespace-nowrap shrink-0">
+      <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : 'text-amber-500'}`}>
         {pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—'}
       </span>
     </button>
