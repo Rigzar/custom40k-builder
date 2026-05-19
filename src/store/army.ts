@@ -64,7 +64,8 @@ function applyArmyTraits(
           : def.pts_unit;
         const pts = parseTraitPts(raw);
         if (pts === null) return null; // trait cost is "-" for this unit type
-        return { name, points: pts };
+        const perWound = typeof raw === 'string' && raw.trimEnd().endsWith('*');
+        return { name, points: pts, ...(perWound ? { perWound: true } : {}) };
       })
       .filter(Boolean) as TraitSelection[];
 

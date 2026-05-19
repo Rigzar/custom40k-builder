@@ -49,9 +49,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-12',
-    status: 'investigating',
-    title: 'Trait costs marked with * may not be calculated per model',
-    description: 'Some traits (e.g. "Iron Within, Iron Without" in CSM) have costs listed as "2*" or "5*" in the source data, which may indicate a per-model cost. Currently the asterisk is ignored and a flat cost is applied. Verifying the correct rule interpretation.',
+    status: 'fixed',
+    title: 'Trait costs marked with * were not calculated per Wound',
+    description: 'Fixed in v0.11 — traits with a * cost (e.g. "Iron Within, Iron Without" in CSM: 2*, "Purity of Faith" in Space Marines: 2*) now correctly calculate as points × Wounds × unit size instead of a flat fee.',
   },
   // ── Planned ───────────────────────────────────────────────────────────────
   {
@@ -73,6 +73,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'A new supplement adding Lords of War, super-heavy vehicles and Titans across all factions. Will introduce a dedicated slot and special engagement rules. Coming in a future update.',
   },
   // ── Fixed ─────────────────────────────────────────────────────────────────
+  {
+    id: 'ki-13',
+    status: 'fixed',
+    title: 'Chaos Daemons archetype dropdown showed footnote constraints as selectable entries',
+    description: 'Fixed in v0.11 — the four footnote lines ("ᴷ Only for models with Mark of Khorne", etc.) that annotate mark-locked archetypes in the source data were being parsed as archetypes. They have been removed from the archetype list.',
+  },
   {
     id: 'ki-f7',
     status: 'fixed',
@@ -130,6 +136,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.11',
+    date: '2026-05-19',
+    title: 'Chaos Daemons archetype fix & trait per-Wound cost',
+    changes: [
+      'Fixed: Chaos Daemons archetype dropdown no longer shows footnote constraints ("ᴷ Only for models with Mark of Khorne" etc.) as selectable archetypes',
+      'Fixed: Trait costs marked with * now correctly calculate as points × Wounds × unit size instead of a flat fee',
+      'Tracking: Poison stacking rule (take the higher value) — under investigation',
+    ],
+  },
   {
     version: '0.10',
     date: '2026-05-19',

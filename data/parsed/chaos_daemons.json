@@ -3420,22 +3420,6 @@
     {
       "name": "Popping Plagueᴺ",
       "desc": "- Your units explode like a vehicle upon losing their last Wound."
-    },
-    {
-      "name": "ᴷ Only for models with Mark of Khorne",
-      "desc": ""
-    },
-    {
-      "name": "ᴺ Only for models with Mark of Nurgle",
-      "desc": ""
-    },
-    {
-      "name": "ˢ Only for models with Mark of Slaanesh",
-      "desc": ""
-    },
-    {
-      "name": "ᵀ Only for models with Mark of Tzeentch",
-      "desc": ""
     }
   ],
   "legacies": [],

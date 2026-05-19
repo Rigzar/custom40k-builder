@@ -70,7 +70,16 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit): number {
   }
 
   for (const it of item.armory ?? []) total += it.points ?? 0;
-  for (const t of item.traits ?? []) total += t.points ?? 0;
+  for (const t of item.traits ?? []) {
+    if (t.perWound) {
+      const wStatKey = unit.is_vehicle ? 'HP' : 'W';
+      const wStat = unit.models[0]?.stats[wStatKey];
+      const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
+      total += t.points * woundsPerModel * item.size;
+    } else {
+      total += t.points;
+    }
+  }
 
   return total;
 }

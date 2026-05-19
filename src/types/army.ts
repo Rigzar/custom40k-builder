@@ -13,6 +13,7 @@ export interface ArmorySelection {
 export interface TraitSelection {
   name: string;
   points: number;
+  perWound?: boolean;
 }
 
 export interface PowerSelection {
