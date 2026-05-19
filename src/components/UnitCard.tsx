@@ -73,6 +73,8 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
 export function UnitCard({ item }: Props) {
   const { data, archetype, traitPool, removeUnit, updateUnit, setOptionQty } = useArmyStore();
   const [armoryOpen, setArmoryOpen] = useState(false);
+  const [vetOpen, setVetOpen] = useState(false);
+  const [vehOpen, setVehOpen] = useState(false);
   const [traitsOpen, setTraitsOpen] = useState(false);
   const [psyOpen, setPsyOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
@@ -101,6 +103,23 @@ export function UnitCard({ item }: Props) {
   const markUsesVetSlot = hasMarkGroup && !u.locked_mark && !!effectiveMark;
   const vetMax = Math.max(0, (u.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
+
+  // Check if the faction armory has veteran / vehicle items for this unit
+  const allArmories = [data.armory_general, ...Object.values(data.armory_marks), ...Object.values(data.armory_legions)];
+  const hasFactionVeteranItems = u.has_veteran_abilities &&
+    allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
+  const hasFactionVehicleItems = u.is_vehicle &&
+    allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'vehicle'));
+
+  // Count selected armory items by category for badge labels
+  const vetItemsCount = item.armory.filter(a => {
+    const found = findArmoryItemData(data, a);
+    return found?.category === 'veteran';
+  }).length;
+  const vehItemsCount = item.armory.filter(a => {
+    const found = findArmoryItemData(data, a);
+    return found?.category === 'vehicle';
+  }).length;
 
   // Army traits: apply to main-faction units (not allied) with veteran abilities
   const isMainFaction = item.unitName in data.units;
@@ -420,6 +439,22 @@ export function UnitCard({ item }: Props) {
                 Armory ({item.armory.length})
               </button>
             )}
+            {hasFactionVeteranItems && (
+              <button
+                onClick={() => setVetOpen(true)}
+                className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+              >
+                Veteran ({vetItemsCount}/{vetMax})
+              </button>
+            )}
+            {hasFactionVehicleItems && (
+              <button
+                onClick={() => setVehOpen(true)}
+                className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+              >
+                Upgrades ({vehItemsCount})
+              </button>
+            )}
             {hasTraitConflict && (
               <button
                 onClick={() => setTraitsOpen(true)}
@@ -574,6 +609,8 @@ export function UnitCard({ item }: Props) {
       )}
 
       {armoryOpen && <ArmoryModal item={item} unit={u} onClose={() => setArmoryOpen(false)} />}
+      {vetOpen && <ArmoryModal item={item} unit={u} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
+      {vehOpen && <ArmoryModal item={item} unit={u} filterCategory="vehicle" onClose={() => setVehOpen(false)} />}
       {traitsOpen && <TraitsModal item={item} unit={u} markUsesSlot={markUsesVetSlot} onClose={() => setTraitsOpen(false)} />}
       {psyOpen && <PsychicModal item={item} unit={u} onClose={() => setPsyOpen(false)} />}
     </div>

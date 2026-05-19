@@ -137,6 +137,17 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.14',
+    date: '2026-05-19',
+    title: 'Botones de Habilidades Veteranas y Mejoras de Vehículo',
+    changes: [
+      'Nuevo: botón "Veteran" en cada carta de unidad — abre directamente las habilidades veteranas de la armería, sin tener que buscarlas entre el resto del equipo',
+      'Nuevo: botón "Upgrades" en las cartas de vehículos — muestra solo las mejoras de vehículo disponibles para esa unidad',
+      'Ambos botones solo aparecen si la facción tiene ese tipo de objetos y la unidad los puede usar',
+      'El contador del botón Veteran muestra cuántos slots llevas usados (p.ej. "Veteran (1/2)")',
+    ],
+  },
+  {
     version: '0.13',
     date: '2026-05-19',
     title: 'Allied detachment system',

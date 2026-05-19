@@ -8,6 +8,7 @@ interface Props {
   item: RosterEntry;
   unit: Unit;
   onClose: () => void;
+  filterCategory?: 'veteran' | 'vehicle';
 }
 
 let _selId = 1;
@@ -22,7 +23,7 @@ function parsePrice(v: number | null | undefined | string): number | null {
   return isNaN(n) ? null : n;
 }
 
-export function ArmoryModal({ item, unit, onClose }: Props) {
+export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   const { data, legacy, legacy2, archetype, addArmoryItem } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
@@ -120,6 +121,9 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
     };
   }
 
+  // When opened via a category button, always show the equipment section filtered to that category
+  const effectiveSection: Section = filterCategory ? 'equipment' : section;
+
   const equipItems = getItems('equipment');
   const { regular: regularEquip, veteran: veteranEquip, vehicle: vehicleEquip } = splitEquipment(equipItems);
 
@@ -132,7 +136,12 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
         {/* Header */}
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
-            Armoury — {unit.name}
+            {filterCategory === 'veteran'
+              ? `Veteran Abilities — ${unit.name}`
+              : filterCategory === 'vehicle'
+                ? `Vehicle Upgrades — ${unit.name}`
+                : `Armoury — ${unit.name}`
+            }
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
@@ -162,22 +171,24 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
           </div>
         )}
 
-        {/* Section tabs */}
-        <div className="flex gap-1 p-2 bg-zinc-800 border-b border-zinc-700">
-          {(['weapons','equipment','daemon_weapons'] as Section[]).map(s => (
-            <button
-              key={s}
-              onClick={() => setSection(s)}
-              className={`px-3 py-1 text-[11px] uppercase border transition-colors
-                ${section === s
-                  ? 'bg-amber-800 border-amber-600 text-white'
-                  : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
-                }`}
-            >
-              {s === 'daemon_weapons' ? 'Daemon Weapons' : s === 'weapons' ? 'Weapons' : 'Equipment'}
-            </button>
-          ))}
-        </div>
+        {/* Section tabs — hidden when opened via a specific category button */}
+        {!filterCategory && (
+          <div className="flex gap-1 p-2 bg-zinc-800 border-b border-zinc-700">
+            {(['weapons','equipment','daemon_weapons'] as Section[]).map(s => (
+              <button
+                key={s}
+                onClick={() => setSection(s)}
+                className={`px-3 py-1 text-[11px] uppercase border transition-colors
+                  ${section === s
+                    ? 'bg-amber-800 border-amber-600 text-white'
+                    : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
+                  }`}
+              >
+                {s === 'daemon_weapons' ? 'Daemon Weapons' : s === 'weapons' ? 'Weapons' : 'Equipment'}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Items */}
         <div className="overflow-y-auto flex-1 p-3 space-y-1">
@@ -189,8 +200,8 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
             ) : Object.entries(data.armory_legions)
               .filter(([legName]) => activeLegionKeys.includes(legName))
               .map(([legName, leg]) => {
-                const legItems = filterByUnitType(filterTermCompat(leg[section] as ArmoryItem[]));
-                const legEq = section === 'equipment' ? splitEquipment(legItems) : null;
+                const legItems = filterByUnitType(filterTermCompat(leg[effectiveSection] as ArmoryItem[]));
+                const legEq = effectiveSection === 'equipment' ? splitEquipment(legItems) : null;
                 return (
                   <div key={legName}>
                     <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1 mt-2">{legName}</div>
@@ -199,37 +210,39 @@ export function ArmoryModal({ item, unit, onClose }: Props) {
                         regular={legEq.regular} veteran={legEq.veteran} vehicle={legEq.vehicle}
                         isChar={isChar} isVehicle={isVehicle}
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+                        filterCategory={filterCategory}
                         lastAdded={lastAdded}
-                        onAdd={arm => add(arm, legName, section)}
+                        onAdd={arm => add(arm, legName, effectiveSection)}
                       />
                     ) : (
                       legItems.length === 0
                         ? <div className="text-zinc-500 italic text-sm text-center py-4">No items in this section</div>
                         : legItems.map((arm, i) => (
-                          <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => add(arm, legName, section)} />
+                          <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => add(arm, legName, effectiveSection)} />
                         ))
                     )}
                   </div>
                 );
               })
-          ) : section === 'equipment' ? (
+          ) : effectiveSection === 'equipment' ? (
             <EquipmentGroups
               regular={regularEquip} veteran={veteranEquip} vehicle={vehicleEquip}
               isChar={isChar} isVehicle={isVehicle}
               armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+              filterCategory={filterCategory}
               lastAdded={lastAdded}
-              onAdd={arm => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', section)}
+              onAdd={arm => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
             />
           ) : (
             (() => {
-              const items = getItems(section);
+              const items = getItems(effectiveSection);
               return items.length === 0
                 ? <div className="text-zinc-500 italic text-sm text-center py-8">No items in this section</div>
                 : items.map((arm, i) => (
                   <ArmoryItemRow
                     key={i} arm={arm} isChar={isChar}
                     justAdded={lastAdded === arm.name}
-                    onAdd={() => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', section)}
+                    onAdd={() => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
                   />
                 ));
             })()
@@ -257,6 +270,7 @@ interface EquipGroupsProps {
   armoryVetMax: number | null;
   veteranItemsUsed: number;
   veteranSlotsFull: boolean;
+  filterCategory?: 'veteran' | 'vehicle';
   lastAdded: string | null;
   onAdd: (arm: ArmoryItem) => void;
 }
@@ -265,18 +279,24 @@ function EquipmentGroups({
   regular, veteran, vehicle,
   isChar, isVehicle,
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
+  filterCategory,
   lastAdded,
   onAdd,
 }: EquipGroupsProps) {
-  const hasAnything = regular.length > 0 || veteran.length > 0 || vehicle.length > 0;
+  // When opened via a category button, only show that group
+  const showRegular = !filterCategory && regular.length > 0;
+  const showVeteran = filterCategory !== 'vehicle' && veteran.length > 0;
+  const showVehicle = filterCategory !== 'veteran' && vehicle.length > 0 && isVehicle;
+
+  const hasAnything = showRegular || showVeteran || showVehicle;
   if (!hasAnything) {
     return <div className="text-zinc-500 italic text-sm text-center py-8">No items in this section</div>;
   }
 
   return (
     <div className="space-y-3">
-      {/* Regular equipment */}
-      {regular.length > 0 && (
+      {/* Regular equipment — hidden when opened via category button */}
+      {showRegular && (
         <div className="space-y-1">
           {regular.map((arm, i) => (
             <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => onAdd(arm)} />
@@ -285,11 +305,25 @@ function EquipmentGroups({
       )}
 
       {/* Veteran abilities */}
-      {veteran.length > 0 && (
+      {showVeteran && (
         <div>
-          <div className="flex items-center gap-2 mb-1 border-t border-zinc-700 pt-2">
-            <span className="text-[10px] text-amber-600 uppercase tracking-widest">Veteran Abilities</span>
-            {armoryVetMax !== null && (
+          {!filterCategory && (
+            <div className="flex items-center gap-2 mb-1 border-t border-zinc-700 pt-2">
+              <span className="text-[10px] text-amber-600 uppercase tracking-widest">Veteran Abilities</span>
+              {armoryVetMax !== null && (
+                <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
+                  veteranSlotsFull
+                    ? 'bg-red-900/40 border-red-700 text-red-400'
+                    : 'bg-amber-900/30 border-amber-700 text-amber-400'
+                }`}>
+                  {veteranItemsUsed}/{armoryVetMax}
+                </span>
+              )}
+            </div>
+          )}
+          {filterCategory === 'veteran' && armoryVetMax !== null && (
+            <div className="flex items-center gap-2 mb-2 px-1">
+              <span className="text-[10px] text-zinc-400 uppercase tracking-widest">Slots used:</span>
               <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
                 veteranSlotsFull
                   ? 'bg-red-900/40 border-red-700 text-red-400'
@@ -297,8 +331,8 @@ function EquipmentGroups({
               }`}>
                 {veteranItemsUsed}/{armoryVetMax}
               </span>
-            )}
-          </div>
+            </div>
+          )}
           <div className="space-y-1">
             {veteran.map((arm, i) => (
               <ArmoryItemRow
@@ -313,11 +347,13 @@ function EquipmentGroups({
       )}
 
       {/* Vehicle upgrades */}
-      {vehicle.length > 0 && isVehicle && (
+      {showVehicle && (
         <div>
-          <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-1 border-t border-zinc-700 pt-2">
-            Vehicle Upgrades
-          </div>
+          {!filterCategory && (
+            <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-1 border-t border-zinc-700 pt-2">
+              Vehicle Upgrades
+            </div>
+          )}
           <div className="space-y-1">
             {vehicle.map((arm, i) => (
               <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => onAdd(arm)} />
