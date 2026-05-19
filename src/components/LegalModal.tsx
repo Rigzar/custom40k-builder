@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LEGAL_DOCS, type LegalDocKey } from '../data/legalDocs';
+import { LEGAL_DOCS, GW_DISCLAIMER, type LegalDocKey } from '../data/legalDocs';
 
 interface Props {
   docKey: LegalDocKey;
@@ -61,22 +61,29 @@ export function LegalFooter() {
 
   return (
     <>
-      <footer className="border-t border-zinc-800 bg-zinc-950 px-4 py-4 mt-auto">
-        <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-zinc-600 text-[11px] text-center sm:text-left">
-            © {new Date().getFullYear()} Custom40k Army Builder — Unofficial fan tool. Not affiliated with Games Workshop.
+      <footer className="border-t border-zinc-800 bg-zinc-950 px-4 pt-4 pb-5 mt-auto">
+        <div className="max-w-screen-xl mx-auto space-y-3">
+          {/* GW disclaimer */}
+          <p className="text-zinc-700 text-[10px] leading-relaxed">
+            {GW_DISCLAIMER}
           </p>
-          <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-            {links.map(({ key, label }) => (
-              <button
-                key={key}
-                onClick={() => setOpen(key)}
-                className="text-zinc-600 hover:text-zinc-400 text-[11px] transition-colors"
-              >
-                {label}
-              </button>
-            ))}
-          </nav>
+          {/* Bottom row */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-zinc-900 pt-3">
+            <p className="text-zinc-600 text-[11px] text-center sm:text-left">
+              © {new Date().getFullYear()} Custom40k Army Builder — Non-commercial fan project.
+            </p>
+            <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+              {links.map(({ key, label }) => (
+                <button
+                  key={key}
+                  onClick={() => setOpen(key)}
+                  className="text-zinc-600 hover:text-zinc-400 text-[11px] transition-colors"
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+          </div>
         </div>
       </footer>
 

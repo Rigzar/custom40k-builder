@@ -7,39 +7,74 @@ export interface LegalDoc {
   sections: { heading?: string; body: string }[];
 }
 
-const UPDATED = '19 May 2026';
-const APP_URL = 'https://custom40k-builder.vercel.app';
-const CONTACT_EMAIL = '[YOUR_CONTACT_EMAIL]';
-const OWNER_NAME = '[YOUR_FULL_NAME_OR_COMPANY]';
-const OWNER_NIF  = '[YOUR_NIF/CIF]';
-const OWNER_ADDR = '[YOUR_ADDRESS], Spain';
+const UPDATED       = '19 May 2026';
+const APP_NAME      = 'Custom40k Army Builder';
+const APP_URL       = 'https://custom40k-builder.vercel.app';
+const OWNER_NAME    = 'Rigoberto Jorges';
+const OWNER_NIE     = 'Y5722135W';
+const OWNER_ADDR    = 'Puente Alcocer, Madrid, Spain';
+const CONTACT_EMAIL = 'wh40builder@gmail.com';
+
+export const GW_DISCLAIMER =
+  'Warhammer 40,000, Space Marines, Chaos Space Marines, Tyranids, Necrons, Orks, Eldar, ' +
+  'Dark Eldar, Tau Empire, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, ' +
+  'Adeptus Sororitas, Grey Knights, Inquisition, Assassins, Genestealer Cults, Harlequins, ' +
+  'Leagues of Votann, Chaos Daemons, and all related names, characters, factions, artwork ' +
+  'and lore are trademarks and/or copyrights of Games Workshop Group PLC, registered ' +
+  'worldwide. This application is an unofficial, non-commercial fan project made by fans ' +
+  'for fans. It is in no way affiliated with, endorsed by, or sponsored by Games Workshop ' +
+  'Group PLC. No infringement of intellectual property is intended.';
 
 export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
 
   'legal-notice': {
     key: 'legal-notice',
-    title: 'Legal Notice',
+    title: 'Legal Notice (Aviso Legal)',
     lastUpdated: UPDATED,
     sections: [
       {
-        heading: '1. Owner information',
-        body: `In accordance with Article 10 of Spanish Law 34/2002 on Information Society Services and Electronic Commerce (LSSI-CE), the following identification details are provided:\n\n• Full name / Company: ${OWNER_NAME}\n• Tax ID (NIF/CIF): ${OWNER_NIF}\n• Registered address: ${OWNER_ADDR}\n• Contact email: ${CONTACT_EMAIL}\n• Website: ${APP_URL}`,
+        heading: '1. Owner identification',
+        body:
+          `In accordance with Article 10 of Spanish Law 34/2002 on Information Society ` +
+          `Services and Electronic Commerce (LSSI-CE), the following details are provided:\n\n` +
+          `• Full name: ${OWNER_NAME}\n` +
+          `• NIE: ${OWNER_NIE}\n` +
+          `• Location: ${OWNER_ADDR}\n` +
+          `• Contact email: ${CONTACT_EMAIL}\n` +
+          `• Website: ${APP_URL}`,
       },
       {
-        heading: '2. Purpose of the website',
-        body: 'Custom40k Army Builder is a free, unofficial fan-made tool that allows players of Warhammer 40,000 to build and manage army rosters. It is not affiliated with, endorsed by, or officially connected to Games Workshop Group PLC in any way.',
+        heading: '2. Purpose of this website',
+        body:
+          `${APP_NAME} is a free, unofficial, non-commercial fan tool that allows players ` +
+          `of Warhammer 40,000 to build and manage army rosters for personal use. ` +
+          `No products or services are sold through this website.`,
       },
       {
-        heading: '3. Intellectual property',
-        body: `The source code, design, and original content of this application are the property of ${OWNER_NAME}. Warhammer 40,000, its factions, unit names, and all associated imagery are trademarks and/or copyrights of Games Workshop Group PLC. No infringement is intended. This tool is a non-commercial fan project.`,
+        heading: '3. Intellectual property — Games Workshop',
+        body: GW_DISCLAIMER,
       },
       {
-        heading: '4. Liability',
-        body: 'This tool is provided "as is" without any warranties of accuracy, completeness, or fitness for a particular purpose. The owner accepts no liability for decisions made based on information presented in this application.',
+        heading: '4. Original content',
+        body:
+          `The source code, user interface design, and original written content of this ` +
+          `application (excluding all Games Workshop intellectual property) are the ` +
+          `property of ${OWNER_NAME} and are protected under applicable copyright law. ` +
+          `Unauthorised reproduction for commercial purposes is prohibited.`,
       },
       {
-        heading: '5. Applicable law',
-        body: 'This Legal Notice is governed by Spanish law. Any disputes arising from the use of this website shall be subject to the jurisdiction of the courts of Spain.',
+        heading: '5. Disclaimer of liability',
+        body:
+          `This tool is provided "as is" for entertainment purposes only. The owner makes ` +
+          `no warranty that the army builder accurately reflects all official rules, point ` +
+          `costs, or codex content. Always verify rosters against official Games Workshop ` +
+          `publications before use in organised play.`,
+      },
+      {
+        heading: '6. Applicable law and jurisdiction',
+        body:
+          `This Legal Notice is governed by Spanish law. Any disputes arising from the ` +
+          `use of this website shall be submitted to the courts of Madrid, Spain.`,
       },
     ],
   },
@@ -51,31 +86,74 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
     sections: [
       {
         heading: '1. Data controller',
-        body: `${OWNER_NAME}\n${OWNER_ADDR}\n${CONTACT_EMAIL}`,
+        body:
+          `${OWNER_NAME}\n` +
+          `NIE: ${OWNER_NIE}\n` +
+          `${OWNER_ADDR}\n` +
+          `${CONTACT_EMAIL}`,
       },
       {
-        heading: '2. What data we collect and why',
-        body: `• Bug reports: When you submit a bug report via the in-app form, your message and optionally your email address are transmitted to Formspree (a third-party form processing service). This data is used solely to investigate and fix issues.\n\n• Usage data: We do not run analytics software. Your army rosters are stored exclusively in your own browser's local storage — they never leave your device and are not accessible to us.\n\n• Server logs: Our hosting provider Vercel may automatically record standard access logs (IP address, browser type, page requested) as part of normal server operation. These are retained per Vercel's own privacy policy.`,
+        heading: '2. Data we collect and why',
+        body:
+          `Bug reports: When you submit a bug report using the in-app form, your message ` +
+          `and, if you include it, your email address are transmitted to Formspree ` +
+          `(a third-party form processor). This data is used solely to investigate and ` +
+          `fix reported issues. No other personal data is collected by this application.\n\n` +
+          `Army roster data: Your army lists are stored exclusively in your own browser's ` +
+          `local storage. They never leave your device and are not accessible to us.\n\n` +
+          `Server logs: Our hosting provider Vercel automatically records standard access ` +
+          `logs (IP address, browser type, page requested) as part of normal server ` +
+          `operation, subject to Vercel's own privacy policy.`,
       },
       {
-        heading: '3. Legal basis',
-        body: 'Processing of bug report data is based on legitimate interest (Article 6(1)(f) GDPR): improving the quality and security of the application. No data is processed for marketing purposes.',
+        heading: '3. Legal basis for processing',
+        body:
+          `Bug report data is processed on the basis of legitimate interest ` +
+          `(Article 6(1)(f) GDPR): improving the quality and security of the application. ` +
+          `No data is processed for marketing, advertising, or profiling purposes.`,
       },
       {
         heading: '4. Data retention',
-        body: 'Bug report submissions are retained by Formspree according to their own data retention policies (typically up to 30 days on free plans). Server logs held by Vercel are subject to Vercel\'s privacy policy.',
+        body:
+          `Bug report submissions are retained by Formspree according to their own ` +
+          `retention policies (typically up to 30 days on free plans). ` +
+          `Vercel server logs are subject to Vercel's privacy policy. ` +
+          `We do not retain any copies of bug reports on our own systems.`,
       },
       {
         heading: '5. Third-party processors',
-        body: '• Formspree Inc. — form submission processing (United States). Formspree acts as a data processor under a Data Processing Agreement. See: https://formspree.io/legal/privacy-policy\n\n• Vercel Inc. — website hosting and content delivery (United States). See: https://vercel.com/legal/privacy-policy',
+        body:
+          `• Formspree Inc. — form submission processing, United States. ` +
+          `Acts as a data processor. Privacy policy: https://formspree.io/legal/privacy-policy\n\n` +
+          `• Vercel Inc. — website hosting and content delivery, United States. ` +
+          `Privacy policy: https://vercel.com/legal/privacy-policy`,
       },
       {
-        heading: '6. International transfers',
-        body: 'Both Formspree and Vercel are US-based companies. Data transfers are conducted under the EU–US Data Privacy Framework and standard contractual clauses where applicable.',
+        heading: '6. International data transfers',
+        body:
+          `Formspree and Vercel are US-based companies. Data transfers to the US are ` +
+          `conducted under the EU–US Data Privacy Framework and standard contractual ` +
+          `clauses (SCCs) where applicable, in compliance with GDPR Chapter V.`,
       },
       {
         heading: '7. Your rights',
-        body: `Under the GDPR and Spanish Organic Law 3/2018 (LOPD-GDD), you have the right to: access your data, rectify inaccurate data, request erasure, restrict or object to processing, and request data portability. To exercise these rights, contact us at ${CONTACT_EMAIL}.\n\nYou also have the right to lodge a complaint with the Spanish Data Protection Authority (AEPD) at www.aepd.es.`,
+        body:
+          `Under the GDPR and Spanish Organic Law 3/2018 (LOPD-GDD) you have the right to:\n\n` +
+          `• Access your personal data\n` +
+          `• Rectify inaccurate data\n` +
+          `• Request erasure ("right to be forgotten")\n` +
+          `• Restrict or object to processing\n` +
+          `• Request data portability\n\n` +
+          `To exercise any of these rights, contact: ${CONTACT_EMAIL}\n\n` +
+          `You also have the right to lodge a complaint with the Spanish Data Protection ` +
+          `Authority (AEPD) at www.aepd.es if you believe your rights have been infringed.`,
+      },
+      {
+        heading: '8. Changes to this policy',
+        body:
+          `This policy may be updated to reflect changes in data practices or applicable law. ` +
+          `The "last updated" date at the top of this document will reflect any changes. ` +
+          `Continued use of the application after an update constitutes acceptance.`,
       },
     ],
   },
@@ -87,23 +165,43 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
     sections: [
       {
         heading: '1. What are cookies?',
-        body: 'Cookies and similar technologies are small files that websites store in your browser to remember information between visits. This policy also covers browser localStorage and sessionStorage, which serve a similar purpose.',
+        body:
+          `Cookies and similar technologies (including browser localStorage and ` +
+          `sessionStorage) are small pieces of data stored in your browser that allow ` +
+          `a website to remember information between visits or page loads.`,
       },
       {
-        heading: '2. Cookies we use',
-        body: `This application uses only strictly necessary functional storage. No analytics, advertising, or third-party tracking cookies are used.\n\n┌─────────────────────────────┬──────────────────┬─────────────┬──────────────────────────────────────────────┐\n│ Name                        │ Type             │ Duration    │ Purpose                                      │\n├─────────────────────────────┼──────────────────┼─────────────┼──────────────────────────────────────────────┤\n│ custom40k-army              │ localStorage     │ Persistent  │ Saves your army roster and settings locally  │\n│ custom40k-cookie-consent    │ localStorage     │ 1 year      │ Remembers that you have seen this notice     │\n│ selectedFaction             │ sessionStorage   │ Session     │ Remembers your selected faction on refresh   │\n└─────────────────────────────┴──────────────────┴─────────────┴──────────────────────────────────────────────┘`,
+        heading: '2. Cookies used by this application',
+        body:
+          `This application uses only strictly necessary functional storage. ` +
+          `No analytics, advertising, social media, or third-party tracking cookies ` +
+          `are used.\n\n` +
+          `Name                       | Type           | Duration  | Purpose\n` +
+          `───────────────────────────┼────────────────┼───────────┼──────────────────────────────────────\n` +
+          `custom40k-army             | localStorage   | Persistent| Saves your army roster and settings\n` +
+          `selectedFaction            | sessionStorage | Session   | Keeps your faction on page refresh`,
       },
       {
-        heading: '3. Legal basis',
-        body: 'All storage listed above is strictly necessary for the application to function. Under Article 22.2 of Spanish Law 34/2002 (LSSI-CE) and Recital 25 of the ePrivacy Directive, strictly necessary cookies are exempt from the consent requirement.',
+        heading: '3. Legal basis — no consent required',
+        body:
+          `All storage listed above is strictly necessary for the application to function ` +
+          `correctly. Under Article 22.2 of Spanish Law 34/2002 (LSSI-CE) and Recital 25 ` +
+          `of the EU ePrivacy Directive, strictly necessary cookies and equivalent storage ` +
+          `are exempt from the requirement to obtain prior consent.`,
       },
       {
-        heading: '4. How to manage or delete cookies',
-        body: 'You can clear all locally stored data at any time through your browser settings:\n\n• Chrome/Edge: Settings → Privacy and security → Clear browsing data → Cookies and site data\n• Firefox: Settings → Privacy & Security → Cookies and Site Data → Clear Data\n• Safari: Preferences → Privacy → Manage Website Data\n\nNote: clearing site data will delete your saved armies.',
+        heading: '4. How to delete stored data',
+        body:
+          `You can clear all locally stored data at any time:\n\n` +
+          `• Chrome / Edge: Settings → Privacy and security → Clear browsing data → ` +
+          `"Cookies and other site data"\n` +
+          `• Firefox: Settings → Privacy & Security → Cookies and Site Data → Clear Data\n` +
+          `• Safari: Preferences → Privacy → Manage Website Data\n\n` +
+          `Note: clearing site data will permanently delete your saved army rosters.`,
       },
       {
-        heading: '5. Changes to this policy',
-        body: `We may update this Cookie Policy to reflect changes in the cookies we use. The "last updated" date at the top of this page will always indicate when changes were made. Questions? Contact us at ${CONTACT_EMAIL}.`,
+        heading: '5. Contact',
+        body: `Questions about this Cookie Policy? Contact us at ${CONTACT_EMAIL}.`,
       },
     ],
   },
@@ -114,40 +212,68 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
     lastUpdated: UPDATED,
     sections: [
       {
-        heading: '1. Acceptance',
-        body: 'By accessing or using Custom40k Army Builder you agree to these Terms of Use. If you do not agree, please stop using the application.',
+        heading: '1. Acceptance of terms',
+        body:
+          `By accessing or using ${APP_NAME} you agree to these Terms of Use in full. ` +
+          `If you do not agree with any part of these terms, please stop using the application.`,
       },
       {
         heading: '2. Description of service',
-        body: 'Custom40k Army Builder is a free, browser-based tool for building and managing Warhammer 40,000 army rosters. The service is provided without charge and without any commitment to availability, uptime, or ongoing feature development.',
+        body:
+          `${APP_NAME} is a free, browser-based tool for building and managing ` +
+          `Warhammer 40,000 army rosters for personal, non-commercial use. ` +
+          `The service is provided at no charge and without any guarantee of availability, ` +
+          `uptime, accuracy of rules data, or continued development.`,
       },
       {
-        heading: '3. Permitted use',
-        body: 'You may use this tool for personal, non-commercial purposes. You may not: (a) use the app to distribute commercially, (b) reverse-engineer or copy the source code for commercial use, (c) use the app in any way that violates applicable law.',
+        heading: '3. Fan project — Games Workshop intellectual property',
+        body: GW_DISCLAIMER,
       },
       {
-        heading: '4. Intellectual property',
-        body: 'Warhammer 40,000, all faction names, unit names, and related content are trademarks and copyrights of Games Workshop Group PLC. This is an unofficial fan tool with no commercial relationship with Games Workshop. All original code and UI design are the property of the app owner.',
+        heading: '4. Permitted use',
+        body:
+          `You may use this tool for personal, non-commercial purposes only. You may not:\n\n` +
+          `(a) Use the application or its content for any commercial purpose\n` +
+          `(b) Reproduce, distribute, or sell any part of the application\n` +
+          `(c) Attempt to reverse-engineer or copy the source code for commercial use\n` +
+          `(d) Use the application in any way that violates applicable law or the ` +
+          `intellectual property rights of Games Workshop Group PLC or any other party`,
       },
       {
-        heading: '5. Data and privacy',
-        body: 'Your army data is stored locally in your browser. We do not store, sell, or share your roster data. See our Privacy Policy for details on the limited data we do process (bug reports).',
+        heading: '5. No warranty',
+        body:
+          `The application is provided "as is" and "as available". We do not warrant that:\n\n` +
+          `• Army point costs, unit rules, or codex data are accurate or up to date\n` +
+          `• The application will be free from errors or interruptions\n` +
+          `• Results from the army builder will be accepted in organised or official play\n\n` +
+          `Always verify rosters against current official Games Workshop publications.`,
       },
       {
-        heading: '6. Disclaimer of warranties',
-        body: 'The application is provided "as is" and "as available" without warranties of any kind. We do not warrant that the army builder accurately reflects all official rules, point costs, or codex content. Always verify against official sources.',
+        heading: '6. Limitation of liability',
+        body:
+          `To the fullest extent permitted by Spanish law, ${OWNER_NAME} shall not be ` +
+          `liable for any direct, indirect, incidental, or consequential damages ` +
+          `arising from your use of, or inability to use, this application.`,
       },
       {
-        heading: '7. Limitation of liability',
-        body: `To the maximum extent permitted by applicable law, ${OWNER_NAME} shall not be liable for any indirect, incidental, or consequential damages arising from your use of this application.`,
+        heading: '7. Data and privacy',
+        body:
+          `Your army roster data is stored locally in your browser. We do not store, ` +
+          `sell, or share your roster data. See our Privacy Policy for details on ` +
+          `the limited personal data we process (bug report submissions only).`,
       },
       {
-        heading: '8. Changes to terms',
-        body: 'We reserve the right to modify these terms at any time. Continued use of the application after changes constitutes acceptance of the new terms.',
+        heading: '8. Modifications',
+        body:
+          `We reserve the right to modify these terms or discontinue the service at any ` +
+          `time without prior notice. Continued use of the application after changes to ` +
+          `these terms constitutes acceptance of the revised terms.`,
       },
       {
         heading: '9. Governing law',
-        body: 'These terms are governed by Spanish law. Any disputes shall be subject to the courts of Spain.',
+        body:
+          `These Terms of Use are governed by Spanish law. Any disputes shall be ` +
+          `submitted to the courts of Madrid, Spain.`,
       },
     ],
   },
@@ -158,28 +284,46 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
     lastUpdated: UPDATED,
     sections: [
       {
-        heading: '1. Commitment',
-        body: `${OWNER_NAME} is committed to making Custom40k Army Builder accessible to the widest possible audience, including people with disabilities.`,
+        heading: '1. Commitment to accessibility',
+        body:
+          `${OWNER_NAME} is committed to making ${APP_NAME} accessible to the widest ` +
+          `possible audience, including people with disabilities, in accordance with ` +
+          `Spanish Royal Decree 1112/2018 and EU Directive 2016/2102.`,
       },
       {
         heading: '2. Conformance status',
-        body: 'This application partially conforms to WCAG 2.1 Level AA. "Partially conforms" means that some parts of the content do not fully meet the accessibility standard.',
+        body:
+          `This application partially conforms to WCAG 2.1 Level AA. ` +
+          `"Partially conforms" means that some content does not yet fully meet the ` +
+          `accessibility standard.`,
       },
       {
         heading: '3. Known limitations',
-        body: '• Print view: the army roster print layout is generated dynamically and may not be fully compatible with screen readers.\n• Complex tables: weapon stat tables in the print view use inline styles that may not expose structure to assistive technologies.\n• Colour contrast: some decorative elements (faction colours, marks) may not meet minimum contrast ratios.\n• Keyboard navigation: modal dialogs may not fully trap focus on all browsers.',
+        body:
+          `• Print view: the dynamically generated roster layout may not be fully ` +
+          `navigable by screen readers.\n` +
+          `• Weapon stat tables use inline styles that may not expose table structure ` +
+          `to assistive technologies.\n` +
+          `• Some decorative faction colour elements may not meet minimum contrast ratios.\n` +
+          `• Modal dialogs may not fully trap keyboard focus on all browsers.`,
       },
       {
         heading: '4. Feedback and contact',
-        body: `We welcome feedback on the accessibility of this application. If you experience barriers or have suggestions, please contact us:\n\n• Email: ${CONTACT_EMAIL}\n\nWe aim to respond to accessibility feedback within 15 business days.`,
+        body:
+          `We welcome feedback on accessibility barriers. Please contact us at:\n\n` +
+          `${CONTACT_EMAIL}\n\n` +
+          `We aim to respond within 15 business days.`,
       },
       {
-        heading: '5. Complaint procedure',
-        body: 'If you are not satisfied with our response, you may contact the Spanish disability rights authority or the AEPD (Agencia Española de Protección de Datos) at www.aepd.es.',
+        heading: '5. Enforcement',
+        body:
+          `If you are not satisfied with our response to an accessibility request, you ` +
+          `may contact the Spanish disability rights authority or file a complaint with ` +
+          `the AEPD (Agencia Española de Protección de Datos) at www.aepd.es.`,
       },
       {
-        heading: '6. Assessment approach',
-        body: 'This statement was prepared by self-evaluation of the application against WCAG 2.1 Level AA criteria. Last review: ' + UPDATED + '.',
+        heading: '6. Review',
+        body: `This statement was last reviewed: ${UPDATED}.`,
       },
     ],
   },
