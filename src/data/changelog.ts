@@ -63,7 +63,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-f3',
     status: 'fixed',
     title: 'Pitched Battle default was 3000 pts instead of 2500',
-    description: 'Fixed in v0.6 — default point limit is now 2500 and slot limits match the rules (Troops 2–6, Elites/FA/HS 0–3).',
+    description: 'Fixed in v0.7.1 — a data migration now corrects saved rosters that still had 3000 pts stored in the browser.',
   },
   {
     id: 'ki-f4',
@@ -98,8 +98,9 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: 'Armory feedback, Known Issues & header cleanup',
     changes: [
       'Added: Visual feedback in the Armory modal — the row flashes green and shows ✓ Added when an item is selected',
-      'Added: Known Issues tab in the Updates modal — lists ongoing limitations so users don\'t report duplicates',
+      'Added: Known Issues tab in the Updates modal — lists ongoing limitations and already-fixed bugs so users don\'t report duplicates',
       'Fixed: "Updates" button removed from the builder header (it remains on the home screen)',
+      'Fixed: Pitched Battle default points now correctly migrates saved rosters from 3000 to 2500 pts on first load',
     ],
   },
   {

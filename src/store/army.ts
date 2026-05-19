@@ -276,6 +276,17 @@ export const useArmyStore = create<ArmyStore>()(
     }),
     {
       name: 'custom40k-army',
+      version: 1,
+      migrate: (persisted: unknown, fromVersion: number) => {
+        const s = persisted as Record<string, unknown>;
+        if (fromVersion < 1) {
+          // pointLimit default was 3000 for pitched — fix to 2500
+          if (s.pointLimit === 3000 && s.engagement === 'pitched') {
+            s.pointLimit = 2500;
+          }
+        }
+        return s;
+      },
       partialize: (s: ArmyStore) => ({
         armyName: s.armyName, faction: s.faction, engagement: s.engagement,
         pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
