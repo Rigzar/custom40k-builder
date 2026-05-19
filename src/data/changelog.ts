@@ -34,12 +34,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Print layout and app not optimised for mobile or non-Chrome browsers',
     description: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
   },
-  {
-    id: 'ki-4',
-    status: 'by_design',
-    title: 'Allied units do not receive the main faction\'s veteran traits',
-    description: 'This is intentional: veteran trait upgrades (e.g. Veterans of the Long War) apply only to units from your main faction. Allied detachment units belong to a separate faction and therefore do not take those upgrades. If you believe this contradicts a specific codex rule, use the Bug button to flag it.',
-  },
   // ── Planned ───────────────────────────────────────────────────────────────
   {
     id: 'ki-p1',
@@ -111,6 +105,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.9',
+    date: '2026-05-19',
+    title: 'Legal pages, cookie notice & footer',
+    changes: [
+      'Added: Legal Notice, Privacy Policy, Cookie Policy, Terms of Use and Accessibility Statement — accessible from the footer on every page',
+      'Added: Lawwwing cookie consent widget — GDPR/LSSI compliant cookie management',
+      'Added: Footer with legal links and copyright notice on all pages',
+    ],
+  },
   {
     version: '0.8',
     date: '2026-05-19',

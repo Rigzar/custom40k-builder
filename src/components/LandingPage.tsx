@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
+import { LegalFooter } from './LegalModal';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
@@ -86,7 +87,7 @@ export function LandingPage({
   const latestVersion = CHANGELOG[0]?.version ?? '';
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
       <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-5">
         <div className="flex items-center justify-between max-w-screen-lg mx-auto">
           <div className="flex-1 text-center">
@@ -284,6 +285,8 @@ export function LandingPage({
           </div>
         </section>
       </div>
+
+      <LegalFooter />
     </div>
   );
 }

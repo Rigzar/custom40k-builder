@@ -15,6 +15,7 @@ import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { ChangelogModal } from './components/ChangelogModal';
 import { BugReportModal } from './components/BugReportModal';
+import { LegalFooter } from './components/LegalModal';
 
 type Page = 'landing' | 'builder';
 
@@ -271,7 +272,7 @@ export default function App() {
   const factionLabel = selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : '';
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
       {/* ── Sticky header ── */}
       <header className="sticky top-0 z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
@@ -378,6 +379,8 @@ export default function App() {
           currentFaction={selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : undefined}
         />
       )}
+
+      <LegalFooter />
 
       {showRef && !showArmies && !showChangelog && (
         <div
