@@ -260,6 +260,10 @@ const RULES: Record<string, RuleEntry> = {
     name: 'Favoured Enemy',
     description: 'At the start of the first battle round, select a faction. The model reduces its total penalty to hit rolls against that faction by -1 (min 0). Leadership tests caused by this model against that faction suffer a cumulative -1 penalty.',
   },
+  'fire hatches': {
+    name: 'Fire Hatches({X})',
+    description: 'The vehicle has {X} fire ports. Passengers may fire through them and can also be targeted by enemy ranged attacks.',
+  },
   'frenzy': {
     name: 'Frenzy({X})',
     description: 'The Infantry model gains {X} increased movement for Charge movement.',
@@ -375,6 +379,99 @@ const RULES: Record<string, RuleEntry> = {
   'warded': {
     name: 'Warded',
     description: 'The model gains a 6+ invulnerability save, or improves an existing invulnerability save by +1 (maximum 4+). Cumulative with itself.',
+  },
+  // ── Faction signature rules ────────────────────────────────────────────────
+  'supporting fire': {
+    name: 'Supporting Fire',
+    description: 'If a friendly unit within 6" is the target of a charge and is using Defensive Fire, this unit may also be activated in the same way using an unused order token. That token is consumed.',
+  },
+  'dakka dakka dakka': {
+    name: 'Dakka Dakka Dakka',
+    description: 'The unit reduces its total penalty to hit rolls in ranged combat by -1 (minimum 0). Barrage and Explosive weapons do not benefit from this rule.',
+  },
+  'waaagh!': {
+    name: 'Waaagh!',
+    description: 'The army may declare a Waaagh! once per game at the start of the Command phase, lasting two battle rounds. Infantry and Walkers gain +D6" movement (not counted for weapon choice). Other vehicles, Bikes and Jump pack infantry gain "Deflect" instead if they moved at their maximum possible speed (at least 8"). In a Skirmish game the effect lasts one battle round.',
+  },
+  'mob': {
+    name: 'Mob',
+    description: 'For every 5 models in the unit, it gains +1 Leadership (cumulative). At 20+ models it gains "Fearless". A unit reduced below half its starting strength may merge with another unit that has this rule within 2" during the Rally phase — from that point they act as a single unit with one shared order.',
+  },
+  'battle focus': {
+    name: 'Battle Focus',
+    description: '"Assault", "Grenade" and "Pistol" weapons ignore the hit penalty for Advance and Charge orders. "Heavy" weapons can be used without penalty with a Move & Shoot order and with only -1 to hit on Advance/Charge. All psychic powers are treated as Basic.',
+  },
+  'acts of faith': {
+    name: 'Acts of Faith',
+    description: 'The unit may perform an Act of Faith each battle round. Each unit may use as many Acts of Faith per round as the army has Faith points, but can only benefit from one effect at a time. Attached character models gain the same benefit if they have this rule.',
+  },
+  'shield of faith': {
+    name: 'Shield of Faith',
+    description: 'The model gains a 6+ invulnerability save.',
+  },
+  'ambush': {
+    name: 'Ambush',
+    description: 'For each started 500 points of game size, one Ambush marker may be placed after all Infiltrators deploy but before the first battle round — at least 12" from any enemy. Units with Ambush arriving from reserves may deploy within 3" of a marker with any order. Units with Ambush may also embark into a marker like a transport and enter reserves, automatically arriving next Reinforcement phase.',
+  },
+  'canticles of the omnissiah': {
+    name: 'Canticles of the Omnissiah',
+    description: 'At the start of the Command phase, choose one Canticle. All units with this rule within 9" of a Choir Master model roll a D6 — on 4+ they gain the chosen Canticle\'s benefit until the end of the battle round.',
+  },
+  'instinctive behaviour': {
+    name: 'Instinctive Behaviour',
+    description: 'If the unit is outside Synapse range during the Rally phase and has no Battleshock token, it gains one. This token can only be removed by being in Synapse range during the next Rally phase. If such a unit must flee, it moves toward the nearest Synapse unit.',
+  },
+  'synapse': {
+    name: 'Synapse',
+    description: 'Units within 12" of a Synapse model are in Synapse range and: ignore Leadership modifiers; always count as being at starting strength; if they fail a Leadership test they suffer 1 Mortal Wound per point of difference (instead of a Battleshock token) and count as having passed; and lose all existing Battleshock tokens at the start of the Rally phase. A Synapse model that loses its last Wound explodes like a vehicle.',
+  },
+  'void armor': {
+    name: 'Void Armor',
+    description: 'Enemy attacks targeting this unit reduce their AT and AP values each by -1 (minimum 0 each).',
+  },
+  'eye of the ancestors': {
+    name: 'Eye of the Ancestors',
+    description: 'Each time a friendly unit is removed from the game, place a Judgement token on the enemy unit that caused the last wound (max 2 per enemy unit). All friendly units attacking a target with Judgement tokens gain: 1 token — re-roll 1 hit roll per activation; 2 tokens — also re-roll 1 wound roll per activation. Character models in a unit pool their tokens; tokens split evenly when they leave.',
+  },
+  'steady advance': {
+    name: 'Steady Advance',
+    description: 'The unit can never receive an Advance order and gains "Move through cover".',
+  },
+  'shield host': {
+    name: 'Shield Host',
+    description: 'The model can contest a mission objective while in the same table quarter and hold one while within 12" (instead of the normal 3"). It gains "Objective secured!" and "Precision(5+)". If it would gain two Battleshock tokens, it is set to one instead.',
+  },
+  'power through pain': {
+    name: 'Power Through Pain',
+    description: 'Each time an enemy unit is destroyed, the army gains a Power Through Pain token with a special rule assigned from the list (Aegis(4+), Berserk(4+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength). Distribute it to any friendly unit with this rule. Multiple tokens with the same bonus do not stack. Characters joining a unit pool tokens together; tokens split evenly when they leave.',
+  },
+  'combat drugs': {
+    name: 'Combat Drugs',
+    description: 'After all units have been set up, pick a combat drug for this unit. Its effect lasts for the rest of the battle.',
+  },
+  'reanimation protocols': {
+    name: 'Reanimation Protocols',
+    description: 'During the Reinforcement phase, living models with this rule regain all lost wounds. Additionally, roll 1D6 for each wound lost on a slain model: on 5+ the unit restores one wound (damaged models heal before slain ones return). Any model that restores no wounds is permanently destroyed. Restored models are placed in base contact with as many unit models as possible, not in contact with enemies unless already in melee. A unit is only considered destroyed if no Reanimation rolls succeed in the Reinforcement phase.',
+  },
+  'mark of khorne': {
+    name: 'Mark of Khorne',
+    description: 'The model gains +1 Attack. Character models and Monstrous Creatures also gain +1 Strength. Vehicles cause double hits on Tank Shocks. Counts as a veteran ability.',
+  },
+  'mark of nurgle': {
+    name: 'Mark of Nurgle',
+    description: 'The model gains +1 Toughness. Character models and Monstrous Creatures also gain +1 Wound. Vehicles may roll 2D6 each Reinforcement phase — on 7+ remove one Crew Shaken, Engine Damage, or Weapon Damage result, or restore 1 HP. Counts as a veteran ability.',
+  },
+  'mark of slaanesh': {
+    name: 'Mark of Slaanesh',
+    description: 'The model gains +1 Initiative. Character models and Monstrous Creatures also gain +2" Movement. Vehicles reduce the Leadership or close combat result of hostile models within 18" by -1 (within 9" by -2). Counts as a veteran ability.',
+  },
+  'mark of tzeentch': {
+    name: 'Mark of Tzeentch',
+    description: 'The model gains the "Warded" ability. Character models and Monstrous Creatures become a Psyker knowing 1 power from any discipline (or manifest/deny 1 additional power if already a Psyker). Vehicles gain a Warpflamer weapon (Range 9", Assault 4, S:4 AP:-1 D:1, Flames). Counts as a veteran ability.',
+  },
+  'hover mode': {
+    name: 'Hover Mode',
+    description: 'The flyer can behave like a standard model. It may start in Hover Mode during deployment. It enters Hover Mode by not repositioning during the reserve phase, and exits by being removed during the reserve phase (returning as a normal flyer next round). In Hover Mode the flyer can capture, hold and contest objectives, and can be healed or repaired by other models. When not in Hover Mode, the flyer always counts as having moved 24". Passengers may only disembark while the flyer is in Hover Mode; if the flyer is destroyed by an explosion, passengers suffer double the automatic wounds.',
   },
 };
 

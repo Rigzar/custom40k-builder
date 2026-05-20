@@ -15,6 +15,44 @@ export interface KnownIssue {
 }
 
 export const KNOWN_ISSUES: KnownIssue[] = [
+  // ── Fixed (v0.19) ─────────────────────────────────────────────────────────
+  {
+    id: 'ki-19a',
+    status: 'fixed',
+    title: '20+ faction rules showed name only with no description',
+    description: 'Fixed in v0.19 — Supporting Fire (Tau), Dakka Dakka Dakka / Waaagh! / Mob (Orks), Battle Focus (Eldar), Acts of Faith / Shield of Faith (Sororitas), Ambush (GSC), Canticles of the Omnissiah (AdMech), Instinctive Behaviour / Synapse (Tyranids), Void Armor / Eye of the Ancestors / Steady Advance (LoV), Shield Host (Custodes), Power Through Pain / Combat Drugs (Dark Eldar), Reanimation Protocols (Necrons), and all four Chaos Marks now show their full descriptions.',
+  },
+  {
+    id: 'ki-19b',
+    status: 'fixed',
+    title: 'Orks vehicles — Ramshackle table results and Shokk Attack Gun scatter table were missing',
+    description: 'Fixed in v0.19 — the Ramshackle table results (Kaboom! / Kareen! / Kerrunch!) and the full Shokk Attack Gun doubles table are now shown in unit cards.',
+  },
+  {
+    id: 'ki-19c',
+    status: 'fixed',
+    title: 'Students of Vaul, Interplanetary Invasors and Big Red Button vehicle traits had no points cost',
+    description: 'Fixed in v0.19 — these three vehicle-only traits were showing a +0 pts cost due to a data import miss. All now correctly apply +5 pts per vehicle.',
+  },
+  // ── Fixed (v0.18) ─────────────────────────────────────────────────────────
+  {
+    id: 'ki-18a',
+    status: 'fixed',
+    title: 'Junk text entries appeared in ability list for several Grey Knights, Eldar and Sororitas units',
+    description: 'Fixed in v0.18 — "Name:", "Range:", "Cast value:", "Effect:", "Duration:", "Complexity:", "When:", "Cost:" were showing up as fake abilities on GK vehicles (Dreadnought, Land Raiders, Razorback, Rhino, Stormraven), the Eldar Spiritseer, and the Sororitas Living Saint.',
+  },
+  {
+    id: 'ki-18b',
+    status: 'fixed',
+    title: 'Equipment options missing on Blood Claws, Assault Squad, Tankbustas, Deffkoptaz, Big\'ed Bossbunka',
+    description: 'Fixed in v0.18 — Jump pack for Blood Claws, jump pack removal and Heavy bolt pistol for Assault Squad, Bomb squig for Tankbustas, Big bomb for Deffkoptaz, and Big shoota for Big\'ed Bossbunka were not showing up in the unit card. All options now appear with the correct points cost.',
+  },
+  {
+    id: 'ki-18c',
+    status: 'fixed',
+    title: 'Incorrect ability entries on Orks vehicles and several other factions',
+    description: 'Fixed in v0.18 — minor bug fix affecting 10+ factions: various incorrect, duplicate, or corrupted ability entries were showing up in unit cards and the printed summary (e.g. date strings, dice notation, typos, placeholder text). All cleaned up.',
+  },
   // ── Fixed (v0.17) ─────────────────────────────────────────────────────────
   {
     id: 'ki-17a',
@@ -168,6 +206,43 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.19',
+    date: '2026-05-20',
+    title: 'Rule descriptions added for 20+ faction rules',
+    changes: [
+      'Tau Empire: "Supporting Fire" now shows its full description',
+      'Orks: "Dakka Dakka Dakka", "Waaagh!" and "Mob" now show their full descriptions',
+      'Eldar: "Battle Focus" now shows its full description',
+      'Adeptus Sororitas: "Acts of Faith" and "Shield of Faith" now show their full descriptions',
+      'Genestealer Cults: "Ambush" now shows its full description',
+      'Adeptus Mechanicus: "Canticles of the Omnissiah" now shows its full description',
+      'Tyranids: "Instinctive Behaviour" and "Synapse" now show their full descriptions',
+      'Leagues of Votann: "Void Armor", "Eye of the Ancestors" and "Steady Advance" now show their full descriptions',
+      'Adeptus Custodes: "Shield Host" now shows its full description',
+      'Dark Eldar: "Power Through Pain" and "Combat Drugs" now show their full descriptions',
+      'Necrons: "Reanimation Protocols" now shows its full description',
+      'Chaos Space Marines / Chaos Daemons: "Mark of Khorne", "Mark of Nurgle", "Mark of Slaanesh" and "Mark of Tzeentch" now show their full descriptions',
+      'Orks: Ramshackle table results (Kaboom! / Kareen! / Kerrunch!) now shown in unit card for all 18 affected vehicles',
+      'Orks: Shokk Attack Gun and Junka Shokk Attack Gun scatter table now fully described (all 6 doubles results)',
+      'Minor bug fix: "Students of Vaul" (Eldar), "Interplanetary Invasors" (Necrons) and "Big Red Button" (Orks) vehicle traits now apply their correct +5 pts cost',
+    ],
+  },
+  {
+    version: '0.18',
+    date: '2026-05-20',
+    title: 'Equipment options & rule descriptions fixed across 10+ factions',
+    changes: [
+      'Space Marines — Blood Claws: Jump pack option (+8 pts) now appears and can be selected',
+      'Space Marines — Assault Squad: "Remove jump pack" (−9 pts) and "Heavy bolt pistol" (+1 pt) options now appear',
+      'Orks — Tankbustas: Bomb squig option (+8 pts) now appears',
+      'Orks — Deffkoptaz: Big bomb option (+13 pts) now appears',
+      'Orks — Big\'ed Bossbunka: Big shoota option (+12 pts) now appears',
+      'Core Rules: "Fire Hatches" rule now shows its description in unit cards (GK Rhino, IG Chimera, IG Taurox, SM Impulsor, and others)',
+      'Grey Knights (7 vehicles), Eldar (Spiritseer), Sororitas (Living Saint): junk text entries (column headers from table data) were showing up in the abilities list — fixed',
+      'Orks vehicles, Chaos Space Marines, Harlequins, Dark Eldar, Custodes, Leagues of Votann, Necrons, Tyranids, Inquisition: minor bug fix — various incorrect or corrupted ability entries removed or corrected',
+    ],
+  },
   {
     version: '0.17',
     date: '2026-05-20',
