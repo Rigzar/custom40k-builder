@@ -11,6 +11,7 @@ import { PrintView } from './components/PrintView';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
+import { getArchetypeRule } from './engine/archetypes';
 import type { FactionData } from './types/data';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
@@ -140,7 +141,7 @@ export default function App() {
   const store = useArmyStore();
   const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
-          alliedFaction, setAlliedData } = store;
+          alliedFaction, setAlliedData, injectArchetypeFaction } = store;
 
   const [page, setPage]                         = useState<Page>('landing');
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(
@@ -227,6 +228,20 @@ export default function App() {
       .catch(e => console.error('Error loading allied faction data', e));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedFaction]);
+
+  // Auto-load faction data required by the active archetype (e.g. Legion → horus_heresy)
+  useEffect(() => {
+    const rule = getArchetypeRule(archetype);
+    if (!rule?.alliedFaction || !data) return;
+    const key = rule.alliedFaction;
+    if (data.allied?.[key]) return; // already loaded
+    const loader = loaders[key];
+    if (!loader) return;
+    loader()
+      .then(m => injectArchetypeFaction(key, (m as { default: unknown }).default as FactionData))
+      .catch(e => console.error('Error loading archetype faction data', e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [archetype, data?.faction]);
 
   function handleBuild() {
     // Auto-assign name if empty

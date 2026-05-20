@@ -89,6 +89,7 @@ export interface WeaponProfile {
 export interface ArmoryItem {
   name: string;
   term_compat: boolean;
+  gravis_compat?: boolean;
   p_unit?: number | null;
   p_char?: number | null;
   /** veteran = counts toward veteran_max slot; vehicle = only for vehicle units; null = regular */

@@ -5,6 +5,7 @@ import { useArmyStore } from '../store/army';
 import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
 import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
 import { parseAbility } from '../data/coreRules';
+import { getTraitEffects } from '../engine/traitEffects';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -121,18 +122,31 @@ export function UnitCard({ item }: Props) {
     return found?.category === 'vehicle';
   }).length;
 
-  // Army traits: apply to main-faction units (not allied) with veteran abilities
+  // Army traits: show section whenever the unit actually has traits applied
   const isMainFaction = item.unitName in data.units;
-  const unitTraitsInPool = data.traits.filter(t => {
-    if (!traitPool.includes(t.name)) return false;
-    const hasNumericCost = [t.pts_unit, t.pts_char, t.pts_monster, t.pts_veh].some(
-      v => v && v !== '-' && v.toLowerCase() !== 'special',
-    );
-    return hasNumericCost;
-  });
-  const showTraits = isMainFaction && u.has_veteran_abilities && unitTraitsInPool.length > 0;
+  const showTraits = isMainFaction && item.traits.length > 0;
   // Traits apply to all eligible units with no veteran_max cap — no conflict possible
   const hasTraitConflict = false;
+
+  // Collect structured trait effects for this unit (stat mods, abilities, weapon abilities)
+  const traitStatMods: Array<{ stat: string; delta: number }> = [];
+  const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
+  const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
+  if (showTraits) {
+    for (const t of item.traits) {
+      for (const e of getTraitEffects(t.name, u)) {
+        if (e.type === 'stat_mod') {
+          traitStatMods.push({ stat: e.stat, delta: e.delta });
+        } else if (e.type === 'inv_save') {
+          traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save`, desc: `This unit gains a ${e.value}+ invulnerability save.` });
+        } else if (e.type === 'unit_ability') {
+          traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
+        } else if (e.type === 'weapon_ability') {
+          traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
+        }
+      }
+    }
+  }
 
   const modelsToShow: Model[] = variant
     ? [variant, ...u.models.filter((m: Model) => m.max > 0).slice(1)]
@@ -202,7 +216,10 @@ export function UnitCard({ item }: Props) {
               {statModMark && MARK_STAT_MODS[statModMark] && (
                 u.is_character ? MARK_STAT_MODS[statModMark].char : MARK_STAT_MODS[statModMark].inf
               ) && (
-                <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">* = mark bonus applied</span>
+                <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">* = mark bonus</span>
+              )}
+              {traitStatMods.length > 0 && (
+                <span className="ml-2 text-emerald-400 normal-case font-normal text-[10px]">† = trait bonus</span>
               )}
             </div>
             <table className="w-full text-[11px] border-collapse">
@@ -224,20 +241,39 @@ export function UnitCard({ item }: Props) {
                       {statKeys.map(k => {
                         const raw = (m.stats as Record<string, string>)[k] ?? '-';
                         let display = raw;
-                        let boosted = false;
+                        let markBoosted = false;
+                        let traitBoosted = false;
+
+                        // Apply mark stat bonus
                         if (statModMark && MARK_STAT_MODS[statModMark]) {
                           const mod = u.is_character
                             ? MARK_STAT_MODS[statModMark].char
                             : MARK_STAT_MODS[statModMark].inf;
                           if (mod && mod.stat === k) {
-                            const r = applyDelta(raw, mod.delta);
+                            const r = applyDelta(display, mod.delta);
                             display = r.display;
-                            boosted = r.modified;
+                            markBoosted = r.modified;
                           }
                         }
+
+                        // Apply trait stat mods (stacked delta on top of current display)
+                        const traitDelta = traitStatMods
+                          .filter(sm => sm.stat === k)
+                          .reduce((acc, sm) => acc + sm.delta, 0);
+                        if (traitDelta !== 0) {
+                          const r = applyDelta(display, traitDelta);
+                          if (r.modified) { display = r.display; traitBoosted = true; }
+                        }
+
+                        const cellClass = markBoosted
+                          ? 'text-blue-400 font-bold'
+                          : traitBoosted
+                            ? 'text-emerald-400 font-bold'
+                            : '';
+                        const suffix = markBoosted ? '*' : traitBoosted ? '†' : '';
                         return (
-                          <td key={k} className={`text-center py-1 px-1 ${boosted ? 'text-blue-400 font-bold' : ''}`}>
-                            {display}{boosted ? '*' : ''}
+                          <td key={k} className={`text-center py-1 px-1 ${cellClass}`}>
+                            {display}{suffix}
                           </td>
                         );
                       })}
@@ -273,10 +309,15 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
-          {/* Mark selection — only for Chaos units with a mark option group */}
-          {!u.locked_mark && !markIsForced && hasMarkGroup && (
-            <div>
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Chaos Mark</div>
+          {/* Mark selection — units with a mark group, OR any HQ when Black Crusade is active */}
+          {!u.locked_mark && !markIsForced && (hasMarkGroup || (traitPool.includes('Black Crusade') && effectiveSlot === 'HQ')) && (
+            <div className={traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && !item.mark ? 'border border-amber-900/60 p-1.5' : ''}>
+              <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
+                Chaos Mark
+                {traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && (
+                  <span className="ml-1 text-amber-600 normal-case font-normal">(Black Crusade: assign a different god mark to each HQ)</span>
+                )}
+              </div>
               <div className="flex flex-wrap gap-1">
                 {MARKS.map(m => (
                   <button
@@ -528,12 +569,20 @@ export function UnitCard({ item }: Props) {
                 )}
               </div>
               {item.traits.length > 0 ? (
-                item.traits.map((t: TraitSelection) => (
-                  <div key={t.name} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                    <span className="text-zinc-300">{t.name}</span>
-                    <span className="text-amber-600">+{t.points} pts</span>
-                  </div>
-                ))
+                item.traits.map((t: TraitSelection) => {
+                  const traitDef = data.traits.find(def => def.name === t.name);
+                  return (
+                    <div key={t.name} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                      <div className="flex justify-between items-start gap-2">
+                        <span className="text-zinc-300">{t.name}</span>
+                        <span className="text-amber-600 whitespace-nowrap">+{t.points}{t.perWound ? '/W' : ''} pts</span>
+                      </div>
+                      {traitDef?.desc && (
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{traitDef.desc}</div>
+                      )}
+                    </div>
+                  );
+                })
               ) : (
                 hasTraitConflict && (
                   <div className="text-[10px] text-amber-600 italic px-2">
@@ -580,16 +629,16 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
-          {/* Abilities */}
-          {u.abilities.length > 0 && (
+          {/* Abilities (native + trait) */}
+          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0) && (
             <details>
               <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
-                Abilities ({u.abilities.length})
+                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length})
               </summary>
               <div className="mt-2 space-y-2">
                 {u.abilities.flatMap((a, i) =>
                   parseAbility(a).map((part, j) => (
-                    <div key={`${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                    <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium">{part.displayName}</div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
@@ -597,6 +646,27 @@ export function UnitCard({ item }: Props) {
                     </div>
                   ))
                 )}
+                {traitAbilities.map((ta, i) => (
+                  <div key={`ta-${i}`} className="border-b border-zinc-700/40 pb-1.5">
+                    <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
+                      {ta.name}
+                      <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Trait</span>
+                    </div>
+                    {ta.desc && (
+                      <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{ta.desc}</div>
+                    )}
+                  </div>
+                ))}
+                {traitWeaponAbilities.map((wa, i) => (
+                  <div key={`wa-${i}`} className="border-b border-zinc-700/40 pb-1.5">
+                    <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
+                      {wa.name}
+                      <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">
+                        Trait · {wa.weapon_type === 'bolt' ? 'Bolt weapons' : wa.weapon_type === 'melee' ? 'Melee weapons' : 'Ranged weapons'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             </details>
           )}

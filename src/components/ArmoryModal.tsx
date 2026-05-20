@@ -451,6 +451,9 @@ function ArmoryItemRow({
             {arm.name}
           </span>
           {justAdded && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
+          {arm.gravis_compat && (
+            <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
+          )}
           {arm.term_compat && (
             <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">Term</span>
           )}

@@ -36,8 +36,25 @@ function applyArmyTraits(
   traitPool: string[],
   data: FactionData,
   _archetype: string,
+  legacy?: string,
 ): RosterEntry[] {
   if (!traitPool.length) return army.map(e => ({ ...e, traits: [] }));
+
+  // Holy Trinity forces 3 traits at a combined flat cost of 10 pts per non-character unit
+  if (legacy === 'The Holy Trinity') {
+    return army.map(item => {
+      const unit = resolveUnit(item, data);
+      if (!unit) return { ...item, traits: [] };
+      const isMainFaction = item.unitName in data.units;
+      if (!isMainFaction || !unit.has_veteran_abilities) return { ...item, traits: [] };
+      // Characters get the traits at no cost (pts_char = 0 for all three)
+      const traits: TraitSelection[] = traitPool.map((name, i) => ({
+        name,
+        points: unit.is_character ? 0 : i === 0 ? 10 : 0,
+      }));
+      return { ...item, traits };
+    });
+  }
 
   // Filter out army-only traits (they have no per-unit cost)
   const unitTraitNames = traitPool.filter(name => {
@@ -49,9 +66,15 @@ function applyArmyTraits(
     const unit = resolveUnit(item, data);
     if (!unit) return { ...item, traits: [] };
 
-    // Traits apply only to main faction units (not allied units) with the correct keyword
+    // Traits apply only to main faction units (not allied units)
     const isMainFaction = item.unitName in data.units;
-    if (!isMainFaction || !unit.has_veteran_abilities || !unitTraitNames.length) {
+    if (!isMainFaction || !unitTraitNames.length) {
+      return { ...item, traits: [] };
+    }
+
+    // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
+    // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
+    if (data.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
       return { ...item, traits: [] };
     }
 
@@ -60,7 +83,8 @@ function applyArmyTraits(
       .map(name => {
         const def = data.traits.find(t => t.name === name);
         if (!def) return null;
-        const raw = unit.is_vehicle ? def.pts_veh
+        // Vehicles fall back to pts_monster because the xlsx column 1 covers both.
+        const raw = unit.is_vehicle ? (def.pts_veh ?? def.pts_monster)
           : unit.is_character ? def.pts_char
           : unit.is_monster ? def.pts_monster
           : def.pts_unit;
@@ -108,6 +132,8 @@ export interface ArmyStore extends ArmyState {
   addPrayer: (id: string, prayerName: string) => void;
   removePrayer: (id: string, prayerName: string) => void;
 
+  /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
+  injectArchetypeFaction: (key: string, factionData: FactionData) => void;
   importRoster: (json: string) => void;
   clearArmy: () => void;
 }
@@ -181,18 +207,36 @@ export const useArmyStore = create<ArmyStore>()(
 
       setArchetype: (a: string) => set((s: S) => {
         const army = s.data
-          ? applyArmyTraits(s.army, s.traitPool, s.data, a)
+          ? applyArmyTraits(s.army, s.traitPool, s.data, a, s.legacy)
           : s.army;
         return { archetype: a, army };
       }),
 
-      setLegacy: (l: string) => set({ legacy: l }),
+      setLegacy: (l: string) => set((s: S) => {
+        if (l === 'The Holy Trinity' && s.data) {
+          const holyTrioNames = ['Raging Fervour', 'Rites of Fire', 'Unshakable Vengeance'];
+          return {
+            legacy: l,
+            traitPool: holyTrioNames,
+            army: applyArmyTraits(s.army, holyTrioNames, s.data, s.archetype, l),
+          };
+        }
+        if (s.legacy === 'The Holy Trinity' && s.data) {
+          // Deselecting Holy Trinity: clear the auto-set trait pool
+          return {
+            legacy: l,
+            traitPool: [],
+            army: applyArmyTraits(s.army, [], s.data, s.archetype, l),
+          };
+        }
+        return { legacy: l };
+      }),
       setLegacy2: (l: string) => set({ legacy2: l }),
 
       setTraitPool: (pool: string[]) => set((s: S) => {
         const newPool = pool.slice(0, 2); // enforce max 2
         const army = s.data
-          ? applyArmyTraits(s.army, newPool, s.data, s.archetype)
+          ? applyArmyTraits(s.army, newPool, s.data, s.archetype, s.legacy)
           : s.army;
         return { traitPool: newPool, army };
       }),
@@ -202,7 +246,7 @@ export const useArmyStore = create<ArmyStore>()(
           e.id === id ? { ...e, traitChoice: choices } : e,
         );
         const army = s.data
-          ? applyArmyTraits(withChoice, s.traitPool, s.data, s.archetype)
+          ? applyArmyTraits(withChoice, s.traitPool, s.data, s.archetype, s.legacy)
           : withChoice;
         return { army };
       }),
@@ -228,7 +272,7 @@ export const useArmyStore = create<ArmyStore>()(
           prayers: [],
         };
         const newArmy = [...s.army, entry];
-        const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype);
+        const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy);
         set({ army });
       },
 
@@ -238,7 +282,7 @@ export const useArmyStore = create<ArmyStore>()(
         const newArmy = s.army.map((e: RosterEntry) => e.id === id ? { ...e, ...patch } : e);
         // Re-sync traits when mark changes (mark uses a veteran slot)
         const army = ('mark' in patch) && s.data
-          ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype)
+          ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy)
           : newArmy;
         return { army };
       }),
@@ -285,13 +329,26 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
+      injectArchetypeFaction: (key: string, factionData: FactionData) => set((s: S) => {
+        if (!s.data) return {};
+        return {
+          data: {
+            ...s.data,
+            allied: {
+              ...(s.data.allied ?? {}),
+              [key]: { slot_to_units: factionData.slot_to_units, units: factionData.units },
+            },
+          },
+        };
+      }),
+
       importRoster: (json: string) => {
         const s = get();
         try {
           const parsed = JSON.parse(json);
           const newState = { ...defaultState, ...parsed, data: s.data };
           const army = s.data
-            ? applyArmyTraits(newState.army, newState.traitPool, s.data, newState.archetype)
+            ? applyArmyTraits(newState.army, newState.traitPool, s.data, newState.archetype, newState.legacy)
             : newState.army;
           set({ ...newState, army });
         } catch { /* ignore malformed */ }

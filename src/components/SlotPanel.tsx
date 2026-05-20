@@ -64,7 +64,7 @@ export function SlotPanel() {
     for (const name of names) {
       const u = data.units[name];
       if (!u) continue;
-      if (!isUnitAllowed(name, u, rule)) continue;
+      if (!isUnitAllowed(name, u, rule, originalSlot)) continue;
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) {
         effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost });
@@ -126,6 +126,7 @@ export function SlotPanel() {
           : eng.multiAop ? rawMax * aopMult : rawMax;
 
         const units = effectiveSlotUnits[slot] ?? [];
+        if (rule?.bannedSlots.includes(slot)) return null;
         if (rawMax === 0 && units.length === 0) return null;
 
         const used = getSlotUsage(army, data, slot, rule);

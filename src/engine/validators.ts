@@ -46,7 +46,10 @@ function getAopRequirement(army: RosterEntry[], data: FactionData, engKey: strin
 }
 
 function allowedMarks(state: ArmyState, data: FactionData): string[] {
-  return data.animosity[state.hqMark] ?? [];
+  // Try exact key first, then prefix-match for compound keys like "Undivided / Without"
+  if (data.animosity[state.hqMark]) return data.animosity[state.hqMark];
+  const match = Object.entries(data.animosity).find(([k]) => k.startsWith(state.hqMark));
+  return match ? match[1] : [];
 }
 
 export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {
@@ -85,6 +88,44 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         items.push({
           type: 'error',
           text: `Archetype "${state.archetype}": ${item.unitName} is not allowed.`,
+        });
+      }
+    }
+
+    // Whitelist — only specific units allowed (e.g. Krumpa Kompany, Tempestus Scions)
+    if (rule.allowedUnitsOnly.length > 0) {
+      for (const item of state.army) {
+        if (!item.factionSource && !rule.allowedUnitsOnly.includes(item.unitName)) {
+          items.push({
+            type: 'error',
+            text: `Archetype "${state.archetype}": ${item.unitName} is not in the allowed unit list.`,
+          });
+        }
+      }
+    }
+
+    // Banned slots (e.g. War Hawks: no Heavy Support)
+    if (rule.bannedSlots.length > 0) {
+      for (const item of state.army) {
+        if (!item.factionSource && rule.bannedSlots.includes(item.slot)) {
+          items.push({
+            type: 'error',
+            text: `Archetype "${state.archetype}": ${item.slot} units are not allowed (${item.unitName}).`,
+          });
+        }
+      }
+    }
+
+    // Required HQ unit type (e.g. LIIVI needs a Farseer, The First Curse needs a Patriarch)
+    if (rule.requiresHqUnit) {
+      const hasRequiredHq = state.army.some(item => {
+        const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+        return effSlot === 'HQ' && item.unitName.toLowerCase().includes(rule!.requiresHqUnit!.toLowerCase());
+      });
+      if (!hasRequiredHq) {
+        items.push({
+          type: 'error',
+          text: `Archetype "${state.archetype}": requires at least 1 ${rule.requiresHqUnit} as HQ.`,
         });
       }
     }
@@ -176,6 +217,16 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       }
     }
 
+    // Mechanised Company: only 1 Heavy Support unit allowed
+    if (state.archetype === 'Mechanised Company') {
+      const hsCount = state.army.filter(item =>
+        !item.factionSource && getEffectiveSlot(item.unitName, item.slot, rule) === 'Heavy Support',
+      ).length;
+      if (hsCount > 1) {
+        items.push({ type: 'error', text: `Mechanised Company: only 1 Heavy Support unit allowed (have ${hsCount}).` });
+      }
+    }
+
     // No legacy/traits when archetype forbids them
     if (rule.noLegacy && (state.legacy || state.legacy2)) {
       items.push({ type: 'error', text: `Archetype "${state.archetype}": no Legacy is allowed.` });
@@ -214,8 +265,15 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
-  // Black Crusade trait: each HQ must have a different mark
-  if (state.traitPool.includes('Black Crusade')) {
+  // Black Crusade trait: one HQ per Chaos god (all 4 marks must be present, no repeats)
+  const blackCrusadeActive = state.traitPool.includes('Black Crusade');
+  if (blackCrusadeActive) {
+    if (!state.hqMark.startsWith('Undivided')) {
+      items.push({
+        type: 'warn',
+        text: 'Black Crusade: set the Army HQ Mark to "Undivided" so all four god marks can coexist in the army.',
+      });
+    }
     const hqMarks: string[] = [];
     for (const item of state.army) {
       const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
@@ -223,12 +281,20 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       const u = resolveUnit(item, data);
       const m = u?.locked_mark ?? item.mark ?? '';
       if (!m) {
-        items.push({ type: 'warn', text: `Black Crusade: ${item.unitName} needs a Chaos Mark.` });
+        items.push({ type: 'warn', text: `Black Crusade: ${item.unitName} has no Chaos Mark (each HQ must carry a different god's mark).` });
       } else if (hqMarks.includes(m)) {
-        items.push({ type: 'error', text: `Black Crusade: Mark ${m} repeated (each HQ needs a different mark).` });
+        items.push({ type: 'error', text: `Black Crusade: Mark of ${m} appears more than once among HQs (each must be different).` });
       } else {
         hqMarks.push(m);
       }
+    }
+    const CHAOS_MARKS = ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
+    const missingMarks = CHAOS_MARKS.filter(m => !hqMarks.includes(m));
+    if (missingMarks.length > 0) {
+      items.push({
+        type: 'error',
+        text: `Black Crusade: missing an HQ with mark(s) of ${missingMarks.join(', ')}.`,
+      });
     }
   }
 
@@ -404,8 +470,8 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
-  // Animosity / mark checks
-  if (!rule?.noAnimosity) {
+  // Animosity / mark checks — skipped for Black Crusade (it has its own 4-mark validation above)
+  if (!rule?.noAnimosity && !blackCrusadeActive) {
     const allowed = allowedMarks(state, data);
     for (const item of state.army) {
       if (item.mark && !allowed.includes(item.mark)) {

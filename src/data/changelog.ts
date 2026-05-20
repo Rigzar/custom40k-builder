@@ -19,8 +19,8 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-22a',
     status: 'investigating',
-    title: 'Trait engine: stat changes and unit/weapon abilities not yet applied to unit cards',
-    description: 'Traits correctly add point costs to all units, but their mechanical effects (stat modifications such as +S/+T/+A, unit abilities such as Frenzy/Sunder/Blind Rage, and weapon abilities) are not yet reflected in the stat block or abilities list on unit cards. The fix requires a structured effects layer for all ~160 traits across 10 factions. Under active development.',
+    title: 'Trait engine: stat/ability effects implemented for CSM only — 9 factions pending',
+    description: 'The trait effects engine (stat modifications, unit abilities, weapon abilities) is now live and working for Chaos Space Marines (17 traits fully mapped). The remaining 9 factions (AdMech, Sororitas, Dark Eldar, Eldar, GSC, Imperial Guard, Leagues of Votann, Necrons, Orks, Space Marines, Tau) still show description text only — their structured effects will be added one faction at a time.',
   },
   // ── Planned (v0.22+) ──────────────────────────────────────────────────────
   {
@@ -251,6 +251,24 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.23',
+    date: '2026-05-20',
+    title: 'Trait engine + Black Crusade fix + animosity key fix',
+    changes: [
+      'New trait effects engine (src/engine/traitEffects.ts) — each trait can now carry structured stat mods, unit abilities, weapon abilities and invulnerability saves, not just a description and a points cost',
+      'Chaos Space Marines: all 17 traits fully mapped with their mechanical effects — stat changes (S+1 / M+1 from Laboratory Experiments) appear highlighted in green (†) on the stat block; unit abilities (Blind Rage, Berserk, Frenzy, They Shall Know No Fear, Terrifying, etc.) appear in the Abilities section with a [Trait] badge; weapon abilities (Sunder(1) on ranged, Gruesome on melee, Deflagrate(5+) on Bolt weapons) appear with a [Trait · Weapons] badge',
+      'Stat block now shows two bonus legends: "* = mark bonus" (blue, existing) and "† = trait bonus" (green, new)',
+      'Abilities section now shows even when a unit has no native abilities but has trait effects',
+      'Army-only traits (Black Crusade, Mixed Warband) produce no per-unit stat or ability changes — this is correct behavior',
+      'Remaining 9 factions (AdMech, Sororitas, Dark Eldar, Eldar, GSC, Imperial Guard, Leagues of Votann, Necrons, Orks, Space Marines, Tau) still show description text only — effects will be added faction by faction in upcoming sessions',
+      'Black Crusade: fixed root cause — the CSM animosity table uses the compound key "Undivided / Without" but the code looked up "Undivided" (exact match), returning an empty allowed-marks list; now uses prefix matching so Undivided armies correctly permit all god marks',
+      'Black Crusade: animosity check is now skipped entirely when Black Crusade is in the trait pool (the trait has its own 4-mark validator); a warning is shown if the Army HQ Mark is not set to Undivided',
+      'ArmyConfig trait cost display: raw "*" suffix is now shown as "pts/W" (e.g. Iron Within, Iron Without now displays "+2 pts/W per unit · +5 pts/W per monster · free (per char)"); pts_monster added to the hasUnitCost calculation so vehicle-only traits no longer show "(army effect)"',
+      'Archetype / Legacy / Traits sections are now disabled for all factions except Chaos Space Marines — a "Coming soon" notice is shown instead; army building (units, equipment, points) remains fully functional for all factions',
+      'Landing page: developer announcement banner from rigzar explaining the CSM-first engine approach; dismissable and stored in localStorage so it only shows once',
+    ],
+  },
   {
     version: '0.22',
     date: '2026-05-20',
