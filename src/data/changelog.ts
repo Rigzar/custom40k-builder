@@ -15,6 +15,51 @@ export interface KnownIssue {
 }
 
 export const KNOWN_ISSUES: KnownIssue[] = [
+  // ── In progress ───────────────────────────────────────────────────────────
+  {
+    id: 'ki-22a',
+    status: 'investigating',
+    title: 'Trait engine: stat changes and unit/weapon abilities not yet applied to unit cards',
+    description: 'Traits correctly add point costs to all units, but their mechanical effects (stat modifications such as +S/+T/+A, unit abilities such as Frenzy/Sunder/Blind Rage, and weapon abilities) are not yet reflected in the stat block or abilities list on unit cards. The fix requires a structured effects layer for all ~160 traits across 10 factions. Under active development.',
+  },
+  // ── Planned (v0.22+) ──────────────────────────────────────────────────────
+  {
+    id: 'ki-21a',
+    status: 'planned',
+    title: 'Dark Eldar keyword archetypes (Bloodbrides, Haemoxytes, Trueborn) and trait keyword filters not yet implemented',
+    description: 'These archetypes restrict the army to units with specific keywords (<Cult>, <Coven>, <Kabal>). Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) mark traits that apply only to those keyword groups. The builder does not yet filter units or traits by keyword.',
+  },
+  {
+    id: 'ki-21b',
+    status: 'fixed',
+    title: 'CSM traits should only apply to units with the "Chaos Space Marine" keyword',
+    description: 'Fixed in v0.22 — CSM traits now only apply to units carrying the "Chaos Space Marine" keyword. Cultists, Chaos Spawn, World Eaters, Death Guard, Thousand Sons, and daemon engines are excluded.',
+  },
+  {
+    id: 'ki-21c',
+    status: 'planned',
+    title: 'Coordinated Raid (Dark Eldar): 3-HQ requirement with specific roles and 3 keyword-based traits not yet enforced',
+    description: 'Coordinated Raid grants a 3rd HQ slot and requires one Dracon, one Haemoncolus and one Succubus. It also grants a 3rd trait, one per keyword group. These mechanics require new engine support.',
+  },
+  {
+    id: 'ki-21d',
+    status: 'fixed',
+    title: 'Mechanised Company: max 1 Heavy Support selection not enforced',
+    description: 'Fixed in v0.22 — a validator now raises an error if more than 1 Heavy Support unit is added under the Mechanised Company archetype.',
+  },
+  // ── Fixed (v0.20) ─────────────────────────────────────────────────────────
+  {
+    id: 'ki-20a',
+    status: 'fixed',
+    title: 'Space Marines armory: Gravis-compatible items showed a raw "ᴳ" character instead of a keyword badge',
+    description: 'Fixed in v0.20 — items available to Gravis-armored models now show a "Gravis" keyword badge, matching the existing "Term" badge for Terminator-compatible items.',
+  },
+  {
+    id: 'ki-20b',
+    status: 'fixed',
+    title: 'Adeptus Sororitas — "The Holy Trinity" legacy applied no traits and added no points',
+    description: 'Fixed in v0.20 — selecting The Holy Trinity now automatically grants Raging Fervour, Rites of Fire and Unshakable Vengeance to all eligible units at a combined cost of 10 pts per non-character unit.',
+  },
   // ── Fixed (v0.19) ─────────────────────────────────────────────────────────
   {
     id: 'ki-19a',
@@ -206,6 +251,43 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.22',
+    date: '2026-05-20',
+    title: 'Unit whitelists, CSM keyword trait restriction & Mechanised Company HS limit',
+    changes: [
+      'Krumpa Kompany, Tempestus Scions and Destroyer Cult archetypes now enforce a strict unit whitelist — the slot catalogue only shows allowed units and the validator flags any disallowed units already in the army',
+      'CSM army traits now correctly apply only to units with the "Chaos Space Marine" keyword (Legionnaires, Chosen, etc.); Cultists, Chaos Spawn, World Eaters, Death Guard, Thousand Sons and daemon engines are excluded',
+      'Mechanised Company: new validator enforces the max-1 Heavy Support rule from the xlsx',
+      'Army trait descriptions now appear on each unit card below the trait name — previously only the cost was shown',
+      'Army traits now show on all eligible units regardless of veteran ability access — vehicles and monsters were previously hidden from the trait section on their unit cards even when traits were applied',
+      'Black Crusade: HQ units that do not have a Chaos mark group in their datasheet now show a mark selector when Black Crusade is active, so all 4 gods\' marks can be assigned',
+      'Krumpa Kompany: corrected Troops remap to "Nobz" (was "Nobs" — wrong unit name)',
+    ],
+  },
+  {
+    version: '0.21',
+    date: '2026-05-20',
+    title: 'Archetype engine overhaul + bug fixes',
+    changes: [
+      'Added army-building rules for 50+ archetypes across all 19 factions: slot remaps, banned units, banned slots, HQ unit restrictions, required HQ types, and allied faction auto-load',
+      'Legion and Legion (Space Marines) archetypes now automatically load Horus Heresy Space Marines supplement units into the slot catalogue when selected',
+      'Black Crusade trait: validation now requires all 4 Chaos god marks (Khorne, Nurgle, Slaanesh, Tzeentch) to be present among HQ models, not just checks for duplicate marks',
+      'Iron Within, Iron Without (CSM) and The Flesh is Weak (SM): trait now correctly applies to all unit types — creature models at 2 pts/W, vehicles and monstrous creatures at 5 pts/W, characters free; previously only appeared on characters',
+      'Army traits now correctly apply to all main faction units based on the trait\'s point columns (Vehicles & Monsters | Characters | Normal), not gated by veteran ability access',
+      'Slot panel now hides entire slot categories when the active archetype bans them (e.g. War Hawks: Heavy Support hidden)',
+      'Data corrections from full xlsx review: Destroyer Cult (Skorpekh Destroyers as Troops), Yngir (Pariahs as Troops), 1st Company (Honor Guard and Terminators as Troops), Cybernetica Cohort (Datasmith upgrade, correct Troops restriction), Mechanised Company (Leman Russ Tank Commander/Commissar banned), Stealth Cadre (Commander with XV22 Stalker required)',
+    ],
+  },
+  {
+    version: '0.20',
+    date: '2026-05-20',
+    title: 'Bug fixes — Sororitas Holy Trinity traits & SM Gravis keyword badge',
+    changes: [
+      'Adeptus Sororitas: selecting "The Holy Trinity" legacy now automatically grants Raging Fervour, Rites of Fire and Unshakable Vengeance to all eligible units at a combined cost of 10 pts per non-character unit',
+      'Space Marines armory: items available to Gravis-armored models now show a "Gravis" keyword badge — the raw "G" superscript character has been removed from item names',
+    ],
+  },
   {
     version: '0.19',
     date: '2026-05-20',
