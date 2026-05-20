@@ -252,6 +252,28 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.25',
+    date: '2026-05-20',
+    title: 'CSM HTML audit — armory access flags + missing weapon profiles',
+    changes: [
+      'Chaos Space Marines, Cultists, Havocs, Raptors, Chaos Bikers, Big Mutants: champion_has_armory corrected to true (Aspiring Champion / Boss Mutant gains armory access per official datasheet)',
+      'Lord Discordant: Impaler chainglaive was listed in equipped_with text but missing from the weapons table — added with both profiles (Charge: Sx2 AP-3 D2 AT(2), charge order only; Melee: S+2 AP-3 D1)',
+      'Obliterator: Plasma cannon and Twin plasma gun were missing from the weapons table — added both with their Standard and Overcharged/Overheating profiles',
+    ],
+  },
+  {
+    version: '0.24',
+    date: '2026-05-20',
+    title: 'Core Rules audit — AOP corrections + Objective Secured! rule',
+    changes: [
+      'Pitched Battle: Flyers limit corrected from 0–1 to 0–2 (was a data entry error vs. official rules)',
+      'Epic Battle: HQ limit corrected from 1–3 to 1–2 per official rules',
+      'Epic Battle: Fortifications limit corrected from 0–2 to 0–1 per official rules',
+      'Epic Battle: notes updated to reflect Lords of War are allowed (max 33% of points), pending the full Lords of War slot implementation',
+      'Core Rules glossary: added "Objective Secured!" — automatically granted to every Troop selection; objectives captured by units with this rule remain under the controlling player\'s possession even without a friendly model in range',
+    ],
+  },
+  {
     version: '0.23',
     date: '2026-05-20',
     title: 'Trait engine + Black Crusade fix + animosity key fix',

@@ -380,6 +380,14 @@ const RULES: Record<string, RuleEntry> = {
     name: 'Warded',
     description: 'The model gains a 6+ invulnerability save, or improves an existing invulnerability save by +1 (maximum 4+). Cumulative with itself.',
   },
+  'objective secured': {
+    name: 'Objective Secured!',
+    description: 'If an objective is captured or controlled by a unit with this rule, the objective remains under the controlling player\'s possession even if no friendly units remain in range. Control is only lost if the opposing player conquers or contests the objective with one of their own units at the end of a battle round. Transport vehicles also benefit from this rule if an embarked unit has it. Automatically granted to every Troop selection; units gain or lose it when switching battlefield role through Archetypes.',
+  },
+  'objective secured!': {
+    name: 'Objective Secured!',
+    description: 'If an objective is captured or controlled by a unit with this rule, the objective remains under the controlling player\'s possession even if no friendly units remain in range. Control is only lost if the opposing player conquers or contests the objective with one of their own units at the end of a battle round. Transport vehicles also benefit from this rule if an embarked unit has it. Automatically granted to every Troop selection; units gain or lose it when switching battlefield role through Archetypes.',
+  },
   // ── Faction signature rules ────────────────────────────────────────────────
   'supporting fire': {
     name: 'Supporting Fire',

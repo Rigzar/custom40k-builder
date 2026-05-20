@@ -52,7 +52,7 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
     name: 'Pitched Battle', range: '2500–3500 pts', default: 2500,
     aop: {
       HQ: [1,2], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
-      'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,1],
+      'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,2],
     },
     multiAop: true, minTroopsRatio: 0.25, statCaps: false,
     notes: 'Standard engagement · ≥25% Troops · multi-AOP allowed',
@@ -60,10 +60,10 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
   epic: {
     name: 'Epic Battle', range: '4000+ pts', default: 5000,
     aop: {
-      HQ: [1,3], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
-      'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,2], Flyers: [0,2],
+      HQ: [1,2], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
+      'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,2],
     },
     multiAop: true, minTroopsRatio: 0.25, statCaps: false,
-    notes: 'Large engagement · ≥25% Troops · multi-AOP allowed',
+    notes: 'Large engagement · ≥25% Troops · Lords of War allowed (max 33% pts) · multi-AOP allowed',
   },
 };
