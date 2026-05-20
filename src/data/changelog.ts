@@ -15,6 +15,19 @@ export interface KnownIssue {
 }
 
 export const KNOWN_ISSUES: KnownIssue[] = [
+  // ── Fixed (v0.16) ─────────────────────────────────────────────────────────
+  {
+    id: 'ki-16a',
+    status: 'fixed',
+    title: 'Bullgryns equipment swap options were invisible',
+    description: 'Fixed in v0.16 — the Plate shield and Grenadier gauntlet swap options now appear as numeric inputs on the Bullgryns unit card. Previously the parser produced empty choices lists, so the options were not rendered.',
+  },
+  {
+    id: 'ki-16b',
+    status: 'fixed',
+    title: 'Mechanised Company — transports not counted toward 25% Troops',
+    description: 'Fixed in v0.16 — when the Mechanised Company archetype is active, Dedicated Transports now contribute 50% of their points toward the 25% Troops requirement, matching the archetype rules.',
+  },
   // ── Open ──────────────────────────────────────────────────────────────────
   {
     id: 'ki-1',
@@ -137,14 +150,34 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.16',
+    date: '2026-05-20',
+    title: 'Bug fixes — Bullgryns equipment & Mechanised Company transports',
+    changes: [
+      'Imperial Guard — Bullgryns: equipment swap options (Plate shield / Grenadier gauntlet) now appear and cost points correctly; previously the options were invisible due to a parser miss',
+      'Imperial Guard — Mechanised Company archetype: Dedicated Transports now count at 50% of their points toward the 25% Troops requirement, as per the archetype rules',
+    ],
+  },
+  {
+    version: '0.15',
+    date: '2026-05-20',
+    title: 'Missing units & enriched data (4 factions)',
+    changes: [
+      'Adeptus Custodes: added Coronus Grav-carrier (Dedicated Transport)',
+      'Genestealer Cults: added Kelermorph and Locus (Elites)',
+      'Space Marines: added Wolf Companions (Fast Attack)',
+      'Tyranids, Space Marines, Adeptus Custodes, Genestealer Cults: weapon profiles and unit data filled in from parser',
+    ],
+  },
+  {
     version: '0.14',
     date: '2026-05-19',
-    title: 'Botones de Habilidades Veteranas y Mejoras de Vehículo',
+    title: 'Veteran Abilities and Vehicle Upgrade buttons',
     changes: [
-      'Nuevo: botón "Veteran" en cada carta de unidad — abre directamente las habilidades veteranas de la armería, sin tener que buscarlas entre el resto del equipo',
-      'Nuevo: botón "Upgrades" en las cartas de vehículos — muestra solo las mejoras de vehículo disponibles para esa unidad',
-      'Ambos botones solo aparecen si la facción tiene ese tipo de objetos y la unidad los puede usar',
-      'El contador del botón Veteran muestra cuántos slots llevas usados (p.ej. "Veteran (1/2)")',
+      'New: "Veteran" button on each unit card — opens veteran abilities directly, without having to browse the full armoury',
+      'New: "Upgrades" button on vehicle cards — shows only vehicle upgrade items available to that unit',
+      'Both buttons only appear when the faction has items of that category and the unit can use them',
+      'The Veteran button counter shows how many slots are used (e.g. "Veteran (1/2)")',
     ],
   },
   {

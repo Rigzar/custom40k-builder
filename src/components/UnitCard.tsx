@@ -389,7 +389,9 @@ export function UnitCard({ item }: Props) {
                     const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
                     const inputMax = isPerN && groupRemaining !== null
                       ? qty + groupRemaining
-                      : undefined;
+                      : g.constraint.type === 'every'
+                        ? item.size
+                        : undefined;
                     return (
                       <div
                         key={ci}

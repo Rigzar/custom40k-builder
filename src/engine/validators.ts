@@ -270,7 +270,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
 
   // Troops 25% — archetype may restrict which Troops count (main faction only)
   if (state.army.length > 0 && total > 0) {
-    const troopsPts = state.army
+    const baseTroopsPts = state.army
       .filter(i => {
         // Exclude allied units from the 25% Troops calculation
         if (state.alliedFaction && i.factionSource === state.alliedFaction) return false;
@@ -283,6 +283,19 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         const u = resolveUnit(i, data);
         return s + (u ? computeUnitPoints(i, u) : 0);
       }, 0);
+    // Mechanised Company: Dedicated Transports count at 50% toward the Troops 25%
+    const transportBonus = state.archetype === 'Mechanised Company'
+      ? state.army
+          .filter(i => {
+            if (state.alliedFaction && i.factionSource === state.alliedFaction) return false;
+            return i.slot === 'Dedicated Transport';
+          })
+          .reduce((s, i) => {
+            const u = resolveUnit(i, data);
+            return s + (u ? Math.floor(computeUnitPoints(i, u) * 0.5) : 0);
+          }, 0)
+      : 0;
+    const troopsPts = baseTroopsPts + transportBonus;
     const ratio = troopsPts / total;
     const label = (rule && rule.troopsCount !== 'all')
       ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : 'Raptors/Legionnaires'})`
