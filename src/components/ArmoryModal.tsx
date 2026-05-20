@@ -35,6 +35,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   const isChar = unit.is_character;
   const isVehicle = unit.is_vehicle;
 
+  // Faction capability flags — only show tabs / sections that the faction actually has
+  const hasMark = Object.keys(data.armory_marks).length > 0;
+  const hasLegionData = Object.keys(data.armory_legions).length > 0;
+  // Label for the legacy/legion/clan tab — use the first armory_legions key as the name
+  const legionTabLabel = Object.keys(data.armory_legions)[0] ?? 'Legacy';
+  // Only show Daemon Weapons section if any armory source has items for it
+  const hasDaemonWeapons = [
+    data.armory_general,
+    ...Object.values(data.armory_marks),
+    ...Object.values(data.armory_legions),
+  ].some(src => (src.daemon_weapons as ArmoryItem[]).length > 0);
+
   // Veteran slot tracking for armory items — independent of whether the faction has traits
   const armoryVetEnabled = unit.has_veteran_abilities;
   // Marks use one veteran slot for units that can choose their mark (not locked marks)
@@ -146,22 +158,50 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
 
-        {/* Armory tabs */}
+        {/* Armory tabs — only show tabs that exist for this faction */}
         <div className="flex border-b border-zinc-700">
-          {(['general','mark','legion'] as ArmoryTab[]).map(t => (
+          {/* General tab — always shown */}
+          {(['general'] as ArmoryTab[]).map(t => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              disabled={(t === 'mark' && !effectiveMark) || (t === 'legion' && !hasLegion)}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
                 ${tab === t
+                  ? 'border-amber-600 text-amber-400'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300'
+                }`}
+            >
+              General
+            </button>
+          ))}
+          {/* Mark tab — only for factions with marks (CSM) */}
+          {hasMark && (
+            <button
+              onClick={() => setTab('mark')}
+              disabled={!effectiveMark}
+              className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                ${tab === 'mark'
                   ? 'border-amber-600 text-amber-400'
                   : 'border-transparent text-zinc-500 hover:text-zinc-300 disabled:opacity-30'
                 }`}
             >
-              {t === 'mark' ? `${effectiveMark ?? 'Mark'} Armoury` : t === 'legion' ? `Legion${hasLegion ? ` (${activeLegionKeys.join(', ')})` : ''}` : 'General'}
+              {effectiveMark ?? 'Mark'} Armoury
             </button>
-          ))}
+          )}
+          {/* Legion/Clan tab — only for factions with legacy armory data */}
+          {hasLegionData && (
+            <button
+              onClick={() => setTab('legion')}
+              disabled={!hasLegion}
+              className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                ${tab === 'legion'
+                  ? 'border-amber-600 text-amber-400'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300 disabled:opacity-30'
+                }`}
+            >
+              {hasLegion ? activeLegionKeys[0] : legionTabLabel} Armoury
+            </button>
+          )}
         </div>
 
         {/* Cataphractii restriction */}
@@ -174,7 +214,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
         {/* Section tabs — hidden when opened via a specific category button */}
         {!filterCategory && (
           <div className="flex gap-1 p-2 bg-zinc-800 border-b border-zinc-700">
-            {(['weapons','equipment','daemon_weapons'] as Section[]).map(s => (
+            {(['weapons','equipment'] as Section[]).map(s => (
               <button
                 key={s}
                 onClick={() => setSection(s)}
@@ -184,9 +224,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                     : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
                   }`}
               >
-                {s === 'daemon_weapons' ? 'Daemon Weapons' : s === 'weapons' ? 'Weapons' : 'Equipment'}
+                {s === 'weapons' ? 'Weapons' : 'Equipment'}
               </button>
             ))}
+            {/* Daemon Weapons only shown for factions that have them */}
+            {hasDaemonWeapons && (
+              <button
+                onClick={() => setSection('daemon_weapons')}
+                className={`px-3 py-1 text-[11px] uppercase border transition-colors
+                  ${section === 'daemon_weapons'
+                    ? 'bg-amber-800 border-amber-600 text-white'
+                    : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
+                  }`}
+              >
+                Daemon Weapons
+              </button>
+            )}
           </div>
         )}
 

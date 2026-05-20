@@ -332,6 +332,18 @@ const RULES: Record<string, RuleEntry> = {
     name: 'Stealth',
     description: 'The model always counts as being in Heavy cover.',
   },
+  'shrouding': {
+    name: 'Shrouding',
+    description: 'The model gains "Deflect" against all attacks that are more than 12" away.',
+  },
+  'they shall know no fear': {
+    name: 'They Shall Know No Fear',
+    description: 'A pinned or fleeing unit automatically regroups at the start of the turn or when it reaches the edge of the board. It can never use the "Take Cover" Defensive reaction.',
+  },
+  'true grit': {
+    name: 'True Grit',
+    description: 'The model may treat all of its ranged weapons during its Activation as "Assault" weapons (e.g. Rapid Fire 2 becomes Assault 2) and gains +1 attack for any combination of a ranged weapon with a melee weapon, not just for Pistols.',
+  },
   'swarm': {
     name: 'Swarm',
     description: "Every instance of damage can only ever cause 1 wound loss. Attacks with Barrage or Explosive cause one hit for each Wound remaining on the model.",

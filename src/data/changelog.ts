@@ -15,6 +15,19 @@ export interface KnownIssue {
 }
 
 export const KNOWN_ISSUES: KnownIssue[] = [
+  // ── Fixed (v0.17) ─────────────────────────────────────────────────────────
+  {
+    id: 'ki-17a',
+    status: 'fixed',
+    title: 'Armory shows CSM-only tabs (Mark, Legion, Daemon Weapons) for all factions',
+    description: 'Fixed in v0.17 — Mark Armoury tab is now hidden for factions with no marks; Daemon Weapons section is hidden when the faction has none; the legacy/clan tab uses the faction\'s own key name (e.g. "Clan Armoury" for Orks instead of "Legion Armoury").',
+  },
+  {
+    id: 'ki-17b',
+    status: 'fixed',
+    title: 'Grey Knights — Shrouding, They Shall Know No Fear, True Grit show no description',
+    description: 'Fixed in v0.17 — these three Grey Knights special rules were stored as bare names in the unit data and had no entry in the core rules glossary. Full descriptions added.',
+  },
   // ── Fixed (v0.16) ─────────────────────────────────────────────────────────
   {
     id: 'ki-16c',
@@ -155,6 +168,17 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.17',
+    date: '2026-05-20',
+    title: 'Armory tab cleanup & Grey Knights missing rule descriptions',
+    changes: [
+      'Armory modal: "Mark Armoury" tab is now hidden for factions without marks (e.g. Orks, Grey Knights) — it was always disabled for those factions but still visible',
+      'Armory modal: "Daemon Weapons" section tab is now hidden for factions whose armory has no daemon weapons',
+      'Armory modal: the legacy/clan tab now uses the faction\'s own naming — Orks show "Clan Armoury" instead of "Legion Armoury"',
+      'Grey Knights: "Shrouding", "They Shall Know No Fear" and "True Grit" now show their full rule descriptions in unit cards and the printed summary',
+    ],
+  },
   {
     version: '0.16',
     date: '2026-05-20',
