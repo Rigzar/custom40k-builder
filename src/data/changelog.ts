@@ -17,6 +17,12 @@ export interface KnownIssue {
 export const KNOWN_ISSUES: KnownIssue[] = [
   // ── Fixed (v0.16) ─────────────────────────────────────────────────────────
   {
+    id: 'ki-16c',
+    status: 'fixed',
+    title: '"Jury-rigged repairs" trait not applying cost to vehicles',
+    description: 'Fixed in v0.16 — the trait\'s pts_veh field was null due to a parser miss, so vehicles (including Chimera) did not receive the +5 pts cost. Fixed to 5 pts per vehicle.',
+  },
+  {
     id: 'ki-16a',
     status: 'fixed',
     title: 'Bullgryns equipment swap options were invisible',
@@ -152,10 +158,11 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '0.16',
     date: '2026-05-20',
-    title: 'Bug fixes — Bullgryns equipment & Mechanised Company transports',
+    title: 'Bug fixes — Bullgryns equipment, Mechanised Company transports, Jury Rig',
     changes: [
       'Imperial Guard — Bullgryns: equipment swap options (Plate shield / Grenadier gauntlet) now appear and cost points correctly; previously the options were invisible due to a parser miss',
       'Imperial Guard — Mechanised Company archetype: Dedicated Transports now count at 50% of their points toward the 25% Troops requirement, as per the archetype rules',
+      'Imperial Guard — "Jury-rigged repairs" trait: was not applying its +5 pts cost to vehicles (Chimera and others) because the parser left pts_veh as null instead of 5; fixed',
     ],
   },
   {
