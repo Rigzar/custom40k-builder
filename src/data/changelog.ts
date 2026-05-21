@@ -31,8 +31,8 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-26b',
     status: 'planned',
-    title: 'Psychic power selection: no "N known powers" limit enforced per psyker',
-    description: 'Psykers can currently select any number of powers from the modal. The per-psyker limit (e.g. "knows 2 powers") is not yet enforced. A future update will add a max-powers picker so players can record exactly which powers each psyker knows.',
+    title: 'Psychic power access rules not yet enforced per psyker',
+    description: 'Each psyker has rules defining which disciplines they can draw from and which powers they can know. These per-psyker access rules (e.g. Sorcerers choose from their marked discipline + General Disciplines) are visible in the modal but not yet enforced as hard filters. Designer review will confirm exact access rules before enforcement is added.',
   },
   // ── Planned (v0.22+) ──────────────────────────────────────────────────────
   {
