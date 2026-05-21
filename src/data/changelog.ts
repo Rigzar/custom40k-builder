@@ -283,6 +283,11 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Vehicle Upgrades added to Chaos Space Marines armory: Additional armor (5), Blasphemous Rune (5), Daemonic possession (free), Dirge Caster (15), Hunter-killer missile (5), Improved targeting (5), Jammer (15), Living vehicle (10), Mutated Hull (20), Smoke Launcher (15)',
       'Veteran ability slot rules: abilities from Traits are not counted toward the veteran slot limit; abilities already present in the unit\'s base profile are shown as "In profile" and do not consume a slot',
       'Armory price display: veteran ability rows now show the total cost with a per-model or per-wound breakdown (e.g. "+10 pts (1/model)" for a 10-model unit); vehicle upgrade rows show the flat total',
+      'Armory modal tabs: Mark Armoury tab is now hidden (not just disabled) when the unit has no mark; Legion Armoury tab is now hidden when no legacy is active — previously both tabs appeared greyed-out at all times',
+      'Armory modal tabs: General/Mark/Legion tab bar is now hidden entirely when the modal is opened via the Veteran Abilities or Vehicle Upgrades buttons — only the relevant items are shown',
+      'Veteran abilities removed from the full Armory Equipment tab — they now only appear when opening the dedicated Veteran Abilities button, preventing duplication',
+      'Unit card Equipment section split into three labeled groups: Equipment (armory weapons/gear), Veteran Abilities, and Vehicle Upgrades — each group only appears when it has items',
+      'CSM vehicles: has_armory_access corrected to false for 13 vehicles and monstrous creatures whose datasheets say "Has access to vehicle equipment from the Armory" (Chaos Land Raider, Chaos Predator, Chaos Vindicator, Chaos Rhino, Helbrute, Defiler, Forgefiend, Maulerfiend, Venomcrawler, Dreadclaw Drop Pod, Heldrake, Foetid Bloat-Drone, Myphitic Blight-Hauler) — these units show Vehicle Upgrades button only; Daemon Prince and Lord Discordant retain full armory access per their datasheets',
     ],
   },
   {
