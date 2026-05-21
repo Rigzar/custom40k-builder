@@ -252,6 +252,28 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.26',
+    date: '2026-05-21',
+    title: 'General Psychic Disciplines added',
+    changes: [
+      'Added all 31 General Psychic Disciplines (Smite + Biomancy, Divination, Pyromancy, Telekinesis, Telepathy — 6 powers each) as structured data per the core rules',
+      'All psykers now see the General Disciplines in the powers modal alongside their faction-specific disciplines (Core Rules: "Psykers have access to the list of General Psychic Disciplines as well as those listed in their respective Codex")',
+      'General Disciplines are not filtered by mark, cult affiliation or legacy — they are always available to every psyker',
+      'CSM Tzeentch Daemonkin (Cabbalistic Rituals): two items had swapped names — corrected to Enhanced Manifestation (range +6" per CP) and Brotherhood of Sorcerers (+1 to test per CP); added two absent entries: Pact from Beyond (ignore Perils) and Cabbalistic Focus (power can\'t be denied)',
+      'CSM Nurgle Daemonkin (Tally of Pestilence): four threshold items were missing the name field required by the UI — added name and tally fields (7, 14, 21, 28)',
+      'Malefic discipline: five power names had incorrect capitalisation — corrected to Cursed Earth, Warp Marked, Infernal Might, Pact of Flesh, Pact of Steel',
+      'Mark selection redesigned: removed the global "HQ Mark" dropdown from the army config panel; HQ units now have the same per-unit Chaos Mark buttons as other units, and changing an HQ mark automatically updates the army mark used by animosity and unit validators',
+      'Mark stat bonuses fixed: characters were only receiving the character-specific bonus (e.g. Khorne +1 S) and missing the base infantry bonus (Khorne +1 A); both now stack correctly — Khorne: +1A +1S, Nurgle: +1T +1W, Slaanesh: +1I +2"M; vehicles correctly show no stat deltas (their mark bonuses are ability-based: Tank Shock, Recover damage, etc.)',
+      'Favored Units implemented: units with a god mark whose size is a multiple of the sacred number (Khorne 8, Nurgle 7, Slaanesh 6, Tzeentch 9) now show a ★ Favored badge in the header, a note that the squad leader gains +1 Attack and a personal icon, and the +1 A is reflected live in the stat table for the squad leader model row (shown in blue with * mark-bonus indicator)',
+      'Mark of Tzeentch — Warded ability now injected into the Abilities section (with a blue "Mark" tag) for non-locked Tzeentch units that do not already have it',
+      'Mark of Tzeentch — non-psyker character models marked with Tzeentch now show the Powers button and can select 1 power from any General Discipline, per the rule "becomes a psyker and knows 1 power"',
+      'Veteran Abilities added to Chaos Space Marines armory: Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard — 1 pt/model for infantry, 2 pts/wound for vehicles and monsters; Infiltrator and Vanguard are not available to vehicles',
+      'Vehicle Upgrades added to Chaos Space Marines armory: Additional armor (5), Blasphemous Rune (5), Daemonic possession (free), Dirge Caster (15), Hunter-killer missile (5), Improved targeting (5), Jammer (15), Living vehicle (10), Mutated Hull (20), Smoke Launcher (15)',
+      'Veteran ability slot rules: abilities from Traits are not counted toward the veteran slot limit; abilities already present in the unit\'s base profile are shown as "In profile" and do not consume a slot',
+      'Armory price display: veteran ability rows now show the total cost with a per-model or per-wound breakdown (e.g. "+10 pts (1/model)" for a 10-model unit); vehicle upgrade rows show the flat total',
+    ],
+  },
+  {
     version: '0.25',
     date: '2026-05-20',
     title: 'CSM HTML audit — armory access flags + missing weapon profiles',

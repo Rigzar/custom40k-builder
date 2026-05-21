@@ -3,6 +3,7 @@ import type { RosterEntry } from '../types/army';
 import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
+import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
@@ -35,16 +36,14 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
   const hasPrayers = unit.is_priest && (data.prayers ?? []).length > 0;
-  const hasPowers = unit.is_psyker && Object.keys(data.disciplines ?? {}).length > 0;
+  const hasPowers = unit.is_psyker;
 
   const [tab, setTab] = useState<ModalTab>(hasPowers ? 'powers' : 'prayers');
 
   // ── Discipline filtering ──────────────────────────────────────────────────
-  // 1. Mark-only (e.g. "Change (Tzeentch only)"): only for psykers with that mark
-  // 2. Cult-only: only for units with a specific (non-Undivided) locked mark
-  // 3. Legacy (e.g. "Geokinesis (Legacy)"): only when army has an active Legacy
-  // 4. Everything else: available to all psykers
-  const allowedDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
+  // Faction disciplines: filtered by mark / cult / legacy rules
+  // General disciplines: always available to every psyker (Core Rules: Known Powers)
+  const factionDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
     if (isMarkOnlyDisc(name)) {
       if (!effectiveMark || effectiveMark === 'Undivided') return false;
       const lc = name.toLowerCase();
@@ -58,6 +57,8 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     }
     return true;
   });
+  const generalDiscs = Object.entries(GENERAL_DISCIPLINES);
+  const allowedDiscs = [...generalDiscs, ...factionDiscs];
 
   function isPowerSelected(disc: string, power: string) {
     return item.powers.some(p => p.disciplineName === disc && p.powerName === power);

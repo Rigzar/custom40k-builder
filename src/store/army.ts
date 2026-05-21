@@ -284,7 +284,16 @@ export const useArmyStore = create<ArmyStore>()(
         const army = ('mark' in patch) && s.data
           ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy)
           : newArmy;
-        return { army };
+        // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes)
+        const extra: Record<string, unknown> = {};
+        if ('mark' in patch) {
+          const entry = s.army.find((e: RosterEntry) => e.id === id);
+          const multiMark = s.traitPool.includes('Black Crusade') || s.archetype === "Abaddon's Chosen";
+          if (entry?.slot === 'HQ' && !multiMark) {
+            extra.hqMark = patch.mark ?? 'Undivided';
+          }
+        }
+        return { army, ...extra };
       }),
 
       setOptionQty: (id: string, gi: number, ci: string | number, qty: number) => set((s: S) => ({

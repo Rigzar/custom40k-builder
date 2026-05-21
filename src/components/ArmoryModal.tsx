@@ -53,9 +53,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
   const armoryVetMax = armoryVetEnabled ? Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0)) : null;
+
+  // Abilities already baked into the unit's profile — these don't consume a veteran slot
+  const profileAbilityNames: Set<string> = new Set(
+    (unit.abilities ?? []).map(a => a.split(':')[0].trim().toLowerCase())
+  );
+
   const veteranItemsUsed = armoryVetMax !== null
     ? item.armory.filter(a => {
-        // look up category from all armory sources
+        // Abilities already in the unit's profile don't count toward the slot limit
+        if (profileAbilityNames.has(a.itemName.toLowerCase())) return false;
         const sources = [
           data.armory_general,
           ...Object.values(data.armory_marks),
@@ -72,6 +79,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
     : 0;
   const veteranSlotsFull = armoryVetMax !== null && veteranItemsUsed >= armoryVetMax;
 
+  // Wound/HP count for per-wound cost calculation (veteran abilities on vehicles/monsters)
+  const baseModel = unit.models.find(m => m.max > 0) ?? unit.models[0];
+  const woundCount = isVehicle
+    ? (parseInt(String(baseModel?.stats?.HP ?? '1'), 10) || 1)
+    : (parseInt(String(baseModel?.stats?.W ?? '1'), 10) || 1);
+
   // Cataphractii armor restriction
   const isCataphractii = (unit.abilities ?? []).some(a => a.toLowerCase().startsWith('cataphractii armor'));
   function filterTermCompat(armItems: ArmoryItem[]): ArmoryItem[] {
@@ -82,7 +95,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   function filterByUnitType(armItems: ArmoryItem[]): ArmoryItem[] {
     return armItems.filter(arm => {
       if (arm.category === 'vehicle') return isVehicle;
-      if (arm.category === 'veteran') return unit.has_veteran_abilities;
+      if (arm.category === 'veteran') {
+        if (!unit.has_veteran_abilities) return false;
+        // Infiltrator / Vanguard etc. have p_veh:null — not available to vehicles/monsters
+        if (isVehicle || unit.is_monster) return arm.p_veh != null;
+        return true;
+      }
       return true;
     });
   }
@@ -100,11 +118,24 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   }
 
   function add(arm: ArmoryItem, src: string, sec: Section) {
-    const charPrice = parsePrice(arm.p_char);
-    const unitPrice = parsePrice(arm.p_unit);
-    const pts = isChar
-      ? (charPrice ?? unitPrice ?? 0)
-      : (unitPrice ?? 0);
+    let pts: number;
+    if (arm.category === 'veteran') {
+      // Cost is per-model for infantry/characters; per-wound for vehicles & monsters
+      if (isVehicle || unit.is_monster) {
+        pts = (parsePrice(arm.p_veh) ?? 0) * woundCount * item.size;
+      } else if (isChar) {
+        pts = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit) ?? 0;
+      } else {
+        pts = (parsePrice(arm.p_unit) ?? 0) * item.size;
+      }
+    } else if (arm.category === 'vehicle') {
+      // Flat cost per vehicle
+      pts = (parsePrice(arm.p_unit) ?? 0) * item.size;
+    } else {
+      const charPrice = parsePrice(arm.p_char);
+      const unitPrice = parsePrice(arm.p_unit);
+      pts = isChar ? (charPrice ?? unitPrice ?? 0) : (unitPrice ?? 0);
+    }
     addArmoryItem(item.id, {
       id: selId(),
       itemName: arm.name,
@@ -261,7 +292,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                     {legEq ? (
                       <EquipmentGroups
                         regular={legEq.regular} veteran={legEq.veteran} vehicle={legEq.vehicle}
-                        isChar={isChar} isVehicle={isVehicle}
+                        isChar={isChar} isVehicle={isVehicle} isMonster={unit.is_monster}
+                        unitSize={item.size} unitWounds={woundCount}
+                        profileAbilityNames={profileAbilityNames}
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
@@ -280,7 +313,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
           ) : effectiveSection === 'equipment' ? (
             <EquipmentGroups
               regular={regularEquip} veteran={veteranEquip} vehicle={vehicleEquip}
-              isChar={isChar} isVehicle={isVehicle}
+              isChar={isChar} isVehicle={isVehicle} isMonster={unit.is_monster}
+              unitSize={item.size} unitWounds={woundCount}
+              profileAbilityNames={profileAbilityNames}
               armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
               filterCategory={filterCategory}
               lastAdded={lastAdded}
@@ -320,6 +355,10 @@ interface EquipGroupsProps {
   vehicle: ArmoryItem[];
   isChar: boolean;
   isVehicle: boolean;
+  isMonster: boolean;
+  unitSize: number;
+  unitWounds: number;
+  profileAbilityNames: Set<string>;
   armoryVetMax: number | null;
   veteranItemsUsed: number;
   veteranSlotsFull: boolean;
@@ -330,12 +369,34 @@ interface EquipGroupsProps {
 
 function EquipmentGroups({
   regular, veteran, vehicle,
-  isChar, isVehicle,
+  isChar, isVehicle, isMonster,
+  unitSize, unitWounds,
+  profileAbilityNames,
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
   filterCategory,
   lastAdded,
   onAdd,
 }: EquipGroupsProps) {
+  // Build a per-model/per-wound price label for veteran abilities
+  function vetPriceLabel(arm: ArmoryItem): string {
+    if (isVehicle || isMonster) {
+      const vp = parsePrice(arm.p_veh);
+      if (vp == null) return '—';
+      const total = vp * unitWounds * unitSize;
+      return `+${total} pts (${vp}/wound)`;
+    }
+    if (isChar) {
+      const cp = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit);
+      return cp != null ? `+${cp} pts` : '—';
+    }
+    const up = parsePrice(arm.p_unit);
+    return up != null ? `+${up * unitSize} pts (${up}/model)` : '—';
+  }
+
+  function vehPriceLabel(arm: ArmoryItem): string {
+    const p = parsePrice(arm.p_unit);
+    return p != null ? `+${p * unitSize} pts` : '—';
+  }
   // When opened via a category button, only show that group
   const showRegular = !filterCategory && regular.length > 0;
   const showVeteran = filterCategory !== 'vehicle' && veteran.length > 0;
@@ -387,14 +448,19 @@ function EquipmentGroups({
             </div>
           )}
           <div className="space-y-1">
-            {veteran.map((arm, i) => (
-              <ArmoryItemRow
-                key={i} arm={arm} isChar={isChar}
-                disabled={armoryVetMax !== null && veteranSlotsFull}
-                justAdded={lastAdded === arm.name}
-                onAdd={() => onAdd(arm)}
-              />
-            ))}
+            {veteran.map((arm, i) => {
+              const inProfile = profileAbilityNames.has(arm.name.toLowerCase());
+              return (
+                <ArmoryItemRow
+                  key={i} arm={arm} isChar={isChar}
+                  disabled={(armoryVetMax !== null && veteranSlotsFull && !inProfile) || inProfile}
+                  justAdded={lastAdded === arm.name}
+                  priceLabel={vetPriceLabel(arm)}
+                  inProfile={inProfile}
+                  onAdd={() => !inProfile && onAdd(arm)}
+                />
+              );
+            })}
           </div>
         </div>
       )}
@@ -409,7 +475,7 @@ function EquipmentGroups({
           )}
           <div className="space-y-1">
             {vehicle.map((arm, i) => (
-              <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => onAdd(arm)} />
+              <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} priceLabel={vehPriceLabel(arm)} onAdd={() => onAdd(arm)} />
             ))}
           </div>
         </div>
@@ -421,28 +487,33 @@ function EquipmentGroups({
 // ── Item rows ────────────────────────────────────────────────────────────────
 
 function ArmoryItemRow({
-  arm, isChar, disabled = false, justAdded = false, onAdd,
+  arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
   disabled?: boolean;
   justAdded?: boolean;
+  priceLabel?: string;
+  inProfile?: boolean;
   onAdd: () => void;
 }) {
   const charPrice = parsePrice(arm.p_char);
   const unitPrice = parsePrice(arm.p_unit);
   const pts = isChar ? (charPrice ?? unitPrice) : unitPrice;
+  const displayPrice = priceLabel ?? (pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—');
 
   return (
     <button
       onClick={onAdd}
       disabled={disabled}
       className={`w-full flex justify-between items-start px-3 py-2 border text-left gap-2 transition-all duration-200
-        ${disabled
-          ? 'bg-zinc-800 border-zinc-700 opacity-40 cursor-not-allowed'
-          : justAdded
-            ? 'bg-green-900/30 border-green-600'
-            : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700'
+        ${inProfile
+          ? 'bg-zinc-800/50 border-zinc-700 opacity-50 cursor-not-allowed'
+          : disabled
+            ? 'bg-zinc-800 border-zinc-700 opacity-40 cursor-not-allowed'
+            : justAdded
+              ? 'bg-green-900/30 border-green-600'
+              : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700'
         }`}
     >
       <div className="min-w-0">
@@ -451,6 +522,7 @@ function ArmoryItemRow({
             {arm.name}
           </span>
           {justAdded && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
+          {inProfile && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase tracking-wide">In profile</span>}
           {arm.gravis_compat && (
             <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
           )}
@@ -461,8 +533,8 @@ function ArmoryItemRow({
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
         <ArmoryWeaponStats arm={arm} />
       </div>
-      <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : 'text-amber-500'}`}>
-        {pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—'}
+      <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : 'text-amber-500'}`}>
+        {inProfile ? '(free slot)' : displayPrice}
       </span>
     </button>
   );

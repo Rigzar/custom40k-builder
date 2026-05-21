@@ -6,27 +6,18 @@ import type { EngagementType, Mark } from '../types/army';
 
 export function ArmyConfig() {
   const {
-    data, army, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool,
+    data, army, engagement, pointLimit, archetype, legacy, legacy2, traitPool,
     setEngagement, setPointLimit, setHqMark, setArchetype, setLegacy, setLegacy2, setTraitPool,
   } = useArmyStore();
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
   const isCSM = data.faction === 'Chaos Space Marines';
-  // Normalize compound animosity keys (e.g. "Undivided / Without" → "Undivided")
-  // so the dropdown value always matches the stored hqMark ('Undivided', 'Khorne', etc.)
-  const marks = [...new Set(
-    Object.keys(data.animosity).map(k => k.split(' /')[0].trim() as Mark)
-  )];
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
-
-  // Cult archetypes force the HQ mark
-  const forcedMark = rule?.forcedMark as Mark | undefined;
 
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
-  const hasMarks = Object.keys(data.animosity).length > 0;
 
   // Undivided-only legacies restrict which units can be used
   const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter'];
@@ -72,24 +63,6 @@ export function ArmyConfig() {
         />
       </div>
 
-      {/* HQ Mark — only for Chaos factions */}
-      {hasMarks && <div>
-        <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">HQ Mark</div>
-        {forcedMark ? (
-          <div className="flex items-center gap-2 px-2 py-1 bg-zinc-800 border border-zinc-600 text-amber-500 text-sm">
-            <span>{forcedMark}</span>
-            <span className="text-zinc-500 text-[10px] italic">(forced by archetype)</span>
-          </div>
-        ) : (
-          <select
-            value={hqMark}
-            onChange={e => setHqMark(e.target.value as Mark)}
-            className="w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600"
-          >
-            {marks.map(m => <option key={m} value={m}>{m}</option>)}
-          </select>
-        )}
-      </div>}
 
       {/* Archetype / Legacy / Traits — CSM only for now */}
       {!isCSM ? (

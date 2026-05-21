@@ -31,6 +31,8 @@ const MARK_STAT_MODS: Record<string, MarkMod> = {
   Undivided: {},
 };
 
+const SACRED_NUMBERS: Record<string, number> = { Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9 };
+
 function applyDelta(value: string, delta: number): { display: string; modified: boolean } {
   if (!value || value === '-') return { display: value, modified: false };
   if (/^\d+$/.test(value)) return { display: String(parseInt(value) + delta), modified: true };
@@ -101,6 +103,19 @@ export function UnitCard({ item }: Props) {
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
   const hasMarkGroup = u.option_groups.some(g => g.constraint.type === 'mark');
+  const hasMarks = Object.keys(data.animosity).length > 0;
+
+  // Favored: unit size is a non-zero multiple of the mark's sacred number (Khorne 8, Nurgle 7, Slaanesh 6, Tzeentch 9)
+  const isFavored = !!effectiveMark && effectiveMark !== 'Undivided' &&
+    SACRED_NUMBERS[effectiveMark] != null && item.size > 0 &&
+    item.size % SACRED_NUMBERS[effectiveMark] === 0;
+
+  // Non-psyker characters with Tzeentch mark become psykers (gain 1 power from any discipline)
+  const isTzeentchPsyker = u.is_character && !u.is_psyker && statModMark === 'Tzeentch';
+
+  // Inject "Warded" into abilities for non-locked Tzeentch units that don't already have it
+  const markInjectedAbilities: string[] = statModMark === 'Tzeentch' &&
+    !u.abilities.some(a => a.toLowerCase().includes('warded')) ? ['Warded'] : [];
   const markUsesVetSlot = hasMarkGroup && !u.locked_mark && !!effectiveMark;
   const vetMax = Math.max(0, (u.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
@@ -152,6 +167,10 @@ export function UnitCard({ item }: Props) {
     ? [variant, ...u.models.filter((m: Model) => m.max > 0).slice(1)]
     : u.models.filter((m: Model) => m.max > 0);
 
+  // Squad leader = the optional model (min===0); fallback to last model if none
+  const squadLeaderIdx = modelsToShow.length <= 1 ? 0 :
+    (() => { const idx = modelsToShow.findIndex(m => m.min === 0); return idx >= 0 ? idx : modelsToShow.length - 1; })();
+
   function setQty(gi: number, ci: string | number, qty: number) {
     setOptionQty(item.id, gi, ci, qty);
   }
@@ -178,6 +197,11 @@ export function UnitCard({ item }: Props) {
                   mark={effectiveMark}
                   suffix={u.locked_mark ? '(locked)' : markIsForced ? '(archetype)' : undefined}
                 />
+              </span>
+            )}
+            {isFavored && (
+              <span className="ml-1 text-[9px] bg-amber-900/50 text-amber-300 border border-amber-700/60 px-1 py-px uppercase tracking-wide font-semibold">
+                ★ Favored
               </span>
             )}
           </div>
@@ -213,9 +237,9 @@ export function UnitCard({ item }: Props) {
           <div>
             <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
               Profile
-              {statModMark && MARK_STAT_MODS[statModMark] && (
+              {(isFavored || (statModMark && MARK_STAT_MODS[statModMark] && (
                 u.is_character ? MARK_STAT_MODS[statModMark].char : MARK_STAT_MODS[statModMark].inf
-              ) && (
+              ))) && (
                 <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">* = mark bonus</span>
               )}
               {traitStatMods.length > 0 && (
@@ -244,16 +268,26 @@ export function UnitCard({ item }: Props) {
                         let markBoosted = false;
                         let traitBoosted = false;
 
-                        // Apply mark stat bonus
-                        if (statModMark && MARK_STAT_MODS[statModMark]) {
-                          const mod = u.is_character
-                            ? MARK_STAT_MODS[statModMark].char
-                            : MARK_STAT_MODS[statModMark].inf;
-                          if (mod && mod.stat === k) {
-                            const r = applyDelta(display, mod.delta);
+                        // Apply mark stat bonus (vehicles get ability-based bonuses only, no stat deltas)
+                        if (statModMark && MARK_STAT_MODS[statModMark] && !u.is_vehicle) {
+                          const mods = MARK_STAT_MODS[statModMark];
+                          if (mods.inf && mods.inf.stat === k) {
+                            const r = applyDelta(display, mods.inf.delta);
                             display = r.display;
-                            markBoosted = r.modified;
+                            if (r.modified) markBoosted = true;
                           }
+                          if (u.is_character && mods.char && mods.char.stat === k) {
+                            const r = applyDelta(display, mods.char.delta);
+                            display = r.display;
+                            if (r.modified) markBoosted = true;
+                          }
+                        }
+
+                        // Favored: squad leader gains +1 Attack
+                        if (isFavored && i === squadLeaderIdx && k === 'A') {
+                          const r = applyDelta(display, 1);
+                          display = r.display;
+                          if (r.modified) markBoosted = true;
                         }
 
                         // Apply trait stat mods (stacked delta on top of current display)
@@ -309,8 +343,8 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
-          {/* Mark selection — units with a mark group, OR any HQ when Black Crusade is active */}
-          {!u.locked_mark && !markIsForced && (hasMarkGroup || (traitPool.includes('Black Crusade') && effectiveSlot === 'HQ')) && (
+          {/* Mark selection — units with a mark group, OR any HQ in a chaos faction */}
+          {!u.locked_mark && !markIsForced && hasMarks && (hasMarkGroup || effectiveSlot === 'HQ') && (
             <div className={traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && !item.mark ? 'border border-amber-900/60 p-1.5' : ''}>
               <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
                 Chaos Mark
@@ -353,6 +387,12 @@ export function UnitCard({ item }: Props) {
               {item.mark && !markIsForced && (
                 <span className="text-zinc-500"> · counts as 1 veteran ability slot</span>
               )}
+            </div>
+          )}
+          {isFavored && effectiveMark && SACRED_NUMBERS[effectiveMark] && (
+            <div className="text-[10px] text-amber-400/80 border-l-2 border-amber-700 pl-2 mt-0.5">
+              <span className="font-semibold">★ Favored of {effectiveMark}</span>{' '}
+              (size {SACRED_NUMBERS[effectiveMark]}×): squad leader gains +1 Attack and a personal icon.
             </div>
           )}
 
@@ -506,12 +546,12 @@ export function UnitCard({ item }: Props) {
                 Traits ⚠ ({item.traits.length}/{vetMax})
               </button>
             )}
-            {((u.is_psyker && Object.keys(data.disciplines ?? {}).length > 0) || (u.is_priest && (data.prayers ?? []).length > 0)) && (
+            {(((u.is_psyker || isTzeentchPsyker) && Object.keys(data.disciplines ?? {}).length > 0) || (u.is_priest && (data.prayers ?? []).length > 0)) && (
               <button
                 onClick={() => setPsyOpen(true)}
                 className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
               >
-                {u.is_psyker && u.is_priest
+                {(u.is_psyker || isTzeentchPsyker) && u.is_priest
                   ? `Powers/Prayers (${item.powers.length + item.prayers.length})`
                   : u.is_priest
                     ? `Prayers (${item.prayers.length})`
@@ -629,11 +669,11 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
-          {/* Abilities (native + trait) */}
-          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0) && (
+          {/* Abilities (native + trait + mark-injected) */}
+          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || markInjectedAbilities.length > 0) && (
             <details>
               <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
-                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length})
+                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + markInjectedAbilities.length})
               </summary>
               <div className="mt-2 space-y-2">
                 {u.abilities.flatMap((a, i) =>
@@ -667,6 +707,19 @@ export function UnitCard({ item }: Props) {
                     </div>
                   </div>
                 ))}
+                {markInjectedAbilities.flatMap((a, i) =>
+                  parseAbility(a).map((part, j) => (
+                    <div key={`ma-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                      <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
+                        {part.displayName}
+                        <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Mark</span>
+                      </div>
+                      {part.description && (
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                      )}
+                    </div>
+                  ))
+                )}
               </div>
             </details>
           )}
@@ -684,7 +737,7 @@ export function UnitCard({ item }: Props) {
       {vetOpen && <ArmoryModal item={item} unit={u} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
       {vehOpen && <ArmoryModal item={item} unit={u} filterCategory="vehicle" onClose={() => setVehOpen(false)} />}
       {traitsOpen && <TraitsModal item={item} unit={u} markUsesSlot={markUsesVetSlot} onClose={() => setTraitsOpen(false)} />}
-      {psyOpen && <PsychicModal item={item} unit={u} onClose={() => setPsyOpen(false)} />}
+      {psyOpen && <PsychicModal item={item} unit={isTzeentchPsyker ? { ...u, is_psyker: true } : u} onClose={() => setPsyOpen(false)} />}
     </div>
   );
 }

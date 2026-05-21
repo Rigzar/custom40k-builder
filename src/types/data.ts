@@ -94,6 +94,8 @@ export interface ArmoryItem {
   p_char?: number | null;
   /** veteran = counts toward veteran_max slot; vehicle = only for vehicle units; null = regular */
   category?: 'veteran' | 'vehicle' | null;
+  /** Per-wound/HP cost for veteran abilities taken by vehicles or monsters (null = not available to them). */
+  p_veh?: number | null;
   /** Single-profile weapons populate these directly. */
   range?: string; type?: string; s?: string; ap?: string; d?: string; abilities?: string;
   /** Multi-profile weapons (e.g. Combi-weapons, Plasma Gun) store each mode here. */
