@@ -561,41 +561,62 @@ export function UnitCard({ item }: Props) {
             )}
           </div>
 
-          {/* Equipped armory items — with weapon stats if applicable */}
-          {item.armory.length > 0 && (
-            <div className="space-y-1">
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest">Equipment</div>
-              {item.armory.map((a: ArmorySelection) => {
-                const armItem = findArmoryItemData(data, a);
-                const isWeapon = a.section === 'weapons' || a.section === 'daemon_weapons';
-                return (
-                  <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                    <div className="flex justify-between items-center">
-                      <span className="text-zinc-300 font-medium">{a.itemName}</span>
-                      <div className="flex items-center gap-2">
-                        <span className="text-amber-600">{a.points >= 0 ? '+' : ''}{a.points} pts</span>
-                        <button
-                          onClick={() => useArmyStore.getState().removeArmoryItem(item.id, a.id)}
-                          className="text-red-500 hover:text-red-300 text-[11px]"
-                        >
-                          ✕
-                        </button>
-                      </div>
+          {/* Equipped armory items — split by category */}
+          {item.armory.length > 0 && (() => {
+            const regular = item.armory.filter(a => {
+              const d = findArmoryItemData(data, a);
+              return !d?.category;
+            });
+            const veterans = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'veteran');
+            const vehicles = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'vehicle');
+
+            function ArmoryRow({ a }: { a: ArmorySelection }) {
+              const armItem = findArmoryItemData(data, a);
+              const isWeapon = a.section === 'weapons' || a.section === 'daemon_weapons';
+              return (
+                <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                  <div className="flex justify-between items-center">
+                    <span className="text-zinc-300 font-medium">{a.itemName}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-amber-600">{a.points >= 0 ? '+' : ''}{a.points} pts</span>
+                      <button
+                        onClick={() => useArmyStore.getState().removeArmoryItem(item.id, a.id)}
+                        className="text-red-500 hover:text-red-300 text-[11px]"
+                      >✕</button>
                     </div>
-                    {/* Weapon stats inline */}
-                    {isWeapon && armItem && (
-                      <EquippedWeaponStats armItem={armItem} />
-                    )}
-                    {/* Equipment description */}
-                    {!isWeapon && armItem?.desc && (
-                      <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
-                    )}
-                    <div className="text-[9px] text-zinc-600 mt-0.5">{a.source}</div>
                   </div>
-                );
-              })}
-            </div>
-          )}
+                  {isWeapon && armItem && <EquippedWeaponStats armItem={armItem} />}
+                  {!isWeapon && armItem?.desc && (
+                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
+                  )}
+                  <div className="text-[9px] text-zinc-600 mt-0.5">{a.source}</div>
+                </div>
+              );
+            }
+
+            return (
+              <div className="space-y-2">
+                {regular.length > 0 && (
+                  <div className="space-y-1">
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">Equipment</div>
+                    {regular.map(a => <ArmoryRow key={a.id} a={a} />)}
+                  </div>
+                )}
+                {veterans.length > 0 && (
+                  <div className="space-y-1">
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">Veteran Abilities</div>
+                    {veterans.map(a => <ArmoryRow key={a.id} a={a} />)}
+                  </div>
+                )}
+                {vehicles.length > 0 && (
+                  <div className="space-y-1">
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">Vehicle Upgrades</div>
+                    {vehicles.map(a => <ArmoryRow key={a.id} a={a} />)}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           {/* Auto-applied army traits (read-only) */}
           {showTraits && (

@@ -39,7 +39,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   const hasMark = Object.keys(data.armory_marks).length > 0;
   const hasLegionData = Object.keys(data.armory_legions).length > 0;
   // Label for the legacy/legion/clan tab — use the first armory_legions key as the name
-  const legionTabLabel = Object.keys(data.armory_legions)[0] ?? 'Legacy';
+  // legionTabLabel kept as fallback reference (unused now that tab only shows when legacy is active)
+  // const legionTabLabel = Object.keys(data.armory_legions)[0] ?? 'Legacy';
   // Only show Daemon Weapons section if any armory source has items for it
   const hasDaemonWeapons = [
     data.armory_general,
@@ -205,32 +206,30 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
               General
             </button>
           ))}
-          {/* Mark tab — only for factions with marks (CSM) */}
-          {hasMark && (
+          {/* Mark tab — only shown when the unit actually has a mark */}
+          {hasMark && effectiveMark && (
             <button
               onClick={() => setTab('mark')}
-              disabled={!effectiveMark}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
                 ${tab === 'mark'
                   ? 'border-amber-600 text-amber-400'
-                  : 'border-transparent text-zinc-500 hover:text-zinc-300 disabled:opacity-30'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {effectiveMark ?? 'Mark'} Armoury
+              {effectiveMark} Armoury
             </button>
           )}
-          {/* Legion/Clan tab — only for factions with legacy armory data */}
-          {hasLegionData && (
+          {/* Legion/Clan tab — only shown when a legacy that grants armory access is active */}
+          {hasLegionData && hasLegion && (
             <button
               onClick={() => setTab('legion')}
-              disabled={!hasLegion}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
                 ${tab === 'legion'
                   ? 'border-amber-600 text-amber-400'
-                  : 'border-transparent text-zinc-500 hover:text-zinc-300 disabled:opacity-30'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {hasLegion ? activeLegionKeys[0] : legionTabLabel} Armoury
+              {activeLegionKeys[0]} Armoury
             </button>
           )}
         </div>}
@@ -397,10 +396,10 @@ function EquipmentGroups({
     const p = parsePrice(arm.p_unit);
     return p != null ? `+${p * unitSize} pts` : '—';
   }
-  // When opened via a category button, only show that group
+  // Regular equipment only in full armory; veteran/vehicle only via their dedicated buttons
   const showRegular = !filterCategory && regular.length > 0;
-  const showVeteran = filterCategory !== 'vehicle' && veteran.length > 0;
-  const showVehicle = filterCategory !== 'veteran' && vehicle.length > 0 && isVehicle;
+  const showVeteran = filterCategory === 'veteran' && veteran.length > 0;
+  const showVehicle = filterCategory === 'vehicle' && vehicle.length > 0 && isVehicle;
 
   const hasAnything = showRegular || showVeteran || showVehicle;
   if (!hasAnything) {

@@ -19,8 +19,20 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-22a',
     status: 'investigating',
-    title: 'Trait engine: stat/ability effects implemented for CSM only — 9 factions pending',
-    description: 'The trait effects engine (stat modifications, unit abilities, weapon abilities) is now live and working for Chaos Space Marines (17 traits fully mapped). The remaining 9 factions (AdMech, Sororitas, Dark Eldar, Eldar, GSC, Imperial Guard, Leagues of Votann, Necrons, Orks, Space Marines, Tau) still show description text only — their structured effects will be added one faction at a time.',
+    title: 'Trait engine: stat/ability effects implemented for CSM only — other factions pending',
+    description: 'The trait effects engine (stat modifications, unit abilities, weapon abilities) is now live and working for Chaos Space Marines (17 traits fully mapped). The remaining factions (AdMech, Sororitas, Dark Eldar, Eldar, GSC, Imperial Guard, Leagues of Votann, Necrons, Orks, Space Marines, Tau) still show description text only — their structured effects will be added one faction at a time.',
+  },
+  {
+    id: 'ki-26a',
+    status: 'planned',
+    title: 'Veteran Abilities and Vehicle Upgrades: CSM only — other factions pending',
+    description: 'The 8 standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and 10 Vehicle Upgrades are currently implemented only for Chaos Space Marines. Other factions will be added progressively using the same data pattern (category:\'veteran\'/\'vehicle\' items in armory_general.equipment).',
+  },
+  {
+    id: 'ki-26b',
+    status: 'planned',
+    title: 'Psychic power selection: no "N known powers" limit enforced per psyker',
+    description: 'Psykers can currently select any number of powers from the modal. The per-psyker limit (e.g. "knows 2 powers") is not yet enforced. A future update will add a max-powers picker so players can record exactly which powers each psyker knows.',
   },
   // ── Planned (v0.22+) ──────────────────────────────────────────────────────
   {
