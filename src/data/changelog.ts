@@ -264,6 +264,24 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.27',
+    date: '2026-05-21',
+    title: 'CSM powers audit — armory restrictions + prayer/pact system',
+    changes: [
+      'Armory restriction system rewritten with two levels: (1) once per model — any equipment, weapon or daemon weapon can only be added once per unit by default, unless the description explicitly says "Can be taken multiple times"; (2) Unique per army — items marked "Unique" are blocked across the entire army; if another unit already has the item, a "Taken by another unit" badge appears and the Add button is hidden',
+      'Legion tab armory now fully enforces both restriction levels and shows the weapon-target picker for daemon weapon traits, matching the General and Mark tabs',
+      'Bug fix: Cult Powers discipline was incorrectly shown to Rubric Marines, Scarab Occult Terminators and Tzaangor Shaman — these units have a locked Tzeentch mark, which triggered the wrong condition; Cult Powers are now correctly restricted to Cult Initiates only',
+      'Dark Apostle: prayer button now appears — Dark Apostle has access to all 10 Prayers to the Dark Gods; selecting prayers is tracked per unit and appears in the unit card',
+      'Dark Commune: Cult Powers button now appears — the Cult Demagogue accesses Cult Powers (9 powers with cast values) via the same interface; the modal is labelled "Cult Powers" and shows only the Cult Powers discipline (no General Disciplines, no other faction disciplines)',
+      'Infernal Acolyte: Infernal Pacts button now appears — the Infernal Acolyte and Infernal Master can select from the 6 Infernal Pacts (Bladed Maelstrom, Fires of the Abyss, Capering Imps, Glimpse of Eternity, Malefic Maelstrom, Empyric Guidance); selected pacts are shown in the unit card with a remove button',
+      'Daemon Prince: selecting the "+5 pts — become a psyker" upgrade option now automatically activates the Powers button; the Daemon Prince gains access to General Disciplines plus any mark-specific discipline; selecting Mark of Khorne removes access per the rules (the psyker option is only available without Khorne)',
+      'PsychicModal now supports three simultaneous tabs (Powers, Prayers, Pacts) — tabs only appear when the unit actually uses more than one of these systems',
+      'Pact selections are persisted per unit, shown in the unit card under "Infernal Pacts", and can be removed individually',
+      'Store migration bumped to version 2 — existing saves automatically receive the new pacts field on all roster entries',
+      'Adept of Possession — Daemonic Corruption ability: the 2D6 result table was missing from the ability description; now shows the full table inline (1=+2" Movement · 2=+1 Strength · 3=+1 Toughness · 4=+1 Initiative · 5=+1 Wound · 6=+1 Attack)',
+    ],
+  },
+  {
     version: '0.26',
     date: '2026-05-21',
     title: 'General Psychic Disciplines added',
@@ -288,6 +306,18 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Veteran abilities removed from the full Armory Equipment tab — they now only appear when opening the dedicated Veteran Abilities button, preventing duplication',
       'Unit card Equipment section split into three labeled groups: Equipment (armory weapons/gear), Veteran Abilities, and Vehicle Upgrades — each group only appears when it has items',
       'CSM vehicles: has_armory_access corrected to false for 13 vehicles and monstrous creatures whose datasheets say "Has access to vehicle equipment from the Armory" (Chaos Land Raider, Chaos Predator, Chaos Vindicator, Chaos Rhino, Helbrute, Defiler, Forgefiend, Maulerfiend, Venomcrawler, Dreadclaw Drop Pod, Heldrake, Foetid Bloat-Drone, Myphitic Blight-Hauler) — these units show Vehicle Upgrades button only; Daemon Prince and Lord Discordant retain full armory access per their datasheets',
+      'Equipment stat bonuses now reflected live in the unit card stat table: items like Terminator armor (+1T, +1A, 2+ save) update the displayed stats in real time, highlighted in violet with a ◆ marker; the legend "◆ = equipment" appears in the Profile header whenever any equipment modifies stats',
+      'Equipment invulnerable saves now shown below the stat table in the unit card (e.g. Terminator armor 5+ inv save, Daemonic aura 5+ inv save)',
+      'Equipment-granted abilities (quoted keywords in item descriptions) now shown below the stat table in the unit card under "Equipment grants: X, Y, Z", only for abilities not already in the unit\'s base profile',
+      'Daemon Weapons tab: weapon-targeting traits (those that say "The weapon gains X") now show a weapon picker dropdown before the Add button — the player selects which of the unit\'s weapons receives the trait',
+      'Daemon Weapons tab: items marked as Unique now show a "Unique" badge and are disabled once already selected for the unit',
+      'Daemon weapon traits applied to a weapon are now visible on that weapon: in the unit card the weapon\'s Abilities column shows the granted trait highlighted in violet with a ◆ marker; in the print roster the trait is appended to the weapon abilities row',
+      'Armory weapon rows in the unit card now reflect daemon weapon traits applied to them (e.g. a Power sword with Bloodied shows "Shred, Blood drinker ◆")',
+      'Print view: weapon-targeting daemon weapon traits (Entropic → Shieldbreaker, Bloodied → Blood drinker, etc.) now contribute their granted keywords to the Special Rules reference section at the bottom; model-ability daemon weapon traits continue to be listed as equipment descriptions',
+      'Print view: weapon-targeting daemon weapon traits no longer appear as duplicate entries in the Equipment section (they are shown on the weapon instead)',
+      'Armory bug fix — two-level item restriction system implemented per the rules: (1) Level 1: each item can only be purchased once per model by default — stacking Terminator armor, Cataphractii armor, etc. on the same unit is now blocked; items that explicitly say "Can be taken multiple times" (Chaos artifact, Psychic training) are exempt; (2) Level 2: items marked "Unique" are restricted to one copy per army — if any other unit already has the item, it is greyed out in the modal with a "Taken by another unit" badge',
+      'Armory bug fix — Legion tab daemon weapon traits now show the weapon picker and enforce both restriction levels, matching the behaviour of the General and Mark tabs',
+      'Armory bug fix — all restriction checks now read live Zustand store data; previously the block did not activate until the modal was closed and reopened',
     ],
   },
   {

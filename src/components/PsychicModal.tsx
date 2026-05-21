@@ -7,63 +7,64 @@ import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
-type ModalTab = 'powers' | 'prayers';
+type ModalTab = 'powers' | 'prayers' | 'pacts';
 
 const MARK_NAMES = ['khorne', 'tzeentch', 'nurgle', 'slaanesh'] as const;
 
-/** True when the discipline name explicitly restricts itself to one mark (e.g. "Change (Tzeentch only)"). */
 function isMarkOnlyDisc(name: string): boolean {
   const lc = name.toLowerCase();
   return MARK_NAMES.some(m => lc.includes(m) && lc.includes('only'));
 }
 
-/** True when the discipline is for "Cult initiates only" (not mark-based). */
 function isCultOnlyDisc(name: string): boolean {
   const lc = name.toLowerCase();
   return lc.includes('cult') && lc.includes('only');
 }
 
-/** True when the discipline requires an active Legacy (e.g. "Geokinesis (Legacy)"). */
 function isLegacyDisc(name: string): boolean {
   return name.includes('(Legacy)');
 }
 
 export function PsychicModal({ item, unit, onClose }: Props) {
-  const { data, archetype, legacy, legacy2, addPower, removePower, addPrayer, removePrayer } = useArmyStore();
+  const {
+    data, archetype, legacy, legacy2,
+    addPower, removePower, addPrayer, removePrayer, addPact, removePact,
+  } = useArmyStore();
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
-  const hasPrayers = unit.is_priest && (data.prayers ?? []).length > 0;
-  const hasPowers = unit.is_psyker;
 
-  const [tab, setTab] = useState<ModalTab>(hasPowers ? 'powers' : 'prayers');
+  const hasPowers = unit.is_psyker;
+  const hasPrayers = unit.is_priest && (data.prayers ?? []).length > 0;
+  const hasPacts = !!(unit.uses_pacts) && (data.pacts ?? []).length > 0;
+  const isCultInitiate = !!(unit.is_cult_initiate);
+
+  const defaultTab: ModalTab = hasPowers ? 'powers' : hasPrayers ? 'prayers' : 'pacts';
+  const [tab, setTab] = useState<ModalTab>(defaultTab);
 
   // ── Discipline filtering ──────────────────────────────────────────────────
-  // Faction disciplines: filtered by mark / cult / legacy rules
-  // General disciplines: always available to every psyker (Core Rules: Known Powers)
+  // Cult initiates (Dark Commune) see ONLY Cult Powers — no General, no other faction discs
+  // All other psykers see General + faction discs EXCLUDING cult-only ones
   const factionDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
+    if (isCultOnlyDisc(name)) return isCultInitiate;  // Cult Powers only for cult initiates
+    if (isCultInitiate) return false;                 // Cult initiates see ONLY Cult Powers
     if (isMarkOnlyDisc(name)) {
       if (!effectiveMark || effectiveMark === 'Undivided') return false;
       const lc = name.toLowerCase();
       return MARK_NAMES.some(m => lc.includes(m) && effectiveMark.toLowerCase() === m);
     }
-    if (isCultOnlyDisc(name)) {
-      return !!(unit.locked_mark && unit.locked_mark !== 'Undivided');
-    }
-    if (isLegacyDisc(name)) {
-      return hasActiveLegacy;
-    }
+    if (isLegacyDisc(name)) return hasActiveLegacy;
     return true;
   });
-  const generalDiscs = Object.entries(GENERAL_DISCIPLINES);
+
+  const generalDiscs = isCultInitiate ? [] : Object.entries(GENERAL_DISCIPLINES);
   const allowedDiscs = [...generalDiscs, ...factionDiscs];
 
   function isPowerSelected(disc: string, power: string) {
     return item.powers.some(p => p.disciplineName === disc && p.powerName === power);
   }
-
   function togglePower(disc: string, power: string) {
     if (isPowerSelected(disc, power)) removePower(item.id, disc, power);
     else addPower(item.id, disc, power);
@@ -72,11 +73,23 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   function isPrayerSelected(prayerName: string) {
     return item.prayers.includes(prayerName);
   }
-
   function togglePrayer(prayerName: string) {
     if (isPrayerSelected(prayerName)) removePrayer(item.id, prayerName);
     else addPrayer(item.id, prayerName);
   }
+
+  function isPactSelected(pactName: string) {
+    return (item.pacts ?? []).includes(pactName);
+  }
+  function togglePact(pactName: string) {
+    if (isPactSelected(pactName)) removePact(item.id, pactName);
+    else addPact(item.id, pactName);
+  }
+
+  const tabCount = [hasPowers, hasPrayers, hasPacts].filter(Boolean).length;
+
+  // Label for the powers button — "Cult Powers" for cult initiates, "Psychic Powers" otherwise
+  const powersLabel = isCultInitiate ? 'Cult Powers' : 'Psychic Powers';
 
   return (
     <div
@@ -86,39 +99,55 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-2xl flex flex-col max-h-[85vh]">
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
-            {hasPowers && hasPrayers ? 'Powers & Prayers' : hasPrayers ? 'Prayers' : 'Psychic Powers'} — {unit.name}
+            {hasPowers && hasPrayers ? `${powersLabel} & Prayers`
+              : hasPowers && hasPacts ? `${powersLabel} & Pacts`
+              : hasPrayers && hasPacts ? 'Prayers & Pacts'
+              : hasPrayers ? 'Prayers'
+              : hasPacts ? 'Infernal Pacts'
+              : powersLabel} — {unit.name}
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
 
-        {/* Tab selector — only shown when unit has both powers and prayers */}
-        {hasPowers && hasPrayers && (
+        {/* Tab selector — shown when the unit has more than one type */}
+        {tabCount > 1 && (
           <div className="flex border-b border-zinc-700">
-            {(['powers', 'prayers'] as ModalTab[]).map(t => (
+            {hasPowers && (
               <button
-                key={t}
-                onClick={() => setTab(t)}
+                onClick={() => setTab('powers')}
                 className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
-                  ${tab === t
-                    ? 'border-amber-600 text-amber-400'
-                    : 'border-transparent text-zinc-500 hover:text-zinc-300'
-                  }`}
+                  ${tab === 'powers' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
               >
-                {t === 'powers'
-                  ? `Psychic Powers (${item.powers.length})`
-                  : `Prayers (${item.prayers.length})`
-                }
+                {powersLabel} ({item.powers.length})
               </button>
-            ))}
+            )}
+            {hasPrayers && (
+              <button
+                onClick={() => setTab('prayers')}
+                className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                  ${tab === 'prayers' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
+              >
+                Prayers ({item.prayers.length})
+              </button>
+            )}
+            {hasPacts && (
+              <button
+                onClick={() => setTab('pacts')}
+                className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                  ${tab === 'pacts' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
+              >
+                Infernal Pacts ({(item.pacts ?? []).length})
+              </button>
+            )}
           </div>
         )}
 
         <div className="overflow-y-auto flex-1 p-3 space-y-4">
-          {/* ── Psychic Powers ── */}
-          {(tab === 'powers' || !hasPrayers) && hasPowers && (
+          {/* ── Psychic / Cult Powers ── */}
+          {tab === 'powers' && hasPowers && (
             allowedDiscs.length === 0 ? (
               <div className="text-zinc-500 italic text-sm text-center py-8">
-                No disciplines available for this unit's mark.
+                No disciplines available for this unit.
               </div>
             ) : (
               allowedDiscs.map(([discName, powers]) => (
@@ -157,7 +186,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
           )}
 
           {/* ── Prayers ── */}
-          {(tab === 'prayers' || !hasPowers) && hasPrayers && (
+          {tab === 'prayers' && hasPrayers && (
             <div className="space-y-1">
               {(data.prayers as Power[]).map(p => {
                 const sel = isPrayerSelected(p.name);
@@ -165,6 +194,31 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   <button
                     key={p.name}
                     onClick={() => togglePrayer(p.name)}
+                    className={`w-full text-left px-3 py-2 border transition-colors
+                      ${sel
+                        ? 'bg-amber-900/30 border-amber-700 text-amber-300'
+                        : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700 text-zinc-200'
+                      }`}
+                  >
+                    <div className="text-sm font-medium">{p.name}</div>
+                    {p.effect && (
+                      <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* ── Infernal Pacts ── */}
+          {tab === 'pacts' && hasPacts && (
+            <div className="space-y-1">
+              {(data.pacts as Power[]).map(p => {
+                const sel = isPactSelected(p.name);
+                return (
+                  <button
+                    key={p.name}
+                    onClick={() => togglePact(p.name)}
                     className={`w-full text-left px-3 py-2 border transition-colors
                       ${sel
                         ? 'bg-amber-900/30 border-amber-700 text-amber-300'

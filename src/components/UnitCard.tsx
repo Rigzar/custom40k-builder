@@ -6,6 +6,8 @@ import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/poin
 import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
 import { parseAbility } from '../data/coreRules';
 import { getTraitEffects } from '../engine/traitEffects';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
+import type { EquipMods } from '../engine/equipMods';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -113,6 +115,14 @@ export function UnitCard({ item }: Props) {
   // Non-psyker characters with Tzeentch mark become psykers (gain 1 power from any discipline)
   const isTzeentchPsyker = u.is_character && !u.is_psyker && statModMark === 'Tzeentch';
 
+  // Optional psyker: some units (e.g. Daemon Prince) have an inline upgrade "become a psyker for +X pts"
+  const psykerGroupIdx = u.option_groups.findIndex(
+    g => /psyker/i.test(g.header) && g.inline_pts != null
+  );
+  const isOptionalPsyker = !u.is_psyker && psykerGroupIdx >= 0 &&
+    (item.optionQty[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
+  const effectivePsyker = u.is_psyker || isTzeentchPsyker || isOptionalPsyker;
+
   // Inject "Warded" into abilities for non-locked Tzeentch units that don't already have it
   const markInjectedAbilities: string[] = statModMark === 'Tzeentch' &&
     !u.abilities.some(a => a.toLowerCase().includes('warded')) ? ['Warded'] : [];
@@ -170,6 +180,29 @@ export function UnitCard({ item }: Props) {
   // Squad leader = the optional model (min===0); fallback to last model if none
   const squadLeaderIdx = modelsToShow.length <= 1 ? 0 :
     (() => { const idx = modelsToShow.findIndex(m => m.min === 0); return idx >= 0 ? idx : modelsToShow.length - 1; })();
+
+  // Equipment stat/ability mods — all equipment + daemon_weapons that affect the model (not weapon-targeting ones)
+  const equipItems = item.armory
+    .filter(a => a.section === 'equipment' || (a.section === 'daemon_weapons' && !isWeaponTrait(findArmoryItemData(data, a)?.desc)))
+    .map(a => ({ name: a.itemName, desc: findArmoryItemData(data, a)?.desc ?? '' }));
+  const equipMods: EquipMods = parseEquipMods(equipItems);
+
+  // Weapon-targeting daemon_weapon traits: weaponName → extra ability tokens
+  const weaponTraitMap = new Map<string, string[]>();
+  for (const sel of item.armory) {
+    if (sel.section === 'daemon_weapons' && sel.targetWeapon) {
+      const armItem = findArmoryItemData(data, sel);
+      if (armItem?.desc && isWeaponTrait(armItem.desc)) {
+        const gains = extractWeaponGains(armItem.desc);
+        if (gains.length > 0) {
+          const existing = weaponTraitMap.get(sel.targetWeapon) ?? [];
+          weaponTraitMap.set(sel.targetWeapon, [...existing, ...gains]);
+        }
+      }
+    }
+  }
+
+  const hasEquipEffects = Object.keys(equipMods.statDeltas).length > 0 || equipMods.armorSave !== null || equipMods.invulnSave !== null;
 
   function setQty(gi: number, ci: string | number, qty: number) {
     setOptionQty(item.id, gi, ci, qty);
@@ -245,6 +278,9 @@ export function UnitCard({ item }: Props) {
               {traitStatMods.length > 0 && (
                 <span className="ml-2 text-emerald-400 normal-case font-normal text-[10px]">† = trait bonus</span>
               )}
+              {hasEquipEffects && (
+                <span className="ml-2 text-violet-400 normal-case font-normal text-[10px]">◆ = equipment</span>
+              )}
             </div>
             <table className="w-full text-[11px] border-collapse">
               <thead>
@@ -267,6 +303,7 @@ export function UnitCard({ item }: Props) {
                         let display = raw;
                         let markBoosted = false;
                         let traitBoosted = false;
+                        let equipBoosted = false;
 
                         // Apply mark stat bonus (vehicles get ability-based bonuses only, no stat deltas)
                         if (statModMark && MARK_STAT_MODS[statModMark] && !u.is_vehicle) {
@@ -299,12 +336,31 @@ export function UnitCard({ item }: Props) {
                           if (r.modified) { display = r.display; traitBoosted = true; }
                         }
 
+                        // Apply equipment stat mods
+                        if (!u.is_vehicle) {
+                          const equipDelta = equipMods.statDeltas[k] ?? 0;
+                          if (equipDelta !== 0) {
+                            const r = applyDelta(display, equipDelta);
+                            if (r.modified) { display = r.display; equipBoosted = true; }
+                          }
+                          // Equipment armor save (SV)
+                          if (k === 'SV' && equipMods.armorSave !== null) {
+                            const existing = display.match(/(\d+)\+/);
+                            if (!existing || equipMods.armorSave < parseInt(existing[1])) {
+                              display = `${equipMods.armorSave}+`;
+                              equipBoosted = true;
+                            }
+                          }
+                        }
+
                         const cellClass = markBoosted
                           ? 'text-blue-400 font-bold'
                           : traitBoosted
                             ? 'text-emerald-400 font-bold'
-                            : '';
-                        const suffix = markBoosted ? '*' : traitBoosted ? '†' : '';
+                            : equipBoosted
+                              ? 'text-violet-400 font-bold'
+                              : '';
+                        const suffix = markBoosted ? '*' : traitBoosted ? '†' : equipBoosted ? '◆' : '';
                         return (
                           <td key={k} className={`text-center py-1 px-1 ${cellClass}`}>
                             {display}{suffix}
@@ -317,13 +373,30 @@ export function UnitCard({ item }: Props) {
                 })}
               </tbody>
             </table>
+            {/* Equipment invuln save note */}
+            {!u.is_vehicle && equipMods.invulnSave !== null && (
+              <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
+                <span className="font-semibold">Equipment:</span> {equipMods.invulnSave}+ Invulnerable Save
+              </div>
+            )}
+            {/* Equipment-granted abilities (quoted in item descriptions) */}
+            {equipMods.grantedAbilities.filter(ab =>
+              !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
+            ).length > 0 && (
+              <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
+                <span className="font-semibold">Equipment grants:</span>{' '}
+                {equipMods.grantedAbilities
+                  .filter(ab => !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase())))
+                  .join(', ')}
+              </div>
+            )}
           </div>
 
           {/* Built-in weapons */}
           {u.weapons.length > 0 && (
             <div>
               <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Weapons</div>
-              <WeaponTable weapons={u.weapons} />
+              <WeaponTable weapons={u.weapons} traitMap={weaponTraitMap} />
             </div>
           )}
 
@@ -546,19 +619,32 @@ export function UnitCard({ item }: Props) {
                 Traits ⚠ ({item.traits.length}/{vetMax})
               </button>
             )}
-            {(((u.is_psyker || isTzeentchPsyker) && Object.keys(data.disciplines ?? {}).length > 0) || (u.is_priest && (data.prayers ?? []).length > 0)) && (
-              <button
-                onClick={() => setPsyOpen(true)}
-                className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
-              >
-                {(u.is_psyker || isTzeentchPsyker) && u.is_priest
-                  ? `Powers/Prayers (${item.powers.length + item.prayers.length})`
-                  : u.is_priest
-                    ? `Prayers (${item.prayers.length})`
-                    : `Powers (${item.powers.length})`
-                }
-              </button>
-            )}
+            {(() => {
+              const hasDiscs = Object.keys(data.disciplines ?? {}).length > 0;
+              const hasPowers = effectivePsyker && hasDiscs;
+              const hasPrayers = u.is_priest && (data.prayers ?? []).length > 0;
+              const hasPacts = u.uses_pacts && (data.pacts ?? []).length > 0;
+              if (!hasPowers && !hasPrayers && !hasPacts) return null;
+              const pactCount = (item.pacts ?? []).length;
+              const totalCount = item.powers.length + item.prayers.length + pactCount;
+              const label = hasPacts && !hasPowers && !hasPrayers
+                ? `Pacts (${pactCount})`
+                : u.is_cult_initiate
+                  ? `Cult Powers (${item.powers.length})`
+                  : hasPowers && hasPrayers
+                    ? `Powers/Prayers (${totalCount})`
+                    : hasPrayers
+                      ? `Prayers (${item.prayers.length})`
+                      : `Powers (${item.powers.length})`;
+              return (
+                <button
+                  onClick={() => setPsyOpen(true)}
+                  className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+                >
+                  {label}
+                </button>
+              );
+            })()}
           </div>
 
           {/* Equipped armory items — split by category */}
@@ -572,11 +658,16 @@ export function UnitCard({ item }: Props) {
 
             function ArmoryRow({ a }: { a: ArmorySelection }) {
               const armItem = findArmoryItemData(data, a);
-              const isWeapon = a.section === 'weapons' || a.section === 'daemon_weapons';
+              const isDaemonWeaponTrait = a.section === 'daemon_weapons';
+              const isArmoryWeapon = a.section === 'weapons';
+              // Daemon weapon traits that target a weapon: show on the weapon, not as standalone item
+              const weaponTargetingTrait = isDaemonWeaponTrait && isWeaponTrait(armItem?.desc) && a.targetWeapon;
+              // Extra traits applied to this armory weapon
+              const extraTraitsForWeapon = isArmoryWeapon ? (weaponTraitMap.get(a.itemName) ?? []) : [];
               return (
                 <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <div className="flex justify-between items-center">
-                    <span className="text-zinc-300 font-medium">{a.itemName}</span>
+                    <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{a.itemName}</span>
                     <div className="flex items-center gap-2">
                       <span className="text-amber-600">{a.points >= 0 ? '+' : ''}{a.points} pts</span>
                       <button
@@ -585,8 +676,23 @@ export function UnitCard({ item }: Props) {
                       >✕</button>
                     </div>
                   </div>
-                  {isWeapon && armItem && <EquippedWeaponStats armItem={armItem} />}
-                  {!isWeapon && armItem?.desc && (
+                  {/* Armory weapon: show stats + any extra daemon weapon traits applied to it */}
+                  {isArmoryWeapon && armItem && (
+                    <>
+                      <EquippedWeaponStats armItem={armItem} extraTraits={extraTraitsForWeapon} />
+                    </>
+                  )}
+                  {/* Daemon weapon trait targeting a weapon: show which weapon + what it grants */}
+                  {weaponTargetingTrait && (
+                    <div className="text-[10px] text-violet-400/80 mt-0.5 pl-1">
+                      → {a.targetWeapon}: gains {extractWeaponGains(armItem?.desc ?? '').join(', ')}
+                    </div>
+                  )}
+                  {/* Daemon weapon trait / equipment: show description (only if not a weapon-targeting trait already displayed) */}
+                  {isDaemonWeaponTrait && !weaponTargetingTrait && armItem?.desc && (
+                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
+                  )}
+                  {!isArmoryWeapon && !isDaemonWeaponTrait && armItem?.desc && (
                     <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
                   )}
                   <div className="text-[9px] text-zinc-600 mt-0.5">{a.source}</div>
@@ -690,6 +796,24 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
+          {/* Pacts list */}
+          {(item.pacts ?? []).length > 0 && (
+            <div className="space-y-1">
+              <div className="text-[10px] text-amber-700 uppercase tracking-widest">Infernal Pacts</div>
+              {(item.pacts ?? []).map((pact, i) => (
+                <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                  <span className="text-zinc-300">{pact}</span>
+                  <button
+                    onClick={() => useArmyStore.getState().removePact(item.id, pact)}
+                    className="text-red-500 hover:text-red-300"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Abilities (native + trait + mark-injected) */}
           {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || markInjectedAbilities.length > 0) && (
             <details>
@@ -758,13 +882,19 @@ export function UnitCard({ item }: Props) {
       {vetOpen && <ArmoryModal item={item} unit={u} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
       {vehOpen && <ArmoryModal item={item} unit={u} filterCategory="vehicle" onClose={() => setVehOpen(false)} />}
       {traitsOpen && <TraitsModal item={item} unit={u} markUsesSlot={markUsesVetSlot} onClose={() => setTraitsOpen(false)} />}
-      {psyOpen && <PsychicModal item={item} unit={isTzeentchPsyker ? { ...u, is_psyker: true } : u} onClose={() => setPsyOpen(false)} />}
+      {psyOpen && <PsychicModal item={item} unit={effectivePsyker && !u.is_psyker ? { ...u, is_psyker: true } : u} onClose={() => setPsyOpen(false)} />}
     </div>
   );
 }
 
-function EquippedWeaponStats({ armItem }: { armItem: ArmoryItem }) {
+function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryItem; extraTraits?: string[] }) {
   const cls = 'text-[10px] text-zinc-500 mt-0.5 pl-1 border-l border-amber-900/40';
+  function appendTraits(base: string | undefined): string {
+    const b = (base && base !== '-') ? base : '';
+    return extraTraits.length > 0
+      ? [b, ...extraTraits.map(t => `${t} ◆`)].filter(Boolean).join(', ')
+      : b;
+  }
   if (armItem.profiles && armItem.profiles.length > 0) {
     return (
       <div className={`${cls} space-y-0.5`}>
@@ -772,8 +902,8 @@ function EquippedWeaponStats({ armItem }: { armItem: ArmoryItem }) {
           <div key={i}>
             <span className="text-zinc-600 italic">{p.name}:</span>{' '}
             {p.range} · {p.type} · S{p.s} AP{p.ap} D{p.d}
-            {p.abilities && p.abilities !== '-' && (
-              <span className="text-zinc-600"> · {p.abilities}</span>
+            {(p.abilities && p.abilities !== '-' || extraTraits.length > 0) && (
+              <span className={extraTraits.length > 0 ? 'text-violet-400' : 'text-zinc-600'}> · {appendTraits(p.abilities)}</span>
             )}
           </div>
         ))}
@@ -781,22 +911,23 @@ function EquippedWeaponStats({ armItem }: { armItem: ArmoryItem }) {
     );
   }
   if (armItem.range) {
+    const merged = appendTraits(armItem.abilities);
     return (
       <div className={cls}>
         {armItem.range} · {armItem.type} · S{armItem.s} AP{armItem.ap} D{armItem.d}
-        {armItem.abilities && armItem.abilities !== '-' && (
-          <span className="text-zinc-600"> · {armItem.abilities}</span>
+        {merged && (
+          <span className={extraTraits.length > 0 ? 'text-violet-400' : 'text-zinc-600'}> · {merged}</span>
         )}
       </div>
     );
   }
   if (armItem.abilities) {
-    return <div className={`${cls} italic`}>{armItem.abilities}</div>;
+    return <div className={`${cls} italic`}>{appendTraits(armItem.abilities)}</div>;
   }
   return <div className="text-[10px] text-zinc-600 mt-0.5 pl-1 italic">— see faction rules</div>;
 }
 
-function WeaponTable({ weapons }: { weapons: Weapon[] }) {
+function WeaponTable({ weapons, traitMap }: { weapons: Weapon[]; traitMap?: Map<string, string[]> }) {
   return (
     <table className="w-full text-[11px] mt-2 border-collapse">
       <thead>
@@ -807,17 +938,24 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
         </tr>
       </thead>
       <tbody>
-        {weapons.map((w: Weapon, i: number) => (
-          <tr key={i} className="border-b border-zinc-700/40 text-zinc-300">
-            <td className="py-1 pr-2">{w.name}</td>
-            <td className="py-1 pr-2">{w.range}</td>
-            <td className="py-1 pr-2">{w.type}</td>
-            <td className="py-1 pr-2">{w.s}</td>
-            <td className="py-1 pr-2">{w.ap}</td>
-            <td className="py-1 pr-2">{w.d}</td>
-            <td className="py-1 text-zinc-500 text-[10px]">{w.abilities}</td>
-          </tr>
-        ))}
+        {weapons.map((w: Weapon, i: number) => {
+          const extraTraits = traitMap?.get(w.name) ?? [];
+          const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
+          const allAbilities = extraTraits.length > 0
+            ? [baseAbilities, ...extraTraits.map(t => `${t} ◆`)].filter(Boolean).join(', ')
+            : baseAbilities || '-';
+          return (
+            <tr key={i} className="border-b border-zinc-700/40 text-zinc-300">
+              <td className="py-1 pr-2">{w.name}</td>
+              <td className="py-1 pr-2">{w.range}</td>
+              <td className="py-1 pr-2">{w.type}</td>
+              <td className="py-1 pr-2">{w.s}</td>
+              <td className="py-1 pr-2">{w.ap}</td>
+              <td className="py-1 pr-2">{w.d}</td>
+              <td className={`py-1 text-[10px] ${extraTraits.length > 0 ? 'text-violet-300' : 'text-zinc-500'}`}>{allAbilities}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

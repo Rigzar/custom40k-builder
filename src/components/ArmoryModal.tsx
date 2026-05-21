@@ -3,6 +3,7 @@ import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
+import { isWeaponTrait, isUniqueItem, isMultipleAllowed } from '../engine/equipMods';
 
 interface Props {
   item: RosterEntry;
@@ -24,11 +25,31 @@ function parsePrice(v: number | null | undefined | string): number | null {
 }
 
 export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
-  const { data, legacy, legacy2, archetype, addArmoryItem } = useArmyStore();
+  const { data, legacy, legacy2, archetype, addArmoryItem, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
+  // Weapon picker for daemon-weapon traits: itemName → chosen weapon name
+  const [dwTargetWeapon, setDwTargetWeapon] = useState<Record<string, string>>({});
   if (!data) return null;
+
+  // Always read armory from the live store so Unique checks stay current after additions
+  const currentArmory = (army.find(e => e.id === item.id) ?? item).armory;
+
+  // Level 1 — once per model: can't add the same item twice unless desc says "Can be taken multiple times"
+  function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
+    if (isMultipleAllowed(arm.desc)) return false;
+    return currentArmory.some(a => a.itemName === arm.name && a.section === sec);
+  }
+  // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
+  function uniqueArmyBlocked(arm: ArmoryItem, sec: Section): boolean {
+    if (!isUniqueItem(arm.desc)) return false;
+    return army.filter(e => e.id !== item.id).some(e => e.armory.some(a => a.itemName === arm.name && a.section === sec));
+  }
+  // Combined: is adding this item blocked for any reason?
+  function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
+    return oncePerModelBlocked(arm, sec) || uniqueArmyBlocked(arm, sec);
+  }
 
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
@@ -118,7 +139,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
     return data!.armory_general;
   }
 
-  function add(arm: ArmoryItem, src: string, sec: Section) {
+  // All weapons available to this unit (built-in + already-selected armory weapons)
+  const availableWeapons: string[] = [
+    ...unit.weapons.map(w => w.name),
+    ...item.armory.filter(a => a.section === 'weapons').map(a => a.itemName),
+  ];
+
+  function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string) {
     let pts: number;
     if (arm.category === 'veteran') {
       // Cost is per-model for infantry/characters; per-wound for vehicles & monsters
@@ -144,6 +171,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
       section: sec,
       points: pts,
       isCharacter: isChar,
+      targetWeapon: targetWeapon,
     });
     setLastAdded(arm.name);
     setTimeout(() => setLastAdded(null), 1500);
@@ -297,13 +325,94 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
-                        onAdd={arm => add(arm, legName, effectiveSection)}
+                        isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, legName, effectiveSection)}
                       />
+                    ) : effectiveSection === 'daemon_weapons' ? (
+                      legItems.length === 0
+                        ? <div className="text-zinc-500 italic text-sm text-center py-4">No daemon weapon traits in this section</div>
+                        : <div className="space-y-1">
+                          {legItems.map((arm, i) => {
+                            const alreadyOnThisUnit = currentArmory.some(a => a.itemName === arm.name && a.section === 'daemon_weapons');
+                            const takenElsewhere = uniqueArmyBlocked(arm, 'daemon_weapons');
+                            const blocked = alreadyOnThisUnit || takenElsewhere;
+                            const unique = isUniqueItem(arm.desc);
+                            const needsWeapon = isWeaponTrait(arm.desc);
+                            const chosenWeapon = dwTargetWeapon[arm.name] ?? '';
+                            const canAdd = !blocked && (!needsWeapon || chosenWeapon !== '');
+                            return (
+                              <div key={i} className={`border text-left transition-all ${
+                                blocked ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
+                              }`}>
+                                <div className="flex justify-between items-start px-3 py-2 gap-2">
+                                  <div className="min-w-0">
+                                    <div className="flex items-center gap-1 flex-wrap">
+                                      <span className={`text-sm font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>
+                                        {arm.name}
+                                      </span>
+                                      {lastAdded === arm.name && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
+                                      {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">Unique</span>}
+                                      {alreadyOnThisUnit && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>}
+                                      {takenElsewhere && !alreadyOnThisUnit && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">Taken by another unit</span>}
+                                    </div>
+                                    {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+                                  </div>
+                                  <div className="flex flex-col items-end gap-1 shrink-0">
+                                    {arm.p_char != null && (
+                                      <span className="text-amber-500 font-bold text-sm whitespace-nowrap">
+                                        {arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts
+                                      </span>
+                                    )}
+                                    {!blocked && (
+                                      <button
+                                        onClick={() => add(arm, legName, 'daemon_weapons', needsWeapon ? chosenWeapon || undefined : undefined)}
+                                        disabled={!canAdd}
+                                        className={`text-[11px] px-2 py-0.5 border uppercase tracking-wide transition-colors ${
+                                          canAdd
+                                            ? 'bg-amber-900/60 border-amber-700 text-amber-300 hover:bg-amber-800'
+                                            : 'bg-zinc-700 border-zinc-600 text-zinc-500 cursor-not-allowed'
+                                        }`}
+                                      >
+                                        {needsWeapon && !chosenWeapon ? 'Pick weapon ↓' : 'Add'}
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                                {needsWeapon && !blocked && (
+                                  <div className="px-3 pb-2 flex items-center gap-2">
+                                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide">Apply to:</span>
+                                    <select
+                                      value={chosenWeapon}
+                                      onChange={e => setDwTargetWeapon(prev => ({ ...prev, [arm.name]: e.target.value }))}
+                                      className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                                    >
+                                      <option value="">— select a weapon —</option>
+                                      {availableWeapons.map(wn => (
+                                        <option key={wn} value={wn}>{wn}</option>
+                                      ))}
+                                    </select>
+                                  </div>
+                                )}
+                                {alreadyOnThisUnit && (() => {
+                                  const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons');
+                                  return sel?.targetWeapon
+                                    ? <div className="px-3 pb-2 text-[10px] text-zinc-500 italic">Applied to: {sel.targetWeapon}</div>
+                                    : null;
+                                })()}
+                              </div>
+                            );
+                          })}
+                        </div>
                     ) : (
                       legItems.length === 0
                         ? <div className="text-zinc-500 italic text-sm text-center py-4">No items in this section</div>
                         : legItems.map((arm, i) => (
-                          <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => add(arm, legName, effectiveSection)} />
+                          <ArmoryItemRow
+                            key={i} arm={arm} isChar={isChar}
+                            justAdded={lastAdded === arm.name}
+                            disabled={isAddBlocked(arm, effectiveSection)}
+                            onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, legName, effectiveSection)}
+                          />
                         ))
                     )}
                   </div>
@@ -318,8 +427,90 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
               armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
               filterCategory={filterCategory}
               lastAdded={lastAdded}
-              onAdd={arm => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
+              isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+              onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
             />
+          ) : effectiveSection === 'daemon_weapons' ? (
+            (() => {
+              const srcLabel = tab === 'mark' ? `${effectiveMark} Armoury` : 'General';
+              const dwItems = getItems('daemon_weapons');
+              if (dwItems.length === 0)
+                return <div className="text-zinc-500 italic text-sm text-center py-8">No daemon weapon traits in this section</div>;
+              return (
+                <div className="space-y-1">
+                  {dwItems.map((arm, i) => {
+                    const alreadyOnThisUnit = currentArmory.some(a => a.itemName === arm.name && a.section === 'daemon_weapons');
+                    const takenElsewhere = uniqueArmyBlocked(arm, 'daemon_weapons');
+                    const blocked = alreadyOnThisUnit || takenElsewhere;
+                    const unique = isUniqueItem(arm.desc);
+                    const needsWeapon = isWeaponTrait(arm.desc);
+                    const chosenWeapon = dwTargetWeapon[arm.name] ?? '';
+                    const canAdd = !blocked && (!needsWeapon || chosenWeapon !== '');
+                    return (
+                      <div key={i} className={`border text-left transition-all ${
+                        blocked ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
+                      }`}>
+                        <div className="flex justify-between items-start px-3 py-2 gap-2">
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1 flex-wrap">
+                              <span className={`text-sm font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>
+                                {arm.name}
+                              </span>
+                              {lastAdded === arm.name && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
+                              {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">Unique</span>}
+                              {alreadyOnThisUnit && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>}
+                              {takenElsewhere && !alreadyOnThisUnit && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">Taken by another unit</span>}
+                            </div>
+                            {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+                          </div>
+                          <div className="flex flex-col items-end gap-1 shrink-0">
+                            {arm.p_char != null && (
+                              <span className="text-amber-500 font-bold text-sm whitespace-nowrap">
+                                {arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts
+                              </span>
+                            )}
+                            {!blocked && (
+                              <button
+                                onClick={() => add(arm, srcLabel, 'daemon_weapons', needsWeapon ? chosenWeapon || undefined : undefined)}
+                                disabled={!canAdd}
+                                className={`text-[11px] px-2 py-0.5 border uppercase tracking-wide transition-colors ${
+                                  canAdd
+                                    ? 'bg-amber-900/60 border-amber-700 text-amber-300 hover:bg-amber-800'
+                                    : 'bg-zinc-700 border-zinc-600 text-zinc-500 cursor-not-allowed'
+                                }`}
+                              >
+                                {needsWeapon && !chosenWeapon ? 'Pick weapon ↓' : 'Add'}
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        {needsWeapon && !blocked && (
+                          <div className="px-3 pb-2 flex items-center gap-2">
+                            <span className="text-[10px] text-zinc-400 uppercase tracking-wide">Apply to:</span>
+                            <select
+                              value={chosenWeapon}
+                              onChange={e => setDwTargetWeapon(prev => ({ ...prev, [arm.name]: e.target.value }))}
+                              className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                            >
+                              <option value="">— select a weapon —</option>
+                              {availableWeapons.map(wn => (
+                                <option key={wn} value={wn}>{wn}</option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
+                        {alreadyOnThisUnit && (() => {
+                          const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons');
+                          return sel?.targetWeapon
+                            ? <div className="px-3 pb-2 text-[10px] text-zinc-500 italic">Applied to: {sel.targetWeapon}</div>
+                            : null;
+                        })()}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()
           ) : (
             (() => {
               const items = getItems(effectiveSection);
@@ -329,7 +520,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                   <ArmoryItemRow
                     key={i} arm={arm} isChar={isChar}
                     justAdded={lastAdded === arm.name}
-                    onAdd={() => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
+                    disabled={isAddBlocked(arm, effectiveSection)}
+                    onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
                   />
                 ));
             })()
@@ -363,6 +555,7 @@ interface EquipGroupsProps {
   veteranSlotsFull: boolean;
   filterCategory?: 'veteran' | 'vehicle';
   lastAdded: string | null;
+  isUniqueSelected?: (arm: ArmoryItem) => boolean;
   onAdd: (arm: ArmoryItem) => void;
 }
 
@@ -374,6 +567,7 @@ function EquipmentGroups({
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
   filterCategory,
   lastAdded,
+  isUniqueSelected,
   onAdd,
 }: EquipGroupsProps) {
   // Build a per-model/per-wound price label for veteran abilities
@@ -411,9 +605,17 @@ function EquipmentGroups({
       {/* Regular equipment — hidden when opened via category button */}
       {showRegular && (
         <div className="space-y-1">
-          {regular.map((arm, i) => (
-            <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} onAdd={() => onAdd(arm)} />
-          ))}
+          {regular.map((arm, i) => {
+            const uniqueSel = isUniqueSelected ? isUniqueSelected(arm) : false;
+            return (
+              <ArmoryItemRow
+                key={i} arm={arm} isChar={isChar}
+                justAdded={lastAdded === arm.name}
+                disabled={uniqueSel}
+                onAdd={() => !uniqueSel && onAdd(arm)}
+              />
+            );
+          })}
         </div>
       )}
 

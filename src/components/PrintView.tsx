@@ -6,6 +6,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric } from '../data/coreRules';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
@@ -244,10 +245,41 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const armMelee: Weapon[] = [];
   const armEquip: { name: string; desc: string }[] = [];
 
+  // Daemon-weapon traits that target a specific weapon: weaponName → extra ability tokens
+  const weaponTraitMap = new Map<string, string[]>();
   for (const sel of item.armory) {
-    if (sel.section === 'equipment' || sel.section === 'daemon_weapons') {
+    if (sel.section === 'daemon_weapons' && sel.targetWeapon) {
+      const armDw = findArmoryItem(data, sel.itemName);
+      if (armDw?.desc && isWeaponTrait(armDw.desc)) {
+        const gains = extractWeaponGains(armDw.desc);
+        if (gains.length > 0) {
+          const existing = weaponTraitMap.get(sel.targetWeapon) ?? [];
+          weaponTraitMap.set(sel.targetWeapon, [...existing, ...gains]);
+        }
+      }
+    }
+  }
+
+  // Helper to merge weapon traits into a weapon's abilities string
+  function mergeTraits(w: Weapon): Weapon {
+    const extra = weaponTraitMap.get(w.name) ?? [];
+    if (extra.length === 0) return w;
+    const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
+    return { ...w, abilities: [base, ...extra].filter(Boolean).join(', ') };
+  }
+
+  for (const sel of item.armory) {
+    if (sel.section === 'equipment') {
       const arm = findArmoryItem(data, sel.itemName);
       armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
+      continue;
+    }
+    if (sel.section === 'daemon_weapons') {
+      const arm = findArmoryItem(data, sel.itemName);
+      // Weapon-targeting daemon weapons don't show as equipment items — already applied to weapons
+      if (!isWeaponTrait(arm?.desc)) {
+        armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
+      }
       continue;
     }
     const arm = findArmoryItem(data, sel.itemName);
@@ -255,15 +287,19 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     if (arm.profiles && arm.profiles.length > 0) {
       for (const p of arm.profiles) {
         const w: Weapon = { name: `${arm.name} — ${p.name}`, range: p.range, type: p.type, s: p.s, ap: p.ap, d: p.d, abilities: p.abilities };
-        (p.range === 'Melee' || p.type === 'Melee') ? armMelee.push(w) : armRanged.push(w);
+        (p.range === 'Melee' || p.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
       }
     } else if (arm.range) {
       const w: Weapon = { name: arm.name, range: arm.range ?? '', type: arm.type ?? '', s: arm.s ?? '', ap: arm.ap ?? '', d: arm.d ?? '', abilities: arm.abilities };
-      (arm.range === 'Melee' || arm.type === 'Melee') ? armMelee.push(w) : armRanged.push(w);
+      (arm.range === 'Melee' || arm.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
     } else {
       armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
     }
   }
+
+  // Also apply weapon traits to built-in weapons
+  const defaultRangedWithTraits = defaultRanged.map(mergeTraits);
+  const defaultMeleeWithTraits  = defaultMelee.map(mergeTraits);
 
   const equipMods = parseEquipMods(armEquip);
   const abilitiesList = [
@@ -381,8 +417,8 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               </tr>
             </thead>
             <tbody>
-              <WeaponSection title="Ranged" weapons={[...defaultRanged, ...armRanged]} />
-              <WeaponSection title="Melee"  weapons={[...defaultMelee,  ...armMelee]}  />
+              <WeaponSection title="Ranged" weapons={[...defaultRangedWithTraits, ...armRanged]} />
+              <WeaponSection title="Melee"  weapons={[...defaultMeleeWithTraits,  ...armMelee]}  />
             </tbody>
           </table>
 
@@ -559,44 +595,9 @@ function unitStatValues(u: Unit): number[] {
 const POWER_MAX = [14, 6, 10, 16, 5, 5]; // Move, Attacks, Tough, Wounds, Save(inv), Shoot(inv)
 
 // ── Equipment mod parsing ─────────────────────────────────────────────────────
-const EQUIP_STAT_MAP: [RegExp, string][] = [
-  [/\+(\d+)\s+toughness/i, 'T'],
-  [/\+(\d+)\s+attacks?/i,  'A'],
-  [/\+(\d+)\s+strength/i,  'S'],
-  [/\+(\d+)\s+wounds?/i,   'W'],
-  [/\+(\d+)"\s+movement/i, 'M'],
-  [/\+(\d+)\s+initiative/i,'I'],
-  [/\+(\d+)\s+leadership/i,'LD'],
-];
+// (parseEquipMods imported from ../engine/equipMods)
 
-interface EquipMods {
-  statDeltas: Partial<Record<string, number>>;
-  armorSave: number | null;
-  invulnSave: number | null;
-  grantedAbilities: string[];
-}
-
-function parseEquipMods(items: { name: string; desc: string }[]): EquipMods {
-  const mods: EquipMods = { statDeltas: {}, armorSave: null, invulnSave: null, grantedAbilities: [] };
-  for (const { desc } of items) {
-    if (!desc) continue;
-    for (const [re, key] of EQUIP_STAT_MAP) {
-      const m = desc.match(re);
-      if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]);
-    }
-    const armor = desc.match(/(\d)\+\s+armou?r\s+save/i);
-    if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }
-    const invuln = desc.match(/(\d)\+\s+invulnerable\s+save/i);
-    if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }
-    for (const match of Array.from(desc.matchAll(/"([^"]+)"/g))) {
-      const ab = match[1];
-      if (!mods.grantedAbilities.includes(ab)) mods.grantedAbilities.push(ab);
-    }
-  }
-  return mods;
-}
-
-function applyEquipDeltas(stats: Record<string, string>, mods: EquipMods, isVehicle: boolean): Record<string, string> {
+function applyEquipDeltas(stats: Record<string, string>, mods: ReturnType<typeof parseEquipMods>, isVehicle: boolean): Record<string, string> {
   const result = { ...stats };
   for (const [key, delta] of Object.entries(mods.statDeltas)) {
     if (result[key] !== undefined) result[key] = applyDelta(result[key], delta);
@@ -801,10 +802,19 @@ export function PrintView({ onClose }: { onClose: () => void }) {
 
     // Armory items: weapon profiles → collect ability rules; equipment → collect description
     for (const sel of item.armory) {
-      const isEquip = sel.section === 'equipment' || sel.section === 'daemon_weapons';
       const arm = findArmoryItem(data, sel.itemName);
       if (!arm) continue;
-      if (isEquip) {
+      if (sel.section === 'daemon_weapons') {
+        // Weapon-targeting traits: collect the granted abilities (they appear on the weapon)
+        if (isWeaponTrait(arm.desc)) {
+          for (const gain of extractWeaponGains(arm.desc)) parseGeneric(gain);
+        } else {
+          // Model-ability daemon weapon traits: collect as equipment rule
+          if (arm.desc) addRule(sel.itemName, arm.desc);
+        }
+        continue;
+      }
+      if (sel.section === 'equipment') {
         if (arm.desc) addRule(sel.itemName, arm.desc);
         continue;
       }

@@ -63,6 +63,8 @@ export interface Unit {
   is_monster: boolean;
   is_psyker: boolean;
   is_priest?: boolean;
+  is_cult_initiate?: boolean;
+  uses_pacts?: boolean;
   is_squadron?: boolean;
   has_armory_access: boolean;
   champion_has_armory: boolean;

@@ -131,6 +131,8 @@ export interface ArmyStore extends ArmyState {
   removePower: (id: string, disciplineName: string, powerName: string) => void;
   addPrayer: (id: string, prayerName: string) => void;
   removePrayer: (id: string, prayerName: string) => void;
+  addPact: (id: string, pactName: string) => void;
+  removePact: (id: string, pactName: string) => void;
 
   /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
   injectArchetypeFaction: (key: string, factionData: FactionData) => void;
@@ -270,6 +272,7 @@ export const useArmyStore = create<ArmyStore>()(
           traits: [],
           powers: [],
           prayers: [],
+          pacts: [],
         };
         const newArmy = [...s.army, entry];
         const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy);
@@ -338,6 +341,17 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
+      addPact: (id: string, pactName: string) => set((s: S) => ({
+        army: s.army.map((e: RosterEntry) => e.id !== id ? e : {
+          ...e, pacts: [...(e.pacts ?? []), pactName],
+        }),
+      })),
+      removePact: (id: string, pactName: string) => set((s: S) => ({
+        army: s.army.map((e: RosterEntry) => e.id !== id ? e : {
+          ...e, pacts: (e.pacts ?? []).filter((p: string) => p !== pactName),
+        }),
+      })),
+
       injectArchetypeFaction: (key: string, factionData: FactionData) => set((s: S) => {
         if (!s.data) return {};
         return {
@@ -367,13 +381,19 @@ export const useArmyStore = create<ArmyStore>()(
     }),
     {
       name: 'custom40k-army',
-      version: 1,
+      version: 2,
       migrate: (persisted: unknown, fromVersion: number) => {
         const s = persisted as Record<string, unknown>;
         if (fromVersion < 1) {
-          // pointLimit default was 3000 for pitched — fix to 2500
           if (s.pointLimit === 3000 && s.engagement === 'pitched') {
             s.pointLimit = 2500;
+          }
+        }
+        if (fromVersion < 2) {
+          // Add pacts field to existing roster entries
+          const army = s.army as Record<string, unknown>[];
+          if (Array.isArray(army)) {
+            s.army = army.map(e => ({ pacts: [], ...e }));
           }
         }
         return s;

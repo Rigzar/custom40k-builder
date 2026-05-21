@@ -8,6 +8,8 @@ export interface ArmorySelection {
   section: 'weapons' | 'equipment' | 'daemon_weapons';
   points: number;
   isCharacter: boolean;
+  /** For daemon-weapon traits that modify a weapon — which weapon they apply to. */
+  targetWeapon?: string;
 }
 
 export interface TraitSelection {
@@ -43,6 +45,7 @@ export interface RosterEntry {
   traitChoice?: string[];
   powers: PowerSelection[];
   prayers: string[];
+  pacts: string[];
 }
 
 export interface ArmyState {
