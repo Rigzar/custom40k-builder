@@ -189,8 +189,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
         </div>
 
-        {/* Armory tabs — only show tabs that exist for this faction */}
-        <div className="flex border-b border-zinc-700">
+        {/* Armory tabs — hidden when opened via a category button (veteran/vehicle) */}
+        {!filterCategory && <div className="flex border-b border-zinc-700">
           {/* General tab — always shown */}
           {(['general'] as ArmoryTab[]).map(t => (
             <button
@@ -233,7 +233,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
               {hasLegion ? activeLegionKeys[0] : legionTabLabel} Armoury
             </button>
           )}
-        </div>
+        </div>}
 
         {/* Cataphractii restriction */}
         {isCataphractii && (
