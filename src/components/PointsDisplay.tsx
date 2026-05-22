@@ -2,12 +2,12 @@ import { useArmyStore } from '../store/army';
 import { computeUnitPoints, resolveUnit } from '../engine/points';
 
 export function PointsDisplay() {
-  const { army, data, pointLimit } = useArmyStore();
+  const { army, data, pointLimit, archetype } = useArmyStore();
   if (!data) return null;
 
   const total = army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u) : 0);
+    return s + (u ? computeUnitPoints(i, u, archetype) : 0);
   }, 0);
 
   const pct = Math.min(100, (total / pointLimit) * 100);

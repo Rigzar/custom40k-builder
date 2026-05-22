@@ -59,7 +59,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u) : 0);
+    return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
   }, 0);
 
   // Point range warnings
@@ -262,6 +262,17 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
           text: 'Daemonkin: requires at least 1 HQ from each Codex (CSM and Daemons).',
         });
       }
+      // Codex balance: no more than +1 unit from one codex over the other
+      const mainCount = state.army.filter(i => !i.factionSource).length;
+      const alliedCount = state.army.filter(i => !!i.factionSource).length;
+      if (Math.abs(mainCount - alliedCount) > 1) {
+        const more = mainCount > alliedCount ? 'CSM' : 'Daemons';
+        const less = mainCount > alliedCount ? 'Daemons' : 'CSM';
+        items.push({
+          type: 'error',
+          text: `Daemonkin: ${more} has ${Math.abs(mainCount - alliedCount) - 1} more unit(s) than ${less} — max difference is 1.`,
+        });
+      }
     }
   }
 
@@ -347,7 +358,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       })
       .reduce((s, i) => {
         const u = resolveUnit(i, data);
-        return s + (u ? computeUnitPoints(i, u) : 0);
+        return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
       }, 0);
     // Mechanised Company: Dedicated Transports count at 50% toward the Troops 25%
     const transportBonus = state.archetype === 'Mechanised Company'
@@ -358,7 +369,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
           })
           .reduce((s, i) => {
             const u = resolveUnit(i, data);
-            return s + (u ? Math.floor(computeUnitPoints(i, u) * 0.5) : 0);
+            return s + (u ? Math.floor(computeUnitPoints(i, u, state.archetype) * 0.5) : 0);
           }, 0)
       : 0;
     const troopsPts = baseTroopsPts + transportBonus;
@@ -381,7 +392,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
-      const pts = computeUnitPoints(item, u);
+      const pts = computeUnitPoints(item, u, state.archetype);
       const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
       if (effSlot === 'HQ' && pts > 150) {
         items.push({ type: 'error', text: `Skirmish: HQ ${item.unitName} exceeds 150 pts (${pts}).` });

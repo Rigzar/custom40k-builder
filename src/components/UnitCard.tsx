@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
-import type { Unit, Model, Weapon, Choice, ArmoryItem, FactionData } from '../types/data';
+import type { Unit, Weapon, Choice, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
-import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
+import { resolveUnit } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
-import { getTraitEffects } from '../engine/traitEffects';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
-import type { EquipMods } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
+import { resolveUnitProfile } from '../engine/resolver';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -76,7 +74,8 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
 }
 
 export function UnitCard({ item }: Props) {
-  const { data, archetype, traitPool, removeUnit, updateUnit, setOptionQty } = useArmyStore();
+  const store = useArmyStore();
+  const { data, traitPool, removeUnit, updateUnit, setOptionQty } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -88,119 +87,36 @@ export function UnitCard({ item }: Props) {
   const u = resolveUnit(item, data);
   if (!u) return null;
 
-  const rule = getArchetypeRule(archetype);
-  const effectiveSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+  const rp = resolveUnitProfile(item, u, store, data);
+  const {
+    pts, effectiveSlot,
+    effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
+    variant, variantActive, modelsToShow, squadLeaderIdx,
+    effectivePsyker,
+    isFavored, equippedWith, weapons, weaponTraitMap,
+    injectedAbilities, equipMods,
+    traitStatMods, traitAbilities, traitWeaponAbilities,
+  } = rp;
 
-  const pts = computeUnitPoints(item, u);
-  const variant = getActiveVariant(item, u);
-  const variantActive = !!variant;
-  const effectiveMark = u.locked_mark ?? (rule?.forcedMark as Mark | null) ?? item.mark;
-  const markIsForced = !u.locked_mark && !!rule?.forcedMark;
-  // statModMark: the mark whose bonus should be ADDED to the displayed stats.
-  // Locked-mark units already have the bonus baked into their base stats, so we skip them.
-  const statModMark = u.locked_mark
-    ? null
-    : (item.mark ?? (markIsForced ? (rule!.forcedMark ?? null) : null));
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
   const hasMarkGroup = u.option_groups.some(g => g.constraint.type === 'mark');
   const hasMarks = Object.keys(data.animosity).length > 0;
-
-  // Favored: unit size is a non-zero multiple of the mark's sacred number (Khorne 8, Nurgle 7, Slaanesh 6, Tzeentch 9)
-  const isFavored = !!effectiveMark && effectiveMark !== 'Undivided' &&
-    SACRED_NUMBERS[effectiveMark] != null && item.size > 0 &&
-    item.size % SACRED_NUMBERS[effectiveMark] === 0;
-
-  // Non-psyker characters with Tzeentch mark become psykers (gain 1 power from any discipline)
-  const isTzeentchPsyker = u.is_character && !u.is_psyker && statModMark === 'Tzeentch';
-
-  // Optional psyker: some units (e.g. Daemon Prince) have an inline upgrade "become a psyker for +X pts"
-  const psykerGroupIdx = u.option_groups.findIndex(
-    g => /psyker/i.test(g.header) && g.inline_pts != null
-  );
-  const isOptionalPsyker = !u.is_psyker && psykerGroupIdx >= 0 &&
-    (item.optionQty[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
-  const effectivePsyker = u.is_psyker || isTzeentchPsyker || isOptionalPsyker;
-
-  // Inject "Warded" into abilities for non-locked Tzeentch units that don't already have it
-  const markInjectedAbilities: string[] = statModMark === 'Tzeentch' &&
-    !u.abilities.some(a => a.toLowerCase().includes('warded')) ? ['Warded'] : [];
-  const markUsesVetSlot = hasMarkGroup && !u.locked_mark && !!effectiveMark;
-  const vetMax = Math.max(0, (u.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
 
-  // Check if the faction armory has veteran / vehicle items for this unit
   const allArmories = [data.armory_general, ...Object.values(data.armory_marks), ...Object.values(data.armory_legions)];
   const hasFactionVeteranItems = u.has_veteran_abilities &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
   const hasFactionVehicleItems = u.is_vehicle &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'vehicle'));
 
-  // Count selected armory items by category for badge labels
-  const vetItemsCount = item.armory.filter(a => {
-    const found = findArmoryItemData(data, a);
-    return found?.category === 'veteran';
-  }).length;
-  const vehItemsCount = item.armory.filter(a => {
-    const found = findArmoryItemData(data, a);
-    return found?.category === 'vehicle';
-  }).length;
+  const vetItemsCount = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'veteran').length;
+  const vehItemsCount = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'vehicle').length;
 
-  // Army traits: show section whenever the unit actually has traits applied
   const isMainFaction = item.unitName in data.units;
   const showTraits = isMainFaction && item.traits.length > 0;
-  // Traits apply to all eligible units with no veteran_max cap — no conflict possible
   const hasTraitConflict = false;
-
-  // Collect structured trait effects for this unit (stat mods, abilities, weapon abilities)
-  const traitStatMods: Array<{ stat: string; delta: number }> = [];
-  const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
-  const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
-  if (showTraits) {
-    for (const t of item.traits) {
-      for (const e of getTraitEffects(t.name, u)) {
-        if (e.type === 'stat_mod') {
-          traitStatMods.push({ stat: e.stat, delta: e.delta });
-        } else if (e.type === 'inv_save') {
-          traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save`, desc: `This unit gains a ${e.value}+ invulnerability save.` });
-        } else if (e.type === 'unit_ability') {
-          traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
-        } else if (e.type === 'weapon_ability') {
-          traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
-        }
-      }
-    }
-  }
-
-  const modelsToShow: Model[] = variant
-    ? [variant, ...u.models.filter((m: Model) => m.max > 0).slice(1)]
-    : u.models.filter((m: Model) => m.max > 0);
-
-  // Squad leader = the optional model (min===0); fallback to last model if none
-  const squadLeaderIdx = modelsToShow.length <= 1 ? 0 :
-    (() => { const idx = modelsToShow.findIndex(m => m.min === 0); return idx >= 0 ? idx : modelsToShow.length - 1; })();
-
-  // Equipment stat/ability mods — all equipment + daemon_weapons that affect the model (not weapon-targeting ones)
-  const equipItems = item.armory
-    .filter(a => a.section === 'equipment' || (a.section === 'daemon_weapons' && !isWeaponTrait(findArmoryItemData(data, a)?.desc)))
-    .map(a => ({ name: a.itemName, desc: findArmoryItemData(data, a)?.desc ?? '' }));
-  const equipMods: EquipMods = parseEquipMods(equipItems);
-
-  // Weapon-targeting daemon_weapon traits: weaponName → extra ability tokens
-  const weaponTraitMap = new Map<string, string[]>();
-  for (const sel of item.armory) {
-    if (sel.section === 'daemon_weapons' && sel.targetWeapon) {
-      const armItem = findArmoryItemData(data, sel);
-      if (armItem?.desc && isWeaponTrait(armItem.desc)) {
-        const gains = extractWeaponGains(armItem.desc);
-        if (gains.length > 0) {
-          const existing = weaponTraitMap.get(sel.targetWeapon) ?? [];
-          weaponTraitMap.set(sel.targetWeapon, [...existing, ...gains]);
-        }
-      }
-    }
-  }
 
   const hasEquipEffects = Object.keys(equipMods.statDeltas).length > 0 || equipMods.armorSave !== null || equipMods.invulnSave !== null;
 
@@ -259,10 +175,10 @@ export function UnitCard({ item }: Props) {
       {!collapsed && (
         <div className="p-3 space-y-3">
           {/* Default loadout */}
-          {u.equipped_with && (
+          {equippedWith && (
             <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 py-0.5">
               <span className="text-amber-700 text-[10px] uppercase tracking-widest mr-1">Default:</span>
-              {u.equipped_with}
+              {equippedWith}
             </div>
           )}
 
@@ -393,10 +309,10 @@ export function UnitCard({ item }: Props) {
           </div>
 
           {/* Built-in weapons */}
-          {u.weapons.length > 0 && (
+          {weapons.length > 0 && (
             <div>
               <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Weapons</div>
-              <WeaponTable weapons={u.weapons} traitMap={weaponTraitMap} />
+              <WeaponTable weapons={weapons} traitMap={weaponTraitMap} />
             </div>
           )}
 
@@ -444,7 +360,7 @@ export function UnitCard({ item }: Props) {
           )}
           {markIsForced && (
             <div className="text-[10px] text-amber-700/60 border-l-2 border-amber-900 pl-2 italic">
-              Mark forced by archetype: {rule?.forcedMark}
+              Mark forced by archetype: {effectiveMark}
             </div>
           )}
           {/* Mark stat bonus — shown for player-chosen or archetype-forced marks (never for locked) */}
@@ -815,10 +731,10 @@ export function UnitCard({ item }: Props) {
           )}
 
           {/* Abilities (native + trait + mark-injected) */}
-          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || markInjectedAbilities.length > 0) && (
+          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || injectedAbilities.length > 0) && (
             <details>
               <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
-                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + markInjectedAbilities.length})
+                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + injectedAbilities.length})
               </summary>
               <div className="mt-2 space-y-2">
                 {u.abilities.flatMap((a, i) =>
@@ -852,7 +768,7 @@ export function UnitCard({ item }: Props) {
                     </div>
                   </div>
                 ))}
-                {markInjectedAbilities.flatMap((a, i) =>
+                {injectedAbilities.flatMap((a, i) =>
                   parseAbility(a).map((part, j) => (
                     <div key={`ma-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">

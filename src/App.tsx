@@ -100,7 +100,7 @@ function HeaderStatus() {
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u) : 0);
+    return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
   }, 0);
 
   const pct  = Math.min(100, (total / state.pointLimit) * 100);
@@ -256,7 +256,7 @@ export default function App() {
 
     const total = army.reduce((s, i) => {
       const u = resolveUnit(i, data);
-      return s + (u ? computeUnitPoints(i, u) : 0);
+      return s + (u ? computeUnitPoints(i, u, archetype) : 0);
     }, 0);
 
     const name = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;

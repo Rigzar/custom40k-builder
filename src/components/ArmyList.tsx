@@ -39,7 +39,7 @@ export function ArmyList() {
 
         const slotPts = slotUnits.reduce((s, item) => {
           const u = resolveUnit(item, data);
-          return s + (u ? computeUnitPoints(item, u) : 0);
+          return s + (u ? computeUnitPoints(item, u, archetype) : 0);
         }, 0);
 
         return (

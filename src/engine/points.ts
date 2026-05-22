@@ -1,5 +1,6 @@
 import type { Unit, Model, FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
+import { computeVehicleCombiSurcharge } from './weapons/csm';
 
 /** Resolve a unit from the correct faction source. */
 export function resolveUnit(item: { unitName: string; factionSource?: string }, data: FactionData): Unit | undefined {
@@ -24,7 +25,7 @@ function getActiveVariant(item: RosterEntry, unit: Unit): Model | null {
   return null;
 }
 
-export function computeUnitPoints(item: RosterEntry, unit: Unit): number {
+export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = ''): number {
   let total = 0;
   const variant = getActiveVariant(item, unit);
 
@@ -80,6 +81,8 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit): number {
       total += t.points * item.size;
     }
   }
+
+  total += computeVehicleCombiSurcharge(item, unit, archetype);
 
   return total;
 }

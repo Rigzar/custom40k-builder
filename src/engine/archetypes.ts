@@ -1,197 +1,10 @@
-export interface ArchetypeRule {
-  /** Unit names whose effective slot becomes 'Troops' */
-  troopsRemap: string[];
-  /** All non-locked units must have this mark assigned */
-  forcedMark: string | null;
-  /** Only units whose locked_mark === forcedMark (or no locked mark) are allowed */
-  requireForcedMarkOnly: boolean;
-  /** Unit names explicitly banned */
-  bannedUnits: string[];
-  /** Slot categories completely banned (e.g. ['Heavy Support'] for War Hawks) */
-  bannedSlots: string[];
-  /** Override HQ slot [min, max] – replaces engagement defaults when present */
-  hqOverride: [number, number] | null;
-  /** When non-empty, only these unit names can fill the HQ slot */
-  hqAllowed: string[];
-  /** Army must contain at least 1 HQ whose name includes this string */
-  requiresHqUnit: string | null;
-  /** Animosity checks are skipped */
-  noAnimosity: boolean;
-  /** Legacy selectors are hidden/disabled */
-  noLegacy: boolean;
-  /** Trait pool is hidden/disabled */
-  noTraits: boolean;
-  /**
-   * 25% Troops calculation: 'all' | 'locked' | 'remap'
-   *  - 'all': all troops count (default)
-   *  - 'locked': only troops with locked_mark === forcedMark count
-   *  - 'remap': only units in troopsRemap count
-   */
-  troopsCount: 'all' | 'locked' | 'remap';
-  /** Units without veteran abilities are banned (Legionnaire Warband) */
-  requireVetAbilities: boolean;
-  /**
-   * When true, Troops units NOT in troopsRemap are moved to the Elites slot.
-   * Used for archetypes where specific Troops replace the regular Troops slot.
-   */
-  demoteOtherTroops: boolean;
-  /**
-   * Allied faction slug to unlock (e.g. 'chaos_daemons').
-   * Null = no allied units.
-   */
-  alliedFaction: string | null;
-  /**
-   * When alliedFaction is set:
-   *  - 'forced': only allied units with locked_mark === forcedMark
-   *  - 'hq_mark': only allied units with locked_mark === state.hqMark (or unlocked)
-   *  - 'all': all allied units
-   */
-  alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
-  /**
-   * When non-empty, only these unit names may be selected (whitelist).
-   * Allied faction units are always exempt.
-   */
-  allowedUnitsOnly: string[];
-  /** Notes shown in the UI under the archetype description */
-  notes: string[];
-}
+export type { ArchetypeRule } from './archetypes/base';
+import type { ArchetypeRule } from './archetypes/base';
+import { BASE, fastArchetype, dropPodArchetype } from './archetypes/base';
+import { CSM_ARCHETYPES } from './archetypes/csm';
 
-/** Shared defaults so partial entries stay readable. */
-const BASE: ArchetypeRule = {
-  troopsRemap: [], forcedMark: null, requireForcedMarkOnly: false,
-  bannedUnits: [], bannedSlots: [], hqOverride: null, hqAllowed: [],
-  requiresHqUnit: null, noAnimosity: false, noLegacy: false, noTraits: false,
-  troopsCount: 'all', requireVetAbilities: false, demoteOtherTroops: false,
-  alliedFaction: null, alliedMarkFilter: 'all', allowedUnitsOnly: [], notes: [],
-};
-
-function cultArchetype(mark: string, troopsUnit: string): ArchetypeRule {
-  return {
-    ...BASE,
-    troopsRemap: [troopsUnit],
-    forcedMark: mark,
-    requireForcedMarkOnly: true,
-    bannedUnits: ['Legionnaires'],
-    noLegacy: true,
-    noTraits: true,
-    troopsCount: 'locked',
-    alliedFaction: 'chaos_daemons',
-    alliedMarkFilter: 'forced',
-    notes: [
-      `All units must carry the Mark of ${mark}.`,
-      `${troopsUnit} counts as Troops.`,
-      `Only units with locked Mark of ${mark} count towards the 25% Troops requirement.`,
-      `Access to Chaos Daemons units with the Mark of ${mark}.`,
-      'Legionnaires not allowed. No Legacies or Traits may be chosen.',
-    ],
-  };
-}
-
-/** Fast-attack / biker archetype: remap units as Troops, ban slow units without transport. */
-function fastArchetype(remapUnits: string[], extraNotes: string[] = []): ArchetypeRule {
-  return {
-    ...BASE,
-    troopsRemap: remapUnits,
-    notes: [
-      `${remapUnits.join(' and ')} count${remapUnits.length === 1 ? 's' : ''} as Troops.`,
-      'Units with M<12" must start the game as passengers inside a transport.',
-      'Units with M<12" that have no transport option cannot be selected.',
-      ...extraNotes,
-    ],
-  };
-}
-
-/** Drop-pod style archetype: all units must be embarked, half arrive round 1, rest round 2. */
-function dropPodArchetype(vehicleName: string): ArchetypeRule {
-  return {
-    ...BASE,
-    notes: [
-      `All units must start the game as passengers inside a ${vehicleName}.`,
-      `Half of all ${vehicleName}s (round up) arrive automatically in round 1. The rest arrive in round 2.`,
-    ],
-  };
-}
-
-export const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
-
-  // ── Chaos Space Marines ───────────────────────────────────────────────────
-  'Blood for the Blood God!': cultArchetype('Khorne', 'Khorne Berzerkers'),
-  'All is Dust':               cultArchetype('Tzeentch', 'Rubric Marines'),
-  'Ambition for Perfection':   cultArchetype('Slaanesh', 'Noise Marines'),
-  'Plaguehost':                cultArchetype('Nurgle',   'Plague Marines'),
-
-  'Host Raptorial': { ...BASE,
-    troopsRemap: ['Raptors', 'Warptalons'], troopsCount: 'remap',
-    notes: [
-      'Raptors and Warptalons count as Troops.',
-      'Only Raptor units count towards the 25% Troops requirement.',
-      'At least half of Raptor models must start in reserves.',
-    ],
-  },
-
-  'The Swift Blade': { ...BASE,
-    troopsRemap: ['Chaos Bikers'],
-    notes: [
-      'Chaos Bikers count as Troops.',
-      'Flanking units may deploy on turn 1.',
-      'Units with M<12" and no transport option cannot be selected.',
-    ],
-  },
-
-  'Sorcerer Circle': { ...BASE,
-    hqOverride: [1, 4], hqAllowed: ['Chaos Sorcerer', 'Master of Sorcery'],
-    notes: [
-      '4 HQ slots (minimum 1, maximum 4).',
-      'Only Chaos Sorcerer and Master of Sorcery as HQ.',
-      'Chaos Sorcerers gain the "Command squad" ability.',
-      'All models must deploy within 12" of each other.',
-    ],
-  },
-
-  "Abaddon's Chosen": { ...BASE,
-    hqOverride: [4, 5], noAnimosity: true,
-    notes: [
-      '5 HQ slots (minimum 4 must be filled).',
-      'Each HQ must have a different Chaos Mark.',
-      'Animosity of the Gods rule does not apply.',
-    ],
-  },
-
-  'Legionnaire Warband': { ...BASE,
-    troopsRemap: ['Legionnaires'], requireVetAbilities: true,
-    notes: [
-      'Legionnaires count as Troops.',
-      'All units must have at least 1 veteran ability (Marks do not count).',
-      'Units without access to veteran abilities cannot be selected.',
-    ],
-  },
-
-  'Special Operations': { ...BASE,
-    notes: ['Cultists must choose 2 veteran abilities, one of which must be "Infiltrator".'],
-  },
-
-  'Daemonkin': { ...BASE,
-    noLegacy: true, noTraits: true,
-    alliedFaction: 'chaos_daemons', alliedMarkFilter: 'hq_mark',
-    notes: [
-      'Access to all Chaos Daemons units (filtered by HQ Mark).',
-      'All units must carry the same Chaos Mark.',
-      'At least 1 HQ from each Codex (CSM and Daemons).',
-      'No Legacies or Traits may be chosen.',
-    ],
-  },
-
-  'Dreadclaw Assault': dropPodArchetype('Dreadclaw Drop Pod'),
-
-  'Legion': { ...BASE,
-    troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
-    troopsCount: 'remap',
-    alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',
-    notes: [
-      'Access to all Horus Heresy Space Marines supplement units.',
-      'Only HH supplement Troops (Breacher, Tactical, Tactical Support) count towards the 25%.',
-    ],
-  },
+const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
+  ...CSM_ARCHETYPES,
 
   // ── Adeptus Custodes ──────────────────────────────────────────────────────
   'Kataphraktoi': { ...BASE,
@@ -330,7 +143,7 @@ export const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Ynnari (Eldar)': { ...BASE, noLegacy: true,
     notes: [
-      'Allied to Dark Eldar as Battle Brothers.',
+      'Allied to Eldar as Battle Brothers.',
       'Access to the Ynnari Armory and Revenant discipline.',
       'No Legacy may be selected.',
     ],
@@ -676,7 +489,6 @@ export function getArchetypeRule(archetype: string): ArchetypeRule | null {
   return ARCHETYPE_RULES[archetype] ?? null;
 }
 
-/** Returns the effective slot for a unit given the active archetype rule. */
 export function getEffectiveSlot(
   unitName: string,
   originalSlot: string,
@@ -687,11 +499,6 @@ export function getEffectiveSlot(
   return originalSlot;
 }
 
-/**
- * Returns false if the unit is banned or incompatible with the archetype.
- * Pass the unit's locked_mark and has_veteran_abilities from the data.
- * Optionally pass originalSlot to filter out units from bannedSlots.
- */
 export function isUnitAllowed(
   unitName: string,
   unit: { locked_mark: string | null; has_veteran_abilities: boolean },
@@ -709,7 +516,6 @@ export function isUnitAllowed(
   return true;
 }
 
-/** Returns the HQ [min, max] limits given the active archetype rule and engagement. */
 export function getEffectiveHqLimits(
   rule: ArchetypeRule | null,
   engagementHq: [number, number],
@@ -718,10 +524,6 @@ export function getEffectiveHqLimits(
   return engagementHq;
 }
 
-/**
- * Returns whether a unit in the Troops slot counts toward the 25% minimum.
- * Used to implement cult archetype and Host Raptorial Troops restrictions.
- */
 export function countsTroops(
   unitName: string,
   lockedMark: string | null,

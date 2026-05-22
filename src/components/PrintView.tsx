@@ -1,12 +1,14 @@
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { computeUnitPoints, getActiveVariant, resolveUnit } from '../engine/points';
+import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric } from '../data/coreRules';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
+import type { EquipMods } from '../engine/equipMods';
+import { resolveUnitProfile } from '../engine/resolver';
 
 import genericBg       from '../assets/factionBackground.png';
 import chaosMarine_bg  from '../assets/chaosMarinesBackground.png';
@@ -198,17 +200,15 @@ function WeaponRow({ weapon: w, shade }: { weapon: Weapon; shade: boolean }) {
 
 // ── Unit card ─────────────────────────────────────────────────────────────────
 function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData }) {
-  const rule = getArchetypeRule(useArmyStore.getState().archetype);
   const u = resolveUnit(item, data);
   if (!u) return null;
 
-  const pts = computeUnitPoints(item, u);
-  const variant = getActiveVariant(item, u);
-  const effectiveMark = (u.locked_mark as Mark | null) ?? (rule?.forcedMark as Mark | null) ?? item.mark;
+  const storeState = useArmyStore.getState();
+  const rp = resolveUnitProfile(item, u, storeState, data);
+  const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap, injectedAbilities } = rp;
   const color = getMarkColor(effectiveMark);
 
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
-  const statModMark = u.locked_mark ? null : item.mark ?? (rule?.forcedMark ? rule.forcedMark as Mark : null);
   const modTable = u.is_character ? MARK_CHAR_MODS : MARK_STAT_MODS;
   const mod = statModMark ? modTable[statModMark] : null;
 
@@ -235,30 +235,13 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
       if (choice && optionalWeaponNames.has(choice.name)) selectedWeaponNames.add(choice.name);
     }
   }
-  const weaponsToShow = u.weapons.filter(w =>
-    !optionalWeaponNames.has(w.name) || selectedWeaponNames.has(w.name)
-  );
+  const weaponsToShow = rp.weapons.filter(w => !optionalWeaponNames.has(w.name) || selectedWeaponNames.has(w.name));
 
   const defaultRanged = weaponsToShow.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
   const defaultMelee  = weaponsToShow.filter(w => w.range === 'Melee' || w.type === 'Melee');
   const armRanged: Weapon[] = [];
   const armMelee: Weapon[] = [];
   const armEquip: { name: string; desc: string }[] = [];
-
-  // Daemon-weapon traits that target a specific weapon: weaponName → extra ability tokens
-  const weaponTraitMap = new Map<string, string[]>();
-  for (const sel of item.armory) {
-    if (sel.section === 'daemon_weapons' && sel.targetWeapon) {
-      const armDw = findArmoryItem(data, sel.itemName);
-      if (armDw?.desc && isWeaponTrait(armDw.desc)) {
-        const gains = extractWeaponGains(armDw.desc);
-        if (gains.length > 0) {
-          const existing = weaponTraitMap.get(sel.targetWeapon) ?? [];
-          weaponTraitMap.set(sel.targetWeapon, [...existing, ...gains]);
-        }
-      }
-    }
-  }
 
   // Helper to merge weapon traits into a weapon's abilities string
   function mergeTraits(w: Weapon): Weapon {
@@ -301,9 +284,11 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const defaultRangedWithTraits = defaultRanged.map(mergeTraits);
   const defaultMeleeWithTraits  = defaultMelee.map(mergeTraits);
 
-  const equipMods = parseEquipMods(armEquip);
   const abilitiesList = [
     ...u.abilities.filter(ab => !/^\d+$/.test(ab.trim())),
+    ...injectedAbilities.filter(ab =>
+      !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
+    ),
     ...equipMods.grantedAbilities.filter(ab =>
       !u.abilities.some(a => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())
     ),
@@ -350,7 +335,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
                 <img src={SLOT_ICONS[item.slot]} alt="" style={{ width: 14, height: 14, opacity: .75, filter: 'invert(1)' }} />
               )}
               {item.slot} · {u.unit_type}{effectiveMark ? ` · Mark of ${effectiveMark}` : ''}
-              {u.equipped_with ? ` — ${u.equipped_with}` : ''}
+              {rp.equippedWith ? ` — ${rp.equippedWith}` : ''}
             </div>
           </div>
           <div style={{
@@ -597,7 +582,7 @@ const POWER_MAX = [14, 6, 10, 16, 5, 5]; // Move, Attacks, Tough, Wounds, Save(i
 // ── Equipment mod parsing ─────────────────────────────────────────────────────
 // (parseEquipMods imported from ../engine/equipMods)
 
-function applyEquipDeltas(stats: Record<string, string>, mods: ReturnType<typeof parseEquipMods>, isVehicle: boolean): Record<string, string> {
+function applyEquipDeltas(stats: Record<string, string>, mods: EquipMods, isVehicle: boolean): Record<string, string> {
   const result = { ...stats };
   for (const [key, delta] of Object.entries(mods.statDeltas)) {
     if (result[key] !== undefined) result[key] = applyDelta(result[key], delta);
@@ -617,10 +602,11 @@ const COMP_MAX    = [2, 6, 3, 3, 3, 3, 1]; // pitched battle caps used as refere
 function SummaryPage({ army, data, color, factionName }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string;
 }) {
+  const storeState = useArmyStore.getState();
   const units = army.flatMap(item => {
     const u = resolveUnit(item, data);
     if (!u) return [];
-    const pts = computeUnitPoints(item, u);
+    const pts = resolveUnitProfile(item, u, storeState, data).pts;
     const wPerModel = u.is_vehicle
       ? parseInt(u.models[0]?.stats.HP ?? '1')
       : parseInt(u.models[0]?.stats.W  ?? '1');
@@ -738,9 +724,10 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   const dominantMark = forcedMark ?? (hqMark !== 'Undivided' ? hqMark : null);
   const primaryColor = getMarkColor(dominantMark);
 
+  const storeState = useArmyStore.getState();
   const totalPts = army.reduce((s, item) => {
     const u = resolveUnit(item, data);
-    return s + (u ? computeUnitPoints(item, u) : 0);
+    return s + (u ? resolveUnitProfile(item, u, storeState, data).pts : 0);
   }, 0);
 
   // Collect all unique rules for the Special Rules reference section.
@@ -795,7 +782,8 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         if (choice && optWpnNames.has(choice.name)) selWpnNames.add(choice.name);
       }
     }
-    const shownWeapons = u.weapons.filter(w => !optWpnNames.has(w.name) || selWpnNames.has(w.name));
+    const shownWeapons = resolveUnitProfile(item, u, storeState, data).weapons
+      .filter(w => !optWpnNames.has(w.name) || selWpnNames.has(w.name));
     for (const w of shownWeapons) {
       if (w.abilities && w.abilities !== '-') parseGeneric(w.abilities);
     }
