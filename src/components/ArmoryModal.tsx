@@ -25,7 +25,7 @@ function parsePrice(v: number | null | undefined | string): number | null {
 }
 
 export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
-  const { data, legacy, legacy2, archetype, addArmoryItem, army } = useArmyStore();
+  const { data, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -46,10 +46,30 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
     if (!isUniqueItem(arm.desc)) return false;
     return army.filter(e => e.id !== item.id).some(e => e.armory.some(a => a.itemName === arm.name && a.section === sec));
   }
+  // Level 3 — terminator armor conflict: can't stack two Terminator-type armors
+  function isTerminatorArmor(arm: ArmoryItem): boolean {
+    return /terminator/i.test(arm.name) || /cataphractii/i.test(arm.name) || /tartaros/i.test(arm.name);
+  }
+  function armorConflict(arm: ArmoryItem): boolean {
+    if (!isTerminatorArmor(arm)) return false;
+    const allSrcs = [data!.armory_general, ...Object.values(data!.armory_marks), ...Object.values(data!.armory_legions)];
+    return currentArmory.some(sel => {
+      if (sel.section !== 'equipment') return false;
+      for (const src of allSrcs) {
+        const found = (src.equipment as ArmoryItem[]).find(x => x.name === sel.itemName);
+        if (found && found.name !== arm.name && isTerminatorArmor(found)) return true;
+      }
+      return false;
+    });
+  }
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
-    return oncePerModelBlocked(arm, sec) || uniqueArmyBlocked(arm, sec);
+    return oncePerModelBlocked(arm, sec) || uniqueArmyBlocked(arm, sec) || (sec === 'equipment' && armorConflict(arm));
   }
+  function getSelId(itemName: string, sec: Section): string | undefined {
+    return currentArmory.find(a => a.itemName === itemName && a.section === sec)?.id;
+  }
+  function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
@@ -326,6 +346,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
                         isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        getSelId={name => getSelId(name, 'equipment')}
+                        onRemove={removeItem}
                         onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, legName, effectiveSection)}
                       />
                     ) : effectiveSection === 'daemon_weapons' ? (
@@ -342,7 +364,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                             const canAdd = !blocked && (!needsWeapon || chosenWeapon !== '');
                             return (
                               <div key={i} className={`border text-left transition-all ${
-                                blocked ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
+                                takenElsewhere ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
                               }`}>
                                 <div className="flex justify-between items-start px-3 py-2 gap-2">
                                   <div className="min-w-0">
@@ -363,7 +385,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                                         {arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts
                                       </span>
                                     )}
-                                    {!blocked && (
+                                    {alreadyOnThisUnit ? (
+                                      <button
+                                        onClick={() => { const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons'); if (sel) removeItem(sel.id); }}
+                                        className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
+                                      >
+                                        Remove
+                                      </button>
+                                    ) : !takenElsewhere && (
                                       <button
                                         onClick={() => add(arm, legName, 'daemon_weapons', needsWeapon ? chosenWeapon || undefined : undefined)}
                                         disabled={!canAdd}
@@ -411,6 +440,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                             key={i} arm={arm} isChar={isChar}
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
+                            selectedArmoryId={getSelId(arm.name, effectiveSection)}
+                            onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, legName, effectiveSection)}
                           />
                         ))
@@ -428,6 +459,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
               filterCategory={filterCategory}
               lastAdded={lastAdded}
               isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+              getSelId={name => getSelId(name, 'equipment')}
+              onRemove={removeItem}
               onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
             />
           ) : effectiveSection === 'daemon_weapons' ? (
@@ -448,7 +481,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                     const canAdd = !blocked && (!needsWeapon || chosenWeapon !== '');
                     return (
                       <div key={i} className={`border text-left transition-all ${
-                        blocked ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
+                        takenElsewhere ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
                       }`}>
                         <div className="flex justify-between items-start px-3 py-2 gap-2">
                           <div className="min-w-0">
@@ -469,7 +502,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                                 {arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts
                               </span>
                             )}
-                            {!blocked && (
+                            {alreadyOnThisUnit ? (
+                              <button
+                                onClick={() => { const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons'); if (sel) removeItem(sel.id); }}
+                                className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
+                              >
+                                Remove
+                              </button>
+                            ) : !takenElsewhere && (
                               <button
                                 onClick={() => add(arm, srcLabel, 'daemon_weapons', needsWeapon ? chosenWeapon || undefined : undefined)}
                                 disabled={!canAdd}
@@ -521,6 +561,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                     key={i} arm={arm} isChar={isChar}
                     justAdded={lastAdded === arm.name}
                     disabled={isAddBlocked(arm, effectiveSection)}
+                    selectedArmoryId={getSelId(arm.name, effectiveSection)}
+                    onRemove={removeItem}
                     onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
                   />
                 ));
@@ -556,6 +598,8 @@ interface EquipGroupsProps {
   filterCategory?: 'veteran' | 'vehicle';
   lastAdded: string | null;
   isUniqueSelected?: (arm: ArmoryItem) => boolean;
+  getSelId?: (name: string) => string | undefined;
+  onRemove?: (id: string) => void;
   onAdd: (arm: ArmoryItem) => void;
 }
 
@@ -568,6 +612,7 @@ function EquipmentGroups({
   filterCategory,
   lastAdded,
   isUniqueSelected,
+  getSelId, onRemove,
   onAdd,
 }: EquipGroupsProps) {
   // Build a per-model/per-wound price label for veteran abilities
@@ -612,6 +657,8 @@ function EquipmentGroups({
                 key={i} arm={arm} isChar={isChar}
                 justAdded={lastAdded === arm.name}
                 disabled={uniqueSel}
+                selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
+                onRemove={onRemove}
                 onAdd={() => !uniqueSel && onAdd(arm)}
               />
             );
@@ -658,6 +705,8 @@ function EquipmentGroups({
                   justAdded={lastAdded === arm.name}
                   priceLabel={vetPriceLabel(arm)}
                   inProfile={inProfile}
+                  selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
+                  onRemove={onRemove}
                   onAdd={() => !inProfile && onAdd(arm)}
                 />
               );
@@ -676,7 +725,7 @@ function EquipmentGroups({
           )}
           <div className="space-y-1">
             {vehicle.map((arm, i) => (
-              <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} priceLabel={vehPriceLabel(arm)} onAdd={() => onAdd(arm)} />
+              <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => onAdd(arm)} />
             ))}
           </div>
         </div>
@@ -689,6 +738,7 @@ function EquipmentGroups({
 
 function ArmoryItemRow({
   arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
+  selectedArmoryId, onRemove,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
@@ -697,11 +747,43 @@ function ArmoryItemRow({
   priceLabel?: string;
   inProfile?: boolean;
   onAdd: () => void;
+  selectedArmoryId?: string;
+  onRemove?: (id: string) => void;
 }) {
   const charPrice = parsePrice(arm.p_char);
   const unitPrice = parsePrice(arm.p_unit);
   const pts = isChar ? (charPrice ?? unitPrice) : unitPrice;
   const displayPrice = priceLabel ?? (pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—');
+
+  if (selectedArmoryId && onRemove) {
+    return (
+      <div className="w-full flex justify-between items-start px-3 py-2 border text-left gap-2 bg-zinc-800/50 border-zinc-600">
+        <div className="min-w-0">
+          <div className="flex items-center gap-1 flex-wrap">
+            <span className="text-sm font-medium text-zinc-400">{arm.name}</span>
+            <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>
+            {arm.gravis_compat && (
+              <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
+            )}
+            {arm.term_compat && (
+              <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">Term</span>
+            )}
+          </div>
+          {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+          <ArmoryWeaponStats arm={arm} />
+        </div>
+        <div className="flex flex-col items-end gap-1 shrink-0">
+          <span className="font-bold text-sm whitespace-nowrap text-zinc-500">{displayPrice}</span>
+          <button
+            onClick={() => onRemove(selectedArmoryId)}
+            className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <button

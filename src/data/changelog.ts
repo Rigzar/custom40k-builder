@@ -264,6 +264,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.28',
+    date: '2026-05-22',
+    title: 'Armory modal — Remove buttons, armor mutual exclusion, selected-item display',
+    changes: [
+      'Remove button added inline to every armory row (weapons, equipment, daemon weapons) — when an item is already selected it shows as a greyed-out "Selected" card with a red "Remove" button on the right, so items can be deselected without closing the modal',
+      'Terminator armor mutual exclusion: selecting a Terminator-type armor (Terminator armor, Cataphractii, Tartaros variants) now blocks adding a second one — only Terminator-class armors are exclusive with each other; items like Daemonic Armor are unaffected',
+      'Daemon weapon rows no longer dim at 50% opacity when the item is already selected on this unit (only dims when taken by another unit); the Remove button replaces the Add button when selected',
+    ],
+  },
+  {
     version: '0.27',
     date: '2026-05-21',
     title: 'CSM powers audit — armory restrictions + prayer/pact system',
