@@ -6,7 +6,7 @@ import { LegalFooter } from './LegalModal';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v1_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v2_dismissed';
 
 function CommunityAnnouncement() {
   const [dismissed, setDismissed] = useState(
@@ -29,28 +29,28 @@ function CommunityAnnouncement() {
       </div>
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
         <p>
-          Hello everyone! I'm rigzar. I'm currently implementing major changes to the army builder.
-          It turns out that the engine required to properly support <strong className="text-amber-400">Archetypes</strong>,{' '}
-          <strong className="text-amber-400">Legacies</strong>, and <strong className="text-amber-400">Traits</strong> is
-          significantly more complex than initially expected — every faction has unique rules, stat changes,
-          abilities and restrictions that all need to interact correctly.
+          Hello everyone! I'm rigzar. The engine required to properly support{' '}
+          <strong className="text-amber-400">Archetypes</strong>,{' '}
+          <strong className="text-amber-400">Legacies</strong>, and <strong className="text-amber-400">Traits</strong>{' '}
+          is significantly more complex than expected — every faction has unique rules, stat changes, abilities
+          and restrictions that all need to interact correctly. I'm building it faction by faction.
         </p>
         <p>
-          To build this right, I'm focusing engine development on{' '}
-          <strong className="text-red-400">Chaos Space Marines first</strong>. Yes, I know it sounds crazy to
-          start with the most complex faction — but that's how I like to work. Once CSM is fully operational,
-          I'll apply the same engine to the remaining factions one by one.
+          <strong className="text-emerald-400">✓ Chaos Space Marines</strong> — fully implemented.
+          Archetypes, Legacies, Traits, Black Crusade, armory and all engine rules are live.
         </p>
         <p>
-          <strong className="text-zinc-200">What this means:</strong> Archetype, Legacy, and Trait selection is
-          temporarily <span className="text-amber-500">disabled for all factions except CSM</span>.
+          <strong className="text-orange-400">→ Chaos Daemons</strong> — currently under review.
+          Engine work starts next.
+        </p>
+        <p>
+          <strong className="text-zinc-200">What this means:</strong>{' '}
+          Archetype, Legacy, and Trait selection is temporarily{' '}
+          <span className="text-amber-500">disabled for all other factions</span>.
           Army building (units, equipment, points) remains fully functional for everyone.
-          As they say — <em className="text-zinc-400">"half a loaf is better than none."</em>
         </p>
         <p>
-          This doesn't mean I'm ignoring bugs or feature suggestions for other factions — those stay on the list.
-          I apologize for the inconvenience and look forward to delivering a fully operational app soon.
-          Thank you for your patience!
+          Bugs and suggestions for any faction stay on the list. Thank you for your patience!
         </p>
       </div>
     </div>
