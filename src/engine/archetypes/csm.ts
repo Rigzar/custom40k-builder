@@ -69,6 +69,7 @@ export const CSM_ARCHETYPES: Record<string, ArchetypeRule> = {
     ],
   },
   'Special Operations': { ...BASE,
+    grantVetAbilities: ['Cultists'],
     notes: ['Cultists must choose 2 veteran abilities, one of which must be "Infiltrator".'],
   },
   'Daemonkin': { ...BASE,

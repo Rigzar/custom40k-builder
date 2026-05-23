@@ -93,7 +93,7 @@ export function UnitCard({ item }: Props) {
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
     variant, variantActive, modelsToShow, squadLeaderIdx,
     effectivePsyker,
-    isFavored, equippedWith, weapons, weaponTraitMap,
+    isFavored, effectiveHasVetAbilities, equippedWith, weapons, weaponTraitMap,
     injectedAbilities, equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
@@ -107,7 +107,7 @@ export function UnitCard({ item }: Props) {
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
 
   const allArmories = [data.armory_general, ...Object.values(data.armory_marks), ...Object.values(data.armory_legions)];
-  const hasFactionVeteranItems = u.has_veteran_abilities &&
+  const hasFactionVeteranItems = effectiveHasVetAbilities &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
   const hasFactionVehicleItems = u.is_vehicle &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'vehicle'));
@@ -842,8 +842,8 @@ export function UnitCard({ item }: Props) {
         </div>
       )}
 
-      {armoryOpen && <ArmoryModal item={item} unit={u} onClose={() => setArmoryOpen(false)} />}
-      {vetOpen && <ArmoryModal item={item} unit={u} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
+      {armoryOpen && <ArmoryModal item={item} unit={u} effectiveHasVetAbilities={effectiveHasVetAbilities} onClose={() => setArmoryOpen(false)} />}
+      {vetOpen && <ArmoryModal item={item} unit={u} effectiveHasVetAbilities={effectiveHasVetAbilities} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
       {vehOpen && <ArmoryModal item={item} unit={u} filterCategory="vehicle" onClose={() => setVehOpen(false)} />}
       {traitsOpen && <TraitsModal item={item} unit={u} markUsesSlot={markUsesVetSlot} onClose={() => setTraitsOpen(false)} />}
       {psyOpen && <PsychicModal item={item} unit={effectivePsyker && !u.is_psyker ? { ...u, is_psyker: true } : u} onClose={() => setPsyOpen(false)} />}

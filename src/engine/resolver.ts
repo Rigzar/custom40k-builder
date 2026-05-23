@@ -36,6 +36,8 @@ export interface ResolvedProfile {
 
   // Display
   isFavored: boolean;
+  /** True when unit.has_veteran_abilities OR archetype.grantVetAbilities includes this unit. */
+  effectiveHasVetAbilities: boolean;
   equippedWith: string;
   weapons: Weapon[];
   weaponTraitMap: Map<string, string[]>;
@@ -90,6 +92,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
   const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark;
   const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
+  const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
 
   // Models to display
   const modelsToShow: Model[] = variant
@@ -156,6 +159,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     variant, variantActive, modelsToShow, squadLeaderIdx,
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
+    effectiveHasVetAbilities,
     equippedWith, weapons, weaponTraitMap,
     injectedAbilities: [],
     equipMods,

@@ -10,6 +10,8 @@ interface Props {
   unit: Unit;
   onClose: () => void;
   filterCategory?: 'veteran' | 'vehicle';
+  /** Overrides unit.has_veteran_abilities — used when an archetype grants vet access to a normally ineligible unit. */
+  effectiveHasVetAbilities?: boolean;
 }
 
 let _selId = 1;
@@ -24,7 +26,7 @@ function parsePrice(v: number | null | undefined | string): number | null {
   return isNaN(n) ? null : n;
 }
 
-export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
+export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const { data, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
@@ -90,7 +92,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
   ].some(src => (src.daemon_weapons as ArmoryItem[]).length > 0);
 
   // Veteran slot tracking for armory items — independent of whether the faction has traits
-  const armoryVetEnabled = unit.has_veteran_abilities;
+  const armoryVetEnabled = effectiveHasVetAbilities ?? unit.has_veteran_abilities;
   // Marks use one veteran slot for units that can choose their mark (not locked marks)
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
@@ -138,7 +140,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
     return armItems.filter(arm => {
       if (arm.category === 'vehicle') return isVehicle;
       if (arm.category === 'veteran') {
-        if (!unit.has_veteran_abilities) return false;
+        if (!armoryVetEnabled) return false;
         // Infiltrator / Vanguard etc. have p_veh:null — not available to vehicles/monsters
         if (isVehicle || unit.is_monster) return arm.p_veh != null;
         return true;

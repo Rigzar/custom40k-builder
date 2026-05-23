@@ -268,6 +268,8 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-05-23',
     title: 'Chaos Daemons — engine setup, faction status badges, developer update',
     changes: [
+      'Bug fix: Special Operations — Cultists can now take veteran abilities (the Veteran Abilities button now appears and the armory correctly shows veteran items for Cultists under this archetype); validator already enforces 2 abilities with Infiltrator required',
+      'Chaos Daemons: psychic disciplines added — Change (Tzeentch only), Decay (Nurgle only), Excess (Slaanesh only), 6 powers each; general disciplines (Biomancy, Divination, Pyromancy, Telekinesis, Telepathy) were already available to all factions',
       'Faction selection screen now shows colored status dots on each faction button: yellow = needs player testing, orange = in review, red = not yet reviewed',
       'Chaos Space Marines marked as yellow (needs player testing); Chaos Daemons marked as orange (in review)',
       'Developer update banner updated: CSM marked as fully implemented; Chaos Daemons shown as next faction in progress',
