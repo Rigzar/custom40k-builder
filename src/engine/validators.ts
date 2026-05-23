@@ -317,6 +317,32 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     items.push({ type: 'error', text: '2nd Legacy requires the second-legion trait to be active.' });
   }
 
+  // Mixed Warband: each unit may only select items from ONE legacy armory
+  const isMixedWarbandActive = state.traitPool.some(n =>
+    data.traits.find(t => t.name === n)?.enables_second_legacy
+  );
+  if (isMixedWarbandActive && state.legacy2) {
+    const legacyArmoryKeys = new Set(
+      [state.legacy, state.legacy2]
+        .filter(Boolean)
+        .map(name => data.legacies.find(l => l.name === name)?.armory_key)
+        .filter((k): k is string => !!k && k in data.armory_legions)
+    );
+    for (const entry of state.army) {
+      const legionSources = new Set(
+        entry.armory
+          .filter(a => legacyArmoryKeys.has(a.source))
+          .map(a => a.source)
+      );
+      if (legionSources.size > 1) {
+        items.push({
+          type: 'error',
+          text: `Mixed Warband: ${entry.unitName} has items from multiple legacy armories. Each unit may only use one.`,
+        });
+      }
+    }
+  }
+
   // Unique variant upgrades: only 1 per army (e.g. Chaos Lord, Master of Possession)
   const uniqueVariantCounts: Record<string, number> = {};
   for (const item of state.army) {

@@ -121,9 +121,12 @@ export function ArmyConfig() {
                 <option value="">— none —</option>
                 {data.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
               </select>
-              {legacy && undividedLegacies.includes(legacy) && (
-                <div className="text-[10px] text-amber-600/80 mt-1 pl-2 border-l border-amber-900">
-                  This legacy requires all units to be Undivided.
+              {legacy && (
+                <div className="text-[10px] text-zinc-500 mt-1 pl-2 border-l-2 border-amber-800 space-y-0.5">
+                  <div>{data.legacies.find(l => l.name === legacy)?.desc}</div>
+                  {undividedLegacies.includes(legacy) && (
+                    <div className="text-amber-600/80">Requires all units to be Undivided.</div>
+                  )}
                 </div>
               )}
 
@@ -140,9 +143,12 @@ export function ArmyConfig() {
                       <option key={l.name} value={l.name}>{l.name}</option>
                     ))}
                   </select>
-                  {legacy2 && undividedLegacies.includes(legacy2) && (
-                    <div className="text-[10px] text-amber-600/80 mt-1 pl-2 border-l border-amber-900">
-                      This legacy requires all units to be Undivided.
+                  {legacy2 && (
+                    <div className="text-[10px] text-zinc-500 mt-1 pl-2 border-l-2 border-amber-800 space-y-0.5">
+                      <div>{data.legacies.find(l => l.name === legacy2)?.desc}</div>
+                      {undividedLegacies.includes(legacy2) && (
+                        <div className="text-amber-600/80">Requires all units to be Undivided.</div>
+                      )}
                     </div>
                   )}
                 </>

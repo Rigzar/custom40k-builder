@@ -146,6 +146,11 @@ export interface ArmyStore extends ArmyState {
    * Automatically clears the flag on any previously designated champion.
    */
   setBlackCrusadeHQ: (id: string, v: boolean) => void;
+  /**
+   * Mixed Warband: lock this unit to a specific legacy armory key (or clear the lock).
+   * Passing null clears the lock and removes any armory items from legacy armories.
+   */
+  setLegacyArmoryLock: (id: string, key: string | null) => void;
 
   addUnit: (unitName: string, slot: string, factionSource?: string) => void;
   removeUnit: (id: string) => void;
@@ -300,6 +305,29 @@ export const useArmyStore = create<ArmyStore>()(
           // Designating a new champion clears the flag on all other units
           if (v) return { ...e, blackCrusadeHQ: undefined };
           return e;
+        }),
+      })),
+
+      setLegacyArmoryLock: (id: string, key: string | null) => set((s: S) => ({
+        army: s.army.map(e => {
+          if (e.id !== id) return e;
+          // When locking to a key, remove any armory items sourced from OTHER legacy armories
+          const newArmory = key
+            ? e.armory.filter(a => {
+                // Keep items whose source is either non-legacy or matches the chosen key
+                const isLegacyItem = s.data
+                  ? Object.keys(s.data.armory_legions).some(lk => a.source === lk)
+                  : false;
+                return !isLegacyItem || a.source === key;
+              })
+            : e.armory.filter(a => {
+                // Clearing the lock: remove ALL legacy armory items
+                const isLegacyItem = s.data
+                  ? Object.keys(s.data.armory_legions).some(lk => a.source === lk)
+                  : false;
+                return !isLegacyItem;
+              });
+          return { ...e, legacyArmoryLock: key ?? undefined, armory: newArmory };
         }),
       })),
 

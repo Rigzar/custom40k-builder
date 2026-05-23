@@ -52,6 +52,13 @@ export interface RosterEntry {
    * Only one HQ per army may be designated.
    */
   blackCrusadeHQ?: boolean;
+  /**
+   * Mixed Warband trait: locks this unit to a single legacy armory key.
+   * When two legacies are active and Mixed Warband is in the trait pool,
+   * each unit may only purchase items from ONE legacy armory.
+   * Null/undefined = no lock yet chosen.
+   */
+  legacyArmoryLock?: string | null;
 }
 
 export interface ArmyState {

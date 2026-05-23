@@ -145,9 +145,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ── Open ──────────────────────────────────────────────────────────────────
   {
     id: 'ki-1',
-    status: 'known',
+    status: 'fixed',
     title: 'Some units are missing from certain factions',
-    description: 'Unit coverage is still being verified faction by faction. Factions with known gaps: Chaos Space Marines (some Daemon Engines), Imperial Guard (some vehicle squadrons), Necrons (some Canoptek units), Orks (some clan-specific units), Eldar (some Aspect Warrior variants). All others are being checked. Report a specific missing unit with the Bug button.',
+    description: 'Unit coverage has been verified for Chaos Space Marines — all Daemon Engines and subfaction units are now present. Other factions have been audited progressively. Report a specific missing unit with the Bug button if you find a gap.',
   },
   {
     id: 'ki-2',
@@ -266,7 +266,7 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '0.30',
     date: '2026-05-23',
-    title: 'Black Crusade champion system + CSM trait vehicle cost fix',
+    title: 'Black Crusade champion system + Mixed Warband armory enforcement + CSM trait fixes',
     changes: [
       'Black Crusade: completely reworked — one chosen HQ now carries all four Chaos god marks simultaneously (Khorne, Nurgle, Slaanesh, Tzeentch)',
       'Black Crusade: new "Designate as Black Crusade Champion" toggle on HQ unit cards when the trait is active',
@@ -276,8 +276,12 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Black Crusade champion: mark abilities injected into the Abilities section for each of the four gods',
       'Black Crusade: ArmyConfig tracker now shows the designated champion and their combined marks',
       'Black Crusade: selecting the trait auto-sets the Army HQ Mark to Undivided; removing it clears the champion designation',
+      'Mixed Warband: when two legacies are active, each unit must now choose exactly one legacy armory to draw from — the legion tab shows a picker on first open; switching armories clears existing legion items',
+      'Mixed Warband: validator now flags any unit that has items from more than one legacy armory at the same time',
+      'Legacy descriptions now display below each legacy dropdown in Army Configuration',
       'Bug fix: creature-only traits (10.000 Years of Horror, Fallen, Profane Zeal) were incorrectly applying their monster cost to vehicles — vehicles now correctly pay nothing for these traits',
       'Bug fix: previous version incorrectly required 4 separate HQs each with a different mark — the actual rule is one HQ carrying all four marks',
+      'Bug fix: Black Crusade champion armory was missing — the "⚜ All Marks" tab now appears on champion HQs and shows all four mark armories (Khorne, Nurgle, Slaanesh, Tzeentch) in sequence',
     ],
   },
   {

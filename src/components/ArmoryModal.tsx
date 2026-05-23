@@ -25,7 +25,7 @@ function parsePrice(v: number | null | undefined | string): number | null {
 }
 
 export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
-  const { data, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem, army } = useArmyStore();
+  const { data, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -153,8 +153,26 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
     .filter((k): k is string => !!k && k in data!.armory_legions);
   const hasLegion = activeLegionKeys.length > 0;
 
+  // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE
+  const isMixedWarband = traitPool.some(n =>
+    data!.traits.find(t => t.name === n)?.enables_second_legacy
+  );
+  const hasTwoLegacies = activeLegionKeys.length >= 2;
+  const mixedWarbandActive = isMixedWarband && hasTwoLegacies;
+
+  // The lock for THIS unit (reads from live store entry)
+  const liveItem = army.find(e => e.id === item.id) ?? item;
+  const unitLegacyLock = liveItem.legacyArmoryLock ?? null;
+
+  // Black Crusade champion: has all 4 marks → show all 4 mark armories
+  const isBlackCrusadeChampion = !!(liveItem.blackCrusadeHQ);
+  const BC_MARKS = ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'] as const;
+
   function getArmory() {
-    if (tab === 'mark' && effectiveMark) return data!.armory_marks[effectiveMark];
+    if (tab === 'mark') {
+      if (isBlackCrusadeChampion) return null; // rendered inline as 4 sections
+      if (effectiveMark) return data!.armory_marks[effectiveMark];
+    }
     if (tab === 'legion') return null;
     return data!.armory_general;
   }
@@ -254,8 +272,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
               General
             </button>
           ))}
-          {/* Mark tab — only shown when the unit actually has a mark */}
-          {hasMark && effectiveMark && (
+          {/* Mark tab — shown when unit has a mark, OR when it's the BC champion (all 4 marks) */}
+          {hasMark && (effectiveMark || isBlackCrusadeChampion) && (
             <button
               onClick={() => setTab('mark')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
@@ -264,7 +282,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {effectiveMark} Armoury
+              {isBlackCrusadeChampion ? '⚜ All Marks' : `${effectiveMark} Armoury`}
             </button>
           )}
           {/* Legion/Clan tab — only shown when a legacy that grants armory access is active */}
@@ -323,19 +341,99 @@ export function ArmoryModal({ item, unit, onClose, filterCategory }: Props) {
 
         {/* Items */}
         <div className="overflow-y-auto flex-1 p-3 space-y-1">
-          {tab === 'legion' ? (
+          {tab === 'mark' && isBlackCrusadeChampion ? (
+            /* BC champion — show all 4 mark armories */
+            <div className="space-y-2">
+              <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400 uppercase tracking-wide">
+                ⚜ Black Crusade Champion — access to all four mark armories
+              </div>
+              {BC_MARKS.map(markName => {
+                const markArm = data.armory_marks[markName];
+                if (!markArm) return null;
+                const markItems = filterByUnitType(filterTermCompat(markArm[effectiveSection] as ArmoryItem[]));
+                const markEq = effectiveSection === 'equipment' ? splitEquipment(markItems) : null;
+                return (
+                  <div key={markName}>
+                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1 mt-2">{markName} Armoury</div>
+                    {markEq ? (
+                      <EquipmentGroups
+                        regular={markEq.regular} veteran={markEq.veteran} vehicle={markEq.vehicle}
+                        isChar={isChar} isVehicle={isVehicle} isMonster={unit.is_monster}
+                        unitSize={item.size} unitWounds={woundCount}
+                        profileAbilityNames={profileAbilityNames}
+                        armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+                        filterCategory={filterCategory}
+                        lastAdded={lastAdded}
+                        isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                        getSelId={name => getSelId(name, 'equipment')}
+                        onRemove={removeItem}
+                        onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, `${markName} Armoury`, effectiveSection)}
+                      />
+                    ) : (
+                      markItems.length === 0
+                        ? <div className="text-zinc-500 italic text-sm text-center py-2">No items in this section</div>
+                        : markItems.map((arm, i) => (
+                          <ArmoryItemRow
+                            key={i} arm={arm} isChar={isChar}
+                            justAdded={lastAdded === arm.name}
+                            disabled={isAddBlocked(arm, effectiveSection)}
+                            selectedArmoryId={getSelId(arm.name, effectiveSection)}
+                            onRemove={removeItem}
+                            onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, `${markName} Armoury`, effectiveSection)}
+                          />
+                        ))
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ) : tab === 'legion' ? (
             activeLegionKeys.length === 0 ? (
               <div className="text-zinc-500 italic text-sm text-center py-8">
                 No active Legacy. Select a Legacy in army configuration.
               </div>
+            ) : mixedWarbandActive && !unitLegacyLock ? (
+              /* Mixed Warband: unit hasn't chosen a legacy armory yet */
+              <div className="space-y-3 py-4 px-2">
+                <div className="px-2 py-2 bg-amber-900/20 border border-amber-800 text-[11px] text-amber-400 space-y-1">
+                  <div className="font-semibold uppercase tracking-wide">Mixed Warband — Choose Legacy Armory</div>
+                  <div className="text-zinc-400">This unit may only purchase items from <em>one</em> legacy armory. Choose which one applies to this unit. This cannot be changed without clearing all existing legion armory items from this unit.</div>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  {activeLegionKeys.map(lk => (
+                    <button
+                      key={lk}
+                      onClick={() => setLegacyArmoryLock(item.id, lk)}
+                      className="flex-1 px-4 py-3 bg-zinc-800 border border-zinc-600 text-zinc-200 hover:border-amber-600 hover:text-amber-300 uppercase tracking-wide text-[11px] transition-colors"
+                    >
+                      {lk}
+                    </button>
+                  ))}
+                </div>
+              </div>
             ) : Object.entries(data.armory_legions)
-              .filter(([legName]) => activeLegionKeys.includes(legName))
+              .filter(([legName]) => {
+                // If Mixed Warband is active and a lock is set, only show the locked armory
+                if (mixedWarbandActive && unitLegacyLock) return legName === unitLegacyLock;
+                return activeLegionKeys.includes(legName);
+              })
               .map(([legName, leg]) => {
                 const legItems = filterByUnitType(filterTermCompat(leg[effectiveSection] as ArmoryItem[]));
                 const legEq = effectiveSection === 'equipment' ? splitEquipment(legItems) : null;
                 return (
                   <div key={legName}>
-                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1 mt-2">{legName}</div>
+                    <div className="flex items-center justify-between mb-1 mt-2">
+                      <div className="text-[11px] text-amber-700 uppercase tracking-widest">{legName}</div>
+                      {mixedWarbandActive && unitLegacyLock && (
+                        <button
+                          onClick={() => setLegacyArmoryLock(item.id, null)}
+                          className="text-[10px] text-red-400 hover:text-red-300 border border-red-800 px-1.5 py-0.5 uppercase tracking-wide transition-colors"
+                          title="Clears this unit's legacy armory lock and removes all legion armory items"
+                        >
+                          Change Armory
+                        </button>
+                      )}
+                    </div>
                     {legEq ? (
                       <EquipmentGroups
                         regular={legEq.regular} veteran={legEq.veteran} vehicle={legEq.vehicle}
