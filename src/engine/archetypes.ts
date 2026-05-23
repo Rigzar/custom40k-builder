@@ -2,9 +2,11 @@ export type { ArchetypeRule } from './archetypes/base';
 import type { ArchetypeRule } from './archetypes/base';
 import { BASE, fastArchetype, dropPodArchetype } from './archetypes/base';
 import { CSM_ARCHETYPES } from './archetypes/csm';
+import { CD_ARCHETYPES } from './archetypes/chaos_daemons';
 
 const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   ...CSM_ARCHETYPES,
+  ...CD_ARCHETYPES,
 
   // ── Adeptus Custodes ──────────────────────────────────────────────────────
   'Kataphraktoi': { ...BASE,
@@ -460,29 +462,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Tyrannocyte Assault': dropPodArchetype('Tyrannocyte'),
 
   // ── Chaos Daemons ─────────────────────────────────────────────────────────
-  'Assault on Realspace': { ...BASE,
-    notes: ['Units reduce their scatter distance by one D6.'],
-  },
-
-  'Calamitous Invasion': { ...BASE,
-    notes: ['Roll 1D6 during each Reinforcement phase — on a 5+ a Meteor appears and must be activated like a unit that same turn.'],
-  },
-
-  "Figureheads of The Dark Prince": { ...BASE, forcedMark: 'Slaanesh', requireForcedMarkOnly: true,
-    notes: ['HQ models gain +1 Attack while not within 12" of another friendly HQ model.'],
-  },
-
-  'Goretide': { ...BASE, forcedMark: 'Khorne', requireForcedMarkOnly: true,
-    notes: ['When a Khorne model loses its last Wound in melee, roll 1D6 — on a 5+ it causes 1 automatic Wound against an enemy unit in base contact.'],
-  },
-
-  'Host Duplicitous': { ...BASE, forcedMark: 'Tzeentch', requireForcedMarkOnly: true,
-    notes: ['Psychic powers do not increase their casting values for manifesting them multiple times per round.'],
-  },
-
-  'Popping Plague': { ...BASE, forcedMark: 'Nurgle', requireForcedMarkOnly: true,
-    notes: ['Units explode like a vehicle when they lose their last Wound.'],
-  },
+  // → see engine/archetypes/chaos_daemons.ts (spread via CD_ARCHETYPES above)
 };
 
 export function getArchetypeRule(archetype: string): ArchetypeRule | null {

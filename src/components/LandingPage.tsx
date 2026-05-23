@@ -76,7 +76,7 @@ interface Category {
 
 const STATUS_BADGE: Record<FactionStatus, { dot: string; label: string; title: string }> = {
   testing:    { dot: 'bg-amber-400',   label: 'text-amber-400',   title: 'Needs player testing' },
-  inreview:   { dot: 'bg-orange-500',  label: 'text-orange-400',  title: 'En revisión' },
+  inreview:   { dot: 'bg-orange-500',  label: 'text-orange-400',  title: 'In review' },
   unreviewed: { dot: 'bg-red-500',     label: 'text-red-500',     title: 'Not yet reviewed' },
 };
 
@@ -226,7 +226,7 @@ export function LandingPage({
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700">Faction</h2>
             <div className="flex items-center gap-3 text-[10px] text-zinc-500">
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> Needs testing</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> En revisión</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> In review</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block" /> Not reviewed</span>
             </div>
           </div>

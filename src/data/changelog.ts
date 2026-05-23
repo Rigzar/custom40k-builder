@@ -264,6 +264,19 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.31',
+    date: '2026-05-23',
+    title: 'Chaos Daemons — engine setup, faction status badges, developer update',
+    changes: [
+      'Faction selection screen now shows colored status dots on each faction button: yellow = needs player testing, orange = in review, red = not yet reviewed',
+      'Chaos Space Marines marked as yellow (needs player testing); Chaos Daemons marked as orange (in review)',
+      'Developer update banner updated: CSM marked as fully implemented; Chaos Daemons shown as next faction in progress',
+      'Chaos Daemons engine files created following the same structure as CSM: archetypes/, traits/, weapons/, resolver-chaos-daemons.ts',
+      'Chaos Daemons armory, legacies (none) and traits (none) sections correctly hidden in Army Configuration',
+      'Bug fix: Chaos Daemons unit names corrected — "Daemon Brutes" → "Demon Brutes", "Feculant Gnarlmaw" → "Feculent Gnarlmaw"',
+    ],
+  },
+  {
     version: '0.30',
     date: '2026-05-23',
     title: 'Black Crusade champion system + Mixed Warband armory enforcement + CSM trait fixes',

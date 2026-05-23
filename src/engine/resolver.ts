@@ -6,6 +6,7 @@ import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains } from './equipMods';
 import { getTraitEffects } from './traitEffects';
 import { csmResolve } from './resolver-csm';
+import { cdResolve } from './resolver-chaos-daemons';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -175,6 +176,7 @@ export type FactionResolverFn = (
 
 const FACTION_RESOLVERS: Partial<Record<string, FactionResolverFn>> = {
   'Chaos Space Marines': csmResolve,
+  'Chaos Daemons':       cdResolve,
 };
 
 // ── Public API ────────────────────────────────────────────────────────────────
