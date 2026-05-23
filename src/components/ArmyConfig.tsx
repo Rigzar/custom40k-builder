@@ -105,8 +105,8 @@ export function ArmyConfig() {
             )}
           </div>
 
-          {/* Legacy */}
-          {noLegacy ? (
+          {/* Legacy — hidden when faction has no legacies */}
+          {data.legacies.length === 0 ? null : noLegacy ? (
             <div className="px-2 py-2 bg-zinc-900 border border-zinc-700 text-[11px] text-zinc-500 italic">
               Legacies not available with archetype <span className="text-amber-700">{archetype}</span>.
             </div>
@@ -160,8 +160,8 @@ export function ArmyConfig() {
             </div>
           )}
 
-          {/* Army Traits */}
-          {noTraits ? (
+          {/* Army Traits — hidden when faction has no traits */}
+          {data.traits.length === 0 ? null : noTraits ? (
             <div className="px-2 py-2 bg-zinc-900 border border-zinc-700 text-[11px] text-zinc-500 italic">
               Traits not available with archetype <span className="text-amber-700">{archetype}</span>.
             </div>

@@ -57,10 +57,14 @@ function CommunityAnnouncement() {
   );
 }
 
+/** yellow = needs player testing · orange = en revisión · red = not yet reviewed */
+type FactionStatus = 'testing' | 'inreview' | 'unreviewed';
+
 interface FactionDef {
   key: string;
   name: string;
   available: boolean;
+  status: FactionStatus;
 }
 
 interface Category {
@@ -70,14 +74,20 @@ interface Category {
   factions: FactionDef[];
 }
 
+const STATUS_BADGE: Record<FactionStatus, { dot: string; label: string; title: string }> = {
+  testing:    { dot: 'bg-amber-400',   label: 'text-amber-400',   title: 'Needs player testing' },
+  inreview:   { dot: 'bg-orange-500',  label: 'text-orange-400',  title: 'En revisión' },
+  unreviewed: { dot: 'bg-red-500',     label: 'text-red-500',     title: 'Not yet reviewed' },
+};
+
 const CATEGORIES: Category[] = [
   {
     name: 'Chaos',
     borderColor: 'border-red-800',
     labelColor: 'text-red-400',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'testing' },
+      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'inreview' },
     ],
   },
   {
@@ -85,14 +95,14 @@ const CATEGORIES: Category[] = [
     borderColor: 'border-yellow-700',
     labelColor: 'text-yellow-500',
     factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true },
-      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true },
-      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true },
-      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true },
-      { key: 'grey_knights',       name: 'Grey Knights',       available: true },
-      { key: 'inquisition',        name: 'Inquisition',        available: true },
-      { key: 'assassins',          name: 'Assassins',          available: true },
+      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'unreviewed' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'unreviewed' },
+      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'unreviewed' },
+      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'unreviewed' },
+      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'unreviewed' },
+      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'unreviewed' },
+      { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'unreviewed' },
+      { key: 'assassins',          name: 'Assassins',          available: true, status: 'unreviewed' },
     ],
   },
   {
@@ -100,15 +110,15 @@ const CATEGORIES: Category[] = [
     borderColor: 'border-green-800',
     labelColor: 'text-green-500',
     factions: [
-      { key: 'tau_empire',        name: 'Tau Empire',         available: true },
-      { key: 'necrons',           name: 'Necrons',            available: true },
-      { key: 'orks',              name: 'Orks',               available: true },
-      { key: 'eldar',             name: 'Eldar',              available: true },
-      { key: 'dark_eldar',        name: 'Dark Eldar',         available: true },
-      { key: 'genestealer_cults', name: 'Genestealer Cults',  available: true },
-      { key: 'harlequins',        name: 'Harlequins',         available: true },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann',  available: true },
-      { key: 'tyranids',          name: 'Tyranids',           available: true },
+      { key: 'tau_empire',        name: 'Tau Empire',         available: true, status: 'unreviewed' },
+      { key: 'necrons',           name: 'Necrons',            available: true, status: 'unreviewed' },
+      { key: 'orks',              name: 'Orks',               available: true, status: 'unreviewed' },
+      { key: 'eldar',             name: 'Eldar',              available: true, status: 'unreviewed' },
+      { key: 'dark_eldar',        name: 'Dark Eldar',         available: true, status: 'unreviewed' },
+      { key: 'genestealer_cults', name: 'Genestealer Cults',  available: true, status: 'unreviewed' },
+      { key: 'harlequins',        name: 'Harlequins',         available: true, status: 'unreviewed' },
+      { key: 'leagues_of_votann', name: 'Leagues of Votann',  available: true, status: 'unreviewed' },
+      { key: 'tyranids',          name: 'Tyranids',           available: true, status: 'unreviewed' },
     ],
   },
 ];
@@ -212,9 +222,14 @@ export function LandingPage({
 
         {/* ── Faction selection ── */}
         <section>
-          <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
-            Faction
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[11px] uppercase tracking-widest text-amber-700">Faction</h2>
+            <div className="flex items-center gap-3 text-[10px] text-zinc-500">
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> Needs testing</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> En revisión</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block" /> Not reviewed</span>
+            </div>
+          </div>
           <div className="space-y-6">
             {CATEGORIES.map(cat => (
               <div key={cat.name}>
@@ -224,6 +239,7 @@ export function LandingPage({
                 <div className="flex flex-wrap gap-2">
                   {cat.factions.map(f => {
                     const isSelected = selectedFaction === f.key;
+                    const badge = STATUS_BADGE[f.status];
                     return (
                       <button
                         key={f.key}
@@ -239,6 +255,15 @@ export function LandingPage({
                           }
                         `}
                       >
+                        {/* Status badge */}
+                        {f.available && (
+                          <div
+                            className="absolute top-1.5 right-1.5 flex items-center gap-1"
+                            title={badge.title}
+                          >
+                            <div className={`w-2 h-2 rounded-full ${badge.dot}`} />
+                          </div>
+                        )}
                         <div className="font-semibold">{f.name}</div>
                         {!f.available && (
                           <div className="text-[10px] text-zinc-600 mt-0.5">Coming soon</div>
@@ -247,7 +272,7 @@ export function LandingPage({
                           <div className="text-[10px] text-amber-600 mt-0.5">Selected</div>
                         )}
                         {f.available && !isSelected && (
-                          <div className="text-[10px] text-zinc-500 mt-0.5">Available</div>
+                          <div className={`text-[10px] mt-0.5 ${badge.label}`}>{badge.title}</div>
                         )}
                       </button>
                     );
