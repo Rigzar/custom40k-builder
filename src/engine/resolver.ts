@@ -45,6 +45,9 @@ export interface ResolvedProfile {
   traitStatMods: Array<{ stat: string; delta: number }>;
   traitAbilities: Array<{ traitName: string; name: string; desc?: string }>;
   traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }>;
+
+  /** True when this HQ is the Black Crusade champion bearing all four Chaos god marks. */
+  blackCrusadeChampion: boolean;
 }
 
 // ── Shared utility ────────────────────────────────────────────────────────────
@@ -144,6 +147,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
 
+  const blackCrusadeChampion = !!(item.blackCrusadeHQ);
+
   return {
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
@@ -154,6 +159,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     injectedAbilities: [],
     equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
+    blackCrusadeChampion,
   };
 }
 

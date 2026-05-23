@@ -96,6 +96,7 @@ export function UnitCard({ item }: Props) {
     isFavored, equippedWith, weapons, weaponTraitMap,
     injectedAbilities, equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
+    blackCrusadeChampion,
   } = rp;
 
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
@@ -140,14 +141,21 @@ export function UnitCard({ item }: Props) {
               ? <><span className="line-through text-zinc-600">{item.slot}</span> → {effectiveSlot}</>
               : item.slot
             } · {u.unit_type}
-            {effectiveMark && (
+            {blackCrusadeChampion ? (
+              <span className="ml-1 inline-flex items-center gap-0.5">
+                {(['Khorne','Nurgle','Slaanesh','Tzeentch'] as const).map(m => (
+                  <MarkBadge key={m} mark={m} />
+                ))}
+                <span className="text-[10px] text-amber-400 ml-0.5">⚜</span>
+              </span>
+            ) : effectiveMark ? (
               <span className="ml-1">
                 <MarkBadge
                   mark={effectiveMark}
                   suffix={u.locked_mark ? '(locked)' : markIsForced ? '(archetype)' : undefined}
                 />
               </span>
-            )}
+            ) : null}
             {isFavored && (
               <span className="ml-1 text-[9px] bg-amber-900/50 text-amber-300 border border-amber-700/60 px-1 py-px uppercase tracking-wide font-semibold">
                 ★ Favored
@@ -186,7 +194,7 @@ export function UnitCard({ item }: Props) {
           <div>
             <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
               Profile
-              {(isFavored || (statModMark && MARK_STAT_MODS[statModMark] && (
+              {(isFavored || blackCrusadeChampion || (statModMark && MARK_STAT_MODS[statModMark] && (
                 u.is_character ? MARK_STAT_MODS[statModMark].char : MARK_STAT_MODS[statModMark].inf
               ))) && (
                 <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">* = mark bonus</span>
@@ -221,18 +229,24 @@ export function UnitCard({ item }: Props) {
                         let traitBoosted = false;
                         let equipBoosted = false;
 
-                        // Apply mark stat bonus (vehicles get ability-based bonuses only, no stat deltas)
-                        if (statModMark && MARK_STAT_MODS[statModMark] && !u.is_vehicle) {
-                          const mods = MARK_STAT_MODS[statModMark];
-                          if (mods.inf && mods.inf.stat === k) {
-                            const r = applyDelta(display, mods.inf.delta);
-                            display = r.display;
-                            if (r.modified) markBoosted = true;
-                          }
-                          if (u.is_character && mods.char && mods.char.stat === k) {
-                            const r = applyDelta(display, mods.char.delta);
-                            display = r.display;
-                            if (r.modified) markBoosted = true;
+                        // Apply mark stat bonuses (vehicles get ability-based bonuses only, no stat deltas)
+                        const marksToApply: string[] = blackCrusadeChampion
+                          ? ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']
+                          : statModMark ? [statModMark] : [];
+                        if (!u.is_vehicle) {
+                          for (const m of marksToApply) {
+                            const mods = MARK_STAT_MODS[m];
+                            if (!mods) continue;
+                            if (mods.inf && mods.inf.stat === k) {
+                              const r = applyDelta(display, mods.inf.delta);
+                              display = r.display;
+                              if (r.modified) markBoosted = true;
+                            }
+                            if (u.is_character && mods.char && mods.char.stat === k) {
+                              const r = applyDelta(display, mods.char.delta);
+                              display = r.display;
+                              if (r.modified) markBoosted = true;
+                            }
                           }
                         }
 
@@ -334,28 +348,52 @@ export function UnitCard({ item }: Props) {
 
           {/* Mark selection — units with a mark group, OR any HQ in a chaos faction */}
           {!u.locked_mark && !markIsForced && hasMarks && (hasMarkGroup || effectiveSlot === 'HQ') && (
-            <div className={traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && !item.mark ? 'border border-amber-900/60 p-1.5' : ''}>
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
-                Chaos Mark
-                {traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && (
-                  <span className="ml-1 text-amber-600 normal-case font-normal">(Black Crusade: assign a different god mark to each HQ)</span>
-                )}
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {MARKS.map(m => (
+            <div>
+              {/* Black Crusade Champion toggle — only shown for non-locked HQs when BC is active */}
+              {traitPool.includes('Black Crusade') && effectiveSlot === 'HQ' && (
+                <div className="mb-2">
                   <button
-                    key={m}
-                    onClick={() => updateUnit(item.id, { mark: item.mark === m ? null : m })}
-                    className={`text-[11px] px-2 py-0.5 border transition-colors
-                      ${item.mark === m
-                        ? 'bg-amber-800 border-amber-600 text-white'
-                        : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
+                    onClick={() => store.setBlackCrusadeHQ(item.id, !item.blackCrusadeHQ)}
+                    className={`w-full text-left text-[11px] px-3 py-1.5 border transition-colors
+                      ${item.blackCrusadeHQ
+                        ? 'bg-amber-900/40 border-amber-600 text-amber-300 font-semibold'
+                        : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:border-amber-700 hover:text-amber-400'
                       }`}
                   >
-                    {m}
+                    {item.blackCrusadeHQ
+                      ? '⚜ Black Crusade Champion — carries all four Chaos god marks'
+                      : '○ Designate as Black Crusade Champion (all four god marks)'}
                   </button>
-                ))}
-              </div>
+                  {item.blackCrusadeHQ && (
+                    <div className="text-[10px] text-zinc-500 mt-0.5 pl-2 border-l border-amber-900">
+                      This HQ simultaneously bears Khorne, Nurgle, Slaanesh and Tzeentch.
+                      Pays the combined mark cost for all four gods.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Regular mark buttons — hidden when this unit is the BC champion */}
+              {!item.blackCrusadeHQ && (
+                <div>
+                  <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Chaos Mark</div>
+                  <div className="flex flex-wrap gap-1">
+                    {MARKS.map(m => (
+                      <button
+                        key={m}
+                        onClick={() => updateUnit(item.id, { mark: item.mark === m ? null : m })}
+                        className={`text-[11px] px-2 py-0.5 border transition-colors
+                          ${item.mark === m
+                            ? 'bg-amber-800 border-amber-600 text-white'
+                            : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
+                          }`}
+                      >
+                        {m}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
           {markIsForced && (
@@ -364,7 +402,17 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
           {/* Mark stat bonus — shown for player-chosen or archetype-forced marks (never for locked) */}
-          {statModMark && MARK_BONUSES[statModMark] && (
+          {blackCrusadeChampion ? (
+            <div className="text-[10px] text-blue-400/80 border-l-2 border-blue-900 pl-2 mt-0.5">
+              <span className="font-semibold">⚜ All Chaos Marks:</span>{' '}
+              {u.is_vehicle
+                ? 'Tank Shock (double hit) · Recover damage 2D6/7+ · -1/-2 LD (18″/9″) · Warpflamer'
+                : u.is_character
+                  ? '+1 Str · +1 W · +2″ Move · Warded'
+                  : '+1 A · +1 T · +1 I · Warded'
+              }
+            </div>
+          ) : statModMark && MARK_BONUSES[statModMark] ? (
             <div className="text-[10px] text-blue-400/80 border-l-2 border-blue-900 pl-2 mt-0.5">
               <span className="font-semibold">Mark {statModMark}:</span>{' '}
               {u.is_vehicle
@@ -377,7 +425,7 @@ export function UnitCard({ item }: Props) {
                 <span className="text-zinc-500"> · counts as 1 veteran ability slot</span>
               )}
             </div>
-          )}
+          ) : null}
           {isFavored && effectiveMark && SACRED_NUMBERS[effectiveMark] && (
             <div className="text-[10px] text-amber-400/80 border-l-2 border-amber-700 pl-2 mt-0.5">
               <span className="font-semibold">★ Favored of {effectiveMark}</span>{' '}

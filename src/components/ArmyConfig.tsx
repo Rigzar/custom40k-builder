@@ -1,7 +1,7 @@
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
-import { resolveUnit } from '../engine/points';
+
 import type { EngagementType, Mark } from '../types/army';
 
 export function ArmyConfig() {
@@ -188,31 +188,45 @@ export function ArmyConfig() {
                   }
                 </select>
               ))}
-              {/* Black Crusade status — live tracker showing which god marks are covered by HQs */}
+              {/* Black Crusade status — shows which HQ is designated as champion */}
               {traitPool.includes('Black Crusade') && data && (
                 <div className="mt-2 p-2 bg-zinc-900 border border-zinc-700">
                   <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
-                    Black Crusade — HQ marks required
+                    Black Crusade — Champion required
                   </div>
-                  <div className="text-[10px] text-zinc-500 mb-1.5">
-                    Add 4 HQ units. On each unit card, open it and use the <span className="text-amber-400">Chaos Mark</span> buttons to assign one god mark per HQ.
-                  </div>
-                  {(['Khorne','Nurgle','Slaanesh','Tzeentch'] as const).map(god => {
-                    const covered = army.some(item => {
+                  {(() => {
+                    const champion = army.find(item => {
                       if (item.factionSource) return false;
-                      const u = resolveUnit(item, data);
                       const effSlot = getEffectiveSlot(item.unitName, item.slot, getArchetypeRule(archetype));
-                      if (effSlot !== 'HQ') return false;
-                      const m = u?.locked_mark ?? item.mark;
-                      return m === god;
+                      return effSlot === 'HQ' && item.blackCrusadeHQ;
                     });
+                    if (champion) {
+                      return (
+                        <div>
+                          <div className="text-[11px] text-emerald-400 mb-1">
+                            ⚜ Champion: <span className="font-semibold">{champion.unitName}</span>
+                          </div>
+                          <div className="flex gap-1">
+                            {(['Khorne','Nurgle','Slaanesh','Tzeentch'] as const).map(god => (
+                              <span key={god} className="text-[10px] px-1.5 py-0.5 bg-amber-900/30 border border-amber-700/50 text-amber-300 uppercase tracking-wide">
+                                {god}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="text-[10px] text-zinc-600 mt-1">
+                            Pays the combined mark cost for all four gods.
+                          </div>
+                        </div>
+                      );
+                    }
                     return (
-                      <div key={god} className={`flex items-center gap-1.5 text-[11px] ${covered ? 'text-emerald-400' : 'text-zinc-500'}`}>
-                        <span>{covered ? '✓' : '○'}</span>
-                        <span>{god}</span>
+                      <div className="text-[10px] text-amber-600/80">
+                        ○ No champion designated yet. Open an HQ unit card and toggle{' '}
+                        <span className="text-amber-400">Black Crusade Champion</span>{' '}
+                        to assign one HQ to carry all four Chaos god marks.
                       </div>
                     );
-                  })}
+                  })()}
                 </div>
               )}
 

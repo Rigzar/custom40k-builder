@@ -264,10 +264,28 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.30',
+    date: '2026-05-23',
+    title: 'Black Crusade champion system + CSM trait vehicle cost fix',
+    changes: [
+      'Black Crusade: completely reworked — one chosen HQ now carries all four Chaos god marks simultaneously (Khorne, Nurgle, Slaanesh, Tzeentch)',
+      'Black Crusade: new "Designate as Black Crusade Champion" toggle on HQ unit cards when the trait is active',
+      'Black Crusade champion: displays all four mark badges in the unit header (⚜)',
+      'Black Crusade champion: stat table shows all four combined mark bonuses (+1S/+1W/+2"M/Warded for characters)',
+      'Black Crusade champion: pays the combined point cost of all four god marks',
+      'Black Crusade champion: mark abilities injected into the Abilities section for each of the four gods',
+      'Black Crusade: ArmyConfig tracker now shows the designated champion and their combined marks',
+      'Black Crusade: selecting the trait auto-sets the Army HQ Mark to Undivided; removing it clears the champion designation',
+      'Bug fix: creature-only traits (10.000 Years of Horror, Fallen, Profane Zeal) were incorrectly applying their monster cost to vehicles — vehicles now correctly pay nothing for these traits',
+      'Bug fix: previous version incorrectly required 4 separate HQs each with a different mark — the actual rule is one HQ carrying all four marks',
+    ],
+  },
+  {
     version: '0.29',
     date: '2026-05-22',
     title: 'Armory improvements + Chaos Space Marines rules',
     changes: [
+      'Legion Armory data audit: fixed UTF-8 encoding errors in two item names — "Curze\'s Orb" (Night Lords) and "The Skull of Ker\'ngar" (Black Legion) were showing corrupted apostrophes',
       'You can now remove items from the armory without closing the window — selected items show a Remove button in place of the Add button',
       'You can no longer equip two Terminator-type armors on the same model (Terminator, Cataphractii, Tartaros); other armor types are unaffected',
       'Daemonkin: the builder now warns you if your CSM and Daemon units are unbalanced — the codex requires no more than 1 unit difference between each side',

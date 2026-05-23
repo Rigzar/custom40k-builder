@@ -276,36 +276,39 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
-  // Black Crusade trait: one HQ per Chaos god (all 4 marks must be present, no repeats)
+  // Black Crusade trait: one chosen HQ carries all four Chaos god marks simultaneously
   const blackCrusadeActive = state.traitPool.includes('Black Crusade');
   if (blackCrusadeActive) {
-    if (!state.hqMark.startsWith('Undivided')) {
+    const bcChampions = state.army.filter(item => {
+      if (item.factionSource) return false;
+      const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+      return effSlot === 'HQ' && item.blackCrusadeHQ;
+    });
+
+    if (bcChampions.length === 0) {
       items.push({
         type: 'warn',
-        text: 'Black Crusade: set the Army HQ Mark to "Undivided" so all four god marks can coexist in the army.',
+        text: 'Black Crusade: designate one HQ as the champion — open its unit card and toggle "Black Crusade Champion" to grant it all four Chaos god marks.',
       });
-    }
-    const hqMarks: string[] = [];
-    for (const item of state.army) {
-      const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
-      if (effSlot !== 'HQ') continue;
-      const u = resolveUnit(item, data);
-      const m = u?.locked_mark ?? item.mark ?? '';
-      if (!m) {
-        items.push({ type: 'warn', text: `Black Crusade: ${item.unitName} has no Chaos Mark (each HQ must carry a different god's mark).` });
-      } else if (hqMarks.includes(m)) {
-        items.push({ type: 'error', text: `Black Crusade: Mark of ${m} appears more than once among HQs (each must be different).` });
-      } else {
-        hqMarks.push(m);
-      }
-    }
-    const CHAOS_MARKS = ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
-    const missingMarks = CHAOS_MARKS.filter(m => !hqMarks.includes(m));
-    if (missingMarks.length > 0) {
+    } else if (bcChampions.length > 1) {
       items.push({
         type: 'error',
-        text: `Black Crusade: missing an HQ with mark(s) of ${missingMarks.join(', ')}.`,
+        text: `Black Crusade: only 1 HQ may be the champion (currently ${bcChampions.length} are designated).`,
       });
+    } else {
+      const champion = bcChampions[0];
+      const u = resolveUnit(champion, data);
+      if (u?.locked_mark) {
+        items.push({
+          type: 'error',
+          text: `Black Crusade: ${champion.unitName} has a locked mark and cannot carry all four god marks — choose a different HQ.`,
+        });
+      } else {
+        items.push({
+          type: 'ok',
+          text: `Black Crusade: ${champion.unitName} is the champion, bearing all four Chaos god marks.`,
+        });
+      }
     }
   }
 

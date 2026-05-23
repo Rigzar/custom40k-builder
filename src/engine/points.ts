@@ -47,12 +47,24 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
     total += extra * (variable?.points ?? 0);
   }
 
-  const effMark = unit.locked_mark ?? item.mark;
-  if (effMark) {
+  if (item.blackCrusadeHQ) {
+    // Black Crusade champion pays the combined cost of all four god marks
     const mg = unit.option_groups.find(isMarkGroup);
     if (mg) {
-      const c = mg.choices.find(c => c.name === effMark);
-      if (c) total += c.points * item.size;
+      const CHAOS_MARKS_ALL = ['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
+      for (const markName of CHAOS_MARKS_ALL) {
+        const c = mg.choices.find(ch => ch.name === markName);
+        if (c) total += c.points * item.size;
+      }
+    }
+  } else {
+    const effMark = unit.locked_mark ?? item.mark;
+    if (effMark) {
+      const mg = unit.option_groups.find(isMarkGroup);
+      if (mg) {
+        const c = mg.choices.find(c => c.name === effMark);
+        if (c) total += c.points * item.size;
+      }
     }
   }
 

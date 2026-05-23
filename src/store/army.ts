@@ -4,6 +4,7 @@ import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, Tra
 import type { FactionData, Trait } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
+import { TRAIT_EFFECTS } from '../engine/traitEffects';
 
 let _nextId = 1;
 function newId() { return String(_nextId++); }
@@ -83,11 +84,31 @@ function applyArmyTraits(
       .map(name => {
         const def = data.traits.find(t => t.name === name);
         if (!def) return null;
-        // Vehicles fall back to pts_monster because the xlsx column 1 covers both.
-        const raw = unit.is_vehicle ? (def.pts_veh ?? def.pts_monster)
-          : unit.is_character ? def.pts_char
-          : unit.is_monster ? def.pts_monster
-          : def.pts_unit;
+
+        let raw: string | null | undefined;
+        if (unit.is_vehicle) {
+          if (def.pts_veh !== null && def.pts_veh !== undefined) {
+            // Explicit vehicle cost
+            raw = def.pts_veh;
+          } else if (def.pts_monster !== null && def.pts_monster !== undefined) {
+            // pts_monster holds the "Monstrous Creatures & Vehicles" xlsx column.
+            // Only fall back to it if the trait actually has an effect on vehicles
+            // (creature-only traits like "Fallen", "Profane Zeal", "10.000 Years of Horror"
+            //  have pts_monster set for monsters but must NOT apply to vehicles).
+            const effects = TRAIT_EFFECTS[name] ?? [];
+            const hasVehicleEffect = effects.some(e => e.applies_to === 'all' || e.applies_to === 'vehicle');
+            raw = hasVehicleEffect ? def.pts_monster : null;
+          } else {
+            raw = null;
+          }
+        } else if (unit.is_character) {
+          raw = def.pts_char;
+        } else if (unit.is_monster) {
+          raw = def.pts_monster;
+        } else {
+          raw = def.pts_unit;
+        }
+
         const pts = parseTraitPts(raw);
         if (pts === null) return null; // trait cost is "-" for this unit type
         const perWound = typeof raw === 'string' && raw.trimEnd().endsWith('*');
@@ -120,6 +141,11 @@ export interface ArmyStore extends ArmyState {
   setTraitPool: (pool: string[]) => void;
   /** Per-unit override: which subset of army unit-traits this unit takes (conflict resolution). */
   setUnitTraitChoice: (id: string, choices: string[]) => void;
+  /**
+   * Designates an HQ unit as the Black Crusade champion (carries all 4 god marks).
+   * Automatically clears the flag on any previously designated champion.
+   */
+  setBlackCrusadeHQ: (id: string, v: boolean) => void;
 
   addUnit: (unitName: string, slot: string, factionSource?: string) => void;
   removeUnit: (id: string) => void;
@@ -237,10 +263,25 @@ export const useArmyStore = create<ArmyStore>()(
 
       setTraitPool: (pool: string[]) => set((s: S) => {
         const newPool = pool.slice(0, 2); // enforce max 2
-        const army = s.data
+        const hadBC = s.traitPool.includes('Black Crusade');
+        const hasBC = newPool.includes('Black Crusade');
+
+        let army = s.data
           ? applyArmyTraits(s.army, newPool, s.data, s.archetype, s.legacy)
           : s.army;
-        return { traitPool: newPool, army };
+
+        // If Black Crusade was removed, clear any champion designations
+        if (hadBC && !hasBC) {
+          army = army.map(e => e.blackCrusadeHQ ? { ...e, blackCrusadeHQ: undefined } : e);
+        }
+
+        // If Black Crusade was just added, auto-set army HQ mark to Undivided
+        const extra: Partial<ArmyState> = {};
+        if (!hadBC && hasBC) {
+          extra.hqMark = 'Undivided' as Mark;
+        }
+
+        return { traitPool: newPool, army, ...extra };
       }),
 
       setUnitTraitChoice: (id: string, choices: string[]) => set((s: S) => {
@@ -252,6 +293,15 @@ export const useArmyStore = create<ArmyStore>()(
           : withChoice;
         return { army };
       }),
+
+      setBlackCrusadeHQ: (id: string, v: boolean) => set((s: S) => ({
+        army: s.army.map(e => {
+          if (e.id === id) return { ...e, blackCrusadeHQ: v || undefined };
+          // Designating a new champion clears the flag on all other units
+          if (v) return { ...e, blackCrusadeHQ: undefined };
+          return e;
+        }),
+      })),
 
       addUnit: (unitName: string, slot: string, factionSource?: string) => {
         const s = get();

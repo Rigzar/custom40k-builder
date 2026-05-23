@@ -46,6 +46,12 @@ export interface RosterEntry {
   powers: PowerSelection[];
   prayers: string[];
   pacts: string[];
+  /**
+   * Black Crusade trait: designates this HQ as the champion bearing all four
+   * Chaos god marks simultaneously (Khorne, Nurgle, Slaanesh, Tzeentch).
+   * Only one HQ per army may be designated.
+   */
+  blackCrusadeHQ?: boolean;
 }
 
 export interface ArmyState {

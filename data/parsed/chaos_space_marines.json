@@ -11199,7 +11199,7 @@
                                                            ],
                                                "equipment":  [
                                                                  {
-                                                                     "name":  "Curzeâ€™s Orb",
+                                                                     "name":  "Curze\u0027s Orb",
                                                                      "term_compat":  true,
                                                                      "desc":  "The model may re-roll any one die per activation. Unique.",
                                                                      "p_unit":  null,
@@ -11289,7 +11289,7 @@
                                                                       "p_char":  5
                                                                   },
                                                                   {
-                                                                      "name":  "The Skull of Kerâ€™ngar",
+                                                                      "name":  "The Skull of Ker\u0027ngar",
                                                                       "term_compat":  true,
                                                                       "desc":  "All to wound rolls against the model suffer a -1 penalty. Unique.",
                                                                       "p_unit":  null,
@@ -11388,153 +11388,153 @@
                        "desc":  "The unit ignores negative leadership modificators. Only for creature units.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Black Crusade",
-                       "desc":  "A single HQ-model must get the Mark of Chaos of each god.",
+                       "desc":  "One chosen HQ model simultaneously bears all four Chaos god marks (Khorne, Nurgle, Slaanesh, Tzeentch). That HQ pays the combined mark cost for all four gods. Other units may carry 0 or 1 mark as normal. Animosity rules are suspended for the entire army.",
                        "pts_unit":  "-",
                        "pts_char":  "Special",
-                       "pts_monster":  "-",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "enables_second_legacy":  false,
+                       "pts_monster":  null,
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Blood Feud",
                        "desc":  "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Desecration",
                        "desc":  "The unit gains a 5+ invulnerability save while within 6\" of an objective. Doesn\u0027t work against weapons with strength 8 and above.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
-                       "pts_monster":  "-",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "enables_second_legacy":  false,
+                       "pts_monster":  null,
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Fallen",
                        "desc":  "The unit gains the \"They Shall Know No Fear\" ability (See Space Marines). Only for creature units.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Hatred Unleashed",
                        "desc":  "The unit\u0027s ranged attacks against the nearest enemy unit gain +1 to hit rolls.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Horrors of the Night",
                        "desc":  "The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock token or if the enemy unit is outnumbered.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Iron Within, Iron Without",
                        "desc":  "Creature models gain a 6+ invulnerability save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
                        "pts_unit":  "2*",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5*",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5*"
                    },
                    {
                        "name":  "Laboratory Experiments",
                        "desc":  "The unit gains the ability \"Berserk(5+)\", +1 Strength and +1\" Movement. At the end of each activation roll a D6 per model. For each 1 the unit suffers 1 Mortal Wound.",
                        "pts_unit":  "5",
                        "pts_char":  "-",
-                       "pts_monster":  "-",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "enables_second_legacy":  false,
+                       "pts_monster":  null,
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Malicious Volley",
                        "desc":  "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Masters of Deception",
                        "desc":  "The unit gains the benefit of light cover until its first activation.",
                        "pts_unit":  "3",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "3",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "3"
                    },
                    {
                        "name":  "Mixed Warband",
                        "desc":  "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
                        "pts_unit":  "-",
                        "pts_char":  "-",
-                       "pts_monster":  "-",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  true
+                       "enables_second_legacy":  true,
+                       "pts_monster":  null,
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Profane Zeal",
                        "desc":  "The unit gains the \"Blind Rage\" ability. Only for creature units.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  null
                    },
                    {
                        "name":  "Siege Experts",
                        "desc":  "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Superior Battle Tactics",
                        "desc":  "The unit reduces any negative to hit modificators by 1.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Terror Tactics",
                        "desc":  "All melee attacks of the unit gain the \"Gruesome\" ability. The unit itself gains the \"Terrifying(-1) ability.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    },
                    {
                        "name":  "Warp Pirates",
                        "desc":  "The unit gains the \"Frenzy(1\")\" ability.",
                        "pts_unit":  "5",
                        "pts_char":  "0",
+                       "enables_second_legacy":  false,
                        "pts_monster":  "5",
-                       "pts_veh":  null,
-                       "enables_second_legacy":  false
+                       "pts_veh":  "5"
                    }
                ],
     "animosity":  {
