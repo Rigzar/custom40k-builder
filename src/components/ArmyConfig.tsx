@@ -13,6 +13,8 @@ export function ArmyConfig() {
 
   const rule = getArchetypeRule(archetype);
   const isCSM = data.faction === 'Chaos Space Marines';
+  const isCD  = data.faction === 'Chaos Daemons';
+  const hasFullEngine = isCSM || isCD;
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
 
   const noLegacy = rule?.noLegacy ?? false;
@@ -64,8 +66,8 @@ export function ArmyConfig() {
       </div>
 
 
-      {/* Archetype / Legacy / Traits — CSM only for now */}
-      {!isCSM ? (
+      {/* Archetype / Legacy / Traits */}
+      {!hasFullEngine ? (
         <div className="px-3 py-3 bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-900 text-[11px] text-zinc-500 space-y-1">
           <div className="text-amber-700 font-semibold uppercase tracking-wide text-[10px]">Archetype · Legacy · Traits</div>
           <div>Full engine support is being built for <span className="text-amber-600">Chaos Space Marines</span> first.</div>
