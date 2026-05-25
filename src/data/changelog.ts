@@ -264,6 +264,33 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.33',
+    date: '2026-05-25',
+    title: 'Space Marines — archetypes, traits and army rules now active + weapon data fixes (15 units)',
+    changes: [
+      'Space Marines: all 8 archetypes are now active and work the same as Chaos Space Marines and Chaos Daemons',
+      'Space Marines: all 18 traits now apply their effects correctly (stat bonuses, unit abilities, weapon bonuses)',
+      'Space Marines: army validation rules are now active — 1st Company only allows its unit list, Forlorn Brothers requires Black Rage equipment, Expanded Armory enforces one legacy armory per unit',
+      'Fix (Land Raider Crusader): Multi-melta weapon type showed "Sturm 1" instead of "Assault 1" — error in the source document',
+      'Fix (Hellblaster Squad): all 6 firing modes of the Plasma incinerator were missing — now all appear correctly',
+      'Fix (Emperor\'s Champion): the Black Sword now shows both attacks (Swing attack and Piercing strike) with correct stats',
+      'Fix (Aggressor Squad): Auto boltstorm gauntlet and Flamestorm gauntlet now show both their melee and ranged firing modes',
+      'Fix (Inceptor Squad): Plasma exterminator now shows Standard and Overheating modes',
+      'Fix (Whirlwind): missile launcher now shows Castellan and Vengeance modes',
+      'Fix (Tactical Squad): Missile launcher, Plasma cannon and Plasma gun were missing their firing modes — all added',
+      'Fix (Devastator Squad): Missile launcher and Plasma cannon were missing their firing modes — all added',
+      'Fix (Desolation Squad): all three launchers were missing — Castellan, Krak and Vengor now show with their correct firing modes',
+      'Fix (Eliminator Squad): Bolt sniper rifle now shows all three ammo types (Executor, Hyper frag, Mortis)',
+      'Fix (Intercessor Squad): Bolt rifle now shows all three ammo types (Bolt, Stalker, Assault)',
+      'Fix (Terminator Squad): Cyclone missile launcher and Plasma cannon were missing their firing modes — all added',
+      'Fix (Centurion Devastator Squad): Missile launcher was missing its firing modes — added',
+      'Fix (Grey Hunters): Plasma pistol and Plasma gun now show Standard and Overcharged modes',
+      'Fix (Blood Claws): Plasma pistol and Plasma gun now show Standard and Overcharged modes',
+      'Fix (Redemptor Dreadnought): Macro plasma incinerator and Missile launcher were missing their firing modes — all added',
+      'Fix (Stormraven Gunship): Twin plasma cannon and Typhoon missile launcher were missing their firing modes — all added',
+    ],
+  },
+  {
     version: '0.32',
     date: '2026-05-24',
     title: 'Chaos Daemons — complete engine (Entourage/Herald/Bound Beast + Daemon Prince rules)',

@@ -7,6 +7,7 @@ import { parseEquipMods, isWeaponTrait, extractWeaponGains } from './equipMods';
 import { getTraitEffects } from './traitEffects';
 import { csmResolve } from './resolver-csm';
 import { cdResolve } from './resolver-chaos-daemons';
+import { smResolve } from './resolver-space-marines';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -185,6 +186,7 @@ export type FactionResolverFn = (
 const FACTION_RESOLVERS: Partial<Record<string, FactionResolverFn>> = {
   'Chaos Space Marines': csmResolve,
   'Chaos Daemons':       cdResolve,
+  'Space Marines':       smResolve,
 };
 
 // ── Public API ────────────────────────────────────────────────────────────────

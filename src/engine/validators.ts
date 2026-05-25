@@ -6,6 +6,7 @@ import {
   getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
 import { applyVariantSlotOverride } from './slotOverrides';
+import { validateSpaceMarines } from './validators/index';
 
 export interface ValidationItem {
   type: 'error' | 'warn' | 'ok';
@@ -719,6 +720,11 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // Skirmish: no archetypes
   if (state.engagement === 'skirmish' && state.archetype) {
     items.push({ type: 'error', text: 'Skirmish: Archetypes are not allowed.' });
+  }
+
+  // ── Faction-specific validators ──────────────────────────────────────────
+  if (state.faction === 'Space Marines') {
+    items.push(...validateSpaceMarines(state, data));
   }
 
   if (items.length === 0) items.push({ type: 'ok', text: 'Army is valid.' });

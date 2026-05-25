@@ -1,6 +1,7 @@
 import type { Unit } from '../types/data';
 import { CSM_TRAIT_EFFECTS } from './traits/csm';
 import { CD_TRAIT_EFFECTS } from './traits/chaos_daemons';
+import { SM_TRAIT_EFFECTS } from './traits/space-marines';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -36,6 +37,7 @@ export function getTraitEffects(traitName: string, unit: Unit): TraitEffect[] {
 export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...CSM_TRAIT_EFFECTS,
   ...CD_TRAIT_EFFECTS,
+  ...SM_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // TODO
@@ -65,7 +67,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // TODO
 
   // ── Space Marines ────────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/space-marines.ts — spread above)
 
   // ── Tau Empire ───────────────────────────────────────────────────────────────
   // TODO
