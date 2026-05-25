@@ -6,7 +6,7 @@ import { LegalFooter } from './LegalModal';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v2_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v3_dismissed';
 
 function CommunityAnnouncement() {
   const [dismissed, setDismissed] = useState(
@@ -40,8 +40,13 @@ function CommunityAnnouncement() {
           Archetypes, Legacies, Traits, Black Crusade, armory and all engine rules are live.
         </p>
         <p>
-          <strong className="text-orange-400">→ Chaos Daemons</strong> — currently under review.
-          Engine work starts next.
+          <strong className="text-emerald-400">✓ Chaos Daemons</strong> — fully implemented.
+          All 6 archetypes, Entourage / Herald / Bound Beast slot rules, god disciplines, psyker
+          access per unit, mark restrictions, and all weapon profiles are live. Needs player testing.
+        </p>
+        <p>
+          <strong className="text-orange-400">→ Space Marines</strong> — currently under review.
+          Archetypes, Legacies and Traits are now active. Report any issues you find!
         </p>
         <p>
           <strong className="text-zinc-200">What this means:</strong>{' '}
@@ -87,7 +92,7 @@ const CATEGORIES: Category[] = [
     labelColor: 'text-red-400',
     factions: [
       { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'testing' },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'inreview' },
+      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'testing' },
     ],
   },
   {
@@ -95,7 +100,7 @@ const CATEGORIES: Category[] = [
     borderColor: 'border-yellow-700',
     labelColor: 'text-yellow-500',
     factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'unreviewed' },
+      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'inreview' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'unreviewed' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'unreviewed' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'unreviewed' },
