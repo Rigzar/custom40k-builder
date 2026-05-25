@@ -41,7 +41,10 @@ export interface ResolvedProfile {
   equippedWith: string;
   weapons: Weapon[];
   weaponTraitMap: Map<string, string[]>;
+  /** Mark-derived ability injections (e.g. Warded, Warpflamer) — shown with "Mark" badge. */
   injectedAbilities: string[];
+  /** Archetype / variant rule notes (e.g. Ascended DP, Goretide) — shown with "Rule" badge. */
+  injectedRuleNotes: string[];
   equipMods: EquipMods;
 
   // Trait effects
@@ -162,6 +165,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     effectiveHasVetAbilities,
     equippedWith, weapons, weaponTraitMap,
     injectedAbilities: [],
+    injectedRuleNotes: [],
     equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,

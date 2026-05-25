@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
+import { applyVariantSlotOverride } from '../engine/slotOverrides';
+import { computeCdFreeSlots } from '../engine/validators';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -23,7 +25,8 @@ function getSlotUsage(
       ? data.allied?.[i.factionSource]?.units[i.unitName]
       : data.units[i.unitName];
     if (u?.advisor) return false;
-    return getEffectiveSlot(i.unitName, i.slot, rule) === slot;
+    const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+    return effSlot === slot;
   }).length;
 }
 
@@ -112,6 +115,7 @@ export function SlotPanel() {
   }
 
   const aopMult = computeAopMult(army, data, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule);
+  const cdFree = computeCdFreeSlots(army, data, rule);
 
   return (
     <div className="space-y-1">
@@ -129,7 +133,8 @@ export function SlotPanel() {
         if (rule?.bannedSlots.includes(slot)) return null;
         if (rawMax === 0 && units.length === 0) return null;
 
-        const used = getSlotUsage(army, data, slot, rule);
+        const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
+        const used = Math.max(0, getSlotUsage(army, data, slot, rule) - cdAdj);
         const isFull = used >= max && max > 0;
         const isUnder = used < min;
         const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';

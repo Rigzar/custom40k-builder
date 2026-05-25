@@ -1,14 +1,12 @@
 import type { FactionResolverFn } from './resolver';
 
-const SACRED_NUMBERS: Record<string, number> = {
+export const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
 };
 
-export const cdResolve: FactionResolverFn = (base, item, unit, _state) => {
+export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
   // ── Favored Units ────────────────────────────────────────────────────────────
   // A unit is Favored when its size is a multiple of the mark's sacred number.
-  // Works for both locked-mark units (effectiveMark = locked_mark) and
-  // chooseable-mark units (effectiveMark = item.mark).
   const isFavored =
     !!base.effectiveMark &&
     base.effectiveMark !== 'Undivided' &&
@@ -17,8 +15,24 @@ export const cdResolve: FactionResolverFn = (base, item, unit, _state) => {
     item.size % SACRED_NUMBERS[base.effectiveMark] === 0;
 
   const injectedAbilities = [...base.injectedAbilities];
+  const injectedRuleNotes = [...base.injectedRuleNotes];
   const isVeh  = unit.is_vehicle;
   const isChar = unit.is_character;
+
+  // ── Ascended Daemon Prince ────────────────────────────────────────────────────
+  // When the variant is active the DP moves from Heavy Support → HQ and gains
+  // several rule changes (already reflected in the variant model's stats/abilities).
+  let effectiveSlot = base.effectiveSlot;
+  if (
+    base.effectiveSlot === 'Heavy Support' &&
+    base.variantActive &&
+    base.variant?.name === 'Ascended Daemon Prince'
+  ) {
+    effectiveSlot = 'HQ';
+    injectedRuleNotes.push(
+      'Ascended: uses HQ slot (highest-pts HQ for Animosity), has all Marks, Greater Daemon, Fearless, Terrifying(−2)',
+    );
+  }
 
   // ── Mark ability injection ───────────────────────────────────────────────────
   // Only for units that CHOOSE their mark (Daemon Prince, Soul Grinder, Demon Brutes).
@@ -49,12 +63,39 @@ export const cdResolve: FactionResolverFn = (base, item, unit, _state) => {
     }
   }
 
-  // ── Pending rules (to implement) ─────────────────────────────────────────────
-  //   - Entourage: for each Greater Daemon of the same god, up to 2 heralds don't use an HQ slot
-  //   - Herald:    up to 2 units with this rule can share a single HQ choice
-  //   - Bound Beast: for every HQ with Mark of Khorne, 1 Slaughterbrute costs no FA slot
-  //   - Ascended Daemon Prince: moves to HQ slot, upgrades stats
-  //   - Archetype effects: Goretide (wound-on-death roll), Popping Plague (explosion on death), etc.
+  // ── Archetype effect notes ────────────────────────────────────────────────────
+  // Archetype names include god superscripts (ˢ/ᴷ/ᵀ/ᴺ) — must match JSON keys exactly.
+  switch (state.archetype) {
+    case 'Figureheads of The Dark Princeˢ':
+      // HQ units get +1 Attack while not within 12" of another friendly HQ
+      if (effectiveSlot === 'HQ') {
+        injectedRuleNotes.push('Figureheads: +1 Attack while not within 12″ of another friendly HQ');
+      }
+      break;
 
-  return { ...base, isFavored, injectedAbilities };
+    case 'Goretideᴷ':
+      // Roll 1D6 on death in melee; on 5+ causes automatic Wound with one of their weapons
+      injectedRuleNotes.push('Goretide: on death in melee, roll 1D6 — on a 5+ cause 1 automatic Wound (one of this unit\'s weapons) against an enemy in base contact');
+      break;
+
+    case 'Popping Plagueᴺ':
+      // All units explode on death like a vehicle
+      injectedRuleNotes.push('Popping Plague: explodes on death (roll as vehicle explosion)');
+      break;
+
+    case 'Host Duplicitousᵀ':
+      // Psykers only: no increased cast value for repeating same power
+      // Use base.effectivePsyker to include units that bought the optional psyker upgrade
+      if (base.effectivePsyker) {
+        injectedRuleNotes.push('Host Duplicitous: psychic powers do not increase their casting values for being manifested multiple times per round');
+      }
+      break;
+  }
+
+  // ── Entourage / Herald / Bound Beast ─────────────────────────────────────────
+  // Slot adjustments are handled in validators.ts (computeCdFreeSlots) and
+  // SlotPanel.tsx — they affect the slot *count* seen by the engine, not the
+  // unit's own profile, so no per-unit injection is needed here.
+
+  return { ...base, effectiveSlot, isFavored, injectedAbilities, injectedRuleNotes };
 };

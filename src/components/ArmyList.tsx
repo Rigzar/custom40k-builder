@@ -2,6 +2,7 @@ import { useArmyStore } from '../store/army';
 import { UnitCard } from './UnitCard';
 import { SLOT_ORDER } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
+import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { resolveUnit, computeUnitPoints } from '../engine/points';
 
 const SLOT_LABELS: Record<string, string> = {
@@ -32,9 +33,10 @@ export function ArmyList() {
   return (
     <div>
       {SLOT_ORDER.map(slot => {
-        const slotUnits = army.filter(item =>
-          getEffectiveSlot(item.unitName, item.slot, rule) === slot,
-        );
+        const slotUnits = army.filter(item => {
+          const u = data.units[item.unitName];
+          return applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule)) === slot;
+        });
         if (slotUnits.length === 0) return null;
 
         const slotPts = slotUnits.reduce((s, item) => {

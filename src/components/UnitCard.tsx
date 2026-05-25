@@ -6,6 +6,7 @@ import { resolveUnit } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
+import { SACRED_NUMBERS } from '../engine/resolver-chaos-daemons';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -30,8 +31,6 @@ const MARK_STAT_MODS: Record<string, MarkMod> = {
   Tzeentch:  {},
   Undivided: {},
 };
-
-const SACRED_NUMBERS: Record<string, number> = { Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9 };
 
 function applyDelta(value: string, delta: number): { display: string; modified: boolean } {
   if (!value || value === '-') return { display: value, modified: false };
@@ -94,7 +93,7 @@ export function UnitCard({ item }: Props) {
     variant, variantActive, modelsToShow, squadLeaderIdx,
     effectivePsyker,
     isFavored, effectiveHasVetAbilities, equippedWith, weapons, weaponTraitMap,
-    injectedAbilities, equipMods,
+    injectedAbilities, injectedRuleNotes, equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
   } = rp;
@@ -429,7 +428,7 @@ export function UnitCard({ item }: Props) {
           {isFavored && effectiveMark && SACRED_NUMBERS[effectiveMark] && (
             <div className="text-[10px] text-amber-400/80 border-l-2 border-amber-700 pl-2 mt-0.5">
               <span className="font-semibold">★ Favored of {effectiveMark}</span>{' '}
-              (size {SACRED_NUMBERS[effectiveMark]}×): squad leader gains +1 Attack and a personal icon.
+              (size {SACRED_NUMBERS[effectiveMark]}×): squad leader gains +1 Attack.
             </div>
           )}
 
@@ -437,6 +436,10 @@ export function UnitCard({ item }: Props) {
           {u.option_groups.filter(g => !isMarkGroup(g) && !g.variant_link || g.variant_link).map((g) => {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
+
+            // True when the header already states the cost (e.g. "…for +15 points.") — avoids showing pts twice.
+            const headerHasPts = (pts: number) =>
+              new RegExp(`\\+?${pts}\\s+points?`, 'i').test(g.header);
 
             if (g.variant_link) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
@@ -449,7 +452,7 @@ export function UnitCard({ item }: Props) {
                       onChange={() => setQty(realGi, '__inline', active ? 0 : 1)}
                     />
                     <span className="text-zinc-300">{g.header}</span>
-                    {g.inline_pts != null && (
+                    {g.inline_pts != null && !headerHasPts(g.inline_pts) && (
                       <span className="text-amber-600 text-[11px]">
                         {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts} pts
                       </span>
@@ -463,19 +466,29 @@ export function UnitCard({ item }: Props) {
             // a Storm bolter for +11 pts.") — render as a simple on/off toggle.
             if (g.choices.length === 0 && g.inline_pts != null) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
+              // Detect conditional restrictions in the header text.
+              // Use effectiveMark (resolver output) — covers locked mark, archetype-forced mark, and chosen mark.
+              const noKhorneRequired = /no mark of khorne/i.test(g.header);
+              const khorneBlocked = noKhorneRequired && effectiveMark === 'Khorne';
               return (
                 <div key={realGi} className="text-[12px]">
-                  <label className="flex items-center gap-2 cursor-pointer">
+                  <label className={`flex items-center gap-2 ${khorneBlocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
                     <input
                       type="checkbox"
                       checked={active}
-                      onChange={() => setQty(realGi, '__inline', active ? 0 : 1)}
+                      disabled={khorneBlocked}
+                      onChange={() => { if (!khorneBlocked) setQty(realGi, '__inline', active ? 0 : 1); }}
                     />
                     <span className="text-zinc-300">{g.header}</span>
-                    <span className="text-amber-600 text-[11px]">
-                      {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts} pts
-                    </span>
+                    {!headerHasPts(g.inline_pts) && (
+                      <span className="text-amber-600 text-[11px]">
+                        {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts} pts
+                      </span>
+                    )}
                   </label>
+                  {khorneBlocked && (
+                    <div className="text-[10px] text-red-400/80 mt-0.5 pl-6">Not available with Mark of Khorne.</div>
+                  )}
                 </div>
               );
             }
@@ -510,10 +523,16 @@ export function UnitCard({ item }: Props) {
                       : g.constraint.type === 'every'
                         ? item.size
                         : undefined;
+                    // Detect "(X only)" mark restrictions embedded in choice names
+                    const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;
+                    const choiceMarkBlocked = choiceMarkReq != null
+                      && choiceMarkReq.toLowerCase() !== (effectiveMark ?? '').toLowerCase();
                     return (
                       <div
                         key={ci}
-                        className="flex items-center gap-1 bg-zinc-900 border border-zinc-600 px-2 py-1 text-[11px]"
+                        className={`flex items-center gap-1 bg-zinc-900 border px-2 py-1 text-[11px]
+                          ${choiceMarkBlocked ? 'border-zinc-700 opacity-50 cursor-not-allowed' : 'border-zinc-600'}`}
+                        title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}
                       >
                         {canUseQty ? (
                           <input
@@ -521,7 +540,9 @@ export function UnitCard({ item }: Props) {
                             min={0}
                             max={inputMax}
                             value={qty}
+                            disabled={choiceMarkBlocked}
                             onChange={e => {
+                              if (choiceMarkBlocked) return;
                               const v = Math.max(0, Number(e.target.value));
                               const capped = inputMax !== undefined ? Math.min(v, inputMax) : v;
                               setQty(realGi, ci, capped);
@@ -532,7 +553,8 @@ export function UnitCard({ item }: Props) {
                           <input
                             type="checkbox"
                             checked={qty > 0}
-                            onChange={() => setQty(realGi, ci, qty > 0 ? 0 : 1)}
+                            disabled={choiceMarkBlocked}
+                            onChange={() => { if (!choiceMarkBlocked) setQty(realGi, ci, qty > 0 ? 0 : 1); }}
                           />
                         )}
                         <span className="text-zinc-300">{c.name}</span>
@@ -778,11 +800,11 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
-          {/* Abilities (native + trait + mark-injected) */}
-          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || injectedAbilities.length > 0) && (
+          {/* Abilities (native + trait + mark-injected + rule notes) */}
+          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || injectedAbilities.length > 0 || injectedRuleNotes.length > 0) && (
             <details>
               <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
-                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + injectedAbilities.length})
+                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + injectedAbilities.length + injectedRuleNotes.length})
               </summary>
               <div className="mt-2 space-y-2">
                 {u.abilities.flatMap((a, i) =>
@@ -822,6 +844,19 @@ export function UnitCard({ item }: Props) {
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                         {part.displayName}
                         <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Mark</span>
+                      </div>
+                      {part.description && (
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                      )}
+                    </div>
+                  ))
+                )}
+                {injectedRuleNotes.flatMap((a, i) =>
+                  parseAbility(a).map((part, j) => (
+                    <div key={`rn-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                      <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
+                        {part.displayName}
+                        <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Rule</span>
                       </div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>

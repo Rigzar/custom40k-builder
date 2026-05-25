@@ -3,8 +3,9 @@ import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit } from './points';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
 import {
-  getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops,
+  getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
+import { applyVariantSlotOverride } from './slotOverrides';
 
 export interface ValidationItem {
   type: 'error' | 'warn' | 'ok';
@@ -26,7 +27,8 @@ function getSlotUsage(
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     const u = resolveUnit(i, data);
     if (u?.advisor) return false;
-    return getEffectiveSlot(i.unitName, i.slot, rule) === slot;
+    const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+    return effSlot === slot;
   }).length;
 }
 
@@ -50,6 +52,83 @@ function allowedMarks(state: ArmyState, data: FactionData): string[] {
   if (data.animosity[state.hqMark]) return data.animosity[state.hqMark];
   const match = Object.entries(data.animosity).find(([k]) => k.startsWith(state.hqMark));
   return match ? match[1] : [];
+}
+
+/**
+ * CD-only: compute HQ and FA slots freed by the three special rules.
+ *   Entourage  — per-god: each Greater Daemon grants up to 2 free HQ slots to heralds of the same god.
+ *   Herald     — remaining heralds pair up, every 2 sharing 1 HQ slot (save = floor(n/2)).
+ *   Bound Beast— each HQ unit with Mark of Khorne frees 1 Slaughterbrute from the FA slot count.
+ *
+ * Subtract .hq / .fa from getSlotUsage() before comparing to limits.
+ * .notes can be surfaced as 'ok' validation messages.
+ */
+export function computeCdFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+  rule: Rule,
+): { hq: number; fa: number; notes: string[] } {
+  if (data.faction !== 'Chaos Daemons') return { hq: 0, fa: 0, notes: [] };
+
+  const greaterDaemonsByGod: Record<string, number> = {};
+  const heraldsByGod: Record<string, number> = {};
+  let khorneHqCount = 0;
+  let slaughterbruteCount = 0;
+
+  for (const item of army) {
+    if (item.factionSource) continue;
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const abilities = u.abilities ?? [];
+
+    // Greater Daemon: contributes Entourage quota for its god
+    if (abilities.some(a => /\bgreater daemon\b/i.test(a)) && u.locked_mark) {
+      greaterDaemonsByGod[u.locked_mark] = (greaterDaemonsByGod[u.locked_mark] ?? 0) + 1;
+    }
+    // Herald: heralds that can be freed by Entourage or paired by Herald rule
+    if (abilities.some(a => /^herald:/i.test(a)) && u.locked_mark) {
+      heraldsByGod[u.locked_mark] = (heraldsByGod[u.locked_mark] ?? 0) + 1;
+    }
+    // Khorne HQ count — for Bound Beast
+    const effSlot = applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule));
+    if (effSlot === 'HQ') {
+      const mark = u.locked_mark ?? item.mark;
+      if (mark === 'Khorne') khorneHqCount++;
+    }
+    // Bound Beast bearers (Slaughterbrutes)
+    if (abilities.some(a => /\bbound beast\b/i.test(a))) slaughterbruteCount++;
+  }
+
+  const notes: string[] = [];
+
+  // ── Entourage: per-god, each Greater Daemon frees up to 2 heralds of that god ───
+  let entourageFree = 0;
+  const remainingHeraldsByGod: Record<string, number> = { ...heraldsByGod };
+  for (const [god, gdCount] of Object.entries(greaterDaemonsByGod)) {
+    const heraldsOfGod = remainingHeraldsByGod[god] ?? 0;
+    if (heraldsOfGod === 0) continue;
+    const freed = Math.min(heraldsOfGod, gdCount * 2);
+    entourageFree += freed;
+    remainingHeraldsByGod[god] = heraldsOfGod - freed;
+    notes.push(`Entourage (${god}): ${freed} herald(s) occupy no HQ slot.`);
+  }
+
+  // ── Herald: remaining heralds pair up, every 2 sharing 1 HQ slot ─────────────
+  const totalRemaining = Object.values(remainingHeraldsByGod).reduce((s, n) => s + n, 0);
+  const heraldSaving = Math.floor(totalRemaining / 2);
+  if (heraldSaving > 0) {
+    notes.push(
+      `Herald: ${totalRemaining} remaining herald(s) share ${Math.ceil(totalRemaining / 2)} HQ slot(s) (${heraldSaving} free).`,
+    );
+  }
+
+  // ── Bound Beast: each Khorne HQ frees 1 Slaughterbrute from the FA slot ────────
+  const faFree = Math.min(slaughterbruteCount, khorneHqCount);
+  if (faFree > 0) {
+    notes.push(`Bound Beast: ${faFree} Slaughterbrute(s) occupy no Fast Attack slot.`);
+  }
+
+  return { hq: entourageFree + heraldSaving, fa: faFree, notes };
 }
 
 export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {
@@ -87,7 +166,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       if (rule.bannedUnits.includes(item.unitName)) {
         items.push({
           type: 'error',
-          text: `Archetype "${state.archetype}": ${item.unitName} is not allowed.`,
+          text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} is not allowed.`,
         });
       }
     }
@@ -98,7 +177,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         if (!item.factionSource && !rule.allowedUnitsOnly.includes(item.unitName)) {
           items.push({
             type: 'error',
-            text: `Archetype "${state.archetype}": ${item.unitName} is not in the allowed unit list.`,
+            text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} is not in the allowed unit list.`,
           });
         }
       }
@@ -110,7 +189,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         if (!item.factionSource && rule.bannedSlots.includes(item.slot)) {
           items.push({
             type: 'error',
-            text: `Archetype "${state.archetype}": ${item.slot} units are not allowed (${item.unitName}).`,
+            text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.slot} units are not allowed (${item.unitName}).`,
           });
         }
       }
@@ -125,7 +204,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       if (!hasRequiredHq) {
         items.push({
           type: 'error',
-          text: `Archetype "${state.archetype}": requires at least 1 ${rule.requiresHqUnit} as HQ.`,
+          text: `Archetype "${cleanArchetypeName(state.archetype)}": requires at least 1 ${rule.requiresHqUnit} as HQ.`,
         });
       }
     }
@@ -152,7 +231,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         if (lockedMark && lockedMark !== rule.forcedMark) {
           items.push({
             type: 'error',
-            text: `Archetype "${state.archetype}": ${item.unitName} has a locked mark (${lockedMark}) incompatible with ${rule.forcedMark}.`,
+            text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} has a locked mark (${lockedMark}) incompatible with ${rule.forcedMark}.`,
           });
         }
       }
@@ -169,7 +248,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
           if (!allowed) {
             items.push({
               type: 'error',
-              text: `Archetype "${state.archetype}": ${item.unitName} cannot be HQ (only ${rule.hqAllowed.join(', ')}).`,
+              text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} cannot be HQ (only ${rule.hqAllowed.join(', ')}).`,
             });
           }
         }
@@ -229,10 +308,10 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
 
     // No legacy/traits when archetype forbids them
     if (rule.noLegacy && (state.legacy || state.legacy2)) {
-      items.push({ type: 'error', text: `Archetype "${state.archetype}": no Legacy is allowed.` });
+      items.push({ type: 'error', text: `Archetype "${cleanArchetypeName(state.archetype)}": no Legacy is allowed.` });
     }
     if (rule.noTraits && state.traitPool.length > 0) {
-      items.push({ type: 'error', text: `Archetype "${state.archetype}": no Traits are allowed.` });
+      items.push({ type: 'error', text: `Archetype "${cleanArchetypeName(state.archetype)}": no Traits are allowed.` });
     }
 
     // Daemonkin: all units must share the same Chaos Mark
@@ -274,6 +353,44 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         });
       }
     }
+  }
+
+  // Choice mark restrictions — "(X only)" in choice names (e.g. "Plague spewer (Nurgle only)")
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const mark = u.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+    u.option_groups.forEach((g, gi) => {
+      g.choices.forEach((c, ci) => {
+        if ((item.optionQty?.[gi]?.[ci] ?? 0) === 0) return;
+        const restriction = c.name.match(/\((\w+)\s+only\)/i)?.[1];
+        if (!restriction) return;
+        if (restriction.toLowerCase() !== (mark ?? '').toLowerCase()) {
+          items.push({
+            type: 'error',
+            text: `${item.unitName}: "${c.name}" requires Mark of ${restriction} (current: ${mark ?? 'none'}).`,
+          });
+        }
+      });
+    });
+  }
+
+  // Conditional inline upgrades: detect header-encoded restrictions (e.g. "no Mark of Khorne")
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    // Use the same priority as the resolver: locked mark > archetype forcedMark > chosen mark
+    const mark = u.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+    u.option_groups.forEach((g, gi) => {
+      if (g.choices.length > 0 || g.inline_pts == null) return;
+      if (!item.optionQty?.[gi]?.['__inline']) return;
+      if (/no mark of khorne/i.test(g.header) && mark === 'Khorne') {
+        items.push({
+          type: 'error',
+          text: `${item.unitName}: psyker upgrade is not available with Mark of Khorne — deselect one.`,
+        });
+      }
+    });
   }
 
   // Black Crusade trait: one chosen HQ carries all four Chaos god marks simultaneously
@@ -343,6 +460,27 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // Units that are inherently unique (is_unique_per_army group with no variant_link) — e.g. Greater Daemons
+  const uniqueUnitCounts: Record<string, number> = {};
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const isUniqueUnit = u.option_groups.some(
+      g => g.is_unique_per_army && !g.variant_link && g.constraint.type === 'unique_upgrade',
+    );
+    if (isUniqueUnit) {
+      uniqueUnitCounts[item.unitName] = (uniqueUnitCounts[item.unitName] ?? 0) + 1;
+    }
+  }
+  for (const [name, count] of Object.entries(uniqueUnitCounts)) {
+    if (count > 1) {
+      items.push({
+        type: 'error',
+        text: `${name}: only 1 allowed per army (have ${count}).`,
+      });
+    }
+  }
+
   // Unique variant upgrades: only 1 per army (e.g. Chaos Lord, Master of Possession)
   const uniqueVariantCounts: Record<string, number> = {};
   for (const item of state.army) {
@@ -364,11 +502,19 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // CD special rules: Entourage / Herald / Bound Beast
+  const cdFree = computeCdFreeSlots(state.army, data, rule);
+  for (const note of cdFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // AOP slot mins (main faction only — exclude allied units)
   for (const slot of SLOT_ORDER) {
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
-    const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false);
+    const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
+    const used = Math.max(0, rawUsed - cdAdj);
     if (min > 0 && used < min) {
       items.push({ type: 'error', text: `Need at least ${min} ${slot} (have ${used}).` });
     }
@@ -471,7 +617,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   for (const slot of SLOT_ORDER) {
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
-    const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false);
+    const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
+    const used = Math.max(0, rawUsed - cdAdj);
     const effMax = (slot === 'HQ' && rule?.hqOverride)
       ? engMax
       : (eng.multiAop ? engMax * aopMult : engMax);

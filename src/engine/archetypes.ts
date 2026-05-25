@@ -469,6 +469,11 @@ export function getArchetypeRule(archetype: string): ArchetypeRule | null {
   return ARCHETYPE_RULES[archetype] ?? null;
 }
 
+/** Strip trailing god superscripts (ˢ ᴷ ᵀ ᴺ) from archetype names for display. */
+export function cleanArchetypeName(name: string): string {
+  return name.replace(/[ˢᴷᵀᴺ]+$/, '');
+}
+
 export function getEffectiveSlot(
   unitName: string,
   originalSlot: string,

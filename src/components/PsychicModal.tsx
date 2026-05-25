@@ -60,7 +60,28 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   });
 
   const generalDiscs = isCultInitiate ? [] : Object.entries(GENERAL_DISCIPLINES);
-  const allowedDiscs = [...generalDiscs, ...factionDiscs];
+  let allowedDiscs = [...generalDiscs, ...factionDiscs];
+
+  // CD: per-unit discipline access derived from psyker ability text.
+  // Each unit lists exactly which disciplines it knows — enforce that here.
+  if (data.faction === 'Chaos Daemons' && hasPowers) {
+    const psykerLine = (unit.abilities ?? []).find(a => /^psyker:/i.test(a)) ?? '';
+    const lc = psykerLine.toLowerCase();
+    // "chosen discipline" (Daemon Prince) = no restriction — can pick any
+    if (!lc.includes('chosen discipline')) {
+      const allowsGenerals = lc.includes('all general disciplines');
+      allowedDiscs = allowedDiscs.filter(([discName]) => {
+        // Is it a general discipline?
+        if (Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName)) return allowsGenerals;
+        // Faction (god-specific) discipline — check unit ability mentions it
+        const dn = discName.toLowerCase();
+        if (dn.includes('change')) return lc.includes('discipline of change');
+        if (dn.includes('decay'))  return lc.includes('discipline of decay');
+        if (dn.includes('excess')) return lc.includes('discipline of excess');
+        return true;
+      });
+    }
+  }
 
   function isPowerSelected(disc: string, power: string) {
     return item.powers.some(p => p.disciplineName === disc && p.powerName === power);

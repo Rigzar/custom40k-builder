@@ -26,6 +26,25 @@ function parsePrice(v: number | null | undefined | string): number | null {
   return isNaN(n) ? null : n;
 }
 
+// ── Mark restriction helpers ──────────────────────────────────────────────────
+const MARK_SUPERSCRIPTS: Record<string, string> = {
+  'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
+};
+const MARK_BADGE: Record<string, string> = {
+  Slaanesh: 'bg-pink-900/60 text-pink-300 border-pink-700',
+  Khorne:   'bg-red-900/60 text-red-300 border-red-700',
+  Tzeentch: 'bg-sky-900/60 text-sky-300 border-sky-700',
+  Nurgle:   'bg-green-900/60 text-green-300 border-green-700',
+};
+/** Return which mark the item requires, or null if unrestricted. */
+function getRequiredMark(name: string): string | null {
+  return MARK_SUPERSCRIPTS[name.slice(-1)] ?? null;
+}
+/** Strip trailing god superscripts from item names for display. */
+function cleanItemName(name: string): string {
+  return name.replace(/[ˢᴷᵀᴺ]$/, '');
+}
+
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const { data, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
@@ -66,7 +85,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
-    return oncePerModelBlocked(arm, sec) || uniqueArmyBlocked(arm, sec) || (sec === 'equipment' && armorConflict(arm));
+    if (oncePerModelBlocked(arm, sec)) return true;
+    if (uniqueArmyBlocked(arm, sec)) return true;
+    if (sec === 'equipment' && armorConflict(arm)) return true;
+    // For regular (non-veteran/vehicle) equipment: enforce mark restriction and null price
+    if (!arm.category) {
+      if (isMarkBlocked(arm)) return true;
+      if (getItemPts(arm) === null) return true;
+    }
+    return false;
   }
   function getSelId(itemName: string, sec: Section): string | undefined {
     return currentArmory.find(a => a.itemName === itemName && a.section === sec)?.id;
@@ -77,6 +104,28 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const isChar = unit.is_character;
   const isVehicle = unit.is_vehicle;
+
+  // CD-specific: Greater Daemons pay from the p_char column ("POINTS GREATER DEMON");
+  // all other units (Heralds, Daemon Prince, Soul Grinder) pay from p_unit ("POINTS").
+  const isCD = data.faction === 'Chaos Daemons';
+  const isGreaterDaemon = (unit.abilities ?? []).some(a => /\bgreater daemon\b/i.test(a));
+
+  /** Returns the correct pts for this unit, or null if the item cannot be purchased ("-"). */
+  function getItemPts(arm: ArmoryItem): number | null {
+    const cp = parsePrice(arm.p_char);
+    const up = parsePrice(arm.p_unit);
+    if (isCD) return isGreaterDaemon ? cp : up;
+    // Other factions: characters use p_char (flat cost), squads use p_unit (per-model)
+    return isChar ? (cp ?? up) : up;
+  }
+
+  /** True when the item requires a mark the unit doesn't have. */
+  function isMarkBlocked(arm: ArmoryItem): boolean {
+    const req = getRequiredMark(arm.name);
+    if (!req) return false;
+    // No mark at all, or wrong mark
+    return req !== effectiveMark;
+  }
 
   // Faction capability flags — only show tabs / sections that the faction actually has
   const hasMark = Object.keys(data.armory_marks).length > 0;
@@ -200,9 +249,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       // Flat cost per vehicle
       pts = (parsePrice(arm.p_unit) ?? 0) * item.size;
     } else {
-      const charPrice = parsePrice(arm.p_char);
-      const unitPrice = parsePrice(arm.p_unit);
-      pts = isChar ? (charPrice ?? unitPrice ?? 0) : (unitPrice ?? 0);
+      pts = getItemPts(arm) ?? 0;
     }
     addArmoryItem(item.id, {
       id: selId(),
@@ -380,6 +427,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
+                            ptsOverride={getItemPts(arm)}
                             onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, `${markName} Armoury`, effectiveSection)}
                           />
@@ -541,6 +589,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
+                            ptsOverride={getItemPts(arm)}
                             onRemove={removeItem}
                             onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, legName, effectiveSection)}
                           />
@@ -558,6 +607,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
               filterCategory={filterCategory}
               lastAdded={lastAdded}
+              getPts={getItemPts}
               isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
               getSelId={name => getSelId(name, 'equipment')}
               onRemove={removeItem}
@@ -662,6 +712,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     justAdded={lastAdded === arm.name}
                     disabled={isAddBlocked(arm, effectiveSection)}
                     selectedArmoryId={getSelId(arm.name, effectiveSection)}
+                    ptsOverride={getItemPts(arm)}
                     onRemove={removeItem}
                     onAdd={() => !isAddBlocked(arm, effectiveSection) && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
                   />
@@ -697,6 +748,8 @@ interface EquipGroupsProps {
   veteranSlotsFull: boolean;
   filterCategory?: 'veteran' | 'vehicle';
   lastAdded: string | null;
+  /** Computes the correct price for this unit type (handles CD Greater Daemon vs regular). */
+  getPts?: (arm: ArmoryItem) => number | null;
   isUniqueSelected?: (arm: ArmoryItem) => boolean;
   getSelId?: (name: string) => string | undefined;
   onRemove?: (id: string) => void;
@@ -711,6 +764,7 @@ function EquipmentGroups({
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
   filterCategory,
   lastAdded,
+  getPts,
   isUniqueSelected,
   getSelId, onRemove,
   onAdd,
@@ -758,6 +812,7 @@ function EquipmentGroups({
                 justAdded={lastAdded === arm.name}
                 disabled={uniqueSel}
                 selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
+                ptsOverride={getPts ? getPts(arm) : undefined}
                 onRemove={onRemove}
                 onAdd={() => !uniqueSel && onAdd(arm)}
               />
@@ -839,6 +894,7 @@ function EquipmentGroups({
 function ArmoryItemRow({
   arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
   selectedArmoryId, onRemove,
+  ptsOverride,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
@@ -849,19 +905,30 @@ function ArmoryItemRow({
   onAdd: () => void;
   selectedArmoryId?: string;
   onRemove?: (id: string) => void;
+  /** Override the price display. null = show "—" (cannot be purchased). undefined = use existing isChar logic. */
+  ptsOverride?: number | null;
 }) {
+  const requiredMark = getRequiredMark(arm.name);
+  const displayName = cleanItemName(arm.name);
+  const markBadgeClass = requiredMark ? (MARK_BADGE[requiredMark] ?? 'bg-zinc-800 text-zinc-300 border-zinc-600') : '';
+
   const charPrice = parsePrice(arm.p_char);
   const unitPrice = parsePrice(arm.p_unit);
-  const pts = isChar ? (charPrice ?? unitPrice) : unitPrice;
-  const displayPrice = priceLabel ?? (pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—');
+  // Use ptsOverride when explicitly provided (including null); fall back to isChar logic
+  const pts = ptsOverride !== undefined ? ptsOverride : (isChar ? (charPrice ?? unitPrice) : unitPrice);
+  const priceIsNull = pts === null;
+  const displayPrice = priceLabel ?? (priceIsNull ? '—' : (pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—'));
 
   if (selectedArmoryId && onRemove) {
     return (
       <div className="w-full flex justify-between items-start px-3 py-2 border text-left gap-2 bg-zinc-800/50 border-zinc-600">
         <div className="min-w-0">
           <div className="flex items-center gap-1 flex-wrap">
-            <span className="text-sm font-medium text-zinc-400">{arm.name}</span>
+            <span className="text-sm font-medium text-zinc-400">{displayName}</span>
             <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>
+            {requiredMark && (
+              <span className={`text-[9px] border px-1 py-0.5 uppercase tracking-wide ${markBadgeClass}`}>{requiredMark}</span>
+            )}
             {arm.gravis_compat && (
               <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
             )}
@@ -888,11 +955,11 @@ function ArmoryItemRow({
   return (
     <button
       onClick={onAdd}
-      disabled={disabled}
+      disabled={disabled || priceIsNull}
       className={`w-full flex justify-between items-start px-3 py-2 border text-left gap-2 transition-all duration-200
         ${inProfile
           ? 'bg-zinc-800/50 border-zinc-700 opacity-50 cursor-not-allowed'
-          : disabled
+          : (disabled || priceIsNull)
             ? 'bg-zinc-800 border-zinc-700 opacity-40 cursor-not-allowed'
             : justAdded
               ? 'bg-green-900/30 border-green-600'
@@ -902,10 +969,13 @@ function ArmoryItemRow({
       <div className="min-w-0">
         <div className="flex items-center gap-1 flex-wrap">
           <span className={`text-sm font-medium transition-colors ${justAdded ? 'text-green-400' : 'text-zinc-200'}`}>
-            {arm.name}
+            {displayName}
           </span>
           {justAdded && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
           {inProfile && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase tracking-wide">In profile</span>}
+          {requiredMark && (
+            <span className={`text-[9px] border px-1 py-0.5 uppercase tracking-wide ${markBadgeClass}`}>{requiredMark}</span>
+          )}
           {arm.gravis_compat && (
             <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
           )}
@@ -916,7 +986,7 @@ function ArmoryItemRow({
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
         <ArmoryWeaponStats arm={arm} />
       </div>
-      <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : 'text-amber-500'}`}>
+      <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : priceIsNull ? 'text-zinc-500' : 'text-amber-500'}`}>
         {inProfile ? '(free slot)' : displayPrice}
       </span>
     </button>

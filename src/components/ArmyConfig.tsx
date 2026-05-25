@@ -1,6 +1,6 @@
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS } from '../engine/engagements';
-import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
+import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
 
 import type { EngagementType, Mark } from '../types/army';
 
@@ -23,6 +23,13 @@ export function ArmyConfig() {
 
   // Undivided-only legacies restrict which units can be used
   const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter'];
+
+  const ARCHETYPE_MARK: Record<string, string> = {
+    'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
+  };
+  function getArchetypeMark(name: string): string | null {
+    return ARCHETYPE_MARK[name.slice(-1)] ?? null;
+  }
 
   function handleSetArchetype(a: string) {
     setArchetype(a);
@@ -86,7 +93,7 @@ export function ArmyConfig() {
                 ${engagement === 'skirmish' ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <option value="">— none —</option>
-              {data.archetypes.map(a => <option key={a.name} value={a.name}>{a.name}</option>)}
+              {data.archetypes.map(a => <option key={a.name} value={a.name}>{cleanArchetypeName(a.name)}</option>)}
             </select>
             {engagement === 'skirmish' && (
               <div className="text-[10px] text-red-500 mt-1">Not available in Skirmish.</div>
@@ -94,6 +101,9 @@ export function ArmyConfig() {
             {archetype && (
               <div className="text-[10px] text-zinc-500 mt-1 border-l-2 border-amber-800 pl-2 space-y-0.5">
                 <div>{data.archetypes.find(a => a.name === archetype)?.desc}</div>
+                {getArchetypeMark(archetype) && (
+                  <div className="text-amber-600/80">Only for armies with Mark of {getArchetypeMark(archetype)}.</div>
+                )}
               </div>
             )}
             {rule && rule.notes.length > 0 && (
@@ -110,7 +120,7 @@ export function ArmyConfig() {
           {/* Legacy — hidden when faction has no legacies */}
           {data.legacies.length === 0 ? null : noLegacy ? (
             <div className="px-2 py-2 bg-zinc-900 border border-zinc-700 text-[11px] text-zinc-500 italic">
-              Legacies not available with archetype <span className="text-amber-700">{archetype}</span>.
+              Legacies not available with archetype <span className="text-amber-700">{cleanArchetypeName(archetype)}</span>.
             </div>
           ) : (
             <div>
@@ -165,7 +175,7 @@ export function ArmyConfig() {
           {/* Army Traits — hidden when faction has no traits */}
           {data.traits.length === 0 ? null : noTraits ? (
             <div className="px-2 py-2 bg-zinc-900 border border-zinc-700 text-[11px] text-zinc-500 italic">
-              Traits not available with archetype <span className="text-amber-700">{archetype}</span>.
+              Traits not available with archetype <span className="text-amber-700">{cleanArchetypeName(archetype)}</span>.
             </div>
           ) : (
             <div>

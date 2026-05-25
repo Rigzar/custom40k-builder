@@ -30,9 +30,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-26b',
-    status: 'planned',
+    status: 'fixed',
     title: 'Psychic power access rules not yet enforced per psyker',
-    description: 'Each psyker has rules defining which disciplines they can draw from and which powers they can know. These per-psyker access rules (e.g. Sorcerers choose from their marked discipline + General Disciplines) are visible in the modal but not yet enforced as hard filters. Designer review will confirm exact access rules before enforcement is added.',
+    description: 'Fixed in v0.32 — Chaos Daemons psyker discipline access enforced per unit from ability text. CSM/other factions enforce mark-based discipline filtering (only see god discipline when matching mark is active). General factions: discipline tabs already filtered by mark and legacy.',
   },
   // ── Planned (v0.22+) ──────────────────────────────────────────────────────
   {
@@ -263,6 +263,41 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.32',
+    date: '2026-05-24',
+    title: 'Chaos Daemons — complete engine (Entourage/Herald/Bound Beast + Daemon Prince rules)',
+    changes: [
+      'Chaos Daemons: Ascended Daemon Prince upgrade now moves the Daemon Prince from Heavy Support to HQ — slot panel, validator, and army list all reflect the new slot',
+      'Chaos Daemons: Ascended Daemon Prince rule note injected into the unit card when the upgrade is active (HQ slot, highest-pts Animosity, all Marks, Greater Daemon, Fearless, Terrifying −2)',
+      'Chaos Daemons: archetype effect notes injected per unit — Figureheads of The Dark Princeˢ (+1A to HQ not within 12″ of friendly HQ), Goretideᴷ (5+ automatic Wound with own weapons on death in melee), Popping Plagueᴺ (vehicle explosion on death), Host Duplicitousᵀ (no cast value increase for psykers)',
+      'Bug fix: Goretide rule note correctly states "automatic Wound with one of their weapons" (was incorrectly saying Mortal Wound)',
+      'Bug fix: Host Duplicitous now shows the rule note on Daemon Prince when the psyker upgrade is purchased (was incorrectly hidden because the base unit is not a psyker)',
+      'Chaos Daemons: Greater Daemons now have a "unique per army" validator — error if you try to add two Bloodthirsters, two Lords of Change, etc.',
+      'Chaos Daemons: Daemon Prince data corrected — base unit is not a psyker; Powers button now only appears after buying the +5 pts psyker upgrade',
+      'Abilities section now shows archetype/variant effects with an amber "Rule" badge, separate from the blue "Mark" badge used for mark-derived abilities',
+      'Favored unit note corrected — removed incorrect "personal icon" text that was not in the rules',
+      'Internal: new slotOverrides helper centralises dynamic slot remapping based on active variant upgrades',
+      'UI: god superscript characters (ˢ/ᴷ/ᵀ/ᴺ) stripped from archetype names in the dropdown and validation error messages — internal keys unchanged so engine matching is unaffected',
+      'Archetype selector: god-specific archetypes now show "Only for armies with Mark of [X]" in the description (e.g. Goretide shows "Only for armies with Mark of Khorne")',
+      'Armory: mark-restricted items (ˢ/ᴷ/ᵀ/ᴺ) now show a colored god badge and are disabled when the unit\'s mark doesn\'t match',
+      'Armory: item names now strip the god superscript for display (e.g. "Blood throne" not "Blood throneᴷ")',
+      'Armory: items with cost "-" are now disabled and cannot be added (shown grayed out with "—" price)',
+      'Armory: Chaos Daemons price fix — Greater Daemons (Bloodthirster etc.) now correctly use the "POINTS GREATER DEMON" price column; Heralds and other units use the regular "POINTS" column',
+      'Code cleanup: SACRED_NUMBERS constant (Khorne=8, Nurgle=7, Slaanesh=6, Tzeentch=9) deduplicated — now exported from the CD resolver and shared with the unit card display',
+      'Chaos Daemons: Entourage rule implemented — for each Greater Daemon present, up to 2 heralds of the same god occupy no HQ slot; shown as an "ok" note in the validator',
+      'Chaos Daemons: Herald rule implemented — remaining heralds (not covered by Entourage) pair up: every 2 share 1 HQ slot; shown as an "ok" note when active',
+      'Chaos Daemons: Bound Beast rule implemented — for each HQ unit with Mark of Khorne, 1 Slaughterbrute occupies no Fast Attack slot; shown as an "ok" note in the validator',
+      'Slot panel: HQ and Fast Attack displayed counts now reflect Entourage, Herald, and Bound Beast slot reductions for Chaos Daemons',
+      'Bug fix: Daemon Prince psyker upgrade now blocked in the UI when Mark of Khorne is active (applies to both CSM and Chaos Daemons); validator also raises an error if both are somehow active simultaneously',
+      'Bug fix: unit option toggles no longer show a redundant "+X pts" badge when the cost is already stated in the description (e.g. "…for +15 points." now shows just once)',
+      'Bug fix: weapon choices with mark restrictions (e.g. "Plague spewer (Nurgle only)") now disabled in the UI when the unit does not have the required mark; validator also raises an error if selected without the correct mark — applies to all factions',
+      'Chaos Daemons: psyker discipline access now enforced per unit — each unit only sees the discipline(s) listed in its ability text (e.g. Changecaster: Change only; Great Unclean One: Decay only; Lord of Change: Change + all generals; Daemon Prince: unrestricted)',
+      'Chaos Daemons data: Soul Grinder now lists all 3 Maw Cannon profiles (Vomit 9″ Assault 6 S5 AP-1 D1 Flames; Tongue 24″ Assault 1 S10 AP-4 D3 AT(3); Phlegm 36″ Assault 1 S8 AP-3 D2 AT(2) Explosive)',
+      'Chaos Daemons data: Burning Chariot now lists both Fire of Tzeentch profiles (Blue fire 18″ Assault 3 S9 AP-4 D3 AT(2); Pink fire 12″ Assault 6 S6 AP-2 D1 Flames)',
+      'Chaos Daemons data: Mutalith Vortex Beast now lists both Warp Vortex profiles (Beam of Unreality 24″ Heavy 1 S10 AP-4 D3 AT(4) Beam Soul fire(5+); Immaterial Flare 12″ Heavy 6 S6 AP-1 D1 Flames Soul fire(5+))',
+    ],
+  },
   {
     version: '0.31',
     date: '2026-05-23',
