@@ -338,12 +338,13 @@ export const useArmyStore = create<ArmyStore>()(
           ? s.data.allied?.[factionSource]?.units[unitName]
           : s.data.units[unitName];
         if (!u) return;
+        const defaultSize = u.default_size || 1;
         const entry: RosterEntry = {
           id: newId(),
           unitName,
           slot,
           factionSource,
-          size: u.default_size || 1,
+          size: defaultSize,
           mark: null,
           optionQty: {},
           armory: [],
@@ -352,6 +353,20 @@ export const useArmyStore = create<ArmyStore>()(
           prayers: [],
           pacts: [],
         };
+        // Special Operations: auto-select Infiltrator for Cultists
+        if (s.archetype === 'Special Operations' && unitName === 'Cultists') {
+          const inf = s.data.armory_general.equipment.find(e => e.name === 'Infiltrator');
+          if (inf && inf.p_unit != null) {
+            entry.armory = [{
+              id: newId(),
+              itemName: 'Infiltrator',
+              source: s.data.armory_general.name,
+              section: 'equipment',
+              points: inf.p_unit * defaultSize,
+              isCharacter: false,
+            }];
+          }
+        }
         const newArmy = [...s.army, entry];
         const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy);
         set({ army });

@@ -274,12 +274,17 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
 
     // Special Operations: Cultists need 2 vet abilities including Infiltrator
+    // Veteran abilities are armory items with category='veteran', NOT item.traits (army traits)
     if (state.archetype === 'Special Operations') {
       for (const item of state.army) {
         if (item.unitName === 'Cultists') {
-          if (item.traits.length < 2) {
-            items.push({ type: 'error', text: `Special Operations: Cultists need 2 veteran abilities (have ${item.traits.length}).` });
-          } else if (!item.traits.some(t => t.name.toLowerCase().includes('infiltrator'))) {
+          const vetItems = item.armory.filter(a => {
+            const found = data.armory_general.equipment.find(e => e.name === a.itemName);
+            return found?.category === 'veteran';
+          });
+          if (vetItems.length < 2) {
+            items.push({ type: 'error', text: `Special Operations: Cultists need 2 veteran abilities (have ${vetItems.length}).` });
+          } else if (!vetItems.some(a => a.itemName.toLowerCase().includes('infiltrator'))) {
             items.push({ type: 'error', text: 'Special Operations: Cultists must include the "Infiltrator" ability.' });
           }
         }

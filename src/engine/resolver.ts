@@ -97,9 +97,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
 
-  // Models to display
+  // Models to display — variant replaces the last model (the champion being upgraded)
   const modelsToShow: Model[] = variant
-    ? [variant, ...unit.models.filter(m => m.max > 0).slice(1)]
+    ? [...unit.models.filter(m => m.max > 0).slice(0, -1), variant]
     : unit.models.filter(m => m.max > 0);
   const squadLeaderIdx = modelsToShow.length <= 1 ? 0 : (() => {
     const idx = modelsToShow.findIndex(m => m.min === 0);
