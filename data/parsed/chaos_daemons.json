@@ -26,7 +26,7 @@
     "Elites": [
       "Beasts of Nurgle",
       "Bloodcrushers",
-      "Demon Brutes",
+      "Daemon Brutes",
       "Fiends",
       "Flamers"
     ],
@@ -432,7 +432,7 @@
           },
           "choices": [
             {
-              "name": "Bile sword",
+              "name": "Bilesword",
               "points": 0
             }
           ],
@@ -500,7 +500,25 @@
       "equipped_with": "An Infernal Enrapturess is equipped with: Ravaging claws.",
       "weapons": [
         {
-          "name": "Ravaging claws.",
+          "name": "Heartstring lyre - Euphonic blast",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Heartstring lyre - Cacophonous melody",
+          "range": "18\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames, Suppression"
+        },
+        {
+          "name": "Ravaging claws",
           "range": "-",
           "type": "Melee",
           "s": "+1",
@@ -903,7 +921,7 @@
       "equipped_with": "A Tranceweaver is equipped with: Ravaging claws.",
       "weapons": [
         {
-          "name": "Ravaging claws.",
+          "name": "Ravaging claws",
           "range": "-",
           "type": "Melee",
           "s": "+1",
@@ -1078,7 +1096,7 @@
         },
         {
           "name": "Brimstone Horror",
-          "points": 9,
+          "points": 0,
           "min": 1,
           "max": 1,
           "stats": {
@@ -1474,7 +1492,7 @@
         },
         {
           "name": "Blue Horror",
-          "points": 9,
+          "points": 0,
           "min": 1,
           "max": 1,
           "stats": {
@@ -1492,7 +1510,7 @@
         },
         {
           "name": "Brimstone Horror",
-          "points": 9,
+          "points": 0,
           "min": 1,
           "max": 1,
           "stats": {
@@ -1752,90 +1770,6 @@
       "default_size": 3,
       "min_cost": 123
     },
-    "Demon Brutes": {
-      "name": "Demon Brutes",
-      "models": [
-        {
-          "name": "Daemon Brute",
-          "points": 56,
-          "min": 3,
-          "max": 9,
-          "stats": {
-            "M": "6\"",
-            "WS": "3+",
-            "BS": "5+",
-            "S": "5",
-            "T": "5",
-            "W": "3",
-            "I": "3",
-            "A": "3",
-            "LD": "8",
-            "SV": "4+"
-          }
-        }
-      ],
-      "variant_models": [],
-      "equipped_with": "Every model is equipped with: Immaterial armaments.",
-      "weapons": [
-        {
-          "name": "Immaterial armaments",
-          "range": "-",
-          "type": "Melee",
-          "s": "U",
-          "ap": "-3",
-          "d": "2",
-          "abilities": "Armor piercing(5+), Slow(-2)"
-        }
-      ],
-      "option_groups": [
-        {
-          "header": "All models may receive a Mark of Chaos (points per model)",
-          "constraint": {
-            "type": "mark"
-          },
-          "choices": [
-            {
-              "name": "Khorne",
-              "points": 2
-            },
-            {
-              "name": "Slaanesh",
-              "points": 2
-            },
-            {
-              "name": "Nurgle",
-              "points": 2
-            },
-            {
-              "name": "Tzeentch",
-              "points": 6
-            }
-          ],
-          "inline_pts": null,
-          "variant_link": null,
-          "is_unique_per_army": false
-        }
-      ],
-      "abilities": [
-        "Bodyguard, Daemon, Daemonic instability, Terrifying(-1)"
-      ],
-      "unit_type": "Monstrous infantry",
-      "keywords": [],
-      "is_vehicle": false,
-      "is_character": false,
-      "is_monster": false,
-      "is_psyker": false,
-      "has_armory_access": false,
-      "champion_has_armory": false,
-      "has_veteran_abilities": false,
-      "veteran_required": false,
-      "veteran_max": null,
-      "locked_mark": null,
-      "advisor": false,
-      "slot": "Elites",
-      "default_size": 3,
-      "min_cost": 168
-    },
     "Fiends": {
       "name": "Fiends",
       "models": [
@@ -2007,7 +1941,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "Every model is equipped with: Gore-drenched fangs.",
+      "equipped_with": "Every model is equipped with: Gore-drenched fangs. The Gore Hound is additionally equipped with: Burning roar.",
       "weapons": [
         {
           "name": "Burning roar",
@@ -2619,7 +2553,7 @@
           "abilities": "Shred"
         },
         {
-          "name": "Fire of Tzeentch (Blue fire)",
+          "name": "Fire of Tzeentch - Blue fire",
           "range": "18\"",
           "type": "Assault 3",
           "s": "9",
@@ -2628,7 +2562,7 @@
           "abilities": "AT(2)"
         },
         {
-          "name": "Fire of Tzeentch (Pink fire)",
+          "name": "Fire of Tzeentch - Pink fire",
           "range": "12\"",
           "type": "Assault 6",
           "s": "6",
@@ -2861,7 +2795,7 @@
           "abilities": "AT(1)"
         },
         {
-          "name": "Warp Vortex (Beam of Unreality)",
+          "name": "Warp Vortex - Beam of Unreality",
           "range": "24\"",
           "type": "Heavy 1",
           "s": "10",
@@ -2870,7 +2804,7 @@
           "abilities": "AT(4), Beam, Soul fire(5+)"
         },
         {
-          "name": "Warp Vortex (Immaterial Flare)",
+          "name": "Warp Vortex - Immaterial Flare",
           "range": "12\"",
           "type": "Heavy 6",
           "s": "6",
@@ -3018,7 +2952,7 @@
           "abilities": "AT(1), Flurry(3)"
         },
         {
-          "name": "Maw cannon (Vomit)",
+          "name": "Maw cannon - Vomit",
           "range": "9\"",
           "type": "Assault 6",
           "s": "5",
@@ -3027,7 +2961,7 @@
           "abilities": "Flames"
         },
         {
-          "name": "Maw cannon (Tongue)",
+          "name": "Maw cannon - Tongue",
           "range": "24\"",
           "type": "Assault 1",
           "s": "10",
@@ -3036,7 +2970,7 @@
           "abilities": "AT(3)"
         },
         {
-          "name": "Maw cannon (Phlegm)",
+          "name": "Maw cannon - Phlegm",
           "range": "36\"",
           "type": "Assault 1",
           "s": "8",
@@ -3153,6 +3087,90 @@
       "slot": "Fortifications",
       "default_size": 1,
       "min_cost": 90
+    },
+    "Daemon Brutes": {
+      "name": "Demon Brutes",
+      "models": [
+        {
+          "name": "Daemon Brute",
+          "points": 56,
+          "min": 3,
+          "max": 9,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "5+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "3",
+            "A": "3",
+            "LD": "8",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Immaterial armaments.",
+      "weapons": [
+        {
+          "name": "Immaterial armaments",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Slow(-2)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "All models may receive a Mark of Chaos (points per model)",
+          "constraint": {
+            "type": "mark"
+          },
+          "choices": [
+            {
+              "name": "Khorne",
+              "points": 2
+            },
+            {
+              "name": "Slaanesh",
+              "points": 2
+            },
+            {
+              "name": "Nurgle",
+              "points": 2
+            },
+            {
+              "name": "Tzeentch",
+              "points": 6
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Bodyguard, Daemon, Daemonic instability, Terrifying(-1)"
+      ],
+      "unit_type": "Monstrous infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 168
     }
   },
   "armory_general": {

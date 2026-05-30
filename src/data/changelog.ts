@@ -264,6 +264,20 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.37',
+    date: '2026-05-30',
+    title: 'Chaos Daemons — full audit (all 37 units, armory, disciplines, archetypes)',
+    changes: [
+      'All 37 Chaos Daemons unit datasheets reviewed against the official source. Renamed "Demon Brutes" to "Daemon Brutes" throughout (unit key, Elites slot, all references).',
+      'Fixed spawn model costs: Blue Horror (inside Blue Horrors) and both Blue Horror and Brimstone Horror (inside Pink Horrors) had 9 pts — corrected to 0 since they are spawned for free by the Split ability and cannot be purchased independently.',
+      'Fixed weapon name formatting on four units: Burning Chariot ("Fire of Tzeentch (Blue/Pink fire)" → "Fire of Tzeentch - Blue/Pink fire"), Soul Grinder (three Maw cannon profiles "(Vomit/Tongue/Phlegm)" → "- Vomit/Tongue/Phlegm"), Mutalith Vortex Beast ("Warp Vortex (Beam of Unreality/Immaterial Flare)" → dash format). These match the standard multi-profile weapon naming used across all other factions.',
+      'Fixed Infernal Enrapturess: added the two missing Heartstring lyre weapon profiles (Cacophonous melody: 18" Assault 4, S5 AP-1 D1 Flames/Suppression; Euphonic blast: 24" Assault 1, S9 AP-4 D3 Suppression). Also removed trailing period from "Ravaging claws." on both the Infernal Enrapturess and Tranceweaver.',
+      'Fixed Great Unclean One option group 2: choice was named "Bile sword" but the weapon entry is "Bilesword" — corrected the choice name to match.',
+      'Fixed Flesh Hounds equipped_with line: the Gore Hound champion model\'s Burning roar weapon was missing from the equipped_with text. Both the standard Gore-drenched fangs and the Gore Hound\'s Burning roar are now listed.',
+      'Verified all 3 psychic disciplines (Change/Tzeentch, Decay/Nurgle, Excess/Slaanesh — 6 powers each) and Animosity of the Gods compatibility matrix against the HTML source. All cast values, targets, and effects match. No changes required.',
+    ],
+  },
+  {
     version: '0.36',
     date: '2026-05-30',
     title: 'Chaos Space Marines — full audit (units, rules, armory, validators)',
