@@ -292,12 +292,18 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       }
     }
 
-    // Legionnaire Warband: all units with vet abilities must have at least 1
+    // Legionnaire Warband: every eligible unit must have at least 1 veteran ability selected.
+    // Marks of Chaos do not count (rule 4). Vet abilities live in item.armory with category='veteran'.
     if (state.archetype === 'Legionnaire Warband') {
       for (const item of state.army) {
         const u = resolveUnit(item, data);
-        if (u?.has_veteran_abilities && item.traits.length === 0) {
-          items.push({ type: 'warn', text: `Legionnaire Warband: ${item.unitName} must have at least 1 veteran ability.` });
+        if (!u?.has_veteran_abilities) continue; // already caught by requireVetAbilities above
+        const vetCount = item.armory.filter(a => {
+          const found = data.armory_general.equipment.find(e => e.name === a.itemName);
+          return found?.category === 'veteran';
+        }).length;
+        if (vetCount < 1) {
+          items.push({ type: 'warn', text: `Legionnaire Warband: ${item.unitName} must have at least 1 veteran ability (Marks of Chaos do not count).` });
         }
       }
     }
@@ -356,6 +362,57 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         items.push({
           type: 'error',
           text: `Daemonkin: ${more} has ${Math.abs(mainCount - alliedCount) - 1} more unit(s) than ${less} — max difference is 1.`,
+        });
+      }
+    }
+  }
+
+  // Chosen: limited to 1 unit per HQ selection ("For every HQ selection, 1 Chosen unit allowed")
+  const chosenCount = state.army.filter(i => !i.factionSource && i.unitName === 'Chosen').length;
+  if (chosenCount > 0) {
+    const hqCount = state.army.filter(i =>
+      !i.factionSource && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
+    ).length;
+    if (chosenCount > hqCount) {
+      items.push({
+        type: 'error',
+        text: `Chosen: you may include ${hqCount} Chosen unit(s) — one per HQ selection (have ${chosenCount}).`,
+      });
+    }
+  }
+
+  // Poxwalkers: Slaves of Darkness — cannot outnumber Plague Marine units
+  if (data.faction === 'Chaos Space Marines') {
+    const poxCount = state.army.filter(i => !i.factionSource && i.unitName === 'Poxwalkers').length;
+    if (poxCount > 0) {
+      const plagueCount = state.army.filter(i => !i.factionSource && i.unitName === 'Plague Marines').length;
+      if (poxCount > plagueCount) {
+        items.push({
+          type: 'error',
+          text: `Slaves of Darkness: Poxwalkers units (${poxCount}) cannot exceed Plague Marine units (${plagueCount}).`,
+        });
+      }
+    }
+  }
+
+  // Iron Within, Iron Without: only for creature models without an existing invulnerability save
+  const ironWithinActive = state.traitPool.includes('Iron Within, Iron Without');
+  if (ironWithinActive) {
+    // Armory items that grant an invulnerability save
+    const INV_SAVE_ARMORY_ITEMS = new Set(['Bionics', 'Daemonic aura', 'Daemonic possession', 'Cataphractii armor', 'Terminator armor']);
+    for (const item of state.army) {
+      const u = resolveUnit(item, data);
+      if (!u || u.is_vehicle) continue; // vehicles use the Iron Repair effect, not inv save
+      // Check datasheet abilities for inv save text or Daemon ability
+      const hasInvFromDatasheet = u.abilities.some(a =>
+        /invulnerab/i.test(a) || /^Daemon\b/i.test(a)
+      );
+      // Check armory selections for inv-save items
+      const hasInvFromArmory = item.armory.some(a => INV_SAVE_ARMORY_ITEMS.has(a.itemName));
+      if (hasInvFromDatasheet || hasInvFromArmory) {
+        items.push({
+          type: 'warn',
+          text: `Iron Within, Iron Without: ${item.unitName} already has an invulnerability save and cannot benefit from this trait (rule: only for models without an existing inv save).`,
         });
       }
     }
@@ -438,6 +495,24 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // 2nd legacy requires a "enables_second_legacy" trait to be active
   if (state.legacy2 && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
     items.push({ type: 'error', text: '2nd Legacy requires the second-legion trait to be active.' });
+  }
+
+  // Legacy mark restriction: Alpha Legion, Iron Warriors, Night Lords can only take Undivided or no-mark units.
+  const MARK_RESTRICTED_LEGACIES = new Set(['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter']);
+  const activeMarkRestrictedLegacy = [state.legacy, state.legacy2].find(l => l && MARK_RESTRICTED_LEGACIES.has(l));
+  if (activeMarkRestrictedLegacy) {
+    const FORBIDDEN_MARKS = new Set(['Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch']);
+    for (const item of state.army) {
+      if (item.factionSource) continue;
+      const u = resolveUnit(item, data);
+      const mark = u?.locked_mark ?? item.mark;
+      if (mark && FORBIDDEN_MARKS.has(mark)) {
+        items.push({
+          type: 'error',
+          text: `${activeMarkRestrictedLegacy}: ${item.unitName} has the Mark of ${mark} — only Undivided or no mark is allowed with this Legacy.`,
+        });
+      }
+    }
   }
 
   // Mixed Warband: each unit may only select items from ONE legacy armory
@@ -712,6 +787,22 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         items.push({
           type: 'error',
           text: `${restrictingLegacy}: ${item.unitName} must be Undivided (current: ${m}).`,
+        });
+      }
+    }
+  }
+
+  // Iron Within, Iron Without: warn if unit already has an invulnerability save from its datasheet
+  if (data.faction === 'Chaos Space Marines' && state.traitPool.includes('Iron Within, Iron Without')) {
+    const INV_SAVE_PATTERNS = /invulnerab(le|ility) save/i;
+    for (const entry of state.army) {
+      if (!entry.traits.some(t => t.name === 'Iron Within, Iron Without')) continue;
+      const u = resolveUnit(entry, data);
+      if (!u || u.is_vehicle) continue; // vehicle portion (repair) always applies
+      if (u.abilities.some(a => INV_SAVE_PATTERNS.test(a))) {
+        items.push({
+          type: 'warn',
+          text: `Iron Within, Iron Without: ${entry.unitName} already has an invulnerability save — the 6+ inv save bonus does not apply (rules restriction).`,
         });
       }
     }

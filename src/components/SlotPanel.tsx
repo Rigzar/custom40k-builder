@@ -19,8 +19,11 @@ function getSlotUsage(
   data: FactionData,
   slot: string,
   rule: ReturnType<typeof getArchetypeRule>,
+  alliedFaction?: string | null,
 ): number {
   return army.filter(i => {
+    // Bug 4: exclude allied units from the main faction slot count
+    if (alliedFaction && i.factionSource === alliedFaction) return false;
     const u = i.factionSource
       ? data.allied?.[i.factionSource]?.units[i.unitName]
       : data.units[i.unitName];
@@ -37,6 +40,7 @@ function computeAopMult(
   aop: Record<string, [number, number]>,
   multiAop: boolean,
   rule: ReturnType<typeof getArchetypeRule>,
+  alliedFaction?: string | null,
 ): number {
   if (!multiAop) return 1;
   let aops = 1;
@@ -44,14 +48,14 @@ function computeAopMult(
     if (slot === 'HQ') continue;
     const max = aop[slot][1];
     if (max <= 0) continue;
-    const used = getSlotUsage(army, data, slot, rule);
+    const used = getSlotUsage(army, data, slot, rule, alliedFaction);
     if (used > max) aops = Math.max(aops, Math.ceil(used / max));
   }
   return aops;
 }
 
 export function SlotPanel() {
-  const { data, army, engagement, archetype, hqMark, addUnit } = useArmyStore();
+  const { data, army, engagement, archetype, hqMark, addUnit, alliedFaction } = useArmyStore();
   const [open, setOpen] = useState<Record<string, boolean>>({ Troops: true, HQ: true });
 
   if (!data) return null;
@@ -114,7 +118,7 @@ export function SlotPanel() {
     }
   }
 
-  const aopMult = computeAopMult(army, data, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule);
+  const aopMult = computeAopMult(army, data, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule, alliedFaction);
   const cdFree = computeCdFreeSlots(army, data, rule);
 
   return (
@@ -134,7 +138,7 @@ export function SlotPanel() {
         if (rawMax === 0 && units.length === 0) return null;
 
         const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
-        const used = Math.max(0, getSlotUsage(army, data, slot, rule) - cdAdj);
+        const used = Math.max(0, getSlotUsage(army, data, slot, rule, alliedFaction) - cdAdj);
         const isFull = used >= max && max > 0;
         const isUnder = used < min;
         const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';

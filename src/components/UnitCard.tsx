@@ -74,7 +74,7 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, traitPool, removeUnit, updateUnit, setOptionQty } = store;
+  const { data, alliedData, traitPool, removeUnit, updateUnit, setOptionQty } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -98,21 +98,28 @@ export function UnitCard({ item }: Props) {
     blackCrusadeChampion,
   } = rp;
 
-  const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
+  // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
+  const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
+  const statKeys: readonly string[] = u.is_vehicle
+    ? (vehicleHasWS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)
+    : STAT_KEYS_INF;
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
   const hasMarkGroup = u.option_groups.some(g => g.constraint.type === 'mark');
   const hasMarks = Object.keys(data.animosity).length > 0;
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
 
-  const allArmories = [data.armory_general, ...Object.values(data.armory_marks), ...Object.values(data.armory_legions)];
+  // Bug 3: for allied units, use the allied faction's armory for capability checks
+  const isAllied = !!item.factionSource;
+  const effectiveArmData = (isAllied && alliedData) ? alliedData : data;
+  const allArmories = [effectiveArmData.armory_general, ...Object.values(effectiveArmData.armory_marks), ...Object.values(effectiveArmData.armory_legions)];
   const hasFactionVeteranItems = effectiveHasVetAbilities &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
   const hasFactionVehicleItems = u.is_vehicle &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'vehicle'));
 
-  const vetItemsCount = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'veteran').length;
-  const vehItemsCount = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'vehicle').length;
+  const vetItemsCount = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'veteran').length;
+  const vehItemsCount = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'vehicle').length;
 
   const isMainFaction = item.unitName in data.units;
   const showTraits = isMainFaction && item.traits.length > 0;
@@ -636,14 +643,14 @@ export function UnitCard({ item }: Props) {
           {/* Equipped armory items — split by category */}
           {item.armory.length > 0 && (() => {
             const regular = item.armory.filter(a => {
-              const d = findArmoryItemData(data, a);
+              const d = findArmoryItemData(effectiveArmData, a);
               return !d?.category;
             });
-            const veterans = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'veteran');
-            const vehicles = item.armory.filter(a => findArmoryItemData(data, a)?.category === 'vehicle');
+            const veterans = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'veteran');
+            const vehicles = item.armory.filter(a => findArmoryItemData(effectiveArmData, a)?.category === 'vehicle');
 
             function ArmoryRow({ a }: { a: ArmorySelection }) {
-              const armItem = findArmoryItemData(data, a);
+              const armItem = findArmoryItemData(effectiveArmData, a);
               const isDaemonWeaponTrait = a.section === 'daemon_weapons';
               const isArmoryWeapon = a.section === 'weapons';
               // Daemon weapon traits that target a weapon: show on the weapon, not as standalone item

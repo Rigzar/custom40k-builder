@@ -161,7 +161,11 @@ export default function App() {
 
   // Shared faction data loaders (used for both primary and allied faction loading)
   const loaders: Record<string, () => Promise<unknown>> = {
-    chaos_space_marines:  () => import('../data/parsed/chaos_space_marines.json'),
+    chaos_space_marines: () => Promise.all([
+      import('../data/parsed/chaos_space_marines_units.json'),
+      import('../data/parsed/chaos_space_marines_armory.json'),
+      import('../data/parsed/chaos_space_marines_rules.json'),
+    ]).then(([u, a, r]) => ({ default: { ...(u as any).default, ...(a as any).default, ...(r as any).default } })),
     chaos_daemons:        () => import('../data/parsed/chaos_daemons.json'),
     space_marines:        () => import('../data/parsed/space_marines.json'),
     imperial_guard:       () => import('../data/parsed/imperial_guard.json'),

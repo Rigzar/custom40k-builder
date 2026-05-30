@@ -94,6 +94,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ? null
     : (item.mark ?? (markIsForced ? ((rule!.forcedMark as Mark) ?? null) : null)) as Mark | null;
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
+  // Marks of Chaos count as a veteran ability for ALL units (per army rules: "Counts as a veteran ability").
+  // This applies whether the mark is chosen, forced by archetype, or locked to the unit.
+  // Locked-mark units (e.g. Plague Marines) use veteran_max:1 in their data instead.
   const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark;
   const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
@@ -140,11 +143,15 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const equipMods: EquipMods = parseEquipMods(equipItems);
 
   // Trait effects
+  // CSM army traits only apply to models with the "Chaos Space Marine" keyword.
+  // Subfaction units (World Eaters, Death Guard, Thousand Sons, Emperor's Children) are excluded.
   const isMainFaction = item.unitName in data.units;
+  const hasCSMKeyword = unit.keywords?.includes('Chaos Space Marine') ?? false;
+  const traitsApply = isMainFaction && (data.faction !== 'Chaos Space Marines' || hasCSMKeyword);
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
   const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
-  if (isMainFaction && item.traits.length > 0) {
+  if (traitsApply && item.traits.length > 0) {
     for (const t of item.traits) {
       for (const e of getTraitEffects(t.name, unit)) {
         if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });

@@ -83,14 +83,20 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
   }
 
   for (const it of item.armory ?? []) total += it.points ?? 0;
-  for (const t of item.traits ?? []) {
-    if (t.perWound) {
-      const wStatKey = unit.is_vehicle ? 'HP' : 'W';
-      const wStat = unit.models[0]?.stats[wStatKey];
-      const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
-      total += t.points * woundsPerModel * item.size;
-    } else {
-      total += t.points * item.size;
+  // CSM army traits only apply to "Chaos Space Marine" keyword units.
+  // Subfaction units (World Eaters, Death Guard, Thousand Sons, Emperor's Children) pay no trait cost.
+  const hasCSMKeyword = unit.keywords?.includes('Chaos Space Marine') ?? false;
+  const traitsApply = !unit.keywords || hasCSMKeyword;
+  if (traitsApply) {
+    for (const t of item.traits ?? []) {
+      if (t.perWound) {
+        const wStatKey = unit.is_vehicle ? 'HP' : 'W';
+        const wStat = unit.models[0]?.stats[wStatKey];
+        const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
+        total += t.points * woundsPerModel * item.size;
+      } else {
+        total += t.points * item.size;
+      }
     }
   }
 

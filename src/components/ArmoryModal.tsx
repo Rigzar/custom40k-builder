@@ -46,13 +46,17 @@ function cleanItemName(name: string): string {
 }
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
-  const { data, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
   // Weapon picker for daemon-weapon traits: itemName → chosen weapon name
   const [dwTargetWeapon, setDwTargetWeapon] = useState<Record<string, string>>({});
   if (!data) return null;
+
+  // Bug 3: for allied units use the allied faction's armory data
+  const isAllied = !!item.factionSource;
+  const activeData = (isAllied && alliedData) ? alliedData : data;
 
   // Always read armory from the live store so Unique checks stay current after additions
   const currentArmory = (army.find(e => e.id === item.id) ?? item).armory;
@@ -73,7 +77,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   function armorConflict(arm: ArmoryItem): boolean {
     if (!isTerminatorArmor(arm)) return false;
-    const allSrcs = [data!.armory_general, ...Object.values(data!.armory_marks), ...Object.values(data!.armory_legions)];
+    const allSrcs = [activeData.armory_general, ...Object.values(activeData.armory_marks), ...Object.values(activeData.armory_legions)];
     return currentArmory.some(sel => {
       if (sel.section !== 'equipment') return false;
       for (const src of allSrcs) {
@@ -107,7 +111,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // CD-specific: Greater Daemons pay from the p_char column ("POINTS GREATER DEMON");
   // all other units (Heralds, Daemon Prince, Soul Grinder) pay from p_unit ("POINTS").
-  const isCD = data.faction === 'Chaos Daemons';
+  const isCD = activeData.faction === 'Chaos Daemons';
   const isGreaterDaemon = (unit.abilities ?? []).some(a => /\bgreater daemon\b/i.test(a));
 
   /** Returns the correct pts for this unit, or null if the item cannot be purchased ("-"). */
@@ -127,22 +131,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return req !== effectiveMark;
   }
 
-  // Faction capability flags — only show tabs / sections that the faction actually has
-  const hasMark = Object.keys(data.armory_marks).length > 0;
-  const hasLegionData = Object.keys(data.armory_legions).length > 0;
+  // Faction capability flags — use activeData (allied faction's armory for allied units)
+  const hasMark = Object.keys(activeData.armory_marks).length > 0;
+  const hasLegionData = Object.keys(activeData.armory_legions).length > 0;
   // Label for the legacy/legion/clan tab — use the first armory_legions key as the name
   // legionTabLabel kept as fallback reference (unused now that tab only shows when legacy is active)
   // const legionTabLabel = Object.keys(data.armory_legions)[0] ?? 'Legacy';
   // Only show Daemon Weapons section if any armory source has items for it
   const hasDaemonWeapons = [
-    data.armory_general,
-    ...Object.values(data.armory_marks),
-    ...Object.values(data.armory_legions),
+    activeData.armory_general,
+    ...Object.values(activeData.armory_marks),
+    ...Object.values(activeData.armory_legions),
   ].some(src => (src.daemon_weapons as ArmoryItem[]).length > 0);
 
   // Veteran slot tracking for armory items — independent of whether the faction has traits
   const armoryVetEnabled = effectiveHasVetAbilities ?? unit.has_veteran_abilities;
-  // Marks use one veteran slot for units that can choose their mark (not locked marks)
+  // Marks count as 1 veteran ability for ALL units — locked-mark units use veteran_max:1 in data instead
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
   const armoryVetMax = armoryVetEnabled ? Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0)) : null;
@@ -157,9 +161,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         // Abilities already in the unit's profile don't count toward the slot limit
         if (profileAbilityNames.has(a.itemName.toLowerCase())) return false;
         const sources = [
-          data.armory_general,
-          ...Object.values(data.armory_marks),
-          ...Object.values(data.armory_legions),
+          activeData.armory_general,
+          ...Object.values(activeData.armory_marks),
+          ...Object.values(activeData.armory_legions),
         ];
         for (const src of sources) {
           for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
@@ -198,10 +202,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     });
   }
 
-  const activeLegionKeys = [legacy, legacy2]
+  // Allied units don't have access to the main army's legacy armories
+  const activeLegionKeys = isAllied ? [] : [legacy, legacy2]
     .filter(Boolean)
-    .map(name => data!.legacies.find(l => l.name === name)?.armory_key)
-    .filter((k): k is string => !!k && k in data!.armory_legions);
+    .map(name => data.legacies.find(l => l.name === name)?.armory_key)
+    .filter((k): k is string => !!k && k in data.armory_legions);
   const hasLegion = activeLegionKeys.length > 0;
 
   // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE
@@ -222,10 +227,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function getArmory() {
     if (tab === 'mark') {
       if (isBlackCrusadeChampion) return null; // rendered inline as 4 sections
-      if (effectiveMark) return data!.armory_marks[effectiveMark];
+      if (effectiveMark) return activeData.armory_marks[effectiveMark];
     }
     if (tab === 'legion') return null;
-    return data!.armory_general;
+    return activeData.armory_general;
   }
 
   // All weapons available to this unit (built-in + already-selected armory weapons)
@@ -321,8 +326,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               General
             </button>
           ))}
-          {/* Mark tab — shown when unit has a mark, OR when it's the BC champion (all 4 marks) */}
-          {hasMark && (effectiveMark || isBlackCrusadeChampion) && (
+          {/* Mark tab — shown when unit has a mark WITH data in armory_marks, OR when it's the BC champion */}
+          {(isBlackCrusadeChampion || (hasMark && effectiveMark && activeData.armory_marks[effectiveMark])) && (
             <button
               onClick={() => setTab('mark')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
@@ -397,7 +402,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 ⚜ Black Crusade Champion — access to all four mark armories
               </div>
               {BC_MARKS.map(markName => {
-                const markArm = data.armory_marks[markName];
+                const markArm = activeData.armory_marks[markName];
                 if (!markArm) return null;
                 const markItems = filterByUnitType(filterTermCompat(markArm[effectiveSection] as ArmoryItem[]));
                 const markEq = effectiveSection === 'equipment' ? splitEquipment(markItems) : null;
@@ -461,7 +466,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   ))}
                 </div>
               </div>
-            ) : Object.entries(data.armory_legions)
+            ) : Object.entries(activeData.armory_legions)
               .filter(([legName]) => {
                 // If Mixed Warband is active and a lock is set, only show the locked armory
                 if (mixedWarbandActive && unitLegacyLock) return legName === unitLegacyLock;
