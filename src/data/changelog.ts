@@ -264,7 +264,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '0.41',
+    version: '0.39',
     date: '2026-05-31',
     title: 'Imperial Guard — full audit (60 units, rules, disciplines)',
     changes: [
