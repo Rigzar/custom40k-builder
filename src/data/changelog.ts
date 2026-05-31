@@ -264,6 +264,55 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.44',
+    date: '2026-06-01',
+    title: 'All factions — champion armory access sweep + final disciplines',
+    changes: [
+      'Fixed missing champion armory access across all factions: GSC (Atalan Jackals), Orks (Cybork Slashaz, Flash Gits), Inquisition (Arbites, all 3 Warbands, Stormtroopers), Leagues of Votann (Brôkhyr Iron-master, Grimnyr, Einhyr Hearthguard), Horus Heresy (all 8 squads including Legion Tactical, Breacher, Terminator Cataphractii, Kakophoni, etc.), Tau Empire (Breacher Team, Strike Team).',
+    ],
+  },
+  {
+    version: '0.43',
+    date: '2026-05-31',
+    title: 'Remaining factions — disciplines for 10 factions',
+    changes: [
+      'Added psychic disciplines for Harlequins (Phantasmancy, 6 powers), Genestealer Cults (Broodmind + Legacy, 12 powers), Orks (Waaagh!, 6 powers), Tyranids (Hive Mind, 6 powers), Leagues of Votann (Skeinwrought, 6 powers), and Inquisition (Heresius + Telethesia, 12 powers). All were entirely missing.',
+      'Dark Eldar Mandrakes: the Nightmare champion now correctly has armory access.',
+      'Eldar: added all 4 psychic disciplines (Battle for Warlocks, Fate for Farseers, Revenant for Ynnari, Wraith for Wraithseers — 21 powers total).',
+    ],
+  },
+  {
+    version: '0.42',
+    date: '2026-05-31',
+    title: 'Adeptus Sororitas — audit (27 units, Acts of Faith, Hymns)',
+    changes: [
+      'Added all 5 Hymns of Battle (sung by Preachers and Dogmata) and all 7 Acts of Faith (the Faith Points mechanic available to all Sororitas units) — both were entirely missing from the data.',
+      'Squad champion armory access enabled for 11 units: Battle Sisters Squad, Celestian Insidiants, Celestian Sacresants, Celestian Squad, Crusaders, Dominion Squad, Repentia Squad, Retributor Squad, Seraphim Squad, Sisters Novitiate, Zephyrim Squad.',
+    ],
+  },
+  {
+    version: '0.41',
+    date: '2026-05-31',
+    title: 'Adeptus Mechanicus — audit (29 units, Canticles)',
+    changes: [
+      'Added all 13 Canticles of the Omnissiah and Canticles of Legacy (2 sets × 6-7 canticles) — these were entirely missing from the data. Now display in the discipline panel.',
+      'Champion armory access enabled for 10 squad units: Pteraxii Skystalkers, Pteraxii Sterylizors, Secutarii Hoplites, Secutarii Peltasts, Serberys Raiders, Serberys Sulphurhounds, Sicaran Infiltrators, Sicaran Ruststalkers, Skitarii Rangers, Skitarii Vanguard. In each case the squad leader (Alpha/Princeps/Prime) gains armory access.',
+      'Skitarii Rangers and Skitarii Vanguard: special weapon swap was limited to 1 per 10 models but the rules say "up to two" — corrected to 2 per 10 models.',
+    ],
+  },
+  {
+    version: '0.40',
+    date: '2026-05-31',
+    title: 'Grey Knights — full audit (22 units, 3 disciplines)',
+    changes: [
+      'Added all three Grey Knights psychic disciplines: Sanctity (6 powers), Dominus (6 powers), and Legacy (8 powers) — all were completely missing from the data.',
+      'Dreadnought: fixed empty equipped_with field; the "Must be equipped with two" option group was incorrectly set to one-pick (now correctly fixed_max:2 so you must choose exactly two weapons); fixed German word "mit" → "with" in one choice name; added missing weapon profiles for Plasma cannon (Standard and Overcharged), Missile launcher (Frag and Krak), and Twin heavy bolter.',
+      'Squad champion armory access: Strike Squad, Terminator Squad, Ghost Terminator Squad, Paladin Squad, Purifier Squad, Interceptor Squad, and Purgation Squad — the Justicar/Paragon/Knight of the Flame now correctly has armory access in all cases.',
+      'Psy-ammunition option was missing its cost (should be +1 pt per model) on Strike Squad, Ghost Terminator Squad, Paladin Squad, Purifier Squad, Interceptor Squad, and Purgation Squad.',
+      'Ancient and Apothecary: now correctly marked as advisors (do not consume an Elite slot when taken alongside an HQ).',
+    ],
+  },
+  {
     version: '0.39',
     date: '2026-05-31',
     title: 'Imperial Guard — full audit (60 units, rules, disciplines)',

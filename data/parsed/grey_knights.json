@@ -960,7 +960,7 @@
             "type": "one"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -976,7 +976,7 @@
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -1179,7 +1179,7 @@
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -1359,7 +1359,7 @@
       "veteran_required": false,
       "veteran_max": 1,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "Elites",
       "default_size": 1,
       "min_cost": 116
@@ -1534,7 +1534,7 @@
       "veteran_required": false,
       "veteran_max": 1,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "Elites",
       "default_size": 1,
       "min_cost": 116
@@ -1562,7 +1562,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "",
+      "equipped_with": "A Dreadnought is equipped with: -.",
       "weapons": [
         {
           "name": "Assault cannon",
@@ -1635,17 +1635,63 @@
           "ap": "-4",
           "d": "3",
           "abilities": "AT(3)"
+        },
+        {
+          "name": "Plasma cannon (Standard)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon (Overcharged)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
+        },
+        {
+          "name": "Missile launcher (Frag)",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher (Krak)",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
         }
       ],
       "option_groups": [
         {
           "header": "Must be equipped with two of the following",
           "constraint": {
-            "type": "one"
+            "type": "fixed_max",
+            "max": 2
           },
           "choices": [
             {
-              "name": "Dreadnought close combat weapon mit Storm bolter",
+              "name": "Dreadnought close combat weapon with Storm bolter",
               "points": 27
             },
             {
@@ -1891,7 +1937,7 @@
             "type": "one"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -1908,7 +1954,7 @@
       "is_monster": false,
       "is_psyker": false,
       "has_armory_access": false,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
       "veteran_max": null,
@@ -2104,7 +2150,7 @@
             "type": "one"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -2122,7 +2168,7 @@
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -2327,7 +2373,7 @@
             "type": "one"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -2344,7 +2390,7 @@
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -2530,7 +2576,7 @@
             "type": "one"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -2547,7 +2593,7 @@
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -3269,7 +3315,7 @@
             "type": "one"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -3285,7 +3331,7 @@
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -4198,7 +4244,214 @@
   ],
   "traits": [],
   "animosity": {},
-  "disciplines": {},
+  "disciplines": {
+    "Sanctity": [
+      {
+        "name": "Banishment",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "6",
+        "effect": "All melee attacks of the target gain the (cumulative) \"Shield breaker(-1)\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Cleanse Soul",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy model",
+        "cast_value": "6",
+        "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the target's total is greater than the Psyker's total, nothing happens. If the Psyker's total is greater than or equal to the target's total, the target model suffers one Mortal Wound.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Sanctuary",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "6",
+        "effect": "The target gains the \"Aegis(4+)\" and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Astral Aim",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "7",
+        "effect": "The target gains the \"Indirect\" and \"Seeking\" abilities for ranged attacks.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Hammerhand",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "7",
+        "effect": "The target gains +2 Strength.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Destruction",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "The target suffers one automatic hit with S: 5 AP: -2 D: 1; Barrage, Poison(2+), Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      }
+    ],
+    "Dominus": [
+      {
+        "name": "Warp Shaping",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "-",
+        "cast_value": "5",
+        "effect": "All psychic tests (of all players) receive a bonus OR penalty of 1.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Complex"
+      },
+      {
+        "name": "Empyric Amplification",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "7",
+        "effect": "Ranged attacks of the target gain (cumulative) -1 AP and AT(1).",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Ghostly Bonds",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "The target receives one Battleshock marker.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Gate",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "7",
+        "effect": "Remove the unit immediately and place it on the table again via the rules for Deep Strike. The scatter die is always a \"hit\". The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Complex"
+      },
+      {
+        "name": "Psy-steel Armor",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "7",
+        "effect": "The target improves its Saving throw by +2.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Vortex",
+        "type": "Witchfire",
+        "range": "12\"",
+        "target": "Enemy unit",
+        "cast_value": "8",
+        "effect": "The target suffers one automatic wound or penetrating hit with S: D AP: -4 D: 3; AT(4), Seeking.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Normal"
+      }
+    ],
+    "Legacy": [
+      {
+        "name": "Empyric Lodestone",
+        "type": "Augmentation",
+        "range": "18\"",
+        "target": "Friendly unit",
+        "cast_value": "7",
+        "effect": "Ranged attacks of the target gain (cumulative) -2 AP and AT(2).",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Inescapable Pursuit",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "6",
+        "effect": "The target gains +3\" charge range.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Projection of Purity",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "7",
+        "effect": "All melee attacks of the target gain the (cumulative) \"Shield breaker(-2)\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Fatal Precognition",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "-",
+        "cast_value": "5",
+        "effect": "The army receives a cumulative +1 bonus to rolls during the next Reinforcement and Initiative phase. Stacks with itself.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Complex"
+      },
+      {
+        "name": "Aegis Eternal",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "6",
+        "effect": "The target gains the (cumulative) \"Narthecium\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Symphonic Strike",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "7",
+        "effect": "All melee attacks of the target gain the \"Precision(5+)\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Purge Soul",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy model",
+        "cast_value": "7",
+        "effect": "Select one enemy model within range. Both the caster and the target roll 1D6 and add their Leadership values to their rolls. If the caster's roll is equal or higher, the target suffers one Mortal Wound plus one for each point of difference (minimum one damage).",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Temporal Accuracy",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "7",
+        "effect": "All models in the target unit gain the \"Deflagrate(5+)\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      }
+    ]
+  },
   "pacts": [],
   "prayers": [
     {
