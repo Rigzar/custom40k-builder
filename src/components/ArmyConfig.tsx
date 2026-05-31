@@ -12,10 +12,7 @@ export function ArmyConfig() {
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
-  const isCSM = data.faction === 'Chaos Space Marines';
-  const isCD  = data.faction === 'Chaos Daemons';
-  const isSM  = data.faction === 'Space Marines';
-  const hasFullEngine = isCSM || isCD || isSM;
+  const hasFullEngine = true;
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
 
   const noLegacy = rule?.noLegacy ?? false;
