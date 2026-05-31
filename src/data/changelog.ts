@@ -18,15 +18,21 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ── In progress ───────────────────────────────────────────────────────────
   {
     id: 'ki-22a',
-    status: 'investigating',
-    title: 'Trait engine: stat/ability effects implemented for CSM only — other factions pending',
-    description: 'The trait effects engine (stat modifications, unit abilities, weapon abilities) is now live and working for Chaos Space Marines (17 traits fully mapped). The remaining factions (AdMech, Sororitas, Dark Eldar, Eldar, GSC, Imperial Guard, Leagues of Votann, Necrons, Orks, Space Marines, Tau) still show description text only — their structured effects will be added one faction at a time.',
+    status: 'planned',
+    title: 'Trait stat and ability effects shown as text only for most factions',
+    description: 'For Chaos Space Marines all 17 traits are fully wired into the engine (stat changes, ability injections, weapon bonuses all calculate live). For every other faction traits are displayed and priced correctly, but their in-game effects (e.g. +1 Strength, gaining Furious Charge) are shown as description text rather than applied automatically to the unit card. This will be rolled out faction by faction.',
   },
   {
     id: 'ki-26a',
     status: 'planned',
-    title: 'Veteran Abilities and Vehicle Upgrades: CSM only — other factions pending',
-    description: 'The 8 standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and 10 Vehicle Upgrades are currently implemented only for Chaos Space Marines. Other factions will be added progressively using the same data pattern (category:\'veteran\'/\'vehicle\' items in armory_general.equipment).',
+    title: 'Veteran Abilities and Vehicle Upgrades only fully supported for CSM',
+    description: 'Standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and Vehicle Upgrades are built into the CSM armory and priced correctly. Other factions can select veteran and vehicle upgrades from their own armories, but the underlying ability logic (e.g. granting the Infiltrator rule to the unit) is not yet wired up.',
+  },
+  {
+    id: 'ki-40a',
+    status: 'known',
+    title: 'Archetypes show their rules but not all restrictions are enforced',
+    description: 'Archetypes, Legacies and Traits are now active for all factions and their descriptions are shown. However, some archetype-specific restrictions (e.g. "all units must start inside a transport", mandatory unit compositions, keyword filters) are only enforced for Chaos Space Marines, Chaos Daemons and Space Marines. For other factions the archetype notes are informational — the builder will not currently block you from breaking them.',
   },
   {
     id: 'ki-26b',
@@ -264,52 +270,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '0.44',
-    date: '2026-06-01',
-    title: 'All factions — champion armory access sweep + final disciplines',
-    changes: [
-      'Fixed missing champion armory access across all factions: GSC (Atalan Jackals), Orks (Cybork Slashaz, Flash Gits), Inquisition (Arbites, all 3 Warbands, Stormtroopers), Leagues of Votann (Brôkhyr Iron-master, Grimnyr, Einhyr Hearthguard), Horus Heresy (all 8 squads including Legion Tactical, Breacher, Terminator Cataphractii, Kakophoni, etc.), Tau Empire (Breacher Team, Strike Team).',
-    ],
-  },
-  {
-    version: '0.43',
-    date: '2026-05-31',
-    title: 'Remaining factions — disciplines for 10 factions',
-    changes: [
-      'Added psychic disciplines for Harlequins (Phantasmancy, 6 powers), Genestealer Cults (Broodmind + Legacy, 12 powers), Orks (Waaagh!, 6 powers), Tyranids (Hive Mind, 6 powers), Leagues of Votann (Skeinwrought, 6 powers), and Inquisition (Heresius + Telethesia, 12 powers). All were entirely missing.',
-      'Dark Eldar Mandrakes: the Nightmare champion now correctly has armory access.',
-      'Eldar: added all 4 psychic disciplines (Battle for Warlocks, Fate for Farseers, Revenant for Ynnari, Wraith for Wraithseers — 21 powers total).',
-    ],
-  },
-  {
-    version: '0.42',
-    date: '2026-05-31',
-    title: 'Adeptus Sororitas — audit (27 units, Acts of Faith, Hymns)',
-    changes: [
-      'Added all 5 Hymns of Battle (sung by Preachers and Dogmata) and all 7 Acts of Faith (the Faith Points mechanic available to all Sororitas units) — both were entirely missing from the data.',
-      'Squad champion armory access enabled for 11 units: Battle Sisters Squad, Celestian Insidiants, Celestian Sacresants, Celestian Squad, Crusaders, Dominion Squad, Repentia Squad, Retributor Squad, Seraphim Squad, Sisters Novitiate, Zephyrim Squad.',
-    ],
-  },
-  {
-    version: '0.41',
-    date: '2026-05-31',
-    title: 'Adeptus Mechanicus — audit (29 units, Canticles)',
-    changes: [
-      'Added all 13 Canticles of the Omnissiah and Canticles of Legacy (2 sets × 6-7 canticles) — these were entirely missing from the data. Now display in the discipline panel.',
-      'Champion armory access enabled for 10 squad units: Pteraxii Skystalkers, Pteraxii Sterylizors, Secutarii Hoplites, Secutarii Peltasts, Serberys Raiders, Serberys Sulphurhounds, Sicaran Infiltrators, Sicaran Ruststalkers, Skitarii Rangers, Skitarii Vanguard. In each case the squad leader (Alpha/Princeps/Prime) gains armory access.',
-      'Skitarii Rangers and Skitarii Vanguard: special weapon swap was limited to 1 per 10 models but the rules say "up to two" — corrected to 2 per 10 models.',
-    ],
-  },
-  {
     version: '0.40',
-    date: '2026-05-31',
-    title: 'Grey Knights — full audit (22 units, 3 disciplines)',
+    date: '2026-06-01',
+    title: 'Faction data pass — disciplines, armory access, and option fixes',
     changes: [
-      'Added all three Grey Knights psychic disciplines: Sanctity (6 powers), Dominus (6 powers), and Legacy (8 powers) — all were completely missing from the data.',
-      'Dreadnought: fixed empty equipped_with field; the "Must be equipped with two" option group was incorrectly set to one-pick (now correctly fixed_max:2 so you must choose exactly two weapons); fixed German word "mit" → "with" in one choice name; added missing weapon profiles for Plasma cannon (Standard and Overcharged), Missile launcher (Frag and Krak), and Twin heavy bolter.',
-      'Squad champion armory access: Strike Squad, Terminator Squad, Ghost Terminator Squad, Paladin Squad, Purifier Squad, Interceptor Squad, and Purgation Squad — the Justicar/Paragon/Knight of the Flame now correctly has armory access in all cases.',
-      'Psy-ammunition option was missing its cost (should be +1 pt per model) on Strike Squad, Ghost Terminator Squad, Paladin Squad, Purifier Squad, Interceptor Squad, and Purgation Squad.',
-      'Ancient and Apothecary: now correctly marked as advisors (do not consume an Elite slot when taken alongside an HQ).',
+      'Archetypes, Legacies and Traits are now active for all factions. Previously only Chaos Space Marines, Chaos Daemons and Space Marines showed the full customisation panel — everyone else saw a placeholder. All 19 factions now display the panel.',
+      'Psychic disciplines added for Grey Knights (Sanctity, Dominus, Legacy), Adeptus Mechanicus (Canticles of the Omnissiah and Legacy), Adeptus Sororitas (Hymns of Battle and Acts of Faith), Eldar (Battle, Fate, Revenant, Wraith), Harlequins (Phantasmancy), Genestealer Cults (Broodmind and Legacy), Orks (Waaagh!), Tyranids (Hive Mind), Leagues of Votann (Skeinwrought), and Inquisition (Heresius and Telethesia). All were entirely missing.',
+      'Fixed a widespread issue where the squad leader\'s armory access was not enabled across many factions — squads like Grey Knights Strike Squad, AdMech Skitarii Rangers, Sororitas Battle Sisters, and dozens more now correctly allow the champion model (Justicar, Alpha, Sister Superior, etc.) to buy from the armory.',
+      'Grey Knights Dreadnought: the weapon loadout option was set to allow only one pick; it now correctly requires exactly two weapons. Added missing weapon stat blocks (Plasma cannon, Missile launcher, Twin heavy bolter). Fixed German text in one choice name.',
+      'Skitarii Rangers and Vanguard: special weapon swaps were capped at 1 per 10 models; corrected to 2 per 10 as the rules state.',
     ],
   },
   {
