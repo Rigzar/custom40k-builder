@@ -95,7 +95,8 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
         const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
         total += t.points * woundsPerModel * item.size;
       } else {
-        total += t.points * item.size;
+        // Flat cost per unit (not per model). Only starred traits multiply by wounds × size.
+        total += t.points;
       }
     }
   }

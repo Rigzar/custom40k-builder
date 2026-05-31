@@ -264,6 +264,22 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.38',
+    date: '2026-05-31',
+    title: 'Space Marines — full audit (74 units, rules, engine)',
+    changes: [
+      'All 74 Space Marine unit datasheets reviewed against the official source. Fixed champion armory access across 18 squad units (Tactical Squad, Intercessor Squad, Assault Intercessor Squad, Heavy Intercessor Squad, Infiltrator Squad, Grey Hunters, Assault Squad, Bike Squad, Inceptor Squad, Infernus Squad, Outrider Bikes, Suppressor Squad, and 6 Heavy Support squads): the Veteran Sergeant upgrade now correctly enables armory access.',
+      'Fixed the "Advisor" flag for 6 Command squad Elites (Ancient, Apothecary, Company Champion, Judicar, Techmarine, Honor Guard): these units now correctly do not consume an Elites slot when taken alongside an HQ selection.',
+      'Fixed is_priest flag for Chaplain and Chaplain Dreadnought — both now correctly trigger the Prayer selection modal.',
+      'Fixed Thunderfire Cannon is_character flag — the unit is explicitly described as "a single character" in the source.',
+      'Fixed 13 option group constraint types across 9 units: Blood Claws (two models may swap → fixed_max:2), Scout Squad Camo cloaks (+11/model → every), Death Company Jump packs (+9/model → every), Reiver Marines Grav-chutes (+2/model → every), Deathwing Knights weapon swap (each model → every), Wolf Scout Squad (three OG fixes: every/every/fixed_max:2), Bike Squad (two OG fixes: Attack Bike swap → every, two Bikers swap → fixed_max:2), Outrider Bikes Invader-Quad swap (→ every), Indomitus Crusader Squad Neophyte/Initiate swaps (→ every), Ravenwing Black Knights grenade launcher swap (→ per_n:3).',
+      'Renamed "Reiver Squad" to "Reiver Marines" throughout (unit key, Elites slot) to match the HTML source title.',
+      'Fixed SM "Legion" archetype routing — it was incorrectly hitting the CSM Legion engine rules. Renamed to "Legion (Space Marines)" to match the engine key, ensuring correct Troops remapping and HH unit access.',
+      'Added all 6 Space Marine psychic disciplines that were entirely missing from the JSON: Librarius (the base SM discipline, 6 powers), and 5 legacy disciplines unlocked by chapter legacies — Geokinesis (Imperial Fists), Interromancy (Dark Angels), Sanguine (Blood Angels), Stormspeaking (White Scars), Tempestus (Space Wolves). Each discipline has 6 powers with full cast values, effects, and complexity ratings.',
+      'Phase 2 (full HTML-by-HTML audit): Fixed Dreadnought weapon selection — HTML says "Must pick two weapons" so the constraint is now fixed_max:2 instead of one (allowing two independent arm selections). Fixed Ironclad Dreadnought equipped_with typo ("Seismis" → "Seismic" hammer). Fixed 4 Hellblaster Squad weapon name abbreviations (Assault std/overheat, Heavy std/overheat → full words). Fixed Eradicator Squad weapon option groups: OG1 is now per_n:3 (one Multi-melta per three models) and OG2 is now "every" (Heavy melta rifle for remaining models). Fixed Impulsor OG3 constraint to fixed_max:2 ("Can be equipped with two of the following"). Fixed Repulsor Transport ability text that was stored in German. Fixed Nephilim Jetfighter equipped_with spelling ("Nephelim" → "Nephilim"). Fixed Stormraven Gunship equipped_with typo ("Twin heavy bolters" → "Twin heavy bolter").',
+    ],
+  },
+  {
     version: '0.37',
     date: '2026-05-30',
     title: 'Chaos Daemons — full audit (all 37 units, armory, disciplines, archetypes)',
