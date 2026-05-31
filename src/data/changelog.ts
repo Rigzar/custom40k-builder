@@ -264,6 +264,19 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.41',
+    date: '2026-05-31',
+    title: 'Imperial Guard — full audit (60 units, rules, disciplines)',
+    changes: [
+      'HQ: Leman Russ Tank Commander and regular Leman Russ — added the two missing multi-profile weapons (Executioner plasma cannon and Plasma cannon, each with Standard and Overheating variants). Fixed sponson choice typo "two Plasma cannonn" on both variants and on the Leman Russ Commissar.',
+      'Troops: Infantry Squad and Mechanised Infantry — Veteran Sergeant now enables armory access. Penal Legion Squad upgrades (Knife fighters +1, Gunslingers +2 pts per model) were incorrectly free. Hive Gangers: gang-type upgrade now correctly costs per-model; Cawdor/Delaque/Escher fixed to +1 each; melee and short-range weapon swaps priced correctly. Conscript Infantry Platoon: special weapon and heavy weapons team slots now scale per 10 models. Platoon Command Squad: each remaining Guardsman can independently pick a special weapon.',
+      'Elites: Veterans — Lasgun swap now per-model, Veteran Sergeant armory access enabled, stray "Seeking" keyword removed from Demolition charge (same fix applied to Ratlings and Special Weapon Squad). Stormtroopers and Stormtrooper Command Squad — Flamer corrected to -1 pt, Deep Strike and Infiltrator corrected to +1 pt each, Stormtrooper Sergeant armory access enabled. Advisors fixed: Company Command Squad, Stormtrooper Command Squad, Commissar, Astropath, Master of Ordnance, Officer of the Fleet, Preacher, and Engineseer now all correctly do not consume an Elites slot. Engineseer: German weapon name "Omnissiah-Energieaxt/Servoarm" corrected to English; Servitor weapon swap now scales per 2 models (was one total); Plasma cannon profiles added. Heavy Weapon Squad — Heavy flamer (+15) and Twin heavy stubber (+21) prices were 0; "Dug-in positions" formation rule was missing. Fixed Preacher model name from German "Prediger" to "Preacher".',
+      'Fast Attack: Rough Riders — gang-type and remaining-models upgrades now correctly per-model; Lasgun secondary weapon priced at +1; Veteran Sergeant armory access enabled; added Frag/Goad/Krak/Melta lance weapon profiles (Charge and Normal variants). Combat Engineers — Machine pistol swap now per-model, Veteran Watchmaster armory access enabled. Hellhounds — "Melta cannon" ability typo "Explosiv" corrected; unit name in equipped_with fixed. Salamander Scout — equipped_with copy-paste error from "Hellhounds" corrected.',
+      'Heavy Support: Leman Russ and Armoured Sentinels — added missing Plasma cannon sub-profiles. Vendetta — unit was completely broken (parser failure had put all datasheet content into the unit_type field); fully rebuilt with weapons, options, abilities, and armory access.',
+      'Rules: Added both Imperial Guard psychic disciplines (Psikana I and Psikana II, 6 powers each) which were entirely missing from the data.',
+    ],
+  },
+  {
     version: '0.38',
     date: '2026-05-31',
     title: 'Space Marines — full audit (74 units, rules, engine)',

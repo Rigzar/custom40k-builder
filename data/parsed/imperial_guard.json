@@ -2797,7 +2797,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "An Engineseer is equipped with: Omnissiah-Energieaxt; Servoarm.",
+      "equipped_with": "An Engineseer is equipped with: Omnissiah power axe; Servo arm.",
       "weapons": [
         {
           "name": "Heavy bolter",
@@ -2834,13 +2834,33 @@
           "ap": "-3",
           "d": "2",
           "abilities": "AT(2), Extra attack"
+        },
+        {
+          "name": "Plasma cannon (Standard)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon (Overheating)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         }
       ],
       "option_groups": [
         {
           "header": "For every 2 Servitors, one of them may be equipped with",
           "constraint": {
-            "type": "one"
+            "type": "per_n",
+            "per_n": 2,
+            "count_per_n": 1
           },
           "choices": [
             {
@@ -2888,7 +2908,7 @@
       "veteran_required": false,
       "veteran_max": null,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "Elites",
       "default_size": 1,
       "min_cost": 55
@@ -3087,7 +3107,7 @@
               "points": 73
             },
             {
-              "name": "two Plasma cannonn",
+              "name": "two Plasma cannons",
               "points": 196
             }
           ],
@@ -3633,7 +3653,7 @@
           "s": "8",
           "ap": "-2",
           "d": "2",
-          "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+          "abilities": "Ammo(1), AT(2), Barrage"
         },
         {
           "name": "Sniper rifle",
@@ -4682,6 +4702,24 @@
           "ap": "-3",
           "d": "2",
           "abilities": "-"
+        },
+        {
+          "name": "Plasma cannon (Standard)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon (Overheating)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         }
       ],
       "option_groups": [
@@ -4869,7 +4907,7 @@
         {
           "header": "Any number of models may swap their Machine pistol",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -4920,7 +4958,7 @@
       "is_monster": false,
       "is_psyker": false,
       "has_armory_access": false,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
       "veteran_max": null,
@@ -4953,7 +4991,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Hellhounds is equipped with: Inferno cannon; Heavy bolter.",
+      "equipped_with": "A Hellhound is equipped with: Inferno cannon; Heavy bolter.",
       "weapons": [
         {
           "name": "Chem cannon",
@@ -4998,7 +5036,7 @@
           "s": "8",
           "ap": "-5",
           "d": "2",
-          "abilities": "AT(2), Explosiv, Melta"
+          "abilities": "AT(2), Explosive, Melta"
         }
       ],
       "option_groups": [
@@ -5191,13 +5229,85 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Frag lance (Charge)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-1",
+          "d": "2",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Frag lance (Normal)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Goad lance (Charge)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Quick(+1), Deflagrate(5+)"
+        },
+        {
+          "name": "Goad lance (Normal)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Krak lance (Charge)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Krak lance (Normal)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Melta lance (Charge)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+5",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "Armorbane, AT(4), Quick(+1)"
+        },
+        {
+          "name": "Melta lance (Normal)",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "Unwieldy"
         }
       ],
       "option_groups": [
         {
           "header": "The entire squad may receive one of the following upgrades per model",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -5254,7 +5364,7 @@
         {
           "header": "All remaining models may swap their Chainsword",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -5305,12 +5415,12 @@
         {
           "header": "All remaining models may take one of the following",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
               "name": "Lasgun",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Shotgun",
@@ -5349,7 +5459,7 @@
       "is_monster": false,
       "is_psyker": false,
       "has_armory_access": false,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
       "veteran_max": null,
@@ -5382,7 +5492,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Hellhounds is equipped with: Heavy bolter; Heavy bolter.",
+      "equipped_with": "A Salamander is equipped with: Heavy bolter; Heavy bolter.",
       "weapons": [
         {
           "name": "Autocannon",
@@ -7166,6 +7276,42 @@
           "ap": "-5",
           "d": "4",
           "abilities": "AT(4), Lance(2), Tank hunter"
+        },
+        {
+          "name": "Executioner plasma cannon (Standard)",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Executioner plasma cannon (Overheating)",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
+        },
+        {
+          "name": "Plasma cannon (Standard)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon (Overheating)",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         }
       ],
       "option_groups": [
@@ -8701,16 +8847,67 @@
       ],
       "variant_models": [],
       "equipped_with": "A Vendetta is equipped with: 3 Twin lascannons.",
-      "weapons": [],
-      "option_groups": [],
-      "abilities": [],
-      "unit_type": "Flyer, Vehicle, WEAPON, Heavy bolter, Hellstrike missiles, Twin lascannon, OPTIONS, - May be equipped with; +81 points two Hellstrike missiles., - May be equipped with: +27 points two Heavy bolters., - Has access to vehicle equipment from the Armory., ABILITIES, Anti-Grav, Fast, Hover mode, Transport: This model has a transport capacity of 12 infantry models.",
+      "weapons": [
+        {
+          "name": "Heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Hellstrike missiles",
+          "range": "72\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
+        },
+        {
+          "name": "Twin lascannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "two Hellstrike missiles",
+              "points": 81
+            },
+            {
+              "name": "two Heavy bolters",
+              "points": 27
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Fast, Hover mode",
+        "Transport: This model has a transport capacity of 12 infantry models."
+      ],
+      "unit_type": "Flyer, Vehicle",
       "keywords": [],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": false,
+      "has_armory_access": true,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -9632,7 +9829,132 @@
     }
   ],
   "animosity": {},
-  "disciplines": {},
+  "disciplines": {
+    "Psikana I": [
+      {
+        "name": "Mental Strength",
+        "type": "Augmentation",
+        "range": "24\"",
+        "target": "Friendly unit (Creature)",
+        "cast_value": "4",
+        "effect": "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Gaze of the Emperor",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "-",
+        "cast_value": "5",
+        "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with S: 6 AP: -2 D: 1; Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Nightshroud",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "The target gains the \"Deflect\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Psychic Barrier",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "The target improves its Saving throw by +1.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Terrifying Visions",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "The target must pass a Leadership test with a -1 penalty.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Psychic Maelstrom",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "The target suffers one Mortal Wound on a 2+. If the roll was successful, it suffers one further Mortal Wound on a 3+. Repeat the process (adding +1 to the required result each time) until the roll is no longer successful.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      }
+    ],
+    "Psikana II": [
+      {
+        "name": "Psychic Lash",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "4",
+        "effect": "The target gains a melee weapon with the following profile: S: +1 AP: -3 D: 1, Flurry(2).",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Telepathic Order",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "4",
+        "effect": "The target gains any additional order.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Psychic Ward",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "5",
+        "effect": "The target gains the \"Aegis(4+)\" and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Lightning Arc",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target suffers one hit with the following profile: S: 5 AP: -1 D: 1; Barrage, Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Machine Curse",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit (Vehicle)",
+        "cast_value": "6",
+        "effect": "The target suffers 3 glancing hits.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Psychic Shackles",
+        "type": "Malediction",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target is treated as activating in difficult and dangerous terrain, even if it would normally ignore it.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      }
+    ]
+  },
   "pacts": [],
   "prayers": [],
   "daemonkin": {
