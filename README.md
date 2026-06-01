@@ -58,7 +58,7 @@ custom40k-builder/
 │   │   ├── ArmoryModal.tsx     # Armory item picker
 │   │   └── PrintView.tsx       # Printable army sheet
 │   │
-│   ├── engine/             # Business logic (no React)
+│   ├── engine/             # Game logic (points, validation, rules)
 │   │   ├── points.ts           # Points calculation
 │   │   ├── resolver.ts         # Unit profile resolution (marks, variants, abilities)
 │   │   ├── validators.ts       # Army validation (slot limits, archetype rules)
@@ -152,40 +152,43 @@ Each `data/parsed/<faction>.json` file follows this structure:
 
 ## How to contribute
 
-**The most useful thing you can do right now is data audits** — comparing each unit's HTML source against the parsed JSON and fixing wrong stats, missing weapons, incorrect option group types or wrong points costs.
-
 ### Fork and PR workflow
 
 1. **Fork** this repo to your own GitHub account
-2. **Clone** your fork locally
+2. **Clone** your fork locally and run `npm install`
 3. Make your changes
-4. **Push** to your fork
-5. Open a **Pull Request** back to this repo
+4. Run `npm run build` — must pass with zero errors
+5. **Push** to your fork and open a **Pull Request**
 
-### Finding bugs
+### Data fixes (no coding required)
 
-- The source HTML files are in `Informacion/` (not committed to this repo — contact to get access)
-- Or find bugs by playing with the app and comparing against the official rules
-- Check `src/data/changelog.ts` → `KNOWN_ISSUES` for things already tracked
-- Open a GitHub Issue if you find something — include unit name, faction, and what's wrong
+The most impactful contributions are data corrections. Each faction is stored in a single JSON file under `data/parsed/`. Open the file for your faction, compare each unit against your copy of the rules, and fix whatever is wrong — wrong stats, missing weapons, wrong points costs, wrong option constraints.
+
+Common things to check per unit:
+- Model points and min/max counts
+- All weapon profiles present with correct S / AP / D / Abilities
+- Option group headers and choice prices match the rules
+- Flags: `is_character`, `is_vehicle`, `is_psyker`, `champion_has_armory`, `advisor`
+
+If you find an error but are not sure how to fix the JSON, open a **GitHub Issue** with: faction name, unit name, and what's wrong vs what it should be.
 
 ### What to work on
 
-The faction audit status is shown on the landing page of the app:
+The faction status is shown on the landing page of the app:
 
 - 🟢 Green — fully audited and tested
 - 🟡 Yellow — audited, needs player testing
 - 🟠 Orange — audit in progress
-- 🔴 Red — not yet reviewed (raw parser output, likely has errors)
+- 🔴 Red — not yet reviewed, likely has errors
 
-Red factions are the highest priority for data fixes.
+Red factions are the highest priority.
 
 ### Code contributions
 
-- Engine logic lives in `src/engine/` — pure TypeScript, no React
+- Game logic (points, validation, rule enforcement) lives in `src/engine/`
 - UI components in `src/components/`
-- State in `src/store/army.ts` (Zustand)
-- Run `npm run build` before submitting a PR — must build with zero TypeScript errors
+- App state in `src/store/army.ts`
+- Run `npm run build` before submitting — zero TypeScript errors required
 
 ---
 
