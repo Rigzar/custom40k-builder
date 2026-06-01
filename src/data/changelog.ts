@@ -270,6 +270,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.42',
+    date: '2026-06-02',
+    title: 'Open source — repo prepared for public contributions',
+    changes: [
+      'Added CONTRIBUTING.md: full contribution guide covering data corrections, code contributions, PR checklist, and architecture overview.',
+      'Added GitHub issue templates for bug reports and data corrections.',
+      'Added GitHub pull request template with build-pass checklist.',
+      'Licensed the project under CC BY-NC-SA 4.0.',
+      'README: added license badge and link to CONTRIBUTING.md.',
+    ],
+  },
+  {
     version: '0.41',
     date: '2026-06-01',
     title: 'Grey Knights — full audit (22 units) + builder improvements',

@@ -1,5 +1,7 @@
 # Custom 40k Builder
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](LICENSE)
+
 An army list builder for a custom Warhammer 40,000 / Horus Heresy ruleset, covering 19 factions with full unit data, weapons, options, archetypes, legacies, traits and psychic disciplines.
 
 **[→ Open the app](https://custom40k-builder.vercel.app)**
@@ -151,6 +153,8 @@ Each `data/parsed/<faction>.json` file follows this structure:
 ---
 
 ## How to contribute
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. Short version:
 
 ### Fork and PR workflow
 

@@ -1,0 +1,56 @@
+name: Data correction
+description: A unit's stats, weapons, options, or points don't match the rules
+labels: ["data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for anything that should match the printed rules but doesn't —
+        wrong points, missing weapon, wrong option text, incorrect flag, etc.
+
+  - type: input
+    id: faction
+    attributes:
+      label: Faction
+      placeholder: e.g. Chaos Space Marines
+    validations:
+      required: true
+
+  - type: input
+    id: unit
+    attributes:
+      label: Unit
+      placeholder: e.g. Chaos Terminator
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_is_wrong
+    attributes:
+      label: What is wrong
+      description: Describe the current incorrect value in the app or JSON.
+      placeholder: e.g. Reaper autocannon shows D3 damage, but should be D6.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_it_should_be
+    attributes:
+      label: What it should be
+      description: The correct value according to the rules.
+      placeholder: e.g. D6 damage.
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Rules reference
+      description: Page number or section in the rulebook or supplement.
+      placeholder: e.g. Core Rules v1.252 p.47, Weapons table
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: Anything else that helps — screenshot, relevant note in the rules, etc.

@@ -1,0 +1,55 @@
+name: Bug report
+description: Something in the app behaves incorrectly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Fill in as much as you can — the more detail, the faster we can fix it.
+
+  - type: input
+    id: faction
+    attributes:
+      label: Faction
+      placeholder: e.g. Imperial Guard
+    validations:
+      required: true
+
+  - type: input
+    id: unit
+    attributes:
+      label: Unit (if applicable)
+      placeholder: e.g. Infantry Squad
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      placeholder: What should happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      placeholder: What happens instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Select faction …
+        2. Add unit …
+        3. …
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: Screenshots, archetype/legacy selected, model count, etc.
