@@ -270,6 +270,17 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.41',
+    date: '2026-06-01',
+    title: 'Tau Empire — full audit (42 units, Invocations of the Ethereals)',
+    changes: [
+      'Added the 4 Invocations of the Ethereals (Calm of Tides, Storm of Fire, Sense of Stone, Zephyr\'s Grace) — these were entirely missing from the data.',
+      'Fixed advisor units: Ethereal Guard, Sub-Commander, Krootox Riders, Kroot Lone-Spear, and Krootox Rampagers now correctly do not occupy an additional slot when taken alongside the required HQ or Kroot unit.',
+      'Fixed option group types: Ethereal Guard weapon swap is now per-model (was unit-wide); Support Turrets weapon swap is now per-model; Kroot Trackers rifle swap is now per-model; Krootox Riders Tanglecannon swap is now per-model; Kroot Carnivores Tanglebomb launcher now correctly scales per 5 models instead of being a single pick.',
+      'Fixed prices: Strike Team Pulse carbine swap and Sub-Commander Pulse carbine swap were 0 pts — corrected to +1 pt/model each; Support Turrets AFP swap was 0 — corrected to +1 pt.',
+    ],
+  },
+  {
     version: '0.40',
     date: '2026-06-01',
     title: 'Faction data pass — disciplines, armory access, and option fixes',

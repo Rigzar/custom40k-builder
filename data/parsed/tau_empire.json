@@ -486,7 +486,7 @@
         {
           "header": "Each model can swap the Equalisers",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -519,7 +519,7 @@
       "veteran_required": false,
       "veteran_max": null,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "HQ",
       "default_size": 2,
       "min_cost": 36
@@ -858,7 +858,7 @@
           "choices": [
             {
               "name": "Pulse carbine",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Pulse blaster",
@@ -910,7 +910,7 @@
       "veteran_required": false,
       "veteran_max": null,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "HQ",
       "default_size": 1,
       "min_cost": 37
@@ -1096,7 +1096,9 @@
         {
           "header": "For every 5 non-Kroot hound models in the unit, one Carnivore may replace their Kroot rifle",
           "constraint": {
-            "type": "one"
+            "type": "per_n",
+            "per_n": 5,
+            "count_per_n": 1
           },
           "choices": [
             {
@@ -1252,7 +1254,7 @@
           "choices": [
             {
               "name": "Pulse carbine",
-              "points": 0
+              "points": 1
             }
           ],
           "inline_pts": null,
@@ -1404,12 +1406,12 @@
         {
           "header": "Each Support turret may swap its Flamer",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
               "name": "Airbursting fragmentation projector",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Smart missile system",
@@ -2349,7 +2351,7 @@
       "veteran_required": false,
       "veteran_max": null,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "Elites",
       "default_size": 1,
       "min_cost": 81
@@ -3152,7 +3154,7 @@
         {
           "header": "Any number of models may replace their Kroot rifle",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -3415,7 +3417,7 @@
       "veteran_required": false,
       "veteran_max": null,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "Fast Attack",
       "default_size": 3,
       "min_cost": 144
@@ -4578,7 +4580,7 @@
         {
           "header": "Any number of models may replace their Tanglecannon",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -4606,7 +4608,7 @@
       "veteran_required": false,
       "veteran_max": null,
       "locked_mark": null,
-      "advisor": false,
+      "advisor": true,
       "slot": "Heavy Support",
       "default_size": 1,
       "min_cost": 46
@@ -6212,7 +6214,50 @@
     }
   ],
   "animosity": {},
-  "disciplines": {},
+  "disciplines": {
+    "Invocations of the Ethereals": [
+      {
+        "name": "Calm of Tides",
+        "type": "Invocation",
+        "range": "18\" radius",
+        "target": "Self",
+        "cast_value": "-",
+        "effect": "Friendly units within the area ignore all negative Leadership modifications.",
+        "duration": "Until the Ethereal's next activation",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Storm of Fire",
+        "type": "Invocation",
+        "range": "18\"",
+        "target": "Friendly unit (Infantry)",
+        "cast_value": "-",
+        "effect": "The target can fire one more shot per model with pulse weapons.",
+        "duration": "Until the Ethereal's next activation",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Sense of Stone",
+        "type": "Invocation",
+        "range": "18\"",
+        "target": "Friendly unit (Infantry)",
+        "cast_value": "-",
+        "effect": "The target receives a 5+ invulnerability save.",
+        "duration": "Until the Ethereal's next activation",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Zephyr's Grace",
+        "type": "Invocation",
+        "range": "18\"",
+        "target": "Friendly unit (Infantry)",
+        "cast_value": "-",
+        "effect": "The target gains +6\" Movement and the \"Move through cover\" ability.",
+        "duration": "Until the Ethereal's next activation",
+        "complexity": "Normal"
+      }
+    ]
+  },
   "pacts": [],
   "prayers": [],
   "daemonkin": {
