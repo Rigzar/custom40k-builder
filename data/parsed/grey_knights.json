@@ -160,7 +160,7 @@
       "unit_type": "Character model, Infantry",
       "keywords": [],
       "is_vehicle": false,
-      "is_character": false,
+      "is_character": true,
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
@@ -344,7 +344,7 @@
       "unit_type": "Character model, Infantry",
       "keywords": [],
       "is_vehicle": false,
-      "is_character": false,
+      "is_character": true,
       "is_monster": false,
       "is_psyker": true,
       "has_armory_access": true,
@@ -448,7 +448,8 @@
         {
           "header": "Can be equipped with two of the following",
           "constraint": {
-            "type": "one"
+            "type": "fixed_max",
+            "max": 2
           },
           "choices": [
             {
@@ -939,7 +940,7 @@
           "choices": [
             {
               "name": "Incinerator",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Psilencer",
@@ -2352,7 +2353,7 @@
           "choices": [
             {
               "name": "Incinerator",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Psilencer",
@@ -2555,7 +2556,7 @@
           "choices": [
             {
               "name": "Incinerator",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Psilencer",
@@ -3294,7 +3295,7 @@
           "choices": [
             {
               "name": "Incinerator",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Psilencer",

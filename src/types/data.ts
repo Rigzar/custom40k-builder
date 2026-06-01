@@ -25,6 +25,8 @@ export interface Weapon {
 export interface Choice {
   name: string;
   points: number;
+  /** Abilities that are only active when this choice is selected. */
+  abilities?: string[];
 }
 
 export type ConstraintType =
@@ -36,6 +38,8 @@ export interface Constraint {
   per_n?: number;
   count_per_n?: number;
   max?: number;       // for fixed_max; also for veteran when "up to N veteran abilities"
+  /** If true, a selection is mandatory — builder warns if nothing is chosen. */
+  required?: boolean;
 }
 
 export interface OptionGroup {

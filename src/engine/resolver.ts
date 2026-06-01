@@ -164,6 +164,22 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   const blackCrusadeChampion = !!(item.blackCrusadeHQ);
 
+  // Collect abilities from selected choices that have their own abilities array
+  const choiceAbilities: string[] = [];
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      const choice = g.choices[parseInt(ci)];
+      if (choice?.abilities?.length) {
+        for (const ab of choice.abilities) {
+          if (!choiceAbilities.includes(ab)) choiceAbilities.push(ab);
+        }
+      }
+    }
+  }
+
   return {
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
@@ -172,7 +188,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     isFavored: false,
     effectiveHasVetAbilities,
     equippedWith, weapons, weaponTraitMap,
-    injectedAbilities: [],
+    injectedAbilities: choiceAbilities,
     injectedRuleNotes: [],
     equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,

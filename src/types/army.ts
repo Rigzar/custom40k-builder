@@ -52,6 +52,10 @@ export interface RosterEntry {
    * Only one HQ per army may be designated.
    */
   blackCrusadeHQ?: boolean;
+  /** User-defined display name for this unit (overrides the default unit name). */
+  customName?: string;
+  /** ID of the roster unit this character is pre-assigned to join at deployment. */
+  joinedToUnit?: string | null;
   /**
    * Mixed Warband trait: locks this unit to a single legacy armory key.
    * When two legacies are active and Mixed Warband is in the trait pool,

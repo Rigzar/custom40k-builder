@@ -160,6 +160,22 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     items.push({ type: 'ok', text: `Within limit (${total}/${state.pointLimit}).` });
   }
 
+  // ── Required option group validation ─────────────────────────────────────
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    for (const [gi, g] of u.option_groups.entries()) {
+      if (!g.constraint.required) continue;
+      const hasSelection = g.choices.some((_, ci) => (item.optionQty?.[gi]?.[ci] ?? 0) > 0);
+      if (!hasSelection) {
+        items.push({
+          type: 'error',
+          text: `${u.name}: "${g.header}" — a selection is required.`,
+        });
+      }
+    }
+  }
+
   // ── Archetype validation ──────────────────────────────────────────────────
   if (rule) {
     // Banned units
@@ -631,7 +647,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     const troopsPts = baseTroopsPts + transportBonus;
     const ratio = troopsPts / total;
     const label = (rule && rule.troopsCount !== 'all')
-      ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : 'Raptors/Legionnaires'})`
+      ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : rule.troopsRemap.join('/')})`
       : 'Troops';
     if (ratio < eng.minTroopsRatio) {
       items.push({

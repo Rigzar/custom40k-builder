@@ -3,6 +3,8 @@ import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
 import { LegalFooter } from './LegalModal';
+import { LanguageSelector } from './LanguageSelector';
+import { useT } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
@@ -43,12 +45,16 @@ function CommunityAnnouncement() {
           God disciplines, psyker access, mark restrictions and slot rules live.
         </p>
         <p>
-          <strong className="text-amber-400">✓ Space Marines</strong> — fully audited (74 units).
-          All 6 disciplines, Legion archetype routing, chapter legacies live. Needs player testing.
+          <strong className="text-emerald-400">✓ Space Marines</strong> — fully audited (74 units).
+          All 6 disciplines, Legion archetype routing, chapter legacies live.
         </p>
         <p>
-          <strong className="text-orange-400">→ Imperial Guard</strong> — fully audited (60 units).
-          Psikana I &amp; II disciplines, advisor units, lance weapons, all options reviewed. In testing.
+          <strong className="text-amber-400">✓ Imperial Guard</strong> — fully audited (60 units).
+          Psikana I &amp; II disciplines, advisor units, lance weapons, all options reviewed. Needs player testing.
+        </p>
+        <p>
+          <strong className="text-orange-400">→ Grey Knights</strong> — audit complete (22 units).
+          Disciplines, weapon profiles and option rules corrected. In testing.
         </p>
         <p>
           <strong className="text-zinc-400">All other factions</strong> — data audited and corrected.
@@ -149,24 +155,26 @@ export function LandingPage({
   const { data } = useArmyStore();
   const [showChangelog, setShowChangelog] = useState(false);
   const latestVersion = CHANGELOG[0]?.version ?? '';
+  const t = useT();
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
       <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-5">
         <div className="flex items-center justify-between max-w-screen-lg mx-auto">
+          <LanguageSelector />
           <div className="flex-1 text-center">
             <h1 className="text-amber-500 font-bold uppercase tracking-widest text-2xl mb-1">
-              Custom40k Army Builder
+              {t('appTitle')}
             </h1>
             <p className="text-zinc-500 text-sm">
-              Select your faction and configure your army to begin
+              {t('appSubtitle')}
             </p>
           </div>
           <button
             onClick={() => { setShowChangelog(true); onShowChangelog(); }}
             className="shrink-0 ml-4 text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
           >
-            Updates <span className="text-amber-700">v{latestVersion}</span>
+            {t('updates')} <span className="text-amber-700">v{latestVersion}</span>
           </button>
         </div>
       </header>
@@ -181,7 +189,7 @@ export function LandingPage({
         {saves.length > 0 && (
           <section>
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
-              Saved Armies
+              {t('savedArmies')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {saves.map(save => (
@@ -215,7 +223,7 @@ export function LandingPage({
                     onClick={() => onLoadArmy(save)}
                     className="mt-1 w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/30 border border-amber-800/60 text-amber-400 hover:bg-amber-800/40 transition-colors"
                   >
-                    Load Army
+                    {t('loadArmy')}
                   </button>
                 </div>
               ))}
@@ -226,11 +234,11 @@ export function LandingPage({
         {/* ── Faction selection ── */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[11px] uppercase tracking-widest text-amber-700">Faction</h2>
+            <h2 className="text-[11px] uppercase tracking-widest text-amber-700">{t('selectFaction')}</h2>
             <div className="flex items-center gap-3 text-[10px] text-zinc-500">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> Needs testing</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> In review</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block" /> Not reviewed</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> {t('needsTesting')}</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> {t('inReview')}</span>
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block" /> {t('notReviewed')}</span>
             </div>
           </div>
           <div className="space-y-6">
@@ -313,7 +321,7 @@ export function LandingPage({
               onClick={onBuild}
               className="px-10 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
             >
-              Build Army ▶
+              {t('buildArmy')}
             </button>
           </div>
         )}

@@ -1,6 +1,7 @@
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
+import { useT } from '../i18n';
 
 import type { EngagementType, Mark } from '../types/army';
 
@@ -13,6 +14,7 @@ export function ArmyConfig() {
 
   const rule = getArchetypeRule(archetype);
   const hasFullEngine = true;
+  const t = useT();
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
 
   const noLegacy = rule?.noLegacy ?? false;
@@ -39,7 +41,7 @@ export function ArmyConfig() {
     <div className="space-y-3">
       {/* Engagement type */}
       <div>
-        <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Battle Type</div>
+        <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">{t('battleType')}</div>
         <div className="flex gap-1">
           {engKeys.map(e => (
             <button
@@ -60,7 +62,7 @@ export function ArmyConfig() {
 
       {/* Point limit */}
       <div className="flex items-center gap-2">
-        <label className="text-[11px] text-zinc-400 w-24">Points Limit</label>
+        <label className="text-[11px] text-zinc-400 w-24">{t('pointsLimit')}</label>
         <input
           type="number"
           value={pointLimit}
@@ -82,7 +84,7 @@ export function ArmyConfig() {
         <>
           {/* Archetype */}
           <div>
-            <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Archetype</div>
+            <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">{t('archetype')}</div>
             <select
               value={archetype}
               onChange={e => handleSetArchetype(e.target.value)}
@@ -90,7 +92,7 @@ export function ArmyConfig() {
               className={`w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600
                 ${engagement === 'skirmish' ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              <option value="">— none —</option>
+              <option value="">{t('noArchetype')}</option>
               {data.archetypes.map(a => <option key={a.name} value={a.name}>{cleanArchetypeName(a.name)}</option>)}
             </select>
             {engagement === 'skirmish' && (
@@ -122,13 +124,13 @@ export function ArmyConfig() {
             </div>
           ) : (
             <div>
-              <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Legacy</div>
+              <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">{t('legacy')}</div>
               <select
                 value={legacy}
                 onChange={e => setLegacy(e.target.value)}
                 className="w-full bg-zinc-900 border border-zinc-600 text-zinc-100 px-2 py-1 text-sm focus:outline-none focus:border-amber-600"
               >
-                <option value="">— none —</option>
+                <option value="">{t('noLegacy')}</option>
                 {data.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
               </select>
               {legacy && (
@@ -177,7 +179,7 @@ export function ArmyConfig() {
             </div>
           ) : (
             <div>
-              <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">Army Traits</div>
+              <div className="text-[11px] text-zinc-400 uppercase tracking-widest mb-1">{t('armyTraits')}</div>
               <div className="text-[10px] text-zinc-500 mb-2">
                 Max 2. All main-faction units with veteran abilities receive the selected traits.
               </div>

@@ -17,13 +17,19 @@ const EQUIP_STAT_MAP: [RegExp, string][] = [
   [/\+(\d+)\s+leadership/i,'LD'],
 ];
 
+// Descriptions that indicate the bonus applies to OTHER units, not the bearer
+const AURA_PHRASES = /attached unit|friendly unit|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an/i;
+
 export function parseEquipMods(items: { name: string; desc: string }[]): EquipMods {
   const mods: EquipMods = { statDeltas: {}, armorSave: null, invulnSave: null, grantedAbilities: [] };
   for (const { desc } of items) {
     if (!desc) continue;
-    for (const [re, key] of EQUIP_STAT_MAP) {
-      const m = desc.match(re);
-      if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]);
+    // Only apply stat deltas when the bonus clearly applies to the bearer, not an aura for other units
+    if (!AURA_PHRASES.test(desc)) {
+      for (const [re, key] of EQUIP_STAT_MAP) {
+        const m = desc.match(re);
+        if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]);
+      }
     }
     const armor = desc.match(/(\d)\+\s+armou?r\s+save/i);
     if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }

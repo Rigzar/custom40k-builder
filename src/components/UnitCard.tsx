@@ -74,13 +74,14 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, alliedData, traitPool, removeUnit, updateUnit, setOptionQty } = store;
+  const { data, alliedData, traitPool, removeUnit, updateUnit, setOptionQty, setUnitCustomName, setUnitJoinTarget, army } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
   const [traitsOpen, setTraitsOpen] = useState(false);
   const [psyOpen, setPsyOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const [editingName, setEditingName] = useState(false);
 
   if (!data) return null;
   const u = resolveUnit(item, data);
@@ -136,10 +137,30 @@ export function UnitCard({ item }: Props) {
       {/* Header */}
       <div className="flex justify-between items-center px-3 py-2 bg-gradient-to-r from-zinc-800 to-zinc-900 border-b border-zinc-700">
         <div>
-          <div className="text-amber-400 font-semibold text-sm">
-            {u.name}
-            {variant && (
-              <span className="text-amber-600 font-normal text-xs ml-1">→ {variant.name}</span>
+          <div className="text-amber-400 font-semibold text-sm flex items-center gap-1.5">
+            {editingName ? (
+              <input
+                autoFocus
+                type="text"
+                defaultValue={item.customName ?? ''}
+                placeholder={u.name}
+                onBlur={(e) => { setUnitCustomName(item.id, e.target.value); setEditingName(false); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); if (e.key === 'Escape') setEditingName(false); }}
+                className="bg-zinc-700 border border-amber-600 text-amber-300 px-1.5 py-0 text-sm rounded focus:outline-none w-40"
+              />
+            ) : (
+              <>
+                <span>{item.customName || u.name}</span>
+                {item.customName && <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>}
+                {variant && (
+                  <span className="text-amber-600 font-normal text-xs ml-1">→ {variant.name}</span>
+                )}
+                <button
+                  onClick={() => setEditingName(true)}
+                  className="text-zinc-600 hover:text-amber-400 text-[11px] leading-none ml-0.5"
+                  title="Set custom name"
+                >✎</button>
+              </>
             )}
           </div>
           <div className="text-[10px] text-zinc-500 uppercase tracking-wide mt-0.5">
@@ -185,6 +206,39 @@ export function UnitCard({ item }: Props) {
           </button>
         </div>
       </div>
+
+      {/* ── Join Unit (Character Models only) ── */}
+      {u.is_character && !u.is_vehicle && (() => {
+        const joinableUnits = army.filter(e =>
+          e.id !== item.id &&
+          !e.factionSource &&
+          (() => {
+            const eu = data?.units[e.unitName];
+            return eu && !eu.is_character && !eu.is_vehicle && !eu.is_monster;
+          })()
+        );
+        if (joinableUnits.length === 0) return null;
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">↳ Joins</span>
+            <select
+              value={item.joinedToUnit ?? ''}
+              onChange={e => setUnitJoinTarget(item.id, e.target.value || null)}
+              className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+            >
+              <option value="">— no unit —</option>
+              {joinableUnits.map(e => {
+                const eu = data?.units[e.unitName];
+                return (
+                  <option key={e.id} value={e.id}>
+                    {e.customName || eu?.name || e.unitName}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        );
+      })()}
 
       {!collapsed && (
         <div className="p-3 space-y-3">
@@ -444,6 +498,10 @@ export function UnitCard({ item }: Props) {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
 
+            // Required OG warning: show if nothing is selected
+            const isRequired = g.constraint.required;
+            const hasSelection = isRequired && g.choices.some((_, ci) => (item.optionQty?.[realGi]?.[ci] ?? 0) > 0);
+
             // True when the header already states the cost (e.g. "…for +15 points.") — avoids showing pts twice.
             const headerHasPts = (pts: number) =>
               new RegExp(`\\+?${pts}\\s+points?`, 'i').test(g.header);
@@ -513,12 +571,15 @@ export function UnitCard({ item }: Props) {
 
             return (
               <div key={realGi}>
-                <div className="text-[11px] text-zinc-400 mb-1 flex items-center gap-2">
+                <div className="text-[11px] text-zinc-400 mb-1 flex items-center gap-2 flex-wrap">
                   {g.header}
                   {isPerN && groupMax !== null && (
                     <span className={`text-[10px] font-semibold ${groupUsed! >= groupMax ? 'text-red-400' : 'text-amber-600'}`}>
                       [{groupUsed}/{groupMax}]
                     </span>
+                  )}
+                  {isRequired && !hasSelection && (
+                    <span className="text-[10px] font-semibold text-red-400 animate-pulse">⚠ required</span>
                   )}
                 </div>
                 <div className="flex flex-wrap gap-1">

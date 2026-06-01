@@ -131,6 +131,8 @@ export interface ArmyStore extends ArmyState {
   setAlliedFaction: (key: string | null) => void;
 
   setArmyName: (n: string) => void;
+  setUnitCustomName: (id: string, name: string) => void;
+  setUnitJoinTarget: (id: string, targetId: string | null) => void;
   setEngagement: (e: EngagementType) => void;
   setPointLimit: (n: number) => void;
   setHqMark: (m: Mark) => void;
@@ -230,6 +232,18 @@ export const useArmyStore = create<ArmyStore>()(
       }),
 
       setArmyName: (n: string) => set({ armyName: n }),
+
+      setUnitCustomName: (id: string, name: string) => set((s: S) => ({
+        army: s.army.map((e: RosterEntry) =>
+          e.id === id ? { ...e, customName: name || undefined } : e
+        ),
+      })),
+
+      setUnitJoinTarget: (id: string, targetId: string | null) => set((s: S) => ({
+        army: s.army.map((e: RosterEntry) =>
+          e.id === id ? { ...e, joinedToUnit: targetId || null } : e
+        ),
+      })),
 
       setEngagement: (e: EngagementType) => set({
         engagement: e,

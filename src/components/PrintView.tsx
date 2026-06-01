@@ -1,5 +1,6 @@
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
+import { useLanguage, t as tFn } from '../i18n';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
@@ -198,12 +199,30 @@ function WeaponRow({ weapon: w, shade }: { weapon: Weapon; shade: boolean }) {
   );
 }
 
+// ── Model count helper ────────────────────────────────────────────────────────
+function buildModelCountLabel(item: RosterEntry, u: Unit): string {
+  const models = u.models.filter(m => m.max > 0);
+  if (models.length === 0) return '';
+  if (models.length === 1) return `${item.size} ${models[0].name}`;
+  // First model is usually the variable one; rest are fixed (min === max)
+  const fixed = models.slice(1);
+  const fixedCount = fixed.reduce((s, m) => s + m.min, 0);
+  const mainCount = item.size - fixedCount;
+  const parts: string[] = [];
+  if (mainCount > 0) parts.push(`${mainCount} ${models[0].name}`);
+  for (const m of fixed) {
+    if (m.min > 0) parts.push(`${m.min} ${m.name}`);
+  }
+  return parts.join(' + ');
+}
+
 // ── Unit card ─────────────────────────────────────────────────────────────────
 function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData }) {
   const u = resolveUnit(item, data);
   if (!u) return null;
 
   const storeState = useArmyStore.getState();
+  const { language: lang } = useLanguage();
   const rp = resolveUnitProfile(item, u, storeState, data);
   const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap, injectedAbilities } = rp;
   const color = getMarkColor(effectiveMark);
@@ -323,7 +342,12 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
         }}>
           <div>
             <div style={{ color: '#fff', fontWeight: 800, fontSize: '1.45em', textTransform: 'uppercase', letterSpacing: '.05em', lineHeight: 1.05 }}>
-              {u.name}
+              {item.customName || u.name}
+              {item.customName && (
+                <span style={{ fontWeight: 400, fontSize: '.45em', marginLeft: 8, opacity: .65 }}>
+                  {u.name}
+                </span>
+              )}
               {variant && (
                 <span style={{ fontWeight: 400, fontSize: '.52em', marginLeft: 10, opacity: .85 }}>
                   → {variant.name}
@@ -334,8 +358,15 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               {SLOT_ICONS[item.slot] && (
                 <img src={SLOT_ICONS[item.slot]} alt="" style={{ width: 14, height: 14, opacity: .75, filter: 'invert(1)' }} />
               )}
-              {item.slot} · {u.unit_type}{effectiveMark ? ` · Mark of ${effectiveMark}` : ''}
+              {item.slot} · {buildModelCountLabel(item, u)}{effectiveMark ? ` · Mark of ${effectiveMark}` : ''}
               {rp.equippedWith ? ` — ${rp.equippedWith}` : ''}
+              {(() => {
+                if (!item.joinedToUnit) return null;
+                const target = useArmyStore.getState().army.find(e => e.id === item.joinedToUnit);
+                if (!target) return null;
+                const tName = target.customName || target.unitName;
+                return <span style={{ marginLeft: 6, opacity: .8 }}>↳ joins {tName}</span>;
+              })()}
             </div>
           </div>
           <div style={{
@@ -390,7 +421,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: `1px solid ${color}` }}>
-                {['Weapon', 'Rng', 'S', 'AP', 'D'].map((h, i) => (
+                {[tFn(lang,'weapon'), tFn(lang,'range'), tFn(lang,'strength'), tFn(lang,'ap'), tFn(lang,'damage')].map((h, i) => (
                   <th key={h} style={{
                     textAlign: i === 0 ? 'left' : 'center',
                     padding: '2px 6px', fontSize: '.72em', fontWeight: 700,
@@ -402,15 +433,15 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               </tr>
             </thead>
             <tbody>
-              <WeaponSection title="Ranged" weapons={[...defaultRangedWithTraits, ...armRanged]} />
-              <WeaponSection title="Melee"  weapons={[...defaultMeleeWithTraits,  ...armMelee]}  />
+              <WeaponSection title={tFn(lang, 'ranged')} weapons={[...defaultRangedWithTraits, ...armRanged]} />
+              <WeaponSection title={tFn(lang, 'melee')}  weapons={[...defaultMeleeWithTraits,  ...armMelee]}  />
             </tbody>
           </table>
 
           {armEquip.length > 0 && (
             <div style={{ padding: '5px 8px', borderTop: `1px dotted ${color}` }}>
               <div style={{ fontWeight: 700, fontSize: '.68em', textTransform: 'uppercase', color: color, letterSpacing: '.06em', marginBottom: 3 }}>
-                Equipment
+                {tFn(lang, 'equipment')}
               </div>
               {armEquip.map((eq, i) => (
                 <div key={i} style={{ fontSize: '.76em', lineHeight: 1.45, marginBottom: 2, color: '#222' }}>
@@ -444,7 +475,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               padding: '2px 8px', fontSize: '.72em', fontWeight: 700,
               letterSpacing: '.07em', textTransform: 'uppercase',
             }}>
-              Abilities
+              {tFn(lang, 'abilities')}
             </div>
 
             <div style={{ flex: 1, padding: '5px 8px', display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -467,7 +498,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               {traitList.length > 0 && (
                 <div style={{ borderTop: `1px dotted ${color}`, paddingTop: 5, marginTop: 2 }}>
                   <div style={{ fontSize: '.7em', fontWeight: 700, textTransform: 'uppercase', color: color, letterSpacing: '.06em', marginBottom: 3 }}>
-                    Veteran Abilities
+                    {tFn(lang, 'veteranAbilities')}
                   </div>
                   {traitList.map((t, i) => (
                     <div key={i} style={{ fontSize: '.77em', fontWeight: 600, color: '#222' }}>{t}</div>
@@ -682,7 +713,7 @@ function SummaryPage({ army, data, color, factionName }: {
                 <span style={{ fontSize: '.72em', color: color, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.04em', width: '4.2em', flexShrink: 0 }}>
                   {x.item.slot.replace('Dedicated Transport', 'Transport').replace('Fortifications', 'Forts')}
                 </span>
-                {x.u.name}
+                {x.item.customName || x.u.name}
               </span>
               <span style={{ textAlign: 'right', color: '#555' }}>{x.totalW}</span>
               <span style={{ textAlign: 'right', color: '#555' }}>{x.totalW > 0 ? (x.pts / x.totalW).toFixed(1) : '—'}</span>
@@ -717,6 +748,7 @@ function SummaryPage({ army, data, color, factionName }: {
 // ── Print View root ───────────────────────────────────────────────────────────
 export function PrintView({ onClose }: { onClose: () => void }) {
   const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark } = useArmyStore();
+  const { language: rootLang } = useLanguage();
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
@@ -877,7 +909,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               padding: '6px 14px', fontWeight: 700, textTransform: 'uppercase',
               letterSpacing: '.06em', fontSize: '.85em',
             }}>
-              Army Configuration
+              {tFn(rootLang, 'armyConfiguration')}
             </div>
             <div style={{
               backgroundColor: '#f5f1ea', padding: '10px 14px',
@@ -921,7 +953,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               padding: '6px 14px', fontWeight: 700, textTransform: 'uppercase',
               letterSpacing: '.06em', fontSize: '.85em',
             }}>
-              Special Rules
+              {tFn(rootLang, 'specialRules')}
             </div>
             <div style={{
               padding: '8px 14px',
