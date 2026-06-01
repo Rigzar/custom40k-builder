@@ -1,6 +1,8 @@
 # Contributing to Custom 40k Builder
 
-Thanks for helping improve the builder. This guide covers everything you need to contribute, whether it's a data correction, a bug fix, or a new feature.
+**Read this in another language:** [Deutsch](CONTRIBUTING.de.md) · [Español](CONTRIBUTING.es.md)
+
+Thanks for helping improve the builder. This guide covers everything you need to contribute, whether it's a data correction, a translation fix, new artwork, a bug fix, or a new feature.
 
 ---
 
@@ -9,8 +11,10 @@ Thanks for helping improve the builder. This guide covers everything you need to
 1. [Quick start](#quick-start)
 2. [Reporting issues](#reporting-issues)
 3. [Data corrections (no coding required)](#data-corrections-no-coding-required)
-4. [Code contributions](#code-contributions)
-5. [Pull request checklist](#pull-request-checklist)
+4. [Translations](#translations)
+5. [Art contributions](#art-contributions)
+6. [Code contributions](#code-contributions)
+7. [Pull request checklist](#pull-request-checklist)
 
 ---
 
@@ -99,6 +103,88 @@ Faction-specific armory sections (e.g., mark-locked items for CSM) may appear as
 
 ---
 
+## Translations
+
+The app supports three languages: **English (EN)**, **German (DE)**, and **Spanish (ES)**. All UI strings live in a single file:
+
+```
+src/i18n/index.ts
+```
+
+Each string is an object with `en`, `de`, and `es` keys:
+
+```ts
+appTitle: {
+  en: 'Custom 40k Army Builder',
+  de: 'Custom 40k Armeeliste',
+  es: 'Creador de Ejércitos Custom 40k',
+},
+```
+
+### How to find untranslated strings
+
+Search the file for strings where the `de` or `es` value is identical to `en` — those are machine-translated or missing. Native-speaker corrections are always welcome.
+
+### Adding or fixing a translation
+
+1. Open `src/i18n/index.ts`.
+2. Find the string you want to fix (search for the English text).
+3. Edit the `de` or `es` value.
+4. Run `npm run build` — the file is TypeScript, so a typo will cause a build error.
+5. Open a Pull Request with your change. You do not need to fix all strings — partial improvements are welcome.
+
+### Translation PRs
+
+- You do not need to set up the full dev environment for translation-only PRs. Just edit the file and verify the build passes.
+- If you are not sure about a translation, leave a note in the PR description.
+- Machine translation is acceptable as a starting point, but native speaker review is preferred.
+
+---
+
+## Art contributions
+
+The app displays a faction-specific background image on the print view. Each background is a PNG file in `src/assets/`.
+
+### What is needed
+
+The following factions currently use a shared or placeholder background and could benefit from dedicated artwork:
+
+| Faction | Current background |
+|---|---|
+| Space Marines | shared (Imperium) |
+| Grey Knights | shared (Imperium) |
+| Inquisition | shared (Imperium) |
+| Assassins | shared (Imperium) |
+| Eldar | generic fallback |
+| Dark Eldar | generic fallback |
+| Harlequins | generic fallback |
+| Leagues of Votann | generic fallback |
+
+### Requirements
+
+- **Format:** PNG
+- **Minimum size:** 1600 × 900 px (the image is used as a full-width background)
+- **Style:** dark, atmospheric, suitable for a Warhammer 40k context
+- **Copyright:** fan art and original artwork only. Do not submit scans or photographs of official Games Workshop artwork. The image must be your own work or licensed under a Creative Commons licence compatible with CC BY-NC-SA 4.0.
+
+### Naming convention
+
+Name your file `<factionKey>Background.png`, matching the camelCase faction key used in the codebase. Examples: `eldarBackground.png`, `darkEldarBackground.png`, `harlequisBackground.png`.
+
+### How to register a new background
+
+1. Add the PNG to `src/assets/`.
+2. Open `src/components/PrintView.tsx`.
+3. Import the image at the top of the file, following the pattern of existing imports.
+4. Add an entry to the `FACTION_BG` object mapping the faction name to the imported image.
+5. Run `npm run build` and confirm the image loads correctly.
+
+### Submitting art
+
+Open a Pull Request with the PNG file and the `PrintView.tsx` change. Include a note on the source or authorship of the image so it can be verified as CC-compatible.
+
+---
+
 ## Code contributions
 
 ### Architecture overview
@@ -137,7 +223,7 @@ src/i18n/       Translation strings (EN / DE / ES)
 
 ### Translations
 
-Translation strings live in `src/i18n/index.ts`. If you add a UI string, add entries for all three languages (EN / DE / ES). Machine translation is acceptable for ES and DE; native speaker review is welcome.
+If you add a UI string, add entries for all three languages (EN / DE / ES) in `src/i18n/index.ts`. Machine translation is acceptable for ES and DE; native speaker review is welcome.
 
 ---
 
