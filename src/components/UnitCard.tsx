@@ -6,7 +6,6 @@ import { resolveUnit } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
-import { isOGVisible } from '../engine/ogVisibility';
 import { SACRED_NUMBERS } from '../engine/resolver-chaos-daemons';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
@@ -498,7 +497,6 @@ export function UnitCard({ item }: Props) {
           {u.option_groups.filter(g => !isMarkGroup(g) && !g.variant_link || g.variant_link).map((g) => {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
-            if (!isOGVisible(u, realGi, item)) return null;
 
             // Required OG warning: show if nothing is selected
             const isRequired = g.constraint.required;

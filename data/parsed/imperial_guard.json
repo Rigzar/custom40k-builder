@@ -1437,35 +1437,10 @@
           "constraint": {
             "type": "one"
           },
-          "choices": [
-            {
-              "name": "Flamer",
-              "points": 5
-            },
-            {
-              "name": "Grenade launcher",
-              "points": 5
-            },
-            {
-              "name": "Melta",
-              "points": 11
-            },
-            {
-              "name": "Plasma gun",
-              "points": 15
-            },
-            {
-              "name": "Sniper rifle",
-              "points": 16
-            }
-          ],
+          "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false,
-          "show_if": {
-            "og_idx": 2,
-            "condition": "empty"
-          }
+          "is_unique_per_army": false
         },
         {
           "header": "The Sergeant may be upgraded to a Veteran Sergeant for +5 points and gains access to weapons and gear from the Armory.",
@@ -1731,35 +1706,10 @@
           "constraint": {
             "type": "one"
           },
-          "choices": [
-            {
-              "name": "Flamer",
-              "points": 5
-            },
-            {
-              "name": "Grenade launcher",
-              "points": 5
-            },
-            {
-              "name": "Melta",
-              "points": 11
-            },
-            {
-              "name": "Plasma gun",
-              "points": 15
-            },
-            {
-              "name": "Sniper rifle",
-              "points": 16
-            }
-          ],
+          "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false,
-          "show_if": {
-            "og_idx": 2,
-            "condition": "empty"
-          }
+          "is_unique_per_army": false
         },
         {
           "header": "The Sergeant may be upgraded to a Veteran Sergeant for +5 points and gains access to weapons and gear from the Armory.",

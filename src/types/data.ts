@@ -42,17 +42,6 @@ export interface Constraint {
   required?: boolean;
 }
 
-/**
- * Conditional visibility rule (Battle Scribe "modifier" pattern).
- * This OG is only shown/active when the referenced OG meets the condition.
- *   condition: 'empty'  → visible when og_idx has NO selection
- *   condition: 'filled' → visible when og_idx HAS a selection
- */
-export interface ShowIf {
-  og_idx: number;
-  condition: 'empty' | 'filled';
-}
-
 export interface OptionGroup {
   header: string;
   constraint: Constraint;
@@ -60,8 +49,6 @@ export interface OptionGroup {
   inline_pts: number | null;
   variant_link: string | null;
   is_unique_per_army: boolean;
-  /** If set, this OG is only shown/counted when the condition is met. */
-  show_if?: ShowIf;
 }
 
 export interface Unit {

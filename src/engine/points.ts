@@ -1,6 +1,5 @@
 import type { Unit, Model, FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
-import { isOGVisible } from './ogVisibility';
 import { computeVehicleCombiSurcharge } from './weapons/csm';
 
 /** Resolve a unit from the correct faction source. */
@@ -70,11 +69,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
   }
 
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
-    const gIdx = Number(gi);
-    const g = unit.option_groups[gIdx];
+    const g = unit.option_groups[Number(gi)];
     if (!g || isMarkGroup(g)) continue;
     if (g.variant_link) continue;
-    if (!isOGVisible(unit, gIdx, item)) continue;
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline') {
         if (qty && g.inline_pts) total += g.inline_pts;

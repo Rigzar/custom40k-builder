@@ -2,7 +2,6 @@ import type { Unit, Model, Weapon, ArmoryItem, FactionData } from '../types/data
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant } from './points';
-import { isOGVisible } from './ogVisibility';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains } from './equipMods';
 import { getTraitEffects } from './traitEffects';
@@ -168,10 +167,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Collect abilities from selected choices that have their own abilities array
   const choiceAbilities: string[] = [];
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
-    const gIdx = Number(gi);
-    const g = unit.option_groups[gIdx];
+    const g = unit.option_groups[Number(gi)];
     if (!g) continue;
-    if (!isOGVisible(unit, gIdx, item)) continue;
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];
