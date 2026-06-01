@@ -105,11 +105,11 @@ const CATEGORIES: Category[] = [
     labelColor: 'text-yellow-500',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'testing' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'inreview' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'unreviewed' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'unreviewed' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'unreviewed' },
-      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'unreviewed' },
+      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'inreview' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'unreviewed' },
       { key: 'assassins',          name: 'Assassins',          available: true, status: 'unreviewed' },
     ],
