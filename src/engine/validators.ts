@@ -1,6 +1,7 @@
 import type { FactionData } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit } from './points';
+import { isOGVisible } from './ogVisibility';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
 import {
   getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
@@ -166,6 +167,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     if (!u) continue;
     for (const [gi, g] of u.option_groups.entries()) {
       if (!g.constraint.required) continue;
+      if (!isOGVisible(u, gi, item)) continue;
       const hasSelection = g.choices.some((_, ci) => (item.optionQty?.[gi]?.[ci] ?? 0) > 0);
       if (!hasSelection) {
         items.push({

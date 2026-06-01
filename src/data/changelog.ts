@@ -289,6 +289,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Join Unit: Character model unit cards now show a dropdown to pre-assign a unit to join at deployment. The print view shows "↳ joins [unit name]" under the character\'s name.',
       'Required upgrade warning: option groups marked as mandatory now show a pulsing ⚠ required badge when nothing is selected. The army validation panel also raises an error for each unfilled required group.',
       'Exalted Plague Champion: each of the five upgrade choices (Noxious Blightbringer, Tallyman, Biologus Putrifier, Foul Blightspawn, Plague Surgeon) now carries its own abilities list. Only the selected upgrade\'s abilities appear on the card instead of all five at once. The upgrade group is now required.',
+      'Conditional option groups: the builder now supports options that only appear when a condition is met. First use — Imperial Guard Infantry Squad and Mechanised Infantry: the second special weapon slot (available only when no Heavy weapons team is taken) now correctly appears and disappears based on whether the Heavy weapons team option has been selected.',
+      'Imperial Guard data audit (14 fixes): 7 army traits were missing vehicle point costs (Born Soldiers, Disciplined Shooters, Heirloom Weapons, Las Fusilade, Rapid Assault, Combined Regiments, Bionic Improvement); Atlas Recovery Vehicle is_character corrected to false; Ogryns now show Ripper gun weapon profiles (Melee and Ranged); Infantry Squad, Company Command Squad, Platoon Command Squad and Mechanised Infantry heavy weapons team option corrected from fixed_max:2 to one; "Armoured Sentinels" double-space name corrected.',
     ],
   },
   {
