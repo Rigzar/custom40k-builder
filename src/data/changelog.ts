@@ -270,6 +270,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.43',
+    date: '2026-06-02',
+    title: 'Contribution guides in German and Spanish',
+    changes: [
+      'Added CONTRIBUTING.de.md (German) and CONTRIBUTING.es.md (Spanish) — full translations of the contribution guide.',
+      'CONTRIBUTING.md expanded: dedicated sections for translation contributions (how to find and fix untranslated strings in src/i18n/index.ts) and art contributions (which factions need new backgrounds, requirements, naming convention, how to register).',
+    ],
+  },
+  {
     version: '0.42',
     date: '2026-06-02',
     title: 'Open source — repo prepared for public contributions',
