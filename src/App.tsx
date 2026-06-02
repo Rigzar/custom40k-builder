@@ -15,7 +15,6 @@ import { getArchetypeRule } from './engine/archetypes';
 import type { FactionData } from './types/data';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
-import { ChangelogModal } from './components/ChangelogModal';
 import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
 
@@ -151,7 +150,6 @@ export default function App() {
   const [showRef, setShowRef]                   = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
   const [showArmies, setShowArmies]             = useState(false);
-  const [showChangelog, setShowChangelog]       = useState(false);
   const [showBugReport, setShowBugReport]       = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad = useRef<SavedArmy | null>(null);
@@ -300,7 +298,6 @@ export default function App() {
         onBuild={handleBuild}
         onLoadArmy={handleLoadArmy}
         onDeleteArmy={deleteArmy}
-        onShowChangelog={() => setShowChangelog(true)}
       />
     );
   }
@@ -412,7 +409,6 @@ export default function App() {
 
       {showPrint    && <PrintView onClose={() => setShowPrint(false)} />}
       {showArmies   && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
-      {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
       {showBugReport && (
         <BugReportModal
           onClose={() => setShowBugReport(false)}
@@ -422,7 +418,7 @@ export default function App() {
 
       <LegalFooter />
 
-      {showRef && !showArmies && !showChangelog && (
+      {showRef && !showArmies && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-start justify-center p-6 overflow-y-auto"
           onClick={e => e.target === e.currentTarget && setShowRef(false)}

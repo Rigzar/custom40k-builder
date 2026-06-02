@@ -4,13 +4,52 @@ import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
 import { LegalFooter } from './LegalModal';
 import { LanguageSelector } from './LanguageSelector';
-import { useT } from '../i18n';
+import { useT, useLanguage, type Language } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v3_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v4_dismissed';
+
+type AnnouncementLang = { title: string; intro: string; csm: string; cd: string; sm: string; ig: string; gk: string; adm: string; rest: string; };
+const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
+  en: {
+    title: 'Developer Update — from rigzar',
+    intro: "Hello everyone! I'm rigzar. Archetypes, Legacies and Traits are now active for all factions. The data has been audited HTML-by-HTML across all 19 factions — unit profiles, weapon stats, option group types and prices have all been reviewed and corrected.",
+    csm: '✓ Chaos Space Marines — fully audited. Archetypes, Legacies, Traits, Black Crusade, armory and all engine rules live.',
+    cd:  '✓ Chaos Daemons — fully audited. God disciplines, psyker access, mark restrictions and slot rules live.',
+    sm:  '✓ Space Marines — fully audited (74 units). All 6 disciplines, Legion archetype routing, chapter legacies live.',
+    ig:  '✓ Imperial Guard — fully audited (60 units). Psikana I & II disciplines, advisor units, lance weapons, all options reviewed. Needs player testing.',
+    gk:  '→ Grey Knights — audit complete (22 units). Disciplines, weapon profiles and option rules corrected. In testing.',
+    adm: '→ Adeptus Mechanicus — audit complete. Doctrina Imperatives, weapon profiles and options corrected. In testing.',
+    rest: 'All other factions — data audited and corrected. Engine rules (archetype slot logic, trait cost calculation) are active but specific faction validators are still being built. Report any issues!',
+  },
+  de: {
+    title: 'Entwickler-Update — von rigzar',
+    intro: 'Hallo zusammen! Ich bin rigzar. Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv. Die Daten wurden HTML für HTML für alle 19 Fraktionen geprüft — Einheitenprofile, Waffenwerte, Optionsgruppen und Preise wurden überprüft und korrigiert.',
+    csm: '✓ Chaos Space Marines — vollständig geprüft. Archetypen, Vermächtnisse, Eigenschaften, Schwarzer Kreuzzug, Waffenkammer und alle Engine-Regeln aktiv.',
+    cd:  '✓ Chaos-Dämonen — vollständig geprüft. Götterdisziplinen, Psionik-Zugang, Malrestriktionen und Slot-Regeln aktiv.',
+    sm:  '✓ Space Marines — vollständig geprüft (74 Einheiten). Alle 6 Disziplinen, Legions-Archetyp-Routing, Kapitel-Vermächtnisse aktiv.',
+    ig:  '✓ Imperiale Garde — vollständig geprüft (60 Einheiten). Psikana I & II Disziplinen, Berater-Einheiten, Lanzenwaffen, alle Optionen geprüft. Benötigt Spielertests.',
+    gk:  '→ Graue Ritter — Prüfung abgeschlossen (22 Einheiten). Disziplinen, Waffenprofile und Optionsregeln korrigiert. In Erprobung.',
+    adm: '→ Adeptus Mechanicus — Prüfung abgeschlossen. Doctrina-Imperative, Waffenprofile und Optionen korrigiert. In Erprobung.',
+    rest: 'Alle anderen Fraktionen — Daten geprüft und korrigiert. Engine-Regeln (Archetyp-Slot-Logik, Eigenschaftskosten) sind aktiv, fraktionsspezifische Validatoren werden noch entwickelt. Fehler melden!',
+  },
+  es: {
+    title: 'Actualización del desarrollador — de rigzar',
+    intro: '¡Hola a todos! Soy rigzar. Los Arquetipos, Legados y Rasgos ya están activos para todas las facciones. Los datos han sido auditados HTML a HTML en las 19 facciones — perfiles de unidades, estadísticas de armas, tipos de grupos de opciones y precios han sido revisados y corregidos.',
+    csm: '✓ Chaos Space Marines — totalmente auditado. Arquetipos, Legados, Rasgos, Cruzada Negra, armería y todas las reglas del motor activos.',
+    cd:  '✓ Demonios del Caos — totalmente auditado. Disciplinas divinas, acceso a psíquicos, restricciones de marca y reglas de slots activos.',
+    sm:  '✓ Space Marines — totalmente auditado (74 unidades). Las 6 disciplinas, enrutamiento de arquetipos de Legión, legados de capítulo activos.',
+    ig:  '✓ Guardia Imperial — totalmente auditado (60 unidades). Disciplinas Psikana I y II, unidades asesoras, armas de lanza, todas las opciones revisadas. Necesita pruebas de jugadores.',
+    gk:  '→ Caballeros Grises — auditoría completa (22 unidades). Disciplinas, perfiles de armas y reglas de opciones corregidos. En pruebas.',
+    adm: '→ Adeptus Mechanicus — auditoría completa. Imperativos de Doctrina, perfiles de armas y opciones corregidos. En pruebas.',
+    rest: 'Todas las demás facciones — datos auditados y corregidos. Las reglas del motor (lógica de slots de arquetipos, coste de rasgos) están activas pero los validadores específicos de facción aún se están desarrollando. ¡Reportad cualquier problema!',
+  },
+};
 
 function CommunityAnnouncement() {
+  const { language } = useLanguage();
+  const tx = ANNOUNCEMENT_TEXT[language];
   const [dismissed, setDismissed] = useState(
     () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
   );
@@ -19,7 +58,7 @@ function CommunityAnnouncement() {
     <div className="bg-zinc-900 border-l-4 border-amber-700 border border-zinc-700 px-5 py-4 mb-6">
       <div className="flex justify-between items-start gap-4">
         <div className="text-[11px] text-amber-600 uppercase tracking-widest font-semibold mb-2">
-          Developer Update — from rigzar
+          {tx.title}
         </div>
         <button
           onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
@@ -30,37 +69,14 @@ function CommunityAnnouncement() {
         </button>
       </div>
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
-        <p>
-          Hello everyone! I'm rigzar. Archetypes, Legacies and Traits are now{' '}
-          <strong className="text-amber-400">active for all factions</strong>. The data has been
-          audited HTML-by-HTML across all 19 factions — unit profiles, weapon stats, option group
-          types and prices have all been reviewed and corrected.
-        </p>
-        <p>
-          <strong className="text-emerald-400">✓ Chaos Space Marines</strong> — fully audited.
-          Archetypes, Legacies, Traits, Black Crusade, armory and all engine rules live.
-        </p>
-        <p>
-          <strong className="text-emerald-400">✓ Chaos Daemons</strong> — fully audited.
-          God disciplines, psyker access, mark restrictions and slot rules live.
-        </p>
-        <p>
-          <strong className="text-emerald-400">✓ Space Marines</strong> — fully audited (74 units).
-          All 6 disciplines, Legion archetype routing, chapter legacies live.
-        </p>
-        <p>
-          <strong className="text-amber-400">✓ Imperial Guard</strong> — fully audited (60 units).
-          Psikana I &amp; II disciplines, advisor units, lance weapons, all options reviewed. Needs player testing.
-        </p>
-        <p>
-          <strong className="text-orange-400">→ Grey Knights</strong> — audit complete (22 units).
-          Disciplines, weapon profiles and option rules corrected. In testing.
-        </p>
-        <p>
-          <strong className="text-zinc-400">All other factions</strong> — data audited and corrected.
-          Engine rules (archetype slot logic, trait cost calculation) are active but specific faction
-          validators are still being built. Report any issues!
-        </p>
+        <p>{tx.intro}</p>
+        <p><strong className="text-emerald-400">{tx.csm.split(' — ')[0]}</strong> — {tx.csm.split(' — ').slice(1).join(' — ')}</p>
+        <p><strong className="text-emerald-400">{tx.cd.split(' — ')[0]}</strong> — {tx.cd.split(' — ').slice(1).join(' — ')}</p>
+        <p><strong className="text-emerald-400">{tx.sm.split(' — ')[0]}</strong> — {tx.sm.split(' — ').slice(1).join(' — ')}</p>
+        <p><strong className="text-amber-400">{tx.ig.split(' — ')[0]}</strong> — {tx.ig.split(' — ').slice(1).join(' — ')}</p>
+        <p><strong className="text-orange-400">{tx.gk.split(' — ')[0]}</strong> — {tx.gk.split(' — ').slice(1).join(' — ')}</p>
+        <p><strong className="text-orange-400">{tx.adm.split(' — ')[0]}</strong> — {tx.adm.split(' — ').slice(1).join(' — ')}</p>
+        <p><strong className="text-zinc-400">{tx.rest.split(' — ')[0]}</strong> — {tx.rest.split(' — ').slice(1).join(' — ')}</p>
       </div>
     </div>
   );
@@ -106,7 +122,7 @@ const CATEGORIES: Category[] = [
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'testing' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing' },
-      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'unreviewed' },
+      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'inreview' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'unreviewed' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'unreviewed' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'inreview' },
@@ -145,12 +161,11 @@ interface Props {
   onBuild: () => void;
   onLoadArmy: (save: SavedArmy) => void;
   onDeleteArmy: (id: string) => void;
-  onShowChangelog: () => void;
 }
 
 export function LandingPage({
   selectedFaction, loading, saves,
-  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowChangelog,
+  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy,
 }: Props) {
   const { data } = useArmyStore();
   const [showChangelog, setShowChangelog] = useState(false);
@@ -171,7 +186,7 @@ export function LandingPage({
             </p>
           </div>
           <button
-            onClick={() => { setShowChangelog(true); onShowChangelog(); }}
+            onClick={() => setShowChangelog(true)}
             className="shrink-0 ml-4 text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
           >
             {t('updates')} <span className="text-amber-700">v{latestVersion}</span>
