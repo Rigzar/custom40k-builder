@@ -112,6 +112,35 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Mechanised Company: max 1 Heavy Support selection not enforced',
     description: 'Fixed in v0.22 — a validator now raises an error if more than 1 Heavy Support unit is added under the Mechanised Company archetype.',
   },
+  // ── Known ─────────────────────────────────────────────────────────────────
+  {
+    id: 'ki-45a',
+    status: 'known',
+    title: {
+      en: 'Trait costs not applied for Imperial Guard (and other non-CSM factions with traits)',
+      de: 'Eigenschaftskosten für die Imperiale Garde (und weitere Nicht-CSM-Fraktionen) nicht angewendet',
+      es: 'Costes de rasgos no aplicados en Guardia Imperial (y otras facciones no-CSM con rasgos)',
+    },
+    description: {
+      en: 'Selecting traits for Imperial Guard units does not add any points to the unit total. Affects all non-CSM factions that have a trait system. Under investigation.',
+      de: 'Das Auswählen von Eigenschaften für Imperiale Garde-Einheiten addiert keine Punkte zum Einheitentotal. Betrifft alle Nicht-CSM-Fraktionen mit einem Eigenschaftssystem. Wird untersucht.',
+      es: 'Seleccionar rasgos para unidades de la Guardia Imperial no añade puntos al total de la unidad. Afecta a todas las facciones no-CSM que tienen sistema de rasgos. En investigación.',
+    },
+  },
+  {
+    id: 'ki-45b',
+    status: 'known',
+    title: {
+      en: 'Platoon Command Squad (Imperial Guard) counts as a Troops slot',
+      de: 'Zugsquadkommando (Imperiale Garde) zählt als Troops-Slot',
+      es: 'El Escuadrón de Mando de Pelotón (Guardia Imperial) cuenta como slot de Tropas',
+    },
+    description: {
+      en: 'The Platoon Command Squad occupies a Troops slot. Per the rules it should not — the full Platoon group (PCS + Infantry Squads) counts as a single slot.',
+      de: 'Das Zugsquadkommando belegt einen Troops-Slot. Gemäß den Regeln sollte es das nicht — die gesamte Zuggruppe (ZSK + Infanterietrupps) zählt als ein einziger Slot.',
+      es: 'El Escuadrón de Mando de Pelotón ocupa un slot de Tropas. Según las reglas no debería — todo el grupo de pelotón (EMP + Escuadrones de Infantería) cuenta como un único slot.',
+    },
+  },
   // ── Fixed (v0.20) ─────────────────────────────────────────────────────────
   {
     id: 'ki-20a',
