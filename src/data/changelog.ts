@@ -24,6 +24,20 @@ export interface KnownIssue {
 export const KNOWN_ISSUES: KnownIssue[] = [
   // ── In progress ───────────────────────────────────────────────────────────
   {
+    id: 'ki-46a',
+    status: 'known',
+    title: {
+      en: 'Space Marines — Wolf Companions unit not confirmed in source document',
+      de: 'Space Marines — Einheit „Wolf Companions" nicht in Quelldokument bestätigt',
+      es: 'Space Marines — unidad "Wolf Companions" no confirmada en el documento fuente',
+    },
+    description: {
+      en: 'Wolf Companions appears in the Space Marines unit list (Fast Attack, 1–4 models, 6 pts each) but is absent from the rulebook source provided. It may be a valid Space Wolves unit or a parser artefact. Pending designer confirmation.',
+      de: '„Wolf Companions" erscheint in der Space-Marines-Einheitenliste (Schnellstoß, 1–4 Modelle, je 6 Pkt.), fehlt aber im bereitgestellten Regelquellen-Dokument. Möglicherweise eine gültige Space-Wolves-Einheit oder ein Parser-Artefakt. Bestätigung durch den Designer ausstehend.',
+      es: '"Wolf Companions" aparece en la lista de unidades de los Space Marines (Ataque rápido, 1–4 modelos, 6 pts cada uno) pero no está en el documento fuente del reglamento. Puede ser una unidad válida de los Space Wolves o un artefacto del parser. Pendiente de confirmación del diseñador.',
+    },
+  },
+  {
     id: 'ki-22a',
     status: 'planned',
     title: {
