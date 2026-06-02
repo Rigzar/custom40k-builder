@@ -1,8 +1,15 @@
+import type { Language } from '../i18n';
+
+/** A plain string or a per-language record. The modal resolves it with the active language, falling back to 'en'. */
+export type I18nString = string | Partial<Record<Language, string>>;
+/** Same as I18nString but for arrays. */
+export type I18nStringArray = string[] | Partial<Record<Language, string[]>>;
+
 export interface ChangelogEntry {
   version: string;
   date: string;
-  title: string;
-  changes: string[];
+  title: I18nString;
+  changes: I18nStringArray;
 }
 
 export type IssueStatus = 'known' | 'investigating' | 'fixed' | 'by_design' | 'planned';
@@ -10,8 +17,8 @@ export type IssueStatus = 'known' | 'investigating' | 'fixed' | 'by_design' | 'p
 export interface KnownIssue {
   id: string;
   status: IssueStatus;
-  title: string;
-  description: string;
+  title: I18nString;
+  description: I18nString;
 }
 
 export const KNOWN_ISSUES: KnownIssue[] = [
@@ -19,20 +26,44 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-22a',
     status: 'planned',
-    title: 'Trait stat and ability effects shown as text only for most factions',
-    description: 'For Chaos Space Marines all 17 traits are fully wired into the engine (stat changes, ability injections, weapon bonuses all calculate live). For every other faction traits are displayed and priced correctly, but their in-game effects (e.g. +1 Strength, gaining Furious Charge) are shown as description text rather than applied automatically to the unit card. This will be rolled out faction by faction.',
+    title: {
+      en: 'Trait stat and ability effects shown as text only for most factions',
+      de: 'Eigenschaft-Effekte für die meisten Fraktionen nur als Text angezeigt',
+      es: 'Los efectos de rasgos se muestran solo como texto para la mayoría de facciones',
+    },
+    description: {
+      en: 'For Chaos Space Marines all 17 traits are fully wired into the engine (stat changes, ability injections, weapon bonuses all calculate live). For every other faction traits are displayed and priced correctly, but their in-game effects (e.g. +1 Strength, gaining Furious Charge) are shown as description text rather than applied automatically to the unit card. This will be rolled out faction by faction.',
+      de: 'Für Chaos Space Marines sind alle 17 Eigenschaften vollständig in die Engine integriert (Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni werden live berechnet). Für alle anderen Fraktionen werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte (z.B. +1 Stärke, Furious Charge) werden nur als Beschreibungstext angezeigt statt automatisch auf die Einheitenkarte angewendet. Dies wird Fraktion für Fraktion umgesetzt.',
+      es: 'Para los Chaos Space Marines, los 17 rasgos están totalmente integrados en el motor (cambios de características, habilidades y bonificaciones de armas se calculan en tiempo real). Para el resto de facciones, los rasgos se muestran y valoran correctamente, pero sus efectos en juego (por ejemplo, +1 a la Fuerza, obtener Ataque Furioso) aparecen solo como texto descriptivo, no se aplican automáticamente a la tarjeta de unidad. Se implementará facción por facción.',
+    },
   },
   {
     id: 'ki-26a',
     status: 'planned',
-    title: 'Veteran Abilities and Vehicle Upgrades only fully supported for CSM',
-    description: 'Standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and Vehicle Upgrades are built into the CSM armory and priced correctly. Other factions can select veteran and vehicle upgrades from their own armories, but the underlying ability logic (e.g. granting the Infiltrator rule to the unit) is not yet wired up.',
+    title: {
+      en: 'Veteran Abilities and Vehicle Upgrades only fully supported for CSM',
+      de: 'Veteranenfähigkeiten und Fahrzeug-Upgrades nur vollständig für CSM unterstützt',
+      es: 'Habilidades de veterano y mejoras de vehículo solo totalmente compatibles para CSM',
+    },
+    description: {
+      en: 'Standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and Vehicle Upgrades are built into the CSM armory and priced correctly. Other factions can select veteran and vehicle upgrades from their own armories, but the underlying ability logic (e.g. granting the Infiltrator rule to the unit) is not yet wired up.',
+      de: 'Veteranenfähigkeiten (Gegenangriff, Begünstigter Feind, Wutangriff, Infiltrator, Flankenmanöver, Panzerjäger, Geländeexperte, Vorhut) und Fahrzeug-Upgrades sind vollständig für CSM implementiert. Andere Fraktionen können zwar Veteranen- und Fahrzeug-Upgrades aus ihren Waffenkammern auswählen, aber die zugrunde liegende Regellogik (z.B. das Verleihen der Infiltrator-Regel) ist noch nicht vollständig verdrahtet.',
+      es: 'Las Habilidades de Veterano estándar (Contraataque, Enemigo favorito, Carga furiosa, Infiltrador, Flanqueo, Cazacarros, Experto en terreno, Vanguardia) y las Mejoras de Vehículo están completamente integradas en la armería CSM. Las demás facciones pueden seleccionarlas desde sus propias armerías, pero la lógica interna (por ejemplo, conceder la regla Infiltrador a la unidad) aún no está completamente programada.',
+    },
   },
   {
     id: 'ki-40a',
     status: 'known',
-    title: 'Archetypes show their rules but not all restrictions are enforced',
-    description: 'Archetypes, Legacies and Traits are now active for all factions and their descriptions are shown. However, some archetype-specific restrictions (e.g. "all units must start inside a transport", mandatory unit compositions, keyword filters) are only enforced for Chaos Space Marines, Chaos Daemons and Space Marines. For other factions the archetype notes are informational — the builder will not currently block you from breaking them.',
+    title: {
+      en: 'Archetypes show their rules but not all restrictions are enforced',
+      de: 'Archetypen zeigen ihre Regeln, aber nicht alle Einschränkungen werden durchgesetzt',
+      es: 'Los arquetipos muestran sus reglas pero no todas las restricciones se aplican',
+    },
+    description: {
+      en: 'Archetypes, Legacies and Traits are now active for all factions and their descriptions are shown. However, some archetype-specific restrictions (e.g. "all units must start inside a transport", mandatory unit compositions, keyword filters) are only enforced for Chaos Space Marines, Chaos Daemons and Space Marines. For other factions the archetype notes are informational — the builder will not currently block you from breaking them.',
+      de: 'Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv und ihre Beschreibungen werden angezeigt. Einige archetyp-spezifische Einschränkungen (z.B. "alle Einheiten müssen in einem Transport beginnen", Pflicht-Einheitenzusammensetzungen, Schlüsselwortfilter) werden jedoch nur für Chaos Space Marines, Chaos Dämonen und Space Marines durchgesetzt. Für andere Fraktionen sind die Archetyp-Hinweise informativer Natur — der Builder blockiert aktuell keine Regelverstöße.',
+      es: 'Los arquetipos, legados y rasgos están activos para todas las facciones y sus descripciones se muestran. Sin embargo, algunas restricciones específicas de arquetipo (por ejemplo, "todas las unidades deben comenzar dentro de un transporte", composiciones de unidades obligatorias, filtros de palabras clave) solo se aplican para Chaos Space Marines, Chaos Demonios y Space Marines. Para el resto de facciones, las notas de arquetipo son informativas — el constructor no bloqueará actualmente que las incumplas.',
+    },
   },
   {
     id: 'ki-26b',
@@ -44,8 +75,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-21a',
     status: 'planned',
-    title: 'Dark Eldar keyword archetypes (Bloodbrides, Haemoxytes, Trueborn) and trait keyword filters not yet implemented',
-    description: 'These archetypes restrict the army to units with specific keywords (<Cult>, <Coven>, <Kabal>). Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) mark traits that apply only to those keyword groups. The builder does not yet filter units or traits by keyword.',
+    title: {
+      en: 'Dark Eldar keyword archetypes (Bloodbrides, Haemoxytes, Trueborn) and trait keyword filters not yet implemented',
+      de: 'Dark Eldar Schlüsselwort-Archetypen (Blutbräute, Hämoxyten, Trueborn) und Eigenschaft-Schlüsselwortfilter noch nicht implementiert',
+      es: 'Arquetipos de palabras clave Dark Eldar (Novias de Sangre, Hemóxitos, Trueborn) y filtros de palabras clave de rasgos aún no implementados',
+    },
+    description: {
+      en: 'These archetypes restrict the army to units with specific keywords (<Cult>, <Coven>, <Kabal>). Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) mark traits that apply only to those keyword groups. The builder does not yet filter units or traits by keyword.',
+      de: 'Diese Archetypen schränken die Armee auf Einheiten mit bestimmten Schlüsselwörtern (<Kult>, <Zirkel>, <Kabal>) ein. Hochgestellte Zeichen bei Eigenschaften (ᶜᵒ, ᶜᵘ, ᴷ) markieren Eigenschaften, die nur für diese Schlüsselwortgruppen gelten. Der Builder filtert Einheiten und Eigenschaften noch nicht nach Schlüsselwort.',
+      es: 'Estos arquetipos restringen el ejército a unidades con palabras clave específicas (<Culto>, <Covén>, <Kabal>). Los superíndices de rasgos (ᶜᵒ, ᶜᵘ, ᴷ) marcan rasgos que solo se aplican a esos grupos de palabras clave. El constructor aún no filtra unidades ni rasgos por palabra clave.',
+    },
   },
   {
     id: 'ki-21b',
@@ -56,8 +95,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-21c',
     status: 'planned',
-    title: 'Coordinated Raid (Dark Eldar): 3-HQ requirement with specific roles and 3 keyword-based traits not yet enforced',
-    description: 'Coordinated Raid grants a 3rd HQ slot and requires one Dracon, one Haemoncolus and one Succubus. It also grants a 3rd trait, one per keyword group. These mechanics require new engine support.',
+    title: {
+      en: 'Coordinated Raid (Dark Eldar): 3-HQ requirement with specific roles and 3 keyword-based traits not yet enforced',
+      de: 'Koordinierter Überfall (Dark Eldar): 3-HQ-Anforderung und schlüsselwortbasierte Eigenschaften noch nicht durchgesetzt',
+      es: 'Ataque Coordinado (Dark Eldar): requisito de 3 HQ con roles específicos y 3 rasgos por palabra clave aún sin aplicar',
+    },
+    description: {
+      en: 'Coordinated Raid grants a 3rd HQ slot and requires one Dracon, one Haemoncolus and one Succubus. It also grants a 3rd trait, one per keyword group. These mechanics require new engine support.',
+      de: 'Koordinierter Überfall gewährt einen 3. HQ-Slot und erfordert einen Dracon, einen Hämonkolus und eine Sukkubus. Es gewährt auch eine 3. Eigenschaft, eine pro Schlüsselwortgruppe. Diese Mechaniken erfordern neue Engine-Unterstützung.',
+      es: 'El Ataque Coordinado concede un 3.er slot de HQ y requiere un Dracon, un Haemoncolus y una Súcubo. También concede un 3.er rasgo, uno por grupo de palabras clave. Estas mecánicas requieren nuevo soporte del motor.',
+    },
   },
   {
     id: 'ki-21d',
@@ -158,14 +205,30 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-2',
     status: 'known',
-    title: 'Army data saves only in this browser',
-    description: 'Armies are stored in your browser\'s local storage. Clearing browser data or switching devices will lose your saves. Use Export JSON to back up rosters. A full account/cloud system is being considered for a future update.',
+    title: {
+      en: 'Army data saves only in this browser',
+      de: 'Armeeedaten werden nur in diesem Browser gespeichert',
+      es: 'Los datos del ejército se guardan solo en este navegador',
+    },
+    description: {
+      en: 'Armies are stored in your browser\'s local storage. Clearing browser data or switching devices will lose your saves. Use Export JSON to back up rosters. A full account/cloud system is being considered for a future update.',
+      de: 'Armeen werden im lokalen Speicher deines Browsers gespeichert. Das Löschen von Browserdaten oder der Gerätewechsel führt zum Datenverlust. Nutze Export JSON, um Armeelisten zu sichern. Ein vollständiges Konto-/Cloud-System wird für eine zukünftige Aktualisierung in Betracht gezogen.',
+      es: 'Los ejércitos se almacenan en el almacenamiento local del navegador. Borrar los datos del navegador o cambiar de dispositivo hará que pierdas tus guardados. Usa Exportar JSON para hacer copias de seguridad. Se está considerando un sistema completo de cuenta/nube para una actualización futura.',
+    },
   },
   {
     id: 'ki-3',
     status: 'known',
-    title: 'Print layout and app not optimised for mobile or non-Chrome browsers',
-    description: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
+    title: {
+      en: 'Print layout and app not optimised for mobile or non-Chrome browsers',
+      de: 'Drucklayout und App nicht für Mobilgeräte oder Nicht-Chrome-Browser optimiert',
+      es: 'El diseño de impresión y la app no están optimizados para móviles ni navegadores que no sean Chrome',
+    },
+    description: {
+      en: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
+      de: 'Die App wird derzeit für Desktop Chrome/Edge entwickelt und getestet. Das mobile Layout und die Unterstützung für Firefox/Safari werden verbessert, sobald der Kernfunktionsumfang stabil ist.',
+      es: 'La app está actualmente desarrollada y probada en Chrome/Edge de escritorio. El diseño móvil y el soporte para Firefox/Safari se mejorarán una vez que el conjunto de funciones principal sea estable.',
+    },
   },
   // ── Open / Investigating ──────────────────────────────────────────────────
   {
@@ -196,14 +259,30 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-p1',
     status: 'planned',
-    title: 'Account system & cloud army storage',
-    description: 'A login/account system that lets you save armies in the cloud and access them from any device. Currently being designed — no release date yet.',
+    title: {
+      en: 'Account system & cloud army storage',
+      de: 'Kontosystem & Cloud-Armeespeicher',
+      es: 'Sistema de cuentas y almacenamiento de ejércitos en la nube',
+    },
+    description: {
+      en: 'A login/account system that lets you save armies in the cloud and access them from any device. Currently being designed — no release date yet.',
+      de: 'Ein Anmelde-/Kontosystem, mit dem du Armeen in der Cloud speichern und von jedem Gerät aus darauf zugreifen kannst. Wird derzeit entwickelt — noch kein Veröffentlichungsdatum.',
+      es: 'Un sistema de inicio de sesión/cuenta que te permite guardar ejércitos en la nube y acceder a ellos desde cualquier dispositivo. Actualmente en diseño — sin fecha de lanzamiento.',
+    },
   },
   {
     id: 'ki-p2',
     status: 'planned',
-    title: 'Escalation supplement — Lords of War',
-    description: 'A new supplement adding Lords of War, super-heavy vehicles and Titans across all factions. Will introduce a dedicated slot and special engagement rules. Coming in a future update.',
+    title: {
+      en: 'Escalation supplement — Lords of War',
+      de: 'Eskalations-Supplement — Kriegsherren',
+      es: 'Suplemento de Escalada — Señores de la Guerra',
+    },
+    description: {
+      en: 'A new supplement adding Lords of War, super-heavy vehicles and Titans across all factions. Will introduce a dedicated slot and special engagement rules. Coming in a future update.',
+      de: 'Ein neues Supplement fügt Kriegsherren, überschwere Fahrzeuge und Titanen für alle Fraktionen hinzu. Es wird einen eigenen Slot und besondere Gefechtsregeln einführen. In einem zukünftigen Update verfügbar.',
+      es: 'Un nuevo suplemento que añade Señores de la Guerra, vehículos superpesados y Titanes para todas las facciones. Introducirá un slot dedicado y reglas de combate especiales. Disponible en una futura actualización.',
+    },
   },
   // ── Fixed ─────────────────────────────────────────────────────────────────
   {
@@ -269,6 +348,53 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.44',
+    date: '2026-06-02',
+    title: {
+      en: 'Adeptus Mechanicus — full audit (29 units)',
+      de: 'Adeptus Mechanicus — vollständige Überprüfung (29 Einheiten)',
+      es: 'Adeptus Mechanicus — auditoría completa (29 unidades)',
+    },
+    changes: {
+      en: [
+        'Fixed Corpuscarii Electro-Priests: Electrostatic gauntlets was missing both profiles (Melee and Ranged). The weapon now shows correct stats for both firing modes.',
+        'Fixed Secutarii Hoplites: Arc lance (multi-profile: Shock / Thrust) was missing from the weapons table.',
+        'Fixed Secutarii Peltasts: Galvanic caster (multi-profile: Flechette / Ignis / Hammershot) was missing from the weapons table.',
+        'Fixed Magos: Conversion beamer, Eradication ray and Plasma Fusil (all multi-profile) were missing from the weapons table.',
+        'Fixed Sydonian Dragoons: Taser lance (multi-profile: Charge / Melee) was missing from the weapons table.',
+        'Fixed Onager Dunecrawler: Eradication beamer (Short/Mid/Long range) and Icarus array (Daedalus / Gatling / Twin icarus) were both missing from the weapons table.',
+        'Fixed Macrocarid Explorator: Conversion beamer and Twin-linked plasma fusil (both multi-profile) were missing from the weapons table.',
+        'Fixed Termite: Meltacutters (Blast / Ram profiles) were missing from the weapons table.',
+        'Fixed Kataphron Destroyers: Plasma culverin (Standard / Overheating) was missing from the weapons table. Phosphor blaster swap cost corrected from 0 to +1 pt.',
+        'Fixed Skorpius Disintegrator: equipped_with text incorrectly read "Skorpius Dunerider" — corrected.',
+      ],
+      de: [
+        'Corpuscarii Elektro-Priester behoben: Elektrostatische Handschuhe fehlten beide Profile (Nah- und Fernkampf). Die Waffe zeigt jetzt korrekte Werte für beide Feuermodi.',
+        'Secutarii Hopliten behoben: Lichtbogenlanze (mehrstufig: Schock / Stoß) fehlte in der Waffentabelle.',
+        'Secutarii Peltasten behoben: Galvanischer Werfer (mehrstufig: Flechette / Ignis / Hammershot) fehlte in der Waffentabelle.',
+        'Magos behoben: Konversionswerfer, Auslöschungsstrahl und Plasma-Fusil (alle mehrstufig) fehlten in der Waffentabelle.',
+        'Sydonianische Dragoner behoben: Taserlanze (mehrstufig: Ladung / Nahkampf) fehlte in der Waffentabelle.',
+        'Onager Dunecrawler behoben: Auslöschungsstrahler (Kurz-/Mittel-/Langstrecke) und Ikarus-Array (Daedalus / Gatling / Zwillings-Ikarus) fehlten in der Waffentabelle.',
+        'Macrocarid Explorator behoben: Konversionswerfer und Zwillings-Plasma-Fusil (beide mehrstufig) fehlten in der Waffentabelle.',
+        'Termite behoben: Schmelzbohrer (Schuss / Ramm-Profile) fehlten in der Waffentabelle.',
+        'Kataphron Vernichter behoben: Plasmakülverin (Standard / Überhitzung) fehlte in der Waffentabelle. Tauschkosten für Phosphorwerfer von 0 auf +1 Pkt. korrigiert.',
+        'Skorpius-Desintegrator behoben: Ausrüstungstext nannte fälschlicherweise "Skorpius Dunerider" — korrigiert.',
+      ],
+      es: [
+        'Corregido Corpuscarii Electro-Sacerdotes: los guanteletes electrostáticos no tenían ningún perfil (Cuerpo a cuerpo y A distancia). El arma ahora muestra estadísticas correctas para ambos modos de disparo.',
+        'Corregido Secutarii Hoplitas: la lanza de arco (multiperfiles: Choque / Empuje) faltaba en la tabla de armas.',
+        'Corregido Secutarii Peltasts: el lanzador galvánico (multiperfiles: Flechette / Ignis / Hammershot) faltaba en la tabla de armas.',
+        'Corregido Magos: el rayo de conversión, el rayo de erradicación y el fusil de plasma (todos con múltiples perfiles) faltaban en la tabla de armas.',
+        'Corregido Dragones Sydonianos: la lanza táser (multiperfiles: Carga / Cuerpo a cuerpo) faltaba en la tabla de armas.',
+        'Corregido Onager Dunecrawler: el proyector de erradicación (corta/media/larga distancia) y la batería Icarus (Daedalus / Gatling / Icarus doble) faltaban en la tabla de armas.',
+        'Corregido Macrocarid Explorator: el rayo de conversión y el fusil de plasma de doble enlace (ambos con múltiples perfiles) faltaban en la tabla de armas.',
+        'Corregido Termita: los cortadores de fusión (perfiles Explosión / Embestida) faltaban en la tabla de armas.',
+        'Corregido Kataphron Destructores: la culverina de plasma (Estándar / Sobrecalentamiento) faltaba en la tabla de armas. Coste del intercambio del lanzador de fósforo corregido de 0 a +1 pto.',
+        'Corregido Desintegrador Skorpius: el texto de equipamiento indicaba erróneamente "Skorpius Dunerider" — corregido.',
+      ],
+    },
+  },
   {
     version: '0.43',
     date: '2026-06-02',

@@ -92,6 +92,51 @@
       "equipped_with": "A Magos is equipped with: -.",
       "weapons": [
         {
+          "name": "Conversion beamer - Short range",
+          "range": "0\" - 24\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Conversion beamer - Mid range",
+          "range": "24\" - 48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Conversion beamer - Long range",
+          "range": "48\" - 72\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Barrage"
+        },
+        {
+          "name": "Eradication ray - Short range",
+          "range": "1\" - 12\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Eradication ray - Mid range",
+          "range": "12\" - 24\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Explosive"
+        },
+        {
           "name": "Grav serpenta",
           "range": "18\"",
           "type": "Assault 1",
@@ -162,6 +207,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Armor piercing(5+), Flames, Suppression"
+        },
+        {
+          "name": "Plasma Fusil - Standard",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma Fusil - Overheating",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         },
         {
           "name": "Volkite blaster",
@@ -782,7 +845,26 @@
       ],
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Electrostatic gauntlets.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Electrostatic gauntlets - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Tesla"
+        },
+        {
+          "name": "Electrostatic gauntlets - Ranged",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Tesla"
+        }
+      ],
       "option_groups": [],
       "abilities": [
         "Blind Rage, Canticles of the Omnissiah, Choir Master, Furious Charge",
@@ -1029,6 +1111,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Luminagen"
+        },
+        {
+          "name": "Plasma culverin - Standard",
+          "range": "30\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma culverin - Overheating",
+          "range": "30\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         }
       ],
       "option_groups": [
@@ -1040,7 +1140,7 @@
           "choices": [
             {
               "name": "Phosphor blaster",
-              "points": 0
+              "points": 1
             }
           ],
           "inline_pts": null,
@@ -1126,7 +1226,26 @@
       ],
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Arc lance.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Arc lance - Shock",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Haywire"
+        },
+        {
+          "name": "Arc lance - Thrust",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Haywire"
+        }
+      ],
       "option_groups": [
         {
           "header": "One Hoplite may be equipped with",
@@ -1222,7 +1341,35 @@
       ],
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Galvanic caster.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Galvanic caster - Flechette",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "3",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Shred"
+        },
+        {
+          "name": "Galvanic caster - Ignis",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Blind, Sunder(2)"
+        },
+        {
+          "name": "Galvanic caster - Hammershot",
+          "range": "30\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Precision(6+)"
+        }
+      ],
       "option_groups": [
         {
           "header": "One Peltast may be equipped with",
@@ -2434,6 +2581,24 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Decimate, Suppression"
+        },
+        {
+          "name": "Taser lance - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Tesla, Quick(+1)"
+        },
+        {
+          "name": "Taser lance - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(2), Deflagrate(5+)"
         }
       ],
       "option_groups": [
@@ -2736,6 +2901,33 @@
       "equipped_with": "A Macrocarid Explorator is equipped with: 2 Lascannons; Mauler bolt cannon.",
       "weapons": [
         {
+          "name": "Conversion beamer - Short range",
+          "range": "0\" - 24\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Conversion beamer - Mid range",
+          "range": "24\" - 48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Conversion beamer - Long range",
+          "range": "48\" - 72\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Barrage"
+        },
+        {
           "name": "Graviton imploder",
           "range": "18\"",
           "type": "Heavy 1",
@@ -2815,6 +3007,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Flames, Decimate"
+        },
+        {
+          "name": "Twin-linked plasma fusil - Standard",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Twin-linked plasma fusil - Overheating",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         },
         {
           "name": "Volkite culverin",
@@ -2946,6 +3156,60 @@
           "abilities": "Cognis"
         },
         {
+          "name": "Eradication beamer - Short range",
+          "range": "1\" - 9\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Eradication beamer - Mid range",
+          "range": "9\" - 18\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Eradication beamer - Long range",
+          "range": "18\" - 36\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Barrage"
+        },
+        {
+          "name": "Icarus array - Daedalus missile launcher",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(1), Anti-air"
+        },
+        {
+          "name": "Icarus array - Gatling rocket launcher",
+          "range": "48\"",
+          "type": "Heavy 5",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Anti-air"
+        },
+        {
+          "name": "Icarus array - Twin icarus autocannon",
+          "range": "48\"",
+          "type": "Heavy 4",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1), Anti-air"
+        },
+        {
           "name": "Neutron laser",
           "range": "48\"",
           "type": "Heavy 1",
@@ -3044,7 +3308,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "An Skorpius Dunerider is equipped with: Belleros energy cannon; 3 Cognis heavy stubbers; Disruptor missile launcher.",
+      "equipped_with": "An Skorpius Disintegrator is equipped with: Belleros energy cannon; 3 Cognis heavy stubbers; Disruptor missile launcher.",
       "weapons": [
         {
           "name": "Belleros energy cannon",
@@ -3216,6 +3480,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Flames"
+        },
+        {
+          "name": "Meltacutters - Blast",
+          "range": "12\"",
+          "type": "Heavy 3",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Melta"
+        },
+        {
+          "name": "Meltacutters - Ram",
+          "range": "-",
+          "type": "Melee",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Armorbane"
         },
         {
           "name": "Storm bolter",
