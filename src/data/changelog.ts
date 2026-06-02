@@ -378,6 +378,29 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.46',
+    date: '2026-06-02',
+    title: {
+      en: 'CSM legacy rules wired into engine + UI cleanup',
+      de: 'CSM-Legacy-Regeln im Engine verdrahtet + UI-Bereinigung',
+      es: 'Reglas de legado CSM integradas en el motor + limpieza de UI',
+    },
+    changes: {
+      en: [
+        'Added: CSM legacy rules are now defined in src/engine/legacies/csm-legacies.ts — single source of truth for all 5 legacy rules (armory access + mark restrictions). Extensible pattern for future factions.',
+        'Removed: Coloured chip display system (TROOPS/REQUIRED/RESTRICTION/ENGINE/IN-GAME) from archetypes and legacies — replaced with plain text. The engine already enforces restrictions; visual categories added noise without extra value.',
+      ],
+      de: [
+        'Hinzugefügt: CSM-Legacy-Regeln sind jetzt in src/engine/legacies/csm-legacies.ts definiert — einzige Quelle für alle 5 Legacy-Regeln (Rüstkammer-Zugang + Markierungsbeschränkungen). Erweiterbares Muster für zukünftige Fraktionen.',
+        'Entfernt: Farbiges Chip-Anzeigesystem (TROOPS/REQUIRED/RESTRICTION/ENGINE/IN-GAME) aus Archetypen und Legacies — durch Klartext ersetzt. Der Motor setzt Beschränkungen bereits durch; visuelle Kategorien erzeugten Rauschen ohne zusätzlichen Wert.',
+      ],
+      es: [
+        'Añadido: Las reglas de legado CSM están ahora definidas en src/engine/legacies/csm-legacies.ts — fuente única de verdad para las 5 reglas de legado (acceso a armería + restricciones de marca). Patrón extensible para futuras facciones.',
+        'Eliminado: Sistema de chips de colores (TROOPS/REQUIRED/RESTRICTION/ENGINE/IN-GAME) de arquetipos y legados — reemplazado por texto plano. El motor ya aplica las restricciones; las categorías visuales añadían ruido sin valor adicional.',
+      ],
+    },
+  },
+  {
     version: '0.45',
     date: '2026-06-02',
     title: {

@@ -1,7 +1,6 @@
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
-import type { ArchetypeNoteCategory, StructuredNote } from '../engine/archetypes/base';
 import { useT } from '../i18n';
 
 import type { EngagementType, Mark } from '../types/army';
@@ -21,9 +20,6 @@ export function ArmyConfig() {
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
-
-  // Undivided-only legacies restrict which units can be used
-  const undividedLegacies = ['Legacy of the Hydra', 'Legacy of the Iron Lord', 'Legacy of the Night Haunter'];
 
   const ARCHETYPE_MARK: Record<string, string> = {
     'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
@@ -107,9 +103,7 @@ export function ArmyConfig() {
                 )}
               </div>
             )}
-            {rule && (rule.structuredNotes ? (
-              <StructuredNotesList notes={rule.structuredNotes} />
-            ) : rule.notes.length > 0 && (
+            {rule && rule.notes.length > 0 && (
               <ul className="mt-1 space-y-0.5">
                 {rule.notes.map((n, i) => (
                   <li key={i} className="text-[10px] text-amber-700/80 pl-2 border-l border-amber-900">
@@ -117,7 +111,7 @@ export function ArmyConfig() {
                   </li>
                 ))}
               </ul>
-            ))}
+            )}
           </div>
 
           {/* Legacy — hidden when faction has no legacies */}
@@ -137,11 +131,8 @@ export function ArmyConfig() {
                 {data.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
               </select>
               {legacy && (
-                <div className="text-[10px] text-zinc-500 mt-1 pl-2 border-l-2 border-amber-800 space-y-0.5">
-                  <div>{data.legacies.find(l => l.name === legacy)?.desc}</div>
-                  {undividedLegacies.includes(legacy) && (
-                    <div className="text-amber-600/80">Requires all units to be Undivided.</div>
-                  )}
+                <div className="text-[10px] text-zinc-500 mt-1 pl-2 border-l-2 border-amber-800">
+                  {data.legacies.find(l => l.name === legacy)?.desc}
                 </div>
               )}
 
@@ -159,11 +150,8 @@ export function ArmyConfig() {
                     ))}
                   </select>
                   {legacy2 && (
-                    <div className="text-[10px] text-zinc-500 mt-1 pl-2 border-l-2 border-amber-800 space-y-0.5">
-                      <div>{data.legacies.find(l => l.name === legacy2)?.desc}</div>
-                      {undividedLegacies.includes(legacy2) && (
-                        <div className="text-amber-600/80">Requires all units to be Undivided.</div>
-                      )}
+                    <div className="text-[10px] text-zinc-500 mt-1 pl-2 border-l-2 border-amber-800">
+                      {data.legacies.find(l => l.name === legacy2)?.desc}
                     </div>
                   )}
                 </>
@@ -290,42 +278,3 @@ export function ArmyConfig() {
   );
 }
 
-const NOTE_STYLES: Record<ArchetypeNoteCategory, { border: string; chip: string; label: string }> = {
-  troops:      { border: 'border-green-800',  chip: 'bg-green-900/60 text-green-300 border-green-700/60',   label: 'TROOPS' },
-  requirement: { border: 'border-amber-700',  chip: 'bg-amber-900/60 text-amber-300 border-amber-700/60',   label: 'REQUIRED' },
-  restriction: { border: 'border-red-900',    chip: 'bg-red-900/50 text-red-300 border-red-800/60',         label: 'RESTRICTION' },
-  mechanic:    { border: 'border-blue-900',   chip: 'bg-blue-900/50 text-blue-300 border-blue-800/60',      label: 'ENGINE' },
-  in_game:     { border: 'border-zinc-700',   chip: 'bg-zinc-800 text-zinc-400 border-zinc-600',            label: 'IN-GAME' },
-};
-
-const NOTE_ORDER: ArchetypeNoteCategory[] = ['troops', 'requirement', 'restriction', 'mechanic', 'in_game'];
-
-function StructuredNotesList({ notes }: { notes: StructuredNote[] }) {
-  const hasInGame = notes.some(n => n.category === 'in_game');
-  return (
-    <div className="mt-1.5 space-y-0.5">
-      {NOTE_ORDER.flatMap(cat =>
-        notes
-          .filter(n => n.category === cat)
-          .map((n, i) => {
-            const s = NOTE_STYLES[cat];
-            return (
-              <div key={`${cat}-${i}`} className={`flex gap-1.5 items-start pl-2 border-l-2 ${s.border}`}>
-                <span className={`shrink-0 text-[8px] px-1 py-px border uppercase tracking-wide font-semibold mt-px ${s.chip}`}>
-                  {s.label}
-                </span>
-                <span className={`text-[10px] leading-snug ${cat === 'in_game' ? 'text-zinc-500 italic' : 'text-zinc-300'}`}>
-                  {n.text}
-                </span>
-              </div>
-            );
-          })
-      )}
-      {hasInGame && (
-        <div className="text-[9px] text-zinc-600 pl-2 mt-1">
-          IN-GAME rules are informational — not enforced by the builder.
-        </div>
-      )}
-    </div>
-  );
-}

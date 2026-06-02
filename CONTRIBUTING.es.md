@@ -207,24 +207,10 @@ src/i18n/       Textos de traducción (EN / DE / ES)
 | `validators.ts` | Validación del ejército — límites de slots, restricciones de arquetipos, límites de engagement |
 | `archetypes.ts` | Definiciones y aplicación de reglas de arquetipos |
 | `archetypes/csm.ts` | Definiciones de arquetipos CSM (flags del motor) |
-| `archetypes/rules/csm-rules.ts` | **Reglas de visualización estructuradas para los 13 arquetipos CSM** — editá aquí para cambiar lo que ven los jugadores |
+| `archetypes/rules/csm-rules.ts` | Datos de reglas de arquetipos CSM (13 arquetipos con notas categorizadas para uso del motor) |
+| `legacies/csm-legacies.ts` | Datos de reglas de legados CSM (5 legados — acceso a armería + restricciones de marca) |
+| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher para consultas de reglas de legado |
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
-
-### Reglas de arquetipos estructuradas
-
-A partir de v0.45, las reglas de arquetipos CSM se almacenan como notas estructuradas en `src/engine/archetypes/rules/csm-rules.ts`. Cada nota tiene una **categoría** que controla cómo se renderiza en la UI:
-
-| Categoría | Color | Significado |
-|---|---|---|
-| `troops` | Verde | Reasignación de slot (X cuenta como Tropas) |
-| `requirement` | Ámbar | Regla obligatoria — validada por el motor |
-| `restriction` | Rojo | Algo prohibido o bloqueado — validado por el motor |
-| `mechanic` | Azul | Efecto especial aplicado automáticamente (p. ej., mejoras de armas) |
-| `in_game` | Gris / cursiva | Regla de partida — se muestra como referencia, **no** es aplicada por el constructor |
-
-**Para modificar una regla de arquetipo existente**: abrí `src/engine/archetypes/rules/csm-rules.ts`, buscá el arquetipo por nombre y editá su array `StructuredNote[]`.
-
-**Para agregar reglas estructuradas a una nueva facción**: creá `src/engine/archetypes/rules/<facción>-rules.ts` con el mismo estilo de exportación. Luego conectalo en el archivo de definición de arquetipos de la facción usando el helper `withNotes()` (ver `csm.ts` como referencia).
 
 ### Convenciones de TypeScript
 
