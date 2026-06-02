@@ -26,8 +26,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   de: {
     title: 'Entwickler-Update — von rigzar',
     intro: 'Hallo zusammen! Ich bin rigzar. Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv. Die Daten wurden HTML für HTML für alle 19 Fraktionen geprüft — Einheitenprofile, Waffenwerte, Optionsgruppen und Preise wurden überprüft und korrigiert.',
-    csm: '✓ Chaos Space Marines — vollständig geprüft (61 Einheiten). Vermächtnisse, Eigenschaften, Waffenkammer, Schwarzer Kreuzzug. Alle Regeln aktiv.',
-    cd:  '✓ Chaos-Dämonen — vollständig geprüft (37 Einheiten). Götterdisziplinen, Waffenkammer, Mal- und Slot-Regeln. Alle Regeln aktiv.',
+    csm: '✓ Chaos Space Marines — vollständig geprüft (61 Einheiten). Vermächtnisse, Eigenschaften, Rüstkammer, Schwarzer Kreuzzug. Alle Regeln aktiv.',
+    cd:  '✓ Chaos-Dämonen — vollständig geprüft (37 Einheiten). Götterdisziplinen, Rüstkammer, Mal- und Slot-Regeln. Alle Regeln aktiv.',
     sm:  '✓ Space Marines — vollständig geprüft (74 Einheiten). 6 Disziplinen, Legions-Archetypen, Kapitel-Vermächtnisse. Alle Regeln aktiv.',
     ig:  '✓ Imperiale Garde — vollständig geprüft (60 Einheiten). Psikana-Disziplinen, Berater-Slots, Lanzenwaffen. Spielertests erforderlich.',
     gk:  '→ Graue Ritter — Prüfung abgeschlossen (22 Einheiten). Disziplinen, Waffenprofile, Optionsregeln. In Erprobung.',

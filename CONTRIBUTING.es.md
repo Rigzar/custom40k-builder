@@ -209,8 +209,36 @@ src/i18n/       Textos de traducción (EN / DE / ES)
 | `archetypes/csm.ts` | Definiciones de arquetipos CSM (flags del motor) |
 | `archetypes/rules/csm-rules.ts` | Datos de reglas de arquetipos CSM (13 arquetipos con notas categorizadas para uso del motor) |
 | `legacies/csm-legacies.ts` | Datos de reglas de legados CSM (5 legados — acceso a armería + restricciones de marca) |
+| `legacies/sm-legacies.ts` | Datos de reglas de legados SM — mapa de gate de disciplinas y set de plegarias Cruzadas |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher para consultas de reglas de legado |
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
+
+### Cuándo editar los archivos de legado
+
+La carpeta `legacies/` contiene reglas del motor que no pueden vivir en el JSON — controlan **qué disciplinas y plegarias muestra el modal psíquico** según el legado activo.
+
+- **`legacies/sm-legacies.ts`** — Editá este archivo si:
+  - Añadís una nueva disciplina de legado SM que deba estar bloqueada (agregala a `SM_LEGACY_DISC_MAP` mapeando nombre de disciplina → nombre del legado requerido).
+  - Añadís una nueva plegaria que solo aparezca con el Legacy of the Crusader (agregala a `SM_CRUSADER_PRAYERS`).
+  - Renombrás un legado o disciplina SM existente.
+- **`legacies/csm-legacies.ts`** — Editá este archivo si añadís o cambiás reglas de acceso a armería de legados CSM o restricciones de marca.
+
+Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un nuevo archivo `legacies/<faccion>.ts` siguiendo el mismo patrón y conectalo en `PsychicModal.tsx`.
+
+### Changelog vs Known Issues (importante — separados desde v0.47)
+
+Estos dos archivos tienen propósitos distintos y no deben confundirse:
+
+| Archivo | Qué va aquí |
+|---|---|
+| `src/data/changelog.ts` | Historial de versiones — una entrada por release con descripciones de cambios en EN/DE/ES |
+| `src/data/known-issues.ts` | Seguimiento de bugs y limitaciones — el estado puede ser `known`, `investigating`, `fixed`, `by_design` o `planned` |
+
+**Antes de v0.47** ambos vivían en `changelog.ts`. Ahora están separados. Si corregís un bug conocido:
+1. Abrí `src/data/known-issues.ts`, encontrá el issue por su `id` y cambiá `status: 'fixed'`.
+2. Añadí una línea en la entrada de la versión actual en `src/data/changelog.ts` describiendo el fix.
+
+**No** editéis `changelog.ts` para actualizar estados de issues — ya no contiene `KNOWN_ISSUES`.
 
 ### Convenciones de TypeScript
 
@@ -229,6 +257,8 @@ src/i18n/       Textos de traducción (EN / DE / ES)
 
 Si agregás un nuevo texto de UI, incluí entradas para los tres idiomas (EN / DE / ES) en `src/i18n/index.ts`. La traducción automática es aceptable para ES y DE; la revisión de hablantes nativos es bienvenida.
 
+> **Traducciones al alemán:** usá terminología oficial de Games Workshop en alemán, no traducciones literales. Los nombres de slots siguen la convención GW: `Standard` (Troops), `Elite` (Elites), `Sturm` (Fast Attack), `Unterstützung` (Heavy Support). Abreviaturas de estadísticas: `Reichw.` (Alcance), `DS` (FP), `SW` (Daño). Armería es `Rüstkammer`, no `Waffenkammer`.
+
 ---
 
 ## Checklist del Pull Request
@@ -238,7 +268,7 @@ Antes de abrir un PR, confirmá:
 - [ ] `npm run build` pasa sin errores de TypeScript
 - [ ] El cambio está acotado a una sola cosa (una unidad, un bug, una feature)
 - [ ] Los nuevos textos de UI tienen traducciones en los tres idiomas
-- [ ] Si se cerró un problema conocido, el `status` en `src/data/changelog.ts` está actualizado a `'fixed'`
+- [ ] Si se cerró un problema conocido, el `status` en `src/data/known-issues.ts` está actualizado a `'fixed'`
 - [ ] La descripción del PR explica qué cambió y por qué (un enlace al issue correspondiente es suficiente)
 
 Los PRs que no pasen el check del build no serán revisados hasta que se solucione.

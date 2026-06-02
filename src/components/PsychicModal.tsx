@@ -4,6 +4,7 @@ import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
+import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/legacies/sm-legacies';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
@@ -36,8 +37,16 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
 
+  const isSMFaction = data.faction === 'Space Marines';
+  const hasCrusaderLegacy = legacy === 'Legacy of the Crusader' || legacy2 === 'Legacy of the Crusader';
+
+  const filteredPrayers = (data.prayers ?? []).filter(p => {
+    if (isSMFaction && SM_CRUSADER_PRAYERS.has(p.name)) return hasCrusaderLegacy;
+    return true;
+  });
+
   const hasPowers = unit.is_psyker;
-  const hasPrayers = unit.is_priest && (data.prayers ?? []).length > 0;
+  const hasPrayers = unit.is_priest && filteredPrayers.length > 0;
   const hasPacts = !!(unit.uses_pacts) && (data.pacts ?? []).length > 0;
   const isCultInitiate = !!(unit.is_cult_initiate);
 
@@ -55,7 +64,14 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       const lc = name.toLowerCase();
       return MARK_NAMES.some(m => lc.includes(m) && effectiveMark.toLowerCase() === m);
     }
-    if (isLegacyDisc(name)) return hasActiveLegacy;
+    if (isLegacyDisc(name)) {
+      if (isSMFaction) {
+        const required = SM_LEGACY_DISC_MAP[name];
+        if (!required) return hasActiveLegacy;
+        return legacy === required || legacy2 === required;
+      }
+      return hasActiveLegacy;
+    }
     return true;
   });
 
@@ -209,7 +225,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
           {/* ── Prayers ── */}
           {tab === 'prayers' && hasPrayers && (
             <div className="space-y-1">
-              {(data.prayers as Power[]).map(p => {
+              {(filteredPrayers as Power[]).map(p => {
                 const sel = isPrayerSelected(p.name);
                 return (
                   <button

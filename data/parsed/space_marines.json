@@ -1,4 +1,4 @@
-{
+﻿{
   "faction": "Space Marines",
   "slot_to_units": {
     "HQ": [
@@ -35,7 +35,7 @@
       "Judicar",
       "Kill Team Veterans",
       "Redemptor Dreadnought",
-      "Reiver Marines",
+      "Reiver Squad",
       "Techmarine",
       "Terminator Squad",
       "Wolf Scout Squad"
@@ -642,12 +642,12 @@
         {
           "header": "An army may only contain 1 Emperor's Champion. He also counts as a Chapter champion.",
           "constraint": {
-            "type": "one"
+            "type": "unique_upgrade"
           },
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": true
         }
       ],
       "abilities": [
@@ -656,7 +656,7 @@
         "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 12\", the placed Order is converted to \"Charge\". The Emperor's Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model.",
         "Martial superiority: The model can re-roll 1 to hit and 1 to wound roll.",
         "Oath: Choose an oath to start the first round of combat. The effects are active throughout the game for all of your Space Marine creatures (=> no vehicles) from the same army organization plan.",
-        "Abhor the Witch: All units gain the trait â€œAegis(5+)â€. The army is not allowed to include psykers.",
+        "Abhor the Witch: All units gain the trait \"Aegis(5+)\". The army is not allowed to include psykers.",
         "Accept any Challenge: All units receive +1 to their Strength and Leadership. At the start of every activation, if an enemy unit is within 12\", the placed order is converted to \"Charge\". The order must be used to engage in close combat with at least one enemy unit. Units must always pursue the opponent and are not allowed to flee voluntarily.",
         "Uphold the Honour of the Emperor: All units gain +1 to their armor saves against ranged attacks. Units can never benefit from cover."
       ],
@@ -11454,8 +11454,8 @@
       "default_size": 1,
       "min_cost": 6
     },
-    "Reiver Marines": {
-      "name": "Reiver Marines",
+    "Reiver Squad": {
+      "name": "Reiver Squad",
       "models": [
         {
           "name": "Reiver Marine",
@@ -12582,45 +12582,45 @@
       },
       {
         "name": "Additional armor",
-        "term_compat": false,
         "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
-        "p_unit": null,
-        "p_char": 5
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
       },
       {
         "name": "Hunter-killer missile",
-        "term_compat": false,
         "desc": "The model gains a Hunter-killer missile.",
-        "p_unit": null,
-        "p_char": 5
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
       },
       {
         "name": "Improved targeting",
-        "term_compat": false,
         "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
-        "p_unit": null,
-        "p_char": 5
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
       },
       {
         "name": "Jammer",
-        "term_compat": false,
         "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
-        "p_unit": null,
-        "p_char": 15
+        "p_unit": 15,
+        "p_char": null,
+        "category": "vehicle"
       },
       {
         "name": "Machine spirit",
-        "term_compat": false,
         "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
-        "p_unit": null,
-        "p_char": 5
+        "p_unit": 5,
+        "p_char": null,
+        "category": "vehicle"
       },
       {
         "name": "Smoke Launcher",
-        "term_compat": false,
         "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
-        "p_unit": null,
-        "p_char": 15
+        "p_unit": 15,
+        "p_char": null,
+        "category": "vehicle"
       }
     ],
     "daemon_weapons": []
@@ -12631,7 +12631,7 @@
       "name": "Relictors Armory",
       "weapons": [
         {
-          "name": "Artekus' Scourgeá´³",
+          "name": "Artekus' ScourgeÃ¡Â´Â³",
           "term_compat": true,
           "range": "-",
           "type": "Melee",
@@ -12643,7 +12643,7 @@
           "p_char": 12
         },
         {
-          "name": "Sword of St. Aquitaineá´³",
+          "name": "Sword of St. AquitaineÃ¡Â´Â³",
           "term_compat": true,
           "range": "-",
           "type": "Melee",
@@ -12657,21 +12657,21 @@
       ],
       "equipment": [
         {
-          "name": "Book of Painá´³",
+          "name": "Book of PainÃ¡Â´Â³",
           "term_compat": true,
           "desc": "Select one enemy unit during your activation. The target must pass a Leadership test or gain one Battleshock token. Unique.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Grimoire Pandaemonicaá´³",
+          "name": "Grimoire PandaemonicaÃ¡Â´Â³",
           "term_compat": true,
           "desc": "Once per battle round, you may re-roll both scatter dice from ANY player. Unique.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Shard of the Monolithá´³",
+          "name": "Shard of the MonolithÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains +1 Strength and +1 Initiative. It may never use a \"Stand & Shoot\" order voluntarily and must always move closer to the nearest enemy unit, if possible.",
           "p_unit": 5,
@@ -12691,7 +12691,7 @@
       "name": "Death Watch Armory",
       "weapons": [
         {
-          "name": "Auxiliary Meltaguná´³",
+          "name": "Auxiliary MeltagunÃ¡Â´Â³",
           "term_compat": true,
           "range": "12\"",
           "type": "Assault 1",
@@ -12756,7 +12756,7 @@
           "p_char": 13
         },
         {
-          "name": "Watch speará´³",
+          "name": "Watch spearÃ¡Â´Â³",
           "term_compat": true,
           "range": "",
           "type": "",
@@ -12790,49 +12790,49 @@
       ],
       "equipment": [
         {
-          "name": "Baneboltsá´³",
+          "name": "BaneboltsÃ¡Â´Â³",
           "term_compat": true,
           "desc": "One ranged weapon of the model gains the \"Deadly(5+)\" ability.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Clavisá´³",
+          "name": "ClavisÃ¡Â´Â³",
           "term_compat": true,
           "desc": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n        1 - The vehicle suffers a penetrating hit with AT(1).\n        2 - The vehicle suffers a penetrating hit with AT(2).\n        3 - The vehicle suffers a penetrating hit with AT(3).",
           "p_unit": null,
           "p_char": 10
         },
         {
-          "name": "Deathwatch homing beaconá´³",
+          "name": "Deathwatch homing beaconÃ¡Â´Â³",
           "term_compat": true,
           "desc": "A friendly unit arriving within 6\" of the bearer via Deep Strike does not scatter.",
           "p_unit": 15,
           "p_char": 15
         },
         {
-          "name": "Digital weaponsá´³",
+          "name": "Digital weaponsÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model can make one additional melee attack per round. Strength: 2 AP: -4 Damage: 1. Hits wound automatically.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Phase weaponá´³",
+          "name": "Phase weaponÃ¡Â´Â³",
           "term_compat": true,
           "desc": "One melee weapon of the model gains the \"Shield breaker(-1)\" ability.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Special ammunitioná´³",
+          "name": "Special ammunitionÃ¡Â´Â³",
           "term_compat": true,
           "desc": "All Bolt weapons of the model can receive one of the following benefits during each activation:\n- Poison(3+)\n- Sunder(2)\n- +6\" range and -1 AP\nCombi-weapons may use this ammunition with the \"Bolt\" part of their profile.",
           "p_unit": 4,
           "p_char": 4
         },
         {
-          "name": "The Tome of Ectocladesá´³",
+          "name": "The Tome of EctocladesÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit may select a single Veteran ability during each Rally phase to be active for the current battle round. Unique.",
           "p_unit": null,
@@ -12844,6 +12844,13 @@
           "desc": "All ranged weapons of the model gain the \"Anti-Air\" ability.",
           "p_unit": null,
           "p_char": 10
+        },
+        {
+          "name": "Auspex array",
+          "category": "vehicle",
+          "desc": "All ranged weapons of the model gain the \"Anti-Air\" ability.",
+          "p_unit": 10,
+          "p_char": null
         }
       ],
       "daemon_weapons": []
@@ -12852,7 +12859,7 @@
       "name": "Dark Angels Armory",
       "weapons": [
         {
-          "name": "Caliban greatswordá´³",
+          "name": "Caliban greatswordÃ¡Â´Â³",
           "term_compat": true,
           "range": "-",
           "type": "Melee",
@@ -12866,56 +12873,56 @@
       ],
       "equipment": [
         {
-          "name": "Brazier of Judgementá´³",
+          "name": "Brazier of JudgementÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model automatically succeeds at pursuit rolls to catch fleeing units.",
           "p_unit": 2,
           "p_char": 2
         },
         {
-          "name": "Conversion fieldá´³",
+          "name": "Conversion fieldÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains a 4+ invulnerability save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
           "p_unit": null,
           "p_char": 35
         },
         {
-          "name": "Eye of the Unseená´³",
+          "name": "Eye of the UnseenÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains the \"Favoured Enemy\" ability. Unique.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Foe-smiterá´³",
+          "name": "Foe-smiterÃ¡Â´Â³",
           "term_compat": true,
           "desc": "One ranged weapon of the model gains the \"Shred\" ability. Unique.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Heavenfall bladeá´³",
+          "name": "Heavenfall bladeÃ¡Â´Â³",
           "term_compat": true,
           "desc": "One melee weapon of the model gains one of the following:\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
           "p_unit": 10,
           "p_char": 10
         },
         {
-          "name": "Monster Slayerá´³",
+          "name": "Monster SlayerÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains the \"Tank hunter\" ability.",
           "p_unit": 2,
           "p_char": 4
         },
         {
-          "name": "Shroud of Heroesá´³",
+          "name": "Shroud of HeroesÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains the \"Stealth\" ability, while it is not attached to a unit. Unique.",
           "p_unit": null,
           "p_char": 10
         },
         {
-          "name": "Watchers in the Darká´³",
+          "name": "Watchers in the DarkÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit gain the \"Aegis(4+)\" ability.",
           "p_unit": 5,
@@ -12927,6 +12934,13 @@
           "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
           "p_unit": null,
           "p_char": 10
+        },
+        {
+          "name": "Teleport homing beacon",
+          "category": "vehicle",
+          "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+          "p_unit": 10,
+          "p_char": null
         }
       ],
       "daemon_weapons": []
@@ -12935,7 +12949,7 @@
       "name": "White Scars Armory",
       "weapons": [
         {
-          "name": "Equis-Pattern Bolt Pistolá´³",
+          "name": "Equis-Pattern Bolt PistolÃ¡Â´Â³",
           "term_compat": false,
           "range": "12\"",
           "type": "Pistol 5",
@@ -12979,7 +12993,7 @@
           ]
         },
         {
-          "name": "Scimitar of the Great Khaná´³",
+          "name": "Scimitar of the Great KhanÃ¡Â´Â³",
           "term_compat": true,
           "range": "-",
           "type": "Melee",
@@ -12993,28 +13007,28 @@
       ],
       "equipment": [
         {
-          "name": "Banner of the Eagleá´³",
+          "name": "Banner of the EagleÃ¡Â´Â³",
           "term_compat": true,
           "desc": "This model and its attached unit gain +1 Strength. Ancients only. Unique.",
           "p_unit": null,
           "p_char": 10
         },
         {
-          "name": "Cyber-Eagle Helmá´³",
+          "name": "Cyber-Eagle HelmÃ¡Â´Â³",
           "term_compat": true,
           "desc": "This model and its attached unit does not suffer the To Hit penalty for Defensive Fire.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Hunter's Eyeá´³",
+          "name": "Hunter's EyeÃ¡Â´Â³",
           "term_compat": true,
           "desc": "All ranged attacks by this model and its attached unit have the Seeking ability. Unique",
           "p_unit": null,
           "p_char": 15
         },
         {
-          "name": "Mantle of the Stormseerá´³",
+          "name": "Mantle of the StormseerÃ¡Â´Â³",
           "term_compat": true,
           "desc": "This model gains +1 to manifest and deny psychic powers. Unique.",
           "p_unit": null,
@@ -13028,7 +13042,7 @@
           "p_char": 10
         },
         {
-          "name": "Stormwrath Boltsá´³",
+          "name": "Stormwrath BoltsÃ¡Â´Â³",
           "term_compat": true,
           "desc": "When firing a bolt weapon, this model may choose to fire a Stormwrath bolt instead of attacking normally. Use their bolt weapon's range and the profile above.",
           "p_unit": 9,
@@ -13055,7 +13069,7 @@
       "name": "Space Wolves Armory",
       "weapons": [
         {
-          "name": "Chooser of the Slainá´³",
+          "name": "Chooser of the SlainÃ¡Â´Â³",
           "term_compat": true,
           "range": "24\"",
           "type": "Assault 1",
@@ -13067,7 +13081,7 @@
           "p_char": 9
         },
         {
-          "name": "Great frost axeá´³",
+          "name": "Great frost axeÃ¡Â´Â³",
           "term_compat": true,
           "range": "",
           "type": "",
@@ -13113,35 +13127,35 @@
       ],
       "equipment": [
         {
-          "name": "Frost weaponá´³",
+          "name": "Frost weaponÃ¡Â´Â³",
           "term_compat": true,
           "desc": "A melee weapon of the model gains +1 Strength.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Healing balmá´³",
+          "name": "Healing balmÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains the \"Narthecium\" ability. Only for Chaplains.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Pelt of the Doublegangrelá´³",
+          "name": "Pelt of the DoublegangrelÃ¡Â´Â³",
           "term_compat": true,
           "desc": "A single enemy model in direct base contact suffers a cumulative -1 to hit penalty against the model.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Rune weaponá´³",
+          "name": "Rune weaponÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model receives a +1 bonus to dispel psychic powers.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Tempest weaponá´³",
+          "name": "Tempest weaponÃ¡Â´Â³",
           "term_compat": true,
           "desc": "Enemy models that suffer at least one wound from this weapon must pass a Strength test or reduce their Initiative to 1 until the end of their next activation.",
           "p_unit": null,
@@ -13155,21 +13169,21 @@
           "p_char": 34
         },
         {
-          "name": "Wolf companioná´³",
+          "name": "Wolf companionÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model may be joined by up to four Wolf companions. They do not prevent a model from joining another unit. The datasheet ist at the end of the codex.",
           "p_unit": null,
           "p_char": null
         },
         {
-          "name": "Wolf helmetá´³",
+          "name": "Wolf helmetÃ¡Â´Â³",
           "term_compat": true,
           "desc": "All ranged weapons of the model gain the \"Seeking\" ability.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Wolftooth necklaceá´³",
+          "name": "Wolftooth necklaceÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit gain the \"Aegis(5+)\" ability.",
           "p_unit": 5,
@@ -13181,6 +13195,13 @@
           "desc": "The model gains the abilities \"Deflect\" and \"Parry\". Counts as a weapon selection. Only for Captain Dreadnoughts, Chaplain Dreadnoughts and Dreadnoughts.",
           "p_unit": null,
           "p_char": 6
+        },
+        {
+          "name": "Blizzard shield",
+          "category": "vehicle",
+          "desc": "The model gains the abilities \"Deflect\" and \"Parry\". Counts as a weapon selection. Only for Captain Dreadnoughts, Chaplain Dreadnoughts and Dreadnoughts.",
+          "p_unit": 6,
+          "p_char": null
         }
       ],
       "daemon_weapons": []
@@ -13189,7 +13210,7 @@
       "name": "Imperial Fists Armory",
       "weapons": [
         {
-          "name": "Fist of Terraá´³",
+          "name": "Fist of Terra",
           "term_compat": true,
           "range": "-",
           "type": "Melee",
@@ -13198,72 +13219,74 @@
           "d": "2",
           "abilities": "AT(2), Slow(-1)",
           "p_unit": 18,
-          "p_char": 22
+          "p_char": 22,
+          "gravis_compat": true
         }
       ],
       "equipment": [
         {
-          "name": "Auric Aquilaá´³",
+          "name": "Auric Aquila",
           "term_compat": true,
           "desc": "The model gains a 4+ invulnerability save. Additionally, once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique.",
           "p_unit": null,
-          "p_char": 45
+          "p_char": 45,
+          "gravis_compat": true
         },
         {
-          "name": "Bone of Osraká´³",
+          "name": "Bone of Osrak",
           "term_compat": true,
           "desc": "The models gains +1 to all tests for manifesting a psychic power from the Geokinesis discipline.",
           "p_unit": null,
-          "p_char": 5
+          "p_char": 5,
+          "gravis_compat": true
         },
         {
-          "name": "Gatebreaker boltsá´³",
+          "name": "Gatebreaker bolts",
           "term_compat": true,
           "desc": "One Bolt weapon of the model gains a -1 bonus to its AP and the \"Explosive\" ability.",
           "p_unit": null,
-          "p_char": 5
+          "p_char": 5,
+          "gravis_compat": true
         },
         {
-          "name": "Marksman pistolá´³",
+          "name": "Marksman pistol",
           "term_compat": false,
           "desc": "One Pistol type weapon of the model gains the \"Seeking\" ability.",
           "p_unit": 5,
-          "p_char": 5
+          "p_char": 5,
+          "gravis_compat": true
         },
         {
-          "name": "The Angel of Sacrificeá´³",
+          "name": "The Angel of Sacrifice",
           "term_compat": true,
           "desc": "If the model loses its last Wound, it is only removed after the last possible activation of the owning player (for the current battle round) and can perform all valid actions until then. During this time, the model gains the \"Fearless\" ability. Unique. Only for Chaplains.",
           "p_unit": null,
-          "p_char": 10
+          "p_char": 10,
+          "gravis_compat": true
         },
         {
-          "name": "The Banner of Stagandaá´³",
+          "name": "The Banner of Staganda",
           "term_compat": true,
           "desc": "The model and its attached unit gain the \"Blind Rage\" and \"Counter-Attack\" abilities. Only for Ancients.",
           "p_unit": null,
-          "p_char": 5
+          "p_char": 5,
+          "gravis_compat": true
         },
         {
-          "name": "The Eye of Hypnothá´³",
+          "name": "The Eye of Hypnoth",
           "term_compat": true,
           "desc": "Select one enemy unit within 18\" during your activation. The target suffers a -1 penalty to its armor save or to its AV until the start of the model's next activation. Unique.",
           "p_unit": 15,
-          "p_char": 15
+          "p_char": 15,
+          "gravis_compat": true
         },
         {
-          "name": "Warden's Cuirassá´³",
+          "name": "Warden's Cuirass",
           "term_compat": true,
           "desc": "The model gains +1 Wound.",
           "p_unit": 10,
-          "p_char": 15
-        },
-        {
-          "name": "-",
-          "term_compat": false,
-          "desc": "-",
-          "p_unit": null,
-          "p_char": null
+          "p_char": 15,
+          "gravis_compat": true
         }
       ],
       "daemon_weapons": []
@@ -13272,7 +13295,7 @@
       "name": "Black Templars Armory",
       "weapons": [
         {
-          "name": "Holy Orbá´³",
+          "name": "Holy OrbÃ¡Â´Â³",
           "term_compat": true,
           "range": "6\"",
           "type": "Grenade 1",
@@ -13286,63 +13309,63 @@
       ],
       "equipment": [
         {
-          "name": "Ancient breviaryá´³",
+          "name": "Ancient breviaryÃ¡Â´Â³",
           "term_compat": true,
           "desc": "If the model attempts to use a prayer, the roll is automatically successful.",
           "p_unit": null,
           "p_char": 5
         },
         {
-          "name": "Cacodominus skullá´³",
+          "name": "Cacodominus skullÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model can dispel 1 psychic power per battle round like a psyker.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Cenobite servitorá´³",
+          "name": "Cenobite servitorÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit gain +1\" Movement and the \"Blind Rage\" ability.",
           "p_unit": 5,
           "p_char": 5
         },
         {
-          "name": "Crusade of Wrathá´³",
+          "name": "Crusade of WrathÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit gain +1 Strength. Unique.",
           "p_unit": null,
           "p_char": 10
         },
         {
-          "name": "Crusader sealsá´³",
+          "name": "Crusader sealsÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit can reposition up to 6\" after a close combat.",
           "p_unit": 3,
           "p_char": 3
         },
         {
-          "name": "Holy relicá´³",
+          "name": "Holy relicÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability while engaged in melee. Unique.",
           "p_unit": null,
           "p_char": 20
         },
         {
-          "name": "Indomitable Willá´³",
+          "name": "Indomitable WillÃ¡Â´Â³",
           "term_compat": true,
           "desc": "Roll a die the first time the model is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
           "p_unit": null,
           "p_char": 15
         },
         {
-          "name": "Noctilith weaponá´³",
+          "name": "Noctilith weaponÃ¡Â´Â³",
           "term_compat": true,
           "desc": "One melee weapon of the model gains the \"Soul burn(5+)\" ability. Unique.",
           "p_unit": null,
           "p_char": 10
         },
         {
-          "name": "Righteous Furyá´³",
+          "name": "Righteous FuryÃ¡Â´Â³",
           "term_compat": true,
           "desc": "If the model or its attached unit suffers a wound loss in ranged combat, all models gain +1 attack, as well as the \"Counter-attack\" and \"Furious Charge\" abilities until the end of the current battle round.",
           "p_unit": 15,
@@ -13354,6 +13377,13 @@
           "desc": "Enemy psykers within 18\" suffer a -1 penalty to casting psychic powers.",
           "p_unit": null,
           "p_char": 5
+        },
+        {
+          "name": "Blessed hull",
+          "category": "vehicle",
+          "desc": "Enemy psykers within 18\" suffer a -1 penalty to casting psychic powers.",
+          "p_unit": 5,
+          "p_char": null
         }
       ],
       "daemon_weapons": []
@@ -13400,21 +13430,21 @@
       ],
       "equipment": [
         {
-          "name": "Angelsteel weaponá´³",
+          "name": "Angelsteel weaponÃ¡Â´Â³",
           "term_compat": true,
           "desc": "One weapon of the model gains the \"Life curse\" ability.",
           "p_unit": 3,
           "p_char": 3
         },
         {
-          "name": "Aura of Fervorá´³",
+          "name": "Aura of FervorÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and its attached unit gain +1 Attack until the end of the current battle round, when they perform a Charge command.",
           "p_unit": null,
           "p_char": 20
         },
         {
-          "name": "Avenging Angelá´³",
+          "name": "Avenging AngelÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model may re-roll 1 to hit and 1 to wound roll each activation for each friendly unit that has been killed during the game.",
           "p_unit": 5,
@@ -13428,7 +13458,7 @@
           "p_char": 8
         },
         {
-          "name": "Chalice of Bloodá´³",
+          "name": "Chalice of BloodÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model and an attached unit receive a +1 bonus to melee hit rolls. The model also receives an additional +1 Initiative. Unique. Only for Apothecaries.",
           "p_unit": null,
@@ -13442,7 +13472,7 @@
           "p_char": 10
         },
         {
-          "name": "Executionerá´³",
+          "name": "ExecutionerÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
           "p_unit": null,
@@ -13456,7 +13486,7 @@
           "p_char": 5
         },
         {
-          "name": "Lord of Deathá´³",
+          "name": "Lord of DeathÃ¡Â´Â³",
           "term_compat": true,
           "desc": "The model gains +1 Strength and +1 Toughness. If you pass a Leadership test during your activation, all melee attacks against one single enemy model in direct base contact may re-roll all to hit rolls. Unique. Only for Librarians.",
           "p_unit": null,
@@ -13468,6 +13498,13 @@
           "desc": "Instead of shooting, a vehicle can move an additional 1d6\". At the end of the additional movement, the vehicle must make a difficult terrain test. The additional movement does not count towards the distance the vehicle has moved in relation to passenger orders.",
           "p_unit": null,
           "p_char": 5
+        },
+        {
+          "name": "Overcharged engine",
+          "category": "vehicle",
+          "desc": "Instead of shooting, a vehicle can move an additional 1d6\". At the end of the additional movement, the vehicle must make a difficult terrain test. The additional movement does not count towards the distance the vehicle has moved in relation to passenger orders.",
+          "p_unit": 5,
+          "p_char": null
         }
       ],
       "daemon_weapons": []
@@ -13477,7 +13514,7 @@
       "weapons": [],
       "equipment": [
         {
-          "name": "I.O.Uá´³",
+          "name": "I.O.UÃ¡Â´Â³",
           "term_compat": true,
           "desc": "Select one weapon or equipment item from the (Legacy) Armory of any other army. The selected item can not be enhanced by any other equipment (f.e. with the \"Relic of the Chapter\" item). Wargear that got the same description or ability like an item from the Space Marine armory can't be taken. If the chosen item has a rule that states that it is \"only for xy\", this rule may be ignored. The item has to be physically represented on your character model. Unique.",
           "p_unit": null,

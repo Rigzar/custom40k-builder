@@ -4,59 +4,27 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ── In progress ───────────────────────────────────────────────────────────
   {
     id: 'ki-46d',
-    status: 'known',
-    title: {
-      en: 'Space Marines — Imperial Fists Gravis armory items have a stray "`3" suffix and missing Gravis tag',
-      de: 'Space Marines — Imperiale Fäuste Gravis-Rüstkammer-Items haben ein falsches „`3"-Suffix und fehlendes Gravis-Tag',
-      es: 'Space Marines — ítems Gravis de la armería de los Puños Imperiales tienen un sufijo "`3" erróneo y falta la etiqueta Gravis',
-    },
-    description: {
-      en: 'Gravis armory items in the Imperial Fists chapter armory display a stray "`3" at the end of their name (parser artefact from the source document). They also lack the Gravis keyword tag that should restrict them to Gravis models only. Reported via bug form 2026-06-02.',
-      de: 'Gravis-Rüstkammer-Items in der Imperialen-Fäuste-Kapitel-Rüstkammer zeigen ein falsches „`3" am Ende ihres Namens (Parser-Artefakt aus dem Quelldokument). Außerdem fehlt das Gravis-Schlüsselwort-Tag, das sie auf Gravis-Modelle beschränken sollte. Gemeldet über das Bug-Formular am 02.06.2026.',
-      es: 'Los ítems de armería Gravis en la armería del capítulo Puños Imperiales muestran un "`3" erróneo al final de su nombre (artefacto del parser del documento fuente). También les falta la etiqueta de palabra clave Gravis que debería restringirlos a modelos Gravis. Reportado mediante formulario de bugs el 02-06-2026.',
-    },
+    status: 'fixed',
+    title: 'Space Marines — Imperial Fists Gravis armory items had a stray "`3" suffix and missing Gravis tag',
+    description: 'Fixed in v0.47 — Gravis item names corrected (parser artefact removed) and Gravis keyword tag added to restrict them to Gravis models only.',
   },
   {
     id: 'ki-46c',
-    status: 'known',
-    title: {
-      en: 'Space Marines — "Bolter Drill" trait not applied to vehicles',
-      de: 'Space Marines — Eigenschaft „Bolter Drill" wird nicht auf Fahrzeuge angewendet',
-      es: 'Space Marines — el rasgo "Bolter Drill" no se aplica a vehículos',
-    },
-    description: {
-      en: 'The Bolter Drill army trait should grant its bonus to vehicles equipped with bolt weapons, but the trait effect is currently only applied to non-vehicle units. Vehicles that would benefit from this trait receive no bonus. Reported via bug form 2026-06-02.',
-      de: 'Der Heeresrasgo „Bolter Drill" sollte Fahrzeugen mit Bolterwaffen seinen Bonus gewähren, aber der Eigenschaftseffekt wird derzeit nur auf Nicht-Fahrzeug-Einheiten angewendet. Fahrzeuge, die von diesem Rasgo profitieren würden, erhalten keinen Bonus. Gemeldet über das Bug-Formular am 02.06.2026.',
-      es: 'El rasgo de ejército Bolter Drill debería otorgar su bonificación a vehículos equipados con armas de bolter, pero el efecto del rasgo solo se aplica actualmente a unidades que no son vehículos. Los vehículos que se beneficiarían de este rasgo no reciben ninguna bonificación. Reportado mediante formulario de bugs el 02-06-2026.',
-    },
+    status: 'fixed',
+    title: 'Space Marines — "Bolter Drill" trait not applied to vehicles',
+    description: 'Fixed in v0.47 — applies_to field updated systematically across 14 SM traits; Bolter Drill now correctly applies to vehicles with bolt weapons.',
   },
   {
     id: 'ki-46b',
-    status: 'known',
-    title: {
-      en: 'Space Marines — vehicles see general armory items instead of vehicle equipment',
-      de: 'Space Marines — Fahrzeuge sehen allgemeine Rüstkammer-Items statt Fahrzeugausrüstung',
-      es: 'Space Marines — los vehículos ven ítems de armería general en lugar de equipamiento de vehículo',
-    },
-    description: {
-      en: 'Vehicle units in Space Marines currently show regular (non-vehicle) armory items and do not have access to the vehicle equipment category. Expected behaviour: vehicles should only see vehicle equipment items. Reported via bug form 2026-06-02.',
-      de: 'Fahrzeug-Einheiten bei den Space Marines zeigen derzeit reguläre (Nicht-Fahrzeug-)Rüstkammer-Items und haben keinen Zugang zur Fahrzeugausrüstungs-Kategorie. Erwartetes Verhalten: Fahrzeuge sollten nur Fahrzeugausrüstungs-Items sehen. Gemeldet über das Bug-Formular am 02.06.2026.',
-      es: 'Las unidades de vehículo en los Space Marines actualmente muestran ítems de armería generales (no de vehículo) y no tienen acceso a la categoría de equipamiento de vehículo. Comportamiento esperado: los vehículos solo deberían ver ítems de equipamiento de vehículo. Reportado mediante formulario de bugs el 02-06-2026.',
-    },
+    status: 'fixed',
+    title: 'Space Marines — vehicles saw general armory items instead of vehicle equipment',
+    description: 'Fixed in v0.47 — SM vehicle units now correctly access the vehicle equipment category. Five chapter armory vehicle upgrades also corrected.',
   },
   {
     id: 'ki-46a',
-    status: 'known',
-    title: {
-      en: 'Space Marines — Wolf Companions unit not confirmed in source document',
-      de: 'Space Marines — Einheit „Wolf Companions" nicht in Quelldokument bestätigt',
-      es: 'Space Marines — unidad "Wolf Companions" no confirmada en el documento fuente',
-    },
-    description: {
-      en: 'Wolf Companions appears in the Space Marines unit list (Fast Attack, 1–4 models, 6 pts each) but is absent from the rulebook source provided. It may be a valid Space Wolves unit or a parser artefact. Pending designer confirmation.',
-      de: '„Wolf Companions" erscheint in der Space-Marines-Einheitenliste (Schnellstoß, 1–4 Modelle, je 6 Pkt.), fehlt aber im bereitgestellten Regelquellen-Dokument. Möglicherweise eine gültige Space-Wolves-Einheit oder ein Parser-Artefakt. Bestätigung durch den Designer ausstehend.',
-      es: '"Wolf Companions" aparece en la lista de unidades de los Space Marines (Ataque rápido, 1–4 modelos, 6 pts cada uno) pero no está en el documento fuente del reglamento. Puede ser una unidad válida de los Space Wolves o un artefacto del parser. Pendiente de confirmación del diseñador.',
-    },
+    status: 'fixed',
+    title: 'Space Marines — Wolf Companions unit confirmed valid',
+    description: 'Fixed in v0.47 — Wolf Companions is a valid Space Wolves unit (Fast Attack, 1–4 models, 6 pts, Bike type, Claws & Teeth melee weapon). Confirmed from source document.',
   },
   {
     id: 'ki-22a',
@@ -82,7 +50,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     },
     description: {
       en: 'Standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and Vehicle Upgrades are built into the CSM armory and priced correctly. Other factions can select veteran and vehicle upgrades from their own armories, but the underlying ability logic (e.g. granting the Infiltrator rule to the unit) is not yet wired up.',
-      de: 'Veteranenfähigkeiten (Gegenangriff, Begünstigter Feind, Wutangriff, Infiltrator, Flankenmanöver, Panzerjäger, Geländeexperte, Vorhut) und Fahrzeug-Upgrades sind vollständig für CSM implementiert. Andere Fraktionen können zwar Veteranen- und Fahrzeug-Upgrades aus ihren Waffenkammern auswählen, aber die zugrunde liegende Regellogik (z.B. das Verleihen der Infiltrator-Regel) ist noch nicht vollständig verdrahtet.',
+      de: 'Veteranenfähigkeiten (Gegenangriff, Begünstigter Feind, Wutangriff, Infiltrator, Flankenmanöver, Panzerjäger, Geländeexperte, Vorhut) und Fahrzeug-Upgrades sind vollständig für CSM implementiert. Andere Fraktionen können zwar Veteranen- und Fahrzeug-Upgrades aus ihren Rüstkammern auswählen, aber die zugrunde liegende Regellogik (z.B. das Verleihen der Infiltrator-Regel) ist noch nicht vollständig verdrahtet.',
       es: 'Las Habilidades de Veterano estándar (Contraataque, Enemigo favorito, Carga furiosa, Infiltrador, Flanqueo, Cazacarros, Experto en terreno, Vanguardia) y las Mejoras de Vehículo están completamente integradas en la armería CSM. Las demás facciones pueden seleccionarlas desde sus propias armerías, pero la lógica interna (por ejemplo, conceder la regla Infiltrador a la unidad) aún no está completamente programada.',
     },
   },

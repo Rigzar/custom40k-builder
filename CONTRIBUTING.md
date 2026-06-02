@@ -209,8 +209,36 @@ src/i18n/       Translation strings (EN / DE / ES)
 | `archetypes/csm.ts` | CSM archetype definitions (engine flags) |
 | `archetypes/rules/csm-rules.ts` | CSM archetype rule data (13 archetypes with categorised notes for engine use) |
 | `legacies/csm-legacies.ts` | CSM legacy rule data (5 legacies — armory access + mark restrictions) |
+| `legacies/sm-legacies.ts` | SM legacy rule data — discipline gate map and Crusader prayer set |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher for legacy rule lookups |
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
+
+### When to edit legacy files
+
+The `legacies/` folder holds engine-level rules that cannot live in the JSON — they control **which disciplines and prayers the psychic modal shows** based on the active legacy.
+
+- **`legacies/sm-legacies.ts`** — Edit this if:
+  - You add a new SM legacy discipline that should be gated (add it to `SM_LEGACY_DISC_MAP` mapping discipline name → required legacy name).
+  - You add a new prayer that only appears with Legacy of the Crusader (add it to `SM_CRUSADER_PRAYERS`).
+  - You rename an existing SM legacy or discipline.
+- **`legacies/csm-legacies.ts`** — Edit this if you add or change CSM legacy armory access rules or mark restrictions.
+
+If you add a new faction with legacy-gated disciplines, create a new `legacies/<faction>.ts` file following the same pattern and wire it into `PsychicModal.tsx`.
+
+### Changelog vs Known Issues (important — split since v0.47)
+
+These two files serve different purposes and must not be confused:
+
+| File | What goes here |
+|---|---|
+| `src/data/changelog.ts` | Version history — one entry per release with EN/DE/ES change descriptions |
+| `src/data/known-issues.ts` | Bug and limitation tracking — status can be `known`, `investigating`, `fixed`, `by_design`, or `planned` |
+
+**Before v0.47** both lived in `changelog.ts`. They are now separate. If you fix a known bug:
+1. Open `src/data/known-issues.ts`, find the issue by its `id`, and set `status: 'fixed'`.
+2. Add a line to the current version entry in `src/data/changelog.ts` describing the fix.
+
+Do **not** edit `changelog.ts` to update issue statuses — it no longer contains `KNOWN_ISSUES`.
 
 ### TypeScript conventions
 
@@ -229,6 +257,8 @@ src/i18n/       Translation strings (EN / DE / ES)
 
 If you add a UI string, add entries for all three languages (EN / DE / ES) in `src/i18n/index.ts`. Machine translation is acceptable for ES and DE; native speaker review is welcome.
 
+> **German translations:** use official Games Workshop German terminology, not literal translations. Slot names follow GW convention: `Standard` (Troops), `Elite` (Elites), `Sturm` (Fast Attack), `Unterstützung` (Heavy Support). Stat abbreviations: `Reichw.` (Range), `DS` (AP), `SW` (Damage). Armory is `Rüstkammer`, not `Waffenkammer`.
+
 ---
 
 ## Pull request checklist
@@ -238,7 +268,7 @@ Before opening a PR, confirm:
 - [ ] `npm run build` passes with zero TypeScript errors
 - [ ] The change is scoped to one thing (one unit, one bug, one feature)
 - [ ] New UI strings have translations in all three languages
-- [ ] If a known issue is fixed, the `status` in `src/data/changelog.ts` is updated to `'fixed'`
+- [ ] If a known issue is fixed, the `status` in `src/data/known-issues.ts` is updated to `'fixed'`
 - [ ] The PR description explains what changed and why (a link to the relevant issue is enough)
 
 PRs that do not pass the build check will not be reviewed until they do.

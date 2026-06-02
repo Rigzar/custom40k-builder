@@ -22,12 +22,13 @@ function getSlotUsage(
   rule: Rule,
   alliedFaction?: string,
   countAllied?: boolean,
+  engagement?: string,
 ): number {
   return army.filter(i => {
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     const u = resolveUnit(i, data);
-    if (u?.advisor) return false;
+    if (u?.advisor && engagement !== 'skirmish') return false;
     const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
     return effSlot === slot;
   }).length;
@@ -42,7 +43,7 @@ function getAopRequirement(army: RosterEntry[], data: FactionData, engKey: strin
     const [, max] = eng.aop[slot];
     if (max <= 0) continue;
     // Exclude allied units from main AOP calculation
-    const used = getSlotUsage(army, data, slot, rule, alliedFaction, false);
+    const used = getSlotUsage(army, data, slot, rule, alliedFaction, false, engKey);
     if (used > max) aops = Math.max(aops, Math.ceil(used / max));
   }
   return aops;
@@ -606,14 +607,16 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   }
 
   // AOP slot mins (main faction only — exclude allied units)
+  const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction);
   for (const slot of SLOT_ORDER) {
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
     const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
     const used = Math.max(0, rawUsed - cdAdj);
-    if (min > 0 && used < min) {
-      items.push({ type: 'error', text: `Need at least ${min} ${slot} (have ${used}).` });
+    const scaledMin = eng.multiAop ? min * aopMult : min;
+    if (scaledMin > 0 && used < scaledMin) {
+      items.push({ type: 'error', text: `Need at least ${scaledMin} ${slot} (have ${used}).` });
     }
   }
 
@@ -710,11 +713,10 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   }
 
   // AOP slot maxes (main faction only — exclude allied units)
-  const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction);
   for (const slot of SLOT_ORDER) {
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
     const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
     const used = Math.max(0, rawUsed - cdAdj);
     const effMax = (slot === 'HQ' && rule?.hqOverride)
@@ -734,7 +736,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     if (alliedUnits.length > 0) {
       for (const slot of SLOT_ORDER) {
         const [min, max] = ALLIED_AOP[slot];
-        const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, true);
+        const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: `Allied detachment: need at least ${min} ${slot} (have ${used}).` });
         }
@@ -745,9 +747,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         }
       }
       // Elites / Fast Attack / Heavy Support limited to 1 each, but +1 per Troop unit beyond 1
-      const alliedTroops = getSlotUsage(state.army, data, 'Troops', rule, state.alliedFaction, true);
+      const alliedTroops = getSlotUsage(state.army, data, 'Troops', rule, state.alliedFaction, true, state.engagement);
       for (const slot of ['Elites', 'Fast Attack', 'Heavy Support'] as const) {
-        const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, true);
+        const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, true, state.engagement);
         if (used > alliedTroops) {
           items.push({ type: 'error', text: `Allied: ${slot} (${used}) exceeds Troops (${alliedTroops}) — 1 ${slot} per Troop unit.` });
         }
@@ -824,9 +826,12 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
-  // Skirmish: no archetypes
+  // Skirmish: no archetypes, no allied detachment
   if (state.engagement === 'skirmish' && state.archetype) {
     items.push({ type: 'error', text: 'Skirmish: Archetypes are not allowed.' });
+  }
+  if (state.engagement === 'skirmish' && state.alliedFaction) {
+    items.push({ type: 'error', text: 'Skirmish: Allied detachments are not allowed.' });
   }
 
   // ── Faction-specific validators ──────────────────────────────────────────

@@ -209,8 +209,36 @@ src/i18n/       Übersetzungstexte (EN / DE / ES)
 | `archetypes/csm.ts` | CSM-Archetypen-Definitionen (Engine-Flags) |
 | `archetypes/rules/csm-rules.ts` | CSM-Archetypen-Regeldaten (13 Archetypen mit kategorisierten Notizen für den Engine-Einsatz) |
 | `legacies/csm-legacies.ts` | CSM-Legacy-Regeldaten (5 Legacies – Rüstkammer-Zugang + Markierungsbeschränkungen) |
+| `legacies/sm-legacies.ts` | SM-Legacy-Regeldaten – Disziplin-Gate-Map und Kreuzritter-Gebete-Set |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` – Dispatcher für Legacy-Regel-Abfragen |
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
+
+### Wann die Legacy-Dateien bearbeitet werden müssen
+
+Der Ordner `legacies/` enthält Engine-Regeln, die nicht im JSON leben können – sie steuern, **welche Disziplinen und Gebete das Psionik-Modal anzeigt**, abhängig vom aktiven Legacy.
+
+- **`legacies/sm-legacies.ts`** – Diese Datei bearbeiten, wenn:
+  - Eine neue SM-Legacy-Disziplin hinzugefügt wird, die gesperrt sein soll (in `SM_LEGACY_DISC_MAP` eintragen: Disziplinname → erforderlicher Legacy-Name).
+  - Ein neues Gebet hinzugefügt wird, das nur mit dem Legacy of the Crusader erscheinen soll (zu `SM_CRUSADER_PRAYERS` hinzufügen).
+  - Ein bestehendes SM-Legacy oder eine Disziplin umbenannt wird.
+- **`legacies/csm-legacies.ts`** – Diese Datei bearbeiten, wenn CSM-Legacy-Rüstkammer-Zugriffsregeln oder Markierungsbeschränkungen hinzugefügt oder geändert werden.
+
+Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, eine neue Datei `legacies/<fraktion>.ts` nach demselben Muster erstellen und in `PsychicModal.tsx` einbinden.
+
+### Changelog vs. Known Issues (wichtig – seit v0.47 getrennt)
+
+Diese beiden Dateien haben unterschiedliche Zwecke und dürfen nicht verwechselt werden:
+
+| Datei | Was hier hineingehört |
+|---|---|
+| `src/data/changelog.ts` | Versionshistorie – ein Eintrag pro Release mit Änderungsbeschreibungen auf EN/DE/ES |
+| `src/data/known-issues.ts` | Bug- und Einschränkungs-Tracking – Status kann `known`, `investigating`, `fixed`, `by_design` oder `planned` sein |
+
+**Vor v0.47** lagen beide in `changelog.ts`. Sie sind jetzt getrennt. Wenn ein bekannter Bug behoben wird:
+1. `src/data/known-issues.ts` öffnen, das Issue anhand seiner `id` finden und `status: 'fixed'` setzen.
+2. Eine Zeile in den aktuellen Versions-Eintrag in `src/data/changelog.ts` einfügen, die den Fix beschreibt.
+
+**Nicht** `changelog.ts` bearbeiten, um Issue-Status zu aktualisieren – die Datei enthält `KNOWN_ISSUES` nicht mehr.
 
 ### TypeScript-Konventionen
 
@@ -229,6 +257,8 @@ src/i18n/       Übersetzungstexte (EN / DE / ES)
 
 Wenn du einen neuen UI-Text hinzufügst, füge Einträge für alle drei Sprachen (EN / DE / ES) in `src/i18n/index.ts` hinzu. Maschinelle Übersetzungen sind für ES und DE akzeptabel; Muttersprachler-Review ist willkommen.
 
+> **Deutsche Übersetzungen:** offizielle Games-Workshop-Terminologie verwenden, keine wörtlichen Übersetzungen. Slot-Namen folgen der GW-Konvention: `Standard` (Troops), `Elite` (Elites), `Sturm` (Fast Attack), `Unterstützung` (Heavy Support). Stat-Abkürzungen: `Reichw.` (Reichweite), `DS` (Durchschlag), `SW` (Schadenswert). Rüstkammer heißt `Rüstkammer`, nicht `Waffenkammer`.
+
 ---
 
 ## Pull-Request-Checkliste
@@ -238,7 +268,7 @@ Vor dem Erstellen eines PR sicherstellen:
 - [ ] `npm run build` läuft ohne TypeScript-Fehler durch
 - [ ] Die Änderung ist auf eine Sache beschränkt (eine Einheit, ein Bug, ein Feature)
 - [ ] Neue UI-Texte haben Übersetzungen in allen drei Sprachen
-- [ ] Wenn ein bekanntes Problem behoben wurde, ist der `status` in `src/data/changelog.ts` auf `'fixed'` gesetzt
+- [ ] Wenn ein bekanntes Problem behoben wurde, ist der `status` in `src/data/known-issues.ts` auf `'fixed'` gesetzt
 - [ ] Die PR-Beschreibung erklärt, was und warum geändert wurde (ein Link zum jeweiligen Issue reicht)
 
 PRs, die den Build-Check nicht bestehen, werden erst nach der Behebung überprüft.

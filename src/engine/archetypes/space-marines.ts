@@ -4,10 +4,10 @@ import { BASE, fastArchetype, dropPodArchetype } from './base';
 export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
 
   '1st Company': { ...BASE,
-    troopsRemap: ['Honor Guard', 'Terminators', 'Terminator Squad', 'Terminator Assault Squad', 'Deathwing Knights'],
+    troopsRemap: ['Honor Guard', 'Terminator Squad'],
     notes: [
-      'Restricted to: 1x Captain Dreadnought or Lieutenant, 1x Chaplain (or Dreadnought), 1x Emperor\'s Champion, 1x Librarian (or Dreadnought), 1x Ancient, 1x Apothecary, Deathwing Knights, Dreadnoughts, Honor Guard, 1x Judiciar, 1x Techmarine, Terminators, Land Raiders, Repulsors, Drop Pods.',
-      'Honor Guard and Terminators count as Troops.',
+      'Restricted to: 1x Captain Dreadnought or Lieutenant, 1x Chaplain (or Dreadnought), 1x Emperor\'s Champion, 1x Librarian (or Dreadnought), 1x Ancient, 1x Apothecary, 1x Company Champion, Deathwing Knights, Dreadnoughts, Honor Guard, 1x Judicar, 1x Techmarine, Terminator Squads, Land Raiders, Repulsors, Drop Pods.',
+      'Honor Guard and Terminator Squads count as Troops.',
       'Honor Guard units are no longer limited to 1 per HQ selection.',
       'All units gain "Objective secured!".',
       'HQ models must gain their "once per army" upgrade if possible.',
@@ -60,6 +60,6 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Swift as the Wind': fastArchetype(['Bike Squad', 'Outrider Bikes'], ['Flanking units may deploy on turn 1.']),
+  'Swift as the Wind': fastArchetype(['Bike Squad', 'Outrider Bikes'], ['Outflanking units may deploy on turn 1.']),
 
 };

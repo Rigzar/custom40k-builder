@@ -16,8 +16,9 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
 
   const injectedAbilities = [...base.injectedAbilities];
   const injectedRuleNotes = [...base.injectedRuleNotes];
-  const isVeh  = unit.is_vehicle;
-  const isChar = unit.is_character;
+  const isVeh     = unit.is_vehicle;
+  const isChar    = unit.is_character;
+  const isMonster = unit.is_monster;
 
   // ── Ascended Daemon Prince ────────────────────────────────────────────────────
   // When the variant is active the DP moves from Heavy Support → HQ and gains
@@ -46,19 +47,38 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
           if (!unit.abilities.some(a => a.toLowerCase().includes('warded'))) {
             injectedAbilities.push('Warded');
           }
-          if (isChar && unit.is_psyker) {
-            injectedAbilities.push('Mark of Tzeentch: +1 psychic power per turn');
+          if (isChar || isMonster) {
+            if (base.effectivePsyker) {
+              injectedAbilities.push('Mark of Tzeentch: +1 power to manifest and deny per turn');
+            } else {
+              injectedAbilities.push('Mark of Tzeentch: Becomes a Psyker — knows 1 power from any discipline');
+            }
           }
         }
         break;
       case 'Khorne':
-        if (isVeh) injectedAbilities.push('Mark of Khorne: Tank Shock causes double hits');
+        if (isVeh) {
+          injectedAbilities.push('Mark of Khorne: Tank Shock causes double hits');
+        } else {
+          injectedAbilities.push('Mark of Khorne: +1 Attack');
+          if (isChar || isMonster) injectedAbilities.push('Mark of Khorne: +1 Strength');
+        }
         break;
       case 'Nurgle':
-        if (isVeh) injectedAbilities.push('Mark of Nurgle: Recover damage during Reinforce (2D6, 7+)');
+        if (isVeh) {
+          injectedAbilities.push('Mark of Nurgle: Recover damage during Reinforce (2D6, 7+)');
+        } else {
+          injectedAbilities.push('Mark of Nurgle: +1 Toughness');
+          if (isChar || isMonster) injectedAbilities.push('Mark of Nurgle: +1 Wound');
+        }
         break;
       case 'Slaanesh':
-        if (isVeh) injectedAbilities.push('Mark of Slaanesh: Enemy units within 18″ suffer -1 Leadership (−2 within 9″)');
+        if (isVeh) {
+          injectedAbilities.push('Mark of Slaanesh: Enemy units within 18″ suffer -1 Leadership (−2 within 9″)');
+        } else {
+          injectedAbilities.push('Mark of Slaanesh: +1 Initiative');
+          if (isChar || isMonster) injectedAbilities.push('Mark of Slaanesh: +2″ Movement');
+        }
         break;
     }
   }

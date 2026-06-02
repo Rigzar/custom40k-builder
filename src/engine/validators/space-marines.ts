@@ -90,5 +90,59 @@ export function validateSpaceMarines(
   // The trait pool selector already handles this via UI.
   // No additional validation needed here.
 
+  // ── Captain / Captain Dreadnought: only one per army ─────────────────────
+  // "Only one Captain or Captain Dreadnought per army."
+  const captainDreadnoughtCount = state.army.filter(i => i.unitName === 'Captain Dreadnought').length;
+  const captainUpgradeCount = state.army.filter(i => {
+    if (i.unitName !== 'Lieutenant') return false;
+    const u = resolveUnit(i, data);
+    if (!u) return false;
+    return u.option_groups.some((g, gi) =>
+      g.variant_link === 'Captain' && !!(i.optionQty?.[gi]?.['__inline']),
+    );
+  }).length;
+  if (captainDreadnoughtCount + captainUpgradeCount > 1) {
+    items.push({
+      type: 'error',
+      text: 'Only one Captain or Captain Dreadnought per army.',
+    });
+  }
+
+  // ── Master of Sanctity / Chaplain Dreadnought: only one per army ─────────
+  // "Only one Master of Sanctity or Chaplain Dreadnought per army."
+  const chaplainDreadnoughtCount = state.army.filter(i => i.unitName === 'Chaplain Dreadnought').length;
+  const masterOfSanctityCount = state.army.filter(i => {
+    if (i.unitName !== 'Chaplain') return false;
+    const u = resolveUnit(i, data);
+    if (!u) return false;
+    return u.option_groups.some((g, gi) =>
+      g.variant_link === 'Master of Sanctity' && !!(i.optionQty?.[gi]?.['__inline']),
+    );
+  }).length;
+  if (chaplainDreadnoughtCount + masterOfSanctityCount > 1) {
+    items.push({
+      type: 'error',
+      text: 'Only one Master of Sanctity or Chaplain Dreadnought per army.',
+    });
+  }
+
+  // ── Chief Librarian / Librarian Dreadnought: only one per army ───────────
+  // "Only one Chief Librarian or Librarian Dreadnought per army."
+  const librarianDreadnoughtCount = state.army.filter(i => i.unitName === 'Librarian Dreadnought').length;
+  const chiefLibrarianCount = state.army.filter(i => {
+    if (i.unitName !== 'Librarian') return false;
+    const u = resolveUnit(i, data);
+    if (!u) return false;
+    return u.option_groups.some((g, gi) =>
+      g.variant_link === 'Chief Librarian' && !!(i.optionQty?.[gi]?.['__inline']),
+    );
+  }).length;
+  if (librarianDreadnoughtCount + chiefLibrarianCount > 1) {
+    items.push({
+      type: 'error',
+      text: 'Only one Chief Librarian or Librarian Dreadnought per army.',
+    });
+  }
+
   return items;
 }

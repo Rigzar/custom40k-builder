@@ -18,81 +18,75 @@ import type { TraitEffect } from '../traitEffects';
  */
 export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
 
-  // unit=5 | char=0 | monster=5 | veh=-
-  // "With a Charge order or charged: +1 hit roll in melee until end of round."
+  // unit=5 | char=0 | monster/veh=5
   'Blitz Attack': [
     {
       type: 'unit_ability',
       name: 'Blitz Attack',
       desc: 'The unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
-  // "Bolt weapons gain Deflagrate(5+). Does not apply to Heavy weapons."
+  // unit=5 | char=0 | monster/veh=5
+  // Note: "Does not apply to Heavy weapons."
   'Bolter Drill': [
     {
       type: 'weapon_ability',
       name: 'Deflagrate(5+)',
       weapon_type: 'bolt',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Codex Discipline': [
     {
       type: 'stat_mod',
       stat: 'LD',
       delta: 1,
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=0 | char=0 | monster=0 | veh=-
+  // unit=0 | char=0 | monster/veh=0
   // Army-level: enables second legacy. No per-unit effect.
   'Expanded Armory': [],
 
-  // unit=5 | char=0 | monster=5 | veh=-
-  // "Select one improvement for any creature unit: Apparitions / Aura of Doom / Berserkers / Immolation / Ossific Blades."
+  // unit=5 | char=0 | monster/veh=5
   'Cursed Founding': [
-    // No generic stat mod — per-unit selection via armory/option. Placeholder.
     {
       type: 'unit_ability',
       name: 'Cursed Founding',
       desc: 'Select one improvement: Apparitions (Deep Strike + Warded), Aura of Doom (Terrifying(-2)), Berserkers (Blind Rage), Immolation (Retribution(1)), or Ossific Blades weapon.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Forged in Battle': [
     {
       type: 'unit_ability',
       name: 'Forged in Battle',
       desc: 'The unit can re-roll one armor penetration or wound roll per activation.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=- | char=0 | monster=5 | veh=-
-  // Only for psykers.
+  // unit=- | char=0 | monster/veh=5 — Only for Psykers.
   'Knowledge is Power': [
     {
       type: 'unit_ability',
       name: 'Knowledge is Power',
       desc: 'The model can re-roll one psychic test per activation. Only for Psykers.',
-      applies_to: 'character',
+      applies_to: 'all',
     },
   ],
 
-  // unit=- | char=Special | monster=- | veh=-
-  // Grants a Demon weapon from CSM codex to one weapon. No per-unit stat effect.
+  // unit=- | char=Special | monster/veh=-
   'Path of Damnation': [],
 
-  // unit=5 | char=- | monster=- | veh=-
-  // "One non-character model per squad with armory access can be upgraded to an Apothecary."
+  // unit=5 | char=- | monster/veh=- — infantry only
   'Purity above All': [
     {
       type: 'unit_ability',
@@ -102,37 +96,37 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Rapid Deployment': [
     {
       type: 'unit_ability',
       name: 'Haste(2")',
       desc: 'The unit gains the "Haste(2")" ability.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Red Thirst': [
     {
       type: 'unit_ability',
       name: 'Red Thirst',
       desc: 'If the unit uses a Charge order or gets charged, it gains +1 Strength until the end of the current battle round.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Righteous Wrath': [
     {
       type: 'unit_ability',
       name: 'Frenzy(1")',
       desc: 'The unit gains the "Frenzy(1")" ability.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Siege Experts': [
     {
       type: 'weapon_ability',
@@ -142,8 +136,7 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     },
   ],
 
-  // unit=5 | char=- | monster=- | veh=-
-  // "One non-character model per squad with armory access can be upgraded to a Techmarine."
+  // unit=5 | char=- | monster/veh=- — infantry only
   'Sons of Mars': [
     {
       type: 'unit_ability',
@@ -153,53 +146,59 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Stalwart': [
     {
       type: 'unit_ability',
       name: 'Stalwart',
       desc: 'The unit can re-roll one armor save per battle round.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Stoic': [
     {
       type: 'unit_ability',
       name: 'Stoic',
       desc: 'The unit does not suffer the to hit penalty from Defensive Fire.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=3 | char=0 | monster=3 | veh=-
+  // unit=3 | char=0 | monster/veh=3
   'Strike from the Shadows': [
     {
       type: 'unit_ability',
       name: 'Strike from the Shadows',
       desc: 'The unit gains the benefit of light cover until its first activation.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
-  // unit=2* | char=0 | monster=5* | veh=-
-  // *Per wound/HP. Only for models without an existing invuln save.
+  // unit=2* | char=0 | monster=5* | veh=5*
+  // Creatures: 6+ invuln. Vehicles: repair one Engine/Weapon Damage per Rally phase.
   'The Flesh is Weak': [
     {
       type: 'inv_save',
       value: 6,
       applies_to: 'creature',
     },
+    {
+      type: 'unit_ability',
+      name: 'The Flesh is Weak',
+      desc: 'Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.',
+      applies_to: 'vehicle',
+    },
   ],
 
-  // unit=5 | char=0 | monster=5 | veh=-
+  // unit=5 | char=0 | monster/veh=5
   'Unleashed Hunters': [
     {
       type: 'unit_ability',
       name: 'Unleashed Hunters',
       desc: 'If the unit uses a Charge order or gets charged, it gains +1 to melee hit rolls until the end of the current battle round.',
-      applies_to: 'creature',
+      applies_to: 'all',
     },
   ],
 
