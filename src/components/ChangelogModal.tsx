@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { CHANGELOG, KNOWN_ISSUES, type IssueStatus, type I18nString, type I18nStringArray } from '../data/changelog';
+import { CHANGELOG, type IssueStatus, type I18nString, type I18nStringArray } from '../data/changelog';
+import { KNOWN_ISSUES } from '../data/known-issues';
 import { useLanguage, type Language } from '../i18n';
 
 interface Props { onClose: () => void; }
