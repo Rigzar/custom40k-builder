@@ -115,30 +115,30 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ── Known ─────────────────────────────────────────────────────────────────
   {
     id: 'ki-45a',
-    status: 'known',
+    status: 'fixed',
     title: {
       en: 'Trait costs not applied for Imperial Guard (and other non-CSM factions with traits)',
       de: 'Eigenschaftskosten für die Imperiale Garde (und weitere Nicht-CSM-Fraktionen) nicht angewendet',
       es: 'Costes de rasgos no aplicados en Guardia Imperial (y otras facciones no-CSM con rasgos)',
     },
     description: {
-      en: 'Selecting traits for Imperial Guard units does not add any points to the unit total. Affects all non-CSM factions that have a trait system. Under investigation.',
-      de: 'Das Auswählen von Eigenschaften für Imperiale Garde-Einheiten addiert keine Punkte zum Einheitentotal. Betrifft alle Nicht-CSM-Fraktionen mit einem Eigenschaftssystem. Wird untersucht.',
-      es: 'Seleccionar rasgos para unidades de la Guardia Imperial no añade puntos al total de la unidad. Afecta a todas las facciones no-CSM que tienen sistema de rasgos. En investigación.',
+      en: 'Fixed in v0.45 — a faulty condition in the points engine zeroed trait costs for any unit without the "Chaos Space Marine" keyword. All non-CSM factions with a trait system now apply trait costs correctly.',
+      de: 'Behoben in v0.45 — eine fehlerhafte Bedingung in der Punkte-Engine setzte die Eigenschaftskosten für alle Einheiten ohne das Schlüsselwort "Chaos Space Marine" auf null. Alle Nicht-CSM-Fraktionen mit Eigenschaftssystem wenden die Kosten nun korrekt an.',
+      es: 'Corregido en v0.45 — una condición errónea en el motor de puntos ponía los costes de rasgos a cero para cualquier unidad sin la palabra clave "Chaos Space Marine". Todas las facciones no-CSM con sistema de rasgos aplican ahora los costes correctamente.',
     },
   },
   {
     id: 'ki-45b',
-    status: 'known',
+    status: 'fixed',
     title: {
       en: 'Platoon Command Squad (Imperial Guard) counts as a Troops slot',
       de: 'Zugsquadkommando (Imperiale Garde) zählt als Troops-Slot',
       es: 'El Escuadrón de Mando de Pelotón (Guardia Imperial) cuenta como slot de Tropas',
     },
     description: {
-      en: 'The Platoon Command Squad occupies a Troops slot. Per the rules it should not — the full Platoon group (PCS + Infantry Squads) counts as a single slot.',
-      de: 'Das Zugsquadkommando belegt einen Troops-Slot. Gemäß den Regeln sollte es das nicht — die gesamte Zuggruppe (ZSK + Infanterietrupps) zählt als ein einziger Slot.',
-      es: 'El Escuadrón de Mando de Pelotón ocupa un slot de Tropas. Según las reglas no debería — todo el grupo de pelotón (EMP + Escuadrones de Infantería) cuenta como un único slot.',
+      en: 'Fixed in v0.45 — the Platoon Command Squad is now correctly marked as an advisor unit and no longer occupies a Troops slot. Per the rules, the full Platoon group (PCS + Infantry Squads) counts as a single selection.',
+      de: 'Behoben in v0.45 — das Zugsquadkommando ist nun korrekt als Berater-Einheit markiert und belegt keinen Infanterie-Slot mehr. Gemäß den Regeln zählt die gesamte Zuggruppe (ZSK + Infanterietrupps) als eine einzige Auswahl.',
+      es: 'Corregido en v0.45 — el Escuadrón de Mando de Pelotón ahora está marcado correctamente como unidad asesora y ya no ocupa un slot de Tropas. Según las reglas, todo el grupo de pelotón (EMP + Escuadrones de Infantería) cuenta como una única selección.',
     },
   },
   // ── Fixed (v0.20) ─────────────────────────────────────────────────────────
@@ -377,6 +377,38 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 ];
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.45',
+    date: '2026-06-02',
+    title: {
+      en: 'Engine fixes — AOP minimums, Skirmish rules, IG trait costs',
+      de: 'Engine-Korrekturen — AOP-Minima, Scharmützel-Regeln, IG-Eigenschaftskosten',
+      es: 'Correcciones de motor — mínimos AOP, reglas de Escaramuza, costes de rasgos GI',
+    },
+    changes: {
+      en: [
+        'Fixed: Pitched Battle and Epic Battle minimum slot requirements now scale with AOP count. A 3-AOP list correctly requires 3 HQ and 6 Troops instead of the previous fixed minimum of 1 HQ and 2 Troops.',
+        'Fixed: In Skirmish, advisor units (Platoon Command Squad, Commissar, Astropath, etc.) now count toward Army Organisation slots. Rule: "All units occupy a slot, even if their rules state otherwise."',
+        'Fixed: Skirmish now raises a validation error when an Allied Detachment is present. Rule: "No allies may be included."',
+        'Fixed: Trait costs were not being applied for Imperial Guard and other non-CSM factions. A faulty gate in the points engine zeroed costs for any unit without the "Chaos Space Marine" keyword.',
+        'Fixed: Platoon Command Squad no longer occupies a Troops slot. The unit is now correctly treated as an advisor — per the rules the full Platoon group counts as a single selection.',
+      ],
+      de: [
+        'Behoben: Mindest-Slot-Anforderungen in Feldschlacht und Epischer Schlacht skalieren nun mit der AOP-Anzahl. Eine Liste mit 3 AOPs erfordert korrekt 3 HQ und 6 Infanterie statt der bisherigen festen Mindestwerte von 1 HQ und 2 Infanterie.',
+        'Behoben: Im Scharmützel werden Berater-Einheiten (Zugsquadkommando, Kommissar, Astropath usw.) nun auf Organisations-Slots angerechnet. Regel: "Alle Einheiten belegen einen Slot, auch wenn ihre Regeln etwas anderes besagen."',
+        'Behoben: Scharmützel löst nun einen Validierungsfehler aus, wenn ein verbündetes Detachment vorhanden ist. Regel: "Keine Verbündeten erlaubt."',
+        'Behoben: Eigenschaftskosten wurden für die Imperiale Garde und andere Nicht-CSM-Fraktionen nicht angewendet. Eine fehlerhafte Bedingung in der Punkte-Engine setzte die Kosten auf null für alle Einheiten ohne das Schlüsselwort "Chaos Space Marine".',
+        'Behoben: Das Zugsquadkommando belegt nicht mehr einen Infanterie-Slot. Die Einheit wird nun korrekt als Berater behandelt — gemäß den Regeln zählt die gesamte Zuggruppe als eine einzige Auswahl.',
+      ],
+      es: [
+        'Corregido: Los requisitos mínimos de slots en Batalla campal y Batalla épica ahora escalan con el número de AOPs. Una lista de 3 AOPs requiere correctamente 3 CG y 6 Tropas en lugar del mínimo fijo anterior de 1 CG y 2 Tropas.',
+        'Corregido: En Escaramuza, las unidades asesoras (Escuadrón de Mando de Pelotón, Comisario, Astropath, etc.) ahora cuentan para los slots de Organización del Ejército. Regla: "Todas las unidades ocupan un slot, incluso si sus reglas indican lo contrario."',
+        'Corregido: La Escaramuza ahora genera un error de validación si hay un Destacamento aliado. Regla: "No se permiten aliados."',
+        'Corregido: Los costes de rasgos no se estaban aplicando para la Guardia Imperial y otras facciones no-CSM. Una condición errónea en el motor de puntos ponía los costes a cero para cualquier unidad sin la palabra clave "Chaos Space Marine".',
+        'Corregido: El Escuadrón de Mando de Pelotón ya no ocupa un slot de Tropas. La unidad ahora se trata correctamente como asesora — según las reglas, todo el grupo de pelotón cuenta como una única selección.',
+      ],
+    },
+  },
   {
     version: '0.44',
     date: '2026-06-02',
