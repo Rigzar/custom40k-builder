@@ -206,7 +206,25 @@ src/i18n/       Übersetzungstexte (EN / DE / ES)
 | `resolver.ts` | Einheitenprofil-Auflösung – wendet Zeichen, Varianten und Archetypen an |
 | `validators.ts` | Armeevalidierung – Slot-Limits, Archetypen-Einschränkungen, Engagement-Limits |
 | `archetypes.ts` | Archetypen-Regeln und -Durchsetzung |
+| `archetypes/csm.ts` | CSM-Archetypen-Definitionen (Engine-Flags) |
+| `archetypes/rules/csm-rules.ts` | **Strukturierte Anzeigeregeln für alle 13 CSM-Archetypen** – hier bearbeiten, um das Angezeigte zu ändern |
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
+
+### Strukturierte Archetypen-Regeln
+
+Ab v0.45 werden CSM-Archetypen-Regeln als strukturierte Notizen in `src/engine/archetypes/rules/csm-rules.ts` gespeichert. Jede Notiz hat eine **Kategorie**, die die Darstellung in der UI steuert:
+
+| Kategorie | Farbe | Bedeutung |
+|---|---|---|
+| `troops` | Grün | Slot-Umordnung (X zählt als Troops) |
+| `requirement` | Amber | Pflichtvorschrift – vom Engine validiert |
+| `restriction` | Rot | Verbotenes oder Blockiertes – vom Engine validiert |
+| `mechanic` | Blau | Automatisch angewendeter Sondereffekt (z. B. Waffenupgrades) |
+| `in_game` | Grau / kursiv | Reine Spielregel – nur als Referenz angezeigt, **nicht** vom Builder erzwungen |
+
+**Um eine bestehende Archetypen-Regel zu ändern**: `src/engine/archetypes/rules/csm-rules.ts` öffnen, den Archetypen nach Name suchen und das `StructuredNote[]`-Array bearbeiten.
+
+**Um strukturierte Regeln für eine neue Fraktion hinzuzufügen**: `src/engine/archetypes/rules/<fraktion>-rules.ts` erstellen und denselben Export-Stil verwenden. Dann in der Archetypen-Definitionsdatei der Fraktion mit dem `withNotes()`-Hilfsprogramm verbinden (siehe `csm.ts` als Muster).
 
 ### TypeScript-Konventionen
 

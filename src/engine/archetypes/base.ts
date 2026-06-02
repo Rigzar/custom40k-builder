@@ -1,3 +1,15 @@
+export type ArchetypeNoteCategory =
+  | 'troops'       // Slot remapping — unit X counts as Troops
+  | 'requirement'  // Mandatory rule — validated by engine
+  | 'restriction'  // Something banned or blocked — validated by engine
+  | 'mechanic'     // Special engine effect — applied automatically
+  | 'in_game';     // Pure gameplay rule — informational only, not enforced by builder
+
+export interface StructuredNote {
+  category: ArchetypeNoteCategory;
+  text: string;
+}
+
 export interface ArchetypeRule {
   troopsRemap: string[];
   forcedMark: string | null;
@@ -19,6 +31,8 @@ export interface ArchetypeRule {
   alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
   allowedUnitsOnly: string[];
   notes: string[];
+  /** Structured notes for rich UI display. When present, rendered instead of plain notes[]. */
+  structuredNotes?: StructuredNote[];
 }
 
 export const BASE: ArchetypeRule = {

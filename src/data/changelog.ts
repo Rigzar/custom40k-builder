@@ -378,6 +378,41 @@ export const KNOWN_ISSUES: KnownIssue[] = [
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.45',
+    date: '2026-06-02',
+    title: {
+      en: 'CSM army rules audit + structured archetype notes',
+      de: 'CSM Heeresregeln-Audit + strukturierte Archetyp-Notizen',
+      es: 'Auditoría reglas CSM + notas de arquetipo estructuradas',
+    },
+    changes: {
+      en: [
+        'Fixed: Mark of Chaos Undivided no longer consumes a veteran ability slot. Only the four god marks count as a veteran ability per the rules; Undivided is exempt.',
+        'Fixed: Black Crusade champion character now shows the full mark bonuses (+1A+1S · +1T+1W · +1I+2″M · Warded) instead of only the character-exclusive extras.',
+        'Fixed: Favored squad leader note now correctly states "+1 Attack + Personal icon" — Daemon units deep striking within 3″ of the bearer do not scatter.',
+        'Added: Selecting Mark of Chaos Undivided now displays the in-game kill-progression rule as an informational note on the unit card.',
+        'Improved: CSM archetype rules now display with categorised notes — TROOPS (green), REQUIRED (amber), RESTRICTION (red), ENGINE (blue), IN-GAME (grey). IN-GAME rules are clearly labelled as not enforced by the builder.',
+        'Added: New file src/engine/archetypes/rules/csm-rules.ts contains all 13 CSM archetype rules in structured form — easy to find and modify per archetype.',
+      ],
+      de: [
+        'Behoben: Das Zeichen des Chaos Ungeteilt verbraucht keinen Veteranenplatz mehr. Nur die vier Göttermarken zählen laut Regeln als Veteranenfähigkeit; Ungeteilt ist ausgenommen.',
+        'Behoben: Der Schwarze-Kreuzzug-Champion (Charakter) zeigt jetzt die vollständigen Markierungsboni (+1A+1S · +1T+1W · +1I+2″M · Gewährt) statt nur die charakterexklusiven Extras.',
+        'Behoben: Die Begünstigter-Einheiten-Notiz gibt nun korrekt „+1 Angriff + Persönliches Symbol" an — Dämoneneinheiten, die innerhalb von 3″ des Trägers via Tiefschlag ankommen, verstreuen sich nicht.',
+        'Hinzugefügt: Das Auswählen von Zeichen des Chaos Ungeteilt zeigt jetzt die spielinterne Fortschrittsregel als informativen Hinweis auf der Einheitenkarte.',
+        'Verbessert: CSM-Archetyp-Regeln werden jetzt mit kategorisierten Notizen angezeigt — TROOPS (grün), REQUIRED (amber), RESTRICTION (rot), ENGINE (blau), IN-GAME (grau). IN-GAME-Regeln sind klar als nicht vom Builder durchgesetzt gekennzeichnet.',
+        'Hinzugefügt: Neue Datei src/engine/archetypes/rules/csm-rules.ts enthält alle 13 CSM-Archetyp-Regeln in strukturierter Form.',
+      ],
+      es: [
+        'Corregido: La Marca del Caos Indiviso ya no consume un slot de habilidad de veterano. Solo las cuatro marcas divinas cuentan como habilidad de veterano según las reglas; Indiviso está exento.',
+        'Corregido: El campeón de la Cruzada Negra (personaje) ahora muestra los bonificadores completos de marca (+1A+1F · +1R+1H · +1I+2″M · Protegido) en lugar de solo los extras exclusivos de personaje.',
+        'Corregido: La nota del líder de escuadra Favorecido ahora indica correctamente "+1 Ataque + Icono personal" — las unidades demoníacas que aterrizan dentro de 3″ del portador mediante Aterrizaje de profundidad no se dispersan.',
+        'Añadido: Seleccionar la Marca del Caos Indiviso ahora muestra la regla de progresión por bajas en juego como nota informativa en la tarjeta de unidad.',
+        'Mejorado: Las reglas de arquetipo CSM ahora se muestran con notas categorizadas — TROOPS (verde), REQUIRED (ámbar), RESTRICTION (rojo), ENGINE (azul), IN-GAME (gris). Las reglas IN-GAME están claramente marcadas como no aplicadas por el constructor.',
+        'Añadido: Nuevo archivo src/engine/archetypes/rules/csm-rules.ts con las 13 reglas de arquetipo CSM en formato estructurado.',
+      ],
+    },
+  },
+  {
     version: '0.44',
     date: '2026-06-02',
     title: {

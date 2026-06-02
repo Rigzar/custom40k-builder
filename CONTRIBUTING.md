@@ -206,7 +206,30 @@ src/i18n/       Translation strings (EN / DE / ES)
 | `resolver.ts` | Unit profile resolution — applies marks, variants, archetypes |
 | `validators.ts` | Army validation — slot limits, archetype constraints, engagement limits |
 | `archetypes.ts` | Archetype rule definitions and enforcement |
+| `archetypes/csm.ts` | CSM archetype definitions (engine flags) |
+| `archetypes/rules/csm-rules.ts` | **Structured display rules for all 13 CSM archetypes** — edit here to change what players see |
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
+
+### Archetype structured rules
+
+As of v0.45, CSM archetype rules are stored as structured notes in `src/engine/archetypes/rules/csm-rules.ts`. Each note has a **category** that controls how it is rendered in the UI:
+
+| Category | Colour | Meaning |
+|---|---|---|
+| `troops` | Green | Unit slot remapping (X counts as Troops) |
+| `requirement` | Amber | Mandatory rule — validated by the engine |
+| `restriction` | Red | Something banned or blocked — validated by the engine |
+| `mechanic` | Blue | Special effect applied automatically (e.g., weapon upgrades) |
+| `in_game` | Grey / italic | Pure gameplay rule — shown for reference, **not** enforced by the builder |
+
+**To modify an existing archetype rule** (text, category, or add/remove a note): open `src/engine/archetypes/rules/csm-rules.ts`, find the archetype by name, and edit its `StructuredNote[]` array.
+
+**To add structured rules for a new faction**, follow the same pattern:
+1. Create `src/engine/archetypes/rules/<faction>-rules.ts` exporting a `Record<string, StructuredNote[]>`.
+2. Import it in the faction's `archetypes/<faction>.ts` file.
+3. Wrap each archetype with the `withNotes()` helper (see `csm.ts` for the pattern).
+
+The engine flags (`forcedMark`, `bannedUnits`, `hqOverride`, etc.) in `archetypes/<faction>.ts` remain the source of truth for what is **enforced**. The structured notes in `rules/<faction>-rules.ts` are the source of truth for what is **displayed**.
 
 ### TypeScript conventions
 

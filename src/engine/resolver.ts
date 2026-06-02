@@ -94,10 +94,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ? null
     : (item.mark ?? (markIsForced ? ((rule!.forcedMark as Mark) ?? null) : null)) as Mark | null;
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
-  // Marks of Chaos count as a veteran ability for ALL units (per army rules: "Counts as a veteran ability").
-  // This applies whether the mark is chosen, forced by archetype, or locked to the unit.
+  // The four god marks count as a veteran ability. Mark of Chaos Undivided does NOT (rule omits the clause).
   // Locked-mark units (e.g. Plague Marines) use veteran_max:1 in their data instead.
-  const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark;
+  const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark && effectiveMark !== 'Undivided';
   const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
 

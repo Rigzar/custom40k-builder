@@ -1,7 +1,18 @@
 ﻿import type { ArchetypeRule } from './base';
 import { BASE, cultArchetype, dropPodArchetype } from './base';
+import { CSM_STRUCTURED_NOTES } from './rules/csm-rules';
 
-export const CSM_ARCHETYPES: Record<string, ArchetypeRule> = {
+function withNotes(rule: ArchetypeRule, name: string): ArchetypeRule {
+  const sn = CSM_STRUCTURED_NOTES[name];
+  return sn ? { ...rule, structuredNotes: sn } : rule;
+}
+
+export const CSM_ARCHETYPES: Record<string, ArchetypeRule> = Object.fromEntries(
+  Object.entries(_buildCSMArchetypes()).map(([k, v]) => [k, withNotes(v, k)])
+);
+
+function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
+  return {
   'Blood for the Blood God!': cultArchetype('Khorne', 'Khorne Berzerkers'),
   'All is Dust': {
     ...cultArchetype('Tzeentch', 'Rubric Marines'),
@@ -123,4 +134,5 @@ export const CSM_ARCHETYPES: Record<string, ArchetypeRule> = {
       'Only HH supplement Troops (Breacher, Tactical, Tactical Support) count towards the 25%.',
     ],
   },
-};
+  };
+}

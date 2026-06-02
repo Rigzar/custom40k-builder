@@ -468,7 +468,7 @@ export function UnitCard({ item }: Props) {
               {u.is_vehicle
                 ? 'Tank Shock (double hit) · Recover damage 2D6/7+ · -1/-2 LD (18″/9″) · Warpflamer'
                 : u.is_character
-                  ? '+1 Str · +1 W · +2″ Move · Warded'
+                  ? '+1A +1S · +1T +1W · +1I +2″M · Warded'
                   : '+1 A · +1 T · +1 I · Warded'
               }
             </div>
@@ -485,11 +485,16 @@ export function UnitCard({ item }: Props) {
                 <span className="text-zinc-500"> · counts as 1 veteran ability slot</span>
               )}
             </div>
+          ) : statModMark === 'Undivided' ? (
+            <div className="text-[10px] text-zinc-400/80 border-l-2 border-zinc-600 pl-2 mt-0.5">
+              <span className="font-semibold">Mark of Chaos Undivided:</span>{' '}
+              Kill-based progression (in-game rule): 1st kill → one Mark benefit (infantry); 2nd kill → additional character benefit; 3rd kill → Daemon weapon ability; 4th kill → Daemon Prince stats. If slain before the 1st benefit, replaced with a Chaos Spawn (opponent controls).
+            </div>
           ) : null}
           {isFavored && effectiveMark && SACRED_NUMBERS[effectiveMark] && (
             <div className="text-[10px] text-amber-400/80 border-l-2 border-amber-700 pl-2 mt-0.5">
               <span className="font-semibold">★ Favored of {effectiveMark}</span>{' '}
-              (size {SACRED_NUMBERS[effectiveMark]}×): squad leader gains +1 Attack.
+              (size {SACRED_NUMBERS[effectiveMark]}×): squad leader gains +1 Attack + Personal icon (Daemon units deep striking within 3″ of the bearer do not scatter).
             </div>
           )}
 
