@@ -4,7 +4,7 @@ import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
 import { LegalFooter } from './LegalModal';
 import { LanguageSelector } from './LanguageSelector';
-import { useT, useLanguage, type Language } from '../i18n';
+import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
@@ -15,35 +15,35 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: 'Developer Update — from rigzar',
     intro: "Hello everyone! I'm rigzar. Archetypes, Legacies and Traits are now active for all factions. The data has been audited HTML-by-HTML across all 19 factions — unit profiles, weapon stats, option group types and prices have all been reviewed and corrected.",
-    csm: '✓ Chaos Space Marines — fully audited. Archetypes, Legacies, Traits, Black Crusade, armory and all engine rules live.',
-    cd:  '✓ Chaos Daemons — fully audited. God disciplines, psyker access, mark restrictions and slot rules live.',
-    sm:  '✓ Space Marines — fully audited (74 units). All 6 disciplines, Legion archetype routing, chapter legacies live.',
-    ig:  '✓ Imperial Guard — fully audited (60 units). Psikana I & II disciplines, advisor units, lance weapons, all options reviewed. Needs player testing.',
-    gk:  '→ Grey Knights — audit complete (22 units). Disciplines, weapon profiles and option rules corrected. In testing.',
-    adm: '→ Adeptus Mechanicus — audit complete. Doctrina Imperatives, weapon profiles and options corrected. In testing.',
+    csm: '✓ Chaos Space Marines — fully audited (61 units). Legacies, Traits, Armory, Black Crusade. All rules live.',
+    cd:  '✓ Chaos Daemons — fully audited (37 units). God disciplines, Armory, mark and slot rules. All rules live.',
+    sm:  '✓ Space Marines — fully audited (74 units). 6 disciplines, Legion archetypes, chapter legacies. All rules live.',
+    ig:  '✓ Imperial Guard — fully audited (60 units). Psikana disciplines, advisor slots, lance weapons. Needs player testing.',
+    gk:  '→ Grey Knights — audit complete (22 units). Disciplines, weapon profiles, option rules. In testing.',
+    adm: '→ Adeptus Mechanicus — audit complete (29 units). Doctrina Imperatives, weapon profiles, options. In testing.',
     rest: 'All other factions — data audited and corrected. Engine rules (archetype slot logic, trait cost calculation) are active but specific faction validators are still being built. Report any issues!',
   },
   de: {
     title: 'Entwickler-Update — von rigzar',
     intro: 'Hallo zusammen! Ich bin rigzar. Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv. Die Daten wurden HTML für HTML für alle 19 Fraktionen geprüft — Einheitenprofile, Waffenwerte, Optionsgruppen und Preise wurden überprüft und korrigiert.',
-    csm: '✓ Chaos Space Marines — vollständig geprüft. Archetypen, Vermächtnisse, Eigenschaften, Schwarzer Kreuzzug, Waffenkammer und alle Engine-Regeln aktiv.',
-    cd:  '✓ Chaos-Dämonen — vollständig geprüft. Götterdisziplinen, Psionik-Zugang, Malrestriktionen und Slot-Regeln aktiv.',
-    sm:  '✓ Space Marines — vollständig geprüft (74 Einheiten). Alle 6 Disziplinen, Legions-Archetyp-Routing, Kapitel-Vermächtnisse aktiv.',
-    ig:  '✓ Imperiale Garde — vollständig geprüft (60 Einheiten). Psikana I & II Disziplinen, Berater-Einheiten, Lanzenwaffen, alle Optionen geprüft. Benötigt Spielertests.',
-    gk:  '→ Graue Ritter — Prüfung abgeschlossen (22 Einheiten). Disziplinen, Waffenprofile und Optionsregeln korrigiert. In Erprobung.',
-    adm: '→ Adeptus Mechanicus — Prüfung abgeschlossen. Doctrina-Imperative, Waffenprofile und Optionen korrigiert. In Erprobung.',
+    csm: '✓ Chaos Space Marines — vollständig geprüft (61 Einheiten). Vermächtnisse, Eigenschaften, Waffenkammer, Schwarzer Kreuzzug. Alle Regeln aktiv.',
+    cd:  '✓ Chaos-Dämonen — vollständig geprüft (37 Einheiten). Götterdisziplinen, Waffenkammer, Mal- und Slot-Regeln. Alle Regeln aktiv.',
+    sm:  '✓ Space Marines — vollständig geprüft (74 Einheiten). 6 Disziplinen, Legions-Archetypen, Kapitel-Vermächtnisse. Alle Regeln aktiv.',
+    ig:  '✓ Imperiale Garde — vollständig geprüft (60 Einheiten). Psikana-Disziplinen, Berater-Slots, Lanzenwaffen. Spielertests erforderlich.',
+    gk:  '→ Graue Ritter — Prüfung abgeschlossen (22 Einheiten). Disziplinen, Waffenprofile, Optionsregeln. In Erprobung.',
+    adm: '→ Adeptus Mechanicus — Prüfung abgeschlossen (29 Einheiten). Doctrina-Imperative, Waffenprofile, Optionen. In Erprobung.',
     rest: 'Alle anderen Fraktionen — Daten geprüft und korrigiert. Engine-Regeln (Archetyp-Slot-Logik, Eigenschaftskosten) sind aktiv, fraktionsspezifische Validatoren werden noch entwickelt. Fehler melden!',
   },
   es: {
     title: 'Actualización del desarrollador — de rigzar',
     intro: '¡Hola a todos! Soy rigzar. Los Arquetipos, Legados y Rasgos ya están activos para todas las facciones. Los datos han sido auditados HTML a HTML en las 19 facciones — perfiles de unidades, estadísticas de armas, tipos de grupos de opciones y precios han sido revisados y corregidos.',
-    csm: '✓ Chaos Space Marines — totalmente auditado. Arquetipos, Legados, Rasgos, Cruzada Negra, armería y todas las reglas del motor activos.',
-    cd:  '✓ Demonios del Caos — totalmente auditado. Disciplinas divinas, acceso a psíquicos, restricciones de marca y reglas de slots activos.',
-    sm:  '✓ Space Marines — totalmente auditado (74 unidades). Las 6 disciplinas, enrutamiento de arquetipos de Legión, legados de capítulo activos.',
-    ig:  '✓ Guardia Imperial — totalmente auditado (60 unidades). Disciplinas Psikana I y II, unidades asesoras, armas de lanza, todas las opciones revisadas. Necesita pruebas de jugadores.',
-    gk:  '→ Caballeros Grises — auditoría completa (22 unidades). Disciplinas, perfiles de armas y reglas de opciones corregidos. En pruebas.',
-    adm: '→ Adeptus Mechanicus — auditoría completa. Imperativos de Doctrina, perfiles de armas y opciones corregidos. En pruebas.',
-    rest: 'Todas las demás facciones — datos auditados y corregidos. Las reglas del motor (lógica de slots de arquetipos, coste de rasgos) están activas pero los validadores específicos de facción aún se están desarrollando. ¡Reportad cualquier problema!',
+    csm: '✓ Chaos Space Marines — totalmente auditado (61 unidades). Legados, Rasgos, Armería, Cruzada Negra. Todas las reglas activas.',
+    cd:  '✓ Demonios del Caos — totalmente auditado (37 unidades). Disciplinas divinas, Armería, reglas de marca y slots. Todas las reglas activas.',
+    sm:  '✓ Space Marines — totalmente auditado (74 unidades). 6 disciplinas, arquetipos de Legión, legados de capítulo. Todas las reglas activas.',
+    ig:  '✓ Guardia Imperial — totalmente auditado (60 unidades). Disciplinas Psikana, slots de asesores, armas de lanza. Necesita pruebas de jugadores.',
+    gk:  '→ Caballeros Grises — auditoría completa (22 unidades). Disciplinas, perfiles de armas, reglas de opciones. En pruebas.',
+    adm: '→ Adeptus Mechanicus — auditoría completa (29 unidades). Imperativos de Doctrina, perfiles de armas, opciones. En pruebas.',
+    rest: 'Todas las demás facciones — datos auditados y corregidos. Las reglas del motor (lógica de slots, coste de rasgos) están activas pero los validadores específicos de facción aún se están desarrollando. ¡Reportad cualquier problema!',
   },
 };
 
@@ -82,8 +82,7 @@ function CommunityAnnouncement() {
   );
 }
 
-/** yellow = needs player testing · orange = en revisión · red = not yet reviewed */
-type FactionStatus = 'testing' | 'inreview' | 'unreviewed';
+type FactionStatus = 'complete' | 'testing' | 'inreview' | 'unreviewed';
 
 interface FactionDef {
   key: string;
@@ -99,10 +98,18 @@ interface Category {
   factions: FactionDef[];
 }
 
-const STATUS_BADGE: Record<FactionStatus, { dot: string; label: string; title: string }> = {
-  testing:    { dot: 'bg-amber-400',   label: 'text-amber-400',   title: 'Needs player testing' },
-  inreview:   { dot: 'bg-orange-500',  label: 'text-orange-400',  title: 'In review' },
-  unreviewed: { dot: 'bg-red-500',     label: 'text-red-500',     title: 'Not yet reviewed' },
+const STATUS_BADGE: Record<FactionStatus, { dot: string; label: string }> = {
+  complete:   { dot: 'bg-green-500',   label: 'text-green-400'  },
+  testing:    { dot: 'bg-amber-400',   label: 'text-amber-400'  },
+  inreview:   { dot: 'bg-orange-500',  label: 'text-orange-400' },
+  unreviewed: { dot: 'bg-red-500',     label: 'text-red-500'    },
+};
+
+const STATUS_I18N_KEY: Record<FactionStatus, TranslationKey> = {
+  complete:   'fullyReviewed',
+  testing:    'needsTesting',
+  inreview:   'inReview',
+  unreviewed: 'notReviewed',
 };
 
 const CATEGORIES: Category[] = [
@@ -111,8 +118,8 @@ const CATEGORIES: Category[] = [
     borderColor: 'border-red-800',
     labelColor: 'text-red-400',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'testing' },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'testing' },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete' },
+      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete' },
     ],
   },
   {
@@ -120,7 +127,7 @@ const CATEGORIES: Category[] = [
     borderColor: 'border-yellow-700',
     labelColor: 'text-yellow-500',
     factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'testing' },
+      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'inreview' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'unreviewed' },
@@ -251,6 +258,7 @@ export function LandingPage({
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700">{t('selectFaction')}</h2>
             <div className="flex items-center gap-3 text-[10px] text-zinc-500">
+              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" /> {t('fullyReviewed')}</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> {t('needsTesting')}</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> {t('inReview')}</span>
               <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block" /> {t('notReviewed')}</span>
@@ -285,7 +293,7 @@ export function LandingPage({
                         {f.available && (
                           <div
                             className="absolute top-1.5 right-1.5 flex items-center gap-1"
-                            title={badge.title}
+                            title={t(STATUS_I18N_KEY[f.status])}
                           >
                             <div className={`w-2 h-2 rounded-full ${badge.dot}`} />
                           </div>
@@ -298,7 +306,7 @@ export function LandingPage({
                           <div className="text-[10px] text-amber-600 mt-0.5">Selected</div>
                         )}
                         {f.available && !isSelected && (
-                          <div className={`text-[10px] mt-0.5 ${badge.label}`}>{badge.title}</div>
+                          <div className={`text-[10px] mt-0.5 ${badge.label}`}>{t(STATUS_I18N_KEY[f.status])}</div>
                         )}
                       </button>
                     );

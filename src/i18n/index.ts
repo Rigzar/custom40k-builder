@@ -20,7 +20,7 @@ export const useLanguage = create<I18nState>()(
 
 // ── Translations ──────────────────────────────────────────────────────────────
 
-type TranslationKey =
+export type TranslationKey =
   | 'appTitle' | 'appSubtitle' | 'selectFaction' | 'savedArmies' | 'loadArmy'
   | 'buildArmy' | 'updates' | 'battleType' | 'pointsLimit' | 'archetype'
   | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
@@ -33,7 +33,7 @@ type TranslationKey =
   | 'ranged' | 'melee' | 'equipment' | 'abilities' | 'veteranAbilities' | 'psychicPowers' | 'keywords'
   | 'armyConfiguration' | 'engagement' | 'points' | 'specialRules'
   | 'models' | 'totalModels'
-  | 'needsTesting' | 'inReview' | 'notReviewed'
+  | 'fullyReviewed' | 'needsTesting' | 'inReview' | 'notReviewed'
   | 'supplements' | 'available' | 'comingSoon';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
@@ -100,9 +100,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     specialRules: 'Special Rules',
     models: 'models',
     totalModels: 'Total models',
-    needsTesting: 'Needs testing',
+    fullyReviewed: 'Fully reviewed',
+    needsTesting: 'Needs player testing',
     inReview: 'In review',
-    notReviewed: 'Not reviewed',
+    notReviewed: 'Not yet reviewed',
     supplements: 'Supplements',
     available: 'Available',
     comingSoon: 'Coming Soon',
@@ -170,9 +171,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     specialRules: 'Sonderregeln',
     models: 'Modelle',
     totalModels: 'Modelle gesamt',
-    needsTesting: 'Tests erforderlich',
+    fullyReviewed: 'Vollständig geprüft',
+    needsTesting: 'Spielertests erforderlich',
     inReview: 'In Überprüfung',
-    notReviewed: 'Nicht überprüft',
+    notReviewed: 'Noch nicht geprüft',
     supplements: 'Erweiterungen',
     available: 'Verfügbar',
     comingSoon: 'Demnächst',
@@ -240,7 +242,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     specialRules: 'Reglas especiales',
     models: 'miniaturas',
     totalModels: 'Total miniaturas',
-    needsTesting: 'Necesita pruebas',
+    fullyReviewed: 'Completamente revisado',
+    needsTesting: 'Necesita pruebas de jugadores',
     inReview: 'En revisión',
     notReviewed: 'Sin revisar',
     supplements: 'Suplementos',
