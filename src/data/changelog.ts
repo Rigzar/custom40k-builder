@@ -25,6 +25,44 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.53',
+    date: '2026-06-05',
+    title: {
+      en: 'Legacy armory fix, canonical rule text in engine, data structure refactor',
+      de: 'Legacy-Rüstkammer-Fix, kanonischer Regeltext in der Engine, Datenstruktur-Refactoring',
+      es: 'Corrección de armerías de Legacy, texto canónico en el motor, refactorización de estructura de datos',
+    },
+    changes: {
+      en: [
+        'Fixed: Legacy armory tabs (chapter armories, legion armories, cult armories) were not appearing when a Legacy was selected. The armory_legions keys in the data loader did not match the armory_key values stored in the legacy data — e.g. Space Marines had "Legacy of Aurelia" as a key but the engine expected "Blood Ravens". All 70 legacy entries across 12 factions verified and corrected (SM chapter armories, CSM legion armories, Dark Eldar Kabal/Wych/Coven, and more). If you previously selected a Legacy and saw no extra armory tab, it now works.',
+        'Changed (internal): faction data reorganised from a flat directory of large monolith JSONs into per-faction folders. Each faction now has separate files for units, armory (general / per-mark / per-legacy), psychic disciplines, archetypes, and rules — making it much easier to find, audit, and correct individual pieces of data without touching unrelated content.',
+        'Added (types): src/types/unit-types.ts (canonical UnitType union with all Core Rules unit type names) and src/types/keywords.ts (typed ChaosMark, ArmourKeyword, and MARK_GLYPHS constants).',
+        'Added (engine documentation): canonical rule text from the Army Customisation source sheets is now embedded as comments directly above the code for each archetype, trait, and legacy in the CSM, SM, and CD engine files. When a rule and its implementation differ, the comment makes it visible immediately.',
+        'Fixed (SM archetypes): Librarian Conclave now correctly lists Chief Librarian as an allowed HQ type alongside Librarian and Librarian Dreadnought (the source lists all three explicitly).',
+        'Fixed (CSM archetypes): garbled arrow characters in All is Dust and Plaguehost upgrade notes corrected.',
+        'Added (contributors): new GitHub issue templates for Rules Questions (answer an ambiguous rule) and Code Issues (developer-claimed fixes), plus OPEN_QUESTIONS.md listing the open items — no coding required to help with rules questions.',
+      ],
+      de: [
+        'Behoben: Legacy-Rüstkammer-Tabs (Kapitel-, Legions- und Kult-Rüstkammern) wurden nicht angezeigt, wenn ein Legacy ausgewählt war. Die armory_legions-Schlüssel im Daten-Loader stimmten nicht mit den armory_key-Werten in den Legacy-Daten überein. Alle 70 Legacy-Einträge in 12 Fraktionen überprüft und korrigiert.',
+        'Geändert (intern): Fraktionsdaten wurden von einem flachen Verzeichnis großer Monolith-JSONs in fraktionseigene Ordner umstrukturiert. Jede Fraktion hat jetzt separate Dateien für Einheiten, Rüstkammer, Disziplinen, Archetypen und Regeln.',
+        'Hinzugefügt (Typen): src/types/unit-types.ts (kanonische UnitType-Union) und src/types/keywords.ts (typisierte ChaosMark, ArmourKeyword und MARK_GLYPHS-Konstanten).',
+        'Hinzugefügt (Engine-Dokumentation): Kanonischer Regeltext aus den Heeresanpassungs-Quellblättern ist jetzt als Kommentar direkt über dem Code für jeden Archetyp, Trait und Legacy in den CSM-, SM- und CD-Engine-Dateien eingebettet.',
+        'Behoben (SM-Archetypen): Librarian Conclave listet jetzt korrekt Chief Librarian als erlaubten HQ-Typ auf.',
+        'Behoben (CSM-Archetypen): Verstümmelte Pfeilzeichen in All is Dust und Plaguehost korrigiert.',
+        'Hinzugefügt (Mitwirkende): Neue GitHub-Issue-Vorlagen für Regelfragen und Code-Probleme sowie OPEN_QUESTIONS.md.',
+      ],
+      es: [
+        'Corregido: las pestañas de armería de Legacy (armerías de capítulo, legión y culto) no aparecían al seleccionar un Legacy. Las claves de armory_legions en el loader no coincidían con los valores de armory_key en los datos de Legacy. Los 70 entradas de Legacy en 12 facciones verificadas y corregidas.',
+        'Cambiado (interno): los datos de facción se reorganizaron desde un directorio plano de JSONs monolíticos hacia carpetas por facción. Cada facción tiene ahora archivos separados para unidades, armería, disciplinas, arquetipos y reglas.',
+        'Añadido (tipos): src/types/unit-types.ts (union canónica de UnitType) y src/types/keywords.ts (ChaosMark, ArmourKeyword y MARK_GLYPHS tipados).',
+        'Añadido (documentación del motor): el texto canónico de las hojas de Personalización de ejército está ahora como comentario directamente encima del código de cada arquetipo, rasgo y legado en los archivos del motor de CSM, SM y CD.',
+        'Corregido (arquetipos SM): el Librarian Conclave ahora lista correctamente al Chief Librarian como tipo de HQ permitido.',
+        'Corregido (arquetipos CSM): caracteres de flecha corruptos en All is Dust y Plaguehost corregidos.',
+        'Añadido (contribuidores): nuevas plantillas de issues de GitHub para preguntas de reglas y problemas de código, más OPEN_QUESTIONS.md.',
+      ],
+    },
+  },
+  {
     version: '0.52',
     date: '2026-06-04',
     title: {

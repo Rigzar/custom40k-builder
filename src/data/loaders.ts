@@ -81,7 +81,7 @@ async function loadFaction(key: string): Promise<FactionData> {
       ]);
       return asm(u, g, arch, rules,
         { Khorne: kh, Nurgle: nu, Slaanesh: sl, Tzeentch: tz },
-        { 'Legacy of the Iron Lord': iron, 'Legacy of the Arch Traitor': word, 'Legacy of the Hydra': alpha, 'Legacy of the Night Haunter': night, 'Legacy of the Warmaster': black },
+        { 'Iron Warriors': iron, 'Word Bearers': word, 'Alpha Legion': alpha, 'Night Lords': night, 'Black Legion': black },
         { pacts, prayers, daemonkin: dk });
     }
 
@@ -115,7 +115,7 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/space_marines/armory/legion_blood_ravens.json'),
       ]);
       return asm(u, g, arch, noRules, {},
-        { 'Legacy of the Damned': rel, 'Legacy of the Alien Hunters': dw, 'Legacy of the Lion': da, 'Legacy of the Khan': ws, 'Legacy of the Wolf': sw, 'Legacy of the Praetorian': fi, 'Legacy of the Crusader': bt, 'Legacy of the Angel': ba, 'Legacy of Aurelia': br },
+        { 'Relictors': rel, 'Death Watch': dw, 'Dark Angels': da, 'White Scars': ws, 'Space Wolves': sw, 'Imperial Fists': fi, 'Black Templars': bt, 'Blood Angels': ba, 'Blood Ravens': br },
         { prayers, daemonkin: dk });
     }
 
@@ -246,7 +246,7 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/dark_eldar/armory/legion_coven.json'),
         import('../../data/parsed/dark_eldar/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Kabal': kabal, 'Wych Cult': wych, 'Haemoncovens': coven }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Kabal': kabal, 'Wych': wych, 'Coven': coven }, { daemonkin: dk });
     }
 
     case 'genestealer_cults': {

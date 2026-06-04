@@ -3,6 +3,12 @@ import type { KnownIssue } from './changelog';
 export const KNOWN_ISSUES: KnownIssue[] = [
   // ── In progress ───────────────────────────────────────────────────────────
   {
+    id: 'ki-legacy-armory-link-01',
+    status: 'fixed',
+    title: 'Legacy armory tabs not showing for Space Marines and other factions',
+    description: 'Selecting a Legacy (e.g. Legacy of the Angel for Space Marines) should show a dedicated chapter armory tab. The armory tab was never appearing because the key used in armory_legions (loaded by loaders.ts) did not match the armory_key value stored in each legacy\'s data — e.g. the loader used "Legacy of Aurelia" but the data expected "Blood Ravens". This affected all factions using legacy armories: SM (9 chapter armories), CSM (5 legion armories), Dark Eldar (Kabal/Wych/Coven), and any other faction where the loader key diverged from armory_key. Fixed: loaders.ts now uses the canonical armory_key values as the armory_legions keys, verified across all 70 legacy entries in 12 factions (0 mismatches). The engine lookup (armory_key → armory_legions[key]) now resolves correctly for every faction.',
+  },
+  {
     id: 'ki-skirmish-equip-caps-01',
     status: 'fixed',
     title: 'Skirmish: equipment stat/save caps and Unique armory limit not enforced',

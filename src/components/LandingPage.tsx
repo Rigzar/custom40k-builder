@@ -9,42 +9,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v4_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v5_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; csm: string; cd: string; sm: string; ig: string; gk: string; adm: string; rest: string; };
+type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: 'Developer Update — from rigzar',
-    intro: "Hello everyone! I'm rigzar. Archetypes, Legacies and Traits are now active for all factions. The data has been audited HTML-by-HTML across all 19 factions — unit profiles, weapon stats, option group types and prices have all been reviewed and corrected.",
-    csm: '✓ Chaos Space Marines — fully audited (61 units). Legacies, Traits, Armory, Black Crusade. All rules live.',
-    cd:  '✓ Chaos Daemons — fully audited (37 units). God disciplines, Armory, mark and slot rules. All rules live.',
-    sm:  '✓ Space Marines — fully audited (74 units). 6 disciplines, Legion archetypes, chapter legacies. All rules live.',
-    ig:  '✓ Imperial Guard — fully audited (60 units). Psikana disciplines, advisor slots, lance weapons. Needs player testing.',
-    gk:  '→ Grey Knights — audit complete (22 units). Disciplines, weapon profiles, option rules. In testing.',
-    adm: '→ Adeptus Mechanicus — audit complete (29 units). Doctrina Imperatives, weapon profiles, options. In testing.',
-    rest: 'All other factions — data audited and corrected. Engine rules (archetype slot logic, trait cost calculation) are active but specific faction validators are still being built. Report any issues!',
+    intro: "Hello everyone! I'm rigzar. This is a major engine update — the builder has been rebuilt from the ground up with a new data architecture. Every faction now has its own folder with separate files for units, armory, psychic disciplines, archetypes and rules. This makes the data easier to audit, fix and contribute to.",
+    engine: '⚙ New engine — per-faction data folders, typed unit types, typed keyword constants, canonical rule text embedded alongside every engine rule as a reference. Legacy armory tabs are now properly linked to the legacy you select for all 19 factions.',
+    csm: '✓ Chaos Space Marines — Beta. Armory, legacies, traits, archetypes, Black Crusade all wired. Canonical rule text verified in engine.',
+    cd:  '✓ Chaos Daemons — Beta. God disciplines, armory, mark rules, Daemonkin archetypes. Canonical rule text verified.',
+    sm:  '✓ Space Marines — Beta. Chapter legacies with disciplines and prayers, 8 archetypes, 19 traits, Gravis/Terminator armory gating. Canonical rule text verified.',
+    legacyfix: '🔧 Bug fix — legacy armory tabs were not showing for Space Marines and several other factions. Fixed in this update. If you had a saved list with a Legacy selected, re-open the armory to see the chapter items.',
+    contrib: '👷 Want to help? New contributor guides at CONTRIBUTING.md — translation guide, empty file templates, issue templates on GitHub for rules questions and code fixes. No coding required to contribute data or answer rules questions!',
   },
   de: {
     title: 'Entwickler-Update — von rigzar',
-    intro: 'Hallo zusammen! Ich bin rigzar. Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv. Die Daten wurden HTML für HTML für alle 19 Fraktionen geprüft — Einheitenprofile, Waffenwerte, Optionsgruppen und Preise wurden überprüft und korrigiert.',
-    csm: '✓ Chaos Space Marines — vollständig geprüft (61 Einheiten). Vermächtnisse, Eigenschaften, Rüstkammer, Schwarzer Kreuzzug. Alle Regeln aktiv.',
-    cd:  '✓ Chaos-Dämonen — vollständig geprüft (37 Einheiten). Götterdisziplinen, Rüstkammer, Mal- und Slot-Regeln. Alle Regeln aktiv.',
-    sm:  '✓ Space Marines — vollständig geprüft (74 Einheiten). 6 Disziplinen, Legions-Archetypen, Kapitel-Vermächtnisse. Alle Regeln aktiv.',
-    ig:  '✓ Imperiale Garde — vollständig geprüft (60 Einheiten). Psikana-Disziplinen, Berater-Slots, Lanzenwaffen. Spielertests erforderlich.',
-    gk:  '→ Graue Ritter — Prüfung abgeschlossen (22 Einheiten). Disziplinen, Waffenprofile, Optionsregeln. In Erprobung.',
-    adm: '→ Adeptus Mechanicus — Prüfung abgeschlossen (29 Einheiten). Doctrina-Imperative, Waffenprofile, Optionen. In Erprobung.',
-    rest: 'Alle anderen Fraktionen — Daten geprüft und korrigiert. Engine-Regeln (Archetyp-Slot-Logik, Eigenschaftskosten) sind aktiv, fraktionsspezifische Validatoren werden noch entwickelt. Fehler melden!',
+    intro: 'Hallo zusammen! Ich bin rigzar. Dies ist ein großes Engine-Update — der Builder wurde von Grund auf mit einer neuen Datenarchitektur neu aufgebaut. Jede Fraktion hat jetzt einen eigenen Ordner mit separaten Dateien für Einheiten, Rüstkammer, Disziplinen, Archetypen und Regeln.',
+    engine: '⚙ Neue Engine — fraktionseigene Datenordner, typisierte Einheitentypen und Keywords, kanonischer Regeltext neben jedem Engine-Regelcode. Legacy-Rüstkammer-Tabs sind jetzt für alle 19 Fraktionen korrekt verknüpft.',
+    csm: '✓ Chaos Space Marines — Beta. Rüstkammer, Vermächtnisse, Eigenschaften, Archetypen, Schwarzer Kreuzzug vollständig verkabelt.',
+    cd:  '✓ Chaos-Dämonen — Beta. Götterdisziplinen, Rüstkammer, Mal-Regeln, Daemonkin-Archetypen.',
+    sm:  '✓ Space Marines — Beta. Kapitel-Vermächtnisse mit Disziplinen und Gebeten, 8 Archetypen, 19 Eigenschaften, Gravis/Terminator-Rüstkammer-Gating.',
+    legacyfix: '🔧 Bugfix — Legacy-Rüstkammer-Tabs wurden für Space Marines und andere Fraktionen nicht angezeigt. In diesem Update behoben.',
+    contrib: '👷 Mitmachen? Neue Beitragsanleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub Issue-Vorlagen.',
   },
   es: {
     title: 'Actualización del desarrollador — de rigzar',
-    intro: '¡Hola a todos! Soy rigzar. Los Arquetipos, Legados y Rasgos ya están activos para todas las facciones. Los datos han sido auditados HTML a HTML en las 19 facciones — perfiles de unidades, estadísticas de armas, tipos de grupos de opciones y precios han sido revisados y corregidos.',
-    csm: '✓ Chaos Space Marines — totalmente auditado (61 unidades). Legados, Rasgos, Armería, Cruzada Negra. Todas las reglas activas.',
-    cd:  '✓ Demonios del Caos — totalmente auditado (37 unidades). Disciplinas divinas, Armería, reglas de marca y slots. Todas las reglas activas.',
-    sm:  '✓ Space Marines — totalmente auditado (74 unidades). 6 disciplinas, arquetipos de Legión, legados de capítulo. Todas las reglas activas.',
-    ig:  '✓ Guardia Imperial — totalmente auditado (60 unidades). Disciplinas Psikana, slots de asesores, armas de lanza. Necesita pruebas de jugadores.',
-    gk:  '→ Caballeros Grises — auditoría completa (22 unidades). Disciplinas, perfiles de armas, reglas de opciones. En pruebas.',
-    adm: '→ Adeptus Mechanicus — auditoría completa (29 unidades). Imperativos de Doctrina, perfiles de armas, opciones. En pruebas.',
-    rest: 'Todas las demás facciones — datos auditados y corregidos. Las reglas del motor (lógica de slots, coste de rasgos) están activas pero los validadores específicos de facción aún se están desarrollando. ¡Reportad cualquier problema!',
+    intro: '¡Hola a todos! Soy rigzar. Esta es una actualización mayor del motor — el builder fue reconstruido desde cero con una nueva arquitectura de datos. Cada facción tiene ahora su propia carpeta con archivos separados para unidades, armería, disciplinas, arquetipos y reglas.',
+    engine: '⚙ Motor nuevo — carpetas de datos por facción, tipos de unidad tipados, constantes de keywords tipadas, texto canónico de reglas junto a cada regla del motor. Las pestañas de armería de Legacy ahora están correctamente vinculadas en las 19 facciones.',
+    csm: '✓ Chaos Space Marines — Beta. Armería, legados, rasgos, arquetipos, Cruzada Negra totalmente cableados.',
+    cd:  '✓ Demonios del Caos — Beta. Disciplinas divinas, armería, reglas de marca, arquetipos Daemonkin.',
+    sm:  '✓ Space Marines — Beta. Legados de capítulo con disciplinas y plegarias, 8 arquetipos, 19 rasgos, gating de armería Gravis/Terminator.',
+    legacyfix: '🔧 Corrección — las pestañas de armería de Legacy no se mostraban para Space Marines y otras facciones. Corregido en esta actualización.',
+    contrib: '👷 ¿Quieres ayudar? Nuevas guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos vacíos, plantillas de issues en GitHub.',
   },
 };
 
@@ -71,13 +68,12 @@ function CommunityAnnouncement() {
       </div>
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
         <p>{tx.intro}</p>
+        <p className="text-amber-300/80">{tx.engine}</p>
         <p><strong className="text-emerald-400">{tx.csm.split(' — ')[0]}</strong> — {tx.csm.split(' — ').slice(1).join(' — ')}</p>
         <p><strong className="text-emerald-400">{tx.cd.split(' — ')[0]}</strong> — {tx.cd.split(' — ').slice(1).join(' — ')}</p>
         <p><strong className="text-emerald-400">{tx.sm.split(' — ')[0]}</strong> — {tx.sm.split(' — ').slice(1).join(' — ')}</p>
-        <p><strong className="text-amber-400">{tx.ig.split(' — ')[0]}</strong> — {tx.ig.split(' — ').slice(1).join(' — ')}</p>
-        <p><strong className="text-orange-400">{tx.gk.split(' — ')[0]}</strong> — {tx.gk.split(' — ').slice(1).join(' — ')}</p>
-        <p><strong className="text-orange-400">{tx.adm.split(' — ')[0]}</strong> — {tx.adm.split(' — ').slice(1).join(' — ')}</p>
-        <p><strong className="text-zinc-400">{tx.rest.split(' — ')[0]}</strong> — {tx.rest.split(' — ').slice(1).join(' — ')}</p>
+        <p className="text-orange-300/80">{tx.legacyfix}</p>
+        <p className="text-zinc-400">{tx.contrib}</p>
       </div>
     </div>
   );
