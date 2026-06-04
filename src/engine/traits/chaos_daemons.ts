@@ -3,11 +3,13 @@ import type { TraitEffect } from '../traitEffects';
 /**
  * Chaos Daemons trait effects.
  *
- * Chaos Daemons currently have no Army Traits defined in the rulebook.
- * This file is a placeholder for when traits are added.
- *
- * Format mirrors engine/traits/csm.ts — add entries here as:
- *   'Trait Name': [ { type, applies_to, ... }, ... ]
+ * SOURCE: Chaos Daemons — Army Customisation sheet (canonical)
+ * ─────────────────────────────────────────────────────────────
+ * "You may select up to the following: 0-1 Archetype."
+ * Chaos Daemons have NO Legacies and NO Traits — only Archetypes.
+ * This file is intentionally empty. If traits are ever added to CD in a
+ * future supplement, add entries here following the same format as
+ * engine/traits/csm.ts: 'Trait Name': [ { type, applies_to, ... }, ... ]
  */
 export const CD_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // No traits defined for Chaos Daemons
