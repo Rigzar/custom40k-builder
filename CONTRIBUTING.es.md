@@ -47,16 +47,24 @@ Al reportar, siempre incluí:
 
 ## Correcciones de datos (sin código)
 
-Esta es la forma de contribución con mayor impacto. Cada facción vive en un único archivo JSON:
+Esta es la forma de contribución con mayor impacto. Cada facción vive en su propia carpeta:
 
 ```
-data/parsed/<faccion>.json
+data/parsed/<faccion>/
+  units.json          ← todas las unidades de la facción
+  armory/
+    general.json      ← armería general (todos los modelos)
+    mark_khorne.json  ← armería por marca (facciones Chaos)
+    legion_*.json     ← armería de capítulo/legado (una por legado)
+  archetypes.json     ← arquetipos, legados, rasgos
+  rules.json          ← animosidad, matriz de aliados
+  psychic/            ← disciplinas, plegarias, daemonkin
 ```
 
 ### Proceso
 
-1. Abrí el archivo JSON de tu facción en cualquier editor de texto.
-2. Encontrá la unidad — es una clave dentro de `"units": { ... }`.
+1. Navegá a `data/parsed/<faccion>/` y abrí el archivo correspondiente.
+2. Para correcciones de unidades: abrí `units.json` y encontrá la unidad — es una clave dentro de `"units": { ... }`.
 3. Compará cada campo con tu copia del reglamento.
 4. Corregí lo que está mal y ejecutá `npm run build` para confirmar que el JSON es válido y la app sigue compilando.
 5. Abrí un Pull Request.
@@ -70,10 +78,12 @@ data/parsed/<faccion>.json
 | `models[].stats` | M / WS / BS / S / T / W / A / Ld / Armadura |
 | `weapons[]` | Todos los perfiles de armas presentes; S / PA / D / Habilidades correctos |
 | `option_groups[]` | El texto del encabezado coincide con las reglas; todas las opciones listadas; costos correctos |
+| `option_groups[].per_model` | Poner `true` cuando el encabezado dice "for +X points **per model**" (solo opciones inline) |
 | `is_character` / `is_vehicle` / `is_psyker` | Flags de clasificación de la unidad |
-| `champion_has_armory` | Solo `true` si el campeón (equivalente al sargento) puede acceder a la armería de forma independiente |
+| `champion_has_armory` | Solo `true` si el campeón puede acceder a la armería de forma independiente |
 | `advisor` | Solo `true` para unidades asesoras (p. ej., Comisario) |
 | `abilities[]` | Texto de habilidades completo y correcto |
+| `unit_type` | Usar la grafía canónica de las Core Rules: `Infantry`, `Bike`, `Character Model`, `Jet Bike`, `Jump Pack Infantry`, `Monstrous Creature`, `Monstrous Infantry`, `Walker`, `Flyer`, `Vehicle` |
 
 ### Tipos de restricción para `option_groups`
 
@@ -87,19 +97,20 @@ data/parsed/<faccion>.json
 | `veteran` | Slot de habilidad veterana |
 | `unique_upgrade` | Restricción de unicidad a nivel de unidad |
 
-### Campos de armería
+### Estructura de archivos de armería
 
-La armería general (armas, equipo, armas daemoníacas disponibles para todas las unidades elegibles de la facción) se encuentra en el nivel superior del JSON de facción:
+`armory/general.json` contiene armas, equipo y armas daemoníacas disponibles para todos los modelos elegibles. Las armerías por marca (`armory/mark_khorne.json`, etc.) y de capítulo/legado (`armory/legion_*.json`) siguen la misma estructura:
 
 ```json
-"armory_general": {
+{
+  "name": "Nombre de Armería",
   "weapons": [...],
   "equipment": [...],
   "daemon_weapons": []
 }
 ```
 
-Las armerías específicas de facción (p. ej., ítems bloqueados por marca para CSM) pueden aparecer como `armory_marks`, `armory_vehicles`, etc.
+El campo `armory_key` en cada entrada de legado en `archetypes.json` **debe coincidir** con la clave usada en `src/data/loaders.ts` para el objeto `armory_legions` de esa facción — si divergen, la pestaña de armería del legado no aparecerá.
 
 ---
 

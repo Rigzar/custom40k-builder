@@ -166,30 +166,30 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-22a',
-    status: 'planned',
+    status: 'known',
     title: {
-      en: 'Trait stat and ability effects shown as text only for most factions',
-      de: 'Eigenschaft-Effekte für die meisten Fraktionen nur als Text angezeigt',
-      es: 'Los efectos de rasgos se muestran solo como texto para la mayoría de facciones',
+      en: 'Trait effects wired for CSM and SM — other factions show description text only',
+      de: 'Eigenschafts-Effekte für CSM und SM verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
+      es: 'Efectos de rasgos implementados para CSM y SM — otras facciones muestran solo texto descriptivo',
     },
     description: {
-      en: 'Chaos Space Marines and Space Marines have their traits fully wired into the engine — stat changes, ability injections, weapon bonuses and invulnerable saves all calculate live and show on the unit card. For the remaining factions traits are displayed and priced correctly, but their in-game effects (e.g. +1 Strength, gaining Furious Charge) are shown as description text rather than applied automatically. This is being rolled out faction by faction.',
-      de: 'Chaos Space Marines und Space Marines haben ihre Eigenschaften vollständig in die Engine integriert — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und Rettungswürfe gegen alles werden live berechnet und auf der Einheitenkarte angezeigt. Für die übrigen Fraktionen werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte (z.B. +1 Stärke, Furious Charge) werden nur als Beschreibungstext angezeigt statt automatisch angewendet. Dies wird Fraktion für Fraktion umgesetzt.',
-      es: 'Los Chaos Space Marines y los Space Marines tienen sus rasgos totalmente integrados en el motor: cambios de características, habilidades, bonificaciones de armas y salvaciones invulnerables se calculan en tiempo real y se ven en la tarjeta de unidad. Para el resto de facciones, los rasgos se muestran y valoran correctamente, pero sus efectos en juego (por ejemplo, +1 a la Fuerza, obtener Ataque Furioso) aparecen solo como texto descriptivo, no se aplican automáticamente. Se implementará facción por facción.',
+      en: 'Chaos Space Marines and Space Marines have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design). For the remaining 16 factions, traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction as each gets audited.',
+      de: 'Chaos Space Marines und Space Marines haben alle Eigenschaftseffekte vollständig verdrahtet — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und unverwundbarkeit-Rettungswürfe werden live auf der Einheitenkarte berechnet. Chaos-Dämonen-Eigenschaften sind korrekt bewertet (CD hat keine Traits). Für die übrigen 16 Fraktionen werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
+      es: 'Chaos Space Marines y Space Marines tienen todos los efectos de rasgos totalmente implementados. Chaos Demonios no tiene rasgos por diseño. Para las 16 facciones restantes, los rasgos se muestran y valoran correctamente pero sus efectos de stats/habilidades son solo texto descriptivo, no se aplican automáticamente. Se implementará facción por facción.',
     },
   },
   {
     id: 'ki-26a',
-    status: 'planned',
+    status: 'known',
     title: {
-      en: 'Veteran Abilities and Vehicle Upgrades only fully supported for CSM',
-      de: 'Veteranenfähigkeiten und Fahrzeug-Upgrades nur vollständig für CSM unterstützt',
-      es: 'Habilidades de veterano y mejoras de vehículo solo totalmente compatibles para CSM',
+      en: 'Veteran ability and vehicle upgrade effects shown as text for most factions',
+      de: 'Effekte von Veteranenfähigkeiten und Fahrzeug-Upgrades für die meisten Fraktionen nur als Text',
+      es: 'Efectos de habilidades de veterano y mejoras de vehículo como texto para la mayoría de facciones',
     },
     description: {
-      en: 'Standard Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and Vehicle Upgrades are built into the CSM armory and priced correctly. Other factions can select veteran and vehicle upgrades from their own armories, but the underlying ability logic (e.g. granting the Infiltrator rule to the unit) is not yet wired up.',
-      de: 'Veteranenfähigkeiten (Gegenangriff, Begünstigter Feind, Wutangriff, Infiltrator, Flankenmanöver, Panzerjäger, Geländeexperte, Vorhut) und Fahrzeug-Upgrades sind vollständig für CSM implementiert. Andere Fraktionen können zwar Veteranen- und Fahrzeug-Upgrades aus ihren Rüstkammern auswählen, aber die zugrunde liegende Regellogik (z.B. das Verleihen der Infiltrator-Regel) ist noch nicht vollständig verdrahtet.',
-      es: 'Las Habilidades de Veterano estándar (Contraataque, Enemigo favorito, Carga furiosa, Infiltrador, Flanqueo, Cazacarros, Experto en terreno, Vanguardia) y las Mejoras de Vehículo están completamente integradas en la armería CSM. Las demás facciones pueden seleccionarlas desde sus propias armerías, pero la lógica interna (por ejemplo, conceder la regla Infiltrador a la unidad) aún no está completamente programada.',
+      en: 'Veteran Abilities and Vehicle Upgrades are available and correctly priced in all faction armories. For CSM, the ability effects (e.g. Infiltrator granting the rule, Counter-attack enabling the meta-order) are fully wired. For all other factions including SM, the armory items are purchased and priced correctly but the underlying ability logic is display-text only — the unit card shows the description but does not apply the rule effect automatically. Being addressed faction by faction.',
+      de: 'Veteranenfähigkeiten und Fahrzeug-Upgrades sind in allen Fraktions-Rüstkammern verfügbar und korrekt bewertet. Bei CSM sind die Fähigkeitseffekte (z.B. Infiltrator gewährt die Regel) vollständig verdrahtet. Bei allen anderen Fraktionen inkl. SM werden die Armeegegenstände korrekt gekauft und bewertet, aber die Regellogik ist nur Anzeigetext. Wird Fraktion für Fraktion umgesetzt.',
+      es: 'Las Habilidades de Veterano y Mejoras de Vehículo están disponibles y correctamente valoradas en todas las armerías. Para CSM los efectos de habilidad están totalmente implementados. Para el resto de facciones incluyendo SM, los ítems se compran y valoran correctamente pero la lógica de reglas es solo texto descriptivo. Se implementará facción por facción.',
     },
   },
   {
@@ -201,7 +201,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
       es: 'Los arquetipos muestran sus reglas pero no todas las restricciones se aplican',
     },
     description: {
-      en: 'Archetypes, Legacies and Traits are now active for all factions and their descriptions are shown. However, some archetype-specific restrictions (e.g. "all units must start inside a transport", mandatory unit compositions, keyword filters) are only enforced for Chaos Space Marines, Chaos Daemons and Space Marines. For other factions the archetype notes are informational — the builder will not currently block you from breaking them.',
+      en: 'Archetypes, Legacies and Traits are active for all factions. Archetype-specific restrictions — slot remapping, composition constraints, mark requirements, legacy/trait bans — are fully enforced for Chaos Space Marines, Chaos Daemons, and Space Marines. For other factions the archetype rules are displayed as informational notes; the builder will not currently block you from breaking them. Each faction audit adds its validators.',
       de: 'Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv und ihre Beschreibungen werden angezeigt. Einige archetyp-spezifische Einschränkungen (z.B. "alle Einheiten müssen in einem Transport beginnen", Pflicht-Einheitenzusammensetzungen, Schlüsselwortfilter) werden jedoch nur für Chaos Space Marines, Chaos Dämonen und Space Marines durchgesetzt. Für andere Fraktionen sind die Archetyp-Hinweise informativer Natur — der Builder blockiert aktuell keine Regelverstöße.',
       es: 'Los arquetipos, legados y rasgos están activos para todas las facciones y sus descripciones se muestran. Sin embargo, algunas restricciones específicas de arquetipo (por ejemplo, "todas las unidades deben comenzar dentro de un transporte", composiciones de unidades obligatorias, filtros de palabras clave) solo se aplican para Chaos Space Marines, Chaos Demonios y Space Marines. Para el resto de facciones, las notas de arquetipo son informativas — el constructor no bloqueará actualmente que las incumplas.',
     },
@@ -212,7 +212,21 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Psychic power access rules not yet enforced per psyker',
     description: 'Fixed in v0.32 — Chaos Daemons psyker discipline access enforced per unit from ability text. CSM/other factions enforce mark-based discipline filtering (only see god discipline when matching mark is active). General factions: discipline tabs already filtered by mark and legacy.',
   },
-  // ── Planned (v0.22+) ──────────────────────────────────────────────────────
+  // ── Planned ───────────────────────────────────────────────────────────────
+  {
+    id: 'ki-p3',
+    status: 'planned',
+    title: {
+      en: 'Unit data migration: per-slot TypeScript files with canonical datasheet text',
+      de: 'Einheitendaten-Migration: TypeScript-Dateien pro Slot mit kanonischem Regeltext',
+      es: 'Migración de datos de unidades: archivos TypeScript por slot con texto canónico de datasheet',
+    },
+    description: {
+      en: 'The next data architecture step: unit data will move from units.json to TypeScript files grouped by slot (hq.ts, troops.ts, elites.ts, etc.) per faction. Each unit definition will have the original datasheet text as a comment above its object, making it immediately visible whether "may swap X" has the replaces field set, whether per_model is correct, etc. This follows the same canonical-text-as-comments pattern already applied to archetypes/traits/legacies engine files. Being planned — not started yet.',
+      de: 'Der nächste Datearchitektur-Schritt: Einheitendaten werden von units.json in TypeScript-Dateien nach Slot (hq.ts, troops.ts, elites.ts usw.) je Fraktion umgezogen. Jede Einheitendefinition erhält den originalen Datenblatttext als Kommentar, sodass sofort sichtbar ist, ob "may swap X" das replaces-Feld hat, ob per_model korrekt ist usw. Wird geplant — noch nicht gestartet.',
+      es: 'El siguiente paso de arquitectura de datos: los datos de unidades se moverán de units.json a archivos TypeScript agrupados por slot (hq.ts, troops.ts, elites.ts, etc.) por facción. Cada definición de unidad tendrá el texto original del datasheet como comentario, haciendo visible si "may swap X" tiene el campo replaces, si per_model es correcto, etc. Siguiendo el mismo patrón de texto canónico ya aplicado a los archivos de arquetipos/rasgos/legados. En planificación — aún no iniciado.',
+    },
+  },
   {
     id: 'ki-21a',
     status: 'planned',

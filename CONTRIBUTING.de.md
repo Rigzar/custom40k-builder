@@ -47,59 +47,70 @@ Gib dabei immer an:
 
 ## Datenkorrekturen (kein Code nötig)
 
-Das ist die wirkungsvollste Art beizutragen. Jede Fraktion liegt in einer einzigen JSON-Datei:
+Das ist die wirkungsvollste Art beizutragen. Jede Fraktion liegt in einem eigenen Ordner:
 
 ```
-data/parsed/<fraktion>.json
+data/parsed/<fraktion>/
+  units.json          <- alle Einheiten der Fraktion
+  armory/
+    general.json      <- allgemeine Ruestkammer (alle Modelle)
+    mark_khorne.json  <- zeichenspezifische Ruestkammer (Chaos-Fraktionen)
+    legion_*.json     <- Kapitel-/Legacy-Ruestkammer (eine pro Legacy)
+  archetypes.json     <- Archetypen, Legacies, Traits
+  rules.json          <- Animositaet, Verbuendeten-Matrix
+  psychic/            <- Disziplinen, Gebete, Daemonkin
 ```
 
 ### Vorgehensweise
 
-1. Öffne die JSON-Datei deiner Fraktion in einem Texteditor.
-2. Finde die Einheit – sie ist ein Schlüssel im Objekt `"units": { ... }`.
+1. Navigiere zu `data/parsed/<fraktion>/` und oeffne die entsprechende Datei.
+2. Fuer Einheitenkorrekturen: oeffne `units.json` und finde die Einheit -- sie ist ein Schluessel im Objekt `"units": { ... }`.
 3. Vergleiche die Felder mit deinem Regelwerk.
-4. Korrigiere, was falsch ist, und führe dann `npm run build` aus, um sicherzustellen, dass die JSON-Datei gültig ist und die App noch kompiliert.
+4. Korrigiere, was falsch ist, und fuehre dann `npm run build` aus.
 5. Erstelle einen Pull Request.
 
-### Zu prüfende Felder
+### Zu pruefende Felder
 
-| Feld | Was prüfen |
+| Feld | Was pruefen |
 |---|---|
 | `models[].points` | Punktekosten pro Modell |
-| `models[].min` / `models[].max` | Mindest- und Höchstanzahl an Modellen |
-| `models[].stats` | M / WS / BS / S / T / W / A / Ld / Rüstung |
-| `weapons[]` | Alle Waffenprofile vorhanden; korrekte S / DS / S / Fähigkeiten |
+| `models[].min` / `models[].max` | Mindest- und Hoechstanzahl an Modellen |
+| `models[].stats` | M / WS / BS / S / T / W / A / Ld / Ruestung |
+| `weapons[]` | Alle Waffenprofile vorhanden; korrekte S / DS / SW / Faehigkeiten |
 | `option_groups[]` | Beschriftung passt zum Regelwerk; alle Optionen vorhanden; korrekte Punktekosten |
+| `option_groups[].per_model` | `true` setzen wenn Header sagt "for +X points **per model**" (nur Inline-Optionen) |
 | `is_character` / `is_vehicle` / `is_psyker` | Klassifizierungsflags der Einheit |
-| `champion_has_armory` | Nur `true`, wenn der Champion (Unteroffizier) eigenständig auf die Rüstkammer zugreifen kann |
-| `advisor` | Nur `true` für Berater-Einheiten (z. B. Kommissar) |
-| `abilities[]` | Fähigkeitentext vollständig und korrekt |
+| `champion_has_armory` | Nur `true`, wenn der Champion eigenstaendig auf die Ruestkammer zugreifen kann |
+| `advisor` | Nur `true` fuer Berater-Einheiten (z.B. Kommissar) |
+| `abilities[]` | Faehigkeitentext vollstaendig und korrekt |
+| `unit_type` | Kanonische Schreibweise der Kernregeln verwenden: `Infantry`, `Bike`, `Character Model`, `Jet Bike`, `Jump Pack Infantry`, `Monstrous Creature`, `Monstrous Infantry`, `Walker`, `Flyer`, `Vehicle` |
 
-### Einschränkungstypen für `option_groups`
+### Einschraenkungstypen fuer `option_groups`
 
 | `constraint.type` | Bedeutung |
 |---|---|
-| `one` | 0 oder 1 Auswahl aus der Liste (häufigster Typ) |
-| `every` | Jedes Modell wählt unabhängig – Kosten pro Modell |
+| `one` | 0 oder 1 Auswahl aus der Liste (haeufigster Typ) |
+| `every` | Jedes Modell waehlt unabhaengig -- Kosten pro Modell |
 | `per_n` | Eine Auswahl pro N Modelle (`constraint.n` gibt N an) |
 | `fixed_max` | Bis zu N Auswahlen insgesamt (`constraint.max` gibt N an) |
 | `mark` | Auswahl des Chaos-Zeichens |
-| `veteran` | Veteranen-Fähigkeitsslot |
-| `unique_upgrade` | Einheitenbezogene Einzigartigkeitsbeschränkung |
+| `veteran` | Veteranen-Faehigkeitsslot |
+| `unique_upgrade` | Einheitenbezogene Einzigartigkeitsbeschraenkung |
 
-### Rüstkammer-Felder
+### Ruestkammer-Dateistruktur
 
-Die allgemeine Rüstkammer (Waffen, Ausrüstung, Dämonenwaffen für alle berechtigten Einheiten der Fraktion) liegt auf der obersten Ebene der Fraktions-JSON:
+`armory/general.json` enthaelt Waffen, Ausruestung und Daemonwaffen. Zeichenspezifische Ruestkammern (`armory/mark_khorne.json` usw.) und Kapitel-/Legacy-Ruestkammern (`armory/legion_*.json`) folgen derselben Struktur:
 
 ```json
-"armory_general": {
+{
+  "name": "Ruestkammername",
   "weapons": [...],
   "equipment": [...],
   "daemon_weapons": []
 }
 ```
 
-Fraktionsspezifische Rüstkammern (z. B. zeichengebundene Gegenstände für CSM) können als `armory_marks`, `armory_vehicles` usw. erscheinen.
+Das Feld `armory_key` in jedem Legacy-Eintrag in `archetypes.json` **muss** mit dem Schluessel in `src/data/loaders.ts` fuer das `armory_legions`-Objekt dieser Fraktion uebereinstimmen -- wenn sie abweichen, wird der Legacy-Ruestkammer-Tab nicht angezeigt.
 
 ---
 

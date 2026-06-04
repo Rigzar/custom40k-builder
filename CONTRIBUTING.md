@@ -47,16 +47,24 @@ When filing an issue, always include:
 
 ## Data corrections (no coding required)
 
-This is the highest-impact way to contribute. Each faction lives in a single JSON file:
+This is the highest-impact way to contribute. Each faction lives in its own folder:
 
 ```
-data/parsed/<faction>.json
+data/parsed/<faction>/
+  units.json          ← all units for this faction
+  armory/
+    general.json      ← general armory (all models)
+    mark_khorne.json  ← mark-specific armory (Chaos factions)
+    legion_*.json     ← chapter / legacy armory (one per legacy)
+  archetypes.json     ← archetypes, legacies, traits
+  rules.json          ← animosity, allied matrix
+  psychic/            ← disciplines, prayers, daemonkin
 ```
 
 ### Workflow
 
-1. Open the JSON file for your faction in any text editor.
-2. Find the unit — it's a key inside `"units": { ... }`.
+1. Navigate to `data/parsed/<faction>/` and open the relevant file.
+2. For unit corrections: open `units.json` and find the unit — it's a key inside `"units": { ... }`.
 3. Compare each field against your copy of the rules.
 4. Fix what's wrong, then run `npm run build` to confirm the JSON is valid and the app still compiles.
 5. Open a Pull Request.
@@ -70,10 +78,12 @@ data/parsed/<faction>.json
 | `models[].stats` | M / WS / BS / S / T / W / A / Ld / Save |
 | `weapons[]` | All weapon profiles present; correct S / AP / D / Abilities |
 | `option_groups[]` | Header text matches rules; all choices listed; correct points costs |
+| `option_groups[].per_model` | Set `true` when the header says "for +X points **per model**" (inline options only) |
 | `is_character` / `is_vehicle` / `is_psyker` | Unit classification flags |
 | `champion_has_armory` | True only if the champion (sergeant-equivalent) can access the armory independently |
 | `advisor` | True only for units that are advisors (e.g., Commissar) |
 | `abilities[]` | Ability text present and correct |
+| `unit_type` | Must use the canonical spelling from Core Rules: `Infantry`, `Bike`, `Character Model`, `Jet Bike`, `Jump Pack Infantry`, `Monstrous Creature`, `Monstrous Infantry`, `Walker`, `Flyer`, `Vehicle` |
 
 ### Constraint types for `option_groups`
 
@@ -87,19 +97,20 @@ data/parsed/<faction>.json
 | `veteran` | Veteran ability slot |
 | `unique_upgrade` | Unit-level unique restriction |
 
-### Armory fields
+### Armory file structure
 
-The general armory (weapons, equipment, daemon weapons available to all eligible units in the faction) lives at the top level of the faction JSON:
+`armory/general.json` holds weapons, equipment and daemon weapons available to all eligible models. Mark-specific armories (`armory/mark_khorne.json`, etc.) and chapter/legacy armories (`armory/legion_*.json`) follow the same structure:
 
 ```json
-"armory_general": {
+{
+  "name": "Armory Name",
   "weapons": [...],
   "equipment": [...],
   "daemon_weapons": []
 }
 ```
 
-Faction-specific armory sections (e.g., mark-locked items for CSM) may appear as `armory_marks`, `armory_vehicles`, etc.
+The `armory_key` field in each `archetypes.json` legacy entry **must match** the key used in `src/data/loaders.ts` for that faction's `armory_legions` object — if they diverge, the legacy armory tab will not appear. See `ki-legacy-armory-link-01` for the history.
 
 ---
 
