@@ -1,0 +1,155 @@
+{
+  "faction": "Genestealer Cults",
+  "army_rules": [],
+  "animosity": null,
+  "army_customisation": {
+    "intro": "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy, 0-2 Traits\n\nIf a Trait is taken, all models / units in the army must be upgraded with it, unless stated otherwise.",
+    "archetypes": [
+      {
+        "name": "The First Curse",
+        "description": "- Purestrain Genestealers units can be taken as Troops.\n- The army must take one Patriarch.\n- Only Purestrain Genestealers units count towards the 25% Troops limitation."
+      },
+      {
+        "name": "Outlander Claw",
+        "description": "- Atalan Jackals can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+      }
+    ],
+    "legacies": [
+      {
+        "name": "Legacy of Chancer's Vale",
+        "description": "All Psykers know the \"Last Gasp\" psychic power in addition."
+      },
+      {
+        "name": "Legacy of Feinminster Gamma",
+        "description": "All Psykers know the \"Broodvolt Surge\" psychic power in addition."
+      },
+      {
+        "name": "Legacy of New Gidlam",
+        "description": "All Psykers know the \"Synaptic Blast\" psychic power in addition."
+      },
+      {
+        "name": "Legacy of Newseam",
+        "description": "All Psykers know the \"Inescapable Decay\" psychic power in addition."
+      },
+      {
+        "name": "Legacy of the Trysst Dynasty",
+        "description": "All Psykers know the \"Undermine\" psychic power in addition."
+      },
+      {
+        "name": "Legacy of Vejovium III",
+        "description": "All Psykers know the \"Mutagenic Deviation\" psychic power in addition."
+      }
+    ],
+    "traits": [
+      {
+        "name": "Agile Guerillas",
+        "description": "The model may shoot \"Heavy\" weapons with a -1 penalty and \"Rapid Fire\" weapons at full range with a \"Move & Shoot\" command",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Alien Fury",
+        "description": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Cyborgised Hybrids",
+        "description": "Creature models gain a 6+ invulnerability save. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+        "points_normal": "1*",
+        "points_character": "0",
+        "points_monstrous": "1*"
+      },
+      {
+        "name": "Deep Supplies",
+        "description": "The unit can re-roll one armor penetration or wound roll per activation.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Devoted Zealots",
+        "description": "The unit gains the \"Blind Rage\" ability.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Disciplined Militants",
+        "description": "The unit gains +1 Leadership.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Experimental Subjects",
+        "description": "The unit gains +1 Strength.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Hunter's Instincts",
+        "description": "The unit gains a cumulative +1 bonus to armor save rolls while benefitting from cover.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Martial",
+        "description": "The unit may re-roll ranged to hit rolls of 1 with Assault, Pistol and Rapid Fire weapons.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Nomadic Survivalists",
+        "description": "The unit gains the the \"Frenzy(1)\" and \"Haste(1) abilities.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Splinter Cult",
+        "description": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      },
+      {
+        "name": "Subterranean Ambushers",
+        "description": "You may set up one additional \"Ambush Marker\" in Skirmishes, two additional markers in Pitched Battles, and three additional markers in Epic Battles.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      },
+      {
+        "name": "Synaptic Resonance",
+        "description": "The model can re-roll one psychic test per activation. Psykers only.",
+        "points_normal": "5",
+        "points_character": "5",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Toxin Agents",
+        "description": "The unit's melee attacks gain the \"Poison(4+) ability.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "War Convoy",
+        "description": "Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.",
+        "points_normal": "-",
+        "points_character": "-",
+        "points_monstrous": "5*"
+      }
+    ]
+  },
+  "disciplines": {},
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

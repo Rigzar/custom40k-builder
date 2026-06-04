@@ -1,0 +1,867 @@
+{
+  "faction": "Eldar",
+  "general": {
+    "weapons": [
+      {
+        "name": "Aeldari missile launcher *",
+        "profiles": [
+          {
+            "name": "Sunburst",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Explosive",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Starshot",
+            "range": "48\"",
+            "type": "Heavy 1",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Anti-Air, AT(2)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Avenger shuriken catapult",
+        "range": "18\"",
+        "type": "Assault 3",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Shuriken",
+        "points": "",
+        "points_character": "18"
+      },
+      {
+        "name": "Banshee blade",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-4",
+        "d": "1",
+        "abilities": "-",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Biting blade",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Flurry(3)",
+        "points": "-",
+        "points_character": "8"
+      },
+      {
+        "name": "Death spinner",
+        "range": "12\"",
+        "type": "Assault 2",
+        "s": "6",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Armor piercing(5+), Monofilament, Suppression",
+        "points": "-",
+        "points_character": "8"
+      },
+      {
+        "name": "Diresword",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Deadly(5+)",
+        "points": "-",
+        "points_character": "5"
+      },
+      {
+        "name": "Dragon fusion gun",
+        "range": "12\"",
+        "type": "Assault 1",
+        "s": "8",
+        "ap": "-5",
+        "d": "2",
+        "abilities": "Armorbane, AT(2)",
+        "points": "-",
+        "points_character": "43"
+      },
+      {
+        "name": "Dragon's breath flamer",
+        "range": "12\"",
+        "type": "Assault 4",
+        "s": "6",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Flames",
+        "points": "-",
+        "points_character": "13"
+      },
+      {
+        "name": "Executioner",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-4",
+        "d": "2",
+        "abilities": "Unwieldy",
+        "points": "-",
+        "points_character": "13"
+      },
+      {
+        "name": "Firepike",
+        "range": "18\"",
+        "type": "Assault 1",
+        "s": "8",
+        "ap": "-5",
+        "d": "3",
+        "abilities": "Armorbane, AT(4)",
+        "points": "-",
+        "points_character": "66"
+      },
+      {
+        "name": "Fusion pistol",
+        "range": "6\"",
+        "type": "Assault 1",
+        "s": "8",
+        "ap": "-5",
+        "d": "1",
+        "abilities": "AT(1), Melta",
+        "points": "8",
+        "points_character": "10"
+      },
+      {
+        "name": "Hawk's talon",
+        "range": "24\"",
+        "type": "Assault 3",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Precision(5+)",
+        "points": "-",
+        "points_character": "23"
+      },
+      {
+        "name": "Haywire grenade",
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "3",
+        "ap": "0",
+        "d": "1",
+        "abilities": "AT(2), Haywire",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Lasblaster",
+        "range": "24\"",
+        "type": "Assault 3",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Precision(5+)",
+        "points": "-",
+        "points_character": "20"
+      },
+      {
+        "name": "Laser lance",
+        "profiles": [
+          {
+            "name": "Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Quick(+1), Can only be used with a Charge order",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Unwieldy",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Ranged",
+            "range": "6\"",
+            "type": "Pistol 1",
+            "s": "6",
+            "ap": "3",
+            "d": "1",
+            "abilities": "-",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Mirrorswords",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-4",
+        "d": "1",
+        "abilities": "Flurry(2), Unwieldy",
+        "points": "-",
+        "points_character": "8"
+      },
+      {
+        "name": "Paragon sabre",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Flurry(1)",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Power glaive",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Quick(+1)",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Powerblades",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Flurry(2), Shred, Unwieldy",
+        "points": "-",
+        "points_character": "8"
+      },
+      {
+        "name": "Prism rifle",
+        "profiles": [
+          {
+            "name": "Dispersed",
+            "range": "12\"",
+            "type": "Assault 4",
+            "s": "5",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Flames",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Focused",
+            "range": "18\"",
+            "type": "Assault 1",
+            "s": "6",
+            "ap": "-2",
+            "d": "1",
+            "abilities": "Beam",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Reaper missile launcher *",
+        "profiles": [
+          {
+            "name": "Sunburst",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Explosive",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Starshot",
+            "range": "48\"",
+            "type": "Heavy 2",
+            "s": "8",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Anti-Air, AT(2)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Scorpion chainsword",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Flurry(1)",
+        "points": "-",
+        "points_character": "5"
+      },
+      {
+        "name": "Scorpion claw",
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Slow(-1)",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Shooting",
+            "range": "12\"",
+            "type": "Pistol 2",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Shuriken",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Shuriken cannon",
+        "range": "24\"",
+        "type": "Heavy 3",
+        "s": "6",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Shuriken",
+        "points": "-",
+        "points_character": "25"
+      },
+      {
+        "name": "Shuriken pistol",
+        "range": "12\"",
+        "type": "Assault 1",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Shuriken",
+        "points": "3",
+        "points_character": "3"
+      },
+      {
+        "name": "Singing spear",
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armorbane, AT(2), Force weapon, Poison(2+)",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Shooting",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "U",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Armorbane, AT(2), Force weapon, Poison(2+)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Star lance",
+        "profiles": [
+          {
+            "name": "Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+5",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Quick(+1), Can only be used with a Charge order",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(2), Unwieldy",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Ranged",
+            "range": "6\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "AT(2)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Tempest launcher",
+        "range": "36\"",
+        "type": "Heavy 1",
+        "s": "4",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Barrage, Indirect fire, Suppression",
+        "points": "-",
+        "points_character": "40"
+      },
+      {
+        "name": "Triskele",
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Armor piercing(5+)",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Shooting",
+            "range": "12\"",
+            "type": "Pistol 3",
+            "s": "5",
+            "ap": "-4",
+            "d": "1",
+            "abilities": "Armor piercing(5+)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Twilight spear",
+        "profiles": [
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "Unwieldy",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Shooting",
+            "range": "18\"",
+            "type": "Pistol 1",
+            "s": "6",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "Beam",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Twin Avenger shuriken catapult",
+        "range": "18\"",
+        "type": "Assault 6",
+        "s": "4",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Shuriken",
+        "points": "-",
+        "points_character": "45"
+      },
+      {
+        "name": "Twin shuriken catapult",
+        "range": "18\"",
+        "type": "Assault 4",
+        "s": "4",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Shuriken",
+        "points": "-",
+        "points_character": "13"
+      },
+      {
+        "name": "Witchblade",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Force weapon, Poison(2+)",
+        "points": "8",
+        "points_character": "-"
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Aspect armor",
+        "description": "The model gains a 5+ invulnerability save.",
+        "points": "-",
+        "points_character": "12"
+      },
+      {
+        "name": "Crystal body",
+        "description": "The model gains +1 Toughness. Unique.",
+        "points": "1",
+        "points_character": "-"
+      },
+      {
+        "name": "Eldar jetbike",
+        "description": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a twin shuriken catapult and the ability \"Jet bike\". Only for infantry.",
+        "points": "37",
+        "points_character": "41"
+      },
+      {
+        "name": "Faolchu's wings",
+        "description": "The model gains +6\" Movement and the ability \"Jump pack\". Additionally, it gains the \"Sky Dive\" ability (see Swooping Hawks). Only for infantry.",
+        "points": "11",
+        "points_character": "13"
+      },
+      {
+        "name": "Fire blade",
+        "description": "One melee weapon of the model gains Precision(5+) and cumulative -2 AP. Unique. Can't be combined with other blades.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Forcefield",
+        "description": "The model gains a 4+ invulnerability save.",
+        "points": "-",
+        "points_character": "17"
+      },
+      {
+        "name": "Ghosthelm",
+        "description": "The model ignores the first Perils of the warp attack of the game.",
+        "points": "5",
+        "points_character": "-"
+      },
+      {
+        "name": "Heavy armor plating",
+        "description": "The model gains a 3+ save.",
+        "points": "-",
+        "points_character": "12"
+      },
+      {
+        "name": "Mandiblaster",
+        "description": "During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1.",
+        "points": "-",
+        "points_character": "2"
+      },
+      {
+        "name": "Marksman honours",
+        "description": "The model gains +1 Ballistic skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Master-crafted weapon",
+        "description": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Paragon of fate",
+        "description": "The model gains +1 Toughness, Wounds and Attacks. The model and its attached unit may re-roll any single die per activation. Unique.",
+        "points": "20",
+        "points_character": "-"
+      },
+      {
+        "name": "Paragon of war",
+        "description": "The model gains +1 Strength, Toughness, Wounds and Attacks. It can chose a single Exarch power. Unique.",
+        "points": "-",
+        "points_character": "17"
+      },
+      {
+        "name": "Phoenix gem",
+        "description": "Roll a die the first time the model is eliminated: \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound. \n5,6 - Set it up again with 2 wounds. Unique.",
+        "points": "15",
+        "points_character": "15"
+      },
+      {
+        "name": "Psychic mastery",
+        "description": "The models gains +1 to all tests for manifesting a psychic power.",
+        "points": "5",
+        "points_character": "-"
+      },
+      {
+        "name": "Psychic training",
+        "description": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        "points": "5",
+        "points_character": "-"
+      },
+      {
+        "name": "Rune armor",
+        "description": "The model gains a 4+ invulnerability save.",
+        "points": "17",
+        "points_character": "-"
+      },
+      {
+        "name": "Runes of warding",
+        "description": "Add +1 to rolls to deny enemy psychic powers.",
+        "points": "5",
+        "points_character": "-"
+      },
+      {
+        "name": "Shrine relic",
+        "description": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Spirit stones",
+        "description": "The model can manifest and deny an additional psychic power per turn.",
+        "points": "5",
+        "points_character": "-"
+      },
+      {
+        "name": "Swordsman honours",
+        "description": "The model gains +1 Weapon skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Teleport homing beacon",
+        "description": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Trophy",
+        "description": "The model gains the ability \"Terrifying(-1)\".",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Vaul's cuirass",
+        "description": "The model gains a 2+ save.",
+        "points": "22",
+        "points_character": "23"
+      },
+      {
+        "name": "Warp jump generator",
+        "description": "The model gains +6\" Movement and the ability \"Jump pack\". Additionally, it gains the \"Shunting\" ability (see Warp Spiders). Only for infantry.",
+        "points": "11",
+        "points_character": "13"
+      },
+      {
+        "name": "EXARCH POWERS",
+        "description": "",
+        "points": "POINTS",
+        "points_character": ""
+      },
+      {
+        "name": "EXARCH POWERS",
+        "description": "EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS EXARCH POWERS",
+        "points": "POINTS",
+        "points_character": "POINTS"
+      },
+      {
+        "name": "Bladestorm",
+        "description": "The model and its unit trigger the \"Shuriken\" special rule on each to wound roll.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Burning heat",
+        "description": "Ranged weapons of the model gain an additional -1 AP against units in cover.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Crack shot",
+        "description": "One ranged weapon of the model gets the \"Seeking\" ability each round.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Crushing blows",
+        "description": "The model may re-roll one to wound or armor penetration roll in melee.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Defensive stance",
+        "description": "The model may use Defensive fire twice when getting charged.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Dragon's bite",
+        "description": "Ranged weapons of the model gain a cumulative AT(1).",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Graceful avoidance",
+        "description": "The model and its unit got a 4+ invulnerability save against melee attacks.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Heartstrike",
+        "description": "Melee attacks of the model gain Deadly(5+). If the model already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Lightning attacks",
+        "description": "The model and its unit may consolidate 6\" after winning a melee combat. If it consolidates into an enemy unit, that unit may not use Defensive Fire.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Piercing strike",
+        "description": "Melee attacks of the model gain Armor piercing(5+).",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Rapid redeployment",
+        "description": "The model and its unit gain the \"Hit & Run\" ability.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Reaper's reach",
+        "description": "Ranged weapons of the model and its attached unit gain +6\" range.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Scorpion's sting",
+        "description": "Melee attacks of the model gain Precision(5+).",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Skyhunter",
+        "description": "All ranged weapons of the model gain Anti-Air.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Stand firm",
+        "description": "The model and its unit gain the \"Objective secured!\" ability.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Surprise assault",
+        "description": "If the model used the \"Shunting\" ability this round, it may shoot one additional time with each equipped Death spinner. If the model used the \"Sky dive\" ability this round, it doubles their shots with a Hawk's talon or Lasblaster.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Every Exarch power is unique.",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "",
+        "points": "POINTS",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT",
+        "points": "POINTS",
+        "points_character": "POINTS"
+      },
+      {
+        "name": "Crystal targeting matrix",
+        "description": "The model ignores negative to hit modifiers from equipment or abilities.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Ghostwalk matrix",
+        "description": "The model gains \"Move through cover\".",
+        "points": "2",
+        "points_character": ""
+      },
+      {
+        "name": "Holo-field",
+        "description": "Roll one die for each glancing and penetrating hit against the model. You may substitute one of the following vehicle damage results with your own roll.",
+        "points": "10",
+        "points_character": ""
+      },
+      {
+        "name": "Improved targeting",
+        "description": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Jammer",
+        "description": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deep strike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Spirit stones",
+        "description": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Smoke Launcher",
+        "description": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Star engines",
+        "description": "The model gains the \"Fast\" ability.",
+        "points": "5",
+        "points_character": ""
+      }
+    ],
+    "daemon_weapons": [],
+    "veteran_abilities": [],
+    "vehicle_upgrades": []
+  },
+  "god_armories": {},
+  "legion_armories": {}
+}

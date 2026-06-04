@@ -1,0 +1,78 @@
+{
+  "faction": "Chaos Daemons",
+  "army_rules": [],
+  "animosity": {
+    "title": "Animosity of the Gods",
+    "intro": "Before the game, determine the HQ model with the highest total score. The model's mark determines which marks and units may be present in the army.",
+    "grid": {
+      "None": {
+        "Marks of the unit": "Yes",
+        "": "Yes"
+      },
+      "Khorne": {
+        "Marks of the unit": "Yes",
+        "": "Yes"
+      },
+      "Slaanesh": {
+        "Marks of the unit": "Yes",
+        "": "Yes"
+      },
+      "Nurgle": {
+        "Marks of the unit": "Yes",
+        "": "No"
+      }
+    },
+    "example": "Example: A Daemon prince costs the most points of all the player's HQ choices. Among other things, the Daemon prince receives the Mark of Khorne. Units that inherently carry the Mark of Slaanesh (e.g. Daemonettes) may not be selected. Also, no unit may gain the Mark of Slaanesh. Not even as allies!"
+  },
+  "army_customisation": {
+    "intro": "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype",
+    "archetypes": [
+      {
+        "name": "Assault on Realspace",
+        "description": "- Units reduce their scatter distance by one D6."
+      },
+      {
+        "name": "Calamitous Invasion",
+        "description": "- Roll 1D6 during each Reinforcement phase. On a 5+ a Meteor appears. The Meteor must be activated like a unit during the same turn it appears. Once you activate the Meteor, place it like a unit arriving from Deep Strike. The scatter roll is always 2D6\" and can never be changed. Instead of placing a model, all units within 6\" of the final position receive one automatic hit with Strength: 10, AP: -1, Damage: 1; AT(2), Barrage, Seeking, Suppression."
+      },
+      {
+        "name": "Figureheads of The Dark Princeˢ",
+        "description": "- Your HQ models gain +1 Attack while not within 12\" of another friendly HQ model."
+      },
+      {
+        "name": "Goretideᴷ",
+        "description": "- Roll 1D6 for each model with the Mark of Khorne that loses its last Wound in melee. On a 5+ they cause an automatic Wound with on of their weapons against an enemy unit in base contact."
+      },
+      {
+        "name": "Host Duplicitous",
+        "description": "- Psychic powers do not increase their casting values for manifesting them multiple times per round."
+      },
+      {
+        "name": "Popping Plagueᴺ",
+        "description": "- Your units explode like a vehicle upon losing their last Wound."
+      },
+      {
+        "name": "ᴷ Only for models with Mark of Khorne",
+        "description": ""
+      },
+      {
+        "name": "ᴺ Only for models with Mark of Nurgle",
+        "description": ""
+      },
+      {
+        "name": "ˢ Only for models with Mark of Slaanesh",
+        "description": ""
+      },
+      {
+        "name": "Only for models with Mark of Tzeentch",
+        "description": ""
+      }
+    ],
+    "legacies": [],
+    "traits": []
+  },
+  "disciplines": {},
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

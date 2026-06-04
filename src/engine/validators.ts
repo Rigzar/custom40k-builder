@@ -7,6 +7,8 @@ import {
 } from './archetypes';
 import { applyVariantSlotOverride } from './slotOverrides';
 import { validateSpaceMarines } from './validators/index';
+import { findArmoryItem, isOptionAvailable } from './resolver';
+import { parseEquipMods, isUniqueItem } from './equipMods';
 
 export interface ValidationItem {
   type: 'error' | 'warn' | 'ok';
@@ -174,6 +176,22 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
           text: `${u.name}: "${g.header}" — a selection is required.`,
         });
       }
+    }
+  }
+
+  // ── Single-slot armour (one armour per model) ────────────────────────────
+  // A model wears at most one armour (Terminator / Cataphractii / …). Selecting two does not
+  // stack — it is an invalid build. See _engine.md §10 (single-slot primitive).
+  for (const item of state.army) {
+    const armours = item.armory
+      .map(a => findArmoryItem(data, a)?.armourKeyword)
+      .filter((k): k is string => !!k);
+    if (armours.length > 1) {
+      const u = resolveUnit(item, data);
+      items.push({
+        type: 'error',
+        text: `${u?.name ?? item.unitName}: only one armour per model (${armours.join(', ')}).`,
+      });
     }
   }
 
@@ -455,19 +473,22 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     });
   }
 
-  // Conditional inline upgrades: detect header-encoded restrictions (e.g. "no Mark of Khorne")
+  // Keyword-gated option groups (available_if): a selected option whose condition fails is invalid.
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
     // Use the same priority as the resolver: locked mark > archetype forcedMark > chosen mark
     const mark = u.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
     u.option_groups.forEach((g, gi) => {
-      if (g.choices.length > 0 || g.inline_pts == null) return;
-      if (!item.optionQty?.[gi]?.['__inline']) return;
-      if (/no mark of khorne/i.test(g.header) && mark === 'Khorne') {
+      if (!g.available_if) return;
+      const selected = Object.entries(item.optionQty?.[gi] ?? {}).some(([, v]) => (v ?? 0) > 0);
+      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction)) {
+        const reason = g.available_if.scope === 'unit'
+          ? `not available with Mark of ${g.available_if.keyword}`
+          : `only available in a ${g.available_if.keyword} army`;
         items.push({
           type: 'error',
-          text: `${item.unitName}: psyker upgrade is not available with Mark of Khorne — deselect one.`,
+          text: `${item.unitName}: "${g.header}" is ${reason} — deselect one.`,
         });
       }
     });
@@ -609,6 +630,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // AOP slot mins (main faction only — exclude allied units)
   const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction);
   for (const slot of SLOT_ORDER) {
+    if (slot === 'Lords of War') continue; // Escalation: Epic-only + 33% pts cap, handled separately
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
@@ -663,7 +685,25 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   }
 
   // Skirmish stat caps
+  // Grounded in missions_text.txt L17-31 (Skirmish restrictions) + core L868 (Unique = once per army).
   if (eng.statCaps) {
+    // "Unique" armory items: only 1 across the whole army (missions L17; core L868).
+    const uniqueArmoryCount: Record<string, number> = {};
+    for (const item of state.army) {
+      for (const sel of item.armory) {
+        const ai = findArmoryItem(data, sel);
+        if (ai && isUniqueItem(ai.desc)) {
+          uniqueArmoryCount[ai.name] = (uniqueArmoryCount[ai.name] ?? 0) + 1;
+        }
+      }
+    }
+    // Only 1 unique item across the entire army (missions L17 "select one unique item from the Armory").
+    const totalUnique = Object.values(uniqueArmoryCount).reduce((s, n) => s + n, 0);
+    if (totalUnique > 1) {
+      const names = Object.keys(uniqueArmoryCount).join(', ');
+      items.push({ type: 'error', text: `Skirmish: only 1 Unique armory item allowed per army (have ${totalUnique}: ${names}).` });
+    }
+
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
@@ -677,6 +717,59 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       }
       if (u.is_squadron && item.size > 1) {
         items.push({ type: 'error', text: `Skirmish: ${item.unitName} is a Squadron — maximum 1 model (have ${item.size}).` });
+      }
+
+      // Equipment stat/profile caps (missions L26-31): a unit may not GAIN via equipment:
+      //  - 2+ armour save or better  → Terminator armor, Daemonic armor, Master-crafted armor
+      //  - 4+ invuln save or better  → Iron halo, Daemonic aura, etc.
+      //  - Toughness 8 or higher (base T + equipment delta)
+      //  - Weapon Damage 3 or higher on any bought weapon
+      // These only fire when something was actually bought — units that START with these stats
+      // aren't blocked (the rule is about what equipment GRANTS, not the datasheet profile).
+      if (item.armory.length > 0) {
+        const equipItems = item.armory
+          .filter(a => a.section === 'equipment')
+          .map(a => {
+            const found = findArmoryItem(data, a);
+            return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
+          });
+        const mods = parseEquipMods(equipItems, u.armourKeyword);
+
+        // 2+ armour save gained from equipment
+        if (mods.armorSave !== null && mods.armorSave <= 2) {
+          const culprit = item.armory.find(a => {
+            const ai = findArmoryItem(data, a);
+            return ai?.desc && /2\+\s+armo/i.test(ai.desc);
+          });
+          items.push({ type: 'error', text: `Skirmish: ${item.unitName} gains a 2+ armour save from "${culprit?.itemName ?? 'equipment'}" — not allowed.` });
+        }
+
+        // 4+ or better invuln save gained from equipment
+        if (mods.invulnSave !== null && mods.invulnSave <= 4) {
+          const culprit = item.armory.find(a => {
+            const ai = findArmoryItem(data, a);
+            return ai?.desc && /(\d)\+\s+invulnerable/i.test(ai.desc ?? '') &&
+              parseInt((ai.desc.match(/(\d)\+\s+invulnerable/i)?.[1] ?? '9')) <= 4;
+          });
+          items.push({ type: 'error', text: `Skirmish: ${item.unitName} gains a 4+ or better invulnerable save from "${culprit?.itemName ?? 'equipment'}" — not allowed.` });
+        }
+
+        // Toughness 8+ from equipment delta
+        const baseT = parseInt(String(u.models[0]?.stats?.T ?? '0'));
+        const gainedT = mods.statDeltas['T'] ?? 0;
+        if (baseT > 0 && baseT + gainedT >= 8) {
+          items.push({ type: 'error', text: `Skirmish: ${item.unitName} reaches T${baseT + gainedT} from equipment — max T7.` });
+        }
+
+        // Weapon Damage 3+ from any bought weapon item
+        for (const sel of item.armory.filter(a => a.section === 'weapons')) {
+          const ai = findArmoryItem(data, sel);
+          if (!ai) continue;
+          const checkD = (d: string | undefined) => d && parseInt(d) >= 3;
+          if (checkD(ai.d) || (ai.profiles ?? []).some(p => checkD(p.d))) {
+            items.push({ type: 'error', text: `Skirmish: ${item.unitName} equips "${sel.itemName}" with Damage 3 or higher — not allowed.` });
+          }
+        }
       }
     }
   }
@@ -712,8 +805,45 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     });
   }
 
+  // ── Lords of War (Escalation): Epic Battle only + 33% of points cap ──────────
+  // missions_text.txt: only Epic has the "0+ Lords of War" slot; "A total of 33% of the
+  // point limit may be spent on Lord of War units."
+  {
+    const lowUnits = state.army.filter(i => {
+      const u = resolveUnit(i, data);
+      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+      return effSlot === 'Lords of War';
+    });
+    if (lowUnits.length > 0) {
+      if (state.engagement !== 'epic') {
+        items.push({
+          type: 'error',
+          text: `Lords of War are only allowed in Epic Battle (have ${lowUnits.length}).`,
+        });
+      } else {
+        const lowPts = lowUnits.reduce((s, i) => {
+          const u = resolveUnit(i, data);
+          return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
+        }, 0);
+        const cap = Math.floor(total * 0.33);
+        if (lowPts > cap) {
+          items.push({
+            type: 'error',
+            text: `Lords of War exceed 33% of points (${lowPts}/${cap}).`,
+          });
+        } else {
+          items.push({
+            type: 'ok',
+            text: `Lords of War: ${lowPts} pts (≤33% = ${cap}).`,
+          });
+        }
+      }
+    }
+  }
+
   // AOP slot maxes (main faction only — exclude allied units)
   for (const slot of SLOT_ORDER) {
+    if (slot === 'Lords of War') continue; // Escalation: handled by the dedicated block above
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);

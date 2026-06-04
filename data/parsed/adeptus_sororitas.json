@@ -231,7 +231,7 @@
         "Paragon bodyguard: The Canoness may join a unit of Paragon Warsuits.",
         "Pious: A Canoness increases the Faith Points by +2."
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -326,7 +326,7 @@
         "Acts of Faith, Hit & Run, Shield of Faith",
         "Saintly Visage: The model gains a 4+ invulnerability save."
       ],
-      "unit_type": "Infantry, Jump pack infantry",
+      "unit_type": "Infantry, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -385,7 +385,7 @@
         "Armour of Saint Catherine: This model has a 4+ invulnerability save.",
         "Pious: A Living Saint increases Faith Points by +3. If she is removed as a casualty and Miraculous Intervention is not being used, the Faith Points do not increase but are reduced by 1D6."
       ],
-      "unit_type": "Character model, Jump pack infantry",
+      "unit_type": "Character Model, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -443,7 +443,7 @@
         "Most Pious: A Missionary increases the Faith Points during each Reinforcement phase by 1D3.",
         "Rosarius: This model has a 4+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -551,7 +551,7 @@
         "Emperor's Grace: Select one unit during your Reinforcement phase with the Shield of Faith ability. The unit gains the \"Warded\" ability until the end of the current battle round.",
         "Pious: A Palatine increases the Faith Points by +1, a Canoness by +2."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1626,7 +1626,7 @@
         "Concession: One unit of Crusaders can be selected for each Preacher that does not occupy an Elite slot.",
         "Crusade: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
       ],
-      "unit_type": "Character model, Infantry, Squadron",
+      "unit_type": "Character Model, Infantry, Squadron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1704,7 +1704,7 @@
         "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
         "Unwavering Resolve: The Dogmata and an attached unit get a 5+ invulnerability saving throw as long as she is within 3\" of a mission objective. Does not work against weapons with a Strength of 8 or higher."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1771,7 +1771,7 @@
         "Advisor: For every HQ selection, one Hospitaller may be selected without taking up an Elite slot.",
         "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1838,7 +1838,7 @@
         "Advisor: For every HQ selection, one Imagifier may be selected without taking up an Elite slot.",
         "Litany of Glorious Deeds: At the start of each activation, the Imagifier may choose a legend for themselves and an attached unit:\n1. Legend of the Devout - The unit gains +1\" Movement.\n2. Legend of the Defiant - The unit gains +1 Toughness.\n3. Legend of the Warriors - The unit gains +1 Strength.\nThe effect lasts until the Imagifier's next activation."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2017,7 +2017,7 @@
         "Acts of Faith, Shield of Faith",
         "Pious: A Paragon Superior increases the Faith Points by +1."
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2075,7 +2075,7 @@
         "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
         "Rosarius: This model has a 4+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2503,7 +2503,7 @@
         "Angelic Visage: The model gains a 5+ invulnerability save.",
         "Pious: A Seraphim Superior increases the Faith Points by +1."
       ],
-      "unit_type": "Infantry, Jump pack infantry",
+      "unit_type": "Infantry, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2606,7 +2606,7 @@
         "Angelic Visage: The model gains a 5+ invulnerability save.",
         "Pious: A Zephyrim Superior increases the Faith Points by +1."
       ],
-      "unit_type": "Infantry, Jump pack infantry",
+      "unit_type": "Infantry, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2880,7 +2880,7 @@
       "abilities": [
         "Berserk(5+), Blind rage"
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

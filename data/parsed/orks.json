@@ -162,7 +162,7 @@
         "Mek tools:  At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a woand or armor penetration roll.",
         "Shokk attack gun: Roll for the strength of the weapon after you have selected a target. If doubles are rolled, consult the following table — 1-1: Awups! The Mek and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! The new target is the nearest visible unit not in melee (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Barrage, Suppression. 5-5: Big wrong button! Remove the Mek from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! The weapon fires with Strength D and AT(3) and loses Barrage this activation."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -259,7 +259,7 @@
         "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!",
         "Orks is never beaten: If the Warboss loses its last Wound, it is only removed after the last possible activation of the owning player (for the current battle round) and can perform all valid actions until then. During this time, the model gains the \"Fearless\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -357,7 +357,7 @@
         "Narthecium: Once per turn, the damage of a woand against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
         "Pain Boss: A Pain Boss may use \"Narthecium\" two times per battle roand."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -456,7 +456,7 @@
         "Waaagh! energy: The model gains a +1 bonus to manifest and deny psychic powers as long as there are 20 or more models with the \"Mob\" rule within 12\" of it.",
         "Warphead: The model can cast and deny 1 additional power per battle roand."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1762,7 +1762,7 @@
         "Advisor: For every HQ selection, one Mekboy may be selected without taking up an Elite slot.",
         "Mek tools:  At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a woand or armor penetration roll."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2157,7 +2157,7 @@
         "Advisor: For every HQ selection, one Mekboy may be selected without taking up an Elite slot.",
         "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2897,7 +2897,7 @@
         "Dakka Dakka Dakka, Deep strike, Mob, Furious charge, Waaagh!",
         "Rocket pack: The unit rolls 2D6 on an Advance command and adds up the result. On a double, the unit suffers D6 automatic wounds with S:5 AP:0 D:1."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

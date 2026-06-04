@@ -1,0 +1,4000 @@
+{
+  "faction": "Grey Knights",
+  "slot_to_units": {
+    "HQ": [
+      "Brotherhood Champion",
+      "Captain",
+      "Captain in Nemesis Armor",
+      "Chaplain",
+      "Librarian",
+      "Special rules",
+      "Demon Hunters: The army has access to Inquisition units. Inquisitors must select \"Ordo Malleus\" in the Armory. The army has access to assassins.",
+      "Nemesis warding stave: If one model of the unit is equipped with this weapon, all models of the unit gain \"Parry\".",
+      "Psykers and Force weapons: If the entire unit can cast a psychic power, a specific model in the squad must be chosen for each attempt. Only that model can activate their Force weapon and suffer \"Perils of the Warp\" attacks.",
+      "Shrouding: The model gains \"Deflect\" against all attacks that are more than 12\" away.",
+      "They Shall Know No Fear: A pinned or fleeing unit automatically regroups at the start of the turn or when it reaches the edge of the board. It can never use the \"Take cover\" Defensive reaction.",
+      "Teleport strike: For every full 2500 points of game size, the army gains 3 teleportation tokens. For each token a Grey Knights creature unit (including attached character models) or Dreadnought that is not currently in melee may be removed from the table at the start of its activation and immediately deployed according to the rules for Deep Strike.  The unit's command is changed to \"Move & Shoot\" and it counts as having moved at maximum range.",
+      "True Grit: The model may treat all of its ranged weapons during its Activation as \"Assault\" weapons (f.e. Rapid Fire 2 becomes Assault 2) and gains +1 attack for any combination of a ranged weapon with a melee weapon, not just for Pistols."
+    ],
+    "Troops": [
+      "Strike Squad",
+      "Terminator Squad"
+    ],
+    "Elite": [
+      "Ancient",
+      "Apothecary",
+      "Dreadnought",
+      "Ghost Terminator Squad",
+      "Paladin Squad",
+      "Purifier Squad"
+    ],
+    "Fast Attack": [
+      "Interceptor Squad"
+    ],
+    "Heavy Support": [
+      "Land Raider",
+      "Land Raider Crusader",
+      "Land Raider Redeemer",
+      "Nemesis Dreadknight",
+      "Purgation Squad"
+    ],
+    "Transports": [
+      "Razorback",
+      "Rhino"
+    ],
+    "Flyers": [
+      "Stormraven Gunship"
+    ]
+  },
+  "units": {
+    "Brotherhood Champion": {
+      "name": "Brotherhood Champion",
+      "models": [],
+      "variant_models": [
+        {
+          "name": "Brotherhood Champion",
+          "points": 104,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "4",
+            "I": "5",
+            "A": "3",
+            "LD": "8",
+            "SV": "3+"
+          }
+        }
+      ],
+      "equipped_with": "A Brotherhood Champion is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 11
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 23
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Only one per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Shrouding, They Shall Know No Fear, True Grit",
+        "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 12\", the placed Order is converted to Charge. The Brotherhood Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model.",
+        "Martial Superiority: The model may re-roll 1 to hit and 1 to wound roll per activation.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 0,
+      "min_cost": 0
+    },
+    "Captain": {
+      "name": "Captain",
+      "models": [],
+      "variant_models": [
+        {
+          "name": "Captain",
+          "points": 152,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "4",
+            "T": "5",
+            "W": "4",
+            "I": "5",
+            "A": "4",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "equipped_with": "A Captain is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 11
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 23
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can replace the Storm bolter",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Incinerator -",
+              "points": 2
+            },
+            {
+              "name": "Psilencer",
+              "points": 9
+            },
+            {
+              "name": "Psycannon",
+              "points": 31
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Only one Captain or Captain in Nemesis Armor per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
+        "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 0,
+      "min_cost": 0
+    },
+    "Captain in Nemesis Armor": {
+      "name": "Captain in Nemesis Armor",
+      "models": [
+        {
+          "name": "Captain",
+          "points": 287,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "6",
+            "T": "6",
+            "W": "6",
+            "I": "5",
+            "A": "6",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Captain in Nemesis Armor is equipped with: 2 Dreadfists.",
+      "weapons": [
+        {
+          "name": "Dreadfist",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Gatling psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Heavy incinerator",
+          "range": "12\"",
+          "type": "Assault 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis greatweapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Shield breaker(-1)"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can swap one Dreadfist",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Nemesis greatweapon",
+              "points": 3
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with two of the following",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Heavy incinerator",
+              "points": 13
+            },
+            {
+              "name": "Gatling psilencer",
+              "points": 50
+            },
+            {
+              "name": "Heavy psycannon",
+              "points": 78
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Teleporter for +54 points to get the \"Jump pack\" and \"Shunt\" abilities and +6\" movement.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 54,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Only one Captain or Captain in Nemesis Armor per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Has access to gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding, They Shall Know No Fear",
+        "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have.",
+        "Dreadknight force field: The model gains a 4+ invulnerability save.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
+      ],
+      "unit_type": "Monstrous creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": true,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 287
+    },
+    "Chaplain": {
+      "name": "Chaplain",
+      "models": [
+        {
+          "name": "Chaplain",
+          "points": 174,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "4",
+            "I": "5",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        },
+        {
+          "name": "Master of Sanctity",
+          "points": 189,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "4",
+            "I": "5",
+            "A": "4",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Chaplain is equipped with: Crozius Arcanum; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Crozius Arcanum",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "One Chaplain per army can be upgraded to a Master of Sanctity for +15 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 15,
+          "variant_link": "Master of Sanctity",
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
+        "Faithful: The model can recite 1 prayer per turn. A prayer is successfully recited on a roll of 3+. If a prayer fails to be recited, it can not be attempted again by the same model in this battle round. The model knows all prayers from the Prayer list.",
+        "Master of Sanctity: The model can recite 1 additional prayer per turn.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Rosarius: The model gains a 4+ invulnverability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 2,
+      "min_cost": 363
+    },
+    "Librarian": {
+      "name": "Librarian",
+      "models": [
+        {
+          "name": "Librarian",
+          "points": 159,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "4",
+            "I": "5",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [
+        {
+          "name": "Chief Librarian",
+          "points": 174,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "4",
+            "I": "5",
+            "A": "4",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "equipped_with": "A Librarian is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Nemesis falchions",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "One Librarian per army can be upgraded to a Chief Librarian for +15 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 15,
+          "variant_link": "Chief Librarian",
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
+        "Chief Librarian: The model can manifest and deny 1 additional power per turn.",
+        "Psychic hood: The models gains a +1 bonus to deny psychic powers.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 159
+    },
+    "Strike Squad": {
+      "name": "Strike Squad",
+      "models": [
+        {
+          "name": "Grey Knight",
+          "points": 50,
+          "min": 4,
+          "max": 9,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "4",
+            "A": "2",
+            "LD": "8",
+            "SV": "3+"
+          }
+        },
+        {
+          "name": "Justicar",
+          "points": 60,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "4",
+            "A": "2",
+            "LD": "8",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Any model can replace their Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every 5 models, one Grey Knight may swap their Nemesis falchions and Storm bolter",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 1
+            },
+            {
+              "name": "Psilencer",
+              "points": 2
+            },
+            {
+              "name": "Psycannon",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Each model may be equipped with Psy-ammunition for +1 point per model.",
+          "constraint": {
+            "type": "equipment"
+          },
+          "choices": [],
+          "inline_pts": 1,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The Justicar has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Combat squads, Shrouding, They Shall Know No Fear, True Grit",
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 260
+    },
+    "Terminator Squad": {
+      "name": "Terminator Squad",
+      "models": [
+        {
+          "name": "Terminator",
+          "points": 74,
+          "min": 4,
+          "max": 9,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        },
+        {
+          "name": "Terminator Justicar",
+          "points": 84,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Any model can replace their Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every 5 models, two Terminators may swap their Storm bolters",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 6
+            },
+            {
+              "name": "Psilencer",
+              "points": 7
+            },
+            {
+              "name": "Psycannon",
+              "points": 24
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Each model may be equipped with Psy-ammunition for +1 points per model.",
+          "constraint": {
+            "type": "equipment"
+          },
+          "choices": [],
+          "inline_pts": 1,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The Justicar has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Combat squads, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding",
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 380
+    },
+    "Ancient": {
+      "name": "Ancient",
+      "models": [
+        {
+          "name": "Ancient",
+          "points": 116,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "An Ancient is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can replace the Storm bolter",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 6
+            },
+            {
+              "name": "Psilencer",
+              "points": 7
+            },
+            {
+              "name": "Psycannon",
+              "points": 24
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding",
+        "Advisor: For each HQ selection, one Ancient may be selected that does not occupy an Elite slot.",
+        "Company standard: Friendly units within 12\" gain +1 Leadership.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elite",
+      "default_size": 1,
+      "min_cost": 116
+    },
+    "Apothecary": {
+      "name": "Apothecary",
+      "models": [
+        {
+          "name": "Apothecary",
+          "points": 116,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "An Apothecary is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can replace the Storm bolter",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 6
+            },
+            {
+              "name": "Psilencer",
+              "points": 7
+            },
+            {
+              "name": "Psycannon",
+              "points": 24
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding",
+        "Advisor: For each HQ selection, one Apothecary may be selected that does not occupy an Elite slot.",
+        "Narthecium: Twice per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elite",
+      "default_size": 1,
+      "min_cost": 116
+    },
+    "Dreadnought": {
+      "name": "Dreadnought",
+      "models": [
+        {
+          "name": "Dreadnought",
+          "points": 150,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "10",
+            "I": "4",
+            "A": "3",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Dreadnought is equpped with: -.",
+      "weapons": [
+        {
+          "name": "Assault cannon",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Dreadnought close combat weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Heavy flamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        },
+        {
+          "name": "Multi-melta",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Plasma cannon",
+          "profiles": [
+            {
+              "name": "Standard",
+              "range": "36\"",
+              "type": "Heavy 1",
+              "s": "7",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "AT(1), Explosive"
+            },
+            {
+              "name": "Overcharged",
+              "range": "36\"",
+              "type": "Heavy 1",
+              "s": "8",
+              "ap": "-4",
+              "d": "2",
+              "abilities": "AT(2), Explosive, Overheating"
+            }
+          ]
+        },
+        {
+          "name": "Missile launcher",
+          "profiles": [
+            {
+              "name": "Frag missile",
+              "range": "48\"",
+              "type": "Heavy 1",
+              "s": "4",
+              "ap": "0",
+              "d": "1",
+              "abilities": "Explosive"
+            },
+            {
+              "name": "Krak missile",
+              "range": "48\"",
+              "type": "Heavy 1",
+              "s": "8",
+              "ap": "-3",
+              "d": "2",
+              "abilities": "Anti-Air, AT(2)"
+            }
+          ]
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin autocannon",
+          "range": "48\"",
+          "type": "Heavy 4",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Twin lascannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        }
+      ],
+      "footnotes": [
+        "* Choose one of the following profiles"
+      ],
+      "option_groups": [
+        {
+          "header": "Must be equipped with two of the following",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Dreadnought close combat weapon mit Storm bolter",
+              "points": 27
+            },
+            {
+              "name": "Assault cannon",
+              "points": 32
+            },
+            {
+              "name": "Twin heavy bolter",
+              "points": 36
+            },
+            {
+              "name": "Multi-melta",
+              "points": 37
+            },
+            {
+              "name": "Missile launcher",
+              "points": 41
+            },
+            {
+              "name": "Twin autocannon",
+              "points": 53
+            },
+            {
+              "name": "Heavy psycannon",
+              "points": 63
+            },
+            {
+              "name": "Plasma cannon",
+              "points": 98
+            },
+            {
+              "name": "Twin lascannon",
+              "points": 138
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can swap a Storm bolter",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Heavy flamer",
+              "points": 2
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding, Squadron",
+        "Furioso: If the model has two Dreadnought close combat weapons, it gets +2 Attacks.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Walker",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elite",
+      "default_size": 1,
+      "min_cost": 150
+    },
+    "Ghost Terminator Squad": {
+      "name": "Ghost Terminator Squad",
+      "models": [
+        {
+          "name": "Terminator",
+          "points": 75,
+          "min": 5,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "An army may only contain a single Ghost Terminator Squad.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Any model can replace their Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every 5 models, two Terminators may swap their Storm bolters",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 6
+            },
+            {
+              "name": "Psilencer",
+              "points": 7
+            },
+            {
+              "name": "Psycannon",
+              "points": 24
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Each model may be equipped with Psy-ammunition for +1 point per model.",
+          "constraint": {
+            "type": "equipment"
+          },
+          "choices": [],
+          "inline_pts": 1,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Deep Strike, Massive(1), Stealth, They Shall Know No Fear, True Grit, Unyielding",
+        "Incorporeal: The unit ignores terrain and units when moving. Additionally, the unit must land at least 6\" away from other units (friendly or enemy) when using Deep Strike and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elite",
+      "default_size": 5,
+      "min_cost": 375
+    },
+    "Paladin Squad": {
+      "name": "Paladin Squad",
+      "models": [
+        {
+          "name": "Paladin",
+          "points": 107,
+          "min": 4,
+          "max": 9,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        },
+        {
+          "name": "Paragon",
+          "points": 117,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "3+",
+            "S": "4",
+            "T": "5",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Only one Paladin squad per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Any model can replace their Nemesis falchions",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 11
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 23
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every 5 models, two Paladins may swap their Storm bolter",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 6
+            },
+            {
+              "name": "Psilencer",
+              "points": 7
+            },
+            {
+              "name": "Psycannon",
+              "points": 24
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Each model may be equipped with Psy-ammunition for +1 point per model.",
+          "constraint": {
+            "type": "equipment"
+          },
+          "choices": [],
+          "inline_pts": 1,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The Paragon has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Combat squads, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding",
+        "Chapter Elite: During each Rally phase, all psychic powers of the unit can be exchanged with other psychic powers from the same discipline.",
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline.",
+        "Terminator armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elite",
+      "default_size": 5,
+      "min_cost": 545
+    },
+    "Purifier Squad": {
+      "name": "Purifier Squad",
+      "models": [
+        {
+          "name": "Purifier",
+          "points": 66,
+          "min": 4,
+          "max": 9,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "4",
+            "A": "2",
+            "LD": "9",
+            "SV": "3+"
+          }
+        },
+        {
+          "name": "Knight of the Flame",
+          "points": 76,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "4",
+            "A": "2",
+            "LD": "9",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Cleansing flame; Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Cleansing flame",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Extra attack, Flames, Shield breaker(-1), Soul burn(5+)"
+        },
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Only one Purifier squad per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": true
+        },
+        {
+          "header": "Any model can replace their Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every 5 models, two Purifiers may swap their Nemesis falchions and Storm bolter",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 1
+            },
+            {
+              "name": "Psilencer",
+              "points": 2
+            },
+            {
+              "name": "Psycannon",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Each model may be equipped with Psy-ammunition for +1 point per model.",
+          "constraint": {
+            "type": "equipment"
+          },
+          "choices": [],
+          "inline_pts": 1,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The Knight of the Flame has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(4+), Brotherhood of Psykers, Combat squads, Shrouding, They Shall Know No Fear, True Grit",
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline.",
+        "Soulfire: The model has a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elite",
+      "default_size": 5,
+      "min_cost": 340
+    },
+    "Interceptor Squad": {
+      "name": "Interceptor Squad",
+      "models": [
+        {
+          "name": "Interceptor",
+          "points": 60,
+          "min": 4,
+          "max": 9,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "4",
+            "A": "2",
+            "LD": "8",
+            "SV": "3+"
+          }
+        },
+        {
+          "name": "Interceptor Justicar",
+          "points": 70,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "4",
+            "W": "2",
+            "I": "4",
+            "A": "2",
+            "LD": "8",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Incinerator",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis daemon hammer",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Force weapon, Shield breaker(-1), Slow(-3)"
+        },
+        {
+          "name": "Nemesis force weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis warding stave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1), Force weapon, Shield breaker(-1)"
+        },
+        {
+          "name": "Psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Any model can replace their Nemesis force weapon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Nemesis warding stave",
+              "points": 9
+            },
+            {
+              "name": "Nemesis daemon hammer",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "For every 5 models, one Interceptor may swap their Nemesis falchions and Storm bolter",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Incinerator",
+              "points": 1
+            },
+            {
+              "name": "Psilencer",
+              "points": 2
+            },
+            {
+              "name": "Psycannon",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Each model may be equipped with Psy-ammunition for +1 point per model.",
+          "constraint": {
+            "type": "equipment"
+          },
+          "choices": [],
+          "inline_pts": 1,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The Justicar has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Brotherhood of Psykers, Combat squads, Shrouding, They Shall Know No Fear, True Grit",
+        "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline.",
+        "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
+      ],
+      "unit_type": "Infantry, Jump pack infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 5,
+      "min_cost": 310
+    },
+    "Land Raider": {
+      "name": "Land Raider",
+      "models": [
+        {
+          "name": "Land Raider",
+          "points": 569,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "14",
+            "I": "4",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Land Raider is equipped with: Twin heavy bolter; 2 Twin lascannons.",
+      "weapons": [
+        {
+          "name": "Multi-melta",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin lascannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Twin heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Twin heavy bolter",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Twin heavy psycannon",
+              "points": 45
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Multi-melta for +37 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 37,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with an additional Storm bolter for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding",
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Transport: This model has a transport capacity of 10 infantry models.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 569
+    },
+    "Land Raider Crusader": {
+      "name": "Land Raider Crusader",
+      "models": [
+        {
+          "name": "Land Raider Crusader",
+          "points": 391,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "14",
+            "I": "4",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Land Raider Crusader is equipped with: 2 Hurricane bolters; Twin assault cannon.",
+      "weapons": [
+        {
+          "name": "Hurricane bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Multi-melta",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin assault cannon",
+          "range": "24\"",
+          "type": "Heavy 8",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Twin heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Twin assault cannon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Twin heavy psycannon",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Multi-melta for +37 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 37,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with an additional Storm bolter for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding",
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Transport: This model has a transport capacity of 16 infantry models.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 391
+    },
+    "Land Raider Redeemer": {
+      "name": "Land Raider Redeemer",
+      "models": [
+        {
+          "name": "Land Raider Redeemer",
+          "points": 395,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "14",
+            "I": "4",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Land Raider Redeemer is equipped with: 2 Flamestorm cannons; Twin assault cannon.",
+      "weapons": [
+        {
+          "name": "Flamestorm cannon",
+          "range": "12\"",
+          "type": "Heavy 6",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Multi-melta",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin assault cannon",
+          "range": "24\"",
+          "type": "Heavy 8",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Twin heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Twin assault cannon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Twin heavy psycannon",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Multi-melta for +37 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 37,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with an additional Storm bolter for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding",
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Transport: This model has a transport capacity of 12 infantry models.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 395
+    },
+    "Nemesis Dreadknight": {
+      "name": "Nemesis Dreadknight",
+      "models": [
+        {
+          "name": "Nemesis Dreadknight",
+          "points": 164,
+          "min": 1,
+          "max": 2,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "6",
+            "T": "6",
+            "W": "4",
+            "I": "4",
+            "A": "4",
+            "LD": "8",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Nemesis Dreadknight is equipped with: 2 Dreadfists.",
+      "weapons": [
+        {
+          "name": "Dreadfist",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Shield breaker(-1)"
+        },
+        {
+          "name": "Gatling psilencer",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Suppression"
+        },
+        {
+          "name": "Heavy incinerator",
+          "range": "12\"",
+          "type": "Assault 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1)"
+        },
+        {
+          "name": "Heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        },
+        {
+          "name": "Nemesis greatweapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Shield breaker(-1)"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can swap one Dreadfist",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Nemesis greatweapon",
+              "points": 3
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with two of the following",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Heavy incinerator",
+              "points": 20
+            },
+            {
+              "name": "Gatling psilencer",
+              "points": 40
+            },
+            {
+              "name": "Heavy psycannon",
+              "points": 63
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Teleporter for +36 points to get the \"Jump pack\" and \"Shunt\" abilities and +6\" movement.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 36,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can gain a Veteran ability.",
+          "constraint": {
+            "type": "veteran"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding, Squadron, They Shall Know No Fear",
+        "Dreadknight force field: The model gains a 4+ invulnerability save.",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
+        "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
+      ],
+      "unit_type": "Monstrous creature",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": true,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 2,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 164
+    },
+    "Razorback": {
+      "name": "Razorback",
+      "models": [
+        {
+          "name": "Razorback",
+          "points": 142,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "4",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Razorback is equipped with: Twin heavy bolter.",
+      "weapons": [
+        {
+          "name": "Lascannon",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin assault cannon",
+          "range": "24\"",
+          "type": "Heavy 8",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin lascannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        },
+        {
+          "name": "Twin plasma gun",
+          "profiles": [
+            {
+              "name": "Standard",
+              "range": "24\"",
+              "type": "Rapid Fire 2",
+              "s": "7",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "AT(1)"
+            },
+            {
+              "name": "Overheating",
+              "range": "24\"",
+              "type": "Rapid Fire 2",
+              "s": "8",
+              "ap": "-4",
+              "d": "2",
+              "abilities": "AT(2), Overheating"
+            }
+          ]
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can replace the Twin heavy bolter",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Twin assault cannon",
+              "points": 28
+            },
+            {
+              "name": "Twin heavy psycannon",
+              "points": 45
+            },
+            {
+              "name": "Lascannon and Twin plasma gun",
+              "points": 77
+            },
+            {
+              "name": "Twin lascannon",
+              "points": 102
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Storm bolter for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Transport: This model has a transport capacity of 6 infantry models. It can't transport models in Terminator armor.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Transports",
+      "default_size": 1,
+      "min_cost": 142
+    },
+    "Rhino": {
+      "name": "Rhino",
+      "models": [
+        {
+          "name": "Rhino",
+          "points": 121,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "4",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Rhino is equipped with: Storm bolter.",
+      "weapons": [
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "footnotes": [],
+      "option_groups": [
+        {
+          "header": "Can be equipped with a Storm bolter for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Shrouding, Fire hatches(2)",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Transport: This model has a transport capacity of 10 infantry models. It can't transport models in Terminator armor.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Transports",
+      "default_size": 1,
+      "min_cost": 121
+    },
+    "Stormraven Gunship": {
+      "name": "Stormraven Gunship",
+      "models": [
+        {
+          "name": "Stormraven Gunship",
+          "points": 482,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "10",
+            "I": "4",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Stormraven Gunship is equipped with: 2 Stormstrike missile launchers; Twin heavy bolters; Twin assault cannon.",
+      "weapons": [
+        {
+          "name": "Hurricane Bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Stormstrike missile launcher",
+          "range": "72\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "Anti-Air, AT(2)"
+        },
+        {
+          "name": "Twin assault cannon",
+          "range": "24\"",
+          "type": "Heavy 8",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin lascannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Twin multi-melta",
+          "range": "24\"",
+          "type": "Pistol 2",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Twin plasma cannon",
+          "profiles": [
+            {
+              "name": "Standard",
+              "range": "36\"",
+              "type": "Heavy 2",
+              "s": "7",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "AT(1), Explosive"
+            },
+            {
+              "name": "Overcharged",
+              "range": "36\"",
+              "type": "Heavy 2",
+              "s": "8",
+              "ap": "-4",
+              "d": "2",
+              "abilities": "AT(2), Explosive, Overheating"
+            }
+          ]
+        },
+        {
+          "name": "Twin heavy psycannon",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armor piercing(5+), AT(2), Shield breaker(-1)"
+        },
+        {
+          "name": "Typhoon missile launcher",
+          "profiles": [
+            {
+              "name": "Frag missile",
+              "range": "48\"",
+              "type": "Heavy 2",
+              "s": "4",
+              "ap": "0",
+              "d": "1",
+              "abilities": "Explosive"
+            },
+            {
+              "name": "Krak missile",
+              "range": "48\"",
+              "type": "Heavy 2",
+              "s": "8",
+              "ap": "-3",
+              "d": "2",
+              "abilities": "Anti-Air, AT(2)"
+            }
+          ]
+        }
+      ],
+      "footnotes": [
+        "* Choose one of the following profiles"
+      ],
+      "option_groups": [
+        {
+          "header": "Can replace the Twin assault cannon",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Twin heavy psycannon",
+              "points": 0
+            },
+            {
+              "name": "Twin lascannon",
+              "points": 74
+            },
+            {
+              "name": "Twin plasma cannon",
+              "points": 132
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can replace the Twin heavy bolter",
+          "constraint": {
+            "type": "replace"
+          },
+          "choices": [
+            {
+              "name": "Twin psycannon",
+              "points": 21
+            },
+            {
+              "name": "Twin multi-melta",
+              "points": 37
+            },
+            {
+              "name": "Typhoon missile launcher",
+              "points": 45
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with 2 Hurricane bolters for +64 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 64,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has access to vehicle equipment from the Armory.",
+          "constraint": {
+            "type": "armory"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Aegis(5+), Anti-Grav, Hover mode, Shrouding",
+        "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Fortitude.",
+        "Transport: This model has a transport capacity of 10 infantry models and 1 Dreadnought.",
+        "Name:\nFortitude",
+        "Range:\n-",
+        "Target:\nSelf",
+        "Cast value:\n5",
+        "Effect:\nThe target unit removes one temporary vehicle damage result.",
+        "Duration:\nInstant",
+        "Complexity:\nBasic"
+      ],
+      "unit_type": "Flyer, Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Flyers",
+      "default_size": 1,
+      "min_cost": 482
+    }
+  }
+}

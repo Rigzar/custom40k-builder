@@ -96,7 +96,7 @@
         "Herald: Up to two units with this rule can be taken as a single HQ choice.",
         "Locus of Khorne: The model and its attached unit get the \"Favoured enemy(everything)\" special rule."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -172,7 +172,7 @@
       "abilities": [
         "Deep strike, Fearless, Greater Daemon, Mark of Khorne, Terrifying(-2)"
       ],
-      "unit_type": "Monstrous creature, Jump pack infantry",
+      "unit_type": "Monstrous Creature, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -252,7 +252,7 @@
         "Locus of Tzeentch: The model and its attached unit gain Precision(5+).",
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from the discipline of Change."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -312,7 +312,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from the discipline of Excess.",
         "Swallow Energy: Attacks against the model or its attached unit suffer a -1 penalty to Wound rolls."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -457,7 +457,7 @@
         "Doomsday bell: The model may heal a friendly unit within 7\" for D3 wounds during its activation. Dead models may be revived with this ability. Injured models have to be fully healed first. Only works on models that have the \"Daemon\" and \"Mark of Nurgle\" abilities. Character models and vehicles are always excluded.",
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from the discipline of Decay."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -535,7 +535,7 @@
         "Discordant Disruption: Enemy psykers within 18\" suffer a Perils of the Warp attack on any double.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from the discipline of Excess."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -621,7 +621,7 @@
         "Deep strike, Deflect, Fearless, Greater Daemon, Mark of Slaanesh, Parry, Terrifying(-2)",
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from the discipline of Excess."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -690,7 +690,7 @@
         "Master of Magic: A Lord of Change can never peril. Additionally, he uses 3 dice and discards the lowest while manifesting and denying psychic powers.",
         "Psyker: The model can cast 3 powers and deny 3 powers per battle round. It knows Smite and all powers from all general disciplines and the discipline of Change."
       ],
-      "unit_type": "Monstrous creature, Jump pack infantry",
+      "unit_type": "Monstrous Creature, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -750,7 +750,7 @@
         "Locus of Nurgle: The model and its attached unit can still fight in close combat, even if they have already been slain before their initiative step.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from the discipline of Decay."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -810,7 +810,7 @@
         "Disease of Mirth: The model and its attached unit roll an additional die for Leadership tests and discard the highest. Whenever an enemy unit within 14\" fails a Leadership test, one model in that unit is slain. Character models and Monstrous Creatures are unaffected.",
         "Jolly Gutpipes: During the activation, select a friendly Mark of Nurgle unit that is within 7\" of the Sloppity Bilepiper. All models in that unit move +1\" until the end of their next activation."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -878,7 +878,7 @@
         "Herald: Up to two units with this rule can be taken as a single HQ choice.",
         "Keep Counting! Meet your Quota!: During the activation, select a friendly Mark of Nurgle unit that is within 7\" of the Spoilpox Scrivener. All models in that unit gain +1 to hit rolls."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -938,7 +938,7 @@
         "Locus of Slaanesh: The model and its attached unit can move an additional D6\" with a charge order.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from the discipline of Excess."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1046,6 +1046,7 @@
           },
           "choices": [],
           "inline_pts": 11,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -1635,7 +1636,7 @@
         "Deepstrike, Daemon, Daemonic instability, Mark of Nurgle, Terrifying(-1)",
         "Attention seeker: The unit can move an additional 6\" if it charges an enemy unit which is already in close combat."
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1743,6 +1744,7 @@
           },
           "choices": [],
           "inline_pts": 41,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -1883,7 +1885,7 @@
       "abilities": [
         "Deepstrike, Daemon, Daemonic instability, Mark of Tzeentch, Terrifying(-1)"
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2024,7 +2026,7 @@
         "Deepstrike, Daemon, Daemonic instability, Terrifying(-1)",
         "Prey on the weak: Everytime an enemy unit within 12\" fails a Leadership test, one model of the unit is slain. Character models and Monstrous Creatures are unaffected."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2205,7 +2207,7 @@
         "Icon of Chaos: A friendly Daemon unit arriving within 3\" of the bearer via Deep strike does not scatter. If the arriving unit has the same Mark of Chaos as the bearer, it can instead be placed within 6\". The icon must be present on the table at the beginning of the battle round in order to be used.",
         "Instrument of Chaos: The unit gains a bonus of +1 to Combat resolutions."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2262,7 +2264,7 @@
         "Deepstrike, Daemon, Daemonic instability, Mark of Tzeentch, Terrifying(-1)",
         "Slashing Dive: If the unit moves over an enemy unit with any command, that unit receives two automatic hits per Screamer with the Warp jaws profile."
       ],
-      "unit_type": "Jet bike",
+      "unit_type": "Jet Bike",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2501,7 +2503,7 @@
         "Bound Beast: For every HQ unit with a Mark of Khorne, you may select one Slaughterbrute without using up a Fast Attack slot.",
         "Eager for carnage: The model automatically advances 6\" with an \"Advance\" command."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2575,7 +2577,7 @@
       "abilities": [
         "Deepstrike, Daemon, Daemonic instability, Mark of Tzeentch, Squadron, Terrifying(-1)"
       ],
-      "unit_type": "Jet bike",
+      "unit_type": "Jet Bike",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2706,7 +2708,12 @@
           "choices": [],
           "inline_pts": 5,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "notInstanceOf",
+            "scope": "unit",
+            "keyword": "Khorne"
+          }
         },
         {
           "header": "Can be equipped with wings for +37 points to gain +6\" M and the \"Jump pack infantry\" Unit type.",
@@ -2716,7 +2723,11 @@
           "choices": [],
           "inline_pts": 37,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "effect": {
+            "stat_mod": [{ "stat": "M", "delta": 6 }],
+            "adds_unit_types": ["Jump pack infantry"]
+          }
         },
         {
           "header": "One Daemon prince per army  can be upgraded to an Ascended Daemon prince for +90 points.",
@@ -2734,7 +2745,7 @@
         "Ascended Daemon prince: The unit uses a HQ slot instead of Heavy Support and always counts as the HQ unit with the highest points value in regards to the \"Animosity of the Gods\" rule. In addition, the model has all Marks of Chaos (already included in the profile), replaces the \"Daemon\" ability with \"Greater Daemon\", loses \"Daemonic instability\", gains \"Fearless\" and \"Terrifying(-2)\".",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2817,7 +2828,7 @@
       "abilities": [
         "Daemon, Daemonic instability, Mark of Tzeentch, Regeneration(1), Squadron, Terrifying(-1)"
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3155,7 +3166,7 @@
       "abilities": [
         "Bodyguard, Daemon, Daemonic instability, Terrifying(-1)"
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

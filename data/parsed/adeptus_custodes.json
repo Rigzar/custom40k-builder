@@ -90,7 +90,7 @@
         "Fighting style: During every activation, the Blade Champion may pick one of the following abilities for their Vaultswords:\n1. Behemor - Armor piercing(5+)\n2. Hurricanis - Flurry(2)\n3. Victus - Precision(5+)",
         "Martial superiority: The model can re-roll 1 to hit and 1 to wound roll."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -203,7 +203,7 @@
       "abilities": [
         "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -347,7 +347,7 @@
         "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
         "Custodian armor: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -479,7 +479,7 @@
         "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
         "Custodian armor: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Character model, Jetbike",
+      "unit_type": "Character Model, Jetbike",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,

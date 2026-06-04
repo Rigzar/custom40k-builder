@@ -4,10 +4,15 @@ import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, Tra
 import type { FactionData, Trait } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
-import { TRAIT_EFFECTS } from '../engine/traitEffects';
+// TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
-let _nextId = 1;
-function newId() { return String(_nextId++); }
+// Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
+// persisted army keeps ids 1,2,3… — so a freshly-added unit could reuse a saved unit's id, and any
+// id-keyed mutation (updateUnit/size, removeUnit) would then hit BOTH entries. Using a UUID removes
+// that collision entirely; the random fallback covers non-secure contexts without crypto.randomUUID.
+function newId() {
+  return globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2));
+}
 
 // ── Trait helpers ─────────────────────────────────────────────────────────────
 
@@ -87,20 +92,12 @@ function applyArmyTraits(
 
         let raw: string | null | undefined;
         if (unit.is_vehicle) {
-          if (def.pts_veh !== null && def.pts_veh !== undefined) {
-            // Explicit vehicle cost
-            raw = def.pts_veh;
-          } else if (def.pts_monster !== null && def.pts_monster !== undefined) {
-            // pts_monster holds the "Monstrous Creatures & Vehicles" xlsx column.
-            // Only fall back to it if the trait actually has an effect on vehicles
-            // (creature-only traits like "Fallen", "Profane Zeal", "10.000 Years of Horror"
-            //  have pts_monster set for monsters but must NOT apply to vehicles).
-            const effects = TRAIT_EFFECTS[name] ?? [];
-            const hasVehicleEffect = effects.some(e => e.applies_to === 'all' || e.applies_to === 'vehicle');
-            raw = hasVehicleEffect ? def.pts_monster : null;
-          } else {
-            raw = null;
-          }
+          // Canonical rule (Army Customisation source): "MONSTROUS CREATURES & VEHICLES" is one
+          // shared column — vehicles pay the same cost as monsters, even when the trait's effect
+          // only applies to creature units. Canonical table is the source of truth (FAQ #5: Codex
+          // > Core). pts_veh holds the vehicle cost directly; if absent, fall back to pts_monster
+          // (the shared column); no effect-presence check — the cost is paid regardless.
+          raw = def.pts_veh ?? def.pts_monster ?? null;
         } else if (unit.is_character) {
           raw = def.pts_char;
         } else if (unit.is_monster) {
@@ -168,7 +165,7 @@ export interface ArmyStore extends ArmyState {
   removePact: (id: string, pactName: string) => void;
 
   /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
-  injectArchetypeFaction: (key: string, factionData: FactionData) => void;
+  injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => void;
   importRoster: (json: string) => void;
   clearArmy: () => void;
 }
@@ -459,17 +456,28 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
-      injectArchetypeFaction: (key: string, factionData: FactionData) => set((s: S) => {
+      injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => set((s: S) => {
         if (!s.data) return {};
-        return {
-          data: {
-            ...s.data,
-            allied: {
-              ...(s.data.allied ?? {}),
-              [key]: { slot_to_units: factionData.slot_to_units, units: factionData.units },
-            },
+        const newData: FactionData = {
+          ...s.data,
+          allied: {
+            ...(s.data.allied ?? {}),
+            [key]: { slot_to_units: factionData.slot_to_units, units: factionData.units },
           },
         };
+        // Supplement-granting archetypes (e.g. Legion → 'Horus Heresy') expose the supplement's
+        // armory to the WHOLE army as a legion-style tab. Inject it into armory_legions so the
+        // existing legacy-armory mechanism renders it (gated by access only, no mark). Unit-only
+        // grants (Daemonkin) pass no label, so daemons keep their own codex armory — no cross-access.
+        if (sharedArmoryLabel && factionData.armory_general) {
+          newData.armory_legions = {
+            ...s.data.armory_legions,
+            [sharedArmoryLabel]: { ...factionData.armory_general, name: sharedArmoryLabel },
+          };
+        }
+        // Keep the full injected faction data in alliedData so the supplement's own units
+        // (factionSource) resolve their native armory in the modal's General tab.
+        return { alliedData: factionData, data: newData };
       }),
 
       importRoster: (json: string) => {

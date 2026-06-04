@@ -1,0 +1,367 @@
+{
+  "faction": "Tyranids",
+  "general": {
+    "weapons": [
+      {
+        "name": "Implant Attack",
+        "range": "-",
+        "type": "Melee",
+        "s": "2",
+        "ap": "-4",
+        "d": "1",
+        "abilities": "Extra Attack(1), Hits automatically wound the target    -",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Symbiote Rippers",
+        "range": "-",
+        "type": "Melee",
+        "s": "3",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Flurry(3)    -",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "BASIC BIOMORPHS",
+        "profiles": []
+      },
+      {
+        "name": "BASIC BIOMORPHS",
+        "range": "BASIC BIOMORPHS",
+        "type": "BASIC BIOMORPHS",
+        "s": "BASIC BIOMORPHS",
+        "ap": "BASIC BIOMORPHS",
+        "d": "BASIC BIOMORPHS",
+        "abilities": "BASIC BIOMORPHS BASIC BIOMORPHS BASIC BIOMORPHS BASIC BIOMORPHS POINTS",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Acid Maw",
+        "range": "The model may re-roll one to wound roll in melee per battle round.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Adrenal Glands",
+        "range": "The model gains \"Haste(2\")\".",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Enhanced Senses",
+        "range": "The model gains the \"Acute Senses\" ability.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Heightened Reflexes",
+        "range": "If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Pathogenesis",
+        "range": "The model adds +3\" to all of its ranged weapons.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Relentless Hunger",
+        "range": "The model gains +3\" for its Consolidation moves.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Toxin Sacs",
+        "range": "The model gains +1 Strength and the \"Poison(4+)\" ability for all melee attacks.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Point costs are paid per unit.",
+        "profiles": []
+      },
+      {
+        "name": "ADVANCED BIOMORPHS",
+        "profiles": []
+      },
+      {
+        "name": "ADVANCED BIOMORPHS",
+        "range": "ADVANCED BIOMORPHS",
+        "type": "ADVANCED BIOMORPHS",
+        "s": "ADVANCED BIOMORPHS",
+        "ap": "ADVANCED BIOMORPHS",
+        "d": "ADVANCED BIOMORPHS",
+        "abilities": "ADVANCED BIOMORPHS ADVANCED BIOMORPHS ADVANCED BIOMORPHS ADVANCED BIOMORPHS POINTS",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Acid Blood",
+        "range": "The model gains the \"Retribution(3)\" ability.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Extremely Volatile",
+        "range": "The model always explodes like a vehicle. The explosion is resolved at Strength 7.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Implant Attack",
+        "range": "The model gains the \"Implant Attack\" weapon.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Infrasonic Roar",
+        "range": "The model gains the \"Suppression\" ability for all ranged attacks made against targets within 12\".",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Resonance Barb",
+        "range": "The models gains +1 to all tests for manifesting a psychic power.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Symbiote Rippers",
+        "range": "The model gains the \"Symbiote Rippers\" weapon.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "3",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Thornback",
+        "range": "The model doubles the final combat result for its own army in each melee in which it participates.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Tusked",
+        "range": "The model gains +1 additional attack as a Charge bonus.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Warped",
+        "range": "The model gains the ability \"Terrifying(-1)\".",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "5",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Point costs are paid for every model of the unit.",
+        "profiles": []
+      },
+      {
+        "name": "SPECIAL BIOMORPHS",
+        "profiles": []
+      },
+      {
+        "name": "SPECIAL BIOMORPHS",
+        "range": "SPECIAL BIOMORPHS",
+        "type": "SPECIAL BIOMORPHS",
+        "s": "SPECIAL BIOMORPHS",
+        "ap": "SPECIAL BIOMORPHS",
+        "d": "SPECIAL BIOMORPHS",
+        "abilities": "SPECIAL BIOMORPHS SPECIAL BIOMORPHS SPECIAL BIOMORPHS SPECIAL BIOMORPHS POINTS",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Endless",
+        "range": "If the unit is below half its starting strength or is destroyed, it can be removed from the field once per game at the end of the battle round and automatically reappears as a reserve at full starting strength in the next battle round.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Feeder Tendrils",
+        "range": "The model gains the \"Prefered Enemy(everything)\" ability for itself and any friendly unit in the same melee combat.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Hardened Carapace",
+        "range": "The model improves its armor save by +1.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Leaping",
+        "range": "The model gains the \"Frenzy(6\")\" ability.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Norn Crown",
+        "range": "The model may cast and deny 1 more psychic power per battle round.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Regeneration",
+        "range": "The model gains the \"Regeneration(1)\" ability.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Scuttlers",
+        "range": "The model gains the \"Vanguard\" ability.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Synaptic Node",
+        "range": "The model gains the \"Fearless\" and \"Synapse\" ability. Only a single unit per army may take this Biomorph.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Winged",
+        "range": "The model gains +6\" Movement as well as the \"Anti-Grav\" and \"Deep Strike\" abilities.",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "See datasheet",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Point costs are paid for every model of the unit.",
+        "profiles": []
+      }
+    ],
+    "equipment": [],
+    "daemon_weapons": [],
+    "veteran_abilities": [],
+    "vehicle_upgrades": []
+  },
+  "god_armories": {},
+  "legion_armories": {}
+}

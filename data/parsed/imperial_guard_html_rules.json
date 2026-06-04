@@ -1,0 +1,202 @@
+{
+  "faction": "Imperial Guard",
+  "army_rules": [],
+  "animosity": null,
+  "army_customisation": {
+    "intro": "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy, 0-2 Traits\n\nIf a Trait is taken, all models / units in the army must be upgraded with it, unless stated otherwise.",
+    "archetypes": [
+      {
+        "name": "Brood Brothers",
+        "description": "- Brood Brothers are treated like \"Genestealer Cults\" in the Ally matrix.\n- All creature units must gain the \"Ambush\" ability (see Genestealer Cults) for 1 point per Wound.\n- Models with access to the Armory can also access the Genestealer Cult Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+      },
+      {
+        "name": "Cavalry Regiment",
+        "description": "- Rough Riders can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+      },
+      {
+        "name": "Gue'vesa",
+        "description": "- Gue'vesa are treated like \"Tau\" in the Ally matrix.\n- All units must gain the \"Supporting Fire\" ability (see Tau Empire) for 1 point per Wound or 2 points per Hull point.\n- All creature units that are equipped with a Lasgun may exchange it for +3 points for a Pulse rifle.\n- All creature units that are equipped with a Hot-shot lasgun may exchange it for +2 points for a Pulse rifle.\n- Models with access to the Armory can also access the Tau Empire Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+      },
+      {
+        "name": "Jungle Fighters",
+        "description": "- All units gain the \"Move through cover\" and \"Use cover\" abilities.\n- All creature units additionally gain the \"Infiltrate\" ability. \n- All creature units reduce their armor save by -1. \n- Creature units that have access to Lascannons may select a Heavy Flamer for +5 points in its place."
+      },
+      {
+        "name": "Mechanised Company",
+        "description": "- Dedicated transports from Mechanised Infantry squads count towards the 25% requirement for Troop selections with 50% of their point costs.\n- All creature units with less than 12\" Movement must start the game as passengers inside a transport.\n- Can not take a Leman Russ Tank Commander or a Leman Russ Commissar.\n- May only take a single Heavy Support selection."
+      },
+      {
+        "name": "Ogryn Regiment",
+        "description": "- Bullgryns, Ogryns and Ogryn Brutes can be taken as Troops.\n- All other Troop units become Elite choices."
+      },
+      {
+        "name": "Tempestus Scions",
+        "description": "- The army only has access to the following units, regardless of other traits:\n- Lord Commissars, Commissars, Stormtroopers, Stormtrooper Command Squads, Taurox and Valkyries.\n- Stormtroopers can be taken as Troops selections.\n- All units receive the ability \"Objective secured!\"."
+      },
+      {
+        "name": "Traitor Guard",
+        "description": "- Traitor Guard are treated like \"Chaos Space Marines\" in the Ally matrix.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+      },
+      {
+        "name": "Veteran Company",
+        "description": "- Veterans can be taken as Troops.\n- All units in the army gain the ability to and must select a Veteran ability."
+      },
+      {
+        "name": "War Hawks",
+        "description": "- The army doubles the amount of units that may enter from reserves each round during the Reinforcement phase. Roll one die for each unit.\n- May not select any Heavy Support units."
+      },
+      {
+        "name": "Whiteshields",
+        "description": "- Conscript Infantry Platoons can be taken without a Platoon Command Squad.\n- You are only allowed one other Troop selection per Conscript Infantry Platoon in your army."
+      }
+    ],
+    "legacies": [
+      {
+        "name": "Death World",
+        "description": "The army gains access to the \"Burn them out! order."
+      },
+      {
+        "name": "Desert World",
+        "description": "The army gains access to the \"Get around behind them!\" order."
+      },
+      {
+        "name": "Fortress World",
+        "description": "The army gains access to the \"Suppressive fire!\" order."
+      },
+      {
+        "name": "Frozen World",
+        "description": "The army gains access to the \"Fire on my command!\" order."
+      },
+      {
+        "name": "Industrial World",
+        "description": "The army gains access to the \"Mount up!\" order."
+      },
+      {
+        "name": "Macropol World",
+        "description": "The army gains access to the \"Form firing squad!\" order."
+      },
+      {
+        "name": "Ministorum World",
+        "description": "The army must select a third Trait."
+      }
+    ],
+    "traits": [
+      {
+        "name": "Abhuman Auxiliaries",
+        "description": "Select one improvement that can be applied to any creature unit (except Halflings and Ogryns):\n- Afriel Strain: The unit gains the \"They Shall Know No Fear\" ability (see Space Marines).\n- Beasts: The unit gains the \"Furious Charge\" ability.\n- Gland Warriors: The unit gains +1 Strength. During every activation it needs to pass a Dangerous Terrain test.\n- Nightsiders: The unit gains the \"Acute Senses\" ability.\n- Slave Levies: The unit gains the \"Unyielding\" ability.",
+        "points_normal": "5",
+        "points_character": "-",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Bionic Improvement",
+        "description": "Creature models gain a 6+ invulnerability save. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+        "points_normal": "1*",
+        "points_character": "0",
+        "points_monstrous": "1*"
+      },
+      {
+        "name": "Born Soldiers",
+        "description": "The unit may re-roll ranged to hit rolls of 1 with Assault, Pistol and Rapid Fire weapons.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Cameleolin",
+        "description": "The unit gains a cumulative +1 bonus to armor save rolls while benefitting from cover.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Close Combat Specialists",
+        "description": "Each model may swap their Lasgun for a Las pistol and a Close combat weapon.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Combined Regiments",
+        "description": "The army must select a second Legacy.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      },
+      {
+        "name": "Disciplined Shooters",
+        "description": "The unit does not suffer the to hit penalty from Defensive Fire.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Fanatism",
+        "description": "The unit gains the \"Blind Rage\" ability.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Hardened Fighters",
+        "description": "The unit gains +1 Weapon skill.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Heavy Infantry",
+        "description": "The unit gains Krak grenades and Plate armor. Can't be combined with \"Jungle Fighters\". Only for creature models that do not already have a 4+ armor save from their datasheet or Armory.",
+        "points_normal": "3*",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Heirloom Weapons",
+        "description": "The unit can re-roll one armor penetration or wound roll per activation.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Iron Discipline",
+        "description": "The unit gains +1 Leadership.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Jury-rigged repairs",
+        "description": "Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.",
+        "points_normal": "-",
+        "points_character": "0",
+        "points_monstrous": "5*"
+      },
+      {
+        "name": "Las Fusilade",
+        "description": "The unit gains the \"Deflagrate(5+)\" ability with Las weapons. Does not apply to \"Heavy\" weapons.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Rapid Assault",
+        "description": "The unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "0"
+      },
+      {
+        "name": "Shock Troops",
+        "description": "The unit gains the \"Deep strike\" ability.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "-"
+      }
+    ]
+  },
+  "disciplines": {},
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

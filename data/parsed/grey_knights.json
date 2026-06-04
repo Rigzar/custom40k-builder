@@ -157,7 +157,7 @@
         "Martial Superiority: The model may re-roll 1 to hit and 1 to wound roll per activation.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -341,7 +341,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
         "Terminator armor: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -477,7 +477,11 @@
           "choices": [],
           "inline_pts": 54,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "effect": {
+            "grants_abilities": ["Jump pack"],
+            "stat_mod": [{ "stat": "M", "delta": 6 }]
+          }
         },
         {
           "header": "Only one Captain or Captain in Nemesis Armor per army.",
@@ -497,7 +501,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
         "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -614,7 +618,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
         "Rosarius: The model gains a 4+ invulnverability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -768,7 +772,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline.",
         "Terminator armor: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1348,7 +1352,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
         "Terminator armor: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1523,7 +1527,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
         "Terminator armor: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2587,7 +2591,7 @@
         "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline.",
         "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
       ],
-      "unit_type": "Infantry, Jump pack infantry",
+      "unit_type": "Infantry, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3116,7 +3120,11 @@
           "choices": [],
           "inline_pts": 36,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "effect": {
+            "grants_abilities": ["Jump pack"],
+            "stat_mod": [{ "stat": "M", "delta": 6 }]
+          }
         }
       ],
       "abilities": [
@@ -3125,7 +3133,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
         "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

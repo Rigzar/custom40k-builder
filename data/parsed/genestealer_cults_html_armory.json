@@ -1,0 +1,365 @@
+{
+  "faction": "Genestealer Cults",
+  "general": {
+    "weapons": [
+      {
+        "name": "Autopistol",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "3",
+        "ap": "0",
+        "d": "1",
+        "abilities": "-",
+        "points": "1",
+        "points_character": "1"
+      },
+      {
+        "name": "Blasting charges",
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Explosive",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Bio-dagger",
+        "range": "-",
+        "type": "Melee",
+        "s": "1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Poison(2+), Precision, Flurry(1)",
+        "points": "3",
+        "points_character": "5"
+      },
+      {
+        "name": "Bolt pistol",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Bone sword",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "4"
+      },
+      {
+        "name": "Chainsword",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Cult claws",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "3"
+      },
+      {
+        "name": "Force stave",
+        "range": "-",
+        "type": "Melee",
+        "s": "+3",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Force weapon",
+        "points": "-",
+        "points_character": "3"
+      },
+      {
+        "name": "Frag grenade",
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "4",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Explosive",
+        "points": "1",
+        "points_character": "1"
+      },
+      {
+        "name": "Hypermorph tail",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Flurry(1)",
+        "points": "1",
+        "points_character": "2"
+      },
+      {
+        "name": "Power hammer",
+        "range": "-",
+        "type": "Melee",
+        "s": "x2",
+        "ap": "-3",
+        "d": "-2",
+        "abilities": "AT(2), Slow(-2)",
+        "points": "11",
+        "points_character": "13"
+      },
+      {
+        "name": "Power maul",
+        "range": "-",
+        "type": "Melee",
+        "s": "+3",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "3"
+      },
+      {
+        "name": "Power pick",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "3"
+      },
+      {
+        "name": "Scything talons",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Flurry(1)",
+        "points": "1",
+        "points_character": "2"
+      },
+      {
+        "name": "Web pistol",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "1",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Monofilament",
+        "points": "1",
+        "points_character": "1"
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Alchemicus familiar",
+        "description": "The model's Genomic enhancement range is increased to 12\".",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Amulet of the Voidwyrm",
+        "description": "The model gains a 4+ invulnerability save. Unique.",
+        "points": "5",
+        "points_character": "20"
+      },
+      {
+        "name": "Atalan bike",
+        "description": "The model gains +6\" movement, +1 Toughness, +1 Wound, Atalan small arms and the \"Bike\" type. Only for infantry.",
+        "points": "-",
+        "points_character": "15"
+      },
+      {
+        "name": "Cranial inlay",
+        "description": "The army adds +1 to rolls during the Reinforcement phase. Unique.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Crown of Ascendancy",
+        "description": "The model can manifest and deny 1 psychic power per turn. It knows Smite and all powers from the Broodmind discipline. Unique.",
+        "points": "30",
+        "points_character": "30"
+      },
+      {
+        "name": "Cult relic",
+        "description": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Elixir of Dark Vistas",
+        "description": "The model gains +1 Leadership.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Familiar",
+        "description": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for psykers.",
+        "points": "-",
+        "points_character": "5"
+      },
+      {
+        "name": "Instinctive counter-strike",
+        "description": "The model and its attached unit gain the \"Counter-Attack\" ability.",
+        "points": "-",
+        "points_character": "5"
+      },
+      {
+        "name": "Lash whip",
+        "description": "The model may re-roll one (additional) hit roll per activation in melee.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Marksman honours",
+        "description": "The model gains +1 Ballistic skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Master-crafted weapon",
+        "description": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Pennant of Ascension",
+        "description": "The unit gains an additional bonus of +1 to the combat result, as well as +1 attack per model. Only for models with a Cult icon. Unique.",
+        "points": "15",
+        "points_character": "-"
+      },
+      {
+        "name": "Pervasion veil",
+        "description": "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
+        "points": "-",
+        "points_character": "15"
+      },
+      {
+        "name": "Preternatural senses",
+        "description": "The model gains a 5+ invulnerability save.",
+        "points": "3",
+        "points_character": "13"
+      },
+      {
+        "name": "Psychic training",
+        "description": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Shadow stalker",
+        "description": "The model gains the \"Deflect\" and \"Parry\" abilities.",
+        "points": "4",
+        "points_character": "8"
+      },
+      {
+        "name": "Swordsman honours",
+        "description": "The model gains +1 Weapon skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Synaptic weapon",
+        "description": "The model may re-roll all to hit and to wound rolls in melee. Unique.",
+        "points": "-",
+        "points_character": "15"
+      },
+      {
+        "name": "Teleport homing beacon",
+        "description": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Trophy",
+        "description": "The model gains the ability \"Terrifying(-1)\".",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Unwilling Orb",
+        "description": "The model can deny 1 additional psychic power per turn and may deny psychic powers from any range.",
+        "points": "6",
+        "points_character": "6"
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "",
+        "points": "POINTS",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT",
+        "points": "POINTS",
+        "points_character": "POINTS"
+      },
+      {
+        "name": "Additional armor",
+        "description": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Flare launcher",
+        "description": "The model gains the \"Deflect\" ability.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Improved targeting",
+        "description": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Jammer",
+        "description": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Smoke Launcher",
+        "description": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Spotter",
+        "description": "The model gains +6\" range with all ranged weapons.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Survey augur",
+        "description": "The model ignores the -1 to hit modifier for cover.",
+        "points": "5",
+        "points_character": ""
+      }
+    ],
+    "daemon_weapons": [],
+    "veteran_abilities": [],
+    "vehicle_upgrades": []
+  },
+  "god_armories": {},
+  "legion_armories": {}
+}

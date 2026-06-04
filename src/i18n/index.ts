@@ -25,7 +25,7 @@ export type TranslationKey =
   | 'buildArmy' | 'updates' | 'battleType' | 'pointsLimit' | 'archetype'
   | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
-  | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers'
+  | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
   | 'addUnit' | 'removeUnit' | 'size' | 'mark' | 'options' | 'armory' | 'psychic' | 'prayers'
   | 'validation' | 'print' | 'back' | 'close' | 'save' | 'delete' | 'export' | 'import'
   | 'unitName' | 'customNamePlaceholder'
@@ -64,6 +64,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     transport: 'Dedicated Transport',
     fortifications: 'Fortifications',
     flyers: 'Flyers',
+    lordsOfWar: 'Lords of War',
     addUnit: 'Add unit',
     removeUnit: 'Remove',
     size: 'Size',
@@ -135,6 +136,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     transport: 'Transport',
     fortifications: 'Befestigungen',
     flyers: 'Flugeinheiten',
+    lordsOfWar: 'Kriegsherren',
     addUnit: 'Einheit hinzufügen',
     removeUnit: 'Entfernen',
     size: 'Größe',
@@ -206,6 +208,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     transport: 'Transporte dedicado',
     fortifications: 'Fortificaciones',
     flyers: 'Unidades voladoras',
+    lordsOfWar: 'Señores de la Guerra',
     addUnit: 'Añadir unidad',
     removeUnit: 'Eliminar',
     size: 'Tamaño',

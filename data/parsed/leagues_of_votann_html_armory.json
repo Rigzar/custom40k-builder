@@ -1,0 +1,461 @@
+{
+  "faction": "Leagues of Votann",
+  "general": {
+    "weapons": [
+      {
+        "name": "Abyss grenade",
+        "range": "3\"",
+        "type": "Grenade 1",
+        "s": "8",
+        "ap": "-5",
+        "d": "2",
+        "abilities": "AT(3), Armorbane",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Ancestor’s jugdement warhead",
+        "range": "120\"",
+        "type": "Heavy 1",
+        "s": "8",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "Ammo(1), AT(2)",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Ancestral ward staffᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "+3",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Force weapon",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Autoch-pattern bolt pistol",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "4"
+      },
+      {
+        "name": "Autoch-pattern combi-bolterᴱ",
+        "range": "24\"",
+        "type": "Rapid Fire 2",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "12",
+        "points_character": "14"
+      },
+      {
+        "name": "Bolt shotgun",
+        "range": "12\"",
+        "type": "Assault 2",
+        "s": "5",
+        "ap": "0",
+        "d": "1",
+        "abilities": "-",
+        "points": "5",
+        "points_character": "6"
+      },
+      {
+        "name": "Concussion gauntletᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "x2",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "AT(2), Slow(-2), Unwieldy",
+        "points": "13",
+        "points_character": "17"
+      },
+      {
+        "name": "Concussion hammerᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "x2",
+        "ap": "-3",
+        "d": "3",
+        "abilities": "AT(3), Slow(-3), Unwieldy",
+        "points": "20",
+        "points_character": "25"
+      },
+      {
+        "name": "EtaCarn plasma gunᴱ",
+        "range": "24\"",
+        "type": "Assault 1",
+        "s": "8",
+        "ap": "-4",
+        "d": "2",
+        "abilities": "AT(2)",
+        "points": "34",
+        "points_character": "43"
+      },
+      {
+        "name": "EtaCarn plasma pistolᴱ",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "8",
+        "ap": "-4",
+        "d": "2",
+        "abilities": "AT(2)",
+        "points": "16",
+        "points_character": "20"
+      },
+      {
+        "name": "Graviton rifleᴱ",
+        "range": "18\"",
+        "type": "Assault 2",
+        "s": "5",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "Graviton",
+        "points": "32",
+        "points_character": "40"
+      },
+      {
+        "name": "Ion pistol",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "5",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "4"
+      },
+      {
+        "name": "Magna-coil autocannon",
+        "range": "24\"",
+        "type": "Assault 2",
+        "s": "7",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "AT(1)",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Mass gauntletᴱ",
+        "profiles": [
+          {
+            "name": "Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Can only be used with a Charge order",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(2), Slow(-1)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Mass hammerᴱ",
+        "profiles": [
+          {
+            "name": "Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "x2",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Can only be used with a Charge order",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "3",
+            "abilities": "AT(3), Slow(-2)",
+            "points": "",
+            "points_character": ""
+          }
+        ]
+      },
+      {
+        "name": "Plasma axeᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Plasma blade gauntletᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Exo-armor only.",
+        "points": "5",
+        "points_character": "7"
+      },
+      {
+        "name": "Plasma knife",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "4"
+      },
+      {
+        "name": "Plasma spearᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Quick(+1)",
+        "points": "5",
+        "points_character": "7"
+      },
+      {
+        "name": "Plasma swordᴱ",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "-",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Volkanite disintegratorᴱ",
+        "range": "18\"",
+        "type": "Assault 2",
+        "s": "5",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Deadly(5+)",
+        "points": "11",
+        "points_character": "13"
+      },
+      {
+        "name": "Models in Exo-armor can only receive equipment marked with ᴱ.",
+        "profiles": []
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Ancestor relicᴱ",
+        "description": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Bastium void armor",
+        "description": "The model gains a 5+ invulnerability save.",
+        "points": "4",
+        "points_character": "18"
+      },
+      {
+        "name": "Darkstar alloyᴱ",
+        "description": "One melee weapon of the model gains Deadly(5+).",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Quake Multigeneratorᴱ",
+        "description": "One ranged weapon of the model gains Suppression.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Exo-armor",
+        "description": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ invulnerable save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
+        "points": "-",
+        "points_character": "39"
+      },
+      {
+        "name": "Forgewrought armor",
+        "description": "The model gains a 2+ save.",
+        "points": "7",
+        "points_character": "11"
+      },
+      {
+        "name": "Forgewrought weaponᴱ",
+        "description": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Marksman honoursᴱ",
+        "description": "The model gains +1 Ballistic skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Mass driver acceleratorsᴱ",
+        "description": "After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Psychic trainingᴱ",
+        "description": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "RAM shieldᴱ",
+        "description": "The model gains \"Parry\".",
+        "points": "1",
+        "points_character": "3"
+      },
+      {
+        "name": "Rampart crest",
+        "description": "The model and its accompanied unit gain a 5+ invulnerability save. Limit one crest per model.",
+        "points": "-",
+        "points_character": "30"
+      },
+      {
+        "name": "Skimmer bike",
+        "description": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Magna-coil autogun, the ability \"Jet bike\" and \"Vanguard\". Only for infantry.",
+        "points": "-",
+        "points_character": "85"
+      },
+      {
+        "name": "Swordsman honoursᴱ",
+        "description": "The model gains +1 Weapon skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Teleportation crestᴱ",
+        "description": "The model gains the \"Deep Strike\" ability. Limit one crest per model.",
+        "points": "1",
+        "points_character": "3"
+      },
+      {
+        "name": "Teleport homing beaconᴱ",
+        "description": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Trophyᴱ",
+        "description": "The model gains the ability \"Terrifying(-1)\".",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Wayfarer's graceᴱ",
+        "description": "The model gains \"Regeneration(1)\". Unique.",
+        "points": "-",
+        "points_character": "9"
+      },
+      {
+        "name": "Weavefield crest",
+        "description": "The model gains a 4+ invulnerability save. Limit one crest per model.",
+        "points": "11",
+        "points_character": "28"
+      },
+      {
+        "name": "Weavefield crest (Exo)ᴱ",
+        "description": "The model gains a 4+ invulnerability save. Limit one crest per model. Exo-armor only.",
+        "points": "3",
+        "points_character": "10"
+      },
+      {
+        "name": "Models in Exo-armor can only receive equipment marked with ᴱ.",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "",
+        "points": "POINTS",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT",
+        "points": "POINTS",
+        "points_character": "POINTS"
+      },
+      {
+        "name": "Accelerated engine",
+        "description": "Instead of shooting, the model can use its accelerated engine and can move aditionally 3\". The vehicle has to pass a dangerous terrain test.",
+        "points": "10",
+        "points_character": ""
+      },
+      {
+        "name": "Additional void armor",
+        "description": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Ancestor’s jugdement warhead",
+        "description": "The model gains an Ancestor's judgement warhead.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Improved targeting scanner",
+        "description": "The model does not have to declare its ranged weapons for all targets before firing, and can choose a new target for each weapon.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Jammer",
+        "description": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Refined power cores",
+        "description": "The model gains +2\" Movement.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Smoke Launcher",
+        "description": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "points": "15",
+        "points_character": ""
+      }
+    ],
+    "daemon_weapons": [],
+    "veteran_abilities": [],
+    "vehicle_upgrades": []
+  },
+  "god_armories": {},
+  "legion_armories": {}
+}

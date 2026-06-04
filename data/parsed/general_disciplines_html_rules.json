@@ -1,0 +1,333 @@
+{
+  "faction": "General psychic disciplines",
+  "army_rules": [],
+  "animosity": null,
+  "army_customisation": null,
+  "disciplines": {
+    "General": [
+      {
+        "name": "Smite",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "The target suffers three automatic hits with Strength: 5 AP: -1 D: 1; Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      }
+    ],
+    "Biomancy": [
+      {
+        "name": "Bleed",
+        "type": "Witchfire",
+        "range": "12\"",
+        "target": "Enemy unit (Creature)",
+        "cast_value": "5",
+        "effect": "Roll 1D6 per model of the target unit. For every 4+, it suffers an automatic wound with Strength: 4 AP: 0 D: 1; Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Endurance",
+        "type": "Augmentation",
+        "range": "18\"",
+        "target": "Friendly unit (Creature)",
+        "cast_value": "6",
+        "effect": "The target gains the \"Berserk(4+)\" and \"Move through cover\" abilities.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Life Steal",
+        "type": "Witchfire",
+        "range": "12\"",
+        "target": "Enemy unit (Creature)",
+        "cast_value": "6",
+        "effect": "The target suffers an automatic wound with Strength: 4 AP: -4 D: 1; Seeking. The caster regains one lost Wound.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Steeled Body",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self (Creature)",
+        "cast_value": "6",
+        "effect": "The target gains +1 Strength, +1 Toughness and +1 to its Saving throw.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Weaken",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit (Creature)",
+        "cast_value": "6",
+        "effect": "The target suffers -1 to its Strength and is treated as moving through difficult terrain, even if it would normally ignore its effect.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Unnatural Speed",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self (Creature)",
+        "cast_value": "7",
+        "effect": "The target gains +2 Initiative and \"Frenzy(6\")\".",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      }
+    ],
+    "Divination": [
+      {
+        "name": "Psionic Guidance",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "4",
+        "effect": "In the next Reinforcement phase, one friendly unit appears automatically without having to roll for it.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Perfect Timing",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "The target may change the result of a single die roll to any result during their own activation.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Premonition",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "5",
+        "effect": "The target gains the “Counter-attack” ability and ignores the penalty for Defensive fire.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Foresight",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target gains a 5+ invulnerability save.",
+        "duration": "Until the caster's next activation.",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Misfortune",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "All attacks against the target gain the \"Armor piercing(5+)\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Gaze Into The Future",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "7",
+        "effect": "The target may re-roll all rolls.",
+        "duration": "Until the caster's next activation.",
+        "complexity": "Basic"
+      }
+    ],
+    "Pyromancy": [
+      {
+        "name": "Burning Hands",
+        "type": "Witchfire",
+        "range": "9\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "The target suffers four automatic hits with Strength: 5 AP: -2 D: 1; Seeking.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Flame Blade",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "5",
+        "effect": "The target gains +1 Strength and -1 AP for one melee weapon.",
+        "duration": "Until the caster's next activation.",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Flame Shield",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self",
+        "cast_value": "6",
+        "effect": "All attacks reduce their Strength and AP by 1 against the target.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Inferno",
+        "type": "Malediction",
+        "range": "24\"",
+        "target": "Terrain piece",
+        "cast_value": "6",
+        "effect": "The terrain piece becomes dangerous terrain.",
+        "duration": "Until the end of the game",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Magma Beam",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "6",
+        "effect": "The target suffers one hit with Strength: 8 AP: -5 D: 2; AT(4), Melta, Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Fireball",
+        "type": "Witchfire",
+        "range": "36\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "The target suffers one automatic hit with Strength: 8 AP: -3 D: 1; AT(2), Barrage, Seeking.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      }
+    ],
+    "Telekinesis": [
+      {
+        "name": "Projectile Assault",
+        "type": "Witchfire",
+        "range": "24\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "Six automatic hits with S:5 AP:-2 D:1; Seeking, Suppression.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Telekinetic Blast",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "5",
+        "effect": "The target is pushed 1D6” away from the caster in a straight line.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Force Field",
+        "type": "Augmentation",
+        "range": "-",
+        "target": "Self + attached unit",
+        "cast_value": "6",
+        "effect": "The target gains the benefit of cover.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Levitation",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target gains +6\" Movement (to a maximum of 12\") and the \"Anti-Grav\" ability.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Mechanical Blockade",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit (Vehicle)",
+        "cast_value": "6",
+        "effect": "The target suffers 3 glancing hits.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Psionic Storm",
+        "type": "Witchfire",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "The target suffers one automatic hit with Strength: 9 AP: -3 D: 1; AT(2), Barrage, Seeking, Suppression.",
+        "duration": "Instant",
+        "complexity": "Complex"
+      }
+    ],
+    "Telepathy": [
+      {
+        "name": "Courage",
+        "type": "Augmentation",
+        "range": "24\"",
+        "target": "Friendly unit (Creature)",
+        "cast_value": "4",
+        "effect": "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Damnation",
+        "type": "Malediction",
+        "range": "24\"",
+        "target": "Enemy unit (Creature)",
+        "cast_value": "5",
+        "effect": "The target suffers a -2 penalty to its Leadership.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Shrouding",
+        "type": "Augmentation",
+        "range": "12\"",
+        "target": "Friendly unit",
+        "cast_value": "6",
+        "effect": "The target gains the \"Deflect\" and \"Parry\" abilities.",
+        "duration": "Until the caster's next activation",
+        "complexity": "Basic"
+      },
+      {
+        "name": "Psychic Shriek",
+        "type": "Witchfire",
+        "range": "12\"",
+        "target": "Enemy unit (Creature)",
+        "cast_value": "6",
+        "effect": "Roll 3D6 and substract the target's Leadership. If the result is >0, the target suffers 1 Mortal Wound and gains a Battleshock token.",
+        "duration": "Instant",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Dominate",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit (Creature)",
+        "cast_value": "7",
+        "effect": "Select one weapon of the target. It automatically hits one enemy unit of your choice within range (can be the unit itself) with a single attack or shot. Can only be successfully manifested once per round and per psyker.",
+        "duration": "Until the caster's next activation.",
+        "complexity": "Normal"
+      },
+      {
+        "name": "Hallucinate",
+        "type": "Malediction",
+        "range": "18\"",
+        "target": "Enemy unit",
+        "cast_value": "7",
+        "effect": "Assign a randomly chosen command face down to the target.",
+        "duration": "Instant",
+        "complexity": "Basic"
+      }
+    ]
+  },
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

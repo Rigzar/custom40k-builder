@@ -402,7 +402,7 @@
         "Serene unifier: The model can invoke 1 invocation per turn. An invocation is successfully invoked on a roll of 3+. It knows all the powers from the list of Invocations of the Ethereals. Each Ethereal can only use each power once per battle round.",
         "Revered Ethereal: The model can invoke 1 additional invocation per turn."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -898,7 +898,7 @@
         "Darkstrider: All Markerlights of Darkstrider and his attached unit gain +6\" range. Darkstrider has the \"Infiltrator\" and \"Vanguard\" ability.",
         "Longstrike: The model must start the game inside a Hammerhead unit (even though the vehicle does not have a transport capacity!) and can't disembark until it is destroyed. The Hammerhead that is chosen improves its Ballistic Skill by +1."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1633,7 +1633,7 @@
       "abilities": [
         "Supporting Fire"
       ],
-      "unit_type": "Jump pack, Monstrous infantry",
+      "unit_type": "Jump pack, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1864,7 +1864,7 @@
         "XV86-2 Coldstar: The models gains the \"Jetbike\" unit type and the \"Hit & Run\" ability.",
         "XV86-3 Supernova: The model gains +1 Attack and +1 Initiative."
       ],
-      "unit_type": "Jump pack, Monstrous infantry",
+      "unit_type": "Jump pack, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3013,7 +3013,7 @@
       "abilities": [
         "Supporting Fire"
       ],
-      "unit_type": "Jump pack, Monstrous infantry",
+      "unit_type": "Jump pack, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -4374,7 +4374,7 @@
       "abilities": [
         "Squadron, Supporting Fire, Unyielding"
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

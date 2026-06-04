@@ -4,6 +4,10 @@ import type { Unit, ArmoryItem } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isWeaponTrait, isUniqueItem, isMultipleAllowed } from '../engine/equipMods';
+import {
+  itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
+  modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
+} from '../engine/keywords';
 
 interface Props {
   item: RosterEntry;
@@ -14,8 +18,11 @@ interface Props {
   effectiveHasVetAbilities?: boolean;
 }
 
-let _selId = 1;
-function selId() { return 'arm-' + (_selId++); }
+// Collision-proof id (same reasoning as newId in store/army.ts): a reset-on-reload counter would
+// clash with armory-item ids from a persisted army, so removeArmoryItem could drop the wrong item.
+function selId() {
+  return 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2)));
+}
 
 type ArmoryTab = 'general' | 'mark' | 'legion';
 type Section = 'weapons' | 'equipment' | 'daemon_weapons';
@@ -27,23 +34,15 @@ function parsePrice(v: number | null | undefined | string): number | null {
 }
 
 // ── Mark restriction helpers ──────────────────────────────────────────────────
-const MARK_SUPERSCRIPTS: Record<string, string> = {
-  'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
-};
+// The gating helpers (itemRequiredMark / stripMarkGlyph / isTerminatorArmourName /
+// modelRestrictsToTermSubset / isItemMarkBlocked) live in engine/keywords.ts — the single
+// keyword-derivation seam. Only the badge styling stays local here.
 const MARK_BADGE: Record<string, string> = {
   Slaanesh: 'bg-pink-900/60 text-pink-300 border-pink-700',
   Khorne:   'bg-red-900/60 text-red-300 border-red-700',
   Tzeentch: 'bg-sky-900/60 text-sky-300 border-sky-700',
   Nurgle:   'bg-green-900/60 text-green-300 border-green-700',
 };
-/** Return which mark the item requires, or null if unrestricted. */
-function getRequiredMark(name: string): string | null {
-  return MARK_SUPERSCRIPTS[name.slice(-1)] ?? null;
-}
-/** Strip trailing god superscripts from item names for display. */
-function cleanItemName(name: string): string {
-  return name.replace(/[ˢᴷᵀᴺ]$/, '');
-}
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const { data, alliedData, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
@@ -73,7 +72,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   // Level 3 — terminator armor conflict: can't stack two Terminator-type armors
   function isTerminatorArmor(arm: ArmoryItem): boolean {
-    return /terminator/i.test(arm.name) || /cataphractii/i.test(arm.name) || /tartaros/i.test(arm.name);
+    return isTerminatorArmourName(arm.name);
   }
   function armorConflict(arm: ArmoryItem): boolean {
     if (!isTerminatorArmor(arm)) return false;
@@ -112,6 +111,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // CD-specific: Greater Daemons pay from the p_char column ("POINTS GREATER DEMON");
   // all other units (Heralds, Daemon Prince, Soul Grinder) pay from p_unit ("POINTS").
   const isCD = activeData.faction === 'Chaos Daemons';
+  // The Horus Heresy supplement has NO Chaos Marks: a trailing ᵀ on an HH item means
+  // Terminator-compat (term_compat), not Mark of Tzeentch. When the active unit's armory IS
+  // the HH supplement, every item is mark-less. The host's HH legion tab is handled per-armory
+  // below via legMarkless(). See ki-hh-tcollision-01.
+  const isMarklessFaction = activeData.faction === 'Horus Heresy Space Marines';
+  /** True when the given legion-armory key is the archetype-granted supplement (e.g. Horus Heresy). */
+  const legMarkless = (legName: string): boolean =>
+    isMarklessFaction || legName === rule?.sharedSupplementArmory;
   const isGreaterDaemon = (unit.abilities ?? []).some(a => /\bgreater daemon\b/i.test(a));
 
   /** Returns the correct pts for this unit, or null if the item cannot be purchased ("-"). */
@@ -123,12 +130,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return isChar ? (cp ?? up) : up;
   }
 
-  /** True when the item requires a mark the unit doesn't have. */
+  /** True when the item requires a mark the unit doesn't have. markless (HH supplement) carries no
+   *  marks — a trailing ᵀ is Terminator-compat, never Tzeentch (ki-hh-tcollision-01). */
   function isMarkBlocked(arm: ArmoryItem): boolean {
-    const req = getRequiredMark(arm.name);
-    if (!req) return false;
-    // No mark at all, or wrong mark
-    return req !== effectiveMark;
+    return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark });
   }
 
   // Faction capability flags — use activeData (allied faction's armory for allied units)
@@ -182,10 +187,21 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ? (parseInt(String(baseModel?.stats?.HP ?? '1'), 10) || 1)
     : (parseInt(String(baseModel?.stats?.W ?? '1'), 10) || 1);
 
-  // Cataphractii armor restriction
-  const isCataphractii = (unit.abilities ?? []).some(a => a.toLowerCase().startsWith('cataphractii armor'));
+  // Terminator / Cataphractii armour restriction — fires on the innate armour keyword OR on a
+  // dynamically-bought Terminator/Cataphractii armor equipment item (both gate to the ᵀ subset).
+  const boughtArmourNames = currentArmory.filter(a => a.section === 'equipment').map(a => a.itemName);
+  const termRestricted = modelRestrictsToTermSubset(unit, boughtArmourNames);
+  // Gravis armour gates to the ᴳ subset, exactly like Terminator gates to ᵀ (SM Armory.html L69:
+  // "Models wearing Gravis armor can only receive equipment with ᴳ"). Mutually exclusive with ᵀ.
+  const gravisRestricted = modelRestrictsToGravisSubset(unit, boughtArmourNames);
+  // Keep already-bought items visible even when non-ᵀ/ᴳ, so they stay removable (the armour item
+  // that triggers the gate is itself non-ᵀ/ᴳ and would otherwise vanish from the list).
+  const boughtItemNames = new Set(currentArmory.map(a => a.itemName));
   function filterTermCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return isCataphractii ? armItems.filter(a => a.term_compat) : armItems;
+    return termRestricted ? armItems.filter(a => a.term_compat || boughtItemNames.has(a.name)) : armItems;
+  }
+  function filterGravisCompat(armItems: ArmoryItem[]): ArmoryItem[] {
+    return gravisRestricted ? armItems.filter(a => a.gravis_compat || boughtItemNames.has(a.name)) : armItems;
   }
 
   // Filter items by unit type and category
@@ -203,10 +219,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
 
   // Allied units don't have access to the main army's legacy armories
-  const activeLegionKeys = isAllied ? [] : [legacy, legacy2]
+  const legacyLegionKeys = [legacy, legacy2]
     .filter(Boolean)
     .map(name => data.legacies.find(l => l.name === name)?.armory_key)
     .filter((k): k is string => !!k && k in data.armory_legions);
+  // A supplement-granting archetype (e.g. Legion → 'Horus Heresy') exposes its armory to the
+  // whole army as a legion tab — gated by access only, no mark. Mirrors a Legacy grant.
+  const archetypeArmoryKey = rule?.sharedSupplementArmory;
+  const grantedArchetypeKeys = archetypeArmoryKey && archetypeArmoryKey in data.armory_legions
+    ? [archetypeArmoryKey] : [];
+  const activeLegionKeys = isAllied ? [] : [...legacyLegionKeys, ...grantedArchetypeKeys];
   const hasLegion = activeLegionKeys.length > 0;
 
   // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE
@@ -273,7 +295,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   function getItems(sec: Section): ArmoryItem[] {
     if (!armory) return [];
-    return filterByUnitType(filterTermCompat(armory[sec] as ArmoryItem[]));
+    return filterByUnitType(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[])));
   }
 
   // Split equipment into groups
@@ -354,10 +376,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           )}
         </div>}
 
-        {/* Cataphractii restriction */}
-        {isCataphractii && (
+        {/* Terminator / Cataphractii armour restriction */}
+        {termRestricted && (
           <div className="px-4 py-1.5 bg-amber-900/30 border-b border-amber-800 text-[10px] text-amber-400">
-            Cataphractii Armour — showing only Terminator-compatible items (ᵀ).
+            Terminator armour — showing only Terminator-compatible items (ᵀ).
           </div>
         )}
 
@@ -404,7 +426,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               {BC_MARKS.map(markName => {
                 const markArm = activeData.armory_marks[markName];
                 if (!markArm) return null;
-                const markItems = filterByUnitType(filterTermCompat(markArm[effectiveSection] as ArmoryItem[]));
+                const markItems = filterByUnitType(filterGravisCompat(filterTermCompat(markArm[effectiveSection] as ArmoryItem[])));
                 const markEq = effectiveSection === 'equipment' ? splitEquipment(markItems) : null;
                 return (
                   <div key={markName}>
@@ -473,7 +495,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 return activeLegionKeys.includes(legName);
               })
               .map(([legName, leg]) => {
-                const legItems = filterByUnitType(filterTermCompat(leg[effectiveSection] as ArmoryItem[]));
+                const legItems = filterByUnitType(filterGravisCompat(filterTermCompat(leg[effectiveSection] as ArmoryItem[])));
                 const legEq = effectiveSection === 'equipment' ? splitEquipment(legItems) : null;
                 return (
                   <div key={legName}>
@@ -498,6 +520,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
                         filterCategory={filterCategory}
                         lastAdded={lastAdded}
+                        markless={legMarkless(legName)}
                         isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
@@ -590,7 +613,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         ? <div className="text-zinc-500 italic text-sm text-center py-4">No items in this section</div>
                         : legItems.map((arm, i) => (
                           <ArmoryItemRow
-                            key={i} arm={arm} isChar={isChar}
+                            key={i} arm={arm} isChar={isChar} markless={legMarkless(legName)}
                             justAdded={lastAdded === arm.name}
                             disabled={isAddBlocked(arm, effectiveSection)}
                             selectedArmoryId={getSelId(arm.name, effectiveSection)}
@@ -612,6 +635,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
               filterCategory={filterCategory}
               lastAdded={lastAdded}
+              markless={isMarklessFaction}
               getPts={getItemPts}
               isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
               getSelId={name => getSelId(name, 'equipment')}
@@ -713,7 +737,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 ? <div className="text-zinc-500 italic text-sm text-center py-8">No items in this section</div>
                 : items.map((arm, i) => (
                   <ArmoryItemRow
-                    key={i} arm={arm} isChar={isChar}
+                    key={i} arm={arm} isChar={isChar} markless={isMarklessFaction}
                     justAdded={lastAdded === arm.name}
                     disabled={isAddBlocked(arm, effectiveSection)}
                     selectedArmoryId={getSelId(arm.name, effectiveSection)}
@@ -753,6 +777,10 @@ interface EquipGroupsProps {
   veteranSlotsFull: boolean;
   filterCategory?: 'veteran' | 'vehicle';
   lastAdded: string | null;
+  /** When true, the items come from a mark-less armory (the Horus Heresy supplement): a
+   * trailing ᵀ means Terminator-compat (term_compat), NOT Mark of Tzeentch, so no mark gating
+   * or mark badge must be derived from the item name. See ki-hh-tcollision-01. */
+  markless?: boolean;
   /** Computes the correct price for this unit type (handles CD Greater Daemon vs regular). */
   getPts?: (arm: ArmoryItem) => number | null;
   isUniqueSelected?: (arm: ArmoryItem) => boolean;
@@ -769,6 +797,7 @@ function EquipmentGroups({
   armoryVetMax, veteranItemsUsed, veteranSlotsFull,
   filterCategory,
   lastAdded,
+  markless = false,
   getPts,
   isUniqueSelected,
   getSelId, onRemove,
@@ -813,7 +842,7 @@ function EquipmentGroups({
             const uniqueSel = isUniqueSelected ? isUniqueSelected(arm) : false;
             return (
               <ArmoryItemRow
-                key={i} arm={arm} isChar={isChar}
+                key={i} arm={arm} isChar={isChar} markless={markless}
                 justAdded={lastAdded === arm.name}
                 disabled={uniqueSel}
                 selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
@@ -860,7 +889,7 @@ function EquipmentGroups({
               const inProfile = profileAbilityNames.has(arm.name.toLowerCase());
               return (
                 <ArmoryItemRow
-                  key={i} arm={arm} isChar={isChar}
+                  key={i} arm={arm} isChar={isChar} markless={markless}
                   disabled={(armoryVetMax !== null && veteranSlotsFull && !inProfile) || inProfile}
                   justAdded={lastAdded === arm.name}
                   priceLabel={vetPriceLabel(arm)}
@@ -885,7 +914,7 @@ function EquipmentGroups({
           )}
           <div className="space-y-1">
             {vehicle.map((arm, i) => (
-              <ArmoryItemRow key={i} arm={arm} isChar={isChar} justAdded={lastAdded === arm.name} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => onAdd(arm)} />
+              <ArmoryItemRow key={i} arm={arm} isChar={isChar} markless={markless} justAdded={lastAdded === arm.name} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => onAdd(arm)} />
             ))}
           </div>
         </div>
@@ -899,7 +928,7 @@ function EquipmentGroups({
 function ArmoryItemRow({
   arm, isChar, disabled = false, justAdded = false, priceLabel, inProfile = false, onAdd,
   selectedArmoryId, onRemove,
-  ptsOverride,
+  ptsOverride, markless = false,
 }: {
   arm: ArmoryItem;
   isChar: boolean;
@@ -912,9 +941,11 @@ function ArmoryItemRow({
   onRemove?: (id: string) => void;
   /** Override the price display. null = show "—" (cannot be purchased). undefined = use existing isChar logic. */
   ptsOverride?: number | null;
+  /** True for Horus Heresy supplement items: a trailing ᵀ is Terminator-compat, not Mark of Tzeentch. */
+  markless?: boolean;
 }) {
-  const requiredMark = getRequiredMark(arm.name);
-  const displayName = cleanItemName(arm.name);
+  const requiredMark = markless ? null : itemRequiredMark(arm.name);
+  const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
   const markBadgeClass = requiredMark ? (MARK_BADGE[requiredMark] ?? 'bg-zinc-800 text-zinc-300 border-zinc-600') : '';
 
   const charPrice = parsePrice(arm.p_char);

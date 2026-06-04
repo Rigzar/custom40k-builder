@@ -11,6 +11,13 @@ import { SLOT_ICONS } from '../assets/slotIcons';
 interface SlotEntry {
   name: string;
   factionSource?: string;
+  /**
+   * True when the unit is injected by the active archetype (e.g. Horus Heresy via Legion,
+   * daemons via Daemonkin/Plaguehost/cult archetypes). These are OWN units of the army, not
+   * an allied detachment — they share the AOP and carry no "[Allied]" badge. Distinguishes
+   * rule.alliedFaction injection from a true allied source (base_allied / manual detachment).
+   */
+  injected?: boolean;
   minCost: number;
 }
 
@@ -95,7 +102,7 @@ export function SlotPanel() {
 
         const effSlot = getEffectiveSlot(name, originalSlot, rule);
         if (effectiveSlotUnits[effSlot]) {
-          effectiveSlotUnits[effSlot].push({ name, factionSource: rule.alliedFaction, minCost: u.min_cost });
+          effectiveSlotUnits[effSlot].push({ name, factionSource: rule.alliedFaction, injected: true, minCost: u.min_cost });
         }
       }
     }
@@ -136,6 +143,9 @@ export function SlotPanel() {
         const units = effectiveSlotUnits[slot] ?? [];
         if (rule?.bannedSlots.includes(slot)) return null;
         if (rawMax === 0 && units.length === 0) return null;
+        // Lords of War (Escalation): only in Epic Battle, and only if the faction has any
+        if (slot === 'Lords of War' && (engagement !== 'epic' || units.length === 0)) return null;
+        const isLordsOfWar = slot === 'Lords of War';
 
         const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
         const used = Math.max(0, getSlotUsage(army, data, slot, rule, alliedFaction) - cdAdj);
@@ -156,7 +166,9 @@ export function SlotPanel() {
                 {slot}
               </span>
               <span className={`text-[11px] ${countColor}`}>
-                {used}/{max} <span className="text-zinc-600">(min {min})</span>
+                {isLordsOfWar
+                  ? <>{used} <span className="text-zinc-600">(≤33% pts)</span></>
+                  : <>{used}/{max} <span className="text-zinc-600">(min {min})</span></>}
               </span>
             </button>
 
@@ -177,7 +189,7 @@ export function SlotPanel() {
                       >
                         <div>
                           <span className="text-zinc-200 group-hover:text-amber-400">{entry.name}</span>
-                          {entry.factionSource && (
+                          {entry.factionSource && !entry.injected && (
                             <span className="text-[10px] text-zinc-500 ml-1">[Allied]</span>
                           )}
                         </div>

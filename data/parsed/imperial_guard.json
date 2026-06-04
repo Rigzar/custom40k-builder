@@ -148,7 +148,7 @@
         "Officer: A Captain issues 1 order.",
         "Colonel: A Colonel issues 1 additional order."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -497,7 +497,7 @@
         "Officer: A Lord Commissar issues 1 order.",
         "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -555,7 +555,7 @@
         "Officer: A Primaris Psyker issues 1 order.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2140,7 +2140,7 @@
         "It's for your own good: Instead of suffering a Perils of the Warp attack, the model is immediately slain if a Commissar is within 6\".",
         "Psyker: The model can cast 1 power per battle round. It one power from the Telepathy discipline."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2221,7 +2221,7 @@
       "abilities": [
         "Recovery Vehicle: When this unit activates with an Advance order, if it is within 1\" of a vehicle wreck or a friendly vehicle with a current Move of 0\", it may tow it instead of moving normally. Both this unit and the towed wreck or vehicle may move up to 6\", and must end their movement within 1\" of each other. Follow all normal rules for terrain."
       ],
-      "unit_type": "Vehicle, Character model, Infantry",
+      "unit_type": "Vehicle, Character Model, Infantry",
       "keywords": [],
       "is_vehicle": true,
       "is_character": false,
@@ -2414,7 +2414,7 @@
         "Command Squad",
         "Statutory Execution: Each time time a friendly unit within a 6\" radius fails a Leadership test, a model is removed from the unit and the Leadership test is repeated without any penalty."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2734,7 +2734,7 @@
         "Command squad, Deflect, Parry",
         "Crusade: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
       ],
-      "unit_type": "Character model, Infantry, Squadron",
+      "unit_type": "Character Model, Infantry, Squadron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2892,7 +2892,7 @@
         "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can re-roll a hit roll and a wound or armor penetration roll.",
         "Servitor: As long as the Engineseer is alive, Servitors get +1 to hit rolls."
       ],
-      "unit_type": "Character model (Engineseer only), Infantry",
+      "unit_type": "Character Model (Engineseer only), Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3203,7 +3203,7 @@
         "(In)accuracy: Artillery Strikes hit on a roll of 3+. This roll can never be modified.",
         "Priority bombardment: Only one Artillery strike can be used per turn."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -3261,7 +3261,7 @@
         "Advisor: For each HQ selection, one Officier of the Fleet may be selected that does not occupy an Elite slot.",
         "Logistics Coordination: Add +1 to rolls during the Initiative and Reinfocement phase as long as there is at least one Officer of the Fleet on the field."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -3374,7 +3374,7 @@
         "Plate shield: The model gains +2 to armor rolls.",
         "Protect the little 'unz: The defensive profile for this model always takes precedent in any unit it is attached to, even if it is not part of the majority. This means all wounds are first assigned to this model as well."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -3618,7 +3618,7 @@
         "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows all Hymns of Battle.",
         "Rosarius: This model has a 4+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,

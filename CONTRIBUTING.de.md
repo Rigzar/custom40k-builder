@@ -212,6 +212,7 @@ src/i18n/       Übersetzungstexte (EN / DE / ES)
 | `legacies/sm-legacies.ts` | SM-Legacy-Regeldaten – Disziplin-Gate-Map und Kreuzritter-Gebete-Set |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` – Dispatcher für Legacy-Regel-Abfragen |
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
+| `keywords.ts` | Schlüsselwort-Ableitungsschicht für die Wargear-Freischaltung — leitet an einer Stelle die Chaos-Mal-Anforderungen (`itemRequiredMark`) und die Terminator-Rüstungskompatibilität (`modelRestrictsToTermSubset`) ab. Hier bearbeiten (nicht in `ArmoryModal`), wenn sich ändert, wie die Rüstungs-/Mal-Freischaltung abgeleitet wird; die geplante fraktionsweise Schlüsselwort-Migration ändert die Interna dieses Moduls. |
 
 ### Wann die Legacy-Dateien bearbeitet werden müssen
 
@@ -252,6 +253,17 @@ Diese beiden Dateien haben unterschiedliche Zwecke und dürfen nicht verwechselt
 1. Die Fraktions-JSON zu `data/parsed/` hinzufügen (Schema in `README.md`).
 2. In `src/data/alliedMatrix.ts` und `src/App.tsx` registrieren.
 3. Sicherstellen, dass `npm run build` durchläuft und die Fraktion in der App geladen wird.
+
+### Regelmodell-Digests (`src/data/rules-model/<faction>.md`)
+
+Jede geprüfte Fraktion hat ein Markdown-Digest in `src/data/rules-model/` (Vorlage:
+`_TEMPLATE.md`). Es hält das Keyword-Vokabular der Fraktion, die Wargear-Gating-Regeln, das
+Punktemodell, die Option-Semantik je Datasheet-Slot sowie eine Engine-Lückenprüfung fest — alles
+gegen das kanonische Quell-HTML und die Produktions-JSON validiert. Es sind Referenzdokumente für
+Mitwirkende und die Engine — die App lädt sie nicht. Wenn du die Daten einer Fraktion prüfst oder
+korrigierst, aktualisiere ihr Digest, damit es synchron bleibt.
+Fraktionsübergreifende Supplements nutzen denselben Ordner und dieselbe Namensgebung
+(z. B. `escalation.md` für das Escalation- / Lords-of-War-Supplement).
 
 ### Übersetzungen
 

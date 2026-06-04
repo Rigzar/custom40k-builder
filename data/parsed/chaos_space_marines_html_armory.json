@@ -1,0 +1,1723 @@
+{
+  "faction": "Chaos Space Marines",
+  "general": {
+    "weapons": [
+      {
+        "name": "Astartes chainsword",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "3",
+        "points_character": "3"
+      },
+      {
+        "name": "Bolt pistol",
+        "range": "12\"",
+        "type": "Pistol 1",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "2",
+        "points_character": "3"
+      },
+      {
+        "name": "Boltgun",
+        "range": "24\"",
+        "type": "Rapid Fire 1",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "5",
+        "points_character": "7"
+      },
+      {
+        "name": "Combi-bolter",
+        "range": "24\"",
+        "type": "Rapid fire 2",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "-",
+        "points": "11",
+        "points_character": "13"
+      },
+      {
+        "name": "Combi-flamer",
+        "profiles": [
+          {
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Flamer",
+            "range": "9\"",
+            "type": "Assault 4",
+            "s": "4",
+            "ap": "0",
+            "d": "1",
+            "abilities": "Flames",
+            "points": "",
+            "points_character": ""
+          }
+        ],
+        "points": "11",
+        "points_character": "7"
+      },
+      {
+        "name": "Combi-melta",
+        "profiles": [
+          {
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Melta",
+            "range": "12\"",
+            "type": "Assault 1",
+            "s": "8",
+            "ap": "-5",
+            "d": "1",
+            "abilities": "AT(1), Melta",
+            "points": "",
+            "points_character": ""
+          }
+        ],
+        "points": "16",
+        "points_character": "24"
+      },
+      {
+        "name": "Combi-plasma",
+        "profiles": [
+          {
+            "name": "Bolter",
+            "range": "24\"",
+            "type": "Rapid fire 1",
+            "s": "4",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "-",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Plasma (Standard)",
+            "range": "24\"",
+            "type": "Rapid fire 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Plasma (Overcharged)",
+            "range": "24\"",
+            "type": "Rapid fire 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheat",
+            "points": "",
+            "points_character": ""
+          }
+        ],
+        "points": "21",
+        "points_character": "27"
+      },
+      {
+        "name": "Daemonic fire",
+        "range": "12\"",
+        "type": "Assault 4",
+        "s": "4",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Flames",
+        "points": "12",
+        "points_character": "8"
+      },
+      {
+        "name": "Daemonic talons",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Flurry(2)",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Force axe",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Force weapon",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Force staff",
+        "range": "-",
+        "type": "Melee",
+        "s": "+3",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Force weapon",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Force sword",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Force weapon",
+        "points": "-",
+        "points_character": "6"
+      },
+      {
+        "name": "Hunter-killer missile",
+        "range": "120\"",
+        "type": "Heavy 1",
+        "s": "8",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "Ammo(1), AT(2)",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Kai gun",
+        "range": "24\"",
+        "type": "Pistol 2",
+        "s": "6",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "Armor piercing(5+), Decimate, Shield breaker(-1)",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Lightning claw",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Shred",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Living vehicle",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Flurry(3)",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Melta grenade",
+        "range": "3\"",
+        "type": "Grenade 1",
+        "s": "8",
+        "ap": "-5",
+        "d": "2",
+        "abilities": "Armorbane, AT(3)",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Pair of lightning claws",
+        "range": "-",
+        "type": "Melee",
+        "s": "U",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "Flurry(2), Shred, Unwieldy",
+        "points": "6",
+        "points_character": "7"
+      },
+      {
+        "name": "Plasma pistol",
+        "profiles": [
+          {
+            "name": "Standard",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "7",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "AT(1)",
+            "points": "",
+            "points_character": ""
+          },
+          {
+            "name": "Overcharged",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "8",
+            "ap": "-4",
+            "d": "2",
+            "abilities": "AT(2), Overheat",
+            "points": "",
+            "points_character": ""
+          }
+        ],
+        "points": "10",
+        "points_character": "13"
+      },
+      {
+        "name": "Power axe",
+        "range": "-",
+        "type": "Melee",
+        "s": "+2",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "points": "4",
+        "points_character": "6"
+      },
+      {
+        "name": "Power fist",
+        "range": "-",
+        "type": "Melee",
+        "s": "x2",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "AT(2), Slow(-2)",
+        "points": "13",
+        "points_character": "16"
+      },
+      {
+        "name": "Power maul",
+        "range": "-",
+        "type": "Melee",
+        "s": "+3",
+        "ap": "-1",
+        "d": "1",
+        "abilities": "Deadly(6+), Slow(-1)",
+        "points": "4",
+        "points_character": "6"
+      },
+      {
+        "name": "Power sword",
+        "range": "-",
+        "type": "Melee",
+        "s": "+1",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "-",
+        "points": "4",
+        "points_character": "6"
+      },
+      {
+        "name": "Thunder hammer",
+        "range": "-",
+        "type": "Melee",
+        "s": "x2",
+        "ap": "-3",
+        "d": "3",
+        "abilities": "AT(3), Slow(-3)",
+        "points": "20",
+        "points_character": "25"
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Baleful tome",
+        "description": "Before the game, select a psychic power from the general psychic powers or the Chaos psychic powers. The model can use this psychic power once per game. Roll 1D6 during the model's activation. On a 3+, the psychic power is successfully manifested with the required cast value. On a 1, the model suffers a \"Perils of the Warp\" attack.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Bionics",
+        "description": "The model gains a 6+ invulnerable save.",
+        "points": "5",
+        "points_character": "9"
+      },
+      {
+        "name": "Chaos artifact",
+        "description": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Cursed blade",
+        "description": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Lieutenants.",
+        "points": "-",
+        "points_character": "Special"
+      },
+      {
+        "name": "Icon of Chaos",
+        "description": "A friendly Daemon unit arriving within 3\" of the bearer via Deep strike does not scatter. If the arriving unit has the same Mark of Chaos as the bearer, it can instead be placed within 6\". The icon must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Chaos Space Marine bike",
+        "description": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Combi-bolter and the unit type \"Bike\". Infantry only.",
+        "points": "32",
+        "points_character": "38"
+      },
+      {
+        "name": "Demagogue",
+        "description": "The model and its attached unit gain the \"Fearless\" ability. Only for Dark Apostles. Unique.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Daemon weapon",
+        "description": "Select one ability from the \"Daemon weapons\" section and apply it to one weapon of the model. Can't be combined with \"Greater Daemon weapon\".",
+        "points": "-",
+        "points_character": "0"
+      },
+      {
+        "name": "Daemonic armor",
+        "description": "The model gains a 2+ save.",
+        "points": "7",
+        "points_character": "15"
+      },
+      {
+        "name": "Daemonic aura",
+        "description": "The model gains the \"Daemon\" ability (Note: a 5+ invulnerability save).",
+        "points": "10",
+        "points_character": "20"
+      },
+      {
+        "name": "Daemonic essence",
+        "description": "The model gains +1 Wound.",
+        "points": "10",
+        "points_character": "15"
+      },
+      {
+        "name": "Daemonic flight / jump pack",
+        "description": "The model gains +6\" Movement and the unit type \"Jump pack\". Infantry only.",
+        "points": "9",
+        "points_character": "19"
+      },
+      {
+        "name": "Daemonic mutation",
+        "description": "The model gains +1 Attack.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Daemonic resilience",
+        "description": "The model gains +1 Toughness.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Daemonic stature",
+        "description": "The model gains the \"Monstrous Infantry\" unit type and the \"Deepstrike\" ability.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Daemonic strength",
+        "description": "The model gains +1 Strength.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Daemonic swiftness",
+        "description": "The model gains the ability \"Move Through Cover\" and may reroll advance rolls.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Daemonic venom",
+        "description": "All melee attacks of the model gain \"Poison(4+)\"",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Familiar",
+        "description": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Sorcerers.",
+        "points": "-",
+        "points_character": "5"
+      },
+      {
+        "name": "Greater Daemon weapon",
+        "description": "Select two abilities from the \"Daemon weapons\" section and apply it to one weapon of the model. Can't be combined with \"Daemon weapon\".",
+        "points": "-",
+        "points_character": "0"
+      },
+      {
+        "name": "Instrument of Chaos",
+        "description": "The unit gains a bonus of +1 to Combat resolutions.",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Marksman honours",
+        "description": "The model gains +1 Ballistic skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Master-crafted weapon",
+        "description": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Personal icon",
+        "description": "A friendly Daemon unit arriving within 3\" of the bearer via Deep strike does not scatter. The icon must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "-",
+        "points_character": "-"
+      },
+      {
+        "name": "Psychic training",
+        "description": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Spikey bits",
+        "description": "The model may re-roll one to wound roll in melee per activation.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Swordsman honours",
+        "description": "The model gains +1 Weapon skill.",
+        "points": "4",
+        "points_character": "5"
+      },
+      {
+        "name": "Teleport homing beacon",
+        "description": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Terminator armor",
+        "description": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 5+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+        "points": "23",
+        "points_character": "46"
+      },
+      {
+        "name": "Trophy",
+        "description": "The model gains the ability \"Terrifying(-1)\".",
+        "points": "5",
+        "points_character": "5"
+      }
+    ],
+    "daemon_weapons": [
+      {
+        "name": "Dark",
+        "description": "The weapon gains +1 Strength. Unique.",
+        "points": "5"
+      },
+      {
+        "name": "Kai",
+        "description": "The model gains the \"Kai gun\" ranged weapon. Unique.",
+        "points": "22"
+      },
+      {
+        "name": "Unstoppable",
+        "description": "The weapon gains \"Beam\". Unique.",
+        "points": "5"
+      }
+    ],
+    "veteran_abilities": [
+      {
+        "name": "Counter-attack",
+        "description": "The model gains the ability \"Counter-attack\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Favoured enemy",
+        "description": "The model gains the ability \"Favoured enemy\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Furious charge",
+        "description": "The model gains the ability \"Furious charge\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Infiltrator",
+        "description": "The model gains the ability \"Infiltrator\".",
+        "points": "1",
+        "points_vehicle": "-"
+      },
+      {
+        "name": "Outflank",
+        "description": "The model gains the ability \"Outflank\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Tank hunter",
+        "description": "The model gains the ability \"Tank hunter\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Terrain expert",
+        "description": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Vanguard",
+        "description": "The model gains the ability \"Vanguard\".",
+        "points": "1",
+        "points_vehicle": "-"
+      }
+    ],
+    "vehicle_upgrades": [
+      {
+        "name": "Additional armor",
+        "description": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "points": "5"
+      },
+      {
+        "name": "Blasphemous Rune",
+        "description": "The model may attempt to deny one psychic power per battle round.",
+        "points": "5"
+      },
+      {
+        "name": "Daemonic possession",
+        "description": "- The model gains the \"Daemon\" ability (Note: a 5+ invulnerability save).\n- The model reduces its BS and WS values by -1.\n- The model ignores \"Crew Shaken\" vehicle damage.\n- If the model is transporting a unit, during each activation of the unit roll 1D6 per model. On a roll of 1 and 2 the unit suffers one Mortal Wound.",
+        "points": "0"
+      },
+      {
+        "name": "Dirge Caster",
+        "description": "Friendly models within 6\" range gain the \"Fearless\" ability.",
+        "points": "15"
+      },
+      {
+        "name": "Hunter-killer missile",
+        "description": "The model gains a Hunter-killer missile.",
+        "points": "5"
+      },
+      {
+        "name": "Improved targeting",
+        "description": "The model does not have to declare its ranged weapon targets before firing and can choose a new target for each weapon.",
+        "points": "5"
+      },
+      {
+        "name": "Jammer",
+        "description": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "points": "15"
+      },
+      {
+        "name": "Living vehicle",
+        "description": "The model gains the \"Living vehicle\" weapon and improves its WS value to 4+, unless it is already better.",
+        "points": "10"
+      },
+      {
+        "name": "Mutated Hull",
+        "description": "The model increases its Armor Value (AV) on one side by +1, to a maximum of 14.",
+        "points": "20"
+      },
+      {
+        "name": "Smoke Launcher",
+        "description": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "points": "15"
+      }
+    ]
+  },
+  "god_armories": {
+    "khorne": {
+      "weapons": [
+        {
+          "name": "Chainaxe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-",
+          "points": "3",
+          "points_character": "4"
+        },
+        {
+          "name": "Eviscerating blade",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Shred",
+          "points": "5",
+          "points_character": "6"
+        },
+        {
+          "name": "Heavy chainaxe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy",
+          "points": "13",
+          "points_character": "17"
+        },
+        {
+          "name": "Heavy chainglaive",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Quick(1), Shred, Unwieldy",
+          "points": "11",
+          "points_character": "13"
+        },
+        {
+          "name": "Hellblade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Deadly(5+)",
+          "points": "5",
+          "points_character": "7"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Bloodsoaked mantle",
+          "description": "Everytime the model kills an enemy Character model, a Monstrous Creature or a Vehicle, it gains +1 Strength and +1 Attack for the rest of the game.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Bloodstep rune",
+          "description": "Once per game, the model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep strike rules.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Collar of Khorne",
+          "description": "The unit can dispel 1 psychic power per battle round.",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Juggernaut of Khorne",
+          "description": "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the \"Bike\" unit type. Only for infantry.",
+          "points": "-",
+          "points_character": "52"
+        },
+        {
+          "name": "Khornate rage",
+          "description": "The model gains +1D3 bonus attacks for a charge move, instead of just 1.",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Obsidian blade",
+          "description": "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
+          "points": "10",
+          "points_character": "20"
+        },
+        {
+          "name": "Rune of brass",
+          "description": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results. Unique.",
+          "points": "-",
+          "points_character": "15"
+        },
+        {
+          "name": "Talisman of Burning Blood",
+          "description": "The model and its attached unit gain the \"Blind Rage\" ability. Roll 2D6 for Blind Rage and take the higher result.",
+          "points": "5",
+          "points_character": "5"
+        }
+      ],
+      "daemon_weapons": [
+        {
+          "name": "Betraying",
+          "description": "Roll 1D6 during each activation in close combat. On a 3+ you gain the rolled number as additional Attacks. On a 1 or 2 the additional attacks are directed at friendly models in direct base contact. If there are no friendly models, it will attack itself. Unique.",
+          "points": "10"
+        },
+        {
+          "name": "Bloodied",
+          "description": "The weapon gains \"Blood drinker\". Unique.",
+          "points": "5"
+        },
+        {
+          "name": "Wrathful",
+          "description": "The weapon gains +2 Strength. Unique.",
+          "points": "10"
+        }
+      ],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "nurgle": {
+      "weapons": [
+        {
+          "name": "Balesword",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Poison(4+)",
+          "points": "6",
+          "points_character": "7"
+        },
+        {
+          "name": "Blight grenades",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive, Poison(4+)",
+          "points": "-",
+          "points_character": "-"
+        },
+        {
+          "name": "Bubonic axe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Poison(4+)",
+          "points": "6",
+          "points_character": "7"
+        },
+        {
+          "name": "Combi-plague belcher",
+          "profiles": [
+            {
+              "name": "Bolter",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "4",
+              "ap": "-1",
+              "d": "1",
+              "abilities": "Poison(4+)",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Plague belcher",
+              "range": "9\"",
+              "type": "Assault 4",
+              "s": "4",
+              "ap": "0",
+              "d": "1",
+              "abilities": "Flames, Poison (4+)",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "12",
+          "points_character": "8"
+        },
+        {
+          "name": "Death’s head grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Barrage, Poison(4+)",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Heavy plague weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Poison(4+), Unwieldy",
+          "points": "12",
+          "points_character": "14"
+        },
+        {
+          "name": "Manreaper",
+          "profiles": [
+            {
+              "name": "Cleave",
+              "range": "-",
+              "type": "Melee",
+              "s": "+3",
+              "ap": "-3",
+              "d": "2",
+              "abilities": "AT(1), Poison(4+), Slow(-1), Unwieldy",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Scythe",
+              "range": "-",
+              "type": "Melee",
+              "s": "+1",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "Poison(4+), Flurry(1), Unwieldy",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "14",
+          "points_character": "17"
+        },
+        {
+          "name": "Plague knife",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Poison(4+)",
+          "points": "1",
+          "points_character": "1"
+        },
+        {
+          "name": "Plaguespurt gauntlet",
+          "range": "6\"",
+          "type": "Pistol 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames, Poison(4+)",
+          "points": "6",
+          "points_character": "5"
+        },
+        {
+          "name": "Plasma gun",
+          "profiles": [
+            {
+              "name": "Standard",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "7",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "AT(1)",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Overcharged",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "8",
+              "ap": "-4",
+              "d": "2",
+              "abilities": "AT(2), Overheat",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "22",
+          "points_character": "-"
+        },
+        {
+          "name": "Twin plague spewer",
+          "range": "9\"",
+          "type": "Assault 8",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames, Poison(4+). Only for models in Cataphractii or Terminator armor.",
+          "points": "-",
+          "points_character": "26"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Cataphractii armor",
+          "description": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+          "points": "-",
+          "points_character": "76"
+        },
+        {
+          "name": "Cloud of flies",
+          "description": "The model gains the \"Deflect\" ability.",
+          "points": "3",
+          "points_character": "5"
+        },
+        {
+          "name": "Nurgle's decay",
+          "description": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+          "points": "-",
+          "points_character": "15"
+        },
+        {
+          "name": "Nurgling infestation",
+          "description": "The model inflicts 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D:1; Poison(4+).",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Plague ammunition",
+          "description": "All ranged weapons of the model gain \"Poison(3+)\".",
+          "points": "7",
+          "points_character": "7"
+        },
+        {
+          "name": "Plague outburst",
+          "description": "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 3 automatic wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Revoltingly Resilient",
+          "description": "The model gains the \"Regeneration(1)\" ability.",
+          "points": "15",
+          "points_character": "25"
+        },
+        {
+          "name": "Shamblerot",
+          "description": "Roll 1D6 during the model's acitvation, if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Zombie lord",
+          "description": "All Poxwalker models from an attached unit gain +1 Strength.",
+          "points": "-",
+          "points_character": "5"
+        }
+      ],
+      "daemon_weapons": [
+        {
+          "name": "Entropic",
+          "description": "The weapon gains \"Shieldbreaker(-3)\". Unique.",
+          "points": "25"
+        },
+        {
+          "name": "Miasmic",
+          "description": "Attacks against enemy models within 6\" range gain a bonus +1 Strength. Unique.",
+          "points": "5"
+        },
+        {
+          "name": "Rotting",
+          "description": "The weapon gains \"Deadly(5+)\". Unique.",
+          "points": "10"
+        }
+      ],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "slaanesh": {
+      "weapons": [
+        {
+          "name": "Blastmaster",
+          "profiles": [
+            {
+              "name": "Single frequency",
+              "range": "36\"",
+              "type": "Heavy 1",
+              "s": "8",
+              "ap": "-2",
+              "d": "2",
+              "abilities": "AT(2), Sunder(2), Suppression",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Varied frequency",
+              "range": "24\"",
+              "type": "Assault 1",
+              "s": "5",
+              "ap": "-1",
+              "d": "1",
+              "abilities": "Explosive, Sunder(2), Suppression",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "-",
+          "points_character": "40"
+        },
+        {
+          "name": "Blissblade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Precision(5+)",
+          "points": "7",
+          "points_character": "8"
+        },
+        {
+          "name": "Duelling sabre",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Parry",
+          "points": "5",
+          "points_character": "6"
+        },
+        {
+          "name": "Power lance",
+          "profiles": [
+            {
+              "name": "Charge",
+              "range": "-",
+              "type": "Melee",
+              "s": "+3",
+              "ap": "-3",
+              "d": "2",
+              "abilities": "AT(1), Quick(+1), Can only be used with a Charge order",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Melee",
+              "range": "-",
+              "type": "Melee",
+              "s": "+1",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "Unwieldy",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "10",
+          "points_character": "10"
+        },
+        {
+          "name": "Rapture Lash",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flurry(2)",
+          "points": "4",
+          "points_character": "4"
+        },
+        {
+          "name": "Screamer pistol",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Sunder(2), Suppression",
+          "points": "5",
+          "points_character": "6"
+        },
+        {
+          "name": "Sonic blaster",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Sunder(2), Suppression",
+          "points": "11",
+          "points_character": "13"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Combat Drugs",
+          "description": "Once per battle, select any number of abilities for the model when performing a Charge command:\n- +1 Attack\n- +1\" Charge move\n- +1 Strength\n- +1 Weapon Skill\n- Warded\nThe effects last until the end of the current battle round. Roll 1D6 for each selected ability. The model suffers one Mortal Wound for each same die roll result.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Doom Siren",
+          "description": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression.",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Needle of Desire",
+          "description": "The model can make one additional melee attack per round. Strength: 2 AP: -4 D: 1. Hits wound automatically.",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Rapturous Standard",
+          "description": "The model and its attached unit gain the \"Berserk(5+)\" ability. Unique.",
+          "points": "40",
+          "points_character": "40"
+        },
+        {
+          "name": "Steed of Slaanesh",
+          "description": "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack and the \"Bike\" unit type. Only for infantry.",
+          "points": "25",
+          "points_character": "32"
+        },
+        {
+          "name": "Warp Scream",
+          "description": "The model and its attached unit always gain the benefit of the \"Hold your ground\" Defensive reaction.",
+          "points": "5",
+          "points_character": "5"
+        }
+      ],
+      "daemon_weapons": [
+        {
+          "name": "Alacritous",
+          "description": "The model gains \"Deflect\" and \"Parry\". Unique.",
+          "points": "10"
+        },
+        {
+          "name": "Alluring",
+          "description": "Enemy models within 12\" range suffer a cumulative penalty of -2 to their Leadership. Unique.",
+          "points": "5"
+        },
+        {
+          "name": "Sinful",
+          "description": "The weapon gains \"Precision(4+)\". Unique.",
+          "points": "10"
+        }
+      ],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "tzeentch": {
+      "weapons": [
+        {
+          "name": "Inferno boltpistol",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-",
+          "points": "3",
+          "points_character": "3"
+        },
+        {
+          "name": "Inferno combi-bolter",
+          "range": "24\"",
+          "type": "Rapid fire 2",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-",
+          "points": "13",
+          "points_character": "17"
+        },
+        {
+          "name": "Inferno combi-warpflamer",
+          "profiles": [
+            {
+              "name": "Inferno bolter",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "4",
+              "ap": "-2",
+              "d": "1",
+              "abilities": "-",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Warpflamer",
+              "range": "9\"",
+              "type": "Assault 4",
+              "s": "4",
+              "ap": "-1",
+              "d": "1",
+              "abilities": "Flames",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "20",
+          "points_character": "18"
+        },
+        {
+          "name": "Inferno combi-melta",
+          "profiles": [
+            {
+              "name": "Inferno bolter",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "4",
+              "ap": "-2",
+              "d": "1",
+              "abilities": "-",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Melta",
+              "range": "12\"",
+              "type": "Assault 1",
+              "s": "8",
+              "ap": "-5",
+              "d": "1",
+              "abilities": "AT(1), Melta",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "18",
+          "points_character": "24"
+        },
+        {
+          "name": "Inferno combi-plasma",
+          "profiles": [
+            {
+              "name": "Inferno bolter",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "4",
+              "ap": "-2",
+              "d": "1",
+              "abilities": "-",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Plasma (standard)",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "7",
+              "ap": "-3",
+              "d": "1",
+              "abilities": "AT(1)",
+              "points": "",
+              "points_character": ""
+            },
+            {
+              "name": "Plasma (overcharged)",
+              "range": "24\"",
+              "type": "Rapid fire 1",
+              "s": "8",
+              "ap": "-4",
+              "d": "2",
+              "abilities": "AT(2), Overheat",
+              "points": "",
+              "points_character": ""
+            }
+          ],
+          "points": "27",
+          "points_character": "34"
+        },
+        {
+          "name": "Prosperine Khopesh",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Soul burn(5+)",
+          "points": "5",
+          "points_character": "6"
+        },
+        {
+          "name": "Warpflame pistol",
+          "range": "9\"",
+          "type": "Pistol 4",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames",
+          "points": "6",
+          "points_character": "4"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Arcane compulsion",
+          "description": "Reduce enemy Charge movements targeting the bearer and their attached unit by 2\".",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Astral Grimoire",
+          "description": "Select one friendly unit within 12\" during the Reinforcement phase. For the remainder of the battle round the unit got a Movement value of 12\" and gains the \"Anti-Grav\" ability. Unique.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Athenaean Scroll",
+          "description": "If a test to manifest a psychic power rolls any doubles, the power is manifested and can't be denied (Note: a double 1 still perils). If a test to deny a psychic power rolls any doubles, the power is denied regardless of the actual result. Unique.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Bringer of Change",
+          "description": "The player may demand a single die to be re-rolled each round, regardless from which player. Unique.",
+          "points": "-",
+          "points_character": "20"
+        },
+        {
+          "name": "Cult initiate",
+          "description": "The model may exchange one psychic power it knows with one from the list of \"Cult Powers\". All Cult Powers within an army must be the same, if any is chosen. Only for models from this Codex.",
+          "points": "0",
+          "points_character": "0"
+        },
+        {
+          "name": "Disc of Tzeentch",
+          "description": "The model gains +6\" Movement, +1 Wound, +1 Attack and the \"Jetbike\" unit type. Only for infantry.",
+          "points": "37",
+          "points_character": "49"
+        },
+        {
+          "name": "Helm of the Third Eye",
+          "description": "The model and any attached unit ignore any or all to hit modifiers, including for Defensive Fire. Unique.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Hourglass of Manoth",
+          "description": "Roll a die the first time the model is eliminated: \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound. \n5,6 - Set it up again with 2 wounds. Unique.",
+          "points": "15",
+          "points_character": "15"
+        },
+        {
+          "name": "Talisman of Tzeentch",
+          "description": "Can be activated once per game to grant friendly and enemy psykers a +1 bonus to manifestation rolls until the next battle round. Unique.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Weaver of Magicks",
+          "description": "The model may give itself one of these bonuses each round:\n- Change one \"Normal\" psychic power to \"Basic\".\n- Change one \"Complex\" psychic power to \"Normal\".\n- Get a +1 bonus to manifest one psychic power.\n- Get a +1 bonus to deny one psychic power.\nUnique.",
+          "points": "10",
+          "points_character": "10"
+        }
+      ],
+      "daemon_weapons": [
+        {
+          "name": "Magical",
+          "description": "The model gains +1 to manifest and deny psychic powers. Unique.",
+          "points": "5"
+        },
+        {
+          "name": "Warping",
+          "description": "The weapon gains a ranged profile with 18\" range. It can shoot during each activation as often as the model can attack. Can't be used on a weapon with the \"Slow\" ability. Unique.",
+          "points": "15"
+        },
+        {
+          "name": "Weaving",
+          "description": "Once per battle round, the model and its attached unit can change the result of a single die roll of themselves or an enemy unit they are attacking. Unique.",
+          "points": "15"
+        }
+      ],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    }
+  },
+  "legion_armories": {
+    "alpha legion": {
+      "weapons": [
+        {
+          "name": "Blade of the Hydra",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Deflagrate(5+), Flurry(3), Rending, Unique, Unwieldy",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Viper's Bite",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "5",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "-",
+          "points": "20",
+          "points_character": "25"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Drakescale Plate",
+          "description": "Attacks against this model reduce their AP by 1.",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Hydra's Teeth",
+          "description": "One Bolt weapon of the model gains the \"Explosive\", \"Poison(2+)\" and \"Seeking\" abilities.",
+          "points": "-",
+          "points_character": "15"
+        },
+        {
+          "name": "Icon of Insurrection",
+          "description": "If this model is attached to a unit of Cultists, they both gain the \"Blind Rage\" and \"Furious Charge\" abilities.",
+          "points": "10",
+          "points_character": "10"
+        },
+        {
+          "name": "Mindveil",
+          "description": "The model and its attached unit gain the \"Deflect\" ability. Additionally, they may always move +1D3\" with any kind of order.",
+          "points": "-",
+          "points_character": "10"
+        }
+      ],
+      "daemon_weapons": [],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "black legion": {
+      "weapons": [
+        {
+          "name": "Heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Unique. Only for models with the Mark of Khorne",
+          "points": "-",
+          "points_character": "23"
+        },
+        {
+          "name": "The Eye of Night",
+          "range": "Unlimited",
+          "type": "Assault 1",
+          "s": "10",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "Ammunition(1), AT(4), Beam, Unique",
+          "points": "-",
+          "points_character": "26"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Last Memory of the Yuranthos",
+          "description": "The model gains a +1 bonus to manifest psychic powers. Additionally, it knows \"Burning Hands\" from the Pyromancy discipline.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Spineshiver Blade",
+          "description": "One weapon of the model reduces its \"Slow(x)\" value by 1.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "The Crucible of Lies",
+          "description": "The model may re-roll invulnerability save rolls of 1. Unique.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "The Hand of Darkness",
+          "description": "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "The Skull of Ker’ngar",
+          "description": "All to wound rolls against the model suffer a -1 penalty. Unique.",
+          "points": "-",
+          "points_character": "15"
+        }
+      ],
+      "daemon_weapons": [],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "iron warriors": {
+      "weapons": [
+        {
+          "name": "Axe of the Forgemaster",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armorbane. Only for Warpsmiths",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Nest of Mechaserpents",
+          "range": "-",
+          "type": "Melee",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flurry(2). Only for Warpsmiths",
+          "points": "-",
+          "points_character": "4"
+        },
+        {
+          "name": "Servo arm",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Extra attack, Slow(-5)",
+          "points": "7",
+          "points_character": "9"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Cranium Malevolus",
+          "description": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n        1 - The vehicle suffers a penetrating hit with AT(1).\n        2 - The vehicle suffers a penetrating hit with AT(2).\n        3 - The vehicle suffers a penetrating hit with AT(3).",
+          "points": "10",
+          "points_character": "10"
+        },
+        {
+          "name": "Fleshmetal Exoskeleton",
+          "description": "The model gains the \"Regeneration(1)\" ability.",
+          "points": "6",
+          "points_character": "12"
+        },
+        {
+          "name": "Siege Breaker",
+          "description": "The model may choose to make some or all melee attacks at Initiative 1, but gains +5 Strength for these attacks.",
+          "points": "5",
+          "points_character": "5"
+        }
+      ],
+      "daemon_weapons": [],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "night lords": {
+      "weapons": [
+        {
+          "name": "Claws of the Black Hunt",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+), Flurry(2), Shred, Unwieldy",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Talons of the Night Terror",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flurry(4), Shred, Unwieldy",
+          "points": "-",
+          "points_character": "10"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Curze’s Orb",
+          "description": "The model may re-roll any one die per activation. Unique.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Scourging Chains",
+          "description": "The model gains the \"Shred\" ability with all melee attacks.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "Stormbolt Plate",
+          "description": "The model and its attached unit gain the \"Use cover\" ability.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Vox Daemonicus",
+          "description": "Enemy units within 6\" suffer a -1 penalty to their Leadership, to rolls to manifest psychic powers, invocations, prayers and similar abilities.",
+          "points": "5",
+          "points_character": "5"
+        }
+      ],
+      "daemon_weapons": [],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    },
+    "word bearers": {
+      "weapons": [
+        {
+          "name": "Cursed Crozius",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Gruesome. Only for Dark Apostles",
+          "points": "-",
+          "points_character": "5"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "Baleful icon",
+          "description": "Any unit selecting this model or its attached unit as a charge target must resolve a test for dangerous terrain.",
+          "points": "5",
+          "points_character": "5"
+        },
+        {
+          "name": "Crown of the Blasphemer",
+          "description": "If the model attempts to use a prayer, the roll is automatically successful.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "Malefic tome",
+          "description": "If the model attempts to use an infernal pact, the roll is automatically successful.",
+          "points": "-",
+          "points_character": "5"
+        },
+        {
+          "name": "The Scripts of Erebus",
+          "description": "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item.",
+          "points": "-",
+          "points_character": "10"
+        },
+        {
+          "name": "The Skull of Monarchia",
+          "description": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability. Unique.",
+          "points": "-",
+          "points_character": "5"
+        }
+      ],
+      "daemon_weapons": [],
+      "veteran_abilities": [],
+      "vehicle_upgrades": []
+    }
+  }
+}

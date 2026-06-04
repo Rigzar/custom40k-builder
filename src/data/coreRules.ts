@@ -481,6 +481,23 @@ const RULES: Record<string, RuleEntry> = {
     name: 'Hover Mode',
     description: 'The flyer can behave like a standard model. It may start in Hover Mode during deployment. It enters Hover Mode by not repositioning during the reserve phase, and exits by being removed during the reserve phase (returning as a normal flyer next round). In Hover Mode the flyer can capture, hold and contest objectives, and can be healed or repaired by other models. When not in Hover Mode, the flyer always counts as having moved 24". Passengers may only disembark while the flyer is in Hover Mode; if the flyer is destroyed by an explosion, passengers suffer double the automatic wounds.',
   },
+  // ── Escalation supplement (Gargantuan Creatures & Super-heavy Vehicles) ──────
+  'colossal blast': {
+    name: 'Colossal Blast',
+    description: 'A hit from the weapon can cause up to eight wound rolls. You cannot make more wound rolls than there are models in the target unit. If the first hit roll is unsuccessful, it can be re-rolled and incurs up to four wound rolls.',
+  },
+  'strength d': {
+    name: 'Strength "D"',
+    description: 'A to-wound roll of 2+ always wounds a creature or penetrates a vehicle.',
+  },
+  'gargantuan creature': {
+    name: 'Gargantuan Creature',
+    description: 'Follows the rules for Monstrous Creatures with these exceptions: can ignore enemy models when moving (unless another super-heavy or gargantuan); need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1 (unless the actual result is already better); ignores difficult terrain movement penalties and auto-passes dangerous terrain; invulnerability saves against Strength D can only be taken by other gargantuan or super-heavy models.',
+  },
+  'super-heavy vehicle': {
+    name: 'Super-heavy Vehicle',
+    description: 'Follows the rules for vehicles with these exceptions: need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1; ignores difficult terrain and auto-passes dangerous terrain; invulnerability saves against Strength D only for other gargantuan/super-heavy models; can always shoot one more weapon than allowed for the distance moved; on losing its last Hull Point, on a 4+ it explodes (2D6" radius, S7 AP-2 D2). Uses its own super-heavy vehicle damage chart.',
+  },
 };
 
 /** Normalise an ability token for glossary lookup. */

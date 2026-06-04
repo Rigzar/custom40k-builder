@@ -74,7 +74,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
     if (g.variant_link) continue;
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline') {
-        if (qty && g.inline_pts) total += g.inline_pts;
+        // Per-model inline upgrades ("…for +X points per model") scale with unit size; flat
+        // one-off inline options (promote one Sergeant, etc.) are charged once. (per_model flag)
+        if (qty && g.inline_pts) total += g.inline_pts * (g.per_model ? item.size : 1);
         continue;
       }
       const choice = g.choices[parseInt(ci)];

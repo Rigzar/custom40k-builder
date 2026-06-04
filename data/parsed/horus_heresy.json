@@ -152,7 +152,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -179,7 +184,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "For every 5 models, two Legionaries may swap their Bolt gun",
@@ -351,7 +361,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -378,7 +393,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "Any model armed with a Bolt gun may be equipped with one of the following",
@@ -388,7 +408,7 @@
           "choices": [
             {
               "name": "Bayonet",
-              "points": 0
+              "points": 1
             },
             {
               "name": "Chain bayonet",
@@ -565,7 +585,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -592,7 +617,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "All models may swap their Flamer",
@@ -805,7 +835,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "Must pick two weapons from this list",
@@ -1061,7 +1096,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -1088,7 +1128,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "Every Legion Cataphractii may swap their Combi-bolter with",
@@ -1286,7 +1331,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -1301,7 +1351,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         }
       ],
       "abilities": [
@@ -1458,7 +1513,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -1485,7 +1545,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "Every model may swap their Heavy bolter with",
@@ -1637,7 +1702,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -1652,7 +1722,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         }
       ],
       "abilities": [],
@@ -1743,7 +1818,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         }
       ],
       "abilities": [
@@ -1905,7 +1985,12 @@
           "choices": [],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
@@ -1932,7 +2017,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "All models may swap their Heavy flamer for the same weapon",
@@ -2116,7 +2206,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "Must pick two weapons from this list",
@@ -2298,7 +2393,12 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false
+          "is_unique_per_army": false,
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "May be equipped with one of the following",
@@ -2422,6 +2522,7 @@
       },
       {
         "name": "Cataphractii armor",
+        "armourKeyword": "Cataphractii",
         "term_compat": false,
         "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
         "p_unit": null,

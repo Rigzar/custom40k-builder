@@ -33,6 +33,14 @@ export interface ArchetypeRule {
   notes: string[];
   /** Structured notes for rich UI display. When present, rendered instead of plain notes[]. */
   structuredNotes?: StructuredNote[];
+  /**
+   * When set, this archetype grants the whole army access to a supplement's armory as a
+   * legion-style tab (e.g. Legion → 'Horus Heresy'). The supplement's armory_general is injected
+   * into the host's armory_legions under this key, and the key is treated as an active legion key
+   * for every army unit — gated by access only, no mark. Mirrors how a Legacy grants a legion armory.
+   * NOT used for unit-only grants like Daemonkin (daemons keep their own codex armory, no cross-access).
+   */
+  sharedSupplementArmory?: string;
 }
 
 export const BASE: ArchetypeRule = {

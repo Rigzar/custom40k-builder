@@ -1,0 +1,57 @@
+{
+  "faction": "Grey Knights",
+  "army_rules": [],
+  "animosity": null,
+  "army_customisation": {
+    "intro": "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy",
+    "archetypes": [
+      {
+        "name": "Chamber of Purity",
+        "description": "- Purifier Squads can be taken as Troops.\n- All other Troops become Elite choices."
+      },
+      {
+        "name": "Hall of Champions",
+        "description": "- Paladin Squads can be taken as Troops.\n- All other Troops become Elite choices."
+      }
+    ],
+    "legacies": [
+      {
+        "name": "Blades of Victory",
+        "description": "All Psykers know the \"Inescapable Pursuit\" psychic power in addition."
+      },
+      {
+        "name": "Exactors",
+        "description": "All Psykers know the \"Purge Soul\" psychic power in addition."
+      },
+      {
+        "name": "Prescient Brethren",
+        "description": "All Psykers know the \"Fatal Precognition\" psychic power in addition."
+      },
+      {
+        "name": "Preservers",
+        "description": "All Psykers know the \"Aegis Eternal\" psychic power in addition."
+      },
+      {
+        "name": "Rapiers",
+        "description": "All Psykers know the \"Symphonic Strike\" psychic power in addition."
+      },
+      {
+        "name": "Silver Blades",
+        "description": "All Psykers know the \"Temporal Accuracy\" psychic power in addition."
+      },
+      {
+        "name": "Swordbearers",
+        "description": "All Psykers know the \"Empyric Lodestone\" psychic power in addition."
+      },
+      {
+        "name": "Wardmakers",
+        "description": "All Psykers know the \"Projection of Purity\" psychic power in addition."
+      }
+    ],
+    "traits": []
+  },
+  "disciplines": {},
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

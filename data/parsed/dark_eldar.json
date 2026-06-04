@@ -109,7 +109,7 @@
         "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy one of his units.",
         "Archon: Another unit may be redeployed."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [
         "Kabal"
       ],
@@ -199,7 +199,7 @@
         "Master Haemonculus: A Master Haemonculus starts with an additional \"Power through Pain\" token.",
         "Transformed shape: The unit starts with a \"Power through Pain\" token."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [
         "Coven"
       ],
@@ -288,7 +288,7 @@
         "Combat drugs, Deflect, Power through Pain, Parry",
         "Master Succubus: The model may select a second Combat drug."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [
         "Cult"
       ],
@@ -1109,7 +1109,7 @@
       "abilities": [
         "Combat drugs, Hit & Run, Power through Pain"
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [
         "Cult"
       ],
@@ -1442,7 +1442,7 @@
         "Ghostplate armor: The unit got a 5+ invulnerability save.",
         "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORDS to the unit."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [
         "-"
       ],
@@ -1539,7 +1539,7 @@
         "Anti-Grav, Power through Pain, Squadron",
         "Soul harvest: After each activation in which the Cronos eliminates an enemy model, a friendly Dark Eldar unit within 18\" gains a Power Through Pain token."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [
         "Coven"
       ],
@@ -1813,7 +1813,7 @@
         "Anti-Grav, Power through Pain, Squadron",
         "Talos ichor injector: For each successful hit roll with this weapon, the target must pass a Toughness test. If the test fails, the model suffers a Mortal Wound."
       ],
-      "unit_type": "Monstrous creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [
         "Coven"
       ],

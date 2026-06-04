@@ -1,0 +1,148 @@
+{
+  "faction": "Orks",
+  "army_rules": [],
+  "animosity": null,
+  "army_customisation": {
+    "intro": "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy, 0-2 Traits\n\nIf a Trait is taken, all models / units in the army must be upgraded with it, unless stated otherwise.",
+    "archetypes": [
+      {
+        "name": "Krumpa Kompany",
+        "description": "- The army only has access to the following units, regardless of other traits:\n- Boss, Mek, Painboy\n- Nobs\n- Battlewagons, Deff Dreads\n- Nobs can be taken as Troops.\n- All models for which this is possible must be equipped with Mega armor.\n- All units gain the \"Objective secured!\" ability."
+      },
+      {
+        "name": "Speedfreaks",
+        "description": "- Stormboyz and Warbikers can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+      }
+    ],
+    "legacies": [
+      {
+        "name": "Da ’ardest Boyz",
+        "description": "The army has access to equipment from the Goff in the Clan Armory."
+      },
+      {
+        "name": "Da Rich Boyz",
+        "description": "The army has access to equipment from the Bad Moons in the Clan Armory."
+      },
+      {
+        "name": "Da Sneaky Gitz",
+        "description": "The army has access to equipment from the Blood Axes in the Clan Armory."
+      },
+      {
+        "name": "Da Speedfreaks",
+        "description": "The army has access to equipment from the Evil Sunz in the Clan Armory."
+      },
+      {
+        "name": "Da Squig-Luvvas",
+        "description": "The army has access to equipment from the Snakebites in the Clan Armory."
+      },
+      {
+        "name": "Da Lootaz",
+        "description": "The army has access to equipment from the Deathskulls in the Clan Armory."
+      }
+    ],
+    "traits": [
+      {
+        "name": "'orrible Gitz",
+        "description": "The unit gains the \"Deflect\" ability. Only for Gretchins.",
+        "points_normal": "5",
+        "points_character": "-",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Armed To Da Teeth",
+        "description": "The unit gains the \"Deflagrate(6+)\" ability for all ranged attacks.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Big Krumpaz",
+        "description": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Big Red Button",
+        "description": "Vehicle units can roll on the Ramshackle table at any time during their activation, roll 2D6 and pick any result while doing so. Explosions are resolved at Strength 7.",
+        "points_normal": "-",
+        "points_character": "-",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Boom Boyz",
+        "description": "Weapons with the \"Barrage\" or \"Explosive\" ability can hit up to one more model per unit.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Flyboyz",
+        "description": "The unit gains the \"Deflect\" ability. Only for Flyers.",
+        "points_normal": "-",
+        "points_character": "-",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Lucky Gitz",
+        "description": "The unit can re-roll one hit or wound roll per battle round.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Mixed Warband",
+        "description": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      },
+      {
+        "name": "No messing around here",
+        "description": "The unit gains the \"Rending(6+)\" ability for all melee attacks.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Pyromaniacs",
+        "description": "All weapons with the \"Flames\" ability cause 1 additional hit.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Rascals",
+        "description": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Taktiks",
+        "description": "The unit gains the benefit of light cover until its first activation.",
+        "points_normal": "3",
+        "points_character": "0",
+        "points_monstrous": "3"
+      },
+      {
+        "name": "The Old Ways",
+        "description": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Waaagh! Coast Kustoms",
+        "description": "Each Kustom job can be taken one additional time.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      }
+    ]
+  },
+  "disciplines": {},
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

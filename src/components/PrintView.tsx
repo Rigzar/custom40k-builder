@@ -1,3 +1,5 @@
+import { useState, Fragment } from 'react';
+import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
 import { useLanguage, t as tFn } from '../i18n';
@@ -224,7 +226,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const storeState = useArmyStore.getState();
   const { language: lang } = useLanguage();
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap, injectedAbilities } = rp;
+  const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap, injectedAbilities, optionStatMods, optionAbilities } = rp;
   const color = getMarkColor(effectiveMark);
 
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
@@ -236,25 +238,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     ? [variant, ...u.models.filter(m => m.max > 0).slice(1)]
     : u.models.filter(m => m.max > 0);
 
-  // Weapons that appear as choices in any option group are optional — only show if selected.
-  // Weapons not in any option group are always-equipped default gear.
-  const optionalWeaponNames = new Set<string>();
-  for (const g of u.option_groups) {
-    for (const c of g.choices) {
-      if (u.weapons.some(w => w.name === c.name)) optionalWeaponNames.add(c.name);
-    }
-  }
-  const selectedWeaponNames = new Set<string>();
-  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
-    const g = u.option_groups[Number(gi)];
-    if (!g) continue;
-    for (const [ci, qty] of Object.entries(ch)) {
-      if (ci === '__inline' || !qty) continue;
-      const choice = g.choices[parseInt(ci)];
-      if (choice && optionalWeaponNames.has(choice.name)) selectedWeaponNames.add(choice.name);
-    }
-  }
-  const weaponsToShow = rp.weapons.filter(w => !optionalWeaponNames.has(w.name) || selectedWeaponNames.has(w.name));
+  const weaponsToShow = rp.weaponsToShow;
 
   const defaultRanged = weaponsToShow.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
   const defaultMelee  = weaponsToShow.filter(w => w.range === 'Melee' || w.type === 'Melee');
@@ -310,6 +294,9 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     ),
     ...equipMods.grantedAbilities.filter(ab =>
       !u.abilities.some(a => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())
+    ),
+    ...optionAbilities.filter(ab =>
+      !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
     ),
   ];
   const traitList = item.traits.map(t => t.name);
@@ -388,6 +375,9 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
       }}>
         {modelsToShow.map((m, mi) => {
           const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
+          for (const sm of optionStatMods) {
+            if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
+          }
           return (
             <StatRow
               key={mi}
@@ -626,9 +616,9 @@ function applyEquipDeltas(stats: Record<string, string>, mods: EquipMods, isVehi
 }
 
 // ── Summary page ──────────────────────────────────────────────────────────────
-const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers'] as const;
-const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers'];
-const COMP_MAX    = [2, 6, 3, 3, 3, 3, 1]; // pitched battle caps used as reference
+const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers', 'Lords of War'] as const;
+const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers', 'LoW'];
+const COMP_MAX    = [2, 6, 3, 3, 3, 3, 1, 3]; // pitched battle caps used as reference (LoW: ref only)
 
 function SummaryPage({ army, data, color, factionName }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string;
@@ -745,10 +735,147 @@ function SummaryPage({ army, data, color, factionName }: {
   );
 }
 
+// ── Cover / muster sheet ──────────────────────────────────────────────────────
+function CoverPage({ army, data, color, factionName, armyName, engagement, archetype, legacy, legacy2, totalPts, pointLimit }: {
+  army: RosterEntry[]; data: FactionData; color: string; factionName: string;
+  armyName: string; engagement: string; archetype: string | null;
+  legacy: string | null; legacy2: string | null; totalPts: number; pointLimit: number;
+}) {
+  const factionBg = FACTION_BG[data.faction] ?? genericBg;
+  const compCounts = COMP_SLOTS.map(slot => {
+    const eff = slot === 'Transport' ? 'Dedicated Transport' : slot;
+    return army.filter(i => i.slot === eff).length;
+  });
+  const configRows: [string, string][] = [
+    ['Engagement', ENGAGEMENTS[engagement as keyof typeof ENGAGEMENTS]?.name ?? engagement],
+    ['Points', `${totalPts} / ${pointLimit}`],
+    ...(archetype ? [['Archetype', archetype] as [string, string]] : []),
+    ...(legacy ? [['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')] as [string, string]] : []),
+  ];
+  const fillIn = ['Player', 'Warlord', 'Reinforcement Points'];
+  return (
+    <div style={{
+      marginBottom: 24, pageBreakInside: 'avoid', breakInside: 'avoid', pageBreakAfter: 'always',
+      border: `2px solid ${color}`, backgroundColor: '#fff', ['--ac' as string]: color,
+    }}>
+      <div style={{
+        position: 'relative', overflow: 'hidden',
+        backgroundImage: `url(${factionBg})`, backgroundSize: 'cover', backgroundPosition: 'center 30%', minHeight: 130,
+      }}>
+        <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${color}f2 0%, ${color}cc 58%, ${color}80 100%)` }} />
+        <div style={{ position: 'relative', zIndex: 1, padding: '24px 22px 20px' }}>
+          <div style={{ color: 'rgba(255,255,255,.8)', fontSize: '.78em', textTransform: 'uppercase', letterSpacing: '.16em', fontWeight: 700 }}>{factionName}</div>
+          <div style={{ color: '#fff', fontSize: '2.3em', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.03em', lineHeight: 1.04, marginTop: 5 }}>
+            {armyName || 'Army Roster'}
+          </div>
+          <div style={{ color: '#fff', marginTop: 12, fontSize: '1.15em', fontWeight: 700, letterSpacing: '.02em' }}>
+            {totalPts} / {pointLimit} pts · {army.length} units
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'stretch' }}>
+        <div style={{ flex: 1.2, borderRight: `2px solid ${color}`, padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 9 }}>
+          {configRows.map(([label, value]) => (
+            <div key={label} style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dotted #ccc', paddingBottom: 3 }}>
+              <span style={{ fontWeight: 700, fontSize: '.72em', textTransform: 'uppercase', color: '#666', letterSpacing: '.05em' }}>{label}</span>
+              <span style={{ fontWeight: 700, fontSize: '.82em', color: '#111' }}>{value}</span>
+            </div>
+          ))}
+          {fillIn.map(label => (
+            <div key={label} style={{ display: 'flex', alignItems: 'flex-end', gap: 6 }}>
+              <span style={{ fontWeight: 700, fontSize: '.72em', textTransform: 'uppercase', color: '#666', letterSpacing: '.05em', whiteSpace: 'nowrap' }}>{label}:</span>
+              <span style={{ flex: 1, borderBottom: '1px solid #aaa', height: '1.1em' }} />
+            </div>
+          ))}
+        </div>
+
+        <div style={{ flex: 1, padding: '12px 16px', backgroundColor: '#f5f1ea' }}>
+          <div style={{ fontWeight: 700, fontSize: '.7em', textTransform: 'uppercase', color: color, letterSpacing: '.08em', marginBottom: 7 }}>
+            Force Composition
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', rowGap: 3, columnGap: 8 }}>
+            {COMP_LABELS.map((label, i) => compCounts[i] > 0 ? (
+              <Fragment key={label}>
+                <span style={{ fontSize: '.78em', color: '#333' }}>{label}</span>
+                <span style={{ fontSize: '.78em', fontWeight: 700, color: '#111', textAlign: 'right' }}>{compCounts[i]}</span>
+              </Fragment>
+            ) : null)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Slot divider (cards stream) ───────────────────────────────────────────────
+function SlotDivider({ slot, color }: { slot: string; color: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '4px 0 10px', breakInside: 'avoid' }}>
+      <span style={{ fontWeight: 800, fontSize: '.82em', textTransform: 'uppercase', letterSpacing: '.12em', color }}>{slot}</span>
+      <div style={{ flex: 1, height: 2, backgroundColor: color, opacity: .3 }} />
+    </div>
+  );
+}
+
+// ── Compact list view ─────────────────────────────────────────────────────────
+function CompactList({ army, data, color }: { army: RosterEntry[]; data: FactionData; color: string }) {
+  const storeState = useArmyStore.getState();
+  const slotIdx = (slot: string) => { const i = SLOT_ORDER.indexOf(slot as typeof SLOT_ORDER[number]); return i === -1 ? 99 : i; };
+  const sorted = [...army].sort((a, b) => slotIdx(a.slot) - slotIdx(b.slot));
+  let grand = 0;
+  let lastSlot = '';
+  const rows: ReactElement[] = [];
+  for (const item of sorted) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const pts = resolveUnitProfile(item, u, storeState, data).pts;
+    grand += pts;
+    const wargear = [
+      ...item.armory.map(a => a.itemName),
+      ...item.traits.map(tr => tr.name),
+      ...item.powers.map(p => p.powerName),
+      ...item.prayers,
+    ];
+    if (item.slot !== lastSlot) {
+      lastSlot = item.slot;
+      rows.push(
+        <div key={`s-${item.slot}`} style={{
+          backgroundColor: color, color: '#fff', fontWeight: 700, fontSize: '.72em',
+          textTransform: 'uppercase', letterSpacing: '.07em', padding: '3px 10px', marginTop: rows.length ? 6 : 0,
+        }}>
+          {item.slot}
+        </div>
+      );
+    }
+    rows.push(
+      <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', gap: 10, padding: '4px 10px', borderBottom: '1px dotted #ccc', breakInside: 'avoid' }}>
+        <div style={{ flex: 1 }}>
+          <span style={{ fontWeight: 700, fontSize: '.85em', color: '#111' }}>{item.customName || u.name}</span>
+          <span style={{ fontSize: '.74em', color: '#666', marginLeft: 6 }}>{buildModelCountLabel(item, u)}</span>
+          {wargear.length > 0 && (
+            <div style={{ fontSize: '.72em', color: '#555', lineHeight: 1.4, marginTop: 1 }}>{wargear.join(', ')}</div>
+          )}
+        </div>
+        <span style={{ fontWeight: 800, fontSize: '.85em', color: color, whiteSpace: 'nowrap' }}>{pts}</span>
+      </div>
+    );
+  }
+  return (
+    <div style={{ marginBottom: 24, border: `2px solid ${color}`, backgroundColor: '#fff', ['--ac' as string]: color }}>
+      {rows}
+      <div style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 10px', backgroundColor: color, color: '#fff', fontWeight: 800, fontSize: '.85em', textTransform: 'uppercase', letterSpacing: '.05em' }}>
+        <span>Total</span><span>{grand} pts</span>
+      </div>
+    </div>
+  );
+}
+
 // ── Print View root ───────────────────────────────────────────────────────────
 export function PrintView({ onClose }: { onClose: () => void }) {
-  const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark } = useArmyStore();
+  const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark, armyName } = useArmyStore();
   const { language: rootLang } = useLanguage();
+  const [mode, setMode] = useState<'cards' | 'list'>('cards');
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
@@ -861,6 +988,14 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           {legacy && <span className="text-zinc-500 text-xs">{legacy}{legacy2 ? ` · ${legacy2}` : ''}</span>}
         </div>
         <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 mr-1">
+            {(['cards', 'list'] as const).map(m => (
+              <button key={m} onClick={() => setMode(m)}
+                className={`px-3 py-1.5 text-xs uppercase tracking-wide border transition-colors ${mode === m ? 'bg-amber-800 border-amber-600 text-white' : 'bg-zinc-700 border-zinc-600 text-zinc-300 hover:bg-zinc-600'}`}>
+                {m === 'cards' ? 'Cards' : 'List'}
+              </button>
+            ))}
+          </div>
           <button onClick={() => {
               const el = document.getElementById('pv-printable');
               if (!el) return;
@@ -886,17 +1021,39 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         style={{ background: '#fff', minHeight: '100vh' }}>
 
         {army.length > 0 && (
+          <CoverPage
+            army={army} data={data} color={primaryColor} factionName={data.faction}
+            armyName={armyName} engagement={engagement} archetype={archetype}
+            legacy={legacy} legacy2={legacy2} totalPts={totalPts} pointLimit={pointLimit}
+          />
+        )}
+
+        {army.length > 0 && (
           <SummaryPage army={army} data={data} color={primaryColor} factionName={data.faction} />
         )}
 
-        {[...army]
-          .sort((a, b) => {
+        {mode === 'list' && army.length > 0 && (
+          <CompactList army={army} data={data} color={primaryColor} />
+        )}
+
+        {mode === 'cards' && (() => {
+          const sorted = [...army].sort((a, b) => {
             const ai = SLOT_ORDER.indexOf(a.slot as typeof SLOT_ORDER[number]);
             const bi = SLOT_ORDER.indexOf(b.slot as typeof SLOT_ORDER[number]);
             return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-          })
-          .map(item => <UnitPrintCard key={item.id} item={item} data={data} />)
-        }
+          });
+          let lastSlot = '';
+          return sorted.map(item => {
+            const showDivider = item.slot !== lastSlot;
+            lastSlot = item.slot;
+            return (
+              <Fragment key={item.id}>
+                {showDivider && <SlotDivider slot={item.slot} color={primaryColor} />}
+                <UnitPrintCard item={item} data={data} />
+              </Fragment>
+            );
+          });
+        })()}
 
         {(archetype || legacy || engagement) && (
           <div style={{

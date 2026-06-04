@@ -1,0 +1,274 @@
+{
+  "faction": "Adeptus Custodes",
+  "general": {
+    "weapons": [
+      {
+        "name": "Balistus grenade launcher",
+        "range": "18\"",
+        "type": "Assault 1",
+        "s": "5",
+        "ap": "-3",
+        "d": "1",
+        "abilities": "Explosive, only for models in Terminator armor",
+        "points": "27",
+        "points_character": ""
+      },
+      {
+        "name": "Digital weapons",
+        "range": "-",
+        "type": "Melee",
+        "s": "2",
+        "ap": "-4",
+        "d": "1",
+        "abilities": "Extra attack, hits automatically wound the target.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Hunter-killer missile",
+        "range": "120\"",
+        "type": "Heavy 1",
+        "s": "8",
+        "ap": "-3",
+        "d": "2",
+        "abilities": "Ammo(1), AT(2)",
+        "points": "-",
+        "points_character": ""
+      },
+      {
+        "name": "Models wearing Terminator armor can only receive equipment with .",
+        "profiles": []
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Aquila Imperialis",
+        "description": "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Augury uplink",
+        "description": "The model and its attached may re-roll a single failed save per battle round.",
+        "points": "10",
+        "points_character": ""
+      },
+      {
+        "name": "Blade Imperator",
+        "description": "The model and its attached unit gain \"Frenzy(2\")\". Unique.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Castellan's mark",
+        "description": "After all units have been placed in the Deployment phase, remove and redeploy up to two of your units. Unique.",
+        "points": "10",
+        "points_character": ""
+      },
+      {
+        "name": "Gift of Terran Artifice",
+        "description": "The model gains \"Decimate\" for all weapons. Unique.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Impregnable mind",
+        "description": "This model can deny one psychic power per turn as if it were a Psyker.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Marksman honours",
+        "description": "The model gains +1 Ballistic Skill.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Master-crafted armor",
+        "description": "The model gains a 2+ armor save.",
+        "points": "12",
+        "points_character": ""
+      },
+      {
+        "name": "Master-crafted weapon",
+        "description": "The model can reroll one hit roll with this weapon per round. Must be purchased separately for each weapon.",
+        "points": "2",
+        "points_character": ""
+      },
+      {
+        "name": "Panoptispex",
+        "description": "The model and its attached unit gain \"Seeking\" for all ranged weapons. Unique.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Praesidius",
+        "description": "The model gains the \"Stealth\" ability. Unique.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Praetorian plate",
+        "description": "The model gains a 4+ invulnerability save.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Purity seal",
+        "description": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+        "points": "2",
+        "points_character": ""
+      },
+      {
+        "name": "Radiant mantle",
+        "description": "Enemy units suffer a cumulative -1 to their hit rolls against the model.",
+        "points": "8",
+        "points_character": ""
+      },
+      {
+        "name": "Storm shield",
+        "description": "The model gains the abilities \"Deflect\" and \"Parry\".",
+        "points": "-",
+        "points_character": ""
+      },
+      {
+        "name": "Superior Creation",
+        "description": "Roll a die the first time the model is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "Swordsman honours",
+        "description": "The model gains +1 Weapon skill.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Teleport homing beacon",
+        "description": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+        "points": "10",
+        "points_character": ""
+      },
+      {
+        "name": "Trophy",
+        "description": "The model gains the ability \"Terrifying(-1)\".",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Vault weapon",
+        "description": "One weapon of the model gains one of the following:\n- Additional +6\" Range\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEach improvement is unique per army.",
+        "points": "10",
+        "points_character": ""
+      },
+      {
+        "name": "Models wearing Terminator armor can only receive equipment with .",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      }
+    ],
+    "daemon_weapons": [],
+    "veteran_abilities": [
+      {
+        "name": "Counter-attack",
+        "description": "The model gains the ability \"Counter-attack\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Favoured enemy",
+        "description": "The model gains the ability \"Favoured enemy\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Furious charge",
+        "description": "The model gains the ability \"Furious charge\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Infiltrator",
+        "description": "The model gains the ability \"Infiltrator\".",
+        "points": "1",
+        "points_vehicle": "-"
+      },
+      {
+        "name": "Outflank",
+        "description": "The model gains the ability \"Outflank\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Tank hunter",
+        "description": "The model gains the ability \"Tank hunter\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Terrain expert",
+        "description": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+        "points": "1",
+        "points_vehicle": "2"
+      },
+      {
+        "name": "Vanguard",
+        "description": "The model gains the ability \"Vanguard\".",
+        "points": "1",
+        "points_vehicle": "-"
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "",
+        "points": "POINTS",
+        "points_vehicle": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT",
+        "points": "POINTS",
+        "points_vehicle": "POINTS"
+      },
+      {
+        "name": "Additional armor",
+        "description": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "points": "5",
+        "points_vehicle": ""
+      },
+      {
+        "name": "Hunter-killer missile",
+        "description": "The model gains a Hunter-killer missile.",
+        "points": "5",
+        "points_vehicle": ""
+      },
+      {
+        "name": "Improved targeting",
+        "description": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "points": "5",
+        "points_vehicle": ""
+      },
+      {
+        "name": "Jammer",
+        "description": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "points": "15",
+        "points_vehicle": ""
+      },
+      {
+        "name": "Magos-class machine spirit",
+        "description": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 2+.",
+        "points": "5",
+        "points_vehicle": ""
+      },
+      {
+        "name": "Smoke Launcher",
+        "description": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "points": "15",
+        "points_vehicle": ""
+      }
+    ],
+    "vehicle_upgrades": []
+  },
+  "god_armories": {},
+  "legion_armories": {}
+}

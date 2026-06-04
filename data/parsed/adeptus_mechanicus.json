@@ -356,7 +356,7 @@
         "Technoarchaeologist\nSeekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\".",
         "Underseer\nMaster of Menials: As long as this model is attached to a unit of Servitors, it and the attached unit may receive an Advance order and pursue fleeing units, even if they are Unyielding. Any attached Tech-thralls gain +1 to all hit rolls."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -404,7 +404,7 @@
         "Advisor: For every HQ selection, one Skitarii Marshal may be selected without taking up an HQ slot.",
         "Servo-skull Uplink: The model and its attached unit may re-roll one to hit and one to wound roll each battle round."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2064,7 +2064,7 @@
         "Technoarchaeologist\nSeekers of Divine Arcana: This model and its attached unit gain the \"Warded\" ability while within 6\" of an objective. They additionally gain \"Objective secured!\".",
         "Underseer\nMaster of Menials: As long as this model is attached to a unit of Servitors, it and the attached unit may receive an Advance order and pursue fleeing units, even if they are Unyielding. Any attached Tech-thralls gain +1 to all hit rolls."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2169,7 +2169,7 @@
         "Bionics: This model receives a 6+ invulnerability save.",
         "Sky Dive: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2274,7 +2274,7 @@
         "Bionics: This model receives a 6+ invulnerability save.",
         "Sky Dive: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2647,7 +2647,7 @@
         "Canticles of the Omnissiah, Deflect, Squadron",
         "Bionics: The model receives a 6+ invulnerability save."
       ],
-      "unit_type": "Bike, Monstrous creature",
+      "unit_type": "Bike, Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2739,7 +2739,7 @@
         "Canticles of the Omnissiah, Deflect, Squadron",
         "Bionics: The model receives a 6+ invulnerability save."
       ],
-      "unit_type": "Bike, Monstrous creature",
+      "unit_type": "Bike, Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2858,7 +2858,7 @@
         "- Protector: All models in the unit gain +1 BS.",
         "Repulsor Grid: The model gains a 5+ invulnerability save."
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

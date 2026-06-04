@@ -212,6 +212,7 @@ src/i18n/       Textos de traducción (EN / DE / ES)
 | `legacies/sm-legacies.ts` | Datos de reglas de legados SM — mapa de gate de disciplinas y set de plegarias Cruzadas |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher para consultas de reglas de legado |
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
+| `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`) y la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca; la migración planificada a keywords por facción cambia los internals de este módulo. |
 
 ### Cuándo editar los archivos de legado
 
@@ -252,6 +253,17 @@ Estos dos archivos tienen propósitos distintos y no deben confundirse:
 1. Agregá el JSON de la facción a `data/parsed/` siguiendo el esquema en `README.md`.
 2. Registrala en `src/data/alliedMatrix.ts` y `src/App.tsx`.
 3. Verificá que `npm run build` pase y que la facción cargue en la app.
+
+### Digests de modelo de reglas (`src/data/rules-model/<faction>.md`)
+
+Cada facción auditada tiene un digest Markdown en `src/data/rules-model/` (plantilla:
+`_TEMPLATE.md`). Registra el vocabulario de keywords de la facción, las reglas de gating de
+wargear, el modelo de puntos, la option-semantics por slot de cada datasheet, y un chequeo de huecos
+del engine, todo validado contra el HTML fuente canónico y el JSON de producción. Son documentos de
+referencia para contribuidores y para el engine — la app no los carga. Cuando audites o corrijas los
+datos de una facción, actualizá su digest para que quede sincronizado.
+Los suplementos multi-facción usan la misma carpeta y nomenclatura (p. ej. `escalation.md`
+para el suplemento Escalation / Lords of War).
 
 ### Traducciones
 

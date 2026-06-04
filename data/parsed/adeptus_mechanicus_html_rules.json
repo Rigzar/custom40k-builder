@@ -1,0 +1,178 @@
+{
+  "faction": "Adeptus Mechanicus",
+  "army_rules": [],
+  "animosity": null,
+  "army_customisation": {
+    "intro": "Army Customisation allows you to further individualise your force. Archetypes change how you build your army by moving around units in the Army Organisation Plan (AOP) or letting you take more of a unit than you would normally be allowed to. Legacies give access to armories and disciplines of legendary factions. Traits enhance your units with special abilities that they normally would not be able to have.\n\nYou may select up to the following:\n0-1 Archetype, 0-1 Legacy, 0-2 Traits\n\nIf a Trait is taken, all models / units in the army must be upgraded with it, unless stated otherwise.",
+    "archetypes": [
+      {
+        "name": "Cybernetica Cohort",
+        "description": "- The army has access to all Robot and Taghmata units from the Horus Heresy Mechanicum supplement.\n- Kastelan Robots may be taken as Troops.\n- The army must take at least one Magos or Archmagos with the Datasmith upgrade.\n- Only Robot units count towards the 25% Troops limitation."
+      },
+      {
+        "name": "Dark Mechanicum",
+        "description": "- Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Venomcrawlers, Defilers, Forgefiends, Maulerfiends, and Heldrakes may be taken from the Chaos Space Marine army list.\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+      },
+      {
+        "name": "Ordo Reductor Covenant",
+        "description": "- The army has access to all Ordo Reductor and Taghmata units from the Horus Heresy Mechanicum supplement.\n- The army must take at least one Magos or Archmagos with the Myrmidax upgrade.\n- Only Ordo Reductor units count towards the 25% Troops limitation."
+      },
+      {
+        "name": "Servitor Maniple",
+        "description": "- Servitors can be taken as Troops.\n- For each Servitor unit taken as Troops, the army must also take a Tech-priest. This Tech-priest does not occupy an Elite slot, but must always be attached to a Servitor unit.\n- Skitarii units do not count towards the 25% Troops limitation."
+      },
+      {
+        "name": "Titan Legion",
+        "description": "- Secutarii Hoplites and Peltasts can be taken as Troops.\n- Only Secutarii units count towards the 25% Troops limitation."
+      }
+    ],
+    "legacies": [
+      {
+        "name": "Legacy of the Gleaming Giant",
+        "description": "The army has access to the Metalica Armory and the \"Tribute of Emphatic Veneration\" canticle."
+      },
+      {
+        "name": "Legacy of the Hollow World",
+        "description": "The army has access to the Lucius Armory and the \"Luminescent Blessing\" canticle."
+      },
+      {
+        "name": "Legacy of the Morning Star",
+        "description": "The army has access to the Graia Armory and the \"Mantra of Discipline\" canticle."
+      },
+      {
+        "name": "Legacy of the Omnissiah Igvita",
+        "description": "The army has access to the Ryza Armory and the \"Citation in Savagery\" canticle."
+      },
+      {
+        "name": "Legacy of the Red Planet",
+        "description": "The army has access to the Mars Armory and the \"Panegyric Procession\" canticle."
+      },
+      {
+        "name": "Legacy of a Thousand Scars",
+        "description": "The army has access to the Agripinaa Armory and the \"Verse of Vengeance\" canticle."
+      },
+      {
+        "name": "Legacy of the Xenarites",
+        "description": "The army has access to the Stygies VIII Armory and the \"Plea of the Veiled Hunter\" canticle."
+      }
+    ],
+    "traits": [
+      {
+        "name": "Accelerated Actuators",
+        "description": "This unit gains the \"Frenzy(1\")\" ability.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Autosavant Spirits",
+        "description": "Vehicles gain the \"Blessing of the Omnissiah\" ability (see Tech-priest), but may only use it on themselves and only for repairs.",
+        "points_normal": "-",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Combined Explorator Fleet",
+        "description": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      },
+      {
+        "name": "Djinn Eyes",
+        "description": "This unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Masters of the Forge",
+        "description": "This unit gets +1 to Canticle of the Omnissiah rolls.",
+        "points_normal": "5",
+        "points_character": "-",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Phased-Plasma Coils",
+        "description": "This unit may roll their invulnerable save against any wound caused by a plasma weapon's Overheating ability.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Purgation Protocols",
+        "description": "This unit can re-roll one armor penetration or wound roll per activation.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Refusal to Yield",
+        "description": "This unit gains +1 Leadership.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Relentless March",
+        "description": "This unit gains the \"Haste(2\")\" ability.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Red in Cog and Claw",
+        "description": "If this unit uses a Charge order or is charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Rugged Explorators",
+        "description": "This unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Scarifying Weaponry",
+        "description": "This unit's Radiation weapons (any weapon with Decimate) gain Deadly(6+).",
+        "points_normal": "5",
+        "points_character": "-",
+        "points_monstrous": "-"
+      },
+      {
+        "name": "Shroud Protocols",
+        "description": "This unit gains the benefit of light cover until its first activation.",
+        "points_normal": "3",
+        "points_character": "0",
+        "points_monstrous": "3"
+      },
+      {
+        "name": "Solar Blessing",
+        "description": "This unit can reroll one armor save per battle round.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Staunch Defenders",
+        "description": "This unit does not suffer the to hit penalty from Defensive Fire.",
+        "points_normal": "5",
+        "points_character": "0",
+        "points_monstrous": "5"
+      },
+      {
+        "name": "Veteran Maniple",
+        "description": "Any unit with the option to purchase a Doctrina Imperitive may purchase a second one.",
+        "points_normal": "0",
+        "points_character": "0",
+        "points_monstrous": "0"
+      }
+    ]
+  },
+  "disciplines": {},
+  "prayers": {},
+  "pacts": {},
+  "daemonkin": {}
+}

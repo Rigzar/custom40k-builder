@@ -362,7 +362,7 @@
         "Master of Sanctity: A Master of Sanctity may recite 1 additional prayer per turn.",
         "Rosarius: The model receives a 4+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -660,7 +660,7 @@
         "Accept any Challenge: All units receive +1 to their Strength and Leadership. At the start of every activation, if an enemy unit is within 12\", the placed order is converted to \"Charge\". The order must be used to engage in close combat with at least one enemy unit. Units must always pursue the opponent and are not allowed to flee voluntarily.",
         "Uphold the Honour of the Emperor: All units gain +1 to their armor saves against ranged attacks. Units can never benefit from cover."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -768,7 +768,7 @@
         "Psychic hood: Add +1 to rolls to deny enemy psychic powers.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -989,7 +989,7 @@
         "Combat Tactics: The Lieutenant can assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit can have.",
         "Captain: A Captain may use Combat Tactics a second time."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1280,7 +1280,11 @@
           "choices": [
             {
               "name": "Jump pack",
-              "points": 8
+              "points": 8,
+              "effect": {
+                "stat_mod": [{ "stat": "M", "delta": 6 }],
+                "set_unit_type": "Jump Pack Infantry"
+              }
             }
           ],
           "inline_pts": null,
@@ -1642,6 +1646,7 @@
         }
       ],
       "equipped_with": "Every model is equipped with: Heavy bolt rifle; Bolt pistol; Frag grenades; Gravis armor; Krak grenades.",
+      "armourKeyword": "Gravis",
       "weapons": [
         {
           "name": "Bolt pistol",
@@ -2559,6 +2564,7 @@
           },
           "choices": [],
           "inline_pts": 11,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -2954,6 +2960,7 @@
       ],
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Flamestorm gauntlet; Gravis armor.",
+      "armourKeyword": "Gravis",
       "weapons": [
         {
           "name": "Fragstorm grenade launcher",
@@ -3089,7 +3096,7 @@
         "Advisor: For every HQ selection, one Ancient may be selected without taking up an Elite slot.",
         "Company standard: Friendly units within 12\" gain +1 Leadership."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -3187,7 +3194,7 @@
         "Chief Apothecary: A Chief Apothecary may use \"Narthecium\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively.",
         "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -3286,7 +3293,7 @@
         "Company Champion: The model may re-roll 1 to hit roll per activation.",
         "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 12\", the placed Order is converted to Charge. The Company champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -3355,6 +3362,7 @@
           },
           "choices": [],
           "inline_pts": 9,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -4299,7 +4307,7 @@
         "Blade barrier: The model gains a 4+ invulnerability save in close combat.",
         "Tempor Mortis: The model and its attached unit always benefit from the \"Hold your ground\" meta order effect."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -4929,7 +4937,7 @@
         "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
         "Master of the Forge: A Master of the Forge may use \"Blessing of the Omnissiah\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -5382,6 +5390,7 @@
           },
           "choices": [],
           "inline_pts": 11,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -5561,7 +5570,11 @@
           "choices": [
             {
               "name": "Remove jump pack",
-              "points": -9
+              "points": -9,
+              "effect": {
+                "stat_mod": [{ "stat": "M", "delta": -6 }],
+                "set_unit_type": "Infantry"
+              }
             }
           ],
           "inline_pts": null,
@@ -5621,7 +5634,7 @@
       "abilities": [
         "Combat squads, They Shall Know No Fear"
       ],
-      "unit_type": "Infantry, Jump pack",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -5963,6 +5976,7 @@
         }
       ],
       "equipped_with": "Every model is equipped with: 2 Assault bolters; Gravis armor.",
+      "armourKeyword": "Gravis",
       "weapons": [
         {
           "name": "Assault bolter",
@@ -6023,7 +6037,7 @@
         "Combat squads, Massive(1), They Shall Know No Fear, Unyielding",
         "Gravis armor: The model gains a 6+ invulnerability save."
       ],
-      "unit_type": "Infantry, Jump pack",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -7196,7 +7210,7 @@
       "abilities": [
         "They Shall Know No Fear"
       ],
-      "unit_type": "Infantry, Jump pack",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -8088,6 +8102,7 @@
         }
       ],
       "equipped_with": "Every model is equipped with: Melta rifle, Bolt pistol; Frag grenades; Gravis armor; Krak grenades.",
+      "armourKeyword": "Gravis",
       "weapons": [
         {
           "name": "Bolt pistol",
@@ -9899,7 +9914,7 @@
       "abilities": [
         "Squadron, They Shall Know No Fear"
       ],
-      "unit_type": "Monstrous infantry",
+      "unit_type": "Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -11566,6 +11581,7 @@
           },
           "choices": [],
           "inline_pts": 2,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }

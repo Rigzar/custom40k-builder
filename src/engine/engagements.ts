@@ -1,8 +1,12 @@
 export const SLOT_ORDER = [
   'HQ','Troops','Elites','Fast Attack',
-  'Heavy Support','Dedicated Transport','Fortifications','Flyers',
+  'Heavy Support','Dedicated Transport','Fortifications','Flyers','Lords of War',
 ] as const;
 export type Slot = typeof SLOT_ORDER[number];
+
+/** Lords of War (Escalation) is "0+" in Epic only; the real cap is 33% of points, enforced
+ *  in the validator. This sentinel keeps the count-based AOP loops effectively unbounded. */
+export const LOW_UNLIMITED = 99;
 
 export interface AopLimits {
   HQ: [number, number];
@@ -13,6 +17,7 @@ export interface AopLimits {
   'Dedicated Transport': [number, number];
   Fortifications: [number, number];
   Flyers: [number, number];
+  'Lords of War': [number, number];
 }
 
 export interface Engagement {
@@ -36,6 +41,7 @@ export const ALLIED_AOP: AopLimits = {
   'Dedicated Transport': [0, 3],
   Fortifications:        [0, 0],
   Flyers:                [0, 0],
+  'Lords of War':        [0, 0],
 };
 
 export const ENGAGEMENTS: Record<string, Engagement> = {
@@ -44,6 +50,7 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
     aop: {
       HQ: [0,1], Troops: [1,3], Elites: [0,1], 'Fast Attack': [0,1],
       'Heavy Support': [0,1], 'Dedicated Transport': [0,1], Fortifications: [0,0], Flyers: [0,0],
+      'Lords of War': [0,0],
     },
     multiAop: false, minTroopsRatio: 0.25, statCaps: true,
     notes: 'HQ ≤150 pts · non-Troops ≤300 pts · no Archetypes · no Squadrons > 1 model',
@@ -53,6 +60,7 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
     aop: {
       HQ: [1,2], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
       'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,2],
+      'Lords of War': [0,0],
     },
     multiAop: true, minTroopsRatio: 0.25, statCaps: false,
     notes: 'Standard engagement · ≥25% Troops · multi-AOP allowed',
@@ -62,6 +70,7 @@ export const ENGAGEMENTS: Record<string, Engagement> = {
     aop: {
       HQ: [1,2], Troops: [2,6], Elites: [0,3], 'Fast Attack': [0,3],
       'Heavy Support': [0,3], 'Dedicated Transport': [0,3], Fortifications: [0,1], Flyers: [0,2],
+      'Lords of War': [0, LOW_UNLIMITED],
     },
     multiAop: true, minTroopsRatio: 0.25, statCaps: false,
     notes: 'Large engagement · ≥25% Troops · Lords of War allowed (max 33% pts) · multi-AOP allowed',

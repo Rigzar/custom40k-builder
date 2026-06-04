@@ -135,7 +135,7 @@
         "Companions: E-COGs do not prevent a Brôkhyr Iron-master from joining another unit and do not count towards passenger capacity in a transport.",
         "E-COG support: Add +1 to every Brôkhyr's Guild roll for each E-COG in the unit."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -251,7 +251,7 @@
         "Companions: CORVs do not prevent a Grimnyr from joining another unit and do not count towards passenger capacity in a transport.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -339,7 +339,7 @@
         "Grim Efficiency: When activating this unit, select one enemy unit on the battlefield. It gains a Judgement token.",
         "High Kâhl: The model can use \"Grim Efficiency\" twice per battle round."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -788,7 +788,7 @@
         "Advisor: For every HQ selection, one Arkanyst Evaluator may be selected without taking up an Elite slot.",
         "Ressource Transmutation: The model and its attached unit gain \"Deflagrate(5+)\" for all ranged weapons."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -979,7 +979,7 @@
         "Exo-armor: This model gains a 5+ invulnerability save.",
         "Honor or Death: At the start of this model's activation, if an enemy HQ or Character is within 12\", its placed Order is converted to Charge. The Einhyr Champion and its attached unit must use the Order to engage in close combat with the enemy HQ or character model."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1368,7 +1368,7 @@
         "Computational Mastermind: While the model is on the battlefield, you may change a friendly unit's order to any other order when that unit gets activated.",
         "Predictive Guidance: The model and its attached unit do not suffer the to hit penalty from Defensive Fire."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,

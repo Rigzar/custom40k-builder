@@ -4,6 +4,7 @@ import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
 import { LegalFooter } from './LegalModal';
 import { LanguageSelector } from './LanguageSelector';
+import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
@@ -176,6 +177,7 @@ export function LandingPage({
 }: Props) {
   const { data } = useArmyStore();
   const [showChangelog, setShowChangelog] = useState(false);
+  const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
 
@@ -202,6 +204,7 @@ export function LandingPage({
       </header>
 
       {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
+      {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
 
       <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10">
 
@@ -370,28 +373,31 @@ export function LandingPage({
                 Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.
               </p>
               <button
-                onClick={() => onSelectFaction('horus_heresy')}
+                onClick={() => setOpenSupplement('horus_heresy')}
                 className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-red-900/20 border border-red-900/50 text-red-400 hover:bg-red-900/40 transition-colors"
               >
-                Browse Supplement ▶
+                View Catalog ▶
               </button>
             </div>
 
-            {/* Escalation — Coming Soon */}
-            <div className="bg-zinc-900 border-2 border-zinc-800 border-l-4 border-l-zinc-700 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2 opacity-60">
+            {/* Escalation — Lords of War */}
+            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-amber-800 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <div className="text-zinc-400 font-bold text-sm uppercase tracking-wide">Escalation</div>
-                  <div className="text-zinc-600 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
+                  <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
+                  <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
                 </div>
-                <span className="text-[10px] border border-zinc-700 text-zinc-600 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Coming Soon</span>
+                <span className="text-[10px] border border-green-800 text-green-600 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Available</span>
               </div>
-              <p className="text-zinc-600 text-[12px] leading-snug">
-                Super-heavy vehicles, Lords of War, and Titans for all factions. New engagement rules for massive battles.
+              <p className="text-zinc-500 text-[12px] leading-snug">
+                Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Chaos available now.
               </p>
-              <div className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 border border-zinc-800 text-zinc-700 cursor-not-allowed">
-                Not Yet Available
-              </div>
+              <button
+                onClick={() => setOpenSupplement('escalation')}
+                className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/20 border border-amber-900/50 text-amber-400 hover:bg-amber-900/40 transition-colors"
+              >
+                View Catalog ▶
+              </button>
             </div>
 
           </div>

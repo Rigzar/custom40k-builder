@@ -5,7 +5,7 @@ import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
-import { resolveUnitProfile } from '../engine/resolver';
+import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
 import { SACRED_NUMBERS } from '../engine/resolver-chaos-daemons';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
@@ -93,11 +93,14 @@ export function UnitCard({ item }: Props) {
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
     variant, variantActive, modelsToShow, squadLeaderIdx,
     effectivePsyker,
-    isFavored, effectiveHasVetAbilities, equippedWith, weapons, weaponTraitMap,
+    isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponTraitMap,
     injectedAbilities, injectedRuleNotes, equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
+    optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
   } = rp;
+  const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
+  const unitTypeDisplay = [baseTypeDisplay, ...optionAddedUnitTypes].filter(Boolean).join(', ');
 
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
   const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
@@ -106,7 +109,11 @@ export function UnitCard({ item }: Props) {
     : STAT_KEYS_INF;
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
-  const hasMarkGroup = u.option_groups.some(g => g.constraint.type === 'mark');
+  // Only count mark groups whose host condition holds — a Horus Heresy unit's Mark-of-Chaos
+  // group (available_if: Chaos Space Marines force) must not show under a Space Marine host.
+  const hasMarkGroup = u.option_groups.some(g =>
+    g.constraint.type === 'mark' &&
+    isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction));
   const hasMarks = Object.keys(data.animosity).length > 0;
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
 
@@ -167,7 +174,11 @@ export function UnitCard({ item }: Props) {
             {effectiveSlot !== item.slot
               ? <><span className="line-through text-zinc-600">{item.slot}</span> → {effectiveSlot}</>
               : item.slot
-            } · {u.unit_type}
+            } · {optionSetUnitType && optionSetUnitType !== u.unit_type
+              ? <><span className="line-through text-zinc-600">{u.unit_type}</span> → <span className="text-violet-400">{[optionSetUnitType, ...optionAddedUnitTypes].join(', ')}</span></>
+              : optionAddedUnitTypes.length > 0
+                ? <><span>{u.unit_type}</span><span className="text-violet-400">, {optionAddedUnitTypes.join(', ')}</span></>
+                : unitTypeDisplay}
             {blackCrusadeChampion ? (
               <span className="ml-1 inline-flex items-center gap-0.5">
                 {(['Khorne','Nurgle','Slaanesh','Tzeentch'] as const).map(m => (
@@ -288,6 +299,7 @@ export function UnitCard({ item }: Props) {
                         let markBoosted = false;
                         let traitBoosted = false;
                         let equipBoosted = false;
+                        let optionBoosted = false;
 
                         // Apply mark stat bonuses (vehicles get ability-based bonuses only, no stat deltas)
                         const marksToApply: string[] = blackCrusadeChampion
@@ -343,14 +355,25 @@ export function UnitCard({ item }: Props) {
                           }
                         }
 
+                        // Apply option stat mods (e.g. Daemon Prince wings M +6)
+                        const optionDelta = optionStatMods
+                          .filter(sm => sm.stat === k)
+                          .reduce((acc, sm) => acc + sm.delta, 0);
+                        if (optionDelta !== 0) {
+                          const r = applyDelta(display, optionDelta);
+                          if (r.modified) { display = r.display; optionBoosted = true; }
+                        }
+
                         const cellClass = markBoosted
                           ? 'text-blue-400 font-bold'
                           : traitBoosted
                             ? 'text-emerald-400 font-bold'
                             : equipBoosted
                               ? 'text-violet-400 font-bold'
-                              : '';
-                        const suffix = markBoosted ? '*' : traitBoosted ? '†' : equipBoosted ? '◆' : '';
+                              : optionBoosted
+                                ? 'text-cyan-400 font-bold'
+                                : '';
+                        const suffix = markBoosted ? '*' : traitBoosted ? '†' : equipBoosted ? '◆' : optionBoosted ? '‡' : '';
                         return (
                           <td key={k} className={`text-center py-1 px-1 ${cellClass}`}>
                             {display}{suffix}
@@ -382,11 +405,11 @@ export function UnitCard({ item }: Props) {
             )}
           </div>
 
-          {/* Built-in weapons */}
-          {weapons.length > 0 && (
+          {/* Built-in weapons (optional/choice weapons shown only when selected) */}
+          {weaponsToShow.length > 0 && (
             <div>
               <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Weapons</div>
-              <WeaponTable weapons={weapons} traitMap={weaponTraitMap} />
+              <WeaponTable weapons={weaponsToShow} traitMap={weaponTraitMap} />
             </div>
           )}
 
@@ -502,6 +525,11 @@ export function UnitCard({ item }: Props) {
           {u.option_groups.filter(g => !isMarkGroup(g) && !g.variant_link || g.variant_link).map((g) => {
             const realGi = u.option_groups.indexOf(g);
             if (isMarkGroup(g)) return null;
+            // Host-gated branches (BSData condition, scope:'force') — e.g. a Horus Heresy squad's
+            // "if part of a Space Marine army" option is hidden under a Chaos Space Marine host.
+            // Unit-scope conditions stay visible-but-disabled below (validated UX); force-scope is hidden.
+            if (g.available_if?.scope === 'force' &&
+                !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction)) return null;
 
             // Required OG warning: show if nothing is selected
             const isRequired = g.constraint.required;
@@ -536,18 +564,17 @@ export function UnitCard({ item }: Props) {
             // a Storm bolter for +11 pts.") — render as a simple on/off toggle.
             if (g.choices.length === 0 && g.inline_pts != null) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
-              // Detect conditional restrictions in the header text.
-              // Use effectiveMark (resolver output) — covers locked mark, archetype-forced mark, and chosen mark.
-              const noKhorneRequired = /no mark of khorne/i.test(g.header);
-              const khorneBlocked = noKhorneRequired && effectiveMark === 'Khorne';
+              // Keyword-gated availability (BSData condition primitive). effectiveMark is the
+              // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
+              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction);
               return (
                 <div key={realGi} className="text-[12px]">
-                  <label className={`flex items-center gap-2 ${khorneBlocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
+                  <label className={`flex items-center gap-2 ${blocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
                     <input
                       type="checkbox"
                       checked={active}
-                      disabled={khorneBlocked}
-                      onChange={() => { if (!khorneBlocked) setQty(realGi, '__inline', active ? 0 : 1); }}
+                      disabled={blocked}
+                      onChange={() => { if (!blocked) setQty(realGi, '__inline', active ? 0 : 1); }}
                     />
                     <span className="text-zinc-300">{g.header}</span>
                     {!headerHasPts(g.inline_pts) && (
@@ -556,8 +583,8 @@ export function UnitCard({ item }: Props) {
                       </span>
                     )}
                   </label>
-                  {khorneBlocked && (
-                    <div className="text-[10px] text-red-400/80 mt-0.5 pl-6">Not available with Mark of Khorne.</div>
+                  {blocked && g.available_if && (
+                    <div className="text-[10px] text-red-400/80 mt-0.5 pl-6">Not available with Mark of {g.available_if.keyword}.</div>
                   )}
                 </div>
               );
@@ -874,10 +901,10 @@ export function UnitCard({ item }: Props) {
           )}
 
           {/* Abilities (native + trait + mark-injected + rule notes) */}
-          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || injectedAbilities.length > 0 || injectedRuleNotes.length > 0) && (
+          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || injectedAbilities.length > 0 || injectedRuleNotes.length > 0 || optionAbilities.length > 0) && (
             <details>
               <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
-                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + injectedAbilities.length + injectedRuleNotes.length})
+                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length})
               </summary>
               <div className="mt-2 space-y-2">
                 {u.abilities.flatMap((a, i) =>
@@ -930,6 +957,19 @@ export function UnitCard({ item }: Props) {
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                         {part.displayName}
                         <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Rule</span>
+                      </div>
+                      {part.description && (
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                      )}
+                    </div>
+                  ))
+                )}
+                {optionAbilities.flatMap((a, i) =>
+                  parseAbility(a).map((part, j) => (
+                    <div key={`oa-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                      <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
+                        {part.displayName}
+                        <span className="text-[9px] bg-cyan-900/50 text-cyan-400 border border-cyan-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Option</span>
                       </div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>

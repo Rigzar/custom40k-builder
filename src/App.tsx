@@ -240,7 +240,7 @@ export default function App() {
     const loader = loaders[key];
     if (!loader) return;
     loader()
-      .then(m => injectArchetypeFaction(key, (m as { default: unknown }).default as FactionData))
+      .then(m => injectArchetypeFaction(key, (m as { default: unknown }).default as FactionData, rule.sharedSupplementArmory))
       .catch(e => console.error('Error loading archetype faction data', e));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, data?.faction]);

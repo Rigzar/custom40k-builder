@@ -87,7 +87,7 @@
         "Cegorach’s Favour: The model may re-roll any one die per activation.",
         "Holo-suit: The model gains a 4+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -348,7 +348,7 @@
         "Bio-explosion: If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking.",
         "Holo-suit: The model gains a 4+ invulnerability save."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -406,7 +406,7 @@
         "Holo-suit: The model gains a 4+ invulnerability save.",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

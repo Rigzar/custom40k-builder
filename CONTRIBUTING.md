@@ -212,6 +212,7 @@ src/i18n/       Translation strings (EN / DE / ES)
 | `legacies/sm-legacies.ts` | SM legacy rule data — discipline gate map and Crusader prayer set |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher for legacy rule lookups |
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
+| `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`) and Terminator-armour compatibility (`modelRestrictsToTermSubset`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark gating is derived; the planned per-faction keyword migration swaps its internals here. |
 
 ### When to edit legacy files
 
@@ -252,6 +253,16 @@ Do **not** edit `changelog.ts` to update issue statuses — it no longer contain
 1. Add the faction JSON to `data/parsed/` following the schema in `README.md`
 2. Register it in `src/data/factions.ts`
 3. Verify that `npm run build` passes and the faction loads in the app
+
+### Rules-model digests (`src/data/rules-model/<faction>.md`)
+
+Each audited faction has a Markdown digest in `src/data/rules-model/` (template: `_TEMPLATE.md`).
+It records the faction's keyword vocabulary, wargear-gating rules, points model, per-slot datasheet
+option-semantics, and an engine gap-check, all validated against the canonical source HTML and the
+production JSON. These are reference documents for contributors and the engine — not loaded by the
+app. When you audit or correct a faction's data, update its digest so it stays in sync.
+Cross-faction supplements use the same folder and naming (e.g. `escalation.md` for the
+Escalation / Lords of War supplement).
 
 ### Translations
 

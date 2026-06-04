@@ -137,7 +137,7 @@
         "Perfected warfare: An Autarch can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players.",
         "Exalted Autarch: The Autarch may use Perfected warfare twice per game."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -303,7 +303,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
         "Exalted Farseer: The model can cast and deny 1 additional power per battle round."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -371,7 +371,7 @@
         "Battle Focus, Command squad",
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and Craftsong."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2318,7 +2318,7 @@
         "Aspect armor: The model gains a 5+ invulnerability save.",
         "Ghostlight: If a unit scores two or more hits with weapons with this ability, you may resolve the hits normally or inflict a single combined attack. When combining attacks, choose one Ghostlight hit to be the primary hit. Resolve only the primary hit; for each other Ghostlight hit, the primary hit gains +1 Strength, -1 AP, +1 Damage, and AT(1), to a maximum of 10 Strength, -6 AP, 4 Damage, and AT(4)."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2513,7 +2513,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
         "Seer council: A Farseer gets a cumulative +1 bonus to casting and denying psychic powers for each Warlock in their unit. Accompanying Warlocks receive the same bonus for each Warlock after the first."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3621,7 +3621,7 @@
         "Aspect armor: The model gains a 5+ invulnerability save.",
         "Shunting: The unit rolls and moves an additional 1D6 when using the Advance order. If a double 1 is rolled, the unit suffers one Mortal Wound."
       ],
-      "unit_type": "Jump pack infantry",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

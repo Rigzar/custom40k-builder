@@ -1,4 +1,4 @@
-import type { Unit, Model, Weapon, ArmoryItem, FactionData } from '../types/data';
+import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant } from './points';
@@ -41,6 +41,13 @@ export interface ResolvedProfile {
   effectiveHasVetAbilities: boolean;
   equippedWith: string;
   weapons: Weapon[];
+  /**
+   * The weapons to actually display: built-in gear plus only the optional/choice
+   * weapons that were selected. A weapon that also appears as a choice in an option
+   * group is "optional" and is hidden until picked. Computed once here so UnitCard
+   * and PrintView render identical lists.
+   */
+  weaponsToShow: Weapon[];
   weaponTraitMap: Map<string, string[]>;
   /** Mark-derived ability injections (e.g. Warded, Warpflamer) — shown with "Mark" badge. */
   injectedAbilities: string[];
@@ -55,6 +62,16 @@ export interface ResolvedProfile {
 
   /** True when this HQ is the Black Crusade champion bearing all four Chaos god marks. */
   blackCrusadeChampion: boolean;
+
+  // Option effects (ki-parser-02) — stat/type/ability changes a selected wargear option confers.
+  /** Stat deltas from selected options (e.g. Daemon Prince wings M +6), stacked over base. */
+  optionStatMods: Array<{ stat: string; delta: number }>;
+  /** Unit types ADDED by selected options (additive), e.g. "Jump pack infantry". */
+  optionAddedUnitTypes: string[];
+  /** Unit-type line REPLACED by a selected option (datasheet "change type to X"); null if none. */
+  optionSetUnitType: string | null;
+  /** Special rules granted by selected options (e.g. "Deep strike") — shown with "Option" badge. */
+  optionAbilities: string[];
 }
 
 // ── Shared utility ────────────────────────────────────────────────────────────
@@ -71,6 +88,82 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
     if (found) return found;
   }
   return undefined;
+}
+
+/** True when the unit carries the given keyword (its Chaos Mark or any datasheet keyword). */
+function unitHasKeyword(keyword: string, mark: string | null, keywords: string[]): boolean {
+  const kw = keyword.toLowerCase();
+  if ((mark ?? '').toLowerCase() === kw) return true;
+  return keywords.some(k => {
+    const lk = k.toLowerCase();
+    return lk === kw || lk === `mark of ${kw}`;
+  });
+}
+
+/**
+ * Evaluate a BSData-style availability condition (see OptionCondition). Returns whether the
+ * option group is available.
+ *   scope 'unit'           → match the keyword against the model's own mark / keywords.
+ *   scope 'force'|'roster' → match against the host army's faction (e.g. a Horus Heresy unit
+ *                            injected into a "Chaos Space Marines" vs "Space Marines" host).
+ * The faction match is exact (case-insensitive) so "Space Marines" does not match the
+ * "Chaos Space Marines" host.
+ */
+export function isOptionAvailable(
+  cond: OptionCondition | undefined,
+  mark: string | null,
+  keywords: string[],
+  hostFaction?: string | null,
+): boolean {
+  if (!cond) return true;
+  const has = cond.scope === 'unit'
+    ? unitHasKeyword(cond.keyword, mark, keywords)
+    : (hostFaction ?? '').toLowerCase() === cond.keyword.toLowerCase();
+  return cond.type === 'instanceOf' ? has : !has;
+}
+
+/**
+ * Filter a weapon list down to what should be displayed: drop optional/choice
+ * weapons that were not selected. A weapon counts as optional when it also appears
+ * as a choice in some option group; built-in gear (not in any group) is always shown.
+ */
+export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: RosterEntry): Weapon[] {
+  // Multi-profile weapons are stored as several entries named "<Weapon> - <Profile>"
+  // (e.g. "Plasma blastgun - Rapid"). An option choice names the parent weapon ("Plasma
+  // blastgun"), so match a choice against the weapon name BEFORE the " - " profile suffix.
+  const baseName = (n: string) => n.split(' - ')[0];
+  const optionalWeaponNames = new Set<string>();
+  for (const g of unit.option_groups) {
+    for (const c of g.choices) {
+      if (unit.weapons.some(w => baseName(w.name) === c.name)) optionalWeaponNames.add(c.name);
+    }
+  }
+  const hasReplaceGroup = unit.option_groups.some(g => g.replaces && g.replaces.length > 0);
+  if (optionalWeaponNames.size === 0 && !hasReplaceGroup) return weapons;
+
+  const selectedWeaponNames = new Set<string>();
+  // Weapons dropped by a structured `replace` group whose swap affects the whole unit.
+  const replacedWeaponNames = new Set<string>();
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    const hasSelection = Object.entries(ch).some(([ci, qty]) => ci !== '__inline' && !!qty);
+    // `replaces` is set in the data ONLY for unit-wide swaps ("Each model's X" / "May replace
+    // its X"). Subset swaps ("one model's X", per_n/fixed_max) leave it unset so both the old
+    // and new weapons stay on the datasheet. So: drop whenever the group is tagged + selected.
+    if (hasSelection && g.replaces) {
+      for (const name of g.replaces) replacedWeaponNames.add(name);
+    }
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      const choice = g.choices[parseInt(ci)];
+      if (choice && optionalWeaponNames.has(choice.name)) selectedWeaponNames.add(choice.name);
+    }
+  }
+  return weapons.filter(w =>
+    !replacedWeaponNames.has(w.name) &&
+    (!optionalWeaponNames.has(baseName(w.name)) || selectedWeaponNames.has(baseName(w.name))),
+  );
 }
 
 // ── Generic base resolver ─────────────────────────────────────────────────────
@@ -138,8 +231,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const equipItems = item.armory
     .filter(a => a.section === 'equipment' ||
       (a.section === 'daemon_weapons' && !isWeaponTrait(findArmoryItem(data, a)?.desc)))
-    .map(a => ({ name: a.itemName, desc: findArmoryItem(data, a)?.desc ?? '' }));
-  const equipMods: EquipMods = parseEquipMods(equipItems);
+    .map(a => {
+      const found = findArmoryItem(data, a);
+      return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
+    });
+  const equipMods: EquipMods = parseEquipMods(equipItems, unit.armourKeyword, unit.abilities);
 
   // Trait effects
   // CSM army traits only apply to models with the "Chaos Space Marine" keyword.
@@ -165,9 +261,31 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   // Collect abilities from selected choices that have their own abilities array
   const choiceAbilities: string[] = [];
+  // Option effects (ki-parser-02): stat/type/ability changes from selected wargear options.
+  const optionStatMods: Array<{ stat: string; delta: number }> = [];
+  const optionAddedUnitTypes: string[] = [];
+  let optionSetUnitType: string | null = null;
+  const optionAbilities: string[] = [];
+  // De-dup helpers: an effect only grants what the model doesn't already have (a type/ability
+  // already in its base profile is not re-added). Normalize so "Deepstrike" matches "Deep strike".
+  const _norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const _baseTypeNorm = _norm(unit.unit_type);
+  const _baseAbilNorm = (unit.abilities ?? []).flatMap(a => a.split(/[,;]/)).map(p => _norm(p.split(':')[0]));
+  const applyEffect = (eff: OptionEffect | undefined) => {
+    if (!eff) return;
+    for (const sm of eff.stat_mod ?? []) optionStatMods.push({ stat: sm.stat, delta: sm.delta });
+    for (const t of eff.adds_unit_types ?? [])
+      if (!optionAddedUnitTypes.includes(t) && !_baseTypeNorm.includes(_norm(t))) optionAddedUnitTypes.push(t);
+    if (eff.set_unit_type) optionSetUnitType = eff.set_unit_type;
+    for (const ab of eff.grants_abilities ?? [])
+      if (!optionAbilities.includes(ab) && !_baseAbilNorm.includes(_norm(ab))) optionAbilities.push(ab);
+  };
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
+    const hasAnySelection = Object.entries(ch).some(([ci, qty]) => (ci === '__inline' || !!qty) && !!qty);
+    // Group-level effect applies whenever the group has a selection (covers inline toggles).
+    if (hasAnySelection) applyEffect(g.effect);
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];
@@ -176,7 +294,15 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
           if (!choiceAbilities.includes(ab)) choiceAbilities.push(ab);
         }
       }
+      applyEffect(choice?.effect);
     }
+  }
+  // Armory-item effects: a bought item may confer a UNIT-TYPE change ("Chaos Space Marine bike" →
+  // "Bike"; "Daemonic stature" → "Monstrous Infantry"). Stats and quoted abilities for these items
+  // still come from equipMods; this only adds the type, de-duplicated against what the model has.
+  for (const sel of item.armory) {
+    const ai = findArmoryItem(data, sel);
+    if (ai?.effect) applyEffect(ai.effect);
   }
 
   return {
@@ -186,12 +312,13 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
     effectiveHasVetAbilities,
-    equippedWith, weapons, weaponTraitMap,
+    equippedWith, weapons, weaponsToShow: weapons, weaponTraitMap,
     injectedAbilities: choiceAbilities,
     injectedRuleNotes: [],
     equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
+    optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
   };
 }
 
@@ -221,5 +348,8 @@ export function resolveUnitProfile(
 ): ResolvedProfile {
   const base = resolveBase(item, unit, state, data);
   const factionFn = FACTION_RESOLVERS[state.faction];
-  return factionFn ? factionFn(base, item, unit, state, data) : base;
+  const profile = factionFn ? factionFn(base, item, unit, state, data) : base;
+  // Faction resolvers may rewrite `weapons`; derive the display list from the final set.
+  profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item);
+  return profile;
 }

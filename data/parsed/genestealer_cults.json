@@ -81,7 +81,7 @@
         "Sacred Cult Banner: The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit can not be contested by enemy units. Additionally, all models in the unot gain +1 Attack.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -141,7 +141,7 @@
         "Ringleader: You may select up to two units with this ability for a single HQ slot. Each unit may only be taken once.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -212,7 +212,7 @@
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -272,7 +272,7 @@
         "Ringleader: You may select up to two units with this ability for a single HQ slot. Each unit may only be taken once.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -889,7 +889,7 @@
         "The Chosen One: All melee weapons of the Abominant and its attached unit gain the \"Deflagrate(5+)\" ability.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Monstrous Infantry",
+      "unit_type": "Character Model, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -968,7 +968,7 @@
         "Genomic enhancement: Once per activation, the model can boost a friendly creature unit within 3\" range.\n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Each unit can only be upgraded once per game.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1039,7 +1039,7 @@
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability.",
         "Voice of New Truths: Enemy units within 12\" suffer a -1 penalty to their Leadership value."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1109,7 +1109,7 @@
         "Strategic Coordination: You may re-roll one reserve roll each Reinforcement phase.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1283,7 +1283,7 @@
         "Hidden explosives: Instead of using it like a ranged weapon, the model may set up any Demolition charge it posseses hidden on the table. Place three markers for each Demolition charge face down anywhere on the table that is outside of the enemy deployment zone. Two of these three markers are duds and don't do anything when revealed, while the actual marker causes one automatic hit with the profile of a Demolition charge. Markers are revealed the first time an enemy unit moves within 3\" of the marker during its activation.",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1369,7 +1369,7 @@
         "Ambush, Deflect, Infiltrator, Use cover",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1973,7 +1973,7 @@
         "Ambush, Command Squad, Infiltrator, Use cover",
         "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2059,7 +2059,7 @@
       "abilities": [
         "Ambush, Bodyguard, Command Squad, Infiltrator, Use cover"
       ],
-      "unit_type": "Character model, Infantry",
+      "unit_type": "Character Model, Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,

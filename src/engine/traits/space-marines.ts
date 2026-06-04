@@ -11,10 +11,14 @@ import type { TraitEffect } from '../traitEffects';
  *   'character'→ characters only
  *   'infantry' → non-vehicle, non-monster, non-character
  *
- * Point costs per trait (from Army Customisation HTML):
+ * Point costs per trait (from Army Customisation HTML), noted per entry:
  *   unit | char | monster | veh
  *
- * Status: skeleton — effects to be filled in after unit audit.
+ * Status: complete — all 19 traits encoded. Effects are LIVE: this map is spread into
+ * TRAIT_EFFECTS (traitEffects.ts) and applied by the resolver's faction-agnostic trait pass
+ * (stat_mod / inv_save / unit_ability / weapon_ability). Two traits carry no per-unit effect by
+ * design: "Expanded Armory" (army-level — enables a second Legacy, handled in validators) and
+ * "Path of Damnation" (one-model special — grants a CSM Demon weapon, handled at selection).
  */
 export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
 

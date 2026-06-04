@@ -9,7 +9,11 @@ import { resolveUnit } from '../points';
  * Called from validators/index.ts after generic validation passes.
  * Returns additional ValidationItems (errors / warnings / ok messages).
  *
- * Status: skeleton — rules to be filled in after unit audit.
+ * Status: complete — covers the archetype composition/uniqueness rules that the generic AOP pass
+ * can't express: 1st Company (restricted unit list), Forlorn Brothers (Black-Rage-only creatures),
+ * Librarian Conclave (Librarian-only HQ), Expanded Armory (forces a 2nd Legacy), Renegades (CSM
+ * trait), plus the three "one per army" cross-variant uniqueness checks (Captain / Captain
+ * Dreadnought, Master of Sanctity / Chaplain Dreadnought, Chief Librarian / Librarian Dreadnought).
  */
 export function validateSpaceMarines(
   state: ArmyState,

@@ -14,6 +14,7 @@ const SLOT_LABELS: Record<string, string> = {
   'Dedicated Transport':  'Dedicated Transport',
   'Fortifications':       'Fortifications',
   'Flyers':               'Flyers',
+  'Lords of War':         'Lords of War',
 };
 
 export function ArmyList() {

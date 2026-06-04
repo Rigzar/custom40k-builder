@@ -1,0 +1,331 @@
+{
+  "faction": "Chaos Daemons",
+  "general": {
+    "weapons": [],
+    "equipment": [
+      {
+        "name": "Aura of acquiescenceˢ",
+        "description": "Enemy units in close combat lose 1 Initiative to a minimum of 1.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Blood throneᴷ",
+        "description": "The model gains +6\" Movement, +2 Toughness, +3 Wounds, +2 Attacks and the \"Bike\" ability. It loses the \"Character\" ability.",
+        "points": "80",
+        "points_character": "-"
+      },
+      {
+        "name": "Boon of Mutation",
+        "description": "During your activation, pick an enemy model within 6\" and roll to hit. If the hit is successful, the target must make a Toughness test or become a helpless spawn and removed from play. Character models and Monstrous creatures can't be targeted.",
+        "points": "10",
+        "points_character": "15"
+      },
+      {
+        "name": "Breath of Chaos",
+        "description": "During your activation, pick a target unit within 9\". Roll 4D6. For every 4+ the unit suffers a wound with S:4 AP:-5 D:1, Seeking.",
+        "points": "20",
+        "points_character": "30"
+      },
+      {
+        "name": "Chaos artefact",
+        "description": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+        "points": "-",
+        "points_character": "10"
+      },
+      {
+        "name": "Cloud of fliesᴺ",
+        "description": "The model and its attached unit gain the \"Deflect\" ability.",
+        "points": "4",
+        "points_character": "15"
+      },
+      {
+        "name": "Dreamcatcher talisman",
+        "description": "One enemy psyker per battle-round can be forced to reroll a psychic test to manifest a power.",
+        "points": "15",
+        "points_character": "15"
+      },
+      {
+        "name": "Eldritch Bolt",
+        "description": "The model can make an additional attack with the following profile: Range: 24\" Type: Assault 1 Strength: 8 AP: -5 Damage: 2, AT(1).",
+        "points": "35",
+        "points_character": "35"
+      },
+      {
+        "name": "Exalted butcher",
+        "description": "The model gains +1 Weapon skill.",
+        "points": "4",
+        "points_character": "10"
+      },
+      {
+        "name": "Exalted hunter",
+        "description": "The model gains +1 Ballistic skill.",
+        "points": "4",
+        "points_character": "10"
+      },
+      {
+        "name": "Eye of Tzeentch",
+        "description": "The model can reroll a single die each activation.",
+        "points": "10",
+        "points_character": "20"
+      },
+      {
+        "name": "Full to Burstingᴺ",
+        "description": "When this model is killed, it explodes like a vehicle. Cumulative with \"Popping Plague\".",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Girdle of the Realm Racerˢ",
+        "description": "The model gains +2\" Movement and the \"Anti-grav\" ability.",
+        "points": "10",
+        "points_character": "15"
+      },
+      {
+        "name": "Hellfire armorᴷ",
+        "description": "The model gains a 2+ save.",
+        "points": "35",
+        "points_character": "65"
+      },
+      {
+        "name": "Illusionist",
+        "description": "Enemy models reduce their weapons range by 6\" (to a minimum of 6\"), if they target the bearer or its attached unit.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Instrument of Chaos",
+        "description": "The unit gets a +1 bonus to combat resolution.",
+        "points": "15",
+        "points_character": "15"
+      },
+      {
+        "name": "Interdimensional Knowledge",
+        "description": "The model may pick 2 additional psychic powers from any general psychic discipline.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Juggernaut of Khorneᴷ",
+        "description": "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the \"Bike\" ability.",
+        "points": "55",
+        "points_character": "-"
+      },
+      {
+        "name": "Khorne necklaceᴷ",
+        "description": "The model is immune against psychic attacks and effects.",
+        "points": "10",
+        "points_character": "20"
+      },
+      {
+        "name": "Let None Surviveᴷ",
+        "description": "The model automatically succeeds at pursuit rolls to catch fleeing units.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Magical boon",
+        "description": "The model can manifest 1 more psychic power per activation than usual. If it did not know any psychic powers before, it can pick 1.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Master-crafted weapon",
+        "description": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+        "points": "2",
+        "points_character": "2"
+      },
+      {
+        "name": "Noxious touchᴺ",
+        "description": "All melee attacks of the model gain Poison(2+).",
+        "points": "15",
+        "points_character": "15"
+      },
+      {
+        "name": "Nurgle's decayᴺ",
+        "description": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with S:4 DS:0 D:1 and the \"Seeking\" ability. Unique.",
+        "points": "15",
+        "points_character": "15"
+      },
+      {
+        "name": "Obsidian bladeᴷ",
+        "description": "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
+        "points": "10",
+        "points_character": "20"
+      },
+      {
+        "name": "Overwhelming power",
+        "description": "Psychic tests of 9 or higher can never be denied.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "Palanquin of Nurgleᴺ",
+        "description": "The model gains +1 Wound and +1 Attack. Only for Heralds.",
+        "points": "8",
+        "points_character": "-"
+      },
+      {
+        "name": "Personal icon",
+        "description": "A friendly Daemon unit arriving within 3\" of the bearer via deepstrike does not scatter. If the bearer has a mark of chaos, only Daemons with the same mark can use the icon.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Plague outburstᴺ",
+        "description": "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 1D3 automatic wound with S:4 DS:0 D:1 and the \"Seeking\" ability.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Psychic training",
+        "description": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+        "points": "5",
+        "points_character": "5"
+      },
+      {
+        "name": "Revoltingly Resilientᴺ",
+        "description": "The model gains Regeneration(1). Unique.",
+        "points": "15",
+        "points_character": "40"
+      },
+      {
+        "name": "Rune of brassᴷ",
+        "description": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results.",
+        "points": "15",
+        "points_character": "15"
+      },
+      {
+        "name": "Screamer of Tzeentch",
+        "description": "The model gains +6\" Movement, +1 Toughness, +1 Wound, 2 Attacks with the \"Warp jaws\" weapon (see Screamers) and the \"Jet bike\" ability.",
+        "points": "35",
+        "points_character": "-"
+      },
+      {
+        "name": "Seeker of Slaaneshˢ",
+        "description": "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack, additional Haste(2\") and the \"Bike\" ability.",
+        "points": "15",
+        "points_character": "-"
+      },
+      {
+        "name": "Soporific muskˢ",
+        "description": "The model gains the \"Deflect\" and \"Parry\" ability.",
+        "points": "6",
+        "points_character": "15"
+      },
+      {
+        "name": "Soulstealerˢ",
+        "description": "Once per round, after killing at least one enemy model, the bearer regains 1 wound up to its maximum. Unique.",
+        "points": "10",
+        "points_character": "20"
+      },
+      {
+        "name": "Sowᴺ",
+        "description": "After the model loses its last Wound, create a Nurglings unit with 1D3 models as close as possible outside of direct base contact with any enemy unit. The Nurglings get an unused order of your choice.",
+        "points": "24",
+        "points_character": "24"
+      },
+      {
+        "name": "Spiked Armorᴷ",
+        "description": "The model and its attached unit gain the \"Retribution(1)\" ability.",
+        "points": "10",
+        "points_character": "5"
+      },
+      {
+        "name": "Thrill Seekerˢ",
+        "description": "The Model and its attached unit gain +1 to all Wound rolls and suffer -1 Toughness.",
+        "points": "0",
+        "points_character": "0"
+      },
+      {
+        "name": "Transfixing gazeˢ",
+        "description": "Enemy models in close combat lose 1 Attack to a minimum of 1.",
+        "points": "15",
+        "points_character": "30"
+      },
+      {
+        "name": "Unbound furyᴷ",
+        "description": "The model and its attached unit gain the \"Furious charge\" ability.",
+        "points": "15",
+        "points_character": "10"
+      },
+      {
+        "name": "Unholy might",
+        "description": "The model gains +1 Strength.",
+        "points": "5",
+        "points_character": "15"
+      },
+      {
+        "name": "Warp conduit",
+        "description": "The army adds +1 to rolls during the Reinforcement phase. Unique.",
+        "points": "10",
+        "points_character": "10"
+      },
+      {
+        "name": "ᴷ Only for models with Mark of Khorne",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "ᴺ Only for models with Mark of Nurgle",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "ˢ Only for models with Mark of Slaanesh",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "Only for models with Mark of Tzeentch",
+        "description": "",
+        "points": "",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "",
+        "points": "POINTS",
+        "points_character": ""
+      },
+      {
+        "name": "VEHICLE EQUIPMENT",
+        "description": "VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT VEHICLE EQUIPMENT",
+        "points": "POINTS",
+        "points_character": "POINTS"
+      },
+      {
+        "name": "Additional armor",
+        "description": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Smoke Launcher",
+        "description": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+        "points": "15",
+        "points_character": ""
+      },
+      {
+        "name": "We are legion",
+        "description": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+        "points": "5",
+        "points_character": ""
+      },
+      {
+        "name": "Jammer",
+        "description": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+        "points": "15",
+        "points_character": ""
+      }
+    ],
+    "daemon_weapons": [],
+    "veteran_abilities": [],
+    "vehicle_upgrades": []
+  },
+  "god_armories": {},
+  "legion_armories": {}
+}
