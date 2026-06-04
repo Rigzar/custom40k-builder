@@ -367,7 +367,7 @@ export function LandingPage({
                   <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
                   <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
                 </div>
-                <span className="text-[10px] border border-green-800 text-green-600 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Available</span>
+                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Functional — injectable roster, armory and disciplines. Some edge cases still under review.">Beta</span>
               </div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.
@@ -387,7 +387,7 @@ export function LandingPage({
                   <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
                   <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
                 </div>
-                <span className="text-[10px] border border-green-800 text-green-600 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Available</span>
+                <span className="text-[10px] border border-orange-700 text-orange-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Early — only Chaos Space Marines Lords of War are in so far; other factions coming.">Alpha · Chaos</span>
               </div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Chaos available now.

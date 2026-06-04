@@ -1,0 +1,465 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Abyss grenade",
+      "term_compat": false,
+      "range": "3\"",
+      "type": "Grenade 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(3), Armorbane",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Ancestral ward staffᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
+      "name": "Autoch-pattern bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Autoch-pattern combi-bolterᴱ",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 12,
+      "p_char": 14
+    },
+    {
+      "name": "Bolt shotgun",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 2",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Concussion gauntletᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2), Unwieldy",
+      "p_unit": 13,
+      "p_char": 17
+    },
+    {
+      "name": "Concussion hammerᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(3), Slow(-3), Unwieldy",
+      "p_unit": 20,
+      "p_char": 25
+    },
+    {
+      "name": "EtaCarn plasma gunᴱ",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2)",
+      "p_unit": 34,
+      "p_char": 43
+    },
+    {
+      "name": "EtaCarn plasma pistolᴱ",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2)",
+      "p_unit": 16,
+      "p_char": 20
+    },
+    {
+      "name": "Graviton rifleᴱ",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "5",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Graviton",
+      "p_unit": 32,
+      "p_char": 40
+    },
+    {
+      "name": "Ion pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Mass gauntletᴱ",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 17,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Can only be used with a Charge order"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Slow(-1)"
+        }
+      ]
+    },
+    {
+      "name": "Mass hammerᴱ",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 25,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Can only be used with a Charge order"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Slow(-2)"
+        }
+      ]
+    },
+    {
+      "name": "Plasma axeᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Plasma blade gauntletᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Exo-armor only.",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Plasma knife",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Plasma spearᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Quick(+1)",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Plasma swordᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Volkanite disintegratorᴱ",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 2",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Deadly(5+)",
+      "p_unit": 11,
+      "p_char": 13
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Ancestor relicᴱ",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Bastium void armor",
+      "term_compat": false,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": 4,
+      "p_char": 18
+    },
+    {
+      "name": "Darkstar alloyᴱ",
+      "term_compat": false,
+      "desc": "One melee weapon of the model gains Deadly(5+).",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Quake Multigeneratorᴱ",
+      "term_compat": false,
+      "desc": "One ranged weapon of the model gains Suppression.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Exo-armor",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ invulnerable save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
+      "p_unit": null,
+      "p_char": 39
+    },
+    {
+      "name": "Forgewrought armor",
+      "term_compat": false,
+      "desc": "The model gains a 2+ save.",
+      "p_unit": 7,
+      "p_char": 11
+    },
+    {
+      "name": "Forgewrought weaponᴱ",
+      "term_compat": false,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Marksman honoursᴱ",
+      "term_compat": false,
+      "desc": "The model gains +1 Ballistic skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Mass driver acceleratorsᴱ",
+      "term_compat": false,
+      "desc": "After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Psychic trainingᴱ",
+      "term_compat": false,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "RAM shieldᴱ",
+      "term_compat": false,
+      "desc": "The model gains \"Parry\".",
+      "p_unit": 1,
+      "p_char": 3
+    },
+    {
+      "name": "Rampart crest",
+      "term_compat": false,
+      "desc": "The model and its accompanied unit gain a 5+ invulnerability save. Limit one crest per model.",
+      "p_unit": null,
+      "p_char": 30
+    },
+    {
+      "name": "Skimmer bike",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Magna-coil autogun, the ability \"Jet bike\" and \"Vanguard\". Only for infantry.",
+      "p_unit": null,
+      "p_char": 85
+    },
+    {
+      "name": "Swordsman honoursᴱ",
+      "term_compat": false,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Teleportation crestᴱ",
+      "term_compat": false,
+      "desc": "The model gains the \"Deep Strike\" ability. Limit one crest per model.",
+      "p_unit": 1,
+      "p_char": 3
+    },
+    {
+      "name": "Teleport homing beaconᴱ",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Trophyᴱ",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Wayfarer's graceᴱ",
+      "term_compat": false,
+      "desc": "The model gains \"Regeneration(1)\". Unique.",
+      "p_unit": null,
+      "p_char": 9
+    },
+    {
+      "name": "Weavefield crest",
+      "term_compat": false,
+      "desc": "The model gains a 4+ invulnerability save. Limit one crest per model.",
+      "p_unit": 11,
+      "p_char": 28
+    },
+    {
+      "name": "Weavefield crest (Exo)ᴱ",
+      "term_compat": false,
+      "desc": "The model gains a 4+ invulnerability save. Limit one crest per model. Exo-armor only.",
+      "p_unit": 3,
+      "p_char": 10
+    },
+    {
+      "name": "Accelerated engine",
+      "term_compat": false,
+      "desc": "Instead of shooting, the model can use its accelerated engine and can move aditionally 3\". The vehicle has to pass a dangerous terrain test.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Additional void armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Ancestor’s jugdement warhead",
+      "term_compat": false,
+      "desc": "The model gains an Ancestor's judgement warhead.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting scanner",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons for all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Refined power cores",
+      "term_compat": false,
+      "desc": "The model gains +2\" Movement.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

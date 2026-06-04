@@ -1,0 +1,617 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Agonizer",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Poison(3+)",
+      "p_unit": 7,
+      "p_char": 9
+    },
+    {
+      "name": "Archite glaiveᶜᵘ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Unwieldy",
+      "p_unit": 11,
+      "p_char": 13
+    },
+    {
+      "name": "Blasterᴷ",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Lance(+1)",
+      "p_unit": 33,
+      "p_char": 41
+    },
+    {
+      "name": "Blaster pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Lance(+1)",
+      "p_unit": 16,
+      "p_char": 20
+    },
+    {
+      "name": "Casket of Flensingᶜᵒ",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 6",
+      "s": "W6",
+      "ap": "W6",
+      "d": "W6",
+      "abilities": "Ammo(1)",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Dark gate",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "10",
+      "ap": "0",
+      "d": "*",
+      "abilities": "Ammo(1), AT(4), Barrage, Units hit must pass a Strength test or suffer three Mortal Wounds.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Djinn bladeᴷ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Flurry(3)",
+      "p_unit": 9,
+      "p_char": 10
+    },
+    {
+      "name": "Electrocorrosive whip",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Poison(3+), All models that were hit half their Strength until the bearers next activation.",
+      "p_unit": 6,
+      "p_char": 8
+    },
+    {
+      "name": "Flesh gauntletᶜᵒ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Deadly(5+), Extra attack, Poison(2+)",
+      "p_unit": 8,
+      "p_char": 10
+    },
+    {
+      "name": "Haywire grenade",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "AT(2), Haywire",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Hekatarii bladeᶜᵘ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Hellglaive",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Flurry(1), Quick(1)",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Hex rifleᶜᵒ",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Poison(3+), Precision",
+      "p_unit": 30,
+      "p_char": 35
+    },
+    {
+      "name": "Husk bladeᴷ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Soul burn(5+)",
+      "p_unit": 9,
+      "p_char": 10
+    },
+    {
+      "name": "Hydra gauntletᶜᵘ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Flurry(3)",
+      "p_unit": 6,
+      "p_char": 6
+    },
+    {
+      "name": "Ichor injectorᶜᵒ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "*",
+      "ap": "-",
+      "d": "-",
+      "abilities": "Extra attack, For each successful hit roll with this weapon, the target must pass a Toughness test. If the test fails, the model dies immediately. Doesn't work against vehicles.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Liquifier gunᶜᵒ",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 19,
+      "p_char": 13
+    },
+    {
+      "name": "Orb of despair",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "3",
+      "abilities": "Ammo(1), Explosive, To wound rolls are rolled against the target's Leadership value",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Plasma grenade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Explosive",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Power sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Razorflailsᶜᵘ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Re-roll to hit and to wound rolls",
+      "p_unit": 6,
+      "p_char": 6
+    },
+    {
+      "name": "Scissorhandᶜᵒ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Poison(3+), Flurry(1)",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Scythe bladeᶜᵒ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Poison(3+)",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Shadow bomb",
+      "term_compat": false,
+      "range": "3\"",
+      "type": "Grenade",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Armorbane, AT(3)",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Shardnet and impalerᶜᵘ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Enemy models in base contact reduce their Attacks by 1 (minimum 1)",
+      "p_unit": 6,
+      "p_char": 6
+    },
+    {
+      "name": "Splinter pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "2",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Poison(3+)",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Stinger pistolᶜᵒ",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "2",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Poison(2+)",
+      "p_unit": 4,
+      "p_char": 6
+    },
+    {
+      "name": "Venom blade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Poison(2+)",
+      "p_unit": 6,
+      "p_char": 7
+    }
+  ],
+  "equipment": [
+    {
+      "name": "A league apartᶜᵘ",
+      "term_compat": false,
+      "desc": "If the Initiative value of the Succubus is higher than that of any enemy in direct base contact, she gets +2 Attacks. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Animus Vitaeᶜᵒ",
+      "term_compat": false,
+      "desc": "If the wearer eliminated an enemy model during their activation, they gain an additional \"Power through Pain\" token. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Archangel of Pain",
+      "term_compat": false,
+      "desc": "One enemy unit within 12\" must pass a Leadership test or have WS 6+ and Initiative 1 until the end of their next activation. Ammo(1). Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Artefact of Commoragh",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Blood dancerᶜᵘ",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain +2\" charge range.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Clone field",
+      "term_compat": false,
+      "desc": "The bearer ignores the first two hits each game.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Crucible of Malediction",
+      "term_compat": false,
+      "desc": "All psykers within 12\" must pass a Leadership test or be killed immediately. Ammo(1). Unique.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Crystal heart",
+      "term_compat": false,
+      "desc": "The bearer and an attached unit are immune to psychic powers. Unique.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Decapitator",
+      "term_compat": false,
+      "desc": "All melee attacks of the model gain the \"Deadly(5+)\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Executioner’s armour",
+      "term_compat": false,
+      "desc": "The model gains a 2+ save.",
+      "p_unit": 6,
+      "p_char": 23
+    },
+    {
+      "name": "Farseer bones",
+      "term_compat": false,
+      "desc": "Once per game, after both players have rolled for Initiative, the bearer's roll can be increased by +2. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Ghostplate armor",
+      "term_compat": false,
+      "desc": "The bearer gains a 5+ invulnerability save.",
+      "p_unit": 3,
+      "p_char": 12
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Ballistic skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Master of Painᶜᵒ",
+      "term_compat": false,
+      "desc": "The model gains the \"Narthecium\" ability.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": false,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Realspace raiderᴷ",
+      "term_compat": false,
+      "desc": "All rolls for reserves are automatically successfull.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Shadow fieldᴷ",
+      "term_compat": false,
+      "desc": "The bearer got a 2+ invulnerability save. If the saving throw fails once, the Shadow field can't be used for the rest of the game. Unique.",
+      "p_unit": null,
+      "p_char": 40
+    },
+    {
+      "name": "Skybike",
+      "term_compat": false,
+      "desc": "The bearer gains +6\" Movement, +1 Toughness, +1 Wound and the \"Jetbike\" ability.",
+      "p_unit": null,
+      "p_char": 27
+    },
+    {
+      "name": "Skyboard",
+      "term_compat": false,
+      "desc": "The bearer gains +6\" Movement and the \"Jump pack\" ability.",
+      "p_unit": null,
+      "p_char": 11
+    },
+    {
+      "name": "Soul trap",
+      "term_compat": false,
+      "desc": "Everytime the bearer destroys an enemy character model or monstrous creature, they add the Strength value to their own for the rest of the game.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Stimulant supply",
+      "term_compat": false,
+      "desc": "The bearer may select an additional Combat drug.",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Trophy",
+      "term_compat": false,
+      "desc": "Enemy units within a 6\" radius suffer -1 to their Leadership.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Twilight shroud",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Stealth\" abilities.",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Vexator mask",
+      "term_compat": false,
+      "desc": "The model gains (cumulative) \"Parry\".",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Adrenalight",
+      "term_compat": false,
+      "desc": "The unit gains +1 Attack.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Grave lotus",
+      "term_compat": false,
+      "desc": "The unit gains +1 Strength.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Hypex",
+      "term_compat": false,
+      "desc": "The unit automatically advances 6\" instead of rolling for the distance.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Serpentin",
+      "term_compat": false,
+      "desc": "The unit gains +1 to hit rolls in melee.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Painbringer",
+      "term_compat": false,
+      "desc": "The unit gains +1 Toughness.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Splintermind",
+      "term_compat": false,
+      "desc": "The unit starts with a(n) (additional) \"Power through Pain\" token.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Bladevanes",
+      "term_compat": false,
+      "desc": "The model gains the \"Vector strike\" ability and the following weapon: S:+1 AP:-2 D:1, Unwieldy.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Flickerfield",
+      "term_compat": false,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Night shield",
+      "term_compat": false,
+      "desc": "Enemy models reduce their weapons range by 12\" (to a minimum of 6\"), if they target the bearer.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Trophy",
+      "term_compat": false,
+      "desc": "Enemy units within a 6\" radius suffer -1 to their Leadership.",
+      "p_unit": 10,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

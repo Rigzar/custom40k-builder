@@ -1,0 +1,49 @@
+{
+  "name": "Order Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Blazing Ire",
+      "term_compat": false,
+      "desc": "The model gains +1 Attack. Unique. Order of the Bloody Rose only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Impervious to Pain",
+      "term_compat": false,
+      "desc": "Everytime the model uses an Act of Faith, it regains 1 Wound (to the maximum of its starting value). Unique. Order of the Valorous Heart only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Light of the Divine",
+      "term_compat": false,
+      "desc": "Everytime the model uses an Act of Faith, it gains the \"Soul burn(5+)\" ability for all melee attacks. Unique. Order of the Sacred Rose only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Quicksilver Veil",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\" and \"Parry\" abilities. Unique. Order of the Argent Shroud only.",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
+      "name": "Shield Bearer",
+      "term_compat": false,
+      "desc": "Once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique. Order of Our Martyred Lady only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Terrible Knowledge",
+      "term_compat": false,
+      "desc": "The model may re-roll any one die per activation. Unique. Order of the Ebon Chalice only.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

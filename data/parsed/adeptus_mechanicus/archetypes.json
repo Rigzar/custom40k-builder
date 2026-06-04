@@ -1,0 +1,207 @@
+{
+  "archetypes": [
+    {
+      "name": "Cybernetica Cohort",
+      "desc": "- The army has access to all Robot and Taghmata units from the Horus Heresy Mechanicum supplement.\n- Kastelan Robots may be taken as Troops.\n- The army must take at least one Magos or Archmagos with the Datasmith upgrade.\n- Only Robot units count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Dark Mechanicum",
+      "desc": "- Dark Mechanicum become \"Allies of Convenience\" for Chaos Space Marines.\n- All units can purchase a Mark of Chaos (point cost per model and per Wound): +1 point Khorne, +1 point Slaanesh, +2 points Nurgle, +2 points Tzeentch. All vehicles can gain a Mark of Chaos: +10 points Khorne, +10 points Slaanesh, +10 points Nurgle, +10 points Tzeentch. (See Chaos Space Marines).\n- Venomcrawlers, Defilers, Forgefiends, Maulerfiends, and Heldrakes may be taken from the Chaos Space Marine army list.\n- Models with access to the Armory can also access the Chaos Space Marine Armory.\n- Unique equipment, or equipment with the same description or effect, cannot be selected twice.\n- May not select a Legacy."
+    },
+    {
+      "name": "Ordo Reductor Covenant",
+      "desc": "- The army has access to all Ordo Reductor and Taghmata units from the Horus Heresy Mechanicum supplement.\n- The army must take at least one Magos or Archmagos with the Myrmidax upgrade.\n- Only Ordo Reductor units count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Servitor Maniple",
+      "desc": "- Servitors can be taken as Troops.\n- For each Servitor unit taken as Troops, the army must also take a Tech-priest. This Tech-priest does not occupy an Elite slot, but must always be attached to a Servitor unit.\n- Skitarii units do not count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Titan Legion",
+      "desc": "- Secutarii Hoplites and Peltasts can be taken as Troops.\n- Only Secutarii units count towards the 25% Troops limitation."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Legacy of the Gleaming Giant",
+      "desc": "The army has access to the Metalica Armory and the \"Tribute of Emphatic Veneration\" canticle.",
+      "armory_key": "Forge World"
+    },
+    {
+      "name": "Legacy of the Hollow World",
+      "desc": "The army has access to the Lucius Armory and the \"Luminescent Blessing\" canticle.",
+      "armory_key": "Forge World"
+    },
+    {
+      "name": "Legacy of the Morning Star",
+      "desc": "The army has access to the Graia Armory and the \"Mantra of Discipline\" canticle.",
+      "armory_key": "Forge World"
+    },
+    {
+      "name": "Legacy of the Omnissiah Igvita",
+      "desc": "The army has access to the Ryza Armory and the \"Citation in Savagery\" canticle.",
+      "armory_key": "Forge World"
+    },
+    {
+      "name": "Legacy of the Red Planet",
+      "desc": "The army has access to the Mars Armory and the \"Panegyric Procession\" canticle.",
+      "armory_key": "Forge World"
+    },
+    {
+      "name": "Legacy of a Thousand Scars",
+      "desc": "The army has access to the Agripinaa Armory and the \"Verse of Vengeance\" canticle.",
+      "armory_key": "Forge World"
+    },
+    {
+      "name": "Legacy of the Xenarites",
+      "desc": "The army has access to the Stygies VIII Armory and the \"Plea of the Veiled Hunter\" canticle.",
+      "armory_key": "Forge World"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Accelerated Actuators",
+      "desc": "This unit gains the \"Frenzy(1\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Autosavant Spirits",
+      "desc": "Vehicles gain the \"Blessing of the Omnissiah\" ability (see Tech-priest), but may only use it on themselves and only for repairs.",
+      "pts_unit": "-",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Combined Explorator Fleet",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Djinn Eyes",
+      "desc": "This unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Masters of the Forge",
+      "desc": "This unit gets +1 to Canticle of the Omnissiah rolls.",
+      "pts_unit": "5",
+      "pts_char": "-",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Phased-Plasma Coils",
+      "desc": "This unit may roll their invulnerable save against any wound caused by a plasma weapon's Overheating ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Purgation Protocols",
+      "desc": "This unit can re-roll one armor penetration or wound roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Refusal to Yield",
+      "desc": "This unit gains +1 Leadership.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Relentless March",
+      "desc": "This unit gains the \"Haste(2\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Red in Cog and Claw",
+      "desc": "If this unit uses a Charge order or is charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Rugged Explorators",
+      "desc": "This unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Scarifying Weaponry",
+      "desc": "This unit's Radiation weapons (any weapon with Decimate) gain Deadly(6+).",
+      "pts_unit": "5",
+      "pts_char": "-",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Shroud Protocols",
+      "desc": "This unit gains the benefit of light cover until its first activation.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Solar Blessing",
+      "desc": "This unit can reroll one armor save per battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Staunch Defenders",
+      "desc": "This unit does not suffer the to hit penalty from Defensive Fire.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Veteran Maniple",
+      "desc": "Any unit with the option to purchase a Doctrina Imperitive may purchase a second one.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

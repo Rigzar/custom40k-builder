@@ -1,0 +1,207 @@
+{
+  "archetypes": [
+    {
+      "name": "Canoptek Court",
+      "desc": "- Can only select Crypteks as HQ units.\n- Up to two Crypteks may be taken for every HQ slot.\n- <Canoptek> units gain the \"Objective secured!\" ability."
+    },
+    {
+      "name": "Destroyer Cult",
+      "desc": "- The army has access to the following units only, regardless of other traits:\n- Crypteks with Skorpekh body, Lords with Destroyer bodies, Skorpekh Lords\n- Flayed Ones\n- Canoptek Reanimators, Canoptek Spyders, C'tan Shards (any), Plasmacytes, Skorpekh Destroyers\n- Canoptek Scarabs, Canoptek Wraiths, Ophydian Destroyers\n- Canoptek Doomstalkers, Lokhust Destroyers\n- Skorpekh Destroyers can be taken as Troops."
+    },
+    {
+      "name": "Obeisance Phalanx",
+      "desc": "- A Lord or Overlord must be taken as an HQ selection.\n- Lychguard and Triarch Praetorians can be taken as Troops.\n- No other Troop units may be selected."
+    },
+    {
+      "name": "Yngir",
+      "desc": "- One C'tan shard (any kind) counts as an HQ selection.\n- The model gains +1 Strength, +1 Toughness, +1 Initiative, +1 Attacks and a 2+ armor save.\n- The range for each C'tan power is increased by 6\" and it knows the \"Time's Arrow\" power. \n- It costs an additional +85 points.\n- Pariahs can be taken as Troops."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Channeling Solar Energies",
+      "desc": "The army has access to equipment from the Nephrekh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Extermination of all Life",
+      "desc": "The army has access to equipment from the Szarekhan dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Industrial Slaughter",
+      "desc": "The army has access to equipment from the Novokh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Secure Borders",
+      "desc": "The army has access to equipment from the Nihilakh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "Starkillers",
+      "desc": "The army has access to equipment from the Mephrit dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    },
+    {
+      "name": "The Lord of the Storm",
+      "desc": "The army has access to equipment from the Sautekh dynasty in the Dynasty Armory.",
+      "armory_key": "Dynasty"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Arise against Interlopers",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Awakened by Murder",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Eternal Conquerors",
+      "desc": "The unit prevents 1 RPoint from being lost for itself and gains 1 temporary RPoint each Reinforcement phase, if it is within 6\" of an objective marker. Only for <Necron> units.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Immovable Phalanx",
+      "desc": "If the unit uses Stand & Shoot, it gains a +1 bonus to armor saves until its next activation. Can't be combined with \"Merciless hunters\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Interplanetary Invasors",
+      "desc": "Vehicle units can fire all weapons, if they move up to 12\". Only for vehicles.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Isolationists",
+      "desc": "The unit's \"Rapid Fire\" weapons gain +1 Strength when being resolved against targets that are within half weapon range.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Masters of the Martial",
+      "desc": "The unit can re-roll one hit roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Merciless Hunters",
+      "desc": "The unit can fire \"Rapid Fire\" weapons twice at full range with a \"Stand & Shoot\" order. Can't be combined with \"Immovable phalanx\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "RAD-wreathed",
+      "desc": "Enemy units within 3\" of the unit suffer a -1 penalty to their Toughness.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Relentless Expansionism",
+      "desc": "The unit gains the \"Vanguard\" ability . Can't be combined with \"Translocation beams\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Solar Fury",
+      "desc": "The unit's weapons increase their range by 3\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Superior Artisans",
+      "desc": "The unit can re-roll one armor penetration or wound roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The unmerciful Horde",
+      "desc": "The unit can re-roll failed Leadership tests.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Translocation Beams",
+      "desc": "The unit automatically advances 6\" instead of rolling for it, ignoring terrain. Can't be combined with \"Relentless expansionism\".",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Vassal Dynasty",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Vengeful Stars",
+      "desc": "The unit's ranged attacks gain a -1 AP bonus when being resolved against targets that are within half weapon range.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Warrior Nobles",
+      "desc": "The unit can re-roll one (additional) hit and one (additional) wound roll per activation. Only for HQ units.",
+      "pts_unit": "-",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

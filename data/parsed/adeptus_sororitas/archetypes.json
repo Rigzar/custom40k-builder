@@ -1,0 +1,163 @@
+{
+  "archetypes": [
+    {
+      "name": "Holy Vanguard",
+      "desc": "- Dominions can be taken as Troops.\n- Only Dominion units count towards the 25% Troops limitation.\n- All Dominion models must start the game as passengers inside a transport."
+    },
+    {
+      "name": "Penitent Crusade",
+      "desc": "- Arco-flagellants and Repentia can be taken as Troops.\n- For every 10 Arco-flagellant models one unit of Penitent Engines can be taken as Troops.\n- Battle Sisters and Sisters Novitiate become Elite choices."
+    },
+    {
+      "name": "Shrine Wardens",
+      "desc": "- Celestia Sacresantis can be taken as Troops.\n- Battle Sisters and Sisters Novitiate become Elite choices.\n- Arco-flagellants, Repentia and Penitent Engines can not be taken at all."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Blind Faith",
+      "desc": "The army has access to equipment from the Order of the Valorous Heart in the Order Armory.",
+      "armory_key": "Order"
+    },
+    {
+      "name": "Cleansing Flames",
+      "desc": "The army has access to equipment from the Order of the Ebon Chalice in the Order Armory.",
+      "armory_key": "Order"
+    },
+    {
+      "name": "Faith Is Our Shield",
+      "desc": "The army has access to equipment from the Order of the Argent Shroud in the Order Armory.",
+      "armory_key": "Order"
+    },
+    {
+      "name": "Honour The Martyrs",
+      "desc": "The army has access to equipment from the Order of Our Martyred Lady in the Order Armory.",
+      "armory_key": "Order"
+    },
+    {
+      "name": "Tear Them Down",
+      "desc": "The army has access to equipment from the Order of the Bloody Rose in the Order Armory.",
+      "armory_key": "Order"
+    },
+    {
+      "name": "The Emperor's Judgement",
+      "desc": "The army has access to equipment from the Order of the Sacred Rose in the Order Armory.",
+      "armory_key": "Order"
+    },
+    {
+      "name": "The Holy Trinity",
+      "desc": "The army gains access to a third trait and must select these traits: Raging Fervour, Rites of Fire and Unshakeable Vengeance. All traits combined cost 10 points for each non-character units.",
+      "armory_key": "Order"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Combined Conviction",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Deeds, not Words",
+      "desc": "The unit may treat all of its \"Rapid Fire\" weapons during its Activation as \"Assault\" weapons (f.e. Rapid Fire 1 becomes Assault 1).",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Devout Fanaticism",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Guided by the Emperor’s Will",
+      "desc": "The unit can re-roll one armor penetration or wound roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Holy Wrath",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Raging Fervour",
+      "desc": "Inferno pistols gain 1,5\" range, Meltas gain 3\" range and Multi-melta gain 6\" range.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Rites of Fire",
+      "desc": "Hand flamers gain 1,5\" range, Flamers gain 3\" range and Heavy flamers gain 6\" range.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Shield of Aversion",
+      "desc": "The unit can reroll one armor save per battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The Blood of Martyrs",
+      "desc": "If the unit is destroyed, it generates an additional Faith Point.",
+      "pts_unit": "2",
+      "pts_char": "0",
+      "pts_monster": "2",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The Emperor's Judgement",
+      "desc": "If the unit performs an Act of Faith, roll 1D6. On a 5+, the Faith Point is refunded.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Unbridled Valour",
+      "desc": "The unit gains +1 Leadership.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Unshakable Vengeance",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

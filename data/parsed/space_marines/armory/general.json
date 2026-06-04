@@ -1,0 +1,1033 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Absolvor bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Apothecary and Chaplain only",
+      "p_unit": null,
+      "p_char": 4,
+      "gravis_compat": true
+    },
+    {
+      "name": "Assault-Flamer",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 11,
+      "p_char": 11,
+      "profiles": [
+        {
+          "name": "Pyre blaster",
+          "range": "12\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Assault ammo",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        }
+      ]
+    },
+    {
+      "name": "Assault-Plasma",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 22,
+      "p_char": 29,
+      "profiles": [
+        {
+          "name": "Plasma (Standard)",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma (Overcharged)",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Assault ammo",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        }
+      ]
+    },
+    {
+      "name": "Astartes chainsword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 3,
+      "gravis_compat": true
+    },
+    {
+      "name": "Auto boltstorm gauntlet",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "Gravis armor only",
+      "p_unit": 23,
+      "p_char": 28,
+      "profiles": [
+        {
+          "name": "Ranged",
+          "range": "18\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Slow(-1)"
+        }
+      ],
+      "gravis_compat": true
+    },
+    {
+      "name": "Boltgun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 3,
+      "gravis_compat": true
+    },
+    {
+      "name": "Bolt rifle",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 7,
+      "p_char": 9,
+      "profiles": [
+        {
+          "name": "Bolt ammo",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Stalker ammo",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Assault ammo",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        }
+      ]
+    },
+    {
+      "name": "Combat knife",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Combi-flamer",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 11,
+      "p_char": 7,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Flamer",
+          "range": "9\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        }
+      ]
+    },
+    {
+      "name": "Combi-melta",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 16,
+      "p_char": 24,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Melta",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Melta"
+        }
+      ]
+    },
+    {
+      "name": "Combi-plasma",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 21,
+      "p_char": 27,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma (Standard)",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma (Overcharged)",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ]
+    },
+    {
+      "name": "Force axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Force staff",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "AT(1), Force weapon",
+      "p_unit": null,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Force sword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Grav gun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "5",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Grav",
+      "p_unit": 9,
+      "p_char": 11,
+      "gravis_compat": true
+    },
+    {
+      "name": "Grav pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Grav",
+      "p_unit": 4,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Hand flamer",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 2,
+      "p_char": 1,
+      "gravis_compat": true
+    },
+    {
+      "name": "Heavy bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4,
+      "gravis_compat": true
+    },
+    {
+      "name": "Heavy bolt rifle",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 8,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Assault ammo",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Stalker ammo",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Bolt ammo",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "gravis_compat": true
+    },
+    {
+      "name": "Lightning claw",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Melta bombs",
+      "term_compat": true,
+      "range": "3\"",
+      "type": "Grenade",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(3), Armorbane",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Modified bolt rifle",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 18,
+      "profiles": [
+        {
+          "name": "Assault ammo",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "0",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Bolt ammo",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Stalker ammo",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "-"
+        }
+      ],
+      "gravis_compat": true
+    },
+    {
+      "name": "Neo volkite pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Deadly(5+)",
+      "p_unit": 5,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Pair of lightning claws",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Flurry(2), Shred, Unwieldy",
+      "p_unit": 6,
+      "p_char": 7
+    },
+    {
+      "name": "Plasma pistol",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 13,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overcharged",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ],
+      "gravis_compat": true
+    },
+    {
+      "name": "Power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Power fist",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)",
+      "p_unit": 13,
+      "p_char": 17,
+      "gravis_compat": true
+    },
+    {
+      "name": "Power lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Quick(+1), Can only be used with a Charge order"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ]
+    },
+    {
+      "name": "Power maul",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Power sword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 6,
+      "gravis_compat": true
+    },
+    {
+      "name": "Pyre pistol",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 3,
+      "p_char": 2,
+      "gravis_compat": true
+    },
+    {
+      "name": "Storm bolter",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 11,
+      "p_char": 13,
+      "gravis_compat": true
+    },
+    {
+      "name": "Thunder hammer",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(3), Slow(-3)",
+      "p_unit": 20,
+      "p_char": 25,
+      "gravis_compat": true
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Aquila Imperialis",
+      "term_compat": true,
+      "desc": "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game. Unique",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Armorium cherub",
+      "term_compat": true,
+      "desc": "The model or the attached unit can fire a weapon twice during one activation. Each unit can benefit from this effect only once per round. Ammo(1).",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Astartes bionics",
+      "term_compat": true,
+      "desc": "The model gains the \"Warded\" ability.",
+      "p_unit": null,
+      "p_char": 14,
+      "gravis_compat": true
+    },
+    {
+      "name": "Auspex scanner",
+      "term_compat": true,
+      "desc": "If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Auxiliary grenade launcher",
+      "term_compat": true,
+      "desc": "All grenades of the model have four times the range.",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Book of Malcador",
+      "term_compat": true,
+      "desc": "The model knows one more psychic power from any psychic discipline it normally has access to. Unique. Only for Librarians.",
+      "p_unit": null,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Chapter banner",
+      "term_compat": true,
+      "desc": "The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit can not be contested by enemy units. Additionally, all models in the unit gain +1 Attack. Unique. Only for Ancients.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Familiar",
+      "term_compat": true,
+      "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Librarians.",
+      "p_unit": null,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Gravis armor",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, a 6+ invulnerability save and the special rules \"Massive(1)\" and \"Unyielding\". Not combinable with other armors.",
+      "p_unit": 6,
+      "p_char": 13
+    },
+    {
+      "name": "Iron halo",
+      "term_compat": true,
+      "desc": "The model gains a 4+ invulnerability save.",
+      "p_unit": null,
+      "p_char": 30,
+      "gravis_compat": true
+    },
+    {
+      "name": "Jump pack",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
+      "p_unit": 9,
+      "p_char": 19,
+      "gravis_compat": true
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 Ballistic Skill.",
+      "p_unit": 4,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Master-crafted armor",
+      "term_compat": true,
+      "desc": "The model gains a 2+ armor save. Not combinable with other armors.",
+      "p_unit": 7,
+      "p_char": 15,
+      "gravis_compat": true
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": true,
+      "desc": "One weapon of the model gains the ability \"Master-crafted\".",
+      "p_unit": 2,
+      "p_char": 2,
+      "gravis_compat": true
+    },
+    {
+      "name": "Omniscope",
+      "term_compat": true,
+      "desc": "The bearer and their attached unit gain the \"Seeking\" ability against enemy units within 12\".",
+      "p_unit": null,
+      "p_char": 15,
+      "gravis_compat": true
+    },
+    {
+      "name": "Parry shield",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Parry\".",
+      "p_unit": 2,
+      "p_char": 4
+    },
+    {
+      "name": "Phobos armor",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Move Through Cover\" and \"Infiltrator.\" Not combinable with other armors.",
+      "p_unit": 3,
+      "p_char": 6
+    },
+    {
+      "name": "Psychic training",
+      "term_compat": true,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Purity seal",
+      "term_compat": true,
+      "desc": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+      "p_unit": 2,
+      "p_char": 2,
+      "gravis_compat": true
+    },
+    {
+      "name": "Refractor field",
+      "term_compat": false,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": 11,
+      "p_char": 20,
+      "gravis_compat": true
+    },
+    {
+      "name": "Relic blade",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Lieutenants.",
+      "p_unit": null,
+      "p_char": null,
+      "gravis_compat": true
+    },
+    {
+      "name": "Relic of the Chapter",
+      "term_compat": true,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 10,
+      "gravis_compat": true
+    },
+    {
+      "name": "Selfless healer",
+      "term_compat": true,
+      "desc": "At the end of its movement, the model can attempt to heal a creature within 3\". On a 4+, a model regains up to 1 lost Wound. Only for Apothecaries. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Signum",
+      "term_compat": true,
+      "desc": "Instead of using their own ranged weapons, the model may grant a friendly creature model within 6\" range +1 to hit rolls this round.",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Space Marine bike",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, a Twin bolt rifle, the \"Bike\" type, and \"Devastating Charge\" (see Outrider Squads). Only for infantry.",
+      "p_unit": 36,
+      "p_char": 47
+    },
+    {
+      "name": "Storm shield",
+      "term_compat": true,
+      "desc": "The model gains the abilities \"Deflect\" and \"Parry\". Only for Infantry and Jump pack units.",
+      "p_unit": 4,
+      "p_char": 8
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": true,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10,
+      "gravis_compat": true
+    },
+    {
+      "name": "Terminator armor",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ invulnerable save, and the abilities \"Massive(1)\", \"Deep Strike\" and \"Unyielding.\" Only for infantry. Not combinable with other armors.",
+      "p_unit": 23,
+      "p_char": 46
+    },
+    {
+      "name": "Trophy",
+      "term_compat": true,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5,
+      "gravis_compat": true
+    },
+    {
+      "name": "Counter-attack",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Counter-attack\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Favoured enemy",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Favoured enemy\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Furious charge",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Furious charge\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Infiltrator",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Infiltrator\".",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Outflank",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Outflank\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Tank hunter",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Tank hunter\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Terrain expert",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Vanguard",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Vanguard\".",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Additional armor",
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Hunter-killer missile",
+      "desc": "The model gains a Hunter-killer missile.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Improved targeting",
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Jammer",
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Machine spirit",
+      "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
+    },
+    {
+      "name": "Smoke Launcher",
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
+    }
+  ],
+  "daemon_weapons": []
+}

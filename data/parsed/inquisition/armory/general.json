@@ -1,0 +1,1090 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Boltgun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Chainsword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "T",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Combi-flamer",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 8,
+      "p_char": 7,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Flamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        }
+      ]
+    },
+    {
+      "name": "Combi-melta",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 11,
+      "p_char": 17,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Melta",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Melta"
+        }
+      ]
+    },
+    {
+      "name": "Combi-plasma",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 14,
+      "p_char": 21,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun (Standard)",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun (Supercharged)",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ]
+    },
+    {
+      "name": "Combi-stake thrower",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 7,
+      "p_char": 11,
+      "profiles": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Stake",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Always wounds psykers on 2+ and causes them to suffer a \"Peril of the Warp\" attack on a successful wounding roll."
+        }
+      ]
+    },
+    {
+      "name": "Conversion beamer",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 57,
+      "profiles": [
+        {
+          "name": "Short range",
+          "range": "0\" - 24\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Mid range",
+          "range": "24\" - 48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Long range",
+          "range": "48\" - 72\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Barrage"
+        }
+      ]
+    },
+    {
+      "name": "Digital weapons",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "2",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Extra attack, hits automatically wound the target.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Flamer",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 7,
+      "p_char": 5
+    },
+    {
+      "name": "Frag grenade",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Granate 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Force axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Force sword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Force stave",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Hand flamer",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 3,
+      "p_char": 2
+    },
+    {
+      "name": "Hell rifle",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Armour piercing(5+), Suppression",
+      "p_unit": null,
+      "p_char": 19
+    },
+    {
+      "name": "Hot-shot lasgun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Hot-shot laspistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Ignis Judiciumᴴ",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(2), Melta",
+      "p_unit": null,
+      "p_char": 34
+    },
+    {
+      "name": "Inferno pistol",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta",
+      "p_unit": 6,
+      "p_char": 8
+    },
+    {
+      "name": "Krak grenades",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Grenade",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Lasgun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Laspistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Melta",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta",
+      "p_unit": 13,
+      "p_char": 17
+    },
+    {
+      "name": "Melta bombs",
+      "term_compat": true,
+      "range": "3\"",
+      "type": "Grenade",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(3), Armorbane",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Needle pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Poison(2+)",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Null rod",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "The model and its attached unit can't be targeted by any psychic power, including friendly ones.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Phase sword ˣ",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Shield breaker(-2)",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
+      "name": "Plasma gun",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 17,
+      "p_char": 22,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overcharge",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ]
+    },
+    {
+      "name": "Plasma pistol",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 8,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overcharge",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ]
+    },
+    {
+      "name": "Power axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power fist",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Slow(-2)",
+      "p_unit": 8,
+      "p_char": 11
+    },
+    {
+      "name": "Power maul",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power stake",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "T",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Always wounds psykers on 2+.",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power sword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Psyber-eagle",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive, Extra attack, Suppression",
+      "p_unit": null,
+      "p_char": 9
+    },
+    {
+      "name": "Psycannonᴹ",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "7",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1), Armor piercing(5+)",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "Rad grenades",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Enemy models in melee suffer a -1 to their Toughness value, if the bearer used a Charge order this turn.",
+      "p_unit": null,
+      "p_char": 1
+    },
+    {
+      "name": "Shotgun",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 2",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Storm bolter",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 8,
+      "p_char": 11
+    },
+    {
+      "name": "Thunder hammer",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(2), Slow(-3)",
+      "p_unit": 12,
+      "p_char": 16
+    },
+    {
+      "name": "Counter-attack",
+      "term_compat": false,
+      "range": "The model gains the ability \"Counter-attack\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Favoured enemy",
+      "term_compat": false,
+      "range": "The model gains the ability \"Favoured enemy\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Furious charge",
+      "term_compat": false,
+      "range": "The model gains the ability \"Furious charge\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Infiltrator",
+      "term_compat": false,
+      "range": "The model gains the ability \"Infiltrator\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Outflank",
+      "term_compat": false,
+      "range": "The model gains the ability \"Outflank\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Tank hunter",
+      "term_compat": false,
+      "range": "The model gains the ability \"Tank hunter\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Terrain expert",
+      "term_compat": false,
+      "range": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Vanguard",
+      "term_compat": false,
+      "range": "The model gains the ability \"Vanguard\".",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 1,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Aquila Imperialis",
+      "term_compat": true,
+      "desc": "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game. Unique",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Auspex scanner",
+      "term_compat": true,
+      "desc": "If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Bionics",
+      "term_compat": true,
+      "desc": "The model gains a 6+ invulnerability save.",
+      "p_unit": 1,
+      "p_char": 5
+    },
+    {
+      "name": "Combat shield",
+      "term_compat": true,
+      "desc": "The model gains the ability \"Parry\".",
+      "p_unit": 1,
+      "p_char": 3
+    },
+    {
+      "name": "Dread reputation",
+      "term_compat": true,
+      "desc": "Enemy units within a 6\" radius suffer -1 to their Leadership.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Esoteric knowledge ˣ",
+      "term_compat": true,
+      "desc": "The model and its attached unit may reroll one die per battle round.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Empyrian brain mines ˣ",
+      "term_compat": true,
+      "desc": "Nominate one enemy model in direct base contact during its own activation. The target must pass an Initiative test or can't attack this battle round. One use only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Familiar",
+      "term_compat": true,
+      "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for psykers.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Gamma psyker",
+      "term_compat": true,
+      "desc": "The model can manifest one additional power per activation.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Grimoire of True Namesᴹ",
+      "term_compat": true,
+      "desc": "One model in direct base contact suffers -1 penalties to its WS, Initiatives and Attacks, up to a minimum of 1.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Hexagram warding runesᴴ",
+      "term_compat": true,
+      "desc": "Enemy models in direct base contact suffer a -1 penalty to their invulnerability saves.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Jump pack",
+      "term_compat": false,
+      "desc": "The model gains the \"Jump pack\" ability.",
+      "p_unit": null,
+      "p_char": 11
+    },
+    {
+      "name": "Liber Heresiusᴴ",
+      "term_compat": true,
+      "desc": "The bearer may pick any two veteran abilites to be in effect for themselves and their attached unit. The veteran abilities can be changed each activation.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 Ballistic skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Master-crafted armor",
+      "term_compat": true,
+      "desc": "The model gains a 2+ save.",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": true,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "No escapeᴴ",
+      "term_compat": true,
+      "desc": "Fleeing units are automatically caught up in melee and receive twice the amount of hits from each pursuing model.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Ordo Hereticus",
+      "term_compat": true,
+      "desc": "The model and further units from this codex get access to <Ordo Hereticus> equipment. Every model can only pick one Ordo allegiance. Only for Inquisitors.",
+      "p_unit": null,
+      "p_char": 0
+    },
+    {
+      "name": "Ordo Malleus",
+      "term_compat": true,
+      "desc": "The model and further units from this codex get access to <Ordo Malleus> equipment. Every model can only pick one Ordo allegiance. Only for Inquisitors.",
+      "p_unit": null,
+      "p_char": 0
+    },
+    {
+      "name": "Ordo Xenos",
+      "term_compat": true,
+      "desc": "The model and further units from this codex get access to <Ordo Xenos> equipment. Every model can only pick one Ordo allegiance. Only for Inquisitors.",
+      "p_unit": null,
+      "p_char": 0
+    },
+    {
+      "name": "Plate armour",
+      "term_compat": false,
+      "desc": "The model gains a 4+ save.",
+      "p_unit": 3,
+      "p_char": null
+    },
+    {
+      "name": "Power amor",
+      "term_compat": false,
+      "desc": "The model gains a 3+ save.",
+      "p_unit": 5,
+      "p_char": 10
+    },
+    {
+      "name": "Praesidium Protectivaᴴ",
+      "term_compat": true,
+      "desc": "The model gains a 4+ invulnerability save.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Psyoccolum",
+      "term_compat": true,
+      "desc": "The model and its attached unit may reroll all to hit dice against a psyker and its attached unit.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Psybolt ammunitionᴹ",
+      "term_compat": true,
+      "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
+      "p_unit": null,
+      "p_char": 1
+    },
+    {
+      "name": "Purified weaponᴹ",
+      "term_compat": true,
+      "desc": "Before setting up units, pick one of the purified powers below and add it to one melee weapon of the model.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Psychic training",
+      "term_compat": true,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Purity seal",
+      "term_compat": true,
+      "desc": "Enemy psykers suffer a -1 penalty to manifest a power when they target the model or its attached unit.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Refractor field",
+      "term_compat": true,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Relic of the Ordo",
+      "term_compat": true,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Servo skull",
+      "term_compat": false,
+      "desc": "Place a \"Servo skull\" token during the Rally phase of the first battle round anywhere on the battlefield. A friendly unit arriving within 3\" of the token via Deep strike does not scatter. If an enemy unit moves within 12\" of the token, it is removed from the game. Can be taken up to three times.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Special energy cells",
+      "term_compat": true,
+      "desc": "Every laser weapon of the model gains +1 damage.",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Special issue ammunition",
+      "term_compat": true,
+      "desc": "Every bolt weapon of the model may select one advantage per activation: \n- Seeking\n- Poison(3+)\n- +6\" range and -1 AP",
+      "p_unit": 2,
+      "p_char": 4
+    },
+    {
+      "name": "Spy network",
+      "term_compat": true,
+      "desc": "The army gains +1 to its initiative roll once per game. Can be chosen to apply after both sides rolled their dice for initiative.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Storm shield",
+      "term_compat": true,
+      "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
+      "p_unit": 2,
+      "p_char": 6
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": true,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Terminator armor",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ invulnerable save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
+      "p_unit": null,
+      "p_char": 43
+    },
+    {
+      "name": "Tesseract labyrinthᴹ",
+      "term_compat": true,
+      "desc": "At the start of your activation, pick a wounded enemy model in base contact. It must pass a Strength test or is immediately removed. One use only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Throne of Judgement",
+      "term_compat": false,
+      "desc": "The model gains +2 Strength, +2 Toughness, +1 Wound and the ability \"Monstrous Infantry\". Unique.",
+      "p_unit": null,
+      "p_char": 17
+    },
+    {
+      "name": "Trophy",
+      "term_compat": true,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Uluméathi Plasma Syphon ˣ",
+      "term_compat": true,
+      "desc": "Enemy models within 18\" suffer a -1 penalty to Strength, AP and Damage to weapons with an \"Overcharged\" profile (applies to all profiles of the affected weapons), to a minimum of 1 each.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Universal anathema ˣ",
+      "term_compat": true,
+      "desc": "All melee weapons of the model gain the Poison(2+) ability.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "desc": "The model gains a Hunter-killer missile.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

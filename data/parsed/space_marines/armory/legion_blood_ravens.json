@@ -1,0 +1,21 @@
+{
+  "name": "Blood Ravens Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "I.O.UÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "Select one weapon or equipment item from the (Legacy) Armory of any other army. The selected item can not be enhanced by any other equipment (f.e. with the \"Relic of the Chapter\" item). Wargear that got the same description or ability like an item from the Space Marine armory can't be taken. If the chosen item has a rule that states that it is \"only for xy\", this rule may be ignored. The item has to be physically represented on your character model. Unique.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "-",
+      "term_compat": false,
+      "desc": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

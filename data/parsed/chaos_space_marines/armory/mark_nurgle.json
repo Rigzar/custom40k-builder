@@ -1,0 +1,283 @@
+{
+  "name": "Armory of Nurgle",
+  "weapons": [
+    {
+      "name": "Balesword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Poison(4+)",
+      "p_unit": 6,
+      "p_char": 7
+    },
+    {
+      "name": "Bubonic axe",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Poison(4+)",
+      "p_unit": 6,
+      "p_char": 7
+    },
+    {
+      "name": "Combi-plague belcher",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 12,
+      "p_char": 8,
+      "profiles": [
+        {
+          "name": "Bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Poison(4+)"
+        },
+        {
+          "name": "Plague belcher",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames, Poison (4+)"
+        }
+      ]
+    },
+    {
+      "name": "Death's head grenade",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Barrage, Poison(4+)",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Heavy plague weapon",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Poison(4+), Unwieldy",
+      "p_unit": 12,
+      "p_char": 14
+    },
+    {
+      "name": "Manreaper",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "Only for models in Cataphractii armor",
+      "p_unit": 14,
+      "p_char": 17,
+      "profiles": [
+        {
+          "name": "Cleave",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Poison(4+), Slow(-1), Unwieldy"
+        },
+        {
+          "name": "Scythe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Poison(4+), Flurry(1), Unwieldy"
+        }
+      ]
+    },
+    {
+      "name": "Plague knife",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Poison(4+)",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Plaguespurt gauntlet",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames, Poison(4+)",
+      "p_unit": 6,
+      "p_char": 5
+    },
+    {
+      "name": "Plasma gun",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 22,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overcharged",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheat"
+        }
+      ]
+    },
+    {
+      "name": "Twin plague spewer",
+      "term_compat": true,
+      "range": "9\"",
+      "type": "Assault 8",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flames, Poison(4+). Only for models in Cataphractii or Terminator armor.",
+      "p_unit": null,
+      "p_char": 26
+    },
+    {
+      "name": "Blight grenades",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive, Poison(4+)",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Cataphractii armor",
+      "armourKeyword": "Cataphractii",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+      "p_unit": null,
+      "p_char": 76
+    },
+    {
+      "name": "Cloud of flies",
+      "term_compat": true,
+      "desc": "The model gains the \"Deflect\" ability.",
+      "p_unit": 3,
+      "p_char": 5
+    },
+    {
+      "name": "Nurgle's decay",
+      "term_compat": true,
+      "desc": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Nurgling infestation",
+      "term_compat": true,
+      "desc": "The model inflicts 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D:1; Poison(4+).",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Plague ammunition",
+      "term_compat": true,
+      "desc": "All ranged weapons of the model gain \"Poison(3+)\".",
+      "p_unit": 7,
+      "p_char": 7
+    },
+    {
+      "name": "Plague outburst",
+      "term_compat": true,
+      "desc": "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 3 automatic wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Revoltingly Resilient",
+      "term_compat": true,
+      "desc": "The model gains the \"Regeneration(1)\" ability.",
+      "p_unit": 15,
+      "p_char": 25
+    },
+    {
+      "name": "Shamblerot",
+      "term_compat": true,
+      "desc": "Roll 1D6 during the model's acitvation, if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Zombie lord",
+      "term_compat": true,
+      "desc": "All Poxwalker models from an attached unit gain +1 Strength.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": [
+    {
+      "name": "Entropic",
+      "term_compat": false,
+      "desc": "The weapon gains \"Shieldbreaker(-3)\". Unique.",
+      "p_char": 25
+    },
+    {
+      "name": "Miasmic",
+      "term_compat": false,
+      "desc": "Attacks against enemy models within 6\" range gain a bonus +1 Strength. Unique.",
+      "p_char": 5
+    },
+    {
+      "name": "Rotting",
+      "term_compat": false,
+      "desc": "The weapon gains \"Deadly(5+)\". Unique.",
+      "p_char": 10
+    }
+  ]
+}

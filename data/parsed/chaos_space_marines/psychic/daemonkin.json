@@ -1,0 +1,158 @@
+{
+  "Khorne": {
+    "description": "",
+    "items": [
+      {
+        "name": "Unbound Fury",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "The target unit gains the \"Furious Charge\" ability.",
+        "duration": "Until the end of the current battle round",
+        "cost": "1 Blood point"
+      },
+      {
+        "name": "Obliteration",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "The target unit gains the \"Decimate\" ability.",
+        "duration": "Until the end of the current battle round",
+        "cost": "1 Blood point"
+      },
+      {
+        "name": "Reborn in Blood",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "The target unit heals 3 Wounds +1 Wound for each additional Blood point spent on it. Dead models may be revived with this ability. Injured models have to be fully healed first.",
+        "duration": "Instant",
+        "cost": "2 Blood points +x"
+      },
+      {
+        "name": "Blood for the Blood God",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "Place a unit of 8 Bloodletters within 8\" of a friendly unit with the Mark of Khorne as if they arrived via Deep strike. The unit counts as activated, but can still fight in melee on this turn.",
+        "duration": "Instant",
+        "cost": "4 Blood points"
+      },
+      {
+        "name": "Skulls for his Throne",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "Place a unit of 1 Bloodthirster within 8\" of a friendly unit with the Mark of Khorne as if it arrived via Deep strike. The unit counts as activated, but can still fight in melee on this turn.",
+        "duration": "Instant",
+        "cost": "8 Blood points"
+      },
+      {
+        "name": "Desecration",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "If the unit is currently standing within 3\" of an uncontested mission objective, you immediately gain control of it as if it was a unit with the \"Objective secured!\" ability.",
+        "duration": "Instant",
+        "cost": "1 Blood point"
+      }
+    ]
+  },
+  "Slaanesh": {
+    "description": "",
+    "items": [
+      {
+        "name": "Beautiful Death",
+        "range": "Anywhere",
+        "target": "A friendly model that has just lost its last Wound",
+        "effect": "The target may fight (again) in melee before being removed.",
+        "duration": "Instant",
+        "cost": "1 Pact point"
+      },
+      {
+        "name": "Dance Macabre",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "Place a unit of 6 Daemonettes within 6\" of a friendly unit with the Mark of Slaanesh as if they arrived via Deep strike. The unit counts as activated, but can still fight in melee on this turn.",
+        "duration": "Instant",
+        "cost": "1 Pact point"
+      },
+      {
+        "name": "Diabolic Majesty",
+        "range": "Anywhere",
+        "target": "Enemy unit",
+        "effect": "The target must pass a Leadership test with a -2 penalty.",
+        "duration": "Instant",
+        "cost": "1 Pact point"
+      },
+      {
+        "name": "Protection of the Dark Prince",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "The target gains \"Aegis(4+)\", \"Warded\" and can never be wounded on a roll of 1 or 2.",
+        "duration": "Until the end of the current battle round",
+        "cost": "1 Pact point"
+      },
+      {
+        "name": "Violent Crescendo",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "The target gains \"Frenzy(2\")\".",
+        "duration": "Until the end of the current battle round",
+        "cost": "1 Pact point"
+      },
+      {
+        "name": "Siren's Call",
+        "range": "Anywhere",
+        "target": "Friendly unit",
+        "effect": "Place a unit of 1 Keeper of Secrets within 6\" of a friendly unit with the Mark of Slaanesh as if it arrived via Deep strike. The unit counts as activated, but can still fight in melee on this turn.",
+        "duration": "Instant",
+        "cost": "3 Pact point"
+      }
+    ]
+  },
+  "Tzeentch": {
+    "description": "",
+    "items": [
+      {
+        "name": "Pact from Beyond",
+        "cost": "1",
+        "when": "After successfully manifesting a psychic power.",
+        "effect": "The range of the psychic power is increased by 6\" per spent CP."
+      },
+      {
+        "name": "Cabbalistic Focus",
+        "cost": "2",
+        "when": "Before rolling to manifest or deny a psychic power.",
+        "effect": "Add +1 to the test result for each spent CP."
+      },
+      {
+        "name": "Psychic Maelstrom",
+        "cost": "2",
+        "when": "After successfully manifesting a psychic power.",
+        "effect": "In addition to the power, resolve the effects of a \"Smite\" originating from the caster."
+      },
+      {
+        "name": "Residual Magic",
+        "cost": "3",
+        "when": "After successfully manifesting a psychic power.",
+        "effect": "Select one of the following effects to apply to the caster and their attached unit until their next activation:\n- Add +6\" range to all ranged weapons.\n- The unit gains +1 Strength.\n- The unit gains a 6+ invulnerability save."
+      }
+    ]
+  },
+  "Nurgle": {
+    "description": "Track the total number of unsaved Wounds inflicted by units with the Mark of Nurgle. At the start of each battle round, consult the Tally of Pestilence table to determine the current bonus. All models with the Mark of Nurgle gain the corresponding characteristic boost or special rule. All bonuses stack.",
+    "items": [
+      {
+        "threshold": 7,
+        "effect": "Models with the Mark of Nurgle gain +1 Strength."
+      },
+      {
+        "threshold": 14,
+        "effect": "Models with the Mark of Nurgle gain +1 Toughness."
+      },
+      {
+        "threshold": 21,
+        "effect": "Weapons with the \"Poison\" ability re-roll to wound rolls of 1."
+      },
+      {
+        "threshold": 28,
+        "effect": "Models with the Mark of Nurgle gain the \"Warded\" ability."
+      }
+    ]
+  }
+}

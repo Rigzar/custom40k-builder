@@ -1,0 +1,77 @@
+{
+  "name": "Forge World Armory",
+  "weapons": [
+    {
+      "name": "The Adamantine Arm",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x3",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3), Extra attack, Master-Crafted. Forge World Metalica only.",
+      "p_unit": null,
+      "p_char": 26
+    },
+    {
+      "name": "The Omnissiah's Hand",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Ammo(1), AT(3), Beam, Explosive, Extra Attack. Forge World Stygies VIII only.",
+      "p_unit": null,
+      "p_char": 36
+    },
+    {
+      "name": "The Red Axe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Flurry(2). Forge World Mars only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Weapon XCIX",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Heavy 3",
+      "s": "7",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1), Soul Burn(5+) Forge World Ryza only.",
+      "p_unit": null,
+      "p_char": 52
+    }
+  ],
+  "equipment": [
+    {
+      "name": "The Cerebral Techno-Mitre",
+      "term_compat": false,
+      "desc": "Increase the range of all Canticles performed by this model by 6\". Forge World Graia only. Archmagos only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "The Eye of Xi-Lexum",
+      "term_compat": false,
+      "desc": "This model and any attached unit gains the Tank Hunters ability. Forge World Agripinaa only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "The Solar Flare",
+      "term_compat": false,
+      "desc": "Once per game, when activating this model with an Advance or Move and Shoot order, you may choose to teleport it instead of moving normally. Redeploy this model and any attached unit per the rules of Deep Strike. Forge World Lucius only.",
+      "p_unit": null,
+      "p_char": 10
+    }
+  ],
+  "daemon_weapons": []
+}

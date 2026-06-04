@@ -1,0 +1,60 @@
+{
+  "name": "Relictors Armory",
+  "weapons": [
+    {
+      "name": "Artekus' ScourgeÃ¡Â´Â³",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Flurry(2), Poison(4+), Soul Burn(5+). Unique.",
+      "p_unit": 11,
+      "p_char": 12
+    },
+    {
+      "name": "Sword of St. AquitaineÃ¡Â´Â³",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Force Weapon. Unique. The model and its attached unit can't be targeted by anything outside of 18\".",
+      "p_unit": null,
+      "p_char": 20
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Book of PainÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "Select one enemy unit during your activation. The target must pass a Leadership test or gain one Battleshock token. Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Grimoire PandaemonicaÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "Once per battle round, you may re-roll both scatter dice from ANY player. Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Shard of the MonolithÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model gains +1 Strength and +1 Initiative. It may never use a \"Stand & Shoot\" order voluntarily and must always move closer to the nearest enemy unit, if possible.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "-",
+      "term_compat": false,
+      "desc": "-",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

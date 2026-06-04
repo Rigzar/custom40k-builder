@@ -1,0 +1,44 @@
+{
+  "archetypes": [
+    {
+      "name": "Flying Death",
+      "desc": "- Gargoyle Broods & Tyranid Warrior Broods with the \"Winged\" Biomorph can be taken as Troops.\n- Only Gargoyle Broods & Tyranid Warrior Broods with the \"Winged\" Biomorph count towards the 25% Troops limitation.\n- At least half of all Gargoyle Brood & Tyranid Warrior Broods with the \"Winged\" Biomorph must start the game in reserves, even if the mission does not allow reserves."
+    },
+    {
+      "name": "Megafauna",
+      "desc": "- Carnifex Broods can be taken as Troops.\n- Only Carnifex Broods count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Tyrannocyte Assault",
+      "desc": "- All units must start the game as passengers inside a Tyrannocyte.\n- Half of all Tyrannocyte in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrives automatically in the second battle round."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Adaptive Toxins",
+      "desc": "The army has access to equipment from Hive Fleet Gorgon in the Hive Armory.",
+      "armory_key": "Hive Fleet"
+    },
+    {
+      "name": "Bio-Barrage",
+      "desc": "The army has access to equipment from Hive Fleet Kronos in the Hive Armory.",
+      "armory_key": "Hive Fleet"
+    },
+    {
+      "name": "Hyper-Aggression",
+      "desc": "The army has access to equipment from Hive Fleet Behemoth in the Hive Armory.",
+      "armory_key": "Hive Fleet"
+    },
+    {
+      "name": "Questing Tendrils",
+      "desc": "The army has access to equipment from Hive Fleet Kraken in the Hive Armory.",
+      "armory_key": "Hive Fleet"
+    },
+    {
+      "name": "Synaptic Control",
+      "desc": "The army has access to equipment from Hive Fleet Leviathan in the Hive Armory.",
+      "armory_key": "Hive Fleet"
+    }
+  ],
+  "traits": []
+}

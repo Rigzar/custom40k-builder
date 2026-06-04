@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Soultearer Portent",
+    "range": "-",
+    "target": "Self + Attached unit",
+    "effect": "Melee weapons gain the \"Decimate\" ability.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Unholy Blessing",
+    "range": "-",
+    "target": "Self + Attached unit",
+    "effect": "Melee weapons gain additional -1AP.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Veil of Despair",
+    "range": "6\" radius",
+    "target": "Self",
+    "effect": "Enemy models suffer a -2 penalty to their Leadership.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Illusory Supplication",
+    "range": "-",
+    "target": "Self + Attached unit",
+    "effect": "Hit rolls of 1-3 against target unit always fail.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Omen of Sacrifice",
+    "range": "-",
+    "target": "Self",
+    "effect": "The caster suffers 1 wound. Return one fallen model of attached unit to the battlefield.",
+    "duration": "Instant",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Heretical Visions",
+    "range": "18\"",
+    "target": "Friendly unit of Cultists",
+    "effect": "Target unit is fearless.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Will of the Chaos Gods",
+    "range": "12\"",
+    "target": "Friendly unit of <Cultists>",
+    "effect": "Target unit gets all benefits of all marks of chaos.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Warp Barrier",
+    "range": "18\"",
+    "target": "Self",
+    "effect": "Enemy psykers must reroll successful psychic tests. They suffer a \"Peril of the warp\" off of all doublets.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Forsaken Resurrection",
+    "range": "12\"",
+    "target": "Friendly unit of <Cultists>",
+    "effect": "Target unit regains 2D3 fallen models.",
+    "duration": "Instant",
+    "complexity": "Easy"
+  },
+  {
+    "name": "Benediction of Darkness",
+    "range": "6\"",
+    "target": "Self + Attached unit",
+    "effect": "Models count as if they were in cover.",
+    "duration": "Until the next activation of the caster",
+    "complexity": "Easy"
+  }
+]

@@ -1,0 +1,814 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Attack squigᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "The wearer inflicts 4 automatic hits with this weapon in each melee",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Beast snagga claw",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1), The model receives a +3 bonus on rolls to pursue fleeing units.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Beastchoppaᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1)",
+      "p_unit": 13,
+      "p_char": 17
+    },
+    {
+      "name": "Big choppaᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Big shootaᴹ",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Assault 3",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 12,
+      "p_char": 17
+    },
+    {
+      "name": "Blast stikkbombz",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armorbane",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Bomb squigᴹ",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Ammo(1). During activation, the model can release a Bomb squig. Roll 1D6. On a 2+, the Bomb squig automatically hits the nearest enemy unit within 18\". On a 1, it automatically hits the nearest friendly unit within 18\". Vehicles are favored in both cases.",
+      "p_unit": 8,
+      "p_char": 8
+    },
+    {
+      "name": "Burna",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 14,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Ranged",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        }
+      ]
+    },
+    {
+      "name": "Choppa",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Force staveᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "AT(1), Force weapon. Psyker only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Killsawᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3),Slow(-3), Armorbane.",
+      "p_unit": 26,
+      "p_char": 33
+    },
+    {
+      "name": "Kombi burnaᴹ",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 11,
+      "profiles": [
+        {
+          "name": "Burna",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames, Combi."
+        },
+        {
+          "name": "Shoota",
+          "range": "18\"",
+          "type": "Assault 3",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Combi."
+        }
+      ]
+    },
+    {
+      "name": "Kombi rokkit launchaᴹ",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 20,
+      "profiles": [
+        {
+          "name": "Rokkit launcha",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Anti-air, Combi."
+        },
+        {
+          "name": "Shoota",
+          "range": "18\"",
+          "type": "Assault 3",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Combi."
+        }
+      ]
+    },
+    {
+      "name": "Kustom mega-blastaᴹ",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1), Explosive, Overheating. Mek only.",
+      "p_unit": null,
+      "p_char": 23
+    },
+    {
+      "name": "Paired killsawsᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3),Slow(-3), Armorbane, Flurry(2), Unwieldy.",
+      "p_unit": 36,
+      "p_char": 46
+    },
+    {
+      "name": "Power klawᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)",
+      "p_unit": 16,
+      "p_char": 20
+    },
+    {
+      "name": "Rokkit launchaᴹ",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "3",
+      "d": "2",
+      "abilities": "AT(2), Anti-air. Mek only.",
+      "p_unit": null,
+      "p_char": 24
+    },
+    {
+      "name": "Rokkit pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Anti-air",
+      "p_unit": 7,
+      "p_char": 11
+    },
+    {
+      "name": "Slugga",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Smasha hammaᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "AT(2), Unwieldy",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Speshul slugga",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 6",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Deflagrate(5+)",
+      "p_unit": 3,
+      "p_char": 5
+    },
+    {
+      "name": "Tellyport blastaᴹ",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Explosive, Tellyported. Mek in Mega armor only.",
+      "p_unit": null,
+      "p_char": 43
+    },
+    {
+      "name": "Tower grotᴹ",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Assault 3",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Attacks with this weapon are executed with BS 4+.",
+      "p_unit": null,
+      "p_char": 17
+    },
+    {
+      "name": "Twin shootaᴹ",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 6",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 8,
+      "p_char": 12
+    },
+    {
+      "name": "'Urty klawᴹ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Poison(3+). Painboy only.",
+      "p_unit": 12,
+      "p_char": 15
+    },
+    {
+      "name": "'Urty Syringe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Poison(4+). Painboy only.",
+      "p_unit": null,
+      "p_char": 3
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Ammo grotᴹ",
+      "term_compat": false,
+      "desc": "The model can reroll one hit roll with this weapon per round. Must be purchased separately for each weapon.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Artifact of Gork ... or Morkᴹ",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Bonesawᴹ",
+      "term_compat": false,
+      "desc": "At the end of its movement, the model can attempt to heal a creature within 3\". On a 3+, a model regains up to 2 lost Wounds. On a 1-2, it loses another Wound. Painboy only.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Boss poleᴹ",
+      "term_compat": false,
+      "desc": "Friendly units within a 6\" radius receive +1 to their Leadership value.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Coppa skullcapᴹ",
+      "term_compat": false,
+      "desc": "If the model manifests a psychic power with a roll of 10 or more, it may use the same psychic power a second time. The target may be changed. Unique",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Cybork bodyᴹ",
+      "term_compat": false,
+      "desc": "The model receives a 5+ invulnerability save.",
+      "p_unit": 7,
+      "p_char": 20
+    },
+    {
+      "name": "Eavy armor",
+      "term_compat": false,
+      "desc": "The model gains a 4+ armor save.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Fuel mixagrot",
+      "term_compat": false,
+      "desc": "Once per game, the model can automatically advance 9\". Bikes only.",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Gold teeth armor",
+      "term_compat": false,
+      "desc": "The model gains a 3+ armor save and a 5+ invulnerable save. Unique",
+      "p_unit": null,
+      "p_char": 46
+    },
+    {
+      "name": "Grot orderlyᴹ",
+      "term_compat": false,
+      "desc": "This model can use \"Narthecium\" one additional time per round. If this model has a Bonesaw, they get +1 to their roll to heal wounds.",
+      "p_unit": null,
+      "p_char": 7
+    },
+    {
+      "name": "Kustom force fieldᴹ",
+      "term_compat": false,
+      "desc": "The model and an attached unit gain the \"Warded\" ability against ranged attacks. Big Mek only. Unique.",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "Lucky stikkzᴹ",
+      "term_compat": false,
+      "desc": "The model can re-roll up to two failed rolls each battle round. For each re-roll that also fails, the model suffers an automatic Wound with not saves allowed.",
+      "p_unit": null,
+      "p_char": 8
+    },
+    {
+      "name": "Mega armor",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, a 2+ armor save, and the special rules \"Massive(1)\" and \"Unyielding\". Infantry only.",
+      "p_unit": 22,
+      "p_char": 42
+    },
+    {
+      "name": "Mek tools",
+      "term_compat": false,
+      "desc": "At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll. Spanna only.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "More Boom!ᴹ",
+      "term_compat": false,
+      "desc": "A ranged weapon of the model increases its Strength by 2. Not compatible with \"More Dakka!\" and \"More Zzzap!\".",
+      "p_unit": 5,
+      "p_char": 10
+    },
+    {
+      "name": "More Dakka!ᴹ",
+      "term_compat": false,
+      "desc": "A ranged weapon of the model increases its number of shots by 2. Not compatible with \"More Boom!\" and \"More Zzzap!\".",
+      "p_unit": 10,
+      "p_char": 20
+    },
+    {
+      "name": "More Zzzap!ᴹ",
+      "term_compat": false,
+      "desc": "A ranged weapon of the model gains -1 AP, +1 Damage and the \"Overheating\" trait. Not compatible with \"More Dakka!\" and \"More Boom!\".",
+      "p_unit": 15,
+      "p_char": 15
+    },
+    {
+      "name": "Moshing honoursᴹ",
+      "term_compat": false,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Oil grotᴹ",
+      "term_compat": false,
+      "desc": "The model can re-roll one \"Mek Tools\" roll per battle round.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Precision squigᴹ",
+      "term_compat": false,
+      "desc": "The model gains +1 Ballistic Skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Psychic trainingᴹ",
+      "term_compat": false,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Rocket pack",
+      "term_compat": false,
+      "desc": "The model becomes a \"Jump pack infantry\" unit and gains the \"Rocket pack\" trait (see Stormboyz). For Infantry only",
+      "p_unit": null,
+      "p_char": 30
+    },
+    {
+      "name": "Skorched git remainsᴹ",
+      "term_compat": false,
+      "desc": "The model gains a +1 bonus to manifest psychic powers from the Waaagh! discipline.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Sneakiest Git",
+      "term_compat": false,
+      "desc": "The model gains the Use Cover, Move Through Cover, Infiltrator and Throat Slittas abilities (see Kommandos). Infantry only. Unique.",
+      "p_unit": null,
+      "p_char": 13
+    },
+    {
+      "name": "Squighog steed",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Strength +1 Toughness, +1 Wound, +1 Attack and the unit type \"Bike\" and the <Squig> keyword. Infantry only. <Wildork> only.",
+      "p_unit": null,
+      "p_char": 29
+    },
+    {
+      "name": "Squigosaur",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the unit type \"Bike\" and the <Squig> keyword. Infantry only.",
+      "p_unit": null,
+      "p_char": 40
+    },
+    {
+      "name": "Tellyporta homing beaconᴹ",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Thinking capᴹ",
+      "term_compat": false,
+      "desc": "Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation. Unique",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Trophyᴹ",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Waaagh!-Bannerᴹ",
+      "term_compat": false,
+      "desc": "The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit can not be contested by enemy units. Additionally, all models in the unot gain +1 Attack. Unique.",
+      "p_unit": 25,
+      "p_char": 25
+    },
+    {
+      "name": "Waaagh!-Bike",
+      "term_compat": false,
+      "desc": "The model gets +6\" Movement, +1 Toughness, +1 Wound, a Dakkagun and the unit type \"Bike\". Infantry only.",
+      "p_unit": 27,
+      "p_char": 45
+    },
+    {
+      "name": "Waaagh!-Trike",
+      "term_compat": false,
+      "desc": "The model gets +6\" Movement, +1 Toughness, +2 Wounds, three double-barreled Bummstikks, Kill jets and the unit type \"Bike\". Infantry only.",
+      "p_unit": null,
+      "p_char": 91
+    },
+    {
+      "name": "Wildorkᴹ",
+      "term_compat": false,
+      "desc": "The model receives the <Wildork> keyword and a 6+ invulnerability saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Bionik Oiler",
+      "term_compat": false,
+      "desc": "The model gains a +1 bonus to its roll for Mek tools. Mek and Big Mek only.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Da Booma",
+      "term_compat": false,
+      "desc": "One weapon of the vehicle gains +12\" range and +1 Strength. Vehicle only.",
+      "p_unit": 25,
+      "p_char": null
+    },
+    {
+      "name": "Eavy armour cabin",
+      "term_compat": false,
+      "desc": "Passengers receive the benefit of cover. Transport vehicle only.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Enhanced Runt-Sucker",
+      "term_compat": false,
+      "desc": "This model's Shokk attack gun changes its type to \"Assault 2\". Big Mek or Mek Junka only.",
+      "p_unit": 107,
+      "p_char": null
+    },
+    {
+      "name": "Extra-Kustom Weapon",
+      "term_compat": false,
+      "desc": "This model's Kustom mega-blasta changes its type to \"Assault 2\". Mek, Big Mek, and Spanna only.",
+      "p_unit": 23,
+      "p_char": null
+    },
+    {
+      "name": "Fortress on Wheels",
+      "term_compat": false,
+      "desc": "This model receives a 5+ invulnerability saving throw. Battlewagon and Battle Fortress only.",
+      "p_unit": 75,
+      "p_char": null
+    },
+    {
+      "name": "Gyroscopic Whirlygig",
+      "term_compat": false,
+      "desc": "When using Shokk Tunnel, this model only suffers a glancing hit if it rolls a 1 and does not suffer penetrating hits. Warbuggy only.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "More Dakka",
+      "term_compat": false,
+      "desc": "Roll 1D6 when the unit is activated. On a 4+, the unit may fire an additional shot with a single weapon. Vehicle only.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Nitro Squigs",
+      "term_compat": false,
+      "desc": "All of this model's Squig Launchas receive +1 Strength and -1 AP. Warbuggy only.",
+      "p_unit": 11,
+      "p_char": null
+    },
+    {
+      "name": "Press the Button",
+      "term_compat": false,
+      "desc": "Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Armor piercing(5+)\" for all weapons until the end of the battle round.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Shokka Hull",
+      "term_compat": false,
+      "desc": "Attackers receive an automatic hit with S:4 AP:0 D:1 for each hit in the melee. Vehicle only.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Smoky Gubbinz",
+      "term_compat": false,
+      "desc": "If the unit has used a \"Stand & Shoot\" command in this battle round, it receives the \"Deflect\" special rule. Mek, Big Mek, and Spanna only.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Souped-up Speshul",
+      "term_compat": false,
+      "desc": "The model's Mek speshul weapon changes its type to \"Assault 14\". Warbuggy only.",
+      "p_unit": 20,
+      "p_char": null
+    },
+    {
+      "name": "Squig-hide Tyres",
+      "term_compat": false,
+      "desc": "The model ignores temporary engine damage. Non-walker or aircraft vehicle only.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Stompamatic Pistons",
+      "term_compat": false,
+      "desc": "The vehicle receives +2\" Movement. Walker only.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Zzapkrumpaz",
+      "term_compat": false,
+      "desc": "This unit's melee weapons gain \"Deadly(6+)\". Spanna only.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Armored hood",
+      "term_compat": false,
+      "desc": "The vehicle no longer counts as \"Open\".",
+      "p_unit": 0,
+      "p_char": null
+    },
+    {
+      "name": "Boarding plank",
+      "term_compat": false,
+      "desc": "All passengers in the vehicle can fight normally in melee and be targeted while in the transporter. Vehicles with the \"Open\" ability only.",
+      "p_unit": 0,
+      "p_char": null
+    },
+    {
+      "name": "Death roller",
+      "term_compat": false,
+      "desc": "The model resolves Tank Shock attacks with Strength 10.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Grab claw",
+      "term_compat": false,
+      "desc": "Roll 1D6 when an enemy vehicle is in base contact and is activated. It cannot move on 4+.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Grot mechanic",
+      "term_compat": false,
+      "desc": "At the start of its activation, the model can attempt to repair each \"Engine damage\" vehicle damage it suffered on rolls of 5+. On each roll of 1, it suffers one penetrating hit with AT(1).",
+      "p_unit": 0,
+      "p_char": null
+    },
+    {
+      "name": "Nozzle drive",
+      "term_compat": false,
+      "desc": "The vehicle can move an additional 1D6\" with an Advance command. On a 1, the model suffers one permanent engine damage. This additional movement is not taken into account when determining how many weapons a vehicle can still fire, or how passengers can use their orders. Not for Walkers.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Red paint",
+      "term_compat": false,
+      "desc": "The vehicle receives +1\" to its movement range. This additional movement is not taken into account when determining how many weapons a vehicle can still fire or how passengers can use their orders.",
+      "p_unit": 2,
+      "p_char": null
+    },
+    {
+      "name": "Reinforced battering ram",
+      "term_compat": false,
+      "desc": "The vehicle may re-roll dangerous terrain tests and ignores difficult terrain.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Smoke launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Stikkbombz launcha",
+      "term_compat": false,
+      "desc": "The vehicle receives an additional weapon: Stikkbombz launcha.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Target squig",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Wrecking ball",
+      "term_compat": false,
+      "desc": "The model resolves Tank Shock attacks with Damage 2.",
+      "p_unit": 20,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

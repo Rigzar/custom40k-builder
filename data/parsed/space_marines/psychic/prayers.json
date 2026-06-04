@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Catechism of Fire",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains the \"Deflagrate(5+)\" ability for all melee OR ranged weapons.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Focus Recitation",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains a 5+ invulnerability save.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Litany of Faith",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains the \"Aegis(4+)\" ability.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Litany of Hate",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains +1 to hit rolls in ranged OR melee combat.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Mantra of Strength",
+    "range": "-",
+    "target": "Self",
+    "effect": "The target gains +1 Strength and -1 AP for melee attacks.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Fire of Devotion",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains +1 to hit rolls in ranged AND melee combat.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Litany of Divine Protection",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains a 4+ invulnerability save.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Oath of Glory",
+    "range": "-",
+    "target": "Self",
+    "effect": "The target gains +1 Strength, +1 Attack and -1 AP for melee attacks.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Plea of Deliverance",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target is immune against Maledictions and Witchfires.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Psalm of Remorseless Persecution",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains the \"Deflagrate(5+)\" ability for all melee AND ranged weapons.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "name": "Alpha Legion Armory",
+  "weapons": [
+    {
+      "name": "Blade of the Hydra",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Deflagrate(5+), Flurry(3), Rending, Unique, Unwieldy",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Viper's Bite",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "5",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "-",
+      "p_unit": 20,
+      "p_char": 25
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Drakescale Plate",
+      "term_compat": false,
+      "desc": "Attacks against this model reduce their AP by 1.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Hydra's Teeth",
+      "term_compat": true,
+      "desc": "One Bolt weapon of the model gains the \"Explosive\", \"Poison(2+)\" and \"Seeking\" abilities.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Icon of Insurrection",
+      "term_compat": true,
+      "desc": "If this model is attached to a unit of Cultists, they both gain the \"Blind Rage\" and \"Furious Charge\" abilities.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Mindveil",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Deflect\" ability. Additionally, they may always move +1D3\" with any kind of order.",
+      "p_unit": null,
+      "p_char": 10
+    }
+  ],
+  "daemon_weapons": []
+}

@@ -1,0 +1,192 @@
+{
+  "archetypes": [
+    {
+      "name": "Aspect Focus",
+      "desc": "- <Aspect> units can be taken as Troops.\n- Non-<Aspect> Troops become Elite choices."
+    },
+    {
+      "name": "Exemplars of the Shrines",
+      "desc": "- All Exarchs must gain two Exarch powers and they are no longer unique."
+    },
+    {
+      "name": "LIIVI",
+      "desc": "- The army got access to a single Vindicare assassin.\n- One HQ selection must be a Farseer."
+    },
+    {
+      "name": "Windhost",
+      "desc": "- Windriders can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    },
+    {
+      "name": "Wraithhost",
+      "desc": "- Wraithblades and Wraithguard units can be taken as Troops.\n- Non-<Wraith> Troops become Elite choices."
+    },
+    {
+      "name": "Ynnari",
+      "desc": "- Ynnari become \"Battle Brothers\" for Dark Eldar.\n- The army got access to the Ynnari Armory and the Revenant discipline.\n- May not select any Legacy."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Fieldcraft",
+      "desc": "The army has access to equipment from the Alaitoc Craftworld in the Craftworld Armory.",
+      "armory_key": "Craftworld"
+    },
+    {
+      "name": "Foresight of the Damned",
+      "desc": "The army has access to equipment from the Ulthwé Craftworld in the Craftworld Armory.",
+      "armory_key": "Craftworld"
+    },
+    {
+      "name": "Stoic Endurance",
+      "desc": "The army has access to equipment from the Iyanden Craftworld in the Craftworld Armory.",
+      "armory_key": "Craftworld"
+    },
+    {
+      "name": "Swordwind",
+      "desc": "The army has access to equipment from the Biel-Tan Craftworld in the Craftworld Armory.",
+      "armory_key": "Craftworld"
+    },
+    {
+      "name": "Wild Host",
+      "desc": "The army has access to equipment from the Saim-Hann Craftworld in the Craftworld Armory.",
+      "armory_key": "Craftworld"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Black Guardians",
+      "desc": "The unit gains +1 Leadership.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Children of Khaine",
+      "desc": "The unit gains the \"Deadly(6+)\" ability for all melee weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Children of Morai-Heg",
+      "desc": "If the unit is below starting strength, each model in it gains +1 attack.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Children of Prophecy",
+      "desc": "The unit may re-roll 1s and 2s for manifestating or denying psychic powers. Only for Psykers.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Children of the Open Skies",
+      "desc": "The unit gains the \"Haste(2\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Combined War Host",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Elite Citizenry",
+      "desc": "The unit may re-roll one to hit roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Expert Crafters",
+      "desc": "The unit may re-roll one to wound or armor penetration roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Grim",
+      "desc": "Every melee combat result is increased by +2 for the unit.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Hail of Doom",
+      "desc": "The \"Shuriken\" ability grants an additional -1 to the weapon's AP value.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Masterful Shots",
+      "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Masters of Concealment",
+      "desc": "The unit gains the benefit of light cover until its first activation.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Mobile Fighters",
+      "desc": "If the unit disembarked from a transport this round, all of its weapons gain the \"Decimate\" ability for this activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Savage Blades",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, all of its melee weapons gain -1 AP for this activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Students of Vaul",
+      "desc": "The unit ignores temporary vehicle damage on a roll of 4+.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    }
+  ]
+}

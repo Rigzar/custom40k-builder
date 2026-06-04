@@ -1,0 +1,256 @@
+{
+  "archetypes": [
+    {
+      "name": "1st Company",
+      "desc": "The army may only consist of the following units:\n- 1x Captain Dreadnought or 1x Lieutenant, 1x Chaplain or 1x Chaplain Dreadnought, 1x Emperor's Champion, 1x Librarian or 1x Librarian Dreadnought\n- 1x Ancient, 1x Apothecary, Deathwing Knights, Dreadnoughts (including variants), Honor Guard, 1x Judiciar, 1x Company Champion, Terminators, 1x Techmarine\n- Land Raider (including variants), Repulsor (including variants)\n- Drop Pods\n- HQ models must gain their \"once per army\" upgrade, if possible.\n- Honor Guard and Terminators can be taken as Troops.\n- Honor Guard units are not limited to 1x per HQ selection anymore.\n- All units gain the special rule \"Objective secured!\"."
+    },
+    {
+      "name": "Death from Above",
+      "desc": "- Assault Squad units can be taken as Troops.\n- Only Assault Squad units count towards the 25% Troops limitation.\n- At least half of all Assault Squad models must start the game in reserves, even if the mission does not allow reserves."
+    },
+    {
+      "name": "Drop Pod Assault",
+      "desc": "- All units must start the game as passengers inside a Drop Pod.\n- Half of all Drop Pods in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrives automatically in the second battle round."
+    },
+    {
+      "name": "Forlorn Brothers",
+      "desc": "The army may only consist of the following units:\n- Creature units with the \"Black Rage\" equipment (see Blood Angels Armory).\n- Dreadnoughts, Redemptor Dreadnoughts.\n- Drop Pods, Impulsors, Razorbacks, Rhinos. \n- Death Company units can be taken as Troops and are not limited to one per army anymore."
+    },
+    {
+      "name": "Legion (Space Marines)",
+      "desc": "- The army has access to everything from the Horus Heresy Space Marines supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Librarian Conclave",
+      "desc": "- The army gets 4 HQ slots in total and has only access to Librarians, Chief Librarians and Librarian Dreadnoughts as HQ models. Librarians gain the \"Command Squad\" ability.\n- All of these models must be set up within 12\" of each other. \n- While a Chief Librarian is within 12\" of a Librarian, they can manifest all powers known to the Librarian and receive a +1 bonus to manifesting and dispelling psychic powers."
+    },
+    {
+      "name": "Renegades",
+      "desc": "- Renegades are treated like \"Chaos Space Marines\" in the Ally matrix.\n- May select one Trait from the \"Chaos Space Marines\" list instead of the normal selection."
+    },
+    {
+      "name": "Swift as the Wind",
+      "desc": "- Bikes and Outriders can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Legacy of Aurelia",
+      "desc": "The army has access to the Blood Ravens Armory.",
+      "armory_key": "Blood Ravens"
+    },
+    {
+      "name": "Legacy of the Alien Hunters",
+      "desc": "The army has access to the Death Watch Armory, Inquisitors and Inquisition units. Inquisitors must select \"Ordo Xenos\" in the armory.\nEach model can receive the \"Special ammunition\" equipment, regardless of whether it has access to the armory.",
+      "armory_key": "Death Watch"
+    },
+    {
+      "name": "Legacy of the Angel",
+      "desc": "The army has access to the Blood Angels Armory and the Sanguine psychic discipline.",
+      "armory_key": "Blood Angels"
+    },
+    {
+      "name": "Legacy of the Crusader",
+      "desc": "The army has access to the Black Templars Armory and Prayers of the Faithful.",
+      "armory_key": "Black Templars"
+    },
+    {
+      "name": "Legacy of the Damned",
+      "desc": "The army has access to the Relictors Armory.",
+      "armory_key": "Relictors"
+    },
+    {
+      "name": "Legacy of the Khan",
+      "desc": "The army has access to the White Scars Armory and the Stormspeaking psychic discipline.",
+      "armory_key": "White Scars"
+    },
+    {
+      "name": "Legacy of the Lion",
+      "desc": "The army has access to the Dark Angels Armory and the Interromancy psychic discipline.",
+      "armory_key": "Dark Angels"
+    },
+    {
+      "name": "Legacy of the Praetorian",
+      "desc": "The army has access to the Imperial Fists Armory and the Geokinesis psychic discipline.",
+      "armory_key": "Imperial Fists"
+    },
+    {
+      "name": "Legacy of the Wolf",
+      "desc": "The army has access to the Space Wolves Armory and the Tempestus psychic discipline.",
+      "armory_key": "Space Wolves"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Blitz Attack",
+      "desc": "The unit can fire Assault weapons, Grenades and Pistols without a to hit penalty with Advance and Charge orders.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Bolter Drill",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Codex Discipline",
+      "desc": "The unit gains +1 Leadership.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Expanded Armory",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Cursed Founding",
+      "desc": "Select one improvement that must be applied to any creature unit:\n- Apparitions: The unit gains the \"Deep Strike\" ability and must use it during the DEPLOYMENT PHASE instead of being set up as normal. It can deep strike anywhere that isn't the enemy's deployment zone, but can scatter into it. Additionally, the unit gains the \"Warded\" ability.\n- Aura of Doom: The unit gains the \"Terrifying(-2)\" ability.\n- Berserkers: The unit gains the \"Blind Rage\" ability.\n- Immolation: The model gains the \"Retribution(1)\" ability.\n- Ossific Blades: The model gains the \"Ossific Blades\" weapon. (See Armory).",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Forged in Battle",
+      "desc": "The unit can re-roll one armor penetration or wound roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Knowledge is Power",
+      "desc": "The model can re-roll one psychic test per activation. Only for Psykers.",
+      "pts_unit": "-",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Path of Damnation",
+      "desc": "One model of the army must gain the \"Demon weapon\" equipment from the \"Chaos Space Marines\" codex to enhance one of its weapons (chosen from the Space Marine codex). The Demon weapon ability can be from any Armory.",
+      "pts_unit": "-",
+      "pts_char": "Special",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Purity above All",
+      "desc": "One non-character model per squad with access to gear from the Armory can be upgraded to an Apothecary and gains the \"Narthecium\" ability.",
+      "pts_unit": "5",
+      "pts_char": "-",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Rapid Deployment",
+      "desc": "The unit gains the \"Haste(2\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Red Thirst",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Righteous Wrath",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Siege Experts",
+      "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Sons of Mars",
+      "desc": "One non-character model per squad with access to gear from the Armory can be upgraded to a Techmarine and gains the \"Blessing of the Omnissiah\" ability.",
+      "pts_unit": "5",
+      "pts_char": "-",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Stalwart",
+      "desc": "The unit can reroll one armor save per battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Stoic",
+      "desc": "The unit does not suffer the to hit penalty from Defensive Fire.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Strike from the Shadows",
+      "desc": "The unit gains the benefit of light cover until its first activation.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The Flesh is Weak",
+      "desc": "Creature models gain a 6+ invulnerability save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+      "pts_unit": "2*",
+      "pts_char": "0",
+      "pts_monster": "5*",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Unleashed Hunters",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

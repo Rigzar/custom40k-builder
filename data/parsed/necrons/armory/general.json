@@ -1,0 +1,555 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Abyssal lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 24,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Shooting",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Explosive, Suppression"
+        }
+      ]
+    },
+    {
+      "name": "Aeonstave",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 30,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Shooting",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "5",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Explosive, Shield breaker(-3)"
+        }
+      ]
+    },
+    {
+      "name": "Eldritch lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 34,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Shooting",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        }
+      ]
+    },
+    {
+      "name": "Entropic lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "Unique",
+      "p_unit": 20,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Shooting",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Armor piercing(5+), Explosive"
+        }
+      ]
+    },
+    {
+      "name": "Fire gauntlet",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 13,
+      "p_char": 13
+    },
+    {
+      "name": "Hyperphase glaive",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Quick(+1), Flurry(1)",
+      "p_unit": null,
+      "p_char": 17
+    },
+    {
+      "name": "Hyperphase sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Flurry(1)",
+      "p_unit": null,
+      "p_char": 8
+    },
+    {
+      "name": "Lord of the Storm",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Assault 2",
+      "s": "7",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(1)",
+      "p_unit": null,
+      "p_char": 52
+    },
+    {
+      "name": "Tachyon arrow",
+      "term_compat": false,
+      "range": "Unlimited",
+      "type": "Assault 1",
+      "s": "10",
+      "ap": "-5",
+      "d": "3",
+      "abilities": "Ammunition(1), AT(5), Beam",
+      "p_unit": null,
+      "p_char": 26
+    },
+    {
+      "name": "Staff of light",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 28,
+      "p_char": 28,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Shooting",
+          "range": "18\"",
+          "type": "Assault 3",
+          "s": "5",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        }
+      ]
+    },
+    {
+      "name": "Plasmic lance",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 23,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Shooting",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Haywire"
+        }
+      ]
+    },
+    {
+      "name": "Voidblade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Shield breaker(-3)",
+      "p_unit": null,
+      "p_char": 11
+    },
+    {
+      "name": "Voidscythe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(1), Shield breaker(-3)",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "War scythe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(3), Slow(-2)",
+      "p_unit": null,
+      "p_char": 30
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Atomic Energy Manipulator",
+      "term_compat": false,
+      "desc": "Once per game, the model can boost a friendly infantry unit within 3\" range. Roll 1D3: \n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Unique.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Canoptek Cloak",
+      "term_compat": false,
+      "desc": "The model gains the \"Jump pack\" special rule. At the end of its activation, it can heal a friendly Canoptek unit within 6\" for 1 Wound, 1 permanent vehicle damage or 1 Hull point.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Canoptek Control Node",
+      "term_compat": false,
+      "desc": "At the start of the activation, pick a single friendly <Canoptek> unit within 12\". It gets +1 to hit rolls until the end of its activation.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Chronometron",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain a 6+ invulnerability save against ranged attacks. In addition, the model and an attached unit gain a +3 bonus for pursuit rolls.",
+      "p_unit": 20,
+      "p_char": null
+    },
+    {
+      "name": "Countertemporal Nanomines",
+      "term_compat": false,
+      "desc": "Once per battle, this unit can place Countertemporal nanomine while moving. This must be placed within 1\" of the unit and more than 3\" away from enemy units. The first enemy unit that comes within 3\" of the nanomine suffers 1D3+1 wounds with Strength: 4, AP: -4, D: 1. Vehicles suffer 1D3 glancing hits.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Destroyer body",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound and the ability \"Jet bike\". Only for Infantry.",
+      "p_unit": null,
+      "p_char": 53
+    },
+    {
+      "name": "Empyric Overcharger",
+      "term_compat": false,
+      "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Unique.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Gaze of the flame",
+      "term_compat": false,
+      "desc": "Enemy units gain no bonus attack when charging and suffer a -1 penalty to Leadership while in melee.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Grand strategist",
+      "term_compat": false,
+      "desc": "After all units have been placed in the Deployment phase, the Lord may remove and redeploy one of his units. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Harbinger of Despair",
+      "term_compat": false,
+      "desc": "Pick an enemy unit within 18\" and roll 3D6 during your activation. If your result is higher than the target's Leadership value, the target gains a Battleshock token.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Harbinger of Destruction",
+      "term_compat": false,
+      "desc": "Roll 5D6 during your activation. For every 4+ an enemy unit within 24\" suffers an automatic wound with S:4 AP:-1 Dmg:1, Seeking.",
+      "p_unit": 24,
+      "p_char": null
+    },
+    {
+      "name": "Illuminor",
+      "term_compat": false,
+      "desc": "The model's Rites of Reanimation ability has no range limit anymore. Unique.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Lightning field",
+      "term_compat": false,
+      "desc": "The model gains the \"Retribution(3)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Living Lightning",
+      "term_compat": false,
+      "desc": "Roll 1D6 for every enemy model in the same close combat with this model. On a 4+ it suffers an automatic wound with S:4 AP:-1 D:1.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": false,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon separately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Mindshackel Scarab",
+      "term_compat": false,
+      "desc": "Randomly choose an enemy model in base contact. If it fails a Leadership test with 2D6, it attacks its own unit. Does not work with units consisting of a single model (like characters). Ammo(1).",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Nightmare Shroud",
+      "term_compat": false,
+      "desc": "Instead of firing a weapon, the Nightmare shroud can be used. All enemy units within a 12\" radius must pass a Leadership test with a -1 penalty or gain a Battleshock token. Can't be used during Defensive fire. Ammo(1). Unique.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Nullstone field generator",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Aegis(4+)\" ability.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Orb of Reanimation",
+      "term_compat": false,
+      "desc": "Can be used during the Reinforcement phase to automatically succeed on 3 Reanimation Protocol rolls. Ammo(1), Unique.",
+      "p_unit": null,
+      "p_char": 50
+    },
+    {
+      "name": "Phase adjuster",
+      "term_compat": false,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": 8,
+      "p_char": 20
+    },
+    {
+      "name": "Phase shifter",
+      "term_compat": false,
+      "desc": "The model gains a 4+ invulnerability save.",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "Phylactery",
+      "term_compat": false,
+      "desc": "Roll a die the first time the Lord is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Sempiternal weave",
+      "term_compat": false,
+      "desc": "The model gains a 2+ armor save.",
+      "p_unit": 16,
+      "p_char": 18
+    },
+    {
+      "name": "Shadow ankh",
+      "term_compat": false,
+      "desc": "The model may attempt to deny one psychic power per battle round and receives a +1 bonus to the roll.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Skorpekh body",
+      "term_compat": false,
+      "desc": "The model gains +1 Toughness, +1 Initiative, +1 Wound and the ability \"Move through cover\". Only for Infantry.",
+      "p_unit": 16,
+      "p_char": null
+    },
+    {
+      "name": "Solar impulse",
+      "term_compat": false,
+      "desc": "During the model's activation, the solar impulse can be used once to give all units on the table a -1 hit penalty until the end of the battle round. Unique.",
+      "p_unit": 20,
+      "p_char": 20
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Tesseract labyrinth",
+      "term_compat": false,
+      "desc": "At the start of your activation, pick a wounded enemy model in base contact. It must pass a Strength test or is immediately removed. One use only.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Timesplinter mantle",
+      "term_compat": false,
+      "desc": "The model gains a 4+ invulnerability save.",
+      "p_unit": 12,
+      "p_char": null
+    },
+    {
+      "name": "Tomb world relic",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Translocation shroud",
+      "term_compat": false,
+      "desc": "The model gains \"Anti-Grav\" and always advances 6\" when using an \"Advance\" order without rolling for it.",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Trophy",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Veil of darkness",
+      "term_compat": false,
+      "desc": "The Lord can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the deep strike rules. Additionally, the model and its attached unit gain the \"Deep strike\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 40
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deep strike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

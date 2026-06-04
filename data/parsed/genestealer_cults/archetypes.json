@@ -1,0 +1,181 @@
+{
+  "archetypes": [
+    {
+      "name": "The First Curse",
+      "desc": "- Purestrain Genestealers units can be taken as Troops.\n- The army must take one Patriarch.\n- Only Purestrain Genestealers units count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Outlander Claw",
+      "desc": "- Atalan Jackals can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Legacy of Chancer's Vale",
+      "desc": "All Psykers know the \"Last Gasp\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Legacy of Feinminster Gamma",
+      "desc": "All Psykers know the \"Broodvolt Surge\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Legacy of New Gidlam",
+      "desc": "All Psykers know the \"Synaptic Blast\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Legacy of Newseam",
+      "desc": "All Psykers know the \"Inescapable Decay\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Legacy of the Trysst Dynasty",
+      "desc": "All Psykers know the \"Undermine\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Legacy of Vejovium III",
+      "desc": "All Psykers know the \"Mutagenic Deviation\" psychic power in addition.",
+      "armory_key": null
+    }
+  ],
+  "traits": [
+    {
+      "name": "Agile Guerillas",
+      "desc": "The model may shoot \"Heavy\" weapons with a -1 penalty and \"Rapid Fire\" weapons at full range with a \"Move & Shoot\" command",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Alien Fury",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Cyborgised Hybrids",
+      "desc": "Creature models gain a 6+ invulnerability save. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+      "pts_unit": "1*",
+      "pts_char": "0",
+      "pts_monster": "1*",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Deep Supplies",
+      "desc": "The unit can re-roll one armor penetration or wound roll per activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Devoted Zealots",
+      "desc": "The unit gains the \"Blind Rage\" ability.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Disciplined Militants",
+      "desc": "The unit gains +1 Leadership.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Experimental Subjects",
+      "desc": "The unit gains +1 Strength.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Hunter's Instincts",
+      "desc": "The unit gains a cumulative +1 bonus to armor save rolls while benefitting from cover.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Martial",
+      "desc": "The unit may re-roll ranged to hit rolls of 1 with Assault, Pistol and Rapid Fire weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Nomadic Survivalists",
+      "desc": "The unit gains the the \"Frenzy(1)\" and \"Haste(1) abilities.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Splinter Cult",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "Subterranean Ambushers",
+      "desc": "You may set up one additional \"Ambush Marker\" in Skirmishes, two additional markers in Pitched Battles, and three additional markers in Epic Battles.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Synaptic Resonance",
+      "desc": "The model can re-roll one psychic test per activation. Psykers only.",
+      "pts_unit": "5",
+      "pts_char": "5",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Toxin Agents",
+      "desc": "The unit's melee attacks gain the \"Poison(4+) ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "War Convoy",
+      "desc": "Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5*",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

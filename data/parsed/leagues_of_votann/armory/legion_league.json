@@ -1,0 +1,48 @@
+{
+  "name": "League Armory",
+  "weapons": [
+    {
+      "name": "Just Bladeᴱ",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Shield breaker(-2). Unique. Kronus Hegemony only.",
+      "p_unit": null,
+      "p_char": 13
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Abiding Mantle",
+      "term_compat": false,
+      "desc": "This model and any E-COGs or CORVs accompanying it gain the \"Stealth\" ability. Unique. Urani-Surtr Regulates only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "CORV Duasᴱ",
+      "term_compat": false,
+      "desc": "As long as this model is accompanied by at least one CORV, it gets a +1 to deny psychic powers and can deny 1 additional psychic power per battle round. Unique. Psyker only. Trans-Hyperian Alliance only,.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Korvyk's Cuirass",
+      "term_compat": false,
+      "desc": "This model gains a 4+ invulnerability save. Enemy attacks reduce their AT and AP value by an additional -1, to a minimum of 0 each. Greater Thurian League only.",
+      "p_unit": null,
+      "p_char": 38
+    },
+    {
+      "name": "Last Crest of Jalukᴱ",
+      "term_compat": false,
+      "desc": "Roll a die the first time the model is eliminated. Unique. Ymyr Conglomerate only.\n• 1,2 - Remove the model.\n• 3,4 - Set it back up with 1 wound.\n• 5,6 - Set it up again with 2 wounds.",
+      "p_unit": null,
+      "p_char": 15
+    }
+  ],
+  "daemon_weapons": []
+}

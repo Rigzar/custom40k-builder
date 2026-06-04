@@ -1,0 +1,28 @@
+{
+  "name": "Coven Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Connoisseur of Pain",
+      "term_compat": false,
+      "desc": "Each \"Power through Pain\" token that is assigned to the model or its attached unit may select a second ability assigned to it.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Scarlet Epicurean",
+      "term_compat": false,
+      "desc": "All to wound rolls against the model suffer a -1 penalty. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Spirit-Sting",
+      "term_compat": false,
+      "desc": "One weapon of the model gains the \"Soul burn(5+)\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    }
+  ],
+  "daemon_weapons": []
+}

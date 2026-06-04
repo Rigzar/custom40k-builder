@@ -1,0 +1,53 @@
+name: Code issue (for developers)
+description: A bug or limitation in the engine / UI code (not a data value) that a developer should fix
+labels: ["code", "help-wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for problems in the **code** — the points engine, validators, resolver, UI, etc. —
+        as opposed to a wrong data value (use **Data correction**) or an unclear rule (use
+        **Rules question**). Good first issues for contributors live here. See `CONTRIBUTING.md` for
+        how the engine is structured.
+
+  - type: input
+    id: area
+    attributes:
+      label: Area / file
+      description: Which part of the engine or UI, if known.
+      placeholder: e.g. points.ts (mixed-model pricing), ArmoryModal, validators.ts
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong in the code
+      description: Describe the incorrect behaviour and, if you can, the root cause.
+      placeholder: |
+        e.g. For units that mix a base troop with a premium optional model (Traitor Guard,
+        Bike Squad, Outrider Bikes), the "extra model" cost in points.ts picks the wrong model.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      placeholder: |
+        1. Pick faction X, add unit Y
+        2. Increase squad size to N
+        3. Points are Z, should be W
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed fix (optional)
+      description: If you have an idea or want to open a PR, describe the approach.
+
+  - type: dropdown
+    id: willing
+    attributes:
+      label: Are you able to work on this?
+      options:
+        - "No — just reporting"
+        - "Maybe, with guidance"
+        - "Yes, I'll open a PR"

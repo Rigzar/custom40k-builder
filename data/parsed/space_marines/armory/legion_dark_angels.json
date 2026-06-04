@@ -1,0 +1,90 @@
+{
+  "name": "Dark Angels Armory",
+  "weapons": [
+    {
+      "name": "Caliban greatswordÃ¡Â´Â³",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Unwieldy",
+      "p_unit": 5,
+      "p_char": 7
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Brazier of JudgementÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model automatically succeeds at pursuit rolls to catch fleeing units.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Conversion fieldÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model gains a 4+ invulnerability save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "Eye of the UnseenÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model gains the \"Favoured Enemy\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Foe-smiterÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "One ranged weapon of the model gains the \"Shred\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Heavenfall bladeÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains one of the following:\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Monster SlayerÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model gains the \"Tank hunter\" ability.",
+      "p_unit": 2,
+      "p_char": 4
+    },
+    {
+      "name": "Shroud of HeroesÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model gains the \"Stealth\" ability, while it is not attached to a unit. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Watchers in the DarkÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Aegis(4+)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Teleport homing beacon",
+      "category": "vehicle",
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

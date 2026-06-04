@@ -226,6 +226,26 @@ La carpeta `legacies/` contiene reglas del motor que no pueden vivir en el JSON 
 
 Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un nuevo archivo `legacies/<faccion>.ts` siguiendo el mismo patrón y conectalo en `PsychicModal.tsx`.
 
+### Estructura de datos (carpetas por facción)
+
+Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción, no un directorio plano con monolitos. Dentro: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `rules.json`. Los suplementos van en `_supplements/` y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
+
+El loader que ensambla cada `FactionData` es **`src/data/loaders.ts`** — importa los archivos individuales con rutas estáticas (requerido por Vite) y los fusiona. El engine recibe exactamente el mismo objeto que antes; solo cambió la organización de archivos.
+
+**Añadir una nueva facción:** crear la carpeta + archivos → añadir `case` en `loaders.ts` → añadir a `FACTION_LOADERS` → registrar en `LandingPage.tsx` → (opcional) añadir `engine/factions/<faccion>/` si necesita resolver/rasgos/validadores propios.
+
+### Por dónde empezar / cómo ayudar
+
+- **`OPEN_QUESTIONS.md`** (raíz del repo) lista lo que el proyecto necesita: **preguntas de reglas**
+  (una regla ambigua que necesita una respuesta canónica antes de poder programarse — no hace falta
+  saber código para ayudar) y **problemas de código** (bugs de engine/UI que un dev puede arreglar).
+- Abre un issue en GitHub con la plantilla correspondiente — **Rules question**, **Code issue**,
+  **Data correction** o **Bug report** (`.github/ISSUE_TEMPLATE/`). Responder una pregunta de reglas
+  desbloquea la implementación; el mantenedor la cablea.
+- El panel **Known Issues** en la app (`src/data/known-issues.ts`) es el tracker de cara al usuario;
+  se solapa con `OPEN_QUESTIONS.md` en los problemas de código, pero este último además guarda las
+  preguntas de reglas sin responder.
+
 ### Efectos de reglas estructurados y primitivos de coste (añadidos v0.51–v0.52)
 
 Algunas reglas no se pueden expresar solo con el texto de la descripción — necesitan campos estructurados que el engine lee. **Vigila el VERBO del datasheet al elegir el campo.**

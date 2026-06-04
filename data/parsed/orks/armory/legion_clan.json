@@ -1,0 +1,49 @@
+{
+  "name": "Clan Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Da Best Armor Teef Can Buy",
+      "term_compat": false,
+      "desc": "The model gains a 3+ armor save and a 4+ invulnerable save. Unique. Bad Moons only.",
+      "p_unit": null,
+      "p_char": 61
+    },
+    {
+      "name": "Fasta Than Yooz",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Frenzy(1\")\" and \"Haste(1\")\" ability. Unique. Evil Suns only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "I've Got A Plan, Ladz!",
+      "term_compat": false,
+      "desc": "After all units have been placed in the Deployment phase, you may remove and redeploy two of your units. Unique. Blood Axes only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Opportunist",
+      "term_compat": false,
+      "desc": "You gain an additional 0,25 Victory Points (VP) from secondary objectives. Unique. Deathskulls only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Proper Killy",
+      "term_compat": false,
+      "desc": "The model gains +1 Attack. Unique. Goffs only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Surly As A Squiggoth",
+      "term_compat": false,
+      "desc": "Roll a die the first time the model is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique. Snakebites only.",
+      "p_unit": null,
+      "p_char": 15
+    }
+  ],
+  "daemon_weapons": []
+}

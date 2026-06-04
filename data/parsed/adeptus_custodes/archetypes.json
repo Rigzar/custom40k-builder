@@ -1,0 +1,40 @@
+{
+  "archetypes": [
+    {
+      "name": "Kataphraktoi",
+      "desc": "- Jetbike Custodians can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    },
+    {
+      "name": "Tharanatoi",
+      "desc": "- Allarus Custodians and Aquilon Custodians can be taken as Troops.\n- Custodian Guard and Sisters of Silence become Elite choices."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Castellans of the Blessed Worlds",
+      "desc": "The army has access to the Solar Watch Armory.",
+      "armory_key": "Shield Host"
+    },
+    {
+      "name": "Gilded Guardians",
+      "desc": "The army has access to the Aquilan Shield Armory.",
+      "armory_key": "Shield Host"
+    },
+    {
+      "name": "Intruments of His Wrath",
+      "desc": "The army has access to the Dread Host Armory.",
+      "armory_key": "Shield Host"
+    },
+    {
+      "name": "The Hostless",
+      "desc": "The army has access to the Emperor's Chosen Armory.",
+      "armory_key": "Shield Host"
+    },
+    {
+      "name": "Warders of the Dark Cells",
+      "desc": "The army has access to the Shadowkeepers Armory.",
+      "armory_key": "Shield Host"
+    }
+  ],
+  "traits": []
+}

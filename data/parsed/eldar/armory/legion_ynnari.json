@@ -1,0 +1,56 @@
+{
+  "name": "Ynnari Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Champion of Ynneadʸ",
+      "term_compat": false,
+      "desc": "Everytime a model dies within 6\" of this model it gains one temporary wound. The wound is lost at the end of the battle round. Can only have one temporary wound at a time.",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Hungering bladeʸ",
+      "term_compat": false,
+      "desc": "One melee weapon of the model gains cumulative Flurry(4). Unique. Can't be combined with other blades.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Mirrorgazeʸ",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\" and \"Parry\" abilities. Unique.",
+      "p_unit": 6,
+      "p_char": 6
+    },
+    {
+      "name": "Silent bladeʸ",
+      "term_compat": false,
+      "desc": "One melee weapon of the model gains Shield breaker(-2). Unique. Can't be combined with other blades.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Sorrow bladeʸ",
+      "term_compat": false,
+      "desc": "One melee weapon of the model gains +1 Strength and Decimate. Unique. Can't be combined with other blades.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "The Lost Shroudʸ",
+      "term_compat": false,
+      "desc": "To wound rolls against the bearer suffer a -1 penalty. (Unique)",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Wardenʸ",
+      "term_compat": false,
+      "desc": "The model gains the \"Bodyguard\" and \"Command squad\" abilities.",
+      "p_unit": 5,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

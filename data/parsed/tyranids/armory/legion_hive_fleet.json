@@ -1,0 +1,42 @@
+{
+  "name": "Hive Fleet Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Hyper-Toxicity",
+      "term_compat": false,
+      "desc": "All melee weapons of the model gain \"Precision(4+)\". Unique. Gorgon only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Monstrous Hunger",
+      "term_compat": false,
+      "desc": "All melee weapons of the model gain \"Soul burn(5+)\". Unique. Behemoth only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "One Step Ahead",
+      "term_compat": false,
+      "desc": "You gain double the amount of Victory Points (VP) from secondary objectives. Unique. Kraken only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Perfectly Adapted",
+      "term_compat": false,
+      "desc": "The model may re-roll any one die per activation. Unique. Leviathan only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Symbiostorm",
+      "term_compat": false,
+      "desc": "All ranged weapons of the model gain +1 Strength. Unique. Kronos only.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

@@ -1,38 +1,21 @@
 import type { ArmoryItem, Unit } from '../types/data';
+import { MARK_GLYPHS, type ChaosMark } from '../types/keywords';
+
+// Re-export so existing consumers don't need to change their import path.
+export { MARK_GLYPHS };
 
 /**
  * Keyword-derivation seam for wargear gating.
  *
- * The target data model gates armory wargear on KEYWORDS (armour class, Chaos Mark, unit type),
- * not on pre-baked per-item flags. This module is the single place that derives those gates. Today
- * it derives them from the existing encoding (the ᵀ/mark glyph on the item name, the `term_compat`
- * flag, the unit's armour ability); a later data migration (Phase 3) can swap the *internals* to read
- * explicit `keywords[]` arrays without touching any consumer. See rules-model/_engine.md §10 and
- * project-pipeline-migration.
+ * Single place that derives armour/mark gates from the existing data encoding.
+ * See types/keywords.ts for the typed vocabulary (ChaosMark, ArmourKeyword, MARK_GLYPHS).
+ * See types/unit-types.ts for canonical unit type strings.
+ * See rules-model/_engine.md §10 and rules-model/chaos_space_marines.md for full docs.
  */
-
-/**
- * Chaos Mark glyph → Mark name. A trailing superscript on an armory item name encodes the Chaos
- * Mark the item requires.
- *
- * ᵀ COLLISION — RESOLVED (verb-grounded, verified in data): in this homebrew the ᵀ superscript means
- * TERMINATOR-compatible wargear, NOT Mark of Tzeentch. ᵀ is captured as the `term_compat` flag at
- * parse time and never left on a name (verified: ZERO armory item names end in ᵀ across all
- * factions). The other three marks DO appear as name glyphs — ᴷ Khorne, ᴺ Nurgle, ˢ Slaanesh (e.g.
- * "Blood throneᴷ", "Seeker of Slaaneshˢ"). Mark of Tzeentch is NOT name-glyph-encoded: its items
- * live in the dedicated `armory_marks.Tzeentch` section. So ᵀ is intentionally OMITTED from this map
- * — a Terminator-ᵀ name can never be misread as Tzeentch. A distinct placeholder glyph (ᶻ) is
- * reserved for Tzeentch should a datasheet ever need one; DO NOT reuse ᵀ. Whenever Custom40k work
- * touches the Tzeentch-vs-Terminator distinction, ASK THE USER rather than assume.
- * (See rules-model/chaos_space_marines.md.)
- */
-export const MARK_GLYPHS: Record<string, string> = {
-  'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᴺ': 'Nurgle', 'ᶻ': 'Tzeentch',
-};
 
 /** The Chaos Mark this item requires (derived from its trailing glyph), or null if unrestricted. */
-export function itemRequiredMark(name: string): string | null {
-  return MARK_GLYPHS[name.slice(-1)] ?? null;
+export function itemRequiredMark(name: string): ChaosMark | null {
+  return (MARK_GLYPHS[name.slice(-1)] as ChaosMark) ?? null;
 }
 
 /** Item name with any trailing Chaos-Mark glyph stripped (for display). Keep in sync with

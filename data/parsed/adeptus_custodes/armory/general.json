@@ -1,0 +1,270 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Balistus grenade launcher",
+      "term_compat": true,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Explosive, only for models in Terminator armor",
+      "p_unit": 27,
+      "p_char": null
+    },
+    {
+      "name": "Digital weapons",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "2",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Extra attack, hits automatically wound the target.",
+      "p_unit": 5,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Aquila Imperialis",
+      "term_compat": true,
+      "desc": "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Augury uplink",
+      "term_compat": true,
+      "desc": "The model and its attached may re-roll a single failed save per battle round.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Blade Imperator",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain \"Frenzy(2\")\". Unique.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Castellan's mark",
+      "term_compat": true,
+      "desc": "After all units have been placed in the Deployment phase, remove and redeploy up to two of your units. Unique.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Gift of Terran Artifice",
+      "term_compat": true,
+      "desc": "The model gains \"Decimate\" for all weapons. Unique.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Impregnable mind",
+      "term_compat": true,
+      "desc": "This model can deny one psychic power per turn as if it were a Psyker.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 Ballistic Skill.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Master-crafted armor",
+      "term_compat": false,
+      "desc": "The model gains a 2+ armor save.",
+      "p_unit": 12,
+      "p_char": null
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": true,
+      "desc": "The model can reroll one hit roll with this weapon per round. Must be purchased separately for each weapon.",
+      "p_unit": 2,
+      "p_char": null
+    },
+    {
+      "name": "Panoptispex",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain \"Seeking\" for all ranged weapons. Unique.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Praesidius",
+      "term_compat": true,
+      "desc": "The model gains the \"Stealth\" ability. Unique.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Praetorian plate",
+      "term_compat": true,
+      "desc": "The model gains a 4+ invulnerability save.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Purity seal",
+      "term_compat": true,
+      "desc": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+      "p_unit": 2,
+      "p_char": null
+    },
+    {
+      "name": "Radiant mantle",
+      "term_compat": true,
+      "desc": "Enemy units suffer a cumulative -1 to their hit rolls against the model.",
+      "p_unit": 8,
+      "p_char": null
+    },
+    {
+      "name": "Storm shield",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Superior Creation",
+      "term_compat": true,
+      "desc": "Roll a die the first time the model is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": true,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Trophy",
+      "term_compat": true,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Vault weapon",
+      "term_compat": true,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEach improvement is unique per army.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Counter-attack",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Counter-attack\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Favoured enemy",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Favoured enemy\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Furious charge",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Furious charge\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Infiltrator",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Infiltrator\".",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Outflank",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Outflank\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Tank hunter",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Tank hunter\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Terrain expert",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Vanguard",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Vanguard\".",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "desc": "The model gains a Hunter-killer missile.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Magos-class machine spirit",
+      "term_compat": false,
+      "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 2+.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

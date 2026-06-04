@@ -1,0 +1,250 @@
+{
+  "name": "Armory of Tzeentch",
+  "weapons": [
+    {
+      "name": "Inferno boltpistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Inferno combi-bolter",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Rapid fire 2",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 13,
+      "p_char": 17
+    },
+    {
+      "name": "Inferno combi-warpflamer",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 20,
+      "p_char": 18,
+      "profiles": [
+        {
+          "name": "Inferno bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Warpflamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
+        }
+      ]
+    },
+    {
+      "name": "Inferno combi-melta",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 18,
+      "p_char": 24,
+      "profiles": [
+        {
+          "name": "Inferno bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Melta",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Melta"
+        }
+      ]
+    },
+    {
+      "name": "Inferno combi-plasma",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 27,
+      "p_char": 34,
+      "profiles": [
+        {
+          "name": "Inferno bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma (standard)",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma (overcharged)",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheat"
+        }
+      ]
+    },
+    {
+      "name": "Prosperine Khopesh",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Soul burn(5+)",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Warpflame pistol",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Pistol 4",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": 6,
+      "p_char": 4
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Arcane compulsion",
+      "term_compat": true,
+      "desc": "Reduce enemy Charge movements targeting the bearer and their attached unit by 2\".",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Astral Grimoire",
+      "term_compat": true,
+      "desc": "Select one friendly unit within 12\" during the Reinforcement phase. For the remainder of the battle round the unit got a Movement value of 12\" and gains the \"Anti-Grav\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Athenaean Scroll",
+      "term_compat": true,
+      "desc": "If a test to manifest a psychic power rolls any doubles, the power is manifested and can't be denied (Note: a double 1 still perils). If a test to deny a psychic power rolls any doubles, the power is denied regardless of the actual result. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Bringer of Change",
+      "term_compat": true,
+      "desc": "The player may demand a single die to be re-rolled each round, regardless from which player. Unique.",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Cult initiate",
+      "term_compat": true,
+      "desc": "The model may exchange one psychic power it knows with one from the list of \"Cult Powers\". All Cult Powers within an army must be the same, if any is chosen. Only for models from this Codex.",
+      "p_unit": 0,
+      "p_char": 0
+    },
+    {
+      "name": "Disc of Tzeentch",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Wound, +1 Attack and the \"Jetbike\" unit type. Only for infantry.",
+      "p_unit": 37,
+      "p_char": 49
+    },
+    {
+      "name": "Helm of the Third Eye",
+      "term_compat": true,
+      "desc": "The model and any attached unit ignore any or all to hit modifiers, including for Defensive Fire. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Hourglass of Manoth",
+      "term_compat": true,
+      "desc": "Roll a die the first time the model is eliminated: \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound. \n5,6 - Set it up again with 2 wounds. Unique.",
+      "p_unit": 15,
+      "p_char": 15
+    },
+    {
+      "name": "Talisman of Tzeentch",
+      "term_compat": true,
+      "desc": "Can be activated once per game to grant friendly and enemy psykers a +1 bonus to manifestation rolls until the next battle round. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Weaver of Magicks",
+      "term_compat": true,
+      "desc": "The model may give itself one of these bonuses each round:\n- Change one \"Normal\" psychic power to \"Basic\".\n- Change one \"Complex\" psychic power to \"Normal\".\n- Get a +1 bonus to manifest one psychic power.\n- Get a +1 bonus to deny one psychic power.\nUnique.",
+      "p_unit": 10,
+      "p_char": 10
+    }
+  ],
+  "daemon_weapons": [
+    {
+      "name": "Magical",
+      "term_compat": false,
+      "desc": "The model gains +1 to manifest and deny psychic powers. Unique.",
+      "p_char": 5
+    },
+    {
+      "name": "Warping",
+      "term_compat": false,
+      "desc": "The weapon gains a ranged profile with 18\" range. It can shoot during each activation as often as the model can attack. Can't be used on a weapon with the \"Slow\" ability. Unique.",
+      "p_char": 15
+    },
+    {
+      "name": "Weaving",
+      "term_compat": false,
+      "desc": "Once per battle round, the model and its attached unit can change the result of a single die roll of themselves or an enemy unit they are attacking. Unique.",
+      "p_char": 15
+    }
+  ]
+}

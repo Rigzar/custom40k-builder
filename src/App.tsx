@@ -13,6 +13,7 @@ import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
 import type { FactionData } from './types/data';
+import { FACTION_LOADERS } from './data/loaders';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { BugReportModal } from './components/BugReportModal';
@@ -157,33 +158,9 @@ export default function App() {
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 
-  // Shared faction data loaders (used for both primary and allied faction loading)
-  const loaders: Record<string, () => Promise<unknown>> = {
-    chaos_space_marines: () => Promise.all([
-      import('../data/parsed/chaos_space_marines_units.json'),
-      import('../data/parsed/chaos_space_marines_armory.json'),
-      import('../data/parsed/chaos_space_marines_rules.json'),
-    ]).then(([u, a, r]) => ({ default: { ...(u as any).default, ...(a as any).default, ...(r as any).default } })),
-    chaos_daemons:        () => import('../data/parsed/chaos_daemons.json'),
-    space_marines:        () => import('../data/parsed/space_marines.json'),
-    imperial_guard:       () => import('../data/parsed/imperial_guard.json'),
-    adeptus_mechanicus:   () => import('../data/parsed/adeptus_mechanicus.json'),
-    adeptus_custodes:     () => import('../data/parsed/adeptus_custodes.json'),
-    adeptus_sororitas:    () => import('../data/parsed/adeptus_sororitas.json'),
-    grey_knights:         () => import('../data/parsed/grey_knights.json'),
-    inquisition:          () => import('../data/parsed/inquisition.json'),
-    assassins:            () => import('../data/parsed/assassins.json'),
-    tau_empire:           () => import('../data/parsed/tau_empire.json'),
-    necrons:              () => import('../data/parsed/necrons.json'),
-    orks:                 () => import('../data/parsed/orks.json'),
-    eldar:                () => import('../data/parsed/eldar.json'),
-    dark_eldar:           () => import('../data/parsed/dark_eldar.json'),
-    genestealer_cults:    () => import('../data/parsed/genestealer_cults.json'),
-    harlequins:           () => import('../data/parsed/harlequins.json'),
-    leagues_of_votann:    () => import('../data/parsed/leagues_of_votann.json'),
-    tyranids:             () => import('../data/parsed/tyranids.json'),
-    horus_heresy:         () => import('../data/parsed/horus_heresy.json'),
-  };
+  // Faction data loaders — each faction lives in data/parsed/<faction>/ (per-faction folder structure).
+  // See src/data/loaders.ts for how each faction's files are assembled into FactionData.
+  const loaders = FACTION_LOADERS as Record<string, () => Promise<FactionData>>;
 
   // Faction loader
   useEffect(() => {
@@ -196,7 +173,7 @@ export default function App() {
 
     loader()
       .then(m => {
-        setData((m as { default: unknown }).default as FactionData);
+        setData(m as FactionData);
         setLoadingFaction(false);
         // If there's a pending army to restore, do it now
         if (pendingLoad.current) {
@@ -226,7 +203,7 @@ export default function App() {
     const loader = loaders[alliedFaction];
     if (!loader) return;
     loader()
-      .then(m => setAlliedData((m as { default: unknown }).default as FactionData))
+      .then(m => setAlliedData(m as FactionData))
       .catch(e => console.error('Error loading allied faction data', e));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedFaction]);
@@ -240,7 +217,7 @@ export default function App() {
     const loader = loaders[key];
     if (!loader) return;
     loader()
-      .then(m => injectArchetypeFaction(key, (m as { default: unknown }).default as FactionData, rule.sharedSupplementArmory))
+      .then(m => injectArchetypeFaction(key, m as FactionData, rule.sharedSupplementArmory))
       .catch(e => console.error('Error loading archetype faction data', e));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, data?.faction]);

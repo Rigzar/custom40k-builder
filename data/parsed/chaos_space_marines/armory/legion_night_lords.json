@@ -1,0 +1,60 @@
+{
+  "name": "Night Lords Armory",
+  "weapons": [
+    {
+      "name": "Claws of the Black Hunt",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Armor piercing(5+), Flurry(2), Shred, Unwieldy",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Talons of the Night Terror",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Flurry(4), Shred, Unwieldy",
+      "p_unit": null,
+      "p_char": 10
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Curze's Orb",
+      "term_compat": true,
+      "desc": "The model may re-roll any one die per activation. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Scourging Chains",
+      "term_compat": true,
+      "desc": "The model gains the \"Shred\" ability with all melee attacks.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Stormbolt Plate",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Use cover\" ability.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Vox Daemonicus",
+      "term_compat": true,
+      "desc": "Enemy units within 6\" suffer a -1 penalty to their Leadership, to rolls to manifest psychic powers, invocations, prayers and similar abilities.",
+      "p_unit": 5,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

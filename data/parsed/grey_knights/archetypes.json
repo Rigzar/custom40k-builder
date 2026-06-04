@@ -1,0 +1,55 @@
+{
+  "archetypes": [
+    {
+      "name": "Chamber of Purity",
+      "desc": "- Purifier Squads can be taken as Troops.\n- All other Troops become Elite choices."
+    },
+    {
+      "name": "Hall of Champions",
+      "desc": "- Paladin Squads can be taken as Troops.\n- All other Troops become Elite choices."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Blades of Victory",
+      "desc": "All Psykers know the \"Inescapable Pursuit\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Exactors",
+      "desc": "All Psykers know the \"Purge Soul\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Prescient Brethren",
+      "desc": "All Psykers know the \"Fatal Precognition\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Preservers",
+      "desc": "All Psykers know the \"Aegis Eternal\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Rapiers",
+      "desc": "All Psykers know the \"Symphonic Strike\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Silver Blades",
+      "desc": "All Psykers know the \"Temporal Accuracy\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Swordbearers",
+      "desc": "All Psykers know the \"Empyric Lodestone\" psychic power in addition.",
+      "armory_key": null
+    },
+    {
+      "name": "Wardmakers",
+      "desc": "All Psykers know the \"Projection of Purity\" psychic power in addition.",
+      "armory_key": null
+    }
+  ],
+  "traits": []
+}

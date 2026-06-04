@@ -1,0 +1,36 @@
+{
+  "animosity": {
+    "Undivided / Without": [
+      "Undivided",
+      "Khorne",
+      "Slaanesh",
+      "Nurgle",
+      "Tzeentch"
+    ],
+    "Khorne": [
+      "Undivided",
+      "Khorne",
+      "Nurgle",
+      "Tzeentch"
+    ],
+    "Slaanesh": [
+      "Undivided",
+      "Slaanesh",
+      "Nurgle",
+      "Tzeentch"
+    ],
+    "Nurgle": [
+      "Undivided",
+      "Khorne",
+      "Slaanesh",
+      "Nurgle"
+    ],
+    "Tzeentch": [
+      "Undivided",
+      "Khorne",
+      "Slaanesh",
+      "Tzeentch"
+    ]
+  },
+  "allied": {}
+}

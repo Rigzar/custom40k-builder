@@ -1,0 +1,62 @@
+{
+  "equipment": [
+    {
+      "name": "Dreamcatcher talisman",
+      "term_compat": false,
+      "desc": "One enemy psyker per battle-round can be forced to reroll a psychic test to manifest a power.",
+      "p_unit": 15,
+      "p_char": 15
+    },
+    {
+      "name": "Eldritch Bolt",
+      "term_compat": false,
+      "desc": "The model can make an additional attack with the following profile: Range: 24\" Type: Assault 1 Strength: 8 AP: -5 Damage: 2, AT(1).",
+      "p_unit": 35,
+      "p_char": 35
+    },
+    {
+      "name": "Eye of Tzeentch",
+      "term_compat": false,
+      "desc": "The model can reroll a single die each activation.",
+      "p_unit": 10,
+      "p_char": 20
+    },
+    {
+      "name": "Illusionist",
+      "term_compat": false,
+      "desc": "Enemy models reduce their weapons range by 6\" (to a minimum of 6\"), if they target the bearer or its attached unit.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Interdimensional Knowledge",
+      "term_compat": false,
+      "desc": "The model may pick 2 additional psychic powers from any general psychic discipline.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Magical boon",
+      "term_compat": false,
+      "desc": "The model can manifest 1 more psychic power per activation than usual. If it did not know any psychic powers before, it can pick 1.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Overwhelming power",
+      "term_compat": false,
+      "desc": "Psychic tests of 9 or higher can never be denied.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Screamer of Tzeentch",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, 2 Attacks with the \"Warp jaws\" weapon (see Screamers) and the \"Jet bike\" ability.",
+      "p_unit": 35,
+      "p_char": null
+    }
+  ],
+  "weapons": [],
+  "daemon_weapons": []
+}

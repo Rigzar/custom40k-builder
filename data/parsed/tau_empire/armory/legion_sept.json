@@ -1,0 +1,56 @@
+{
+  "name": "Sept Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Academy Luminary",
+      "term_compat": false,
+      "desc": "You gain an additional 0,25 Victory Points (VP) from secondary objectives. Unique. Vior’la Sept only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "For the Greater Good",
+      "term_compat": false,
+      "desc": "The model's Invocation range is increased to 36\". Additionally, it may target two friendly units at the same time with each Invocation. Unique. T'au Sept only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Grav-Inhibitor Field",
+      "term_compat": false,
+      "desc": "Select one enemy unit in direct base contact. The unit suffers a -1 penalty to its Initiative for the remaining battleround. Unique. Sa’cea Sept only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Integrated Auxiliaries",
+      "term_compat": false,
+      "desc": "Allied units benefit of the effect from Tactical philosophies. Unique. Dal’yth Sept only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Master of the Killing Blow",
+      "term_compat": false,
+      "desc": "During this model's activation, enemy units within 12\" are treated as having one more Markerlight token on them than they actually do. Unique. Farsight Enclaves only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Nomadic Hunter",
+      "term_compat": false,
+      "desc": "This model and its attached unit may shoot \"Heavy\" weapons with a -1 penalty and \"Rapid Fire\" weapons at full range with a \"Move & Shoot\" order, and they may fire Assault weapons, Grenades, and Pistols without a to hit penalty with \"Advance\" and \"Charge\" orders. Unique. Kroot Kindred only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Overdrive Power Systems",
+      "term_compat": false,
+      "desc": "All ranged weapons of the model gain +1 Strength. Unique. Bork’an Sept only.",
+      "p_unit": null,
+      "p_char": 10
+    }
+  ],
+  "daemon_weapons": []
+}

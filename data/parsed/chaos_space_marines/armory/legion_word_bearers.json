@@ -1,0 +1,55 @@
+{
+  "name": "Word Bearers Armory",
+  "weapons": [
+    {
+      "name": "Cursed Crozius",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Gruesome. Only for Dark Apostles",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Baleful icon",
+      "term_compat": true,
+      "desc": "Any unit selecting this model or its attached unit as a charge target must resolve a test for dangerous terrain.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Crown of the Blasphemer",
+      "term_compat": true,
+      "desc": "If the model attempts to use a prayer, the roll is automatically successful.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Malefic tome",
+      "term_compat": true,
+      "desc": "If the model attempts to use an infernal pact, the roll is automatically successful.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "The Scripts of Erebus",
+      "term_compat": true,
+      "desc": "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "The Skull of Monarchia",
+      "term_compat": true,
+      "desc": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

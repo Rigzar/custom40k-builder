@@ -1,0 +1,42 @@
+{
+  "name": "Craftworld Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Fate Reader",
+      "term_compat": false,
+      "desc": "Any one die from either player may be re-rolled once per battle round. Unique. Ulthwé only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Master of Ambush",
+      "term_compat": false,
+      "desc": "After both players assigned orders during the first battle round, remove up to one unit from your own army and re-redploy it anywhere on the table that is more than 9\" away from the enemy deployment zone and units. Unique. Alaitoc only.",
+      "p_unit": null,
+      "p_char": 25
+    },
+    {
+      "name": "Natural Leader",
+      "term_compat": false,
+      "desc": "Select up to one friendly unit during each Command phase. All selected units gain a +1 bonus to hit rolls for their next activation. Unique. Biel-Tan only.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Enduring Resolve",
+      "term_compat": false,
+      "desc": "All to wound rolls against the model suffer a -1 penalty. Unique. Iyanden only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Wild Rider Chieftain",
+      "term_compat": false,
+      "desc": "The model gains +1 Attack. Unique. Saim-Hann only.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

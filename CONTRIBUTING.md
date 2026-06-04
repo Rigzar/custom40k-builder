@@ -226,6 +226,53 @@ The `legacies/` folder holds engine-level rules that cannot live in the JSON —
 
 If you add a new faction with legacy-gated disciplines, create a new `legacies/<faction>.ts` file following the same pattern and wire it into `PsychicModal.tsx`.
 
+### Data structure (per-faction folders)
+
+Faction data lives in `data/parsed/<faction>/` — one folder per faction, not a flat directory of monoliths.
+
+```
+data/parsed/
+  chaos_space_marines/
+    units.json           { faction, slot_to_units, units }
+    armory/
+      general.json       Armory (general — all models access)
+      mark_khorne.json   Mark-specific armory (Chaos factions only)
+      legion_*.json      Legacy/chapter armory (one file per legacy)
+    psychic/
+      disciplines.json   Psychic disciplines array
+      prayers.json       Prayers/incantations
+      pacts.json         In-game mechanics (e.g. Blood Tithe, Daemonkin table)
+      daemonkin.json     Daemonkin summoning table
+    archetypes.json      { archetypes[], legacies[], traits[] }
+    rules.json           { animosity, allied }
+  space_marines/         (same structure, no marks)
+  chaos_daemons/
+  ...
+  _supplements/          Supplement JSON files (e.g. horus_heresy.json)
+  _scratch/              Parser-audit files (*_html_*.json) — never loaded by the app
+```
+
+The loader that assembles each faction's `FactionData` is **`src/data/loaders.ts`** — it imports the individual files with static string literals (required by Vite) and merges them. The engine receives exactly the same `FactionData` shape as before; only the file layout changed.
+
+**Adding a new faction:**
+1. Create `data/parsed/<faction>/` with `units.json` + `armory/general.json` at minimum.
+2. Add optional sub-files (`archetypes.json`, `rules.json`, `psychic/`, more armory files) as needed.
+3. Add a `case '<faction>'` in `src/data/loaders.ts` that loads the files and calls `asm(...)`.
+4. Add the key to `FACTION_LOADERS` at the bottom of `loaders.ts`.
+5. Register the faction in `src/components/LandingPage.tsx` (the card grid).
+6. Add engine rules if needed: `src/engine/factions/<faction>/` (resolver, archetypes, traits, validators).
+
+### Where to start / how to help
+
+- **`OPEN_QUESTIONS.md`** (repo root) lists what the project needs help with: **rules questions**
+  (an ambiguous rule that needs a canonical answer before it can be coded — you don't need to code to
+  help) and **code issues** (engine/UI bugs a developer can fix).
+- Open a GitHub issue with the matching template — **Rules question**, **Code issue**, **Data
+  correction**, or **Bug report** (`.github/ISSUE_TEMPLATE/`). Answering a rules question unblocks the
+  implementation; the maintainer wires it up.
+- The in-app **Known Issues** panel (`src/data/known-issues.ts`) is the user-facing tracker; it and
+  `OPEN_QUESTIONS.md` overlap on code issues but the latter also holds the unanswered rules questions.
+
 ### Structured rules effects & cost primitives (added v0.51–v0.52)
 
 Some rules can't be expressed by the description text alone — they need structured fields the engine reads. **Watch the datasheet VERB when choosing the field.**

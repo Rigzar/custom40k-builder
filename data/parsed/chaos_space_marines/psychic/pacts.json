@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bladed Maelstrom",
+    "range": "18\"",
+    "target": "Enemy unit",
+    "effect": "The target unit gains 1 Battleshock token.",
+    "duration": "Instant",
+    "complexity": "Normal"
+  },
+  {
+    "name": "Fires of the Abyss",
+    "range": "24\"",
+    "target": "Enemy unit",
+    "effect": "Four automatic hits with S:5 AP:-2 D:1, Seeking.",
+    "duration": "Instant",
+    "complexity": "Normal"
+  },
+  {
+    "name": "Capering Imps",
+    "range": "18\"",
+    "target": "Enemy unit",
+    "effect": "The target unit loses all benefits from cover.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Normal"
+  },
+  {
+    "name": "Glimpse of Eternity",
+    "range": "-",
+    "target": "Friendly unit",
+    "effect": "Target unit may reroll any one die.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Normal"
+  },
+  {
+    "name": "Malefic Maelstrom",
+    "range": "12\"",
+    "target": "Friendly unit",
+    "effect": "All ranged weapons gain +1 Strength.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Normal"
+  },
+  {
+    "name": "Empyric Guidance",
+    "range": "12\"",
+    "target": "Friendly unit",
+    "effect": "Re-roll to hit rolls of 1.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Normal"
+  }
+]

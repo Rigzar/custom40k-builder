@@ -35,7 +35,7 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'The Horus Heresy units and armory are injected into your roster automatically.',
     ],
     load: async () => {
-      const m = (await import('../../data/parsed/horus_heresy.json')) as { default: any };
+      const m = (await import('../../data/parsed/_supplements/horus_heresy.json')) as { default: any };
       const j = m.default;
       return {
         units: j.units,
@@ -59,7 +59,7 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'Total Lords of War spend may not exceed 33% of the army points.',
     ],
     load: async () => {
-      const m = (await import('../../data/parsed/chaos_space_marines_units.json')) as { default: any };
+      const m = (await import('../../data/parsed/chaos_space_marines/units.json')) as { default: any };
       const j = m.default;
       const lowNames: string[] = j.slot_to_units['Lords of War'] ?? [];
       const units: Record<string, Unit> = {};

@@ -1,0 +1,391 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Autopistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Blasting charges",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Explosive",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Bio-dagger",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Poison(2+), Precision, Flurry(1)",
+      "p_unit": 3,
+      "p_char": 5
+    },
+    {
+      "name": "Bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Bone sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Chainsword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Cult claws",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Force stave",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 3
+    },
+    {
+      "name": "Frag grenade",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Hypermorph tail",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flurry(1)",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Power hammer",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "-2",
+      "abilities": "AT(2), Slow(-2)",
+      "p_unit": 11,
+      "p_char": 13
+    },
+    {
+      "name": "Power maul",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Power pick",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Scything talons",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flurry(1)",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Web pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "1",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Monofilament",
+      "p_unit": 1,
+      "p_char": 1
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Alchemicus familiar",
+      "term_compat": false,
+      "desc": "The model's Genomic enhancement range is increased to 12\".",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Amulet of the Voidwyrm",
+      "term_compat": false,
+      "desc": "The model gains a 4+ invulnerability save. Unique.",
+      "p_unit": 5,
+      "p_char": 20
+    },
+    {
+      "name": "Atalan bike",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, Atalan small arms and the \"Bike\" type. Only for infantry.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Cranial inlay",
+      "term_compat": false,
+      "desc": "The army adds +1 to rolls during the Reinforcement phase. Unique.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Crown of Ascendancy",
+      "term_compat": false,
+      "desc": "The model can manifest and deny 1 psychic power per turn. It knows Smite and all powers from the Broodmind discipline. Unique.",
+      "p_unit": 30,
+      "p_char": 30
+    },
+    {
+      "name": "Cult relic",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Elixir of Dark Vistas",
+      "term_compat": false,
+      "desc": "The model gains +1 Leadership.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Familiar",
+      "term_compat": false,
+      "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for psykers.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Instinctive counter-strike",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Counter-Attack\" ability.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Lash whip",
+      "term_compat": false,
+      "desc": "The model may re-roll one (additional) hit roll per activation in melee.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Ballistic skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": false,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Pennant of Ascension",
+      "term_compat": false,
+      "desc": "The unit gains an additional bonus of +1 to the combat result, as well as +1 attack per model. Only for models with a Cult icon. Unique.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Pervasion veil",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Preternatural senses",
+      "term_compat": false,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": 3,
+      "p_char": 13
+    },
+    {
+      "name": "Psychic training",
+      "term_compat": false,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Shadow stalker",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\" and \"Parry\" abilities.",
+      "p_unit": 4,
+      "p_char": 8
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Synaptic weapon",
+      "term_compat": false,
+      "desc": "The model may re-roll all to hit and to wound rolls in melee. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Trophy",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Unwilling Orb",
+      "term_compat": false,
+      "desc": "The model can deny 1 additional psychic power per turn and may deny psychic powers from any range.",
+      "p_unit": 6,
+      "p_char": 6
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Flare launcher",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\" ability.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Spotter",
+      "term_compat": false,
+      "desc": "The model gains +6\" range with all ranged weapons.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Survey augur",
+      "term_compat": false,
+      "desc": "The model ignores the -1 to hit modifier for cover.",
+      "p_unit": 5,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

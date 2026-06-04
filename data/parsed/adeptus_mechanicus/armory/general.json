@@ -1,0 +1,630 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Arc grenade",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Haywire",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Arc maul",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Haywire",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Arc pistol",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Haywire",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Archeo-revolver",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "-",
+      "p_unit": 6,
+      "p_char": 8
+    },
+    {
+      "name": "Bolt pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Eradication pistol",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 14,
+      "p_char": 18,
+      "profiles": [
+        {
+          "name": "Focused",
+          "range": "6\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Dissipated",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Explosive"
+        }
+      ]
+    },
+    {
+      "name": "Flechette blaster",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive, Shred",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Macrostubber",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 6,
+      "p_char": 8
+    },
+    {
+      "name": "Maxima bolter",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 12,
+      "p_char": 15
+    },
+    {
+      "name": "Mechanicus pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Omnissian axe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": 8
+    },
+    {
+      "name": "Omnissian staff",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "2",
+      "abilities": "AT(1)",
+      "p_unit": 6,
+      "p_char": 8
+    },
+    {
+      "name": "Phosphor blast pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Explosive, Luminagen",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Phosphor serpenta",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Luminagen",
+      "p_unit": 5,
+      "p_char": 7
+    },
+    {
+      "name": "Photon gauntlet",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 2",
+      "s": "5",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "AT(1), Beam, Blind, Lance(2), Overheating",
+      "p_unit": null,
+      "p_char": 22
+    },
+    {
+      "name": "Plasma pistol",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 13,
+      "profiles": [
+        {
+          "name": "Standard",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Overcharged",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        }
+      ]
+    },
+    {
+      "name": "Power axe",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power maul",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Power sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Radium pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Decimate",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Radium serpenta",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Decimate",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Taser goad",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Tesla",
+      "p_unit": 3,
+      "p_char": 4
+    },
+    {
+      "name": "Volkite serpenta",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Pistol 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "-1",
+      "abilities": "Soul burn(6+)",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Voltaic blaster",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Rending(5+), Shred, Tesla",
+      "p_unit": 4,
+      "p_char": 5
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Aquila Imperialis",
+      "term_compat": false,
+      "desc": "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game. Unique",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Bionics",
+      "term_compat": false,
+      "desc": "The model receives a 6+ invulnerability save.",
+      "p_unit": 3,
+      "p_char": 9
+    },
+    {
+      "name": "Chain-taser protocols",
+      "term_compat": false,
+      "desc": "All taser weapons of the model and its attached unit cause one additional hit when they trigger their Tesla ability.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Clandestine infiltration",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Infiltrator\" ability.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Conversion field",
+      "term_compat": false,
+      "desc": "The model receives a 4+ invulnerability save.",
+      "p_unit": 10,
+      "p_char": 26
+    },
+    {
+      "name": "Data-blessed Autosermon",
+      "term_compat": false,
+      "desc": "The model automatically succeeds at one roll to sing a canticle per battle round.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Digital weapons",
+      "term_compat": false,
+      "desc": "The model can make one additional melee attack per round. S:2 AP:-4 D:1. Hits automatically wound.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Enhanced Bionics",
+      "term_compat": false,
+      "desc": "The model receives a 5+ invulnerability save.",
+      "p_unit": 7,
+      "p_char": 17
+    },
+    {
+      "name": "Enhanced data-tether",
+      "term_compat": false,
+      "desc": "The model and its attached unit gains a +1 Leadership.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Enriched rounds",
+      "term_compat": false,
+      "desc": "All rad weapons of the model and its attached unit gain an additional -1 AP.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Infoslave skull",
+      "term_compat": false,
+      "desc": "The unit ignores the to hit penalty for Defensive fire.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Kardiocore Galvanus",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain +1\" movement when using an \"Advance\" or \"Charge\" command.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Ballistic Skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Master-crafted armor",
+      "term_compat": false,
+      "desc": "The model gains a 2+ armor save. Not combinable with other armors.",
+      "p_unit": 13,
+      "p_char": 10
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": false,
+      "desc": "The model can reroll one hit roll with this weapon per round. Must be purchased separately for each weapon.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Masterwork autocaduceus",
+      "term_compat": false,
+      "desc": "The model gains \"Regeneration(1)\".",
+      "p_unit": null,
+      "p_char": 9
+    },
+    {
+      "name": "Omnispex",
+      "term_compat": false,
+      "desc": "Ranged weapons of the model and its attached unit gain -1 AP against units in cover.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Overloaded systems",
+      "term_compat": false,
+      "desc": "All arc weapons of the model and its attached unit gain an additional AT(1).",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Pteraxii wings",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Wound and the \"Jump pack\" rule. Only for infantry.",
+      "p_unit": null,
+      "p_char": 41
+    },
+    {
+      "name": "Purity seal",
+      "term_compat": false,
+      "desc": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Raiment of the Technomartyr",
+      "term_compat": false,
+      "desc": "All weapons of the model gain the \"Cognis\" ability.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Relic of the Forgeworld",
+      "term_compat": false,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Sacrifactum Autorepulsor",
+      "term_compat": false,
+      "desc": "Enemy units receive a -2\" movement penalty when charging the model or its attached unit.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Serberys steed",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, Sulphur breath and the \"Bike\" type. Only for infantry.",
+      "p_unit": null,
+      "p_char": 30
+    },
+    {
+      "name": "Stasis field",
+      "term_compat": false,
+      "desc": "The model may use its Stasis field once per game to receive a 2+ invulverability save until its next activation. It can't use any weapons or abilities while the Stasis field is active.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": false,
+      "desc": "The model gains +1 Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Temporcopia",
+      "term_compat": false,
+      "desc": "The model gains +1 Initiative.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Trophy",
+      "term_compat": false,
+      "desc": "Enemy units within a 6\" radius suffer -1 to their morale value.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Aggressor Imperative",
+      "term_compat": false,
+      "desc": "The model gains +2\" Movement.",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Bulwark Imperative",
+      "term_compat": false,
+      "desc": "The unit gains the ability \"Narthecium\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Conqueror Imperative",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Furious charge\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Protector Imperative",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Unyielding\".",
+      "p_unit": 0,
+      "p_char": 0
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Broad spectrum data-tether",
+      "term_compat": false,
+      "desc": "Friendly units within 12\" radius gain +1 Leadership.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Cognis manipulator",
+      "term_compat": false,
+      "desc": "The model repairs one vehicle damage (Crew Shaken, Engine Damage, Weapon Damage, Structural Damage) on a 4+ during each Reinforcement phase.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Infoslave skull",
+      "term_compat": false,
+      "desc": "The unit ignores the to hit penalty for Defensive fire.",
+      "p_unit": 10,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Machine spirit",
+      "term_compat": false,
+      "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Mindscanner probe",
+      "term_compat": false,
+      "desc": "If a friendly unit within 6\" gets charged by an enemy, the enemy unit does not receive any bonus (f.e. bonus attacks) for charging.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

@@ -1,0 +1,172 @@
+{
+  "archetypes": [
+    {
+      "name": "Krumpa Kompany",
+      "desc": "- The army only has access to the following units, regardless of other traits:\n- Boss, Mek, Painboy\n- Nobs\n- Battlewagons, Deff Dreads\n- Nobs can be taken as Troops.\n- All models for which this is possible must be equipped with Mega armor.\n- All units gain the \"Objective secured!\" ability."
+    },
+    {
+      "name": "Speedfreaks",
+      "desc": "- Stormboyz and Warbikers can be taken as Troops.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Da ’ardest Boyz",
+      "desc": "The army has access to equipment from the Goff in the Clan Armory.",
+      "armory_key": "Clan"
+    },
+    {
+      "name": "Da Rich Boyz",
+      "desc": "The army has access to equipment from the Bad Moons in the Clan Armory.",
+      "armory_key": "Clan"
+    },
+    {
+      "name": "Da Sneaky Gitz",
+      "desc": "The army has access to equipment from the Blood Axes in the Clan Armory.",
+      "armory_key": "Clan"
+    },
+    {
+      "name": "Da Speedfreaks",
+      "desc": "The army has access to equipment from the Evil Sunz in the Clan Armory.",
+      "armory_key": "Clan"
+    },
+    {
+      "name": "Da Squig-Luvvas",
+      "desc": "The army has access to equipment from the Snakebites in the Clan Armory.",
+      "armory_key": "Clan"
+    },
+    {
+      "name": "Da Lootaz",
+      "desc": "The army has access to equipment from the Deathskulls in the Clan Armory.",
+      "armory_key": "Clan"
+    }
+  ],
+  "traits": [
+    {
+      "name": "'orrible Gitz",
+      "desc": "The unit gains the \"Deflect\" ability. Only for Gretchins.",
+      "pts_unit": "5",
+      "pts_char": "-",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Armed To Da Teeth",
+      "desc": "The unit gains the \"Deflagrate(6+)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Big Krumpaz",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Big Red Button",
+      "desc": "Vehicle units can roll on the Ramshackle table at any time during their activation, roll 2D6 and pick any result while doing so. Explosions are resolved at Strength 7.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5",
+      "pts_veh": "5",
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Boom Boyz",
+      "desc": "Weapons with the \"Barrage\" or \"Explosive\" ability can hit up to one more model per unit.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Flyboyz",
+      "desc": "The unit gains the \"Deflect\" ability. Only for Flyers.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Lucky Gitz",
+      "desc": "The unit can re-roll one hit or wound roll per battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Mixed Warband",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": true
+    },
+    {
+      "name": "No messing around here",
+      "desc": "The unit gains the \"Rending(6+)\" ability for all melee attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Pyromaniacs",
+      "desc": "All weapons with the \"Flames\" ability cause 1 additional hit.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Rascals",
+      "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Taktiks",
+      "desc": "The unit gains the benefit of light cover until its first activation.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "pts_monster": "3",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The Old Ways",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Waaagh! Coast Kustoms",
+      "desc": "Each Kustom job can be taken one additional time.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

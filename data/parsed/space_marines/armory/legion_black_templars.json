@@ -1,0 +1,97 @@
+{
+  "name": "Black Templars Armory",
+  "weapons": [
+    {
+      "name": "Holy OrbÃ¡Â´Â³",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Ammunition(1), AT(2), Explosive, Haywire, Poison(2+), Unique",
+      "p_unit": 5,
+      "p_char": 5
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Ancient breviaryÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "If the model attempts to use a prayer, the roll is automatically successful.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Cacodominus skullÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model can dispel 1 psychic power per battle round like a psyker.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Cenobite servitorÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain +1\" Movement and the \"Blind Rage\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Crusade of WrathÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain +1 Strength. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Crusader sealsÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model and its attached unit can reposition up to 6\" after a close combat.",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Holy relicÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability while engaged in melee. Unique.",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Indomitable WillÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "Roll a die the first time the model is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Noctilith weaponÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains the \"Soul burn(5+)\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Righteous FuryÃ¡Â´Â³",
+      "term_compat": true,
+      "desc": "If the model or its attached unit suffers a wound loss in ranged combat, all models gain +1 attack, as well as the \"Counter-attack\" and \"Furious Charge\" abilities until the end of the current battle round.",
+      "p_unit": 15,
+      "p_char": 15
+    },
+    {
+      "name": "Blessed hull",
+      "term_compat": false,
+      "desc": "Enemy psykers within 18\" suffer a -1 penalty to casting psychic powers.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Blessed hull",
+      "category": "vehicle",
+      "desc": "Enemy psykers within 18\" suffer a -1 penalty to casting psychic powers.",
+      "p_unit": 5,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

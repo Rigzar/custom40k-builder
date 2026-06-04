@@ -1,0 +1,193 @@
+{
+  "name": "Armory of Slaanesh",
+  "weapons": [
+    {
+      "name": "Blastmaster",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 40,
+      "profiles": [
+        {
+          "name": "Single frequency",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Sunder(2), Suppression"
+        },
+        {
+          "name": "Varied frequency",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive, Sunder(2), Suppression"
+        }
+      ]
+    },
+    {
+      "name": "Blissblade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Precision(5+)",
+      "p_unit": 7,
+      "p_char": 8
+    },
+    {
+      "name": "Duelling sabre",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Parry",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Power lance",
+      "term_compat": true,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 10,
+      "profiles": [
+        {
+          "name": "Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Quick(+1), Can only be used with a Charge order"
+        },
+        {
+          "name": "Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        }
+      ]
+    },
+    {
+      "name": "Rapture Lash",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flurry(2)",
+      "p_unit": 4,
+      "p_char": 4
+    },
+    {
+      "name": "Screamer pistol",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Sunder(2), Suppression",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Sonic blaster",
+      "term_compat": true,
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Sunder(2), Suppression",
+      "p_unit": 11,
+      "p_char": 13
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Combat Drugs",
+      "term_compat": true,
+      "desc": "Once per battle, select any number of abilities for the model when performing a Charge command:\n- +1 Attack\n- +1\" Charge move\n- +1 Strength\n- +1 Weapon Skill\n- Warded\nThe effects last until the end of the current battle round. Roll 1D6 for each selected ability. The model suffers one Mortal Wound for each same die roll result.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Doom Siren",
+      "term_compat": true,
+      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Needle of Desire",
+      "term_compat": false,
+      "desc": "The model can make one additional melee attack per round. Strength: 2 AP: -4 D: 1. Hits wound automatically.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Rapturous Standard",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Berserk(5+)\" ability. Unique.",
+      "p_unit": 40,
+      "p_char": 40
+    },
+    {
+      "name": "Steed of Slaanesh",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack and the \"Bike\" unit type. Only for infantry.",
+      "p_unit": 25,
+      "p_char": 32
+    },
+    {
+      "name": "Warp Scream",
+      "term_compat": true,
+      "desc": "The model and its attached unit always gain the benefit of the \"Hold your ground\" Defensive reaction.",
+      "p_unit": 5,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": [
+    {
+      "name": "Alacritous",
+      "term_compat": false,
+      "desc": "The model gains \"Deflect\" and \"Parry\". Unique.",
+      "p_char": 10
+    },
+    {
+      "name": "Alluring",
+      "term_compat": false,
+      "desc": "Enemy models within 12\" range suffer a cumulative penalty of -2 to their Leadership. Unique.",
+      "p_char": 5
+    },
+    {
+      "name": "Sinful",
+      "term_compat": false,
+      "desc": "The weapon gains \"Precision(4+)\". Unique.",
+      "p_char": 10
+    }
+  ]
+}

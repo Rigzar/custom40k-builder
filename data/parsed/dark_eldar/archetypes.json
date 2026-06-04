@@ -1,0 +1,241 @@
+{
+  "archetypes": [
+    {
+      "name": "Bloodbrides",
+      "desc": "- The army may only consist of <Cult> units.\n- Each unit gains +1 Leadership and doubles the amount of weapons the individual models may swap. Example: If the unit entry says that \"for every 5 models, one may swap its weapon\", the unit would be allowed to swap two weapons per 5 models."
+    },
+    {
+      "name": "Coordinated Raid",
+      "desc": "- The army gets a third HQ slot and must feature one Dracon, one Haemoncolus and one Succubus (or their upgraded variants).\n- The army gets a third trait and must pick one trait each for <Coven>, <Kabal>, and <Wyches>."
+    },
+    {
+      "name": "Haemoxytes",
+      "desc": "- The army may only consist of <Coven> units.\n- Each unit gains +1 Leadership and doubles the amount of weapons the individual models may swap. Example: If the unit entry says that \"for every 5 models, one may swap its weapon\", the unit would be allowed to swap two weapons per 5 models."
+    },
+    {
+      "name": "Trueborn",
+      "desc": "- The army may only consist of <Kabal> units.\n- Each unit gains +1 Leadership and doubles the amount of weapons the individual models may swap. Example: If the unit entry says that \"for every 5 models, one may swap its weapon\", the unit would be allowed to swap two weapons per 5 models."
+    },
+    {
+      "name": "Ynnari",
+      "desc": "- Ynnari become \"Battle Brothers\" for Eldar.\n- The army got access to the Ynnari Armory and the Revenant discipline (see Eldar). \n- May not select any Legacy."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Butchers of Flesh",
+      "desc": "The army has access to equipment from the Coven Armory.",
+      "armory_key": "Coven"
+    },
+    {
+      "name": "Spectacle of Murder",
+      "desc": "The army has access to equipment from the Wych Armory.",
+      "armory_key": "Wych"
+    },
+    {
+      "name": "Thirst for Power",
+      "desc": "The army has access to equipment from the Kabal Armory.",
+      "armory_key": "Kabal"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Acrobatic Displayᶜᵘ",
+      "desc": "The unit gains the \"Move through cover\" ability and may ignore enemy models in its path when consolidating in melee.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Artists of the Fleshᶜᵒ",
+      "desc": "The unit gains +1 Strength and the \"Berserk(5+)\" ability. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Berserk Fugueᶜᵘ",
+      "desc": "The unit gains the \"Berserk(5+)\" and \"Furious Charge\" abilities. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Dark Harvestᶜᵒ",
+      "desc": "After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Dark Mirthᴷ",
+      "desc": "For every model in this unit, an enemy unit activating within 12\" of it suffers 1 automatic wound with S:4 AP:0 D:1, Seeking. Can't cause more wounds than models in the enemy unit. Only for creatues.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Dark Technomancersᶜᵒ",
+      "desc": "Any or all ranged weapons of the unit may be overcharged when shooting. Add +1 to wound rolls and -1 AP to each weapon. All overcharged weapons gain the \"Overheating\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Deadly Deceiversᴷ",
+      "desc": "The unit does not lose its Order token when it receives two or more Battleshock tokens. It may still be activated normally after the compulsary move. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Disdain for Lesser Beingsᴷ",
+      "desc": "Every melee combat result is increased by +2 for the unit.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Enhanced Sensory Organsᶜᵒ",
+      "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Hungry for Fleshᶜᵒ",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Masters of Mutagensᶜᵒ",
+      "desc": "The unit gains the \"Precision(5+)\" ability with Poison weapons. Does not apply to \"Heavy\" weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Merciless Razorkinᴷ",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Splinter weapons. Does not apply to \"Heavy\" weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Obsessive Collectorsᶜᵒ",
+      "desc": "Everytime an enemy unit is destroyed in melee within 6\" of this unit, it regains D3 lost wounds. If no wounds can be healed, dead models are instead revived. Only for creatues.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Precise Killersᶜᵘ",
+      "desc": "The unit gains the \"Rending(5+)\" ability with all melee weapons. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Slashing Impactᶜᵘ",
+      "desc": "After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Splinter Bladesᶜᵒ",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with all melee weapons. Only for creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Test of Skillᶜᵘ",
+      "desc": "The unit may re-roll to hit and to wound rolls of 1 against HQ, character models and Monstrous Creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "The Art of Painᶜᵘ",
+      "desc": "Every time the unit is activated while in melee combat, it gains an additional effect from the \"Power through Pain\" table. The effects are lost once the melee ends.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Torturous Efficiencyᴷ",
+      "desc": "The unit gains the \"Rending(5+)\" ability with all weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Toxin Craftersᴷ",
+      "desc": "The unit may re-roll to wound rolls of 1 with Poison weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Trophy Takersᶜᵘ",
+      "desc": "Enemy units within 12\" must roll an additional die for each Leadership test and take the highest two.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Twisted Huntersᴷ",
+      "desc": "The unit may re-roll to hit and to wound rolls of 1 against HQ, character models and Monstrous Creatures.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}

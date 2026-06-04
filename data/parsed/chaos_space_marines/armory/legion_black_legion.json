@@ -1,0 +1,67 @@
+{
+  "name": "Black Legion Armory",
+  "weapons": [
+    {
+      "name": "Heavy bolter",
+      "term_compat": true,
+      "range": "36\"",
+      "type": "Rapid Fire 2",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Unique. Only for models with the Mark of Khorne",
+      "p_unit": null,
+      "p_char": 23
+    },
+    {
+      "name": "The Eye of Night",
+      "term_compat": true,
+      "range": "Unlimited",
+      "type": "Assault 1",
+      "s": "10",
+      "ap": "-5",
+      "d": "3",
+      "abilities": "Ammunition(1), AT(4), Beam, Unique",
+      "p_unit": null,
+      "p_char": 26
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Last Memory of the Yuranthos",
+      "term_compat": true,
+      "desc": "The model gains a +1 bonus to manifest psychic powers. Additionally, it knows \"Burning Hands\" from the Pyromancy discipline.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Spineshiver Blade",
+      "term_compat": true,
+      "desc": "One weapon of the model reduces its \"Slow(x)\" value by 1.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "The Crucible of Lies",
+      "term_compat": true,
+      "desc": "The model may re-roll invulnerability save rolls of 1. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "The Hand of Darkness",
+      "term_compat": true,
+      "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "The Skull of Ker'ngar",
+      "term_compat": true,
+      "desc": "All to wound rolls against the model suffer a -1 penalty. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    }
+  ],
+  "daemon_weapons": []
+}

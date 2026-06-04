@@ -1,0 +1,35 @@
+{
+  "name": "Kabal Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Armor of Misery",
+      "term_compat": false,
+      "desc": "The model gains a 2+ armor save and the \"Parry\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 26
+    },
+    {
+      "name": "Famed Savagery",
+      "term_compat": false,
+      "desc": "The model gains +1 Attack. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Labyrinthine Cunning",
+      "term_compat": false,
+      "desc": "You gain an additional 0,25 Victory Points (VP) from secondary objectives. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Soul-Seeker",
+      "term_compat": false,
+      "desc": "One weapon of the model gains the \"Soul burn(5+)\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    }
+  ],
+  "daemon_weapons": []
+}

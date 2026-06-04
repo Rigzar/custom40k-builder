@@ -1,0 +1,49 @@
+{
+  "name": "Dynasty Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Bloodshroud",
+      "term_compat": false,
+      "desc": "During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\". Novokh only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Dominance Weapon",
+      "term_compat": false,
+      "desc": "The model gains the \"Decimate\" ability with all melee attacks. Mephrit only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Domination Staff",
+      "term_compat": false,
+      "desc": "Select one enemy model in direct base contact. The model suffers a -2 penalty to its Initiative for the remaining battleround. Szarekhan only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Starfire Mantle",
+      "term_compat": false,
+      "desc": "When the model moves over an enemy unit, it inflicts 1 Mortal Wound. Nephrekh only.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Stormshroud",
+      "term_compat": false,
+      "desc": "One melee weapon of the model gains the \"Soul burn(5+)\" ability. Sautekh only.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Yth Engrams",
+      "term_compat": false,
+      "desc": "The model may re-roll any one die per activation. Nihilakh only.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

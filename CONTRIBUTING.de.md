@@ -226,6 +226,26 @@ Der Ordner `legacies/` enthält Engine-Regeln, die nicht im JSON leben können �
 
 Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, eine neue Datei `legacies/<fraktion>.ts` nach demselben Muster erstellen und in `PsychicModal.tsx` einbinden.
 
+### Datenstruktur (fraktionseigene Ordner)
+
+Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. Inhalt: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `rules.json`. Supplemente in `_supplements/`, Parser-Audit-Dateien in `_scratch/` (werden nie von der App geladen).
+
+Der Loader, der jede `FactionData` zusammensetzt, ist **`src/data/loaders.ts`** -- er importiert die Einzeldateien mit statischen Pfaden (von Vite gefordert) und fuegt sie zusammen. Das Engine erhalt dasselbe Objekt wie vorher; nur die Dateiorganisation hat sich geandert.
+
+**Neue Fraktion hinzufuegen:** Ordner + Dateien erstellen → `case` in `loaders.ts` hinzufuegen → zu `FACTION_LOADERS` hinzufuegen → in `LandingPage.tsx` registrieren → (optional) `engine/factions/<fraktion>/` fuer eigene Resolver/Traits/Validatoren.
+
+### Wo anfangen / wie helfen
+
+- **`OPEN_QUESTIONS.md`** (Repo-Wurzel) listet, wo das Projekt Hilfe braucht: **Regelfragen** (eine
+  mehrdeutige Regel, die eine kanonische Antwort braucht, bevor sie programmiert werden kann — du
+  musst nicht coden, um zu helfen) und **Code-Probleme** (Engine-/UI-Bugs, die ein Entwickler beheben kann).
+- Öffne ein GitHub-Issue mit der passenden Vorlage — **Rules question**, **Code issue**, **Data
+  correction** oder **Bug report** (`.github/ISSUE_TEMPLATE/`). Eine Regelfrage zu beantworten gibt
+  die Umsetzung frei; der Maintainer baut sie ein.
+- Das In-App-**Known-Issues**-Panel (`src/data/known-issues.ts`) ist der nutzerseitige Tracker; es
+  überschneidet sich mit `OPEN_QUESTIONS.md` bei den Code-Problemen, aber Letzteres enthält zusätzlich
+  die unbeantworteten Regelfragen.
+
 ### Strukturierte Regel-Effekte & Kosten-Primitive (hinzugefügt v0.51–v0.52)
 
 Manche Regeln lassen sich nicht allein über den Beschreibungstext ausdrücken — sie brauchen strukturierte Felder, die die Engine liest. **Achte beim Wählen des Feldes auf das VERB des Datenblatts.**

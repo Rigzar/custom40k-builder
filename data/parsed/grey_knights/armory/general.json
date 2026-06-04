@@ -1,0 +1,467 @@
+{
+  "name": "Armory",
+  "weapons": [
+    {
+      "name": "Bound blade",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Haywire, Precision(4+)",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Digital weapons",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "2",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Extra Attack, Hits automatically wound the target",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Malleus Argyrum",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(2), Force weapon, Shield breaker(-1), Slow(-2)",
+      "p_unit": null,
+      "p_char": 25
+    },
+    {
+      "name": "Psyk-out grenades",
+      "term_compat": true,
+      "range": "-",
+      "type": "Grenade 1",
+      "s": "1",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Psi-shock",
+      "p_unit": 1,
+      "p_char": 1
+    },
+    {
+      "name": "Titansword",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+6",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Force weapon, Shield breaker(-1), Unique. Only for Captains.",
+      "p_unit": null,
+      "p_char": 14
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Aquila Imperialis",
+      "term_compat": true,
+      "desc": "Instead of rolling for it, the model and the attached unit can automatically pass a Leadership test once per game. Unique",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Astartes bionics",
+      "term_compat": true,
+      "desc": "The model gains the \"Warded\" ability.",
+      "p_unit": null,
+      "p_char": 14
+    },
+    {
+      "name": "Augurium scrolls",
+      "term_compat": true,
+      "desc": "One melee weapon gains \"Life curse\".",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Bone Shard of a Grand Master",
+      "term_compat": true,
+      "desc": "Once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Brotherhood banner",
+      "term_compat": true,
+      "desc": "The unit gains a bonus of +1 to Leadership and Combat resolutions. As long as the banner bearer is alive, Mission objectives that are held by this unit can not be contested by enemy units. Additionally, all models in the unit gain +1 Attack. Only for Ancients.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Cuirass of Sacrifice",
+      "term_compat": true,
+      "desc": "All to wound rolls against the model suffer a -1 penalty. Unique.",
+      "p_unit": null,
+      "p_char": 15
+    },
+    {
+      "name": "Deimos masterwork",
+      "term_compat": true,
+      "desc": "One ranged weapon gains \"Precision(5+)\". Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Domina Liber Daemonica",
+      "term_compat": true,
+      "desc": "The model re-rolls 1s for tests to manifest or deny psychic powers. Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Familiar",
+      "term_compat": true,
+      "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Librarians.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "First to the Fray",
+      "term_compat": true,
+      "desc": "The model must start the game in reserve and will arrive automatically in the first turn (together with its attached unit). They do not count towards the limit of how many units may enter from reserves each round. Must be the first activation of the player. Unique",
+      "p_unit": null,
+      "p_char": 0
+    },
+    {
+      "name": "Grimoire of True Names",
+      "term_compat": true,
+      "desc": "One model in direct base contact suffers -1 penalties to its WS, Initiatives and Attacks, up to a minimum of 1.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Gyrotemporal vault",
+      "term_compat": true,
+      "desc": "If the model successfully manifested a psychic power during its activation, it gains +1 Initiative unti the beginning of its next activation. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Hexagram warding runes",
+      "term_compat": true,
+      "desc": "Enemy models in direct base contact suffer a -1 penalty to their invulnerability saves.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Inescapable Wrath",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain \"Frenzy(2\")\". Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Iron halo",
+      "term_compat": true,
+      "desc": "The model gains a 4+ invulnerability save.",
+      "p_unit": 15,
+      "p_char": 13
+    },
+    {
+      "name": "Librum Arcana",
+      "term_compat": true,
+      "desc": "The model knows all psychic power from any discipline it would normally have access to. Unique. Only for Librarians.",
+      "p_unit": null,
+      "p_char": 30
+    },
+    {
+      "name": "Mandulian Reliquary",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Objective secured!\" ability. Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Marksman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 to its Ballistic skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Master-crafted armor",
+      "term_compat": false,
+      "desc": "The model gains a 2+ save.",
+      "p_unit": 8,
+      "p_char": 16
+    },
+    {
+      "name": "Master-crafted weapon",
+      "term_compat": true,
+      "desc": "The model may re-roll one to hit roll per activation. Must be purchased for each weapon seperately.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Personal teleporter",
+      "term_compat": false,
+      "desc": "The model gains +6\" movement and the \"Jump pack\" and \"Shunt\" abilities (See Interceptor Squad). Only for infantry.",
+      "p_unit": null,
+      "p_char": 23
+    },
+    {
+      "name": "Protection balm",
+      "term_compat": true,
+      "desc": "The model gains \"Aegis(4+)\".",
+      "p_unit": null,
+      "p_char": 1
+    },
+    {
+      "name": "Psy-ammunition",
+      "term_compat": true,
+      "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
+      "p_unit": null,
+      "p_char": 1
+    },
+    {
+      "name": "Psychic training",
+      "term_compat": true,
+      "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Purity Seals",
+      "term_compat": true,
+      "desc": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
+      "p_unit": 2,
+      "p_char": 2
+    },
+    {
+      "name": "Radiant Champion",
+      "term_compat": false,
+      "desc": "All melee weapons of the model gain \"Soul burn(5+)\". Unique. Only for Brotherhood-Champion.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Refractor field",
+      "term_compat": false,
+      "desc": "The model gains a 5+ invulnerability save.",
+      "p_unit": 11,
+      "p_char": null
+    },
+    {
+      "name": "Relic helm",
+      "term_compat": true,
+      "desc": "The model can manifest and deny an additional psychic power per turn. Unique.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Sacred weapon",
+      "term_compat": true,
+      "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army. Can be taken multiple times.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Selfless healer",
+      "term_compat": true,
+      "desc": "At the end of its movement, the model can attempt to heal a creature within 3\". On a 4+, a model regains up to 1 lost Wound. Only for Apothecaries. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Soul imprint",
+      "term_compat": true,
+      "desc": "One melee weapon gains \"Shred\". Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Storm shield",
+      "term_compat": true,
+      "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Swordsman honours",
+      "term_compat": true,
+      "desc": "The model gains +1 to its Weapon skill.",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
+      "name": "Teleport homing beacon",
+      "term_compat": true,
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "The Emperor's Tarot",
+      "term_compat": true,
+      "desc": "Once per game, the own Initiative roll may be re-rolled. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "The Strands of Fate",
+      "term_compat": true,
+      "desc": "The model may re-roll any one die per activation. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Trophy",
+      "term_compat": true,
+      "desc": "The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Truesilver armor",
+      "term_compat": true,
+      "desc": "The model gains the \"Retribution(3)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Warden of the Blade",
+      "term_compat": false,
+      "desc": "Increase the Ld of the model by 1. Additionally, it gains the \"Cleansing flame\" weapon. Unique. Only for Brotherhood-Champion.",
+      "p_unit": null,
+      "p_char": 12
+    },
+    {
+      "name": "Counter-attack",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Counter-attack\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Favoured enemy",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Favoured enemy\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Furious charge",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Furious charge\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Infiltrator",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Infiltrator\".",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Outflank",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Outflank\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Tank hunter",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Tank hunter\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Terrain expert",
+      "term_compat": false,
+      "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
+      "p_unit": 1,
+      "p_char": 2
+    },
+    {
+      "name": "Vanguard",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Vanguard\".",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Additional armor",
+      "term_compat": false,
+      "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Blessed",
+      "term_compat": false,
+      "desc": "The unit has Aegis(4+).",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Hunter-killer missile",
+      "term_compat": false,
+      "desc": "The model gains a Hunter-killer missile.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Improved targeting",
+      "term_compat": false,
+      "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Jammer",
+      "term_compat": false,
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Machine spirit",
+      "term_compat": false,
+      "desc": "If the model is under the effect of \"Crew shaken\", it may fire one weapon at BS 3+.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Ordained hull",
+      "term_compat": false,
+      "desc": "Enemy units must pass a Leadership test if they want to charge the unit. If they fail the test, another target may be selected.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Psy-ammunition",
+      "term_compat": false,
+      "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
+      "p_unit": 1,
+      "p_char": null
+    },
+    {
+      "name": "Smoke Launcher",
+      "term_compat": false,
+      "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Truesilver armor",
+      "term_compat": false,
+      "desc": "The model gains the \"Retribution(3)\" ability.",
+      "p_unit": 5,
+      "p_char": null
+    }
+  ],
+  "daemon_weapons": []
+}

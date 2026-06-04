@@ -1,0 +1,28 @@
+{
+  "name": "Wych Armory",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Blood Dancer",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflagrate(5+)\" ability with all melee weapons. Unique.",
+      "p_unit": null,
+      "p_char": 10
+    },
+    {
+      "name": "Hyperswift reflexes",
+      "term_compat": false,
+      "desc": "The model gains a cumulative instance of both the \"Deflect\" and \"Parry\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
+      "name": "Treacherous Deceiver",
+      "term_compat": false,
+      "desc": "The model gains the \"Retribution(5)\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 5
+    }
+  ],
+  "daemon_weapons": []
+}

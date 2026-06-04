@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Intonement for Guidance",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains +1 to hit rolls in ranged combat.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Invocation of Focus",
+    "range": "-",
+    "target": "Self",
+    "effect": "The target and all friendly psykers within 18\" range gain a +1 bonus to manifest and deny psychic powers.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Litany of Expulsion",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains +1 to hit rolls in melee combat.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Refrain of Convergence",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target is immune against Maledictions and Witchfires. Enemy psykers within 18\" range automatically suffer a \"Perils of the Warp\" attack each time they try to manifest a psychic power.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Words of Power",
+    "range": "-",
+    "target": "Self",
+    "effect": "The target gains the \"Armor piercing(5+)\" and \"Shred\" abilities.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Catechism of Fire",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains the \"Deflagrate(5+)\" ability for all melee OR ranged weapons.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Focus Recitation",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains a 5+ invulnerability save.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Litany of Faith",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains the \"Aegis(4+)\" ability.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Litany of Hate",
+    "range": "-",
+    "target": "Self + attached unit",
+    "effect": "The target gains +1 to hit rolls in ranged OR melee combat.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  },
+  {
+    "name": "Mantra of Strength",
+    "range": "-",
+    "target": "Self",
+    "effect": "The target gains +1 Strength and -1 AP for melee attacks.",
+    "duration": "Until the caster's next activation",
+    "complexity": "Basic"
+  }
+]

@@ -1,0 +1,58 @@
+name: Rules question (open interpretation)
+description: A rule whose correct interpretation is unclear — needs a community / designer answer before it can be implemented
+labels: ["rules-question", "needs-answer"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when a rule **can be read more than one way** and we need a human who knows the game
+        to decide the canonical interpretation. These are the questions that block correct
+        implementation — answer one and a maintainer can wire it up. (For a value that is simply wrong,
+        use **Data correction** instead.)
+
+  - type: input
+    id: faction
+    attributes:
+      label: Faction / supplement
+      placeholder: e.g. Chaos Space Marines, or "Core rules", or "Escalation"
+
+  - type: input
+    id: subject
+    attributes:
+      label: Rule / unit / item in question
+      placeholder: e.g. Trait "10.000 Years of Horror" on vehicles, or "Daemonic flight / jump pack" item
+    validations:
+      required: true
+
+  - type: textarea
+    id: the_question
+    attributes:
+      label: The question
+      description: What is ambiguous? Quote the exact wording from the datasheet / rulebook.
+      placeholder: |
+        e.g. The trait says "Only for creature units" but the points table shows a cost in the
+        Monstrous Creatures & Vehicles column. Does a vehicle pay the cost even though the effect
+        only applies to creature units?
+    validations:
+      required: true
+
+  - type: textarea
+    id: interpretations
+    attributes:
+      label: Possible interpretations
+      description: List the readings you can see, and which you lean toward (and why).
+      placeholder: |
+        A) Vehicles pay the cost (the shared column is the source of truth) — leaning here.
+        B) "Only for creature units" overrides the column; vehicles cannot take it at all.
+
+  - type: input
+    id: source
+    attributes:
+      label: Rules reference
+      placeholder: e.g. Army Customisation sheet, Traits table; Core Rules v1.252 L503
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      placeholder: Related rules, how other factions handle the same wording, designer notes, etc.

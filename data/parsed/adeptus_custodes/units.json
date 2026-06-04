@@ -1,0 +1,1999 @@
+{
+  "faction": "Adeptus Custodes",
+  "slot_to_units": {
+    "HQ": [
+      "Blade Champion",
+      "Knight-Centura",
+      "Shield-Captain",
+      "Shield-Captain on Jetbike"
+    ],
+    "Troops": [
+      "Custodian Guard",
+      "Sagittarum Custodians",
+      "Sisters of Silence"
+    ],
+    "Elites": [
+      "Allarus Custodians",
+      "Aquilon Custodians",
+      "Galatus Contemptor Dreadnought",
+      "Custodian Wardens",
+      "Venerable Contemptor Dreadnought",
+      "Vertus Praetor",
+      "Vigilators"
+    ],
+    "Fast Attack": [
+      "Jetbike Custodians"
+    ],
+    "Heavy Support": [
+      "Caladius Grav-Tank",
+      "Telemon Heavy Dreadnought",
+      "Venerable Land Raider"
+    ],
+    "Dedicated Transport": [
+      "Rhino",
+      "Coronus Grav-carrier"
+    ],
+    "Fortifications": [],
+    "Flyers": []
+  },
+  "units": {
+    "Blade Champion": {
+      "name": "Blade Champion",
+      "models": [
+        {
+          "name": "Blade Champion",
+          "points": 125,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "3",
+            "I": "5",
+            "A": "4",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Blade Champion is equipped with: Vaultswords.",
+      "weapons": [
+        {
+          "name": "Vaultswords",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Has acces to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Massive(1), Parry, Shield Host",
+        "Custodian armor: The model gains a 5+ invulnerability save.",
+        "Fighting style: During every activation, the Blade Champion may pick one of the following abilities for their Vaultswords:\n1. Behemor - Armor piercing(5+)\n2. Hurricanis - Flurry(2)\n3. Victus - Precision(5+)",
+        "Martial superiority: The model can re-roll 1 to hit and 1 to wound roll."
+      ],
+      "unit_type": "Character Model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 125
+    },
+    "Knight-Centura": {
+      "name": "Knight-Centura",
+      "models": [
+        {
+          "name": "Knight-Centura",
+          "points": 56,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "3",
+            "T": "3",
+            "W": "3",
+            "I": "5",
+            "A": "3",
+            "LD": "9",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Knight-Centura is equipped with: Psyk-out grenade.",
+      "weapons": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Executioner greatblade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Flamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Psyk-out grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "1",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Psi-shock"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can swap the Flamer",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Boltgun",
+              "points": 3
+            },
+            {
+              "name": "Executioner greatblade",
+              "points": 3
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has acces to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+      ],
+      "unit_type": "Character Model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 56
+    },
+    "Shield-Captain": {
+      "name": "Shield-Captain",
+      "models": [
+        {
+          "name": "Shield-Captain",
+          "points": 177,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "4",
+            "I": "5",
+            "A": "4",
+            "LD": "10",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Shield-Captain is equipped with: Bolt caster; Guardian spear.",
+      "weapons": [
+        {
+          "name": "Relic balistus grenade launcher",
+          "range": "18\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Relic bolt caster",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Relic castellan axe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Relic guardian spear",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Relic sentinel blade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Only one Shield-Captain per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can replace the Guardian spear",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Sentinel blade & Storm shield",
+              "points": 5
+            },
+            {
+              "name": "Castellan axe",
+              "points": 9
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "A Shield-Captain with either a Guardian spear or a Castellan axe may get an Allarus terminator armor and Relic balistus grenade launcher for +33 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 33,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has acces to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Massive(1), Shield Host",
+        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Character Model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 177
+    },
+    "Shield-Captain on Jetbike": {
+      "name": "Shield-Captain on Jetbike",
+      "models": [
+        {
+          "name": "Shield-Captain",
+          "points": 272,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "6",
+            "W": "5",
+            "I": "5",
+            "A": "4",
+            "LD": "10",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Shield-Captain on Jetbike is equipped with: Relic Interceptor lance; Lastrum bolt cannon.",
+      "weapons": [
+        {
+          "name": "Adrathic devastator",
+          "range": "18\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "-"
+        },
+        {
+          "name": "Hurricane bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Lastrum bolt cannon",
+          "range": "36\"",
+          "type": "Rapid Fire 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Salvo launcher",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Armorbane"
+        },
+        {
+          "name": "Twin las-pulser",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Only one Shield-Captain per army.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "May swap the Lastrum bolt cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Hurricane bolter",
+              "points": 13
+            },
+            {
+              "name": "Adrathic devastator",
+              "points": 38
+            },
+            {
+              "name": "Salvo launcher",
+              "points": 65
+            },
+            {
+              "name": "Twin las-pulser",
+              "points": 116
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host",
+        "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Character Model, Jetbike",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 272
+    },
+    "Custodian Guard": {
+      "name": "Custodian Guard",
+      "models": [
+        {
+          "name": "Custodian Guard",
+          "points": 72,
+          "min": 3,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Bolt caster; Guardian spear.",
+      "weapons": [
+        {
+          "name": "Adrathic destructor",
+          "range": "18\"",
+          "type": "Pistol 1",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Bolt caster",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Guardian spear",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        },
+        {
+          "name": "Melta beam",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Beam, Melta"
+        },
+        {
+          "name": "Sentinel blade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Every model with a Guardian spear may swap their Bolt caster",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Adrathic destructor",
+              "points": 5
+            },
+            {
+              "name": "Melta beam",
+              "points": 6
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Every model with a Bolt caster may swap their Guardian spear",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Sentinel blade & Storm shield",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Massive(1), Shield Host",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 3,
+      "min_cost": 216
+    },
+    "Sagittarum Custodians": {
+      "name": "Sagittarum Custodians",
+      "models": [
+        {
+          "name": "Sagittarum Custodian",
+          "points": 86,
+          "min": 3,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Adrastus bolt caliver.",
+      "weapons": [
+        {
+          "name": "Adrastus bolt caliver",
+          "range": "24\"",
+          "type": "Assault 3",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Deflagrate(5+), Suppression"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Massive(1), Shield Host",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 3,
+      "min_cost": 258
+    },
+    "Sisters of Silence": {
+      "name": "Sisters of Silence",
+      "models": [
+        {
+          "name": "Sister of Silence",
+          "points": 20,
+          "min": 5,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "4",
+            "A": "2",
+            "LD": "8",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Boltgun; Psyk-out grenades.",
+      "weapons": [
+        {
+          "name": "Boltgun",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Executioner greatblade",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Flamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Psyk-out grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "1",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Psi-shock"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model may swap its Flamer",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Boltgun",
+              "points": 0
+            },
+            {
+              "name": "Executioner greatblade",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 100
+    },
+    "Allarus Custodians": {
+      "name": "Allarus Custodians",
+      "models": [
+        {
+          "name": "Allarus Custodian",
+          "points": 123,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "6",
+            "W": "3",
+            "I": "4",
+            "A": "4",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Balistus grenade launcher; Bolt caster; Guardian spear.",
+      "weapons": [
+        {
+          "name": "Balistus grenade launcher",
+          "range": "18\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Bolt caster",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Castellan axe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Guardian spear",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Every model may swap their Guardian spear",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Castellan axe",
+              "points": 8
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Deep strike, Massive(1), Shield Host, Unyielding",
+        "Custodian terminator armor: The model gains a 4+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 369
+    },
+    "Aquilon Custodians": {
+      "name": "Aquilon Custodians",
+      "models": [
+        {
+          "name": "Aquilon Custodian",
+          "points": 143,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "6",
+            "W": "3",
+            "I": "4",
+            "A": "4",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Infernus firepike; Solerite power gauntlet.",
+      "weapons": [
+        {
+          "name": "Infernus firepike",
+          "range": "12\"",
+          "type": "Assault 6",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Lastrum storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Solerite power gauntlet",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AP(2), Slow(-1)"
+        },
+        {
+          "name": "Solerite power talon",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3),Slow(-2), Armorbane"
+        },
+        {
+          "name": "Twin adrathic destructor",
+          "range": "18\"",
+          "type": "Pistol 2",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Every model may swap their Infernus firepike",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Lastrum storm bolter",
+              "points": 19
+            },
+            {
+              "name": "Twin adrathic destructor",
+              "points": 22
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Every model may swap their Solerite power gauntlet",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Solerite power talon",
+              "points": 11
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Deep strike, Massive(1), Shield Host, Unyielding",
+        "Custodian terminator armor: The model gains a 4+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 429
+    },
+    "Galatus Contemptor Dreadnought": {
+      "name": "Galatus Contemptor Dreadnought",
+      "models": [
+        {
+          "name": "Contemptor Dreadnought",
+          "points": 237,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "10",
+            "I": "4",
+            "A": "3",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Contemptor Dreadnought is a single model and equipped with: Galatus shield; Galatus warblade.",
+      "weapons": [
+        {
+          "name": "Infernus incinerator",
+          "range": "12\"",
+          "type": "Assault 6",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Lastrum storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin adrathic destructor",
+          "range": "18\"",
+          "type": "Pistol 2",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can swap its Galatus shield and Galatus warblade",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Achilles dreadspear & 2 Infernus incinerators",
+              "points": 13
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can swap each Infernus incinerator",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Lastrum storm bolter",
+              "points": 19
+            },
+            {
+              "name": "Twin adrathic destructor",
+              "points": 22
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host",
+        "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
+        "Galatus shield: The model gains the abilities \"Deflect\" and \"Parry\"."
+      ],
+      "unit_type": "Vehicle, Walker",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 237
+    },
+    "Custodian Wardens": {
+      "name": "Custodian Wardens",
+      "models": [
+        {
+          "name": "Custodian Warden",
+          "points": 73,
+          "min": 3,
+          "max": 10,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "5",
+            "W": "2",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Bolt caster; Guardian spear.",
+      "weapons": [
+        {
+          "name": "Bolt caster",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Castellan axe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Guardian spear",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Quick(+1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "For every HQ selection, one unit of Custodian Wardens may be selected without taking up an Elite slot.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Every model may swap their Guardian spear",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Castellan axe",
+              "points": 8
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Bodyguard, Massive(1), Shield Host",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 219
+    },
+    "Venerable Contemptor Dreadnought": {
+      "name": "Venerable Contemptor Dreadnought",
+      "models": [
+        {
+          "name": "Contemptor Dreadnought",
+          "points": 270,
+          "min": 1,
+          "max": 3,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "10",
+            "I": "4",
+            "A": "3",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Contemptor Dreadnought is a single model and equipped with: Combi-bolter; Dreadnought close combat weapon; Multi-melta.",
+      "weapons": [
+        {
+          "name": "Multi-melta",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Combi-bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kheres-pattern assault cannon",
+          "range": "24\"",
+          "type": "Heavy 5",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Dreadnought close combat weapon",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can swap its Multi-melta",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Kheres-pattern assault cannon",
+              "points": 4
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host, Squadron",
+        "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1)."
+      ],
+      "unit_type": "Vehicle, Walker",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 270
+    },
+    "Vertus Praetor": {
+      "name": "Vertus Praetor",
+      "models": [
+        {
+          "name": "Vertus Praetor",
+          "points": 164,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "12\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "6",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Hurricane bolter; Interceptor lance.",
+      "weapons": [
+        {
+          "name": "Hurricane bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Salvo launcher",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Armorbane"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Every model may swap their Hurricane bolter",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Salvo launcher",
+              "points": 52
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Has acces to weapons and gear from the Armory.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Jetbike",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 492
+    },
+    "Jetbike Custodians": {
+      "name": "Jetbike Custodians",
+      "models": [
+        {
+          "name": "Jetbike Custodian",
+          "points": 151,
+          "min": 3,
+          "max": 6,
+          "stats": {
+            "M": "12\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "5",
+            "T": "6",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "9",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "All models are equipped with: Interceptor lance; Lastrum bolt cannon.",
+      "weapons": [
+        {
+          "name": "Adrathic devastator",
+          "range": "18\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "-"
+        },
+        {
+          "name": "Hurricane bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 6",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Lastrum bolt cannon",
+          "range": "36\"",
+          "type": "Rapid Fire 2",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Salvo launcher",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Armorbane"
+        },
+        {
+          "name": "Twin las-pulser",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Any model may swap their Lastrum bolt cannon",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Hurricane bolter",
+              "points": 13
+            },
+            {
+              "name": "Adrathic devastator",
+              "points": 38
+            },
+            {
+              "name": "Salvo launcher",
+              "points": 65
+            },
+            {
+              "name": "Twin las-pulser",
+              "points": 116
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host",
+        "Custodian armor: The model gains a 5+ invulnerability save."
+      ],
+      "unit_type": "Jetbike",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Fast Attack",
+      "default_size": 3,
+      "min_cost": 453
+    },
+    "Caladius Grav-Tank": {
+      "name": "Caladius Grav-Tank",
+      "models": [
+        {
+          "name": "Caladius Grav-Tank",
+          "points": 378,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "2+",
+            "S": "6",
+            "FRONT": "13",
+            "SIDE": "13",
+            "REAR": "12",
+            "I": "4",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Caladius Grav-Tank is equipped with: Twin lastrum bolt cannon; Twin iliastus accelerator cannon.",
+      "weapons": [
+        {
+          "name": "Twin arachnus heavy blaze cannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "10",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Twin lastrum bolt cannon",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin iliastus accelerator cannon",
+          "range": "48\"",
+          "type": "Assault 4",
+          "s": "8",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+), AT(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap their Twin iliastus accelerator cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Twin arachnus heavy blaze cannon",
+              "points": 88
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Shield Host",
+        "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1)."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 378
+    },
+    "Telemon Heavy Dreadnought": {
+      "name": "Telemon Heavy Dreadnought",
+      "models": [
+        {
+          "name": "Telemon Heavy Dreadnought",
+          "points": 367,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "6",
+            "FRONT": "13",
+            "SIDE": "13",
+            "REAR": "11",
+            "I": "4",
+            "A": "4",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Telemon Heavy Dreadnought is a single model and equipped with: 2 Telemon caestus with Twin plasma projector; Spiculus bolt launcher.",
+      "weapons": [
+        {
+          "name": "Iliastus accelerator culverin",
+          "range": "48\"",
+          "type": "Heavy 3",
+          "s": "7",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Spiculus bolt launcher",
+          "range": "24\"",
+          "type": "Rapid Fire 5",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin plasma projector",
+          "range": "12\"",
+          "type": "Assault 6",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Telemon caestus",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Flurry(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can swap each Telemon caestus with Twin plasma projector",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Arachnus storm cannon",
+              "points": 90
+            },
+            {
+              "name": "Iliastus accelerator culverin",
+              "points": 60
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host",
+        "Reinforced Atomantic Shielding: The model has a 4+ invulnerability save. Enemy attacks receive a -3 AT penalty (to a minimum of -3)."
+      ],
+      "unit_type": "Vehicle, Walker",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 367
+    },
+    "Venerable Land Raider": {
+      "name": "Venerable Land Raider",
+      "models": [
+        {
+          "name": "Land Raider",
+          "points": 542,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "2+",
+            "S": "7",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "14",
+            "I": "4",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Land Raider is a single model and equipped with: 2 Twin lascannonn; Twin heavy bolter.",
+      "weapons": [
+        {
+          "name": "Multi-melta",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin lascannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can be equipped with a Storm bolter for +13 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 13,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with a Multi-melter for +46 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 46,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Shield Host",
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
+        "Transport: This model has a transport capacity of 10 infantry models."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Heavy Support",
+      "default_size": 1,
+      "min_cost": 542
+    },
+    "Rhino": {
+      "name": "Rhino",
+      "models": [
+        {
+          "name": "Rhino",
+          "points": 112,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "5",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "10",
+            "I": "4",
+            "A": "1",
+            "HP": "2"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Rhino is equipped with: Storm bolter.",
+      "weapons": [
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can be equipped with an additional Storm bolter for +11 points.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": 11,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Fire hatches(2)",
+        "Null-Maiden: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\".",
+        "Transport: This model has a transport capacity of 10 infantry models, excluding \"Massive\" models."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": true,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 112
+    },
+    "Coronus Grav-carrier": {
+      "name": "Coronus Grav-carrier",
+      "models": [
+        {
+          "name": "Coronus Grav-carrier",
+          "points": 376,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "2+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "12",
+            "I": "4",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Coronus Grav-carrier is equipped with: Twin arachnus blaze cannon; Twin lastrum bolt cannon.",
+      "weapons": [
+        {
+          "name": "Twin arachnus blaze cannon — Beam",
+          "range": "-",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(2), Beam, Tank hunter"
+        },
+        {
+          "name": "Twin arachnus blaze cannon — Burst",
+          "range": "-",
+          "type": "Heavy 6",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin lastrum bolt cannon",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "The unit can gain a Veteran ability.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Shield Host",
+        "Flare Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
+        "Transport: This model has a transport capacity of 12 infantry models."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 376
+    }
+  }
+}

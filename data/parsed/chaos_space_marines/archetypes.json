@@ -1,0 +1,238 @@
+{
+  "archetypes": [
+    {
+      "name": "Abaddon's Chosen",
+      "desc": "- The army gains 3 additional HQ slots (5 in total) and must use them to field at least 4 HQ selections. Each of them must have a Mark of Chaos and all Marks must be different.\n- The \"Animosity of the Gods\" rule does not apply for the army."
+    },
+    {
+      "name": "All is Dust",
+      "desc": "- The army gets access to to all units from this codex that can take the Mark of Tzeentch and all units must take it.\n- The army gets access to to all units from the \"Chaos Daemons\" codex with the Mark of Tzeentch.\n- Rubric Marines can be taken as Troops.\n- Only models that already come equipped with the Mark of Tzeentch count towards the 25% limitation for Troops.\n- Legionnaires can not be taken at all.\n- Vehicles must upgrade Combi-bolters to Inferno combi-bolters for +2 points each, Combi-flamers to Inferno combi-warpflamers for +4 points each and Combi-melta to Inferno combi-melta for +1 point each.\n- May not select any Legacy or Traits."
+    },
+    {
+      "name": "Ambition for Perfection",
+      "desc": "- The army gets access to to all units from this codex that can take the Mark of Slaanesh and all units must take it.\n- The army gets access to to all units from the \"Chaos Daemons\" codex with the Mark of Slaanesh.\n- Noise Marines can be taken as Troops.\n- Only models that already come equipped with the Mark of Slaanesh count towards the 25% limitation for Troops.\n- Legionnaires can not be taken at all.\n- May not select any Legacy or Traits."
+    },
+    {
+      "name": "Blood for the Blood God!",
+      "desc": "- The army gets access to to all units from this codex that can take the Mark of Khorne and all units must take it.\n- The army gets access to to all units from the \"Chaos Daemons\" codex with the Mark of Khorne.\n- Khorne Berzerkers can be taken as Troops.\n- Only models that already come equipped with the Mark of Khorne count towards the 25% limitation for Troops.\n- Legionnaires can not be taken at all.\n- May not select any Legacy or Traits."
+    },
+    {
+      "name": "Daemonkin",
+      "desc": "- The army gains access to all Chaos Daemon units.\n- The army may use the Daemonkin table for the respective god.\n- The army ignores the \"Summoning\" rule. \n- The army must have at least one HQ selection from each codex (Chaos Daemons and Chaos Space Marines).\n- All units in the army must have a Mark of Chaos and it must be the same Mark.\n- All units in the army must have or purchase the \"Daemon\" or \"Greater Daemon\" ability.\n- The army may not have more than +1 unit selected from codex Chaos Space Marines over codex Chaos Daemons and vice versa.\n- May not select any Legacy or Traits."
+    },
+    {
+      "name": "Dreadclaw Assault",
+      "desc": "- All units must start the game as passengers inside a Dreadclaw Drop Pod.\n- Half of all Drop Pods in the army (round up) arrive automatically in the first battle round as reinforcements. The other half arrives automatically in the second battle round."
+    },
+    {
+      "name": "Host Raptorial",
+      "desc": "- Raptor units can be taken as Troops.\n- Only Raptor units count towards the 25% Troops limitation.\n- At least half of all Raptor models must start the game in reserves, even if the mission does not allow reserves."
+    },
+    {
+      "name": "Legion",
+      "desc": "- The army has access to everything from the Horus Heresy Space Marines supplement.\n- Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Legionnaire Warband",
+      "desc": "- Legionnaires can be taken as Troops.\n- All units in the army must be given at least one Veteran ability.\n- Units who can't take a Veteran ability may not be selected.\n- Marks of Chaos do not count as Veteran abilities in relation to fulfilling this requirement."
+    },
+    {
+      "name": "Plaguehost",
+      "desc": "- The army gets access to to all units from this codex that can take the Mark of Nurgle and all units must take it.\n- The army gets access to to all units from the \"Chaos Daemons\" codex with the Mark of Nurgle.\n- Plague Marines can be taken as Troops.\n- Only models that already come equipped with the Mark of Nurgle count towards the 25% limitation for Troops.\n- Legionnaires can not be taken at all.\n- Frag grenades for all models are exchanged with Blight grenades at no additional cost.\n- Vehicles must upgrade Combi-bolters for +2 points each to gain \"Poison(4+)\", Combi-flamers to Combi-plague belcher for +4 points each and Combi-melta for +2 points each to gain \"Poison(4+)\" on the bolter part .\n- May not select any Legacy or Traits."
+    },
+    {
+      "name": "Sorcerer Circle",
+      "desc": "- The army gets 4 HQ slots in total and has only access to Chaos Sorcerers and Masters of Sorcery as HQ models. Chaos Sorcerers gain the \"Command squad\" ability.\n- All of these models must be set up within 12\" of each other. \n- While a Master of Sorcery is within 12\" of a Chaos Sorcerer, they can manifest all powers known to the Chaos Sorcerer and receive a +1 bonus to manifesting and dispelling psychic powers."
+    },
+    {
+      "name": "Special Operations",
+      "desc": "- Cultists must pick two Veteran abilities, one of which has to be \"Infiltrator\"."
+    },
+    {
+      "name": "The Swift Blade",
+      "desc": "- Chaos Bikers can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Legacy of the Arch Traitor",
+      "desc": "The army has access to the Word Bearers Armory.",
+      "armory_key": "Word Bearers"
+    },
+    {
+      "name": "Legacy of the Hydra",
+      "desc": "The army has access to the Alpha Legion Armory.\nCan only select units with no Mark or the Mark of Chaos Undivided.",
+      "armory_key": "Alpha Legion"
+    },
+    {
+      "name": "Legacy of the Iron Lord",
+      "desc": "The army has access to the Iron Warriors Armory.\nCan only select units with no Mark or the Mark of Chaos Undivided.",
+      "armory_key": "Iron Warriors"
+    },
+    {
+      "name": "Legacy of the Night Haunter",
+      "desc": "The army has access to the Night Lords Armory.\nCan only select units with no Mark or the Mark of Chaos Undivided.",
+      "armory_key": "Night Lords"
+    },
+    {
+      "name": "Legacy of the Warmaster",
+      "desc": "The army has access to the Black Legion Armory.",
+      "armory_key": "Black Legion"
+    }
+  ],
+  "traits": [
+    {
+      "name": "10.000 Years of Horror",
+      "desc": "The unit ignores negative leadership modificators. Only for creature units.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Black Crusade",
+      "desc": "One chosen HQ model simultaneously bears all four Chaos god marks (Khorne, Nurgle, Slaanesh, Tzeentch). That HQ pays the combined mark cost for all four gods. Other units may carry 0 or 1 mark as normal. Animosity rules are suspended for the entire army.",
+      "pts_unit": "-",
+      "pts_char": "Special",
+      "enables_second_legacy": false,
+      "pts_monster": null,
+      "pts_veh": null
+    },
+    {
+      "name": "Blood Feud",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 to melee hit rolls until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Desecration",
+      "desc": "The unit gains a 5+ invulnerability save while within 6\" of an objective. Doesn't work against weapons with strength 8 and above.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": null,
+      "pts_veh": null
+    },
+    {
+      "name": "Fallen",
+      "desc": "The unit gains the \"They Shall Know No Fear\" ability (See Space Marines). Only for creature units.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Hatred Unleashed",
+      "desc": "The unit's ranged attacks against the nearest enemy unit gain +1 to hit rolls.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Horrors of the Night",
+      "desc": "The unit gains +1 to hit and +1 to wound in melee against units with at least one Battleshock token or if the enemy unit is outnumbered.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Iron Within, Iron Without",
+      "desc": "Creature models gain a 6+ invulnerability save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+      "pts_unit": "2*",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5*",
+      "pts_veh": "5*"
+    },
+    {
+      "name": "Laboratory Experiments",
+      "desc": "The unit gains the ability \"Berserk(5+)\", +1 Strength and +1\" Movement. At the end of each activation roll a D6 per model. For each 1 the unit suffers 1 Mortal Wound.",
+      "pts_unit": "5",
+      "pts_char": "-",
+      "enables_second_legacy": false,
+      "pts_monster": null,
+      "pts_veh": null
+    },
+    {
+      "name": "Malicious Volley",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Masters of Deception",
+      "desc": "The unit gains the benefit of light cover until its first activation.",
+      "pts_unit": "3",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "3",
+      "pts_veh": "3"
+    },
+    {
+      "name": "Mixed Warband",
+      "desc": "The army must select a second Legacy. Each model may only select items from one Legacy armory.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "enables_second_legacy": true,
+      "pts_monster": null,
+      "pts_veh": null
+    },
+    {
+      "name": "Profane Zeal",
+      "desc": "The unit gains the \"Blind Rage\" ability. Only for creature units.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Siege Experts",
+      "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Superior Battle Tactics",
+      "desc": "The unit reduces any negative to hit modificators by 1.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Terror Tactics",
+      "desc": "All melee attacks of the unit gain the \"Gruesome\" ability. The unit itself gains the \"Terrifying(-1)\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    },
+    {
+      "name": "Warp Pirates",
+      "desc": "The unit gains the \"Frenzy(1\")\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "enables_second_legacy": false,
+      "pts_monster": "5",
+      "pts_veh": "5"
+    }
+  ]
+}

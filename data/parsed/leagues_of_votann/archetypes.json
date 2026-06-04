@@ -1,0 +1,193 @@
+{
+  "archetypes": [
+    {
+      "name": "Demiurg",
+      "desc": "- This army and the Tau consider each other Battle Brothers (Green allies).\n- This army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army."
+    },
+    {
+      "name": "Einhyr Guard",
+      "desc": "- Einhyr Hearthguard can be taken as Troops.\n- A Kâhl or High Kâhl must be taken as a HQ selection.\n- Hearthkyn Warriors become Elite choices."
+    },
+    {
+      "name": "Hearthfyre Arsenal",
+      "desc": "- For every 500 points of game size, a single Brokhyr Iron-master may be included in the army that does not take up an HQ slot.                                                                                        \n- Hearthkyn Warriors do not count towards the 25% Troops limitation."
+    },
+    {
+      "name": "Persecution Prospect",
+      "desc": "- Hernkyn Yaegirs can be taken as Troops. \n- All units without Infiltrate or with less than 12\" Movement must start the game as passengers inside a transport.\n- Units without Infiltrate that have no transport option and less than 12\" Movement cannot be taken at all."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "League of Explorers",
+      "desc": "The army has access to the Trans-Hyperain Alliance armory.",
+      "armory_key": "League"
+    },
+    {
+      "name": "League of Leagues",
+      "desc": "The army has access to the Greater Thurian League armory.",
+      "armory_key": "League"
+    },
+    {
+      "name": "League of Magnates",
+      "desc": "The army has access to the Ymir Conglomerate armory.",
+      "armory_key": "League"
+    },
+    {
+      "name": "League of Sentinels",
+      "desc": "The army has access to the Urani-Surtr Regulates armory.",
+      "armory_key": "League"
+    },
+    {
+      "name": "League of Warriors",
+      "desc": "The army has access to the Kronus Hegemony armory.",
+      "armory_key": "League"
+    }
+  ],
+  "traits": [
+    {
+      "name": "Brutal Efficiency",
+      "desc": "The unit's weapons gain \"Deflagrate(5+)\" against targets with one or more Judgement tokens.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Dour Survivalists",
+      "desc": "After this unit resolves a \"Stand & Shoot\" order, it can't receive any Battleshock tokens until its next activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Frontier Momentum",
+      "desc": "The unit is able to use the \"Advance\" command.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Fury from the Delve",
+      "desc": "The unit gains the \"Deep strike\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Grudgebearers",
+      "desc": "During each Command phase, all enemy units that are currently holding a mission objective receive a Judgement token.",
+      "pts_unit": "7",
+      "pts_char": "0",
+      "pts_monster": "7",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Honor in Toil",
+      "desc": "If this unit is at or below half its starting strength or has suffered at least two Permanent or Structural damage results, add +1 to all its hit rolls.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "HUNTR's Mark",
+      "desc": "Vehicles can fire one additional weapon if they move more than 6\" and up to 12\".",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Ironskein",
+      "desc": "The unit can re-roll one save per battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Martial Cloneskeins",
+      "desc": "If the unit uses a Charge order or gets charged by an enemy unit, it gains +1 Strength until the end of the current battle round.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Master Salvagers",
+      "desc": "Vehicles can use the \"Brokhyr's Guild\" ability (See Brokhyr Iron-master) on themselves, but only for repairs.",
+      "pts_unit": "-",
+      "pts_char": "-",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Pan-Spectral Visualizers",
+      "desc": "The unit gains the \"Sunder(1)\" ability for all ranged attacks.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Quick to Judge",
+      "desc": "When this unit removes one or more models, or suffers Permanent or Structural damage, roll 1D6. On a 4+, the attacking enemy unit gains one Judgement token.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Ranger Outriders",
+      "desc": "The unit gains the \"Vanguard\" ability.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Trivärg Cyber Implants",
+      "desc": "If the unit disembarked from a transport this round, all of its weapons gain the \"Armor piercing(5+)\" ability for this activation.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "-",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Vengeful",
+      "desc": "When this unit is removed from the game, place two Judgement tokens next to the enemy unit that caused the last wound instead of one.",
+      "pts_unit": "0",
+      "pts_char": "0",
+      "pts_monster": "0",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    },
+    {
+      "name": "Voidship Specialists",
+      "desc": "The unit does not suffer the to hit penalty from Defensive Fire.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": null,
+      "enables_second_legacy": false
+    }
+  ]
+}
