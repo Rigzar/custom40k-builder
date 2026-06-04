@@ -212,7 +212,7 @@ src/i18n/       Textos de traducción (EN / DE / ES)
 | `legacies/sm-legacies.ts` | Datos de reglas de legados SM — mapa de gate de disciplinas y set de plegarias Cruzadas |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher para consultas de reglas de legado |
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
-| `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`) y la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca; la migración planificada a keywords por facción cambia los internals de este módulo. |
+| `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`), la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`) y la compatibilidad Gravis (`modelRestrictsToGravisSubset`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca. **Convención de glifos:** `ᵀ` = compatible con Terminator (NO Marca de Tzeentch); los glifos de marca son solo `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch va por sección (`armory_marks.Tzeentch`) y `ᶻ` queda reservado si alguna vez hace falta un glifo. **Cuando el trabajo toque la distinción Tzeentch-vs-Terminator, pregunta al mantenedor — no asumas.** |
 
 ### Cuándo editar los archivos de legado
 
@@ -225,6 +225,23 @@ La carpeta `legacies/` contiene reglas del motor que no pueden vivir en el JSON 
 - **`legacies/csm-legacies.ts`** — Editá este archivo si añadís o cambiás reglas de acceso a armería de legados CSM o restricciones de marca.
 
 Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un nuevo archivo `legacies/<faccion>.ts` siguiendo el mismo patrón y conectalo en `PsychicModal.tsx`.
+
+### Efectos de reglas estructurados y primitivos de coste (añadidos v0.51–v0.52)
+
+Algunas reglas no se pueden expresar solo con el texto de la descripción — necesitan campos estructurados que el engine lee. **Vigila el VERBO del datasheet al elegir el campo.**
+
+- **`OptionEffect`** (`types/data.ts`) — va en un `Choice`, un `OptionGroup`, **o un `ArmoryItem`** (`item.effect`). Campos:
+  - `stat_mod: [{ stat, delta }]` — p.ej. `+6" M` de una mochila de salto.
+  - `adds_unit_types: string[]` — ganancia **aditiva** de tipo. Verbo "**gains** the unit type X". El modelo conserva sus tipos actuales.
+  - `set_unit_type: string` — **reemplazo** de toda la línea de tipo. Verbo "**change** unit type **to** X".
+  - `grants_abilities: string[]` — reglas especiales concedidas (solo lo que el datasheet dice).
+  - Los efectos se aplican en `resolver.ts` (`applyEffect`) y se **deduplican contra el perfil base del modelo** — un tipo o ability que el modelo ya tiene nunca se re-añade. Los stats y abilities entre comillas de un ítem de armería siguen viniendo de `equipMods` (parseo de descripción); `item.effect` solo lleva el cambio de tipo.
+  - **Tipo y ability no son lo mismo.** `"Jump Pack Infantry"` es un TIPO de unidad (da Deep Strike); `"Jump pack"` es una ABILITY (no lo da). Modela lo que el datasheet dice literalmente.
+- **`OptionGroup.per_model`** — pon `true` en una opción inline cuyo datasheet diga "for +X points **per model**". El engine de puntos cobra entonces `inline_pts × tamaño de unidad` en vez de una sola vez. Las opciones inline planas de una sola vez (promover un Sargento) lo dejan sin poner.
+- **`equipMods.ts`** — parsea `+stat`, salvaciones y abilities entre comillas del `desc` de un ítem de armería. Excluye las palabras de tipo de unidad entre comillas (las maneja el sistema de tipos) y deduplica las abilities concedidas contra las abilities base de la unidad.
+- **Los caps de equipo de Escaramuza** viven en `validators.ts` (dentro del bloque `eng.statCaps`). Enforzan las restricciones del suplemento de Misiones: no ganar 2+ de armadura, 4+ inv o mejor, T8+, arma de Daño 3, ni más de un ítem Único de armería — todo fundamentado en `Informacion/missions_text.txt` y `core_rules_text.txt`. Añade caps nuevos aquí, no en la UI.
+
+> **Codificación (mojibake):** al editar JSON o TS a mano, mantén los ficheros en UTF-8. Secuencias corruptas como `â€"` (debería ser `—`) entran al copiar-pegar; `scripts/_scan_mojibake.cjs` las detecta. No pegues desde editores de texto enriquecido.
 
 ### Changelog vs Known Issues (importante — separados desde v0.47)
 

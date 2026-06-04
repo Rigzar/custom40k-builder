@@ -212,7 +212,7 @@ src/i18n/       Translation strings (EN / DE / ES)
 | `legacies/sm-legacies.ts` | SM legacy rule data — discipline gate map and Crusader prayer set |
 | `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher for legacy rule lookups |
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
-| `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`) and Terminator-armour compatibility (`modelRestrictsToTermSubset`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark gating is derived; the planned per-faction keyword migration swaps its internals here. |
+| `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`), Terminator-armour compatibility (`modelRestrictsToTermSubset`) and Gravis compatibility (`modelRestrictsToGravisSubset`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark gating is derived. **Glyph convention:** `ᵀ` = Terminator-compatible (NOT Mark of Tzeentch); the glyph marks are `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) only — Tzeentch is section-based (`armory_marks.Tzeentch`) and `ᶻ` is reserved if a glyph is ever needed. **When work touches the Tzeentch-vs-Terminator distinction, ask the maintainer — do not assume.** |
 
 ### When to edit legacy files
 
@@ -225,6 +225,23 @@ The `legacies/` folder holds engine-level rules that cannot live in the JSON —
 - **`legacies/csm-legacies.ts`** — Edit this if you add or change CSM legacy armory access rules or mark restrictions.
 
 If you add a new faction with legacy-gated disciplines, create a new `legacies/<faction>.ts` file following the same pattern and wire it into `PsychicModal.tsx`.
+
+### Structured rules effects & cost primitives (added v0.51–v0.52)
+
+Some rules can't be expressed by the description text alone — they need structured fields the engine reads. **Watch the datasheet VERB when choosing the field.**
+
+- **`OptionEffect`** (`types/data.ts`) — carried on a `Choice`, an `OptionGroup`, **or an `ArmoryItem`** (`item.effect`). Fields:
+  - `stat_mod: [{ stat, delta }]` — e.g. `+6" M` from a jump pack.
+  - `adds_unit_types: string[]` — **additive** type gain. Verb "**gains** the unit type X". The model keeps its existing type(s).
+  - `set_unit_type: string` — **replacement** of the whole type line. Verb "**change** unit type **to** X".
+  - `grants_abilities: string[]` — special rules granted (only what the datasheet states).
+  - Effects are applied in `resolver.ts` (`applyEffect`) and are **de-duplicated against the model's base profile** — a type or ability the model already has is never re-added. Stats and quoted abilities of an armory item still come from `equipMods` (description parsing); `item.effect` only carries the type change.
+  - **Type vs ability is not the same thing.** `"Jump Pack Infantry"` is a unit TYPE (gives Deep Strike); `"Jump pack"` is an ABILITY (does not). Model what the datasheet literally says.
+- **`OptionGroup.per_model`** — set `true` on an inline option whose datasheet says "for +X points **per model**". The points engine then charges `inline_pts × unit size` instead of once. Flat one-off inline options (promote one Sergeant) leave it unset.
+- **`equipMods.ts`** — parses `+stat`, saves, and quoted abilities from an armory item's `desc`. It skips quoted unit-type words (they're handled by the type system) and de-duplicates granted abilities against the unit's base abilities.
+- **Skirmish equipment caps** live in `validators.ts` (inside the `eng.statCaps` block). They enforce the Missions-supplement restrictions: no gaining a 2+ armour save, 4+ or better invuln, T8+, a Damage-3 weapon, or more than one Unique armory item — all grounded in `Informacion/missions_text.txt` and `core_rules_text.txt`. Add new caps here, not in the UI.
+
+> **Encoding (mojibake):** when editing JSON or TS data by hand, keep files UTF-8. Garbled sequences like `â€"` (should be `—`) creep in from copy-paste; `scripts/_scan_mojibake.cjs` detects them. Don't paste from rich-text editors.
 
 ### Changelog vs Known Issues (important — split since v0.47)
 
