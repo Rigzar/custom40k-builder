@@ -105,13 +105,11 @@ Fraktionsspezifische Rüstkammern (z. B. zeichengebundene Gegenstände für CSM)
 
 ## Übersetzungen
 
-Die App unterstützt drei Sprachen: **Englisch (EN)**, **Deutsch (DE)** und **Spanisch (ES)**. Alle UI-Texte befinden sich in einer einzigen Datei:
+Die App unterstützt drei Sprachen: **Englisch (EN)**, **Deutsch (DE)** und **Spanisch (ES)**. Übersetzbare Texte befinden sich an zwei verschiedenen Orten – lies beide Abschnitte, bevor du anfängst.
 
-```
-src/i18n/index.ts
-```
+### 1. UI-Texte — `src/i18n/index.ts`
 
-Jeder Text ist ein Objekt mit den Schlüsseln `en`, `de` und `es`:
+Alle Beschriftungen, Schaltflächentexte und Abschnittsüberschriften befinden sich hier. Jeder Eintrag ist ein Objekt mit den Schlüsseln `en`, `de` und `es`:
 
 ```ts
 appTitle: {
@@ -121,23 +119,68 @@ appTitle: {
 },
 ```
 
-### Nicht übersetzte Texte finden
+**Nicht übersetzte Texte finden:**
+Suche nach Einträgen, bei denen der `de`-Wert identisch mit dem `en`-Wert ist – das sind maschinell übersetzte oder fehlende Einträge. Korrekturen durch Muttersprachler sind immer willkommen.
 
-Suche nach Texten, bei denen der `de`-Wert identisch mit dem `en`-Wert ist – das sind maschinell übersetzte oder noch fehlende Einträge. Korrekturen durch Muttersprachler sind immer willkommen.
-
-### Übersetzung hinzufügen oder korrigieren
-
+**UI-Übersetzung hinzufügen oder korrigieren:**
 1. Öffne `src/i18n/index.ts`.
 2. Finde den Text (suche nach dem englischen Begriff).
 3. Bearbeite den `de`-Wert.
 4. Führe `npm run build` aus – die Datei ist TypeScript, ein Tippfehler führt zu einem Build-Fehler.
 5. Erstelle einen Pull Request. Du musst nicht alle Texte auf einmal übersetzen – Teilverbesserungen sind willkommen.
 
+> **Deutsche Terminologie:** offizielle Games-Workshop-Terminologie verwenden, keine wörtlichen Übersetzungen. Slot-Namen: `Standard` (Troops), `Elite` (Elites), `Sturm` (Fast Attack), `Unterstützung` (Heavy Support). Stat-Abkürzungen: `Reichw.` (Range), `DS` (AP), `SW` (Damage). Rüstkammer, nicht Waffenkammer.
+
+### 2. Regelbeschreibungen — Engine-Dateien und Daten
+
+Regeltexte in der Engine (Trait-Beschreibungen, Archetyp-Hinweise, Fähigkeitsbeschreibungen) sind derzeit **nur auf Englisch**. Sie werden als einfache Strings in TypeScript-Engine-Dateien und in `src/data/changelog.ts` / `src/data/known-issues.ts` gespeichert.
+
+**Wie das kanonische Kommentar-Muster beim Übersetzen hilft:**
+Jede Engine-Datei (Archetypen, Traits, Legacies) hat den Originalregeltext als Kommentar direkt über dem Code, der ihn implementiert:
+
+```ts
+// QUELLE: CSM Heeresanpassung — Traits
+// Blood Feud: Wenn die Einheit einen Angriffs-Befehl nutzt oder angegriffen wird,
+// erhält sie bis zum Ende der aktuellen Schlachtrunde +1 auf Nahkampf-Trefferproben.
+// KOSTEN: 5 normal · 0 Charakter · 5 Kreatur/Fahrzeug
+'Blood Feud': [
+  { type: 'unit_ability', name: 'Blood Feud', desc: '...', applies_to: 'all' },
+],
+```
+
+Der Kommentar gibt dir genau den englischen Ausgangstext, den du übersetzen musst – ohne die HTML-Quelldateien öffnen zu müssen.
+
+**Regelbeschreibung übersetzen — ein Feld mehrsprachig machen:**
+
+Regel-`desc`-Felder sind derzeit einfache englische Strings. Um ein Feld mehrsprachig zu machen, ändere den Typ von `string` auf `I18nString` (definiert in `src/data/changelog.ts`):
+
+```ts
+// Vorher — nur Englisch:
+desc: 'The unit gains +1 to melee hit rolls when charging or charged.',
+
+// Nachher — drei Sprachen:
+desc: {
+  en: 'The unit gains +1 to melee hit rolls when charging or charged.',
+  de: 'Die Einheit erhält +1 auf Nahkampf-Trefferproben, wenn sie angreift oder angegriffen wird.',
+  es: 'La unidad gana +1 a las tiradas de golpe en cuerpo a cuerpo al cargar o ser cargada.',
+},
+```
+
+Der `useT()`-Hook in der UI löst `I18nString` automatisch zur aktiven Sprache auf – keine UI-Änderungen notwendig, nur die Datenänderung. Sobald du den Typ änderst, zeigt TypeScript alle Stellen an, die das Feld lesen, damit du keine vergisst.
+
+**Schritte zur Konvertierung eines desc-Feldes:**
+1. Ändere den Typ des Feldes in `types/data.ts` oder der entsprechenden Schnittstelle von `string` auf `I18nString` (importieren aus `'../data/changelog'`).
+2. Aktualisiere den Wert in der Engine-Datei auf die Objektform `{ en, de, es }`.
+3. Führe `npm run build` aus – TypeScript markiert alle verbleibenden Plain-String-Verwendungen dieses Feldes, damit du keine übersiehst.
+4. Wenn du zunächst nur eine englische Übersetzung hast, kannst du denselben Text als Platzhalter für alle drei verwenden: `{ en: '...', de: '...', es: '...' }` – ein Muttersprachler kann DE/ES später verbessern.
+
+**Changelog und Known Issues** (`src/data/changelog.ts`, `src/data/known-issues.ts`) verwenden bereits `I18nString` – Einträge haben `en`-, `de`- und `es`-Schlüssel. Wenn du einen Changelog-Eintrag hinzufügst, fülle alle drei Sprachen aus.
+
 ### Hinweise zu Übersetzungs-PRs
 
-- Für reine Übersetzungs-PRs musst du die vollständige Entwicklungsumgebung nicht einrichten. Bearbeite einfach die Datei und stelle sicher, dass der Build durchläuft.
+- Für PRs, die nur `i18n/index.ts` betreffen, musst du die vollständige Entwicklungsumgebung nicht einrichten. Bearbeite einfach die Datei und stelle sicher, dass der Build durchläuft.
 - Wenn du dir bei einer Übersetzung unsicher bist, hinterlasse einen Hinweis in der PR-Beschreibung.
-- Maschinelle Übersetzungen sind als Ausgangspunkt akzeptabel, aber Muttersprachlerkorrekturen werden bevorzugt.
+- Maschinelle Übersetzungen sind als Ausgangspunkt akzeptabel; Muttersprachler-Reviews werden bevorzugt.
 
 ---
 
@@ -285,11 +328,85 @@ Diese beiden Dateien haben unterschiedliche Zwecke und dürfen nicht verwechselt
 - Schmale Typen gegenüber breiten bevorzugen; bei wiederkehrenden Strukturen zu `src/types/` hinzufügen
 - Keine neuen Abhängigkeiten ohne vorherige Diskussion in einem Issue
 
-### Neue Fraktion hinzufügen
+### Fehlende Datei zu einer bestehenden Fraktion hinzufügen
 
-1. Die Fraktions-JSON zu `data/parsed/` hinzufügen (Schema in `README.md`).
-2. In `src/data/alliedMatrix.ts` und `src/App.tsx` registrieren.
-3. Sicherstellen, dass `npm run build` durchläuft und die Fraktion in der App geladen wird.
+Viele Fraktionen haben noch leere oder fehlende Dateien. Wenn du Daten für eine Fraktion ergänzen möchtest – z. B. ihre psychischen Disziplinen, eine Legacy-Rüstkammer oder ihre Archetypen – verwende die untenstehenden Templates. Führe nach dem Erstellen oder Bearbeiten einer Datei `npm run build` aus, um die JSON-Gültigkeit zu bestätigen.
+
+**`archetypes.json`** — Archetypen, Legacies und Traits der Fraktion:
+```json
+{
+  "archetypes": [
+    {
+      "name": "Name des Archetyps",
+      "desc": "Vollständiger Regeltext aus dem Heeresanpassungs-Blatt, genau wie geschrieben."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Name des Legacy",
+      "desc": "Vollständiger Regeltext."
+    }
+  ],
+  "traits": [
+    {
+      "name": "Name des Traits",
+      "desc": "Vollständiger Regeltext.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5"
+    }
+  ]
+}
+```
+> Kostenspalten: `pts_unit` = normale Modelle, `pts_char` = Charaktermodelle, `pts_monster` / `pts_veh` = Monströse Kreaturen & Fahrzeuge (gemeinsame Spalte). `"-"` für nicht verfügbar, `"5*"` für Kosten pro Wunde/Rumpfpunkt.
+
+**`rules.json`** — armeweite Sonderregeln (Animosität, Verbündetematrix):
+```json
+{
+  "animosity": {},
+  "allied": {}
+}
+```
+
+**`armory/legion_<name>.json`** — Kapitel-, Legacy- oder Sept-Rüstkammer:
+```json
+{
+  "name": "Legacy of the Example",
+  "weapons": [],
+  "equipment": [],
+  "daemon_weapons": []
+}
+```
+Registriere die Datei anschließend in `src/data/loaders.ts` – finde den `case` der Fraktion und füge den neuen Import und Schlüssel im `legions`-Objekt hinzu, das an `asm()` übergeben wird.
+
+**`armory/mark_<gott>.json`** — Mal-spezifische Rüstkammer (nur Chaos-Fraktionen):
+```json
+{
+  "name": "Rüstkammer Mal des Khorne",
+  "weapons": [],
+  "equipment": [],
+  "daemon_weapons": []
+}
+```
+In `loaders.ts` unter dem `marks`-Objekt der Fraktion registrieren.
+
+**`psychic/disciplines.json`** — Psychische Disziplinen:
+```json
+[]
+```
+
+**`psychic/prayers.json`** — Gebete / Beschwörungen:
+```json
+[]
+```
+
+**`psychic/daemonkin.json`** — Daemonkin-Tabelle im Spiel (Chaos-Fraktionen):
+```json
+{}
+```
+
+> **Nach dem Hinzufügen einer Datei:** öffne `src/data/loaders.ts`, finde den `case` der Fraktion und stelle sicher, dass die neue Datei importiert und an `asm()` übergeben wird. Dateien, die nie vom Loader importiert werden, werden nie von der App geladen – die Datei allein reicht nicht.
 
 ### Regelmodell-Digests (`src/data/rules-model/<faction>.md`)
 

@@ -105,13 +105,11 @@ Las armerías específicas de facción (p. ej., ítems bloqueados por marca para
 
 ## Traducciones
 
-La app soporta tres idiomas: **Inglés (EN)**, **Alemán (DE)** y **Español (ES)**. Todos los textos de la interfaz viven en un único archivo:
+La app soporta tres idiomas: **Inglés (EN)**, **Alemán (DE)** y **Español (ES)**. Los textos traducibles viven en dos lugares distintos — leé ambas secciones antes de empezar.
 
-```
-src/i18n/index.ts
-```
+### 1. Textos de interfaz — `src/i18n/index.ts`
 
-Cada texto es un objeto con las claves `en`, `de` y `es`:
+Todas las etiquetas, botones y encabezados de sección viven aquí. Cada entrada es un objeto con las claves `en`, `de` y `es`:
 
 ```ts
 appTitle: {
@@ -121,23 +119,66 @@ appTitle: {
 },
 ```
 
-### Cómo encontrar textos sin traducir
+**Cómo encontrar textos sin traducir:**
+Buscá entradas donde el valor `es` es idéntico al valor `en` — esos son traducciones automáticas o entradas faltantes. Las correcciones de hablantes nativos son siempre bienvenidas.
 
-Buscá textos donde el valor `es` es idéntico al valor `en` — esos son traducciones automáticas o entradas faltantes. Las correcciones de hablantes nativos son siempre bienvenidas.
-
-### Agregar o corregir una traducción
-
+**Agregar o corregir una traducción de interfaz:**
 1. Abrí `src/i18n/index.ts`.
 2. Encontrá el texto (buscá el término en inglés).
 3. Editá el valor `es`.
 4. Ejecutá `npm run build` — el archivo es TypeScript, así que un error de tipeo causará un error de compilación.
-5. Abrí un Pull Request con tu cambio. No necesitás corregir todos los textos — las mejoras parciales son bienvenidas.
+5. Abrí un Pull Request. No necesitás corregir todos los textos — las mejoras parciales son bienvenidas.
+
+### 2. Descripciones de reglas — archivos del engine y datos
+
+Los textos de reglas en el engine (descripciones de rasgos, notas de arquetipos, descripciones de habilidades) están actualmente **solo en inglés**. Se guardan como strings en los archivos TypeScript del engine y en `src/data/changelog.ts` / `src/data/known-issues.ts`.
+
+**Cómo el patrón de comentario canónico ayuda a traducir:**
+Cada archivo del engine (arquetipos, rasgos, legados) tiene el texto original de la regla como comentario directamente encima del código que la implementa:
+
+```ts
+// FUENTE: Personalización de ejército CSM — Rasgos
+// Blood Feud: Si la unidad usa una orden de Carga o es cargada, gana +1 a
+// las tiradas de golpe en combate cuerpo a cuerpo hasta el final del round.
+// COSTE: 5 normal · 0 personaje · 5 criatura/vehículo
+'Blood Feud': [
+  { type: 'unit_ability', name: 'Blood Feud', desc: '...', applies_to: 'all' },
+],
+```
+
+El comentario te da exactamente el texto en inglés que necesitás traducir, sin abrir los archivos HTML fuente.
+
+**Para traducir una descripción de regla — convertir un campo a multiidioma:**
+
+Los campos `desc` de las reglas son actualmente strings solo en inglés. Para hacerlos multiidioma, cambiá el tipo de `string` a `I18nString` (definido en `src/data/changelog.ts`):
+
+```ts
+// Antes — solo inglés:
+desc: 'The unit gains +1 to melee hit rolls when charging or charged.',
+
+// Después — tres idiomas:
+desc: {
+  en: 'The unit gains +1 to melee hit rolls when charging or charged.',
+  de: 'Die Einheit erhält +1 auf Nahkampf-Trefferproben, wenn sie angreift oder angegriffen wird.',
+  es: 'La unidad gana +1 a las tiradas de golpe en cuerpo a cuerpo al cargar o ser cargada.',
+},
+```
+
+El hook `useT()` en la UI resuelve `I18nString` al idioma activo automáticamente — no hacen falta cambios en la UI, solo el cambio de dato. Una vez que cambiás el tipo, TypeScript te indica todos los lugares que leen ese campo para que no te pierdas ninguno.
+
+**Pasos para convertir un campo desc:**
+1. Cambiá el tipo del campo en `types/data.ts` o en la interfaz correspondiente de `string` a `I18nString` (importalo desde `'../data/changelog'`).
+2. Actualizá el valor en el archivo del engine al formato objeto `{ en, de, es }`.
+3. Ejecutá `npm run build` — TypeScript marcará cualquier uso restante como string plano para que no quede ninguno sin actualizar.
+4. Si por ahora solo tenés la traducción en inglés, podés usar el mismo texto en los tres como placeholder: `{ en: '...', de: '...', es: '...' }` — un hablante nativo puede mejorar el DE/ES después.
+
+**Changelog y Known Issues** (`src/data/changelog.ts`, `src/data/known-issues.ts`) ya usan `I18nString` — las entradas tienen claves `en`, `de` y `es`. Si añadís una entrada al changelog, completá los tres idiomas.
 
 ### Sobre los PRs de traducción
 
-- Para PRs que solo incluyan traducciones no necesitás configurar el entorno de desarrollo completo. Solo editá el archivo y verificá que el build pase.
+- Para PRs que solo modifiquen `i18n/index.ts` no necesitás el entorno de desarrollo completo. Solo editá el archivo y verificá que el build pase.
 - Si no estás seguro/a de una traducción, dejá una nota en la descripción del PR.
-- La traducción automática es aceptable como punto de partida, pero se prefiere la revisión de hablantes nativos.
+- La traducción automática es aceptable como punto de partida; se prefiere la revisión de hablantes nativos.
 
 ---
 
@@ -285,11 +326,85 @@ Estos dos archivos tienen propósitos distintos y no deben confundirse:
 - Preferir tipos específicos sobre amplios; agregar a `src/types/` si una forma se repite
 - Sin nuevas dependencias sin discusión previa en un issue
 
-### Agregar una nueva facción
+### Agregar un archivo de datos faltante a una facción existente
 
-1. Agregá el JSON de la facción a `data/parsed/` siguiendo el esquema en `README.md`.
-2. Registrala en `src/data/alliedMatrix.ts` y `src/App.tsx`.
-3. Verificá que `npm run build` pase y que la facción cargue en la app.
+Muchas facciones tienen archivos todavía vacíos o faltantes. Si querés completar datos de una facción — por ejemplo agregar sus disciplinas psíquicas, una armería de legado o sus arquetipos — usá los templates de abajo. Después de crear o editar cualquier archivo, ejecutá `npm run build` para confirmar que el JSON es válido.
+
+**`archetypes.json`** — arquetipos, legados y rasgos de la facción:
+```json
+{
+  "archetypes": [
+    {
+      "name": "Nombre del arquetipo",
+      "desc": "Texto completo de la regla tomado de la hoja de Personalización de ejército, tal como está escrito."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Nombre del legado",
+      "desc": "Texto completo de la regla."
+    }
+  ],
+  "traits": [
+    {
+      "name": "Nombre del rasgo",
+      "desc": "Texto completo de la regla.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5"
+    }
+  ]
+}
+```
+> Columnas de coste: `pts_unit` = modelos normales, `pts_char` = personajes, `pts_monster` / `pts_veh` = Criaturas Monstruosas y Vehículos (columna compartida). Usá `"-"` para no disponible, `"5*"` para costes por Herida/Punto de Casco.
+
+**`rules.json`** — reglas especiales del ejército (animosidad, matriz de aliados):
+```json
+{
+  "animosity": {},
+  "allied": {}
+}
+```
+
+**`armory/legion_<nombre>.json`** — armería de capítulo, legado o sept:
+```json
+{
+  "name": "Legacy of the Example",
+  "weapons": [],
+  "equipment": [],
+  "daemon_weapons": []
+}
+```
+Después de crear este archivo, registralo en `src/data/loaders.ts` — encontrá el `case` de la facción y añadí la nueva importación y clave en el objeto `legions` que se pasa a `asm()`.
+
+**`armory/mark_<dios>.json`** — armería específica de Marca de Caos (solo facciones Chaos):
+```json
+{
+  "name": "Armería de la Marca de Khorne",
+  "weapons": [],
+  "equipment": [],
+  "daemon_weapons": []
+}
+```
+Registralo en `loaders.ts` bajo el objeto `marks` de la facción.
+
+**`psychic/disciplines.json`** — disciplinas psíquicas:
+```json
+[]
+```
+
+**`psychic/prayers.json`** — plegarias / invocaciones:
+```json
+[]
+```
+
+**`psychic/daemonkin.json`** — tabla de daemonkin en juego (facciones Chaos):
+```json
+{}
+```
+
+> **Después de agregar cualquier archivo:** abrí `src/data/loaders.ts`, encontrá el `case` de la facción y asegurate de que el nuevo archivo esté importado y pasado a `asm()`. Los archivos que nunca son importados por el loader nunca son cargados por la app — el archivo solo no es suficiente.
 
 ### Digests de modelo de reglas (`src/data/rules-model/<faction>.md`)
 

@@ -105,13 +105,11 @@ Faction-specific armory sections (e.g., mark-locked items for CSM) may appear as
 
 ## Translations
 
-The app supports three languages: **English (EN)**, **German (DE)**, and **Spanish (ES)**. All UI strings live in a single file:
+The app supports three languages: **English (EN)**, **German (DE)**, and **Spanish (ES)**. There are two separate places where translatable text lives — read both sections before starting.
 
-```
-src/i18n/index.ts
-```
+### 1. UI strings — `src/i18n/index.ts`
 
-Each string is an object with `en`, `de`, and `es` keys:
+All interface labels, button text, and section headings live here. Each entry is an object with `en`, `de`, and `es` keys:
 
 ```ts
 appTitle: {
@@ -121,23 +119,68 @@ appTitle: {
 },
 ```
 
-### How to find untranslated strings
+**How to find untranslated UI strings:**
+Search the file for entries where the `de` or `es` value is identical to the `en` value — those are machine-translated or missing. Native-speaker corrections are always welcome.
 
-Search the file for strings where the `de` or `es` value is identical to `en` — those are machine-translated or missing. Native-speaker corrections are always welcome.
-
-### Adding or fixing a translation
-
+**Adding or fixing a UI translation:**
 1. Open `src/i18n/index.ts`.
-2. Find the string you want to fix (search for the English text).
+2. Find the string (search for the English text).
 3. Edit the `de` or `es` value.
 4. Run `npm run build` — the file is TypeScript, so a typo will cause a build error.
-5. Open a Pull Request with your change. You do not need to fix all strings — partial improvements are welcome.
+5. Open a Pull Request. You do not need to fix every string — partial improvements are welcome.
+
+> **German terminology:** use official Games Workshop German terminology, not literal translations. Slot names follow GW convention: `Standard` (Troops), `Elite` (Elites), `Sturm` (Fast Attack), `Unterstützung` (Heavy Support). Stat abbreviations: `Reichw.` (Range), `DS` (AP), `SW` (Damage). Armory is `Rüstkammer`.
+
+### 2. Rule descriptions — changelog, known issues, and engine files
+
+Rule text in the engine (trait descriptions, archetype notes, ability descriptions) is currently in **English only**. These are stored as plain strings in TypeScript engine files and in `src/data/changelog.ts` / `src/data/known-issues.ts`.
+
+**How the canonical comment pattern helps translators:**
+Each engine file (archetypes, traits, legacies) has the original rule text as a comment directly above the code that implements it, for example:
+
+```ts
+// SOURCE: CSM Army Customisation — Traits
+// Blood Feud: If the unit uses a Charge order or gets charged by an enemy
+// unit, it gains +1 to melee hit rolls until the end of the current battle
+// round. COST: 5 normal · 0 character · 5 monster/vehicle
+'Blood Feud': [
+  { type: 'unit_ability', name: 'Blood Feud', desc: '...', applies_to: 'all' },
+],
+```
+
+The comment gives you the exact English source text so you know precisely what `desc` should say in German or Spanish. You do not need to open the original HTML source files.
+
+**To translate a rule description — making a field multi-language:**
+
+Rule `desc` fields are currently plain English strings. To make one multi-language, change it from a `string` to an `I18nString` (defined in `src/data/changelog.ts`):
+
+```ts
+// Before — English only:
+desc: 'The unit gains +1 to melee hit rolls when charging or charged.',
+
+// After — three languages:
+desc: {
+  en: 'The unit gains +1 to melee hit rolls when charging or charged.',
+  de: 'Die Einheit erhält +1 auf Nahkampf-Trefferproben, wenn sie angreift oder angegriffen wird.',
+  es: 'La unidad gana +1 a las tiradas de golpe en cuerpo a cuerpo al cargar o ser cargada.',
+},
+```
+
+The `useT()` hook in the UI resolves `I18nString` to the active language automatically — no UI changes needed, just the data change. Once you change the type, TypeScript will tell you to update every place that reads the field.
+
+**Steps to convert a desc field:**
+1. Change the field type in `types/data.ts` or the relevant interface from `string` to `I18nString` (import it from `'../data/changelog'`).
+2. Update the value in the engine file to the `{ en, de, es }` object form.
+3. Run `npm run build` — TypeScript will flag any remaining plain-string usages of that field so you don't miss any.
+4. If you only have an English translation for now, you can use the same text for all three as a placeholder: `{ en: '...', de: '...', es: '...' }` — a native speaker can improve the DE/ES later.
+
+**Changelog and Known Issues** (`src/data/changelog.ts`, `src/data/known-issues.ts`) already use `I18nString` — entries have `en`, `de`, and `es` keys. If you add a changelog entry, fill in all three.
 
 ### Translation PRs
 
-- You do not need to set up the full dev environment for translation-only PRs. Just edit the file and verify the build passes.
-- If you are not sure about a translation, leave a note in the PR description.
-- Machine translation is acceptable as a starting point, but native speaker review is preferred.
+- For `i18n/index.ts`-only PRs you do not need the full dev environment. Edit the file, run `npm run build`, confirm it passes.
+- If you are unsure about a translation, leave a note in the PR description.
+- Machine translation is acceptable as a starting point; native speaker review is preferred.
 
 ---
 
@@ -312,10 +355,85 @@ Do **not** edit `changelog.ts` to update issue statuses — it no longer contain
 - Prefer narrow types over wide ones; add to `src/types/` if a shape recurs
 - No new dependencies without prior discussion in an issue
 
-### Adding a new faction
+### Adding a missing data file to an existing faction
 
-1. Add the faction JSON to `data/parsed/` following the schema in `README.md`
-2. Register it in `src/data/factions.ts`
+Many factions have some files still empty or missing. If you want to fill in data for a faction — for example adding its psychic disciplines, a legacy armory, or its archetypes — use the templates below. After creating or editing any file, run `npm run build` to confirm the JSON is valid.
+
+**`archetypes.json`** — archetypes, legacies, and traits for this faction:
+```json
+{
+  "archetypes": [
+    {
+      "name": "Archetype Name",
+      "desc": "Full rule text from the Army Customisation sheet, exactly as written."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Legacy Name",
+      "desc": "Full rule text."
+    }
+  ],
+  "traits": [
+    {
+      "name": "Trait Name",
+      "desc": "Full rule text.",
+      "pts_unit": "5",
+      "pts_char": "0",
+      "pts_monster": "5",
+      "pts_veh": "5"
+    }
+  ]
+}
+```
+> Trait cost columns: `pts_unit` = normal models, `pts_char` = character models, `pts_monster` / `pts_veh` = Monstrous Creatures & Vehicles (shared column). Use `"-"` for unavailable, `"5*"` for per-Wound/HP costs.
+
+**`rules.json`** — army-wide special rules (animosity, allied matrix):
+```json
+{
+  "animosity": {},
+  "allied": {}
+}
+```
+
+**`armory/legion_<name>.json`** — a chapter, legacy, or sept armory:
+```json
+{
+  "name": "Legacy of the Example",
+  "weapons": [],
+  "equipment": [],
+  "daemon_weapons": []
+}
+```
+After creating this file, register it in `src/data/loaders.ts` — find the faction's `case` and add the new import + key to the `legions` object passed to `asm()`.
+
+**`armory/mark_<god>.json`** — a Chaos mark-specific armory (Chaos factions only):
+```json
+{
+  "name": "Mark of Khorne Armory",
+  "weapons": [],
+  "equipment": [],
+  "daemon_weapons": []
+}
+```
+Register it in `loaders.ts` under the faction's `marks` object.
+
+**`psychic/disciplines.json`** — psychic discipline definitions:
+```json
+[]
+```
+
+**`psychic/prayers.json`** — prayers / incantations:
+```json
+[]
+```
+
+**`psychic/daemonkin.json`** — in-game daemonkin table (used by Chaos factions):
+```json
+{}
+```
+
+> **After adding any file:** open `src/data/loaders.ts`, find the faction's `case`, and make sure the new file is imported and passed to `asm()`. Files that are never imported by the loader are never loaded by the app — the file alone is not enough.
 3. Verify that `npm run build` passes and the faction loads in the app
 
 ### Rules-model digests (`src/data/rules-model/<faction>.md`)
