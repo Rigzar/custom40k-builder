@@ -3,6 +3,18 @@ import type { KnownIssue } from './changelog';
 export const KNOWN_ISSUES: KnownIssue[] = [
   // ── In progress ───────────────────────────────────────────────────────────
   {
+    id: 'ki-cd-bloodmaster-khorne-items-01',
+    status: 'known',
+    title: 'Chaos Daemons — Bloodmaster cannot equip Juggernaut of Khorne or Blood Throne',
+    description: 'The Bloodmaster (CD HQ) has armory access but cannot equip Juggernaut of Khorne (+55 pts) or Blood Throne (+80 pts), which are in the CD general armory. Both items are gated by the ᴷ glyph (Khorne-only). Root cause: the Bloodmaster is a Khorne unit by definition but the mark filter in the armory may not recognise its innate mark, blocking the ᴷ-tagged items. Fix requires verifying the Bloodmaster\'s effective mark in the armory modal and ensuring the Khorne gate opens for innately-Khorne units even without an explicit mark selection.',
+  },
+  {
+    id: 'ki-sm-dark-angels-armory-mojibake-01',
+    status: 'known',
+    title: 'Space Marines — Dark Angels armory item names have garbled characters (Ã¡Â´Â³) and missing Gravis tag',
+    description: 'All items in the Dark Angels legacy armory (legion_dark_angels.json) have "Ã¡Â´Â³" appended to their names — this is the ᴳ (Gravis-compatible) glyph corrupted by a double-encoding bug. Additionally, none of the items have gravis_compat: true set, so the Gravis armory filter does not recognise them as Gravis-compatible. Fix: strip the corrupted suffix from all item names, set gravis_compat: true on items that had the ᴳ glyph, and verify against the source HTML (Dark Angels Armory.html).',
+  },
+  {
     id: 'ki-legacy-armory-link-01',
     status: 'fixed',
     title: 'Legacy armory tabs not showing for Space Marines and other factions',
