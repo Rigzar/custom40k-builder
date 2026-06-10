@@ -1,0 +1,17 @@
+export { aggressorSquad } from './aggressor_squad';
+export { ancient } from './ancient';
+export { apothecary } from './apothecary';
+export { companyChampion } from './company_champion';
+export { deathCompany } from './death_company';
+export { deathwingKnights } from './deathwing_knights';
+export { dreadnought } from './dreadnought';
+export { honorGuard } from './honor_guard';
+export { invictorBattlesuit } from './invictor_battlesuit';
+export { ironcladDreadnought } from './ironclad_dreadnought';
+export { judicar } from './judicar';
+export { killTeamVeterans } from './kill_team_veterans';
+export { redemptorDreadnought } from './redemptor_dreadnought';
+export { techmarine } from './techmarine';
+export { terminatorSquad } from './terminator_squad';
+export { wolfScoutSquad } from './wolf_scout_squad';
+export { reiverMarines } from './reiver_marines';

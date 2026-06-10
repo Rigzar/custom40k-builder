@@ -126,7 +126,7 @@
         "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0).",
         "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself."
       ],
-      "unit_type": "Jump Pack, Monstrous Creature, KEYWORD, Lord, Necron",
+      "unit_type": "Jump Pack, Monstrous Creature, Lord, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -229,7 +229,7 @@
         "Psychomancer: Once per turn, an enemy unit within 18\" suffers a cumulative -1 penalty to its Leadership until the next Rally phase.",
         "Technomancer: Once per turn, one Reanimation Protocol roll for a unit within 6\" is automatically successfull."
       ],
-      "unit_type": "Character Model, Infantry, KEYWORD, Cryptek, Necron",
+      "unit_type": "Character Model, Infantry, Cryptek, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -309,7 +309,7 @@
         "Royal Court: If an Overlord is present, up to four Lords can be chosen that do not occupy an HQ slot.",
         "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
       ],
-      "unit_type": "Character Model, Infantry, KEYWORD, Lord, Necron",
+      "unit_type": "Character Model, Infantry, Lord, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -387,7 +387,7 @@
         "Royal Court: If an Overlord is present, up to four Royal Wardens can be chosen that do not occupy an HQ slot. If a Lord is present, up to two Royal Wardens can be chosen that do not occupy an HQ slot.",
         "Relentless March: The model and its attached unit may shoot “Rapid fire” weapons at full range with a \"Move & Shoot\" order and ignores the to hit penalty for \"Advance\" orders with \"Assault\" weapons."
       ],
-      "unit_type": "Character Model, Infantry, KEYWORD, Necron",
+      "unit_type": "Character Model, Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -453,7 +453,7 @@
         "Favoured enemy(everything), Furious Charge, Move through cover, Regeneration(1)",
         "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
       ],
-      "unit_type": "Character Model, Monstrous Creature, KEYWORD, Lord, Necron",
+      "unit_type": "Character Model, Monstrous Creature, Lord, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -509,7 +509,7 @@
       "abilities": [
         "Deep strike, Infiltrator, Reanimation Protocols, Terrifying(-1)"
       ],
-      "unit_type": "Infantry, KEYWORD, Necron",
+      "unit_type": "Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -614,7 +614,7 @@
       "abilities": [
         "Reanimation Protocols"
       ],
-      "unit_type": "Infantry, KEYWORD, Necron",
+      "unit_type": "Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -719,7 +719,7 @@
       "abilities": [
         "Reanimation Protocols"
       ],
-      "unit_type": "Infantry, KEYWORD, Necron",
+      "unit_type": "Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1063,7 +1063,7 @@
         "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
         "Nanoscarab reanimator beam: Instead of using the Atomiser beam, you may target a friendly <Necron> unit within 12\". The target immediately succeeds at 2 Reanimation Protocol rolls."
       ],
-      "unit_type": "Walker, KEYWORD, Canoptek",
+      "unit_type": "Walker, Canoptek",
       "keywords": [],
       "is_vehicle": true,
       "is_character": false,
@@ -1142,7 +1142,7 @@
         "Fabricator claw array: At the end of its movement, the model can attempt to repair a vehicle within 3\". On a 4+, an \"Immobilized\" or \"Weapon Destroyed\" result is removed from the vehicle, or 1 hull point is restored.",
         "Scarab hive: At the end of its movement, the model can repair up to 3 points of damage to a unit of Canoptek Scarabs within 3\". Slain models can be revived with this ability if at least a single Canoptek Scarab model from its unit is still alive."
       ],
-      "unit_type": "Monstrous Creature, KEYWORD, Canoptek",
+      "unit_type": "Monstrous Creature, Canoptek",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1277,7 +1277,7 @@
         "Deep strike, Reanimation Protocols",
         "Aetheric Interception: Deathmarks roll two dice less for scatter when deep striking. Additionally, once an enemy unit emerges from reserve, a Deathmark unit that has not yet used its order this round of combat may perform an intercept. The Deathmark unit is removed from the field or from reserves and immediately deployed within 18\" of the enemy reserve unit. The Deathmarks can then fire at that unit as if it had been given the \"Move & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action."
       ],
-      "unit_type": "Infantry, KEYWORD, Necron",
+      "unit_type": "Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1334,7 +1334,7 @@
         "Command squad, Deep strike, Regeneration(1)",
         "Royal Assassin: For each Lord or Skorpekh Lord, a Hexmark Destructor can be chosen that does not occupy an elite slot."
       ],
-      "unit_type": "Character Model, Infantry, KEYWORD, Necron",
+      "unit_type": "Character Model, Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1427,7 +1427,7 @@
         "Dispersion shield: The model gains a 5+ invulnerability save and the abilities \"Deflect\" and \"Parry\".",
         "Varguard: If a single Lychguard model is selected, it becomes a character model."
       ],
-      "unit_type": "Infantry, KEYWORD, Necron",
+      "unit_type": "Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1632,7 +1632,7 @@
       "abilities": [
         "Massive(1), Move through cover, Reanimation Protocols"
       ],
-      "unit_type": "Infantry, KEYWORD, Necron",
+      "unit_type": "Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1829,7 +1829,7 @@
         "Flensing Scarabs: Melee attacks gain \"Poison(2+)\".",
         "Frenzied Scarabs: The model gains +1 Initiative."
       ],
-      "unit_type": "Jet Bike, KEYWORD, Canoptek",
+      "unit_type": "Jet Bike, Canoptek",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1939,7 +1939,7 @@
         "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself.",
         "Wraith form: The model gains a 4+ invulnerability save."
       ],
-      "unit_type": "Jet Bike, Monstrous Infantry, KEYWORD, Canoptek",
+      "unit_type": "Jet Bike, Monstrous Infantry, Canoptek",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2021,7 +2021,7 @@
         "Infiltrator, Massive(1), Parry, Reanimation Protocols",
         "Tunneling Horrors: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
       ],
-      "unit_type": "Jump Pack Infantry, KEYWORD, Necron",
+      "unit_type": "Jump Pack Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2136,7 +2136,7 @@
         "Nebuloscope: Ranged attacks gain \"Seeking\".",
         "Shadowloom and shieldvanes: The model gains a 3+ armor save and a  5+ invulnerability save."
       ],
-      "unit_type": "Jet Bike, KEYWORD, Necron",
+      "unit_type": "Jet Bike, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2217,7 +2217,7 @@
       "abilities": [
         "Reanimation Protocols"
       ],
-      "unit_type": "Jump Pack Infantry, KEYWORD, Necron",
+      "unit_type": "Jump Pack Infantry, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2376,7 +2376,7 @@
         "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
         "Sentinel construct: If a friendly unit is charged within 12\", the Dominator Strider can also fire Overwatch."
       ],
-      "unit_type": "Squadron, Walker, KEYWORD, Canoptek",
+      "unit_type": "Squadron, Walker, Canoptek",
       "keywords": [],
       "is_vehicle": true,
       "is_character": false,
@@ -2530,7 +2530,7 @@
       "abilities": [
         "Reanimation Protocols"
       ],
-      "unit_type": "Jet Bike, KEYWORD, Necron",
+      "unit_type": "Jet Bike, Necron",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

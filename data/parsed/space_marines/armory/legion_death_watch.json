@@ -2,8 +2,13 @@
   "name": "Death Watch Armory",
   "weapons": [
     {
-      "name": "Auxiliary MeltagunÃ¡Â´Â³",
+      "name": "Auxiliary Meltagun",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "12\"",
       "type": "Assault 1",
       "s": "8",
@@ -52,6 +57,9 @@
           "d": "3",
           "abilities": "AT(2), Barrage"
         }
+      ],
+      "requires_keywords": [
+        "Techmarine"
       ]
     },
     {
@@ -67,8 +75,13 @@
       "p_char": 13
     },
     {
-      "name": "Watch spearÃ¡Â´Â³",
+      "name": "Watch spear",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "",
       "type": "",
       "s": "",
@@ -101,50 +114,85 @@
   ],
   "equipment": [
     {
-      "name": "BaneboltsÃ¡Â´Â³",
+      "name": "Banebolts",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "One ranged weapon of the model gains the \"Deadly(5+)\" ability.",
       "p_unit": 5,
       "p_char": 5
     },
     {
-      "name": "ClavisÃ¡Â´Â³",
+      "name": "Clavis",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n        1 - The vehicle suffers a penetrating hit with AT(1).\n        2 - The vehicle suffers a penetrating hit with AT(2).\n        3 - The vehicle suffers a penetrating hit with AT(3).",
       "p_unit": null,
       "p_char": 10
     },
     {
-      "name": "Deathwatch homing beaconÃ¡Â´Â³",
+      "name": "Deathwatch homing beacon",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "A friendly unit arriving within 6\" of the bearer via Deep Strike does not scatter.",
       "p_unit": 15,
       "p_char": 15
     },
     {
-      "name": "Digital weaponsÃ¡Â´Â³",
+      "name": "Digital weapons",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model can make one additional melee attack per round. Strength: 2 AP: -4 Damage: 1. Hits wound automatically.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Phase weaponÃ¡Â´Â³",
+      "name": "Phase weapon",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "One melee weapon of the model gains the \"Shield breaker(-1)\" ability.",
       "p_unit": 5,
       "p_char": 5
     },
     {
-      "name": "Special ammunitionÃ¡Â´Â³",
+      "name": "Special ammunition",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "All Bolt weapons of the model can receive one of the following benefits during each activation:\n- Poison(3+)\n- Sunder(2)\n- +6\" range and -1 AP\nCombi-weapons may use this ammunition with the \"Bolt\" part of their profile.",
       "p_unit": 4,
       "p_char": 4
     },
     {
-      "name": "The Tome of EctocladesÃ¡Â´Â³",
+      "name": "The Tome of Ectoclades",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model and its attached unit may select a single Veteran ability during each Rally phase to be active for the current battle round. Unique.",
       "p_unit": null,
       "p_char": 15

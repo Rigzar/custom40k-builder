@@ -140,7 +140,10 @@
       "term_compat": false,
       "desc": "The model gains +1 Wound and +1 Attack. Only for Heralds.",
       "p_unit": 8,
-      "p_char": null
+      "p_char": null,
+      "requires_keywords": [
+        "Herald"
+      ]
     },
     {
       "name": "Personal icon",

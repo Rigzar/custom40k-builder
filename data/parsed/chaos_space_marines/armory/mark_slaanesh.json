@@ -31,6 +31,9 @@
           "d": "1",
           "abilities": "Explosive, Sunder(2), Suppression"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
@@ -55,7 +58,10 @@
       "d": "1",
       "abilities": "Parry",
       "p_unit": 5,
-      "p_char": 6
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Power lance",
@@ -87,6 +93,9 @@
           "d": "1",
           "abilities": "Unwieldy"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
@@ -99,7 +108,10 @@
       "d": "1",
       "abilities": "Flurry(2)",
       "p_unit": 4,
-      "p_char": 4
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Screamer pistol",
@@ -123,7 +135,10 @@
       "d": "1",
       "abilities": "Sunder(2), Suppression",
       "p_unit": 11,
-      "p_char": 13
+      "p_char": 13,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -132,14 +147,20 @@
       "term_compat": true,
       "desc": "Once per battle, select any number of abilities for the model when performing a Charge command:\n- +1 Attack\n- +1\" Charge move\n- +1 Strength\n- +1 Weapon Skill\n- Warded\nThe effects last until the end of the current battle round. Roll 1D6 for each selected ability. The model suffers one Mortal Wound for each same die roll result.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Doom Siren",
       "term_compat": true,
       "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Needle of Desire",
@@ -153,21 +174,35 @@
       "term_compat": true,
       "desc": "The model and its attached unit gain the \"Berserk(5+)\" ability. Unique.",
       "p_unit": 40,
-      "p_char": 40
+      "p_char": 40,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Steed of Slaanesh",
       "term_compat": false,
+      "requires_keywords": [
+        "Infantry"
+      ],
       "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack and the \"Bike\" unit type. Only for infantry.",
       "p_unit": 25,
-      "p_char": 32
+      "p_char": 32,
+      "effect": {
+        "adds_unit_types": [
+          "Bike"
+        ]
+      }
     },
     {
       "name": "Warp Scream",
       "term_compat": true,
       "desc": "The model and its attached unit always gain the benefit of the \"Hold your ground\" Defensive reaction.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": [

@@ -40,22 +40,37 @@
   ],
   "equipment": [
     {
-      "name": "Angelsteel weaponÃ¡Â´Â³",
+      "name": "Angelsteel weapon",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "One weapon of the model gains the \"Life curse\" ability.",
       "p_unit": 3,
       "p_char": 3
     },
     {
-      "name": "Aura of FervorÃ¡Â´Â³",
+      "name": "Aura of Fervor",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model and its attached unit gain +1 Attack until the end of the current battle round, when they perform a Charge command.",
       "p_unit": null,
       "p_char": 20
     },
     {
-      "name": "Avenging AngelÃ¡Â´Â³",
+      "name": "Avenging Angel",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model may re-roll 1 to hit and 1 to wound roll each activation for each friendly unit that has been killed during the game.",
       "p_unit": 5,
       "p_char": 5
@@ -68,11 +83,19 @@
       "p_char": 8
     },
     {
-      "name": "Chalice of BloodÃ¡Â´Â³",
+      "name": "Chalice of Blood",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model and an attached unit receive a +1 bonus to melee hit rolls. The model also receives an additional +1 Initiative. Unique. Only for Apothecaries.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 15,
+      "requires_keywords": [
+        "Apothecary"
+      ]
     },
     {
       "name": "Death mask",
@@ -82,8 +105,13 @@
       "p_char": 10
     },
     {
-      "name": "ExecutionerÃ¡Â´Â³",
+      "name": "Executioner",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
       "p_unit": null,
       "p_char": 5
@@ -96,11 +124,19 @@
       "p_char": 5
     },
     {
-      "name": "Lord of DeathÃ¡Â´Â³",
+      "name": "Lord of Death",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains +1 Strength and +1 Toughness. If you pass a Leadership test during your activation, all melee attacks against one single enemy model in direct base contact may re-roll all to hit rolls. Unique. Only for Librarians.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "requires_keywords": [
+        "Psyker"
+      ]
     },
     {
       "name": "Overcharged engine",

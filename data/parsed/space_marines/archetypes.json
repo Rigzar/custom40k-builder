@@ -42,7 +42,8 @@
     {
       "name": "Legacy of the Alien Hunters",
       "desc": "The army has access to the Death Watch Armory, Inquisitors and Inquisition units. Inquisitors must select \"Ordo Xenos\" in the armory.\nEach model can receive the \"Special ammunition\" equipment, regardless of whether it has access to the armory.",
-      "armory_key": "Death Watch"
+      "armory_key": "Death Watch",
+      "grants_faction": "inquisition"
     },
     {
       "name": "Legacy of the Angel",

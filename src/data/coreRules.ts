@@ -8,7 +8,12 @@ export interface RuleEntry {
   description: string;
 }
 
-const RULES: Record<string, RuleEntry> = {
+/**
+ * Exported read-only so the structured query layer (engine/specialRules.ts) can validate
+ * keys against the SAME canonical glossary instead of duplicating the ~120-entry vocabulary.
+ * One source of truth — the two layers can never drift apart. Do not mutate from outside.
+ */
+export const RULES: Record<string, RuleEntry> = {
   // ── Weapon abilities ──────────────────────────────────────────────────────
   'ammo': {
     name: 'Ammo({X})',
@@ -108,7 +113,7 @@ const RULES: Record<string, RuleEntry> = {
   },
   'life curse': {
     name: 'Life Curse',
-    description: 'A single wound roll against Creatures can be re-rolled. If multiple models in a unit have this weapon, one wound roll per model may be re-rolled.',
+    description: 'A single wound roll against Creatures can be re-rolled. If multiple models in a unit have the same weapon with this rule, they can make their wound rolls together — in which case, one wound roll per model may be re-rolled.',
   },
   'indirect': {
     name: 'Indirect',
@@ -116,7 +121,7 @@ const RULES: Record<string, RuleEntry> = {
   },
   'master-crafted': {
     name: 'Master-crafted',
-    description: "A single hit roll can be re-rolled. If the weapon has Barrage, Explosive, or Flames, a single wound or armor penetration roll can be re-rolled instead. If multiple models in a unit have this weapon, one hit roll per model may be re-rolled.",
+    description: "A single hit roll can be re-rolled. If the weapon has Barrage, Explosive, or Flames, a single wound or armor penetration roll can be re-rolled instead. If multiple models in a unit have this weapon, one hit roll per model may be re-rolled. Can't be used on \"Grenade\" type weapons with weapons that have the \"Ammo(x)\" ability.",
   },
   'melta': {
     name: 'Melta',
@@ -128,7 +133,7 @@ const RULES: Record<string, RuleEntry> = {
   },
   'overheating': {
     name: 'Overheating',
-    description: 'Each roll of a 1 on a hit roll causes the user to suffer a Mortal Wound (or a glancing hit for vehicles). Re-roll abilities do not prevent overheating — the initial roll determines it.',
+    description: 'Each roll of a 1 on a hit roll causes the user to suffer a Mortal Wound (or a glancing hit using the AT value, for vehicles). Re-roll abilities do not prevent overheating — the initial roll determines it. For weapons that hit automatically, a roll of 1 on the wound roll triggers the same penalty instead. Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons and cannot spill over to other models, overriding the standard "remove whole models first" rule.',
   },
   'poison': {
     name: 'Poison({X})',
@@ -152,7 +157,7 @@ const RULES: Record<string, RuleEntry> = {
   },
   'seeking': {
     name: 'Seeking',
-    description: 'Enemy units in cover do not gain any cover benefit against this weapon.',
+    description: 'Enemy units in cover do not gain any cover benefit against this weapon and are treated as being outside of cover.',
   },
   'shield breaker': {
     name: 'Shield Breaker({X})',
@@ -176,11 +181,40 @@ const RULES: Record<string, RuleEntry> = {
   },
   'suppression': {
     name: 'Suppression',
-    description: 'Scoring 1 ranged hit forces the target to take a Leadership test. Each additional weapon with this rule fired at the same target adds a cumulative -1 penalty. Barrage adds -2; Explosive adds -1. A failed test gives the target a Battleshock token.',
+    description: 'Scoring 1 ranged hit forces the target to take a Leadership test. Each additional weapon with this rule fired at the same target adds a cumulative -1 penalty. Barrage adds -2; Explosive adds -1. Leadership penalties from Suppressive Fire and Suppression weapons are cumulative with each other. A failed test gives the target a Battleshock token (if the unit is also forced to test for both Suppressive/Suppression fire and sustaining casualties below half strength in the same activation, it tests only once with all penalties combined, and gains two Battleshock tokens on a fail).',
   },
   'unwieldy': {
     name: 'Unwieldy',
     description: 'The model does not gain an additional attack for having a pistol in close combat. Each model may carry only one Unwieldy item.',
+  },
+
+  // ── Weapon types ──────────────────────────────────────────────────────────
+  // Source: Custom40k Core Rules.txt L1072-1128 ("Weapon types" — its own canonical
+  // glossary category, distinct from Weapon/Model abilities). Order-compatibility
+  // table collapsed into prose per type; sub-rule bullets (¹-⁴) appended verbatim.
+  'assault': {
+    name: 'Assault',
+    description: 'May be used with Stand & Shoot, Move & Shoot, Advance and Charge orders. Cannot be used with a Fight order.',
+  },
+  'grenade': {
+    name: 'Grenade',
+    description: 'May be used with any order — Stand & Shoot, Move & Shoot, Advance, Charge and Fight. One model per unit may use a grenade instead of other eligible weapons. In melee, grenades have one attack and can only target Vehicles or Monstrous Creatures.',
+  },
+  'heavy': {
+    name: 'Heavy',
+    description: 'May only be used with a Stand & Shoot order. Cannot be used with Move & Shoot, Advance, Charge or Fight orders.',
+  },
+  'melee': {
+    name: 'Melee',
+    description: 'May only be used with Charge or Fight orders — cannot be fired at range. If a model is equipped with at least one melee weapon and one pistol, it gains +1 Attack in melee combat. Some weapons feature both a melee and a pistol profile; these confer the bonus as well.',
+  },
+  'pistol': {
+    name: 'Pistol',
+    description: 'May be used with Stand & Shoot, Move & Shoot, Advance and Charge orders. Cannot be used with a Fight order. A model can either fire up to two pistols (from the datasheet or the armory) or other eligible weapons during its activation.',
+  },
+  'rapid fire': {
+    name: 'Rapid Fire',
+    description: 'May be used with Stand & Shoot and Move & Shoot orders only. Doubles its shots when fired at half range. If the unit has not received the "Stand & Shoot" command, it can only fire at half range with Rapid Fire weapons.',
   },
 
   // ── Model special rules ───────────────────────────────────────────────────
@@ -498,10 +532,20 @@ const RULES: Record<string, RuleEntry> = {
     name: 'Super-heavy Vehicle',
     description: 'Follows the rules for vehicles with these exceptions: need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1; ignores difficult terrain and auto-passes dangerous terrain; invulnerability saves against Strength D only for other gargantuan/super-heavy models; can always shoot one more weapon than allowed for the distance moved; on losing its last Hull Point, on a 4+ it explodes (2D6" radius, S7 AP-2 D2). Uses its own super-heavy vehicle damage chart.',
   },
+  // ── Experimental Rules (Core Rules.txt L1940-1949 — "currently undergoing playtesting and
+  // completely optional"; this is the LAST entry in the canonical Core Rules text) ───────────
+  'sniper': {
+    name: 'Sniper',
+    description: 'The model may select a specific character model in the target unit for all hit and wound rolls, using the target\'s individual defensive profile for hitting and wounding it. (Experimental — add this ability to weapons in your army meant to represent a sniper rifle of the respective faction.)',
+  },
 };
 
-/** Normalise an ability token for glossary lookup. */
-function normaliseKey(raw: string): { key: string; param: string | null } {
+/**
+ * Normalise an ability token for glossary lookup — exported so the structured query layer
+ * (engine/specialRules.ts) reuses the exact same "Name(param)" extraction (e.g.
+ * "Rending(4+)" -> { key: 'rending', param: '4+' }) instead of re-implementing it.
+ */
+export function normaliseKey(raw: string): { key: string; param: string | null } {
   const m = raw.trim().match(/^(.+?)\s*\(([^)]+)\)\s*$/);
   if (m) {
     return {
@@ -522,6 +566,19 @@ export function lookupRuleGeneric(token: string): { displayName: string; descrip
   if (!entry) return null;
   const clean = (s: string) => s.replace(/\{X\}/g, 'X');
   return { displayName: clean(entry.name), description: clean(entry.description) };
+}
+
+/**
+ * Look up a weapon profile's `type` string against the "Weapon types" glossary
+ * (Assault, Grenade, Heavy, Melee, Pistol, Rapid Fire). Unlike ability tokens
+ * ("Ammo(2)"), weapon types carry a trailing shot count with no parentheses
+ * ("Rapid Fire 1", "Assault 2", "Heavy 1") — strip it before matching the key.
+ */
+export function lookupWeaponType(raw: string): { displayName: string; description: string } | null {
+  const key = raw.trim().toLowerCase().replace(/\s+\d+$/, '');
+  const entry = RULES[key];
+  if (!entry) return null;
+  return { displayName: entry.name, description: entry.description };
 }
 
 /** Look up a single ability token. Returns null if not in the glossary. */

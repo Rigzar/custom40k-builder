@@ -1,0 +1,9 @@
+export { chaosBikers } from './chaos_bikers';
+export { chaosSpawn } from './chaos_spawn';
+export { foetidBloatDrone } from './foetid_bloat_drone';
+export { juggernautHellriders } from './juggernaut_hellriders';
+export { myphiticBlightHauler } from './myphitic_blight_hauler';
+export { raptors } from './raptors';
+export { tzaangorEnlightened } from './tzaangor_enlightened';
+export { venomcrawler } from './venomcrawler';
+export { warptalons } from './warptalons';

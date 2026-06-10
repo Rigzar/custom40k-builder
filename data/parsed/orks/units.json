@@ -3820,7 +3820,7 @@
         "Transport: This model has a transport capacity of 30 infantry models. This transport capacity is reduced by 10 models for each Supa-lobba, Supa-kannon, or Lifta-droppa the Battle Fortress is equipped with. If this model has a big gun, it has a transport capacity of 12 infantry models.",
         "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation."
       ],
-      "unit_type": "Super-Heavy Vehicle",
+      "unit_type": "Super-heavy Vehicle",
       "keywords": [],
       "is_vehicle": true,
       "is_character": false,

@@ -1,0 +1,126 @@
+{
+  "Heresius": [
+    {
+      "name": "His Will Be Done",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + Attached unit",
+      "cast_value": "4",
+      "effect": "All wound losses caused by the target count twice for any combat resolution.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Witchhammer",
+      "type": "Witchfire",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "4",
+      "effect": "Starting at the caster going outwards, D3 enemy psykers suffer a Perils of the Warp attack.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Word of the Emperor",
+      "type": "Malediction",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "4",
+      "effect": "All tests of enemy models to use a psychic power, an incantation, a prayer or similar abilities receive a penalty of -1.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Purgatus",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "Both the caster and the target roll a D6 and add their respective Leadership values. If the target's total is greater than the caster's total, nothing happens. If the Psyker's total is greater than or equal to the target's total, the target model suffers a -3 penalty to its Leadership.",
+      "duration": "Until the end of the game",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Divine Pronouncement",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target is treated as activating in difficult and dangerous terrain, even if it would normally ignore it.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Soul-lightning",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target unit suffers a hit with the following profile: S: 5 AP: -1 D: 1; Barrage, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ],
+  "Telethesia": [
+    {
+      "name": "Psychic Fortitude",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit (Creature)",
+      "cast_value": "4",
+      "effect": "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Warding Incantation",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "5",
+      "effect": "The target gains the \"Aegis(4+)\" and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Castigation",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "Roll 3D6 and substract the target's Leadership. The unit receives that amount of automatic wounds with S:4 AP:0 D:1, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Psychic Pursuit",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "Select a friendly and an enemy unit within 12\". The enemy unit does not receive the benefits of cover against attacks from the friendly unit.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Scouring",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "Each model of the target reduce their number of attacks by 1 (to a minimum of 1).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Terrify",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target must pass a Leadership test with a -1 penalty or gain a Battleshock token.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ]
+}

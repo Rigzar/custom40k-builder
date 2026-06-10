@@ -1,0 +1,126 @@
+{
+  "Sanctity": [
+    {
+      "name": "Banishment",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "All melee attacks of the target gain the (cumulative) \"Shield breaker(-1)\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Cleanse Soul",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy model",
+      "cast_value": "6",
+      "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the target's total is greater than the Psyker's total, nothing happens. If the Psyker's total is greater than or equal to the target's total, the target model suffers one Mortal Wound.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Sanctuary",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "6",
+      "effect": "The target gains the \"Aegis(4+)\" and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Astral Aim",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target gains the \"Indirect\" and \"Seeking\" abilities for ranged attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Hammerhand",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "7",
+      "effect": "The target gains +2 Strength.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Destruction",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers one automatic hit with S: 5 AP: -2 D: 1; Barrage, Poison(2+), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ],
+  "Dominus": [
+    {
+      "name": "Warp Shaping",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "-",
+      "cast_value": "5",
+      "effect": "All psychic tests (of all players) receive a bonus OR penalty of 1.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Complex"
+    },
+    {
+      "name": "Empyric Amplification",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "7",
+      "effect": "Ranged attacks of the target gain (cumulative) -1 AP and AT(1).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Ghostly Bonds",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target receives one Battleshock marker.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Gate",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "7",
+      "effect": "Remove the unit immediately and place it on the table again via the rules for Deep Strike. The scatter die is always a \"hit\". The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Complex"
+    },
+    {
+      "name": "Psy-steel Armor",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target improves its Saving throw by +2.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Vortex",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "8",
+      "effect": "The target suffers one automatic wound or penetrating hit with S: D AP: -4 D: 3; AT(4), Seeking.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Normal"
+    }
+  ]
+}

@@ -1,10 +1,11 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import type { RosterEntry } from '../types/army';
 import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
-import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/legacies/sm-legacies';
+import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/legacies/space_marines';
+import { getLegacyExtraPower } from '../engine/legacies';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
@@ -37,6 +38,10 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
 
+  // GK legacy power: each legacy grants all psykers one fixed always-known power.
+  // Same display pattern as Smite ("Always known" badge). Null for all other factions.
+  const legacyPower = getLegacyExtraPower(data.faction, legacy ?? legacy2 ?? '');
+
   const isSMFaction = data.faction === 'Space Marines';
   const hasCrusaderLegacy = legacy === 'Legacy of the Crusader' || legacy2 === 'Legacy of the Crusader';
 
@@ -48,7 +53,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const hasPowers = unit.is_psyker;
   const hasPrayers = unit.is_priest && filteredPrayers.length > 0;
   const hasPacts = !!(unit.uses_pacts) && (data.pacts ?? []).length > 0;
-  const isCultInitiate = !!(unit.is_cult_initiate);
+  // SOURCE: Cult initiate armory item — "The model may exchange one psychic power it knows
+  // with one from the list of 'Cult Powers'." pU:0 pC:0 (free). Grants cult power access
+  // when purchased, even if the unit's datasheet doesn't have is_cult_initiate set.
+  const hasCultInitiateItem = item.armory.some(a => a.itemName === 'Cult initiate');
+  const isCultInitiate = !!(unit.is_cult_initiate) || hasCultInitiateItem;
 
   const defaultTab: ModalTab = hasPowers ? 'powers' : hasPrayers ? 'prayers' : 'pacts';
   const [tab, setTab] = useState<ModalTab>(defaultTab);
@@ -99,12 +108,74 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     }
   }
 
+  // ── Psyker mechanic from ability text ────────────────────────────────────────
+  // SOURCE: core_rules_text.txt L1009-1012 — "If a psyker is limited in the number
+  // of powers it knows, they must be selected when creating the army list."
+  // The ability text on the datasheet defines:
+  //   "all powers from a chosen discipline"  → mode:'all_from_one'  (pick 1 disc, get all 6)
+  //   "one psychic power of a chosen discipline" → mode:'one_from_one' (pick 1 disc, pick 1)
+  //   "N powers from chosen disciplines"     → mode:'n_from_any', limit N (pick N from any)
+  //   "knows Smite" always means Smite is a fixed known power, not selected by the player.
+  const psykerAbilityText = (unit.abilities ?? [])
+    .find(a => /^psyker:/i.test(a))?.toLowerCase() ?? '';
+
+  type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
+  function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean } {
+    const knowsSmite = psykerAbilityText.includes('smite');
+    if (psykerAbilityText.includes('all powers from a chosen discipline'))
+      return { mode: 'all_from_one', limit: 999, knowsSmite };
+    if (psykerAbilityText.match(/one (psychic )?power of a chosen discipline/))
+      return { mode: 'one_from_one', limit: 1, knowsSmite };
+    const nMatch = psykerAbilityText.match(/(\d+)\s+powers?\s+from/);
+    if (nMatch) return { mode: 'n_from_any', limit: parseInt(nMatch[1]), knowsSmite };
+    return { mode: 'unlimited', limit: 999, knowsSmite };
+  }
+  const { mode: psykerMode, limit: powerLimit, knowsSmite } = parsePsykerMode();
+
+  // "Psychic training" equipment: each copy adds +1 power slot.
+  // SOURCE: "The model knows one additional psychic power from one of their chosen disciplines.
+  //          Can be taken multiple times."
+  const psychicTrainingCount = item.armory.filter(a => a.itemName === 'Psychic training').length;
+  const effectivePowerLimit = psykerMode === 'all_from_one'
+    ? powerLimit  // all_from_one unlocks the whole discipline, training adds extra picks
+    : powerLimit + psychicTrainingCount;
+
+  // Chosen discipline: in 'all_from_one' mode, the player picks ONE discipline and
+  // knows ALL its powers. We store the chosen discipline as the first power's disciplineName
+  // with the special name '__discipline__' so it persists in the roster.
+  // For other modes, any power can be freely added up to the limit.
+  const chosenDisc = psykerMode === 'all_from_one'
+    ? item.powers.find(p => p.powerName === '__discipline__')?.disciplineName ?? null
+    : null;
+
   function isPowerSelected(disc: string, power: string) {
+    if (psykerMode === 'all_from_one') {
+      // Powers are "known" implicitly when the discipline is chosen — not stored individually
+      return chosenDisc === disc;
+    }
     return item.powers.some(p => p.disciplineName === disc && p.powerName === power);
   }
+
+  function chooseAllFromDisc(discName: string) {
+    // Remove any existing discipline choice, then set the new one
+    const existing = item.powers.find(p => p.powerName === '__discipline__');
+    if (existing) removePower(item.id, existing.disciplineName, '__discipline__');
+    if (chosenDisc !== discName) addPower(item.id, discName, '__discipline__');
+  }
+
   function togglePower(disc: string, power: string) {
-    if (isPowerSelected(disc, power)) removePower(item.id, disc, power);
-    else addPower(item.id, disc, power);
+    if (psykerMode === 'all_from_one') {
+      chooseAllFromDisc(disc);
+      return;
+    }
+    if (isPowerSelected(disc, power)) {
+      removePower(item.id, disc, power);
+    } else {
+      // Enforce per-selection limit for 'one_from_one' and 'n_from_any'
+      const selectedCount = item.powers.filter(p => p.powerName !== '__discipline__').length;
+      if (psykerMode !== 'unlimited' && selectedCount >= effectivePowerLimit) return; // already at limit
+      addPower(item.id, disc, power);
+    }
   }
 
   function isPrayerSelected(prayerName: string) {
@@ -125,7 +196,9 @@ export function PsychicModal({ item, unit, onClose }: Props) {
 
   const tabCount = [hasPowers, hasPrayers, hasPacts].filter(Boolean).length;
 
-  // Label for the powers button — "Cult Powers" for cult initiates, "Psychic Powers" otherwise
+  // Power count display (excluding the discipline marker)
+  const selectedPowersCount = item.powers.filter(p => p.powerName !== '__discipline__').length;
+  // Label for the powers button
   const powersLabel = isCultInitiate ? 'Cult Powers' : 'Psychic Powers';
 
   return (
@@ -155,7 +228,9 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
                   ${tab === 'powers' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
               >
-                {powersLabel} ({item.powers.length})
+                {powersLabel} {psykerMode === 'all_from_one'
+                  ? `(${chosenDisc ? chosenDisc : 'no discipline chosen'})`
+                  : `(${selectedPowersCount}${psykerMode !== 'unlimited' ? '/' + effectivePowerLimit : ''})`}
               </button>
             )}
             {hasPrayers && (
@@ -182,45 +257,126 @@ export function PsychicModal({ item, unit, onClose }: Props) {
         <div className="overflow-y-auto flex-1 p-3 space-y-4">
           {/* ── Psychic / Cult Powers ── */}
           {tab === 'powers' && hasPowers && (
-            allowedDiscs.length === 0 ? (
+          <div className="space-y-4">
+
+            {/* Smite — always known, fixed, not selectable (SOURCE: "It knows Smite") */}
+            {knowsSmite && (
+              <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">Always known</span>
+                  <span className="text-amber-300 font-semibold text-sm">Smite</span>
+                </div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">Cast: 5 · Witchfire · Instant — 1D3 Mortal Wounds (2D3 if cast value ≥10)</div>
+              </div>
+            )}
+
+            {/* Legacy power — always known, granted by active legacy (GK only) */}
+            {legacyPower && (
+              <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">Always known</span>
+                  <span className="text-amber-300 font-semibold text-sm">{legacyPower.name}</span>
+                  <span className="text-[9px] text-zinc-500 ml-auto">(Legacy)</span>
+                </div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">
+                  Cast: {legacyPower.details.cast_value} · {legacyPower.details.type} · {legacyPower.details.duration} — {legacyPower.details.effect}
+                </div>
+              </div>
+            )}
+
+            {/* Mode indicator — explains the selection rule from the psyker ability */}
+            {psykerMode === 'all_from_one' && (
+              <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
+                Choose <strong className="text-amber-400 not-italic">1 discipline</strong> — you know <strong className="text-amber-400 not-italic">all its powers</strong>.
+                {chosenDisc
+                  ? <span className="text-amber-300 not-italic ml-1">Selected: <strong>{chosenDisc}</strong></span>
+                  : <span className="text-zinc-500 not-italic ml-1">(none chosen yet)</span>}
+              </div>
+            )}
+            {psykerMode === 'one_from_one' && (
+              <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
+                Choose <strong className="text-amber-400 not-italic">1 power</strong> from <strong className="text-amber-400 not-italic">1 discipline</strong>.
+                <span className="text-zinc-500 not-italic ml-1">({selectedPowersCount}/{powerLimit} selected)</span>
+              </div>
+            )}
+            {psykerMode === 'n_from_any' && (
+              <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
+                Choose up to <strong className="text-amber-400 not-italic">{powerLimit} powers</strong> from any available discipline.
+                <span className={`not-italic ml-1 ${selectedPowersCount >= effectivePowerLimit ? 'text-amber-500' : 'text-zinc-500'}`}>({selectedPowersCount}/{powerLimit} selected)</span>
+              </div>
+            )}
+
+            {/* Disciplines */}
+            {allowedDiscs.length === 0 ? (
               <div className="text-zinc-500 italic text-sm text-center py-8">
                 No disciplines available for this unit.
               </div>
             ) : (
-              allowedDiscs.map(([discName, powers]) => (
-                <div key={discName}>
-                  <div className="text-[11px] text-amber-700 uppercase tracking-widest border-b border-zinc-700 pb-1 mb-2">
-                    {discName}
+              allowedDiscs.map(([discName, powers]) => {
+                const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
+                const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
+                  && selectedPowersCount >= powerLimit;
+                return (
+                  <div key={discName}>
+                    {/* Discipline header — clickable in all_from_one mode */}
+                    <div
+                      className={`flex items-center justify-between text-[11px] uppercase tracking-widest border-b pb-1 mb-2
+                        ${psykerMode === 'all_from_one'
+                          ? `cursor-pointer ${isChosen ? 'border-amber-600 text-amber-400' : 'border-zinc-700 text-zinc-500 hover:text-amber-600 hover:border-amber-800'}`
+                          : 'border-zinc-700 text-amber-700 cursor-default'}`}
+                      onClick={() => psykerMode === 'all_from_one' && chooseAllFromDisc(discName)}
+                    >
+                      <span>{discName}</span>
+                      {psykerMode === 'all_from_one' && (
+                        <span className={`text-[9px] px-1.5 py-px border font-bold normal-case tracking-normal ${isChosen ? 'bg-amber-800 border-amber-600 text-amber-200' : 'border-zinc-700 text-zinc-600'}`}>
+                          {isChosen ? '✓ Chosen' : 'Choose'}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Powers list — in all_from_one: shown as "all included when discipline chosen".
+                        Smite is filtered out here — it's already shown as "Always known" above. */}
+                    <div className="space-y-1">
+                      {(powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite')).map(p => {
+                        const sel = psykerMode === 'all_from_one' ? isChosen : isPowerSelected(discName, p.name);
+                        const disabled = !sel && atLimit;
+                        return (
+                          <button
+                            key={p.name}
+                            disabled={disabled}
+                            onClick={() => psykerMode !== 'all_from_one' && togglePower(discName, p.name)}
+                            className={`w-full text-left px-3 py-2 border transition-colors
+                              ${sel
+                                ? 'bg-amber-900/30 border-amber-700 text-amber-300'
+                                : disabled
+                                  ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-not-allowed opacity-50'
+                                  : psykerMode === 'all_from_one'
+                                    ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-default'
+                                    : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700 text-zinc-200'
+                              }`}
+                          >
+                            <div className="text-sm font-medium flex items-center gap-1.5">
+                              {p.name}
+                              {psykerMode === 'all_from_one' && isChosen && (
+                                <span className="text-[8px] text-amber-600 uppercase tracking-wide">included</span>
+                              )}
+                            </div>
+                            <div className="text-[10px] text-zinc-500 mt-0.5">
+                              {[p.type, p.range, p.cast_value ? `Cast: ${p.cast_value}` : null]
+                                .filter(Boolean).join(' · ')}
+                            </div>
+                            {p.effect && (
+                              <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    {(powers as Power[]).map(p => {
-                      const sel = isPowerSelected(discName, p.name);
-                      return (
-                        <button
-                          key={p.name}
-                          onClick={() => togglePower(discName, p.name)}
-                          className={`w-full text-left px-3 py-2 border transition-colors
-                            ${sel
-                              ? 'bg-amber-900/30 border-amber-700 text-amber-300'
-                              : 'bg-zinc-800 border-zinc-700 hover:border-amber-700 hover:bg-zinc-700 text-zinc-200'
-                            }`}
-                        >
-                          <div className="text-sm font-medium">{p.name}</div>
-                          <div className="text-[10px] text-zinc-500 mt-0.5">
-                            {[p.type, p.range, p.cast_value ? `Cast: ${p.cast_value}` : null]
-                              .filter(Boolean).join(' · ')}
-                          </div>
-                          {p.effect && (
-                            <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))
-            )
-          )}
+                );
+              })
+            )}
+          </div>)}
 
           {/* ── Prayers ── */}
           {tab === 'prayers' && hasPrayers && (

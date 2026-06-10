@@ -8,7 +8,7 @@ import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
-import { lookupRuleGeneric } from '../data/coreRules';
+import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
 import type { EquipMods } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
@@ -945,6 +945,10 @@ export function PrintView({ onClose }: { onClose: () => void }) {
       .filter(w => !optWpnNames.has(w.name) || selWpnNames.has(w.name));
     for (const w of shownWeapons) {
       if (w.abilities && w.abilities !== '-') parseGeneric(w.abilities);
+      if (w.type) {
+        const wt = lookupWeaponType(w.type);
+        if (wt) addRule(wt.displayName, wt.description);
+      }
     }
 
     // Armory items: weapon profiles → collect ability rules; equipment → collect description

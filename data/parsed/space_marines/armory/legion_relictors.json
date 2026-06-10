@@ -2,8 +2,13 @@
   "name": "Relictors Armory",
   "weapons": [
     {
-      "name": "Artekus' ScourgeÃ¡Â´Â³",
+      "name": "Artekus' Scourge",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "-",
       "type": "Melee",
       "s": "+1",
@@ -14,8 +19,13 @@
       "p_char": 12
     },
     {
-      "name": "Sword of St. AquitaineÃ¡Â´Â³",
+      "name": "Sword of St. Aquitaine",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "-",
       "type": "Melee",
       "s": "+1",
@@ -28,22 +38,37 @@
   ],
   "equipment": [
     {
-      "name": "Book of PainÃ¡Â´Â³",
+      "name": "Book of Pain",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "Select one enemy unit during your activation. The target must pass a Leadership test or gain one Battleshock token. Unique.",
       "p_unit": 5,
       "p_char": 5
     },
     {
-      "name": "Grimoire PandaemonicaÃ¡Â´Â³",
+      "name": "Grimoire Pandaeomonica",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "Once per battle round, you may re-roll both scatter dice from ANY player. Unique.",
       "p_unit": 5,
       "p_char": 5
     },
     {
-      "name": "Shard of the MonolithÃ¡Â´Â³",
+      "name": "Shard of the Monolith",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains +1 Strength and +1 Initiative. It may never use a \"Stand & Shoot\" order voluntarily and must always move closer to the nearest enemy unit, if possible.",
       "p_unit": 5,
       "p_char": 5

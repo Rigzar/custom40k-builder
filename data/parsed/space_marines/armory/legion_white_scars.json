@@ -2,8 +2,12 @@
   "name": "White Scars Armory",
   "weapons": [
     {
-      "name": "Equis-Pattern Bolt PistolÃ¡Â´Â³",
+      "name": "Equis-Pattern Bolt Pistol",
       "term_compat": false,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Gravis"
+      ],
       "range": "12\"",
       "type": "Pistol 5",
       "s": "4",
@@ -46,8 +50,13 @@
       ]
     },
     {
-      "name": "Scimitar of the Great KhanÃ¡Â´Â³",
+      "name": "Scimitar of the Great Khan",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "-",
       "type": "Melee",
       "s": "+1",
@@ -60,29 +69,49 @@
   ],
   "equipment": [
     {
-      "name": "Banner of the EagleÃ¡Â´Â³",
+      "name": "Banner of the Eagle",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "This model and its attached unit gain +1 Strength. Ancients only. Unique.",
       "p_unit": null,
       "p_char": 10
     },
     {
-      "name": "Cyber-Eagle HelmÃ¡Â´Â³",
+      "name": "Cyber-Eagle Helm",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "This model and its attached unit does not suffer the To Hit penalty for Defensive Fire.",
       "p_unit": 5,
       "p_char": 5
     },
     {
-      "name": "Hunter's EyeÃ¡Â´Â³",
+      "name": "Hunter's Eye",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "All ranged attacks by this model and its attached unit have the Seeking ability. Unique",
       "p_unit": null,
       "p_char": 15
     },
     {
-      "name": "Mantle of the StormseerÃ¡Â´Â³",
+      "name": "Mantle of the Stormseer",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "This model gains +1 to manifest and deny psychic powers. Unique.",
       "p_unit": null,
       "p_char": 5
@@ -95,9 +124,25 @@
       "p_char": 10
     },
     {
-      "name": "Stormwrath BoltsÃ¡Â´Â³",
+      "name": "Stormwrath Bolts",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "When firing a bolt weapon, this model may choose to fire a Stormwrath bolt instead of attacking normally. Use their bolt weapon's range and the profile above.",
+      "profiles": [
+        {
+          "name": "Stormwrath bolt",
+          "range": "As base weapon",
+          "type": "Assault 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1)"
+        }
+      ],
       "p_unit": 9,
       "p_char": 11
     },
@@ -107,13 +152,6 @@
       "desc": "This model gains the \"Jetbike\" type. Bike only. Unique",
       "p_unit": null,
       "p_char": 5
-    },
-    {
-      "name": "-",
-      "term_compat": false,
-      "desc": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "daemon_weapons": []

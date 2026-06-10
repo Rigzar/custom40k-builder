@@ -66,7 +66,9 @@
         "Lightning reflexes: The model gains a 4+ invulnerability save.",
         "Neural shredder: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",
         "Polymorphine: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
-        "Reign of Confusion: You may demand to re-roll either your or your enemy's first Initiative roll. Additionally you may decide whether your enemy rolls for Reinforcements during the first battle round."
+        "Reign of Confusion: You may demand to re-roll either your or your enemy's first Initiative roll. Additionally you may decide whether your enemy rolls for Reinforcements during the first battle round.",
+        "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
+        "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."
       ],
       "unit_type": "Infantry",
       "keywords": [],
@@ -135,7 +137,9 @@
         "Animus Speculum: If a psyker is within 18\" range, the type changes to \"Assault 6\"",
         "Etherium: The Culexus can never be hit on anything better but a natural roll of 6.",
         "Lightning reflexes: The model gains a 4+ invulnerability save.",
-        "Psionic Abomination: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\"."
+        "Psionic Abomination: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\".",
+        "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
+        "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."
       ],
       "unit_type": "Infantry",
       "keywords": [],
@@ -213,7 +217,9 @@
         "Bio Meltdown: After the unit is eliminated, all units within a 6\" radius suffer 2D3 Mortal Wounds.",
         "Hyper metabolism: The model gets 1D6+1 bonus attacks for charging instead of just 1.",
         "Lightning reflexes: The model gains a 4+ invulnerability save.",
-        "Stim Overdrive: Once per game the unit can double its attacks. Decide to use this rule when it is the Eversor's turn to fight in melee. Then remove the unit and execute the “Bio meltdown” rule."
+        "Stim Overdrive: Once per game the unit can double its attacks. Decide to use this rule when it is the Eversor's turn to fight in melee. Then remove the unit and execute the “Bio meltdown” rule.",
+        "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
+        "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."
       ],
       "unit_type": "Infantry",
       "keywords": [],
@@ -272,7 +278,9 @@
         "Deep Strike, Deflect, Hit & Run, Infiltrator, Move through cover, Parry",
         "Headshot: If an enemy model suffers a wound from the Exitus rifle or pistol but is not eliminated, roll 1D6. On a 3+ the model suffers one Mortal Wound.",
         "Lightning reflexes: The model gains a 4+ invulnerability save.",
-        "Perfect aim: The model ignores any negative to hit modifications. The player may chose which model in the target unit has to be removed as a casualty."
+        "Perfect aim: The model ignores any negative to hit modifications. The player may chose which model in the target unit has to be removed as a casualty.",
+        "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
+        "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."
       ],
       "unit_type": "Infantry",
       "keywords": [],

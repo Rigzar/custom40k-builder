@@ -6,7 +6,7 @@ import type { Unit, Weapon, Model, Armory } from '../types/data';
 // the user browse each unit's ficha. Activation stays where the rules put it:
 // Horus Heresy = pick the Legion archetype; Escalation/Lords of War = Epic Battle engagement.
 
-export type SupplementKey = 'horus_heresy' | 'escalation';
+export type SupplementKey = 'horus_heresy' | 'escalation' | 'assassins';
 
 interface SupplementDef {
   title: string;
@@ -45,6 +45,28 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       };
     },
   },
+  assassins: {
+    title: 'Assassins',
+    subtitle: '"Cults Abominatioe" / "Execution Force"',
+    accent: 'border-l-zinc-500',
+    blurb:
+      'A 4-unit catalog (Callidus, Culexus, Eversor, Vindicare) — not a standalone playable ' +
+      'army. Their own datasheet carries two universal special rules: "Cults Abominatioe": ' +
+      '"Any Chaos army may select either a single Assassin or one of each for a single Elite ' +
+      'slot." / "Execution Force": "Any Imperial army may select either a single Assassin or ' +
+      'one of each for a single Elite slot." Whichever combination is taken — one Assassin of ' +
+      'any type, or one of each of the four — occupies a SINGLE Elite slot, not one each.',
+    activation: [
+      'Pick any Chaos army (Chaos Space Marines, Chaos Daemons) or any Imperial army (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — the Assassins\' own datasheet grants native access (no [Allied] badge, no separate selection step).',
+      'The 4 Assassin units appear directly in your Elites roster, grouped under a "Cults Abominatioe" (Chaos) or "Execution Force" (Imperial) header.',
+      'Take either a single Assassin (any one of the four types) or one of each — the engine enforces this and counts the whole selection as one Elite slot.',
+    ],
+    load: async () => {
+      const m = (await import('../../data/parsed/assassins/units.json')) as { default: any };
+      const j = m.default;
+      return { units: j.units, slots: j.slot_to_units };
+    },
+  },
   escalation: {
     title: 'Escalation',
     subtitle: 'Lords of War',
@@ -59,7 +81,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'Total Lords of War spend may not exceed 33% of the army points.',
     ],
     load: async () => {
-      const m = (await import('../../data/parsed/chaos_space_marines/units.json')) as { default: any };
+      const idx = await import('../../data/parsed/chaos_space_marines/units/index');
+      const m = { default: { slot_to_units: idx.slot_to_units, units: idx.units } } as { default: any };
       const j = m.default;
       const lowNames: string[] = j.slot_to_units['Lords of War'] ?? [];
       const units: Record<string, Unit> = {};

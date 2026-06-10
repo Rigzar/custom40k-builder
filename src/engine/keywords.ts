@@ -1,4 +1,5 @@
 import type { ArmoryItem, Unit } from '../types/data';
+export type { ArmoryItem };
 import { MARK_GLYPHS, type ChaosMark } from '../types/keywords';
 
 // Re-export so existing consumers don't need to change their import path.
@@ -10,7 +11,7 @@ export { MARK_GLYPHS };
  * Single place that derives armour/mark gates from the existing data encoding.
  * See types/keywords.ts for the typed vocabulary (ChaosMark, ArmourKeyword, MARK_GLYPHS).
  * See types/unit-types.ts for canonical unit type strings.
- * See rules-model/_engine.md §10 and rules-model/chaos_space_marines.md for full docs.
+ * See rules-model/_engine.md §10 and engine/codex_csm/digest.md for full docs.
  */
 
 /** The Chaos Mark this item requires (derived from its trailing glyph), or null if unrestricted. */
@@ -68,6 +69,186 @@ export function modelRestrictsToGravisSubset(unit: Unit, boughtArmourNames: stri
   if (unit.armourKeyword && isGravisArmourName(unit.armourKeyword)) return true;
   if (boughtArmourNames.some(n => isGravisArmourName(n))) return true;
   return (unit.abilities ?? []).some(a => a.toLowerCase().startsWith('gravis armor'));
+}
+
+/**
+ * Parse a unit's unit_type string into individual type keywords.
+ * e.g. "Character Model, Infantry" → ["Character Model", "Infantry"]
+ */
+export function getUnitTypes(unit: Unit): string[] {
+  return unit.unit_type.split(/[,;]/).map(s => s.trim()).filter(Boolean);
+}
+
+/**
+ * Role keywords derived from unit name — catches legacy units whose keywords[] is empty
+ * but whose name encodes their role (e.g. SM "Librarian", "Chaplain Dreadnought").
+ * Mirrors BSData's explicit categoryLinks for units that pre-date the keyword model.
+ */
+const ROLE_KW_FROM_NAME: Array<[RegExp, string]> = [
+  [/librarian/i,      'Psyker'],
+  [/sorcerer/i,       'Psyker'],
+  [/shaman/i,         'Psyker'],
+  [/dark commune/i,   'Psyker'],
+  [/rubric/i,         'Psyker'],
+  [/scarab occult/i,  'Psyker'],
+  [/dark apostle/i,   'Priest'],
+  [/warpsmith/i,      'Warpsmith'],
+  [/lieutenant/i,     'Lieutenant'],
+  [/apothecary/i,     'Apothecary'],
+  [/\bchaplain\b/i,   'Chaplain'],
+  [/\bancient\b/i,    'Ancient'],
+  [/techmarine/i,     'Techmarine'],
+  [/dreadnought/i,    'Dreadnought'],
+  [/herald/i,         'Herald'],
+];
+
+function roleKeywordsFromName(unitName: string): string[] {
+  return ROLE_KW_FROM_NAME
+    .filter(([re]) => re.test(unitName))
+    .map(([, kw]) => kw);
+}
+
+/**
+ * Compute the full effective keyword set for a unit at list-building time.
+ * Mirrors BattleScribe's categoryLinks: the union of everything the unit "is".
+ *
+ * Sources (merged, normalised to lowercase, deduplicated):
+ *   1. unit.keywords        — faction + explicit roles: ["Chaos Space Marine", "Psyker"…]
+ *   2. unit_type parsed     — type strings: ["Infantry", "Character Model"…]
+ *   3. boolean flags        — is_psyker → "Psyker", is_priest → "Priest", etc.
+ *   4. name-derived roles   — ROLE_KW_FROM_NAME regex table (legacy units w/ empty keywords[])
+ *   5. unit.armourKeyword   — INNATE armour class: "Terminator", "Cataphractii", "Gravis"…
+ *                             (Blightlords have Cataphractii innately; Chaos Terminators have Terminator)
+ *   6. selectedMark         — e.g. "Mark of Nurgle"
+ *   7. boughtArmourKws      — armour BOUGHT from armory: ["Cataphractii"…]
+ */
+export function effectiveKeywords(
+  unit: Unit,
+  selectedMark?: string | null,
+  boughtArmourKws: string[] = [],
+): string[] {
+  const kws: string[] = [
+    ...(unit.keywords ?? []),
+    ...getUnitTypes(unit),
+    ...(unit.armourKeyword ? [unit.armourKeyword] : []),
+    // Cataphractii and Tartaros are sub-types of Terminator armor — a unit wearing either
+    // also counts as "Terminator" for equipment requirements (BSData: sub-category).
+    // This lets Blightlords (Cataphractii) pass requires_keywords: ["Terminator"] checks.
+    ...(unit.armourKeyword && isTerminatorArmourName(unit.armourKeyword) &&
+        unit.armourKeyword.toLowerCase() !== 'terminator' ? ['Terminator'] : []),
+    // Derived from boolean flags (works even when keywords[] is empty)
+    ...(unit.is_psyker  ? ['Psyker']   : []),
+    ...(unit.is_priest  ? ['Priest']   : []),
+    ...(unit.is_vehicle ? ['Vehicle']  : []),
+    ...(unit.is_monster ? ['Monster']  : []),
+    ...(unit.is_character ? ['Character'] : []),
+    // Role keywords derived from unit name (legacy SM/CD units with empty keywords[])
+    ...roleKeywordsFromName(unit.name),
+    ...(selectedMark ? [selectedMark] : []),
+    ...boughtArmourKws,
+  ];
+  return [...new Set(kws.map(k => k.toLowerCase()))];
+}
+
+/**
+ * instanceOf gate — mirrors BattleScribe's condition type="instanceOf".
+ *
+ * Returns true (BLOCKED) when item.requires_keywords is set and NONE of the required
+ * keywords are present in the buyer's effective keyword set (OR semantics).
+ *
+ * OR semantics: requires_keywords: ["Cataphractii","Terminator"] passes if the unit has
+ * EITHER keyword. This matches "Only for Cataphractii or Terminator armor."
+ *
+ * Items with no requires_keywords are never blocked by this gate.
+ */
+export function isItemRequirementsBlocked(
+  item: ArmoryItem,
+  unitEffectiveKeywords: string[],
+): boolean {
+  if (!item.requires_keywords?.length) return false;
+  return !item.requires_keywords.some(req =>
+    unitEffectiveKeywords.includes(req.toLowerCase())
+  );
+}
+
+/**
+ * Army-wide gate (distinct from isItemRequirementsBlocked, which checks the BUYER's own
+ * keywords): is `item.requires_army_item` set, and does NO unit anywhere in the roster
+ * (rosterArmoryItemNames — flattened item names from every entry's `armory[]`) carry it?
+ *
+ * Models "<X> grants the model and further units from this codex access to <X> equipment/units"
+ * (e.g. Inquisition Ordo Hereticus/Malleus/Xenos): picking the unlock item on ANY model opens
+ * the gated equipment — and gated UNITS, e.g. "Ordo Xenos Warband" — for the WHOLE army, not
+ * just the buyer. Takes a minimal structural shape so it works for both ArmoryItem and Unit
+ * (both carry `requires_army_item`).
+ *
+ * Items/units with no requires_army_item are never blocked by this gate.
+ */
+export function isArmyItemGateBlocked(
+  item: { requires_army_item?: string | null },
+  rosterArmoryItemNames: string[],
+): boolean {
+  if (!item.requires_army_item) return false;
+  return !rosterArmoryItemNames.includes(item.requires_army_item);
+}
+
+/**
+ * Does this item pass the Terminator-class armour gate (ᵀ)?
+ *
+ * Phase 1: checks `item.armour_compat` (keyword model — migrated factions).
+ * Fallback: `item.term_compat` boolean (legacy — non-migrated factions).
+ */
+export function isItemTermCompat(item: ArmoryItem): boolean {
+  if (item.armour_compat?.length) {
+    return item.armour_compat.some(k => isTerminatorArmourName(k) || k.toLowerCase() === 'terminator');
+  }
+  return item.term_compat;
+}
+
+/**
+ * Does this item pass the Gravis armour gate (ᴳ)?
+ *
+ * Phase 1: checks `item.armour_compat` (keyword model — migrated factions).
+ * Fallback: `item.gravis_compat` boolean (legacy — non-migrated factions).
+ */
+export function isItemGravisCompat(item: ArmoryItem): boolean {
+  if (item.armour_compat?.length) {
+    return item.armour_compat.some(k => isGravisArmourName(k) || k.toLowerCase() === 'gravis');
+  }
+  return item.gravis_compat ?? false;
+}
+
+/**
+ * Assassins' OWN canonical "Special rules" (data/source/Assassins ENG/Index.html, verbatim):
+ *   "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each
+ *    for a single Elite slot."
+ *   "Execution Force: Any Imperial army may select either a single Assassin or one of each
+ *    for a single Elite slot."
+ * This is a UNIVERSAL grant from the Assassins' own datasheet — NOT the narrower GK "Demon
+ * Hunters"/Sororitas "Witch hunters" "access to assassins" clause (Inquisition.ods). It
+ * applies to ANY Chaos army or ANY Imperial army. Faction lists below mirror the existing
+ * landing-page categories (LandingPage.tsx CATEGORIES — "Chaos"/"Imperium"), confirmed
+ * against the user 2026-06-07: Inquisition counts as Imperial; the Horus Heresy/Escalation
+ * supplements do NOT (they enter via archetype injection with their own separate rules, not
+ * as standalone "armies").
+ */
+const CHAOS_ARMY_FACTIONS = ['Chaos Space Marines', 'Chaos Daemons'];
+const IMPERIAL_ARMY_FACTIONS = [
+  'Space Marines', 'Imperial Guard', 'Adeptus Mechanicus', 'Adeptus Custodes',
+  'Adeptus Sororitas', 'Grey Knights', 'Inquisition',
+];
+
+/** Does this faction count as a "Chaos army" / "Imperial army" for the Assassins' own
+ *  "Cults Abominatioe"/"Execution Force" grant? Returns null if neither (e.g. Xenos). */
+export function getAssassinAccessAlignment(factionName: string): 'chaos' | 'imperial' | null {
+  if (CHAOS_ARMY_FACTIONS.includes(factionName)) return 'chaos';
+  if (IMPERIAL_ARMY_FACTIONS.includes(factionName)) return 'imperial';
+  return null;
+}
+
+/** Display label for the Assassins' grouping section, per alignment. */
+export function assassinAccessGroupLabel(alignment: 'chaos' | 'imperial'): string {
+  return alignment === 'chaos' ? 'Cults Abominatioe' : 'Execution Force';
 }
 
 export interface MarkGateCtx {

@@ -11,7 +11,10 @@
       "d": "1",
       "abilities": "Poison(4+)",
       "p_unit": 6,
-      "p_char": 7
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Bubonic axe",
@@ -23,7 +26,10 @@
       "d": "1",
       "abilities": "Poison(4+)",
       "p_unit": 6,
-      "p_char": 7
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Combi-plague belcher",
@@ -55,6 +61,9 @@
           "d": "1",
           "abilities": "Flames, Poison (4+)"
         }
+      ],
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
@@ -84,6 +93,9 @@
     {
       "name": "Manreaper",
       "term_compat": true,
+      "requires_keywords": [
+        "Cataphractii"
+      ],
       "range": "",
       "type": "",
       "s": "",
@@ -111,6 +123,10 @@
           "d": "1",
           "abilities": "Poison(4+), Flurry(1), Unwieldy"
         }
+      ],
+      "desc": "Only for models in Cataphractii armor.",
+      "armour_compat": [
+        "Terminator"
       ]
     },
     {
@@ -135,7 +151,10 @@
       "d": "1",
       "abilities": "Flames, Poison(4+)",
       "p_unit": 6,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Plasma gun",
@@ -172,6 +191,10 @@
     {
       "name": "Twin plague spewer",
       "term_compat": true,
+      "requires_keywords": [
+        "Cataphractii",
+        "Terminator"
+      ],
       "range": "9\"",
       "type": "Assault 8",
       "s": "5",
@@ -179,7 +202,11 @@
       "d": "1",
       "abilities": "Flames, Poison(4+). Only for models in Cataphractii or Terminator armor.",
       "p_unit": null,
-      "p_char": 26
+      "p_char": 26,
+      "desc": "Only for models in Cataphractii or Terminator armor.",
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Blight grenades",
@@ -191,7 +218,10 @@
       "d": "1",
       "abilities": "Explosive, Poison(4+)",
       "p_unit": null,
-      "p_char": null
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -199,6 +229,9 @@
       "name": "Cataphractii armor",
       "armourKeyword": "Cataphractii",
       "term_compat": false,
+      "requires_keywords": [
+        "Infantry"
+      ],
       "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
       "p_unit": null,
       "p_char": 76
@@ -208,56 +241,80 @@
       "term_compat": true,
       "desc": "The model gains the \"Deflect\" ability.",
       "p_unit": 3,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Nurgle's decay",
       "term_compat": true,
       "desc": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Nurgling infestation",
       "term_compat": true,
       "desc": "The model inflicts 4 automatic hits each activation in close combat. Strength: 2 AP: 0 D:1; Poison(4+).",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Plague ammunition",
       "term_compat": true,
       "desc": "All ranged weapons of the model gain \"Poison(3+)\".",
       "p_unit": 7,
-      "p_char": 7
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Plague outburst",
       "term_compat": true,
       "desc": "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 3 automatic wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Revoltingly Resilient",
       "term_compat": true,
       "desc": "The model gains the \"Regeneration(1)\" ability.",
       "p_unit": 15,
-      "p_char": 25
+      "p_char": 25,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Shamblerot",
       "term_compat": true,
       "desc": "Roll 1D6 during the model's acitvation, if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Zombie lord",
       "term_compat": true,
       "desc": "All Poxwalker models from an attached unit gain +1 Strength.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": [

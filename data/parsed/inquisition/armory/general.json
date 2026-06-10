@@ -336,8 +336,21 @@
       "p_char": 3
     },
     {
-      "name": "Ignis Judiciumᴴ",
+      "name": "Hunter-killer missile",
       "term_compat": false,
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), AT(2)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Ignis Judicium",
+      "term_compat": false,
+      "requires_army_item": "Ordo Hereticus",
       "range": "12\"",
       "type": "Pistol 2",
       "s": "8",
@@ -444,8 +457,9 @@
       "p_char": 5
     },
     {
-      "name": "Phase sword ˣ",
+      "name": "Phase sword",
       "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
       "range": "-",
       "type": "Melee",
       "s": "+1",
@@ -592,8 +606,9 @@
       "p_char": 9
     },
     {
-      "name": "Psycannonᴹ",
+      "name": "Psycannon",
       "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
       "range": "24\"",
       "type": "Rapid Fire 2",
       "s": "7",
@@ -650,105 +665,81 @@
       "abilities": "AT(2), Slow(-3)",
       "p_unit": 12,
       "p_char": 16
-    },
+    }
+  ],
+  "equipment": [
     {
       "name": "Counter-attack",
       "term_compat": false,
-      "range": "The model gains the ability \"Counter-attack\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Counter-attack\".",
       "p_unit": 1,
+      "p_veh": 1,
       "p_char": 2
     },
     {
       "name": "Favoured enemy",
       "term_compat": false,
-      "range": "The model gains the ability \"Favoured enemy\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Favoured enemy\".",
       "p_unit": 1,
+      "p_veh": 1,
       "p_char": 2
     },
     {
       "name": "Furious charge",
       "term_compat": false,
-      "range": "The model gains the ability \"Furious charge\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Furious charge\".",
       "p_unit": 1,
+      "p_veh": 1,
       "p_char": 2
     },
     {
       "name": "Infiltrator",
       "term_compat": false,
-      "range": "The model gains the ability \"Infiltrator\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Infiltrator\".",
       "p_unit": 1,
+      "p_veh": null,
       "p_char": null
     },
     {
       "name": "Outflank",
       "term_compat": false,
-      "range": "The model gains the ability \"Outflank\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Outflank\".",
       "p_unit": 1,
+      "p_veh": 1,
       "p_char": 2
     },
     {
       "name": "Tank hunter",
       "term_compat": false,
-      "range": "The model gains the ability \"Tank hunter\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Tank hunter\".",
       "p_unit": 1,
+      "p_veh": 1,
       "p_char": 2
     },
     {
       "name": "Terrain expert",
       "term_compat": false,
-      "range": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
       "p_unit": 1,
+      "p_veh": 1,
       "p_char": 2
     },
     {
       "name": "Vanguard",
       "term_compat": false,
-      "range": "The model gains the ability \"Vanguard\".",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
+      "category": "veteran",
+      "desc": "The model gains the ability \"Vanguard\".",
       "p_unit": 1,
+      "p_veh": null,
       "p_char": null
-    }
-  ],
-  "equipment": [
+    },
     {
       "name": "Aquila Imperialis",
       "term_compat": true,
@@ -785,15 +776,17 @@
       "p_char": 5
     },
     {
-      "name": "Esoteric knowledge ˣ",
+      "name": "Esoteric knowledge",
       "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
       "desc": "The model and its attached unit may reroll one die per battle round.",
       "p_unit": null,
       "p_char": 10
     },
     {
-      "name": "Empyrian brain mines ˣ",
+      "name": "Empyrian brain mines",
       "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
       "desc": "Nominate one enemy model in direct base contact during its own activation. The target must pass an Initiative test or can't attack this battle round. One use only.",
       "p_unit": null,
       "p_char": 5
@@ -813,15 +806,17 @@
       "p_char": 5
     },
     {
-      "name": "Grimoire of True Namesᴹ",
+      "name": "Grimoire of True Names",
       "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
       "desc": "One model in direct base contact suffers -1 penalties to its WS, Initiatives and Attacks, up to a minimum of 1.",
       "p_unit": null,
       "p_char": 10
     },
     {
-      "name": "Hexagram warding runesᴴ",
+      "name": "Hexagram warding runes",
       "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
       "desc": "Enemy models in direct base contact suffer a -1 penalty to their invulnerability saves.",
       "p_unit": null,
       "p_char": 10
@@ -834,8 +829,9 @@
       "p_char": 11
     },
     {
-      "name": "Liber Heresiusᴴ",
+      "name": "Liber Heresius",
       "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
       "desc": "The bearer may pick any two veteran abilites to be in effect for themselves and their attached unit. The veteran abilities can be changed each activation.",
       "p_unit": null,
       "p_char": 15
@@ -862,8 +858,9 @@
       "p_char": 2
     },
     {
-      "name": "No escapeᴴ",
+      "name": "No escape",
       "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
       "desc": "Fleeing units are automatically caught up in melee and receive twice the amount of hits from each pursuing model.",
       "p_unit": null,
       "p_char": 5
@@ -904,8 +901,9 @@
       "p_char": 10
     },
     {
-      "name": "Praesidium Protectivaᴴ",
+      "name": "Praesidium Protectiva",
       "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
       "desc": "The model gains a 4+ invulnerability save.",
       "p_unit": null,
       "p_char": 15
@@ -918,15 +916,17 @@
       "p_char": 5
     },
     {
-      "name": "Psybolt ammunitionᴹ",
+      "name": "Psybolt ammunition",
       "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
       "desc": "All ranged weapon of the model gain +1 Strength. Only works on weapons with Strength 4 or below.",
       "p_unit": null,
       "p_char": 1
     },
     {
-      "name": "Purified weaponᴹ",
+      "name": "Purified weapon",
       "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
       "desc": "Before setting up units, pick one of the purified powers below and add it to one melee weapon of the model.",
       "p_unit": null,
       "p_char": 5
@@ -1016,8 +1016,9 @@
       "p_char": 43
     },
     {
-      "name": "Tesseract labyrinthᴹ",
+      "name": "Tesseract labyrinth",
       "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
       "desc": "At the start of your activation, pick a wounded enemy model in base contact. It must pass a Strength test or is immediately removed. One use only.",
       "p_unit": null,
       "p_char": 5
@@ -1037,15 +1038,17 @@
       "p_char": 5
     },
     {
-      "name": "Uluméathi Plasma Syphon ˣ",
+      "name": "Uluméathi Plasma Syphon",
       "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
       "desc": "Enemy models within 18\" suffer a -1 penalty to Strength, AP and Damage to weapons with an \"Overcharged\" profile (applies to all profiles of the affected weapons), to a minimum of 1 each.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Universal anathema ˣ",
+      "name": "Universal anathema",
       "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
       "desc": "All melee weapons of the model gain the Poison(2+) ability.",
       "p_unit": null,
       "p_char": 10
@@ -1053,6 +1056,7 @@
     {
       "name": "Additional armor",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
       "p_unit": 5,
       "p_char": null
@@ -1060,6 +1064,7 @@
     {
       "name": "Hunter-killer missile",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model gains a Hunter-killer missile.",
       "p_unit": 5,
       "p_char": null
@@ -1067,6 +1072,7 @@
     {
       "name": "Improved targeting",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
       "p_unit": 5,
       "p_char": null
@@ -1074,6 +1080,7 @@
     {
       "name": "Jammer",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 15,
       "p_char": null
@@ -1081,6 +1088,7 @@
     {
       "name": "Smoke Launcher",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
       "p_char": null

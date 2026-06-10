@@ -1,18 +1,22 @@
 import { useState } from 'react';
+import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
-import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
-import { SACRED_NUMBERS } from '../engine/resolver-chaos-daemons';
+import { getArchetypeRule } from '../engine/archetypes';
+import { SACRED_NUMBERS } from '../engine/resolvers/chaos_daemons';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
 import { PsychicModal } from './PsychicModal';
 
-const MARKS: Mark[] = ['Undivided', 'Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
+// NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
+// This array is kept only for the Black Crusade champion display which needs all 4 god marks.
+const MARKS_ALL: Mark[] = ['Undivided', 'Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
 
 const MARK_BONUSES: Record<string, { inf: string; char: string; veh: string }> = {
   Khorne:    { inf: '+1 Attack',       char: '+1 Strength (character)',          veh: 'Tank Shock: double hit' },
@@ -74,7 +78,7 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, alliedData, traitPool, removeUnit, updateUnit, setOptionQty, setUnitCustomName, setUnitJoinTarget, army } = store;
+  const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, army, legacy, legacy2, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -95,7 +99,7 @@ export function UnitCard({ item }: Props) {
     effectivePsyker,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponTraitMap,
     injectedAbilities, injectedRuleNotes, equipMods,
-    traitStatMods, traitAbilities, traitWeaponAbilities,
+    traitStatMods, traitAbilities,
     blackCrusadeChampion,
     optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
   } = rp;
@@ -104,9 +108,33 @@ export function UnitCard({ item }: Props) {
 
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
   const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
+  // InvSv stat: best of base-ability + equipment + ACTIVE TRAITS inv saves.
+  // SOURCE (core_rules_text.txt): Invulnerability Save is unaffected by AP, used after armor save fails.
+  // Unconditional sources all update the stat column:
+  //   - base abilities (Daemon=5+, Greater Daemon=4+, Seal of corruption=4+…)
+  //   - equipment (Terminator armor=5+, Cataphractii=4+…)
+  //   - traits: Iron Within inv_save effect, Berserk(5+) from Laboratory Experiments
+  // Conditional ones (Desecration "near objectives") stay only in Abilities section text.
+  const baseInvSave = parseInvSaveFromAbilities(u.abilities ?? []);
+  const equipInvSave = equipMods.invulnSave;
+  // Trait inv saves: "X+ Invulnerability Save" in traitAbilities (from inv_save effect)
+  // + Berserk(X+) ability name (gives X+ inv per core rules)
+  const traitInvSave: number | null = traitAbilities.reduce<number | null>((best, ta) => {
+    const m1 = ta.name.match(/^(\d)\+\s+Invulnerability/i);
+    if (m1) { const v = parseInt(m1[1]); return best === null || v < best ? v : best; }
+    const m2 = ta.name.match(/^Berserk\((\d)\+\)/i);
+    if (m2) { const v = parseInt(m2[1]); return best === null || v < best ? v : best; }
+    return best;
+  }, null);
+  const allInvCandidates = [baseInvSave, equipInvSave, traitInvSave].filter((v): v is number => v !== null);
+  const effectiveInvSv: number | null = allInvCandidates.length > 0 ? Math.min(...allInvCandidates) : null;
+  // Source markers for ◆ indicator
+  const invSvFromEquip = equipInvSave !== null && (baseInvSave === null || equipInvSave <= (baseInvSave ?? 99)) && equipInvSave === effectiveInvSv;
+  const invSvFromTrait = traitInvSave !== null && traitInvSave === effectiveInvSv && equipInvSave !== effectiveInvSv;
+
   const statKeys: readonly string[] = u.is_vehicle
     ? (vehicleHasWS ? ['M','WS','BS','S','FRONT','SIDE','REAR','I','A','HP'] : STAT_KEYS_VEH)
-    : STAT_KEYS_INF;
+    : [...STAT_KEYS_INF, ...(effectiveInvSv !== null ? ['InvSv'] : [])];
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
   // Only count mark groups whose host condition holds — a Horus Heresy unit's Mark-of-Chaos
@@ -116,6 +144,17 @@ export function UnitCard({ item }: Props) {
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction));
   const hasMarks = Object.keys(data.animosity).length > 0;
   const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
+
+  // Legacy of the Alien Hunters: "Each model can receive the 'Special ammunition' equipment,
+  // regardless of whether it has access to the armory." — universal toggle bypassing showArmory.
+  // SOURCE: space_marines/archetypes.json "Legacy of the Alien Hunters" desc.
+  const alienHuntersActive = [legacy, legacy2].includes('Legacy of the Alien Hunters');
+  const specialAmmunition = alienHuntersActive
+    ? Object.values(data.armory_legions).flatMap(l => l.equipment as ArmoryItem[]).find(a => a.name === 'Special ammunition')
+    : undefined;
+  const specialAmmoSelection = specialAmmunition
+    ? item.armory.find(a => a.itemName === 'Special ammunition')
+    : undefined;
 
   // Bug 3: for allied units, use the allied faction's armory for capability checks
   const isAllied = !!item.factionSource;
@@ -140,11 +179,12 @@ export function UnitCard({ item }: Props) {
   }
 
   return (
-    <div className="bg-zinc-800 border border-zinc-700 border-l-4 border-l-amber-700 mb-3">
-      {/* Header */}
-      <div className="flex justify-between items-center px-3 py-2 bg-gradient-to-r from-zinc-800 to-zinc-900 border-b border-zinc-700">
-        <div>
-          <div className="text-amber-400 font-semibold text-sm flex items-center gap-1.5">
+    <div className="bg-zinc-900 border border-zinc-700 mb-3 overflow-hidden">
+      {/* ── Header ── */}
+      <div className="flex justify-between items-start px-3 py-2.5 bg-zinc-800 border-b-2 border-amber-800/60">
+        <div className="flex-1 min-w-0">
+          {/* Unit name */}
+          <div className="flex items-center gap-1.5 flex-wrap">
             {editingName ? (
               <input
                 autoFocus
@@ -153,34 +193,44 @@ export function UnitCard({ item }: Props) {
                 placeholder={u.name}
                 onBlur={(e) => { setUnitCustomName(item.id, e.target.value); setEditingName(false); }}
                 onKeyDown={(e) => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); if (e.key === 'Escape') setEditingName(false); }}
-                className="bg-zinc-700 border border-amber-600 text-amber-300 px-1.5 py-0 text-sm rounded focus:outline-none w-40"
+                className="bg-zinc-700 border border-amber-600 text-amber-200 px-1.5 py-0 text-base font-bold rounded focus:outline-none w-48"
               />
             ) : (
               <>
-                <span>{item.customName || u.name}</span>
-                {item.customName && <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>}
+                <span className="text-amber-200 font-bold text-base uppercase tracking-wide leading-tight">
+                  {item.customName || u.name}
+                </span>
+                {item.customName && (
+                  <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>
+                )}
                 {variant && (
-                  <span className="text-amber-600 font-normal text-xs ml-1">→ {variant.name}</span>
+                  <span className="text-amber-600 font-normal text-xs">→ {variant.name}</span>
                 )}
                 <button
                   onClick={() => setEditingName(true)}
-                  className="text-zinc-600 hover:text-amber-400 text-[11px] leading-none ml-0.5"
+                  className="text-zinc-600 hover:text-amber-400 text-[11px] leading-none"
                   title="Set custom name"
                 >✎</button>
               </>
             )}
           </div>
-          <div className="text-[10px] text-zinc-500 uppercase tracking-wide mt-0.5">
-            {effectiveSlot !== item.slot
-              ? <><span className="line-through text-zinc-600">{item.slot}</span> → {effectiveSlot}</>
-              : item.slot
-            } · {optionSetUnitType && optionSetUnitType !== u.unit_type
-              ? <><span className="line-through text-zinc-600">{u.unit_type}</span> → <span className="text-violet-400">{[optionSetUnitType, ...optionAddedUnitTypes].join(', ')}</span></>
-              : optionAddedUnitTypes.length > 0
-                ? <><span>{u.unit_type}</span><span className="text-violet-400">, {optionAddedUnitTypes.join(', ')}</span></>
-                : unitTypeDisplay}
+          {/* Slot · Type · Marks */}
+          <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
+            <span className="text-[10px] text-zinc-400 uppercase tracking-widest">
+              {effectiveSlot !== item.slot
+                ? <><span className="line-through text-zinc-600">{item.slot}</span> → {effectiveSlot}</>
+                : effectiveSlot}
+            </span>
+            <span className="text-zinc-600 text-[10px]">·</span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-wide">
+              {optionSetUnitType && optionSetUnitType !== u.unit_type
+                ? <><span className="line-through text-zinc-600">{u.unit_type}</span> → <span className="text-violet-400">{[optionSetUnitType, ...optionAddedUnitTypes].join(', ')}</span></>
+                : optionAddedUnitTypes.length > 0
+                  ? <><span>{u.unit_type}</span><span className="text-violet-400">, {optionAddedUnitTypes.join(', ')}</span></>
+                  : unitTypeDisplay}
+            </span>
             {blackCrusadeChampion ? (
-              <span className="ml-1 inline-flex items-center gap-0.5">
+              <span className="inline-flex items-center gap-0.5 ml-1">
                 {(['Khorne','Nurgle','Slaanesh','Tzeentch'] as const).map(m => (
                   <MarkBadge key={m} mark={m} />
                 ))}
@@ -195,39 +245,48 @@ export function UnitCard({ item }: Props) {
               </span>
             ) : null}
             {isFavored && (
-              <span className="ml-1 text-[9px] bg-amber-900/50 text-amber-300 border border-amber-700/60 px-1 py-px uppercase tracking-wide font-semibold">
+              <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700/60 px-1.5 py-px uppercase tracking-wide font-semibold rounded-sm">
                 ★ Favored
               </span>
             )}
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-amber-500 font-bold">{pts} pts</span>
+        {/* Right: pts + controls */}
+        <div className="flex items-center gap-2 ml-2 shrink-0">
+          <span className="text-amber-400 font-bold text-base">{pts}<span className="text-amber-700 text-[11px] font-normal ml-0.5">pts</span></span>
           <button
             onClick={() => setCollapsed(c => !c)}
-            className="text-zinc-500 hover:text-zinc-300 text-xs px-1"
+            className="text-zinc-500 hover:text-zinc-200 text-xs px-1 py-0.5 border border-zinc-700 hover:border-zinc-500"
           >
             {collapsed ? '▼' : '▲'}
           </button>
           <button
             onClick={() => removeUnit(item.id)}
-            className="text-red-500 border border-red-800 hover:bg-red-900 px-2 py-0.5 text-[11px] uppercase"
-          >
-            ✕
-          </button>
+            className="text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 text-[11px]"
+          >✕</button>
         </div>
       </div>
 
       {/* ── Join Unit (Character Models only) ── */}
       {u.is_character && !u.is_vehicle && (() => {
-        const joinableUnits = army.filter(e =>
-          e.id !== item.id &&
-          !e.factionSource &&
-          (() => {
-            const eu = data?.units[e.unitName];
-            return eu && !eu.is_character && !eu.is_vehicle && !eu.is_monster;
-          })()
-        );
+        // Animosity of the Gods join sub-clause — present VERBATIM in BOTH factions' own
+        // Index/Army Customisation text (each codex carries its own copy, not a shared Core
+        // rule): CSM digest §4b "a model with a Mark of Chaos may only join a unit that has
+        // the same Mark, or no Mark" / CD digest §4b "a character with a mark may only attach
+        // to units of the same mark or no mark" (ki-csm-animosity-joinmark-01, extended to CD
+        // — both factions' marks gate this identically; the original CSM-only scoping comment
+        // here was wrong about CD's text, corrected after re-reading chaos_daemons.md §4b).
+        const rule = getArchetypeRule(store.archetype);
+        const joinableUnits = army.filter(e => {
+          if (e.id === item.id || e.factionSource) return false;
+          const eu = data?.units[e.unitName];
+          if (!eu || eu.is_character || eu.is_vehicle || eu.is_monster) return false;
+          if (data.faction === 'Chaos Space Marines' || data.faction === 'Chaos Daemons') {
+            const unitMark = (eu.locked_mark ?? rule?.forcedMark ?? e.mark ?? null) as Mark | null;
+            if (effectiveMark && unitMark && effectiveMark !== unitMark) return false;
+          }
+          return true;
+        });
         if (joinableUnits.length === 0) return null;
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
@@ -252,19 +311,20 @@ export function UnitCard({ item }: Props) {
       })()}
 
       {!collapsed && (
-        <div className="p-3 space-y-3">
+        <div className="space-y-0">
           {/* Default loadout */}
           {equippedWith && (
-            <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 py-0.5">
-              <span className="text-amber-700 text-[10px] uppercase tracking-widest mr-1">Default:</span>
+            <div className="px-3 py-1.5 bg-zinc-800/50 border-b border-zinc-700/60 text-[11px] text-zinc-400">
+              <span className="text-zinc-500 text-[10px] uppercase tracking-widest mr-1.5">Default loadout:</span>
               {equippedWith}
             </div>
           )}
 
-          {/* Stat profile */}
-          <div>
-            <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">
-              Profile
+          {/* ── Stat profile ── */}
+          <div className="border-b border-zinc-700/60">
+            <div className="px-3 pt-2 pb-0">
+            <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1 flex items-center gap-3">
+              <span>Profile</span>
               {(isFavored || blackCrusadeChampion || (statModMark && MARK_STAT_MODS[statModMark] && (
                 u.is_character ? MARK_STAT_MODS[statModMark].char : MARK_STAT_MODS[statModMark].inf
               ))) && (
@@ -277,23 +337,34 @@ export function UnitCard({ item }: Props) {
                 <span className="ml-2 text-violet-400 normal-case font-normal text-[10px]">◆ = equipment</span>
               )}
             </div>
-            <table className="w-full text-[11px] border-collapse">
+            <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="border-b border-zinc-600">
-                  <th className="text-left text-zinc-500 font-normal py-1 pr-2">Model</th>
+                <tr className="bg-zinc-700/50 border-b border-zinc-600">
+                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">Model</th>
                   {statKeys.map(k => (
-                    <th key={k} className="text-amber-700 font-normal text-center py-1 px-1">{k}</th>
+                    <th key={k} className={`font-bold text-center py-2 px-2 text-[11px] uppercase tracking-wide min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>
+                      {k === 'InvSv' ? 'Inv' : k}
+                    </th>
                   ))}
-                  <th className="text-right text-zinc-500 font-normal py-1 pl-2">Pts</th>
+                  <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">Pts</th>
                 </tr>
               </thead>
               <tbody>
                 {modelsToShow.map((m, i) => {
                   const isVar = variant && m === variant;
                   return (
-                    <tr key={i} className={`border-b border-zinc-700/50 ${isVar ? 'text-amber-400' : 'text-zinc-200'}`}>
-                      <td className="font-semibold py-1 pr-2 whitespace-nowrap">{m.name}{isVar ? ' ★' : ''}</td>
+                    <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/40' : ''} ${isVar ? 'text-amber-300' : 'text-zinc-100'}`}>
+                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{m.name}{isVar ? ' ★' : ''}</td>
                       {statKeys.map(k => {
+                        // InvSv is a derived stat — not in m.stats, computed at unit level
+                        if (k === 'InvSv') {
+                          const marker = invSvFromEquip ? '◆' : invSvFromTrait ? '†' : '';
+                          return (
+                            <td key="InvSv" className={`text-center py-2 px-2 text-xs font-mono ${invSvFromEquip ? 'text-violet-300' : invSvFromTrait ? 'text-emerald-300' : 'text-amber-200'}`}>
+                              {effectiveInvSv}+{marker}
+                            </td>
+                          );
+                        }
                         const raw = (m.stats as Record<string, string>)[k] ?? '-';
                         let display = raw;
                         let markBoosted = false;
@@ -355,6 +426,22 @@ export function UnitCard({ item }: Props) {
                           }
                         }
 
+                        // Apply equipment stat SETS (e.g. Living vehicle "WS → 4+")
+                        // Only applied if the set value is better (lower number) than current.
+                        const setVal = equipMods.statSets[k];
+                        if (setVal) {
+                          const currentNum = display.match(/^(\d+)\+/)?.[1];
+                          const setNum = setVal.match(/^(\d+)\+/)?.[1];
+                          if (currentNum && setNum && parseInt(setNum) < parseInt(currentNum)) {
+                            display = setVal;
+                            equipBoosted = true;
+                          } else if (!currentNum || display === '-') {
+                            // No current value or "-" → always set
+                            display = setVal;
+                            equipBoosted = true;
+                          }
+                        }
+
                         // Apply option stat mods (e.g. Daemon Prince wings M +6)
                         const optionDelta = optionStatMods
                           .filter(sm => sm.stat === k)
@@ -375,46 +462,90 @@ export function UnitCard({ item }: Props) {
                                 : '';
                         const suffix = markBoosted ? '*' : traitBoosted ? '†' : equipBoosted ? '◆' : optionBoosted ? '‡' : '';
                         return (
-                          <td key={k} className={`text-center py-1 px-1 ${cellClass}`}>
+                          <td key={k} className={`text-center py-2 px-2 font-mono text-xs ${cellClass || 'text-zinc-100'}`}>
                             {display}{suffix}
                           </td>
                         );
                       })}
-                      <td className="text-right text-amber-600 py-1 pl-2">{m.points}</td>
+                      <td className="text-right text-amber-700 py-2 pr-2 text-xs">{m.points}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-            {/* Equipment invuln save note */}
-            {!u.is_vehicle && equipMods.invulnSave !== null && (
+            {/* Equipment granted abilities (inv save now shown in stats table) */}
+            {(!u.is_vehicle && false) && (
               <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
                 <span className="font-semibold">Equipment:</span> {equipMods.invulnSave}+ Invulnerable Save
               </div>
             )}
-            {/* Equipment-granted abilities (quoted in item descriptions) */}
-            {equipMods.grantedAbilities.filter(ab =>
-              !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
-            ).length > 0 && (
-              <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
-                <span className="font-semibold">Equipment grants:</span>{' '}
-                {equipMods.grantedAbilities
-                  .filter(ab => !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase())))
-                  .join(', ')}
+            {/* Equipment-granted abilities are shown in the Abilities section below */}
+            </div>{/* close px-3 */}
+          </div>{/* close stat section */}
+
+          {/* ── Weapons ── */}
+          {weaponsToShow.length > 0 && (() => {
+            const ranged = weaponsToShow.filter(w => w.range && w.range !== '-' && w.type !== 'Melee');
+            const melee  = weaponsToShow.filter(w => !w.range || w.range === '-' || w.type === 'Melee');
+            return (
+              <div className="border-b border-zinc-700/60">
+                {ranged.length > 0 && (
+                  <div>
+                    <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
+                      <span className="w-3 h-px bg-amber-800 inline-block" />
+                      Ranged Weapons
+                      <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
+                    </div>
+                    <WeaponTable weapons={ranged} traitMap={weaponTraitMap} />
+                  </div>
+                )}
+                {melee.length > 0 && (
+                  <div>
+                    <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
+                      <span className="w-3 h-px bg-amber-800 inline-block" />
+                      Melee Weapons
+                      <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
+                    </div>
+                    <WeaponTable weapons={melee} traitMap={weaponTraitMap} />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            );
+          })()}
 
-          {/* Built-in weapons (optional/choice weapons shown only when selected) */}
-          {weaponsToShow.length > 0 && (
-            <div>
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Weapons</div>
-              <WeaponTable weapons={weaponsToShow} traitMap={weaponTraitMap} />
+          {/* ── Builder section (interactive) ── */}
+          <div className="px-3 py-2 space-y-3">
+
+          {/* Squad size — per-group when modelSizes is available, single slider otherwise */}
+          {item.modelSizes ? (
+            <div className="space-y-1">
+              {u.models.map(m => {
+                const count = item.modelSizes![m.name] ?? m.min;
+                const isFixed = m.min === m.max;
+                return (
+                  <div key={m.name} className="flex items-center gap-2 text-[12px] text-zinc-400">
+                    <span className="w-40 truncate text-zinc-300">{m.name}:</span>
+                    {isFixed ? (
+                      <span className="text-zinc-500">{m.min} <span className="text-zinc-600 text-[11px]">(fixed)</span></span>
+                    ) : (
+                      <>
+                        <input
+                          type="number"
+                          min={m.min}
+                          max={m.max}
+                          value={count}
+                          onChange={e => updateModelSize(item.id, m.name, Math.max(m.min, Math.min(m.max, Number(e.target.value))))}
+                          className="w-14 bg-zinc-900 border border-zinc-600 px-2 py-0.5 text-zinc-100 text-sm focus:outline-none focus:border-amber-600"
+                        />
+                        <span className="text-zinc-600 text-[11px]">({m.min}–{m.max})</span>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+              <div className="text-[11px] text-zinc-500 pt-0.5">Total: {item.size} models</div>
             </div>
-          )}
-
-          {/* Squad size */}
-          {maxSize > 1 && (
+          ) : maxSize > 1 && (
             <div className="flex items-center gap-2 text-[12px] text-zinc-400">
               <span>Size:</span>
               <input
@@ -456,27 +587,33 @@ export function UnitCard({ item }: Props) {
                 </div>
               )}
 
-              {/* Regular mark buttons — hidden when this unit is the BC champion */}
-              {!item.blackCrusadeHQ && (
-                <div>
-                  <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Chaos Mark</div>
-                  <div className="flex flex-wrap gap-1">
-                    {MARKS.map(m => (
-                      <button
-                        key={m}
-                        onClick={() => updateUnit(item.id, { mark: item.mark === m ? null : m })}
-                        className={`text-[11px] px-2 py-0.5 border transition-colors
-                          ${item.mark === m
-                            ? 'bg-amber-800 border-amber-600 text-white'
-                            : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
-                          }`}
-                      >
-                        {m}
-                      </button>
-                    ))}
+              {/* Regular mark buttons — derived from the unit's mark option_group choices[].
+                  SOURCE: each unit's datasheet lists exactly which marks it can take.
+                  e.g. Chaos Sorcerer has Undivided/Slaanesh/Nurgle/Tzeentch but NOT Khorne. */}
+              {!item.blackCrusadeHQ && (() => {
+                const markGroup = u.option_groups.find(g => g.constraint.type === 'mark');
+                const availableMarks = markGroup?.choices.map(c => c.name as Mark) ?? MARKS_ALL;
+                return (
+                  <div>
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Chaos Mark</div>
+                    <div className="flex flex-wrap gap-1">
+                      {availableMarks.map(m => (
+                        <button
+                          key={m}
+                          onClick={() => updateUnit(item.id, { mark: item.mark === m ? null : m })}
+                          className={`text-[11px] px-2 py-0.5 border transition-colors
+                            ${item.mark === m
+                              ? 'bg-amber-800 border-amber-600 text-white'
+                              : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
+                            }`}
+                        >
+                          {m}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </div>
           )}
           {markIsForced && (
@@ -591,8 +728,16 @@ export function UnitCard({ item }: Props) {
             }
 
             const isPerN = g.constraint.type === 'per_n';
-            const groupMax = isPerN
+            // per_n max = slots from total size, capped by applies_to_model count when set.
+            // e.g. "2 Dishonored may swap per 8 models" → max = min(slots×2, dishonored_count)
+            const perNRaw = isPerN
               ? (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1))
+              : null;
+            const modelGroupCap = (g.applies_to_model && item.modelSizes)
+              ? (item.modelSizes[g.applies_to_model] ?? 0)
+              : null;
+            const groupMax = perNRaw !== null
+              ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : null;
             const groupUsed = isPerN
               ? Object.entries(item.optionQty?.[realGi] ?? {}).reduce(
@@ -681,6 +826,30 @@ export function UnitCard({ item }: Props) {
                 Armory ({item.armory.length})
               </button>
             )}
+            {specialAmmunition && !showArmory && (() => {
+              const ammoPts = (u.is_character ? (specialAmmunition.p_char ?? specialAmmunition.p_unit) : specialAmmunition.p_unit) ?? 0;
+              return (
+                <button
+                  onClick={() => {
+                    if (specialAmmoSelection) {
+                      removeArmoryItem(item.id, specialAmmoSelection.id);
+                    } else {
+                      addArmoryItem(item.id, {
+                        id: 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2))),
+                        itemName: specialAmmunition.name,
+                        source: 'Death Watch',
+                        section: 'equipment',
+                        points: ammoPts,
+                        isCharacter: u.is_character,
+                      });
+                    }
+                  }}
+                  className={`text-[11px] px-2 py-1 bg-zinc-900 border uppercase tracking-wide ${specialAmmoSelection ? 'border-amber-600 text-amber-400' : 'border-zinc-600 text-amber-500 hover:bg-zinc-700'}`}
+                >
+                  Special ammunition {specialAmmoSelection ? '✓' : `(+${ammoPts})`}
+                </button>
+              );
+            })()}
             {hasFactionVeteranItems && (
               <button
                 onClick={() => setVetOpen(true)}
@@ -712,16 +881,25 @@ export function UnitCard({ item }: Props) {
               const hasPacts = u.uses_pacts && (data.pacts ?? []).length > 0;
               if (!hasPowers && !hasPrayers && !hasPacts) return null;
               const pactCount = (item.pacts ?? []).length;
-              const totalCount = item.powers.length + item.prayers.length + pactCount;
+              // Count real powers (exclude __discipline__ marker), then add Smite if always known
+              const realPowers = item.powers.filter(p => p.powerName !== '__discipline__').length;
+              const hasChosenDisc = item.powers.some(p => p.powerName === '__discipline__');
+              const chosenDiscName = item.powers.find(p => p.powerName === '__discipline__')?.disciplineName;
+              const knowsSmiteUnit = u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite'));
+              const totalCount = realPowers + item.prayers.length + pactCount;
               const label = hasPacts && !hasPowers && !hasPrayers
                 ? `Pacts (${pactCount})`
                 : u.is_cult_initiate
-                  ? `Cult Powers (${item.powers.length})`
+                  ? `Cult Powers (${realPowers})`
                   : hasPowers && hasPrayers
                     ? `Powers/Prayers (${totalCount})`
                     : hasPrayers
                       ? `Prayers (${item.prayers.length})`
-                      : `Powers (${item.powers.length})`;
+                      : hasChosenDisc
+                        ? `Powers (Smite + all ${chosenDiscName})`
+                        : knowsSmiteUnit
+                          ? `Powers (Smite${realPowers > 0 ? ` +${realPowers}` : ''})`
+                          : `Powers (${realPowers})`;
               return (
                 <button
                   onClick={() => setPsyOpen(true)}
@@ -847,10 +1025,17 @@ export function UnitCard({ item }: Props) {
           )}
 
           {/* Powers list */}
-          {item.powers.length > 0 && (
+          {(u.is_psyker || item.powers.length > 0) && (
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest">Psychic Powers</div>
-              {item.powers.map((p, i) => (
+              {/* Smite — always known, shown as fixed (not removable) */}
+              {u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite')) && (
+                <div className="flex justify-between items-center bg-amber-900/20 border border-amber-800/40 px-2 py-1 text-[11px]">
+                  <span className="text-amber-400">Smite <span className="text-amber-700">(always known)</span></span>
+                </div>
+              )}
+              {/* Selected powers — filter out internal __discipline__ marker */}
+              {item.powers.filter(p => p.powerName !== '__discipline__').map((p, i) => (
                 <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <span className="text-zinc-300">{p.powerName} <span className="text-zinc-600">({p.disciplineName})</span></span>
                   <button
@@ -861,6 +1046,19 @@ export function UnitCard({ item }: Props) {
                   </button>
                 </div>
               ))}
+              {/* For all_from_one mode: show chosen discipline */}
+              {item.powers.find(p => p.powerName === '__discipline__') && (() => {
+                const disc = item.powers.find(p => p.powerName === '__discipline__')!;
+                return (
+                  <div className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                    <span className="text-violet-300">All of: <span className="text-zinc-300">{disc.disciplineName}</span></span>
+                    <button
+                      onClick={() => useArmyStore.getState().removePower(item.id, disc.disciplineName, '__discipline__')}
+                      className="text-red-500 hover:text-red-300"
+                    >✕</button>
+                  </div>
+                );
+              })()}
             </div>
           )}
 
@@ -900,11 +1098,24 @@ export function UnitCard({ item }: Props) {
             </div>
           )}
 
-          {/* Abilities (native + trait + mark-injected + rule notes) */}
-          {(u.abilities.length > 0 || traitAbilities.length > 0 || traitWeaponAbilities.length > 0 || injectedAbilities.length > 0 || injectedRuleNotes.length > 0 || optionAbilities.length > 0) && (
+          {/* Abilities */}
+          {(() => {
+            // Equipment-granted abilities (veterans, daemonic items) — deduplicated vs base abilities
+            const equipAbilities = equipMods.grantedAbilities.filter(
+              ab => !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
+            );
+            const totalAbilityCount = u.abilities.length + traitAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length + equipAbilities.length;
+            if (totalAbilityCount === 0) return null;
+            return (
             <details>
-              <summary className="text-[11px] text-amber-700 cursor-pointer select-none">
-                Abilities ({u.abilities.length + traitAbilities.length + traitWeaponAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length})
+              <summary className="text-[10px] text-amber-600 uppercase tracking-widest cursor-pointer select-none flex items-center gap-2 py-2 border-t border-zinc-700/40 hover:text-amber-400 transition-colors">
+                <span className="w-3 h-px bg-amber-800 inline-block" />
+                <span className="font-bold">Abilities</span>
+                <span className="text-zinc-600 font-normal normal-case tracking-normal text-[10px]">
+                  ({totalAbilityCount})
+                </span>
+                <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
+                <span className="text-zinc-600 text-[10px]">▾</span>
               </summary>
               <div className="mt-2 space-y-2">
                 {u.abilities.flatMap((a, i) =>
@@ -928,16 +1139,8 @@ export function UnitCard({ item }: Props) {
                     )}
                   </div>
                 ))}
-                {traitWeaponAbilities.map((wa, i) => (
-                  <div key={`wa-${i}`} className="border-b border-zinc-700/40 pb-1.5">
-                    <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
-                      {wa.name}
-                      <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">
-                        Trait · {wa.weapon_type === 'bolt' ? 'Bolt weapons' : wa.weapon_type === 'melee' ? 'Melee weapons' : 'Ranged weapons'}
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                {/* traitWeaponAbilities are now shown directly in the weapon table rows (◆ marker).
+                    No separate Abilities section entry — avoids duplicate display. */}
                 {injectedAbilities.flatMap((a, i) =>
                   parseAbility(a).map((part, j) => (
                     <div key={`ma-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
@@ -977,22 +1180,47 @@ export function UnitCard({ item }: Props) {
                     </div>
                   ))
                 )}
+                {/* Equipment-granted abilities (veteran abilities, daemonic items) */}
+                {equipAbilities.flatMap((ab, i) =>
+                  parseAbility(ab).map((part, j) => (
+                    <div key={`eq-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                      <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
+                        {part.displayName}
+                        <span className="text-[9px] bg-violet-900/50 text-violet-400 border border-violet-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Equip</span>
+                      </div>
+                      {part.description && (
+                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                      )}
+                    </div>
+                  ))
+                )}
               </div>
             </details>
-          )}
+            );
+          })()}
 
-          {/* Keywords */}
+          </div>{/* close px-3 builder section */}
+
+          {/* ── Keywords ── */}
           {u.keywords.length > 0 && (
-            <div className="text-[10px] text-zinc-600 italic border-l-2 border-zinc-700 pl-2">
-              {u.keywords.join(', ')}
+            <div className="px-3 py-2.5 border-t border-zinc-700 bg-zinc-800/50">
+              <div className="flex flex-wrap gap-1.5 items-center">
+                <span className="text-[9px] text-zinc-500 uppercase tracking-widest shrink-0 font-semibold">Keywords</span>
+                <span className="text-zinc-700 text-[9px]">|</span>
+                {u.keywords.map((kw, i) => (
+                  <span key={i} className="text-[10px] uppercase tracking-wider text-zinc-400 font-medium">
+                    {i > 0 && <span className="text-zinc-700 mr-1.5">·</span>}{kw}
+                  </span>
+                ))}
+              </div>
             </div>
           )}
         </div>
       )}
 
-      {armoryOpen && <ArmoryModal item={item} unit={u} effectiveHasVetAbilities={effectiveHasVetAbilities} onClose={() => setArmoryOpen(false)} />}
-      {vetOpen && <ArmoryModal item={item} unit={u} effectiveHasVetAbilities={effectiveHasVetAbilities} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
-      {vehOpen && <ArmoryModal item={item} unit={u} filterCategory="vehicle" onClose={() => setVehOpen(false)} />}
+      {armoryOpen && <ArmoryModal item={item} unit={u} effectiveHasVetAbilities={effectiveHasVetAbilities} effectiveSlot={effectiveSlot} onClose={() => setArmoryOpen(false)} />}
+      {vetOpen && <ArmoryModal item={item} unit={u} effectiveHasVetAbilities={effectiveHasVetAbilities} effectiveSlot={effectiveSlot} filterCategory="veteran" onClose={() => setVetOpen(false)} />}
+      {vehOpen && <ArmoryModal item={item} unit={u} effectiveSlot={effectiveSlot} filterCategory="vehicle" onClose={() => setVehOpen(false)} />}
       {traitsOpen && <TraitsModal item={item} unit={u} markUsesSlot={markUsesVetSlot} onClose={() => setTraitsOpen(false)} />}
       {psyOpen && <PsychicModal item={item} unit={effectivePsyker && !u.is_psyker ? { ...u, is_psyker: true } : u} onClose={() => setPsyOpen(false)} />}
     </div>
@@ -1041,34 +1269,48 @@ function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryIte
 
 function WeaponTable({ weapons, traitMap }: { weapons: Weapon[]; traitMap?: Map<string, string[]> }) {
   return (
-    <table className="w-full text-[11px] mt-2 border-collapse">
-      <thead>
-        <tr className="border-b border-zinc-600">
-          {['Name','Range','Type','S','AP','D','Abilities'].map(h => (
-            <th key={h} className="text-left text-amber-700 font-normal py-1 pr-2 uppercase text-[10px] tracking-wide">{h}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {weapons.map((w: Weapon, i: number) => {
-          const extraTraits = traitMap?.get(w.name) ?? [];
-          const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
-          const allAbilities = extraTraits.length > 0
-            ? [baseAbilities, ...extraTraits.map(t => `${t} ◆`)].filter(Boolean).join(', ')
-            : baseAbilities || '-';
-          return (
-            <tr key={i} className="border-b border-zinc-700/40 text-zinc-300">
-              <td className="py-1 pr-2">{w.name}</td>
-              <td className="py-1 pr-2">{w.range}</td>
-              <td className="py-1 pr-2">{w.type}</td>
-              <td className="py-1 pr-2">{w.s}</td>
-              <td className="py-1 pr-2">{w.ap}</td>
-              <td className="py-1 pr-2">{w.d}</td>
-              <td className={`py-1 text-[10px] ${extraTraits.length > 0 ? 'text-violet-300' : 'text-zinc-500'}`}>{allAbilities}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <div className="px-3 pb-2">
+      <table className="w-full text-xs border-collapse">
+        <thead>
+          <tr className="border-b border-zinc-600">
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[32%]">Weapon</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[10%]">Range</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[14%]">Type</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">Abilities</th>
+          </tr>
+        </thead>
+        <tbody>
+          {weapons.map((w: Weapon, i: number) => {
+            const extraTraits = traitMap?.get(w.name) ?? [];
+            const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
+            // Merge: keeps best value per ability type. Returns improved (replaced) + added (new).
+            // Both get ◆ marker so the player knows the source.
+            const { merged: allAbilities, improved, added } = mergeWeaponAbilities(baseAbilities, extraTraits);
+            const hasTraitEffect = extraTraits.length > 0;
+            const markedSet = new Set([...improved, ...added].map(s => s.toLowerCase().trim()));
+            const displayAbilities = hasTraitEffect
+              ? allAbilities
+                  .split(', ')
+                  .map(ab => markedSet.has(ab.toLowerCase().trim()) ? `${ab} ◆` : ab)
+                  .join(', ') || '—'
+              : allAbilities || '—';
+            return (
+              <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">{w.name}</td>
+                <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
+                <td className="py-1.5 px-1 text-zinc-400 text-[11px]">{w.type}</td>
+                <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
+                <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
+                <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
+                <td className={`py-1.5 pl-2 text-[11px] ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }

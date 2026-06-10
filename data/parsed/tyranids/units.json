@@ -336,7 +336,7 @@
         "Indescribable Horror: Units taking a Leadership test caused by this model must roll an extra dice when taking the test and use the highest two results. In most circumstances, this will mean the unit rolls 3D6 and discards the lowest dice roll.",
         "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round."
       ],
-      "unit_type": "Montrous Creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [
         "Tyranid"
       ],
@@ -526,7 +526,7 @@
         "Psychic Terror: Effects from the Shadow in The Warp ability start one round earlier.",
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."
       ],
-      "unit_type": "Montrous Creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [
         "Tyranid"
       ],
@@ -655,7 +655,7 @@
         "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation.",
         "Warp Barrier: The model gains a 4+ invulnerability save."
       ],
-      "unit_type": "Montrous Creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [
         "Tyranid"
       ],
@@ -831,7 +831,7 @@
         "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
         "Brood Progenitor: Roll 2D6 and discard the lowest die during each Reinforcement phase. You spawn the result as either Hormagaunt or Termagaunt (equipped with Flesh borers) models within 6\", but outside of engagement range with enemy models."
       ],
-      "unit_type": "Montrous Creature",
+      "unit_type": "Monstrous Creature",
       "keywords": [
         "Tyranid"
       ],

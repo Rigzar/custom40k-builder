@@ -11,7 +11,10 @@
       "d": "1",
       "abilities": "Unique. Only for models with the Mark of Khorne",
       "p_unit": null,
-      "p_char": 23
+      "p_char": 23,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Eye of Night",
@@ -23,7 +26,10 @@
       "d": "3",
       "abilities": "Ammunition(1), AT(4), Beam, Unique",
       "p_unit": null,
-      "p_char": 26
+      "p_char": 26,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -32,35 +38,50 @@
       "term_compat": true,
       "desc": "The model gains a +1 bonus to manifest psychic powers. Additionally, it knows \"Burning Hands\" from the Pyromancy discipline.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Spineshiver Blade",
       "term_compat": true,
       "desc": "One weapon of the model reduces its \"Slow(x)\" value by 1.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Crucible of Lies",
       "term_compat": true,
       "desc": "The model may re-roll invulnerability save rolls of 1. Unique.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Hand of Darkness",
       "term_compat": true,
       "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +1 Damage for these attacks.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Skull of Ker'ngar",
       "term_compat": true,
       "desc": "All to wound rolls against the model suffer a -1 penalty. Unique.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": []

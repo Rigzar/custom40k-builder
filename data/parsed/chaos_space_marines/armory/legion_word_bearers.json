@@ -11,7 +11,10 @@
       "d": "2",
       "abilities": "Gruesome. Only for Dark Apostles",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -20,35 +23,50 @@
       "term_compat": true,
       "desc": "Any unit selecting this model or its attached unit as a charge target must resolve a test for dangerous terrain.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Crown of the Blasphemer",
       "term_compat": true,
       "desc": "If the model attempts to use a prayer, the roll is automatically successful.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Malefic tome",
       "term_compat": true,
       "desc": "If the model attempts to use an infernal pact, the roll is automatically successful.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Scripts of Erebus",
       "term_compat": true,
       "desc": "If the model attempts to use a psychic power, the roll is automatically successful with the minimum cast value necessary. The model may choose to use the effect of this item.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "The Skull of Monarchia",
       "term_compat": true,
       "desc": "The model and its attached unit receive a +5 bonus to all combat results and the \"Fearless\" ability. Unique.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": []

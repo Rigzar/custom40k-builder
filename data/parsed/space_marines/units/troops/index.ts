@@ -1,0 +1,9 @@
+export { assaultIntercessorSquad } from './assault_intercessor_squad';
+export { bloodClaws } from './blood_claws';
+export { greyHunters } from './grey_hunters';
+export { heavyIntercessorSquad } from './heavy_intercessor_squad';
+export { indomitusCrusaderSquad } from './indomitus_crusader_squad';
+export { infiltratorSquad } from './infiltrator_squad';
+export { intercessorSquad } from './intercessor_squad';
+export { scoutSquad } from './scout_squad';
+export { tacticalSquad } from './tactical_squad';

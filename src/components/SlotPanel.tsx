@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
-import { computeCdFreeSlots } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots } from '../engine/validators';
+import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -18,6 +19,13 @@ interface SlotEntry {
    * rule.alliedFaction injection from a true allied source (base_allied / manual detachment).
    */
   injected?: boolean;
+  /**
+   * Optional sub-section label rendered as a header above this entry when it differs from
+   * the previous entry's label (e.g. "Cults Abominatioe"/"Execution Force" grouping the
+   * Assassins inside Elites — see getAssassinAccessAlignment). Mirrors how every other
+   * unit's special rules display: a visible, named group, not a generic [Allied]-style badge.
+   */
+  groupLabel?: string;
   minCost: number;
 }
 
@@ -62,12 +70,28 @@ function computeAopMult(
 }
 
 export function SlotPanel() {
-  const { data, army, engagement, archetype, hqMark, addUnit, alliedFaction } = useArmyStore();
+  const { data, army, engagement, archetype, hqMark, addUnit, alliedFaction, legacy, legacy2 } = useArmyStore();
   const [open, setOpen] = useState<Record<string, boolean>>({ Troops: true, HQ: true });
 
   if (!data) return null;
   const eng = ENGAGEMENTS[engagement];
   const rule = getArchetypeRule(archetype);
+
+  // A Legacy can grant the army its own units of another faction (e.g. Legacy of the Alien
+  // Hunters → Inquisition), and some factions grant this natively via an always-on codex rule
+  // (e.g. GK "Demon Hunters" / Sororitas "Witch hunters" → Inquisition, per Inquisition.ods
+  // Designer's note — "as if they were part of their own army"). Both share the same own-army
+  // injection path (no [Allied] badge, shares AOP/slots) — mirrors rule.alliedFaction injection.
+  const legacyGrantedFaction = [legacy, legacy2]
+    .map(name => data.legacies.find(l => l.name === name)?.grants_faction)
+    .find((k): k is string => !!k && k !== rule?.alliedFaction);
+  const ownGrantedFaction = legacyGrantedFaction
+    ?? (data.intrinsic_allies ?? []).find(k => k !== rule?.alliedFaction);
+
+  // Flattened item names across the WHOLE roster — backs the army-wide unit gate
+  // (Unit.requires_army_item): e.g. picking "Ordo Xenos" on any Inquisitor unlocks the
+  // "Ordo Xenos Warband" unit for the army. Mirrors ArmoryModal's rosterArmoryItemNames.
+  const rosterArmoryItemNames = army.flatMap(e => e.armory.map(a => a.itemName));
 
   // Build effective slot→units map: filter banned units, remap slots
   const effectiveSlotUnits: Record<string, SlotEntry[]> = {};
@@ -79,6 +103,7 @@ export function SlotPanel() {
       const u = data.units[name];
       if (!u) continue;
       if (!isUnitAllowed(name, u, rule, originalSlot)) continue;
+      if (isArmyItemGateBlocked(u, rosterArmoryItemNames)) continue;
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) {
         effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost });
@@ -108,9 +133,26 @@ export function SlotPanel() {
     }
   }
 
+  // Own-army granted faction units — via selected Legacy (e.g. Legacy of the Alien Hunters →
+  // Inquisition) or always-on intrinsic codex rule (e.g. GK Demon Hunters / Sororitas Witch
+  // hunters → Inquisition). Either way: own units, not allied (no [Allied] badge).
+  if (ownGrantedFaction && data.allied?.[ownGrantedFaction]) {
+    const grantedData = data.allied[ownGrantedFaction];
+    for (const [originalSlot, names] of Object.entries(grantedData.slot_to_units)) {
+      for (const name of names) {
+        const u = grantedData.units[name];
+        if (!u) continue;
+        const effSlot = getEffectiveSlot(name, originalSlot, rule);
+        if (effectiveSlotUnits[effSlot]) {
+          effectiveSlotUnits[effSlot].push({ name, factionSource: ownGrantedFaction, injected: true, minCost: u.min_cost });
+        }
+      }
+    }
+  }
+
   // Base allied factions — always available regardless of archetype (e.g. GK + Inquisition)
   for (const alliedKey of data.base_allied ?? []) {
-    if (rule?.alliedFaction === alliedKey) continue; // already handled above
+    if (rule?.alliedFaction === alliedKey || ownGrantedFaction === alliedKey) continue; // already handled above
     const alliedData = data.allied?.[alliedKey];
     if (!alliedData) continue;
     for (const [originalSlot, names] of Object.entries(alliedData.slot_to_units)) {
@@ -125,8 +167,31 @@ export function SlotPanel() {
     }
   }
 
+  // Assassins' OWN universal grant — "Cults Abominatioe" (any Chaos army) / "Execution
+  // Force" (any Imperial army), verbatim from data/source/Assassins ENG/Index.html (see
+  // getAssassinAccessAlignment for full grounding/citation, confirmed against the user
+  // 2026-06-07 — Inquisition counts as Imperial, HH/Escalation supplements do not). Own
+  // units (no [Allied] badge), injected into Elites from the single shared catalog
+  // `data.allied['assassins']` — NOT copied natively per faction (avoids ~9-faction data
+  // duplication; corrects the earlier GK/Sororitas-only native-copy design).
+  const assassinAlignment = getAssassinAccessAlignment(data.faction);
+  if (assassinAlignment && data.allied?.['assassins']) {
+    const adata = data.allied['assassins'];
+    const groupLabel = assassinAccessGroupLabel(assassinAlignment);
+    for (const name of adata.slot_to_units['Elites'] ?? []) {
+      const u = adata.units[name];
+      if (!u) continue;
+      const effSlot = getEffectiveSlot(name, 'Elites', rule);
+      if (effectiveSlotUnits[effSlot]) {
+        effectiveSlotUnits[effSlot].push({ name, factionSource: 'assassins', injected: true, groupLabel, minCost: u.min_cost });
+      }
+    }
+  }
+
   const aopMult = computeAopMult(army, data, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule, alliedFaction);
   const cdFree = computeCdFreeSlots(army, data, rule);
+  // "Cults Abominatioe"/"Execution Force": Assassin selection collapses to a single Elite slot
+  const assassinFree = computeAssassinFreeSlots(army, data);
 
   return (
     <div className="space-y-1">
@@ -147,8 +212,11 @@ export function SlotPanel() {
         if (slot === 'Lords of War' && (engagement !== 'epic' || units.length === 0)) return null;
         const isLordsOfWar = slot === 'Lords of War';
 
-        const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
-        const used = Math.max(0, getSlotUsage(army, data, slot, rule, alliedFaction) - cdAdj);
+        const slotAdj = slot === 'HQ' ? cdFree.hq
+          : slot === 'Fast Attack' ? cdFree.fa
+          : slot === 'Elites' ? assassinFree.elites
+          : 0;
+        const used = Math.max(0, getSlotUsage(army, data, slot, rule, alliedFaction) - slotAdj);
         const isFull = used >= max && max > 0;
         const isUnder = used < min;
         const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';
@@ -177,24 +245,33 @@ export function SlotPanel() {
                 {units.length === 0 ? (
                   <div className="text-[11px] text-zinc-600 px-3 py-1 italic">No units</div>
                 ) : (
-                  units.map((entry: SlotEntry) => {
+                  units.map((entry: SlotEntry, idx: number) => {
                     const originalSlot = entry.factionSource
                       ? data.allied?.[entry.factionSource]?.units[entry.name]?.slot ?? slot
                       : data.units[entry.name]?.slot ?? slot;
+                    // Render a named sub-section header when this entry starts a new
+                    // group (e.g. "Cults Abominatioe"/"Execution Force" — Assassins).
+                    const showGroupHeader = !!entry.groupLabel && entry.groupLabel !== units[idx - 1]?.groupLabel;
                     return (
-                      <button
-                        key={`${entry.factionSource ?? 'csm'}::${entry.name}`}
-                        onClick={() => addUnit(entry.name, originalSlot, entry.factionSource)}
-                        className="w-full flex justify-between items-center px-3 py-1.5 text-left text-[12px] border-b border-zinc-700/50 hover:bg-zinc-700 hover:text-amber-400 transition-colors group"
-                      >
-                        <div>
-                          <span className="text-zinc-200 group-hover:text-amber-400">{entry.name}</span>
-                          {entry.factionSource && !entry.injected && (
-                            <span className="text-[10px] text-zinc-500 ml-1">[Allied]</span>
-                          )}
-                        </div>
-                        <span className="text-zinc-500 text-[11px]">{entry.minCost ?? '?'} pts</span>
-                      </button>
+                      <Fragment key={`${entry.factionSource ?? 'csm'}::${entry.name}`}>
+                        {showGroupHeader && (
+                          <div className="px-3 py-1 text-[10px] uppercase tracking-widest text-amber-700/80 bg-zinc-900/60 border-b border-zinc-700/50">
+                            {entry.groupLabel}
+                          </div>
+                        )}
+                        <button
+                          onClick={() => addUnit(entry.name, originalSlot, entry.factionSource)}
+                          className="w-full flex justify-between items-center px-3 py-1.5 text-left text-[12px] border-b border-zinc-700/50 hover:bg-zinc-700 hover:text-amber-400 transition-colors group"
+                        >
+                          <div>
+                            <span className="text-zinc-200 group-hover:text-amber-400">{entry.name}</span>
+                            {entry.factionSource && !entry.injected && (
+                              <span className="text-[10px] text-zinc-500 ml-1">[Allied]</span>
+                            )}
+                          </div>
+                          <span className="text-zinc-500 text-[11px]">{entry.minCost ?? '?'} pts</span>
+                        </button>
+                      </Fragment>
                     );
                   })
                 )}

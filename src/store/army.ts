@@ -4,6 +4,7 @@ import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, Tra
 import type { FactionData, Trait } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
+import { getArchetypeRule } from '../engine/archetypes';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -154,6 +155,8 @@ export interface ArmyStore extends ArmyState {
   addUnit: (unitName: string, slot: string, factionSource?: string) => void;
   removeUnit: (id: string) => void;
   updateUnit: (id: string, patch: Partial<RosterEntry>) => void;
+  /** Update the size of one model group in a multi-group unit. Keeps `size` in sync as the total. */
+  updateModelSize: (id: string, modelName: string, newCount: number) => void;
   setOptionQty: (id: string, gi: number, ci: string | number, qty: number) => void;
   addArmoryItem: (id: string, item: ArmorySelection) => void;
   removeArmoryItem: (id: string, armoryId: string) => void;
@@ -250,9 +253,19 @@ export const useArmyStore = create<ArmyStore>()(
       setHqMark: (m: Mark) => set({ hqMark: m }),
 
       setArchetype: (a: string) => set((s: S) => {
-        const army = s.data
-          ? applyArmyTraits(s.army, s.traitPool, s.data, a, s.legacy)
+        const newRule = getArchetypeRule(a);
+        // If new archetype forces a mark, clear stale item.mark on non-locked units so
+        // the forced mark is the sole source of truth (resolver: locked > forcedMark > item.mark).
+        const baseArmy = newRule?.forcedMark
+          ? s.army.map((e: RosterEntry) => {
+              const u = s.data ? resolveUnit(e, s.data) : null;
+              if (!u?.locked_mark && e.mark) return { ...e, mark: null };
+              return e;
+            })
           : s.army;
+        const army = s.data
+          ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy)
+          : baseArmy;
         return { archetype: a, army };
       }),
 
@@ -350,12 +363,21 @@ export const useArmyStore = create<ArmyStore>()(
           : s.data.units[unitName];
         if (!u) return;
         const defaultSize = u.default_size || 1;
+        // Build modelSizes for multi-group units (more than one model type with different min/max).
+        // Each group starts at its minimum. size = sum of all groups.
+        const hasMultipleGroups = u.models.length > 1;
+        const modelSizes: Record<string, number> | undefined = hasMultipleGroups
+          ? Object.fromEntries(u.models.map(m => [m.name, m.min]))
+          : undefined;
+        const computedSize = modelSizes
+          ? Object.values(modelSizes).reduce((s, n) => s + n, 0)
+          : defaultSize;
         const entry: RosterEntry = {
           id: newId(),
           unitName,
           slot,
           factionSource,
-          size: defaultSize,
+          size: computedSize,
           mark: null,
           optionQty: {},
           armory: [],
@@ -363,6 +385,7 @@ export const useArmyStore = create<ArmyStore>()(
           powers: [],
           prayers: [],
           pacts: [],
+          ...(modelSizes ? { modelSizes } : {}),
         };
         // Special Operations: auto-select Infiltrator for Cultists
         if (s.archetype === 'Special Operations' && unitName === 'Cultists') {
@@ -402,6 +425,15 @@ export const useArmyStore = create<ArmyStore>()(
         }
         return { army, ...extra };
       }),
+
+      updateModelSize: (id: string, modelName: string, newCount: number) => set((s: S) => ({
+        army: s.army.map((e: RosterEntry) => {
+          if (e.id !== id || !e.modelSizes) return e;
+          const newModelSizes = { ...e.modelSizes, [modelName]: newCount };
+          const newTotal = Object.values(newModelSizes).reduce((acc, n) => acc + n, 0);
+          return { ...e, modelSizes: newModelSizes, size: newTotal };
+        }),
+      })),
 
       setOptionQty: (id: string, gi: number, ci: string | number, qty: number) => set((s: S) => ({
         army: s.army.map((e: RosterEntry) => {

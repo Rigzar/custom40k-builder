@@ -2,8 +2,13 @@
   "name": "Space Wolves Armory",
   "weapons": [
     {
-      "name": "Chooser of the SlainÃ¡Â´Â³",
+      "name": "Chooser of the Slain",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "24\"",
       "type": "Assault 1",
       "s": "4",
@@ -14,8 +19,13 @@
       "p_char": 9
     },
     {
-      "name": "Great frost axeÃ¡Â´Â³",
+      "name": "Great frost axe",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "",
       "type": "",
       "s": "",
@@ -60,36 +70,64 @@
   ],
   "equipment": [
     {
-      "name": "Frost weaponÃ¡Â´Â³",
+      "name": "Frost weapon",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "A melee weapon of the model gains +1 Strength.",
       "p_unit": 5,
       "p_char": 5
     },
     {
-      "name": "Healing balmÃ¡Â´Â³",
+      "name": "Healing balm",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains the \"Narthecium\" ability. Only for Chaplains.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "requires_keywords": [
+        "Chaplain"
+      ]
     },
     {
-      "name": "Pelt of the DoublegangrelÃ¡Â´Â³",
+      "name": "Pelt of the Doublegangrel",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "A single enemy model in direct base contact suffers a cumulative -1 to hit penalty against the model.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Rune weaponÃ¡Â´Â³",
+      "name": "Rune weapon",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model receives a +1 bonus to dispel psychic powers.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Tempest weaponÃ¡Â´Â³",
+      "name": "Tempest weapon",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "Enemy models that suffer at least one wound from this weapon must pass a Strength test or reduce their Initiative to 1 until the end of their next activation.",
       "p_unit": null,
       "p_char": 5
@@ -99,25 +137,43 @@
       "term_compat": false,
       "desc": "The model gains +6\" movement, +1 Strength, +1 Toughness, +1 Wound, +1 Attack, and the \"Bike\" type. Only for infantry.",
       "p_unit": 25,
-      "p_char": 34
+      "p_char": 34,
+      "requires_keywords": [
+        "Infantry"
+      ]
     },
     {
-      "name": "Wolf companionÃ¡Â´Â³",
+      "name": "Wolf companion",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model may be joined by up to four Wolf companions. They do not prevent a model from joining another unit. The datasheet ist at the end of the codex.",
       "p_unit": null,
       "p_char": null
     },
     {
-      "name": "Wolf helmetÃ¡Â´Â³",
+      "name": "Wolf helmet",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "All ranged weapons of the model gain the \"Seeking\" ability.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Wolftooth necklaceÃ¡Â´Â³",
+      "name": "Wolftooth necklace",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model and its attached unit gain the \"Aegis(5+)\" ability.",
       "p_unit": 5,
       "p_char": 5
@@ -127,14 +183,20 @@
       "term_compat": false,
       "desc": "The model gains the abilities \"Deflect\" and \"Parry\". Counts as a weapon selection. Only for Captain Dreadnoughts, Chaplain Dreadnoughts and Dreadnoughts.",
       "p_unit": null,
-      "p_char": 6
+      "p_char": 6,
+      "requires_keywords": [
+        "Dreadnought"
+      ]
     },
     {
       "name": "Blizzard shield",
       "category": "vehicle",
       "desc": "The model gains the abilities \"Deflect\" and \"Parry\". Counts as a weapon selection. Only for Captain Dreadnoughts, Chaplain Dreadnoughts and Dreadnoughts.",
       "p_unit": 6,
-      "p_char": null
+      "p_char": null,
+      "requires_keywords": [
+        "Dreadnought"
+      ]
     }
   ],
   "daemon_weapons": []

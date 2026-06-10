@@ -115,6 +115,12 @@ export interface OptionGroup {
    */
   effect?: OptionEffect;
   /**
+   * When set, this per_n option applies only to models of this group name (e.g. "Dishonored").
+   * The selectable maximum is capped by modelSizes[applies_to_model] in addition to the per_n calc.
+   * SOURCE: option header text says "N [ModelGroup] may swap…" — must match a unit.models[].name.
+   */
+  applies_to_model?: string;
+  /**
    * True when an INLINE option (choices:[], inline_pts set) is priced PER MODEL — the datasheet
    * verb is "…for +X points per model" / "the whole squad may be equipped with … per model". The
    * cost then scales with unit size (inline_pts × size), not a single flat charge. Set ONLY when
@@ -159,6 +165,20 @@ export interface Unit {
   advisor: boolean;
   default_size: number;
   min_cost: number;
+  /**
+   * Army-wide gate (mirrors `ArmoryItem.requires_army_item`): the unit is only selectable if
+   * SOME unit anywhere in the roster already has the named item in its armory. Models the
+   * "Only for armies with an <X> Inquisitor" pattern (e.g. Inquisition's "Ordo Hereticus/Malleus/
+   * Xenos Warband" — only fieldable once an Inquisitor has picked the matching Ordo allegiance).
+   * Same `rosterArmoryItemNames` roster scan and `isArmyItemGateBlocked` check as the armory gate,
+   * applied to unit-list filtering instead of armory-item filtering.
+   *
+   * Examples:
+   *   requires_army_item: "Ordo Hereticus"  → only if some unit has "Ordo Hereticus" in armory
+   *   requires_army_item: "Ordo Malleus"
+   *   requires_army_item: "Ordo Xenos"
+   */
+  requires_army_item?: string | null;
 }
 
 export interface WeaponProfile {
@@ -175,6 +195,17 @@ export interface ArmoryItem {
   name: string;
   term_compat: boolean;
   gravis_compat?: boolean;
+  /**
+   * Armour-gate whitelist — keyword-model replacement for `term_compat`/`gravis_compat`.
+   * Lists the armour keywords whose gate this item passes, e.g.:
+   *   ["Terminator"]          → passes the ᵀ-gate (Terminator + Cataphractii + Tartaros)
+   *   ["Gravis"]              → passes the ᴳ-gate
+   *   ["Terminator","Gravis"] → passes both gates
+   * When present, helpers isItemTermCompat() / isItemGravisCompat() in keywords.ts use this
+   * field instead of the legacy booleans. Non-CSM/SM factions keep working via the boolean
+   * fallback until they are migrated.
+   */
+  armour_compat?: string[];
   /**
    * Armour-class keyword (e.g. 'Terminator', 'Cataphractii'). Items that confer a full
    * armour profile occupy the model's single armour slot — only one may be active, and its
@@ -200,6 +231,41 @@ export interface ArmoryItem {
    * de-duplicated against what the model already has (a type/ability already present is not re-added).
    */
   effect?: OptionEffect;
+  /**
+   * Keyword conditions for this item — mirrors BattleScribe's instanceOf/notInstanceOf conditions.
+   * The item is available only when the buyer's effectiveKeywords() contains AT LEAST ONE of these.
+   * (OR semantics: ["Cataphractii", "Terminator"] = available to either armour type.)
+   *
+   * Keywords come from effectiveKeywords(unit, mark, boughtArmour) which combines:
+   *   - unit.keywords          (faction, role: "Chaos Space Marine", "Psyker", "Priest", "Warpsmith"…)
+   *   - unit_type parsed       ("Infantry", "Character Model", "Vehicle"…)
+   *   - selectedMark           ("Mark of Nurgle", "Mark of Khorne"…)
+   *   - boughtArmourKeywords   ("Cataphractii", "Terminator", "Gravis"…)
+   *
+   * Examples:
+   *   requires_keywords: ["Infantry"]              → "Infantry only" / "Only for infantry"
+   *   requires_keywords: ["Cataphractii"]          → "Only for models in Cataphractii armor"
+   *   requires_keywords: ["Cataphractii","Terminator"] → "…Cataphractii or Terminator armor"
+   *   requires_keywords: ["Psyker"]                → "Only for Sorcerers" (Sorcerer has Psyker kw)
+   *   requires_keywords: ["Priest"]                → "Only for Dark Apostles"
+   *   requires_keywords: ["Warpsmith"]             → "Only for Warpsmiths"
+   */
+  requires_keywords?: string[];
+
+  /**
+   * Army-wide gate (distinct from `requires_keywords`, which is unit-scoped): the item is only
+   * available if SOME unit anywhere in the roster already has the named item in its armory.
+   * Models the "<X> grants the model and further units from this codex access to <X> equipment"
+   * pattern (e.g. Inquisition's "Ordo Hereticus/Malleus/Xenos" — picking one Ordo on any
+   * Inquisitor unlocks that Ordo's equipment army-wide). Engine checks roster-wide membership,
+   * not the current unit's own keywords/attributes.
+   *
+   * Examples:
+   *   requires_army_item: "Ordo Hereticus"  → only if some unit has "Ordo Hereticus" in armory
+   *   requires_army_item: "Ordo Malleus"
+   *   requires_army_item: "Ordo Xenos"
+   */
+  requires_army_item?: string | null;
 }
 
 export interface Armory {
@@ -215,6 +281,12 @@ export interface Legacy {
   desc: string;
   /** Key into armory_legions that this legacy grants access to. */
   armory_key?: string | null;
+  /**
+   * Faction slug this legacy grants the army access to as OWN units (mirrors
+   * ArchetypeRule.alliedFaction, e.g. Legacy of the Alien Hunters → 'inquisition').
+   * Injected the same way as archetype unit-grants — shares AOP/slots, no [Allied] badge.
+   */
+  grants_faction?: string | null;
 }
 
 export interface Trait {
@@ -268,4 +340,16 @@ export interface FactionData {
   allied?: Record<string, AlliedFaction>;
   /** Allied factions always available regardless of archetype (e.g. GK + Inquisition) */
   base_allied?: string[];
+  /**
+   * Factions whose units are included "as if part of the army's own roster" by an always-on
+   * codex/special rule (no [Allied] badge, share AOP/slots) — e.g. Grey Knights "Demon Hunters"
+   * and Adepta Sororitas "Witch hunters" both grant native Inquisition access (Informacion/
+   * Inquisition.ods, Index sheet, Designer's note: "Grey Knights, Adepta Sororitas, and Space
+   * Marine armies with the Alien Hunters trait may include Inquisition units as if they were
+   * part of their own army"). Distinct from `base_allied` (true allied detachment, [Allied]
+   * badge shown, counts against ally limits) and `Legacy.grants_faction` (only fires when that
+   * specific Legacy is selected). Injected via the same own-army mechanism as grants_faction
+   * (injectArchetypeFaction / SlotPanel ownGrantedFaction — mirrors v0.56 Alien Hunters fix).
+   */
+  intrinsic_allies?: string[];
 }

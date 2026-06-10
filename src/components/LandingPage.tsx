@@ -131,7 +131,6 @@ const CATEGORIES: Category[] = [
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'unreviewed' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'inreview' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'unreviewed' },
-      { key: 'assassins',          name: 'Assassins',          available: true, status: 'unreviewed' },
     ],
   },
   {
@@ -391,6 +390,26 @@ export function LandingPage({
               <button
                 onClick={() => setOpenSupplement('escalation')}
                 className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/20 border border-amber-900/50 text-amber-400 hover:bg-amber-900/40 transition-colors"
+              >
+                View Catalog ▶
+              </button>
+            </div>
+
+            {/* Assassins — Execution Force */}
+            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-zinc-500 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Assassins</div>
+                  <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Execution Force</div>
+                </div>
+                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Granted natively to Grey Knights and Adeptus Sororitas via their codex rules — not a standalone faction.">Grey Knights · Sororitas</span>
+              </div>
+              <p className="text-zinc-500 text-[12px] leading-snug">
+                Callidus, Culexus, Eversor, Vindicare. A single Assassin or one of each — counts as a single Elite slot. Granted natively by Demon Hunters / Witch hunters.
+              </p>
+              <button
+                onClick={() => setOpenSupplement('assassins')}
+                className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-zinc-800/50 border border-zinc-700 text-zinc-400 hover:bg-zinc-800 transition-colors"
               >
                 View Catalog ▶
               </button>

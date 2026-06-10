@@ -1,7 +1,7 @@
 import type { Unit } from '../types/data';
-import { CSM_TRAIT_EFFECTS } from './traits/csm';
+import { CSM_TRAIT_EFFECTS } from './codex_csm/traits';
 import { CD_TRAIT_EFFECTS } from './traits/chaos_daemons';
-import { SM_TRAIT_EFFECTS } from './traits/space-marines';
+import { SM_TRAIT_EFFECTS } from './traits/space_marines';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 

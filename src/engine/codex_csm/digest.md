@@ -2,6 +2,14 @@
 
 > Validated against the user's canonical sources. Never filled from training memory.
 
+**Where the actual data lives** (this folder only holds engine code + this digest — the
+canonical unit/armory/archetype DATA stays in the shared per-faction layout, same pattern as
+all 19 factions, so loaders/migration tools keep working uniformly):
+- Units: `data/parsed/chaos_space_marines/units/<slot>/*.ts`
+- Armory (general + marks + legions): `data/parsed/chaos_space_marines/armory/*.json`
+- Animosity table: `data/parsed/chaos_space_marines/animosity.json`
+- Archetypes: `data/parsed/chaos_space_marines/archetypes.json`
+
 **Sources read so far:**
 - CSM **General Armory** — **re-read from disk** (`data/source/.../Armory.html`) 2026-06-03 (plan B
   step 1); confirms earlier paste + surfaced buyable `Terminator armor` (see §1).
@@ -169,9 +177,11 @@ These are finer gates the columns don't capture; parser can't derive cleanly, ne
 - **Summoning:** if the army contains Chaos Daemons codex units, they must start in reserve (except
   Nurglings, deployable normally). Characters can't join Daemon units. Daemons can't fill mandatory
   AOP selections.
-- **Animosity of the Gods** (VALIDATED 2026-06-03): the army's **most expensive HQ model** sets the
-  "army mark". Its Mark of Chaos determines which marks/units may be used at all. A model with a Mark
-  may only join units with the **same mark or none**.
+- **Animosity of the Gods**: the army's **most expensive HQ model** sets the "army mark". Its Mark
+  of Chaos determines which marks/units may be used at all (table below — VALIDATED 2026-06-03,
+  matches animosity.json + validators.ts allowedMarks cell-for-cell). A model with a Mark may only
+  join units with the **same mark or none** — ⚠️ this join sub-clause is documented but NOT
+  enforced in code (UnitCard.tsx joinableUnits never checks marks); see ki-csm-animosity-joinmark-01.
   - Compatibility matrix (HQ mark → which unit marks are allowed). Undivided/Without = always Yes.
     The two rival pairs are MUTUALLY EXCLUSIVE: **Khorne ✗ Slaanesh** and **Nurgle ✗ Tzeentch**.
 
@@ -211,7 +221,7 @@ Stats: M/WS/BS/S/T/W/I/A/Ld/Sv. `*` line = the per-army upgrade variant.
 
 | Unit | M | WS | BS | S | T | W | I | A | Ld | Sv | Pts | Upgrade (0-1/army) | Vet |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Adept of Possession | 6 | 3+ | 3+ | 4 | 4 | 4 | 5 | 2 | 8 | 3+ | 77 | Master of Possession +15 (→A3 W… Ld9) | 2 |
+| Adept of Possession | 6 | 3+ | 3+ | 4 | 4 | 4 | 5 | 2 | 8 | 3+ | 77 | Master of Possession +15 (→A3 Ld9; W4 unchanged) | 2 |
 | Chaos Lieutenant | 6 | 2+ | 2+ | 4 | 4 | 4 | 5 | 2 | 8 | 3+ | 79 | Chaos Lord +15 | 2 |
 | Chaos Sorcerer | 6 | 3+ | 3+ | 4 | 4 | 4 | 5 | 2 | 8 | 3+ | 92 | Master of Sorcery +15 | 2 |
 | Dark Apostle | 6 | 2+ | 3+ | 4 | 4 | 4 | 5 | 2 | 8 | 3+ | 134 | Sinister Bishop +20 | 2 |

@@ -12,7 +12,11 @@
       "abilities": "AT(2), Slow(-1)",
       "p_unit": 18,
       "p_char": 22,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ]
     }
   ],
   "equipment": [
@@ -22,7 +26,11 @@
       "desc": "The model gains a 4+ invulnerability save. Additionally, once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique.",
       "p_unit": null,
       "p_char": 45,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ]
     },
     {
       "name": "Bone of Osrak",
@@ -30,7 +38,11 @@
       "desc": "The models gains +1 to all tests for manifesting a psychic power from the Geokinesis discipline.",
       "p_unit": null,
       "p_char": 5,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ]
     },
     {
       "name": "Gatebreaker bolts",
@@ -38,7 +50,11 @@
       "desc": "One Bolt weapon of the model gains a -1 bonus to its AP and the \"Explosive\" ability.",
       "p_unit": null,
       "p_char": 5,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ]
     },
     {
       "name": "Marksman pistol",
@@ -46,7 +62,10 @@
       "desc": "One Pistol type weapon of the model gains the \"Seeking\" ability.",
       "p_unit": 5,
       "p_char": 5,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Gravis"
+      ]
     },
     {
       "name": "The Angel of Sacrifice",
@@ -54,7 +73,14 @@
       "desc": "If the model loses its last Wound, it is only removed after the last possible activation of the owning player (for the current battle round) and can perform all valid actions until then. During this time, the model gains the \"Fearless\" ability. Unique. Only for Chaplains.",
       "p_unit": null,
       "p_char": 10,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "requires_keywords": [
+        "Chaplain"
+      ]
     },
     {
       "name": "The Banner of Staganda",
@@ -62,7 +88,14 @@
       "desc": "The model and its attached unit gain the \"Blind Rage\" and \"Counter-Attack\" abilities. Only for Ancients.",
       "p_unit": null,
       "p_char": 5,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
+      "requires_keywords": [
+        "Ancient"
+      ]
     },
     {
       "name": "The Eye of Hypnoth",
@@ -70,7 +103,11 @@
       "desc": "Select one enemy unit within 18\" during your activation. The target suffers a -1 penalty to its armor save or to its AV until the start of the model's next activation. Unique.",
       "p_unit": 15,
       "p_char": 15,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ]
     },
     {
       "name": "Warden's Cuirass",
@@ -78,7 +115,11 @@
       "desc": "The model gains +1 Wound.",
       "p_unit": 10,
       "p_char": 15,
-      "gravis_compat": true
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ]
     }
   ],
   "daemon_weapons": []

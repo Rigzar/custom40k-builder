@@ -11,7 +11,10 @@
       "d": "2",
       "abilities": "Armorbane. Only for Warpsmiths",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Nest of Mechaserpents",
@@ -23,7 +26,10 @@
       "d": "1",
       "abilities": "Flurry(2). Only for Warpsmiths",
       "p_unit": null,
-      "p_char": 4
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Servo arm",
@@ -35,7 +41,10 @@
       "d": "2",
       "abilities": "AT(2), Extra attack, Slow(-5)",
       "p_unit": 7,
-      "p_char": 9
+      "p_char": 9,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -44,21 +53,30 @@
       "term_compat": true,
       "desc": "Roll 1D3 during activation if an enemy vehicle is within 6\":\n        1 - The vehicle suffers a penetrating hit with AT(1).\n        2 - The vehicle suffers a penetrating hit with AT(2).\n        3 - The vehicle suffers a penetrating hit with AT(3).",
       "p_unit": 10,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Fleshmetal Exoskeleton",
       "term_compat": true,
       "desc": "The model gains the \"Regeneration(1)\" ability.",
       "p_unit": 6,
-      "p_char": 12
+      "p_char": 12,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Siege Breaker",
       "term_compat": true,
       "desc": "The model may choose to make some or all melee attacks at Initiative 1, but gains +5 Strength for these attacks.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": []

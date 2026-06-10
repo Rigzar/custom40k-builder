@@ -1,0 +1,1 @@
+export { inquisitor } from './inquisitor';

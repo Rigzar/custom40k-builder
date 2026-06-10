@@ -66,17 +66,23 @@ CD has **ONE armory table** (no separate per-mark armories like CSM). Items are 
   same `choice→keyword/stat-override` primitive that's already on the build-list (§6d).
 
 ### ⚠ Production armory shape — discrepancies to track (§7)
-1. **Tzeentch items split out.** `chaos_daemons.json` keeps the ᴷ/ᴺ/ˢ items inside
-   `armory_general.equipment` (39 items) but pulls the **8 ᵀ items** into a separate
-   `armory_marks.Tzeentch` block (Dreamcatcher talisman, Eldritch Bolt, Eye of Tzeentch, Illusionist,
-   Interdimensional Knowledge, Magical boon, Overwhelming power, Screamer of Tzeentch). 39 + 8 = 47 =
-   43 EQUIPMENT + 4 VEHICLE. **Asymmetric** — only Tzeentch was carved out (likely because the app
-   surfaces ᵀ items via the Tzeentch mark tab). The other three gods rely on the in-name superscript.
+1. ~~Tzeentch items split out — asymmetric.~~ RESOLVED 2026-06-07: **intentional, by design** — not
+   a discrepancy. Documented in `keywords.ts` "GLYPH POLICY (ᵀ collision resolved)": the **ᵀ** glyph
+   already means Terminator-compat across every faction (CSM/SM/GK/HH); reusing it for Mark of
+   Tzeentch would collide. The chosen fix: ᴷ/ᴺ/ˢ items stay name-glyph-encoded in
+   `armory_general.equipment` (derived via `itemRequiredMark()` / `MARK_GLYPHS`), while the **8** ᵀ
+   items live structurally in `armory_marks.Tzeentch` and gate via bucket-key membership
+   (`ArmoryModal.tsx` shows a separate "Tzeentch Armoury" tab when `effectiveMark === 'Tzeentch'`).
+   Both paths converge correctly — verified in code. ✅ by design.
 2. **VEHICLE EQUIPMENT folded into `equipment`.** The 4 vehicle items sit in the same
    `armory_general.equipment` array as infantry gear — no structural `vehicle` section / category, so
    the Vehicle-only gate isn't derivable from structure (only from the section heading in HTML).
-3. `term_compat` is present on every CD item but is **always `false`** (no ᵀ-armour axis in CD) — a
-   dead field inherited from the shared parser/schema. Harmless but noise.
+3. ~~`term_compat` dead field — noise.~~ RESOLVED 2026-06-07: **not removable without broader
+   scope** — it's a *required* (non-optional) field on the shared `ArmoryItem` interface
+   (`types/data.ts`), actively used by SM/HH/CSM (`ArmoryModal.tsx` Terminator-compat badge +
+   `keywords.ts` legacy fallback). CD items are always `false` because CD genuinely has no ᵀ-armour
+   axis — that's correct data, not noise. Making the field optional would be a cross-faction type
+   refactor for zero functional gain in CD. ✅ by design, leave as-is.
 
 ## 3. Points model
 
@@ -172,7 +178,8 @@ Army Customisation lists none). The 6 archetypes (verbatim):
 ## 6d. Engine gap-check (vs `chaos_daemons.json` + shared engine)
 > Completed across the slot-by-slot audit (§4d–§4i). ✅ enforced · 🟡 points-only / partial · ❌ not
 > modeled. CD exercises **fewer** distinct primitives than CSM (no armour axis, no veteran tier, no
-> legacies/traits) but adds two CD-specific structural gaps (slot-shift, conditional-unlock).
+> legacies/traits). The two CD-specific structural gaps it once surfaced (slot-shift,
+> conditional-unlock) are now RESOLVED — `ki-cd-slotshift-01`/`ki-cd-condunlock-01` fixed v0.51/v0.52.
 - **Mark gating / animosity** — shared `validators.ts allowedMarks()`; CD locked_mark path works,
   selectable-mark path confirmed via Daemon Brutes / Daemon prince / Soul Grinder (per-model pricing
   K/S/N vs dearer T). ✅
@@ -188,16 +195,24 @@ Army Customisation lists none). The 6 archetypes (verbatim):
   pts ✅, the save mutation effect text-only 🟡.
 - **slot-exemption** (Slaughterbrute *Bound Beast* — free FA slot per Khorne HQ) — ❌, same gap as CSM
   Cultist Firebrand; AOP-layer concern.
-- **slot-shift** (Ascended Daemon Prince +90, HS→HQ + forced Animosity warlord) — ❌ (pts/variant ✅,
-  the slot move + warlord forcing not modeled). CD-specific.
-- **conditional-unlock** (Daemon prince psyker +5 "if no Mark of Khorne") — ❌ cross-option gate not
-  enforced (count/pts ✅). CD-specific.
+- ~~**slot-shift**~~ (Ascended Daemon Prince +90, HS→HQ + forced Animosity warlord) — RESOLVED
+  (`ki-cd-slotshift-01` fixed v0.52): cdResolve sets effectiveSlot="HQ" + applyVariantSlotOverride
+  mirrors it; injected rule note conveys the warlord designation. ✅
+- ~~**conditional-unlock**~~ (Daemon prince psyker +5 "if no Mark of Khorne") — RESOLVED
+  (`ki-cd-condunlock-01` fixed v0.51): structured `OptionGroup.available_if` with
+  `{type: notInstanceOf, scope: unit, keyword: Khorne}`, gated via isOptionAvailable(). ✅
 - **choice→keyword/stat mounts** (wings → Jump-pack on Daemon prince; chariots typed Bike) — pts ✅,
   unit-type/Move injection ❌. Same unmodeled primitive as CSM.
 - **deployment-phase / aura abilities** (Feculent Gnarlmaw infestation + heal) — outside the
   wargear-gating engine entirely; not an option-semantics gap. ❌ (by design).
-- **Daemonkin injection** — `daemonkin` block has 4 god keys, all **empty** (`{description:"",
-  items:[]}`); ties to the 3 pending daemonkin parser bugs [[project-active-daemonkin]]. ❌
+- **Daemonkin injection** — REMOVED (2026-06-07): `psychic/daemonkin.json` was dead data — searched
+  all 43 CD source HTMLs for "Daemonkin"/"Blood Tithe"/"Tally of Pestilence"/"Dark Pledge"/
+  "Cabbalistic Rituals" (the Daemonkin in-game tables) and **found zero matches**. Daemonkin is a
+  CSM-only archetype concept (its tables describe what a CSM-Daemonkin army gets per god); CD never
+  had this content natively — the empty stub was a leftover from the per-faction-folder split
+  (CSM+CD share the "Chaos" loader template). Deleted the file + `psychic/` folder + loader wiring;
+  `asm()` already defaults `daemonkin` to `{}`, so behaviour is unchanged (tab was already hidden).
+  N/A — not a gap.
 
 ## 4d. HQ datasheets — stats + option-semantics (VALIDATED 2026-06-03, prod JSON canonical)
 
@@ -379,20 +394,21 @@ I4 A3 **HP3**. Maw cannon = multi-profile (`*` Vomit / Tongue / Phlegm — choos
   loadout). Mutalith has Regeneration(1) + Squadron; Burning Chariot Squadron.
 - **Daemon prince** — `mark` group, all 4 gods (**Khorne/Slaanesh +11, Nurgle +28, Tzeentch +24** —
   character-tier, Nurgle dearest) · ✅; `one` add **Hellforged blade +18** · ✅; `one` **conditional**
-  "**If no Mark of Khorne** is taken → psyker upgrade +5" · **conditional-unlock** (gated on mark
-  choice) — count/pts ✅, the cross-option gate ❌ (not enforced — flag); `one` **wings +37** (→ +6"M,
-  Jump-pack-infantry unit-type) · `one`+stat/keyword 🟡 (pts ✅, type/Move injection ❌);
-  `unique_upgrade` **Ascended Daemon Prince +90** (one per army, `variant_link` → 289-pt profile,
-  **slot-shift HS→HQ**, becomes forced Animosity warlord, all marks, Daemon→Greater Daemon, loses
-  Daemonic instability, gains Fearless + Terrifying(-2)) · variant + **slot-shift** primitive 🟡/❌
-  (pts/variant ✅, the HS→HQ slot move + forced-warlord ❌). armory ✅ (Greater Daemon column).
+  "**If no Mark of Khorne** is taken → psyker upgrade +5" · **conditional-unlock** RESOLVED
+  (`ki-cd-condunlock-01` ✅ — `available_if: {type: notInstanceOf, scope: unit, keyword: Khorne}`);
+  `one` **wings +37** (→ +6"M, Jump-pack-infantry unit-type) · `one`+stat/keyword 🟡 (pts ✅,
+  type/Move injection ❌); `unique_upgrade` **Ascended Daemon Prince +90** (one per army,
+  `variant_link` → 289-pt profile, **slot-shift HS→HQ**, becomes forced Animosity warlord, all
+  marks, Daemon→Greater Daemon, loses Daemonic instability, gains Fearless + Terrifying(-2)) ·
+  variant + **slot-shift** RESOLVED (`ki-cd-slotshift-01` ✅ — cdResolve + applyVariantSlotOverride
+  set effectiveSlot="HQ", injected rule note conveys forced-warlord). armory ✅ (Greater Daemon col).
 - **Soul Grinder** — `mark` group, all 4 gods **+10 each** (flat vehicle pricing) · ✅; Maw cannon
   multi-profile (choose one) · `profiles[]` display ✅; **VEHICLE-EQUIPMENT-only armory access**
   (Additional armor / Smoke Launcher / We are legion / Jammer) · vehicle-gate — confirm enforced
   (§6d, the only CD unit that exercises it). No weapon swaps.
 
-**HS-slot gaps (richest slot):** **conditional-unlock** (Daemon prince psyker "if no Khorne") ❌;
-**slot-shift** (Ascended → HQ + forced warlord) ❌; `one`+unit-type mount (wings → Jump-pack) 🟡;
+**HS-slot gaps (richest slot):** ~~conditional-unlock~~ + ~~slot-shift~~ both RESOLVED (see Daemon
+prince entry above — `ki-cd-condunlock-01`/`ki-cd-slotshift-01` ✅); `one`+unit-type mount (wings → Jump-pack) 🟡;
 **VEHICLE-EQUIPMENT vehicle-gate** (Soul Grinder — only test case) needs confirming ✅/🟡; Daemon
 prince **Greater-Daemon armory column** confirms the §3 `p_char`="GREATER DEMON" semantics.
 
@@ -428,16 +444,21 @@ exercised here. The only un-modeled mechanics are **deployment-phase** (Gnarlmaw
 **aura/heal abilities**, which live outside the wargear-gating engine entirely.
 
 ## 7. Open questions / discrepancies found
-1. **Armory ᵀ-split asymmetry** (§2) — why only Tzeentch items live in `armory_marks.Tzeentch` while
-   ᴷ/ᴺ/ˢ stay in `armory_general`. Confirm the app gates all four consistently.
+1. ~~Armory ᵀ-split asymmetry~~ — RESOLVED 2026-06-07: **by design**, not a discrepancy. It's the
+   chosen fix for the documented ᵀ-glyph collision (ᵀ = Terminator-compat everywhere; Tzeentch items
+   gate structurally via `armory_marks.Tzeentch` bucket membership instead). See §2 (corrected).
 2. **VEHICLE EQUIPMENT has no category** in JSON (§2.2) — gate is heading-only in HTML.
-3. **`term_compat` dead field** — always false in CD (no armour axis); schema noise (§2.3).
-4. **Daemonkin block empty** (§6d) — 3 pending parser bugs [[project-active-daemonkin]].
+3. ~~`term_compat` dead field~~ — RESOLVED 2026-06-07: **not noise, not removable** — required
+   (non-optional) field on the shared `ArmoryItem` type, actively used by SM/HH/CSM. CD's `false`
+   values are correct data (CD has no ᵀ-armour axis). Leave as-is; see §2 (corrected).
+4. ~~Daemonkin block empty~~ — RESOLVED 2026-06-07: was dead data (CD has no Daemonkin concept in
+   any source HTML), removed entirely (§6d).
 5. **"POINTS GREATER DEMON"** column semantics (§3) — confirm app treats it as `p_char` everywhere
    despite the different label. Daemon prince ("armory like a Greater Daemon") is the live test case.
 6. Per-unit option_groups cross-checked vs HTML ✅ (§4d–§4i complete, all 6 slots; production
-   confirmed canonical & accurate). The two **CD-specific engine gaps** found: (a) **slot-shift** —
-   Ascended Daemon Prince HS→HQ + forced warlord; (b) **conditional-unlock** — Daemon prince psyker
-   gated on "no Mark of Khorne". Both ❌ not modeled (pts ✅). See §6d.
+   confirmed canonical & accurate). The two **CD-specific engine gaps** found — (a) **slot-shift**
+   (Ascended Daemon Prince HS→HQ + forced warlord) and (b) **conditional-unlock** (Daemon prince
+   psyker gated on "no Mark of Khorne") — are both now ✅ RESOLVED (`ki-cd-slotshift-01` v0.52,
+   `ki-cd-condunlock-01` v0.51; digest was stale, corrected 2026-06-07). See §6d.
 7. **Soul Grinder** is CD's *only* Vehicle, so the VEHICLE-EQUIPMENT gate has a single test case —
    any regression there is invisible elsewhere in the faction.

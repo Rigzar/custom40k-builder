@@ -2,8 +2,13 @@
   "name": "Dark Angels Armory",
   "weapons": [
     {
-      "name": "Caliban greatswordÃ¡Â´Â³",
+      "name": "Caliban greatsword",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "range": "-",
       "type": "Melee",
       "s": "+2",
@@ -16,57 +21,97 @@
   ],
   "equipment": [
     {
-      "name": "Brazier of JudgementÃ¡Â´Â³",
+      "name": "Brazier of Judgement",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model automatically succeeds at pursuit rolls to catch fleeing units.",
       "p_unit": 2,
       "p_char": 2
     },
     {
-      "name": "Conversion fieldÃ¡Â´Â³",
+      "name": "Conversion field",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains a 4+ invulnerability save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
       "p_unit": null,
       "p_char": 35
     },
     {
-      "name": "Eye of the UnseenÃ¡Â´Â³",
+      "name": "Eye of the Unseen",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains the \"Favoured Enemy\" ability. Unique.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Foe-smiterÃ¡Â´Â³",
+      "name": "Foe-smiter",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "One ranged weapon of the model gains the \"Shred\" ability. Unique.",
       "p_unit": null,
       "p_char": 5
     },
     {
-      "name": "Heavenfall bladeÃ¡Â´Â³",
+      "name": "Heavenfall blade",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "One melee weapon of the model gains one of the following:\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
       "p_unit": 10,
       "p_char": 10
     },
     {
-      "name": "Monster SlayerÃ¡Â´Â³",
+      "name": "Monster Slayer",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains the \"Tank hunter\" ability.",
       "p_unit": 2,
       "p_char": 4
     },
     {
-      "name": "Shroud of HeroesÃ¡Â´Â³",
+      "name": "Shroud of Heroes",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model gains the \"Stealth\" ability, while it is not attached to a unit. Unique.",
       "p_unit": null,
       "p_char": 10
     },
     {
-      "name": "Watchers in the DarkÃ¡Â´Â³",
+      "name": "Watchers in the Dark",
       "term_compat": true,
+      "gravis_compat": true,
+      "armour_compat": [
+        "Terminator",
+        "Gravis"
+      ],
       "desc": "The model and its attached unit gain the \"Aegis(4+)\" ability.",
       "p_unit": 5,
       "p_char": 5

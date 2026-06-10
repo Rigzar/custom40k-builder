@@ -728,7 +728,7 @@
         "Trail Shaper: After all units have been placed in the Deployment phase, you may remove and redeploy this model and its attached unit.",
         "War Shaper: The model and its attached unit automatically remove all Battleshock tokens during each Reinforcement phase."
       ],
-      "unit_type": "Character, Infantry, KEYWORD, Kroot",
+      "unit_type": "Character, Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -1129,7 +1129,7 @@
       "abilities": [
         "Infiltrator, Supporting Fire, Use Cover"
       ],
-      "unit_type": "Infantry, KEYWORD, Kroot",
+      "unit_type": "Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2247,7 +2247,7 @@
         "Pech'ra: All ranged weapons carried by the unit gain the \"Sunder(1)\" ability.",
         "Sniper: Models with a Kroot hunting rifle receive a +1 bonus to their BS value."
       ],
-      "unit_type": "Bike (Kroot hounds only), Infantry, KEYWORD, Kroot",
+      "unit_type": "Bike (Kroot hounds only), Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2339,7 +2339,7 @@
         "Infiltrator, Stealth, Squadron, Supporting Fire, Use Cover",
         "Sniper: A model equipped with a Kroot long gun improves its BS by +1."
       ],
-      "unit_type": "Bike, KEYWORD, Kroot",
+      "unit_type": "Bike, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2513,7 +2513,7 @@
         "Trail Shaper: After all units have been placed in the Deployment phase, you may remove and redeploy this model and its attached unit.",
         "War Shaper: The model and its attached unit automatically remove all Battleshock tokens during each Reinforcement phase."
       ],
-      "unit_type": "Character, Infantry, KEYWORD, Kroot",
+      "unit_type": "Character, Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": true,
@@ -2864,7 +2864,7 @@
         "Infiltrator, Squadron, Supporting Fire, Use Cover",
         "Knarloc armor: The model gains a 4+ armor save."
       ],
-      "unit_type": "Monstrous Creature, KEYWORD, Kroot",
+      "unit_type": "Monstrous Creature, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3080,7 +3080,7 @@
       "abilities": [
         "Infiltrator, Supporting Fire, Use Cover"
       ],
-      "unit_type": "Bike, KEYWORD, Kroot",
+      "unit_type": "Bike, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3178,7 +3178,7 @@
       "abilities": [
         "Infiltrator, Supporting Fire, Use Cover, Vanguard"
       ],
-      "unit_type": "Bike, KEYWORD, Kroot",
+      "unit_type": "Bike, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3320,7 +3320,7 @@
         "Infiltrator, Supporting Fire, Use Cover",
         "Sniper: Models with a Kroot hunting rifle receive a +1 bonus to their BS value."
       ],
-      "unit_type": "Jump Pack Infantry, KEYWORD, Kroot",
+      "unit_type": "Jump Pack Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3405,7 +3405,7 @@
       "abilities": [
         "Furious Charge, Infiltrator, Supporting Fire, Use Cover"
       ],
-      "unit_type": "Monstrous Infantry, KEYWORD, Kroot",
+      "unit_type": "Monstrous Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -4596,7 +4596,7 @@
       "abilities": [
         "Infiltrator, Supporting Fire, Use Cover"
       ],
-      "unit_type": "Monstrous Infantry, KEYWORD, Kroot",
+      "unit_type": "Monstrous Infantry, Kroot",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

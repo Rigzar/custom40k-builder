@@ -3,10 +3,13 @@ import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
-import { isWeaponTrait, isUniqueItem, isMultipleAllowed } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, requiresWeaponTarget } from '../engine/equipMods';
+import { findArmoryItem } from '../engine/resolver';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
   modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
+  effectiveKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
+  isItemTermCompat, isItemGravisCompat,
 } from '../engine/keywords';
 
 interface Props {
@@ -16,6 +19,10 @@ interface Props {
   filterCategory?: 'veteran' | 'vehicle';
   /** Overrides unit.has_veteran_abilities — used when an archetype grants vet access to a normally ineligible unit. */
   effectiveHasVetAbilities?: boolean;
+  /** The unit's effective slot (post archetype/variant remap), as computed by resolveUnitProfile
+   *  in UnitCard. Used for the Skirmish "HQ models may not take 'once per army' upgrades" check —
+   *  see skirmishHqUniqueBlocked. */
+  effectiveSlot?: string;
 }
 
 // Collision-proof id (same reasoning as newId in store/army.ts): a reset-on-reload counter would
@@ -44,13 +51,15 @@ const MARK_BADGE: Record<string, string> = {
   Nurgle:   'bg-green-900/60 text-green-300 border-green-700',
 };
 
-export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
-  const { data, alliedData, legacy, legacy2, archetype, traitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
+  const { data, alliedData, legacy, legacy2, archetype, traitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
   // Weapon picker for daemon-weapon traits: itemName → chosen weapon name
   const [dwTargetWeapon, setDwTargetWeapon] = useState<Record<string, string>>({});
+  // Weapon picker for equipment items that target a specific weapon (Chaos artifact, Obsidian blade, etc.)
+  const [eqTargetWeapon, setEqTargetWeapon] = useState<Record<string, string>>({});
   if (!data) return null;
 
   // Bug 3: for allied units use the allied faction's armory data
@@ -70,6 +79,25 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (!isUniqueItem(arm.desc)) return false;
     return army.filter(e => e.id !== item.id).some(e => e.armory.some(a => a.itemName === arm.name && a.section === sec));
   }
+  // Level 2b — Unwieldy: once per MODEL (Core Rules glossary, ki-unwieldy-permodel-unenforced-01).
+  // Blocked if this model's own armory already carries a (different) Unwieldy item.
+  function unwieldyModelBlocked(arm: ArmoryItem, sec: Section): boolean {
+    if (!isUnwieldyItem(arm.desc)) return false;
+    return currentArmory.some(a => {
+      if (a.itemName === arm.name && a.section === sec) return false; // same item — oncePerModelBlocked already covers it
+      const found = findArmoryItem(activeData, a);
+      return !!found && isUnwieldyItem(found.desc);
+    });
+  }
+  // Skirmish Unit Restriction #1 (Missions.txt L72, ki-skirmish-restrictions-unenforced-01):
+  // "HQ models may not take 'once per army' upgrades" — the canonical glossary defines a
+  // "once per army" upgrade as exactly what the "Unique" ability means ("This weapon or
+  // wargear may only be included once per army", coreRules.ts). So in Skirmish, an HQ-slot
+  // unit's models may not select Unique items at all (a stricter, engagement-scoped ban —
+  // distinct from uniqueArmyBlocked's normal "only if another unit already has it" gate).
+  function skirmishHqUniqueBlocked(arm: ArmoryItem): boolean {
+    return engagement === 'skirmish' && effectiveSlot === 'HQ' && isUniqueItem(arm.desc);
+  }
   // Level 3 — terminator armor conflict: can't stack two Terminator-type armors
   function isTerminatorArmor(arm: ArmoryItem): boolean {
     return isTerminatorArmourName(arm.name);
@@ -86,11 +114,33 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       return false;
     });
   }
+  // Collect armour-class keywords from already-bought equipment (for effectiveKeywords).
+  function getBoughtArmourKws(): string[] {
+    const kw: string[] = [];
+    const allSrcs = [activeData.armory_general, ...Object.values(activeData.armory_marks), ...Object.values(activeData.armory_legions)];
+    for (const sel of currentArmory) {
+      if (sel.section !== 'equipment') continue;
+      for (const src of allSrcs) {
+        const found = (src?.equipment ?? []).find((x: ArmoryItem) => x.name === sel.itemName);
+        if (found?.armourKeyword) { kw.push(found.armourKeyword); break; }
+      }
+    }
+    return kw;
+  }
+
+  // effectiveKeywords: single source of truth for all keyword-based gating (instanceOf).
+  // Combines unit.keywords + unit_type tokens + selected mark + bought armour keywords.
+  const _effectiveKws = effectiveKeywords(unit, item.mark, getBoughtArmourKws());
+
   // Combined: is adding this item blocked for any reason?
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (oncePerModelBlocked(arm, sec)) return true;
     if (uniqueArmyBlocked(arm, sec)) return true;
+    if (unwieldyModelBlocked(arm, sec)) return true;
+    if (skirmishHqUniqueBlocked(arm)) return true;
     if (sec === 'equipment' && armorConflict(arm)) return true;
+    // instanceOf gate: requires_keywords checked against effectiveKeywords (BSData model)
+    if (isItemRequirementsBlocked(arm, _effectiveKws)) return true;
     // For regular (non-veteran/vehicle) equipment: enforce mark restriction and null price
     if (!arm.category) {
       if (isMarkBlocked(arm)) return true;
@@ -119,7 +169,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   /** True when the given legion-armory key is the archetype-granted supplement (e.g. Horus Heresy). */
   const legMarkless = (legName: string): boolean =>
     isMarklessFaction || legName === rule?.sharedSupplementArmory;
-  const isGreaterDaemon = (unit.abilities ?? []).some(a => /\bgreater daemon\b/i.test(a));
+  // Use is_monster as the CD proxy for Greater Daemon (avoids false-positive on Heralds whose
+  // Entourage ability text references "Greater Daemon" without the unit being one).
+  const isGreaterDaemon = isCD && unit.is_monster;
 
   /** Returns the correct pts for this unit, or null if the item cannot be purchased ("-"). */
   function getItemPts(arm: ArmoryItem): number | null {
@@ -198,10 +250,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // that triggers the gate is itself non-ᵀ/ᴳ and would otherwise vanish from the list).
   const boughtItemNames = new Set(currentArmory.map(a => a.itemName));
   function filterTermCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return termRestricted ? armItems.filter(a => a.term_compat || boughtItemNames.has(a.name)) : armItems;
+    return termRestricted ? armItems.filter(a => isItemTermCompat(a) || boughtItemNames.has(a.name)) : armItems;
   }
   function filterGravisCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return gravisRestricted ? armItems.filter(a => a.gravis_compat || boughtItemNames.has(a.name)) : armItems;
+    return gravisRestricted ? armItems.filter(a => isItemGravisCompat(a) || boughtItemNames.has(a.name)) : armItems;
   }
 
   // Filter items by unit type and category
@@ -293,9 +345,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   const armory = getArmory();
 
+  // Flattened item names across the WHOLE roster — backs the army-wide gate (requires_army_item):
+  // e.g. picking "Ordo Xenos" on any Inquisitor unlocks Ordo Xenos equipment for every model.
+  const rosterArmoryItemNames = army.flatMap(e => e.armory.map(a => a.itemName));
+
   function getItems(sec: Section): ArmoryItem[] {
     if (!armory) return [];
-    return filterByUnitType(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[])));
+    return filterByUnitType(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[])))
+      .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
   }
 
   // Split equipment into groups
@@ -443,7 +500,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
-                        onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, `${markName} Armoury`, effectiveSection)}
+                        onAdd={arm => {
+                          if (isAddBlocked(arm, 'equipment')) return;
+                          const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
+                          add(arm, `${markName} Armoury`, effectiveSection, tw);
+                        }}
+                        availableWeapons={availableWeapons}
+                        eqTargetWeapon={eqTargetWeapon}
+                        onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       />
                     ) : (
                       markItems.length === 0
@@ -524,7 +588,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
                         getSelId={name => getSelId(name, 'equipment')}
                         onRemove={removeItem}
-                        onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, legName, effectiveSection)}
+                        onAdd={arm => {
+                          if (isAddBlocked(arm, 'equipment')) return;
+                          const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
+                          add(arm, legName, effectiveSection, tw);
+                        }}
+                        availableWeapons={availableWeapons}
+                        eqTargetWeapon={eqTargetWeapon}
+                        onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       />
                     ) : effectiveSection === 'daemon_weapons' ? (
                       legItems.length === 0
@@ -640,7 +711,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
               getSelId={name => getSelId(name, 'equipment')}
               onRemove={removeItem}
-              onAdd={arm => !isAddBlocked(arm, 'equipment') && add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection)}
+              onAdd={arm => {
+                if (isAddBlocked(arm, 'equipment')) return;
+                const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
+                add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection, tw);
+              }}
+              availableWeapons={availableWeapons}
+              eqTargetWeapon={eqTargetWeapon}
+              onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
             />
           ) : effectiveSection === 'daemon_weapons' ? (
             (() => {
@@ -787,6 +865,11 @@ interface EquipGroupsProps {
   getSelId?: (name: string) => string | undefined;
   onRemove?: (id: string) => void;
   onAdd: (arm: ArmoryItem) => void;
+  /** Weapons available on this unit — used for the weapon-target picker */
+  availableWeapons?: string[];
+  /** Current weapon target selections for equipment that requires a target */
+  eqTargetWeapon?: Record<string, string>;
+  onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
 }
 
 function EquipmentGroups({
@@ -802,6 +885,9 @@ function EquipmentGroups({
   isUniqueSelected,
   getSelId, onRemove,
   onAdd,
+  availableWeapons = [],
+  eqTargetWeapon = {},
+  onSetEqTargetWeapon,
 }: EquipGroupsProps) {
   // Build a per-model/per-wound price label for veteran abilities
   function vetPriceLabel(arm: ArmoryItem): string {
@@ -840,16 +926,37 @@ function EquipmentGroups({
         <div className="space-y-1">
           {regular.map((arm, i) => {
             const uniqueSel = isUniqueSelected ? isUniqueSelected(arm) : false;
+            const needsTarget = requiresWeaponTarget(arm.desc) && availableWeapons.length > 0;
+            const chosenTarget = eqTargetWeapon[arm.name] ?? '';
+            const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '');
             return (
-              <ArmoryItemRow
-                key={i} arm={arm} isChar={isChar} markless={markless}
-                justAdded={lastAdded === arm.name}
-                disabled={uniqueSel}
-                selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
-                ptsOverride={getPts ? getPts(arm) : undefined}
-                onRemove={onRemove}
-                onAdd={() => !uniqueSel && onAdd(arm)}
-              />
+              <div key={i}>
+                <ArmoryItemRow
+                  arm={arm} isChar={isChar} markless={markless}
+                  justAdded={lastAdded === arm.name}
+                  disabled={!canAdd}
+                  selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
+                  ptsOverride={getPts ? getPts(arm) : undefined}
+                  onRemove={onRemove}
+                  onAdd={() => canAdd && onAdd(arm)}
+                />
+                {/* Weapon target picker — shown when item needs to target a specific weapon */}
+                {needsTarget && !uniqueSel && !(getSelId?.(arm.name)) && (
+                  <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
+                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">Apply to:</span>
+                    <select
+                      value={chosenTarget}
+                      onChange={e => onSetEqTargetWeapon?.(arm.name, e.target.value)}
+                      className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                    >
+                      <option value="">— select a weapon —</option>
+                      {availableWeapons.map(wn => (
+                        <option key={wn} value={wn}>{wn}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
@@ -965,10 +1072,10 @@ function ArmoryItemRow({
             {requiredMark && (
               <span className={`text-[9px] border px-1 py-0.5 uppercase tracking-wide ${markBadgeClass}`}>{requiredMark}</span>
             )}
-            {arm.gravis_compat && (
+            {isItemGravisCompat(arm) && (
               <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
             )}
-            {arm.term_compat && (
+            {isItemTermCompat(arm) && (
               <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">Term</span>
             )}
           </div>

@@ -11,7 +11,10 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 3,
-      "p_char": 4
+      "p_char": 4,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Eviscerating blade",
@@ -23,7 +26,10 @@
       "d": "1",
       "abilities": "Shred",
       "p_unit": 5,
-      "p_char": 6
+      "p_char": 6,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Heavy chainaxe",
@@ -35,7 +41,10 @@
       "d": "2",
       "abilities": "AT(1), Deadly(5+), Slow(-1), Unwieldy",
       "p_unit": 13,
-      "p_char": 17
+      "p_char": 17,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Heavy chainglaive",
@@ -47,7 +56,10 @@
       "d": "2",
       "abilities": "AT(1), Quick(1), Shred, Unwieldy",
       "p_unit": 11,
-      "p_char": 13
+      "p_char": 13,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Hellblade",
@@ -59,7 +71,10 @@
       "d": "1",
       "abilities": "Deadly(5+)",
       "p_unit": 5,
-      "p_char": 7
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -68,56 +83,85 @@
       "term_compat": true,
       "desc": "Everytime the model kills an enemy Character model, a Monstrous Creature or a Vehicle, it gains +1 Strength and +1 Attack for the rest of the game.",
       "p_unit": null,
-      "p_char": 10
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Bloodstep rune",
       "term_compat": true,
       "desc": "Once per game, the model may use a \"Stand & Shoot\" order to be immediately removed from the battlefield and deployed via Deep strike rules.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Collar of Khorne",
       "term_compat": true,
       "desc": "The unit can dispel 1 psychic power per battle round.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Juggernaut of Khorne",
       "term_compat": false,
+      "requires_keywords": [
+        "Infantry"
+      ],
       "desc": "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the \"Bike\" unit type. Only for infantry.",
       "p_unit": null,
-      "p_char": 52
+      "p_char": 52,
+      "effect": {
+        "adds_unit_types": [
+          "Bike"
+        ]
+      }
     },
     {
       "name": "Khornate rage",
       "term_compat": true,
       "desc": "The model gains +1D3 bonus attacks for a charge move, instead of just 1.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Obsidian blade",
       "term_compat": true,
       "desc": "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
       "p_unit": 10,
-      "p_char": 20
+      "p_char": 20,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Rune of brass",
       "term_compat": true,
       "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results. Unique.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
     },
     {
       "name": "Talisman of Burning Blood",
       "term_compat": true,
       "desc": "The model and its attached unit gain the \"Blind Rage\" ability. Roll 2D6 for Blind Rage and take the higher result.",
       "p_unit": 5,
-      "p_char": 5
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "daemon_weapons": [

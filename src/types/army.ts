@@ -63,6 +63,14 @@ export interface RosterEntry {
    * Null/undefined = no lock yet chosen.
    */
   legacyArmoryLock?: string | null;
+  /**
+   * Per-model-group sizes for units with multiple model types (e.g. Jakhals:
+   * { "Jakhal": 8, "Jakhal Pack Leader": 1, "Dishonored": 2 }).
+   * When set, overrides the flat `size` field for display and cost calculation.
+   * Keys = model.name from unit.models[]. Fixed groups (min===max) are always
+   * their min value. `size` is kept in sync as the sum of all group sizes.
+   */
+  modelSizes?: Record<string, number>;
 }
 
 export interface ArmyState {

@@ -6,9 +6,10 @@
  *   armory/general.json  Armory (general, always present)
  *   armory/mark_*.json   one per Chaos mark (Khorne/Nurgle/Slaanesh/Tzeentch)
  *   armory/legion_*.json one per legacy armory (slug of legacy key)
- *   psychic/disciplines.json, pacts.json, prayers.json, daemonkin.json
+ *   psychic/disciplines.json, pacts.json, prayers.json
+ *   psychic/daemonkin.json   only CSM (Daemonkin archetype tables — not a CD concept)
  *   archetypes.json      { archetypes, legacies, traits }
- *   rules.json           { animosity, allied }
+ *   animosity.json       { animosity, allied }  — only CSM/CD (marks animosity table)
  *
  * Supplements: data/parsed/_supplements/<name>.json
  *
@@ -61,8 +62,8 @@ async function loadFaction(key: string): Promise<FactionData> {
   switch (key) {
 
     case 'chaos_space_marines': {
-      const [u, g, kh, nu, sl, tz, iron, word, alpha, night, black, arch, rules, pacts, prayers, dk] = await Promise.all([
-        import('../../data/parsed/chaos_space_marines/units.json'),
+      const [u, g, kh, nu, sl, tz, iron, word, alpha, night, black, arch, rules, pacts, prayers, dk, discs] = await Promise.all([
+        import('../../data/parsed/chaos_space_marines/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/chaos_space_marines/armory/general.json'),
         import('../../data/parsed/chaos_space_marines/armory/mark_khorne.json'),
         import('../../data/parsed/chaos_space_marines/armory/mark_nurgle.json'),
@@ -74,36 +75,36 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/chaos_space_marines/armory/legion_night_lords.json'),
         import('../../data/parsed/chaos_space_marines/armory/legion_black_legion.json'),
         import('../../data/parsed/chaos_space_marines/archetypes.json'),
-        import('../../data/parsed/chaos_space_marines/rules.json'),
+        import('../../data/parsed/chaos_space_marines/animosity.json'),
         import('../../data/parsed/chaos_space_marines/psychic/pacts.json'),
         import('../../data/parsed/chaos_space_marines/psychic/prayers.json'),
         import('../../data/parsed/chaos_space_marines/psychic/daemonkin.json'),
+        import('../../data/parsed/chaos_space_marines/psychic/disciplines.json'),
       ]);
       return asm(u, g, arch, rules,
         { Khorne: kh, Nurgle: nu, Slaanesh: sl, Tzeentch: tz },
         { 'Iron Warriors': iron, 'Word Bearers': word, 'Alpha Legion': alpha, 'Night Lords': night, 'Black Legion': black },
-        { pacts, prayers, daemonkin: dk });
+        { pacts, prayers, daemonkin: dk, disciplines: discs });
     }
 
     case 'chaos_daemons': {
-      const [u, g, tz, arch, rules, dk] = await Promise.all([
-        import('../../data/parsed/chaos_daemons/units.json'),
+      const [u, g, tz, arch, rules] = await Promise.all([
+        import('../../data/parsed/chaos_daemons/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/chaos_daemons/armory/general.json'),
         import('../../data/parsed/chaos_daemons/armory/mark_tzeentch.json'),
         import('../../data/parsed/chaos_daemons/archetypes.json'),
-        import('../../data/parsed/chaos_daemons/rules.json'),
-        import('../../data/parsed/chaos_daemons/psychic/daemonkin.json'),
+        import('../../data/parsed/chaos_daemons/animosity.json'),
       ]);
-      return asm(u, g, arch, rules, { Tzeentch: tz }, {}, { daemonkin: dk });
+      return asm(u, g, arch, rules, { Tzeentch: tz }, {}, {});
     }
 
     case 'space_marines': {
-      const [u, g, arch, prayers, dk, rel, dw, da, ws, sw, fi, bt, ba, br] = await Promise.all([
-        import('../../data/parsed/space_marines/units.json'),
+      const [u, g, arch, prayers, discs, rel, dw, da, ws, sw, fi, bt, ba, br] = await Promise.all([
+        import('../../data/parsed/space_marines/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/space_marines/armory/general.json'),
         import('../../data/parsed/space_marines/archetypes.json'),
         import('../../data/parsed/space_marines/psychic/prayers.json'),
-        import('../../data/parsed/space_marines/psychic/daemonkin.json'),
+        import('../../data/parsed/space_marines/psychic/disciplines.json'),
         import('../../data/parsed/space_marines/armory/legion_relictors.json'),
         import('../../data/parsed/space_marines/armory/legion_death_watch.json'),
         import('../../data/parsed/space_marines/armory/legion_dark_angels.json'),
@@ -116,178 +117,170 @@ async function loadFaction(key: string): Promise<FactionData> {
       ]);
       return asm(u, g, arch, noRules, {},
         { 'Relictors': rel, 'Death Watch': dw, 'Dark Angels': da, 'White Scars': ws, 'Space Wolves': sw, 'Imperial Fists': fi, 'Black Templars': bt, 'Blood Angels': ba, 'Blood Ravens': br },
-        { prayers, daemonkin: dk });
+        { prayers, disciplines: discs });
     }
 
     case 'imperial_guard': {
-      const [u, g, arch, dk] = await Promise.all([
+      const [u, g, arch] = await Promise.all([
         import('../../data/parsed/imperial_guard/units.json'),
         import('../../data/parsed/imperial_guard/armory/general.json'),
         import('../../data/parsed/imperial_guard/archetypes.json'),
-        import('../../data/parsed/imperial_guard/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, {}, {});
     }
 
     case 'adeptus_mechanicus': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/adeptus_mechanicus/units.json'),
         import('../../data/parsed/adeptus_mechanicus/armory/general.json'),
         import('../../data/parsed/adeptus_mechanicus/archetypes.json'),
         import('../../data/parsed/adeptus_mechanicus/armory/legion_forge_world.json'),
-        import('../../data/parsed/adeptus_mechanicus/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Forge World': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Forge World': leg }, {});
     }
 
     case 'adeptus_custodes': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/adeptus_custodes/units.json'),
         import('../../data/parsed/adeptus_custodes/armory/general.json'),
         import('../../data/parsed/adeptus_custodes/archetypes.json'),
         import('../../data/parsed/adeptus_custodes/armory/legion_shield_host.json'),
-        import('../../data/parsed/adeptus_custodes/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Shield Host': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Shield Host': leg }, {});
     }
 
     case 'adeptus_sororitas': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/adeptus_sororitas/units.json'),
         import('../../data/parsed/adeptus_sororitas/armory/general.json'),
         import('../../data/parsed/adeptus_sororitas/archetypes.json'),
         import('../../data/parsed/adeptus_sororitas/armory/legion_order.json'),
-        import('../../data/parsed/adeptus_sororitas/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Order': leg }, { daemonkin: dk });
+      // Witch hunters (Sororitas special rule, Inquisition.ods Index/Designer's note): Inquisition
+      // units are included "as if part of their own army" — own roster, no [Allied] badge.
+      return asm(u, g, arch, noRules, {}, { 'Order': leg }, {})
+        .then(fd => ({ ...fd, intrinsic_allies: ['inquisition'] }));
     }
 
     case 'grey_knights': {
-      const [u, g, arch, prayers, dk] = await Promise.all([
-        import('../../data/parsed/grey_knights/units.json'),
+      const [u, g, arch, prayers, discs] = await Promise.all([
+        import('../../data/parsed/grey_knights/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/grey_knights/armory/general.json'),
         import('../../data/parsed/grey_knights/archetypes.json'),
         import('../../data/parsed/grey_knights/psychic/prayers.json'),
-        import('../../data/parsed/grey_knights/psychic/daemonkin.json'),
+        import('../../data/parsed/grey_knights/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, { prayers, daemonkin: dk });
+      // Demon Hunters (GK special rule, Inquisition.ods Index/Designer's note): Inquisition
+      // units are included "as if part of their own army" — own roster, no [Allied] badge.
+      return asm(u, g, arch, noRules, {}, {}, { prayers, disciplines: discs })
+        .then(fd => ({ ...fd, intrinsic_allies: ['inquisition'] }));
     }
 
     case 'inquisition': {
-      const [u, g, dk] = await Promise.all([
-        import('../../data/parsed/inquisition/units.json'),
+      const [u, g, discs] = await Promise.all([
+        import('../../data/parsed/inquisition/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/inquisition/armory/general.json'),
-        import('../../data/parsed/inquisition/psychic/daemonkin.json'),
+        import('../../data/parsed/inquisition/psychic/disciplines.json'),
       ]);
-      return asm(u, g, noArch, noRules, {}, {}, { daemonkin: dk });
+      return asm(u, g, noArch, noRules, {}, {}, { disciplines: discs });
     }
 
     case 'assassins': {
-      const [u, g, dk] = await Promise.all([
+      const [u, g] = await Promise.all([
         import('../../data/parsed/assassins/units.json'),
         import('../../data/parsed/assassins/armory/general.json'),
-        import('../../data/parsed/assassins/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, noArch, noRules, {}, {}, { daemonkin: dk });
+      return asm(u, g, noArch, noRules, {}, {}, {});
     }
 
     case 'tau_empire': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/tau_empire/units.json'),
         import('../../data/parsed/tau_empire/armory/general.json'),
         import('../../data/parsed/tau_empire/archetypes.json'),
         import('../../data/parsed/tau_empire/armory/legion_sept.json'),
-        import('../../data/parsed/tau_empire/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, {});
     }
 
     case 'necrons': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/necrons/units.json'),
         import('../../data/parsed/necrons/armory/general.json'),
         import('../../data/parsed/necrons/archetypes.json'),
         import('../../data/parsed/necrons/armory/legion_dynasty.json'),
-        import('../../data/parsed/necrons/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Dynasty': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Dynasty': leg }, {});
     }
 
     case 'orks': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/orks/units.json'),
         import('../../data/parsed/orks/armory/general.json'),
         import('../../data/parsed/orks/archetypes.json'),
         import('../../data/parsed/orks/armory/legion_clan.json'),
-        import('../../data/parsed/orks/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Klan': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Klan': leg }, {});
     }
 
     case 'eldar': {
-      const [u, g, arch, cw, yn, dk] = await Promise.all([
+      const [u, g, arch, cw, yn] = await Promise.all([
         import('../../data/parsed/eldar/units.json'),
         import('../../data/parsed/eldar/armory/general.json'),
         import('../../data/parsed/eldar/archetypes.json'),
         import('../../data/parsed/eldar/armory/legion_craftworld.json'),
         import('../../data/parsed/eldar/armory/legion_ynnari.json'),
-        import('../../data/parsed/eldar/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Craftworld': cw, 'Ynnari': yn }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Craftworld': cw, 'Ynnari': yn }, {});
     }
 
     case 'dark_eldar': {
-      const [u, g, arch, kabal, wych, coven, dk] = await Promise.all([
+      const [u, g, arch, kabal, wych, coven] = await Promise.all([
         import('../../data/parsed/dark_eldar/units.json'),
         import('../../data/parsed/dark_eldar/armory/general.json'),
         import('../../data/parsed/dark_eldar/archetypes.json'),
         import('../../data/parsed/dark_eldar/armory/legion_kabal.json'),
         import('../../data/parsed/dark_eldar/armory/legion_wych.json'),
         import('../../data/parsed/dark_eldar/armory/legion_coven.json'),
-        import('../../data/parsed/dark_eldar/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Kabal': kabal, 'Wych': wych, 'Coven': coven }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Kabal': kabal, 'Wych': wych, 'Coven': coven }, {});
     }
 
     case 'genestealer_cults': {
-      const [u, g, arch, dk] = await Promise.all([
+      const [u, g, arch] = await Promise.all([
         import('../../data/parsed/genestealer_cults/units.json'),
         import('../../data/parsed/genestealer_cults/armory/general.json'),
         import('../../data/parsed/genestealer_cults/archetypes.json'),
-        import('../../data/parsed/genestealer_cults/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, {}, {});
     }
 
     case 'harlequins': {
-      const [u, g, dk] = await Promise.all([
+      const [u, g] = await Promise.all([
         import('../../data/parsed/harlequins/units.json'),
         import('../../data/parsed/harlequins/armory/general.json'),
-        import('../../data/parsed/harlequins/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, noArch, noRules, {}, {}, { daemonkin: dk });
+      return asm(u, g, noArch, noRules, {}, {}, {});
     }
 
     case 'leagues_of_votann': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/leagues_of_votann/units.json'),
         import('../../data/parsed/leagues_of_votann/armory/general.json'),
         import('../../data/parsed/leagues_of_votann/archetypes.json'),
         import('../../data/parsed/leagues_of_votann/armory/legion_league.json'),
-        import('../../data/parsed/leagues_of_votann/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'League': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'League': leg }, {});
     }
 
     case 'tyranids': {
-      const [u, g, arch, leg, dk] = await Promise.all([
+      const [u, g, arch, leg] = await Promise.all([
         import('../../data/parsed/tyranids/units.json'),
         import('../../data/parsed/tyranids/armory/general.json'),
         import('../../data/parsed/tyranids/archetypes.json'),
         import('../../data/parsed/tyranids/armory/legion_hive_fleet.json'),
-        import('../../data/parsed/tyranids/psychic/daemonkin.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Hive Fleet': leg }, { daemonkin: dk });
+      return asm(u, g, arch, noRules, {}, { 'Hive Fleet': leg }, {});
     }
 
     case 'horus_heresy':

@@ -1,0 +1,12 @@
+export { assaultSquad } from './assault_squad';
+export { bikeSquad } from './bike_squad';
+export { inceptorSquad } from './inceptor_squad';
+export { infernusSquad } from './infernus_squad';
+export { invaderQuad } from './invader_quad';
+export { landSpeeder } from './land_speeder';
+export { outriderBikes } from './outrider_bikes';
+export { ravenwingBlackKnights } from './ravenwing_black_knights';
+export { razorbackRikarius } from './razorback_rikarius';
+export { stormSpeeder } from './storm_speeder';
+export { suppressorSquad } from './suppressor_squad';
+export { wolfCompanions } from './wolf_companions';

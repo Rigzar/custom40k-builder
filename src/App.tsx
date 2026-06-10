@@ -12,6 +12,7 @@ import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
+import { getAssassinAccessAlignment } from './engine/keywords';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
@@ -208,19 +209,35 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedFaction]);
 
-  // Auto-load faction data required by the active archetype (e.g. Legion → horus_heresy)
+  // Auto-load faction data required by the active archetype (e.g. Legion → horus_heresy),
+  // by a Legacy that grants its own units (e.g. Legacy of the Alien Hunters → inquisition),
+  // by an always-on intrinsic-ally codex rule (e.g. GK "Demon Hunters" / Sororitas
+  // "Witch hunters" → inquisition, per Inquisition.ods Designer's note — own army, no [Allied]),
+  // or by the Assassins' OWN universal "Cults Abominatioe"/"Execution Force" grant (any
+  // Chaos or Imperial army gets native Elites access to the 4-unit Assassins catalog —
+  // data/source/Assassins ENG/Index.html, see getAssassinAccessAlignment for grounding).
   useEffect(() => {
+    if (!data) return;
     const rule = getArchetypeRule(archetype);
-    if (!rule?.alliedFaction || !data) return;
-    const key = rule.alliedFaction;
-    if (data.allied?.[key]) return; // already loaded
-    const loader = loaders[key];
-    if (!loader) return;
-    loader()
-      .then(m => injectArchetypeFaction(key, m as FactionData, rule.sharedSupplementArmory))
-      .catch(e => console.error('Error loading archetype faction data', e));
+    const legacyGrant = [legacy, legacy2]
+      .map(name => data.legacies.find(l => l.name === name)?.grants_faction)
+      .find((k): k is string => !!k);
+    const assassinKey = getAssassinAccessAlignment(data.faction) ? 'assassins' : null;
+    const keys = [...new Set(
+      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey]
+        .filter((k): k is string => !!k)
+    )];
+    for (const key of keys) {
+      if (data.allied?.[key]) continue; // already loaded
+      const loader = loaders[key];
+      if (!loader) continue;
+      const sharedArmoryLabel = rule?.alliedFaction === key ? rule.sharedSupplementArmory : undefined;
+      loader()
+        .then(m => injectArchetypeFaction(key, m as FactionData, sharedArmoryLabel))
+        .catch(e => console.error('Error loading archetype/legacy/native-ally faction data', e));
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [archetype, data?.faction]);
+  }, [archetype, legacy, legacy2, data?.faction]);
 
   function handleBuild() {
     // Auto-assign name if empty
