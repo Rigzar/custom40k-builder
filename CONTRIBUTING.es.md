@@ -51,20 +51,42 @@ Esta es la forma de contribución con mayor impacto. Cada facción vive en su pr
 
 ```
 data/parsed/<faccion>/
-  units.json          ← todas las unidades de la facción
+  units.json          ← todas las unidades (layout clásico — la mayoría de facciones)
+   ── O BIEN ──
+  units/              ← un .ts por unidad (facciones migradas: CSM, CD, SM, GK, Inquisition)
+    troops/
+      traitor_guard.ts   ← una unidad, exportada como `Unit`
+      index.ts           ← reexporta todas las unidades de ese slot
+    hq/  elites/  ...     ← una carpeta por slot, cada una con su index.ts
+    index.ts          ← arma el slot_to_units + units de la facción
   armory/
     general.json      ← armería general (todos los modelos)
     mark_khorne.json  ← armería por marca (facciones Chaos)
     legion_*.json     ← armería de capítulo/legado (una por legado)
   archetypes.json     ← arquetipos, legados, rasgos
-  rules.json          ← animosidad, matriz de aliados
+  animosity.json      ← tabla de animosidad de marcas / matriz de aliados (solo facciones con marcas: CSM, CD)
   psychic/            ← disciplinas, plegarias, daemonkin
 ```
+
+> **Existen dos layouts de unidades.** La mayoría de facciones siguen guardando
+> todas las unidades en un único `units.json`. Cinco facciones (**Chaos Space
+> Marines, Chaos Daemons, Space Marines, Grey Knights, Inquisition**) están
+> migradas a una carpeta `units/` donde cada unidad es su propio `.ts` dentro de
+> la carpeta de su slot. Ambos producen los mismos objetos `Unit` en memoria —
+> solo cambia el layout en disco. Fijate cuál usa tu facción antes de editar: si
+> existe la carpeta `units/`, editá el `.ts` por unidad; si no, editá `units.json`.
 
 ### Proceso
 
 1. Navegá a `data/parsed/<faccion>/` y abrí el archivo correspondiente.
-2. Para correcciones de unidades: abrí `units.json` y encontrá la unidad — es una clave dentro de `"units": { ... }`.
+2. Para correcciones de unidades:
+   - **Facciones con `units.json`:** encontrá la unidad — es una clave dentro de `"units": { ... }`.
+   - **Facciones con `units/`** (CSM, CD, SM, GK, Inquisition): abrí
+     `units/<slot>/<unidad>.ts`. El objeto exportado usa los mismos nombres de
+     campo que una entrada de `units.json` (la tabla de abajo aplica igual); el
+     bloque de comentario de cabecera documenta la fuente canónica y el perfil —
+     mantenelo sincronizado si cambiás un valor. Para añadir una unidad nueva,
+     creá el `.ts` y agregá su línea `export` al `index.ts` de ese slot.
 3. Compará cada campo con tu copia del reglamento.
 4. Corregí lo que está mal y ejecutá `npm run build` para confirmar que el JSON es válido y la app sigue compilando.
 5. Abrí un Pull Request.
@@ -280,7 +302,7 @@ Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un n
 
 ### Estructura de datos (carpetas por facción)
 
-Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción, no un directorio plano con monolitos. Dentro: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `rules.json`. Los suplementos van en `_supplements/` y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
+Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción, no un directorio plano con monolitos. Dentro: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (solo CSM/CD). Los suplementos van en `_supplements/` y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
 
 El loader que ensambla cada `FactionData` es **`src/data/loaders.ts`** — importa los archivos individuales con rutas estáticas (requerido por Vite) y los fusiona. El engine recibe exactamente el mismo objeto que antes; solo cambió la organización de archivos.
 
@@ -370,7 +392,7 @@ Muchas facciones tienen archivos todavía vacíos o faltantes. Si querés comple
 ```
 > Columnas de coste: `pts_unit` = modelos normales, `pts_char` = personajes, `pts_monster` / `pts_veh` = Criaturas Monstruosas y Vehículos (columna compartida). Usá `"-"` para no disponible, `"5*"` para costes por Herida/Punto de Casco.
 
-**`rules.json`** — reglas especiales del ejército (animosidad, matriz de aliados):
+**`animosity.json`** — tabla de animosidad de marcas / matriz de compatibilidad de aliados (solo facciones con marcas: CSM, CD):
 ```json
 {
   "animosity": {},

@@ -51,20 +51,44 @@ Das ist die wirkungsvollste Art beizutragen. Jede Fraktion liegt in einem eigene
 
 ```
 data/parsed/<fraktion>/
-  units.json          <- alle Einheiten der Fraktion
+  units.json          <- alle Einheiten (klassisches Layout -- die meisten Fraktionen)
+   -- ODER --
+  units/              <- eine .ts pro Einheit (migrierte Fraktionen: CSM, CD, SM, GK, Inquisition)
+    troops/
+      traitor_guard.ts   <- eine Einheit, exportiert als `Unit`
+      index.ts           <- reexportiert alle Einheiten dieses Slots
+    hq/  elites/  ...     <- ein Ordner pro Slot, je mit eigener index.ts
+    index.ts          <- baut slot_to_units + units der Fraktion zusammen
   armory/
     general.json      <- allgemeine Ruestkammer (alle Modelle)
     mark_khorne.json  <- zeichenspezifische Ruestkammer (Chaos-Fraktionen)
     legion_*.json     <- Kapitel-/Legacy-Ruestkammer (eine pro Legacy)
   archetypes.json     <- Archetypen, Legacies, Traits
-  rules.json          <- Animositaet, Verbuendeten-Matrix
+  animosity.json      <- Mal-Animositaets-Tabelle / Verbuendeten-Matrix (nur Fraktionen mit Malen: CSM, CD)
   psychic/            <- Disziplinen, Gebete, Daemonkin
 ```
+
+> **Es gibt zwei Einheiten-Layouts.** Die meisten Fraktionen halten alle
+> Einheiten weiterhin in einer einzigen `units.json`. Fuenf Fraktionen (**Chaos
+> Space Marines, Chaos Daemons, Space Marines, Grey Knights, Inquisition**) sind
+> auf einen `units/`-Ordner migriert, in dem jede Einheit eine eigene `.ts` im
+> Ordner ihres Slots ist. Beide erzeugen dieselben `Unit`-Objekte im Speicher --
+> nur das Layout auf der Festplatte unterscheidet sich. Pruefe vor dem Bearbeiten,
+> welches deine Fraktion nutzt: existiert ein `units/`-Ordner, bearbeite die
+> .ts pro Einheit; sonst bearbeite `units.json`.
 
 ### Vorgehensweise
 
 1. Navigiere zu `data/parsed/<fraktion>/` und oeffne die entsprechende Datei.
-2. Fuer Einheitenkorrekturen: oeffne `units.json` und finde die Einheit -- sie ist ein Schluessel im Objekt `"units": { ... }`.
+2. Fuer Einheitenkorrekturen:
+   - **`units.json`-Fraktionen:** finde die Einheit -- sie ist ein Schluessel im Objekt `"units": { ... }`.
+   - **`units/`-Fraktionen** (CSM, CD, SM, GK, Inquisition): oeffne
+     `units/<slot>/<einheit>.ts`. Das exportierte Objekt nutzt dieselben
+     Feldnamen wie ein `units.json`-Eintrag (die Tabelle unten gilt unveraendert);
+     der Kommentarblock im Kopf dokumentiert die kanonische Quelle und das Profil
+     -- halte ihn synchron, wenn du einen Wert aenderst. Fuer eine ganz neue
+     Einheit: lege die `.ts` an und fuege ihre `export`-Zeile zur `index.ts`
+     dieses Slots hinzu.
 3. Vergleiche die Felder mit deinem Regelwerk.
 4. Korrigiere, was falsch ist, und fuehre dann `npm run build` aus.
 5. Erstelle einen Pull Request.
@@ -282,7 +306,7 @@ Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, ein
 
 ### Datenstruktur (fraktionseigene Ordner)
 
-Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. Inhalt: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `rules.json`. Supplemente in `_supplements/`, Parser-Audit-Dateien in `_scratch/` (werden nie von der App geladen).
+Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. Inhalt: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (nur CSM/CD). Supplemente in `_supplements/`, Parser-Audit-Dateien in `_scratch/` (werden nie von der App geladen).
 
 Der Loader, der jede `FactionData` zusammensetzt, ist **`src/data/loaders.ts`** -- er importiert die Einzeldateien mit statischen Pfaden (von Vite gefordert) und fuegt sie zusammen. Das Engine erhalt dasselbe Objekt wie vorher; nur die Dateiorganisation hat sich geandert.
 
@@ -372,7 +396,7 @@ Viele Fraktionen haben noch leere oder fehlende Dateien. Wenn du Daten für eine
 ```
 > Kostenspalten: `pts_unit` = normale Modelle, `pts_char` = Charaktermodelle, `pts_monster` / `pts_veh` = Monströse Kreaturen & Fahrzeuge (gemeinsame Spalte). `"-"` für nicht verfügbar, `"5*"` für Kosten pro Wunde/Rumpfpunkt.
 
-**`rules.json`** — armeweite Sonderregeln (Animosität, Verbündetematrix):
+**`animosity.json`** — Mal-Animositäts-Tabelle / Verbündeten-Kompatibilitätsmatrix (nur Fraktionen mit Malen: CSM, CD):
 ```json
 {
   "animosity": {},

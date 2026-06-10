@@ -89,7 +89,10 @@ custom40k-builder/
 ├── data/
 │   ├── parsed/                 # ← FACTION DATA — one folder per faction
 │   │   ├── chaos_space_marines/
-│   │   │   ├── units.json          # { faction, slot_to_units, units }
+│   │   │   ├── units/              # one .ts per unit, by slot (migrated factions: CSM, CD, SM, GK, Inquisition)
+│   │   │   │   ├── hq/  troops/  elites/  ...
+│   │   │   │   └── index.ts        # assembles { faction, slot_to_units, units }
+│   │   │   │   #  ── other factions keep a single units.json instead ──
 │   │   │   ├── armory/
 │   │   │   │   ├── general.json    # General armory
 │   │   │   │   ├── mark_khorne.json
@@ -98,7 +101,7 @@ custom40k-builder/
 │   │   │   │   ├── pacts.json
 │   │   │   │   └── prayers.json
 │   │   │   ├── archetypes.json     # { archetypes[], legacies[], traits[] }
-│   │   │   └── rules.json          # { animosity, allied }
+│   │   │   └── animosity.json      # { animosity, allied } — only CSM/CD (marks)
 │   │   ├── space_marines/      (same structure, no marks)
 │   │   ├── chaos_daemons/
 │   │   ├── ... (17 more factions)
@@ -157,6 +160,13 @@ individual files into the `FactionData` shape the engine expects.
   }
 }
 ```
+
+> **Migrated factions use a `units/` folder instead.** Chaos Space Marines, Chaos
+> Daemons, Space Marines, Grey Knights and Inquisition split the above into one
+> `.ts` file per unit (`units/<slot>/<unit>.ts`, each exporting a `Unit`), with
+> per-slot `index.ts` files that the faction's top-level `units/index.ts`
+> assembles into the same `{ faction, slot_to_units, units }` shape. The unit
+> object fields are identical — only the on-disk layout differs.
 
 **`archetypes.json`** — Army Customisation data:
 ```json
