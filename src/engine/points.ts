@@ -1,6 +1,6 @@
 import type { Unit, Model, FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
-import { computeVehicleCombiSurcharge } from './weapons/csm';
+import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 
 /** Resolve a unit from the correct faction source. */
 export function resolveUnit(item: { unitName: string; factionSource?: string }, data: FactionData): Unit | undefined {
@@ -14,30 +14,64 @@ function isMarkGroup(g: { constraint: { type: string } }) {
   return g.constraint.type === 'mark';
 }
 
-function getActiveVariant(item: RosterEntry, unit: Unit): Model | null {
+type ActiveVariant = { variant: Model; group: { header: string; inline_pts: number | null } };
+
+function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
   for (const [gi, g] of unit.option_groups.entries()) {
     if (!g.variant_link) continue;
     const qty = item.optionQty?.[gi];
     if (qty?.['__inline']) {
-      return unit.variant_models.find(v => v.name === g.variant_link) ?? null;
+      const variant = unit.variant_models.find(v => v.name === g.variant_link) ?? null;
+      if (!variant) return null;
+      return { variant, group: g };
     }
   }
   return null;
 }
 
+/** The base model group a variant promotes from — derived from the option group's own
+ * wording ("One Traitor Guardsman may be promoted to…") rather than array position, since
+ * the promoted group isn't always last in `unit.models` (e.g. Traitor Guard's Ogryn group). */
+function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
+  const { variant, group } = active;
+  return unit.models.find(m => group.header.includes(m.name))
+    ?? unit.models.find(m => m.points === variant.points - (group.inline_pts ?? 0))
+    ?? unit.models.find(m => m.max > m.min && m.min === 0)
+    ?? unit.models[0];
+}
+
 export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = ''): number {
   let total = 0;
-  const variant = getActiveVariant(item, unit);
+  const active = getActiveVariant(item, unit);
 
-  if (variant) {
+  if (active) {
+    const { variant } = active;
     const fixedBase = unit.models.reduce((s, m) => s + m.min, 0);
     if (fixedBase === 1 && item.size === 1) {
       total = variant.points;
+    } else if (item.modelSizes) {
+      // Multi-group unit: bill each group at its own price; the promoted model comes
+      // out of its base group's count (one fewer at base price, plus the variant's price).
+      const promoted = getPromotedModel(unit, active);
+      for (const m of unit.models) {
+        const count = item.modelSizes[m.name] ?? m.min;
+        if (m === promoted) {
+          total += Math.max(0, count - 1) * m.points + variant.points;
+        } else {
+          total += count * m.points;
+        }
+      }
     } else {
       const grunt = unit.models.find(m => m.max > m.min && m.min === 0) ?? unit.models[0];
       total += variant.points;
       const extra = Math.max(0, item.size - 1);
       total += extra * grunt.points;
+    }
+  } else if (item.modelSizes) {
+    // Multi-group unit: each group billed at its own per-model price.
+    for (const m of unit.models) {
+      const count = item.modelSizes[m.name] ?? m.min;
+      total += count * m.points;
     }
   } else {
     const fixed = unit.models.reduce((s, m) => s + m.min, 0);
@@ -103,4 +137,5 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
   return total;
 }
 
-export { getActiveVariant };
+export { getActiveVariant, getPromotedModel };
+export type { ActiveVariant };

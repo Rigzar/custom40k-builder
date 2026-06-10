@@ -8,7 +8,10 @@ import {
 import { applyVariantSlotOverride } from './slotOverrides';
 import { validateSpaceMarines } from './validators/index';
 import { findArmoryItem, isOptionAvailable } from './resolver';
+import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem } from './equipMods';
+import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
+import { getAssassinAccessAlignment } from './keywords';
 
 export interface ValidationItem {
   type: 'error' | 'warn' | 'ok';
@@ -25,8 +28,10 @@ function getSlotUsage(
   alliedFaction?: string,
   countAllied?: boolean,
   engagement?: string,
+  excludeFactionSources?: string[],
 ): number {
   return army.filter(i => {
+    if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     const u = resolveUnit(i, data);
@@ -135,6 +140,47 @@ export function computeCdFreeSlots(
   return { hq: entourageFree + heraldSaving, fa: faFree, notes };
 }
 
+/** Unit names of the 4 Assassins (data/parsed/assassins/units.json — Callidus/Culexus/
+ *  Eversor/Vindicare, all Elites). Shared by the slot-collapse + composition validator. */
+const ASSASSIN_NAMES = ['Callidus', 'Culexus', 'Eversor', 'Vindicare'];
+
+/**
+ * The Assassins' OWN canonical "Special rules" (verbatim, data/source/Assassins ENG/
+ * Index.html — see keywords.ts `getAssassinAccessAlignment` for full grounding/citation):
+ *   "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each
+ *    for a single Elite slot."
+ *   "Execution Force: Any Imperial army may select either a single Assassin or one of each
+ *    for a single Elite slot."
+ * This is a UNIVERSAL grant — ANY Chaos or Imperial army (not just GK/Sororitas; that was
+ * a narrower, separate "access to assassins" clause from Demon Hunters/Witch hunters). The
+ * army fields EITHER exactly one Assassin (any one of the 4 types) OR one of each (all 4,
+ * one copy each) — and whichever combination is taken occupies a SINGLE Elite slot, not N.
+ * This collapses N picks → 1 slot (mirrors computeCdFreeSlots' pattern); the legality of
+ * the *composition* itself (1 vs one-of-each, no other combo) is enforced by a dedicated
+ * validator. Both gate on `getAssassinAccessAlignment` and count only `factionSource ===
+ * 'assassins'` entries — the units are injected (own-army, no [Allied] badge) into Elites
+ * for any qualifying faction via the generic `data.allied['assassins']` catalog (see
+ * SlotPanel.tsx), NOT copied natively per-faction (avoids ~9-faction data duplication).
+ */
+export function computeAssassinFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (!getAssassinAccessAlignment(data.faction)) {
+    return { elites: 0, notes: [] };
+  }
+  let total = 0;
+  for (const item of army) {
+    if (item.factionSource !== 'assassins') continue;
+    if (ASSASSIN_NAMES.includes(item.unitName)) total++;
+  }
+  if (total === 0) return { elites: 0, notes: [] };
+  return {
+    elites: total - 1,
+    notes: [`"Cults Abominatioe"/"Execution Force": Assassin selection (${total} unit${total === 1 ? '' : 's'}) occupies a single Elite slot.`],
+  };
+}
+
 export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {
   const eng = ENGAGEMENTS[state.engagement];
   const rule = getArchetypeRule(state.archetype);
@@ -192,6 +238,39 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         type: 'error',
         text: `${u?.name ?? item.unitName}: only one armour per model (${armours.join(', ')}).`,
       });
+    }
+  }
+
+  // ── Character joining (only one per unit, unless "Command Squad") ────────
+  // Core Rules glossary, "Command Squad": "Models with this ability can join: a single
+  // character / a squad that already has a character attached" — implying the GENERAL
+  // rule is the inverse: only one character may be attached to a unit at a time, and
+  // any character joining a unit that already has one needs this ability.
+  {
+    const joinTargets = new Map<string, RosterEntry[]>();
+    for (const item of state.army) {
+      if (!item.joinedToUnit) continue;
+      const list = joinTargets.get(item.joinedToUnit) ?? [];
+      list.push(item);
+      joinTargets.set(item.joinedToUnit, list);
+    }
+    for (const [targetId, joiners] of joinTargets) {
+      if (joiners.length < 2) continue;
+      const target = state.army.find(e => e.id === targetId);
+      const targetName = target ? (resolveUnit(target, data)?.name ?? target.unitName) : '?';
+      const withoutCommandSquad = joiners.filter(j => {
+        const u = resolveUnit(j, data);
+        const hasAbility = !!u?.abilities?.some(a => /Command Squad/i.test(a));
+        const grantedByArchetype = !!rule?.grantsCommandSquad?.includes(j.unitName);
+        return !hasAbility && !grantedByArchetype;
+      });
+      if (withoutCommandSquad.length > 1) {
+        const names = joiners.map(j => j.customName || j.unitName).join(', ');
+        items.push({
+          type: 'error',
+          text: `${targetName}: only one character may be attached to a unit at a time (currently joined by ${joiners.length}: ${names}) — additional characters need the "Command Squad" ability.`,
+        });
+      }
     }
   }
 
@@ -438,10 +517,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u || u.is_vehicle) continue; // vehicles use the Iron Repair effect, not inv save
-      // Check datasheet abilities for inv save text or Daemon ability
-      const hasInvFromDatasheet = u.abilities.some(a =>
-        /invulnerab/i.test(a) || /^Daemon\b/i.test(a)
-      );
+      // Check datasheet abilities for inv save — uses parseInvSaveFromAbilities for consistency
+      // with the InvSv stat display (same source of truth).
+      const hasInvFromDatasheet = parseInvSaveFromAbilities(u.abilities ?? []) !== null;
       // Check armory selections for inv-save items
       const hasInvFromArmory = item.armory.some(a => INV_SAVE_ARMORY_ITEMS.has(a.itemName));
       if (hasInvFromDatasheet || hasInvFromArmory) {
@@ -579,6 +657,104 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // Legacy of the Alien Hunters: Inquisitors must select "Ordo Xenos" in their armory
+  // SOURCE: "The army has access to the Death Watch Armory, Inquisitors and Inquisition units.
+  //          Inquisitors must select 'Ordo Xenos' in the armory."
+  if ([state.legacy, state.legacy2].includes('Legacy of the Alien Hunters')) {
+    for (const item of state.army) {
+      if (item.factionSource !== 'inquisition' || item.unitName !== 'Inquisitor') continue;
+      if (!item.armory.some(a => a.itemName === 'Ordo Xenos')) {
+        items.push({
+          type: 'error',
+          text: `Legacy of the Alien Hunters: ${item.customName || item.unitName} must select "Ordo Xenos" in the armory.`,
+        });
+      }
+    }
+  }
+
+  // Demon Hunters (Grey Knights): Inquisitors must select "Ordo Malleus" in their armory.
+  // SOURCE: Grey Knights special rule "Demon Hunters" + Inquisition.ods (Index sheet, Designer's
+  // note): "Grey Knights ... armies ... may include Inquisition units as if they were part of
+  // their own army" — mirrors the SM "Legacy of the Alien Hunters" → Ordo Xenos pattern, but
+  // the forced Ordo here is Malleus (daemon-hunting), not Xenos. Always-on (no Legacy needed).
+  if (data.faction === 'Grey Knights') {
+    for (const item of state.army) {
+      if (item.factionSource !== 'inquisition' || item.unitName !== 'Inquisitor') continue;
+      if (!item.armory.some(a => a.itemName === 'Ordo Malleus')) {
+        items.push({
+          type: 'error',
+          text: `Demon Hunters: ${item.customName || item.unitName} must select "Ordo Malleus" in the armory.`,
+        });
+      }
+    }
+  }
+
+  // Witch hunters (Adepta Sororitas): Inquisitors must select "Ordo Hereticus" in their armory.
+  // SOURCE: Adepta Sororitas special rule "Witch hunters" + Inquisition.ods (Index sheet,
+  // Designer's note): "... Adepta Sororitas ... armies ... may include Inquisition units as if
+  // they were part of their own army" — mirrors the SM "Legacy of the Alien Hunters" → Ordo
+  // Xenos pattern, but the forced Ordo here is Hereticus (heretic-hunting). Always-on.
+  if (data.faction === 'Adeptus Sororitas') {
+    for (const item of state.army) {
+      if (item.factionSource !== 'inquisition' || item.unitName !== 'Inquisitor') continue;
+      if (!item.armory.some(a => a.itemName === 'Ordo Hereticus')) {
+        items.push({
+          type: 'error',
+          text: `Witch hunters: ${item.customName || item.unitName} must select "Ordo Hereticus" in the armory.`,
+        });
+      }
+    }
+  }
+
+  // Inquisition: Ordo allegiance items are mutually exclusive per model.
+  // SOURCE: each Ordo item's desc — "Every model can only pick one Ordo allegiance."
+  // Unlike CSM/CD Marks (a single selectedMark attribute, structurally exclusive), Ordo
+  // allegiance is 3 plain unrelated armory items — nothing stops picking 2-3 at once
+  // without this explicit check (ki-inquisition-ordo-exclusivity-01).
+  {
+    const ORDO_ITEMS = ['Ordo Hereticus', 'Ordo Malleus', 'Ordo Xenos'];
+    for (const item of state.army) {
+      const picked = ORDO_ITEMS.filter(name => item.armory.some(a => a.itemName === name));
+      if (picked.length > 1) {
+        items.push({
+          type: 'error',
+          text: `${item.customName || item.unitName}: can only pick one Ordo allegiance (has ${picked.join(', ')}).`,
+        });
+      }
+    }
+  }
+
+  // Legacy armory item restrictions — "Only for X" text in armory items (grounded in each armory HTML).
+  // e.g. Iron Warriors: "Only for Warpsmiths"; Word Bearers: "Only for Dark Apostles";
+  //      Black Legion: "Only for models with the Mark of Khorne".
+  // Applies when the relevant legacy is active (primary or secondary).
+  for (const [armoryKey, restrictions] of Object.entries(CSM_LEGACY_ITEM_RESTRICTIONS)) {
+    const legacyActive = [state.legacy, state.legacy2].some(leg => {
+      const l = data.legacies.find(x => x.name === leg);
+      return l?.armory_key === armoryKey;
+    });
+    if (!legacyActive) continue;
+    for (const { itemName, restriction, unitFilter } of restrictions) {
+      for (const entry of state.army) {
+        if (!entry.armory.some(a => a.itemName === itemName && a.source === armoryKey)) continue;
+        const unit = resolveUnit(entry, data);
+        if (!unit) continue;
+        // Mark-based restriction (Heavy bolter Black Legion)
+        if (armoryKey === 'Black Legion' && itemName === 'Heavy bolter') {
+          const effMark = unit.locked_mark ?? entry.mark;
+          if (effMark !== 'Khorne') {
+            items.push({ type: 'error', text: `${armoryKey} armory — "${itemName}": only for models with the Mark of Khorne (${entry.unitName} has Mark of ${effMark ?? 'none'}).` });
+          }
+          continue;
+        }
+        // Unit-name restriction (Only for Warpsmiths / Only for Dark Apostles)
+        if (!unitFilter(entry.unitName)) {
+          items.push({ type: 'error', text: `${armoryKey} armory — "${itemName}": ${restriction} (cannot be equipped on ${entry.unitName}).` });
+        }
+      }
+    }
+  }
+
   // Units that are inherently unique (is_unique_per_army group with no variant_link) — e.g. Greater Daemons
   const uniqueUnitCounts: Record<string, number> = {};
   for (const item of state.army) {
@@ -627,15 +803,60 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     items.push({ type: 'ok', text: note });
   }
 
+  // "Cults Abominatioe"/"Execution Force" — Assassin selection collapses to a single
+  // Elite slot (any Chaos or Imperial army — the Assassins' OWN universal grant)
+  const assassinFree = computeAssassinFreeSlots(state.army, data);
+  for (const note of assassinFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // "Cults Abominatioe"/"Execution Force" (Assassins' OWN canonical special rules,
+  // data/source/Assassins ENG/Index.html, verbatim): the army may field EITHER a single
+  // Assassin (any one of the 4 types, exactly one model) OR one of each of the 4 — no
+  // other combination is legal. (The slot-collapse above only models the "counts as a
+  // single Elite slot" half of the rule; this enforces the composition itself.)
+  const assassinAlignment = getAssassinAccessAlignment(data.faction);
+  if (assassinAlignment) {
+    const assassinCounts: Record<string, number> = {};
+    for (const item of state.army) {
+      if (item.factionSource !== 'assassins') continue;
+      if (ASSASSIN_NAMES.includes(item.unitName)) {
+        assassinCounts[item.unitName] = (assassinCounts[item.unitName] ?? 0) + 1;
+      }
+    }
+    const assassinTypes = Object.keys(assassinCounts);
+    const assassinTotal = Object.values(assassinCounts).reduce((a, b) => a + b, 0);
+    const isSingleAssassin = assassinTotal === 1;
+    const isOneOfEach = assassinTypes.length === 4 && Object.values(assassinCounts).every(c => c === 1);
+    if (assassinTotal > 0 && !isSingleAssassin && !isOneOfEach) {
+      const ruleName = assassinAlignment === 'chaos' ? 'Cults Abominatioe' : 'Execution Force';
+      items.push({
+        type: 'error',
+        text: `"${ruleName}": select either a single Assassin (Callidus/Culexus/Eversor/Vindicare) or one of each — no other combination.`,
+      });
+    }
+  }
+
   // AOP slot mins (main faction only — exclude allied units)
+  // Summoning (CSM, digest §4b): "Daemons can't fill mandatory AOP selections" — Chaos Daemons
+  // codex units (own-army native access via cult archetypes' alliedFaction injection, not a true
+  // Allied Detachment, so they aren't caught by the state.alliedFaction/countAllied exclusion
+  // above) must not count toward these minimums. Daemonkin explicitly "ignores Summoning"
+  // (its ≥1-HQ-from-each-codex rule requires the Daemon HQ to count), so it's exempted.
+  const summoningExcl = (data.faction === 'Chaos Space Marines' && state.archetype !== 'Daemonkin')
+    ? ['chaos_daemons']
+    : undefined;
   const aopMult = getAopRequirement(state.army, data, state.engagement, rule, state.alliedFaction);
   for (const slot of SLOT_ORDER) {
     if (slot === 'Lords of War') continue; // Escalation: Epic-only + 33% pts cap, handled separately
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
-    const used = Math.max(0, rawUsed - cdAdj);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
+    const slotAdj = slot === 'HQ' ? cdFree.hq
+      : slot === 'Fast Attack' ? cdFree.fa
+      : slot === 'Elites' ? assassinFree.elites
+      : 0;
+    const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
     if (scaledMin > 0 && used < scaledMin) {
       items.push({ type: 'error', text: `Need at least ${scaledMin} ${slot} (have ${used}).` });
@@ -717,6 +938,20 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       }
       if (u.is_squadron && item.size > 1) {
         items.push({ type: 'error', text: `Skirmish: ${item.unitName} is a Squadron — maximum 1 model (have ${item.size}).` });
+      }
+
+      // Combined armour value cap (Missions.txt L82, ki-skirmish-restrictions-unenforced-01 #2):
+      // "No unit may have a combined armour value of 34 or better (sum of Front + Side + Rear;
+      // include Quantum Shielding for Necron vehicles)." Static datasheet check — no engine
+      // mechanism modifies FRONT/SIDE/REAR (grepped: zero stat_mod entries target them, and
+      // "Quantum Shielding" doesn't exist as an item/ability in any faction's data), so the
+      // canonical "include Quantum Shielding" clause is a no-op here; base stats are final.
+      const vStats = u.models[0]?.stats;
+      if (vStats?.FRONT && vStats?.SIDE && vStats?.REAR) {
+        const combined = parseInt(vStats.FRONT) + parseInt(vStats.SIDE) + parseInt(vStats.REAR);
+        if (combined >= 34) {
+          items.push({ type: 'error', text: `Skirmish: ${item.unitName} has a combined armour value of ${combined} (Front ${vStats.FRONT} + Side ${vStats.SIDE} + Rear ${vStats.REAR}) — max 33.` });
+        }
       }
 
       // Equipment stat/profile caps (missions L26-31): a unit may not GAIN via equipment:
@@ -847,8 +1082,11 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const cdAdj = slot === 'HQ' ? cdFree.hq : slot === 'Fast Attack' ? cdFree.fa : 0;
-    const used = Math.max(0, rawUsed - cdAdj);
+    const slotAdj = slot === 'HQ' ? cdFree.hq
+      : slot === 'Fast Attack' ? cdFree.fa
+      : slot === 'Elites' ? assassinFree.elites
+      : 0;
+    const used = Math.max(0, rawUsed - slotAdj);
     const effMax = (slot === 'HQ' && rule?.hqOverride)
       ? engMax
       : (eng.multiAop ? engMax * aopMult : engMax);
@@ -914,11 +1152,14 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     items.push({ type: 'error', text: `Only 2 Army Traits allowed (have ${state.traitPool.length}).` });
   }
 
-  // veteran_required: unit must have at least 1 army trait assigned
+  // veteran_required: unit must have at least 1 veteran ability bought from the armory
   for (const item of state.army) {
     const u = resolveUnit(item, data);
-    if (u?.veteran_required && item.traits.length === 0) {
-      items.push({ type: 'error', text: `${item.unitName}: requires at least 1 army trait.` });
+    if (u?.veteran_required) {
+      const hasVetItem = item.armory.some(sel => findArmoryItem(data, sel)?.category === 'veteran');
+      if (!hasVetItem) {
+        items.push({ type: 'error', text: `${item.unitName}: requires at least 1 veteran ability.` });
+      }
     }
   }
 

@@ -26,6 +26,9 @@ export interface ArchetypeRule {
   requireVetAbilities: boolean;
   /** Units listed here gain veteran ability access even if has_veteran_abilities is false in data. */
   grantVetAbilities: string[];
+  /** Units listed here gain the "Command Squad" ability (can join a unit that already has a
+   * character attached) — e.g. Librarian Conclave grants it to Librarians. */
+  grantsCommandSquad: string[];
   demoteOtherTroops: boolean;
   alliedFaction: string | null;
   alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
@@ -47,7 +50,7 @@ export const BASE: ArchetypeRule = {
   troopsRemap: [], forcedMark: null, requireForcedMarkOnly: false,
   bannedUnits: [], bannedSlots: [], hqOverride: null, hqAllowed: [],
   requiresHqUnit: null, noAnimosity: false, noLegacy: false, noTraits: false,
-  troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], demoteOtherTroops: false,
+  troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], grantsCommandSquad: [], demoteOtherTroops: false,
   alliedFaction: null, alliedMarkFilter: 'all', allowedUnitsOnly: [], notes: [],
 };
 

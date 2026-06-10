@@ -25,6 +25,89 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.58',
+    date: '2026-06-08',
+    title: {
+      en: 'Traitor Guard pricing fix & character-joining rule',
+    },
+    changes: {
+      en: [
+        'Fixed: Traitor Guard (and any other multi-model-type unit with a Sergeant/Champion-style upgrade, e.g. Bike Squad) was being priced using the wrong model\'s cost for its extra members once the upgrade was selected — making the unit\'s total points balloon far above its real cost. The unit card also displayed the upgraded model in the wrong row, and could apply its "Favored" combat bonus to the wrong model. All three are now resolved correctly from the unit\'s own data.',
+        'Added: the builder now warns when more than one Character model is attached to the same unit, since the rules only allow a single character to join a unit at a time — the sole exception being models with the "Command Squad" ability (e.g. Librarians under the Librarian Conclave archetype).',
+      ],
+    },
+  },
+  {
+    version: '0.57',
+    date: '2026-06-08',
+    title: {
+      en: 'Core Rules audit — Skirmish, Animosity & wargear-cap fixes',
+    },
+    changes: {
+      en: [
+        'Fixed: "Objective secured!" is now automatically granted to Troops units (and correctly skipped for allied units), as the core rules require — it was not modeled before.',
+        'Fixed: corrected several rule-glossary entries to match the canonical wording (Master-crafted, Overheating, Seeking, Suppression, Life Curse), and added the missing "Sniper" rule and the "Weapon types" reference section.',
+        'Fixed (Skirmish): HQ units can no longer take "Unique" wargear, and units whose combined armour reaches 34+ are now correctly flagged as illegal — both restrictions were previously unenforced.',
+        'Fixed (Chaos Space Marines): a Mark-bearing character can no longer join a unit with a different Mark (Animosity of the Gods); "Unwieldy" wargear is now capped at one item per model; Daemon units summoned via Cult archetypes no longer wrongly count toward your army\'s mandatory-slot minimums.',
+        'Internal: continued reorganising several factions\' data and rules-reference files (Chaos Space Marines, Chaos Daemons, Space Marines, Inquisition, Grey Knights) ahead of deeper audits — groundwork only, no visible changes. Full technical log lives in PLAN_PROYECTO.md.',
+      ],
+    },
+  },
+  {
+    version: '0.56',
+    date: '2026-06-07',
+    title: {
+      en: 'Grey Knights psychic powers, Inquisition & Assassins fixes',
+    },
+    changes: {
+      en: [
+        'Added (Grey Knights): the faction\'s own psychic disciplines, Sanctity and Dominus (12 powers total) — GK psykers previously had no faction-specific powers to choose from. Legacies now correctly grant their bonus power in the psychic power picker.',
+        'Fixed (Grey Knights): several armory and unit data corrections — added missing weapon profiles (Cleansing flame, Hunter-killer missile, Twin plasma gun, Typhoon missile launcher), fixed 7 units that should have been restricted to Terminator-compatible wargear but weren\'t, and corrected a few unit/option name typos (Purgator Squad, Nemesis force weapon, Twin heavy psycannon).',
+        'Fixed (Space Marines): "Legacy of the Alien Hunters" now correctly grants access to Inquisition units and the universal "Special ammunition" upgrade, and requires picking "Ordo Xenos" as the rule states — previously only part of the rule worked.',
+        'Fixed (Inquisition): Veteran Abilities and Vehicle Equipment armory items are now priced and categorised correctly (they were being charged as flat weapons); added a missing weapon profile; "Ordo Hereticus/Malleus/Xenos"-restricted items and the Ordo Warband units now correctly require that Ordo to be chosen first, and a model can no longer pick more than one Ordo.',
+        'Fixed (Grey Knights & Adeptus Sororitas): "Demon Hunters"/"Witch hunters" now correctly grant native access to Inquisition units (as your own army, not as an ally) — previously mislabelled or missing entirely.',
+        'Fixed (Assassins): corrected to their real canonical rule — any Chaos or Imperial army may field a small Assassins catalog (one of each, or a single one, counting as one Elites slot), not just Grey Knights/Sororitas as previously modelled. The landing page now lists Assassins as a reference supplement rather than a playable faction.',
+        'Fixed (Chaos Space Marines): Vehicles and Walkers could wrongly buy general-armory items like Daemon weapons that aren\'t meant for them — 14 units corrected to only access vehicle equipment, as their datasheets state.',
+        'Internal: continued the faction-by-faction data reorganisation (Grey Knights, Chaos Daemons, Inquisition) and removed a few unused/empty data files. Full technical log lives in PLAN_PROYECTO.md.',
+      ],
+    },
+  },
+  {
+    version: '0.55',
+    date: '2026-06-07',
+    title: {
+      en: 'Space Marines fixes — armour gate, weapon profiles, unit rename',
+    },
+    changes: {
+      en: [
+        'Fixed (Space Marines): Deathwing Knights and Terminator Squad now correctly count as wearing Terminator armour, so the armory correctly restricts them to Terminator-compatible items.',
+        'Fixed (Space Marines): Wolf Scout Squad was missing the stat lines for its Missile launcher (Frag/Krak) option.',
+        'Renamed (Space Marines): "Reiver Squad" → "Reiver Marines" to match its official name.',
+        'Fixed a small data typo (Techmarine power axe ability text) and a stray comma that broke the build.',
+        'Internal: finished annotating the remaining Chaos Space Marines unit files with their canonical source references (Heavy Support, Dedicated Transport, Fortifications, Lords of War) — groundwork only, no visible changes.',
+      ],
+    },
+  },
+  {
+    version: '0.54',
+    date: '2026-06-06',
+    title: {
+      en: 'Chaos Space Marines & Space Marines data audit',
+    },
+    changes: {
+      en: [
+        'Fixed (Chaos Space Marines): Chaos Terminators were missing the stat lines for their Combi-flamer/melta/plasma weapon options (dual firing modes).',
+        'Fixed (Chaos Space Marines): Legionnaires now correctly require a veteran ability as their datasheet states, and the related error message now reads correctly.',
+        'Fixed (Chaos Daemons): Khorne Heralds (Bloodmaster, etc.) couldn\'t equip Khorne-specific wargear (Juggernaut of Khorne, Blood Throne...) — they were being mistakenly priced as Greater Daemons.',
+        'Fixed (Space Marines): Dark Angels legacy items had garbled names and weren\'t visible to Gravis-armoured models — both corrected (9 items).',
+        'Added (Space Marines): the faction\'s psychic disciplines were completely missing — added all 36 powers (Librarius plus the five chapter-legacy disciplines), so Librarians and Librarian Dreadnoughts now have their full power list.',
+        'Fixed (Space Marines): 7 chapters\' armory items had corrupted compatibility symbols and were missing Gravis-armour access; a few small data typos (Indomitus Crusader Squad option costs, a missing weapon profile, a stale unit name in a validator) were also corrected.',
+        'Fixed several minor cross-faction data typos (unit-type casing/placeholder text in Necrons, Tau, Tyranids, Orks).',
+        'Internal: continued the engine folder reorganisation and the Space Marines per-unit data migration — groundwork only, no visible changes. Full technical log lives in PLAN_PROYECTO.md.',
+      ],
+    },
+  },
+  {
     version: '0.53',
     date: '2026-06-05',
     title: {

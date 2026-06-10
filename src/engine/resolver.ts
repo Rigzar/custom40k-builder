@@ -1,13 +1,13 @@
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
-import { computeUnitPoints, getActiveVariant } from './points';
+import { computeUnitPoints, getActiveVariant, getPromotedModel } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains } from './equipMods';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName } from './equipMods';
 import { getTraitEffects } from './traitEffects';
-import { csmResolve } from './resolver-csm';
-import { cdResolve } from './resolver-chaos-daemons';
-import { smResolve } from './resolver-space-marines';
+import { csmResolve } from './codex_csm/resolver';
+import { cdResolve } from './resolvers/chaos_daemons';
+import { smResolve } from './resolvers/space_marines';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -176,8 +176,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const effectiveSlot = getEffectiveSlot(item.unitName, item.slot, rule);
 
   // Variant model
-  const variant = getActiveVariant(item, unit);
-  const variantActive = !!variant;
+  const activeVariant = getActiveVariant(item, unit);
+  const variant = activeVariant?.variant ?? null;
+  const variantActive = !!activeVariant;
 
   // Mark resolution
   const effectiveMark = (unit.locked_mark ?? (rule?.forcedMark as Mark | null) ?? item.mark) as Mark | null;
@@ -193,10 +194,19 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
   const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
 
-  // Models to display — variant replaces the last model (the champion being upgraded)
-  const modelsToShow: Model[] = variant
-    ? [...unit.models.filter(m => m.max > 0).slice(0, -1), variant]
-    : unit.models.filter(m => m.max > 0);
+  // Models to display — variant replaces the model group it's promoted from (derived from
+  // the option group's own wording, since that group isn't always last in unit.models —
+  // e.g. Traitor Guard's Traitor Sergeant promotes a Guardsman, but Ogryn is listed last).
+  const visibleModels = unit.models.filter(m => m.max > 0);
+  const modelsToShow: Model[] = activeVariant
+    ? (() => {
+        const promoted = getPromotedModel(unit, activeVariant);
+        const idx = visibleModels.indexOf(promoted);
+        return idx >= 0
+          ? visibleModels.map((m, i) => i === idx ? activeVariant.variant : m)
+          : [...visibleModels.slice(0, -1), activeVariant.variant];
+      })()
+    : visibleModels;
   const squadLeaderIdx = modelsToShow.length <= 1 ? 0 : (() => {
     const idx = modelsToShow.findIndex(m => m.min === 0);
     return idx >= 0 ? idx : modelsToShow.length - 1;
@@ -227,10 +237,42 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
 
+  // NOTE: global trait weapon abilities are injected into weaponTraitMap after traitWeaponAbilities
+  // is populated below (see "Inject global trait weapon abilities" comment).
+
+  // Items that GRANT a new weapon to the model — daemon weapons and vehicle upgrades.
+  // Patterns: "The model gains the 'X' weapon" (Kai), "The model gains a X" (Hunter-killer missile).
+  // The granted weapon is looked up in the armory general weapons list.
+  for (const sel of item.armory) {
+    if (sel.section !== 'daemon_weapons' && sel.section !== 'equipment') continue;
+    const armItem = findArmoryItem(data, sel);
+    if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
+    const grantedName = extractGrantedWeaponName(armItem.desc);
+    if (!grantedName) continue;
+    // Find the weapon profile in armory_general.weapons
+    const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
+      .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+    if (granted && !weapons.find(w => w.name === granted.name)) {
+      weapons.push({
+        name: granted.name,
+        range: granted.range ?? '',
+        type: granted.type ?? '',
+        s: granted.s ?? '',
+        ap: granted.ap ?? '',
+        d: granted.d ?? '',
+        abilities: granted.abilities ?? '-',
+      });
+    }
+  }
+
   // Equipment mods
   const equipItems = item.armory
-    .filter(a => a.section === 'equipment' ||
-      (a.section === 'daemon_weapons' && !isWeaponTrait(findArmoryItem(data, a)?.desc)))
+    .filter(a => {
+      const ai = findArmoryItem(data, a);
+      if (a.section === 'daemon_weapons') return !isWeaponTrait(ai?.desc) && !isGrantWeapon(ai?.desc);
+      if (a.section === 'equipment') return !isGrantWeapon(ai?.desc); // exclude weapon-granting upgrades
+      return false;
+    })
     .map(a => {
       const found = findArmoryItem(data, a);
       return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
@@ -253,6 +295,55 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save` });
         else if (e.type === 'unit_ability')   traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
         else if (e.type === 'weapon_ability') traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
+      }
+    }
+  }
+
+  // Inject global trait weapon abilities into weaponTraitMap so the WeaponTable shows them
+  // directly on each weapon row (e.g. Siege Experts → Sunder(1) on every ranged weapon).
+  if (traitWeaponAbilities.length > 0) {
+    for (const weapon of unit.weapons) {
+      const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
+      for (const wa of traitWeaponAbilities) {
+        const applies =
+          !wa.weapon_type ||
+          (wa.weapon_type === 'melee'   &&  isMelee) ||
+          (wa.weapon_type === 'ranged'  && !isMelee) ||
+          (wa.weapon_type === 'bolt'    && /bolt/i.test(weapon.name + ' ' + (weapon.type ?? '')));
+        if (applies) {
+          weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), wa.name]);
+        }
+      }
+    }
+  }
+
+  // Equipment items that grant weapon abilities globally: "All ranged/melee/all weapons gain 'X'."
+  // Detected via desc text — same injection mechanism as trait weapon abilities above.
+  // This covers: Plague ammunition (Poison), Seeking rounds (Anti-Air), Soul Burn swords, etc.
+  // Pattern: All (ranged|melee|bolt)? weapons ... gain ['"]ABILITY['"]
+  for (const sel of item.armory) {
+    if (sel.section !== 'equipment') continue;
+    const armItem = findArmoryItem(data, sel);
+    if (!armItem?.desc) continue;
+    const desc = armItem.desc;
+    // Match "All [type] weapons ... gain 'X'" or "All [type] weapons ... gain "X""
+    const m = desc.match(/\bAll\s+(ranged|melee|bolt|arc|rad|heavy)?\s*weapons?\b.*\bgain\b.*?["']([^"']+)["']/i);
+    if (!m) continue;
+    const rawType = (m[1] ?? '').toLowerCase();
+    const ability = m[2];
+    const wtype = rawType === 'ranged' ? 'ranged'
+      : rawType === 'melee' ? 'melee'
+      : rawType === 'bolt' ? 'bolt'
+      : undefined; // 'all' or unspecified → applies to all weapons
+    for (const weapon of unit.weapons) {
+      const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
+      const applies =
+        !wtype ||
+        (wtype === 'melee'  &&  isMelee) ||
+        (wtype === 'ranged' && !isMelee) ||
+        (wtype === 'bolt'   && /bolt/i.test(weapon.name + ' ' + (weapon.type ?? '')));
+      if (applies) {
+        weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), ability]);
       }
     }
   }
@@ -305,6 +396,19 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (ai?.effect) applyEffect(ai.effect);
   }
 
+  // Core Rules "Objective secured!" (L1320-1322, "Automatic Rule"): automatically conferred
+  // to every Troop selection; units gain/lose it if their battlefield role switches via
+  // Archetypes — `effectiveSlot` already reflects archetype slot-shifts (getEffectiveSlot),
+  // so checking it here covers that clause for free. Allied-detachment units NEVER get it
+  // (Allies section, L1833) — gated on factionSource matching the active allied faction
+  // (NOT on factionSource alone: injected-supplement units like Assassins/HH carry their own
+  // factionSource without being an "allied detachment" in the rules sense).
+  const isAlliedDetachmentUnit = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
+  const ruleNotes: string[] = [];
+  if (effectiveSlot === 'Troops' && !isAlliedDetachmentUnit) {
+    ruleNotes.push('Objective secured!');
+  }
+
   return {
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
@@ -314,7 +418,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     effectiveHasVetAbilities,
     equippedWith, weapons, weaponsToShow: weapons, weaponTraitMap,
     injectedAbilities: choiceAbilities,
-    injectedRuleNotes: [],
+    injectedRuleNotes: ruleNotes,
     equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
