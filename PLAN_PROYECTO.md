@@ -457,6 +457,149 @@ producción ANTES de empezar la migración Fase 4 de GK (candidato a `ki-gk-vetv
 
 ---
 
+### 🟢 Fase 4 — Grey Knights (5ª facción migrada, 2026-06-11)
+
+**Pre-requisito resuelto primero**: `ki-gk-vetvehcategory-01` arreglado (status `fixed`) —
+los 18 ítems (8 Veteran Abilities + 10 Vehicle Equipment) ahora llevan `category: 'veteran'|
+'vehicle'`. Además, comparando contra el Armory.html propio de GK (GOLDEN RULE), se vio que la
+columna "POINTS MONSTROUS CREATURES & VEHICLES" había quedado mal mapeada a `p_char` en vez de
+`p_veh` — corregido: `p_veh` = 2 (o `null` para Infiltrator/Vanguard, que en el HTML muestran
+"-"), `p_char: null` para los 8 (el motor cae a `p_unit` cuando `p_char` es null).
+
+**5/5 categorías completadas** (`engine/codex_grey_knights/`), mismo orden que Inquisition:
+- `slots.ts` → `GK_SLOTS` (22 unidades / 7 slots, extracción combinada nombre+unit_type)
+- `unit-types.ts` → `GK_UNIT_TYPES` (sin `set_unit_type` dinámico — Interceptor Squad es estático)
+- `keywords.ts` → `GK_KEYWORDS` (eje `armour` con 2 entradas — Power armor + Terminator, único
+  ᵀ-gate binario sin Cataphractii/Gravis, igual forma que Inquisition; ejes `mark`/`faction`/
+  `datasheet` vacíos)
+- `special-abilities.ts` → `GK_SPECIAL_ABILITIES` (7 reglas de ejército §4 + Psyker/Faithful +
+  2 Archetypes [Chamber of Purity, Hall of Champions] + 8 Legacies de un solo poder bono +
+  ausencia confirmada de Traits)
+- `weapon-abilities.ts` → `GK_WEAPON_ABILITIES` (gating ᵀ + "Only for X" + veteran/vehicle gates +
+  modelo de puntos, incl. nota de que `armour_compat: string[]` ya está en formato array-keyword,
+  por delante de las otras 4 facciones migradas en ese eje)
+
+Disciplina anti-duplicación mantenida: los 12 poderes Sanctity/Dominus + 8 poderes de Legacy
+siguen en `psychic/disciplines.json`, las 8 Prayers en `psychic/prayers.json`, los AOP-shuffles
+de Archetypes/Legacies en `archetypes.json` — este módulo solo documenta acceso/estructura.
+
+Build ✓ (422ms). Changelog v0.59 + known-issues actualizados. Local, sin pushear.
+
+---
+
+### 🟢 Imperial Guard — digest construido desde el .ods (2026-06-11)
+
+IG estaba 🟠 auditada (pasadas de bugs v0.17/v0.21) pero **sin digest**. Construido desde cero
+aterrizando en el **`.ods` como canon** (corrección del usuario: para auditar datos, el `.ods`
+manda, no el HTML). Digest completo (6 secciones) en `rules-model/imperial_guard.md`.
+
+**Hallazgos clave:**
+- **Vocabulario de keywords más simple de todas**: los 4 ejes (armour/mark/faction/datasheet)
+  VACÍOS. Sin Terminator/Gravis — la "armadura" de IG son compras de stat (Plate 4+/Master-crafted
+  2+/Refractor 5+inv/Bionics 6+inv). Marks solo vía archetype Traitor Guard. Gating de wargear
+  100% prose ("Only for X") + flags (`is_vehicle`/`is_character`/`is_psyker`/`has_veteran_abilities`).
+- **…pero la customización más rica**: 11 Archetypes (3 cross-facción ally-matrix: Brood
+  Brothers→GSC, Gue'vesa→Tau, Traitor Guard→CSM), 7 Legacies (cada una concede una Order; salvo
+  Ministorum World = "+1 Trait"), 16 Traits con pricing de 3 columnas (NORMAL/CHARACTER/MC&V, `*`
+  = por Wound/Hull). Cross-check producción 11/7/16 — limpio.
+- **Mecánica estrella = Orders** (oficiales reparten órdenes; unidades ≤12" las usan; 9 infantry
+  + 3 vehicle + 6 legacy). Más Hymns of Battle (Preacher, 5) y disciplina Psikana.
+
+**Fixes/gaps pre-migración (§6):**
+- `ki-ig-vetvehcategory-01` **ARREGLADO** (gemelo exacto de GK): 8 Veteran Abilities + 16 Vehicle
+  Upgrades sin `category`. Aterrizado en el `.ods`: veteran → `category:'veteran'`, `p_veh` de la
+  columna M&V (2, o null Infiltrator/Vanguard), `p_char:null`; vehicle → `category:'vehicle'` +
+  mover POINTS de `p_char`→`p_unit` (el motor cobra vehicle desde `p_unit`; el parser lo había
+  puesto en `p_char` con `p_unit:null` → habrían costado 0). Matiz IG: el equipo normal SÍ usa
+  `p_char` (columna real "POINTS CHARACTER MODELS"), así que el clear de `p_char` solo tocó las 8
+  filas de veteranía; el "Vox" duplicado de equipo (no el de vehicle upgrades) quedó intacto.
+- `ki-ig-psychic-unwired-01` **PENDIENTE**: el `.ods` tiene disciplina Psikana + Hymns, pero el
+  loader (`loaders.ts:123`) solo carga units+armory+archetypes y `psychic/` está vacío → gap real
+  (no simplificación, el canon las tiene). Alcance mayor, pasada dedicada aparte.
+- 2 artefactos de parser en `unit_type` (frase "Battlemutt..." y "(Engineseer only)") — cosmético.
+
+Build ✓ (430ms). Digest + `ki-ig-vetvehcategory-01` fix + changelog v0.59 + known-issues +
+plan + memoria. Local, sin pushear.
+
+**Migración Fase 4 COMPLETA 5/5** (`engine/codex_imperial_guard/`, 6ª facción, mismo día):
+- `slots.ts` → `IG_SLOTS` (60 unidades / 7 slots, desde `units.json` `slot_to_units`)
+- `unit-types.ts` → `IG_UNIT_TYPES` (estático; 2 artefactos de parser documentados verbatim:
+  Ratlings "Battlemutt...", Engineseer "(Engineseer only)" — no corregidos en silencio)
+- `keywords.ts` → `IG_KEYWORDS` (los 4 ejes VACÍOS — primera facción sin gate de armadura;
+  ausencia documentada eje por eje)
+- `special-abilities.ts` → `IG_SPECIAL_ABILITIES` (Orders signature + Weapon team crews + Hymns +
+  Psikana + 11 Archetypes [3 cross-facción] + 7 Legacies [order-grant] + 16 Traits [3-col] +
+  nota de gap psíquico)
+- `weapon-abilities.ts` → `IG_WEAPON_ABILITIES` (sin gate de keyword — el caso más puro; prose
+  "Only for X" + flags; veteran/vehicle gates; modelo de puntos incl. trait pricing de 3 columnas)
+
+Anti-dup mantenida: archetypes/legacies/traits siguen en `archetypes.json`; Psikana/Hymns
+documentadas pero pendientes de producción (`ki-ig-psychic-unwired-01`). Build ✓ (475ms). Local,
+sin pushear.
+
+---
+
+### 🟢 Adeptus Mechanicus — digest desde el .ods + Fase 4 (7ª facción, 2026-06-11)
+
+AdMech era 🔴. Digest construido desde el `.ods` (`rules-model/adeptus_mechanicus.md`).
+**Hermana estructural de IG**: los 4 ejes de keyword VACÍOS (armadura = stat-tier; sin marks salvo
+archetype Dark Mechanicum), pero customización rica + mecánica estrella propia.
+
+**Hallazgos:**
+- 29 units / 7 slots. Sin `armourKeyword`, sin marks, sin `keywords[]` (7ª confirmación: eje
+  datasheet = excepción solo-CSM).
+- **Mecánica estrella = Canticles of the Omnissiah** (elige 1 canticle/Command phase; unidades ≤9"
+  de un Choir Master la ganan a 4+; Monotask = excepción). 6 canticles base + 7 de Legacy.
+- 5 Archetypes (Dark Mechanicum→CSM/Marks; Cybernetica Cohort + Ordo Reductor tiran del
+  suplemento HH Mechanicum), 7 Legacies (= los 7 Forge Worlds, cada uno da Armory + 1 canticle),
+  16 Traits (3 columnas, como IG). Cross-check 5/7/16 limpio.
+- **Doctrina Imperatives** (4) = análogo de veteranía, pero gated por opción de datasheet ("may
+  select one Doctrina Imperative", 13 unidades), NO por `has_veteran_abilities` (0 unidades).
+
+**Fixes/gaps:**
+- `ki-admech-vetvehcategory-01` **ARREGLADO**: 9 Vehicle Equipment etiquetados `category:'vehicle'`.
+  A diferencia de IG, el POINTS ya estaba en `p_unit` → solo tagging, sin move.
+- `ki-admech-doctrina-gating-01` **PENDIENTE**: los 4 Doctrina Imperatives sin gate por-unidad
+  (salen a cualquier unidad con armory en vez de a las 13 con la opción). No tocado a ciegas
+  (etiquetar `category:'veteran'` sin flag por-unidad los ocultaría, ya que 0 unidades tienen
+  `has_veteran_abilities`). Pasada multi-unidad dedicada.
+
+**Migración Fase 4 COMPLETA 5/5** (`engine/codex_adeptus_mechanicus/`): slots (29/7) · unit-types
+(estáticos, sin artefactos) · keywords (4 ejes vacíos) · special-abilities (Canticles + Choir
+Master + Monotask + 5/7/16 + gap-note Doctrina) · weapon-abilities (sin keyword gate + prose +
+"Forge World X only" + puntos). Anti-dup: archetypes/legacies/traits en `archetypes.json`, Forge
+World armories en `legion_forge_world.json`. Build ✓ (413ms). Local, sin pushear.
+
+---
+
+### 🟢 Adeptus Sororitas — digest desde el .ods + Fase 4 (8ª facción, 2026-06-11)
+
+Sororitas era 🔴. Digest desde el `.ods` (`rules-model/adeptus_sororitas.md`). **Hermana de IG/
+AdMech** en keywords (4 ejes vacíos, sin gate de armadura) pero **única (con CD) en no tener tier
+de veteranía** — su armory no tiene sección Veteran Abilities/Doctrina, 0 unidades con
+`has_veteran_abilities`.
+
+**Hallazgos:**
+- 27 units / 6 slots (sin Flyers/Fortifications). Sin `armourKeyword`, sin marks, sin `keywords[]`
+  (8ª confirmación eje datasheet = excepción solo-CSM).
+- **Mecánica estrella = Acts of Faith** (economía de Faith points: Pious genera, Anointment/Blood
+  of Martyrs suman, Emperor's Judgement reembolsa). + Shield of Faith (6+inv army-wide) + Witch
+  hunters (Inquisition Ordo Hereticus + Assassins — YA shippeado vía `intrinsic_allies`).
+- 3 Archetypes (AOP-shuffle, sin ally-matrix), 7 Legacies (6 = Orders Militant → Order Armory;
+  "The Holy Trinity" = grant especial de 3 traits, ya fijado), 12 Traits (3 columnas). Cross-check
+  3/7/12 limpio.
+
+**Fix:** `ki-sororitas-vetvehcategory-01` ARREGLADO — 9 Vehicle Upgrades etiquetados (POINTS ya en
+`p_unit`, como AdMech → solo tagging). Sin gap de veteranía (no aplica, como CD).
+
+**Migración Fase 4 COMPLETA 5/5** (`engine/codex_adeptus_sororitas/`): slots (27/6) · unit-types
+(estáticos; Seraphim/Zephyrim/Geminae/Living Saint son Jump Pack Infantry estático) · keywords
+(4 ejes vacíos) · special-abilities (Acts of Faith + Pious + Shield of Faith + Witch hunters +
+3/7/12) · weapon-abilities (sin keyword gate; sin tier de veteranía). Build ✓ (482ms). Local, sin
+pushear.
+
+---
+
 ### 🟢 Assassins — corregidos a su alcance canónico real (v0.56)
 
 Se modeló primero como acceso exclusivo de Grey Knights ("Demon Hunters")/Sororitas ("Witch
@@ -528,11 +671,11 @@ inicio actualizada: Assassins pasa de "facción jugable" a tarjeta de Suplemento
 | Chaos Space Marines | 🟠 mayor cobertura, errores conocidos | ✅ (movido a codex_csm/digest.md) | 🔄 archivos juntos en engine/codex_csm/, falta organizar contenido | **piloto en marcha** |
 | Chaos Daemons | 🟠 auditada | ✅ | ⬜ | |
 | Space Marines | 🟠 auditada | ✅ | ⬜ | |
-| Imperial Guard | 🟠 auditada | — | ⬜ | |
-| Grey Knights | 🟠 auditada | ✅ (2026-06-08, construido desde cero) | ⬜ | ver hallazgo `ki-gk-vetvehcategory-01` antes de migrar |
+| Imperial Guard | 🟠 auditada | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 6ª facción; `ki-ig-vetvehcategory-01` fijado; `ki-ig-psychic-unwired-01` pendiente |
+| Grey Knights | 🟠 auditada | ✅ (2026-06-08, construido desde cero) | ✅ (2026-06-11, 5/5) | `ki-gk-vetvehcategory-01` fijado antes de migrar (5ª facción) |
 | Inquisition | 🟢 completa+ (v0.56) | — | ⬜ | varias pasadas, ver memoria |
-| Adeptus Mechanicus | 🔴 sin empezar | — | ⬜ | |
-| Adeptus Sororitas | 🔴 sin empezar | — | ⬜ | |
+| Adeptus Mechanicus | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 7ª facción; `ki-admech-vetvehcategory-01` fijado; `ki-admech-doctrina-gating-01` pendiente |
+| Adeptus Sororitas | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 8ª facción; `ki-sororitas-vetvehcategory-01` fijado; sin tier de veteranía (como CD) |
 | Adeptus Custodes | 🔴 sin empezar | — | ⬜ | |
 | Dark Eldar | 🔴 sin empezar | — | ⬜ | |
 | Eldar | 🔴 sin empezar | — | ⬜ | |

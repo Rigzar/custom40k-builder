@@ -510,168 +510,200 @@
       "term_compat": false,
       "desc": "The model gains the ability \"Counter-attack\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2
     },
     {
       "name": "Favoured enemy",
       "term_compat": false,
       "desc": "The model gains the ability \"Favoured enemy\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2
     },
     {
       "name": "Furious charge",
       "term_compat": false,
       "desc": "The model gains the ability \"Furious charge\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2
     },
     {
       "name": "Infiltrator",
       "term_compat": false,
       "desc": "The model gains the ability \"Infiltrator\".",
       "p_unit": 1,
-      "p_char": null
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": null
     },
     {
       "name": "Outflank",
       "term_compat": false,
       "desc": "The model gains the ability \"Outflank\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2
     },
     {
       "name": "Tank hunter",
       "term_compat": false,
       "desc": "The model gains the ability \"Tank hunter\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2
     },
     {
       "name": "Terrain expert",
       "term_compat": false,
       "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2
     },
     {
       "name": "Vanguard",
       "term_compat": false,
       "desc": "The model gains the ability \"Vanguard\".",
       "p_unit": 1,
-      "p_char": null
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": null
     },
     {
       "name": "Additional armor",
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Bulldozer blade",
       "term_compat": false,
       "desc": "The vehicle may re-roll dangerous terrain tests and ignores difficult terrain.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Camo net",
       "term_compat": false,
       "desc": "If the vehicle has not moved during its activation, it counts as being in cover.",
-      "p_unit": null,
-      "p_char": 30
+      "p_unit": 30,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Chain guard",
       "term_compat": false,
       "desc": "The model ignores \"Engine damage\" vehicle damage on a roll of 4+",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Heavy stubber",
       "term_compat": false,
       "desc": "The model gains a Heavy stubber.",
-      "p_unit": null,
-      "p_char": 15
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Hunter-killer missile",
       "term_compat": false,
       "desc": "The model gains a Hunter-killer missile.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Improved targeting",
       "term_compat": false,
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Jammer",
       "term_compat": false,
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
-      "p_unit": null,
-      "p_char": 15
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Macharius cross",
       "term_compat": false,
       "desc": "The model can issue one more order per battle round than it normally could. Unique.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Purity seal",
       "term_compat": false,
       "desc": "Enemy psykers suffer a -1 to manifestation rolls if they target the model or its attached unit directly.",
-      "p_unit": null,
-      "p_char": 4
+      "p_unit": 4,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Regimental artefact",
       "term_compat": false,
       "desc": "One weapon of the model gains one of the following:\n- Additional +6\" Range (only for ranged weapons)\n- Additional +1 Strength\n- Additional -1 AP\n- Additional +1 AT\nEvery enhancement is unique per army.",
-      "p_unit": null,
-      "p_char": 20
+      "p_unit": 20,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Seasoned officer",
       "term_compat": false,
       "desc": "A single unit can receive up to two simultaneous orders per turn if it is activated within range of an officer.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Smoke Launcher",
       "term_compat": false,
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
-      "p_unit": null,
-      "p_char": 15
+      "p_unit": 15,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Storm bolter",
       "term_compat": false,
       "desc": "The model gains a Storm bolter.",
-      "p_unit": null,
-      "p_char": 10
+      "p_unit": 10,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Twin heavy stubber",
       "term_compat": false,
       "desc": "The model gains a Twin heavy stubber.",
-      "p_unit": null,
-      "p_char": 30
+      "p_unit": 30,
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Vox",
       "term_compat": false,
       "desc": "If an officer is a passenger in the vehicle, he counts as being equipped with a personal vox. The vehicle itself can receive orders anywhere on the battlefield and, if it is a Tank Commander, can issue orders.",
-      "p_unit": null,
-      "p_char": 5
+      "p_unit": 5,
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

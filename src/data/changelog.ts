@@ -25,6 +25,21 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.59',
+    date: '2026-06-11',
+    title: {
+      en: 'Armory fixes across Grey Knights, Imperial Guard & Adeptus Mechanicus',
+    },
+    changes: {
+      en: [
+        'Fixed: 8 Grey Knights Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) and 10 Vehicle Equipment items now correctly count toward the Veteran/Vehicle armory caps. Vehicles and Monstrous Creatures taking a Veteran Ability now pay the correct per-wound cost.',
+        'Fixed: the same armory issue on Imperial Guard — its 8 Veteran Abilities and 16 Vehicle Upgrades now correctly count toward the Veteran/Vehicle caps and price properly (vehicle upgrades were previously priced at 0, and vehicles/monsters taking a Veteran Ability now pay the correct per-wound/hull-point cost).',
+        'Fixed: Adeptus Mechanicus — its 9 Vehicle Equipment items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
+        'Fixed: Adeptus Sororitas — its 9 Vehicle Upgrade items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
+      ],
+    },
+  },
+  {
     version: '0.58',
     date: '2026-06-08',
     title: {
