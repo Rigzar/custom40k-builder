@@ -1,12 +1,32 @@
 import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
-  // ── In progress ───────────────────────────────────────────────────────────
+  // ══════════════════════════════════════════════════════════════════════════
+  // OPEN — known, investigating, planned, or by-design (most relevant first)
+  // ══════════════════════════════════════════════════════════════════════════
   {
-    id: 'ki-orks-vetvehcategory-01',
-    status: 'fixed',
-    title: 'Orks — 13 Vehicle Upgrade armory items missing category tag',
-    description: 'Found while building the Orks rules-model digest from the `.ods` canon, ahead of the Fase 4 migration (datasheet spot-checks Boyz + Battlewagon confirmed production matches the .ods exactly). Orks\' `armory/general.json` `equipment[]` (62 items) carried the 13 Vehicle Upgrades (Additional armor, Armored hood, Boarding plank, Death roller, Grab claw, Grot mechanic, Nozzle drive, Red paint, Reinforced battering ram, Smoke launcher, Stikkbombz launcha, Target squig, Wrecking ball; idx 49-61) with NO `category` tag. Fixed by tagging all 13 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). IMPORTANT: the 16 Kustom Jobs (idx 33-48) were deliberately LEFT `category: none` — they are a distinct Ork mechanic (each unique, gated to specific units via prose "Vehicle/Mek/Walker/Spanna/Warbuggy only"), NOT a vehicle-only category (tagging them `category:"vehicle"` would wrongly gate the Mek/character ones to `is_vehicle`). NO veteran-side fix: Orks have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units. Build ✓.',
+    id: 'ki-necrons-psychic-unwired-01',
+    status: 'known',
+    title: "Necrons — Powers of the C'tan exist in the .ods but are NOT wired into the loader",
+    description: "Found while building the Necrons digest (2026-06-11). The `.ods` has a \"Powers of the Ctan\" sheet (the C'tan Shards' power system — the 4 C'tan Shards draw their powers from it), and Necrons have a psyker unit, but `src/data/loaders.ts` (case `necrons`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Dynasty armory (the disciplines argument to `asm` is `{}`). Net effect: the Powers of the C'tan are unrepresented; the C'tan Shards and the Necron psyker likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC, Orks, Tyranids, Votann, Tau. Larger separate scope — needs the C'tan powers parsed into production JSON and wired into the loader. Logged for a dedicated pass. NOTE: this completes the cross-faction pattern — 9 of the 19 factions carry a `*-psychic-unwired-*` known issue (the faction psychic/prayer disciplines are uniformly not wired into the per-faction loaders), making this a strong candidate for a single batched fix rather than 9 separate passes.",
+  },
+  {
+    id: 'ki-tau-empire-psychic-unwired-01',
+    status: 'known',
+    title: "T'au Empire — Ethereal Invocations + the Kroot Shaman psyker discipline are not wired into the loader",
+    description: "Found while building the T'au digest (2026-06-11). The `.ods` has an \"Invocations of the Ethereals\" sheet (a prayer-like system) and the Kroot Hunting Pack archetype upgrades a Kroot Master Shaper to a Shaman (a psyker that knows Biomancy/Divination powers), but `src/data/loaders.ts` (case `tau_empire`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Sept armory (the disciplines argument to `asm` is `{}`). Net effect: the Ethereal Invocations and the archetype-granted Shaman discipline are unrepresented. NOTE: this is NARROWER than the other factions' psychic gaps because the base T'au roster has 0 `is_psyker` units (the psyker only appears via the Kroot Hunting Pack archetype). Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope — needs the Invocations + Kroot discipline parsed into production JSON and wired into the loader. Logged for a dedicated pass.",
+  },
+  {
+    id: 'ki-leagues-of-votann-psychic-unwired-01',
+    status: 'known',
+    title: 'Leagues of Votann — Skeinwrought psychic discipline exists in the .ods but is NOT wired into the loader',
+    description: 'Found while building the Votann digest (2026-06-11). The `.ods` has a "Skeinwrought discipline" sheet (19 rows), and Votann has a psyker unit (Grimnyr), but `src/data/loaders.ts` (case `leagues_of_votann`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the League armory (the disciplines argument to `asm` is `{}`). Net effect: the Skeinwrought discipline is unrepresented; the Grimnyr likely falls back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC, Orks, Tyranids. Larger separate scope — needs the discipline parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
+  },
+  {
+    id: 'ki-tyranids-psychic-unwired-01',
+    status: 'known',
+    title: 'Tyranids — Tyranid psychic discipline exists in the .ods but is NOT wired into the loader',
+    description: 'Found while building the Tyranids digest (2026-06-11). The `.ods` has a "Tyranid psychic discipline" sheet (19 rows), and Tyranids are the most psyker-dense faction (7 `is_psyker` units), but `src/data/loaders.ts` (case `tyranids`) imports only `units.json` + `armory/general.json` (which is EMPTY for Tyranids) + `archetypes.json` + the Hive Fleet armory (the disciplines argument to `asm` is `{}`). Net effect: the Tyranid discipline is unrepresented; Tyranid psykers likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC, Orks. Larger separate scope — needs the discipline parsed into production JSON and wired into the loader. NOTE: Tyranids had NO Vehicle-Equipment / Veteran-Ability armory fix (unlike the other 13 migrated factions) — their `armory/general.json` is empty, they have 0 vehicles and 0 veteran units, and their wargear is the per-unit Biomorph system (modelled as datasheet `option_groups`). The psychic gap is the only open item from the Tyranids migration.',
   },
   {
     id: 'ki-orks-psychic-unwired-01',
@@ -15,34 +35,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Found while building the Orks digest (2026-06-11). The `.ods` has an "Ork psychic discipline" sheet (19 rows — the Waaagh! discipline), and Orks have psyker units (Weirdboy), but `src/data/loaders.ts` (case `orks`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Clan armory (the disciplines argument to `asm` is `{}`). Net effect: the Waaagh! discipline is unrepresented; Ork psykers likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC. Larger separate scope — needs the discipline parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
   },
   {
-    id: 'ki-genestealer-cults-vetvehcategory-01',
-    status: 'fixed',
-    title: 'Genestealer Cults — 7 Vehicle Equipment armory items missing category tag',
-    description: 'Found while building the Genestealer Cults rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. GSC\'s `armory/general.json` `equipment[]` (29 items) carried the 7 Vehicle Equipment items (Additional armor, Flare launcher, Improved targeting, Jammer, Smoke Launcher, Spotter, Survey augur; idx 22-28) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: GSC have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like CD/Sororitas/Dark Eldar/Eldar/Harlequins). Build ✓.',
-  },
-  {
     id: 'ki-genestealer-cults-psychic-unwired-01',
     status: 'known',
     title: 'Genestealer Cults — Broodmind psychic discipline + 6 Legacy bonus powers exist in the .ods but are NOT wired into the loader',
     description: 'Found while building the GSC digest (2026-06-11). The `.ods` has a "GSC psychic discipline" sheet (37 rows — the Broodmind discipline) and the 6 Legacies each grant a named bonus power to all Psykers (Last Gasp / Broodvolt Surge / Synaptic Blast / Inescapable Decay / Undermine / Mutagenic Deviation), and GSC has 2 `is_psyker` units (Magus, Patriarch) + the Crown of Ascendancy equipment (grants the Broodmind discipline). BUT `src/data/loaders.ts` (case `genestealer_cults`) imports only `units.json` + `armory/general.json` + `archetypes.json` (the disciplines argument to `asm` is `{}`). Net effect: the Broodmind discipline AND the 6 Legacy powers are unrepresented in the builder; GSC psykers likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar (`ki-eldar-psychic-unwired-01`), Harlequins (`ki-harlequins-psychic-unwired-01`). Larger separate scope — needs the discipline + Legacy powers parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
   },
   {
-    id: 'ki-harlequins-vetvehcategory-01',
-    status: 'fixed',
-    title: 'Harlequins — 6 Vehicle Equipment armory items missing category tag',
-    description: 'Found while building the Harlequins rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Harlequins\' `armory/general.json` `equipment[]` (21 items) carried the 6 Vehicle Equipment items (Holo-field, Improved targeting, Jammer, Night shield, Smoke Launcher, Spirit stones; idx 15-20) with NO `category` tag. Fixed by tagging all 6 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: Harlequins have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like CD/Sororitas/Dark Eldar/Eldar). Build ✓.',
-  },
-  {
     id: 'ki-harlequins-psychic-unwired-01',
     status: 'known',
     title: 'Harlequins — Shadowseer psychic discipline exists in the .ods but is NOT wired into the loader',
     description: 'Found while building the Harlequins digest (2026-06-11). The `.ods` has a "Harlequins psychic discipline" sheet (19 rows), and the Shadowseer is the faction\'s lone `is_psyker` unit, but `src/data/loaders.ts` (case `harlequins`) imports only `units.json` + `armory/general.json` (no archetypes — none exist — and no psychic-discipline file; the disciplines argument to `asm` is `{}`). Net effect: the Shadowseer likely falls back to the shared General psychic disciplines only, and the faction-specific discipline is unrepresented. Same gap class as IG (`ki-ig-psychic-unwired-01`) and Eldar (`ki-eldar-psychic-unwired-01`). Compounds when Harlequins are fielded as an Eldar/Dark-Eldar ally (those factions have their own psychic gaps). Larger separate scope — needs the discipline parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
-  },
-  {
-    id: 'ki-eldar-vetvehcategory-01',
-    status: 'fixed',
-    title: 'Eldar — 8 Vehicle Equipment armory items missing category tag',
-    description: 'Found while building the Eldar rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Eldar\'s `armory/general.json` `equipment[]` (49 items) carried the 8 Vehicle Equipment items (Crystal targeting matrix, Ghostwalk matrix, Holo-field, Improved targeting, Jammer, Spirit stones, Smoke Launcher, Star engines; idx 41-48) with NO `category` tag. Fixed by tagging all 8 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (like AdMech/Sororitas/Custodes/Dark Eldar — no value-move). "Spirit stones" also appears as an equipment-section version (idx 19/46) — only the vehicle block (idx 41-48) was tagged, identified by array position. NO veteran-side fix: Eldar have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like Chaos Daemons/Sororitas/Dark Eldar). Build ✓.',
   },
   {
     id: 'ki-eldar-aspect-wraith-keyword-01',
@@ -57,28 +59,288 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Found while building the Eldar digest (2026-06-11). The `.ods` carries a large "Eldar psychic discipline" sheet (64 rows) and the Ynnari "Revenant" discipline (granted by the Ynnari archetype), and Eldar has 6 `is_psyker` units (Farseer / Spiritseer / Wraithseer / Warlocks / Yncarne / +1). BUT `src/data/loaders.ts` (case `eldar`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Craftworld + Ynnari ARMORIES — no psychic-discipline file (the disciplines argument to `asm` is `{}`). Net effect: Eldar psykers likely fall back to the shared General psychic disciplines only, and the large faction-specific discipline + the Revenant discipline are unrepresented in the builder. Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope — needs the discipline parsed into production JSON and wired into the loader (mirroring how GK/Inquisition disciplines load). Logged for a dedicated pass.',
   },
   {
-    id: 'ki-dark-eldar-vetvehcategory-01',
-    status: 'fixed',
-    title: 'Dark Eldar — 7 Vehicle Equipment armory items missing category tag',
-    description: 'Found while building the Dark Eldar rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Dark Eldar\'s `armory/general.json` `equipment[]` (39 items) carried the 7 Vehicle Equipment items (Additional armor, Bladevanes, Flickerfield, Improved targeting, Night shield, Smoke Launcher, Trophy; idx 32-38) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (like AdMech/Sororitas/Custodes — no value-move; Flickerfield is "-"/null, not selectable). The 6 Combat Drugs (idx 26-31, Adrenalight/Grave lotus/Hypex/Serpentin/Painbringer/Splintermind) were deliberately LEFT `category: none` — they are a separate selectable pool (the Combat drugs army rule), not vehicle/veteran items. NO veteran-side fix: Dark Eldar have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like Chaos Daemons/Sororitas). Build ✓.',
-  },
-  {
     id: 'ki-dark-eldar-furiouscharge-phantom-01',
     status: 'known',
     title: 'Dark Eldar — "Furious Charge" (a Power-through-Pain bonus name) is listed in the Elites slot with no datasheet',
     description: 'Found while building the Dark Eldar digest (2026-06-11). `units.json` `slot_to_units.Elites` lists "Furious Charge", but there is NO `units["Furious Charge"]` datasheet entry — "Furious Charge" is one of the six Power-through-Pain BONUS names from the Index special-rules list ("Aegis(4+) / Berserk(4+) / Furious Charge / +1 Initiative / +1 Leadership / +1 Strength"), which leaked into the Elites slot index (20 slot names across all slots vs only 19 actual unit entries). Net effect: the slot index points at a "unit" the builder cannot render. Same class as the Custodes "Vigilators" phantom (`ki-custodes-vigilators-phantom-01`). Excluded from the Fase 4 codex (`codex_dark_eldar` slots/unit-types catalogue only the 19 real units). Needs the user to confirm removal from the slot index (it is clearly not a unit).',
   },
   {
-    id: 'ki-custodes-vetvehcategory-01',
-    status: 'fixed',
-    title: 'Adeptus Custodes — 8 Veteran Abilities + 6 Vehicle Equipment armory items missing category/p_veh',
-    description: 'Found while building the Adeptus Custodes rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Custodes\' `armory/general.json` `equipment[]` (34 items) carried the 8 Veteran Abilities (Counter-attack/Favoured enemy/Furious charge/Infiltrator/Outflank/Tank hunter/Terrain expert/Vanguard) + 6 Vehicle Equipment (Additional armor/Hunter-killer missile/Improved targeting/Jammer/Magos-class machine spirit/Smoke Launcher) with NO `category` tag. Fixed: veteran items → `category: "veteran"` + `p_veh` from the `.ods` "POINTS MONSTROUS CREATURES & VEHICLES" column (2 for the six, null for Infiltrator/Vanguard which show "-") + `p_char: null` (the value previously in `p_char` was the misplaced M&V figure — same as the GK/IG twins); vehicle items → `category: "vehicle"` (POINTS already in `p_unit`, like AdMech/Sororitas — no value-move). 17 of 19 Custodes units carry `has_veteran_abilities` (all except the Blade Champion + Knight-Centura HQs), so the veteran tagging is correct here — UNLIKE AdMech, where 0 units had the flag and the analogous Doctrina items were deliberately left untagged. Identified the blocks by array position (veteran idx 20-27, vehicle idx 28-33). Build ✓.',
-  },
-  {
     id: 'ki-custodes-vigilators-phantom-01',
     status: 'known',
     title: 'Adeptus Custodes — "Vigilators" is listed in the Elites slot but has no datasheet entry',
     description: 'Found while building the Custodes digest (2026-06-11). `units.json` `slot_to_units.Elites` lists "Vigilators" (the melee Sisters-of-Silence build), but there is NO `units["Vigilators"]` datasheet entry — a dangling roster reference (20 slot names across all slots vs only 19 actual unit entries). Likely a Sisters-of-Silence variant that was never split into its own datasheet, or a leftover roster row carried over from the Index sheet (which lists "Vigilators" under Elite). Net effect: the slot index points at a unit the builder cannot render. Excluded from the Fase 4 codex (`codex_adeptus_custodes` slots/unit-types catalogue only the 19 real units). Needs the user to confirm whether Vigilators should become its own datasheet (a distinct Sisters-of-Silence melee profile) or be removed from the slot index.',
+  },
+  {
+    id: 'ki-admech-doctrina-gating-01',
+    status: 'known',
+    title: 'Adeptus Mechanicus — Doctrina Imperatives have no per-unit gate (show to any armory unit instead of the 13 with the datasheet option)',
+    description: 'Found while building the AdMech digest (2026-06-11). The 4 Doctrina Imperatives (Aggressor/Bulwark/Conqueror/Protector Imperative) are AdMech\'s veteran-ability analogue, but their canonical gate is the per-datasheet line "The unit may select one Doctrina Imperative" — present on 13 of 29 units (Skitarii Rangers/Vanguard, Secutarii Hoplites/Peltasts, Sicaran Infiltrators/Ruststalkers, Sydonian Skatros, Pteraxii Skystalkers/Sterylizors, Serberys Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). Production carries ZERO `has_veteran_abilities` units (so this is NOT the IG/GK veteran-ability shape that keys off that flag), and the 4 Imperatives sit in `armory/general.json` as `category: none` — meaning they currently surface in the general Armory tab to ANY unit with `has_armory_access`, not just the 13 that may actually take one (and with no enforcement of the "one" cap, or the Veteran Maniple trait\'s "+1"). Deliberately NOT fixed in the same pass as `ki-admech-vetvehcategory-01`: tagging the 4 items `category: "veteran"` WITHOUT first setting a per-unit flag would HIDE them entirely (the veteran tab gates on `has_veteran_abilities`, which 0 units have). Clean model for a dedicated pass: set `has_veteran_abilities: true` + `veteran_max: 1` on the 13 option-carrying units (mirroring the CSM locked-mark `veteran_max:1` pattern; +1 via the Veteran Maniple trait), then tag the 4 items `category: "veteran"` + `p_veh` from the `.ods` "MONSTROUS CREATURES & VEHICLES" column (2 for Aggressor/Bulwark/Conqueror, 0 for Protector) + `p_char: null`. Logged for a multi-unit data pass.',
+  },
+  {
+    id: 'ki-ig-psychic-unwired-01',
+    status: 'known',
+    title: 'Imperial Guard — Psikana psychic discipline + Hymns of Battle exist in the .ods canon but are NOT wired into the loader',
+    description: 'Found while building the IG digest (2026-06-11). The `.ods` canon carries a full "Imperial Guard psychic discipline" sheet (Psikana I/II: Mental Strength/Gaze of the Emperor/Nightshroud/Psychic Barrier/Terrifying Visions/Psychic Maelstrom/...) and a "Hymns of Battle" sheet (the Preacher\'s litany system, 5 hymns: Catechism of Repugnance/Chorus of Spiritual Fortitude/Psalm of Righteous Smiting/Refrain of Blazing Piety/War Hymn). IG also has psyker units (Primaris Psyker/Sanctioned Psykers/Astropath, `is_psyker: true`). BUT `src/data/loaders.ts:123` imports only `units.json` + `armory/general.json` + `archetypes.json` for IG — no psychic-disciplines file — and `data/parsed/imperial_guard/psychic/` is empty. Net effect: IG psykers likely fall back to the shared General psychic disciplines only, and the faction-specific Psikana powers + the Preacher\'s Hymns are unrepresented in the builder. Since the `.ods` IS the canon (per the user\'s 2026-06-11 directive "básate en el .ods"), the presence of these sheets means this is a genuine data gap, not an intentional simplification. Scoped separately from the armory fix (larger — needs the Psikana + Hymns parsed into production JSON and wired into the loader, mirroring how GK/Inquisition disciplines load). Logged for a dedicated pass.',
+  },
+  {
+    id: 'ki-allies-owncustomisation-unmodelled-01',
+    status: 'known',
+    title: 'Allied detachments cannot select their own Archetype/Legacy/Traits — engine has one global Army-Customisation slot',
+    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, task #9 — Allies). Core Rules.txt L1828 ("Allies use their own Army Organization Plan (AOP)..." block) explicitly states "Allies may select their own Army Customisation options" — implying the allied detachment can pick its OWN Archetype/Legacy/Traits, separate and independent from the primary faction\'s selection. Traced the engine architecture: `ArmyState` (types/army.ts lines 82-84) has exactly ONE global `archetype: string` / `legacy: string` / `legacy2: string` for the whole roster (no `alliedArchetype`/`alliedLegacy` fields), and `resolveBase` (resolver.ts line 172) calls `getArchetypeRule(state.archetype)` uniformly for every unit regardless of `item.factionSource` — i.e. the single chosen Archetype\'s slot-remaps/grants apply identically to primary AND allied-detachment units (or, more likely in practice, allied units simply ignore an archetype that isn\'t theirs, since archetype rules gate on faction-specific keywords per `_engine.md` line 56-58 "Traits hit only the `Chaos Space Marine` keyword"). Either way, there is no UI/state path for a player to grant the ALLIED faction its own independent Archetype/Legacy/Trait picks. Net effect: an allied detachment can never benefit from its own faction\'s Army Customisation — a real modeled-vs-canonical gap, not a false alarm (distinct from the already-resolved "second AOC for allies" question, which concerns AOP slot multipliers, not Customisation selection itself). Flagging for the codex.ts pass — likely needs a second `{ archetype, legacy, legacy2 }` selection scoped to `state.alliedFaction`, gated the same way (Skirmish has no allies at all, so this only matters for Pitched/Epic).',
+  },
+  {
+    id: 'ki-skirmish-secondaop-textcontradiction-01',
+    status: 'by_design',
+    title: 'Skirmish AOP rules text discusses "eligibility for a second AOP" — CONFIRMED vestigial/inapplicable text; multiAop:false is correct',
+    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, task #9 — Army Organization). Custom40k Missions.txt\'s Skirmish section (1000-1500 pts) has its own "Army Organisation Plan (AOP) Rules" subsection whose only bullet reads: "If a faction cannot fill a slot due to these restrictions, that slot counts as filled when determining eligibility for a second Army Organisation Plan (AOP)." Originally flagged because `engine/engagements.ts` sets `skirmish: { multiAop: false, ... }`, which short-circuits any second-AOP path for Skirmish — making the clause seem permanently unreachable (two readings proposed: vestigial template residue vs. a real unenforced path). USER CONFIRMED reading (a) on 2026-06-08, by pointing at the canonical Allies block (Core Rules.txt ~L1819-1828): a "second AOC/AOP" in this ruleset is realized specifically by bringing in an ALLIED detachment — the ally fields its own separate reduced AOP (0-1 HQ/1-2 Tr/0-1 E·FA·HS per Troop/0-ᵀ Transport), and the canonical text explicitly states "Allies cannot select a second AOC after filling all available slots" (i.e. the allied detachment\'s own AOP IS the "second AOC" concept this whole family of clauses is talking about — not a doubling-up of a single faction\'s own AOP). Since Skirmish bans Allies outright ("Skirmish = no allies", `_engine.md`), there is structurally no way to ever field a second detachment/AOP in Skirmish — the mechanic the clause refers to cannot exist in that engagement type. The Missions.txt Skirmish bullet is therefore confirmed copy-paste residue from the Pitched/Epic AOP-rules template ("dead text" with no possible trigger), and `multiAop: false` for Skirmish is CORRECT as coded — no fix needed. Resolved via user confirmation, not engine change.',
+  },
+  {
+    id: 'ki-missions-transportcap-hardcoded-01',
+    status: 'known',
+    title: 'Dedicated Transport AOP cap (Pitched/Epic main AOP AND Allied mini-AOP) is a flat "3" instead of "1 per Infantry-type selection"',
+    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, before building per-faction codex.ts). Custom40k Missions.txt states the Pitched Battle and Epic Battle AOP as "0-ᵀ Dedicated Transports* ... ᵀ A dedicated transport vehicle may be chosen for each \'Infantry\' type selection" — a count that should scale dynamically with how many Infantry-type units are in the army (Skirmish, by contrast, genuinely IS a flat "0-1" per the canonical text — that one is correct as coded). The digest `rules-model/_engine.md` §1 correctly documents this as "0-ᵀ (1 per Infantry)", but `engine/engagements.ts` hardcodes `\'Dedicated Transport\': [0, 3]` for both Pitched and Epic — a fixed approximation with no derivation logic anywhere (grepped validators.ts/engagements.ts for "Infantry"/"infantryCount" — no matches; the slot is explicitly excluded from the generic max-check at validators.ts:1056 `slot !== \'Dedicated Transport\'`, and nothing replaces that check with an Infantry-count-derived one). Net effect: an army with 1 Infantry-type selection could currently take up to 3 transports (too permissive), while an army with 6 could only take 3 (too restrictive). SECOND OCCURRENCE found during the Army Organization/Allies audit pass (task #9): `ALLIED_AOP[\'Dedicated Transport\']` (engagements.ts line 41) is ALSO hardcoded to `[0, 3]` — and Core Rules.txt L1819-1825 (canonical Allies AOP) confirms allied detachments use the exact same dynamic "0-ᵀ Transports" rule, not a flat number, so this is the identical bug in a second spot, not a separate one.\n\nUSER RESOLVED the interpretation question on 2026-06-08: "\'Infantry\' type selection" for the Dedicated Transport count means STRICTLY `unit_type === "Infantry"` — the Infantry-ACTING subtypes (Bike/Character Model/Jet Bike/Jump Pack Infantry/Monstrous Infantry, each "Acts like Infantry, with the following exceptions" per Core Rules.txt L664-750) "count as Infantry for other rules, but NOT for transport [purposes]" (verbatim user clarification). So the dynamic count must filter on the exact "Infantry" unit-type string only, excluding all Infantry-acting subtypes — a narrower derivation than a naive keyword/category match would produce. Still needs a grounded fix (replace the flat `[0, 3]` with a count derived from `unit_type === "Infantry"` selections) for both the main Pitched/Epic AOP and `ALLIED_AOP`; for the allied mini-AOP the count should be scoped to the allied detachment\'s own Infantry selections (consistent with "Allies use their own AOP" being a fully separate, self-contained roster). Ready to implement in the codex.ts pass — interpretation no longer open.',
+  },
+  {
+    id: 'ki-corerules-jumppack-ability-undefined-01',
+    status: 'known',
+    title: 'Core Rules glossary — "Jump pack" model special rule referenced but never defined in canonical text',
+    description: 'While building the structured Special-Rules query layer (engine/specialRules.ts, pilot for the Anti-Air target-group cross-reference), found that "Jump pack" is referenced TWICE as a model special rule in Custom40k Core Rules.txt — L551 ("Units may move over [difficult terrain] if they have the Anti-Grav or Jump pack ability") and L1331 (Anti-Air: "...models with the Anti-Grav, Jet Bike, or Jump Pack special rules or the Flyer unit type...") — and is granted by armory items (the GK Teleporter per the v0.51 changelog: "+6\\" Movement and the \'Jump pack\' ability"). It is DISTINCT from "Jump Pack Infantry" the unit TYPE (which IS fully defined at Core L714-718: "Acts like Infantry... Ignores terrain... Gains Deep Strike"). But "Jump pack" the standalone special rule has NO definition/description block anywhere in the Core Rules text available — it never made it into coreRules.ts RULES (~120 entries). Likely Codex/army-level (FAQ #5: Codex overrides Core), defined wherever it is granted rather than in the Core glossary. Per GOLDEN RULE — not inventing a description. Needs the user to locate/paste the canonical "Jump pack" rule text (Codex source, GK Teleporter datasheet, or wherever it is formally defined) so coreRules.ts can gain a grounded entry; until then engine/specialRules.ts isAntiAirTarget() correctly treats it as "no glossary entry → cannot confirm a unit has it" rather than guessing.',
+  },
+  {
+    id: 'ki-armorygrant-phrasecheck-01',
+    status: 'known',
+    title: 'Cross-faction — has_armory_access/champion_has_armory may not be grounded in the exact canonical access-grant phrase everywhere',
+    description: 'The CSM vehicle audit (ki-csm-vehiclearmory-01) revealed a clean two-phrase dichotomy in canonical CSM datasheet text: "Has access to weapons and gear from the Armory" (general access → has_armory_access:true is correct) vs. "Has access to vehicle equipment from the Armory" (narrower — Vehicle Upgrades list only, NOT general armory → has_armory_access should be false, since vehicle-equipment access is automatic via is_vehicle). The user broadened scope: "tienes que revisar todo, en caso que pase con otro tipo de unidades que no sean vehículos o monstruos" — every unit\'s verbatim ability/options text states exactly what armory access it has (e.g. Helbrute is type "Walker" but its text still reads "vehicle equipment", confirming the grant is access-based, not type-name-based). Plan: re-run the same verbatim-phrase scan + flag-grounding check across Space Marines, Grey Knights, Inquisition, Chaos Daemons, then the remaining factions, for ALL unit types (not just Vehicle/Monster) — champion-level "access to the armory" grants and any other access-scoping phrases included.',
+  },
+  {
+    id: 'ki-escalation-wardog-dualswap-display-01',
+    status: 'known',
+    title: 'Escalation — War Dog "swap both Reaper chaintalons" leaves the base profile on the card',
+    description: 'The War Dog carries two Reaper chaintalons, each swappable independently (modelled as two choose-one groups, no replaces). The displayed-weapon list shows weapon profiles, not per-instance counts, so the base "Reaper chaintalon" profile is always shown while either chaintalon remains, and a swapped-in weapon is added alongside. If BOTH chaintalons are swapped, the Reaper chaintalon profile still lingers on the card (cosmetic only — points are always correct). A faithful fix needs per-instance weapon counting in the resolver, which the current profile-list model does not support.',
+  },
+  {
+    id: 'ki-hh-armourslot-01',
+    status: 'known',
+    title: 'Horus Heresy — innate-armour units bake the profile differently than CSM (no innate armourKeyword tagged)',
+    description: 'The CSM innate-armour swap fix (ki-csm-armourslot-01, v0.51) tags units whose base profile already bakes in the armour bonuses (+1 T/+1 A/2+). The HH Legion Terminator Cataphractii Squad instead lists T4/A2/2+ with a 4+ invuln ability — i.e. the +1 T/+1 A is NOT baked into T/A the way CSM Terminators are. Because the baked semantics differ and the rules source for HH armour bonuses needs a separate check, no innate armourKeyword was set on HH units yet; if an HH innate-armour unit can buy a conflicting armour, the same double-count could occur. Needs a rules pass on HH armour profiles before tagging.',
+  },
+  {
+    id: 'ki-unittype-residuals-01',
+    status: 'known',
+    title: 'Residual unit-type data-quality issues — partial fix in v0.54 (display only)',
+    description: 'FIXED in v0.54: (a) "Montrous Creature" misspelling → "Monstrous Creature" in Tyranids (4 units); (d) "Super-Heavy Vehicle" → "Super-heavy Vehicle" in Orks Battle Fortress; (e) literal "KEYWORD" placeholder stripped from Necrons (21) and Tau/Kroot (11) unit_type fields. OPEN: (b) "Jetbike" (one word) in Custodes coexists with "Jet Bike" — verify against Custodes source before changing; (c) standalone "Jump pack" pseudo-type in Tau unit_type fields (Crisis Suits, Broadside etc.) — needs Tau source grounding (also standalone "Jump pack" in Eldar line 3377). None of the open items affect points or legality.',
+  },
+  {
+    id: 'ki-22a',
+    status: 'known',
+    title: {
+      en: 'Trait effects wired for CSM and SM — other factions show description text only',
+      de: 'Eigenschafts-Effekte für CSM und SM verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
+      es: 'Efectos de rasgos implementados para CSM y SM — otras facciones muestran solo texto descriptivo',
+    },
+    description: {
+      en: 'Chaos Space Marines and Space Marines have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design). For the remaining 16 factions, traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction as each gets audited.',
+      de: 'Chaos Space Marines und Space Marines haben alle Eigenschaftseffekte vollständig verdrahtet — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und unverwundbarkeit-Rettungswürfe werden live auf der Einheitenkarte berechnet. Chaos-Dämonen-Eigenschaften sind korrekt bewertet (CD hat keine Traits). Für die übrigen 16 Fraktionen werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
+      es: 'Chaos Space Marines y Space Marines tienen todos los efectos de rasgos totalmente implementados. Chaos Demonios no tiene rasgos por diseño. Para las 16 facciones restantes, los rasgos se muestran y valoran correctamente pero sus efectos de stats/habilidades son solo texto descriptivo, no se aplican automáticamente. Se implementará facción por facción.',
+    },
+  },
+  {
+    id: 'ki-26a',
+    status: 'known',
+    title: {
+      en: 'Veteran ability and vehicle upgrade effects shown as text for most factions',
+      de: 'Effekte von Veteranenfähigkeiten und Fahrzeug-Upgrades für die meisten Fraktionen nur als Text',
+      es: 'Efectos de habilidades de veterano y mejoras de vehículo como texto para la mayoría de facciones',
+    },
+    description: {
+      en: 'Veteran Abilities and Vehicle Upgrades are available and correctly priced in all faction armories. For CSM, the ability effects (e.g. Infiltrator granting the rule, Counter-attack enabling the meta-order) are fully wired. For all other factions including SM, the armory items are purchased and priced correctly but the underlying ability logic is display-text only — the unit card shows the description but does not apply the rule effect automatically. Being addressed faction by faction.',
+      de: 'Veteranenfähigkeiten und Fahrzeug-Upgrades sind in allen Fraktions-Rüstkammern verfügbar und korrekt bewertet. Bei CSM sind die Fähigkeitseffekte (z.B. Infiltrator gewährt die Regel) vollständig verdrahtet. Bei allen anderen Fraktionen inkl. SM werden die Armeegegenstände korrekt gekauft und bewertet, aber die Regellogik ist nur Anzeigetext. Wird Fraktion für Fraktion umgesetzt.',
+      es: 'Las Habilidades de Veterano y Mejoras de Vehículo están disponibles y correctamente valoradas en todas las armerías. Para CSM los efectos de habilidad están totalmente implementados. Para el resto de facciones incluyendo SM, los ítems se compran y valoran correctamente pero la lógica de reglas es solo texto descriptivo. Se implementará facción por facción.',
+    },
+  },
+  {
+    id: 'ki-40a',
+    status: 'known',
+    title: {
+      en: 'Archetypes show their rules but not all restrictions are enforced',
+      de: 'Archetypen zeigen ihre Regeln, aber nicht alle Einschränkungen werden durchgesetzt',
+      es: 'Los arquetipos muestran sus reglas pero no todas las restricciones se aplican',
+    },
+    description: {
+      en: 'Archetypes, Legacies and Traits are active for all factions. Archetype-specific restrictions — slot remapping, composition constraints, mark requirements, legacy/trait bans — are fully enforced for Chaos Space Marines, Chaos Daemons, and Space Marines. For other factions the archetype rules are displayed as informational notes; the builder will not currently block you from breaking them. Each faction audit adds its validators.',
+      de: 'Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv und ihre Beschreibungen werden angezeigt. Einige archetyp-spezifische Einschränkungen (z.B. "alle Einheiten müssen in einem Transport beginnen", Pflicht-Einheitenzusammensetzungen, Schlüsselwortfilter) werden jedoch nur für Chaos Space Marines, Chaos Dämonen und Space Marines durchgesetzt. Für andere Fraktionen sind die Archetyp-Hinweise informativer Natur — der Builder blockiert aktuell keine Regelverstöße.',
+      es: 'Los arquetipos, legados y rasgos están activos para todas las facciones y sus descripciones se muestran. Sin embargo, algunas restricciones específicas de arquetipo (por ejemplo, "todas las unidades deben comenzar dentro de un transporte", composiciones de unidades obligatorias, filtros de palabras clave) solo se aplican para Chaos Space Marines, Chaos Demonios y Space Marines. Para el resto de facciones, las notas de arquetipo son informativas — el constructor no bloqueará actualmente que las incumplas.',
+    },
+  },
+  {
+    id: 'ki-p3',
+    status: 'planned',
+    title: {
+      en: 'Unit data migration: per-slot TypeScript files with canonical datasheet text',
+      de: 'Einheitendaten-Migration: TypeScript-Dateien pro Slot mit kanonischem Regeltext',
+      es: 'Migración de datos de unidades: archivos TypeScript por slot con texto canónico de datasheet',
+    },
+    description: {
+      en: 'The next data architecture step: unit data will move from units.json to TypeScript files grouped by slot (hq.ts, troops.ts, elites.ts, etc.) per faction. Each unit definition will have the original datasheet text as a comment above its object, making it immediately visible whether "may swap X" has the replaces field set, whether per_model is correct, etc. This follows the same canonical-text-as-comments pattern already applied to archetypes/traits/legacies engine files. Being planned — not started yet.',
+      de: 'Der nächste Datearchitektur-Schritt: Einheitendaten werden von units.json in TypeScript-Dateien nach Slot (hq.ts, troops.ts, elites.ts usw.) je Fraktion umgezogen. Jede Einheitendefinition erhält den originalen Datenblatttext als Kommentar, sodass sofort sichtbar ist, ob "may swap X" das replaces-Feld hat, ob per_model korrekt ist usw. Wird geplant — noch nicht gestartet.',
+      es: 'El siguiente paso de arquitectura de datos: los datos de unidades se moverán de units.json a archivos TypeScript agrupados por slot (hq.ts, troops.ts, elites.ts, etc.) por facción. Cada definición de unidad tendrá el texto original del datasheet como comentario, haciendo visible si "may swap X" tiene el campo replaces, si per_model es correcto, etc. Siguiendo el mismo patrón de texto canónico ya aplicado a los archivos de arquetipos/rasgos/legados. En planificación — aún no iniciado.',
+    },
+  },
+  {
+    id: 'ki-21a',
+    status: 'planned',
+    title: {
+      en: 'Dark Eldar keyword archetypes (Bloodbrides, Haemoxytes, Trueborn) and trait keyword filters not yet implemented',
+      de: 'Dark Eldar Schlüsselwort-Archetypen (Blutbräute, Hämoxyten, Trueborn) und Eigenschaft-Schlüsselwortfilter noch nicht implementiert',
+      es: 'Arquetipos de palabras clave Dark Eldar (Novias de Sangre, Hemóxitos, Trueborn) y filtros de palabras clave de rasgos aún no implementados',
+    },
+    description: {
+      en: 'These archetypes restrict the army to units with specific keywords (<Cult>, <Coven>, <Kabal>). Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) mark traits that apply only to those keyword groups. The builder does not yet filter units or traits by keyword.',
+      de: 'Diese Archetypen schränken die Armee auf Einheiten mit bestimmten Schlüsselwörtern (<Kult>, <Zirkel>, <Kabal>) ein. Hochgestellte Zeichen bei Eigenschaften (ᶜᵒ, ᶜᵘ, ᴷ) markieren Eigenschaften, die nur für diese Schlüsselwortgruppen gelten. Der Builder filtert Einheiten und Eigenschaften noch nicht nach Schlüsselwort.',
+      es: 'Estos arquetipos restringen el ejército a unidades con palabras clave específicas (<Culto>, <Covén>, <Kabal>). Los superíndices de rasgos (ᶜᵒ, ᶜᵘ, ᴷ) marcan rasgos que solo se aplican a esos grupos de palabras clave. El constructor aún no filtra unidades ni rasgos por palabra clave.',
+    },
+  },
+  {
+    id: 'ki-21c',
+    status: 'planned',
+    title: {
+      en: 'Coordinated Raid (Dark Eldar): 3-HQ requirement with specific roles and 3 keyword-based traits not yet enforced',
+      de: 'Koordinierter Überfall (Dark Eldar): 3-HQ-Anforderung und schlüsselwortbasierte Eigenschaften noch nicht durchgesetzt',
+      es: 'Ataque Coordinado (Dark Eldar): requisito de 3 HQ con roles específicos y 3 rasgos por palabra clave aún sin aplicar',
+    },
+    description: {
+      en: 'Coordinated Raid grants a 3rd HQ slot and requires one Dracon, one Haemoncolus and one Succubus. It also grants a 3rd trait, one per keyword group. These mechanics require new engine support.',
+      de: 'Koordinierter Überfall gewährt einen 3. HQ-Slot und erfordert einen Dracon, einen Hämonkolus und eine Sukkubus. Es gewährt auch eine 3. Eigenschaft, eine pro Schlüsselwortgruppe. Diese Mechaniken erfordern neue Engine-Unterstützung.',
+      es: 'El Ataque Coordinado concede un 3.er slot de HQ y requiere un Dracon, un Haemoncolus y una Súcubo. También concede un 3.er rasgo, uno por grupo de palabras clave. Estas mecánicas requieren nuevo soporte del motor.',
+    },
+  },
+  {
+    id: 'ki-45b',
+    status: 'known',
+    title: {
+      en: 'Platoon Command Squad (Imperial Guard) counts as a Troops slot',
+      de: 'Zugsquadkommando (Imperiale Garde) zählt als Troops-Slot',
+      es: 'El Escuadrón de Mando de Pelotón (Guardia Imperial) cuenta como slot de Tropas',
+    },
+    description: {
+      en: 'The Platoon Command Squad occupies a Troops slot. Per the rules it should not — the full Platoon group (PCS + Infantry Squads) counts as a single slot.',
+      de: 'Das Zugsquadkommando belegt einen Troops-Slot. Gemäß den Regeln sollte es das nicht — die gesamte Zuggruppe (ZSK + Infanterietrupps) zählt als ein einziger Slot.',
+      es: 'El Escuadrón de Mando de Pelotón ocupa un slot de Tropas. Según las reglas no debería — todo el grupo de pelotón (EMP + Escuadrones de Infantería) cuenta como un único slot.',
+    },
+  },
+  {
+    id: 'ki-2',
+    status: 'known',
+    title: {
+      en: 'Army data saves only in this browser',
+      de: 'Armeeedaten werden nur in diesem Browser gespeichert',
+      es: 'Los datos del ejército se guardan solo en este navegador',
+    },
+    description: {
+      en: 'Armies are stored in your browser\'s local storage. Clearing browser data or switching devices will lose your saves. Use Export JSON to back up rosters. A full account/cloud system is being considered for a future update.',
+      de: 'Armeen werden im lokalen Speicher deines Browsers gespeichert. Das Löschen von Browserdaten oder der Gerätewechsel führt zum Datenverlust. Nutze Export JSON, um Armeelisten zu sichern. Ein vollständiges Konto-/Cloud-System wird für eine zukünftige Aktualisierung in Betracht gezogen.',
+      es: 'Los ejércitos se almacenan en el almacenamiento local del navegador. Borrar los datos del navegador o cambiar de dispositivo hará que pierdas tus guardados. Usa Exportar JSON para hacer copias de seguridad. Se está considerando un sistema completo de cuenta/nube para una actualización futura.',
+    },
+  },
+  {
+    id: 'ki-3',
+    status: 'known',
+    title: {
+      en: 'Print layout and app not optimised for mobile or non-Chrome browsers',
+      de: 'Drucklayout und App nicht für Mobilgeräte oder Nicht-Chrome-Browser optimiert',
+      es: 'El diseño de impresión y la app no están optimizados para móviles ni navegadores que no sean Chrome',
+    },
+    description: {
+      en: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
+      de: 'Die App wird derzeit für Desktop Chrome/Edge entwickelt und getestet. Das mobile Layout und die Unterstützung für Firefox/Safari werden verbessert, sobald der Kernfunktionsumfang stabil ist.',
+      es: 'La app está actualmente desarrollada y probada en Chrome/Edge de escritorio. El diseño móvil y el soporte para Firefox/Safari se mejorarán una vez que el conjunto de funciones principal sea estable.',
+    },
+  },
+  {
+    id: 'ki-p1',
+    status: 'planned',
+    title: {
+      en: 'Account system & cloud army storage',
+      de: 'Kontosystem & Cloud-Armeespeicher',
+      es: 'Sistema de cuentas y almacenamiento de ejércitos en la nube',
+    },
+    description: {
+      en: 'A login/account system that lets you save armies in the cloud and access them from any device. Currently being designed — no release date yet.',
+      de: 'Ein Anmelde-/Kontosystem, mit dem du Armeen in der Cloud speichern und von jedem Gerät aus darauf zugreifen kannst. Wird derzeit entwickelt — noch kein Veröffentlichungsdatum.',
+      es: 'Un sistema de inicio de sesión/cuenta que te permite guardar ejércitos en la nube y acceder a ellos desde cualquier dispositivo. Actualmente en diseño — sin fecha de lanzamiento.',
+    },
+  },
+  {
+    id: 'ki-p2',
+    status: 'planned',
+    title: {
+      en: 'Escalation supplement — Lords of War',
+      de: 'Eskalations-Supplement — Kriegsherren',
+      es: 'Suplemento de Escalada — Señores de la Guerra',
+    },
+    description: {
+      en: 'A supplement adding Lords of War, super-heavy vehicles and Titans. The dedicated slot, the Epic Battle engagement and the 33% points cap shipped in v0.51, along with the first units (Chaos) and a browsable catalog on the home screen. Remaining factions\' super-heavies are still being added.',
+      de: 'Ein Supplement, das Kriegsherren, überschwere Fahrzeuge und Titanen hinzufügt. Der eigene Slot, das Engagement "Epische Schlacht" und die 33%-Punktegrenze kamen in v0.51, zusammen mit den ersten Einheiten (Chaos) und einem durchsuchbaren Katalog auf dem Startbildschirm. Die Superschweren der übrigen Fraktionen werden noch hinzugefügt.',
+      es: 'Un suplemento que añade Señores de la Guerra, vehículos superpesados y Titanes. El slot dedicado, el engagement Batalla Épica y el límite del 33% de puntos llegaron en v0.51, junto con las primeras unidades (Caos) y un catálogo navegable en la pantalla de inicio. Los superpesados de las facciones restantes aún se están añadiendo.',
+    },
+  },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // RESOLVED — fixed issues, kept as a historical record
+  // ══════════════════════════════════════════════════════════════════════════
+  {
+    id: 'ki-necrons-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Necrons — 4 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Necrons rules-model digest from the `.ods` canon (added by the user mid-session), ahead of the Fase 4 migration (datasheet spot-checks Warriors + Monolith confirmed production matches the .ods exactly). Necrons\' `armory/general.json` `equipment[]` (37 items) carried the 4 Vehicle Equipment items (Additional armor, Improved targeting, Jammer, Smoke Launcher; idx 33-36) with NO `category` tag. Fixed by tagging all 4 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: Necrons have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units. Build ✓. (This was the 18th and final faction migrated to the Fase 4 5-category model — 19/19 complete.)',
+  },
+  {
+    id: 'ki-tau-empire-vetvehcategory-01',
+    status: 'fixed',
+    title: "T'au Empire — 11 Vehicle Equipment armory items missing category tag",
+    description: "Found while building the T'au Empire rules-model digest from the `.ods` canon, ahead of the Fase 4 migration (datasheet spot-checks Crisis Battlesuits + Hammerhead Gunship confirmed production matches the .ods exactly). T'au's `armory/general.json` `equipment[]` (60 items) carried the 11 Vehicle Equipment items (Blacksun filter, Decoy launchers, Disruption pod, Failsafe detonator, Flechette discharger, Jammer, Landing gear, Multi-tracker, Seeker missile, Smoke Launcher, Target lock; idx 49-59) with NO `category` tag. Fixed by tagging all 11 `category: \"vehicle\"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). IMPORTANT: the 14 Support Systems (idx ~34-48) were deliberately LEFT `category: none` — they are a distinct Tau mechanic (infantry pick one; a \"POINTS HQ\" override column applies), NOT vehicle-only. Several names appear in BOTH Support Systems and Vehicle Equipment (Blacksun filter / Multi-tracker / Target lock / Jammer) — only the contiguous vehicle block (idx 49-59) was tagged. NO veteran-side fix: 0 `has_veteran_abilities` units. Build ✓.",
+  },
+  {
+    id: 'ki-leagues-of-votann-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Leagues of Votann — 7 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Leagues of Votann rules-model digest from the `.ods` canon, ahead of the Fase 4 migration (datasheet spot-checks Hearthkyn Warriors + Hekaton Land Fortress confirmed production matches the .ods exactly). Votann\'s `armory/general.json` `equipment[]` (27 items) carried the 7 Vehicle Equipment items (Accelerated engine, Additional void armor, Ancestor\'s judgement warhead, Improved targeting scanner, Jammer, Refined power cores, Smoke Launcher; idx 20-26) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: Votann have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units. Build ✓.',
+  },
+  {
+    id: 'ki-orks-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Orks — 13 Vehicle Upgrade armory items missing category tag',
+    description: 'Found while building the Orks rules-model digest from the `.ods` canon, ahead of the Fase 4 migration (datasheet spot-checks Boyz + Battlewagon confirmed production matches the .ods exactly). Orks\' `armory/general.json` `equipment[]` (62 items) carried the 13 Vehicle Upgrades (Additional armor, Armored hood, Boarding plank, Death roller, Grab claw, Grot mechanic, Nozzle drive, Red paint, Reinforced battering ram, Smoke launcher, Stikkbombz launcha, Target squig, Wrecking ball; idx 49-61) with NO `category` tag. Fixed by tagging all 13 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). IMPORTANT: the 16 Kustom Jobs (idx 33-48) were deliberately LEFT `category: none` — they are a distinct Ork mechanic (each unique, gated to specific units via prose "Vehicle/Mek/Walker/Spanna/Warbuggy only"), NOT a vehicle-only category (tagging them `category:"vehicle"` would wrongly gate the Mek/character ones to `is_vehicle`). NO veteran-side fix: Orks have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units. Build ✓.',
+  },
+  {
+    id: 'ki-genestealer-cults-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Genestealer Cults — 7 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Genestealer Cults rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. GSC\'s `armory/general.json` `equipment[]` (29 items) carried the 7 Vehicle Equipment items (Additional armor, Flare launcher, Improved targeting, Jammer, Smoke Launcher, Spotter, Survey augur; idx 22-28) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: GSC have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like CD/Sororitas/Dark Eldar/Eldar/Harlequins). Build ✓.',
+  },
+  {
+    id: 'ki-harlequins-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Harlequins — 6 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Harlequins rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Harlequins\' `armory/general.json` `equipment[]` (21 items) carried the 6 Vehicle Equipment items (Holo-field, Improved targeting, Jammer, Night shield, Smoke Launcher, Spirit stones; idx 15-20) with NO `category` tag. Fixed by tagging all 6 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: Harlequins have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like CD/Sororitas/Dark Eldar/Eldar). Build ✓.',
+  },
+  {
+    id: 'ki-eldar-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Eldar — 8 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Eldar rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Eldar\'s `armory/general.json` `equipment[]` (49 items) carried the 8 Vehicle Equipment items (Crystal targeting matrix, Ghostwalk matrix, Holo-field, Improved targeting, Jammer, Spirit stones, Smoke Launcher, Star engines; idx 41-48) with NO `category` tag. Fixed by tagging all 8 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (like AdMech/Sororitas/Custodes/Dark Eldar — no value-move). "Spirit stones" also appears as an equipment-section version (idx 19/46) — only the vehicle block (idx 41-48) was tagged, identified by array position. NO veteran-side fix: Eldar have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like Chaos Daemons/Sororitas/Dark Eldar). Build ✓.',
+  },
+  {
+    id: 'ki-dark-eldar-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Dark Eldar — 7 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Dark Eldar rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Dark Eldar\'s `armory/general.json` `equipment[]` (39 items) carried the 7 Vehicle Equipment items (Additional armor, Bladevanes, Flickerfield, Improved targeting, Night shield, Smoke Launcher, Trophy; idx 32-38) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (like AdMech/Sororitas/Custodes — no value-move; Flickerfield is "-"/null, not selectable). The 6 Combat Drugs (idx 26-31, Adrenalight/Grave lotus/Hypex/Serpentin/Painbringer/Splintermind) were deliberately LEFT `category: none` — they are a separate selectable pool (the Combat drugs army rule), not vehicle/veteran items. NO veteran-side fix: Dark Eldar have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like Chaos Daemons/Sororitas). Build ✓.',
+  },
+  {
+    id: 'ki-custodes-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Adeptus Custodes — 8 Veteran Abilities + 6 Vehicle Equipment armory items missing category/p_veh',
+    description: 'Found while building the Adeptus Custodes rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Custodes\' `armory/general.json` `equipment[]` (34 items) carried the 8 Veteran Abilities (Counter-attack/Favoured enemy/Furious charge/Infiltrator/Outflank/Tank hunter/Terrain expert/Vanguard) + 6 Vehicle Equipment (Additional armor/Hunter-killer missile/Improved targeting/Jammer/Magos-class machine spirit/Smoke Launcher) with NO `category` tag. Fixed: veteran items → `category: "veteran"` + `p_veh` from the `.ods` "POINTS MONSTROUS CREATURES & VEHICLES" column (2 for the six, null for Infiltrator/Vanguard which show "-") + `p_char: null` (the value previously in `p_char` was the misplaced M&V figure — same as the GK/IG twins); vehicle items → `category: "vehicle"` (POINTS already in `p_unit`, like AdMech/Sororitas — no value-move). 17 of 19 Custodes units carry `has_veteran_abilities` (all except the Blade Champion + Knight-Centura HQs), so the veteran tagging is correct here — UNLIKE AdMech, where 0 units had the flag and the analogous Doctrina items were deliberately left untagged. Identified the blocks by array position (veteran idx 20-27, vehicle idx 28-33). Build ✓.',
   },
   {
     id: 'ki-sororitas-vetvehcategory-01',
@@ -93,22 +355,10 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Found while building the AdMech rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. AdMech\'s `armory/general.json` `equipment[]` (42 items) carried the 9 Vehicle Equipment items (Additional armor, Broad spectrum data-tether, Cognis manipulator, Improved targeting, Infoslave skull, Jammer, Machine spirit, Mindscanner probe, Smoke Launcher) with NO `category` tag. Fixed by tagging all 9 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). UNLIKE the IG twin (`ki-ig-vetvehcategory-01`), AdMech\'s vehicle POINTS value was ALREADY correctly in `p_unit` (p_char: null) — so this was pure tagging, no value-move needed. "Infoslave skull" appears twice in equipment[] (equipment-section character version idx 10, p_unit/p_char both 5; vehicle-section version idx 37, p_unit 10) — only the vehicle-section one (idx 37) was tagged, identified by array position (vehicle block = idx 33-41). Build ✓.',
   },
   {
-    id: 'ki-admech-doctrina-gating-01',
-    status: 'known',
-    title: 'Adeptus Mechanicus — Doctrina Imperatives have no per-unit gate (show to any armory unit instead of the 13 with the datasheet option)',
-    description: 'Found while building the AdMech digest (2026-06-11). The 4 Doctrina Imperatives (Aggressor/Bulwark/Conqueror/Protector Imperative) are AdMech\'s veteran-ability analogue, but their canonical gate is the per-datasheet line "The unit may select one Doctrina Imperative" — present on 13 of 29 units (Skitarii Rangers/Vanguard, Secutarii Hoplites/Peltasts, Sicaran Infiltrators/Ruststalkers, Sydonian Skatros, Pteraxii Skystalkers/Sterylizors, Serberys Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). Production carries ZERO `has_veteran_abilities` units (so this is NOT the IG/GK veteran-ability shape that keys off that flag), and the 4 Imperatives sit in `armory/general.json` as `category: none` — meaning they currently surface in the general Armory tab to ANY unit with `has_armory_access`, not just the 13 that may actually take one (and with no enforcement of the "one" cap, or the Veteran Maniple trait\'s "+1"). Deliberately NOT fixed in the same pass as `ki-admech-vetvehcategory-01`: tagging the 4 items `category: "veteran"` WITHOUT first setting a per-unit flag would HIDE them entirely (the veteran tab gates on `has_veteran_abilities`, which 0 units have). Clean model for a dedicated pass: set `has_veteran_abilities: true` + `veteran_max: 1` on the 13 option-carrying units (mirroring the CSM locked-mark `veteran_max:1` pattern; +1 via the Veteran Maniple trait), then tag the 4 items `category: "veteran"` + `p_veh` from the `.ods` "MONSTROUS CREATURES & VEHICLES" column (2 for Aggressor/Bulwark/Conqueror, 0 for Protector) + `p_char: null`. Logged for a multi-unit data pass.',
-  },
-  {
     id: 'ki-ig-vetvehcategory-01',
     status: 'fixed',
     title: 'Imperial Guard — 8 Veteran Abilities + 16 Vehicle Upgrades armory items missing category/p_veh (pre-migration fix)',
     description: 'Found while building the Imperial Guard rules-model digest from the `.ods` canon, ahead of the Fase 4 IG migration — the EXACT twin of `ki-gk-vetvehcategory-01`. IG\'s `armory/general.json` `equipment[]` (50 items) carried the 8 Veteran Abilities (Counter-attack/Favoured enemy/Furious charge/Infiltrator/Outflank/Tank hunter/Terrain expert/Vanguard) + 16 Vehicle Upgrades (Additional armor/Bulldozer blade/Camo net/Chain guard/Heavy stubber/Hunter-killer missile/Improved targeting/Jammer/Macharius cross/Purity seal/Regimental artefact/Seasoned officer/Smoke Launcher/Storm bolter/Twin heavy stubber/Vox) with NO `category` tag (all 50 were `category: none`). Fixed by grounding in the `.ods` (GOLDEN RULE, not copying GK): (a) the 8 veteran items get `category: "veteran"` + `p_veh` from the `.ods` VETERAN ABILITIES table\'s "POINTS MONSTROUS CREATURES & VEHICLES" column (2 for the six, null for Infiltrator/Vanguard which show "-"), with `p_char: null` (that table has only POINTS + M&V columns, no character column — the value previously sitting in `p_char` was the misplaced M&V figure); (b) the 16 vehicle items get `category: "vehicle"` and their single-column `.ods` POINTS value moved from `p_char` into `p_unit` (the engine prices `category:"vehicle"` items off `p_unit × size`, but the parser had put IG\'s flat vehicle cost in `p_char` with `p_unit:null` — they would have priced as 0). IG-specific nuance vs GK: regular IG equipment legitimately uses `p_char` (the Armory has a real "POINTS CHARACTER MODELS" column), so the `p_char` clearing applied ONLY to the 8 veteran rows, and the duplicate equipment-section "Vox" (officer\'s personal vox, p_unit/p_char both null) was left untouched — only the VEHICLE-UPGRADES "Vox" was tagged. Build ✓. Identified the block by array position (idx 26-33 veteran, 34-49 vehicle) to avoid touching the earlier equipment-section name duplicates (Storm bolter/Macharius cross/Purity seal/Seasoned officer/Vox).',
-  },
-  {
-    id: 'ki-ig-psychic-unwired-01',
-    status: 'known',
-    title: 'Imperial Guard — Psikana psychic discipline + Hymns of Battle exist in the .ods canon but are NOT wired into the loader',
-    description: 'Found while building the IG digest (2026-06-11). The `.ods` canon carries a full "Imperial Guard psychic discipline" sheet (Psikana I/II: Mental Strength/Gaze of the Emperor/Nightshroud/Psychic Barrier/Terrifying Visions/Psychic Maelstrom/...) and a "Hymns of Battle" sheet (the Preacher\'s litany system, 5 hymns: Catechism of Repugnance/Chorus of Spiritual Fortitude/Psalm of Righteous Smiting/Refrain of Blazing Piety/War Hymn). IG also has psyker units (Primaris Psyker/Sanctioned Psykers/Astropath, `is_psyker: true`). BUT `src/data/loaders.ts:123` imports only `units.json` + `armory/general.json` + `archetypes.json` for IG — no psychic-disciplines file — and `data/parsed/imperial_guard/psychic/` is empty. Net effect: IG psykers likely fall back to the shared General psychic disciplines only, and the faction-specific Psikana powers + the Preacher\'s Hymns are unrepresented in the builder. Since the `.ods` IS the canon (per the user\'s 2026-06-11 directive "básate en el .ods"), the presence of these sheets means this is a genuine data gap, not an intentional simplification. Scoped separately from the armory fix (larger — needs the Psikana + Hymns parsed into production JSON and wired into the loader, mirroring how GK/Inquisition disciplines load). Logged for a dedicated pass.',
   },
   {
     id: 'ki-gk-vetvehcategory-01',
@@ -129,18 +379,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Systematic Core Rules + Missions audit pass (2026-06-08, task #11 — Missions.txt vs engine). Cross-checked every Skirmish-specific restriction listed in Custom40k Missions.txt (L71-84, "Unit Restrictions" + "Stat & Equipment Caps" + "Abilities & Powers") against `validators.ts`. Most are correctly wired (HQ/Character ≤150 pts, non-Troops ≤300 pts, Squadron→1 model, the 4 equipment-gain stat caps [2+ armour/4+ inv/T8+/Damage 3+], 1 Unique armory item, "all units occupy an AOP slot" via the `advisor` exception at line 36, no Allies, no Archetypes — all grep-confirmed present and grounded). Three were NOT enforced. #1 — "HQ models may not take \'once per army\' upgrades" (Missions.txt L72) — FIXED: grounded the vague "once per army upgrade" wording in the canonical glossary itself (coreRules.ts \'Unique\': "This weapon or wargear may only be included once per army" — i.e. an item with the "Unique" trait IS a "once per army" upgrade by the game\'s own definition; confirmed no armory item anywhere uses the literal phrase "once per army", so Unique is the sole mechanism). Added `skirmishHqUniqueBlocked(arm)` in ArmoryModal.tsx — when `engagement === \'skirmish\'` and the unit\'s `effectiveSlot === \'HQ\'` (now passed down from UnitCard\'s `resolveUnitProfile` result), Unique items are blocked outright for that unit\'s models (a stricter, engagement-scoped variant of the normal `uniqueArmyBlocked` "only if another unit already has it" gate). Wired into `isAddBlocked`. #2 — "No unit may have a combined armour value of 34 or better (sum of Front + Side + Rear; include Quantum Shielding for Necron vehicles)" (Missions.txt L82) — FIXED: added a static datasheet check in the Skirmish validator block (`validators.ts`, right after the Squadron check) summing `u.models[0].stats.FRONT/SIDE/REAR` and erroring at ≥34. Confirmed grounded against real data — Lord of Skulls (13+13+11=37) and Chaos Fellblade (14+13+12=39) both trip it; the canonical "include Quantum Shielding" clause is a no-op here (grepped: zero `stat_mod` entries anywhere target FRONT/SIDE/REAR, and "Quantum Shielding" doesn\'t exist as an item/ability in any faction\'s data — base stats are final and correct). Build ✓ (2.89s). #3 — "No unit may cast more than one psychic power per turn" (Missions.txt L84) — investigated and found to be a BATTLE-MECHANIC (an in-game per-turn casting limit during play), not a list-build selection restriction; analogous to other dismissed battle-mechanics (e.g. "Narthecium once per turn", "Waaagh! once per game") that the engine correctly does not model since it only governs roster composition, not turn-by-turn play. CLOSED as by-design/out-of-scope — user confirmed (2026-06-08): "es una mecanica in game". All 3 sub-items of this KI now resolved.',
   },
   {
-    id: 'ki-allies-owncustomisation-unmodelled-01',
-    status: 'known',
-    title: 'Allied detachments cannot select their own Archetype/Legacy/Traits — engine has one global Army-Customisation slot',
-    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, task #9 — Allies). Core Rules.txt L1828 ("Allies use their own Army Organization Plan (AOP)..." block) explicitly states "Allies may select their own Army Customisation options" — implying the allied detachment can pick its OWN Archetype/Legacy/Traits, separate and independent from the primary faction\'s selection. Traced the engine architecture: `ArmyState` (types/army.ts lines 82-84) has exactly ONE global `archetype: string` / `legacy: string` / `legacy2: string` for the whole roster (no `alliedArchetype`/`alliedLegacy` fields), and `resolveBase` (resolver.ts line 172) calls `getArchetypeRule(state.archetype)` uniformly for every unit regardless of `item.factionSource` — i.e. the single chosen Archetype\'s slot-remaps/grants apply identically to primary AND allied-detachment units (or, more likely in practice, allied units simply ignore an archetype that isn\'t theirs, since archetype rules gate on faction-specific keywords per `_engine.md` line 56-58 "Traits hit only the `Chaos Space Marine` keyword"). Either way, there is no UI/state path for a player to grant the ALLIED faction its own independent Archetype/Legacy/Trait picks. Net effect: an allied detachment can never benefit from its own faction\'s Army Customisation — a real modeled-vs-canonical gap, not a false alarm (distinct from the already-resolved "second AOC for allies" question, which concerns AOP slot multipliers, not Customisation selection itself). Flagging for the codex.ts pass — likely needs a second `{ archetype, legacy, legacy2 }` selection scoped to `state.alliedFaction`, gated the same way (Skirmish has no allies at all, so this only matters for Pitched/Epic).',
-  },
-  {
-    id: 'ki-skirmish-secondaop-textcontradiction-01',
-    status: 'by_design',
-    title: 'Skirmish AOP rules text discusses "eligibility for a second AOP" — CONFIRMED vestigial/inapplicable text; multiAop:false is correct',
-    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, task #9 — Army Organization). Custom40k Missions.txt\'s Skirmish section (1000-1500 pts) has its own "Army Organisation Plan (AOP) Rules" subsection whose only bullet reads: "If a faction cannot fill a slot due to these restrictions, that slot counts as filled when determining eligibility for a second Army Organisation Plan (AOP)." Originally flagged because `engine/engagements.ts` sets `skirmish: { multiAop: false, ... }`, which short-circuits any second-AOP path for Skirmish — making the clause seem permanently unreachable (two readings proposed: vestigial template residue vs. a real unenforced path). USER CONFIRMED reading (a) on 2026-06-08, by pointing at the canonical Allies block (Core Rules.txt ~L1819-1828): a "second AOC/AOP" in this ruleset is realized specifically by bringing in an ALLIED detachment — the ally fields its own separate reduced AOP (0-1 HQ/1-2 Tr/0-1 E·FA·HS per Troop/0-ᵀ Transport), and the canonical text explicitly states "Allies cannot select a second AOC after filling all available slots" (i.e. the allied detachment\'s own AOP IS the "second AOC" concept this whole family of clauses is talking about — not a doubling-up of a single faction\'s own AOP). Since Skirmish bans Allies outright ("Skirmish = no allies", `_engine.md`), there is structurally no way to ever field a second detachment/AOP in Skirmish — the mechanic the clause refers to cannot exist in that engagement type. The Missions.txt Skirmish bullet is therefore confirmed copy-paste residue from the Pitched/Epic AOP-rules template ("dead text" with no possible trigger), and `multiAop: false` for Skirmish is CORRECT as coded — no fix needed. Resolved via user confirmation, not engine change.',
-  },
-  {
     id: 'ki-csm-summoning-mandatoryaop-01',
     status: 'fixed',
     title: 'CSM Summoning rule — "Chaos Daemons cannot fulfill mandatory AOP selections" was unenforced',
@@ -153,28 +391,10 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Investigated 2026-06-08 after the user asked whether "Animosity of the Gods" was fully implemented. The army-wide Mark-compatibility table (which HQ Mark allows which other Marks in the army) IS enforced and matches the canonical matrix exactly (animosity.json + validators.ts allowedMarks — Khorne/Slaanesh and Nurgle/Tzeentch are the only rival pairs). However, the separate clause "a model with a Mark of Chaos may only join a unit that has the same Mark, or no Mark" was NOT checked anywhere — `UnitCard.tsx`\'s `joinableUnits` filter only checked `is_character`/`is_vehicle`/`is_monster`, never marks. The digest wrongly labels this whole rule "(VALIDATED 2026-06-03)" — only the table part was validated. Net effect: a Khorne character could be attached to a Slaanesh unit in the UI with no warning. FIXED same session for CSM: added a join-time mark check to the `joinableUnits` filter — resolves each candidate unit\'s effective mark the same way the engine does (`eu.locked_mark ?? rule?.forcedMark ?? e.mark`, mirroring `resolveBase`\'s `effectiveMark` formula in resolver.ts) and excludes it from the dropdown if it carries a different mark than the joining character\'s own `effectiveMark`. Units with no mark remain joinable (matches "...or no Mark").\n\nEXTENDED TO CHAOS DAEMONS later the same session, during the Fase 4 codex migration: re-reading `chaos_daemons.md` §4b for the CD_SPECIAL_ABILITIES catalogue surfaced that CD\'s OWN canonical text (Index.html, Army Customisation) carries the verbatim-identical clause — "a character with a mark may only attach to units of the same mark or no mark" — under CD\'s own Animosity of the Gods rule, not borrowed from CSM. The original fix\'s scoping comment ("CSM-specific... other factions e.g. Chaos Daemons aren\'t gated by it") was WRONG about CD\'s text — it had simply not been checked at the time. Corrected by extending the `data.faction === \'Chaos Space Marines\'` guard to `|| data.faction === \'Chaos Daemons\'` (same mark-resolution formula applies — CD\'s `effectiveMark` is produced by the same generic `resolveBase`). Both factions now enforce their own copy of this rule identically. Build ✓.',
   },
   {
-    id: 'ki-missions-transportcap-hardcoded-01',
-    status: 'known',
-    title: 'Dedicated Transport AOP cap (Pitched/Epic main AOP AND Allied mini-AOP) is a flat "3" instead of "1 per Infantry-type selection"',
-    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, before building per-faction codex.ts). Custom40k Missions.txt states the Pitched Battle and Epic Battle AOP as "0-ᵀ Dedicated Transports* ... ᵀ A dedicated transport vehicle may be chosen for each \'Infantry\' type selection" — a count that should scale dynamically with how many Infantry-type units are in the army (Skirmish, by contrast, genuinely IS a flat "0-1" per the canonical text — that one is correct as coded). The digest `rules-model/_engine.md` §1 correctly documents this as "0-ᵀ (1 per Infantry)", but `engine/engagements.ts` hardcodes `\'Dedicated Transport\': [0, 3]` for both Pitched and Epic — a fixed approximation with no derivation logic anywhere (grepped validators.ts/engagements.ts for "Infantry"/"infantryCount" — no matches; the slot is explicitly excluded from the generic max-check at validators.ts:1056 `slot !== \'Dedicated Transport\'`, and nothing replaces that check with an Infantry-count-derived one). Net effect: an army with 1 Infantry-type selection could currently take up to 3 transports (too permissive), while an army with 6 could only take 3 (too restrictive). SECOND OCCURRENCE found during the Army Organization/Allies audit pass (task #9): `ALLIED_AOP[\'Dedicated Transport\']` (engagements.ts line 41) is ALSO hardcoded to `[0, 3]` — and Core Rules.txt L1819-1825 (canonical Allies AOP) confirms allied detachments use the exact same dynamic "0-ᵀ Transports" rule, not a flat number, so this is the identical bug in a second spot, not a separate one.\n\nUSER RESOLVED the interpretation question on 2026-06-08: "\'Infantry\' type selection" for the Dedicated Transport count means STRICTLY `unit_type === "Infantry"` — the Infantry-ACTING subtypes (Bike/Character Model/Jet Bike/Jump Pack Infantry/Monstrous Infantry, each "Acts like Infantry, with the following exceptions" per Core Rules.txt L664-750) "count as Infantry for other rules, but NOT for transport [purposes]" (verbatim user clarification). So the dynamic count must filter on the exact "Infantry" unit-type string only, excluding all Infantry-acting subtypes — a narrower derivation than a naive keyword/category match would produce. Still needs a grounded fix (replace the flat `[0, 3]` with a count derived from `unit_type === "Infantry"` selections) for both the main Pitched/Epic AOP and `ALLIED_AOP`; for the allied mini-AOP the count should be scoped to the allied detachment\'s own Infantry selections (consistent with "Allies use their own AOP" being a fully separate, self-contained roster). Ready to implement in the codex.ts pass — interpretation no longer open.',
-  },
-  {
-    id: 'ki-corerules-jumppack-ability-undefined-01',
-    status: 'known',
-    title: 'Core Rules glossary — "Jump pack" model special rule referenced but never defined in canonical text',
-    description: 'While building the structured Special-Rules query layer (engine/specialRules.ts, pilot for the Anti-Air target-group cross-reference), found that "Jump pack" is referenced TWICE as a model special rule in Custom40k Core Rules.txt — L551 ("Units may move over [difficult terrain] if they have the Anti-Grav or Jump pack ability") and L1331 (Anti-Air: "...models with the Anti-Grav, Jet Bike, or Jump Pack special rules or the Flyer unit type...") — and is granted by armory items (the GK Teleporter per the v0.51 changelog: "+6\\" Movement and the \'Jump pack\' ability"). It is DISTINCT from "Jump Pack Infantry" the unit TYPE (which IS fully defined at Core L714-718: "Acts like Infantry... Ignores terrain... Gains Deep Strike"). But "Jump pack" the standalone special rule has NO definition/description block anywhere in the Core Rules text available — it never made it into coreRules.ts RULES (~120 entries). Likely Codex/army-level (FAQ #5: Codex overrides Core), defined wherever it is granted rather than in the Core glossary. Per GOLDEN RULE — not inventing a description. Needs the user to locate/paste the canonical "Jump pack" rule text (Codex source, GK Teleporter datasheet, or wherever it is formally defined) so coreRules.ts can gain a grounded entry; until then engine/specialRules.ts isAntiAirTarget() correctly treats it as "no glossary entry → cannot confirm a unit has it" rather than guessing.',
-  },
-  {
     id: 'ki-csm-vehiclearmory-01',
     status: 'fixed',
     title: 'CSM — 14 Vehicle units wrongly granted general armory access instead of vehicle-equipment-only',
     description: 'has_armory_access:true opens the GENERAL armory tab (Daemon weapon, Daemonic armor, Familiar, and any other uncategorised item — only category:"vehicle"/"veteran" entries are restricted). 14 CSM Vehicle units (Chaos Land Raider/Predator/Vindicator, Chaos Rhino, Defiler, Dreadclaw Drop Pod, Foetid Bloat-Drone, Forgefiend, Helbrute, Heldrake, Maulerfiend, Myphitic Blight-hauler, Plagueburst Crawler, Venomcrawler) carried has_armory_access:true, but their canonical OPTIONS line reads "Has access to vehicle equipment from the Armory" — a DISTINCT, narrower grant from the "weapons and gear from the Armory" phrase used on CSM characters (Sorcerer/Dark Apostle/etc.). "Vehicle equipment" = the Vehicle Upgrades list only, which these units already see automatically via is_vehicle + category:"vehicle" items (UnitCard.tsx hasFactionVehicleItems — fully independent of has_armory_access). The true value wrongly let these vehicles buy Daemon weapons and other general-armory items not meant for them — exactly the access-control gap flagged by the rules designer (atypicalhero) in a Discord clarification: "[Daemon weapons] can be equipped by vehicles and monsters only if the model has access to gear from the armory. Vehicles usually do not have that." FIXED 2026-06-07: flipped all 14 to has_armory_access:false (Vehicle Upgrades access unaffected). Each file\'s SOURCE/ENGINE STATUS comment corrected to ground the new value in the verbatim "vehicle equipment" phrase (the earlier SOURCE-pass note had wrongly assumed the flag itself was vehicle-scoped). Phrase-grounding audit is being extended to the other unit types/factions (see ki-armorygrant-phrasecheck-01).',
-  },
-  {
-    id: 'ki-armorygrant-phrasecheck-01',
-    status: 'known',
-    title: 'Cross-faction — has_armory_access/champion_has_armory may not be grounded in the exact canonical access-grant phrase everywhere',
-    description: 'The CSM vehicle audit (ki-csm-vehiclearmory-01) revealed a clean two-phrase dichotomy in canonical CSM datasheet text: "Has access to weapons and gear from the Armory" (general access → has_armory_access:true is correct) vs. "Has access to vehicle equipment from the Armory" (narrower — Vehicle Upgrades list only, NOT general armory → has_armory_access should be false, since vehicle-equipment access is automatic via is_vehicle). The user broadened scope: "tienes que revisar todo, en caso que pase con otro tipo de unidades que no sean vehículos o monstruos" — every unit\'s verbatim ability/options text states exactly what armory access it has (e.g. Helbrute is type "Walker" but its text still reads "vehicle equipment", confirming the grant is access-based, not type-name-based). Plan: re-run the same verbatim-phrase scan + flag-grounding check across Space Marines, Grey Knights, Inquisition, Chaos Daemons, then the remaining factions, for ALL unit types (not just Vehicle/Monster) — champion-level "access to the armory" grants and any other access-scoping phrases included.',
   },
   {
     id: 'ki-inquisition-ordo-exclusivity-01',
@@ -273,12 +493,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Per the SM Armory.html rule "Models wearing Gravis armor can only receive equipment with ᴳ", a Gravis-armoured model should be restricted to the ᴳ-tagged subset of the armory (mirroring the ᵀ/Terminator gate). Previously the ᵀ gate was enforced but there was no equivalent Gravis filter: gravis_compat was consumed only as a display badge, never as a filter, and no SM unit carried an innate Gravis keyword — so native-Gravis units could buy non-ᴳ wargear. Fixed v0.51: added modelRestrictsToGravisSubset (engine/keywords.ts) — fires on an innate Gravis armourKeyword, a bought "Gravis armor" equipment item, or the baked "Gravis armor" ability — and filterGravisCompat in ArmoryModal, composed into all three armory tabs (general / mark / legion) exactly like filterTermCompat. The 4 native-Gravis units (Heavy Intercessor, Aggressor, Inceptor, Eradicator) were tagged armourKeyword:"Gravis". Already-bought items stay visible so they remain removable. Gravis and Terminator are mutually exclusive ("not combinable"), so at most one subset gate applies. (The earlier ki-46d note that the tag "restricts to Gravis models only" is now actually true.)',
   },
   {
-    id: 'ki-escalation-wardog-dualswap-display-01',
-    status: 'known',
-    title: 'Escalation — War Dog "swap both Reaper chaintalons" leaves the base profile on the card',
-    description: 'The War Dog carries two Reaper chaintalons, each swappable independently (modelled as two choose-one groups, no replaces). The displayed-weapon list shows weapon profiles, not per-instance counts, so the base "Reaper chaintalon" profile is always shown while either chaintalon remains, and a swapped-in weapon is added alongside. If BOTH chaintalons are swapped, the Reaper chaintalon profile still lingers on the card (cosmetic only — points are always correct). A faithful fix needs per-instance weapon counting in the resolver, which the current profile-list model does not support.',
-  },
-  {
     id: 'ki-csm-traitorguard-swap-01',
     status: 'fixed',
     title: 'CSM — Traitor Guard "Lasgun → Chainsword + Laspistol" swap has empty choices',
@@ -307,12 +521,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     status: 'fixed',
     title: 'Horus Heresy — ᵀ superscript collides with the Mark-of-Tzeentch glyph',
     description: 'In the HH armory the ᵀ superscript marks Terminator-compatible wargear (term_compat); in the CD/CSM armory the same ᵀ glyph marks Mark-of-Tzeentch items. Because HH is injected into a CSM host where Tzeentch marks coexist, the engine must scope the superscript per source so an HH terminator-ᵀ item is never read as Tzeentch-gated (or vice-versa). FIXED (v0.51): ArmoryModal scopes mark-reading per source via a markless flag — isMarklessFaction (active armory data is the HH supplement) and legMarkless(legName) (the archetype-granted HH legion tab). markless threads through EquipmentGroups → ArmoryItemRow so getRequiredMark / mark-badge / name-glyph-strip are suppressed, and isMarkBlocked early-returns false. HH items are treated as mark-less, so no HH item can be gated by or badged with a Chaos Mark. Empirically the collision was already unreachable (no HH armory item name ends in a mark glyph; HH carries no armory_marks/armory_legions; term_compat is a boolean field, not a name suffix) — this is a rules-faithful, future-proof guard.',
-  },
-  {
-    id: 'ki-hh-armourslot-01',
-    status: 'known',
-    title: 'Horus Heresy — innate-armour units bake the profile differently than CSM (no innate armourKeyword tagged)',
-    description: 'The CSM innate-armour swap fix (ki-csm-armourslot-01, v0.51) tags units whose base profile already bakes in the armour bonuses (+1 T/+1 A/2+). The HH Legion Terminator Cataphractii Squad instead lists T4/A2/2+ with a 4+ invuln ability — i.e. the +1 T/+1 A is NOT baked into T/A the way CSM Terminators are. Because the baked semantics differ and the rules source for HH armour bonuses needs a separate check, no innate armourKeyword was set on HH units yet; if an HH innate-armour unit can buy a conflicting armour, the same double-count could occur. Needs a rules pass on HH armour profiles before tagging.',
   },
   {
     id: 'ki-cd-slotshift-01',
@@ -351,12 +559,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Both done v0.51. (1) Grey Knights Teleporter: the option on Captain in Nemesis Armor (+54) and Nemesis Dreadknight (+36) now carries an OptionEffect granting the "Jump pack" ability + 6" Movement (grants_abilities + stat_mod — it grants the Jump pack RULE, not the "Jump Pack Infantry" TYPE; both units stay Monstrous Creature). "Shunt" is not re-granted because each unit already lists it (with its full "24 inch once per game" description) as a base ability, and grants_abilities carries names only — re-granting would duplicate it on the card. (2) Casing: a one-off pass (scripts/_normalize_unit_types.cjs, dry-run reviewed then applied) normalized the unit_type field to the Core-Rules title-case vocabulary — Monstrous Creature, Jump Pack Infantry, Monstrous Infantry, Character Model, Jet Bike — across 154 fields in 18 production factions. Display-only (no logic keys off the string; is_vehicle/is_monster are separate booleans). Touched only unit_type values via a line-level replace (option-header text and *_html*.json parser-scratch left untouched). Residual non-casing data-quality findings logged separately (ki-unittype-residuals-01).',
   },
   {
-    id: 'ki-unittype-residuals-01',
-    status: 'known',
-    title: 'Residual unit-type data-quality issues — partial fix in v0.54 (display only)',
-    description: 'FIXED in v0.54: (a) "Montrous Creature" misspelling → "Monstrous Creature" in Tyranids (4 units); (d) "Super-Heavy Vehicle" → "Super-heavy Vehicle" in Orks Battle Fortress; (e) literal "KEYWORD" placeholder stripped from Necrons (21) and Tau/Kroot (11) unit_type fields. OPEN: (b) "Jetbike" (one word) in Custodes coexists with "Jet Bike" — verify against Custodes source before changing; (c) standalone "Jump pack" pseudo-type in Tau unit_type fields (Crisis Suits, Broadside etc.) — needs Tau source grounding (also standalone "Jump pack" in Eldar line 3377). None of the open items affect points or legality.',
-  },
-  {
     id: 'ki-parser-01',
     status: 'fixed',
     title: 'CSM — Daemon Prince not flagged as character (is_character: false)',
@@ -387,81 +589,10 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Fixed in v0.47 — Wolf Companions is a valid Space Wolves unit (Fast Attack, 1–4 models, 6 pts, Bike type, Claws & Teeth melee weapon). Confirmed from source document.',
   },
   {
-    id: 'ki-22a',
-    status: 'known',
-    title: {
-      en: 'Trait effects wired for CSM and SM — other factions show description text only',
-      de: 'Eigenschafts-Effekte für CSM und SM verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
-      es: 'Efectos de rasgos implementados para CSM y SM — otras facciones muestran solo texto descriptivo',
-    },
-    description: {
-      en: 'Chaos Space Marines and Space Marines have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design). For the remaining 16 factions, traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction as each gets audited.',
-      de: 'Chaos Space Marines und Space Marines haben alle Eigenschaftseffekte vollständig verdrahtet — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und unverwundbarkeit-Rettungswürfe werden live auf der Einheitenkarte berechnet. Chaos-Dämonen-Eigenschaften sind korrekt bewertet (CD hat keine Traits). Für die übrigen 16 Fraktionen werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
-      es: 'Chaos Space Marines y Space Marines tienen todos los efectos de rasgos totalmente implementados. Chaos Demonios no tiene rasgos por diseño. Para las 16 facciones restantes, los rasgos se muestran y valoran correctamente pero sus efectos de stats/habilidades son solo texto descriptivo, no se aplican automáticamente. Se implementará facción por facción.',
-    },
-  },
-  {
-    id: 'ki-26a',
-    status: 'known',
-    title: {
-      en: 'Veteran ability and vehicle upgrade effects shown as text for most factions',
-      de: 'Effekte von Veteranenfähigkeiten und Fahrzeug-Upgrades für die meisten Fraktionen nur als Text',
-      es: 'Efectos de habilidades de veterano y mejoras de vehículo como texto para la mayoría de facciones',
-    },
-    description: {
-      en: 'Veteran Abilities and Vehicle Upgrades are available and correctly priced in all faction armories. For CSM, the ability effects (e.g. Infiltrator granting the rule, Counter-attack enabling the meta-order) are fully wired. For all other factions including SM, the armory items are purchased and priced correctly but the underlying ability logic is display-text only — the unit card shows the description but does not apply the rule effect automatically. Being addressed faction by faction.',
-      de: 'Veteranenfähigkeiten und Fahrzeug-Upgrades sind in allen Fraktions-Rüstkammern verfügbar und korrekt bewertet. Bei CSM sind die Fähigkeitseffekte (z.B. Infiltrator gewährt die Regel) vollständig verdrahtet. Bei allen anderen Fraktionen inkl. SM werden die Armeegegenstände korrekt gekauft und bewertet, aber die Regellogik ist nur Anzeigetext. Wird Fraktion für Fraktion umgesetzt.',
-      es: 'Las Habilidades de Veterano y Mejoras de Vehículo están disponibles y correctamente valoradas en todas las armerías. Para CSM los efectos de habilidad están totalmente implementados. Para el resto de facciones incluyendo SM, los ítems se compran y valoran correctamente pero la lógica de reglas es solo texto descriptivo. Se implementará facción por facción.',
-    },
-  },
-  {
-    id: 'ki-40a',
-    status: 'known',
-    title: {
-      en: 'Archetypes show their rules but not all restrictions are enforced',
-      de: 'Archetypen zeigen ihre Regeln, aber nicht alle Einschränkungen werden durchgesetzt',
-      es: 'Los arquetipos muestran sus reglas pero no todas las restricciones se aplican',
-    },
-    description: {
-      en: 'Archetypes, Legacies and Traits are active for all factions. Archetype-specific restrictions — slot remapping, composition constraints, mark requirements, legacy/trait bans — are fully enforced for Chaos Space Marines, Chaos Daemons, and Space Marines. For other factions the archetype rules are displayed as informational notes; the builder will not currently block you from breaking them. Each faction audit adds its validators.',
-      de: 'Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv und ihre Beschreibungen werden angezeigt. Einige archetyp-spezifische Einschränkungen (z.B. "alle Einheiten müssen in einem Transport beginnen", Pflicht-Einheitenzusammensetzungen, Schlüsselwortfilter) werden jedoch nur für Chaos Space Marines, Chaos Dämonen und Space Marines durchgesetzt. Für andere Fraktionen sind die Archetyp-Hinweise informativer Natur — der Builder blockiert aktuell keine Regelverstöße.',
-      es: 'Los arquetipos, legados y rasgos están activos para todas las facciones y sus descripciones se muestran. Sin embargo, algunas restricciones específicas de arquetipo (por ejemplo, "todas las unidades deben comenzar dentro de un transporte", composiciones de unidades obligatorias, filtros de palabras clave) solo se aplican para Chaos Space Marines, Chaos Demonios y Space Marines. Para el resto de facciones, las notas de arquetipo son informativas — el constructor no bloqueará actualmente que las incumplas.',
-    },
-  },
-  {
     id: 'ki-26b',
     status: 'fixed',
     title: 'Psychic power access rules not yet enforced per psyker',
     description: 'Fixed in v0.32 — Chaos Daemons psyker discipline access enforced per unit from ability text. CSM/other factions enforce mark-based discipline filtering (only see god discipline when matching mark is active). General factions: discipline tabs already filtered by mark and legacy.',
-  },
-  // ── Planned ───────────────────────────────────────────────────────────────
-  {
-    id: 'ki-p3',
-    status: 'planned',
-    title: {
-      en: 'Unit data migration: per-slot TypeScript files with canonical datasheet text',
-      de: 'Einheitendaten-Migration: TypeScript-Dateien pro Slot mit kanonischem Regeltext',
-      es: 'Migración de datos de unidades: archivos TypeScript por slot con texto canónico de datasheet',
-    },
-    description: {
-      en: 'The next data architecture step: unit data will move from units.json to TypeScript files grouped by slot (hq.ts, troops.ts, elites.ts, etc.) per faction. Each unit definition will have the original datasheet text as a comment above its object, making it immediately visible whether "may swap X" has the replaces field set, whether per_model is correct, etc. This follows the same canonical-text-as-comments pattern already applied to archetypes/traits/legacies engine files. Being planned — not started yet.',
-      de: 'Der nächste Datearchitektur-Schritt: Einheitendaten werden von units.json in TypeScript-Dateien nach Slot (hq.ts, troops.ts, elites.ts usw.) je Fraktion umgezogen. Jede Einheitendefinition erhält den originalen Datenblatttext als Kommentar, sodass sofort sichtbar ist, ob "may swap X" das replaces-Feld hat, ob per_model korrekt ist usw. Wird geplant — noch nicht gestartet.',
-      es: 'El siguiente paso de arquitectura de datos: los datos de unidades se moverán de units.json a archivos TypeScript agrupados por slot (hq.ts, troops.ts, elites.ts, etc.) por facción. Cada definición de unidad tendrá el texto original del datasheet como comentario, haciendo visible si "may swap X" tiene el campo replaces, si per_model es correcto, etc. Siguiendo el mismo patrón de texto canónico ya aplicado a los archivos de arquetipos/rasgos/legados. En planificación — aún no iniciado.',
-    },
-  },
-  {
-    id: 'ki-21a',
-    status: 'planned',
-    title: {
-      en: 'Dark Eldar keyword archetypes (Bloodbrides, Haemoxytes, Trueborn) and trait keyword filters not yet implemented',
-      de: 'Dark Eldar Schlüsselwort-Archetypen (Blutbräute, Hämoxyten, Trueborn) und Eigenschaft-Schlüsselwortfilter noch nicht implementiert',
-      es: 'Arquetipos de palabras clave Dark Eldar (Novias de Sangre, Hemóxitos, Trueborn) y filtros de palabras clave de rasgos aún no implementados',
-    },
-    description: {
-      en: 'These archetypes restrict the army to units with specific keywords (<Cult>, <Coven>, <Kabal>). Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) mark traits that apply only to those keyword groups. The builder does not yet filter units or traits by keyword.',
-      de: 'Diese Archetypen schränken die Armee auf Einheiten mit bestimmten Schlüsselwörtern (<Kult>, <Zirkel>, <Kabal>) ein. Hochgestellte Zeichen bei Eigenschaften (ᶜᵒ, ᶜᵘ, ᴷ) markieren Eigenschaften, die nur für diese Schlüsselwortgruppen gelten. Der Builder filtert Einheiten und Eigenschaften noch nicht nach Schlüsselwort.',
-      es: 'Estos arquetipos restringen el ejército a unidades con palabras clave específicas (<Culto>, <Covén>, <Kabal>). Los superíndices de rasgos (ᶜᵒ, ᶜᵘ, ᴷ) marcan rasgos que solo se aplican a esos grupos de palabras clave. El constructor aún no filtra unidades ni rasgos por palabra clave.',
-    },
   },
   {
     id: 'ki-21b',
@@ -470,26 +601,11 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Fixed in v0.22 — CSM traits now only apply to units carrying the "Chaos Space Marine" keyword. Cultists, Chaos Spawn, World Eaters, Death Guard, Thousand Sons, and daemon engines are excluded.',
   },
   {
-    id: 'ki-21c',
-    status: 'planned',
-    title: {
-      en: 'Coordinated Raid (Dark Eldar): 3-HQ requirement with specific roles and 3 keyword-based traits not yet enforced',
-      de: 'Koordinierter Überfall (Dark Eldar): 3-HQ-Anforderung und schlüsselwortbasierte Eigenschaften noch nicht durchgesetzt',
-      es: 'Ataque Coordinado (Dark Eldar): requisito de 3 HQ con roles específicos y 3 rasgos por palabra clave aún sin aplicar',
-    },
-    description: {
-      en: 'Coordinated Raid grants a 3rd HQ slot and requires one Dracon, one Haemoncolus and one Succubus. It also grants a 3rd trait, one per keyword group. These mechanics require new engine support.',
-      de: 'Koordinierter Überfall gewährt einen 3. HQ-Slot und erfordert einen Dracon, einen Hämonkolus und eine Sukkubus. Es gewährt auch eine 3. Eigenschaft, eine pro Schlüsselwortgruppe. Diese Mechaniken erfordern neue Engine-Unterstützung.',
-      es: 'El Ataque Coordinado concede un 3.er slot de HQ y requiere un Dracon, un Haemoncolus y una Súcubo. También concede un 3.er rasgo, uno por grupo de palabras clave. Estas mecánicas requieren nuevo soporte del motor.',
-    },
-  },
-  {
     id: 'ki-21d',
     status: 'fixed',
     title: 'Mechanised Company: max 1 Heavy Support selection not enforced',
     description: 'Fixed in v0.22 — a validator now raises an error if more than 1 Heavy Support unit is added under the Mechanised Company archetype.',
   },
-  // ── Known ─────────────────────────────────────────────────────────────────
   {
     id: 'ki-45a',
     status: 'fixed',
@@ -505,21 +621,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     },
   },
   {
-    id: 'ki-45b',
-    status: 'known',
-    title: {
-      en: 'Platoon Command Squad (Imperial Guard) counts as a Troops slot',
-      de: 'Zugsquadkommando (Imperiale Garde) zählt als Troops-Slot',
-      es: 'El Escuadrón de Mando de Pelotón (Guardia Imperial) cuenta como slot de Tropas',
-    },
-    description: {
-      en: 'The Platoon Command Squad occupies a Troops slot. Per the rules it should not — the full Platoon group (PCS + Infantry Squads) counts as a single slot.',
-      de: 'Das Zugsquadkommando belegt einen Troops-Slot. Gemäß den Regeln sollte es das nicht — die gesamte Zuggruppe (ZSK + Infanterietrupps) zählt als ein einziger Slot.',
-      es: 'El Escuadrón de Mando de Pelotón ocupa un slot de Tropas. Según las reglas no debería — todo el grupo de pelotón (EMP + Escuadrones de Infantería) cuenta como un único slot.',
-    },
-  },
-  // ── Fixed (v0.20) ─────────────────────────────────────────────────────────
-  {
     id: 'ki-20a',
     status: 'fixed',
     title: 'Space Marines armory: Gravis-compatible items showed a raw "ᴳ" character instead of a keyword badge',
@@ -531,7 +632,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Adeptus Sororitas — "The Holy Trinity" legacy applied no traits and added no points',
     description: 'Fixed in v0.20 — selecting The Holy Trinity now automatically grants Raging Fervour, Rites of Fire and Unshakable Vengeance to all eligible units at a combined cost of 10 pts per non-character unit.',
   },
-  // ── Fixed (v0.19) ─────────────────────────────────────────────────────────
   {
     id: 'ki-19a',
     status: 'fixed',
@@ -550,7 +650,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Students of Vaul, Interplanetary Invasors and Big Red Button vehicle traits had no points cost',
     description: 'Fixed in v0.19 — these three vehicle-only traits were showing a +0 pts cost due to a data import miss. All now correctly apply +5 pts per vehicle.',
   },
-  // ── Fixed (v0.18) ─────────────────────────────────────────────────────────
   {
     id: 'ki-18a',
     status: 'fixed',
@@ -569,7 +668,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Incorrect ability entries on Orks vehicles and several other factions',
     description: 'Fixed in v0.18 — minor bug fix affecting 10+ factions: various incorrect, duplicate, or corrupted ability entries were showing up in unit cards and the printed summary (e.g. date strings, dice notation, typos, placeholder text). All cleaned up.',
   },
-  // ── Fixed (v0.17) ─────────────────────────────────────────────────────────
   {
     id: 'ki-17a',
     status: 'fixed',
@@ -582,7 +680,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Grey Knights — Shrouding, They Shall Know No Fear, True Grit show no description',
     description: 'Fixed in v0.17 — these three Grey Knights special rules were stored as bare names in the unit data and had no entry in the core rules glossary. Full descriptions added.',
   },
-  // ── Fixed (v0.16) ─────────────────────────────────────────────────────────
   {
     id: 'ki-16c',
     status: 'fixed',
@@ -601,42 +698,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Mechanised Company — transports not counted toward 25% Troops',
     description: 'Fixed in v0.16 — when the Mechanised Company archetype is active, Dedicated Transports now contribute 50% of their points toward the 25% Troops requirement, matching the archetype rules.',
   },
-  // ── Open ──────────────────────────────────────────────────────────────────
   {
     id: 'ki-1',
     status: 'fixed',
     title: 'Some units are missing from certain factions',
     description: 'Unit coverage has been verified for Chaos Space Marines — all Daemon Engines and subfaction units are now present. Other factions have been audited progressively. Report a specific missing unit with the Bug button if you find a gap.',
   },
-  {
-    id: 'ki-2',
-    status: 'known',
-    title: {
-      en: 'Army data saves only in this browser',
-      de: 'Armeeedaten werden nur in diesem Browser gespeichert',
-      es: 'Los datos del ejército se guardan solo en este navegador',
-    },
-    description: {
-      en: 'Armies are stored in your browser\'s local storage. Clearing browser data or switching devices will lose your saves. Use Export JSON to back up rosters. A full account/cloud system is being considered for a future update.',
-      de: 'Armeen werden im lokalen Speicher deines Browsers gespeichert. Das Löschen von Browserdaten oder der Gerätewechsel führt zum Datenverlust. Nutze Export JSON, um Armeelisten zu sichern. Ein vollständiges Konto-/Cloud-System wird für eine zukünftige Aktualisierung in Betracht gezogen.',
-      es: 'Los ejércitos se almacenan en el almacenamiento local del navegador. Borrar los datos del navegador o cambiar de dispositivo hará que pierdas tus guardados. Usa Exportar JSON para hacer copias de seguridad. Se está considerando un sistema completo de cuenta/nube para una actualización futura.',
-    },
-  },
-  {
-    id: 'ki-3',
-    status: 'known',
-    title: {
-      en: 'Print layout and app not optimised for mobile or non-Chrome browsers',
-      de: 'Drucklayout und App nicht für Mobilgeräte oder Nicht-Chrome-Browser optimiert',
-      es: 'El diseño de impresión y la app no están optimizados para móviles ni navegadores que no sean Chrome',
-    },
-    description: {
-      en: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
-      de: 'Die App wird derzeit für Desktop Chrome/Edge entwickelt und getestet. Das mobile Layout und die Unterstützung für Firefox/Safari werden verbessert, sobald der Kernfunktionsumfang stabil ist.',
-      es: 'La app está actualmente desarrollada y probada en Chrome/Edge de escritorio. El diseño móvil y el soporte para Firefox/Safari se mejorarán una vez que el conjunto de funciones principal sea estable.',
-    },
-  },
-  // ── Open / Investigating ──────────────────────────────────────────────────
   {
     id: 'ki-10',
     status: 'fixed',
@@ -655,42 +722,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     title: 'Trait costs marked with * were not calculated per Wound',
     description: 'Fixed in v0.11 — all trait costs now multiply by unit size (a 5-pt trait on 5 models = 25 pts). Traits marked with * additionally multiply by Wounds per model (e.g. "Iron Within, Iron Without" CSM: 2* = 2 × W × size).',
   },
-  // ── Planned ───────────────────────────────────────────────────────────────
   {
     id: 'ki-p3',
     status: 'fixed',
     title: 'Allied detachment — add a second faction as allies in the same list',
     description: 'Implemented in v0.13 — a full Allied Detachment panel lets you pick a second faction as allies, shows their relationship (Battle Brothers / Allies of Convenience / Desperate Allies), and provides a mini force org (0–1 HQ, 1–2 Troops, 0–1 Elites/FA/HS). Allied units are validated separately from the main force org.',
   },
-  {
-    id: 'ki-p1',
-    status: 'planned',
-    title: {
-      en: 'Account system & cloud army storage',
-      de: 'Kontosystem & Cloud-Armeespeicher',
-      es: 'Sistema de cuentas y almacenamiento de ejércitos en la nube',
-    },
-    description: {
-      en: 'A login/account system that lets you save armies in the cloud and access them from any device. Currently being designed — no release date yet.',
-      de: 'Ein Anmelde-/Kontosystem, mit dem du Armeen in der Cloud speichern und von jedem Gerät aus darauf zugreifen kannst. Wird derzeit entwickelt — noch kein Veröffentlichungsdatum.',
-      es: 'Un sistema de inicio de sesión/cuenta que te permite guardar ejércitos en la nube y acceder a ellos desde cualquier dispositivo. Actualmente en diseño — sin fecha de lanzamiento.',
-    },
-  },
-  {
-    id: 'ki-p2',
-    status: 'planned',
-    title: {
-      en: 'Escalation supplement — Lords of War',
-      de: 'Eskalations-Supplement — Kriegsherren',
-      es: 'Suplemento de Escalada — Señores de la Guerra',
-    },
-    description: {
-      en: 'A supplement adding Lords of War, super-heavy vehicles and Titans. The dedicated slot, the Epic Battle engagement and the 33% points cap shipped in v0.51, along with the first units (Chaos) and a browsable catalog on the home screen. Remaining factions\' super-heavies are still being added.',
-      de: 'Ein Supplement, das Kriegsherren, überschwere Fahrzeuge und Titanen hinzufügt. Der eigene Slot, das Engagement "Epische Schlacht" und die 33%-Punktegrenze kamen in v0.51, zusammen mit den ersten Einheiten (Chaos) und einem durchsuchbaren Katalog auf dem Startbildschirm. Die Superschweren der übrigen Fraktionen werden noch hinzugefügt.',
-      es: 'Un suplemento que añade Señores de la Guerra, vehículos superpesados y Titanes. El slot dedicado, el engagement Batalla Épica y el límite del 33% de puntos llegaron en v0.51, junto con las primeras unidades (Caos) y un catálogo navegable en la pantalla de inicio. Los superpesados de las facciones restantes aún se están añadiendo.',
-    },
-  },
-  // ── Fixed ─────────────────────────────────────────────────────────────────
   {
     id: 'ki-13',
     status: 'fixed',

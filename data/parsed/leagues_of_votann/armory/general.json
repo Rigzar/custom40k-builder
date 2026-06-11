@@ -416,49 +416,56 @@
       "term_compat": false,
       "desc": "Instead of shooting, the model can use its accelerated engine and can move aditionally 3\". The vehicle has to pass a dangerous terrain test.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Additional void armor",
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Ancestor’s jugdement warhead",
       "term_compat": false,
       "desc": "The model gains an Ancestor's judgement warhead.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Improved targeting scanner",
       "term_compat": false,
       "desc": "The model does not have to declare its ranged weapons for all targets before firing, and can choose a new target for each weapon.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Jammer",
       "term_compat": false,
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Refined power cores",
       "term_compat": false,
       "desc": "The model gains +2\" Movement.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Smoke Launcher",
       "term_compat": false,
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

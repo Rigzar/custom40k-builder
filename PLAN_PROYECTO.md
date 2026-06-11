@@ -774,10 +774,10 @@ inicio actualizada: Assassins pasa de "facción jugable" a tarjeta de Suplemento
 | Harlequins | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 12ª facción (menor roster, 9; sin Army Customisation como Inquisition); `ki-harlequins-vetvehcategory-01` fijado; `ki-harlequins-psychic-unwired-01` pendiente |
 | Genestealer Cults | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 13ª facción; mecánica Ambush; legacies tipo GK (bonus-power); `ki-genestealer-cults-vetvehcategory-01` fijado; `ki-genestealer-cults-psychic-unwired-01` pendiente |
 | Orks | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 14ª facción; eje armadura Mega armor (glifo ᴹ); Kustom Jobs; mecánica Waaagh!; `ki-orks-vetvehcategory-01` fijado; `ki-orks-psychic-unwired-01` pendiente |
-| Tyranids | 🔴 sin empezar | — | ⬜ | |
-| Leagues of Votann | 🔴 sin empezar | — | ⬜ | |
-| Tau Empire | 🔴 parcial | — | ⬜ | |
-| Necrons | 🔴 sin empezar | — | ⬜ | |
+| Tyranids | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 15ª facción; sistema de Biomorfos (sin armory compartido), 0 vehículos → SIN fix de vetveh; mecánica Synapse; keyword uniforme "Tyranid"; `ki-tyranids-psychic-unwired-01` pendiente |
+| Leagues of Votann | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 16ª facción; eje armadura Exo-armor (glifo ᴱ); mecánica Eye of the Ancestors (Judgement tokens); Demiurg→aliado Tau; `ki-leagues-of-votann-vetvehcategory-01` fijado; `ki-leagues-of-votann-psychic-unwired-01` pendiente |
+| Tau Empire | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 17ª facción; gate Infantry (glifo ᴵ); Kroot en unit_type; Support Systems + Drones; mecánica Markerlight; `ki-tau-empire-vetvehcategory-01` fijado; `ki-tau-empire-psychic-unwired-01` pendiente |
+| Necrons | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 18ª y ÚLTIMA facción; Necron/Canoptek en unit_type; mecánica Reanimation Protocols (RPoints); `ki-necrons-vetvehcategory-01` fijado; `ki-necrons-psychic-unwired-01` pendiente — **19/19 facciones migradas** |
 | Assassins | 🟢 corregido (v0.56) | — | ⬜ | suplemento universal Caos/Imperio (no facción independiente) — ver nota abajo |
 | Horus Heresy | 🟢 digest completo | ✅ | ⬜ | suplemento — Fase 1 chaos shippeada v0.51 |
 | Escalation (Lords of War) | 🟠 fase chaos completa | — | ⬜ | suplemento cross-facción |

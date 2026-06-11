@@ -28,7 +28,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     version: '0.59',
     date: '2026-06-11',
     title: {
-      en: 'Armory fixes across Grey Knights, Imperial Guard & Adeptus Mechanicus',
+      en: 'Vehicle & Veteran armory fixes across 12 factions',
     },
     changes: {
       en: [
@@ -42,6 +42,9 @@ export const CHANGELOG: ChangelogEntry[] = [
         'Fixed: Harlequins — its 6 Vehicle Equipment items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
         'Fixed: Genestealer Cults — its 7 Vehicle Equipment items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
         'Fixed: Orks — its 13 Vehicle Upgrade items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
+        'Fixed: Leagues of Votann — its 7 Vehicle Equipment items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
+        "Fixed: T'au Empire — its 11 Vehicle Equipment items now correctly count toward the Vehicle armory cap and are offered only to vehicles.",
+        'Fixed: Necrons — its 4 Vehicle Equipment items now correctly count toward the Vehicle armory cap and are offered only to vehicles.',
       ],
     },
   },

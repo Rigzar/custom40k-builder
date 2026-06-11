@@ -443,77 +443,88 @@
       "term_compat": false,
       "desc": "The model ignores the -1 to hit modifier for cover.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Decoy launchers",
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Disruption pod",
       "term_compat": false,
       "desc": "Enemy units targeting this model from 12\" or further away reduce their weapon range by 6\".",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Failsafe detonator",
       "term_compat": false,
       "desc": "Activate when the model or its unit are fleeing from melee. Move the unit as normal, while the model stays in place. All remaining models within 6\" suffer an automatic hit with Strength 8, AP 0, Damage 1. Remaining units may not pursue the fleeing unit. Remove the model that used the Failsafe detonator afterwards.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Flechette discharger",
       "term_compat": false,
       "desc": "Enemy models are automatically wounded with S:4 AP:0 D:1 in melee on a roll of 4+. Roll for each model in direct base contact. This is done at Initiative 10.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Jammer",
       "term_compat": false,
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Landing gear",
       "term_compat": false,
       "desc": "In every turn where the model does not move, it loses its Anti-Grav rule until the its next activation.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Multi-tracker",
       "term_compat": false,
       "desc": "The model gains a +1 to hit modifier, if it is shooting at a target consisting of 6 or more models.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Seeker missile",
       "term_compat": false,
       "desc": "The model gains a Seeker missile. The model may shoot once per game a Seeker missile with this profile: Range 120\", Heavy 1, Strength 8, AP -3, Damage 2, Anti-Air, AT(2). May be taken up to 2 times per model.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Smoke Launcher",
       "term_compat": false,
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Target lock",
       "term_compat": false,
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []
