@@ -3,6 +3,84 @@ import type { KnownIssue } from './changelog';
 export const KNOWN_ISSUES: KnownIssue[] = [
   // ── In progress ───────────────────────────────────────────────────────────
   {
+    id: 'ki-orks-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Orks — 13 Vehicle Upgrade armory items missing category tag',
+    description: 'Found while building the Orks rules-model digest from the `.ods` canon, ahead of the Fase 4 migration (datasheet spot-checks Boyz + Battlewagon confirmed production matches the .ods exactly). Orks\' `armory/general.json` `equipment[]` (62 items) carried the 13 Vehicle Upgrades (Additional armor, Armored hood, Boarding plank, Death roller, Grab claw, Grot mechanic, Nozzle drive, Red paint, Reinforced battering ram, Smoke launcher, Stikkbombz launcha, Target squig, Wrecking ball; idx 49-61) with NO `category` tag. Fixed by tagging all 13 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). IMPORTANT: the 16 Kustom Jobs (idx 33-48) were deliberately LEFT `category: none` — they are a distinct Ork mechanic (each unique, gated to specific units via prose "Vehicle/Mek/Walker/Spanna/Warbuggy only"), NOT a vehicle-only category (tagging them `category:"vehicle"` would wrongly gate the Mek/character ones to `is_vehicle`). NO veteran-side fix: Orks have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units. Build ✓.',
+  },
+  {
+    id: 'ki-orks-psychic-unwired-01',
+    status: 'known',
+    title: 'Orks — Waaagh! psychic discipline exists in the .ods but is NOT wired into the loader',
+    description: 'Found while building the Orks digest (2026-06-11). The `.ods` has an "Ork psychic discipline" sheet (19 rows — the Waaagh! discipline), and Orks have psyker units (Weirdboy), but `src/data/loaders.ts` (case `orks`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Clan armory (the disciplines argument to `asm` is `{}`). Net effect: the Waaagh! discipline is unrepresented; Ork psykers likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC. Larger separate scope — needs the discipline parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
+  },
+  {
+    id: 'ki-genestealer-cults-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Genestealer Cults — 7 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Genestealer Cults rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. GSC\'s `armory/general.json` `equipment[]` (29 items) carried the 7 Vehicle Equipment items (Additional armor, Flare launcher, Improved targeting, Jammer, Smoke Launcher, Spotter, Survey augur; idx 22-28) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: GSC have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like CD/Sororitas/Dark Eldar/Eldar/Harlequins). Build ✓.',
+  },
+  {
+    id: 'ki-genestealer-cults-psychic-unwired-01',
+    status: 'known',
+    title: 'Genestealer Cults — Broodmind psychic discipline + 6 Legacy bonus powers exist in the .ods but are NOT wired into the loader',
+    description: 'Found while building the GSC digest (2026-06-11). The `.ods` has a "GSC psychic discipline" sheet (37 rows — the Broodmind discipline) and the 6 Legacies each grant a named bonus power to all Psykers (Last Gasp / Broodvolt Surge / Synaptic Blast / Inescapable Decay / Undermine / Mutagenic Deviation), and GSC has 2 `is_psyker` units (Magus, Patriarch) + the Crown of Ascendancy equipment (grants the Broodmind discipline). BUT `src/data/loaders.ts` (case `genestealer_cults`) imports only `units.json` + `armory/general.json` + `archetypes.json` (the disciplines argument to `asm` is `{}`). Net effect: the Broodmind discipline AND the 6 Legacy powers are unrepresented in the builder; GSC psykers likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar (`ki-eldar-psychic-unwired-01`), Harlequins (`ki-harlequins-psychic-unwired-01`). Larger separate scope — needs the discipline + Legacy powers parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
+  },
+  {
+    id: 'ki-harlequins-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Harlequins — 6 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Harlequins rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Harlequins\' `armory/general.json` `equipment[]` (21 items) carried the 6 Vehicle Equipment items (Holo-field, Improved targeting, Jammer, Night shield, Smoke Launcher, Spirit stones; idx 15-20) with NO `category` tag. Fixed by tagging all 6 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (no value-move). NO veteran-side fix: Harlequins have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like CD/Sororitas/Dark Eldar/Eldar). Build ✓.',
+  },
+  {
+    id: 'ki-harlequins-psychic-unwired-01',
+    status: 'known',
+    title: 'Harlequins — Shadowseer psychic discipline exists in the .ods but is NOT wired into the loader',
+    description: 'Found while building the Harlequins digest (2026-06-11). The `.ods` has a "Harlequins psychic discipline" sheet (19 rows), and the Shadowseer is the faction\'s lone `is_psyker` unit, but `src/data/loaders.ts` (case `harlequins`) imports only `units.json` + `armory/general.json` (no archetypes — none exist — and no psychic-discipline file; the disciplines argument to `asm` is `{}`). Net effect: the Shadowseer likely falls back to the shared General psychic disciplines only, and the faction-specific discipline is unrepresented. Same gap class as IG (`ki-ig-psychic-unwired-01`) and Eldar (`ki-eldar-psychic-unwired-01`). Compounds when Harlequins are fielded as an Eldar/Dark-Eldar ally (those factions have their own psychic gaps). Larger separate scope — needs the discipline parsed into production JSON and wired into the loader. Logged for a dedicated pass.',
+  },
+  {
+    id: 'ki-eldar-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Eldar — 8 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Eldar rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Eldar\'s `armory/general.json` `equipment[]` (49 items) carried the 8 Vehicle Equipment items (Crystal targeting matrix, Ghostwalk matrix, Holo-field, Improved targeting, Jammer, Spirit stones, Smoke Launcher, Star engines; idx 41-48) with NO `category` tag. Fixed by tagging all 8 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (like AdMech/Sororitas/Custodes/Dark Eldar — no value-move). "Spirit stones" also appears as an equipment-section version (idx 19/46) — only the vehicle block (idx 41-48) was tagged, identified by array position. NO veteran-side fix: Eldar have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like Chaos Daemons/Sororitas/Dark Eldar). Build ✓.',
+  },
+  {
+    id: 'ki-eldar-aspect-wraith-keyword-01',
+    status: 'known',
+    title: 'Eldar — <Aspect> and <Wraith> sub-types referenced by archetypes but not modelled as production keywords[]',
+    description: 'Found while building the Eldar digest (2026-06-11). The Aspect Focus archetype ("<Aspect> units can be taken as Troops; non-<Aspect> Troops become Elite") and the Wraithhost archetype ("Wraithblades and Wraithguard... Non-<Wraith> Troops become Elite") both gate on sub-type keywords per the `.ods`, but production carries `keywords: []` on all 38 Eldar units — so neither sub-type is keyword-tagged. The archetype slot-remaps therefore have nothing in `keywords[]` to match on (they currently resolve Aspect/Wraith membership by unit name/identity if at all). This is UNLIKE Dark Eldar, whose Kabal/Coven/Cult sub-factions ARE carried in `keywords[]` (`ki`-free, modelled correctly). Recommended fix (a per-unit data pass): tag the Aspect Warriors (Dire Avengers / Fire Dragons / Howling Banshees / Striking Scorpions / Dark Reapers / Swooping Hawks / Warp Spiders / Shining Spears / Shadow Spectres) with "Aspect" and the Wraith units (Wraithblades / Wraithguard / Wraithlord / Wraithseer) with "Wraith", bringing Eldar in line with the Dark Eldar keyword model so the archetype gating is keyword-driven. Needs user confirmation of the exact Aspect/Wraith membership before tagging.',
+  },
+  {
+    id: 'ki-eldar-psychic-unwired-01',
+    status: 'known',
+    title: 'Eldar — faction psychic discipline + Ynnari Revenant discipline exist in the .ods but are NOT wired into the loader',
+    description: 'Found while building the Eldar digest (2026-06-11). The `.ods` carries a large "Eldar psychic discipline" sheet (64 rows) and the Ynnari "Revenant" discipline (granted by the Ynnari archetype), and Eldar has 6 `is_psyker` units (Farseer / Spiritseer / Wraithseer / Warlocks / Yncarne / +1). BUT `src/data/loaders.ts` (case `eldar`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Craftworld + Ynnari ARMORIES — no psychic-discipline file (the disciplines argument to `asm` is `{}`). Net effect: Eldar psykers likely fall back to the shared General psychic disciplines only, and the large faction-specific discipline + the Revenant discipline are unrepresented in the builder. Same gap class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope — needs the discipline parsed into production JSON and wired into the loader (mirroring how GK/Inquisition disciplines load). Logged for a dedicated pass.',
+  },
+  {
+    id: 'ki-dark-eldar-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Dark Eldar — 7 Vehicle Equipment armory items missing category tag',
+    description: 'Found while building the Dark Eldar rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Dark Eldar\'s `armory/general.json` `equipment[]` (39 items) carried the 7 Vehicle Equipment items (Additional armor, Bladevanes, Flickerfield, Improved targeting, Night shield, Smoke Launcher, Trophy; idx 32-38) with NO `category` tag. Fixed by tagging all 7 `category: "vehicle"` (gated to `is_vehicle` units, priced `p_unit × size`). POINTS already in `p_unit` (like AdMech/Sororitas/Custodes — no value-move; Flickerfield is "-"/null, not selectable). The 6 Combat Drugs (idx 26-31, Adrenalight/Grave lotus/Hypex/Serpentin/Painbringer/Splintermind) were deliberately LEFT `category: none` — they are a separate selectable pool (the Combat drugs army rule), not vehicle/veteran items. NO veteran-side fix: Dark Eldar have no VETERAN ABILITIES armory section and 0 `has_veteran_abilities` units (like Chaos Daemons/Sororitas). Build ✓.',
+  },
+  {
+    id: 'ki-dark-eldar-furiouscharge-phantom-01',
+    status: 'known',
+    title: 'Dark Eldar — "Furious Charge" (a Power-through-Pain bonus name) is listed in the Elites slot with no datasheet',
+    description: 'Found while building the Dark Eldar digest (2026-06-11). `units.json` `slot_to_units.Elites` lists "Furious Charge", but there is NO `units["Furious Charge"]` datasheet entry — "Furious Charge" is one of the six Power-through-Pain BONUS names from the Index special-rules list ("Aegis(4+) / Berserk(4+) / Furious Charge / +1 Initiative / +1 Leadership / +1 Strength"), which leaked into the Elites slot index (20 slot names across all slots vs only 19 actual unit entries). Net effect: the slot index points at a "unit" the builder cannot render. Same class as the Custodes "Vigilators" phantom (`ki-custodes-vigilators-phantom-01`). Excluded from the Fase 4 codex (`codex_dark_eldar` slots/unit-types catalogue only the 19 real units). Needs the user to confirm removal from the slot index (it is clearly not a unit).',
+  },
+  {
+    id: 'ki-custodes-vetvehcategory-01',
+    status: 'fixed',
+    title: 'Adeptus Custodes — 8 Veteran Abilities + 6 Vehicle Equipment armory items missing category/p_veh',
+    description: 'Found while building the Adeptus Custodes rules-model digest from the `.ods` canon, ahead of the Fase 4 migration. Custodes\' `armory/general.json` `equipment[]` (34 items) carried the 8 Veteran Abilities (Counter-attack/Favoured enemy/Furious charge/Infiltrator/Outflank/Tank hunter/Terrain expert/Vanguard) + 6 Vehicle Equipment (Additional armor/Hunter-killer missile/Improved targeting/Jammer/Magos-class machine spirit/Smoke Launcher) with NO `category` tag. Fixed: veteran items → `category: "veteran"` + `p_veh` from the `.ods` "POINTS MONSTROUS CREATURES & VEHICLES" column (2 for the six, null for Infiltrator/Vanguard which show "-") + `p_char: null` (the value previously in `p_char` was the misplaced M&V figure — same as the GK/IG twins); vehicle items → `category: "vehicle"` (POINTS already in `p_unit`, like AdMech/Sororitas — no value-move). 17 of 19 Custodes units carry `has_veteran_abilities` (all except the Blade Champion + Knight-Centura HQs), so the veteran tagging is correct here — UNLIKE AdMech, where 0 units had the flag and the analogous Doctrina items were deliberately left untagged. Identified the blocks by array position (veteran idx 20-27, vehicle idx 28-33). Build ✓.',
+  },
+  {
+    id: 'ki-custodes-vigilators-phantom-01',
+    status: 'known',
+    title: 'Adeptus Custodes — "Vigilators" is listed in the Elites slot but has no datasheet entry',
+    description: 'Found while building the Custodes digest (2026-06-11). `units.json` `slot_to_units.Elites` lists "Vigilators" (the melee Sisters-of-Silence build), but there is NO `units["Vigilators"]` datasheet entry — a dangling roster reference (20 slot names across all slots vs only 19 actual unit entries). Likely a Sisters-of-Silence variant that was never split into its own datasheet, or a leftover roster row carried over from the Index sheet (which lists "Vigilators" under Elite). Net effect: the slot index points at a unit the builder cannot render. Excluded from the Fase 4 codex (`codex_adeptus_custodes` slots/unit-types catalogue only the 19 real units). Needs the user to confirm whether Vigilators should become its own datasheet (a distinct Sisters-of-Silence melee profile) or be removed from the slot index.',
+  },
+  {
     id: 'ki-sororitas-vetvehcategory-01',
     status: 'fixed',
     title: 'Adeptus Sororitas — 9 Vehicle Upgrade armory items missing category tag',

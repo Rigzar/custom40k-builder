@@ -723,91 +723,104 @@
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Armored hood",
       "term_compat": false,
       "desc": "The vehicle no longer counts as \"Open\".",
       "p_unit": 0,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Boarding plank",
       "term_compat": false,
       "desc": "All passengers in the vehicle can fight normally in melee and be targeted while in the transporter. Vehicles with the \"Open\" ability only.",
       "p_unit": 0,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Death roller",
       "term_compat": false,
       "desc": "The model resolves Tank Shock attacks with Strength 10.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Grab claw",
       "term_compat": false,
       "desc": "Roll 1D6 when an enemy vehicle is in base contact and is activated. It cannot move on 4+.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Grot mechanic",
       "term_compat": false,
       "desc": "At the start of its activation, the model can attempt to repair each \"Engine damage\" vehicle damage it suffered on rolls of 5+. On each roll of 1, it suffers one penetrating hit with AT(1).",
       "p_unit": 0,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Nozzle drive",
       "term_compat": false,
       "desc": "The vehicle can move an additional 1D6\" with an Advance command. On a 1, the model suffers one permanent engine damage. This additional movement is not taken into account when determining how many weapons a vehicle can still fire, or how passengers can use their orders. Not for Walkers.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Red paint",
       "term_compat": false,
       "desc": "The vehicle receives +1\" to its movement range. This additional movement is not taken into account when determining how many weapons a vehicle can still fire or how passengers can use their orders.",
       "p_unit": 2,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Reinforced battering ram",
       "term_compat": false,
       "desc": "The vehicle may re-roll dangerous terrain tests and ignores difficult terrain.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Smoke launcher",
       "term_compat": false,
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Stikkbombz launcha",
       "term_compat": false,
       "desc": "The vehicle receives an additional weapon: Stikkbombz launcha.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Target squig",
       "term_compat": false,
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Wrecking ball",
       "term_compat": false,
       "desc": "The model resolves Tank Shock attacks with Damage 2.",
       "p_unit": 20,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []

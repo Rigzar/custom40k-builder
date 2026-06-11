@@ -600,6 +600,98 @@ pushear.
 
 ---
 
+### 🟢 Adeptus Custodes — digest desde el .ods + Fase 4 (9ª facción, 2026-06-11)
+
+Custodes era 🔴. Digest desde el `.ods` (`rules-model/adeptus_custodes.md`). **Hermana de GK/
+Inquisition** (NO de IG/AdMech/Sororitas): tiene eje de armadura poblado (ᵀ-gate Terminator único)
++ tier de veteranía (17/19 unidades).
+
+**Hallazgos:**
+- 19 units / 6 slots (sin Flyers/Fortifications). Eje `armour` = Terminator ᵀ-gate (18 items
+  `term_compat`, los visten Allarus/Aquilon). **Caveat**: producción NO setea `armourKeyword` — el
+  gate va por `term_compat` boolean + derivación por nombre (estado pre-keyword-seam, como CSM).
+  Ejes mark/faction/datasheet vacíos (9ª confirmación datasheet = solo-CSM).
+- **Mecánica estrella = Shield Host** (objetivos por cuadrante + 12" + Objective secured! + cap de
+  Battleshock + Precision(5+) army-wide). + Lightning strike (Deep Strike por 1000pts).
+- 2 Archetypes (AOP-shuffle), 5 Legacies (= los 5 Shield Hosts → Host Armory), **0 Traits**
+  (ausencia genuina, el budget ni los menciona). Cross-check 2/5/0 limpio.
+- Equipo regular = **una sola columna POINTS** (sin "POINTS CHARACTER MODELS", a diferencia de
+  IG/AdMech/Sororitas) → solo `p_unit`. Encaja con que los Custodes son todos modelos élite.
+
+**Fixes/gaps:**
+- `ki-custodes-vetvehcategory-01` **ARREGLADO**: 8 Veteran (category:'veteran' + p_veh de M&V,
+  p_char:null — como GK) + 6 Vehicle (category:'vehicle', POINTS ya en p_unit). El fix de veteranía
+  SÍ aplica (17/19 unidades con `has_veteran_abilities`), a diferencia de AdMech.
+- `ki-custodes-vigilators-phantom-01` **PENDIENTE**: "Vigilators" está en `slot_to_units.Elites`
+  pero sin datasheet en `units` (referencia fantasma). Excluido del codex.
+
+**Migración Fase 4 COMPLETA 5/5** (`engine/codex_adeptus_custodes/`): slots (19/6, Vigilators
+excluido) · unit-types (estáticos) · keywords (armour: Terminator; resto vacío) · special-abilities
+(Shield Host + Lightning strike + 2/5/0) · weapon-abilities (ᵀ-gate + veteran + vehicle + puntos +
+nota pre-keyword-seam). Build ✓ (549ms). Local, sin pushear.
+
+---
+
+### 🟢 Dark Eldar — digest desde el .ods + Fase 4 (10ª facción, 2026-06-11)
+
+Dark Eldar era 🔴. Digest desde el `.ods` (`rules-model/dark_eldar.md`). **HEADLINE: 2ª facción
+(tras CSM) con eje `datasheet` POBLADO** — las 3 sub-facciones Kabal/Coven/Cult se modelan vía el
+array `keywords[]` (el modelo objetivo de keywords).
+
+**Hallazgos:**
+- 19 units / 7 slots. Sub-facción vía `keywords[]`: Kabal(2)/Coven(5)/Cult(4)/ninguna(3, "-")/
+  las-tres(5, "Coven, Cult, Kabal"). Ejes armour/mark/faction vacíos. Sin armourKeyword, 0 veteran.
+- **Mecánicas estrella = Combat drugs** (6, pick por unidad) + **Power through Pain** (token
+  economy, 6 bonuses) + Visitors of the Black Library (acceso Harlequins) + Webway raid (Infiltrate
+  por 1000pts).
+- 5 Archetypes (3 de pureza de sub-facción: Trueborn=Kabal/Haemoxytes=Coven/Bloodbrides=Cult, que
+  filtran el roster por el eje datasheet; + Coordinated Raid + Ynnari→Eldar), 3 Legacies (armerías
+  Coven/Wych/Kabal), **22 Traits TODOS gated por sub-facción** ("Only for <Coven>/<Cult>/<Kabal>",
+  el gating de traits más granular visto). Cross-check 5/3/22 limpio.
+
+**Fixes/gaps:**
+- `ki-dark-eldar-vetvehcategory-01` **ARREGLADO**: 7 Vehicle Equipment etiquetados (POINTS ya en
+  p_unit). Combat Drugs (idx 26-31) intactos (pool aparte). Sin fix de veteranía (no aplica).
+- `ki-dark-eldar-furiouscharge-phantom-01` **PENDIENTE**: "Furious Charge" (un bonus de
+  Power-through-Pain) coló en el slot Elites sin datasheet. Excluido del codex.
+
+**Migración Fase 4 COMPLETA 5/5** (`engine/codex_dark_eldar/`): slots (19/7, phantom excluido) ·
+unit-types (estáticos) · **keywords (datasheet POBLADO: Kabal/Coven/Cult + "all" + "none")** ·
+special-abilities (Combat drugs + PtP + Harlequins + Webway + 5/3/22) · weapon-abilities (gating
+por sub-facción + vehicle + drugs; sin tier de veteranía). Build ✓ (471ms). Local, sin pushear.
+
+---
+
+### 🟢 Eldar — digest desde el .ods + Fase 4 (11ª facción, mayor roster, 2026-06-11)
+
+Eldar era 🔴. Digest desde el `.ods` (`rules-model/eldar.md`). **Roster más grande migrado (38
+unidades).** Vuelve al grupo de "eje datasheet vacío" (Dark Eldar sigue siendo la única no-CSM con
+eje poblado).
+
+**Hallazgos:**
+- 38 units / 7 slots (sin phantoms). Ejes armour/mark/datasheet vacíos. Sin veteran (0).
+- **Mecánicas estrella = Battle Focus** (movilidad + psíquica army-wide) + Shuriken (regla de arma)
+  + Visitors of the Black Library (Harlequins) + Webway strike.
+- 6 Archetypes (Aspect Focus→`<Aspect>`, Wraithhost→`<Wraith>`, LIIVI→Vindicare, Windhost, Exemplars
+  of the Shrines, Ynnari→Dark Eldar), 5 Legacies (= 5 Craftworlds), 15 Traits. Cross-check 6/5/15.
+
+**Fixes/gaps:**
+- `ki-eldar-vetvehcategory-01` **ARREGLADO**: 8 Vehicle Equipment etiquetados (POINTS ya en p_unit).
+- `ki-eldar-aspect-wraith-keyword-01` **PENDIENTE**: los archetypes Aspect Focus/Wraithhost gatean
+  por `<Aspect>`/`<Wraith>` pero producción tiene `keywords:[]` en las 38 unidades (a diferencia de
+  Dark Eldar). Recomendado etiquetar los Aspect Warriors + las unidades Wraith para alinear con el
+  modelo de Dark Eldar.
+- `ki-eldar-psychic-unwired-01` **PENDIENTE**: disciplina psíquica (64 filas) + Revenant en el .ods
+  pero el loader no las carga (gap tipo IG).
+- "Swooping Hawks" `unit_type: "Jump pack"` (artefacto, debería ser "Jump Pack Infantry").
+
+**Migración Fase 4 COMPLETA 5/5** (`engine/codex_eldar/`): slots (38/7) · unit-types (estáticos;
+1 artefacto Swooping Hawks) · keywords (4 ejes vacíos; nota Aspect/Wraith) · special-abilities
+(Battle Focus + Shuriken + Harlequins + Webway + 6/5/15 + 2 gap-notes) · weapon-abilities (sin
+keyword gate + vehicle; sin tier de veteranía). Build ✓ (427ms). Local, sin pushear.
+
+---
+
 ### 🟢 Assassins — corregidos a su alcance canónico real (v0.56)
 
 Se modeló primero como acceso exclusivo de Grey Knights ("Demon Hunters")/Sororitas ("Witch
@@ -676,12 +768,12 @@ inicio actualizada: Assassins pasa de "facción jugable" a tarjeta de Suplemento
 | Inquisition | 🟢 completa+ (v0.56) | — | ⬜ | varias pasadas, ver memoria |
 | Adeptus Mechanicus | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 7ª facción; `ki-admech-vetvehcategory-01` fijado; `ki-admech-doctrina-gating-01` pendiente |
 | Adeptus Sororitas | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 8ª facción; `ki-sororitas-vetvehcategory-01` fijado; sin tier de veteranía (como CD) |
-| Adeptus Custodes | 🔴 sin empezar | — | ⬜ | |
-| Dark Eldar | 🔴 sin empezar | — | ⬜ | |
-| Eldar | 🔴 sin empezar | — | ⬜ | |
-| Harlequins | 🔴 sin empezar | — | ⬜ | |
-| Genestealer Cults | 🔴 sin empezar | — | ⬜ | |
-| Orks | 🔴 sin empezar | — | ⬜ | |
+| Adeptus Custodes | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 9ª facción; `ki-custodes-vetvehcategory-01` fijado; `ki-custodes-vigilators-phantom-01` pendiente; ᵀ-gate vía term_compat (sin armourKeyword) |
+| Dark Eldar | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 10ª facción; eje datasheet POBLADO (sub-facción Kabal/Coven/Cult, 2ª tras CSM); `ki-dark-eldar-vetvehcategory-01` fijado; `ki-dark-eldar-furiouscharge-phantom-01` pendiente |
+| Eldar | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 11ª facción (mayor roster, 38); `ki-eldar-vetvehcategory-01` fijado; pendientes `ki-eldar-aspect-wraith-keyword-01` + `ki-eldar-psychic-unwired-01` |
+| Harlequins | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 12ª facción (menor roster, 9; sin Army Customisation como Inquisition); `ki-harlequins-vetvehcategory-01` fijado; `ki-harlequins-psychic-unwired-01` pendiente |
+| Genestealer Cults | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 13ª facción; mecánica Ambush; legacies tipo GK (bonus-power); `ki-genestealer-cults-vetvehcategory-01` fijado; `ki-genestealer-cults-psychic-unwired-01` pendiente |
+| Orks | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 14ª facción; eje armadura Mega armor (glifo ᴹ); Kustom Jobs; mecánica Waaagh!; `ki-orks-vetvehcategory-01` fijado; `ki-orks-psychic-unwired-01` pendiente |
 | Tyranids | 🔴 sin empezar | — | ⬜ | |
 | Leagues of Votann | 🔴 sin empezar | — | ⬜ | |
 | Tau Empire | 🔴 parcial | — | ⬜ | |

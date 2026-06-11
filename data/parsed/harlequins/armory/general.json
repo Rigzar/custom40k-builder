@@ -173,42 +173,48 @@
       "term_compat": false,
       "desc": "Roll one die for each glancing and penetrating hit against the model. You may substitute any of the following vehicle damage results with your own roll.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Improved targeting",
       "term_compat": false,
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Jammer",
       "term_compat": false,
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Night shield",
       "term_compat": false,
       "desc": "Enemy models reduce their weapons range by 12\" (to a minimum of 6\"), if they target the bearer.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Smoke Launcher",
       "term_compat": false,
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     },
     {
       "name": "Spirit stones",
       "term_compat": false,
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
       "p_unit": 5,
-      "p_char": null
+      "p_char": null,
+      "category": "vehicle"
     }
   ],
   "daemon_weapons": []
