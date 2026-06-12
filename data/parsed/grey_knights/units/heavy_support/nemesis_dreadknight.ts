@@ -133,8 +133,11 @@ export const nemesisDreadknight: Unit = {
       "variant_link": null,
       "is_unique_per_army": false,
       "effect": {
+        "adds_unit_types": [
+          "Jump Pack Infantry"
+        ],
         "grants_abilities": [
-          "Jump pack"
+          "Deep Strike"
         ],
         "stat_mod": [
           {

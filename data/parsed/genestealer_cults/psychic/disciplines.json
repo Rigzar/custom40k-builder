@@ -1,0 +1,126 @@
+{
+  "Broodmind": [
+    {
+      "name": "Psychic Stimulus",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit (Creature)",
+      "cast_value": "4",
+      "effect": "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Mental Onslaught",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "Roll 5D6. For each 5+ the target suffers an automatic wound with S:4 AP:0 D:1; Seeking. If at least one model died from this attack, repeat the process.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Mass Hypnosis",
+      "type": "Malediction",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "Each model of the target suffers -1 Attack.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Might from Beyond",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target receives +1 Strength and +1 Attack",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Mind Control",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target receives a -1 penalty to hit rolls.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psionic Blast",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers five automatic hits with Strength: 5 AP: -2 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ],
+  "Legacy Psychic Powers": [
+    {
+      "name": "Broodvolt Surge",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target unit gains a 5+ invulnerability save.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Inescapable Decay",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "All attacks against the target unit gain an additional -1 AP.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Last Gasp",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "5",
+      "effect": "Whenever the target unit removes a model, roll a D6. On a 5+, an engaged enemy unit suffers one Mortal Wound.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Mutagenic Deviation",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target's melee weapons gain the \"Precision(6+)\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Synaptic Blast",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers one automatic hit with Strength: 5 AP: -1 D: 1; Seeking for each model in the caster's unit.",
+      "duration": "Instant",
+      "complexity": "Complex"
+    },
+    {
+      "name": "Undermine",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target is treated as activating in difficult and dangerous terrain, even if it would normally ignore it.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ]
+}

@@ -561,6 +561,12 @@
         ],
         "grants_abilities": [
           "Deep Strike"
+        ],
+        "stat_mod": [
+          {
+            "stat": "M",
+            "delta": 6
+          }
         ]
       }
     },

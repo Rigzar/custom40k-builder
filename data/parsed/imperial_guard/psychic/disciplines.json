@@ -1,0 +1,126 @@
+{
+  "Psikana I": [
+    {
+      "name": "Mental Strength",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit (Creature)",
+      "cast_value": "4",
+      "effect": "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Gaze of the Emperor",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "-",
+      "cast_value": "5",
+      "effect": "Draw a straight line 1\" wide from the caster to any target point within 18\". All enemy models this line passes through suffer one automatic hit with S: 6 AP: -2 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Nightshroud",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "5",
+      "effect": "The target gains the \"Deflect\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psychic Barrier",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "5",
+      "effect": "The target improves its Saving throw by +1.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Terrifying Visions",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "The target must pass a Leadership test with a -1 penalty.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psychic Maelstrom",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers one Mortal Wound on a 2+. If the roll was successful, it suffers one further Mortal Wound on a 3+. Repeat the process (adding +1 to the required result each time) until the roll is no longer successful.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ],
+  "Psikana II": [
+    {
+      "name": "Psychic Lash",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self",
+      "cast_value": "4",
+      "effect": "The target gains a melee weapon with the following profile: S: +1 AP: -3 D: 1, Flurry(2).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Telepathic Order",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "4",
+      "effect": "The target gains any additional order.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psychic Ward",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + attached unit",
+      "cast_value": "5",
+      "effect": "The target gains the \"Aegis(4+) and \"Warded\" abilities. All terrain around the target within 6\" is treated as difficult and dangerous for enemy units, even if they would normally ignore it.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Lightning Arc",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers one hit with the following profile: S: 5 AP: -1 D: 1; Barrage, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Machine Curse",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit (Vehicle)",
+      "cast_value": "6",
+      "effect": "The target suffers 3 glancing hits.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Psychic Shackles",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target is treated as activating in difficult and dangerous terrain, even if it would normally ignore it.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ]
+}

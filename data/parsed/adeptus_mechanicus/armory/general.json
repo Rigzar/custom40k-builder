@@ -539,28 +539,36 @@
       "term_compat": false,
       "desc": "The model gains +2\" Movement.",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "p_veh": 2,
+      "category": "veteran"
     },
     {
       "name": "Bulwark Imperative",
       "term_compat": false,
       "desc": "The unit gains the ability \"Narthecium\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "p_veh": 2,
+      "category": "veteran"
     },
     {
       "name": "Conqueror Imperative",
       "term_compat": false,
       "desc": "The model gains the ability \"Furious charge\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "p_veh": 2,
+      "category": "veteran"
     },
     {
       "name": "Protector Imperative",
       "term_compat": false,
       "desc": "The model gains the ability \"Unyielding\".",
       "p_unit": 0,
-      "p_char": 0
+      "p_char": null,
+      "p_veh": 0,
+      "category": "veteran"
     },
     {
       "name": "Additional armor",

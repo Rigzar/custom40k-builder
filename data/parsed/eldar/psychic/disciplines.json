@@ -1,0 +1,220 @@
+{
+  "Battle\n(Warlocks only)": [
+    {
+      "name": "Destructor",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers four automatic hits with S:7 AP:-2 D:1, AT(1), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Conceal",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target gains the benefit of cover.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Empower",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target receives +1 Strength and the \"Decimate\" ability for melee attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Jinx",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target worsens its Saving throw or Armor value by -1.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Protect",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target improves its Saving throw or Armor value by +1.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Reveal",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target loses the benefit of cover.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ],
+  "Fate\n(Farseers only)": [
+    {
+      "name": "Will of Asuryan",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The unit gains the \"Fearless\" and \"Objective secured!\" abilities.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Doom",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "All attacks against the target gain the \"Decimate\" and \"Armorbane\" abilities.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Eldritch storm",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers one automatic hit with S: 10 AP: -2 D: 1; AT(3), Barrage, Seeking, Suppression.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Executioner",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers three automatic hits with S: 8 AP: -3 D: 2; AT(2), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Fortune",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target receives a 4+ invulnerability save.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Guide",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target receives a +1 bonus to all hit rolls.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ],
+  "Revenant\n(Ynnari only)": [
+    {
+      "name": "Storm of Whispers",
+      "type": "Witchfire",
+      "range": "18\" radius",
+      "target": "Self",
+      "cast_value": "6",
+      "effect": "Every enemy model within range must make two dangerous terrain tests.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Ancestor's Grace",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "All attacks of the target gain \"Decimate\" and (cumulative) \"Lance(1)\".",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Gaze of Ynnead",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "If the target unit consists of creatures, it suffers 1D6 automatic wounds with S: 10 DS: -3 D: 1; Seeking. Vehicles suffer 1D3 penetrating hits; AT(2), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Shield of Ynnead",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target receives a 4+ invulnerability save.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Unbind Souls",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Attacks against the target gain the \"Precision(5+)\" and \"Shield breaker(-1)\" abilities.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Word of the Phoenix",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The model may heal a friendly Eldar unit (excluding itself and <Wraith> units) within range for 3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first. Can only be successfully manifested once per round and per psyker.",
+      "duration": "Instant",
+      "complexity": "Complex"
+    }
+  ],
+  "Wraith\n(Wraithseer only)": [
+    {
+      "name": "Enliven",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly <Wraith> unit",
+      "cast_value": "4",
+      "effect": "The target gains the \"Battle Focus\" ability and +1 Initiative.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Deliverance",
+      "type": "Augmentation",
+      "range": "24\"",
+      "target": "Friendly <Wraith> unit",
+      "cast_value": "5",
+      "effect": "The target unit regains 1 lost wound. Dead models may be revived with this. Living models have to be healed completly first.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Foreboding",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers one automatic hit with S:5 AP:-1 D:1, Barrage, Seeking, Suppression.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ]
+}

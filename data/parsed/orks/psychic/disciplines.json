@@ -1,0 +1,64 @@
+{
+  "Waaagh!": [
+    {
+      "name": "Fists of Gork",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly model",
+      "cast_value": "5",
+      "effect": "The target gains +2 Strength and +2 Attacks.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "'eadbanger",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers one automatic hit with S: 8 AP: 0 D: 1; AT(2), Barrage, Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Jabbin' Fingerz",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target receives a -1 penalty to hit rolls.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Warpath",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "All models of the target gain +1 Attack.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Da Jump",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "Remove the unit from the field and immediately redeploy it according to the rules for Deep strike. The command of the target unit is changed to \"Move & Shoot\" when it is activated. It already counts as having moved the maximum distance.",
+      "duration": "Instant",
+      "complexity": "Complex"
+    },
+    {
+      "name": "Da Krunch",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "8",
+      "effect": "One automatic hit with S: D AP: -4 D: 3; AT(3), Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ]
+}

@@ -140,25 +140,19 @@ export function intrinsicAbilitiesForUnitType(unitType: string | null | undefine
  * Model special rules that make a unit a valid Anti-Air target (Core Rules L1330-1331).
  * Lowercase glossary keys — matched via hasRule (validated against coreRules.ts RULES).
  *
- * GAP (found while grounding this pilot, not invented): 'anti-grav' has a glossary entry
- * (Core L1141 — "ignores terrain, units, and vertical movement costs"), but 'jump pack' the
- * standalone special rule (referenced at Core L551 "...if they have the Anti-Grav or Jump
- * pack ability" and L1331 here, and granted by the GK Teleporter per the v0.51 changelog —
- * "+6\" Movement and the 'Jump pack' ability") has NO definition/description in the Core
- * Rules text available, so it has no RULES entry to validate against (distinct from "Jump
- * Pack Infantry" the unit TYPE, which IS defined at L714-718). Kept in this list — hasRule
- * will correctly return false until a glossary entry exists, rather than guess its
- * description. Needs the user to confirm/paste the canonical "Jump pack" rule text (likely
- * Codex-level) before coreRules.ts can gain that entry — flagged, not invented.
+ * 'anti-grav' (Core L1141 — "ignores terrain, units, and vertical movement costs") and
+ * 'jump pack' (Core L551/L1331, defined in coreRules.ts as the "Jump Pack Infantry" type's
+ * package — see designer confirmation 2026-06-12) both have glossary entries.
  */
 const ANTI_AIR_TARGET_ABILITY_KEYS = ['anti-grav', 'jump pack'];
 
 /**
  * Unit TYPES that make a unit a valid Anti-Air target (Core Rules L1330-1331).
  * Canonical Core-Rules title-case labels, matched against `unit_type` (and any
- * `adds_unit_types` / resolved `set_unit_type`, per caller).
+ * `adds_unit_types` / resolved `set_unit_type`, per caller). "Jump Pack Infantry" included
+ * per L1331's "...Jump Pack special rules..." — a unit with this type has that package.
  */
-const ANTI_AIR_TARGET_UNIT_TYPES = ['Jet Bike', 'Flyer'];
+const ANTI_AIR_TARGET_UNIT_TYPES = ['Jet Bike', 'Flyer', 'Jump Pack Infantry'];
 
 /**
  * Is a model with this resolved unit-type + abilities a valid Anti-Air target?

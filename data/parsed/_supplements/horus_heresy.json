@@ -125,6 +125,24 @@
           "abilities": "-"
         },
         {
+          "name": "Lascutter - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "10",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "Armorbane, AT(2), Slow(-3)"
+        },
+        {
+          "name": "Lascutter - Ranged",
+          "range": "9\"",
+          "type": "Assault 1",
+          "s": "10",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "Armorbane, AT(2)"
+        },
+        {
           "name": "Melta",
           "range": "12\"",
           "type": "Assault 1",
@@ -549,6 +567,24 @@
           "abilities": "AT(1), Melta"
         },
         {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
           "name": "Rotor cannon",
           "range": "30\"",
           "type": "Assault 4",
@@ -719,6 +755,51 @@
           "abilities": "Armor piercing(5+)"
         },
         {
+          "name": "Conversion beamer - Short range",
+          "range": "0\" - 24\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Conversion beamer - Mid range",
+          "range": "24\" - 48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Conversion beamer - Long range",
+          "range": "48\" - 72\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Barrage"
+        },
+        {
+          "name": "Cyclone missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Cyclone missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Anti-air"
+        },
+        {
           "name": "Dreadnought close combat weapon",
           "range": "-",
           "type": "Melee",
@@ -755,6 +836,24 @@
           "abilities": "Armor piercing(5+)"
         },
         {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Anti-air"
+        },
+        {
           "name": "Multi-melta",
           "range": "24\"",
           "type": "Assault 1",
@@ -762,6 +861,42 @@
           "ap": "-5",
           "d": "2",
           "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Plasma blaster - Standard",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma blaster - Overcharged",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Plasma cannon - Standard",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon - Overcharged",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         },
         {
           "name": "Storm bolter",
@@ -1015,6 +1150,69 @@
           "abilities": "-"
         },
         {
+          "name": "Combi-flamer - Bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Combi-flamer - Flamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Combi-melta - Bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Combi-melta - Melta",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "AT(1), Melta"
+        },
+        {
+          "name": "Combi-plasma - Bolter",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Combi-plasma - Plasma (Standard)",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Combi-plasma - Plasma (Overcharged)",
+          "range": "24\"",
+          "type": "Rapid fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheat"
+        },
+        {
           "name": "Heavy flamer",
           "range": "9\"",
           "type": "Assault 1",
@@ -1040,6 +1238,33 @@
           "ap": "-2",
           "d": "1",
           "abilities": "Flurry(2), Shred, Unwieldy"
+        },
+        {
+          "name": "Plasma blaster - Standard",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma blaster - Overcharged",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Power axe",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
         },
         {
           "name": "Power fist",
@@ -1484,6 +1709,24 @@
           "ap": "-5",
           "d": "2",
           "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Plasma cannon - Standard",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon - Overcharged",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         },
         {
           "name": "Volkite culverin",
@@ -1949,13 +2192,31 @@
           "abilities": "-"
         },
         {
-          "name": "Laserkanone",
+          "name": "Lascannon",
           "range": "48\"",
           "type": "Heavy 1",
           "s": "9",
           "ap": "-4",
           "d": "3",
           "abilities": "AT(2)"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Anti-air"
         },
         {
           "name": "Multi-melta",
@@ -1965,6 +2226,24 @@
           "ap": "-5",
           "d": "2",
           "abilities": "AT(2), Melta"
+        },
+        {
+          "name": "Plasma cannon - Standard",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon - Overcharged",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         },
         {
           "name": "Volkite caliver",
@@ -2035,7 +2314,7 @@
               "points": 5
             },
             {
-              "name": "Vulkite caliver",
+              "name": "Volkite caliver",
               "points": 9
             },
             {
@@ -2232,7 +2511,7 @@
               "points": 43
             },
             {
-              "name": "Quad Maschinenkanone",
+              "name": "Quad autocannon",
               "points": 107
             },
             {

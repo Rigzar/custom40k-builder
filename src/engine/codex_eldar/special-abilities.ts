@@ -60,8 +60,8 @@ export const ELDAR_SPECIAL_ABILITIES: EldarSpecialAbilityEntry[] = [
     name: 'Archetypes (6 total)',
     category: 'archetype',
     text: 'Budget 0-1 Archetype. Aspect Focus (<Aspect> units→Troops; non-<Aspect> Troops→Elite) + ' +
-      'Wraithhost (Wraithblades/Wraithguard→Troops; non-<Wraith> Troops→Elite) gate on sub-types ' +
-      'NOT currently in production `keywords[]` (gap-note below). Exemplars of the Shrines (Exarchs ' +
+      'Wraithhost (Wraithblades/Wraithguard→Troops; non-<Wraith> Troops→Elite) gate on the "Aspect"/' +
+      '"Wraith" `keywords[]` (v0.60, ki-eldar-aspect-wraith-keyword-01 fixed). Exemplars of the Shrines (Exarchs ' +
       'gain two powers, no longer unique). LIIVI (access a single Vindicare assassin; one HQ must ' +
       'be a Farseer — cross-ref the universal Assassins system). Windhost (Windriders→Troops; ' +
       '<12"M units must start embarked). Ynnari → cross-faction (Battle Brothers for Dark Eldar; ' +
@@ -89,16 +89,6 @@ export const ELDAR_SPECIAL_ABILITIES: EldarSpecialAbilityEntry[] = [
   },
 
   // --- §6 gap notes ---
-  {
-    name: '<Aspect>/<Wraith> sub-types not keyword-modelled (ki-eldar-aspect-wraith-keyword-01)',
-    category: 'gap-note',
-    text: 'Aspect Focus + Wraithhost archetypes gate on `<Aspect>`/`<Wraith>` (per the `.ods`), but ' +
-      'all 38 units carry `keywords: []` — so these sub-types are not keyword-tagged (unlike Dark ' +
-      'Eldar\'s Kabal/Coven/Cult which ARE). Candidate: tag the Aspect Warriors (Dire Avengers/Fire ' +
-      'Dragons/Howling Banshees/Striking Scorpions/Dark Reapers/Swooping Hawks/Warp Spiders/Shining ' +
-      'Spears/Shadow Spectres) "Aspect" + the Wraith units (Wraithblades/Wraithguard/Wraithlord/' +
-      'Wraithseer) "Wraith", bringing Eldar in line with the Dark Eldar keyword model.',
-  },
   {
     name: 'Eldar psychic discipline + Revenant not wired (ki-eldar-psychic-unwired-01)',
     category: 'gap-note',

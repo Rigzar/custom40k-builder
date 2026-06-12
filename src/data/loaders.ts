@@ -121,12 +121,13 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'imperial_guard': {
-      const [u, g, arch] = await Promise.all([
+      const [u, g, arch, discs] = await Promise.all([
         import('../../data/parsed/imperial_guard/units.json'),
         import('../../data/parsed/imperial_guard/armory/general.json'),
         import('../../data/parsed/imperial_guard/archetypes.json'),
+        import('../../data/parsed/imperial_guard/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, {});
+      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs });
     }
 
     case 'adeptus_mechanicus': {
@@ -194,44 +195,48 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'tau_empire': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, discs] = await Promise.all([
         import('../../data/parsed/tau_empire/units.json'),
         import('../../data/parsed/tau_empire/armory/general.json'),
         import('../../data/parsed/tau_empire/archetypes.json'),
         import('../../data/parsed/tau_empire/armory/legion_sept.json'),
+        import('../../data/parsed/tau_empire/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, {});
+      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, { disciplines: discs });
     }
 
     case 'necrons': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, discs] = await Promise.all([
         import('../../data/parsed/necrons/units.json'),
         import('../../data/parsed/necrons/armory/general.json'),
         import('../../data/parsed/necrons/archetypes.json'),
         import('../../data/parsed/necrons/armory/legion_dynasty.json'),
+        import('../../data/parsed/necrons/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Dynasty': leg }, {});
+      return asm(u, g, arch, noRules, {}, { 'Dynasty': leg }, { disciplines: discs });
     }
 
     case 'orks': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, discs] = await Promise.all([
         import('../../data/parsed/orks/units.json'),
         import('../../data/parsed/orks/armory/general.json'),
         import('../../data/parsed/orks/archetypes.json'),
         import('../../data/parsed/orks/armory/legion_clan.json'),
+        import('../../data/parsed/orks/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Klan': leg }, {});
+      return asm(u, g, arch, noRules, {}, { 'Klan': leg }, { disciplines: discs });
     }
 
     case 'eldar': {
-      const [u, g, arch, cw, yn] = await Promise.all([
+      const [u, g, arch, cw, yn, discs] = await Promise.all([
         import('../../data/parsed/eldar/units.json'),
         import('../../data/parsed/eldar/armory/general.json'),
         import('../../data/parsed/eldar/archetypes.json'),
         import('../../data/parsed/eldar/armory/legion_craftworld.json'),
         import('../../data/parsed/eldar/armory/legion_ynnari.json'),
+        import('../../data/parsed/eldar/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Craftworld': cw, 'Ynnari': yn }, {});
+      return asm(u, g, arch, noRules, {}, { 'Craftworld': cw, 'Ynnari': yn }, { disciplines: discs });
     }
 
     case 'dark_eldar': {
@@ -247,40 +252,44 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'genestealer_cults': {
-      const [u, g, arch] = await Promise.all([
+      const [u, g, arch, discs] = await Promise.all([
         import('../../data/parsed/genestealer_cults/units.json'),
         import('../../data/parsed/genestealer_cults/armory/general.json'),
         import('../../data/parsed/genestealer_cults/archetypes.json'),
+        import('../../data/parsed/genestealer_cults/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, {});
+      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs });
     }
 
     case 'harlequins': {
-      const [u, g] = await Promise.all([
+      const [u, g, discs] = await Promise.all([
         import('../../data/parsed/harlequins/units.json'),
         import('../../data/parsed/harlequins/armory/general.json'),
+        import('../../data/parsed/harlequins/psychic/disciplines.json'),
       ]);
-      return asm(u, g, noArch, noRules, {}, {}, {});
+      return asm(u, g, noArch, noRules, {}, {}, { disciplines: discs });
     }
 
     case 'leagues_of_votann': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, discs] = await Promise.all([
         import('../../data/parsed/leagues_of_votann/units.json'),
         import('../../data/parsed/leagues_of_votann/armory/general.json'),
         import('../../data/parsed/leagues_of_votann/archetypes.json'),
         import('../../data/parsed/leagues_of_votann/armory/legion_league.json'),
+        import('../../data/parsed/leagues_of_votann/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'League': leg }, {});
+      return asm(u, g, arch, noRules, {}, { 'League': leg }, { disciplines: discs });
     }
 
     case 'tyranids': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, discs] = await Promise.all([
         import('../../data/parsed/tyranids/units.json'),
         import('../../data/parsed/tyranids/armory/general.json'),
         import('../../data/parsed/tyranids/archetypes.json'),
         import('../../data/parsed/tyranids/armory/legion_hive_fleet.json'),
+        import('../../data/parsed/tyranids/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Hive Fleet': leg }, {});
+      return asm(u, g, arch, noRules, {}, { 'Hive Fleet': leg }, { disciplines: discs });
     }
 
     case 'horus_heresy':

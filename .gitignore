@@ -44,3 +44,5 @@ scripts/
 
 # Dev server log
 dev-server.log
+
+__pycache__/

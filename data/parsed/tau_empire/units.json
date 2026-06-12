@@ -265,7 +265,7 @@
         "Crisis bodyguard: The Commander may join a unit of Crisis Honor Guard.",
         "Shas'o: May be equipped with one additional weapon and SUPPORT SYSTEM each."
       ],
-      "unit_type": "Jump pack, Monstrous Infantry",
+      "unit_type": "Jump Pack Infantry, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1633,7 +1633,7 @@
       "abilities": [
         "Supporting Fire"
       ],
-      "unit_type": "Jump pack, Monstrous Infantry",
+      "unit_type": "Jump Pack Infantry, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -1864,7 +1864,7 @@
         "XV86-2 Coldstar: The models gains the \"Jetbike\" unit type and the \"Hit & Run\" ability.",
         "XV86-3 Supernova: The model gains +1 Attack and +1 Initiative."
       ],
-      "unit_type": "Jump pack, Monstrous Infantry",
+      "unit_type": "Jump Pack Infantry, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2013,7 +2013,7 @@
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
         "Shrouded: Stealth Drones confer the ability \"Stealth\" and \"Use cover\" to themselves and their attached units."
       ],
-      "unit_type": "Jump pack, Monstrous Creature",
+      "unit_type": "Jump Pack Infantry, Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -2647,7 +2647,7 @@
       "abilities": [
         "Infiltrator, Stealth, Supporting Fire"
       ],
-      "unit_type": "Infantry, Jump pack",
+      "unit_type": "Infantry, Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3013,7 +3013,7 @@
       "abilities": [
         "Supporting Fire"
       ],
-      "unit_type": "Jump pack, Monstrous Infantry",
+      "unit_type": "Jump Pack Infantry, Monstrous Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3835,7 +3835,7 @@
         "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius.",
         "R’varna shield generator: The model has a 5+ invulnerability save."
       ],
-      "unit_type": "Jump pack, Monstrous Creature",
+      "unit_type": "Jump Pack Infantry, Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -3912,7 +3912,7 @@
       "abilities": [
         "Deflect, Stealth, Squadron, Supporting Fire, Unyielding"
       ],
-      "unit_type": "Jump pack",
+      "unit_type": "Jump Pack Infantry",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -4205,7 +4205,7 @@
         "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius.",
         "Y'vahra shield generator: The model has a 5+ invulnerability save."
       ],
-      "unit_type": "Jump pack, Monstrous Creature",
+      "unit_type": "Jump Pack Infantry, Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,
@@ -4729,7 +4729,7 @@
         "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius.",
         "Riptide shield generator: The model has a 5+ invulnerability save."
       ],
-      "unit_type": "Jump pack, Monstrous Creature",
+      "unit_type": "Jump Pack Infantry, Monstrous Creature",
       "keywords": [],
       "is_vehicle": false,
       "is_character": false,

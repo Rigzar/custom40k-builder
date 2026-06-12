@@ -534,7 +534,9 @@
         "Wraithshield: The model gains a 5+ invulnerability save."
       ],
       "unit_type": "Monstrous Creature",
-      "keywords": [],
+      "keywords": [
+        "Wraith"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": true,
@@ -1883,7 +1885,9 @@
         "Shimmershield: The model and its attached unit gain a 4+ invulnerability save in melee."
       ],
       "unit_type": "Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2017,7 +2021,9 @@
         "Aspect armor: The model gains a 5+ invulnerability save."
       ],
       "unit_type": "Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2175,7 +2181,9 @@
         "Aspect armor: The model gains a 5+ invulnerability save."
       ],
       "unit_type": "Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2319,7 +2327,9 @@
         "Ghostlight: If a unit scores two or more hits with weapons with this ability, you may resolve the hits normally or inflict a single combined attack. When combining attacks, choose one Ghostlight hit to be the primary hit. Resolve only the primary hit; for each other Ghostlight hit, the primary hit gains +1 Strength, -1 AP, +1 Damage, and AT(1), to a maximum of 10 Strength, -6 AP, 4 Damage, and AT(4)."
       ],
       "unit_type": "Jump Pack Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2445,7 +2455,9 @@
         "Mandiblaster: During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1."
       ],
       "unit_type": "Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2597,7 +2609,9 @@
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
       ],
       "unit_type": "Monstrous Infantry",
-      "keywords": [],
+      "keywords": [
+        "Wraith"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2681,7 +2695,9 @@
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
       ],
       "unit_type": "Monstrous Infantry",
-      "keywords": [],
+      "keywords": [
+        "Wraith"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -2858,7 +2874,9 @@
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
       ],
       "unit_type": "Monstrous Creature",
-      "keywords": [],
+      "keywords": [
+        "Wraith"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": true,
@@ -3142,7 +3160,9 @@
         "Shimmershield: The model and its attached unit gain a 4+ invulnerability save in melee."
       ],
       "unit_type": "Jetbike",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -3374,8 +3394,10 @@
         "Aspect armor: The model gains a 5+ invulnerability save.",
         "Sky Dive: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
       ],
-      "unit_type": "Jump pack",
-      "keywords": [],
+      "unit_type": "Jump Pack Infantry",
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -3622,7 +3644,9 @@
         "Shunting: The unit rolls and moves an additional 1D6 when using the Advance order. If a double 1 is rolled, the unit suffers one Mortal Wound."
       ],
       "unit_type": "Jump Pack Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
@@ -3845,7 +3869,9 @@
         "Aspect armor: The model gains a 5+ invulnerability save."
       ],
       "unit_type": "Infantry",
-      "keywords": [],
+      "keywords": [
+        "Aspect"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,

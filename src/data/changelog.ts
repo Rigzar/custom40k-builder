@@ -25,6 +25,36 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.61',
+    date: '2026-06-12',
+    title: {
+      en: 'Horus Heresy supplement: 31 missing weapon profiles added, 3 weapon names corrected',
+    },
+    changes: {
+      en: [
+        'Added 31 missing weapon profile entries across 6 Horus Heresy units — Legion Breacher Squad (Lascutter), Legion Tactical Support Squad (Plasma gun), Legion Contemptor Dreadnought (Conversion beamer, Cyclone missile launcher, Missile launcher, Plasma blaster, Plasma cannon), Legion Terminator Cataphractii Squad (Combi-flamer/melta/plasma, Plasma blaster, Power axe), Legion Sky-hunter Squadron (Plasma cannon) and Legion Heavy Support Squad (Missile launcher, Plasma cannon) — these weapons now show their full stat profiles when selected.',
+        'Fixed three weapon names that did not match between the option list and the displayed profile: "Vulkite caliver" renamed to "Volkite caliver" and "Laserkanone" renamed to "Lascannon" (Legion Heavy Support Squad), "Quad Maschinenkanone" renamed to "Quad autocannon" (Legion Leviathan Dreadnought).',
+      ],
+    },
+  },
+  {
+    version: '0.60',
+    date: '2026-06-12',
+    title: {
+      en: 'Psychic disciplines wired for 9 factions; Adeptus Mechanicus Doctrina Imperatives fixed',
+    },
+    changes: {
+      en: [
+        'Added psychic/prayer discipline tables for Imperial Guard (Psikana I/II), Eldar (Battle, Fate, Revenant, Wraith), Harlequins (Phantasmancy), Genestealer Cults (Broodmind, Legacy Psychic Powers), Orks (Waaagh!), Tyranids (Hive Mind), Leagues of Votann (Skeinwrought), Tau Empire (Invocations of the Ethereals) and Necrons (Powers of the C\'tan). These now appear in-app for Psyker units in these factions, matching how Chaos Space Marines, Space Marines, Grey Knights and Inquisition already worked.',
+        'Fixed: Adeptus Mechanicus Doctrina Imperatives (Aggressor/Bulwark/Conqueror/Protector) now only appear for the 13 units whose datasheet grants the option, count toward a 1-per-unit cap, and price vehicles/Monstrous Creatures at the correct per-Hull-Point/Wound cost.',
+        'Fixed: removed two stray entries ("Furious Charge" in Dark Eldar Elites, "Vigilators" in Adeptus Custodes Elites) that pointed at non-existent datasheets and could not be selected.',
+        'Fixed: Eldar\'s "Aspect Focus" archetype now correctly turns Aspect Warriors (Dire Avengers, Fire Dragons, Howling Banshees, Shadow Spectres, Striking Scorpions, Shining Spears, Swooping Hawks, Warp Spiders, Dark Reapers) into Troops while moving other Troops to Elites — previously it only demoted Troops without promoting any Aspect units.',
+        'Fixed unit-type labels for 12 units across Eldar (1), Tau Empire (10) and Necrons (1) that showed an incomplete "Jump pack"/"Jump Pack" type instead of the canonical "Jump Pack Infantry" — including combinations with Monstrous Creature/Monstrous Infantry, matching the existing pattern from Chaos Daemons (Bloodthirster, Lord of Change). Confirmed with the game designer.',
+        'Revised the Grey Knights Teleporter option (Captain in Nemesis Armor, Nemesis Dreadknight) and fixed Chaos Space Marines\' "Daemonic flight / jump pack" armory item: both now correctly grant the "Jump Pack Infantry" type, the Deep Strike special rule, and +6" Movement together — matching how Chaos Daemons model "gains jump pack". Also added a "Jump Pack" rules-glossary entry and included units with the "Jump Pack Infantry" type as valid Anti-Air targets, per the Core Rules. Confirmed with the game designer.',
+      ],
+    },
+  },
+  {
     version: '0.59',
     date: '2026-06-11',
     title: {

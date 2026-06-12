@@ -23,6 +23,13 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Anti-Air',
     description: 'Attacks against models with Anti-Grav, Jet Bike, Jump Pack, or the Flyer unit type gain +1 to hit rolls and +1 Strength.',
   },
+  // Core Rules L714-718 ("Jump Pack Infantry" type) + designer confirmation (2026-06-12):
+  // the "Jump pack" ability referenced standalone at L551 and L1331 is the package granted
+  // by the "Jump Pack Infantry" unit type.
+  'jump pack': {
+    name: 'Jump Pack',
+    description: 'The model ignores terrain and vertical movement costs, and gains the "Deep Strike" special rule (the package granted by the "Jump Pack Infantry" unit type).',
+  },
   'armorbane': {
     name: 'Armorbane',
     description: 'The weapon rolls an additional 1D6 for armor penetration.',

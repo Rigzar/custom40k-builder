@@ -212,7 +212,11 @@ priced **flat +10 per god** (single-model vehicle pricing), unlike the +2/+5 per
   **choose-TWO** primitive — count "pick exactly 2" not modeled (it's a single `one` group) 🟡; `one`
   **swap Storm bolter** → Heavy flamer +2 / Graviton blaster +5 / Plasma blaster +31 · replace 🟡;
   `one` **Cyclone missile launcher +80** · add ✅pts. Abilities: Squadron, Atomantic Shielding (5++),
-  Furioso (+2A with two melee weapons). Multi-profile weapons (Combi-/Plasma `*`) display ✅.
+  Furioso (+2A with two melee weapons). Multi-profile weapons (Conversion beamer ×3 / Cyclone missile
+  launcher ×2 / Missile launcher ×2 / Plasma blaster ×2 / Plasma cannon ×2 = 11 profiles) — **FIXED
+  2026-06-12**: all 11 were absent from `weapons[]` until this audit pass (§7.8), display now ✅.
+  Conversion beamer's "Only for Techmarines" note (.ods header row) is not gated —
+  `ki-hh-contemptor-conversionbeamer-techmarine-01`.
 - **Legion Terminator Cataphractii Squad** — **the ᵀ-gate test unit:** wears **Cataphractii armor**
   (2+ save baked; abilities Deep strike / Massive(1) / Unyielding + *Cataphractii Terminator armor*
   4++) → its Sergeant's armory access is **restricted to ᵀ items only** (§2; and the ᵀ-vs-Tzeentch
@@ -253,7 +257,8 @@ both swaps, stats) ✓.
   per model** (jetbike pricing, dearer than infantry's +2/+5 — confirms mark cost scales per unit) ·
   ✅pts; `every` **swap Heavy bolter** → Volkite culverin +16 / Multi-melta +19 / Plasma cannon +80 ·
   replace 🟡; `every` **swap Bolt pistol** → Hand flamer +2 / Volkite serpenta +2 · replace 🟡. No
-  abilities. Plasma cannon multi-profile display ✅.
+  abilities. Plasma cannon multi-profile (Standard/Overcharged) — **FIXED 2026-06-12**: both profiles
+  were absent from `weapons[]` until this audit pass (§7.8), display now ✅.
 
 **FA-slot gaps:** same `every` replace drop-side 🟡; host-conditional groups as §4a. Nothing new.
 
@@ -323,5 +328,25 @@ mark** (Kakophoni Slaanesh-only) ✅; **vehicle "vehicle equipment" with no HH v
    equipment is almost certainly the **host codex's** vehicle armory (SM or CSM), not an HH-local one.
    Confirm the engine resolves vehicle equipment against the host, not the HH supplement.
 7. **German weapon names** leaking into datasheets/armory ("Laserkanone", "Quad Maschinenkanone") —
-   localization artifact in the source HTML; production stores English names. No data impact, but
-   flag if any alias/lookup keys off the German string.
+   localization artifact in the source HTML. **FIXED 2026-06-12** (§7.8): renamed to their English
+   equivalents ("Lascannon", "Quad autocannon") in production, matching `weapons[]`/.ods.
+8. **Multi-profile weapon audit pass (2026-06-12), .ods×production "desde 0"** — found and fixed in
+   `horus_heresy.json`:
+   - **31 missing multi-profile `weapons[]` entries** across 6 units, sourced row-by-row from the
+     .ods weapon tables (sub-profile order preserved — Standard before Overcharged, Frag before
+     Krak, Bolter before Flamer/Melta/Plasma, Short/Mid/Long range): Legion Breacher Squad (Lascutter
+     ×2), Legion Tactical Support Squad (Plasma gun ×2), Legion Contemptor Dreadnought (Conversion
+     beamer ×3, Cyclone missile launcher ×2, Missile launcher ×2, Plasma blaster ×2, Plasma cannon
+     ×2 = 11), Legion Terminator Cataphractii Squad (Combi-flamer/melta/plasma ×7, Plasma blaster ×2,
+     Power axe = 10), Legion Sky-hunter Squadron (Plasma cannon ×2), Legion Heavy Support Squad
+     (Missile launcher ×2, Plasma cannon ×2).
+   - **Power axe** (Cataphractii swap option) is absent from HH's own .ods weapon table — stats
+     sourced via 6-faction armory consensus (CSM/SM/AdMech/Sororitas/IG/Inquisition all agree:
+     melee, +2S/-2AP/D1).
+   - **3 name fixes**: "Vulkite caliver"→"Volkite caliver" (Heavy Support Squad option choice),
+     "Laserkanone"→"Lascannon" and "Quad Maschinenkanone"→"Quad autocannon" (item 7, above).
+     Leviathan needed no new `weapons[]` entries — its "Quad autocannon" entry already matched.
+   - **New known issue**: Contemptor's Conversion beamer "Only for Techmarines" note (.ods header
+     row) is not repeated in OPTIONS text and not gated by the engine —
+     `ki-hh-contemptor-conversionbeamer-techmarine-01`.
+   - §4b/§4c corrected accordingly (Contemptor + Sky-hunter multi-profile display claims).

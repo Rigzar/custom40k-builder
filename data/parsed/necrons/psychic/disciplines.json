@@ -1,0 +1,34 @@
+{
+  "Powers": [
+    {
+      "name": "Form Matter",
+      "type": "",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "",
+      "effect": "Creatures suffer 1D6 automatic wounds with S: 10 AP: -2 D: 1; Seeking. \nVehicles suffer 1D3 glancing hits with AT(1); Seeking.",
+      "duration": "Immediately",
+      "complexity": "Simple"
+    },
+    {
+      "name": "Transdimensional Manipulation",
+      "type": "",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "",
+      "effect": "Roll 1D6 for each model in the target unit. For every 3+ it suffers an automatic wound with S: 5 AP: 0 D: 1; Sunder(2). Can't cause more than 10 wounds in a single activation.",
+      "duration": "Immediately",
+      "complexity": "Simple"
+    },
+    {
+      "name": "Time's Arrow (only for Star Vampire C'tans)",
+      "type": "",
+      "range": "12\"",
+      "target": "Enemy unit",
+      "cast_value": "",
+      "effect": "The target suffers one automatic hit with S: D AP: -4 D: 3; AT(4), Seeking.",
+      "duration": "Immediately",
+      "complexity": "Simple"
+    }
+  ]
+}

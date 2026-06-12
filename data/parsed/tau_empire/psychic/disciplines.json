@@ -1,0 +1,24 @@
+{
+  "Powers": [
+    {
+      "name": "Sense of Stone",
+      "type": "",
+      "range": "18\"",
+      "target": "Self",
+      "cast_value": "",
+      "effect": "Friendly units within the area ignore all negative Leadership modifications.",
+      "duration": "Until the Ethereal's next activation.",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Zephyr's Grace",
+      "type": "",
+      "range": "18\"",
+      "target": "Friendly unit (Infantry)",
+      "cast_value": "",
+      "effect": "The target can fire one more shot per model with pulse weapons.",
+      "duration": "Until the Ethereal's next activation.",
+      "complexity": "Normal"
+    }
+  ]
+}

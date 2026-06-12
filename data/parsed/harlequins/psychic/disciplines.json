@@ -1,0 +1,64 @@
+{
+  "Phantasmancy": [
+    {
+      "name": "Fog of Dreams",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly model",
+      "cast_value": "5",
+      "effect": "The target can't be selected by anything outside of 12\" as its target.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Mirror of Minds",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy model",
+      "cast_value": "6",
+      "effect": "Both the Psyker and the target roll a D6 and add their respective Leadership values. If the target’s total is greater than the Psyker’s total, nothing happens. If the Psyker’s total is greater than or equal to the target’s total, the target model suffers one Mortal Wound. Continue this roll off until the target is dead or beats the Psyker's roll.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Misdirection",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target can not be selected for a Charge command.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Twilight Pathways",
+      "type": "Augmentation",
+      "range": "-",
+      "target": "Self + Attached unit",
+      "cast_value": "6",
+      "effect": "The target may immediately move up to its Movement value.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Veil of Tears",
+      "type": "Malediction",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target can't selected any units outside of 18\" as its target.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Shards of Light",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers six automatic hits with Strength: 5 AP: -1 D: 1; Seeking. Additionally, it gains one Battleshock token.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    }
+  ]
+}

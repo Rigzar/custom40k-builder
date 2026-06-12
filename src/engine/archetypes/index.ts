@@ -113,6 +113,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   // ── Eldar ─────────────────────────────────────────────────────────────────
   'Aspect Focus': { ...BASE,
+    troopsRemap: ['Dire Avengers', 'Fire Dragons', 'Howling Banshees', 'Shadow Spectres', 'Striking Scorpions', 'Shining Spears', 'Swooping Hawks', 'Warp Spiders', 'Dark Reapers'],
     demoteOtherTroops: true,
     notes: [
       'All Aspect Warrior units count as Troops.',
