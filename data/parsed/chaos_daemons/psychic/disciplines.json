@@ -1,0 +1,188 @@
+{
+  "Change (Tzeentch only)": [
+    {
+      "name": "Pyric Flux",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "5",
+      "effect": "The target adds +2 to the Strength for all weapons with the \"Flames\" ability.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Tzeentch's Firestorm",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "Roll 1D6 for each Wound left in the target unit. On a 4+ it receives an automatic wound with S: 4 DS: 0 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Doombolt",
+      "type": "Witchfire",
+      "range": "24\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "One automatic hit with S: 9 AP: -3 D: 2; AT(2), Seeking, Tank hunter.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Glamour of Tzeentch",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target gains the \"Deflect\" and \"Parry\" abilities.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Weaver of Fates",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target may re-roll 1s for its invulnerability saving throws.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Temporal Manipulation",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The caster may heal a friendly unit (excluding itself) with the Mark of Tzeentch for 1D3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first. Can only be successfully manifested once per round and per psyker.",
+      "duration": "Instant",
+      "complexity": "Complex"
+    }
+  ],
+  "Decay (Nurgle only)": [
+    {
+      "name": "Gift of Contagion",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "6",
+      "effect": "The target suffers a -1 penalty to its Toughness. \"Poison(x+)\" attacks gain a +1 bonus to wound rolls.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Miasma of Pestilence",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "Enemy models attacking the target in melee reduce their number of attacks by 1 (to a minimum of 1).",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Decaying Touch",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers a (cumulative) –1 penalty to its Saving throw or Armor value.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Plague Wind",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "Each model of the target must succeed on a Toughness test or receive one Mortal Wound.",
+      "duration": "Immediately",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Putrescent Vitality",
+      "type": "Augmentation",
+      "range": "18\"",
+      "target": "Friendly unit",
+      "cast_value": "6",
+      "effect": "The target receives +2 Toughness.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Nurgle's Dance",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The caster may heal a friendly unit (excluding itself) with the Mark of Nurgle for 1D3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first. Can only be successfully manifested once per round and per psyker.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Complex"
+    }
+  ],
+  "Excess (Slaanesh only)": [
+    {
+      "name": "Delightful Agonies",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "4",
+      "effect": "The target unit gains \"Warded\".",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Pavane of Slaanesh",
+      "type": "Witchfire",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "5",
+      "effect": "Roll 1D6 for each Wound left in the target unit. On a 4+ it receives an automatic wound with S: 4 DS: 0 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Cacophonic Choir",
+      "type": "Witchfire",
+      "range": "12\"",
+      "target": "Enemy unit (Creature)",
+      "cast_value": "6",
+      "effect": "Roll 2D6 and substract the target's Leadership. The unit receives that amount of automatic wounds with Strength: 5 AP: -6 D: 1; Seeking.",
+      "duration": "Instant",
+      "complexity": "Normal"
+    },
+    {
+      "name": "Hysterical Frenzy",
+      "type": "Augmentation",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "7",
+      "effect": "The target gains +1 Attack for each model and the Precision(5+) ability for all melee weapons.",
+      "duration": "Instant",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Siren",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target unit must pass a Leadership test with a -1 penalty, or move 6\" towards the caster.",
+      "duration": "Until the next activation of the caster",
+      "complexity": "Basic"
+    },
+    {
+      "name": "Symphony of Pain",
+      "type": "Malediction",
+      "range": "18\"",
+      "target": "Enemy unit",
+      "cast_value": "7",
+      "effect": "The target suffers a -1 penalty to its Weapon Skill and Strength.",
+      "duration": "Until the caster's next activation",
+      "complexity": "Basic"
+    }
+  ]
+}
