@@ -65,8 +65,8 @@
   weapon rule.
 - **Tesla** (Index): "To hit rolls of 5+ always succeed + 2 additional automatic hits." (Shared with
   AdMech/Orks.)
-- **Psyker** (1 unit `is_psyker`): the `.ods` has "Powers of the Ctan" (the C'tan power system —
-  the C'tan Shards' powers). **⚠ NOT wired into the loader — see §6.3.**
+- **Psyker** (4 units `is_psyker` — the C'tan Shards): the `.ods` has "Powers of the Ctan" (the
+  C'tan power system). Wired into the loader; see §6.3 for a v0.69 model-assignment fix.
 
 ### 5. Archetypes / Legacies / Traits
 
@@ -99,11 +99,14 @@ Dynasty (→"2nd Legacy") / Vengeful Stars / Warrior Nobles. Several have mutual
    Canoptek/Cryptek/Lord sub-types are embedded in the `unit_type` string; archetypes/traits gate on
    `<Necron>`/`<Canoptek>`. A different encoding from Dark Eldar's keywords[] sub-factions — a
    candidate to promote into `keywords[]` in a future keyword-engine refactor.
-3. **⚠ Powers of the C'tan + Cryptek psychic not wired** (`ki-necrons-psychic-unwired-01`, KNOWN):
-   the `.ods` has a "Powers of the Ctan" sheet (the C'tan Shards' power system) and Necrons have a
-   psyker unit, but `loaders.ts` imports only units+general+archetypes+Dynasty armory (disciplines
-   slot `{}`). Same gap class as IG/Eldar/Harlequins/GSC/Orks/Tyranids/Votann/Tau. Larger separate
-   scope.
+3. **Powers of the C'tan — RESOLVED v0.60, model-assignment bug FIXED v0.69**
+   (`ki-necrons-psychic-unwired-01`): the v0.60 batch extracted "Powers of the Ctan" (Form Matter,
+   Transdimensional Manipulation, Time's Arrow) into `data/parsed/necrons/psychic/disciplines.json`
+   (key "Powers") and wired it into `loaders.ts`. But `is_psyker: true` was on the **Pariahs**
+   (anti-psyker "Psionic Abomination" unit) instead of the 4 C'tan Shard datasheets (which all carry
+   the "Powers of the C'tan" ability). v0.69 moved `is_psyker: true` to C'tan Shard / C'tan Shard of
+   the Deceiver / of the Dragon / of the Nightbringer, and set the Pariahs back to `false`. The
+   Powers tab now shows correctly on the C'tan Shards.
 4. **Experimental Reanimation Protocols** (note, not a gap): the Index sheet lists an EXPERIMENTAL
    alternate Reanimation Protocols rule ("undergoing playtesting, completely optional"). The digest
    documents the standard rule (§4) as canonical; the experimental variant is opt-in and not part of
@@ -112,3 +115,19 @@ Dynasty (→"2nd Legacy") / Vengeful Stars / Warrior Nobles. Several have mutual
    Attack 5/Heavy Support 5/Dedicated Transport 2/Fortifications 1/Flyers 2). Uses every slot. No
    phantoms; matches the Index roster (Elites is the big slot — 4 C'tan Shards + Canoptek constructs
    + Destroyers).
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: §4 (Reanimation Protocols, Gauss, Tesla) was already built directly
+   from the `.ods` during the Fase 4 digest — [[feedback_lo_demas_ods_not_html]], no re-derivation
+   needed. No gaps.
+2. **Psychic disciplines / prayers**: §6.3 flagged `ki-necrons-psychic-unwired-01`. The v0.60 batch
+   HAD extracted "Powers of the C'tan" into `disciplines.json` ("Powers") and wired it — but
+   `is_psyker: true` was on the Pariahs (wrong unit, anti-psyker themed) instead of the 4 C'tan Shard
+   datasheets that carry the "Powers of the C'tan" ability. NEW FIX v0.69: moved `is_psyker: true` to
+   the 4 C'tan Shards, removed it from the Pariahs.
+
+**Necrons "lo demás" complete** — Index already grounded in .ods; Powers of the C'tan now wired to
+the correct model. Build ✓, changelog v0.69, local NOT pushed.
+
+**This was the 19th and final regular faction in the Fase-4 "lo demás" order.**

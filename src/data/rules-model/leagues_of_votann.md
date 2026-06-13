@@ -99,10 +99,24 @@ Outriders / Trivârg Cyber Implants / Vengeful / Voidship Specialists. Canonical
 3. **"Hernkyn Yaegirs" `unit_type` artifact**: production has `unit_type: "Infantry, Sniper: Models
    with a Magna-coil rifle receive a +1 bonus to their BS value."` (an ability sentence leaked into
    the type; should be "Infantry"). Cosmetic, `ki-unittype-residuals-01` family.
-4. **⚠ Skeinwrought psychic discipline not wired into the loader** (`ki-leagues-of-votann-psychic-unwired-01`,
-   KNOWN): the `.ods` has a "Skeinwrought discipline" (19 rows), and Votann has a psyker (Grimnyr),
-   but `loaders.ts` imports only units+general+archetypes+League armory (disciplines slot `{}`).
-   Same gap class as IG/Eldar/Harlequins/GSC/Orks/Tyranids. Larger separate scope.
+4. **Skeinwrought psychic discipline wiring — RESOLVED v0.60** (`ki-leagues-of-votann-psychic-unwired-01`,
+   FIXED): the "Skeinwrought discipline" (19 rows) is now in `data/parsed/leagues_of_votann/psychic/
+   disciplines.json` and `loaders.ts:leagues_of_votann` imports it (`{ disciplines: discs }`). The
+   Grimnyr's Powers tab is populated. This entry was written 2026-06-11 (before the v0.60 batch
+   fix); superseded.
 5. **Roster cross-check**: production 18 units / 6 populated slots (HQ 3/Troops 2/Elites 6/Fast
    Attack 2/Heavy Support 3/Dedicated Transport 2; Fortifications 0, Flyers 0). No phantoms; matches
    the Index roster.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: §4 (Eye of the Ancestors, Steady Advance, Void armor) was already built
+   directly from the `.ods` during the Fase 4 digest — [[feedback_lo_demas_ods_not_html]], no
+   re-derivation needed. No gaps.
+2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The Skeinwrought
+   discipline gap flagged in §6.4 was ALREADY RESOLVED by the v0.60 batch fix
+   (`data/parsed/leagues_of_votann/psychic/disciplines.json` exists, wired in `loaders.ts`, KI status
+   `fixed`). Updated §6.4 to reflect the resolved state (was stale, written before v0.60).
+
+**Votann "lo demás" complete** — Index already grounded in .ods, psychic discipline already wired
+(stale doc corrected). Doc-only, no build required.

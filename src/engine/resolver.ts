@@ -309,7 +309,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
           !wa.weapon_type ||
           (wa.weapon_type === 'melee'   &&  isMelee) ||
           (wa.weapon_type === 'ranged'  && !isMelee) ||
-          (wa.weapon_type === 'bolt'    && /bolt/i.test(weapon.name + ' ' + (weapon.type ?? '')));
+          (wa.weapon_type === 'bolt'    && /bolt/i.test(weapon.name) && !/^heavy/i.test(weapon.type ?? ''));
         if (applies) {
           weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), wa.name]);
         }

@@ -268,10 +268,18 @@ layer (verify enforcement in §6d). No conditional-unlock / no veteran scale in 
 ## 4e. Troops datasheets — stats + option-semantics (VALIDATED 2026-06-03, prod JSON canonical)
 
 All 6 Troops are **locked-mark Infantry squads** (1 god each), **no armory access**, no champion
-armory, no veteran. Each has a squad-leader profile (Bloodreaper / etc., same statline) that becomes
-the **Favored-Units leader** (+1 A + personal icon + sole armory) only when the unit starts at its
-deity's sacred number (§4b). Stats M/WS/BS/S/T/W/I/A/Ld/Sv. Sample-validated vs HTML: Bloodletters
-(Icon +10 / Instrument +5 / brass armor +11/model) ✓ — production matches.
+armory, no veteran. 5 of the 6 (Bloodletters, Daemonettes, Plaguebearers, Pink Horrors, Blue Horrors)
+have a squad-leader profile (Bloodreaper / etc., same statline) that becomes the **Favored-Units
+leader** (+1 A + personal icon + sole armory) only when the unit starts at its deity's sacred number
+(§4b). Stats M/WS/BS/S/T/W/I/A/Ld/Sv. Sample-validated vs HTML: Bloodletters (Icon +10 / Instrument
++5 / brass armor +11/model) ✓ — production matches.
+
+**Nurglings is the exception** — single-model "Nurgling Swarm" entry (Mindless/Swarm, no
+Icon/Instrument option group, no second model), same shape as CSM's Poxwalkers. Checked
+`Nurglings.html` for an explicit Favored-exclusion clause (like Poxwalkers' "Slaves of Darkness")
+— none found, but it structurally has no squad-leader model to receive the bonus. Fixed v0.63:
+`cdResolve`'s `isFavored` now also requires `unit.models.length > 1`, gated to Nurglings only
+(the other 5 Troops all have a second model entry, unaffected).
 
 | Unit | type | M | WS | BS | S | T | W | I | A | Ld | Sv | Pts | size | Mark | sacred |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -462,3 +470,13 @@ exercised here. The only un-modeled mechanics are **deployment-phase** (Gnarlmaw
    `ki-cd-condunlock-01` v0.51; digest was stale, corrected 2026-06-07). See §6d.
 7. **Soul Grinder** is CD's *only* Vehicle, so the VEHICLE-EQUIPMENT gate has a single test case —
    any regression there is invisible elsewhere in the faction.
+8. **Psychic disciplines were never loaded** — FIXED v0.64: `codex_chaos_daemons/special-abilities.ts`
+   §6 already documented the 3 god-gated disciplines (Change/Decay/Excess, 18 powers) as "catalogued
+   in `disciplines.json`", but that file didn't exist for CD and the loader passed `{}` for
+   `psychic`. Built `data/parsed/chaos_daemons/psychic/disciplines.json` from the "Chaos Demons
+   psychic disciplines" sheet (own values — distinct cast values/effects from CSM's
+   "Disciplines of Chaos" despite similar names) and wired it into the `chaos_daemons` loader.
+   "General psychic disciplines" sheet is just a link, nothing to audit.
+
+**"Lo demás" complete for Chaos Daemons** — Army Customisation, Animosity, Armory, and psychic
+disciplines all audited/wired against canonical sources.

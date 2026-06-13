@@ -6,13 +6,18 @@ export const SACRED_NUMBERS: Record<string, number> = {
 
 export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
   // ── Favored Units ────────────────────────────────────────────────────────────
-  // A unit is Favored when its size is a multiple of the mark's sacred number.
+  // A unit is Favored when its size is a multiple of the mark's sacred number AND
+  // it has a "squad leader" model to receive the +1 Attack/personal icon (a second
+  // model entry, e.g. Bloodreaper/Bloodhunter — see chaos_daemons.md §4e). Nurglings
+  // is a single-model "Mindless"/"Swarm" entry with no such leader profile, so it
+  // cannot be Favored — same pattern as CSM's Poxwalkers (codex_csm/resolver.ts).
   const isFavored =
     !!base.effectiveMark &&
     base.effectiveMark !== 'Undivided' &&
     SACRED_NUMBERS[base.effectiveMark] != null &&
     item.size > 0 &&
-    item.size % SACRED_NUMBERS[base.effectiveMark] === 0;
+    item.size % SACRED_NUMBERS[base.effectiveMark] === 0 &&
+    unit.models.length > 1;
 
   const injectedAbilities = [...base.injectedAbilities];
   const injectedRuleNotes = [...base.injectedRuleNotes];

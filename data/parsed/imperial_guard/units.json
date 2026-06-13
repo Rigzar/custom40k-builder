@@ -75,6 +75,11 @@
     "Fortifications": [],
     "Flyers": [
       "Vendetta"
+    ],
+    "Lords of War": [
+      "Baneblade",
+      "Gorgon Heavy Transport",
+      "Stormlord"
     ]
   },
   "units": {
@@ -3633,7 +3638,8 @@
       "advisor": true,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 27
+      "min_cost": 27,
+      "is_priest": true
     },
     "Ratlings": {
       "name": "Ratlings",
@@ -8931,6 +8937,428 @@
       "slot": "Fast Attack",
       "default_size": 1,
       "min_cost": 97
+    },
+    "Baneblade": {
+      "name": "Baneblade",
+      "models": [
+        {
+          "name": "Baneblade",
+          "points": 1031,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "-",
+            "BS": "4+",
+            "S": "8",
+            "FRONT": "14",
+            "SIDE": "13",
+            "REAR": "12",
+            "I": "3",
+            "A": "1",
+            "HP": "5"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Baneblade is equipped with: Autocannon; Baneblade cannon; Demolisher cannon; Twin heavy bolter.",
+      "weapons": [
+        {
+          "name": "Autocannon",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Baneblade cannon",
+          "range": "72\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Colossal blast, Tank hunter"
+        },
+        {
+          "name": "Demolisher cannon",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(4), Barrage, Tank hunter"
+        },
+        {
+          "name": "Heavy stubber",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Lascannon",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can be equipped with one of the following",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Storm bolter",
+              "points": 8
+            },
+            {
+              "name": "Heavy stubber",
+              "points": 11
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "2 Lascannons and 2 Twin heavy bolter",
+              "points": 158
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons."
+      ],
+      "unit_type": "Super-heavy Vehicle",
+      "keywords": ["Lord of War"],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 1031
+    },
+    "Gorgon Heavy Transport": {
+      "name": "Gorgon Heavy Transport",
+      "models": [
+        {
+          "name": "Gorgon Heavy Transport",
+          "points": 501,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "4+",
+            "S": "8",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "10",
+            "I": "3",
+            "A": "1",
+            "HP": "5"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Gorgon Heavy Transport is equipped with: 2 Twin heavy stubbers.",
+      "weapons": [
+        {
+          "name": "Gorgon mortar",
+          "range": "48\"",
+          "type": "Heavy 4",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive, Indirect"
+        },
+        {
+          "name": "Heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 2",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Heavy flamer",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Heavy stubber",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Twin heavy stubber",
+          "range": "36\"",
+          "type": "Heavy 6",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May be equipped with sponsons",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "4 Heavy stubbers",
+              "points": 45
+            },
+            {
+              "name": "4 Heavy bolters",
+              "points": 54
+            },
+            {
+              "name": "4 Heavy flamers",
+              "points": 69
+            },
+            {
+              "name": "Gorgon mortar",
+              "points": 82
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Heavy armored prow: The model gains a 5+ invulnerability save against ranged attacks from the front.",
+        "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+        "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.",
+        "Transport: This model has a transport capacity of 50 infantry models."
+      ],
+      "unit_type": "Super-heavy Vehicle",
+      "keywords": ["Lord of War"],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 501
+    },
+    "Stormlord": {
+      "name": "Stormlord",
+      "models": [
+        {
+          "name": "Stormlord",
+          "points": 597,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "-",
+            "BS": "4+",
+            "S": "8",
+            "FRONT": "14",
+            "SIDE": "13",
+            "REAR": "12",
+            "I": "3",
+            "A": "1",
+            "HP": "5"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Stormlord is equipped with: 2 Heavy stubber; Twin heavy bolter; Vulcan mega-bolter.",
+      "weapons": [
+        {
+          "name": "Heavy stubber",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Lascannon",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Storm bolter",
+          "range": "24\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin heavy bolter",
+          "range": "36\"",
+          "type": "Rapid Fire 4",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin heavy flamers",
+          "range": "9\"",
+          "type": "Assault 8",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Vulcan mega-bolter",
+          "range": "60\"",
+          "type": "Rapid Fire 15",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "Can be equipped with one of the following",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Storm bolter",
+              "points": 8
+            },
+            {
+              "name": "Heavy stubber",
+              "points": 11
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "2 Lascannons and 2 Twin heavy bolter",
+              "points": 158
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "May swap each Twin heavy bolter",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Twin heavy flamer",
+              "points": 8
+            }
+          ],
+          "replaces": ["Twin heavy bolter"],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Fire hatches(20)",
+        "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.",
+        "Transport: This model has a transport capacity of 40 infantry models."
+      ],
+      "unit_type": "Super-heavy Vehicle",
+      "keywords": ["Lord of War"],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 597
     }
   }
 }

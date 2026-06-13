@@ -45,8 +45,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fast Attack": [],
   "Heavy Support": [
-    "Land Raider Prometheus",
-    "Sanctioned Bombardement"
+    "Land Raider Prometheus"
   ],
   "Dedicated Transport": [
     "Corvus Blackstar",

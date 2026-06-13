@@ -232,7 +232,12 @@
       "p_char": 49,
       "effect": {
         "adds_unit_types": [
-          "Jet Bike"
+          "Jetbike"
+        ],
+        "stat_mod": [
+          { "stat": "M", "delta": 6 },
+          { "stat": "W", "delta": 1 },
+          { "stat": "A", "delta": 1 }
         ]
       }
     },

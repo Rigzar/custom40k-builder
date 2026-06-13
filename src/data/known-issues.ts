@@ -8,7 +8,19 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-tau-empire-psychic-unwired-01',
     status: 'known',
     title: "T'au Empire — the Kroot Shaman psyker discipline is not wired into the loader",
-    description: "Found while building the T'au digest (2026-06-11). PARTIALLY RESOLVED v0.60: the \"Invocations of the Ethereals\" sheet is now extracted into data/parsed/tau_empire/psychic/disciplines.json and wired into src/data/loaders.ts. REMAINING SCOPE: the Kroot Hunting Pack archetype upgrades a Kroot Master Shaper to a Shaman (a psyker that knows Biomancy/Divination powers from the shared General psychic disciplines), and that archetype-granted discipline selection is still unrepresented. NOTE: this is narrower than the other factions' psychic gaps because the base T'au roster has 0 `is_psyker` units (the psyker only appears via the Kroot Hunting Pack archetype). Logged for a dedicated pass.",
+    description: "Found while building the T'au digest (2026-06-11). PARTIALLY RESOLVED v0.60: the \"Invocations of the Ethereals\" sheet was extracted into data/parsed/tau_empire/psychic/disciplines.json and wired into src/data/loaders.ts, but stored under the key \"Powers\" — since the Ethereal has `is_psyker: false`, that data was never actually shown (dead data). FULLY RESOLVED for the Ethereal in v0.68: moved to data/parsed/tau_empire/psychic/prayers.json (the Ethereal's \"Serene unifier\" ability is a Faithful-style prayer list, same shape as IG Hymns of Battle), wired as Prayers, and the Ethereal now has `is_priest: true`. REMAINING SCOPE (unchanged): the Kroot Hunting Pack archetype upgrades a Kroot Master Shaper to a Shaman (a psyker that knows Biomancy/Divination powers from the shared General psychic disciplines), and that archetype-granted discipline selection is still unrepresented. NOTE: this is narrower than the other factions' psychic gaps because the base T'au roster has 0 `is_psyker` units (the psyker only appears via the Kroot Hunting Pack archetype). Logged for a dedicated pass.",
+  },
+  {
+    id: 'ki-csm-poxwalkers-slavesofdarkness-text-01',
+    status: 'known',
+    title: 'Chaos Space Marines — Poxwalkers\' "Slaves of Darkness" ability text needs verification against the .ods',
+    description: 'Found auditing Favored Units (2026-06-12). `data/parsed/chaos_space_marines/units/troops/poxwalkers.ts` stores "Slaves of Darkness: You may not select more Poxwalker units than Plague Marine units." as the unit\'s ability text, but the file\'s own header comment quotes a different verbatim version ("This model does not benefit from the Favoured unit rule. If this unit has a Daemonic patron, it may only take veteran abilities with the matching patron keyword"). The `_ods_dump.py` extraction of the "Poxwalkers" sheet only returns "Mark of Nurgle" under ABILITIES — likely the same multi-paragraph cell extraction limitation found on the Index sheet\'s "Army specific Rules" section. v0.61 already fixed the functional gap this implies (Favored no longer applies without a squad leader, covers Poxwalkers regardless of which text is correct), but the displayed ability text itself may still be wrong/incomplete. Needs the user to paste the Poxwalkers ABILITIES cell verbatim from the .ods to confirm.',
+  },
+  {
+    id: 'ki-csm-bike-combibolter-grant-unmodelled-01',
+    status: 'known',
+    title: 'Chaos Space Marines — "Chaos Space Marine bike" does not grant its free Combi-bolter',
+    description: 'Found auditing the CSM general Armory (2026-06-12). The item\'s description grants "+6\\" Movement, +1 Toughness, +1 Wound, a Combi-bolter and the unit type \\"Bike\\"". v0.61 fixed the stat_mod (M/T/W) and unit-type change via the existing `effect` fields, but there is no engine mechanism for an armory item to grant a free weapon (checked `types/data.ts` OptionEffect, `resolver.ts` applyEffect) — would need a new `effect.grants_weapons` field plumbed into the weapon list. Out of scope for the stat-mod fix.',
   },
   {
     id: 'ki-admech-veteranmaniple-bonus-unmodelled-01',
@@ -17,10 +29,22 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Follow-up to `ki-admech-doctrina-gating-01` (resolved v0.60). The 13 Doctrina-eligible units now carry `veteran_max: 1`, matching the per-datasheet "may select one Doctrina Imperative" line. The Veteran Maniple trait\'s text ("Any unit with the option to purchase a Doctrina Imperative may purchase a second one") would need `veteran_max` to become 2 for those units when the trait is selected — but there is no generic trait-effect mechanism in the engine that adjusts `veteran_max` per-trait (checked `types/data.ts`, `resolver.ts`, `traits` engine code). Needs an engine extension (a trait effect like `veteran_max_bonus`) before this can be wired; out of scope for the gating fix.',
   },
   {
+    id: 'ki-custodes-nullmaiden-ispsyker-01',
+    status: 'fixed',
+    title: 'Adeptus Custodes — Knight-Centura, Sisters of Silence and their Rhino were wrongly flagged `is_psyker: true`',
+    description: 'Found during the "lo demás" pass (2026-06-13). All three units carry "Null-Maiden" (psychic-null/anti-psyker ability — the unit can never be targeted by psychic powers, debuffs enemy psykers), the opposite of being a Psyker, and none of their `.ods` datasheets mention "Psyker". With `is_psyker: true` and no `disciplines.json` loaded for Custodes, this produced an empty "Powers" tab. RESOLVED v0.67: corrected `is_psyker` to `false` for all three in `data/parsed/adeptus_custodes/units.json`.',
+  },
+  {
+    id: 'ki-sororitas-hymns-unwired-01',
+    status: 'fixed',
+    title: 'Adeptus Sororitas — Hymns of Battle (Faithful) exist in the .ods canon but were NOT wired into the loader',
+    description: 'Found during the "lo demás" pass (2026-06-13). The "Hymns of Battle" sheet (5 hymns, identical to Imperial Guard\'s — see `ki-ig-psychic-unwired-01`) was in canon but never wired. RESOLVED v0.66: added `data/parsed/adeptus_sororitas/psychic/prayers.json`, wired into `src/data/loaders.ts`, and tagged the Missionary, Dogmata and Preacher with `is_priest: true` (all 3 carry "Faithful: ... Knows one/all Hymn(s) of Battle" ability text).',
+  },
+  {
     id: 'ki-ig-psychic-unwired-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Imperial Guard — Hymns of Battle (Preacher litanies) exist in the .ods canon but are NOT wired into the loader',
-    description: 'Found while building the IG digest (2026-06-11). PARTIALLY RESOLVED v0.60: the "Imperial Guard psychic discipline" sheet (Psikana I/II) is now extracted into data/parsed/imperial_guard/psychic/disciplines.json and wired into src/data/loaders.ts. REMAINING SCOPE: the "Hymns of Battle" sheet (the Preacher\'s litany system, 5 hymns: Catechism of Repugnance/Chorus of Spiritual Fortitude/Psalm of Righteous Smiting/Refrain of Blazing Piety/War Hymn) is a separate non-psychic mechanic and is still unrepresented. Logged for a dedicated pass.',
+    description: 'Found while building the IG digest (2026-06-11). PARTIALLY RESOLVED v0.60: the "Imperial Guard psychic discipline" sheet (Psikana I/II) is now extracted into data/parsed/imperial_guard/psychic/disciplines.json and wired into src/data/loaders.ts. FULLY RESOLVED v0.65: the "Hymns of Battle" sheet (5 hymns: Catechism of Repugnance/Chorus of Spiritual Fortitude/Psalm of Righteous Smiting/Refrain of Blazing Piety/War Hymn) is now in data/parsed/imperial_guard/psychic/prayers.json, wired into the loader, and the Preacher carries is_priest:true so its Prayers tab appears.',
   },
   {
     id: 'ki-allies-owncustomisation-unmodelled-01',
@@ -218,16 +242,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-p2',
-    status: 'planned',
+    status: 'fixed',
     title: {
       en: 'Escalation supplement — Lords of War',
       de: 'Eskalations-Supplement — Kriegsherren',
       es: 'Suplemento de Escalada — Señores de la Guerra',
     },
     description: {
-      en: 'A supplement adding Lords of War, super-heavy vehicles and Titans. The dedicated slot, the Epic Battle engagement and the 33% points cap shipped in v0.51, along with the first units (Chaos) and a browsable catalog on the home screen. Remaining factions\' super-heavies are still being added.',
-      de: 'Ein Supplement, das Kriegsherren, überschwere Fahrzeuge und Titanen hinzufügt. Der eigene Slot, das Engagement "Epische Schlacht" und die 33%-Punktegrenze kamen in v0.51, zusammen mit den ersten Einheiten (Chaos) und einem durchsuchbaren Katalog auf dem Startbildschirm. Die Superschweren der übrigen Fraktionen werden noch hinzugefügt.',
-      es: 'Un suplemento que añade Señores de la Guerra, vehículos superpesados y Titanes. El slot dedicado, el engagement Batalla Épica y el límite del 33% de puntos llegaron en v0.51, junto con las primeras unidades (Caos) y un catálogo navegable en la pantalla de inicio. Los superpesados de las facciones restantes aún se están añadiendo.',
+      en: 'A supplement adding Lords of War, super-heavy vehicles and Titans. The dedicated slot, the Epic Battle engagement and the 33% points cap shipped in v0.51, along with the first units (Chaos) and a browsable catalog on the home screen. v0.70 added the remaining 21 datasheets across Tau, Inquisition, Sororitas, Necrons, Imperial Guard, Orks, Eldar and Space Marines, bringing Lords of War to beta across all 9 supported factions.',
+      de: 'Ein Supplement, das Kriegsherren, überschwere Fahrzeuge und Titanen hinzufügt. Der eigene Slot, das Engagement "Epische Schlacht" und die 33%-Punktegrenze kamen in v0.51, zusammen mit den ersten Einheiten (Chaos) und einem durchsuchbaren Katalog auf dem Startbildschirm. v0.70 fügte die restlichen 21 Datenblätter für Tau, Inquisition, Sororitas, Necrons, Imperiale Armee, Orks, Eldar und Space Marines hinzu, womit Kriegsherren für alle 9 unterstützten Fraktionen in der Beta verfügbar sind.',
+      es: 'Un suplemento que añade Señores de la Guerra, vehículos superpesados y Titanes. El slot dedicado, el engagement Batalla Épica y el límite del 33% de puntos llegaron en v0.51, junto con las primeras unidades (Caos) y un catálogo navegable en la pantalla de inicio. v0.70 añadió las 21 fichas restantes de Tau, Inquisición, Sororitas, Necrones, Guardia Imperial, Orkos, Eldar y Space Marines, dejando los Señores de la Guerra en beta para las 9 facciones soportadas.',
     },
   },
 
@@ -256,7 +280,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-necrons-psychic-unwired-01',
     status: 'fixed',
     title: "Necrons — Powers of the C'tan exist in the .ods but are NOT wired into the loader",
-    description: "Found while building the Necrons digest (2026-06-11). The `.ods` has a \"Powers of the Ctan\" sheet (the C'tan Shards' power system — the 4 C'tan Shards draw their powers from it), and Necrons have a psyker unit, but `src/data/loaders.ts` (case `necrons`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Dynasty armory (the disciplines argument to `asm` is `{}`). Net effect: the Powers of the C'tan are unrepresented; the C'tan Shards and the Necron psyker likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC, Orks, Tyranids, Votann, Tau. Larger separate scope — needs the C'tan powers parsed into production JSON and wired into the loader. Logged for a dedicated pass. NOTE: this completes the cross-faction pattern — 9 of the 19 factions carry a `*-psychic-unwired-*` known issue (the faction psychic/prayer disciplines are uniformly not wired into the per-faction loaders), making this a strong candidate for a single batched fix rather than 9 separate passes. RESOLVED v0.60: the discipline is now extracted from the .ods into data/parsed/<faction>/psychic/disciplines.json and wired into src/data/loaders.ts via the asm() disciplines argument.",
+    description: "Found while building the Necrons digest (2026-06-11). The `.ods` has a \"Powers of the Ctan\" sheet (the C'tan Shards' power system — the 4 C'tan Shards draw their powers from it), and Necrons have a psyker unit, but `src/data/loaders.ts` (case `necrons`) imports only `units.json` + `armory/general.json` + `archetypes.json` + the Dynasty armory (the disciplines argument to `asm` is `{}`). Net effect: the Powers of the C'tan are unrepresented; the C'tan Shards and the Necron psyker likely fall back to the shared General psychic disciplines only. Same gap class as IG (`ki-ig-psychic-unwired-01`), Eldar, Harlequins, GSC, Orks, Tyranids, Votann, Tau. Larger separate scope — needs the C'tan powers parsed into production JSON and wired into the loader. Logged for a dedicated pass. NOTE: this completes the cross-faction pattern — 9 of the 19 factions carry a `*-psychic-unwired-*` known issue (the faction psychic/prayer disciplines are uniformly not wired into the per-faction loaders), making this a strong candidate for a single batched fix rather than 9 separate passes. RESOLVED v0.60: the discipline is now extracted from the .ods into data/parsed/<faction>/psychic/disciplines.json and wired into src/data/loaders.ts via the asm() disciplines argument. FOLLOW-UP v0.69: the v0.60 batch left `is_psyker: true` on the Pariahs (wrong unit, anti-psyker themed) instead of the 4 C'tan Shard datasheets (which carry the \"Powers of the C'tan\" ability). Moved the flag to the 4 C'tan Shards and removed it from the Pariahs — the Powers tab now appears on the correct model.",
   },
   {
     id: 'ki-leagues-of-votann-psychic-unwired-01',

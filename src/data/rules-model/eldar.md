@@ -128,3 +128,16 @@ Shots / Masters of Concealment / Mobile Fighters / Savage Blades / Students of V
    Attack 7/Heavy Support 6/Dedicated Transport 1/Flyers 3; Fortifications 0). Matches the Index
    roster (Index shows 6 Troops incl. an extra; production 5 — minor, the Index "Wasps" Walker is in
    Troops in both). No blocking drift, no phantoms (cleaner than Custodes/Dark Eldar).
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: re-read raw `Index.html` — 4 verbatim entries (Battle Focus, Shuriken,
+   Visitors of the Black Library, Webway strike), all already present in §4. No gaps.
+2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The "Eldar psychic
+   discipline" (64 rows) + Ynnari "Revenant" discipline gap was already found and documented in §6.3
+   (`ki-eldar-psychic-unwired-01`, KNOWN) — a much larger scope than the IG/Sororitas hymn fixes
+   (single 5-row prayer table copy-paste). Not tackled in this lighter "lo demás" pass; remains a
+   separate follow-up item.
+
+**Eldar "lo demás" complete** — Index fully covered, psychic gap already tracked (no new findings).
+Doc-only, no build required.

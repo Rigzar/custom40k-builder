@@ -108,12 +108,26 @@ Waaagh! Coast Kustoms (each Kustom job +1 time). Canonical in `archetypes.json`.
    via the ᴹ glyph suffix, not an `armourKeyword: "Mega armor"` field. Same pre-keyword-seam family
    as CSM mark-glyphs / Custodes term_compat ([[project_pipeline_migration]]). Left as-is (the
    cross-faction keyword-engine refactor is out of this migration's scope).
-3. **⚠ Ork (Waaagh!) psychic discipline not wired into the loader** (`ki-orks-psychic-unwired-01`,
-   KNOWN): the `.ods` has an "Ork psychic discipline" (19 rows, the Waaagh! discipline), and Orks
-   have psyker units (Weirdboy), but `loaders.ts` imports only units+general+archetypes+Clan armory
-   (disciplines slot `{}`). Same gap class as IG/Eldar/Harlequins/GSC. Larger separate scope.
+3. **Ork (Waaagh!) psychic discipline wiring — RESOLVED v0.60** (`ki-orks-psychic-unwired-01`,
+   FIXED): the "Ork psychic discipline" (19 rows, Waaagh!) is now in
+   `data/parsed/orks/psychic/disciplines.json` and `loaders.ts:orks` imports it
+   (`{ disciplines: discs }`). The Weirdboy's Powers tab is populated. This entry was written
+   2026-06-11 (before the v0.60 batch fix); superseded.
 4. **Roster cross-check**: production 41 units / 8 populated slots (HQ 4/Troops 5/Elites 8/Fast
    Attack 7/Heavy Support 10/Dedicated Transport 4/Fortifications 1/Flyers 2). FIRST faction with a
    populated Fortifications slot (Big'ed Bossbunka). No phantoms; matches the Index roster. (Minor:
    Looted Valkyrie [Flyer] + Squiggoth [Monstrous Creature] sit in Dedicated Transport per
    production — looted/beast transports.)
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: §4 (Waaagh!, Mob, Dakka Dakka Dakka, Tellyporta) was already built
+   directly from the `.ods` during the Fase 4 digest — no re-derivation needed
+   ([[feedback_lo_demas_ods_not_html]]). No gaps.
+2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The Waaagh!
+   discipline gap flagged in §6.3 was ALREADY RESOLVED by the v0.60 batch fix
+   (`data/parsed/orks/psychic/disciplines.json` exists, wired in `loaders.ts`, KI status `fixed`).
+   Updated §6.3 to reflect the resolved state (was stale, written before v0.60).
+
+**Orks "lo demás" complete** — Index already grounded in .ods, psychic discipline already wired
+(stale doc corrected). Doc-only, no build required.

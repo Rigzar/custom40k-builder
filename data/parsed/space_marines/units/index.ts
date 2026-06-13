@@ -12,6 +12,7 @@ import * as flyers from './flyers/index';
 import * as fortifications from './fortifications/index';
 import * as heavySupport from './heavy_support/index';
 import * as hq from './hq/index';
+import * as lordsOfWar from './lords_of_war/index';
 import * as troops from './troops/index';
 
 /** All units keyed by name — drop-in replacement for units.json "units" field. */
@@ -90,6 +91,12 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Stormhawk Interceptor": flyers.stormhawkInterceptor,
   "Stormraven Gunship": flyers.stormravenGunship,
   "Stormtalon Gunship": flyers.stormtalonGunship,
+  "Fellblade": lordsOfWar.fellblade,
+  "Spartan": lordsOfWar.spartan,
+  "Armiger": lordsOfWar.armiger,
+  "Knight Castellan": lordsOfWar.knightCastellan,
+  "Knight Paladin": lordsOfWar.knightPaladin,
+  "Warhound": lordsOfWar.warhound,
 };
 
 /** Slot → unit names map — same as units.json "slot_to_units" field. */
@@ -183,6 +190,14 @@ export const slot_to_units: Record<string, string[]> = {
     "Stormhawk Interceptor",
     "Stormraven Gunship",
     "Stormtalon Gunship"
+  ],
+  "Lords of War": [
+    "Fellblade",
+    "Spartan",
+    "Armiger",
+    "Knight Castellan",
+    "Knight Paladin",
+    "Warhound"
   ]
 };
 

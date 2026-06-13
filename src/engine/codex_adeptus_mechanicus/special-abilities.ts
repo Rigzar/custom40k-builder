@@ -89,21 +89,19 @@ export const ADMECH_SPECIAL_ABILITIES: AdMechSpecialAbilityEntry[] = [
       'Canonical in `archetypes.json`.',
   },
 
-  // --- §6 gap note ---
+  // --- §6 gap note (RESOLVED v0.60, see addendum below) ---
   {
-    name: 'Doctrina Imperatives — gating not modelled (ki-admech-doctrina-gating-01)',
+    name: 'Doctrina Imperatives — gating (ki-admech-doctrina-gating-01, FIXED v0.60)',
     category: 'gap-note',
     text: 'The 4 Doctrina Imperatives (Aggressor/Bulwark/Conqueror/Protector) are AdMech\'s ' +
       'veteran-ability analogue, gated by the per-datasheet line "The unit may select one Doctrina ' +
       'Imperative" — present on 13 units (Skitarii Rangers/Vanguard, Secutarii Hoplites/Peltasts, ' +
       'Sicaran Infiltrators/Ruststalkers, Sydonian Skatros, Pteraxii Skystalkers/Sterylizors, ' +
-      'Serberys Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). Production has ' +
-      'ZERO `has_veteran_abilities` units and the 4 items are `category: none`, so they currently ' +
-      'show in the general tab to ANY armory unit (wrong scope). NOT a simple vetveh tag (tagging ' +
-      '`category:"veteran"` without a per-unit flag would HIDE them, since 0 units carry the flag). ' +
-      'Clean model: set `has_veteran_abilities:true` + `veteran_max:1` on the 13 option-carrying ' +
-      'units (+1 via Veteran Maniple trait), tag the 4 items `category:"veteran"` + `p_veh` from the ' +
-      '.ods M&V column (2 for Aggressor/Bulwark/Conqueror, 0 for Protector), `p_char:null`. Logged ' +
-      'as `ki-admech-doctrina-gating-01` (multi-unit data pass, scoped separately).',
+      'Serberys Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). RESOLVED v0.60: ' +
+      'the 13 units now carry `has_veteran_abilities: true` + `veteran_max: 1`, and the 4 items in ' +
+      '`armory/general.json` are tagged `category: "veteran"` with `p_veh` from the .ods M&V column ' +
+      '(2 for Aggressor/Bulwark/Conqueror, 0 for Protector) + `p_char: null`. Veteran Maniple\'s +1 ' +
+      'slot is a separate open item (`ki-admech-veteranmaniple-bonus-unmodelled-01`, no engine ' +
+      '`veteran_max` trait-effect mechanism exists yet).',
   },
 ];

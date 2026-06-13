@@ -104,11 +104,11 @@ Tendrils→Kraken / Synaptic Control→Leviathan.
    per-unit Biomorph system (`option_groups`). So there is NO Vehicle-Equipment / Veteran-Ability
    tagging to do — the only migrated faction with nothing to fix in the armory. (Confirmed the
    biomorphs render via `option_groups`, verified on Hive Tyrant.)
-2. **⚠ Tyranid psychic discipline not wired into the loader** (`ki-tyranids-psychic-unwired-01`,
-   KNOWN): the `.ods` has a "Tyranid psychic discipline" (19 rows), and Tyranids have 7 psyker units
-   (the most psyker-dense faction), but `loaders.ts` imports only units+general[empty]+archetypes+
-   Hive Fleet armory (disciplines slot `{}`). Same gap class as IG/Eldar/Harlequins/GSC/Orks.
-   Larger separate scope.
+2. **Tyranid psychic discipline wiring — RESOLVED v0.60** (`ki-tyranids-psychic-unwired-01`, FIXED):
+   the "Tyranid psychic discipline" (19 rows) is now in `data/parsed/tyranids/psychic/
+   disciplines.json` and `loaders.ts:tyranids` imports it (`{ disciplines: discs }`). The 7 psyker
+   units' Powers tabs are populated. This entry was written 2026-06-11 (before the v0.60 batch fix);
+   superseded.
 3. **"Tyranid" uniform datasheet keyword**: all 40 units carry `keywords: ["Tyranid"]` — a faction-
    identity keyword (not a discriminating sub-faction). Documented in the codex `keywords.ts` as a
    single datasheet entry; no per-unit gating splits on it.
@@ -116,3 +116,16 @@ Tendrils→Kraken / Synaptic Control→Leviathan.
    Attack 9/Heavy Support 5/Dedicated Transport 1/Fortifications 1/Flyers 1). Uses every slot. No
    phantoms; matches the Index roster. (Source datasheet "Montrous Creature" typo is corrected to
    "Monstrous Creature" in production — production canonical.)
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: §4 (Synapse, Instinctive Behaviour, Shadow in the Warp, Psychic
+   Feedback) was already built directly from the `.ods` during the Fase 4 digest —
+   [[feedback_lo_demas_ods_not_html]], no re-derivation needed. No gaps.
+2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The Tyranid
+   discipline gap flagged in §6.2 was ALREADY RESOLVED by the v0.60 batch fix
+   (`data/parsed/tyranids/psychic/disciplines.json` exists, wired in `loaders.ts`, KI status
+   `fixed`). Updated §6.2 to reflect the resolved state (was stale, written before v0.60).
+
+**Tyranids "lo demás" complete** — Index already grounded in .ods, psychic discipline already wired
+(stale doc corrected). Doc-only, no build required.

@@ -5,11 +5,13 @@
  * Catalogue of Grey Knights' ARMY-RULE MECHANICS + Archetypes/Legacies. Migrated from
  * `rules-model/grey_knights.md` §4-§5.
  *
- * Anti-duplication discipline: the 12 named Sanctity/Dominus psychic powers + 8 Legacy bonus
- * powers (20 total) stay canonical in `psychic/disciplines.json`; the 8 named Prayers stay
- * canonical in `psychic/prayers.json`. Archetype AOP-shuffles + Legacy bonus-power grants stay
- * canonical in `archetypes.json` — this file documents access/existence/structure only, mirrors
- * the [[project_inquisition_codex_migration]] anti-duplication pattern.
+ * Anti-duplication discipline: the 12 named Sanctity/Dominus psychic powers stay canonical in
+ * `psychic/disciplines.json`; the 8 Legacy bonus powers (20 total named GK powers) stay
+ * canonical in `engine/legacies/grey_knights.ts` (GK_LEGACY_POWER_DETAILS), keyed by the legacy
+ * that grants each one; the 10 named Prayers stay canonical in `psychic/prayers.json`. Archetype
+ * AOP-shuffles + Legacy bonus-power grants stay canonical in `archetypes.json` — this file
+ * documents access/existence/structure only, mirrors the [[project_inquisition_codex_migration]]
+ * anti-duplication pattern.
  */
 
 export interface GkSpecialAbilityEntry {
@@ -114,8 +116,8 @@ export const GK_SPECIAL_ABILITIES: GkSpecialAbilityEntry[] = [
       'the Prayer list." Datasheet-level grant (textual, not keyword-derived — mirrors the ' +
       '`is_psyker` shape exactly: named ability → grants access to a named pool). Chaplain may ' +
       'additionally take "Master of Sanctity" (+15 pts, one per army — "+1 additional prayer per ' +
-      'turn", a stacking modifier on the same grant). The 8 named Prayers (Litanies of Purity + ' +
-      'Prayers of Battle) live in `psychic/prayers.json` — not duplicated here. Both systems ' +
+      'turn", a stacking modifier on the same grant). The 10 named Prayers (5 Litanies of Purity ' +
+      '+ 5 Prayers of Battle) live in `psychic/prayers.json` — not duplicated here. Both systems ' +
       '(Psyker disciplines + Faithful prayers) are independent and stack on the Chaplain.',
   },
 
@@ -144,8 +146,8 @@ export const GK_SPECIAL_ABILITIES: GkSpecialAbilityEntry[] = [
       'Rapiers→Symphonic Strike / Silver Blades→Temporal Accuracy / Swordbearers→Empyric ' +
       'Lodestone / Wardmakers→Projection of Purity. All 8 named powers verified present in ' +
       '`Grey Knight psychic discipline.html`\'s dedicated "Legacy" row-group (12 Sanctity/Dominus ' +
-      'core powers + 8 Legacy bonus powers = 20 total named GK powers, all in disciplines.json — ' +
-      'not duplicated here).',
+      'core powers in disciplines.json + 8 Legacy bonus powers in ' +
+      '`engine/legacies/grey_knights.ts` = 20 total named GK powers — not duplicated here).',
   },
 
   // --- §5 confirmed absence ---

@@ -88,14 +88,15 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'chaos_daemons': {
-      const [u, g, tz, arch, rules] = await Promise.all([
+      const [u, g, tz, arch, rules, discs] = await Promise.all([
         import('../../data/parsed/chaos_daemons/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/chaos_daemons/armory/general.json'),
         import('../../data/parsed/chaos_daemons/armory/mark_tzeentch.json'),
         import('../../data/parsed/chaos_daemons/archetypes.json'),
         import('../../data/parsed/chaos_daemons/animosity.json'),
+        import('../../data/parsed/chaos_daemons/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, rules, { Tzeentch: tz }, {}, {});
+      return asm(u, g, arch, rules, { Tzeentch: tz }, {}, { disciplines: discs });
     }
 
     case 'space_marines': {
@@ -121,13 +122,14 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'imperial_guard': {
-      const [u, g, arch, discs] = await Promise.all([
+      const [u, g, arch, discs, prayers] = await Promise.all([
         import('../../data/parsed/imperial_guard/units.json'),
         import('../../data/parsed/imperial_guard/armory/general.json'),
         import('../../data/parsed/imperial_guard/archetypes.json'),
         import('../../data/parsed/imperial_guard/psychic/disciplines.json'),
+        import('../../data/parsed/imperial_guard/psychic/prayers.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs });
+      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs, prayers });
     }
 
     case 'adeptus_mechanicus': {
@@ -151,15 +153,16 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'adeptus_sororitas': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, prayers] = await Promise.all([
         import('../../data/parsed/adeptus_sororitas/units.json'),
         import('../../data/parsed/adeptus_sororitas/armory/general.json'),
         import('../../data/parsed/adeptus_sororitas/archetypes.json'),
         import('../../data/parsed/adeptus_sororitas/armory/legion_order.json'),
+        import('../../data/parsed/adeptus_sororitas/psychic/prayers.json'),
       ]);
       // Witch hunters (Sororitas special rule, Inquisition.ods Index/Designer's note): Inquisition
       // units are included "as if part of their own army" — own roster, no [Allied] badge.
-      return asm(u, g, arch, noRules, {}, { 'Order': leg }, {})
+      return asm(u, g, arch, noRules, {}, { 'Order': leg }, { prayers })
         .then(fd => ({ ...fd, intrinsic_allies: ['inquisition'] }));
     }
 
@@ -195,14 +198,14 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'tau_empire': {
-      const [u, g, arch, leg, discs] = await Promise.all([
+      const [u, g, arch, leg, prayers] = await Promise.all([
         import('../../data/parsed/tau_empire/units.json'),
         import('../../data/parsed/tau_empire/armory/general.json'),
         import('../../data/parsed/tau_empire/archetypes.json'),
         import('../../data/parsed/tau_empire/armory/legion_sept.json'),
-        import('../../data/parsed/tau_empire/psychic/disciplines.json'),
+        import('../../data/parsed/tau_empire/psychic/prayers.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, { disciplines: discs });
+      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, { prayers });
     }
 
     case 'necrons': {

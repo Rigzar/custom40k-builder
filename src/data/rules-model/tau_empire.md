@@ -109,13 +109,29 @@ Strike Swiftly / Swarm Controllers (more drones) / Turbo Jets. Canonical in `arc
    `unit_type` string; the Kroot Hunting Pack archetype gates on it. A different encoding from Dark
    Eldar's keywords[] sub-factions — worth noting for any future keyword-engine refactor (Kroot
    could be promoted to a `keywords[]` entry to match the Dark Eldar model).
-4. **⚠ Ethereal Invocations + Kroot Shaman psychic not wired** (`ki-tau-empire-psychic-unwired-01`,
-   KNOWN): the `.ods` has "Invocations of the Ethereals" (a prayer system) + the Kroot Hunting Pack
-   archetype grants a Shaman psyker (Biomancy/Divination), but `loaders.ts` imports only units+
-   general+archetypes+Sept armory (disciplines slot `{}`). Net effect: Invocations + the archetype-
-   granted psyker discipline are unrepresented. (Base roster has 0 psykers, so this is narrower than
-   the other factions' psychic gaps.) Larger separate scope.
+4. **Ethereal Invocations — RESOLVED v0.68, Kroot Shaman remains KNOWN**
+   (`ki-tau-empire-psychic-unwired-01`): the v0.60 batch extracted "Invocations of the Ethereals"
+   into `disciplines.json` under the key "Powers", but the Ethereal has `is_psyker: false` so it
+   never rendered (dead data). v0.68 moved it to `data/parsed/tau_empire/psychic/prayers.json`
+   (matches IG Hymns of Battle shape — the Ethereal's "Serene unifier" ability is Faithful-style)
+   and set the Ethereal's `is_priest: true`. REMAINING (KNOWN): the Kroot Hunting Pack archetype's
+   Shaman (Biomancy/Divination, archetype-granted psyker) is still unrepresented — separate scope.
 5. **Roster cross-check**: production 42 units / 8 populated slots (HQ 5/Troops 4/Elites 7/Fast
    Attack 14/Heavy Support 5/Dedicated Transport 1/Fortifications 3/Flyers 3). Uses every slot
    (Fortifications = 3 Tidewall pieces). No phantoms; matches the Index roster. (Index "Great
    Knarloc" = production "Great Knarloc" in Fast Attack — Kroot beast.)
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: §4 (Markerlight, Supporting Fire, Tactical philosophies) was already
+   built directly from the `.ods` during the Fase 4 digest — [[feedback_lo_demas_ods_not_html]], no
+   re-derivation needed. No gaps.
+2. **Psychic disciplines / prayers**: §6.4 flagged a psychic gap (`ki-tau-empire-psychic-unwired-01`).
+   Checking it revealed the v0.60 extraction was DEAD DATA (wired as `disciplines.Powers` but the
+   Ethereal has `is_psyker: false`, so it never rendered). NEW FIX v0.68: moved the 2 Invocations
+   (Sense of Stone, Zephyr's Grace) to `data/parsed/tau_empire/psychic/prayers.json`, wired as
+   Prayers, and set the Ethereal's `is_priest: true` — same shape as IG Hymns of Battle. The Kroot
+   Shaman remaining scope (archetype-granted Biomancy/Divination) stays KNOWN, untouched.
+
+**T'au "lo demás" complete** — Index already grounded in .ods; Ethereal Invocations now actually
+wired (was dead data). Build ✓, changelog v0.68, local NOT pushed.

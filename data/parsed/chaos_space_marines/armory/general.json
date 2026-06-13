@@ -496,6 +496,11 @@
       "effect": {
         "adds_unit_types": [
           "Bike"
+        ],
+        "stat_mod": [
+          { "stat": "M", "delta": 6 },
+          { "stat": "T", "delta": 1 },
+          { "stat": "W", "delta": 1 }
         ]
       }
     },
@@ -599,6 +604,9 @@
       "effect": {
         "adds_unit_types": [
           "Monstrous Infantry"
+        ],
+        "grants_abilities": [
+          "Deep Strike"
         ]
       }
     },

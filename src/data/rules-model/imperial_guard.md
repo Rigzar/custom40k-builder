@@ -170,3 +170,23 @@ World legacy → +1 Trait; Combined Regiments trait → +1 Legacy — interactin
    units are variants, e.g. Leman Russ family). No blocking drift, but a name-by-name reconcile is
    worth a pass during migration Step 1 (Slot extraction) to confirm every production unit maps to
    an Index roster entry.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules" — Orders + Weapon team crews**: both already documented as
+   `special-abilities.ts` entries (Orders as the faction's signature mechanic, gated on unit type
+   Infantry/Creatures vs Vehicles, plus 6 Legacy Orders; Weapon team crews under the relevant
+   datasheet abilities). Orders is a 18-entry named-order system (9 Infantry/Creatures + 3
+   Vehicles + 6 Legacy) that is NOT implemented as an interactive in-builder mechanic (no
+   `orders.json`, no Orders UI) — this is a structural/gameplay mechanic resolved at the table,
+   analogous to phase simulation, not a missing-catalog-data issue. Confirmed-absence, OUT OF
+   SCOPE for this pass.
+2. **Psychic disciplines — Psikana I/II (12 powers)**: confirmed 1:1 match against
+   `data/parsed/imperial_guard/psychic/disciplines.json` (already fixed v0.60).
+3. **Hymns of Battle (5 hymns) — NEW FIX v0.65**: the "Hymns of Battle" sheet (Catechism of
+   Repugnance, Chorus of Spiritual Fortitude, Psalm of Righteous Smiting, Refrain of Blazing
+   Piety, War Hymn) was in canon but not wired anywhere. Created
+   `data/parsed/imperial_guard/psychic/prayers.json` (mirrors GK's prayers.json shape), wired it
+   into `src/data/loaders.ts` (`case 'imperial_guard'`), and added `"is_priest": true` to the
+   Preacher (Elites) so its Prayers tab now appears, matching its "Faithful: ... Knows all Hymns
+   of Battle" ability text. `ki-ig-psychic-unwired-01` is now FULLY RESOLVED.

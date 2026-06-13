@@ -120,3 +120,22 @@ Faith-economy traits — Blood of Martyrs / Emperor's Judgement — tie into the
 3. **Roster cross-check**: production 27 units / 6 populated slots (HQ 5/Troops 2/Elites 11/Fast
    Attack 3/Heavy Support 4/Dedicated Transport 2; Fortifications 0, Flyers 0) — exact match to the
    Index sheet's 8-column table (Flyers + Fortifications columns empty). Clean, no drift.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: re-read raw `Index.html` — 4 verbatim entries (Acts of Faith, Pious,
+   Shield of Faith, Witch hunters) all present in §4. No gaps.
+2. **Psychic disciplines**: N/A — Sororitas have 0 psykers (`is_psyker: false` everywhere). No
+   "psychic discipline" sheet in the `.ods`, as expected.
+3. **Hymns of Battle (5 hymns) — NEW FIX v0.66**: §4 already documented the "Hymns of Battle" sheet
+   but it was never wired into production. Three units carry "Faithful: ... Knows one/all Hymn(s)
+   of Battle" (Missionary — knows ALL, recites 2/round; Dogmata and Preacher — knows ONE, recites
+   1/round). Created `data/parsed/adeptus_sororitas/psychic/prayers.json` (identical 5 hymns to
+   IG's, confirmed via `.ods`), wired into `src/data/loaders.ts` (`case 'adeptus_sororitas'`), and
+   added `"is_priest": true` to all 3 units. The "knows one vs all" cap is NOT modelled anywhere in
+   the engine (no faction enforces a prayer-selection limit — pre-existing simplification, out of
+   scope, consistent with how IG/GK/SM/CSM Faithful units already work). New
+   `ki-sororitas-hymns-unwired-01`, FIXED.
+
+**Sororitas "lo demás" complete** — Index fully covered, no psychic axis (by design), Hymns of
+Battle now wired. Build ✓, changelog v0.66, local NOT pushed.

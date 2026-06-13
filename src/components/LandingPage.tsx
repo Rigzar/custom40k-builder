@@ -382,10 +382,10 @@ export function LandingPage({
                   <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
                   <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
                 </div>
-                <span className="text-[10px] border border-orange-700 text-orange-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Early — only Chaos Space Marines Lords of War are in so far; other factions coming.">Alpha · Chaos</span>
+                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Functional — Lords of War rosters in for all 9 supported factions. Some edge cases still under review.">Beta</span>
               </div>
               <p className="text-zinc-500 text-[12px] leading-snug">
-                Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Chaos available now.
+                Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Available for all factions.
               </p>
               <button
                 onClick={() => setOpenSupplement('escalation')}

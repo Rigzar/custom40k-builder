@@ -49,6 +49,12 @@
       "Wave Serpent"
     ],
     "Fortifications": [],
+    "Lords of War": [
+      "Lynx",
+      "Vampire",
+      "Warp Hunter",
+      "Wraithknight"
+    ],
     "Flyers": [
       "Crimson Hunter",
       "Nightwing",
@@ -4867,6 +4873,532 @@
       "slot": "Flyers",
       "default_size": 1,
       "min_cost": 571
+    },
+    "Lynx": {
+      "name": "Lynx",
+      "models": [
+        {
+          "name": "Lynx",
+          "points": 366,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "11",
+            "I": "5",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Lynx is equipped with: Scatter laser; Sonic lance.",
+      "weapons": [
+        {
+          "name": "Bright lance",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Lance(+2)"
+        },
+        {
+          "name": "Pulsar - Saturation",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "D",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(4), Barrage"
+        },
+        {
+          "name": "Pulsar - Salvo",
+          "range": "48\"",
+          "type": "Heavy 3",
+          "s": "D",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(4)"
+        },
+        {
+          "name": "Scatter laser",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Sonic lance",
+          "range": "36\"",
+          "type": "Heavy 12",
+          "s": "*",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "AT(1), Flames, Soundquake, Suppression"
+        },
+        {
+          "name": "Starcannon",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap the Scatter laser",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Shuriken cannon",
+              "points": 1
+            },
+            {
+              "name": "Starcannon",
+              "points": 30
+            },
+            {
+              "name": "Bright lance",
+              "points": 37
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "May swap the Sonic lance",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Pulsar",
+              "points": 132
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Battle Focus",
+        "Soundquake: To wound rolls of 3+ against creatures always succeed. If this weapon targets a vehicle, it suffers one automatic hit at Strength 1 that rolls 3D6 for armor penetration."
+      ],
+      "unit_type": "Vehicle",
+      "keywords": ["Lord of War"],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 366
+    },
+    "Vampire": {
+      "name": "Vampire",
+      "models": [
+        {
+          "name": "Vampire",
+          "points": 878,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "11",
+            "SIDE": "11",
+            "REAR": "11",
+            "I": "5",
+            "A": "1",
+            "HP": "5"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Vampire Raider is equipped with: Scatter laser; 2 twin pulse lasers.",
+      "weapons": [
+        {
+          "name": "Phoenix missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Phoenix missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
+        },
+        {
+          "name": "Scatter laser",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Twin pulsar - Saturation",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "D",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Barrage"
+        },
+        {
+          "name": "Twin pulsar - Salvo",
+          "range": "48\"",
+          "type": "Heavy 6",
+          "s": "D",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(4)"
+        },
+        {
+          "name": "Twin pulse laser",
+          "range": "48\"",
+          "type": "Heavy 4",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Lance(+1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap both twin pulse lasers",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "two Phoenix missile launchers and a Twin pulsar",
+              "points": 347
+            }
+          ],
+          "replaces": ["Twin pulse laser"],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Battle Focus, Fast, Hover Mode",
+        "Improved Holo-fields: The model gains a 4+ invulnerability save.",
+        "Transport: This model has a transport capacity of 30 infantry models. When equipped with Pulsars and Phoenix missile launchers, it has a transport capacity of 0 infantry models."
+      ],
+      "unit_type": "Super-heavy Flyer, Vehicle",
+      "keywords": ["Lord of War"],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 878
+    },
+    "Warp Hunter": {
+      "name": "Warp Hunter",
+      "models": [
+        {
+          "name": "Warp Hunter",
+          "points": 335,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "6",
+            "FRONT": "12",
+            "SIDE": "12",
+            "REAR": "10",
+            "I": "5",
+            "A": "1",
+            "HP": "3"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Warp Hunter is equipped with: D-flail; Twin shuriken catapult.",
+      "weapons": [
+        {
+          "name": "D-flail - Blast",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "D",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(3), Barrage, Deadly(5+), Graviton"
+        },
+        {
+          "name": "D-flail - Rift",
+          "range": "9\"",
+          "type": "Heavy 4",
+          "s": "D",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(3), Deadly(5+), Flames, Graviton"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Twin shuriken catapult",
+          "range": "18\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Shuriken"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap the Twin shuriken catapult",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Shuriken cannon",
+              "points": 9
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Anti-Grav, Battle Focus"
+      ],
+      "unit_type": "Vehicle",
+      "keywords": ["Lord of War"],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 335
+    },
+    "Wraithknight": {
+      "name": "Wraithknight",
+      "models": [
+        {
+          "name": "Wraithknight",
+          "points": 492,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "10",
+            "T": "10",
+            "W": "9",
+            "I": "5",
+            "A": "4",
+            "LD": "10",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Wraithknight is equipped with: Scatter shield; Sword of Vaul.",
+      "weapons": [
+        {
+          "name": "Heavy wraithcannon",
+          "range": "36\"",
+          "type": "Assault 1",
+          "s": "D",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(4), Explosive, Graviton"
+        },
+        {
+          "name": "Scatter laser",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Shuriken cannon",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        },
+        {
+          "name": "Starcannon",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Suncannon",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "7",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Sword of Vaul - Strike",
+          "range": "-",
+          "type": "Melee",
+          "s": "D",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(4)"
+        },
+        {
+          "name": "Sword of Vaul - Sweep",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Flurry(2)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap the Scatter shield and Sword of Vaul",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "2 Heavy wraithcannons",
+              "points": 160
+            },
+            {
+              "name": "Scatter shield and Suncannon",
+              "points": 264
+            }
+          ],
+          "replaces": ["Scatter shield", "Sword of Vaul"],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "Can be equipped with two of the following",
+          "constraint": {
+            "type": "fixed_max",
+            "max": 2
+          },
+          "choices": [
+            {
+              "name": "Scatter laser",
+              "points": 19
+            },
+            {
+              "name": "Shuriken cannon",
+              "points": 20
+            },
+            {
+              "name": "Starcannon",
+              "points": 49
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Battle Focus, Deflect, Fearless, Parry",
+        "Scatter shield: The model gains a 4+ invulnerability save.",
+        "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
+      ],
+      "unit_type": "Gargantuan Creature",
+      "keywords": ["Lord of War", "Wraith"],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": true,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Lords of War",
+      "default_size": 1,
+      "min_cost": 492
     }
   }
 }

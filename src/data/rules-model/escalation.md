@@ -93,12 +93,33 @@ Example — **Baneblade**: M6" / WS– / BS4+ / S8 / Front14 / Side13 / Rear12 /
 
 - **Phase 0 (DONE, local):** Lords of War slot foundation — engine, all UI consumers,
   validator, glossary entries, this digest.
-- **Phase 1 (NEXT):** Imperial Guard sample — add Baneblade, Gorgon Heavy Transport, Stormlord
-  to `data/parsed/imperial_guard.json` as `slot: 'Lords of War'` units; verify end-to-end.
-- **Phase 2:** batch the remaining 9 faction columns.
+- **Phase 1 (DONE, local):** Imperial Guard sample — Baneblade, Gorgon Heavy Transport,
+  Stormlord added to `data/parsed/imperial_guard/units.json` as `slot: 'Lords of War'` units.
+- **Phase 2 (DONE, v0.70, local):** all remaining faction columns batched — Tau (Stormsurge),
+  Inquisition (Massive Orbital Strike), Sororitas (Triumphant Procession), Necrons (Dynasty
+  Phaeron, Tesseract Vault), Orks (Battle Fortress, Orkanaut, Stompa), Eldar (Lynx, Vampire,
+  Warp Hunter, Wraithknight), Space Marines (Fellblade, Spartan, Armiger, Knight Castellan,
+  Knight Paladin, Warhound). All 21 units across 9 factions are in. **Escalation Lords of
+  War is now in beta** across all supported factions.
 
 ## 7. Open questions / discrepancies
 
-- Per-datasheet weapon ability values (AT(x) ratings, exact D-weapon flags) to be confirmed
-  against each unit's HTML when entering Phase 1/2 — do not infer from memory.
-- Gorgon Heavy Transport and Stormlord datasheets not yet read; read their HTML before Phase 1.
+- All 21 units' stats/weapons/options/abilities were grounded directly in `Informacion/Escalation.ods`
+  (one sheet per unit), not the HTML — per user instruction ("recuerda comparar con el .ods").
+- Battle Fortress (Orks) Zzap gun has a garbled AP/D cell in the .ods (`"26-12"` / `"2-1"`);
+  user confirmed keeping the literal values as-is rather than guessing the intended split.
+- Orkanaut and Armiger .ods sheets have no trailing KEYWORDS row; both were given
+  `keywords: ["Lord of War"]` for consistency with the rest of the batch.
+
+## 8. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: §3 (Gargantuan Creature / Super-heavy Vehicle / Strength "D" /
+   Colossal Blast, + FAQ #11 Barrage/Explosive re-roll) was already extracted verbatim from
+   `Index.html` into `coreRules.ts` in Phase 0. No gap.
+2. **Psychic disciplines / prayers**: confirmed-absence — Escalation units are Super-heavy
+   Vehicles / Gargantuan Creatures (Lords of War), none are psykers; Escalation has no
+   discipline/prayer sheet of its own. No gap.
+
+**Escalation "lo demás" complete** — special rules already wired to coreRules.ts; no
+psychic/prayer axis. No fixes needed, doc-only. (Note: Phase 2 unit-injection for the remaining 9
+factions is separate, unrelated migration work — not part of this pass.)

@@ -25,6 +25,27 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.62',
+    date: '2026-06-13',
+    title: {
+      en: 'Psychic/prayer data wired up across factions, CSM/CD fixes, and Escalation Lords of War reaches beta',
+    },
+    changes: {
+      en: [
+        'Fixed the Tzeentch Daemonkin "Cabbalistic Rituals" reference table: it was missing 2 of its 6 effects ("Enhanced Manifestation" and "Brotherhood of Sorcerers") and had mismatched names/effects on the remaining ones ("Pact from Beyond" and "Cabbalistic Focus" showed the wrong "when"/effect text). All 6 effects now show their correct name, cost, trigger and effect, and the table\'s intro text is now shown like the other 3 gods\' Daemonkin tables.',
+        'Fixed Chaos Daemons\' "Favored Units" rule for Nurglings: like Chaos Space Marines\' Poxwalkers, Nurglings is a single-model "Mindless"/"Swarm" entry with no squad-leader model, so it can no longer become Favored (and gain +1 Attack) when started at a multiple of 7 models. The other 5 Troops (Bloodletters, Daemonettes, Plaguebearers, Pink Horrors, Blue Horrors) are unaffected — each has its own squad-leader model (Bloodreaper, etc.) that still receives the bonus.',
+        'Chaos Daemons\' 3 god-gated psychic disciplines (Change for Tzeentch, Decay for Nurgle, Excess for Slaanesh — 18 named powers total) were missing from the loaded data entirely, despite being documented in the engine as already catalogued. Added `data/parsed/chaos_daemons/psychic/disciplines.json` (from the faction\'s own canonical sheet) and wired it into the Chaos Daemons loader, so psyker units can now see and select these powers.',
+        'Imperial Guard\'s "Hymns of Battle" (the Preacher\'s 5 prayers: Catechism of Repugnance, Chorus of Spiritual Fortitude, Psalm of Righteous Smiting, Refrain of Blazing Piety, War Hymn) were missing from the loaded data entirely. Added `data/parsed/imperial_guard/psychic/prayers.json` (from the faction\'s own canonical sheet), wired it into the Imperial Guard loader, and marked the Preacher with its "Faithful" access flag so the Prayers tab now appears for it.',
+        'Fixed Grey Knights\' Chaplain: it has the "Faithful" ability (knows all Prayers) on its datasheet, same as the Space Marines Chaplain, but was missing the access flag that makes the Prayers tab appear — it now correctly shows its 10 Prayers (Litanies of Purity + Prayers of Battle).',
+        'Adeptus Sororitas\' "Hymns of Battle" (5 prayers: Catechism of Repugnance, Chorus of Spiritual Fortitude, Psalm of Righteous Smiting, Refrain of Blazing Piety, War Hymn) were missing from the loaded data entirely. Added `data/parsed/adeptus_sororitas/psychic/prayers.json` (from the faction\'s own canonical sheet), wired it into the Adeptus Sororitas loader, and marked the Missionary, Dogmata and Preacher with their "Faithful" access flag so the Prayers tab now appears for them.',
+        'Knight-Centura, Sisters of Silence, and their Rhino transport (Adeptus Custodes) were all marked as Psykers in the data, despite all three carrying the "Null-Maiden" ability (psychic-null/anti-psyker — the exact opposite). This caused an empty "Powers" tab to appear for them. Corrected `is_psyker` to false for all three.',
+        'The "Invocations of the Ethereals" (Sense of Stone, Zephyr\'s Grace) for T\'au Empire were extracted into data during the v0.60 batch but stored as a psychic discipline under the key "Powers" — since the Ethereal is not a Psyker, that data was never shown. The Ethereal\'s own ability text ("Serene unifier: ... knows all the powers from the list of Invocations of the Ethereals") is a Faithful-style prayer list, like Imperial Guard\'s Hymns of Battle. Moved the content to `data/parsed/tau_empire/psychic/prayers.json`, wired it in as Prayers, and marked the Ethereal with `is_priest: true` so its Prayers tab now appears.',
+        'The v0.60 batch wired the Necrons\' "Powers of the C\'tan" (Form Matter, Transdimensional Manipulation, Time\'s Arrow) as a psychic discipline, but the `is_psyker` flag was set on the Pariahs (an anti-psyker unit with "Psionic Abomination") instead of the 4 C\'tan Shard datasheets, which actually carry the "Powers of the C\'tan" ability. Moved `is_psyker: true` to the C\'tan Shard / C\'tan Shard of the Deceiver / of the Dragon / of the Nightbringer, and removed it from the Pariahs, so the Powers tab now shows up on the correct model.',
+        'Added the remaining 21 Lords of War datasheets from the Escalation supplement to their respective factions, each grounded in the canonical Escalation.ods: Necrons (Dynasty Phaeron, Tesseract Vault), Imperial Guard (Baneblade, Gorgon Heavy Transport, Stormlord), Orks (Battle Fortress, Orkanaut, Stompa), Eldar (Lynx, Vampire, Warp Hunter, Wraithknight), and Space Marines (Fellblade, Spartan, Armiger, Knight Castellan, Knight Paladin, Warhound), on top of the Tau Stormsurge, Inquisition Massive Orbital Strike and Sororitas Triumphant Procession already added. This completes the Escalation Lords of War rollout across all 9 supported factions.',
+      ],
+    },
+  },
+  {
     version: '0.61',
     date: '2026-06-12',
     title: {
@@ -34,6 +55,10 @@ export const CHANGELOG: ChangelogEntry[] = [
       en: [
         'Added 31 missing weapon profile entries across 6 Horus Heresy units — Legion Breacher Squad (Lascutter), Legion Tactical Support Squad (Plasma gun), Legion Contemptor Dreadnought (Conversion beamer, Cyclone missile launcher, Missile launcher, Plasma blaster, Plasma cannon), Legion Terminator Cataphractii Squad (Combi-flamer/melta/plasma, Plasma blaster, Power axe), Legion Sky-hunter Squadron (Plasma cannon) and Legion Heavy Support Squad (Missile launcher, Plasma cannon) — these weapons now show their full stat profiles when selected.',
         'Fixed three weapon names that did not match between the option list and the displayed profile: "Vulkite caliver" renamed to "Volkite caliver" and "Laserkanone" renamed to "Lascannon" (Legion Heavy Support Squad), "Quad Maschinenkanone" renamed to "Quad autocannon" (Legion Leviathan Dreadnought).',
+        'Fixed Chaos Space Marines\' "Malicious Volley" trait: it now correctly excludes "Heavy" weapons from gaining Deflagrate(5+), as its description always intended.',
+        'Fixed two Chaos Space Marines armory items whose effects did not match their own description: "Chaos Space Marine bike" now grants +6" Movement/+1 Toughness/+1 Wound (was only changing unit type to Bike), and "Daemonic stature" now grants the Deep Strike ability (was only changing unit type to Monstrous Infantry).',
+        'Fixed the same mount-bonus gap in the Mark of Chaos armories: "Juggernaut of Khorne" and "Steed of Slaanesh" now grant their full Movement/Toughness/Wounds/Attacks bonuses, and "Disc of Tzeentch" now grants its bonuses and correctly uses the "Jetbike" unit type (was inconsistently "Jet Bike").',
+        'Fixed Chaos Space Marines\' "Favored Units" rule: it no longer applies its +1 Attack squad-leader bonus to units that have no model with armory access (e.g. Poxwalkers), since those units have no "squad leader" to receive it.',
       ],
     },
   },

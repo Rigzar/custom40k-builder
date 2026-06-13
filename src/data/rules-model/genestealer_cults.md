@@ -84,13 +84,25 @@ markers) / Synaptic Resonance (psyker re-roll) / Toxin Agents / War Convoy. Cano
    Equipment items (idx 22-28) were `category: none`; tagged `category: 'vehicle'`. POINTS already
    in `p_unit` (no value-move). NO veteran-side fix: GSC have no veteran tier (0
    `has_veteran_abilities`).
-2. **⚠ GSC psychic discipline + Legacy bonus powers not wired into the loader**
-   (`ki-genestealer-cults-psychic-unwired-01`, KNOWN): the `.ods` has a "GSC psychic discipline"
-   (37 rows, the Broodmind discipline) and the 6 Legacies each grant a named bonus power, and GSC
-   has 2 psyker units + the Crown of Ascendancy, but `loaders.ts` imports only units+general+
-   archetypes (disciplines slot `{}`). Same gap class as IG (`ki-ig-psychic-unwired-01`). The 6
-   Legacy powers AND the Broodmind discipline are unrepresented. Larger separate scope.
+2. **GSC psychic discipline wiring — RESOLVED v0.60** (`ki-genestealer-cults-psychic-unwired-01`,
+   FIXED): the "GSC psychic discipline" (37 rows, Broodmind) is now in
+   `data/parsed/genestealer_cults/psychic/disciplines.json` and `loaders.ts:genestealer_cults`
+   imports it (`{ disciplines: discs }`). Magus/Patriarch's Powers tab is populated. This entry was
+   written 2026-06-11 (before the v0.60 batch fix); superseded.
 3. **Roster cross-check**: production 20 units / 6 populated slots (HQ 4/Troops 2/Elites 10/Fast
    Attack 2/Heavy Support 1/Dedicated Transport 1; Fortifications 0, Flyers 0). The Index sheet's
    Elite column visually showed 8 names but production has 10 (the Index undercounts Kelermorph +
    Locus, present in both the sheet tab list and production). No blocking drift, no phantoms.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: re-read raw `Index.html` — 1 verbatim entry (Ambush), already present
+   in §4. No gaps.
+2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The Broodmind
+   discipline gap flagged in §6.2 was ALREADY RESOLVED by the v0.60 batch fix
+   (`data/parsed/genestealer_cults/psychic/disciplines.json` exists, wired in `loaders.ts`, KI
+   status `fixed`). The 6 Legacy bonus powers remain a separate question — not re-checked here.
+   Updated §6.2 to reflect the resolved state (was stale, written before v0.60).
+
+**GSC "lo demás" complete** — Index fully covered, psychic discipline already wired (stale doc
+corrected). Doc-only, no build required.

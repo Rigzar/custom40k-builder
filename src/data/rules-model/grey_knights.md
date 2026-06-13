@@ -218,3 +218,32 @@ any future Paso 4 write-up: "tab present but category empty" ≠ "tab absent."
    Elites is **Dreadnought** — present in production, and re-confirmed present in `Index.html`'s
    roster table (a unit the initial roster-read summary undercounted by one row). **Zero actual
    drift** — clean roster match, the SAME "free audit, clean run" outcome SM/Inquisition had.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+- **Index "Special rules"**: re-read raw `Index.html` (R12-R20) — all 7 verbatim rules (Demon
+  Hunters, Nemesis warding stave, Psykers and Force weapons, Shrouding, They Shall Know No Fear,
+  Teleport strike, True Grit) confirmed present and accounted for in
+  `codex_grey_knights/special-abilities.ts` §4. No gaps.
+- **"Grey Knight psychic discipline"** (Sanctity 6 + Dominus 6 = 12 powers, plus a separate
+  "Legacy" row-group with 8 bonus powers) — Sanctity/Dominus 1:1 match vs `psychic/disciplines.json`.
+  **Found and fixed a doc-only inaccuracy**: `special-abilities.ts` claimed all 20 named powers
+  (12 + 8) live in `disciplines.json`, but the 8 Legacy bonus powers were never in that file —
+  they're correctly implemented (verified 1:1 vs the .ods, e.g. Inescapable Pursuit = "+3" charge
+  range") in `engine/legacies/grey_knights.ts` (`GK_LEGACY_POWER_DETAILS`), a different file. No
+  functional bug (the feature works), just a misleading anti-duplication comment — corrected to
+  point at the right files. Build ✓, no changelog (internal doc comment only).
+- **"Prayers"** (Litanies of Purity 5 + Prayers of Battle 5 = 10 entries) — 1:1 match vs
+  `psychic/prayers.json`. Also corrected a stale "8 named Prayers" count in
+  `special-abilities.ts` to the correct "10 (5+5)". "General psychic disciplines" sheet is just a
+  link, as usual.
+
+**GK "lo demás" complete** — Index, psychic disciplines/legacy powers and prayers all re-audited.
+Two doc-comment corrections made (no functional/data changes), build ✓, local NOT pushed.
+
+**Addendum (2026-06-13, found during the IG pass) — real fix v0.65**: while wiring up IG's
+Preacher prayers, checked GK's Chaplain (HQ) for the same "Faithful" pattern. Its ability text
+already says "Faithful: ... Knows all Prayers", same as the SM Chaplain (which has
+`is_priest:true`), but GK's Chaplain was missing the flag — so its Prayers tab never appeared
+despite `psychic/prayers.json` (10 entries) being loaded correctly. Added `"is_priest": true` to
+`data/parsed/grey_knights/units/hq/chaplain.ts`. Build ✓, changelog v0.65.

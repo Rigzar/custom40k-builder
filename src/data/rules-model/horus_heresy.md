@@ -350,3 +350,17 @@ mark** (Kakophoni Slaanesh-only) ✅; **vehicle "vehicle equipment" with no HH v
      row) is not repeated in OPTIONS text and not gated by the engine —
      `ki-hh-contemptor-conversionbeamer-techmarine-01`.
    - §4b/§4c corrected accordingly (Contemptor + Sky-hunter multi-profile display claims).
+
+## 8. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: HH's `Index.html` has **no army-rules / special-rules section** —
+   it is a pure injectable catalog (12 datasheets + 1 armory), not an army with its own Index
+   special rules. The only "rules" content is the host-codex note (§5, already documented) and
+   the per-unit abilities (already covered §4a–§4d). No gap.
+2. **Psychic disciplines / prayers**: confirmed-absence, by design (§5: "HH has no archetypes /
+   legacies / traits / marks / disciplines of its own" — `disciplines`/`prayers`/`pacts` all empty
+   in `horus_heresy.json`). 0 `is_psyker` units across all 12 datasheets. No gap — same
+   confirmed-absence shape as [[project_lo_demas_pass_dark_eldar]].
+
+**Horus Heresy SM Supplement "lo demás" complete** — no Index special-rules section to check
+(catalog, not an army); psychic/prayer axis confirmed-absent by design. No fixes needed, doc-only.

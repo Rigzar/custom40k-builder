@@ -1,6 +1,6 @@
 {
   "Khorne": {
-    "description": "",
+    "description": "You can spend \"Blood points\" to activate effects from the \"Blood Tithe\" table during the activation of each of your units. You gain a number of Blood points during each Command phase equal to the current battle round. Additionally, you gain +1 Blood point each time a unit loses its last Wound (friendly and enemy alike). Multiple Blood points can be spend at the same time and powers can be used multiple times per battle round. Remaining Blood points are lost after the last activation of each battle round.",
     "items": [
       {
         "name": "Unbound Fury",
@@ -53,7 +53,7 @@
     ]
   },
   "Slaanesh": {
-    "description": "",
+    "description": "At the start of the battle round, you must pledge a number to Slaanesh, declaring how many enemy units you intend to destroy this round. At the end of the battle round, if the number of enemy units destroyed is equal to or greater than your pledge, you gain Pact points equal to the pledged number. If not, you lose 1D3 Pact points. Multiple Pact points can be spend at the same time and powers can be used multiple times per battle round. Remaining Pact points are carried over each battle round.",
     "items": [
       {
         "name": "Beautiful Death",
@@ -106,19 +106,31 @@
     ]
   },
   "Tzeentch": {
-    "description": "",
+    "description": "The army receives 1 Cabal Point (CP) for every 500 points of game size. These points can be used to manipulate psychic powers.\nEverytime a model wants to manifest or deny a psychic power, you may use your remaining CPs to select one or more of the effects below. Every effect can only be chosen once per battle round and per model. Reduce your CPs by the stated cost when using an effect. Your CPs get restored to full during each Reinforcement phase.",
     "items": [
       {
-        "name": "Pact from Beyond",
-        "cost": "1",
+        "name": "Enhanced Manifestation",
+        "cost": "1+",
         "when": "After successfully manifesting a psychic power.",
         "effect": "The range of the psychic power is increased by 6\" per spent CP."
       },
       {
-        "name": "Cabbalistic Focus",
-        "cost": "2",
+        "name": "Brotherhood of Sorcerers",
+        "cost": "1+",
         "when": "Before rolling to manifest or deny a psychic power.",
         "effect": "Add +1 to the test result for each spent CP."
+      },
+      {
+        "name": "Pact from Beyond",
+        "cost": "1",
+        "when": "After suffering a \"Perils of the Warp\" attack.",
+        "effect": "Ignore the Perils of the Warp effect."
+      },
+      {
+        "name": "Cabbalistic Focus",
+        "cost": "2",
+        "when": "After successfully manifesting a psychic power.",
+        "effect": "The power can't be denied."
       },
       {
         "name": "Psychic Maelstrom",

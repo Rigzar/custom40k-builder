@@ -70,12 +70,24 @@ absent Army Customisation tab.
    Equipment items (idx 15-20) were `category: none`; tagged `category: 'vehicle'`. POINTS already
    in `p_unit` (no value-move). NO veteran-side fix: Harlequins have no veteran tier (0
    `has_veteran_abilities`).
-2. **⚠ Harlequins psychic discipline not wired into the loader** (`ki-harlequins-psychic-unwired-01`,
-   KNOWN): the `.ods` has a "Harlequins psychic discipline" (19 rows), and the Shadowseer is a
-   psyker, but `loaders.ts:harlequins` imports only units + general armory (disciplines slot `{}`).
-   Same gap class as IG/Eldar. Larger separate scope (parse discipline + wire loader). NOTE: when
-   Harlequins are fielded as an Eldar/Dark-Eldar ally, the discipline gap compounds with those
-   factions' own psychic gaps.
+2. **Harlequins psychic discipline wiring — RESOLVED v0.60** (`ki-harlequins-psychic-unwired-01`,
+   FIXED): the "Harlequins psychic discipline" (19 rows) is now in
+   `data/parsed/harlequins/psychic/disciplines.json` and `loaders.ts:harlequins` imports it
+   (`{ disciplines: discs }`). The Shadowseer's Powers tab is populated. This entry was written
+   2026-06-11 (before the v0.60 batch fix); superseded.
 3. **Roster cross-check**: production 9 units / 6 populated slots (HQ 1/Troops 1/Elites 3/Fast
    Attack 1/Heavy Support 2/Dedicated Transport 1; Fortifications 0, Flyers 0) — exact match to the
    Index roster. Clean, no phantoms.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: re-read raw `Index.html` — 2 verbatim entries (Shuriken, Webway
+   strike), all already present in §4. No gaps.
+2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The Shadowseer's
+   "Harlequins psychic discipline" (19 rows) — found in §6.2 to be unwired — turned out to be
+   ALREADY RESOLVED by the v0.60 batch fix (`data/parsed/harlequins/psychic/disciplines.json` exists
+   and is wired in `loaders.ts`, KI status `fixed`). Updated §6.2 to reflect the resolved state
+   (was stale, written before v0.60).
+
+**Harlequins "lo demás" complete** — Index fully covered, psychic discipline already wired (stale
+doc corrected). Doc-only, no build required.

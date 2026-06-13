@@ -144,3 +144,18 @@ repair) 2*/0/5* · Unleashed Hunters (+1 melee hit on charge) 5/0/5.
   (archetype composition + 3 uniqueness checks) both had "skeleton — fill in after audit" headers;
   rewritten to accurate status. Verified SM traits ARE applied live → known-issue ki-22a corrected
   (CSM **and** SM wired; remaining factions still display-only). Non-SM placeholders left intact.
+
+### 7. "Lo demás" pass (2026-06-12) — no fixes needed
+- **Index "Special rules"** (re-read from .ods, not just HTML): only "They Shall Know No Fear"
+  (verbatim ✓ already matches `codex_space_marines/special-abilities.ts`) + a Designer's note
+  (chapter-specific units usable by any SM army, no archetype/legacy/trait required — already
+  reflected in §4/§5). No Marks/Favored/Summoning section exists for SM (confirms §4 "no marks,
+  no favored-unit mechanic").
+- **"Space Marine psychic disciplines"** (Librarius + 5 chapter-legacy disciplines: Geokinesis,
+  Interromancy, Sanguine, Stormspeaking, Tempestus — 36 powers total) — 1:1 match vs
+  `psychic/disciplines.json`, no fixes. "General psychic disciplines" sheet is just a link.
+- **"Prayers"** (Prayers of Battle + Prayers of the Faithful — 10 entries) — 1:1 match vs
+  `psychic/prayers.json`, no fixes.
+
+**SM "lo demás" complete** — Armory/Army Customisation already covered by §1–§3/§5 (Fases 1-5);
+Index, psychic disciplines and prayers now also audited. No discrepancies found.

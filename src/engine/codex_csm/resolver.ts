@@ -30,12 +30,16 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
     );
   }
 
+  // Favored Units grants its bonus to the unit's "squad leader" — a single model with
+  // sole access to the armory. Units with neither armory nor champion armory access
+  // (e.g. Poxwalkers) have no such model, so they cannot be Favored.
   const isFavored =
     !!base.effectiveMark &&
     base.effectiveMark !== 'Undivided' &&
     SACRED_NUMBERS[base.effectiveMark] != null &&
     item.size > 0 &&
-    item.size % SACRED_NUMBERS[base.effectiveMark] === 0;
+    item.size % SACRED_NUMBERS[base.effectiveMark] === 0 &&
+    (unit.has_armory_access || unit.champion_has_armory);
 
   const injectedAbilities = [...base.injectedAbilities];
 

@@ -143,3 +143,22 @@ Imperative may purchase a second one" — the key cross-link to §2/§6.1's Doct
    + Archaeopter under Transports/Flyers and Skorpius Dunerider/Disintegrator — production places
    them across DT(2)/Flyers(1)/HS — minor slot-placement reconcile worth a glance during migration
    Step 1, no blocking drift.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+- **Index "Special rules"**: re-read raw `Index.html` — 6 verbatim entries (Canticles of the
+  Omnissiah, Choir Master, Cognis, Luminagen, Monotask, Tesla), all present in
+  `codex_adeptus_mechanicus/special-abilities.ts` §4. No gaps.
+- **Psychic disciplines / prayers**: no "psychic discipline" sheet and no "Faithful"/prayers sheet
+  exist in the `.ods` (34 sheets total, none); production confirms all 29 units
+  `is_psyker: false`, none `is_priest`. AdMech is the first migrated faction with NO psychic/prayer
+  axis at all — confirmed-absence, nothing to wire.
+- **Found and fixed a stale gap-note**: `special-abilities.ts`'s §6 gap-note for
+  `ki-admech-doctrina-gating-01` still described the Doctrina Imperatives gating as an OPEN
+  problem, but it was actually resolved in v0.60 (13 units have `has_veteran_abilities: true` +
+  `veteran_max: 1`, the 4 items in `armory/general.json` are tagged `category: 'veteran'` with the
+  correct `p_veh`/`p_char`). Updated the entry to document the resolved state and point at the
+  still-open follow-up `ki-admech-veteranmaniple-bonus-unmodelled-01`. Doc-only, build ✓.
+
+**AdMech "lo demás" complete** — Index fully covered, no psychic/prayer axis (confirmed-absence),
+one stale doc-comment corrected. Build ✓, local NOT pushed.

@@ -119,3 +119,17 @@ Toxin Crafters. Canonical in `archetypes.json`.
 3. **Roster cross-check**: production 19 units / 7 populated slots (HQ 3/Troops 3/Elites 3 [+1
    "Furious Charge" phantom]/Fast Attack 3/Heavy Support 3/Dedicated Transport 2/Flyers 2;
    Fortifications 0). Matches the Index roster apart from the phantom. Clean.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: re-read raw `Index.html` — 4 verbatim entries (Combat drugs, Power
+   through Pain with its 6 PtP bonuses, Visitors of the Black Library, Webway raid), all already
+   present in §4. No gaps.
+2. **Psychic disciplines / prayers**: no "psychic discipline" sheet and no "Faithful"/prayers/hymns
+   sheet in the `.ods` (24 sheets total, none). Production confirms all 19 units `is_psyker: false`,
+   none `is_priest`, no `psychic/` folder. Confirmed-absence, like AdMech/Custodes (the Ynnari
+   archetype's "Revenant discipline" grant is a cross-faction reference into Eldar, not a DE-native
+   axis — out of scope here).
+
+**Dark Eldar "lo demás" complete** — Index fully covered, no psychic/prayer axis (confirmed-absence),
+no fixes needed. Doc-only, no build required.

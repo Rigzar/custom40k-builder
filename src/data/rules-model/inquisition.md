@@ -114,3 +114,18 @@ left as-is (still shown to the player; the gate is the enforcement layer on top)
 Inquisition access (`ki-10`) uses `[Allied]` — but the same Designer's note that grounded the SM
 Alien Hunters "own army" fix names GK alongside SM as an "own army" case. Needs user confirmation
 before touching (reads GK+Sororitas rules).
+
+### 7. "Lo demás" pass (2026-06-13) — no fixes needed
+
+- **Index "Special rules"**: Inquisition has no dedicated special-rules section — only the
+  Designer's note (roster overview + ally access), already fully covered by §5/§6. Re-checked
+  the 3-faction "own army" access grant against current code: GK and Adeptus Sororitas both
+  carry `intrinsic_allies: ['inquisition']` (`src/data/loaders.ts`), and SM's "Legacy of the
+  Alien Hunters" carries `grants_faction: "inquisition"` (`space_marines/archetypes.json`) — all
+  three match the canonical text verbatim, nothing outstanding.
+- **"Inquisition psychic discipline"** (Heresius + Telethesia, 12 powers) — re-dumped from the
+  .ods and compared against `psychic/disciplines.json`: 1:1 match, no fixes. "General psychic
+  disciplines" sheet is just a link, as in every other faction.
+
+**Inquisition "lo demás" complete** — Armory/Ordo gating already covered by §1–§6 (v0.56); Index
+and psychic disciplines now also re-audited. No discrepancies found.

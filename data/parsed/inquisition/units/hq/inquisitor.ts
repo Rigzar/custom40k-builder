@@ -73,6 +73,33 @@ export const inquisitor: Unit = {
       "ap": "-2",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Heavy ordinance",
+      "range": "Unlimited",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Colossal blast, Suppression, Tank hunter"
+    },
+    {
+      "name": "Lance strike",
+      "range": "Unlimited",
+      "type": "Assault 1",
+      "s": "D",
+      "ap": "-6",
+      "d": "5",
+      "abilities": "AT(7), Explosive, Shield breaker(-3)"
+    },
+    {
+      "name": "Melta torpedo",
+      "range": "Unlimited",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "3",
+      "abilities": "AT(5), Armorbane, Barrage, Suppression"
     }
   ],
   "option_groups": [
@@ -105,13 +132,38 @@ export const inquisitor: Unit = {
       "inline_pts": 10,
       "variant_link": "Inquisitor Lord",
       "is_unique_per_army": true
+    },
+    {
+      "header": "Massive Orbital Strike: select up to one weapon per HQ selection",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Heavy ordinance",
+          "points": 161
+        },
+        {
+          "name": "Melta torpedo",
+          "points": 184
+        },
+        {
+          "name": "Lance strike",
+          "points": 247
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
     }
   ],
   "abilities": [
     "Command squad",
     "Psyker: A psyker can cast 1 psychic power and dispel 1 psychic power per round. A psyker knows Smite, as well as one psychic power from a chosen psychic discipline.",
     "Inquisitorial requisiton: The Inquisitor got additional access to a single weapon or wargear item from any Imperial faction. Requirements like specific traits or \"Only for xy\" must still be met. Wargear that got the same description or ability like an item from their own armory can't be taken.",
-    "Inquisitor Lord: The Inquisitor Lord may purchase one additional item from any Imperial faction."
+    "Inquisitor Lord: The Inquisitor Lord may purchase one additional item from any Imperial faction.",
+    "Plotting: Every HQ selection may \"shoot\" the selected Massive Orbital Strike in addition to their own weapons.",
+    "(In)accuracy: Sanctioned Bombardments always hit on a roll of 5+. This roll can never be modified."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

@@ -118,3 +118,19 @@ Hostless→Emperor's Chosen / Warders of the Dark Cells→Shadowkeepers. Shield 
    + Vigilators phantom]/Fast Attack 1/Heavy Support 3/Dedicated Transport 2; Fortifications 0,
    Flyers 0). Matches the Index roster apart from the Vigilators phantom (§6.3) and "Vertus Praetor"
    (production) vs "Vertus Praetors" (sheet name) — cosmetic singular/plural.
+
+### 7. "Lo demás" pass (2026-06-13)
+
+1. **Index "Special rules"**: re-read raw `Index.html` — 2 verbatim entries (Lightning strike,
+   Shield Host) all present in §4. No gaps.
+2. **Psychic disciplines / prayers**: no "psychic discipline" sheet and no "Faithful"/prayers sheet
+   in the `.ods` (22 sheets total, none). Confirmed-absence, like AdMech/Custodes-sibling. BUT —
+3. **Real bug found and fixed (v0.67, `ki-custodes-nullmaiden-ispsyker-01`)**: 3 units (Knight-
+   Centura, Sisters of Silence, and the Sisters' Rhino transport) carried `is_psyker: true`, despite
+   all three having "Null-Maiden" (anti-psyker: cannot be targeted by psychic powers, debuffs enemy
+   psykers/Leadership) — the OPPOSITE of being a psyker — and no "Psyker" mention in their `.ods`
+   datasheets. With no `disciplines.json` loaded for Custodes, this produced an empty "Powers" tab
+   on those 3 units. Corrected all 3 to `is_psyker: false`.
+
+**Custodes "lo demás" complete** — Index fully covered, no psychic/prayer axis (by design), 1 real
+data bug fixed. Build ✓, changelog v0.67, local NOT pushed.

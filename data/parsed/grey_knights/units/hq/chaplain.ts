@@ -127,5 +127,6 @@ export const chaplain: Unit = {
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 174
+  "min_cost": 174,
+  "is_priest": true
 };
