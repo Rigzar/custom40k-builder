@@ -25,6 +25,157 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.72',
+    date: '2026-06-16',
+    title: {
+      en: 'General: "Updates" window reorganized by faction; Escalation Lords of War catalog now covers all 8 factions; landing page status colors updated',
+    },
+    changes: {
+      en: [
+        'General: the "Updates" window now has a faction picker — "General" plus a tab for each faction — so you can see just the changelog entries and Known Issues relevant to that faction, with a "New" marker on factions that changed in the latest version.',
+        'General: the Escalation supplement\'s "Lords of War" catalog previously only listed Chaos Space Marines units. It now also includes Space Marines, Adeptus Sororitas, Imperial Guard, Eldar, Orks, Necrons and Tau Empire Lords of War units.',
+        'General: on the faction-selection screen, all factions previously shown in red ("Not reviewed") are now shown in orange ("In review") — Adeptus Custodes, Adeptus Sororitas, Inquisition, Tau Empire, Necrons, Orks, Eldar, Dark Eldar, Genestealer Cults, Harlequins, Leagues of Votann and Tyranids.',
+        'General: fixed a bug where, when adding an Allied Detachment, a faction could not ally with itself — even though the Allied Matrix and the Core Rules allow a faction to ally with itself (treated as one army for "Unique"/once-per-army restrictions). Every faction can now select itself as an ally (Battle Brothers).',
+      ],
+    },
+  },
+  {
+    version: '0.71',
+    date: '2026-06-15',
+    title: {
+      en: 'Grey Knights, Adeptus Sororitas & Space Marines: new "Chamber Militant" archetype replaces the old "Demon Hunters"/"Witch hunters"/"Legacy of the Alien Hunters" Inquisition-access rules; Chaos Space Marines, Imperial Guard, Adeptus Sororitas, Space Marines, Genestealer Cults & Tyranids: corrected Trait/profile descriptions, armory gaps and the "Ambush"/"Synapse" special rules; General: updated the "Command Squad" rule wording',
+    },
+    changes: {
+      en: [
+        'Grey Knights: added the new "Chamber Militant" Archetype: the army gains access to units from Codex: Assassins and Codex: Inquisition (as part of its own army, no [Allied] badge), and Inquisition units are treated as if "Ordo Malleus" was selected as their Legacy (unlocking the Ordo Malleus Armory items, e.g. Psycannon and Tesseract labyrinth, without needing to pick anything). This replaces the old always-on "Demon Hunters" rule, which previously granted Inquisition access unconditionally and forced any Inquisitor to manually select "Ordo Malleus" in their Armory.',
+        'Adeptus Sororitas: added the same new "Chamber Militant" Archetype, granting access to units from Codex: Assassins and Codex: Inquisition (as part of its own army, no [Allied] badge), with Inquisition units treated as if "Ordo Hereticus" was selected as their Legacy (unlocking the Ordo Hereticus Armory items, e.g. Ignis Judicium and Praesidium Protectiva, without needing to pick anything). This replaces the old always-on "Witch hunters" rule.',
+        'Space Marines: added the same new "Chamber Militant" Archetype (requires also selecting "Legacy of the Alien Hunters"), granting access to units from Codex: Assassins and Codex: Inquisition (as part of its own army, no [Allied] badge), with Inquisition units treated as if "Ordo Xenos" was selected as their Legacy (unlocking the Ordo Xenos Armory items, e.g. Phase sword and Universal anathema, without needing to pick anything). "Legacy of the Alien Hunters" itself was simplified to just grant the Death Watch Armory and the universal "Special ammunition" equipment — its Inquisition-access clause moved to Chamber Militant. Inquisition access for all three factions is now opt-in via the Chamber Militant Archetype.',
+        'Chaos Space Marines: "Black Crusade" Trait description simplified to "A single HQ-model must get the Mark of Chaos of each god." (no change to how it works); "Malicious Volley" no longer claims it "does not apply to Heavy weapons" — it applies to all Bolt weapons.',
+        'Imperial Guard: added "Grenade" to the weapon types covered by the "Born Soldiers" Trait; "Terrifying Visions" psychic power now also inflicts a Battleshock token alongside its Leadership test; "Crusaders" profile updated (Wounds 2→1, points 40→23).',
+        'Adeptus Sororitas: "Unshakable Vengeance" no longer claims it "does not apply to Heavy weapons" — it applies to all Bolt weapons (same correction as Chaos Space Marines\' "Malicious Volley"); "Crusaders" profile updated (Wounds 2→1, points 40→23, same correction as Imperial Guard\'s "Crusaders"); "Seraphim" and "Zephyrim" lose 1 Attack (now A:1, with a corresponding points reduction); "Battle Sisters", "Dominions" and "Retributors" are now also equipped with a Bolt pistol; added the new "Dialogus" Elites unit (42 pts, Character Model, Infantry — knows a Hymn of Battle and removes Battleshock tokens within 18" in the Rally phase).',
+        'Space Marines: "Bolter Drill" no longer claims it "does not apply to Heavy weapons" — it applies to all Bolt weapons (same correction as Chaos Space Marines\' "Malicious Volley" and Adeptus Sororitas\' "Unshakable Vengeance"); added the missing "Deathwatch shotgun" to the Death Watch Armory (3 firing profiles: Cryptclearer, Wyrmsbreath, Xenopurge); the "Wolf Guard" Honor Guard specialisation no longer grants the model the "Character" unit type.',
+        'Genestealer Cults: the "Ambush" special rule now also requires markers to be set up at least 6" from a mission objective or another Ambush marker, clarifies that units arriving via a marker still count towards the reserves-arrival limit, and a marker is permanently removed if an enemy unit ends the Reinforcement phase within 3" of it.',
+        'Tyranids: the Neurotyrant\'s "Neuroloids" ability can now be used on units that are not on the board (in a transport or in reserves); "Instinctive Behaviour" now also states that units that start the battle round off the board in reserves count as being within Synapse range during that Rally phase (but not afterwards), fixing a "frienedly"→"friendly" typo along the way.',
+        'General: the "Command Squad" rule now reads "Models with this ability can join a squad, or attach to a single character on its own" — previously it required the target squad to already have a character attached.',
+        'Space Marines: 30 Vehicles, Flyers and Fortifications (Dreadnoughts, Land Raiders, Land Speeders, Razorbacks, Rhinos, Predators, Repulsors, Vindicators, Whirlwind, Drop Pod, Impulsor, Hammerfall Bunker and all Flyers) no longer show the general Armory — their datasheets only grant access to Vehicle Upgrades, which remain available as before.',
+      ],
+    },
+  },
+  {
+    version: '0.70',
+    date: '2026-06-15',
+    title: {
+      en: 'Inquisition: enforced the "Ordo Minoris" Legacy\'s 1-item-per-character Armory cap',
+    },
+    changes: {
+      en: [
+        'When the "Ordo Minoris" Legacy is selected, each Character model is now capped to at most 1 item total from the combined Ordo Hereticus, Ordo Malleus and Ordo Xenos Armory (previously unrestricted).',
+      ],
+    },
+  },
+  {
+    version: '0.69',
+    date: '2026-06-15',
+    title: {
+      en: 'Inquisition: Inquisitor datasheet corrections (Inquisitor Lord cost, Priest option, Veteran ability, Quarry)',
+    },
+    changes: {
+      en: [
+        'Fixed the Inquisitor Lord upgrade cost: was +10 points (41 total), now correctly +15 points (46 total).',
+        'Added the missing "Can be upgraded to a priest for +5 points" option (previously only the Psyker upgrade was available), along with its "Priest: This model can recite 1 hymn per turn..." ability text.',
+        'The Inquisitor can now gain a Veteran ability (was previously unavailable).',
+        'Added the missing "Quarry" and "Inquisitor Lord: may choose a second quarry" abilities to the Inquisitor\'s ability list.',
+      ],
+    },
+  },
+  {
+    version: '0.68',
+    date: '2026-06-15',
+    title: {
+      en: 'Validation: Dedicated Transport limit now scales with Infantry units',
+    },
+    changes: {
+      en: [
+        'In Pitched Battle and Epic Battle, the Dedicated Transport slot was previously capped at a flat 3, regardless of army composition. Per the Missions rules ("a dedicated transport vehicle may be chosen for each \'Infantry\' type selection"), the limit is now dynamic: it equals the number of selections whose unit type is exactly "Infantry" (units that only act like Infantry, such as Bikes, Jump Pack Infantry, Character Models or Monstrous Infantry, do not count towards this). This also applies to an allied detachment\'s own Dedicated Transport allowance. Skirmish (flat 0-1) is unaffected.',
+      ],
+    },
+  },
+  {
+    version: '0.67',
+    date: '2026-06-15',
+    title: {
+      en: 'Chaos Space Marines: "Chaos Space Marine bike" Armory upgrade now grants its free Combi-bolter',
+    },
+    changes: {
+      en: [
+        'Fixed the "Chaos Space Marine bike" Armory upgrade (general Armory, Equipment section): buying it already added the +6" Movement/+1 Toughness/+1 Wound boost and the "Bike" unit type, but the free Combi-bolter it grants was missing. The model now gets its own Combi-bolter in its weapon table, same as other Armory-bought weapons.',
+      ],
+    },
+  },
+  {
+    version: '0.66',
+    date: '2026-06-14',
+    title: {
+      en: 'Builder: option swaps now show full weapon-stat tables',
+    },
+    changes: {
+      en: [
+        'When an option group lets you swap a model\'s weapon (e.g. "one Traitor Guardsman\'s Lasgun may be replaced by a Flamer/Meltagun/Plasma gun"), the builder now shows a full weapon table (Range/Type/S/AP/D/Abilities/Pts) for each choice, instead of just a name and a points value — so you can compare options without opening the Armory.',
+        'Fixed the Ranged/Melee Weapons summary showing weapons from un-selected loadout options (e.g. Laspistol/Chainsword appeared even when "Chainsword & Laspistol" wasn\'t chosen).',
+        'A unit\'s optional extra models (e.g. Chaos Ogryn) no longer show their weapons or stat row until at least one has actually been added to the squad.',
+        'The Unit Composition header now updates when a model is promoted (e.g. 10 Traitor Guardsmen becomes "9x Traitor Guardsman + 1x Traitor Sergeant" once a Sergeant is selected), and the Print view now matches this breakdown.',
+        'Fixed a bug affecting every squad with a built-in Sergeant/Champion/Justicar-type model (Tactical Squads, Terminator Squads, Plague Marines, Bloodletters, etc.): the builder showed a made-up "For each N models you can select 1 [Sergeant/Champion]" rule with a useless counter. That section now only appears for genuinely optional extra models (e.g. Chaos Ogryn, Attack Bike), and no longer invents a selection ratio.',
+        'Units with a built-in Champion/Leader model that has its own Armory access (e.g. Plague Champion, Terminator Champion, Berzerker Champion, GK Justicar variants, and others) now show a dedicated "Armory (N)" link for that model right under the unit composition, instead of a generic Armory button at the bottom of the card.',
+        'Fixed a bug affecting 8 units whose promotable model\'s name is a prefix of another model\'s name (e.g. "Grey Hunter" vs. "Grey Hunter Pack Leader", "Raptor" vs. "Raptor Champion", "Centurion" vs. "Centurion Sergeant"): promoting the Pack Leader/Champion/Sergeant to its upgraded variant (e.g. Wolf Guard Pack Leader) incorrectly kept showing the original Pack Leader/Champion/Sergeant row alongside the new one, instead of replacing it. Affected units: Grey Hunters, Chaos Bikers, Raptors, Chaos Space Marines, Cultists, Jakhals, Assault Squad, Centurion Devastator Squad.',
+        'Ranged/Melee Weapons tables now split by model group where it matters: Traitor Guard, Jakhals and Accursed Cultists each show separate tables for their two model types, with an "[N]x" count prefix per weapon. Units where only the Champion/Sergeant has Armory access now show Armory-bought weapons in their own table under that model\'s name instead of mixed into the squad\'s table. Units with a single model type and no Champion-only Armory purchases are unaffected. Applies to both the builder and the Print view.',
+        'Units with a single weapon table (the common case) now also get the "[N]x" count prefix on every weapon row, showing the full squad size. Fixed a rules bug where a Character-only Armory upgrade that adds an ability to a named weapon (e.g. Plague Champion\'s "Rotting" giving the Bolter "Deadly(5+)") was being applied to every copy of that weapon in the squad — it now only affects that Character\'s own weapon, splitting the table into separate Champion/squad rows only when their loadouts actually differ.',
+        'Fixed promoted Sergeants (e.g. Traitor Guard\'s Traitor Sergeant) not showing any Armory-bought weapons at all — buying a plain weapon (e.g. Boltgun) from the Armory now correctly adds it to that model\'s own weapon table, and a Character-only "all ranged/melee weapons gain X" Armory upgrade now only affects that Sergeant\'s own weapons, not the whole squad\'s. The Sergeant gets its own "[N]x" weapon table only when its loadout actually differs from the rest of the squad. Also restyled the "Armory (N)" links (for built-in Champions and promoted Sergeants) as proper buttons — previously a barely-visible underlined amber link.',
+        'Fixed Armory prices for Champions/Sergeants with their own Armory access (Plague Champion, Traitor Sergeant, etc.): these models now pay the Armory\'s "Character" price column for their personal purchases, matching how a Character buys wargear. Previously they were charged the cheaper squad-model price (e.g. Boltgun was +5 instead of +7), and purchases priced only in the Character column (e.g. the Plague Champion\'s "Rotting" upgrade, +10pts) showed as +0pts and were unbuyable.',
+      ],
+    },
+  },
+  {
+    version: '0.65',
+    date: '2026-06-14',
+    title: {
+      en: 'Inquisition: June 2026 ruleset update — Storm shield restriction, Repressor, Henchman Warband',
+    },
+    changes: {
+      en: [
+        'Storm shield is now character-only in Inquisition\'s Armory (per the June 2026 ruleset update, regular models lost access to it).',
+        'Added the "Repressor" (129pts, Heavy flamer + Storm bolter, optional 2nd Storm bolter) to Inquisition\'s Dedicated Transport options.',
+        'Updated the "Corvus Blackstar" profile: 341pts (was 343), WS 6+ (was -), new "Blackstar cluster launcher" (Frag/Infernus fire modes), "Twin Blackstar rocket launcher" now has Corvid/Dracos fire modes, fixed Twin lascannon to AT(2) and the Stormstrike missile launcher swap cost to +37, and added new "Infernum Halo-launcher" (+5) and "Auspex array" (+10) equipment options plus the "Assault ramp" ability.',
+        'Replaced the 3 "Ordo X Warband" Troops units with a single "Henchman Warband" (any Inquisitor may pick from 17 specialists, up to 6 models — 12 if attached to an Inquisitor Lord). All specialists got updated stats/points/equipment per the new ruleset (most gained +1 Wound and +1 Leadership), 3 new specialists added (Crusaders, Chirurgeons, Eldar Outcast), and the old "Surgeon" specialist was removed (no longer in the ruleset).',
+      ],
+    },
+  },
+  {
+    version: '0.64',
+    date: '2026-06-14',
+    title: {
+      en: 'Inquisition: new Army Customisation options (Heretic/Iconoclast archetypes, Ordo Legacies)',
+    },
+    changes: {
+      en: [
+        'Added Inquisition\'s "Army Customisation" tab: 2 Archetypes (Heretic, Iconoclast) and 4 Legacies (Ordo Hereticus, Ordo Malleus, Ordo Xenos, Ordo Minoris). Selecting one of the Ordo Hereticus/Malleus/Xenos/Minoris Legacies now also unlocks that Ordo\'s gated armory items and Warband unit(s) army-wide, alongside the existing per-model "Ordo allegiance" pick.',
+      ],
+    },
+  },
+  {
+    version: '0.63',
+    date: '2026-06-13',
+    title: {
+      en: 'Inquisition: Hymns of Battle, plain Land Raider, and Sanctioned Bombardement',
+    },
+    changes: {
+      en: [
+        'Inquisition\'s "Hymns of Battle" (5 prayers: Catechism of Repugnance, Chorus of Spiritual Fortitude, Psalm of Righteous Smiting, Refrain of Blazing Piety, War Hymn) were missing from the loaded data entirely, despite the Inquisitor\'s "Priest" option and the Ordo Hereticus Warband Missionary\'s "Devout" ability both referencing them. Added `data/parsed/inquisition/psychic/prayers.json` (same set as Imperial Guard/Adeptus Sororitas), wired it into the Inquisition loader, and marked the Inquisitor and the Ordo Hereticus Warband\'s "Faithful" access flag so the Prayers tab now appears for them.',
+        'Added the plain "Land Raider" (558pts, 2x Twin lascannon + Twin heavy bolter, transport capacity 10, Assault ramp) to Inquisition\'s Heavy Support slot — it was missing entirely; only "Land Raider Prometheus" (a distinct vehicle) was present.',
+        'Added the "Sanctioned Bombardement" option to the Inquisitor\'s Heavy Support choices (Barrage bomb +42, Melta artillery +88, Precision lance strike +90, each "shootable" by every HQ selection per the "Plotting" ability) — a separate base-codex entry from the existing Escalation-only "Massive Orbital Strike".',
+      ],
+    },
+  },
+  {
     version: '0.62',
     date: '2026-06-13',
     title: {

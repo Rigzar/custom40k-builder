@@ -76,7 +76,7 @@ export function getAlliableWith(factionKey: string): Array<{ key: string; relati
   const seen = new Set<string>();
   const result: Array<{ key: string; relationship: Relationship }> = [];
   for (const [key, code] of Object.entries(FACTION_TO_CODE)) {
-    if (key === factionKey || seen.has(key)) continue;
+    if (seen.has(key)) continue;
     seen.add(key);
     const rel = MATRIX[codeA]?.[code];
     if (rel) result.push({ key, relationship: rel });

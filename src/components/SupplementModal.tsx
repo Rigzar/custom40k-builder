@@ -73,21 +73,60 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
     accent: 'border-l-amber-700',
     blurb:
       'Super-heavy vehicles, Knights and Titans. Lords of War are unlocked by the largest ' +
-      'engagement and are capped at 33% of your total points. Currently implemented for Chaos; ' +
-      'more factions to follow.',
+      'engagement and are capped at 33% of your total points. Available for Chaos Space Marines, ' +
+      'Space Marines, Imperial Guard, Adeptus Sororitas, Eldar, Orks, Necrons and Tau Empire.',
     activation: [
       'Select the **Epic Battle** engagement (4000+ pts) in Army Configuration.',
       'The Lords of War slot unlocks — pick from your faction\'s super-heavy roster.',
       'Total Lords of War spend may not exceed 33% of the army points.',
     ],
     load: async () => {
-      const idx = await import('../../data/parsed/chaos_space_marines/units/index');
-      const m = { default: { slot_to_units: idx.slot_to_units, units: idx.units } } as { default: any };
-      const j = m.default;
-      const lowNames: string[] = j.slot_to_units['Lords of War'] ?? [];
+      const sources: { faction: string; load: () => Promise<{ units: Record<string, Unit>; slot_to_units: Record<string, string[]> }> }[] = [
+        { faction: 'Chaos Space Marines', load: async () => {
+          const idx = await import('../../data/parsed/chaos_space_marines/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
+        } },
+        { faction: 'Space Marines', load: async () => {
+          const idx = await import('../../data/parsed/space_marines/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
+        } },
+        { faction: 'Adeptus Sororitas', load: async () => {
+          const m = (await import('../../data/parsed/adeptus_sororitas/units.json')) as { default: any };
+          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+        } },
+        { faction: 'Imperial Guard', load: async () => {
+          const m = (await import('../../data/parsed/imperial_guard/units.json')) as { default: any };
+          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+        } },
+        { faction: 'Eldar', load: async () => {
+          const m = (await import('../../data/parsed/eldar/units.json')) as { default: any };
+          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+        } },
+        { faction: 'Orks', load: async () => {
+          const m = (await import('../../data/parsed/orks/units.json')) as { default: any };
+          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+        } },
+        { faction: 'Necrons', load: async () => {
+          const m = (await import('../../data/parsed/necrons/units.json')) as { default: any };
+          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+        } },
+        { faction: 'Tau Empire', load: async () => {
+          const m = (await import('../../data/parsed/tau_empire/units.json')) as { default: any };
+          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+        } },
+      ];
+
       const units: Record<string, Unit> = {};
-      for (const n of lowNames) if (j.units[n]) units[n] = j.units[n];
-      return { units, slots: { 'Lords of War (Chaos)': lowNames } };
+      const slots: Record<string, string[]> = {};
+      for (const src of sources) {
+        const data = await src.load();
+        const names: string[] = data.slot_to_units['Lords of War'] ?? [];
+        const present = names.filter(n => data.units[n]);
+        if (!present.length) continue;
+        slots[`Lords of War — ${src.faction}`] = present;
+        for (const n of present) units[n] = data.units[n];
+      }
+      return { units, slots };
     },
   },
 };

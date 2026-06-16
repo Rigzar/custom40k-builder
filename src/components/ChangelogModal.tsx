@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CHANGELOG, type IssueStatus, type I18nString, type I18nStringArray } from '../data/changelog';
-import { KNOWN_ISSUES } from '../data/known-issues';
+import { TAB_FACTIONS, FACTION_CHANGES, FACTION_ISSUES, LATEST_FACTIONS, GENERAL } from '../data/changelogFactions';
 import { useLanguage, type Language } from '../i18n';
 
 interface Props { onClose: () => void; }
@@ -37,28 +37,28 @@ const UI: Record<Language, {
   tabChangelog: string; tabIssues: string;
   todayBadge: string; relativeDayToday: string; relativeDayYesterday: string;
   bugHint: string; sectionOpen: string; sectionPipeline: string; sectionFixed: string;
-  close: string;
+  close: string; general: string; noChanges: string; noIssues: string;
 }> = {
   en: {
     tabChangelog: 'Changelog', tabIssues: 'Known Issues',
     todayBadge: 'New', relativeDayToday: 'Today', relativeDayYesterday: 'Yesterday',
     bugHint: "Check here before reporting a bug — if it's listed we already have it covered.",
     sectionOpen: 'Open', sectionPipeline: 'In the Pipeline', sectionFixed: 'Already Fixed',
-    close: 'Close',
+    close: 'Close', general: 'General', noChanges: 'No changes recorded for this section yet.', noIssues: 'No known issues for this section.',
   },
   de: {
     tabChangelog: 'Änderungsprotokoll', tabIssues: 'Bekannte Probleme',
     todayBadge: 'Neu', relativeDayToday: 'Heute', relativeDayYesterday: 'Gestern',
     bugHint: 'Vor dem Melden eines Fehlers hier prüfen — wenn er aufgelistet ist, sind wir bereits informiert.',
     sectionOpen: 'Offen', sectionPipeline: 'In Bearbeitung', sectionFixed: 'Bereits behoben',
-    close: 'Schließen',
+    close: 'Schließen', general: 'Allgemein', noChanges: 'Für diesen Bereich sind noch keine Änderungen verzeichnet.', noIssues: 'Keine bekannten Probleme für diesen Bereich.',
   },
   es: {
     tabChangelog: 'Registro de cambios', tabIssues: 'Problemas conocidos',
     todayBadge: 'Nuevo', relativeDayToday: 'Hoy', relativeDayYesterday: 'Ayer',
     bugHint: 'Consulta aquí antes de reportar un error — si está en la lista ya lo tenemos cubierto.',
     sectionOpen: 'Abiertos', sectionPipeline: 'En desarrollo', sectionFixed: 'Ya corregidos',
-    close: 'Cerrar',
+    close: 'Cerrar', general: 'General', noChanges: 'Todavía no hay cambios registrados para esta sección.', noIssues: 'No hay problemas conocidos para esta sección.',
   },
 };
 
@@ -66,8 +66,10 @@ export function ChangelogModal({ onClose }: Props) {
   const { language } = useLanguage();
   const u = UI[language];
   const [tab, setTab] = useState<'changelog' | 'issues'>('changelog');
+  const [faction, setFaction] = useState<string>(GENERAL);
   const today = new Date().toISOString().slice(0, 10);
   const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const latestVersion = CHANGELOG[0]?.version;
 
   function relDate(d: string) {
     if (d === today) return u.relativeDayToday;
@@ -75,9 +77,19 @@ export function ChangelogModal({ onClose }: Props) {
     return d;
   }
 
-  const openIssues    = KNOWN_ISSUES.filter(i => i.status !== 'fixed' && i.status !== 'planned');
-  const plannedIssues = KNOWN_ISSUES.filter(i => i.status === 'planned');
-  const fixedIssues   = KNOWN_ISSUES.filter(i => i.status === 'fixed');
+  function factionLabel(f: string) {
+    return f === GENERAL ? u.general : f;
+  }
+
+  const changeRefs = FACTION_CHANGES[faction] ?? [];
+  const groupedChanges = CHANGELOG
+    .map(entry => ({ entry, bullets: changeRefs.filter(r => r.entry === entry).map(r => r.bulletIndex) }))
+    .filter(g => g.bullets.length > 0);
+
+  const facIssues     = FACTION_ISSUES[faction] ?? [];
+  const openIssues    = facIssues.filter(i => i.status !== 'fixed' && i.status !== 'planned');
+  const plannedIssues = facIssues.filter(i => i.status === 'planned');
+  const fixedIssues   = facIssues.filter(i => i.status === 'fixed');
 
   return (
     <div
@@ -111,17 +123,39 @@ export function ChangelogModal({ onClose }: Props) {
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl leading-none">✕</button>
         </div>
 
+        <div className="flex gap-1 px-4 py-2 border-b border-zinc-800 overflow-x-auto">
+          {TAB_FACTIONS.map(f => (
+            <button
+              key={f}
+              onClick={() => setFaction(f)}
+              className={`relative text-[11px] px-2 py-1 whitespace-nowrap transition-colors ${
+                faction === f
+                  ? 'text-amber-400 bg-zinc-700 border border-amber-800'
+                  : 'text-zinc-500 hover:text-zinc-300 border border-transparent'
+              }`}
+            >
+              {factionLabel(f)}
+              {LATEST_FACTIONS.has(f) && (
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-500 rounded-full border border-zinc-900" />
+              )}
+            </button>
+          ))}
+        </div>
+
         {tab === 'changelog' && (
           <div className="p-4 space-y-6">
-            {CHANGELOG.map(entry => {
-              const isToday = entry.date === today;
+            {groupedChanges.length === 0 && (
+              <p className="text-zinc-500 text-[12px]">{u.noChanges}</p>
+            )}
+            {groupedChanges.map(({ entry, bullets }) => {
+              const isLatest = entry.version === latestVersion;
               const title = ts(entry.title, language);
               const changes = ta(entry.changes, language);
               return (
                 <div key={entry.version}>
                   <div className="flex items-baseline gap-3 mb-2">
                     <span className="text-amber-500 font-bold text-sm">v{entry.version}</span>
-                    {isToday && (
+                    {isLatest && (
                       <span className="text-[10px] uppercase tracking-wide bg-amber-700/30 text-amber-400 border border-amber-700/50 px-1.5 py-0.5 leading-none">
                         {u.todayBadge}
                       </span>
@@ -130,7 +164,8 @@ export function ChangelogModal({ onClose }: Props) {
                     <span className="text-zinc-600 text-[11px] ml-auto">{relDate(entry.date)}</span>
                   </div>
                   <ul className="space-y-1 pl-3 border-l border-zinc-700">
-                    {changes.map((c, i) => {
+                    {bullets.map(i => {
+                      const c = changes[i];
                       const isAdded   = c.startsWith('Added:') || c.startsWith('Hinzugefügt:') || c.startsWith('Añadido:');
                       const isRemoved = c.startsWith('Removed:') || c.startsWith('Entfernt:') || c.startsWith('Eliminado:');
                       const isFixed   = c.startsWith('Fixed:') || c.startsWith('Behoben:') || c.startsWith('Corregido');
@@ -152,7 +187,12 @@ export function ChangelogModal({ onClose }: Props) {
           <div className="p-4 space-y-4">
             <p className="text-zinc-500 text-[12px]">{u.bugHint}</p>
 
+            {facIssues.length === 0 && (
+              <p className="text-zinc-500 text-[12px]">{u.noIssues}</p>
+            )}
+
             {/* Open & By Design */}
+            {openIssues.length > 0 && (
             <div className="space-y-2">
               <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">{u.sectionOpen}</h4>
               {openIssues.map(issue => (
@@ -167,6 +207,7 @@ export function ChangelogModal({ onClose }: Props) {
                 </div>
               ))}
             </div>
+            )}
 
             {/* Planned */}
             {plannedIssues.length > 0 && (
@@ -187,6 +228,7 @@ export function ChangelogModal({ onClose }: Props) {
             )}
 
             {/* Fixed */}
+            {fixedIssues.length > 0 && (
             <div className="space-y-2">
               <h4 className="text-[10px] uppercase tracking-widest text-zinc-600 border-b border-zinc-800 pb-1">{u.sectionFixed}</h4>
               {fixedIssues.map(issue => (
@@ -201,6 +243,7 @@ export function ChangelogModal({ onClose }: Props) {
                 </div>
               ))}
             </div>
+            )}
           </div>
         )}
 

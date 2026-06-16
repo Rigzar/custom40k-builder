@@ -5,6 +5,66 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-sm-ironclad-hunterkiller-emptyoptions-01',
+    status: 'known',
+    title: 'Space Marines — Ironclad Dreadnought "Hunter-killer missiles" option group has no choices wired',
+    description: 'Found auditing the Ironclad Dreadnought (2026-06-15) while fixing ki-armorygrant-phrasecheck-01. Its `option_groups` includes a `fixed_max: 2` group headed "May be equipped with up to two Hunter-killer missiles from the Armory." but `choices: []` is empty, so the option cannot currently be selected in the UI. The "Hunter-killer missile" item itself exists in `data/parsed/space_marines/armory/general.json` (5 pts, category: "vehicle"). Needs the choice entry added (and confirmation of how a `fixed_max:2` group with an Armory-priced single choice should resolve, e.g. allow selecting it twice).',
+  },
+  {
+    id: 'ki-orks-nobz-no-weapons-01',
+    status: 'known',
+    title: 'Orks — Nobz unit has no weapon profiles listed',
+    description: 'Reported via the bug form (2026-06-13). The Nobz datasheet in the builder displays no weapon profiles. Root cause not yet identified — likely a missing or empty weapons[] array in the production data. Needs verification against the Orks .ods during the Orks faction audit.',
+  },
+  {
+    id: 'ki-orks-eavy-armour-cost-perunit-01',
+    status: 'known',
+    title: "Orks — 'Eavy armour upgrade (Wildork, Boyz) charges a flat unit cost instead of per model",
+    description: "Reported via the bug form (2026-06-13). The 'eavy armour upgrade on Wildork and on Boyz adds a flat cost once per unit rather than multiplying by the number of models (should be +6 pts/model — a 10-model Boyz squad costs +60 pts total, going from 10 pts/model to 16 pts/model). Root cause: the option likely has per_model: false when it should be per_model: true. Needs verification against the Orks .ods during the Orks faction audit.",
+  },
+  {
+    id: 'ki-orks-deff-dread-klaw-profile-01',
+    status: 'known',
+    title: 'Orks — Deff Dreads: Dread klaw weapon profile missing from the unit card',
+    description: 'Reported via the bug form (2026-06-13). The Deff Dread comes equipped with 2 Dread klaws per its datasheet, but the Dread klaw weapon profile line is absent from the unit card display. Needs verification against the Orks .ods during the Orks faction audit.',
+  },
+  {
+    id: 'ki-orks-shoota-duplicate-profile-01',
+    status: 'known',
+    title: 'Orks — selecting the Shoota upgrade adds a duplicate profile line instead of replacing the base',
+    description: 'Reported via the bug form (2026-06-13). On units that offer a Shoota upgrade option, selecting it adds an extra Shoota profile line to the card rather than replacing the existing equipped Shoota. The option group likely lacks a replaces field, or the weapon name casing does not match the base equipped weapon name. Needs verification against the Orks .ods during the Orks faction audit.',
+  },
+  {
+    id: 'ki-orks-nob-upgrade-profile-replace-01',
+    status: 'known',
+    title: 'Orks — promoting a model to Nob replaces the base unit profile row instead of showing both',
+    description: "Reported via the bug form (2026-06-13). Ork units with a Nob upgrade (sergeant-equivalent) display only the Nob's stat row on the unit card, overwriting the base unit's stats rather than adding alongside. The reporter notes this may affect other factions' sergeant-type upgrades too. Needs verification against the Orks .ods during the Orks faction audit — may be a data-modelling gap in how the Nob variant is structured vs. the weaponGroups champion display pattern introduced in v0.66.",
+  },
+  {
+    id: 'ki-orks-squighog-stikka-missing-01',
+    status: 'known',
+    title: 'Orks — Squighog Boyz missing the Stikka weapon profile',
+    description: 'Reported via the bug form (2026-06-13). The Squighog Boyz unit card does not show a Stikka weapon profile, despite the unit being equipped with it per the datasheet. Needs verification against the Orks .ods during the Orks faction audit.',
+  },
+  {
+    id: 'ki-cd-psychic-unwired-01',
+    status: 'investigating',
+    title: 'Chaos Daemons — psyker units cannot select psychic powers',
+    description: 'Reported via the bug form (2026-06-11). CD psyker units show no psychic power selection in the builder. ki-26b (v0.32) fixed per-unit discipline access rules, but the faction-specific discipline data (god-specific disciplines for each of the 4 Chaos gods) may not be loaded for CD — the faction was not included in the v0.60 psychic-unwired batch fix (which covered IG/Eldar/Harlequins/GSC/Orks/Tyranids/Votann/Tau/Necrons). Needs investigation: check whether disciplines.json exists under data/parsed/chaos_daemons/ and whether loaders.ts wires it for the chaos_daemons case.',
+  },
+  {
+    id: 'ki-ig-traitor-guard-archetype-01',
+    status: 'known',
+    title: 'Imperial Guard — "Traitor Guard" archetype rules not fully enforced',
+    description: 'Reported via the bug form (2026-06-11). Per the canonical rules, the Traitor Guard archetype (IG) should: (1) not allow selecting a Legacy; (2) allow units to take Marks of Chaos; (3) give the army access to the Chaos Space Marines armory; (4) have the army treated as Chaos Space Marines for the purposes of ally selection. The v0.58 fix addressed variant pricing/display bugs for Traitor Guard but these broader archetype mechanics were not implemented. Needs grounding against the IG .ods before fixing.',
+  },
+  {
+    id: 'ki-champion-armory-pchar-cost-01',
+    status: 'fixed',
+    title: 'Champion-only Armory purchases (p_char-only items) are priced as +0 on squad units',
+    description: 'Found while verifying the v0.66 weaponGroups Champion-split fix (2026-06-14, Plague Marines + "Rotting" daemon weapon trait, p_char: 10, no p_unit). `ArmoryModal.getItemPts` picks `p_char` vs `p_unit` based on `isChar = unit.is_character` — a UNIT-level flag. For the ~14 `champion_has_armory: true` squad units (Plague Champion, Terminator Champion, etc.; see v0.66\'s "(d)/(f) Champion-block pilot" rollout list), `unit.is_character` is false even though the Armory being opened belongs to the squad\'s built-in Character model, so a p_char-only item (p_unit null/undefined) resolves to `up` = null → stored/priced as 0. Confirmed live: buying "Rotting" (+10pts) on the Plague Champion shows "+0 pts" and the unit total stays at 270. RESOLVED v0.66 (same day): `getItemPts` now also returns the `p_char` column whenever `hasCharacterScopedBuyer` is true (built-in Champion on a squad with max>1, or an active promoted variant like the Traitor Sergeant) — mirroring `resolver.ts`\'s weapon-trait scoping. This also corrects items priced in BOTH columns: e.g. a Traitor Sergeant\'s Boltgun now correctly costs the "Character" price (+7) instead of the squad price (+5), per the Armory\'s documented "POINTS"/"POINTS CHARACTER MODELS" split. Verified live: Force axe (p_unit: null, p_char: 6) on a promoted Traitor Sergeant now shows "+6 pts" (was unbuyable/blocked before).',
+  },
+  {
     id: 'ki-tau-empire-psychic-unwired-01',
     status: 'known',
     title: "T'au Empire — the Kroot Shaman psyker discipline is not wired into the loader",
@@ -12,15 +72,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-csm-poxwalkers-slavesofdarkness-text-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Chaos Space Marines — Poxwalkers\' "Slaves of Darkness" ability text needs verification against the .ods',
-    description: 'Found auditing Favored Units (2026-06-12). `data/parsed/chaos_space_marines/units/troops/poxwalkers.ts` stores "Slaves of Darkness: You may not select more Poxwalker units than Plague Marine units." as the unit\'s ability text, but the file\'s own header comment quotes a different verbatim version ("This model does not benefit from the Favoured unit rule. If this unit has a Daemonic patron, it may only take veteran abilities with the matching patron keyword"). The `_ods_dump.py` extraction of the "Poxwalkers" sheet only returns "Mark of Nurgle" under ABILITIES — likely the same multi-paragraph cell extraction limitation found on the Index sheet\'s "Army specific Rules" section. v0.61 already fixed the functional gap this implies (Favored no longer applies without a squad leader, covers Poxwalkers regardless of which text is correct), but the displayed ability text itself may still be wrong/incomplete. Needs the user to paste the Poxwalkers ABILITIES cell verbatim from the .ods to confirm.',
+    description: 'Found auditing Favored Units (2026-06-12). `data/parsed/chaos_space_marines/units/troops/poxwalkers.ts` stores "Slaves of Darkness: You may not select more Poxwalker units than Plague Marine units." as the unit\'s ability text, but the file\'s own header comment quoted a different verbatim version. RESOLVED v0.66 (same day): user pasted the Poxwalkers ABILITIES cell verbatim from the .ods — it matches the production `abilities[]` array exactly (Mark of Nurgle / Mindless: auto-pass Leadership tests, can contest but not hold objectives / Slaves of Darkness: may not select more Poxwalker units than Plague Marine units). The production data was already correct; only the stale header comment was wrong. Comment updated to match the confirmed .ods text.',
   },
   {
     id: 'ki-csm-bike-combibolter-grant-unmodelled-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Chaos Space Marines — "Chaos Space Marine bike" does not grant its free Combi-bolter',
-    description: 'Found auditing the CSM general Armory (2026-06-12). The item\'s description grants "+6\\" Movement, +1 Toughness, +1 Wound, a Combi-bolter and the unit type \\"Bike\\"". v0.61 fixed the stat_mod (M/T/W) and unit-type change via the existing `effect` fields, but there is no engine mechanism for an armory item to grant a free weapon (checked `types/data.ts` OptionEffect, `resolver.ts` applyEffect) — would need a new `effect.grants_weapons` field plumbed into the weapon list. Out of scope for the stat-mod fix.',
+    description: 'Found auditing the CSM general Armory (2026-06-12). The item\'s description grants "+6\\" Movement, +1 Toughness, +1 Wound, a Combi-bolter and the unit type \\"Bike\\"". v0.61 fixed the stat_mod (M/T/W) and unit-type change via the existing `effect` fields, but there is no engine mechanism for an armory item to grant a free weapon. RESOLVED v0.67: added `OptionEffect.grants_weapons?: string[]` (`types/data.ts`) for compound-sentence weapon grants too irregular for the existing `isGrantWeapon`/`extractGrantedWeaponName` text-pattern extraction. Set `effect.grants_weapons: ["Combi-bolter"]` on the "Chaos Space Marine bike" item (`armory/general.json`); `resolver.ts`\'s armory-item-effects loop now looks up each name in `armory_general.weapons` and calls the existing `pushGrantedWeapon`. Verified live: a Traitor Sergeant who buys "Chaos Space Marine bike" gets its own weapon table with "1x Combi-bolter" (24" Rapid fire 2, S4 AP-1 D1).',
   },
   {
     id: 'ki-admech-veteranmaniple-bonus-unmodelled-01',
@@ -60,9 +120,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-missions-transportcap-hardcoded-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Dedicated Transport AOP cap (Pitched/Epic main AOP AND Allied mini-AOP) is a flat "3" instead of "1 per Infantry-type selection"',
-    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, before building per-faction codex.ts). Custom40k Missions.txt states the Pitched Battle and Epic Battle AOP as "0-ᵀ Dedicated Transports* ... ᵀ A dedicated transport vehicle may be chosen for each \'Infantry\' type selection" — a count that should scale dynamically with how many Infantry-type units are in the army (Skirmish, by contrast, genuinely IS a flat "0-1" per the canonical text — that one is correct as coded). The digest `rules-model/_engine.md` §1 correctly documents this as "0-ᵀ (1 per Infantry)", but `engine/engagements.ts` hardcodes `\'Dedicated Transport\': [0, 3]` for both Pitched and Epic — a fixed approximation with no derivation logic anywhere (grepped validators.ts/engagements.ts for "Infantry"/"infantryCount" — no matches; the slot is explicitly excluded from the generic max-check at validators.ts:1056 `slot !== \'Dedicated Transport\'`, and nothing replaces that check with an Infantry-count-derived one). Net effect: an army with 1 Infantry-type selection could currently take up to 3 transports (too permissive), while an army with 6 could only take 3 (too restrictive). SECOND OCCURRENCE found during the Army Organization/Allies audit pass (task #9): `ALLIED_AOP[\'Dedicated Transport\']` (engagements.ts line 41) is ALSO hardcoded to `[0, 3]` — and Core Rules.txt L1819-1825 (canonical Allies AOP) confirms allied detachments use the exact same dynamic "0-ᵀ Transports" rule, not a flat number, so this is the identical bug in a second spot, not a separate one.\n\nUSER RESOLVED the interpretation question on 2026-06-08: "\'Infantry\' type selection" for the Dedicated Transport count means STRICTLY `unit_type === "Infantry"` — the Infantry-ACTING subtypes (Bike/Character Model/Jet Bike/Jump Pack Infantry/Monstrous Infantry, each "Acts like Infantry, with the following exceptions" per Core Rules.txt L664-750) "count as Infantry for other rules, but NOT for transport [purposes]" (verbatim user clarification). So the dynamic count must filter on the exact "Infantry" unit-type string only, excluding all Infantry-acting subtypes — a narrower derivation than a naive keyword/category match would produce. Still needs a grounded fix (replace the flat `[0, 3]` with a count derived from `unit_type === "Infantry"` selections) for both the main Pitched/Epic AOP and `ALLIED_AOP`; for the allied mini-AOP the count should be scoped to the allied detachment\'s own Infantry selections (consistent with "Allies use their own AOP" being a fully separate, self-contained roster). Ready to implement in the codex.ts pass — interpretation no longer open.',
+    description: 'Systematic Core Rules + Missions audit pass (2026-06-08, before building per-faction codex.ts). Custom40k Missions.txt states the Pitched Battle and Epic Battle AOP as "0-ᵀ Dedicated Transports* ... ᵀ A dedicated transport vehicle may be chosen for each \'Infantry\' type selection" — a count that should scale dynamically with how many Infantry-type units are in the army (Skirmish, by contrast, genuinely IS a flat "0-1" per the canonical text — that one is correct as coded). The digest `rules-model/_engine.md` §1 correctly documents this as "0-ᵀ (1 per Infantry)", but `engine/engagements.ts` hardcodes `\'Dedicated Transport\': [0, 3]` for both Pitched and Epic — a fixed approximation with no derivation logic anywhere (grepped validators.ts/engagements.ts for "Infantry"/"infantryCount" — no matches; the slot is explicitly excluded from the generic max-check at validators.ts:1056 `slot !== \'Dedicated Transport\'`, and nothing replaces that check with an Infantry-count-derived one). Net effect: an army with 1 Infantry-type selection could currently take up to 3 transports (too permissive), while an army with 6 could only take 3 (too restrictive). SECOND OCCURRENCE found during the Army Organization/Allies audit pass (task #9): `ALLIED_AOP[\'Dedicated Transport\']` (engagements.ts line 41) is ALSO hardcoded to `[0, 3]` — and Core Rules.txt L1819-1825 (canonical Allies AOP) confirms allied detachments use the exact same dynamic "0-ᵀ Transports" rule, not a flat number, so this is the identical bug in a second spot, not a separate one.\n\nUSER RESOLVED the interpretation question on 2026-06-08: "\'Infantry\' type selection" for the Dedicated Transport count means STRICTLY `unit_type === "Infantry"` — the Infantry-ACTING subtypes (Bike/Character Model/Jet Bike/Jump Pack Infantry/Monstrous Infantry, each "Acts like Infantry, with the following exceptions" per Core Rules.txt L664-750) "count as Infantry for other rules, but NOT for transport [purposes]" (verbatim user clarification). So the dynamic count must filter on the exact "Infantry" unit-type string only, excluding all Infantry-acting subtypes — a narrower derivation than a naive keyword/category match would produce. Still needs a grounded fix (replace the flat `[0, 3]` with a count derived from `unit_type === "Infantry"` selections) for both the main Pitched/Epic AOP and `ALLIED_AOP`; for the allied mini-AOP the count should be scoped to the allied detachment\'s own Infantry selections (consistent with "Allies use their own AOP" being a fully separate, self-contained roster). Ready to implement in the codex.ts pass — interpretation no longer open.\n\nRESOLVED v0.68 (2026-06-15): added `isStrictInfantrySelection`/`countInfantrySelections` helpers (`engine/validators.ts`) — a selection counts only if its effective unit_type (after `resolveUnitProfile`\'s `optionSetUnitType`/`optionAddedUnitTypes`) is exactly "Infantry" with no added types. The Pitched/Epic main-AOP loop now computes `effMax` for the Dedicated Transport slot as `countInfantrySelections(state, data, false)` instead of the flat `eng.aop` value. The allied mini-AOP block now checks Dedicated Transport against `countInfantrySelections(state, data, true)` (scoped to the allied detachment\'s own selections) instead of being skipped entirely. Skirmish (flat 0-1, untouched) remains correct as coded.',
   },
   {
     id: 'ki-corerules-jumppack-ability-undefined-01',
@@ -74,7 +134,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-armorygrant-phrasecheck-01',
     status: 'known',
     title: 'Cross-faction — has_armory_access/champion_has_armory may not be grounded in the exact canonical access-grant phrase everywhere',
-    description: 'The CSM vehicle audit (ki-csm-vehiclearmory-01) revealed a clean two-phrase dichotomy in canonical CSM datasheet text: "Has access to weapons and gear from the Armory" (general access → has_armory_access:true is correct) vs. "Has access to vehicle equipment from the Armory" (narrower — Vehicle Upgrades list only, NOT general armory → has_armory_access should be false, since vehicle-equipment access is automatic via is_vehicle). The user broadened scope: "tienes que revisar todo, en caso que pase con otro tipo de unidades que no sean vehículos o monstruos" — every unit\'s verbatim ability/options text states exactly what armory access it has (e.g. Helbrute is type "Walker" but its text still reads "vehicle equipment", confirming the grant is access-based, not type-name-based). Plan: re-run the same verbatim-phrase scan + flag-grounding check across Space Marines, Grey Knights, Inquisition, Chaos Daemons, then the remaining factions, for ALL unit types (not just Vehicle/Monster) — champion-level "access to the armory" grants and any other access-scoping phrases included.',
+    description: 'The CSM vehicle audit (ki-csm-vehiclearmory-01) revealed a clean two-phrase dichotomy in canonical CSM datasheet text: "Has access to weapons and gear from the Armory" (general access → has_armory_access:true is correct) vs. "Has access to vehicle equipment from the Armory" (narrower — Vehicle Upgrades list only, NOT general armory → has_armory_access should be false, since vehicle-equipment access is automatic via is_vehicle). The user broadened scope: "tienes que revisar todo, en caso que pase con otro tipo de unidades que no sean vehículos o monstruos" — every unit\'s verbatim ability/options text states exactly what armory access it has (e.g. Helbrute is type "Walker" but its text still reads "vehicle equipment", confirming the grant is access-based, not type-name-based). Plan: re-run the same verbatim-phrase scan + flag-grounding check across Space Marines, Grey Knights, Inquisition, Chaos Daemons, then the remaining factions, for ALL unit types (not just Vehicle/Monster) — champion-level "access to the armory" grants and any other access-scoping phrases included.\n\nSPACE MARINES DONE (2026-06-15): found 30 units whose .ods text reads "Has access to vehicle equipment from the Armory" but were stored with `has_armory_access: true` (Captain/Chaplain/Librarian/Ironclad/Redemptor Dreadnoughts, Land Speeder, Land Speeder Storm, Storm Speeder, Razorback, Razorback Rikarius, Gladiator, Land Raider + Ares/Crusader/Redeemer variants, Predator, Repulsor + Executioner, Vindicator, Whirlwind, Drop Pod, Impulsor, Rhino, Hammerfall Bunker, Stormhawk Interceptor, Stormraven Gunship, Stormtalon Gunship, Fire Raptor, Nephilim Jetfighter). Fixed in their per-slot files under `data/parsed/space_marines/units/<slot>/`. Verified live: Rhino\'s card now shows only "UPGRADES (0)", no general Armory button. Remaining scope unchanged: Grey Knights, Inquisition, Chaos Daemons, then the rest.',
   },
   {
     id: 'ki-escalation-wardog-dualswap-display-01',
@@ -823,5 +883,59 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     status: 'fixed',
     title: 'Daemon ability numbers (1–6) appeared as unit abilities in print',
     description: 'Fixed in v0.6 — standalone dice-result numbers are filtered out from the ability list.',
+  },
+  {
+    id: 'ki-inquisition-hymns-unwired-01',
+    status: 'fixed',
+    title: 'Inquisition — Hymns of Battle not wired up',
+    description: 'A new, larger Inquisition.ods (2026-06-13) added a "Hymns of Battle" sheet — the same 5-prayer set already shipped for Imperial Guard and Adeptus Sororitas (Catechism of Repugnance, Chorus of Spiritual Fortitude, Psalm of Righteous Smiting, Refrain of Blazing Piety, War Hymn). The Inquisitor\'s "Priest" upgrade option and the Ordo Hereticus Warband\'s Missionary "Devout" ability both reference "the hymns of battle", but no prayers.json existed for Inquisition. FIXED: added data/parsed/inquisition/psychic/prayers.json (identical to IG/Sororitas), wired into loaders.ts, and set is_priest: true on the Inquisitor and the Ordo Hereticus Warband (the only one of the 3 Ordo Warbands with a Missionary).',
+  },
+  {
+    id: 'ki-inquisition-landraider-missing-01',
+    status: 'fixed',
+    title: 'Inquisition — plain "Land Raider" missing from Heavy Support',
+    description: 'The new Inquisition.ods includes a plain "Land Raider" (558pts, 2x Twin lascannon + Twin heavy bolter, transport capacity 10, Assault ramp, optional Multi-melta +35 / extra Storm bolter +11) distinct from the already-shipped "Land Raider Prometheus" (390pts, 2x Quad heavy bolter). Only Prometheus existed in production. FIXED: added units/heavy_support/land_raider.ts alongside Prometheus.',
+  },
+  {
+    id: 'ki-inquisition-sanctioned-bombardement-missing-01',
+    status: 'fixed',
+    title: 'Inquisition — "Sanctioned Bombardement" Heavy Support option missing',
+    description: 'The new Inquisition.ods includes a "Sanctioned Bombardement" option group on the Inquisitor (Barrage bomb +42, Melta artillery +88, Precision lance strike +90, each "shootable" by every HQ selection per "Plotting") — a separate base-codex entry from the already-shipped Escalation-only "Massive Orbital Strike" (which carries KEYWORDS: Lord of War, Epic-only, 33% cap — confirmed via Escalation.ods, correctly implemented). Both are legitimate and coexist. FIXED: added the 3 weapon profiles, the "Sanctioned Bombardement" option group, and a matching "Plotting" ability line to inquisitor.ts.',
+  },
+  {
+    id: 'ki-inquisition-henchman-warband-restructure-01',
+    status: 'fixed',
+    title: 'Inquisition — Henchman Warband should be an optional Inquisitor-attached selection, not 3 fixed Troops units',
+    description: 'FIXED v0.66: the 3 "Ordo X Warband" Troops units (18 specialists, Ordo-gated via requires_army_item) were replaced by a single "Henchman Warband" Troops unit (17 specialists — Surgeon dropped, no longer in the new .ods; the 2 old "Psyker" entries merged into 1; Crusaders/Chirurgeons/Eldar Outcast added). All 17 specialists re-audited against the new .ods (stats W1→W2, LD+1 on most, updated points/equipment/abilities). No Ordo gating remains on individual specialists (the new .ods has no "Only for Ordo X" text on any specialist sheet — only the Army Customisation Legacies reference Ordo names, for armory access). The dynamic 6/12 model cap ("An Inquisitor may select up to 6 specialist models... An Inquisitor Lord up to 12") is enforced by a new validator in engine/validators.ts, checking the attached Inquisitor\'s "Inquisitor Lord" unique_upgrade.',
+  },
+  {
+    id: 'ki-inquisition-henchman-veteran-per-specialist-01',
+    status: 'known',
+    title: 'Inquisition — Henchman Warband "may gain one Veteran ability" is per-specialist-type, not modelled',
+    description: 'Every specialist sheet in the new Inquisition.ods repeats "The unit may gain one Veteran ability" — read as a PER-SPECIALIST-TYPE option (one veteran ability per specialist type present in the Warband), not a single unit-wide pick. has_veteran_abilities is a unit-level boolean/veteran_max count and cannot express this; left has_veteran_abilities: false on "Henchman Warband". Needs its own design pass if/when per-specialist option UI exists.',
+  },
+  {
+    id: 'ki-inquisition-army-customisation-replace-01',
+    status: 'known',
+    title: 'Inquisition — new Army Customisation Legacies only ADDITIVELY unlock Ordo gear/Warbands, old per-model pick remains',
+    description: 'The new Inquisition.ods adds an "Army Customisation" tab (0-1 Archetype, 0-1 Legacy): Archetypes Heretic/Iconoclast (Chaos/Xenos armory access, descriptive only — not mechanically enforced) and Legacies Ordo Hereticus/Malleus/Xenos/Minoris (army-wide access to that Ordo\'s armory and Warband(s)). User asked ("sustituye sistema viejo") for this to REPLACE the existing per-model "Ordo allegiance" pick (the 3 "Ordo Hereticus/Malleus/Xenos" armory items, general.json, p_char: 0, mutually exclusive per ki-inquisition-ordo-exclusivity-01, gating 15 armory items + 3 Warband units via requires_army_item). PARTIALLY SHIPPED: added archetypes.json (2 archetypes + 4 legacies), wired into loaders.ts, and a new inquisitionLegacyOrdoUnlocks() helper that makes selecting "Ordo Hereticus/Malleus/Xenos/Minoris" as the army Legacy ALSO unlock that Ordo\'s gated armory+Warbands (additively, alongside the old per-model pick). The blocker (SM "Legacy of the Alien Hunters", GK "Demon Hunters", Sororitas "Witch hunters" validators each forcing their injected Inquisitor to pick one of those exact items) is RESOLVED for ALL THREE factions as of v0.71: the 2026-06-14 .ods replaced "Demon Hunters"/"Witch hunters"/the old "Legacy of the Alien Hunters" Inquisition-access clause with the opt-in "Chamber Militant" archetype, whose Inquisition-access + "treat as if Ordo Malleus/Ordo Hereticus/Ordo Xenos Legacy" clauses are now implemented via chamberMilitantOrdo() (engine/keywords.ts) — the old "Demon Hunters"/"Witch hunters"/"must select Ordo Xenos" validators forcing an armory pick were all removed. For SM, "Legacy of the Alien Hunters" was simplified to just grant the Death Watch Armory + universal "Special ammunition", and Chamber Militant additionally requires that Legacy to be selected (new validator). What remains open from this KI\'s original title: the 3 old "Ordo Hereticus/Malleus/Xenos" per-model armory items + their requires_army_item gating (15 armory items + the Henchman Warband\'s merged specialists) still coexist ADDITIVELY alongside inquisitionLegacyOrdoUnlocks()/chamberMilitantOrdo() — a true replace (removing the old per-model items) is still not done, though no validator depends on them anymore.',
+  },
+  {
+    id: 'ki-inquisition-ordo-minoris-caps-unenforced-01',
+    status: 'fixed',
+    title: 'Inquisition — "Ordo Minoris" Legacy caps (1 item per character, 1 Warband of any Ordo) not enforced',
+    description: 'RESOLVED v0.70 (2026-06-15): re-grounded against archetypes.json + the .ods Army Customisation sheet (R9-R12) before implementing, per the golden rule. Of the Legacy\'s two clauses, only the first is still a real gap: "Every character model in the army may select a single item from either the Ordo Hereticus, Malleus or Xenos Armory" — now enforced by a new validator (validators.ts) that, when "Ordo Minoris" is the active Legacy, caps each Character to at most 1 item total from the 14 armory_general items gated by requires_army_item in {Ordo Hereticus, Ordo Malleus, Ordo Xenos} (5 Hereticus, 5 Malleus, 4 Xenos). The second clause — "the army may include a single Ordo Hereticus, Malleus or Xenos Warband" — is now MOOT: v0.66\'s Henchman Warband merge replaced the 3 per-Ordo Warband units with one Ordo-agnostic "Henchman Warband" that carries no Ordo gating at all, so there is nothing left to cap. Live-verified: with Legacy = Ordo Minoris, an Inquisitor with 2 Ordo-gated items (Ignis Judicium + Phase sword) now correctly produces the validation error "Ordo Minoris allows only 1 item from the Ordo Hereticus/Malleus/Xenos Armory (has Ignis Judicium, Phase sword)."',
+  },
+  {
+    id: 'ki-inquisition-inquisitor-sheet-gaps-01',
+    status: 'fixed',
+    title: 'Inquisition — Inquisitor datasheet has several discrepancies vs. the new .ods',
+    description: 'Found while adding Sanctioned Bombardement (2026-06-13), not yet fixed: (1) Inquisitor Lord upgrade is +10pts in production (31+10=41) but the new .ods says +15pts. (2) The new .ods says the Inquisitor "may be upgraded to ONE of: Priest +5 / Psyker +5" but production only has the Psyker +5 option, no Priest option. (3) The new .ods says the Inquisitor "can gain one Veteran ability" but has_veteran_abilities is false. (4) The new .ods describes "Quarry"/"Inquisitor Lord: may choose a second quarry" abilities that are entirely absent from abilities[].\n\nRESOLVED v0.69 (2026-06-15), re-grounded against the "Inquisitor" sheet of Inquisition.ods (R10-R23): (1) Inquisitor Lord unique_upgrade now +15 (inline_pts + header text), variant_models "Inquisitor Lord" points 41→46 (31 base + 15). (2) Added a second option group "Can be upgraded to a priest for +5 points." mirroring the existing Psyker group\'s shape, plus its verbatim "Priest: This model can recite 1 hymn per turn..." ability text (R18) to abilities[] — same is_priest:true / Hymns of Battle wiring as the existing is_psyker:true/Psyker pair (NOTE: the .ods phrasing "ONE of" implies Priest/Psyker should be mutually exclusive, but neither upgrade is exclusivity-enforced in the engine today — this mirrors the pre-existing Psyker option\'s lack of enforcement, not a new gap). (3) has_veteran_abilities:true, veteran_max:1 ("can gain ONE Veteran ability"). (4) Added verbatim "Quarry" (R20) and "Inquisitor Lord: This model may choose a second quarry" (R21) ability text. Verified live: Inquisitor Lord shows 46pts/+15pts, both "Can be upgraded to a psyker/priest for +5 points" options appear, Veteran (0/1) toggle present, all 4 ability texts (Priest/Psyker/Quarry/Inquisitor Lord second quarry) shown.',
+  },
+  {
+    id: 'ki-inquisition-authority-unenforced-01',
+    status: 'known',
+    title: 'Inquisition — "Authority of the Inquisition" special rule (army-wide access to any Imperial faction\'s armory) not mechanically enforced',
+    description: 'New June 2026 special rule on the Inquisition\'s Index: "Every model in the army with access to the Armory may select a single item from any Imperial faction." Same shape as the Heretic/Iconoclast archetypes (pick 1 item from another faction\'s armory) but ALWAYS ON (not opt-in) and scoped to ALL ~8 Imperial factions, not just one. Documented as a new army-rule entry in engine/codex_inquisition/special-abilities.ts. Not mechanically enforced — there is no UI for a model to browse another faction\'s general armory; the existing armory_legions tab only covers a single faction via a selected Legacy\'s armory_key. Would need a new "cross-faction armory browser" mechanism, capped at 1 item per model.',
   },
 ];
