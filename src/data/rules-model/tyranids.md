@@ -73,6 +73,8 @@ additionally select any number of Basic and Advanced Biomorphs").
   death. The defining Tyranid command-and-control web.
 - **Instinctive Behaviour** (Index): a unit outside Synapse range gains a Battleshock marker (only
   removable by re-entering Synapse range); fleeing units move toward the nearest Synapse unit.
+  Units that start the battle round off the board in reserves count as being within Synapse range
+  during that Rally phase (but not afterwards). Updated v0.71 (June 2026 .ods refresh).
 - **Shadow in the Warp** (Index): enemy psykers suffer -1 to manifest/deny in rounds 2-3, -2 in
   rounds 4-5.
 - **Psychic Feedback** (Index): instead of rolling Perils of the Warp, the model suffers 1 Mortal

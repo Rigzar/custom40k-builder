@@ -521,7 +521,7 @@
       ],
       "abilities": [
         "Anti-Grav, Fearless, Synapse",
-        "Neuroloids: Select two frienedly units during each Rally phase. Both units are considered to be within Synapse range until the end of the current Battle round.",
+        "Neuroloids: Select two friendly units during each Rally phase. Both units are considered to be within Synapse range until the end of the current Battle round. Can be used on units that are currently not on the board (like in a transport or in reserves).",
         "Warp Barrier: The model gains a 4+ invulnerability save.",
         "Psychic Terror: Effects from the Shadow in The Warp ability start one round earlier.",
         "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline."

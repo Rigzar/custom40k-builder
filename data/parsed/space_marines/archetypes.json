@@ -5,6 +5,10 @@
       "desc": "The army may only consist of the following units:\n- 1x Captain Dreadnought or 1x Lieutenant, 1x Chaplain or 1x Chaplain Dreadnought, 1x Emperor's Champion, 1x Librarian or 1x Librarian Dreadnought\n- 1x Ancient, 1x Apothecary, Deathwing Knights, Dreadnoughts (including variants), Honor Guard, 1x Judiciar, 1x Company Champion, Terminators, 1x Techmarine\n- Land Raider (including variants), Repulsor (including variants)\n- Drop Pods\n- HQ models must gain their \"once per army\" upgrade, if possible.\n- Honor Guard and Terminators can be taken as Troops.\n- Honor Guard units are not limited to 1x per HQ selection anymore.\n- All units gain the special rule \"Objective secured!\"."
     },
     {
+      "name": "Chamber Militant",
+      "desc": "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Xenos\" was selected as Legacy.\n- Must select \"Legacy of the Alien Hunters\"."
+    },
+    {
       "name": "Death from Above",
       "desc": "- Assault Squad units can be taken as Troops.\n- Only Assault Squad units count towards the 25% Troops limitation.\n- At least half of all Assault Squad models must start the game in reserves, even if the mission does not allow reserves."
     },
@@ -41,9 +45,8 @@
     },
     {
       "name": "Legacy of the Alien Hunters",
-      "desc": "The army has access to the Death Watch Armory, Inquisitors and Inquisition units. Inquisitors must select \"Ordo Xenos\" in the armory.\nEach model can receive the \"Special ammunition\" equipment, regardless of whether it has access to the armory.",
-      "armory_key": "Death Watch",
-      "grants_faction": "inquisition"
+      "desc": "The army has access to the Death Watch Armory and each model may receive the \"Special ammunition\" equipment, regardless of whether it has access to the armory.",
+      "armory_key": "Death Watch"
     },
     {
       "name": "Legacy of the Angel",
@@ -93,7 +96,7 @@
     },
     {
       "name": "Bolter Drill",
-      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

@@ -184,6 +184,17 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
+  // Shared across GK/Sororitas/SM — each binds to a different Ordo (see
+  // CHAMBER_MILITANT_ORDO in engine/keywords.ts); the exact Ordo name is shown in the
+  // per-faction archetypes.json `desc`, so it's left out of these generic notes.
+  'Chamber Militant': { ...BASE,
+    notes: [
+      'The army has access to units from Codex: Assassins.',
+      'The army has access to units from Codex: Inquisition, as part of its own army.',
+      'Treat the Inquisition units as if the bound Ordo Legacy was selected (see Archetype description).',
+    ],
+  },
+
   // ── Imperial Guard ────────────────────────────────────────────────────────
   'Cavalry Regiment': fastArchetype(['Rough Riders']),
 

@@ -1,5 +1,5 @@
 /**
- * LAND RAIDER CRUSADER — Heavy Support
+ * LAND RAIDER — Heavy Support
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
@@ -8,19 +8,19 @@
 
 import type { Unit } from '../../../../../src/types/data';
 
-export const landRaiderCrusader: Unit = {
-  "name": "Land Raider Crusader",
+export const landRaider: Unit = {
+  "name": "Land Raider",
   "models": [
     {
-      "name": "Land Raider Crusader",
-      "points": 380,
+      "name": "Land Raider",
+      "points": 558,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
         "WS": "6+",
         "BS": "3+",
-        "S": "6",
+        "S": "7",
         "FRONT": "14",
         "SIDE": "14",
         "REAR": "14",
@@ -31,17 +31,8 @@ export const landRaiderCrusader: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Land Raider Crusader is a single model and equipped with: 2 Hurricane Boltgun; Twin assault cannon.",
+  "equipped_with": "A Land Raider is a single model and equipped with: 2 Twin lascannonn; Twin heavy bolter.",
   "weapons": [
-    {
-      "name": "Hurricane Boltgun",
-      "range": "24\"",
-      "type": "Rapid Fire 6",
-      "s": "4",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
     {
       "name": "Multi-melta",
       "range": "24\"",
@@ -61,18 +52,27 @@ export const landRaiderCrusader: Unit = {
       "abilities": "-"
     },
     {
-      "name": "Twin assault cannon",
-      "range": "24\"",
-      "type": "Heavy 8",
-      "s": "6",
+      "name": "Twin lascannon",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "AT(3)"
+    },
+    {
+      "name": "Twin heavy bolter",
+      "range": "36\"",
+      "type": "Rapid Fire 4",
+      "s": "5",
       "ap": "-2",
       "d": "1",
-      "abilities": "Armor piercing(5+)"
+      "abilities": "-"
     }
   ],
   "option_groups": [
     {
-      "header": "Can be equipped with",
+      "header": "Can be equipped with:",
       "constraint": {
         "type": "one"
       },
@@ -99,7 +99,7 @@ export const landRaiderCrusader: Unit = {
   ],
   "abilities": [
     "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
-    "Transport: This model has a transport capacity of 16 infantry models."
+    "Transport: This model has a transport capacity of 10 infantry models."
   ],
   "unit_type": "Vehicle",
   "keywords": [],
@@ -107,7 +107,7 @@ export const landRaiderCrusader: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,
@@ -116,5 +116,5 @@ export const landRaiderCrusader: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 380
+  "min_cost": 558
 };

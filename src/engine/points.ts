@@ -34,8 +34,13 @@ function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
  * the promoted group isn't always last in `unit.models` (e.g. Traitor Guard's Ogryn group). */
 function getPromotedModel(unit: Unit, active: ActiveVariant): Model {
   const { variant, group } = active;
-  return unit.models.find(m => group.header.includes(m.name))
-    ?? unit.models.find(m => m.points === variant.points - (group.inline_pts ?? 0))
+  // Prefer the most specific (longest name) match — e.g. "Grey Hunter Pack Leader" over
+  // "Grey Hunter" when both are substrings of the option-group header.
+  const nameMatches = unit.models.filter(m => group.header.includes(m.name));
+  if (nameMatches.length > 0) {
+    return nameMatches.reduce((a, b) => (b.name.length > a.name.length ? b : a));
+  }
+  return unit.models.find(m => m.points === variant.points - (group.inline_pts ?? 0))
     ?? unit.models.find(m => m.max > m.min && m.min === 0)
     ?? unit.models[0];
 }

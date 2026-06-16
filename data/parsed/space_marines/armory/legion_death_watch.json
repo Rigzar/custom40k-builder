@@ -63,6 +63,47 @@
       ]
     },
     {
+      "name": "Deathwatch shotgun",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 10,
+      "p_char": 13,
+      "profiles": [
+        {
+          "name": "Cryptclearer",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Deflagrate(5+), Shred"
+        },
+        {
+          "name": "Wyrmsbreath",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "3",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Xenopurge",
+          "range": "18\"",
+          "type": "Assault 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Deadly(5+)"
+        }
+      ]
+    },
+    {
       "name": "Stasis bomb",
       "term_compat": false,
       "range": "6\"",

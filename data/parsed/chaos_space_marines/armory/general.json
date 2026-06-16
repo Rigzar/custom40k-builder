@@ -501,6 +501,9 @@
           { "stat": "M", "delta": 6 },
           { "stat": "T", "delta": 1 },
           { "stat": "W", "delta": 1 }
+        ],
+        "grants_weapons": [
+          "Combi-bolter"
         ]
       }
     },

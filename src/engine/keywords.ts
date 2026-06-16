@@ -178,9 +178,11 @@ export function isItemRequirementsBlocked(
  *
  * Models "<X> grants the model and further units from this codex access to <X> equipment/units"
  * (e.g. Inquisition Ordo Hereticus/Malleus/Xenos): picking the unlock item on ANY model opens
- * the gated equipment — and gated UNITS, e.g. "Ordo Xenos Warband" — for the WHOLE army, not
- * just the buyer. Takes a minimal structural shape so it works for both ArmoryItem and Unit
- * (both carry `requires_army_item`).
+ * the gated equipment for the WHOLE army, not just the buyer. Takes a minimal structural shape
+ * so it works for both ArmoryItem and Unit (both carry `requires_army_item`).
+ *
+ * (v0.66: the old "Ordo X Warband" Troops units — gated this way — were replaced by the single
+ * Ordo-agnostic "Henchman Warband"; this gate now only matters for armory items.)
  *
  * Items/units with no requires_army_item are never blocked by this gate.
  */
@@ -190,6 +192,58 @@ export function isArmyItemGateBlocked(
 ): boolean {
   if (!item.requires_army_item) return false;
   return !rosterArmoryItemNames.includes(item.requires_army_item);
+}
+
+/**
+ * Inquisition Army Customisation Legacies (Ordo Hereticus/Malleus/Xenos/Minoris) — replaces
+ * the old per-model "Ordo Hereticus/Malleus/Xenos" armory-item pick (FAQ #5-grounded
+ * Informacion/Inquisition.ods "Army Customisation" sheet, 2026-06-13).
+ *
+ * "The army has access to the Ordo X Armory and Ordo X Warbands" / Ordo Minoris "every
+ * character may select a single item from either the Ordo Hereticus, Malleus or Xenos
+ * Armory... the army may include a single Ordo Hereticus, Malleus or Xenos Warband" — for
+ * gating purposes (requires_army_item: "Ordo X") both forms unlock the same set of names.
+ * The Ordo Minoris per-character "single item"/"single warband" caps are NOT enforced here
+ * (ki-inquisition-ordo-minoris-caps-unenforced-01) — this only controls whether the gated
+ * items/units are SHOWN at all.
+ *
+ * Returns the "Ordo X" names that should be treated as present in rosterArmoryItemNames for
+ * isArmyItemGateBlocked, given the army's selected Legacy.
+ */
+export function inquisitionLegacyOrdoUnlocks(legacy: string | undefined): string[] {
+  switch (legacy) {
+    case 'Ordo Hereticus':
+    case 'Ordo Malleus':
+    case 'Ordo Xenos':
+      return [legacy];
+    case 'Ordo Minoris':
+      return ['Ordo Hereticus', 'Ordo Malleus', 'Ordo Xenos'];
+    default:
+      return [];
+  }
+}
+
+/**
+ * "Chamber Militant" archetype (Grey Knights/Adeptus Sororitas/Space Marines "Army
+ * Customisation" sheet, R5/R5/R6 — 2026-06-14 .ods, replaces the old always-on "Demon
+ * Hunters"/"Witch hunters"/"Legacy of the Alien Hunters" Inquisition-access rules):
+ * "The army has access to units from Codex: Inquisition... Treat the Inquisition units as if
+ * '<Ordo>' was selected as Legacy." Maps the faction to its bound Ordo Legacy.
+ */
+export const CHAMBER_MILITANT_ORDO: Record<string, string> = {
+  'Grey Knights': 'Ordo Malleus',
+  'Adeptus Sororitas': 'Ordo Hereticus',
+  'Space Marines': 'Ordo Xenos',
+};
+
+/**
+ * When "Chamber Militant" is active, the army gains its own Inquisition units (no [Allied]
+ * badge — own roster, mirrors the old intrinsic_allies injection) plus the Ordo-gated Armory
+ * unlock bound to that faction (see CHAMBER_MILITANT_ORDO).
+ */
+export function chamberMilitantOrdo(faction: string, archetype: string | null | undefined): string | null {
+  if (archetype !== 'Chamber Militant') return null;
+  return CHAMBER_MILITANT_ORDO[faction] ?? null;
 }
 
 /**

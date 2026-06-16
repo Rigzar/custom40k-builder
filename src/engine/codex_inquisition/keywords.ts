@@ -80,18 +80,20 @@ export const INQ_KEYWORDS: InqKeywordEntry[] = [
       'Hereticus equipment. Every model can only pick one Ordo allegiance. Only for ' +
       'Inquisitors." Unlocks 5 armory items (Ignis Judicium, Hexagram warding runes, Liber ' +
       'Heresius, No escape, Praesidium Protectiva — glyph ᴴ, stripped from names, gate enforced ' +
-      'via `requires_army_item`) AND the "Ordo Hereticus Warband" Troops datasheet (`requires_' +
-      'army_item: "Ordo Hereticus"`, max 12 models, "one warband per army"). Mutual exclusivity ' +
-      'with the other 2 Ordos enforced by a dedicated validator (ki-inquisition-ordo-' +
-      'exclusivity-01, fixed v0.56 — `engine/validators.ts`).',
+      'via `requires_army_item`). Mutual exclusivity with the other 2 Ordos enforced by a ' +
+      'dedicated validator (ki-inquisition-ordo-exclusivity-01, fixed v0.56 — ' +
+      '`engine/validators.ts`). (v0.66: the old "Ordo Hereticus Warband" Troops datasheet this ' +
+      'used to also gate was replaced by the single Ordo-agnostic "Henchman Warband" — no unit ' +
+      'is gated by this keyword anymore, only armory items.)',
   },
   {
     keyword: 'Ordo Malleus',
     axis: 'ordo',
     gates: 'Same structural grant as Ordo Hereticus (verbatim text identical, "Ordo Malleus" ' +
       'substituted). Unlocks 5 armory items (Psycannon, Grimoire of True Names, Psybolt ' +
-      'ammunition, Purified weapon, Tesseract labyrinth — glyph ᴹ) AND the "Ordo Malleus ' +
-      'Warband" Troops datasheet. Cross-ref [[project_alien_hunters_fix]] — SM\'s "Legacy of ' +
+      'ammunition, Purified weapon, Tesseract labyrinth — glyph ᴹ). (v0.66: no longer also ' +
+      'gates a "Ordo Malleus Warband" — see Ordo Hereticus entry above.) ' +
+      'Cross-ref [[project_alien_hunters_fix]] — SM\'s "Legacy of ' +
       'Alien Hunters" Designer\'s-note grant of Ordo Xenos units to allied armies sits adjacent ' +
       'to (but distinct from) this faction-internal Ordo system.',
   },
@@ -100,7 +102,8 @@ export const INQ_KEYWORDS: InqKeywordEntry[] = [
     axis: 'ordo',
     gates: 'Same structural grant (verbatim text identical, "Ordo Xenos" substituted). Unlocks 5 ' +
       'armory items (Phase sword, Esoteric knowledge, Empyrian brain mines, Uluméathi Plasma ' +
-      'Syphon, Universal anathema — glyph ˣ) AND the "Ordo Xenos Warband" Troops datasheet. The ' +
+      'Syphon, Universal anathema — glyph ˣ). (v0.66: no longer also gates a "Ordo Xenos ' +
+      'Warband" — see Ordo Hereticus entry above.) The ' +
       'Ordo named in the Designer\'s note ("Alien Hunters" grants SM access to Ordo Xenos units, ' +
       '[[project_alien_hunters_fix]]) — this entry is the faction-internal source of truth those ' +
       'allied-access mechanisms point at.',

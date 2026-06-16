@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
-import type { Unit, Weapon, Choice, ArmoryItem, FactionData } from '../types/data';
+import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
@@ -76,6 +76,26 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
   return undefined;
 }
 
+/** Resolve an option choice's display name to one or more weapon profiles from the unit's
+ * weapons[] — handles exact matches, multi-profile weapons ("Plasma gun" → "Plasma gun -
+ * Standard"/"- Overcharged"), and compound choices ("X and Y" / "X & Y"). `compound` is true
+ * when the choice resolves to several DIFFERENT weapons (each row gets its own Pts), as
+ * opposed to several fire-mode profiles of the same weapon (Pts shown once, rowSpan'd). */
+function resolveChoiceWeapons(u: Unit, choiceName: string): { weapons: Weapon[]; compound: boolean } {
+  const exact = u.weapons.find(w => w.name === choiceName);
+  if (exact) return { weapons: [exact], compound: false };
+  const multiProfile = u.weapons.filter(w => w.name.startsWith(`${choiceName} - `));
+  if (multiProfile.length > 0) return { weapons: multiProfile, compound: false };
+  const parts = choiceName.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+  if (parts.length > 1) {
+    const resolved = parts.map(p => resolveChoiceWeapons(u, p));
+    if (resolved.every(r => r.weapons.length > 0)) {
+      return { weapons: resolved.flatMap(r => r.weapons), compound: true };
+    }
+  }
+  return { weapons: [], compound: false };
+}
+
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
   const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, army, legacy, legacy2, addArmoryItem, removeArmoryItem } = store;
@@ -95,9 +115,9 @@ export function UnitCard({ item }: Props) {
   const {
     pts, effectiveSlot,
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
-    variant, variantActive, modelsToShow, squadLeaderIdx,
+    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
     effectivePsyker,
-    isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponTraitMap,
+    isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
     injectedAbilities, injectedRuleNotes, equipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
@@ -143,7 +163,16 @@ export function UnitCard({ item }: Props) {
     g.constraint.type === 'mark' &&
     isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction));
   const hasMarks = Object.keys(data.animosity).length > 0;
-  const showArmory = u.has_armory_access || u.champion_has_armory || variantActive;
+  // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
+  // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
+  // variant's own collapsible block, not in the global action row.
+  const armoryGatedByVariant = u.option_groups.some(g => g.variant_link && /armory/i.test(g.header));
+  // A built-in champion/leader model (e.g. Plague Champion: min===1, max===1 in models[1]) with
+  // its own Armory access gets a dedicated profile+Armory block (see squad-size section below)
+  // instead of the generic bottom Armory button.
+  const builtInChampion = u.models.length > 1 && u.models[1].min === 1 && u.models[1].max === 1 ? u.models[1] : null;
+  const championArmoryInOwnBlock = !!builtInChampion && u.champion_has_armory && !armoryGatedByVariant;
+  const showArmory = u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock) || (variantActive && !armoryGatedByVariant);
 
   // Legacy of the Alien Hunters: "Each model can receive the 'Special ammunition' equipment,
   // regardless of whether it has access to the armory." — universal toggle bypassing showArmory.
@@ -354,7 +383,7 @@ export function UnitCard({ item }: Props) {
                   const isVar = variant && m === variant;
                   return (
                     <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/40' : ''} ${isVar ? 'text-amber-300' : 'text-zinc-100'}`}>
-                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{m.name}{isVar ? ' ★' : ''}</td>
+                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{modelCounts[i] != null ? `${modelCounts[i]}x ` : ''}{m.name}{isVar ? ' ★' : ''}</td>
                       {statKeys.map(k => {
                         // InvSv is a derived stat — not in m.stats, computed at unit level
                         if (k === 'InvSv') {
@@ -485,30 +514,43 @@ export function UnitCard({ item }: Props) {
 
           {/* ── Weapons ── */}
           {weaponsToShow.length > 0 && (() => {
-            const ranged = weaponsToShow.filter(w => w.range && w.range !== '-' && w.type !== 'Melee');
-            const melee  = weaponsToShow.filter(w => !w.range || w.range === '-' || w.type === 'Melee');
+            const showGroupLabels = weaponGroups.length > 1;
             return (
               <div className="border-b border-zinc-700/60">
-                {ranged.length > 0 && (
-                  <div>
-                    <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
-                      <span className="w-3 h-px bg-amber-800 inline-block" />
-                      Ranged Weapons
-                      <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
+                {weaponGroups.map((g, gi) => {
+                  if (g.weapons.length === 0) return null;
+                  const ranged = g.weapons.filter(w => w.range && w.range !== '-' && w.type !== 'Melee');
+                  const melee  = g.weapons.filter(w => !w.range || w.range === '-' || w.type === 'Melee');
+                  return (
+                    <div key={gi}>
+                      {showGroupLabels && (
+                        <div className="px-3 pt-2.5 text-[11px] text-zinc-300 font-semibold uppercase tracking-wide">
+                          {g.label}
+                        </div>
+                      )}
+                      {ranged.length > 0 && (
+                        <div>
+                          <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
+                            <span className="w-3 h-px bg-amber-800 inline-block" />
+                            Ranged Weapons
+                            <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
+                          </div>
+                          <WeaponTable weapons={ranged} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} />
+                        </div>
+                      )}
+                      {melee.length > 0 && (
+                        <div>
+                          <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
+                            <span className="w-3 h-px bg-amber-800 inline-block" />
+                            Melee Weapons
+                            <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
+                          </div>
+                          <WeaponTable weapons={melee} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} />
+                        </div>
+                      )}
                     </div>
-                    <WeaponTable weapons={ranged} traitMap={weaponTraitMap} />
-                  </div>
-                )}
-                {melee.length > 0 && (
-                  <div>
-                    <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
-                      <span className="w-3 h-px bg-amber-800 inline-block" />
-                      Melee Weapons
-                      <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
-                    </div>
-                    <WeaponTable weapons={melee} traitMap={weaponTraitMap} />
-                  </div>
-                )}
+                  );
+                })}
               </div>
             );
           })()}
@@ -519,7 +561,7 @@ export function UnitCard({ item }: Props) {
           {/* Squad size — per-group when modelSizes is available, single slider otherwise */}
           {item.modelSizes ? (
             <div className="space-y-1">
-              {u.models.map(m => {
+              {u.models.slice(0, 1).map(m => {
                 const count = item.modelSizes![m.name] ?? m.min;
                 const isFixed = m.min === m.max;
                 return (
@@ -544,8 +586,93 @@ export function UnitCard({ item }: Props) {
                 );
               })}
               <div className="text-[11px] text-zinc-500 pt-0.5">Total: {item.size} models</div>
+              {variantActive && (
+                <div className="text-[11px] text-amber-600/90">
+                  {modelsToShow.map((m, i) => modelCounts[i] != null || m === variant ? `${modelCounts[i] ?? 1}x ${m.name}` : null)
+                    .filter(Boolean).join(' + ')}
+                </div>
+              )}
             </div>
-          ) : maxSize > 1 && (
+          ) : null}
+
+          {/* Built-in champion/leader (e.g. Plague Champion) with its own Armory access — profile
+              is already shown in the table above, this block just surfaces the Armory link. */}
+          {championArmoryInOwnBlock && builtInChampion && (
+            <details open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
+              <summary className="cursor-pointer px-2 py-1 select-none text-zinc-300">▲ {builtInChampion.name}</summary>
+              <div className="px-2 pb-2 text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
+                <span>The {builtInChampion.name} has access to weapons and gear from the Armory.</span>
+                <button
+                  onClick={() => setArmoryOpen(true)}
+                  className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+                >
+                  Armory ({item.armory.length})
+                </button>
+              </div>
+            </details>
+          )}
+
+          {/* Optional extra models (e.g. Chaos Ogryn, min:0) — collapsible profile/abilities/weapons block.
+              Built-in models (min>0, e.g. Plague Champion) are already shown in the Profile table above
+              and are not rendered here — there's no "buy more of these" rule to show for them. */}
+          {item.modelSizes && u.models.slice(1).filter(m => m.min === 0 && m.max > 0).map(m => {
+            const count = item.modelSizes![m.name] ?? m.min;
+            const equipMatch = u.equipped_with.match(new RegExp(`Every ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
+            const equipText = equipMatch?.[1]?.trim();
+            const equipNames = equipText ? equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean) : [];
+            const mWeapons = equipNames
+              .map(n => u.weapons.find(w => w.name.toLowerCase() === n.toLowerCase()))
+              .filter((w): w is Weapon => !!w);
+            const mRanged = mWeapons.filter(w => w.range && w.range !== '-' && w.type !== 'Melee');
+            const mMelee = mWeapons.filter(w => !w.range || w.range === '-' || w.type === 'Melee');
+            const mAbilities = u.abilities.filter(a => a.includes(`(${m.name}`));
+            const headerText = m.name;
+            return (
+              <details key={m.name} className="border border-zinc-700 bg-zinc-900/40 text-[12px]">
+                <summary className="cursor-pointer px-2 py-1 text-amber-600 text-[11px] uppercase tracking-wide select-none flex items-center gap-2">
+                  <span>▲ {headerText}</span>
+                  <input
+                    type="number"
+                    min={m.min}
+                    max={m.max}
+                    value={count}
+                    onClick={e => e.stopPropagation()}
+                    onChange={e => updateModelSize(item.id, m.name, Math.max(m.min, Math.min(m.max, Number(e.target.value))))}
+                    className="w-12 bg-zinc-900 border border-zinc-600 px-1 py-0.5 text-zinc-100 text-[11px] normal-case focus:outline-none focus:border-amber-600"
+                  />
+                  <span className="text-zinc-500 normal-case">max {m.max}</span>
+                </summary>
+                <div className="px-2 pb-2 space-y-2">
+                  {equipText && (
+                    <div className="text-zinc-400 text-[11px]">Every {m.name} is equipped with: {equipText}.</div>
+                  )}
+                  <ModelProfileRow m={m} statKeys={STAT_KEYS_INF} />
+                  {mAbilities.length > 0 && (
+                    <div>
+                      <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-0.5">Abilities</div>
+                      {mAbilities.map((a, i) => (
+                        <div key={i} className="text-[11px] text-zinc-400">{a}</div>
+                      ))}
+                    </div>
+                  )}
+                  {mRanged.length > 0 && (
+                    <div>
+                      <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-0.5">Ranged Weapons</div>
+                      <WeaponTable weapons={mRanged} />
+                    </div>
+                  )}
+                  {mMelee.length > 0 && (
+                    <div>
+                      <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-0.5">Melee Weapons</div>
+                      <WeaponTable weapons={mMelee} />
+                    </div>
+                  )}
+                </div>
+              </details>
+            );
+          })}
+
+          {maxSize > 1 && !item.modelSizes && (
             <div className="flex items-center gap-2 text-[12px] text-zinc-400">
               <span>Size:</span>
               <input
@@ -678,22 +805,44 @@ export function UnitCard({ item }: Props) {
 
             if (g.variant_link) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
+              const variantModel = u.variant_models.find(vm => vm.name === g.variant_link);
               return (
-                <div key={realGi} className="text-[12px]">
-                  <label className="flex items-center gap-2 cursor-pointer">
+                <details key={realGi} open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
+                  <summary className="cursor-pointer px-2 py-1 flex items-center gap-2 select-none">
                     <input
                       type="checkbox"
                       checked={active}
+                      onClick={e => e.stopPropagation()}
                       onChange={() => setQty(realGi, '__inline', active ? 0 : 1)}
                     />
-                    <span className="text-zinc-300">{g.header}</span>
+                    <span className="text-zinc-300">▲ {g.header}</span>
                     {g.inline_pts != null && !headerHasPts(g.inline_pts) && (
                       <span className="text-amber-600 text-[11px]">
                         {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts} pts
                       </span>
                     )}
-                  </label>
-                </div>
+                  </summary>
+                  {variantModel && (
+                    <div className="px-2 pb-2 space-y-2">
+                      <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
+                      {(u.champion_has_armory || u.has_armory_access) && (
+                        <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
+                          <span>The {variantModel.name} has access to weapons and gear from the Armory.</span>
+                          {active ? (
+                            <button
+                              onClick={() => setArmoryOpen(true)}
+                              className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+                            >
+                              Armory ({item.armory.length})
+                            </button>
+                          ) : (
+                            <span className="text-zinc-600 italic">(select to enable Armory)</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </details>
               );
             }
 
@@ -746,10 +895,61 @@ export function UnitCard({ item }: Props) {
               : null;
             const groupRemaining = groupMax !== null && groupUsed !== null ? groupMax - groupUsed : null;
 
+            // Choices that map to actual weapon profiles get rendered as a weapon-stat
+            // table (Range/Type/S/AP/D/Abilities/Pts) instead of a plain chip — lets the
+            // player compare the swap options without opening the Armory.
+            const choiceWeaponsList = g.choices.map(c => resolveChoiceWeapons(u, c.name));
+            const groupHasWeapons = choiceWeaponsList.some(ws => ws.weapons.length > 0);
+            // "Every model's X may be replaced by Y" — a single choice applying to the whole
+            // unit gets ONE quantity control in the group header, not per-row.
+            const singleChoiceEvery = g.constraint.type === 'every' && g.choices.length === 1 && groupHasWeapons;
+
+            function qtyControl(ci: number, c: Choice) {
+              const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
+              const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
+              const inputMax = isPerN && groupRemaining !== null
+                ? qty + groupRemaining
+                : g.constraint.type === 'every'
+                  ? item.size
+                  : undefined;
+              // Detect "(X only)" mark restrictions embedded in choice names
+              const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;
+              const choiceMarkBlocked = choiceMarkReq != null
+                && choiceMarkReq.toLowerCase() !== (effectiveMark ?? '').toLowerCase();
+              const control = canUseQty ? (
+                <input
+                  type="number"
+                  min={0}
+                  max={inputMax}
+                  value={qty}
+                  disabled={choiceMarkBlocked}
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => {
+                    if (choiceMarkBlocked) return;
+                    const v = Math.max(0, Number(e.target.value));
+                    const capped = inputMax !== undefined ? Math.min(v, inputMax) : v;
+                    setQty(realGi, ci, capped);
+                  }}
+                  className="w-12 bg-zinc-900 border border-zinc-600 px-1 py-0.5 text-zinc-100 text-[11px] text-center focus:outline-none focus:border-amber-600"
+                />
+              ) : (
+                <input
+                  type="checkbox"
+                  checked={qty > 0}
+                  disabled={choiceMarkBlocked}
+                  onChange={() => { if (!choiceMarkBlocked) setQty(realGi, ci, qty > 0 ? 0 : 1); }}
+                />
+              );
+              return { control, choiceMarkBlocked, choiceMarkReq };
+            }
+
+            const headerQty = singleChoiceEvery ? qtyControl(0, g.choices[0]) : null;
+
             return (
-              <div key={realGi}>
-                <div className="text-[11px] text-zinc-400 mb-1 flex items-center gap-2 flex-wrap">
-                  {g.header}
+              <details key={realGi} open className="border border-zinc-700 bg-zinc-900/40 text-[12px]">
+                <summary className="cursor-pointer px-2 py-1 text-[11px] text-zinc-300 flex items-center gap-2 flex-wrap select-none">
+                  <span>▲ {g.header}</span>
+                  {headerQty?.control}
                   {isPerN && groupMax !== null && (
                     <span className={`text-[10px] font-semibold ${groupUsed! >= groupMax ? 'text-red-400' : 'text-amber-600'}`}>
                       [{groupUsed}/{groupMax}]
@@ -758,61 +958,109 @@ export function UnitCard({ item }: Props) {
                   {isRequired && !hasSelection && (
                     <span className="text-[10px] font-semibold text-red-400 animate-pulse">⚠ required</span>
                   )}
+                </summary>
+                <div className="px-2 pb-2">
+                {groupHasWeapons ? (
+                  <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
+                    <table className="w-full text-xs border-collapse">
+                      <thead>
+                        <tr className="border-b border-zinc-600">
+                          <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 pr-2 text-[10px] uppercase tracking-wide w-[26%]">Weapon</th>
+                          <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">Range</th>
+                          <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[13%]">Type</th>
+                          <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
+                          <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
+                          <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
+                          <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">Abilities</th>
+                          <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">Pts</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {g.choices.map((c: Choice, ci: number) => {
+                          const { weapons, compound } = choiceWeaponsList[ci];
+                          const { control, choiceMarkBlocked, choiceMarkReq } = qtyControl(ci, c);
+                          const ptsLabel = `${c.points >= 0 ? '+' : ''}${c.points}`;
+                          const rowClass = `border-b border-zinc-700/40 ${choiceMarkBlocked ? 'opacity-50' : ''}`;
+                          const showRowControl = !singleChoiceEvery;
+                          if (weapons.length === 0) {
+                            return (
+                              <tr key={ci} className={rowClass} title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}>
+                                <td colSpan={7} className="py-1.5 pl-2 pr-2 font-medium text-zinc-100">
+                                  {showRowControl ? (
+                                    <span className="inline-flex items-center gap-1.5">{control}<span>{c.name}</span></span>
+                                  ) : c.name}
+                                </td>
+                                <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
+                              </tr>
+                            );
+                          }
+                          // Multi-profile weapons ("Plasma gun - Standard"/"- Overcharged") get a
+                          // banner row with the shared base name + counter + total Pts, then each
+                          // fire-mode profile gets its own full stat row beneath it.
+                          const profileName = (w: Weapon) =>
+                            (weapons.length > 1 && w.name.startsWith(`${c.name} - `))
+                              ? w.name.slice(c.name.length + 3)
+                              : w.name;
+                          const rows = weapons.map((w, wi) => (
+                            <tr key={`${ci}-${wi}`} className={rowClass} title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}>
+                              <td className="py-1.5 pl-2 pr-2 font-medium text-zinc-100 whitespace-nowrap">
+                                {weapons.length > 1 ? <span className="text-zinc-400 pl-2">{profileName(w)}</span> : (
+                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control}<span>{profileName(w)}</span></span>
+                                )}
+                              </td>
+                              <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
+                              <td className="py-1.5 px-1 text-zinc-400 text-[11px]">{w.type}</td>
+                              <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
+                              <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
+                              <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
+                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500">{(w.abilities && w.abilities !== '-') ? w.abilities : '—'}</td>
+                              {compound ? (
+                                <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
+                              ) : weapons.length === 1 ? (
+                                <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
+                              ) : null}
+                            </tr>
+                          ));
+                          if (weapons.length > 1) {
+                            rows.unshift(
+                              <tr key={`${ci}-banner`} className="border-b border-zinc-700/40 bg-zinc-800/60">
+                                <td colSpan={7} className="py-1 pl-2 pr-2 font-semibold text-zinc-200">
+                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {c.name}</span>
+                                </td>
+                                <td className="py-1 px-2 text-right text-amber-600">{ptsLabel}</td>
+                              </tr>
+                            );
+                          }
+                          return rows;
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : (
+                  <div className="flex flex-wrap gap-1">
+                    {g.choices.map((c: Choice, ci: number) => {
+                      const { control, choiceMarkBlocked, choiceMarkReq } = qtyControl(ci, c);
+                      return (
+                        <div
+                          key={ci}
+                          className={`flex items-center gap-1 bg-zinc-900 border px-2 py-1 text-[11px]
+                            ${choiceMarkBlocked ? 'border-zinc-700 opacity-50 cursor-not-allowed' : 'border-zinc-600'}`}
+                          title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}
+                        >
+                          {control}
+                          <span className="text-zinc-300">{c.name}</span>
+                          {c.points !== 0 && (
+                            <span className="text-amber-600">
+                              {c.points >= 0 ? '+' : ''}{c.points}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
                 </div>
-                <div className="flex flex-wrap gap-1">
-                  {g.choices.map((c: Choice, ci: number) => {
-                    const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
-                    const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
-                    const inputMax = isPerN && groupRemaining !== null
-                      ? qty + groupRemaining
-                      : g.constraint.type === 'every'
-                        ? item.size
-                        : undefined;
-                    // Detect "(X only)" mark restrictions embedded in choice names
-                    const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;
-                    const choiceMarkBlocked = choiceMarkReq != null
-                      && choiceMarkReq.toLowerCase() !== (effectiveMark ?? '').toLowerCase();
-                    return (
-                      <div
-                        key={ci}
-                        className={`flex items-center gap-1 bg-zinc-900 border px-2 py-1 text-[11px]
-                          ${choiceMarkBlocked ? 'border-zinc-700 opacity-50 cursor-not-allowed' : 'border-zinc-600'}`}
-                        title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}
-                      >
-                        {canUseQty ? (
-                          <input
-                            type="number"
-                            min={0}
-                            max={inputMax}
-                            value={qty}
-                            disabled={choiceMarkBlocked}
-                            onChange={e => {
-                              if (choiceMarkBlocked) return;
-                              const v = Math.max(0, Number(e.target.value));
-                              const capped = inputMax !== undefined ? Math.min(v, inputMax) : v;
-                              setQty(realGi, ci, capped);
-                            }}
-                            className="w-10 bg-transparent text-zinc-100 text-center focus:outline-none"
-                          />
-                        ) : (
-                          <input
-                            type="checkbox"
-                            checked={qty > 0}
-                            disabled={choiceMarkBlocked}
-                            onChange={() => { if (!choiceMarkBlocked) setQty(realGi, ci, qty > 0 ? 0 : 1); }}
-                          />
-                        )}
-                        <span className="text-zinc-300">{c.name}</span>
-                        {c.points !== 0 && (
-                          <span className="text-amber-600">
-                            {c.points >= 0 ? '+' : ''}{c.points}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              </details>
             );
           })}
 
@@ -1267,7 +1515,38 @@ function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryIte
   return <div className="text-[10px] text-zinc-600 mt-0.5 pl-1 italic">— see faction rules</div>;
 }
 
-function WeaponTable({ weapons, traitMap }: { weapons: Weapon[]; traitMap?: Map<string, string[]> }) {
+/** Single-row stat table for a supplementary model (Chaos Ogryn, Traitor Sergeant, etc.) —
+ * same columns as the main Profile table but without mark/trait/equip bonus annotations. */
+function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[] }) {
+  return (
+    <table className="w-full text-xs border-collapse">
+      <thead>
+        <tr className="bg-zinc-700/50 border-b border-zinc-600">
+          <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">Model</th>
+          {statKeys.map(k => (
+            <th key={k} className="font-bold text-center py-2 px-2 text-[11px] uppercase tracking-wide min-w-[2rem] text-amber-500">
+              {k}
+            </th>
+          ))}
+          <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">Pts</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="border-b border-zinc-700/40 text-zinc-100">
+          <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{m.name}</td>
+          {statKeys.map(k => (
+            <td key={k} className="text-center py-2 px-2 font-mono text-xs text-zinc-100">
+              {(m.stats as Record<string, string>)[k] ?? '-'}
+            </td>
+          ))}
+          <td className="text-right text-amber-700 py-2 pr-2 text-xs">{m.points}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
+function WeaponTable({ weapons, traitMap, count }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null }) {
   return (
     <div className="px-3 pb-2">
       <table className="w-full text-xs border-collapse">
@@ -1299,7 +1578,7 @@ function WeaponTable({ weapons, traitMap }: { weapons: Weapon[]; traitMap?: Map<
               : allAbilities || '—';
             return (
               <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
-                <td className="py-1.5 pr-2 font-medium text-zinc-100">{w.name}</td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">{count != null ? `${count}x ` : ''}{w.name}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
                 <td className="py-1.5 px-1 text-zinc-400 text-[11px]">{w.type}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>

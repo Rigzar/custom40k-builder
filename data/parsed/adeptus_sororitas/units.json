@@ -18,6 +18,7 @@
       "Celestian Sacresants",
       "Celestian Squad",
       "Crusaders",
+      "Dialogus",
       "Dogmata",
       "Hospitaller",
       "Imagifier",
@@ -632,8 +633,17 @@
           }
         }
       ],
-      "equipped_with": "Every model is equipped with: Boltgun; Frag grenades; Krak grenades.",
+      "equipped_with": "Every model is equipped with: Bolt pistol; Boltgun; Frag grenades; Krak grenades.",
       "weapons": [
+        {
+          "name": "Bolt pistol",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
         {
           "name": "Boltgun",
           "range": "24\"",
@@ -1436,8 +1446,17 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "Every model is equipped with: Boltgun; Frag grenades; Krak grenades.",
+      "equipped_with": "Every model is equipped with: Bolt pistol; Boltgun; Frag grenades; Krak grenades.",
       "weapons": [
+        {
+          "name": "Bolt pistol",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
         {
           "name": "Boltgun",
           "range": "24\"",
@@ -1594,7 +1613,7 @@
       "models": [
         {
           "name": "Crusader",
-          "points": 40,
+          "points": 23,
           "min": 1,
           "max": 4,
           "stats": {
@@ -1603,7 +1622,7 @@
             "BS": "3+",
             "S": "3",
             "T": "3",
-            "W": "2",
+            "W": "1",
             "I": "3",
             "A": "2",
             "LD": "7",
@@ -1792,6 +1811,75 @@
       "slot": "Elites",
       "default_size": 1,
       "min_cost": 37
+    },
+    "Dialogus": {
+      "name": "Dialogus",
+      "models": [
+        {
+          "name": "Dialogus",
+          "points": 42,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "2",
+            "I": "3",
+            "A": "2",
+            "LD": "8",
+            "SV": "3+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Dialogus is equipped with: Frag grenades; Krak grenades.",
+      "weapons": [
+        {
+          "name": "Frag grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "6\"",
+          "type": "Grenade 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        }
+      ],
+      "option_groups": [],
+      "abilities": [
+        "Acts of Faith, Command squad, Shield of Faith",
+        "Advisor: For every HQ selection, one Dialogus may be selected without taking up an Elite slot.",
+        "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
+        "Laud Hailer: At the start of the Rally phase, friendly units within 18\" around the model remove their Battleshock tokens."
+      ],
+      "unit_type": "Character Model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 1,
+      "min_cost": 42,
+      "is_priest": true
     },
     "Imagifier": {
       "name": "Imagifier",
@@ -2269,8 +2357,17 @@
           }
         }
       ],
-      "equipped_with": "Every model is equipped with: Boltgun; Frag grenades; Krak grenades.",
+      "equipped_with": "Every model is equipped with: Bolt pistol; Boltgun; Frag grenades; Krak grenades.",
       "weapons": [
+        {
+          "name": "Bolt pistol",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
         {
           "name": "Boltgun",
           "range": "24\"",
@@ -2398,7 +2495,7 @@
       "models": [
         {
           "name": "Seraphim",
-          "points": 29,
+          "points": 28,
           "min": 4,
           "max": 9,
           "stats": {
@@ -2409,14 +2506,14 @@
             "T": "3",
             "W": "1",
             "I": "3",
-            "A": "2",
+            "A": "1",
             "LD": "8",
             "SV": "3+"
           }
         },
         {
           "name": "Seraphim Superior",
-          "points": 34,
+          "points": 33,
           "min": 1,
           "max": 1,
           "stats": {
@@ -2427,7 +2524,7 @@
             "T": "3",
             "W": "1",
             "I": "3",
-            "A": "2",
+            "A": "1",
             "LD": "8",
             "SV": "3+"
           }
@@ -2524,14 +2621,14 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 5,
-      "min_cost": 150
+      "min_cost": 145
     },
     "Zephyrim Squad": {
       "name": "Zephyrim Squad",
       "models": [
         {
           "name": "Zephyrim",
-          "points": 32,
+          "points": 31,
           "min": 4,
           "max": 9,
           "stats": {
@@ -2542,14 +2639,14 @@
             "T": "3",
             "W": "1",
             "I": "3",
-            "A": "2",
+            "A": "1",
             "LD": "8",
             "SV": "3+"
           }
         },
         {
           "name": "Zephyrim Superior",
-          "points": 37,
+          "points": 36,
           "min": 1,
           "max": 1,
           "stats": {
@@ -2560,7 +2657,7 @@
             "T": "3",
             "W": "1",
             "I": "3",
-            "A": "2",
+            "A": "1",
             "LD": "8",
             "SV": "3+"
           }
@@ -2627,7 +2724,7 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 5,
-      "min_cost": 165
+      "min_cost": 160
     },
     "Castigator": {
       "name": "Castigator",

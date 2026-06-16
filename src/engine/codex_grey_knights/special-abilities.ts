@@ -28,14 +28,13 @@ export const GK_SPECIAL_ABILITIES: GkSpecialAbilityEntry[] = [
   // --- §4 army-wide Special Rules (verbatim from Index.html, 7 entries) ---
   {
     name: 'Demon Hunters',
-    category: 'army-rule',
-    text: 'Verbatim: "The army has access to units from the Inquisition codex (Inquisitors must ' +
-      'select \'Ordo Malleus\'). Additionally, the army has access to Assassins." The native-' +
-      'allied-access rule — already SHIPPED via `intrinsic_allies` ([[project_inquisition_audit]] ' +
-      'Fase A) and the universal Assassins access mechanism ([[project_inquisition_audit]] Pass ' +
-      '5, `getAssassinAccessAlignment`). Cross-ref [[project_alien_hunters_fix]] ' +
-      '(`ki-gk-inquisition-allied-badge-01`, fixed). Documented here for completeness — no ' +
-      'further engine change needed.',
+    category: 'confirmed-absence',
+    text: 'RETIRED v0.71 — removed from the 2026-06-14 Grey Knights.ods entirely (no longer in ' +
+      'Index or Army Customisation). Superseded by the new "Chamber Militant" archetype (see ' +
+      'below): old always-on `intrinsic_allies: [\'inquisition\']` + the "must select Ordo ' +
+      'Malleus" validator are both removed; the Assassins-access clause is now expressed inside ' +
+      'Chamber Militant too but was already covered by the universal ' +
+      '`getAssassinAccessAlignment` mechanism regardless.',
   },
   {
     name: 'Nemesis warding stave',
@@ -121,7 +120,7 @@ export const GK_SPECIAL_ABILITIES: GkSpecialAbilityEntry[] = [
       '(Psyker disciplines + Faithful prayers) are independent and stack on the Chaplain.',
   },
 
-  // --- §5 Archetypes (2, AOP-shuffle shape) ---
+  // --- §5 Archetypes (3, AOP-shuffle shape + 1 cross-faction injection) ---
   {
     name: 'Chamber of Purity',
     category: 'archetype',
@@ -133,6 +132,19 @@ export const GK_SPECIAL_ABILITIES: GkSpecialAbilityEntry[] = [
     category: 'archetype',
     text: 'AOP-shuffle archetype: Paladin Squads → Troops; all other Troops → Elite. Same shape ' +
       'as Chamber of Purity, different unit pair. Slot remap shipped in `archetypes.json`.',
+  },
+  {
+    name: 'Chamber Militant',
+    category: 'archetype',
+    text: 'NEW v0.71 (2026-06-14 .ods Army Customisation R5), replaces the retired "Demon ' +
+      'Hunters" army-rule above. Verbatim: "- The army has access to units from Codex: ' +
+      'Assassins. - The army has access to units from Codex: Inquisition. - Treat the ' +
+      'Inquisition units as if \'Ordo Malleus\' was selected as Legacy." Opt-in (0-1 Archetype ' +
+      'slot, like Chamber of Purity/Hall of Champions). Inquisition is injected as the army\'s ' +
+      'own units (no [Allied] badge) only while this archetype is active, and the Ordo Malleus ' +
+      'Armory unlock is applied independent of the army\'s own Legacy — see ' +
+      '`chamberMilitantOrdo()` in `engine/keywords.ts`. The Assassins-access clause needs no ' +
+      'extra wiring (already covered by `getAssassinAccessAlignment`).',
   },
 
   // --- §5 Legacies (8, uniformly the simplest legacy shape: single bonus-power grant) ---

@@ -4,7 +4,7 @@ import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { computeCdFreeSlots, computeAssassinFreeSlots } from '../engine/validators';
-import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel } from '../engine/keywords';
+import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { SLOT_ICONS } from '../assets/slotIcons';
@@ -77,21 +77,35 @@ export function SlotPanel() {
   const eng = ENGAGEMENTS[engagement];
   const rule = getArchetypeRule(archetype);
 
+  // "Chamber Militant" (GK/Sororitas/SM, 2026-06-14 .ods Army Customisation): the army gains
+  // Inquisition as its own units (no [Allied] badge) plus a fixed Ordo Legacy-equivalent
+  // Armory unlock, independent of the army's own selected Legacy. See chamberMilitantOrdo().
+  const chamberMilitantOrdoName = chamberMilitantOrdo(data.faction, archetype);
+
   // A Legacy can grant the army its own units of another faction (e.g. Legacy of the Alien
-  // Hunters → Inquisition), and some factions grant this natively via an always-on codex rule
-  // (e.g. GK "Demon Hunters" / Sororitas "Witch hunters" → Inquisition, per Inquisition.ods
-  // Designer's note — "as if they were part of their own army"). Both share the same own-army
-  // injection path (no [Allied] badge, shares AOP/slots) — mirrors rule.alliedFaction injection.
+  // Hunters → Inquisition), and some factions grant this via the "Chamber Militant" archetype
+  // (e.g. GK/Sororitas/SM → Inquisition, "as if they were part of their own army"). Both share
+  // the same own-army injection path (no [Allied] badge, shares AOP/slots) — mirrors
+  // rule.alliedFaction injection.
   const legacyGrantedFaction = [legacy, legacy2]
     .map(name => data.legacies.find(l => l.name === name)?.grants_faction)
     .find((k): k is string => !!k && k !== rule?.alliedFaction);
   const ownGrantedFaction = legacyGrantedFaction
-    ?? (data.intrinsic_allies ?? []).find(k => k !== rule?.alliedFaction);
+    ?? (data.intrinsic_allies ?? []).find(k => k !== rule?.alliedFaction)
+    ?? (chamberMilitantOrdoName ? 'inquisition' : undefined);
 
-  // Flattened item names across the WHOLE roster — backs the army-wide unit gate
-  // (Unit.requires_army_item): e.g. picking "Ordo Xenos" on any Inquisitor unlocks the
-  // "Ordo Xenos Warband" unit for the army. Mirrors ArmoryModal's rosterArmoryItemNames.
-  const rosterArmoryItemNames = army.flatMap(e => e.armory.map(a => a.itemName));
+  // Flattened item names across the WHOLE roster — backs the army-wide item gate
+  // (ArmoryItem.requires_army_item): e.g. picking "Ordo Xenos" on any Inquisitor unlocks the
+  // gated Ordo Xenos armory items for the army. Mirrors ArmoryModal's rosterArmoryItemNames.
+  // Plus any "Ordo X" names unlocked by the selected Army Customisation Legacy (Inquisition),
+  // or by the "Chamber Militant" archetype's fixed Ordo Legacy-equivalent unlock.
+  // (v0.66: no Unit carries requires_army_item anymore — "Henchman Warband" replaced the
+  // Ordo-gated Warbands and is available to any Inquisitor.)
+  const rosterArmoryItemNames = [
+    ...army.flatMap(e => e.armory.map(a => a.itemName)),
+    ...inquisitionLegacyOrdoUnlocks(legacy),
+    ...(chamberMilitantOrdoName ? inquisitionLegacyOrdoUnlocks(chamberMilitantOrdoName) : []),
+  ];
 
   // Build effective slot→units map: filter banned units, remap slots
   const effectiveSlotUnits: Record<string, SlotEntry[]> = {};

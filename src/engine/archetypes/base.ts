@@ -26,8 +26,8 @@ export interface ArchetypeRule {
   requireVetAbilities: boolean;
   /** Units listed here gain veteran ability access even if has_veteran_abilities is false in data. */
   grantVetAbilities: string[];
-  /** Units listed here gain the "Command Squad" ability (can join a unit that already has a
-   * character attached) — e.g. Librarian Conclave grants it to Librarians. */
+  /** Units listed here gain the "Command Squad" ability (can join a squad, or attach to a
+   * single character on its own) — e.g. Librarian Conclave grants it to Librarians. */
   grantsCommandSquad: string[];
   demoteOtherTroops: boolean;
   alliedFaction: string | null;

@@ -112,7 +112,7 @@ export const honorGuard: Unit = {
     "Sternguard: The model may shoot \"Rapid Fire\" weapons at full range with a \"Move & Shoot\" command and reduces its total penalty to hit rolls in ranged combat by -1, down to a minimum of 0.",
     "Sword Brethren: The model gains the \"Deadly(5+)\" ability for melee attacks.",
     "Vanguard: The model gains +1\" range for charge moves.",
-    "Wolf Guard: The model gains the \"Bodyguard\", \"Command squad\" and \"Squadron\" abilities. The model gains the \"Character\" unit type."
+    "Wolf Guard: The model gains the \"Bodyguard\", \"Command squad\" and \"Squadron\" abilities."
   ],
   "unit_type": "Infantry",
   "keywords": [],

@@ -11,6 +11,10 @@
     {
       "name": "Shrine Wardens",
       "desc": "- Celestia Sacresantis can be taken as Troops.\n- Battle Sisters and Sisters Novitiate become Elite choices.\n- Arco-flagellants, Repentia and Penitent Engines can not be taken at all."
+    },
+    {
+      "name": "Chamber Militant",
+      "desc": "- The army has access to units from Codex: Assassins.\n- The army has access to units from Codex: Inquisition.\n- Treat the Inquisition units as if \"Ordo Hereticus\" was selected as Legacy."
     }
   ],
   "legacies": [
@@ -152,7 +156,7 @@
     },
     {
       "name": "Unshakable Vengeance",
-      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

@@ -92,7 +92,7 @@
     },
     {
       "name": "Black Crusade",
-      "desc": "One chosen HQ model simultaneously bears all four Chaos god marks (Khorne, Nurgle, Slaanesh, Tzeentch). That HQ pays the combined mark cost for all four gods. Other units may carry 0 or 1 mark as normal. Animosity rules are suspended for the entire army.",
+      "desc": "A single HQ-model must get the Mark of Chaos of each god.",
       "pts_unit": "-",
       "pts_char": "Special",
       "enables_second_legacy": false,
@@ -164,7 +164,7 @@
     },
     {
       "name": "Malicious Volley",
-      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons. Does not apply to \"Heavy\" weapons.",
+      "desc": "The unit gains the \"Deflagrate(5+)\" ability with Bolt weapons.",
       "pts_unit": "5",
       "pts_char": "0",
       "enables_second_legacy": false,

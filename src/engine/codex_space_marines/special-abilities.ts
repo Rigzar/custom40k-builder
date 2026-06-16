@@ -30,7 +30,8 @@ export interface SmSpecialAbilityEntry {
 }
 
 // Source: rules-model/space_marines.md §4 (army rules) + §5 (archetypes/legacies/traits,
-// VALIDATED — Army Customisation.html: 8 archetypes, 9 legacies, 19 traits).
+// VALIDATED — Army Customisation.html: 9 archetypes (8 + "Chamber Militant" v0.71), 9 legacies,
+// 19 traits).
 export const SM_SPECIAL_ABILITIES: SmSpecialAbilityEntry[] = [
   // --- §4 army-wide rules (apply to the whole army, not keyword-derived — see SM_KEYWORDS) ---
   {
@@ -60,7 +61,7 @@ export const SM_SPECIAL_ABILITIES: SmSpecialAbilityEntry[] = [
       'access), not from gating which units appear on the roster.',
   },
 
-  // --- §5 the 8 Archetypes (0-1 selectable) ---
+  // --- §5 the Archetypes (0-1 selectable; 8 original + "Chamber Militant" v0.71) ---
   {
     name: '1st Company',
     category: 'archetype',
@@ -124,16 +125,37 @@ export const SM_SPECIAL_ABILITIES: SmSpecialAbilityEntry[] = [
   {
     name: 'Legacy of Alien Hunters (special case)',
     category: 'legacy-system',
-    text: 'The one Legacy with effects beyond armory+discipline: grants Death Watch armory PLUS ' +
-      'access to Inquisition units (Ordo Xenos) PLUS a universal "Special ammunition" toggle to ' +
-      'any model. Already shipped/grounded v0.56 — see [[project_alien_hunters_fix]] (Legacy.' +
-      'grants_faction injection mirrors Daemonkin, Ordo Xenos validator). Documented here as the ' +
-      'Legacy system\'s one outlier — the other 8 Legacies are pure armory(+discipline) grants.',
+    text: 'RETIRED v0.71 — the 2026-06-14 .ods redefined this Legacy to a plain armory+universal-' +
+      'equipment grant: "The army has access to the Death Watch Armory and each model may ' +
+      'receive the \'Special ammunition\' equipment, regardless of whether it has access to the ' +
+      'armory." It no longer mentions Inquisitors/Inquisition/Ordo Xenos at all — the old ' +
+      '`grants_faction: "inquisition"` + "must select Ordo Xenos" validator (v0.56, ' +
+      '[[project_alien_hunters_fix]]) were removed. Inquisition+Assassins access is now granted ' +
+      'by the new "Chamber Militant" archetype (see below), which ALSO requires this Legacy to ' +
+      'be selected. The universal "Special ammunition" toggle is unaffected — still a plain ' +
+      'army-wide grant from this Legacy. Documented here as the Legacy system\'s one outlier — ' +
+      'the other 8 Legacies are pure armory(+discipline) grants.',
+  },
+  {
+    name: 'Chamber Militant',
+    category: 'archetype',
+    text: 'NEW v0.71 (2026-06-14 .ods Army Customisation R6), replaces the retired Inquisition-' +
+      'access clause of "Legacy of the Alien Hunters" above. Verbatim: "- The army has access ' +
+      'to units from Codex: Assassins. - The army has access to units from Codex: Inquisition. ' +
+      '- Treat the Inquisition units as if \'Ordo Xenos\' was selected as Legacy. - Must select ' +
+      '\'Legacy of the Alien Hunters\'." Opt-in (0-1 Archetype slot). Unlike the GK/Sororitas ' +
+      'Chamber Militant, SM\'s also REQUIRES "Legacy of the Alien Hunters" to be selected — new ' +
+      'validator in validators.ts enforces this. Inquisition is injected as the army\'s own ' +
+      'units (no [Allied] badge) only while this archetype is active, and the Ordo Xenos Armory ' +
+      'unlock is applied independent of the army\'s own Legacy slot — see chamberMilitantOrdo() ' +
+      'in engine/keywords.ts. The Assassins-access clause needs no extra wiring (already ' +
+      'covered by getAssassinAccessAlignment).',
   },
   {
     name: 'The 9 chapters (Legacy ↔ chapter ↔ discipline map)',
     category: 'legacy-system',
-    text: 'Aurelia=Blood Ravens · Alien Hunters=Death Watch (+Inquisition, special case above) · ' +
+    text: 'Aurelia=Blood Ravens · Alien Hunters=Death Watch (+Special ammunition; Inquisition ' +
+      'access moved to "Chamber Militant", see above) · ' +
       'Angel=Blood Angels+Sanguine · Crusader=Black Templars+Prayers of the Faithful · ' +
       'Damned=Relictors (no discipline) · Khan=White Scars+Stormspeaking · Lion=Dark Angels+' +
       'Interromancy · Praetorian=Imperial Fists+Geokinesis · Wolf=Space Wolves+Tempestus. This ' +

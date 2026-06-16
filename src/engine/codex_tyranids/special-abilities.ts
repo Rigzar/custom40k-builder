@@ -31,7 +31,8 @@ export const TYRANID_SPECIAL_ABILITIES: TyranidSpecialAbilityEntry[] = [
     category: 'army-rule',
     text: 'Verbatim (Index): a unit outside Synapse range with no Battleshock marker gains one at ' +
       'Rally (removable only by re-entering Synapse range); a fleeing such unit moves toward the ' +
-      'nearest Synapse unit.',
+      'nearest Synapse unit. Units that start the battle round off the board in reserves count as ' +
+      'being within Synapse range during that Rally phase (but not afterwards).',
   },
   {
     name: 'Shadow in the Warp',

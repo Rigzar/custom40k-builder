@@ -4,12 +4,26 @@ import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName } from './equipMods';
+import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
 import { csmResolve } from './codex_csm/resolver';
 import { cdResolve } from './resolvers/chaos_daemons';
 import { smResolve } from './resolvers/space_marines';
 
 // ── Output type ───────────────────────────────────────────────────────────────
+
+export interface WeaponGroup {
+  /** Model-group name (e.g. "Traitor Guardsman", "Chaos Ogryn", or a built-in Champion's
+   * name); null when the unit has only one weapon group. */
+  label: string | null;
+  /** "[N]x" prefix to show for every weapon in this group; null = no prefix. */
+  count: number | null;
+  weapons: Weapon[];
+  /** Weapon-ability injections to apply when rendering this group's rows; defaults to the
+   * profile's overall weaponTraitMap when absent (set when a group needs its own, e.g. a
+   * Character-only daemon weapon trait that only modifies the Champion's copy). */
+  traitMap?: Map<string, string[]>;
+}
 
 export interface ResolvedProfile {
   pts: number;
@@ -27,6 +41,10 @@ export interface ResolvedProfile {
   variant: Model | null;
   variantActive: boolean;
   modelsToShow: Model[];
+  /** Per-entry count to show as an "Nx" prefix alongside the model name; null = no prefix
+   * (single/fixed model). Set when a promotion (e.g. Traitor Sergeant) splits the base
+   * model's count from the promoted variant — parallel array to modelsToShow. */
+  modelCounts: (number | null)[];
   squadLeaderIdx: number;
 
   // Psyker
@@ -48,7 +66,23 @@ export interface ResolvedProfile {
    * and PrintView render identical lists.
    */
   weaponsToShow: Weapon[];
+  /**
+   * weaponsToShow split into per-model-group tables (e.g. Traitor Guardsman vs Chaos Ogryn,
+   * or a built-in Champion's Armory-bought weapons kept out of the squad's shared table).
+   * `label`/`count` are null when there's only one group, so single-group units render
+   * identically to a flat weaponsToShow list.
+   */
+  weaponGroups: WeaponGroup[];
+  /** Names of weapons added to `weapons` via an Armory item that "grants" a weapon
+   * (daemon weapons, Hunter-killer missile, etc.) — used to route them into the
+   * built-in Champion's own weapon group when the unit gates Armory access to them. */
+  armoryGrantedWeapons: string[];
   weaponTraitMap: Map<string, string[]>;
+  /** Like weaponTraitMap, but for Character-only (p_char-priced) daemon weapon traits on a
+   * squad that has a built-in Champion/Sergeant — these modify only the Champion's personal
+   * copy of the named weapon, not every copy the squad carries. Applied by computeWeaponGroups
+   * to the Champion's weapon group only. */
+  championWeaponTraitMap: Map<string, string[]>;
   /** Mark-derived ability injections (e.g. Warded, Warpflamer) — shown with "Mark" badge. */
   injectedAbilities: string[];
   /** Archetype / variant rule notes (e.g. Ascended DP, Goretide) — shown with "Rule" badge. */
@@ -88,6 +122,16 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
     if (found) return found;
   }
   return undefined;
+}
+
+/**
+ * The squad's built-in Champion/Sergeant/etc. — the second model entry when it's a single
+ * fixed model (min===1, max===1) alongside a variable-size squad model. Used both to keep
+ * the Champion's own weapon group separate and to decide whether weapon-trait Armory items
+ * scope to just this model.
+ */
+function getBuiltInChampion(unit: Unit): Model | null {
+  return unit.models.length > 1 && unit.models[1].min === 1 && unit.models[1].max === 1 ? unit.models[1] : null;
 }
 
 /** True when the unit carries the given keyword (its Chaos Mark or any datasheet keyword). */
@@ -132,16 +176,46 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // (e.g. "Plasma blastgun - Rapid"). An option choice names the parent weapon ("Plasma
   // blastgun"), so match a choice against the weapon name BEFORE the " - " profile suffix.
   const baseName = (n: string) => n.split(' - ')[0];
-  const optionalWeaponNames = new Set<string>();
+
+  // Map each weapon (by base name) granted by an option choice to the choice name(s) that
+  // unlock it. Compound choices ("Chainsword & Laspistol") are split so both weapons are
+  // recognised as optional, not just an exact name match against the whole choice.
+  const optionalWeapons = new Map<string, Set<string>>();
   for (const g of unit.option_groups) {
     for (const c of g.choices) {
-      if (unit.weapons.some(w => baseName(w.name) === c.name)) optionalWeaponNames.add(c.name);
+      const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+      for (const part of parts.length > 1 ? parts : [c.name]) {
+        if (unit.weapons.some(w => baseName(w.name) === part)) {
+          if (!optionalWeapons.has(part)) optionalWeapons.set(part, new Set());
+          optionalWeapons.get(part)!.add(c.name);
+        }
+      }
     }
   }
-  const hasReplaceGroup = unit.option_groups.some(g => g.replaces && g.replaces.length > 0);
-  if (optionalWeaponNames.size === 0 && !hasReplaceGroup) return weapons;
 
-  const selectedWeaponNames = new Set<string>();
+  // Weapons exclusive to a secondary model that hasn't been bought yet (e.g. Chaos
+  // Ogryn's Power maul before any Ogryn is added) aren't part of the starting loadout.
+  const zeroCountModelWeapons = new Set<string>();
+  for (const m of unit.models.slice(1)) {
+    if (m.min > 0) continue;
+    // Only applies to multi-group units with per-group size tracking (e.g. Traitor Guard's
+    // Chaos Ogryn). Units without modelSizes aren't using this "buy extra models" pattern
+    // for display purposes, so leave their datasheet weapons untouched.
+    if (!item.modelSizes) continue;
+    const count = item.modelSizes[m.name] ?? m.min;
+    if (count > 0) continue;
+    const equipMatch = unit.equipped_with.match(new RegExp(`Every ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
+    const equipText = equipMatch?.[1];
+    if (!equipText) continue;
+    for (const name of equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
+      zeroCountModelWeapons.add(name);
+    }
+  }
+
+  const hasReplaceGroup = unit.option_groups.some(g => g.replaces && g.replaces.length > 0);
+  if (optionalWeapons.size === 0 && !hasReplaceGroup && zeroCountModelWeapons.size === 0) return weapons;
+
+  const selectedChoiceNames = new Set<string>();
   // Weapons dropped by a structured `replace` group whose swap affects the whole unit.
   const replacedWeaponNames = new Set<string>();
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
@@ -157,13 +231,16 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];
-      if (choice && optionalWeaponNames.has(choice.name)) selectedWeaponNames.add(choice.name);
+      if (choice) selectedChoiceNames.add(choice.name);
     }
   }
-  return weapons.filter(w =>
-    !replacedWeaponNames.has(w.name) &&
-    (!optionalWeaponNames.has(baseName(w.name)) || selectedWeaponNames.has(baseName(w.name))),
-  );
+  return weapons.filter(w => {
+    if (replacedWeaponNames.has(w.name)) return false;
+    if (zeroCountModelWeapons.has(w.name)) return false;
+    const owningChoices = optionalWeapons.get(baseName(w.name));
+    if (!owningChoices) return true;
+    return [...owningChoices].some(cn => selectedChoiceNames.has(cn));
+  });
 }
 
 // ── Generic base resolver ─────────────────────────────────────────────────────
@@ -197,16 +274,41 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Models to display — variant replaces the model group it's promoted from (derived from
   // the option group's own wording, since that group isn't always last in unit.models —
   // e.g. Traitor Guard's Traitor Sergeant promotes a Guardsman, but Ogryn is listed last).
-  const visibleModels = unit.models.filter(m => m.max > 0);
-  const modelsToShow: Model[] = activeVariant
-    ? (() => {
-        const promoted = getPromotedModel(unit, activeVariant);
-        const idx = visibleModels.indexOf(promoted);
-        return idx >= 0
-          ? visibleModels.map((m, i) => i === idx ? activeVariant.variant : m)
-          : [...visibleModels.slice(0, -1), activeVariant.variant];
-      })()
-    : visibleModels;
+  // Optional secondary models (e.g. Chaos Ogryn, min:0) only join the displayed Profile
+  // once at least one has actually been bought via the squad-size controls.
+  const visibleModels = unit.models.filter(m => {
+    if (m.max === 0) return false;
+    if (m.min > 0) return true;
+    return (item.modelSizes?.[m.name] ?? m.min) > 0;
+  });
+  // When a promotion is active and the base model still has other members left (squad size
+  // > 1), split its row into "Nx <base model>" + the promoted variant as its own row, instead
+  // of replacing the whole row 1-for-1 — e.g. 10 Traitor Guardsmen → 9x Guardsman + 1x Sergeant.
+  let modelsToShow: Model[];
+  let modelCounts: (number | null)[];
+  if (activeVariant) {
+    const promoted = getPromotedModel(unit, activeVariant);
+    const idx = visibleModels.indexOf(promoted);
+    const baseCount = (item.modelSizes?.[promoted.name] ?? item.size) - 1;
+    if (idx >= 0 && baseCount > 0) {
+      modelsToShow = [
+        ...visibleModels.slice(0, idx),
+        promoted,
+        activeVariant.variant,
+        ...visibleModels.slice(idx + 1),
+      ];
+      modelCounts = modelsToShow.map(m => m === promoted ? baseCount : null);
+    } else if (idx >= 0) {
+      modelsToShow = visibleModels.map((m, i) => i === idx ? activeVariant!.variant : m);
+      modelCounts = modelsToShow.map(() => null);
+    } else {
+      modelsToShow = [...visibleModels.slice(0, -1), activeVariant.variant];
+      modelCounts = modelsToShow.map(() => null);
+    }
+  } else {
+    modelsToShow = visibleModels;
+    modelCounts = visibleModels.map(() => null);
+  }
   const squadLeaderIdx = modelsToShow.length <= 1 ? 0 : (() => {
     const idx = modelsToShow.findIndex(m => m.min === 0);
     return idx >= 0 ? idx : modelsToShow.length - 1;
@@ -225,34 +327,50 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const equippedWith = unit.equipped_with ?? '';
   const weapons: Weapon[] = [...unit.weapons];
 
-  // Weapon-targeting daemon weapon traits
+  // Weapon-targeting daemon weapon traits. A trait bought with a Character-only price
+  // (p_char, no p_unit) on a squad with a built-in Champion/Sergeant or a promoted
+  // variant (e.g. Traitor Sergeant) only modifies THAT model's personal copy of the named
+  // weapon, not every copy the squad carries — those go to championWeaponTraitMap instead,
+  // applied later to just that model's own weapon group.
+  const builtInChampionForTraits = getBuiltInChampion(unit);
+  const hasCharacterScopedBuyer = (!!builtInChampionForTraits && unit.models[0].max > 1) || !!activeVariant;
   const weaponTraitMap = new Map<string, string[]>();
+  const championWeaponTraitMap = new Map<string, string[]>();
   for (const sel of item.armory) {
     if (sel.section !== 'daemon_weapons' || !sel.targetWeapon) continue;
     const armItem = findArmoryItem(data, sel);
     if (!armItem?.desc || !isWeaponTrait(armItem.desc)) continue;
     const gains = extractWeaponGains(armItem.desc);
-    if (gains.length > 0) {
-      weaponTraitMap.set(sel.targetWeapon, [...(weaponTraitMap.get(sel.targetWeapon) ?? []), ...gains]);
-    }
+    if (gains.length === 0) continue;
+    const isCharacterScoped = armItem.p_char != null && armItem.p_unit == null;
+    const target = (isCharacterScoped && hasCharacterScopedBuyer) ? championWeaponTraitMap : weaponTraitMap;
+    target.set(sel.targetWeapon, [...(target.get(sel.targetWeapon) ?? []), ...gains]);
   }
 
   // NOTE: global trait weapon abilities are injected into weaponTraitMap after traitWeaponAbilities
   // is populated below (see "Inject global trait weapon abilities" comment).
 
-  // Items that GRANT a new weapon to the model — daemon weapons and vehicle upgrades.
-  // Patterns: "The model gains the 'X' weapon" (Kai), "The model gains a X" (Hunter-killer missile).
-  // The granted weapon is looked up in the armory general weapons list.
-  for (const sel of item.armory) {
-    if (sel.section !== 'daemon_weapons' && sel.section !== 'equipment') continue;
-    const armItem = findArmoryItem(data, sel);
-    if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
-    const grantedName = extractGrantedWeaponName(armItem.desc);
-    if (!grantedName) continue;
-    // Find the weapon profile in armory_general.weapons
-    const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
-      .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
-    if (granted && !weapons.find(w => w.name === granted.name)) {
+  // Items that GRANT a new weapon to the model — daemon weapons, vehicle upgrades, and plain
+  // weapons bought from the Armory's "weapons" section (e.g. Boltgun on a Traitor Sergeant).
+  // Patterns: "The model gains the 'X' weapon" (Kai), "The model gains a X" (Hunter-killer
+  // missile), or a direct "weapons" section purchase (the item itself IS the weapon).
+  const armoryGrantedWeapons: string[] = [];
+  const pushGrantedWeapon = (granted: import('../types/data').ArmoryItem) => {
+    if (weapons.find(w => w.name === granted.name)) return;
+    if (granted.profiles && granted.profiles.length > 0) {
+      for (const p of granted.profiles) {
+        weapons.push({
+          name: `${granted.name} - ${p.name}`,
+          range: p.range ?? '',
+          type: p.type ?? '',
+          s: p.s ?? '',
+          ap: p.ap ?? '',
+          d: p.d ?? '',
+          abilities: p.abilities ?? '-',
+        });
+        armoryGrantedWeapons.push(`${granted.name} - ${p.name}`);
+      }
+    } else {
       weapons.push({
         name: granted.name,
         range: granted.range ?? '',
@@ -262,7 +380,24 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         d: granted.d ?? '',
         abilities: granted.abilities ?? '-',
       });
+      armoryGrantedWeapons.push(granted.name);
     }
+  };
+  for (const sel of item.armory) {
+    if (sel.section === 'weapons') {
+      const armItem = findArmoryItem(data, sel);
+      if (armItem) pushGrantedWeapon(armItem);
+      continue;
+    }
+    if (sel.section !== 'daemon_weapons' && sel.section !== 'equipment') continue;
+    const armItem = findArmoryItem(data, sel);
+    if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
+    const grantedName = extractGrantedWeaponName(armItem.desc);
+    if (!grantedName) continue;
+    // Find the weapon profile in armory_general.weapons
+    const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
+      .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+    if (granted) pushGrantedWeapon(granted);
   }
 
   // Equipment mods
@@ -335,7 +470,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       : rawType === 'melee' ? 'melee'
       : rawType === 'bolt' ? 'bolt'
       : undefined; // 'all' or unspecified → applies to all weapons
-    for (const weapon of unit.weapons) {
+    // A Character-only-priced item (p_char, no p_unit) on a squad with a Champion/promoted
+    // Sergeant only affects THAT model's own weapons, not the whole squad's — same scoping
+    // as the targeted daemon-weapon traits above.
+    const isCharacterScoped = armItem.p_char != null && armItem.p_unit == null;
+    const target = (isCharacterScoped && hasCharacterScopedBuyer) ? championWeaponTraitMap : weaponTraitMap;
+    for (const weapon of weapons) {
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
       const applies =
         !wtype ||
@@ -343,7 +483,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         (wtype === 'ranged' && !isMelee) ||
         (wtype === 'bolt'   && /bolt/i.test(weapon.name + ' ' + (weapon.type ?? '')));
       if (applies) {
-        weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), ability]);
+        target.set(weapon.name, [...(target.get(weapon.name) ?? []), ability]);
       }
     }
   }
@@ -394,6 +534,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   for (const sel of item.armory) {
     const ai = findArmoryItem(data, sel);
     if (ai?.effect) applyEffect(ai.effect);
+    for (const grantedName of ai?.effect?.grants_weapons ?? []) {
+      const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
+        .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+      if (granted) pushGrantedWeapon(granted);
+    }
   }
 
   // Core Rules "Objective secured!" (L1320-1322, "Automatic Rule"): automatically conferred
@@ -412,11 +557,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   return {
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
-    variant, variantActive, modelsToShow, squadLeaderIdx,
+    variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
     effectiveHasVetAbilities,
-    equippedWith, weapons, weaponsToShow: weapons, weaponTraitMap,
+    equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap,
     injectedAbilities: choiceAbilities,
     injectedRuleNotes: ruleNotes,
     equipMods,
@@ -424,6 +569,147 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     blackCrusadeChampion,
     optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
   };
+}
+
+/** The abilities string a weapon would render with, after merging in a trait map's extra
+ * abilities for it — used to compare whether two model-groups' copies of a weapon are
+ * actually identical or have diverged (e.g. a Character-only daemon weapon trait). */
+function renderedAbilities(w: Weapon, traitMap: Map<string, string[]>): string {
+  const extra = traitMap.get(w.name) ?? [];
+  if (extra.length === 0) return (w.abilities && w.abilities !== '-') ? w.abilities : '-';
+  const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
+  return mergeWeaponAbilities(base, extra).merged;
+}
+
+/**
+ * Split weaponsToShow into per-model-group tables.
+ *   - Units whose `equipped_with` has more than one "Every X is equipped with: ..." clause
+ *     (e.g. Traitor Guard: Traitor Guardsman vs Chaos Ogryn) get one group per clause, each
+ *     tagged with the model count for an "[N]x" prefix. Weapons not claimed by any clause
+ *     (e.g. selected special/heavy-weapon options) join the first group.
+ *   - Units with a single equipped_with clause but a built-in Champion/Sergeant (squad model
+ *     + a min:1/max:1 model) get one group per model, each with an "[N]x" prefix (squad count
+ *     / 1). If the Champion's copy of every weapon renders identically to the squad's (the
+ *     vast majority — no Character-only weapon trait bought), the two groups collapse back
+ *     into a single one with the combined count. The Champion's Armory-bought weapons (if
+ *     any) join their own group's table.
+ *   - Everything else (units with no built-in Champion) returns a single unlabeled,
+ *     uncounted group — unchanged from the previous flat weaponsToShow rendering.
+ */
+export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: ResolvedProfile): WeaponGroup[] {
+  const baseName = (n: string) => n.split(' - ')[0];
+
+  const builtInChampion = getBuiltInChampion(unit);
+  const armoryGatedByVariant = unit.option_groups.some(g => g.variant_link && /armory/i.test(g.header));
+  const championArmoryInOwnBlock = !!builtInChampion && unit.champion_has_armory && !armoryGatedByVariant;
+
+  // A promoted variant (e.g. Traitor Sergeant) with its own variant_link-gated Armory access
+  // gets its Armory-bought weapons (e.g. Boltgun) extracted into its own group too, same as a
+  // built-in Champion. `profile.modelsToShow` places the promoted base model immediately
+  // before the variant when both are shown (see resolveBase).
+  const variantIdx = profile.variantActive ? profile.modelsToShow.findIndex(m => m === profile.variant) : -1;
+  const variantArmoryActive = variantIdx > 0 && armoryGatedByVariant;
+  const promotedModelName = variantArmoryActive ? profile.modelsToShow[variantIdx - 1].name : null;
+
+  const grantedSet = new Set(profile.armoryGrantedWeapons);
+  const extractGranted = championArmoryInOwnBlock || variantArmoryActive;
+  const championExtraWeapons = extractGranted
+    ? profile.weaponsToShow.filter(w => grantedSet.has(w.name))
+    : [];
+  const remaining = extractGranted
+    ? profile.weaponsToShow.filter(w => !grantedSet.has(w.name))
+    : profile.weaponsToShow;
+
+  const clauses = [...unit.equipped_with.matchAll(/Every ([^.]+?) is equipped with:\s*([^.]+)\./g)];
+
+  let groups: WeaponGroup[];
+  if (clauses.length > 1) {
+    groups = [];
+    const used = new Set<string>();
+    let variantGroup: WeaponGroup | null = null;
+    let variantSplitFromFirstClause = false;
+    for (const [ci, c] of clauses.entries()) {
+      const label = c[1].trim();
+      const names = c[2].split(/;|\band\b/i).map(s => s.trim()).filter(Boolean).map(baseName);
+      const gWeapons = remaining.filter(w => names.includes(baseName(w.name)));
+      gWeapons.forEach(w => used.add(w.name));
+      const idx = profile.modelsToShow.findIndex(m => m.name === label);
+      const m = idx >= 0 ? profile.modelsToShow[idx] : null;
+      const count = m
+        ? profile.modelCounts[idx] ?? (item.modelSizes?.[m.name] ?? (m.min > 0 ? m.min : m.max))
+        : null;
+      groups.push({ label, count, weapons: gWeapons, traitMap: profile.weaponTraitMap });
+
+      // The promoted variant (e.g. Traitor Sergeant) shares this clause's base loadout. If
+      // Character-only Armory purchases (Boltgun, "all ranged weapons gain X", etc.) make its
+      // copy render differently, give it its own table; otherwise fold its one model into
+      // this clause's count (fixes the count also being off-by-one in the common case).
+      if (variantArmoryActive && label === promotedModelName) {
+        const champTraitMap = new Map(profile.weaponTraitMap);
+        for (const [k, v] of profile.championWeaponTraitMap) {
+          champTraitMap.set(k, [...(champTraitMap.get(k) ?? []), ...v]);
+        }
+        const identical = championExtraWeapons.length === 0 &&
+          gWeapons.every(w => renderedAbilities(w, profile.weaponTraitMap) === renderedAbilities(w, champTraitMap));
+        if (identical) {
+          groups[groups.length - 1].count = (count ?? 0) + 1;
+        } else {
+          variantGroup = {
+            label: profile.variant!.name,
+            count: 1,
+            weapons: [...gWeapons, ...championExtraWeapons],
+            traitMap: champTraitMap,
+          };
+          variantSplitFromFirstClause = ci === 0;
+          groups.push(variantGroup);
+        }
+      }
+    }
+    const unclaimed = remaining.filter(w => !used.has(w.name));
+    if (unclaimed.length > 0 && groups.length > 0) {
+      groups[0].weapons.push(...unclaimed);
+      if (variantGroup && variantSplitFromFirstClause) variantGroup.weapons.push(...unclaimed);
+    }
+    if (championExtraWeapons.length > 0 && builtInChampion) {
+      groups.push({ label: builtInChampion.name, count: null, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });
+    }
+  } else if (builtInChampion && unit.models[0].max > 1) {
+    const championCount = 1;
+    const squadCount = Math.max(0, item.size - championCount);
+
+    const champTraitMap = new Map(profile.weaponTraitMap);
+    for (const [k, v] of profile.championWeaponTraitMap) {
+      champTraitMap.set(k, [...(champTraitMap.get(k) ?? []), ...v]);
+    }
+
+    const identical = championExtraWeapons.length === 0 &&
+      remaining.every(w => renderedAbilities(w, profile.weaponTraitMap) === renderedAbilities(w, champTraitMap));
+
+    if (squadCount <= 0) {
+      groups = [{ label: null, count: null, weapons: [...remaining, ...championExtraWeapons], traitMap: champTraitMap }];
+    } else if (identical) {
+      groups = [{ label: null, count: squadCount + championCount, weapons: remaining, traitMap: profile.weaponTraitMap }];
+    } else {
+      groups = [
+        { label: unit.models[0].name, count: squadCount, weapons: remaining, traitMap: profile.weaponTraitMap },
+        { label: builtInChampion.name, count: championCount, weapons: [...remaining, ...championExtraWeapons], traitMap: champTraitMap },
+      ];
+    }
+  } else {
+    groups = [{ label: null, count: null, weapons: remaining, traitMap: profile.weaponTraitMap }];
+    if (championExtraWeapons.length > 0 && builtInChampion) {
+      groups.push({ label: builtInChampion.name, count: null, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });
+    }
+  }
+
+  // Drop groups with nothing to show (e.g. Chaos Ogryn before any are bought) — a group that
+  // exists in the data but has no weapons yet shouldn't force the others into labeled tables.
+  const nonEmpty = groups.filter(g => g.weapons.length > 0);
+  if (nonEmpty.length <= 1) {
+    const g = nonEmpty[0];
+    return [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap }];
+  }
+  return nonEmpty;
 }
 
 // ── Faction resolver registry ─────────────────────────────────────────────────
@@ -455,5 +741,6 @@ export function resolveUnitProfile(
   const profile = factionFn ? factionFn(base, item, unit, state, data) : base;
   // Faction resolvers may rewrite `weapons`; derive the display list from the final set.
   profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item);
+  profile.weaponGroups = computeWeaponGroups(unit, item, profile);
   return profile;
 }

@@ -3,16 +3,17 @@
  *
  * Migrated from `rules-model/adeptus_sororitas.md` §4-§5 (grounded in the `.ods` canon).
  *
- * Anti-duplication: the 3 archetypes / 7 legacies / 12 traits stay canonical in `archetypes.json`
- * (cross-check 3/7/12 exact); the 6 Order Militant armories live under `armory/`. The Witch
- * hunters (Inquisition + Assassins) access is already SHIPPED ([[project_inquisition_audit]]). The
- * Holy Trinity legacy is already fixed ([[project_features_v021]]). This file documents the
- * army-rule MECHANICS + customisation structure.
+ * Anti-duplication: the 4 archetypes / 7 legacies / 12 traits stay canonical in `archetypes.json`
+ * (cross-check 4/7/12 exact); the 6 Order Militant armories live under `armory/`. The old "Witch
+ * hunters" (Inquisition + Assassins) army-rule was retired v0.71, replaced by the "Chamber
+ * Militant" archetype below. The Holy Trinity legacy is already fixed
+ * ([[project_features_v021]]). This file documents the army-rule MECHANICS + customisation
+ * structure.
  */
 
 export interface SororitasSpecialAbilityEntry {
   name: string;
-  category: 'army-rule' | 'cast-system' | 'archetype' | 'legacy' | 'trait';
+  category: 'army-rule' | 'cast-system' | 'archetype' | 'legacy' | 'trait' | 'confirmed-absence';
   text: string;
 }
 
@@ -44,12 +45,13 @@ export const SORORITAS_SPECIAL_ABILITIES: SororitasSpecialAbilityEntry[] = [
   },
   {
     name: 'Witch hunters (Inquisition + Assassins access)',
-    category: 'army-rule',
-    text: 'Verbatim (Index): "The army has access to Inquisition units. Inquisitors must select ' +
-      '\'Ordo Hereticus\' in the Armory. The army has access to assassins." Already SHIPPED via the ' +
-      '`intrinsic_allies` mechanism + the universal Assassins-access system ([[project_inquisition_' +
-      'audit]] — `ki-sororitas-inquisition-missing-01` fixed; Assassins Pass 5 unified scope). ' +
-      'Documented here for completeness — no further engine change needed.',
+    category: 'confirmed-absence',
+    text: 'RETIRED v0.71 — removed from the 2026-06-14 Adeptus Sororitas.ods entirely (no longer ' +
+      'in Index or Army Customisation). Superseded by the new "Chamber Militant" archetype (see ' +
+      'below): the old always-on `intrinsic_allies: [\'inquisition\']` + the "must select Ordo ' +
+      'Hereticus" validator are both removed; the Assassins-access clause is now expressed inside ' +
+      'Chamber Militant too but was already covered by the universal ' +
+      '`getAssassinAccessAlignment` mechanism regardless.',
   },
 
   // --- §4 litany system ---
@@ -60,15 +62,28 @@ export const SORORITAS_SPECIAL_ABILITIES: SororitasSpecialAbilityEntry[] = [
       '"Blessing" equipment grants +1 Hymn known. Hymns on the "Hymns of Battle" sheet.',
   },
 
-  // --- §5 Archetypes (3, all AOP-shuffle) ---
+  // --- §5 Archetypes (4, 3 AOP-shuffle + 1 cross-faction injection) ---
   {
-    name: 'Archetypes (3 total)',
+    name: 'Archetypes (3 total, pre-Chamber Militant)',
     category: 'archetype',
     text: 'Budget 0-1 Archetype. All AOP-shuffle (no cross-faction ally-matrix — Sororitas have ' +
       'none): Holy Vanguard (Dominions→Troops, must start embarked; only Dominions count to 25%), ' +
       'Penitent Crusade (Arco-flagellants/Repentia→Troops; 1 Penitent Engine per 10 Arco models; ' +
       'Battle Sisters/Novitiate→Elite), Shrine Wardens (Celestian Sacresants→Troops; Battle ' +
       'Sisters/Novitiate→Elite; no Arco/Repentia/Penitent Engines). Canonical in `archetypes.json`.',
+  },
+  {
+    name: 'Chamber Militant',
+    category: 'archetype',
+    text: 'NEW v0.71 (2026-06-14 .ods Army Customisation R5), replaces the retired "Witch ' +
+      'hunters" army-rule above. Verbatim: "- The army has access to units from Codex: ' +
+      'Assassins. - The army has access to units from Codex: Inquisition. - Treat the ' +
+      'Inquisition units as if \'Ordo Hereticus\' was selected as Legacy." Opt-in (0-1 Archetype ' +
+      'slot, like Holy Vanguard/Penitent Crusade/Shrine Wardens). Inquisition is injected as the ' +
+      'army\'s own units (no [Allied] badge) only while this archetype is active, and the Ordo ' +
+      'Hereticus Armory unlock is applied independent of the army\'s own Legacy — see ' +
+      '`chamberMilitantOrdo()` in `engine/keywords.ts`. The Assassins-access clause needs no ' +
+      'extra wiring (already covered by `getAssassinAccessAlignment`).',
   },
 
   // --- §5 Legacies (7) — 6 Orders Militant + the special Holy Trinity ---

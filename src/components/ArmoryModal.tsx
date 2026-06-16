@@ -5,11 +5,12 @@ import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, requiresWeaponTarget } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
+import { getActiveVariant } from '../engine/points';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
   modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
   effectiveKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
-  isItemTermCompat, isItemGravisCompat,
+  isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
 } from '../engine/keywords';
 
 interface Props {
@@ -158,6 +159,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isChar = unit.is_character;
   const isVehicle = unit.is_vehicle;
 
+  // A squad with a built-in Champion (e.g. Plague Champion) or an active promoted variant
+  // (e.g. Traitor Sergeant) has a Character-scoped buyer even though the unit itself isn't
+  // `is_character`. Mirrors resolver.ts's hasCharacterScopedBuyer — used so that p_char-only
+  // items (e.g. "Rotting", +10pts) price correctly off the p_char column instead of falling
+  // back to a missing p_unit and showing "+0 pts" (ki-champion-armory-pchar-cost-01).
+  const builtInChampion = unit.models.length > 1 && unit.models[1].min === 1 && unit.models[1].max === 1 ? unit.models[1] : null;
+  const activeVariant = getActiveVariant(item, unit);
+  const hasCharacterScopedBuyer = (!!builtInChampion && unit.models[0].max > 1) || !!activeVariant;
+
   // CD-specific: Greater Daemons pay from the p_char column ("POINTS GREATER DEMON");
   // all other units (Heralds, Daemon Prince, Soul Grinder) pay from p_unit ("POINTS").
   const isCD = activeData.faction === 'Chaos Daemons';
@@ -178,8 +188,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     const cp = parsePrice(arm.p_char);
     const up = parsePrice(arm.p_unit);
     if (isCD) return isGreaterDaemon ? cp : up;
-    // Other factions: characters use p_char (flat cost), squads use p_unit (per-model)
-    return isChar ? (cp ?? up) : up;
+    // Other factions: characters use p_char (flat cost), squads use p_unit (per-model).
+    // A squad's Character-scoped buyer (built-in Champion / promoted variant) also pays p_char.
+    return (isChar || hasCharacterScopedBuyer) ? (cp ?? up) : up;
   }
 
   /** True when the item requires a mark the unit doesn't have. markless (HH supplement) carries no
@@ -347,7 +358,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // Flattened item names across the WHOLE roster — backs the army-wide gate (requires_army_item):
   // e.g. picking "Ordo Xenos" on any Inquisitor unlocks Ordo Xenos equipment for every model.
-  const rosterArmoryItemNames = army.flatMap(e => e.armory.map(a => a.itemName));
+  // Plus any "Ordo X" names unlocked by the selected Army Customisation Legacy (Inquisition),
+  // or by the "Chamber Militant" archetype's fixed Ordo Legacy-equivalent unlock.
+  const chamberMilitantOrdoName = chamberMilitantOrdo(data.faction, archetype);
+  const rosterArmoryItemNames = [
+    ...army.flatMap(e => e.armory.map(a => a.itemName)),
+    ...inquisitionLegacyOrdoUnlocks(legacy),
+    ...(chamberMilitantOrdoName ? inquisitionLegacyOrdoUnlocks(chamberMilitantOrdoName) : []),
+  ];
 
   function getItems(sec: Section): ArmoryItem[] {
     if (!armory) return [];

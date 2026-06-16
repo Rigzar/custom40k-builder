@@ -1,5 +1,5 @@
 /**
- * RHINO — Dedicated Transport
+ * REPRESSOR — Dedicated Transport
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
@@ -8,19 +8,19 @@
 
 import type { Unit } from '../../../../../src/types/data';
 
-export const rhino: Unit = {
-  "name": "Rhino",
+export const repressor: Unit = {
+  "name": "Repressor",
   "models": [
     {
-      "name": "Rhino",
-      "points": 111,
+      "name": "Repressor",
+      "points": 129,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
         "WS": "6+",
         "BS": "3+",
-        "S": "5",
+        "S": "6",
         "FRONT": "11",
         "SIDE": "11",
         "REAR": "10",
@@ -31,8 +31,17 @@ export const rhino: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Rhino is a single model and equipped with: Storm bolter.",
+  "equipped_with": "A Repressor is a single model and equipped with: Heavy flamer; Storm bolter.",
   "weapons": [
+    {
+      "name": "Heavy flamer",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flames"
+    },
     {
       "name": "Storm bolter",
       "range": "24\"",
@@ -56,8 +65,9 @@ export const rhino: Unit = {
     }
   ],
   "abilities": [
-    "Fire hatches(2)",
-    "Transport: This model has a transport capacity of 10 infantry models, excluding \"Massive(x)\" models."
+    "Fire hatches(7)",
+    "Dozer blade: This vehicle can re-roll tests for difficult terrain.",
+    "Transport: This model has a transport capacity of 10 infantry models, excluding models in Terminator armor."
   ],
   "unit_type": "Vehicle",
   "keywords": [],
@@ -65,7 +75,7 @@ export const rhino: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,
@@ -74,5 +84,5 @@ export const rhino: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 111
+  "min_cost": 129
 };

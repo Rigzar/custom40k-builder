@@ -15,14 +15,11 @@
  *
  * OPTIONS: — (none)
  *
- * ABILITIES (verbatim):
+ * ABILITIES (verbatim, confirmed against .ods 2026-06-14):
  *   Mark of Nurgle
- *   Mindless: This unit cannot be given orders. Instead, at the start of each friendly turn,
- *     the controlling player may move all Poxwalkers in this unit up to 6" towards the nearest
- *     enemy unit. After this move, the unit may not shoot, charge, or fight this turn.
- *   Slaves of Darkness: This model does not benefit from the Favoured unit rule. If this unit has
- *     a Daemonic patron, it may only take veterans abilities with the matching patron keyword
- *     (Khorne, Nurgle, Slaanesh, or Tzeentch).
+ *   Mindless: The unit automatically passes every Leadership test. It can contest mission
+ *     objectives, but never hold them.
+ *   Slaves of Darkness: You may not select more Poxwalker units than Plague Marine units.
  *
  * UNIT TYPE: Infantry
  * KEYWORDS: Death Guard
@@ -34,6 +31,7 @@
  *   ✓ no options ✓
  *   ✓ locked_mark: "Nurgle" / has_veteran_abilities: false ✓
  *   ✓ default_size: 10 / min_cost: 30 ✓
+ *   ✓ abilities[] text confirmed verbatim-correct against .ods ✓
  */
 
 import type { Unit } from '../../../../../src/types/data';

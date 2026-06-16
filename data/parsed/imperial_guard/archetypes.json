@@ -103,7 +103,7 @@
     },
     {
       "name": "Born Soldiers",
-      "desc": "The unit may re-roll ranged to hit rolls of 1 with Assault, Pistol and Rapid Fire weapons.",
+      "desc": "The unit may re-roll ranged to hit rolls of 1 with Assault, Grenade, Pistol and Rapid Fire weapons.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

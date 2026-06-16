@@ -22,11 +22,13 @@ export const GSC_SPECIAL_ABILITIES: GscSpecialAbilityEntry[] = [
     name: 'Ambush (signature mechanic)',
     category: 'army-rule',
     text: 'Verbatim (Index): "For each started 500 points, one \'Ambush marker\' may be set up after ' +
-      'all Infiltrators deploy, 12" from any enemy. Units with \'Ambush\' may be set up within 3" of ' +
-      'it and given any order; or \'embark\' into a marker like a transport and re-enter from ' +
-      'reserves next round." The defining GSC deployment/reserve mechanic. The Subterranean ' +
-      'Ambushers trait grants extra markers (scaling by engagement type: +1 Skirmish / +2 Pitched / ' +
-      '+3 Epic).',
+      'all Infiltrators deploy, 12" from any enemy and 6" from a mission objective or another ' +
+      'Ambush marker. Units with \'Ambush\' may be set up within 3" of it and given any order ' +
+      '(counts towards the reserves-arrival limit); or \'embark\' into a marker like a transport ' +
+      'and re-enter from reserves next round. If an enemy unit is within 3" of an Ambush marker ' +
+      'during the Reinforcement phase, the marker is removed for the rest of the game." The ' +
+      'defining GSC deployment/reserve mechanic. The Subterranean Ambushers trait grants extra ' +
+      'markers (scaling by engagement type: +1 Skirmish / +2 Pitched / +3 Epic).',
   },
   {
     name: 'Psykers (Magus / Patriarch) + Broodmind discipline',

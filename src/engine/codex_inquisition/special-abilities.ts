@@ -41,8 +41,9 @@ export const INQ_SPECIAL_ABILITIES: InqSpecialAbilityEntry[] = [
       'psychic power and dispel 1 psychic power per round. A psyker knows Smite, as well as one ' +
       'psychic power from a chosen psychic discipline." Confirms Heresius/Telethesia are the ' +
       'faction disciplines the "chosen discipline" clause resolves to. Carried by `is_psyker` ' +
-      '(grepped: true on Inquisitor + Ordo Malleus Warband + Ordo Xenos Warband — 3 of 13 units, ' +
-      'NOT keyword-derived, confirming INQ_KEYWORDS\' empty `faction` axis finding).',
+      '(grepped: true on Inquisitor + Henchman Warband — 2 of 11 units (v0.66: Henchman Warband ' +
+      'merges the old Ordo Malleus/Xenos Warbands\' Daemonhost/Psyker specialists), NOT keyword-' +
+      'derived, confirming INQ_KEYWORDS\' empty `faction` axis finding).',
   },
 
   // --- §4 cast-system access notes (named powers stay canonical in disciplines.json) ---
@@ -77,6 +78,19 @@ export const INQ_SPECIAL_ABILITIES: InqSpecialAbilityEntry[] = [
       'heads-up (the creator plans to add Army Customisation rules in a future update), this is ' +
       'the entry MOST LIKELY to need revision first — re-check `Index.html` for a new tab before ' +
       'trusting this absence claim on a future visit to this faction.',
+  },
+
+  // --- §9 (2026-06-14 June changelog) new always-on army rule ---
+  {
+    name: 'Authority of the Inquisition',
+    category: 'army-rule',
+    text: 'New `Index` "Special rules" entry (June 2026 changelog): "Every model in the army ' +
+      'with access to the Armory may select a single item from any Imperial faction." Always ' +
+      'on (not an opt-in Archetype/Legacy pick), and scoped to ALL ~8 Imperial factions — ' +
+      'broader than Heretic/Iconoclast\'s single Chaos/Xenos pick (§5 Army Customisation). Not ' +
+      'mechanically enforced — no UI lets a model browse another Imperial faction\'s general ' +
+      'armory (the existing `armory_legions` tab is single-faction, gated by a selected ' +
+      'Legacy\'s `armory_key`). See `ki-inquisition-authority-unenforced-01`.',
   },
 
   // --- §5 Ordo Warband units — structural/textual nature note (gating itself = INQ_KEYWORDS) ---

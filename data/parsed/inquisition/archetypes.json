@@ -1,0 +1,35 @@
+{
+  "archetypes": [
+    {
+      "name": "Heretic",
+      "desc": "- Every model in the army with access to the Armory may select a single item from any Chaos faction, instead of from Imperial factions."
+    },
+    {
+      "name": "Iconoclast",
+      "desc": "- Every model in the army with access to the Armory may select a single item from any Xenos faction, instead of from Imperial factions."
+    }
+  ],
+  "legacies": [
+    {
+      "name": "Ordo Hereticus",
+      "desc": "The army has access to the Ordo Hereticus Armory and Ordo Hereticus Warbands.",
+      "armory_key": null
+    },
+    {
+      "name": "Ordo Malleus",
+      "desc": "The army has access to the Ordo Malleus Armory and Ordo Malleus Warbands.",
+      "armory_key": null
+    },
+    {
+      "name": "Ordo Xenos",
+      "desc": "The army has access to the Ordo Xenos Armory and Ordo Xenos Warbands.",
+      "armory_key": null
+    },
+    {
+      "name": "Ordo Minoris",
+      "desc": "Every character model in the army may select a single item from either the Ordo Hereticus, Malleus or Xenos Armory. Additionally, the army may include a single Ordo Hereticus, Malleus or Xenos Warband.",
+      "armory_key": null
+    }
+  ],
+  "traits": []
+}

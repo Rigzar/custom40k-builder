@@ -55,6 +55,15 @@ export interface OptionEffect {
    * on each datasheet decides which field to use — never assume from memory.
    */
   set_unit_type?: string;
+  /**
+   * Free weapon(s) granted while active, by name — looked up in the faction's
+   * `armory_general.weapons` for their full profile. For the datasheet verb "gains a/the X"
+   * where X is a weapon, when embedded in a compound sentence alongside other effects
+   * (e.g. "Chaos Space Marine bike": "+6\" Movement, +1 Toughness, +1 Wound, a Combi-bolter
+   * and the unit type 'Bike'") — too irregular for the generic isGrantWeapon/
+   * extractGrantedWeaponName text-pattern extraction.
+   */
+  grants_weapons?: string[];
 }
 
 export type ConstraintType =

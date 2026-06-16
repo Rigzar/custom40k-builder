@@ -49,10 +49,14 @@
 ### 4. Army rules / special rules
 
 - **Ambush** (signature mechanic, Index): "For each started 500 points, one 'Ambush marker' may be
-  set up after all Infiltrators deploy, 12" from any enemy. Units with 'Ambush' may be set up
-  within 3" of it with any order; or 'embark' into a marker like a transport and re-enter from
-  reserves next round." The defining GSC deployment/reserve mechanic (the Subterranean Ambushers
-  trait grants extra markers, scaling by engagement type).
+  set up after all Infiltrators deploy, 12" from any enemy and 6" from a mission objective or
+  another Ambush marker. Units with 'Ambush' may be set up within 3" of it with any order (counts
+  towards the reserves-arrival limit); or 'embark' into a marker like a transport and re-enter from
+  reserves next round. If an enemy unit is within 3" of an Ambush marker during the Reinforcement
+  phase, the marker is removed for the rest of the game." The defining GSC deployment/reserve
+  mechanic (the Subterranean Ambushers trait grants extra markers, scaling by engagement type).
+  Updated v0.71 (June 2026 .ods refresh): added the 6" objective/marker spacing restriction and the
+  enemy-proximity marker-removal rule.
 - **Psykers** (2 units `is_psyker`: Magus, Patriarch — + Crown of Ascendancy grants the Broodmind
   discipline): GSC has a faction discipline (`.ods` "GSC psychic discipline", 37 rows). **⚠ NOT
   wired into the loader — see §6.2** (same gap class as IG/Eldar/Harlequins).

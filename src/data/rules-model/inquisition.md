@@ -129,3 +129,223 @@ before touching (reads GK+Sororitas rules).
 
 **Inquisition "lo demás" complete** — Armory/Ordo gating already covered by §1–§6 (v0.56); Index
 and psychic disciplines now also re-audited. No discrepancies found.
+
+### 8. New `Informacion/Inquisition.ods` (2026-06-13) — 40-sheet codex expansion, findings
+
+The user provided a new, much larger Inquisition.ods (40 sheets vs. the Index-only version
+read for §1–§7). Read: `Index`, `Army Customisation`, `Inquisitor`, `Arbites`,
+`Henchman Warband`, `Hymns of Battle`, `Acolytes`, `Land Raider`, `Sanctioned Bombardement`,
+`Armory`, `Ordo Hereticus/Malleus/Xenos Armory`, plus spot-checks of
+`ordo_malleus_warband.ts`/`ordo_xenos_warband.ts` against the new per-specialist sheets.
+
+**Mostly already covered.** The bulk of the new sheets (Arbites, Stormtroopers, Inquisitor,
+Chimera, Corvus Blackstar, Land Raider Prometheus, Rhino, Taurox, Valkyrie, Deathcult
+Assassins, the 3 Ordo Warbands and all 18 Henchman specialist profiles split across them, the
+general Armory incl. all 3 Ordo armories with `requires_army_item` gating) are **already
+present and at parity** in production `data/parsed/inquisition/`. No re-migration needed for
+these.
+
+**Genuinely new / open items:**
+
+1. **Army Customisation tab now EXISTS** (contradicts old §5 "None — no Army Customisation
+   sheet"). Cap: "0-1 Archetype, 0-1 Legacy".
+   - **Archetypes:** *Heretic* ("every model with Armory access may select a single item from
+     any Chaos faction, instead of Imperial"); *Iconoclast* (same but Xenos faction).
+   - **Legacies:** *Ordo Hereticus* / *Ordo Malleus* / *Ordo Xenos* ("the army has access to
+     the Ordo X Armory and Ordo X Warbands"); *Ordo Minoris* ("every character may select a
+     single item from Hereticus/Malleus/Xenos Armory; army may include a single Ordo
+     Hereticus/Malleus/Xenos Warband").
+   - **OPEN QUESTION:** these Legacies look like an army-wide version of the existing
+     per-model "Ordo allegiance" ArmoryItem pick (§2 — each Inquisitor individually picks
+     `Ordo Hereticus`/`Malleus`/`Xenos` to unlock that Ordo's gear/Warband for the whole
+     army). Need to ask the user whether the new Legacy mechanic **replaces** the old
+     per-model pick, or is an **additional/alternative** path (e.g. for non-Inquisitor-led
+     builds) — before wiring `archetypes.json`.
+2. **Hymns of Battle (NEW prayer sheet)** — 5 hymns, identical set to IG/Sororitas/Tau
+   (Catechism of Repugnance, Chorus of Spiritual Fortitude, Psalm of Righteous Smiting,
+   Refrain of Blazing Piety, War Hymn). The Inquisitor's "Priest" upgrade option and the Ordo
+   Warband Missionary's "Devout" ability both already say "knows ... from the hymns of
+   battle". **FIXED** — `ki-inquisition-hymns-unwired-01` closed: added
+   `data/parsed/inquisition/psychic/prayers.json` (byte-identical 5-hymn set to IG/Sororitas),
+   wired via `loaders.ts`, and set `is_priest: true` on `inquisitor.ts` and
+   `ordo_hereticus_warband.ts` (the only Ordo Warband with a Missionary).
+3. **Missing unit: plain "Land Raider"** (558pts, M12"/WS6+/BS3+/S7/F14/Sd14/R14/I4/A1/HP4,
+   2x Twin lascannon + Twin heavy bolter, transport 10, Assault ramp, optional Multi-melta
+   +35 / extra Storm bolter +11, vehicle-equipment armory access). **FIXED** — added
+   `units/heavy_support/land_raider.ts` alongside the pre-existing "Land Raider Prometheus"
+   (distinct vehicle, different stats/weapons/cost — both legitimate).
+4. **New Heavy Support sheet "Sanctioned Bombardement"** — same "select up to one weapon per
+   HQ selection" mechanic + "Plotting"/"(In)accuracy: hits on 5+, unmodifiable" abilities as
+   the already-implemented "Massive Orbital Strike" option group on `inquisitor.ts` — but
+   **different weapons/costs**: Barrage bomb (S6 AP-2 D1, Barrage/Suppression) +42, Melta
+   artillery (S8 AP-5 D2, Armorbane/AT4/Explosive) +88, Precision lance strike (SD AP-6 D5,
+   AT6/Shield breaker-3) +90 — vs. Massive Orbital Strike's Heavy ordinance/Melta
+   torpedo/Lance strike at 161/184/247. **RESOLVED & FIXED** — checked
+   `Informacion/Escalation.ods`'s "Massive Orbital Strike" sheet: it carries
+   `KEYWORDS: Lord of War` and is the Escalation LoW-slot version (Epic-only, 33% cap),
+   correctly implemented on `inquisitor.ts`. "Sanctioned Bombardement" is the separate
+   BASE-CODEX Heavy Support entry (smaller profiles/costs, no LoW gating) — both coexist.
+   Added the 3 weapon profiles, a new "Sanctioned Bombardement" option group, and a matching
+   "Plotting" ability line to `inquisitor.ts`.
+5. **Henchman Warband restructure — user-confirmed, NOT YET DONE.** New `Henchman Warband`
+   sheet: "An Inquisitor may select up to 6 specialist models for their Warband. An
+   Inquisitor Lord may select up to 12." All 18 individual specialist sheets match the model
+   profiles already split across the 3 Ordo Warband units (Acolyte shared + 6 Hereticus-only
+   + ~6 Malleus-only + ~6 Xenos-only). Canonical text says "An Inquisitor MAY select a single
+   Henchman Warband" — user decided this should become an **optional Inquisitor-attached
+   selection** (not a fixed Troops unit), pooling all 18 specialists subject to
+   Ordo-allegiance/Legacy gating, capped at 6 (Inquisitor) / 12 (Inquisitor Lord). New KI
+   `ki-inquisition-henchman-warband-restructure-01` — large structural rework, needs its own
+   design pass before implementation.
+
+6. **Army Customisation Legacy mechanic — PARTIALLY SHIPPED (additive, not a full
+   replacement).** User decided ("sustituye sistema viejo") that the new Legacies (Ordo
+   Hereticus/Malleus/Xenos/Minoris + Archetypes Heretic/Iconoclast) should replace the
+   existing per-model "Ordo allegiance" `requires_army_item` pick (§2). While implementing,
+   found a blocker: the SAME 3 "Ordo Hereticus/Malleus/Xenos" armory items (general.json,
+   `p_char: 0`) are ALSO the mechanism by which 3 OTHER factions' validators are satisfied —
+   SM "Legacy of the Alien Hunters" (forces injected Inquisitor to pick "Ordo Xenos"), GK
+   "Demon Hunters" (forces "Ordo Malleus"), Sororitas "Witch hunters" (forces "Ordo
+   Hereticus") — see `ki-inquisition-ordo-exclusivity-01`/[[project_alien_hunters_fix]].
+   Removing those 3 items would break those validators (they could never be satisfied). A
+   true "replace" needs those 3 validators redesigned too — out of the original item's scope.
+   **What shipped instead (additive):** new `data/parsed/inquisition/archetypes.json` with
+   the 2 Archetypes (Heretic/Iconoclast, descriptive text only — not mechanically enforced,
+   no `ArchetypeRule` entry, like several other factions' text-only archetypes) and the 4
+   Legacies (Ordo Hereticus/Malleus/Xenos/Minoris), wired into `loaders.ts` (replaced
+   `noArch`). New `inquisitionLegacyOrdoUnlocks(legacy)` helper (`engine/keywords.ts`) —
+   when the army's selected Legacy is "Ordo Hereticus/Malleus/Xenos", that name is added to
+   `rosterArmoryItemNames` (ArmoryModal + SlotPanel), unlocking that Ordo's gated armory
+   items AND Warband army-wide — exactly like picking the old per-model item, but via the
+   Legacy selection instead. "Ordo Minoris" unlocks all 3 Ordos' gating for now (full access,
+   not the narrower "1 item per character + 1 warband of any" cap — see new KI
+   `ki-inquisition-ordo-minoris-caps-unenforced-01`). The OLD per-model pick items remain
+   (still needed by SM/GK/Sororitas), so both paths now coexist — new KI
+   `ki-inquisition-army-customisation-replace-01` updated to describe the remaining blocker
+   (the cross-faction validator redesign) for a true replace.
+
+7. **New Inquisitor-sheet discrepancies found while implementing item 4 (NOT FIXED, logged
+   for a future pass)** — new KI `ki-inquisition-inquisitor-sheet-gaps-01`:
+   - Inquisitor Lord upgrade: production `inline_pts: 10` (31+10=41pts) vs. new .ods says
+     "+15 points".
+   - Missing "may be upgraded to ONE of: Priest +5 / Psyker +5" — production only has the
+     Psyker +5 option group, no Priest option (despite `is_priest: true` now being set
+     unconditionally per item 2's IG/Sororitas-style precedent).
+   - Missing veteran ability — .ods says "Can gain one Veteran ability" but
+     `has_veteran_abilities: false`.
+   - Missing "Quarry"/"Inquisitor Lord: may choose a second quarry" abilities — not present
+     in `abilities[]` at all.
+
+### 9. June 2026 changelog (external ruleset update) — Inquisition items
+
+User provided the official June 2026 changelog. 6 Inquisition bullets cross-checked against the
+new 40-sheet `Inquisition.ods`:
+
+- "Changed Ordo selection into Legacies" / "Added Archetypes for Iconoclasts and Heretics" →
+  already covered by item 6 (v0.64).
+- "Added Land Raiders" → already covered by item 3 (v0.63).
+- "Added a bunch of new equipment options to all Armories" / "Updated profile for
+  Inquisitors" → not yet audited line-by-line, deferred.
+
+**8. "Removed access to Storm shields for non-characters" — FIXED.** New `Armory` sheet shows
+   Storm shield as `POINTS: -` / `POINTS CHARACTER: 6` (was `p_unit: 2, p_char: 6` in
+   production, i.e. regular models could buy it for 2pts). Fixed: `general.json`'s "Storm
+   shield" entry now has `p_unit: null` (character-only), `p_char: 6` unchanged.
+
+**9. "Added the special rule 'Authority of the Inquisition'" — DOCUMENTED, not mechanically
+   enforced.** New `Index` "Special rules" section: *"Authority of the Inquisition: Every
+   model in the army with access to the Armory may select a single item from any Imperial
+   faction."* Same shape as Heretic/Iconoclast (item 6) — an army-wide "pick 1 item from
+   another faction's armory" grant, but ALWAYS ON (not an opt-in Archetype) and scoped to
+   ALL ~8 Imperial factions (vs. Heretic/Iconoclast's single Chaos/Xenos pick). No existing
+   UI surfaces "always-on special rules" text for any faction (special-abilities.ts files are
+   migration/audit docs only, not rendered). Documented as a new `INQ_SPECIAL_ABILITIES`
+   entry (`engine/codex_inquisition/special-abilities.ts`, category 'army-rule'). New KI
+   `ki-inquisition-authority-unenforced-01` — no UI/engine support for cross-Imperial-faction
+   armory access exists; would need a new "browse another Imperial faction's general armory"
+   mechanism (bigger than the existing per-Legacy `armory_legions` tab, which is single-
+   faction).
+
+**10. "Added Repressors" — FIXED.** New `units/dedicated_transport/repressor.ts` (129pts,
+   M12"/WS6+/BS3+/S6/F11/Sd11/R10/I4/A1/HP2, Heavy flamer + Storm bolter, optional 2nd Storm
+   bolter +11, vehicle-equipment armory access, Fire hatches(7)/Dozer blade/Transport 10
+   excl. Terminator armor) — same shape as Rhino but distinct stats/weapons/cost. Wired into
+   `dedicated_transport/index.ts` and top-level `units/index.ts` (Dedicated Transport slot).
+
+**11. "Updated profile for 'Corvus Blackstar'" — FIXED.** New Corvus Blackstar sheet deltas
+   applied to `units/dedicated_transport/corvus_blackstar.ts`:
+   - Points 343 → 341. WS "-" → "6+".
+   - Split "Blackstar cluster launcher" into two fire-mode profiles (same convention as CSM's
+     "Missile launcher - Frag/Krak missile"): "Blackstar cluster launcher - Frag cluster"
+     (12", Assault 1, S4 AP0 D1, Bomb/Barrage) and "- Infernus cluster" (12", Assault 1, S5
+     AP-2 D1, Bomb/Explosive/Sunder(1)); added to `equipped_with`.
+   - Split "Twin Blackstar rocket launcher" into "- Corvid" (30", Heavy 2, S6 AP-2 D1,
+     Anti-Air/Explosive) and "- Dracos" (30", Heavy 2, S4 AP-1 D1, Barrage/Seeking).
+   - "Twin lascannon" ability AT(3) → AT(2).
+   - Swap cost "Twin Blackstar rocket launcher → Stormstrike missile launcher" +18 → +37;
+     renamed "Stormstrike missiles" → "Stormstrike missile launcher" (matches .ods + the
+     option-group choice name).
+   - "Infernum Halo-launcher" converted from a fixed ability into a purchasable option
+     (+5pts), alongside new "Auspex array" option (+10pts), in a new option_group ("May be
+     equipped with one of the following").
+   - New abilities: "Auspex array: All ranged weapons equipped by this vehicle gain the
+     'Sunder(1)' ability." and "Assault ramp: Passengers can still make a 6" charge move
+     after the vehicle moves and they exit."
+
+## §12 — Henchman Warband restructure (item 5) — FIXED v0.66
+
+Full re-audit + structural merge, grounded in `Informacion/Inquisition.ods` (40 sheets: "Henchman
+Warband" + 17 individual specialist sheets). User: "haz todo mientras este apegado al .ods y a
+las reglas del juego" → "todo de una vez a traves del .ods" (do everything at once, grounded in
+the .ods).
+
+**Canonical text** (sheet "Henchman Warband"): *"Every Inquisitor may select a single Henchman
+Warband and must start the game attached to it. A Henchman Warband consists of specialists,
+chosen from the Elite section in this codex. Each specialist unit may only be added once to the
+Warband, up to the specified amount of models. An Inquisitor may select up to 6 specialist
+models for their Warband. An Inquisitor Lord may select up to 12 specialist models for their
+Warband."*
+
+**Key finding — Ordo gating REMOVED for specialists.** Full-text search across all 40 sheets for
+"Ordo Hereticus/Malleus/Xenos/Minoris" found ONLY the "Army Customisation" sheet (Legacies). No
+individual specialist sheet has "Only for Ordo X" text (unlike the old production 3-Warband
+split, each `requires_army_item: "Ordo X"`). Any Inquisitor can now pick any specialist for
+their Warband — no per-model gating needed.
+
+**Stat/points audit — all 21 .ods specialists checked** (18 old + Crusaders/Chirurgeons/Eldar
+Outcast new): systematic W1→W2, LD+1 (LD6→7 on most; Servitor LD5→10), higher points across the
+board, some max-count changes (Arco-flagellant 6→10, Penitent 1→2, Missionary 2→1, Jokaero 2→3,
+Alien World Scout/Archaeotech Researcher 1→2), updated equipment (Servitor "Paired shock
+chargers" base + new swap costs 13/27/50 vs old 9/18/49; Missionary Eviscerator option +5→+6),
+new multi-profile weapons (Jokaero "Jokaero digital weapons" — Beams/Bolts/Flames/Strike;
+Servitor "Plasma cannon - Standard/Supercharge"). "Surgeon" (old Ordo Hereticus specialist,
+10pts/max2) does NOT appear anywhere in the new 40-sheet .ods — DROPPED (no canonical basis
+remains). The two old "Psyker" entries (Ordo Malleus + Ordo Xenos, both 10pts/max2) collapse
+into the single new "Psykers" sheet (16pts/max1).
+
+**Result: 17 unique specialist models** in the merged `henchman_warband.ts` (Acolyte, Servitor,
+Arco-flagellant, Penitent, Missionary, Sage, Daemonhost, Exorcist, Jokaero Weaponsmith, Mystic,
+Psyker, Alien World Scout, Archaeotech Researcher, Xenologist, Crusader, Chirurgeon, Ranger
+[Eldar Outcast]) — full stats/points/equipment/abilities re-audited from the .ods.
+
+**Dynamic 6/12 cap** — new validator in `engine/validators.ts`: finds the "Henchman Warband"
+roster entry, checks `item.size` (sum of all specialist `modelSizes`) against 6, or 12 if any
+"Inquisitor" entry in the army has the "Inquisitor Lord" `unique_upgrade` (`variant_link:
+"Inquisitor Lord"`) active.
+
+**Structural changes:**
+- `data/parsed/inquisition/units/troops/henchman_warband.ts` — new merged unit, replaces the 3
+  `ordo_*_warband.ts` files (deleted).
+- `units/troops/index.ts`, `units/index.ts` (`units` map + `slot_to_units["Troops"]`),
+  `engine/codex_inquisition/slots.ts`, `unit-types.ts` — updated 3→1 entry.
+- `engine/keywords.ts`, `engine/codex_inquisition/keywords.ts`, `special-abilities.ts`,
+  `SlotPanel.tsx` — doc comments updated (the old "Ordo X Warband" unit-gating references are
+  stale; `requires_army_item`/`inquisitionLegacyOrdoUnlocks` now only matter for armory items).
+
+**New KI** `ki-inquisition-henchman-veteran-per-specialist-01`: every specialist sheet says "The
+unit may gain one Veteran ability" — read as PER-SPECIALIST-TYPE, not modelable with the
+unit-level `has_veteran_abilities`/`veteran_max` fields. Left `has_veteran_abilities: false`.
+
+**Items 2, 3, 4, 8, 10, 11, 12 DONE (build ✓, local, NOT pushed). Item 9 documented (KI logged).
+Item 6 (Army Customisation full replace) remains a large structural rework, user-confirmed but
+not implemented. Item 7 logged, not fixed.**

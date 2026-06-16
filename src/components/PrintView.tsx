@@ -234,21 +234,19 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const mod = statModMark ? modTable[statModMark] : null;
 
   const factionBg = FACTION_BG[data.faction] ?? genericBg;
-  const modelsToShow = variant
-    ? [variant, ...u.models.filter(m => m.max > 0).slice(1)]
-    : u.models.filter(m => m.max > 0);
+  // Reuse the resolver's own modelsToShow/modelCounts so print matches the builder: optional
+  // secondary models (e.g. Chaos Ogryn) only appear once bought, and a promotion (e.g. Traitor
+  // Sergeant) splits its row from the base model's count instead of replacing it 1-for-1.
+  const modelsToShow = rp.modelsToShow;
+  const modelCounts = rp.modelCounts;
 
-  const weaponsToShow = rp.weaponsToShow;
-
-  const defaultRanged = weaponsToShow.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
-  const defaultMelee  = weaponsToShow.filter(w => w.range === 'Melee' || w.type === 'Melee');
   const armRanged: Weapon[] = [];
   const armMelee: Weapon[] = [];
   const armEquip: { name: string; desc: string }[] = [];
 
   // Helper to merge weapon traits into a weapon's abilities string
-  function mergeTraits(w: Weapon): Weapon {
-    const extra = weaponTraitMap.get(w.name) ?? [];
+  function mergeTraits(w: Weapon, traitMap: Map<string, string[]> = weaponTraitMap): Weapon {
+    const extra = traitMap.get(w.name) ?? [];
     if (extra.length === 0) return w;
     const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
     return { ...w, abilities: [base, ...extra].filter(Boolean).join(', ') };
@@ -283,9 +281,20 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     }
   }
 
-  // Also apply weapon traits to built-in weapons
-  const defaultRangedWithTraits = defaultRanged.map(mergeTraits);
-  const defaultMeleeWithTraits  = defaultMelee.map(mergeTraits);
+  // Also apply weapon traits to built-in weapons, split into per-model-group tables
+  // (e.g. Traitor Guardsman vs Chaos Ogryn) with an "[N]x" name prefix where the resolver
+  // reports a count. Single-group units get one unlabeled group, unchanged from before.
+  const weaponGroupsPrint = rp.weaponGroups.map(g => {
+    const prefix = g.count != null ? `${g.count}x ` : '';
+    const tm = g.traitMap ?? weaponTraitMap;
+    const ranged = g.weapons
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '')
+      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+    const melee = g.weapons
+      .filter(w => w.range === 'Melee' || w.type === 'Melee')
+      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+    return { label: g.label, ranged, melee };
+  });
 
   const abilitiesList = [
     ...u.abilities.filter(ab => !/^\d+$/.test(ab.trim())),
@@ -385,7 +394,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               stats={modStats}
               mod={mod}
               showLabels={mi === 0}
-              modelLabel={modelsToShow.length > 1 ? m.name : undefined}
+              modelLabel={modelsToShow.length > 1 ? (modelCounts[mi] != null ? `${modelCounts[mi]}x ${m.name}` : m.name) : undefined}
             />
           );
         })}
@@ -423,8 +432,22 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
               </tr>
             </thead>
             <tbody>
-              <WeaponSection title={tFn(lang, 'ranged')} weapons={[...defaultRangedWithTraits, ...armRanged]} />
-              <WeaponSection title={tFn(lang, 'melee')}  weapons={[...defaultMeleeWithTraits,  ...armMelee]}  />
+              {weaponGroupsPrint.map((g, gi) => (
+                <Fragment key={gi}>
+                  {g.label && weaponGroupsPrint.length > 1 && (
+                    <tr>
+                      <td colSpan={5} style={{
+                        fontWeight: 700, fontSize: '.7em', textTransform: 'uppercase',
+                        letterSpacing: '.05em', color: '#555', padding: '3px 6px 1px',
+                      }}>
+                        {g.label}
+                      </td>
+                    </tr>
+                  )}
+                  <WeaponSection title={tFn(lang, 'ranged')} weapons={gi === 0 ? [...g.ranged, ...armRanged] : g.ranged} />
+                  <WeaponSection title={tFn(lang, 'melee')}  weapons={gi === 0 ? [...g.melee,  ...armMelee]  : g.melee}  />
+                </Fragment>
+              ))}
             </tbody>
           </table>
 

@@ -7,7 +7,7 @@ import {
 } from './archetypes';
 import { applyVariantSlotOverride } from './slotOverrides';
 import { validateSpaceMarines } from './validators/index';
-import { findArmoryItem, isOptionAvailable } from './resolver';
+import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
@@ -38,6 +38,36 @@ function getSlotUsage(
     if (u?.advisor && engagement !== 'skirmish') return false;
     const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
     return effSlot === slot;
+  }).length;
+}
+
+/**
+ * Strict "Infantry" unit-type check for the Dedicated Transport AOP cap (Custom40k Missions:
+ * "ᵀ A dedicated transport vehicle may be chosen for each 'Infantry' type selection"). Per the
+ * 2026-06-08 designer clarification, Infantry-ACTING subtypes (Bike, Jump Pack Infantry,
+ * Character Model, Jet Bike, Monstrous Infantry, etc.) count as Infantry for other rules but
+ * NOT for this one — only an effective unit_type of exactly "Infantry" (no added types via
+ * `adds_unit_types`, no replacement via `set_unit_type`) counts.
+ */
+function isStrictInfantrySelection(item: RosterEntry, data: FactionData, state: ArmyState): boolean {
+  const u = resolveUnit(item, data);
+  if (!u) return false;
+  const rp = resolveUnitProfile(item, u, state, data);
+  if (rp.optionAddedUnitTypes.length > 0) return false;
+  return (rp.optionSetUnitType ?? u.unit_type).trim() === 'Infantry';
+}
+
+/**
+ * Count of strict-"Infantry" selections, which derives the dynamic Dedicated Transport AOP cap
+ * (see isStrictInfantrySelection). `countAllied` scopes the count to the allied detachment's
+ * own selections (its mini-AOP is fully self-contained) vs. the main army (excluding allied
+ * units) — mirrors getSlotUsage's countAllied parameter.
+ */
+function countInfantrySelections(state: ArmyState, data: FactionData, countAllied: boolean): number {
+  return state.army.filter(i => {
+    const isAllied = !!(i.factionSource && i.factionSource === state.alliedFaction);
+    if (isAllied !== countAllied) return false;
+    return isStrictInfantrySelection(i, data, state);
   }).length;
 }
 
@@ -242,10 +272,10 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   }
 
   // ── Character joining (only one per unit, unless "Command Squad") ────────
-  // Core Rules glossary, "Command Squad": "Models with this ability can join: a single
-  // character / a squad that already has a character attached" — implying the GENERAL
-  // rule is the inverse: only one character may be attached to a unit at a time, and
-  // any character joining a unit that already has one needs this ability.
+  // Core Rules glossary, "Command Squad": "Models with this ability can join a squad, or
+  // attach to a single character on its own" — the GENERAL rule remains the inverse: only
+  // one character may be attached to a unit at a time, and any additional character
+  // joining the same unit needs this ability.
   {
     const joinTargets = new Map<string, RosterEntry[]>();
     for (const item of state.army) {
@@ -657,54 +687,34 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
-  // Legacy of the Alien Hunters: Inquisitors must select "Ordo Xenos" in their armory
-  // SOURCE: "The army has access to the Death Watch Armory, Inquisitors and Inquisition units.
-  //          Inquisitors must select 'Ordo Xenos' in the armory."
-  if ([state.legacy, state.legacy2].includes('Legacy of the Alien Hunters')) {
-    for (const item of state.army) {
-      if (item.factionSource !== 'inquisition' || item.unitName !== 'Inquisitor') continue;
-      if (!item.armory.some(a => a.itemName === 'Ordo Xenos')) {
-        items.push({
-          type: 'error',
-          text: `Legacy of the Alien Hunters: ${item.customName || item.unitName} must select "Ordo Xenos" in the armory.`,
-        });
-      }
+  // Legacy of the Alien Hunters: RETIRED v0.71 — the 2026-06-14 .ods redefined this Legacy to
+  // be a plain armory+universal-equipment grant only ("The army has access to the Death Watch
+  // Armory and each model may receive the 'Special ammunition' equipment..."), no longer
+  // mentioning Inquisitors/Inquisition/Ordo Xenos at all. The old "must select Ordo Xenos"
+  // validator and `grants_faction: 'inquisition'` are both removed; Inquisition access now
+  // comes from the new "Chamber Militant" archetype below (see chamberMilitantOrdo() in
+  // engine/keywords.ts).
+
+  // Chamber Militant (Space Marines): "Must select 'Legacy of the Alien Hunters'."
+  // SOURCE: 2026-06-14 .ods Army Customisation sheet R6.
+  if (state.archetype === 'Chamber Militant' && data.faction === 'Space Marines') {
+    if (![state.legacy, state.legacy2].includes('Legacy of the Alien Hunters')) {
+      items.push({
+        type: 'error',
+        text: 'Chamber Militant: must select "Legacy of the Alien Hunters" as Legacy.',
+      });
     }
   }
 
-  // Demon Hunters (Grey Knights): Inquisitors must select "Ordo Malleus" in their armory.
-  // SOURCE: Grey Knights special rule "Demon Hunters" + Inquisition.ods (Index sheet, Designer's
-  // note): "Grey Knights ... armies ... may include Inquisition units as if they were part of
-  // their own army" — mirrors the SM "Legacy of the Alien Hunters" → Ordo Xenos pattern, but
-  // the forced Ordo here is Malleus (daemon-hunting), not Xenos. Always-on (no Legacy needed).
-  if (data.faction === 'Grey Knights') {
-    for (const item of state.army) {
-      if (item.factionSource !== 'inquisition' || item.unitName !== 'Inquisitor') continue;
-      if (!item.armory.some(a => a.itemName === 'Ordo Malleus')) {
-        items.push({
-          type: 'error',
-          text: `Demon Hunters: ${item.customName || item.unitName} must select "Ordo Malleus" in the armory.`,
-        });
-      }
-    }
-  }
+  // Demon Hunters (Grey Knights): RETIRED v0.71 — superseded by the "Chamber Militant"
+  // archetype (2026-06-14 .ods Army Customisation sheet R5), which is opt-in and grants
+  // Inquisition access "as if 'Ordo Malleus' was selected as Legacy" automatically (no
+  // per-model armory pick required). See chamberMilitantOrdo() in engine/keywords.ts.
 
-  // Witch hunters (Adepta Sororitas): Inquisitors must select "Ordo Hereticus" in their armory.
-  // SOURCE: Adepta Sororitas special rule "Witch hunters" + Inquisition.ods (Index sheet,
-  // Designer's note): "... Adepta Sororitas ... armies ... may include Inquisition units as if
-  // they were part of their own army" — mirrors the SM "Legacy of the Alien Hunters" → Ordo
-  // Xenos pattern, but the forced Ordo here is Hereticus (heretic-hunting). Always-on.
-  if (data.faction === 'Adeptus Sororitas') {
-    for (const item of state.army) {
-      if (item.factionSource !== 'inquisition' || item.unitName !== 'Inquisitor') continue;
-      if (!item.armory.some(a => a.itemName === 'Ordo Hereticus')) {
-        items.push({
-          type: 'error',
-          text: `Witch hunters: ${item.customName || item.unitName} must select "Ordo Hereticus" in the armory.`,
-        });
-      }
-    }
-  }
+  // Witch hunters (Adepta Sororitas): RETIRED v0.71 — superseded by the "Chamber Militant"
+  // archetype (2026-06-14 .ods Army Customisation sheet R5), which is opt-in and grants
+  // Inquisition access "as if 'Ordo Hereticus' was selected as Legacy" automatically (no
+  // per-model armory pick required). See chamberMilitantOrdo() in engine/keywords.ts.
 
   // Inquisition: Ordo allegiance items are mutually exclusive per model.
   // SOURCE: each Ordo item's desc — "Every model can only pick one Ordo allegiance."
@@ -719,6 +729,61 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         items.push({
           type: 'error',
           text: `${item.customName || item.unitName}: can only pick one Ordo allegiance (has ${picked.join(', ')}).`,
+        });
+      }
+    }
+  }
+
+  // Inquisition: Ordo Minoris — each Character may select at most 1 item total from the
+  // combined Ordo Hereticus/Malleus/Xenos Armory.
+  // SOURCE: archetypes.json Legacy "Ordo Minoris" — "Every character model in the army may
+  // select a single item from either the Ordo Hereticus, Malleus or Xenos Armory."
+  // (The Legacy's second clause — "...the army may include a single Ordo Hereticus, Malleus
+  // or Xenos Warband" — is now MOOT: v0.66 merged the 3 per-Ordo Warbands into one
+  // Ordo-agnostic "Henchman Warband" with no Ordo gating, so there is nothing left to cap;
+  // see ki-inquisition-ordo-minoris-caps-unenforced-01 resolution.)
+  if (data.faction === 'Inquisition' && [state.legacy, state.legacy2].includes('Ordo Minoris')) {
+    const ORDO_GATED_ITEMS = new Set<string>();
+    for (const section of ['weapons', 'equipment', 'daemon_weapons'] as const) {
+      for (const item of data.armory_general[section] ?? []) {
+        if (item.requires_army_item && ['Ordo Hereticus', 'Ordo Malleus', 'Ordo Xenos'].includes(item.requires_army_item)) {
+          ORDO_GATED_ITEMS.add(item.name);
+        }
+      }
+    }
+    for (const item of state.army) {
+      const u = resolveUnit(item, data);
+      if (!u?.is_character) continue;
+      const picked = item.armory.filter(a => ORDO_GATED_ITEMS.has(a.itemName));
+      if (picked.length > 1) {
+        items.push({
+          type: 'error',
+          text: `${item.customName || item.unitName}: Ordo Minoris allows only 1 item from the Ordo Hereticus/Malleus/Xenos Armory (has ${picked.map(a => a.itemName).join(', ')}).`,
+        });
+      }
+    }
+  }
+
+  // Henchman Warband: dynamic specialist-model cap (6, or 12 if attached to an Inquisitor Lord).
+  // SOURCE: Inquisition.ods "Henchman Warband" — "An Inquisitor may select up to 6 specialist
+  // models for their Warband. An Inquisitor Lord may select up to 12 specialist models for
+  // their Warband."
+  {
+    const hasInquisitorLord = state.army.some(item => {
+      if (item.unitName !== 'Inquisitor') return false;
+      const u = resolveUnit(item, data);
+      if (!u) return false;
+      return u.option_groups.some((g, gi) =>
+        g.variant_link === 'Inquisitor Lord' && !!(item.optionQty?.[gi]?.['__inline']),
+      );
+    });
+    const cap = hasInquisitorLord ? 12 : 6;
+    for (const item of state.army) {
+      if (item.unitName !== 'Henchman Warband') continue;
+      if (item.size > cap) {
+        items.push({
+          type: 'error',
+          text: `Henchman Warband: up to ${cap} specialist models${hasInquisitorLord ? ' (Inquisitor Lord)' : ''} (have ${item.size}).`,
         });
       }
     }
@@ -1087,9 +1152,13 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       : slot === 'Elites' ? assassinFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
-    const effMax = (slot === 'HQ' && rule?.hqOverride)
-      ? engMax
-      : (eng.multiAop ? engMax * aopMult : engMax);
+    // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not
+    // the flat eng.aop value (Skirmish's flat "0-1" is correct as-is and untouched).
+    const effMax = (slot === 'Dedicated Transport' && (state.engagement === 'pitched' || state.engagement === 'epic'))
+      ? countInfantrySelections(state, data, false)
+      : (slot === 'HQ' && rule?.hqOverride)
+        ? engMax
+        : (eng.multiAop ? engMax * aopMult : engMax);
     if (used > effMax) {
       items.push({ type: 'error', text: `${slot} over maximum (${used}/${effMax}).` });
     }
@@ -1108,9 +1177,14 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: `Allied detachment: need at least ${min} ${slot} (have ${used}).` });
         }
-        if (max === 0 && used > 0) {
+        if (slot === 'Dedicated Transport') {
+          const alliedMax = countInfantrySelections(state, data, true);
+          if (used > alliedMax) {
+            items.push({ type: 'error', text: `Allied detachment: Dedicated Transport over maximum (${used}/${alliedMax}).` });
+          }
+        } else if (max === 0 && used > 0) {
           items.push({ type: 'error', text: `Allied detachment: ${slot} not allowed (have ${used}).` });
-        } else if (max > 0 && slot !== 'Dedicated Transport' && used > max) {
+        } else if (max > 0 && used > max) {
           items.push({ type: 'error', text: `Allied detachment: ${slot} over maximum (${used}/${max}).` });
         }
       }

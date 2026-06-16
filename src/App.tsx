@@ -12,7 +12,7 @@ import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
-import { getAssassinAccessAlignment } from './engine/keywords';
+import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
 import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
@@ -211,11 +211,12 @@ export default function App() {
 
   // Auto-load faction data required by the active archetype (e.g. Legion → horus_heresy),
   // by a Legacy that grants its own units (e.g. Legacy of the Alien Hunters → inquisition),
-  // by an always-on intrinsic-ally codex rule (e.g. GK "Demon Hunters" / Sororitas
-  // "Witch hunters" → inquisition, per Inquisition.ods Designer's note — own army, no [Allied]),
-  // or by the Assassins' OWN universal "Cults Abominatioe"/"Execution Force" grant (any
-  // Chaos or Imperial army gets native Elites access to the 4-unit Assassins catalog —
-  // data/source/Assassins ENG/Index.html, see getAssassinAccessAlignment for grounding).
+  // by the "Chamber Militant" archetype (GK/Sororitas/SM → inquisition, per the 2026-06-14
+  // .ods Army Customisation sheets — own army, no [Allied] badge, see chamberMilitantOrdo),
+  // by any other always-on intrinsic-ally codex rule, or by the Assassins' OWN universal
+  // "Cults Abominatioe"/"Execution Force" grant (any Chaos or Imperial army gets native
+  // Elites access to the 4-unit Assassins catalog — data/source/Assassins ENG/Index.html,
+  // see getAssassinAccessAlignment for grounding).
   useEffect(() => {
     if (!data) return;
     const rule = getArchetypeRule(archetype);
@@ -223,8 +224,9 @@ export default function App() {
       .map(name => data.legacies.find(l => l.name === name)?.grants_faction)
       .find((k): k is string => !!k);
     const assassinKey = getAssassinAccessAlignment(data.faction) ? 'assassins' : null;
+    const chamberMilitantKey = chamberMilitantOrdo(data.faction, archetype) ? 'inquisition' : null;
     const keys = [...new Set(
-      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey]
+      [rule?.alliedFaction, legacyGrant, ...(data.intrinsic_allies ?? []), assassinKey, chamberMilitantKey]
         .filter((k): k is string => !!k)
     )];
     for (const key of keys) {

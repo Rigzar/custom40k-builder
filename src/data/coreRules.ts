@@ -259,7 +259,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'command squad': {
     name: 'Command Squad',
-    description: 'Models with this ability can join a single character, or a squad that already has a character attached.',
+    description: 'Models with this ability can join a squad, or attach to a single character on its own.',
   },
   'counter-attack': {
     name: 'Counter-Attack',
@@ -460,7 +460,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'ambush': {
     name: 'Ambush',
-    description: 'For each started 500 points of game size, one Ambush marker may be placed after all Infiltrators deploy but before the first battle round — at least 12" from any enemy. Units with Ambush arriving from reserves may deploy within 3" of a marker with any order. Units with Ambush may also embark into a marker like a transport and enter reserves, automatically arriving next Reinforcement phase.',
+    description: 'For each started 500 points of game size, one Ambush marker may be placed after all Infiltrators deploy but before the first battle round — at least 12" from any enemy unit and at least 6" from a mission objective or another Ambush marker. Units with Ambush arriving from reserves may deploy within 3" of a marker with any order (these count towards the reserves-arrival limit). Units with Ambush may also embark into a marker like a transport and enter reserves, automatically arriving next Reinforcement phase. If an enemy unit is within 3" of an Ambush marker during the Reinforcement phase, the marker is removed for the rest of the game.',
   },
   'canticles of the omnissiah': {
     name: 'Canticles of the Omnissiah',
@@ -468,7 +468,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'instinctive behaviour': {
     name: 'Instinctive Behaviour',
-    description: 'If the unit is outside Synapse range during the Rally phase and has no Battleshock token, it gains one. This token can only be removed by being in Synapse range during the next Rally phase. If such a unit must flee, it moves toward the nearest Synapse unit.',
+    description: 'If the unit is outside Synapse range during the Rally phase and has no Battleshock token, it gains one. This token can only be removed by being in Synapse range during the next Rally phase. If such a unit must flee, it moves toward the nearest Synapse unit. Units that start the battle round off the board in reserves count as being within Synapse range during that Rally phase (but not afterwards).',
   },
   'synapse': {
     name: 'Synapse',

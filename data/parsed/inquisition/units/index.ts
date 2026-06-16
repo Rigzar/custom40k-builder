@@ -15,14 +15,14 @@ import * as troops from './troops/index';
 export const units: Record<string, import('../../../../src/types/data').Unit> = {
   "Inquisitor": hq.inquisitor,
   "Arbites": troops.arbites,
-  "Ordo Hereticus Warband": troops.ordoHereticusWarband,
-  "Ordo Malleus Warband": troops.ordoMalleusWarband,
-  "Ordo Xenos Warband": troops.ordoXenosWarband,
+  "Henchman Warband": troops.henchmanWarband,
   "Stormtroopers": troops.stormtroopers,
   "Deathcult Assassins": elites.deathcultAssassins,
   "Land Raider Prometheus": heavySupport.landRaiderPrometheus,
+  "Land Raider": heavySupport.landRaider,
   "Corvus Blackstar": dedicatedTransport.corvusBlackstar,
   "Chimera": dedicatedTransport.chimera,
+  "Repressor": dedicatedTransport.repressor,
   "Rhino": dedicatedTransport.rhino,
   "Taurox": dedicatedTransport.taurox,
   "Valkyrie": dedicatedTransport.valkyrie,
@@ -35,9 +35,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Troops": [
     "Arbites",
-    "Ordo Hereticus Warband",
-    "Ordo Malleus Warband",
-    "Ordo Xenos Warband",
+    "Henchman Warband",
     "Stormtroopers"
   ],
   "Elites": [
@@ -45,11 +43,13 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fast Attack": [],
   "Heavy Support": [
-    "Land Raider Prometheus"
+    "Land Raider Prometheus",
+    "Land Raider"
   ],
   "Dedicated Transport": [
     "Corvus Blackstar",
     "Chimera",
+    "Repressor",
     "Rhino",
     "Taurox",
     "Valkyrie"

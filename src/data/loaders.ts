@@ -160,10 +160,10 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/adeptus_sororitas/armory/legion_order.json'),
         import('../../data/parsed/adeptus_sororitas/psychic/prayers.json'),
       ]);
-      // Witch hunters (Sororitas special rule, Inquisition.ods Index/Designer's note): Inquisition
-      // units are included "as if part of their own army" — own roster, no [Allied] badge.
-      return asm(u, g, arch, noRules, {}, { 'Order': leg }, { prayers })
-        .then(fd => ({ ...fd, intrinsic_allies: ['inquisition'] }));
+      // "Chamber Militant" archetype (replaces the old always-on "Witch hunters" rule):
+      // Inquisition units are included "as if part of their own army" — own roster, no
+      // [Allied] badge — only when that archetype is selected. See chamberMilitantOrdo().
+      return asm(u, g, arch, noRules, {}, { 'Order': leg }, { prayers });
     }
 
     case 'grey_knights': {
@@ -174,19 +174,21 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/grey_knights/psychic/prayers.json'),
         import('../../data/parsed/grey_knights/psychic/disciplines.json'),
       ]);
-      // Demon Hunters (GK special rule, Inquisition.ods Index/Designer's note): Inquisition
-      // units are included "as if part of their own army" — own roster, no [Allied] badge.
-      return asm(u, g, arch, noRules, {}, {}, { prayers, disciplines: discs })
-        .then(fd => ({ ...fd, intrinsic_allies: ['inquisition'] }));
+      // "Chamber Militant" archetype (replaces the old always-on "Demon Hunters" rule):
+      // Inquisition units are included "as if part of their own army" — own roster, no
+      // [Allied] badge — only when that archetype is selected. See chamberMilitantOrdo().
+      return asm(u, g, arch, noRules, {}, {}, { prayers, disciplines: discs });
     }
 
     case 'inquisition': {
-      const [u, g, discs] = await Promise.all([
+      const [u, g, arch, discs, prayers] = await Promise.all([
         import('../../data/parsed/inquisition/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/inquisition/armory/general.json'),
+        import('../../data/parsed/inquisition/archetypes.json'),
         import('../../data/parsed/inquisition/psychic/disciplines.json'),
+        import('../../data/parsed/inquisition/psychic/prayers.json'),
       ]);
-      return asm(u, g, noArch, noRules, {}, {}, { disciplines: discs });
+      return asm(u, g, arch, noRules, {}, {}, { disciplines: discs, prayers });
     }
 
     case 'assassins': {

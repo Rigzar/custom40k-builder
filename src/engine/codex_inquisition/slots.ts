@@ -26,12 +26,11 @@ export const INQ_SLOTS: InqSlotEntry[] = [
   // --- HQ (1) ---
   { name: 'Inquisitor', slot: 'HQ' },
 
-  // --- Troops (5) — incl. the 3 Ordo Warbands (plain Troops datasheets, NOT archetypes;
-  //     each gated `requires_army_item: "Ordo X"` on the matching Inquisitor — digest §5) ---
+  // --- Troops (3) — "Henchman Warband" replaces the 3 old Ordo Warbands (v0.66): a single
+  //     optional unit (max 6 specialist models, 12 if attached Inquisitor is an Inquisitor
+  //     Lord), no Ordo gating on individual specialists (digest §12) ---
   { name: 'Arbites', slot: 'Troops' },
-  { name: 'Ordo Hereticus Warband', slot: 'Troops' },
-  { name: 'Ordo Malleus Warband', slot: 'Troops' },
-  { name: 'Ordo Xenos Warband', slot: 'Troops' },
+  { name: 'Henchman Warband', slot: 'Troops' },
   { name: 'Stormtroopers', slot: 'Troops' },
 
   // --- Elites (1) ---

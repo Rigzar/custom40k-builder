@@ -22,9 +22,7 @@ export interface InqUnitTypeEntry {
 export const INQ_UNIT_TYPES: InqUnitTypeEntry[] = [
   { name: 'Inquisitor', unit_type: 'Character Model, Infantry' },
   { name: 'Arbites', unit_type: 'Infantry' },
-  { name: 'Ordo Hereticus Warband', unit_type: 'Infantry' },
-  { name: 'Ordo Malleus Warband', unit_type: 'Infantry' },
-  { name: 'Ordo Xenos Warband', unit_type: 'Infantry' },
+  { name: 'Henchman Warband', unit_type: 'Infantry' },
   { name: 'Stormtroopers', unit_type: 'Infantry' },
   { name: 'Deathcult Assassins', unit_type: 'Infantry' },
   { name: 'Land Raider Prometheus', unit_type: 'Vehicle' },

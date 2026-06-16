@@ -13,12 +13,12 @@ export const corvusBlackstar: Unit = {
   "models": [
     {
       "name": "Corvus Blackstar",
-      "points": 343,
+      "points": 341,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
-        "WS": "-",
+        "WS": "6+",
         "BS": "3+",
         "S": "6",
         "FRONT": "12",
@@ -31,8 +31,26 @@ export const corvusBlackstar: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Corvus Blackstar is equipped with: Twin assault cannon; Twin Blackstar rocket launcher.",
+  "equipped_with": "A Corvus Blackstar is equipped with: Blackstar cluster launcher; Twin assault cannon; Twin Blackstar rocket launcher.",
   "weapons": [
+    {
+      "name": "Blackstar cluster launcher - Frag cluster",
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Bomb, Barrage"
+    },
+    {
+      "name": "Blackstar cluster launcher - Infernus cluster",
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Bomb, Explosive, Sunder(1)"
+    },
     {
       "name": "Hurricane bolt gun",
       "range": "24\"",
@@ -43,13 +61,13 @@ export const corvusBlackstar: Unit = {
       "abilities": "-"
     },
     {
-      "name": "Stormstrike missiles",
+      "name": "Stormstrike missile launcher",
       "range": "72\"",
       "type": "Heavy 1",
       "s": "8",
       "ap": "-3",
       "d": "3",
-      "abilities": "Anti-Air, AT(2)"
+      "abilities": "Anti-air, AT(2)"
     },
     {
       "name": "Twin assault cannon",
@@ -61,13 +79,31 @@ export const corvusBlackstar: Unit = {
       "abilities": "Armor piercing(5+)"
     },
     {
+      "name": "Twin Blackstar rocket launcher - Corvid",
+      "range": "30\"",
+      "type": "Heavy 2",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Anti-Air, Explosive"
+    },
+    {
+      "name": "Twin Blackstar rocket launcher - Dracos",
+      "range": "30\"",
+      "type": "Heavy 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Barrage, Seeking"
+    },
+    {
       "name": "Twin lascannon",
       "range": "48\"",
       "type": "Heavy 2",
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(3)"
+      "abilities": "AT(2)"
     }
   ],
   "option_groups": [
@@ -94,7 +130,7 @@ export const corvusBlackstar: Unit = {
       "choices": [
         {
           "name": "Stormstrike missile launcher",
-          "points": 18
+          "points": 37
         }
       ],
       "inline_pts": null,
@@ -110,11 +146,32 @@ export const corvusBlackstar: Unit = {
       "inline_pts": 32,
       "variant_link": null,
       "is_unique_per_army": false
+    },
+    {
+      "header": "May be equipped with one of the following",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Infernum Halo-launcher",
+          "points": 5
+        },
+        {
+          "name": "Auspex array",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
     }
   ],
   "abilities": [
     "Anti-Grav, Fast, Hover mode",
-    "Infernum halo-launcher: Enemy weapons do not get any bonus for \"Anti-Air\" abilities.",
+    "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
+    "Auspex array: All ranged weapons equipped by this vehicle gain the \"Sunder(1)\" ability.",
+    "Infernum Halo-launcher: Enemy weapons do not get any bonus for \"Anti-Air\" abilities.",
     "Transport: This model has a transport capacity of 12 infantry models. Cannot transport models with the \"Massive\" ability."
   ],
   "unit_type": "Flyer, Vehicle",
@@ -132,5 +189,5 @@ export const corvusBlackstar: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 343
+  "min_cost": 341
 };
