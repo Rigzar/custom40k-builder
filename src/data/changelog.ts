@@ -25,6 +25,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.75',
+    date: '2026-06-17',
+    title: { en: 'Inquisition: armory access audit — vehicles and champion-only units corrected' },
+    changes: { en: [
+      'Inquisition — Vehicles: all 8 vehicle units (Rhino, Chimera, Repressor, Taurox, Valkyrie, Corvus Blackstar, Land Raider, Land Raider Prometheus) now have has_armory_access:true, enabling the vehicle equipment tab (Additional armor, Hunter-killer missile, Improved targeting, Jammer, Smoke Launcher). A prior cross-faction pass had incorrectly set them to false.',
+      'Inquisition — Arbites: corrected to has_armory_access:false + champion_has_armory:true — only the Proctor has armory access per the codex, not the whole unit.',
+      'Inquisition — Stormtroopers: same correction — only the Stormtrooper Veteran has armory access per the codex.',
+    ]},
+  },
+  {
     version: '0.74',
     date: '2026-06-17',
     title: { en: 'Engine: archetype-scoped option group gating (data-driven, faction-agnostic)' },
