@@ -104,7 +104,7 @@
           }
         }
       ],
-      "equipped_with": "An Autarch is equipped with: Plasma grenades.",
+      "equipped_with": "An Autarch is equipped with: Plasma grenade.",
       "weapons": [
         {
           "name": "Plasma grenade",
@@ -184,7 +184,26 @@
       ],
       "variant_models": [],
       "equipped_with": "An Avatar of Khaine is equipped with: The Wailing Doom.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "The Wailing Doom - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "The Wailing Doom - Ranged",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "3",
+          "abilities": "Armorbane, Beam"
+        }
+      ],
       "option_groups": [
         {
           "header": "Only one Avatar of Khaine per army.",
@@ -270,7 +289,7 @@
           }
         }
       ],
-      "equipped_with": "A Farseer is equipped with: Plasma grenades.",
+      "equipped_with": "A Farseer is equipped with: Plasma grenade.",
       "weapons": [
         {
           "name": "Plasma grenade",
@@ -349,7 +368,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Spiritseer is equipped with: Plasma grenades.",
+      "equipped_with": "A Spiritseer is equipped with: Plasma grenade.",
       "weapons": [
         {
           "name": "Plasma grenade",
@@ -481,6 +500,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(3), Graviton"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -967,6 +1004,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -1053,7 +1108,26 @@
       ],
       "variant_models": [],
       "equipped_with": "Every Ranger is equipped with: Ranger long rifle; Shuriken pistol.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Ranger long rifle",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "5",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Shuriken pistol",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
+        }
+      ],
       "option_groups": [
         {
           "header": "For every 5 Rangers, 1 model can be equipped with",
@@ -1324,6 +1398,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -1365,7 +1457,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1782,7 +1874,7 @@
           }
         }
       ],
-      "equipped_with": "Every Dire Avenger is equipped with: Avenger shuriken catapult; Plasma grenades.",
+      "equipped_with": "Every Dire Avenger is equipped with: Avenger shuriken catapult; Plasma grenade.",
       "weapons": [
         {
           "name": "Avenger shuriken catapult",
@@ -2124,6 +2216,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Shuriken"
+        },
+        {
+          "name": "Triskele - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Triskele - Shooting",
+          "range": "12\"",
+          "type": "Pistol 3",
+          "s": "4",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
         }
       ],
       "option_groups": [
@@ -2284,6 +2394,24 @@
           "ap": "-3",
           "d": "1",
           "abilities": "AT(1), Ghostlight"
+        },
+        {
+          "name": "Prism rifle - Dispersed",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Prism rifle - Focused",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Ghostlight"
         }
       ],
       "option_groups": [
@@ -2421,6 +2549,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Shuriken"
+        },
+        {
+          "name": "Scorpion claw - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Slow(-1)"
+        },
+        {
+          "name": "Scorpion claw - Shooting",
+          "range": "12\"",
+          "type": "Pistol 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shuriken"
         }
       ],
       "option_groups": [
@@ -2502,7 +2648,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Warlock is equipped with: Plasma grenades.",
+      "equipped_with": "A Warlock is equipped with: Plasma grenade.",
       "weapons": [
         {
           "name": "Plasma grenade",
@@ -2815,6 +2961,24 @@
           "ap": "-2",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -2967,6 +3131,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -3011,7 +3193,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3092,6 +3274,60 @@
           "ap": "0",
           "d": "1",
           "abilities": "Shuriken"
+        },
+        {
+          "name": "Laser lance - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Quick(+1), Can only be used with a charge order"
+        },
+        {
+          "name": "Laser lance - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
+        },
+        {
+          "name": "Laser lance - Ranged",
+          "range": "6\"",
+          "type": "Pistol",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Star lance - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+5",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Quick(+1), Can only be used with a charge order"
+        },
+        {
+          "name": "Star lance - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "AT(2), Unwieldy"
+        },
+        {
+          "name": "Star lance - Ranged",
+          "range": "6\"",
+          "type": "Pistol",
+          "s": "8",
+          "ap": "-4",
+          "d": "1",
+          "abilities": "AT(2)"
         }
       ],
       "option_groups": [
@@ -3823,6 +4059,42 @@
           "ap": "-2",
           "d": "1",
           "abilities": "Barrage, Indirect fire, Suppression"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
+        },
+        {
+          "name": "Reaper missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Reaper missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -3971,6 +4243,24 @@
           "ap": "0",
           "d": "1",
           "abilities": "Shuriken"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -4028,7 +4318,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4081,6 +4371,33 @@
           "ap": "0",
           "d": "1",
           "abilities": "Shuriken"
+        },
+        {
+          "name": "Prism cannon - Dispersed",
+          "range": "60\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Barrage, Suppression"
+        },
+        {
+          "name": "Prism cannon - Focused",
+          "range": "60\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Prism cannon - Lance",
+          "range": "60\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-5",
+          "d": "4",
+          "abilities": "AT(4), Beam, Decimate, Lance(+2)"
         }
       ],
       "option_groups": [
@@ -4109,7 +4426,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4199,7 +4516,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4375,6 +4692,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -4416,7 +4751,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4505,6 +4840,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Twin Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Twin Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -4562,7 +4915,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4692,7 +5045,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4759,7 +5112,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4830,6 +5183,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Phoenix missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Phoenix missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
         }
       ],
       "option_groups": [
@@ -4863,7 +5234,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5008,12 +5379,14 @@
         "Soundquake: To wound rolls of 3+ against creatures always succeed. If this weapon targets a vehicle, it suffers one automatic hit at Strength 1 that rolls 3D6 for armor penetration."
       ],
       "unit_type": "Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5116,7 +5489,9 @@
               "points": 347
             }
           ],
-          "replaces": ["Twin pulse laser"],
+          "replaces": [
+            "Twin pulse laser"
+          ],
           "inline_pts": null,
           "variant_link": null,
           "is_unique_per_army": false
@@ -5128,12 +5503,14 @@
         "Transport: This model has a transport capacity of 30 infantry models. When equipped with Pulsars and Phoenix missile launchers, it has a transport capacity of 0 infantry models."
       ],
       "unit_type": "Super-heavy Flyer, Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5227,12 +5604,14 @@
         "Anti-Grav, Battle Focus"
       ],
       "unit_type": "Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5348,7 +5727,10 @@
               "points": 264
             }
           ],
-          "replaces": ["Scatter shield", "Sword of Vaul"],
+          "replaces": [
+            "Scatter shield",
+            "Sword of Vaul"
+          ],
           "inline_pts": null,
           "variant_link": null,
           "is_unique_per_army": false
@@ -5384,7 +5766,10 @@
         "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
       ],
       "unit_type": "Gargantuan Creature",
-      "keywords": ["Lord of War", "Wraith"],
+      "keywords": [
+        "Lord of War",
+        "Wraith"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": true,

@@ -1,0 +1,10 @@
+export { abberants } from './abberants';
+export { abominant } from './abominant';
+export { biophagus } from './biophagus';
+export { clamavus } from './clamavus';
+export { nexos } from './nexos';
+export { purestrainGenestealers } from './purestrain_genestealers';
+export { reductusSaboteur } from './reductus_saboteur';
+export { sanctus } from './sanctus';
+export { kelermorph } from './kelermorph';
+export { locus } from './locus';

@@ -1,0 +1,1 @@
+export { tyrannocyte } from './tyrannocyte';

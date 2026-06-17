@@ -273,10 +273,12 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Traitor Guard': { ...BASE,
+  'Traitor Guard': { ...BASE, noLegacy: true,
     notes: [
-      'Treated as Allies of Convenience for Chaos Space Marines.',
-      'All units may purchase a Mark of Chaos: +1 pt/model Khorne or Slaanesh, +2 pts/model Nurgle or Tzeentch; vehicles +10 pts.',
+      'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
+      'All units may purchase a Mark of Chaos: +1 pt/model Khorne or Slaanesh, +2 pts/model Nurgle or Tzeentch; vehicles +10 pts each.',
+      'Models with Armory access may also use the Chaos Space Marine Armory.',
+      'No Legacy may be selected.',
     ],
   },
 

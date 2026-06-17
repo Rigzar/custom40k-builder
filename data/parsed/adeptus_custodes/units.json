@@ -432,6 +432,24 @@
           "ap": "-2",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Relic interceptor lance - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Quick(+1), Can only be used with a Charge order"
+        },
+        {
+          "name": "Relic interceptor lance - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Unwieldy"
         }
       ],
       "option_groups": [
@@ -1062,6 +1080,42 @@
           "ap": "-3",
           "d": "2",
           "abilities": "-"
+        },
+        {
+          "name": "Galatus warblade - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Flurry(1)"
+        },
+        {
+          "name": "Galatus warblade - Ranged",
+          "range": "12\"",
+          "type": "Pistol 8",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Achillus dreadspear - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Quick(1)"
+        },
+        {
+          "name": "Achillus dreadspear - Ranged",
+          "range": "24\"",
+          "type": "Pistol 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
         }
       ],
       "option_groups": [
@@ -1072,7 +1126,7 @@
           },
           "choices": [
             {
-              "name": "Achilles dreadspear & 2 Infernus incinerators",
+              "name": "Achillus dreadspear & 2 Infernus incinerators",
               "points": 13
             }
           ],
@@ -1111,7 +1165,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1312,7 +1366,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1365,6 +1419,24 @@
           "ap": "-5",
           "d": "2",
           "abilities": "AT(2), Armorbane"
+        },
+        {
+          "name": "Interceptor lance - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Quick(+1), Can only be used with a Charge order"
+        },
+        {
+          "name": "Interceptor lance - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
         }
       ],
       "option_groups": [
@@ -1484,6 +1556,24 @@
           "ap": "-2",
           "d": "2",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Interceptor lance - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Quick(+1), Can only be used with a Charge order"
+        },
+        {
+          "name": "Interceptor lance - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Unwieldy"
         }
       ],
       "option_groups": [
@@ -1616,7 +1706,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1687,6 +1777,24 @@
           "ap": "-3",
           "d": "3",
           "abilities": "AT(3), Flurry(1)"
+        },
+        {
+          "name": "Arachnus storm cannon - Beam",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(2), Beam"
+        },
+        {
+          "name": "Arachnus storm cannon - Burst",
+          "range": "24\"",
+          "type": "Heavy 6",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
         }
       ],
       "option_groups": [
@@ -1720,7 +1828,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1754,7 +1862,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Land Raider is a single model and equipped with: 2 Twin lascannonn; Twin heavy bolter.",
+      "equipped_with": "A Land Raider is a single model and equipped with: 2 Twin lascannon; Twin heavy bolter.",
       "weapons": [
         {
           "name": "Multi-melta",
@@ -1827,7 +1935,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1896,7 +2004,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,
@@ -1983,7 +2091,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": true,
       "veteran_required": false,

@@ -530,7 +530,7 @@
               "points": 27
             },
             {
-              "name": "L7 missile launcher",
+              "name": "MPL7 missile launcher",
               "points": 37
             },
             {
@@ -780,6 +780,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Explosive, Graviton"
+        },
+        {
+          "name": "Transmatter inverter - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 3",
+          "s": "7",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Transmatter inverter - Overheating",
+          "range": "24\"",
+          "type": "Heavy 3",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [],
@@ -855,7 +873,7 @@
           "s": "5",
           "ap": "-1",
           "d": "1",
-          "abilities": "Explosive, Indirect, Supression"
+          "abilities": "Explosive, Indirect, Suppression"
         },
         {
           "name": "Twin concussion gauntlet",
@@ -1636,7 +1654,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1689,6 +1707,33 @@
           "ap": "-3",
           "d": "2",
           "abilities": "Explosive, Graviton"
+        },
+        {
+          "name": "SP heavy conversion beamer - Short range",
+          "range": "1\" - 10\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Barrage"
+        },
+        {
+          "name": "SP heavy conversion beamer - Mid range",
+          "range": "11\" - 20\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "SP heavy conversion beamer - Long range",
+          "range": "21\" - 30\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1)"
         }
       ],
       "option_groups": [
@@ -1792,7 +1837,7 @@
           "s": "6",
           "ap": "-2",
           "d": "1",
-          "abilities": "Explosive, Graviton, Indirect, Supression"
+          "abilities": "Explosive, Graviton, Indirect, Suppression"
         }
       ],
       "option_groups": [
@@ -1859,7 +1904,7 @@
       "equipped_with": "A Hekaton Land Fortress is a single model and equipped with: MATR autocannon; Pan spectral scanner; SP heavy conversion beamer; 2 Twin bolt cannons.",
       "weapons": [
         {
-          "name": "Ancestor’s vengeance warhead",
+          "name": "Ancestor's vengeance warhead",
           "range": "36\"",
           "type": "Heavy 3",
           "s": "6",
@@ -1886,7 +1931,7 @@
           "abilities": "AT(4), Beam, Decimate, Tank hunter"
         },
         {
-          "name": "Kin’s wrath warhead",
+          "name": "Kin's wrath warhead",
           "range": "36\"",
           "type": "Heavy 3",
           "s": "6",
@@ -1929,6 +1974,33 @@
           "ap": "-2",
           "d": "2",
           "abilities": "AT(1), Beam"
+        },
+        {
+          "name": "SP heavy conversion beamer - Short range",
+          "range": "1\" - 10\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Barrage"
+        },
+        {
+          "name": "SP heavy conversion beamer - Mid range",
+          "range": "11\" - 20\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "SP heavy conversion beamer - Long range",
+          "range": "21\" - 30\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "AT(1)"
         }
       ],
       "option_groups": [
@@ -2001,7 +2073,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2068,7 +2140,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2185,7 +2257,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,

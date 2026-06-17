@@ -1,0 +1,9 @@
+export { gargoyleBrood } from './gargoyle_brood';
+export { mawloc } from './mawloc';
+export { mucolidSporeCluster } from './mucolid_spore_cluster';
+export { parasiteOfMortrex } from './parasite_of_mortrex';
+export { psychophage } from './psychophage';
+export { pyrovoreBrood } from './pyrovore_brood';
+export { ravenerBrood } from './ravener_brood';
+export { sporeMineCluster } from './spore_mine_cluster';
+export { trygon } from './trygon';

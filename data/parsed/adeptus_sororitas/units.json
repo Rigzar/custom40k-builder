@@ -371,7 +371,26 @@
       ],
       "variant_models": [],
       "equipped_with": "A Living Saint is equipped with: Ardent Blade.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Ardent Blade - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+4",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "Master-crafted, Soul burn(5+)"
+        },
+        {
+          "name": "Ardent Blade - Ranged",
+          "range": "9\"",
+          "type": "Pistol 4",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
+        }
+      ],
       "option_groups": [
         {
           "header": "Only one Living Saint per army.",
@@ -1151,6 +1170,24 @@
           "ap": "-3",
           "d": "1",
           "abilities": "Deadly(5+), Flurry(1), Psi-shock, Unwieldy"
+        },
+        {
+          "name": "Condemnor Bolt pistol - Bolt",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Condemnor Bolt pistol - Stake",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Psi-shock"
         }
       ],
       "option_groups": [
@@ -2777,6 +2814,24 @@
           "ap": "1",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Castigator battle cannon - Pyre shell",
+          "range": "72\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive, Seeking"
+        },
+        {
+          "name": "Castigator battle cannon - Sanctified shell",
+          "range": "72\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(3), Explosive"
         }
       ],
       "option_groups": [
@@ -2815,7 +2870,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2859,6 +2914,24 @@
           "ap": "-2",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Exorcist missile launcher - Conflagration rockets",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Anti-air, Explosive, Indirect, Seeking"
+        },
+        {
+          "name": "Exorcist missile launcher - Exorcist missiles",
+          "range": "48\"",
+          "type": "Heavy 3",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Anti-air, Indirect"
         }
       ],
       "option_groups": [],
@@ -2871,7 +2944,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3277,7 +3350,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3345,7 +3418,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,

@@ -1,0 +1,108 @@
+/**
+ * HARUSPEX — Elites
+ *
+ * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
+ * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ *
+ */
+
+import type { Unit } from '../../../../../src/types/data';
+
+export const haruspex: Unit = {
+  "name": "Haruspex",
+  "models": [
+    {
+      "name": "Haruspex",
+      "points": 200,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "7",
+        "T": "8",
+        "W": "7",
+        "I": "3",
+        "A": "4",
+        "LD": "7",
+        "SV": "2+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every model is equipped with: Crushing claws, Grasping tongue.",
+  "weapons": [
+    {
+      "name": "Crushing claws",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
+      "name": "Grasping tongue",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "6",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "-"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May select one Special Biomorph",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Synaptic Node",
+          "points": 15
+        },
+        {
+          "name": "Regeneration",
+          "points": 35
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Instinctive Behaviour, Move Through Cover, Squadron",
+    "Voracious maw: All attacks of the model gain the \"Blood Drinker\" ability."
+  ],
+  "unit_type": "Monstrous Creature",
+  "keywords": [
+    "Tyranid"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Elites",
+  "default_size": 1,
+  "min_cost": 200,
+  "is_monster": false
+};

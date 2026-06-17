@@ -1,0 +1,10 @@
+export { corsairVoidscarred } from './corsair_voidscarred';
+export { direAvengers } from './dire_avengers';
+export { fireDragons } from './fire_dragons';
+export { howlingBanshees } from './howling_banshees';
+export { shadowSpectres } from './shadow_spectres';
+export { strikingScorpions } from './striking_scorpions';
+export { warlocks } from './warlocks';
+export { wraithblades } from './wraithblades';
+export { wraithguard } from './wraithguard';
+export { wraithlord } from './wraithlord';

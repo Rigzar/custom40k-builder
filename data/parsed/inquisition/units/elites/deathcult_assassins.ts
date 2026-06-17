@@ -13,7 +13,7 @@ export const deathcultAssassins: Unit = {
   "models": [
     {
       "name": "Deathcult Assassin",
-      "points": 28,
+      "points": 23,
       "min": 2,
       "max": 6,
       "stats": {
@@ -25,7 +25,7 @@ export const deathcultAssassins: Unit = {
         "W": "2",
         "I": "5",
         "A": "3",
-        "LD": "8",
+        "LD": "7",
         "SV": "6+"
       }
     }
@@ -45,7 +45,7 @@ export const deathcultAssassins: Unit = {
   ],
   "option_groups": [],
   "abilities": [
-    "Deflect, Infiltrator, Parry",
+    "Infiltrator",
     "Lightning reflexes: The model gains a 5+ invulnerability save."
   ],
   "unit_type": "Infantry",
@@ -63,5 +63,5 @@ export const deathcultAssassins: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 2,
-  "min_cost": 56
+  "min_cost": 46
 };

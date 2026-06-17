@@ -177,7 +177,12 @@ export const ironcladDreadnought: Unit = {
         "type": "fixed_max",
         "max": 2
       },
-      "choices": [],
+      "choices": [
+        {
+          "name": "Hunter-killer missile",
+          "points": 5
+        }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

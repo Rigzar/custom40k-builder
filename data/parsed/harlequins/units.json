@@ -49,7 +49,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Solitaire is equipped with: Great Harlequin weapons.",
+      "equipped_with": "A Great Harlequin is equipped with: Great Harlequin weapons; Plasma grenade.",
       "weapons": [
         {
           "name": "Great Harlequin weapons",
@@ -237,7 +237,7 @@
       "is_monster": false,
       "is_psyker": false,
       "has_armory_access": false,
-      "champion_has_armory": false,
+      "champion_has_armory": true,
       "has_veteran_abilities": false,
       "veteran_required": false,
       "veteran_max": null,
@@ -272,6 +272,24 @@
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Harlequin weapons; Plasma grenade; Shrieker cannon.",
       "weapons": [
+        {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
+        },
         {
           "name": "Bright lance",
           "range": "36\"",
@@ -668,6 +686,24 @@
           "abilities": "Flames"
         },
         {
+          "name": "Aeldari missile launcher - Sunburst",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Aeldari missile launcher - Starshot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-Air, AT(2)"
+        },
+        {
           "name": "Bright lance",
           "range": "36\"",
           "type": "Heavy 1",
@@ -846,6 +882,33 @@
           "abilities": "Explosive, Haywire"
         },
         {
+          "name": "Prismatic cannon - Dispersed",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "3",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Barrage, Suppression"
+        },
+        {
+          "name": "Prismatic cannon - Focused",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "5",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Prismatic cannon - Lance",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(1), Beam, Lance(+1)"
+        },
+        {
           "name": "Shuriken cannon",
           "range": "24\"",
           "type": "Heavy 3",
@@ -883,7 +946,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -942,7 +1005,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,

@@ -209,7 +209,7 @@
           "abilities": "Armor piercing(5+), Flames, Suppression"
         },
         {
-          "name": "Plasma Fusil - Standard",
+          "name": "Plasma fusil - Standard",
           "range": "24\"",
           "type": "Heavy 2",
           "s": "7",
@@ -218,7 +218,7 @@
           "abilities": "AT(1)"
         },
         {
-          "name": "Plasma Fusil - Overheating",
+          "name": "Plasma fusil - Overheating",
           "range": "24\"",
           "type": "Heavy 2",
           "s": "8",
@@ -291,7 +291,7 @@
               "points": 53
             },
             {
-              "name": "Plasma Fusil",
+              "name": "Plasma fusil",
               "points": 55
             },
             {
@@ -499,6 +499,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "Armorbane, AT(1), Deadly(5+)"
+        },
+        {
+          "name": "Plasma caliver - Standard",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma caliver - Overheating",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -661,6 +679,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "Armorbane, AT(1), Deadly(5+)"
+        },
+        {
+          "name": "Plasma caliver - Standard",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma caliver - Overheating",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -1519,6 +1555,24 @@
           "ap": "-3",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Plasma cannon - Standard",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon - Overheating",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         }
       ],
       "option_groups": [
@@ -3110,7 +3164,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3274,7 +3328,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3371,7 +3425,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3436,7 +3490,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3551,7 +3605,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3694,7 +3748,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,

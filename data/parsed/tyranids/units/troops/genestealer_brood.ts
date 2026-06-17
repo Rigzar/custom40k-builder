@@ -1,0 +1,180 @@
+/**
+ * GENESTEALER BROOD — Troops
+ *
+ * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
+ * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ *
+ * PSYKER RULE (from datasheet):
+ *   "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline."
+ *   → Cast/deny limit and discipline access must be derived from this text.
+ *   → ENGINE TODO: enforce power limit and 'chosen discipline' mechanic.
+ */
+
+import type { Unit } from '../../../../../src/types/data';
+
+export const genestealerBrood: Unit = {
+  "name": "Genestealer Brood",
+  "models": [
+    {
+      "name": "Genestealer",
+      "points": 16,
+      "min": 5,
+      "max": 10,
+      "stats": {
+        "M": "6\"",
+        "WS": "2+",
+        "BS": "6+",
+        "S": "4",
+        "T": "4",
+        "W": "1",
+        "I": "6",
+        "A": "3",
+        "LD": "10",
+        "SV": "5+"
+      }
+    }
+  ],
+  "variant_models": [
+    {
+      "name": "Broodlord",
+      "points": 10,
+      "min": 0,
+      "max": 0,
+      "stats": {
+        "M": "6\"",
+        "WS": "2+",
+        "BS": "6+",
+        "S": "5",
+        "T": "5",
+        "W": "3",
+        "I": "7",
+        "A": "4",
+        "LD": "10",
+        "SV": "4+"
+      }
+    }
+  ],
+  "equipped_with": "Every model is equipped with: Piercing claws.",
+  "weapons": [
+    {
+      "name": "Piercing claws",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Armor piercing(5+)"
+    },
+    {
+      "name": "Scything talons",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flurry(1)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "One model may be upgraded to a Broodlord for +52 points.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 52,
+      "variant_link": "Broodlord",
+      "is_unique_per_army": false
+    },
+    {
+      "header": "All models may be equipped with",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Scything talons",
+          "points": 0
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May be upgraded to one of the following",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Ymgarl Genestealers",
+          "points": 0
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May select one Special Biomorph",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Scuttlers",
+          "points": 0
+        },
+        {
+          "name": "Feeder Tendrils",
+          "points": 0
+        },
+        {
+          "name": "Hardened Carapace",
+          "points": 6
+        },
+        {
+          "name": "Endless",
+          "points": 16
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Infiltrator, Move Through Cover",
+    "Psyker: A Broodlord can cast 1 power and deny 1 power per battle round. It knows Smite and two powers from a chosen discipline.",
+    "Ymgarl Genestealers: The unit loses the \"Infiltrate\" ability but may select one of the following improvements during each Reinforcement phase. The bonus is active until the end of the current battle round:\n- +1 Strength\n- +1 Toughness\n- +1 Attack"
+  ],
+  "unit_type": "Infantry",
+  "keywords": [
+    "Tyranid"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": true,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Troops",
+  "default_size": 5,
+  "min_cost": 80,
+  "is_monster": false
+};

@@ -439,7 +439,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -677,7 +677,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -748,6 +748,42 @@
           "ap": "-2",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -1134,7 +1170,7 @@
               "points": 7
             },
             {
-              "name": "Gang sniper",
+              "name": "Gang sniper rifle",
               "points": 9
             }
           ],
@@ -1352,6 +1388,60 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -1621,6 +1711,60 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -1987,6 +2131,60 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -2232,7 +2430,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2550,6 +2748,60 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -3037,6 +3289,42 @@
           "ap": "-5",
           "d": "4",
           "abilities": "AT(4), Lance(2), Tank hunter"
+        },
+        {
+          "name": "Executioner plasma cannon - Standard",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Executioner plasma cannon - Overheating",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
+        },
+        {
+          "name": "Plasma cannon - Standard",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1), Explosive"
+        },
+        {
+          "name": "Plasma cannon - Overheating",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Overheating"
         }
       ],
       "option_groups": [
@@ -3146,7 +3434,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3334,6 +3622,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Explosive, Suppression"
+        },
+        {
+          "name": "Ripper gun - Ranged",
+          "range": "12\"",
+          "type": "Pistol 3",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Ripper gun - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
         }
       ],
       "option_groups": [
@@ -3905,6 +4211,42 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -4063,6 +4405,42 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -4278,6 +4656,42 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -4306,7 +4720,7 @@
               "points": 11
             },
             {
-              "name": "plasma gun",
+              "name": "Plasma gun",
               "points": 16
             },
             {
@@ -4517,6 +4931,60 @@
           "ap": "-2",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -4952,7 +5420,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5168,6 +5636,42 @@
           "ap": "-5",
           "d": "2",
           "abilities": "Unwieldy"
+        },
+        {
+          "name": "Grenade launcher - Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma gun - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Plasma gun - Overheating",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -5434,7 +5938,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5514,6 +6018,24 @@
           "ap": "-3",
           "d": "2",
           "abilities": "-"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -5565,7 +6087,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5713,7 +6235,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5775,6 +6297,24 @@
           "ap": "0",
           "d": "1",
           "abilities": "Suppression"
+        },
+        {
+          "name": "Earthshaker cannon - HE shells",
+          "range": "240\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(3), Barrage, Indirect"
+        },
+        {
+          "name": "Earthshaker cannon - Gas shells",
+          "range": "240\"",
+          "type": "Heavy 1",
+          "s": "1",
+          "ap": "0",
+          "d": "2",
+          "abilities": "Barrage, Poison(2+), Indirect, Seeking"
         }
       ],
       "option_groups": [
@@ -5820,7 +6360,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5959,7 +6499,7 @@
               "points": 12
             },
             {
-              "name": "Vulkite culverin",
+              "name": "Volkite culverin",
               "points": 18
             },
             {
@@ -5978,7 +6518,7 @@
           },
           "choices": [
             {
-              "name": "two Multilaser",
+              "name": "Twin multilaser",
               "points": 2
             },
             {
@@ -6010,7 +6550,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -6114,7 +6654,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -6217,7 +6757,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -6325,7 +6865,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -6609,7 +7149,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -6662,6 +7202,42 @@
           "ap": "0",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Earthshaker cannon - HE shells",
+          "range": "240\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(3), Barrage, Indirect"
+        },
+        {
+          "name": "Earthshaker cannon - Gas shells",
+          "range": "240\"",
+          "type": "Heavy 1",
+          "s": "1",
+          "ap": "0",
+          "d": "2",
+          "abilities": "Barrage, Poison(2+), Indirect, Seeking"
+        },
+        {
+          "name": "Medusa siege cannon - HE shells",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(4), Barrage"
+        },
+        {
+          "name": "Medusa siege cannon - Bastion-breacher shells",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(4), Explosive, Tank hunter"
         }
       ],
       "option_groups": [
@@ -6842,6 +7418,24 @@
           "ap": "0",
           "d": "1",
           "abilities": "Suppression"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -7009,7 +7603,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -7277,7 +7871,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -7393,6 +7987,33 @@
           "ap": "-5",
           "d": "4",
           "abilities": "AT(4), Lance(2), Tank hunter"
+        },
+        {
+          "name": "Inferno gun - Chem cannon",
+          "range": "18\"",
+          "type": "Heavy 12",
+          "s": "1",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Flames, Poison(3+)"
+        },
+        {
+          "name": "Inferno gun - Inferno cannon",
+          "range": "18\"",
+          "type": "Heavy 12",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Inferno gun - Melta cannon",
+          "range": "30\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(2), Explosive, Melta"
         }
       ],
       "option_groups": [
@@ -7492,7 +8113,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -7619,7 +8240,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -7681,6 +8302,24 @@
           "ap": "0",
           "d": "1",
           "abilities": "Suppression"
+        },
+        {
+          "name": "Medusa siege cannon - HE shells",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(4), Barrage"
+        },
+        {
+          "name": "Medusa siege cannon - Bastion-breacher shells",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(4), Explosive, Tank hunter"
         }
       ],
       "option_groups": [
@@ -7728,7 +8367,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -7854,7 +8493,7 @@
           },
           "choices": [
             {
-              "name": "Twin battle cannon",
+              "name": "Twin Battle cannon",
               "points": 30
             }
           ],
@@ -7925,7 +8564,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8010,7 +8649,7 @@
               "points": 4
             },
             {
-              "name": "Twin-linked heavy stubber",
+              "name": "Twin heavy stubber",
               "points": 9
             }
           ],
@@ -8028,7 +8667,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8136,7 +8775,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8281,7 +8920,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8370,6 +9009,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Taurox missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Taurox missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -8441,7 +9098,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8536,7 +9193,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8679,7 +9336,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8774,7 +9431,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -8872,6 +9529,24 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(2), Explosive, Overheating"
+        },
+        {
+          "name": "Missile launcher - Frag missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Missile launcher - Krak missile",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Anti-air, AT(2)"
         }
       ],
       "option_groups": [
@@ -8927,7 +9602,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -9067,7 +9742,9 @@
         "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons."
       ],
       "unit_type": "Super-heavy Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,
@@ -9190,7 +9867,9 @@
         "Transport: This model has a transport capacity of 50 infantry models."
       ],
       "unit_type": "Super-heavy Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,
@@ -9332,7 +10011,9 @@
               "points": 8
             }
           ],
-          "replaces": ["Twin heavy bolter"],
+          "replaces": [
+            "Twin heavy bolter"
+          ],
           "inline_pts": null,
           "variant_link": null,
           "is_unique_per_army": false
@@ -9344,7 +10025,9 @@
         "Transport: This model has a transport capacity of 40 infantry models."
       ],
       "unit_type": "Super-heavy Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,

@@ -122,9 +122,12 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
   function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean } {
     const knowsSmite = psykerAbilityText.includes('smite');
-    if (psykerAbilityText.includes('all powers from a chosen discipline'))
+    // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X" (CD god-specific)
+    if (psykerAbilityText.includes('all powers from a chosen discipline') ||
+        psykerAbilityText.includes('all powers from the discipline'))
       return { mode: 'all_from_one', limit: 999, knowsSmite };
-    if (psykerAbilityText.match(/one (psychic )?power of a chosen discipline/))
+    // "one power of a chosen discipline" (CSM/generic) OR "one power from the discipline of X" (CD)
+    if (psykerAbilityText.match(/one (psychic )?power (of a chosen|from the) discipline/))
       return { mode: 'one_from_one', limit: 1, knowsSmite };
     const nMatch = psykerAbilityText.match(/(\d+)\s+powers?\s+from/);
     if (nMatch) return { mode: 'n_from_any', limit: parseInt(nMatch[1]), knowsSmite };

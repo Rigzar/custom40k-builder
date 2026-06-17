@@ -146,7 +146,7 @@
       "is_vehicle": false,
       "is_character": false,
       "is_monster": false,
-      "is_psyker": true,
+      "is_psyker": false,
       "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
@@ -271,6 +271,24 @@
           "ap": "-4",
           "d": "3",
           "abilities": "Poison(2+)"
+        },
+        {
+          "name": "Exitus rifle - Hellfire",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "4",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "Poison(2+), Sunder(2), Suppression"
+        },
+        {
+          "name": "Exitus rifle - Turbo penetrator",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "4",
+          "abilities": "Armorbane, AT(3)"
         }
       ],
       "option_groups": [],

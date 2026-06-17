@@ -83,7 +83,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Nekrosor Lord is equipped with: Enmitic annihilator; Hyperhpase harvester.",
+      "equipped_with": "A Nekrosor Lord is equipped with: Enmitic disintegrators; Blade tail; Unmaker Gauntlet.",
       "weapons": [
         {
           "name": "Blade tail",
@@ -431,7 +431,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Skorpekh Lord is equipped with: Enmitic annihilator; Hyperhpase harvester.",
+      "equipped_with": "A Skorpekh Lord is equipped with: Enmitic annihilator; Hyperphase harvester.",
       "weapons": [
         {
           "name": "Enmitic annihilator",
@@ -591,7 +591,7 @@
           },
           "choices": [
             {
-              "name": "Gauss Blaster",
+              "name": "Gauss blaster",
               "points": 4
             }
           ],
@@ -903,7 +903,26 @@
       ],
       "variant_models": [],
       "equipped_with": "A Dragon is equipped with: Spear of the Dragon.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Spear of the Dragon - Ranged",
+          "range": "12\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Armorbane, AT(4), Beam, Tank hunter"
+        },
+        {
+          "name": "Spear of the Dragon - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(4), Tank hunter"
+        }
+      ],
       "option_groups": [
         {
           "header": "An army can contain only one C'tan Shard.",
@@ -1073,7 +1092,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1704,6 +1723,24 @@
           "ap": "-4",
           "d": "3",
           "abilities": "AT(3)"
+        },
+        {
+          "name": "Heat ray - Dispersed",
+          "range": "9\"",
+          "type": "Heavy 4",
+          "s": "6",
+          "ap": "-5",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Heat ray - Focused",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(3), Melta"
         }
       ],
       "option_groups": [
@@ -1755,7 +1792,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2199,6 +2236,24 @@
           "ap": "-3",
           "d": "1",
           "abilities": "Shield breaker(-3)"
+        },
+        {
+          "name": "Rod of covenant - Shooting",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "5",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "-"
+        },
+        {
+          "name": "Rod of covenant - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Unwieldy"
         }
       ],
       "option_groups": [
@@ -2319,7 +2374,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2386,7 +2441,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2431,6 +2486,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Gauss"
+        },
+        {
+          "name": "Doomsday cannon - Low energy",
+          "range": "36\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Doomsday cannon - High energy",
+          "range": "72\"",
+          "type": "Heavy 1",
+          "s": "D6",
+          "ap": "-6",
+          "d": "5",
+          "abilities": "AT(4)"
         }
       ],
       "option_groups": [],
@@ -2446,7 +2519,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2633,7 +2706,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2693,7 +2766,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2787,7 +2860,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2904,7 +2977,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2961,7 +3034,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3080,7 +3153,9 @@
         "Transtemporal Force Field: Models in this unit gain a 4+ invulnerability save."
       ],
       "unit_type": "Monstrous Creature",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": false,
       "is_character": false,
       "is_monster": true,
@@ -3151,7 +3226,9 @@
         "Transtemporal Force Field: The model gains a 4+ invulnerability save."
       ],
       "unit_type": "Super-heavy Vehicle",
-      "keywords": ["Lord of War"],
+      "keywords": [
+        "Lord of War"
+      ],
       "is_vehicle": true,
       "is_character": false,
       "is_monster": false,

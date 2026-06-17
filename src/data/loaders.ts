@@ -123,7 +123,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'imperial_guard': {
       const [u, g, arch, discs, prayers] = await Promise.all([
-        import('../../data/parsed/imperial_guard/units.json'),
+        import('../../data/parsed/imperial_guard/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/imperial_guard/armory/general.json'),
         import('../../data/parsed/imperial_guard/archetypes.json'),
         import('../../data/parsed/imperial_guard/psychic/disciplines.json'),
@@ -134,7 +134,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'adeptus_mechanicus': {
       const [u, g, arch, leg] = await Promise.all([
-        import('../../data/parsed/adeptus_mechanicus/units.json'),
+        import('../../data/parsed/adeptus_mechanicus/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/adeptus_mechanicus/armory/general.json'),
         import('../../data/parsed/adeptus_mechanicus/archetypes.json'),
         import('../../data/parsed/adeptus_mechanicus/armory/legion_forge_world.json'),
@@ -144,7 +144,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'adeptus_custodes': {
       const [u, g, arch, leg] = await Promise.all([
-        import('../../data/parsed/adeptus_custodes/units.json'),
+        import('../../data/parsed/adeptus_custodes/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/adeptus_custodes/armory/general.json'),
         import('../../data/parsed/adeptus_custodes/archetypes.json'),
         import('../../data/parsed/adeptus_custodes/armory/legion_shield_host.json'),
@@ -154,7 +154,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'adeptus_sororitas': {
       const [u, g, arch, leg, prayers] = await Promise.all([
-        import('../../data/parsed/adeptus_sororitas/units.json'),
+        import('../../data/parsed/adeptus_sororitas/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/adeptus_sororitas/armory/general.json'),
         import('../../data/parsed/adeptus_sororitas/archetypes.json'),
         import('../../data/parsed/adeptus_sororitas/armory/legion_order.json'),
@@ -193,7 +193,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'assassins': {
       const [u, g] = await Promise.all([
-        import('../../data/parsed/assassins/units.json'),
+        import('../../data/parsed/assassins/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/assassins/armory/general.json'),
       ]);
       return asm(u, g, noArch, noRules, {}, {}, {});
@@ -201,7 +201,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'tau_empire': {
       const [u, g, arch, leg, prayers] = await Promise.all([
-        import('../../data/parsed/tau_empire/units.json'),
+        import('../../data/parsed/tau_empire/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/tau_empire/armory/general.json'),
         import('../../data/parsed/tau_empire/archetypes.json'),
         import('../../data/parsed/tau_empire/armory/legion_sept.json'),
@@ -212,7 +212,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'necrons': {
       const [u, g, arch, leg, discs] = await Promise.all([
-        import('../../data/parsed/necrons/units.json'),
+        import('../../data/parsed/necrons/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/necrons/armory/general.json'),
         import('../../data/parsed/necrons/archetypes.json'),
         import('../../data/parsed/necrons/armory/legion_dynasty.json'),
@@ -223,7 +223,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'orks': {
       const [u, g, arch, leg, discs] = await Promise.all([
-        import('../../data/parsed/orks/units.json'),
+        import('../../data/parsed/orks/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/orks/armory/general.json'),
         import('../../data/parsed/orks/archetypes.json'),
         import('../../data/parsed/orks/armory/legion_clan.json'),
@@ -234,7 +234,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'eldar': {
       const [u, g, arch, cw, yn, discs] = await Promise.all([
-        import('../../data/parsed/eldar/units.json'),
+        import('../../data/parsed/eldar/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/eldar/armory/general.json'),
         import('../../data/parsed/eldar/archetypes.json'),
         import('../../data/parsed/eldar/armory/legion_craftworld.json'),
@@ -246,7 +246,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'dark_eldar': {
       const [u, g, arch, kabal, wych, coven] = await Promise.all([
-        import('../../data/parsed/dark_eldar/units.json'),
+        import('../../data/parsed/dark_eldar/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/dark_eldar/armory/general.json'),
         import('../../data/parsed/dark_eldar/archetypes.json'),
         import('../../data/parsed/dark_eldar/armory/legion_kabal.json'),
@@ -258,7 +258,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'genestealer_cults': {
       const [u, g, arch, discs] = await Promise.all([
-        import('../../data/parsed/genestealer_cults/units.json'),
+        import('../../data/parsed/genestealer_cults/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/genestealer_cults/armory/general.json'),
         import('../../data/parsed/genestealer_cults/archetypes.json'),
         import('../../data/parsed/genestealer_cults/psychic/disciplines.json'),
@@ -268,7 +268,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'harlequins': {
       const [u, g, discs] = await Promise.all([
-        import('../../data/parsed/harlequins/units.json'),
+        import('../../data/parsed/harlequins/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/harlequins/armory/general.json'),
         import('../../data/parsed/harlequins/psychic/disciplines.json'),
       ]);
@@ -277,7 +277,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'leagues_of_votann': {
       const [u, g, arch, leg, discs] = await Promise.all([
-        import('../../data/parsed/leagues_of_votann/units.json'),
+        import('../../data/parsed/leagues_of_votann/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/leagues_of_votann/armory/general.json'),
         import('../../data/parsed/leagues_of_votann/archetypes.json'),
         import('../../data/parsed/leagues_of_votann/armory/legion_league.json'),
@@ -288,7 +288,7 @@ async function loadFaction(key: string): Promise<FactionData> {
 
     case 'tyranids': {
       const [u, g, arch, leg, discs] = await Promise.all([
-        import('../../data/parsed/tyranids/units.json'),
+        import('../../data/parsed/tyranids/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/tyranids/armory/general.json'),
         import('../../data/parsed/tyranids/archetypes.json'),
         import('../../data/parsed/tyranids/armory/legion_hive_fleet.json'),

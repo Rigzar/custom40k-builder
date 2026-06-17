@@ -253,6 +253,7 @@
     {
       "name": "Additional armor",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
       "p_unit": 5,
       "p_char": null
@@ -260,6 +261,7 @@
     {
       "name": "Smoke Launcher",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
       "p_char": null
@@ -267,6 +269,7 @@
     {
       "name": "We are legion",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "The model does not have to declare its ranged weapons at all targets before firing, and can choose a new target for each weapon.",
       "p_unit": 5,
       "p_char": null
@@ -274,6 +277,7 @@
     {
       "name": "Jammer",
       "term_compat": false,
+      "category": "vehicle",
       "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 15,
       "p_char": null

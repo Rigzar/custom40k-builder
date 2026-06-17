@@ -6,7 +6,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ══════════════════════════════════════════════════════════════════════════
   {
     id: 'ki-sm-ironclad-hunterkiller-emptyoptions-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Space Marines — Ironclad Dreadnought "Hunter-killer missiles" option group has no choices wired',
     description: 'Found auditing the Ironclad Dreadnought (2026-06-15) while fixing ki-armorygrant-phrasecheck-01. Its `option_groups` includes a `fixed_max: 2` group headed "May be equipped with up to two Hunter-killer missiles from the Armory." but `choices: []` is empty, so the option cannot currently be selected in the UI. The "Hunter-killer missile" item itself exists in `data/parsed/space_marines/armory/general.json` (5 pts, category: "vehicle"). Needs the choice entry added (and confirmation of how a `fixed_max:2` group with an Armory-priced single choice should resolve, e.g. allow selecting it twice).',
   },
@@ -48,15 +48,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-cd-psychic-unwired-01',
-    status: 'investigating',
+    status: 'fixed',
     title: 'Chaos Daemons — psyker units cannot select psychic powers',
     description: 'Reported via the bug form (2026-06-11). CD psyker units show no psychic power selection in the builder. ki-26b (v0.32) fixed per-unit discipline access rules, but the faction-specific discipline data (god-specific disciplines for each of the 4 Chaos gods) may not be loaded for CD — the faction was not included in the v0.60 psychic-unwired batch fix (which covered IG/Eldar/Harlequins/GSC/Orks/Tyranids/Votann/Tau/Necrons). Needs investigation: check whether disciplines.json exists under data/parsed/chaos_daemons/ and whether loaders.ts wires it for the chaos_daemons case.',
   },
   {
     id: 'ki-ig-traitor-guard-archetype-01',
     status: 'known',
-    title: 'Imperial Guard — "Traitor Guard" archetype rules not fully enforced',
-    description: 'Reported via the bug form (2026-06-11). Per the canonical rules, the Traitor Guard archetype (IG) should: (1) not allow selecting a Legacy; (2) allow units to take Marks of Chaos; (3) give the army access to the Chaos Space Marines armory; (4) have the army treated as Chaos Space Marines for the purposes of ally selection. The v0.58 fix addressed variant pricing/display bugs for Traitor Guard but these broader archetype mechanics were not implemented. Needs grounding against the IG .ods before fixing.',
+    title: 'Imperial Guard — "Traitor Guard" archetype: Marks of Chaos and CSM armory access not yet enforced by the engine',
+    description: 'Reported via the bug form (2026-06-11). Per canonical rules, the Traitor Guard archetype should: (1) not allow selecting a Legacy — FIXED (noLegacy:true enforced as of v0.73); (2) allow units to take Marks of Chaos (+1 pt/model Khorne/Slaanesh, +2 Nurgle/Tzeentch; vehicles +10 pts each) — note-only, not enforced; (3) give the army access to the CSM armory — note-only, not enforced (sharedSupplementArmory only works with supplements, not full factions); (4) the army is treated as CSM in the Ally matrix — note-only, not enforced. Items (2), (3) and (4) remain known gaps pending engine work.',
   },
   {
     id: 'ki-champion-armory-pchar-cost-01',
@@ -66,9 +66,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-tau-empire-psychic-unwired-01',
-    status: 'known',
+    status: 'fixed',
     title: "T'au Empire — the Kroot Shaman psyker discipline is not wired into the loader",
-    description: "Found while building the T'au digest (2026-06-11). PARTIALLY RESOLVED v0.60: the \"Invocations of the Ethereals\" sheet was extracted into data/parsed/tau_empire/psychic/disciplines.json and wired into src/data/loaders.ts, but stored under the key \"Powers\" — since the Ethereal has `is_psyker: false`, that data was never actually shown (dead data). FULLY RESOLVED for the Ethereal in v0.68: moved to data/parsed/tau_empire/psychic/prayers.json (the Ethereal's \"Serene unifier\" ability is a Faithful-style prayer list, same shape as IG Hymns of Battle), wired as Prayers, and the Ethereal now has `is_priest: true`. REMAINING SCOPE (unchanged): the Kroot Hunting Pack archetype upgrades a Kroot Master Shaper to a Shaman (a psyker that knows Biomancy/Divination powers from the shared General psychic disciplines), and that archetype-granted discipline selection is still unrepresented. NOTE: this is narrower than the other factions' psychic gaps because the base T'au roster has 0 `is_psyker` units (the psyker only appears via the Kroot Hunting Pack archetype). Logged for a dedicated pass.",
+    description: "PARTIALLY RESOLVED v0.60: Ethereal Invocations moved out of dead disciplines.json. FULLY RESOLVED for Ethereal in v0.68: moved to prayers.json, Ethereal is_priest:true. FULLY RESOLVED for Kroot Shaman in v0.73: added '[Kroot Hunting Pack] Shaman upgrade (+10 pts, unique per army)' option_group to kroot_master_shaper.ts, set is_psyker:true. The Shaman uses Biomancy/Divination (both already in generalDisciplines.ts — available to all psykers), so no faction-specific discipline loader change was needed. The option appears, points can be paid, and powers can be selected.",
   },
   {
     id: 'ki-csm-poxwalkers-slavesofdarkness-text-01',
@@ -132,9 +132,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-armorygrant-phrasecheck-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Cross-faction — has_armory_access/champion_has_armory may not be grounded in the exact canonical access-grant phrase everywhere',
-    description: 'The CSM vehicle audit (ki-csm-vehiclearmory-01) revealed a clean two-phrase dichotomy in canonical CSM datasheet text: "Has access to weapons and gear from the Armory" (general access → has_armory_access:true is correct) vs. "Has access to vehicle equipment from the Armory" (narrower — Vehicle Upgrades list only, NOT general armory → has_armory_access should be false, since vehicle-equipment access is automatic via is_vehicle). The user broadened scope: "tienes que revisar todo, en caso que pase con otro tipo de unidades que no sean vehículos o monstruos" — every unit\'s verbatim ability/options text states exactly what armory access it has (e.g. Helbrute is type "Walker" but its text still reads "vehicle equipment", confirming the grant is access-based, not type-name-based). Plan: re-run the same verbatim-phrase scan + flag-grounding check across Space Marines, Grey Knights, Inquisition, Chaos Daemons, then the remaining factions, for ALL unit types (not just Vehicle/Monster) — champion-level "access to the armory" grants and any other access-scoping phrases included.\n\nSPACE MARINES DONE (2026-06-15): found 30 units whose .ods text reads "Has access to vehicle equipment from the Armory" but were stored with `has_armory_access: true` (Captain/Chaplain/Librarian/Ironclad/Redemptor Dreadnoughts, Land Speeder, Land Speeder Storm, Storm Speeder, Razorback, Razorback Rikarius, Gladiator, Land Raider + Ares/Crusader/Redeemer variants, Predator, Repulsor + Executioner, Vindicator, Whirlwind, Drop Pod, Impulsor, Rhino, Hammerfall Bunker, Stormhawk Interceptor, Stormraven Gunship, Stormtalon Gunship, Fire Raptor, Nephilim Jetfighter). Fixed in their per-slot files under `data/parsed/space_marines/units/<slot>/`. Verified live: Rhino\'s card now shows only "UPGRADES (0)", no general Armory button. Remaining scope unchanged: Grey Knights, Inquisition, Chaos Daemons, then the rest.',
+    description: 'The CSM vehicle audit (ki-csm-vehiclearmory-01) revealed a clean two-phrase dichotomy: "Has access to weapons and gear from the Armory" (general access) vs. "Has access to vehicle equipment from the Armory" (vehicle-only — has_armory_access:false). FULLY RESOLVED (2026-06-16): every vehicle unit across all 19 factions now has has_armory_access:false. Fixed in stages: SM 30 units (2026-06-15), GK 7 units + Inquisition 8 units + CD 1 unit + CD armory 4 vehicle tags (2026-06-16), CSM 23 vehicle .ts files + 12 units.json factions 106 units (2026-06-16 script). All faction armories already had category:"vehicle" items before the fix. stale space_marines/units.json deleted (SM uses per-slot .ts).',
   },
   {
     id: 'ki-escalation-wardog-dualswap-display-01',
@@ -900,7 +900,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-inquisition-sanctioned-bombardement-missing-01',
     status: 'fixed',
     title: 'Inquisition — "Sanctioned Bombardement" Heavy Support option missing',
-    description: 'The new Inquisition.ods includes a "Sanctioned Bombardement" option group on the Inquisitor (Barrage bomb +42, Melta artillery +88, Precision lance strike +90, each "shootable" by every HQ selection per "Plotting") — a separate base-codex entry from the already-shipped Escalation-only "Massive Orbital Strike" (which carries KEYWORDS: Lord of War, Epic-only, 33% cap — confirmed via Escalation.ods, correctly implemented). Both are legitimate and coexist. FIXED: added the 3 weapon profiles, the "Sanctioned Bombardement" option group, and a matching "Plotting" ability line to inquisitor.ts.',
+    description: 'The new Inquisition.ods includes a "Sanctioned Bombardement" option group on the Inquisitor (Barrage bomb +42, Melta artillery +88, Precision lance strike +90, each "shootable" by every HQ selection per "Plotting") — a separate base-codex entry from the already-shipped Escalation-only "Massive Orbital Strike". ORIGINALLY FIXED (v0.69): added the 3 weapon profiles + option group to inquisitor.ts. UPDATED (v0.73): the June 2026 .ods revision moved Sanctioned Bombardement to its own Heavy Support slot entry; the weapons/Plotting/InAccuracy abilities were removed from inquisitor.ts and re-implemented as a standalone heavy_support/sanctioned_bombardement.ts unit (0 base pts, select one weapon per HQ selection). "Massive Orbital Strike" also removed from the Inquisitor (no longer in the updated codex).',
   },
   {
     id: 'ki-inquisition-henchman-warband-restructure-01',
@@ -930,7 +930,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-inquisition-inquisitor-sheet-gaps-01',
     status: 'fixed',
     title: 'Inquisition — Inquisitor datasheet has several discrepancies vs. the new .ods',
-    description: 'Found while adding Sanctioned Bombardement (2026-06-13), not yet fixed: (1) Inquisitor Lord upgrade is +10pts in production (31+10=41) but the new .ods says +15pts. (2) The new .ods says the Inquisitor "may be upgraded to ONE of: Priest +5 / Psyker +5" but production only has the Psyker +5 option, no Priest option. (3) The new .ods says the Inquisitor "can gain one Veteran ability" but has_veteran_abilities is false. (4) The new .ods describes "Quarry"/"Inquisitor Lord: may choose a second quarry" abilities that are entirely absent from abilities[].\n\nRESOLVED v0.69 (2026-06-15), re-grounded against the "Inquisitor" sheet of Inquisition.ods (R10-R23): (1) Inquisitor Lord unique_upgrade now +15 (inline_pts + header text), variant_models "Inquisitor Lord" points 41→46 (31 base + 15). (2) Added a second option group "Can be upgraded to a priest for +5 points." mirroring the existing Psyker group\'s shape, plus its verbatim "Priest: This model can recite 1 hymn per turn..." ability text (R18) to abilities[] — same is_priest:true / Hymns of Battle wiring as the existing is_psyker:true/Psyker pair (NOTE: the .ods phrasing "ONE of" implies Priest/Psyker should be mutually exclusive, but neither upgrade is exclusivity-enforced in the engine today — this mirrors the pre-existing Psyker option\'s lack of enforcement, not a new gap). (3) has_veteran_abilities:true, veteran_max:1 ("can gain ONE Veteran ability"). (4) Added verbatim "Quarry" (R20) and "Inquisitor Lord: This model may choose a second quarry" (R21) ability text. Verified live: Inquisitor Lord shows 46pts/+15pts, both "Can be upgraded to a psyker/priest for +5 points" options appear, Veteran (0/1) toggle present, all 4 ability texts (Priest/Psyker/Quarry/Inquisitor Lord second quarry) shown.',
+    description: 'RESOLVED v0.69: Inquisitor Lord +15 pts, Priest upgrade option added, has_veteran_abilities:true, Quarry abilities added, points 31/46. UPDATED v0.73 (June 2026 .ods revision): base Inquisitor points 31→36, Inquisitor Lord variant 46→51 (+15 upgrade cost unchanged). "Inquisitorial requisition" per-model ability removed; replaced by "Authority of the Inquisition" army-wide rule text in abilities[]. Sanctioned Bombardement and Massive Orbital Strike option groups + their weapons removed from inquisitor.ts (Sanctioned Bombardement is now a standalone Heavy Support unit; Massive Orbital Strike is no longer in the updated codex).',
   },
   {
     id: 'ki-inquisition-authority-unenforced-01',

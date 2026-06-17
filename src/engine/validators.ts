@@ -789,6 +789,25 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // Tau Empire: Kroot Shaman upgrade requires the "Kroot Hunting Pack" archetype.
+  // SOURCE: Tau Empire.ods Army Customisation — Kroot Hunting Pack archetype description:
+  // "One Kroot Master Shaper per army may be upgraded to a Shaman for +10 points."
+  // The upgrade is exclusive to this archetype; it must be blocked for other archetypes.
+  if (data.faction === 'Tau Empire' && state.archetype !== 'Kroot Hunting Pack') {
+    for (const item of state.army) {
+      if (item.unitName !== 'Kroot Master Shaper') continue;
+      const u = resolveUnit(item, data);
+      if (!u) continue;
+      const shamanIdx = u.option_groups.findIndex(g => /Shaman/i.test(g.header));
+      if (shamanIdx >= 0 && (item.optionQty?.[shamanIdx]?.['__inline'] ?? 0) > 0) {
+        items.push({
+          type: 'error',
+          text: 'Kroot Shaman upgrade requires the "Kroot Hunting Pack" Archetype.',
+        });
+      }
+    }
+  }
+
   // Legacy armory item restrictions — "Only for X" text in armory items (grounded in each armory HTML).
   // e.g. Iron Warriors: "Only for Warpsmiths"; Word Bearers: "Only for Dark Apostles";
   //      Black Legion: "Only for models with the Mark of Khorne".

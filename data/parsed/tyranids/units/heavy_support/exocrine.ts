@@ -1,0 +1,136 @@
+/**
+ * EXOCRINE — Heavy Support
+ *
+ * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
+ * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ *
+ */
+
+import type { Unit } from '../../../../../src/types/data';
+
+export const exocrine: Unit = {
+  "name": "Exocrine",
+  "models": [
+    {
+      "name": "Exocrine",
+      "points": 218,
+      "min": 1,
+      "max": 1,
+      "stats": {
+        "M": "6\"",
+        "WS": "3+",
+        "BS": "3+",
+        "S": "7",
+        "T": "8",
+        "W": "7",
+        "I": "3",
+        "A": "4",
+        "LD": "7",
+        "SV": "3+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every model is equipped with: Bio-plasmic cannon; Monstrous scything talons.",
+  "weapons": [
+    {
+      "name": "Bio-plasmic cannon",
+      "range": "24\"",
+      "type": "Heavy 1",
+      "s": "7",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "Armorbane, AT(3), Barrage"
+    },
+    {
+      "name": "Monstrous scything talons",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Flurry(1)"
+    },
+    {
+      "name": "Thresher scythe",
+      "range": "-",
+      "type": "Melee",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flurry(3)"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "Each model may be equipped with one of the following",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Thresher scythe",
+          "points": 6
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May select one Special Biomorph",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Synaptic Node",
+          "points": 15
+        },
+        {
+          "name": "Hardened Carapace",
+          "points": 32
+        },
+        {
+          "name": "Regeneration",
+          "points": 35
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Instinctive Behaviour, Move Through Cover, Squadron",
+    "Symbiotic targeting: The model gains a +1 bonus to ranged hit rolls with a \"Stand & Shoot\" order."
+  ],
+  "unit_type": "Monstrous Creature",
+  "keywords": [
+    "Tyranid"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Heavy Support",
+  "default_size": 1,
+  "min_cost": 218,
+  "is_monster": false
+};

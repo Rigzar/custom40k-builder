@@ -1,0 +1,80 @@
+/**
+ * MUCOLID SPORE CLUSTER — Fast Attack
+ *
+ * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
+ * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ *
+ */
+
+import type { Unit } from '../../../../../src/types/data';
+
+export const mucolidSporeCluster: Unit = {
+  "name": "Mucolid Spore Cluster",
+  "models": [
+    {
+      "name": "Mucolid Spore",
+      "points": 40,
+      "min": 1,
+      "max": 3,
+      "stats": {
+        "M": "12\"",
+        "WS": "-",
+        "BS": "-",
+        "S": "1",
+        "T": "3",
+        "W": "3",
+        "I": "3",
+        "A": "1",
+        "LD": "1",
+        "SV": "6+"
+      }
+    }
+  ],
+  "variant_models": [],
+  "equipped_with": "Every model is equipped with: -.",
+  "weapons": [
+    {
+      "name": "Mucolid spore explosion",
+      "range": "-",
+      "type": "Melee",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Anti-Air, AT(2), Explosive"
+    }
+  ],
+  "option_groups": [
+    {
+      "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
+  "abilities": [
+    "Infiltrator, Mindless, Stealth",
+    "Living ammunition: The unit immediately explodes like a vehicle (one explosion per model) with the \"Mucolid spore explosion\" profile, if an enemy model comes within 3\" distance."
+  ],
+  "unit_type": "Jump Pack Infantry",
+  "keywords": [
+    "Tyranid"
+  ],
+  "is_vehicle": false,
+  "is_character": false,
+  "is_psyker": false,
+  "has_armory_access": false,
+  "champion_has_armory": false,
+  "has_veteran_abilities": false,
+  "veteran_required": false,
+  "veteran_max": null,
+  "locked_mark": null,
+  "advisor": false,
+  "slot": "Fast Attack",
+  "default_size": 1,
+  "min_cost": 40,
+  "is_monster": false
+};

@@ -1,0 +1,9 @@
+export { battlewagon } from './battlewagon';
+export { deffDreads } from './deff_dreads';
+export { flashGits } from './flash_gits';
+export { huntaRig } from './hunta_rig';
+export { killaKans } from './killa_kans';
+export { killaRig } from './killa_rig';
+export { lootas } from './lootas';
+export { mekGunz } from './mek_gunz';
+export { wagon } from './wagon';

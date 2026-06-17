@@ -40,7 +40,7 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Bolter Drill:
-  // "The unit gains the 'Deflagrate(5+)' ability with Bolt weapons. Does not apply to 'Heavy' weapons."
+  // "The unit gains the 'Deflagrate(5+)' ability with Bolt weapons."
   // COST: 5 | 0 | 5
   'Bolter Drill': [
     {

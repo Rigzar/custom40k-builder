@@ -626,6 +626,42 @@
           "ap": "0",
           "d": "1",
           "abilities": "Monofilament"
+        },
+        {
+          "name": "Grenade launcher - Frag",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Seismic cannon - Long wave",
+          "range": "24\"",
+          "type": "Heavy 4",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Seismic cannon - Short wave",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Suppression"
         }
       ],
       "option_groups": [
@@ -1242,13 +1278,22 @@
           "abilities": "-"
         },
         {
-          "name": "Remote explosives",
+          "name": "Remote explosives - Blasting charges",
           "range": "24\"",
           "type": "Assault 1",
           "s": "5",
           "ap": "-1",
           "d": "1",
           "abilities": "Explosive"
+        },
+        {
+          "name": "Remote explosives - Demolition charge",
+          "range": "6\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Ammo(1), AT(2), Barrage, Seeking"
         }
       ],
       "option_groups": [
@@ -1478,7 +1523,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1613,6 +1658,24 @@
           "ap": "-3",
           "d": "3",
           "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Grenade launcher - Frag",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Grenade launcher - Krak",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
         }
       ],
       "option_groups": [
@@ -1771,6 +1834,24 @@
           "ap": "0",
           "d": "1",
           "abilities": "Suppression"
+        },
+        {
+          "name": "Heavy seismic cannon - Long-wave",
+          "range": "36\"",
+          "type": "Heavy 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Suppression"
+        },
+        {
+          "name": "Heavy seismic cannon - Short-wave",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "Suppression"
         }
       ],
       "option_groups": [
@@ -1815,7 +1896,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1901,7 +1982,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,

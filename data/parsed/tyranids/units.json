@@ -82,7 +82,7 @@
         }
       ],
       "variant_models": [],
-      "equipped_with": "A Hive Tryant is equipped with: 2 Monstrous scything talons.",
+      "equipped_with": "A Hive Tyrant is equipped with: 2 Monstrous scything talons.",
       "weapons": [
         {
           "name": "Desiccator larvae",
@@ -352,7 +352,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 256
+      "min_cost": 256,
+      "is_monster": false
     },
     "Malanthrope": {
       "name": "Malanthrope",
@@ -443,7 +444,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 99
+      "min_cost": 99,
+      "is_monster": false
     },
     "Neurotyrant": {
       "name": "Neurotyrant",
@@ -542,7 +544,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 188
+      "min_cost": 188,
+      "is_monster": false
     },
     "Swarmlord": {
       "name": "Swarmlord",
@@ -572,7 +575,7 @@
         {
           "name": "Bone sabres",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "+1",
           "ap": "-4",
           "d": "2",
@@ -585,7 +588,7 @@
           "s": "6",
           "ap": "0",
           "d": "1",
-          "abilities": "Supression"
+          "abilities": "Suppression"
         }
       ],
       "option_groups": [
@@ -671,7 +674,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 339
+      "min_cost": 339,
+      "is_monster": false
     },
     "Tervigon": {
       "name": "Tervigon",
@@ -701,7 +705,7 @@
         {
           "name": "Crushing claws",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "x2",
           "ap": "-3",
           "d": "2",
@@ -847,7 +851,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 237
+      "min_cost": 237,
+      "is_monster": false
     },
     "Tyranid Prime": {
       "name": "Tyranid Prime",
@@ -922,7 +927,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -1043,7 +1048,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 86
+      "min_cost": 86,
+      "is_monster": false
     },
     "Tyrant Guard Brood": {
       "name": "Tyrant Guard Brood",
@@ -1082,7 +1088,7 @@
         {
           "name": "Mashing claws",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "+3",
           "ap": "-3",
           "d": "2",
@@ -1100,7 +1106,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -1183,7 +1189,8 @@
       "advisor": false,
       "slot": "HQ",
       "default_size": 1,
-      "min_cost": 43
+      "min_cost": 43,
+      "is_monster": false
     },
     "Barbgaunt Brood": {
       "name": "Barbgaunt Brood",
@@ -1274,7 +1281,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 5,
-      "min_cost": 110
+      "min_cost": 110,
+      "is_monster": false
     },
     "Genestealer Brood": {
       "name": "Genestealer Brood",
@@ -1439,7 +1447,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 5,
-      "min_cost": 80
+      "min_cost": 80,
+      "is_monster": false
     },
     "Hormagaunt Brood": {
       "name": "Hormagaunt Brood",
@@ -1469,7 +1478,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -1530,7 +1539,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 10,
-      "min_cost": 50
+      "min_cost": 50,
+      "is_monster": false
     },
     "Neurogaunt Brood": {
       "name": "Neurogaunt Brood",
@@ -1630,7 +1640,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 11,
-      "min_cost": 60
+      "min_cost": 60,
+      "is_monster": false
     },
     "Ripper Swarms": {
       "name": "Ripper Swarms",
@@ -1737,7 +1748,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 3,
-      "min_cost": 33
+      "min_cost": 33,
+      "is_monster": false
     },
     "Termagant Brood": {
       "name": "Termagant Brood",
@@ -1917,7 +1929,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 10,
-      "min_cost": 50
+      "min_cost": 50,
+      "is_monster": false
     },
     "Tyranid Warrior Brood": {
       "name": "Tyranid Warrior Brood",
@@ -2001,7 +2014,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -2146,7 +2159,8 @@
       "advisor": false,
       "slot": "Troops",
       "default_size": 3,
-      "min_cost": 108
+      "min_cost": 108,
+      "is_monster": false
     },
     "Deathleaper": {
       "name": "Deathleaper",
@@ -2180,7 +2194,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Supression"
+          "abilities": "Suppression"
         },
         {
           "name": "Piercing claws",
@@ -2194,7 +2208,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -2259,7 +2273,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 180
+      "min_cost": 180,
+      "is_monster": false
     },
     "Haruspex": {
       "name": "Haruspex",
@@ -2289,7 +2304,7 @@
         {
           "name": "Crushing claws",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "x2",
           "ap": "-3",
           "d": "2",
@@ -2356,7 +2371,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 200
+      "min_cost": 200,
+      "is_monster": false
     },
     "Hive Guard Brood": {
       "name": "Hive Guard Brood",
@@ -2463,7 +2479,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 41
+      "min_cost": 41,
+      "is_monster": false
     },
     "Lictor Brood": {
       "name": "Lictor Brood",
@@ -2497,7 +2514,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Supression"
+          "abilities": "Suppression"
         },
         {
           "name": "Piercing claws",
@@ -2511,7 +2528,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -2591,7 +2608,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 117
+      "min_cost": 117,
+      "is_monster": false
     },
     "Maleceptor": {
       "name": "Maleceptor",
@@ -2640,7 +2658,7 @@
               "points": 35
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 47
             }
           ],
@@ -2680,7 +2698,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 223
+      "min_cost": 223,
+      "is_monster": false
     },
     "Toxicrene": {
       "name": "Toxicrene",
@@ -2706,7 +2725,26 @@
       ],
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Massive toxic lashes.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Massive toxic lashes - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1), Flurry(2), Poison(2+)"
+        },
+        {
+          "name": "Massive toxic lashes - Ranged",
+          "range": "12\"",
+          "type": "Pistol 6",
+          "s": "U",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1), Poison(2+)"
+        }
+      ],
       "option_groups": [
         {
           "header": "May select one Special Biomorph",
@@ -2723,7 +2761,7 @@
               "points": 15
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 32
             },
             {
@@ -2767,7 +2805,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 200
+      "min_cost": 200,
+      "is_monster": false
     },
     "Venomthrope Brood": {
       "name": "Venomthrope Brood",
@@ -2820,7 +2859,7 @@
               "points": 5
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 8
             }
           ],
@@ -2860,7 +2899,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 27
+      "min_cost": 27,
+      "is_monster": false
     },
     "Zoanthrope Brood": {
       "name": "Zoanthrope Brood",
@@ -2886,7 +2926,26 @@
       ],
       "variant_models": [],
       "equipped_with": "Every model is equipped with: Warp lightning.",
-      "weapons": [],
+      "weapons": [
+        {
+          "name": "Warp lightning - Dispersed",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "5",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Explosive, Seeking"
+        },
+        {
+          "name": "Warp lightning - Focused",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "10",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Seeking"
+        }
+      ],
       "option_groups": [
         {
           "header": "May select one Special Biomorph",
@@ -2895,7 +2954,7 @@
           },
           "choices": [
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 4
             }
           ],
@@ -2934,7 +2993,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 1,
-      "min_cost": 95
+      "min_cost": 95,
+      "is_monster": false
     },
     "Gargoyle Brood": {
       "name": "Gargoyle Brood",
@@ -3034,7 +3094,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 10,
-      "min_cost": 90
+      "min_cost": 90,
+      "is_monster": false
     },
     "Mawloc": {
       "name": "Mawloc",
@@ -3120,7 +3181,7 @@
               "points": 15
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 27
             },
             {
@@ -3164,7 +3225,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 147
+      "min_cost": 147,
+      "is_monster": false
     },
     "Mucolid Spore Cluster": {
       "name": "Mucolid Spore Cluster",
@@ -3233,13 +3295,14 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 40
+      "min_cost": 40,
+      "is_monster": false
     },
     "Parasite of Mortrex": {
       "name": "Parasite of Mortrex",
       "models": [
         {
-          "name": "Parasite of Mortex",
+          "name": "Parasite of Mortrex",
           "points": 76,
           "min": 1,
           "max": 3,
@@ -3263,7 +3326,7 @@
         {
           "name": "Barbed ovipositor",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-4",
           "d": "*",
@@ -3272,7 +3335,7 @@
         {
           "name": "Clawed limbs",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-2",
           "d": "1",
@@ -3291,7 +3354,7 @@
               "points": 9
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 17
             }
           ],
@@ -3330,7 +3393,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 76
+      "min_cost": 76,
+      "is_monster": false
     },
     "Psychophage": {
       "name": "Psychophage",
@@ -3388,7 +3452,7 @@
               "points": 15
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 25
             },
             {
@@ -3431,7 +3495,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 134
+      "min_cost": 134,
+      "is_monster": false
     },
     "Pyrovore Brood": {
       "name": "Pyrovore Brood",
@@ -3466,6 +3531,24 @@
           "ap": "-4",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Flamespurt - Burning spray",
+          "range": "12\"",
+          "type": "Assault 4",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Flames"
+        },
+        {
+          "name": "Flamespurt - Pyrogout",
+          "range": "18\"",
+          "type": "Assault 8",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames"
         }
       ],
       "option_groups": [
@@ -3476,7 +3559,7 @@
           },
           "choices": [
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 10
             }
           ],
@@ -3515,7 +3598,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 75
+      "min_cost": 75,
+      "is_monster": false
     },
     "Ravener Brood": {
       "name": "Ravener Brood",
@@ -3572,7 +3656,7 @@
         {
           "name": "Scything talons",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "U",
           "ap": "-1",
           "d": "1",
@@ -3596,7 +3680,7 @@
           },
           "choices": [
             {
-              "name": "Rending Claws",
+              "name": "Rending claws",
               "points": 0
             }
           ],
@@ -3638,7 +3722,7 @@
               "points": 5
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 12
             }
           ],
@@ -3677,7 +3761,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 3,
-      "min_cost": 165
+      "min_cost": 165,
+      "is_monster": false
     },
     "Spore Mine Cluster": {
       "name": "Spore Mine Cluster",
@@ -3736,7 +3821,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 7
+      "min_cost": 7,
+      "is_monster": false
     },
     "Trygon": {
       "name": "Trygon",
@@ -3886,7 +3972,8 @@
       "advisor": false,
       "slot": "Fast Attack",
       "default_size": 1,
-      "min_cost": 174
+      "min_cost": 174,
+      "is_monster": false
     },
     "Biovore Brood": {
       "name": "Biovore Brood",
@@ -3950,7 +4037,7 @@
           },
           "choices": [
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 10
             }
           ],
@@ -3991,7 +4078,8 @@
       "advisor": false,
       "slot": "Heavy Support",
       "default_size": 1,
-      "min_cost": 111
+      "min_cost": 111,
+      "is_monster": false
     },
     "Carnifex Brood": {
       "name": "Carnifex Brood",
@@ -4030,7 +4118,7 @@
         {
           "name": "Bone mace",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "+2",
           "ap": "-3",
           "d": "2",
@@ -4039,7 +4127,7 @@
         {
           "name": "Crushing claws",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "x2",
           "ap": "-3",
           "d": "2",
@@ -4084,7 +4172,7 @@
         {
           "name": "Thresher scythe",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "4",
           "ap": "-1",
           "d": "1",
@@ -4201,7 +4289,7 @@
               "points": 15
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 21
             },
             {
@@ -4243,7 +4331,8 @@
       "advisor": false,
       "slot": "Heavy Support",
       "default_size": 1,
-      "min_cost": 106
+      "min_cost": 106,
+      "is_monster": false
     },
     "Exocrine": {
       "name": "Exocrine",
@@ -4291,7 +4380,7 @@
         {
           "name": "Thresher scythe",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "4",
           "ap": "-1",
           "d": "1",
@@ -4325,7 +4414,7 @@
               "points": 15
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 32
             },
             {
@@ -4368,7 +4457,8 @@
       "advisor": false,
       "slot": "Heavy Support",
       "default_size": 1,
-      "min_cost": 218
+      "min_cost": 218,
+      "is_monster": false
     },
     "Norn": {
       "name": "Norn",
@@ -4398,7 +4488,7 @@
         {
           "name": "Crushing claws",
           "range": "-",
-          "type": "Meele",
+          "type": "Melee",
           "s": "x2",
           "ap": "-3",
           "d": "2",
@@ -4411,7 +4501,7 @@
           "s": "6",
           "ap": "0",
           "d": "1",
-          "abilities": "Supression"
+          "abilities": "Suppression"
         },
         {
           "name": "Monstrous piercing claws",
@@ -4529,7 +4619,8 @@
       "advisor": false,
       "slot": "Heavy Support",
       "default_size": 1,
-      "min_cost": 340
+      "min_cost": 340,
+      "is_monster": false
     },
     "Tyrannofex": {
       "name": "Tyrannofex",
@@ -4721,7 +4812,8 @@
       "advisor": false,
       "slot": "Heavy Support",
       "default_size": 1,
-      "min_cost": 225
+      "min_cost": 225,
+      "is_monster": false
     },
     "Tyrannocyte": {
       "name": "Tyrannocyte",
@@ -4829,7 +4921,8 @@
       "advisor": false,
       "slot": "Dedicated Transport",
       "default_size": 1,
-      "min_cost": 144
+      "min_cost": 144,
+      "is_monster": false
     },
     "Sporecyst": {
       "name": "Sporecyst",
@@ -4956,7 +5049,8 @@
       "advisor": false,
       "slot": "Fortifications",
       "default_size": 1,
-      "min_cost": 139
+      "min_cost": 139,
+      "is_monster": false
     },
     "Harpy": {
       "name": "Harpy",
@@ -5113,10 +5207,11 @@
       "advisor": false,
       "slot": "Flyers",
       "default_size": 1,
-      "min_cost": 213
+      "min_cost": 213,
+      "is_monster": false
     },
     "Von Ryan's Leaper Brood": {
-      "name": "Von Ryan´s Leaper Brood",
+      "name": "Von Ryan's Leaper Brood",
       "models": [
         {
           "name": "Von Ryan's Leaper",
@@ -5166,7 +5261,7 @@
               "points": 5
             },
             {
-              "name": "Hardened Carapce",
+              "name": "Hardened Carapace",
               "points": 8
             }
           ],
@@ -5205,7 +5300,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 3,
-      "min_cost": 108
+      "min_cost": 108,
+      "is_monster": false
     }
   }
 }

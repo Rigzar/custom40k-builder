@@ -431,7 +431,7 @@
               "points": 18
             },
             {
-              "name": "Dark Lance",
+              "name": "Dark lance",
               "points": 53
             }
           ],
@@ -1592,7 +1592,7 @@
           "abilities": "AT(3), Lance(+2)"
         },
         {
-          "name": "Desintegrator cannon",
+          "name": "Disintegrator cannon",
           "range": "36\"",
           "type": "Heavy 2",
           "s": "5",
@@ -1640,7 +1640,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -1914,7 +1914,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2018,7 +2018,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2169,7 +2169,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -2288,7 +2288,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,

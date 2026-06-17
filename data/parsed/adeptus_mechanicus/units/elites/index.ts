@@ -1,0 +1,11 @@
+export { corpuscariiElectroPriests } from './corpuscarii_electro_priests';
+export { fulguriteElectroPriests } from './fulgurite_electro_priests';
+export { kataphronBreachers } from './kataphron_breachers';
+export { kataphronDestroyers } from './kataphron_destroyers';
+export { secutariiHoplites } from './secutarii_hoplites';
+export { secutariiPeltasts } from './secutarii_peltasts';
+export { servitors } from './servitors';
+export { sicaranInfiltrators } from './sicaran_infiltrators';
+export { sicaranRuststalkers } from './sicaran_ruststalkers';
+export { sydonianSkatros } from './sydonian_skatros';
+export { techPriest } from './tech_priest';

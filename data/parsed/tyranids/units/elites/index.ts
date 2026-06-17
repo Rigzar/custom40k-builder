@@ -1,0 +1,9 @@
+export { deathleaper } from './deathleaper';
+export { haruspex } from './haruspex';
+export { hiveGuardBrood } from './hive_guard_brood';
+export { lictorBrood } from './lictor_brood';
+export { maleceptor } from './maleceptor';
+export { toxicrene } from './toxicrene';
+export { venomthropeBrood } from './venomthrope_brood';
+export { zoanthropeBrood } from './zoanthrope_brood';
+export { vonRyansLeaperBrood } from './von_ryans_leaper_brood';

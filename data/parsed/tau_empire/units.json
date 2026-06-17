@@ -179,6 +179,24 @@
           "ap": "-3",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Cyclic ion blasterˣ - Standard",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Cyclic ion blasterˣ - Overcharged",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -634,6 +652,60 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Flurry(2), Shred, Unwieldy"
+        },
+        {
+          "name": "Kroot rifle - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Ranged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Ranged",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Ranged",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
         }
       ],
       "option_groups": [
@@ -818,6 +890,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Pulse blaster - Short range",
+          "range": "9\"",
+          "type": "Assault 2",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Pulse blaster - Long range",
+          "range": "15\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
         }
       ],
       "option_groups": [
@@ -998,6 +1088,24 @@
           "ap": "0",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Pulse blaster - Short range",
+          "range": "9\"",
+          "type": "Assault 2",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Pulse blaster - Long range",
+          "range": "15\"",
+          "type": "Assault 2",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
         }
       ],
       "option_groups": [
@@ -1094,6 +1202,42 @@
           "ap": "0",
           "d": "1",
           "abilities": "Explosive, Monofilament, Suppression"
+        },
+        {
+          "name": "Kroot rifle - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Ranged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Ranged",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
         }
       ],
       "option_groups": [
@@ -1963,6 +2107,24 @@
           "ap": "-5",
           "d": "3",
           "abilities": "Armorbane, AT(3), Explosive"
+        },
+        {
+          "name": "Cyclic ion raker - Standard",
+          "range": "24\"",
+          "type": "Rapid Fire 4",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Cyclic ion raker - Overcharged",
+          "range": "24\"",
+          "type": "Rapid Fire 4",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -2166,6 +2328,60 @@
           "ap": "-1",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Ranged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Ranged",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Accelerator bow - Fused arrow",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Lance(2)"
+        },
+        {
+          "name": "Accelerator bow - Voltaic arrow",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
         }
       ],
       "option_groups": [
@@ -2310,6 +2526,33 @@
           "ap": "-3",
           "d": "2",
           "abilities": "Armor piercing(5+), Suppression"
+        },
+        {
+          "name": "Kroot javelins - Blast",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Explosive"
+        },
+        {
+          "name": "Kroot javelins - Charge",
+          "range": "-",
+          "type": "Melee",
+          "s": "+2",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Quick(+1), Charge order only"
+        },
+        {
+          "name": "Kroot javelins - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Unwieldy"
         }
       ],
       "option_groups": [
@@ -2429,6 +2672,60 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Flurry(2), Shred, Unwieldy"
+        },
+        {
+          "name": "Kroot rifle - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Ranged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Ranged",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Ranged",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
         }
       ],
       "option_groups": [
@@ -2822,6 +3119,24 @@
           "ap": "-2",
           "d": "1",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Kroot bolt thrower - Iron bolts",
+          "range": "36\"",
+          "type": "Heavy 3",
+          "s": "4",
+          "ap": "-1",
+          "d": "2",
+          "abilities": "Poison(3+)"
+        },
+        {
+          "name": "Kroot bolt thrower - Explosive bolts",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Explosive"
         }
       ],
       "option_groups": [
@@ -2955,6 +3270,24 @@
           "ap": "-1",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Phased ion gun - Standard",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "4",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Armor piercing(5+)"
+        },
+        {
+          "name": "Phased ion gun - Overcharged",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "5",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Overheating"
         }
       ],
       "option_groups": [
@@ -3152,6 +3485,42 @@
           "ap": "0",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Ranged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot carbine - Ranged",
+          "range": "18\"",
+          "type": "Rapid Fire 2",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
         }
       ],
       "option_groups": [
@@ -3268,6 +3637,60 @@
           "ap": "-1",
           "d": "1",
           "abilities": "AT(1)"
+        },
+        {
+          "name": "Kroot rifle - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot rifle - Ranged",
+          "range": "24\"",
+          "type": "Rapid Fire 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Melee",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Kroot scattergun - Ranged",
+          "range": "12\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Accelerator bow - Fused arrow",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1), Lance(2)"
+        },
+        {
+          "name": "Accelerator bow - Voltaic arrow",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
         }
       ],
       "option_groups": [
@@ -3532,6 +3955,42 @@
           "ap": "-4",
           "d": "2",
           "abilities": "AT(2)"
+        },
+        {
+          "name": "Ion rifle - Standard",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Ion rifle - Overcharged",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Semi-automatic grenade launcher - Fusion grenade",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "8",
+          "ap": "-5",
+          "d": "2",
+          "abilities": "AT(3), Armorbane"
+        },
+        {
+          "name": "Semi-automatic grenade launcher - EMP grenade",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "3",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Haywire"
         }
       ],
       "option_groups": [
@@ -3756,7 +4215,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -3818,6 +4277,24 @@
           "ap": "-2",
           "d": "1",
           "abilities": "AT(1), Anti-Air"
+        },
+        {
+          "name": "Pulse submunitions cannon - Standard",
+          "range": "60\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Pulse submunitions cannon - Nova-charge",
+          "range": "60\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Barrage, Overheating"
         }
       ],
       "option_groups": [
@@ -4188,6 +4665,42 @@
           "ap": "-2",
           "d": "1",
           "abilities": "AT(1), Anti-Air"
+        },
+        {
+          "name": "Ionic discharge cannon - Standard",
+          "range": "24\"",
+          "type": "Heavy 5",
+          "s": "8",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Ionic discharge cannon - Nova-charge",
+          "range": "24\"",
+          "type": "Heavy 5",
+          "s": "9",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(3), Overheating"
+        },
+        {
+          "name": "Phased plasma flamer - Standard",
+          "range": "12\"",
+          "type": "Assault 6",
+          "s": "5",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Armor piercing(5+), Flames"
+        },
+        {
+          "name": "Phased plasma flamer - Nova-charge",
+          "range": "12\"",
+          "type": "Assault 6",
+          "s": "6",
+          "ap": "-1",
+          "d": "2",
+          "abilities": "Armor piercing(5+), Flames, Overheating"
         }
       ],
       "option_groups": [
@@ -4455,6 +4968,42 @@
           "ap": "-1",
           "d": "1",
           "abilities": "-"
+        },
+        {
+          "name": "Ion cannon - Standard",
+          "range": "60\"",
+          "type": "Heavy 3",
+          "s": "7",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Ion cannon - Overcharged",
+          "range": "60\"",
+          "type": "Heavy 3",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Railgun - Solid shot",
+          "range": "72\"",
+          "type": "Heavy 1",
+          "s": "10",
+          "ap": "-6",
+          "d": "5",
+          "abilities": "AT(4), Beam, Decimate, Tank hunter"
+        },
+        {
+          "name": "Railgun - Submunition",
+          "range": "36\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Barrage, Suppression"
         }
       ],
       "option_groups": [
@@ -4506,7 +5055,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4668,6 +5217,42 @@
           "ap": "-1",
           "d": "1",
           "abilities": "Anti-Air, Seeking"
+        },
+        {
+          "name": "Heavy burst cannon - Standard",
+          "range": "18\"",
+          "type": "Rapid Fire 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Heavy burst cannon - Nova-charge",
+          "range": "18\"",
+          "type": "Rapid Fire 6",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Overheating"
+        },
+        {
+          "name": "Ion accelerator - Standard",
+          "range": "72\"",
+          "type": "Heavy 3",
+          "s": "8",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2)"
+        },
+        {
+          "name": "Ion accelerator - Nova-charge",
+          "range": "72\"",
+          "type": "Heavy 3",
+          "s": "9",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(3), Overheating"
         }
       ],
       "option_groups": [
@@ -4851,7 +5436,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -4946,7 +5531,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5007,7 +5592,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5066,7 +5651,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5115,7 +5700,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5186,6 +5771,42 @@
           "ap": "-5",
           "d": "3",
           "abilities": "AT(3)"
+        },
+        {
+          "name": "Cyclic ion blaster - Standard",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Cyclic ion blaster - Overcharged",
+          "range": "18\"",
+          "type": "Rapid Fire 3",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
+        },
+        {
+          "name": "Ion cannon - Standard",
+          "range": "60\"",
+          "type": "Heavy 3",
+          "s": "7",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Ion cannon - Overcharged",
+          "range": "60\"",
+          "type": "Heavy 3",
+          "s": "8",
+          "ap": "-3",
+          "d": "3",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -5245,7 +5866,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5307,6 +5928,24 @@
           "ap": "-3",
           "d": "2",
           "abilities": "Ammo(1), Anti-Air, AT(2)"
+        },
+        {
+          "name": "Quad ion turret - Standard",
+          "range": "30\"",
+          "type": "Rapid Fire 4",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Quad ion turret - Overcharged",
+          "range": "30\"",
+          "type": "Rapid Fire 4",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -5335,7 +5974,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
@@ -5397,6 +6036,24 @@
           "ap": "-3",
           "d": "2",
           "abilities": "Ammo(1), Anti-Air, AT(2)"
+        },
+        {
+          "name": "Ion rifle - Standard",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "7",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "AT(1)"
+        },
+        {
+          "name": "Ion rifle - Overcharged",
+          "range": "30\"",
+          "type": "Rapid Fire 1",
+          "s": "8",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(2), Overheating"
         }
       ],
       "option_groups": [
@@ -5420,7 +6077,7 @@
       "is_character": false,
       "is_monster": false,
       "is_psyker": false,
-      "has_armory_access": true,
+      "has_armory_access": false,
       "champion_has_armory": false,
       "has_veteran_abilities": false,
       "veteran_required": false,
