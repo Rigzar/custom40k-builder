@@ -83,7 +83,8 @@ export const deffDreads: Unit = {
     {
       "header": "Every model must pick two weapons",
       "constraint": {
-        "type": "one"
+        "type": "fixed_max",
+        "max": 2
       },
       "choices": [
         {

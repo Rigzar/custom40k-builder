@@ -125,7 +125,8 @@ export const skarboyz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Any number of models may swap their Choppa and Slugga",
@@ -140,7 +141,8 @@ export const skarboyz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Choppa", "Slugga"]
     },
     {
       "header": "For every 5 models, one Skarboy may swap their Choppa and Slugga",

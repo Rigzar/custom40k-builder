@@ -327,13 +327,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string) {
     let pts: number;
     if (arm.category === 'veteran') {
-      // Cost is per-model for infantry/characters; per-wound for vehicles & monsters
+      // Cost is per wound per model for all non-character units (rule verbatim:
+      // "paid for every model in the unit and per Wound or Hull point of the model").
       if (isVehicle || unit.is_monster) {
         pts = (parsePrice(arm.p_veh) ?? 0) * woundCount * item.size;
       } else if (isChar) {
         pts = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit) ?? 0;
       } else {
-        pts = (parsePrice(arm.p_unit) ?? 0) * item.size;
+        pts = (parsePrice(arm.p_unit) ?? 0) * woundCount * item.size;
       }
     } else if (arm.category === 'vehicle') {
       // Flat cost per vehicle
@@ -920,7 +921,7 @@ function EquipmentGroups({
       return cp != null ? `+${cp} pts` : '—';
     }
     const up = parsePrice(arm.p_unit);
-    return up != null ? `+${up * unitSize} pts (${up}/model)` : '—';
+    return up != null ? `+${up * unitWounds * unitSize} pts (${up}/wound)` : '—';
   }
 
   function vehPriceLabel(arm: ArmoryItem): string {

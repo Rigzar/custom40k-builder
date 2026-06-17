@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "Armory",
   "weapons": [
     {
@@ -917,19 +917,19 @@
   "daemon_weapons": [
     {
       "name": "Dark",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains +1 Strength. Unique.",
       "p_char": 5
     },
     {
       "name": "Kai",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The model gains the \"Kai gun\" ranged weapon. Unique.",
       "p_char": 22
     },
     {
       "name": "Unstoppable",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains \"Beam\". Unique.",
       "p_char": 5
     }

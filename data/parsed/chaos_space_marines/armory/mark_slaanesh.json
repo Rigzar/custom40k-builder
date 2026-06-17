@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "Armory of Slaanesh",
   "weapons": [
     {
@@ -214,19 +214,19 @@
   "daemon_weapons": [
     {
       "name": "Alacritous",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The model gains \"Deflect\" and \"Parry\". Unique.",
       "p_char": 10
     },
     {
       "name": "Alluring",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "Enemy models within 12\" range suffer a cumulative penalty of -2 to their Leadership. Unique.",
       "p_char": 5
     },
     {
       "name": "Sinful",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains \"Precision(4+)\". Unique.",
       "p_char": 10
     }

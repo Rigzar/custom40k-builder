@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "Armory of Tzeentch",
   "weapons": [
     {
@@ -285,19 +285,19 @@
   "daemon_weapons": [
     {
       "name": "Magical",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The model gains +1 to manifest and deny psychic powers. Unique.",
       "p_char": 5
     },
     {
       "name": "Warping",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains a ranged profile with 18\" range. It can shoot during each activation as often as the model can attack. Can't be used on a weapon with the \"Slow\" ability. Unique.",
       "p_char": 15
     },
     {
       "name": "Weaving",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "Once per battle round, the model and its attached unit can change the result of a single die roll of themselves or an enemy unit they are attacking. Unique.",
       "p_char": 15
     }

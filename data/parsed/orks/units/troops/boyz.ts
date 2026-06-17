@@ -121,7 +121,8 @@ export const boyz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Any number of models may swap their Choppa and Slugga",
@@ -136,7 +137,8 @@ export const boyz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Choppa", "Slugga"]
     },
     {
       "header": "For every 10 models, one Boy may swap their Choppa and Slugga",

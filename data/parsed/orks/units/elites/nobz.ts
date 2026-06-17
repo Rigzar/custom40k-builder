@@ -43,7 +43,28 @@ export const nobz: Unit = {
       "abilities": "Explosive"
     }
   ],
-  "option_groups": [],
+  "option_groups": [
+    {
+      "header": "The entire squad may receive one of the following upgrades per model",
+      "constraint": { "type": "one" },
+      "choices": [
+        { "name": "Wildork", "points": 5 },
+        { "name": "'Eavy armour", "points": 7 }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "per_model": true
+    },
+    {
+      "header": "Can get one Kustom job.",
+      "constraint": { "type": "one" },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
   "abilities": [
     "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!"
   ],
@@ -53,7 +74,7 @@ export const nobz: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

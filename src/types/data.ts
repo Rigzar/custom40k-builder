@@ -88,8 +88,14 @@ export interface Constraint {
 export interface OptionCondition {
   /** instanceOf = available only when the keyword is present; notInstanceOf = only when absent. */
   type: 'instanceOf' | 'notInstanceOf';
-  /** Where the keyword is looked up. Only 'unit' (the model's own mark/keywords) is wired today. */
-  scope: 'unit' | 'force' | 'roster';
+  /**
+   * Where the keyword is looked up.
+   *   'unit'      — the model's own mark / keywords[]
+   *   'force'     — the host army's faction name
+   *   'archetype' — the army's selected archetype name
+   *   'roster'    — reserved for future use
+   */
+  scope: 'unit' | 'force' | 'roster' | 'archetype';
   /** The keyword/category matched — e.g. 'Khorne' (a Chaos Mark), a faction, or a unit type. */
   keyword: string;
 }

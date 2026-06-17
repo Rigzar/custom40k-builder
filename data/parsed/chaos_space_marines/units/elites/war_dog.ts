@@ -199,7 +199,8 @@ export const warDog: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Reaper chaintalon"]
     },
     {
       "header": "May swap the second Reaper chaintalon",
@@ -226,7 +227,8 @@ export const warDog: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Reaper chaintalon"]
     },
     {
       "header": "May swap the Heavy stubber",

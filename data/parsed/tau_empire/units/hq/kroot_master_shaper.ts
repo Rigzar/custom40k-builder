@@ -234,14 +234,15 @@ export const krootMasterShaper: Unit = {
       "is_unique_per_army": true
     },
     {
-      "header": "[Kroot Hunting Pack] One Kroot Master Shaper per army may be upgraded to a Shaman for +10 points. The Shaman is a Psyker who can cast 1 power and deny 1 power per battle round, and knows 2 powers from the Biomancy or Divination disciplines.",
+      "header": "One Kroot Master Shaper per army may be upgraded to a Shaman for +10 points. The Shaman is a Psyker who can cast 1 power and deny 1 power per battle round, and knows 2 powers from the Biomancy or Divination disciplines.",
       "constraint": {
         "type": "unique_upgrade"
       },
       "choices": [],
       "inline_pts": 10,
       "variant_link": null,
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "available_if": { "type": "instanceOf", "scope": "archetype", "keyword": "Kroot Hunting Pack" }
     },
     {
       "header": "May be upgraded to one of the following",

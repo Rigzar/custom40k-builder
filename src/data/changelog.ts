@@ -25,6 +25,24 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.74',
+    date: '2026-06-17',
+    title: { en: 'Engine: archetype-scoped option group gating (data-driven, faction-agnostic)' },
+    changes: { en: [
+      'Engine: option groups can now be hidden by archetype via `available_if: { type: "instanceOf", scope: "archetype", keyword: "<ArchetypeName>" }` in unit data — no hardcoded per-faction validator needed. The Kroot Shaman upgrade (Tau Empire) is the first unit using this pattern.',
+      'Tau Empire: Kroot Shaman upgrade option is now hidden unless the "Kroot Hunting Pack" archetype is active (previously shown for all archetypes with a validation error).',
+      'Engine: choice-based option groups now support per_model: true — the choice cost scales by unit size (choice.points × qty × size), matching the existing per_model behaviour for inline upgrades.',
+      "Orks — Nobz: fixed has_armory_access (was false, now true — all weapons come from the Armory); added per-model upgrade options (Wildork +5 / 'Eavy armour +7) and Kustom job slot.",
+      "Orks — Boyz: 'Eavy armour upgrade now correctly charges +6 pts per model (per_model: true); Shoota swap now properly replaces Choppa and Slugga from the weapon display (replaces field added).",
+      "Orks — Skarboyz: Wildork / 'Eavy armour upgrades now correctly charge per model; Shoota swap now replaces Choppa and Slugga.",
+      'Orks — Deff Dreads: "Every model must pick two weapons" constraint changed from one to fixed_max:2 — the Dread klaw profile now appears when selected from the weapon pool.',
+      'Engine: weapon `replaces` logic now uses AND semantics — a base profile is hidden only when ALL option groups listing it in `replaces` have an active selection. Allows multi-instance swap pairs (e.g. War Dog dual chaintalon) to correctly hide the base weapon only when both instances are replaced.',
+      'Escalation — War Dog: both chaintalon swap groups now carry `replaces: ["Reaper chaintalon"]`; the base profile disappears from the card only when both chaintalons are swapped out.',
+      'Bug fix — Veteran ability costs (all factions): infantry veteran abilities now charge p_unit × W × model_count instead of p_unit × model_count. Multi-wound infantry (e.g. Chaos Terminators W:2) was paying half the correct cost. Price label updated to show per-wound rate.',
+      'Bug fix — CSM Daemon Weapons: all 15 daemon weapons (Dark/Kai/Unstoppable + 3 per mark × 4 marks) were incorrectly tagged term_compat: false, blocking Terminator-armoured characters from selecting them despite no such rule. All set to term_compat: true.',
+    ]},
+  },
+  {
     version: '0.73',
     date: '2026-06-17',
     title: {

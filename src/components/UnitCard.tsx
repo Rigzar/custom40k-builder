@@ -98,7 +98,7 @@ function resolveChoiceWeapons(u: Unit, choiceName: string): { weapons: Weapon[];
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, army, legacy, legacy2, addArmoryItem, removeArmoryItem } = store;
+  const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -161,7 +161,7 @@ export function UnitCard({ item }: Props) {
   // group (available_if: Chaos Space Marines force) must not show under a Space Marine host.
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
-    isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction));
+    isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype));
   const hasMarks = Object.keys(data.animosity).length > 0;
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
@@ -792,8 +792,8 @@ export function UnitCard({ item }: Props) {
             // Host-gated branches (BSData condition, scope:'force') — e.g. a Horus Heresy squad's
             // "if part of a Space Marine army" option is hidden under a Chaos Space Marine host.
             // Unit-scope conditions stay visible-but-disabled below (validated UX); force-scope is hidden.
-            if (g.available_if?.scope === 'force' &&
-                !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction)) return null;
+            if ((g.available_if?.scope === 'force' || g.available_if?.scope === 'archetype') &&
+                !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype)) return null;
 
             // Required OG warning: show if nothing is selected
             const isRequired = g.constraint.required;
@@ -852,7 +852,7 @@ export function UnitCard({ item }: Props) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
               // Keyword-gated availability (BSData condition primitive). effectiveMark is the
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
-              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction);
+              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype);
               return (
                 <div key={realGi} className="text-[12px]">
                   <label className={`flex items-center gap-2 ${blocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>

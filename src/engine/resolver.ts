@@ -147,22 +147,27 @@ function unitHasKeyword(keyword: string, mark: string | null, keywords: string[]
 /**
  * Evaluate a BSData-style availability condition (see OptionCondition). Returns whether the
  * option group is available.
- *   scope 'unit'           → match the keyword against the model's own mark / keywords.
- *   scope 'force'|'roster' → match against the host army's faction (e.g. a Horus Heresy unit
- *                            injected into a "Chaos Space Marines" vs "Space Marines" host).
- * The faction match is exact (case-insensitive) so "Space Marines" does not match the
- * "Chaos Space Marines" host.
+ *   scope 'unit'      → match the keyword against the model's own mark / keywords.
+ *   scope 'force'     → match against the host army's faction name (exact, case-insensitive).
+ *   scope 'archetype' → match against the army's selected archetype name (exact, case-insensitive).
+ *   scope 'roster'    → reserved (treated as force match for now).
  */
 export function isOptionAvailable(
   cond: OptionCondition | undefined,
   mark: string | null,
   keywords: string[],
   hostFaction?: string | null,
+  archetype?: string | null,
 ): boolean {
   if (!cond) return true;
-  const has = cond.scope === 'unit'
-    ? unitHasKeyword(cond.keyword, mark, keywords)
-    : (hostFaction ?? '').toLowerCase() === cond.keyword.toLowerCase();
+  let has: boolean;
+  if (cond.scope === 'unit') {
+    has = unitHasKeyword(cond.keyword, mark, keywords);
+  } else if (cond.scope === 'archetype') {
+    has = (archetype ?? '').toLowerCase() === cond.keyword.toLowerCase();
+  } else {
+    has = (hostFaction ?? '').toLowerCase() === cond.keyword.toLowerCase();
+  }
   return cond.type === 'instanceOf' ? has : !has;
 }
 
@@ -216,23 +221,35 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   if (optionalWeapons.size === 0 && !hasReplaceGroup && zeroCountModelWeapons.size === 0) return weapons;
 
   const selectedChoiceNames = new Set<string>();
-  // Weapons dropped by a structured `replace` group whose swap affects the whole unit.
-  const replacedWeaponNames = new Set<string>();
+  // How many option groups target each weapon name for replacement (needed for AND logic below).
+  const replaceGroupTotals = new Map<string, number>();
+  for (const g of unit.option_groups) {
+    if (!g.replaces) continue;
+    for (const name of g.replaces) replaceGroupTotals.set(name, (replaceGroupTotals.get(name) ?? 0) + 1);
+  }
+  const replaceGroupSelected = new Map<string, number>();
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
     const hasSelection = Object.entries(ch).some(([ci, qty]) => ci !== '__inline' && !!qty);
     // `replaces` is set in the data ONLY for unit-wide swaps ("Each model's X" / "May replace
     // its X"). Subset swaps ("one model's X", per_n/fixed_max) leave it unset so both the old
-    // and new weapons stay on the datasheet. So: drop whenever the group is tagged + selected.
+    // and new weapons stay on the datasheet. AND logic: track per-weapon selection count; the
+    // weapon is dropped only when ALL groups that reference it have a selection (see below).
     if (hasSelection && g.replaces) {
-      for (const name of g.replaces) replacedWeaponNames.add(name);
+      for (const name of g.replaces) replaceGroupSelected.set(name, (replaceGroupSelected.get(name) ?? 0) + 1);
     }
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];
       if (choice) selectedChoiceNames.add(choice.name);
     }
+  }
+  // Weapons dropped by structured `replaces` groups — only when ALL groups targeting a weapon
+  // are selected (AND logic). For single-group cases behaviour is identical to the old OR logic.
+  const replacedWeaponNames = new Set<string>();
+  for (const [name, total] of replaceGroupTotals) {
+    if ((replaceGroupSelected.get(name) ?? 0) >= total) replacedWeaponNames.add(name);
   }
   return weapons.filter(w => {
     if (replacedWeaponNames.has(w.name)) return false;

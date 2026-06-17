@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "Armory of Khorne",
   "weapons": [
     {
@@ -173,19 +173,19 @@
   "daemon_weapons": [
     {
       "name": "Betraying",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "Roll 1D6 during each activation in close combat. On a 3+ you gain the rolled number as additional Attacks. On a 1 or 2 the additional attacks are directed at friendly models in direct base contact. If there are no friendly models, it will attack itself. Unique.",
       "p_char": 10
     },
     {
       "name": "Bloodied",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains \"Blood drinker\". Unique.",
       "p_char": 5
     },
     {
       "name": "Wrathful",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains +2 Strength. Unique.",
       "p_char": 10
     }

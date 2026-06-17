@@ -119,7 +119,7 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
         continue;
       }
       const choice = g.choices[parseInt(ci)];
-      if (choice) total += choice.points * qty;
+      if (choice) total += choice.points * qty * (g.per_model ? item.size : 1);
     }
   }
 

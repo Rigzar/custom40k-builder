@@ -590,10 +590,12 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     u.option_groups.forEach((g, gi) => {
       if (!g.available_if) return;
       const selected = Object.entries(item.optionQty?.[gi] ?? {}).some(([, v]) => (v ?? 0) > 0);
-      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction)) {
+      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction, state.archetype)) {
         const reason = g.available_if.scope === 'unit'
           ? `not available with Mark of ${g.available_if.keyword}`
-          : `only available in a ${g.available_if.keyword} army`;
+          : g.available_if.scope === 'archetype'
+            ? `requires the "${g.available_if.keyword}" archetype`
+            : `only available in a ${g.available_if.keyword} army`;
         items.push({
           type: 'error',
           text: `${item.unitName}: "${g.header}" is ${reason} — deselect one.`,
@@ -784,25 +786,6 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         items.push({
           type: 'error',
           text: `Henchman Warband: up to ${cap} specialist models${hasInquisitorLord ? ' (Inquisitor Lord)' : ''} (have ${item.size}).`,
-        });
-      }
-    }
-  }
-
-  // Tau Empire: Kroot Shaman upgrade requires the "Kroot Hunting Pack" archetype.
-  // SOURCE: Tau Empire.ods Army Customisation — Kroot Hunting Pack archetype description:
-  // "One Kroot Master Shaper per army may be upgraded to a Shaman for +10 points."
-  // The upgrade is exclusive to this archetype; it must be blocked for other archetypes.
-  if (data.faction === 'Tau Empire' && state.archetype !== 'Kroot Hunting Pack') {
-    for (const item of state.army) {
-      if (item.unitName !== 'Kroot Master Shaper') continue;
-      const u = resolveUnit(item, data);
-      if (!u) continue;
-      const shamanIdx = u.option_groups.findIndex(g => /Shaman/i.test(g.header));
-      if (shamanIdx >= 0 && (item.optionQty?.[shamanIdx]?.['__inline'] ?? 0) > 0) {
-        items.push({
-          type: 'error',
-          text: 'Kroot Shaman upgrade requires the "Kroot Hunting Pack" Archetype.',
         });
       }
     }

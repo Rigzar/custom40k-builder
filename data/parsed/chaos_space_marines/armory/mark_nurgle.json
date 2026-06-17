@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "Armory of Nurgle",
   "weapons": [
     {
@@ -320,19 +320,19 @@
   "daemon_weapons": [
     {
       "name": "Entropic",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains \"Shieldbreaker(-3)\". Unique.",
       "p_char": 25
     },
     {
       "name": "Miasmic",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "Attacks against enemy models within 6\" range gain a bonus +1 Strength. Unique.",
       "p_char": 5
     },
     {
       "name": "Rotting",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "The weapon gains \"Deadly(5+)\". Unique.",
       "p_char": 10
     }
