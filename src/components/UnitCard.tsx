@@ -588,8 +588,12 @@ export function UnitCard({ item }: Props) {
               <div className="text-[11px] text-zinc-500 pt-0.5">Total: {item.size} models</div>
               {variantActive && (
                 <div className="text-[11px] text-amber-600/90">
-                  {modelsToShow.map((m, i) => modelCounts[i] != null || m === variant ? `${modelCounts[i] ?? 1}x ${m.name}` : null)
-                    .filter(Boolean).join(' + ')}
+                  {modelsToShow.map((m, i) => {
+                    if (modelCounts[i] != null) return `${modelCounts[i]}x ${m.name}`;
+                    if (m === variant) return `1x ${m.name}`;
+                    if (item.modelSizes?.[m.name]) return `${item.modelSizes[m.name]}x ${m.name}`;
+                    return null;
+                  }).filter(Boolean).join(' + ')}
                 </div>
               )}
             </div>

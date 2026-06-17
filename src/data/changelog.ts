@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.76',
+    date: '2026-06-17',
+    title: { en: 'Engine: variant-upgrade profile display fixed for all factions' },
+    changes: { en: [
+      'Fixed: when promoting a squad champion to a variant (e.g. Aspiring Champion, Veteran Sergeant), the model-breakdown label now correctly shows all model groups (e.g. "4x Chaos Space Marine + 1x Aspiring Champion") instead of only the variant. Affected all multi-group squad units across every faction.',
+      'Fixed: for armies saved before default_size was set (stale item.size=1), activating a squad variant upgrade (Nob, Aspiring Champion, etc.) would incorrectly trigger REPLACE and hide the base model stat row. The resolver now clamps baseCount to the model\'s minimum, restoring the correct split display.',
+    ]},
+  },
+  {
     version: '0.75',
     date: '2026-06-17',
     title: { en: 'Inquisition: armory access audit — vehicles and champion-only units corrected' },

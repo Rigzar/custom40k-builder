@@ -306,7 +306,8 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   if (activeVariant) {
     const promoted = getPromotedModel(unit, activeVariant);
     const idx = visibleModels.indexOf(promoted);
-    const baseCount = (item.modelSizes?.[promoted.name] ?? item.size) - 1;
+    const rawCount = item.modelSizes?.[promoted.name] ?? item.size;
+    const baseCount = Math.max(rawCount, promoted.min) - 1;
     if (idx >= 0 && baseCount > 0) {
       modelsToShow = [
         ...visibleModels.slice(0, idx),

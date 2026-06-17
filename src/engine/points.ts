@@ -69,7 +69,8 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
     } else {
       const grunt = unit.models.find(m => m.max > m.min && m.min === 0) ?? unit.models[0];
       total += variant.points;
-      const extra = Math.max(0, item.size - 1);
+      const effectiveSize = Math.max(item.size, grunt.min);
+      const extra = Math.max(0, effectiveSize - 1);
       total += extra * grunt.points;
     }
   } else if (item.modelSizes) {

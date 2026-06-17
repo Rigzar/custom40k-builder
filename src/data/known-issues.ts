@@ -36,15 +36,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-orks-nob-upgrade-profile-replace-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Orks — promoting a model to Nob replaces the base unit profile row instead of showing both',
-    description: 'Reported via the bug form (2026-06-13). Data-side verified correct (variant_models + variant_link pattern matches Traitor Guard/Skarboyz). Needs UI testing to confirm whether the display bug exists in practice or was a false alarm.',
+    description: 'Fixed v0.76: two root causes. (1) For multi-group units (CSM, SM Intercessors, etc.) in champion-REPLACE mode, the variant-active breakdown label omitted all base squad models ("1x Aspiring Champion" shown instead of "4x CSM + 1x Aspiring Champion") — fixed in UnitCard.tsx label logic. (2) For single-group units with stale saved armies where item.size=1 (below the unit min), baseCount=0 triggered REPLACE instead of SPLIT — fixed by clamping rawCount to promoted.min in resolver.ts and effectiveSize to grunt.min in points.ts. Affects all factions with variant_link squad units.',
   },
   {
     id: 'ki-orks-squighog-stikka-missing-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Orks — Squighog Boyz missing the Stikka weapon profile',
-    description: 'Reported via the bug form (2026-06-13). Data-side verified correct: "Stikka - Melee" and "Stikka - Ranged" are in weapons[] and not in any option_groups choices[], so they should always display. Needs UI testing to confirm whether the bug still exists or was resolved by a prior fix.',
+    description: 'Reported via the bug form (2026-06-13). Confirmed fixed by user UI testing (2026-06-17) — both "Stikka - Melee" and "Stikka - Ranged" profiles show correctly on the unit card.',
   },
   {
     id: 'ki-cd-psychic-unwired-01',
