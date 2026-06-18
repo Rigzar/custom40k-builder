@@ -234,16 +234,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-p3',
-    status: 'planned',
+    status: 'fixed',
     title: {
       en: 'Unit data migration: per-slot TypeScript files with canonical datasheet text',
       de: 'Einheitendaten-Migration: TypeScript-Dateien pro Slot mit kanonischem Regeltext',
       es: 'Migración de datos de unidades: archivos TypeScript por slot con texto canónico de datasheet',
     },
     description: {
-      en: 'The next data architecture step: unit data will move from units.json to TypeScript files grouped by slot (hq.ts, troops.ts, elites.ts, etc.) per faction. Each unit definition will have the original datasheet text as a comment above its object, making it immediately visible whether "may swap X" has the replaces field set, whether per_model is correct, etc. This follows the same canonical-text-as-comments pattern already applied to archetypes/traits/legacies engine files. Being planned — not started yet.',
-      de: 'Der nächste Datearchitektur-Schritt: Einheitendaten werden von units.json in TypeScript-Dateien nach Slot (hq.ts, troops.ts, elites.ts usw.) je Fraktion umgezogen. Jede Einheitendefinition erhält den originalen Datenblatttext als Kommentar, sodass sofort sichtbar ist, ob "may swap X" das replaces-Feld hat, ob per_model korrekt ist usw. Wird geplant — noch nicht gestartet.',
-      es: 'El siguiente paso de arquitectura de datos: los datos de unidades se moverán de units.json a archivos TypeScript agrupados por slot (hq.ts, troops.ts, elites.ts, etc.) por facción. Cada definición de unidad tendrá el texto original del datasheet como comentario, haciendo visible si "may swap X" tiene el campo replaces, si per_model es correcto, etc. Siguiendo el mismo patrón de texto canónico ya aplicado a los archivos de arquetipos/rasgos/legados. En planificación — aún no iniciado.',
+      en: 'FIXED v0.80: all 19 factions now use per-slot TypeScript unit files under data/parsed/<faction>/units/<slot>/<unit>.ts. The legacy units.json files have been removed. Units auto-generated from the old JSON carry TODO comments — these will be replaced with canonical .ods source text as each faction is audited.',
+      de: 'BEHOBEN v0.80: Alle 19 Fraktionen verwenden nun TypeScript-Einheitendateien unter data/parsed/<faction>/units/<slot>/<unit>.ts. Die alten units.json-Dateien wurden entfernt. Automatisch generierte Einheiten tragen TODO-Kommentare — diese werden bei der .ods-Prüfung jeder Fraktion durch kanonischen Quellentext ersetzt.',
+      es: 'RESUELTO v0.80: las 19 facciones usan ahora archivos TypeScript de unidades en data/parsed/<faction>/units/<slot>/<unit>.ts. Los archivos units.json legacy han sido eliminados. Las unidades auto-generadas conservan comentarios TODO — se reemplazarán con el texto canónico del .ods cuando se audite cada facción.',
     },
   },
   {

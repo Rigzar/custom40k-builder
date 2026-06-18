@@ -51,9 +51,7 @@ Esta es la forma de contribución con mayor impacto. Cada facción vive en su pr
 
 ```
 data/parsed/<faccion>/
-  units.json          ← todas las unidades (layout clásico — la mayoría de facciones)
-   ── O BIEN ──
-  units/              ← un .ts por unidad (facciones migradas: CSM, CD, SM, GK, Inquisition)
+  units/              ← un .ts por unidad (las 19 facciones)
     troops/
       traitor_guard.ts   ← una unidad, exportada como `Unit`
       index.ts           ← reexporta todas las unidades de ese slot
@@ -68,25 +66,15 @@ data/parsed/<faccion>/
   psychic/            ← disciplinas, plegarias, daemonkin
 ```
 
-> **Existen dos layouts de unidades.** La mayoría de facciones siguen guardando
-> todas las unidades en un único `units.json`. Cinco facciones (**Chaos Space
-> Marines, Chaos Daemons, Space Marines, Grey Knights, Inquisition**) están
-> migradas a una carpeta `units/` donde cada unidad es su propio `.ts` dentro de
-> la carpeta de su slot. Ambos producen los mismos objetos `Unit` en memoria —
-> solo cambia el layout en disco. Fijate cuál usa tu facción antes de editar: si
-> existe la carpeta `units/`, editá el `.ts` por unidad; si no, editá `units.json`.
+> Las 19 facciones usan el layout `units/` por slot. Cada unidad vive en su
+> propio `.ts` bajo `units/<slot>/<unidad>.ts`. Las unidades auditadas contra
+> el `.ods` canónico tienen un comentario de cabecera con la fuente; las
+> generadas automáticamente traen un comentario `TODO`.
 
 ### Proceso
 
-1. Navegá a `data/parsed/<faccion>/` y abrí el archivo correspondiente.
-2. Para correcciones de unidades:
-   - **Facciones con `units.json`:** encontrá la unidad — es una clave dentro de `"units": { ... }`.
-   - **Facciones con `units/`** (CSM, CD, SM, GK, Inquisition): abrí
-     `units/<slot>/<unidad>.ts`. El objeto exportado usa los mismos nombres de
-     campo que una entrada de `units.json` (la tabla de abajo aplica igual); el
-     bloque de comentario de cabecera documenta la fuente canónica y el perfil —
-     mantenelo sincronizado si cambiás un valor. Para añadir una unidad nueva,
-     creá el `.ts` y agregá su línea `export` al `index.ts` de ese slot.
+1. Navegá a `data/parsed/<faccion>/units/<slot>/` y abrí el `.ts` correspondiente.
+2. El objeto exportado usa los nombres de campo de la tabla de abajo. El comentario de cabecera documenta la fuente canónica y el perfil — mantenelo sincronizado si cambiás un valor.
 3. Compará cada campo con tu copia del reglamento.
 4. Corregí lo que está mal y ejecutá `npm run build` para confirmar que el JSON es válido y la app sigue compilando.
 5. Abrí un Pull Request.
@@ -302,7 +290,7 @@ Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un n
 
 ### Estructura de datos (carpetas por facción)
 
-Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción, no un directorio plano con monolitos. Dentro: `units.json`, `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (solo CSM/CD). Los suplementos van en `_supplements/` y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
+Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facción. Dentro: `units/` (ver estructura arriba), `armory/general.json`, `armory/mark_*.json`, `armory/legion_*.json`, `psychic/`, `archetypes.json`, `animosity.json` (solo CSM/CD). Los suplementos van en `_supplements/` y los archivos de auditoría del parser en `_scratch/` (nunca los carga la app).
 
 El loader que ensambla cada `FactionData` es **`src/data/loaders.ts`** — importa los archivos individuales con rutas estáticas (requerido por Vite) y los fusiona. El engine recibe exactamente el mismo objeto que antes; solo cambió la organización de archivos.
 

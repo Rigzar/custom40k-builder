@@ -51,11 +51,9 @@ This is the highest-impact way to contribute. Each faction lives in its own fold
 
 ```
 data/parsed/<faction>/
-  units.json          ← all units (legacy layout — most factions)
-   ── OR ──
-  units/              ← one .ts file per unit (migrated factions: CSM, CD, SM, GK, Inquisition)
+  units/              ← one .ts file per unit (all 19 factions)
     troops/
-      traitor_guard.ts   ← a single unit, default-exported as a `Unit`
+      traitor_guard.ts   ← a single unit, exported as a `Unit`
       index.ts           ← re-exports every unit in this slot
     hq/  elites/  ...     ← one folder per slot, each with its own index.ts
     index.ts          ← assembles the faction's slot_to_units + units map
@@ -68,25 +66,16 @@ data/parsed/<faction>/
   psychic/            ← disciplines, prayers, daemonkin
 ```
 
-> **Two unit layouts exist.** Most factions still keep every unit in a single
-> `units.json`. Five factions (**Chaos Space Marines, Chaos Daemons, Space
-> Marines, Grey Knights, Inquisition**) have been migrated to a `units/` folder
-> where each unit is its own `.ts` file under its slot folder. Both produce the
-> same in-memory `Unit` objects — only the on-disk layout differs. Check which
-> one your faction uses before editing: if a `units/` folder exists, edit the
-> per-unit `.ts`; otherwise edit `units.json`.
+> All 19 factions use the `units/` per-slot layout. Each unit lives in its own
+> `.ts` file under `units/<slot>/<unit>.ts`. To edit a unit, open that file
+> directly. To add a new unit, create the `.ts` file and add its `export` line
+> to that slot's `index.ts`. Units audited against the canonical `.ods` source
+> have a source header comment; auto-generated units carry a `TODO` comment.
 
 ### Workflow
 
-1. Navigate to `data/parsed/<faction>/` and open the relevant file.
-2. For unit corrections:
-   - **`units.json` factions:** find the unit — it's a key inside `"units": { ... }`.
-   - **`units/` factions** (CSM, CD, SM, GK, Inquisition): open
-     `units/<slot>/<unit>.ts`. The exported object uses the same field names as a
-     `units.json` entry (the JSON in the table below applies unchanged); the
-     header comment block documents the canonical source and profile — keep it in
-     sync if you change a value. To add a brand-new unit, create the `.ts` file
-     and add its `export` line to that slot's `index.ts`.
+1. Navigate to `data/parsed/<faction>/units/<slot>/` and open the relevant `.ts` file.
+2. The exported object uses the field names in the table below. The header comment documents the canonical source and profile — keep it in sync if you change a value.
 3. Compare each field against your copy of the rules.
 4. Fix what's wrong, then run `npm run build` to confirm the JSON is valid and the app still compiles.
 5. Open a Pull Request.
@@ -331,7 +320,7 @@ data/parsed/
 The loader that assembles each faction's `FactionData` is **`src/data/loaders.ts`** — it imports the individual files with static string literals (required by Vite) and merges them. The engine receives exactly the same `FactionData` shape as before; only the file layout changed.
 
 **Adding a new faction:**
-1. Create `data/parsed/<faction>/` with `units.json` + `armory/general.json` at minimum.
+1. Create `data/parsed/<faction>/` with a `units/` folder (see structure above) + `armory/general.json` at minimum.
 2. Add optional sub-files (`archetypes.json`, `animosity.json` if the faction has marks, `psychic/`, more armory files) as needed.
 3. Add a `case '<faction>'` in `src/data/loaders.ts` that loads the files and calls `asm(...)`.
 4. Add the key to `FACTION_LOADERS` at the bottom of `loaders.ts`.
