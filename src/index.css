@@ -1,7 +1,44 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'ConduitITCStd';
+  src: url('/fonts/ConduitITCStd ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ConduitITCStd';
+  src: url('/fonts/ConduitITCStd Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ConduitITCStd';
+  src: url('/fonts/ConduitITCStd-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BankGothic';
+  src: url('/fonts/bank-gothic-400.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-cinzel: 'Cinzel', 'Trajan Pro', Georgia, serif;
+  --font-bankgothic: 'BankGothic', 'Cinzel', Georgia, serif;
+}
+
 * { box-sizing: border-box; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
+.font-cinzel { font-family: var(--font-cinzel); }
+.font-bankgothic { font-family: var(--font-bankgothic); }
 #root { min-height: 100vh; }
 
 @media print {

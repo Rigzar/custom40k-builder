@@ -335,7 +335,7 @@ The loader that assembles each faction's `FactionData` is **`src/data/loaders.ts
 2. Add optional sub-files (`archetypes.json`, `animosity.json` if the faction has marks, `psychic/`, more armory files) as needed.
 3. Add a `case '<faction>'` in `src/data/loaders.ts` that loads the files and calls `asm(...)`.
 4. Add the key to `FACTION_LOADERS` at the bottom of `loaders.ts`.
-5. Register the faction in `src/components/LandingPage.tsx` (the card grid).
+5. Register the faction in `src/components/LandingPage.tsx` (the card grid) and add its abbreviation / category to `src/components/FactionSymbol.tsx`.
 6. Add engine rules if needed: `src/engine/factions/<faction>/` (resolver, archetypes, traits, validators).
 
 ### Where to start / how to help

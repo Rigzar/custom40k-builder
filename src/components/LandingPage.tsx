@@ -5,6 +5,7 @@ import { ChangelogModal } from './ChangelogModal';
 import { LegalFooter } from './LegalModal';
 import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
+import { FactionSymbol } from './FactionSymbol';
 import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
@@ -90,16 +91,17 @@ interface FactionDef {
 
 interface Category {
   name: string;
-  borderColor: string;
-  labelColor: string;
+  icon: string;
+  pillFg: string;
+  dividerColor: string;
   factions: FactionDef[];
 }
 
-const STATUS_BADGE: Record<FactionStatus, { dot: string; label: string }> = {
-  complete:   { dot: 'bg-green-500',   label: 'text-green-400'  },
-  testing:    { dot: 'bg-amber-400',   label: 'text-amber-400'  },
-  inreview:   { dot: 'bg-orange-500',  label: 'text-orange-400' },
-  unreviewed: { dot: 'bg-red-500',     label: 'text-red-500'    },
+const STATUS_DOT: Record<FactionStatus, string> = {
+  complete:   'bg-green-500',
+  testing:    'bg-amber-400',
+  inreview:   'bg-orange-500',
+  unreviewed: 'bg-red-500',
 };
 
 const STATUS_I18N_KEY: Record<FactionStatus, TranslationKey> = {
@@ -112,8 +114,8 @@ const STATUS_I18N_KEY: Record<FactionStatus, TranslationKey> = {
 const CATEGORIES: Category[] = [
   {
     name: 'Chaos',
-    borderColor: 'border-red-800',
-    labelColor: 'text-red-400',
+    icon: '/category-icons/chaos.svg',
+    pillFg: '#cc8888', dividerColor: '#3a1a1a',
     factions: [
       { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete' },
       { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete' },
@@ -121,8 +123,8 @@ const CATEGORIES: Category[] = [
   },
   {
     name: 'Imperium',
-    borderColor: 'border-yellow-700',
-    labelColor: 'text-yellow-500',
+    icon: '/category-icons/imperium.svg',
+    pillFg: '#c8b56a', dividerColor: '#3a3520',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing' },
@@ -135,18 +137,18 @@ const CATEGORIES: Category[] = [
   },
   {
     name: 'Xenos',
-    borderColor: 'border-green-800',
-    labelColor: 'text-green-500',
+    icon: '/category-icons/xenos.svg',
+    pillFg: '#6ab88a', dividerColor: '#1a3a28',
     factions: [
-      { key: 'tau_empire',        name: 'Tau Empire',         available: true, status: 'inreview' },
-      { key: 'necrons',           name: 'Necrons',            available: true, status: 'inreview' },
-      { key: 'orks',              name: 'Orks',               available: true, status: 'inreview' },
-      { key: 'eldar',             name: 'Eldar',              available: true, status: 'inreview' },
-      { key: 'dark_eldar',        name: 'Dark Eldar',         available: true, status: 'inreview' },
-      { key: 'genestealer_cults', name: 'Genestealer Cults',  available: true, status: 'inreview' },
-      { key: 'harlequins',        name: 'Harlequins',         available: true, status: 'inreview' },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann',  available: true, status: 'inreview' },
-      { key: 'tyranids',          name: 'Tyranids',           available: true, status: 'inreview' },
+      { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'inreview' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'inreview' },
+      { key: 'orks',              name: 'Orks',              available: true, status: 'inreview' },
+      { key: 'eldar',             name: 'Eldar',             available: true, status: 'inreview' },
+      { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'inreview' },
+      { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'inreview' },
+      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'inreview' },
+      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'inreview' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'inreview' },
     ],
   },
 ];
@@ -160,15 +162,17 @@ interface Props {
   selectedFaction: string | null;
   loading: boolean;
   saves: SavedArmy[];
-  onSelectFaction: (key: string) => void;
+  onSelectFaction: (key: string | null) => void;
   onBuild: () => void;
   onLoadArmy: (save: SavedArmy) => void;
   onDeleteArmy: (id: string) => void;
+  hideArmyConfig?: boolean;
 }
 
 export function LandingPage({
   selectedFaction, loading, saves,
   onSelectFaction, onBuild, onLoadArmy, onDeleteArmy,
+  hideArmyConfig = false,
 }: Props) {
   const { data } = useArmyStore();
   const [showChangelog, setShowChangelog] = useState(false);
@@ -178,20 +182,29 @@ export function LandingPage({
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-5">
-        <div className="flex items-center justify-between max-w-screen-lg mx-auto">
+
+      {/* ── Header ── */}
+      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-7">
+        <div className="flex items-center justify-between max-w-screen-lg mx-auto gap-4">
           <LanguageSelector />
           <div className="flex-1 text-center">
-            <h1 className="text-amber-500 font-bold uppercase tracking-widest text-2xl mb-1">
-              {t('appTitle')}
-            </h1>
+            <img
+              src="/wh40k-logo.webp"
+              alt="Warhammer 40,000"
+              className="h-16 mx-auto mb-1 object-contain"
+              style={{ filter: 'sepia(1) saturate(4) hue-rotate(-10deg) brightness(1.05)' }}
+              draggable={false}
+            />
             <p className="text-zinc-500 text-sm">
               {t('appSubtitle')}
+            </p>
+            <p className="text-zinc-600 text-[10px] italic mt-2 font-cinzel tracking-wide">
+              "La victoria no necesita explicación, la derrota no admite excusas."
             </p>
           </div>
           <button
             onClick={() => setShowChangelog(true)}
-            className="shrink-0 ml-4 text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
+            className="shrink-0 text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
           >
             {t('updates')} <span className="text-amber-700">v{latestVersion}</span>
           </button>
@@ -215,12 +228,15 @@ export function LandingPage({
               {saves.map(save => (
                 <div
                   key={save.id}
-                  className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-3 flex flex-col gap-2"
+                  className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-3 flex flex-col gap-2 rounded-sm"
                 >
                   <div className="flex items-start justify-between gap-2 min-w-0">
-                    <div className="min-w-0">
-                      <div className="text-sm font-semibold text-zinc-100 truncate">{save.name}</div>
-                      <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{save.factionLabel}</div>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <FactionSymbol factionKey={save.factionKey} size={28} />
+                      <div className="min-w-0">
+                        <div className="text-sm font-semibold text-zinc-100 truncate">{save.name}</div>
+                        <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{save.factionLabel}</div>
+                      </div>
                     </div>
                     <button
                       onClick={() => onDeleteArmy(save.id)}
@@ -230,7 +246,6 @@ export function LandingPage({
                       ×
                     </button>
                   </div>
-
                   <div className="flex items-center gap-3 text-[11px] text-zinc-500">
                     <span>{save.unitCount} units</span>
                     <span>·</span>
@@ -238,7 +253,6 @@ export function LandingPage({
                     <span>·</span>
                     <span>{formatDate(save.savedAt)}</span>
                   </div>
-
                   <button
                     onClick={() => onLoadArmy(save)}
                     className="mt-1 w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/30 border border-amber-800/60 text-amber-400 hover:bg-amber-800/40 transition-colors"
@@ -253,59 +267,68 @@ export function LandingPage({
 
         {/* ── Faction selection ── */}
         <section>
-          <div className="flex items-center justify-between mb-4">
+          {/* Legend */}
+          <div className="flex items-center justify-between mb-5">
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700">{t('selectFaction')}</h2>
             <div className="flex items-center gap-3 text-[10px] text-zinc-500">
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" /> {t('fullyReviewed')}</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" /> {t('needsTesting')}</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" /> {t('inReview')}</span>
-              <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500 inline-block" /> {t('notReviewed')}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" />{t('fullyReviewed')}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />{t('needsTesting')}</span>
+              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" />{t('inReview')}</span>
             </div>
           </div>
-          <div className="space-y-6">
+
+          <div className="space-y-7">
             {CATEGORIES.map(cat => (
               <div key={cat.name}>
-                <div className={`text-[10px] uppercase tracking-widest mb-2 font-semibold ${cat.labelColor}`}>
-                  {cat.name}
+                {/* Category header: icon + name + divider */}
+                <div className="flex items-center gap-2.5 mb-3">
+                  <img
+                    src={cat.icon}
+                    alt={cat.name}
+                    className="shrink-0"
+                    style={{ width: 52, height: 52, filter: 'brightness(0) invert(1)', opacity: 0.60 }}
+                  />
+                  <span
+                    className="font-cinzel text-[11px] uppercase tracking-widest shrink-0"
+                    style={{ color: cat.pillFg }}
+                  >
+                    {cat.name}
+                  </span>
+                  <div className="flex-1 h-px" style={{ background: cat.dividerColor }} />
                 </div>
-                <div className="flex flex-wrap gap-2">
+
+                {/* Faction cards */}
+                <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
                   {cat.factions.map(f => {
                     const isSelected = selectedFaction === f.key;
-                    const badge = STATUS_BADGE[f.status];
                     return (
                       <button
                         key={f.key}
-                        onClick={() => f.available && onSelectFaction(f.key)}
+                        onClick={() => f.available && onSelectFaction(isSelected ? null : f.key)}
                         disabled={!f.available}
                         className={`
-                          relative px-4 py-3 border-2 text-sm transition-all text-left min-w-[160px]
+                          relative flex flex-col items-center gap-2 pt-4 pb-3 px-2 border rounded-lg text-center transition-all
                           ${!f.available
-                            ? 'border-zinc-700 bg-zinc-900 text-zinc-600 cursor-not-allowed'
+                            ? 'border-zinc-800 bg-zinc-900/50 cursor-not-allowed opacity-40'
                             : isSelected
-                              ? `${cat.borderColor} bg-zinc-800 text-amber-400 ring-1 ring-amber-700`
-                              : `${cat.borderColor} bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-zinc-100`
+                              ? 'border-amber-600 bg-zinc-800 ring-1 ring-amber-700/50'
+                              : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500 hover:bg-zinc-800 cursor-pointer'
                           }
                         `}
                       >
-                        {/* Status badge */}
+                        {/* Status dot */}
                         {f.available && (
                           <div
-                            className="absolute top-1.5 right-1.5 flex items-center gap-1"
+                            className={`absolute top-2 right-2 w-2 h-2 rounded-full ${STATUS_DOT[f.status]}`}
                             title={t(STATUS_I18N_KEY[f.status])}
-                          >
-                            <div className={`w-2 h-2 rounded-full ${badge.dot}`} />
-                          </div>
+                          />
                         )}
-                        <div className="font-semibold">{f.name}</div>
-                        {!f.available && (
-                          <div className="text-[10px] text-zinc-600 mt-0.5">Coming soon</div>
-                        )}
-                        {f.available && isSelected && (
-                          <div className="text-[10px] text-amber-600 mt-0.5">Selected</div>
-                        )}
-                        {f.available && !isSelected && (
-                          <div className={`text-[10px] mt-0.5 ${badge.label}`}>{t(STATUS_I18N_KEY[f.status])}</div>
-                        )}
+
+                        <FactionSymbol factionKey={f.key} size={40} />
+
+                        <span className={`text-[11px] leading-tight ${isSelected ? 'text-amber-400' : 'text-zinc-300'}`}>
+                          {f.name}
+                        </span>
                       </button>
                     );
                   })}
@@ -315,13 +338,12 @@ export function LandingPage({
           </div>
         </section>
 
-        {/* ── Army configuration — shown after faction selected ── */}
-        {selectedFaction && (
+        {/* ── Army configuration ── */}
+        {!hideArmyConfig && selectedFaction && (
           <section>
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
               Army Configuration
             </h2>
-
             {loading || !data ? (
               <div className="flex items-center gap-3 text-zinc-500 py-8">
                 <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
@@ -336,7 +358,7 @@ export function LandingPage({
         )}
 
         {/* ── Build button ── */}
-        {data && selectedFaction && (
+        {!hideArmyConfig && data && selectedFaction && (
           <div className="flex justify-center pt-2">
             <button
               onClick={onBuild}
@@ -349,20 +371,29 @@ export function LandingPage({
 
         {/* ── Supplements ── */}
         <section>
-          <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-1">Supplements</h2>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
+              Supplements
+            </span>
+            <div className="flex-1 h-px bg-zinc-800" />
+          </div>
           <p className="text-zinc-600 text-[11px] mb-4">
             Expansion rule sets that add new units and options to the core game.
           </p>
           <div className="flex flex-wrap gap-3">
 
-            {/* Horus Heresy */}
             <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-red-900 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
               <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
-                  <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: '#2d1010', padding: 4 }}>
+                    <img src="/faction-symbols/horus-heresy.svg" alt="Eye of Horus" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
+                  </div>
+                  <div>
+                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
+                    <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
+                  </div>
                 </div>
-                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Functional — injectable roster, armory and disciplines. Some edge cases still under review.">Beta</span>
+                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
               </div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.
@@ -375,14 +406,18 @@ export function LandingPage({
               </button>
             </div>
 
-            {/* Escalation — Lords of War */}
             <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-amber-800 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
               <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
-                  <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
+                    <img src="/faction-symbols/escalation.svg" alt="Escalation" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
+                  </div>
+                  <div>
+                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
+                    <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
+                  </div>
                 </div>
-                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Functional — Lords of War rosters in for all 9 supported factions. Some edge cases still under review.">Beta</span>
+                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
               </div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Available for all factions.
@@ -395,14 +430,18 @@ export function LandingPage({
               </button>
             </div>
 
-            {/* Assassins — Execution Force */}
             <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-zinc-500 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
               <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Assassins</div>
-                  <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Execution Force</div>
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
+                    <img src="/faction-symbols/assassins.svg" alt="Officio Assassinorum" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
+                  </div>
+                  <div>
+                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Assassins</div>
+                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Officio Assassinorum</div>
+                  </div>
                 </div>
-                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0" title="Granted natively to Grey Knights and Adeptus Sororitas via their codex rules — not a standalone faction.">Grey Knights · Sororitas</span>
+                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Grey Knights · Sororitas</span>
               </div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Callidus, Culexus, Eversor, Vindicare. A single Assassin or one of each — counts as a single Elite slot. Granted natively by Demon Hunters / Witch hunters.

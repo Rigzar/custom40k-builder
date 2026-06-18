@@ -62,9 +62,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
       'Take either a single Assassin (any one of the four types) or one of each — the engine enforces this and counts the whole selection as one Elite slot.',
     ],
     load: async () => {
-      const m = (await import('../../data/parsed/assassins/units.json')) as { default: any };
-      const j = m.default;
-      return { units: j.units, slots: j.slot_to_units };
+      const m = await import('../../data/parsed/assassins/units/index');
+      return { units: m.units, slots: m.slot_to_units };
     },
   },
   escalation: {
@@ -91,28 +90,28 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
           return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
         { faction: 'Adeptus Sororitas', load: async () => {
-          const m = (await import('../../data/parsed/adeptus_sororitas/units.json')) as { default: any };
-          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+          const idx = await import('../../data/parsed/adeptus_sororitas/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
         { faction: 'Imperial Guard', load: async () => {
-          const m = (await import('../../data/parsed/imperial_guard/units.json')) as { default: any };
-          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+          const idx = await import('../../data/parsed/imperial_guard/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
         { faction: 'Eldar', load: async () => {
-          const m = (await import('../../data/parsed/eldar/units.json')) as { default: any };
-          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+          const idx = await import('../../data/parsed/eldar/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
         { faction: 'Orks', load: async () => {
-          const m = (await import('../../data/parsed/orks/units.json')) as { default: any };
-          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+          const idx = await import('../../data/parsed/orks/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
         { faction: 'Necrons', load: async () => {
-          const m = (await import('../../data/parsed/necrons/units.json')) as { default: any };
-          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+          const idx = await import('../../data/parsed/necrons/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
         { faction: 'Tau Empire', load: async () => {
-          const m = (await import('../../data/parsed/tau_empire/units.json')) as { default: any };
-          return { units: m.default.units, slot_to_units: m.default.slot_to_units };
+          const idx = await import('../../data/parsed/tau_empire/units/index');
+          return { units: idx.units, slot_to_units: idx.slot_to_units };
         } },
       ];
 

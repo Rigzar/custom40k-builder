@@ -231,7 +231,15 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
-    const hasSelection = Object.entries(ch).some(([ci, qty]) => ci !== '__inline' && !!qty);
+    // For "every" groups the header says "Each model may swap" — the replace only fires when
+    // ALL models have taken the option (qty sum >= item.size). Partial swaps (e.g. 3 of 10
+    // models) keep the base weapon visible alongside the swap choice.
+    const totalQty = Object.entries(ch)
+      .filter(([ci]) => ci !== '__inline')
+      .reduce((sum, [, qty]) => sum + (Number(qty) || 0), 0);
+    const hasSelection = g.constraint?.type === 'every' && g.replaces?.length
+      ? totalQty >= item.size
+      : Object.entries(ch).some(([ci, qty]) => ci !== '__inline' && !!qty);
     // `replaces` is set in the data ONLY for unit-wide swaps ("Each model's X" / "May replace
     // its X"). Subset swaps ("one model's X", per_n/fixed_max) leave it unset so both the old
     // and new weapons stay on the datasheet. AND logic: track per-weapon selection count; the
@@ -462,7 +470,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
           !wa.weapon_type ||
           (wa.weapon_type === 'melee'   &&  isMelee) ||
           (wa.weapon_type === 'ranged'  && !isMelee) ||
-          (wa.weapon_type === 'bolt'    && /bolt/i.test(weapon.name) && !/^heavy/i.test(weapon.type ?? ''));
+          (wa.weapon_type === 'bolt'    && /bolt/i.test(weapon.name));
         if (applies) {
           weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), wa.name]);
         }

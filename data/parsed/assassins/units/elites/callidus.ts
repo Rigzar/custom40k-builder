@@ -1,9 +1,29 @@
 /**
  * CALLIDUS — Elites
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE: Assassins ENG.ods / Callidus sheet
+ * ─────────────────────────────────────────────────────────────────────────
  *
+ * PROFILE:
+ *   No.  NAME      M    WS  BS  S  T  W  I  A  LD  SV  PTS
+ *   1    Callidus  6"   2+  2+  4  4  4  6  4   9  6+  142
+ *
+ * EQUIPPED WITH: A Callidus is equipped with: Neural shredder; Phase sword.
+ *
+ * WEAPONS:
+ *   Neural shredder  9"   Pistol 4  *   *   *  Flames
+ *   Phase sword      -    Melee    +1  -3   2  Shield breaker(-3)
+ *
+ * OPTIONS: none
+ *
+ * UNIT TYPE: Infantry
+ * KEYWORDS: none
+ *
+ * ENGINE STATUS:
+ *   ✓ stats, pts match .ods exactly
+ *   ✓ weapons match .ods exactly
+ *   ✓ no options
+ *   ✓ is_character: false, is_psyker: false, has_armory_access: false
  */
 
 import type { Unit } from '../../../../../src/types/data';

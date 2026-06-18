@@ -11,24 +11,35 @@ export function ValidationPanel() {
   const hasErrors = items.some(i => i.type === 'error');
   const hasWarns  = items.some(i => i.type === 'warn');
 
-  const borderColor = hasErrors ? 'border-l-red-500' : hasWarns ? 'border-l-amber-400' : 'border-l-green-500';
+  const accentColor = hasErrors ? 'border-l-red-600' : hasWarns ? 'border-l-amber-500' : 'border-l-green-600';
+  const statusDot   = hasErrors ? 'bg-red-500' : hasWarns ? 'bg-amber-400' : 'bg-green-500';
+  const statusCount = hasErrors
+    ? `${items.filter(i => i.type === 'error').length} error${items.filter(i => i.type === 'error').length !== 1 ? 's' : ''}`
+    : hasWarns
+    ? `${items.filter(i => i.type === 'warn').length} warning${items.filter(i => i.type === 'warn').length !== 1 ? 's' : ''}`
+    : 'ready';
 
   return (
-    <div className={`bg-zinc-900 border border-zinc-700 border-l-4 ${borderColor}`}>
+    <div className={`border border-zinc-800 bg-zinc-900/50 border-l-4 ${accentColor}`}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex justify-between items-center text-[11px] uppercase tracking-widest text-amber-600 px-3 py-2 border-b border-zinc-700 hover:bg-zinc-800 transition-colors"
+        className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800/60 transition-colors"
       >
-        <span>Validation</span>
-        <span className="text-zinc-500 text-[10px]">{open ? '▲' : '▼'}</span>
+        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusDot}`} />
+        <span className="font-cinzel text-[11px] uppercase tracking-widest text-amber-400 flex-1 text-left">Validation</span>
+        <span className="text-zinc-600 text-[10px]">{statusCount}</span>
+        <span className="text-zinc-600 text-[10px] ml-1">{open ? '▲' : '▼'}</span>
       </button>
       {open && (
-        <div className="p-3 space-y-0.5">
+        <div className="p-3 space-y-1">
           {items.map((it, i) => {
             const cls    = it.type === 'error' ? 'text-red-400' : it.type === 'warn' ? 'text-amber-400' : 'text-green-400';
-            const prefix = it.type === 'error' ? '✗ '           : it.type === 'warn' ? '⚠ '            : '✓ ';
+            const prefix = it.type === 'error' ? '✗' : it.type === 'warn' ? '⚠' : '✓';
             return (
-              <div key={i} className={`text-[12px] py-0.5 ${cls}`}>{prefix}{it.text}</div>
+              <div key={i} className={`flex items-start gap-2 text-[11px] ${cls}`}>
+                <span className="shrink-0 mt-px">{prefix}</span>
+                <span className="leading-relaxed">{it.text}</span>
+              </div>
             );
           })}
         </div>

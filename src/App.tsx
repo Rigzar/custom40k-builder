@@ -7,11 +7,13 @@ import { ArmyList } from './components/ArmyList';
 import { ReferencePanel } from './components/ReferencePanel';
 import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
+import { FactionSymbol } from './components/FactionSymbol';
 import { PrintView } from './components/PrintView';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
+import { getArmySymbolUrl } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
@@ -20,7 +22,7 @@ import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
 
-type Page = 'landing' | 'builder';
+type TabId = 'landing' | 'army_config' | 'builder';
 
 export const FACTION_NAMES: Record<string, string> = {
   chaos_space_marines:  'Chaos Space Marines',
@@ -137,6 +139,62 @@ function HeaderStatus() {
   );
 }
 
+// ── Tab bar ─────────────────────────────────────────────────────────────────
+function TabBar({
+  activeTab, openTabs, selectedFaction, factionLabel, armyName, symbolOverride,
+  onSwitch, onClose,
+}: {
+  activeTab: TabId;
+  openTabs: TabId[];
+  selectedFaction: string | null;
+  factionLabel: string;
+  armyName: string;
+  symbolOverride: string | null;
+  onSwitch: (tab: TabId) => void;
+  onClose: (tab: TabId) => void;
+}) {
+  const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean }[] = [
+    { id: 'landing',     label: 'Factions',       icon: false, closeable: false },
+    ...(openTabs.includes('army_config') ? [{ id: 'army_config' as TabId, label: factionLabel || 'Config', icon: true, closeable: true }] : []),
+    ...(openTabs.includes('builder')     ? [{ id: 'builder'     as TabId, label: armyName || 'Army',   icon: true, closeable: true }] : []),
+  ];
+
+  return (
+    <div className="flex items-stretch bg-zinc-950 border-b border-zinc-800 px-2 overflow-x-auto">
+      {tabs.map(tab => {
+        const active = activeTab === tab.id;
+        return (
+          <div
+            key={tab.id}
+            onClick={() => onSwitch(tab.id)}
+            className={`
+              flex items-center gap-1.5 px-3 py-2 text-[11px] uppercase tracking-wide font-cinzel
+              cursor-pointer select-none shrink-0 border-b-2 transition-colors
+              ${active
+                ? 'border-amber-600 text-amber-300 bg-zinc-900/70'
+                : 'border-transparent text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900/30'
+              }
+            `}
+          >
+            {tab.icon && selectedFaction && (
+              <FactionSymbol factionKey={selectedFaction} size={13} naked overrideUrl={symbolOverride ?? undefined} />
+            )}
+            <span>{tab.label}</span>
+            {tab.closeable && (
+              <span
+                onClick={e => { e.stopPropagation(); onClose(tab.id); }}
+                className="ml-0.5 text-zinc-600 hover:text-red-400 transition-colors leading-none text-sm"
+              >
+                ×
+              </span>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // ── Main App ────────────────────────────────────────────────────────────────
 export default function App() {
   const store = useArmyStore();
@@ -144,7 +202,10 @@ export default function App() {
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
           alliedFaction, setAlliedData, injectArchetypeFaction } = store;
 
-  const [page, setPage]                         = useState<Page>('landing');
+  const hasSession = !!sessionStorage.getItem('selectedFaction');
+
+  const [activeTab, setActiveTab]               = useState<TabId>(hasSession ? 'builder' : 'landing');
+  const [openTabs, setOpenTabs]                 = useState<TabId[]>(hasSession ? ['landing', 'army_config', 'builder'] : ['landing']);
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(
     () => sessionStorage.getItem('selectedFaction')
   );
@@ -154,14 +215,14 @@ export default function App() {
   const [showArmies, setShowArmies]             = useState(false);
   const [showBugReport, setShowBugReport]       = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
-  const pendingLoad = useRef<SavedArmy | null>(null);
-  const restoringSession = useRef(!!sessionStorage.getItem('selectedFaction'));
+  const pendingLoad                             = useRef<SavedArmy | null>(null);
+  const restoringSession                        = useRef(hasSession);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 
-  // Faction data loaders — each faction lives in data/parsed/<faction>/ (per-faction folder structure).
-  // See src/data/loaders.ts for how each faction's files are assembled into FactionData.
   const loaders = FACTION_LOADERS as Record<string, () => Promise<FactionData>>;
+
+  const armySymbolOverride = getArmySymbolUrl(selectedFaction, archetype ?? null, legacy ?? null, legacy2 ?? null);
 
   // Faction loader
   useEffect(() => {
@@ -176,16 +237,15 @@ export default function App() {
       .then(m => {
         setData(m as FactionData);
         setLoadingFaction(false);
-        // If there's a pending army to restore, do it now
         if (pendingLoad.current) {
           const save = pendingLoad.current;
           pendingLoad.current = null;
           importRoster(JSON.stringify(save.state));
         }
-        // Restore builder page after a page refresh
         if (restoringSession.current) {
           restoringSession.current = false;
-          setPage('builder');
+          setOpenTabs(['landing', 'army_config', 'builder']);
+          setActiveTab('builder');
         }
       })
       .catch(e => {
@@ -195,7 +255,7 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFaction]);
 
-  // Allied faction data loader — watches alliedFaction and injects data into the store
+  // Allied faction data loader
   useEffect(() => {
     if (!alliedFaction) {
       setAlliedData(null);
@@ -209,14 +269,7 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedFaction]);
 
-  // Auto-load faction data required by the active archetype (e.g. Legion → horus_heresy),
-  // by a Legacy that grants its own units (e.g. Legacy of the Alien Hunters → inquisition),
-  // by the "Chamber Militant" archetype (GK/Sororitas/SM → inquisition, per the 2026-06-14
-  // .ods Army Customisation sheets — own army, no [Allied] badge, see chamberMilitantOrdo),
-  // by any other always-on intrinsic-ally codex rule, or by the Assassins' OWN universal
-  // "Cults Abominatioe"/"Execution Force" grant (any Chaos or Imperial army gets native
-  // Elites access to the 4-unit Assassins catalog — data/source/Assassins ENG/Index.html,
-  // see getAssassinAccessAlignment for grounding).
+  // Archetype / legacy / native-ally faction loader
   useEffect(() => {
     if (!data) return;
     const rule = getArchetypeRule(archetype);
@@ -230,7 +283,7 @@ export default function App() {
         .filter((k): k is string => !!k)
     )];
     for (const key of keys) {
-      if (data.allied?.[key]) continue; // already loaded
+      if (data.allied?.[key]) continue;
       const loader = loaders[key];
       if (!loader) continue;
       const sharedArmoryLabel = rule?.alliedFaction === key ? rule.sharedSupplementArmory : undefined;
@@ -241,12 +294,31 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, legacy, legacy2, data?.faction]);
 
+  function handleSelectFaction(key: string | null) {
+    if (key === null) {
+      setSelectedFaction(null);
+      setOpenTabs(['landing']);
+      setActiveTab('landing');
+      sessionStorage.removeItem('selectedFaction');
+      return;
+    }
+    const isNewFaction = key !== selectedFaction;
+    setSelectedFaction(key);
+    setOpenTabs(prev => {
+      // Changing faction: close the builder tab
+      const base = isNewFaction ? prev.filter(t => t === 'landing') : prev.filter(t => t !== 'builder');
+      return base.includes('army_config') ? base : [...base, 'army_config'];
+    });
+    setActiveTab('army_config');
+  }
+
   function handleBuild() {
-    // Auto-assign name if empty
     if (!armyName.trim() && selectedFaction) {
       setArmyName(`${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`);
     }
-    setPage('builder');
+    if (!data || !selectedFaction) return;
+    setOpenTabs(prev => prev.includes('builder') ? prev : [...prev, 'builder']);
+    setActiveTab('builder');
   }
 
   function handleSaveArmy() {
@@ -258,8 +330,6 @@ export default function App() {
     }, 0);
 
     const name = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
-
-    // Find existing save with same name+faction to overwrite
     const existing = saves.find(s => s.name === name && s.factionKey === selectedFaction);
 
     const entry: SavedArmy = {
@@ -281,21 +351,16 @@ export default function App() {
   function handleLoadArmy(save: SavedArmy) {
     pendingLoad.current = save;
     setSelectedFaction(save.factionKey);
-    setPage('builder');
+    setOpenTabs(['landing', 'army_config', 'builder']);
+    setActiveTab('builder');
   }
 
-  if (page === 'landing') {
-    return (
-      <LandingPage
-        selectedFaction={selectedFaction}
-        loading={loadingFaction}
-        saves={saves}
-        onSelectFaction={setSelectedFaction}
-        onBuild={handleBuild}
-        onLoadArmy={handleLoadArmy}
-        onDeleteArmy={deleteArmy}
-      />
-    );
+  function handleCloseTab(tab: TabId) {
+    setOpenTabs(prev => prev.filter(t => t !== tab));
+    if (activeTab === tab) {
+      const remaining = openTabs.filter(t => t !== tab);
+      setActiveTab(remaining[remaining.length - 1] ?? 'landing');
+    }
   }
 
   const factionLabel = selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : '';
@@ -303,108 +368,167 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
-      {/* ── Sticky header ── */}
-      <header className="sticky top-0 z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
-        <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
-          {/* Title + faction + editable army name */}
-          <div className="flex items-baseline gap-2 mr-auto min-w-0">
-            <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0">
-              Custom40k
-            </h1>
-            <span className="text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
-            <ArmyNameEditor />
-          </div>
-
-          {/* Points + validation */}
-          <HeaderStatus />
-
-          {/* Actions */}
-          <div className="flex items-center gap-2 flex-wrap">
-            {data && (
-              <button
-                onClick={handleSaveArmy}
-                className={`text-[11px] uppercase tracking-wide border px-3 py-1 transition-colors
-                  ${savedMsg
-                    ? 'text-green-400 border-green-700 bg-green-900/20'
-                    : 'text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800'
-                  }`}
-              >
-                {savedMsg || 'Save'}
-              </button>
-            )}
-            <button
-              onClick={() => setShowArmies(true)}
-              className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-            >
-              My Armies
-            </button>
-            {data && (
-              <button
-                onClick={() => setShowRef(true)}
-                className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-              >
-                Reference
-              </button>
-            )}
-            {data && (
-              <button
-                onClick={() => setShowPrint(true)}
-                className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-              >
-                Print
-              </button>
-            )}
-            <button
-              onClick={() => setShowBugReport(true)}
-              className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
-            >
-              Bug
-            </button>
-            <button
-              onClick={() => { sessionStorage.removeItem('selectedFaction'); setPage('landing'); }}
-              className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-            >
-              ← Faction
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* ── Layout ── */}
-      <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
-
-        {/* ── Sidebar ── */}
-        <aside className="space-y-2">
-          <CollapsiblePanel title="Unit Catalogue" defaultOpen>
-            <SlotPanel />
-          </CollapsiblePanel>
-
-          <CollapsiblePanel title="Allied Detachment" defaultOpen>
-            <AlliedDetachmentPanel primaryFaction={selectedFaction} />
-          </CollapsiblePanel>
-
-          <CollapsiblePanel title="Configuration">
-            <ArmyConfig />
-          </CollapsiblePanel>
-
-          <ValidationPanel />
-
-          <div className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 px-3 pb-3">
-            <div className="text-[11px] uppercase tracking-widest text-amber-600 py-2 border-b border-zinc-700 mb-1">
-              Army
-            </div>
-            <ExportImport onPrint={() => setShowPrint(true)} />
-          </div>
-        </aside>
-
-        {/* ── Army list ── */}
-        <main>
-          <ArmyList />
-        </main>
+      {/* ── Tab bar (always sticky at top) ── */}
+      <div className="sticky top-0 z-50">
+        <TabBar
+          activeTab={activeTab}
+          openTabs={openTabs}
+          selectedFaction={selectedFaction}
+          factionLabel={factionLabel}
+          armyName={armyName}
+          symbolOverride={armySymbolOverride}
+          onSwitch={setActiveTab}
+          onClose={handleCloseTab}
+        />
       </div>
 
-      {showPrint    && <PrintView onClose={() => setShowPrint(false)} />}
-      {showArmies   && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
+      {/* ── Landing tab ── */}
+      <div style={{ display: activeTab === 'landing' ? 'contents' : 'none' }}>
+        <LandingPage
+          selectedFaction={selectedFaction}
+          loading={loadingFaction}
+          saves={saves}
+          onSelectFaction={handleSelectFaction}
+          onBuild={handleBuild}
+          onLoadArmy={handleLoadArmy}
+          onDeleteArmy={deleteArmy}
+          hideArmyConfig
+        />
+      </div>
+
+      {/* ── Army Config tab ── */}
+      {openTabs.includes('army_config') && (
+        <div style={{ display: activeTab === 'army_config' ? 'flex' : 'none' }} className="flex-col flex-1">
+          {/* Sub-header */}
+          <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
+            <div className="max-w-screen-xl mx-auto flex items-center gap-3">
+              {selectedFaction && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />}
+              <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none font-bankgothic">
+                {factionLabel}
+              </h1>
+            </div>
+          </header>
+
+          {/* Config content */}
+          <div className="max-w-screen-md mx-auto w-full px-4 py-6">
+            {loadingFaction ? (
+              <div className="flex items-center gap-3 text-zinc-500 py-8">
+                <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
+                <span className="text-sm">Loading faction data…</span>
+              </div>
+            ) : data ? (
+              <>
+                <ArmyConfig />
+                <div className="flex justify-center mt-8">
+                  <button
+                    onClick={handleBuild}
+                    className="px-12 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
+                  >
+                    Build Army ▶
+                  </button>
+                </div>
+              </>
+            ) : null}
+          </div>
+        </div>
+      )}
+
+      {/* ── Builder tab ── */}
+      {openTabs.includes('builder') && (
+        <div style={{ display: activeTab === 'builder' ? 'flex' : 'none' }} className="flex-col flex-1">
+
+          {/* Builder sticky header */}
+          <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
+            <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
+              {/* Symbol + title + army name */}
+              <div className="flex items-center gap-2 mr-auto min-w-0">
+                {selectedFaction && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />}
+                <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0 font-bankgothic">
+                  Custom40k
+                </h1>
+                <span className="text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
+                <ArmyNameEditor />
+              </div>
+
+              {/* Points + validation */}
+              <HeaderStatus />
+
+              {/* Actions */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {data && (
+                  <button
+                    onClick={handleSaveArmy}
+                    className={`text-[11px] uppercase tracking-wide border px-3 py-1 transition-colors
+                      ${savedMsg
+                        ? 'text-green-400 border-green-700 bg-green-900/20'
+                        : 'text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800'
+                      }`}
+                  >
+                    {savedMsg || 'Save'}
+                  </button>
+                )}
+                <button
+                  onClick={() => setShowArmies(true)}
+                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                >
+                  My Armies
+                </button>
+                {data && (
+                  <button
+                    onClick={() => setShowRef(true)}
+                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                  >
+                    Reference
+                  </button>
+                )}
+                {data && (
+                  <button
+                    onClick={() => setShowPrint(true)}
+                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                  >
+                    Print
+                  </button>
+                )}
+                <button
+                  onClick={() => setShowBugReport(true)}
+                  className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
+                >
+                  Bug
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* Builder layout */}
+          <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 flex-1">
+            <aside className="space-y-2">
+              <CollapsiblePanel title="Unit Catalogue" defaultOpen>
+                <SlotPanel />
+              </CollapsiblePanel>
+
+              <CollapsiblePanel title="Allied Detachment" defaultOpen>
+                <AlliedDetachmentPanel primaryFaction={selectedFaction} />
+              </CollapsiblePanel>
+
+              <ValidationPanel />
+
+              <CollapsiblePanel title="Army" defaultOpen>
+                <div className="p-3">
+                  <ExportImport onPrint={() => setShowPrint(true)} />
+                </div>
+              </CollapsiblePanel>
+            </aside>
+
+            <main>
+              <ArmyList />
+            </main>
+          </div>
+        </div>
+      )}
+
+      {/* ── Modals ── */}
+      {showPrint     && <PrintView onClose={() => setShowPrint(false)} />}
+      {showArmies    && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
       {showBugReport && (
         <BugReportModal
           onClose={() => setShowBugReport(false)}
@@ -446,15 +570,15 @@ function CollapsiblePanel({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800">
+    <div className="border border-zinc-800 bg-zinc-900/50">
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex justify-between items-center text-[11px] uppercase tracking-widest text-amber-600 px-3 py-2 border-b border-zinc-700 hover:bg-zinc-800 transition-colors"
+        className="w-full flex justify-between items-center px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800/60 transition-colors"
       >
-        <span>{title}</span>
-        <span className="text-zinc-500 text-[10px]">{open ? '▲' : '▼'}</span>
+        <span className="font-cinzel text-[11px] uppercase tracking-widest text-amber-400">{title}</span>
+        <span className="text-zinc-600 text-[10px]">{open ? '▲' : '▼'}</span>
       </button>
-      {open && <div className="p-3">{children}</div>}
+      {open && <div>{children}</div>}
     </div>
   );
 }

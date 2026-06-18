@@ -310,7 +310,7 @@ Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. I
 
 Der Loader, der jede `FactionData` zusammensetzt, ist **`src/data/loaders.ts`** -- er importiert die Einzeldateien mit statischen Pfaden (von Vite gefordert) und fuegt sie zusammen. Das Engine erhalt dasselbe Objekt wie vorher; nur die Dateiorganisation hat sich geandert.
 
-**Neue Fraktion hinzufuegen:** Ordner + Dateien erstellen → `case` in `loaders.ts` hinzufuegen → zu `FACTION_LOADERS` hinzufuegen → in `LandingPage.tsx` registrieren → (optional) `engine/factions/<fraktion>/` fuer eigene Resolver/Traits/Validatoren.
+**Neue Fraktion hinzufuegen:** Ordner + Dateien erstellen → `case` in `loaders.ts` hinzufuegen → zu `FACTION_LOADERS` hinzufuegen → in `LandingPage.tsx` registrieren und Abkuerzung/Kategorie in `FactionSymbol.tsx` eintragen → (optional) `engine/factions/<fraktion>/` fuer eigene Resolver/Traits/Validatoren.
 
 ### Wo anfangen / wie helfen
 

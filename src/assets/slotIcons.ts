@@ -1,21 +1,11 @@
-import hq           from './slots/HQsign.png';
-import troops       from './slots/TroopsSign.png';
-import elites       from './slots/ElitesSign.png';
-import fastAttack   from './slots/FastAttackSign.png';
-import heavySupport from './slots/HeavySupportSign.png';
-import transport    from './slots/OtherSign.png';
-import fortification from './slots/FortificationSign.png';
-import flyers       from './slots/LordsOfWarSign.png';
-import lordsOfWar   from './slots/LordsOfWarSign.png';
-
 export const SLOT_ICONS: Record<string, string> = {
-  'HQ':                   hq,
-  'Troops':               troops,
-  'Elites':               elites,
-  'Fast Attack':          fastAttack,
-  'Heavy Support':        heavySupport,
-  'Dedicated Transport':  transport,
-  'Fortifications':       fortification,
-  'Flyers':               flyers,
-  'Lords of War':         lordsOfWar,
+  'HQ':                   '/slot-icons/hq.svg',
+  'Troops':               '/slot-icons/troops.svg',
+  'Elites':               '/slot-icons/elites.svg',
+  'Fast Attack':          '/slot-icons/fast-attack.svg',
+  'Heavy Support':        '/slot-icons/heavy-support.svg',
+  'Dedicated Transport':  '/slot-icons/dedicated-transport.svg',
+  'Fortifications':       '/slot-icons/fortification.svg',
+  'Flyers':               '/slot-icons/flyer.svg',
+  'Lords of War':         '/slot-icons/lord-of-war.svg',
 };

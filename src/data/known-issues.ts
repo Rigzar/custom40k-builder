@@ -5,6 +5,36 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-csm-malicious-volley-heavy-bolt-01',
+    status: 'fixed',
+    title: 'CSM — Malicious Volley trait did not apply Deflagrate(5+) to Heavy Bolters',
+    description: 'The bolt weapon filter in the trait weapon-ability injection path (resolver.ts) excluded weapons whose type starts with "Heavy" (e.g. Heavy Bolter type "Heavy 2"). The .ods canonical source says "Bolt weapons" with no such exclusion. The equipment bolt filter had no heavy exclusion either — inconsistency. FIXED v0.80: removed the heavy-type exclusion from the trait bolt check; now /bolt/i.test(weapon.name) is sufficient, matching both light and heavy bolt weapons.',
+  },
+  {
+    id: 'ki-print-optional-abilities-01',
+    status: 'fixed',
+    title: 'Print view — conditional abilities (e.g. Psyker, choice-gated abilities) showed unconditionally',
+    description: 'Print view abilities panel showed ALL entries from u.abilities, including ones that require purchasing an optional upgrade (e.g. Daemon Prince Psyker inline-pts toggle) or selecting a specific choice (choice.abilities entries). RESOLVED v0.80: extended the abilitiesList filter in UnitPrintCard to (a) hide abilities whose label matches a choice.abilities entry that is not currently selected, and (b) hide "Psyker:" ability entries when the unit has an optional psyker inline_pts group but it has not been purchased (uses rp.effectivePsyker + rp.psykerGroupIdx from the resolver).',
+  },
+  {
+    id: 'ki-orks-gretchin-runtherd-cap-01',
+    status: 'fixed',
+    title: 'Cross-faction — secondary mandatory models (min>0, max>min) had no squad-size stepper',
+    description: 'Reported via bug form (2026-06-18) for Gretchins/Runtherd. Root cause: UnitCard.tsx used u.models.slice(0,1) in the squad-size stepper block, showing only the first model entry. Any secondary model with min>0 and max>min was silently invisible in the builder. RESOLVED v0.79: changed to u.models.filter(m => m.min > 0) so all mandatory adjustable models get steppers. Cross-faction scope confirmed: 7 units affected — Orks Gretchins (Runtherd min=1-3), Orks Snotlings (Runtherd min=1-3), CSM Accursed Cultists (Torment min=1-3), Tyranids Neurogaunt Brood (Nodebeast min=1-2), SM Bike Squad (Space Marine Biker min=2-5, was hidden behind Attack Bike add-on), SM Outrider Bikes (Outrider Marine min=2-5, was hidden behind Invader-Quad add-on), SM Indomitus Crusader Squad (Initiate min=4-9, was hidden behind Neophyte add-on). The slice(0,1) also caused the add-on model (min=0) to incorrectly appear as the squad-size control for Bike Squad, Outrider Bikes and Crusader Squad.',
+  },
+  {
+    id: 'ki-orks-nob-squad-leader-armory-01',
+    status: 'fixed',
+    title: 'Cross-faction — variant squad leaders with Armory access had no Armory button when both armory flags were false',
+    description: 'Reported via bug form (2026-06-18) for Orks Boyz/Nob. Root cause: the variant_link block in UnitCard.tsx only rendered the Armory button when (u.champion_has_armory || u.has_armory_access) — missing the case where the variant group\'s own header text describes Armory access but neither top-level flag is set. When armoryGatedByVariant=true the bottom Armory button was also suppressed, making access completely invisible. RESOLVED v0.79: added /armory/i.test(g.header) as a third condition so the button appears whenever this variant group\'s header mentions Armory. Cross-faction scope confirmed: 4 units affected — Orks Boyz (Nob variant), Orks Skarboyz (Nob variant), GSC Neophyte Hybrids (Neophyte Leader variant), GSC Acolyte Hybrids (Acolyte Leader variant). NOT affected (already working): Orks Nobz (has_armory_access:true), Sisters Novitiate (champion_has_armory:true).',
+  },
+  {
+    id: 'ki-tau-kroot-farstalker-hound-rifles-01',
+    status: 'known',
+    title: 'Tau Empire — Kroot Farstalkers: adding Kroot Hounds incorrectly grants Kroot Rifles to them',
+    description: 'Reported via bug form (2026-06-18). Kroot Hounds are beasts and should not carry Kroot rifles. When Kroot Hounds are added to the Farstalker unit, the "any model may swap their Kroot rifle" option group (constraint: every) includes Kroot Hounds in its item.size count, inflating the available swap slots. Additionally the zeroCountModelWeapons exclusion for Kroot Hounds may not fire correctly because the equipped_with text uses "Farstalkers and Kill-Brokers" rather than the "Every <model>" pattern the resolver expects. Root fix: scope the Kroot rifle swap group to Farstalker/Kill-Broker models only, and add Ripping fangs to zeroCountModelWeapons exclusion when Kroot Hound count is 0.',
+  },
+  {
     id: 'ki-sm-ironclad-hunterkiller-emptyoptions-01',
     status: 'fixed',
     title: 'Space Marines — Ironclad Dreadnought "Hunter-killer missiles" option group has no choices wired',

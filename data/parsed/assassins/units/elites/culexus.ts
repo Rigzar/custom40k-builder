@@ -1,9 +1,29 @@
 /**
  * CULEXUS — Elites
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE: Assassins ENG.ods / Culexus sheet
+ * ─────────────────────────────────────────────────────────────────────────
  *
+ * PROFILE:
+ *   No.  NAME     M    WS  BS  S  T  W  I  A  LD  SV  PTS
+ *   1    Culexus  6"   2+  2+  4  4  4  6  4   9  6+  181
+ *
+ * EQUIPPED WITH: A Culexus is equipped with: Animus Speculum, Life drain.
+ *
+ * WEAPONS:
+ *   Animus Speculum  18"  Assault 3  5  -4  2  Psi-shock, Seeking
+ *   Life drain       -    Melee      U  -5  2  Poison(2+)
+ *
+ * OPTIONS: none
+ *
+ * UNIT TYPE: Infantry
+ * KEYWORDS: none
+ *
+ * ENGINE STATUS:
+ *   ✓ stats, pts match .ods exactly
+ *   ✓ weapons match .ods exactly
+ *   ✓ no options
+ *   ✓ is_character: false, is_psyker: false, has_armory_access: false
  */
 
 import type { Unit } from '../../../../../src/types/data';

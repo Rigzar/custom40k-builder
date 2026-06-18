@@ -8,6 +8,7 @@ import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
 import { getArchetypeRule } from '../engine/archetypes';
+import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/resolvers/chaos_daemons';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
@@ -17,6 +18,70 @@ import { PsychicModal } from './PsychicModal';
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
 const MARKS_ALL: Mark[] = ['Undivided', 'Khorne', 'Nurgle', 'Slaanesh', 'Tzeentch'];
+
+const MARK_ICON: Record<string, string> = {
+  Khorne:    '/mark-icons/khorne.svg',
+  Nurgle:    '/mark-icons/nurgle.svg',
+  Slaanesh:  '/mark-icons/slaanesh.svg',
+  Tzeentch:  '/mark-icons/tzeentch.svg',
+  Undivided: '/mark-icons/undivided.svg',
+};
+const MARK_STYLE: Record<string, { idle: string; active: string; filter: string }> = {
+  Khorne:    { idle: 'border-red-900    text-red-400/70',    active: 'border-red-600    bg-red-900/50    text-red-300',    filter: 'brightness(0) invert(1) sepia(1) saturate(8) hue-rotate(300deg)' },
+  Nurgle:    { idle: 'border-green-900  text-green-400/70',  active: 'border-green-700  bg-green-900/50  text-green-300',  filter: 'brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(80deg)' },
+  Slaanesh:  { idle: 'border-purple-900 text-purple-400/70', active: 'border-purple-700 bg-purple-900/50 text-purple-300', filter: 'brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(220deg)' },
+  Tzeentch:  { idle: 'border-blue-900   text-blue-400/70',   active: 'border-blue-700   bg-blue-900/50   text-blue-300',   filter: 'brightness(0) invert(1) sepia(1) saturate(4) hue-rotate(180deg)' },
+  Undivided: { idle: 'border-zinc-700   text-zinc-400/70',   active: 'border-amber-700  bg-amber-900/30  text-amber-300',  filter: 'brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(-15deg)' },
+};
+
+const STAT_ICONS: Partial<Record<string, string>> = {
+  M:    '/stat-icons/move.svg',
+  WS:   '/stat-icons/weapon-skill.svg',
+  BS:   '/stat-icons/ballistic-skill.svg',
+  S:    '/stat-icons/strength.svg',
+  STR:  '/stat-icons/strength.svg',
+  T:    '/stat-icons/toughness.svg',
+  W:    '/stat-icons/wounds.svg',
+  HP:   '/stat-icons/wounds.svg',
+  A:    '/stat-icons/attacks.svg',
+  LD:   '/stat-icons/leadership.svg',
+  SV:   '/stat-icons/save.svg',
+  I:    '/stat-icons/initiative.svg',
+  AP:   '/stat-icons/armour-penetration.svg',
+  D:    '/stat-icons/damage.svg',
+  Range: '/stat-icons/range.svg',
+};
+
+const WEAPON_TYPE_ICONS: Partial<Record<string, string>> = {
+  'Rapid Fire': '/weapon-type-icons/rapid-fire.svg',
+  Assault:      '/weapon-type-icons/assault.svg',
+  Heavy:        '/weapon-type-icons/heavy.svg',
+  Pistol:       '/weapon-type-icons/pistol.svg',
+  Grenade:      '/weapon-type-icons/grenade.svg',
+  Melee:        '/weapon-type-icons/melee.svg',
+};
+
+const STAT_ICON_FILTER = 'brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(-15deg)';
+const TYPE_ICON_FILTER  = 'brightness(0) invert(1)';
+
+function getFactionCat(faction: string): 'chaos' | 'imperium' | 'xenos' | 'supp' {
+  if (/chaos/i.test(faction)) return 'chaos';
+  if (/space marines|imperial|mechanicus|custodes|sororitas|grey knights|inquisition/i.test(faction)) return 'imperium';
+  if (/tau|necron|ork|eldar|genestealer|harlequin|votann|tyranid/i.test(faction)) return 'xenos';
+  return 'supp';
+}
+const HDR_BG: Record<string, string> = {
+  chaos:   'linear-gradient(135deg, #311212 0%, #1d0a0a 100%)',
+  imperium:'linear-gradient(135deg, #27220f 0%, #18150a 100%)',
+  xenos:   'linear-gradient(135deg, #0e2016 0%, #090f0c 100%)',
+  supp:    'linear-gradient(135deg, #191828 0%, #0f0e1a 100%)',
+};
+const HDR_BORDER: Record<string, string> = {
+  chaos:   '#8b1c1c',
+  imperium:'#8b7a1c',
+  xenos:   '#1c7a42',
+  supp:    '#42427a',
+};
 
 const MARK_BONUSES: Record<string, { inf: string; char: string; veh: string }> = {
   Khorne:    { inf: '+1 Attack',       char: '+1 Strength (character)',          veh: 'Tank Shock: double hit' },
@@ -125,6 +190,7 @@ export function UnitCard({ item }: Props) {
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
   const unitTypeDisplay = [baseTypeDisplay, ...optionAddedUnitTypes].filter(Boolean).join(', ');
+  const factionCat = getFactionCat(data.faction);
 
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
   const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
@@ -210,8 +276,20 @@ export function UnitCard({ item }: Props) {
   return (
     <div className="bg-zinc-900 border border-zinc-700 mb-3 overflow-hidden">
       {/* ── Header ── */}
-      <div className="flex justify-between items-start px-3 py-2.5 bg-zinc-800 border-b-2 border-amber-800/60">
-        <div className="flex-1 min-w-0">
+      <div className="flex justify-between items-start px-3 py-2.5 border-b-2"
+        style={{ background: HDR_BG[factionCat], borderBottomColor: HDR_BORDER[factionCat] }}
+      >
+        <div className="flex-1 min-w-0 flex items-start gap-2">
+          {/* Army symbol */}
+          {(() => {
+            const sym = getArmySymbolUrl(data.faction, archetype ?? null, legacy ?? null, legacy2 ?? null);
+            const src = sym ?? `/faction-symbols/${data.faction.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}.svg`;
+            return (
+              <img src={src} alt="" aria-hidden="true" className="shrink-0 mt-0.5 opacity-60"
+                style={{ width: 44, height: 44, filter: 'brightness(0) invert(1)' }} />
+            );
+          })()}
+          <div className="flex-1 min-w-0">
           {/* Unit name */}
           <div className="flex items-center gap-1.5 flex-wrap">
             {editingName ? (
@@ -226,7 +304,7 @@ export function UnitCard({ item }: Props) {
               />
             ) : (
               <>
-                <span className="text-amber-200 font-bold text-base uppercase tracking-wide leading-tight">
+                <span className="font-cinzel text-white font-bold text-base uppercase tracking-wider leading-tight">
                   {item.customName || u.name}
                 </span>
                 {item.customName && (
@@ -279,20 +357,28 @@ export function UnitCard({ item }: Props) {
               </span>
             )}
           </div>
+          </div>{/* /flex-1 inner */}
         </div>
-        {/* Right: pts + controls */}
-        <div className="flex items-center gap-2 ml-2 shrink-0">
+        {/* Right: slot badge + controls + pts */}
+        <div className="flex flex-col items-end gap-1.5 ml-2 shrink-0">
+          <div className="flex items-center gap-1.5">
+            <span className="font-cinzel text-[9px] uppercase tracking-widest px-2 py-0.5 border bg-black/30 text-amber-400"
+              style={{ borderColor: HDR_BORDER[factionCat] }}
+            >
+              {effectiveSlot !== item.slot ? effectiveSlot : effectiveSlot}
+            </span>
+            <button
+              onClick={() => setCollapsed(c => !c)}
+              className="text-zinc-500 hover:text-zinc-200 text-xs px-1 py-0.5 border border-zinc-700 hover:border-zinc-500"
+            >
+              {collapsed ? '▼' : '▲'}
+            </button>
+            <button
+              onClick={() => removeUnit(item.id)}
+              className="text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 text-[11px]"
+            >✕</button>
+          </div>
           <span className="text-amber-400 font-bold text-base">{pts}<span className="text-amber-700 text-[11px] font-normal ml-0.5">pts</span></span>
-          <button
-            onClick={() => setCollapsed(c => !c)}
-            className="text-zinc-500 hover:text-zinc-200 text-xs px-1 py-0.5 border border-zinc-700 hover:border-zinc-500"
-          >
-            {collapsed ? '▼' : '▲'}
-          </button>
-          <button
-            onClick={() => removeUnit(item.id)}
-            className="text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 text-[11px]"
-          >✕</button>
         </div>
       </div>
 
@@ -370,11 +456,22 @@ export function UnitCard({ item }: Props) {
               <thead>
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
                   <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">Model</th>
-                  {statKeys.map(k => (
-                    <th key={k} className={`font-bold text-center py-2 px-2 text-[11px] uppercase tracking-wide min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>
-                      {k === 'InvSv' ? 'Inv' : k}
-                    </th>
-                  ))}
+                  {statKeys.map(k => {
+                    const label = k === 'InvSv' ? 'Inv' : k;
+                    const icon = STAT_ICONS[k];
+                    return (
+                      <th key={k} className={`font-bold text-center py-1.5 px-1 text-[10px] uppercase tracking-wide min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>
+                        {icon ? (
+                          <div className="flex flex-col items-center gap-0.5">
+                            <img src={icon} alt="" aria-hidden="true"
+                              style={{ filter: STAT_ICON_FILTER, opacity: 0.85, width: 14, height: 14 }}
+                            />
+                            <span>{label}</span>
+                          </div>
+                        ) : label}
+                      </th>
+                    );
+                  })}
                   <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">Pts</th>
                 </tr>
               </thead>
@@ -561,7 +658,7 @@ export function UnitCard({ item }: Props) {
           {/* Squad size — per-group when modelSizes is available, single slider otherwise */}
           {item.modelSizes ? (
             <div className="space-y-1">
-              {u.models.slice(0, 1).map(m => {
+              {u.models.filter(m => m.min > 0).map(m => {
                 const count = item.modelSizes![m.name] ?? m.min;
                 const isFixed = m.min === m.max;
                 return (
@@ -571,15 +668,14 @@ export function UnitCard({ item }: Props) {
                       <span className="text-zinc-500">{m.min} <span className="text-zinc-600 text-[11px]">(fixed)</span></span>
                     ) : (
                       <>
-                        <input
-                          type="number"
-                          min={m.min}
-                          max={m.max}
-                          value={count}
-                          onChange={e => updateModelSize(item.id, m.name, Math.max(m.min, Math.min(m.max, Number(e.target.value))))}
-                          className="w-14 bg-zinc-900 border border-zinc-600 px-2 py-0.5 text-zinc-100 text-sm focus:outline-none focus:border-amber-600"
-                        />
-                        <span className="text-zinc-600 text-[11px]">({m.min}–{m.max})</span>
+                        <div className="flex items-center">
+                          <button onClick={() => updateModelSize(item.id, m.name, Math.max(m.min, count - 1))} disabled={count <= m.min}
+                            className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">−</button>
+                          <span className="w-7 text-center text-zinc-100 font-mono text-[12px]">{count}</span>
+                          <button onClick={() => updateModelSize(item.id, m.name, Math.min(m.max, count + 1))} disabled={count >= m.max}
+                            className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">+</button>
+                        </div>
+                        <span className="text-zinc-600 text-[10px]">{m.min}–{m.max}</span>
                       </>
                     )}
                   </div>
@@ -633,18 +729,17 @@ export function UnitCard({ item }: Props) {
             const headerText = m.name;
             return (
               <details key={m.name} className="border border-zinc-700 bg-zinc-900/40 text-[12px]">
-                <summary className="cursor-pointer px-2 py-1 text-amber-600 text-[11px] uppercase tracking-wide select-none flex items-center gap-2">
-                  <span>▲ {headerText}</span>
-                  <input
-                    type="number"
-                    min={m.min}
-                    max={m.max}
-                    value={count}
-                    onClick={e => e.stopPropagation()}
-                    onChange={e => updateModelSize(item.id, m.name, Math.max(m.min, Math.min(m.max, Number(e.target.value))))}
-                    className="w-12 bg-zinc-900 border border-zinc-600 px-1 py-0.5 text-zinc-100 text-[11px] normal-case focus:outline-none focus:border-amber-600"
-                  />
-                  <span className="text-zinc-500 normal-case">max {m.max}</span>
+                <summary className="cursor-pointer px-2 py-1.5 select-none flex items-center gap-2 bg-zinc-800/40 border-b border-zinc-700/60">
+                  <span className="font-cinzel text-[11px] text-zinc-100 uppercase tracking-wider flex-1">{headerText}</span>
+                  <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-emerald-700/60 bg-emerald-900/20 text-emerald-400 shrink-0">Add-on</span>
+                  <div className="flex items-center shrink-0" onClick={e => e.stopPropagation()}>
+                    <button onClick={() => updateModelSize(item.id, m.name, Math.max(m.min, count - 1))} disabled={count <= m.min}
+                      className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">−</button>
+                    <span className="w-6 text-center text-zinc-100 font-mono text-[11px]">{count}</span>
+                    <button onClick={() => updateModelSize(item.id, m.name, Math.min(m.max, count + 1))} disabled={count >= m.max}
+                      className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">+</button>
+                  </div>
+                  <span className="text-zinc-500 normal-case text-[10px]">/{m.max}</span>
                 </summary>
                 <div className="px-2 pb-2 space-y-2">
                   {equipText && (
@@ -677,17 +772,16 @@ export function UnitCard({ item }: Props) {
           })}
 
           {maxSize > 1 && !item.modelSizes && (
-            <div className="flex items-center gap-2 text-[12px] text-zinc-400">
-              <span>Size:</span>
-              <input
-                type="number"
-                min={minSize}
-                max={maxSize}
-                value={item.size}
-                onChange={e => updateUnit(item.id, { size: Math.max(minSize, Math.min(maxSize, Number(e.target.value))) })}
-                className="w-16 bg-zinc-900 border border-zinc-600 px-2 py-0.5 text-zinc-100 text-sm focus:outline-none focus:border-amber-600"
-              />
-              <span className="text-zinc-600 text-[11px]">(min {minSize}, max {maxSize})</span>
+            <div className="flex items-center gap-3">
+              <span className="font-cinzel text-[10px] uppercase tracking-widest text-zinc-500">Size</span>
+              <div className="flex items-center">
+                <button onClick={() => updateUnit(item.id, { size: Math.max(minSize, item.size - 1) })} disabled={item.size <= minSize}
+                  className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">−</button>
+                <span className="w-8 text-center text-zinc-100 font-mono text-sm">{item.size}</span>
+                <button onClick={() => updateUnit(item.id, { size: Math.min(maxSize, item.size + 1) })} disabled={item.size >= maxSize}
+                  className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">+</button>
+              </div>
+              <span className="text-zinc-600 text-[10px]">{minSize}–{maxSize}</span>
             </div>
           )}
 
@@ -726,21 +820,25 @@ export function UnitCard({ item }: Props) {
                 const availableMarks = markGroup?.choices.map(c => c.name as Mark) ?? MARKS_ALL;
                 return (
                   <div>
-                    <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-1">Chaos Mark</div>
-                    <div className="flex flex-wrap gap-1">
-                      {availableMarks.map(m => (
-                        <button
-                          key={m}
-                          onClick={() => updateUnit(item.id, { mark: item.mark === m ? null : m })}
-                          className={`text-[11px] px-2 py-0.5 border transition-colors
-                            ${item.mark === m
-                              ? 'bg-amber-800 border-amber-600 text-white'
-                              : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
-                            }`}
-                        >
-                          {m}
-                        </button>
-                      ))}
+                    <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1.5 font-cinzel">Chaos Mark</div>
+                    <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${Math.min(availableMarks.length, 5)}, minmax(0, 1fr))` }}>
+                      {availableMarks.map(m => {
+                        const active = item.mark === m;
+                        const st = MARK_STYLE[m] ?? MARK_STYLE['Undivided'];
+                        return (
+                          <button
+                            key={m}
+                            onClick={() => updateUnit(item.id, { mark: active ? null : m })}
+                            className={`flex flex-col items-center gap-1 py-1.5 px-1 border transition-colors ${active ? st.active : `bg-zinc-950 ${st.idle} hover:bg-zinc-800/60`}`}
+                          >
+                            {MARK_ICON[m] && (
+                              <img src={MARK_ICON[m]} alt="" aria-hidden="true"
+                                style={{ width: 18, height: 18, filter: active ? st.filter : 'brightness(0) invert(1) opacity(0.3)' }} />
+                            )}
+                            <span className="font-cinzel text-[9px] uppercase tracking-wide leading-none">{m}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
                 );
@@ -812,14 +910,17 @@ export function UnitCard({ item }: Props) {
               const variantModel = u.variant_models.find(vm => vm.name === g.variant_link);
               return (
                 <details key={realGi} open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
-                  <summary className="cursor-pointer px-2 py-1 flex items-center gap-2 select-none">
+                  <summary className="cursor-pointer px-2 py-1.5 flex items-center gap-2 select-none bg-zinc-800/60 border-b border-zinc-700/60">
                     <input
                       type="checkbox"
                       checked={active}
                       onClick={e => e.stopPropagation()}
                       onChange={() => setQty(realGi, '__inline', active ? 0 : 1)}
                     />
-                    <span className="text-zinc-300">▲ {g.header}</span>
+                    <span className="font-cinzel text-[11px] text-zinc-100 uppercase tracking-wider flex-1">{g.variant_link ?? g.header}</span>
+                    {(u.champion_has_armory || /armory|champion|sergeant|leader/i.test(g.header)) && (
+                      <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-amber-700/60 bg-amber-900/20 text-amber-400 shrink-0">Champion</span>
+                    )}
                     {g.inline_pts != null && !headerHasPts(g.inline_pts) && (
                       <span className="text-amber-600 text-[11px]">
                         {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts} pts
@@ -829,7 +930,7 @@ export function UnitCard({ item }: Props) {
                   {variantModel && (
                     <div className="px-2 pb-2 space-y-2">
                       <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
-                      {(u.champion_has_armory || u.has_armory_access) && (
+                      {(u.champion_has_armory || u.has_armory_access || /armory/i.test(g.header)) && (
                         <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
                           <span>The {variantModel.name} has access to weapons and gear from the Armory.</span>
                           {active ? (
@@ -858,23 +959,23 @@ export function UnitCard({ item }: Props) {
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
               const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype);
               return (
-                <div key={realGi} className="text-[12px]">
-                  <label className={`flex items-center gap-2 ${blocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}>
-                    <input
-                      type="checkbox"
-                      checked={active}
-                      disabled={blocked}
-                      onChange={() => { if (!blocked) setQty(realGi, '__inline', active ? 0 : 1); }}
-                    />
-                    <span className="text-zinc-300">{g.header}</span>
+                <div key={realGi} className={`border-l-2 ${active ? 'border-amber-700/70' : 'border-zinc-700/50'} ${blocked ? 'opacity-50' : ''} transition-colors`}>
+                  <label
+                    onClick={() => { if (!blocked) setQty(realGi, '__inline', active ? 0 : 1); }}
+                    className={`flex items-center gap-2 px-2.5 py-1.5 text-[12px] ${blocked ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-zinc-800/40'} transition-colors`}
+                  >
+                    <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${active ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
+                      {active && <span className="text-[8px] text-white leading-none">✓</span>}
+                    </div>
+                    <span className="text-zinc-300 flex-1">{g.header}</span>
                     {!headerHasPts(g.inline_pts) && (
-                      <span className="text-amber-600 text-[11px]">
-                        {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts} pts
+                      <span className={`text-[11px] font-mono shrink-0 ${active ? 'text-amber-400' : 'text-zinc-500'}`}>
+                        {g.inline_pts >= 0 ? '+' : ''}{g.inline_pts}
                       </span>
                     )}
                   </label>
                   {blocked && g.available_if && (
-                    <div className="text-[10px] text-red-400/80 mt-0.5 pl-6">Not available with Mark of {g.available_if.keyword}.</div>
+                    <div className="text-[10px] text-red-400/80 pb-1 pl-8">Not available with Mark of {g.available_if.keyword}.</div>
                   )}
                 </div>
               );
@@ -921,28 +1022,28 @@ export function UnitCard({ item }: Props) {
               const choiceMarkBlocked = choiceMarkReq != null
                 && choiceMarkReq.toLowerCase() !== (effectiveMark ?? '').toLowerCase();
               const control = canUseQty ? (
-                <input
-                  type="number"
-                  min={0}
-                  max={inputMax}
-                  value={qty}
-                  disabled={choiceMarkBlocked}
-                  onClick={e => e.stopPropagation()}
-                  onChange={e => {
-                    if (choiceMarkBlocked) return;
-                    const v = Math.max(0, Number(e.target.value));
-                    const capped = inputMax !== undefined ? Math.min(v, inputMax) : v;
-                    setQty(realGi, ci, capped);
-                  }}
-                  className="w-12 bg-zinc-900 border border-zinc-600 px-1 py-0.5 text-zinc-100 text-[11px] text-center focus:outline-none focus:border-amber-600"
-                />
+                <div className="flex items-center shrink-0" onClick={e => e.stopPropagation()}>
+                  <button
+                    onClick={() => { if (!choiceMarkBlocked) setQty(realGi, ci, Math.max(0, qty - 1)); }}
+                    disabled={choiceMarkBlocked || qty <= 0}
+                    className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none"
+                  >−</button>
+                  <span className="w-6 text-center text-zinc-100 font-mono text-[11px]">{qty}</span>
+                  <button
+                    onClick={() => { if (!choiceMarkBlocked) setQty(realGi, ci, inputMax !== undefined ? Math.min(inputMax, qty + 1) : qty + 1); }}
+                    disabled={choiceMarkBlocked || (inputMax !== undefined && qty >= inputMax)}
+                    className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none"
+                  >+</button>
+                </div>
               ) : (
-                <input
-                  type="checkbox"
-                  checked={qty > 0}
-                  disabled={choiceMarkBlocked}
-                  onChange={() => { if (!choiceMarkBlocked) setQty(realGi, ci, qty > 0 ? 0 : 1); }}
-                />
+                <div
+                  onClick={e => { e.stopPropagation(); if (!choiceMarkBlocked) setQty(realGi, ci, qty > 0 ? 0 : 1); }}
+                  className={`w-4 h-4 border flex-shrink-0 flex items-center justify-center cursor-pointer transition-colors
+                    ${qty > 0 ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
+                    ${choiceMarkBlocked ? 'opacity-40 cursor-not-allowed pointer-events-none' : ''}`}
+                >
+                  {qty > 0 && <span className="text-[8px] text-white leading-none">✓</span>}
+                </div>
               );
               return { control, choiceMarkBlocked, choiceMarkReq };
             }
@@ -950,17 +1051,17 @@ export function UnitCard({ item }: Props) {
             const headerQty = singleChoiceEvery ? qtyControl(0, g.choices[0]) : null;
 
             return (
-              <details key={realGi} open className="border border-zinc-700 bg-zinc-900/40 text-[12px]">
-                <summary className="cursor-pointer px-2 py-1 text-[11px] text-zinc-300 flex items-center gap-2 flex-wrap select-none">
-                  <span>▲ {g.header}</span>
+              <details key={realGi} open className="border border-zinc-800 bg-zinc-900/30 text-[12px]">
+                <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
+                  <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{g.header}</span>
                   {headerQty?.control}
                   {isPerN && groupMax !== null && (
-                    <span className={`text-[10px] font-semibold ${groupUsed! >= groupMax ? 'text-red-400' : 'text-amber-600'}`}>
-                      [{groupUsed}/{groupMax}]
+                    <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>
+                      {groupUsed}/{groupMax}
                     </span>
                   )}
                   {isRequired && !hasSelection && (
-                    <span className="text-[10px] font-semibold text-red-400 animate-pulse">⚠ required</span>
+                    <span className="text-[10px] font-semibold text-red-400 animate-pulse shrink-0">⚠</span>
                   )}
                 </summary>
                 <div className="px-2 pb-2">
@@ -1013,7 +1114,18 @@ export function UnitCard({ item }: Props) {
                                 )}
                               </td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
-                              <td className="py-1.5 px-1 text-zinc-400 text-[11px]">{w.type}</td>
+                              <td className="py-1.5 px-1 text-zinc-400 text-[11px]">
+                                {(() => {
+                                  const typeKey = Object.keys(WEAPON_TYPE_ICONS).find(k => w.type?.toLowerCase().startsWith(k.toLowerCase()));
+                                  const icon = typeKey ? WEAPON_TYPE_ICONS[typeKey] : undefined;
+                                  return (
+                                    <span className="flex items-center gap-1">
+                                      {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
+                                      <span>{w.type}</span>
+                                    </span>
+                                  );
+                                })()}
+                              </td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
@@ -1041,20 +1153,23 @@ export function UnitCard({ item }: Props) {
                     </table>
                   </div>
                 ) : (
-                  <div className="flex flex-wrap gap-1">
+                  <div className="divide-y divide-zinc-800/60 -mx-2 -mb-2">
                     {g.choices.map((c: Choice, ci: number) => {
                       const { control, choiceMarkBlocked, choiceMarkReq } = qtyControl(ci, c);
+                      const active = (item.optionQty?.[realGi]?.[ci] ?? 0) > 0;
                       return (
                         <div
                           key={ci}
-                          className={`flex items-center gap-1 bg-zinc-900 border px-2 py-1 text-[11px]
-                            ${choiceMarkBlocked ? 'border-zinc-700 opacity-50 cursor-not-allowed' : 'border-zinc-600'}`}
+                          className={`flex items-center gap-2.5 px-2.5 py-1.5 transition-colors
+                            ${choiceMarkBlocked ? 'opacity-40 cursor-not-allowed' : 'hover:bg-zinc-800/40 cursor-pointer'}
+                            ${active ? 'bg-amber-900/10' : ''}`}
                           title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}
+                          onClick={() => { if (!choiceMarkBlocked && !['per_n','fixed_max','every'].includes(g.constraint.type)) setQty(realGi, ci, active ? 0 : 1); }}
                         >
                           {control}
-                          <span className="text-zinc-300">{c.name}</span>
+                          <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{c.name}</span>
                           {c.points !== 0 && (
-                            <span className="text-amber-600">
+                            <span className={`font-mono text-[11px] shrink-0 ${active ? 'text-amber-400' : 'text-zinc-500'}`}>
                               {c.points >= 0 ? '+' : ''}{c.points}
                             </span>
                           )}
@@ -1069,13 +1184,21 @@ export function UnitCard({ item }: Props) {
           })}
 
           {/* Action buttons */}
-          <div className="flex flex-wrap gap-1 pt-1 border-t border-zinc-700">
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t-2 border-zinc-800/80 mt-1">
             {showArmory && (
-              <button
-                onClick={() => setArmoryOpen(true)}
-                className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+              <button onClick={() => setArmoryOpen(true)}
+                className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
+                  ${item.armory.filter(a => !['veteran','vehicle'].includes(findArmoryItemData(effectiveArmData,a)?.category??'')).length > 0
+                    ? 'border-amber-700 bg-amber-900/20 text-amber-300 hover:bg-amber-900/40'
+                    : 'border-zinc-700 bg-zinc-900 text-amber-500/80 hover:border-amber-700 hover:text-amber-400'}`}
               >
-                Armory ({item.armory.length})
+                <span className="text-[11px] opacity-70">⚔</span>
+                Armory
+                {item.armory.filter(a => !['veteran','vehicle'].includes(findArmoryItemData(effectiveArmData,a)?.category??'')).length > 0 && (
+                  <span className="text-[9px] bg-amber-800/60 text-amber-200 px-1 py-px rounded-sm">
+                    {item.armory.filter(a => !['veteran','vehicle'].includes(findArmoryItemData(effectiveArmData,a)?.category??'')).length}
+                  </span>
+                )}
               </button>
             )}
             {specialAmmunition && !showArmory && (() => {
@@ -1096,34 +1219,47 @@ export function UnitCard({ item }: Props) {
                       });
                     }
                   }}
-                  className={`text-[11px] px-2 py-1 bg-zinc-900 border uppercase tracking-wide ${specialAmmoSelection ? 'border-amber-600 text-amber-400' : 'border-zinc-600 text-amber-500 hover:bg-zinc-700'}`}
+                  className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
+                    ${specialAmmoSelection ? 'border-amber-600 bg-amber-900/30 text-amber-300' : 'border-zinc-700 bg-zinc-900 text-amber-500/80 hover:border-amber-700 hover:text-amber-400'}`}
                 >
-                  Special ammunition {specialAmmoSelection ? '✓' : `(+${ammoPts})`}
+                  <span className="text-[11px] opacity-70">◎</span>
+                  Ammo {specialAmmoSelection ? '✓' : `+${ammoPts}`}
                 </button>
               );
             })()}
             {hasFactionVeteranItems && (
-              <button
-                onClick={() => setVetOpen(true)}
-                className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+              <button onClick={() => setVetOpen(true)}
+                className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
+                  ${vetItemsCount > 0
+                    ? 'border-yellow-700 bg-yellow-900/20 text-yellow-300 hover:bg-yellow-900/30'
+                    : 'border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-yellow-800 hover:text-yellow-400'}`}
               >
-                Veteran ({vetItemsCount}/{vetMax})
+                <span className="text-[11px] opacity-70">★</span>
+                Veteran
+                <span className="flex gap-0.5 ml-0.5">
+                  {Array.from({ length: vetMax }).map((_, i) => (
+                    <span key={i} className={`inline-block w-1.5 h-1.5 rounded-full ${i < vetItemsCount ? 'bg-yellow-400' : 'bg-zinc-700'}`} />
+                  ))}
+                </span>
               </button>
             )}
             {hasFactionVehicleItems && (
-              <button
-                onClick={() => setVehOpen(true)}
-                className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+              <button onClick={() => setVehOpen(true)}
+                className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
+                  ${vehItemsCount > 0
+                    ? 'border-blue-700 bg-blue-900/20 text-blue-300 hover:bg-blue-900/30'
+                    : 'border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-blue-800 hover:text-blue-400'}`}
               >
-                Upgrades ({vehItemsCount})
+                <span className="text-[11px] opacity-70">⚙</span>
+                Upgrades {vehItemsCount > 0 && <span className="text-[9px] bg-blue-800/60 text-blue-200 px-1 py-px rounded-sm">{vehItemsCount}</span>}
               </button>
             )}
             {hasTraitConflict && (
-              <button
-                onClick={() => setTraitsOpen(true)}
-                className="text-[11px] px-2 py-1 bg-zinc-900 border border-amber-800 text-amber-400 hover:bg-zinc-700 uppercase tracking-wide"
+              <button onClick={() => setTraitsOpen(true)}
+                className="inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border border-red-800 bg-red-900/20 text-red-400 hover:bg-red-900/30 transition-colors"
               >
-                Traits ⚠ ({item.traits.length}/{vetMax})
+                <span className="text-[11px]">⚠</span>
+                Traits ({item.traits.length}/{vetMax})
               </button>
             )}
             {(() => {
@@ -1133,12 +1269,12 @@ export function UnitCard({ item }: Props) {
               const hasPacts = u.uses_pacts && (data.pacts ?? []).length > 0;
               if (!hasPowers && !hasPrayers && !hasPacts) return null;
               const pactCount = (item.pacts ?? []).length;
-              // Count real powers (exclude __discipline__ marker), then add Smite if always known
               const realPowers = item.powers.filter(p => p.powerName !== '__discipline__').length;
               const hasChosenDisc = item.powers.some(p => p.powerName === '__discipline__');
               const chosenDiscName = item.powers.find(p => p.powerName === '__discipline__')?.disciplineName;
               const knowsSmiteUnit = u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite'));
               const totalCount = realPowers + item.prayers.length + pactCount;
+              const hasAny = totalCount > 0;
               const label = hasPacts && !hasPowers && !hasPrayers
                 ? `Pacts (${pactCount})`
                 : u.is_cult_initiate
@@ -1148,15 +1284,18 @@ export function UnitCard({ item }: Props) {
                     : hasPrayers
                       ? `Prayers (${item.prayers.length})`
                       : hasChosenDisc
-                        ? `Powers (Smite + all ${chosenDiscName})`
+                        ? `Powers · ${chosenDiscName}`
                         : knowsSmiteUnit
                           ? `Powers (Smite${realPowers > 0 ? ` +${realPowers}` : ''})`
                           : `Powers (${realPowers})`;
               return (
-                <button
-                  onClick={() => setPsyOpen(true)}
-                  className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
+                <button onClick={() => setPsyOpen(true)}
+                  className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
+                    ${hasAny
+                      ? 'border-cyan-700 bg-cyan-900/20 text-cyan-300 hover:bg-cyan-900/30'
+                      : 'border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-cyan-800 hover:text-cyan-400'}`}
                 >
+                  <span className="text-[11px] opacity-70">✦</span>
                   {label}
                 </button>
               );
@@ -1527,11 +1666,21 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
       <thead>
         <tr className="bg-zinc-700/50 border-b border-zinc-600">
           <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">Model</th>
-          {statKeys.map(k => (
-            <th key={k} className="font-bold text-center py-2 px-2 text-[11px] uppercase tracking-wide min-w-[2rem] text-amber-500">
-              {k}
-            </th>
-          ))}
+          {statKeys.map(k => {
+            const icon = STAT_ICONS[k];
+            return (
+              <th key={k} className="font-bold text-center py-1.5 px-1 text-[10px] uppercase tracking-wide min-w-[2rem] text-amber-500">
+                {icon ? (
+                  <div className="flex flex-col items-center gap-0.5">
+                    <img src={icon} alt="" aria-hidden="true"
+                      style={{ filter: STAT_ICON_FILTER, opacity: 0.85, width: 14, height: 14 }}
+                    />
+                    <span>{k}</span>
+                  </div>
+                ) : k}
+              </th>
+            );
+          })}
           <th className="text-right text-zinc-500 font-normal py-2 pr-2 text-[10px] uppercase">Pts</th>
         </tr>
       </thead>
@@ -1557,11 +1706,36 @@ function WeaponTable({ weapons, traitMap, count }: { weapons: Weapon[]; traitMap
         <thead>
           <tr className="border-b border-zinc-600">
             <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[32%]">Weapon</th>
-            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[10%]">Range</th>
-            <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[14%]">Type</th>
-            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
-            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
-            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[10%]">
+              <div className="flex flex-col items-center gap-0.5">
+                <img src={STAT_ICONS['Range']} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
+                <span>Range</span>
+              </div>
+            </th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[14%]">
+              <div className="flex flex-col items-start gap-0.5">
+                <img src="/weapon-type-icons/type.svg" alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
+                <span>Type</span>
+              </div>
+            </th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">
+              <div className="flex flex-col items-center gap-0.5">
+                <img src={STAT_ICONS['S']} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
+                <span>S</span>
+              </div>
+            </th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">
+              <div className="flex flex-col items-center gap-0.5">
+                <img src={STAT_ICONS['AP']} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
+                <span>AP</span>
+              </div>
+            </th>
+            <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">
+              <div className="flex flex-col items-center gap-0.5">
+                <img src={STAT_ICONS['D']} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
+                <span>D</span>
+              </div>
+            </th>
             <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">Abilities</th>
           </tr>
         </thead>
@@ -1584,7 +1758,18 @@ function WeaponTable({ weapons, traitMap, count }: { weapons: Weapon[]; traitMap
               <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
                 <td className="py-1.5 pr-2 font-medium text-zinc-100">{count != null ? `${count}x ` : ''}{w.name}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
-                <td className="py-1.5 px-1 text-zinc-400 text-[11px]">{w.type}</td>
+                <td className="py-1.5 px-1 text-zinc-400 text-[11px]">
+                  {(() => {
+                    const typeKey = Object.keys(WEAPON_TYPE_ICONS).find(k => w.type?.toLowerCase().startsWith(k.toLowerCase()));
+                    const icon = typeKey ? WEAPON_TYPE_ICONS[typeKey] : undefined;
+                    return (
+                      <span className="flex items-center gap-1">
+                        {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
+                        <span>{w.type}</span>
+                      </span>
+                    );
+                  })()}
+                </td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>

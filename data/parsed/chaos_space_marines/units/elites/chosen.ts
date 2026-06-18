@@ -36,7 +36,7 @@
  *   Monstrous Visages: gains “Parry” + “Gruesome” for all melee weapons.
  *   Tip of the Spear: when Infiltrating, can always place outside 12” even with LoS.
  *
- * UNIT TYPE: Character model (HTML lowercase 'm') → normalised “Character Model, Infantry, Squadron”
+ * UNIT TYPE: Command Squad, Infantry, Squadron  (.ods canonical; HTML had “character model” — wrong)
  * KEYWORDS: Chaos Space Marine
  *
  * ENGINE STATUS:
@@ -186,12 +186,12 @@ export const chosen: Unit = {
     "Monstrous Visages: The model gains the \"Parry\" ability and additionally the \"Gruesome\" ability for all melee weapons.",
     "Tip of the Spear: When set up using the Infiltrator rules, the model can always be placed outside 12\" of an enemy unit, even if there is direct line of sight."
   ],
-  "unit_type": "Character Model, Infantry, Squadron",
+  "unit_type": "Command Squad, Infantry, Squadron",
   "keywords": [
     "Chaos Space Marine"
   ],
   "is_vehicle": false,
-  "is_character": true,
+  "is_character": false,
   "is_monster": false,
   "is_psyker": false,
   "has_armory_access": true,

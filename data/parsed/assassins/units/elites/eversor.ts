@@ -1,9 +1,30 @@
 /**
  * EVERSOR — Elites
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE: Assassins ENG.ods / Eversor sheet
+ * ─────────────────────────────────────────────────────────────────────────
  *
+ * PROFILE:
+ *   No.  NAME     M    WS  BS  S  T  W  I  A  LD  SV  PTS
+ *   1    Eversor  6"   2+  2+  4  4  4  6  4   9  6+  125
+ *
+ * EQUIPPED WITH: A Eversor is equipped with: Executioner pistol; Melta bombs; Neuro gauntlet.
+ *
+ * WEAPONS:
+ *   Executioner pistol  12"  Pistol 2   4  -3  2  Poison(2+)
+ *   Melta bombs          3"  Grenade 1  8  -5  2  Armorbane, AT(3)
+ *   Neuro gauntlet       -   Melee     +1  -3  2  Flurry(2), Shred
+ *
+ * OPTIONS: none
+ *
+ * UNIT TYPE: Infantry
+ * KEYWORDS: none
+ *
+ * ENGINE STATUS:
+ *   ✓ stats, pts match .ods exactly
+ *   ✓ weapons match .ods exactly
+ *   ✓ no options
+ *   ✓ is_character: false, is_psyker: false, has_armory_access: false
  */
 
 import type { Unit } from '../../../../../src/types/data';
