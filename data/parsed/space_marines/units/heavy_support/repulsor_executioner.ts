@@ -61,6 +61,15 @@ export const repulsorExecutioner: Unit = {
       "abilities": "AT(1), Anti-air"
     },
     {
+      "name": "Ironhail heavy stubber",
+      "range": "36\"",
+      "type": "Heavy 2",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
       "name": "Laser destroyer",
       "range": "72\"",
       "type": "Heavy 1",

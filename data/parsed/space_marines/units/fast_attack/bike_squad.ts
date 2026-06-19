@@ -229,7 +229,7 @@ export const bikeSquad: Unit = {
           "points": 9
         },
         {
-          "name": "Meltagun",
+          "name": "Melta",
           "points": 17
         },
         {

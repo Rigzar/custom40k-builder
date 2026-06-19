@@ -357,7 +357,7 @@ export const chaosTerminators: Unit = {
       },
       "choices": [
         {
-          "name": "Heavy flamer",
+          "name": "Heavy Flamer",
           "points": 2
         },
         {

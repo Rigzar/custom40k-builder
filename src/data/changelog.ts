@@ -1,4 +1,4 @@
-import type { Language } from '../i18n';
+﻿import type { Language } from '../i18n';
 
 /** A plain string or a per-language record. The modal resolves it with the active language, falling back to 'en'. */
 export type I18nString = string | Partial<Record<Language, string>>;
@@ -24,6 +24,75 @@ export interface KnownIssue {
 // KNOWN_ISSUES lives in known-issues.ts — import from there.
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '0.87',
+    date: '2026-06-19',
+    title: { en: 'Imperial Guard full ODS audit: 33 armory-access fixes + 2 unit_type cleanup' },
+    changes: { en: [
+      'Data fix (Imperial Guard — 28 vehicles): has_armory_access was false on all vehicle units despite the ODS explicitly granting vehicle-equipment armory access. Fixed for: Leman Russ Tank Commander, Salamander Command, Atlas Recovery Vehicle, Leman Russ Commissar, Armoured Sentinels, Hellhounds, Salamander Scout, Sentinel, Tauros, Basilisk, Carnodon, Colossus Bombard, Deathstrike Missile Launcher, Destroyer Tank Hunter, Griffon, Hydra, Leman Russ, Malcador, Manticore, Medusa, Rogal Dorn, Wyvern, Centaur Carrier, Chimera, Taurox, Trojan, Valkyrie, Vendetta.',
+      'Data fix (Imperial Guard — 5 infantry): has_armory_access was false on Infantry Squad, Hive Gangers, Mechanised Infantry, Combat Engineers, and Rough Riders, whose sergeants/champions have explicit armory access in the ODS.',
+      'Data fix (Imperial Guard — Ratlings): the unit_type field contained leaked ability text ("Battlemutt: Once per game…") from the HTML parser. Corrected to "Infantry".',
+      'Data fix (Imperial Guard — Engineseer): the unit_type field contained a leaked parenthetical ("(Engineseer only)") from an option_group constraint note. Corrected to "Character Model, Infantry".',
+    ]},
+  },
+  {
+    version: '0.86',
+    date: '2026-06-19',
+    title: { en: 'CD engine fix: Favored Personal Icon injected' },
+    changes: { en: [
+      'Engine fix (CD — Favored Units): when a CD unit achieves Favored status (squad size is a multiple of the god\'s sacred number), the squad leader\'s auto-granted Personal Icon is now explicitly shown as an injected ability on the unit card. Previously, the +1 Attack stat boost was applied correctly and the ★ Favored badge displayed, but the Personal Icon ability text was only mentioned in the rule note and not surfaced as a named ability entry.',
+    ]},
+  },
+  {
+    version: '0.85',
+    date: '2026-06-19',
+    title: { en: 'AdMech data audit: 7 data fixes' },
+    changes: { en: [
+      'Data fix (AdMech — Tech Thralls): option_groups added; the ODS shows "All tech-thralls may swap their Laslock: Chainblade +0, Mitralock +1" but the unit had an empty option_groups array despite both weapon profiles already being present.',
+      'Data fix (AdMech — Macrocarid Explorator): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+      'Data fix (AdMech — Onager Dunecrawler): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+      'Data fix (AdMech — Skorpius Disintegrator): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+      'Data fix (AdMech — Archaeopter): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+      'Data fix (AdMech — Skorpius Dunerider): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+      'Data fix (AdMech — Termite): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+    ]},
+  },
+  {
+    version: '0.84',
+    date: '2026-06-19',
+    title: { en: 'CD data audit: 2 data fixes' },
+    changes: { en: [
+      'Data fix (CD — Contorted Epitome): trailing period removed from weapon name "Ravaging claws." to match all other units that share the weapon.',
+      'Data fix (CD — Soul Grinder): has_armory_access set to true; the ODS explicitly states the unit has access to vehicle equipment from the Armory, but the flag was false.',
+    ]},
+  },
+  {
+    version: '0.83',
+    date: '2026-06-19',
+    title: { en: 'SM data audit: 2 weapon resolver fixes' },
+    changes: { en: [
+      'Data fix (SM — Bike Squad): option choice "Meltagun" renamed to "Melta" to match the weapon profile name; the case-sensitive resolver was silently dropping the weapon stat row when the option was selected.',
+      'Data fix (SM — Repulsor Executioner): weapon profile "Ironhail heavy stubber" added to weapons[]; the option group referenced this weapon as a choice but the profile was missing from the unit, so selecting it produced no stat display.',
+    ]},
+  },
+  {
+    version: '0.82',
+    date: '2026-06-18',
+    title: { en: 'Adeptus Sororitas: Order Militant logos in dynamic army symbol' },
+    changes: { en: [
+      'Dynamic army symbol (builder header) now shows the Order Militant logo when a Sororitas legacy is selected: Blind Faith → Valorous Heart, Cleansing Flames → Ebon Chalice, Faith Is Our Shield → Argent Shroud, Honour The Martyrs → Our Martyred Lady, Tear Them Down → Bloody Rose, The Emperor\'s Judgement → Sacred Rose. The Holy Trinity legacy falls back to the generic Sororitas symbol (no Order-specific logo).',
+    ]},
+  },
+  {
+    version: '0.81',
+    date: '2026-06-18',
+    title: { en: 'CSM data audit: 3 weapon case-mismatch / ability fixes' },
+    changes: { en: [
+      'Data fix (CSM — Tzaangors): Tzaangor blade abilities corrected from "Flurry(1)" to "-"; the ODS canonical source lists no ability for this weapon.',
+      'Data fix (CSM — Lord Discordant): option choice "Reaper Autocannon" renamed to "Reaper autocannon" to match the weapon profile name; the resolver is case-sensitive so the weapon stat row was silently missing when the option was selected.',
+      'Data fix (CSM — Chaos Terminators): per-5-models option choice "Heavy flamer" renamed to "Heavy Flamer" to match the weapon profile name; same case-sensitive resolver issue.',
+    ]},
+  },
   {
     version: '0.80',
     date: '2026-06-18',
@@ -1378,161 +1447,4 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Tyranids, Space Marines, Adeptus Custodes, Genestealer Cults: weapon profiles and unit data filled in from parser',
     ],
   },
-  {
-    version: '0.14',
-    date: '2026-05-19',
-    title: 'Veteran Abilities and Vehicle Upgrade buttons',
-    changes: [
-      'New: "Veteran" button on each unit card — opens veteran abilities directly, without having to browse the full armoury',
-      'New: "Upgrades" button on vehicle cards — shows only vehicle upgrade items available to that unit',
-      'Both buttons only appear when the faction has items of that category and the unit can use them',
-      'The Veteran button counter shows how many slots are used (e.g. "Veteran (1/2)")',
-    ],
-  },
-  {
-    version: '0.13',
-    date: '2026-05-19',
-    title: 'Allied detachment system',
-    changes: [
-      'Allied Detachment panel in the sidebar — pick a second faction with a mini force org (0–1 HQ, 1–2 Troops, 0–1 Elites/FA/HS, 0–3 Transports)',
-      'Allied Matrix shows the relationship between all faction pairs: Battle Brothers, Allies of Convenience, Desperate Allies',
-      'Allied units are validated separately from the main force; Elites/FA/HS slots scale with the number of Troops taken',
-      'Switching faction or removing allies clears allied units automatically',
-    ],
-  },
-  {
-    version: '0.12',
-    date: '2026-05-19',
-    title: 'Special rule descriptions on unit cards and printed roster',
-    changes: [
-      'Special rules now show their full text on unit cards — AT, Barrage, Fearless, Deep Strike and many more no longer appear as name-only',
-      'Rules with a value (e.g. Poison(4+), Terrifying(-2)) show the description with that specific value',
-      'The printed roster\'s Special Rules section now includes weapon abilities and armory equipment, sorted A-Z',
-      'Rules with different values (e.g. Terrifying(-1) and Terrifying(-2)) appear as a single entry in the printed glossary',
-    ],
-  },
-  {
-    version: '0.11',
-    date: '2026-05-19',
-    title: 'Chaos Daemons archetypes + trait cost fix',
-    changes: [
-      'Chaos Daemons archetype dropdown no longer shows footnotes (ᴷ ᴺ ˢ ᵀ) as selectable entries',
-      'Trait costs now multiply correctly by unit size — a 5 pt trait on a 5-model unit costs 25 pts total',
-      'Traits marked with * also multiply by Wounds per model (or Hull Points for vehicles), as per the rules',
-      'Monstrous Creatures now use their own traits points column',
-      'Vehicles were reading the wrong traits column — fixed',
-    ],
-  },
-  {
-    version: '0.10',
-    date: '2026-05-19',
-    title: 'Grey Knights + Inquisition allies',
-    changes: [
-      'Grey Knights can now pick Inquisition units directly from their own catalogue — no second army needed',
-    ],
-  },
-  {
-    version: '0.9',
-    date: '2026-05-19',
-    title: 'Legal pages, cookie notice & footer',
-    changes: [
-      'Added: Legal Notice, Privacy Policy, Cookie Policy, Terms of Use and Accessibility Statement — accessible from the footer on every page',
-      'Added: Lawwwing cookie consent widget — GDPR/LSSI compliant cookie management',
-      'Added: Footer with legal links and copyright notice on all pages',
-    ],
-  },
-  {
-    version: '0.8',
-    date: '2026-05-19',
-    title: 'Slot icons & supplements section',
-    changes: [
-      'Added: Slot icons (HQ, Troops, Elites, Fast Attack, Heavy Support, Transport, Fortifications, Flyers) appear in the unit catalogue and on print cards',
-      'Added: Supplements section on the home screen — Horus Heresy is now listed as a browsable supplement',
-      'Added: Escalation supplement teaser (Lords of War) — coming soon',
-      'Added: Known Issues improvements — By Design and Planned categories; more specific faction gaps listed',
-    ],
-  },
-  {
-    version: '0.7',
-    date: '2026-05-19',
-    title: 'Armory feedback, Known Issues tab & weapon fix',
-    changes: [
-      'Added: Visual feedback in the Armory modal — the row flashes green and shows ✓ Added when an item is selected',
-      'Added: Known Issues tab in the Updates modal — lists ongoing limitations and already-fixed bugs so users don\'t report duplicates',
-      'Fixed: "Updates" button removed from the builder header (it remains on the home screen)',
-      'Fixed: Pitched Battle default points now correctly migrates saved rosters from 3000 to 2500 pts on first load',
-      'Fixed: Print view showed "pitched" instead of "Pitched Battle" under Engagement Type (affected all factions)',
-      'Fixed: Unit cards in the print view now show only default equipment + selected optional weapons, not all possible weapons in the entry',
-    ],
-  },
-  {
-    version: '0.6',
-    date: '2026-05-19',
-    title: 'Bug fixes — refresh, print, slots & names',
-    changes: [
-      'Fixed: Refreshing the page now returns to the builder instead of the landing page',
-      'Fixed: Print view was showing a blank page — CSS corrected',
-      'Fixed: Standalone numbers (1–6 from D6 result tables) no longer appear as abilities in the print view',
-      'Fixed: Pitched Battle default points changed from 3000 to 2500',
-      'Fixed: Pitched Battle slot limits — Troops up to 6, Elites / Fast Attack / Heavy Support up to 3',
-      'Fixed: Troops validation label no longer shows "Raptors/Legionnaires" for non-CSM factions',
-      'Fixed: Army name from a previous session no longer carries over when switching factions',
-    ],
-  },
-  {
-    version: '0.5',
-    date: '2026-05-19',
-    title: 'Tyranids & bug reporting',
-    changes: [
-      'Added: Tyranids — 40 units across HQ, Troops, Elites, Fast Attack, Heavy Support and Flyers',
-      'Added: Bug report button in the header — fill the form and send without leaving the app',
-      'Removed: Cloud sync (Supabase backend) — Push / Pull / Sync Key panel dropped',
-    ],
-  },
-  {
-    version: '0.3',
-    date: '2026-05-18',
-    title: 'Print view, army saves and radar charts',
-    changes: [
-      'Print view: unit cards now always appear in slot order (HQ → Troops → Elites → …)',
-      'Summary page: radar charts for Army Composition and Army Power',
-      'Save Army button — stores armies in the browser without needing an account',
-      'Army codes — compact shareable code for your roster',
-      'My Armies button in the builder — loads saved armies without leaving the page',
-      'Army renaming via pencil icon in the header',
-      'Home page shows saved armies with load and delete buttons',
-    ],
-  },
-  {
-    version: '0.2',
-    date: '2026-05-18',
-    title: 'Prayers, Legacy disciplines and psychic powers',
-    changes: [
-      'Adeptus Sororitas: 5 Battle Hymns; Missionary, Dogmata and Preacher can now select prayers',
-      'Imperial Guard: same Battle Hymns; Preacher has prayer access',
-      'Space Marines: 5 Legacy disciplines (Geokinesis, Interromancy, Sanguine, Stormspeaking, Tempestus) — only appear when a Legacy is active',
-      'Eldar: 4 disciplines (Battle, Fate, Revenant, Wraith)',
-      'Chaos Daemons: 3 disciplines per mark (Change, Decay, Excess)',
-      'Imperial Guard: Psikana I & II; Inquisition: Heresius & Telesthesia',
-      'Genestealer Cults: Broodmind & Legacy Psychic Powers; Harlequins: Phantasmancy; Leagues of Votann: Skeinwrought; Orks: Waaagh!',
-      "Necrons: C'tan powers; Pariahs corrected to non-psyker",
-    ],
-  },
-  {
-    version: '0.1',
-    date: '2026-05-17',
-    title: 'Initial release — 18 playable factions',
-    changes: [
-      '18 playable factions: Chaos, Imperium and Xenos',
-      'Unit slots, options, squad sizes and points calculation',
-      'Archetype and Legacy selection',
-      'Veteran abilities and armory items per unit',
-      'Psychic powers and prayers (CSM, Space Marines, Grey Knights)',
-      'Chaos Marks with discipline filtering',
-      'Army validation and print view',
-      'Export / Import JSON',
-      'Deployed on Vercel with auto-deploy from GitHub',
-    ],
-  },
 ];
-

@@ -110,7 +110,7 @@ export const ratlings: Unit = {
   "abilities": [
     "Infiltrator, Use cover"
   ],
-  "unit_type": "Infantry, Battlemutt: Once per game, the unit can perform a Defensive reaction, even if it has already used its order in that combat round.",
+  "unit_type": "Infantry",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

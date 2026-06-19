@@ -38,7 +38,7 @@ export const contortedEpitome: Unit = {
   "equipped_with": "A Contorted Epitome is equipped with: Ravaging claws.",
   "weapons": [
     {
-      "name": "Ravaging claws.",
+      "name": "Ravaging claws",
       "range": "-",
       "type": "Melee",
       "s": "+1",

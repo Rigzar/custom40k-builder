@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-cd-favored-personal-icon-01',
+    status: 'fixed',
+    title: 'Chaos Daemons — Favored Units: Personal Icon not shown as an active ability',
+    description: 'Reported via bug form: squad leaders at a sacred-number size should gain +1 Attack and a Personal Icon, but the Personal Icon was never shown as an explicit ability entry on the unit card — only mentioned in the rule note. The +1 Attack stat boost was already applied correctly. FIXED v0.86: cdResolve now injects a "Personal Icon (Favored)" entry into injectedAbilities whenever isFavored is true, so the ability surfaces clearly alongside the ★ Favored badge and stat boost.',
+  },
+  {
     id: 'ki-csm-malicious-volley-heavy-bolt-01',
     status: 'fixed',
     title: 'CSM — Malicious Volley trait did not apply Deflagrate(5+) to Heavy Bolters',
@@ -77,6 +83,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Reported via the bug form (2026-06-13). Confirmed fixed by user UI testing (2026-06-17) — both "Stikka - Melee" and "Stikka - Ranged" profiles show correctly on the unit card.',
   },
   {
+    id: 'ki-ig-armory-access-vehicles-01',
+    status: 'fixed',
+    title: 'Imperial Guard — 33 units (28 vehicles + 5 infantry) had Armory button permanently hidden',
+    description: 'Full ODS audit (2026-06-19) revealed that has_armory_access was false on all IG vehicle units and on 5 infantry units with explicit sergeant/champion armory access in the ODS. This prevented players from adding vehicle equipment or champion gear to any IG vehicle. FIXED v0.87: has_armory_access set to true on all 33 affected units.',
+  },
+  {
     id: 'ki-cd-psychic-unwired-01',
     status: 'fixed',
     title: 'Chaos Daemons — psyker units cannot select psychic powers',
@@ -85,8 +97,8 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-ig-traitor-guard-archetype-01',
     status: 'known',
-    title: 'Imperial Guard — "Traitor Guard" archetype: Marks of Chaos and CSM armory access not yet enforced by the engine',
-    description: 'Reported via the bug form (2026-06-11). Per canonical rules, the Traitor Guard archetype should: (1) not allow selecting a Legacy — FIXED (noLegacy:true enforced as of v0.73); (2) allow units to take Marks of Chaos (+1 pt/model Khorne/Slaanesh, +2 Nurgle/Tzeentch; vehicles +10 pts each) — note-only, not enforced; (3) give the army access to the CSM armory — note-only, not enforced (sharedSupplementArmory only works with supplements, not full factions); (4) the army is treated as CSM in the Ally matrix — note-only, not enforced. Items (2), (3) and (4) remain known gaps pending engine work.',
+    title: 'Imperial Guard — special archetypes (Traitor Guard, Brood Brothers, Gue\'vesa): ally matrix, cross-faction armory and mandatory costs not yet enforced',
+    description: 'Three IG archetypes require engine work not yet implemented: TRAITOR GUARD — (1) noLegacy:true FIXED v0.73; (2) Marks of Chaos per unit (creatures: +1 K/S or +2 N/T pts per model per wound; vehicles: +10 flat) — note-only; (3) access to CSM armory for units with armory access — note-only; (4) treated as CSM in the Ally matrix — note-only. BROOD BROTHERS — (1) noLegacy:true FIXED; (2) all creature units must gain Ambush for 1pt/Wound (mandatory, no opt-out) — note-only; (3) access to GSC armory — note-only; (4) treated as GSC in Ally matrix — note-only. GUE\'VESA — (1) noLegacy:true FIXED; (2) all units must gain Supporting Fire for 1pt/Wound or 2pts/HP (mandatory) — note-only; (3) optional Lasgun→Pulse rifle swap (+3 pts) and Hot-shot→Pulse rifle swap (+2 pts) — note-only; (4) access to Tau armory — note-only; (5) treated as Tau in Ally matrix — note-only.',
   },
   {
     id: 'ki-champion-armory-pchar-cost-01',

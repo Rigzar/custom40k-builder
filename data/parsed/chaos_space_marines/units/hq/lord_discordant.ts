@@ -185,7 +185,7 @@ export const lordDiscordant: Unit = {
       },
       "choices": [
         {
-          "name": "Reaper Autocannon",
+          "name": "Reaper autocannon",
           "points": 26
         }
       ],

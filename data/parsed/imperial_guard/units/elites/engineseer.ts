@@ -148,7 +148,7 @@ export const engineseer: Unit = {
     "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can re-roll a hit roll and a wound or armor penetration roll.",
     "Servitor: As long as the Engineseer is alive, Servitors get +1 to hit rolls."
   ],
-  "unit_type": "Character Model (Engineseer only), Infantry",
+  "unit_type": "Character Model, Infantry",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

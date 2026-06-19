@@ -108,6 +108,16 @@ const ORKS_LEGACY_SYMBOL: Record<string, string> = {
   'Da Sneaky Gitz':  '/legion-symbols/orks-blood-axes.svg',
 };
 
+const SORORITAS_LEGACY_SYMBOL: Record<string, string> = {
+  'Blind Faith':              '/legion-symbols/sororitas-valorous-heart.svg',
+  'Cleansing Flames':         '/legion-symbols/sororitas-ebon-chalice.svg',
+  'Faith Is Our Shield':      '/legion-symbols/sororitas-argent-shroud.svg',
+  'Honour The Martyrs':       '/legion-symbols/sororitas-our-martyred-lady.svg',
+  'Tear Them Down':           '/legion-symbols/sororitas-bloody-rose.svg',
+  "The Emperor's Judgement":  '/legion-symbols/sororitas-sacred-rose.svg',
+  // The Holy Trinity has no Order-specific logo → falls back to faction default
+};
+
 /** Looks up a symbol URL with exact match, then prefix match (handles trailing superscript annotations like "Goretideᴷ"). */
 function findSymbol(map: Record<string, string>, key: string | null): string | null {
   if (!key) return null;
@@ -154,6 +164,10 @@ function isOrks(faction: string): boolean {
 
 function isIg(faction: string): boolean {
   return faction === 'imperial_guard' || /imperial.guard/i.test(faction);
+}
+
+function isSororitas(faction: string): boolean {
+  return faction === 'adeptus_sororitas' || /adeptus.sororitas/i.test(faction);
 }
 
 export function getArmySymbolUrl(
@@ -212,6 +226,11 @@ export function getArmySymbolUrl(
 
   if (isIg(faction)) {
     return findSymbol(IG_ARCHETYPE_SYMBOL, archetype);
+  }
+
+  if (isSororitas(faction)) {
+    return findSymbol(SORORITAS_LEGACY_SYMBOL, legacy)
+        ?? findSymbol(SORORITAS_LEGACY_SYMBOL, legacy2);
   }
 
   return null;

@@ -21,6 +21,13 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
 
   const injectedAbilities = [...base.injectedAbilities];
   const injectedRuleNotes = [...base.injectedRuleNotes];
+
+  // Favored: auto-grant Personal Icon to squad leader
+  if (isFavored) {
+    injectedAbilities.push(
+      'Personal Icon (Favored): Daemon units deep striking within 3″ of this unit\'s squad leader do not scatter. Same-mark units may instead deploy within 6″.',
+    );
+  }
   const isVeh     = unit.is_vehicle;
   const isChar    = unit.is_character;
   const isMonster = unit.is_monster;

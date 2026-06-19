@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -10,39 +10,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v5_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v6_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — from rigzar',
-    intro: "Hello everyone! I'm rigzar. This is a major engine update — the builder has been rebuilt from the ground up with a new data architecture. Every faction now has its own folder with separate files for units, armory, psychic disciplines, archetypes and rules. This makes the data easier to audit, fix and contribute to.",
-    engine: '⚙ New engine — per-faction data folders, typed unit types, typed keyword constants, canonical rule text embedded alongside every engine rule as a reference. Legacy armory tabs are now properly linked to the legacy you select for all 19 factions.',
-    csm: '✓ Chaos Space Marines — Beta. Armory, legacies, traits, archetypes, Black Crusade all wired. Canonical rule text verified in engine.',
-    cd:  '✓ Chaos Daemons — Beta. God disciplines, armory, mark rules, Daemonkin archetypes. Canonical rule text verified.',
-    sm:  '✓ Space Marines — Beta. Chapter legacies with disciplines and prayers, 8 archetypes, 19 traits, Gravis/Terminator armory gating. Canonical rule text verified.',
-    legacyfix: '🔧 Bug fix — legacy armory tabs were not showing for Space Marines and several other factions. Fixed in this update. If you had a saved list with a Legacy selected, re-open the armory to see the chapter items.',
-    contrib: '👷 Want to help? New contributor guides at CONTRIBUTING.md — translation guide, empty file templates, issue templates on GitHub for rules questions and code fixes. No coding required to contribute data or answer rules questions!',
+    title: 'Developer Update — v0.87',
+    intro: 'Hello commanders! Data quality sprint complete — 5 factions fully audited against the canonical ODS sheets, fixing armory access, weapon profiles and unit types across the board. All 19 factions are playable.',
+    engine: '⚙ Print view redesigned (v0.80): WH40K fonts & aesthetic, parchment weapon rows, dynamic faction symbols in builder header. Faction tabs added to the Updates modal. Lords of War catalog now covers 8 factions.',
+    csm: '✓ Fully audited — Chaos Space Marines, Chaos Daemons & Space Marines. Weapon resolver fixes, all armory access verified, psychic disciplines wired for all psyker units.',
+    cd:  '✓ Fully audited — Imperial Guard (v0.87). 33 armory-access fixes (28 vehicles + 5 infantry); 2 unit_type corrections.',
+    sm:  '✓ Fully audited — Adeptus Mechanicus (v0.85). 7 data fixes: Tech Thrall swap options added, 6 vehicle armory-access corrections.',
+    legacyfix: '🗓 Inquisition updated to June 2026 ruleset — 17 new Elite units, new Army Customisation (Ordo Legacies), Chamber Militant archetype for GK/Sororitas/SM.',
+    contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — von rigzar',
-    intro: 'Hallo zusammen! Ich bin rigzar. Dies ist ein großes Engine-Update — der Builder wurde von Grund auf mit einer neuen Datenarchitektur neu aufgebaut. Jede Fraktion hat jetzt einen eigenen Ordner mit separaten Dateien für Einheiten, Rüstkammer, Disziplinen, Archetypen und Regeln.',
-    engine: '⚙ Neue Engine — fraktionseigene Datenordner, typisierte Einheitentypen und Keywords, kanonischer Regeltext neben jedem Engine-Regelcode. Legacy-Rüstkammer-Tabs sind jetzt für alle 19 Fraktionen korrekt verknüpft.',
-    csm: '✓ Chaos Space Marines — Beta. Rüstkammer, Vermächtnisse, Eigenschaften, Archetypen, Schwarzer Kreuzzug vollständig verkabelt.',
-    cd:  '✓ Chaos-Dämonen — Beta. Götterdisziplinen, Rüstkammer, Mal-Regeln, Daemonkin-Archetypen.',
-    sm:  '✓ Space Marines — Beta. Kapitel-Vermächtnisse mit Disziplinen und Gebeten, 8 Archetypen, 19 Eigenschaften, Gravis/Terminator-Rüstkammer-Gating.',
-    legacyfix: '🔧 Bugfix — Legacy-Rüstkammer-Tabs wurden für Space Marines und andere Fraktionen nicht angezeigt. In diesem Update behoben.',
-    contrib: '👷 Mitmachen? Neue Beitragsanleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub Issue-Vorlagen.',
+    title: 'Entwickler-Update — v0.87',
+    intro: 'Hallo Kommandanten! Datenpflege-Sprint abgeschlossen — 5 Fraktionen vollständig gegen die kanonischen ODS-Bögen geprüft: Rüstkammer-Zugriff, Waffenprofile und Einheitentypen korrigiert. Alle 19 Fraktionen spielbar.',
+    engine: '⚙ Druckansicht neu gestaltet (v0.80): WH40K-Schriften & Ästhetik, Pergament-Waffenzeilen, dynamische Fraktionssymbole. Fraktionstabs im Updates-Modal. Kriegsherren-Katalog jetzt für 8 Fraktionen.',
+    csm: '✓ Vollständig geprüft — CSM, Chaos-Dämonen & Space Marines. Waffenresolver-Fixes, Rüstkammer-Zugriff verifiziert, Psykra-Disziplinen verdrahtet.',
+    cd:  '✓ Vollständig geprüft — Imperiale Garde (v0.87). 33 Rüstkammer-Fixes (28 Fahrzeuge + 5 Infanterie), 2 Einheitentyp-Korrekturen.',
+    sm:  '✓ Vollständig geprüft — Adeptus Mechanicus (v0.85). 7 Datenfixes: Tech-Thrall-Tauschoptionen, 6 Fahrzeug-Rüstkammer-Korrekturen.',
+    legacyfix: '🗓 Inquisition aktualisiert (Juni 2026) — 17 neue Elite-Einheiten, neue Armeeanpassungen (Ordo-Vermächtnisse), Chamber Militant Archetyp für GK/Sororitas/SM.',
+    contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — de rigzar',
-    intro: '¡Hola a todos! Soy rigzar. Esta es una actualización mayor del motor — el builder fue reconstruido desde cero con una nueva arquitectura de datos. Cada facción tiene ahora su propia carpeta con archivos separados para unidades, armería, disciplinas, arquetipos y reglas.',
-    engine: '⚙ Motor nuevo — carpetas de datos por facción, tipos de unidad tipados, constantes de keywords tipadas, texto canónico de reglas junto a cada regla del motor. Las pestañas de armería de Legacy ahora están correctamente vinculadas en las 19 facciones.',
-    csm: '✓ Chaos Space Marines — Beta. Armería, legados, rasgos, arquetipos, Cruzada Negra totalmente cableados.',
-    cd:  '✓ Demonios del Caos — Beta. Disciplinas divinas, armería, reglas de marca, arquetipos Daemonkin.',
-    sm:  '✓ Space Marines — Beta. Legados de capítulo con disciplinas y plegarias, 8 arquetipos, 19 rasgos, gating de armería Gravis/Terminator.',
-    legacyfix: '🔧 Corrección — las pestañas de armería de Legacy no se mostraban para Space Marines y otras facciones. Corregido en esta actualización.',
-    contrib: '👷 ¿Quieres ayudar? Nuevas guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos vacíos, plantillas de issues en GitHub.',
+    title: 'Actualización del desarrollador — v0.87',
+    intro: '¡Hola comandantes! Sprint de calidad de datos completado — 5 facciones auditadas al completo contra los .ods canónicos: acceso a armería, perfiles de arma y tipos de unidad corregidos. Las 19 facciones son jugables.',
+    engine: '⚙ Vista de impresión rediseñada (v0.80): tipografía y estética WH40K, filas de armas en pergamino, símbolos de facción dinámicos. Pestañas por facción en el modal de Actualizaciones. Catálogo de Señores de la Guerra para 8 facciones.',
+    csm: '✓ Auditados al completo — CSM, Demonios del Caos & Space Marines. Fixes en el resolver de armas, acceso a armería verificado, disciplinas psíquicas conectadas.',
+    cd:  '✓ Auditados al completo — Guardia Imperial (v0.87). 33 correcciones de acceso a armería (28 vehículos + 5 infantería), 2 correcciones de tipo de unidad.',
+    sm:  '✓ Auditados al completo — Adeptus Mechanicus (v0.85). 7 correcciones: opciones de intercambio para Tech Thralls, 6 correcciones de armería de vehículos.',
+    legacyfix: '🗓 Inquisición actualizada a junio 2026 — 17 nuevas unidades Elite, nueva Personalización de Ejército (Legados de Ordo), arquetipo Milicia del Capítulo para GK/Sororitas/SM.',
+    contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };
 
@@ -128,7 +128,7 @@ const CATEGORIES: Category[] = [
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing' },
-      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'inreview' },
+      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'inreview' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'inreview' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'inreview' },

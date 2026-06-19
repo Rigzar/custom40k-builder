@@ -181,7 +181,7 @@ export function UnitCard({ item }: Props) {
     pts, effectiveSlot,
     effectiveMark, markIsForced, statModMark, markUsesVetSlot, vetMax,
     variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
-    effectivePsyker,
+    effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
     injectedAbilities, injectedRuleNotes, equipMods,
     traitStatMods, traitAbilities,
@@ -232,7 +232,12 @@ export function UnitCard({ item }: Props) {
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
   // variant's own collapsible block, not in the global action row.
-  const armoryGatedByVariant = u.option_groups.some(g => g.variant_link && /armory/i.test(g.header));
+  // Armory in a variant block is surfaced inside that block — the global action-row button
+  // must not also appear. Detect: any variant_link group when champion_has_armory is true,
+  // OR a variant_link whose header explicitly mentions "armory".
+  const armoryGatedByVariant = u.option_groups.some(g =>
+    g.variant_link && (/armory/i.test(g.header) || u.champion_has_armory)
+  );
   // A built-in champion/leader model (e.g. Plague Champion: min===1, max===1 in models[1]) with
   // its own Armory access gets a dedicated profile+Armory block (see squad-size section below)
   // instead of the generic bottom Armory button.
@@ -1495,7 +1500,36 @@ export function UnitCard({ item }: Props) {
             const equipAbilities = equipMods.grantedAbilities.filter(
               ab => !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
             );
-            const totalAbilityCount = u.abilities.length + traitAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length + equipAbilities.length;
+            // Filter base abilities: hide unselected-weapon abilities, choice-gated abilities not yet
+            // purchased, and psyker ability when the optional psyker upgrade hasn't been bought.
+            const _shownWeaponBaseNames = new Set(weaponsToShow.map(w => w.name.split(' - ')[0]));
+            const _unselectedOptionalWeapons = new Set<string>();
+            const _allChoiceAbilityTexts = new Set<string>();
+            for (const g of u.option_groups) {
+              for (const c of g.choices) {
+                const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+                for (const part of (parts.length > 1 ? parts : [c.name])) {
+                  if (u.weapons.some(w => w.name.split(' - ')[0] === part) && !_shownWeaponBaseNames.has(part)) {
+                    _unselectedOptionalWeapons.add(part.toLowerCase());
+                  }
+                }
+                for (const ab of (c.abilities ?? [])) {
+                  _allChoiceAbilityTexts.add(ab.toLowerCase());
+                }
+              }
+            }
+            const _selectedChoiceAbilityTexts = new Set(injectedAbilities.map(a => a.toLowerCase()));
+            const _hasPsykerOption = psykerGroupIdx >= 0 && !effectivePsyker;
+            const filteredAbilities = u.abilities.filter(ab => {
+              if (/^\d+$/.test(ab.trim())) return false;
+              const ci = ab.indexOf(':');
+              const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
+              if (_unselectedOptionalWeapons.has(label)) return false;
+              if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
+              if (_hasPsykerOption && label === 'psyker') return false;
+              return true;
+            });
+            const totalAbilityCount = filteredAbilities.length + traitAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length + equipAbilities.length;
             if (totalAbilityCount === 0) return null;
             return (
             <details>
@@ -1509,7 +1543,7 @@ export function UnitCard({ item }: Props) {
                 <span className="text-zinc-600 text-[10px]">▾</span>
               </summary>
               <div className="mt-2 space-y-2">
-                {u.abilities.flatMap((a, i) =>
+                {filteredAbilities.flatMap((a, i) =>
                   parseAbility(a).map((part, j) => (
                     <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium">{part.displayName}</div>

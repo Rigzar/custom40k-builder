@@ -61,7 +61,27 @@ export const techThralls: Unit = {
       "abilities": "-"
     }
   ],
-  "option_groups": [],
+  "option_groups": [
+    {
+      "header": "All models may swap their Laslock",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Chainblade",
+          "points": 0
+        },
+        {
+          "name": "Mitralock",
+          "points": 1
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
   "abilities": [
     "Monotask, Unyielding",
     "Bionics: This model receives a 6+ invulnerability save."
