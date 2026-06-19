@@ -50,10 +50,28 @@ export const incubi: Unit = {
       }
     }
   ],
-  "equipped_with": "Every Incubi ist equipped with: Klaive.",
+  "equipped_with": "Every Incubus is equipped with: Klaive. The Klaivex is equipped with: Demiklaives.",
   "weapons": [
     {
       "name": "Klaive",
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Deadly(5+), Flurry(1)"
+    },
+    {
+      "name": "Demiklaives (dual blades)",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Flurry(2)"
+    },
+    {
+      "name": "Demiklaives (single blade)",
       "range": "-",
       "type": "Melee",
       "s": "+2",
@@ -71,6 +89,26 @@ export const incubi: Unit = {
       "choices": [],
       "inline_pts": 22,
       "variant_link": "Klaivex",
+      "is_unique_per_army": false
+    },
+    {
+      "header": "The Klaivex replaces its Klaive with Demiklaives (choose one mode)",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Demiklaives (dual blades)",
+          "points": 0
+        },
+        {
+          "name": "Demiklaives (single blade)",
+          "points": 0
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "replaces": ["Klaive"],
       "is_unique_per_army": false
     }
   ],

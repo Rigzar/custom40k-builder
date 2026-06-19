@@ -25,6 +25,36 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.90',
+    date: '2026-06-19',
+    title: { en: 'Genestealer Cults full ODS audit: 3 vehicle armory-access fixes' },
+    changes: { en: [
+      'Data fix (GSC — Achilles Ridgerunners, Goliath Rockgrinder, Goliath Truck): has_armory_access corrected to true on all three vehicles; ODS explicitly states "Has access to vehicle equipment from the Armory." for each.',
+    ]},
+  },
+  {
+    version: '0.89',
+    date: '2026-06-19',
+    title: { en: 'Harlequins full ODS audit: 4 data fixes (min/max, armory access, option header)' },
+    changes: { en: [
+      'Data fix (Harlequins — Troupe): min corrected from 5 to 4 per ODS date artefact (2025-12-04 → DD=04=min); min_cost updated 115→92.',
+      'Data fix (Harlequins — Skyweavers): min corrected from 2 to 1 per ODS date artefact (2025-06-01 → DD=01=min); min_cost updated 162→81. Option group header fixed: "replace its Haywire cannon" → "replace its Twin shuriken catapult" (Skyweavers do not start with a Haywire cannon; the group lets them upgrade from Twin shuriken catapult).',
+      'Data fix (Harlequins — Voidweaver, Starweaver): has_armory_access corrected to true on both vehicles; ODS explicitly states "Has access to vehicle equipment from the Armory."',
+    ]},
+  },
+  {
+    version: '0.88',
+    date: '2026-06-19',
+    title: { en: 'Dark Eldar full ODS audit: champion armory, vehicle armory+keywords, Incubi Demiklaives, archetype keyword filter' },
+    changes: { en: [
+      'Data fix (Dark Eldar — 6 units): champion_has_armory corrected to true on Kabalite Warriors (Sybarite), Wyches (Hekatrix), Wracks (Acothyst), Hellions (Helliarch), Reavers (Arena Champion), Scourges (Solarite) — all squad leaders have armory access per ODS.',
+      'Data fix (Dark Eldar — 5 vehicles): keywords split from the single-string ["Coven, Cult, Kabal"] to the correct three-entry array ["Coven", "Cult", "Kabal"] on Ravager, Raider, Venom, Razorwing Jetfighter, Voidraven Bomber.',
+      'Data fix (Dark Eldar — 5 vehicles): has_armory_access corrected to true on Ravager, Raider, Venom, Razorwing Jetfighter, Voidraven Bomber — all carry "Has access to vehicle equipment from the Armory" in ODS.',
+      'Data fix (Dark Eldar — Incubi): added two Klaivex Demiklaives weapon profiles (Dual blades: S:+1 AP:-4 D:1 Flurry(2); Single blade: S:+2 AP:-4 D:1 Deadly(5+) Flurry(1)) and a Klaivex option group to choose the Demiklaives mode, replacing the Klaive.',
+      'Engine fix (Dark Eldar — archetypes): new allowedKeywords field added to ArchetypeRule; isUnitAllowed now enforces keyword-gating; Trueborn (Kabal-only), Haemoxytes (Coven-only), and Bloodbrides (Cult-only) archetypes now correctly filter units. Swords-for-hire units (keywords: ["-"]) bypass the filter per their special rule.',
+    ]},
+  },
+  {
     version: '0.87',
     date: '2026-06-19',
     title: { en: 'Imperial Guard full ODS audit: 33 armory-access fixes + 2 unit_type cleanup' },

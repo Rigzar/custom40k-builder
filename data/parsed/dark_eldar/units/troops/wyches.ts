@@ -156,7 +156,7 @@ export const wyches: Unit = {
   "is_monster": false,
   "is_psyker": false,
   "has_armory_access": false,
-  "champion_has_armory": false,
+  "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,
   "veteran_max": null,

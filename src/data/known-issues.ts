@@ -260,16 +260,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-21a',
-    status: 'planned',
+    status: 'fixed',
     title: {
       en: 'Dark Eldar keyword archetypes (Bloodbrides, Haemoxytes, Trueborn) and trait keyword filters not yet implemented',
       de: 'Dark Eldar Schlüsselwort-Archetypen (Blutbräute, Hämoxyten, Trueborn) und Eigenschaft-Schlüsselwortfilter noch nicht implementiert',
       es: 'Arquetipos de palabras clave Dark Eldar (Novias de Sangre, Hemóxitos, Trueborn) y filtros de palabras clave de rasgos aún no implementados',
     },
     description: {
-      en: 'These archetypes restrict the army to units with specific keywords (<Cult>, <Coven>, <Kabal>). Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) mark traits that apply only to those keyword groups. The builder does not yet filter units or traits by keyword.',
-      de: 'Diese Archetypen schränken die Armee auf Einheiten mit bestimmten Schlüsselwörtern (<Kult>, <Zirkel>, <Kabal>) ein. Hochgestellte Zeichen bei Eigenschaften (ᶜᵒ, ᶜᵘ, ᴷ) markieren Eigenschaften, die nur für diese Schlüsselwortgruppen gelten. Der Builder filtert Einheiten und Eigenschaften noch nicht nach Schlüsselwort.',
-      es: 'Estos arquetipos restringen el ejército a unidades con palabras clave específicas (<Culto>, <Covén>, <Kabal>). Los superíndices de rasgos (ᶜᵒ, ᶜᵘ, ᴷ) marcan rasgos que solo se aplican a esos grupos de palabras clave. El constructor aún no filtra unidades ni rasgos por palabra clave.',
+      en: 'Fixed in v0.88: Trueborn (Kabal-only), Haemoxytes (Coven-only), and Bloodbrides (Cult-only) archetypes now use the new allowedKeywords engine field to filter units. Swords-for-hire units (Incubi, Mandrakes, Scourges) bypass the filter per their special rule. Trait superscripts (ᶜᵒ, ᶜᵘ, ᴷ) are display-only — per-trait keyword enforcement remains unimplemented.',
+      de: 'Behoben in v0.88.',
+      es: 'Corregido en v0.88.',
     },
   },
   {

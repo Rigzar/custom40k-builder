@@ -14,7 +14,7 @@ export const skyweavers: Unit = {
     {
       "name": "Skyweaver",
       "points": 81,
-      "min": 2,
+      "min": 1,
       "max": 6,
       "stats": {
         "M": "14\"",
@@ -96,7 +96,7 @@ export const skyweavers: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Any model may replace its Haywire cannon",
+      "header": "Any model may replace its Twin shuriken catapult",
       "constraint": {
         "type": "every"
       },
@@ -145,5 +145,5 @@ export const skyweavers: Unit = {
   "advisor": false,
   "slot": "Fast Attack",
   "default_size": 2,
-  "min_cost": 162
+  "min_cost": 81
 };

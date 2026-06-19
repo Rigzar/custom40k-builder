@@ -33,6 +33,8 @@ export interface ArchetypeRule {
   alliedFaction: string | null;
   alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
   allowedUnitsOnly: string[];
+  /** Units with none of these keywords are blocked (empty = no filter). "-" keyword (Swords for hire) bypasses check. */
+  allowedKeywords: string[];
   notes: string[];
   /** Structured notes for rich UI display. When present, rendered instead of plain notes[]. */
   structuredNotes?: StructuredNote[];
@@ -51,7 +53,7 @@ export const BASE: ArchetypeRule = {
   bannedUnits: [], bannedSlots: [], hqOverride: null, hqAllowed: [],
   requiresHqUnit: null, noAnimosity: false, noLegacy: false, noTraits: false,
   troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], grantsCommandSquad: [], demoteOtherTroops: false,
-  alliedFaction: null, alliedMarkFilter: 'all', allowedUnitsOnly: [], notes: [],
+  alliedFaction: null, alliedMarkFilter: 'all', allowedUnitsOnly: [], allowedKeywords: [], notes: [],
 };
 
 export function cultArchetype(mark: string, troopsUnit: string): ArchetypeRule {

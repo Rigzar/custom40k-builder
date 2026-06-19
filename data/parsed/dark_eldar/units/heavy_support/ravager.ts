@@ -85,13 +85,13 @@ export const ravager: Unit = {
   ],
   "unit_type": "Vehicle",
   "keywords": [
-    "Coven, Cult, Kabal"
+    "Coven", "Cult", "Kabal"
   ],
   "is_vehicle": true,
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

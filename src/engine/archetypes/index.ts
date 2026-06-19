@@ -103,6 +103,27 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   // ── Dark Eldar ────────────────────────────────────────────────────────────
+  'Trueborn': { ...BASE, allowedKeywords: ['Kabal'],
+    notes: [
+      'The army may only consist of <Kabal> units.',
+      'Each unit gains +1 Leadership and doubles the number of weapon swap choices.',
+    ],
+  },
+
+  'Haemoxytes': { ...BASE, allowedKeywords: ['Coven'],
+    notes: [
+      'The army may only consist of <Coven> units.',
+      'Each unit gains +1 Leadership and doubles the number of weapon swap choices.',
+    ],
+  },
+
+  'Bloodbrides': { ...BASE, allowedKeywords: ['Cult'],
+    notes: [
+      'The army may only consist of <Cult> units.',
+      'Each unit gains +1 Leadership and doubles the number of weapon swap choices.',
+    ],
+  },
+
   'Ynnari (Dark Eldar)': { ...BASE, noLegacy: true,
     notes: [
       'Allied to Eldar as Battle Brothers.',
@@ -442,7 +463,7 @@ export function getEffectiveSlot(
 
 export function isUnitAllowed(
   unitName: string,
-  unit: { locked_mark: string | null; has_veteran_abilities: boolean },
+  unit: { locked_mark: string | null; has_veteran_abilities: boolean; keywords?: string[] },
   rule: ArchetypeRule | null,
   originalSlot?: string,
 ): boolean {
@@ -454,6 +475,11 @@ export function isUnitAllowed(
   }
   if (rule.requireVetAbilities && !unit.has_veteran_abilities) return false;
   if (rule.allowedUnitsOnly.length > 0 && !rule.allowedUnitsOnly.includes(unitName)) return false;
+  if (rule.allowedKeywords.length > 0) {
+    const kws = unit.keywords ?? [];
+    // "-" = Swords for hire: unit gains the army keyword automatically
+    if (!kws.includes('-') && !kws.some(k => rule.allowedKeywords.includes(k))) return false;
+  }
   return true;
 }
 

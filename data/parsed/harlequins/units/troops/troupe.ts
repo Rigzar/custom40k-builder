@@ -14,7 +14,7 @@ export const troupe: Unit = {
     {
       "name": "Player",
       "points": 23,
-      "min": 5,
+      "min": 4,
       "max": 12,
       "stats": {
         "M": "8\"",
@@ -149,5 +149,5 @@ export const troupe: Unit = {
   "advisor": false,
   "slot": "Troops",
   "default_size": 5,
-  "min_cost": 115
+  "min_cost": 92
 };
