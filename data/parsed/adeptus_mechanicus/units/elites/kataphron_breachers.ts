@@ -84,7 +84,8 @@ export const kataphronBreachers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Arc claw"]
     },
     {
       "header": "Any model may swap their Heavy arc rifle",
@@ -99,7 +100,8 @@ export const kataphronBreachers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy arc rifle"]
     }
   ],
   "abilities": [

@@ -224,7 +224,8 @@ export const traitorGuard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Lasgun"]
     },
     {
       "header": "One Traitor Guardsman may be promoted to a Traitor Sergeant for +5pts and gains access to the armory.",

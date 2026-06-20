@@ -110,7 +110,8 @@ export const serberysSulphurhounds: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Phosphor pistol"]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",
@@ -134,7 +135,7 @@ export const serberysSulphurhounds: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": true,
   "veteran_required": false,

@@ -87,13 +87,14 @@ export const archaeopter: Unit = {
       },
       "choices": [
         {
-          "name": "2 Heavy phosphor blasters",
+          "name": "Heavy phosphor blaster",
           "points": 24
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Cognis heavy stubber"]
     },
     {
       "header": "May reduce its transport capacity to 0 and take",
@@ -127,7 +128,8 @@ export const archaeopter: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin-linked cognis heavy stubber"]
     }
   ],
   "abilities": [

@@ -308,10 +308,11 @@ Jakhals/Poxwalkers/Tzaangors carry NO mark group — `locked_mark` + the mark as
   Traitor Guard "per 10 → 1 Chaos Ogryn" same (model max 0-3 caps it, but the per-10-base ratio isn't).
 - **`single-slot` armour exclusivity** 🟡 v0.50 (no Troop carries Terminator armour; bought-armour single-slot now built — see §6d).
 
-**DATA BUG candidate (flag, do not silent-fix):** Chaos Space Marines `champion_has_armory:false`
-(line ~1677) while its datasheet option says the Aspiring Champion "gains access to weapons and gear
-from the Armory." Every other troop champion-promotion (Cultists, Jakhals, Mutants, Traitor Guard,
-Tzaangors) = `true`. → almost certainly should be `true`.
+**DATA BUG — RESOLVED 2026-06-20:** the note below was stale. Re-checked `chaos_space_marines.ts`
+(line 378) — `champion_has_armory: true` already, consistent with every other troop
+champion-promotion (Cultists, Jakhals, Mutants, Traitor Guard, Tzaangors). No fix needed; this must
+have been corrected in a prior session without updating this digest. Confirmed correct with the
+designer 2026-06-20.
 
 ## 4f. Elites datasheets — stats + option-semantics (VALIDATED 2026-06-03, prod JSON canonical)
 

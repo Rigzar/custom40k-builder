@@ -108,7 +108,7 @@ export const serberysRaiders: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": true,
   "veteran_required": false,

@@ -75,7 +75,8 @@ export const sydonianSkatros: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Radium jezzail"]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",

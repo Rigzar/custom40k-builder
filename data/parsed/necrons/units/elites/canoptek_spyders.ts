@@ -54,12 +54,25 @@ export const canoptekSpyders: Unit = {
   ],
   "option_groups": [
     {
-      "header": "Any number of models can each be equipped with: +5 points Dark prison, +5 points Fabricator claw array, +27 points two Particle beamers.",
+      "header": "Any number of models can each be equipped with",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
-      "choices": [],
-      "inline_pts": 5,
+      "choices": [
+        {
+          "name": "Dark prison",
+          "points": 5
+        },
+        {
+          "name": "Fabricator claw array",
+          "points": 5
+        },
+        {
+          "name": "Particle beamer",
+          "points": 27
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
     }

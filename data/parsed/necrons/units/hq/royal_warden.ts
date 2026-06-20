@@ -58,10 +58,16 @@ export const royalWarden: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 8,
+      "choices": [
+        {
+          "name": "Relic gauss blaster",
+          "points": 8
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Relic tesla carbine"]
     }
   ],
   "abilities": [

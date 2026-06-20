@@ -10,37 +10,37 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v6_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v7_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v0.87',
-    intro: 'Hello commanders! Data quality sprint complete — 5 factions fully audited against the canonical ODS sheets, fixing armory access, weapon profiles and unit types across the board. All 19 factions are playable.',
-    engine: '⚙ Print view redesigned (v0.80): WH40K fonts & aesthetic, parchment weapon rows, dynamic faction symbols in builder header. Faction tabs added to the Updates modal. Lords of War catalog now covers 8 factions.',
-    csm: '✓ Fully audited — Chaos Space Marines, Chaos Daemons & Space Marines. Weapon resolver fixes, all armory access verified, psychic disciplines wired for all psyker units.',
-    cd:  '✓ Fully audited — Imperial Guard (v0.87). 33 armory-access fixes (28 vehicles + 5 infantry); 2 unit_type corrections.',
-    sm:  '✓ Fully audited — Adeptus Mechanicus (v0.85). 7 data fixes: Tech Thrall swap options added, 6 vehicle armory-access corrections.',
+    title: 'Developer Update — v0.94',
+    intro: 'Hello commanders! Two more factions got the full line-by-line ODS audit — Necrons and Adeptus Mechanicus, 41 data fixes combined. All 19 factions remain playable.',
+    engine: '⚙ Cross-faction engine bug found: weapon-swap choices named with a quantity prefix ("two X", "2 X") were silently breaking weapon-table gating — fixed across both factions and logged as a pattern to watch for in future audits.',
+    csm: '✓ Fully audited — Necrons (v0.94). 19 fixes: vehicle armory access restored on 9 units, a hard-locked Lychguard squad size fixed, a broken per-3 squad cap corrected.',
+    cd:  '✓ Fully audited — Adeptus Mechanicus (v0.94, deeper re-audit). 30 fixes: champion-only armory access corrected on 9 units, 2 missing Advisor flags, 14 missing weapon-swap links.',
+    sm:  '✓ Fully audited — Chaos Space Marines, Chaos Daemons, Space Marines & Imperial Guard. Weapon resolver fixes, all armory access verified, psychic disciplines wired for all psyker units.',
     legacyfix: '🗓 Inquisition updated to June 2026 ruleset — 17 new Elite units, new Army Customisation (Ordo Legacies), Chamber Militant archetype for GK/Sororitas/SM.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — v0.87',
-    intro: 'Hallo Kommandanten! Datenpflege-Sprint abgeschlossen — 5 Fraktionen vollständig gegen die kanonischen ODS-Bögen geprüft: Rüstkammer-Zugriff, Waffenprofile und Einheitentypen korrigiert. Alle 19 Fraktionen spielbar.',
-    engine: '⚙ Druckansicht neu gestaltet (v0.80): WH40K-Schriften & Ästhetik, Pergament-Waffenzeilen, dynamische Fraktionssymbole. Fraktionstabs im Updates-Modal. Kriegsherren-Katalog jetzt für 8 Fraktionen.',
-    csm: '✓ Vollständig geprüft — CSM, Chaos-Dämonen & Space Marines. Waffenresolver-Fixes, Rüstkammer-Zugriff verifiziert, Psykra-Disziplinen verdrahtet.',
-    cd:  '✓ Vollständig geprüft — Imperiale Garde (v0.87). 33 Rüstkammer-Fixes (28 Fahrzeuge + 5 Infanterie), 2 Einheitentyp-Korrekturen.',
-    sm:  '✓ Vollständig geprüft — Adeptus Mechanicus (v0.85). 7 Datenfixes: Tech-Thrall-Tauschoptionen, 6 Fahrzeug-Rüstkammer-Korrekturen.',
+    title: 'Entwickler-Update — v0.94',
+    intro: 'Hallo Kommandanten! Zwei weitere Fraktionen haben den vollständigen Zeile-für-Zeile-ODS-Audit erhalten — Necrons und Adeptus Mechanicus, zusammen 41 Datenkorrekturen. Alle 19 Fraktionen bleiben spielbar.',
+    engine: '⚙ Fraktionsübergreifender Engine-Bug gefunden: Waffentausch-Optionen mit Mengen-Präfix im Namen ("two X", "2 X") haben die Waffentabellen-Filterung lautlos kaputt gemacht — in beiden Audits behoben und als Muster für künftige Audits vermerkt.',
+    csm: '✓ Vollständig geprüft — Necrons (v0.94). 19 Fixes: Fahrzeug-Rüstkammer-Zugriff bei 9 Einheiten wiederhergestellt, eine festgefahrene Lychguard-Einheitengröße behoben, ein defektes Pro-3-Limit korrigiert.',
+    cd:  '✓ Vollständig geprüft — Adeptus Mechanicus (v0.94, tieferer Re-Audit). 30 Fixes: Champion-only-Rüstkammer-Zugriff bei 9 Einheiten korrigiert, 2 fehlende Advisor-Flags, 14 fehlende Waffentausch-Verknüpfungen.',
+    sm:  '✓ Vollständig geprüft — CSM, Chaos-Dämonen, Space Marines & Imperiale Garde. Waffenresolver-Fixes, Rüstkammer-Zugriff verifiziert, Psykra-Disziplinen verdrahtet.',
     legacyfix: '🗓 Inquisition aktualisiert (Juni 2026) — 17 neue Elite-Einheiten, neue Armeeanpassungen (Ordo-Vermächtnisse), Chamber Militant Archetyp für GK/Sororitas/SM.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — v0.87',
-    intro: '¡Hola comandantes! Sprint de calidad de datos completado — 5 facciones auditadas al completo contra los .ods canónicos: acceso a armería, perfiles de arma y tipos de unidad corregidos. Las 19 facciones son jugables.',
-    engine: '⚙ Vista de impresión rediseñada (v0.80): tipografía y estética WH40K, filas de armas en pergamino, símbolos de facción dinámicos. Pestañas por facción en el modal de Actualizaciones. Catálogo de Señores de la Guerra para 8 facciones.',
-    csm: '✓ Auditados al completo — CSM, Demonios del Caos & Space Marines. Fixes en el resolver de armas, acceso a armería verificado, disciplinas psíquicas conectadas.',
-    cd:  '✓ Auditados al completo — Guardia Imperial (v0.87). 33 correcciones de acceso a armería (28 vehículos + 5 infantería), 2 correcciones de tipo de unidad.',
-    sm:  '✓ Auditados al completo — Adeptus Mechanicus (v0.85). 7 correcciones: opciones de intercambio para Tech Thralls, 6 correcciones de armería de vehículos.',
+    title: 'Actualización del desarrollador — v0.94',
+    intro: '¡Hola comandantes! Dos facciones más recibieron la auditoría ODS completa línea a línea — Necrons y Adeptus Mechanicus, 41 correcciones de datos combinadas. Las 19 facciones siguen siendo jugables.',
+    engine: '⚙ Bug de motor entre facciones encontrado: las opciones de intercambio de arma nombradas con un prefijo de cantidad ("two X", "2 X") rompían silenciosamente el filtrado de la tabla de armas — corregido en ambas facciones y registrado como patrón a vigilar en futuras auditorías.',
+    csm: '✓ Auditados al completo — Necrons (v0.94). 19 correcciones: acceso a armería de vehículo restaurado en 9 unidades, un tamaño de escuadra de Lychguard bloqueado corregido, un límite por cada 3 roto arreglado.',
+    cd:  '✓ Auditados al completo — Adeptus Mechanicus (v0.94, reauditoría más profunda). 30 correcciones: acceso a armería solo-campeón corregido en 9 unidades, 2 flags Advisor faltantes, 14 vínculos de intercambio de arma faltantes.',
+    sm:  '✓ Auditados al completo — CSM, Demonios del Caos, Space Marines & Guardia Imperial. Fixes en el resolver de armas, acceso a armería verificado, disciplinas psíquicas conectadas.',
     legacyfix: '🗓 Inquisición actualizada a junio 2026 — 17 nuevas unidades Elite, nueva Personalización de Ejército (Legados de Ordo), arquetipo Milicia del Capítulo para GK/Sororitas/SM.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
@@ -141,7 +141,7 @@ const CATEGORIES: Category[] = [
     pillFg: '#6ab88a', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'inreview' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'inreview' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'testing' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'inreview' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'inreview' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'inreview' },
@@ -395,6 +395,7 @@ export function LandingPage({
                 </div>
                 <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
               </div>
+              <div className="text-[10px] text-red-500/80 uppercase tracking-wide">⚙ Requires: Legion archetype</div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.
               </p>
@@ -419,6 +420,7 @@ export function LandingPage({
                 </div>
                 <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
               </div>
+              <div className="text-[10px] text-amber-500/80 uppercase tracking-wide">⚙ Requires: Epic Battle (4000+ pts)</div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Available for all factions.
               </p>
@@ -441,8 +443,9 @@ export function LandingPage({
                     <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Officio Assassinorum</div>
                   </div>
                 </div>
-                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Grey Knights · Sororitas</span>
+                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Chaos · Imperial</span>
               </div>
+              <div className="text-[10px] text-zinc-500 uppercase tracking-wide">✓ Always available — no activation step</div>
               <p className="text-zinc-500 text-[12px] leading-snug">
                 Callidus, Culexus, Eversor, Vindicare. A single Assassin or one of each — counts as a single Elite slot. Granted natively by Demon Hunters / Witch hunters.
               </p>

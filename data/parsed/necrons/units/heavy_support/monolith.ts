@@ -69,13 +69,14 @@ export const monolith: Unit = {
       },
       "choices": [
         {
-          "name": "four Death rays",
+          "name": "Death ray",
           "points": 148
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Gauss flux arc"]
     }
   ],
   "abilities": [
@@ -90,7 +91,7 @@ export const monolith: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

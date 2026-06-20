@@ -66,7 +66,8 @@ export const ironstriderBallistarii: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin cognis autocannon"]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",

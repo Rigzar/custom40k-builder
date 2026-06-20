@@ -56,7 +56,9 @@ export const ophydianDestroyers: Unit = {
     {
       "header": "For every 3 Destroyers, one Destroyer may swap their Hyperphase threshers",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 3,
+        "count_per_n": 1
       },
       "choices": [
         {
@@ -66,7 +68,8 @@ export const ophydianDestroyers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Hyperphase threshers"]
     }
   ],
   "abilities": [

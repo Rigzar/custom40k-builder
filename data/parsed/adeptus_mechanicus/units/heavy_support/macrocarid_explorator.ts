@@ -207,7 +207,8 @@ export const macrocaridExplorator: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Mauler bolt cannon"]
     },
     {
       "header": "May swap both lascannons",
@@ -216,21 +217,22 @@ export const macrocaridExplorator: Unit = {
       },
       "choices": [
         {
-          "name": "2 Rad engines",
+          "name": "Rad engine",
           "points": -77
         },
         {
-          "name": "2 Twin-linked mauler bolt cannons",
+          "name": "Twin-linked mauler bolt cannon",
           "points": -10
         },
         {
-          "name": "2 Twin-linked lascannons",
+          "name": "Twin-linked lascannon",
           "points": 138
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Lascannon"]
     }
   ],
   "abilities": [

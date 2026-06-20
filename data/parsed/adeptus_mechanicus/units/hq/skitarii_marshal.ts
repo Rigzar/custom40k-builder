@@ -51,7 +51,7 @@ export const skitariiMarshal: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": false,
+  "advisor": true,
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 35

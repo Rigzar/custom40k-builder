@@ -90,6 +90,8 @@ data/parsed/<faction>/
 | `weapons[]` | All weapon profiles present; correct S / AP / D / Abilities |
 | `option_groups[]` | Header text matches rules; all choices listed; correct points costs |
 | `option_groups[].per_model` | Set `true` when the header says "for +X points **per model**" (inline options only) |
+| `option_groups[].replaces` | List the exact weapon name(s) being removed by this swap. Required on any group meant to drop the old weapon from the weapon table — without it, the old AND new weapon both show. For a multi-profile weapon (e.g. "Taser lance - Charge" / "Taser lance - Melee"), list every profile name, not the shared prefix — matching is exact-name, not stripped. **Gotcha**: a choice name that happens to exactly equal an unconditionally-shown base weapon's name will hide that weapon by default — never give a purely-additive choice (granting MORE of a weapon already in `equipped_with`) the exact same name as that base weapon. |
+| `option_groups[].choices[].name` (quantity-prefixed) | **Never** name a choice "two X" / "2 X" / "four X" etc. — the weapon-table gating matches a choice's name against the weapon's own name exactly, so a quantity prefix never matches and the weapon shows unconditionally even when unpurchased. Rename the choice to the bare singular weapon name (the header text already conveys "both"/"two"/etc.); price is unaffected. |
 | `is_character` / `is_vehicle` / `is_psyker` | Unit classification flags |
 | `champion_has_armory` | True only if the champion (sergeant-equivalent) can access the armory independently |
 | `advisor` | True only for units that are advisors (e.g., Commissar) |
@@ -102,7 +104,7 @@ data/parsed/<faction>/
 |---|---|
 | `one` | Pick 0 or 1 from the list (most common) |
 | `every` | Every model picks independently — cost is per model |
-| `per_n` | One pick per N models (`constraint.n` specifies N) |
+| `per_n` | M picks per N models (`constraint.per_n` specifies N, `constraint.count_per_n` specifies M — e.g. "for every 3 models, 1 may swap" is `per_n:3, count_per_n:1`) |
 | `fixed_max` | Up to N picks total (`constraint.max` specifies N) |
 | `mark` | Mark of Chaos selection |
 | `veteran` | Veteran ability slot |

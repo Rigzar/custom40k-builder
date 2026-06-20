@@ -431,15 +431,20 @@ export function UnitCard({ item }: Props) {
       })()}
 
       {!collapsed && (
-        <div className="space-y-0">
+        <div className="space-y-0 md:grid md:grid-cols-2 md:items-start">
           {/* Default loadout */}
           {equippedWith && (
-            <div className="px-3 py-1.5 bg-zinc-800/50 border-b border-zinc-700/60 text-[11px] text-zinc-400">
+            <div className="md:col-span-2 px-3 py-1.5 bg-zinc-800/50 border-b border-zinc-700/60 text-[11px] text-zinc-400">
               <span className="text-zinc-500 text-[10px] uppercase tracking-widest mr-1.5">Default loadout:</span>
               {equippedWith}
             </div>
           )}
 
+          {/* ── Live profile (stat block + weapons) — right column on wide screens ── */}
+          <div className="md:col-start-2 md:row-start-2 md:border-l md:border-zinc-700/60">
+          <div className="px-2 pt-1.5 hidden md:block">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Live profile</span>
+          </div>
           {/* ── Stat profile ── */}
           <div className="border-b border-zinc-700/60">
             <div className="px-3 pt-2 pb-0">
@@ -483,9 +488,15 @@ export function UnitCard({ item }: Props) {
               <tbody>
                 {modelsToShow.map((m, i) => {
                   const isVar = variant && m === variant;
+                  // Row count: variant-split count (modelCounts) takes priority, then per-group
+                  // size for multi-model units (Traitor Guard's Guardsman/Ogryn), then the plain
+                  // squad-size stepper for a single-model-row unit (e.g. Chaos Space Marines).
+                  // Single fixed-size characters (m.max === 1) stay uncounted — "1x" adds no value.
+                  const rowCount = modelCounts[i] ?? item.modelSizes?.[m.name] ??
+                    (modelsToShow.length === 1 && m.max > 1 ? item.size : null);
                   return (
                     <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/40' : ''} ${isVar ? 'text-amber-300' : 'text-zinc-100'}`}>
-                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{modelCounts[i] != null ? `${modelCounts[i]}x ` : ''}{m.name}{isVar ? ' ★' : ''}</td>
+                      <td className="font-semibold py-2 px-2 whitespace-nowrap text-xs">{rowCount != null ? `${rowCount}x ` : ''}{m.name}{isVar ? ' ★' : ''}</td>
                       {statKeys.map(k => {
                         // InvSv is a derived stat — not in m.stats, computed at unit level
                         if (k === 'InvSv') {
@@ -637,7 +648,7 @@ export function UnitCard({ item }: Props) {
                             Ranged Weapons
                             <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
                           </div>
-                          <WeaponTable weapons={ranged} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} />
+                          <WeaponTable weapons={ranged} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} countOverrides={g.countOverrides} />
                         </div>
                       )}
                       {melee.length > 0 && (
@@ -647,7 +658,7 @@ export function UnitCard({ item }: Props) {
                             Melee Weapons
                             <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
                           </div>
-                          <WeaponTable weapons={melee} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} />
+                          <WeaponTable weapons={melee} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} countOverrides={g.countOverrides} />
                         </div>
                       )}
                     </div>
@@ -656,9 +667,13 @@ export function UnitCard({ item }: Props) {
               </div>
             );
           })()}
+          </div>{/* close live profile column */}
 
-          {/* ── Builder section (interactive) ── */}
-          <div className="px-3 py-2 space-y-3">
+          {/* ── Builder section (interactive) — left column on wide screens ── */}
+          <div className="md:col-start-1 md:row-start-2 px-3 py-2 space-y-3">
+          <div className="hidden md:block -mx-3 -mt-2 mb-1 px-2 pt-1.5">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Build</span>
+          </div>
 
           {/* Squad size — per-group when modelSizes is available, single slider otherwise */}
           {item.modelSizes ? (
@@ -1628,7 +1643,7 @@ export function UnitCard({ item }: Props) {
 
           {/* ── Keywords ── */}
           {u.keywords.length > 0 && (
-            <div className="px-3 py-2.5 border-t border-zinc-700 bg-zinc-800/50">
+            <div className="md:col-span-2 px-3 py-2.5 border-t border-zinc-700 bg-zinc-800/50">
               <div className="flex flex-wrap gap-1.5 items-center">
                 <span className="text-[9px] text-zinc-500 uppercase tracking-widest shrink-0 font-semibold">Keywords</span>
                 <span className="text-zinc-700 text-[9px]">|</span>
@@ -1733,7 +1748,7 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
   );
 }
 
-function WeaponTable({ weapons, traitMap, count }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null }) {
+function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null; countOverrides?: Map<string, number> }) {
   return (
     <div className="px-3 pb-2">
       <table className="w-full text-xs border-collapse">
@@ -1775,6 +1790,8 @@ function WeaponTable({ weapons, traitMap, count }: { weapons: Weapon[]; traitMap
         </thead>
         <tbody>
           {weapons.map((w: Weapon, i: number) => {
+            const rowCount = countOverrides?.get(w.name) ?? count;
+            if (rowCount === 0) return null;
             const extraTraits = traitMap?.get(w.name) ?? [];
             const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
             // Merge: keeps best value per ability type. Returns improved (replaced) + added (new).
@@ -1790,7 +1807,7 @@ function WeaponTable({ weapons, traitMap, count }: { weapons: Weapon[]; traitMap
               : allAbilities || '—';
             return (
               <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
-                <td className="py-1.5 pr-2 font-medium text-zinc-100">{count != null ? `${count}x ` : ''}{w.name}</td>
+                <td className="py-1.5 pr-2 font-medium text-zinc-100">{rowCount != null ? `${rowCount}x ` : ''}{w.name}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
                 <td className="py-1.5 px-1 text-zinc-400 text-[11px]">
                   {(() => {

@@ -23,6 +23,12 @@ export interface WeaponGroup {
    * profile's overall weaponTraitMap when absent (set when a group needs its own, e.g. a
    * Character-only daemon weapon trait that only modifies the Champion's copy). */
   traitMap?: Map<string, string[]>;
+  /** Per-weapon-name count override, keyed by exact weapon name — takes priority over `count`
+   * for that one row. Set when independent option groups (e.g. "every model's Lasgun may be
+   * replaced" + a separate "per 10 models, one Lasgun may become a Flamer") let only a SUBSET
+   * of this group's models take a swap, so the base weapon and the swapped-in weapon each need
+   * their own count instead of sharing the group's full model count. */
+  countOverrides?: Map<string, number>;
 }
 
 export interface ResolvedProfile {
@@ -221,31 +227,22 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   if (optionalWeapons.size === 0 && !hasReplaceGroup && zeroCountModelWeapons.size === 0) return weapons;
 
   const selectedChoiceNames = new Set<string>();
-  // How many option groups target each weapon name for replacement (needed for AND logic below).
-  const replaceGroupTotals = new Map<string, number>();
-  for (const g of unit.option_groups) {
-    if (!g.replaces) continue;
-    for (const name of g.replaces) replaceGroupTotals.set(name, (replaceGroupTotals.get(name) ?? 0) + 1);
-  }
-  const replaceGroupSelected = new Map<string, number>();
+  // Sum of qty taken across ALL groups that replace each weapon name — multiple independent
+  // groups can each chip away at the same base weapon (e.g. Traitor Guard's "every model's
+  // Lasgun may be replaced by Chainsword & Laspistol" AND its separate "per 10 models, one
+  // Lasgun may become a Flamer/Melter/Plasma gun" both reduce the same Lasgun count). The
+  // weapon is only fully removed once the combined qty reaches the full squad size; below
+  // that it stays visible — computeWeaponGroups assigns the correct partial count to each
+  // weapon (this function only decides presence, not the displayed "Nx" count).
+  const replacedWeaponQty = new Map<string, number>();
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
-    // For "every" groups the header says "Each model may swap" — the replace only fires when
-    // ALL models have taken the option (qty sum >= item.size). Partial swaps (e.g. 3 of 10
-    // models) keep the base weapon visible alongside the swap choice.
-    const totalQty = Object.entries(ch)
+    const groupQty = Object.entries(ch)
       .filter(([ci]) => ci !== '__inline')
       .reduce((sum, [, qty]) => sum + (Number(qty) || 0), 0);
-    const hasSelection = g.constraint?.type === 'every' && g.replaces?.length
-      ? totalQty >= item.size
-      : Object.entries(ch).some(([ci, qty]) => ci !== '__inline' && !!qty);
-    // `replaces` is set in the data ONLY for unit-wide swaps ("Each model's X" / "May replace
-    // its X"). Subset swaps ("one model's X", per_n/fixed_max) leave it unset so both the old
-    // and new weapons stay on the datasheet. AND logic: track per-weapon selection count; the
-    // weapon is dropped only when ALL groups that reference it have a selection (see below).
-    if (hasSelection && g.replaces) {
-      for (const name of g.replaces) replaceGroupSelected.set(name, (replaceGroupSelected.get(name) ?? 0) + 1);
+    if (g.replaces?.length && groupQty > 0) {
+      for (const name of g.replaces) replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
     }
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
@@ -253,11 +250,9 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
       if (choice) selectedChoiceNames.add(choice.name);
     }
   }
-  // Weapons dropped by structured `replaces` groups — only when ALL groups targeting a weapon
-  // are selected (AND logic). For single-group cases behaviour is identical to the old OR logic.
   const replacedWeaponNames = new Set<string>();
-  for (const [name, total] of replaceGroupTotals) {
-    if ((replaceGroupSelected.get(name) ?? 0) >= total) replacedWeaponNames.add(name);
+  for (const [name, qty] of replacedWeaponQty) {
+    if (qty >= item.size) replacedWeaponNames.add(name);
   }
   return weapons.filter(w => {
     if (replacedWeaponNames.has(w.name)) return false;
@@ -728,12 +723,59 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     }
   }
 
+  // Per-weapon count overrides: when independent option groups let only a SUBSET of a group's
+  // models take a swap (e.g. Traitor Guard's "every model's Lasgun -> Chainsword & Laspistol"
+  // and its separate "per 10 models, one Lasgun -> Flamer/Melter/Plasma gun"), the group's flat
+  // `count` is wrong for both the base weapon (should shrink) and the swapped-in weapon (should
+  // be its own qty, not the whole group). Sum qty per replaced weapon across ALL groups that
+  // target it (each model decides independently, so qtys from different groups add up), and
+  // give each swapped-in choice's weapon(s) their own qty.
+  for (const grp of groups) {
+    if (grp.count == null || !grp.label) continue;
+    const replacedQty = new Map<string, number>();
+    const grantedQty  = new Map<string, number>();
+    for (const [gi, g] of unit.option_groups.entries()) {
+      if (!g.replaces?.length) continue;
+      if (g.applies_to_model && g.applies_to_model !== grp.label) continue;
+      const ch = item.optionQty[gi] ?? {};
+      let groupQty = 0;
+      for (const [ci, qty] of Object.entries(ch)) {
+        if (ci === '__inline' || !qty) continue;
+        const n = Number(qty);
+        groupQty += n;
+        const choice = g.choices[parseInt(ci)];
+        if (!choice) continue;
+        const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+        for (const part of (parts.length > 1 ? parts : [choice.name])) {
+          if (grp.weapons.some(w => baseName(w.name) === part)) {
+            grantedQty.set(part, (grantedQty.get(part) ?? 0) + n);
+          }
+        }
+      }
+      if (groupQty === 0) continue;
+      for (const replaced of g.replaces) {
+        replacedQty.set(replaced, (replacedQty.get(replaced) ?? 0) + groupQty);
+      }
+    }
+    if (replacedQty.size === 0 && grantedQty.size === 0) continue;
+    const overrides = new Map<string, number>();
+    for (const w of grp.weapons) {
+      const bn = baseName(w.name);
+      if (replacedQty.has(bn)) {
+        overrides.set(w.name, Math.max(0, grp.count - replacedQty.get(bn)!));
+      } else if (grantedQty.has(bn)) {
+        overrides.set(w.name, grantedQty.get(bn)!);
+      }
+    }
+    if (overrides.size > 0) grp.countOverrides = overrides;
+  }
+
   // Drop groups with nothing to show (e.g. Chaos Ogryn before any are bought) — a group that
   // exists in the data but has no weapons yet shouldn't force the others into labeled tables.
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap }];
+    return [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }];
   }
   return nonEmpty;
 }

@@ -680,8 +680,8 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
 }
 
 // ── Radar / spider chart ──────────────────────────────────────────────────────
-function RadarChart({ labels, values, color, title, size = 190 }: {
-  labels: string[]; values: number[]; color: string; title: string; size?: number;
+function RadarChart({ labels, values, color, title, size = 190, subLabels }: {
+  labels: string[]; values: number[]; color: string; title: string; size?: number; subLabels?: string[];
 }) {
   const n   = labels.length;
   const cx  = size / 2;
@@ -708,6 +708,11 @@ function RadarChart({ labels, values, color, title, size = 190 }: {
       <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.72em', textTransform: 'uppercase', letterSpacing: '.08em', color: '#555' }}>
         {title}
       </div>
+      {subLabels && (
+        <div style={{ fontSize: '.58em', color: '#999', fontStyle: 'italic' }}>
+          Each axis scaled to its own cap — see values below labels
+        </div>
+      )}
       <svg width={size} height={size} style={{ overflow: 'visible' }}>
         {[0.25, 0.5, 0.75, 1.0].map(lv => (
           <path key={lv} d={gridPath(lv)} fill="none"
@@ -727,11 +732,20 @@ function RadarChart({ labels, values, color, title, size = 190 }: {
           const lx = cx + rLabel * Math.cos(a);
           const ly = cy + rLabel * Math.sin(a);
           return (
-            <text key={i} x={lx.toFixed(1)} y={ly.toFixed(1)}
-              textAnchor="middle" dominantBaseline="middle"
-              fontSize="8.5" fontWeight="700" fontFamily="'Trebuchet MS', sans-serif" fill="#555">
-              {label}
-            </text>
+            <g key={i}>
+              <text x={lx.toFixed(1)} y={(ly - (subLabels ? 5 : 0)).toFixed(1)}
+                textAnchor="middle" dominantBaseline="middle"
+                fontSize="8.5" fontWeight="700" fontFamily="'Trebuchet MS', sans-serif" fill="#555">
+                {label}
+              </text>
+              {subLabels && (
+                <text x={lx.toFixed(1)} y={(ly + 7).toFixed(1)}
+                  textAnchor="middle" dominantBaseline="middle"
+                  fontSize="7" fontWeight="400" fontFamily="'Trebuchet MS', sans-serif" fill="#999">
+                  {subLabels[i]}
+                </text>
+              )}
+            </g>
           );
         })}
       </svg>
@@ -797,11 +811,12 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
   const grandPts = units.reduce((s, x) => s + x.pts, 0);
   const grandW   = units.reduce((s, x) => s + x.totalW, 0);
 
-  const compValues = COMP_SLOTS.map((slot, i) => {
+  const compCountsForRadar = COMP_SLOTS.map(slot => {
     const effectiveSlot = slot === 'Transport' ? 'Dedicated Transport' : slot;
-    const count = army.filter(item => item.slot === effectiveSlot).length;
-    return Math.min((count / COMP_MAX[i]) * 10, 10);
+    return army.filter(item => item.slot === effectiveSlot).length;
   });
+  const compValues = compCountsForRadar.map((count, i) => Math.min((count / COMP_MAX[i]) * 10, 10));
+  const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${COMP_MAX[i]}`);
 
   const statSums = [0, 0, 0, 0, 0, 0];
   let statCount  = 0;
@@ -813,6 +828,15 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
   const powerValues = statCount === 0
     ? [0, 0, 0, 0, 0, 0]
     : statSums.map((s, i) => Math.min((s / statCount / POWER_MAX[i]) * 10, 10));
+  const powerAvgs = statCount === 0 ? [0, 0, 0, 0, 0, 0] : statSums.map(s => s / statCount);
+  const powerSubLabels = [
+    `${powerAvgs[0].toFixed(1)}"`,
+    powerAvgs[1].toFixed(1),
+    powerAvgs[2].toFixed(1),
+    powerAvgs[3].toFixed(1),
+    `${(7 - powerAvgs[4]).toFixed(1)}+`,
+    `${(7 - powerAvgs[5]).toFixed(1)}+`,
+  ];
 
   return (
     <div style={{
@@ -893,10 +917,10 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
 
         {/* Radar charts */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '8px 4px', borderRight: `2px solid ${color}33`, background: '#fff' }}>
-          <RadarChart title="Unit Composition" labels={COMP_LABELS} values={compValues} color={color} size={185} />
+          <RadarChart title="Unit Composition" labels={COMP_LABELS} values={compValues} subLabels={compSubLabels} color={color} size={185} />
         </div>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly', padding: '8px 4px', background: '#fff' }}>
-          <RadarChart title="Army Power" labels={['Move', 'Attacks', 'Tough', 'Wounds', 'Save', 'Shoot']} values={powerValues} color={color} size={185} />
+          <RadarChart title="Army Power" labels={['Move', 'Attacks', 'Tough', 'Wounds', 'Save', 'Shoot']} values={powerValues} subLabels={powerSubLabels} color={color} size={185} />
         </div>
       </div>
     </div>
@@ -1261,7 +1285,13 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Army Roster</title><style>${printFontFace}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Trebuchet MS',sans-serif;background:#fff;padding:14px}@media print{body{padding:0}}</style></head><body>${el.innerHTML}</body></html>`);
               win.document.close();
               win.focus();
-              setTimeout(() => { win.print(); }, 400);
+              // Wait for the @font-face downloads to actually finish before printing — a fixed
+              // delay silently fell back to the body's sans-serif font on slow connections,
+              // with no error and no indication to the user. fonts.ready resolves as soon as
+              // they're loaded; the timeout is only a safety net if it never resolves.
+              const fontsReady = win.document.fonts?.ready ?? Promise.resolve();
+              const safetyNet = new Promise(resolve => setTimeout(resolve, 2000));
+              Promise.race([fontsReady, safetyNet]).then(() => win.print());
             }}
             className="px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-sm uppercase tracking-wide transition-colors">
             Print

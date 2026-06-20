@@ -93,7 +93,8 @@ export const kataphronDestroyers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Cognis flamer"]
     },
     {
       "header": "Any model may swap their Heavy grav-cannon",
@@ -108,7 +109,8 @@ export const kataphronDestroyers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy grav-cannon"]
     }
   ],
   "abilities": [

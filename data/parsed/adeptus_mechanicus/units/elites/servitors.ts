@@ -146,12 +146,15 @@ export const servitors: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Paired shock chargers"]
     },
     {
       "header": "For every three Servitors in the unit, one may swap their Paired shock chargers for a Shock charger and one of the following",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 3,
+        "count_per_n": 1
       },
       "choices": [
         {
@@ -173,7 +176,8 @@ export const servitors: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Paired shock chargers"]
     },
     {
       "header": "For each Magos, Archmagos, or Tech-Priest selection, one Servitor squad may be selected that does not occupy an Elite slot.",

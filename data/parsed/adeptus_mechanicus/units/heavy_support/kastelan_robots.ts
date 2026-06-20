@@ -84,7 +84,8 @@ export const kastelanRobots: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power fist"]
     },
     {
       "header": "Any model may swap their Incendine combustor",
@@ -99,7 +100,8 @@ export const kastelanRobots: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Incendine combustor"]
     }
   ],
   "abilities": [

@@ -140,6 +140,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (unwieldyModelBlocked(arm, sec)) return true;
     if (skirmishHqUniqueBlocked(arm)) return true;
     if (sec === 'equipment' && armorConflict(arm)) return true;
+    if (sec === 'equipment' && daemonGatewayConflict(arm)) return true;
     // instanceOf gate: requires_keywords checked against effectiveKeywords (BSData model)
     if (isItemRequirementsBlocked(arm, _effectiveKws)) return true;
     // For regular (non-veteran/vehicle) equipment: enforce mark restriction and null price
@@ -205,12 +206,28 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Label for the legacy/legion/clan tab — use the first armory_legions key as the name
   // legionTabLabel kept as fallback reference (unused now that tab only shows when legacy is active)
   // const legionTabLabel = Object.keys(data.armory_legions)[0] ?? 'Legacy';
-  // Only show Daemon Weapons section if any armory source has items for it
-  const hasDaemonWeapons = [
-    activeData.armory_general,
-    ...Object.values(activeData.armory_marks),
-    ...Object.values(activeData.armory_legions),
-  ].some(src => (src.daemon_weapons as ArmoryItem[]).length > 0);
+  // Daemon weapon abilities ("Dark"/"Kai"/"Unstoppable" etc.): the gateway items "Daemon weapon"
+  // (pick 1) / "Greater Daemon weapon" (pick 2, mutually exclusive with the first) live in
+  // armory_general's equipment list, but the ability pool itself is split across general.json
+  // PLUS each mark's own json — the gateway's desc text ("the Daemon weapons section") treats it
+  // as one combined pool, so aggregate general + the unit's active mark here rather than making
+  // the player hunt across tabs for it.
+  function getDaemonWeaponPool(): ArmoryItem[] {
+    const sources = [
+      activeData.armory_general,
+      ...(effectiveMark && activeData.armory_marks[effectiveMark] ? [activeData.armory_marks[effectiveMark]] : []),
+    ];
+    const pool = sources.flatMap(src => src.daemon_weapons as ArmoryItem[]);
+    return filterByUnitType(filterGravisCompat(filterTermCompat(pool)))
+      .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+  }
+  const daemonWeaponSelections = currentArmory.filter(a => a.section === 'daemon_weapons');
+  /** "Daemon weapon" and "Greater Daemon weapon" can't be combined — each gateway's own desc says so. */
+  function daemonGatewayConflict(arm: ArmoryItem): boolean {
+    if (arm.name !== 'Daemon weapon' && arm.name !== 'Greater Daemon weapon') return false;
+    const other = arm.name === 'Daemon weapon' ? 'Greater Daemon weapon' : 'Daemon weapon';
+    return currentArmory.some(a => a.section === 'equipment' && a.itemName === other);
+  }
 
   // Veteran slot tracking for armory items — independent of whether the faction has traits
   const armoryVetEnabled = effectiveHasVetAbilities ?? unit.has_veteran_abilities;
@@ -475,19 +492,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 {s === 'weapons' ? 'Weapons' : 'Equipment'}
               </button>
             ))}
-            {/* Daemon Weapons only shown for factions that have them */}
-            {hasDaemonWeapons && (
-              <button
-                onClick={() => setSection('daemon_weapons')}
-                className={`px-3 py-1 text-[11px] uppercase border transition-colors
-                  ${section === 'daemon_weapons'
-                    ? 'bg-amber-800 border-amber-600 text-white'
-                    : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
-                  }`}
-              >
-                Daemon Weapons
-              </button>
-            )}
           </div>
         )}
 
@@ -616,88 +620,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
                       />
-                    ) : effectiveSection === 'daemon_weapons' ? (
-                      legItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-4">No daemon weapon traits in this section</div>
-                        : <div className="space-y-1">
-                          {legItems.map((arm, i) => {
-                            const alreadyOnThisUnit = currentArmory.some(a => a.itemName === arm.name && a.section === 'daemon_weapons');
-                            const takenElsewhere = uniqueArmyBlocked(arm, 'daemon_weapons');
-                            const blocked = alreadyOnThisUnit || takenElsewhere;
-                            const unique = isUniqueItem(arm.desc);
-                            const needsWeapon = isWeaponTrait(arm.desc);
-                            const chosenWeapon = dwTargetWeapon[arm.name] ?? '';
-                            const canAdd = !blocked && (!needsWeapon || chosenWeapon !== '');
-                            return (
-                              <div key={i} className={`border text-left transition-all ${
-                                takenElsewhere ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
-                              }`}>
-                                <div className="flex justify-between items-start px-3 py-2 gap-2">
-                                  <div className="min-w-0">
-                                    <div className="flex items-center gap-1 flex-wrap">
-                                      <span className={`text-sm font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>
-                                        {arm.name}
-                                      </span>
-                                      {lastAdded === arm.name && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
-                                      {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">Unique</span>}
-                                      {alreadyOnThisUnit && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>}
-                                      {takenElsewhere && !alreadyOnThisUnit && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">Taken by another unit</span>}
-                                    </div>
-                                    {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
-                                  </div>
-                                  <div className="flex flex-col items-end gap-1 shrink-0">
-                                    {arm.p_char != null && (
-                                      <span className="text-amber-500 font-bold text-sm whitespace-nowrap">
-                                        {arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts
-                                      </span>
-                                    )}
-                                    {alreadyOnThisUnit ? (
-                                      <button
-                                        onClick={() => { const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons'); if (sel) removeItem(sel.id); }}
-                                        className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
-                                      >
-                                        Remove
-                                      </button>
-                                    ) : !takenElsewhere && (
-                                      <button
-                                        onClick={() => add(arm, legName, 'daemon_weapons', needsWeapon ? chosenWeapon || undefined : undefined)}
-                                        disabled={!canAdd}
-                                        className={`text-[11px] px-2 py-0.5 border uppercase tracking-wide transition-colors ${
-                                          canAdd
-                                            ? 'bg-amber-900/60 border-amber-700 text-amber-300 hover:bg-amber-800'
-                                            : 'bg-zinc-700 border-zinc-600 text-zinc-500 cursor-not-allowed'
-                                        }`}
-                                      >
-                                        {needsWeapon && !chosenWeapon ? 'Pick weapon ↓' : 'Add'}
-                                      </button>
-                                    )}
-                                  </div>
-                                </div>
-                                {needsWeapon && !blocked && (
-                                  <div className="px-3 pb-2 flex items-center gap-2">
-                                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide">Apply to:</span>
-                                    <select
-                                      value={chosenWeapon}
-                                      onChange={e => setDwTargetWeapon(prev => ({ ...prev, [arm.name]: e.target.value }))}
-                                      className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
-                                    >
-                                      <option value="">— select a weapon —</option>
-                                      {availableWeapons.map(wn => (
-                                        <option key={wn} value={wn}>{wn}</option>
-                                      ))}
-                                    </select>
-                                  </div>
-                                )}
-                                {alreadyOnThisUnit && (() => {
-                                  const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons');
-                                  return sel?.targetWeapon
-                                    ? <div className="px-3 pb-2 text-[10px] text-zinc-500 italic">Applied to: {sel.targetWeapon}</div>
-                                    : null;
-                                })()}
-                              </div>
-                            );
-                          })}
-                        </div>
                     ) : (
                       legItems.length === 0
                         ? <div className="text-zinc-500 italic text-sm text-center py-4">No items in this section</div>
@@ -738,95 +660,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               availableWeapons={availableWeapons}
               eqTargetWeapon={eqTargetWeapon}
               onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
+              daemonWeapon={{
+                pool: getDaemonWeaponPool(),
+                selections: daemonWeaponSelections,
+                dwTargetWeapon,
+                onSetTargetWeapon: (n, w) => setDwTargetWeapon(prev => ({ ...prev, [n]: w })),
+                isTakenElsewhere: arm => uniqueArmyBlocked(arm, 'daemon_weapons'),
+                onAdd: (arm, tw) => add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', 'daemon_weapons', tw),
+                onRemove: removeItem,
+              }}
             />
-          ) : effectiveSection === 'daemon_weapons' ? (
-            (() => {
-              const srcLabel = tab === 'mark' ? `${effectiveMark} Armoury` : 'General';
-              const dwItems = getItems('daemon_weapons');
-              if (dwItems.length === 0)
-                return <div className="text-zinc-500 italic text-sm text-center py-8">No daemon weapon traits in this section</div>;
-              return (
-                <div className="space-y-1">
-                  {dwItems.map((arm, i) => {
-                    const alreadyOnThisUnit = currentArmory.some(a => a.itemName === arm.name && a.section === 'daemon_weapons');
-                    const takenElsewhere = uniqueArmyBlocked(arm, 'daemon_weapons');
-                    const blocked = alreadyOnThisUnit || takenElsewhere;
-                    const unique = isUniqueItem(arm.desc);
-                    const needsWeapon = isWeaponTrait(arm.desc);
-                    const chosenWeapon = dwTargetWeapon[arm.name] ?? '';
-                    const canAdd = !blocked && (!needsWeapon || chosenWeapon !== '');
-                    return (
-                      <div key={i} className={`border text-left transition-all ${
-                        takenElsewhere ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-800 border-zinc-700'
-                      }`}>
-                        <div className="flex justify-between items-start px-3 py-2 gap-2">
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-1 flex-wrap">
-                              <span className={`text-sm font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>
-                                {arm.name}
-                              </span>
-                              {lastAdded === arm.name && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
-                              {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">Unique</span>}
-                              {alreadyOnThisUnit && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>}
-                              {takenElsewhere && !alreadyOnThisUnit && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">Taken by another unit</span>}
-                            </div>
-                            {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
-                          </div>
-                          <div className="flex flex-col items-end gap-1 shrink-0">
-                            {arm.p_char != null && (
-                              <span className="text-amber-500 font-bold text-sm whitespace-nowrap">
-                                {arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts
-                              </span>
-                            )}
-                            {alreadyOnThisUnit ? (
-                              <button
-                                onClick={() => { const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons'); if (sel) removeItem(sel.id); }}
-                                className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
-                              >
-                                Remove
-                              </button>
-                            ) : !takenElsewhere && (
-                              <button
-                                onClick={() => add(arm, srcLabel, 'daemon_weapons', needsWeapon ? chosenWeapon || undefined : undefined)}
-                                disabled={!canAdd}
-                                className={`text-[11px] px-2 py-0.5 border uppercase tracking-wide transition-colors ${
-                                  canAdd
-                                    ? 'bg-amber-900/60 border-amber-700 text-amber-300 hover:bg-amber-800'
-                                    : 'bg-zinc-700 border-zinc-600 text-zinc-500 cursor-not-allowed'
-                                }`}
-                              >
-                                {needsWeapon && !chosenWeapon ? 'Pick weapon ↓' : 'Add'}
-                              </button>
-                            )}
-                          </div>
-                        </div>
-                        {needsWeapon && !blocked && (
-                          <div className="px-3 pb-2 flex items-center gap-2">
-                            <span className="text-[10px] text-zinc-400 uppercase tracking-wide">Apply to:</span>
-                            <select
-                              value={chosenWeapon}
-                              onChange={e => setDwTargetWeapon(prev => ({ ...prev, [arm.name]: e.target.value }))}
-                              className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
-                            >
-                              <option value="">— select a weapon —</option>
-                              {availableWeapons.map(wn => (
-                                <option key={wn} value={wn}>{wn}</option>
-                              ))}
-                            </select>
-                          </div>
-                        )}
-                        {alreadyOnThisUnit && (() => {
-                          const sel = currentArmory.find(a => a.itemName === arm.name && a.section === 'daemon_weapons');
-                          return sel?.targetWeapon
-                            ? <div className="px-3 pb-2 text-[10px] text-zinc-500 italic">Applied to: {sel.targetWeapon}</div>
-                            : null;
-                        })()}
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })()
           ) : (
             (() => {
               const items = getItems(effectiveSection);
@@ -889,6 +732,18 @@ interface EquipGroupsProps {
   /** Current weapon target selections for equipment that requires a target */
   eqTargetWeapon?: Record<string, string>;
   onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
+  /** Inline "Daemon weapon"/"Greater Daemon weapon" ability picker — only passed by the one
+   *  EquipmentGroups call site whose armory source can actually contain those gateway items
+   *  (CSM's General/Mark tab); the row-name check below is a no-op everywhere else. */
+  daemonWeapon?: {
+    pool: ArmoryItem[];
+    selections: { id: string; itemName: string; targetWeapon?: string }[];
+    dwTargetWeapon: Record<string, string>;
+    onSetTargetWeapon: (itemName: string, weaponName: string) => void;
+    isTakenElsewhere: (arm: ArmoryItem) => boolean;
+    onAdd: (arm: ArmoryItem, targetWeapon?: string) => void;
+    onRemove: (id: string) => void;
+  };
 }
 
 function EquipmentGroups({
@@ -904,6 +759,7 @@ function EquipmentGroups({
   isUniqueSelected,
   getSelId, onRemove,
   onAdd,
+  daemonWeapon,
   availableWeapons = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
@@ -975,6 +831,23 @@ function EquipmentGroups({
                     </select>
                   </div>
                 )}
+                {/* Daemon weapon ability picker — shown inline right under whichever gateway
+                    item ("Daemon weapon" / "Greater Daemon weapon") this unit has bought, so
+                    picking the abilities doesn't require hunting down a separate tab. */}
+                {daemonWeapon && (arm.name === 'Daemon weapon' || arm.name === 'Greater Daemon weapon') && getSelId?.(arm.name) && (
+                  <DaemonWeaponPicker
+                    pool={daemonWeapon.pool}
+                    cap={arm.name === 'Greater Daemon weapon' ? 2 : 1}
+                    selections={daemonWeapon.selections}
+                    lastAdded={lastAdded}
+                    availableWeapons={availableWeapons}
+                    dwTargetWeapon={daemonWeapon.dwTargetWeapon}
+                    onSetTargetWeapon={daemonWeapon.onSetTargetWeapon}
+                    isTakenElsewhere={daemonWeapon.isTakenElsewhere}
+                    onAdd={daemonWeapon.onAdd}
+                    onRemove={daemonWeapon.onRemove}
+                  />
+                )}
               </div>
             );
           })}
@@ -1045,6 +918,107 @@ function EquipmentGroups({
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Daemon weapon ability picker ────────────────────────────────────────────
+
+function DaemonWeaponPicker({
+  pool, cap, selections, lastAdded, availableWeapons,
+  dwTargetWeapon, onSetTargetWeapon, isTakenElsewhere, onAdd, onRemove,
+}: {
+  pool: ArmoryItem[];
+  cap: number;
+  selections: { id: string; itemName: string; targetWeapon?: string }[];
+  lastAdded: string | null;
+  availableWeapons: string[];
+  dwTargetWeapon: Record<string, string>;
+  onSetTargetWeapon: (itemName: string, weaponName: string) => void;
+  isTakenElsewhere: (arm: ArmoryItem) => boolean;
+  onAdd: (arm: ArmoryItem, targetWeapon?: string) => void;
+  onRemove: (id: string) => void;
+}) {
+  const capReached = selections.length >= cap;
+  return (
+    <div className="px-3 pb-2 pt-1.5 bg-zinc-800/40 border-l border-r border-b border-zinc-700 space-y-1">
+      <div className="flex items-center gap-2">
+        <span className="text-[10px] text-amber-600 uppercase tracking-widest">Daemon Weapon Abilities</span>
+        <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
+          capReached ? 'bg-amber-900/30 border-amber-700 text-amber-400' : 'bg-zinc-800 border-zinc-600 text-zinc-400'
+        }`}>
+          {selections.length}/{cap}
+        </span>
+      </div>
+      {pool.length === 0 ? (
+        <div className="text-zinc-500 italic text-[11px] py-1">No daemon weapon traits available</div>
+      ) : pool.map((arm, i) => {
+        const sel = selections.find(s => s.itemName === arm.name);
+        const takenElsewhere = isTakenElsewhere(arm);
+        const unique = isUniqueItem(arm.desc);
+        const needsWeapon = isWeaponTrait(arm.desc);
+        const chosenWeapon = dwTargetWeapon[arm.name] ?? '';
+        const canAdd = !sel && !takenElsewhere && !capReached && (!needsWeapon || chosenWeapon !== '');
+        return (
+          <div key={i} className={`border text-left ${takenElsewhere ? 'bg-zinc-800/40 border-zinc-700 opacity-50' : 'bg-zinc-900 border-zinc-700'}`}>
+            <div className="flex justify-between items-start px-2 py-1.5 gap-2">
+              <div className="min-w-0">
+                <div className="flex items-center gap-1 flex-wrap">
+                  <span className={`text-[12px] font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>{arm.name}</span>
+                  {lastAdded === arm.name && <span className="text-green-500 text-[10px] font-bold">✓ Added</span>}
+                  {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">Unique</span>}
+                  {sel && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>}
+                  {takenElsewhere && !sel && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">Taken by another unit</span>}
+                </div>
+                {arm.desc && <div className="text-[10px] text-zinc-500 mt-0.5">{arm.desc}</div>}
+              </div>
+              <div className="flex flex-col items-end gap-1 shrink-0">
+                {arm.p_char != null && (
+                  <span className="text-amber-500 font-bold text-[11px] whitespace-nowrap">{arm.p_char >= 0 ? '+' : ''}{arm.p_char} pts</span>
+                )}
+                {sel ? (
+                  <button
+                    onClick={() => onRemove(sel.id)}
+                    className="text-[10px] px-1.5 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
+                  >
+                    Remove
+                  </button>
+                ) : !takenElsewhere && (
+                  <button
+                    onClick={() => onAdd(arm, needsWeapon ? (chosenWeapon || undefined) : undefined)}
+                    disabled={!canAdd}
+                    className={`text-[10px] px-1.5 py-0.5 border uppercase tracking-wide transition-colors ${
+                      canAdd
+                        ? 'bg-amber-900/60 border-amber-700 text-amber-300 hover:bg-amber-800'
+                        : 'bg-zinc-700 border-zinc-600 text-zinc-500 cursor-not-allowed'
+                    }`}
+                  >
+                    {needsWeapon && !chosenWeapon ? 'Pick weapon ↓' : capReached ? 'Cap reached' : 'Add'}
+                  </button>
+                )}
+              </div>
+            </div>
+            {needsWeapon && !sel && !takenElsewhere && !capReached && (
+              <div className="px-2 pb-1.5 flex items-center gap-2">
+                <span className="text-[10px] text-zinc-400 uppercase tracking-wide">Apply to:</span>
+                <select
+                  value={chosenWeapon}
+                  onChange={e => onSetTargetWeapon(arm.name, e.target.value)}
+                  className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                >
+                  <option value="">— select a weapon —</option>
+                  {availableWeapons.map(wn => (
+                    <option key={wn} value={wn}>{wn}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+            {sel?.targetWeapon && (
+              <div className="px-2 pb-1.5 text-[10px] text-zinc-500 italic">Applied to: {sel.targetWeapon}</div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

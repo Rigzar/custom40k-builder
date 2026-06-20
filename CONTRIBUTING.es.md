@@ -89,6 +89,8 @@ data/parsed/<faccion>/
 | `weapons[]` | Todos los perfiles de armas presentes; S / PA / D / Habilidades correctos |
 | `option_groups[]` | El texto del encabezado coincide con las reglas; todas las opciones listadas; costos correctos |
 | `option_groups[].per_model` | Poner `true` cuando el encabezado dice "for +X points **per model**" (solo opciones inline) |
+| `option_groups[].replaces` | Listar el/los nombre(s) exacto(s) del arma que se elimina con este intercambio. Obligatorio en cualquier grupo que deba quitar el arma vieja de la tabla de armas — sin esto, se muestran AMBAS armas. Para un arma con varios perfiles (p. ej. "Taser lance - Charge" / "Taser lance - Melee"), listar cada nombre de perfil, no el prefijo compartido — la coincidencia es por nombre exacto, no recortado. **Cuidado**: una opción cuyo nombre coincida exactamente con el de un arma base que se muestra siempre, ocultará esa arma por defecto — nunca le pongas a una opción puramente aditiva (que otorga MÁS copias de un arma ya presente en `equipped_with`) el mismo nombre exacto que esa arma base. |
+| `option_groups[].choices[].name` (con prefijo de cantidad) | **Nunca** nombres una opción "two X" / "2 X" / "four X", etc. — el gating de la tabla de armas compara el nombre de la opción con el nombre del arma de forma exacta, así que un prefijo de cantidad nunca coincide y el arma se muestra incondicionalmente aunque no se haya comprado. Renombra la opción al nombre singular desnudo del arma (el texto del encabezado ya transmite "ambos"/"dos"/etc.); el precio no se ve afectado. |
 | `is_character` / `is_vehicle` / `is_psyker` | Flags de clasificación de la unidad |
 | `champion_has_armory` | Solo `true` si el campeón puede acceder a la armería de forma independiente |
 | `advisor` | Solo `true` para unidades asesoras (p. ej., Comisario) |
@@ -101,7 +103,7 @@ data/parsed/<faccion>/
 |---|---|
 | `one` | Elegir 0 o 1 de la lista (el más común) |
 | `every` | Cada modelo elige de forma independiente — costo por modelo |
-| `per_n` | Una elección por cada N modelos (`constraint.n` especifica N) |
+| `per_n` | M elecciones por cada N modelos (`constraint.per_n` especifica N, `constraint.count_per_n` especifica M — p. ej. "por cada 3 modelos, 1 puede intercambiar" es `per_n:3, count_per_n:1`) |
 | `fixed_max` | Hasta N elecciones en total (`constraint.max` especifica N) |
 | `mark` | Selección de Marca del Caos |
 | `veteran` | Slot de habilidad veterana |

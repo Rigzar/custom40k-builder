@@ -89,6 +89,8 @@ data/parsed/<fraktion>/
 | `weapons[]` | Alle Waffenprofile vorhanden; korrekte S / DS / SW / Faehigkeiten |
 | `option_groups[]` | Beschriftung passt zum Regelwerk; alle Optionen vorhanden; korrekte Punktekosten |
 | `option_groups[].per_model` | `true` setzen wenn Header sagt "for +X points **per model**" (nur Inline-Optionen) |
+| `option_groups[].replaces` | Den/die exakten Waffennamen angeben, die durch diesen Tausch entfernt werden. Erforderlich bei jeder Gruppe, die die alte Waffe aus der Waffentabelle entfernen soll -- ohne dieses Feld werden BEIDE Waffen angezeigt. Bei einer Waffe mit mehreren Profilen (z.B. "Taser lance - Charge" / "Taser lance - Melee") jeden Profilnamen einzeln angeben, nicht das gemeinsame Praefix -- der Abgleich erfolgt exakt, nicht gekuerzt. **Falle**: Eine Auswahl, deren Name exakt dem einer immer angezeigten Basiswaffe entspricht, blendet diese Waffe standardmaessig aus -- einer rein additiven Auswahl (die zusaetzliche Exemplare einer bereits in `equipped_with` vorhandenen Waffe gewaehrt) niemals denselben Namen wie dieser Basiswaffe geben. |
+| `option_groups[].choices[].name` (mit Mengenpraefix) | **Niemals** eine Auswahl "two X" / "2 X" / "four X" usw. benennen -- die Waffentabellen-Filterung vergleicht den Namen der Auswahl exakt mit dem Waffennamen, ein Mengenpraefix passt also nie, und die Waffe wird unbedingt angezeigt, selbst wenn sie nicht gekauft wurde. Die Auswahl auf den blossen Einzahl-Waffennamen umbenennen (der Header-Text vermittelt "beide"/"zwei"/usw. bereits); der Preis bleibt unveraendert. |
 | `is_character` / `is_vehicle` / `is_psyker` | Klassifizierungsflags der Einheit |
 | `champion_has_armory` | Nur `true`, wenn der Champion eigenstaendig auf die Ruestkammer zugreifen kann |
 | `advisor` | Nur `true` fuer Berater-Einheiten (z.B. Kommissar) |
@@ -101,7 +103,7 @@ data/parsed/<fraktion>/
 |---|---|
 | `one` | 0 oder 1 Auswahl aus der Liste (haeufigster Typ) |
 | `every` | Jedes Modell waehlt unabhaengig -- Kosten pro Modell |
-| `per_n` | Eine Auswahl pro N Modelle (`constraint.n` gibt N an) |
+| `per_n` | M Auswahlen pro N Modelle (`constraint.per_n` gibt N an, `constraint.count_per_n` gibt M an -- z.B. "fuer je 3 Modelle darf 1 tauschen" ist `per_n:3, count_per_n:1`) |
 | `fixed_max` | Bis zu N Auswahlen insgesamt (`constraint.max` gibt N an) |
 | `mark` | Auswahl des Chaos-Zeichens |
 | `veteran` | Veteranen-Faehigkeitsslot |

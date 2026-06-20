@@ -78,7 +78,7 @@ export const ancientDestructorLord: Unit = {
     "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0).",
     "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself."
   ],
-  "unit_type": "Jump Pack Infantry, Monstrous Creature, Lord, Necron",
+  "unit_type": "Jump Pack, Monstrous Creature, Lord, Necron",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

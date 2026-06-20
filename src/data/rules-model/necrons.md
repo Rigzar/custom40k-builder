@@ -131,3 +131,48 @@ Dynasty (→"2nd Legacy") / Vengeful Stars / Warrior Nobles. Several have mutual
 the correct model. Build ✓, changelog v0.69, local NOT pushed.
 
 **This was the 19th and final regular faction in the Fase-4 "lo demás" order.**
+
+### 8. Full field-by-field ODS audit (v0.94, 2026-06-20)
+
+Went beyond the Fase-4 structural digest above to a per-unit, per-field comparison (stats, points,
+min/max, weapon profiles, option groups, flags) across all 37 units + Armory/Dynasty Armory/Army
+Customisation. **19 fixes** found and applied — full list in `changelog.ts` v0.94. By root cause:
+
+1. **`has_armory_access` false on 9 vehicles** despite the `.ods` granting "Has access to vehicle
+   equipment from the Armory" — Triarch Stalker, Annihilation Barge, Canoptek Doomstalker, Doomsday
+   Ark, Monolith, Catacomb Command Barge, Ghost Ark, Doom Scythe, Night Scythe.
+2. **Quantity-prefixed choice names breaking weapon gating** (NEW bug class this session, also found
+   independently in AdMech — see `rules-model/adeptus_mechanicus.md` §8): Canoptek Spyders ("Two
+   Particle beamers"), Monolith ("four Death rays") never matched their weapon's base name, so the
+   weapon showed in the table unconditionally. Renamed to the exact singular weapon name.
+3. **7 units missing `replaces`** on functional swap groups (Royal Warden, Triarch Stalker,
+   Annihilation Barge, Lokhust Destroyers, Monolith, Catacomb Command Barge, Lychguard, Triarch
+   Praetorians) — old weapon wasn't dropping on swap.
+4. **Skorpekh/Ophydian Destroyers' "for every 3, one may swap" used `constraint:'one'`** (flat
+   toggle) instead of `per_n:3,count_per_n:1` — the per-3 cap didn't exist at all.
+5. **Canoptek Spyders' 3-option upgrade collapsed into a single `inline_pts` toggle** — 2 of 3 options
+   were unselectable; restructured to `constraint:'every'` with 3 named choices.
+6. **Lychguard hard-locked to min:1/max:1** — the `.ods`'s disjoint "1 or 4-10" range meant the 4-10
+   squad mode was completely unavailable. Fixed to min:1/max:10 (the illegal 2-3 window is not
+   blocked — see `ki-necrons-lychguard-disjoint-sizerange-01`, the `Model` type has no disjoint-range
+   support).
+7. Misc: Warriors' Disruptor field was 0pts instead of +1; Doomsday Ark's "High energy" profile had
+   S:"D6" instead of the `.ods`'s literal "D"; Ancient Destructor Lord's `unit_type` still listed
+   Infantry (it's a Monstrous Creature).
+
+**New Known Issues logged** (none of these were fixed — left as gaps pending a design decision or a
+careful cross-faction engine change): `ki-necrons-lychguard-disjoint-sizerange-01`,
+`ki-necrons-ctanshard-armywide-cap-unenforced-01` (the 4 C'tan Shard variants share an army-wide cap
+that nothing enforces — `validators.ts`'s `uniqueUnitCounts` only blocks repeats of the SAME unit
+name), `ki-necrons-cryptek-dynastyscion-novariant-01` (Cryptek's "Dynasty Scion" choice never
+activates its `variant_models` profile swap — the engine has no per-choice `variant_link` within a
+multi-choice group), and the cross-faction `ki-crossfaction-one-constraint-multimodel-replaces-noop-01`
+(a `constraint:'one'` swap on a multi-model squad never reaches the `replaces` threshold, since the
+toggle always stores qty=1 regardless of squad size — confirmed via Immortals/Tomb Blades/Warriors).
+
+**Verified clean**: Armory, Dynasty Armory (two-tier Cryptek/Lord pricing), Army Customisation (4
+Archetypes / 6 Legacies / all 17 Traits' 3-column pricing) — no discrepancies against the `.ods`.
+
+Build ✓. Live-verified: Lychguard size 1-10 + War scythe swap UI; Skorpekh Destroyers per_n cap
+scaling (1→2 at size 3→6); Canoptek Spyders' 3 options independently selectable. LOCAL NOT PUSHED at
+time of writing.

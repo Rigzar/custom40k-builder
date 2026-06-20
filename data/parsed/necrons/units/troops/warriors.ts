@@ -85,7 +85,7 @@ export const warriors: Unit = {
       "choices": [
         {
           "name": "Disruptor field",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

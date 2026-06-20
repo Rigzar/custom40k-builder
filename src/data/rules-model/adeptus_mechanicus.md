@@ -162,3 +162,56 @@ Imperative may purchase a second one" — the key cross-link to §2/§6.1's Doct
 
 **AdMech "lo demás" complete** — Index fully covered, no psychic/prayer axis (confirmed-absence),
 one stale doc-comment corrected. Build ✓, local NOT pushed.
+
+### 8. Full field-by-field ODS audit (v0.94, 2026-06-20)
+
+A deeper re-audit than §1-7 above: per-unit, per-field comparison (stats, points, min/max, weapon
+profiles, option groups, flags) across all 29 units + Armory/Forge World Armory/Army Customisation.
+The prior v0.85 pass (7 fixes) only caught a subset — this pass found **30 additional fixes**, full
+list in `changelog.ts` v0.94. By root cause:
+
+1. **`has_armory_access` true at the unit level on 9 units that should be champion-only**: Skitarii
+   Rangers/Vanguard, Secutarii Hoplites/Peltasts, Sicaran Infiltrators/Ruststalkers, Pteraxii
+   Skystalkers/Sterylizors, Serberys Raiders/Sulphurhounds. The `.ods` grants Armory access to the
+   unit's Alpha/Princeps champion only (`champion_has_armory` was already correctly `true` on all 9
+   — only the unit-wide flag was wrong). Same cross-faction pattern as Inquisition/Dark Eldar.
+2. **2 units missing the `advisor` flag**: Skitarii Marshal and Tech-Priest both carry the exact
+   "For every HQ selection, one X may be selected that does not occupy a slot" text the flag exists
+   to model, but were `advisor: false`. Verified live: HQ slot counter stayed at 1/2 after adding a
+   Skitarii Marshal.
+3. **Quantity-prefixed choice names breaking weapon gating** (same bug class independently found in
+   Necrons this session — see `rules-model/necrons.md` §8): Termite ("2 heavy flamers", "2
+   twin-linked volkite chargers"), Archaeopter ("2 Heavy phosphor blasters"), Macrocarid Explorator
+   ("2 Rad engines", "2 Twin-linked mauler bolt cannons", "2 Twin-linked lascannons") — none matched
+   their weapon's base name, so the new weapon showed in the table unconditionally even unpurchased.
+   Renamed all 6 to the exact singular weapon name. **Gotcha**: Archaeopter has a SECOND,
+   purely-additive group ("2 Cognis heavy stubbers", granting extra copies in exchange for transport
+   capacity) — renaming that one too would have made the always-present base "Cognis heavy stubber"
+   incorrectly conditional on that rarely-used choice. Left that one as-is; only rename a choice to
+   exact-match when it's paired with `replaces` (or otherwise needs gating).
+4. **14 units missing `replaces`** on functional weapon-swap groups: Kataphron Breachers/Destroyers,
+   Servitors (both groups), Sicaran Infiltrators/Ruststalkers, Sydonian Skatros/Dragoons, Ironstrider
+   Ballistarii, Kastelan Robots (both groups), Onager Dunecrawler, Macrocarid Explorator (both
+   groups), Skorpius Disintegrator, Serberys Sulphurhounds, Termite, Archaeopter.
+5. **Servitors' "for every three, one may swap" used `constraint:'one'`** instead of
+   `per_n:3,count_per_n:1` — same bug class as Necrons' Skorpekh/Ophydian Destroyers fix.
+6. **Multi-profile weapon caught wrong in a `replaces` array**: Sydonian Dragoons' "Taser lance" swap
+   initially used `replaces:["Taser lance"]`, but the weapon is stored as two profiles ("Taser lance
+   - Charge"/"Taser lance - Melee") and `resolver.ts`'s match is exact-name, not `baseName()`-
+   stripped. Corrected to list both profile names. Re-checked every other `replaces` added this
+   session (Necrons + AdMech) for the same risk — only this one instance was affected.
+
+**Verified clean**: Magos, Corpuscarii/Fulgurite Electro-Priests, Tech-thralls, Skorpius Dunerider;
+the entire general Armory (55 items, two-tier Operator/Character pricing), Forge World Armory (7
+relics), Army Customisation (5 Archetypes / 7 Legacies / all 16 Traits' 3-column pricing) — no
+discrepancies against the `.ods`.
+
+**New Known Issue logged**: `ki-admech-canticles-unwired-01` — Canticles of the Omnissiah (13
+distinct buff-of-the-round effects: 6 base + 7 Legacy) exist only as inert ability text on 22/29
+units; no Command-phase picker or dedicated data file exists anywhere in the loader. Same gap class
+as the various "psychic discipline not wired" issues fixed for other factions — Canticles are
+AdMech's structural equivalent, just framed as a battle-round buff instead of a psychic power.
+
+Build ✓. Live-verified: Skitarii Marshal's `advisor` flag (HQ counter stays 1/2), Skitarii Rangers'
+Armory scoped to the Ranger Alpha block only, Termite's Storm bolter correctly disappearing once
+Heavy flamer is bought. LOCAL NOT PUSHED at time of writing.

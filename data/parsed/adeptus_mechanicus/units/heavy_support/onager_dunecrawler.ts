@@ -137,7 +137,8 @@ export const onagerDunecrawler: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy phosphor blaster"]
     },
     {
       "header": "Can be equipped with an additional Cognis heavy stubber for +15 points.",

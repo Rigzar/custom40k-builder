@@ -25,6 +25,60 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.94',
+    date: '2026-06-20',
+    title: { en: 'Necrons + Adeptus Mechanicus full ODS audits: 41 fixes total' },
+    changes: { en: [
+      'Data fix (Necrons — 9 units: Triarch Stalker, Annihilation Barge, Canoptek Doomstalker, Doomsday Ark, Monolith, Catacomb Command Barge, Ghost Ark, Doom Scythe, Night Scythe): `has_armory_access` was false despite the .ods explicitly stating "Has access to vehicle equipment from the Armory" — vehicle equipment was unreachable for all 9.',
+      'Engine bug fix (Necrons — Canoptek Spyders, Monolith): the "Two Particle beamers" / "four Death rays" option choices used quantity-prefixed names that never matched their weapon\'s base name, so computeWeaponsToShow could not gate them — Particle beamer/Death ray showed in the weapon table unconditionally, even unpurchased. Renamed both choices to match their weapon name exactly (price unchanged); verified live that the weapon now only appears once bought.',
+      'Data fix (Necrons — Royal Warden, Triarch Stalker, Annihilation Barge, Lokhust Destroyers, Monolith, Catacomb Command Barge, Lychguard): added missing `replaces` links on single-model or fully-functional weapon-swap option groups, so the old weapon is correctly dropped once the swap is bought (same root cause as the CSM fix in v0.93).',
+      'Data fix (Necrons — Triarch Praetorians): "swap Particle casters and Voidblades for Rod of covenant" used `constraint:\'every\'` (a real per-model qty stepper) with no `replaces` — would have shown the old and new weapons at full count simultaneously on a partial swap. Added `replaces: ["Particle caster", "Voidblade"]`.',
+      'Data fix (Necrons — Skorpekh Destroyers, Ophydian Destroyers): "for every 3 Destroyers, one may swap their Hyperphase threshers" used `constraint:\'one\'` (flat binary toggle, no ratio) instead of `constraint:\'per_n\'` — the per-3 cap did not exist at all. Fixed to `per_n:3, count_per_n:1` + added `replaces`; verified live that the cap now scales correctly (1 at size 3, 2 at size 6).',
+      'Data fix (Necrons — Canoptek Spyders): its 3-option upgrade list (Dark prison / Fabricator claw array / two Particle beamers) was wrongly collapsed into a single flat `inline_pts` toggle, making 2 of the 3 options unselectable. Restructured to `constraint:\'every\'` with 3 named choices, matching the working Canoptek Wraiths pattern.',
+      'Data fix (Necrons — Lychguard): squad size was hard-locked to min:1/max:1, completely blocking its 4-10 squad mode (the .ods lists "1 or 4-10" — a disjoint range; 1 is a distinct "Varguard" character configuration per its own ability text). Fixed to min:1/max:10 so the squad mode is selectable again; the 2-3 illegal middle window is not yet blocked (see known issues).',
+      'Data fix (Necrons — Warriors): Disruptor field option was priced at 0 points instead of the .ods\'s +1 point/model.',
+      'Data fix (Necrons — Doomsday Ark): "Doomsday cannon - High energy" profile had Strength "D6" instead of the .ods\'s literal "D".',
+      'Data fix (Necrons — Ancient Destructor Lord, carried over from a prior session): `unit_type` no longer lists "Infantry" — it is a Monstrous Creature, not Infantry.',
+      'Verified clean: Armory, Dynasty Armory (incl. the two-tier Cryptek/Lord pricing columns), Army Customisation (4 Archetypes, 6 Legacies, all 17 Traits\' 3-column pricing) — no discrepancies found against the .ods.',
+      'Data fix (Adeptus Mechanicus — 9 units: Skitarii Rangers/Vanguard, Secutarii Hoplites/Peltasts, Sicaran Infiltrators/Ruststalkers, Pteraxii Skystalkers/Sterylizors, Serberys Raiders/Sulphurhounds): `has_armory_access` was true at the unit level, but the .ods grants Armory access only to that unit\'s Alpha/Princeps champion — corrected to false + `champion_has_armory: true`, matching the same cross-faction pattern already fixed for Inquisition/Dark Eldar.',
+      'Data fix (Adeptus Mechanicus — Skitarii Marshal, Tech-Priest): both carry "For every [HQ/HQ] selection, one [X] may be selected that does not occupy a [slot]" — the literal `advisor` flag pattern used everywhere else in the codebase (SM Techmarine, CSM Master of Execution, etc.) — but were `advisor: false`. Fixed; verified live the unit no longer increments the HQ/Elites slot counter.',
+      'Engine bug fix (Adeptus Mechanicus — Termite, Archaeopter, Macrocarid Explorator): same quantity-prefixed choice-name bug as the Necrons fix above ("2 heavy flamers", "2 Rad engines", etc. never matching their singular weapon name) — renamed 6 choices to their exact weapon name so computeWeaponsToShow can gate them; verified live on Termite that Storm bolter now correctly disappears once Heavy flamer is bought.',
+      'Data fix (Adeptus Mechanicus — 14 units across Elites/Fast Attack/Heavy Support/Transports/Flyers): added missing `replaces` links on weapon-swap option groups using `constraint` types `\'every\'` or `\'one\'` on single-model vehicles — Kataphron Breachers/Destroyers, Servitors, Sicaran Infiltrators/Ruststalkers, Sydonian Skatros/Dragoons, Ironstrider Ballistarii, Kastelan Robots, Onager Dunecrawler, Macrocarid Explorator, Skorpius Disintegrator, Serberys Sulphurhounds, Termite, Archaeopter.',
+      'Data fix (Adeptus Mechanicus — Servitors): "for every three Servitors, one may swap" used `constraint:\'one\'` instead of `per_n:3, count_per_n:1` — same per-N-ratio bug class as the Necrons Skorpekh/Ophydian Destroyers fix above.',
+      'Verified clean: Armory (55 weapon/equipment items incl. the two-tier Operator/Character-model pricing), Forge World Armory (7 relics), Army Customisation (5 Archetypes, 7 Legacies, all 16 Traits\' 3-column pricing) — no discrepancies found against the .ods.',
+    ]},
+  },
+  {
+    version: '0.93',
+    date: '2026-06-20',
+    title: { en: 'Landing/Print View polish + CSM weapon-swap engine fix + Daemon weapon UX redesign' },
+    changes: { en: [
+      'UI fix (Landing page — Supplements section): Horus Heresy, Escalation and Assassins cards looked identical even though each activates completely differently (archetype pick, points-threshold engagement, or always-on by datasheet rule). Added a one-line "Requires: …" / "Always available" chip to each card, sourced from the same activation steps already shown inside each supplement\'s modal.',
+      'Data fix (Assassins card): the faction badge said "Grey Knights · Sororitas" but the supplement\'s own activation rule grants it to any Chaos army or any Imperial army (9 factions total per SupplementModal.tsx) — corrected to "Chaos · Imperial".',
+      'UI fix (Print View — Summary page radar charts): "Unit Composition" and "Army Power" radar axes had no legend, and each axis is normalised to its own cap (Move capped at 14", Attacks at 6, etc.) with no way to tell from the chart alone. Added a one-line caption and the real value under each axis label (e.g. "Troops 1/6", "Move 6.0\"", "Save 4.0+").',
+      'Bug fix (Print View — print button): the print window waited a fixed 400ms before calling print(), with no guarantee the ConduitITCStd @font-face files had finished downloading — on a slow connection it would silently print with the fallback sans-serif font. Now waits on the print window\'s document.fonts.ready (capped at a 2s safety-net timeout) before printing.',
+      'Engine fix (CROSS-FACTION — weapon swaps): "each model may replace its X" options let each model in a squad decide independently, so a partial selection (e.g. 3 of 10 models) should split the loadout, not grant the new weapon at full squad count while leaving the old one untouched. computeWeaponsToShow/computeWeaponGroups (resolver.ts) now sum the qty taken across every option group that replaces a given weapon and give each weapon — old and new — its own correct count, instead of one flat count per model-group. Fixes CSM Traitor Guard showing free extra wargear on a partial "Lasgun → Chainsword & Laspistol" swap and showing "10x Flamer" for a single per-10 special-weapon swap (now correctly "9x Lasgun" / "1x Flamer" / etc., split correctly across both swap options at once).',
+      'Data fix (CSM — Traitor Guard): added the missing `replaces: ["Lasgun"]` link on the per-10 special-weapon option group so the engine fix above can account for it; previously unset, making that swap invisible to the replace-accounting logic.',
+      'UX redesign + bug fix (CSM — Daemon weapon / Greater Daemon weapon): these two Armory items are meant to be gateways capping how many "Daemon weapons" abilities (Dark/Kai/Unstoppable, plus mark-specific ones) a model can take — 1 for the basic version, 2 for the Greater version, mutually exclusive with each other. Previously neither was enforced: the abilities lived behind an always-visible "Daemon Weapons" tab with no cap and no link to either gateway item, so a unit could take all of them for free without buying either. Replaced the separate tab with an inline picker that appears directly under whichever gateway item the unit bought, showing the correct ability pool (general + the unit\'s active mark) capped at 1 or 2, and added a mutual-exclusion check so the two gateways can\'t both be bought.',
+    ]},
+  },
+  {
+    version: '0.92',
+    date: '2026-06-20',
+    title: { en: 'Unit card redesign: split into "Build" and "Live profile" columns on wide screens' },
+    changes: { en: [
+      'UI redesign (UnitCard, all factions): on screens ≥768px the card now splits into two columns instead of one long vertical stack — left column ("Build": squad-size steppers, marks, option groups, armory/veteran buttons, abilities) and right column ("Live profile": stat table + weapon tables), aligned in the same row so picking an option and seeing its effect on the profile no longer requires scrolling back and forth. Default loadout and Keywords stay full-width as header/footer strips. Pure CSS Grid restructuring — no rendering logic was reordered or changed. Falls back to the original single-column stack below 768px (mobile).',
+    ]},
+  },
+  {
+    version: '0.91',
+    date: '2026-06-19',
+    title: { en: 'UI fix: Profile table now shows squad-size count on the Model row' },
+    changes: { en: [
+      'UI fix (UnitCard, all factions): the Model column in the stat Profile table never showed the squad-size count (e.g. "Traitor Guardsman" instead of "10x Traitor Guardsman"), even though the weapon tables below it already did. Added a fallback count derived from item.modelSizes (multi-model units like Traitor Guard) or item.size (single-model-row squads), only when the row count is greater than 1.',
+    ]},
+  },
+  {
     version: '0.90',
     date: '2026-06-19',
     title: { en: 'Genestealer Cults full ODS audit: 3 vehicle armory-access fixes' },

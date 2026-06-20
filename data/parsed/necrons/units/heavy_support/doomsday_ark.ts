@@ -55,7 +55,7 @@ export const doomsdayArk: Unit = {
       "name": "Doomsday cannon - High energy",
       "range": "72\"",
       "type": "Heavy 1",
-      "s": "D6",
+      "s": "D",
       "ap": "-6",
       "d": "5",
       "abilities": "AT(4)"
@@ -74,7 +74,7 @@ export const doomsdayArk: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

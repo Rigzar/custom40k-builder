@@ -15,7 +15,7 @@ export const lychguard: Unit = {
       "name": "Lychguard",
       "points": 67,
       "min": 1,
-      "max": 1,
+      "max": 10,
       "stats": {
         "M": "6\"",
         "WS": "2+",
@@ -66,7 +66,8 @@ export const lychguard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Hyperphase sword"]
     },
     {
       "header": "For every HQ unit, you may pick one Lychguard unit.",

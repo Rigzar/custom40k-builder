@@ -102,7 +102,8 @@ export const sicaranRuststalkers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Transonic blades"]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",
@@ -125,7 +126,7 @@ export const sicaranRuststalkers: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": true,
   "veteran_required": false,
