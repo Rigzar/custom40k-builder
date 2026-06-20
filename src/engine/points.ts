@@ -1,6 +1,7 @@
 import type { Unit, Model, FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
+import { getArchetypeRule } from './archetypes';
 
 /** Resolve a unit from the correct faction source. */
 export function resolveUnit(item: { unitName: string; factionSource?: string }, data: FactionData): Unit | undefined {
@@ -98,7 +99,13 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
       }
     }
   } else {
-    const effMark = unit.locked_mark ?? item.mark;
+    // A mark forced by the army's archetype (e.g. Plaguehost → Mark of Nurgle) still costs
+    // points even when the player never explicitly picked it on this unit (item.mark stays
+    // null) — mirrors resolver.ts's effectiveMark, which already grants the forced mark's
+    // keyword/abilities for free. Without this, forced-mark armies silently undercharge
+    // every unit that didn't get an explicit per-unit mark selection.
+    const rule = getArchetypeRule(archetype);
+    const effMark = unit.locked_mark ?? (rule?.forcedMark as string | null) ?? item.mark ?? null;
     if (effMark) {
       const mg = unit.option_groups.find(isMarkGroup);
       if (mg) {

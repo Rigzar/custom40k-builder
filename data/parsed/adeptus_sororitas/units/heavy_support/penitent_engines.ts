@@ -97,13 +97,14 @@ export const penitentEngines: Unit = {
       },
       "choices": [
         {
-          "name": "2 Heavy bolters",
+          "name": "Heavy bolter",
           "points": 10
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     }
   ],
   "abilities": [

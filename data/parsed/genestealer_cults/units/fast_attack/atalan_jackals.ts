@@ -196,7 +196,8 @@ export const atalanJackals: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Atalan small arms"]
     },
     {
       "header": "Any Atalan Wolfquad may swap their Heavy stubber with",
@@ -215,7 +216,8 @@ export const atalanJackals: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy stubber"]
     },
     {
       "header": "One model may be upgraded to an Atalan Leader for +10 points and gains access to weapons and gear from the Armory.",

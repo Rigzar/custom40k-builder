@@ -129,7 +129,8 @@ export const paragonWarsuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Storm bolter"]
     },
     {
       "header": "Each model may swap the Heavy flamer",
@@ -148,7 +149,8 @@ export const paragonWarsuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     },
     {
       "header": "Each model may swap the Paragon war blade",
@@ -163,7 +165,8 @@ export const paragonWarsuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Paragon war blade"]
     }
   ],
   "abilities": [
@@ -176,8 +179,8 @@ export const paragonWarsuits: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,
   "veteran_max": null,

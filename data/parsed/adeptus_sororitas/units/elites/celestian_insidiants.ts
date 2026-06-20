@@ -159,7 +159,8 @@ export const celestianInsidiants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Condemnor Bolt pistol - Bolt", "Condemnor Bolt pistol - Stake"]
     },
     {
       "header": "Up to two Celestia Insidiants may swap their Null maces",
@@ -175,7 +176,8 @@ export const celestianInsidiants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Null mace"]
     },
     {
       "header": "One Celestia Insidiants may swap their Condemnor bolt pistol and Null mace",
@@ -190,7 +192,8 @@ export const celestianInsidiants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Condemnor Bolt pistol - Bolt", "Condemnor Bolt pistol - Stake", "Null mace"]
     }
   ],
   "abilities": [
@@ -204,7 +207,7 @@ export const celestianInsidiants: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,

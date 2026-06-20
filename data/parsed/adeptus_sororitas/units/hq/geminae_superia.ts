@@ -15,7 +15,7 @@ export const geminaeSuperia: Unit = {
       "name": "Geminae Superia",
       "points": 44,
       "min": 2,
-      "max": 4,
+      "max": 2,
       "stats": {
         "M": "12\"",
         "WS": "2+",
@@ -72,7 +72,7 @@ export const geminaeSuperia: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every Living Saint or Palatine selection, the army may include one Geminae Superia unit that does not take up an HQ slot.",
+      "header": "For every Living Saint, the army may include one Geminae Superia unit that does not take up an HQ slot.",
       "constraint": {
         "type": "one"
       },
@@ -83,7 +83,7 @@ export const geminaeSuperia: Unit = {
     }
   ],
   "abilities": [
-    "Acts of Faith, Hit & Run, Shield of Faith",
+    "Acts of Faith, Bodyguard, Command Squad, Hit & Run, Shield of Faith",
     "Saintly Visage: The model gains a 4+ invulnerability save."
   ],
   "unit_type": "Infantry, Jump Pack Infantry",

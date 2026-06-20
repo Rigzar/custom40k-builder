@@ -241,7 +241,8 @@ export const corsairVoidscarred: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken rifle"]
     },
     {
       "header": "The Felarch may swap their Shuriken pistol",
@@ -256,7 +257,8 @@ export const corsairVoidscarred: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken pistol"]
     },
     {
       "header": "The Felarch may be equipped with: +15 points Mistshield.",
@@ -287,7 +289,8 @@ export const corsairVoidscarred: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken rifle"]
     },
     {
       "header": "If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle",
@@ -306,7 +309,8 @@ export const corsairVoidscarred: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken rifle"]
     },
     {
       "header": "If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle",
@@ -321,7 +325,8 @@ export const corsairVoidscarred: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken rifle"]
     },
     {
       "header": "If this unit contains 10 models, one Voidscarred may swap their Shuriken rifle",
@@ -336,7 +341,8 @@ export const corsairVoidscarred: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken rifle"]
     },
     {
       "header": "1 Voidscarred may be equipped with a Faolchú for +10 points.",

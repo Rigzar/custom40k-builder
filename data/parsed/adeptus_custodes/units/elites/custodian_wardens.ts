@@ -63,16 +63,6 @@ export const custodianWardens: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every HQ selection, one unit of Custodian Wardens may be selected without taking up an Elite slot.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
       "header": "Every model may swap their Guardian spear",
       "constraint": {
         "type": "every"
@@ -85,7 +75,8 @@ export const custodianWardens: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Guardian spear"]
     }
   ],
   "abilities": [
@@ -104,7 +95,7 @@ export const custodianWardens: Unit = {
   "veteran_required": false,
   "veteran_max": 1,
   "locked_mark": null,
-  "advisor": false,
+  "advisor": true,
   "slot": "Elites",
   "default_size": 3,
   "min_cost": 219

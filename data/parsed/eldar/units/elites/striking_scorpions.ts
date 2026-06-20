@@ -110,24 +110,45 @@ export const strikingScorpions: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "The Exarch can swap their Scorpion chainsword and Shuriken pistol: +3 points Biting blade, +12 points Scorpion claw.",
+      "header": "The Exarch can swap their Scorpion chainsword and Shuriken pistol",
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 3,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
-      "header": "The Exarch can gain one Exarch Power.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
+      "choices": [
+        { "name": "Biting blade", "points": 3 },
+        { "name": "Scorpion claw", "points": 12 }
+      ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Scorpion chainsword", "Shuriken pistol"]
+    },
+    {
+      "header": "The Exarch can gain one Exarch Power",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        { "name": "Bladestorm", "points": 5 },
+        { "name": "Burning heat", "points": 5 },
+        { "name": "Crack shot", "points": 5 },
+        { "name": "Crushing blows", "points": 5 },
+        { "name": "Defensive stance", "points": 5 },
+        { "name": "Dragon's bite", "points": 5 },
+        { "name": "Graceful avoidance", "points": 5 },
+        { "name": "Heartstrike", "points": 5 },
+        { "name": "Lightning attacks", "points": 5 },
+        { "name": "Piercing strike", "points": 5 },
+        { "name": "Rapid redeployment", "points": 5 },
+        { "name": "Reaper's reach", "points": 5 },
+        { "name": "Scorpion's sting", "points": 5 },
+        { "name": "Skyhunter", "points": 5 },
+        { "name": "Stand firm", "points": 5 },
+        { "name": "Surprise assault", "points": 5 }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": true
     }
   ],
   "abilities": [

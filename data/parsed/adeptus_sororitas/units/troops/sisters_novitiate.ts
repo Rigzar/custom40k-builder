@@ -140,7 +140,8 @@ export const sistersNovitiate: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autogun"]
     },
     {
       "header": "All Sister Novitiate may swap their Autoguns",
@@ -155,7 +156,8 @@ export const sistersNovitiate: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autogun"]
     },
     {
       "header": "One model may receive a Simulacrum (see Armory) for +5 points.",

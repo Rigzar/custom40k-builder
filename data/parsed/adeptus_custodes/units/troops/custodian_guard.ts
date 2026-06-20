@@ -97,7 +97,8 @@ export const custodianGuard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt caster"]
     },
     {
       "header": "Every model with a Bolt caster may swap their Guardian spear",
@@ -112,7 +113,8 @@ export const custodianGuard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Guardian spear"]
     }
   ],
   "abilities": [

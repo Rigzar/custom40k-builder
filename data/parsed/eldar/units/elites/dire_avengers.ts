@@ -130,7 +130,8 @@ export const direAvengers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Diresword", "Shuriken pistol"]
     },
     {
       "header": "The Exarch can be equipped with: +5 points Shimmershield.",
@@ -143,14 +144,31 @@ export const direAvengers: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "The Exarch can gain one Exarch Power.",
+      "header": "The Exarch can gain one Exarch Power",
       "constraint": {
         "type": "one"
       },
-      "choices": [],
+      "choices": [
+        { "name": "Bladestorm", "points": 5 },
+        { "name": "Burning heat", "points": 5 },
+        { "name": "Crack shot", "points": 5 },
+        { "name": "Crushing blows", "points": 5 },
+        { "name": "Defensive stance", "points": 5 },
+        { "name": "Dragon's bite", "points": 5 },
+        { "name": "Graceful avoidance", "points": 5 },
+        { "name": "Heartstrike", "points": 5 },
+        { "name": "Lightning attacks", "points": 5 },
+        { "name": "Piercing strike", "points": 5 },
+        { "name": "Rapid redeployment", "points": 5 },
+        { "name": "Reaper's reach", "points": 5 },
+        { "name": "Scorpion's sting", "points": 5 },
+        { "name": "Skyhunter", "points": 5 },
+        { "name": "Stand firm", "points": 5 },
+        { "name": "Surprise assault", "points": 5 }
+      ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": true
     }
   ],
   "abilities": [

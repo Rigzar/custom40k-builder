@@ -31,7 +31,10 @@
  *
  * ENGINE STATUS:
  *   ✓ stats, pts, weapons, options, abilities all match HTML verbatim
- *   ✓ option_groups: "one" with replaces:["Fleshmower"] (structured replace)
+ *   ✓ option_groups: "every" with replaces:["Fleshmower"] — each model in the 1-2 model
+ *     squadron can independently swap its own Fleshmower (verified against owners' reference
+ *     army list: a 2-drone squad totalling 354pts only reconciles if both swap, i.e. per-model,
+ *     not a single unit-wide swap; was "one" before 2026-06-20, undercharging multi-model squads)
  *   ✓ locked_mark: "Nurgle" (from "Mark of Nurgle" ability — locked, no mark choice offered)
  *   🔴 has_armory_access: false — CORRECTED 2026-06-07 (was true). Verbatim text reads "Has access
  *     to vehicle equipment from the Armory" — a DISTINCT, narrower grant than "weapons and gear
@@ -116,7 +119,7 @@ export const foetidBloatDrone: Unit = {
     {
       "header": "Can replace the Fleshmower",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

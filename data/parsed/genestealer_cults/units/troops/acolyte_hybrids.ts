@@ -148,7 +148,8 @@ export const acolyteHybrids: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autopistol"]
     },
     {
       "header": "One model may replace their Autopistol with a Cult icon for +15pts.",
@@ -187,7 +188,8 @@ export const acolyteHybrids: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autopistol", "Claws and knives"]
     },
     {
       "header": "One model may be upgraded to an Acolyte Leader for +5 points and gains access to weapons and gear from the Armory.",

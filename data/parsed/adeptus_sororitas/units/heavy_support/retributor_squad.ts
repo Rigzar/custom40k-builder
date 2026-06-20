@@ -148,7 +148,8 @@ export const retributorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Boltgun"]
     },
     {
       "header": "One model may receive a Simulacrum (see Armory) for +5 points.",

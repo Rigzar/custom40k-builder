@@ -31,7 +31,7 @@ export const abominant: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Primus is equipped with: -.",
+  "equipped_with": "An Abominant is equipped with: -.",
   "weapons": [],
   "option_groups": [
     {

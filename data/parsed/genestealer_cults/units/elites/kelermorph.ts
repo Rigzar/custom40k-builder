@@ -53,16 +53,6 @@ export const kelermorph: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
-    },
-    {
-      "header": "Has access to weapons and gear from the Armory.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
     }
   ],
   "abilities": [

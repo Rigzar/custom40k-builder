@@ -43,18 +43,7 @@ export const bladeChampion: Unit = {
       "abilities": "-"
     }
   ],
-  "option_groups": [
-    {
-      "header": "Has acces to weapons and gear from the Armory.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
+  "option_groups": [],
   "abilities": [
     "Massive(1), Parry, Shield Host",
     "Custodian armor: The model gains a 5+ invulnerability save.",
@@ -67,11 +56,11 @@ export const bladeChampion: Unit = {
   "is_character": true,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
-  "has_veteran_abilities": false,
+  "has_veteran_abilities": true,
   "veteran_required": false,
-  "veteran_max": null,
+  "veteran_max": 1,
   "locked_mark": null,
   "advisor": false,
   "slot": "HQ",

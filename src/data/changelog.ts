@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.95',
+    date: '2026-06-20',
+    title: { en: 'Sororitas, Custodes, GSC, Eldar full ODS audits + forced-mark points bugfix' },
+    changes: { en: [
+      'Engine bugfix: computeUnitPoints() only charged a Mark of Chaos when item.mark was set explicitly per-unit. Forced-mark archetypes (Plaguehost, Ambition for Perfection, Blood for the Blood God!, etc.) already grant the mark\'s keywords/abilities for free via resolver.ts, but the points calc ignored the archetype\'s forcedMark and silently charged 0 — every unit in a forced-mark army without an explicit per-unit mark pick was undercharged. Fixed.',
+      'Engine bugfix: Foetid Bloat-Drone (CSM) "Can replace the Fleshmower" swap was constraint:one (one swap for the whole 1-2 model squadron) instead of constraint:every (per model) — undercharged a 2-drone squad by 41pts when both swap.',
+      'Adeptus Sororitas full ODS audit (28 fixes): champion-only Armory access corrected on 9 units (has_armory_access:false + champion_has_armory:true); 4 vehicles (Castigator, Exorcist, Immolator, Rhino) had vehicle-Armory access missing; 4 advisor units (Dialogus, Dogmata, Hospitaller, Imagifier) had advisor:false despite the ability text; Crusaders had 5 separate bugs (WS, Wounds, points, unit_type, Armory access); Geminae Superia size/option-text/abilities fixes; Living Saint missing Resurrection ability; Seraphim Squad quantity-prefixed weapon-choice naming bug; 12 units missing `replaces` links. Armory/Order Armory/Army Customisation/Hymns verified clean.',
+      'Adeptus Custodes full ODS audit (19 fixes): Armory-access gating fixed on 5 characters + 5 vehicles; 13 missing `replaces` links; Custodian Wardens advisor flag; Coronus Grav-carrier weapon-name normalization + placeholder cleanup.',
+      'Genestealer Cults full ODS audit (13 fixes): added missing upgrade-choice option groups entirely absent from production (Patriarch, Purestrain Genestealers strain upgrades); Scything talons cost; Abominant equipped_with text; redundant Armory placeholders removed; 8 missing `replaces` links.',
+      'Eldar full ODS audit (38 units, ~50 fixes): added the real 16-choice "Exarch Power" option (previously an empty placeholder) to 10 Aspect/Exarch-bearing units; ~35 missing `replaces` links; ~12 vehicles/flyers missing vehicle-Armory access; Wraithlord\'s missing 2-of-following choices; 0-point typos on 3 units; Crimson Hunter base-model name fix.',
+    ] },
+  },
+  {
     version: '0.94',
     date: '2026-06-20',
     title: { en: 'Necrons + Adeptus Mechanicus full ODS audits: 41 fixes total' },

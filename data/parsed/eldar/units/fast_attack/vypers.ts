@@ -88,7 +88,7 @@ export const vypers: Unit = {
       "choices": [
         {
           "name": "Shuriken cannon",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Aeldari missile launcher",
@@ -105,7 +105,8 @@ export const vypers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Scatter laser"]
     }
   ],
   "abilities": [

@@ -134,7 +134,8 @@ export const stormGuardians: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Aeldari chainsword", "Shuriken pistol"]
     },
     {
       "header": "All remaining Guardians can swap their Aeldari chainsword",
@@ -149,7 +150,8 @@ export const stormGuardians: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Aeldari chainsword"]
     }
   ],
   "abilities": [

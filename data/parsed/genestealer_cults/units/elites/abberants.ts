@@ -85,7 +85,8 @@ export const abberants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power pick"]
     },
     {
       "header": "One model may be upgraded to an Aberrant Hypermorph for +10 points and gains access to weapons and gear from the Armory.",

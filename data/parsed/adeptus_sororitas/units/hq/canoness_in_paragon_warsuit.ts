@@ -148,7 +148,8 @@ export const canonessInParagonWarsuit: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Storm bolter"]
     },
     {
       "header": "May swap the Heavy flamer",
@@ -167,7 +168,8 @@ export const canonessInParagonWarsuit: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     },
     {
       "header": "May swap the Paragon war blade",
@@ -186,7 +188,8 @@ export const canonessInParagonWarsuit: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Paragon war blade"]
     }
   ],
   "abilities": [

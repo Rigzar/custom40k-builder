@@ -462,6 +462,7 @@ export function UnitCard({ item }: Props) {
                 <span className="ml-2 text-violet-400 normal-case font-normal text-[10px]">◆ = equipment</span>
               )}
             </div>
+            <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
@@ -615,6 +616,7 @@ export function UnitCard({ item }: Props) {
                 })}
               </tbody>
             </table>
+            </div>
             {/* Equipment granted abilities (inv save now shown in stats table) */}
             {(!u.is_vehicle && false) && (
               <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
@@ -1711,6 +1713,7 @@ function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryIte
  * same columns as the main Profile table but without mark/trait/equip bonus annotations. */
 function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[] }) {
   return (
+    <div className="overflow-x-auto">
     <table className="w-full text-xs border-collapse">
       <thead>
         <tr className="bg-zinc-700/50 border-b border-zinc-600">
@@ -1745,12 +1748,13 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
         </tr>
       </tbody>
     </table>
+    </div>
   );
 }
 
 function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null; countOverrides?: Map<string, number> }) {
   return (
-    <div className="px-3 pb-2">
+    <div className="px-3 pb-2 overflow-x-auto">
       <table className="w-full text-xs border-collapse">
         <thead>
           <tr className="border-b border-zinc-600">

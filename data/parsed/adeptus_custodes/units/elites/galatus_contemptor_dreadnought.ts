@@ -111,7 +111,8 @@ export const galatusContemptorDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Galatus warblade - Melee", "Galatus warblade - Ranged"]
     },
     {
       "header": "Can swap each Infernus incinerator",
@@ -130,7 +131,8 @@ export const galatusContemptorDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Infernus incinerator"]
     }
   ],
   "abilities": [
@@ -144,7 +146,7 @@ export const galatusContemptorDreadnought: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": true,
   "veteran_required": false,

@@ -97,7 +97,8 @@ export const aquilonCustodians: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Infernus firepike"]
     },
     {
       "header": "Every model may swap their Solerite power gauntlet",
@@ -112,7 +113,8 @@ export const aquilonCustodians: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Solerite power gauntlet"]
     }
   ],
   "abilities": [

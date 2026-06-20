@@ -106,17 +106,18 @@ export const seraphimSquad: Unit = {
       },
       "choices": [
         {
-          "name": "2 Hand flamers",
+          "name": "Hand flamer",
           "points": 2
         },
         {
-          "name": "2 Inferno pistols",
+          "name": "Inferno pistol",
           "points": 13
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt pistol"]
     }
   ],
   "abilities": [
@@ -130,7 +131,7 @@ export const seraphimSquad: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,

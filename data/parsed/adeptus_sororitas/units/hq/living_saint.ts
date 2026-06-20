@@ -67,7 +67,8 @@ export const livingSaint: Unit = {
   "abilities": [
     "Acts of Faith, Fearless, Shield of Faith",
     "Armour of Saint Catherine: This model has a 4+ invulnerability save.",
-    "Pious: A Living Saint increases Faith Points by +3. If she is removed as a casualty and Miraculous Intervention is not being used, the Faith Points do not increase but are reduced by 1D6."
+    "Pious: A Living Saint increases Faith Points by +3. If she is removed as a casualty and Miraculous Intervention is not being used, the Faith Points do not increase but are reduced by 1D6.",
+    "Resurrection: After the Living Saint lost her last Wound and all units have been activated for that battle round, you may spend 1+ Faith Points to return her to the battlefield with that many Wounds remaining (to a maximum of 3). Place her as close as possible to where she lost her last Wound, but not in base contact with any enemy model. If there is a Geminae Superia unit in the game, restore any lost models and place them in formation with the Living Saint. Takes effect immediately."
   ],
   "unit_type": "Character Model, Jump Pack Infantry",
   "keywords": [],

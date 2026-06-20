@@ -138,7 +138,8 @@ export const wraithlord: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken catapult"]
     },
     {
       "header": "Can be equipped with Ghostglaive for +11 points.",
@@ -153,7 +154,8 @@ export const wraithlord: Unit = {
     {
       "header": "Can be equipped with two of the following",
       "constraint": {
-        "type": "one"
+        "type": "fixed_max",
+        "max": 2
       },
       "choices": [
         {

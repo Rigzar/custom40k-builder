@@ -34,7 +34,7 @@ export const coronusGravCarrier: Unit = {
   "equipped_with": "A Coronus Grav-carrier is equipped with: Twin arachnus blaze cannon; Twin lastrum bolt cannon.",
   "weapons": [
     {
-      "name": "Twin arachnus blaze cannon — Beam",
+      "name": "Twin arachnus blaze cannon - Beam",
       "range": "-",
       "type": "Heavy 2",
       "s": "7",
@@ -43,7 +43,7 @@ export const coronusGravCarrier: Unit = {
       "abilities": "AT(2), Beam, Tank hunter"
     },
     {
-      "name": "Twin arachnus blaze cannon — Burst",
+      "name": "Twin arachnus blaze cannon - Burst",
       "range": "-",
       "type": "Heavy 6",
       "s": "5",
@@ -61,18 +61,7 @@ export const coronusGravCarrier: Unit = {
       "abilities": "-"
     }
   ],
-  "option_groups": [
-    {
-      "header": "The unit can gain a Veteran ability.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    }
-  ],
+  "option_groups": [],
   "abilities": [
     "Anti-Grav, Shield Host",
     "Flare Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",

@@ -57,6 +57,21 @@ export const patriarch: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": true
+    },
+    {
+      "header": "May receive one of the following upgrades",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        { "name": "Miasmic strain", "points": 1 },
+        { "name": "Reaperfex strain", "points": 2 },
+        { "name": "Psi strain", "points": 5 },
+        { "name": "Bulwark strain", "points": 29 }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
     }
   ],
   "abilities": [

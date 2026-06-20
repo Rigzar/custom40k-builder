@@ -130,7 +130,8 @@ export const celestianSacresants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Hallowed mace"]
     },
     {
       "header": "The Sacresant Superior may swap her Hallowed mace",
@@ -145,7 +146,8 @@ export const celestianSacresants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Hallowed mace"]
     }
   ],
   "abilities": [
@@ -158,7 +160,7 @@ export const celestianSacresants: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,

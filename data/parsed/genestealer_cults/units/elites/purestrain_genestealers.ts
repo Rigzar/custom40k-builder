@@ -54,6 +54,20 @@ export const purestrainGenestealers: Unit = {
   ],
   "option_groups": [
     {
+      "header": "The entire squad may receive one of the following upgrades per model",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        { "name": "Miasmic strain", "points": 1 },
+        { "name": "Reaperfex strain", "points": 2 },
+        { "name": "Bulwark strain", "points": 5 }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
       "header": "All models may be equipped with",
       "constraint": {
         "type": "every"
@@ -61,7 +75,7 @@ export const purestrainGenestealers: Unit = {
       "choices": [
         {
           "name": "Scything talons",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

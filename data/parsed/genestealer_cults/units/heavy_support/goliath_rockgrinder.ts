@@ -116,7 +116,8 @@ export const goliathRockgrinder: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy seismic cannon - Long-wave", "Heavy seismic cannon - Short-wave"]
     }
   ],
   "abilities": [

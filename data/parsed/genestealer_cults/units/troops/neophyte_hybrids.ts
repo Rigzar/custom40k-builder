@@ -184,7 +184,8 @@ export const neophyteHybrids: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autogun"]
     },
     {
       "header": "One model may get a Cult icon for +15 points.",
@@ -219,7 +220,8 @@ export const neophyteHybrids: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autogun"]
     },
     {
       "header": "For each 10 models, two Neophytes may swap their Autogun",
@@ -244,7 +246,8 @@ export const neophyteHybrids: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Autogun"]
     },
     {
       "header": "One model may be upgraded to a Neophyte Leader for +5 points and gains access to weapons and gear from the Armory.",

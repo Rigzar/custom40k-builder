@@ -139,3 +139,75 @@ Faith-economy traits — Blood of Martyrs / Emperor's Judgement — tie into the
 
 **Sororitas "lo demás" complete** — Index fully covered, no psychic axis (by design), Hymns of
 Battle now wired. Build ✓, changelog v0.66, local NOT pushed.
+
+### 8. Full field-by-field ODS audit (v0.95, 2026-06-20)
+
+A deeper re-audit than §1-7 above, against a NEWER `.ods` than the one this digest was originally
+built from (2026-06-11) — the `.ods` has since picked up a 12th Elite unit (Celestian Insidiants),
+a Crusaders datasheet, and replaced Witch Hunters with a **Chamber Militant** archetype (see below).
+Went per-unit, per-field (stats, points, min/max, weapon profiles, option groups, flags) across all
+28 units + Armory/Order Armory/Army Customisation. **28 fixes** found, full list in `changelog.ts`
+v0.95. By root cause:
+
+1. **9 units had `has_armory_access: true` at the unit level when the .ods grants it to the
+   Superior/champion only**: Celestian Sacresants, Celestian Insidiants, Celestian Squad, Paragon
+   Warsuits, Repentia Squad, Seraphim Squad, Zephyrim Squad — same cross-faction pattern as AdMech/
+   Inquisition/Dark Eldar this week.
+2. **4 vehicles had `has_armory_access: false` despite the .ods granting vehicle-equipment Armory
+   access**: Castigator, Exorcist, Immolator, Rhino.
+3. **4 units missing the `advisor` flag** despite carrying the literal "Advisor: For every HQ
+   selection, one X may be selected without taking up an Elite slot" text: Dialogus, Dogmata,
+   Hospitaller, Imagifier.
+4. **Crusaders — 5 separate bugs on one datasheet**: WS 3+→2+, W 1→2, points 23→44 (min_cost
+   40→44), `unit_type` had spurious "Character Model"/"Squadron" appended (.ods says plain
+   "Infantry"; kept "Squadron" in ability text only, matching the AdMech Onager Dunecrawler
+   convention of NOT mirroring ability-only special-rule names into `unit_type`), ability text
+   missing "Squadron", and `has_armory_access`/`champion_has_armory` both wrongly true (the .ods
+   grants no Armory access to this unit at all).
+5. **Geminae Superia — 3 bugs**: squad size was min:2/max:4 instead of the .ods's fixed 2 (the "No."
+   column was a literal "2", not a range); the option header had a spurious "or Palatine selection"
+   clause not present anywhere in the .ods; abilities text was missing "Bodyguard, Command Squad".
+6. **Living Saint missing the "Resurrection" ability** — present in the .ods as its own named
+   mechanic (Name/When/Cost/Effect/Duration table, same format the Acts of Faith sheet uses) but
+   never transcribed into the unit's `abilities[]`.
+7. **Quantity-prefixed choice names breaking weapon gating** (same bug class independently found in
+   Necrons and AdMech this week): Seraphim Squad's "2 Hand flamers"/"2 Inferno pistols" — renamed to
+   the exact singular weapon names + added `replaces: ["Bolt pistol"]`.
+8. **12 units missing `replaces`** on functional weapon-swap groups: Canoness in Paragon Warsuit,
+   Battle Sisters Squad, Sisters Novitiate, Celestian Sacresants, Celestian Insidiants, Celestian
+   Squad, Paragon Warsuits, Castigator, Penitent Engines (one of its two groups — see open question
+   below), Retributor Squad, Dominion Squad, Immolator.
+9. **Multi-profile weapon caught wrong in `replaces`**: Celestian Insidiants' Condemnor bolt pistol
+   swaps needed both `"Condemnor Bolt pistol - Bolt"` and `"Condemnor Bolt pistol - Stake"` listed
+   (exact-match, not prefix-stripped) — same rule confirmed for AdMech's Sydonian Dragoons this week.
+
+**Open question — NOT fixed**: Penitent Engines' "Each model may swap both Penitent flails" group
+has two choices: "Penitent buzz-blade and Penitent flail" (keeps one flail) and "2 Penitent
+buzz-blades" (fully swaps both). The second choice has the quantity-prefix naming bug, but renaming
+it to exactly "Penitent buzz-blade" would make the weapon-table gating treat the FIRST choice's grant
+of one buzz-blade as invisible (only the renamed second choice would register as an "owning choice"
+in `optionalWeapons`). Left both names as-is (the .ods's literal text) rather than risk hiding a
+weapon for players who pick the first option — a genuinely ambiguous case the simple exact-name
+gating model doesn't handle when one choice's grant is a SUBSET combo of another's name.
+
+**Digest itself was stale on two points, now corrected by this note**: the faction has had a 4th
+Archetype (**Chamber Militant** — grants Codex: Assassins + Codex: Inquisition access, replacing the
+old "Witch hunters" mechanic) since a 2026-06-14 `.ods` update; §4's "Witch hunters... already
+SHIPPED" entry and §5's "3 Archetypes" count are both outdated. The ENGINE code (`special-
+abilities.ts`, `archetypes.json`) was already current with this change — only this digest lagged.
+Production cross-check against the CURRENT .ods: 4 Archetypes / 7 Legacies / 12 Traits — all match
+exactly, including the newer Chamber Militant archetype and all 3-column trait pricing.
+
+**New Known Issue logged**: `ki-sororitas-crusaders-veteranability-unmodelled-01` — Crusaders' "may
+gain one Veteran ability" option has no Veteran Abilities armory section anywhere in the faction's
+Armory to draw from (confirmed via a full re-read: only WEAPON/EQUIPMENT/VEHICLE UPGRADES sections
+exist, no veteran section) — left `has_veteran_abilities: false` rather than open an empty tab.
+
+**Verified clean**: Magos-equivalent units (Missionary, Palatine, Preacher, Arco-flagellants),
+Triumphant Procession (sourced from `Informacion/Escalation.ods`, not the main Sororitas sheet —
+matches exactly), Hymns of Battle (5 hymns, already wired since v0.66), the entire general Armory
+(already correctly `category:'vehicle'`-tagged from a prior pass).
+
+Build ✓. **LOCAL NOT PUSHED at time of writing** (no live preview verification this session per the
+user's 2026-06-20 instruction to stop using the preview server — see
+[[feedback_no_preview_server]]).

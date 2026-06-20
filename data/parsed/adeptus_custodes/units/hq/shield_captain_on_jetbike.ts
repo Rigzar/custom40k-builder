@@ -133,7 +133,8 @@ export const shieldCaptainOnJetbike: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Lastrum bolt cannon"]
     }
   ],
   "abilities": [
