@@ -3,6 +3,8 @@ import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
+import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
+import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
 import { computeCdFreeSlots, computeAssassinFreeSlots } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
@@ -27,6 +29,10 @@ interface SlotEntry {
    */
   groupLabel?: string;
   minCost: number;
+  /** Set when this unit can never be added under the active archetype (e.g. Movement <12" with
+   * no transport option) — rendered greyed-out with this text as a tooltip instead of removed,
+   * so the player can see *why* it's blocked (rules-owner: "grey it out... mouse over tooltip"). */
+  disabledReason?: string;
 }
 
 function getSlotUsage(
@@ -43,8 +49,10 @@ function getSlotUsage(
       ? data.allied?.[i.factionSource]?.units[i.unitName]
       : data.units[i.unitName];
     if (u?.advisor) return false;
-    const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
-    return effSlot === slot;
+    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+    const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
+    if (effSlot !== slot) return false;
+    return countsTowardOwnSlot(i, army);
   }).length;
 }
 
@@ -120,7 +128,8 @@ export function SlotPanel() {
       if (isArmyItemGateBlocked(u, rosterArmoryItemNames)) continue;
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) {
-        effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost });
+        const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? undefined;
+        effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost, disabledReason });
       }
     }
   }
@@ -274,9 +283,12 @@ export function SlotPanel() {
                           </div>
                         )}
                         <button
-                          onClick={() => addUnit(entry.name, originalSlot, entry.factionSource)}
-                          className="w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0
-                            hover:bg-amber-900/10 group transition-colors text-left"
+                          onClick={() => !entry.disabledReason && addUnit(entry.name, originalSlot, entry.factionSource)}
+                          disabled={!!entry.disabledReason}
+                          title={entry.disabledReason}
+                          className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${
+                            entry.disabledReason ? 'opacity-40 cursor-not-allowed' : 'hover:bg-amber-900/10 group'
+                          }`}
                         >
                           <span className="text-[11px] text-amber-900 group-hover:text-amber-500 transition-colors w-3 shrink-0 text-center">+</span>
                           <span className="text-zinc-300 group-hover:text-amber-300 text-[12px] flex-1 transition-colors">{entry.name}</span>

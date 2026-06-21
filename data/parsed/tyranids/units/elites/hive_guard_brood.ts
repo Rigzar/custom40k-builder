@@ -66,7 +66,8 @@ export const hiveGuardBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shock cannon"]
     },
     {
       "header": "May select one Special Biomorph",

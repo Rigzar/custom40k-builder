@@ -85,7 +85,8 @@ export const krootoxRiders: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Tanglecannon"]
     }
   ],
   "abilities": [

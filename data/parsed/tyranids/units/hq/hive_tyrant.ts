@@ -180,7 +180,8 @@ export const hiveTyrant: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Monstrous scything talons"]
     },
     {
       "header": "May be equipped with one of the following",

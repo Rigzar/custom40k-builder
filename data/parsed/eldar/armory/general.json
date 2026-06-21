@@ -679,14 +679,42 @@
       "term_compat": false,
       "desc": "The model gains +1 Toughness, Wounds and Attacks. The model and its attached unit may re-roll any single die per activation. Unique.",
       "p_unit": 20,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "stat_mod": [
+          {
+            "stat": "W",
+            "delta": 1
+          },
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      }
     },
     {
       "name": "Paragon of war",
       "term_compat": false,
       "desc": "The model gains +1 Strength, Toughness, Wounds and Attacks. It can chose a single Exarch power. Unique.",
       "p_unit": null,
-      "p_char": 17
+      "p_char": 17,
+      "effect": {
+        "stat_mod": [
+          {
+            "stat": "T",
+            "delta": 1
+          },
+          {
+            "stat": "W",
+            "delta": 1
+          },
+          {
+            "stat": "A",
+            "delta": 1
+          }
+        ]
+      }
     },
     {
       "name": "Phoenix gem",

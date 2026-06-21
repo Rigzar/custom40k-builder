@@ -106,7 +106,8 @@ export const termagantBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Spinefists"]
     },
     {
       "header": "For every 10 models, one Termagant may swap their Fleshborer",

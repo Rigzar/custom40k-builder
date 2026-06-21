@@ -202,7 +202,8 @@ export const henchmanWarband: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Paired shock chargers"]
     }
   ],
   "abilities": [

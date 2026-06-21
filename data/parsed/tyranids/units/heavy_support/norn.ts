@@ -88,7 +88,8 @@ export const norn: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Monstrous piercing claws"]
     },
     {
       "header": "May be equipped with one of the following",

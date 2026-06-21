@@ -98,7 +98,8 @@ export const tyrantGuardBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Scything talons"]
     },
     {
       "header": "May select one Special Biomorph",

@@ -191,7 +191,8 @@ export const indomitusCrusaderSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes chainsword"]
     },
     {
       "header": "Each Initiate may swap their Astartes chainsword",
@@ -206,7 +207,8 @@ export const indomitusCrusaderSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes chainsword"]
     },
     {
       "header": "For every 10 models, two Initiates may swap their Astartes chainsword",

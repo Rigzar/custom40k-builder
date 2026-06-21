@@ -113,7 +113,8 @@ export const inceptorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Assault bolter"]
     },
     {
       "header": "The Inceptor Sergeant may be upgraded to a Veteran Inceptor Sergeant for +10 points and gains access to weapons and gear from the Armory.",

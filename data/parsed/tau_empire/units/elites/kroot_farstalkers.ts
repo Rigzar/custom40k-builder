@@ -214,7 +214,8 @@ export const krootFarstalkers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Kroot rifle - Melee", "Kroot rifle - Ranged"]
     },
     {
       "header": "For every 5 non-Kroot hound models in the unit, one Farstalker may replace their Kroot rifle",

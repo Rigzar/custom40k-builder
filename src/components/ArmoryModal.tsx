@@ -41,6 +41,22 @@ function parsePrice(v: number | null | undefined | string): number | null {
   return isNaN(n) ? null : n;
 }
 
+/**
+ * Eldar's general Armory ("Armory" sheet, Eldar ENG.ods) prices character buyers from two
+ * separate columns, "POINTS PSYKER"/"POINTS AUTARCH" (e.g. Witchblade is Psyker-only, Aspect
+ * armor is Autarch-only) — the parser mapped these onto the generic `p_unit`/`p_char` fields
+ * (Psyker→p_unit, Autarch→p_char) since that's all 2 numeric slots the schema had, which means
+ * a SQUAD buyer (e.g. a Warlocks unit, is_psyker:true) already prices correctly off `p_unit` by
+ * accident — but a lone CHARACTER buyer (Autarch/Farseer/Spiritseer/Wraithseer) needs to pick
+ * the column matching ITS OWN role, not always prefer p_char (`cp ?? up`) like every other
+ * faction does. Scoped to Eldar only — every other faction's p_unit/p_char keep their normal
+ * squad/character meaning. Exarch Powers and Vehicle Equipment (single "POINTS" column, p_char
+ * always null) are unaffected either way since `cp` is null for them regardless of role.
+ */
+function resolveEldarCharPrice(arm: ArmoryItem, unit: Unit): number | null {
+  return parsePrice(unit.is_psyker ? arm.p_unit : arm.p_char);
+}
+
 // ── Mark restriction helpers ──────────────────────────────────────────────────
 // The gating helpers (itemRequiredMark / stripMarkGlyph / isTerminatorArmourName /
 // modelRestrictsToTermSubset / isItemMarkBlocked) live in engine/keywords.ts — the single
@@ -189,6 +205,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     const cp = parsePrice(arm.p_char);
     const up = parsePrice(arm.p_unit);
     if (isCD) return isGreaterDaemon ? cp : up;
+    // Eldar: a lone character buyer (Autarch/Farseer/Spiritseer/Wraithseer) prices off the
+    // column matching its own role — see resolveEldarCharPrice. A squad buyer (e.g. Warlocks)
+    // still falls through to the generic `up` branch below, which already happens to be correct.
+    if (activeData.faction === 'Eldar' && isChar) return resolveEldarCharPrice(arm, unit);
     // Other factions: characters use p_char (flat cost), squads use p_unit (per-model).
     // A squad's Character-scoped buyer (built-in Champion / promoted variant) also pays p_char.
     return (isChar || hasCharacterScopedBuyer) ? (cp ?? up) : up;
@@ -232,7 +252,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Veteran slot tracking for armory items — independent of whether the faction has traits
   const armoryVetEnabled = effectiveHasVetAbilities ?? unit.has_veteran_abilities;
   // Marks count as 1 veteran ability for ALL units — locked-mark units use veteran_max:1 in data instead
-  const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
+  const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!rule?.grantsMarkPurchase;
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
   const armoryVetMax = armoryVetEnabled ? Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0)) : null;
 

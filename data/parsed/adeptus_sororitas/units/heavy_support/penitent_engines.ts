@@ -88,7 +88,8 @@ export const penitentEngines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Penitent flail"]
     },
     {
       "header": "Each model may swap both Heavy flamers",

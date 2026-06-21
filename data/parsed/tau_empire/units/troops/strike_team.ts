@@ -121,7 +121,8 @@ export const strikeTeam: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Pulse rifle"]
     },
     {
       "header": "The Fire Warrior Shas'la may be upgraded to a Shas'ui for +5pts and gains access to weapons and gear from the Armory.",

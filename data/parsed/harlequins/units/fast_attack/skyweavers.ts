@@ -93,7 +93,8 @@ export const skyweavers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Zephyrglaive"]
     },
     {
       "header": "Any model may replace its Twin shuriken catapult",
@@ -112,7 +113,8 @@ export const skyweavers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin shuriken catapult"]
     },
     {
       "header": "One model may be upgraded to a Lead Player for +17 points.",

@@ -120,7 +120,8 @@ export const ghostkeelBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Cyclic ion raker - Standard", "Cyclic ion raker - Overcharged"]
     },
     {
       "header": "May swap each flamer",
@@ -139,7 +140,8 @@ export const ghostkeelBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Flamer"]
     },
     {
       "header": "Any Ghostkeel Shas'vre may pick up to two SUPPORT SYSTEMS from the armory.",

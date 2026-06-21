@@ -124,7 +124,8 @@ export const tyrannofex: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Acid spray"]
     },
     {
       "header": "Each model may be equipped with one of the following",

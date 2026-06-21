@@ -166,7 +166,8 @@ export const desolationSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Castellan missile launcher (Castellan)", "Castellan missile launcher (Frag)"]
     },
     {
       "header": "The Desloation Sergeant may swap their Castellan missile launcher",

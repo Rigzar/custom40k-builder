@@ -111,6 +111,18 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
       if (mg) {
         const c = mg.choices.find(c => c.name === effMark);
         if (c) total += c.points * item.size;
+      } else if (rule?.grantsMarkPurchase) {
+        // Traitor Guard (IG units have no native mark group of their own) — ods-verbatim
+        // "point cost per model and per Wound": Khorne/Slaanesh +1, Nurgle/Tzeentch +2,
+        // vehicles flat +10 regardless of which mark.
+        if (unit.is_vehicle) {
+          total += 10 * item.size;
+        } else {
+          const wStat = unit.models[0]?.stats.W;
+          const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
+          const rate = (effMark === 'Nurgle' || effMark === 'Tzeentch') ? 2 : 1;
+          total += rate * woundsPerModel * item.size;
+        }
       }
     }
   }
@@ -146,6 +158,30 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
   }
 
   total += computeVehicleCombiSurcharge(item, unit, archetype);
+
+  // Archetype-forced mandatory ability, no opt-out (Brood Brothers' Ambush, Gue'vesa's
+  // Supporting Fire — both ods-verbatim "All [creature] units must gain... for X pt/Wound [or
+  // Y pt/Hull point]"). Main-faction units only — allied/injected units don't pay it.
+  if (!item.factionSource) {
+    const rule = getArchetypeRule(archetype);
+    const fa = rule?.forcedAbility;
+    if (fa && !(fa.creatureOnly && unit.is_vehicle)) {
+      const wStatKey = unit.is_vehicle ? 'HP' : 'W';
+      const wStat = unit.models[0]?.stats[wStatKey];
+      const woundsPerModel = parseInt(wStat ?? '1', 10) || 1;
+      const rate = unit.is_vehicle ? (fa.pointsPerHull ?? fa.pointsPerWound) : fa.pointsPerWound;
+      total += rate * woundsPerModel * item.size;
+    }
+  }
+
+  // Gue'vesa: optional per-model Lasgun/Hot-shot lasgun → Pulse rifle swap (ods-verbatim
+  // "+3 points"/"+2 points" — per model swapping, not a flat unit-wide cost).
+  total += (item.gueVesaLasgunSwaps ?? 0) * 3 + (item.gueVesaHotshotSwaps ?? 0) * 2;
+
+  // Yngir: "One C'tan shard (any kind) counts as an HQ selection... It costs an additional
+  // +85 points" (ods-verbatim, Necrons Army Customisation). Flat surcharge, not per-model —
+  // C'tan Shards are always a single model (default_size 1).
+  if (item.ctanYngirUpgrade) total += 85;
 
   return total;
 }

@@ -3,6 +3,7 @@ import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/arm
 import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
+import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
@@ -103,6 +104,11 @@ export interface ResolvedProfile {
   /** True when this HQ is the Black Crusade champion bearing all four Chaos god marks. */
   blackCrusadeChampion: boolean;
 
+  /** Yngir (Necrons): this exact roster entry is the army's one flagged C'tan Shard upgrade —
+   *  HQ slot + stat mods are applied elsewhere; this flag only drives the 2+ armor-save floor
+   *  (Sv isn't a delta stat, can't go through optionStatMods) and the UI toggle's checked state. */
+  ctanYngirActive: boolean;
+
   // Option effects (ki-parser-02) — stat/type/ability changes a selected wargear option confers.
   /** Stat deltas from selected options (e.g. Daemon Prince wings M +6), stacked over base. */
   optionStatMods: Array<{ stat: string; delta: number }>;
@@ -196,6 +202,16 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     for (const c of g.choices) {
       const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
       for (const part of parts.length > 1 ? parts : [c.name]) {
+        // A choice that just re-buys an ADDITIONAL copy of a weapon the unit is already
+        // equipped with by default (e.g. Chaos Rhino's base "Combi-bolter" vs. its separate
+        // "May be equipped with one of the following: Combi-flamer/Combi-bolter/Combi-melta"
+        // second-mount option, same weapon name, no `replaces` link) must NOT hide the default
+        // copy just because its name also happens to match a choice name. This check is scoped
+        // to groups WITHOUT `replaces` — a replace-group's choices (e.g. Blightlord Terminators'
+        // Bubonic axe/Power fist swapping out Balesword) must still be tracked as optional here
+        // even though the group has a `replaces` link, since this map is what hides THEM (the
+        // new weapon) until bought; `replaces` only handles removing the OLD weapon, separately.
+        if (!g.replaces?.length && unit.equipped_with?.includes(part)) continue;
         if (unit.weapons.some(w => baseName(w.name) === part)) {
           if (!optionalWeapons.has(part)) optionalWeapons.set(part, new Set());
           optionalWeapons.get(part)!.add(c.name);
@@ -223,8 +239,27 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     }
   }
 
+  // Weapons that belong ONLY to a promoted variant model's own default loadout (e.g. Dire
+  // Avenger Exarch's Diresword/Shuriken pistol, vs. the squad's base Avenger shuriken catapult)
+  // are stored in the shared weapons[] array since the data model has a single `equipped_with`
+  // string per unit (the base model only) — there's no separate slot for a variant's defaults.
+  // Detect them: named in some OTHER group's `replaces` (so the engine clearly treats them as a
+  // swappable "default" item) but absent from the base unit's own equipped_with text — such a
+  // weapon can only be the variant's own default, so only show it once that variant is active.
+  const variantOnlyWeapons = new Set<string>();
+  if (unit.variant_models.length > 0) {
+    for (const g of unit.option_groups) {
+      for (const name of g.replaces ?? []) {
+        if (!unit.equipped_with?.includes(name) && unit.weapons.some(w => w.name === name)) {
+          variantOnlyWeapons.add(name);
+        }
+      }
+    }
+  }
+  const variantActive = !!getActiveVariant(item, unit);
+
   const hasReplaceGroup = unit.option_groups.some(g => g.replaces && g.replaces.length > 0);
-  if (optionalWeapons.size === 0 && !hasReplaceGroup && zeroCountModelWeapons.size === 0) return weapons;
+  if (optionalWeapons.size === 0 && !hasReplaceGroup && zeroCountModelWeapons.size === 0 && variantOnlyWeapons.size === 0) return weapons;
 
   const selectedChoiceNames = new Set<string>();
   // Sum of qty taken across ALL groups that replace each weapon name — multiple independent
@@ -235,6 +270,13 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // that it stays visible — computeWeaponGroups assigns the correct partial count to each
   // weapon (this function only decides presence, not the displayed "Nx" count).
   const replacedWeaponQty = new Map<string, number>();
+  // Per-name override of the removal threshold, default item.size (squad model count). A
+  // "one"-constraint swap (single choice, not "every"/"per_n") targeting a variant-exclusive
+  // weapon only ever has ONE copy in the whole unit regardless of squad size (it belongs to the
+  // single promoted model, e.g. the Exarch) — item.size is the wrong threshold there, it would
+  // never fully remove the old weapon on squads larger than 1. The swap is fully resolved as
+  // soon as its own qty (max 1) is taken.
+  const replacedWeaponThreshold = new Map<string, number>();
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
@@ -242,7 +284,12 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
       .filter(([ci]) => ci !== '__inline')
       .reduce((sum, [, qty]) => sum + (Number(qty) || 0), 0);
     if (g.replaces?.length && groupQty > 0) {
-      for (const name of g.replaces) replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
+      for (const name of g.replaces) {
+        replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
+        if (g.constraint.type === 'one' && variantOnlyWeapons.has(name)) {
+          replacedWeaponThreshold.set(name, 1);
+        }
+      }
     }
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
@@ -252,9 +299,10 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   }
   const replacedWeaponNames = new Set<string>();
   for (const [name, qty] of replacedWeaponQty) {
-    if (qty >= item.size) replacedWeaponNames.add(name);
+    if (qty >= (replacedWeaponThreshold.get(name) ?? item.size)) replacedWeaponNames.add(name);
   }
   return weapons.filter(w => {
+    if (variantOnlyWeapons.has(w.name) && !variantActive) return false;
     if (replacedWeaponNames.has(w.name)) return false;
     if (zeroCountModelWeapons.has(w.name)) return false;
     const owningChoices = optionalWeapons.get(baseName(w.name));
@@ -270,7 +318,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   // Points & slot
   const pts = computeUnitPoints(item, unit, state.archetype);
-  const effectiveSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+  // Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) — re-slots
+  // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
+  // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
+  const ctanYngirActive = !!item.ctanYngirUpgrade && state.archetype === 'Yngir' && /^C'tan Shard/.test(unit.name);
+  const effectiveSlot = ctanYngirActive ? 'HQ'
+    : applyPlatoonSlotOverride(item, state.army, getEffectiveSlot(item.unitName, item.slot, rule));
 
   // Variant model
   const activeVariant = getActiveVariant(item, unit);
@@ -284,7 +337,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const statModMark = unit.locked_mark
     ? null
     : (item.mark ?? (markIsForced ? ((rule!.forcedMark as Mark) ?? null) : null)) as Mark | null;
-  const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark');
+  const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!rule?.grantsMarkPurchase;
   // The four god marks count as a veteran ability. Mark of Chaos Undivided does NOT (rule omits the clause).
   // Locked-mark units (e.g. Plague Marines) use veteran_max:1 in their data instead.
   const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark && effectiveMark !== 'Undivided';
@@ -518,6 +571,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const optionAddedUnitTypes: string[] = [];
   let optionSetUnitType: string | null = null;
   const optionAbilities: string[] = [];
+  // Yngir's C'tan Shard upgrade (ods-verbatim): HQ slot is applied via effectiveSlot above; the
+  // 2+ armor save floor in UnitCard.tsx (same "best of" pattern as equipMods.armorSave); the +6"
+  // power range in PsychicModal.tsx's bumpRange; "knows Time's Arrow" needs no extra wiring —
+  // every C'tan Shard already has it in the shared psychic/disciplines.json "Powers" list. Only
+  // the +1 S/T/I/A stat mod is wired here, alongside the rest of the option-effect pipeline.
+  if (ctanYngirActive) {
+    optionStatMods.push({ stat: 'S', delta: 1 }, { stat: 'T', delta: 1 }, { stat: 'I', delta: 1 }, { stat: 'A', delta: 1 });
+  }
   // De-dup helpers: an effect only grants what the model doesn't already have (a type/ability
   // already in its base profile is not re-added). Normalize so "Deepstrike" matches "Deep strike".
   const _norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -574,6 +635,11 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   if (effectiveSlot === 'Troops' && !isAlliedDetachmentUnit) {
     ruleNotes.push('Objective secured!');
   }
+  // Archetype-forced mandatory ability (Brood Brothers' Ambush, Gue'vesa's Supporting Fire) —
+  // no opt-out, so it's always shown, never a toggle. Main-faction units only.
+  if (rule?.forcedAbility && !item.factionSource && !(rule.forcedAbility.creatureOnly && unit.is_vehicle)) {
+    ruleNotes.push(rule.forcedAbility.name);
+  }
 
   return {
     pts, effectiveSlot,
@@ -588,6 +654,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     equipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
+    ctanYngirActive,
     optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
   };
 }

@@ -75,7 +75,8 @@ export const kapricusDefender: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["HYLas rotary cannon"]
     }
   ],
   "abilities": [

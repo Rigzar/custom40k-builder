@@ -125,7 +125,8 @@ export const deffkoptaz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Kustom mega-blasta"]
     },
     {
       "header": "For every 3 models, one Killakopta may be equipped with a Big bomb for +13 points.",

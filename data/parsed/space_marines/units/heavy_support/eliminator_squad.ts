@@ -148,7 +148,8 @@ export const eliminatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt sniper rifle (Executor)", "Bolt sniper rifle (Hyper frag)", "Bolt sniper rifle (Mortis)"]
     },
     {
       "header": "The Eliminator Sergeant may be upgraded to a Veteran Eliminator Sergeant for +10 points and gains access to weapons and gear from the Armory.",

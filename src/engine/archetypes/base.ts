@@ -46,6 +46,38 @@ export interface ArchetypeRule {
    * NOT used for unit-only grants like Daemonkin (daemons keep their own codex armory, no cross-access).
    */
   sharedSupplementArmory?: string;
+  /**
+   * A free, mandatory ability every eligible unit gains while this archetype is active — no
+   * opt-out (Brood Brothers' Ambush, Gue'vesa's Supporting Fire; both ods-verbatim: "All
+   * creature/units must gain the '<name>' ability for X pt(s) per Wound [or Y per Hull point]").
+   * `creatureOnly: true` restricts the grant to non-vehicles (Brood Brothers' wording is "All
+   * CREATURE units"; Gue'vesa's is "All units" — broader, vehicles pay pointsPerHull instead).
+   */
+  forcedAbility?: { name: string; pointsPerWound: number; pointsPerHull?: number; creatureOnly?: boolean } | null;
+  /**
+   * Units with Movement <12" must start embarked in a transport — blocked from selection
+   * entirely if they have no transport option (rules-owner clarification 2026-06-20, re:
+   * Cavalry Regiment Q5: "block it... greying it out... a mouse over tooltip"). "Transport
+   * option" = the unit's unit_type is exactly "Infantry" (mirrors the Dedicated Transport AOP
+   * cap's strict-Infantry definition — see validators.ts isStrictInfantrySelection). Currently
+   * enabled only for archetypes verified against their own faction's canonical .ods this
+   * session (IG Cavalry Regiment via fastArchetype, IG Mechanised Company) — NOT yet flipped on
+   * for the textually-identical clause in other factions' archetypes (SM/GSC/Votann/Orks use
+   * fastArchetype too and get this for free; Custodes/Eldar/Sororitas/Tyranids word it
+   * differently in their own digests and haven't been individually re-grounded against their
+   * .ods for this specific enforcement — left as informational-only pending that check).
+   */
+  lowMoveMustEmbark?: { creatureOnly?: boolean } | null;
+  /**
+   * Grants every main-faction unit the ability to purchase a Mark of Chaos via `item.mark`,
+   * even though the unit has no native mark option group of its own (Traitor Guard — IG units
+   * don't carry CSM-style mark groups in their data). Pricing and vet-slot consumption for
+   * these units is computed separately in points.ts/resolver.ts (creatures: per-model-per-Wound,
+   * Khorne/Slaanesh +1, Nurgle/Tzeentch +2; vehicles: flat +10 any mark — ods-verbatim, "point
+   * cost per model and per Wound"). Rules owner confirmed 2026-06-20 (Q3): the mark counts as
+   * a veteran ability for the unit, same as the CSM-side rule.
+   */
+  grantsMarkPurchase?: boolean;
 }
 
 export const BASE: ArchetypeRule = {
@@ -82,6 +114,7 @@ export function fastArchetype(remapUnits: string[], extraNotes: string[] = []): 
   return {
     ...BASE,
     troopsRemap: remapUnits,
+    lowMoveMustEmbark: {},
     notes: [
       `${remapUnits.join(' and ')} count${remapUnits.length === 1 ? 's' : ''} as Troops.`,
       'Units with M<12" must start the game as passengers inside a transport.',

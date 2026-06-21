@@ -174,7 +174,8 @@ export const terminatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power fist"]
     },
     {
       "header": "Every Terminator may swap their Power fist and Storm bolter",
@@ -193,7 +194,8 @@ export const terminatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power fist", "Storm bolter"]
     },
     {
       "header": "For every 5 models, two Terminators may swap their Storm bolters",

@@ -1,7 +1,7 @@
 {
   "Powers": [
     {
-      "name": "Form Matter",
+      "name": "Anti-matter Meteor",
       "type": "",
       "range": "12\"",
       "target": "Enemy unit",
@@ -11,7 +11,7 @@
       "complexity": "Simple"
     },
     {
-      "name": "Transdimensional Manipulation",
+      "name": "Cosmic Fire",
       "type": "",
       "range": "12\"",
       "target": "Enemy unit",
@@ -27,6 +27,26 @@
       "target": "Enemy unit",
       "cast_value": "",
       "effect": "The target suffers one automatic hit with S: D AP: -4 D: 3; AT(4), Seeking.",
+      "duration": "Immediately",
+      "complexity": "Simple"
+    },
+    {
+      "name": "Form Matter",
+      "type": "",
+      "range": "12\"",
+      "target": "Piece of terrain",
+      "cast_value": "",
+      "effect": "Change the terrain feature type to any combination:\n- Normal terrain / Difficult terrain / Dangerous terrain\n- No Cover / Light cover / Heavy cover",
+      "duration": "Until the end of the game",
+      "complexity": "Simple"
+    },
+    {
+      "name": "Transdimensional Manipulation",
+      "type": "",
+      "range": "12\"",
+      "target": "Friendly unit",
+      "cast_value": "",
+      "effect": "The caster may heal a friendly <Canoptek> or <Necron> unit for 1D3 wounds. Dead models may be revived with this ability. Injured models have to be fully healed first.",
       "duration": "Immediately",
       "complexity": "Simple"
     }

@@ -120,7 +120,8 @@ export const hazardBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Pulse submunition rifle"]
     },
     {
       "header": "Any model may pick up to two SUPPORT SYSTEMS from the armory.",

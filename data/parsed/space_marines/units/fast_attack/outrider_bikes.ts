@@ -184,7 +184,8 @@ export const outriderBikes: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Onslaught gatling cannon"]
     },
     {
       "header": "The Outrider Sergeant may be upgraded to a Veteran Outrider Sergeant for +10 points and gains access to weapons and gear from the Armory.",

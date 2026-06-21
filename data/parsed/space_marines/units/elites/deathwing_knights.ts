@@ -1,9 +1,23 @@
 /**
  * DEATHWING KNIGHTS — Elites
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE: Space Marines ENG.ods, "Deathwing Knights" sheet (canonical datasheet)
+ * ───────────────────────────────────────────────────────────────────────────
  *
+ * EQUIPPED WITH: Every model is equipped with: Power sword; Storm shield.
+ *
+ * OPTIONS:
+ *   • Each model may replace their Power sword: Mace of Absolution +1pt
+ *   • The Knight Master may replace his Power sword: Relic blade +7pts / Flail of the Unforgiven +8pts
+ *   • The Knight Master has access to weapons and gear from the Armory.
+ *   • The unit may gain one Veteran ability.
+ *
+ * ENGINE STATUS:
+ *   🔴 The Knight Master's own "replace his Power sword" group had NO `replaces` link (found
+ *      2026-06-21, global replaces audit) — added `replaces: ["Power sword"]`. Safe to sum with
+ *      the squad-wide group above (both share one Power-sword-per-model pool across the unit's
+ *      single combined `item.size`, unlike Carnifex Brood/Talos which have 2 weapon COPIES per
+ *      model — same accumulation pattern already used for Traitor Guard's dual-group Lasgun swap).
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -102,7 +116,8 @@ export const deathwingKnights: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power sword"]
     },
     {
       "header": "The Knight Master may replace his Power sword",
@@ -121,7 +136,8 @@ export const deathwingKnights: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power sword"]
     }
   ],
   "abilities": [

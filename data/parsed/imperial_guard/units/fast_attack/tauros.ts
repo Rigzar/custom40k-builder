@@ -1,9 +1,26 @@
 /**
  * TAUROS — Fast Attack
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
- * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
+ * SOURCE: Imperial Guard ENG.ods, "Tauros" sheet (canonical datasheet)
+ * ───────────────────────────────────────────────────────────────────────────
  *
+ * EQUIPPED WITH: A Tauros is equipped with: Tauros grenade launcher.
+ *
+ * WEAPONS:
+ *   Tauros grenade launcher * (multi-profile):
+ *     - Frag grenade   24"  Assault 2  S4  AP0   D1  Explosive
+ *     - Krak grenade   24"  Assault 2  S6  AP-2  D1  -
+ *
+ * OPTIONS:
+ *   • A Tauros may swap its Tauros grenade launcher: Heavy flamer +4pts
+ *
+ * ENGINE STATUS:
+ *   🔴 "Tauros grenade launcher" had NO weapon profile in `weapons[]` at all (only mentioned in
+ *      equipped_with) — found 2026-06-21 while auditing the unit's "may swap" option group for a
+ *      missing `replaces` link. Added both multi-profile entries from the .ods above, and the
+ *      `replaces` array on the swap group (engine does exact-name matching against weapons[],
+ *      so a multi-profile weapon needs ALL its profile-suffixed names listed — same convention
+ *      as Combi-weapons across CSM/SM/IG).
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -52,6 +69,24 @@ export const tauros: Unit = {
   ],
   "equipped_with": "A Tauros is equipped with: Tauros grenade launcher.",
   "weapons": [
+    {
+      "name": "Tauros grenade launcher - Frag grenade",
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Tauros grenade launcher - Krak grenade",
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
     {
       "name": "Heavy flamer",
       "range": "9\"",
@@ -113,7 +148,8 @@ export const tauros: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Tauros grenade launcher - Frag grenade", "Tauros grenade launcher - Krak grenade"]
     },
     {
       "header": "A Tauros Venator may swap its Twin-linked heavy stubber",
@@ -132,7 +168,8 @@ export const tauros: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy stubber"]
     }
   ],
   "abilities": [

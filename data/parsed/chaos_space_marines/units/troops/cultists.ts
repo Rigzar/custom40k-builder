@@ -221,7 +221,8 @@ export const cultists: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Machine gun"]
     },
     {
       "header": "For every 10 models, one Cultist may swap their Machine gun",

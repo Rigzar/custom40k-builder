@@ -211,7 +211,8 @@ export const bikeSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolter"]
     },
     {
       "header": "Two Bikers may be equipped with one each",

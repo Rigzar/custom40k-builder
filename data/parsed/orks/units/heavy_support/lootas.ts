@@ -167,7 +167,8 @@ export const lootas: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Choppa", "Slugga"]
     },
     {
       "header": "Can get one Kustom job.",

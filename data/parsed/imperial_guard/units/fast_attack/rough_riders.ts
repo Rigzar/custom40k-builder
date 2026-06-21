@@ -307,7 +307,8 @@ export const roughRiders: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Chainsword"]
     },
     {
       "header": "All remaining models may swap their Chainsword",
@@ -326,7 +327,8 @@ export const roughRiders: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Chainsword"]
     },
     {
       "header": "Up to two Rough Riders may take a special weapon",

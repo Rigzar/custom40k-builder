@@ -221,6 +221,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Mechanised Company': { ...BASE,
     bannedUnits: ['Leman Russ Tank Commander', 'Leman Russ Commissar'],
+    lowMoveMustEmbark: { creatureOnly: true },
     notes: [
       'Dedicated Transports from Mechanised Infantry squads count at 50% of their points toward the 25% Troops requirement.',
       'All creature units with M<12" must start the game as passengers inside a transport.',
@@ -279,25 +280,29 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Brood Brothers': { ...BASE,
+    forcedAbility: { name: 'Ambush', pointsPerWound: 1, creatureOnly: true },
     notes: [
       'Treated as Allies of Convenience for Genestealer Cults.',
-      'All units must gain the "Ambush" ability at +1 pt per Wound.',
+      'All creature units must gain the "Ambush" ability at +1 pt per Wound (no opt-out).',
       'Models with Armory access may also use the Genestealer Cult Armory.',
     ],
   },
 
   'Gue\'vesa': { ...BASE,
+    forcedAbility: { name: 'Supporting Fire', pointsPerWound: 1, pointsPerHull: 2 },
     notes: [
       'Treated as Allies of Convenience for Tau Empire.',
-      'All units must gain "Supporting Fire" at +1 pt per Wound or +2 pts per Hull point.',
-      'Creature units equipped with a Lasgun may exchange it for a Pulse rifle at +3 pts.',
+      'All units must gain "Supporting Fire" at +1 pt per Wound or +2 pts per Hull point (no opt-out).',
+      'Creature units equipped with a Lasgun may exchange it for a Pulse rifle at +3 pts per model.',
+      'Creature units equipped with a Hot-shot lasgun may exchange it for a Pulse rifle at +2 pts per model.',
     ],
   },
 
-  'Traitor Guard': { ...BASE, noLegacy: true,
+  'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
     notes: [
       'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
-      'All units may purchase a Mark of Chaos: +1 pt/model Khorne or Slaanesh, +2 pts/model Nurgle or Tzeentch; vehicles +10 pts each.',
+      'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',
+      'A Mark of Chaos counts as the unit\'s veteran ability, same as Chaos Space Marines.',
       'Models with Armory access may also use the Chaos Space Marine Armory.',
       'No Legacy may be selected.',
     ],

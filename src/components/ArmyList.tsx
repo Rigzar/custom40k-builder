@@ -3,6 +3,7 @@ import { UnitCard } from './UnitCard';
 import { SLOT_ORDER } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot } from '../engine/archetypes';
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
+import { applyPlatoonSlotOverride } from '../engine/codex_imperial_guard/platoon';
 import { resolveUnit, computeUnitPoints } from '../engine/points';
 import { SLOT_ICONS } from '../assets/slotIcons';
 
@@ -44,7 +45,8 @@ export function ArmyList() {
       {SLOT_ORDER.map(slot => {
         const slotUnits = army.filter(item => {
           const u = data.units[item.unitName];
-          return applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule)) === slot;
+          const baseSlot = applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule));
+          return applyPlatoonSlotOverride(item, army, baseSlot) === slot;
         });
         if (slotUnits.length === 0) return null;
 

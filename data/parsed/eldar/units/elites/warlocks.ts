@@ -54,7 +54,7 @@ export const warlocks: Unit = {
         "type": "one"
       },
       "choices": [],
-      "inline_pts": 500,
+      "inline_pts": 0,
       "variant_link": null,
       "is_unique_per_army": false
     }

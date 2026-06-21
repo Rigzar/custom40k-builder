@@ -66,7 +66,8 @@ export const raider: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Disintegrator cannon"]
     },
     {
       "header": "Can be equipped with a Flickerfield for +40 points.",

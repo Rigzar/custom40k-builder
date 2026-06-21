@@ -174,7 +174,8 @@ export const purifierSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "For every 5 models, two Purifiers may swap their Nemesis falchions and Storm bolter",

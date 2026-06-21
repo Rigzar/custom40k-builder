@@ -98,7 +98,8 @@ export const tombBlades: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin tesla carbine"]
     }
   ],
   "abilities": [

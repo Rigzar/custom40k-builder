@@ -194,7 +194,8 @@ export const mutants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Crude melee weapon"]
     },
     {
       "header": "Up to three models may swap their Crude melee weapon",

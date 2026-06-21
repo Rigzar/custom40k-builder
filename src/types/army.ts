@@ -57,6 +57,19 @@ export interface RosterEntry {
   /** ID of the roster unit this character is pre-assigned to join at deployment. */
   joinedToUnit?: string | null;
   /**
+   * Imperial Guard "Platoon" grouping: ID of the Platoon Command Squad this unit is attached
+   * to. PCS + its linked Infantry Squads / Conscript Infantry Platoon / Special Weapon Squad /
+   * Heavy Weapon Squad together occupy a single Troops slot, not one each (confirmed by rules
+   * owner 2026-06-20). Null/undefined = not linked (counts at its own normal slot).
+   */
+  platoonId?: string | null;
+  /** Gue'vesa archetype: count of models in this unit swapping their Lasgun for a Pulse rifle
+   * (+3 pts/model, ods-verbatim). Capped at `size`. */
+  gueVesaLasgunSwaps?: number;
+  /** Gue'vesa archetype: count of models swapping their Hot-shot lasgun for a Pulse rifle
+   * (+2 pts/model, ods-verbatim). Capped at `size`. */
+  gueVesaHotshotSwaps?: number;
+  /**
    * Mixed Warband trait: locks this unit to a single legacy armory key.
    * When two legacies are active and Mixed Warband is in the trait pool,
    * each unit may only purchase items from ONE legacy armory.
@@ -71,6 +84,15 @@ export interface RosterEntry {
    * their min value. `size` is kept in sync as the sum of all group sizes.
    */
   modelSizes?: Record<string, number>;
+  /**
+   * Yngir archetype (Necrons): "One C'tan shard (any kind) counts as an HQ selection. The model
+   * gains +1 Strength, Toughness, Initiative, Attacks and a 2+ armor save... It costs an
+   * additional +85 points." (ods-verbatim, Army Customisation). Per-instance toggle since only
+   * ONE C'tan Shard unit in the whole army may take the upgrade, even with multiple Shards
+   * fielded — enforced by a uniqueness validator, same shape as the existing
+   * `is_unique_per_army` variant-promotion check.
+   */
+  ctanYngirUpgrade?: boolean;
 }
 
 export interface ArmyState {

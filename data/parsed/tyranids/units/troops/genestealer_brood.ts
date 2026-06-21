@@ -166,7 +166,7 @@ export const genestealerBrood: Unit = {
   "is_vehicle": false,
   "is_character": false,
   "is_psyker": true,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

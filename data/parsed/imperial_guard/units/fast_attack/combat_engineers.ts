@@ -139,7 +139,8 @@ export const combatEngineers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Machine pistol"]
     },
     {
       "header": "For each 5 models, one Combat Engineer may swap their Machine pistol",

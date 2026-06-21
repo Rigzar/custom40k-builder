@@ -103,7 +103,8 @@ export const broadsideBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["High-yield missile pod"]
     },
     {
       "header": "Any model can be equipped with one of the following",

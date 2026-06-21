@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const FORMSPREE = 'https://formspree.io/f/xojbvbej';
+const BUG_REPORT_ENDPOINT = '/api/bug-report';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -19,11 +19,10 @@ export function BugReportModal({ onClose, currentFaction }: Props) {
     if (!what.trim()) return;
     setStatus('sending');
     try {
-      const res = await fetch(FORMSPREE, {
+      const res = await fetch(BUG_REPORT_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          subject: `[Bug] ${what.trim().slice(0, 80)}`,
           what: what.trim(),
           expected: expected.trim() || '(not provided)',
           faction: where.trim() || '(not provided)',

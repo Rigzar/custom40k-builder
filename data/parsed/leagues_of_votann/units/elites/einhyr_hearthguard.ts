@@ -111,7 +111,8 @@ export const einhyrHearthguard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Plasma blade gauntlet"]
     },
     {
       "header": "Each model may swap their Volkanite disintegrator",
@@ -126,7 +127,8 @@ export const einhyrHearthguard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Volkanite disintegrator"]
     },
     {
       "header": "All models in the unit may take a crest",

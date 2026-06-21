@@ -75,7 +75,8 @@ export const venom: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin splinter rifle"]
     },
     {
       "header": "Can be equipped with a Flickerfield for +40 points.",

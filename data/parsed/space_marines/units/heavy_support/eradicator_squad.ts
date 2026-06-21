@@ -139,7 +139,8 @@ export const eradicatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Melta rifle"]
     },
     {
       "header": "The Eradicator Sergeant may be upgraded to a Veteran Eradicator Sergeant for +10 points and gains access to weapons and gear from the Armory.",

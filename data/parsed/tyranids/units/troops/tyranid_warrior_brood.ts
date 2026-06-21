@@ -156,7 +156,8 @@ export const tyranidWarriorBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Scything talons"]
     },
     {
       "header": "Each model may swap their Spinefists",
@@ -179,7 +180,8 @@ export const tyranidWarriorBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Spinefists"]
     },
     {
       "header": "May select one Special Biomorph",

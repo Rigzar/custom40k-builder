@@ -143,7 +143,8 @@ export const centurionDevastatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Grav cannon"]
     },
     {
       "header": "Any model may swap the Hurricane Boltgun",
@@ -158,7 +159,8 @@ export const centurionDevastatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Hurricane Boltgun"]
     },
     {
       "header": "The Centurion Sergeant may be upgraded to a Veteran Centurion Sergeant for +10 points and gains access to weapons and gear from the Armory.",

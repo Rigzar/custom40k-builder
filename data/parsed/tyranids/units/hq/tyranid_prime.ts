@@ -119,7 +119,8 @@ export const tyranidPrime: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Scything talons"]
     },
     {
       "header": "May swap its Spinefists",
@@ -142,7 +143,8 @@ export const tyranidPrime: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Spinefists"]
     },
     {
       "header": "May select one Special Biomorph",

@@ -141,7 +141,10 @@ export const direAvengers: Unit = {
       "choices": [],
       "inline_pts": 5,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "effect": {
+        "grants_abilities": ["Shimmershield: The model and its attached unit gain a 4+ invulnerability save in melee."]
+      }
     },
     {
       "header": "The Exarch can gain one Exarch Power",
@@ -173,8 +176,7 @@ export const direAvengers: Unit = {
   ],
   "abilities": [
     "Battle Focus, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
-    "Shimmershield: The model and its attached unit gain a 4+ invulnerability save in melee."
+    "Aspect armor: The model gains a 5+ invulnerability save."
   ],
   "unit_type": "Infantry",
   "keywords": [

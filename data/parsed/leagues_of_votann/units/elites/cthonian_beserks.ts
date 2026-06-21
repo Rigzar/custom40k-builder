@@ -84,7 +84,8 @@ export const cthonianBeserks: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy plasma axe"]
     },
     {
       "header": "For every 5 models, two Cthonian Beserk may swap their Heavy plasma axe",

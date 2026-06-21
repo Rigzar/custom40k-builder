@@ -116,7 +116,8 @@ export const troupe: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken pistol"]
     },
     {
       "header": "One model may be upgraded to a Lead Player for +23 points and gains access to weapons and gear from the Armory.",

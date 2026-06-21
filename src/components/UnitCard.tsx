@@ -8,6 +8,7 @@ import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
 import { getArchetypeRule } from '../engine/archetypes';
+import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/resolvers/chaos_daemons';
 import { MarkBadge } from './MarkBadge';
@@ -163,7 +164,7 @@ function resolveChoiceWeapons(u: Unit, choiceName: string): { weapons: Weapon[];
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
+  const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -186,6 +187,7 @@ export function UnitCard({ item }: Props) {
     injectedAbilities, injectedRuleNotes, equipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
+    ctanYngirActive,
     optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
@@ -203,6 +205,10 @@ export function UnitCard({ item }: Props) {
   // Conditional ones (Desecration "near objectives") stay only in Abilities section text.
   const baseInvSave = parseInvSaveFromAbilities(u.abilities ?? []);
   const equipInvSave = equipMods.invulnSave;
+  // Option-granted abilities (e.g. Dire Avenger Exarch's purchased Shimmershield) are gated on
+  // the option actually being selected (see resolver.ts's optionAbilities/effect.grants_abilities),
+  // unlike u.abilities — which is why they need their own scan rather than folding into baseInvSave.
+  const optionInvSave = parseInvSaveFromAbilities(optionAbilities);
   // Trait inv saves: "X+ Invulnerability Save" in traitAbilities (from inv_save effect)
   // + Berserk(X+) ability name (gives X+ inv per core rules)
   const traitInvSave: number | null = traitAbilities.reduce<number | null>((best, ta) => {
@@ -212,7 +218,7 @@ export function UnitCard({ item }: Props) {
     if (m2) { const v = parseInt(m2[1]); return best === null || v < best ? v : best; }
     return best;
   }, null);
-  const allInvCandidates = [baseInvSave, equipInvSave, traitInvSave].filter((v): v is number => v !== null);
+  const allInvCandidates = [baseInvSave, equipInvSave, optionInvSave, traitInvSave].filter((v): v is number => v !== null);
   const effectiveInvSv: number | null = allInvCandidates.length > 0 ? Math.min(...allInvCandidates) : null;
   // Source markers for ◆ indicator
   const invSvFromEquip = equipInvSave !== null && (baseInvSave === null || equipInvSave <= (baseInvSave ?? 99)) && equipInvSave === effectiveInvSv;
@@ -243,7 +249,12 @@ export function UnitCard({ item }: Props) {
   // instead of the generic bottom Armory button.
   const builtInChampion = u.models.length > 1 && u.models[1].min === 1 && u.models[1].max === 1 ? u.models[1] : null;
   const championArmoryInOwnBlock = !!builtInChampion && u.champion_has_armory && !armoryGatedByVariant;
-  const showArmory = u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock) || (variantActive && !armoryGatedByVariant);
+  // NOTE: a bare `variantActive` fallback (any promoted variant model gets Armory access,
+  // regardless of has_armory_access/champion_has_armory) used to live here. Audited 2026-06-21
+  // against every faction's variant_models units: zero genuinely need it — Eldar Exarchs/Klaivex
+  // etc. have their own fixed-cost option_groups for wargear, no Armory mechanic. Removed; if a
+  // promoted variant genuinely needs Armory, set champion_has_armory/has_armory_access explicitly.
+  const showArmory = u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock);
 
   // Legacy of the Alien Hunters: "Each model can receive the 'Special ammunition' equipment,
   // regardless of whether it has access to the armory." — universal toggle bypassing showArmory.
@@ -430,6 +441,122 @@ export function UnitCard({ item }: Props) {
         );
       })()}
 
+      {/* ── Platoon link (Imperial Guard "Platoon" grouping, ki-45b) ──
+           Infantry Squad / Conscript Infantry Platoon / Special Weapon Squad / Heavy Weapon
+           Squad linked to a live Platoon Command Squad fold into that PCS's single Troops
+           slot instead of each costing their own. */}
+      {data?.faction === 'Imperial Guard' && !item.factionSource && isPlatoonMemberUnit(item.unitName) && (() => {
+        const anchors = listPlatoonAnchors(army);
+        if (anchors.length === 0) return null;
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">↳ Platoon</span>
+            <select
+              value={item.platoonId ?? ''}
+              onChange={e => setPlatoonLink(item.id, e.target.value || null)}
+              className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+            >
+              <option value="">— independent (own slot) —</option>
+              {anchors.map(a => (
+                <option key={a.id} value={a.id}>
+                  {a.customName || PLATOON_ANCHOR_UNIT} ({a.id.slice(0, 6)})
+                </option>
+              ))}
+            </select>
+          </div>
+        );
+      })()}
+
+      {/* ── Traitor Guard Mark of Chaos (IG units have no native mark group of their own) ──
+           ods-verbatim "point cost per model and per Wound": Khorne/Slaanesh +1, Nurgle/Tzeentch
+           +2 per model per Wound; vehicles flat +10 any mark. Counts as the unit's veteran
+           ability (rules owner, 2026-06-20) — already wired via grantsMarkPurchase in
+           resolver.ts/ArmoryModal.tsx's hasMarkGroup, no extra UI needed for that part. */}
+      {data?.faction === 'Imperial Guard' && archetype === 'Traitor Guard' && !item.factionSource && !u.locked_mark && (
+        <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+          <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">↳ Mark of Chaos</span>
+          <select
+            value={item.mark ?? ''}
+            onChange={e => updateUnit(item.id, { mark: (e.target.value || null) as typeof item.mark })}
+            className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+          >
+            <option value="">— none —</option>
+            {u.is_vehicle ? (
+              <>
+                <option value="Khorne">Khorne (+10pts flat)</option>
+                <option value="Slaanesh">Slaanesh (+10pts flat)</option>
+                <option value="Nurgle">Nurgle (+10pts flat)</option>
+                <option value="Tzeentch">Tzeentch (+10pts flat)</option>
+              </>
+            ) : (
+              <>
+                <option value="Khorne">Khorne (+1pt/model/Wound)</option>
+                <option value="Slaanesh">Slaanesh (+1pt/model/Wound)</option>
+                <option value="Nurgle">Nurgle (+2pts/model/Wound)</option>
+                <option value="Tzeentch">Tzeentch (+2pts/model/Wound)</option>
+              </>
+            )}
+          </select>
+        </div>
+      )}
+
+      {/* ── Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) ──
+           Only ONE entry in the whole army may take this — hard-enforced by disabling the
+           toggle (not just a warning note) once another C'tan Shard entry already has it. */}
+      {data?.faction === 'Necrons' && archetype === 'Yngir' && !item.factionSource && /^C'tan Shard/.test(u.name) && (() => {
+        const otherActive = army.some(e => e.id !== item.id && e.ctanYngirUpgrade && /^C'tan Shard/.test(e.unitName));
+        const checked = !!item.ctanYngirUpgrade;
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+            <label
+              onClick={() => { if (!otherActive || checked) updateUnit(item.id, { ctanYngirUpgrade: !checked }); }}
+              className={`flex items-center gap-2 text-[11px] ${otherActive && !checked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
+            >
+              <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
+                {checked && <span className="text-[8px] text-white leading-none">✓</span>}
+              </div>
+              <span className="text-zinc-300">↳ Yngir's chosen C'tan Shard (HQ slot, +1 S/T/I/A, 2+ Sv, +85pts)</span>
+            </label>
+            {otherActive && !checked && (
+              <span className="text-[10px] text-red-400/80">Another C'tan Shard already has this</span>
+            )}
+          </div>
+        );
+      })()}
+
+      {/* ── Gue'vesa Lasgun/Hot-shot lasgun → Pulse rifle swap (per model, ods-verbatim) ── */}
+      {data?.faction === 'Imperial Guard' && archetype === 'Gue\'vesa' && !item.factionSource && !u.is_vehicle && (() => {
+        const hasLasgun = (u.equipped_with ?? '').includes('Lasgun');
+        const hasHotshot = (u.equipped_with ?? '').includes('Hot-shot lasgun');
+        if (!hasLasgun && !hasHotshot) return null;
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex flex-col gap-1">
+            {hasLasgun && (
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0 flex-1">↳ Lasgun → Pulse rifle (+3pt/model)</span>
+                <input
+                  type="number" min={0} max={item.size}
+                  value={item.gueVesaLasgunSwaps ?? 0}
+                  onChange={e => updateUnit(item.id, { gueVesaLasgunSwaps: Math.max(0, Math.min(item.size, parseInt(e.target.value, 10) || 0)) })}
+                  className="w-14 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+                />
+              </div>
+            )}
+            {hasHotshot && (
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0 flex-1">↳ Hot-shot lasgun → Pulse rifle (+2pt/model)</span>
+                <input
+                  type="number" min={0} max={item.size}
+                  value={item.gueVesaHotshotSwaps ?? 0}
+                  onChange={e => updateUnit(item.id, { gueVesaHotshotSwaps: Math.max(0, Math.min(item.size, parseInt(e.target.value, 10) || 0)) })}
+                  className="w-14 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+                />
+              </div>
+            )}
+          </div>
+        );
+      })()}
+
       {!collapsed && (
         <div className="space-y-0 md:grid md:grid-cols-2 md:items-start">
           {/* Default loadout */}
@@ -592,6 +719,16 @@ export function UnitCard({ item }: Props) {
                         if (optionDelta !== 0) {
                           const r = applyDelta(display, optionDelta);
                           if (r.modified) { display = r.display; optionBoosted = true; }
+                        }
+
+                        // Yngir: C'tan Shard upgrade floors the save at 2+ (ods-verbatim) — same
+                        // "set if better" pattern as equipMods.armorSave above.
+                        if (k === 'SV' && ctanYngirActive) {
+                          const existing = display.match(/(\d+)\+/);
+                          if (!existing || 2 < parseInt(existing[1])) {
+                            display = '2+';
+                            optionBoosted = true;
+                          }
                         }
 
                         const cellClass = markBoosted

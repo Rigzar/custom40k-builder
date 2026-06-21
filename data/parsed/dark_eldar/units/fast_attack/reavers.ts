@@ -116,7 +116,8 @@ export const reavers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Splinter rifle"]
     },
     {
       "header": "One model may be upgraded to an Arena Champion for +10pts and gains access to weapons and gear from the Armory.",

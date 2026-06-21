@@ -120,7 +120,8 @@ export const barracudaAirSuperiorityFighter: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Long-barrelled burst cannon"]
     },
     {
       "header": "Can replace its Swiftstrike burst cannon",
@@ -139,7 +140,8 @@ export const barracudaAirSuperiorityFighter: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Swiftstrike burst cannon"]
     },
     {
       "header": "Can get up to 4 Seeker missiles from the Armory.",

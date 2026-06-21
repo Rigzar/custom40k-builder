@@ -190,7 +190,8 @@ export const scoutSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combat knife"]
     },
     {
       "header": "One Scout may swap their Combat knife",

@@ -111,7 +111,8 @@ export const reiverMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt carbine"]
     },
     {
       "header": "The whole squad may be equipped with Grav-chutes and Grappling hooks for +2 points per model.",

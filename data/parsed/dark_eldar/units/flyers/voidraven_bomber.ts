@@ -84,7 +84,8 @@ export const voidravenBomber: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Dark scythe"]
     },
     {
       "header": "Can be equipped with Voidraven missiles for +51 points.",

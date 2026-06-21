@@ -300,7 +300,8 @@ export const chaosTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combi-bolter"]
     },
     {
       "header": "Every Chaos Terminator may swap their Power sword with",
@@ -331,7 +332,8 @@ export const chaosTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Power sword"]
     },
     {
       "header": "Every Chaos Terminator may swap their Combi-bolter and Power sword with",
@@ -346,7 +348,8 @@ export const chaosTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combi-bolter", "Power sword"]
     },
     {
       "header": "For each 5 models, two Terminators may swap their Combi-bolters with",

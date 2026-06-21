@@ -241,7 +241,8 @@ export const veterans: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Lasgun"]
     },
     {
       "header": "One Veteran may be equipped with: +5 points Vox.",

@@ -111,7 +111,8 @@ export const razorwingJetfighter: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Disintegrator cannon"]
     },
     {
       "header": "Can replace its Twin splinter rifle",
@@ -126,7 +127,8 @@ export const razorwingJetfighter: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin splinter rifle"]
     },
     {
       "header": "Can be equipped with a Flickerfield for +41 points.",

@@ -165,7 +165,8 @@ export const paladinSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "For every 5 models, two Paladins may swap their Storm bolter",

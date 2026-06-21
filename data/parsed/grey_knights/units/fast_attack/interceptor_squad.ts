@@ -155,7 +155,8 @@ export const interceptorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "For every 5 models, one Interceptor may swap their Nemesis falchions and Storm bolter",

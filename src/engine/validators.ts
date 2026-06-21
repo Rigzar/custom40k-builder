@@ -12,6 +12,9 @@ import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
+import {
+  PLATOON_ANCHOR_UNIT, PLATOON_MEMBER_LIMITS, applyPlatoonSlotOverride, countsTowardOwnSlot,
+} from './codex_imperial_guard/platoon';
 
 export interface ValidationItem {
   type: 'error' | 'warn' | 'ok';
@@ -36,8 +39,12 @@ function getSlotUsage(
     if (countAllied !== undefined && isAllied !== countAllied) return false;
     const u = resolveUnit(i, data);
     if (u?.advisor && engagement !== 'skirmish') return false;
-    const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
-    return effSlot === slot;
+    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+    const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
+    if (effSlot !== slot) return false;
+    // IG Platoon grouping (ki-45b): a member linked to a live Platoon Command Squad is folded
+    // into that PCS's single Troops slot — it doesn't cost its own.
+    return countsTowardOwnSlot(i, army);
   }).length;
 }
 
@@ -209,6 +216,39 @@ export function computeAssassinFreeSlots(
     elites: total - 1,
     notes: [`"Cults Abominatioe"/"Execution Force": Assassin selection (${total} unit${total === 1 ? '' : 's'}) occupies a single Elite slot.`],
   };
+}
+
+/**
+ * Eldar Warlocks: "For every 500 points of game size, a single Warlock may be included in
+ * the army that does not take up an Elite slot." (Warlocks.ods) — a composition rule, not a
+ * wargear purchase: the option itself costs 0 (see warlocks.ts's inline_pts), and how many
+ * Warlock entries can claim the exemption is capped by the army's configured game size
+ * (`state.pointLimit`), not by anything purchasable. Mirrors computeAssassinFreeSlots' pattern
+ * (collapse N flagged entries → a slot credit), but the credit is additionally capped at
+ * floor(pointLimit / 500) rather than unconditional.
+ */
+export function computeEldarWarlockFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+  pointLimit: number,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Eldar') return { elites: 0, notes: [] };
+  let flagged = 0;
+  for (const item of army) {
+    const u = resolveUnit(item, data);
+    if (!u || u.name !== 'Warlocks') continue;
+    const gi = u.option_groups.findIndex(g => /does not take up an Elite slot/i.test(g.header));
+    if (gi < 0) continue;
+    if (item.optionQty?.[gi]?.['__inline']) flagged++;
+  }
+  if (flagged === 0) return { elites: 0, notes: [] };
+  const cap = Math.floor(pointLimit / 500);
+  const credited = Math.min(flagged, cap);
+  const notes = [`Warlocks: ${credited} of ${flagged} "no Elite slot" pick${flagged === 1 ? '' : 's'} credited (1 per 500pts of game size, ${pointLimit}pts → max ${cap}).`];
+  if (flagged > cap) {
+    notes.push(`Warlocks: ${flagged - cap} extra "no Elite slot" pick${flagged - cap === 1 ? '' : 's'} exceed the game-size cap and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
 }
 
 export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {
@@ -864,6 +904,19 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // Yngir: "One C'tan shard (any kind)" — defense in depth alongside the UI toggle's
+  // disable-the-other-instances guard (ods-verbatim, only 1 per army regardless of how many
+  // C'tan Shards are fielded).
+  if (state.archetype === 'Yngir') {
+    const ctanYngirCount = state.army.filter(i => i.ctanYngirUpgrade && /^C'tan Shard/.test(i.unitName)).length;
+    if (ctanYngirCount > 1) {
+      items.push({
+        type: 'error',
+        text: `Yngir: only 1 C'tan Shard may take the HQ upgrade per army (have ${ctanYngirCount}).`,
+      });
+    }
+  }
+
   // CD special rules: Entourage / Herald / Bound Beast
   const cdFree = computeCdFreeSlots(state.army, data, rule);
   for (const note of cdFree.notes) {
@@ -874,6 +927,12 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // Elite slot (any Chaos or Imperial army — the Assassins' OWN universal grant)
   const assassinFree = computeAssassinFreeSlots(state.army, data);
   for (const note of assassinFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Eldar Warlocks: "1 free per 500pts of game size" Elite-slot exemption (Warlocks.ods)
+  const warlockFree = computeEldarWarlockFreeSlots(state.army, data, state.pointLimit);
+  for (const note of warlockFree.notes) {
     items.push({ type: 'ok', text: note });
   }
 
@@ -921,7 +980,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
     const slotAdj = slot === 'HQ' ? cdFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -1143,6 +1202,27 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // ── Imperial Guard "Platoon" grouping ratios (ki-45b) ────────────────────────
+  // Rules-owner clarification 2026-06-20: per Platoon Command Squad, 2-5 Infantry Squads,
+  // 0-1 Conscript Infantry Platoon, 0-2 Special Weapon Squads, 0-3 Heavy Weapon Teams may be
+  // linked — together they occupy that PCS's single Troops slot. Validate the linked counts
+  // per PCS instance (unlinked members aren't part of any platoon, so they're not checked here
+  // — they each cost their own normal slot per countsTowardOwnSlot()).
+  {
+    const pcsUnits = state.army.filter(i => i.unitName === PLATOON_ANCHOR_UNIT && !i.factionSource);
+    for (const pcs of pcsUnits) {
+      for (const [memberName, { min, max }] of Object.entries(PLATOON_MEMBER_LIMITS)) {
+        const linkedCount = state.army.filter(i => i.unitName === memberName && i.platoonId === pcs.id).length;
+        if (linkedCount < min || linkedCount > max) {
+          items.push({
+            type: 'error',
+            text: `${pcs.unitName} (${pcs.customName ?? pcs.id.slice(0, 6)}): ${linkedCount} linked ${memberName} (allowed ${min}-${max}).`,
+          });
+        }
+      }
+    }
+  }
+
   // AOP slot maxes (main faction only — exclude allied units)
   for (const slot of SLOT_ORDER) {
     if (slot === 'Lords of War') continue; // Escalation: handled by the dedicated block above
@@ -1151,7 +1231,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
     const slotAdj = slot === 'HQ' ? cdFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

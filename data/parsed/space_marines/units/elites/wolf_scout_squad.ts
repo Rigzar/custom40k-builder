@@ -164,7 +164,8 @@ export const wolfScoutSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combat knife"]
     },
     {
       "header": "One Wolf Scout may swap their Combat knife",

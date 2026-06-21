@@ -38,6 +38,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
 
+  // Yngir (Necrons): "The range for each C'tan power is increased by 6"" (ods-verbatim) — only
+  // for the one flagged C'tan Shard, mirrors the HQ/stat/save mods applied in resolver.ts.
+  const ctanYngirActive = archetype === 'Yngir' && !!item.ctanYngirUpgrade && /^C'tan Shard/.test(unit.name);
+  const bumpRange = (range: string | undefined): string | undefined => {
+    if (!ctanYngirActive || !range) return range;
+    const m = range.match(/^(\d+)"$/);
+    return m ? `${parseInt(m[1], 10) + 6}"` : range;
+  };
+
   // GK legacy power: each legacy grants all psykers one fixed always-known power.
   // Same display pattern as Smite ("Always known" badge). Null for all other factions.
   const legacyPower = getLegacyExtraPower(data.faction, legacy ?? legacy2 ?? '');
@@ -106,6 +115,14 @@ export function PsychicModal({ item, unit, onClose }: Props) {
         return true;
       });
     }
+  }
+
+  // Necrons: every is_psyker unit (C'tan Shards + named variants, Dynasty Phaeron, Tesseract
+  // Vault) is explicitly "Powers of the C'tan: ... knows all the powers from the list of C'tan
+  // powers" (ods-verbatim) — there is no generic-discipline-access wording for any of them, so
+  // unlike every other faction they never see GENERAL_DISCIPLINES at all, only their own "Powers".
+  if (data.faction === 'Necrons' && hasPowers) {
+    allowedDiscs = allowedDiscs.filter(([discName]) => !Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName));
   }
 
   // ── Psyker mechanic from ability text ────────────────────────────────────────
@@ -365,7 +382,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                               )}
                             </div>
                             <div className="text-[10px] text-zinc-500 mt-0.5">
-                              {[p.type, p.range, p.cast_value ? `Cast: ${p.cast_value}` : null]
+                              {[p.type, bumpRange(p.range), p.cast_value ? `Cast: ${p.cast_value}` : null]
                                 .filter(Boolean).join(' · ')}
                             </div>
                             {p.effect && (

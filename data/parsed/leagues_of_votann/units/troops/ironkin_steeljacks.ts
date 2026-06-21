@@ -107,7 +107,8 @@ export const ironkinSteeljacks: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Plasma sword"]
     },
     {
       "header": "One model may be upgraded to a Theyn for +10pts and gains access to weapons and gear from the Armory.",

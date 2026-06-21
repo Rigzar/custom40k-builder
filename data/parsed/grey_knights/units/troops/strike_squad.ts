@@ -155,7 +155,8 @@ export const strikeSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "For every 5 models, one Grey Knight may swap their Nemesis falchions and Storm bolter",
