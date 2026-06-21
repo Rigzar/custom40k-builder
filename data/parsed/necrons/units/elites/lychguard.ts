@@ -16,6 +16,7 @@ export const lychguard: Unit = {
       "points": 67,
       "min": 1,
       "max": 10,
+      "squad_min": 4,
       "stats": {
         "M": "6\"",
         "WS": "2+",

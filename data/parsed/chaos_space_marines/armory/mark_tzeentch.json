@@ -233,11 +233,6 @@
       "effect": {
         "adds_unit_types": [
           "Jetbike"
-        ],
-        "stat_mod": [
-          { "stat": "M", "delta": 6 },
-          { "stat": "W", "delta": 1 },
-          { "stat": "A", "delta": 1 }
         ]
       }
     },

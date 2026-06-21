@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, ctanShardCapBlockReason } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -128,7 +128,7 @@ export function SlotPanel() {
       if (isArmyItemGateBlocked(u, rosterArmoryItemNames)) continue;
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) {
-        const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? undefined;
+        const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? ctanShardCapBlockReason(name, data.faction, army) ?? undefined;
         effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost, disabledReason });
       }
     }

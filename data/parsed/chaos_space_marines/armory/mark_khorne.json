@@ -120,12 +120,6 @@
       "effect": {
         "adds_unit_types": [
           "Bike"
-        ],
-        "stat_mod": [
-          { "stat": "M", "delta": 6 },
-          { "stat": "T", "delta": 1 },
-          { "stat": "W", "delta": 2 },
-          { "stat": "A", "delta": 1 }
         ]
       }
     },

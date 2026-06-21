@@ -201,7 +201,8 @@
       "pts_char": "0",
       "pts_monster": "0",
       "pts_veh": null,
-      "enables_second_legacy": false
+      "enables_second_legacy": false,
+      "veteran_max_bonus": 1
     }
   ]
 }

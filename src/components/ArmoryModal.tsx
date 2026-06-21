@@ -209,6 +209,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // column matching its own role — see resolveEldarCharPrice. A squad buyer (e.g. Warlocks)
     // still falls through to the generic `up` branch below, which already happens to be correct.
     if (activeData.faction === 'Eldar' && isChar) return resolveEldarCharPrice(arm, unit);
+    // Necrons Cryptek: "POINTS CRYPTEK" (p_unit) / "POINTS LORD" (p_char) are mutually exclusive
+    // tiers, not a character/squad split — most rows only have ONE of the two columns filled in
+    // (Lord-exclusive gear like "War scythe"/"Lord of the Storm" has no Cryptek price at all).
+    // "Dynasty Scion: ...has access to Lord equipment in the Armory, instead of Cryptek" means a
+    // base Cryptek must price off p_unit only (and Lord-exclusive items become unbuyable, since
+    // their p_unit is null), while Dynasty Scion flips to p_char only (ki-necrons-cryptek-
+    // dynastyscion-novariant-01). Without this, `isChar` alone (true either way) always preferred
+    // p_char, wrongly letting a base Cryptek buy Lord-exclusive gear.
+    if (activeData.faction === 'Necrons' && unit.name === 'Cryptek') return activeVariant ? cp : up;
     // Other factions: characters use p_char (flat cost), squads use p_unit (per-model).
     // A squad's Character-scoped buyer (built-in Champion / promoted variant) also pays p_char.
     return (isChar || hasCharacterScopedBuyer) ? (cp ?? up) : up;
@@ -363,19 +372,25 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string) {
     let pts: number;
+    let scaling: 'perWound' | 'perModel' | undefined;
     if (arm.category === 'veteran') {
       // Cost is per wound per model for all non-character units (rule verbatim:
-      // "paid for every model in the unit and per Wound or Hull point of the model").
+      // "paid for every model in the unit and per Wound or Hull point of the model"). Store the
+      // BASE rate + scaling flag — liveArmoryPoints() multiplies by the CURRENT size/wounds on
+      // every render, so resizing the squad after buying doesn't leave a stale stored cost.
       if (isVehicle || unit.is_monster) {
-        pts = (parsePrice(arm.p_veh) ?? 0) * woundCount * item.size;
+        pts = parsePrice(arm.p_veh) ?? 0;
+        scaling = 'perWound';
       } else if (isChar) {
         pts = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit) ?? 0;
       } else {
-        pts = (parsePrice(arm.p_unit) ?? 0) * woundCount * item.size;
+        pts = parsePrice(arm.p_unit) ?? 0;
+        scaling = 'perWound';
       }
     } else if (arm.category === 'vehicle') {
-      // Flat cost per vehicle
-      pts = (parsePrice(arm.p_unit) ?? 0) * item.size;
+      // Flat cost per vehicle (squadron size, no wound scaling)
+      pts = parsePrice(arm.p_unit) ?? 0;
+      scaling = 'perModel';
     } else {
       pts = getItemPts(arm) ?? 0;
     }
@@ -385,6 +400,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       source: src,
       section: sec,
       points: pts,
+      scaling,
       isCharacter: isChar,
       targetWeapon: targetWeapon,
     });

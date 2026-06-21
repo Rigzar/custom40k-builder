@@ -10,6 +10,24 @@ export interface Model {
   min: number;
   max: number;
   stats: StatBlock;
+  /**
+   * Set when this model's legal size range is DISJOINT: "{min} or {squad_min}-{max}" (ods-
+   * verbatim "No." column), where `min` is its own distinct solo/character configuration, not
+   * the bottom of a continuous squad range — e.g. Necrons Lychguard's "1 or 4-10" (a lone
+   * Lychguard becomes a character per its own "Varguard" ability; sizes 2-3 are illegal). The
+   * stepper (UnitCard.tsx) must jump min↔squad_min directly, skipping the gap; a validator
+   * blocks any size that still falls inside it (e.g. army JSON pasted/edited externally).
+   */
+  squad_min?: number;
+  /**
+   * Dynamic ratio cap for a secondary model group, e.g. CSM Traitor Guard's "For each 10
+   * [Traitor Guardsman] models you may select 1 [Chaos Ogryn]" — `ratio_per_n: 10`,
+   * `ratio_of: "Traitor Guardsman"`. The stepper's effective max is
+   * min(max, floor(modelSizes[ratio_of] / ratio_per_n)), not just the static `max` field.
+   * Same shape as Accursed Cultists' "Per 5 Accursed Cultist models you may set up 1 Torment".
+   */
+  ratio_per_n?: number;
+  ratio_of?: string;
 }
 
 export interface Weapon {
@@ -29,6 +47,25 @@ export interface Choice {
   abilities?: string[];
   /** Stat/type/ability effects active only while this choice is selected (ki-parser-02). */
   effect?: OptionEffect;
+  /**
+   * Promotes the model to a `variant_models` entry when THIS SPECIFIC choice (not the whole
+   * group) is selected — e.g. Necrons Cryptek's 5-choice "one of the following" specialisation
+   * group, where only "Dynasty Scion" swaps the profile (the other 4 are plain ability grants).
+   * Distinct from `OptionGroup.variant_link`, which is for single-toggle promotion groups
+   * (choices:[], inline_pts set, e.g. Lord→Overlord) with no sibling choices to exclude.
+   * Must match a unit.variant_models[].name. getActiveVariant() (engine/points.ts) checks both.
+   */
+  variant_link?: string;
+  /**
+   * True when ONLY 1 model army-wide may take this specific choice — e.g. Necrons Cryptek's
+   * "May be upgraded to one of the following. Each specialisation is unique per army": all 5
+   * named choices (Chronomancer/Dynasty Scion/Plasmancer/Psychomancer/Technomancer) are
+   * independently capped at 1, not just the whole group at 1 (a player CAN field multiple
+   * Crypteks, just never two with the SAME specialisation). Distinct from
+   * `OptionGroup.is_unique_per_army`, which caps the whole group/unit, not a named choice
+   * within it. Checked by a validators.ts cross-army pass, keyed on (unitName, choice.name).
+   */
+  unique_per_army?: boolean;
 }
 
 /**
@@ -130,11 +167,23 @@ export interface OptionGroup {
    */
   effect?: OptionEffect;
   /**
-   * When set, this per_n option applies only to models of this group name (e.g. "Dishonored").
-   * The selectable maximum is capped by modelSizes[applies_to_model] in addition to the per_n calc.
-   * SOURCE: option header text says "N [ModelGroup] may swap…" — must match a unit.models[].name.
+   * When set, this option applies only to models of this group name (e.g. "Dishonored"), or to
+   * the union of several groups (e.g. Kroot Farstalkers' "Any model" swap, scoped to
+   * ["Farstalker", "Kill-Broker"] since Kroot Hounds never carry the swapped weapon). The
+   * selectable maximum is capped by the sum of modelSizes[...] for the listed group(s), in
+   * addition to the per_n calc for per_n groups. SOURCE: option header text says "N [ModelGroup]
+   * may swap…" / "Any model may swap…" (scoped to whichever groups actually carry the item) —
+   * each name must match a unit.models[].name.
    */
-  applies_to_model?: string;
+  applies_to_model?: string | string[];
+  /**
+   * Per_n groups only: overrides the per_n DIVISOR to the sum of modelSizes[...] for the listed
+   * group(s), instead of the unit's total `size`. Needed when the datasheet's "for every N X
+   * models" explicitly excludes a model group from the count (e.g. Kroot Farstalkers' "for every
+   * 5 NON-Kroot-hound models" — the divisor must exclude Kroot Hounds even though `size` doesn't).
+   * Distinct from `applies_to_model`, which caps who can RECEIVE the swap, not what's counted.
+   */
+  per_n_pool?: string[];
   /**
    * True when an INLINE option (choices:[], inline_pts set) is priced PER MODEL — the datasheet
    * verb is "…for +X points per model" / "the whole squad may be equipped with … per model". The
@@ -313,6 +362,14 @@ export interface Trait {
   pts_veh: string | null;
   /** True for traits whose description says the army must select a second Legacy. */
   enables_second_legacy?: boolean;
+  /**
+   * Extra veteran-ability/Doctrina-Imperative slots this trait grants while active — e.g.
+   * AdMech's "Veteran Maniple": "Any unit with the option to purchase a Doctrina Imperitive
+   * may purchase a second one." Only applies to units with an explicit `veteran_max` already
+   * set (the Doctrina-eligible roster) — generic units defaulting to the fallback of 2 don't
+   * have "the option to purchase a Doctrina Imperative" at all, so the bonus doesn't apply.
+   */
+  veteran_max_bonus?: number;
 }
 
 export interface Power {

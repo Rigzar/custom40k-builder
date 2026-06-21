@@ -6,7 +6,22 @@ export interface ArmorySelection {
   itemName: string;
   source: string;      // armory name
   section: 'weapons' | 'equipment' | 'daemon_weapons';
+  /**
+   * Base, UNMULTIPLIED rate when `scaling` is set (the per-model/per-wound price straight from
+   * the armory data); the final charged cost is computed live from current item.size/wounds —
+   * see liveArmoryPoints() in points.ts. Plain flat cost (the old always-snapshot behaviour)
+   * when `scaling` is unset.
+   */
   points: number;
+  /**
+   * Veteran abilities ("paid for every model in the unit and per Wound or Hull point of the
+   * model") and per-squadron vehicle upgrades scale with the unit's CURRENT size/wounds, not
+   * the size at the moment the item was bought — without this, growing/shrinking the squad
+   * after buying one of these left the stored cost stale (e.g. add at size 1 then grow to 3
+   * keeps charging for 1). 'perWound': points × wounds-or-hull-per-model × item.size.
+   * 'perModel': points × item.size (no wound scaling — flat per-vehicle squadron upgrades).
+   */
+  scaling?: 'perWound' | 'perModel';
   isCharacter: boolean;
   /** For daemon-weapon traits that modify a weapon — which weapon they apply to. */
   targetWeapon?: string;

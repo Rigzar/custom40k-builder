@@ -470,6 +470,7 @@
     {
       "name": "Cursed blade",
       "term_compat": true,
+      "requires_keywords": ["Lieutenant"],
       "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Lieutenants.",
       "p_unit": null,
       "p_char": null,
@@ -490,17 +491,13 @@
     {
       "name": "Chaos Space Marine bike",
       "term_compat": false,
+      "requires_keywords": ["Infantry"],
       "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Combi-bolter and the unit type \"Bike\". Infantry only.",
       "p_unit": 32,
       "p_char": 38,
       "effect": {
         "adds_unit_types": [
           "Bike"
-        ],
-        "stat_mod": [
-          { "stat": "M", "delta": 6 },
-          { "stat": "T", "delta": 1 },
-          { "stat": "W", "delta": 1 }
         ],
         "grants_weapons": [
           "Combi-bolter"
@@ -569,12 +566,6 @@
         ],
         "grants_abilities": [
           "Deep Strike"
-        ],
-        "stat_mod": [
-          {
-            "stat": "M",
-            "delta": 6
-          }
         ]
       }
     },
@@ -643,6 +634,7 @@
     {
       "name": "Familiar",
       "term_compat": true,
+      "requires_keywords": ["Sorcerer"],
       "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Sorcerers.",
       "p_unit": null,
       "p_char": 5,
@@ -741,6 +733,7 @@
       "name": "Terminator armor",
       "armourKeyword": "Terminator",
       "term_compat": false,
+      "requires_keywords": ["Infantry"],
       "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 5+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
       "p_unit": 23,
       "p_char": 46

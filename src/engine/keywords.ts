@@ -87,6 +87,10 @@ export function getUnitTypes(unit: Unit): string[] {
 const ROLE_KW_FROM_NAME: Array<[RegExp, string]> = [
   [/librarian/i,      'Psyker'],
   [/sorcerer/i,       'Psyker'],
+  // Distinct from the 'Psyker' line above — some Armory items (CSM "Familiar": "Only for
+  // Sorcerers") name the SPECIFIC unit, not the broader Psyker role, which would wrongly also
+  // cover Tzaangor Shaman/Rubric Marines/Scarab Occult Terminators/Dark Commune (also is_psyker).
+  [/sorcerer/i,       'Sorcerer'],
   [/shaman/i,         'Psyker'],
   [/dark commune/i,   'Psyker'],
   [/rubric/i,         'Psyker'],

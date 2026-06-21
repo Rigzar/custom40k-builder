@@ -251,6 +251,74 @@ export function computeEldarWarlockFreeSlots(
   return { elites: credited, notes };
 }
 
+/**
+ * Adeptus Sororitas Geminae Superia: "For every Living Saint, the army may include one Geminae
+ * Superia unit that does not take up an HQ slot." (Geminae Superia.ods OPTIONS line) — a ratio
+ * against a DIFFERENT named unit's count, not the purchasing unit's own model count (so `per_n`
+ * doesn't fit) and not unconditional (so the `advisor` flag doesn't fit either). Mirrors
+ * computeAssassinFreeSlots/computeEldarWarlockFreeSlots' "collapse N flagged entries → a slot
+ * credit" shape, capped by how many Living Saints are actually in the army.
+ */
+export function computeGeminaeSuperiaFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Adeptus Sororitas') return { hq: 0, notes: [] };
+  const geminaeCount = army.filter(i => i.unitName === 'Geminae Superia').length;
+  const livingSaintCount = army.filter(i => i.unitName === 'Living Saint').length;
+  if (geminaeCount === 0 || livingSaintCount === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(geminaeCount, livingSaintCount);
+  const notes = [`Geminae Superia: ${credited} of ${geminaeCount} unit${geminaeCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Living Saint, have ${livingSaintCount}).`];
+  if (geminaeCount > livingSaintCount) {
+    notes.push(`Geminae Superia: ${geminaeCount - livingSaintCount} extra unit${geminaeCount - livingSaintCount === 1 ? '' : 's'} exceed the Living Saint ratio and still occupy a normal HQ slot.`);
+  }
+  return { hq: credited, notes };
+}
+
+/**
+ * Adeptus Sororitas Crusaders: "Concession: One unit of Crusaders can be selected for each
+ * Preacher that does not occupy an Elite slot." (Crusaders.ods ability text — not even an
+ * inert placeholder option_group, just descriptive ability text with zero enforcement
+ * anywhere). Same ratio-against-a-sibling-unit shape as computeGeminaeSuperiaFreeSlots, found
+ * during that same audit pass.
+ */
+export function computeCrusadersFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Adeptus Sororitas') return { elites: 0, notes: [] };
+  const crusadersCount = army.filter(i => i.unitName === 'Crusaders').length;
+  const preacherCount = army.filter(i => i.unitName === 'Preacher').length;
+  if (crusadersCount === 0 || preacherCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(crusadersCount, preacherCount);
+  const notes = [`Crusaders: ${credited} of ${crusadersCount} unit${crusadersCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Preacher, have ${preacherCount}).`];
+  if (crusadersCount > preacherCount) {
+    notes.push(`Crusaders: ${crusadersCount - preacherCount} extra unit${crusadersCount - preacherCount === 1 ? '' : 's'} exceed the Preacher ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/** All 4 datasheets independently say "An army can contain only one C'tan Shard" (ods-verbatim,
+ * Necrons "OPTIONS" row) — confirmed army-wide (not per-name) by Yngir's own wording "One C'tan
+ * shard (any kind) counts as an HQ selection." Each datasheet's own option_group is a
+ * non-functional placeholder (empty choices, no inline_pts) so this is enforced here instead. */
+export const CTAN_SHARD_NAMES = [
+  "C'tan Shard",
+  "C'tan Shard of the Dragon",
+  "C'tan Shard of the Deceiver",
+  "C'tan Shard of the Nightbringer",
+];
+
+/** Returns a disabled-tooltip reason when adding `unitName` would put a 2nd C'tan Shard (any of
+ * the 4 names) in the army, or null when the unit is selectable. Catalog/add-time check, mirrors
+ * lowMoveEmbarkBlockReason's "grey it out, don't just note it" pattern. */
+export function ctanShardCapBlockReason(unitName: string, faction: string, army: RosterEntry[]): string | null {
+  if (faction !== 'Necrons' || !CTAN_SHARD_NAMES.includes(unitName)) return null;
+  const existing = army.filter(e => CTAN_SHARD_NAMES.includes(e.unitName)).length;
+  if (existing === 0) return null;
+  return `An army can contain only one C'tan Shard (any kind) — this army already has one.`;
+}
+
 export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {
   const eng = ENGAGEMENTS[state.engagement];
   const rule = getArchetypeRule(state.archetype);
@@ -499,6 +567,25 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       ).length;
       if (hsCount > 1) {
         items.push({ type: 'error', text: `Mechanised Company: only 1 Heavy Support unit allowed (have ${hsCount}).` });
+      }
+    }
+
+    // Whiteshields: "only one other Troop selection per Conscript Infantry Platoon" (rules-owner
+    // clarification 2026-06-22: 1 OTHER Troops slot PER CIP, not a single flat +1 — 2 CIPs allow
+    // 2 other Troops selections; the CIP itself doesn't count toward that "other" total).
+    if (state.archetype === 'Whiteshields') {
+      const cipCount = state.army.filter(i => !i.factionSource && i.unitName === 'Conscript Infantry Platoon').length;
+      const otherTroopsCount = state.army.filter(i =>
+        !i.factionSource &&
+        i.unitName !== 'Conscript Infantry Platoon' &&
+        getEffectiveSlot(i.unitName, i.slot, rule) === 'Troops' &&
+        countsTowardOwnSlot(i, state.army)
+      ).length;
+      if (otherTroopsCount > cipCount) {
+        items.push({
+          type: 'error',
+          text: `Whiteshields: only 1 other Troop selection per Conscript Infantry Platoon (have ${otherTroopsCount} other Troops, ${cipCount} Conscript Infantry Platoon).`,
+        });
       }
     }
 
@@ -904,6 +991,33 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // Unique CHOICES per army (e.g. Necrons Cryptek: "Each specialisation is unique per army" —
+  // multiple Crypteks are fine, just never two with the SAME named choice). Keyed by
+  // (unitName, choice.name) so it never collides with an unrelated unit's same-named choice.
+  const uniqueChoiceCounts: Record<string, number> = {};
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    u.option_groups.forEach((g, gi) => {
+      g.choices.forEach((c, ci) => {
+        if (!c.unique_per_army) return;
+        if (item.optionQty?.[gi]?.[ci]) {
+          const key = `${item.unitName}::${c.name}`;
+          uniqueChoiceCounts[key] = (uniqueChoiceCounts[key] ?? 0) + 1;
+        }
+      });
+    });
+  }
+  for (const [key, count] of Object.entries(uniqueChoiceCounts)) {
+    if (count > 1) {
+      const [unitName, choiceName] = key.split('::');
+      items.push({
+        type: 'error',
+        text: `${unitName}: only 1 may take "${choiceName}" per army (have ${count}).`,
+      });
+    }
+  }
+
   // Yngir: "One C'tan shard (any kind)" — defense in depth alongside the UI toggle's
   // disable-the-other-instances guard (ods-verbatim, only 1 per army regardless of how many
   // C'tan Shards are fielded).
@@ -913,6 +1027,18 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       items.push({
         type: 'error',
         text: `Yngir: only 1 C'tan Shard may take the HQ upgrade per army (have ${ctanYngirCount}).`,
+      });
+    }
+  }
+
+  // "An army can contain only one C'tan Shard" (any kind, ods-verbatim on all 4 datasheets) —
+  // defense in depth alongside the catalogue's ctanShardCapBlockReason disable.
+  if (data.faction === 'Necrons') {
+    const ctanShardCount = state.army.filter(i => CTAN_SHARD_NAMES.includes(i.unitName)).length;
+    if (ctanShardCount > 1) {
+      items.push({
+        type: 'error',
+        text: `An army can contain only one C'tan Shard, any kind combined (have ${ctanShardCount}).`,
       });
     }
   }
@@ -933,6 +1059,18 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // Eldar Warlocks: "1 free per 500pts of game size" Elite-slot exemption (Warlocks.ods)
   const warlockFree = computeEldarWarlockFreeSlots(state.army, data, state.pointLimit);
   for (const note of warlockFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Sororitas Geminae Superia: "1 free HQ slot per Living Saint" (Geminae Superia.ods)
+  const geminaeSuperiaFree = computeGeminaeSuperiaFreeSlots(state.army, data);
+  for (const note of geminaeSuperiaFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Sororitas Crusaders: "1 free Elite slot per Preacher" (Crusaders.ods Concession ability)
+  const crusadersFree = computeCrusadersFreeSlots(state.army, data);
+  for (const note of crusadersFree.notes) {
     items.push({ type: 'ok', text: note });
   }
 
@@ -978,9 +1116,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -1141,7 +1279,18 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     if (!u) continue;
     u.option_groups.forEach((g, gi) => {
       if (g.constraint?.type === 'per_n') {
-        const max = (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1));
+        // Mirrors UnitCard.tsx's groupMax: per_n_pool overrides the divisor to a model-group
+        // subset (e.g. Kroot Farstalkers' "every 5 non-Kroot-hound models" excludes Kroot
+        // Hounds), and applies_to_model caps the numerator to whoever can actually receive it.
+        const poolSize = (g.per_n_pool && item.modelSizes)
+          ? g.per_n_pool.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
+          : item.size;
+        const applyNames = Array.isArray(g.applies_to_model) ? g.applies_to_model : g.applies_to_model ? [g.applies_to_model] : null;
+        const modelCap = (applyNames && item.modelSizes)
+          ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
+          : null;
+        const perNRaw = (g.constraint.count_per_n ?? 1) * Math.floor(poolSize / (g.constraint.per_n ?? 1));
+        const max = modelCap !== null ? Math.min(perNRaw, modelCap) : perNRaw;
         const used = Object.entries(item.optionQty?.[gi] ?? {}).reduce((s, [k, v]) => {
           return k === '__inline' ? s : s + (v ?? 0);
         }, 0);
@@ -1162,6 +1311,78 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
             text: `${item.unitName}: "${g.header.substring(0, 50)}" — ${used} swaps, maximum ${g.constraint.max}.`,
           });
         }
+      }
+    });
+  }
+
+  // Disjoint legal size range ("1 or 4-10" — see Model.squad_min): defense in depth alongside
+  // the stepper's min↔squad_min jump, for sizes that land in the illegal gap some other way
+  // (e.g. an externally-edited/pasted army JSON).
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    const squadMin = u && u.models.length === 1 ? u.models[0].squad_min : undefined;
+    if (squadMin && item.size > u!.models[0].min && item.size < squadMin) {
+      items.push({
+        type: 'error',
+        text: `${item.unitName}: squad size must be ${u!.models[0].min} or ${squadMin}-${u!.models[0].max} (have ${item.size}).`,
+      });
+    }
+  }
+
+  // Dynamic ratio cap for a secondary model group (see Model.ratio_per_n/ratio_of, e.g. CSM
+  // Traitor Guard "1 Chaos Ogryn per 10 Traitor Guardsman"): defense in depth alongside the
+  // stepper's dynamic max, for counts that exceed the ratio some other way (e.g. the primary
+  // model group was reduced after the secondary count was already set, or a pasted army JSON).
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u || !item.modelSizes) continue;
+    for (const m of u.models) {
+      if (!m.ratio_per_n || !m.ratio_of) continue;
+      const primaryCount = item.modelSizes[m.ratio_of] ?? 0;
+      const ratioMax = Math.floor(primaryCount / m.ratio_per_n);
+      const have = item.modelSizes[m.name] ?? 0;
+      if (have > ratioMax) {
+        items.push({
+          type: 'error',
+          text: `${item.unitName}: ${m.name} requires ${m.ratio_per_n} ${m.ratio_of} per model (have ${have}, only ${ratioMax} allowed with ${primaryCount} ${m.ratio_of}).`,
+        });
+      }
+    }
+  }
+
+  // Cross-group shared pool over-allocation (defense in depth alongside UnitCard's
+  // groupRemaining math) — independent option groups that replace the SAME base weapon on the
+  // SAME scoped model group draw from one shared pool, e.g. Traitor Guard's "every Lasgun may
+  // be replaced" + "for each 10 models, one Lasgun may be replaced by a special weapon" both
+  // consume Lasgun-carrying Traitor Guardsmen and together must not exceed that model count.
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const seen = new Set<number>();
+    u.option_groups.forEach((g, gi) => {
+      if (seen.has(gi) || !g.replaces?.length || !['per_n', 'every'].includes(g.constraint.type)) return;
+      const applyNames = Array.isArray(g.applies_to_model) ? g.applies_to_model : g.applies_to_model ? [g.applies_to_model] : null;
+      const sameScope = (other: typeof g) => {
+        const otherNames = Array.isArray(other.applies_to_model) ? other.applies_to_model : other.applies_to_model ? [other.applies_to_model] : null;
+        return (applyNames === null && otherNames === null) ||
+          (applyNames !== null && otherNames !== null && applyNames.length === otherNames.length && applyNames.every(n => otherNames!.includes(n)));
+      };
+      const cluster = u.option_groups
+        .map((other, oi) => ({ other, oi }))
+        .filter(({ other }) => ['per_n', 'every'].includes(other.constraint.type) && other.replaces?.some(w => g.replaces!.includes(w)) && sameScope(other));
+      if (cluster.length < 2) return;
+      cluster.forEach(({ oi }) => seen.add(oi));
+      const poolSize = (applyNames && item.modelSizes)
+        ? applyNames.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
+        : item.size;
+      const used = cluster.reduce((s, { oi }) => s + Object.entries(item.optionQty?.[oi] ?? {}).reduce(
+        (s2, [k, v]) => k === '__inline' ? s2 : s2 + (v ?? 0), 0
+      ), 0);
+      if (used > poolSize) {
+        items.push({
+          type: 'error',
+          text: `${item.unitName}: ${used} ${g.replaces![0]} swaps selected across multiple options, but only ${poolSize} models can be swapped.`,
+        });
       }
     });
   }
@@ -1229,9 +1450,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const slotAdj = slot === 'HQ' ? cdFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

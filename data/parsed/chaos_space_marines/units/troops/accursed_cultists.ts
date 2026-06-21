@@ -67,6 +67,8 @@ export const accursedCultists: Unit = {
       "points": 16,
       "min": 1,
       "max": 3,
+      "ratio_per_n": 5,
+      "ratio_of": "Accursed Cultist",
       "stats": {
         "M": "6\"",
         "WS": "4+",

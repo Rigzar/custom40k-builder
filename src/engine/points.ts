@@ -1,7 +1,24 @@
 import type { Unit, Model, FactionData } from '../types/data';
-import type { RosterEntry } from '../types/army';
+import type { RosterEntry, ArmorySelection } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 import { getArchetypeRule } from './archetypes';
+
+/**
+ * Live-recompute an armory selection's cost from the unit's CURRENT size/wounds, instead of
+ * trusting the stored `points` as a final value — veteran abilities and per-squadron vehicle
+ * upgrades are bought at a base rate that scales with size (see ArmorySelection.scaling), so a
+ * stale stored total would be wrong after the squad is resized post-purchase.
+ */
+export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Unit): number {
+  if (a.scaling === 'perModel') return a.points * item.size;
+  if (a.scaling === 'perWound') {
+    const wStatKey = unit.is_vehicle ? 'HP' : 'W';
+    const baseModel = unit.models.find(m => m.max > 0) ?? unit.models[0];
+    const woundsPerModel = parseInt(String(baseModel?.stats?.[wStatKey] ?? '1'), 10) || 1;
+    return a.points * woundsPerModel * item.size;
+  }
+  return a.points;
+}
 
 /** Resolve a unit from the correct faction source. */
 export function resolveUnit(item: { unitName: string; factionSource?: string }, data: FactionData): Unit | undefined {
@@ -19,12 +36,19 @@ type ActiveVariant = { variant: Model; group: { header: string; inline_pts: numb
 
 function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
   for (const [gi, g] of unit.option_groups.entries()) {
-    if (!g.variant_link) continue;
     const qty = item.optionQty?.[gi];
-    if (qty?.['__inline']) {
+    if (g.variant_link && qty?.['__inline']) {
       const variant = unit.variant_models.find(v => v.name === g.variant_link) ?? null;
       if (!variant) return null;
       return { variant, group: g };
+    }
+    // Per-choice variant_link: a multi-choice group (e.g. Necrons Cryptek's 5-way "one of the
+    // following" specialisation pick) where only ONE named choice promotes the model to its
+    // own variant profile; sibling choices in the same group are plain ability grants.
+    for (const [ci, choice] of g.choices.entries()) {
+      if (!choice.variant_link || !qty?.[ci]) continue;
+      const variant = unit.variant_models.find(v => v.name === choice.variant_link) ?? null;
+      if (variant) return { variant, group: g };
     }
   }
   return null;
@@ -139,11 +163,15 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
         continue;
       }
       const choice = g.choices[parseInt(ci)];
+      // A choice with its own `variant_link` (e.g. Cryptek's "Dynasty Scion") is already fully
+      // priced by `variant.points` in the `active` branch above — adding its own choice.points
+      // here would double-charge it.
+      if (choice?.variant_link && active) continue;
       if (choice) total += choice.points * qty * (g.per_model ? item.size : 1);
     }
   }
 
-  for (const it of item.armory ?? []) total += it.points ?? 0;
+  for (const it of item.armory ?? []) total += liveArmoryPoints(it, item, unit);
   // army.ts already filters which units receive traits (CSM keyword check, faction check, etc.)
   // so item.traits is always the correct pre-filtered list — just sum it here.
   for (const t of item.traits ?? []) {

@@ -61,6 +61,8 @@ export const traitorGuard: Unit = {
       "points": 28,
       "min": 0,
       "max": 3,
+      "ratio_per_n": 10,
+      "ratio_of": "Traitor Guardsman",
       "stats": {
         "M": "6\"",
         "WS": "4+",
@@ -205,6 +207,7 @@ export const traitorGuard: Unit = {
     {
       "header": "Each model's Lasgun may be replaced by a Chainsword and a Laspistol",
       "constraint": { "type": "every" },
+      "applies_to_model": "Traitor Guardsman",
       "choices": [
         { "name": "Chainsword & Laspistol", "points": 0 }
       ],

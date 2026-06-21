@@ -341,7 +341,13 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // The four god marks count as a veteran ability. Mark of Chaos Undivided does NOT (rule omits the clause).
   // Locked-mark units (e.g. Plague Marines) use veteran_max:1 in their data instead.
   const markUsesVetSlot = hasMarkGroup && !unit.locked_mark && !!effectiveMark && effectiveMark !== 'Undivided';
-  const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0));
+  // AdMech "Veteran Maniple": "Any unit with the option to purchase a Doctrina Imperitive may
+  // purchase a second one" — only for units with an explicit veteran_max (the Doctrina-eligible
+  // roster), not units defaulting to the generic fallback of 2.
+  const traitVetMaxBonus = unit.veteran_max != null
+    ? state.traitPool.reduce((s, n) => s + (data.traits.find(t => t.name === n)?.veteran_max_bonus ?? 0), 0)
+    : 0;
+  const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0) + traitVetMaxBonus);
   const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
 
   // Models to display — variant replaces the model group it's promoted from (derived from
@@ -803,7 +809,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
       if (!g.replaces?.length) continue;
-      if (g.applies_to_model && g.applies_to_model !== grp.label) continue;
+      if (g.applies_to_model && !(Array.isArray(g.applies_to_model) ? g.applies_to_model.includes(grp.label) : g.applies_to_model === grp.label)) continue;
       const ch = item.optionQty[gi] ?? {};
       let groupQty = 0;
       for (const [ci, qty] of Object.entries(ch)) {

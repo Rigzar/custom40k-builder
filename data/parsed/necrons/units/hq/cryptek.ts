@@ -61,23 +61,29 @@ export const cryptek: Unit = {
       "choices": [
         {
           "name": "Chronomancer",
-          "points": 15
+          "points": 15,
+          "unique_per_army": true
         },
         {
           "name": "Dynasty Scion",
-          "points": 15
+          "points": 15,
+          "unique_per_army": true,
+          "variant_link": "Dynasty Scion"
         },
         {
           "name": "Plasmancer",
-          "points": 15
+          "points": 15,
+          "unique_per_army": true
         },
         {
           "name": "Psychomancer",
-          "points": 15
+          "points": 15,
+          "unique_per_army": true
         },
         {
           "name": "Technomancer",
-          "points": 15
+          "points": 15,
+          "unique_per_army": true
         }
       ],
       "inline_pts": null,

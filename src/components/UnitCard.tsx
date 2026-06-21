@@ -3,7 +3,7 @@ import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit } from '../engine/points';
+import { resolveUnit, liveArmoryPoints } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
@@ -229,6 +229,16 @@ export function UnitCard({ item }: Props) {
     : [...STAT_KEYS_INF, ...(effectiveInvSv !== null ? ['InvSv'] : [])];
   const minSize = unitMinSize(u);
   const maxSize = unitMaxSize(u);
+  // Disjoint legal range ("1 or 4-10", e.g. Necrons Lychguard) — see Model.squad_min. Only
+  // meaningful for single-model-group units; multi-group units use the modelSizes stepper instead.
+  const squadMin = u.models.length === 1 ? u.models[0].squad_min : undefined;
+  // Dynamic ratio cap for a secondary model group (e.g. Traitor Guard "1 Chaos Ogryn per 10
+  // Traitor Guardsman") — see Model.ratio_per_n/ratio_of. Falls back to the static max when unset.
+  const effectiveModelMax = (m: typeof u.models[number]) => {
+    if (!m.ratio_per_n || !m.ratio_of) return m.max;
+    const primaryCount = item.modelSizes?.[m.ratio_of] ?? 0;
+    return Math.min(m.max, Math.floor(primaryCount / m.ratio_per_n));
+  };
   // Only count mark groups whose host condition holds — a Horus Heresy unit's Mark-of-Chaos
   // group (available_if: Chaos Space Marines force) must not show under a Space Marine host.
   const hasMarkGroup = u.option_groups.some(g =>
@@ -819,7 +829,8 @@ export function UnitCard({ item }: Props) {
             <div className="space-y-1">
               {u.models.filter(m => m.min > 0).map(m => {
                 const count = item.modelSizes![m.name] ?? m.min;
-                const isFixed = m.min === m.max;
+                const max = effectiveModelMax(m);
+                const isFixed = m.min === max;
                 return (
                   <div key={m.name} className="flex items-center gap-2 text-[12px] text-zinc-400">
                     <span className="w-40 truncate text-zinc-300">{m.name}:</span>
@@ -831,10 +842,10 @@ export function UnitCard({ item }: Props) {
                           <button onClick={() => updateModelSize(item.id, m.name, Math.max(m.min, count - 1))} disabled={count <= m.min}
                             className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">−</button>
                           <span className="w-7 text-center text-zinc-100 font-mono text-[12px]">{count}</span>
-                          <button onClick={() => updateModelSize(item.id, m.name, Math.min(m.max, count + 1))} disabled={count >= m.max}
+                          <button onClick={() => updateModelSize(item.id, m.name, Math.min(max, count + 1))} disabled={count >= max}
                             className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">+</button>
                         </div>
-                        <span className="text-zinc-600 text-[10px]">{m.min}–{m.max}</span>
+                        <span className="text-zinc-600 text-[10px]">{m.min}–{max}</span>
                       </>
                     )}
                   </div>
@@ -876,6 +887,7 @@ export function UnitCard({ item }: Props) {
               and are not rendered here — there's no "buy more of these" rule to show for them. */}
           {item.modelSizes && u.models.slice(1).filter(m => m.min === 0 && m.max > 0).map(m => {
             const count = item.modelSizes![m.name] ?? m.min;
+            const max = effectiveModelMax(m);
             const equipMatch = u.equipped_with.match(new RegExp(`Every ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
             const equipText = equipMatch?.[1]?.trim();
             const equipNames = equipText ? equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean) : [];
@@ -895,10 +907,10 @@ export function UnitCard({ item }: Props) {
                     <button onClick={() => updateModelSize(item.id, m.name, Math.max(m.min, count - 1))} disabled={count <= m.min}
                       className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">−</button>
                     <span className="w-6 text-center text-zinc-100 font-mono text-[11px]">{count}</span>
-                    <button onClick={() => updateModelSize(item.id, m.name, Math.min(m.max, count + 1))} disabled={count >= m.max}
+                    <button onClick={() => updateModelSize(item.id, m.name, Math.min(max, count + 1))} disabled={count >= max}
                       className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">+</button>
                   </div>
-                  <span className="text-zinc-500 normal-case text-[10px]">/{m.max}</span>
+                  <span className="text-zinc-500 normal-case text-[10px]">/{max}</span>
                 </summary>
                 <div className="px-2 pb-2 space-y-2">
                   {equipText && (
@@ -934,13 +946,17 @@ export function UnitCard({ item }: Props) {
             <div className="flex items-center gap-3">
               <span className="font-cinzel text-[10px] uppercase tracking-widest text-zinc-500">Size</span>
               <div className="flex items-center">
-                <button onClick={() => updateUnit(item.id, { size: Math.max(minSize, item.size - 1) })} disabled={item.size <= minSize}
+                <button
+                  onClick={() => updateUnit(item.id, { size: squadMin && item.size === squadMin ? minSize : Math.max(minSize, item.size - 1) })}
+                  disabled={item.size <= minSize}
                   className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">−</button>
                 <span className="w-8 text-center text-zinc-100 font-mono text-sm">{item.size}</span>
-                <button onClick={() => updateUnit(item.id, { size: Math.min(maxSize, item.size + 1) })} disabled={item.size >= maxSize}
+                <button
+                  onClick={() => updateUnit(item.id, { size: squadMin && item.size === minSize ? squadMin : Math.min(maxSize, item.size + 1) })}
+                  disabled={item.size >= maxSize}
                   className="w-6 h-6 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-base leading-none">+</button>
               </div>
-              <span className="text-zinc-600 text-[10px]">{minSize}–{maxSize}</span>
+              <span className="text-zinc-600 text-[10px]">{squadMin ? `${minSize} or ${squadMin}–${maxSize}` : `${minSize}–${maxSize}`}</span>
             </div>
           )}
 
@@ -1141,23 +1157,64 @@ export function UnitCard({ item }: Props) {
             }
 
             const isPerN = g.constraint.type === 'per_n';
-            // per_n max = slots from total size, capped by applies_to_model count when set.
-            // e.g. "2 Dishonored may swap per 8 models" → max = min(slots×2, dishonored_count)
+            const isEvery = g.constraint.type === 'every';
+            const applyModelNames = Array.isArray(g.applies_to_model)
+              ? g.applies_to_model
+              : g.applies_to_model ? [g.applies_to_model] : null;
+            const sumModelGroups = (names: string[] | null) => (names && item.modelSizes)
+              ? names.reduce((s, n) => s + (item.modelSizes![n] ?? 0), 0)
+              : null;
+            // per_n max = slots from the per_n pool (total size, or a named subset of model
+            // groups when the datasheet's "for every N X models" explicitly excludes others —
+            // e.g. Kroot Farstalkers' "every 5 NON-Kroot-hound models"), capped by
+            // applies_to_model count when set. e.g. "2 Dishonored may swap per 8 models" →
+            // max = min(slots×2, dishonored_count)
+            const perNPoolSize = isPerN ? (sumModelGroups(g.per_n_pool ?? null) ?? item.size) : null;
             const perNRaw = isPerN
-              ? (g.constraint.count_per_n ?? 1) * Math.floor(item.size / (g.constraint.per_n ?? 1))
+              ? (g.constraint.count_per_n ?? 1) * Math.floor((perNPoolSize ?? 0) / (g.constraint.per_n ?? 1))
               : null;
-            const modelGroupCap = (g.applies_to_model && item.modelSizes)
-              ? (item.modelSizes[g.applies_to_model] ?? 0)
-              : null;
+            const modelGroupCap = sumModelGroups(applyModelNames);
             const groupMax = perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
-              : null;
-            const groupUsed = isPerN
+              : isEvery
+                ? (modelGroupCap !== null ? modelGroupCap : item.size)
+                : null;
+            // "every" groups (not just per_n) share a combined budget across all their choices —
+            // e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap can't independently hit
+            // the cap each, the two must add up to no more than the eligible model count.
+            const groupUsed = (isPerN || isEvery)
               ? Object.entries(item.optionQty?.[realGi] ?? {}).reduce(
                   (s, [k, v]) => k === '__inline' ? s : s + (v ?? 0), 0
                 )
               : null;
-            const groupRemaining = groupMax !== null && groupUsed !== null ? groupMax - groupUsed : null;
+            // Independent sibling groups that replace the SAME base weapon, on the SAME scoped
+            // model group, also draw from one shared pool — e.g. Traitor Guard's "every model's
+            // Lasgun may be replaced" and "for each 10 models, one Lasgun may be replaced by a
+            // special weapon" both consume Lasgun-carrying Traitor Guardsmen; together they must
+            // not exceed that model count, even though each group's OWN max allows it alone.
+            const sameApplyScope = (otherNames: string[] | null) =>
+              (applyModelNames === null && otherNames === null) ||
+              (applyModelNames !== null && otherNames !== null &&
+                applyModelNames.length === otherNames.length &&
+                applyModelNames.every(n => otherNames.includes(n)));
+            const siblingGroups = (g.replaces?.length && (isPerN || isEvery))
+              ? u.option_groups.filter((other, oi) => oi !== realGi && other.replaces?.some(w => g.replaces!.includes(w)) &&
+                  sameApplyScope(Array.isArray(other.applies_to_model) ? other.applies_to_model : other.applies_to_model ? [other.applies_to_model] : null))
+              : [];
+            const siblingUsed = siblingGroups.reduce((s, other) => {
+              const oi = u.option_groups.indexOf(other);
+              return s + Object.entries(item.optionQty?.[oi] ?? {}).reduce(
+                (s2, [k, v]) => k === '__inline' ? s2 : s2 + (v ?? 0), 0
+              );
+            }, 0);
+            const sharedPoolSize = modelGroupCap !== null ? modelGroupCap : item.size;
+            const groupRemainingOwn = groupMax !== null && groupUsed !== null ? groupMax - groupUsed : null;
+            const groupRemainingShared = siblingGroups.length > 0 && groupUsed !== null
+              ? sharedPoolSize - groupUsed - siblingUsed
+              : null;
+            const groupRemaining = groupRemainingOwn !== null && groupRemainingShared !== null
+              ? Math.min(groupRemainingOwn, groupRemainingShared)
+              : groupRemainingOwn;
 
             // Choices that map to actual weapon profiles get rendered as a weapon-stat
             // table (Range/Type/S/AP/D/Abilities/Pts) instead of a plain chip — lets the
@@ -1171,11 +1228,7 @@ export function UnitCard({ item }: Props) {
             function qtyControl(ci: number, c: Choice) {
               const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
               const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
-              const inputMax = isPerN && groupRemaining !== null
-                ? qty + groupRemaining
-                : g.constraint.type === 'every'
-                  ? item.size
-                  : undefined;
+              const inputMax = groupRemaining !== null ? qty + groupRemaining : undefined;
               // Detect "(X only)" mark restrictions embedded in choice names
               const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;
               const choiceMarkBlocked = choiceMarkReq != null
@@ -1478,12 +1531,13 @@ export function UnitCard({ item }: Props) {
               const weaponTargetingTrait = isDaemonWeaponTrait && isWeaponTrait(armItem?.desc) && a.targetWeapon;
               // Extra traits applied to this armory weapon
               const extraTraitsForWeapon = isArmoryWeapon ? (weaponTraitMap.get(a.itemName) ?? []) : [];
+              const livePts = liveArmoryPoints(a, item, u);
               return (
                 <div key={a.id} className="bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <div className="flex justify-between items-center">
                     <span className={`font-medium ${weaponTargetingTrait ? 'text-violet-300' : 'text-zinc-300'}`}>{a.itemName}</span>
                     <div className="flex items-center gap-2">
-                      <span className="text-amber-600">{a.points >= 0 ? '+' : ''}{a.points} pts</span>
+                      <span className="text-amber-600">{livePts >= 0 ? '+' : ''}{livePts} pts</span>
                       <button
                         onClick={() => useArmyStore.getState().removeArmoryItem(item.id, a.id)}
                         className="text-red-500 hover:text-red-300 text-[11px]"

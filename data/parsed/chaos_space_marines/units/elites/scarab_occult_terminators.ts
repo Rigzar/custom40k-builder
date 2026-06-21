@@ -218,7 +218,8 @@ export const scarabOccultTerminators: Unit = {
   "unit_type": "Infantry",
   "keywords": [
     "Thousand Sons",
-    "Psyker"
+    "Psyker",
+    "Sorcerer"
   ],
   "is_vehicle": false,
   "is_character": false,

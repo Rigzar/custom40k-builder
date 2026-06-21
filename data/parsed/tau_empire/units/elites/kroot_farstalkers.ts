@@ -67,7 +67,7 @@ export const krootFarstalkers: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Farstalkers and Kill-Brokers are equipped with: Kroot knife; Kroot rifle.",
+  "equipped_with": "Every Farstalker and Kill-Broker is equipped with: Kroot knife; Kroot rifle. Every Kroot Hound is equipped with: Ripping fangs.",
   "weapons": [
     {
       "name": "Dvorgite skinner",
@@ -202,6 +202,7 @@ export const krootFarstalkers: Unit = {
       "constraint": {
         "type": "every"
       },
+      "applies_to_model": ["Farstalker", "Kill-Broker"],
       "choices": [
         {
           "name": "Kroot pistol",
@@ -220,8 +221,12 @@ export const krootFarstalkers: Unit = {
     {
       "header": "For every 5 non-Kroot hound models in the unit, one Farstalker may replace their Kroot rifle",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 5,
+        "count_per_n": 1
       },
+      "applies_to_model": "Farstalker",
+      "per_n_pool": ["Farstalker", "Kill-Broker"],
       "choices": [
         {
           "name": "Accelerator bow",
