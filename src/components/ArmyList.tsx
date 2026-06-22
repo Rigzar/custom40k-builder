@@ -24,11 +24,25 @@ const SLOT_ICON_STYLE: React.CSSProperties = {
   opacity: 0.65,
 };
 
-export function ArmyList() {
-  const { army, data, archetype } = useArmyStore();
+/**
+ * `scope` splits the roster view in two — "primary" (the main faction's own army, plus any
+ * archetype/legacy-injected intrinsic ally, e.g. CSM's auto-unlocked Chaos Daemons, which shares
+ * the primary's own AOP/Customisation) vs "allied" (the player-picked Allied Detachment, which
+ * has its own AOP and its own Archetype/Legacy/Traits — Core Rules: "Allied units are treated as
+ * separate armies on the battlefield"). Each scope uses its OWN archetype rule for slot-remapping
+ * and points, so e.g. a unit promoted to Troops by the ally's own archetype is grouped correctly
+ * here too, not by the primary's archetype.
+ */
+export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }) {
+  const { army, data, archetype, alliedFaction, alliedArchetype } = useArmyStore();
   if (!data) return null;
 
-  if (army.length === 0) {
+  const scopedArmy = scope === 'allied'
+    ? army.filter(item => item.factionSource === alliedFaction)
+    : army.filter(item => item.factionSource !== alliedFaction);
+  const effectiveArchetype = scope === 'allied' ? (alliedArchetype ?? '') : archetype;
+
+  if (scopedArmy.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center select-none">
         <div className="text-[42px] mb-4 opacity-20">⚔</div>
@@ -38,21 +52,21 @@ export function ArmyList() {
     );
   }
 
-  const rule = getArchetypeRule(archetype);
+  const rule = getArchetypeRule(effectiveArchetype);
 
   return (
     <div>
       {SLOT_ORDER.map(slot => {
-        const slotUnits = army.filter(item => {
-          const u = data.units[item.unitName];
+        const slotUnits = scopedArmy.filter(item => {
+          const u = resolveUnit(item, data);
           const baseSlot = applyVariantSlotOverride(item, u, getEffectiveSlot(item.unitName, item.slot, rule));
-          return applyPlatoonSlotOverride(item, army, baseSlot) === slot;
+          return applyPlatoonSlotOverride(item, scopedArmy, baseSlot) === slot;
         });
         if (slotUnits.length === 0) return null;
 
         const slotPts = slotUnits.reduce((s, item) => {
           const u = resolveUnit(item, data);
-          return s + (u ? computeUnitPoints(item, u, archetype) : 0);
+          return s + (u ? computeUnitPoints(item, u, effectiveArchetype) : 0);
         }, 0);
 
         return (

@@ -1227,7 +1227,7 @@ export function UnitCard({ item }: Props) {
               (applyModelNames !== null && otherNames !== null &&
                 applyModelNames.length === otherNames.length &&
                 applyModelNames.every(n => otherNames.includes(n)));
-            const siblingGroups = (g.replaces?.length && (isPerN || isEvery))
+            const siblingGroups = (g.replaces?.length && (isPerN || isEvery || isFixedMax))
               ? u.option_groups.filter((other, oi) => oi !== realGi && other.replaces?.some(w => g.replaces!.includes(w)) &&
                   sameApplyScope(Array.isArray(other.applies_to_model) ? other.applies_to_model : other.applies_to_model ? [other.applies_to_model] : null))
               : [];

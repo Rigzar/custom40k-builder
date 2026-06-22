@@ -23,6 +23,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'UnitCard.tsx gated the whole "Joins" feature on `u.is_character`. Master of Execution and Chosen are correctly `is_character: false` per their .ods unit-type text (they\'re "Infantry", not "Character model"), but both carry the "Command squad" ability, which per the Core Rules glossary itself grants the joining capability independent of the Character keyword — that\'s the entire point of the ability on a non-Character datasheet. Fixed by widening the gate to `u.is_character || has "Command Squad" ability text || archetype grantsCommandSquad`.',
   },
   {
+    id: 'ki-csm-fixedmax-sibling-pool-01',
+    status: 'fixed',
+    title: 'Weapon-swap groups of type "fixed_max" did not share their replaced-weapon pool with sibling "every"/"fixed_max" groups — let players buy more swapped weapons than the unit has models',
+    description: 'Reported live with Noise Marines: "Each model\'s Bolt pistol may be replaced with Bolter/Sonic blaster" (an "every" group, pool = unit size) and "Two Noise Marines\' Bolt pistols can be replaced with Meltagun/Plasma gun/Blastmaster" (a "fixed_max:2" group) both draw from the same 5 Bolt pistols, but UnitCard.tsx\'s sibling-pool check (`siblingGroups`, used to cap each group\'s input by what other groups already spent from the shared base-weapon pool) only ran for "per_n"/"every" groups, never "fixed_max" — so a 5-model squad could max the "every" swap to 5 AND still buy 2 more Meltaguns on top, looking like weapons "staying" duplicated or multiplying past the model count. Fixed: `isFixedMax` added to the sibling-check condition in UnitCard.tsx, so any group replacing the same base weapon (every/fixed_max/per_n, any combination) now correctly shares one pool capped at the model count. Global engine fix — applies to every faction\'s data, not just Noise Marines.',
+  },
+  {
     id: 'ki-csm-champion-swap-override-duplicate-01',
     status: 'fixed',
     title: 'CSM — a squad-wide weapon swap with no `applies_to_model` also applied its purchased qty/weapon to the built-in Champion\'s own display row, even when the Champion never bought it',

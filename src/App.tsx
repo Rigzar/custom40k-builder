@@ -593,28 +593,34 @@ export default function App() {
             </div>
           </header>
 
-          <div className="max-w-screen-md mx-auto w-full px-4 py-6 space-y-4">
-            <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3">
-              This is a separate detachment from {factionLabel}'s army — its own Army
-              Organisation Plan, its own Army Customisation, sharing only the total point limit.
-              {selectedFaction && (() => {
-                const rel = getRelationship(selectedFaction, alliedFaction);
-                return rel ? ` ${RELATIONSHIP_DESCRIPTIONS[rel]}` : '';
-              })()}
-            </p>
+          <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 flex-1">
+            <aside className="space-y-2">
+              <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3">
+                This is a separate detachment from {factionLabel}'s army — its own Army
+                Organisation Plan, its own Army Customisation, sharing only the total point limit.
+                {selectedFaction && (() => {
+                  const rel = getRelationship(selectedFaction, alliedFaction);
+                  return rel ? ` ${RELATIONSHIP_DESCRIPTIONS[rel]}` : '';
+                })()}
+              </p>
 
-            <AlliedCustomisation alliedFactionKey={alliedFaction} />
+              <AlliedCustomisation alliedFactionKey={alliedFaction} />
 
-            <div className="border border-zinc-800 bg-zinc-900/50">
-              <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
-                <span className="font-cinzel text-[11px] uppercase tracking-widest text-emerald-400">
-                  {alliedFactionLabel} — Unit Catalogue
-                </span>
+              <div className="border border-zinc-800 bg-zinc-900/50">
+                <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
+                  <span className="font-cinzel text-[11px] uppercase tracking-widest text-emerald-400">
+                    {alliedFactionLabel} — Unit Catalogue
+                  </span>
+                </div>
+                <div className="p-3">
+                  <AlliedCatalogue alliedFactionKey={alliedFaction} />
+                </div>
               </div>
-              <div className="p-3">
-                <AlliedCatalogue alliedFactionKey={alliedFaction} />
-              </div>
-            </div>
+            </aside>
+
+            <main>
+              <ArmyList scope="allied" />
+            </main>
           </div>
         </div>
       )}

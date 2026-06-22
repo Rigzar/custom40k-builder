@@ -25,13 +25,22 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.03',
+    date: '2026-06-22',
+    title: { en: 'Allied Detachment roster split + weapon-swap pool sharing fix' },
+    changes: { en: [
+      'Allied Detachment units now have their own roster view inside the "🤝 Allied: <faction>" tab, fully separate from the primary army\'s unit list — Core Rules: allies "are treated as separate armies on the battlefield." The roster list also now groups allied units by the ally\'s OWN Archetype, not the primary\'s (a unit promoted to Troops by the ally\'s own archetype was previously bucketed by the primary army\'s archetype instead).',
+      'Fixed a global weapon-swap bug (found via Noise Marines): "fixed_max" swap groups (e.g. "Two models\' Bolt pistols may become a Meltagun/Plasma gun/Blastmaster") did not share their replaced-weapon pool with sibling "every" swap groups on the same base weapon, letting the UI sell more swapped weapons than the unit has models (ki-csm-fixedmax-sibling-pool-01, now fixed).',
+    ] },
+  },
+  {
     version: '1.02',
     date: '2026-06-22',
     title: { en: 'Inquisition armory/veteran fixes + Allied Detachment own Army Customisation' },
     changes: { en: [
       'New Armory tab for Inquisition units: pick a single item from any of 6 Imperial factions\' general Armory (Adeptus Custodes, Adeptus Mechanicus, Adeptus Sororitas, Grey Knights, Imperial Guard, Space Marines), capped at 1 item per model. Implements the June 2026 "Authority of the Inquisition" rule, which previously had no UI support (ki-inquisition-authority-unenforced-01, now fixed).',
       'Henchman Warband can now take Veteran abilities: every specialist type present in the Warband (Acolyte, Crusader, Arco-flagellant, etc.) gets its own veteran-ability slot, matching the "may gain one Veteran ability" text repeated on every specialist sheet (ki-inquisition-henchman-veteran-per-specialist-01, now fixed).',
-      'Allied Detachments now get their own "🤝 Allied: <faction>" tab with their own Archetype/Legacy/Traits, separate from the primary army\'s — Core Rules: "Allies may select their own Army Customisation options" (ki-allies-owncustomisation-unmodelled-01, now fixed). Also fixed: Skirmish now correctly blocks Allied Detachments, as Missions.txt requires.',
+      'Allied Detachments now get their own "🤝 Allied: <faction>" tab with their own Archetype/Legacy/Traits and their own unit roster, fully separate from the primary army\'s — Core Rules: "Allies may select their own Army Customisation options" and are treated as a separate army on the battlefield (ki-allies-owncustomisation-unmodelled-01, now fixed). Also fixed: Skirmish now correctly blocks Allied Detachments, as Missions.txt requires.',
     ] },
   },
   {
