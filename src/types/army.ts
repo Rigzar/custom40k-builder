@@ -122,4 +122,15 @@ export interface ArmyState {
   traitPool: string[];
   army: RosterEntry[];
   alliedFaction?: string;
+  /**
+   * Allied Detachment's OWN Army Customisation — independent of the primary faction's
+   * archetype/legacy/traitPool. Core Rules: "Allies may select their own Army Customisation
+   * options." Only applies to units with `item.factionSource === alliedFaction`. Scoped down
+   * from the primary's full feature set: a single Legacy slot (no 2nd-legacy-via-trait unlock)
+   * and generic trait costing only (no Holy Trinity / Black Crusade style legacy-specific
+   * auto-behaviour, which are CSM-primary-only signature mechanics).
+   */
+  alliedArchetype?: string;
+  alliedLegacy?: string;
+  alliedTraitPool?: string[];
 }

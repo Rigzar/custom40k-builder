@@ -320,14 +320,18 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
 // ── Generic base resolver ─────────────────────────────────────────────────────
 
 function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: FactionData): ResolvedProfile {
-  const rule = getArchetypeRule(state.archetype);
+  // Allied Detachment units use the allied faction's OWN Army Customisation (Core Rules: "Allies
+  // may select their own Army Customisation options"), not the primary faction's archetype.
+  const isAlliedUnit = !!item.factionSource && item.factionSource === state.alliedFaction;
+  const effectiveArchetype = isAlliedUnit ? (state.alliedArchetype ?? '') : state.archetype;
+  const rule = getArchetypeRule(effectiveArchetype);
 
   // Points & slot
-  const pts = computeUnitPoints(item, unit, state.archetype);
+  const pts = computeUnitPoints(item, unit, effectiveArchetype);
   // Yngir: "One C'tan shard (any kind) counts as an HQ selection" (ods-verbatim) — re-slots
   // just the one flagged instance; uniqueness (only 1 per army) is enforced by a validator,
   // not here. C'tan Shard units otherwise live in Elites (see NECRON_SLOTS).
-  const ctanYngirActive = !!item.ctanYngirUpgrade && state.archetype === 'Yngir' && /^C'tan Shard/.test(unit.name);
+  const ctanYngirActive = !!item.ctanYngirUpgrade && effectiveArchetype === 'Yngir' && /^C'tan Shard/.test(unit.name);
   const effectiveSlot = ctanYngirActive ? 'HQ'
     : applyPlatoonSlotOverride(item, state.army, getEffectiveSlot(item.unitName, item.slot, rule));
 

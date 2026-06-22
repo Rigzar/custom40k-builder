@@ -9,7 +9,7 @@ import {
   RELATIONSHIP_DESCRIPTIONS,
   type Relationship,
 } from '../data/alliedMatrix';
-import { getEffectiveSlot } from '../engine/archetypes';
+import { getEffectiveSlot, getArchetypeRule, cleanArchetypeName } from '../engine/archetypes';
 import { SLOT_ICONS } from '../assets/slotIcons';
 
 const FACTION_NAMES: Record<string, string> = {
@@ -95,8 +95,8 @@ function FactionPicker({
   );
 }
 
-function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string }) {
-  const { alliedData, army, addUnit } = useArmyStore();
+export function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string }) {
+  const { alliedData, alliedArchetype, army, addUnit } = useArmyStore();
   const [openSlots, setOpenSlots] = useState<Record<string, boolean>>({ Troops: true, HQ: true });
 
   if (!alliedData) {
@@ -107,18 +107,33 @@ function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string }) {
     );
   }
 
+  // Group by EFFECTIVE slot, same as the primary catalogue (SlotPanel.tsx) — the allied
+  // detachment's own Archetype can remap a unit's battlefield role (e.g. Space Marines' "1st
+  // Company": "Honor Guard and Terminators can be taken as Troops"), so the catalogue must use
+  // the ally's archetype rule, not its native slot, both for listing and for counting slot usage.
+  const rule = getArchetypeRule(alliedArchetype ?? '');
+  const effectiveSlotUnits: Record<string, string[]> = {};
+  for (const s of SLOT_ORDER) effectiveSlotUnits[s] = [];
+  for (const [originalSlot, names] of Object.entries(alliedData.slot_to_units)) {
+    for (const name of names) {
+      if (!alliedData.units[name]) continue;
+      const effSlot = getEffectiveSlot(name, originalSlot, rule);
+      if (effectiveSlotUnits[effSlot]) effectiveSlotUnits[effSlot].push(name);
+    }
+  }
+
   return (
     <div className="space-y-1 mt-2">
       {SLOT_ORDER.map(slot => {
         const [min, max] = ALLIED_AOP[slot];
-        const slotUnits = alliedData.slot_to_units[slot] ?? [];
+        const slotUnits = effectiveSlotUnits[slot] ?? [];
         // Skip slots with 0 max capacity that also have no units
         if (max === 0 && slotUnits.length === 0) return null;
 
         // Count how many allied units of this effective slot are in the army
         const used = army.filter(e => {
           if (e.factionSource !== alliedFactionKey) return false;
-          return getEffectiveSlot(e.unitName, e.slot, null) === slot;
+          return getEffectiveSlot(e.unitName, e.slot, rule) === slot;
         }).length;
 
         const effectiveMax = slot === 'Dedicated Transport' ? 3 : max;
@@ -156,10 +171,14 @@ function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string }) {
                   slotUnits.map(name => {
                     const u = alliedData.units[name];
                     if (!u) return null;
+                    // Store the unit's TRUE native slot (e.g. Terminators are natively Elites,
+                    // even while "1st Company" displays/counts them here under Troops) — same
+                    // convention as the primary catalogue (SlotPanel.tsx) — so the remap stays
+                    // reversible if the allied Archetype is changed or cleared later.
                     return (
                       <button
                         key={name}
-                        onClick={() => addUnit(name, slot, alliedFactionKey)}
+                        onClick={() => addUnit(name, u.slot, alliedFactionKey)}
                         disabled={isFull}
                         className={`w-full flex justify-between items-center px-3 py-1.5 text-left text-[12px] border-b border-zinc-700/50 transition-colors group
                           ${isFull
@@ -182,11 +201,141 @@ function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string }) {
   );
 }
 
+/**
+ * Allied Detachment's OWN Army Customisation (Core Rules L1834: "Allies may select their own
+ * Army Customisation options") — independent of the primary faction's archetype/legacy/traits.
+ * Lives in its own "Allied: <faction>" tab (App.tsx), full-width like the primary's ArmyConfig,
+ * not squeezed into the sidebar — reinforces that this is a second, separate army, not a
+ * sub-section of the primary's. Deliberately scoped down from the primary's full ArmyConfig: a
+ * single Legacy slot (no 2nd-legacy-via-trait unlock) and generic trait costing only (no Holy
+ * Trinity / Black Crusade style legacy-specific auto-behaviour — CSM-primary-only mechanics).
+ */
+export function AlliedCustomisation({ alliedFactionKey }: { alliedFactionKey: string }) {
+  const {
+    alliedData, alliedArchetype, alliedLegacy, alliedTraitPool,
+    setAlliedArchetype, setAlliedLegacy, setAlliedTraitPool,
+  } = useArmyStore();
+
+  if (!alliedData) return null;
+  if (!alliedData.archetypes.length && !alliedData.legacies.length && !alliedData.traits.length) {
+    return (
+      <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
+        {FACTION_NAMES[alliedFactionKey] ?? alliedFactionKey} has no Army Customisation options.
+      </div>
+    );
+  }
+
+  const selectClass = `w-full bg-zinc-950 border border-zinc-700 text-zinc-100 px-3 py-2
+    text-sm focus:outline-none focus:border-emerald-600 transition-colors hover:border-zinc-600`;
+  const pool = alliedTraitPool ?? [];
+
+  return (
+    <div className="border border-zinc-800 bg-zinc-900/50">
+      <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
+        <span className="text-[12px]">🤝</span>
+        <span className="font-cinzel text-[11px] uppercase tracking-widest text-emerald-400">
+          {FACTION_NAMES[alliedFactionKey] ?? alliedFactionKey} — Army Customisation
+        </span>
+      </div>
+      <div className="p-4 space-y-4">
+        {alliedData.archetypes.length > 0 && (
+          <div>
+            <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5">Archetype</div>
+            <select value={alliedArchetype ?? ''} onChange={e => setAlliedArchetype(e.target.value)} className={selectClass}>
+              <option value="">— none —</option>
+              {alliedData.archetypes.map(a => (
+                <option key={a.name} value={a.name}>{cleanArchetypeName(a.name)}</option>
+              ))}
+            </select>
+            {alliedArchetype && (
+              <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-emerald-800 pl-3 leading-relaxed">
+                {alliedData.archetypes.find(a => a.name === alliedArchetype)?.desc}
+              </div>
+            )}
+          </div>
+        )}
+
+        {alliedData.legacies.length > 0 && (
+          <div>
+            <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5">Legacy</div>
+            <select value={alliedLegacy ?? ''} onChange={e => setAlliedLegacy(e.target.value)} className={selectClass}>
+              <option value="">— none —</option>
+              {alliedData.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
+            </select>
+            {alliedLegacy && (
+              <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-emerald-800 pl-3 leading-relaxed">
+                {alliedData.legacies.find(l => l.name === alliedLegacy)?.desc}
+              </div>
+            )}
+          </div>
+        )}
+
+        {alliedData.traits.length > 0 && (
+          <div>
+            <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5">Traits (up to 2)</div>
+            <div className="space-y-2">
+              {[0, 1].map(slot => (
+                <select
+                  key={slot}
+                  value={pool[slot] ?? ''}
+                  onChange={e => {
+                    const val = e.target.value;
+                    const newPool = [
+                      slot === 0 ? val : (pool[0] ?? ''),
+                      slot === 1 ? val : (pool[1] ?? ''),
+                    ].filter(Boolean) as string[];
+                    setAlliedTraitPool(newPool);
+                  }}
+                  className={selectClass}
+                >
+                  <option value="">— Trait {slot + 1} (none) —</option>
+                  {alliedData.traits
+                    .filter(t => t.name !== (slot === 0 ? pool[1] : pool[0]))
+                    .map(t => <option key={t.name} value={t.name}>{t.name}</option>)
+                  }
+                </select>
+              ))}
+            </div>
+            {pool.length > 0 && (
+              <div className="space-y-1.5 pt-2">
+                {pool.map(name => {
+                  const tr = alliedData.traits.find(t => t.name === name);
+                  if (!tr) return null;
+                  return (
+                    <div key={name} className="pl-3 border-l-2 border-emerald-900 text-[10px]">
+                      <span className="text-emerald-400 font-semibold">{name}</span>
+                      <span className="text-zinc-500 ml-1.5">— {tr.desc}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Sidebar widget: lets the player attach/detach the allied detachment and shows the relationship
+ * at a glance. Once attached, its own Army Customisation and unit catalogue live in the dedicated
+ * "Allied: <faction>" tab (App.tsx) — not here — so the two armies stay visually separate.
+ */
 export function AlliedDetachmentPanel({ primaryFaction }: { primaryFaction: string | null }) {
-  const { alliedFaction, setAlliedFaction } = useArmyStore();
+  const { alliedFaction, setAlliedFaction, engagement } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
 
   if (!primaryFaction) return null;
+
+  // Missions.txt (Skirmish): "No allies may be included. No Archetypes may be selected."
+  if (engagement === 'skirmish') {
+    return (
+      <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50 text-center">
+        Allied Detachments are not available in Skirmish.
+      </div>
+    );
+  }
 
   // ── No allied faction selected ───────────────────────────────────────────
   if (!alliedFaction) {
@@ -221,9 +370,12 @@ export function AlliedDetachmentPanel({ primaryFaction }: { primaryFaction: stri
     <div className="space-y-2">
       {/* Header row */}
       <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <div className="text-[12px] text-zinc-200 font-medium truncate">{factionLabel}</div>
-          {rel && <RelationshipBadge rel={rel} />}
+        <div className="min-w-0 flex items-center gap-1.5">
+          <span className="text-[12px]">🤝</span>
+          <div>
+            <div className="text-[12px] text-zinc-200 font-medium truncate">{factionLabel}</div>
+            {rel && <RelationshipBadge rel={rel} />}
+          </div>
         </div>
         <button
           onClick={() => setAlliedFaction(null)}
@@ -241,8 +393,9 @@ export function AlliedDetachmentPanel({ primaryFaction }: { primaryFaction: stri
         </p>
       )}
 
-      {/* Allied unit catalogue */}
-      <AlliedCatalogue alliedFactionKey={alliedFaction} />
+      <p className="text-[11px] text-emerald-500/80 leading-snug border-l-2 border-emerald-800 pl-2">
+        Its own Army Customisation and unit catalogue are in the <span className="font-semibold">🤝 Allied: {factionLabel}</span> tab above — independent from {FACTION_NAMES[primaryFaction] ?? primaryFaction}'s.
+      </p>
     </div>
   );
 }

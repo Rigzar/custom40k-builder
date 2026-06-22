@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
-import type { FactionData, Trait } from '../types/data';
+import type { FactionData, Trait, Unit } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
@@ -31,12 +31,49 @@ function isArmyOnlyTrait(t: Trait): boolean {
     && parseTraitPts(t.pts_veh) === null;
 }
 
+/** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
+function computeTraitSelections(unit: Unit, names: string[], traits: Trait[]): TraitSelection[] {
+  return names
+    .map(name => {
+      const def = traits.find(t => t.name === name);
+      if (!def) return null;
+
+      let raw: string | null | undefined;
+      if (unit.is_vehicle) {
+        // Canonical rule (Army Customisation source): "MONSTROUS CREATURES & VEHICLES" is one
+        // shared column — vehicles pay the same cost as monsters, even when the trait's effect
+        // only applies to creature units. Canonical table is the source of truth (FAQ #5: Codex
+        // > Core). pts_veh holds the vehicle cost directly; if absent, fall back to pts_monster
+        // (the shared column); no effect-presence check — the cost is paid regardless.
+        raw = def.pts_veh ?? def.pts_monster ?? null;
+      } else if (unit.is_character) {
+        raw = def.pts_char;
+      } else if (unit.is_monster) {
+        raw = def.pts_monster;
+      } else {
+        raw = def.pts_unit;
+      }
+
+      const pts = parseTraitPts(raw);
+      if (pts === null) return null; // trait cost is "-" for this unit type
+      const perWound = typeof raw === 'string' && raw.trimEnd().endsWith('*');
+      return { name, points: pts, ...(perWound ? { perWound: true } : {}) };
+    })
+    .filter(Boolean) as TraitSelection[];
+}
+
 /**
- * Re-computes item.traits for every unit in the army from the army traitPool.
- * Called whenever traitPool, archetype, or a unit's mark changes.
+ * Re-computes item.traits for every unit in the army from the army traitPool — and, separately,
+ * from the Allied Detachment's OWN traitPool for units with `factionSource === alliedFaction`
+ * (Core Rules L1834: "Allies may select their own Army Customisation options"). Called whenever
+ * either traitPool, either archetype, a unit's mark, or the allied faction changes.
  *
  * Rule: "If a Trait is taken, all models/units in the army must be upgraded
  * with it, unless stated otherwise." (Army Customisation, CSM codex)
+ *
+ * Allied traits use the generic cost-table path only — Holy Trinity / Black Crusade are
+ * primary-only signature Legacy mechanics (CSM-specific auto-behaviour), not modelled for an
+ * allied detachment.
  */
 function applyArmyTraits(
   army: RosterEntry[],
@@ -44,77 +81,62 @@ function applyArmyTraits(
   data: FactionData,
   _archetype: string,
   legacy?: string,
+  alliedFaction?: string,
+  alliedData?: FactionData | null,
+  alliedTraitPool?: string[],
 ): RosterEntry[] {
-  if (!traitPool.length) return army.map(e => ({ ...e, traits: [] }));
-
-  // Holy Trinity forces 3 traits at a combined flat cost of 10 pts per non-character unit
-  if (legacy === 'The Holy Trinity') {
-    return army.map(item => {
-      const unit = resolveUnit(item, data);
-      if (!unit) return { ...item, traits: [] };
-      const isMainFaction = item.unitName in data.units;
-      if (!isMainFaction || !unit.has_veteran_abilities) return { ...item, traits: [] };
-      // Characters get the traits at no cost (pts_char = 0 for all three)
-      const traits: TraitSelection[] = traitPool.map((name, i) => ({
-        name,
-        points: unit.is_character ? 0 : i === 0 ? 10 : 0,
-      }));
-      return { ...item, traits };
-    });
-  }
-
-  // Filter out army-only traits (they have no per-unit cost)
+  const holyTrinity = legacy === 'The Holy Trinity';
   const unitTraitNames = traitPool.filter(name => {
     const def = data.traits.find(t => t.name === name);
     return def && !isArmyOnlyTrait(def);
   });
+  const allyTraitNames = (alliedFaction && alliedData)
+    ? (alliedTraitPool ?? []).filter(name => {
+        const def = alliedData.traits.find(t => t.name === name);
+        return def && !isArmyOnlyTrait(def);
+      })
+    : [];
 
   return army.map(item => {
-    const unit = resolveUnit(item, data);
-    if (!unit) return { ...item, traits: [] };
-
-    // Traits apply only to main faction units (not allied units)
     const isMainFaction = item.unitName in data.units;
-    if (!isMainFaction || !unitTraitNames.length) {
-      return { ...item, traits: [] };
+
+    if (isMainFaction) {
+      const unit = resolveUnit(item, data);
+      if (!unit) return { ...item, traits: [] };
+
+      if (holyTrinity) {
+        // Holy Trinity forces 3 traits at a combined flat cost of 10 pts per non-character unit
+        if (!unit.has_veteran_abilities) return { ...item, traits: [] };
+        const traits: TraitSelection[] = traitPool.map((name, i) => ({
+          name,
+          points: unit.is_character ? 0 : i === 0 ? 10 : 0,
+        }));
+        return { ...item, traits };
+      }
+
+      if (!unitTraitNames.length) return { ...item, traits: [] };
+
+      // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
+      // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
+      if (data.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
+        return { ...item, traits: [] };
+      }
+
+      // All selected traits apply to all eligible units — veteran_max limits only armory items
+      return { ...item, traits: computeTraitSelections(unit, unitTraitNames, data.traits) };
     }
 
-    // CSM: traits only apply to units with the 'Chaos Space Marine' keyword
-    // (excludes Cultists, Chaos Spawn, Daemon Engines, World Eaters, Death Guard, etc.)
-    if (data.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
-      return { ...item, traits: [] };
+    // Allied Detachment's own trait pool — independent of the primary faction's
+    if (alliedFaction && alliedData && item.factionSource === alliedFaction) {
+      const unit = resolveUnit(item, data); // data.allied[factionSource] was merged in by setAlliedFaction
+      if (!unit || !allyTraitNames.length) return { ...item, traits: [] };
+      if (alliedData.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
+        return { ...item, traits: [] };
+      }
+      return { ...item, traits: computeTraitSelections(unit, allyTraitNames, alliedData.traits) };
     }
 
-    // All selected traits apply to all eligible units — veteran_max limits only armory items
-    const traits: TraitSelection[] = unitTraitNames
-      .map(name => {
-        const def = data.traits.find(t => t.name === name);
-        if (!def) return null;
-
-        let raw: string | null | undefined;
-        if (unit.is_vehicle) {
-          // Canonical rule (Army Customisation source): "MONSTROUS CREATURES & VEHICLES" is one
-          // shared column — vehicles pay the same cost as monsters, even when the trait's effect
-          // only applies to creature units. Canonical table is the source of truth (FAQ #5: Codex
-          // > Core). pts_veh holds the vehicle cost directly; if absent, fall back to pts_monster
-          // (the shared column); no effect-presence check — the cost is paid regardless.
-          raw = def.pts_veh ?? def.pts_monster ?? null;
-        } else if (unit.is_character) {
-          raw = def.pts_char;
-        } else if (unit.is_monster) {
-          raw = def.pts_monster;
-        } else {
-          raw = def.pts_unit;
-        }
-
-        const pts = parseTraitPts(raw);
-        if (pts === null) return null; // trait cost is "-" for this unit type
-        const perWound = typeof raw === 'string' && raw.trimEnd().endsWith('*');
-        return { name, points: pts, ...(perWound ? { perWound: true } : {}) };
-      })
-      .filter(Boolean) as TraitSelection[];
-
-    return { ...item, traits };
+    return { ...item, traits: [] };
   });
 }
 
@@ -140,6 +162,12 @@ export interface ArmyStore extends ArmyState {
   setLegacy2: (l: string) => void;
   /** Set the full army trait pool (max 2). Automatically syncs traits to all units. */
   setTraitPool: (pool: string[]) => void;
+  /** Allied Detachment's OWN Army Customisation (Core Rules: "Allies may select their own
+   *  Army Customisation options") — independent of the primary faction's archetype/legacy/traits. */
+  setAlliedArchetype: (a: string) => void;
+  setAlliedLegacy: (l: string) => void;
+  /** Set the allied detachment's trait pool (max 2). Automatically syncs traits to allied units. */
+  setAlliedTraitPool: (pool: string[]) => void;
   /** Per-unit override: which subset of army unit-traits this unit takes (conflict resolution). */
   setUnitTraitChoice: (id: string, choices: string[]) => void;
   /**
@@ -229,7 +257,12 @@ export const useArmyStore = create<ArmyStore>()(
       setAlliedFaction: (key) => set((s) => {
         const prev = s.alliedFaction;
         const army = prev ? s.army.filter(e => e.factionSource !== prev) : s.army;
-        return { alliedFaction: key ?? undefined, alliedData: null, army };
+        // Switching/removing the allied faction invalidates its own Army Customisation picks —
+        // an Archetype/Legacy/Trait name from the old ally faction won't exist on the new one.
+        return {
+          alliedFaction: key ?? undefined, alliedData: null, army,
+          alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [],
+        };
       }),
 
       setArmyName: (n: string) => set({ armyName: n }),
@@ -252,9 +285,18 @@ export const useArmyStore = create<ArmyStore>()(
         ),
       })),
 
-      setEngagement: (e: EngagementType) => set({
-        engagement: e,
-        pointLimit: ENGAGEMENTS[e].default,
+      setEngagement: (e: EngagementType) => set((s: S) => {
+        // Missions.txt (Skirmish): "No allies may be included." Switching into Skirmish with an
+        // allied detachment already present drops it (and its units), same as setAlliedFaction(null).
+        if (e === 'skirmish' && s.alliedFaction) {
+          const army = s.army.filter(entry => entry.factionSource !== s.alliedFaction);
+          return {
+            engagement: e, pointLimit: ENGAGEMENTS[e].default, army,
+            alliedFaction: undefined, alliedData: null,
+            alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [],
+          };
+        }
+        return { engagement: e, pointLimit: ENGAGEMENTS[e].default };
       }),
       setPointLimit: (n: number) => set({ pointLimit: n }),
       setHqMark: (m: Mark) => set({ hqMark: m }),
@@ -271,7 +313,7 @@ export const useArmyStore = create<ArmyStore>()(
             })
           : s.army;
         const army = s.data
-          ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy)
+          ? applyArmyTraits(baseArmy, s.traitPool, s.data, a, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : baseArmy;
         return { archetype: a, army };
       }),
@@ -282,7 +324,7 @@ export const useArmyStore = create<ArmyStore>()(
           return {
             legacy: l,
             traitPool: holyTrioNames,
-            army: applyArmyTraits(s.army, holyTrioNames, s.data, s.archetype, l),
+            army: applyArmyTraits(s.army, holyTrioNames, s.data, s.archetype, l, s.alliedFaction, s.alliedData, s.alliedTraitPool),
           };
         }
         if (s.legacy === 'The Holy Trinity' && s.data) {
@@ -290,7 +332,7 @@ export const useArmyStore = create<ArmyStore>()(
           return {
             legacy: l,
             traitPool: [],
-            army: applyArmyTraits(s.army, [], s.data, s.archetype, l),
+            army: applyArmyTraits(s.army, [], s.data, s.archetype, l, s.alliedFaction, s.alliedData, s.alliedTraitPool),
           };
         }
         return { legacy: l };
@@ -303,7 +345,7 @@ export const useArmyStore = create<ArmyStore>()(
         const hasBC = newPool.includes('Black Crusade');
 
         let army = s.data
-          ? applyArmyTraits(s.army, newPool, s.data, s.archetype, s.legacy)
+          ? applyArmyTraits(s.army, newPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : s.army;
 
         // If Black Crusade was removed, clear any champion designations
@@ -325,9 +367,21 @@ export const useArmyStore = create<ArmyStore>()(
           e.id === id ? { ...e, traitChoice: choices } : e,
         );
         const army = s.data
-          ? applyArmyTraits(withChoice, s.traitPool, s.data, s.archetype, s.legacy)
+          ? applyArmyTraits(withChoice, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : withChoice;
         return { army };
+      }),
+
+      setAlliedArchetype: (a: string) => set({ alliedArchetype: a }),
+
+      setAlliedLegacy: (l: string) => set({ alliedLegacy: l }),
+
+      setAlliedTraitPool: (pool: string[]) => set((s: S) => {
+        const newPool = pool.slice(0, 2); // enforce max 2
+        const army = s.data
+          ? applyArmyTraits(s.army, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, newPool)
+          : s.army;
+        return { alliedTraitPool: newPool, army };
       }),
 
       setBlackCrusadeHQ: (id: string, v: boolean) => set((s: S) => ({
@@ -409,7 +463,7 @@ export const useArmyStore = create<ArmyStore>()(
           }
         }
         const newArmy = [...s.army, entry];
-        const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy);
+        const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool);
         set({ army });
       },
 
@@ -419,7 +473,7 @@ export const useArmyStore = create<ArmyStore>()(
         const newArmy = s.army.map((e: RosterEntry) => e.id === id ? { ...e, ...patch } : e);
         // Re-sync traits when mark changes (mark uses a veteran slot)
         const army = ('mark' in patch) && s.data
-          ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy)
+          ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : newArmy;
         // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes)
         const extra: Record<string, unknown> = {};
@@ -525,7 +579,7 @@ export const useArmyStore = create<ArmyStore>()(
           const parsed = JSON.parse(json);
           const newState = { ...defaultState, ...parsed, data: s.data };
           const army = s.data
-            ? applyArmyTraits(newState.army, newState.traitPool, s.data, newState.archetype, newState.legacy)
+            ? applyArmyTraits(newState.army, newState.traitPool, s.data, newState.archetype, newState.legacy, newState.alliedFaction, s.alliedData, newState.alliedTraitPool)
             : newState.army;
           set({ ...newState, army });
         } catch { /* ignore malformed */ }

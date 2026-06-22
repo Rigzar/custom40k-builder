@@ -9,7 +9,8 @@ import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
 import { FactionSymbol } from './components/FactionSymbol';
 import { PrintView } from './components/PrintView';
-import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
+import { AlliedDetachmentPanel, AlliedCustomisation, AlliedCatalogue } from './components/AlliedDetachmentPanel';
+import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
@@ -22,7 +23,7 @@ import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
 
-type TabId = 'landing' | 'army_config' | 'builder';
+type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
 
 export const FACTION_NAMES: Record<string, string> = {
   chaos_space_marines:  'Chaos Space Marines',
@@ -142,6 +143,7 @@ function HeaderStatus() {
 // ── Tab bar ─────────────────────────────────────────────────────────────────
 function TabBar({
   activeTab, openTabs, selectedFaction, factionLabel, armyName, symbolOverride,
+  alliedFactionKey, alliedFactionLabel,
   onSwitch, onClose,
 }: {
   activeTab: TabId;
@@ -150,13 +152,17 @@ function TabBar({
   factionLabel: string;
   armyName: string;
   symbolOverride: string | null;
+  alliedFactionKey?: string | null;
+  alliedFactionLabel?: string;
   onSwitch: (tab: TabId) => void;
   onClose: (tab: TabId) => void;
 }) {
-  const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean }[] = [
+  const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean; allied?: boolean }[] = [
     { id: 'landing',     label: 'Factions',       icon: false, closeable: false },
     ...(openTabs.includes('army_config') ? [{ id: 'army_config' as TabId, label: factionLabel || 'Config', icon: true, closeable: true }] : []),
     ...(openTabs.includes('builder')     ? [{ id: 'builder'     as TabId, label: armyName || 'Army',   icon: true, closeable: true }] : []),
+    // Distinct icon/label/accent so it's unmistakably "the other army", not a sub-section of the primary's.
+    ...(openTabs.includes('allied_config') ? [{ id: 'allied_config' as TabId, label: `Allied: ${alliedFactionLabel || ''}`, icon: true, closeable: true, allied: true }] : []),
   ];
 
   return (
@@ -171,13 +177,17 @@ function TabBar({
               flex items-center gap-1.5 px-3 py-2 text-[11px] uppercase tracking-wide font-cinzel
               cursor-pointer select-none shrink-0 border-b-2 transition-colors
               ${active
-                ? 'border-amber-600 text-amber-300 bg-zinc-900/70'
-                : 'border-transparent text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900/30'
+                ? (tab.allied ? 'border-emerald-500 text-emerald-300 bg-zinc-900/70' : 'border-amber-600 text-amber-300 bg-zinc-900/70')
+                : (tab.allied ? 'border-transparent text-emerald-700/70 hover:text-emerald-400 hover:bg-zinc-900/30' : 'border-transparent text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900/30')
               }
             `}
           >
-            {tab.icon && selectedFaction && (
+            {tab.allied && <span className="text-[12px] leading-none">🤝</span>}
+            {tab.icon && !tab.allied && selectedFaction && (
               <FactionSymbol factionKey={selectedFaction} size={13} naked overrideUrl={symbolOverride ?? undefined} />
+            )}
+            {tab.icon && tab.allied && alliedFactionKey && (
+              <FactionSymbol factionKey={alliedFactionKey} size={13} naked />
             )}
             <span>{tab.label}</span>
             {tab.closeable && (
@@ -267,6 +277,28 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedFaction]);
 
+  // Opens its own "Allied: <faction>" tab the moment an allied detachment is picked, and jumps
+  // straight to it — same pattern as Build Army opening the builder tab. Closes (and switches
+  // away from) it automatically when the ally is removed, so the tab can never outlive the ally.
+  // Skips the very first run (mount/page-load): zustand persists alliedFaction across reloads,
+  // and the app must always cold-start on the Factions tab regardless of what was persisted —
+  // this effect should only react to the player actively picking/removing an ally afterwards.
+  const skipFirstAlliedTabEffect = useRef(true);
+  useEffect(() => {
+    if (skipFirstAlliedTabEffect.current) {
+      skipFirstAlliedTabEffect.current = false;
+      return;
+    }
+    if (alliedFaction) {
+      setOpenTabs(prev => prev.includes('allied_config') ? prev : [...prev, 'allied_config']);
+      setActiveTab('allied_config');
+    } else {
+      setOpenTabs(prev => prev.filter(t => t !== 'allied_config'));
+      setActiveTab(prev => prev === 'allied_config' ? 'builder' : prev);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [alliedFaction]);
+
   // Archetype / legacy / native-ally faction loader
   useEffect(() => {
     if (!data) return;
@@ -315,7 +347,14 @@ export default function App() {
       setArmyName(`${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`);
     }
     if (!data || !selectedFaction) return;
-    setOpenTabs(prev => prev.includes('builder') ? prev : [...prev, 'builder']);
+    setOpenTabs(prev => {
+      const withBuilder: TabId[] = prev.includes('builder') ? prev : [...prev, 'builder'];
+      // Re-open the allied tab too if an ally was already configured (e.g. resuming a saved
+      // army) — otherwise the sidebar's "open the Allied tab" pointer would lead nowhere.
+      return alliedFaction && !withBuilder.includes('allied_config')
+        ? [...withBuilder, 'allied_config']
+        : withBuilder;
+    });
     setActiveTab('builder');
   }
 
@@ -354,6 +393,13 @@ export default function App() {
   }
 
   function handleCloseTab(tab: TabId) {
+    // The allied tab only exists while there's an allied detachment — closing it removes the
+    // detachment itself (its units included), same as the sidebar's "Remove" button. The
+    // alliedFaction effect above then closes the tab and re-focuses the builder automatically.
+    if (tab === 'allied_config') {
+      store.setAlliedFaction(null);
+      return;
+    }
     setOpenTabs(prev => prev.filter(t => t !== tab));
     if (activeTab === tab) {
       const remaining = openTabs.filter(t => t !== tab);
@@ -362,6 +408,7 @@ export default function App() {
   }
 
   const factionLabel = selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : '';
+  const alliedFactionLabel = alliedFaction ? (FACTION_NAMES[alliedFaction] ?? alliedFaction) : '';
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
@@ -375,6 +422,8 @@ export default function App() {
           factionLabel={factionLabel}
           armyName={armyName}
           symbolOverride={armySymbolOverride}
+          alliedFactionKey={alliedFaction}
+          alliedFactionLabel={alliedFactionLabel}
           onSwitch={setActiveTab}
           onClose={handleCloseTab}
         />
@@ -520,6 +569,52 @@ export default function App() {
             <main>
               <ArmyList />
             </main>
+          </div>
+        </div>
+      )}
+
+      {/* ── Allied Detachment tab — its own army: Customisation + catalogue, full width ── */}
+      {openTabs.includes('allied_config') && alliedFaction && (
+        <div style={{ display: activeTab === 'allied_config' ? 'flex' : 'none' }} className="flex-col flex-1">
+          <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-emerald-900/60 px-4 py-2.5">
+            <div className="max-w-screen-xl mx-auto flex items-center gap-3">
+              <FactionSymbol factionKey={alliedFaction} size={28} />
+              <h1 className="text-emerald-500 font-bold uppercase tracking-widest text-base leading-none font-bankgothic">
+                🤝 Allied: {alliedFactionLabel}
+              </h1>
+              {selectedFaction && (() => {
+                const rel = getRelationship(selectedFaction, alliedFaction);
+                return rel ? (
+                  <span className={`text-[10px] font-semibold uppercase tracking-wide ${RELATIONSHIP_COLORS[rel]}`}>
+                    {RELATIONSHIP_LABELS[rel]}
+                  </span>
+                ) : null;
+              })()}
+            </div>
+          </header>
+
+          <div className="max-w-screen-md mx-auto w-full px-4 py-6 space-y-4">
+            <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3">
+              This is a separate detachment from {factionLabel}'s army — its own Army
+              Organisation Plan, its own Army Customisation, sharing only the total point limit.
+              {selectedFaction && (() => {
+                const rel = getRelationship(selectedFaction, alliedFaction);
+                return rel ? ` ${RELATIONSHIP_DESCRIPTIONS[rel]}` : '';
+              })()}
+            </p>
+
+            <AlliedCustomisation alliedFactionKey={alliedFaction} />
+
+            <div className="border border-zinc-800 bg-zinc-900/50">
+              <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
+                <span className="font-cinzel text-[11px] uppercase tracking-widest text-emerald-400">
+                  {alliedFactionLabel} — Unit Catalogue
+                </span>
+              </div>
+              <div className="p-3">
+                <AlliedCatalogue alliedFactionKey={alliedFaction} />
+              </div>
+            </div>
           </div>
         </div>
       )}
