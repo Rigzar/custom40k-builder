@@ -97,7 +97,8 @@ export const landRaider: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy bolter"]
     },
     {
       "header": "Can be equipped with a Multi-melta for +37 points.",

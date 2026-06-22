@@ -71,13 +71,22 @@ export const kommandos: Unit = {
       "abilities": "AT(2), Ammo(1)"
     },
     {
-      "name": "Burna",
+      "name": "Burna - Melee",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Unwieldy"
+    },
+    {
+      "name": "Burna - Ranged",
       "range": "9\"",
       "type": "Assault 4",
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Combi."
+      "abilities": "Flames"
     },
     {
       "name": "Choppa",

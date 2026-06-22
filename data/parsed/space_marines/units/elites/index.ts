@@ -1,5 +1,6 @@
 export { aggressorSquad } from './aggressor_squad';
 export { ancient } from './ancient';
+export { armiger } from './armiger';
 export { apothecary } from './apothecary';
 export { companyChampion } from './company_champion';
 export { deathCompany } from './death_company';

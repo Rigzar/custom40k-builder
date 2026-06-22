@@ -189,7 +189,8 @@ export const intercessorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt rifle (Bolt ammo)", "Bolt rifle (Stalker ammo)", "Bolt rifle (Assault ammo)"]
     },
     {
       "header": "The Intercessor Sergeant may be upgraded to a Veteran Intercessor Sergeant for +10 points and gains access to weapons and gear from the Armory.",

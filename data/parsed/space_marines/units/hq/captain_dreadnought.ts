@@ -128,11 +128,11 @@ export const captainDreadnought: Unit = {
       },
       "choices": [
         {
-          "name": "Dreadnought close combat weapon with Heavy flamer",
+          "name": "Dreadnought close combat weapon and Heavy flamer",
           "points": 29
         },
         {
-          "name": "Dreadnought close combat weapon with Storm bolter",
+          "name": "Dreadnought close combat weapon and Storm bolter",
           "points": 33
         },
         {
@@ -165,7 +165,8 @@ export const captainDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     },
     {
       "header": "Only one Captain or Captain Dreadnought per army.",

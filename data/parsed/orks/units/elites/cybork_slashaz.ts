@@ -49,7 +49,7 @@ export const cyborkSlashaz: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Each Cybork Slasha is equipped with: Choppa, Slugga, Stikkbombz",
+  "equipped_with": "Each Cybork Slasha is equipped with: Choppa, Slugga, Stikkbombz\nEach Cybork Painboy is equipped with: 'Urty Syringe, Slugga, Stikkbombz, Narthecium",
   "weapons": [
     {
       "name": "Big Choppa",
@@ -68,6 +68,42 @@ export const cyborkSlashaz: Unit = {
       "ap": "-1",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Kombi-burna - Shoota",
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Combi"
+    },
+    {
+      "name": "Kombi-burna - Burna",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames, Combi"
+    },
+    {
+      "name": "Kombi-rokkit launcha - Shoota",
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Combi"
+    },
+    {
+      "name": "Kombi-rokkit launcha - Rokkit launcha",
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Anti-air, Combi"
     },
     {
       "name": "Power Klaw",
@@ -115,7 +151,82 @@ export const cyborkSlashaz: Unit = {
       "abilities": "Poison(4+)"
     }
   ],
-  "option_groups": [],
+  "option_groups": [
+    {
+      "header": "Any number of Cybork Slashas may swap their Choppa",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Big Choppa",
+          "points": 1
+        },
+        {
+          "name": "Power Klaw",
+          "points": 13
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": ["Choppa"]
+    },
+    {
+      "header": "Any number of Cybork Slashas may swap their Slugga",
+      "constraint": {
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Twin shoota",
+          "points": 8
+        },
+        {
+          "name": "Kombi-rokkit launcha",
+          "points": 9
+        },
+        {
+          "name": "Kombi-burna",
+          "points": 10
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": ["Slugga"]
+    },
+    {
+      "header": "The entire squad may receive one of the following upgrades per model",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Wildork",
+          "points": 2
+        },
+        {
+          "name": "'Eavy armor",
+          "points": 11
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "per_model": true
+    },
+    {
+      "header": "Can get one Kustom job.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
   "abilities": [
     "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!",
     "Cybork Body: Each model has a 5+ invulnerability save.",

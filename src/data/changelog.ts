@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.00',
+    date: '2026-06-22',
+    title: { en: 'Escalation full audit: CSM "War Dog" + SM "Armiger" engagement-gate bugs (user-reported)' },
+    changes: { en: [
+      'Engine bugfix, CSM: "War Dog" carries its own "Elite: Chaos armies may select units of War Dogs as an Elite choice" ability, giving it an Elite-slot pick instead of the Lords of War slot used by every other Escalation unit (e.g. Chaos Warhound) — but it remained selectable in Skirmish/Pitched Battle too, where the Escalation supplement has no content (Lords of War, and Escalation generally, is Epic Battle only). New `Unit.requires_engagement` field greys the unit out with a tooltip outside Epic Battle, same "disabled but visible" pattern as the transport-embark gate.',
+      'Engine bugfix, SM: "Armiger" has the identical override ("Elite: Imperial armies may select units of Armigers as an Elite choice") but was filed under the Lords of War slot instead of Elites — moved to Elites, cleared its guessed "Lord of War" keyword, and gated to Epic Battle via the same `requires_engagement` field. Full Escalation audit (21 Lords of War datasheets across 9 factions) otherwise found no other discrepancies vs Escalation.ods.',
+    ] },
+  },
+  {
     version: '0.99',
     date: '2026-06-22',
     title: { en: "T'au Empire full ODS audit" },

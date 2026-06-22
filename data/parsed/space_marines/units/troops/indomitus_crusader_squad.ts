@@ -101,6 +101,15 @@ export const indomitusCrusaderSquad: Unit = {
   "equipped_with": "Every Neophyte: Astartes chainsword; Frag grenades; Bolt pistol; Krak grenades. Every Initiate: Astartes chainsword; Frag grenades; Heavy bolt pistol; Krak grenades. Sword Brother: Frag grenades; Krak grenades.",
   "weapons": [
     {
+      "name": "Astartes chainsword",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
       "name": "Astartes shotgun",
       "range": "18\"",
       "type": "Assault 2",
@@ -229,7 +238,8 @@ export const indomitusCrusaderSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes chainsword"]
     },
     {
       "header": "For every 10 models, two Initiates may swap their Heavy bolt pistols",
@@ -250,7 +260,8 @@ export const indomitusCrusaderSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolt pistol"]
     }
   ],
   "abilities": [

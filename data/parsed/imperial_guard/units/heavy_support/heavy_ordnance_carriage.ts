@@ -106,11 +106,11 @@ export const heavyOrdnanceCarriage: Unit = {
       },
       "choices": [
         {
-          "name": "Medusa siege cannon with HE shells",
+          "name": "Medusa siege cannon",
           "points": 115
         },
         {
-          "name": "Earthshaker cannon with HE shells",
+          "name": "Earthshaker cannon",
           "points": 177
         }
       ],

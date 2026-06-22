@@ -164,7 +164,7 @@ export const dreadnought: Unit = {
       },
       "choices": [
         {
-          "name": "Dreadnought close combat weapon with Storm bolter",
+          "name": "Dreadnought close combat weapon and Storm bolter",
           "points": 27
         },
         {

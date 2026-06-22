@@ -196,11 +196,11 @@ export const dreadnought: Unit = {
       },
       "choices": [
         {
-          "name": "Dreadnought claw with Storm bolter",
+          "name": "Dreadnought claw and Storm bolter",
           "points": 18
         },
         {
-          "name": "Dreadnought close combat weapon with Storm bolter",
+          "name": "Dreadnought close combat weapon and Storm bolter",
           "points": 27
         },
         {
@@ -224,7 +224,7 @@ export const dreadnought: Unit = {
           "points": 41
         },
         {
-          "name": "Seismic hammer with Heavy flamer",
+          "name": "Seismic hammer and Heavy flamer",
           "points": 42
         },
         {
@@ -261,7 +261,8 @@ export const dreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Storm bolter"]
     }
   ],
   "abilities": [

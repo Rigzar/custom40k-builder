@@ -26,7 +26,7 @@
     {
       "name": "Opportunist",
       "term_compat": false,
-      "desc": "You gain an additional 0,25 Victory Points (VP) from secondary objectives. Unique. Deathskulls only.",
+      "desc": "You gain an additional 25% Victory Points (VP) from secondary objectives. Unique. Deathskulls only.",
       "p_unit": null,
       "p_char": 15
     },

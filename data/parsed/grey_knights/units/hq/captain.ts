@@ -137,7 +137,8 @@ export const captain: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "Can replace the Storm bolter",
@@ -160,7 +161,8 @@ export const captain: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Storm bolter"]
     },
     {
       "header": "Only one Captain or Captain in Nemesis Armor per army.",

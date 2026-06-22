@@ -243,6 +243,16 @@ export interface Unit {
    *   requires_army_item: "Ordo Xenos"
    */
   requires_army_item?: string | null;
+  /**
+   * Gates the unit to a specific engagement type — for units that occupy a normal AOP slot
+   * (not 'Lords of War') but still belong to a supplement only active in that engagement.
+   * Example: CSM "War Dog" — Escalation.ods's own "Elite" ability text ("Chaos armies may
+   * select units of War Dogs as an Elite choice") gives it an Elite-slot pick instead of the
+   * normal Lords of War slot, but it remains an Escalation-supplement unit and the supplement
+   * (per escalation.md §1) is only active in Epic Battle. Without this gate the unit would be
+   * pickable in Skirmish/Pitched Battle too, where Escalation content doesn't exist.
+   */
+  requires_engagement?: 'skirmish' | 'pitched' | 'epic' | null;
 }
 
 export interface WeaponProfile {

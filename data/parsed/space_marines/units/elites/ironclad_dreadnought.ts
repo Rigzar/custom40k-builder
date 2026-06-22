@@ -120,7 +120,8 @@ export const ironcladDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Storm bolter"]
     },
     {
       "header": "Can swap the Heavy flamer",
@@ -135,7 +136,8 @@ export const ironcladDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     },
     {
       "header": "Can swap the Dreadnought close combat weapon with Storm bolter",
@@ -154,7 +156,8 @@ export const ironcladDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Dreadnought close combat weapon", "Storm bolter"]
     },
     {
       "header": "Can swap the Seismic hammer",
@@ -169,7 +172,8 @@ export const ironcladDreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Seismic hammer"]
     },
     {
       "header": "May be equipped with up to two Hunter-killer missiles from the Armory.",

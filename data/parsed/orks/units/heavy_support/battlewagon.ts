@@ -70,6 +70,24 @@ export const battlewagon: Unit = {
       "abilities": "AT(1), Anti-air, Explosive, Sunder(1)"
     },
     {
+      "name": "Kannon - Frag",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Kannon - Shell",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
       "name": "Killkannon",
       "range": "24\"",
       "type": "Heavy 1",

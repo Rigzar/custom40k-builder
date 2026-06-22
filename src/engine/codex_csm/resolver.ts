@@ -115,5 +115,19 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
     }
   }
 
-  return { ...base, equippedWith, weapons, weaponDisplayOverride, isFavored, injectedAbilities };
+  // "Zombie lord" (Nurgle Armoury): "All Poxwalker models from an attached unit gain +1
+  // Strength." — an aura granted by a JOINED character, not the bearer's own profile, so it
+  // can't be found on `item`/`unit` alone; it requires looking at the army-wide roster for a
+  // character whose `joinedToUnit` points at THIS entry. Mirrors how `traitStatMods` already
+  // feeds the displayed stat-mod pipeline (see UnitCard.tsx), just sourced from a different unit.
+  const traitStatMods = [...base.traitStatMods];
+  if (unit.name === 'Poxwalkers') {
+    const bearer = state.army.find(e => e.joinedToUnit === item.id && e.armory.some(a => a.itemName === 'Zombie lord'));
+    if (bearer) {
+      traitStatMods.push({ stat: 'S', delta: 1 });
+      injectedAbilities.push('Zombie lord (attached): +1 Strength');
+    }
+  }
+
+  return { ...base, equippedWith, weapons, weaponDisplayOverride, isFavored, injectedAbilities, traitStatMods };
 };

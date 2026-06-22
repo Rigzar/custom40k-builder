@@ -154,7 +154,7 @@ export const tankbustas: Unit = {
     {
       "header": "All remaining Tankbusta may swap their Smasha hammas",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -164,7 +164,8 @@ export const tankbustas: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Smasha hamma"]
     },
     {
       "header": "One Tankbusta may be upgraded to a Nob for +16 points and gains access to weapons and gear from the Armory.",

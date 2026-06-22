@@ -219,7 +219,8 @@ export const greyHunters: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Boltgun"]
     },
     {
       "header": "One Grey Hunter may swap their Bolt pistol",
@@ -234,7 +235,8 @@ export const greyHunters: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt pistol"]
     },
     {
       "header": "The Grey Hunter Pack Leader may be upgraded to a Wolf Guard Pack Leader for +10 points and gains access to weapons and gear from the Armory.",

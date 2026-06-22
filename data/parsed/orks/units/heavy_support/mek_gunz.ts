@@ -34,6 +34,51 @@ export const mekGunz: Unit = {
   "equipped_with": "A Mek Gun is equipped with: -.",
   "weapons": [
     {
+      "name": "Bubblechukka - Weedy",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(2), Explosive, Sunder(2), Bubbles"
+    },
+    {
+      "name": "Bubblechukka - Big",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "6",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Barrage, Sunder(2), Bubbles"
+    },
+    {
+      "name": "Bubblechukka - 'Uge",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Colossal Blast, Sunder(2), Bubbles"
+    },
+    {
+      "name": "Kannon - Frag",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Kannon - Shell",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
       "name": "Kustom mega-kannon",
       "range": "36\"",
       "type": "Heavy 1",
@@ -88,7 +133,7 @@ export const mekGunz: Unit = {
       "choices": [
         {
           "name": "Lobba",
-          "points": 0
+          "points": 16
         },
         {
           "name": "Kannon",

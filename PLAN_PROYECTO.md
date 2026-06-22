@@ -779,8 +779,8 @@ inicio actualizada: Assassins pasa de "facción jugable" a tarjeta de Suplemento
 | Tau Empire | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 17ª facción; gate Infantry (glifo ᴵ); Kroot en unit_type; Support Systems + Drones; mecánica Markerlight; `ki-tau-empire-vetvehcategory-01` fijado; `ki-tau-empire-psychic-unwired-01` pendiente |
 | Necrons | 🟠 auditada (.ods) | ✅ (2026-06-11, desde el .ods) | ✅ (2026-06-11, 5/5) | 18ª y ÚLTIMA facción; Necron/Canoptek en unit_type; mecánica Reanimation Protocols (RPoints); `ki-necrons-vetvehcategory-01` fijado; `ki-necrons-psychic-unwired-01` pendiente — **19/19 facciones migradas** |
 | Assassins | 🟢 corregido (v0.56) | — | ⬜ | suplemento universal Caos/Imperio (no facción independiente) — ver nota abajo |
-| Horus Heresy | 🟢 digest completo | ✅ | ⬜ | suplemento — Fase 1 chaos shippeada v0.51 |
-| Escalation (Lords of War) | 🟠 fase chaos completa | — | ⬜ | suplemento cross-facción |
+| Horus Heresy | 🟢 digest completo | ✅ | ⬜ | suplemento — re-auditado completo 2026-06-22 (12 unidades + Armory + Index), cero bugs nuevos |
+| Escalation (Lords of War) | 🟢 completa (2026-06-22) | — | ⬜ | suplemento cross-facción; 21 LoW en 9 facciones auditadas; War Dog + Armiger arreglados (slot/engagement-gate) |
 
 Leyenda: 🟢 completa · 🟠 auditada (pueden quedar detalles) · 🔴 sin empezar/parcial · ⬜ no iniciado
 

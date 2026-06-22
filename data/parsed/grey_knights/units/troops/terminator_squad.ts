@@ -181,7 +181,8 @@ export const terminatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Storm bolter"]
     },
     {
       "header": "Each model may be equipped with Psy-ammunition for +1 points per model.",

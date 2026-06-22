@@ -1,7 +1,17 @@
 /**
- * ARMIGER — Lords of War
+ * ARMIGER — Elites
  * SOURCE: Informacion/Escalation.ods, sheet "Armiger" (Escalation cross-faction
  *   Lords of War supplement; not in the Space Marines ENG HTML).
+ *
+ * SLOT FIX (2026-06-22, user-reported): the .ods sheet for Armiger has NO trailing
+ * "KEYWORDS / Lord of War" row (unlike Knight Castellan/Knight Paladin/Warhound, which
+ * all do) — instead its own ABILITIES carry "Elite: Imperial armies may select units of
+ * Armigers as an Elite choice.", the exact same override pattern as CSM's "War Dog"
+ * (ki-escalation-wardog-engagement-gate-01). Was previously filed under the Lords of War
+ * slot (with a guessed `keywords: ["Lord of War"]` — see escalation.md §7, "Armiger ...
+ * given keywords: ['Lord of War'] for consistency", a guess that turned out wrong given
+ * this override). Moved to Elites, `keywords: []`, and gated to Epic Battle via
+ * `requires_engagement` since it's still an Escalation-supplement datasheet.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -139,9 +149,7 @@ export const armiger: Unit = {
     "Ion shield: The model gains a 5+ invulnerability save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
   ],
   "unit_type": "Walker",
-  "keywords": [
-    "Lord of War"
-  ],
+  "keywords": [],
   "is_vehicle": true,
   "is_character": false,
   "is_monster": false,
@@ -153,7 +161,8 @@ export const armiger: Unit = {
   "veteran_max": null,
   "locked_mark": null,
   "advisor": false,
-  "slot": "Lords of War",
+  "requires_engagement": "epic",
+  "slot": "Elites",
   "default_size": 1,
   "min_cost": 239
 };

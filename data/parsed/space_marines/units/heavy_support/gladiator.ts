@@ -133,7 +133,8 @@ export const gladiator: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin Heavy onslaught gatling cannon"]
     },
     {
       "header": "May swap their two Fragstorm grenade launcher",
@@ -156,7 +157,8 @@ export const gladiator: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Fragstorm grenade launcher"]
     },
     {
       "header": "Can be equipped with one of the following",

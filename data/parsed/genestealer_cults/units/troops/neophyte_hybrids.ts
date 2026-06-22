@@ -179,7 +179,7 @@ export const neophyteHybrids: Unit = {
       "choices": [
         {
           "name": "Shotgun",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

@@ -88,7 +88,7 @@ export const harpy: Unit = {
       "choices": [
         {
           "name": "Twin stranglethorn cannon",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

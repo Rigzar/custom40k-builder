@@ -4,7 +4,7 @@ export const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
 };
 
-export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
+export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
   // ── Favored Units ────────────────────────────────────────────────────────────
   // A unit is Favored when its size is a multiple of the mark's sacred number AND
   // it has a "squad leader" model to receive the +1 Attack/personal icon (a second
@@ -122,6 +122,23 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state) => {
         injectedRuleNotes.push('Host Duplicitous: psychic powers do not increase their casting values for being manifested multiple times per round');
       }
       break;
+  }
+
+  // ── Locus auras (joined Herald → attached unit) ──────────────────────────────
+  // Every god Herald's "Locus of X" ability (Bloodmaster/Poxbringer/Tranceweaver/Changecaster)
+  // plus Sloppity Bilepiper's "Disease of Mirth" reads "The model AND ITS ATTACHED UNIT
+  // gain/get/can ..." — verbatim datasheet text, but the engine only ever surfaced it on the
+  // Herald's own card, never on the unit it joins. Mirrors the CSM "Zombie lord" fix
+  // (codex_csm/resolver.ts) but generic: find whoever is joined to THIS entry and relay any of
+  // its "attached unit" abilities here, verbatim (no rule-text synthesis — just relabelled).
+  const joiner = state.army.find(e => e.joinedToUnit === item.id);
+  const joinerUnit = joiner ? data.units[joiner.unitName] : null;
+  if (joinerUnit) {
+    for (const a of joinerUnit.abilities ?? []) {
+      if (/\battached unit\b/i.test(a)) {
+        injectedAbilities.push(`(from attached ${joinerUnit.name}) ${a}`);
+      }
+    }
   }
 
   // ── Entourage / Herald / Bound Beast ─────────────────────────────────────────

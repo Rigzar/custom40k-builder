@@ -190,11 +190,11 @@ export const redemptorDreadnought: Unit = {
           "points": 19
         },
         {
-          "name": "Redemptor fist with Storm bolter",
+          "name": "Redemptor fist and Storm bolter",
           "points": 27
         },
         {
-          "name": "Redemptor fist with Heavy flamer",
+          "name": "Redemptor fist and Heavy flamer",
           "points": 29
         },
         {
@@ -202,7 +202,7 @@ export const redemptorDreadnought: Unit = {
           "points": 41
         },
         {
-          "name": "Redemptor fist with Onslaught gatling cannon",
+          "name": "Redemptor fist and Onslaught gatling cannon",
           "points": 53
         }
       ],
@@ -221,7 +221,7 @@ export const redemptorDreadnought: Unit = {
           "points": 19
         },
         {
-          "name": "Redemptor fist with Storm bolter",
+          "name": "Redemptor fist and Storm bolter",
           "points": 27
         },
         {

@@ -61,6 +61,24 @@ export const warbuggy: Unit = {
       "abilities": "Ammo (1), AT(2), Barrage, Indirect, Grot Gunner, Seeking"
     },
     {
+      "name": "Kannon - Frag",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Kannon - Shell",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
       "name": "Lobba",
       "range": "36\"",
       "type": "Assault 1",
@@ -261,7 +279,7 @@ export const warbuggy: Unit = {
       "choices": [
         {
           "name": "Stikkbombz",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Burna bottles",

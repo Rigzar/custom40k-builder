@@ -176,14 +176,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isChar = unit.is_character;
   const isVehicle = unit.is_vehicle;
 
-  // A squad with a built-in Champion (e.g. Plague Champion) or an active promoted variant
-  // (e.g. Traitor Sergeant) has a Character-scoped buyer even though the unit itself isn't
-  // `is_character`. Mirrors resolver.ts's hasCharacterScopedBuyer — used so that p_char-only
-  // items (e.g. "Rotting", +10pts) price correctly off the p_char column instead of falling
-  // back to a missing p_unit and showing "+0 pts" (ki-champion-armory-pchar-cost-01).
-  const builtInChampion = unit.models.length > 1 && unit.models[1].min === 1 && unit.models[1].max === 1 ? unit.models[1] : null;
   const activeVariant = getActiveVariant(item, unit);
-  const hasCharacterScopedBuyer = (!!builtInChampion && unit.models[0].max > 1) || !!activeVariant;
 
   // CD-specific: Greater Daemons pay from the p_char column ("POINTS GREATER DEMON");
   // all other units (Heralds, Daemon Prince, Soul Grinder) pay from p_unit ("POINTS").
@@ -218,9 +211,23 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // dynastyscion-novariant-01). Without this, `isChar` alone (true either way) always preferred
     // p_char, wrongly letting a base Cryptek buy Lord-exclusive gear.
     if (activeData.faction === 'Necrons' && unit.name === 'Cryptek') return activeVariant ? cp : up;
-    // Other factions: characters use p_char (flat cost), squads use p_unit (per-model).
-    // A squad's Character-scoped buyer (built-in Champion / promoted variant) also pays p_char.
-    return (isChar || hasCharacterScopedBuyer) ? (cp ?? up) : up;
+    // Single-column tables (e.g. "DAEMON WEAPONS": one "POINTS" header, no "POINTS CHARACTER
+    // MODELS" split at all) have no `p_unit` key in the data — anyone with access (gated
+    // separately, e.g. by already owning the "Daemon weapon" gateway item) pays the one listed
+    // price, regardless of is_character. Must check the KEY's presence, not parsePrice's result
+    // (parsePrice already collapses null and undefined to the same `null`).
+    if (arm.p_unit === undefined && cp != null) return cp;
+    // Two-column tables ("POINTS" / "POINTS CHARACTER MODELS"): true Character models
+    // (`is_character: true`) use p_char; everyone else uses p_unit ONLY. Confirmed against the
+    // canonical .ods itself: a "-" in the unit column (e.g. Cataphractii armor, p_unit: null,
+    // p_char: 76) means truly unavailable outside true Characters — NOT a fallback to the
+    // Character price for a squad's built-in Champion or promoted variant (Plague Champion,
+    // Traitor Sergeant, etc.), even though those have their own Armory access; they aren't
+    // Character models, just squad leaders with a personal wargear allowance
+    // (ki-armory-pchar-truechar-only-01 — this reverts the v0.66 "Force axe on Traitor Sergeant"
+    // decision, which incorrectly treated a squad's character-scoped buyer as equivalent to
+    // is_character for this column).
+    return isChar ? (cp ?? up) : up;
   }
 
   /** True when the item requires a mark the unit doesn't have. markless (HH supplement) carries no

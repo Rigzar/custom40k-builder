@@ -97,7 +97,8 @@ export const landRaiderCrusader: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin assault cannon"]
     },
     {
       "header": "Can be equipped with a Multi-melta for +37 points.",

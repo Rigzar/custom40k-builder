@@ -129,7 +129,8 @@ export const librarian: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "One Librarian per army can be upgraded to a Chief Librarian for +15 points.",

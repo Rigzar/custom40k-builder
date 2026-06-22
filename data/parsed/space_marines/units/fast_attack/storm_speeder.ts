@@ -142,7 +142,8 @@ export const stormSpeeder: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Onslaught gatling cannon"]
     },
     {
       "header": "May swap their 2 Fragstorm grenade launcher",
@@ -161,7 +162,8 @@ export const stormSpeeder: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Fragstorm grenade launcher"]
     },
     {
       "header": "May swap their Twin Icarus rocket pod",
@@ -180,7 +182,8 @@ export const stormSpeeder: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin Icarus rocket pod"]
     }
   ],
   "abilities": [

@@ -182,7 +182,8 @@ export const desolationSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Castellan missile launcher (Castellan)", "Castellan missile launcher (Frag)"]
     },
     {
       "header": "The Desolation Sergeant may be upgraded to a Veteran Desolation Sergeant for +10 points and gains access to weapons and gear from the Armory.",

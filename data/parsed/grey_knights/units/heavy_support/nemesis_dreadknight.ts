@@ -97,7 +97,8 @@ export const nemesisDreadknight: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Dreadfist"]
     },
     {
       "header": "Can be equipped with two of the following",

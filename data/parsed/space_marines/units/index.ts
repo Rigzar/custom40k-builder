@@ -35,6 +35,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Tactical Squad": troops.tacticalSquad,
   "Aggressor Squad": elites.aggressorSquad,
   "Ancient": elites.ancient,
+  "Armiger": elites.armiger,
   "Apothecary": elites.apothecary,
   "Company Champion": elites.companyChampion,
   "Death Company": elites.deathCompany,
@@ -93,7 +94,6 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Stormtalon Gunship": flyers.stormtalonGunship,
   "Fellblade": lordsOfWar.fellblade,
   "Spartan": lordsOfWar.spartan,
-  "Armiger": lordsOfWar.armiger,
   "Knight Castellan": lordsOfWar.knightCastellan,
   "Knight Paladin": lordsOfWar.knightPaladin,
   "Warhound": lordsOfWar.warhound,
@@ -124,6 +124,7 @@ export const slot_to_units: Record<string, string[]> = {
   "Elites": [
     "Aggressor Squad",
     "Ancient",
+    "Armiger",
     "Apothecary",
     "Company Champion",
     "Death Company",
@@ -194,7 +195,6 @@ export const slot_to_units: Record<string, string[]> = {
   "Lords of War": [
     "Fellblade",
     "Spartan",
-    "Armiger",
     "Knight Castellan",
     "Knight Paladin",
     "Warhound"

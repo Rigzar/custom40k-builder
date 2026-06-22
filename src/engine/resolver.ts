@@ -809,13 +809,45 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // be its own qty, not the whole group). Sum qty per replaced weapon across ALL groups that
   // target it (each model decides independently, so qtys from different groups add up), and
   // give each swapped-in choice's weapon(s) their own qty.
+  // Swapped-in weapons from a group with no explicit `applies_to_model` belong to the squad's
+  // base model(s) only — e.g. "two Plague Marines may swap their Bolters" never means the Plague
+  // Champion. When the Champion gets its own display row (its Armory gear differs from the
+  // squad's), that row must not show the squad-only swapped weapon at all (it didn't buy it),
+  // and the override below must not apply to it either (or the purchased qty shows doubled —
+  // once correctly on the squad row, once spuriously on the Champion's).
+  const squadOnlyGrantedNames = new Set<string>();
+  if (builtInChampion) {
+    for (const [gi, g] of unit.option_groups.entries()) {
+      if (!g.replaces?.length || g.applies_to_model) continue;
+      const ch = item.optionQty[gi] ?? {};
+      for (const [ci, qty] of Object.entries(ch)) {
+        if (ci === '__inline' || !qty) continue;
+        const choice = g.choices[parseInt(ci)];
+        if (!choice) continue;
+        const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+        for (const part of (parts.length > 1 ? parts : [choice.name])) squadOnlyGrantedNames.add(part);
+      }
+    }
+    if (squadOnlyGrantedNames.size > 0) {
+      for (const grp of groups) {
+        if (grp.label === builtInChampion.name) {
+          grp.weapons = grp.weapons.filter(w => !squadOnlyGrantedNames.has(baseName(w.name)) || grantedSet.has(w.name));
+        }
+      }
+    }
+  }
+
   for (const grp of groups) {
     if (grp.count == null || !grp.label) continue;
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
       if (!g.replaces?.length) continue;
-      if (g.applies_to_model && !(Array.isArray(g.applies_to_model) ? g.applies_to_model.includes(grp.label) : g.applies_to_model === grp.label)) continue;
+      if (g.applies_to_model) {
+        if (!(Array.isArray(g.applies_to_model) ? g.applies_to_model.includes(grp.label) : g.applies_to_model === grp.label)) continue;
+      } else if (builtInChampion && grp.label === builtInChampion.name) {
+        continue;
+      }
       const ch = item.optionQty[gi] ?? {};
       let groupQty = 0;
       for (const [ci, qty] of Object.entries(ch)) {

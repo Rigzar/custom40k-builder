@@ -43,6 +43,24 @@ export const squiggoth: Unit = {
       "abilities": "AT(2), Flurry(3)"
     },
     {
+      "name": "Kannon - Frag",
+      "range": "36\"",
+      "type": "Heavy 4",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Barrage"
+    },
+    {
+      "name": "Kannon - Shell",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "AT(2), Explosive"
+    },
+    {
       "name": "Lobba",
       "range": "36\"",
       "type": "Heavy 1",

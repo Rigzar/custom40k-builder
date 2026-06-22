@@ -115,7 +115,8 @@ export const stormhawkInterceptor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy bolter"]
     },
     {
       "header": "Can replace the Icarus stormcannon",
@@ -130,7 +131,8 @@ export const stormhawkInterceptor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Icarus stormcannon"]
     }
   ],
   "abilities": [],

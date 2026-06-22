@@ -124,7 +124,8 @@ export const eradicatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Melta rifle"]
     },
     {
       "header": "All remaining models may swap their Melta rifle",

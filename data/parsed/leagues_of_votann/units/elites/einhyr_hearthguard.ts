@@ -138,7 +138,7 @@ export const einhyrHearthguard: Unit = {
       "choices": [
         {
           "name": "Teleportation crest",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Weavefield crest",

@@ -1,4 +1,4 @@
-import type { FactionData } from '../types/data';
+import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit } from './points';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
@@ -317,6 +317,16 @@ export function ctanShardCapBlockReason(unitName: string, faction: string, army:
   const existing = army.filter(e => CTAN_SHARD_NAMES.includes(e.unitName)).length;
   if (existing === 0) return null;
   return `An army can contain only one C'tan Shard (any kind) — this army already has one.`;
+}
+
+/** Returns a disabled-tooltip reason for a unit gated to a specific engagement (e.g. CSM "War
+ * Dog" — Escalation.ods's own "Elite" ability grants it an Elite-slot pick instead of the normal
+ * Lords of War slot, but it's still an Escalation-supplement unit and must not be selectable
+ * outside Epic Battle, the only engagement where Escalation content is active). Mirrors
+ * lowMoveEmbarkBlockReason's "grey it out, don't just note it" pattern. */
+export function engagementGateBlockReason(unit: Unit, engagement: string): string | null {
+  if (!unit.requires_engagement || unit.requires_engagement === engagement) return null;
+  return `Requires the Escalation supplement (Epic Battle engagement) — not available in ${engagement === 'skirmish' ? 'Skirmish' : 'Pitched Battle'}.`;
 }
 
 export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {

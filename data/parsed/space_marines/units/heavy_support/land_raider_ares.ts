@@ -129,7 +129,8 @@ export const landRaiderAres: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin assault cannon"]
     },
     {
       "header": "May swap their Twin heavy flamer",
@@ -144,7 +145,8 @@ export const landRaiderAres: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy flamer"]
     },
     {
       "header": "Can be equipped with",

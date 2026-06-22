@@ -34,8 +34,8 @@ export const dok: Unit = {
     {
       "name": "Pain Boss",
       "points": 76,
-      "min": 1,
-      "max": 1,
+      "min": 0,
+      "max": 0,
       "stats": {
         "M": "6\"",
         "WS": "3+",

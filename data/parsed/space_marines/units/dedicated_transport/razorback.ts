@@ -119,7 +119,8 @@ export const razorback: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy bolter"]
     },
     {
       "header": "Can be equipped with an additional Storm bolter for +11 points.",

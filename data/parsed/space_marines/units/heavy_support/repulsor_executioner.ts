@@ -147,7 +147,8 @@ export const repulsorExecutioner: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Laser destroyer"]
     },
     {
       "header": "Can be equipped with one of the following",

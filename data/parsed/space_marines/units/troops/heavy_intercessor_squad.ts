@@ -194,7 +194,8 @@ export const heavyIntercessorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolt rifle (Bolt ammo)", "Heavy bolt rifle (Stalker ammo)", "Heavy bolt rifle (Assault ammo)"]
     },
     {
       "header": "The Intercessor Sergeant may be upgraded to a Veteran Intercessor Sergeant for +10 points and gains access to weapons and gear from the Armory.",

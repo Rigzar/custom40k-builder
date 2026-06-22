@@ -156,9 +156,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // SOURCE: "The model knows one additional psychic power from one of their chosen disciplines.
   //          Can be taken multiple times."
   const psychicTrainingCount = item.armory.filter(a => a.itemName === 'Psychic training').length;
+  // "Baleful tome" (General armoury): "select a psychic power from the general psychic powers or
+  // the Chaos psychic powers" — a separate once-per-game pick, same shape as Psychic training for
+  // list-building purposes (the once-per-game/1D6-activation flavour is a procedural in-game rule,
+  // not enforced here, matching how the rest of the engine treats procedural-only text).
+  const balefulTomeCount = item.armory.filter(a => a.itemName === 'Baleful tome').length;
+  const bonusPowerSlots = psychicTrainingCount + balefulTomeCount;
   const effectivePowerLimit = psykerMode === 'all_from_one'
-    ? powerLimit  // all_from_one unlocks the whole discipline, training adds extra picks
-    : powerLimit + psychicTrainingCount;
+    ? powerLimit  // all_from_one unlocks the whole discipline, training/tome add extra picks
+    : powerLimit + bonusPowerSlots;
 
   // Chosen discipline: in 'all_from_one' mode, the player picks ONE discipline and
   // knows ALL its powers. We store the chosen discipline as the first power's disciplineName

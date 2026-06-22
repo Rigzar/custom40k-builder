@@ -142,7 +142,8 @@ export const stormravenGunship: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin assault cannon"]
     },
     {
       "header": "Can replace the Twin heavy bolter",
@@ -161,7 +162,8 @@ export const stormravenGunship: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy bolter"]
     },
     {
       "header": "Can be equipped with 2 Hurricane bolters for +64 points.",

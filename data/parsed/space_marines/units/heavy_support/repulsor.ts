@@ -156,7 +156,8 @@ export const repulsor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy onslaught gatling cannon"]
     },
     {
       "header": "May swap their Twin Heavy bolter",
@@ -171,7 +172,8 @@ export const repulsor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin heavy bolter"]
     },
     {
       "header": "Can swap one Ironhail heavy stubber",
@@ -186,7 +188,8 @@ export const repulsor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Ironhail heavy stubber"]
     },
     {
       "header": "Can swap 2 Fragstorm grenade launcher",
@@ -201,7 +204,8 @@ export const repulsor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Fragstorm grenade launcher"]
     },
     {
       "header": "Can swap one Fragstorm grenade launcher",
@@ -224,7 +228,8 @@ export const repulsor: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Fragstorm grenade launcher"]
     },
     {
       "header": "Can be equipped with one of the following",

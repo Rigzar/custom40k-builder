@@ -93,12 +93,12 @@ export const brKhyrIronMaster: Unit = {
     {
       "header": "One Brôkhyr Iron-master per army can be upgraded to a Brôkhyr Forge-master for +15pts.",
       "constraint": {
-        "type": "one"
+        "type": "unique_upgrade"
       },
       "choices": [],
       "inline_pts": 15,
-      "variant_link": null,
-      "is_unique_per_army": false
+      "variant_link": "Brôkhyr Forge-master",
+      "is_unique_per_army": true
     }
   ],
   "abilities": [
@@ -111,7 +111,7 @@ export const brKhyrIronMaster: Unit = {
   "unit_type": "Character Model, Infantry",
   "keywords": [],
   "is_vehicle": false,
-  "is_character": false,
+  "is_character": true,
   "is_monster": false,
   "is_psyker": false,
   "has_armory_access": true,

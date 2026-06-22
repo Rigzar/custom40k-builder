@@ -110,7 +110,8 @@ export const brotherhoodChampion: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon"]
     },
     {
       "header": "Only one per army.",

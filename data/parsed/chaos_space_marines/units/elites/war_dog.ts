@@ -44,6 +44,11 @@
  *     cosmetic display issue pending)
  *   ✓ has_veteran_abilities: false / locked_mark: null ✓
  *   ✓ default_size: 1 / min_cost: 196 ✓
+ *   ✓ requires_engagement: 'epic' — the unit's own ability text ("Elite: Chaos armies may
+ *     select units of War Dogs as an Elite choice") grants Elite-slot access instead of the
+ *     normal Lords of War slot used by its sibling Escalation units (Chaos Warhound etc.), but
+ *     it's still an Escalation-supplement datasheet — was unconditionally selectable in any
+ *     engagement before this fix, when Escalation content only exists in Epic Battle.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -274,6 +279,7 @@ export const warDog: Unit = {
   "advisor": false,
   "is_squadron": true,
   "locked_mark": null,
+  "requires_engagement": "epic",
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 196

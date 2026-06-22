@@ -224,17 +224,13 @@ these.
    `ki-inquisition-army-customisation-replace-01` updated to describe the remaining blocker
    (the cross-faction validator redesign) for a true replace.
 
-7. **New Inquisitor-sheet discrepancies found while implementing item 4 (NOT FIXED, logged
-   for a future pass)** — new KI `ki-inquisition-inquisitor-sheet-gaps-01`:
-   - Inquisitor Lord upgrade: production `inline_pts: 10` (31+10=41pts) vs. new .ods says
-     "+15 points".
-   - Missing "may be upgraded to ONE of: Priest +5 / Psyker +5" — production only has the
-     Psyker +5 option group, no Priest option (despite `is_priest: true` now being set
-     unconditionally per item 2's IG/Sororitas-style precedent).
-   - Missing veteran ability — .ods says "Can gain one Veteran ability" but
-     `has_veteran_abilities: false`.
-   - Missing "Quarry"/"Inquisitor Lord: may choose a second quarry" abilities — not present
-     in `abilities[]` at all.
+7. **New Inquisitor-sheet discrepancies found while implementing item 4 — RESOLVED (re-checked
+   2026-06-22, full ODS audit pass).** `units/hq/inquisitor.ts` now matches the .ods exactly:
+   Inquisitor Lord `inline_pts: 15` (36+15=51pts), separate Priest +5pts AND Psyker +5pts option
+   groups both present, `has_veteran_abilities: true`/`veteran_max: 1`, and the
+   Quarry/"Inquisitor Lord: may choose a second quarry" ability lines are both in `abilities[]`.
+   Fixed in an earlier session not reflected when this note was written; KI
+   `ki-inquisition-inquisitor-sheet-gaps-01` can be closed.
 
 ### 9. June 2026 changelog (external ruleset update) — Inquisition items
 

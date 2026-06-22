@@ -19,7 +19,7 @@
     {
       "name": "One Step Ahead",
       "term_compat": false,
-      "desc": "You gain double the amount of Victory Points (VP) from secondary objectives. Unique. Kraken only.",
+      "desc": "You gain an additional 25% Victory Points (VP) from secondary objectives. Unique. Kraken only.",
       "p_unit": null,
       "p_char": 15
     },

@@ -149,7 +149,8 @@ export const ravenwingBlackKnights: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Plasma talon"]
     }
   ],
   "abilities": [
