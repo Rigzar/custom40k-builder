@@ -1,17 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { RosterEntry } from '../types/army';
-import type { Unit, ArmoryItem } from '../types/data';
+import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, requiresWeaponTarget } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
+import { FACTION_LOADERS } from '../data/loaders';
 import {
   itemRequiredMark, stripMarkGlyph, isTerminatorArmourName,
   modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
   effectiveKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
 } from '../engine/keywords';
+
+// "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
+// unenforced-01): every model with Armory access may select a single item from any Imperial
+// faction's general Armory. Rules-owner clarification 2026-06-22: "Imperial" here = these 6
+// factions (Assassins also count per the rule's letter, but have no Armory of their own, so
+// there's nothing to browse — omitted from the picker as moot).
+const IMPERIAL_AUTHORITY_FACTIONS: { key: string; label: string }[] = [
+  { key: 'adeptus_custodes',   label: 'Adeptus Custodes' },
+  { key: 'adeptus_mechanicus', label: 'Adeptus Mechanicus' },
+  { key: 'adeptus_sororitas',  label: 'Adeptus Sororitas' },
+  { key: 'grey_knights',       label: 'Grey Knights' },
+  { key: 'imperial_guard',     label: 'Imperial Guard' },
+  { key: 'space_marines',      label: 'Space Marines' },
+];
+const AUTHORITY_SOURCE = 'Authority of the Inquisition';
 
 interface Props {
   item: RosterEntry;
@@ -32,7 +48,7 @@ function selId() {
   return 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2)));
 }
 
-type ArmoryTab = 'general' | 'mark' | 'legion';
+type ArmoryTab = 'general' | 'mark' | 'legion' | 'authority';
 type Section = 'weapons' | 'equipment' | 'daemon_weapons';
 
 function parsePrice(v: number | null | undefined | string): number | null {
@@ -77,6 +93,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const [dwTargetWeapon, setDwTargetWeapon] = useState<Record<string, string>>({});
   // Weapon picker for equipment items that target a specific weapon (Chaos artifact, Obsidian blade, etc.)
   const [eqTargetWeapon, setEqTargetWeapon] = useState<Record<string, string>>({});
+  // "Authority of the Inquisition" tab state — which foreign faction is browsed + its lazy-loaded data
+  const [authorityFaction, setAuthorityFaction] = useState<string | null>(null);
+  const [authorityCache, setAuthorityCache]     = useState<Record<string, FactionData>>({});
+  const [authorityLoading, setAuthorityLoading] = useState(false);
+  useEffect(() => {
+    if (!authorityFaction || authorityCache[authorityFaction]) return;
+    setAuthorityLoading(true);
+    FACTION_LOADERS[authorityFaction]()
+      .then(fd => setAuthorityCache(prev => ({ ...prev, [authorityFaction]: fd })))
+      .finally(() => setAuthorityLoading(false));
+  }, [authorityFaction, authorityCache]);
   if (!data) return null;
 
   // Bug 3: for allied units use the allied faction's armory data
@@ -85,6 +112,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   // Always read armory from the live store so Unique checks stay current after additions
   const currentArmory = (army.find(e => e.id === item.id) ?? item).armory;
+
+  // "Authority of the Inquisition" — Inquisition-only, capped at 1 item per model regardless
+  // of which faction/section it came from.
+  const isInquisition = data.faction === 'Inquisition';
+  const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
 
   // Level 1 — once per model: can't add the same item twice unless desc says "Can be taken multiple times"
   function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
@@ -510,6 +542,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               {activeLegionKeys[0]} Armoury
             </button>
           )}
+          {/* Authority of the Inquisition tab — Inquisition only */}
+          {isInquisition && (
+            <button
+              onClick={() => setTab('authority')}
+              className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                ${tab === 'authority'
+                  ? 'border-amber-600 text-amber-400'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300'
+                }`}
+            >
+              Authority of the Inquisition
+            </button>
+          )}
         </div>}
 
         {/* Terminator / Cataphractii armour restriction */}
@@ -681,6 +726,71 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   </div>
                 );
               })
+          ) : tab === 'authority' ? (
+            <div className="space-y-2">
+              <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400">
+                Every model with Armory access may select a single item from any Imperial faction's Armory.
+              </div>
+              {authorityCapReached && (
+                <div className="px-2 py-1.5 bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400">
+                  This model already used its Authority of the Inquisition pick. Remove it below to choose a different one.
+                </div>
+              )}
+              {!authorityFaction ? (
+                <div className="flex flex-wrap gap-2 py-2">
+                  {IMPERIAL_AUTHORITY_FACTIONS.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => setAuthorityFaction(f.key)}
+                      className="px-3 py-2 bg-zinc-800 border border-zinc-600 text-zinc-200 hover:border-amber-600 hover:text-amber-300 text-[11px] uppercase tracking-wide transition-colors"
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+              ) : authorityLoading || !authorityCache[authorityFaction] ? (
+                <div className="text-zinc-500 italic text-sm text-center py-8">
+                  Loading {IMPERIAL_AUTHORITY_FACTIONS.find(f => f.key === authorityFaction)?.label}…
+                </div>
+              ) : (() => {
+                const fd = authorityCache[authorityFaction];
+                const foreignWeapons = (fd.armory_general.weapons ?? []) as ArmoryItem[];
+                const foreignEquip = ((fd.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                return (
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => setAuthorityFaction(null)}
+                      className="text-[10px] text-amber-500 hover:text-amber-300 uppercase tracking-wide"
+                    >
+                      ← Choose a different faction
+                    </button>
+                    {([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
+                      <div key={sec}>
+                        <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? 'Weapons' : 'Equipment'}</div>
+                        {items.length === 0
+                          ? <div className="text-zinc-500 italic text-sm text-center py-2">No items in this section</div>
+                          : items.map((arm, i) => {
+                            const pts = getItemPts(arm);
+                            const blocked = authorityCapReached || pts === null;
+                            return (
+                              <ArmoryItemRow
+                                key={i} arm={arm} isChar={isChar}
+                                justAdded={lastAdded === arm.name}
+                                disabled={blocked}
+                                selectedArmoryId={getSelId(arm.name, sec)}
+                                ptsOverride={pts}
+                                onRemove={removeItem}
+                                onAdd={() => !blocked && add(arm, AUTHORITY_SOURCE, sec)}
+                              />
+                            );
+                          })
+                        }
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+            </div>
           ) : effectiveSection === 'equipment' ? (
             <EquipmentGroups
               regular={regularEquip} veteran={veteranEquip} vehicle={vehicleEquip}

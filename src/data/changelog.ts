@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.02',
+    date: '2026-06-22',
+    title: { en: 'Inquisition: "Authority of the Inquisition" special rule' },
+    changes: { en: [
+      'New Armory tab for Inquisition units: pick a single item from any of 6 Imperial factions\' general Armory (Adeptus Custodes, Adeptus Mechanicus, Adeptus Sororitas, Grey Knights, Imperial Guard, Space Marines), capped at 1 item per model. Implements the June 2026 "Authority of the Inquisition" rule, which previously had no UI support (ki-inquisition-authority-unenforced-01, now fixed).',
+    ] },
+  },
+  {
     version: '1.01',
     date: '2026-06-22',
     title: { en: 'App bugfix: reload always jumped straight into the last builder session' },

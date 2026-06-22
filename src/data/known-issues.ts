@@ -1368,9 +1368,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-inquisition-authority-unenforced-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Inquisition — "Authority of the Inquisition" special rule (army-wide access to any Imperial faction\'s armory) not mechanically enforced',
-    description: 'New June 2026 special rule on the Inquisition\'s Index: "Every model in the army with access to the Armory may select a single item from any Imperial faction." Same shape as the Heretic/Iconoclast archetypes (pick 1 item from another faction\'s armory) but ALWAYS ON (not opt-in) and scoped to ALL ~8 Imperial factions, not just one. Documented as a new army-rule entry in engine/codex_inquisition/special-abilities.ts. Not mechanically enforced — there is no UI for a model to browse another faction\'s general armory; the existing armory_legions tab only covers a single faction via a selected Legacy\'s armory_key. Would need a new "cross-faction armory browser" mechanism, capped at 1 item per model. Rules-owner clarification 2026-06-22: "Imperial" for this rule = Adeptus Custodes, Adeptus Mechanicus, Adeptus Sororitas, Assassins (though Assassins have no armory of their own, so moot in practice), Grey Knights, Imperial Guard, Space Marines.',
+    description: 'New June 2026 special rule on the Inquisition\'s Index: "Every model in the army with access to the Armory may select a single item from any Imperial faction." Same shape as the Heretic/Iconoclast archetypes (pick 1 item from another faction\'s armory) but ALWAYS ON (not opt-in) and scoped to ALL ~8 Imperial factions, not just one. FIXED 2026-06-22: new "Authority of the Inquisition" tab in ArmoryModal.tsx (Inquisition-only), lets the player pick one of the 6 factions with an armory of their own (Custodes/AdMech/Sororitas/GK/IG/SM — Assassins excluded, no armory to browse), lazy-loads that faction\'s data via FACTION_LOADERS, and lists its weapons + non-veteran/non-vehicle equipment for a single capped-at-1-per-model pick (source tag "Authority of the Inquisition", checked across the whole model\'s armory regardless of section/faction).',
   },
   {
     id: 'ki-tau-empire-drones-unmodelled-01',
