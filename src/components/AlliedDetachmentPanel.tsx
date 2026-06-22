@@ -228,6 +228,9 @@ export function AlliedCustomisation({ alliedFactionKey }: { alliedFactionKey: st
   const selectClass = `w-full bg-zinc-950 border border-zinc-700 text-zinc-100 px-3 py-2
     text-sm focus:outline-none focus:border-emerald-600 transition-colors hover:border-zinc-600`;
   const pool = alliedTraitPool ?? [];
+  const rule = getArchetypeRule(alliedArchetype ?? '');
+  const noLegacy = rule?.noLegacy ?? false;
+  const noTraits = rule?.noTraits ?? false;
 
   return (
     <div className="border border-zinc-800 bg-zinc-900/50">
@@ -256,6 +259,11 @@ export function AlliedCustomisation({ alliedFactionKey }: { alliedFactionKey: st
         )}
 
         {alliedData.legacies.length > 0 && (
+          noLegacy ? (
+            <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
+              Legacies not available with archetype <span className="text-emerald-600">{cleanArchetypeName(alliedArchetype ?? '')}</span>.
+            </div>
+          ) : (
           <div>
             <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5">Legacy</div>
             <select value={alliedLegacy ?? ''} onChange={e => setAlliedLegacy(e.target.value)} className={selectClass}>
@@ -268,9 +276,15 @@ export function AlliedCustomisation({ alliedFactionKey }: { alliedFactionKey: st
               </div>
             )}
           </div>
+          )
         )}
 
         {alliedData.traits.length > 0 && (
+          noTraits ? (
+            <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
+              Traits not available with archetype <span className="text-emerald-600">{cleanArchetypeName(alliedArchetype ?? '')}</span>.
+            </div>
+          ) : (
           <div>
             <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-1.5">Traits (up to 2)</div>
             <div className="space-y-2">
@@ -311,6 +325,7 @@ export function AlliedCustomisation({ alliedFactionKey }: { alliedFactionKey: st
               </div>
             )}
           </div>
+          )
         )}
       </div>
     </div>
