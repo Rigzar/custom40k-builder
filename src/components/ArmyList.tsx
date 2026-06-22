@@ -38,8 +38,8 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
   if (!data) return null;
 
   const scopedArmy = scope === 'allied'
-    ? army.filter(item => item.factionSource === alliedFaction)
-    : army.filter(item => item.factionSource !== alliedFaction);
+    ? army.filter(item => !!alliedFaction && item.factionSource === alliedFaction)
+    : army.filter(item => !alliedFaction || item.factionSource !== alliedFaction);
   const effectiveArchetype = scope === 'allied' ? (alliedArchetype ?? '') : archetype;
 
   if (scopedArmy.length === 0) {
