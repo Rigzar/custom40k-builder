@@ -31,7 +31,7 @@ export const tidewallDroneport: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Tidewall Shieldline is a single model and equipped with: -.",
+  "equipped_with": "A Tidewall Droneport is a single model and equipped with: -.",
   "weapons": [],
   "option_groups": [
     {
@@ -58,7 +58,7 @@ export const tidewallDroneport: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

@@ -294,7 +294,8 @@ export const blightlordTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combi-flamer"]
     },
     {
       "header": "For every 5 models, two Terminators may swap their Combi-flamers and Baleswords (points per model)",
@@ -311,7 +312,8 @@ export const blightlordTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combi-flamer", "Balesword"]
     }
   ],
   "abilities": [

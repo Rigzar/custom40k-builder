@@ -247,7 +247,8 @@ export const cultists: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Machine gun"]
     },
     {
       "header": "A Champion may be upgraded to an Aspiring Cultist Champion for +5 points. The Aspiring Cultist Champion has access to weapons and gear from the Armory.",

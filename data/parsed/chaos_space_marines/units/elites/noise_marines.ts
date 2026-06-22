@@ -274,7 +274,8 @@ export const noiseMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt pistol"]
     },
     {
       "header": "If the unit consists of 12 models, another two Noise Marine's Bolt pistols may be replaced (max 2)",
@@ -298,7 +299,8 @@ export const noiseMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt pistol"]
     }
   ],
   "abilities": [

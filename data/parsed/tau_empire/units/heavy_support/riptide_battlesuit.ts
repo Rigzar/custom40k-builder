@@ -111,7 +111,8 @@ export const riptideBattlesuit: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy burst cannon - Standard", "Heavy burst cannon - Nova-charge"]
     },
     {
       "header": "May swap the Twin plasma rifle",
@@ -130,7 +131,8 @@ export const riptideBattlesuit: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin plasma rifle"]
     },
     {
       "header": "Any Riptide Shas'vre may pick up to two SUPPORT SYSTEMS from the armory, none of which may be a Shield generator.",

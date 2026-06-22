@@ -197,8 +197,13 @@ export const chaosRhino: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 29,
+      "choices": [
+        {
+          "name": "Havoc launcher",
+          "points": 29
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
     }

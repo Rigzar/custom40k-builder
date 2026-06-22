@@ -62,6 +62,15 @@ export const skarboyz: Unit = {
       "abilities": "-"
     },
     {
+      "name": "Burna",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames, Combi."
+    },
+    {
       "name": "Choppa",
       "range": "-",
       "type": "Melee",

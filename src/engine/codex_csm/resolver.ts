@@ -1,34 +1,34 @@
 import type { FactionResolverFn } from '../resolver';
-import { applyVehicleWeaponOverrides, applyEquippedWithOverride, getSelectedCombiWeapon } from './archetypes/weapon-overrides';
+import { applyVehicleWeaponOverrides, applyEquippedWithOverride } from './archetypes/weapon-overrides';
 
 const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
 };
+
+function applyArchetypeWeaponDisplay(weapons: import('../../types/data').Weapon[], unit: import('../../types/data').Unit, archetype: string) {
+  let ws = unit.is_vehicle ? applyVehicleWeaponOverrides(weapons, archetype) : weapons;
+  if (archetype === 'Plaguehost') {
+    ws = ws.map(w =>
+      w.name === 'Frag grenade'
+        ? { ...w, name: 'Blight grenades', abilities: w.abilities && w.abilities !== '-' ? `${w.abilities}, Poison(4+)` : 'Poison(4+)' }
+        : w
+    );
+  }
+  return ws;
+}
 
 export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
   const equippedWith = unit.is_vehicle
     ? applyEquippedWithOverride(base.equippedWith, state.archetype)
     : base.equippedWith;
 
-  let weapons = base.weapons;
-  if (unit.is_vehicle) {
-    // When a player selects Combi-flamer/Combi-melta from option groups, rename the
-    // Combi-bolter entry in unit.weapons first so the archetype override is applied
-    // to the correct weapon name (e.g. → "Combi-plague belcher" for Plaguehost+flamer).
-    const selectedCombi = getSelectedCombiWeapon(item, unit);
-    if (selectedCombi && selectedCombi !== 'Combi-bolter') {
-      weapons = weapons.map(w => w.name === 'Combi-bolter' ? { ...w, name: selectedCombi } : w);
-    }
-    weapons = applyVehicleWeaponOverrides(weapons, state.archetype);
-  }
-
-  if (state.archetype === 'Plaguehost') {
-    weapons = weapons.map(w =>
-      w.name === 'Frag grenade'
-        ? { ...w, name: 'Blight grenades', abilities: w.abilities && w.abilities !== '-' ? `${w.abilities}, Poison(4+)` : 'Poison(4+)' }
-        : w
-    );
-  }
+  // Archetype renames (Plaguehost's "Combi-flamer" → "Combi-plague belcher", etc.) must NOT be
+  // baked into `weapons` here — computeWeaponsToShow gates optional weapons by matching choice
+  // names from unit.option_groups against the ORIGINAL weapon names; renaming first breaks that
+  // match (the weapon becomes permanently hidden, or permanently shown if it was the default).
+  // Instead, stash the rename as a post-gating transform (see ResolvedProfile.weaponDisplayOverride).
+  const weapons = base.weapons;
+  const weaponDisplayOverride = (ws: import('../../types/data').Weapon[]) => applyArchetypeWeaponDisplay(ws, unit, state.archetype);
 
   // Favored Units grants its bonus to the unit's "squad leader" — a single model with
   // sole access to the armory. Units with neither armory nor champion armory access
@@ -115,5 +115,5 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
     }
   }
 
-  return { ...base, equippedWith, weapons, isFavored, injectedAbilities };
+  return { ...base, equippedWith, weapons, weaponDisplayOverride, isFavored, injectedAbilities };
 };

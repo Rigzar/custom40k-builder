@@ -126,8 +126,13 @@ export const myphiticBlightHauler: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 19,
+      "choices": [
+        {
+          "name": "Bile spurt",
+          "points": 19
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
     }

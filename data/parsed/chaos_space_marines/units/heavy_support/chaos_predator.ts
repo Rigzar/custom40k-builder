@@ -240,7 +240,7 @@ export const chaosPredator: Unit = {
       },
       "choices": [
         {
-          "name": "Twin entropy cannon (Nurgle only)",
+          "name": "Twin entropy cannon",
           "points": 50
         },
         {
@@ -262,11 +262,11 @@ export const chaosPredator: Unit = {
       },
       "choices": [
         {
-          "name": "two Heavy bolters",
+          "name": "Heavy bolter",
           "points": 54
         },
         {
-          "name": "two lascannons",
+          "name": "Lascannon",
           "points": 138
         }
       ],
@@ -302,8 +302,13 @@ export const chaosPredator: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 29,
+      "choices": [
+        {
+          "name": "Havoc launcher",
+          "points": 29
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
     }

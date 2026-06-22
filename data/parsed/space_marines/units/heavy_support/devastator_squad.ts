@@ -227,7 +227,8 @@ export const devastatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Boltgun"]
     },
     {
       "header": "The Devastator Sergeant may be upgraded to a Veteran Devastator Sergeant for +10 points and gains access to weapons and gear from the Armory.",

@@ -130,7 +130,7 @@ export const forgefiend: Unit = {
       },
       "choices": [
         {
-          "name": "two Ectoplasma guns",
+          "name": "Ectoplasma gun",
           "points": 21
         }
       ],
@@ -146,8 +146,13 @@ export const forgefiend: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 75,
+      "choices": [
+        {
+          "name": "Ectoplasma gun",
+          "points": 75
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
     }

@@ -160,7 +160,8 @@ export const arbites: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Arbites combat shotgun"]
     },
     {
       "header": "Any remaining models may swap their Arbites combat shotguns",

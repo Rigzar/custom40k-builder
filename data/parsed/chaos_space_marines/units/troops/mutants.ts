@@ -215,7 +215,8 @@ export const mutants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Crude melee weapon"]
     },
     {
       "header": "A Mutant may be upgraded to a Mutant Boss for +5 points. The Mutant Boss has access to weapons and gear from the Armory.",

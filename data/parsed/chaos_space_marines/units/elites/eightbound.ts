@@ -116,7 +116,8 @@ export const eightbound: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Eviscerating blade"]
     },
     {
       "header": "All Eightbound and the Eightbound Champion may be upgraded to Exalted Eightbound",

@@ -249,7 +249,8 @@ export const plagueMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolter"]
     },
     {
       "header": "For every 5 models, two additional Plague Marines may swap their Bolters",
@@ -270,7 +271,8 @@ export const plagueMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolter"]
     },
     {
       "header": "One model may be equipped with",

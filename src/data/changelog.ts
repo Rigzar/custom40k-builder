@@ -25,6 +25,31 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '0.99',
+    date: '2026-06-22',
+    title: { en: "T'au Empire full ODS audit" },
+    changes: { en: [
+      'Fixed 5 more missing `replaces` on weapon-swap groups (Hammerhead Gunship x2, Riptide Battlesuit x2, Sky Ray Gunship x1) — running faction total now 14, all confirmed against the .ods.',
+      'Fixed 9 vehicles/flyers/fortifications (Hammerhead Gunship, Sky Ray Gunship, Devilfish, Tidewall Droneport, Tidewall Gunrig, Tidewall Shieldline, Barracuda, Razorshark, Sun Shark Bomber) that had `has_armory_access: false` despite their .ods text granting vehicle-equipment Armory access — same bug class as the IG fix in v0.87. Armory button was permanently hidden on all of them.',
+      'Army Customisation Traits: all 17 traits had `pts_veh: null` even though the .ods prices Monstrous Creatures and Vehicles on the same combined column — meant no Tau vehicle could ever select ANY trait. Fixed by mirroring `pts_monster` into `pts_veh`.',
+      'Fixed Tidewall Droneport\'s `equipped_with` text, which was a copy-paste leftover referencing "A Tidewall Shieldline is a single model..." instead of itself.',
+      'Invocations of the Ethereals (psychic/prayers.json): only 2 of the 4 powers existed, and both were mislabeled with each other\'s swapped effects ("Sense of Stone" carried Calm of Tides\' text, "Zephyr\'s Grace" carried Storm of Fire\'s text). Replaced with all 4 correct powers (Calm of Tides, Storm of Fire, Sense of Stone, Zephyr\'s Grace) verbatim from the .ods.',
+      'Audited Armory + Sept Armory reference sheets — both clean, no changes needed.',
+      'New known issue: Tau Drones (Gun/Marker/Missile/Shield/etc.) have no stat-line or weapon data anywhere in production — the Drone controller item lets you add "drones" but there\'s nothing for the engine to actually instantiate. Logged for a dedicated pass.',
+    ] },
+  },
+  {
+    version: '0.98',
+    date: '2026-06-22',
+    title: { en: 'Cross-faction bugfix: "fixed_max" weapon-swap groups had no quantity cap' },
+    changes: { en: [
+      'Engine bugfix, all factions: "fixed_max" weapon-swap groups (e.g. CSM Raptors\' Plasma pistol swap) never capped the +/- stepper, letting players buy more than the group\'s own max. Multi-choice fixed_max groups could also max out each choice independently instead of sharing one budget. Fixed.',
+      'Cross-faction sweep (batch 1, CSM): fixed_max weapon-swap groups weren\'t marking which weapon they replace, so the base weapon\'s shown count never shrank after a swap (e.g. Raptors still "5x Bolt pistol" after buying Plasma pistols). Added `replaces` to the genuine swap groups on Raptors, Chaos Bikers, Noise Marines, Havocs, Mutants (left additive fixed_max groups like Big Mutants\' extra gear alone). Other factions still pending — see known-issues.ts.',
+      'Cross-faction sweep (batch 2, all factions): wrote a script auditing every fixed_max group\'s header for swap language and missing `replaces` — found most factions (Sororitas, most of Tau, etc.) were already correctly set; only 10 groups across GK/IG/Inquisition/Orks/SM/Tau were missing it. Fixed all 10 (Hive Gangers, Arbites, Kommandos, Tankbustas, Wolf Scout Squad, Assault Squad, Devastator Squad, Blood Claws, Pathfinder Team, Purgator Squad — the last confirmed against the canonical .ods text). Sweep complete.',
+      'Orks: added the missing "Burna" weapon profile (9", Assault 4, S4, AP0, D1, Flames/Combi.) to Kommandos and Skarboyz — both referenced it as a swap choice but never defined it. Space Marines: fixed leftover German "und" in two Assault Squad choice names ("...und Plasma pistol" / "...und Bolt pistol" → "and").',
+    ] },
+  },
+  {
     version: '0.97',
     date: '2026-06-21',
     title: { en: 'Eldar + Necrons bug-bash: Exarch armory, Dire Avengers, Paragon items, Warlocks, Yngir, C\'tan powers' },

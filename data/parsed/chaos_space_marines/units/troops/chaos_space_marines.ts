@@ -335,7 +335,8 @@ export const chaosSpaceMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolter"]
     },
     {
       "header": "For each 5 models, one other Chaos Space Marine may swap their Astartes Chainsword, Bolter and Bolt pistol",
@@ -352,7 +353,8 @@ export const chaosSpaceMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes Chainsword", "Bolter", "Bolt pistol"]
     },
     {
       "header": "The Chaos Space Marine Champion may be upgraded to an Aspiring Chaos Space Marine Champion for +10pts and gains access to weapons and gear from the Armory.",

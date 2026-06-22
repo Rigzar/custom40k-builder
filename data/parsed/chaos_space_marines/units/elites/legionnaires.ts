@@ -320,7 +320,8 @@ export const legionnaires: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolter"]
     },
     {
       "header": "For each 5 models, two other Legionnaires may swap their Astartes Chainsword, Bolter and Bolt pistol",
@@ -337,6 +338,7 @@ export const legionnaires: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
+      "replaces": ["Astartes Chainsword", "Bolter", "Bolt pistol"],
       "is_unique_per_army": false
     }
   ],

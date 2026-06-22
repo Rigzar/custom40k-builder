@@ -247,7 +247,8 @@ export const krootFarstalkers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Kroot rifle - Melee", "Kroot rifle - Ranged"]
     },
     {
       "header": "One Farstalker may be equipped with a Pech'ra for +10 points.",
@@ -276,7 +277,8 @@ export const krootFarstalkers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Kroot rifle - Melee", "Kroot rifle - Ranged"]
     }
   ],
   "abilities": [

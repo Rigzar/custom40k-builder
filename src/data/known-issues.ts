@@ -5,6 +5,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-csm-joinedunit-auras-01',
+    status: 'known',
+    title: 'CSM — Armory items whose effect targets the "attached unit" (Zombie lord, Baleful tome, etc.) are display-only, not implemented',
+    description: 'Several Nurgle/General Armoury items describe an effect on a DIFFERENT unit than the one carrying them: "Zombie lord" ("All Poxwalker models from an attached unit gain +1 Strength") and "Baleful tome" (grants a separate once-per-game bonus power pick) are two confirmed examples; "attached unit" wording also appears in general.json/mark_khorne/mark_slaanesh/mark_tzeentch/legion_night_lords/legion_word_bearers/legion_alpha_legion. None of these have any engine wiring — they show up as a purchasable armory line and a description, but grant no actual stat/power effect. Needs a real cross-unit lookup (resolveUnitProfile already receives the full ArmyState, so the joined character can be found via `state.army.find(e => e.joinedToUnit === item.id)`) plus a small per-item effect table — scoped as its own task, not a quick fix.',
+  },
+  {
+    id: 'ki-csm-perN-missing-replaces-01',
+    status: 'fixed',
+    title: 'CSM — per_n/every weapon-swap groups missing `replaces` caused ghost weapons + wrong displayed quantities (Plague Marines, Blightlord Terminators, and 9 other units)',
+    description: 'A swap group without `replaces` never removes the old (swapped-out) weapon from the live weapon list, and per-weapon quantity bookkeeping (computeWeaponGroups\' countOverrides) silently no-ops without it too — so e.g. a "swap 2 Bolters for Heavy plague weapons" purchase showed the old Bolter forever AND displayed "1x Heavy plague weapon" instead of "2x". Fixed across the whole CSM unit folder via a header-text sweep (any "swap"/"replace"-worded option_group lacking `replaces`): Plague Marines, Blightlord Terminators, Chaos Terminators, Eightbound, Khorne Berzerkers, Legionnaires, Red Butcher Terminators, Rubric Marines, Scarab Occult Terminators, Juggernaut Hellriders, Chaos Space Marines, Cultists, Jakhals — 16 groups total, each given the correct `replaces` target(s) verified against the unit\'s own weapons[] base name.',
+  },
+  {
     id: 'ki-sororitas-crusaders-concession-unenforced-01',
     status: 'fixed',
     title: {
@@ -17,6 +29,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
       de: 'Gefunden am 2026-06-21 bei der Prüfung des benachbarten Geminae-Superia/Living-Saint-Fixes — gleiche Form. FIXED mit computeCrusadersFreeSlots (validators.ts): zählt Crusaders- und Preacher-Einheiten armeeweit und gewährt automatisch min(crusaders, preachers) Elite-Slot-Gutschriften.',
       es: 'Encontrado el 2026-06-21 al auditar el fix vecino de Geminae Superia/Living Saint — misma forma. ARREGLADO con computeCrusadersFreeSlots (validators.ts): cuenta las unidades de Crusaders y Preacher a nivel de ejército y otorga automáticamente min(crusaders, preachers) créditos de slot de Elite.',
     },
+  },
+  {
+    id: 'ki-fixedmax-stepper-uncapped-01',
+    status: 'fixed',
+    title: 'Cross-faction — "fixed_max" weapon-swap groups (e.g. CSM Raptors\' Plasma pistol swap) had no cap on the quantity stepper',
+    description: 'UnitCard.tsx only computed groupMax for per_n/every, never fixed_max, so the + stepper never disabled at the group\'s own constraint.max — affected every fixed_max group in every faction. Multi-choice fixed_max groups (e.g. Raptors\' chainsword+pistol swap, 3 choices sharing one cap of 2) could also max out each choice independently instead of sharing the budget. Fixed: groupMax/groupUsed now cover fixed_max like every/per_n do; the "X/Y" badge now shows for it too.',
+  },
+  {
+    id: 'ki-fixedmax-weaponcount-not-reduced-01',
+    status: 'fixed',
+    title: 'Cross-faction — "fixed_max" weapon-swap groups missing `replaces` never reduce the displayed count of the swapped-out weapon',
+    description: 'The doc comment in types/data.ts claiming `replaces` is "deliberately unset for subset swaps" was wrong/stale — resolver.ts\'s count-override logic isn\'t gated by constraint type, it just needs `replaces` populated. Audited all 92 fixed_max groups (67 files) with a script checking header text for swap language vs. presence of `replaces`: most factions (Sororitas, most of Tau, etc.) already had it set correctly. Found and fixed all 10 genuinely missing: CSM (batch 1, v0.98), GK Purgator Squad ("Nemesis falchions" confirmed canonical-source typo for the unit\'s actual default melee weapon "Nemesis force weapon" — user supplied the .ods text), IG Hive Gangers, Inquisition Arbites, Orks Kommandos/Tankbustas, SM Wolf Scout Squad/Assault Squad/Devastator Squad/Blood Claws, Tau Pathfinder Team.',
   },
   {
     id: 'ki-csm-mount-statmod-doublecount-01',
@@ -1293,5 +1317,11 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     status: 'known',
     title: 'Inquisition — "Authority of the Inquisition" special rule (army-wide access to any Imperial faction\'s armory) not mechanically enforced',
     description: 'New June 2026 special rule on the Inquisition\'s Index: "Every model in the army with access to the Armory may select a single item from any Imperial faction." Same shape as the Heretic/Iconoclast archetypes (pick 1 item from another faction\'s armory) but ALWAYS ON (not opt-in) and scoped to ALL ~8 Imperial factions, not just one. Documented as a new army-rule entry in engine/codex_inquisition/special-abilities.ts. Not mechanically enforced — there is no UI for a model to browse another faction\'s general armory; the existing armory_legions tab only covers a single faction via a selected Legacy\'s armory_key. Would need a new "cross-faction armory browser" mechanism, capped at 1 item per model. Rules-owner clarification 2026-06-22: "Imperial" for this rule = Adeptus Custodes, Adeptus Mechanicus, Adeptus Sororitas, Assassins (though Assassins have no armory of their own, so moot in practice), Grey Knights, Imperial Guard, Space Marines.',
+  },
+  {
+    id: 'ki-tau-empire-drones-unmodelled-01',
+    status: 'known',
+    title: "T'au Empire — Tau Drones (Gun/Marker/Missile/Shield/Stealth/etc.) have no stat-line or weapon data anywhere in production",
+    description: 'Found during the full T\'au Empire ODS audit (2026-06-22), last reference sheet checked ("Tau Drones"). The .ods has a dedicated "Tau Drones" datasheet: 10 drone types (Grav Inhibitor, Gun, Marker, Pulse Accelerator, Recon, Shield, Missile, Sniper, Stealth, Warscaper) each with a full stat-line (M*/WS5+/BS4+/S3/T3/W1/I4/A1/LD6/SV4+, Jump pack unit type), their own weapons (Burst cannon, Longshot pulse rifle, Drone markerlight, Missile pod, Twin pulse carbine) and drone-specific abilities (Drone protocols, Accelerator, Environmental scan, Grav inhibitor, Shielded, Shrouded). The "Drone controllerᴵ" armory item (general.json, p_unit/p_char both "-", correctly unselectable directly — it\'s granted for free via several units\' own option_groups, e.g. Ethereal "May buy a Drone controller for +0 points and up to two Tau Drones") is the only piece of this system present in production: it lets a player add "up to N Tau Drones" but there is no underlying drone unit data (no stats, no weapons, no points-per-type) anywhere in the codebase for the engine to actually instantiate. Net effect: Drone controller purchases are tracked as an empty fixed_max slot with no mechanical payload — the actual drone escort (and its points cost, since drone types have different prices per the .ods\' own POINTS column) is entirely unmodelled. Distinct from the already-fixed `ki-tau-empire-vetvehcategory-01` (vehicle-equipment armory category tag) and `ki-tau-kroot-farstalker-hound-rifles-01`. Needs its own design pass — likely a new "attached drone" sub-model concept similar to how Sept/Legacy armories are scoped, not a one-line data fix. Logged for a dedicated session.',
   },
 ];

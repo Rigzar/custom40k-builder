@@ -215,7 +215,8 @@ export const bloodClaws: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes chainsword"]
     },
     {
       "header": "One Blood Claw may swap their Bolt pistol",

@@ -320,7 +320,8 @@ export const hiveGangers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Gang firearm"]
     },
     {
       "header": "One model may swap the Gang firearm",

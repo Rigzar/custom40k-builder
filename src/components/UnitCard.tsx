@@ -147,14 +147,14 @@ function findArmoryItemData(data: FactionData, sel: ArmorySelection): ArmoryItem
  * Standard"/"- Overcharged"), and compound choices ("X and Y" / "X & Y"). `compound` is true
  * when the choice resolves to several DIFFERENT weapons (each row gets its own Pts), as
  * opposed to several fire-mode profiles of the same weapon (Pts shown once, rowSpan'd). */
-function resolveChoiceWeapons(u: Unit, choiceName: string): { weapons: Weapon[]; compound: boolean } {
-  const exact = u.weapons.find(w => w.name === choiceName);
+function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons: Weapon[]; compound: boolean } {
+  const exact = weapons.find(w => w.name === choiceName);
   if (exact) return { weapons: [exact], compound: false };
-  const multiProfile = u.weapons.filter(w => w.name.startsWith(`${choiceName} - `));
+  const multiProfile = weapons.filter(w => w.name.startsWith(`${choiceName} - `));
   if (multiProfile.length > 0) return { weapons: multiProfile, compound: false };
   const parts = choiceName.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
   if (parts.length > 1) {
-    const resolved = parts.map(p => resolveChoiceWeapons(u, p));
+    const resolved = parts.map(p => resolveChoiceWeapons(weapons, p));
     if (resolved.every(r => r.weapons.length > 0)) {
       return { weapons: resolved.flatMap(r => r.weapons), compound: true };
     }
@@ -296,6 +296,18 @@ export function UnitCard({ item }: Props) {
   const hasEquipEffects = Object.keys(equipMods.statDeltas).length > 0 || equipMods.armorSave !== null || equipMods.invulnSave !== null;
 
   function setQty(gi: number, ci: string | number, qty: number) {
+    // "one" constraint = exclusive pick (radio), not independent checkboxes — selecting a new
+    // choice must clear any other choice already on in this group, or the player ends up able
+    // to buy every option in a "may be equipped with one of the following" group at once.
+    const g = u.option_groups[gi];
+    if (g?.constraint.type === 'one' && qty > 0 && ci !== '__inline') {
+      const current = item.optionQty?.[gi] ?? {};
+      for (const otherCi of Object.keys(current)) {
+        if (otherCi !== String(ci) && otherCi !== '__inline' && current[Number(otherCi)]) {
+          setOptionQty(item.id, gi, Number(otherCi), 0);
+        }
+      }
+    }
     setOptionQty(item.id, gi, ci, qty);
   }
 
@@ -418,6 +430,13 @@ export function UnitCard({ item }: Props) {
         // — both factions' marks gate this identically; the original CSM-only scoping comment
         // here was wrong about CD's text, corrected after re-reading chaos_daemons.md §4b).
         const rule = getArchetypeRule(store.archetype);
+        // Core Rules glossary, "Command Squad": only models with this ability may join a unit
+        // that already has another character attached — see the matching validator in
+        // validators.ts. Block it here too, not just as a post-hoc warning, so the player can't
+        // pick an already-occupied unit in the first place unless they actually have the ability.
+        const hasCommandSquad =
+          !!u.abilities?.some(a => /Command Squad/i.test(a)) ||
+          !!rule?.grantsCommandSquad?.includes(item.unitName);
         const joinableUnits = army.filter(e => {
           if (e.id === item.id || e.factionSource) return false;
           const eu = data?.units[e.unitName];
@@ -425,6 +444,10 @@ export function UnitCard({ item }: Props) {
           if (data.faction === 'Chaos Space Marines' || data.faction === 'Chaos Daemons') {
             const unitMark = (eu.locked_mark ?? rule?.forcedMark ?? e.mark ?? null) as Mark | null;
             if (effectiveMark && unitMark && effectiveMark !== unitMark) return false;
+          }
+          if (!hasCommandSquad && e.id !== item.joinedToUnit) {
+            const alreadyJoined = army.some(other => other.id !== item.id && other.joinedToUnit === e.id);
+            if (alreadyJoined) return false;
           }
           return true;
         });
@@ -1158,6 +1181,7 @@ export function UnitCard({ item }: Props) {
 
             const isPerN = g.constraint.type === 'per_n';
             const isEvery = g.constraint.type === 'every';
+            const isFixedMax = g.constraint.type === 'fixed_max';
             const applyModelNames = Array.isArray(g.applies_to_model)
               ? g.applies_to_model
               : g.applies_to_model ? [g.applies_to_model] : null;
@@ -1178,11 +1202,14 @@ export function UnitCard({ item }: Props) {
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
                 ? (modelGroupCap !== null ? modelGroupCap : item.size)
-                : null;
-            // "every" groups (not just per_n) share a combined budget across all their choices —
-            // e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap can't independently hit
-            // the cap each, the two must add up to no more than the eligible model count.
-            const groupUsed = (isPerN || isEvery)
+                : isFixedMax
+                  ? (modelGroupCap !== null ? Math.min(g.constraint.max ?? item.size, modelGroupCap) : (g.constraint.max ?? item.size))
+                  : null;
+            // "every"/"fixed_max" groups (not just per_n) share a combined budget across all their
+            // choices — e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap, or Raptors'
+            // "two Raptors may swap their chainsword+pistol for Flamer/Meltagun/Plasma gun" can't
+            // independently hit the cap on each choice, they must add up to no more than the max.
+            const groupUsed = (isPerN || isEvery || isFixedMax)
               ? Object.entries(item.optionQty?.[realGi] ?? {}).reduce(
                   (s, [k, v]) => k === '__inline' ? s : s + (v ?? 0), 0
                 )
@@ -1219,7 +1246,16 @@ export function UnitCard({ item }: Props) {
             // Choices that map to actual weapon profiles get rendered as a weapon-stat
             // table (Range/Type/S/AP/D/Abilities/Pts) instead of a plain chip — lets the
             // player compare the swap options without opening the Armory.
-            const choiceWeaponsList = g.choices.map(c => resolveChoiceWeapons(u, c.name));
+            // Match choice names against the unit's ORIGINAL catalog weapons (u.weapons), never
+            // the archetype-renamed rp.weapons — renamed names ("Combi-plague belcher") no longer
+            // equal the choice's generic name ("Combi-flamer"), which would silently zero out the
+            // match. Apply the same display-only rename/ability injection AFTER resolving, so the
+            // picker shows the renamed weapon with its bonus ability without breaking the match.
+            const choiceWeaponsList = g.choices.map(c => {
+              const resolved = resolveChoiceWeapons(u.weapons, c.name);
+              const weapons = rp.weaponDisplayOverride ? rp.weaponDisplayOverride(resolved.weapons) : resolved.weapons;
+              return { weapons, compound: resolved.compound };
+            });
             const groupHasWeapons = choiceWeaponsList.some(ws => ws.weapons.length > 0);
             // "Every model's X may be replaced by Y" — a single choice applying to the whole
             // unit gets ONE quantity control in the group header, not per-row.
@@ -1267,7 +1303,7 @@ export function UnitCard({ item }: Props) {
                 <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
                   <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{g.header}</span>
                   {headerQty?.control}
-                  {isPerN && groupMax !== null && (
+                  {(isPerN || isFixedMax) && groupMax !== null && (
                     <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>
                       {groupUsed}/{groupMax}
                     </span>
@@ -1313,10 +1349,14 @@ export function UnitCard({ item }: Props) {
                           }
                           // Multi-profile weapons ("Plasma gun - Standard"/"- Overcharged") get a
                           // banner row with the shared base name + counter + total Pts, then each
-                          // fire-mode profile gets its own full stat row beneath it.
+                          // fire-mode profile gets its own full stat row beneath it. The base name
+                          // is read off the resolved weapon itself, not the choice's generic c.name
+                          // — an archetype override (e.g. Plaguehost's "Combi-flamer" → "Combi-plague
+                          // belcher") renames the weapon but not the choice, so they can differ.
+                          const resolvedBaseName = weapons.length > 0 ? weapons[0].name.split(' - ')[0] : c.name;
                           const profileName = (w: Weapon) =>
-                            (weapons.length > 1 && w.name.startsWith(`${c.name} - `))
-                              ? w.name.slice(c.name.length + 3)
+                            (weapons.length > 1 && w.name.startsWith(`${resolvedBaseName} - `))
+                              ? w.name.slice(resolvedBaseName.length + 3)
                               : w.name;
                           const rows = weapons.map((w, wi) => (
                             <tr key={`${ci}-${wi}`} className={rowClass} title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}>
@@ -1353,7 +1393,7 @@ export function UnitCard({ item }: Props) {
                             rows.unshift(
                               <tr key={`${ci}-banner`} className="border-b border-zinc-700/40 bg-zinc-800/60">
                                 <td colSpan={7} className="py-1 pl-2 pr-2 font-semibold text-zinc-200">
-                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {c.name}</span>
+                                  <span className="inline-flex items-center gap-1.5">{showRowControl && control} {resolvedBaseName}</span>
                                 </td>
                                 <td className="py-1 px-2 text-right text-amber-600">{ptsLabel}</td>
                               </tr>

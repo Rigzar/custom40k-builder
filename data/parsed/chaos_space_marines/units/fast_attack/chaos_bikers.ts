@@ -347,7 +347,8 @@ export const chaosBikers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Combi-bolter"]
     },
     {
       "header": "The Chaos Biker Champion may be upgraded to an Aspiring Chaos Biker Champion for +10pts and gains access to weapons and gear from the Armory.",

@@ -171,7 +171,8 @@ export const pathfinderTeam: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Markerlight", "Pulse carbine"]
     },
     {
       "header": "One model with a Pulse carbine may be equipped with",

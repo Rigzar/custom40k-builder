@@ -35,7 +35,6 @@ export {
   COMBI_SURCHARGE,
   applyVehicleWeaponOverrides,
   applyEquippedWithOverride,
-  getSelectedCombiWeapon,
   computeVehicleCombiSurcharge,
 } from './archetypes/weapon-overrides';
 export { csmResolve } from './resolver';

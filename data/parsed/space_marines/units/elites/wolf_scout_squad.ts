@@ -216,7 +216,8 @@ export const wolfScoutSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt pistol"]
     },
     {
       "header": "The whole squad may be equipped with Camo cloaks for +11 points per model.",

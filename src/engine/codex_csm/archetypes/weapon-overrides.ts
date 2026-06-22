@@ -14,8 +14,12 @@ const VEHICLE_WEAPON_OVERRIDES: Record<string, Record<string, WeaponOverride>> =
   },
   'Plaguehost': {
     'Combi-bolter': { addAbility: 'Poison(4+)' },
-    'Combi-flamer': { name: 'Combi-plague belcher', addAbility: 'Poison(4+)' },
-    'Combi-melta':  { addAbility: 'Poison(4+) on bolter' },
+    // Combi-plague belcher's own profile names are "Bolter" / "Plague belcher" (per the Nurgle
+    // Armoury's canonical weapon entry), NOT "Bolter" / "Flamer" — the flamer sub-profile's name
+    // changes too, not just the base weapon name, so each profile needs its own exact-key override.
+    'Combi-flamer - Bolter': { name: 'Combi-plague belcher - Bolter', addAbility: 'Poison(4+)' },
+    'Combi-flamer - Flamer': { name: 'Combi-plague belcher - Plague belcher', addAbility: 'Poison(4+)' },
+    'Combi-melta - Bolter': { addAbility: 'Poison(4+)' },
   },
 };
 
@@ -31,9 +35,21 @@ export function applyVehicleWeaponOverrides<T extends { name: string; abilities?
   const overrides = VEHICLE_WEAPON_OVERRIDES[archetype];
   if (!overrides) return weapons;
   return weapons.map(w => {
-    const ov = overrides[w.name];
+    // Vehicles with multi-profile combis store sub-profiles as "Combi-flamer - Bolter" /
+    // "Combi-flamer - Flamer" etc. (Rhino/Predator/Land Raider/Defiler/Vindicator convention).
+    // Try the exact profile name first (lets a profile-specific entry like
+    // "Combi-melta - Bolter" opt in without affecting "Combi-melta - Melta"), then fall back
+    // to the un-suffixed base name so a base-name override still reaches every sub-profile.
+    const baseN = w.name.split(' - ')[0];
+    const suffix = w.name.length > baseN.length ? w.name.slice(baseN.length) : '';
+    const exact = overrides[w.name];
+    const ov = exact ?? overrides[baseN];
     if (!ov) return w;
-    const newName = ov.name ?? w.name;
+    // An exact full-name match's `name` is the COMPLETE replacement (it may rename the profile
+    // suffix too, e.g. Plaguehost's "Flamer" → "Plague belcher" — the canonical profile name on
+    // the Combi-plague belcher Armory entry). A base-name-only match only rewrites the base;
+    // the suffix (profile name) is preserved as-is.
+    const newName = exact?.name ?? ((ov.name ?? baseN) + suffix);
     const base = w.abilities && w.abilities !== '-' ? w.abilities : '';
     const newAbilities = ov.addAbility
       ? [base, ov.addAbility].filter(Boolean).join(', ')
@@ -51,22 +67,6 @@ export function applyEquippedWithOverride(text: string, archetype: string): stri
     result = result.replace(new RegExp(from.replace('-', '[-\\s]'), 'gi'), ov.name);
   }
   return result;
-}
-
-/** Returns the combi weapon name selected in option groups, or null if none/default. */
-export function getSelectedCombiWeapon(item: RosterEntry, unit: Unit): string | null {
-  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
-    const g = unit.option_groups[Number(gi)];
-    if (!g) continue;
-    for (const [ci, qty] of Object.entries(ch)) {
-      if (ci === '__inline' || !qty) continue;
-      const choice = g.choices[parseInt(ci)];
-      if (!choice) continue;
-      const n = choice.name;
-      if (n === 'Combi-flamer' || n === 'Combi-bolter' || n === 'Combi-melta') return n;
-    }
-  }
-  return null;
 }
 
 export function computeVehicleCombiSurcharge(item: RosterEntry, unit: Unit, archetype: string): number {

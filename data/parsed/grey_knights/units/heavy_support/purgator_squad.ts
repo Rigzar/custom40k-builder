@@ -180,7 +180,8 @@ export const purgatorSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Nemesis force weapon", "Storm bolter"]
     },
     {
       "header": "Each model may be equipped with Psy-ammunition for +1 point per model.",

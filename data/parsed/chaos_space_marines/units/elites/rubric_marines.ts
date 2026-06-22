@@ -167,7 +167,8 @@ export const rubricMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Inferno bolter"]
     },
     {
       "header": "If the unit consists of 9 models, another Rubric Marine's Inferno bolter may be replaced with a Soulreaper cannon.",
@@ -182,7 +183,8 @@ export const rubricMarines: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Inferno bolter"]
     }
   ],
   "abilities": [

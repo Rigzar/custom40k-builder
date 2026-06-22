@@ -87,7 +87,8 @@ export const stealthBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Burst cannon"]
     },
     {
       "header": "One Stealth Shas'ui may be upgraded to a Shas'vre for +5pts.",

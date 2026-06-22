@@ -113,7 +113,8 @@ export const krootCarnivores: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Kroot rifle"]
     },
     {
       "header": "The Long-quill may swap their Kroot rifle",
@@ -128,7 +129,8 @@ export const krootCarnivores: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Kroot rifle"]
     }
   ],
   "abilities": [

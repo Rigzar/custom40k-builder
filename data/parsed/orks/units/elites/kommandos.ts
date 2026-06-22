@@ -71,6 +71,15 @@ export const kommandos: Unit = {
       "abilities": "AT(2), Ammo(1)"
     },
     {
+      "name": "Burna",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flames, Combi."
+    },
+    {
       "name": "Choppa",
       "range": "-",
       "type": "Melee",
@@ -169,7 +178,8 @@ export const kommandos: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Choppa", "Slugga"]
     },
     {
       "header": "One Kommando may be upgraded to a Nob for +16 points and gains access to weapons and gear from the Armory.",

@@ -204,17 +204,18 @@ export const assaultSquad: Unit = {
           "points": 0
         },
         {
-          "name": "Astartes chainsword und Plasma pistol",
+          "name": "Astartes chainsword and Plasma pistol",
           "points": 8
         },
         {
-          "name": "Eviscerator und Bolt pistol",
+          "name": "Eviscerator and Bolt pistol",
           "points": 11
         }
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes chainsword", "Bolt pistol"]
     },
     {
       "header": "The Assault Marine Sergeant may be upgraded to a Veteran Assault Marine Sergeant for +10 points and gains access to weapons and gear from the Armory.",

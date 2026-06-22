@@ -168,7 +168,8 @@ export const scarabOccultTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Inferno combi-bolter"]
     },
     {
       "header": "If the unit consists of 9 models, another Scarab Occult Terminator's Inferno Combi-bolter may be replaced.",
@@ -187,15 +188,21 @@ export const scarabOccultTerminators: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Inferno combi-bolter"]
     },
     {
       "header": "One model may receive a Hellfyre Missile rack for +64 points.",
       "constraint": {
         "type": "one"
       },
-      "choices": [],
-      "inline_pts": 64,
+      "choices": [
+        {
+          "name": "Hellfyre missile rack",
+          "points": 64
+        }
+      ],
+      "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
     },
@@ -204,7 +211,12 @@ export const scarabOccultTerminators: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
+      "choices": [
+        {
+          "name": "Hellfyre missile rack",
+          "points": 64
+        }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

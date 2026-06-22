@@ -176,7 +176,8 @@ export const jakhals: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Chainblade"]
     },
     {
       "header": "For every 8 models in the unit, two Dishonored may swap their Chainblades",
@@ -194,7 +195,8 @@ export const jakhals: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Chainblade"]
     },
     {
       "header": "The Jakhal Pack Leader can be promoted to an Aspiring Jakhal Champion for +5pts and gains access to the armory.",

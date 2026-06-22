@@ -253,7 +253,8 @@ export const raptors: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Bolt pistol"]
     },
     {
       "header": "Alternatively, two Raptors may swap their Astartes chainswords and Bolt pistols each",
@@ -277,7 +278,8 @@ export const raptors: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Astartes Chainsword", "Bolt pistol"]
     },
     {
       "header": "The Raptor Champion may be upgraded to an Aspiring Raptor Champion for +10pts and gains access to weapons and gear from the Armory.",

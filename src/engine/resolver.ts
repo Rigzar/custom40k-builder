@@ -66,6 +66,12 @@ export interface ResolvedProfile {
   effectiveHasVetAbilities: boolean;
   equippedWith: string;
   weapons: Weapon[];
+  /** Archetype-driven cosmetic rename/ability-injection (e.g. Plaguehost's "Combi-flamer" →
+   * "Combi-plague belcher" + Poison) applied AFTER computeWeaponsToShow's gating, never before —
+   * gating matches choice names against the unit's ORIGINAL weapon names, so renaming first would
+   * break the match and leave the weapon either always-shown or always-hidden. Used both for the
+   * live equipped-weapons list and the option-picker's per-choice weapon rows. */
+  weaponDisplayOverride?: (weapons: Weapon[]) => Weapon[];
   /**
    * The weapons to actually display: built-in gear plus only the optional/choice
    * weapons that were selected. A weapon that also appears as a choice in an option
@@ -869,6 +875,17 @@ const FACTION_RESOLVERS: Partial<Record<string, FactionResolverFn>> = {
   'Space Marines':       smResolve,
 };
 
+// Maps a roster entry's `factionSource` slug (e.g. "chaos_daemons") to the display name used
+// as a FACTION_RESOLVERS key — an allied/cross-faction unit (Plaguebearers brought into a CSM
+// army, say) must resolve through ITS OWN faction's resolver (cdResolve), not the host army's
+// (csmResolve), or its faction-specific mechanics (CD's Favored size/leader check vs CSM's
+// armory-access check) evaluate against the wrong rule entirely.
+const FACTION_SLUG_TO_NAME: Record<string, string> = {
+  chaos_space_marines: 'Chaos Space Marines',
+  chaos_daemons: 'Chaos Daemons',
+  space_marines: 'Space Marines',
+};
+
 // ── Public API ────────────────────────────────────────────────────────────────
 
 export function resolveUnitProfile(
@@ -878,10 +895,14 @@ export function resolveUnitProfile(
   data: FactionData,
 ): ResolvedProfile {
   const base = resolveBase(item, unit, state, data);
-  const factionFn = FACTION_RESOLVERS[state.faction];
+  const resolverFaction = item.factionSource ? (FACTION_SLUG_TO_NAME[item.factionSource] ?? state.faction) : state.faction;
+  const factionFn = FACTION_RESOLVERS[resolverFaction];
   const profile = factionFn ? factionFn(base, item, unit, state, data) : base;
   // Faction resolvers may rewrite `weapons`; derive the display list from the final set.
   profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item);
+  // Cosmetic archetype renames/ability-injections apply AFTER gating (see weaponDisplayOverride
+  // doc) so they never interfere with matching choice names against original weapon names.
+  if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);
   profile.weaponGroups = computeWeaponGroups(unit, item, profile);
   return profile;
 }

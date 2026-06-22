@@ -57,7 +57,7 @@
       "pts_unit": "0",
       "pts_char": "0",
       "pts_monster": "0",
-      "pts_veh": null,
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
@@ -66,7 +66,7 @@
       "pts_unit": "3",
       "pts_char": "0",
       "pts_monster": "3",
-      "pts_veh": null,
+      "pts_veh": "3",
       "enables_second_legacy": false
     },
     {
@@ -75,7 +75,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -84,7 +84,7 @@
       "pts_unit": "3",
       "pts_char": "0",
       "pts_monster": "3",
-      "pts_veh": null,
+      "pts_veh": "3",
       "enables_second_legacy": false
     },
     {
@@ -93,7 +93,7 @@
       "pts_unit": "0",
       "pts_char": "0",
       "pts_monster": "0",
-      "pts_veh": null,
+      "pts_veh": "0",
       "enables_second_legacy": true
     },
     {
@@ -102,7 +102,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -111,7 +111,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -120,7 +120,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -129,7 +129,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -138,7 +138,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -147,7 +147,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -156,7 +156,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -165,7 +165,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -174,7 +174,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -183,7 +183,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     },
     {
@@ -192,7 +192,7 @@
       "pts_unit": "0",
       "pts_char": "0",
       "pts_monster": "0",
-      "pts_veh": null,
+      "pts_veh": "0",
       "enables_second_legacy": false
     },
     {
@@ -201,7 +201,7 @@
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
-      "pts_veh": null,
+      "pts_veh": "5",
       "enables_second_legacy": false
     }
   ]

@@ -49,7 +49,7 @@ export const firesightMarksman: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "The Firesight Marksman ist equipped with: Markerlight; Pulse pistol.",
+  "equipped_with": "The Firesight Marksman is equipped with: Markerlight; Pulse pistol.",
   "weapons": [
     {
       "name": "Longshot pulse rifle",
