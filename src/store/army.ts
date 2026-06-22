@@ -181,7 +181,7 @@ export interface ArmyStore extends ArmyState {
    */
   setLegacyArmoryLock: (id: string, key: string | null) => void;
 
-  addUnit: (unitName: string, slot: string, factionSource?: string) => void;
+  addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string) => void;
   removeUnit: (id: string) => void;
   updateUnit: (id: string, patch: Partial<RosterEntry>) => void;
   /** Update the size of one model group in a multi-group unit. Keeps `size` in sync as the total. */
@@ -249,7 +249,10 @@ export const useArmyStore = create<ArmyStore>()(
         if (!d || !s.alliedFaction || !s.data) return { alliedData: d };
         const newData: FactionData = {
           ...s.data,
-          allied: { ...(s.data.allied ?? {}), [s.alliedFaction]: { slot_to_units: d.slot_to_units, units: d.units } },
+          // d.allied carries the ally's OWN intrinsic-ally data (e.g. Chaos Space Marines'
+          // chaos_daemons, unlocked by its archetype like Plaguehost) — merging it in lets a
+          // doubly-nested unit (factionSource=ally, nestedFaction=ally's-own-ally) resolve.
+          allied: { ...(s.data.allied ?? {}), [s.alliedFaction]: { slot_to_units: d.slot_to_units, units: d.units, allied: d.allied } },
         };
         return { alliedData: d, data: newData };
       }),
@@ -416,10 +419,12 @@ export const useArmyStore = create<ArmyStore>()(
         }),
       })),
 
-      addUnit: (unitName: string, slot: string, factionSource?: string) => {
+      addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string) => {
         const s = get();
         if (!s.data) return;
-        const u = factionSource
+        const u = nestedFaction
+          ? s.data.allied?.[factionSource!]?.allied?.[nestedFaction]?.units[unitName]
+          : factionSource
           ? s.data.allied?.[factionSource]?.units[unitName]
           : s.data.units[unitName];
         if (!u) return;
@@ -438,6 +443,7 @@ export const useArmyStore = create<ArmyStore>()(
           unitName,
           slot,
           factionSource,
+          ...(nestedFaction ? { nestedFaction } : {}),
           size: computedSize,
           mark: null,
           optionQty: {},

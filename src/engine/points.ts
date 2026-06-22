@@ -21,7 +21,10 @@ export function liveArmoryPoints(a: ArmorySelection, item: RosterEntry, unit: Un
 }
 
 /** Resolve a unit from the correct faction source. */
-export function resolveUnit(item: { unitName: string; factionSource?: string }, data: FactionData): Unit | undefined {
+export function resolveUnit(item: { unitName: string; factionSource?: string; nestedFaction?: string }, data: FactionData): Unit | undefined {
+  if (item.factionSource && item.nestedFaction) {
+    return data.allied?.[item.factionSource]?.allied?.[item.nestedFaction]?.units[item.unitName];
+  }
   if (item.factionSource) {
     return data.allied?.[item.factionSource]?.units[item.unitName];
   }

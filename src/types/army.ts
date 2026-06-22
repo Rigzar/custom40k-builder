@@ -47,6 +47,14 @@ export interface RosterEntry {
   slot: string;
   /** Allied faction slug (e.g. 'chaos_daemons'). Undefined = primary faction. */
   factionSource?: string;
+  /**
+   * Second-level nested ally, e.g. when factionSource = 'chaos_space_marines' (the player's
+   * Allied Detachment) and that detachment's OWN archetype (e.g. Plaguehost) intrinsically
+   * grants it Chaos Daemons units — nestedFaction = 'chaos_daemons'. factionSource still names
+   * the scope owner (so this unit groups/counts under the ally's own roster), nestedFaction only
+   * redirects where the unit's stat data is read from.
+   */
+  nestedFaction?: string;
   size: number;
   mark: Mark | null;
   optionQty: OptionQty;

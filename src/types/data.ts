@@ -401,6 +401,8 @@ export interface DaemonkinGod {
 export interface AlliedFaction {
   slot_to_units: Record<string, string[]>;
   units: Record<string, Unit>;
+  /** This ally's OWN intrinsic ally data (e.g. Chaos Space Marines' chaos_daemons), one level deep. */
+  allied?: Record<string, AlliedFaction>;
 }
 
 export interface FactionData {

@@ -113,12 +113,34 @@ export function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string
   // the ally's archetype rule, not its native slot, both for listing and for counting slot usage.
   const rule = getArchetypeRule(alliedArchetype ?? '');
   const effectiveSlotUnits: Record<string, string[]> = {};
+  const nestedUnitNames = new Set<string>();
   for (const s of SLOT_ORDER) effectiveSlotUnits[s] = [];
   for (const [originalSlot, names] of Object.entries(alliedData.slot_to_units)) {
     for (const name of names) {
       if (!alliedData.units[name]) continue;
       const effSlot = getEffectiveSlot(name, originalSlot, rule);
       if (effectiveSlotUnits[effSlot]) effectiveSlotUnits[effSlot].push(name);
+    }
+  }
+
+  // The ally's OWN archetype can grant it an intrinsic ally of its own (e.g. Chaos Space
+  // Marines' "Plaguehost" → Chaos Daemons units with the Mark of Nurgle) — mirrors the primary
+  // catalogue's rule.alliedFaction injection (SlotPanel.tsx), one level deeper.
+  if (rule?.alliedFaction && alliedData.allied?.[rule.alliedFaction]) {
+    const nestedData = alliedData.allied[rule.alliedFaction];
+    for (const [originalSlot, names] of Object.entries(nestedData.slot_to_units)) {
+      for (const name of names) {
+        const u = nestedData.units[name];
+        if (!u) continue;
+        if (rule.alliedMarkFilter === 'forced') {
+          if (!u.locked_mark || u.locked_mark !== rule.forcedMark) continue;
+        }
+        const effSlot = getEffectiveSlot(name, originalSlot, rule);
+        if (effectiveSlotUnits[effSlot]) {
+          effectiveSlotUnits[effSlot].push(name);
+          nestedUnitNames.add(name);
+        }
+      }
     }
   }
 
@@ -169,7 +191,8 @@ export function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string
                   <div className="text-[11px] text-zinc-600 px-3 py-1 italic">No units</div>
                 ) : (
                   slotUnits.map(name => {
-                    const u = alliedData.units[name];
+                    const isNested = nestedUnitNames.has(name);
+                    const u = isNested ? alliedData.allied?.[rule!.alliedFaction!]?.units[name] : alliedData.units[name];
                     if (!u) return null;
                     // Store the unit's TRUE native slot (e.g. Terminators are natively Elites,
                     // even while "1st Company" displays/counts them here under Troops) — same
@@ -178,7 +201,7 @@ export function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string
                     return (
                       <button
                         key={name}
-                        onClick={() => addUnit(name, u.slot, alliedFactionKey)}
+                        onClick={() => addUnit(name, u.slot, alliedFactionKey, isNested ? rule!.alliedFaction! : undefined)}
                         disabled={isFull}
                         className={`w-full flex justify-between items-center px-3 py-1.5 text-left text-[12px] border-b border-zinc-700/50 transition-colors group
                           ${isFull
@@ -186,7 +209,9 @@ export function AlliedCatalogue({ alliedFactionKey }: { alliedFactionKey: string
                             : 'hover:bg-zinc-700 hover:text-amber-400'
                           }`}
                       >
-                        <span className="text-zinc-200 group-hover:text-amber-400">{name}</span>
+                        <span className="text-zinc-200 group-hover:text-amber-400">
+                          {name}{isNested && <span className="text-zinc-500 ml-1">[{FACTION_NAMES[rule!.alliedFaction!] ?? rule!.alliedFaction}]</span>}
+                        </span>
                         <span className="text-zinc-500 text-[11px]">{u.min_cost ?? '?'} pts</span>
                       </button>
                     );
