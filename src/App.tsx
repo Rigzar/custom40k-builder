@@ -202,13 +202,11 @@ export default function App() {
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
           alliedFaction, setAlliedData, injectArchetypeFaction } = store;
 
-  const hasSession = !!sessionStorage.getItem('selectedFaction');
-
-  const [activeTab, setActiveTab]               = useState<TabId>(hasSession ? 'builder' : 'landing');
-  const [openTabs, setOpenTabs]                 = useState<TabId[]>(hasSession ? ['landing', 'army_config', 'builder'] : ['landing']);
-  const [selectedFaction, setSelectedFaction]   = useState<string | null>(
-    () => sessionStorage.getItem('selectedFaction')
-  );
+  // Always land on the Factions tab on a fresh page load/reload — never auto-resume straight
+  // into the builder, even if a prior session left a faction selected in sessionStorage.
+  const [activeTab, setActiveTab]               = useState<TabId>('landing');
+  const [openTabs, setOpenTabs]                 = useState<TabId[]>(['landing']);
+  const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
   const [loadingFaction, setLoadingFaction]     = useState(false);
   const [showRef, setShowRef]                   = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
@@ -216,7 +214,7 @@ export default function App() {
   const [showBugReport, setShowBugReport]       = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
-  const restoringSession                        = useRef(hasSession);
+  const restoringSession                        = useRef(false);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 

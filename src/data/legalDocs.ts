@@ -179,7 +179,7 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
           `Name                       | Type           | Duration  | Purpose\n` +
           `───────────────────────────┼────────────────┼───────────┼──────────────────────────────────────\n` +
           `custom40k-army             | localStorage   | Persistent| Saves your army roster and settings\n` +
-          `selectedFaction            | sessionStorage | Session   | Keeps your faction on page refresh`,
+          `selectedFaction            | sessionStorage | Session   | Internal navigation state (page reload always returns to the Factions screen)`,
       },
       {
         heading: '3. Legal basis — no consent required',

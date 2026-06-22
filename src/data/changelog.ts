@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.01',
+    date: '2026-06-22',
+    title: { en: 'App bugfix: reload always jumped straight into the last builder session' },
+    changes: { en: [
+      'Bugfix: reloading or reopening the app skipped the Factions landing page and went straight into the builder for whichever faction was last selected. The app read `sessionStorage` on mount to auto-resume; now it always starts on the Factions screen. Also bumped all fully-ODS-audited factions (Grey Knights, Inquisition, Tau Empire, Orks, Dark Eldar, Harlequins, Leagues of Votann, Tyranids) from the orange "in review" status dot to the amber "testing" status on the landing page, matching the rest of the audited roster.',
+    ] },
+  },
+  {
     version: '1.00',
     date: '2026-06-22',
     title: { en: 'Escalation full audit: CSM "War Dog" + SM "Armiger" engagement-gate bugs (user-reported)' },
