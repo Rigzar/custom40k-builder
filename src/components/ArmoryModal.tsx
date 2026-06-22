@@ -302,7 +302,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Marks count as 1 veteran ability for ALL units — locked-mark units use veteran_max:1 in data instead
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!rule?.grantsMarkPurchase;
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
-  const armoryVetMax = armoryVetEnabled ? Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0)) : null;
+  // Henchman Warband: every specialist sheet grants "one Veteran ability" PER SPECIALIST TYPE
+  // present in the unit, not a flat per-unit pool — count distinct model types with count > 0.
+  const isHenchmanWarband = unit.name === 'Henchman Warband';
+  const henchmanVetSlots = isHenchmanWarband
+    ? Object.values(item.modelSizes ?? {}).filter(n => n > 0).length
+    : null;
+  const armoryVetMax = armoryVetEnabled
+    ? (isHenchmanWarband ? (henchmanVetSlots ?? 0) : Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0)))
+    : null;
 
   // Abilities already baked into the unit's profile — these don't consume a veteran slot
   const profileAbilityNames: Set<string> = new Set(

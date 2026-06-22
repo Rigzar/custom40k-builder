@@ -27,9 +27,10 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.02',
     date: '2026-06-22',
-    title: { en: 'Inquisition: "Authority of the Inquisition" special rule' },
+    title: { en: 'Inquisition: "Authority of the Inquisition" + Henchman Warband veteran abilities' },
     changes: { en: [
       'New Armory tab for Inquisition units: pick a single item from any of 6 Imperial factions\' general Armory (Adeptus Custodes, Adeptus Mechanicus, Adeptus Sororitas, Grey Knights, Imperial Guard, Space Marines), capped at 1 item per model. Implements the June 2026 "Authority of the Inquisition" rule, which previously had no UI support (ki-inquisition-authority-unenforced-01, now fixed).',
+      'Henchman Warband can now take Veteran abilities: every specialist type present in the Warband (Acolyte, Crusader, Arco-flagellant, etc.) gets its own veteran-ability slot, matching the "may gain one Veteran ability" text repeated on every specialist sheet (ki-inquisition-henchman-veteran-per-specialist-01, now fixed).',
     ] },
   },
   {

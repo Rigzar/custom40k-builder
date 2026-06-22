@@ -23,9 +23,10 @@
  * "Inquisitor Lord" unique_upgrade — see inquisitor.ts variant_models).
  *
  * "The unit may gain one Veteran ability" (repeated on every specialist sheet) reads as a
- * PER-SPECIALIST-TYPE option, not a single unit-wide pick — has_veteran_abilities (a unit-level
- * boolean) cannot express "one veteran ability per specialist type present". Left
- * has_veteran_abilities: false; logged as ki-inquisition-henchman-veteran-per-specialist-01.
+ * PER-SPECIALIST-TYPE option: has_veteran_abilities: true, and ArmoryModal.tsx special-cases
+ * "Henchman Warband" by name to size the veteran-slot pool to the number of distinct specialist
+ * types currently present (modelSizes entries with count > 0) instead of the flat veteran_max
+ * used by every other unit. Fixes ki-inquisition-henchman-veteran-per-specialist-01.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -241,7 +242,7 @@ export const henchmanWarband: Unit = {
   "is_priest": true,
   "has_armory_access": true,
   "champion_has_armory": true,
-  "has_veteran_abilities": false,
+  "has_veteran_abilities": true,
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,

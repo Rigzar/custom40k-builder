@@ -1344,9 +1344,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-inquisition-henchman-veteran-per-specialist-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Inquisition — Henchman Warband "may gain one Veteran ability" is per-specialist-type, not modelled',
-    description: 'Every specialist sheet in the new Inquisition.ods repeats "The unit may gain one Veteran ability" — read as a PER-SPECIALIST-TYPE option (one veteran ability per specialist type present in the Warband), not a single unit-wide pick. has_veteran_abilities is a unit-level boolean/veteran_max count and cannot express this; left has_veteran_abilities: false on "Henchman Warband". Needs its own design pass if/when per-specialist option UI exists. Rules-owner clarification 2026-06-22: interpretation confirmed correct — each specialist TYPE may pick a single veteran ability (regardless of how many models of that type), so a Warband with Acolytes + Crusaders + Arco-flagellants could have up to 3 picks total, one per type present, never more than 1 per type no matter the model count.',
+    description: 'Every specialist sheet in the new Inquisition.ods repeats "The unit may gain one Veteran ability" — read as a PER-SPECIALIST-TYPE option (one veteran ability per specialist type present in the Warband), not a single unit-wide pick. Rules-owner clarification 2026-06-22: interpretation confirmed correct — each specialist TYPE may pick a single veteran ability (regardless of how many models of that type), so a Warband with Acolytes + Crusaders + Arco-flagellants could have up to 3 picks total, one per type present, never more than 1 per type no matter the model count. FIXED 2026-06-22: has_veteran_abilities: true on "Henchman Warband", and ArmoryModal.tsx special-cases the unit by name so its veteran-slot pool = count of distinct specialist types currently present (modelSizes entries with count > 0) instead of the flat veteran_max used by every other unit — verified live: 0 specialists present → 0/0 slots, 1 present → 0/1 slots.',
   },
   {
     id: 'ki-inquisition-army-customisation-replace-01',
