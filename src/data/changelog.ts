@@ -31,6 +31,9 @@ export const CHANGELOG: ChangelogEntry[] = [
     changes: { en: [
       'Allied Detachment units now have their own roster view inside the "🤝 Allied: <faction>" tab, fully separate from the primary army\'s unit list — Core Rules: allies "are treated as separate armies on the battlefield." The roster list also now groups allied units by the ally\'s OWN Archetype, not the primary\'s (a unit promoted to Troops by the ally\'s own archetype was previously bucketed by the primary army\'s archetype instead).',
       'Fixed a global weapon-swap bug (found via Noise Marines): "fixed_max" swap groups (e.g. "Two models\' Bolt pistols may become a Meltagun/Plasma gun/Blastmaster") did not share their replaced-weapon pool with sibling "every" swap groups on the same base weapon, letting the UI sell more swapped weapons than the unit has models (ki-csm-fixedmax-sibling-pool-01, now fixed).',
+      'Fixed a units-disappeared regression caused by the roster split above (the "no ally configured" case was wrongly treated as "this unit belongs to the ally").',
+      'Allied Detachment\'s own Army Customisation tab now respects its chosen archetype\'s "No Legacy/Traits" restriction (e.g. Plaguehost, Ambition for Perfection), same as the primary army.',
+      'Fixed: when the Allied Detachment\'s own archetype intrinsically grants it a further ally of its own (e.g. Chaos Space Marines\' Plaguehost → Chaos Daemons with the Mark of Nurgle), that nested ally\'s units now actually appear in the allied catalogue, correctly Mark-filtered — previously this nested-ally data was dropped entirely.',
     ] },
   },
   {

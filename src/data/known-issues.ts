@@ -5,6 +5,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-allies-archetype-nolegacy-notraits-01',
+    status: 'fixed',
+    title: 'Allied Detachment own Army Customisation tab let you pick Legacy/Traits even when the chosen ally archetype forbids it',
+    description: 'AlliedCustomisation (AlliedDetachmentPanel.tsx) never read getArchetypeRule(alliedArchetype).noLegacy/.noTraits — reported live: picking Plaguehost or Ambition for Perfection as an ally\'s archetype still let you select Legacy/Traits, even though both archetypes\' canonical text says "May not select any Legacy or Traits". The primary army\'s ArmyConfig.tsx already gated this correctly; AlliedCustomisation now mirrors the exact same pattern.',
+  },
+  {
+    id: 'ki-allies-nested-archetype-ally-01',
+    status: 'fixed',
+    title: 'Allied Detachment\'s own archetype-granted intrinsic ally (e.g. CSM\'s Plaguehost → Chaos Daemons with Mark of Nurgle) never appeared in the allied catalogue',
+    description: 'Reported live: an Allied Detachment using Plaguehost should get access to Chaos Daemons units with the Mark of Nurgle (same mechanic CSM gets when Plaguehost is the PRIMARY archetype), but the allied tab showed no such units (or unrelated/unfiltered ones). Root cause: setAlliedData only merged {slot_to_units, units} into data.allied[key], dropping the ally\'s own nested `allied` map entirely, and AlliedCatalogue never built the nested-ally injection that SlotPanel.tsx already does for the primary army. Fixed by adding RosterEntry.nestedFaction + AlliedFaction.allied (one level of nesting) so resolveUnit/addUnit can follow it, and by adding the same rule.alliedFaction/alliedMarkFilter injection block to AlliedCatalogue, scoped to the ally\'s own archetype rule.',
+  },
+  {
     id: 'ki-cd-locus-armory-attachedunit-01',
     status: 'known',
     title: 'Chaos Daemons — 4 General Armoury items ("the model AND ITS ATTACHED UNIT gain X") still only show on the buyer\'s own card, not the unit it joins',
