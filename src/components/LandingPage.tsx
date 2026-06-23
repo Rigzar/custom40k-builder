@@ -10,38 +10,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v7_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v8_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v0.94',
-    intro: 'Hello commanders! Two more factions got the full line-by-line ODS audit — Necrons and Adeptus Mechanicus, 41 data fixes combined. All 19 factions remain playable.',
-    engine: '⚙ Cross-faction engine bug found: weapon-swap choices named with a quantity prefix ("two X", "2 X") were silently breaking weapon-table gating — fixed across both factions and logged as a pattern to watch for in future audits.',
-    csm: '✓ Fully audited — Necrons (v0.94). 19 fixes: vehicle armory access restored on 9 units, a hard-locked Lychguard squad size fixed, a broken per-3 squad cap corrected.',
-    cd:  '✓ Fully audited — Adeptus Mechanicus (v0.94, deeper re-audit). 30 fixes: champion-only armory access corrected on 9 units, 2 missing Advisor flags, 14 missing weapon-swap links.',
-    sm:  '✓ Fully audited — Chaos Space Marines, Chaos Daemons, Space Marines & Imperial Guard. Weapon resolver fixes, all armory access verified, psychic disciplines wired for all psyker units.',
-    legacyfix: '🗓 Inquisition updated to June 2026 ruleset — 17 new Elite units, new Army Customisation (Ordo Legacies), Chamber Militant archetype for GK/Sororitas/SM.',
+    title: 'Developer Update — All 19 factions fully audited',
+    intro: 'Hello commanders! Every faction (plus the Escalation and Horus Heresy supplements) has now been through a full line-by-line ODS audit. The builder is feature-complete for list-building across the entire roster.',
+    engine: '⚙ Inquisition: removed the old per-model "Ordo Hereticus/Malleus/Xenos" armory pick — the canonical rules never actually had it. Ordo armory access now comes exclusively from the Army Customisation Legacy.',
+    csm: '✓ Imperial Guard: Traitor Guard, Brood Brothers and Gue\'vesa archetypes now actually grant their "may also use the <Faction> Armory" clause — a dedicated Armoury tab gives ongoing access to the Chaos Space Marine / Genestealer Cult / Tau Empire general Armory, without opening that faction\'s unit roster.',
+    cd:  '✓ Adeptus Mechanicus: Canticles of the Omnissiah implemented in full — Legacy canticles auto-apply, base canticles show as reference text on the unit card.',
+    sm:  '✓ Cross-faction sweep: fixed several "swap weapon" options that were silently breaking on multi-model squads (Orks Boyz/Skarboyz, Necrons Immortals/Warriors), an Adeptus Custodes embark-restriction gap, and a Horus Heresy armour double-count risk.',
+    legacyfix: '🗓 Known Issues panel reflects the current state — most remaining open items are deliberate future features (cross-faction sub-model purchases, sub-choice pickers) rather than bugs.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — v0.94',
-    intro: 'Hallo Kommandanten! Zwei weitere Fraktionen haben den vollständigen Zeile-für-Zeile-ODS-Audit erhalten — Necrons und Adeptus Mechanicus, zusammen 41 Datenkorrekturen. Alle 19 Fraktionen bleiben spielbar.',
-    engine: '⚙ Fraktionsübergreifender Engine-Bug gefunden: Waffentausch-Optionen mit Mengen-Präfix im Namen ("two X", "2 X") haben die Waffentabellen-Filterung lautlos kaputt gemacht — in beiden Audits behoben und als Muster für künftige Audits vermerkt.',
-    csm: '✓ Vollständig geprüft — Necrons (v0.94). 19 Fixes: Fahrzeug-Rüstkammer-Zugriff bei 9 Einheiten wiederhergestellt, eine festgefahrene Lychguard-Einheitengröße behoben, ein defektes Pro-3-Limit korrigiert.',
-    cd:  '✓ Vollständig geprüft — Adeptus Mechanicus (v0.94, tieferer Re-Audit). 30 Fixes: Champion-only-Rüstkammer-Zugriff bei 9 Einheiten korrigiert, 2 fehlende Advisor-Flags, 14 fehlende Waffentausch-Verknüpfungen.',
-    sm:  '✓ Vollständig geprüft — CSM, Chaos-Dämonen, Space Marines & Imperiale Garde. Waffenresolver-Fixes, Rüstkammer-Zugriff verifiziert, Psykra-Disziplinen verdrahtet.',
-    legacyfix: '🗓 Inquisition aktualisiert (Juni 2026) — 17 neue Elite-Einheiten, neue Armeeanpassungen (Ordo-Vermächtnisse), Chamber Militant Archetyp für GK/Sororitas/SM.',
+    title: 'Entwickler-Update — Alle 19 Fraktionen vollständig geprüft',
+    intro: 'Hallo Kommandanten! Jede Fraktion (sowie die Supplements Escalation und Horus Heresy) hat jetzt einen vollständigen Zeile-für-Zeile-ODS-Audit durchlaufen. Der Builder ist für den Listenbau über das gesamte Roster funktionsvollständig.',
+    engine: '⚙ Inquisition: die alte modellweise "Ordo Hereticus/Malleus/Xenos"-Rüstkammerwahl entfernt — die kanonischen Regeln hatten sie nie. Ordo-Rüstkammerzugriff kommt jetzt ausschließlich über das Armeeanpassungs-Vermächtnis.',
+    csm: '✓ Imperiale Garde: die Archetypen Traitor Guard, Brood Brothers und Gue\'vesa gewähren jetzt tatsächlich ihre Klausel "darf auch die <Fraktion>-Rüstkammer nutzen" — ein eigener Rüstkammer-Tab gibt dauerhaften Zugriff auf die allgemeine Rüstkammer von Chaos Space Marines / Genestealer Cults / Tau Empire, ohne das Einheiten-Roster dieser Fraktion zu öffnen.',
+    cd:  '✓ Adeptus Mechanicus: Litaneien des Omnissiah vollständig implementiert — Vermächtnis-Litaneien werden automatisch angewendet, Basis-Litaneien werden als Referenztext auf der Einheitenkarte angezeigt.',
+    sm:  '✓ Fraktionsübergreifende Durchsicht: mehrere "Waffentausch"-Optionen behoben, die bei mehrmodelligen Einheiten lautlos kaputt waren (Orks Boyz/Skarboyz, Necrons Immortals/Warriors), eine Einbarkierungs-Lücke bei Adeptus Custodes und ein Rüstungs-Doppelzählungsrisiko bei Horus Heresy.',
+    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider — die meisten verbleibenden offenen Punkte sind bewusst geplante zukünftige Features (fraktionsübergreifende Unter-Modell-Käufe, Unterwahl-Picker), keine Fehler.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — v0.94',
-    intro: '¡Hola comandantes! Dos facciones más recibieron la auditoría ODS completa línea a línea — Necrons y Adeptus Mechanicus, 41 correcciones de datos combinadas. Las 19 facciones siguen siendo jugables.',
-    engine: '⚙ Bug de motor entre facciones encontrado: las opciones de intercambio de arma nombradas con un prefijo de cantidad ("two X", "2 X") rompían silenciosamente el filtrado de la tabla de armas — corregido en ambas facciones y registrado como patrón a vigilar en futuras auditorías.',
-    csm: '✓ Auditados al completo — Necrons (v0.94). 19 correcciones: acceso a armería de vehículo restaurado en 9 unidades, un tamaño de escuadra de Lychguard bloqueado corregido, un límite por cada 3 roto arreglado.',
-    cd:  '✓ Auditados al completo — Adeptus Mechanicus (v0.94, reauditoría más profunda). 30 correcciones: acceso a armería solo-campeón corregido en 9 unidades, 2 flags Advisor faltantes, 14 vínculos de intercambio de arma faltantes.',
-    sm:  '✓ Auditados al completo — CSM, Demonios del Caos, Space Marines & Guardia Imperial. Fixes en el resolver de armas, acceso a armería verificado, disciplinas psíquicas conectadas.',
-    legacyfix: '🗓 Inquisición actualizada a junio 2026 — 17 nuevas unidades Elite, nueva Personalización de Ejército (Legados de Ordo), arquetipo Milicia del Capítulo para GK/Sororitas/SM.',
+    title: 'Actualización del desarrollador — Las 19 facciones auditadas al completo',
+    intro: '¡Hola comandantes! Todas las facciones (más los suplementos Escalation y Horus Heresy) ya pasaron por una auditoría ODS completa línea a línea. El creador está funcionalmente completo para armar listas en todo el roster.',
+    engine: '⚙ Inquisición: se eliminó la vieja elección de Ordo "Hereticus/Malleus/Xenos" por modelo — las reglas canónicas nunca la tuvieron. El acceso a la armería de Ordo ahora viene exclusivamente del Legado de Personalización de Ejército.',
+    csm: '✓ Guardia Imperial: los arquetipos Traitor Guard, Brood Brothers y Gue\'vesa ahora sí otorgan su cláusula "también puede usar la Armería de <Facción>" — una pestaña de Armería dedicada da acceso continuo a la armería general de Chaos Space Marines / Genestealer Cults / Tau Empire, sin abrir el roster de unidades de esa facción.',
+    cd:  '✓ Adeptus Mechanicus: Cánticos del Omnissiah implementados al completo — los cánticos de Legado se aplican automáticamente, los cánticos base se muestran como texto de referencia en la tarjeta de unidad.',
+    sm:  '✓ Repaso entre facciones: arregladas varias opciones de "cambio de arma" que fallaban silenciosamente en escuadras de varios modelos (Orks Boyz/Skarboyz, Necrons Immortals/Warriors), un hueco de restricción de embarque en Adeptus Custodes y un riesgo de doble conteo de armadura en Horus Heresy.',
+    legacyfix: '🗓 El panel de Known Issues refleja el estado actual — la mayoría de los puntos abiertos restantes son features futuras deliberadas (compras de sub-modelos entre facciones, selectores de sub-elección), no bugs.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };

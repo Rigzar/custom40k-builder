@@ -1474,7 +1474,8 @@
       "advisor": false,
       "slot": "Elites",
       "default_size": 5,
-      "min_cost": 425
+      "min_cost": 425,
+      "armourKeyword": "Cataphractii"
     },
     "Palatine Blade Squad": {
       "name": "Palatine Blade Squad",

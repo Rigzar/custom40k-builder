@@ -418,6 +418,26 @@ export interface DroneType {
   abilities: string[];
 }
 
+/**
+ * Adeptus Mechanicus "Canticles of the Omnissiah" (.ods, "Canticles of the Omnissiah" sheet) —
+ * the army-wide buff-of-the-round pick most AdMech units' "Canticles of the Omnissiah" ability
+ * refers to. 6 base Canticles (any eligible unit may pick one each Command phase) + 7 Legacy
+ * Canticles, each granted automatically alongside its Forge World Legacy's armory access (not a
+ * free pick — `grantedByLegacy` names the exact Legacy, matching `archetypes.json`'s legacy
+ * `desc` text verbatim, e.g. "Legacy of the Gleaming Giant" → "Tribute of Emphatic Veneration").
+ * The 7 Legacy Canticles are auto-injected onto eligible units as an ability via
+ * `engine/resolvers/adeptus_mechanicus.ts` (same pattern as Chaos Daemons' Locus auras). The 6
+ * base Canticles are still data-only (ki-admech-canticles-unwired-01): they need a real
+ * Command-phase picker, no such UI concept exists anywhere in the builder yet.
+ */
+export interface Canticle {
+  name: string;
+  effect: string;
+  type: 'base' | 'legacy';
+  /** Set only when type is 'legacy' — the exact Legacy name (archetypes.json) that grants it. */
+  grantedByLegacy?: string;
+}
+
 export interface AlliedFaction {
   slot_to_units: Record<string, string[]>;
   units: Record<string, Unit>;
@@ -458,4 +478,6 @@ export interface FactionData {
   intrinsic_allies?: string[];
   /** Tau Empire only — see DroneType doc comment. Data-only, not yet wired into any UI/engine path. */
   drones?: DroneType[];
+  /** Adeptus Mechanicus only — see Canticle doc comment. Data-only, not yet wired into any UI/engine path. */
+  canticles?: Canticle[];
 }

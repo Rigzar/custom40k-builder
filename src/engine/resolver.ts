@@ -10,6 +10,7 @@ import { getTraitEffects } from './traitEffects';
 import { csmResolve } from './codex_csm/resolver';
 import { cdResolve } from './resolvers/chaos_daemons';
 import { smResolve } from './resolvers/space_marines';
+import { admechResolve } from './resolvers/adeptus_mechanicus';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 
@@ -915,6 +916,7 @@ const FACTION_RESOLVERS: Partial<Record<string, FactionResolverFn>> = {
   'Chaos Space Marines': csmResolve,
   'Chaos Daemons':       cdResolve,
   'Space Marines':       smResolve,
+  'Adeptus Mechanicus':  admechResolve,
 };
 
 // Maps a roster entry's `factionSource` slug (e.g. "chaos_daemons") to the display name used
@@ -926,6 +928,7 @@ const FACTION_SLUG_TO_NAME: Record<string, string> = {
   chaos_space_marines: 'Chaos Space Marines',
   chaos_daemons: 'Chaos Daemons',
   space_marines: 'Space Marines',
+  adeptus_mechanicus: 'Adeptus Mechanicus',
 };
 
 // ── Public API ────────────────────────────────────────────────────────────────

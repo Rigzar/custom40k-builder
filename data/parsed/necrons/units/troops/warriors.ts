@@ -65,7 +65,7 @@ export const warriors: Unit = {
     {
       "header": "The unit can swap their Gauss flayers",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -75,12 +75,13 @@ export const warriors: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Gauss flayer"]
     },
     {
       "header": "The unit can be equipped with",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

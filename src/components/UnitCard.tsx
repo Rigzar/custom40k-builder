@@ -1800,14 +1800,30 @@ export function UnitCard({ item }: Props) {
               </summary>
               <div className="mt-2 space-y-2">
                 {filteredAbilities.flatMap((a, i) =>
-                  parseAbility(a).map((part, j) => (
-                    <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
-                      <div className="text-[11px] text-zinc-200 font-medium">{part.displayName}</div>
-                      {part.description && (
-                        <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
-                      )}
-                    </div>
-                  ))
+                  parseAbility(a).map((part, j) => {
+                    // Canticles of the Omnissiah is a round-by-round Command-phase choice, not a
+                    // build-time pick — there's nothing to "select" in the army list. Surface the
+                    // 6 base Canticles' verbatim name+effect as reference text instead, so the
+                    // player knows their options at the table (ki-admech-canticles-unwired-01).
+                    const baseCanticles = part.displayName.toLowerCase() === 'canticles of the omnissiah'
+                      ? (data.canticles ?? []).filter(c => c.type === 'base')
+                      : [];
+                    return (
+                      <div key={`n-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
+                        <div className="text-[11px] text-zinc-200 font-medium">{part.displayName}</div>
+                        {part.description && (
+                          <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
+                        )}
+                        {baseCanticles.length > 0 && (
+                          <ul className="text-[10px] text-zinc-500 mt-1 leading-relaxed space-y-0.5 list-none">
+                            {baseCanticles.map(c => (
+                              <li key={c.name}><span className="text-zinc-400">{c.name}:</span> {c.effect}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    );
+                  })
                 )}
                 {traitAbilities.map((ta, i) => (
                   <div key={`ta-${i}`} className="border-b border-zinc-700/40 pb-1.5">

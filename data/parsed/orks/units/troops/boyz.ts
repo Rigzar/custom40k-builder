@@ -127,7 +127,7 @@ export const boyz: Unit = {
     {
       "header": "Any number of models may swap their Choppa and Slugga",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

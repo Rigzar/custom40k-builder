@@ -48,7 +48,7 @@ function selId() {
   return 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2)));
 }
 
-type ArmoryTab = 'general' | 'mark' | 'legion' | 'authority';
+type ArmoryTab = 'general' | 'mark' | 'legion' | 'authority' | 'archetypeArmory';
 type Section = 'weapons' | 'equipment' | 'daemon_weapons';
 
 function parsePrice(v: number | null | undefined | string): number | null {
@@ -104,6 +104,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       .then(fd => setAuthorityCache(prev => ({ ...prev, [authorityFaction]: fd })))
       .finally(() => setAuthorityLoading(false));
   }, [authorityFaction, authorityCache]);
+  // Archetype-granted cross-faction armory (ki-ig-traitor-guard-archetype-01) — a FIXED foreign
+  // faction (no player choice, unlike Authority of the Inquisition), uncapped use. Lazy-loaded
+  // once per archetype the same way.
+  const archetypeRuleForArmory = getArchetypeRule(archetype);
+  const [archetypeArmoryData, setArchetypeArmoryData] = useState<FactionData | null>(null);
+  const [archetypeArmoryLoading, setArchetypeArmoryLoading] = useState(false);
+  useEffect(() => {
+    const fk = archetypeRuleForArmory?.armoryOnlyFaction;
+    if (!fk) { setArchetypeArmoryData(null); return; }
+    setArchetypeArmoryLoading(true);
+    FACTION_LOADERS[fk]()
+      .then(fd => setArchetypeArmoryData(fd))
+      .finally(() => setArchetypeArmoryLoading(false));
+  }, [archetypeRuleForArmory?.armoryOnlyFaction]);
   if (!data) return null;
 
   // Bug 3: for allied units use the allied faction's armory data
@@ -573,6 +587,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               Authority of the Inquisition
             </button>
           )}
+          {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines */}
+          {rule?.armoryOnlyFaction && (
+            <button
+              onClick={() => setTab('archetypeArmory')}
+              className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                ${tab === 'archetypeArmory'
+                  ? 'border-amber-600 text-amber-400'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300'
+                }`}
+            >
+              {archetypeArmoryData?.faction ?? '…'} Armoury
+            </button>
+          )}
         </div>}
 
         {/* Terminator / Cataphractii armour restriction */}
@@ -807,6 +834,43 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     ))}
                   </div>
                 );
+              })()}
+            </div>
+          ) : tab === 'archetypeArmory' ? (
+            <div className="space-y-3">
+              <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400">
+                Models with Armory access may also use the {archetypeArmoryData?.faction ?? 'allied faction'} Armory.
+              </div>
+              {archetypeArmoryLoading || !archetypeArmoryData ? (
+                <div className="text-zinc-500 italic text-sm text-center py-8">
+                  Loading {archetypeArmoryData?.faction ?? 'faction'} Armoury…
+                </div>
+              ) : (() => {
+                const foreignWeapons = (archetypeArmoryData.armory_general.weapons ?? []) as ArmoryItem[];
+                const foreignEquip = ((archetypeArmoryData.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                return ([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
+                  <div key={sec}>
+                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? 'Weapons' : 'Equipment'}</div>
+                    {items.length === 0
+                      ? <div className="text-zinc-500 italic text-sm text-center py-2">No items in this section</div>
+                      : items.map((arm, i) => {
+                        const pts = getItemPts(arm);
+                        const blocked = pts === null;
+                        return (
+                          <ArmoryItemRow
+                            key={i} arm={arm} isChar={isChar}
+                            justAdded={lastAdded === arm.name}
+                            disabled={blocked}
+                            selectedArmoryId={getSelId(arm.name, sec)}
+                            ptsOverride={pts}
+                            onRemove={removeItem}
+                            onAdd={() => !blocked && add(arm, `${archetype} — ${archetypeArmoryData.faction} Armoury`, sec)}
+                          />
+                        );
+                      })
+                    }
+                  </div>
+                ));
               })()}
             </div>
           ) : effectiveSection === 'equipment' ? (

@@ -17,7 +17,7 @@ An army list builder for a custom Warhammer 40,000 / Horus Heresy ruleset, cover
 - Psychic disciplines, Prayers and Pacts per faction
 - Veteran Abilities and Vehicle Upgrades
 - Print view — formatted army sheet with cover page, list toggle and slot groupings
-- Supplements — Horus Heresy (Beta) and Escalation/Lords of War (Alpha, Chaos only)
+- Supplements — Horus Heresy (Beta) and Escalation/Lords of War (Beta)
 - Multi-language UI: English, Deutsch, Español
 - Custom unit nicknames, model count display, Join Unit pre-assignment
 - Export / Import army lists
@@ -57,22 +57,24 @@ custom40k-builder/
 │   │   └── PrintView.tsx       # Printable army sheet
 │   │
 │   ├── engine/             # Game logic (points, validation, rules)
-│   │   ├── core/               # Shared engine: points, resolver, validators, keywords
-│   │   ├── archetypes/         # Per-faction archetype rule flags
-│   │   │   ├── csm.ts              # 13 CSM archetypes (canonical rule text as comments)
-│   │   │   ├── space-marines.ts    # 8 SM archetypes
-│   │   │   └── chaos_daemons.ts    # 6 CD archetypes
-│   │   ├── traits/             # Per-faction trait effects (stat mods, abilities)
-│   │   │   ├── csm.ts              # 17 CSM traits — all wired
-│   │   │   └── space-marines.ts    # 19 SM traits — all wired
-│   │   ├── legacies/           # Legacy-gated discipline and prayer rules
-│   │   ├── validators/         # Faction-specific validation (SM composition, etc.)
-│   │   └── weapons/            # Vehicle weapon override helpers
+│   │   ├── points.ts           # Points calculation — base cost + options + traits + armory
+│   │   ├── resolver.ts         # Unit profile resolution — marks, variants, archetypes, FACTION_RESOLVERS dispatch
+│   │   ├── validators.ts       # Army-wide validation — slot limits, archetype constraints, engagement limits
+│   │   ├── keywords.ts         # Keyword-derivation seam — armour/mark gating, Ordo/Legacy unlock helpers
+│   │   ├── equipMods.ts        # Parses stat/ability text out of an armory item's description
+│   │   ├── transportGate.ts    # "Low Move, no transport" selection-gate helper
+│   │   ├── archetypes/         # Archetype rule registry — base.ts (ArchetypeRule shape) + index.ts (all archetypes) + per-faction subfolders
+│   │   ├── codex_<faction>/    # Per-faction engine module (one per faction): keywords, legacies, traits, slots, special-abilities, weapon-abilities, resolver, digest.md
+│   │   ├── legacies/           # Legacy-gated discipline/prayer rules (index.ts dispatcher + per-faction files)
+│   │   ├── resolvers/          # FACTION_RESOLVERS implementations (injected abilities per faction)
+│   │   ├── traits/             # Per-faction Army Trait effect tables
+│   │   └── validators/         # Per-faction validation add-ons
 │   │
 │   ├── data/
 │   │   ├── loaders.ts          # Assembles FactionData from per-faction folder files
-│   │   ├── changelog.ts        # Version history (EN/DE/ES)
-│   │   └── known-issues.ts     # Bug and limitation tracker
+│   │   ├── changelog.ts        # Version history (English)
+│   │   ├── known-issues.ts     # Bug and limitation tracker
+│   │   └── rules-model/        # Per-faction keyword/rules digest (<faction>.md) — audit reference, not loaded by the app
 │   │
 │   ├── store/
 │   │   └── army.ts             # Zustand store — army state and actions
@@ -84,15 +86,14 @@ custom40k-builder/
 │   │   └── keywords.ts         # ChaosMark, ArmourKeyword, MARK_GLYPHS typed constants
 │   │
 │   └── i18n/
-│       └── index.ts            # Translation strings (EN / DE / ES)
+│       └── index.ts            # UI translation strings (EN / DE / ES)
 │
 ├── data/
-│   ├── parsed/                 # ← FACTION DATA — one folder per faction
+│   ├── parsed/                 # ← FACTION DATA — one folder per faction (all 19 factions)
 │   │   ├── chaos_space_marines/
-│   │   │   ├── units/              # one .ts per unit, by slot (migrated factions: CSM, CD, SM, GK, Inquisition)
+│   │   │   ├── units/              # one .ts file per unit, by slot
 │   │   │   │   ├── hq/  troops/  elites/  ...
 │   │   │   │   └── index.ts        # assembles { faction, slot_to_units, units }
-│   │   │   │   #  ── other factions keep a single units.json instead ──
 │   │   │   ├── armory/
 │   │   │   │   ├── general.json    # General armory
 │   │   │   │   ├── mark_khorne.json
@@ -104,13 +105,15 @@ custom40k-builder/
 │   │   │   └── animosity.json      # { animosity, allied } — only CSM/CD (marks)
 │   │   ├── space_marines/      (same structure, no marks)
 │   │   ├── chaos_daemons/
-│   │   ├── ... (17 more factions)
+│   │   ├── ... (16 more factions, same units/ + armory/ layout)
 │   │   ├── _supplements/       # horus_heresy.json, escalation/…
 │   │   └── _scratch/           # Parser audit files — never loaded by the app
 │   │
 │   └── source/                 # Original HTML source files used for auditing
 │       ├── Chaos Space Marines ENG/
 │       └── ... (one folder per faction)
+│
+├── Informacion/             # Canonical rules sources (not pushed) — Core Rules/Missions .txt, one .ods per faction
 │
 └── scripts/
     ├── _html2txt.cjs           # Strip HTML source to readable text for auditing
@@ -161,12 +164,11 @@ individual files into the `FactionData` shape the engine expects.
 }
 ```
 
-> **Migrated factions use a `units/` folder instead.** Chaos Space Marines, Chaos
-> Daemons, Space Marines, Grey Knights and Inquisition split the above into one
-> `.ts` file per unit (`units/<slot>/<unit>.ts`, each exporting a `Unit`), with
-> per-slot `index.ts` files that the faction's top-level `units/index.ts`
-> assembles into the same `{ faction, slot_to_units, units }` shape. The unit
-> object fields are identical — only the on-disk layout differs.
+> **Every faction uses a `units/` folder**, not a single `units.json` — the JSON shape above
+> shows the logical structure, but on disk it's split into one `.ts` file per unit
+> (`units/<slot>/<unit>.ts`, each exporting a `Unit`), with per-slot `index.ts` files that the
+> faction's top-level `units/index.ts` assembles into the same `{ faction, slot_to_units, units }`
+> shape. The unit object fields are identical — only the on-disk layout differs.
 
 **`archetypes.json`** — Army Customisation data:
 ```json
@@ -238,7 +240,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. Short version:
 
 ### Data fixes (no coding required)
 
-Open `data/parsed/<faction>/units.json`, compare each unit against your copy of the rules, and fix whatever is wrong. See CONTRIBUTING.md for the fields to check and the file templates for adding missing armory/psychic/archetype files.
+Open `data/parsed/<faction>/units/<slot>/<unit>.ts`, compare it against your copy of the rules, and fix whatever is wrong. See CONTRIBUTING.md for the fields to check and the file templates for adding missing armory/psychic/archetype files.
 
 If you find an error but are not sure how to fix the JSON, open a **GitHub Issue** using the **Data correction** template.
 

@@ -59,13 +59,14 @@ export interface ArchetypeRule {
    * entirely if they have no transport option (rules-owner clarification 2026-06-20, re:
    * Cavalry Regiment Q5: "block it... greying it out... a mouse over tooltip"). "Transport
    * option" = the unit's unit_type is exactly "Infantry" (mirrors the Dedicated Transport AOP
-   * cap's strict-Infantry definition — see validators.ts isStrictInfantrySelection). Currently
-   * enabled only for archetypes verified against their own faction's canonical .ods this
-   * session (IG Cavalry Regiment via fastArchetype, IG Mechanised Company) — NOT yet flipped on
-   * for the textually-identical clause in other factions' archetypes (SM/GSC/Votann/Orks use
-   * fastArchetype too and get this for free; Custodes/Eldar/Sororitas/Tyranids word it
-   * differently in their own digests and haven't been individually re-grounded against their
-   * .ods for this specific enforcement — left as informational-only pending that check).
+   * cap's strict-Infantry definition — see validators.ts isStrictInfantrySelection). Verified
+   * faction-by-faction against each digest: enabled for IG (Cavalry Regiment, Mechanised
+   * Company), SM/GSC/Votann/Orks (all via fastArchetype) and Custodes (Kataphraktoi — same
+   * M<12"-conditional wording, confirmed in rules-model/adeptus_custodes.md). Eldar's Windhost
+   * already gets this for free via fastArchetype. Sororitas' Holy Vanguard (all Dominion models,
+   * unconditional) and Tyranids' Tyrannocyte Assault (all units, unconditional — dropPodArchetype)
+   * are a DIFFERENT rule shape — mandatory embark regardless of Movement, not an M<12" selection
+   * gate — and correctly do not use this field.
    */
   lowMoveMustEmbark?: { creatureOnly?: boolean } | null;
   /**
@@ -78,6 +79,17 @@ export interface ArchetypeRule {
    * a veteran ability for the unit, same as the CSM-side rule.
    */
   grantsMarkPurchase?: boolean;
+  /**
+   * Grants every unit with Armory access ongoing, UNCAPPED use of another faction's general
+   * Armory (weapons + non-veteran/non-vehicle equipment) — distinct from `alliedFaction` (which
+   * additionally opens that faction's whole unit roster for direct selection, wrong for these
+   * cases) and from "Authority of the Inquisition" (player-chosen faction, capped at 1 item —
+   * see AUTHORITY_SOURCE in ArmoryModal.tsx). Closes ki-ig-traitor-guard-archetype-01's "access
+   * to X armory" lines (IG-only so far: Traitor Guard → 'chaos_space_marines', Brood Brothers →
+   * 'genestealer_cults', Gue'vesa → 'tau_empire' — each ods-verbatim "Models with Armory access
+   * may also use the <Faction> Armory", no cap stated unlike the Inquisition rule).
+   */
+  armoryOnlyFaction?: string | null;
 }
 
 export const BASE: ArchetypeRule = {

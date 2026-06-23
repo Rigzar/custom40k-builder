@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Benediction of Omniscience",
+    "effect": "The unit may re-roll ranged hit rolls of 1.",
+    "type": "base"
+  },
+  {
+    "name": "Chant of the Remorseless Fist",
+    "effect": "The unit may re-roll melee hit rolls of 1.",
+    "type": "base"
+  },
+  {
+    "name": "Incantation of the Iron Soul",
+    "effect": "The target can't gain Battleshock tokens by any means and loses all current tokens.",
+    "type": "base"
+  },
+  {
+    "name": "Invocation of Machine-might",
+    "effect": "The unit gains +2 Strength.",
+    "type": "base"
+  },
+  {
+    "name": "Litany of the Electromancer",
+    "effect": "The unit's melee attacks gain \"Tesla\". Weapons that already have the \"Tesla\" special rule always hit on a 4+.",
+    "type": "base"
+  },
+  {
+    "name": "Shroudpsalm",
+    "effect": "The unit gains \"Deflect\"",
+    "type": "base"
+  },
+  {
+    "name": "Citation in Savagery",
+    "effect": "The unit gains \"Furious Charge\".",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of the Omnissiah Igvita"
+  },
+  {
+    "name": "Luminescent Blessing",
+    "effect": "The unit gains \"Warded\".",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of the Hollow World"
+  },
+  {
+    "name": "Mantra of Discipline",
+    "effect": "After performing a Defensive Reaction, the unit's order is not removed. Instead, replace it with a \"Fight\" order.",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of the Morning Star"
+  },
+  {
+    "name": "Panegyric Procession",
+    "effect": "The unit increases the Strength of all of its Heavy weapons by 1.",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of the Red Planet"
+  },
+  {
+    "name": "Plea of the Veiled Hunter",
+    "effect": "A single unit that passes its Canticle roll is removed from the battlefield and placed into reserves. It may later redeploy as though it had \"Outflank\".",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of the Xenarites"
+  },
+  {
+    "name": "Tribute of Emphatic Veneration",
+    "effect": "The unit's ranged weapons gain \"Suppression.\"",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of the Gleaming Giant"
+  },
+  {
+    "name": "Verse of Vengeance",
+    "effect": "Destroyed models in this unit are not removed until they complete their activation this turn.",
+    "type": "legacy",
+    "grantedByLegacy": "Legacy of a Thousand Scars"
+  }
+]

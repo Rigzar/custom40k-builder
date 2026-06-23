@@ -133,13 +133,15 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'adeptus_mechanicus': {
-      const [u, g, arch, leg] = await Promise.all([
+      const [u, g, arch, leg, canticles] = await Promise.all([
         import('../../data/parsed/adeptus_mechanicus/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/adeptus_mechanicus/armory/general.json'),
         import('../../data/parsed/adeptus_mechanicus/archetypes.json'),
         import('../../data/parsed/adeptus_mechanicus/armory/legion_forge_world.json'),
+        import('../../data/parsed/adeptus_mechanicus/canticles.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Forge World': leg }, {});
+      const data = await asm(u, g, arch, noRules, {}, { 'Forge World': leg }, {});
+      return { ...data, canticles: d(canticles) ?? [] };
     }
 
     case 'adeptus_custodes': {

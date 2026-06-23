@@ -76,15 +76,18 @@ export const INQ_KEYWORDS: InqKeywordEntry[] = [
   {
     keyword: 'Ordo Hereticus',
     axis: 'ordo',
-    gates: 'Verbatim item-desc: "The model and further units from this codex get access to Ordo ' +
-      'Hereticus equipment. Every model can only pick one Ordo allegiance. Only for ' +
-      'Inquisitors." Unlocks 5 armory items (Ignis Judicium, Hexagram warding runes, Liber ' +
-      'Heresius, No escape, Praesidium Protectiva — glyph ᴴ, stripped from names, gate enforced ' +
-      'via `requires_army_item`). Mutual exclusivity with the other 2 Ordos enforced by a ' +
-      'dedicated validator (ki-inquisition-ordo-exclusivity-01, fixed v0.56 — ' +
-      '`engine/validators.ts`). (v0.66: the old "Ordo Hereticus Warband" Troops datasheet this ' +
-      'used to also gate was replaced by the single Ordo-agnostic "Henchman Warband" — no unit ' +
-      'is gated by this keyword anymore, only armory items.)',
+    gates: 'Army Customisation Legacy name (Informacion/Inquisition.ods "Army Customisation" ' +
+      'sheet): "The army has access to the Ordo Hereticus Armory and Ordo Hereticus Warbands." ' +
+      'Unlocks 5 armory items (Ignis Judicium, Hexagram warding runes, Liber Heresius, No ' +
+      'escape, Praesidium Protectiva — glyph ᴴ, stripped from names, gate enforced via ' +
+      '`requires_army_item` + `inquisitionLegacyOrdoUnlocks()`, engine/keywords.ts). REPLACED ' +
+      '2026-06-23 (ki-inquisition-army-customisation-replace-01): this used to ALSO be a ' +
+      'separate per-model armory-item pick with its own mutual-exclusivity validator (ki-' +
+      'inquisition-ordo-exclusivity-01) — both removed, since the canonical .ods never had such ' +
+      'an item and the Legacy already grants the same unlock army-wide. (v0.66: the old "Ordo ' +
+      'Hereticus Warband" Troops datasheet this used to also gate was replaced by the single ' +
+      'Ordo-agnostic "Henchman Warband" — no unit is gated by this keyword anymore, only armory ' +
+      'items.)',
   },
   {
     keyword: 'Ordo Malleus',
@@ -111,14 +114,14 @@ export const INQ_KEYWORDS: InqKeywordEntry[] = [
   {
     keyword: 'Ordo allegiance — selection meta-rule',
     axis: 'ordo',
-    gates: 'The structural mechanic the 3 Ordos above ride on: "Every model can only pick one ' +
-      'Ordo allegiance. Only for Inquisitors." Modelled via the NEW v0.56 primitive `requires_' +
-      'army_item`/`isArmyItemGateBlocked` (an "armory-item-pick gates army-wide pool" shape that ' +
+    gates: 'The structural mechanic the 3 Ordos above ride on. Since 2026-06-23 this is a single ' +
+      'army-wide `Legacy` field (structurally exclusive by construction — only one Legacy can ' +
+      'ever be active), not a per-model armory pick needing its own exclusivity check. Modelled ' +
+      'via `requires_army_item`/`isArmyItemGateBlocked` (an "army-wide unlock pool" shape that ' +
       'fit no existing primitive — CSM/CD model their god-allegiance as a unit ATTRIBUTE via ' +
-      '`selectedMark`/`locked_mark`, confirmed `null` here for all 13 units), generalised from ' +
-      '`ArmoryItem` to `Unit` so ONE pick cascades to both equipment access and unit ' +
-      'availability — exactly mirroring the canonical text\'s single-allegiance scope. Mutual-' +
-      'exclusivity validator ships alongside (ki-inquisition-ordo-exclusivity-01, v0.56).',
+      '`selectedMark`/`locked_mark`, confirmed `null` here for all 13 units), resolved by ' +
+      '`inquisitionLegacyOrdoUnlocks()` (engine/keywords.ts) — exactly mirroring the canonical ' +
+      'text\'s single-allegiance scope, with no validator needed.',
   },
 
   // --- mark axis: EMPTY — grepped all 13 units, locked_mark: null everywhere. Genuinely a

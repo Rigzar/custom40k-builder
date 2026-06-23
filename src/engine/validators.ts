@@ -855,23 +855,12 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // Inquisition access "as if 'Ordo Hereticus' was selected as Legacy" automatically (no
   // per-model armory pick required). See chamberMilitantOrdo() in engine/keywords.ts.
 
-  // Inquisition: Ordo allegiance items are mutually exclusive per model.
-  // SOURCE: each Ordo item's desc — "Every model can only pick one Ordo allegiance."
-  // Unlike CSM/CD Marks (a single selectedMark attribute, structurally exclusive), Ordo
-  // allegiance is 3 plain unrelated armory items — nothing stops picking 2-3 at once
-  // without this explicit check (ki-inquisition-ordo-exclusivity-01).
-  {
-    const ORDO_ITEMS = ['Ordo Hereticus', 'Ordo Malleus', 'Ordo Xenos'];
-    for (const item of state.army) {
-      const picked = ORDO_ITEMS.filter(name => item.armory.some(a => a.itemName === name));
-      if (picked.length > 1) {
-        items.push({
-          type: 'error',
-          text: `${item.customName || item.unitName}: can only pick one Ordo allegiance (has ${picked.join(', ')}).`,
-        });
-      }
-    }
-  }
+  // Inquisition: the old per-model "Ordo Hereticus/Malleus/Xenos" armory-item pick (and its
+  // mutual-exclusivity validator, ki-inquisition-ordo-exclusivity-01) was REMOVED 2026-06-23
+  // per ki-inquisition-army-customisation-replace-01 — the canonical Inquisition.ods has no
+  // such items at all; the army-wide Legacy (Ordo Hereticus/Malleus/Xenos/Minoris) is the sole
+  // mechanism now, via inquisitionLegacyOrdoUnlocks() (engine/keywords.ts). Nothing to validate
+  // here anymore — a single `legacy` field is structurally exclusive by construction.
 
   // Inquisition: Ordo Minoris — each Character may select at most 1 item total from the
   // combined Ordo Hereticus/Malleus/Xenos Armory.

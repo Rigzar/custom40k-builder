@@ -199,9 +199,14 @@ export function isArmyItemGateBlocked(
 }
 
 /**
- * Inquisition Army Customisation Legacies (Ordo Hereticus/Malleus/Xenos/Minoris) — replaces
- * the old per-model "Ordo Hereticus/Malleus/Xenos" armory-item pick (FAQ #5-grounded
- * Informacion/Inquisition.ods "Army Customisation" sheet, 2026-06-13).
+ * Inquisition Army Customisation Legacies (Ordo Hereticus/Malleus/Xenos/Minoris) — the SOLE
+ * mechanism for Ordo armory access (FAQ #5-grounded Informacion/Inquisition.ods "Army
+ * Customisation" sheet, 2026-06-13). REPLACED 2026-06-23 (ki-inquisition-army-customisation-
+ * replace-01): the old per-model "Ordo Hereticus/Malleus/Xenos" armory-item pick was removed
+ * entirely from `data/parsed/inquisition/armory/general.json` — the canonical Inquisition.ods
+ * has no such items at all (confirmed by reading the full "Armory" sheet), they were leftover
+ * from an older parser pass. Its mutual-exclusivity validator (ki-inquisition-ordo-exclusivity-
+ * 01) was removed alongside it as dead code.
  *
  * "The army has access to the Ordo X Armory and Ordo X Warbands" / Ordo Minoris "every
  * character may select a single item from either the Ordo Hereticus, Malleus or Xenos

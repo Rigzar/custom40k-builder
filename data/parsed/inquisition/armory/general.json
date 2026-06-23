@@ -866,27 +866,6 @@
       "p_char": 5
     },
     {
-      "name": "Ordo Hereticus",
-      "term_compat": true,
-      "desc": "The model and further units from this codex get access to <Ordo Hereticus> equipment. Every model can only pick one Ordo allegiance. Only for Inquisitors.",
-      "p_unit": null,
-      "p_char": 0
-    },
-    {
-      "name": "Ordo Malleus",
-      "term_compat": true,
-      "desc": "The model and further units from this codex get access to <Ordo Malleus> equipment. Every model can only pick one Ordo allegiance. Only for Inquisitors.",
-      "p_unit": null,
-      "p_char": 0
-    },
-    {
-      "name": "Ordo Xenos",
-      "term_compat": true,
-      "desc": "The model and further units from this codex get access to <Ordo Xenos> equipment. Every model can only pick one Ordo allegiance. Only for Inquisitors.",
-      "p_unit": null,
-      "p_char": 0
-    },
-    {
       "name": "Plate armour",
       "term_compat": false,
       "desc": "The model gains a 4+ save.",

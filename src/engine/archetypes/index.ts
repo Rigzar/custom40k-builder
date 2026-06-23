@@ -13,6 +13,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // ── Adeptus Custodes ──────────────────────────────────────────────────────
   'Kataphraktoi': { ...BASE,
     troopsRemap: ['Jetbike Custodians'],
+    lowMoveMustEmbark: {},
     notes: [
       'Jetbike Custodians count as Troops.',
       'Units with M<12" must start the game as passengers inside a transport.',
@@ -281,6 +282,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Brood Brothers': { ...BASE,
     forcedAbility: { name: 'Ambush', pointsPerWound: 1, creatureOnly: true },
+    armoryOnlyFaction: 'genestealer_cults',
     notes: [
       'Treated as Allies of Convenience for Genestealer Cults.',
       'All creature units must gain the "Ambush" ability at +1 pt per Wound (no opt-out).',
@@ -290,6 +292,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Gue\'vesa': { ...BASE,
     forcedAbility: { name: 'Supporting Fire', pointsPerWound: 1, pointsPerHull: 2 },
+    armoryOnlyFaction: 'tau_empire',
     notes: [
       'Treated as Allies of Convenience for Tau Empire.',
       'All units must gain "Supporting Fire" at +1 pt per Wound or +2 pts per Hull point (no opt-out).',
@@ -299,6 +302,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Traitor Guard': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
+    armoryOnlyFaction: 'chaos_space_marines',
     notes: [
       'Treated as Chaos Space Marines in the Ally matrix (uses the CSM row for all ally relationships).',
       'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',
