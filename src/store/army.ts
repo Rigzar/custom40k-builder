@@ -222,6 +222,7 @@ const defaultState: ArmyState = {
   engagement: 'pitched',
   pointLimit: 2500,
   hqMark: 'Undivided',
+  alliedHqMark: 'Undivided',
   archetype: '',
   legacy: '',
   legacy2: '',
@@ -276,7 +277,7 @@ export const useArmyStore = create<ArmyStore>()(
         // an Archetype/Legacy/Trait name from the old ally faction won't exist on the new one.
         return {
           alliedFaction: key ?? undefined, alliedData: null, army,
-          alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [],
+          alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [], alliedHqMark: 'Undivided' as Mark,
         };
       }),
 
@@ -308,7 +309,7 @@ export const useArmyStore = create<ArmyStore>()(
           return {
             engagement: e, pointLimit: ENGAGEMENTS[e].default, army,
             alliedFaction: undefined, alliedData: null,
-            alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [],
+            alliedArchetype: '', alliedLegacy: '', alliedTraitPool: [], alliedHqMark: 'Undivided' as Mark,
           };
         }
         return { engagement: e, pointLimit: ENGAGEMENTS[e].default };
@@ -524,13 +525,17 @@ export const useArmyStore = create<ArmyStore>()(
         const army = ('mark' in patch) && s.data
           ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : newArmy;
-        // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes)
+        // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes). Scoped: an
+        // allied HQ's mark syncs alliedHqMark, never the primary's hqMark, and vice versa — this
+        // used to set the PRIMARY hqMark regardless of which detachment the edited HQ belonged to.
         const extra: Record<string, unknown> = {};
         if ('mark' in patch) {
           const entry = s.army.find((e: RosterEntry) => e.id === id);
-          const multiMark = s.traitPool.includes('Black Crusade') || s.archetype === "Abaddon's Chosen";
-          if (entry?.slot === 'HQ' && !multiMark) {
-            extra.hqMark = patch.mark ?? 'Undivided';
+          if (entry?.slot === 'HQ' && !!entry.factionSource && entry.factionSource === s.alliedFaction) {
+            extra.alliedHqMark = patch.mark ?? 'Undivided';
+          } else if (entry?.slot === 'HQ' && !entry.factionSource) {
+            const multiMark = s.traitPool.includes('Black Crusade') || s.archetype === "Abaddon's Chosen";
+            if (!multiMark) extra.hqMark = patch.mark ?? 'Undivided';
           }
         }
         return { army, ...extra };
@@ -681,7 +686,12 @@ export const useArmyStore = create<ArmyStore>()(
         armyName: s.armyName, faction: s.faction, engagement: s.engagement,
         pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
         legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, army: s.army,
-        alliedFaction: s.alliedFaction,
+        // alliedData itself is NOT persisted (re-fetched via FACTION_LOADERS by App.tsx's
+        // alliedFaction effect) but its own Army Customisation state must be, same as the
+        // primary's — omitting these used to silently reset the ally's archetype/legacy/traits
+        // on every page reload even though alliedFaction itself survived.
+        alliedFaction: s.alliedFaction, alliedArchetype: s.alliedArchetype,
+        alliedLegacy: s.alliedLegacy, alliedTraitPool: s.alliedTraitPool, alliedHqMark: s.alliedHqMark,
       }),
     }
   )

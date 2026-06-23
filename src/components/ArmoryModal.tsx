@@ -29,6 +29,20 @@ const IMPERIAL_AUTHORITY_FACTIONS: { key: string; label: string }[] = [
 ];
 const AUTHORITY_SOURCE = 'Authority of the Inquisition';
 
+/**
+ * Eldar "Paragon of war" (general armory, p_char-only — ki-eldar-paragon-of-war-partial-stats-01):
+ * "...It can chose a single Exarch power." Not scoped to one squad's own Exarch Power list — the
+ * full pool, verified identical (same 16 names, same 5pt price) across all 10 Aspect Warrior/
+ * Exarch-bearing squads (Dire Avengers, Fire Dragons, Howling Banshees, Shadow Spectres, Striking
+ * Scorpions, Shining Spears, Swooping Hawks, Warp Spiders, Crimson Hunter, Dark Reapers).
+ */
+const ELDAR_EXARCH_POWERS = [
+  'Bladestorm', 'Burning heat', 'Crack shot', 'Crushing blows', 'Defensive stance',
+  "Dragon's bite", 'Graceful avoidance', 'Heartstrike', 'Lightning attacks', 'Piercing strike',
+  'Rapid redeployment', "Reaper's reach", "Scorpion's sting", 'Skyhunter', 'Stand firm',
+  'Surprise assault',
+];
+
 interface Props {
   item: RosterEntry;
   unit: Unit;
@@ -93,6 +107,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const [dwTargetWeapon, setDwTargetWeapon] = useState<Record<string, string>>({});
   // Weapon picker for equipment items that target a specific weapon (Chaos artifact, Obsidian blade, etc.)
   const [eqTargetWeapon, setEqTargetWeapon] = useState<Record<string, string>>({});
+  // Eldar "Paragon of war" Exarch Power picker (ki-eldar-paragon-of-war-partial-stats-01)
+  const [eqExarchPower, setEqExarchPower] = useState<Record<string, string>>({});
   // "Authority of the Inquisition" tab state — which foreign faction is browsed + its lazy-loaded data
   const [authorityFaction, setAuthorityFaction] = useState<string | null>(null);
   const [authorityCache, setAuthorityCache]     = useState<Record<string, FactionData>>({});
@@ -441,7 +457,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ...item.armory.filter(a => a.section === 'weapons').map(a => a.itemName),
   ];
 
-  function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string) {
+  function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;
     let scaling: 'perWound' | 'perModel' | undefined;
     if (arm.category === 'veteran') {
@@ -474,6 +490,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       scaling,
       isCharacter: isChar,
       targetWeapon: targetWeapon,
+      chosenPower: chosenPower,
     });
     setLastAdded(arm.name);
     setTimeout(() => setLastAdded(null), 1500);
@@ -890,11 +907,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               onAdd={arm => {
                 if (isAddBlocked(arm, 'equipment')) return;
                 const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection, tw);
+                const cp = arm.name === 'Paragon of war' ? (eqExarchPower[arm.name] || undefined) : undefined;
+                add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection, tw, cp);
               }}
               availableWeapons={availableWeapons}
               eqTargetWeapon={eqTargetWeapon}
               onSetEqTargetWeapon={(name, w) => setEqTargetWeapon(prev => ({ ...prev, [name]: w }))}
+              eqExarchPower={eqExarchPower}
+              onSetEqExarchPower={(name, p) => setEqExarchPower(prev => ({ ...prev, [name]: p }))}
               daemonWeapon={{
                 pool: getDaemonWeaponPool(),
                 selections: daemonWeaponSelections,
@@ -967,6 +987,9 @@ interface EquipGroupsProps {
   /** Current weapon target selections for equipment that requires a target */
   eqTargetWeapon?: Record<string, string>;
   onSetEqTargetWeapon?: (itemName: string, weaponName: string) => void;
+  /** Eldar "Paragon of war" — chosen Exarch Power, keyed by item name */
+  eqExarchPower?: Record<string, string>;
+  onSetEqExarchPower?: (itemName: string, powerName: string) => void;
   /** Inline "Daemon weapon"/"Greater Daemon weapon" ability picker — only passed by the one
    *  EquipmentGroups call site whose armory source can actually contain those gateway items
    *  (CSM's General/Mark tab); the row-name check below is a no-op everywhere else. */
@@ -998,6 +1021,8 @@ function EquipmentGroups({
   availableWeapons = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
+  eqExarchPower = {},
+  onSetEqExarchPower,
 }: EquipGroupsProps) {
   // Build a per-model/per-wound price label for veteran abilities
   function vetPriceLabel(arm: ArmoryItem): string {
@@ -1038,7 +1063,9 @@ function EquipmentGroups({
             const uniqueSel = isUniqueSelected ? isUniqueSelected(arm) : false;
             const needsTarget = requiresWeaponTarget(arm.desc) && availableWeapons.length > 0;
             const chosenTarget = eqTargetWeapon[arm.name] ?? '';
-            const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '');
+            const needsPower = arm.name === 'Paragon of war';
+            const chosenPower = eqExarchPower[arm.name] ?? '';
+            const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
             return (
               <div key={i}>
                 <ArmoryItemRow
@@ -1062,6 +1089,22 @@ function EquipmentGroups({
                       <option value="">— select a weapon —</option>
                       {availableWeapons.map(wn => (
                         <option key={wn} value={wn}>{wn}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                {/* Exarch Power picker — shown for Eldar's "Paragon of war" */}
+                {needsPower && !uniqueSel && !(getSelId?.(arm.name)) && (
+                  <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
+                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">Exarch power:</span>
+                    <select
+                      value={chosenPower}
+                      onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
+                      className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                    >
+                      <option value="">— select a power —</option>
+                      {ELDAR_EXARCH_POWERS.map(pn => (
+                        <option key={pn} value={pn}>{pn}</option>
                       ))}
                     </select>
                   </div>

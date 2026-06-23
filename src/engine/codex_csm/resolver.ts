@@ -1,5 +1,6 @@
 import type { FactionResolverFn } from '../resolver';
 import { applyVehicleWeaponOverrides, applyEquippedWithOverride } from './archetypes/weapon-overrides';
+import { effectiveArchetypeFor } from '../points';
 
 const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
@@ -18,8 +19,11 @@ function applyArchetypeWeaponDisplay(weapons: import('../../types/data').Weapon[
 }
 
 export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
+  // An Allied Detachment whose own faction is CSM uses ITS OWN archetype, not the primary army's
+  // — same scope rule as resolveBase's effectiveMark/effectiveSlot.
+  const effectiveArchetype = effectiveArchetypeFor(item, state);
   const equippedWith = unit.is_vehicle
-    ? applyEquippedWithOverride(base.equippedWith, state.archetype)
+    ? applyEquippedWithOverride(base.equippedWith, effectiveArchetype)
     : base.equippedWith;
 
   // Archetype renames (Plaguehost's "Combi-flamer" → "Combi-plague belcher", etc.) must NOT be
@@ -28,7 +32,7 @@ export const csmResolve: FactionResolverFn = (base, item, unit, state) => {
   // match (the weapon becomes permanently hidden, or permanently shown if it was the default).
   // Instead, stash the rename as a post-gating transform (see ResolvedProfile.weaponDisplayOverride).
   const weapons = base.weapons;
-  const weaponDisplayOverride = (ws: import('../../types/data').Weapon[]) => applyArchetypeWeaponDisplay(ws, unit, state.archetype);
+  const weaponDisplayOverride = (ws: import('../../types/data').Weapon[]) => applyArchetypeWeaponDisplay(ws, unit, effectiveArchetype);
 
   // Favored Units grants its bonus to the unit's "squad leader" — a single model with
   // sole access to the armory. Units with neither armory nor champion armory access

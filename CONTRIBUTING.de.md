@@ -269,28 +269,31 @@ src/i18n/       Übersetzungstexte (EN / DE / ES)
 | Datei | Zuständigkeit |
 |---|---|
 | `points.ts` | Punkteberechnung – Grundkosten + Optionen + Eigenschaften + Rüstkammer |
-| `resolver.ts` | Einheitenprofil-Auflösung – wendet Zeichen, Varianten und Archetypen an |
+| `resolver.ts` | Einheitenprofil-Auflösung – wendet Zeichen, Varianten und Archetypen an, dispatcht an `FACTION_RESOLVERS` |
 | `validators.ts` | Armeevalidierung – Slot-Limits, Archetypen-Einschränkungen, Engagement-Limits |
-| `archetypes.ts` | Archetypen-Regeln und -Durchsetzung |
-| `archetypes/csm.ts` | CSM-Archetypen-Definitionen (Engine-Flags) |
-| `archetypes/rules/csm-rules.ts` | CSM-Archetypen-Regeldaten (13 Archetypen mit kategorisierten Notizen für den Engine-Einsatz) |
-| `legacies/csm-legacies.ts` | CSM-Legacy-Regeldaten (5 Legacies – Rüstkammer-Zugang + Markierungsbeschränkungen) |
-| `legacies/sm-legacies.ts` | SM-Legacy-Regeldaten – Disziplin-Gate-Map und Kreuzritter-Gebete-Set |
-| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` – Dispatcher für Legacy-Regel-Abfragen |
+| `archetypes/base.ts` | `ArchetypeRule`-Form (jedes Flag, das ein Archetyp setzen kann) + der `BASE`-Standard |
+| `archetypes/index.ts` | `ARCHETYPE_RULES` – jeder Archetyp jeder Fraktion, nach Namen indiziert |
+| `archetypes/<fraktion>/` | Fraktionsspezifische Archetypen-Helfer, wenn ein Archetyp eigene Logik über statische Flags hinaus braucht (z. B. `archetypes/space_marines/rules.ts`, `archetypes/chaos_daemons/weapon-overrides.ts`) |
+| `codex_<fraktion>/` | Fraktionsspezifisches Engine-Modul (eines pro Fraktion) – `legacies.ts`, `traits.ts`, `keywords.ts`, `slots.ts`, `unit-types.ts`, `special-abilities.ts`, `weapon-abilities.ts`, `resolver.ts`, plus eine `digest.md`-Audit-Referenz |
+| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` – Dispatcher, der das `codex_<fraktion>/legacies.ts` jeder Fraktion liest |
+| `legacies/<fraktion>.ts` | Legacy-gesperrte Disziplin-/Gebets-Maps für Fraktionen, deren Psionik-Modal das aktive Legacy kennen muss (z. B. `legacies/grey_knights.ts`'s `getGKLegacyPower`, `legacies/space_marines.ts`'s `SM_LEGACY_DISC_MAP`) |
+| `resolvers/<fraktion>.ts` | Der `FACTION_RESOLVERS`-Eintrag einer Fraktion – fügt abgeleitete Profiländerungen (Fähigkeiten etc.) auf die bereits aufgelöste Einheit hinzu, z. B. Legacy-gewährte Canticles/Locus-Auren |
+| `traits/<fraktion>.ts` | Effekttabellen für Armee-Eigenschaften bei Fraktionen, deren Traits Engine-seitige Stat-/Fähigkeitseffekte brauchen |
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
-| `keywords.ts` | Schlüsselwort-Ableitungsschicht für die Wargear-Freischaltung — leitet an einer Stelle die Chaos-Mal-Anforderungen (`itemRequiredMark`), die Terminator-Rüstungskompatibilität (`modelRestrictsToTermSubset`) und die Gravis-Kompatibilität (`modelRestrictsToGravisSubset`) ab. Hier bearbeiten (nicht in `ArmoryModal`), wenn sich ändert, wie die Rüstungs-/Mal-Freischaltung abgeleitet wird. **Glyphen-Konvention:** `ᵀ` = Terminator-kompatibel (NICHT Mal des Tzeentch); die Mal-Glyphen sind nur `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch ist sektionsbasiert (`armory_marks.Tzeentch`), und `ᶻ` ist reserviert, falls je ein Glyph nötig wird. **Wenn Arbeit die Tzeentch-vs-Terminator-Unterscheidung berührt, frage den Maintainer — nicht annehmen.** |
+| `keywords.ts` | Schlüsselwort-Ableitungsschicht für die Wargear-Freischaltung — leitet an einer Stelle die Chaos-Mal-Anforderungen (`itemRequiredMark`), die Terminator-Rüstungskompatibilität (`modelRestrictsToTermSubset`), die Gravis-Kompatibilität (`modelRestrictsToGravisSubset`) und die Inquisition-Ordo/Legacy-Freischalt-Helfer (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) ab. Hier bearbeiten (nicht in `ArmoryModal`), wenn sich ändert, wie die Rüstungs-/Mal-/Ordo-Freischaltung abgeleitet wird. **Glyphen-Konvention:** `ᵀ` = Terminator-kompatibel (NICHT Mal des Tzeentch); die Mal-Glyphen sind nur `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch ist sektionsbasiert (`armory_marks.Tzeentch`), und `ᶻ` ist reserviert, falls je ein Glyph nötig wird. **Wenn Arbeit die Tzeentch-vs-Terminator-Unterscheidung berührt, frage den Maintainer — nicht annehmen.** |
 
 ### Wann die Legacy-Dateien bearbeitet werden müssen
 
-Der Ordner `legacies/` enthält Engine-Regeln, die nicht im JSON leben können – sie steuern, **welche Disziplinen und Gebete das Psionik-Modal anzeigt**, abhängig vom aktiven Legacy.
+Der Ordner `legacies/` enthält Engine-Regeln, die nicht im JSON leben können – sie steuern, **welche Disziplinen und Gebete das Psionik-Modal anzeigt**, abhängig vom aktiven Legacy. Der Rüstkammer-Zugriff der Legacies einer Fraktion lebt in ihrer eigenen `codex_<fraktion>/legacies.ts` (gelesen über den Dispatcher in `legacies/index.ts`), nicht hier.
 
-- **`legacies/sm-legacies.ts`** – Diese Datei bearbeiten, wenn:
+- **`legacies/space_marines.ts`** – Diese Datei bearbeiten, wenn:
   - Eine neue SM-Legacy-Disziplin hinzugefügt wird, die gesperrt sein soll (in `SM_LEGACY_DISC_MAP` eintragen: Disziplinname → erforderlicher Legacy-Name).
   - Ein neues Gebet hinzugefügt wird, das nur mit dem Legacy of the Crusader erscheinen soll (zu `SM_CRUSADER_PRAYERS` hinzufügen).
   - Ein bestehendes SM-Legacy oder eine Disziplin umbenannt wird.
-- **`legacies/csm-legacies.ts`** – Diese Datei bearbeiten, wenn CSM-Legacy-Rüstkammer-Zugriffsregeln oder Markierungsbeschränkungen hinzugefügt oder geändert werden.
+- **`legacies/grey_knights.ts`** – Diese Datei bearbeiten, wenn sich ändert, welche Kraft ein Legacy GK-Psykern immer gewährt (`getGKLegacyPower`).
+- **`codex_<fraktion>/legacies.ts`** – Diese Datei bearbeiten für Legacy-Rüstkammer-Zugriffsregeln oder Markierungsbeschränkungen einer Fraktion (z. B. `CSM_LEGACY_NOTES` in `codex_csm/legacies.ts`).
 
-Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, eine neue Datei `legacies/<fraktion>.ts` nach demselben Muster erstellen und in `PsychicModal.tsx` einbinden.
+Wenn eine neue Fraktion mit Legacy-gesperrten Disziplinen hinzugefügt wird, eine neue Datei `legacies/<fraktion>.ts` nach demselben Muster erstellen, in `PsychicModal.tsx` einbinden, und – falls auch eine strukturierte Notiz angezeigt werden soll – in der `FACTION_LEGACY_NOTES`-Map von `legacies/index.ts` registrieren.
 
 ### Datenstruktur (fraktionseigene Ordner)
 

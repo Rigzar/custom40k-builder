@@ -12,7 +12,7 @@ import { PrintView } from './components/PrintView';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
-import { computeUnitPoints, resolveUnit } from './engine/points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
 import { getArmySymbolUrl } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
@@ -104,13 +104,13 @@ function HeaderStatus() {
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
   }, 0);
 
   const pct  = Math.min(100, (total / state.pointLimit) * 100);
   const over = total > state.pointLimit;
 
-  const validation = validateArmy(state, data);
+  const validation = validateArmy(state, data, state.alliedData);
   const errors = validation.filter(v => v.type === 'error').length;
   const warns  = validation.filter(v => v.type === 'warn').length;
 
@@ -381,7 +381,7 @@ export default function App() {
 
     const total = army.reduce((s, i) => {
       const u = resolveUnit(i, data);
-      return s + (u ? computeUnitPoints(i, u, archetype) : 0);
+      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store)) : 0);
     }, 0);
 
     const name = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;

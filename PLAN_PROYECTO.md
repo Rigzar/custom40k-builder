@@ -788,6 +788,37 @@ Leyenda: 🟢 completa · 🟠 auditada (pueden quedar detalles) · 🔴 sin emp
 
 ## 5. ¿Dónde nos quedamos? (clave para retomar tras limpiar contexto)
 
+> ⚠️ **El log de sesiones de abajo quedó congelado en 2026-06-08 — nadie lo siguió actualizando
+> durante ~15 días de trabajo real.** La tabla de §4 SÍ se mantuvo al día (refleja el estado
+> real: 19/19 facciones migradas y auditadas + Escalation + Horus Heresy). Desde
+> aproximadamente 2026-06-13 el detalle sesión-por-sesión vive en `memory/MEMORY.md` (sistema
+> de memoria persistente entre sesiones de Claude), no aquí — ese es el sitio correcto para
+> retomar contexto fino. El log de abajo queda como **historial**, no como estado actual.
+
+**ESTADO ACTUAL (actualizado 2026-06-23):**
+- Las 19 facciones + Escalation (21 Lords of War) + Horus Heresy: auditoría ODS completa, Fase 4
+  (migración a `codex_<facción>/`) completa para las 19. Ver tabla §4 para detalle por facción.
+- Sesión 2026-06-23: cerrados `ki-inquisition-army-customisation-replace-01` (reemplazado el pick
+  viejo de Ordo por modelo — el `.ods` canónico nunca lo tuvo), `ki-ig-traitor-guard-archetype-01`
+  (nuevo `ArchetypeRule.armoryOnlyFaction` — acceso a armería ajena sin abrir el roster, cierra
+  también la mitad simétrica de `ki-inquisition-authority-unenforced-01`), `ki-admech-canticles-
+  unwired-01` (Canticles of the Omnissiah completo), más el sweep cruzado de swaps mal tipados
+  (Orks Boyz/Skarboyz, Necrons Immortals/Warriors) y limpieza de docs (`README.md`,
+  `OPEN_QUESTIONS.md`, anuncio de landing page) que estaban igual de congelados que este archivo.
+  Pusheado en `d1ea12f`.
+- Quedan abiertos (genuinamente, no por descuido): compras de sub-modelo entre facciones (Tau
+  Drones, Eldar Exarch power), conteo de copias de arma por modelo (Talos/Carnifex), y los
+  items grandes de rollout de efectos (`ki-22a`/`ki-26a`/`ki-40a`) — todos en `known-issues.ts`.
+- **Recomendación:** seguir actualizando `memory/MEMORY.md` sesión a sesión (ya es el hábito
+  establecido) y tratar este archivo + `OPEN_QUESTIONS.md` + `README.md` como documentos que se
+  repasan cada N sesiones, no en cada wrap-up — el coste de dejarlos desincronizados es bajo
+  hasta que alguien los lee, pero se acumula rápido si nadie los repasa nunca (ver esta misma
+  sesión: 3 documentos desincronizados a la vez).
+
+---
+
+### Historial de sesiones (congelado en 2026-06-08 — ver arriba)
+
 **Última sesión (2026-06-08):**
 1. Fase 1 (auditoría Core+Misiones) — ✅ COMPLETA, shippeada v0.57 (sin pushear).
 2. Resolviste en vivo 2 de los 4 KIs nuevos: transporte=Infantry estricto, segunda-AOP=residuo

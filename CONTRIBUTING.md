@@ -270,28 +270,31 @@ src/i18n/       Translation strings (EN / DE / ES)
 | File | Responsibility |
 |---|---|
 | `points.ts` | Points calculation — base cost + options + traits + armory |
-| `resolver.ts` | Unit profile resolution — applies marks, variants, archetypes |
+| `resolver.ts` | Unit profile resolution — applies marks, variants, archetypes, dispatches to `FACTION_RESOLVERS` |
 | `validators.ts` | Army validation — slot limits, archetype constraints, engagement limits |
-| `archetypes.ts` | Archetype rule definitions and enforcement |
-| `archetypes/csm.ts` | CSM archetype definitions (engine flags) |
-| `archetypes/rules/csm-rules.ts` | CSM archetype rule data (13 archetypes with categorised notes for engine use) |
-| `legacies/csm-legacies.ts` | CSM legacy rule data (5 legacies — armory access + mark restrictions) |
-| `legacies/sm-legacies.ts` | SM legacy rule data — discipline gate map and Crusader prayer set |
-| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher for legacy rule lookups |
+| `archetypes/base.ts` | `ArchetypeRule` shape (every flag an archetype can set) + the `BASE` default |
+| `archetypes/index.ts` | `ARCHETYPE_RULES` — every archetype for every faction, keyed by name |
+| `archetypes/<faction>/` | Per-faction archetype helpers when an archetype needs its own logic beyond static flags (e.g. `archetypes/space_marines/rules.ts`, `archetypes/chaos_daemons/weapon-overrides.ts`) |
+| `codex_<faction>/` | Per-faction engine module (one per faction) — `legacies.ts`, `traits.ts`, `keywords.ts`, `slots.ts`, `unit-types.ts`, `special-abilities.ts`, `weapon-abilities.ts`, `resolver.ts`, plus a `digest.md` audit reference |
+| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher that reads each faction's `codex_<faction>/legacies.ts` |
+| `legacies/<faction>.ts` | Legacy-gated discipline/prayer maps for factions whose Psychic modal needs to know the active Legacy (e.g. `legacies/grey_knights.ts`'s `getGKLegacyPower`, `legacies/space_marines.ts`'s `SM_LEGACY_DISC_MAP`) |
+| `resolvers/<faction>.ts` | A faction's `FACTION_RESOLVERS` entry — injects derived profile changes (abilities, etc.) on top of the base resolved unit, e.g. Legacy-granted Canticles/Locus auras |
+| `traits/<faction>.ts` | Army Trait effect tables for factions whose Traits need engine-side stat/ability effects |
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
-| `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`), Terminator-armour compatibility (`modelRestrictsToTermSubset`) and Gravis compatibility (`modelRestrictsToGravisSubset`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark gating is derived. **Glyph convention:** `ᵀ` = Terminator-compatible (NOT Mark of Tzeentch); the glyph marks are `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) only — Tzeentch is section-based (`armory_marks.Tzeentch`) and `ᶻ` is reserved if a glyph is ever needed. **When work touches the Tzeentch-vs-Terminator distinction, ask the maintainer — do not assume.** |
+| `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`), Terminator-armour compatibility (`modelRestrictsToTermSubset`), Gravis compatibility (`modelRestrictsToGravisSubset`), and the Inquisition Ordo/Legacy unlock helpers (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark/Ordo gating is derived. **Glyph convention:** `ᵀ` = Terminator-compatible (NOT Mark of Tzeentch); the glyph marks are `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) only — Tzeentch is section-based (`armory_marks.Tzeentch`) and `ᶻ` is reserved if a glyph is ever needed. **When work touches the Tzeentch-vs-Terminator distinction, ask the maintainer — do not assume.** |
 
 ### When to edit legacy files
 
-The `legacies/` folder holds engine-level rules that cannot live in the JSON — they control **which disciplines and prayers the psychic modal shows** based on the active legacy.
+The `legacies/` folder holds engine-level rules that cannot live in the JSON — they control **which disciplines and prayers the psychic modal shows** based on the active legacy. Each faction's *armory*-access side of its Legacies lives in that faction's own `codex_<faction>/legacies.ts` instead (read via `legacies/index.ts`'s dispatcher), not here.
 
-- **`legacies/sm-legacies.ts`** — Edit this if:
+- **`legacies/space_marines.ts`** — Edit this if:
   - You add a new SM legacy discipline that should be gated (add it to `SM_LEGACY_DISC_MAP` mapping discipline name → required legacy name).
   - You add a new prayer that only appears with Legacy of the Crusader (add it to `SM_CRUSADER_PRAYERS`).
   - You rename an existing SM legacy or discipline.
-- **`legacies/csm-legacies.ts`** — Edit this if you add or change CSM legacy armory access rules or mark restrictions.
+- **`legacies/grey_knights.ts`** — Edit this if you change which power a Legacy always grants GK psykers (`getGKLegacyPower`).
+- **`codex_<faction>/legacies.ts`** — Edit this for a faction's Legacy armory-access rules or mark restrictions (e.g. `codex_csm/legacies.ts`'s `CSM_LEGACY_NOTES`).
 
-If you add a new faction with legacy-gated disciplines, create a new `legacies/<faction>.ts` file following the same pattern and wire it into `PsychicModal.tsx`.
+If you add a new faction with legacy-gated disciplines, create a new `legacies/<faction>.ts` file following the same pattern, wire it into `PsychicModal.tsx`, and register it in `legacies/index.ts`'s `FACTION_LEGACY_NOTES` map if it also needs structured-note display.
 
 ### Data structure (per-faction folders)
 

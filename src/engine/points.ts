@@ -1,5 +1,5 @@
 import type { Unit, Model, FactionData } from '../types/data';
-import type { RosterEntry, ArmorySelection } from '../types/army';
+import type { RosterEntry, ArmorySelection, ArmyState } from '../types/army';
 import { computeVehicleCombiSurcharge } from './codex_csm/archetypes/weapon-overrides';
 import { getArchetypeRule } from './archetypes';
 
@@ -29,6 +29,40 @@ export function resolveUnit(item: { unitName: string; factionSource?: string; ne
     return data.allied?.[item.factionSource]?.units[item.unitName];
   }
   return data.units[item.unitName];
+}
+
+/**
+ * The archetype actually in effect for a given roster item. An Allied Detachment unit uses the
+ * ally's OWN Army Customisation (Core Rules: "Allies may select their own Army Customisation
+ * options"), never the primary army's — this used to only be checked correctly inside
+ * `resolveBase` (resolver.ts), while every other call site (faction resolvers, the join-target
+ * picker, the composition validator) read `state.archetype` raw regardless of the item's scope.
+ * Use this helper at every such call site instead of reading `state.archetype`/`alliedArchetype`
+ * directly, so the scope check can't be forgotten again.
+ */
+export function effectiveArchetypeFor(item: { factionSource?: string }, state: Pick<ArmyState, 'archetype' | 'alliedArchetype' | 'alliedFaction'>): string {
+  const isAlliedItem = !!item.factionSource && item.factionSource === state.alliedFaction;
+  return isAlliedItem ? (state.alliedArchetype ?? '') : state.archetype;
+}
+
+/** Same scoping as {@link effectiveArchetypeFor}, for the active Legacy. An Allied Detachment
+ *  only ever has one Legacy slot (no 2nd-legacy-via-trait unlock — see ArmyState.alliedLegacy
+ *  doc), so there is no allied equivalent of `legacy2`. */
+export function effectiveLegacyFor(item: { factionSource?: string }, state: Pick<ArmyState, 'legacy' | 'alliedLegacy' | 'alliedFaction'>): string {
+  const isAlliedItem = !!item.factionSource && item.factionSource === state.alliedFaction;
+  return isAlliedItem ? (state.alliedLegacy ?? '') : state.legacy;
+}
+
+/**
+ * The ArchetypeRule actually in effect for a given roster item — same scoping as
+ * {@link effectiveArchetypeFor}, but returns the resolved rule object directly since most call
+ * sites (getEffectiveSlot, grantsCommandSquad, forcedMark, …) want the rule, not the raw name.
+ * A single PRIMARY-scoped `rule` computed once per validation/render pass and then reused for
+ * EVERY item (including allied ones) is the most common variant of this bug — looks correct for
+ * primary-only checks, silently wrong the moment an allied item reaches the same code path.
+ */
+export function effectiveRuleFor(item: { factionSource?: string }, state: Pick<ArmyState, 'archetype' | 'alliedArchetype' | 'alliedFaction'>) {
+  return getArchetypeRule(effectiveArchetypeFor(item, state));
 }
 
 function isMarkGroup(g: { constraint: { type: string } }) {

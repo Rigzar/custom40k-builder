@@ -1,4 +1,5 @@
 import type { FactionResolverFn } from '../resolver';
+import { effectiveLegacyFor } from '../points';
 
 /**
  * Legacy Canticle auto-injection (ki-admech-canticles-unwired-01 follow-up). Each Forge World
@@ -11,11 +12,12 @@ import type { FactionResolverFn } from '../resolver';
  * genuine per-Command-phase pick with no engine/UI support yet (see Canticle doc comment,
  * types/data.ts) and are NOT injected here.
  */
-export const admechResolve: FactionResolverFn = (base, _item, unit, state, data) => {
+export const admechResolve: FactionResolverFn = (base, item, unit, state, data) => {
   const hasCanticles = (unit.abilities ?? []).some(a => /canticles of the omnissiah/i.test(a));
-  if (!hasCanticles || !state.legacy || !data.canticles) return base;
+  const legacy = effectiveLegacyFor(item, state);
+  if (!hasCanticles || !legacy || !data.canticles) return base;
 
-  const granted = data.canticles.find(c => c.type === 'legacy' && c.grantedByLegacy === state.legacy);
+  const granted = data.canticles.find(c => c.type === 'legacy' && c.grantedByLegacy === legacy);
   if (!granted) return base;
 
   return {

@@ -1,5 +1,6 @@
 import type { FactionResolverFn } from '../resolver';
 import { findArmoryItem } from '../resolver';
+import { effectiveArchetypeFor, resolveUnit } from '../points';
 
 export const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
@@ -98,7 +99,7 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
 
   // ── Archetype effect notes ────────────────────────────────────────────────────
   // Archetype names include god superscripts (ˢ/ᴷ/ᵀ/ᴺ) — must match JSON keys exactly.
-  switch (state.archetype) {
+  switch (effectiveArchetypeFor(item, state)) {
     case 'Figureheads of The Dark Princeˢ':
       // HQ units get +1 Attack while not within 12" of another friendly HQ
       if (effectiveSlot === 'HQ') {
@@ -133,7 +134,7 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
   // (codex_csm/resolver.ts) but generic: find whoever is joined to THIS entry and relay any of
   // its "attached unit" abilities here, verbatim (no rule-text synthesis — just relabelled).
   const joiner = state.army.find(e => e.joinedToUnit === item.id);
-  const joinerUnit = joiner ? data.units[joiner.unitName] : null;
+  const joinerUnit = joiner ? resolveUnit(joiner, data) : null;
   if (joinerUnit) {
     for (const a of joinerUnit.abilities ?? []) {
       if (/\battached unit\b/i.test(a)) {

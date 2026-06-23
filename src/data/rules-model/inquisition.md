@@ -106,9 +106,11 @@ left as-is (still shown to the player; the gate is the enforcement layer on top)
   to `Unit`, gate now also filters `SlotPanel`'s unit list
 
 ~~**Ordo allegiance items not mutually exclusive (`ki-inquisition-ordo-exclusivity-01`)**~~
-→ FIXED: added explicit validator (`engine/validators.ts`) — error if a model has 2+ of
+→ FIXED v0.56: added explicit validator (`engine/validators.ts`) — error if a model has 2+ of
 {Ordo Hereticus, Ordo Malleus, Ordo Xenos} in its armory, mirroring the canonical text
-("Every model can only pick one Ordo allegiance").
+("Every model can only pick one Ordo allegiance"). **MOOT as of 2026-06-23**: the 3 items this
+validator guarded were removed entirely (see §6 below) — the validator was removed alongside
+them as dead code.
 
 **Side-finding (NOT in scope, logged as `ki-gk-inquisition-allied-badge-01`):** GK's existing
 Inquisition access (`ki-10`) uses `[Allied]` — but the same Designer's note that grounded the SM
@@ -198,31 +200,36 @@ these.
    `ki-inquisition-henchman-warband-restructure-01` — large structural rework, needs its own
    design pass before implementation.
 
-6. **Army Customisation Legacy mechanic — PARTIALLY SHIPPED (additive, not a full
-   replacement).** User decided ("sustituye sistema viejo") that the new Legacies (Ordo
-   Hereticus/Malleus/Xenos/Minoris + Archetypes Heretic/Iconoclast) should replace the
-   existing per-model "Ordo allegiance" `requires_army_item` pick (§2). While implementing,
-   found a blocker: the SAME 3 "Ordo Hereticus/Malleus/Xenos" armory items (general.json,
-   `p_char: 0`) are ALSO the mechanism by which 3 OTHER factions' validators are satisfied —
-   SM "Legacy of the Alien Hunters" (forces injected Inquisitor to pick "Ordo Xenos"), GK
-   "Demon Hunters" (forces "Ordo Malleus"), Sororitas "Witch hunters" (forces "Ordo
-   Hereticus") — see `ki-inquisition-ordo-exclusivity-01`/[[project_alien_hunters_fix]].
-   Removing those 3 items would break those validators (they could never be satisfied). A
-   true "replace" needs those 3 validators redesigned too — out of the original item's scope.
-   **What shipped instead (additive):** new `data/parsed/inquisition/archetypes.json` with
-   the 2 Archetypes (Heretic/Iconoclast, descriptive text only — not mechanically enforced,
-   no `ArchetypeRule` entry, like several other factions' text-only archetypes) and the 4
-   Legacies (Ordo Hereticus/Malleus/Xenos/Minoris), wired into `loaders.ts` (replaced
-   `noArch`). New `inquisitionLegacyOrdoUnlocks(legacy)` helper (`engine/keywords.ts`) —
-   when the army's selected Legacy is "Ordo Hereticus/Malleus/Xenos", that name is added to
-   `rosterArmoryItemNames` (ArmoryModal + SlotPanel), unlocking that Ordo's gated armory
-   items AND Warband army-wide — exactly like picking the old per-model item, but via the
-   Legacy selection instead. "Ordo Minoris" unlocks all 3 Ordos' gating for now (full access,
-   not the narrower "1 item per character + 1 warband of any" cap — see new KI
-   `ki-inquisition-ordo-minoris-caps-unenforced-01`). The OLD per-model pick items remain
-   (still needed by SM/GK/Sororitas), so both paths now coexist — new KI
-   `ki-inquisition-army-customisation-replace-01` updated to describe the remaining blocker
-   (the cross-faction validator redesign) for a true replace.
+6. **Army Customisation Legacy mechanic — FULLY REPLACED (closing `ki-inquisition-army-
+   customisation-replace-01`, 2026-06-23).** User decided ("sustituye sistema viejo") that the
+   new Legacies (Ordo Hereticus/Malleus/Xenos/Minoris + Archetypes Heretic/Iconoclast) should
+   replace the existing per-model "Ordo allegiance" `requires_army_item` pick (§2). Initially
+   (v0.56) found what looked like a blocker: the SAME 3 "Ordo Hereticus/Malleus/Xenos" armory
+   items (general.json, `p_char: 0`) were ALSO the mechanism by which 3 other factions'
+   validators were satisfied — SM "Legacy of the Alien Hunters" (forced "Ordo Xenos"), GK
+   "Demon Hunters" (forced "Ordo Malleus"), Sororitas "Witch hunters" (forced "Ordo
+   Hereticus"). **That blocker was ALREADY resolved by v0.71**, separately from this item: the
+   2026-06-14 .ods replaced all 3 of those Designer's-note Inquisition-access clauses with the
+   opt-in "Chamber Militant" archetype (`chamberMilitantOrdo()`, `engine/keywords.ts`), which
+   needs no per-model armory pick at all — the old "Demon Hunters"/"Witch hunters"/"must
+   select Ordo Xenos" validators were removed at that point. Nobody revisited this item after
+   that, so it sat additive for another ~9 days.
+   **Read the full canonical `Inquisition.ods` again on 2026-06-23 (golden rule) before
+   finishing the replace** — confirmed the current "Armory" sheet has NO "Ordo Hereticus/
+   Malleus/Xenos" items at all; they were leftover from an older parser pass, not a real
+   dual-mechanism the rules ever intended. **Removed the 3 items entirely** from
+   `data/parsed/inquisition/armory/general.json` and their now-dead exclusivity validator
+   (§1 above). `isArmyItemGateBlocked`'s gating already unioned `inquisitionLegacyOrdoUnlocks
+   (legacy)` with the roster's actually-purchased item names, so removing the 3 items had ZERO
+   effect on the 15 gated armory items + Henchman Warband they used to gate — the Legacy alone
+   now drives availability, exactly as the .ods describes. `ki-inquisition-army-customisation-
+   replace-01` is CLOSED.
+   `inquisitionLegacyOrdoUnlocks(legacy)` (`engine/keywords.ts`) remains the mechanism: when
+   the army's selected Legacy is "Ordo Hereticus/Malleus/Xenos", that name is added to
+   `rosterArmoryItemNames` (ArmoryModal + SlotPanel), unlocking that Ordo's gated armory items
+   AND Warband army-wide. "Ordo Minoris" unlocks all 3 Ordos' gating for now (full access, not
+   the narrower "1 item per character + 1 warband of any" cap — see still-open KI
+   `ki-inquisition-ordo-minoris-caps-unenforced-01`).
 
 7. **New Inquisitor-sheet discrepancies found while implementing item 4 — RESOLVED (re-checked
    2026-06-22, full ODS audit pass).** `units/hq/inquisitor.ts` now matches the .ods exactly:

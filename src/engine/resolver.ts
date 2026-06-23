@@ -1,7 +1,7 @@
 import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
-import { computeUnitPoints, getActiveVariant, getPromotedModel } from './points';
+import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName } from './equipMods';
@@ -323,8 +323,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
 function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: FactionData): ResolvedProfile {
   // Allied Detachment units use the allied faction's OWN Army Customisation (Core Rules: "Allies
   // may select their own Army Customisation options"), not the primary faction's archetype.
-  const isAlliedUnit = !!item.factionSource && item.factionSource === state.alliedFaction;
-  const effectiveArchetype = isAlliedUnit ? (state.alliedArchetype ?? '') : state.archetype;
+  const effectiveArchetype = effectiveArchetypeFor(item, state);
   const rule = getArchetypeRule(effectiveArchetype);
 
   // Points & slot
@@ -940,7 +939,13 @@ export function resolveUnitProfile(
   data: FactionData,
 ): ResolvedProfile {
   const base = resolveBase(item, unit, state, data);
-  const resolverFaction = item.factionSource ? (FACTION_SLUG_TO_NAME[item.factionSource] ?? state.faction) : state.faction;
+  // A second-level nested ally (factionSource = the Allied Detachment's own faction, nestedFaction
+  // = a faction IT intrinsically grants, e.g. CSM Plaguehost → Chaos Daemons Plaguebearers) must
+  // resolve through the NESTED faction's resolver, not factionSource's — the unit's actual rules
+  // (CD's Favored size/leader check, say) live there, mirroring resolveUnit's own lookup order
+  // (points.ts:25-26 checks nestedFaction before factionSource).
+  const sourceSlug = item.nestedFaction ?? item.factionSource;
+  const resolverFaction = sourceSlug ? (FACTION_SLUG_TO_NAME[sourceSlug] ?? state.faction) : state.faction;
   const factionFn = FACTION_RESOLVERS[resolverFaction];
   const profile = factionFn ? factionFn(base, item, unit, state, data) : base;
   // Faction resolvers may rewrite `weapons`; derive the display list from the final set.

@@ -15,13 +15,20 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
   const {
     army, engagement, hqMark, archetype, legacy, legacy2,
     traitPool, faction, pointLimit, armyName, importRoster, clearArmy,
+    alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
   } = useArmyStore();
 
   const [text, setText]     = useState('');
   const [mode, setMode]     = useState<Mode>(null);
   const [copied, setCopied] = useState(false);
 
-  const stateSnapshot = { armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army };
+  // Must include the Allied Detachment's own state (faction/archetype/legacy/traits) — omitting
+  // it used to silently delete the ally on every export+reimport, since importRoster spreads the
+  // parsed JSON straight over defaultState and a missing `alliedFaction` resets it to undefined.
+  const stateSnapshot = {
+    armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
+    alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
+  };
 
   function doExportCode() {
     setText(toCode(stateSnapshot));

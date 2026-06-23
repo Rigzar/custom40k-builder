@@ -7,7 +7,7 @@ export function ValidationPanel() {
   const [open, setOpen] = useState(true);
   if (!data) return null;
 
-  const items = validateArmy(state, data);
+  const items = validateArmy(state, data, state.alliedData);
   const hasErrors = items.some(i => i.type === 'error');
   const hasWarns  = items.some(i => i.type === 'warn');
 

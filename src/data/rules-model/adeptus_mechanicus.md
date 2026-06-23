@@ -119,20 +119,16 @@ Imperative may purchase a second one" — the key cross-link to §2/§6.1's Doct
 
 ### 6. Open questions / discrepancies found
 
-1. **Doctrina Imperatives — gating NOT modelled** (candidate KI `ki-admech-doctrina-gating-01`,
-   KNOWN): the 4 Doctrina Imperatives (Aggressor/Bulwark/Conqueror/Protector) are the AdMech
-   veteran-ability analogue, but their gate is a per-datasheet line — **"The unit may select one
-   Doctrina Imperative"** — present on 13 units (Skitarii Rangers/Vanguard, Secutarii Hoplites/
-   Peltasts, Sicaran Infiltrators/Ruststalkers, Sydonian Skatros, Pteraxii Skystalkers/Sterylizors,
-   Serberys Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). Production carries
-   ZERO `has_veteran_abilities` units, and the 4 items sit in general.json as `category: none` (so
-   they currently show in the general tab to ANY armory unit — wrong scope). The clean model:
-   `category: 'veteran'` + set `has_veteran_abilities: true` + `veteran_max: 1` on the 13 option-
-   carrying units (+1 via the Veteran Maniple trait), then `p_veh` from the M&V column (2 for
-   Aggressor/Bulwark/Conqueror, 0 for Protector), `p_char: null`. NOT applied this pass (multi-unit
-   data change requiring per-datasheet confirmation of all 13 — scoped like IG's psychic gap);
-   logged for a dedicated pass. The 4 items LEFT UNTAGGED for now (tagging `category:'veteran'`
-   without the per-unit flag would HIDE them entirely, since 0 units have `has_veteran_abilities`).
+1. **Doctrina Imperatives — gating FIXED** (`ki-admech-doctrina-gating-01`, no longer tracked as a
+   separate KI): the 4 Doctrina Imperatives (Aggressor/Bulwark/Conqueror/Protector) are the AdMech
+   veteran-ability analogue, gated by a per-datasheet line — "The unit may select one Doctrina
+   Imperative" — present on 13 units (Skitarii Rangers/Vanguard, Secutarii Hoplites/Peltasts,
+   Sicaran Infiltrators/Ruststalkers, Sydonian Skatros, Pteraxii Skystalkers/Sterylizors, Serberys
+   Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). FIXED v0.60: all 13 units now
+   carry `has_veteran_abilities: true` + `veteran_max: 1`; the 4 armory items are tagged
+   `category: 'veteran'` with the correct `p_veh`/`p_char`. Remaining follow-up:
+   `ki-admech-veteranmaniple-bonus-unmodelled-01` (Veteran Maniple trait's +1 slot bonus still not
+   modelled).
 2. **Vehicle Equipment untagged — FIXED** (`ki-admech-vetvehcategory-01`): the 9 Vehicle Equipment
    items were `category: none`; tagged `category: 'vehicle'`. Their POINTS value was ALREADY in
    `p_unit` (unlike IG's misplacement in `p_char`), so no value-move was needed — pure tagging.
@@ -206,11 +202,12 @@ the entire general Armory (55 items, two-tier Operator/Character pricing), Forge
 relics), Army Customisation (5 Archetypes / 7 Legacies / all 16 Traits' 3-column pricing) — no
 discrepancies against the `.ods`.
 
-**New Known Issue logged**: `ki-admech-canticles-unwired-01` — Canticles of the Omnissiah (13
-distinct buff-of-the-round effects: 6 base + 7 Legacy) exist only as inert ability text on 22/29
-units; no Command-phase picker or dedicated data file exists anywhere in the loader. Same gap class
-as the various "psychic discipline not wired" issues fixed for other factions — Canticles are
-AdMech's structural equivalent, just framed as a battle-round buff instead of a psychic power.
+**`ki-admech-canticles-unwired-01` — FIXED (2026-06-23).** Canticles of the Omnissiah (13 distinct
+buff-of-the-round effects: 6 base + 7 Legacy) used to exist only as inert ability text on 22/29
+units. The 7 Forge World Legacy canticles now auto-inject on every eligible unit once their Legacy
+is selected (new `admechResolve`, mirroring Chaos Daemons' Locus auras); the 6 base canticles are a
+live-game, round-by-round Command-phase choice (not a roster pick, confirmed via the .ods Index
+glossary), so they now show as reference text right on the unit card instead of bare ability text.
 
 Build ✓. Live-verified: Skitarii Marshal's `advisor` flag (HQ counter stays 1/2), Skitarii Rangers'
 Armory scoped to the Ranger Alpha block only, Termite's Storm bolter correctly disappearing once

@@ -1,6 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveRuleFor } from './points';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
 import {
   getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
@@ -93,10 +93,14 @@ function getAopRequirement(army: RosterEntry[], data: FactionData, engKey: strin
   return aops;
 }
 
-function allowedMarks(state: ArmyState, data: FactionData): string[] {
+// Animosity of the Gods only exists as a mechanic for factions that actually carry a
+// `data.animosity` table (CSM/CD) — explicit `mark` param + `data` pair instead of always reading
+// `state.hqMark`/the PRIMARY `data`, so the SAME function can validate an Allied Detachment's own
+// CSM/CD units against its own `alliedHqMark`/`alliedData`, not the primary's.
+function allowedMarksFor(mark: string, data: FactionData): string[] {
   // Try exact key first, then prefix-match for compound keys like "Undivided / Without"
-  if (data.animosity[state.hqMark]) return data.animosity[state.hqMark];
-  const match = Object.entries(data.animosity).find(([k]) => k.startsWith(state.hqMark));
+  if (data.animosity[mark]) return data.animosity[mark];
+  const match = Object.entries(data.animosity).find(([k]) => k.startsWith(mark));
   return match ? match[1] : [];
 }
 
@@ -329,14 +333,14 @@ export function engagementGateBlockReason(unit: Unit, engagement: string): strin
   return `Requires the Escalation supplement (Epic Battle engagement) — not available in ${engagement === 'skirmish' ? 'Skirmish' : 'Pitched Battle'}.`;
 }
 
-export function validateArmy(state: ArmyState, data: FactionData): ValidationItem[] {
+export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null): ValidationItem[] {
   const eng = ENGAGEMENTS[state.engagement];
   const rule = getArchetypeRule(state.archetype);
   const items: ValidationItem[] = [];
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
   }, 0);
 
   // Point range warnings
@@ -409,7 +413,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       const withoutCommandSquad = joiners.filter(j => {
         const u = resolveUnit(j, data);
         const hasAbility = !!u?.abilities?.some(a => /Command Squad/i.test(a));
-        const grantedByArchetype = !!rule?.grantsCommandSquad?.includes(j.unitName);
+        // Each joiner's OWN scope's archetype grants this, not necessarily the primary's.
+        const jRule = getArchetypeRule(effectiveArchetypeFor(j, state));
+        const grantedByArchetype = !!jRule?.grantsCommandSquad?.includes(j.unitName);
         return !hasAbility && !grantedByArchetype;
       });
       if (withoutCommandSquad.length > 1) {
@@ -423,10 +429,15 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   }
 
   // ── Archetype validation ──────────────────────────────────────────────────
+  // `rule` (above) is the PRIMARY army's archetype — every check in this block must only ever
+  // evaluate the PRIMARY's own units. An Allied Detachment has its own, separate archetype-
+  // composition pass further below (search `allyRule`); without the `!item.factionSource` guard
+  // here, the primary's archetype restrictions (banned units, forced mark, etc.) used to wrongly
+  // apply to the ally's units too.
   if (rule) {
     // Banned units
     for (const item of state.army) {
-      if (rule.bannedUnits.includes(item.unitName)) {
+      if (!item.factionSource && rule.bannedUnits.includes(item.unitName)) {
         items.push({
           type: 'error',
           text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} is not allowed.`,
@@ -461,6 +472,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     // Required HQ unit type (e.g. LIIVI needs a Farseer, The First Curse needs a Patriarch)
     if (rule.requiresHqUnit) {
       const hasRequiredHq = state.army.some(item => {
+        if (item.factionSource) return false;
         const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
         return effSlot === 'HQ' && item.unitName.toLowerCase().includes(rule!.requiresHqUnit!.toLowerCase());
       });
@@ -475,6 +487,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     // Units banned because they have no vet abilities (Legionnaire Warband)
     if (rule.requireVetAbilities) {
       for (const item of state.army) {
+        if (item.factionSource) continue;
         const u = resolveUnit(item, data);
         if (u && !u.has_veteran_abilities) {
           items.push({
@@ -488,6 +501,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     // Forced mark: validate all units have the correct mark
     if (rule.forcedMark) {
       for (const item of state.army) {
+        if (item.factionSource) continue;
         const u = resolveUnit(item, data);
         if (!u) continue;
         const lockedMark = u.locked_mark;
@@ -503,6 +517,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     // HQ unit restrictions (Sorcerer Circle)
     if (rule.hqAllowed.length > 0) {
       for (const item of state.army) {
+        if (item.factionSource) continue;
         const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
         if (effSlot === 'HQ') {
           const allowed = rule.hqAllowed.some(name =>
@@ -522,6 +537,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     if (state.archetype === "Abaddon's Chosen") {
       const hqMarks: string[] = [];
       for (const item of state.army) {
+        if (item.factionSource) continue;
         const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
         if (effSlot !== 'HQ') continue;
         const u = resolveUnit(item, data);
@@ -540,6 +556,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     // Veteran abilities are armory items with category='veteran', NOT item.traits (army traits)
     if (state.archetype === 'Special Operations') {
       for (const item of state.army) {
+        if (item.factionSource) continue;
         if (item.unitName === 'Cultists') {
           const vetItems = item.armory.filter(a => {
             const found = data.armory_general.equipment.find(e => e.name === a.itemName);
@@ -558,6 +575,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     // Marks of Chaos do not count (rule 4). Vet abilities live in item.armory with category='veteran'.
     if (state.archetype === 'Legionnaire Warband') {
       for (const item of state.army) {
+        if (item.factionSource) continue;
         const u = resolveUnit(item, data);
         if (!u?.has_veteran_abilities) continue; // already caught by requireVetAbilities above
         const vetCount = item.armory.filter(a => {
@@ -1177,13 +1195,65 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   // ally's own 25% Troops requirement" at all. Mirrors the primary checks, scoped to the ally's
   // own sub-army and its own points total (the ally is excluded from the PRIMARY's 25% Troops
   // calculation above, so it needs this separate calculation against its own total, not the
-  // combined one). Reported live 2026-06-23. Does not yet cover every primary-side archetype rule
-  // (bannedUnits/bannedSlots/allowedUnitsOnly/requiresHqUnit/hqAllowed) for the ally — those are
-  // less commonly hit by existing archetypes and left for a follow-up pass.
+  // combined one). Reported live 2026-06-23.
+  // FOLLOW-UP (2026-06-23): added the remaining primary-side archetype rule types this block
+  // used to skip — bannedUnits/bannedSlots/allowedUnitsOnly/requiresHqUnit/hqAllowed — mirroring
+  // their primary equivalents above 1:1, scoped to `allyItems`/`allyRule` instead of the whole
+  // army/primary rule.
   if (state.alliedFaction && state.alliedArchetype) {
     const allyRule = getArchetypeRule(state.alliedArchetype);
     const allyItems = state.army.filter(i => i.factionSource === state.alliedFaction);
     const allyLabel = cleanArchetypeName(state.alliedArchetype);
+
+    if (allyRule) {
+      for (const item of allyItems) {
+        if (allyRule.bannedUnits.includes(item.unitName)) {
+          items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} is not allowed.` });
+        }
+      }
+      if (allyRule.allowedUnitsOnly.length > 0) {
+        for (const item of allyItems) {
+          if (!allyRule.allowedUnitsOnly.includes(item.unitName)) {
+            items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} is not in the allowed unit list.` });
+          }
+        }
+      }
+      if (allyRule.bannedSlots.length > 0) {
+        for (const item of allyItems) {
+          if (allyRule.bannedSlots.includes(item.slot)) {
+            items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.slot} units are not allowed (${item.unitName}).` });
+          }
+        }
+      }
+      if (allyRule.requiresHqUnit) {
+        const hasRequiredHq = allyItems.some(item => {
+          const effSlot = getEffectiveSlot(item.unitName, item.slot, allyRule);
+          return effSlot === 'HQ' && item.unitName.toLowerCase().includes(allyRule.requiresHqUnit!.toLowerCase());
+        });
+        if (!hasRequiredHq) {
+          items.push({ type: 'error', text: `Allied archetype "${allyLabel}": requires at least 1 ${allyRule.requiresHqUnit} as HQ.` });
+        }
+      }
+      if (allyRule.hqAllowed.length > 0) {
+        for (const item of allyItems) {
+          const effSlot = getEffectiveSlot(item.unitName, item.slot, allyRule);
+          if (effSlot === 'HQ') {
+            const allowed = allyRule.hqAllowed.some(name => item.unitName.toLowerCase().includes(name.toLowerCase()));
+            if (!allowed) {
+              items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} cannot be HQ (only ${allyRule.hqAllowed.join(', ')}).` });
+            }
+          }
+        }
+      }
+      if (allyRule.requireVetAbilities) {
+        for (const item of allyItems) {
+          const u = resolveUnit(item, data);
+          if (u && !u.has_veteran_abilities) {
+            items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} has no veteran abilities and cannot be included.` });
+          }
+        }
+      }
+    }
 
     if (allyRule?.forcedMark) {
       for (const item of allyItems) {
@@ -1262,8 +1332,8 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     for (const item of state.army) {
       const u = resolveUnit(item, data);
       if (!u) continue;
-      const pts = computeUnitPoints(item, u, state.archetype);
-      const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+      const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state));
+      const effSlot = getEffectiveSlot(item.unitName, item.slot, effectiveRuleFor(item, state));
       if (effSlot === 'HQ' && pts > 150) {
         items.push({ type: 'error', text: `Skirmish: HQ ${item.unitName} exceeds 150 pts (${pts}).` });
       }
@@ -1463,7 +1533,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   {
     const lowUnits = state.army.filter(i => {
       const u = resolveUnit(i, data);
-      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
+      const effSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, effectiveRuleFor(i, state)));
       return effSlot === 'Lords of War';
     });
     if (lowUnits.length > 0) {
@@ -1475,7 +1545,7 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
       } else {
         const lowPts = lowUnits.reduce((s, i) => {
           const u = resolveUnit(i, data);
-          return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
+          return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
         }, 0);
         const cap = Math.floor(total * 0.33);
         if (lowPts > cap) {
@@ -1544,9 +1614,13 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   if (state.alliedFaction) {
     const alliedUnits = state.army.filter(e => e.factionSource === state.alliedFaction);
     if (alliedUnits.length > 0) {
+      // The ALLY's own archetype rule (e.g. a troopsRemap-style slot effect) governs how its OWN
+      // units' slots resolve here, never the primary's `rule` — getSlotUsage's getEffectiveSlot
+      // call needs the matching rule for whichever side it's counting.
+      const allyRuleForAop = getArchetypeRule(state.alliedArchetype);
       for (const slot of SLOT_ORDER) {
         const [min, max] = ALLIED_AOP[slot];
-        const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, true, state.engagement);
+        const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: `Allied detachment: need at least ${min} ${slot} (have ${used}).` });
         }
@@ -1562,9 +1636,9 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
         }
       }
       // Elites / Fast Attack / Heavy Support limited to 1 each, but +1 per Troop unit beyond 1
-      const alliedTroops = getSlotUsage(state.army, data, 'Troops', rule, state.alliedFaction, true, state.engagement);
+      const alliedTroops = getSlotUsage(state.army, data, 'Troops', allyRuleForAop, state.alliedFaction, true, state.engagement);
       for (const slot of ['Elites', 'Fast Attack', 'Heavy Support'] as const) {
-        const used = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, true, state.engagement);
+        const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (used > alliedTroops) {
           items.push({ type: 'error', text: `Allied: ${slot} (${used}) exceeds Troops (${alliedTroops}) — 1 ${slot} per Troop unit.` });
         }
@@ -1572,10 +1646,18 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
-  // Animosity / mark checks — skipped for Black Crusade (it has its own 4-mark validation above)
-  if (!rule?.noAnimosity && !blackCrusadeActive) {
-    const allowed = allowedMarks(state, data);
+  // Animosity / mark checks — skipped for Black Crusade (it has its own 4-mark validation above).
+  // Animosity of the Gods is a CSM/CD-only mechanic (it only exists where `data.animosity` is
+  // populated) — this used to run unconditionally against EVERY army's `data.animosity` (empty
+  // `{}` for any other faction), which made `allowedMarks` return `[]` and falsely flag every
+  // unit with a mark as "not allowed" — including Imperial Guard's Traitor Guard archetype, which
+  // legitimately grants its own units a Mark of Chaos with no Animosity restriction at all (it's
+  // purely a cost/ability mechanic for IG, never gated by the rivalry table). Guard on the table
+  // actually existing before running this PRIMARY-scoped pass, restricted to primary-scope units.
+  if (!rule?.noAnimosity && !blackCrusadeActive && Object.keys(data.animosity).length > 0) {
+    const allowed = allowedMarksFor(state.hqMark, data);
     for (const item of state.army) {
+      if (item.factionSource) continue;
       if (item.mark && !allowed.includes(item.mark)) {
         items.push({
           type: 'error',
@@ -1588,6 +1670,33 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
           items.push({
             type: 'error',
             text: `${item.unitName}: Locked mark ${u.locked_mark} incompatible with HQ ${state.hqMark}.`,
+          });
+        }
+      }
+    }
+  }
+
+  // Same check, scoped to the Allied Detachment's OWN units against ITS OWN army mark — only
+  // meaningful when the ally's own faction is CSM/CD (has its own animosity table). An Allied
+  // Detachment with Black Crusade isn't a thing (that trait is primary-archetype-only), so no
+  // equivalent exemption is needed here.
+  if (state.alliedFaction && alliedData && Object.keys(alliedData.animosity).length > 0) {
+    const allyRuleForAnimosity = getArchetypeRule(state.alliedArchetype);
+    if (!allyRuleForAnimosity?.noAnimosity) {
+      const allyAllowed = allowedMarksFor(state.alliedHqMark ?? 'Undivided', alliedData);
+      for (const item of state.army) {
+        if (item.factionSource !== state.alliedFaction) continue;
+        if (item.mark && !allyAllowed.includes(item.mark)) {
+          items.push({
+            type: 'error',
+            text: `${item.unitName}: Mark ${item.mark} not allowed (Allied detachment's HQ is ${state.alliedHqMark ?? 'Undivided'}).`,
+          });
+        }
+        const u = resolveUnit(item, data);
+        if (u?.locked_mark && !allyAllowed.includes(u.locked_mark) && !allyRuleForAnimosity?.requireForcedMarkOnly) {
+          items.push({
+            type: 'error',
+            text: `${item.unitName}: Locked mark ${u.locked_mark} incompatible with Allied detachment's HQ ${state.alliedHqMark ?? 'Undivided'}.`,
           });
         }
       }
@@ -1661,4 +1770,4 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
   return items;
 }
 
-export { getSlotUsage, allowedMarks };
+export { getSlotUsage, allowedMarksFor };

@@ -267,28 +267,31 @@ src/i18n/       Textos de traducción (EN / DE / ES)
 | Archivo | Responsabilidad |
 |---|---|
 | `points.ts` | Cálculo de puntos — costo base + opciones + rasgos + armería |
-| `resolver.ts` | Resolución del perfil de unidad — aplica marcas, variantes, arquetipos |
+| `resolver.ts` | Resolución del perfil de unidad — aplica marcas, variantes, arquetipos, despacha a `FACTION_RESOLVERS` |
 | `validators.ts` | Validación del ejército — límites de slots, restricciones de arquetipos, límites de engagement |
-| `archetypes.ts` | Definiciones y aplicación de reglas de arquetipos |
-| `archetypes/csm.ts` | Definiciones de arquetipos CSM (flags del motor) |
-| `archetypes/rules/csm-rules.ts` | Datos de reglas de arquetipos CSM (13 arquetipos con notas categorizadas para uso del motor) |
-| `legacies/csm-legacies.ts` | Datos de reglas de legados CSM (5 legados — acceso a armería + restricciones de marca) |
-| `legacies/sm-legacies.ts` | Datos de reglas de legados SM — mapa de gate de disciplinas y set de plegarias Cruzadas |
-| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher para consultas de reglas de legado |
+| `archetypes/base.ts` | Forma de `ArchetypeRule` (cada flag que un arquetipo puede setear) + el default `BASE` |
+| `archetypes/index.ts` | `ARCHETYPE_RULES` — todos los arquetipos de todas las facciones, indexados por nombre |
+| `archetypes/<facción>/` | Helpers de arquetipo específicos de una facción cuando necesita lógica propia más allá de flags estáticos (p. ej. `archetypes/space_marines/rules.ts`, `archetypes/chaos_daemons/weapon-overrides.ts`) |
+| `codex_<facción>/` | Módulo del motor por facción (uno por facción) — `legacies.ts`, `traits.ts`, `keywords.ts`, `slots.ts`, `unit-types.ts`, `special-abilities.ts`, `weapon-abilities.ts`, `resolver.ts`, más un `digest.md` de referencia de auditoría |
+| `legacies/index.ts` | `getLegacyStructuredNotes(faction, name)` — dispatcher que lee el `codex_<facción>/legacies.ts` de cada facción |
+| `legacies/<facción>.ts` | Mapas de disciplina/plegaria bloqueados por legado para facciones cuyo modal psíquico necesita saber el Legado activo (p. ej. `legacies/grey_knights.ts`'s `getGKLegacyPower`, `legacies/space_marines.ts`'s `SM_LEGACY_DISC_MAP`) |
+| `resolvers/<facción>.ts` | La entrada de `FACTION_RESOLVERS` de una facción — inyecta cambios de perfil derivados (habilidades, etc.) sobre la unidad ya resuelta, p. ej. Canticles/auras Locus otorgadas por Legado |
+| `traits/<facción>.ts` | Tablas de efectos de Rasgos de Ejército para facciones cuyos Traits necesitan efectos de stat/habilidad en el motor |
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
-| `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`), la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`) y la compatibilidad Gravis (`modelRestrictsToGravisSubset`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca. **Convención de glifos:** `ᵀ` = compatible con Terminator (NO Marca de Tzeentch); los glifos de marca son solo `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch va por sección (`armory_marks.Tzeentch`) y `ᶻ` queda reservado si alguna vez hace falta un glifo. **Cuando el trabajo toque la distinción Tzeentch-vs-Terminator, pregunta al mantenedor — no asumas.** |
+| `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`), la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`), la compatibilidad Gravis (`modelRestrictsToGravisSubset`) y los helpers de desbloqueo de Ordo/Legado de Inquisición (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca/Ordo. **Convención de glifos:** `ᵀ` = compatible con Terminator (NO Marca de Tzeentch); los glifos de marca son solo `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch va por sección (`armory_marks.Tzeentch`) y `ᶻ` queda reservado si alguna vez hace falta un glifo. **Cuando el trabajo toque la distinción Tzeentch-vs-Terminator, pregunta al mantenedor — no asumas.** |
 
 ### Cuándo editar los archivos de legado
 
-La carpeta `legacies/` contiene reglas del motor que no pueden vivir en el JSON — controlan **qué disciplinas y plegarias muestra el modal psíquico** según el legado activo.
+La carpeta `legacies/` contiene reglas del motor que no pueden vivir en el JSON — controlan **qué disciplinas y plegarias muestra el modal psíquico** según el legado activo. El acceso a armería de los Legados de cada facción vive en su propio `codex_<facción>/legacies.ts` (leído vía el dispatcher de `legacies/index.ts`), no aquí.
 
-- **`legacies/sm-legacies.ts`** — Editá este archivo si:
+- **`legacies/space_marines.ts`** — Editá este archivo si:
   - Añadís una nueva disciplina de legado SM que deba estar bloqueada (agregala a `SM_LEGACY_DISC_MAP` mapeando nombre de disciplina → nombre del legado requerido).
   - Añadís una nueva plegaria que solo aparezca con el Legacy of the Crusader (agregala a `SM_CRUSADER_PRAYERS`).
   - Renombrás un legado o disciplina SM existente.
-- **`legacies/csm-legacies.ts`** — Editá este archivo si añadís o cambiás reglas de acceso a armería de legados CSM o restricciones de marca.
+- **`legacies/grey_knights.ts`** — Editá este archivo si cambiás qué poder otorga siempre un Legado a los psykers GK (`getGKLegacyPower`).
+- **`codex_<facción>/legacies.ts`** — Editá este archivo para las reglas de acceso a armería de Legados de una facción o restricciones de marca (p. ej. `CSM_LEGACY_NOTES` en `codex_csm/legacies.ts`).
 
-Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un nuevo archivo `legacies/<faccion>.ts` siguiendo el mismo patrón y conectalo en `PsychicModal.tsx`.
+Si añadís una nueva facción con disciplinas bloqueadas por legado, creá un nuevo archivo `legacies/<faccion>.ts` siguiendo el mismo patrón, conectalo en `PsychicModal.tsx`, y registralo en el mapa `FACTION_LEGACY_NOTES` de `legacies/index.ts` si también necesita mostrarse como nota estructurada.
 
 ### Estructura de datos (carpetas por facción)
 

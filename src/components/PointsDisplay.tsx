@@ -1,13 +1,14 @@
 import { useArmyStore } from '../store/army';
-import { computeUnitPoints, resolveUnit } from '../engine/points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from '../engine/points';
 
 export function PointsDisplay() {
-  const { army, data, pointLimit, archetype } = useArmyStore();
+  const store = useArmyStore();
+  const { army, data, pointLimit } = store;
   if (!data) return null;
 
   const total = army.reduce((s, i) => {
     const u = resolveUnit(i, data);
-    return s + (u ? computeUnitPoints(i, u, archetype) : 0);
+    return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store)) : 0);
   }, 0);
 
   const pct = Math.min(100, (total / pointLimit) * 100);

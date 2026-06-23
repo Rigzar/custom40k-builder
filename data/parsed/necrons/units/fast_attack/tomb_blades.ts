@@ -84,7 +84,7 @@ export const tombBlades: Unit = {
     {
       "header": "The unit can swap its Twin tesla carbines",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

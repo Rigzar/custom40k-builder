@@ -166,9 +166,12 @@ careful cross-faction engine change): `ki-necrons-lychguard-disjoint-sizerange-0
 that nothing enforces — `validators.ts`'s `uniqueUnitCounts` only blocks repeats of the SAME unit
 name), `ki-necrons-cryptek-dynastyscion-novariant-01` (Cryptek's "Dynasty Scion" choice never
 activates its `variant_models` profile swap — the engine has no per-choice `variant_link` within a
-multi-choice group), and the cross-faction `ki-crossfaction-one-constraint-multimodel-replaces-noop-01`
+multi-choice group). The cross-faction `ki-crossfaction-one-constraint-multimodel-replaces-noop-01`
 (a `constraint:'one'` swap on a multi-model squad never reaches the `replaces` threshold, since the
-toggle always stores qty=1 regardless of squad size — confirmed via Immortals/Tomb Blades/Warriors).
+toggle always stores qty=1 regardless of squad size) is now CLOSED — every concrete instance found
+(Immortals, Warriors, Tomb Blades, all re-checked 2026-06-23 against `Necrons ENG.ods`'s "+N
+points/model" phrasing) turned out to be the same data mistag, fixed by correcting
+`constraint.type` from `"one"` to `"every"` (no engine change needed).
 
 **Verified clean**: Armory, Dynasty Armory (two-tier Cryptek/Lord pricing), Army Customisation (4
 Archetypes / 6 Legacies / all 17 Traits' 3-column pricing) — no discrepancies against the `.ods`.

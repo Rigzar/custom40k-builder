@@ -3,7 +3,7 @@ import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
-import { resolveUnit, liveArmoryPoints } from '../engine/points';
+import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
@@ -429,7 +429,7 @@ export function UnitCard({ item }: Props) {
           style join ability, e.g. CSM's Master of Execution/Chosen/Dark Commune — is_character
           is correctly false on those per their .ods unit-type text, but the ability text itself
           grants the joining capability independent of the Character keyword). ── */}
-      {(u.is_character || !!u.abilities?.some(a => /Command Squad/i.test(a)) || !!getArchetypeRule(store.archetype)?.grantsCommandSquad?.includes(item.unitName)) && !u.is_vehicle && (() => {
+      {(u.is_character || !!u.abilities?.some(a => /Command Squad/i.test(a)) || !!getArchetypeRule(effectiveArchetypeFor(item, store))?.grantsCommandSquad?.includes(item.unitName)) && !u.is_vehicle && (() => {
         // Animosity of the Gods join sub-clause — present VERBATIM in BOTH factions' own
         // Index/Army Customisation text (each codex carries its own copy, not a shared Core
         // rule): CSM digest §4b "a model with a Mark of Chaos may only join a unit that has
@@ -437,7 +437,10 @@ export function UnitCard({ item }: Props) {
         // to units of the same mark or no mark" (ki-csm-animosity-joinmark-01, extended to CD
         // — both factions' marks gate this identically; the original CSM-only scoping comment
         // here was wrong about CD's text, corrected after re-reading chaos_daemons.md §4b).
-        const rule = getArchetypeRule(store.archetype);
+        // Use THIS item's own scope (primary vs allied) for its archetype rule — `rule` here
+        // governs the joining character's own grantsCommandSquad/forcedMark, which must come
+        // from its own detachment's archetype, not whichever happens to be the primary's.
+        const rule = getArchetypeRule(effectiveArchetypeFor(item, store));
         // Core Rules glossary, "Command Squad": only models with this ability may join a unit
         // that already has another character attached — see the matching validator in
         // validators.ts. Block it here too, not just as a post-hoc warning, so the player can't
@@ -446,10 +449,15 @@ export function UnitCard({ item }: Props) {
           !!u.abilities?.some(a => /Command Squad/i.test(a)) ||
           !!rule?.grantsCommandSquad?.includes(item.unitName);
         const joinableUnits = army.filter(e => {
-          if (e.id === item.id || e.factionSource) return false;
-          const eu = data?.units[e.unitName];
+          if (e.id === item.id) return false;
+          // Scope-match: an allied-detachment character may only join units of its OWN
+          // detachment (same factionSource), never the primary army's units or another ally's —
+          // this used to hard-block ANY `e.factionSource` unconditionally, so an allied HQ could
+          // never join anything at all, not even its own ally's troops.
+          if ((e.factionSource ?? null) !== (item.factionSource ?? null)) return false;
+          const eu = resolveUnit(e, data);
           if (!eu || eu.is_character || eu.is_vehicle || eu.is_monster) return false;
-          if (data.faction === 'Chaos Space Marines' || data.faction === 'Chaos Daemons') {
+          if (effectiveArmData?.faction === 'Chaos Space Marines' || effectiveArmData?.faction === 'Chaos Daemons') {
             const unitMark = (eu.locked_mark ?? rule?.forcedMark ?? e.mark ?? null) as Mark | null;
             if (effectiveMark && unitMark && effectiveMark !== unitMark) return false;
           }
@@ -470,7 +478,7 @@ export function UnitCard({ item }: Props) {
             >
               <option value="">— no unit —</option>
               {joinableUnits.map(e => {
-                const eu = data?.units[e.unitName];
+                const eu = resolveUnit(e, data);
                 return (
                   <option key={e.id} value={e.id}>
                     {e.customName || eu?.name || e.unitName}
@@ -1610,6 +1618,12 @@ export function UnitCard({ item }: Props) {
                   )}
                   {!isArmoryWeapon && !isDaemonWeaponTrait && armItem?.desc && (
                     <div className="text-[10px] text-zinc-500 mt-0.5 pl-1 italic">{armItem.desc}</div>
+                  )}
+                  {/* Eldar "Paragon of war" — show the chosen Exarch Power */}
+                  {a.itemName === 'Paragon of war' && a.chosenPower && (
+                    <div className="text-[10px] text-violet-400/80 mt-0.5 pl-1">
+                      → Exarch power: {a.chosenPower}
+                    </div>
                   )}
                   <div className="text-[9px] text-zinc-600 mt-0.5">{a.source}</div>
                 </div>

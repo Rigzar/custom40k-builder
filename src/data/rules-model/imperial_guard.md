@@ -54,7 +54,7 @@
 |---|---|---|
 | All Armory weapons + equipment | NONE keyword-based | `has_armory_access` opens the general tab; no ᵀ/ᴳ-style keyword filter exists (no `armour_compat`/`term_compat` on any item — IG armour isn't a keyword) |
 | "Only for X" prose restrictions | free-text match | Eviscerator → "Only for Preacher"; Force weapons/Familiar/Gamma psyker → "Only for Primaris Psykers"; Grav-chute/Mechanical steed → "Only for infantry"; many more. Same prose-match pattern as CSM/SM/GK/Inquisition (engine enforces via desc text, not a keyword axis) |
-| Veteran Abilities (8: Counter-attack/Favoured enemy/Furious charge/Infiltrator/Outflank/Tank hunter/Terrain expert/Vanguard) | `has_veteran_abilities` flag + `category: 'veteran'` | **GAP — see §6.1**: production carries these UNTAGGED (`category: none`, no `p_veh`) — the EXACT twin of `ki-gk-vetvehcategory-01` |
+| Veteran Abilities (8: Counter-attack/Favoured enemy/Furious charge/Infiltrator/Outflank/Tank hunter/Terrain expert/Vanguard) | `has_veteran_abilities` flag + `category: 'veteran'` | FIXED — see §6.1 (`ki-ig-vetvehcategory-01`) |
 | Vehicle Upgrades (16: Additional armor/Bulldozer blade/Camo net/Chain guard/Heavy stubber/Hunter-killer missile/Improved targeting/Jammer/Macharius cross/Purity seal/Regimental artefact/Seasoned officer/Smoke Launcher/Storm bolter/Twin heavy stubber/Vox) | `is_vehicle` flag + `category: 'vehicle'` | **Same GAP §6.1**: untagged in production |
 | Mark of Chaos | Traitor Guard archetype only | purchasable upgrade, not a base gate (see §1 Marks) |
 
@@ -141,17 +141,17 @@ World legacy → +1 Trait; Combined Regiments trait → +1 Legacy — interactin
 
 ### 6. Open questions / discrepancies found
 
-1. **CONFIRMED DATA GAP — Veteran/Vehicle armory items untagged** (twin of `ki-gk-vetvehcategory-01`,
-   candidate new KI e.g. `ki-ig-vetvehcategory-01`): IG's `armory/general.json` (50 equipment
-   items, ALL `category: none`) carries the 8 Veteran Abilities + 16 Vehicle Upgrades with NO
-   `category: 'veteran'|'vehicle'` tag and NO `p_veh` (0 items have it). The 8 veteran items have
-   the `.ods` "MONSTROUS CREATURES & VEHICLES" value (2, or "-" for Infiltrator/Vanguard) sitting
-   in `p_char` — the EXACT same misplacement GK had. **Recommend fixing FIRST, before Fase 4
-   migration**, mirroring the GK fix verbatim: tag 8 veteran (`category:'veteran'`, `p_veh:2` or
-   `null` for Infiltrator/Vanguard, `p_char:null`) + 16 vehicle (`category:'vehicle'`). NOTE: for
-   IG, regular equipment legitimately uses `p_char` (the Armory has a real "POINTS CHARACTER
-   MODELS" column) — so the `p_char→p_veh` move applies ONLY to the 8 veteran-ability rows, not
-   to regular gear.
+1. **Veteran/Vehicle armory items untagged — FIXED** (`ki-ig-vetvehcategory-01`, twin of
+   `ki-gk-vetvehcategory-01`): IG's `armory/general.json` (50 equipment items, ALL `category:
+   none`) carried the 8 Veteran Abilities + 16 Vehicle Upgrades with no `category: 'veteran'|
+   'vehicle'` tag and no `p_veh`. The 8 veteran items had the `.ods` "MONSTROUS CREATURES &
+   VEHICLES" value (2, or "-" for Infiltrator/Vanguard) sitting in `p_char` — the exact same
+   misplacement GK had. Fixed mirroring the GK fix (grounded independently in the IG `.ods`, not
+   copied): the 8 veteran items now carry `category:'veteran'`, `p_veh:2` (`null` for
+   Infiltrator/Vanguard), `p_char:null`; the 16 vehicle items now carry `category:'vehicle'` with
+   their `.ods` POINTS value moved from `p_char` into `p_unit`. NOTE: for IG, regular equipment
+   legitimately uses `p_char` (the Armory has a real "POINTS CHARACTER MODELS" column) — so the
+   `p_char` move applied ONLY to the 8 veteran-ability rows, not to regular gear.
 2. **Two parser-artifact `unit_type` values** (§1): an ability sentence ("Battlemutt: Once per
    game...") and a parenthetical ("(Engineseer only)") leaked into `unit_type`. Cosmetic data-
    cleanliness fix, same family as `ki-unittype-residuals-01`.

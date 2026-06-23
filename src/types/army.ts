@@ -25,6 +25,9 @@ export interface ArmorySelection {
   isCharacter: boolean;
   /** For daemon-weapon traits that modify a weapon — which weapon they apply to. */
   targetWeapon?: string;
+  /** Eldar "Paragon of war" — which Exarch Power the model gains (chosen from the universal
+   *  16-power pool shared by every Aspect Warrior squad). See ELDAR_EXARCH_POWERS. */
+  chosenPower?: string;
 }
 
 export interface TraitSelection {
@@ -141,4 +144,12 @@ export interface ArmyState {
   alliedArchetype?: string;
   alliedLegacy?: string;
   alliedTraitPool?: string[];
+  /**
+   * The Allied Detachment's OWN "army mark" for Animosity of the Gods (mirrors `hqMark`, which is
+   * PRIMARY-only) — only meaningful when the ally's own faction is Chaos Space Marines or Chaos
+   * Daemons (i.e. it has its own animosity table). Synced the same way `hqMark` is: whenever an
+   * allied HQ's mark changes. Needed so a CSM/CD Allied Detachment's Animosity check validates
+   * against its OWN army mark, not the primary's.
+   */
+  alliedHqMark?: Mark;
 }
