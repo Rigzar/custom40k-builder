@@ -200,14 +200,16 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'tau_empire': {
-      const [u, g, arch, leg, prayers] = await Promise.all([
+      const [u, g, arch, leg, prayers, drones] = await Promise.all([
         import('../../data/parsed/tau_empire/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/tau_empire/armory/general.json'),
         import('../../data/parsed/tau_empire/archetypes.json'),
         import('../../data/parsed/tau_empire/armory/legion_sept.json'),
         import('../../data/parsed/tau_empire/psychic/prayers.json'),
+        import('../../data/parsed/tau_empire/drones.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Sept': leg }, { prayers });
+      const data = await asm(u, g, arch, noRules, {}, { 'Sept': leg }, { prayers });
+      return { ...data, drones: d(drones)?.drones ?? [] };
     }
 
     case 'necrons': {

@@ -398,6 +398,26 @@ export interface DaemonkinGod {
   items: DaemonkinEntry[];
 }
 
+/**
+ * Tau Empire "Tau Drones" datasheet (.ods, "Tau Drones" sheet) — an escort sub-model bought via
+ * the "Drone controller" Armory item or a unit's own "may buy up to N Tau Drones" option group,
+ * NOT a force-org unit in its own right (no slot, no min/max squad size; M is always "*" — it
+ * moves with whatever model/unit it's attached to). Data-only for now (ki-tau-empire-drones-
+ * unmodelled-01): no engine/UI wiring consumes this yet — every "Drone controller" option_group
+ * in production still has an empty `choices: []` placeholder. A real "pick N of these, charged at
+ * their own points" sub-model concept is needed before this data can be selected in the builder.
+ */
+export interface DroneType {
+  name: string;
+  /** null for "-" in the .ods POINTS column (Stealth Drone — its cost is bundled into specific
+   * named grants like Ghostkeel's "2 Stealth Drones", never a generic per-drone purchase). */
+  points: number | null;
+  stats: StatBlock;
+  equipped_with: string;
+  weapons: Weapon[];
+  abilities: string[];
+}
+
 export interface AlliedFaction {
   slot_to_units: Record<string, string[]>;
   units: Record<string, Unit>;
@@ -436,4 +456,6 @@ export interface FactionData {
    * (injectArchetypeFaction / SlotPanel ownGrantedFaction — mirrors v0.56 Alien Hunters fix).
    */
   intrinsic_allies?: string[];
+  /** Tau Empire only — see DroneType doc comment. Data-only, not yet wired into any UI/engine path. */
+  drones?: DroneType[];
 }

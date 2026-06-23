@@ -1179,6 +1179,77 @@ export function validateArmy(state: ArmyState, data: FactionData): ValidationIte
     }
   }
 
+  // ── Allied Detachment's OWN archetype composition rules ──────────────────
+  // The primary army's archetype validation above (forcedMark, Troops 25%, noLegacy/noTraits)
+  // only ever ran against `state.archetype`/`state.army` as a whole, with no equivalent pass for
+  // the ally's OWN `state.alliedArchetype` against its own units (`item.factionSource ===
+  // state.alliedFaction`) — so picking e.g. Plaguehost as the ALLY's archetype never enforced
+  // "all units must carry the Mark of Nurgle" or "only Mark-of-Nurgle units count towards the
+  // ally's own 25% Troops requirement" at all. Mirrors the primary checks, scoped to the ally's
+  // own sub-army and its own points total (the ally is excluded from the PRIMARY's 25% Troops
+  // calculation above, so it needs this separate calculation against its own total, not the
+  // combined one). Reported live 2026-06-23. Does not yet cover every primary-side archetype rule
+  // (bannedUnits/bannedSlots/allowedUnitsOnly/requiresHqUnit/hqAllowed) for the ally — those are
+  // less commonly hit by existing archetypes and left for a follow-up pass.
+  if (state.alliedFaction && state.alliedArchetype) {
+    const allyRule = getArchetypeRule(state.alliedArchetype);
+    const allyItems = state.army.filter(i => i.factionSource === state.alliedFaction);
+    const allyLabel = cleanArchetypeName(state.alliedArchetype);
+
+    if (allyRule?.forcedMark) {
+      for (const item of allyItems) {
+        const u = resolveUnit(item, data);
+        if (!u) continue;
+        const lockedMark = u.locked_mark;
+        if (lockedMark && lockedMark !== allyRule.forcedMark) {
+          items.push({
+            type: 'error',
+            text: `Allied archetype "${allyLabel}": ${item.unitName} has a locked mark (${lockedMark}) incompatible with ${allyRule.forcedMark}.`,
+          });
+        }
+      }
+    }
+
+    if (allyRule?.noLegacy && state.alliedLegacy) {
+      items.push({ type: 'error', text: `Allied archetype "${allyLabel}": no Legacy is allowed.` });
+    }
+    if (allyRule?.noTraits && state.alliedTraitPool.length > 0) {
+      items.push({ type: 'error', text: `Allied archetype "${allyLabel}": no Traits are allowed.` });
+    }
+
+    if (allyItems.length > 0) {
+      const allyTotal = allyItems.reduce((s, i) => {
+        const u = resolveUnit(i, data);
+        return s + (u ? computeUnitPoints(i, u, state.alliedArchetype) : 0);
+      }, 0);
+      if (allyTotal > 0) {
+        const allyTroopsPts = allyItems
+          .filter(i => {
+            const u = resolveUnit(i, data);
+            if (!u) return false;
+            if (getEffectiveSlot(i.unitName, i.slot, allyRule) !== 'Troops') return false;
+            return countsTroops(i.unitName, u.locked_mark, allyRule);
+          })
+          .reduce((s, i) => {
+            const u = resolveUnit(i, data);
+            return s + (u ? computeUnitPoints(i, u, state.alliedArchetype) : 0);
+          }, 0);
+        const allyRatio = allyTroopsPts / allyTotal;
+        const allyTroopsLabel = (allyRule && allyRule.troopsCount !== 'all')
+          ? `Qualifying Troops (${allyRule.troopsCount === 'locked' ? 'locked mark' : allyRule.troopsRemap.join('/')})`
+          : 'Troops';
+        if (allyRatio < eng.minTroopsRatio) {
+          items.push({
+            type: 'error',
+            text: `Allied archetype "${allyLabel}": ${allyTroopsLabel} must be ≥25% of the ally's own total (${(allyRatio * 100).toFixed(1)}%, need ${Math.ceil(allyTotal * eng.minTroopsRatio)} pts).`,
+          });
+        } else {
+          items.push({ type: 'ok', text: `Allied archetype "${allyLabel}": ${allyTroopsLabel} ${(allyRatio * 100).toFixed(1)}% (≥25%).` });
+        }
+      }
+    }
+  }
+
   // Skirmish stat caps
   // Grounded in missions_text.txt L17-31 (Skirmish restrictions) + core L868 (Unique = once per army).
   if (eng.statCaps) {

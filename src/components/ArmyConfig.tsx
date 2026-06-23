@@ -10,30 +10,57 @@ const PHASE_ICON_STYLE: React.CSSProperties = {
   opacity: 0.75,
 };
 
-function SectionHeader({ icon, label }: { icon: string; label: string }) {
+function SectionHeader({ icon, label, accent = 'amber' }: { icon: string; label: string; accent?: 'amber' | 'emerald' }) {
   return (
     <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
       <img src={icon} alt="" style={PHASE_ICON_STYLE} className="w-5 h-5 shrink-0" />
-      <span className="font-cinzel text-[11px] uppercase tracking-widest text-amber-400">{label}</span>
+      <span className={`font-cinzel text-[11px] uppercase tracking-widest ${accent === 'emerald' ? 'text-emerald-400' : 'text-amber-400'}`}>{label}</span>
     </div>
   );
 }
 
-export function ArmyConfig() {
-  const {
-    data, army, engagement, pointLimit, archetype, legacy, legacy2, traitPool,
-    setEngagement, setPointLimit, setHqMark, setArchetype, setLegacy, setLegacy2, setTraitPool,
-  } = useArmyStore();
+/**
+ * Shared Army Customisation form (Battle Setup + Archetype/Legacy + Traits) for BOTH the
+ * primary army and an Allied Detachment — `scope="allied"` hides the Battle Setup section
+ * (engagement/points are shared with the primary army, not picked per-detachment) and reads/
+ * writes the alliedArchetype/alliedLegacy/alliedTraitPool store fields instead, so the two
+ * customisation flows can never drift out of sync with each other again.
+ */
+export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 'primary' | 'allied'; alliedFactionLabel?: string }) {
+  const store = useArmyStore();
+  const isAllied = scope === 'allied';
+  const accent: 'amber' | 'emerald' = isAllied ? 'emerald' : 'amber';
+
+  const data = isAllied ? store.alliedData : store.data;
+  const army = store.army;
+  const { engagement, setEngagement, setPointLimit, pointLimit, setHqMark } = store;
+  const archetype = (isAllied ? store.alliedArchetype : store.archetype) ?? '';
+  const legacy = (isAllied ? store.alliedLegacy : store.legacy) ?? '';
+  const legacy2 = isAllied ? '' : store.legacy2;
+  const traitPool = (isAllied ? store.alliedTraitPool : store.traitPool) ?? [];
+  const setArchetype = isAllied ? store.setAlliedArchetype : store.setArchetype;
+  const setLegacy = isAllied ? store.setAlliedLegacy : store.setLegacy;
+  const setLegacy2 = store.setLegacy2;
+  const setTraitPool = isAllied ? store.setAlliedTraitPool : store.setTraitPool;
+
+  const t = useT();
+
   if (!data) return null;
+  if (isAllied && !data.archetypes.length && !data.legacies.length && !data.traits.length) {
+    return (
+      <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
+        {alliedFactionLabel ?? 'This faction'} has no Army Customisation options.
+      </div>
+    );
+  }
 
   const rule = getArchetypeRule(archetype);
   const hasFullEngine = true;
-  const t = useT();
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
 
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
-  const hasSecondLegacyTrait = traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
+  const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
 
   const ARCHETYPE_MARK: Record<string, string> = {
     'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
@@ -44,17 +71,22 @@ export function ArmyConfig() {
 
   function handleSetArchetype(a: string) {
     setArchetype(a);
-    const r = getArchetypeRule(a);
-    if (r?.forcedMark) setHqMark(r.forcedMark as Mark);
+    if (!isAllied) {
+      const r = getArchetypeRule(a);
+      if (r?.forcedMark) setHqMark(r.forcedMark as Mark);
+    }
   }
 
   const selectClass = `w-full bg-zinc-950 border border-zinc-700 text-zinc-100 px-3 py-2
-    text-sm focus:outline-none focus:border-amber-600 transition-colors hover:border-zinc-600`;
+    text-sm focus:outline-none ${isAllied ? 'focus:border-emerald-600' : 'focus:border-amber-600'} transition-colors hover:border-zinc-600`;
+  const accentText = isAllied ? 'text-emerald-600' : 'text-amber-700';
+  const accentBorder = isAllied ? 'border-emerald-800' : 'border-amber-800';
 
   return (
     <div className="space-y-4">
 
-      {/* ── BATTLE SETUP ─────────────────────────────────────── */}
+      {/* ── BATTLE SETUP (primary only — the ally shares engagement/points) ── */}
+      {!isAllied && (
       <div className="border border-zinc-800 bg-zinc-900/50">
         <SectionHeader icon="/phase-icons/rally.svg" label="Battle Setup" />
         <div className="p-4 space-y-4">
@@ -99,6 +131,7 @@ export function ArmyConfig() {
           </div>
         </div>
       </div>
+      )}
 
       {/* ── ARMY DOCTRINE + TRAITS ─────────────────────────────────────── */}
       {!hasFullEngine ? (
@@ -116,7 +149,7 @@ export function ArmyConfig() {
           {/* Archetype + Legacy */}
           {(data.archetypes.length > 0 || data.legacies.length > 0) && (
             <div className="border border-zinc-800 bg-zinc-900/50">
-              <SectionHeader icon="/phase-icons/command.svg" label="Army Doctrine" />
+              <SectionHeader icon="/phase-icons/command.svg" label="Army Doctrine" accent={accent} />
               <div className="p-4 space-y-4">
 
                 {/* Archetype */}
@@ -136,12 +169,12 @@ export function ArmyConfig() {
                       <div className="text-[10px] text-red-500/80 mt-1 pl-1">Not available in Skirmish.</div>
                     )}
                     {archetype && (
-                      <div className="mt-2 border-l-2 border-amber-800 pl-3 space-y-0.5">
+                      <div className={`mt-2 border-l-2 ${accentBorder} pl-3 space-y-0.5`}>
                         <div className="text-[10px] text-zinc-400 leading-relaxed">
                           {data.archetypes.find(a => a.name === archetype)?.desc}
                         </div>
                         {getArchetypeMark(archetype) && (
-                          <div className="text-[10px] text-amber-600/80">
+                          <div className={`text-[10px] ${isAllied ? 'text-emerald-600/80' : 'text-amber-600/80'}`}>
                             Only for armies with Mark of {getArchetypeMark(archetype)}.
                           </div>
                         )}
@@ -150,7 +183,7 @@ export function ArmyConfig() {
                     {rule && rule.notes.length > 0 && (
                       <ul className="mt-2 space-y-0.5">
                         {rule.notes.map((n, i) => (
-                          <li key={i} className="text-[10px] text-amber-700/80 pl-3 border-l border-amber-900">
+                          <li key={i} className={`text-[10px] ${accentText}/80 pl-3 border-l ${isAllied ? 'border-emerald-900' : 'border-amber-900'}`}>
                             {n}
                           </li>
                         ))}
@@ -163,7 +196,7 @@ export function ArmyConfig() {
                 {data.legacies.length > 0 && (
                   noLegacy ? (
                     <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
-                      Legacies not available with archetype <span className="text-amber-700">{cleanArchetypeName(archetype)}</span>.
+                      Legacies not available with archetype <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
                     </div>
                   ) : (
                     <div>
@@ -177,13 +210,13 @@ export function ArmyConfig() {
                         {data.legacies.map(l => <option key={l.name} value={l.name}>{l.name}</option>)}
                       </select>
                       {legacy && (
-                        <div className="mt-2 text-[10px] text-zinc-400 border-l-2 border-amber-800 pl-3 leading-relaxed">
+                        <div className={`mt-2 text-[10px] text-zinc-400 border-l-2 ${accentBorder} pl-3 leading-relaxed`}>
                           {data.legacies.find(l => l.name === legacy)?.desc}
                         </div>
                       )}
 
-                      {/* 2nd Legacy */}
-                      {hasSecondLegacyTrait ? (
+                      {/* 2nd Legacy (primary only — second-legion traits aren't modeled for allies) */}
+                      {!isAllied && (hasSecondLegacyTrait ? (
                         <div className="mt-2">
                           <select
                             value={legacy2}
@@ -205,7 +238,7 @@ export function ArmyConfig() {
                         <div className="mt-2 text-[10px] text-zinc-600 italic border border-zinc-800 px-3 py-1.5 bg-zinc-950/50">
                           2nd Legacy unlocked by the second-legion trait.
                         </div>
-                      )}
+                      ))}
                     </div>
                   )
                 )}
@@ -216,11 +249,11 @@ export function ArmyConfig() {
           {/* Army Traits */}
           {data.traits.length > 0 && (
             <div className="border border-zinc-800 bg-zinc-900/50">
-              <SectionHeader icon="/phase-icons/action.svg" label="Army Traits" />
+              <SectionHeader icon="/phase-icons/action.svg" label="Army Traits" accent={accent} />
               <div className="p-4 space-y-3">
                 {noTraits ? (
                   <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
-                    Traits not available with archetype <span className="text-amber-700">{cleanArchetypeName(archetype)}</span>.
+                    Traits not available with archetype <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
                   </div>
                 ) : (
                   <>
@@ -252,8 +285,8 @@ export function ArmyConfig() {
                       </select>
                     ))}
 
-                    {/* Black Crusade champion */}
-                    {traitPool.includes('Black Crusade') && (
+                    {/* Black Crusade champion (primary only — relies on the main army's HQ items) */}
+                    {!isAllied && traitPool.includes('Black Crusade') && (
                       <div className="border border-zinc-700 bg-zinc-950/60 p-3">
                         <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-2">
                           Black Crusade — Champion required

@@ -9,7 +9,7 @@ import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
 import { FactionSymbol } from './components/FactionSymbol';
 import { PrintView } from './components/PrintView';
-import { AlliedDetachmentPanel, AlliedCustomisation, AlliedCatalogue } from './components/AlliedDetachmentPanel';
+import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit } from './engine/points';
@@ -166,7 +166,7 @@ function TabBar({
   ];
 
   return (
-    <div className="flex items-stretch bg-zinc-950 border-b border-zinc-800 px-2 overflow-x-auto">
+    <div className="flex items-stretch h-[38px] bg-zinc-950 border-b border-zinc-800 px-2 overflow-x-auto">
       {tabs.map(tab => {
         const active = activeTab === tab.id;
         return (
@@ -210,7 +210,8 @@ export default function App() {
   const store = useArmyStore();
   const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
-          alliedFaction, setAlliedData, injectArchetypeFaction } = store;
+          alliedFaction, alliedData, alliedArchetype, setAlliedData,
+          injectArchetypeFaction, injectAlliedArchetypeFaction } = store;
 
   // Always land on the Factions tab on a fresh page load/reload — never auto-resume straight
   // into the builder, even if a prior session left a faction selected in sessionStorage.
@@ -323,6 +324,23 @@ export default function App() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, legacy, legacy2, data?.faction]);
+
+  // Mirrors the effect above, but for the Allied Detachment's OWN archetype-granted intrinsic
+  // ally (e.g. CSM "Plaguehost" chosen as the ally's archetype → Chaos Daemons with Mark of
+  // Nurgle) — the ally's catalogue needs the exact same lazy-load, keyed on the ally's own
+  // archetype instead of the primary's.
+  useEffect(() => {
+    if (!alliedData) return;
+    const rule = getArchetypeRule(alliedArchetype ?? '');
+    const key = rule?.alliedFaction;
+    if (!key || alliedData.allied?.[key]) return;
+    const loader = loaders[key];
+    if (!loader) return;
+    loader()
+      .then(m => injectAlliedArchetypeFaction(key, m as FactionData))
+      .catch(e => console.error('Error loading allied detachment\'s own archetype-granted ally faction data', e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [alliedArchetype, alliedData?.faction]);
 
   function handleSelectFaction(key: string | null) {
     if (key === null) {
@@ -604,7 +622,7 @@ export default function App() {
                 })()}
               </p>
 
-              <AlliedCustomisation alliedFactionKey={alliedFaction} />
+              <ArmyConfig scope="allied" alliedFactionLabel={alliedFactionLabel} />
 
               <div className="border border-zinc-800 bg-zinc-900/50">
                 <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
@@ -613,7 +631,7 @@ export default function App() {
                   </span>
                 </div>
                 <div className="p-3">
-                  <AlliedCatalogue alliedFactionKey={alliedFaction} />
+                  <SlotPanel scope="allied" alliedFactionKey={alliedFaction} />
                 </div>
               </div>
             </aside>

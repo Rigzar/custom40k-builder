@@ -119,7 +119,20 @@ CHANGELOG.forEach((entry, entryIdx) => {
   });
 });
 
+/** A title starting with "GENERAL —" or "CROSS-FACTION —" is a deliberate override: the bug
+ * spans (or used to span) every faction via shared engine code, so any faction names mentioned
+ * in the text are incidental examples, not the actual scope — file it under General only,
+ * skipping both the id-prefix and text-scan detection below. Mirrors the changelog's own
+ * "General: " bullet-prefix convention. */
+function isExplicitGeneralIssue(title: string): boolean {
+  return /^(GENERAL|CROSS-FACTION)\s*—/.test(title);
+}
+
 for (const issue of KNOWN_ISSUES) {
+  if (isExplicitGeneralIssue(tsEn(issue.title))) {
+    FACTION_ISSUES[GENERAL].push(issue);
+    continue;
+  }
   const tags = new Set<string>();
   for (const [prefix, faction] of ID_PREFIX_FACTION) {
     if (issue.id.startsWith(prefix)) tags.add(faction);

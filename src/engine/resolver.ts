@@ -842,7 +842,13 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   }
 
   for (const grp of groups) {
-    if (grp.count == null || !grp.label) continue;
+    // NOTE: do not require `grp.label` here — the common case where the squad's built-in
+    // Champion has identical gear to the rest (no Armory purchases yet) merges everyone into
+    // ONE group with `label: null` (see the `identical` branch above). That merged group's
+    // `count` is still a real number (squad + Champion), so per-weapon swap quantities must
+    // still be computed for it — skipping on `!grp.label` silently dropped every partial-squad
+    // weapon swap's count override whenever the Champion's gear happened to match the squad's.
+    if (grp.count == null) continue;
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {

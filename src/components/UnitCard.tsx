@@ -164,7 +164,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, alliedData, traitPool, removeUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
+  const { data, alliedData, traitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -411,6 +411,11 @@ export function UnitCard({ item }: Props) {
             >
               {collapsed ? '▼' : '▲'}
             </button>
+            <button
+              onClick={() => duplicateUnit(item.id)}
+              title="Copy unit (same size, options, armory, etc.)"
+              className="text-zinc-500 hover:text-amber-400 border border-zinc-700 hover:border-amber-800 px-2 py-0.5 text-[11px]"
+            >⧉</button>
             <button
               onClick={() => removeUnit(item.id)}
               className="text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 text-[11px]"

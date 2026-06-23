@@ -118,10 +118,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isInquisition = data.faction === 'Inquisition';
   const authorityCapReached = currentArmory.some(a => a.source === AUTHORITY_SOURCE);
 
-  // Level 1 — once per model: can't add the same item twice unless desc says "Can be taken multiple times"
+  // Level 1 — once per model: blocked once the squad already holds one copy per model (item.size),
+  // unless desc says "Can be taken multiple times". For a true Character (is_character:true) or any
+  // single-model entry, item.size is 1 so this still means "can't add the same item twice" as before.
+  // For a multi-model squad where every model individually has Armory access (canonical OPTIONS text
+  // "All models got access to weapons and gear from the Armory", e.g. Orks Nobz — GitHub #3), each
+  // model may carry its own copy, so the cap scales with squad size instead of being hardcoded to 1.
+  // Safe to apply uniformly: a unit with `is_character: false` never gets access to true-Character-
+  // only (p_char-exclusive, two-column) items in the first place (see getItemPts below / ki-armory-
+  // pchar-truechar-only-01), so every item purchasable here by a multi-model squad is already a
+  // squad-wide p_unit allowance, never a single Champion's personal one-off.
   function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (isMultipleAllowed(arm.desc)) return false;
-    return currentArmory.some(a => a.itemName === arm.name && a.section === sec);
+    const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
+    return owned >= item.size;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
   function uniqueArmyBlocked(arm: ArmoryItem, sec: Section): boolean {
@@ -1244,6 +1254,18 @@ function ArmoryItemRow({
           >
             Remove
           </button>
+          {/* A multi-model squad where every model has its own Armory access (e.g. Orks Nobz,
+              GitHub #3) may take more than one copy of the same item — `disabled` already
+              reflects whether the per-model cap (item.size) has been reached, so once an item
+              is selected this still offers another pick until that cap is hit. */}
+          {!disabled && (
+            <button
+              onClick={onAdd}
+              className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-emerald-900/40 border-emerald-700 text-emerald-300 hover:bg-emerald-800/60"
+            >
+              + Add another
+            </button>
+          )}
         </div>
       </div>
     );

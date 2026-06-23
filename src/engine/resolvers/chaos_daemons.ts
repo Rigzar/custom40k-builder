@@ -1,4 +1,5 @@
 import type { FactionResolverFn } from '../resolver';
+import { findArmoryItem } from '../resolver';
 
 export const SACRED_NUMBERS: Record<string, number> = {
   Khorne: 8, Nurgle: 7, Slaanesh: 6, Tzeentch: 9,
@@ -137,6 +138,17 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
     for (const a of joinerUnit.abilities ?? []) {
       if (/\battached unit\b/i.test(a)) {
         injectedAbilities.push(`(from attached ${joinerUnit.name}) ${a}`);
+      }
+    }
+    // Same "attached unit" wording also appears on 4 General Armoury items (Cloud of flies,
+    // Spiked Armor, Thrill Seeker, Unbound fury) — each priced for either a unit buying it for
+    // itself (p_unit) or a Character buying it to buff whatever it joins (p_char). The joiner is
+    // a Character by definition (only Characters can join), so any such item in their own
+    // armory relays here the same way the datasheet Loci do above.
+    for (const sel of joiner!.armory ?? []) {
+      const armItem = findArmoryItem(data, sel);
+      if (armItem?.desc && /\battached unit\b/i.test(armItem.desc)) {
+        injectedAbilities.push(`(from attached ${joinerUnit.name}) ${armItem.desc}`);
       }
     }
   }

@@ -183,6 +183,7 @@ export interface ArmyStore extends ArmyState {
 
   addUnit: (unitName: string, slot: string, factionSource?: string, nestedFaction?: string) => void;
   removeUnit: (id: string) => void;
+  duplicateUnit: (id: string) => void;
   updateUnit: (id: string, patch: Partial<RosterEntry>) => void;
   /** Update the size of one model group in a multi-group unit. Keeps `size` in sync as the total. */
   updateModelSize: (id: string, modelName: string, newCount: number) => void;
@@ -198,8 +199,21 @@ export interface ArmyStore extends ArmyState {
 
   /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
   injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => void;
+  /** Same, but for the Allied Detachment's own archetype-granted intrinsic ally. */
+  injectAlliedArchetypeFaction: (key: string, factionData: FactionData) => void;
   importRoster: (json: string) => void;
   clearArmy: () => void;
+}
+
+/** Merge a loaded ally's units/slots (and its own one-level-deep nested ally, if any) into
+ * data.allied[alliedFaction] — shared by setData and setAlliedData so whichever of the two
+ * async loaders resolves last still produces a correctly merged result. */
+function mergeAlliedIntoData(data: FactionData, alliedFaction: string | undefined, alliedData: FactionData | null): FactionData {
+  if (!alliedFaction || !alliedData) return data;
+  return {
+    ...data,
+    allied: { ...(data.allied ?? {}), [alliedFaction]: { slot_to_units: alliedData.slot_to_units, units: alliedData.units, allied: alliedData.allied } },
+  };
 }
 
 const defaultState: ArmyState = {
@@ -225,12 +239,17 @@ export const useArmyStore = create<ArmyStore>()(
       alliedData: null,
 
       setData: (d: FactionData) => set(s => {
-        // When loading a different faction, reset all army-specific state so
+        // When loading a DIFFERENT faction (an actual user-driven switch, not the first load
+        // after a page reload — s.data is always null right after boot, since it isn't
+        // persisted, so a bare `s.data?.faction !== d.faction` check used to read as "changed"
+        // on every cold reload, silently wiping the persisted alliedFaction/army/archetype
+        // every time. Requiring s.data !== null fixes that.), reset all army-specific state so
         // marks, archetypes, and units from the old faction don't bleed through.
-        const factionChanged = s.data?.faction !== d.faction;
+        const factionChanged = s.data !== null && s.data.faction !== d.faction;
         if (factionChanged) {
           return {
             data: d,
+            faction: d.faction,
             army: [],
             armyName: '',
             archetype: '',
@@ -242,19 +261,12 @@ export const useArmyStore = create<ArmyStore>()(
             alliedData: null,
           };
         }
-        return { data: d };
+        return { data: mergeAlliedIntoData(d, s.alliedFaction, s.alliedData), faction: d.faction };
       }),
 
       setAlliedData: (d) => set((s) => {
-        if (!d || !s.alliedFaction || !s.data) return { alliedData: d };
-        const newData: FactionData = {
-          ...s.data,
-          // d.allied carries the ally's OWN intrinsic-ally data (e.g. Chaos Space Marines'
-          // chaos_daemons, unlocked by its archetype like Plaguehost) — merging it in lets a
-          // doubly-nested unit (factionSource=ally, nestedFaction=ally's-own-ally) resolve.
-          allied: { ...(s.data.allied ?? {}), [s.alliedFaction]: { slot_to_units: d.slot_to_units, units: d.units, allied: d.allied } },
-        };
-        return { alliedData: d, data: newData };
+        if (!s.data) return { alliedData: d };
+        return { alliedData: d, data: mergeAlliedIntoData(s.data, s.alliedFaction, d) };
       }),
 
       setAlliedFaction: (key) => set((s) => {
@@ -475,6 +487,37 @@ export const useArmyStore = create<ArmyStore>()(
 
       removeUnit: (id: string) => set((s: S) => ({ army: s.army.filter((e: RosterEntry) => e.id !== id) })),
 
+      // Exact copy of a roster entry — same unit, size, mark, option choices, armory, traits,
+      // powers/prayers/pacts, modelSizes, etc. Cleared on the copy: `joinedToUnit`/`platoonId`
+      // (structural links to a SPECIFIC other entry — copying them would make the new unit
+      // silently join/share a slot with the original's target instead of standing on its own,
+      // and a second Character joining the same unit is already a validator error) and
+      // `blackCrusadeHQ` (only one HQ per army may hold it — copying it would create a second
+      // "champion" and trip that same-shape validator). Armory selections get fresh `id`s since
+      // that field is documented as "unique per selection".
+      duplicateUnit: (id: string) => {
+        const s = get();
+        const entry = s.army.find((e: RosterEntry) => e.id === id);
+        if (!entry || !s.data) return;
+        const copy: RosterEntry = {
+          ...entry,
+          id: newId(),
+          armory: entry.armory.map(a => ({ ...a, id: newId() })),
+          optionQty: Object.fromEntries(Object.entries(entry.optionQty).map(([gi, ch]) => [gi, { ...ch }])),
+          traits: entry.traits.map(t => ({ ...t })),
+          powers: entry.powers.map(p => ({ ...p })),
+          prayers: [...entry.prayers],
+          pacts: [...entry.pacts],
+          ...(entry.modelSizes ? { modelSizes: { ...entry.modelSizes } } : {}),
+          joinedToUnit: null,
+          platoonId: null,
+          blackCrusadeHQ: false,
+        };
+        const newArmy = [...s.army, copy];
+        const army = applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool);
+        set({ army });
+      },
+
       updateUnit: (id: string, patch: Partial<RosterEntry>) => set((s: S) => {
         const newArmy = s.army.map((e: RosterEntry) => e.id === id ? { ...e, ...patch } : e);
         // Re-sync traits when mark changes (mark uses a veteran slot)
@@ -554,6 +597,28 @@ export const useArmyStore = create<ArmyStore>()(
           ...e, pacts: (e.pacts ?? []).filter((p: string) => p !== pactName),
         }),
       })),
+
+      // Mirrors injectArchetypeFaction, but for the ALLIED detachment's own archetype-granted
+      // intrinsic ally (e.g. CSM "Plaguehost" chosen as the ally's archetype → Chaos Daemons with
+      // Mark of Nurgle). Writes into alliedData.allied[key] specifically — NOT the top-level
+      // alliedData field itself — so it can never collide with injectArchetypeFaction's own use
+      // of alliedData for the PRIMARY's intrinsic-ally injection (two unrelated concepts that
+      // used to share one store field). Re-runs mergeAlliedIntoData so data.allied[alliedFaction]
+      // (what SlotPanel's allied scope actually reads) picks up the nested faction too.
+      injectAlliedArchetypeFaction: (key: string, factionData: FactionData) => set((s: S) => {
+        if (!s.alliedData) return {};
+        const newAlliedData: FactionData = {
+          ...s.alliedData,
+          allied: {
+            ...(s.alliedData.allied ?? {}),
+            [key]: { slot_to_units: factionData.slot_to_units, units: factionData.units },
+          },
+        };
+        return {
+          alliedData: newAlliedData,
+          data: s.data ? mergeAlliedIntoData(s.data, s.alliedFaction, newAlliedData) : s.data,
+        };
+      }),
 
       injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => set((s: S) => {
         if (!s.data) return {};

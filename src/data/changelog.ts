@@ -25,6 +25,32 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.05',
+    date: '2026-06-23',
+    title: { en: 'Major engine fix: faction-specific rules now apply correctly to every faction, not just Chaos Space Marines' },
+    changes: { en: [
+      'General: fixed a long-standing bug where every faction\'s own special mechanics (e.g. a Chaos Daemons unit\'s Favored bonus, Herald "Locus of X"/Armoury auras relaying onto a joined unit, Space Marines-specific effects, and any other faction-specific logic) only ever applied if your PRIMARY army\'s faction happened to still be Chaos Space Marines — because nothing updated that internal tracker when you picked a different faction. In practice every faction OTHER than Chaos Space Marines silently never got its own faction-specific engine logic on its primary army (allied/injected units were unaffected, those use a separate correct lookup). Fixed by syncing the tracker every time army data loads.',
+      'Chaos Daemons: General Armoury items with "the model AND ITS ATTACHED UNIT gain X" wording ("Cloud of flies", "Spiked Armor", "Thrill Seeker", "Unbound fury") now correctly relay onto the unit a Character joins, same as the existing Herald "Locus of X" aura fix.',
+      'T\'au Empire: added the canonical "Tau Drones" datasheet (all 10 drone types, stats/weapons/abilities/points) as data — groundwork for the still-missing "Drone controller" picker, not yet selectable in the builder.',
+      'General: fixed a weapon-swap display bug — reported on Noise Marines (swapping one model\'s Bolt pistol for a Blastmaster still showed the full squad\'s old Bolt pistol count, plus the new weapon, instead of one fewer pistol). Affected any squad where the built-in Champion/Sergeant\'s gear happens to match the rest of the unit (the common, no-extra-purchases case): that merge path skipped the per-weapon quantity correction entirely, so partial swaps never reduced the replaced weapon\'s shown count.',
+      'General: an Allied Detachment\'s OWN archetype composition rules (e.g. Plaguehost\'s "all units must carry the Mark of Nurgle" and "only Mark of Nurgle units count towards the 25% Troops requirement") were never enforced at all — only the PRIMARY army\'s archetype was checked. Added the equivalent validation for the ally\'s own archetype against its own units and its own points total.',
+      'Added: a "Copy unit" (⧉) button next to each unit\'s remove button — duplicates that unit with the exact same size, mark, weapon/option choices, Armoury purchases, Traits, and psychic powers/prayers/pacts, so building a second identical squad no longer means re-clicking every option by hand. The copy starts unjoined and unlinked (a joined Character or Platoon-linked squad doesn\'t auto-link to the original\'s partner — only one Character may join a given unit at a time) and, if the original was the army\'s Black Crusade champion, the copy is not.',
+      'Fixed: the Unit Catalogue\'s HQ and Troops sections always started expanded while every other slot (Elites, Fast Attack, etc.) started collapsed — now all slots start collapsed consistently.',
+      'General: fixed a bug reported via GitHub (Orks Nobz) where a multi-model unit whose every model individually has Armory access ("All models got access to weapons and gear from the Armory") could only ever buy ONE copy of a given item total, instead of one per model. Affects every faction with this unit shape, not just Orks — the Armoury now lets you "+ Add another" copy of a non-unique item until you\'ve bought one per model in the squad.',
+    ] },
+  },
+  {
+    version: '1.04',
+    date: '2026-06-23',
+    title: { en: 'Allied Detachment now reuses the primary army\'s components + reload/scroll fixes' },
+    changes: { en: [
+      'Allied Detachment\'s Army Customisation and unit catalogue are now rendered by the SAME components as the primary army (ArmyConfig/SlotPanel with a new "allied" scope), instead of separate hand-maintained copies — the two flows can no longer drift out of sync with each other. The allied catalogue keeps its own fixed Army Organisation Plan and skips the point-limit picker (shared with the primary army), per Core Rules: allies "may select their own Army Customisation options" with their own AOP.',
+      'Fixed: reloading the page could silently wipe the Allied Detachment (and reset the primary army\'s archetype/legacy/traits) even when nothing had changed, because the persisted-state check used to treat every fresh page load as "faction changed."',
+      'Fixed a sticky-header sizing bug where list content could visibly scroll behind/through the tab bar.',
+      'Fixed: when the Allied Detachment\'s own archetype intrinsically grants it a further ally of its own (e.g. Chaos Space Marines\' Plaguehost chosen as the ally\'s archetype → Chaos Daemons with the Mark of Nurgle), those nested units never appeared in the allied catalogue — the lazy faction-data loader that powers this only reacted to the PRIMARY army\'s archetype, with no equivalent for the ally\'s own archetype. Added the missing loader path.',
+    ] },
+  },
+  {
     version: '1.03',
     date: '2026-06-22',
     title: { en: 'Allied Detachment roster split + weapon-swap pool sharing fix' },
