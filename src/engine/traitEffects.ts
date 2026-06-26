@@ -3,6 +3,7 @@ import { CSM_TRAIT_EFFECTS } from './codex_csm/traits';
 import { CD_TRAIT_EFFECTS } from './traits/chaos_daemons';
 import { SM_TRAIT_EFFECTS } from './traits/space_marines';
 import { SORORITAS_TRAIT_EFFECTS } from './traits/adeptus_sororitas';
+import { ORKS_TRAIT_EFFECTS } from './traits/orks';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -40,6 +41,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...CD_TRAIT_EFFECTS,
   ...SM_TRAIT_EFFECTS,
   ...SORORITAS_TRAIT_EFFECTS,
+  ...ORKS_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // TODO
@@ -66,7 +68,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // TODO
 
   // ── Orks ─────────────────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/orks.ts — spread above)
 
   // ── Space Marines ────────────────────────────────────────────────────────────
   // (see ./traits/space-marines.ts — spread above)
