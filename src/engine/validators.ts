@@ -574,6 +574,27 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       }
     }
 
+    // Troops selections OTHER than the anchor unit, capped by how many copies of the anchor are
+    // in the army (e.g. IG Whiteshields: 1 other Troop selection per Conscript Infantry Platoon).
+    if (rule.troopsRatioCap) {
+      const { anchorUnit, perAnchor } = rule.troopsRatioCap;
+      let anchorCount = 0;
+      let otherCount = 0;
+      for (const item of state.army) {
+        if (item.factionSource) continue;
+        if (getEffectiveSlot(item.unitName, item.slot, rule) !== 'Troops') continue;
+        if (item.unitName === anchorUnit) anchorCount++;
+        else otherCount++;
+      }
+      const allowed = anchorCount * perAnchor;
+      if (otherCount > allowed) {
+        items.push({
+          type: 'error',
+          text: `Archetype "${cleanArchetypeName(state.archetype)}": only ${allowed} other Troop selection${allowed === 1 ? '' : 's'} allowed (have ${otherCount}) for ${anchorCount} ${anchorUnit}.`,
+        });
+      }
+    }
+
     // Units banned because they have no vet abilities (Legionnaire Warband)
     if (rule.requireVetAbilities) {
       for (const item of state.army) {

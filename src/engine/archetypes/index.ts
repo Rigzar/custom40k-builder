@@ -276,6 +276,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Whiteshields': { ...BASE,
+    troopsRatioCap: { anchorUnit: 'Conscript Infantry Platoon', perAnchor: 1 },
     notes: [
       'Conscript Infantry Platoons may be taken without a Platoon Command Squad.',
       'Only one other Troop selection is allowed per Conscript Infantry Platoon in the army.',

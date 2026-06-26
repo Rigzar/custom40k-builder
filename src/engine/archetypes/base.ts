@@ -117,6 +117,14 @@ export interface ArchetypeRule {
    * choices (not armory) by exact name.
    */
   requiresHqUpgrade?: { unitNameContains: string; choiceName: string } | null;
+  /**
+   * Caps how many Troops selections OTHER than `anchorUnit` are allowed, scaled by how many
+   * copies of `anchorUnit` are in the army — e.g. IG Whiteshields' "You are only allowed one
+   * other Troop selection per Conscript Infantry Platoon in your army" (ods-verbatim). With 0
+   * Conscript Infantry Platoons, 0 other Troops selections are allowed: the Troops slot must be
+   * built around the anchor unit, not just capped overall like `slotCapOverride`.
+   */
+  troopsRatioCap?: { anchorUnit: string; perAnchor: number } | null;
 }
 
 export const BASE: ArchetypeRule = {
