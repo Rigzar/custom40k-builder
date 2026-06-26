@@ -230,6 +230,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Mechanised Company': { ...BASE,
     bannedUnits: ['Leman Russ Tank Commander', 'Leman Russ Commissar'],
     lowMoveMustEmbark: { creatureOnly: true },
+    slotCapOverride: { slot: 'Heavy Support', max: 1 },
     notes: [
       'Dedicated Transports from Mechanised Infantry squads count at 50% of their points toward the 25% Troops requirement.',
       'All creature units with M<12" must start the game as passengers inside a transport.',

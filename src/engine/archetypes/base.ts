@@ -100,6 +100,14 @@ export interface ArchetypeRule {
    * may also use the <Faction> Armory", no cap stated unlike the Inquisition rule).
    */
   armoryOnlyFaction?: string | null;
+  /**
+   * Caps a specific slot's max BELOW whatever the engagement's AOP/multiAop would otherwise
+   * allow (distinct from `hqOverride`, which only stops HQ from being multiplied, and from
+   * `bannedSlots`, which bans a slot outright rather than capping it) — e.g. IG Mechanised
+   * Company's "May only take a single Heavy Support selection" (ods-verbatim), which has no
+   * other structural field able to express "1, not however many the AOP table would give".
+   */
+  slotCapOverride?: { slot: string; max: number } | null;
 }
 
 export const BASE: ArchetypeRule = {

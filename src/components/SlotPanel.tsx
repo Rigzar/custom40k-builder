@@ -398,11 +398,12 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection",
         // Custom40k Missions ᵟ footnote) — the flat eng.aop value is just a placeholder for that
         // case; Skirmish's flat "0-1" is the real, non-dynamic cap and stays untouched.
-        const max = (slot === 'Dedicated Transport' && (engagement === 'pitched' || engagement === 'epic'))
+        const rawScaledMax = (slot === 'Dedicated Transport' && (engagement === 'pitched' || engagement === 'epic'))
           ? countInfantrySelections(store, primaryData, false)
           : (slot === 'HQ' && rule?.hqOverride)
             ? rawMax
             : eng.multiAop ? rawMax * aopMult : rawMax;
+        const max = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawScaledMax, rule.slotCapOverride.max) : rawScaledMax;
 
         const units = effectiveSlotUnits[slot] ?? [];
         if (rule?.bannedSlots.includes(slot)) return null;

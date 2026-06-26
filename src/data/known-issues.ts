@@ -696,17 +696,23 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-40a',
-    status: 'known',
+    status: 'fixed',
     title: {
       en: 'Archetypes show their rules but not all restrictions are enforced',
       de: 'Archetypen zeigen ihre Regeln, aber nicht alle Einschränkungen werden durchgesetzt',
       es: 'Los arquetipos muestran sus reglas pero no todas las restricciones se aplican',
     },
     description: {
-      en: 'Archetypes, Legacies and Traits are active for all factions. Archetype-specific restrictions — slot remapping, composition constraints, mark requirements, legacy/trait bans — are fully enforced for Chaos Space Marines, Chaos Daemons, and Space Marines. For other factions the archetype rules are displayed as informational notes; the builder will not currently block you from breaking them. Each faction audit adds its validators.',
-      de: 'Archetypen, Vermächtnisse und Eigenschaften sind jetzt für alle Fraktionen aktiv und ihre Beschreibungen werden angezeigt. Einige archetyp-spezifische Einschränkungen (z.B. "alle Einheiten müssen in einem Transport beginnen", Pflicht-Einheitenzusammensetzungen, Schlüsselwortfilter) werden jedoch nur für Chaos Space Marines, Chaos Dämonen und Space Marines durchgesetzt. Für andere Fraktionen sind die Archetyp-Hinweise informativer Natur — der Builder blockiert aktuell keine Regelverstöße.',
-      es: 'Los arquetipos, legados y rasgos están activos para todas las facciones y sus descripciones se muestran. Sin embargo, algunas restricciones específicas de arquetipo (por ejemplo, "todas las unidades deben comenzar dentro de un transporte", composiciones de unidades obligatorias, filtros de palabras clave) solo se aplican para Chaos Space Marines, Chaos Demonios y Space Marines. Para el resto de facciones, las notas de arquetipo son informativas — el constructor no bloqueará actualmente que las incumplas.',
+      en: 'STALE as of 2026-06-26 — re-audited engine/archetypes/index.ts + validators.ts directly rather than trust this entry: troopsRemap/troopsCount/demoteOtherTroops, bannedUnits/bannedSlots/allowedUnitsOnly/allowedKeywords, requiresHqUnit/hqAllowed/requireVetAbilities, forcedAbility, lowMoveMustEmbark, noLegacy/noTraits, armoryOnlyFaction and alliedFaction are ALL read generically off `getArchetypeRule(state.archetype)` by validators.ts/SlotPanel.tsx for EVERY faction\'s archetype, not just CSM/CD/SM — confirmed live by the isUnitAllowed/disabledReason work earlier this session (which applies identically to every faction\'s bannedUnits/forcedMark). The "CSM/CD/SM only" claim reflects how the engine looked long before the per-faction Fase-4 audits (memory: all 19 factions + 2 supplements now have an archetype digest). Genuinely unenforced restrictions that remain are narrow, itemized composition-ratio cases with no generic field yet — tracked separately in ki-40a-followup-composition-ratios-01, not as a faction-wide gap.',
+      de: 'VERALTET (2026-06-26) — neu geprüft: troopsRemap, bannedUnits/bannedSlots, requiresHqUnit/hqAllowed, requireVetAbilities, forcedAbility usw. werden generisch für JEDE Fraktion durchgesetzt, nicht nur CSM/CD/SM.',
+      es: 'OBSOLETO (2026-06-26) — reverificado: troopsRemap, bannedUnits/bannedSlots, requiresHqUnit/hqAllowed, requireVetAbilities, forcedAbility, etc. se aplican genéricamente para TODAS las facciones, no solo CSM/CD/SM.',
     },
+  },
+  {
+    id: 'ki-40a-followup-composition-ratios-01',
+    status: 'known',
+    title: 'GENERAL — a handful of archetype composition RATIOS (not flat bans) still have no engine field, found while re-verifying ki-40a',
+    description: 'Most archetype restrictions are generic structural fields read by validators.ts/SlotPanel.tsx for every faction (see ki-40a). The remaining gaps are specifically RATIO-shaped requirements with no field built for them yet: AdMech Cybernetica Cohort/Ordo Reductor Covenant ("must take at least one Magos/Archmagos with the Datasmith/Myrmidax upgrade" — a specific-upgrade composition check, not just a unit); AdMech Servitor Maniple ("each Servitor Troops unit must be accompanied by a Tech-priest" — an escort ratio); Sororitas Penitent Crusade and Tau Stealth Cadre ("for every N of unit X, one unit Y may ALSO count as Troops" — troopsRemap is currently unconditional, not gated behind a ratio of another unit); IG Whiteshields ("only one other Troop selection per Conscript Infantry Platoon" — a per-anchor-unit cap, similar shape to the IG Platoon Command Squad linking already built for ki-45b but not reused here); Votann Hearthfyre Arsenal ("for every 500 pts of game size, one Brokhyr Iron-master is free of its HQ slot" — a points-based advisor-like exemption, distinct from the per-HQ advisor ratio in ki-advisor-unconditional-exempt-01). Fixed one concrete, simpler case found in the same pass: IG Mechanised Company\'s "may only take a single Heavy Support selection" (a flat 1-unit CAP regardless of AOP, not a ratio) via a new `ArchetypeRule.slotCapOverride` field — distinct from `hqOverride` (only stops HQ from being AOP-multiplied) and `bannedSlots` (bans outright) — wired into both validators.ts and SlotPanel.tsx\'s slot-max computation.',
   },
   {
     id: 'ki-de-coordinatedraid-unmodelled-01',

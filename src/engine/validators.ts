@@ -1641,11 +1641,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not
     // the flat eng.aop value (Skirmish's flat "0-1" is correct as-is and untouched).
-    const effMax = (slot === 'Dedicated Transport' && (state.engagement === 'pitched' || state.engagement === 'epic'))
+    const rawEffMax = (slot === 'Dedicated Transport' && (state.engagement === 'pitched' || state.engagement === 'epic'))
       ? countInfantrySelections(state, data, false)
       : (slot === 'HQ' && rule?.hqOverride)
         ? engMax
         : (eng.multiAop ? engMax * aopMult : engMax);
+    const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
     if (used > effMax) {
       items.push({ type: 'error', text: `${slot} over maximum (${used}/${effMax}).` });
     }
