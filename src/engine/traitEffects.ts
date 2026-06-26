@@ -4,6 +4,7 @@ import { CD_TRAIT_EFFECTS } from './traits/chaos_daemons';
 import { SM_TRAIT_EFFECTS } from './traits/space_marines';
 import { SORORITAS_TRAIT_EFFECTS } from './traits/adeptus_sororitas';
 import { ORKS_TRAIT_EFFECTS } from './traits/orks';
+import { GSC_TRAIT_EFFECTS } from './traits/genestealer_cults';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -42,6 +43,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...SM_TRAIT_EFFECTS,
   ...SORORITAS_TRAIT_EFFECTS,
   ...ORKS_TRAIT_EFFECTS,
+  ...GSC_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // TODO
@@ -56,7 +58,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // TODO
 
   // ── Genestealer Cults ────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/genestealer_cults.ts — spread above)
 
   // ── Imperial Guard ───────────────────────────────────────────────────────────
   // TODO
