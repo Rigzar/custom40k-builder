@@ -143,7 +143,8 @@ export const kommandos: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "The squad may receive a Distraction grot for +2 points.",

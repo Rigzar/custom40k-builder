@@ -1770,4 +1770,4 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   return items;
 }
 
-export { getSlotUsage, allowedMarksFor };
+export { getSlotUsage, allowedMarksFor, countInfantrySelections };

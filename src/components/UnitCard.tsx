@@ -265,6 +265,11 @@ export function UnitCard({ item }: Props) {
   // etc. have their own fixed-cost option_groups for wargear, no Armory mechanic. Removed; if a
   // promoted variant genuinely needs Armory, set champion_has_armory/has_armory_access explicitly.
   const showArmory = u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock);
+  // When Armory access is gated to a single champion/promoted-variant model (not the whole unit),
+  // the live profile's equipment stat-mods (T/Sv/etc. from `item.armory`) must only land on THAT
+  // model's row — applying them to every row would bleed e.g. a Nob's Mega armor onto the base
+  // squad's stats too (GH#6 bug report).
+  const equipModsScopedToChampion = !u.has_armory_access && (championArmoryInOwnBlock || armoryGatedByVariant);
 
   // Legacy of the Alien Hunters: "Each model can receive the 'Special ammunition' equipment,
   // regardless of whether it has access to the armory." — universal toggle bypassing showArmory.
@@ -665,6 +670,10 @@ export function UnitCard({ item }: Props) {
               <tbody>
                 {modelsToShow.map((m, i) => {
                   const isVar = variant && m === variant;
+                  // The model row actually entitled to the Armory's stat-mod effects (see
+                  // equipModsScopedToChampion above) — every row when access is unit-wide,
+                  // otherwise only the promoted variant / built-in champion row.
+                  const isEquipTarget = !equipModsScopedToChampion || isVar || m === builtInChampion;
                   // Row count: variant-split count (modelCounts) takes priority, then per-group
                   // size for multi-model units (Traitor Guard's Guardsman/Ogryn), then the plain
                   // squad-size stepper for a single-model-row unit (e.g. Chaos Space Marines).
@@ -728,8 +737,9 @@ export function UnitCard({ item }: Props) {
                           if (r.modified) { display = r.display; traitBoosted = true; }
                         }
 
-                        // Apply equipment stat mods
-                        if (!u.is_vehicle) {
+                        // Apply equipment stat mods — only on the row actually entitled to the
+                        // Armory's effects (see isEquipTarget above).
+                        if (!u.is_vehicle && isEquipTarget) {
                           const equipDelta = equipMods.statDeltas[k] ?? 0;
                           if (equipDelta !== 0) {
                             const r = applyDelta(display, equipDelta);
@@ -747,7 +757,7 @@ export function UnitCard({ item }: Props) {
 
                         // Apply equipment stat SETS (e.g. Living vehicle "WS → 4+")
                         // Only applied if the set value is better (lower number) than current.
-                        const setVal = equipMods.statSets[k];
+                        const setVal = isEquipTarget ? equipMods.statSets[k] : undefined;
                         if (setVal) {
                           const currentNum = display.match(/^(\d+)\+/)?.[1];
                           const setNum = setVal.match(/^(\d+)\+/)?.[1];

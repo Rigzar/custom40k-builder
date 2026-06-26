@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-admech-darkmechanicum-daemonengines-unmodelled-01',
+    status: 'known',
+    title: 'Adeptus Mechanicus — Dark Mechanicum archetype does not yet grant the 5 Chaos Space Marine daemon-engines as selectable units',
+    description: 'Reported via GitHub issue #4: "selecting Dark Mechanicum... nothing seems to change in the list. I get no options to add Marks of Chaos." Root cause was real and now fixed: the `Dark Mechanicum` ArchetypeRule in `archetypes/index.ts` was just `{ ...BASE, notes: [...] }` — all of its notes (Mark of Chaos purchase, Chaos Space Marine Armory access) described mechanics with zero functional flags wired, the same emptiness for every army that picked it. Fixed by adding `grantsMarkPurchase: true` (mirrors IG\'s Traitor Guard — grants every unit `item.mark` purchase even with no native mark group, priced per-model-per-Wound, vehicles flat +10) and `armoryOnlyFaction: \'chaos_space_marines\'` (uncapped CSM general-Armory access for units with Armory access, mirrors Traitor Guard/Brood Brothers/Gue\'vesa). STILL OPEN: `armoryOnlyFaction` only opens the other faction\'s general Armory (weapons/equipment) — it does not open that faction\'s unit roster. Granting only the 5 CSM daemon-engines (not the other ~40 CSM units) needs a scoped unit-allowlist combined with `alliedFaction`-style roster injection that doesn\'t exist yet (the existing `alliedFaction` field always injects a faction\'s WHOLE roster, e.g. CSM Daemonkin → all of Chaos Daemons). Left unimplemented rather than guessing which 5 units count as "daemon engines" without the canonical .ods confirming the exact list — same shape as the already-flagged "HH Mechanicum Robots/Taghmata not yet available in builder" gap on Cybernetica Cohort/Ordo Reductor.',
+  },
+  {
     id: 'ki-orks-nobz-armory-oncepermodel-squadwide-cap-01',
     status: 'fixed',
     title: 'Orks — Nobz could only ever take ONE copy of a given non-unique Armory item total, not one per model (GitHub #3)',

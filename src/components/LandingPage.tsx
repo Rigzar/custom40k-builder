@@ -10,37 +10,37 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v8_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v9_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — All 19 factions fully audited',
-    intro: 'Hello commanders! Every faction (plus the Escalation and Horus Heresy supplements) has now been through a full line-by-line ODS audit. The builder is feature-complete for list-building across the entire roster.',
-    engine: '⚙ Inquisition: removed the old per-model "Ordo Hereticus/Malleus/Xenos" armory pick — the canonical rules never actually had it. Ordo armory access now comes exclusively from the Army Customisation Legacy.',
-    csm: '✓ Imperial Guard: Traitor Guard, Brood Brothers and Gue\'vesa archetypes now actually grant their "may also use the <Faction> Armory" clause — a dedicated Armoury tab gives ongoing access to the Chaos Space Marine / Genestealer Cult / Tau Empire general Armory, without opening that faction\'s unit roster.',
-    cd:  '✓ Adeptus Mechanicus: Canticles of the Omnissiah implemented in full — Legacy canticles auto-apply, base canticles show as reference text on the unit card.',
-    sm:  '✓ Cross-faction sweep: fixed several "swap weapon" options that were silently breaking on multi-model squads (Orks Boyz/Skarboyz, Necrons Immortals/Warriors), an Adeptus Custodes embark-restriction gap, and a Horus Heresy armour double-count risk.',
+    title: 'Developer Update — 6 reported bugs fixed (Orks + Adeptus Mechanicus)',
+    intro: 'Hello commanders! Thanks to everyone reporting bugs through the in-app form — this update closes 6 of them in one go, all on Orks and one on Adeptus Mechanicus.',
+    engine: '⚙ Orks: Mekboy/Painboy "Advisor" rule now actually frees up the Elite slot; 10 units\' per-model Wildork/\'Eavy armour upgrade now scales its cost with squad size instead of charging once for the whole unit.',
+    csm: '✓ Orks: Dedicated Transport\'s slot limit in Pitched/Epic Battle now follows the canonical dynamic cap ("1 per Infantry-type unit") instead of a flat 3 — fixed for both the main roster and Allied Detachments.',
+    cd:  '✓ Orks: all 14 vehicles can now take a Kustom job (previously listed zero options, since vehicles don\'t get general Armory access) — gated by each job\'s canonical "Vehicle only"/"Walker only"/etc. restriction.',
+    sm:  '✓ General: buying Armory equipment for a squad\'s promoted champion (e.g. Mega armor for a Nob) no longer bleeds its stat bonuses onto the rest of the unit\'s displayed profile. Adeptus Mechanicus: the Dark Mechanicum archetype now actually grants its Mark of Chaos purchase and Chaos Space Marine Armory access.',
     legacyfix: '🗓 Known Issues panel reflects the current state — most remaining open items are deliberate future features (cross-faction sub-model purchases, sub-choice pickers) rather than bugs.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Alle 19 Fraktionen vollständig geprüft',
-    intro: 'Hallo Kommandanten! Jede Fraktion (sowie die Supplements Escalation und Horus Heresy) hat jetzt einen vollständigen Zeile-für-Zeile-ODS-Audit durchlaufen. Der Builder ist für den Listenbau über das gesamte Roster funktionsvollständig.',
-    engine: '⚙ Inquisition: die alte modellweise "Ordo Hereticus/Malleus/Xenos"-Rüstkammerwahl entfernt — die kanonischen Regeln hatten sie nie. Ordo-Rüstkammerzugriff kommt jetzt ausschließlich über das Armeeanpassungs-Vermächtnis.',
-    csm: '✓ Imperiale Garde: die Archetypen Traitor Guard, Brood Brothers und Gue\'vesa gewähren jetzt tatsächlich ihre Klausel "darf auch die <Fraktion>-Rüstkammer nutzen" — ein eigener Rüstkammer-Tab gibt dauerhaften Zugriff auf die allgemeine Rüstkammer von Chaos Space Marines / Genestealer Cults / Tau Empire, ohne das Einheiten-Roster dieser Fraktion zu öffnen.',
-    cd:  '✓ Adeptus Mechanicus: Litaneien des Omnissiah vollständig implementiert — Vermächtnis-Litaneien werden automatisch angewendet, Basis-Litaneien werden als Referenztext auf der Einheitenkarte angezeigt.',
-    sm:  '✓ Fraktionsübergreifende Durchsicht: mehrere "Waffentausch"-Optionen behoben, die bei mehrmodelligen Einheiten lautlos kaputt waren (Orks Boyz/Skarboyz, Necrons Immortals/Warriors), eine Einbarkierungs-Lücke bei Adeptus Custodes und ein Rüstungs-Doppelzählungsrisiko bei Horus Heresy.',
+    title: 'Entwickler-Update — 6 gemeldete Fehler behoben (Orks + Adeptus Mechanicus)',
+    intro: 'Hallo Kommandanten! Danke an alle, die über das In-App-Formular Fehler melden — dieses Update schließt 6 davon auf einmal, alle bei den Orks und einer bei Adeptus Mechanicus.',
+    engine: '⚙ Orks: die "Advisor"-Regel von Mekboy/Painboy befreit jetzt tatsächlich den Elite-Slot; bei 10 Einheiten skaliert das modellweise Wildork/\'Eavy-armour-Upgrade jetzt mit der Truppgröße statt nur einmal für die ganze Einheit zu kosten.',
+    csm: '✓ Orks: das Slot-Limit für Dedicated Transport in Pitched/Epic Battle folgt jetzt der kanonischen dynamischen Grenze ("1 pro Infantry-Einheit") statt einer festen 3 — behoben sowohl im Hauptroster als auch bei Allied Detachments.',
+    cd:  '✓ Orks: alle 14 Fahrzeuge können jetzt einen Kustom Job nehmen (zuvor null Optionen, da Fahrzeuge keinen allgemeinen Rüstkammerzugriff haben) — gegated nach der kanonischen "Nur Fahrzeug"/"Nur Walker"-Einschränkung jedes Jobs.',
+    sm:  '✓ Allgemein: der Kauf von Rüstkammer-Ausrüstung für den befördertenChampion einer Truppe (z. B. Mega-Rüstung für einen Nob) überträgt seine Statuswerte nicht mehr auf das restliche Profil der Einheit. Adeptus Mechanicus: der Dark-Mechanicum-Archetyp gewährt jetzt tatsächlich den Kauf des Mark of Chaos und Zugriff auf die Chaos-Space-Marines-Rüstkammer.',
     legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider — die meisten verbleibenden offenen Punkte sind bewusst geplante zukünftige Features (fraktionsübergreifende Unter-Modell-Käufe, Unterwahl-Picker), keine Fehler.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — Las 19 facciones auditadas al completo',
-    intro: '¡Hola comandantes! Todas las facciones (más los suplementos Escalation y Horus Heresy) ya pasaron por una auditoría ODS completa línea a línea. El creador está funcionalmente completo para armar listas en todo el roster.',
-    engine: '⚙ Inquisición: se eliminó la vieja elección de Ordo "Hereticus/Malleus/Xenos" por modelo — las reglas canónicas nunca la tuvieron. El acceso a la armería de Ordo ahora viene exclusivamente del Legado de Personalización de Ejército.',
-    csm: '✓ Guardia Imperial: los arquetipos Traitor Guard, Brood Brothers y Gue\'vesa ahora sí otorgan su cláusula "también puede usar la Armería de <Facción>" — una pestaña de Armería dedicada da acceso continuo a la armería general de Chaos Space Marines / Genestealer Cults / Tau Empire, sin abrir el roster de unidades de esa facción.',
-    cd:  '✓ Adeptus Mechanicus: Cánticos del Omnissiah implementados al completo — los cánticos de Legado se aplican automáticamente, los cánticos base se muestran como texto de referencia en la tarjeta de unidad.',
-    sm:  '✓ Repaso entre facciones: arregladas varias opciones de "cambio de arma" que fallaban silenciosamente en escuadras de varios modelos (Orks Boyz/Skarboyz, Necrons Immortals/Warriors), un hueco de restricción de embarque en Adeptus Custodes y un riesgo de doble conteo de armadura en Horus Heresy.',
+    title: 'Actualización del desarrollador — 6 bugs reportados arreglados (Orks + Adeptus Mechanicus)',
+    intro: '¡Hola comandantes! Gracias a todos los que reportan bugs con el formulario in-app — esta actualización cierra 6 de una vez, todos en Orks y uno en Adeptus Mechanicus.',
+    engine: '⚙ Orks: la regla "Advisor" de Mekboy/Painboy ahora sí libera el slot de Elite; en 10 unidades, la mejora por modelo Wildork/\'Eavy armour ahora escala su coste con el tamaño de la escuadra en vez de cobrar una sola vez por toda la unidad.',
+    csm: '✓ Orks: el límite de slot de Dedicated Transport en Pitched/Epic Battle ahora sigue el tope dinámico canónico ("1 por unidad tipo Infantry") en vez de un 3 fijo — arreglado tanto en el roster principal como en los Destacamentos Aliados.',
+    cd:  '✓ Orks: los 14 vehículos ya pueden tomar un Kustom job (antes no mostraban ninguna opción, porque los vehículos no tienen acceso a la Armería general) — filtrado según la restricción canónica de cada job ("Solo vehículo"/"Solo Walker"/etc.).',
+    sm:  '✓ General: comprar equipo de Armería para el campeón ascendido de una escuadra (p. ej. Mega armor para un Nob) ya no contagia sus bonos de estadística al resto del perfil mostrado de la unidad. Adeptus Mechanicus: el arquetipo Dark Mechanicum ahora sí otorga la compra de Mark of Chaos y acceso a la Armería de Chaos Space Marines.',
     legacyfix: '🗓 El panel de Known Issues refleja el estado actual — la mayoría de los puntos abiertos restantes son features futuras deliberadas (compras de sub-modelos entre facciones, selectores de sub-elección), no bugs.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },

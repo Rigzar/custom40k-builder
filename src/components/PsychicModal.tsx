@@ -28,10 +28,19 @@ function isLegacyDisc(name: string): boolean {
 }
 
 export function PsychicModal({ item, unit, onClose }: Props) {
+  const store = useArmyStore();
   const {
-    data, archetype, legacy, legacy2,
+    data: primaryData, alliedData, archetype: primaryArchetype, legacy: primaryLegacy, legacy2: primaryLegacy2,
     addPower, removePower, addPrayer, removePrayer, addPact, removePact,
-  } = useArmyStore();
+  } = store;
+  // An Allied Detachment's psyker/priest/cultist sees ITS OWN faction's disciplines/prayers/
+  // pacts and its OWN archetype/legacy — this used to always read the PRIMARY's, so e.g. an
+  // Eldar Allied Detachment's psyker would be shown Chaos Space Marines' psychic disciplines.
+  const isAllied = !!item.factionSource && item.factionSource === store.alliedFaction;
+  const data = isAllied ? alliedData : primaryData;
+  const archetype = isAllied ? (store.alliedArchetype ?? '') : primaryArchetype;
+  const legacy = isAllied ? (store.alliedLegacy ?? '') : primaryLegacy;
+  const legacy2 = isAllied ? '' : primaryLegacy2; // ally has only one Legacy slot, no legacy2
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);

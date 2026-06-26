@@ -98,7 +98,8 @@ export const stormboyz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "One Stormboy may be upgraded to a Nob for +18 points and gains access to weapons and gear from the Armory.",

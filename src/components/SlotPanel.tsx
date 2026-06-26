@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -146,7 +146,11 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
             if (e.factionSource !== alliedFactionKey) return false;
             return getEffectiveSlot(e.unitName, e.slot, rule) === slot;
           }).length;
-          const effectiveMax = slot === 'Dedicated Transport' ? 3 : max;
+          // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic
+          // (one per Infantry-type selection), never the ALLIED_AOP placeholder's flat 3.
+          const effectiveMax = slot === 'Dedicated Transport'
+            ? countInfantrySelections(store, store.data as FactionData, true)
+            : max;
           const isFull = effectiveMax > 0 && used >= effectiveMax;
           const isUnder = min > 0 && used < min;
           const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';
@@ -345,10 +349,15 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         const [min, rawMax] = slot === 'HQ'
           ? getEffectiveHqLimits(rule, eng.aop.HQ)
           : [engMin, engMax];
-        // Scale by AOP multiplier (same logic as validators), except HQ with override
-        const max = (slot === 'HQ' && rule?.hqOverride)
-          ? rawMax
-          : eng.multiAop ? rawMax * aopMult : rawMax;
+        // Scale by AOP multiplier (same logic as validators), except HQ with override.
+        // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection",
+        // Custom40k Missions ᵟ footnote) — the flat eng.aop value is just a placeholder for that
+        // case; Skirmish's flat "0-1" is the real, non-dynamic cap and stays untouched.
+        const max = (slot === 'Dedicated Transport' && (engagement === 'pitched' || engagement === 'epic'))
+          ? countInfantrySelections(store, primaryData, false)
+          : (slot === 'HQ' && rule?.hqOverride)
+            ? rawMax
+            : eng.multiAop ? rawMax * aopMult : rawMax;
 
         const units = effectiveSlotUnits[slot] ?? [];
         if (rule?.bannedSlots.includes(slot)) return null;

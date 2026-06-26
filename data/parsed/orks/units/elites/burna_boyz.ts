@@ -134,7 +134,8 @@ export const burnaBoyz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Up to three Burna Boyz may be upgraded to Spannas for +0 points each.",

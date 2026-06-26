@@ -42,10 +42,15 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Dark Mechanicum': { ...BASE,
+  'Dark Mechanicum': { ...BASE, noLegacy: true, grantsMarkPurchase: true,
+    armoryOnlyFaction: 'chaos_space_marines',
     notes: [
       'Allied to Chaos Space Marines as Allies of Convenience.',
-      'All units may purchase a Mark of Chaos: +1 pt/Wound Khorne or Slaanesh, +2 pts/Wound Nurgle or Tzeentch.',
+      'All units may purchase a Mark of Chaos: +1 pt/model/Wound Khorne or Slaanesh, +2 pts/model/Wound Nurgle or Tzeentch; vehicles +10 pts flat (any mark).',
+      'A Mark of Chaos counts as the unit\'s veteran ability, same as Adeptus Mechanicus.',
+      'Models with Armory access may also use the Chaos Space Marine Armory.',
+      'Access to the 5 Chaos Space Marine daemon-engines as selectable units is not yet available in the builder.',
+      'No Legacy may be selected.',
     ],
   },
 

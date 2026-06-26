@@ -106,7 +106,8 @@ export const deffkoptaz: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Every model may swap their Kustom mega-blasta",

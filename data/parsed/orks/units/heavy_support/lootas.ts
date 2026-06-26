@@ -134,7 +134,8 @@ export const lootas: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Up to three Lootas may be upgraded to Spannas for -14 points each.",

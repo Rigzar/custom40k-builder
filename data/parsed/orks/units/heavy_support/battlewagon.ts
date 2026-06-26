@@ -290,7 +290,15 @@ export const battlewagon: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
+      "choices": [
+        { "name": "Da Booma", "points": 25 },
+        { "name": "More Dakka", "points": 15 },
+        { "name": "Press the Button", "points": 10 },
+        { "name": "Shokka Hull", "points": 5 },
+        { "name": "Eavy armour cabin", "points": 10 },
+        { "name": "Squig-hide Tyres", "points": 5 },
+        { "name": "Fortress on Wheels", "points": 75 }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

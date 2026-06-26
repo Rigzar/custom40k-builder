@@ -116,7 +116,8 @@ export const tankbustas: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "The squad may receive up to three Bomb squigs for +8 points each.",
