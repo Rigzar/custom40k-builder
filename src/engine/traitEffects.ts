@@ -2,6 +2,7 @@ import type { Unit } from '../types/data';
 import { CSM_TRAIT_EFFECTS } from './codex_csm/traits';
 import { CD_TRAIT_EFFECTS } from './traits/chaos_daemons';
 import { SM_TRAIT_EFFECTS } from './traits/space_marines';
+import { SORORITAS_TRAIT_EFFECTS } from './traits/adeptus_sororitas';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -38,12 +39,13 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...CSM_TRAIT_EFFECTS,
   ...CD_TRAIT_EFFECTS,
   ...SM_TRAIT_EFFECTS,
+  ...SORORITAS_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // TODO
 
   // ── Adeptus Sororitas ────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/adeptus_sororitas.ts — spread above)
 
   // ── Dark Eldar ───────────────────────────────────────────────────────────────
   // TODO

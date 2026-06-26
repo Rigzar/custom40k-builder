@@ -670,14 +670,14 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-22a',
     status: 'known',
     title: {
-      en: 'Trait effects wired for CSM and SM — other factions show description text only',
-      de: 'Eigenschafts-Effekte für CSM und SM verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
-      es: 'Efectos de rasgos implementados para CSM y SM — otras facciones muestran solo texto descriptivo',
+      en: 'Trait effects wired for CSM, SM and Sororitas — other factions show description text only',
+      de: 'Eigenschafts-Effekte für CSM, SM und Sororitas verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
+      es: 'Efectos de rasgos implementados para CSM, SM y Sororitas — otras facciones muestran solo texto descriptivo',
     },
     description: {
-      en: 'Chaos Space Marines and Space Marines have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design). For the remaining 16 factions, traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction as each gets audited.',
-      de: 'Chaos Space Marines und Space Marines haben alle Eigenschaftseffekte vollständig verdrahtet — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und unverwundbarkeit-Rettungswürfe werden live auf der Einheitenkarte berechnet. Chaos-Dämonen-Eigenschaften sind korrekt bewertet (CD hat keine Traits). Für die übrigen 16 Fraktionen werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
-      es: 'Chaos Space Marines y Space Marines tienen todos los efectos de rasgos totalmente implementados. Chaos Demonios no tiene rasgos por diseño. Para las 16 facciones restantes, los rasgos se muestran y valoran correctamente pero sus efectos de stats/habilidades son solo texto descriptivo, no se aplican automáticamente. Se implementará facción por facción.',
+      en: 'Chaos Space Marines, Space Marines and Adeptus Sororitas have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design; Grey Knights, Inquisition, Tyranids and Adeptus Custodes likewise have no Army Traits at all). The engine itself (resolver.ts) is faction-agnostic — it reads TRAIT_EFFECTS for whichever traits the active army has, with no per-faction gating beyond a CSM-keyword check. Adding a faction is just authoring its `traits/<faction>.ts` file from the canonical archetypes.json text and spreading it into TRAIT_EFFECTS (traitEffects.ts) — confirmed 2026-06-26 while wiring Sororitas. For the remaining 12 factions with traits (Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus, Imperial Guard, Tau Empire, Necrons, Dark Eldar — CSM/SM/Sororitas/CD done, GK/Inquisition/Tyranids/Custodes have none), traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction.',
+      de: 'Chaos Space Marines, Space Marines und Adeptus Sororitas haben alle Eigenschaftseffekte vollständig verdrahtet. Für die übrigen 12 Fraktionen mit Traits werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
+      es: 'Chaos Space Marines, Space Marines y Adeptus Sororitas tienen todos los efectos de rasgos totalmente implementados. Para las 12 facciones restantes con rasgos, se muestran y valoran correctamente pero sus efectos son solo texto descriptivo. Se implementará facción por facción.',
     },
   },
   {
