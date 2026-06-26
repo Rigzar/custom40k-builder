@@ -96,6 +96,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Penitent Crusade': { ...BASE,
     troopsRemap: ['Arco-flagellants', 'Repentia Squad', 'Penitent Engines'],
     demoteOtherTroops: true,
+    troopsModelRatioCap: { sourceUnits: ['Arco-flagellants'], modelsPerUnit: 10, cappedUnit: 'Penitent Engines' },
     notes: [
       'Arco-flagellants and Repentia count as Troops. For every 10 Arco-flagellant models, one Penitent Engines unit may also count as Troops.',
       'Battle Sisters and Sisters Novitiate are moved to the Elites slot.',
@@ -342,6 +343,8 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Hearthfyre Arsenal': { ...BASE,
+    pointsBasedHqFree: { unitName: 'Brôkhyr Iron-master', perPoints: 500 },
+    troopsCountExclude: ['Hearthkyn Warriors'],
     notes: [
       'For every 500 pts of game size, one Brokhyr Iron-master may be included without occupying an HQ slot.',
       'Hearthkyn Warriors do not count towards the 25% Troops requirement.',
@@ -428,8 +431,9 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Stealth Cadre': { ...BASE,
-    troopsRemap: ['Stealth Battlesuits'], demoteOtherTroops: true,
-    requiresHqUnit: 'Commander',
+    troopsRemap: ['Stealth Battlesuits', 'Ghostkeel Battlesuits'], demoteOtherTroops: true,
+    requiresHqUpgrade: { unitNameContains: 'Commander', choiceName: 'XV22 Stalker battlesuit' },
+    troopsModelRatioCap: { sourceUnits: ['Stealth Battlesuits'], modelsPerUnit: 6, cappedUnit: 'Ghostkeel Battlesuits' },
     notes: [
       'Stealth Battlesuits count as Troops. All other Troops become Elites.',
       'Must include at least one Commander equipped with an XV22 Stalker battlesuit.',
@@ -516,7 +520,9 @@ export function countsTroops(
   lockedMark: string | null,
   rule: ArchetypeRule | null,
 ): boolean {
-  if (!rule || rule.troopsCount === 'all') return true;
+  if (!rule) return true;
+  if (rule.troopsCountExclude?.includes(unitName)) return false;
+  if (rule.troopsCount === 'all') return true;
   if (rule.troopsCount === 'locked') {
     return lockedMark === rule.forcedMark;
   }

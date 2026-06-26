@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -392,6 +392,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const geminaeSuperiaFree = computeGeminaeSuperiaFreeSlots(army, primaryData);
   const crusadersFree = computeCrusadersFreeSlots(army, primaryData);
   const servitorFree = computeServitorFreeSlots(army, primaryData);
+  const archetypeHqFree = computeArchetypeHqFreeSlots(army, rule, store.pointLimit);
 
   return (
     <div className="divide-y divide-zinc-800/50">
@@ -418,7 +419,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         if (slot === 'Lords of War' && (engagement !== 'epic' || units.length === 0)) return null;
         const isLordsOfWar = slot === 'Lords of War';
 
-        const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
+        const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq
           : slot === 'Fast Attack' ? cdFree.fa
           : slot === 'Elites' ? assassinFree.elites + crusadersFree.elites + servitorFree.elites
           : 0;

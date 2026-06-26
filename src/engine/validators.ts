@@ -370,6 +370,30 @@ export function computeServitorFreeSlots(
   return { elites: credited, notes };
 }
 
+/**
+ * Generic version of computeEldarWarlockFreeSlots' "1 free per 500pts of game size" shape, for
+ * archetypes (not unit abilities) that grant it — e.g. Votann Hearthfyre Arsenal's
+ * `pointsBasedHqFree`. Every copy of the named unit is eligible (no per-unit inline flag to
+ * gate on, unlike Warlocks).
+ */
+export function computeArchetypeHqFreeSlots(
+  army: RosterEntry[],
+  rule: Rule,
+  pointLimit: number,
+): { hq: number; notes: string[] } {
+  if (!rule?.pointsBasedHqFree) return { hq: 0, notes: [] };
+  const { unitName, perPoints } = rule.pointsBasedHqFree;
+  const count = army.filter(i => !i.factionSource && i.unitName === unitName).length;
+  if (count === 0) return { hq: 0, notes: [] };
+  const cap = Math.floor(pointLimit / perPoints);
+  const credited = Math.min(count, cap);
+  const notes = [`${unitName}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the HQ slot (1 per ${perPoints}pts of game size, ${pointLimit}pts → max ${cap}).`];
+  if (count > cap) {
+    notes.push(`${unitName}: ${count - cap} extra unit${count - cap === 1 ? '' : 's'} exceed the game-size cap and still occupy a normal HQ slot.`);
+  }
+  return { hq: credited, notes };
+}
+
 /** All 4 datasheets independently say "An army can contain only one C'tan Shard" (ods-verbatim,
  * Necrons "OPTIONS" row) — confirmed army-wide (not per-name) by Yngir's own wording "One C'tan
  * shard (any kind) counts as an HQ selection." Each datasheet's own option_group is a
@@ -553,13 +577,16 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
 
     // Required HQ unit WITH a specific upgrade choice selected (e.g. AdMech Cybernetica Cohort
-    // needs a Magos/Archmagos with the Datasmith upgrade, not just any Magos).
+    // needs a Magos/Archmagos with the Datasmith upgrade, not just any Magos) OR a specific
+    // Armory item bought (e.g. Tau Stealth Cadre's Commander with an XV22 Stalker battlesuit —
+    // that upgrade is sold through the Armory, not the unit's own option_groups).
     if (rule.requiresHqUpgrade) {
       const { unitNameContains, choiceName } = rule.requiresHqUpgrade;
       const hasRequiredHqUpgrade = state.army.some(item => {
         if (item.factionSource) return false;
         const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
         if (effSlot !== 'HQ' || !item.unitName.toLowerCase().includes(unitNameContains.toLowerCase())) return false;
+        if (item.armory.some(a => a.itemName === choiceName)) return true;
         const u = resolveUnit(item, data);
         if (!u) return false;
         return u.option_groups.some((g, gi) => g.choices.some((c, ci) =>
@@ -591,6 +618,28 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         items.push({
           type: 'error',
           text: `Archetype "${cleanArchetypeName(state.archetype)}": only ${allowed} other Troop selection${allowed === 1 ? '' : 's'} allowed (have ${otherCount}) for ${anchorCount} ${anchorUnit}.`,
+        });
+      }
+    }
+
+    // Units that count as Troops only up to a MODEL-count ratio against another unit (e.g.
+    // Sororitas Penitent Crusade: 1 Penitent Engines per 10 Arco-flagellant models; Tau Stealth
+    // Cadre: 1 Ghostkeel Battlesuits per 6 Stealth Shas'ui/Shas've models). troopsRemap already
+    // lets cappedUnit count as Troops unconditionally; this adds the ratio ceiling as an error.
+    if (rule.troopsModelRatioCap) {
+      const { sourceUnits, modelsPerUnit, cappedUnit } = rule.troopsModelRatioCap;
+      let sourceModels = 0;
+      let cappedCount = 0;
+      for (const item of state.army) {
+        if (item.factionSource) continue;
+        if (sourceUnits.includes(item.unitName)) sourceModels += item.size;
+        else if (item.unitName === cappedUnit) cappedCount++;
+      }
+      const allowed = Math.floor(sourceModels / modelsPerUnit);
+      if (cappedCount > allowed) {
+        items.push({
+          type: 'error',
+          text: `Archetype "${cleanArchetypeName(state.archetype)}": only ${allowed} ${cappedUnit} unit${allowed === 1 ? '' : 's'} may count as Troops (have ${cappedCount}) for ${sourceModels} ${sourceUnits.join('/')} model${sourceModels === 1 ? '' : 's'} (1 per ${modelsPerUnit}).`,
         });
       }
     }
@@ -1196,6 +1245,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: note });
   }
 
+  // Votann Hearthfyre Arsenal: "1 free HQ slot per 500pts of game size" (archetype-specific)
+  const archetypeHqFree = computeArchetypeHqFreeSlots(state.army, rule, state.pointLimit);
+  for (const note of archetypeHqFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // Sororitas Crusaders: "1 free Elite slot per Preacher" (Crusaders.ods Concession ability)
   const crusadersFree = computeCrusadersFreeSlots(state.army, data);
   for (const note of crusadersFree.notes) {
@@ -1250,7 +1305,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
       : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites
       : 0;
@@ -1707,7 +1762,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
       : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites
       : 0;

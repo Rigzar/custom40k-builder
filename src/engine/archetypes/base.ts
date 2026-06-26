@@ -125,6 +125,36 @@ export interface ArchetypeRule {
    * built around the anchor unit, not just capped overall like `slotCapOverride`.
    */
   troopsRatioCap?: { anchorUnit: string; perAnchor: number } | null;
+  /**
+   * Caps how many `cappedUnit` selections may count as Troops (via `troopsRemap`, which is
+   * otherwise unconditional), scaled by the TOTAL MODEL COUNT (sum of `RosterEntry.size`, not
+   * unit count) across `sourceUnits` — e.g. Sororitas Penitent Crusade's "For every 10
+   * Arco-flagellant MODELS, one Penitent Engines unit may also count as Troops" and Tau Stealth
+   * Cadre's "For every 6 models of Stealth Shas'ui and/or Stealth Shas've, one Ghostkeel
+   * Battlesuit unit may be taken as Troops" (both ods-verbatim — model count, not units, unlike
+   * `troopsRatioCap`). `cappedUnit` still needs its own entry in `troopsRemap` for the slot
+   * re-mapping itself; this only adds the ratio ceiling on top, as a validator-only error rather
+   * than dynamically un-remapping individual entries (keeps the existing slot-membership
+   * computation chain untouched).
+   */
+  troopsModelRatioCap?: { sourceUnits: string[]; modelsPerUnit: number; cappedUnit: string } | null;
+  /**
+   * Grants a free HQ slot for `unitName`, scaled by game size rather than by another unit's
+   * count — e.g. Votann Hearthfyre Arsenal's "For every 500 points of game size, a single
+   * Brôkhyr Iron-master may be included that does not take up an HQ slot" (ods-verbatim). Unlike
+   * Eldar Warlocks' near-identical "1 per 500pts" shape, there's no per-unit inline flag to gate
+   * on (every copy of `unitName` is eligible) and the grant is archetype-specific, not a
+   * universal unit ability — hence a rule field rather than a hardcoded faction function.
+   */
+  pointsBasedHqFree?: { unitName: string; perPoints: number } | null;
+  /**
+   * Units listed here don't count toward the 25% Troops requirement, while every OTHER Troops
+   * unit still does (the normal `troopsCount: 'all'` behaviour) — e.g. Votann Hearthfyre
+   * Arsenal's "Hearthkyn Warriors do not count towards the 25% Troops requirement" (ods-verbatim).
+   * Distinct from `troopsCount: 'remap'`, which is an INCLUSION list (ONLY troopsRemap units
+   * count) — this is an EXCLUSION of specific units from an otherwise-normal count.
+   */
+  troopsCountExclude?: string[];
 }
 
 export const BASE: ArchetypeRule = {
