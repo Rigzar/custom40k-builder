@@ -35,6 +35,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Army JSON import only supported pasting text into a box. Added a real file-upload button next to the existing "↓ JSON" download button.',
       'Added a third Print View mode, "Simple" — a plain stacked-table layout (Unit stats / Abilities / Ranged Weapons / Melee Weapons / Rules / Categories) alongside the existing illustrated "Cards" style and the compact "List" style, for players who prefer a lighter, ink-friendly printout.',
       'GENERAL: a faction\'s own always-on allied grants (e.g. Grey Knights\' native Inquisition access, or the Assassins\' universal Chaos/Imperial grant) silently disappeared whenever that faction was picked as the Allied Detachment instead of the primary army — only its base roster showed up. Carried both grants through correctly so they work the same whether the faction is primary or allied.',
+      'GENERAL: closing the "Allied: X" tab\'s × silently deleted the entire allied detachment (same as the dedicated "Remove" button) — inconsistent with closing the main army tab, which never deletes anything. Tabs now always behave the same way: closing one only hides it, never deletes data. Added an "Open" button to the sidebar\'s Allied Detachment widget to get back into a closed-but-still-populated ally tab, and a confirmation prompt on "Remove" since it\'s now the only way that action happens.',
     ] },
   },
   {

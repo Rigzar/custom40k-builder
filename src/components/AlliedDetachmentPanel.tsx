@@ -110,7 +110,13 @@ function FactionPicker({
  * at a glance. Once attached, its own Army Customisation and unit catalogue live in the dedicated
  * "Allied: <faction>" tab (App.tsx) — not here — so the two armies stay visually separate.
  */
-export function AlliedDetachmentPanel({ primaryFaction }: { primaryFaction: string | null }) {
+export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
+  primaryFaction: string | null;
+  /** Whether the "Allied: X" tab is currently open — closing it (×) only hides the tab, it
+   * never deletes the ally's roster, so this widget needs a way back in. */
+  tabOpen?: boolean;
+  onOpenTab?: () => void;
+}) {
   const { alliedFaction, setAlliedFaction, engagement } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
 
@@ -165,13 +171,24 @@ export function AlliedDetachmentPanel({ primaryFaction }: { primaryFaction: stri
             {rel && <RelationshipBadge rel={rel} />}
           </div>
         </div>
-        <button
-          onClick={() => setAlliedFaction(null)}
-          title="Remove allied detachment"
-          className="text-[11px] text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 transition-colors shrink-0"
-        >
-          Remove
-        </button>
+        <div className="flex items-center gap-1.5 shrink-0">
+          {!tabOpen && onOpenTab && (
+            <button
+              onClick={onOpenTab}
+              title="Reopen the Allied Detachment tab"
+              className="text-[11px] text-emerald-500 hover:text-emerald-300 border border-emerald-800 hover:border-emerald-600 px-2 py-0.5 transition-colors"
+            >
+              Open
+            </button>
+          )}
+          <button
+            onClick={() => { if (confirm(`Remove the ${factionLabel} Allied Detachment? This deletes its entire roster.`)) setAlliedFaction(null); }}
+            title="Remove allied detachment"
+            className="text-[11px] text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 transition-colors"
+          >
+            Remove
+          </button>
+        </div>
       </div>
 
       {/* Relationship description */}
@@ -182,7 +199,7 @@ export function AlliedDetachmentPanel({ primaryFaction }: { primaryFaction: stri
       )}
 
       <p className="text-[11px] text-emerald-500/80 leading-snug border-l-2 border-emerald-800 pl-2">
-        Its own Army Customisation and unit catalogue are in the <span className="font-semibold">🤝 Allied: {factionLabel}</span> tab above — independent from {FACTION_NAMES[primaryFaction] ?? primaryFaction}'s.
+        Its own Army Customisation and unit catalogue are in the <span className="font-semibold">🤝 Allied: {factionLabel}</span> tab{tabOpen ? ' above' : ' — closed, click "Open" above to get back in'} — independent from {FACTION_NAMES[primaryFaction] ?? primaryFaction}'s.
       </p>
     </div>
   );

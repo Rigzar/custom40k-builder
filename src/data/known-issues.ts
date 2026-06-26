@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-tabclose-deleted-ally-01',
+    status: 'fixed',
+    title: 'GENERAL — Closing the Allied Detachment tab\'s × silently deleted the whole ally, unlike closing the main army tab',
+    description: 'Reported live: the user expected "Clear" to be the only thing that resets data, and closing a tab to be purely a view action — but `handleCloseTab(\'allied_config\')` (App.tsx) called `setAlliedFaction(null)` directly, deleting the ally\'s entire roster the moment its tab\'s × was clicked, while closing the main \'builder\' tab only ever hid it (the roster stayed intact in the background, reachable again via "Build Army"). Two visually identical × buttons doing two completely different things (hide vs. delete) with no warning on the destructive one. Fixed: closing ANY tab is now purely a UI action — it only removes it from `openTabs`, never touches army/ally state. Added an "Open" button to the sidebar\'s Allied Detachment widget (mirrors "Build Army" reopening the main tab) so a closed-but-still-populated ally tab is reachable again, and a `confirm()` prompt on the dedicated "Remove" button since deleting the ally is now solely its job (matches the existing "Clear" button\'s confirmation pattern).',
+  },
+  {
     id: 'ki-allies-catalogue-isunitallowed-skipped-01',
     status: 'fixed',
     title: 'GENERAL — Allied Detachment\'s own unit catalogue never enforced its own archetype\'s bannedUnits / forced-mark restrictions',

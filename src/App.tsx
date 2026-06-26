@@ -411,13 +411,11 @@ export default function App() {
   }
 
   function handleCloseTab(tab: TabId) {
-    // The allied tab only exists while there's an allied detachment — closing it removes the
-    // detachment itself (its units included), same as the sidebar's "Remove" button. The
-    // alliedFaction effect above then closes the tab and re-focuses the builder automatically.
-    if (tab === 'allied_config') {
-      store.setAlliedFaction(null);
-      return;
-    }
+    // Closing a tab's × is always a UI-only action — it hides the tab, it never deletes data.
+    // The allied detachment's units stay intact in the background even with its tab closed;
+    // re-opening it (sidebar's "Allied: X" widget) shows the same roster exactly as left it.
+    // The ONLY ways to actually delete the ally are the dedicated "Remove" button (just the
+    // ally) or "Clear" (the whole army, which cascades to the ally too).
     setOpenTabs(prev => prev.filter(t => t !== tab));
     if (activeTab === tab) {
       const remaining = openTabs.filter(t => t !== tab);
@@ -572,7 +570,12 @@ export default function App() {
               </CollapsiblePanel>
 
               <CollapsiblePanel title="Allied Detachment" defaultOpen>
-                <AlliedDetachmentPanel primaryFaction={selectedFaction} />
+                <AlliedDetachmentPanel primaryFaction={selectedFaction}
+                  tabOpen={openTabs.includes('allied_config')}
+                  onOpenTab={() => {
+                    setOpenTabs(prev => prev.includes('allied_config') ? prev : [...prev, 'allied_config']);
+                    setActiveTab('allied_config');
+                  }} />
               </CollapsiblePanel>
 
               <ValidationPanel />
