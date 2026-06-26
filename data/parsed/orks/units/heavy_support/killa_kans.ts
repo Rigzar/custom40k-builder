@@ -92,7 +92,7 @@ export const killaKans: Unit = {
     {
       "header": "Every model must pick one weapon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
