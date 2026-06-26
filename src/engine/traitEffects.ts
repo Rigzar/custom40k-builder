@@ -10,6 +10,7 @@ import { VOTANN_TRAIT_EFFECTS } from './traits/leagues_of_votann';
 import { ADMECH_TRAIT_EFFECTS } from './traits/adeptus_mechanicus';
 import { IG_TRAIT_EFFECTS } from './traits/imperial_guard';
 import { TAU_TRAIT_EFFECTS } from './traits/tau_empire';
+import { NECRONS_TRAIT_EFFECTS } from './traits/necrons';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -54,6 +55,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...ADMECH_TRAIT_EFFECTS,
   ...IG_TRAIT_EFFECTS,
   ...TAU_TRAIT_EFFECTS,
+  ...NECRONS_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // (see ./traits/adeptus_mechanicus.ts — spread above)
@@ -77,7 +79,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // (see ./traits/leagues_of_votann.ts — spread above)
 
   // ── Necrons ──────────────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/necrons.ts — spread above)
 
   // ── Orks ─────────────────────────────────────────────────────────────────────
   // (see ./traits/orks.ts — spread above)
