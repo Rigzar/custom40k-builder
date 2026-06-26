@@ -11,6 +11,7 @@ import { ADMECH_TRAIT_EFFECTS } from './traits/adeptus_mechanicus';
 import { IG_TRAIT_EFFECTS } from './traits/imperial_guard';
 import { TAU_TRAIT_EFFECTS } from './traits/tau_empire';
 import { NECRONS_TRAIT_EFFECTS } from './traits/necrons';
+import { DARK_ELDAR_TRAIT_EFFECTS } from './traits/dark_eldar';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -56,6 +57,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...IG_TRAIT_EFFECTS,
   ...TAU_TRAIT_EFFECTS,
   ...NECRONS_TRAIT_EFFECTS,
+  ...DARK_ELDAR_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // (see ./traits/adeptus_mechanicus.ts — spread above)
@@ -64,7 +66,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // (see ./traits/adeptus_sororitas.ts — spread above)
 
   // ── Dark Eldar ───────────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/dark_eldar.ts — spread above)
 
   // ── Eldar ────────────────────────────────────────────────────────────────────
   // (see ./traits/eldar.ts — spread above)
