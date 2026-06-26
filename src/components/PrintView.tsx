@@ -734,15 +734,47 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
   const modelsToShow = rp.modelsToShow;
   const modelCounts  = rp.modelCounts;
 
-  function mergeTraits(w: Weapon): Weapon {
-    const extra = weaponTraitMap.get(w.name) ?? [];
+  // Same weapon prep as UnitPrintCard: group counts ("x2 Plasma pistol") and Armory-bought
+  // weapons must show up here too, not just on the illustrated card.
+  const armRanged: Weapon[] = [];
+  const armMelee:  Weapon[] = [];
+  function mergeTraits(w: Weapon, traitMap: Map<string, string[]> = weaponTraitMap): Weapon {
+    const extra = traitMap.get(w.name) ?? [];
     if (extra.length === 0) return w;
     const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
     return { ...w, abilities: [base, ...extra].filter(Boolean).join(', ') };
   }
-  const weaponsToShow = rp.weaponsToShow.map(mergeTraits);
-  const ranged = weaponsToShow.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
-  const melee  = weaponsToShow.filter(w => w.range === 'Melee' || w.type === 'Melee');
+  for (const sel of item.armory) {
+    if (sel.section === 'equipment') continue;
+    const arm = findArmoryItem(data, sel.itemName);
+    if (!arm) continue;
+    if (sel.section === 'daemon_weapons' && isWeaponTrait(arm.desc)) continue;
+    if (arm.profiles && arm.profiles.length > 0) {
+      for (const p of arm.profiles) {
+        const w: Weapon = { name: `${arm.name} — ${p.name}`, range: p.range, type: p.type, s: p.s, ap: p.ap, d: p.d, abilities: p.abilities };
+        (p.range === 'Melee' || p.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
+      }
+    } else if (arm.range) {
+      const w: Weapon = { name: arm.name, range: arm.range ?? '', type: arm.type ?? '', s: arm.s ?? '', ap: arm.ap ?? '', d: arm.d ?? '', abilities: arm.abilities };
+      (arm.range === 'Melee' || arm.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
+    }
+  }
+  const weaponGroupsPrint = rp.weaponGroups.map((g, gi) => {
+    const prefix = g.count != null ? `${g.count}x ` : '';
+    const tm     = g.traitMap ?? weaponTraitMap;
+    const ranged = g.weapons
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '')
+      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+    const melee = g.weapons
+      .filter(w => w.range === 'Melee' || w.type === 'Melee')
+      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+    return {
+      ranged: gi === 0 ? [...ranged, ...armRanged] : ranged,
+      melee: gi === 0 ? [...melee, ...armMelee] : melee,
+    };
+  });
+  const ranged = weaponGroupsPrint.flatMap(g => g.ranged);
+  const melee  = weaponGroupsPrint.flatMap(g => g.melee);
 
   const _shownWeaponBaseNames = new Set(rp.weaponsToShow.map((w: Weapon) => w.name.split(' - ')[0]));
   const _unselectedOptionalWeapons = new Set<string>();
