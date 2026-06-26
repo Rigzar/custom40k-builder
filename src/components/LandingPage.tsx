@@ -10,38 +10,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v10_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v11_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — GitHub bugs #10/#11 closed + Tau Drones + Archetype restrictions properly enforced',
-    intro: 'Hello commanders! Two more reported GitHub bugs closed, a full feature for T\'au Drones, and a big sweep of archetype rules that were quietly not being enforced for years across many factions.',
-    engine: '🐛 GitHub #10/#11: Orks Mekboy/Painboy now get Character-priced Armory items correctly, and the "Advisor" 1-per-HQ exemption is properly capped everywhere instead of being unconditional — this was a general engine bug affecting every faction\'s "Advisor" units, not just Orks.',
-    csm: '🛰 T\'au Empire: every "Drone controller" option (Commander, Battlesuits, Strike/Breacher/Pathfinder Teams, etc.) now lets you buy real Drones — correctly priced, capped, and shown as their own attached mini-model with stats, weapons and abilities.',
-    cd:  '⚖ Archetype rules across many factions (IG Mechanised Company/Whiteshields, AdMech Cybernetica Cohort/Ordo Reductor/Servitor Maniple, Sororitas Penitent Crusade, T\'au Stealth Cadre, Leagues of Votann Hearthfyre Arsenal) had restrictions described in their text that the builder quietly never enforced — composition caps, HQ-upgrade requirements, Troops ratios. All now actually validated.',
-    sm:  '✓ A handful of units across Adeptus Custodes, T\'au Empire and Imperial Guard had a wrong or missing "Advisor"-style slot exemption (Custodian Wardens, IG Platoon Command Squad, T\'au Sub-Commander/Ethereal Guard/Kroot escorts) — all corrected to use the right ratio.',
-    legacyfix: '🗓 Known Issues panel reflects the current state — the long-standing "archetype restrictions only work for a few factions" note is now closed, since it turned out to be stale.',
+    title: 'Developer Update — Trait effects now live for 8 of 19 factions + GitHub #10/#11 closed',
+    intro: 'Hello commanders! The biggest single addition yet: Army Traits now apply their actual in-game effects automatically for 7 more factions, not just description text.',
+    engine: '⚡ Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus and Imperial Guard join Chaos Space Marines and Space Marines with fully wired Trait effects — stat changes, ability injections, weapon bonuses and invulnerable saves now calculate live on the unit card instead of just showing the rule text. That\'s every trait, for every unit, across 8 of the 19 factions.',
+    csm: '🐛 GitHub #10/#11: Orks Mekboy/Painboy now get Character-priced Armory items correctly, and the "Advisor" 1-per-HQ exemption is properly capped everywhere instead of being unconditional.',
+    cd:  '⚙ A few traits per faction describe things the builder genuinely can\'t auto-apply (a player\'s free choice between sub-options, granting new wargear instead of an ability) — those stay as clear description text rather than being faked.',
+    sm:  '🗓 Known Issues panel updated to reflect the new 8/19 status — Tau Empire, Necrons and Dark Eldar are next.',
+    legacyfix: '🗓 Known Issues panel reflects the current state.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — GitHub-Bugs #10/#11 geschlossen + T\'au-Drohnen + Archetyp-Einschränkungen korrekt durchgesetzt',
-    intro: 'Hallo Kommandanten! Zwei weitere gemeldete GitHub-Bugs geschlossen, ein vollständiges Feature für T\'au-Drohnen, und eine große Überprüfung von Archetyp-Regeln, die über Jahre stillschweigend nicht durchgesetzt wurden.',
-    engine: '🐛 GitHub #10/#11: Orks Mekboy/Painboy erhalten jetzt korrekt Character-Preise für Rüstkammer-Artikel, und die "Advisor"-1-pro-HQ-Ausnahme ist überall korrekt begrenzt statt unbegrenzt — ein allgemeiner Engine-Fehler, der jede Fraktion betraf.',
-    csm: '🛰 T\'au Empire: jede "Drone controller"-Option erlaubt jetzt den Kauf echter Drohnen — korrekt bepreist, begrenzt und als eigenes angehängtes Mini-Modell mit Statuswerten, Waffen und Fähigkeiten dargestellt.',
-    cd:  '⚖ Archetyp-Regeln vieler Fraktionen hatten im Text beschriebene Einschränkungen, die der Builder nie durchsetzte — Kompositionsgrenzen, HQ-Upgrade-Anforderungen, Troops-Verhältnisse. Jetzt alle tatsächlich validiert.',
-    sm:  '✓ Mehrere Einheiten hatten eine falsche oder fehlende "Advisor"-Slot-Ausnahme — alle korrigiert.',
-    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider — die langjährige Notiz zu Archetyp-Einschränkungen ist jetzt geschlossen.',
+    title: 'Entwickler-Update — Eigenschaftseffekte jetzt live für 8 von 19 Fraktionen + GitHub #10/#11 geschlossen',
+    intro: 'Hallo Kommandanten! Die bisher größte Einzeländerung: Armee-Eigenschaften wenden jetzt für 7 weitere Fraktionen ihre tatsächlichen Spieleffekte automatisch an, nicht mehr nur Beschreibungstext.',
+    engine: '⚡ Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus und Imperial Guard erhalten jetzt vollständig verdrahtete Eigenschaftseffekte — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und unverwundbarkeit-Rettungswürfe werden live berechnet.',
+    csm: '🐛 GitHub #10/#11: Orks Mekboy/Painboy erhalten jetzt korrekt Character-Preise, und die "Advisor"-Ausnahme ist überall korrekt begrenzt.',
+    cd:  '⚙ Ein paar Eigenschaften pro Fraktion beschreiben Dinge, die der Builder nicht automatisch anwenden kann — die bleiben als klarer Beschreibungstext.',
+    sm:  '🗓 Known-Issues-Panel aktualisiert.',
+    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — bugs de GitHub #10/#11 cerrados + Drones Tau + restricciones de arquetipo aplicadas correctamente',
-    intro: '¡Hola comandantes! Dos bugs más reportados en GitHub cerrados, una funcionalidad completa para los Drones T\'au, y una gran revisión de reglas de arquetipo que llevaban años sin aplicarse silenciosamente en muchas facciones.',
-    engine: '🐛 GitHub #10/#11: Mekboy/Painboy de Orks ahora obtienen correctamente precios de Character en la Armería, y la exención "Advisor" de 1 por HQ está correctamente limitada en todas partes en vez de ser incondicional — era un bug general del motor que afectaba a las unidades "Advisor" de cualquier facción.',
-    csm: '🛰 T\'au Empire: cada opción "Drone controller" ahora permite comprar Drones reales — con precio y tope correctos, mostrados como su propio mini-modelo adjunto con stats, armas y habilidades.',
-    cd:  '⚖ Las reglas de arquetipo de muchas facciones (IG, AdMech, Sororitas, T\'au, Leagues of Votann) tenían restricciones descritas en su texto que el constructor nunca aplicaba — topes de composición, requisitos de mejora de HQ, ratios de Tropas. Ahora todas se validan de verdad.',
-    sm:  '✓ Varias unidades de Adeptus Custodes, T\'au Empire e Imperial Guard tenían una exención de slot tipo "Advisor" incorrecta o ausente — todas corregidas.',
-    legacyfix: '🗓 El panel de Known Issues refleja el estado actual — la nota de larga data sobre "las restricciones de arquetipo solo funcionan en pocas facciones" ya está cerrada, resultó estar desactualizada.',
+    title: 'Actualización del desarrollador — efectos de rasgos ya activos para 8 de 19 facciones + bugs de GitHub #10/#11 cerrados',
+    intro: '¡Hola comandantes! La adición más grande hasta ahora: los Rasgos de Ejército ya aplican su efecto real de juego automáticamente en 7 facciones más, no solo texto descriptivo.',
+    engine: '⚡ Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus e Imperial Guard se suman a Chaos Space Marines y Space Marines con efectos de rasgos totalmente implementados — cambios de stats, habilidades, bonos de arma e invulnerabilidad se calculan en vivo en la ficha.',
+    csm: '🐛 GitHub #10/#11: Mekboy/Painboy de Orks ya obtienen precios de Character correctos, y la exención "Advisor" está correctamente limitada en todas partes.',
+    cd:  '⚙ Algunos rasgos por facción describen cosas que el constructor no puede aplicar automáticamente — esos quedan como texto descriptivo claro en vez de simularse.',
+    sm:  '🗓 Panel de Known Issues actualizado al nuevo estado 8/19.',
+    legacyfix: '🗓 El panel de Known Issues refleja el estado actual.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };

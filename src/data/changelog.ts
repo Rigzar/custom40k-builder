@@ -48,11 +48,11 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.08',
     date: '2026-06-26',
-    title: { en: 'Adeptus Sororitas Trait effects wired + GitHub #10/#11 closed' },
+    title: { en: 'Trait effects wired for 7 more factions (Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus, Imperial Guard) + GitHub #10/#11 closed' },
     changes: { en: [
-      'Adeptus Sororitas joins Chaos Space Marines and Space Marines as a faction with fully wired Trait effects (stat changes, ability injections, weapon bonuses) instead of description-text-only — all 12 traits encoded. The underlying engine was already faction-agnostic; this was the first new faction added since the CSM/SM pilot, confirming the pattern holds.',
-      'Known Issues panel: merged a stale duplicate entry about Dark Eldar\'s Coordinated Raid archetype (ki-21c, superseded by a more detailed entry from the same audit).',
-      'Closed GitHub issues #10 and #11 (both already fixed in v1.07\'s Orks Advisor/Character-pricing work, never marked closed) and refreshed the in-app developer announcement, which was still describing an older v1.06-era batch.',
+      'Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus and Imperial Guard join Chaos Space Marines and Space Marines as factions with fully wired Trait effects (stat changes, ability injections, weapon bonuses, invulnerable saves) instead of description-text-only — every trait across all 7 factions encoded from the canonical archetypes.json text. The underlying engine (resolver.ts) was already faction-agnostic; this confirms the pattern holds for any faction, not just the original CSM/SM pilot. A handful of traits per faction describe mechanics the engine genuinely can\'t auto-apply (a player-choice sub-option, granting new wargear/weapon-swaps instead of an ability, a condition keyed to a weapon\'s name rather than its ranged/melee/bolt type) — those stay as descriptive text rather than being faked as something more precise. Orks\' "Waaagh! Coast Kustoms" (doubles the Kustom Job purchase cap, a different mechanic entirely) is the one trait left fully unwired, tracked as its own known issue.',
+      'Known Issues panel: merged a stale duplicate entry about Dark Eldar\'s Coordinated Raid archetype (ki-21c, superseded by a more detailed entry from the same audit), and updated the Trait-effects known issue to reflect 8 of 19 factions now done.',
+      'Closed GitHub issues #10 and #11 (both already fixed in v1.07\'s Orks Advisor/Character-pricing work, never marked closed) and refreshed the in-app developer announcement.',
     ] },
   },
   {
