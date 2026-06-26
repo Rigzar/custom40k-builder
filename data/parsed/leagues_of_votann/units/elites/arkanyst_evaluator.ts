@@ -79,7 +79,7 @@ export const arkanystEvaluator: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": false,
+  "advisor": true,
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 90

@@ -117,7 +117,7 @@ export const ogrynBodyguard: Unit = {
   ],
   "abilities": [
     "Bodyguard, Command Squad, Furious Charge, Massive(1)",
-    "Advisor: For each HQ selection, one Ogry Bodyguard may be selected that does not occupy an Elite slot.",
+    "Advisor: For each HQ selection, one Ogryn Bodyguard may be selected that does not occupy an Elite slot.",
     "Brute shield: The model gains the abilities \"Deflect\" and \"Parry\".",
     "Plate shield: The model gains +2 to armor rolls.",
     "Protect the little 'unz: The defensive profile for this model always takes precedent in any unit it is attached to, even if it is not part of the majority. This means all wounds are first assigned to this model as well."
@@ -134,7 +134,7 @@ export const ogrynBodyguard: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": false,
+  "advisor": true,
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 56

@@ -188,6 +188,7 @@ export const exaltedPlagueChampion: Unit = {
   "veteran_max": 1,
   "locked_mark": "Nurgle",
   "advisor": true,
+  "advisorRatio": 5,
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 62

@@ -26,13 +26,14 @@ type Rule = ReturnType<typeof getArchetypeRule>;
 /**
  * Advisor units' literal datasheet text is "For every HQ selection, one <X> may be selected
  * without taking up a [slot]" (e.g. Orks Mekboy/Painboy, SM Techmarine, CSM Master of Execution)
- * — a 1-per-HQ ratio keyed to that specific unit NAME. Core Rules doesn't define a generic
- * "Advisor" special rule; `advisor: true` just flags this per-unit pattern, so the ratio has to
- * be enforced here rather than read off a shared rule. Returns the RosterEntry ids exempt from
- * slot occupancy: the first N copies of each advisor unit name in a given allied/primary scope,
- * capped at how many HQ selections exist in that SAME scope — extra copies beyond the ratio
- * occupy their slot like any other unit (GitHub #10: Mekboy/Painboy never took up a slot
- * regardless of HQ count, because the old check exempted advisor units unconditionally).
+ * — a 1-per-HQ ratio keyed to that specific unit NAME (or `unit.advisorRatio` copies per HQ for
+ * the rare exception, e.g. CSM Exalted Plague Champion's "up to 5 per HQ unit"). Core Rules
+ * doesn't define a generic "Advisor" special rule; `advisor: true` just flags this per-unit
+ * pattern, so the ratio has to be enforced here rather than read off a shared rule. Returns the
+ * RosterEntry ids exempt from slot occupancy: the first N copies of each advisor unit name in a
+ * given allied/primary scope, capped at (HQ selections in that SAME scope) × ratio — extra copies
+ * beyond the ratio occupy their slot like any other unit (GitHub #10: Mekboy/Painboy never took
+ * up a slot regardless of HQ count, because the old check exempted advisor units unconditionally).
  */
 export function advisorExemptIds(
   army: RosterEntry[],
@@ -60,7 +61,7 @@ export function advisorExemptIds(
     const key = `${isAllied}:${i.unitName}`;
     const n = seen.get(key) ?? 0;
     seen.set(key, n + 1);
-    if (n < hqCount(isAllied)) exempt.add(i.id);
+    if (n < hqCount(isAllied) * (u.advisorRatio ?? 1)) exempt.add(i.id);
   }
   return exempt;
 }

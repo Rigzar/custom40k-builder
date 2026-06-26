@@ -227,6 +227,10 @@ export interface Unit {
   veteran_max?: number;
   locked_mark: string | null;
   advisor: boolean;
+  /** "For every HQ selection, up to N <this unit> may be selected without taking a slot" —
+   * defaults to 1 when unset (the common case). Only CSM's Exalted Plague Champion is "up to 5
+   * per HQ unit" per its own ability text; every other advisor-flagged unit checked is 1:1. */
+  advisorRatio?: number;
   default_size: number;
   min_cost: number;
   /**
