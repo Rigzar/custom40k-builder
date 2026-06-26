@@ -10,38 +10,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v9_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v10_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — 6 reported bugs fixed (Orks + Adeptus Mechanicus)',
-    intro: 'Hello commanders! Thanks to everyone reporting bugs through the in-app form — this update closes 6 of them in one go, all on Orks and one on Adeptus Mechanicus.',
-    engine: '⚙ Orks: Mekboy/Painboy "Advisor" rule now actually frees up the Elite slot; 10 units\' per-model Wildork/\'Eavy armour upgrade now scales its cost with squad size instead of charging once for the whole unit.',
-    csm: '✓ Orks: Dedicated Transport\'s slot limit in Pitched/Epic Battle now follows the canonical dynamic cap ("1 per Infantry-type unit") instead of a flat 3 — fixed for both the main roster and Allied Detachments.',
-    cd:  '✓ Orks: all 14 vehicles can now take a Kustom job (previously listed zero options, since vehicles don\'t get general Armory access) — gated by each job\'s canonical "Vehicle only"/"Walker only"/etc. restriction.',
-    sm:  '✓ General: buying Armory equipment for a squad\'s promoted champion (e.g. Mega armor for a Nob) no longer bleeds its stat bonuses onto the rest of the unit\'s displayed profile. Adeptus Mechanicus: the Dark Mechanicum archetype now actually grants its Mark of Chaos purchase and Chaos Space Marine Armory access.',
-    legacyfix: '🗓 Known Issues panel reflects the current state — most remaining open items are deliberate future features (cross-faction sub-model purchases, sub-choice pickers) rather than bugs.',
+    title: 'Developer Update — GitHub bugs #10/#11 closed + Tau Drones + Archetype restrictions properly enforced',
+    intro: 'Hello commanders! Two more reported GitHub bugs closed, a full feature for T\'au Drones, and a big sweep of archetype rules that were quietly not being enforced for years across many factions.',
+    engine: '🐛 GitHub #10/#11: Orks Mekboy/Painboy now get Character-priced Armory items correctly, and the "Advisor" 1-per-HQ exemption is properly capped everywhere instead of being unconditional — this was a general engine bug affecting every faction\'s "Advisor" units, not just Orks.',
+    csm: '🛰 T\'au Empire: every "Drone controller" option (Commander, Battlesuits, Strike/Breacher/Pathfinder Teams, etc.) now lets you buy real Drones — correctly priced, capped, and shown as their own attached mini-model with stats, weapons and abilities.',
+    cd:  '⚖ Archetype rules across many factions (IG Mechanised Company/Whiteshields, AdMech Cybernetica Cohort/Ordo Reductor/Servitor Maniple, Sororitas Penitent Crusade, T\'au Stealth Cadre, Leagues of Votann Hearthfyre Arsenal) had restrictions described in their text that the builder quietly never enforced — composition caps, HQ-upgrade requirements, Troops ratios. All now actually validated.',
+    sm:  '✓ A handful of units across Adeptus Custodes, T\'au Empire and Imperial Guard had a wrong or missing "Advisor"-style slot exemption (Custodian Wardens, IG Platoon Command Squad, T\'au Sub-Commander/Ethereal Guard/Kroot escorts) — all corrected to use the right ratio.',
+    legacyfix: '🗓 Known Issues panel reflects the current state — the long-standing "archetype restrictions only work for a few factions" note is now closed, since it turned out to be stale.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — 6 gemeldete Fehler behoben (Orks + Adeptus Mechanicus)',
-    intro: 'Hallo Kommandanten! Danke an alle, die über das In-App-Formular Fehler melden — dieses Update schließt 6 davon auf einmal, alle bei den Orks und einer bei Adeptus Mechanicus.',
-    engine: '⚙ Orks: die "Advisor"-Regel von Mekboy/Painboy befreit jetzt tatsächlich den Elite-Slot; bei 10 Einheiten skaliert das modellweise Wildork/\'Eavy-armour-Upgrade jetzt mit der Truppgröße statt nur einmal für die ganze Einheit zu kosten.',
-    csm: '✓ Orks: das Slot-Limit für Dedicated Transport in Pitched/Epic Battle folgt jetzt der kanonischen dynamischen Grenze ("1 pro Infantry-Einheit") statt einer festen 3 — behoben sowohl im Hauptroster als auch bei Allied Detachments.',
-    cd:  '✓ Orks: alle 14 Fahrzeuge können jetzt einen Kustom Job nehmen (zuvor null Optionen, da Fahrzeuge keinen allgemeinen Rüstkammerzugriff haben) — gegated nach der kanonischen "Nur Fahrzeug"/"Nur Walker"-Einschränkung jedes Jobs.',
-    sm:  '✓ Allgemein: der Kauf von Rüstkammer-Ausrüstung für den befördertenChampion einer Truppe (z. B. Mega-Rüstung für einen Nob) überträgt seine Statuswerte nicht mehr auf das restliche Profil der Einheit. Adeptus Mechanicus: der Dark-Mechanicum-Archetyp gewährt jetzt tatsächlich den Kauf des Mark of Chaos und Zugriff auf die Chaos-Space-Marines-Rüstkammer.',
-    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider — die meisten verbleibenden offenen Punkte sind bewusst geplante zukünftige Features (fraktionsübergreifende Unter-Modell-Käufe, Unterwahl-Picker), keine Fehler.',
+    title: 'Entwickler-Update — GitHub-Bugs #10/#11 geschlossen + T\'au-Drohnen + Archetyp-Einschränkungen korrekt durchgesetzt',
+    intro: 'Hallo Kommandanten! Zwei weitere gemeldete GitHub-Bugs geschlossen, ein vollständiges Feature für T\'au-Drohnen, und eine große Überprüfung von Archetyp-Regeln, die über Jahre stillschweigend nicht durchgesetzt wurden.',
+    engine: '🐛 GitHub #10/#11: Orks Mekboy/Painboy erhalten jetzt korrekt Character-Preise für Rüstkammer-Artikel, und die "Advisor"-1-pro-HQ-Ausnahme ist überall korrekt begrenzt statt unbegrenzt — ein allgemeiner Engine-Fehler, der jede Fraktion betraf.',
+    csm: '🛰 T\'au Empire: jede "Drone controller"-Option erlaubt jetzt den Kauf echter Drohnen — korrekt bepreist, begrenzt und als eigenes angehängtes Mini-Modell mit Statuswerten, Waffen und Fähigkeiten dargestellt.',
+    cd:  '⚖ Archetyp-Regeln vieler Fraktionen hatten im Text beschriebene Einschränkungen, die der Builder nie durchsetzte — Kompositionsgrenzen, HQ-Upgrade-Anforderungen, Troops-Verhältnisse. Jetzt alle tatsächlich validiert.',
+    sm:  '✓ Mehrere Einheiten hatten eine falsche oder fehlende "Advisor"-Slot-Ausnahme — alle korrigiert.',
+    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider — die langjährige Notiz zu Archetyp-Einschränkungen ist jetzt geschlossen.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — 6 bugs reportados arreglados (Orks + Adeptus Mechanicus)',
-    intro: '¡Hola comandantes! Gracias a todos los que reportan bugs con el formulario in-app — esta actualización cierra 6 de una vez, todos en Orks y uno en Adeptus Mechanicus.',
-    engine: '⚙ Orks: la regla "Advisor" de Mekboy/Painboy ahora sí libera el slot de Elite; en 10 unidades, la mejora por modelo Wildork/\'Eavy armour ahora escala su coste con el tamaño de la escuadra en vez de cobrar una sola vez por toda la unidad.',
-    csm: '✓ Orks: el límite de slot de Dedicated Transport en Pitched/Epic Battle ahora sigue el tope dinámico canónico ("1 por unidad tipo Infantry") en vez de un 3 fijo — arreglado tanto en el roster principal como en los Destacamentos Aliados.',
-    cd:  '✓ Orks: los 14 vehículos ya pueden tomar un Kustom job (antes no mostraban ninguna opción, porque los vehículos no tienen acceso a la Armería general) — filtrado según la restricción canónica de cada job ("Solo vehículo"/"Solo Walker"/etc.).',
-    sm:  '✓ General: comprar equipo de Armería para el campeón ascendido de una escuadra (p. ej. Mega armor para un Nob) ya no contagia sus bonos de estadística al resto del perfil mostrado de la unidad. Adeptus Mechanicus: el arquetipo Dark Mechanicum ahora sí otorga la compra de Mark of Chaos y acceso a la Armería de Chaos Space Marines.',
-    legacyfix: '🗓 El panel de Known Issues refleja el estado actual — la mayoría de los puntos abiertos restantes son features futuras deliberadas (compras de sub-modelos entre facciones, selectores de sub-elección), no bugs.',
+    title: 'Actualización del desarrollador — bugs de GitHub #10/#11 cerrados + Drones Tau + restricciones de arquetipo aplicadas correctamente',
+    intro: '¡Hola comandantes! Dos bugs más reportados en GitHub cerrados, una funcionalidad completa para los Drones T\'au, y una gran revisión de reglas de arquetipo que llevaban años sin aplicarse silenciosamente en muchas facciones.',
+    engine: '🐛 GitHub #10/#11: Mekboy/Painboy de Orks ahora obtienen correctamente precios de Character en la Armería, y la exención "Advisor" de 1 por HQ está correctamente limitada en todas partes en vez de ser incondicional — era un bug general del motor que afectaba a las unidades "Advisor" de cualquier facción.',
+    csm: '🛰 T\'au Empire: cada opción "Drone controller" ahora permite comprar Drones reales — con precio y tope correctos, mostrados como su propio mini-modelo adjunto con stats, armas y habilidades.',
+    cd:  '⚖ Las reglas de arquetipo de muchas facciones (IG, AdMech, Sororitas, T\'au, Leagues of Votann) tenían restricciones descritas en su texto que el constructor nunca aplicaba — topes de composición, requisitos de mejora de HQ, ratios de Tropas. Ahora todas se validan de verdad.',
+    sm:  '✓ Varias unidades de Adeptus Custodes, T\'au Empire e Imperial Guard tenían una exención de slot tipo "Advisor" incorrecta o ausente — todas corregidas.',
+    legacyfix: '🗓 El panel de Known Issues refleja el estado actual — la nota de larga data sobre "las restricciones de arquetipo solo funcionan en pocas facciones" ya está cerrada, resultó estar desactualizada.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };
