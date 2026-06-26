@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, computeGscEliteFreeSlots, computeEinhyrChampionFreeSlots, computeTyrantGuardFreeSlots, computeCultistFirebrandFreeSlots, computeCommissarFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -393,6 +393,11 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const crusadersFree = computeCrusadersFreeSlots(army, primaryData);
   const servitorFree = computeServitorFreeSlots(army, primaryData);
   const archetypeHqFree = computeArchetypeHqFreeSlots(army, rule, store.pointLimit);
+  const gscEliteFree = computeGscEliteFreeSlots(army, primaryData, store.pointLimit);
+  const einhyrChampionFree = computeEinhyrChampionFreeSlots(army, primaryData);
+  const tyrantGuardFree = computeTyrantGuardFreeSlots(army, primaryData);
+  const cultistFirebrandFree = computeCultistFirebrandFreeSlots(army, primaryData);
+  const commissarFree = computeCommissarFreeSlots(army, primaryData, store);
 
   return (
     <div className="divide-y divide-zinc-800/50">
@@ -419,9 +424,9 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         if (slot === 'Lords of War' && (engagement !== 'epic' || units.length === 0)) return null;
         const isLordsOfWar = slot === 'Lords of War';
 
-        const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq
+        const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq
           : slot === 'Fast Attack' ? cdFree.fa
-          : slot === 'Elites' ? assassinFree.elites + crusadersFree.elites + servitorFree.elites
+          : slot === 'Elites' ? assassinFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites
           : 0;
         const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction) - slotAdj);
         const isFull = used >= max && max > 0;

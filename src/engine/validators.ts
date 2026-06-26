@@ -371,6 +371,127 @@ export function computeServitorFreeSlots(
 }
 
 /**
+ * Genestealer Cults: 8 named Elites characters (Abominant, Biophagus, Clamavus, Kelermorph,
+ * Locus, Nexos, Sanctus, Reductus Saboteur) each independently say "For every 500 points of game
+ * size, one <name> may be included in the army that does not take up an Elite slot" — found as
+ * an inert empty-choices option_group on every one of them (no per-unit inline flag like Eldar
+ * Warlocks have, so every copy is eligible up to the cap, same as Geminae Superia/Servitors —
+ * just points-capped instead of unit-ratio-capped). Each unit's cap is computed independently
+ * (not pooled), per its own ods-verbatim wording.
+ */
+const GSC_POINTS_FREE_ELITES = ['Abominant', 'Biophagus', 'Clamavus', 'Kelermorph', 'Locus', 'Nexos', 'Sanctus', 'Reductus Saboteur'];
+export function computeGscEliteFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+  pointLimit: number,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Genestealer Cults') return { elites: 0, notes: [] };
+  const cap = Math.floor(pointLimit / 500);
+  let elites = 0;
+  const notes: string[] = [];
+  for (const name of GSC_POINTS_FREE_ELITES) {
+    const count = army.filter(i => i.unitName === name).length;
+    if (count === 0) continue;
+    const credited = Math.min(count, cap);
+    elites += credited;
+    notes.push(`${name}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the Elite slot (1 per 500pts of game size, ${pointLimit}pts → max ${cap}).`);
+    if (count > cap) {
+      notes.push(`${name}: ${count - cap} extra unit${count - cap === 1 ? '' : 's'} exceed the game-size cap and still occupy a normal Elite slot.`);
+    }
+  }
+  return { elites, notes };
+}
+
+/**
+ * Leagues of Votann Einhyr Champion: "For every unit of Einhyr Hearthguard taken in an Elite
+ * slot, a single Einhyr Champion may be included that does not take up an Elite slot." Same
+ * ratio-against-a-sibling-unit shape as Crusaders/Preacher.
+ */
+export function computeEinhyrChampionFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Leagues of Votann') return { elites: 0, notes: [] };
+  const championCount = army.filter(i => i.unitName === 'Einhyr Champion').length;
+  const hearthguardCount = army.filter(i => i.unitName === 'Einhyr Hearthguard').length;
+  if (championCount === 0 || hearthguardCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(championCount, hearthguardCount);
+  const notes = [`Einhyr Champion: ${credited} of ${championCount} unit${championCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Einhyr Hearthguard, have ${hearthguardCount}).`];
+  if (championCount > hearthguardCount) {
+    notes.push(`Einhyr Champion: ${championCount - hearthguardCount} extra unit${championCount - hearthguardCount === 1 ? '' : 's'} exceed the Einhyr Hearthguard ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/**
+ * Tyranids Tyrant Guard Brood: "For every Hive Tyrant or Swarmlord selection, the army may
+ * include one Tyrant Guard Brood that does not take up an HQ slot." Same shape, HQ instead of
+ * Elites (Tyrant Guard Brood's own printed slot is HQ).
+ */
+export function computeTyrantGuardFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Tyranids') return { hq: 0, notes: [] };
+  const guardCount = army.filter(i => i.unitName === 'Tyrant Guard Brood').length;
+  const anchorCount = army.filter(i => i.unitName === 'Hive Tyrant' || i.unitName === 'Swarmlord').length;
+  if (guardCount === 0 || anchorCount === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(guardCount, anchorCount);
+  const notes = [`Tyrant Guard Brood: ${credited} of ${guardCount} unit${guardCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Hive Tyrant/Swarmlord, have ${anchorCount}).`];
+  if (guardCount > anchorCount) {
+    notes.push(`Tyrant Guard Brood: ${guardCount - anchorCount} extra unit${guardCount - anchorCount === 1 ? '' : 's'} exceed the Hive Tyrant/Swarmlord ratio and still occupy a normal HQ slot.`);
+  }
+  return { hq: credited, notes };
+}
+
+/**
+ * Chaos Space Marines Cultist Firebrand: "For each Cultists unit, one Cultist Firebrand unit may
+ * be selected that does not occupy an Elite slot." Same shape again.
+ */
+export function computeCultistFirebrandFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Chaos Space Marines') return { elites: 0, notes: [] };
+  const firebrandCount = army.filter(i => i.unitName === 'Cultist Firebrand').length;
+  const cultistsCount = army.filter(i => i.unitName === 'Cultists').length;
+  if (firebrandCount === 0 || cultistsCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(firebrandCount, cultistsCount);
+  const notes = [`Cultist Firebrand: ${credited} of ${firebrandCount} unit${firebrandCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Cultists, have ${cultistsCount}).`];
+  if (firebrandCount > cultistsCount) {
+    notes.push(`Cultist Firebrand: ${firebrandCount - cultistsCount} extra unit${firebrandCount - cultistsCount === 1 ? '' : 's'} exceed the Cultists ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/**
+ * Imperial Guard Commissar: ability text/flag says `advisor: true` (copied from the per-HQ
+ * "Advisor:" pattern), but its OWN datasheet ratio is "For each Infantry type unit selection,
+ * one Commissar may be selected that does not occupy an Elite slot" — anchored to Infantry-type
+ * SELECTIONS army-wide, not HQ count. `advisorExemptIds` hardcodes the HQ-count anchor, so it was
+ * silently mis-crediting Commissar (e.g. exempting one with 1 HQ and 0 Infantry units, or
+ * capping at HQ count regardless of how many Infantry selections are actually present). Fixed at
+ * the data level (commissar.ts: `advisor: false`) and given its own correctly-anchored function,
+ * reusing the same "strict Infantry selection" definition as the Dedicated Transport AOP cap.
+ */
+export function computeCommissarFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+  state: ArmyState,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Imperial Guard') return { elites: 0, notes: [] };
+  const commissarCount = army.filter(i => i.unitName === 'Commissar').length;
+  if (commissarCount === 0) return { elites: 0, notes: [] };
+  const infantryCount = countInfantrySelections(state, data, false);
+  const credited = Math.min(commissarCount, infantryCount);
+  const notes = [`Commissar: ${credited} of ${commissarCount} unit${commissarCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Infantry-type selection, have ${infantryCount}).`];
+  if (commissarCount > infantryCount) {
+    notes.push(`Commissar: ${commissarCount - infantryCount} extra unit${commissarCount - infantryCount === 1 ? '' : 's'} exceed the Infantry-selection ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/**
  * Generic version of computeEldarWarlockFreeSlots' "1 free per 500pts of game size" shape, for
  * archetypes (not unit abilities) that grant it — e.g. Votann Hearthfyre Arsenal's
  * `pointsBasedHqFree`. Every copy of the named unit is eligible (no per-unit inline flag to
@@ -1263,6 +1384,37 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: note });
   }
 
+  // GSC: "1 free Elite slot per 500pts of game size" for 8 named characters (own ability text each)
+  const gscEliteFree = computeGscEliteFreeSlots(state.army, data, state.pointLimit);
+  for (const note of gscEliteFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Votann Einhyr Champion: "1 free Elite slot per Einhyr Hearthguard" (own ability text)
+  const einhyrChampionFree = computeEinhyrChampionFreeSlots(state.army, data);
+  for (const note of einhyrChampionFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Tyranids Tyrant Guard Brood: "1 free HQ slot per Hive Tyrant/Swarmlord" (own ability text)
+  const tyrantGuardFree = computeTyrantGuardFreeSlots(state.army, data);
+  for (const note of tyrantGuardFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // CSM Cultist Firebrand: "1 free Elite slot per Cultists unit" (own ability text)
+  const cultistFirebrandFree = computeCultistFirebrandFreeSlots(state.army, data);
+  for (const note of cultistFirebrandFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // IG Commissar: "1 free Elite slot per Infantry-type selection" (own ability text — NOT a
+  // per-HQ advisor ratio, see computeCommissarFreeSlots' doc comment)
+  const commissarFree = computeCommissarFreeSlots(state.army, data, state);
+  for (const note of commissarFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // "Cults Abominatioe"/"Execution Force" (Assassins' OWN canonical special rules,
   // data/source/Assassins ENG/Index.html, verbatim): the army may field EITHER a single
   // Assassin (any one of the 4 types, exactly one model) OR one of each of the 4 — no
@@ -1305,9 +1457,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -1762,9 +1914,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not
