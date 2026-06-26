@@ -709,6 +709,174 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   );
 }
 
+// ── Simple unit card — plain stacked tables (BattleScribe-style "clean" layout) ───────────────
+const simpleTh: React.CSSProperties = {
+  textAlign: 'center', padding: '2px 6px', fontSize: '.7em', fontWeight: 700,
+  border: '1px solid #999', background: '#e8e8e8',
+};
+const simpleTd: React.CSSProperties = {
+  textAlign: 'center', padding: '2px 6px', fontSize: '.78em', border: '1px solid #ccc',
+};
+const simpleSectionLabel: React.CSSProperties = {
+  textAlign: 'left', padding: '2px 6px', fontSize: '.7em', fontWeight: 700,
+  border: '1px solid #999', background: '#e8e8e8',
+};
+
+function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }) {
+  const u = resolveUnit(item, data);
+  if (!u) return null;
+
+  const storeState = useArmyStore.getState();
+  const rp = resolveUnitProfile(item, u, storeState, data);
+  const { pts, weaponTraitMap, injectedAbilities, optionAbilities, equipMods,
+          effectivePsyker, psykerGroupIdx } = rp;
+  const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
+  const modelsToShow = rp.modelsToShow;
+  const modelCounts  = rp.modelCounts;
+
+  function mergeTraits(w: Weapon): Weapon {
+    const extra = weaponTraitMap.get(w.name) ?? [];
+    if (extra.length === 0) return w;
+    const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
+    return { ...w, abilities: [base, ...extra].filter(Boolean).join(', ') };
+  }
+  const weaponsToShow = rp.weaponsToShow.map(mergeTraits);
+  const ranged = weaponsToShow.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '');
+  const melee  = weaponsToShow.filter(w => w.range === 'Melee' || w.type === 'Melee');
+
+  const _shownWeaponBaseNames = new Set(rp.weaponsToShow.map((w: Weapon) => w.name.split(' - ')[0]));
+  const _unselectedOptionalWeapons = new Set<string>();
+  const _allChoiceAbilityTexts = new Set<string>();
+  for (const g of u.option_groups) {
+    for (const c of g.choices) {
+      const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+      for (const part of (parts.length > 1 ? parts : [c.name])) {
+        if (u.weapons.some((w: Weapon) => w.name.split(' - ')[0] === part) && !_shownWeaponBaseNames.has(part)) {
+          _unselectedOptionalWeapons.add(part.toLowerCase());
+        }
+      }
+      for (const ab of (c.abilities ?? [])) _allChoiceAbilityTexts.add(ab.toLowerCase());
+    }
+  }
+  const _selectedChoiceAbilityTexts = new Set((injectedAbilities as string[]).map((a: string) => a.toLowerCase()));
+  const _hasPsykerOption = psykerGroupIdx >= 0 && !effectivePsyker;
+
+  const abilitiesList = [
+    ...(u.abilities as string[]).filter((ab: string) => {
+      if (/^\d+$/.test(ab.trim())) return false;
+      const ci = ab.indexOf(':');
+      const label = ci > 0 ? ab.substring(0, ci).trim().toLowerCase() : ab.trim().toLowerCase();
+      if (_unselectedOptionalWeapons.has(label)) return false;
+      if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
+      if (_hasPsykerOption && label === 'psyker') return false;
+      return true;
+    }),
+    ...injectedAbilities.filter(ab => !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))),
+    ...equipMods.grantedAbilities.filter(ab => !u.abilities.some((a: string) => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())),
+    ...optionAbilities.filter(ab => !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))),
+  ];
+  const ruleNames = abilitiesList.map(ab => { const ci = ab.indexOf(':'); return ci > 0 && ci < 52 ? ab.slice(0, ci) : ab; });
+
+  return (
+    <div style={{ marginBottom: 14, pageBreakInside: 'avoid', breakInside: 'avoid', fontFamily: "'Trebuchet MS', sans-serif", color: '#111' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '2px solid #111', paddingBottom: 2, marginBottom: 4 }}>
+        <span style={{ fontWeight: 800, fontSize: '1em' }}>{item.customName || u.name}</span>
+        <span style={{ fontWeight: 700, fontSize: '.85em' }}>{pts} pts</span>
+      </div>
+
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
+        <thead>
+          <tr><th colSpan={statKeys.length + 1} style={simpleSectionLabel}>Unit</th></tr>
+          <tr>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>Model</th>
+            {statKeys.map(k => <th key={k} style={simpleTh}>{k}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {modelsToShow.map((m, mi) => {
+            const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
+            return (
+              <tr key={mi}>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>
+                  {modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name}
+                </td>
+                {statKeys.map(k => <td key={k} style={simpleTd}>{modStats[k] ?? '-'}</td>)}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
+      {abilitiesList.length > 0 && (
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
+          <thead><tr><th style={{ ...simpleTh, textAlign: 'left' }}>Abilities</th><th style={{ ...simpleTh, textAlign: 'left' }}>Description</th></tr></thead>
+          <tbody>
+            {abilitiesList.map((ab, i) => {
+              const ci = ab.indexOf(':');
+              const split = ci > 0 && ci < 52;
+              return (
+                <tr key={i}>
+                  <td style={{ ...simpleTd, textAlign: 'left', fontWeight: 700 }}>{split ? ab.slice(0, ci) : ab}</td>
+                  <td style={{ ...simpleTd, textAlign: 'left' }}>{split ? ab.slice(ci + 1).trim() : ''}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
+
+      {ranged.length > 0 && (
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
+          <thead><tr>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>Ranged Weapons</th>
+            <th style={simpleTh}>Range</th><th style={simpleTh}>S</th><th style={simpleTh}>AP</th><th style={simpleTh}>D</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>Keywords</th>
+          </tr></thead>
+          <tbody>
+            {ranged.map((w, i) => (
+              <tr key={i}>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.name}</td>
+                <td style={simpleTd}>{w.range}</td><td style={simpleTd}>{w.s}</td><td style={simpleTd}>{w.ap}</td><td style={simpleTd}>{w.d}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {melee.length > 0 && (
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
+          <thead><tr>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>Melee Weapons</th>
+            <th style={simpleTh}>Range</th><th style={simpleTh}>S</th><th style={simpleTh}>AP</th><th style={simpleTh}>D</th>
+            <th style={{ ...simpleTh, textAlign: 'left' }}>Keywords</th>
+          </tr></thead>
+          <tbody>
+            {melee.map((w, i) => (
+              <tr key={i}>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.name}</td>
+                <td style={simpleTd}>{w.range}</td><td style={simpleTd}>{w.s}</td><td style={simpleTd}>{w.ap}</td><td style={simpleTd}>{w.d}</td>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{w.abilities && w.abilities !== '-' ? w.abilities : ''}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {ruleNames.length > 0 && (
+        <div style={{ fontSize: '.74em', marginBottom: 3 }}>
+          <span style={{ fontWeight: 700 }}>Rules: </span>{ruleNames.join(', ')}
+        </div>
+      )}
+      {u.keywords.length > 0 && (
+        <div style={{ fontSize: '.74em', color: '#444' }}>
+          <span style={{ fontWeight: 700 }}>Categories: </span>{u.keywords.join(', ')}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Radar / spider chart ──────────────────────────────────────────────────────
 function RadarChart({ labels, values, color, title, size = 190, subLabels }: {
   labels: string[]; values: number[]; color: string; title: string; size?: number; subLabels?: string[];
@@ -1185,7 +1353,7 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
 export function PrintView({ onClose }: { onClose: () => void }) {
   const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark, armyName } = useArmyStore();
   const { language: rootLang } = useLanguage();
-  const [mode, setMode] = useState<'cards' | 'list'>('cards');
+  const [mode, setMode] = useState<'cards' | 'simple' | 'list'>('cards');
   if (!data) return null;
 
   const rule         = getArchetypeRule(archetype);
@@ -1294,10 +1462,10 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 mr-1">
-            {(['cards', 'list'] as const).map(m => (
+            {(['cards', 'simple', 'list'] as const).map(m => (
               <button key={m} onClick={() => setMode(m)}
                 className={`px-3 py-1.5 text-xs uppercase tracking-wide border transition-colors ${mode === m ? 'bg-amber-800 border-amber-600 text-white' : 'bg-zinc-700 border-zinc-600 text-zinc-300 hover:bg-zinc-600'}`}>
-                {m === 'cards' ? 'Cards' : 'List'}
+                {m === 'cards' ? 'Cards' : m === 'simple' ? 'Simple' : 'List'}
               </button>
             ))}
           </div>
@@ -1331,7 +1499,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           <CompactList army={army} data={data} color={primaryColor} />
         )}
 
-        {mode === 'cards' && (() => {
+        {(mode === 'cards' || mode === 'simple') && (() => {
           const sorted = [...army].sort((a, b) => {
             const ai = SLOT_ORDER.indexOf(a.slot as typeof SLOT_ORDER[number]);
             const bi = SLOT_ORDER.indexOf(b.slot as typeof SLOT_ORDER[number]);
@@ -1344,7 +1512,9 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             return (
               <Fragment key={item.id}>
                 {showDivider && <SlotDivider slot={item.slot} color={primaryColor} />}
-                <UnitPrintCard item={item} data={data} />
+                {mode === 'cards'
+                  ? <UnitPrintCard item={item} data={data} />
+                  : <SimpleUnitCard item={item} data={data} />}
               </Fragment>
             );
           });
