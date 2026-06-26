@@ -670,15 +670,21 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     id: 'ki-22a',
     status: 'known',
     title: {
-      en: 'Trait effects wired for CSM, SM and Sororitas — other factions show description text only',
-      de: 'Eigenschafts-Effekte für CSM, SM und Sororitas verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
-      es: 'Efectos de rasgos implementados para CSM, SM y Sororitas — otras facciones muestran solo texto descriptivo',
+      en: 'Trait effects wired for CSM, SM, Sororitas, Orks and Genestealer Cults — other factions show description text only',
+      de: 'Eigenschafts-Effekte für CSM, SM, Sororitas, Orks und Genestealer Cults verdrahtet — andere Fraktionen zeigen nur Beschreibungstext',
+      es: 'Efectos de rasgos implementados para CSM, SM, Sororitas, Orks y Genestealer Cults — otras facciones muestran solo texto descriptivo',
     },
     description: {
-      en: 'Chaos Space Marines, Space Marines and Adeptus Sororitas have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design; Grey Knights, Inquisition, Tyranids and Adeptus Custodes likewise have no Army Traits at all). The engine itself (resolver.ts) is faction-agnostic — it reads TRAIT_EFFECTS for whichever traits the active army has, with no per-faction gating beyond a CSM-keyword check. Adding a faction is just authoring its `traits/<faction>.ts` file from the canonical archetypes.json text and spreading it into TRAIT_EFFECTS (traitEffects.ts) — confirmed 2026-06-26 while wiring Sororitas. For the remaining 12 factions with traits (Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus, Imperial Guard, Tau Empire, Necrons, Dark Eldar — CSM/SM/Sororitas/CD done, GK/Inquisition/Tyranids/Custodes have none), traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction.',
-      de: 'Chaos Space Marines, Space Marines und Adeptus Sororitas haben alle Eigenschaftseffekte vollständig verdrahtet. Für die übrigen 12 Fraktionen mit Traits werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
-      es: 'Chaos Space Marines, Space Marines y Adeptus Sororitas tienen todos los efectos de rasgos totalmente implementados. Para las 12 facciones restantes con rasgos, se muestran y valoran correctamente pero sus efectos son solo texto descriptivo. Se implementará facción por facción.',
+      en: 'Chaos Space Marines, Space Marines, Adeptus Sororitas, Orks and Genestealer Cults have all trait effects fully wired — stat changes, ability injections, weapon bonuses and invulnerable saves calculate live on the unit card. Chaos Daemons traits are also priced correctly (CD has no traits by design; Grey Knights, Inquisition, Tyranids and Adeptus Custodes likewise have no Army Traits at all). The engine itself (resolver.ts) is faction-agnostic — it reads TRAIT_EFFECTS for whichever traits the active army has, with no per-faction gating beyond a CSM-keyword check. Adding a faction is just authoring its `traits/<faction>.ts` file from the canonical archetypes.json text and spreading it into TRAIT_EFFECTS (traitEffects.ts) — confirmed 2026-06-26 while wiring Sororitas/Orks/GSC. Orks\' "Waaagh! Coast Kustoms" (doubles the Kustom Job purchase cap) is the one exception even within a done faction — see ki-orks-waaaghcoastkustoms-unmodelled-01. For the remaining 10 factions with traits (Eldar, Leagues of Votann, Adeptus Mechanicus, Imperial Guard, Tau Empire, Necrons, Dark Eldar — GK/Inquisition/Tyranids/Custodes have none), traits are displayed and priced correctly but their in-game stat/ability effects are description text only, not applied automatically. Being rolled out faction by faction.',
+      de: 'Chaos Space Marines, Space Marines, Adeptus Sororitas, Orks und Genestealer Cults haben alle Eigenschaftseffekte vollständig verdrahtet. Für die übrigen 10 Fraktionen mit Traits werden Eigenschaften korrekt angezeigt und bewertet, aber ihre spielerischen Effekte sind nur Beschreibungstext. Wird Fraktion für Fraktion umgesetzt.',
+      es: 'Chaos Space Marines, Space Marines, Adeptus Sororitas, Orks y Genestealer Cults tienen todos los efectos de rasgos totalmente implementados. Para las 10 facciones restantes con rasgos, se muestran y valoran correctamente pero sus efectos son solo texto descriptivo. Se implementará facción por facción.',
     },
+  },
+  {
+    id: 'ki-orks-waaaghcoastkustoms-unmodelled-01',
+    status: 'known',
+    title: 'Orks — "Waaagh! Coast Kustoms" trait (doubles the Kustom Job purchase cap) not engine-modelled',
+    description: 'Found while wiring Orks\' other 13 traits (ki-22a) 2026-06-26. Canonical text: "Each Kustom job can be taken one additional time." This isn\'t a per-unit stat/ability/weapon effect — TraitEffect (traitEffects.ts) has no way to express "double a DIFFERENT mechanic\'s purchase cap." Needs the Kustom Job picker itself (codex_orks/) to read the active trait and raise its own per-vehicle cap. Left unwired rather than faked as a no-op unit_ability.',
   },
   {
     id: 'ki-26a',

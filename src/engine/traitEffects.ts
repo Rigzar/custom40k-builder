@@ -5,6 +5,7 @@ import { SM_TRAIT_EFFECTS } from './traits/space_marines';
 import { SORORITAS_TRAIT_EFFECTS } from './traits/adeptus_sororitas';
 import { ORKS_TRAIT_EFFECTS } from './traits/orks';
 import { GSC_TRAIT_EFFECTS } from './traits/genestealer_cults';
+import { ELDAR_TRAIT_EFFECTS } from './traits/eldar';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -44,6 +45,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...SORORITAS_TRAIT_EFFECTS,
   ...ORKS_TRAIT_EFFECTS,
   ...GSC_TRAIT_EFFECTS,
+  ...ELDAR_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // TODO
@@ -55,7 +57,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // TODO
 
   // ── Eldar ────────────────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/eldar.ts — spread above)
 
   // ── Genestealer Cults ────────────────────────────────────────────────────────
   // (see ./traits/genestealer_cults.ts — spread above)
