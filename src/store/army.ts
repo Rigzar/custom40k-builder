@@ -212,7 +212,10 @@ function mergeAlliedIntoData(data: FactionData, alliedFaction: string | undefine
   if (!alliedFaction || !alliedData) return data;
   return {
     ...data,
-    allied: { ...(data.allied ?? {}), [alliedFaction]: { slot_to_units: alliedData.slot_to_units, units: alliedData.units, allied: alliedData.allied } },
+    allied: { ...(data.allied ?? {}), [alliedFaction]: {
+      faction: alliedData.faction, slot_to_units: alliedData.slot_to_units, units: alliedData.units,
+      allied: alliedData.allied, base_allied: alliedData.base_allied,
+    } },
   };
 }
 

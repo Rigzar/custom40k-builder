@@ -34,6 +34,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Print View "Print" button opened a separate blank tab and rebuilt the card markup from scratch — relative image paths (faction symbols, mark/weapon icons) silently failed to resolve there, so all artwork vanished on the printed/PDF output even though it looked fine on screen. Simplified to call window.print() on the current page directly (the app\'s own CSS already has the print-specific rules and fonts wired) — fixes the missing artwork and the jarring double page-jump (new tab, then print dialog).',
       'Army JSON import only supported pasting text into a box. Added a real file-upload button next to the existing "↓ JSON" download button.',
       'Added a third Print View mode, "Simple" — a plain stacked-table layout (Unit stats / Abilities / Ranged Weapons / Melee Weapons / Rules / Categories) alongside the existing illustrated "Cards" style and the compact "List" style, for players who prefer a lighter, ink-friendly printout.',
+      'GENERAL: a faction\'s own always-on allied grants (e.g. Grey Knights\' native Inquisition access, or the Assassins\' universal Chaos/Imperial grant) silently disappeared whenever that faction was picked as the Allied Detachment instead of the primary army — only its base roster showed up. Carried both grants through correctly so they work the same whether the faction is primary or allied.',
     ] },
   },
   {

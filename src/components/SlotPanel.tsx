@@ -82,10 +82,11 @@ function computeAopMult(
  * `scope="allied"` reads from `data.allied[alliedFactionKey]` instead of `data` directly, uses
  * the ally's OWN archetype (alliedArchetype) for slot remap/nested-ally injection, and the fixed
  * ALLIED_AOP instead of the engagement's AOP (Core Rules L1834: allies get their own catalogue
- * and AOP, sharing only the point limit). The primary-only mechanics below (Chamber Militant,
- * legacy-granted factions, base_allied universal grants, Assassins universal access, CD/Assassin
- * free-slot adjustments, per-unit disabledReason gating, multi-AOP scaling) don't apply at the
- * allied-detachment level and are skipped for that scope.
+ * and AOP, sharing only the point limit). The ally's OWN `base_allied` grant and the Assassins
+ * universal grant DO carry over (the ally is its own faction with its own always-on rules,
+ * independent of which archetype it picked) — but the PRIMARY-only mechanics below (Chamber
+ * Militant, legacy-granted factions, CD/Assassin free-slot adjustments, multi-AOP scaling) are
+ * genuinely primary-army-only concepts and stay skipped for the allied-detachment scope.
  */
 export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'primary' | 'allied'; alliedFactionKey?: string }) {
   const store = useArmyStore();
@@ -104,10 +105,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const rule = getArchetypeRule(archetype);
 
   if (isAllied) {
-    // Allied scope: only the ally's own nested-ally injection (e.g. CSM "Plaguehost" granting
-    // Chaos Daemons units to the allied detachment itself) applies — none of the primary-only
-    // mechanics below (Chamber Militant, legacy-granted factions, base_allied, Assassins, free
-    // slots, disabledReason gating).
+    // Allied scope: the ally's own nested-ally injection (e.g. CSM "Plaguehost" granting Chaos
+    // Daemons units), its own base_allied grant, and the Assassins universal grant all apply —
+    // none of the genuinely primary-only mechanics (Chamber Militant, legacy-granted factions,
+    // CD/Assassin free-slot adjustments, multi-AOP scaling).
     const effectiveSlotUnits: Record<string, SlotEntry[]> = {};
     for (const slot of SLOT_ORDER) effectiveSlotUnits[slot] = [];
     for (const [originalSlot, names] of Object.entries(data.slot_to_units)) {
@@ -136,6 +137,41 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           if (effectiveSlotUnits[effSlot]) {
             effectiveSlotUnits[effSlot].push({ name, factionSource: rule.alliedFaction, injected: true, minCost: u.min_cost });
           }
+        }
+      }
+    }
+
+    // The ally's own base_allied grant (e.g. Grey Knights + Inquisition) — always available
+    // regardless of the ally's own archetype, same as the primary-scope version below.
+    for (const baseKey of data.base_allied ?? []) {
+      if (rule?.alliedFaction === baseKey) continue; // already handled above
+      const baseData = data.allied?.[baseKey];
+      if (!baseData) continue;
+      for (const [originalSlot, names] of Object.entries(baseData.slot_to_units)) {
+        for (const name of names) {
+          const u = baseData.units[name];
+          if (!u) continue;
+          const effSlot = getEffectiveSlot(name, originalSlot, rule);
+          if (effectiveSlotUnits[effSlot]) {
+            effectiveSlotUnits[effSlot].push({ name, factionSource: baseKey, minCost: u.min_cost });
+          }
+        }
+      }
+    }
+
+    // Assassins' OWN universal grant, same as the primary-scope version below — applies when
+    // the ALLY's own faction is Chaos or Imperial (e.g. an allied Grey Knights detachment also
+    // gets the "Execution Force" Assassin access).
+    const allyAssassinAlignment = data.faction ? getAssassinAccessAlignment(data.faction) : null;
+    if (allyAssassinAlignment && data.allied?.['assassins']) {
+      const adata = data.allied['assassins'];
+      const groupLabel = assassinAccessGroupLabel(allyAssassinAlignment);
+      for (const name of adata.slot_to_units['Elites'] ?? []) {
+        const u = adata.units[name];
+        if (!u) continue;
+        const effSlot = getEffectiveSlot(name, 'Elites', rule);
+        if (effectiveSlotUnits[effSlot]) {
+          effectiveSlotUnits[effSlot].push({ name, factionSource: 'assassins', injected: true, groupLabel, minCost: u.min_cost });
         }
       }
     }

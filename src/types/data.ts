@@ -439,10 +439,17 @@ export interface Canticle {
 }
 
 export interface AlliedFaction {
+  /** This faction's own display name (e.g. "Grey Knights") — needed when this AlliedFaction is
+   * itself picked as the Allied Detachment, so faction-keyed checks (Assassins universal grant,
+   * ctanShardCapBlockReason) still resolve correctly one level removed from FactionData. */
+  faction?: string;
   slot_to_units: Record<string, string[]>;
   units: Record<string, Unit>;
   /** This ally's OWN intrinsic ally data (e.g. Chaos Space Marines' chaos_daemons), one level deep. */
   allied?: Record<string, AlliedFaction>;
+  /** This faction's own base_allied grant (e.g. Grey Knights + Inquisition) — carries over when
+   * this faction is picked AS the Allied Detachment, not just when it's the primary army. */
+  base_allied?: string[];
 }
 
 export interface FactionData {
