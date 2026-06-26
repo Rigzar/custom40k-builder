@@ -10,37 +10,37 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v11_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v12_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Trait effects now live for 8 of 19 factions + GitHub #10/#11 closed',
-    intro: 'Hello commanders! The biggest single addition yet: Army Traits now apply their actual in-game effects automatically for 7 more factions, not just description text.',
-    engine: '⚡ Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus and Imperial Guard join Chaos Space Marines and Space Marines with fully wired Trait effects — stat changes, ability injections, weapon bonuses and invulnerable saves now calculate live on the unit card instead of just showing the rule text. That\'s every trait, for every unit, across 8 of the 19 factions.',
-    csm: '🐛 GitHub #10/#11: Orks Mekboy/Painboy now get Character-priced Armory items correctly, and the "Advisor" 1-per-HQ exemption is properly capped everywhere instead of being unconditional.',
-    cd:  '⚙ A few traits per faction describe things the builder genuinely can\'t auto-apply (a player\'s free choice between sub-options, granting new wargear instead of an ability) — those stay as clear description text rather than being faked.',
-    sm:  '🗓 Known Issues panel updated to reflect the new 8/19 status — Tau Empire, Necrons and Dark Eldar are next.',
+    title: 'Developer Update — Trait effects now live for EVERY faction + GitHub #12 fixed',
+    intro: 'Hello commanders! Army Traits now apply their actual in-game effects automatically for every faction that has them — stat changes, ability injections, weapon bonuses and invulnerable saves, no more description-text-only traits anywhere in the builder.',
+    engine: '⚡ Tau Empire, Necrons and Dark Eldar join the other 8 factions already wired — that\'s every faction with Army Traits, fully live on the unit card.',
+    csm: '🐛 GitHub #12: Orks Killa Kans\' weapon picker only let ONE of the unit\'s up to 4 models get a weapon at all — fixed, every Killa Kan can now take the same or a different weapon.',
+    cd:  '⚙ A few traits per faction describe things the builder genuinely can\'t auto-apply (a player\'s free choice between sub-options, granting new wargear, raising a different mechanic\'s purchase cap) — those stay as clear description text or their own tracked known issue rather than being faked.',
+    sm:  '🗓 Also fixed: the in-app Updates panel was showing an out-of-date "latest version" number due to a changelog ordering bug.',
     legacyfix: '🗓 Known Issues panel reflects the current state.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Eigenschaftseffekte jetzt live für 8 von 19 Fraktionen + GitHub #10/#11 geschlossen',
-    intro: 'Hallo Kommandanten! Die bisher größte Einzeländerung: Armee-Eigenschaften wenden jetzt für 7 weitere Fraktionen ihre tatsächlichen Spieleffekte automatisch an, nicht mehr nur Beschreibungstext.',
-    engine: '⚡ Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus und Imperial Guard erhalten jetzt vollständig verdrahtete Eigenschaftseffekte — Statuswertänderungen, Fähigkeitsinjektionen, Waffenboni und unverwundbarkeit-Rettungswürfe werden live berechnet.',
-    csm: '🐛 GitHub #10/#11: Orks Mekboy/Painboy erhalten jetzt korrekt Character-Preise, und die "Advisor"-Ausnahme ist überall korrekt begrenzt.',
-    cd:  '⚙ Ein paar Eigenschaften pro Fraktion beschreiben Dinge, die der Builder nicht automatisch anwenden kann — die bleiben als klarer Beschreibungstext.',
-    sm:  '🗓 Known-Issues-Panel aktualisiert.',
+    title: 'Entwickler-Update — Eigenschaftseffekte jetzt live für JEDE Fraktion + GitHub #12 behoben',
+    intro: 'Hallo Kommandanten! Armee-Eigenschaften wenden jetzt für jede Fraktion, die sie hat, ihre tatsächlichen Spieleffekte automatisch an — keine reinen Beschreibungstext-Eigenschaften mehr im Builder.',
+    engine: '⚡ T\'au Empire, Necrons und Dark Eldar schließen sich den anderen 8 bereits verdrahteten Fraktionen an.',
+    csm: '🐛 GitHub #12: Der Waffenauswahl der Ork Killa Kans erlaubte nur EINEM der bis zu 4 Modelle der Einheit überhaupt eine Waffe — behoben.',
+    cd:  '⚙ Ein paar Eigenschaften pro Fraktion beschreiben Dinge, die der Builder nicht automatisch anwenden kann — die bleiben als klarer Text oder eigener Known Issue.',
+    sm:  '🗓 Außerdem behoben: Das Updates-Panel zeigte wegen eines Sortierfehlers eine veraltete Versionsnummer an.',
     legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — efectos de rasgos ya activos para 8 de 19 facciones + bugs de GitHub #10/#11 cerrados',
-    intro: '¡Hola comandantes! La adición más grande hasta ahora: los Rasgos de Ejército ya aplican su efecto real de juego automáticamente en 7 facciones más, no solo texto descriptivo.',
-    engine: '⚡ Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus e Imperial Guard se suman a Chaos Space Marines y Space Marines con efectos de rasgos totalmente implementados — cambios de stats, habilidades, bonos de arma e invulnerabilidad se calculan en vivo en la ficha.',
-    csm: '🐛 GitHub #10/#11: Mekboy/Painboy de Orks ya obtienen precios de Character correctos, y la exención "Advisor" está correctamente limitada en todas partes.',
-    cd:  '⚙ Algunos rasgos por facción describen cosas que el constructor no puede aplicar automáticamente — esos quedan como texto descriptivo claro en vez de simularse.',
-    sm:  '🗓 Panel de Known Issues actualizado al nuevo estado 8/19.',
+    title: 'Actualización del desarrollador — efectos de rasgos ya activos para TODAS las facciones + GitHub #12 arreglado',
+    intro: '¡Hola comandantes! Los Rasgos de Ejército ya aplican su efecto real de juego automáticamente en cada facción que los tiene — ningún rasgo se queda en solo texto descriptivo en todo el constructor.',
+    engine: '⚡ T\'au Empire, Necrons y Dark Eldar se suman a las otras 8 facciones ya implementadas — todas las facciones con Rasgos de Ejército, en vivo en la ficha.',
+    csm: '🐛 GitHub #12: el selector de armas de los Killa Kans de Orks solo permitía que UNO de los hasta 4 modelos de la unidad tuviera arma — arreglado.',
+    cd:  '⚙ Algunos rasgos por facción describen cosas que el constructor no puede aplicar automáticamente — esos quedan como texto descriptivo claro o su propio known issue en vez de simularse.',
+    sm:  '🗓 También arreglado: el panel de Updates mostraba un número de versión desactualizado por un bug de ordenamiento.',
     legacyfix: '🗓 El panel de Known Issues refleja el estado actual.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },

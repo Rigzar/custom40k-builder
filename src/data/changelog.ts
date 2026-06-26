@@ -25,6 +25,26 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.09',
+    date: '2026-06-26',
+    title: { en: 'ki-22a CLOSED: Trait effects now wired for every faction that has them + GitHub #12 fixed' },
+    changes: { en: [
+      'Tau Empire, Necrons and Dark Eldar join the other 8 factions with fully wired Trait effects (stat changes, ability injections, weapon bonuses, invulnerable saves) — every faction that has Army Traits now applies them live on the unit card instead of showing description text only. This closes ki-22a, a long-standing known issue. Tau\'s "Swarm Controllers" (raises the Drone purchase cap from 2 to 3, a different mechanic\'s limit) is left unwired like Orks\' "Waaagh! Coast Kustoms" — both tracked as their own known issues rather than faked.',
+      'Orks (GitHub #12): Killa Kans\' weapon-choice option group used constraint type \'one\', which only allows a single army-wide pick with no quantity control — only one of the unit\'s up to 4 models could ever get a weapon, the rest got none. Changed to \'every\' (the convention already used by other multi-model Ork vehicle squadrons like Grot Tanks), which scales the pick budget to squad size and lets every Killa Kan take the same or a different weapon.',
+      'Fixed the in-app Updates panel showing the wrong "latest version" — the changelog list was not strictly newest-first (v1.07 was listed before v1.08), and the landing page reads the first entry directly as the current version. Re-sorted to newest-first.',
+    ] },
+  },
+  {
+    version: '1.08',
+    date: '2026-06-26',
+    title: { en: 'Trait effects wired for 7 more factions (Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus, Imperial Guard) + GitHub #10/#11 closed' },
+    changes: { en: [
+      'Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus and Imperial Guard join Chaos Space Marines and Space Marines as factions with fully wired Trait effects (stat changes, ability injections, weapon bonuses, invulnerable saves) instead of description-text-only — every trait across all 7 factions encoded from the canonical archetypes.json text. The underlying engine (resolver.ts) was already faction-agnostic; this confirms the pattern holds for any faction, not just the original CSM/SM pilot. A handful of traits per faction describe mechanics the engine genuinely can\'t auto-apply (a player-choice sub-option, granting new wargear/weapon-swaps instead of an ability, a condition keyed to a weapon\'s name rather than its ranged/melee/bolt type) — those stay as descriptive text rather than being faked as something more precise. Orks\' "Waaagh! Coast Kustoms" (doubles the Kustom Job purchase cap, a different mechanic entirely) is the one trait left fully unwired, tracked as its own known issue.',
+      'Known Issues panel: merged a stale duplicate entry about Dark Eldar\'s Coordinated Raid archetype (ki-21c, superseded by a more detailed entry from the same audit), and updated the Trait-effects known issue to reflect 8 of 19 factions now done.',
+      'Closed GitHub issues #10 and #11 (both already fixed in v1.07\'s Orks Advisor/Character-pricing work, never marked closed) and refreshed the in-app developer announcement.',
+    ] },
+  },
+  {
     version: '1.07',
     date: '2026-06-26',
     title: { en: 'Allied Detachment validation warnings were invisible in its own tab + T\'au Drones modelled + Orks Mekboy/Painboy fixes' },
@@ -43,16 +63,6 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL: grepped every unit\'s option_group headers for the "for each/every X, one Y may be selected/included that does not occupy/take up a slot" wording (the same shape that turned out to be unenforced for AdMech Servitors above) to find every OTHER unit with the same bug. Most matches were already covered by the per-HQ `advisor` flag (Tech-Priest, Engineseer, Crusaders, Warlocks, etc. — those empty option_groups are just decorative). 6 were genuinely unenforced and now fixed: Genestealer Cults\' 8 named Elites characters (Abominant, Biophagus, Clamavus, Kelermorph, Locus, Nexos, Sanctus, Reductus Saboteur) each get "1 free Elite slot per 500pts of game size" (same shape as Eldar Warlocks, just with no per-unit toggle); Leagues of Votann Einhyr Champion ("1 free Elite slot per Einhyr Hearthguard"); Tyranids Tyrant Guard Brood ("1 free HQ slot per Hive Tyrant/Swarmlord"); Chaos Space Marines Cultist Firebrand ("1 free Elite slot per Cultists unit"). Imperial Guard Commissar was a different kind of bug: it already had `advisor: true`, but its real ratio is "1 free Elite slot per Infantry-type selection" — anchored to Infantry-unit count army-wide, not HQ count like every other advisor unit — so the advisor-cap fix from earlier today was silently mis-crediting it. Fixed by giving Commissar its own correctly-anchored exemption instead of the advisor flag.',
       'GENERAL: closed the loop on the advisor-flag audit fully — read every one of the 36 `advisor: true` units\' own text instead of just grepping the literal "Advisor:" string. Found 2 more false positives with zero supporting ratio text anywhere (Adeptus Custodes Custodian Wardens, Imperial Guard Platoon Command Squad — both flipped to `advisor: false`) and 4 more of Commissar\'s "wrong anchor" bug: T\'au Sub-Commander (ratio vs Commander+Ethereal, not any HQ), T\'au Ethereal Guard (ratio vs Ethereal specifically), and T\'au Kroot Lone-Spear/Krootox Riders/Krootox Rampagers (all 3 ratio vs Kroot Carnivores — Riders/Rampagers\' own text also incorrectly said "Elite slot" despite being Heavy Support/Fast Attack units, a copy-paste leftover from Lone-Spear\'s text, corrected to match each unit\'s real slot). All 5 wrong-anchor units now have their own correctly-anchored exemption instead of the advisor flag.',
       'AdMech Servitor Maniple: "for each Servitor unit taken as Troops, the army must also take a Tech-priest" was still unenforced even after fixing Servitors\' own free-slot ability — added a new `requiresEscortPerTroopsUnit` field, errors if you have more Servitor-Troops units than Tech-Priests.',
-    ] },
-  },
-  {
-    version: '1.08',
-    date: '2026-06-26',
-    title: { en: 'Trait effects wired for 7 more factions (Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus, Imperial Guard) + GitHub #10/#11 closed' },
-    changes: { en: [
-      'Adeptus Sororitas, Orks, Genestealer Cults, Eldar, Leagues of Votann, Adeptus Mechanicus and Imperial Guard join Chaos Space Marines and Space Marines as factions with fully wired Trait effects (stat changes, ability injections, weapon bonuses, invulnerable saves) instead of description-text-only — every trait across all 7 factions encoded from the canonical archetypes.json text. The underlying engine (resolver.ts) was already faction-agnostic; this confirms the pattern holds for any faction, not just the original CSM/SM pilot. A handful of traits per faction describe mechanics the engine genuinely can\'t auto-apply (a player-choice sub-option, granting new wargear/weapon-swaps instead of an ability, a condition keyed to a weapon\'s name rather than its ranged/melee/bolt type) — those stay as descriptive text rather than being faked as something more precise. Orks\' "Waaagh! Coast Kustoms" (doubles the Kustom Job purchase cap, a different mechanic entirely) is the one trait left fully unwired, tracked as its own known issue.',
-      'Known Issues panel: merged a stale duplicate entry about Dark Eldar\'s Coordinated Raid archetype (ki-21c, superseded by a more detailed entry from the same audit), and updated the Trait-effects known issue to reflect 8 of 19 factions now done.',
-      'Closed GitHub issues #10 and #11 (both already fixed in v1.07\'s Orks Advisor/Character-pricing work, never marked closed) and refreshed the in-app developer announcement.',
     ] },
   },
   {
