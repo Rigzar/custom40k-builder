@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.07',
+    date: '2026-06-26',
+    title: { en: 'Allied Detachment validation warnings were invisible in its own tab' },
+    changes: { en: [
+      'GENERAL: the Allied Detachment\'s own unit catalogue ignored its own archetype\'s restrictions entirely — e.g. setting the ally\'s archetype to Plaguehost (Mark of Nurgle forced, Legionnaires banned) still showed Legionnaires and Tzaangors (locked Mark of Tzeentch) as pickable, same as no archetype selected. The catalogue\'s allied-scope loop never called the generic `isUnitAllowed` gate (bannedUnits/bannedSlots/forced-mark/allowedUnitsOnly/allowedKeywords) that the primary army\'s catalogue already used. Fixed for every faction and every archetype with these restrictions, not just CSM. Also added the matching greyed-out/tooltip disable for units that need a transport at M<12" or are gated to a specific engagement, which the ally catalogue was missing too.',
+      'The Validation panel (points total, errors, warnings — e.g. "1 Elite/Fast Attack/Heavy Support per Troops selection") was only mounted on the main army tab. The engine already computed Allied Detachment-specific errors correctly (composition caps, Troops 25%, Dedicated Transport cap), but the panel showing them didn\'t exist on the Allied Detachment tab at all, so those warnings were invisible while editing the ally — reported via Discord ("no warning text right now saying that I do not have enough Troops... the red text shows on the page for my main detachment"). Added the same Validation panel to the Allied Detachment tab.',
+      'Print View "Print" button opened a separate blank tab and rebuilt the card markup from scratch — relative image paths (faction symbols, mark/weapon icons) silently failed to resolve there, so all artwork vanished on the printed/PDF output even though it looked fine on screen. Simplified to call window.print() on the current page directly (the app\'s own CSS already has the print-specific rules and fonts wired) — fixes the missing artwork and the jarring double page-jump (new tab, then print dialog).',
+      'Army JSON import only supported pasting text into a box. Added a real file-upload button next to the existing "↓ JSON" download button.',
+    ] },
+  },
+  {
     version: '1.06',
     date: '2026-06-26',
     title: { en: 'Orks bug-fix batch (6 reports via GitHub) + Adeptus Mechanicus Dark Mechanicum fix' },

@@ -114,8 +114,12 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       for (const name of names) {
         const u = data.units[name];
         if (!u) continue;
+        if (!isUnitAllowed(name, u, rule, originalSlot)) continue;
         const effSlot = getEffectiveSlot(name, originalSlot, rule);
-        if (effectiveSlotUnits[effSlot]) effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost });
+        if (effectiveSlotUnits[effSlot]) {
+          const disabledReason = lowMoveEmbarkBlockReason(u, rule) ?? engagementGateBlockReason(u, engagement) ?? undefined;
+          effectiveSlotUnits[effSlot].push({ name, minCost: u.min_cost, disabledReason });
+        }
       }
     }
     if (rule?.alliedFaction && data.allied?.[rule.alliedFaction]) {

@@ -233,18 +233,25 @@ function WeaponRow({ weapon: w, shade, color }: { weapon: Weapon; shade: boolean
   const typeTag = w.type && w.type !== '-'
     ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${w.type}]</span>`
     : '';
+  const hasAbilities = !!w.abilities && w.abilities !== '-';
+  // Short keyword tags (Rending, Twin-linked...) read inline next to the name; longer merged
+  // trait text (from option-group abilities) stays in its own row so it isn't cut off.
+  const inlineAbilities = hasAbilities && w.abilities.length <= 45;
+  const abilityTag = inlineAbilities
+    ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${w.abilities}]</span>`
+    : '';
   const bg = shade ? PARCH_ALT : PARCHMENT;
   return (
     <>
       <tr style={{ backgroundColor: bg }}>
         <td style={{ textAlign: 'left', padding: '2px 7px', fontSize: '.79em', color: '#111', borderLeft: `2px solid ${color}28` }}>
-          <span dangerouslySetInnerHTML={{ __html: w.name + typeTag }} />
+          <span dangerouslySetInnerHTML={{ __html: w.name + typeTag + abilityTag }} />
         </td>
         {[w.range ?? '-', w.s ?? '-', w.ap ?? '-', w.d ?? '-'].map((v, i) => (
           <td key={i} style={{ textAlign: 'center', padding: '2px 4px', fontSize: '.79em', color: '#444' }}>{v}</td>
         ))}
       </tr>
-      {w.abilities && w.abilities !== '-' && (
+      {hasAbilities && !inlineAbilities && (
         <tr style={{ backgroundColor: bg }}>
           <td colSpan={5} style={{ padding: '0 7px 3px 22px', fontSize: '.71em', color: '#666', lineHeight: 1.4, fontStyle: 'italic' }}
             dangerouslySetInnerHTML={{ __html: highlightRules(w.abilities) }} />
@@ -618,6 +625,29 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
             }}>
               {tFn(lang, 'abilities')}
             </div>
+            {abilitiesList.length > 1 && (
+              <div style={{
+                padding: '4px 8px', borderBottom: `1px dotted ${color}33`,
+                display: 'flex', flexWrap: 'wrap', gap: 4, alignItems: 'center',
+              }}>
+                <span style={{ fontFamily: CONDUIT, fontSize: '.58em', fontWeight: 800, color: '#999', letterSpacing: '.06em', marginRight: 2 }}>
+                  RULES:
+                </span>
+                {abilitiesList.map((ab, i) => {
+                  const ci = ab.indexOf(':');
+                  const ruleName = ci > 0 && ci < 52 ? ab.slice(0, ci) : ab;
+                  return (
+                    <span key={i} style={{
+                      fontSize: '.66em', fontWeight: 700, color,
+                      background: `${color}14`, padding: '1px 6px', borderRadius: 2,
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {ruleName}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
             <div style={{ flex: 1, padding: '6px 8px', display: 'flex', flexDirection: 'column', gap: 4 }}>
               {abilitiesList.map((ab, i) => {
                 const ci = ab.indexOf(':');
@@ -1252,12 +1282,6 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     }
   }
 
-  const printFontFace = `
-    @font-face { font-family: 'ConduitITCStd'; src: url('${window.location.origin}/fonts/ConduitITCStd ExtraBold.woff2') format('woff2'); font-weight: 800; }
-    @font-face { font-family: 'ConduitITCStd'; src: url('${window.location.origin}/fonts/ConduitITCStd Bold.woff2') format('woff2'); font-weight: 700; }
-    @font-face { font-family: 'ConduitITCStd'; src: url('${window.location.origin}/fonts/ConduitITCStd-Regular.woff2') format('woff2'); font-weight: 400; }
-  `;
-
   return (
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#18171a' }}>
       {/* Toolbar */}
@@ -1277,22 +1301,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               </button>
             ))}
           </div>
-          <button onClick={() => {
-              const el = document.getElementById('pv-printable');
-              if (!el) return;
-              const win = window.open('', '_blank');
-              if (!win) return;
-              win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Army Roster</title><style>${printFontFace}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Trebuchet MS',sans-serif;background:#fff;padding:14px}@media print{body{padding:0}}</style></head><body>${el.innerHTML}</body></html>`);
-              win.document.close();
-              win.focus();
-              // Wait for the @font-face downloads to actually finish before printing — a fixed
-              // delay silently fell back to the body's sans-serif font on slow connections,
-              // with no error and no indication to the user. fonts.ready resolves as soon as
-              // they're loaded; the timeout is only a safety net if it never resolves.
-              const fontsReady = win.document.fonts?.ready ?? Promise.resolve();
-              const safetyNet = new Promise(resolve => setTimeout(resolve, 2000));
-              Promise.race([fontsReady, safetyNet]).then(() => win.print());
-            }}
+          <button onClick={() => window.print()}
             className="px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-sm uppercase tracking-wide transition-colors">
             Print
           </button>

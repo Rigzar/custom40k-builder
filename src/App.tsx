@@ -634,6 +634,8 @@ export default function App() {
                   <SlotPanel scope="allied" alliedFactionKey={alliedFaction} />
                 </div>
               </div>
+
+              <ValidationPanel />
             </aside>
 
             <main>

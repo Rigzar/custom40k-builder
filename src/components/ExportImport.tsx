@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useArmyStore } from '../store/army';
 
 type Mode = 'importJson' | 'exportCode' | 'importCode' | null;
@@ -21,6 +21,22 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
   const [text, setText]     = useState('');
   const [mode, setMode]     = useState<Mode>(null);
   const [copied, setCopied] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleFilePicked(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        importRoster(reader.result as string);
+      } catch {
+        alert('Invalid JSON file.');
+      }
+    };
+    reader.readAsText(file);
+  }
 
   // Must include the Allied Detachment's own state (faction/archetype/legacy/traits) — omitting
   // it used to silently delete the ally on every export+reimport, since importRoster spreads the
@@ -86,6 +102,19 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
           className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-zinc-600 text-zinc-500 hover:bg-zinc-700 uppercase tracking-wide"
         >
           ↓ JSON
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="application/json,.json"
+          onChange={handleFilePicked}
+          className="hidden"
+        />
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-zinc-600 text-zinc-500 hover:bg-zinc-700 uppercase tracking-wide"
+        >
+          ↑ JSON
         </button>
         {onPrint && (
           <button
