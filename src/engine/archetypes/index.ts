@@ -69,6 +69,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Servitor Maniple': { ...BASE,
     troopsRemap: ['Servitors'],
+    requiresEscortPerTroopsUnit: { troopsUnit: 'Servitors', escortUnit: 'Tech-Priest' },
     notes: [
       'Servitors count as Troops.',
       'Each Servitor Troops unit must be accompanied by a Tech-priest (does not use an Elite slot).',

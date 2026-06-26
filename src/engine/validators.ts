@@ -821,6 +821,27 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       }
     }
 
+    // Requires >=1 escortUnit selection per troopsUnit selection counted as Troops (e.g. AdMech
+    // Servitor Maniple: "For each Servitor unit taken as Troops, the army must also take a
+    // Tech-priest"). Distinct from computeServitorFreeSlots, which grants the Tech-priest its OWN
+    // free Elite slot unconditionally — this is the mandatory count requirement on top.
+    if (rule.requiresEscortPerTroopsUnit) {
+      const { troopsUnit, escortUnit } = rule.requiresEscortPerTroopsUnit;
+      let troopsCount = 0;
+      let escortCount = 0;
+      for (const item of state.army) {
+        if (item.factionSource) continue;
+        if (item.unitName === escortUnit) escortCount++;
+        else if (item.unitName === troopsUnit && getEffectiveSlot(item.unitName, item.slot, rule) === 'Troops') troopsCount++;
+      }
+      if (troopsCount > escortCount) {
+        items.push({
+          type: 'error',
+          text: `Archetype "${cleanArchetypeName(state.archetype)}": each ${troopsUnit} taken as Troops needs an accompanying ${escortUnit} (have ${troopsCount} ${troopsUnit}, ${escortCount} ${escortUnit}).`,
+        });
+      }
+    }
+
     // Units that count as Troops only up to a MODEL-count ratio against another unit (e.g.
     // Sororitas Penitent Crusade: 1 Penitent Engines per 10 Arco-flagellant models; Tau Stealth
     // Cadre: 1 Ghostkeel Battlesuits per 6 Stealth Shas'ui/Shas've models). troopsRemap already

@@ -155,6 +155,15 @@ export interface ArchetypeRule {
    * count) — this is an EXCLUSION of specific units from an otherwise-normal count.
    */
   troopsCountExclude?: string[];
+  /**
+   * Requires at least 1 `escortUnit` selection in the army for every `troopsUnit` selection
+   * counted as Troops (via `troopsRemap`) — e.g. AdMech Servitor Maniple's "For each Servitor
+   * unit taken as Troops, the army must also take a Tech-priest" (ods-verbatim). The Tech-priest's
+   * OWN free-Elite-slot grant for this pairing is a separate, universal unit ability (see
+   * `computeServitorFreeSlots`, unconditional regardless of archetype) — this field only adds the
+   * MANDATORY count requirement that archetype text states on top of it.
+   */
+  requiresEscortPerTroopsUnit?: { troopsUnit: string; escortUnit: string } | null;
 }
 
 export const BASE: ArchetypeRule = {
