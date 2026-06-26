@@ -9,6 +9,7 @@ import { ELDAR_TRAIT_EFFECTS } from './traits/eldar';
 import { VOTANN_TRAIT_EFFECTS } from './traits/leagues_of_votann';
 import { ADMECH_TRAIT_EFFECTS } from './traits/adeptus_mechanicus';
 import { IG_TRAIT_EFFECTS } from './traits/imperial_guard';
+import { TAU_TRAIT_EFFECTS } from './traits/tau_empire';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -52,6 +53,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...VOTANN_TRAIT_EFFECTS,
   ...ADMECH_TRAIT_EFFECTS,
   ...IG_TRAIT_EFFECTS,
+  ...TAU_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // (see ./traits/adeptus_mechanicus.ts — spread above)
@@ -84,5 +86,5 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // (see ./traits/space-marines.ts — spread above)
 
   // ── Tau Empire ───────────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/tau_empire.ts — spread above)
 };
