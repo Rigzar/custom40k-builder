@@ -109,7 +109,7 @@ export const etherealGuard: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": true,
+  "advisor": false,
   "slot": "HQ",
   "default_size": 2,
   "min_cost": 36

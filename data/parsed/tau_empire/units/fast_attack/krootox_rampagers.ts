@@ -63,7 +63,7 @@ export const krootoxRampagers: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every unit of Kroot Carnivores, one unit of Krootox Rampagers may be taken without using an ELITE slot.",
+      "header": "For every unit of Kroot Carnivores, one unit of Krootox Rampagers may be taken without using a Fast Attack slot.",
       "constraint": {
         "type": "one"
       },
@@ -88,7 +88,7 @@ export const krootoxRampagers: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": true,
+  "advisor": false,
   "slot": "Fast Attack",
   "default_size": 3,
   "min_cost": 144

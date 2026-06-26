@@ -492,6 +492,84 @@ export function computeCommissarFreeSlots(
 }
 
 /**
+ * T'au Sub-Commander: had `advisor: true` (assumes a per-HQ-count ratio), but its OWN
+ * option_group header says "For every unit of Commander or Ethereal, one Sub-Commander unit may
+ * be taken without using a HQ slot" — anchored to Commander+Ethereal count specifically, NOT
+ * every HQ selection (Tau has other HQ units, e.g. Ethereal Guard, that shouldn't count). Same
+ * wrong-anchor bug class as Commissar.
+ */
+export function computeSubCommanderFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Tau Empire') return { hq: 0, notes: [] };
+  const subCount = army.filter(i => i.unitName === 'Sub-Commander').length;
+  const anchorCount = army.filter(i => i.unitName === 'Commander' || i.unitName === 'Ethereal').length;
+  if (subCount === 0 || anchorCount === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(subCount, anchorCount);
+  const notes = [`Sub-Commander: ${credited} of ${subCount} unit${subCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Commander/Ethereal, have ${anchorCount}).`];
+  if (subCount > anchorCount) {
+    notes.push(`Sub-Commander: ${subCount - anchorCount} extra unit${subCount - anchorCount === 1 ? '' : 's'} exceed the Commander/Ethereal ratio and still occupy a normal HQ slot.`);
+  }
+  return { hq: credited, notes };
+}
+
+/**
+ * T'au Ethereal Guard: same wrong-anchor bug — "1 unit of Ethereal Guard can be taken for each
+ * Ethereal. Does not occupy an HQ slot", anchored to Ethereal count specifically, not any HQ.
+ */
+export function computeEtherealGuardFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Tau Empire') return { hq: 0, notes: [] };
+  const guardCount = army.filter(i => i.unitName === 'Ethereal Guard').length;
+  const etherealCount = army.filter(i => i.unitName === 'Ethereal').length;
+  if (guardCount === 0 || etherealCount === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(guardCount, etherealCount);
+  const notes = [`Ethereal Guard: ${credited} of ${guardCount} unit${guardCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Ethereal, have ${etherealCount}).`];
+  if (guardCount > etherealCount) {
+    notes.push(`Ethereal Guard: ${guardCount - etherealCount} extra unit${guardCount - etherealCount === 1 ? '' : 's'} exceed the Ethereal ratio and still occupy a normal HQ slot.`);
+  }
+  return { hq: credited, notes };
+}
+
+/**
+ * T'au Kroot Lone-Spear / Krootox Riders / Krootox Rampagers: all 3 had `advisor: true` but
+ * their own option_group header is "For every unit of Kroot Carnivores, one <name> may be
+ * taken without using a[n] <own slot> slot" — anchored to Kroot Carnivores count, not HQ.
+ * Krootox Riders/Rampagers' header text said "ELITE slot" (copy-pasted from Lone-Spear, which IS
+ * an Elites unit) despite being Heavy Support/Fast Attack themselves — corrected the text to
+ * match each unit's own printed slot, since every sibling in this mechanic family exempts itself
+ * from its OWN slot, never a foreign one.
+ */
+export function computeKrootCarnivoreEscortFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; fa: number; hs: number; notes: string[] } {
+  if (data.faction !== 'Tau Empire') return { elites: 0, fa: 0, hs: 0, notes: [] };
+  const carnivoreCount = army.filter(i => i.unitName === 'Kroot Carnivores').length;
+  let elites = 0, fa = 0, hs = 0;
+  const notes: string[] = [];
+  const escorts: Array<{ name: string; slotKey: 'elites' | 'fa' | 'hs'; slotLabel: string }> = [
+    { name: 'Kroot Lone-Spear', slotKey: 'elites', slotLabel: 'Elite' },
+    { name: 'Krootox Riders', slotKey: 'hs', slotLabel: 'Heavy Support' },
+    { name: 'Krootox Rampagers', slotKey: 'fa', slotLabel: 'Fast Attack' },
+  ];
+  for (const { name, slotKey, slotLabel } of escorts) {
+    const count = army.filter(i => i.unitName === name).length;
+    if (count === 0 || carnivoreCount === 0) continue;
+    const credited = Math.min(count, carnivoreCount);
+    if (slotKey === 'elites') elites += credited; else if (slotKey === 'fa') fa += credited; else hs += credited;
+    notes.push(`${name}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the ${slotLabel} slot (1 per Kroot Carnivores, have ${carnivoreCount}).`);
+    if (count > carnivoreCount) {
+      notes.push(`${name}: ${count - carnivoreCount} extra unit${count - carnivoreCount === 1 ? '' : 's'} exceed the Kroot Carnivores ratio and still occupy a normal ${slotLabel} slot.`);
+    }
+  }
+  return { elites, fa, hs, notes };
+}
+
+/**
  * Generic version of computeEldarWarlockFreeSlots' "1 free per 500pts of game size" shape, for
  * archetypes (not unit abilities) that grant it — e.g. Votann Hearthfyre Arsenal's
  * `pointsBasedHqFree`. Every copy of the named unit is eligible (no per-unit inline flag to
@@ -1415,6 +1493,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: note });
   }
 
+  // T'au Sub-Commander/Ethereal Guard/Kroot Carnivores escorts: wrong-anchor advisor fixes
+  const subCommanderFree = computeSubCommanderFreeSlots(state.army, data);
+  for (const note of subCommanderFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+  const etherealGuardFree = computeEtherealGuardFreeSlots(state.army, data);
+  for (const note of etherealGuardFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+  const krootEscortFree = computeKrootCarnivoreEscortFreeSlots(state.army, data);
+  for (const note of krootEscortFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // "Cults Abominatioe"/"Execution Force" (Assassins' OWN canonical special rules,
   // data/source/Assassins ENG/Index.html, verbatim): the army may field EITHER a single
   // Assassin (any one of the 4 types, exactly one model) OR one of each of the 4 — no
@@ -1457,9 +1549,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq
-      : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
+      : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
+      : slot === 'Heavy Support' ? krootEscortFree.hs
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -1914,9 +2007,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq
-      : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
+      : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
+      : slot === 'Heavy Support' ? krootEscortFree.hs
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

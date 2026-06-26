@@ -95,7 +95,7 @@ export const custodianWardens: Unit = {
   "veteran_required": false,
   "veteran_max": 1,
   "locked_mark": null,
-  "advisor": true,
+  "advisor": false,
   "slot": "Elites",
   "default_size": 3,
   "min_cost": 219

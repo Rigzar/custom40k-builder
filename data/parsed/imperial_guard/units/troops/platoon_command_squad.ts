@@ -287,7 +287,7 @@ export const platoonCommandSquad: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": true,
+  "advisor": false,
   "slot": "Troops",
   "default_size": 5,
   "min_cost": 45

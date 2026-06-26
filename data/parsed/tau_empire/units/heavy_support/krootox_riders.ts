@@ -63,7 +63,7 @@ export const krootoxRiders: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every unit of Kroot Carnivores, one unit of Krootox Riders may be taken without using an ELITE slot.",
+      "header": "For every unit of Kroot Carnivores, one unit of Krootox Riders may be taken without using a Heavy Support slot.",
       "constraint": {
         "type": "one"
       },
@@ -104,7 +104,7 @@ export const krootoxRiders: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": true,
+  "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
   "min_cost": 46

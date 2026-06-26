@@ -123,7 +123,7 @@ export const krootLoneSpear: Unit = {
   "veteran_required": false,
   "veteran_max": null,
   "locked_mark": null,
-  "advisor": true,
+  "advisor": false,
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 81
