@@ -6,6 +6,7 @@ import { SORORITAS_TRAIT_EFFECTS } from './traits/adeptus_sororitas';
 import { ORKS_TRAIT_EFFECTS } from './traits/orks';
 import { GSC_TRAIT_EFFECTS } from './traits/genestealer_cults';
 import { ELDAR_TRAIT_EFFECTS } from './traits/eldar';
+import { VOTANN_TRAIT_EFFECTS } from './traits/leagues_of_votann';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 
@@ -46,6 +47,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ...ORKS_TRAIT_EFFECTS,
   ...GSC_TRAIT_EFFECTS,
   ...ELDAR_TRAIT_EFFECTS,
+  ...VOTANN_TRAIT_EFFECTS,
 
   // ── Adeptus Mechanicus ───────────────────────────────────────────────────────
   // TODO
@@ -66,7 +68,7 @@ export const TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // TODO
 
   // ── Leagues of Votann ────────────────────────────────────────────────────────
-  // TODO
+  // (see ./traits/leagues_of_votann.ts — spread above)
 
   // ── Necrons ──────────────────────────────────────────────────────────────────
   // TODO
