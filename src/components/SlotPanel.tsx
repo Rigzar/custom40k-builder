@@ -124,6 +124,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         for (const name of names) {
           const u = nestedData.units[name];
           if (!u) continue;
+          if (rule.alliedUnitsOnly && rule.alliedUnitsOnly.length > 0 && !rule.alliedUnitsOnly.includes(name)) continue;
           if (rule.alliedMarkFilter === 'forced') {
             if (!u.locked_mark || u.locked_mark !== rule.forcedMark) continue;
           }
@@ -267,6 +268,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       for (const name of names) {
         const u = alliedData.units[name];
         if (!u) continue;
+        if (rule.alliedUnitsOnly && rule.alliedUnitsOnly.length > 0 && !rule.alliedUnitsOnly.includes(name)) continue;
 
         if (rule.alliedMarkFilter === 'forced') {
           if (!u.locked_mark || u.locked_mark !== rule.forcedMark) continue;

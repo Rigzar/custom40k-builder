@@ -32,6 +32,16 @@ export interface ArchetypeRule {
   demoteOtherTroops: boolean;
   alliedFaction: string | null;
   alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
+  /**
+   * Restricts the `alliedFaction` roster-injection to ONLY these unit names (by exact name),
+   * instead of the faction's whole roster — e.g. Adeptus Mechanicus' Dark Mechanicum grants just
+   * 5 named Chaos Space Marine daemon-engines (Venomcrawler/Defiler/Forgefiend/Maulerfiend/
+   * Heldrake, ods-verbatim "...may be taken from the Chaos Space Marine army list"), not all of
+   * CSM. Empty/unset = no restriction (the existing whole-roster behaviour, e.g. CSM Daemonkin →
+   * all of Chaos Daemons). Distinct from `allowedUnitsOnly`, which restricts the PRIMARY faction's
+   * own roster, not the injected one.
+   */
+  alliedUnitsOnly?: string[];
   allowedUnitsOnly: string[];
   /** Units with none of these keywords are blocked (empty = no filter). "-" keyword (Swords for hire) bypasses check. */
   allowedKeywords: string[];
