@@ -755,20 +755,6 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     },
   },
   {
-    id: 'ki-21c',
-    status: 'planned',
-    title: {
-      en: 'Coordinated Raid (Dark Eldar): 3-HQ requirement with specific roles and 3 keyword-based traits not yet enforced',
-      de: 'Koordinierter Überfall (Dark Eldar): 3-HQ-Anforderung und schlüsselwortbasierte Eigenschaften noch nicht durchgesetzt',
-      es: 'Ataque Coordinado (Dark Eldar): requisito de 3 HQ con roles específicos y 3 rasgos por palabra clave aún sin aplicar',
-    },
-    description: {
-      en: 'Coordinated Raid grants a 3rd HQ slot and requires one Dracon, one Haemoncolus and one Succubus. It also grants a 3rd trait, one per keyword group. These mechanics require new engine support.',
-      de: 'Koordinierter Überfall gewährt einen 3. HQ-Slot und erfordert einen Dracon, einen Hämonkolus und eine Sukkubus. Es gewährt auch eine 3. Eigenschaft, eine pro Schlüsselwortgruppe. Diese Mechaniken erfordern neue Engine-Unterstützung.',
-      es: 'El Ataque Coordinado concede un 3.er slot de HQ y requiere un Dracon, un Haemoncolus y una Súcubo. También concede un 3.er rasgo, uno por grupo de palabras clave. Estas mecánicas requieren nuevo soporte del motor.',
-    },
-  },
-  {
     id: 'ki-45b',
     status: 'fixed',
     title: {
