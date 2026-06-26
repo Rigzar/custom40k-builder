@@ -34,6 +34,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Cybernetica Cohort': { ...BASE,
     troopsRemap: ['Kastelan Robots'],
     troopsCount: 'remap',
+    requiresHqUpgrade: { unitNameContains: 'Magos', choiceName: 'Datasmith' },
     notes: [
       'Kastelan Robots count as Troops.',
       'Only Robot units count towards the 25% Troops requirement.',
@@ -58,6 +59,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Ordo Reductor Covenant': { ...BASE,
     troopsCount: 'remap',
+    requiresHqUpgrade: { unitNameContains: 'Magos', choiceName: 'Myrmidax' },
     notes: [
       'Must take at least one Magos or Archmagos with the Myrmidax upgrade.',
       'Only Ordo Reductor units count towards the 25% Troops requirement.',

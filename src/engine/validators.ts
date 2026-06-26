@@ -346,6 +346,30 @@ export function computeCrusadersFreeSlots(
   return { elites: credited, notes };
 }
 
+/**
+ * Adeptus Mechanicus Servitors: "For each Magos, Archmagos, or Tech-Priest selection, one
+ * Servitor squad may be selected that does not occupy an Elite slot." (servitors.ts' own
+ * option_group header — an inert placeholder, empty choices, same unenforced shape as Crusaders'
+ * before computeCrusadersFreeSlots). Archmagos is a variant promotion of Magos (same RosterEntry
+ * unitName "Magos"), so counting Magos covers it already. Same ratio-against-a-sibling-unit
+ * shape, except the anchor is the SUM of two different unit names, not one.
+ */
+export function computeServitorFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Adeptus Mechanicus') return { elites: 0, notes: [] };
+  const servitorCount = army.filter(i => i.unitName === 'Servitors').length;
+  const anchorCount = army.filter(i => i.unitName === 'Magos' || i.unitName === 'Tech-Priest').length;
+  if (servitorCount === 0 || anchorCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(servitorCount, anchorCount);
+  const notes = [`Servitors: ${credited} of ${servitorCount} unit${servitorCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Magos/Tech-Priest, have ${anchorCount}).`];
+  if (servitorCount > anchorCount) {
+    notes.push(`Servitors: ${servitorCount - anchorCount} extra unit${servitorCount - anchorCount === 1 ? '' : 's'} exceed the Magos/Tech-Priest ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
 /** All 4 datasheets independently say "An army can contain only one C'tan Shard" (ods-verbatim,
  * Necrons "OPTIONS" row) — confirmed army-wide (not per-name) by Yngir's own wording "One C'tan
  * shard (any kind) counts as an HQ selection." Each datasheet's own option_group is a
@@ -524,6 +548,28 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         items.push({
           type: 'error',
           text: `Archetype "${cleanArchetypeName(state.archetype)}": requires at least 1 ${rule.requiresHqUnit} as HQ.`,
+        });
+      }
+    }
+
+    // Required HQ unit WITH a specific upgrade choice selected (e.g. AdMech Cybernetica Cohort
+    // needs a Magos/Archmagos with the Datasmith upgrade, not just any Magos).
+    if (rule.requiresHqUpgrade) {
+      const { unitNameContains, choiceName } = rule.requiresHqUpgrade;
+      const hasRequiredHqUpgrade = state.army.some(item => {
+        if (item.factionSource) return false;
+        const effSlot = getEffectiveSlot(item.unitName, item.slot, rule);
+        if (effSlot !== 'HQ' || !item.unitName.toLowerCase().includes(unitNameContains.toLowerCase())) return false;
+        const u = resolveUnit(item, data);
+        if (!u) return false;
+        return u.option_groups.some((g, gi) => g.choices.some((c, ci) =>
+          c.name === choiceName && (item.optionQty?.[gi]?.[ci] ?? 0) > 0,
+        ));
+      });
+      if (!hasRequiredHqUpgrade) {
+        items.push({
+          type: 'error',
+          text: `Archetype "${cleanArchetypeName(state.archetype)}": requires at least 1 ${rule.requiresHqUpgrade.unitNameContains} with the ${rule.requiresHqUpgrade.choiceName} upgrade as HQ.`,
         });
       }
     }
@@ -1135,6 +1181,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: note });
   }
 
+  // AdMech Servitors: "1 free Elite slot per Magos/Archmagos/Tech-Priest" (servitors.ts' own option_group)
+  const servitorFree = computeServitorFreeSlots(state.army, data);
+  for (const note of servitorFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // "Cults Abominatioe"/"Execution Force" (Assassins' OWN canonical special rules,
   // data/source/Assassins ENG/Index.html, verbatim): the army may field EITHER a single
   // Assassin (any one of the 4 types, exactly one model) OR one of each of the 4 — no
@@ -1179,7 +1231,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -1636,7 +1688,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
       : slot === 'Fast Attack' ? cdFree.fa
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

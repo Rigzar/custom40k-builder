@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -386,6 +386,12 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const cdFree = computeCdFreeSlots(army, primaryData, rule);
   // "Cults Abominatioe"/"Execution Force": Assassin selection collapses to a single Elite slot
   const assassinFree = computeAssassinFreeSlots(army, primaryData);
+  // Same ratio-against-a-sibling-unit shape, mirrored here so the catalogue's slot-full gating
+  // matches what validators.ts actually allows (otherwise the picker would show "Elites full"
+  // for a unit the validator considers exempt).
+  const geminaeSuperiaFree = computeGeminaeSuperiaFreeSlots(army, primaryData);
+  const crusadersFree = computeCrusadersFreeSlots(army, primaryData);
+  const servitorFree = computeServitorFreeSlots(army, primaryData);
 
   return (
     <div className="divide-y divide-zinc-800/50">
@@ -412,9 +418,9 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         if (slot === 'Lords of War' && (engagement !== 'epic' || units.length === 0)) return null;
         const isLordsOfWar = slot === 'Lords of War';
 
-        const slotAdj = slot === 'HQ' ? cdFree.hq
+        const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq
           : slot === 'Fast Attack' ? cdFree.fa
-          : slot === 'Elites' ? assassinFree.elites
+          : slot === 'Elites' ? assassinFree.elites + crusadersFree.elites + servitorFree.elites
           : 0;
         const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction) - slotAdj);
         const isFull = used >= max && max > 0;

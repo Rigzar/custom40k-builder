@@ -108,6 +108,15 @@ export interface ArchetypeRule {
    * other structural field able to express "1, not however many the AOP table would give".
    */
   slotCapOverride?: { slot: string; max: number } | null;
+  /**
+   * Stricter than `requiresHqUnit`: the army must field at least one HQ unit (name match, same
+   * substring convention) that ALSO has a specific option-group choice selected — e.g. AdMech
+   * Cybernetica Cohort's "must take at least one Magos or Archmagos WITH the Datasmith upgrade"
+   * (Archmagos is a variant promotion of Magos, same RosterEntry/unitName, so the unit-name match
+   * alone already covers both). `choiceName` is matched against the unit's OWN `option_groups`
+   * choices (not armory) by exact name.
+   */
+  requiresHqUpgrade?: { unitNameContains: string; choiceName: string } | null;
 }
 
 export const BASE: ArchetypeRule = {
