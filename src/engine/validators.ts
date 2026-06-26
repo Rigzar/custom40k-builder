@@ -23,6 +23,48 @@ export interface ValidationItem {
 
 type Rule = ReturnType<typeof getArchetypeRule>;
 
+/**
+ * Advisor units' literal datasheet text is "For every HQ selection, one <X> may be selected
+ * without taking up a [slot]" (e.g. Orks Mekboy/Painboy, SM Techmarine, CSM Master of Execution)
+ * — a 1-per-HQ ratio keyed to that specific unit NAME. Core Rules doesn't define a generic
+ * "Advisor" special rule; `advisor: true` just flags this per-unit pattern, so the ratio has to
+ * be enforced here rather than read off a shared rule. Returns the RosterEntry ids exempt from
+ * slot occupancy: the first N copies of each advisor unit name in a given allied/primary scope,
+ * capped at how many HQ selections exist in that SAME scope — extra copies beyond the ratio
+ * occupy their slot like any other unit (GitHub #10: Mekboy/Painboy never took up a slot
+ * regardless of HQ count, because the old check exempted advisor units unconditionally).
+ */
+export function advisorExemptIds(
+  army: RosterEntry[],
+  data: FactionData,
+  rule: Rule,
+  alliedFaction?: string,
+): Set<string> {
+  const hqCountCache = new Map<boolean, number>();
+  function hqCount(isAllied: boolean): number {
+    if (!hqCountCache.has(isAllied)) {
+      const n = army.filter(j => {
+        const jIsAllied = !!(j.factionSource && j.factionSource === alliedFaction);
+        return jIsAllied === isAllied && getEffectiveSlot(j.unitName, j.slot, rule) === 'HQ';
+      }).length;
+      hqCountCache.set(isAllied, n);
+    }
+    return hqCountCache.get(isAllied)!;
+  }
+  const seen = new Map<string, number>();
+  const exempt = new Set<string>();
+  for (const i of army) {
+    const u = resolveUnit(i, data);
+    if (!u?.advisor) continue;
+    const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
+    const key = `${isAllied}:${i.unitName}`;
+    const n = seen.get(key) ?? 0;
+    seen.set(key, n + 1);
+    if (n < hqCount(isAllied)) exempt.add(i.id);
+  }
+  return exempt;
+}
+
 function getSlotUsage(
   army: RosterEntry[],
   data: FactionData,
@@ -33,12 +75,13 @@ function getSlotUsage(
   engagement?: string,
   excludeFactionSources?: string[],
 ): number {
+  const exemptIds = engagement === 'skirmish' ? new Set<string>() : advisorExemptIds(army, data, rule, alliedFaction);
   return army.filter(i => {
     if (i.factionSource && excludeFactionSources?.includes(i.factionSource)) return false;
     const isAllied = !!(i.factionSource && i.factionSource === alliedFaction);
     if (countAllied !== undefined && isAllied !== countAllied) return false;
+    if (exemptIds.has(i.id)) return false;
     const u = resolveUnit(i, data);
-    if (u?.advisor && engagement !== 'skirmish') return false;
     const baseSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;

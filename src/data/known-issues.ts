@@ -5,6 +5,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-orks-mekboy-painboy-ischaracter-01',
+    status: 'fixed',
+    title: 'Orks — Mekboy and Painboy carry "Character Model" in unit_type but had is_character: false (GitHub #11)',
+    description: 'Every armory price/access check (ArmoryModal.tsx) reads `unit.is_character`, not the unit_type string, to decide p_char-vs-p_unit pricing and Character-only item visibility. 104 units across every faction carry "Character Model" in their unit_type; spot-checking SM Techmarine confirmed the convention is `is_character: true` whenever that\'s present. Orks\' Mekboy and Painboy were the exception — both `is_character: false` despite the same unit_type text — so they never got Character pricing or Character-only armory access. Fixed both files; also fixed Painboy\'s Advisor ability text, which had been copy-pasted from Mekboy\'s ("one Mekboy may be selected" instead of "one Painboy may be selected").',
+  },
+  {
+    id: 'ki-advisor-unconditional-exempt-01',
+    status: 'fixed',
+    title: 'GENERAL — Advisor units (Mekboy/Painboy/Techmarine/Master of Execution/etc.) never took up a slot regardless of how many HQs were in the army (GitHub #10)',
+    description: '"Advisor" isn\'t a defined Core Rules special rule — it\'s per-unit datasheet text ("For every HQ selection, one <X> may be selected without taking up an Elite/HQ/etc slot"), a 1-per-HQ ratio keyed to that specific unit name. The `advisor: true` flag (set on dozens of units across every faction: Orks Mekboy/Painboy, SM/GK Techmarine, CSM Master of Execution/Exalted Plague Champion/Tzaangor Shaman, AdMech Skitarii Marshal/Tech-Priest, Sororitas units, etc.) was checked in exactly two places (`validators.ts`\'s `getSlotUsage` for AOP min/max, `SlotPanel.tsx`\'s `getSlotUsage` for the catalogue\'s "is this slot full" gate) and both unconditionally exempted EVERY copy of an advisor unit from slot occupancy — no cap tied to HQ count at all. Reported against Orks Mekboy/Painboy specifically, but the bug was general: any faction\'s advisor unit could be stacked infinitely for free. Fixed with a new shared `advisorExemptIds()` (validators.ts): only the first N copies of each advisor unit NAME in a given scope (own army vs. allied) are exempt, where N = how many HQ selections exist in that same scope; extra copies occupy their slot like any other unit. Both `getSlotUsage` call sites now use it instead of an unconditional `if (u?.advisor) return false`.',
+  },
+  {
     id: 'ki-tabclose-deleted-ally-01',
     status: 'fixed',
     title: 'GENERAL — Closing the Allied Detachment tab\'s × silently deleted the whole ally, unlike closing the main army tab',

@@ -63,7 +63,7 @@ export const mekboy: Unit = {
   "unit_type": "Character Model, Infantry",
   "keywords": [],
   "is_vehicle": false,
-  "is_character": false,
+  "is_character": true,
   "is_monster": false,
   "is_psyker": false,
   "has_armory_access": true,

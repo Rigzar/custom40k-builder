@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -42,13 +42,16 @@ function getSlotUsage(
   rule: ReturnType<typeof getArchetypeRule>,
   alliedFaction?: string | null,
 ): number {
+  // See validators.ts's advisorExemptIds doc comment: only the first N copies of an advisor
+  // unit (N = HQ selections in the same scope) are exempt from slot occupancy, not every copy.
+  const exemptIds = advisorExemptIds(army, data, rule, alliedFaction ?? undefined);
   return army.filter(i => {
     // Bug 4: exclude allied units from the main faction slot count
     if (alliedFaction && i.factionSource === alliedFaction) return false;
+    if (exemptIds.has(i.id)) return false;
     const u = i.factionSource
       ? data.allied?.[i.factionSource]?.units[i.unitName]
       : data.units[i.unitName];
-    if (u?.advisor) return false;
     const baseSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
     const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
     if (effSlot !== slot) return false;

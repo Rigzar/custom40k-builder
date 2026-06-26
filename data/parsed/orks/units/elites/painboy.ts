@@ -57,13 +57,13 @@ export const painboy: Unit = {
   ],
   "abilities": [
     "Dakka Dakka Dakka, Command squad, Mob, Furious charge, Squadron, Waaagh!",
-    "Advisor: For every HQ selection, one Mekboy may be selected without taking up an Elite slot.",
+    "Advisor: For every HQ selection, one Painboy may be selected without taking up an Elite slot.",
     "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],
   "is_vehicle": false,
-  "is_character": false,
+  "is_character": true,
   "is_monster": false,
   "is_psyker": false,
   "has_armory_access": true,
