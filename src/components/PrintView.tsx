@@ -294,7 +294,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const rp = resolveUnitProfile(item, u, storeState, data);
   const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap,
           injectedAbilities, optionStatMods, optionAbilities,
-          effectivePsyker, psykerGroupIdx } = rp;
+          effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const color = getMarkColor(effectiveMark);
 
   const statKeys  = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
@@ -351,7 +351,11 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
       .filter(w => w.range === 'Melee' || w.type === 'Melee')
       .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
     return { label: g.label, ranged, melee };
-  });
+  }).concat(attachedDrones.map(({ drone, count }) => ({
+    label: `${count}x ${drone.name}`,
+    ranged: drone.weapons.filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '').map(w => ({ ...w, name: `${count}x ${w.name}` })),
+    melee: drone.weapons.filter(w => w.range === 'Melee' || w.type === 'Melee').map(w => ({ ...w, name: `${count}x ${w.name}` })),
+  })));
 
   // Build filter sets for optional abilities
   const _shownWeaponBaseNames = new Set(rp.weaponsToShow.map((w: Weapon) => w.name.split(' - ')[0]));
@@ -541,6 +545,10 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
                 </div>
               );
             })}
+            {attachedDrones.map(({ drone, count }) => (
+              <StatRow key={drone.name} keys={STAT_KEYS_INF} stats={drone.stats as Record<string, string>} mod={null}
+                showLabels={false} modelLabel={`${count}× ${drone.name}`} color={color} />
+            ))}
           </div>
         </div>
       </div>
@@ -729,7 +737,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
   const { pts, weaponTraitMap, injectedAbilities, optionAbilities, equipMods,
-          effectivePsyker, psykerGroupIdx } = rp;
+          effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
   const modelCounts  = rp.modelCounts;
@@ -773,8 +781,16 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
       melee: gi === 0 ? [...melee, ...armMelee] : melee,
     };
   });
-  const ranged = weaponGroupsPrint.flatMap(g => g.ranged);
-  const melee  = weaponGroupsPrint.flatMap(g => g.melee);
+  const ranged = weaponGroupsPrint.flatMap(g => g.ranged).concat(
+    attachedDrones.flatMap(({ drone, count }) => drone.weapons
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '')
+      .map(w => ({ ...w, name: `${count}x ${w.name}` })))
+  );
+  const melee  = weaponGroupsPrint.flatMap(g => g.melee).concat(
+    attachedDrones.flatMap(({ drone, count }) => drone.weapons
+      .filter(w => w.range === 'Melee' || w.type === 'Melee')
+      .map(w => ({ ...w, name: `${count}x ${w.name}` })))
+  );
 
   const _shownWeaponBaseNames = new Set(rp.weaponsToShow.map((w: Weapon) => w.name.split(' - ')[0]));
   const _unselectedOptionalWeapons = new Set<string>();
@@ -838,6 +854,29 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
           })}
         </tbody>
       </table>
+
+      {/* Attached Tau Drones get their own stat table — their stat-line (M/WS/BS/S/T/W/I/A/LD/SV)
+          doesn't share a column layout with a vehicle-shaped carrier's own (e.g. Tidewall
+          Droneport's M/BS/S/FRONT/SIDE/REAR/I/A/HP), so it can't reuse the "Unit" table above. */}
+      {attachedDrones.length > 0 && (
+        <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>
+          <thead>
+            <tr><th colSpan={STAT_KEYS_INF.length + 1} style={simpleSectionLabel}>Drones</th></tr>
+            <tr>
+              <th style={{ ...simpleTh, textAlign: 'left' }}>Model</th>
+              {STAT_KEYS_INF.map(k => <th key={k} style={simpleTh}>{k}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {attachedDrones.map(({ drone, count }) => (
+              <tr key={drone.name}>
+                <td style={{ ...simpleTd, textAlign: 'left' }}>{count}× {drone.name}</td>
+                {STAT_KEYS_INF.map(k => <td key={k} style={simpleTd}>{(drone.stats as Record<string, string>)[k] ?? '-'}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {abilitiesList.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 4 }}>

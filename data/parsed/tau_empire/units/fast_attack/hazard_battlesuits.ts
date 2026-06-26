@@ -7,6 +7,7 @@
  */
 
 import type { Unit } from '../../../../../src/types/data';
+import { TAU_DRONE_CHOICES } from '../../drone_choices';
 
 export const hazardBattlesuits: Unit = {
   "name": "Hazard Battlesuits",
@@ -150,7 +151,7 @@ export const hazardBattlesuits: Unit = {
         "type": "fixed_max",
         "max": 2
       },
-      "choices": [],
+      "choices": TAU_DRONE_CHOICES,
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

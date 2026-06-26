@@ -1,4 +1,4 @@
-import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect } from '../types/data';
+import type { Unit, Model, Weapon, ArmoryItem, FactionData, OptionCondition, OptionEffect, DroneType } from '../types/data';
 import type { RosterEntry, ArmyState, Mark, ArmorySelection } from '../types/army';
 import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
@@ -125,6 +125,16 @@ export interface ResolvedProfile {
   optionSetUnitType: string | null;
   /** Special rules granted by selected options (e.g. "Deep strike") — shown with "Option" badge. */
   optionAbilities: string[];
+
+  /**
+   * Tau Drones bought through a "Drone controller" option group, matched against
+   * `FactionData.drones` by name and summed across every option group/choice that names a real
+   * drone (a "Drone controller" group's choices are populated straight from the canonical Tau
+   * Drones datasheet — see drone_choices.ts). Each entry carries its own stat-line/weapons/
+   * abilities so UnitCard/PrintView can render it as an attached mini-model, not just a wargear
+   * line item with a price tag.
+   */
+  attachedDrones: Array<{ drone: DroneType; count: number }>;
 }
 
 // ── Shared utility ────────────────────────────────────────────────────────────
@@ -664,7 +674,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     isTzeentchPsyker, isOptionalPsyker, psykerGroupIdx, effectivePsyker,
     isFavored: false,
     effectiveHasVetAbilities,
-    equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap,
+    equippedWith, weapons, weaponsToShow: weapons, weaponGroups: [], attachedDrones: [], armoryGrantedWeapons, weaponTraitMap, championWeaponTraitMap,
     injectedAbilities: choiceAbilities,
     injectedRuleNotes: ruleNotes,
     equipMods,
@@ -954,5 +964,24 @@ export function resolveUnitProfile(
   // doc) so they never interfere with matching choice names against original weapon names.
   if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);
   profile.weaponGroups = computeWeaponGroups(unit, item, profile);
+  profile.attachedDrones = computeAttachedDrones(unit, item, data);
   return profile;
+}
+
+/** See ResolvedProfile.attachedDrones doc comment. */
+function computeAttachedDrones(unit: Unit, item: RosterEntry, data: FactionData): Array<{ drone: DroneType; count: number }> {
+  if (!data.drones || data.drones.length === 0) return [];
+  const counts = new Map<string, number>();
+  unit.option_groups.forEach((g, gi) => {
+    g.choices.forEach((c, ci) => {
+      const qty = item.optionQty?.[gi]?.[ci];
+      if (!qty) return;
+      if (!data.drones!.some(d => d.name === c.name)) return;
+      counts.set(c.name, (counts.get(c.name) ?? 0) + qty);
+    });
+  });
+  if (counts.size === 0) return [];
+  return [...counts.entries()]
+    .map(([name, count]) => ({ drone: data.drones!.find(d => d.name === name)!, count }))
+    .filter(e => e.count > 0);
 }

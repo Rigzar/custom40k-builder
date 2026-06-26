@@ -7,6 +7,7 @@
  */
 
 import type { Unit } from '../../../../../src/types/data';
+import { TAU_DRONE_CHOICES } from '../../drone_choices';
 
 export const pathfinderTeam: Unit = {
   "name": "Pathfinder Team",
@@ -205,7 +206,7 @@ export const pathfinderTeam: Unit = {
         "type": "fixed_max",
         "max": 2
       },
-      "choices": [],
+      "choices": TAU_DRONE_CHOICES,
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

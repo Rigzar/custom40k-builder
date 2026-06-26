@@ -7,6 +7,7 @@
  */
 
 import type { Unit } from '../../../../../src/types/data';
+import { TAU_DRONE_CHOICES } from '../../drone_choices';
 
 export const tidewallDroneport: Unit = {
   "name": "Tidewall Droneport",
@@ -40,7 +41,7 @@ export const tidewallDroneport: Unit = {
         "type": "fixed_max",
         "max": 4
       },
-      "choices": [],
+      "choices": TAU_DRONE_CHOICES,
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

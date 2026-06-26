@@ -189,6 +189,7 @@ export function UnitCard({ item }: Props) {
     blackCrusadeChampion,
     ctanYngirActive,
     optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    attachedDrones,
   } = rp;
   const baseTypeDisplay = optionSetUnitType ?? u.unit_type;
   const unitTypeDisplay = [baseTypeDisplay, ...optionAddedUnitTypes].filter(Boolean).join(', ');
@@ -813,6 +814,23 @@ export function UnitCard({ item }: Props) {
               </tbody>
             </table>
             </div>
+            {/* Attached Tau Drones — bought via a "Drone controller" option group, rendered as
+                their own mini-model (stats + weapons + abilities) rather than a plain wargear line,
+                since they fight with their own profile per the Tau Drones datasheet. */}
+            {attachedDrones.map(({ drone, count }) => (
+              <div key={drone.name} className="mt-2 border border-sky-900/50 bg-sky-950/10">
+                <div className="px-3 py-1 text-[10px] uppercase tracking-wide text-sky-400/90 font-cinzel">
+                  🛰 {count}x {drone.name}
+                </div>
+                <ModelProfileRow m={{ name: drone.name, points: (drone.points ?? 0) * count, min: 0, max: 0, stats: drone.stats }} statKeys={STAT_KEYS_INF} />
+                {drone.weapons.length > 0 && <WeaponTable weapons={drone.weapons} count={count} />}
+                {drone.abilities.length > 0 && (
+                  <div className="px-3 pb-2 text-[10px] text-sky-300/80 leading-snug space-y-0.5">
+                    {drone.abilities.map((a, i) => <div key={i}>{a}</div>)}
+                  </div>
+                )}
+              </div>
+            ))}
             {/* Equipment granted abilities (inv save now shown in stats table) */}
             {(!u.is_vehicle && false) && (
               <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
