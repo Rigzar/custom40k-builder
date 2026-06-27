@@ -174,7 +174,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": 2
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Counter-Attack"
+        ]
+      }
     },
     {
       "name": "Favoured enemy",
@@ -183,7 +188,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": 2
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Favoured Enemy"
+        ]
+      }
     },
     {
       "name": "Furious charge",
@@ -192,7 +202,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": 2
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Furious Charge"
+        ]
+      }
     },
     {
       "name": "Infiltrator",
@@ -201,7 +216,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": null
+      "p_veh": null,
+      "effect": {
+        "grants_abilities": [
+          "Infiltrator"
+        ]
+      }
     },
     {
       "name": "Outflank",
@@ -210,7 +230,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": 2
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Outflank"
+        ]
+      }
     },
     {
       "name": "Tank hunter",
@@ -219,7 +244,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": 2
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Tank Hunter"
+        ]
+      }
     },
     {
       "name": "Terrain expert",
@@ -228,7 +258,13 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": 2
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Move Through Cover",
+          "Use Cover"
+        ]
+      }
     },
     {
       "name": "Vanguard",
@@ -237,7 +273,12 @@
       "p_unit": 1,
       "p_char": null,
       "category": "veteran",
-      "p_veh": null
+      "p_veh": null,
+      "effect": {
+        "grants_abilities": [
+          "Vanguard"
+        ]
+      }
     },
     {
       "name": "Additional armor",

@@ -541,7 +541,12 @@
       "p_unit": 1,
       "p_char": null,
       "p_veh": 2,
-      "category": "veteran"
+      "category": "veteran",
+      "effect": {
+        "stat_mod": [
+          { "stat": "M", "delta": 2 }
+        ]
+      }
     },
     {
       "name": "Bulwark Imperative",
@@ -550,7 +555,10 @@
       "p_unit": 1,
       "p_char": null,
       "p_veh": 2,
-      "category": "veteran"
+      "category": "veteran",
+      "effect": {
+        "grants_abilities": ["Narthecium"]
+      }
     },
     {
       "name": "Conqueror Imperative",
@@ -559,7 +567,10 @@
       "p_unit": 1,
       "p_char": null,
       "p_veh": 2,
-      "category": "veteran"
+      "category": "veteran",
+      "effect": {
+        "grants_abilities": ["Furious Charge"]
+      }
     },
     {
       "name": "Protector Imperative",
@@ -568,7 +579,10 @@
       "p_unit": 0,
       "p_char": null,
       "p_veh": 0,
-      "category": "veteran"
+      "category": "veteran",
+      "effect": {
+        "grants_abilities": ["Unyielding"]
+      }
     },
     {
       "name": "Additional armor",

@@ -1165,56 +1165,113 @@
       "term_compat": false,
       "desc": "The model gains the ability \"Counter-attack\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Counter-Attack"
+        ]
+      }
     },
     {
       "name": "Favoured enemy",
       "term_compat": false,
       "desc": "The model gains the ability \"Favoured enemy\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Favoured Enemy"
+        ]
+      }
     },
     {
       "name": "Furious charge",
       "term_compat": false,
       "desc": "The model gains the ability \"Furious charge\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Furious Charge"
+        ]
+      }
     },
     {
       "name": "Infiltrator",
       "term_compat": false,
       "desc": "The model gains the ability \"Infiltrator\".",
       "p_unit": 1,
-      "p_char": null
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": null,
+      "effect": {
+        "grants_abilities": [
+          "Infiltrator"
+        ]
+      }
     },
     {
       "name": "Outflank",
       "term_compat": false,
       "desc": "The model gains the ability \"Outflank\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Outflank"
+        ]
+      }
     },
     {
       "name": "Tank hunter",
       "term_compat": false,
       "desc": "The model gains the ability \"Tank hunter\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Tank Hunter"
+        ]
+      }
     },
     {
       "name": "Terrain expert",
       "term_compat": false,
       "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
       "p_unit": 1,
-      "p_char": 2
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": 2,
+      "effect": {
+        "grants_abilities": [
+          "Move Through Cover",
+          "Use Cover"
+        ]
+      }
     },
     {
       "name": "Vanguard",
       "term_compat": false,
       "desc": "The model gains the ability \"Vanguard\".",
       "p_unit": 1,
-      "p_char": null
+      "p_char": null,
+      "category": "veteran",
+      "p_veh": null,
+      "effect": {
+        "grants_abilities": [
+          "Vanguard"
+        ]
+      }
     },
     {
       "name": "Additional armor",

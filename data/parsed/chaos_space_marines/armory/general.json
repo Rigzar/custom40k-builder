@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Armory",
   "weapons": [
     {
@@ -470,7 +470,9 @@
     {
       "name": "Cursed blade",
       "term_compat": true,
-      "requires_keywords": ["Lieutenant"],
+      "requires_keywords": [
+        "Lieutenant"
+      ],
       "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Lieutenants.",
       "p_unit": null,
       "p_char": null,
@@ -491,7 +493,9 @@
     {
       "name": "Chaos Space Marine bike",
       "term_compat": false,
-      "requires_keywords": ["Infantry"],
+      "requires_keywords": [
+        "Infantry"
+      ],
       "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Combi-bolter and the unit type \"Bike\". Infantry only.",
       "p_unit": 32,
       "p_char": 38,
@@ -634,7 +638,9 @@
     {
       "name": "Familiar",
       "term_compat": true,
-      "requires_keywords": ["Sorcerer"],
+      "requires_keywords": [
+        "Sorcerer"
+      ],
       "desc": "The model may sacrifice the Familiar to reroll a psychic power manifestation test. While it is alive, the model gains +1 Initiative. Only for Sorcerers.",
       "p_unit": null,
       "p_char": 5,
@@ -733,7 +739,9 @@
       "name": "Terminator armor",
       "armourKeyword": "Terminator",
       "term_compat": false,
-      "requires_keywords": ["Infantry"],
+      "requires_keywords": [
+        "Infantry"
+      ],
       "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 5+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
       "p_unit": 23,
       "p_char": 46
@@ -757,7 +765,12 @@
       "p_veh": 2,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Counter-Attack"
+        ]
+      }
     },
     {
       "name": "Favoured enemy",
@@ -768,7 +781,12 @@
       "p_veh": 2,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Favoured Enemy"
+        ]
+      }
     },
     {
       "name": "Furious charge",
@@ -779,7 +797,12 @@
       "p_veh": 2,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Furious Charge"
+        ]
+      }
     },
     {
       "name": "Infiltrator",
@@ -790,7 +813,12 @@
       "p_veh": null,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Infiltrator"
+        ]
+      }
     },
     {
       "name": "Outflank",
@@ -801,7 +829,12 @@
       "p_veh": 2,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Outflank"
+        ]
+      }
     },
     {
       "name": "Tank hunter",
@@ -812,7 +845,12 @@
       "p_veh": 2,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Tank Hunter"
+        ]
+      }
     },
     {
       "name": "Terrain expert",
@@ -823,7 +861,13 @@
       "p_veh": 2,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Move Through Cover",
+          "Use Cover"
+        ]
+      }
     },
     {
       "name": "Vanguard",
@@ -834,7 +878,12 @@
       "p_veh": null,
       "armour_compat": [
         "Terminator"
-      ]
+      ],
+      "effect": {
+        "grants_abilities": [
+          "Vanguard"
+        ]
+      }
     },
     {
       "name": "Additional armor",
@@ -854,7 +903,7 @@
       "name": "Daemonic possession",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "The model gains the \"Daemon\" ability (5+ invulnerability save). The model reduces its BS and WS by -1. The model ignores \"Crew Shaken\" vehicle damage. If transporting a unit, during each activation roll 1D6 per model \u2014 on a 1 or 2 the unit suffers a Mortal Wound.",
+      "desc": "The model gains the \"Daemon\" ability (5+ invulnerability save). The model reduces its BS and WS by -1. The model ignores \"Crew Shaken\" vehicle damage. If transporting a unit, during each activation roll 1D6 per model — on a 1 or 2 the unit suffers a Mortal Wound.",
       "p_unit": 0
     },
     {

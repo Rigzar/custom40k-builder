@@ -25,6 +25,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.11',
+    date: '2026-06-27',
+    title: 'ki-26a CLOSED: veteran ability effects now apply, not just display text',
+    changes: [
+      'Buying a Veteran Ability (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard) now adds the granted rule to the unit\'s printed Abilities list, for every faction that has them (CSM, Space Marines, Adeptus Custodes, Grey Knights, Imperial Guard, Inquisition) — not just shown as armory description text.',
+      'Adeptus Mechanicus\' 4 Doctrina Imperatives now apply their actual effect too: Aggressor Imperative\'s +2" Movement is a real stat change, and Bulwark/Conqueror/Protector grant Narthecium/Furious Charge/Unyielding.',
+      'Fix: Space Marines\' 8 Veteran Ability armory items were missing their category tag and their per-Wound/Hull-point vehicle price entirely (every other faction already had this) — corrected against the canonical Space Marines Armory sheet.',
+    ],
+  },
+  {
     version: '1.10',
     date: '2026-06-26',
     title: 'ki-2 CLOSED: optional accounts + cloud saves',

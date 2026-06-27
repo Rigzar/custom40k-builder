@@ -489,7 +489,12 @@
       "desc": "The model gains the ability \"Counter-attack\".",
       "p_unit": 1,
       "p_veh": 2,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Counter-Attack"
+        ]
+      }
     },
     {
       "name": "Favoured enemy",
@@ -498,7 +503,12 @@
       "desc": "The model gains the ability \"Favoured enemy\".",
       "p_unit": 1,
       "p_veh": 2,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Favoured Enemy"
+        ]
+      }
     },
     {
       "name": "Furious charge",
@@ -507,7 +517,12 @@
       "desc": "The model gains the ability \"Furious charge\".",
       "p_unit": 1,
       "p_veh": 2,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Furious Charge"
+        ]
+      }
     },
     {
       "name": "Infiltrator",
@@ -516,7 +531,12 @@
       "desc": "The model gains the ability \"Infiltrator\".",
       "p_unit": 1,
       "p_veh": null,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Infiltrator"
+        ]
+      }
     },
     {
       "name": "Outflank",
@@ -525,7 +545,12 @@
       "desc": "The model gains the ability \"Outflank\".",
       "p_unit": 1,
       "p_veh": 2,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Outflank"
+        ]
+      }
     },
     {
       "name": "Tank hunter",
@@ -534,7 +559,12 @@
       "desc": "The model gains the ability \"Tank hunter\".",
       "p_unit": 1,
       "p_veh": 2,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Tank Hunter"
+        ]
+      }
     },
     {
       "name": "Terrain expert",
@@ -543,7 +573,13 @@
       "desc": "The model gains the abilities \"Move through cover\" and \"Use cover\".",
       "p_unit": 1,
       "p_veh": 2,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Move Through Cover",
+          "Use Cover"
+        ]
+      }
     },
     {
       "name": "Vanguard",
@@ -552,7 +588,12 @@
       "desc": "The model gains the ability \"Vanguard\".",
       "p_unit": 1,
       "p_veh": null,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_abilities": [
+          "Vanguard"
+        ]
+      }
     },
     {
       "name": "Additional armor",
