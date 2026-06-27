@@ -148,6 +148,7 @@ function TabBar({
   activeTab, openTabs, selectedFaction, factionLabel, armyName, symbolOverride,
   alliedFactionKey, alliedFactionLabel,
   onSwitch, onClose,
+  loggedIn, username, onAccountClick,
 }: {
   activeTab: TabId;
   openTabs: TabId[];
@@ -159,6 +160,9 @@ function TabBar({
   alliedFactionLabel?: string;
   onSwitch: (tab: TabId) => void;
   onClose: (tab: TabId) => void;
+  loggedIn: boolean;
+  username: string | null;
+  onAccountClick: () => void;
 }) {
   const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean; allied?: boolean }[] = [
     { id: 'landing',     label: 'Factions',       icon: false, closeable: false },
@@ -169,7 +173,8 @@ function TabBar({
   ];
 
   return (
-    <div className="flex items-stretch h-[38px] bg-zinc-950 border-b border-zinc-800 px-2 overflow-x-auto">
+    <div className="flex items-stretch h-[38px] bg-zinc-950 border-b border-zinc-800 px-2">
+      <div className="flex items-stretch overflow-x-auto flex-1 min-w-0">
       {tabs.map(tab => {
         const active = activeTab === tab.id;
         return (
@@ -204,6 +209,13 @@ function TabBar({
           </div>
         );
       })}
+      </div>
+      <button
+        onClick={onAccountClick}
+        className="flex items-center shrink-0 gap-1.5 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors"
+      >
+        {loggedIn ? `☁ ${username}` : 'Log in'}
+      </button>
     </div>
   );
 }
@@ -448,6 +460,9 @@ export default function App() {
           alliedFactionLabel={alliedFactionLabel}
           onSwitch={setActiveTab}
           onClose={handleCloseTab}
+          loggedIn={loggedIn}
+          username={username}
+          onAccountClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
         />
       </div>
 
@@ -563,12 +578,6 @@ export default function App() {
                   className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
                 >
                   Bug
-                </button>
-                <button
-                  onClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
-                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-                >
-                  {loggedIn ? `☁ ${username}` : 'Log in'}
                 </button>
               </div>
             </div>
