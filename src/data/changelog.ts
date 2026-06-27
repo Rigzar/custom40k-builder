@@ -38,6 +38,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Internal: consolidated scattered per-faction engine files (legacies, traits, resolvers, validators, archetype helpers) into each faction\'s existing `codex_<faction>/` folder — no behavior change, just easier to find where a faction\'s rules logic lives.',
       'Fix: the printable unit card showed inflated/duplicated weapon quantities for units with partial weapon swaps (e.g. only the Champion taking a special weapon) — it ignored the per-weapon count adjustment the live unit card already used, so both the replaced and replacement weapon showed the full squad size instead of their actual counts.',
       'The printable unit card now uses a distinct accent color per faction (instead of every faction but Chaos sharing one flat brown), so each army\'s printed sheet reads with its own visual identity — Chaos Space Marines/Chaos Daemons still use their Mark color when one is set.',
+      'Internal: merged the 7 separate /api/auth/* serverless functions (login, logout, me, register, reset-password, secret-question, recovery-code) into one dynamic route — the Vercel Hobby plan caps a deployment at 12 functions, and the last 2 endpoints added today pushed the project to 13, which silently failed every production deploy. URLs are unchanged.',
     ],
   },
   {
