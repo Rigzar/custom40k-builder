@@ -2,7 +2,6 @@
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
-import { LegalFooter } from './LegalModal';
 import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
@@ -460,8 +459,6 @@ export function LandingPage({
           </div>
         </section>
       </div>
-
-      <LegalFooter />
     </div>
   );
 }
