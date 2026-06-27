@@ -810,16 +810,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-p1',
-    status: 'planned',
+    status: 'fixed',
     title: {
       en: 'Account system & cloud army storage',
       de: 'Kontosystem & Cloud-Armeespeicher',
       es: 'Sistema de cuentas y almacenamiento de ejércitos en la nube',
     },
     description: {
-      en: 'A login/account system that lets you save armies in the cloud and access them from any device. Currently being designed — no release date yet.',
-      de: 'Ein Anmelde-/Kontosystem, mit dem du Armeen in der Cloud speichern und von jedem Gerät aus darauf zugreifen kannst. Wird derzeit entwickelt — noch kein Veröffentlichungsdatum.',
-      es: 'Un sistema de inicio de sesión/cuenta que te permite guardar ejércitos en la nube y acceder a ellos desde cualquier dispositivo. Actualmente en diseño — sin fecha de lanzamiento.',
+      en: 'Shipped in v1.10 — see ki-2 for details (optional username/password accounts, cloud roster saves, recovery code, 12-month inactivity cleanup).',
+      de: 'Veröffentlicht in v1.10 — Details siehe ki-2 (optionale Benutzername/Passwort-Konten, Cloud-Speicherung, Wiederherstellungscode, 12-monatige Inaktivitätsbereinigung).',
+      es: 'Lanzado en v1.10 — ver ki-2 para más detalles (cuentas opcionales de usuario/contraseña, guardado de ejércitos en la nube, código de recuperación, limpieza por 12 meses de inactividad).',
     },
   },
   {
@@ -1353,7 +1353,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: 'Fixed in v0.11 — all trait costs now multiply by unit size (a 5-pt trait on 5 models = 25 pts). Traits marked with * additionally multiply by Wounds per model (e.g. "Iron Within, Iron Without" CSM: 2* = 2 × W × size).',
   },
   {
-    id: 'ki-p3',
+    id: 'ki-14',
     status: 'fixed',
     title: 'Allied detachment — add a second faction as allies in the same list',
     description: 'Implemented in v0.13 — a full Allied Detachment panel lets you pick a second faction as allies, shows their relationship (Battle Brothers / Allies of Convenience / Desperate Allies), and provides a mini force org (0–1 HQ, 1–2 Troops, 0–1 Elites/FA/HS). Allied units are validated separately from the main force org.',
