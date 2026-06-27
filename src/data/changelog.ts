@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.12',
+    date: '2026-06-27',
+    title: 'Cloud-first Save button + secret question recovery + always-visible recovery code',
+    changes: [
+      'The "Save" button now saves to your cloud account when logged in, instead of only this browser — falls back to the local "My Armies" list if you\'re not logged in.',
+      'Saving under a name you already used auto-renames it ("Name (1)", "Name (2)"...) instead of silently overwriting an unrelated save — same convention Windows uses for duplicate filenames.',
+      'New: optional secret question, set at registration or anytime from your account page. If set, resetting your password now requires both the recovery code AND the secret answer.',
+      'Your recovery code is now always available in your account page (the 👁 icon next to it, blurred until you click it) instead of only being shown once at signup.',
+    ],
+  },
+  {
     version: '1.11',
     date: '2026-06-27',
     title: 'ki-26a CLOSED: veteran ability effects now apply, not just display text',

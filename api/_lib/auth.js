@@ -45,6 +45,43 @@ export function verifyRecoveryCode(code, hash) {
   return bcrypt.compare(code.trim().toUpperCase(), hash);
 }
 
+/** Derives a stable AES-256 key from SESSION_SECRET — no separate Vercel env var needed. */
+function getEncryptionKey() {
+  return crypto.createHash('sha256').update(getSessionSecret() + ':recovery-code-encryption').digest();
+}
+
+/**
+ * Encrypts the recovery code so it can be shown again later in the account UI (the "eye icon"
+ * reveal) — unlike `recovery_code_hash` (one-way, verification only), this is reversible. AES-256-
+ * GCM with a random IV per call; ciphertext+IV+authTag are bundled into one base64 string so the
+ * column only needs to store a single opaque value.
+ */
+export function encryptRecoveryCode(code) {
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv('aes-256-gcm', getEncryptionKey(), iv);
+  const encrypted = Buffer.concat([cipher.update(code, 'utf8'), cipher.final()]);
+  return Buffer.concat([iv, cipher.getAuthTag(), encrypted]).toString('base64');
+}
+
+export function decryptRecoveryCode(blob) {
+  const buf = Buffer.from(blob, 'base64');
+  const iv = buf.subarray(0, 12);
+  const authTag = buf.subarray(12, 28);
+  const encrypted = buf.subarray(28);
+  const decipher = crypto.createDecipheriv('aes-256-gcm', getEncryptionKey(), iv);
+  decipher.setAuthTag(authTag);
+  return Buffer.concat([decipher.update(encrypted), decipher.final()]).toString('utf8');
+}
+
+/** Secret question's answer — case/whitespace-insensitive, one-way hashed like a password. */
+export function hashSecretAnswer(answer) {
+  return bcrypt.hash(answer.trim().toLowerCase(), 10);
+}
+
+export function verifySecretAnswer(answer, hash) {
+  return bcrypt.compare(answer.trim().toLowerCase(), hash);
+}
+
 function sign(value) {
   return crypto.createHmac('sha256', getSessionSecret()).update(value).digest('hex');
 }

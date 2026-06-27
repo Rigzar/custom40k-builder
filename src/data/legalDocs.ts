@@ -101,11 +101,14 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
           `Army roster data: By default, your army lists are stored exclusively in your own ` +
           `browser's local storage. They never leave your device and are not accessible to us.\n\n` +
           `Optional account: If you choose to create an account (username + password, no email ` +
-          `required), we store your username and a one-way hash of your password and recovery ` +
-          `code — never the plain text — plus any army rosters you explicitly save to your ` +
-          `account, in a database operated by our hosting provider. This is only used to let you ` +
-          `load your saved rosters from any device. Accounts inactive for 12 months are deleted ` +
-          `automatically, along with their saved rosters.\n\n` +
+          `required), we store your username, a one-way hash of your password, and your recovery ` +
+          `code in two forms — a one-way hash (used to verify it) and an encrypted copy (used only ` +
+          `to show it back to you in your account page) — plus any army rosters you explicitly ` +
+          `save to your account, in a database operated by our hosting provider. If you set an ` +
+          `optional secret question, only a one-way hash of the answer is stored, never the plain ` +
+          `text. This is only used to let you load your saved rosters from any device and recover ` +
+          `your account. Accounts inactive for 12 months are deleted automatically, along with ` +
+          `their saved rosters.\n\n` +
           `Account recovery requests: If you use the "lost my recovery code" form, your username ` +
           `and any context you provide are posted as a public GitHub Issue on this project's ` +
           `repository so the maintainer can manually verify and restore access. Never include a ` +
@@ -125,9 +128,10 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
         heading: '4. Data retention',
         body:
           `Bug reports and account recovery requests are retained as GitHub Issues until ` +
-          `manually closed/deleted. Account data (username, password hash, recovery code hash, ` +
-          `saved rosters) is retained until you delete your account, or automatically after ` +
-          `12 months of inactivity. Vercel server logs are subject to Vercel's privacy policy.`,
+          `manually closed/deleted. Account data (username, password hash, recovery code in ` +
+          `hashed and encrypted form, optional secret question answer hash, saved rosters) is ` +
+          `retained until you delete your account, or automatically after 12 months of ` +
+          `inactivity. Vercel server logs are subject to Vercel's privacy policy.`,
       },
       {
         heading: '5. Third-party processors',

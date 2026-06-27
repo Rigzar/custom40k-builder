@@ -1,5 +1,5 @@
 import { sql, ensureSchema } from '../_lib/db.js';
-import { generateRecoveryCode, hashRecoveryCode } from '../_lib/auth.js';
+import { generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode } from '../_lib/auth.js';
 
 /**
  * Admin-only: issues a fresh recovery code for a username, used to resolve "lost my code"
@@ -48,7 +48,11 @@ export default async function handler(req, res) {
 
     const recoveryCode = generateRecoveryCode();
     const recoveryCodeHash = await hashRecoveryCode(recoveryCode);
-    await sql`UPDATE users SET recovery_code_hash = ${recoveryCodeHash} WHERE id = ${existing.rows[0].id}`;
+    const recoveryCodeEncrypted = encryptRecoveryCode(recoveryCode);
+    await sql`
+      UPDATE users SET recovery_code_hash = ${recoveryCodeHash}, recovery_code_encrypted = ${recoveryCodeEncrypted}
+      WHERE id = ${existing.rows[0].id}
+    `;
 
     res.status(200).json({ ok: true, username: username.trim(), recoveryCode });
   } catch (err) {

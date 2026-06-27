@@ -20,8 +20,30 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
   const [revealCode, setRevealCode] = useState<string | null>(null);
   const [recoveryUrl, setRecoveryUrl] = useState<string | null>(null);
 
+  // Registration: optional secret question, an extra factor required (alongside the recovery
+  // code) when resetting the password later.
+  const [secretQuestion, setSecretQuestion] = useState('');
+  const [secretAnswer, setSecretAnswer]     = useState('');
+
+  // Forgot-password: looked up from the username once they've typed it, so the answer field
+  // only appears (and is required) for accounts that actually set one up.
+  const [resetSecretQuestion, setResetSecretQuestion] = useState<string | null>(null);
+  const [resetSecretAnswer, setResetSecretAnswer]     = useState('');
+
   function reset() {
     setError(''); setRevealCode(null); setRecoveryUrl(null);
+    setSecretQuestion(''); setSecretAnswer('');
+    setResetSecretQuestion(null); setResetSecretAnswer('');
+  }
+
+  async function handleUsernameBlurForReset() {
+    if (mode !== 'forgot' || !username.trim()) return;
+    try {
+      const info = await api.getSecretQuestion(username.trim());
+      setResetSecretQuestion(info.hasSecretQuestion ? info.question : null);
+    } catch {
+      setResetSecretQuestion(null);
+    }
   }
 
   async function handleLogin() {
@@ -39,7 +61,10 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
   async function handleRegister() {
     setError(''); setBusy(true);
     try {
-      const res = await api.register(username.trim(), password);
+      const res = await api.register(
+        username.trim(), password,
+        secretQuestion.trim() || undefined, secretAnswer.trim() || undefined,
+      );
       setRevealCode(res.recoveryCode);
     } catch (err) {
       setError((err as Error).message);
@@ -51,7 +76,10 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
   async function handleResetPassword() {
     setError(''); setBusy(true);
     try {
-      const res = await api.resetPassword(username.trim(), recoveryCode.trim(), newPassword);
+      const res = await api.resetPassword(
+        username.trim(), recoveryCode.trim(), newPassword,
+        resetSecretQuestion ? resetSecretAnswer.trim() : undefined,
+      );
       setRevealCode(res.recoveryCode);
     } catch (err) {
       setError((err as Error).message);
@@ -130,8 +158,12 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
       <div className="p-4 space-y-3">
         {mode !== 'lostCode' && (
           <Field label="Username">
-            <input value={username} onChange={e => setUsername(e.target.value)}
-              className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+            <input
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              onBlur={mode === 'forgot' ? handleUsernameBlurForReset : undefined}
+              className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
+            />
           </Field>
         )}
 
@@ -143,10 +175,23 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
         )}
 
         {mode === 'register' && (
-          <Field label="Password (min. 8 characters)">
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)}
-              className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
-          </Field>
+          <>
+            <Field label="Password (min. 8 characters)">
+              <input type="password" value={password} onChange={e => setPassword(e.target.value)}
+                className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+            </Field>
+            <Field label="Secret question (optional — extra recovery protection)">
+              <input value={secretQuestion} onChange={e => setSecretQuestion(e.target.value)}
+                placeholder="e.g. What was your first army's faction?"
+                className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+            </Field>
+            {secretQuestion.trim() && (
+              <Field label="Answer">
+                <input value={secretAnswer} onChange={e => setSecretAnswer(e.target.value)}
+                  className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+              </Field>
+            )}
+          </>
         )}
 
         {mode === 'forgot' && (
@@ -156,6 +201,12 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
                 placeholder="XXXX-XXXX-XXXX"
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none font-mono" />
             </Field>
+            {resetSecretQuestion && (
+              <Field label={resetSecretQuestion}>
+                <input value={resetSecretAnswer} onChange={e => setResetSecretAnswer(e.target.value)}
+                  className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+              </Field>
+            )}
             <Field label="New password (min. 8 characters)">
               <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />

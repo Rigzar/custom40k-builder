@@ -17,9 +17,11 @@ export function getMe() {
   return call<MeResponse>('/api/auth/me');
 }
 
-export function register(username: string, password: string) {
+export function register(
+  username: string, password: string, secretQuestion?: string, secretAnswer?: string,
+) {
   return call<{ username: string; recoveryCode: string }>('/api/auth/register', {
-    method: 'POST', body: JSON.stringify({ username, password }),
+    method: 'POST', body: JSON.stringify({ username, password, secretQuestion, secretAnswer }),
   });
 }
 
@@ -33,10 +35,31 @@ export function logout() {
   return call<{ ok: true }>('/api/auth/logout', { method: 'POST' });
 }
 
-export function resetPassword(username: string, recoveryCode: string, newPassword: string) {
+export function resetPassword(
+  username: string, recoveryCode: string, newPassword: string, secretAnswer?: string,
+) {
   return call<{ recoveryCode: string }>('/api/auth/reset-password', {
-    method: 'POST', body: JSON.stringify({ username, recoveryCode, newPassword }),
+    method: 'POST', body: JSON.stringify({ username, recoveryCode, newPassword, secretAnswer }),
   });
+}
+
+export type SecretQuestionInfo =
+  | { hasSecretQuestion: true; question: string }
+  | { hasSecretQuestion: false };
+
+export function getSecretQuestion(username: string) {
+  return call<SecretQuestionInfo>(`/api/auth/secret-question?username=${encodeURIComponent(username)}`);
+}
+
+export function setSecretQuestion(question: string | null, answer?: string) {
+  return call<SecretQuestionInfo>('/api/auth/secret-question', {
+    method: 'POST', body: JSON.stringify({ question, answer }),
+  });
+}
+
+export type RecoveryCodeInfo = { hasCode: true; code: string } | { hasCode: false };
+export function getRecoveryCode() {
+  return call<RecoveryCodeInfo>('/api/auth/recovery-code');
 }
 
 export function requestAccountRecovery(username: string, message: string) {

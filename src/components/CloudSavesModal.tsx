@@ -27,6 +27,59 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
   const [saving, setSaving]   = useState(false);
   const [newName, setNewName] = useState('');
 
+  // Account security: recovery code (eye-icon reveal) + secret question management.
+  const [showSecurity, setShowSecurity]   = useState(false);
+  const [recoveryCode, setRecoveryCode]   = useState<string | null>(null);
+  const [codeRevealed, setCodeRevealed]   = useState(false);
+  const [codeLoading, setCodeLoading]     = useState(false);
+  const [secQuestion, setSecQuestion]     = useState<string | null>(null);
+  const [editQuestion, setEditQuestion]   = useState('');
+  const [editAnswer, setEditAnswer]       = useState('');
+  const [secBusy, setSecBusy]             = useState(false);
+  const [secError, setSecError]           = useState('');
+  const [secMsg, setSecMsg]               = useState('');
+
+  async function loadSecurity() {
+    setCodeLoading(true);
+    try {
+      const codeRes = await api.getRecoveryCode();
+      setRecoveryCode(codeRes.hasCode ? codeRes.code : null);
+      const qRes = await api.getSecretQuestion(username);
+      setSecQuestion(qRes.hasSecretQuestion ? qRes.question : null);
+    } catch (err) {
+      setSecError((err as Error).message);
+    } finally {
+      setCodeLoading(false);
+    }
+  }
+
+  function toggleSecurity() {
+    const next = !showSecurity;
+    setShowSecurity(next);
+    if (next && recoveryCode === null && secQuestion === null) loadSecurity();
+  }
+
+  async function handleSaveSecretQuestion() {
+    setSecBusy(true); setSecError(''); setSecMsg('');
+    try {
+      if (!editQuestion.trim()) {
+        await api.setSecretQuestion(null);
+        setSecQuestion(null);
+      } else {
+        if (!editAnswer.trim()) { setSecError('Answer is required.'); return; }
+        await api.setSecretQuestion(editQuestion.trim(), editAnswer.trim());
+        setSecQuestion(editQuestion.trim());
+      }
+      setEditQuestion(''); setEditAnswer('');
+      setSecMsg('Saved!');
+      setTimeout(() => setSecMsg(''), 2000);
+    } catch (err) {
+      setSecError((err as Error).message);
+    } finally {
+      setSecBusy(false);
+    }
+  }
+
   async function refresh() {
     setLoading(true);
     try {
@@ -155,6 +208,106 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
               ))}
             </div>
           )}
+
+          <div className="border-t border-zinc-700 pt-3">
+            <button
+              onClick={toggleSecurity}
+              className="text-[11px] text-zinc-500 hover:text-amber-400 uppercase tracking-wide flex items-center gap-1"
+            >
+              {showSecurity ? '▾' : '▸'} Account security
+            </button>
+
+            {showSecurity && (
+              <div className="mt-3 space-y-4 bg-zinc-950/40 border border-zinc-800 p-3">
+                {secError && <p className="text-red-400 text-xs">{secError}</p>}
+
+                <div>
+                  <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Recovery code</div>
+                  {codeLoading ? (
+                    <p className="text-zinc-500 text-xs">Loading…</p>
+                  ) : recoveryCode ? (
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`bg-zinc-950 border border-amber-700 text-amber-400 font-mono text-sm px-3 py-2 tracking-widest flex-1 select-all ${
+                          codeRevealed ? '' : 'blur-sm'
+                        }`}
+                      >
+                        {recoveryCode}
+                      </div>
+                      <button
+                        onClick={() => setCodeRevealed(v => !v)}
+                        title={codeRevealed ? 'Hide' : 'Reveal'}
+                        className="text-lg px-2 text-zinc-400 hover:text-amber-400"
+                      >
+                        {codeRevealed ? '🙈' : '👁'}
+                      </button>
+                    </div>
+                  ) : (
+                    <p className="text-zinc-500 text-xs italic">
+                      No code on file yet — reset your password once to get one, or use "Lost your
+                      recovery code?" from the login screen.
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Secret question</div>
+                  {secQuestion && !editQuestion && (
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-zinc-300 text-sm">{secQuestion}</span>
+                      <button
+                        onClick={() => setEditQuestion(secQuestion)}
+                        className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2 shrink-0"
+                      >
+                        Change
+                      </button>
+                    </div>
+                  )}
+                  {(!secQuestion || editQuestion) && (
+                    <div className="space-y-2">
+                      {!secQuestion && (
+                        <p className="text-zinc-500 text-[11px] italic">
+                          Not set. Optional — if set, it's required (along with your recovery code)
+                          to reset your password.
+                        </p>
+                      )}
+                      <input
+                        value={editQuestion}
+                        onChange={e => setEditQuestion(e.target.value)}
+                        placeholder="e.g. What was your first army's faction?"
+                        className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
+                      />
+                      {editQuestion.trim() && (
+                        <input
+                          value={editAnswer}
+                          onChange={e => setEditAnswer(e.target.value)}
+                          placeholder="Answer"
+                          className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
+                        />
+                      )}
+                      <div className="flex gap-2">
+                        <button
+                          disabled={secBusy}
+                          onClick={handleSaveSecretQuestion}
+                          className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
+                        >
+                          {secMsg || 'Save'}
+                        </button>
+                        {secQuestion && (
+                          <button
+                            onClick={() => { setEditQuestion(''); setEditAnswer(''); }}
+                            className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide"
+                          >
+                            Cancel
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="px-4 py-3 border-t border-zinc-700 flex justify-between items-center bg-zinc-800">
