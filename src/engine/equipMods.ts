@@ -200,6 +200,14 @@ export function isMultipleAllowed(desc: string | undefined): boolean {
   return /can be taken multiple times|purchased for each weapon/i.test(desc ?? '');
 }
 
+/** "May be taken up to N times per model" (e.g. Tau Seeker missile: up to 2) — the once-per-model
+ *  cap multiplies by N instead of being a flat single copy. Defaults to 1 (the ordinary single-copy
+ *  case) when the item's desc doesn't state an explicit multiplier. */
+export function multiplesPerModel(desc: string | undefined): number {
+  const m = (desc ?? '').match(/up to (\d+) times per model/i);
+  return m ? parseInt(m[1], 10) : 1;
+}
+
 /** The 16 named Ork "Kustom Job" armory items (Armory.html, unit-gated by prose — "Vehicle only" /
  *  "Mek only" / "Walker only" / "Spanna only" / "Warbuggy only" — not by a structural data field, so
  *  there's no other way to identify them than this canonical name list). The "Waaagh! Coast

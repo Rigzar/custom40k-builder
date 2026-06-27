@@ -33,6 +33,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Saving under a name you already used auto-renames it ("Name (1)", "Name (2)"...) instead of silently overwriting an unrelated save — same convention Windows uses for duplicate filenames.',
       'New: optional secret question, set at registration or anytime from your account page. If set, resetting your password now requires both the recovery code AND the secret answer.',
       'Your recovery code is now always available in your account page (the 👁 icon next to it, blurred until you click it) instead of only being shown once at signup.',
+      'Fix GH#13: Imperial Guard\'s "Heavy Infantry" and "Bionic Improvement" traits were charging and applying to every unit, including ones that already have a 4+ armor save / invulnerability save from their datasheet or Armory (e.g. Storm Troopers) — both traits are exempt-and-free for those units per the canonical Army Customisation text.',
+      'Fix GH#14: Tau Empire\'s Seeker missile ("may be taken up to 2 times per model") could only be taken once per vehicle — the once-per-model armory cap now recognizes explicit "up to N times per model" multipliers instead of always capping at 1.',
     ],
   },
   {

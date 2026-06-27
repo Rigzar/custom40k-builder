@@ -5,6 +5,8 @@ import type { FactionData, Trait, Unit } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
+import { findArmoryItem } from '../engine/resolver';
+import { parseInvSaveFromAbilities } from '../engine/equipMods';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -31,10 +33,42 @@ function isArmyOnlyTrait(t: Trait): boolean {
     && parseTraitPts(t.pts_veh) === null;
 }
 
+function parseSv(v: string | undefined): number {
+  const m = v?.match(/^(\d+)\+/);
+  return m ? parseInt(m[1], 10) : 99;
+}
+
+/** "Only for creature models that do not already have a 4+ armor save from their datasheet or
+ *  Armory" (Heavy Infantry, IG Army Customisation) — units whose base SV is already 4+ or better
+ *  (e.g. Storm Troopers' carapace armor), or who bought an Armory item granting one, are exempt:
+ *  the trait neither applies nor charges them. */
+function alreadyHasArmorSave4Plus(unit: Unit, item: RosterEntry, data: FactionData): boolean {
+  if (parseSv(unit.models[0]?.stats?.SV) <= 4) return true;
+  return (item.armory ?? []).some(sel => {
+    const ai = findArmoryItem(data, sel);
+    return ai?.desc != null && /\d\+\s+armou?r\s+save/i.test(ai.desc);
+  });
+}
+
+/** Same exemption pattern, for Bionic Improvement's "...do not already have an invulnerability
+ *  save from their datasheet or Armory." */
+function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData): boolean {
+  if (parseInvSaveFromAbilities(unit.abilities ?? []) !== null) return true;
+  return (item.armory ?? []).some(sel => {
+    const ai = findArmoryItem(data, sel);
+    return ai?.desc != null && /\d\+\s+invulnerable\s+save/i.test(ai.desc);
+  });
+}
+
 /** Shared trait→points resolution (Army Customisation cost table), faction-agnostic. */
-function computeTraitSelections(unit: Unit, names: string[], traits: Trait[]): TraitSelection[] {
+function computeTraitSelections(
+  unit: Unit, item: RosterEntry, names: string[], traits: Trait[], data: FactionData,
+): TraitSelection[] {
   return names
     .map(name => {
+      if (name === 'Heavy Infantry' && alreadyHasArmorSave4Plus(unit, item, data)) return null;
+      if (name === 'Bionic Improvement' && alreadyHasInvulnSave(unit, item, data)) return null;
+
       const def = traits.find(t => t.name === name);
       if (!def) return null;
 
@@ -123,7 +157,7 @@ function applyArmyTraits(
       }
 
       // All selected traits apply to all eligible units — veteran_max limits only armory items
-      return { ...item, traits: computeTraitSelections(unit, unitTraitNames, data.traits) };
+      return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data) };
     }
 
     // Allied Detachment's own trait pool — independent of the primary faction's
@@ -133,7 +167,7 @@ function applyArmyTraits(
       if (alliedData.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
         return { ...item, traits: [] };
       }
-      return { ...item, traits: computeTraitSelections(unit, allyTraitNames, alliedData.traits) };
+      return { ...item, traits: computeTraitSelections(unit, item, allyTraitNames, alliedData.traits, alliedData) };
     }
 
     return { ...item, traits: [] };

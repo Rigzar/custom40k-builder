@@ -3,7 +3,7 @@ import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, requiresWeaponTarget, isOrkKustomJob } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, requiresWeaponTarget, isOrkKustomJob } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -167,7 +167,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
       ? item.size + 1
-      : item.size;
+      : item.size * multiplesPerModel(arm.desc);
     return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
