@@ -37,6 +37,9 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Fix: a malformed request body could crash the entire API server instead of returning a clean error (affected register/login/reset-password/account-recovery/admin-recovery and the pre-existing bug-report endpoint).',
       'ki-orks-waaaghcoastkustoms-unmodelled-01 and ki-tau-swarmcontrollers-unmodelled-01 CLOSED: both traits now correctly raise their respective purchase caps (Kustom Jobs +1, Drone controller budget 2→3) when active.',
       'ki-replaces-swap-manual-review-01 CLOSED: Dark Eldar Talos and Tyranids Carnifex Brood weapon swaps (each has 2 copies of the same melee weapon per model) now hide/recount correctly instead of assuming 1 copy per model.',
+      'Fix: the login/account button was only visible on the army builder screen; moved into the top tab bar so it shows on every screen.',
+      'Fix: a duplicated legal/copyright footer on the Factions screen.',
+      'Fix: corrected the Talos/Carnifex Brood fix above for 42 other multi-copy weapons (Fellblade, Hive Tyrant, Hammerhead, etc.) that use a single bulk swap instead of per-copy swaps — the original fix was hiding their old weapon correctly, but the threshold logic needed a guard so it does not regress that more common case.',
     ],
   },
   {
