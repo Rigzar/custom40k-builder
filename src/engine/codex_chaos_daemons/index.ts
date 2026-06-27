@@ -19,3 +19,7 @@ export { CD_UNIT_TYPES } from './unit-types';
 export { CD_KEYWORDS } from './keywords';
 export { CD_SPECIAL_ABILITIES } from './special-abilities';
 export { CD_WEAPON_ABILITIES } from './weapon-abilities';
+export { CD_TRAIT_EFFECTS } from './traits';
+export { cdResolve, SACRED_NUMBERS } from './resolver';
+export { CD_ARCHETYPES } from './archetypes/index';
+export { CD_VEHICLE_WEAPON_OVERRIDES } from './archetypes/weapon-overrides';

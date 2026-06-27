@@ -11,8 +11,8 @@
  * When the canonical text and the flags diverge, fix the flags — not the text.
  */
 
-import type { ArchetypeRule } from '../base';
-import { BASE, fastArchetype, dropPodArchetype } from '../base';
+import type { ArchetypeRule } from '../../archetypes/base';
+import { BASE, fastArchetype, dropPodArchetype } from '../../archetypes/base';
 
 export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
 

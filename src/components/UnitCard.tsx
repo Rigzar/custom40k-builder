@@ -10,7 +10,7 @@ import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
-import { SACRED_NUMBERS } from '../engine/resolvers/chaos_daemons';
+import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';

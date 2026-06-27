@@ -1,17 +1,17 @@
 import type { Unit } from '../types/data';
 import { CSM_TRAIT_EFFECTS } from './codex_csm/traits';
-import { CD_TRAIT_EFFECTS } from './traits/chaos_daemons';
-import { SM_TRAIT_EFFECTS } from './traits/space_marines';
-import { SORORITAS_TRAIT_EFFECTS } from './traits/adeptus_sororitas';
-import { ORKS_TRAIT_EFFECTS } from './traits/orks';
-import { GSC_TRAIT_EFFECTS } from './traits/genestealer_cults';
-import { ELDAR_TRAIT_EFFECTS } from './traits/eldar';
-import { VOTANN_TRAIT_EFFECTS } from './traits/leagues_of_votann';
-import { ADMECH_TRAIT_EFFECTS } from './traits/adeptus_mechanicus';
-import { IG_TRAIT_EFFECTS } from './traits/imperial_guard';
-import { TAU_TRAIT_EFFECTS } from './traits/tau_empire';
-import { NECRONS_TRAIT_EFFECTS } from './traits/necrons';
-import { DARK_ELDAR_TRAIT_EFFECTS } from './traits/dark_eldar';
+import { CD_TRAIT_EFFECTS } from './codex_chaos_daemons/traits';
+import { SM_TRAIT_EFFECTS } from './codex_space_marines/traits';
+import { SORORITAS_TRAIT_EFFECTS } from './codex_adeptus_sororitas/traits';
+import { ORKS_TRAIT_EFFECTS } from './codex_orks/traits';
+import { GSC_TRAIT_EFFECTS } from './codex_genestealer_cults/traits';
+import { ELDAR_TRAIT_EFFECTS } from './codex_eldar/traits';
+import { VOTANN_TRAIT_EFFECTS } from './codex_leagues_of_votann/traits';
+import { ADMECH_TRAIT_EFFECTS } from './codex_adeptus_mechanicus/traits';
+import { IG_TRAIT_EFFECTS } from './codex_imperial_guard/traits';
+import { TAU_TRAIT_EFFECTS } from './codex_tau_empire/traits';
+import { NECRONS_TRAIT_EFFECTS } from './codex_necrons/traits';
+import { DARK_ELDAR_TRAIT_EFFECTS } from './codex_dark_eldar/traits';
 
 export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
 

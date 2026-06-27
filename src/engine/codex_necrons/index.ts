@@ -29,3 +29,4 @@ export { NECRON_UNIT_TYPES } from './unit-types';
 export { NECRON_KEYWORDS } from './keywords';
 export { NECRON_SPECIAL_ABILITIES } from './special-abilities';
 export { NECRON_WEAPON_ABILITIES } from './weapon-abilities';
+export { NECRONS_TRAIT_EFFECTS } from './traits';

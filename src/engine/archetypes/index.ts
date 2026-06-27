@@ -2,8 +2,8 @@ export type { ArchetypeRule } from './base';
 import type { ArchetypeRule } from './base';
 import { BASE, fastArchetype, dropPodArchetype } from './base';
 import { CSM_ARCHETYPES } from '../codex_csm/archetypes/index';
-import { CD_ARCHETYPES } from './chaos_daemons/index';
-import { SM_ARCHETYPES } from './space_marines/index';
+import { CD_ARCHETYPES } from '../codex_chaos_daemons/archetypes/index';
+import { SM_ARCHETYPES } from '../codex_space_marines/archetypes/index';
 
 const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   ...CSM_ARCHETYPES,

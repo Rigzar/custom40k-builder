@@ -26,3 +26,4 @@ export { ELDAR_UNIT_TYPES } from './unit-types';
 export { ELDAR_KEYWORDS } from './keywords';
 export { ELDAR_SPECIAL_ABILITIES } from './special-abilities';
 export { ELDAR_WEAPON_ABILITIES } from './weapon-abilities';
+export { ELDAR_TRAIT_EFFECTS } from './traits';

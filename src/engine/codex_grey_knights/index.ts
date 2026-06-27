@@ -27,3 +27,4 @@ export { GK_UNIT_TYPES } from './unit-types';
 export { GK_KEYWORDS } from './keywords';
 export { GK_SPECIAL_ABILITIES } from './special-abilities';
 export { GK_WEAPON_ABILITIES } from './weapon-abilities';
+export { getGKLegacyPower } from './legacies';

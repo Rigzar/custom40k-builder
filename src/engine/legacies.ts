@@ -1,7 +1,7 @@
-import type { StructuredNote } from '../archetypes/base';
-import type { Power } from '../../types/data';
-import { CSM_LEGACY_NOTES } from '../codex_csm/legacies';
-import { getGKLegacyPower } from './grey_knights';
+import type { StructuredNote } from './archetypes/base';
+import type { Power } from '../types/data';
+import { CSM_LEGACY_NOTES } from './codex_csm/legacies';
+import { getGKLegacyPower } from './codex_grey_knights/legacies';
 
 const FACTION_LEGACY_NOTES: Record<string, Record<string, StructuredNote[]>> = {
   chaos_space_marines: CSM_LEGACY_NOTES,

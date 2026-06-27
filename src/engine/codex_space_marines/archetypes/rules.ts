@@ -14,7 +14,7 @@
  * To add a rule: push a new StructuredNote with the appropriate category.
  */
 
-import type { StructuredNote } from '../base';
+import type { StructuredNote } from '../../archetypes/base';
 
 export const SM_STRUCTURED_NOTES: Record<string, StructuredNote[]> = {
 

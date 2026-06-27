@@ -31,3 +31,4 @@ export { TAU_UNIT_TYPES } from './unit-types';
 export { TAU_KEYWORDS } from './keywords';
 export { TAU_SPECIAL_ABILITIES } from './special-abilities';
 export { TAU_WEAPON_ABILITIES } from './weapon-abilities';
+export { TAU_TRAIT_EFFECTS } from './traits';

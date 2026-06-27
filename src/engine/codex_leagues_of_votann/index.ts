@@ -29,3 +29,4 @@ export { VOTANN_UNIT_TYPES } from './unit-types';
 export { VOTANN_KEYWORDS } from './keywords';
 export { VOTANN_SPECIAL_ABILITIES } from './special-abilities';
 export { VOTANN_WEAPON_ABILITIES } from './weapon-abilities';
+export { VOTANN_TRAIT_EFFECTS } from './traits';

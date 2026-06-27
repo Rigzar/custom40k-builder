@@ -28,3 +28,4 @@ export { SORORITAS_UNIT_TYPES } from './unit-types';
 export { SORORITAS_KEYWORDS } from './keywords';
 export { SORORITAS_SPECIAL_ABILITIES } from './special-abilities';
 export { SORORITAS_WEAPON_ABILITIES } from './weapon-abilities';
+export { SORORITAS_TRAIT_EFFECTS } from './traits';

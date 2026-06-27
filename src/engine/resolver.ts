@@ -8,9 +8,9 @@ import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extra
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
 import { csmResolve } from './codex_csm/resolver';
-import { cdResolve } from './resolvers/chaos_daemons';
-import { smResolve } from './resolvers/space_marines';
-import { admechResolve } from './resolvers/adeptus_mechanicus';
+import { cdResolve } from './codex_chaos_daemons/resolver';
+import { smResolve } from './codex_space_marines/resolver';
+import { admechResolve } from './codex_adeptus_mechanicus/resolver';
 
 // ── Output type ───────────────────────────────────────────────────────────────
 

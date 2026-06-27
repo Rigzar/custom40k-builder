@@ -18,8 +18,8 @@
  * the builder cannot enforce them during play, only during list building.
  */
 
-import type { ArchetypeRule } from '../base';
-import { BASE } from '../base';
+import type { ArchetypeRule } from '../../archetypes/base';
+import { BASE } from '../../archetypes/base';
 
 export const CD_ARCHETYPES: Record<string, ArchetypeRule> = {
 

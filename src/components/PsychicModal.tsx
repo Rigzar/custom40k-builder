@@ -4,7 +4,7 @@ import type { Unit, Power } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
-import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/legacies/space_marines';
+import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }

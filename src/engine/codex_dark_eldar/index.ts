@@ -30,3 +30,4 @@ export { DARK_ELDAR_UNIT_TYPES } from './unit-types';
 export { DARK_ELDAR_KEYWORDS } from './keywords';
 export { DARK_ELDAR_SPECIAL_ABILITIES } from './special-abilities';
 export { DARK_ELDAR_WEAPON_ABILITIES } from './weapon-abilities';
+export { DARK_ELDAR_TRAIT_EFFECTS } from './traits';

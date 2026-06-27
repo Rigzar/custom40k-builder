@@ -6,7 +6,7 @@ import {
   getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
 } from './archetypes';
 import { applyVariantSlotOverride } from './slotOverrides';
-import { validateSpaceMarines } from './validators/index';
+import { validateSpaceMarines } from './codex_space_marines/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem } from './equipMods';

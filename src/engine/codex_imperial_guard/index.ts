@@ -31,3 +31,4 @@ export { IG_UNIT_TYPES } from './unit-types';
 export { IG_KEYWORDS } from './keywords';
 export { IG_SPECIAL_ABILITIES } from './special-abilities';
 export { IG_WEAPON_ABILITIES } from './weapon-abilities';
+export { IG_TRAIT_EFFECTS } from './traits';

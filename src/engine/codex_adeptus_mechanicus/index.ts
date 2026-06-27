@@ -29,3 +29,5 @@ export { ADMECH_UNIT_TYPES } from './unit-types';
 export { ADMECH_KEYWORDS } from './keywords';
 export { ADMECH_SPECIAL_ABILITIES } from './special-abilities';
 export { ADMECH_WEAPON_ABILITIES } from './weapon-abilities';
+export { ADMECH_TRAIT_EFFECTS } from './traits';
+export { admechResolve } from './resolver';

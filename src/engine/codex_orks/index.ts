@@ -30,3 +30,4 @@ export { ORK_UNIT_TYPES } from './unit-types';
 export { ORK_KEYWORDS } from './keywords';
 export { ORK_SPECIAL_ABILITIES } from './special-abilities';
 export { ORK_WEAPON_ABILITIES } from './weapon-abilities';
+export { ORKS_TRAIT_EFFECTS } from './traits';

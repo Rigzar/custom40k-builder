@@ -28,3 +28,4 @@ export { GSC_UNIT_TYPES } from './unit-types';
 export { GSC_KEYWORDS } from './keywords';
 export { GSC_SPECIAL_ABILITIES } from './special-abilities';
 export { GSC_WEAPON_ABILITIES } from './weapon-abilities';
+export { GSC_TRAIT_EFFECTS } from './traits';
