@@ -10,38 +10,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v12_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v13_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Trait effects now live for EVERY faction + GitHub #12 fixed',
-    intro: 'Hello commanders! Army Traits now apply their actual in-game effects automatically for every faction that has them — stat changes, ability injections, weapon bonuses and invulnerable saves, no more description-text-only traits anywhere in the builder.',
-    engine: '⚡ Tau Empire, Necrons and Dark Eldar join the other 8 factions already wired — that\'s every faction with Army Traits, fully live on the unit card.',
-    csm: '🐛 GitHub #12: Orks Killa Kans\' weapon picker only let ONE of the unit\'s up to 4 models get a weapon at all — fixed, every Killa Kan can now take the same or a different weapon.',
-    cd:  '⚙ A few traits per faction describe things the builder genuinely can\'t auto-apply (a player\'s free choice between sub-options, granting new wargear, raising a different mechanic\'s purchase cap) — those stay as clear description text or their own tracked known issue rather than being faked.',
-    sm:  '🗓 Also fixed: the in-app Updates panel was showing an out-of-date "latest version" number due to a changelog ordering bug.',
-    legacyfix: '🗓 Known Issues panel reflects the current state.',
+    title: 'Developer Update — Optional accounts + cloud saves are here',
+    intro: 'Hello commanders! You can now create an account (just a username + password, no email needed) to save and load your army rosters from any device — no more being stuck to one browser.',
+    engine: '☁ Log in from the header button. Password recovery uses a one-time code shown at signup; lost it? A "lost my code" form files a GitHub issue for manual recovery.',
+    csm: '🐛 Fixed: weapon swaps on units with 2 copies of the same melee weapon per model (Dark Eldar Talos, Tyranids Carnifex Brood) could hide the base weapon too early or show the wrong remaining count.',
+    cd:  '⚙ Orks\' "Waaagh! Coast Kustoms" and Tau Empire\'s "Swarm Controllers" traits now correctly raise their purchase caps when active (Kustom Jobs +1, Drone budget 2→3).',
+    sm:  '🗓 Also fixed: a malformed request could crash the whole server instead of returning a clean error.',
+    legacyfix: '🗓 Known Issues panel reflects the current state. "My Armies" (local, per-browser saves) still works exactly as before alongside the new cloud saves.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Eigenschaftseffekte jetzt live für JEDE Fraktion + GitHub #12 behoben',
-    intro: 'Hallo Kommandanten! Armee-Eigenschaften wenden jetzt für jede Fraktion, die sie hat, ihre tatsächlichen Spieleffekte automatisch an — keine reinen Beschreibungstext-Eigenschaften mehr im Builder.',
-    engine: '⚡ T\'au Empire, Necrons und Dark Eldar schließen sich den anderen 8 bereits verdrahteten Fraktionen an.',
-    csm: '🐛 GitHub #12: Der Waffenauswahl der Ork Killa Kans erlaubte nur EINEM der bis zu 4 Modelle der Einheit überhaupt eine Waffe — behoben.',
-    cd:  '⚙ Ein paar Eigenschaften pro Fraktion beschreiben Dinge, die der Builder nicht automatisch anwenden kann — die bleiben als klarer Text oder eigener Known Issue.',
-    sm:  '🗓 Außerdem behoben: Das Updates-Panel zeigte wegen eines Sortierfehlers eine veraltete Versionsnummer an.',
-    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider.',
+    title: 'Entwickler-Update — Optionale Konten + Cloud-Speicherung sind da',
+    intro: 'Hallo Kommandanten! Ihr könnt jetzt ein Konto erstellen (nur Benutzername + Passwort, keine E-Mail nötig), um eure Armeelisten geräteübergreifend zu speichern und zu laden.',
+    engine: '☁ Über den Header-Button einloggen. Passwort-Wiederherstellung über einen einmaligen Code bei der Registrierung; bei Verlust hilft das "Code verloren"-Formular.',
+    csm: '🐛 Behoben: Waffentausch bei Einheiten mit 2 Kopien derselben Nahkampfwaffe pro Modell (Talos, Carnifex Brood) zeigte falsche Werte.',
+    cd:  '⚙ Die Eigenschaften "Waaagh! Coast Kustoms" (Orks) und "Swarm Controllers" (T\'au Empire) erhöhen jetzt korrekt ihre Kaufobergrenzen.',
+    sm:  '🗓 Außerdem behoben: eine fehlerhafte Anfrage konnte den gesamten Server abstürzen lassen.',
+    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider. "Meine Armeen" funktioniert weiterhin unverändert.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — efectos de rasgos ya activos para TODAS las facciones + GitHub #12 arreglado',
-    intro: '¡Hola comandantes! Los Rasgos de Ejército ya aplican su efecto real de juego automáticamente en cada facción que los tiene — ningún rasgo se queda en solo texto descriptivo en todo el constructor.',
-    engine: '⚡ T\'au Empire, Necrons y Dark Eldar se suman a las otras 8 facciones ya implementadas — todas las facciones con Rasgos de Ejército, en vivo en la ficha.',
-    csm: '🐛 GitHub #12: el selector de armas de los Killa Kans de Orks solo permitía que UNO de los hasta 4 modelos de la unidad tuviera arma — arreglado.',
-    cd:  '⚙ Algunos rasgos por facción describen cosas que el constructor no puede aplicar automáticamente — esos quedan como texto descriptivo claro o su propio known issue en vez de simularse.',
-    sm:  '🗓 También arreglado: el panel de Updates mostraba un número de versión desactualizado por un bug de ordenamiento.',
-    legacyfix: '🗓 El panel de Known Issues refleja el estado actual.',
+    title: 'Actualización del desarrollador — cuentas opcionales + guardado en la nube',
+    intro: '¡Hola comandantes! Ya podés crear una cuenta (solo usuario + contraseña, sin email) para guardar y cargar tus listas de ejército desde cualquier dispositivo.',
+    engine: '☁ Iniciá sesión desde el botón del header. La recuperación de contraseña usa un código único mostrado al registrarte; si lo perdés, un formulario "perdí mi código" crea un issue en GitHub.',
+    csm: '🐛 Arreglado: el intercambio de armas en unidades con 2 copias de la misma arma cuerpo a cuerpo por modelo (Talos, Carnifex Brood) mostraba valores incorrectos.',
+    cd:  '⚙ Los rasgos "Waaagh! Coast Kustoms" (Orks) y "Swarm Controllers" (Tau Empire) ahora suben correctamente sus topes de compra cuando están activos.',
+    sm:  '🗓 También arreglado: una request mal formada podía tirar abajo todo el servidor.',
+    legacyfix: '🗓 El panel de Known Issues refleja el estado actual. "Mis Ejércitos" sigue funcionando igual que antes.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };
