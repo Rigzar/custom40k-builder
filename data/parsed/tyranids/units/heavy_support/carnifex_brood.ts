@@ -138,7 +138,8 @@ export const carnifexBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Monstrous scything talons"]
     },
     {
       "header": "Each model may swap one of their Monstrous scything talons",
@@ -165,7 +166,8 @@ export const carnifexBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Monstrous scything talons"]
     },
     {
       "header": "Each model may be equipped with one of the following",

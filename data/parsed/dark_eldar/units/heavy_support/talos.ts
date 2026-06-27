@@ -124,7 +124,8 @@ export const talos: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Macro-scalpel"]
     },
     {
       "header": "Can replace one Macro-scalpel",
@@ -139,7 +140,8 @@ export const talos: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Macro-scalpel"]
     },
     {
       "header": "Can replace its Twin splinter rifle",

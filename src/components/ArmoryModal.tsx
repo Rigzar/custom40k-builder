@@ -3,7 +3,7 @@ import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, requiresWeaponTarget } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, requiresWeaponTarget, isOrkKustomJob } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -99,7 +99,7 @@ const MARK_BADGE: Record<string, string> = {
 };
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
-  const { data, alliedData, legacy, legacy2, archetype, traitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, legacy, legacy2, archetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -158,10 +158,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // only (p_char-exclusive, two-column) items in the first place (see getItemPts below / ki-armory-
   // pchar-truechar-only-01), so every item purchasable here by a multi-model squad is already a
   // squad-wide p_unit allowance, never a single Champion's personal one-off.
+  // "Waaagh! Coast Kustoms" Army Trait (ki-orks-waaaghcoastkustoms-unmodelled-01): "Each Kustom
+  // job can be taken one additional time" — raises the per-vehicle cap on the 16 named Kustom Job
+  // items by +1. Uses the allied trait pool when this item belongs to an allied Orks detachment.
+  const effectiveTraitPool = (isAllied && alliedData) ? alliedTraitPool : traitPool;
   function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (isMultipleAllowed(arm.desc)) return false;
     const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
-    return owned >= item.size;
+    const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
+      ? item.size + 1
+      : item.size;
+    return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
   function uniqueArmyBlocked(arm: ArmoryItem, sec: Section): boolean {

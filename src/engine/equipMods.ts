@@ -200,6 +200,35 @@ export function isMultipleAllowed(desc: string | undefined): boolean {
   return /can be taken multiple times|purchased for each weapon/i.test(desc ?? '');
 }
 
+/** The 16 named Ork "Kustom Job" armory items (Armory.html, unit-gated by prose — "Vehicle only" /
+ *  "Mek only" / "Walker only" / "Spanna only" / "Warbuggy only" — not by a structural data field, so
+ *  there's no other way to identify them than this canonical name list). The "Waaagh! Coast
+ *  Kustoms" Army Trait lets each be taken one additional time — see isOrkKustomJob's only caller. */
+const ORK_KUSTOM_JOB_NAMES = new Set([
+  'Bionik Oiler', 'Da Booma', 'Eavy armour cabin', 'Enhanced Runt-Sucker', 'Extra-Kustom Weapon',
+  'Fortress on Wheels', 'Gyroscopic Whirlygig', 'More Dakka', 'Nitro Squigs', 'Press the Button',
+  'Shokka Hull', 'Smoky Gubbinz', 'Souped-up Speshul', 'Squig-hide Tyres', 'Stompamatic Pistons',
+  'Zzapkrumpaz',
+]);
+
+export function isOrkKustomJob(name: string): boolean {
+  return ORK_KUSTOM_JOB_NAMES.has(name);
+}
+
+/** How many copies of a named weapon each model starts with, parsed from the unit's
+ *  `equipped_with` text (e.g. "A Talos is equipped with: 2 Macro-scalpels; Twin splinter rifle."
+ *  → 2 for "Macro-scalpel"). Defaults to 1 when no leading count is found — the overwhelmingly
+ *  common case of a single copy per model. Needed because the `replaces` hide-threshold and the
+ *  displayed remaining-count both assume 1 copy/model unless told otherwise (ki-replaces-swap-
+ *  manual-review-01's Talos/Carnifex Brood — each has 2 copies of the same melee weapon per
+ *  model, with independent swap groups for each copy). */
+export function weaponCopiesPerModel(equippedWith: string | undefined, weaponName: string): number {
+  if (!equippedWith) return 1;
+  const escaped = weaponName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const m = equippedWith.match(new RegExp(`(\\d+)\\s+${escaped}s?\\b`, 'i'));
+  return m ? parseInt(m[1], 10) : 1;
+}
+
 /**
  * Parse the best (lowest = strongest) invulnerability save from a unit's base ability strings.
  * Grounded in core_rules_text.txt: Daemon=5+, Greater Daemon=4+, Berserk(X+)=X+, Seal of

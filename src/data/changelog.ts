@@ -25,6 +25,21 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.10',
+    date: '2026-06-26',
+    title: 'ki-2 CLOSED: optional accounts + cloud saves',
+    changes: [
+      'New: optional account system (username + password, no email required) — log in from the header to save/load army rosters from any device, no more browser-only saves.',
+      'Password recovery via a one-time recovery code shown at signup (self-service, no email service involved); a "lost my code" form files a GitHub issue for manual recovery if needed.',
+      'Inactive accounts (12+ months without login) are deleted automatically via a daily cleanup job, along with their saved rosters.',
+      'Privacy Policy and Cookie Policy updated to describe account data storage and the new session cookie; also corrected stale references to Formspree (bug reports have used GitHub Issues for a while).',
+      '"My Armies" (local, per-browser saves) is unchanged and still available alongside the new cloud saves.',
+      'Fix: a malformed request body could crash the entire API server instead of returning a clean error (affected register/login/reset-password/account-recovery/admin-recovery and the pre-existing bug-report endpoint).',
+      'ki-orks-waaaghcoastkustoms-unmodelled-01 and ki-tau-swarmcontrollers-unmodelled-01 CLOSED: both traits now correctly raise their respective purchase caps (Kustom Jobs +1, Drone controller budget 2→3) when active.',
+      'ki-replaces-swap-manual-review-01 CLOSED: Dark Eldar Talos and Tyranids Carnifex Brood weapon swaps (each has 2 copies of the same melee weapon per model) now hide/recount correctly instead of assuming 1 copy per model.',
+    ],
+  },
+  {
     version: '1.09',
     date: '2026-06-26',
     title: { en: 'ki-22a CLOSED: Trait effects now wired for every faction that has them + GitHub #12 fixed' },

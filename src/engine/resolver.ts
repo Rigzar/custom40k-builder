@@ -4,7 +4,7 @@ import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName } from './equipMods';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
 import { csmResolve } from './codex_csm/resolver';
@@ -305,6 +305,13 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
         if (g.constraint.type === 'one' && variantOnlyWeapons.has(name)) {
           replacedWeaponThreshold.set(name, 1);
+        } else if (!replacedWeaponThreshold.has(name)) {
+          // A weapon with N copies per model (e.g. Talos' 2 Macro-scalpels, Carnifex Brood's 2
+          // Monstrous scything talons) needs N× the model count before it's fully swapped away —
+          // the default `item.size` threshold assumes 1 copy/model (ki-replaces-swap-manual-
+          // review-01).
+          const copies = weaponCopiesPerModel(unit.equipped_with, name);
+          if (copies > 1) replacedWeaponThreshold.set(name, item.size * copies);
         }
       }
     }
@@ -893,7 +900,10 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     for (const w of grp.weapons) {
       const bn = baseName(w.name);
       if (replacedQty.has(bn)) {
-        overrides.set(w.name, Math.max(0, grp.count - replacedQty.get(bn)!));
+        // Same N-copies-per-model adjustment as computeWeaponsToShow's threshold — grp.count is
+        // a MODEL count, but the base weapon's true starting quantity is copies × model count.
+        const copies = weaponCopiesPerModel(unit.equipped_with, bn);
+        overrides.set(w.name, Math.max(0, grp.count * copies - replacedQty.get(bn)!));
       } else if (grantedQty.has(bn)) {
         overrides.set(w.name, grantedQty.get(bn)!);
       }

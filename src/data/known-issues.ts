@@ -276,16 +276,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-replaces-swap-manual-review-01',
-    status: 'known',
+    status: 'fixed',
     title: {
-      en: 'A faction-by-faction verification pass closed 6 of the 8 skipped `replaces` cases; 2 remain open as a genuine engine limitation',
-      de: 'Eine faktionsweise Überprüfung schloss 6 der 8 übersprungenen `replaces`-Fälle; 2 bleiben als echte Engine-Limitierung offen',
-      es: 'Una verificación facción por facción cerró 6 de los 8 casos omitidos de `replaces`; 2 quedan abiertos como limitación real del motor',
+      en: 'A faction-by-faction verification pass closed 6 of the 8 skipped `replaces` cases; the final 2 fixed 2026-06-27 by teaching the engine to count weapon COPIES, not just models',
+      de: 'Eine faktionsweise Überprüfung schloss 6 der 8 übersprungenen `replaces`-Fälle; die letzten 2 am 2026-06-27 behoben, indem die Engine Waffenkopien statt nur Modelle zählt',
+      es: 'Una verificación facción por facción cerró 6 de los 8 casos omitidos de `replaces`; los últimos 2 corregidos el 2026-06-27 enseñando al motor a contar copias de arma, no solo modelos',
     },
     description: {
-      en: 'Follow-up to ki-global-missing-replaces-swap-01 (2026-06-21): every one of the 87 fixes was re-verified against canonical HTML/.ods source where available, and all 8 originally-skipped cases were revisited once the full .ods set was confirmed available. RESOLVED: `grey_knights/units/elites/paladin_squad.ts` ("Nemesis falchions" confirmed as flavor wording for "Nemesis force weapon", matching all 5 sibling Terminator-pattern GK units); `tau_empire/units/flyers/barracuda_air_superiority_fighter.ts` (missing replaces added); `space_marines/units/elites/deathwing_knights.ts` (Knight Master\'s own swap group safe to fix — shares the same single-Power-sword-per-model pool as the unit\'s other already-correct group, same accumulation pattern as Traitor Guard\'s dual-group Lasgun swap); `imperial_guard/units/fast_attack/tauros.ts` ("Tauros grenade launcher" had zero weapon profile in weapons[] — added both multi-profile entries from the .ods plus the replaces link). Also found and fixed during verification (not in the original 202-candidate scan): Eliminator Squad + Desolation Squad (SM, multi-profile name mismatch), Rough Riders (IG, asymmetric two-group split). STILL OPEN — genuine engine limitation, not guessable: `dark_eldar/units/heavy_support/talos.ts` and `tyranids/units/heavy_support/carnifex_brood.ts` both have 2 weapon COPIES per MODEL (not 2 alternative swap groups for one copy, like Deathwing Knights), but the replaces-accumulation mechanism\'s hide-threshold counts models, not weapon copies — adding replaces would cause incorrect early-hiding on multi-model units. Would need the engine to track weapon-copy counts separately, a larger change than a data fix. `imperial_guard/units/elites/bullgryns.ts` confirmed NOT a bug (Brute/Plate shield are armor in ability text, correctly outside the weapons[] pipeline).',
-      de: 'Folgeprüfung zu ki-global-missing-replaces-swap-01: alle 87 Fixes nachgeprüft, alle 8 ursprünglich übersprungenen Fälle erneut geprüft. Behoben: paladin_squad.ts, barracuda_air_superiority_fighter.ts, deathwing_knights.ts, tauros.ts (fehlendes Waffenprofil ergänzt). Zusätzlich gefunden: Eliminator/Desolation Squad (SM), Rough Riders (IG). Weiterhin offen (echte Engine-Limitierung): talos.ts/carnifex_brood.ts (2 Waffenkopien pro Modell). bullgryns.ts bestätigt kein Fehler.',
-      es: 'Seguimiento de ki-global-missing-replaces-swap-01: las 87 correcciones reverificadas, los 8 casos originales revisados de nuevo. Resueltos: paladin_squad.ts, barracuda_air_superiority_fighter.ts, deathwing_knights.ts, tauros.ts (perfil de arma faltante agregado). También encontrados: Eliminator/Desolation Squad (SM), Rough Riders (IG). Siguen abiertos (limitación real del motor): talos.ts/carnifex_brood.ts (2 copias de arma por modelo). bullgryns.ts confirmado sin error.',
+      en: 'Follow-up to ki-global-missing-replaces-swap-01 (2026-06-21): every one of the 87 fixes was re-verified against canonical HTML/.ods source where available, and all 8 originally-skipped cases were revisited once the full .ods set was confirmed available. RESOLVED: `grey_knights/units/elites/paladin_squad.ts` ("Nemesis falchions" confirmed as flavor wording for "Nemesis force weapon", matching all 5 sibling Terminator-pattern GK units); `tau_empire/units/flyers/barracuda_air_superiority_fighter.ts` (missing replaces added); `space_marines/units/elites/deathwing_knights.ts` (Knight Master\'s own swap group safe to fix — shares the same single-Power-sword-per-model pool as the unit\'s other already-correct group, same accumulation pattern as Traitor Guard\'s dual-group Lasgun swap); `imperial_guard/units/fast_attack/tauros.ts` ("Tauros grenade launcher" had zero weapon profile in weapons[] — added both multi-profile entries from the .ods plus the replaces link). Also found and fixed during verification (not in the original 202-candidate scan): Eliminator Squad + Desolation Squad (SM, multi-profile name mismatch), Rough Riders (IG, asymmetric two-group split). STILL OPEN — genuine engine limitation, not guessable: `dark_eldar/units/heavy_support/talos.ts` and `tyranids/units/heavy_support/carnifex_brood.ts` both have 2 weapon COPIES per MODEL (not 2 alternative swap groups for one copy, like Deathwing Knights), but the replaces-accumulation mechanism\'s hide-threshold counts models, not weapon copies — adding replaces would cause incorrect early-hiding on multi-model units. Would need the engine to track weapon-copy counts separately, a larger change than a data fix. `imperial_guard/units/elites/bullgryns.ts` confirmed NOT a bug (Brute/Plate shield are armor in ability text, correctly outside the weapons[] pipeline). FIXED 2026-06-27: added a generic `weaponCopiesPerModel()` helper (equipMods.ts) that parses the leading count from `equipped_with` text (e.g. "2 Macro-scalpels" → 2); resolver.ts\'s replace-hide threshold and the displayed remaining-count override both now multiply by this count instead of assuming 1 copy/model. `replaces` added to both of Talos\' Macro-scalpel swap groups and both of Carnifex Brood\'s Monstrous scything talons swap groups.',
+      de: 'Folgeprüfung zu ki-global-missing-replaces-swap-01: alle 87 Fixes nachgeprüft, alle 8 ursprünglich übersprungenen Fälle erneut geprüft. Behoben: paladin_squad.ts, barracuda_air_superiority_fighter.ts, deathwing_knights.ts, tauros.ts (fehlendes Waffenprofil ergänzt). Zusätzlich gefunden: Eliminator/Desolation Squad (SM), Rough Riders (IG). BEHOBEN 2026-06-27: neuer weaponCopiesPerModel()-Helfer berücksichtigt Mehrfachkopien pro Modell für talos.ts/carnifex_brood.ts. bullgryns.ts bestätigt kein Fehler.',
+      es: 'Seguimiento de ki-global-missing-replaces-swap-01: las 87 correcciones reverificadas, los 8 casos originales revisados de nuevo. Resueltos: paladin_squad.ts, barracuda_air_superiority_fighter.ts, deathwing_knights.ts, tauros.ts (perfil de arma faltante agregado). También encontrados: Eliminator/Desolation Squad (SM), Rough Riders (IG). CORREGIDO 2026-06-27: nuevo helper weaponCopiesPerModel() contempla copias múltiples por modelo para talos.ts/carnifex_brood.ts. bullgryns.ts confirmado sin error.',
     },
   },
   {
@@ -682,15 +682,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-orks-waaaghcoastkustoms-unmodelled-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Orks — "Waaagh! Coast Kustoms" trait (doubles the Kustom Job purchase cap) not engine-modelled',
-    description: 'Found while wiring Orks\' other 13 traits (ki-22a) 2026-06-26. Canonical text: "Each Kustom job can be taken one additional time." This isn\'t a per-unit stat/ability/weapon effect — TraitEffect (traitEffects.ts) has no way to express "double a DIFFERENT mechanic\'s purchase cap." Needs the Kustom Job picker itself (codex_orks/) to read the active trait and raise its own per-vehicle cap. Left unwired rather than faked as a no-op unit_ability.',
+    description: 'Fixed 2026-06-27 — ArmoryModal.tsx\'s oncePerModelBlocked now raises the per-vehicle cap on the 16 named Kustom Job items (new isOrkKustomJob() name-list helper, equipMods.ts) from item.size to item.size+1 when "Waaagh! Coast Kustoms" is in the active trait pool (primary or allied).',
   },
   {
     id: 'ki-tau-swarmcontrollers-unmodelled-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Tau Empire — "Swarm Controllers" trait (raises the Drone purchase cap from 2 to 3) not engine-modelled',
-    description: 'Found while wiring Tau Empire\'s other 16 traits (ki-22a) 2026-06-26. Canonical text: "Models with access to drones may buy up to three drones in any combination instead of two." Same category as Orks\' ki-orks-waaaghcoastkustoms-unmodelled-01 — it raises a DIFFERENT mechanic\'s purchase cap (the Drone picker added this session), not a per-unit ability TraitEffect can express. Needs the Drone picker to read the active trait and raise its own per-unit cap from 2 to 3. Left unwired rather than faked.',
+    description: 'Fixed 2026-06-27 — UnitCard.tsx\'s fixed_max group-budget calc now detects a "Drone controller" group generically (every choice name matches a canonical Tau Drone) and adds +1 to its constraint.max when "Swarm Controllers" is in the active trait pool (primary or allied), raising the shared budget from 2 to 3.',
   },
   {
     id: 'ki-26a',
@@ -782,16 +782,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-2',
-    status: 'known',
+    status: 'fixed',
     title: {
-      en: 'Army data saves only in this browser',
-      de: 'Armeeedaten werden nur in diesem Browser gespeichert',
-      es: 'Los datos del ejército se guardan solo en este navegador',
+      en: 'Army data saved only in this browser',
+      de: 'Armeeedaten wurden nur in diesem Browser gespeichert',
+      es: 'Los datos del ejército se guardaban solo en este navegador',
     },
     description: {
-      en: 'Armies are stored in your browser\'s local storage. Clearing browser data or switching devices will lose your saves. Use Export JSON to back up rosters. A full account/cloud system is being considered for a future update.',
-      de: 'Armeen werden im lokalen Speicher deines Browsers gespeichert. Das Löschen von Browserdaten oder der Gerätewechsel führt zum Datenverlust. Nutze Export JSON, um Armeelisten zu sichern. Ein vollständiges Konto-/Cloud-System wird für eine zukünftige Aktualisierung in Betracht gezogen.',
-      es: 'Los ejércitos se almacenan en el almacenamiento local del navegador. Borrar los datos del navegador o cambiar de dispositivo hará que pierdas tus guardados. Usa Exportar JSON para hacer copias de seguridad. Se está considerando un sistema completo de cuenta/nube para una actualización futura.',
+      en: 'Fixed — optional accounts (username + password, no email) added. Log in via the header button to save/load armies from any device. Password recovery uses a one-time recovery code shown at signup; if lost, a "lost my code" form files a GitHub issue for manual recovery. "My Armies" (local, per-browser) still works unchanged for quick saves.',
+      de: 'Behoben — optionale Konten (Benutzername + Passwort, keine E-Mail) hinzugefügt. Über den Header-Button einloggen, um Armeen geräteübergreifend zu speichern/laden. Passwort-Wiederherstellung über einen einmaligen Code bei der Registrierung; bei Verlust erstellt ein Formular ein GitHub-Issue zur manuellen Wiederherstellung. "Meine Armeen" (lokal, pro Browser) funktioniert weiterhin unverändert für schnelle Speicherungen.',
+      es: 'Arreglado — se añadieron cuentas opcionales (usuario + contraseña, sin email). Inicia sesión desde el botón del header para guardar/cargar ejércitos desde cualquier dispositivo. La recuperación de contraseña usa un código único mostrado al registrarse; si se pierde, un formulario "perdí mi código" crea un issue en GitHub para recuperación manual. "Mis Ejércitos" (local, por navegador) sigue funcionando igual para guardados rápidos.',
     },
   },
   {

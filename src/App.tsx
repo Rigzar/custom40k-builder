@@ -22,6 +22,9 @@ import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
+import { AuthModal } from './components/AuthModal';
+import { CloudSavesModal } from './components/CloudSavesModal';
+import { useAuth } from './hooks/useAuth';
 
 type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
 
@@ -223,6 +226,9 @@ export default function App() {
   const [showPrint, setShowPrint]               = useState(false);
   const [showArmies, setShowArmies]             = useState(false);
   const [showBugReport, setShowBugReport]       = useState(false);
+  const [showAuth, setShowAuth]                 = useState(false);
+  const [showCloudSaves, setShowCloudSaves]     = useState(false);
+  const { username, loggedIn, refresh: refreshAuth, logout } = useAuth();
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
   const restoringSession                        = useRef(false);
@@ -558,6 +564,12 @@ export default function App() {
                 >
                   Bug
                 </button>
+                <button
+                  onClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
+                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                >
+                  {loggedIn ? `☁ ${username}` : 'Log in'}
+                </button>
               </div>
             </div>
           </header>
@@ -655,6 +667,19 @@ export default function App() {
         <BugReportModal
           onClose={() => setShowBugReport(false)}
           currentFaction={selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : undefined}
+        />
+      )}
+      {showAuth && (
+        <AuthModal
+          onClose={() => setShowAuth(false)}
+          onLoggedIn={async () => { await refreshAuth(); setShowAuth(false); }}
+        />
+      )}
+      {showCloudSaves && username && (
+        <CloudSavesModal
+          username={username}
+          onClose={() => setShowCloudSaves(false)}
+          onLogout={async () => { await logout(); }}
         />
       )}
 

@@ -164,7 +164,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
 
 export function UnitCard({ item }: Props) {
   const store = useArmyStore();
-  const { data, alliedData, traitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
+  const { data, alliedData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -286,6 +286,10 @@ export function UnitCard({ item }: Props) {
   // Bug 3: for allied units, use the allied faction's armory for capability checks
   const isAllied = !!item.factionSource;
   const effectiveArmData = (isAllied && alliedData) ? alliedData : data;
+  // "Swarm Controllers" Army Trait (ki-tau-swarmcontrollers-unmodelled-01): "Models with access to
+  // drones may buy up to three drones in any combination instead of two" — raises the Drone
+  // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.
+  const effectiveTraitPool = (isAllied && alliedData) ? alliedTraitPool : traitPool;
   const allArmories = [effectiveArmData.armory_general, ...Object.values(effectiveArmData.armory_marks), ...Object.values(effectiveArmData.armory_legions)];
   const hasFactionVeteranItems = effectiveHasVetAbilities &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
@@ -1242,12 +1246,19 @@ export function UnitCard({ item }: Props) {
               ? (g.constraint.count_per_n ?? 1) * Math.floor((perNPoolSize ?? 0) / (g.constraint.per_n ?? 1))
               : null;
             const modelGroupCap = sumModelGroups(applyModelNames);
+            // Drone controller groups (their choices are all named Tau Drones, see
+            // computeAttachedDrones) get +1 to their fixed_max when "Swarm Controllers" is active.
+            const isDroneGroup = isFixedMax && !!effectiveArmData.drones?.length &&
+              g.choices.every(c => effectiveArmData.drones!.some(d => d.name === c.name));
+            const swarmControllersBonus = (isDroneGroup && effectiveTraitPool.includes('Swarm Controllers')) ? 1 : 0;
             const groupMax = perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
                 ? (modelGroupCap !== null ? modelGroupCap : item.size)
                 : isFixedMax
-                  ? (modelGroupCap !== null ? Math.min(g.constraint.max ?? item.size, modelGroupCap) : (g.constraint.max ?? item.size))
+                  ? (modelGroupCap !== null
+                      ? Math.min((g.constraint.max ?? item.size) + swarmControllersBonus, modelGroupCap)
+                      : (g.constraint.max ?? item.size) + swarmControllersBonus)
                   : null;
             // "every"/"fixed_max" groups (not just per_n) share a combined budget across all their
             // choices — e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap, or Raptors'

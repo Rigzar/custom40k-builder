@@ -17,27 +17,27 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { what, expected, faction } = req.body ?? {};
-  if (!what || typeof what !== 'string' || !what.trim()) {
-    res.status(400).json({ error: 'Missing "what" field' });
-    return;
-  }
-
-  const title = `[Bug] ${what.trim().slice(0, 80)}`;
-  const body = [
-    '**What happened?**',
-    what.trim(),
-    '',
-    '**What did you expect to happen?**',
-    expected?.trim() || '(not provided)',
-    '',
-    '**Which faction or unit?**',
-    faction?.trim() || '(not provided)',
-    '',
-    '_Reported via the in-app bug form._',
-  ].join('\n');
-
   try {
+    const { what, expected, faction } = req.body ?? {};
+    if (!what || typeof what !== 'string' || !what.trim()) {
+      res.status(400).json({ error: 'Missing "what" field' });
+      return;
+    }
+
+    const title = `[Bug] ${what.trim().slice(0, 80)}`;
+    const body = [
+      '**What happened?**',
+      what.trim(),
+      '',
+      '**What did you expect to happen?**',
+      expected?.trim() || '(not provided)',
+      '',
+      '**Which faction or unit?**',
+      faction?.trim() || '(not provided)',
+      '',
+      '_Reported via the in-app bug form._',
+    ].join('\n');
+
     const ghRes = await fetch(`https://api.github.com/repos/${repo}/issues`, {
       method: 'POST',
       headers: {
@@ -59,6 +59,6 @@ export default async function handler(req, res) {
     const issue = await ghRes.json();
     res.status(200).json({ ok: true, url: issue.html_url });
   } catch (err) {
-    res.status(500).json({ error: 'Request failed', detail: String(err) });
+    res.status(err.statusCode ?? 500).json({ error: err.statusCode ? err.message : 'Request failed', detail: String(err) });
   }
 }

@@ -95,12 +95,21 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
       {
         heading: '2. Data we collect and why',
         body:
-          `Bug reports: When you submit a bug report using the in-app form, your message ` +
-          `and, if you include it, your email address are transmitted to Formspree ` +
-          `(a third-party form processor). This data is used solely to investigate and ` +
-          `fix reported issues. No other personal data is collected by this application.\n\n` +
-          `Army roster data: Your army lists are stored exclusively in your own browser's ` +
-          `local storage. They never leave your device and are not accessible to us.\n\n` +
+          `Bug reports: When you submit a bug report using the in-app form, your message is ` +
+          `posted as a public GitHub Issue on this project's repository. This data is used ` +
+          `solely to investigate and fix reported issues.\n\n` +
+          `Army roster data: By default, your army lists are stored exclusively in your own ` +
+          `browser's local storage. They never leave your device and are not accessible to us.\n\n` +
+          `Optional account: If you choose to create an account (username + password, no email ` +
+          `required), we store your username and a one-way hash of your password and recovery ` +
+          `code — never the plain text — plus any army rosters you explicitly save to your ` +
+          `account, in a database operated by our hosting provider. This is only used to let you ` +
+          `load your saved rosters from any device. Accounts inactive for 12 months are deleted ` +
+          `automatically, along with their saved rosters.\n\n` +
+          `Account recovery requests: If you use the "lost my recovery code" form, your username ` +
+          `and any context you provide are posted as a public GitHub Issue on this project's ` +
+          `repository so the maintainer can manually verify and restore access. Never include a ` +
+          `password in this form.\n\n` +
           `Server logs: Our hosting provider Vercel automatically records standard access ` +
           `logs (IP address, browser type, page requested) as part of normal server ` +
           `operation, subject to Vercel's own privacy policy.`,
@@ -115,18 +124,18 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
       {
         heading: '4. Data retention',
         body:
-          `Bug report submissions are retained by Formspree according to their own ` +
-          `retention policies (typically up to 30 days on free plans). ` +
-          `Vercel server logs are subject to Vercel's privacy policy. ` +
-          `We do not retain any copies of bug reports on our own systems.`,
+          `Bug reports and account recovery requests are retained as GitHub Issues until ` +
+          `manually closed/deleted. Account data (username, password hash, recovery code hash, ` +
+          `saved rosters) is retained until you delete your account, or automatically after ` +
+          `12 months of inactivity. Vercel server logs are subject to Vercel's privacy policy.`,
       },
       {
         heading: '5. Third-party processors',
         body:
-          `• Formspree Inc. — form submission processing, United States. ` +
-          `Acts as a data processor. Privacy policy: https://formspree.io/legal/privacy-policy\n\n` +
-          `• Vercel Inc. — website hosting and content delivery, United States. ` +
-          `Privacy policy: https://vercel.com/legal/privacy-policy`,
+          `• GitHub Inc. — hosts the public issue tracker used for bug reports and account ` +
+          `recovery requests, United States. Privacy policy: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement\n\n` +
+          `• Vercel Inc. — website hosting, content delivery, and the account database, United ` +
+          `States. Privacy policy: https://vercel.com/legal/privacy-policy`,
       },
       {
         heading: '6. International data transfers',
@@ -179,7 +188,8 @@ export const LEGAL_DOCS: Record<LegalDocKey, LegalDoc> = {
           `Name                       | Type           | Duration  | Purpose\n` +
           `───────────────────────────┼────────────────┼───────────┼──────────────────────────────────────\n` +
           `custom40k-army             | localStorage   | Persistent| Saves your army roster and settings\n` +
-          `selectedFaction            | sessionStorage | Session   | Internal navigation state (page reload always returns to the Factions screen)`,
+          `selectedFaction            | sessionStorage | Session   | Internal navigation state (page reload always returns to the Factions screen)\n` +
+          `c40k_session               | Cookie (HttpOnly)| 90 days | Keeps you logged in, only set if you create an account`,
       },
       {
         heading: '3. Legal basis — no consent required',
