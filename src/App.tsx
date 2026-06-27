@@ -25,6 +25,7 @@ import { LegalFooter } from './components/LegalModal';
 import { AuthModal } from './components/AuthModal';
 import { CloudSavesModal } from './components/CloudSavesModal';
 import { useAuth } from './hooks/useAuth';
+import * as api from './lib/api';
 
 type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
 
@@ -225,7 +226,7 @@ export default function App() {
   const store = useArmyStore();
   const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
-          alliedFaction, alliedData, alliedArchetype, setAlliedData,
+          alliedFaction, alliedData, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, setAlliedData,
           injectArchetypeFaction, injectAlliedArchetypeFaction } = store;
 
   // Always land on the Factions tab on a fresh page load/reload — never auto-resume straight
@@ -244,6 +245,11 @@ export default function App() {
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
   const restoringSession                        = useRef(false);
+  // Tracks which save (cloud roster id, or local save id) the "Save" button currently updates
+  // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
+  // a fresh entry instead of silently overwriting whatever was last bound.
+  const [activeCloudRosterId, setActiveCloudRosterId] = useState<number | null>(null);
+  const [activeLocalSaveId, setActiveLocalSaveId]     = useState<string | null>(null);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 
@@ -369,6 +375,10 @@ export default function App() {
       return;
     }
     const isNewFaction = key !== selectedFaction;
+    if (isNewFaction) {
+      setActiveCloudRosterId(null);
+      setActiveLocalSaveId(null);
+    }
     setSelectedFaction(key);
     setOpenTabs(prev => {
       // Changing faction: close the builder tab
@@ -394,7 +404,16 @@ export default function App() {
     setActiveTab('builder');
   }
 
-  function handleSaveArmy() {
+  /** Windows-Explorer-style dedup: "Name" -> "Name (1)" -> "Name (2)" against a list of names
+   *  already in use elsewhere (excluding whatever this save is already bound to). */
+  function uniqueName(base: string, takenNames: string[]): string {
+    if (!takenNames.includes(base)) return base;
+    let n = 1;
+    while (takenNames.includes(`${base} (${n})`)) n++;
+    return `${base} (${n})`;
+  }
+
+  async function handleSaveArmy() {
     if (!data || !selectedFaction) return;
 
     const total = army.reduce((s, i) => {
@@ -402,11 +421,42 @@ export default function App() {
       return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, store)) : 0);
     }, 0);
 
-    const name = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
-    const existing = saves.find(s => s.name === name && s.factionKey === selectedFaction);
+    const baseName = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
+    const stateSnapshot = {
+      armyName: baseName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
+      alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
+    };
+
+    if (loggedIn) {
+      try {
+        if (activeCloudRosterId != null) {
+          await api.updateRoster(activeCloudRosterId, { name: baseName, data: stateSnapshot });
+        } else {
+          const { rosters } = await api.listRosters();
+          const name = uniqueName(baseName, rosters.map(r => r.name));
+          if (name !== baseName) setArmyName(name);
+          const res = await api.saveRoster(name, { ...stateSnapshot, armyName: name });
+          setActiveCloudRosterId(res.roster.id);
+        }
+        setSavedMsg('Saved to cloud!');
+      } catch {
+        setSavedMsg('Save failed');
+      }
+      setTimeout(() => setSavedMsg(''), 2000);
+      return;
+    }
+
+    // Not logged in: fall back to the local, per-browser "My Armies" list.
+    let name = baseName;
+    if (activeLocalSaveId == null) {
+      name = uniqueName(baseName, saves.filter(s => s.factionKey === selectedFaction).map(s => s.name));
+      if (name !== baseName) setArmyName(name);
+    }
+    const id = activeLocalSaveId ?? `save-${Date.now()}`;
+    setActiveLocalSaveId(id);
 
     const entry: SavedArmy = {
-      id: existing?.id ?? `save-${Date.now()}`,
+      id,
       name,
       factionKey: selectedFaction,
       factionLabel: FACTION_NAMES[selectedFaction] ?? selectedFaction,
@@ -423,6 +473,8 @@ export default function App() {
 
   function handleLoadArmy(save: SavedArmy) {
     pendingLoad.current = save;
+    setActiveLocalSaveId(save.id);
+    setActiveCloudRosterId(null);
     setSelectedFaction(save.factionKey);
     setOpenTabs(['landing', 'army_config', 'builder']);
     setActiveTab('builder');
@@ -689,6 +741,8 @@ export default function App() {
           username={username}
           onClose={() => setShowCloudSaves(false)}
           onLogout={async () => { await logout(); }}
+          activeRosterId={activeCloudRosterId}
+          onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
         />
       )}
 

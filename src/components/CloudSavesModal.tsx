@@ -6,13 +6,15 @@ interface Props {
   username: string;
   onClose: () => void;
   onLogout: () => void;
+  activeRosterId: number | null;
+  onActiveRosterIdChange: (id: number | null) => void;
 }
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-export function CloudSavesModal({ username, onClose, onLogout }: Props) {
+export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, onActiveRosterIdChange }: Props) {
   const {
     army, engagement, hqMark, archetype, legacy, legacy2, traitPool,
     faction, pointLimit, armyName, importRoster,
@@ -48,7 +50,8 @@ export function CloudSavesModal({ username, onClose, onLogout }: Props) {
     const name = newName.trim() || armyName.trim() || faction || 'Army';
     setSaving(true); setError('');
     try {
-      await api.saveRoster(name, stateSnapshot);
+      const res = await api.saveRoster(name, stateSnapshot);
+      onActiveRosterIdChange(res.roster.id);
       setNewName('');
       await refresh();
     } catch (err) {
@@ -62,6 +65,7 @@ export function CloudSavesModal({ username, onClose, onLogout }: Props) {
     setSaving(true); setError('');
     try {
       await api.updateRoster(id, { data: stateSnapshot });
+      onActiveRosterIdChange(id);
       await refresh();
     } catch (err) {
       setError((err as Error).message);
@@ -75,6 +79,7 @@ export function CloudSavesModal({ username, onClose, onLogout }: Props) {
     try {
       const res = await api.loadRoster(id);
       importRoster(JSON.stringify(res.roster.data));
+      onActiveRosterIdChange(id);
       onClose();
     } catch (err) {
       setError((err as Error).message);
@@ -131,9 +136,14 @@ export function CloudSavesModal({ username, onClose, onLogout }: Props) {
           ) : (
             <div className="space-y-2">
               {rosters.map(r => (
-                <div key={r.id} className="bg-zinc-800 border border-zinc-700 border-l-4 border-l-amber-800 p-3 flex items-center gap-3">
+                <div key={r.id} className={`bg-zinc-800 border p-3 flex items-center gap-3 ${
+                  r.id === activeRosterId ? 'border-amber-500 border-l-4' : 'border-zinc-700 border-l-4 border-l-amber-800'
+                }`}>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-semibold text-zinc-100 truncate">{r.name}</div>
+                    <div className="text-sm font-semibold text-zinc-100 truncate">
+                      {r.name}
+                      {r.id === activeRosterId && <span className="ml-2 text-[10px] text-amber-500 normal-case">(currently open)</span>}
+                    </div>
                     <div className="text-[11px] text-zinc-500 mt-1">Updated {formatDate(r.updated_at)}</div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
