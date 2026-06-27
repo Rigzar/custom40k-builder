@@ -48,8 +48,37 @@ const MARK_COLOR: Record<string, string> = {
   Tzeentch: '#015d68', Undivided: '#3a3a3a',
 };
 const DEFAULT_COLOR = '#4a3a10';
-function getMarkColor(mark: Mark | null): string {
-  return mark ? (MARK_COLOR[mark] ?? DEFAULT_COLOR) : DEFAULT_COLOR;
+
+// Per-faction accent color for print cards, so each faction's printed sheet reads as its
+// own "seal" instead of every non-CSM/CD army sharing the same flat DEFAULT_COLOR brown.
+// CSM/CD keep their Mark-based color (more granular than faction-level); these are only the
+// fallback for Undivided CSM/CD and the base color for every other faction.
+const FACTION_COLOR: Record<string, string> = {
+  'Chaos Space Marines':        '#6b1f1f',
+  'Chaos Daemons':              '#5c3a73',
+  'Space Marines':               '#1f4a73',
+  'Imperial Guard':              '#4a5c2e',
+  'Grey Knights':                '#5c6b73',
+  'Inquisition':                 '#5c1f1f',
+  'Assassins':                   '#2e2e33',
+  'Horus Heresy Space Marines':  '#73631f',
+  'Adeptus Mechanicus':          '#73431f',
+  'Adeptus Custodes':            '#a8821f',
+  'Adeptus Sororitas':           '#731f2e',
+  'Dark Eldar':                  '#3a1f5c',
+  'Eldar':                       '#1f5c73',
+  'Harlequins':                  '#73215c',
+  'Tau Empire':                  '#1f7373',
+  'Necrons':                     '#2e5c2e',
+  'Orks':                        '#3e5c1f',
+  'Tyranids':                    '#4a1f4a',
+  'Genestealer Cults':           '#5c2e3a',
+  'Leagues of Votann':           '#8a5a1f',
+  'Escalation':                  '#4a4a4a',
+};
+function getThemeColor(faction: string, mark: Mark | null): string {
+  if (mark) return MARK_COLOR[mark] ?? DEFAULT_COLOR;
+  return FACTION_COLOR[faction] ?? DEFAULT_COLOR;
 }
 
 const MARK_ICON: Record<string, string> = {
@@ -295,7 +324,7 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap,
           injectedAbilities, optionStatMods, optionAbilities,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
-  const color = getMarkColor(effectiveMark);
+  const color = getThemeColor(data.faction, effectiveMark);
 
   const statKeys  = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modTable  = u.is_character ? MARK_CHAR_MODS : MARK_STAT_MODS;
@@ -342,14 +371,17 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   }
 
   const weaponGroupsPrint = rp.weaponGroups.map(g => {
-    const prefix = g.count != null ? `${g.count}x ` : '';
     const tm     = g.traitMap ?? weaponTraitMap;
+    const prefixFor = (w: Weapon) => {
+      const c = g.countOverrides?.get(w.name) ?? g.count;
+      return c != null ? `${c}x ` : '';
+    };
     const ranged = g.weapons
-      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '')
-      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
+      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
     const melee = g.weapons
-      .filter(w => w.range === 'Melee' || w.type === 'Melee')
-      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
+      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
     return { label: g.label, ranged, melee };
   }).concat(attachedDrones.map(({ drone, count }) => ({
     label: `${count}x ${drone.name}`,
@@ -768,14 +800,17 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
     }
   }
   const weaponGroupsPrint = rp.weaponGroups.map((g, gi) => {
-    const prefix = g.count != null ? `${g.count}x ` : '';
     const tm     = g.traitMap ?? weaponTraitMap;
+    const prefixFor = (w: Weapon) => {
+      const c = g.countOverrides?.get(w.name) ?? g.count;
+      return c != null ? `${c}x ` : '';
+    };
     const ranged = g.weapons
-      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '')
-      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
+      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
     const melee = g.weapons
-      .filter(w => w.range === 'Melee' || w.type === 'Melee')
-      .map(w => ({ ...mergeTraits(w, tm), name: prefix + w.name }));
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
+      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
     return {
       ranged: gi === 0 ? [...ranged, ...armRanged] : ranged,
       melee: gi === 0 ? [...melee, ...armMelee] : melee,
@@ -1430,7 +1465,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   const rule         = getArchetypeRule(archetype);
   const forcedMark   = rule?.forcedMark ? rule.forcedMark as Mark : null;
   const dominantMark = forcedMark ?? (hqMark !== 'Undivided' ? hqMark : null);
-  const primaryColor = getMarkColor(dominantMark);
+  const primaryColor = getThemeColor(data.faction, dominantMark);
   const symbolUrl    = getCardSymbol(data.faction, archetype, legacy, legacy2);
 
   const storeState = useArmyStore.getState();

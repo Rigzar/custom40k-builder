@@ -36,6 +36,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Fix GH#13: Imperial Guard\'s "Heavy Infantry" and "Bionic Improvement" traits were charging and applying to every unit, including ones that already have a 4+ armor save / invulnerability save from their datasheet or Armory (e.g. Storm Troopers) — both traits are exempt-and-free for those units per the canonical Army Customisation text.',
       'Fix GH#14: Tau Empire\'s Seeker missile ("may be taken up to 2 times per model") could only be taken once per vehicle — the once-per-model armory cap now recognizes explicit "up to N times per model" multipliers instead of always capping at 1.',
       'Internal: consolidated scattered per-faction engine files (legacies, traits, resolvers, validators, archetype helpers) into each faction\'s existing `codex_<faction>/` folder — no behavior change, just easier to find where a faction\'s rules logic lives.',
+      'Fix: the printable unit card showed inflated/duplicated weapon quantities for units with partial weapon swaps (e.g. only the Champion taking a special weapon) — it ignored the per-weapon count adjustment the live unit card already used, so both the replaced and replacement weapon showed the full squad size instead of their actual counts.',
+      'The printable unit card now uses a distinct accent color per faction (instead of every faction but Chaos sharing one flat brown), so each army\'s printed sheet reads with its own visual identity — Chaos Space Marines/Chaos Daemons still use their Mark color when one is set.',
     ],
   },
   {
