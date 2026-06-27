@@ -294,6 +294,19 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // never fully remove the old weapon on squads larger than 1. The swap is fully resolved as
   // soon as its own qty (max 1) is taken.
   const replacedWeaponThreshold = new Map<string, number>();
+  // A weapon with N copies/model is only safe to multiply the threshold by N when the
+  // datasheet actually splits the swap into >=N independent per-copy groups (Talos' 2
+  // Macro-scalpels, Carnifex Brood's 2 Monstrous scything talons: 2 separate "swap one of
+  // their..." groups). Far more common is a single group that replaces ALL N copies in one
+  // selection (e.g. Fellblade "may swap their 2 Laser destroyers" -> "2 Quad lascannons",
+  // one choice) — there, item.size is already the correct threshold, and multiplying by N
+  // would make it unreachable (ki-replaces-swap-manual-review-01 regression, found 2026-06-27).
+  const replaceGroupCountByName = new Map<string, number>();
+  for (const g of unit.option_groups) {
+    for (const name of g.replaces ?? []) {
+      replaceGroupCountByName.set(name, (replaceGroupCountByName.get(name) ?? 0) + 1);
+    }
+  }
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
@@ -306,12 +319,10 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         if (g.constraint.type === 'one' && variantOnlyWeapons.has(name)) {
           replacedWeaponThreshold.set(name, 1);
         } else if (!replacedWeaponThreshold.has(name)) {
-          // A weapon with N copies per model (e.g. Talos' 2 Macro-scalpels, Carnifex Brood's 2
-          // Monstrous scything talons) needs N× the model count before it's fully swapped away —
-          // the default `item.size` threshold assumes 1 copy/model (ki-replaces-swap-manual-
-          // review-01).
           const copies = weaponCopiesPerModel(unit.equipped_with, name);
-          if (copies > 1) replacedWeaponThreshold.set(name, item.size * copies);
+          if (copies > 1 && (replaceGroupCountByName.get(name) ?? 0) >= copies) {
+            replacedWeaponThreshold.set(name, item.size * copies);
+          }
         }
       }
     }
@@ -902,8 +913,15 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       if (replacedQty.has(bn)) {
         // Same N-copies-per-model adjustment as computeWeaponsToShow's threshold — grp.count is
         // a MODEL count, but the base weapon's true starting quantity is copies × model count.
+        // Only safe when the datasheet actually splits the swap into >=N independent per-copy
+        // groups (see computeWeaponsToShow's replaceGroupCountByName comment) — otherwise a
+        // single bulk-swap group (e.g. Fellblade's "2 Laser destroyers" -> "2 Quad lascannons"
+        // in one choice) would never reach the inflated count and show a bogus negative-derived
+        // leftover (ki-replaces-swap-manual-review-01 regression, found 2026-06-27).
         const copies = weaponCopiesPerModel(unit.equipped_with, bn);
-        overrides.set(w.name, Math.max(0, grp.count * copies - replacedQty.get(bn)!));
+        const replaceGroupCount = unit.option_groups.filter(g => g.replaces?.includes(bn)).length;
+        const effectiveCopies = copies > 1 && replaceGroupCount >= copies ? copies : 1;
+        overrides.set(w.name, Math.max(0, grp.count * effectiveCopies - replacedQty.get(bn)!));
       } else if (grantedQty.has(bn)) {
         overrides.set(w.name, grantedQty.get(bn)!);
       }
