@@ -12,6 +12,7 @@ import {
   modelRestrictsToTermSubset, modelRestrictsToGravisSubset, isItemMarkBlocked,
   effectiveKeywords, isItemRequirementsBlocked, isArmyItemGateBlocked,
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
+  glyphArmourRestriction,
 } from '../engine/keywords';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
@@ -333,7 +334,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       ...(effectiveMark && activeData.armory_marks[effectiveMark] ? [activeData.armory_marks[effectiveMark]] : []),
     ];
     const pool = sources.flatMap(src => src.daemon_weapons as ArmoryItem[]);
-    return filterByUnitType(filterGravisCompat(filterTermCompat(pool)))
+    return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(pool))))
       .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
   }
   const daemonWeaponSelections = currentArmory.filter(a => a.section === 'daemon_weapons');
@@ -405,6 +406,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   function filterGravisCompat(armItems: ArmoryItem[]): ArmoryItem[] {
     return gravisRestricted ? armItems.filter(a => isItemGravisCompat(a) || boughtItemNames.has(a.name)) : armItems;
+  }
+
+  // Orks "Mega armor" (ᴹ) / Leagues of Votann "Exo-armor" (ᴱ): same shape as ᵀ/ᴳ above, but these
+  // two factions never got a structured armour_compat/term_compat field for the glyph — the gate
+  // is keyed off the bought item's literal name and a name-suffix glyph check on candidate items
+  // (codex_orks/keywords.ts + codex_leagues_of_votann/keywords.ts CAVEAT). Found unenforced during
+  // the 2026-06-28 sweep, same family as the Tau ᴵ-glyph fix (GH#18).
+  const glyphArmourGlyph = glyphArmourRestriction(activeData.faction, boughtArmourNames);
+  function filterGlyphArmourCompat(armItems: ArmoryItem[]): ArmoryItem[] {
+    return glyphArmourGlyph ? armItems.filter(a => a.name.includes(glyphArmourGlyph) || boughtItemNames.has(a.name)) : armItems;
   }
 
   // Tau Empire ("Armory" sheet): "Infantry models may only use equipment marked with ᴵ" — applies
@@ -528,7 +539,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   function getItems(sec: Section): ArmoryItem[] {
     if (!armory) return [];
-    return filterByUnitType(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[])))
+    return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[]))))
       .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
   }
 
@@ -673,7 +684,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               {BC_MARKS.map(markName => {
                 const markArm = activeData.armory_marks[markName];
                 if (!markArm) return null;
-                const markItems = filterByUnitType(filterGravisCompat(filterTermCompat(markArm[effectiveSection] as ArmoryItem[])));
+                const markItems = filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(markArm[effectiveSection] as ArmoryItem[]))));
                 const markEq = effectiveSection === 'equipment' ? splitEquipment(markItems) : null;
                 return (
                   <div key={markName}>
@@ -749,7 +760,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 return activeLegionKeys.includes(legName);
               })
               .map(([legName, leg]) => {
-                const legItems = filterByUnitType(filterGravisCompat(filterTermCompat(leg[effectiveSection] as ArmoryItem[])));
+                const legItems = filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(leg[effectiveSection] as ArmoryItem[]))));
                 const legEq = effectiveSection === 'equipment' ? splitEquipment(legItems) : null;
                 return (
                   <div key={legName}>

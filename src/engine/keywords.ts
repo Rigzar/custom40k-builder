@@ -72,6 +72,25 @@ export function modelRestrictsToGravisSubset(unit: Unit, boughtArmourNames: stri
 }
 
 /**
+ * Does this model restrict its armory picks to a glyph-marked subset because it bought a
+ * dynamically-purchased heavy-armour item (Orks "Mega armor" → ᴹ, Leagues of Votann "Exo-armor"
+ * → ᴱ)? Both factions' own `.ods` Armory states "Models in [armour] can only receive equipment
+ * marked with [glyph]" — same shape as the ᵀ/Gravis gates above, except these two factions never
+ * got a structured `armour_compat`/`term_compat` field for the glyph (CAVEAT noted in
+ * codex_orks/keywords.ts and codex_leagues_of_votann/keywords.ts) — the gate is keyed purely off
+ * the bought item's exact name and the glyph suffix on candidate items' names.
+ */
+const GLYPH_ARMOUR_NAMES: Record<string, { itemName: string; glyph: string }> = {
+  Orks: { itemName: 'Mega armor', glyph: 'ᴹ' },
+  'Leagues of Votann': { itemName: 'Exo-armor', glyph: 'ᴱ' },
+};
+export function glyphArmourRestriction(faction: string, boughtArmourNames: string[] = []): string | null {
+  const entry = GLYPH_ARMOUR_NAMES[faction];
+  if (!entry) return null;
+  return boughtArmourNames.includes(entry.itemName) ? entry.glyph : null;
+}
+
+/**
  * Parse a unit's unit_type string into individual type keywords.
  * e.g. "Character Model, Infantry" → ["Character Model", "Infantry"]
  */

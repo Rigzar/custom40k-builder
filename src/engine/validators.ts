@@ -596,6 +596,51 @@ export function computeKrootShaperFreeSlots(
 }
 
 /**
+ * Necrons Plasmacyte: "For each started 500 points game size, one Plasmacyte may be taken
+ * without using up an Elite slot." Same points-capped (not ratio-capped) shape as
+ * computeGscEliteFreeSlots, found unwired during the 2026-06-28 cross-faction free-slot sweep.
+ */
+export function computeNecronPlasmacyteFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+  pointLimit: number,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Necrons') return { elites: 0, notes: [] };
+  const count = army.filter(i => i.unitName === 'Plasmacyte').length;
+  if (count === 0) return { elites: 0, notes: [] };
+  const cap = Math.floor(pointLimit / 500);
+  const credited = Math.min(count, cap);
+  const notes = [`Plasmacyte: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the Elite slot (1 per 500pts of game size, ${pointLimit}pts → max ${cap}).`];
+  if (count > cap) {
+    notes.push(`Plasmacyte: ${count - cap} extra unit${count - cap === 1 ? '' : 's'} exceed the game-size cap and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/**
+ * Eldar Spiritseer: "For every unit of Wraithblades, Wraithguard or Wraithlord, one Spiritseer
+ * may be selected without using a HQ slot." Same ratio-against-sibling-units shape as
+ * computeEinhyrChampionFreeSlots, except the anchor is the SUM of three unit names (mirrors
+ * computeKrootShaperFreeSlots/computeServitorFreeSlots' combined-anchor pattern). Found unwired
+ * during the 2026-06-28 cross-faction free-slot sweep.
+ */
+export function computeSpiritseerFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Eldar') return { hq: 0, notes: [] };
+  const spiritseerCount = army.filter(i => i.unitName === 'Spiritseer').length;
+  const anchorCount = army.filter(i => i.unitName === 'Wraithblades' || i.unitName === 'Wraithguard' || i.unitName === 'Wraithlord').length;
+  if (spiritseerCount === 0 || anchorCount === 0) return { hq: 0, notes: [] };
+  const credited = Math.min(spiritseerCount, anchorCount);
+  const notes = [`Spiritseer: ${credited} of ${spiritseerCount} unit${spiritseerCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Wraithblades/Wraithguard/Wraithlord, have ${anchorCount}).`];
+  if (spiritseerCount > anchorCount) {
+    notes.push(`Spiritseer: ${spiritseerCount - anchorCount} extra unit${spiritseerCount - anchorCount === 1 ? '' : 's'} exceed the Wraith ratio and still occupy a normal HQ slot.`);
+  }
+  return { hq: credited, notes };
+}
+
+/**
  * Generic version of computeEldarWarlockFreeSlots' "1 free per 500pts of game size" shape, for
  * archetypes (not unit abilities) that grant it — e.g. Votann Hearthfyre Arsenal's
  * `pointsBasedHqFree`. Every copy of the named unit is eligible (no per-unit inline flag to
@@ -1558,6 +1603,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: note });
   }
 
+  // Necrons Plasmacyte: "1 free Elite slot per 500pts of game size" (own ability text)
+  const plasmacyteFree = computeNecronPlasmacyteFreeSlots(state.army, data, state.pointLimit);
+  for (const note of plasmacyteFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Eldar Spiritseer: "1 free HQ slot per Wraithblades/Wraithguard/Wraithlord" (own ability text)
+  const spiritseerFree = computeSpiritseerFreeSlots(state.army, data);
+  for (const note of spiritseerFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // "Cults Abominatioe"/"Execution Force" (Assassins' OWN canonical special rules,
   // data/source/Assassins ENG/Index.html, verbatim): the army may field EITHER a single
   // Assassin (any one of the 4 types, exactly one model) OR one of each of the 4 — no
@@ -1600,10 +1657,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -2058,10 +2115,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.14',
+    date: '2026-06-28',
+    title: 'GENERAL — cross-faction free-slot and armour-glyph sweep',
+    changes: [
+      'Necrons Plasmacyte: now correctly exempted from the Elite slot at 1 per 500pts of game size, as per its own ability text.',
+      'Eldar Spiritseer: now correctly exempted from the HQ slot at 1 per Wraithblades/Wraithguard/Wraithlord unit.',
+      "Imperial Guard Crusaders: fixed missing Advisor flag — now correctly exempted from the Elite slot at 1 per HQ selection, like Company Command Squad/Engineseer/Preacher/Stormtrooper Command Squad.",
+      "Orks Mega armor (ᴹ) and Leagues of Votann Exo-armor (ᴱ): the .ods's \"can only receive equipment with [glyph]\" restriction was never enforced anywhere in the Armory — fixed the same way as T'au's ᴵ-glyph gate (v1.13/GH#18).",
+    ],
+  },
+  {
     version: '1.13',
     date: '2026-06-28',
     title: "T'au Empire: Kroot Hounds/Kroot Shaper slot + armory fixes (GitHub #16, #17, #18)",

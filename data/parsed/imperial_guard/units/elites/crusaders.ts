@@ -72,7 +72,7 @@ export const crusaders: Unit = {
   "veteran_max": null,
   "is_squadron": true,
   "locked_mark": null,
-  "advisor": false,
+  "advisor": true,
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 40
