@@ -9,37 +9,37 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v14_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v15_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Planetary Assault campaigns (ALPHA) + print fixes',
-    intro: 'Hello commanders! First preview of the Planetary Assault campaign module: a new "⚔ Campaign" button lets you create a campaign (you become GM, get an invite code) or join one with a code and pick your faction.',
-    engine: '🚧 ALPHA — this is only the foundation. Sectors, buildings, Supply, unit upgrades and battle reports are not implemented yet.',
-    csm: '🐛 Fixed: the printable unit card showed inflated/duplicated weapon counts on units with partial weapon swaps (e.g. only the Champion taking a special weapon).',
-    cd:  '🎨 The printable unit card now uses a distinct accent color per faction instead of every faction but Chaos sharing the same flat brown.',
-    sm:  '🐛 Fix GH#15: Imperial Guard vehicle wargear (camo net, bulldozer blade…) was hidden behind a vaguely-labeled button — renamed it "Vehicle equipment", and removed the generic Armory button from non-character vehicles everywhere, since it never had anything they could use.',
+    title: 'Developer Update — Custom40k Wiki (pilot)',
+    intro: 'Hello commanders! Started work on a separate Custom40k Wiki — a browsable codex site (units, weapons, abilities, points, Armory, Archetypes & Legacies, Psychic powers) generated straight from this app\'s own canonical data, so it can never drift out of sync.',
+    engine: '🚧 PILOT — only Orks and Necrons so far, to validate the page templates before rolling out to the rest of the factions. Not deployed publicly yet.',
+    csm: '🎨 Themed with the official datasheet colors and fonts (ConduitITCStd/BankGothic) plus a parchment background, instead of a generic dark UI.',
+    cd:  '🖼️ Battlefield-role icons per section (HQ, Troops, Elites…) and Klan/Dynasty icons next to clan- or dynasty-restricted Armory items and Legacies.',
+    sm:  '📐 Every unit now shows its squad size (default + min–max range) on its card and detail page — this was missing in the first pilot pass.',
     legacyfix: '🗓 Known Issues panel reflects the current state.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Planetary Assault Kampagnen (ALPHA) + Druck-Fixes',
-    intro: 'Hallo Kommandanten! Erste Vorschau des Planetary-Assault-Kampagnenmoduls: ein neuer "⚔ Campaign"-Button erstellt eine Kampagne (ihr werdet GM, erhaltet einen Einladungscode) oder tretet einer bei.',
-    engine: '🚧 ALPHA — nur das Fundament. Sektoren, Gebäude, Supply, Einheiten-Upgrades und Kampfberichte fehlen noch.',
-    csm: '🐛 Behoben: die Druckansicht zeigte aufgeblähte Waffenanzahlen bei Einheiten mit teilweisem Waffentausch.',
-    cd:  '🎨 Die Druckansicht nutzt jetzt eine eigene Akzentfarbe pro Fraktion statt eines einheitlichen Brauns.',
-    sm:  '🐛 Fix GH#15: Imperial-Guard-Fahrzeugausrüstung (Tarnnetz, Bulldozerschild…) war hinter einem unklar benannten Button versteckt — umbenannt zu "Vehicle equipment", generischer Armory-Button bei Nicht-Charakter-Fahrzeugen entfernt.',
+    title: 'Entwickler-Update — Custom40k Wiki (Pilot)',
+    intro: 'Hallo Kommandanten! Arbeit an einem separaten Custom40k Wiki begonnen — eine durchsuchbare Codex-Seite (Einheiten, Waffen, Fähigkeiten, Punkte, Armory, Archetypes & Legacies, Psi-Kräfte), direkt aus den kanonischen Daten dieser App generiert.',
+    engine: '🚧 PILOT — bisher nur Orks und Necrons, um die Seitenvorlagen zu testen, bevor es auf alle Fraktionen ausgeweitet wird. Noch nicht öffentlich deployed.',
+    csm: '🎨 Gestaltet mit den offiziellen Datasheet-Farben und -Schriften (ConduitITCStd/BankGothic) plus Pergament-Hintergrund statt eines generischen dunklen UI.',
+    cd:  '🖼️ Battlefield-Role-Icons pro Abschnitt (HQ, Troops, Elites…) und Klan-/Dynasty-Icons neben klan- bzw. dynastiegebundenen Armory-Items und Legacies.',
+    sm:  '📐 Jede Einheit zeigt jetzt ihre Einheitengröße (Standard + Min–Max-Bereich) auf Karte und Detailseite — fehlte im ersten Pilot-Durchgang.',
     legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — Campañas Planetary Assault (ALPHA) + fixes de impresión',
-    intro: '¡Hola comandantes! Primera vista previa del módulo de campaña Planetary Assault: el nuevo botón "⚔ Campaign" te deja crear una campaña (te convertís en GM, recibís un código de invitación) o unirte con un código.',
-    engine: '🚧 ALPHA — esto es solo la base. Sectores, edificios, Supply, mejoras de unidad y reportes de batalla todavía no existen.',
-    csm: '🐛 Arreglado: la vista de impresión mostraba cantidades de armas infladas en unidades con intercambios parciales (ej. solo el Champion con un arma especial).',
-    cd:  '🎨 La vista de impresión ahora usa un color de acento distinto por facción, en vez de que todas (salvo Caos) compartan el mismo marrón.',
-    sm:  '🐛 Fix GH#15: el equipo de vehículo de Imperial Guard (camo net, bulldozer blade…) estaba escondido detrás de un botón sin etiqueta clara — renombrado a "Vehicle equipment", y se quitó el botón genérico de Armory en vehículos sin personaje en todas las facciones, porque nunca tenía nada útil ahí.',
+    title: 'Actualización del desarrollador — Wiki de Custom40k (piloto)',
+    intro: '¡Hola comandantes! Empezamos un Wiki de Custom40k separado — un sitio navegable con los codex (unidades, armas, habilidades, puntos, Armory, Archetypes & Legacies, poderes psíquicos) generado directamente desde los datos canónicos de esta app, así nunca se desincroniza.',
+    engine: '🚧 PILOTO — por ahora solo Orks y Necrons, para validar las plantillas antes de extenderlo al resto de facciones. Todavía no está desplegado públicamente.',
+    csm: '🎨 Con los colores y tipografías oficiales de los datasheets (ConduitITCStd/BankGothic) y fondo de pergamino, en vez de una interfaz oscura genérica.',
+    cd:  '🖼️ Iconos de battlefield-role por sección (HQ, Troops, Elites…) e iconos de Klan/Dynasty junto a los ítems de Armory y Legacies restringidos por clan o dinastía.',
+    sm:  '📐 Cada unidad ahora muestra su tamaño de escuadra (por defecto + rango min-max) en su tarjeta y ficha — faltaba en el primer pase del piloto.',
     legacyfix: '🗓 El panel de Known Issues refleja el estado actual.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },

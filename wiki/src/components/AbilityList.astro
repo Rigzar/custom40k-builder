@@ -1,0 +1,31 @@
+---
+import { parseAbility, normaliseKey } from '../lib/glossary';
+
+interface Props {
+  abilities: string[];
+}
+const { abilities } = Astro.props;
+
+const parsed = abilities.flatMap(a => parseAbility(a));
+---
+<ul class="ability-list">
+  {parsed.map(part => {
+    const { key } = normaliseKey(part.displayName);
+    const hasGlossaryEntry = !part.isCustom && part.description !== null;
+    return (
+      <li>
+        {hasGlossaryEntry ? (
+          <a href={`/glossary/${encodeURIComponent(key)}`}><strong>{part.displayName}</strong></a>
+        ) : (
+          <strong>{part.displayName}</strong>
+        )}
+        {part.description && <span>: {part.description}</span>}
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .ability-list { padding-left: 1.25rem; margin: 0.5rem 0; }
+  .ability-list li { margin-bottom: 0.35rem; }
+</style>

@@ -1,0 +1,45 @@
+---
+import Layout from '../../../components/Layout.astro';
+import FactionHeader from '../../../components/FactionHeader.astro';
+import UnitCard from '../../../components/UnitCard.astro';
+import { PILOT_FACTIONS } from '../../../lib/factions';
+import { getFactionUnits } from '../../../lib/units';
+import { getSlotIcon } from '../../../lib/slots';
+
+export async function getStaticPaths() {
+  return PILOT_FACTIONS.map(f => ({ params: { faction: f.key } }));
+}
+
+const { faction: factionKey } = Astro.params;
+const config = PILOT_FACTIONS.find(f => f.key === factionKey)!;
+const { units, slot_to_units } = await getFactionUnits(factionKey!);
+const slots = Object.keys(slot_to_units);
+---
+<Layout title={`${config.label} — Custom40k Wiki`}>
+  <p class="crumbs"><a href="/">&larr; All factions</a></p>
+  <FactionHeader label={config.label} symbol={config.symbol} />
+  <p class="section-nav">
+    <a href={`/factions/${factionKey}/armory`}>Armory</a> ·
+    <a href={`/factions/${factionKey}/archetypes`}>Archetypes &amp; Legacies</a> ·
+    <a href={`/factions/${factionKey}/psychic`}>Psychic powers</a>
+  </p>
+  {slots.map(slot => (
+    <section>
+      <h2 class="slot-heading">
+        {getSlotIcon(slot) && <img src={getSlotIcon(slot)!} alt="" width="20" height="20" />}
+        {slot}
+      </h2>
+      <div class="unit-grid">
+        {slot_to_units[slot].map(name => (
+          <UnitCard unit={units[name]} factionKey={factionKey!} slot={slot} />
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .section-nav { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.78rem; margin: 0.5rem 0 1.2rem; }
+  .slot-heading { display: flex; align-items: center; gap: 0.45rem; }
+  .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.5rem; margin-bottom: 1.2rem; }
+</style>

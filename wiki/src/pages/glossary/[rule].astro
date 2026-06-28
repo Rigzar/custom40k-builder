@@ -1,0 +1,16 @@
+---
+import Layout from '../../components/Layout.astro';
+import { RULES } from '../../lib/glossary';
+
+export async function getStaticPaths() {
+  return Object.keys(RULES).map(key => ({ params: { rule: key }, props: { entry: RULES[key] } }));
+}
+
+const { entry } = Astro.props;
+const description = entry.description.replace(/\{X\}/g, 'X');
+---
+<Layout title={`${entry.name} — Custom40k Wiki Glossary`}>
+  <p class="crumbs"><a href="/">&larr; All factions</a> / <a href="/glossary">Glossary</a></p>
+  <h1>{entry.name}</h1>
+  <p>{description}</p>
+</Layout>

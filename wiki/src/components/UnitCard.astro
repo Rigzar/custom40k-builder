@@ -1,0 +1,50 @@
+---
+import type { Unit } from '../../../src/types/data';
+import { slugify } from '../lib/slugs';
+
+interface Props {
+  unit: Unit;
+  factionKey: string;
+  /** Slot this card is listed under — may differ from unit.slot for units shared across two
+      slot arrays (e.g. Orks "Battle Fortress" appears under both Heavy Support and Lords of War). */
+  slot?: string;
+}
+const { unit, factionKey, slot } = Astro.props;
+
+const minPts = unit.min_cost;
+const sizeRange = unit.models[0];
+const sizeLabel = sizeRange && (sizeRange.min !== sizeRange.max)
+  ? `${sizeRange.min}-${sizeRange.max} models`
+  : `${unit.default_size} model${unit.default_size === 1 ? '' : 's'}`;
+const badges: string[] = [];
+if (unit.is_character) badges.push('Character');
+if (unit.is_vehicle) badges.push('Vehicle');
+if (unit.is_monster) badges.push('Monster');
+if (unit.is_psyker) badges.push('Psyker');
+
+const href = `/factions/${factionKey}/${slugify(slot ?? unit.slot)}/${slugify(unit.name)}`;
+---
+<a class="unit-card" href={href}>
+  <div class="unit-card-name">{unit.name}</div>
+  <div class="unit-card-meta">
+    <span>{minPts}+ pts</span>
+    <span>{sizeLabel}</span>
+    {badges.map(b => <span class="badge">{b}</span>)}
+  </div>
+</a>
+
+<style>
+  .unit-card {
+    display: block;
+    border: 1px solid #9a978b;
+    border-left: 3px solid var(--c40k-red, #a21217);
+    border-radius: 3px;
+    padding: 0.45rem 0.6rem;
+    text-decoration: none;
+    color: var(--c40k-ink, #2a2420);
+    background: rgba(215, 214, 204, 0.55);
+    background-blend-mode: multiply;
+  }
+  .unit-card-name { font-weight: 700; font-size: 0.88rem; font-family: var(--font-heading, Georgia, serif); letter-spacing: 0.01em; }
+  .unit-card-meta { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.68rem; opacity: 0.85; display: flex; gap: 0.35rem; margin-top: 0.25rem; flex-wrap: wrap; align-items: center; }
+</style>

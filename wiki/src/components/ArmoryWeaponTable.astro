@@ -1,0 +1,82 @@
+---
+import type { ArmoryItem } from '../../../src/types/data';
+import { parseAbility, normaliseKey } from '../lib/glossary';
+
+interface Props {
+  items: ArmoryItem[];
+}
+const { items } = Astro.props;
+
+function pts(item: ArmoryItem): string {
+  const parts: string[] = [];
+  if (item.p_unit != null) parts.push(`${item.p_unit} pts per model`);
+  if (item.p_char != null) parts.push(`${item.p_char} pts for a Character`);
+  if (item.p_veh != null) parts.push(`${item.p_veh} pts for a Vehicle`);
+  return parts.length > 0 ? parts.join(' / ') : '-';
+}
+
+interface Row { label: string; range: string; type: string; s: string; ap: string; d: string; abilities: string; points: string }
+const rows: Row[] = items.flatMap(item => {
+  if (item.profiles && item.profiles.length > 0) {
+    return item.profiles.map(p => ({
+      label: `${item.name} — ${p.name}`,
+      range: p.range, type: p.type, s: p.s, ap: p.ap, d: p.d, abilities: p.abilities,
+      points: pts(item),
+    }));
+  }
+  return [{
+    label: item.name,
+    range: item.range ?? '-', type: item.type ?? '-', s: item.s ?? '-', ap: item.ap ?? '-', d: item.d ?? '-',
+    abilities: item.abilities ?? '-',
+    points: pts(item),
+  }];
+});
+---
+<table class="weapon-table">
+  <thead>
+    <tr>
+      <th>Weapon</th>
+      <th>Range</th>
+      <th>Type</th>
+      <th>S</th>
+      <th>AP</th>
+      <th>D</th>
+      <th>Abilities</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map(r => {
+      const parts = r.abilities && r.abilities !== '-' ? parseAbility(r.abilities) : [];
+      return (
+        <tr>
+          <td>{r.label}</td>
+          <td>{r.range}</td>
+          <td>{r.type}</td>
+          <td>{r.s}</td>
+          <td>{r.ap}</td>
+          <td>{r.d}</td>
+          <td>
+            {parts.length === 0 && '-'}
+            {parts.map((part, i) => {
+              const { key } = normaliseKey(part.displayName);
+              const hasGlossaryEntry = !part.isCustom && part.description !== null;
+              return (
+                <>
+                  {i > 0 && ', '}
+                  {hasGlossaryEntry ? <a href={`/glossary/${encodeURIComponent(key)}`}>{part.displayName}</a> : <span>{part.displayName}</span>}
+                </>
+              );
+            })}
+          </td>
+          <td>{r.points}</td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+
+<style>
+  .weapon-table th:not(:first-child):not(:last-child),
+  .weapon-table td:not(:first-child):not(:last-child) { text-align: center; }
+</style>

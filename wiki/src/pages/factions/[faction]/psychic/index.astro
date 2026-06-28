@@ -1,0 +1,59 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import { PILOT_FACTIONS } from '../../../../lib/factions';
+import { getFactionExtras } from '../../../../lib/factionExtras';
+
+export async function getStaticPaths() {
+  return PILOT_FACTIONS.map(f => ({ params: { faction: f.key } }));
+}
+
+const { faction: factionKey } = Astro.params;
+const config = PILOT_FACTIONS.find(f => f.key === factionKey)!;
+const { disciplines } = await getFactionExtras(factionKey!);
+const disciplineNames = Object.keys(disciplines);
+---
+<Layout title={`Psychic powers — ${config.label} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Psychic powers
+  </p>
+  <h1>Psychic powers</h1>
+
+  {disciplineNames.map(name => (
+    <section>
+      <h2>{name}</h2>
+      <table class="power-table">
+        <thead>
+          <tr>
+            <th>Power</th>
+            <th>Type</th>
+            <th>Range</th>
+            <th>Target</th>
+            <th>Cast value</th>
+            <th>Effect</th>
+            <th>Duration</th>
+            <th>Complexity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {disciplines[name].map(p => (
+            <tr>
+              <td>{p.name}</td>
+              <td>{p.type ?? '-'}</td>
+              <td>{p.range ?? '-'}</td>
+              <td>{p.target ?? '-'}</td>
+              <td>{p.cast_value ?? '-'}</td>
+              <td>{p.effect ?? '-'}</td>
+              <td>{p.duration ?? '-'}</td>
+              <td>{p.complexity ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .power-table th:not(:first-child):not(:nth-child(6)),
+  .power-table td:not(:first-child):not(:nth-child(6)) { text-align: center; }
+</style>

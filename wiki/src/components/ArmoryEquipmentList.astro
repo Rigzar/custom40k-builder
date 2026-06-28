@@ -1,0 +1,36 @@
+---
+import type { ArmoryItem } from '../../../src/types/data';
+import { findClanIcon } from '../lib/clans';
+
+interface Props {
+  items: ArmoryItem[];
+}
+const { items } = Astro.props;
+
+function pts(item: ArmoryItem): string {
+  const parts: string[] = [];
+  if (item.p_unit != null) parts.push(`${item.p_unit} pts per model`);
+  if (item.p_char != null) parts.push(`${item.p_char} pts for a Character`);
+  if (item.p_veh != null) parts.push(`${item.p_veh} pts for a Vehicle`);
+  return parts.length > 0 ? parts.join(' / ') : '-';
+}
+---
+<ul class="equipment-list">
+  {items.map(item => {
+    const clan = findClanIcon(item.desc);
+    return (
+      <li>
+        {clan && <img src={clan.icon} alt={clan.name} title={clan.name} width="22" height="22" />}
+        <strong>{item.name}</strong> — {pts(item)}
+        {item.desc && <p>{item.desc}</p>}
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .equipment-list { padding-left: 1.1rem; font-size: 0.85rem; }
+  .equipment-list li { margin-bottom: 0.45rem; }
+  .equipment-list img { vertical-align: middle; margin-right: 0.25rem; }
+  .equipment-list p { margin: 0.15rem 0 0; font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.8rem; white-space: pre-line; }
+</style>

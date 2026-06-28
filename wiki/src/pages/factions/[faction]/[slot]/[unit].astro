@@ -1,0 +1,81 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import StatTable from '../../../../components/StatTable.astro';
+import WeaponTable from '../../../../components/WeaponTable.astro';
+import AbilityList from '../../../../components/AbilityList.astro';
+import { PILOT_FACTIONS } from '../../../../lib/factions';
+import { getFactionUnits } from '../../../../lib/units';
+import { slugify } from '../../../../lib/slugs';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const f of PILOT_FACTIONS) {
+    const { units, slot_to_units } = await getFactionUnits(f.key);
+    for (const [slot, names] of Object.entries(slot_to_units)) {
+      for (const name of names) {
+        paths.push({
+          params: { faction: f.key, slot: slugify(slot), unit: slugify(name) },
+          props: { unit: units[name], slot, factionLabel: f.label },
+        });
+      }
+    }
+  }
+  return paths;
+}
+
+const { faction: factionKey } = Astro.params;
+const { unit, slot, factionLabel } = Astro.props;
+---
+<Layout title={`${unit.name} — ${factionLabel} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/">&larr; All factions</a> /
+    <a href={`/factions/${factionKey}`}>{factionLabel}</a> / {slot}
+  </p>
+  <h1>{unit.name}</h1>
+  <p class="unit-type">{unit.unit_type}</p>
+  <p class="squad-size"><strong>Squad size:</strong> {unit.default_size} model{unit.default_size === 1 ? '' : 's'} by default ({unit.models[0]?.min}-{unit.models[0]?.max} range) · {unit.min_cost}+ pts</p>
+
+  <StatTable models={unit.models} />
+  {unit.variant_models.length > 0 && (
+    <StatTable models={unit.variant_models} title="Variants" />
+  )}
+
+  <p><strong>Equipped with:</strong> {unit.equipped_with}</p>
+
+  {unit.weapons.length > 0 && (
+    <>
+      <h2>Weapons</h2>
+      <WeaponTable weapons={unit.weapons} />
+    </>
+  )}
+
+  {unit.option_groups.length > 0 && (
+    <>
+      <h2>Wargear options</h2>
+      <ul>
+        {unit.option_groups.map(g => (
+          <li>
+            {g.header}
+            {g.choices.length > 0 && (
+              <ul>
+                {g.choices.map(c => <li>{c.name} — {c.points} pts</li>)}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {unit.abilities.length > 0 && (
+    <>
+      <h2>Abilities</h2>
+      <AbilityList abilities={unit.abilities} />
+    </>
+  )}
+</Layout>
+
+<style>
+  .unit-type { opacity: 0.75; font-style: italic; font-size: 0.85rem; }
+  .squad-size { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.78rem; }
+</style>

@@ -25,6 +25,21 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.15',
+    date: '2026-06-28',
+    title: 'GENERAL — new Custom40k Wiki (pilot, Orks + Necrons)',
+    changes: [
+      'New standalone wiki site (custom40k-builder/wiki/) documenting faction codices — units, weapons, abilities and points — generated directly from the same canonical data as the builder app, so it can never drift out of sync.',
+      'Pilot scope: Orks and Necrons only, to validate the page templates and glossary linking before expanding to the rest of the factions.',
+      'Built as an independent Astro project with its own deploy, so it adds zero weight to the main builder app.',
+      'Added Armory, Archetypes & Legacies, and Psychic powers sections per faction.',
+      'Fixed missing squad-size display (default size + min-max range) on unit cards and detail pages.',
+      'Themed with the official datasheet colors/fonts (ConduitITCStd, BankGothic) and a parchment background instead of a generic dark UI; tightened type scale for a denser, wiki-like layout.',
+      'Added battlefield-role icons per section and Klan/Dynasty icons next to clan- or dynasty-restricted Armory items and Legacies (SVGs from the open-source Certseeds/wh40k-icon project).',
+      'Reworded Armory point costs from cryptic "(unit)/(char)/(veh)" suffixes to plain "X pts per model / for a Character / for a Vehicle".',
+    ],
+  },
+  {
     version: '1.14',
     date: '2026-06-28',
     title: 'GENERAL — cross-faction free-slot and armour-glyph sweep',

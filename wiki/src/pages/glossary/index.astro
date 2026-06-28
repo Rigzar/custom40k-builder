@@ -1,0 +1,19 @@
+---
+import Layout from '../../components/Layout.astro';
+import { RULES } from '../../lib/glossary';
+
+const keys = Object.keys(RULES).sort();
+---
+<Layout title="Glossary — Custom40k Wiki">
+  <p class="crumbs"><a href="/">&larr; All factions</a></p>
+  <h1>Rules glossary</h1>
+  <ul class="glossary-list">
+    {keys.map(key => (
+      <li><a href={`/glossary/${encodeURIComponent(key)}`}>{RULES[key].name}</a></li>
+    ))}
+  </ul>
+</Layout>
+
+<style>
+  .glossary-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.3rem; list-style: none; padding: 0; font-size: 0.85rem; }
+</style>

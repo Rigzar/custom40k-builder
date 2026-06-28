@@ -1,0 +1,62 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import ArmoryWeaponTable from '../../../../components/ArmoryWeaponTable.astro';
+import ArmoryEquipmentList from '../../../../components/ArmoryEquipmentList.astro';
+import { PILOT_FACTIONS } from '../../../../lib/factions';
+import { getFactionExtras } from '../../../../lib/factionExtras';
+
+export async function getStaticPaths() {
+  return PILOT_FACTIONS.map(f => ({ params: { faction: f.key } }));
+}
+
+const { faction: factionKey } = Astro.params;
+const config = PILOT_FACTIONS.find(f => f.key === factionKey)!;
+const { armoryGeneral, armoryFaction } = await getFactionExtras(factionKey!);
+---
+<Layout title={`Armory — ${config.label} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Armory
+  </p>
+  <h1>{armoryGeneral.name}</h1>
+
+  {armoryGeneral.weapons.length > 0 && (
+    <>
+      <h2>Weapons</h2>
+      <ArmoryWeaponTable items={armoryGeneral.weapons} />
+    </>
+  )}
+  {armoryGeneral.equipment.length > 0 && (
+    <>
+      <h2>Equipment</h2>
+      <ArmoryEquipmentList items={armoryGeneral.equipment} />
+    </>
+  )}
+  {armoryGeneral.daemon_weapons && armoryGeneral.daemon_weapons.length > 0 && (
+    <>
+      <h2>Daemon weapons</h2>
+      <ArmoryWeaponTable items={armoryGeneral.daemon_weapons} />
+    </>
+  )}
+
+  {Object.entries(armoryFaction).map(([label, armory]) => (
+    <>
+      <h1>{armory.name} <span class="sub">({label})</span></h1>
+      {armory.weapons.length > 0 && (
+        <>
+          <h2>Weapons</h2>
+          <ArmoryWeaponTable items={armory.weapons} />
+        </>
+      )}
+      {armory.equipment.length > 0 && (
+        <>
+          <h2>Equipment</h2>
+          <ArmoryEquipmentList items={armory.equipment} />
+        </>
+      )}
+    </>
+  ))}
+</Layout>
+
+<style>
+  .sub { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.8rem; text-transform: none; opacity: 0.7; }
+</style>

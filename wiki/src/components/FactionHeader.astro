@@ -1,0 +1,31 @@
+---
+interface Props {
+  label: string;
+  symbol: string;
+  href?: string;
+}
+const { label, symbol, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag href={href} class="faction-header">
+  <img src={`/faction-symbols/${symbol}`} alt={`${label} symbol`} width="36" height="36" />
+  <span>{label}</span>
+</Tag>
+
+<style>
+  .faction-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--c40k-red, #a21217);
+    font-family: var(--font-heading, sans-serif);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+  }
+  .faction-header img {
+    object-fit: contain;
+  }
+</style>

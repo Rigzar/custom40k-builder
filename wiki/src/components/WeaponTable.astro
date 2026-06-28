@@ -1,0 +1,55 @@
+---
+import type { Weapon } from '../../../src/types/data';
+import { parseAbility, normaliseKey } from '../lib/glossary';
+
+interface Props {
+  weapons: Weapon[];
+}
+const { weapons } = Astro.props;
+---
+<table class="weapon-table">
+  <thead>
+    <tr>
+      <th>Weapon</th>
+      <th>Range</th>
+      <th>Type</th>
+      <th>S</th>
+      <th>AP</th>
+      <th>D</th>
+      <th>Abilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    {weapons.map(w => {
+      const parts = w.abilities && w.abilities !== '-' ? parseAbility(w.abilities) : [];
+      return (
+        <tr>
+          <td>{w.name}</td>
+          <td>{w.range}</td>
+          <td>{w.type}</td>
+          <td>{w.s}</td>
+          <td>{w.ap}</td>
+          <td>{w.d}</td>
+          <td>
+            {parts.length === 0 && '-'}
+            {parts.map((part, i) => {
+              const { key } = normaliseKey(part.displayName);
+              const hasGlossaryEntry = !part.isCustom && part.description !== null;
+              return (
+                <>
+                  {i > 0 && ', '}
+                  {hasGlossaryEntry ? <a href={`/glossary/${encodeURIComponent(key)}`}>{part.displayName}</a> : <span>{part.displayName}</span>}
+                </>
+              );
+            })}
+          </td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+
+<style>
+  .weapon-table th:not(:first-child):not(:last-child),
+  .weapon-table td:not(:first-child):not(:last-child) { text-align: center; }
+</style>
