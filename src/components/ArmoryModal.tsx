@@ -1057,12 +1057,33 @@ function EquipmentGroups({
   const showVehicle = filterCategory === 'vehicle' && vehicle.length > 0 && isVehicle;
 
   const hasAnything = showRegular || showVeteran || showVehicle;
+  // Vehicle-category items (camo net, bulldozer blade, etc.) never show in this general list —
+  // some factions (Imperial Guard) have NO uncategorized equipment at all, so this view would
+  // otherwise be a dead end ("No items in this section") for a vehicle that actually has plenty
+  // of wargear available behind the dedicated "Vehicle equipment" button.
+  const pointToVehicleButton = !filterCategory && isVehicle && vehicle.length > 0;
   if (!hasAnything) {
-    return <div className="text-zinc-500 italic text-sm text-center py-8">No items in this section</div>;
+    return (
+      <div className="text-zinc-500 italic text-sm text-center py-8 space-y-2">
+        <div>No items in this section</div>
+        {pointToVehicleButton && (
+          <div className="text-blue-300 text-[11px] not-italic">
+            This unit's wargear (camo net, smoke launchers, hunter-killer missile…) is under the
+            "⚙ Vehicle equipment" button instead.
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
     <div className="space-y-3">
+      {pointToVehicleButton && (
+        <div className="px-2 py-1.5 bg-blue-900/20 border border-blue-800 text-[10px] text-blue-300">
+          Looking for vehicle wargear (camo net, smoke launchers, hunter-killer missile…)? Use the
+          "⚙ Vehicle equipment" button instead.
+        </div>
+      )}
       {/* Regular equipment — hidden when opened via category button */}
       {showRegular && (
         <div className="space-y-1">

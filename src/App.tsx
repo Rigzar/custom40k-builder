@@ -24,6 +24,7 @@ import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
 import { AuthModal } from './components/AuthModal';
 import { CloudSavesModal } from './components/CloudSavesModal';
+import { CampaignModal } from './components/CampaignModal';
 import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
 
@@ -149,7 +150,7 @@ function TabBar({
   activeTab, openTabs, selectedFaction, factionLabel, armyName, symbolOverride,
   alliedFactionKey, alliedFactionLabel,
   onSwitch, onClose,
-  loggedIn, username, onAccountClick,
+  loggedIn, username, onAccountClick, onCampaignClick,
 }: {
   activeTab: TabId;
   openTabs: TabId[];
@@ -164,6 +165,7 @@ function TabBar({
   loggedIn: boolean;
   username: string | null;
   onAccountClick: () => void;
+  onCampaignClick: () => void;
 }) {
   const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean; allied?: boolean }[] = [
     { id: 'landing',     label: 'Factions',       icon: false, closeable: false },
@@ -212,8 +214,15 @@ function TabBar({
       })}
       </div>
       <button
+        onClick={onCampaignClick}
+        title="Planetary Assault campaigns (ALPHA)"
+        className="flex items-center shrink-0 gap-1 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-500 hover:text-red-400 transition-colors border-l border-zinc-800"
+      >
+        ⚔ Campaign <span className="text-[9px] text-red-500/70">ALPHA</span>
+      </button>
+      <button
         onClick={onAccountClick}
-        className="flex items-center shrink-0 gap-1.5 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors"
+        className="flex items-center shrink-0 gap-1.5 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors border-l border-zinc-800"
       >
         {loggedIn ? `☁ ${username}` : 'Log in'}
       </button>
@@ -241,6 +250,7 @@ export default function App() {
   const [showBugReport, setShowBugReport]       = useState(false);
   const [showAuth, setShowAuth]                 = useState(false);
   const [showCloudSaves, setShowCloudSaves]     = useState(false);
+  const [showCampaign, setShowCampaign]         = useState(false);
   const { username, loggedIn, refresh: refreshAuth, logout } = useAuth();
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
@@ -515,6 +525,7 @@ export default function App() {
           loggedIn={loggedIn}
           username={username}
           onAccountClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
+          onCampaignClick={() => loggedIn ? setShowCampaign(true) : setShowAuth(true)}
         />
       </div>
 
@@ -745,6 +756,7 @@ export default function App() {
           onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
         />
       )}
+      {showCampaign && <CampaignModal onClose={() => setShowCampaign(false)} />}
 
       <LegalFooter />
 

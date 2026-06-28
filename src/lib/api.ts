@@ -92,3 +92,30 @@ export function loadRoster(id: number) {
 export function deleteRoster(id: number) {
   return call<{ ok: true }>(`/api/rosters/${id}`, { method: 'DELETE' });
 }
+
+// ── Planetary Assault campaign module (ALPHA) ───────────────────────────────
+
+export interface CampaignSummary {
+  id: number; name: string; invite_code: string; factions: string[];
+  gm_user_id: number; faction: string | null; role: 'gm' | 'player';
+}
+export function listCampaigns() {
+  return call<{ campaigns: CampaignSummary[] }>('/api/campaign/list');
+}
+
+export function createCampaign(name: string, factions: string[]) {
+  return call<{ campaign: CampaignSummary }>('/api/campaign/create', {
+    method: 'POST', body: JSON.stringify({ name, factions }),
+  });
+}
+
+export function joinCampaign(inviteCode: string, faction: string) {
+  return call<{ campaignId: number }>('/api/campaign/join', {
+    method: 'POST', body: JSON.stringify({ inviteCode, faction }),
+  });
+}
+
+export interface CampaignPlayer { username: string; faction: string | null; role: 'gm' | 'player'; joined_at: string }
+export function listCampaignPlayers(campaignId: number) {
+  return call<{ players: CampaignPlayer[] }>(`/api/campaign/players?campaignId=${campaignId}`);
+}

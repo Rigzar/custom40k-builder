@@ -41,6 +41,35 @@ export async function ensureSchema() {
     )
   `;
   await sql`CREATE INDEX IF NOT EXISTS rosters_user_id_idx ON rosters(user_id)`;
+
+  // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
+  // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when
+  // joining via campaign_players.faction. The GM's own row has faction = NULL unless they also
+  // choose to play a side.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaigns (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      invite_code TEXT UNIQUE NOT NULL,
+      factions JSONB NOT NULL,
+      gm_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_players (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      faction TEXT,
+      role TEXT NOT NULL DEFAULT 'player',
+      joined_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE(campaign_id, user_id)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_players_user_idx ON campaign_players(user_id)`;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_players_campaign_idx ON campaign_players(campaign_id)`;
+
   schemaReady = true;
 }
 

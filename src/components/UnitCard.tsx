@@ -1558,7 +1558,7 @@ export function UnitCard({ item }: Props) {
                     : 'border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-blue-800 hover:text-blue-400'}`}
               >
                 <span className="text-[11px] opacity-70">⚙</span>
-                Upgrades {vehItemsCount > 0 && <span className="text-[9px] bg-blue-800/60 text-blue-200 px-1 py-px rounded-sm">{vehItemsCount}</span>}
+                Vehicle equipment {vehItemsCount > 0 && <span className="text-[9px] bg-blue-800/60 text-blue-200 px-1 py-px rounded-sm">{vehItemsCount}</span>}
               </button>
             )}
             {hasTraitConflict && (

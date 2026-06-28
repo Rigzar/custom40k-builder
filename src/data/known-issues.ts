@@ -5,6 +5,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-ig-vehicle-equipment-discoverability-01',
+    status: 'fixed',
+    title: 'Imperial Guard — vehicle wargear (camo net, bulldozer blade, etc.) unreachable via the generic Armory button (GitHub #15)',
+    description: 'Every Imperial Guard armory item is categorized as `veteran` or `vehicle` — there are zero uncategorized ("regular") items at all. The generic "⚔ Armory" button only ever shows uncategorized items, so for IG it always rendered "No items in this section" with no indication that the vehicle wargear actually lives behind a separate, vaguely-labeled "⚙ Upgrades" button elsewhere in the row. Renamed that button to "Vehicle equipment" and added a pointer inside the general Armory modal (both for the empty-state and whenever vehicle items exist but are hidden from that view) directing the player to it. This is a UI-discoverability fix only — the underlying data/access logic (`hasFactionVehicleItems`, `filterCategory`) was already correct.',
+  },
+  {
+    id: 'ki-campaign-alpha-scope-01',
+    status: 'known',
+    title: 'ALPHA — Planetary Assault campaign module only has campaign create/join so far',
+    description: 'First foundation slice of the Planetary Assault supplement (sectors, buildings, Supply economy, unit upgrades, Stratagems, weekly events, battle reports) — only the GM-creates-campaign / player-joins-with-invite-code flow exists right now. No sector map, no Supply tracking, no unit upgrade picker, no battle report form yet. The roster builder also doesn\'t read campaign state yet (e.g. showing which Upgrades/unique gear your faction has unlocked this round).',
+  },
+  {
     id: 'ki-advisor-flag-audit-pending-01',
     status: 'fixed',
     title: 'GENERAL — the advisor-flag sweep (see ki-advisor-unconditional-exempt-01) was a targeted text cross-reference, not an exhaustive audit',
