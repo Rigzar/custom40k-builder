@@ -23,11 +23,17 @@ if (!existsSync(join(repoRoot, 'src', 'types', 'data.ts'))) {
 
 rmSync(vendorRoot, { recursive: true, force: true });
 
+const FACTIONS = [
+  'chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
+  'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'assassins', 'tau_empire',
+  'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
+  'tyranids',
+];
+
 const copies = [
   ['src/types/data.ts', 'src/types/data.ts'],
   ['src/data/coreRules.ts', 'src/data/coreRules.ts'],
-  ['data/parsed/orks', 'data/parsed/orks'],
-  ['data/parsed/necrons', 'data/parsed/necrons'],
+  ...FACTIONS.map(f => [`data/parsed/${f}`, `data/parsed/${f}`]),
 ];
 
 for (const [from, to] of copies) {

@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-sm-reiver-marines-invisible-elites-01',
+    status: 'fixed',
+    title: 'Space Marines Reiver Marines were silently missing from the Elites slot',
+    description: '`data/parsed/space_marines/units/index.ts` keyed the unit as "Reiver Marines" in the `units` Record but listed "Reiver Squad" in `slot_to_units["Elites"]`. Every consumer of slot_to_units (SlotPanel.tsx and others) does `const u = data.units[name]; if (!u) continue;`, so the name mismatch silently dropped the unit from the Elites slot with no error. Swept every other faction\'s units/index.ts for the same units-key-vs-slot_to_units-name mismatch pattern — Space Marines/Reiver Marines was the only instance found. Fixed by correcting the slot_to_units entry to "Reiver Marines".',
+  },
+  {
     id: 'ki-freeslot-armourglyph-sweep-2026-06-28-01',
     status: 'fixed',
     title: 'GENERAL — cross-faction free-slot mechanic sweep + Orks/Votann armour-glyph gates unenforced',

@@ -136,7 +136,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Judicar",
     "Kill Team Veterans",
     "Redemptor Dreadnought",
-    "Reiver Squad",
+    "Reiver Marines",
     "Techmarine",
     "Terminator Squad",
     "Wolf Scout Squad"

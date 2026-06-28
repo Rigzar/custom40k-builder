@@ -3,19 +3,24 @@ import Layout from '../../../../components/Layout.astro';
 import StatTable from '../../../../components/StatTable.astro';
 import WeaponTable from '../../../../components/WeaponTable.astro';
 import AbilityList from '../../../../components/AbilityList.astro';
-import { PILOT_FACTIONS } from '../../../../lib/factions';
+import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionUnits } from '../../../../lib/units';
 import { slugify } from '../../../../lib/slugs';
 
 export async function getStaticPaths() {
   const paths = [];
-  for (const f of PILOT_FACTIONS) {
+  for (const f of ALL_FACTIONS) {
     const { units, slot_to_units } = await getFactionUnits(f.key);
     for (const [slot, names] of Object.entries(slot_to_units)) {
       for (const name of names) {
+        const unit = units[name];
+        if (!unit) {
+          console.warn(`[wiki] ${f.key}: slot_to_units["${slot}"] references unknown unit "${name}" — skipping`);
+          continue;
+        }
         paths.push({
           params: { faction: f.key, slot: slugify(slot), unit: slugify(name) },
-          props: { unit: units[name], slot, factionLabel: f.label },
+          props: { unit, slot, factionLabel: f.label },
         });
       }
     }

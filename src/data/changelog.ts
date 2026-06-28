@@ -38,6 +38,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Added battlefield-role icons per section and Klan/Dynasty icons next to clan- or dynasty-restricted Armory items and Legacies (SVGs from the open-source Certseeds/wh40k-icon project).',
       'Reworded Armory point costs from cryptic "(unit)/(char)/(veh)" suffixes to plain "X pts per model / for a Character / for a Vehicle".',
       'Deployed live at custom40k-wiki.vercel.app as its own Vercel project, built from a self-contained vendored copy of the canonical data (refreshed on every build, never hand-edited) so the deploy stays isolated from the main app\'s own Vercel project. Added a "Wiki" link in the header to reach it.',
+      'Expanded the wiki from the Orks+Necrons pilot to all 19 factions, with Armory/Archetypes/Psychic pages for every faction (covering all mark/legion/clan/dynasty/order/sept/hive-fleet armories and discipline/prayer/pact psychic tables).',
+      'Space Marines Reiver Marines: fixed a name mismatch ("Reiver Squad" vs "Reiver Marines") that made the unit silently invisible in the Elites slot.',
     ],
   },
   {

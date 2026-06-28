@@ -2,16 +2,16 @@
 import Layout from '../../../components/Layout.astro';
 import FactionHeader from '../../../components/FactionHeader.astro';
 import UnitCard from '../../../components/UnitCard.astro';
-import { PILOT_FACTIONS } from '../../../lib/factions';
+import { ALL_FACTIONS } from '../../../lib/factions';
 import { getFactionUnits } from '../../../lib/units';
 import { getSlotIcon } from '../../../lib/slots';
 
 export async function getStaticPaths() {
-  return PILOT_FACTIONS.map(f => ({ params: { faction: f.key } }));
+  return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
 }
 
 const { faction: factionKey } = Astro.params;
-const config = PILOT_FACTIONS.find(f => f.key === factionKey)!;
+const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { units, slot_to_units } = await getFactionUnits(factionKey!);
 const slots = Object.keys(slot_to_units);
 ---
@@ -30,7 +30,7 @@ const slots = Object.keys(slot_to_units);
         {slot}
       </h2>
       <div class="unit-grid">
-        {slot_to_units[slot].map(name => (
+        {slot_to_units[slot].filter(name => units[name]).map(name => (
           <UnitCard unit={units[name]} factionKey={factionKey!} slot={slot} />
         ))}
       </div>

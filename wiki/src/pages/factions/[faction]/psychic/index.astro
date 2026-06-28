@@ -1,14 +1,14 @@
 ---
 import Layout from '../../../../components/Layout.astro';
-import { PILOT_FACTIONS } from '../../../../lib/factions';
+import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 
 export async function getStaticPaths() {
-  return PILOT_FACTIONS.map(f => ({ params: { faction: f.key } }));
+  return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
 }
 
 const { faction: factionKey } = Astro.params;
-const config = PILOT_FACTIONS.find(f => f.key === factionKey)!;
+const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { disciplines } = await getFactionExtras(factionKey!);
 const disciplineNames = Object.keys(disciplines);
 ---

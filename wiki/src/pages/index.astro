@@ -1,13 +1,13 @@
 ---
 import Layout from '../components/Layout.astro';
 import FactionHeader from '../components/FactionHeader.astro';
-import { PILOT_FACTIONS } from '../lib/factions';
+import { ALL_FACTIONS } from '../lib/factions';
 ---
 <Layout title="Custom40k Wiki">
   <h1>Custom40k Wiki</h1>
   <p>Faction codices — units, weapons, abilities and points, generated from the canonical data.</p>
   <div class="faction-grid">
-    {PILOT_FACTIONS.map(f => (
+    {ALL_FACTIONS.map(f => (
       <FactionHeader label={f.label} symbol={f.symbol} href={`/factions/${f.key}`} />
     ))}
   </div>
