@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v15_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v16_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Custom40k Wiki (pilot)',
-    intro: 'Hello commanders! Started work on a separate Custom40k Wiki — a browsable codex site (units, weapons, abilities, points, Armory, Archetypes & Legacies, Psychic powers) generated straight from this app\'s own canonical data, so it can never drift out of sync.',
-    engine: '🚧 PILOT — only Orks and Necrons so far, to validate the page templates before rolling out to the rest of the factions. Not deployed publicly yet.',
+    title: 'Developer Update — Custom40k Wiki is LIVE',
+    intro: 'Hello commanders! The Custom40k Wiki is now live at custom40k-wiki.vercel.app (linked from the header) — a browsable codex site (units, weapons, abilities, points, Armory, Archetypes & Legacies, Psychic powers) generated straight from this app\'s own canonical data, so it can never drift out of sync.',
+    engine: '✅ All 19 factions are covered — expanded from the original Orks/Necrons pilot. Deployed as its own separate site, so it never adds weight to this app.',
     csm: '🎨 Themed with the official datasheet colors and fonts (ConduitITCStd/BankGothic) plus a parchment background, instead of a generic dark UI.',
     cd:  '🖼️ Battlefield-role icons per section (HQ, Troops, Elites…) and Klan/Dynasty icons next to clan- or dynasty-restricted Armory items and Legacies.',
-    sm:  '📐 Every unit now shows its squad size (default + min–max range) on its card and detail page — this was missing in the first pilot pass.',
-    legacyfix: '🗓 Known Issues panel reflects the current state.',
+    sm:  '📐 Every unit shows its squad size (default + min–max range) on its card and detail page.',
+    legacyfix: '🐛 Bug found and fixed along the way: Space Marines\' Reiver Marines were silently missing from the Elites slot in this app due to a data name mismatch — now fixed.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Custom40k Wiki (Pilot)',
-    intro: 'Hallo Kommandanten! Arbeit an einem separaten Custom40k Wiki begonnen — eine durchsuchbare Codex-Seite (Einheiten, Waffen, Fähigkeiten, Punkte, Armory, Archetypes & Legacies, Psi-Kräfte), direkt aus den kanonischen Daten dieser App generiert.',
-    engine: '🚧 PILOT — bisher nur Orks und Necrons, um die Seitenvorlagen zu testen, bevor es auf alle Fraktionen ausgeweitet wird. Noch nicht öffentlich deployed.',
+    title: 'Entwickler-Update — Custom40k Wiki ist LIVE',
+    intro: 'Hallo Kommandanten! Das Custom40k Wiki ist jetzt live unter custom40k-wiki.vercel.app (verlinkt im Header) — eine durchsuchbare Codex-Seite (Einheiten, Waffen, Fähigkeiten, Punkte, Armory, Archetypes & Legacies, Psi-Kräfte), direkt aus den kanonischen Daten dieser App generiert.',
+    engine: '✅ Alle 19 Fraktionen sind abgedeckt — erweitert vom ursprünglichen Orks/Necrons-Pilot. Als eigene separate Seite deployed, sodass diese App nicht schwerer wird.',
     csm: '🎨 Gestaltet mit den offiziellen Datasheet-Farben und -Schriften (ConduitITCStd/BankGothic) plus Pergament-Hintergrund statt eines generischen dunklen UI.',
     cd:  '🖼️ Battlefield-Role-Icons pro Abschnitt (HQ, Troops, Elites…) und Klan-/Dynasty-Icons neben klan- bzw. dynastiegebundenen Armory-Items und Legacies.',
-    sm:  '📐 Jede Einheit zeigt jetzt ihre Einheitengröße (Standard + Min–Max-Bereich) auf Karte und Detailseite — fehlte im ersten Pilot-Durchgang.',
-    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider.',
+    sm:  '📐 Jede Einheit zeigt ihre Einheitengröße (Standard + Min–Max-Bereich) auf Karte und Detailseite.',
+    legacyfix: '🐛 Dabei gefundener und behobener Bug: Space Marines\' Reiver Marines fehlten in dieser App stillschweigend im Elites-Slot durch einen Namens-Mismatch in den Daten — jetzt behoben.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — Wiki de Custom40k (piloto)',
-    intro: '¡Hola comandantes! Empezamos un Wiki de Custom40k separado — un sitio navegable con los codex (unidades, armas, habilidades, puntos, Armory, Archetypes & Legacies, poderes psíquicos) generado directamente desde los datos canónicos de esta app, así nunca se desincroniza.',
-    engine: '🚧 PILOTO — por ahora solo Orks y Necrons, para validar las plantillas antes de extenderlo al resto de facciones. Todavía no está desplegado públicamente.',
+    title: 'Actualización del desarrollador — el Wiki de Custom40k ya está EN VIVO',
+    intro: '¡Hola comandantes! El Wiki de Custom40k ya está en vivo en custom40k-wiki.vercel.app (enlazado desde el header) — un sitio navegable con los codex (unidades, armas, habilidades, puntos, Armory, Archetypes & Legacies, poderes psíquicos) generado directamente desde los datos canónicos de esta app, así nunca se desincroniza.',
+    engine: '✅ Las 19 facciones están cubiertas — ampliado desde el piloto original de Orks/Necrons. Desplegado como sitio propio separado, así que nunca le añade peso a esta app.',
     csm: '🎨 Con los colores y tipografías oficiales de los datasheets (ConduitITCStd/BankGothic) y fondo de pergamino, en vez de una interfaz oscura genérica.',
     cd:  '🖼️ Iconos de battlefield-role por sección (HQ, Troops, Elites…) e iconos de Klan/Dynasty junto a los ítems de Armory y Legacies restringidos por clan o dinastía.',
-    sm:  '📐 Cada unidad ahora muestra su tamaño de escuadra (por defecto + rango min-max) en su tarjeta y ficha — faltaba en el primer pase del piloto.',
-    legacyfix: '🗓 El panel de Known Issues refleja el estado actual.',
+    sm:  '📐 Cada unidad muestra su tamaño de escuadra (por defecto + rango min-max) en su tarjeta y ficha.',
+    legacyfix: '🐛 Bug encontrado y arreglado de paso: Reiver Marines (Space Marines) faltaba silenciosamente en el slot de Elites de esta app por un mismatch de nombre en los datos — ya corregido.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };
