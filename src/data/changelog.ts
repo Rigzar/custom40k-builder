@@ -25,6 +25,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.13',
+    date: '2026-06-28',
+    title: "T'au Empire: Kroot Hounds/Kroot Shaper slot + armory fixes (GitHub #16, #17, #18)",
+    changes: [
+      'Kroot Hounds no longer occupy a Fast Attack slot when matched 1:1 against Kroot Carnivores units (GitHub #16).',
+      'Kroot Shaper no longer occupies an Elite slot when matched against (Kroot Master Shaper + Kroot Carnivores) units combined (GitHub #17).',
+      "Kroot Shaper's Armory access is now restricted to Infantry-marked (ᴵ) items, removing access to battlesuit-only relics like Dawn blade and Onager gauntlet (GitHub #18).",
+    ],
+  },
+  {
     version: '1.12',
     date: '2026-06-27',
     title: 'Cloud-first Save button + secret question recovery + always-visible recovery code',

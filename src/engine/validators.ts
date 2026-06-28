@@ -555,6 +555,10 @@ export function computeKrootCarnivoreEscortFreeSlots(
     { name: 'Kroot Lone-Spear', slotKey: 'elites', slotLabel: 'Elite' },
     { name: 'Krootox Riders', slotKey: 'hs', slotLabel: 'Heavy Support' },
     { name: 'Krootox Rampagers', slotKey: 'fa', slotLabel: 'Fast Attack' },
+    // GH#16: same shape as Krootox Rampagers — "For every unit of Kroot Carnivores, one unit of
+    // Kroot Hounds may be taken without using a FAST ATTACK slot." Missed by the 2026-06-26 sweep
+    // because its option_group header says "without using" rather than "without taking/occupying".
+    { name: 'Kroot Hounds', slotKey: 'fa', slotLabel: 'Fast Attack' },
   ];
   for (const { name, slotKey, slotLabel } of escorts) {
     const count = army.filter(i => i.unitName === name).length;
@@ -567,6 +571,28 @@ export function computeKrootCarnivoreEscortFreeSlots(
     }
   }
   return { elites, fa, hs, notes };
+}
+
+/**
+ * T'au Kroot Shaper (GH#17): "For every Master Shaper or unit of Kroot Carnivores, one Kroot
+ * Shaper may be taken without using an Elite slot." Structurally different from the other Kroot
+ * escorts above — the anchor is (Master Shaper count + Kroot Carnivores count) COMBINED, not
+ * Carnivores alone, so it can't reuse computeKrootCarnivoreEscortFreeSlots' per-name loop.
+ */
+export function computeKrootShaperFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Tau Empire') return { elites: 0, notes: [] };
+  const shaperCount = army.filter(i => i.unitName === 'Kroot Shaper').length;
+  const anchorCount = army.filter(i => i.unitName === 'Kroot Master Shaper' || i.unitName === 'Kroot Carnivores').length;
+  if (shaperCount === 0 || anchorCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(shaperCount, anchorCount);
+  const notes = [`Kroot Shaper: ${credited} of ${shaperCount} unit${shaperCount === 1 ? '' : 's'} exempted from the Elite slot (1 per Master Shaper/Kroot Carnivores, have ${anchorCount}).`];
+  if (shaperCount > anchorCount) {
+    notes.push(`Kroot Shaper: ${shaperCount - anchorCount} extra unit${shaperCount - anchorCount === 1 ? '' : 's'} exceed the Master Shaper/Kroot Carnivores ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
 }
 
 /**
@@ -1527,6 +1553,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const note of krootEscortFree.notes) {
     items.push({ type: 'ok', text: note });
   }
+  const krootShaperFree = computeKrootShaperFreeSlots(state.army, data);
+  for (const note of krootShaperFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
 
   // "Cults Abominatioe"/"Execution Force" (Assassins' OWN canonical special rules,
   // data/source/Assassins ENG/Index.html, verbatim): the army may field EITHER a single
@@ -1573,7 +1603,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -2031,7 +2061,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

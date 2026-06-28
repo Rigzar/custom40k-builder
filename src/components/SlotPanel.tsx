@@ -5,7 +5,7 @@ import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits
 import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, computeGscEliteFreeSlots, computeEinhyrChampionFreeSlots, computeTyrantGuardFreeSlots, computeCultistFirebrandFreeSlots, computeCommissarFreeSlots, computeSubCommanderFreeSlots, computeEtherealGuardFreeSlots, computeKrootCarnivoreEscortFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, computeGscEliteFreeSlots, computeEinhyrChampionFreeSlots, computeTyrantGuardFreeSlots, computeCultistFirebrandFreeSlots, computeCommissarFreeSlots, computeSubCommanderFreeSlots, computeEtherealGuardFreeSlots, computeKrootCarnivoreEscortFreeSlots, computeKrootShaperFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -401,6 +401,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const subCommanderFree = computeSubCommanderFreeSlots(army, primaryData);
   const etherealGuardFree = computeEtherealGuardFreeSlots(army, primaryData);
   const krootEscortFree = computeKrootCarnivoreEscortFreeSlots(army, primaryData);
+  const krootShaperFree = computeKrootShaperFreeSlots(army, primaryData);
 
   return (
     <div className="divide-y divide-zinc-800/50">
@@ -430,7 +431,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq
           : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
           : slot === 'Heavy Support' ? krootEscortFree.hs
-          : slot === 'Elites' ? assassinFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites
+          : slot === 'Elites' ? assassinFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites
           : 0;
         const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction) - slotAdj);
         const isFull = used >= max && max > 0;

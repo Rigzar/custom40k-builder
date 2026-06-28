@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-tau-kroot-hounds-shaper-slots-armory-01',
+    status: 'fixed',
+    title: "T'au — Kroot Hounds/Kroot Shaper slot+armory bugs (GitHub #16, #17, #18)",
+    description: 'Three Kroot bugs, all missed by the 2026-06-26 free-slot sweep. (1) GH#16: Kroot Hounds\' own option_group text ("For every unit of Kroot Carnivores, one unit of Kroot Hounds may be taken without using a FAST ATTACK slot") used "without using" rather than the sweep\'s "without taking/occupying" regex, so it was silently skipped — folded into the existing `computeKrootCarnivoreEscortFreeSlots` alongside Krootox Rampagers (same shape, same slot). (2) GH#17: Kroot Shaper\'s own text reads "For every Master Shaper or unit of Kroot Carnivores, one Kroot Shaper may be taken without using an Elite slot" — a COMBINED anchor (Kroot Master Shaper count + Kroot Carnivores count), structurally different from every other Kroot escort (Carnivores alone), so it needed its own `computeKrootShaperFreeSlots`. Both wired into validators.ts (min/max AOP loops) and SlotPanel.tsx. (3) GH#18: Kroot Shaper (the sole non-HQ Tau unit with `is_character: true`) had unrestricted access to the entire general Armory, including battlesuit-only relics (Dawn blade, Onager gauntlet, XV-suit upgrades) that make no sense for it. Root cause: the .ods\'s "Infantry models may only use equipment marked with ᴵ" rule was never enforced anywhere — confirmed via direct .ods extraction that Tau\'s own Armory sheet column is literally labeled "POINTS HQ" (vs Space Marines\' "POINTS CHARACTER MODELS"), and that battlesuit pilots (Commander, Crisis, Riptide, etc.) are tagged "Jump Pack Infantry"/"Monstrous Infantry" — never bare "Infantry" — so they\'re correctly unaffected. Fixed generically in `ArmoryModal.tsx`\'s `filterByUnitType`: any unit whose unit_type includes bare "Infantry" can only see general-armory items whose name carries the ᴵ glyph suffix.',
+  },
+  {
     id: 'ki-ig-vehicle-equipment-discoverability-01',
     status: 'fixed',
     title: 'Imperial Guard — vehicle wargear (camo net, bulldozer blade, etc.) unreachable via the generic Armory button (GitHub #15)',

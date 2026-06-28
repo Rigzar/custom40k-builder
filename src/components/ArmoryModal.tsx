@@ -407,6 +407,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return gravisRestricted ? armItems.filter(a => isItemGravisCompat(a) || boughtItemNames.has(a.name)) : armItems;
   }
 
+  // Tau Empire ("Armory" sheet): "Infantry models may only use equipment marked with ᴵ" — applies
+  // to bare unit_type "Infantry" only (NOT "Jump Pack Infantry"/"Monstrous Infantry", which are the
+  // battlesuit pilots the rule doesn't restrict). Production encodes the glyph as a name suffix
+  // (e.g. "Shield generatorᴵ") rather than a dedicated field — GH#18: Kroot Shaper (the sole non-HQ
+  // Tau character) was getting unfiltered access to the whole general Armory, including battlesuit-
+  // only relics like Dawn blade/Onager gauntlet/XV-suit upgrades that make no sense for it.
+  const isTauPlainInfantry = activeData.faction === 'Tau Empire' &&
+    unit.unit_type.split(',').map(s => s.trim()).includes('Infantry');
+
   // Filter items by unit type and category
   function filterByUnitType(armItems: ArmoryItem[]): ArmoryItem[] {
     return armItems.filter(arm => {
@@ -417,6 +426,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         if (isVehicle || unit.is_monster) return arm.p_veh != null;
         return true;
       }
+      if (!arm.category && isTauPlainInfantry && !arm.name.includes('ᴵ')) return false;
       return true;
     });
   }
