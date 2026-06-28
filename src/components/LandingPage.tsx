@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v13_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v14_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Optional accounts + cloud saves are here',
-    intro: 'Hello commanders! You can now create an account (just a username + password, no email needed) to save and load your army rosters from any device — no more being stuck to one browser.',
-    engine: '☁ Log in from the header button. Password recovery uses a one-time code shown at signup; lost it? A "lost my code" form files a GitHub issue for manual recovery.',
-    csm: '🐛 Fixed: weapon swaps on units with 2 copies of the same melee weapon per model (Dark Eldar Talos, Tyranids Carnifex Brood) could hide the base weapon too early or show the wrong remaining count.',
-    cd:  '⚙ Orks\' "Waaagh! Coast Kustoms" and Tau Empire\'s "Swarm Controllers" traits now correctly raise their purchase caps when active (Kustom Jobs +1, Drone budget 2→3).',
-    sm:  '🗓 Also fixed: a malformed request could crash the whole server instead of returning a clean error.',
-    legacyfix: '🗓 Known Issues panel reflects the current state. "My Armies" (local, per-browser saves) still works exactly as before alongside the new cloud saves.',
+    title: 'Developer Update — Planetary Assault campaigns (ALPHA) + print fixes',
+    intro: 'Hello commanders! First preview of the Planetary Assault campaign module: a new "⚔ Campaign" button lets you create a campaign (you become GM, get an invite code) or join one with a code and pick your faction.',
+    engine: '🚧 ALPHA — this is only the foundation. Sectors, buildings, Supply, unit upgrades and battle reports are not implemented yet.',
+    csm: '🐛 Fixed: the printable unit card showed inflated/duplicated weapon counts on units with partial weapon swaps (e.g. only the Champion taking a special weapon).',
+    cd:  '🎨 The printable unit card now uses a distinct accent color per faction instead of every faction but Chaos sharing the same flat brown.',
+    sm:  '🐛 Fix GH#15: Imperial Guard vehicle wargear (camo net, bulldozer blade…) was hidden behind a vaguely-labeled button — renamed it "Vehicle equipment", and removed the generic Armory button from non-character vehicles everywhere, since it never had anything they could use.',
+    legacyfix: '🗓 Known Issues panel reflects the current state.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Optionale Konten + Cloud-Speicherung sind da',
-    intro: 'Hallo Kommandanten! Ihr könnt jetzt ein Konto erstellen (nur Benutzername + Passwort, keine E-Mail nötig), um eure Armeelisten geräteübergreifend zu speichern und zu laden.',
-    engine: '☁ Über den Header-Button einloggen. Passwort-Wiederherstellung über einen einmaligen Code bei der Registrierung; bei Verlust hilft das "Code verloren"-Formular.',
-    csm: '🐛 Behoben: Waffentausch bei Einheiten mit 2 Kopien derselben Nahkampfwaffe pro Modell (Talos, Carnifex Brood) zeigte falsche Werte.',
-    cd:  '⚙ Die Eigenschaften "Waaagh! Coast Kustoms" (Orks) und "Swarm Controllers" (T\'au Empire) erhöhen jetzt korrekt ihre Kaufobergrenzen.',
-    sm:  '🗓 Außerdem behoben: eine fehlerhafte Anfrage konnte den gesamten Server abstürzen lassen.',
-    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider. "Meine Armeen" funktioniert weiterhin unverändert.',
+    title: 'Entwickler-Update — Planetary Assault Kampagnen (ALPHA) + Druck-Fixes',
+    intro: 'Hallo Kommandanten! Erste Vorschau des Planetary-Assault-Kampagnenmoduls: ein neuer "⚔ Campaign"-Button erstellt eine Kampagne (ihr werdet GM, erhaltet einen Einladungscode) oder tretet einer bei.',
+    engine: '🚧 ALPHA — nur das Fundament. Sektoren, Gebäude, Supply, Einheiten-Upgrades und Kampfberichte fehlen noch.',
+    csm: '🐛 Behoben: die Druckansicht zeigte aufgeblähte Waffenanzahlen bei Einheiten mit teilweisem Waffentausch.',
+    cd:  '🎨 Die Druckansicht nutzt jetzt eine eigene Akzentfarbe pro Fraktion statt eines einheitlichen Brauns.',
+    sm:  '🐛 Fix GH#15: Imperial-Guard-Fahrzeugausrüstung (Tarnnetz, Bulldozerschild…) war hinter einem unklar benannten Button versteckt — umbenannt zu "Vehicle equipment", generischer Armory-Button bei Nicht-Charakter-Fahrzeugen entfernt.',
+    legacyfix: '🗓 Das Known-Issues-Panel spiegelt den aktuellen Stand wider.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — cuentas opcionales + guardado en la nube',
-    intro: '¡Hola comandantes! Ya podés crear una cuenta (solo usuario + contraseña, sin email) para guardar y cargar tus listas de ejército desde cualquier dispositivo.',
-    engine: '☁ Iniciá sesión desde el botón del header. La recuperación de contraseña usa un código único mostrado al registrarte; si lo perdés, un formulario "perdí mi código" crea un issue en GitHub.',
-    csm: '🐛 Arreglado: el intercambio de armas en unidades con 2 copias de la misma arma cuerpo a cuerpo por modelo (Talos, Carnifex Brood) mostraba valores incorrectos.',
-    cd:  '⚙ Los rasgos "Waaagh! Coast Kustoms" (Orks) y "Swarm Controllers" (Tau Empire) ahora suben correctamente sus topes de compra cuando están activos.',
-    sm:  '🗓 También arreglado: una request mal formada podía tirar abajo todo el servidor.',
-    legacyfix: '🗓 El panel de Known Issues refleja el estado actual. "Mis Ejércitos" sigue funcionando igual que antes.',
+    title: 'Actualización del desarrollador — Campañas Planetary Assault (ALPHA) + fixes de impresión',
+    intro: '¡Hola comandantes! Primera vista previa del módulo de campaña Planetary Assault: el nuevo botón "⚔ Campaign" te deja crear una campaña (te convertís en GM, recibís un código de invitación) o unirte con un código.',
+    engine: '🚧 ALPHA — esto es solo la base. Sectores, edificios, Supply, mejoras de unidad y reportes de batalla todavía no existen.',
+    csm: '🐛 Arreglado: la vista de impresión mostraba cantidades de armas infladas en unidades con intercambios parciales (ej. solo el Champion con un arma especial).',
+    cd:  '🎨 La vista de impresión ahora usa un color de acento distinto por facción, en vez de que todas (salvo Caos) compartan el mismo marrón.',
+    sm:  '🐛 Fix GH#15: el equipo de vehículo de Imperial Guard (camo net, bulldozer blade…) estaba escondido detrás de un botón sin etiqueta clara — renombrado a "Vehicle equipment", y se quitó el botón genérico de Armory en vehículos sin personaje en todas las facciones, porque nunca tenía nada útil ahí.',
+    legacyfix: '🗓 El panel de Known Issues refleja el estado actual.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };

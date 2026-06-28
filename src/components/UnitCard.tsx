@@ -265,7 +265,19 @@ export function UnitCard({ item }: Props) {
   // against every faction's variant_models units: zero genuinely need it — Eldar Exarchs/Klaivex
   // etc. have their own fixed-cost option_groups for wargear, no Armory mechanic. Removed; if a
   // promoted variant genuinely needs Armory, set champion_has_armory/has_armory_access explicitly.
-  const showArmory = u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock);
+  // Uncategorized ("regular") equipment is always personal wargear (relics, armor, banners…) —
+  // every faction's regular list has zero p_veh pricing, so a non-character vehicle never has
+  // anything to do there. Used below to hide the generic Armory button for those units instead
+  // of leaving a dead-end that duplicates "Vehicle equipment"/"Veteran" (GitHub #15 follow-up).
+  // Vehicle-bodied characters (is_character: true) keep access, since relics are priced via p_char.
+  // Reads `data`/`alliedData` directly (not the later `effectiveArmData`) since this only needs
+  // to know whether ANY regular item exists anywhere in the faction, allied or not.
+  const factionHasRegularItems = [data, ...(alliedData ? [alliedData] : [])].some(d =>
+    [d.armory_general, ...Object.values(d.armory_marks), ...Object.values(d.armory_legions)]
+      .some(src => (src.equipment as ArmoryItem[]).some(a => !a.category))
+  );
+  const showArmory = (u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
+    && (!u.is_vehicle || u.is_character || factionHasRegularItems);
   // When Armory access is gated to a single champion/promoted-variant model (not the whole unit),
   // the live profile's equipment stat-mods (T/Sv/etc. from `item.armory`) must only land on THAT
   // model's row — applying them to every row would bleed e.g. a Nob's Mega armor onto the base
