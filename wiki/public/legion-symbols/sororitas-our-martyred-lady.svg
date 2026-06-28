@@ -1,0 +1,10 @@
+<svg version="1.1" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" width="800" height="800">
+    <!-- Order of Our Martyred Lady: haloed saint bearing a sword -->
+    <path fill-rule="evenodd"
+        d="M330,150 A70,70 0 1,0 470,150 A70,70 0 1,0 330,150 Z
+           M350,150 A50,50 0 1,0 450,150 A50,50 0 1,0 350,150 Z" />
+    <path d="M345,230 A55,55 0 1,0 455,230 A55,55 0 1,0 345,230 Z" />
+    <path fill-rule="evenodd"
+        d="M340,290 L460,290 C520,400 560,560 560,700 L240,700 C240,560 280,400 340,290 Z
+           M400,300 L420,335 L410,335 L410,575 L450,575 L450,600 L410,600 L410,650 L390,650 L390,600 L350,600 L350,575 L390,575 L390,335 L380,335 Z" />
+</svg>

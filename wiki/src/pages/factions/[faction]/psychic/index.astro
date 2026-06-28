@@ -11,16 +11,31 @@ const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { disciplines } = await getFactionExtras(factionKey!);
 const disciplineNames = Object.keys(disciplines);
+
+function slug(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
 ---
 <Layout title={`Psychic powers — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Psychic powers
+    <a href="/factions">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Psychic powers
   </p>
   <h1>Psychic powers</h1>
 
+  {disciplineNames.length > 1 && (
+    <nav class="toc">
+      <strong>Contents</strong>
+      <ul>
+        {disciplineNames.map(name => (
+          <li><a href={`#${slug(name)}`}>{name}</a></li>
+        ))}
+      </ul>
+    </nav>
+  )}
+
   {disciplineNames.map(name => (
     <section>
-      <h2>{name}</h2>
+      <h2 id={slug(name)}>{name}</h2>
       <table class="power-table">
         <thead>
           <tr>
@@ -56,4 +71,10 @@ const disciplineNames = Object.keys(disciplines);
 <style>
   .power-table th:not(:first-child):not(:nth-child(6)),
   .power-table td:not(:first-child):not(:nth-child(6)) { text-align: center; }
+  .toc {
+    background: rgba(255,255,255,0.35); border: 1px solid #9a978b; border-radius: 4px;
+    padding: 0.7rem 1rem; margin: 0.8rem 0 1.2rem; font-size: 0.82rem;
+  }
+  .toc strong { font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.72rem; }
+  .toc ul { columns: 2; column-gap: 1.5rem; margin: 0.4rem 0 0; padding-left: 1.1rem; }
 </style>

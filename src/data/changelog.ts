@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.17',
+    date: '2026-06-28',
+    title: 'Wiki — new homepage, fixed icons, page summaries',
+    changes: [
+      'The Custom40k Wiki now opens on an Introduction page (what Custom40k is, key rule differences, what you need to play) with the official logo, and a button into the faction list (moved to /factions).',
+      'Added a small persistent nav (Home / Factions / Glossary) so every page can be reached from anywhere.',
+      'Fixed broken icons: 5 Adeptus Sororitas Order Legacy icons were missing from the wiki\'s own asset folder (existed in the main app, never copied over); removed a dead Adeptus Mechanicus "Ordo Reductor Covenant" icon reference that pointed at a file that never existed in either app.',
+      'Fixed a real icon-matching bug (also present in the main app): a short key like "Legion" was matching as a false prefix of unrelated longer names like "Legionnaire Warband".',
+      'Added the Horus Heresy supplement icon next to the Chaos Space Marines "Legion" and Space Marines "Legion (Space Marines)" archetypes (both grant access to that supplement), and the Escalation supplement icon next to the "Lords of War" section for all 8 factions that have it.',
+      'Chaos Space Marines\' per-Mark Armory sections (Khorne/Nurgle/Slaanesh/Tzeentch) now show the same Chaos-god icons already used for the matching Chaos Daemons archetypes, instead of no icon at all.',
+      'Added a "Contents" jump-link summary at the top of every faction\'s Armory and Psychic Powers pages, for quicker navigation on long pages.',
+    ],
+  },
+  {
     version: '1.16',
     date: '2026-06-28',
     title: 'Adeptus Sororitas — re-audit against updated canonical .ods',

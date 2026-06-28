@@ -7,6 +7,8 @@ const CSM_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Ambition for Perfection':   '/legion-symbols/emperors-children.svg',
   'Blood for the Blood God!':  '/legion-symbols/world-eaters.svg',
   'Plaguehost':                '/legion-symbols/death-guard.svg',
+  // Grants access to the Horus Heresy Space Marines supplement — same icon as that supplement.
+  'Legion':                    '/faction-symbols/horus-heresy.svg',
 };
 
 const CSM_LEGACY_SYMBOL: Record<string, string> = {
@@ -19,6 +21,8 @@ const CSM_LEGACY_SYMBOL: Record<string, string> = {
 
 const SM_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Renegades': '/legion-symbols/renegade-and-heretics.svg',
+  // Grants access to the Horus Heresy Space Marines supplement — same icon as that supplement.
+  'Legion (Space Marines)': '/faction-symbols/horus-heresy.svg',
 };
 
 const SM_LEGACY_SYMBOL: Record<string, string> = {
@@ -43,7 +47,7 @@ const CD_ARCHETYPE_SYMBOL: Record<string, string> = {
 const ADMECH_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Cybernetica Cohort':     '/legion-symbols/admech-cybernetica.svg',
   'Dark Mechanicum':        '/legion-symbols/admech-dark-mechanicum.svg',
-  'Ordo Reductor Covenant': '/legion-symbols/admech-ordo-reductor.svg',
+  // 'Ordo Reductor Covenant' has no dedicated icon asset — no entry rather than a broken <img>.
   'Titan Legion':           '/legion-symbols/admech-collegia-titanica.svg',
 };
 
@@ -126,7 +130,10 @@ const NAME_TABLES: Record<string, Record<string, string>> = {
   adeptus_sororitas:   { ...SORORITAS_LEGACY_SYMBOL },
 };
 
-/** armory_legions Record key (Legion/Chapter/Forge World/Craftworld/Order name) -> icon. */
+/** armory_legions Record key (Legion/Chapter/Forge World/Craftworld/Order/Mark name) -> icon.
+ *  CSM and Chaos Daemons marks reuse the same 4 Chaos-god icons already used for the matching
+ *  Chaos Daemons archetypes (Goretide/Figureheads/Host Duplicitous/Popping Plague) — one set of
+ *  god icons, not a duplicate icon per faction. */
 const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
   chaos_space_marines: {
     'Word Bearers':  '/legion-symbols/word-bearers.svg',
@@ -134,6 +141,15 @@ const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
     'Iron Warriors': '/legion-symbols/iron-warriors.svg',
     'Night Lords':   '/legion-symbols/night-lords.svg',
     'Black Legion':  '/legion-symbols/black-legion.svg',
+    'Khorne':        '/legion-symbols/khorne-god.svg',
+    'Nurgle':        '/legion-symbols/nurgle-god.svg',
+    'Slaanesh':      '/legion-symbols/slaanesh-god.svg',
+    'Tzeentch':      '/legion-symbols/tzeentch-god.svg',
+  },
+  chaos_daemons: {
+    // Only Tzeentch has a dedicated mark armory in production data — Khorne/Nurgle/Slaanesh
+    // Daemons have no per-mark armory section to attach an icon to.
+    'Tzeentch': '/legion-symbols/tzeentch-god.svg',
   },
   space_marines: {
     'Blood Angels':   '/legion-symbols/blood-angels.svg',
@@ -172,11 +188,13 @@ const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
   },
 };
 
-/** Exact match, then prefix match (handles trailing superscript annotations like "Goretideᴷ"). */
+/** Exact match, then prefix match for trailing superscript annotations like "Goretideᴷ" — the
+ *  leftover suffix must be non-alphanumeric, otherwise a short key like "Legion" would falsely
+ *  match an unrelated word like "Legionnaire Warband". */
 function findSymbol(map: Record<string, string> | undefined, key: string | null | undefined): string | null {
   if (!map || !key) return null;
   if (map[key]) return map[key];
-  const entry = Object.entries(map).find(([k]) => key.startsWith(k));
+  const entry = Object.entries(map).find(([k]) => key.startsWith(k) && !/^[a-z0-9]/i.test(key.slice(k.length)));
   return entry ? entry[1] : null;
 }
 

@@ -1,0 +1,15 @@
+<svg version="1.1" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" width="800" height="800">
+    <!-- Order of the Bloody Rose: a rose in bloom on a thorned stem -->
+    <g id="bloom">
+        <ellipse id="petal" cx="400" cy="190" rx="34" ry="55" />
+        <use href="#petal" transform="rotate(60 400 260)" />
+        <use href="#petal" transform="rotate(120 400 260)" />
+        <use href="#petal" transform="rotate(180 400 260)" />
+        <use href="#petal" transform="rotate(240 400 260)" />
+        <use href="#petal" transform="rotate(300 400 260)" />
+        <circle cx="400" cy="260" r="40" />
+    </g>
+    <path d="M400,320 C380,420 420,520 360,620 C340,660 350,690 370,700 L390,700 C385,670 380,650 400,610 C440,540 410,440 420,320 Z" />
+    <path d="M385,480 L410,460 L400,500 Z" />
+    <path d="M340,560 C300,550 280,580 270,610 C310,610 340,600 350,580 Z" />
+</svg>

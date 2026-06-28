@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v18_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v19_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Adeptus Sororitas re-audited',
-    intro: 'Hello commanders! The user replaced the canonical Adeptus Sororitas .ods with a fully new revision, so we re-audited the whole faction against it.',
-    engine: '✅ New HQ unit added: Dogmata on Throne of Condemnation (246pts, Monstrous Infantry).',
-    csm: '🔀 Celestian Squad rebuilt as a single unified datasheet — what used to be 3 separate units (Celestian Squad / Insidiants / Sacresants) is now ONE squad where every model independently picks a +1pt keyword upgrade (Excruciants/Insidiants/Praesidiants/Sacresancts).',
-    cd:  '🐛 Fixed Geminae Superia points (44→43) and Arco-flagellants stats/points (T/I/Ld 4/4/8→3/3/7, 13→21pts); fixed the "Concession" ability text on Arco-flagellants and Crusaders.',
-    sm:  '📚 The Custom40k Wiki (custom40k-wiki.vercel.app) has been redeployed with all of the above.',
-    legacyfix: 'ℹ️ "Triumphant Procession" (Lords of War) is absent from the new .ods, but we kept it — the Escalation supplement reads it directly, so removing it would silently break that supplement.',
+    title: 'Developer Update — Wiki revamp + Adeptus Sororitas re-audit',
+    intro: 'Hello commanders! Two things landed together: a full Adeptus Sororitas re-audit against a brand new canonical .ods, and a redesign of the Custom40k Wiki (custom40k-wiki.vercel.app).',
+    engine: '✅ Sororitas: new HQ unit "Dogmata on Throne of Condemnation" (246pts), and Celestian Squad rebuilt as ONE unified datasheet (was 3 separate units) where every model picks a +1pt keyword upgrade.',
+    csm: '🐛 Sororitas: fixed Geminae Superia points (44→43), Arco-flagellants stats/points, and the "Concession" ability text on Arco-flagellants/Crusaders. Kept "Triumphant Procession" even though it\'s gone from the new .ods, since the Escalation supplement still reads it.',
+    cd:  '🏠 The Wiki now opens on an Introduction page (what Custom40k is, key rules, what you need to play) with a button into the faction list — and a small Home/Factions/Glossary nav on every page.',
+    sm:  '🖼️ Fixed several broken/missing icons on the Wiki (5 Sororitas Order icons, a dead Adeptus Mechanicus reference) and a real icon-matching bug where short names like "Legion" could falsely match unrelated longer names.',
+    legacyfix: '📖 Added a "Contents" jump-link summary to every faction\'s Armory and Psychic Powers pages for quicker navigation.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Adeptus Sororitas neu auditiert',
-    intro: 'Hallo Kommandanten! Der Nutzer hat die kanonische Adeptus-Sororitas-.ods durch eine komplett neue Version ersetzt, daher haben wir die gesamte Fraktion dagegen neu auditiert.',
-    engine: '✅ Neue HQ-Einheit hinzugefügt: Dogmata on Throne of Condemnation (246 Pkt., Monstrous Infantry).',
-    csm: '🔀 Celestian Squad zu einem einzigen, vereinten Datasheet zusammengeführt — was früher 3 separate Einheiten waren (Celestian Squad / Insidiants / Sacresants) ist jetzt EIN Squad, in dem jedes Modell unabhängig ein +1-Punkt-Keyword-Upgrade wählt (Excruciants/Insidiants/Praesidiants/Sacresancts).',
-    cd:  '🐛 Geminae Superia Punkte korrigiert (44→43) und Arco-flagellants Werte/Punkte (T/I/Ld 4/4/8→3/3/7, 13→21 Pkt.); "Concession"-Fähigkeitstext bei Arco-flagellants und Crusaders korrigiert.',
-    sm:  '📚 Das Custom40k Wiki (custom40k-wiki.vercel.app) wurde mit all dem oben neu deployed.',
-    legacyfix: 'ℹ️ "Triumphant Procession" (Lords of War) fehlt in der neuen .ods, wurde aber beibehalten — das Escalation-Supplement liest diese Einheit direkt, ein Entfernen hätte das Supplement stillschweigend kaputt gemacht.',
+    title: 'Entwickler-Update — Wiki-Überarbeitung + Adeptus Sororitas neu auditiert',
+    intro: 'Hallo Kommandanten! Zwei Dinge kamen zusammen: ein vollständiges Adeptus-Sororitas-Re-Audit gegen eine brandneue kanonische .ods, und ein Redesign des Custom40k Wiki (custom40k-wiki.vercel.app).',
+    engine: '✅ Sororitas: neue HQ-Einheit "Dogmata on Throne of Condemnation" (246 Pkt.), und Celestian Squad zu EINEM vereinten Datasheet zusammengeführt (war 3 separate Einheiten) — jedes Modell wählt ein +1-Punkt-Keyword-Upgrade.',
+    csm: '🐛 Sororitas: Geminae-Superia-Punkte korrigiert (44→43), Arco-flagellants Werte/Punkte und der "Concession"-Text bei Arco-flagellants/Crusaders. "Triumphant Procession" beibehalten, obwohl sie in der neuen .ods fehlt — das Escalation-Supplement liest sie weiterhin.',
+    cd:  '🏠 Das Wiki öffnet jetzt mit einer Einführungsseite (was Custom40k ist, Kernregeln, was man zum Spielen braucht) mit einem Button zur Fraktionsliste — und einer kleinen Home/Factions/Glossary-Navigation auf jeder Seite.',
+    sm:  '🖼️ Mehrere defekte/fehlende Icons im Wiki behoben (5 Sororitas-Order-Icons, eine toter Adeptus-Mechanicus-Verweis) sowie einen echten Icon-Matching-Bug, bei dem kurze Namen wie "Legion" fälschlich zu unverwandten längeren Namen passten.',
+    legacyfix: '📖 Ein "Contents"-Sprunglink-Überblick wurde auf jeder Armory- und Psychic-Powers-Seite jeder Fraktion hinzugefügt, für schnellere Navigation.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — Adeptus Sororitas re-auditado',
-    intro: '¡Hola comandantes! El usuario reemplazó el .ods canónico de Adeptus Sororitas por una revisión completamente nueva, así que re-auditamos toda la facción contra ella.',
-    engine: '✅ Nueva unidad HQ añadida: Dogmata on Throne of Condemnation (246 ptos., Monstrous Infantry).',
-    csm: '🔀 Celestian Squad reconstruido como una sola ficha unificada — lo que antes eran 3 unidades separadas (Celestian Squad / Insidiants / Sacresants) ahora es UN solo escuadrón donde cada modelo elige de forma independiente una mejora de keyword por +1pto (Excruciants/Insidiants/Praesidiants/Sacresancts).',
-    cd:  '🐛 Corregidos los puntos de Geminae Superia (44→43) y las stats/puntos de Arco-flagellants (T/I/Ld 4/4/8→3/3/7, 13→21ptos); corregido el texto de la habilidad "Concession" en Arco-flagellants y Crusaders.',
-    sm:  '📚 El Wiki de Custom40k (custom40k-wiki.vercel.app) ya fue redesplegado con todo lo anterior.',
-    legacyfix: 'ℹ️ "Triumphant Procession" (Lords of War) no aparece en el .ods nuevo, pero la mantuvimos — el suplemento Escalation la lee directamente, y quitarla rompería ese suplemento en silencio.',
+    title: 'Actualización del desarrollador — Wiki renovada + Adeptus Sororitas re-auditado',
+    intro: '¡Hola comandantes! Dos cosas llegaron juntas: un re-audit completo de Adeptus Sororitas contra un .ods canónico totalmente nuevo, y un rediseño del Wiki de Custom40k (custom40k-wiki.vercel.app).',
+    engine: '✅ Sororitas: nueva unidad HQ "Dogmata on Throne of Condemnation" (246 ptos.), y Celestian Squad reconstruido como UNA sola ficha unificada (antes 3 unidades separadas) donde cada modelo elige una mejora de keyword por +1pto.',
+    csm: '🐛 Sororitas: corregidos los puntos de Geminae Superia (44→43), las stats/puntos de Arco-flagellants, y el texto de "Concession" en Arco-flagellants/Crusaders. Se mantuvo "Triumphant Procession" aunque ya no está en el .ods nuevo, porque el suplemento Escalation todavía la lee.',
+    cd:  '🏠 El Wiki ahora abre con una página de Introducción (qué es Custom40k, reglas clave, qué necesitas para jugar) con un botón hacia la lista de facciones — y una navegación Home/Factions/Glossary en cada página.',
+    sm:  '🖼️ Arreglados varios iconos rotos/faltantes en el Wiki (5 iconos de Orders de Sororitas, una referencia muerta de Adeptus Mechanicus) y un bug real de coincidencia de iconos donde nombres cortos como "Legion" matcheaban falsamente con nombres más largos sin relación.',
+    legacyfix: '📖 Se añadió un resumen de "Contents" con enlaces de salto en cada página de Armory y Psychic Powers de cada facción, para navegar más rápido.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };

@@ -46,6 +46,13 @@ export const CATEGORIES: FactionCategory[] = [
   },
 ];
 
+/** Factions with Lords of War access via the Escalation supplement (Epic Battle engagement) —
+ *  mirrors src/components/SupplementModal.tsx's escalation.load() faction list exactly. */
+export const ESCALATION_FACTIONS = [
+  'chaos_space_marines', 'space_marines', 'adeptus_sororitas', 'imperial_guard',
+  'eldar', 'orks', 'necrons', 'tau_empire',
+];
+
 /** Placeholder copy — replace with the real per-faction blurb when supplied. */
 export const FACTION_DESCRIPTIONS: Record<string, string> = {};
 

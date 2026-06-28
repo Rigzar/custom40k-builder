@@ -1,66 +1,73 @@
 ---
 import Layout from '../components/Layout.astro';
-import { ALL_FACTIONS } from '../lib/factions';
-import { CATEGORIES } from '../lib/factionMeta';
-
-function configFor(key: string) {
-  return ALL_FACTIONS.find(f => f.key === key);
-}
 ---
 <Layout title="Custom40k Wiki">
-  <h1 class="page-title">Custom40k Wiki</h1>
-  <p class="page-intro">Faction codices — units, weapons, abilities and points, generated from the canonical data.</p>
+  <div class="intro">
+    <img src="/custom40k-logo.jpg" alt="Custom40k" class="intro-logo" width="260" />
+    <h1 class="intro-title">Custom40k Wiki</h1>
 
-  <div class="categories">
-    {CATEGORIES.map(cat => (
-      <section class="category">
-        <div class="category-heading">
-          <img src={cat.icon} alt={cat.name} width="44" height="44" />
-          <span style={{ color: cat.pillFg }}>{cat.name}</span>
-        </div>
-        <div class="divider" style={{ background: cat.dividerColor }} />
-        <div class="faction-grid">
-          {cat.factionKeys.map(key => {
-            const f = configFor(key);
-            if (!f) return null;
-            return (
-              <a href={`/factions/${f.key}`} class="faction-card">
-                <img src={`/faction-symbols/${f.symbol}`} alt={f.label} width="48" height="48" />
-                <span>{f.label}</span>
-              </a>
-            );
-          })}
-        </div>
-      </section>
-    ))}
+    <a href="/factions" class="cta">Browse the factions &rarr;</a>
+
+    <section>
+      <h2>1. What is Custom40k?</h2>
+      <p>Custom40k is a complete, ready to play homebrew ruleset for Warhammer 40.000 that has
+        been in development over the past 2+ years and became the default system to play for my
+        local group of about ~15 people. The rules aim to modernise, streamline and rebalance
+        the "classic era" rules (3rd - 7th edition) while supporting all models GW ever made for
+        all armies and bringing back army and model customisation via extensive armories for all
+        factions.</p>
+    </section>
+
+    <section>
+      <h2>2. What are the key differences to current 40k?</h2>
+      <ul>
+        <li><strong>Alternating activation:</strong> Each player only activates one unit at a
+          time, which leads to less downtime and less lethality.</li>
+        <li><strong>Backwards compatibility:</strong> Every model that GW released for Warhammer
+          (and will release in the future) is playable and supported with rules.</li>
+        <li><strong>Balance:</strong> Since its inception, Custom40k has been finetuned over
+          100+ games to ensure that all units are playable and have a purpose in the game.
+          Points are calculated using a unified points calculator. Balancing for a game like 40k
+          is an ever ongoing endeavour, but I'm doing my best to keep all armies and units on an
+          even level.</li>
+        <li><strong>Huge customisation:</strong> Where GW has a strict "No model, no rules"
+          policy, "Customisation" is the name of the game. Each faction features their own,
+          ever expanding armory full of options for character models, units and army
+          composition. Kitbashing and creativity is explicitly desired.</li>
+        <li><strong>Old school systems:</strong> Armor Values for vehicles and the Force
+          Organisation Chart are back.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. What do you need to play Custom40k?</h2>
+      <p>Apart from the regular things for a normal game of Warhammer, what you need in addition
+        are so called "Command tokens". Command tokens are used at the beginning of every battle
+        round to determine what actions a unit may be allowed to do during its activation. While
+        we 3d printed our own tokens for this, a suitable replacement would be a simple deck of
+        cards for each player. You need four different cards (hearts, diamonds, spades, clover)
+        as there are 4 different commands.</p>
+    </section>
+
+    <a href="/factions" class="cta">Browse the factions &rarr;</a>
   </div>
 </Layout>
 
 <style>
-  .page-title { text-align: center; }
-  .page-intro { text-align: center; max-width: 36rem; margin: 0 auto 2rem; opacity: 0.8; font-size: 0.85rem; }
-  .categories { display: flex; flex-direction: column; gap: 2.4rem; align-items: center; }
-  .category { width: 100%; max-width: 46rem; }
-  .category-heading {
-    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-    font-family: var(--font-heading, sans-serif); text-transform: uppercase; letter-spacing: 0.06em;
-    font-size: 0.95rem;
+  .intro { max-width: 42rem; margin: 0 auto; text-align: center; }
+  .intro-logo { display: block; margin: 0 auto 1rem; object-fit: contain; }
+  .intro-title { border-bottom: none; }
+  .intro section { text-align: left; margin-top: 1.6rem; }
+  .intro section h2 { font-size: 1rem; }
+  .intro section p, .intro section li { font-size: 0.88rem; line-height: 1.6; }
+  .intro ul { padding-left: 1.2rem; }
+  .intro li { margin-bottom: 0.5rem; }
+  .cta {
+    display: inline-block; margin: 1.2rem 0;
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em;
+    font-size: 0.82rem; padding: 0.65rem 1.5rem;
+    border: 1px solid var(--c40k-red, #a21217); color: var(--c40k-red, #a21217);
+    text-decoration: none; border-radius: 4px; transition: background 0.15s, color 0.15s;
   }
-  .divider { height: 1px; margin: 0.6rem 0 1.1rem; opacity: 0.6; }
-  .faction-grid {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
-  }
-  .faction-card {
-    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-    width: 7.5rem; padding: 0.9rem 0.5rem;
-    text-decoration: none; color: var(--c40k-ink, #ddd);
-    border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;
-    transition: border-color 0.15s, background 0.15s;
-  }
-  .faction-card:hover { border-color: var(--c40k-red, #a21217); background: rgba(255,255,255,0.03); }
-  .faction-card img { object-fit: contain; }
-  .faction-card span {
-    text-align: center; font-family: var(--font-ui, sans-serif); font-size: 0.72rem;
-    text-transform: uppercase; letter-spacing: 0.02em;
-  }
+  .cta:hover { background: var(--c40k-red, #a21217); color: #fff; text-decoration: none; }
 </style>

@@ -49,7 +49,7 @@ const CD_ARCHETYPE_SYMBOL: Record<string, string> = {
 const ADMECH_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Cybernetica Cohort':      '/legion-symbols/admech-cybernetica.svg',
   'Dark Mechanicum':         '/legion-symbols/admech-dark-mechanicum.svg',
-  'Ordo Reductor Covenant':  '/legion-symbols/admech-ordo-reductor.svg',
+  // 'Ordo Reductor Covenant' has no dedicated icon asset — no entry rather than a broken <img>.
   'Titan Legion':            '/legion-symbols/admech-collegia-titanica.svg',
 };
 
@@ -118,11 +118,13 @@ const SORORITAS_LEGACY_SYMBOL: Record<string, string> = {
   // The Holy Trinity has no Order-specific logo → falls back to faction default
 };
 
-/** Looks up a symbol URL with exact match, then prefix match (handles trailing superscript annotations like "Goretideᴷ"). */
+/** Looks up a symbol URL with exact match, then prefix match for trailing superscript
+ *  annotations like "Goretideᴷ" — the leftover suffix must be non-alphanumeric, otherwise a
+ *  short key could falsely match an unrelated longer word sharing the same prefix. */
 function findSymbol(map: Record<string, string>, key: string | null): string | null {
   if (!key) return null;
   if (map[key]) return map[key];
-  const entry = Object.entries(map).find(([k]) => key.startsWith(k));
+  const entry = Object.entries(map).find(([k]) => key.startsWith(k) && !/^[a-z0-9]/i.test(key.slice(k.length)));
   return entry ? entry[1] : null;
 }
 

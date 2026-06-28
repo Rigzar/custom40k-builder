@@ -13,8 +13,24 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
+    <header class="site-nav">
+      <a href="/">Home</a>
+      <a href="/factions">Factions</a>
+      <a href="/glossary">Glossary</a>
+    </header>
     <main>
       <slot />
     </main>
   </body>
 </html>
+
+<style>
+  .site-nav {
+    display: flex; justify-content: center; gap: 1.4rem;
+    max-width: 1000px; margin: 0 auto; padding: 0.8rem 2rem 0;
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.05em;
+    font-size: 0.72rem;
+  }
+  .site-nav a { color: var(--c40k-ink, #2a2420); text-decoration: none; opacity: 0.75; }
+  .site-nav a:hover { opacity: 1; color: var(--c40k-red, #a21217); text-decoration: none; }
+</style>

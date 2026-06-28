@@ -13,12 +13,28 @@ export async function getStaticPaths() {
 const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { armoryGeneral, armoryFaction } = await getFactionExtras(factionKey!);
+
+function slug(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+const factionEntries = Object.entries(armoryFaction);
 ---
 <Layout title={`Armory — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Armory
+    <a href="/factions">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Armory
   </p>
-  <h1>{armoryGeneral.name}</h1>
+
+  <nav class="toc">
+    <strong>Contents</strong>
+    <ul>
+      <li><a href={`#${slug(armoryGeneral.name)}`}>{armoryGeneral.name}</a></li>
+      {factionEntries.map(([label, armory]) => (
+        <li><a href={`#${slug(label)}`}>{armory.name} ({label})</a></li>
+      ))}
+    </ul>
+  </nav>
+
+  <h1 id={slug(armoryGeneral.name)}>{armoryGeneral.name}</h1>
 
   {armoryGeneral.weapons.length > 0 && (
     <>
@@ -39,11 +55,11 @@ const { armoryGeneral, armoryFaction } = await getFactionExtras(factionKey!);
     </>
   )}
 
-  {Object.entries(armoryFaction).map(([label, armory]) => {
+  {factionEntries.map(([label, armory]) => {
     const icon = getArmoryKeyIcon(factionKey!, label);
     return (
     <>
-      <h1>
+      <h1 id={slug(label)}>
         {icon && <img src={icon} alt={label} title={label} width="26" height="26" class="legion-icon" />}
         {armory.name} <span class="sub">({label})</span>
       </h1>
@@ -67,4 +83,10 @@ const { armoryGeneral, armoryFaction } = await getFactionExtras(factionKey!);
 <style>
   .sub { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.8rem; text-transform: none; opacity: 0.7; }
   .legion-icon { vertical-align: middle; margin-right: 0.35rem; object-fit: contain; }
+  .toc {
+    background: rgba(255,255,255,0.35); border: 1px solid #9a978b; border-radius: 4px;
+    padding: 0.7rem 1rem; margin: 0.8rem 0 1.2rem; font-size: 0.82rem;
+  }
+  .toc strong { font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.72rem; }
+  .toc ul { columns: 2; column-gap: 1.5rem; margin: 0.4rem 0 0; padding-left: 1.1rem; }
 </style>

@@ -10,7 +10,7 @@ const { entry } = Astro.props;
 const description = entry.description.replace(/\{X\}/g, 'X');
 ---
 <Layout title={`${entry.name} — Custom40k Wiki Glossary`}>
-  <p class="crumbs"><a href="/">&larr; All factions</a> / <a href="/glossary">Glossary</a></p>
+  <p class="crumbs"><a href="/factions">&larr; All factions</a> / <a href="/glossary">Glossary</a></p>
   <h1>{entry.name}</h1>
   <p>{description}</p>
 </Layout>
