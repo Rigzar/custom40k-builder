@@ -13,7 +13,7 @@ export const geminaeSuperia: Unit = {
   "models": [
     {
       "name": "Geminae Superia",
-      "points": 44,
+      "points": 43,
       "min": 2,
       "max": 2,
       "stats": {
@@ -83,8 +83,9 @@ export const geminaeSuperia: Unit = {
     }
   ],
   "abilities": [
-    "Acts of Faith, Bodyguard, Command Squad, Hit & Run, Shield of Faith",
-    "Saintly Visage: The model gains a 4+ invulnerability save."
+    "Acts of Faith, Bodyguard, Command Squad, Shield of Faith",
+    "Saintly Visage: The model gains a 4+ invulnerability save.",
+    "Bound by Faith: The models have to start the game as a unit together with the Living Saint and may not voluntarily leave the unit. They do not pay points for any army traits."
   ],
   "unit_type": "Infantry, Jump Pack Infantry",
   "keywords": [],
@@ -101,5 +102,5 @@ export const geminaeSuperia: Unit = {
   "advisor": false,
   "slot": "HQ",
   "default_size": 2,
-  "min_cost": 88
+  "min_cost": 86
 };

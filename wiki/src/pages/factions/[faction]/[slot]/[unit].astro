@@ -34,7 +34,8 @@ const { unit, slot, factionLabel } = Astro.props;
 <Layout title={`${unit.name} — ${factionLabel} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/">&larr; All factions</a> /
-    <a href={`/factions/${factionKey}`}>{factionLabel}</a> / {slot}
+    <a href={`/factions/${factionKey}`}>{factionLabel}</a> /
+    <a href={`/factions/${factionKey}/units`}>Units</a> / {slot}
   </p>
   <h1>{unit.name}</h1>
   <p class="unit-type">{unit.unit_type}</p>

@@ -1,10 +1,8 @@
 ---
 import Layout from '../../../components/Layout.astro';
-import FactionHeader from '../../../components/FactionHeader.astro';
-import UnitCard from '../../../components/UnitCard.astro';
 import { ALL_FACTIONS } from '../../../lib/factions';
-import { getFactionUnits } from '../../../lib/units';
-import { getSlotIcon } from '../../../lib/slots';
+import { getFactionExtras } from '../../../lib/factionExtras';
+import { getFactionDescription } from '../../../lib/factionMeta';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -12,34 +10,44 @@ export async function getStaticPaths() {
 
 const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
-const { units, slot_to_units } = await getFactionUnits(factionKey!);
-const slots = Object.keys(slot_to_units);
+const { armoryGeneral, armoryFaction, archetypes, legacies, traits, disciplines } = await getFactionExtras(factionKey!);
+
+const hasArmory = armoryGeneral.weapons.length > 0 || armoryGeneral.equipment.length > 0
+  || (armoryGeneral.daemon_weapons && armoryGeneral.daemon_weapons.length > 0)
+  || Object.keys(armoryFaction).length > 0;
+const hasCustomisation = archetypes.length > 0 || legacies.length > 0 || traits.length > 0;
+const hasPsychic = Object.keys(disciplines).length > 0;
+
+const description = getFactionDescription(factionKey!);
 ---
 <Layout title={`${config.label} — Custom40k Wiki`}>
   <p class="crumbs"><a href="/">&larr; All factions</a></p>
-  <FactionHeader label={config.label} symbol={config.symbol} />
-  <p class="section-nav">
-    <a href={`/factions/${factionKey}/armory`}>Armory</a> ·
-    <a href={`/factions/${factionKey}/archetypes`}>Archetypes &amp; Legacies</a> ·
-    <a href={`/factions/${factionKey}/psychic`}>Psychic powers</a>
-  </p>
-  {slots.map(slot => (
-    <section>
-      <h2 class="slot-heading">
-        {getSlotIcon(slot) && <img src={getSlotIcon(slot)!} alt="" width="20" height="20" />}
-        {slot}
-      </h2>
-      <div class="unit-grid">
-        {slot_to_units[slot].filter(name => units[name]).map(name => (
-          <UnitCard unit={units[name]} factionKey={factionKey!} slot={slot} />
-        ))}
-      </div>
-    </section>
-  ))}
+
+  <div class="hub">
+    <img src={`/faction-symbols/${config.symbol}`} alt={config.label} class="hub-symbol" width="140" height="140" />
+    <h1 class="hub-title">{config.label}</h1>
+    <p class="hub-desc">{description}</p>
+
+    <nav class="hub-nav">
+      <a href={`/factions/${factionKey}/units`}>Units</a>
+      {hasArmory && <a href={`/factions/${factionKey}/armory`}>Armory</a>}
+      {hasCustomisation && <a href={`/factions/${factionKey}/archetypes`}>Army Customisation</a>}
+      {hasPsychic && <a href={`/factions/${factionKey}/psychic`}>Psychic Powers</a>}
+    </nav>
+  </div>
 </Layout>
 
 <style>
-  .section-nav { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.78rem; margin: 0.5rem 0 1.2rem; }
-  .slot-heading { display: flex; align-items: center; gap: 0.45rem; }
-  .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.5rem; margin-bottom: 1.2rem; }
+  .hub { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 0 1rem; }
+  .hub-symbol { object-fit: contain; margin-bottom: 0.8rem; }
+  .hub-title { margin: 0; }
+  .hub-desc { max-width: 38rem; opacity: 0.85; font-size: 0.85rem; line-height: 1.5; margin: 0.6rem 0 1.6rem; }
+  .hub-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
+  .hub-nav a {
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em;
+    font-size: 0.78rem; padding: 0.55rem 1.3rem;
+    border: 1px solid var(--c40k-red, #a21217); color: var(--c40k-red, #a21217);
+    text-decoration: none; border-radius: 4px; transition: background 0.15s, color 0.15s;
+  }
+  .hub-nav a:hover { background: var(--c40k-red, #a21217); color: #fff; }
 </style>

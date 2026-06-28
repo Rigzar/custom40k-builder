@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v16_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v18_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Custom40k Wiki is LIVE',
-    intro: 'Hello commanders! The Custom40k Wiki is now live at custom40k-wiki.vercel.app (linked from the header) — a browsable codex site (units, weapons, abilities, points, Armory, Archetypes & Legacies, Psychic powers) generated straight from this app\'s own canonical data, so it can never drift out of sync.',
-    engine: '✅ All 19 factions are covered — expanded from the original Orks/Necrons pilot. Deployed as its own separate site, so it never adds weight to this app.',
-    csm: '🎨 Themed with the official datasheet colors and fonts (ConduitITCStd/BankGothic) plus a parchment background, instead of a generic dark UI.',
-    cd:  '🖼️ Battlefield-role icons per section (HQ, Troops, Elites…) and Klan/Dynasty icons next to clan- or dynasty-restricted Armory items and Legacies.',
-    sm:  '📐 Every unit shows its squad size (default + min–max range) on its card and detail page.',
-    legacyfix: '🐛 Bug found and fixed along the way: Space Marines\' Reiver Marines were silently missing from the Elites slot in this app due to a data name mismatch — now fixed.',
+    title: 'Developer Update — Adeptus Sororitas re-audited',
+    intro: 'Hello commanders! The user replaced the canonical Adeptus Sororitas .ods with a fully new revision, so we re-audited the whole faction against it.',
+    engine: '✅ New HQ unit added: Dogmata on Throne of Condemnation (246pts, Monstrous Infantry).',
+    csm: '🔀 Celestian Squad rebuilt as a single unified datasheet — what used to be 3 separate units (Celestian Squad / Insidiants / Sacresants) is now ONE squad where every model independently picks a +1pt keyword upgrade (Excruciants/Insidiants/Praesidiants/Sacresancts).',
+    cd:  '🐛 Fixed Geminae Superia points (44→43) and Arco-flagellants stats/points (T/I/Ld 4/4/8→3/3/7, 13→21pts); fixed the "Concession" ability text on Arco-flagellants and Crusaders.',
+    sm:  '📚 The Custom40k Wiki (custom40k-wiki.vercel.app) has been redeployed with all of the above.',
+    legacyfix: 'ℹ️ "Triumphant Procession" (Lords of War) is absent from the new .ods, but we kept it — the Escalation supplement reads it directly, so removing it would silently break that supplement.',
     contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
   },
   de: {
-    title: 'Entwickler-Update — Custom40k Wiki ist LIVE',
-    intro: 'Hallo Kommandanten! Das Custom40k Wiki ist jetzt live unter custom40k-wiki.vercel.app (verlinkt im Header) — eine durchsuchbare Codex-Seite (Einheiten, Waffen, Fähigkeiten, Punkte, Armory, Archetypes & Legacies, Psi-Kräfte), direkt aus den kanonischen Daten dieser App generiert.',
-    engine: '✅ Alle 19 Fraktionen sind abgedeckt — erweitert vom ursprünglichen Orks/Necrons-Pilot. Als eigene separate Seite deployed, sodass diese App nicht schwerer wird.',
-    csm: '🎨 Gestaltet mit den offiziellen Datasheet-Farben und -Schriften (ConduitITCStd/BankGothic) plus Pergament-Hintergrund statt eines generischen dunklen UI.',
-    cd:  '🖼️ Battlefield-Role-Icons pro Abschnitt (HQ, Troops, Elites…) und Klan-/Dynasty-Icons neben klan- bzw. dynastiegebundenen Armory-Items und Legacies.',
-    sm:  '📐 Jede Einheit zeigt ihre Einheitengröße (Standard + Min–Max-Bereich) auf Karte und Detailseite.',
-    legacyfix: '🐛 Dabei gefundener und behobener Bug: Space Marines\' Reiver Marines fehlten in dieser App stillschweigend im Elites-Slot durch einen Namens-Mismatch in den Daten — jetzt behoben.',
+    title: 'Entwickler-Update — Adeptus Sororitas neu auditiert',
+    intro: 'Hallo Kommandanten! Der Nutzer hat die kanonische Adeptus-Sororitas-.ods durch eine komplett neue Version ersetzt, daher haben wir die gesamte Fraktion dagegen neu auditiert.',
+    engine: '✅ Neue HQ-Einheit hinzugefügt: Dogmata on Throne of Condemnation (246 Pkt., Monstrous Infantry).',
+    csm: '🔀 Celestian Squad zu einem einzigen, vereinten Datasheet zusammengeführt — was früher 3 separate Einheiten waren (Celestian Squad / Insidiants / Sacresants) ist jetzt EIN Squad, in dem jedes Modell unabhängig ein +1-Punkt-Keyword-Upgrade wählt (Excruciants/Insidiants/Praesidiants/Sacresancts).',
+    cd:  '🐛 Geminae Superia Punkte korrigiert (44→43) und Arco-flagellants Werte/Punkte (T/I/Ld 4/4/8→3/3/7, 13→21 Pkt.); "Concession"-Fähigkeitstext bei Arco-flagellants und Crusaders korrigiert.',
+    sm:  '📚 Das Custom40k Wiki (custom40k-wiki.vercel.app) wurde mit all dem oben neu deployed.',
+    legacyfix: 'ℹ️ "Triumphant Procession" (Lords of War) fehlt in der neuen .ods, wurde aber beibehalten — das Escalation-Supplement liest diese Einheit direkt, ein Entfernen hätte das Supplement stillschweigend kaputt gemacht.',
     contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
   },
   es: {
-    title: 'Actualización del desarrollador — el Wiki de Custom40k ya está EN VIVO',
-    intro: '¡Hola comandantes! El Wiki de Custom40k ya está en vivo en custom40k-wiki.vercel.app (enlazado desde el header) — un sitio navegable con los codex (unidades, armas, habilidades, puntos, Armory, Archetypes & Legacies, poderes psíquicos) generado directamente desde los datos canónicos de esta app, así nunca se desincroniza.',
-    engine: '✅ Las 19 facciones están cubiertas — ampliado desde el piloto original de Orks/Necrons. Desplegado como sitio propio separado, así que nunca le añade peso a esta app.',
-    csm: '🎨 Con los colores y tipografías oficiales de los datasheets (ConduitITCStd/BankGothic) y fondo de pergamino, en vez de una interfaz oscura genérica.',
-    cd:  '🖼️ Iconos de battlefield-role por sección (HQ, Troops, Elites…) e iconos de Klan/Dynasty junto a los ítems de Armory y Legacies restringidos por clan o dinastía.',
-    sm:  '📐 Cada unidad muestra su tamaño de escuadra (por defecto + rango min-max) en su tarjeta y ficha.',
-    legacyfix: '🐛 Bug encontrado y arreglado de paso: Reiver Marines (Space Marines) faltaba silenciosamente en el slot de Elites de esta app por un mismatch de nombre en los datos — ya corregido.',
+    title: 'Actualización del desarrollador — Adeptus Sororitas re-auditado',
+    intro: '¡Hola comandantes! El usuario reemplazó el .ods canónico de Adeptus Sororitas por una revisión completamente nueva, así que re-auditamos toda la facción contra ella.',
+    engine: '✅ Nueva unidad HQ añadida: Dogmata on Throne of Condemnation (246 ptos., Monstrous Infantry).',
+    csm: '🔀 Celestian Squad reconstruido como una sola ficha unificada — lo que antes eran 3 unidades separadas (Celestian Squad / Insidiants / Sacresants) ahora es UN solo escuadrón donde cada modelo elige de forma independiente una mejora de keyword por +1pto (Excruciants/Insidiants/Praesidiants/Sacresancts).',
+    cd:  '🐛 Corregidos los puntos de Geminae Superia (44→43) y las stats/puntos de Arco-flagellants (T/I/Ld 4/4/8→3/3/7, 13→21ptos); corregido el texto de la habilidad "Concession" en Arco-flagellants y Crusaders.',
+    sm:  '📚 El Wiki de Custom40k (custom40k-wiki.vercel.app) ya fue redesplegado con todo lo anterior.',
+    legacyfix: 'ℹ️ "Triumphant Procession" (Lords of War) no aparece en el .ods nuevo, pero la mantuvimos — el suplemento Escalation la lee directamente, y quitarla rompería ese suplemento en silencio.',
     contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
   },
 };

@@ -4,6 +4,7 @@ import ArmoryWeaponTable from '../../../../components/ArmoryWeaponTable.astro';
 import ArmoryEquipmentList from '../../../../components/ArmoryEquipmentList.astro';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
+import { getArmoryKeyIcon } from '../../../../lib/legacyIcons';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -38,9 +39,14 @@ const { armoryGeneral, armoryFaction } = await getFactionExtras(factionKey!);
     </>
   )}
 
-  {Object.entries(armoryFaction).map(([label, armory]) => (
+  {Object.entries(armoryFaction).map(([label, armory]) => {
+    const icon = getArmoryKeyIcon(factionKey!, label);
+    return (
     <>
-      <h1>{armory.name} <span class="sub">({label})</span></h1>
+      <h1>
+        {icon && <img src={icon} alt={label} title={label} width="26" height="26" class="legion-icon" />}
+        {armory.name} <span class="sub">({label})</span>
+      </h1>
       {armory.weapons.length > 0 && (
         <>
           <h2>Weapons</h2>
@@ -54,9 +60,11 @@ const { armoryGeneral, armoryFaction } = await getFactionExtras(factionKey!);
         </>
       )}
     </>
-  ))}
+    );
+  })}
 </Layout>
 
 <style>
   .sub { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.8rem; text-transform: none; opacity: 0.7; }
+  .legion-icon { vertical-align: middle; margin-right: 0.35rem; object-fit: contain; }
 </style>

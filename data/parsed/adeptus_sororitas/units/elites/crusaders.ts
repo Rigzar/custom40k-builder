@@ -46,7 +46,7 @@ export const crusaders: Unit = {
   "option_groups": [],
   "abilities": [
     "Command squad, Deflect, Parry, Squadron",
-    "Concession: One unit of Crusaders can be selected for each Preacher that does not occupy an Elite slot.",
+    "Concession: One unit of Crusaders can be selected for each Missionary or Preacher that does not occupy an Elite slot.",
     "Crusade: The model and its attached unit gain the \"Frenzy(1\")\" ability and roll 2D6 (pick highest) for the extra movement with an Advance order."
   ],
   "unit_type": "Infantry",

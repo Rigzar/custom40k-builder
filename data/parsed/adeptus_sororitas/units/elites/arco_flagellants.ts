@@ -13,7 +13,7 @@ export const arcoFlagellants: Unit = {
   "models": [
     {
       "name": "Arco-flagellant",
-      "points": 13,
+      "points": 21,
       "min": 3,
       "max": 10,
       "stats": {
@@ -21,11 +21,11 @@ export const arcoFlagellants: Unit = {
         "WS": "3+",
         "BS": "6+",
         "S": "4",
-        "T": "4",
+        "T": "3",
         "W": "2",
-        "I": "4",
+        "I": "3",
         "A": "3",
-        "LD": "8",
+        "LD": "7",
         "SV": "6+"
       }
     }
@@ -46,7 +46,7 @@ export const arcoFlagellants: Unit = {
   "option_groups": [],
   "abilities": [
     "Berserk(5+), Blind rage",
-    "Concession: One unit of Arco-flagellants can be selected for each Preacher that does not occupy an Elite slot."
+    "Concession: One unit of Arco-flagellants can be selected for each Missionary or Preacher that does not occupy an Elite slot."
   ],
   "unit_type": "Infantry",
   "keywords": [],
@@ -63,5 +63,5 @@ export const arcoFlagellants: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 3,
-  "min_cost": 39
+  "min_cost": 63
 };

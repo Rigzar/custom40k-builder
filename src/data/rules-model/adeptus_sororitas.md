@@ -89,8 +89,22 @@ Budget: **0-1 Archetype, 0-1 Legacy, 0-2 Traits**. Production cross-check CLEAN:
 - Holy Vanguard (Dominions→Troops, must start embarked; only Dominions count to 25%).
 - Penitent Crusade (Arco-flagellants/Repentia→Troops; 1 Penitent Engine unit per 10 Arco models;
   Battle Sisters/Novitiate→Elite).
-- Shrine Wardens (Celestian Sacresants→Troops; Battle Sisters/Novitiate→Elite; no Arco/Repentia/
-  Penitent Engines at all).
+- Shrine Wardens (Celestian Squad→Troops; Battle Sisters/Novitiate→Elite; no Arco/Repentia/
+  Penitent Engines at all). **Updated 2026-06-28**: text used to name the now-removed "Celestia
+  Sacresantis" — fixed to the unified Celestian Squad (see note below).
+
+**2026-06-28 re-audit (.ods fully replaced by user)**: added new HQ "Dogmata on Throne of
+Condemnation" (246pts Monstrous Infantry, has_armory_access). Unified Celestian Squad/Celestian
+Insidiants/Celestian Sacresants into ONE datasheet (the old 3-unit split is gone) — every model
+independently picks one of Excruciants/Insidiants/Praesidiants/Sacresancts for +1pt
+(`constraint.type:'every'`), WS/BS bumped to 2+, size 4-9, full per-model Armory access. Fixed
+Geminae Superia points (44→43) + added missing "Bound by Faith" ability (removed an erroneous
+"Hit & Run" that wasn't in the .ods). Fixed Arco-flagellants T/I/Ld/points (4/4/8/13 →
+3/3/7/21). Fixed "Concession" text on Arco-flagellants/Crusaders to include Missionary.
+**Did NOT remove Triumphant Procession** despite its absence from the new .ods — Escalation
+supplement explicitly grants Sororitas Lords of War access and reads this exact unit; flagged to
+user instead of guessing. Below sections referencing the old 3-way Celestian split or
+Insidiants/Sacresants as separate units are now stale history, kept for context.
 
 **7 Legacies** — 6 = one Order Militant each (granting that Order's Armory): Blind Faith→Valorous
 Heart / Cleansing Flames→Ebon Chalice / Faith Is Our Shield→Argent Shroud / Honour The Martyrs→Our

@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.16',
+    date: '2026-06-28',
+    title: 'Adeptus Sororitas — re-audit against updated canonical .ods',
+    changes: [
+      'Added new HQ unit "Dogmata on Throne of Condemnation" (246pts, Monstrous Infantry) — present in the updated .ods, did not exist in production before.',
+      'Unified Celestian Squad: the .ods now models Celestian Insidiants and Celestian Sacresants as the SAME datasheet as Celestian Squad, with a per-model +1pt keyword upgrade (Excruciants/Insidiants/Praesidiants/Sacresancts) instead of 3 separate units. Removed the 2 obsolete unit files; the unified squad also gained the WS/BS 2+ bump, a 4-9 squad size, full Armory access for every model, and the Blessed sword/Virge of Admonition/Simulacrum/Denuncia oratory options the old split units were missing.',
+      'Geminae Superia: fixed points (44 -> 43) and added the missing "Bound by Faith" ability text; removed an erroneous "Hit & Run" ability not present in the .ods.',
+      'Arco-flagellants: fixed T/I/Ld (4/4/8 -> 3/3/7) and points (13 -> 21) to match the updated .ods.',
+      'Arco-flagellants and Crusaders: fixed "Concession" ability text to include Missionary as well as Preacher.',
+      'Shrine Wardens archetype text: updated to reference the unified "Celestian Squad" (was still naming the now-removed "Celestia Sacresantis").',
+      'Did NOT remove "Triumphant Procession" (Lords of War) despite its absence from the updated .ods — the Escalation supplement explicitly lists Adeptus Sororitas as having Lords of War access and reads this unit directly; removing it would silently break that supplement. Flagged for the user rather than guessed.',
+    ],
+  },
+  {
     version: '1.15',
     date: '2026-06-28',
     title: 'GENERAL — new Custom40k Wiki (pilot, Orks + Necrons)',
@@ -40,6 +54,9 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Deployed live at custom40k-wiki.vercel.app as its own Vercel project, built from a self-contained vendored copy of the canonical data (refreshed on every build, never hand-edited) so the deploy stays isolated from the main app\'s own Vercel project. Added a "Wiki" link in the header to reach it.',
       'Expanded the wiki from the Orks+Necrons pilot to all 19 factions, with Armory/Archetypes/Psychic pages for every faction (covering all mark/legion/clan/dynasty/order/sept/hive-fleet armories and discipline/prayer/pact psychic tables).',
       'Space Marines Reiver Marines: fixed a name mismatch ("Reiver Squad" vs "Reiver Marines") that made the unit silently invisible in the Elites slot.',
+      'Reorganized the wiki to match each faction\'s .ods structure: the home page now groups factions into Chaos/Imperium/Xenos/Supplements like the builder app; each faction has a hub page (symbol, description, and separate Units/Armory/Army Customisation/Psychic Powers buttons) instead of dumping everything on one page.',
+      'Archetypes, Legacies, and per-legion/chapter/forge-world/craftworld/order Armory sections now show the same official legion-symbol icons the builder app uses (e.g. the Death Guard icon next to Plaguehost, chapter icons next to Space Marine Legacies).',
+      'Fix: 5 of the 6 Adeptus Sororitas Order Legacy icons (Valorous Heart, Ebon Chalice, Argent Shroud, Our Martyred Lady, Bloody Rose) were referenced by code but the SVG files were never added — the unit card silently showed a broken/missing image for any Sororitas army using one of those Orders as its Legacy. Added the missing icons.',
     ],
   },
   {

@@ -1,6 +1,4 @@
 export { arcoFlagellants } from './arco_flagellants';
-export { celestianInsidiants } from './celestian_insidiants';
-export { celestianSacresants } from './celestian_sacresants';
 export { celestianSquad } from './celestian_squad';
 export { crusaders } from './crusaders';
 export { dogmata } from './dogmata';

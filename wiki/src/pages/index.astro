@@ -1,18 +1,66 @@
 ---
 import Layout from '../components/Layout.astro';
-import FactionHeader from '../components/FactionHeader.astro';
 import { ALL_FACTIONS } from '../lib/factions';
+import { CATEGORIES } from '../lib/factionMeta';
+
+function configFor(key: string) {
+  return ALL_FACTIONS.find(f => f.key === key);
+}
 ---
 <Layout title="Custom40k Wiki">
-  <h1>Custom40k Wiki</h1>
-  <p>Faction codices — units, weapons, abilities and points, generated from the canonical data.</p>
-  <div class="faction-grid">
-    {ALL_FACTIONS.map(f => (
-      <FactionHeader label={f.label} symbol={f.symbol} href={`/factions/${f.key}`} />
+  <h1 class="page-title">Custom40k Wiki</h1>
+  <p class="page-intro">Faction codices — units, weapons, abilities and points, generated from the canonical data.</p>
+
+  <div class="categories">
+    {CATEGORIES.map(cat => (
+      <section class="category">
+        <div class="category-heading">
+          <img src={cat.icon} alt={cat.name} width="44" height="44" />
+          <span style={{ color: cat.pillFg }}>{cat.name}</span>
+        </div>
+        <div class="divider" style={{ background: cat.dividerColor }} />
+        <div class="faction-grid">
+          {cat.factionKeys.map(key => {
+            const f = configFor(key);
+            if (!f) return null;
+            return (
+              <a href={`/factions/${f.key}`} class="faction-card">
+                <img src={`/faction-symbols/${f.symbol}`} alt={f.label} width="48" height="48" />
+                <span>{f.label}</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
     ))}
   </div>
 </Layout>
 
 <style>
-  .faction-grid { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .page-title { text-align: center; }
+  .page-intro { text-align: center; max-width: 36rem; margin: 0 auto 2rem; opacity: 0.8; font-size: 0.85rem; }
+  .categories { display: flex; flex-direction: column; gap: 2.4rem; align-items: center; }
+  .category { width: 100%; max-width: 46rem; }
+  .category-heading {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+    font-family: var(--font-heading, sans-serif); text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 0.95rem;
+  }
+  .divider { height: 1px; margin: 0.6rem 0 1.1rem; opacity: 0.6; }
+  .faction-grid {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+  }
+  .faction-card {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    width: 7.5rem; padding: 0.9rem 0.5rem;
+    text-decoration: none; color: var(--c40k-ink, #ddd);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .faction-card:hover { border-color: var(--c40k-red, #a21217); background: rgba(255,255,255,0.03); }
+  .faction-card img { object-fit: contain; }
+  .faction-card span {
+    text-align: center; font-family: var(--font-ui, sans-serif); font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.02em;
+  }
 </style>

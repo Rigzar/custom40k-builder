@@ -1,0 +1,40 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import UnitCard from '../../../../components/UnitCard.astro';
+import { ALL_FACTIONS } from '../../../../lib/factions';
+import { getFactionUnits } from '../../../../lib/units';
+import { getSlotIcon } from '../../../../lib/slots';
+
+export async function getStaticPaths() {
+  return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
+}
+
+const { faction: factionKey } = Astro.params;
+const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
+const { units, slot_to_units } = await getFactionUnits(factionKey!);
+const slots = Object.keys(slot_to_units);
+---
+<Layout title={`Units — ${config.label} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Units
+  </p>
+  <h1>Units</h1>
+  {slots.map(slot => (
+    <section>
+      <h2 class="slot-heading">
+        {getSlotIcon(slot) && <img src={getSlotIcon(slot)!} alt="" width="20" height="20" />}
+        {slot}
+      </h2>
+      <div class="unit-grid">
+        {slot_to_units[slot].filter(name => units[name]).map(name => (
+          <UnitCard unit={units[name]} factionKey={factionKey!} slot={slot} />
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .slot-heading { display: flex; align-items: center; gap: 0.45rem; }
+  .unit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.5rem; margin-bottom: 1.2rem; }
+</style>

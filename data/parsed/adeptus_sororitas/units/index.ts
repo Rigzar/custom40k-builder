@@ -16,6 +16,7 @@ import * as troops from './troops/index';
 /** All units keyed by name — drop-in replacement for units.json "units" field. */
 export const units: Record<string, import('../../../../src/types/data').Unit> = {
   "Canoness in Paragon Warsuit": hq.canonessInParagonWarsuit,
+  "Dogmata on Throne of Condemnation": hq.dogmataOnThroneOfCondemnation,
   "Geminae Superia": hq.geminaeSuperia,
   "Living Saint": hq.livingSaint,
   "Missionary": hq.missionary,
@@ -23,8 +24,6 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Battle Sisters Squad": troops.battleSistersSquad,
   "Sisters Novitiate": troops.sistersNovitiate,
   "Arco-flagellants": elites.arcoFlagellants,
-  "Celestian Insidiants": elites.celestianInsidiants,
-  "Celestian Sacresants": elites.celestianSacresants,
   "Celestian Squad": elites.celestianSquad,
   "Crusaders": elites.crusaders,
   "Dogmata": elites.dogmata,
@@ -50,6 +49,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
 export const slot_to_units: Record<string, string[]> = {
   "HQ": [
     "Canoness in Paragon Warsuit",
+    "Dogmata on Throne of Condemnation",
     "Geminae Superia",
     "Living Saint",
     "Missionary",
@@ -61,8 +61,6 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Elites": [
     "Arco-flagellants",
-    "Celestian Insidiants",
-    "Celestian Sacresants",
     "Celestian Squad",
     "Crusaders",
     "Dialogus",
