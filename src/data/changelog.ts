@@ -37,6 +37,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Themed with the official datasheet colors/fonts (ConduitITCStd, BankGothic) and a parchment background instead of a generic dark UI; tightened type scale for a denser, wiki-like layout.',
       'Added battlefield-role icons per section and Klan/Dynasty icons next to clan- or dynasty-restricted Armory items and Legacies (SVGs from the open-source Certseeds/wh40k-icon project).',
       'Reworded Armory point costs from cryptic "(unit)/(char)/(veh)" suffixes to plain "X pts per model / for a Character / for a Vehicle".',
+      'Deployed live at custom40k-wiki.vercel.app as its own Vercel project, built from a self-contained vendored copy of the canonical data (refreshed on every build, never hand-edited) so the deploy stays isolated from the main app\'s own Vercel project. Added a "Wiki" link in the header to reach it.',
     ],
   },
   {

@@ -201,12 +201,22 @@ export function LandingPage({
               "La victoria no necesita explicación, la derrota no admite excusas."
             </p>
           </div>
-          <button
-            onClick={() => setShowChangelog(true)}
-            className="shrink-0 text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
-          >
-            {t('updates')} <span className="text-amber-700">v{latestVersion}</span>
-          </button>
+          <div className="shrink-0 flex items-center gap-2">
+            <a
+              href="https://custom40k-wiki.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
+            >
+              Wiki
+            </a>
+            <button
+              onClick={() => setShowChangelog(true)}
+              className="text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
+            >
+              {t('updates')} <span className="text-amber-700">v{latestVersion}</span>
+            </button>
+          </div>
         </div>
       </header>
 

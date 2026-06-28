@@ -1,4 +1,4 @@
-import type { Unit } from '../../../src/types/data';
+import type { Unit } from '../vendor/src/types/data';
 
 export interface FactionUnits {
   units: Record<string, Unit>;
@@ -7,8 +7,8 @@ export interface FactionUnits {
 }
 
 const LOADERS: Record<string, () => Promise<FactionUnits>> = {
-  orks: () => import('../../../data/parsed/orks/units/index'),
-  necrons: () => import('../../../data/parsed/necrons/units/index'),
+  orks: () => import('../vendor/data/parsed/orks/units/index'),
+  necrons: () => import('../vendor/data/parsed/necrons/units/index'),
 };
 
 export async function getFactionUnits(factionKey: string): Promise<FactionUnits> {

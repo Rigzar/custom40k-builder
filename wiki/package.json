@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "vendor": "node scripts/vendor.mjs",
+    "predev": "npm run vendor",
     "dev": "astro dev",
+    "prebuild": "npm run vendor",
     "build": "astro check && astro build",
     "preview": "astro preview"
   },

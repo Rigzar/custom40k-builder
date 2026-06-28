@@ -41,6 +41,7 @@ custom40k-homebrew-system-MVeedra-main/
 # Parser and scripts (dev tools, not needed for deployment)
 parser/
 scripts/
+!wiki/scripts/
 
 # Dev server log
 dev-server.log

@@ -1,4 +1,4 @@
-import type { Armory, Archetype, Legacy, Trait, Power } from '../../../src/types/data';
+import type { Armory, Archetype, Legacy, Trait, Power } from '../vendor/src/types/data';
 
 export interface FactionExtras {
   armoryGeneral: Armory;
@@ -16,10 +16,10 @@ const d = <T,>(m: Mod<T>) => m.default;
 const LOADERS: Record<string, () => Promise<FactionExtras>> = {
   orks: async () => {
     const [g, arch, leg, discs] = await Promise.all([
-      import('../../../data/parsed/orks/armory/general.json') as unknown as Promise<Mod<Armory>>,
-      import('../../../data/parsed/orks/archetypes.json') as unknown as Promise<Mod<{ archetypes: Archetype[]; legacies: Legacy[]; traits: Trait[] }>>,
-      import('../../../data/parsed/orks/armory/legion_clan.json') as unknown as Promise<Mod<Armory>>,
-      import('../../../data/parsed/orks/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
+      import('../vendor/data/parsed/orks/armory/general.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/orks/archetypes.json') as unknown as Promise<Mod<{ archetypes: Archetype[]; legacies: Legacy[]; traits: Trait[] }>>,
+      import('../vendor/data/parsed/orks/armory/legion_clan.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/orks/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
     ]);
     const a = d(arch);
     return {
@@ -33,10 +33,10 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
   },
   necrons: async () => {
     const [g, arch, leg, discs] = await Promise.all([
-      import('../../../data/parsed/necrons/armory/general.json') as unknown as Promise<Mod<Armory>>,
-      import('../../../data/parsed/necrons/archetypes.json') as unknown as Promise<Mod<{ archetypes: Archetype[]; legacies: Legacy[]; traits: Trait[] }>>,
-      import('../../../data/parsed/necrons/armory/legion_dynasty.json') as unknown as Promise<Mod<Armory>>,
-      import('../../../data/parsed/necrons/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
+      import('../vendor/data/parsed/necrons/armory/general.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/necrons/archetypes.json') as unknown as Promise<Mod<{ archetypes: Archetype[]; legacies: Legacy[]; traits: Trait[] }>>,
+      import('../vendor/data/parsed/necrons/armory/legion_dynasty.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/necrons/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
     ]);
     const a = d(arch);
     return {

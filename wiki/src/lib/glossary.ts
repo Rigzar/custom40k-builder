@@ -4,5 +4,5 @@ export {
   lookupRule,
   lookupRuleGeneric,
   parseAbility,
-} from '../../../src/data/coreRules';
-export type { RuleEntry, AbilityPart } from '../../../src/data/coreRules';
+} from '../vendor/src/data/coreRules';
+export type { RuleEntry, AbilityPart } from '../vendor/src/data/coreRules';
