@@ -356,6 +356,8 @@ Some rules can't be expressed by the description text alone — they need struct
 
 > **Encoding (mojibake):** when editing JSON or TS data by hand, keep files UTF-8. Garbled sequences like `â€"` (should be `—`) creep in from copy-paste; `scripts/_scan_mojibake.cjs` detects them. Don't paste from rich-text editors.
 
+> **Proactive bug sweep:** `scripts/sanity_sweep.ts` imports the real production data/engine modules directly (run with `npx tsx scripts/sanity_sweep.ts`, no install needed) and flags structural red flags without waiting for a player bug report: dead option groups (`choices: []` on a constraint that expects real choices), `is_character`/`unit_type` contradictions, dangling unit-name references in `engine/archetypes`, dangling `slot_to_units` entries, `replaces` naming a weapon not on the unit, dangling `variant_link` references, and duplicate weapon names within one unit. It's a structural checker, not a rules checker — every hit still needs a human read before treating it as a confirmed bug (see the script's own header comments for known false-positive shapes). Re-run it after any data edit touching those fields, and especially before a release push.
+
 ### Changelog vs Known Issues (important — split since v0.47)
 
 These two files serve different purposes and must not be confused:

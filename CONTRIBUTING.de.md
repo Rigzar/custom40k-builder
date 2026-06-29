@@ -328,6 +328,8 @@ Manche Regeln lassen sich nicht allein über den Beschreibungstext ausdrücken �
 
 > **Kodierung (Mojibake):** Beim manuellen Bearbeiten von JSON oder TS die Dateien UTF-8 halten. Verstümmelte Sequenzen wie `â€"` (sollte `—` sein) schleichen sich beim Kopieren ein; `scripts/_scan_mojibake.cjs` erkennt sie. Nicht aus Rich-Text-Editoren einfügen.
 
+> **Proaktiver Bug-Sweep:** `scripts/sanity_sweep.ts` importiert direkt die echten Produktions-Daten-/Engine-Module (ausführen mit `npx tsx scripts/sanity_sweep.ts`, keine Installation nötig) und meldet strukturelle Auffälligkeiten, ohne auf einen Spieler-Bugreport zu warten: leere Options-Gruppen (`choices: []` bei einem Constraint, der echte Choices erwartet), `is_character`/`unit_type`-Widersprüche, hängende Unit-Namen-Referenzen in `engine/archetypes`, hängende `slot_to_units`-Einträge, `replaces`, das eine nicht vorhandene Waffe der Unit benennt, hängende `variant_link`-Referenzen und doppelte Waffennamen innerhalb einer Unit. Es ist ein STRUKTURELLER Checker, kein Regel-Checker — jeder Treffer braucht eine menschliche Prüfung, bevor er als bestätigter Bug gilt (siehe die Kommentare im Skript selbst für bekannte falsch-positive Fälle). Nach jeder Datenänderung, die diese Felder betrifft, erneut ausführen — besonders vor einem Release-Push.
+
 ### Changelog vs. Known Issues (wichtig – seit v0.47 getrennt)
 
 Diese beiden Dateien haben unterschiedliche Zwecke und dürfen nicht verwechselt werden:

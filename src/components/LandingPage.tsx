@@ -9,39 +9,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v21_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v22_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — GitHub bug batch + Shrine Wardens fix',
-    intro: 'Hello commanders! A full pass through the open GitHub issue queue (9 bugs) plus a live-reported Adeptus Sororitas bug — all fixed across the Armory system, Print View, Imperial Guard, Tyranids, Chaos Space Marines, and Adeptus Sororitas.',
-    engine: '🐛 Sororitas Canoness in Paragon Warsuit/Dogmata and IG Enginseer couldn\'t access Character-tier Armory items despite their own datasheet text granting it — fixed without touching the unrelated "Character" keyword (GH#25).',
-    csm: '🐛 Imperial Guard: Infantry Squad/Mechanised Infantry\'s 2nd special weapon slot had nothing to select (GH#23); Sentinel/Armoured Sentinels could only swap one Multilaser for the whole squadron instead of one per model (GH#24); the "Ministorum World" Legacy\'s 3rd Trait slot had no effect (GH#22).',
-    cd:  '🐛 Print View duplicated every armory weapon (GH#19); CSM Character HQs paid a flat cost instead of per-Wound for Veteran Abilities (GH#26); Dark Commune ignored its own free-Elite-slot text (GH#27); Sororitas\' Shrine Wardens archetype left the Troops slot empty instead of putting Celestian Squad there.',
-    sm:  '🐛 Tyranids: 38 units referencing "Basic and Advanced Biomorphs (see Armory)" had nothing to select there (GH#21); Hormagaunt/Neurogaunt Brood\'s "Scuttlers" Special Biomorph was priced at 0 instead of 1pt (GH#20).',
-    legacyfix: '📖 Full list of fixes in the changelog (v1.18/v1.19) and Known Issues page.',
-    contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report this round got fixed.',
+    title: 'Developer Update — new proactive bug-hunting tool + more fixes',
+    intro: 'Hello commanders! Built a new internal tool (scripts/sanity_sweep.ts) that scans the entire ruleset for structural data bugs without waiting for a player report — its first run already caught and fixed several more issues across Eldar, Harlequins, Imperial Guard, Tau, Orks, and Tyranids.',
+    engine: '🐛 Several "Character Model" units had the Character keyword silently disabled (Eldar Warlocks, Harlequins Death Jester/Shadowseer, IG Crusaders, Tau Sub-Commander) — same bug shape as the Enginseer fix in GH#25, now closed everywhere.',
+    csm: '🐛 Tyranids Trygon\'s "select any number of Biomorphs" upgrade had nothing to select (a phrasing variant of GH#21 the original fix missed); Orks Battle Fortress/Stompa\'s Supa rokkit/Grot bomm upgrades and Tau Piranha\'s Hunter-seeker missile upgrade were unbuyable despite showing a price.',
+    cd:  '🐛 IG Atlas Recovery Vehicle was incorrectly tagged as a Character Model (confirmed with the rules author: it\'s a plain Vehicle) — fixed.',
+    sm:  '✅ The new sweep also checked for dangling slot references, "ghost weapon" swap bugs, and duplicate weapon entries across all 19 factions — all came back clean, a good sign for the data\'s overall health.',
+    legacyfix: '📖 Full list of fixes in the changelog (v1.19) and Known Issues page.',
+    contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — GitHub-Bugpaket + Shrine-Wardens-Fix',
-    intro: 'Hallo Kommandanten! Ein vollständiger Durchgang durch die offene GitHub-Issue-Warteschlange (9 Bugs) plus ein live gemeldeter Adeptus-Sororitas-Bug — alle behoben in Armory-System, Druckansicht, Imperial Guard, Tyranids, Chaos Space Marines und Adeptus Sororitas.',
-    engine: '🐛 Sororitas Canoness in Paragon Warsuit/Dogmata und IG Enginseer konnten trotz eigenem Datasheet-Text keine Character-Armory-Items kaufen — behoben, ohne das unabhängige "Character"-Keyword zu berühren (GH#25).',
-    csm: '🐛 Imperial Guard: Infantry Squad/Mechanised Infantry hatte beim 2. Spezialwaffen-Slot keine Auswahl (GH#23); Sentinel/Armoured Sentinels konnten nur EINEN Multilaser für den ganzen Trupp tauschen statt einen pro Modell (GH#24); die Legacy "Ministorum World" (3. Trait) hatte keine Wirkung (GH#22).',
-    cd:  '🐛 Druckansicht zeigte jede Armory-Waffe doppelt (GH#19); CSM-Charakter-HQs zahlten einen Pauschalpreis statt pro Wunde für Veteranenfähigkeiten (GH#26); Dark Commune ignorierte den eigenen Freislot-Text (GH#27); Sororitas\' Shrine-Wardens-Archetyp ließ den Troops-Slot leer statt Celestian Squad dort einzusetzen.',
-    sm:  '🐛 Tyranids: 38 Einheiten mit "Basic and Advanced Biomorphs (see Armory)" hatten dort nichts zur Auswahl (GH#21); Hormagaunt/Neurogaunt Brood\'s "Scuttlers" kostete 0 statt 1 Punkt (GH#20).',
-    legacyfix: '📖 Vollständige Liste im Changelog (v1.18/v1.19) und auf der Known-Issues-Seite.',
-    contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wurde diese Runde behoben.',
+    title: 'Entwickler-Update — neues proaktives Bug-Hunting-Tool + weitere Fixes',
+    intro: 'Hallo Kommandanten! Ein neues internes Tool (scripts/sanity_sweep.ts) durchsucht das gesamte Regelwerk nach strukturellen Datenfehlern, ohne auf einen Spielerbericht zu warten — schon der erste Lauf hat weitere Bugs in Eldar, Harlequins, Imperial Guard, Tau, Orks und Tyranids gefunden und behoben.',
+    engine: '🐛 Mehrere "Character Model"-Einheiten hatten das Character-Keyword unbemerkt deaktiviert (Eldar Warlocks, Harlequins Death Jester/Shadowseer, IG Crusaders, Tau Sub-Commander) — gleiche Bugform wie der Enginseer-Fix in GH#25, jetzt überall behoben.',
+    csm: '🐛 Tyranids Trygons "Biomorphe auswählen"-Upgrade hatte nichts zur Auswahl (eine Textvariante von GH#21, die der ursprüngliche Fix übersehen hat); Orks Battle Fortress/Stompa\'s Supa-Rokkit/Grot-Bomm-Upgrades und Tau Piranhas Hunter-Seeker-Missile-Upgrade waren trotz angezeigtem Preis nicht kaufbar.',
+    cd:  '🐛 IG Atlas Recovery Vehicle war fälschlich als Character Model markiert (mit dem Regelautor bestätigt: es ist ein reines Vehicle) — behoben.',
+    sm:  '✅ Der neue Sweep prüfte zusätzlich auf hängende Slot-Referenzen, "Geisterwaffen"-Tauschbugs und doppelte Waffeneinträge über alle 19 Fraktionen hinweg — alles kam sauber zurück, ein gutes Zeichen für die Datenqualität insgesamt.',
+    legacyfix: '📖 Vollständige Liste im Changelog (v1.19) und auf der Known-Issues-Seite.',
+    contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wird weiterhin behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — lote de bugs de GitHub + fix de Shrine Wardens',
-    intro: '¡Hola comandantes! Una pasada completa por la cola de issues abiertos de GitHub (9 bugs) más un bug de Adeptus Sororitas reportado en vivo — todos arreglados en el sistema de Armory, Print View, Imperial Guard, Tyranids, Chaos Space Marines y Adeptus Sororitas.',
-    engine: '🐛 Canoness in Paragon Warsuit/Dogmata de Sororitas y el Enginseer de IG no podían acceder a ítems de Armory de nivel Character pese a que su propia ficha lo concede — arreglado sin tocar el keyword "Character" (GH#25).',
-    csm: '🐛 Imperial Guard: el 2º slot de arma especial de Infantry Squad/Mechanised Infantry no tenía nada para elegir (GH#23); Sentinel/Armoured Sentinels solo podían cambiar UN Multilaser para todo el escuadrón en vez de uno por modelo (GH#24); la Legacy "Ministorum World" (3er Trait) no tenía efecto (GH#22).',
-    cd:  '🐛 Print View mostraba cada arma de Armory duplicada (GH#19); los HQ Character de CSM pagaban coste plano en vez de por Wound en Veteran Abilities (GH#26); Dark Commune ignoraba su propio texto de slot gratis (GH#27); el archetype Shrine Wardens de Sororitas dejaba el slot de Troops vacío en vez de poner ahí a Celestian Squad.',
-    sm:  '🐛 Tyranids: 38 unidades que referencian "Basic and Advanced Biomorphs (see Armory)" no tenían nada para elegir ahí (GH#21); el Biomorfo Especial "Scuttlers" de Hormagaunt/Neurogaunt Brood costaba 0 en vez de 1pto (GH#20).',
-    legacyfix: '📖 Lista completa en el changelog (v1.18/v1.19) y en la página de Known Issues.',
-    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes de esta ronda se arreglaron.',
+    title: 'Actualización del desarrollador — nueva herramienta de caza proactiva de bugs + más arreglos',
+    intro: '¡Hola comandantes! Construimos una nueva herramienta interna (scripts/sanity_sweep.ts) que escanea todo el reglamento buscando bugs estructurales de datos sin esperar a que un jugador los reporte — ya en su primera pasada encontró y arregló varios bugs más en Eldar, Harlequins, Imperial Guard, Tau, Orks y Tyranids.',
+    engine: '🐛 Varias unidades "Character Model" tenían el keyword Character desactivado en silencio (Eldar Warlocks, Harlequins Death Jester/Shadowseer, IG Crusaders, Tau Sub-Commander) — misma forma de bug que el fix del Enginseer en GH#25, ahora cerrada en todos los casos.',
+    csm: '🐛 El upgrade "seleccionar cualquier número de Biomorfos" del Trygon de Tyranids no tenía nada para elegir (una variante de texto de GH#21 que el fix original no detectó); los upgrades de Supa rokkit/Grot bomm de Battle Fortress/Stompa de Orks y el de Hunter-seeker missile del Piranha de Tau no se podían comprar pese a mostrar precio.',
+    cd:  '🐛 El Atlas Recovery Vehicle de IG estaba mal etiquetado como Character Model (confirmado con el creador de las reglas: es un Vehicle normal) — arreglado.',
+    sm:  '✅ El nuevo barrido también revisó referencias de slot colgantes, bugs de "arma fantasma" en swaps, y armas duplicadas en las 19 facciones — todo salió limpio, buena señal para la salud general de los datos.',
+    legacyfix: '📖 Lista completa en el changelog (v1.19) y en la página de Known Issues.',
+    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes se siguen arreglando.',
   },
 };
 

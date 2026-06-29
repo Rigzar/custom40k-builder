@@ -79,6 +79,15 @@ export const piranha: Unit = {
       "abilities": "AT(2)"
     },
     {
+      "name": "Seeker missile",
+      "range": "120\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Ammo(1), Anti-Air, AT(2)"
+    },
+    {
       "name": "Twin pulse carbine",
       "range": "24\"",
       "type": "Assault 4",
@@ -138,7 +147,9 @@ export const piranha: Unit = {
         "type": "fixed_max",
         "max": 2
       },
-      "choices": [],
+      "choices": [
+        { "name": "Seeker missile", "points": 5 }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

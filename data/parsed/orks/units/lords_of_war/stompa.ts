@@ -308,7 +308,9 @@ export const stompa: Unit = {
         "type": "fixed_max",
         "max": 3
       },
-      "choices": [],
+      "choices": [
+        { "name": "Supa rokkit", "points": 23 }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
@@ -319,7 +321,9 @@ export const stompa: Unit = {
         "type": "fixed_max",
         "max": 3
       },
-      "choices": [],
+      "choices": [
+        { "name": "Grot bomm", "points": 34 }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

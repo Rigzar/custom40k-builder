@@ -72,7 +72,7 @@ export const atlasRecoveryVehicle: Unit = {
   "abilities": [
     "Recovery Vehicle: When this unit activates with an Advance order, if it is within 1\" of a vehicle wreck or a friendly vehicle with a current Move of 0\", it may tow it instead of moving normally. Both this unit and the towed wreck or vehicle may move up to 6\", and must end their movement within 1\" of each other. Follow all normal rules for terrain."
   ],
-  "unit_type": "Vehicle, Character Model, Infantry",
+  "unit_type": "Vehicle",
   "keywords": [],
   "is_vehicle": true,
   "is_character": false,

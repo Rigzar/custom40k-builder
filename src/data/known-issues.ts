@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-ig-atlas-recovery-vehicle-character-mismatch-01',
+    status: 'fixed',
+    title: 'Imperial Guard — Atlas Recovery Vehicle has an ambiguous Character/Vehicle data mismatch',
+    description: 'Found by scripts/sanity_sweep.ts: Atlas Recovery Vehicle\'s `unit_type` was "Vehicle, Character Model, Infantry" (a vehicle tagged as both Character and Infantry, an unusual combination) while `is_character` was false. Confirmed with the rules author: this is a plain Vehicle, "Character Model, Infantry" was stray copy-paste residue. Fixed `unit_type` to just "Vehicle".',
+  },
+  {
     id: 'ki-sororitas-shrine-wardens-empty-troops-01',
     status: 'fixed',
     title: 'Adeptus Sororitas — Shrine Wardens archetype left the Troops slot empty',

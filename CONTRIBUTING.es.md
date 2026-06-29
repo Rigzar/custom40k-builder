@@ -326,6 +326,8 @@ Algunas reglas no se pueden expresar solo con el texto de la descripción — ne
 
 > **Codificación (mojibake):** al editar JSON o TS a mano, mantén los ficheros en UTF-8. Secuencias corruptas como `â€"` (debería ser `—`) entran al copiar-pegar; `scripts/_scan_mojibake.cjs` las detecta. No pegues desde editores de texto enriquecido.
 
+> **Barrido proactivo de bugs:** `scripts/sanity_sweep.ts` importa directamente los módulos reales de datos/engine de producción (ejecútalo con `npx tsx scripts/sanity_sweep.ts`, sin instalar nada) y señala inconsistencias estructurales sin esperar a que un jugador reporte el bug: option groups muertos (`choices: []` en un constraint que espera choices reales), contradicciones `is_character`/`unit_type`, referencias colgantes a nombres de unidad en `engine/archetypes`, entradas colgantes en `slot_to_units`, `replaces` que nombra un arma que no está en la unidad, `variant_link` colgante, y nombres de arma duplicados dentro de una misma unidad. Es un checker ESTRUCTURAL, no de reglas — cada hallazgo necesita revisión humana antes de tratarlo como bug confirmado (ver los comentarios del propio script para los falsos positivos conocidos). Vuelve a correrlo tras cualquier edición de datos que toque esos campos, y sobre todo antes de un push de release.
+
 ### Changelog vs Known Issues (importante — separados desde v0.47)
 
 Estos dos archivos tienen propósitos distintos y no deben confundirse:
