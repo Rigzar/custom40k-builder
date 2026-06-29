@@ -6,6 +6,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
+import { useT } from '../i18n';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
 
@@ -28,6 +29,7 @@ function isLegacyDisc(name: string): boolean {
 }
 
 export function PsychicModal({ item, unit, onClose }: Props) {
+  const t = useT();
   const store = useArmyStore();
   const {
     data: primaryData, alliedData, archetype: primaryArchetype, legacy: primaryLegacy, legacy2: primaryLegacy2,
@@ -234,7 +236,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // Power count display (excluding the discipline marker)
   const selectedPowersCount = item.powers.filter(p => p.powerName !== '__discipline__').length;
   // Label for the powers button
-  const powersLabel = isCultInitiate ? 'Cult Powers' : 'Psychic Powers';
+  const powersLabel = isCultInitiate ? t('cultPowersLabel') : t('psychicPowersLabel');
 
   return (
     <div
@@ -244,11 +246,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-2xl flex flex-col max-h-[85vh]">
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
-            {hasPowers && hasPrayers ? `${powersLabel} & Prayers`
-              : hasPowers && hasPacts ? `${powersLabel} & Pacts`
-              : hasPrayers && hasPacts ? 'Prayers & Pacts'
-              : hasPrayers ? 'Prayers'
-              : hasPacts ? 'Infernal Pacts'
+            {hasPowers && hasPrayers ? `${powersLabel} ${t('andPrayersSuffix')}`
+              : hasPowers && hasPacts ? `${powersLabel} ${t('andPactsSuffix')}`
+              : hasPrayers && hasPacts ? t('prayersAndPactsLabel')
+              : hasPrayers ? t('prayersLabel')
+              : hasPacts ? t('infernalPactsLabel')
               : powersLabel} — {unit.name}
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
@@ -264,7 +266,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   ${tab === 'powers' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
               >
                 {powersLabel} {psykerMode === 'all_from_one'
-                  ? `(${chosenDisc ? chosenDisc : 'no discipline chosen'})`
+                  ? `(${chosenDisc ? chosenDisc : t('noDisciplineChosenWord')})`
                   : `(${selectedPowersCount}${psykerMode !== 'unlimited' ? '/' + effectivePowerLimit : ''})`}
               </button>
             )}
@@ -274,7 +276,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
                   ${tab === 'prayers' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
               >
-                Prayers ({item.prayers.length})
+                {t('prayersLabel')} ({item.prayers.length})
               </button>
             )}
             {hasPacts && (
@@ -283,7 +285,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                 className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
                   ${tab === 'pacts' ? 'border-amber-600 text-amber-400' : 'border-transparent text-zinc-500 hover:text-zinc-300'}`}
               >
-                Infernal Pacts ({(item.pacts ?? []).length})
+                {t('infernalPactsLabel')} ({(item.pacts ?? []).length})
               </button>
             )}
           </div>
@@ -298,10 +300,10 @@ export function PsychicModal({ item, unit, onClose }: Props) {
             {knowsSmite && (
               <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
                 <div className="flex items-center gap-2">
-                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">Always known</span>
+                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
                   <span className="text-amber-300 font-semibold text-sm">Smite</span>
                 </div>
-                <div className="text-[10px] text-zinc-500 mt-0.5">Cast: 5 · Witchfire · Instant — 1D3 Mortal Wounds (2D3 if cast value ≥10)</div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">{t('smiteCastLine')}</div>
               </div>
             )}
 
@@ -309,12 +311,12 @@ export function PsychicModal({ item, unit, onClose }: Props) {
             {legacyPower && (
               <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
                 <div className="flex items-center gap-2">
-                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">Always known</span>
+                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
                   <span className="text-amber-300 font-semibold text-sm">{legacyPower.name}</span>
-                  <span className="text-[9px] text-zinc-500 ml-auto">(Legacy)</span>
+                  <span className="text-[9px] text-zinc-500 ml-auto">{t('legacyTag')}</span>
                 </div>
                 <div className="text-[10px] text-zinc-500 mt-0.5">
-                  Cast: {legacyPower.details.cast_value} · {legacyPower.details.type} · {legacyPower.details.duration} — {legacyPower.details.effect}
+                  {t('castLabel')} {legacyPower.details.cast_value} · {legacyPower.details.type} · {legacyPower.details.duration} — {legacyPower.details.effect}
                 </div>
               </div>
             )}
@@ -322,29 +324,29 @@ export function PsychicModal({ item, unit, onClose }: Props) {
             {/* Mode indicator — explains the selection rule from the psyker ability */}
             {psykerMode === 'all_from_one' && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
-                Choose <strong className="text-amber-400 not-italic">1 discipline</strong> — you know <strong className="text-amber-400 not-italic">all its powers</strong>.
+                {t('chooseWord')} <strong className="text-amber-400 not-italic">{t('oneDisciplineLabel')}</strong> {t('modeAllFromOneMid')} <strong className="text-amber-400 not-italic">{t('allItsPowersLabel')}</strong>.
                 {chosenDisc
-                  ? <span className="text-amber-300 not-italic ml-1">Selected: <strong>{chosenDisc}</strong></span>
-                  : <span className="text-zinc-500 not-italic ml-1">(none chosen yet)</span>}
+                  ? <span className="text-amber-300 not-italic ml-1">{t('selectedPrefix')} <strong>{chosenDisc}</strong></span>
+                  : <span className="text-zinc-500 not-italic ml-1">{t('noneChosenYet')}</span>}
               </div>
             )}
             {psykerMode === 'one_from_one' && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
-                Choose <strong className="text-amber-400 not-italic">1 power</strong> from <strong className="text-amber-400 not-italic">1 discipline</strong>.
-                <span className="text-zinc-500 not-italic ml-1">({selectedPowersCount}/{powerLimit} selected)</span>
+                {t('chooseWord')} <strong className="text-amber-400 not-italic">{t('onePowerLabel')}</strong> {t('fromWord')} <strong className="text-amber-400 not-italic">{t('oneDisciplineLabel')}</strong>.
+                <span className="text-zinc-500 not-italic ml-1">({selectedPowersCount}/{powerLimit} {t('selectedCountSuffix')})</span>
               </div>
             )}
             {psykerMode === 'n_from_any' && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
-                Choose up to <strong className="text-amber-400 not-italic">{powerLimit} powers</strong> from any available discipline.
-                <span className={`not-italic ml-1 ${selectedPowersCount >= effectivePowerLimit ? 'text-amber-500' : 'text-zinc-500'}`}>({selectedPowersCount}/{powerLimit} selected)</span>
+                {t('modeNFromAnyPart1')} <strong className="text-amber-400 not-italic">{powerLimit} {t('powersWord')}</strong> {t('modeNFromAnyPart2')}.
+                <span className={`not-italic ml-1 ${selectedPowersCount >= effectivePowerLimit ? 'text-amber-500' : 'text-zinc-500'}`}>({selectedPowersCount}/{powerLimit} {t('selectedCountSuffix')})</span>
               </div>
             )}
 
             {/* Disciplines */}
             {allowedDiscs.length === 0 ? (
               <div className="text-zinc-500 italic text-sm text-center py-8">
-                No disciplines available for this unit.
+                {t('noDisciplinesAvailable')}
               </div>
             ) : (
               allowedDiscs.map(([discName, powers]) => {
@@ -364,7 +366,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                       <span>{discName}</span>
                       {psykerMode === 'all_from_one' && (
                         <span className={`text-[9px] px-1.5 py-px border font-bold normal-case tracking-normal ${isChosen ? 'bg-amber-800 border-amber-600 text-amber-200' : 'border-zinc-700 text-zinc-600'}`}>
-                          {isChosen ? '✓ Chosen' : 'Choose'}
+                          {isChosen ? t('chosenBadge') : t('chooseWord')}
                         </span>
                       )}
                     </div>
@@ -393,7 +395,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                             <div className="text-sm font-medium flex items-center gap-1.5">
                               {p.name}
                               {psykerMode === 'all_from_one' && isChosen && (
-                                <span className="text-[8px] text-amber-600 uppercase tracking-wide">included</span>
+                                <span className="text-[8px] text-amber-600 uppercase tracking-wide">{t('includedBadge')}</span>
                               )}
                             </div>
                             <div className="text-[10px] text-zinc-500 mt-0.5">
@@ -466,7 +468,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
 
         <div className="px-4 py-3 border-t border-zinc-700 flex justify-end bg-zinc-800">
           <button onClick={onClose} className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide">
-            Close
+            {t('close')}
           </button>
         </div>
       </div>

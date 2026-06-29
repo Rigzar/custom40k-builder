@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useArmyStore } from '../store/army';
+import { useT } from '../i18n';
 
 type Mode = 'importJson' | 'exportCode' | 'importCode' | null;
 
@@ -12,6 +13,7 @@ function fromCode(code: string): unknown {
 }
 
 export function ExportImport({ onPrint }: { onPrint?: () => void }) {
+  const t = useT();
   const {
     army, engagement, hqMark, archetype, legacy, legacy2,
     traitPool, faction, pointLimit, armyName, importRoster, clearArmy,
@@ -32,7 +34,7 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
       try {
         importRoster(reader.result as string);
       } catch {
-        alert('Invalid JSON file.');
+        alert(t('invalidJsonFileAlert'));
       }
     };
     reader.readAsText(file);
@@ -78,7 +80,7 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
       setMode(null);
       setText('');
     } catch {
-      alert('Invalid code or JSON.');
+      alert(t('invalidCodeOrJsonAlert'));
     }
   }
 
@@ -89,13 +91,13 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
           onClick={doExportCode}
           className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-amber-800/60 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
         >
-          Copy Code
+          {t('copyCodeButton')}
         </button>
         <button
           onClick={() => { setText(''); setMode('importCode'); }}
           className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-amber-800/60 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
         >
-          Import Code
+          {t('importCodeButton')}
         </button>
         <button
           onClick={doDownloadJson}
@@ -121,14 +123,14 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
             onClick={onPrint}
             className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-zinc-600 text-zinc-500 hover:bg-zinc-700 uppercase tracking-wide"
           >
-            Print
+            {t('print')}
           </button>
         )}
         <button
-          onClick={() => { if (confirm('Clear the entire army?')) clearArmy(); }}
+          onClick={() => { if (confirm(t('clearArmyConfirm'))) clearArmy(); }}
           className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-red-800 text-red-400 hover:bg-red-900/30 uppercase tracking-wide"
         >
-          Clear
+          {t('clearButton')}
         </button>
       </div>
 
@@ -150,9 +152,9 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
                 : 'bg-zinc-800 border-zinc-600 text-zinc-300 hover:bg-zinc-700'
             }`}
           >
-            {copied ? 'Copied!' : 'Copy to clipboard'}
+            {copied ? t('copiedLabel') : t('copyToClipboardButton')}
           </button>
-          <p className="text-[10px] text-zinc-600">Share this code with anyone — paste it with "Import Code" on any device.</p>
+          <p className="text-[10px] text-zinc-600">{t('shareCodeHint')}</p>
         </div>
       )}
 
@@ -162,7 +164,7 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
           <textarea
             value={text}
             onChange={e => setText(e.target.value)}
-            placeholder={mode === 'importCode' ? 'Paste army code here…' : 'Paste exported JSON here…'}
+            placeholder={mode === 'importCode' ? t('pasteArmyCodePlaceholder') : t('pasteJsonPlaceholder')}
             className="w-full h-28 bg-zinc-900 border border-zinc-600 text-zinc-300 p-2 text-[11px] font-mono resize-none focus:outline-none focus:border-amber-600"
           />
           <div className="flex gap-2">
@@ -170,13 +172,13 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
               onClick={doImport}
               className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 uppercase tracking-wide"
             >
-              Import
+              {t('import')}
             </button>
             <button
               onClick={() => setMode(null)}
               className="text-[11px] px-3 py-1.5 bg-zinc-800 border border-zinc-600 text-zinc-400 hover:bg-zinc-700 uppercase tracking-wide"
             >
-              Cancel
+              {t('cancel')}
             </button>
           </div>
         </div>
@@ -189,11 +191,11 @@ export function ExportImport({ onPrint }: { onPrint?: () => void }) {
             onClick={() => { setText(''); setMode('importJson'); }}
             className="text-[10px] text-zinc-600 hover:text-zinc-400 underline underline-offset-2"
           >
-            Import JSON
+            {t('importJsonLink')}
           </button>
           <span className="text-zinc-700 text-[10px]">·</span>
           <span className="text-[10px] text-zinc-600">
-            Use the <span className="text-red-500/70">Bug</span> button in the header to report issues
+            {t('useBugButtonPart1')} <span className="text-red-500/70">Bug</span> {t('useBugButtonPart2')}
           </span>
         </div>
       )}
