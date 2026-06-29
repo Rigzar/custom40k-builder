@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-sororitas-shrine-wardens-empty-troops-01',
+    status: 'fixed',
+    title: 'Adeptus Sororitas — Shrine Wardens archetype left the Troops slot empty',
+    description: 'Reported live (Discord): selecting Shrine Wardens demoted Battle Sisters/Sisters Novitiate to Elites as expected, but the Troops slot came up empty instead of containing Celestian Squad. Root cause: `engine/archetypes/index.ts`\'s Shrine Wardens rule still had `troopsRemap: [\'Celestian Sacresants\']`, a unit name deleted in the v1.16 Celestian unification (Insidiants/Sacresants were merged into one "Celestian Squad" datasheet) — the archetypes.json *description* text was updated at the time to say "Celestian Squads", but this executable troopsRemap array was missed. Fixed to `[\'Celestian Squad\']`; also re-synced the stale `codex_adeptus_sororitas/slots.ts` digest (still listed the deleted Insidiants/Sacresants, was missing Dialogus and the newer "Dogmata on Throne of Condemnation" HQ).',
+  },
+  {
     id: 'ki-csm-veteran-char-flat-cost-dark-commune-slot-01',
     status: 'fixed',
     title: 'Chaos Space Marines — Veteran Abilities flat-costed for Character HQs, Dark Commune advisor slot — GitHub #26-27',

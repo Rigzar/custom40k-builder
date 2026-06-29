@@ -69,7 +69,7 @@ export const SORORITAS_SPECIAL_ABILITIES: SororitasSpecialAbilityEntry[] = [
     text: 'Budget 0-1 Archetype. All AOP-shuffle (no cross-faction ally-matrix — Sororitas have ' +
       'none): Holy Vanguard (Dominions→Troops, must start embarked; only Dominions count to 25%), ' +
       'Penitent Crusade (Arco-flagellants/Repentia→Troops; 1 Penitent Engine per 10 Arco models; ' +
-      'Battle Sisters/Novitiate→Elite), Shrine Wardens (Celestian Sacresants→Troops; Battle ' +
+      'Battle Sisters/Novitiate→Elite), Shrine Wardens (Celestian Squad→Troops; Battle ' +
       'Sisters/Novitiate→Elite; no Arco/Repentia/Penitent Engines). Canonical in `archetypes.json`.',
   },
   {

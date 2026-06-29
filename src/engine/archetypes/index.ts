@@ -105,10 +105,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Shrine Wardens': { ...BASE,
-    troopsRemap: ['Celestian Sacresants'], demoteOtherTroops: true,
+    troopsRemap: ['Celestian Squad'], demoteOtherTroops: true,
     bannedUnits: ['Arco-flagellants', 'Repentia Squad', 'Penitent Engines'],
     notes: [
-      'Celestian Sacresants count as Troops.',
+      'Celestian Squad counts as Troops.',
       'Battle Sisters and Sisters Novitiate are moved to the Elites slot.',
       'Arco-flagellants, Repentia and Penitent Engines cannot be selected.',
     ],

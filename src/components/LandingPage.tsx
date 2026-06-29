@@ -9,39 +9,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v20_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v21_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — GitHub bug batch (Armory, Print View, Imperial Guard, Tyranids)',
-    intro: 'Hello commanders! A full pass through the open GitHub issue queue — 7 bugs fixed across the Armory system, Print View, Imperial Guard, and Tyranids.',
+    title: 'Developer Update — GitHub bug batch + Shrine Wardens fix',
+    intro: 'Hello commanders! A full pass through the open GitHub issue queue (9 bugs) plus a live-reported Adeptus Sororitas bug — all fixed across the Armory system, Print View, Imperial Guard, Tyranids, Chaos Space Marines, and Adeptus Sororitas.',
     engine: '🐛 Sororitas Canoness in Paragon Warsuit/Dogmata and IG Enginseer couldn\'t access Character-tier Armory items despite their own datasheet text granting it — fixed without touching the unrelated "Character" keyword (GH#25).',
     csm: '🐛 Imperial Guard: Infantry Squad/Mechanised Infantry\'s 2nd special weapon slot had nothing to select (GH#23); Sentinel/Armoured Sentinels could only swap one Multilaser for the whole squadron instead of one per model (GH#24); the "Ministorum World" Legacy\'s 3rd Trait slot had no effect (GH#22).',
-    cd:  '🐛 Print View: armory-bought weapons were rendered twice on both the Simple and Datacard formats (GH#19) — fixed.',
+    cd:  '🐛 Print View duplicated every armory weapon (GH#19); CSM Character HQs paid a flat cost instead of per-Wound for Veteran Abilities (GH#26); Dark Commune ignored its own free-Elite-slot text (GH#27); Sororitas\' Shrine Wardens archetype left the Troops slot empty instead of putting Celestian Squad there.',
     sm:  '🐛 Tyranids: 38 units referencing "Basic and Advanced Biomorphs (see Armory)" had nothing to select there (GH#21); Hormagaunt/Neurogaunt Brood\'s "Scuttlers" Special Biomorph was priced at 0 instead of 1pt (GH#20).',
-    legacyfix: '📖 Full list of fixes in the changelog (v1.18) and Known Issues page.',
-    contrib: '👷 Found a bug? File it on GitHub — every issue in the queue this round got looked at and fixed or triaged.',
+    legacyfix: '📖 Full list of fixes in the changelog (v1.18/v1.19) and Known Issues page.',
+    contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report this round got fixed.',
   },
   de: {
-    title: 'Entwickler-Update — GitHub-Bugpaket (Armory, Druckansicht, Imperial Guard, Tyranids)',
-    intro: 'Hallo Kommandanten! Ein vollständiger Durchgang durch die offene GitHub-Issue-Warteschlange — 7 Bugs behoben in Armory-System, Druckansicht, Imperial Guard und Tyranids.',
+    title: 'Entwickler-Update — GitHub-Bugpaket + Shrine-Wardens-Fix',
+    intro: 'Hallo Kommandanten! Ein vollständiger Durchgang durch die offene GitHub-Issue-Warteschlange (9 Bugs) plus ein live gemeldeter Adeptus-Sororitas-Bug — alle behoben in Armory-System, Druckansicht, Imperial Guard, Tyranids, Chaos Space Marines und Adeptus Sororitas.',
     engine: '🐛 Sororitas Canoness in Paragon Warsuit/Dogmata und IG Enginseer konnten trotz eigenem Datasheet-Text keine Character-Armory-Items kaufen — behoben, ohne das unabhängige "Character"-Keyword zu berühren (GH#25).',
     csm: '🐛 Imperial Guard: Infantry Squad/Mechanised Infantry hatte beim 2. Spezialwaffen-Slot keine Auswahl (GH#23); Sentinel/Armoured Sentinels konnten nur EINEN Multilaser für den ganzen Trupp tauschen statt einen pro Modell (GH#24); die Legacy "Ministorum World" (3. Trait) hatte keine Wirkung (GH#22).',
-    cd:  '🐛 Druckansicht: Armory-gekaufte Waffen wurden in Simple- und Datacard-Format doppelt angezeigt (GH#19) — behoben.',
+    cd:  '🐛 Druckansicht zeigte jede Armory-Waffe doppelt (GH#19); CSM-Charakter-HQs zahlten einen Pauschalpreis statt pro Wunde für Veteranenfähigkeiten (GH#26); Dark Commune ignorierte den eigenen Freislot-Text (GH#27); Sororitas\' Shrine-Wardens-Archetyp ließ den Troops-Slot leer statt Celestian Squad dort einzusetzen.',
     sm:  '🐛 Tyranids: 38 Einheiten mit "Basic and Advanced Biomorphs (see Armory)" hatten dort nichts zur Auswahl (GH#21); Hormagaunt/Neurogaunt Brood\'s "Scuttlers" kostete 0 statt 1 Punkt (GH#20).',
-    legacyfix: '📖 Vollständige Liste im Changelog (v1.18) und auf der Known-Issues-Seite.',
-    contrib: '👷 Bug gefunden? Meldet ihn auf GitHub — jedes Issue in der Warteschlange wurde diese Runde geprüft und behoben oder eingeordnet.',
+    legacyfix: '📖 Vollständige Liste im Changelog (v1.18/v1.19) und auf der Known-Issues-Seite.',
+    contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wurde diese Runde behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — lote de bugs de GitHub (Armory, Print View, Imperial Guard, Tyranids)',
-    intro: '¡Hola comandantes! Una pasada completa por la cola de issues abiertos de GitHub — 7 bugs arreglados en el sistema de Armory, Print View, Imperial Guard y Tyranids.',
+    title: 'Actualización del desarrollador — lote de bugs de GitHub + fix de Shrine Wardens',
+    intro: '¡Hola comandantes! Una pasada completa por la cola de issues abiertos de GitHub (9 bugs) más un bug de Adeptus Sororitas reportado en vivo — todos arreglados en el sistema de Armory, Print View, Imperial Guard, Tyranids, Chaos Space Marines y Adeptus Sororitas.',
     engine: '🐛 Canoness in Paragon Warsuit/Dogmata de Sororitas y el Enginseer de IG no podían acceder a ítems de Armory de nivel Character pese a que su propia ficha lo concede — arreglado sin tocar el keyword "Character" (GH#25).',
     csm: '🐛 Imperial Guard: el 2º slot de arma especial de Infantry Squad/Mechanised Infantry no tenía nada para elegir (GH#23); Sentinel/Armoured Sentinels solo podían cambiar UN Multilaser para todo el escuadrón en vez de uno por modelo (GH#24); la Legacy "Ministorum World" (3er Trait) no tenía efecto (GH#22).',
-    cd:  '🐛 Print View: las armas compradas en Armory se mostraban duplicadas en los formatos Simple y Datacard (GH#19) — arreglado.',
+    cd:  '🐛 Print View mostraba cada arma de Armory duplicada (GH#19); los HQ Character de CSM pagaban coste plano en vez de por Wound en Veteran Abilities (GH#26); Dark Commune ignoraba su propio texto de slot gratis (GH#27); el archetype Shrine Wardens de Sororitas dejaba el slot de Troops vacío en vez de poner ahí a Celestian Squad.',
     sm:  '🐛 Tyranids: 38 unidades que referencian "Basic and Advanced Biomorphs (see Armory)" no tenían nada para elegir ahí (GH#21); el Biomorfo Especial "Scuttlers" de Hormagaunt/Neurogaunt Brood costaba 0 en vez de 1pto (GH#20).',
-    legacyfix: '📖 Lista completa en el changelog (v1.18) y en la página de Known Issues.',
-    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub — todos los issues de la cola se revisaron esta ronda y se arreglaron o catalogaron.',
+    legacyfix: '📖 Lista completa en el changelog (v1.18/v1.19) y en la página de Known Issues.',
+    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes de esta ronda se arreglaron.',
   },
 };
 

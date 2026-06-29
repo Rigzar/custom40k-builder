@@ -7,7 +7,9 @@
  *
  * 27 units / 6 populated slots (Fortifications = 0, Flyers = 0) — EIGHTH faction migrated, after
  * CSM (pilot) + Chaos Daemons + Space Marines + Inquisition + Grey Knights + Imperial Guard +
- * Adeptus Mechanicus.
+ * Adeptus Mechanicus. Re-synced 2026-06-29 against production (Celestian Insidiants/Sacresants
+ * were deleted in the v1.16 Celestian unification, "Dogmata on Throne of Condemnation" + Dialogus
+ * were added — this digest had drifted out of sync with both).
  */
 
 export interface SororitasSlotEntry {
@@ -19,8 +21,9 @@ export interface SororitasSlotEntry {
 
 // Source: data/parsed/adeptus_sororitas/units.json `slot_to_units` (production, canonical).
 export const SORORITAS_SLOTS: SororitasSlotEntry[] = [
-  // --- HQ (5) ---
+  // --- HQ (6) ---
   { name: 'Canoness in Paragon Warsuit', slot: 'HQ' },
+  { name: 'Dogmata on Throne of Condemnation', slot: 'HQ' },
   { name: 'Geminae Superia', slot: 'HQ' },
   { name: 'Living Saint', slot: 'HQ' },
   { name: 'Missionary', slot: 'HQ' },
@@ -30,12 +33,11 @@ export const SORORITAS_SLOTS: SororitasSlotEntry[] = [
   { name: 'Battle Sisters Squad', slot: 'Troops' },
   { name: 'Sisters Novitiate', slot: 'Troops' },
 
-  // --- Elites (11) ---
+  // --- Elites (10) ---
   { name: 'Arco-flagellants', slot: 'Elites' },
-  { name: 'Celestian Insidiants', slot: 'Elites' },
-  { name: 'Celestian Sacresants', slot: 'Elites' },
   { name: 'Celestian Squad', slot: 'Elites' },
   { name: 'Crusaders', slot: 'Elites' },
+  { name: 'Dialogus', slot: 'Elites' },
   { name: 'Dogmata', slot: 'Elites' },
   { name: 'Hospitaller', slot: 'Elites' },
   { name: 'Imagifier', slot: 'Elites' },

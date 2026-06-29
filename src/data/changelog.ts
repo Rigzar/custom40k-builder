@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.19',
+    date: '2026-06-29',
+    title: 'Adeptus Sororitas — Shrine Wardens archetype left the Troops slot empty',
+    changes: [
+      'Fixed Shrine Wardens: its troopsRemap still pointed at "Celestian Sacresants", a unit deleted in the v1.16 Celestian unification — Battle Sisters/Novitiate got correctly demoted to Elites but nothing replaced them in Troops, leaving the Troops slot empty. Now correctly remaps "Celestian Squad" to Troops. Also synced the stale codex_adeptus_sororitas/slots.ts digest (still listed the deleted Insidiants/Sacresants and was missing Dialogus and "Dogmata on Throne of Condemnation").',
+    ],
+  },
+  {
     version: '1.18',
     date: '2026-06-29',
     title: 'GENERAL — GitHub bug batch (#19-27): armory, print view, IG, Tyranids, CSM',
