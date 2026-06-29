@@ -253,7 +253,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
-  const isChar = unit.is_character;
+  // "Has access to gear from the Armory like a Character model" (Sororitas Canoness in Paragon
+  // Warsuit, Dogmata on Throne of Condemnation): grants Character-tier armory pricing/items
+  // without making is_character true (that would wrongly add the "Character" keyword for
+  // joining/sniper-targeting purposes — the .ods scopes this strictly to the Armory).
+  const isChar = unit.is_character || !!unit.armory_as_character;
   const isVehicle = unit.is_vehicle;
 
   const activeVariant = getActiveVariant(item, unit);
@@ -489,15 +493,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     let pts: number;
     let scaling: 'perWound' | 'perModel' | undefined;
     if (arm.category === 'veteran') {
-      // Cost is per wound per model for all non-character units (rule verbatim:
-      // "paid for every model in the unit and per Wound or Hull point of the model"). Store the
-      // BASE rate + scaling flag — liveArmoryPoints() multiplies by the CURRENT size/wounds on
-      // every render, so resizing the squad after buying doesn't leave a stale stored cost.
+      // Cost is per wound per model, characters included (rule verbatim: "paid for every model in
+      // the unit and per Wound or Hull point of the model" — GH#26: this was missed for Character
+      // buyers, who paid a flat p_char/p_unit with no Wound scaling; Daemon Prince happened to
+      // dodge the bug because is_monster routes it through the vehicle/monster branch instead).
+      // Store the BASE rate + scaling flag — liveArmoryPoints() multiplies by the CURRENT
+      // size/wounds on every render, so resizing the squad after buying doesn't leave a stale cost.
       if (isVehicle || unit.is_monster) {
         pts = parsePrice(arm.p_veh) ?? 0;
         scaling = 'perWound';
       } else if (isChar) {
         pts = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit) ?? 0;
+        scaling = 'perWound';
       } else {
         pts = parsePrice(arm.p_unit) ?? 0;
         scaling = 'perWound';
@@ -1062,7 +1069,7 @@ function EquipmentGroups({
     }
     if (isChar) {
       const cp = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit);
-      return cp != null ? `+${cp} pts` : '—';
+      return cp != null ? `+${cp * unitWounds * unitSize} pts (${cp}/wound)` : '—';
     }
     const up = parsePrice(arm.p_unit);
     return up != null ? `+${up * unitWounds * unitSize} pts (${up}/wound)` : '—';

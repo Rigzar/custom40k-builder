@@ -9,39 +9,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v19_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v20_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — Wiki revamp + Adeptus Sororitas re-audit',
-    intro: 'Hello commanders! Two things landed together: a full Adeptus Sororitas re-audit against a brand new canonical .ods, and a redesign of the Custom40k Wiki (custom40k-wiki.vercel.app).',
-    engine: '✅ Sororitas: new HQ unit "Dogmata on Throne of Condemnation" (246pts), and Celestian Squad rebuilt as ONE unified datasheet (was 3 separate units) where every model picks a +1pt keyword upgrade.',
-    csm: '🐛 Sororitas: fixed Geminae Superia points (44→43), Arco-flagellants stats/points, and the "Concession" ability text on Arco-flagellants/Crusaders. Kept "Triumphant Procession" even though it\'s gone from the new .ods, since the Escalation supplement still reads it.',
-    cd:  '🏠 The Wiki now opens on an Introduction page (what Custom40k is, key rules, what you need to play) with a button into the faction list — and a small Home/Factions/Glossary nav on every page.',
-    sm:  '🖼️ Fixed several broken/missing icons on the Wiki (5 Sororitas Order icons, a dead Adeptus Mechanicus reference) and a real icon-matching bug where short names like "Legion" could falsely match unrelated longer names.',
-    legacyfix: '📖 Added a "Contents" jump-link summary to every faction\'s Armory and Psychic Powers pages for quicker navigation.',
-    contrib: '👷 Want to help? Contributor guides at CONTRIBUTING.md — translation guide, empty file templates, GitHub issue templates. No coding required to contribute data or translations!',
+    title: 'Developer Update — GitHub bug batch (Armory, Print View, Imperial Guard, Tyranids)',
+    intro: 'Hello commanders! A full pass through the open GitHub issue queue — 7 bugs fixed across the Armory system, Print View, Imperial Guard, and Tyranids.',
+    engine: '🐛 Sororitas Canoness in Paragon Warsuit/Dogmata and IG Enginseer couldn\'t access Character-tier Armory items despite their own datasheet text granting it — fixed without touching the unrelated "Character" keyword (GH#25).',
+    csm: '🐛 Imperial Guard: Infantry Squad/Mechanised Infantry\'s 2nd special weapon slot had nothing to select (GH#23); Sentinel/Armoured Sentinels could only swap one Multilaser for the whole squadron instead of one per model (GH#24); the "Ministorum World" Legacy\'s 3rd Trait slot had no effect (GH#22).',
+    cd:  '🐛 Print View: armory-bought weapons were rendered twice on both the Simple and Datacard formats (GH#19) — fixed.',
+    sm:  '🐛 Tyranids: 38 units referencing "Basic and Advanced Biomorphs (see Armory)" had nothing to select there (GH#21); Hormagaunt/Neurogaunt Brood\'s "Scuttlers" Special Biomorph was priced at 0 instead of 1pt (GH#20).',
+    legacyfix: '📖 Full list of fixes in the changelog (v1.18) and Known Issues page.',
+    contrib: '👷 Found a bug? File it on GitHub — every issue in the queue this round got looked at and fixed or triaged.',
   },
   de: {
-    title: 'Entwickler-Update — Wiki-Überarbeitung + Adeptus Sororitas neu auditiert',
-    intro: 'Hallo Kommandanten! Zwei Dinge kamen zusammen: ein vollständiges Adeptus-Sororitas-Re-Audit gegen eine brandneue kanonische .ods, und ein Redesign des Custom40k Wiki (custom40k-wiki.vercel.app).',
-    engine: '✅ Sororitas: neue HQ-Einheit "Dogmata on Throne of Condemnation" (246 Pkt.), und Celestian Squad zu EINEM vereinten Datasheet zusammengeführt (war 3 separate Einheiten) — jedes Modell wählt ein +1-Punkt-Keyword-Upgrade.',
-    csm: '🐛 Sororitas: Geminae-Superia-Punkte korrigiert (44→43), Arco-flagellants Werte/Punkte und der "Concession"-Text bei Arco-flagellants/Crusaders. "Triumphant Procession" beibehalten, obwohl sie in der neuen .ods fehlt — das Escalation-Supplement liest sie weiterhin.',
-    cd:  '🏠 Das Wiki öffnet jetzt mit einer Einführungsseite (was Custom40k ist, Kernregeln, was man zum Spielen braucht) mit einem Button zur Fraktionsliste — und einer kleinen Home/Factions/Glossary-Navigation auf jeder Seite.',
-    sm:  '🖼️ Mehrere defekte/fehlende Icons im Wiki behoben (5 Sororitas-Order-Icons, eine toter Adeptus-Mechanicus-Verweis) sowie einen echten Icon-Matching-Bug, bei dem kurze Namen wie "Legion" fälschlich zu unverwandten längeren Namen passten.',
-    legacyfix: '📖 Ein "Contents"-Sprunglink-Überblick wurde auf jeder Armory- und Psychic-Powers-Seite jeder Fraktion hinzugefügt, für schnellere Navigation.',
-    contrib: '👷 Mitmachen? Anleitungen unter CONTRIBUTING.de.md — Übersetzungsleitfaden, leere Dateivorlagen, GitHub-Issue-Vorlagen. Kein Code nötig!',
+    title: 'Entwickler-Update — GitHub-Bugpaket (Armory, Druckansicht, Imperial Guard, Tyranids)',
+    intro: 'Hallo Kommandanten! Ein vollständiger Durchgang durch die offene GitHub-Issue-Warteschlange — 7 Bugs behoben in Armory-System, Druckansicht, Imperial Guard und Tyranids.',
+    engine: '🐛 Sororitas Canoness in Paragon Warsuit/Dogmata und IG Enginseer konnten trotz eigenem Datasheet-Text keine Character-Armory-Items kaufen — behoben, ohne das unabhängige "Character"-Keyword zu berühren (GH#25).',
+    csm: '🐛 Imperial Guard: Infantry Squad/Mechanised Infantry hatte beim 2. Spezialwaffen-Slot keine Auswahl (GH#23); Sentinel/Armoured Sentinels konnten nur EINEN Multilaser für den ganzen Trupp tauschen statt einen pro Modell (GH#24); die Legacy "Ministorum World" (3. Trait) hatte keine Wirkung (GH#22).',
+    cd:  '🐛 Druckansicht: Armory-gekaufte Waffen wurden in Simple- und Datacard-Format doppelt angezeigt (GH#19) — behoben.',
+    sm:  '🐛 Tyranids: 38 Einheiten mit "Basic and Advanced Biomorphs (see Armory)" hatten dort nichts zur Auswahl (GH#21); Hormagaunt/Neurogaunt Brood\'s "Scuttlers" kostete 0 statt 1 Punkt (GH#20).',
+    legacyfix: '📖 Vollständige Liste im Changelog (v1.18) und auf der Known-Issues-Seite.',
+    contrib: '👷 Bug gefunden? Meldet ihn auf GitHub — jedes Issue in der Warteschlange wurde diese Runde geprüft und behoben oder eingeordnet.',
   },
   es: {
-    title: 'Actualización del desarrollador — Wiki renovada + Adeptus Sororitas re-auditado',
-    intro: '¡Hola comandantes! Dos cosas llegaron juntas: un re-audit completo de Adeptus Sororitas contra un .ods canónico totalmente nuevo, y un rediseño del Wiki de Custom40k (custom40k-wiki.vercel.app).',
-    engine: '✅ Sororitas: nueva unidad HQ "Dogmata on Throne of Condemnation" (246 ptos.), y Celestian Squad reconstruido como UNA sola ficha unificada (antes 3 unidades separadas) donde cada modelo elige una mejora de keyword por +1pto.',
-    csm: '🐛 Sororitas: corregidos los puntos de Geminae Superia (44→43), las stats/puntos de Arco-flagellants, y el texto de "Concession" en Arco-flagellants/Crusaders. Se mantuvo "Triumphant Procession" aunque ya no está en el .ods nuevo, porque el suplemento Escalation todavía la lee.',
-    cd:  '🏠 El Wiki ahora abre con una página de Introducción (qué es Custom40k, reglas clave, qué necesitas para jugar) con un botón hacia la lista de facciones — y una navegación Home/Factions/Glossary en cada página.',
-    sm:  '🖼️ Arreglados varios iconos rotos/faltantes en el Wiki (5 iconos de Orders de Sororitas, una referencia muerta de Adeptus Mechanicus) y un bug real de coincidencia de iconos donde nombres cortos como "Legion" matcheaban falsamente con nombres más largos sin relación.',
-    legacyfix: '📖 Se añadió un resumen de "Contents" con enlaces de salto en cada página de Armory y Psychic Powers de cada facción, para navegar más rápido.',
-    contrib: '👷 ¿Quieres ayudar? Guías en CONTRIBUTING.es.md — guía de traducción, plantillas de archivos, plantillas de issues en GitHub. ¡No se necesita programar!',
+    title: 'Actualización del desarrollador — lote de bugs de GitHub (Armory, Print View, Imperial Guard, Tyranids)',
+    intro: '¡Hola comandantes! Una pasada completa por la cola de issues abiertos de GitHub — 7 bugs arreglados en el sistema de Armory, Print View, Imperial Guard y Tyranids.',
+    engine: '🐛 Canoness in Paragon Warsuit/Dogmata de Sororitas y el Enginseer de IG no podían acceder a ítems de Armory de nivel Character pese a que su propia ficha lo concede — arreglado sin tocar el keyword "Character" (GH#25).',
+    csm: '🐛 Imperial Guard: el 2º slot de arma especial de Infantry Squad/Mechanised Infantry no tenía nada para elegir (GH#23); Sentinel/Armoured Sentinels solo podían cambiar UN Multilaser para todo el escuadrón en vez de uno por modelo (GH#24); la Legacy "Ministorum World" (3er Trait) no tenía efecto (GH#22).',
+    cd:  '🐛 Print View: las armas compradas en Armory se mostraban duplicadas en los formatos Simple y Datacard (GH#19) — arreglado.',
+    sm:  '🐛 Tyranids: 38 unidades que referencian "Basic and Advanced Biomorphs (see Armory)" no tenían nada para elegir ahí (GH#21); el Biomorfo Especial "Scuttlers" de Hormagaunt/Neurogaunt Brood costaba 0 en vez de 1pto (GH#20).',
+    legacyfix: '📖 Lista completa en el changelog (v1.18) y en la página de Known Issues.',
+    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub — todos los issues de la cola se revisaron esta ronda y se arreglaron o catalogaron.',
   },
 };
 

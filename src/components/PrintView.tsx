@@ -9,7 +9,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
-import { isWeaponTrait, extractWeaponGains } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import type { EquipMods } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -333,8 +333,6 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   const modelsToShow = rp.modelsToShow;
   const modelCounts  = rp.modelCounts;
 
-  const armRanged: Weapon[] = [];
-  const armMelee:  Weapon[] = [];
   const armEquip:  { name: string; desc: string }[] = [];
 
   function mergeTraits(w: Weapon, traitMap: Map<string, string[]> = weaponTraitMap): Weapon {
@@ -344,29 +342,25 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
     return { ...w, abilities: [base, ...extra].filter(Boolean).join(', ') };
   }
 
+  // Armory-granted weapons (sections 'weapons' / 'daemon_weapons' grant-weapon / 'equipment'
+  // grant-weapon) are already folded into rp.weaponGroups by resolver.ts's pushGrantedWeapon —
+  // do NOT re-derive them here too, that double-rendered every armory weapon on the datacard
+  // (GH#19). Only non-weapon equipment/daemon-weapon-trait items need their own list here.
   for (const sel of item.armory) {
     if (sel.section === 'equipment') {
       const arm = findArmoryItem(data, sel.itemName);
-      armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
+      if (!isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'daemon_weapons') {
       const arm = findArmoryItem(data, sel.itemName);
-      if (!isWeaponTrait(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
+      if (!isWeaponTrait(arm?.desc) && !isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
+    if (sel.section === 'weapons') continue;
     const arm = findArmoryItem(data, sel.itemName);
-    if (!arm) continue;
-    if (arm.profiles && arm.profiles.length > 0) {
-      for (const p of arm.profiles) {
-        const w: Weapon = { name: `${arm.name} — ${p.name}`, range: p.range, type: p.type, s: p.s, ap: p.ap, d: p.d, abilities: p.abilities };
-        (p.range === 'Melee' || p.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
-      }
-    } else if (arm.range) {
-      const w: Weapon = { name: arm.name, range: arm.range ?? '', type: arm.type ?? '', s: arm.s ?? '', ap: arm.ap ?? '', d: arm.d ?? '', abilities: arm.abilities };
-      (arm.range === 'Melee' || arm.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
-    } else {
-      armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
+    if (arm && !arm.range && !(arm.profiles && arm.profiles.length > 0)) {
+      armEquip.push({ name: sel.itemName, desc: arm.desc ?? '' });
     }
   }
 
@@ -626,12 +620,12 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
                   )}
                   <WeaponSection
                     title={tFn(lang, 'ranged')}
-                    weapons={gi === 0 ? [...g.ranged, ...armRanged] : g.ranged}
+                    weapons={g.ranged}
                     color={color} iconUrl="/weapon-type-icons/assault.svg"
                   />
                   <WeaponSection
                     title={tFn(lang, 'melee')}
-                    weapons={gi === 0 ? [...g.melee, ...armMelee] : g.melee}
+                    weapons={g.melee}
                     color={color} iconUrl="/weapon-type-icons/melee.svg"
                   />
                 </Fragment>
@@ -774,32 +768,15 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
   const modelsToShow = rp.modelsToShow;
   const modelCounts  = rp.modelCounts;
 
-  // Same weapon prep as UnitPrintCard: group counts ("x2 Plasma pistol") and Armory-bought
-  // weapons must show up here too, not just on the illustrated card.
-  const armRanged: Weapon[] = [];
-  const armMelee:  Weapon[] = [];
+  // Armory-bought weapons are already folded into rp.weaponGroups by resolver.ts's
+  // pushGrantedWeapon — do not re-derive them here too (GH#19 duplicate-weapons bug).
   function mergeTraits(w: Weapon, traitMap: Map<string, string[]> = weaponTraitMap): Weapon {
     const extra = traitMap.get(w.name) ?? [];
     if (extra.length === 0) return w;
     const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
     return { ...w, abilities: [base, ...extra].filter(Boolean).join(', ') };
   }
-  for (const sel of item.armory) {
-    if (sel.section === 'equipment') continue;
-    const arm = findArmoryItem(data, sel.itemName);
-    if (!arm) continue;
-    if (sel.section === 'daemon_weapons' && isWeaponTrait(arm.desc)) continue;
-    if (arm.profiles && arm.profiles.length > 0) {
-      for (const p of arm.profiles) {
-        const w: Weapon = { name: `${arm.name} — ${p.name}`, range: p.range, type: p.type, s: p.s, ap: p.ap, d: p.d, abilities: p.abilities };
-        (p.range === 'Melee' || p.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
-      }
-    } else if (arm.range) {
-      const w: Weapon = { name: arm.name, range: arm.range ?? '', type: arm.type ?? '', s: arm.s ?? '', ap: arm.ap ?? '', d: arm.d ?? '', abilities: arm.abilities };
-      (arm.range === 'Melee' || arm.type === 'Melee') ? armMelee.push(mergeTraits(w)) : armRanged.push(mergeTraits(w));
-    }
-  }
-  const weaponGroupsPrint = rp.weaponGroups.map((g, gi) => {
+  const weaponGroupsPrint = rp.weaponGroups.map(g => {
     const tm     = g.traitMap ?? weaponTraitMap;
     const prefixFor = (w: Weapon) => {
       const c = g.countOverrides?.get(w.name) ?? g.count;
@@ -811,10 +788,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
     const melee = g.weapons
       .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
       .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
-    return {
-      ranged: gi === 0 ? [...ranged, ...armRanged] : ranged,
-      melee: gi === 0 ? [...melee, ...armMelee] : melee,
-    };
+    return { ranged, melee };
   });
   const ranged = weaponGroupsPrint.flatMap(g => g.ranged).concat(
     attachedDrones.flatMap(({ drone, count }) => drone.weapons

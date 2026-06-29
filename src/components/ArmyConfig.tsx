@@ -61,6 +61,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
+  const traitSlotBonus = data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0;
+  const traitSlots = [0, 1, ...Array.from({ length: traitSlotBonus }, (_, i) => i + 2)];
 
   const ARCHETYPE_MARK: Record<string, string> = {
     'ˢ': 'Slaanesh', 'ᴷ': 'Khorne', 'ᵀ': 'Tzeentch', 'ᴺ': 'Nurgle',
@@ -258,26 +260,23 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                 ) : (
                   <>
                     <div className="text-[10px] text-zinc-500 leading-relaxed">
-                      Choose up to 2. All main-faction units with veteran abilities receive the selected traits.
+                      Choose up to {traitSlots.length}. All main-faction units with veteran abilities receive the selected traits.
                     </div>
 
-                    {[0, 1].map(slot => (
+                    {traitSlots.map(slot => (
                       <select
                         key={slot}
                         value={traitPool[slot] ?? ''}
                         onChange={e => {
                           const val = e.target.value;
-                          const newPool = [
-                            slot === 0 ? val : (traitPool[0] ?? ''),
-                            slot === 1 ? val : (traitPool[1] ?? ''),
-                          ].filter(Boolean) as string[];
+                          const newPool = traitSlots.map(s => (s === slot ? val : (traitPool[s] ?? ''))).filter(Boolean) as string[];
                           setTraitPool(newPool);
                         }}
                         className={selectClass}
                       >
                         <option value="">— Trait {slot + 1} (none) —</option>
                         {data.traits
-                          .filter(t => t.name !== (slot === 0 ? traitPool[1] : traitPool[0]))
+                          .filter(t => !traitSlots.some(s => s !== slot && traitPool[s] === t.name))
                           .map(t => (
                             <option key={t.name} value={t.name}>{t.name}</option>
                           ))

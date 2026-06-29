@@ -25,6 +25,23 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.18',
+    date: '2026-06-29',
+    title: 'GENERAL — GitHub bug batch (#19-27): armory, print view, IG, Tyranids, CSM',
+    changes: [
+      'Chaos Space Marines: Veteran Abilities for Character HQ choices (Chaos Lieutenant, Chaos Sorcerer, Dark Apostle, Warpsmith, Infernal Acolyte, Adept of Possession) were charged a flat cost instead of scaling per Wound — Daemon Prince happened to dodge the bug since is_monster routed it through a different, already-correct branch — GH#26.',
+      'Chaos Space Marines: Dark Commune\'s own "Command squad" ability ("For every HQ choice you may buy one Dark Commune unit which doesn\'t take an Elite slot") had no effect (advisor flag was false) — GH#27.',
+      'Adeptus Sororitas: Canoness in Paragon Warsuit and Dogmata on Throne of Condemnation now correctly get Character-tier Armory pricing/items via a new "armory_as_character" flag, matching their own datasheet text ("Has access to gear from the Armory like a Character model") without granting the broader Character keyword.',
+      'Imperial Guard: fixed Enginseer missing Character Model Armory access (is_character was wrongly false despite its own unit_type saying "Character Model") — GH#25.',
+      'Imperial Guard: Infantry Squad and Mechanised Infantry\'s second Special weapon slot ("if no Heavy weapons team is formed") had no selectable choices at all; populated it and added a validator to enforce the "no Heavy weapons team" condition — GH#23.',
+      'Imperial Guard: Sentinel and Armoured Sentinels could only swap one Multilaser for the whole squadron instead of per model — GH#24.',
+      'Imperial Guard: the "Ministorum World" Legacy ("the army must select a third Trait") had no effect — added a Legacy-level trait-slot-bonus mechanism and wired the Army Traits picker to show the extra slot — GH#22.',
+      'Print View: armory-bought weapons were rendered twice (once via the unit\'s normal weapon groups, once via PrintView\'s own duplicate pass) on both the Simple and Datacard formats — GH#19.',
+      'Tyranids: populated the "Basic and Advanced Biomorphs" Armory list (16 items) on all 38 units that referenced it but had zero selectable choices — GH#21.',
+      'Tyranids: Hormagaunt Brood and Neurogaunt Brood\'s "Scuttlers" Special Biomorph was priced at 0 instead of 1 point — GH#20.',
+    ],
+  },
+  {
     version: '1.17',
     date: '2026-06-28',
     title: 'Wiki — new homepage, fixed icons, page summaries',

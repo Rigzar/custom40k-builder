@@ -79,7 +79,8 @@
     {
       "name": "Ministorum World",
       "desc": "The army must select a third Trait.",
-      "armory_key": null
+      "armory_key": null,
+      "trait_slot_bonus": 1
     }
   ],
   "traits": [

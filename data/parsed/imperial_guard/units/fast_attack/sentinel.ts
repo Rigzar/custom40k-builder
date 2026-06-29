@@ -99,9 +99,9 @@ export const sentinel: Unit = {
   ],
   "option_groups": [
     {
-      "header": "May swap the Multilaser",
+      "header": "Every Sentinel may swap its Multilaser",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -123,12 +123,13 @@ export const sentinel: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Multilaser"]
     },
     {
-      "header": "May be equipped with: +15 points Sentinel chainsaw.",
+      "header": "Each Sentinel may be equipped with: +15 points Sentinel chainsaw.",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [],
       "inline_pts": 15,

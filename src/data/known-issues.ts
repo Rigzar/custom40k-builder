@@ -5,6 +5,42 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-csm-veteran-char-flat-cost-dark-commune-slot-01',
+    status: 'fixed',
+    title: 'Chaos Space Marines — Veteran Abilities flat-costed for Character HQs, Dark Commune advisor slot — GitHub #26-27',
+    description: 'GH#26: ArmoryModal.tsx\'s veteran-ability pricing had three branches (vehicle/monster, Character, plain squad) — only the Character branch was missing `scaling: \'perWound\'`, so Character HQ buyers (Chaos Lieutenant, Chaos Sorcerer, Dark Apostle, Warpsmith, Infernal Acolyte, Adept of Possession) paid a flat p_char/p_unit cost with no Wound multiplication. Daemon Prince was unaffected only because `is_monster: true` routes it through the vehicle/monster branch first, which was already correct — matching the issue\'s "except Daemon Prince" framing exactly. Fixed both the stored-points branch (`add()`) and the displayed price label (`vetPriceLabel`). GH#27: Dark Commune\'s own ability text ("For every HQ choice you may buy one Dark Commune unit which doesn\'t take an Elite slot") is the same free-slot-per-HQ mechanic already implemented generically via the `advisor` flag (used by Crusaders/Preacher/Stormtrooper Command Squad/Enginseer) — Dark Commune simply had `advisor: false`, a plain data-flag bug.',
+  },
+  {
+    id: 'ki-tyranids-scuttlers-unaudited-cost-01',
+    status: 'known',
+    title: 'Tyranids — 4 more units have "Scuttlers" priced at 0 like the fixed Hormagaunt/Neurogaunt bug, but not yet confirmed against the .ods',
+    description: 'While fixing GH#20 (Hormagaunt Brood\'s Scuttlers Special Biomorph priced at 0 instead of the canonical 1pt), found the same "Scuttlers: 0 points" pattern on Gargoyle Brood, Termagant Brood, Genestealer Brood, and Barbgaunt Brood — but other units in the same sweep have Scuttlers at 3 or 5pts (it varies per datasheet), so these 4 need their own .ods lookup rather than a blanket fix.',
+  },
+  {
+    id: 'ki-armory-pchar-canoness-paragon-engineseer-01',
+    status: 'fixed',
+    title: 'GENERAL — armory Character-tier pricing gaps (Sororitas Canoness in Paragon Warsuit/Dogmata, IG Enginseer) — GitHub #25',
+    description: 'Canoness in Paragon Warsuit and Dogmata on Throne of Condemnation are Monstrous Infantry (not is_character) but their own datasheet text grants "access to gear from the Armory like a Character model" — ArmoryModal.tsx\'s pricing/availability gate only ever checked `unit.is_character`, so Character-Model-only items showed as unbuyable ("—"). Added a new `armory_as_character` flag (deliberately separate from `is_character` so it does not also grant the unrelated "Character" keyword used by joining/sniper-targeting). Separately, IG\'s Enginseer had `is_character: false` despite its own `unit_type` literally saying "Character Model, Infantry" — confirmed via a full-codebase sweep that all other 100 "Character Model" units correctly have `is_character: true`; fixed the lone outlier (GitHub #25).',
+  },
+  {
+    id: 'ki-ig-special-weapon-sentinel-ministorum-01',
+    status: 'fixed',
+    title: 'Imperial Guard — Infantry Squad/Mechanised Infantry 2nd special weapon, Sentinel squadron weapon swap, Ministorum World 3rd Trait — GitHub #22-24',
+    description: 'GH#23: Infantry Squad/Mechanised Infantry\'s "if no Heavy weapons team is formed, another Guardsman may take a Special weapon" option group had an empty choices list (no weapon was ever selectable there) — populated it and added a validator enforcing the "no Heavy weapons team" condition generically by header-text match. GH#24: Sentinel/Armoured Sentinels (1-3 model squadrons) used a shared `constraint.type: \'one\'` for "may swap the Multilaser", capping the whole squadron to a single swap instead of one per Sentinel — changed to `\'every\'` (same per-model-swap primitive already used by Ork Grot Tanks) with `replaces: ["Multilaser"]`. GH#22: the "Ministorum World" Legacy ("the army must select a third Trait") had no mechanical effect — `setTraitPool` hardcoded a `slice(0, 2)` cap everywhere; added `Legacy.trait_slot_bonus` and wired the Army Traits picker + store cap to read it.',
+  },
+  {
+    id: 'ki-printview-armory-weapon-duplicate-01',
+    status: 'fixed',
+    title: 'Print View rendered every armory-bought weapon twice (Simple and Datacard formats) — GitHub #19',
+    description: 'resolver.ts\'s `pushGrantedWeapon` already folds Armory "weapons"-section purchases (and weapon-granting "equipment"/"daemon_weapons" items) into the unit\'s normal `weapons`/`weaponGroups`, used by both the live UnitCard and PrintView. PrintView.tsx additionally re-derived its own `armRanged`/`armMelee` arrays straight from `item.armory` and concatenated them onto the first weapon group — duplicating every armory weapon that has a real weapon profile, on both render paths (confirmed: every melee/ranged item reported "duplicated, doesn\'t affect points" matches exactly this double-render). Removed the redundant re-derivation; PrintView now only builds its own list for non-weapon equipment/daemon-weapon-trait text.',
+  },
+  {
+    id: 'ki-tyranids-biomorph-armory-empty-01',
+    status: 'fixed',
+    title: 'Tyranids — "Basic and Advanced Biomorphs (see Armory)" option group was empty on all 38 units that reference it — GitHub #21',
+    description: 'Every Tyranids unit with the "May additionally select any number of Basic and Advanced Biomorphs (see Armory)" option group had `choices: []` — the group existed but had nothing to select, so no unit could ever take a Basic/Advanced Biomorph. Extracted the canonical 16-item catalogue (7 Basic, flat per-unit cost; 9 Advanced, RAW priced per model of the unit) directly from the Tyranids .ods "ARMORY" sheet and populated all 38 units\' choices via `constraint.type: \'fixed_max\', max: 16`. Caveat: the engine has no per-CHOICE per-model pricing primitive inside a `fixed_max`/multi-select group (only whole-group `per_model` on inline options), so the 9 Advanced Biomorphs are currently priced flat-per-pick rather than scaling by unit size — tracked as a follow-up, not silently wrong, just an approximation pending that engine primitive.',
+  },
+  {
     id: 'ki-sm-reiver-marines-invisible-elites-01',
     status: 'fixed',
     title: 'Space Marines Reiver Marines were silently missing from the Elites slot',

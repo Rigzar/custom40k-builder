@@ -388,12 +388,28 @@ export const useArmyStore = create<ArmyStore>()(
             army: applyArmyTraits(s.army, [], s.data, s.archetype, l, s.alliedFaction, s.alliedData, s.alliedTraitPool),
           };
         }
+        // Re-clip the trait pool if the new legacy grants fewer bonus slots than the old one
+        // (e.g. leaving "Ministorum World" drops its 3rd-Trait slot).
+        const maxTraits = 2 + (s.data?.legacies.find(lg => lg.name === l)?.trait_slot_bonus ?? 0);
+        if (s.traitPool.length > maxTraits) {
+          const newPool = s.traitPool.slice(0, maxTraits);
+          return {
+            legacy: l,
+            traitPool: newPool,
+            army: s.data
+              ? applyArmyTraits(s.army, newPool, s.data, s.archetype, l, s.alliedFaction, s.alliedData, s.alliedTraitPool)
+              : s.army,
+          };
+        }
         return { legacy: l };
       }),
       setLegacy2: (l: string) => set({ legacy2: l }),
 
       setTraitPool: (pool: string[]) => set((s: S) => {
-        const newPool = pool.slice(0, 2); // enforce max 2
+        // Default budget is 2; a Legacy can grant extra slots (e.g. IG's "Ministorum World":
+        // "The army must select a third Trait" → trait_slot_bonus: 1).
+        const maxTraits = 2 + (s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0);
+        const newPool = pool.slice(0, maxTraits);
         const hadBC = s.traitPool.includes('Black Crusade');
         const hasBC = newPool.includes('Black Crusade');
 

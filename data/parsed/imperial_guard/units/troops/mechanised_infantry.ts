@@ -294,7 +294,28 @@ export const mechanisedInfantry: Unit = {
       "constraint": {
         "type": "one"
       },
-      "choices": [],
+      "choices": [
+        {
+          "name": "Flamer",
+          "points": 5
+        },
+        {
+          "name": "Grenade launcher",
+          "points": 5
+        },
+        {
+          "name": "Melta",
+          "points": 11
+        },
+        {
+          "name": "Plasma gun",
+          "points": 15
+        },
+        {
+          "name": "Sniper rifle",
+          "points": 16
+        }
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

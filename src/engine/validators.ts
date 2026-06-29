@@ -739,6 +739,32 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
+  // ── "If no Heavy weapons team is formed, another Guardsman may take a Special weapon" ──────
+  // (Imperial Guard Infantry Squad/Mechanised Infantry, GH#23) — the 2nd special-weapon slot is
+  // conditional on the Heavy weapons team group being empty; the data has no cross-group
+  // condition primitive for this, so enforce it generically by header text instead.
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    const conditionalGi = u.option_groups.findIndex(g => /^If no Heavy weapons team is formed/i.test(g.header));
+    if (conditionalGi < 0) continue;
+    const conditionalHasSelection = u.option_groups[conditionalGi].choices.some(
+      (_, ci) => (item.optionQty?.[conditionalGi]?.[ci] ?? 0) > 0,
+    );
+    if (!conditionalHasSelection) continue;
+    const heavyGi = u.option_groups.findIndex((g, gi) => gi !== conditionalGi && /Heavy weapons team/i.test(g.header));
+    if (heavyGi < 0) continue;
+    const heavyHasSelection = u.option_groups[heavyGi].choices.some(
+      (_, ci) => (item.optionQty?.[heavyGi]?.[ci] ?? 0) > 0,
+    );
+    if (heavyHasSelection) {
+      items.push({
+        type: 'error',
+        text: `${item.customName || u.name}: the second Special weapon requires no Heavy weapons team to be formed.`,
+      });
+    }
+  }
+
   // ── Single-slot armour (one armour per model) ────────────────────────────
   // A model wears at most one armour (Terminator / Cataphractii / …). Selecting two does not
   // stack — it is an invalid build. See _engine.md §10 (single-slot primitive).

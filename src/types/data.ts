@@ -220,6 +220,11 @@ export interface Unit {
   uses_pacts?: boolean;
   is_squadron?: boolean;
   has_armory_access: boolean;
+  /** Unit's own text grants armory access "like a Character model" despite is_character being
+   *  false (e.g. a Monstrous Infantry HQ) — gives it Character-tier pricing/items in the Armory
+   *  modal without flipping the "Character" keyword or character-only mechanics (joining, sniper
+   *  targeting) elsewhere. */
+  armory_as_character?: boolean;
   champion_has_armory: boolean;
   has_veteran_abilities: boolean;
   veteran_required: boolean;
@@ -365,6 +370,9 @@ export interface Legacy {
    * Injected the same way as archetype unit-grants — shares AOP/slots, no [Allied] badge.
    */
   grants_faction?: string | null;
+  /** Extra Army Trait picker slots this Legacy grants while active (e.g. IG's "Ministorum World":
+   *  "The army must select a third Trait."). Default budget is 2; this adds N more slots. */
+  trait_slot_bonus?: number;
 }
 
 export interface Trait {
