@@ -1,0 +1,55 @@
+{
+  "equipment": [
+    {
+      "name": "Aura of acquiescence",
+      "term_compat": false,
+      "desc": "Enemy units in close combat lose 1 Initiative to a minimum of 1.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Girdle of the Realm Racer",
+      "term_compat": false,
+      "desc": "The model gains +2\" Movement and the \"Anti-grav\" ability.",
+      "p_unit": 10,
+      "p_char": 15
+    },
+    {
+      "name": "Seeker of Slaanesh",
+      "term_compat": false,
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack, additional Haste(2\") and the \"Bike\" ability.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Soporific musk",
+      "term_compat": false,
+      "desc": "The model gains the \"Deflect\" and \"Parry\" ability.",
+      "p_unit": 6,
+      "p_char": 15
+    },
+    {
+      "name": "Soulstealer",
+      "term_compat": false,
+      "desc": "Once per round, after killing at least one enemy model, the bearer regains 1 wound up to its maximum. Unique.",
+      "p_unit": 10,
+      "p_char": 20
+    },
+    {
+      "name": "Thrill Seeker",
+      "term_compat": false,
+      "desc": "The Model and its attached unit gain +1 to all Wound rolls and suffer -1 Toughness.",
+      "p_unit": 0,
+      "p_char": 0
+    },
+    {
+      "name": "Transfixing gaze",
+      "term_compat": false,
+      "desc": "Enemy models in close combat lose 1 Attack to a minimum of 1.",
+      "p_unit": 15,
+      "p_char": 30
+    }
+  ],
+  "weapons": [],
+  "daemon_weapons": []
+}

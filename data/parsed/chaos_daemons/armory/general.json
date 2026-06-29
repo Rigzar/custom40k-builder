@@ -3,20 +3,6 @@
   "weapons": [],
   "equipment": [
     {
-      "name": "Aura of acquiescenceˢ",
-      "term_compat": false,
-      "desc": "Enemy units in close combat lose 1 Initiative to a minimum of 1.",
-      "p_unit": 10,
-      "p_char": 10
-    },
-    {
-      "name": "Blood throneᴷ",
-      "term_compat": false,
-      "desc": "The model gains +6\" Movement, +2 Toughness, +3 Wounds, +2 Attacks and the \"Bike\" ability. It loses the \"Character\" ability.",
-      "p_unit": 80,
-      "p_char": null
-    },
-    {
       "name": "Boon of Mutation",
       "term_compat": false,
       "desc": "During your activation, pick an enemy model within 6\" and roll to hit. If the hit is successful, the target must make a Toughness test or become a helpless spawn and removed from play. Character models and Monstrous creatures can't be targeted.",
@@ -38,13 +24,6 @@
       "p_char": 10
     },
     {
-      "name": "Cloud of fliesᴺ",
-      "term_compat": false,
-      "desc": "The model and its attached unit gain the \"Deflect\" ability.",
-      "p_unit": 4,
-      "p_char": 15
-    },
-    {
       "name": "Exalted butcher",
       "term_compat": false,
       "desc": "The model gains +1 Weapon skill.",
@@ -59,53 +38,11 @@
       "p_char": 10
     },
     {
-      "name": "Full to Burstingᴺ",
-      "term_compat": false,
-      "desc": "When this model is killed, it explodes like a vehicle. Cumulative with \"Popping Plague\".",
-      "p_unit": 5,
-      "p_char": 5
-    },
-    {
-      "name": "Girdle of the Realm Racerˢ",
-      "term_compat": false,
-      "desc": "The model gains +2\" Movement and the \"Anti-grav\" ability.",
-      "p_unit": 10,
-      "p_char": 15
-    },
-    {
-      "name": "Hellfire armorᴷ",
-      "term_compat": false,
-      "desc": "The model gains a 2+ save.",
-      "p_unit": 35,
-      "p_char": 65
-    },
-    {
       "name": "Instrument of Chaos",
       "term_compat": false,
       "desc": "The unit gets a +1 bonus to combat resolution.",
       "p_unit": 15,
       "p_char": 15
-    },
-    {
-      "name": "Juggernaut of Khorneᴷ",
-      "term_compat": false,
-      "desc": "The model gains +6\" Movement, +1 Toughness, +2 Wounds, +1 Attack and the \"Bike\" ability.",
-      "p_unit": 55,
-      "p_char": null
-    },
-    {
-      "name": "Khorne necklaceᴷ",
-      "term_compat": false,
-      "desc": "The model is immune against psychic attacks and effects.",
-      "p_unit": 10,
-      "p_char": 20
-    },
-    {
-      "name": "Let None Surviveᴷ",
-      "term_compat": false,
-      "desc": "The model automatically succeeds at pursuit rolls to catch fleeing units.",
-      "p_unit": 5,
-      "p_char": 5
     },
     {
       "name": "Master-crafted weapon",
@@ -115,47 +52,9 @@
       "p_char": 2
     },
     {
-      "name": "Noxious touchᴺ",
-      "term_compat": false,
-      "desc": "All melee attacks of the model gain Poison(2+).",
-      "p_unit": 15,
-      "p_char": 15
-    },
-    {
-      "name": "Nurgle's decayᴺ",
-      "term_compat": false,
-      "desc": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with S:4 DS:0 D:1 and the \"Seeking\" ability. Unique.",
-      "p_unit": 15,
-      "p_char": 15
-    },
-    {
-      "name": "Obsidian bladeᴷ",
-      "term_compat": false,
-      "desc": "The model gains Deadly(5+) on one of its weapons. If the weapon already has the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+).",
-      "p_unit": 10,
-      "p_char": 20
-    },
-    {
-      "name": "Palanquin of Nurgleᴺ",
-      "term_compat": false,
-      "desc": "The model gains +1 Wound and +1 Attack. Only for Heralds.",
-      "p_unit": 8,
-      "p_char": null,
-      "requires_keywords": [
-        "Herald"
-      ]
-    },
-    {
       "name": "Personal icon",
       "term_compat": false,
       "desc": "A friendly Daemon unit arriving within 3\" of the bearer via deepstrike does not scatter. If the bearer has a mark of chaos, only Daemons with the same mark can use the icon.",
-      "p_unit": 5,
-      "p_char": 5
-    },
-    {
-      "name": "Plague outburstᴺ",
-      "term_compat": false,
-      "desc": "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 1D3 automatic wound with S:4 DS:0 D:1 and the \"Seeking\" ability.",
       "p_unit": 5,
       "p_char": 5
     },
@@ -165,76 +64,6 @@
       "desc": "The model knows one additional psychic power from one of their chosen psychic disciplines. If it already knows all powers from each discipline, it may instead learn one power from a new discipline it has access to. Can be taken multiple times.",
       "p_unit": 5,
       "p_char": 5
-    },
-    {
-      "name": "Revoltingly Resilientᴺ",
-      "term_compat": false,
-      "desc": "The model gains Regeneration(1). Unique.",
-      "p_unit": 15,
-      "p_char": 40
-    },
-    {
-      "name": "Rune of brassᴷ",
-      "term_compat": false,
-      "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Additionally, they have to roll two dice and apply both peril results.",
-      "p_unit": 15,
-      "p_char": 15
-    },
-    {
-      "name": "Seeker of Slaaneshˢ",
-      "term_compat": false,
-      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, +1 Attack, additional Haste(2\") and the \"Bike\" ability.",
-      "p_unit": 15,
-      "p_char": null
-    },
-    {
-      "name": "Soporific muskˢ",
-      "term_compat": false,
-      "desc": "The model gains the \"Deflect\" and \"Parry\" ability.",
-      "p_unit": 6,
-      "p_char": 15
-    },
-    {
-      "name": "Soulstealerˢ",
-      "term_compat": false,
-      "desc": "Once per round, after killing at least one enemy model, the bearer regains 1 wound up to its maximum. Unique.",
-      "p_unit": 10,
-      "p_char": 20
-    },
-    {
-      "name": "Sowᴺ",
-      "term_compat": false,
-      "desc": "After the model loses its last Wound, create a Nurglings unit with 1D3 models as close as possible outside of direct base contact with any enemy unit. The Nurglings get an unused order of your choice.",
-      "p_unit": 24,
-      "p_char": 24
-    },
-    {
-      "name": "Spiked Armorᴷ",
-      "term_compat": false,
-      "desc": "The model and its attached unit gain the \"Retribution(1)\" ability.",
-      "p_unit": 10,
-      "p_char": 5
-    },
-    {
-      "name": "Thrill Seekerˢ",
-      "term_compat": false,
-      "desc": "The Model and its attached unit gain +1 to all Wound rolls and suffer -1 Toughness.",
-      "p_unit": 0,
-      "p_char": 0
-    },
-    {
-      "name": "Transfixing gazeˢ",
-      "term_compat": false,
-      "desc": "Enemy models in close combat lose 1 Attack to a minimum of 1.",
-      "p_unit": 15,
-      "p_char": 30
-    },
-    {
-      "name": "Unbound furyᴷ",
-      "term_compat": false,
-      "desc": "The model and its attached unit gain the \"Furious charge\" ability.",
-      "p_unit": 15,
-      "p_char": 10
     },
     {
       "name": "Unholy might",

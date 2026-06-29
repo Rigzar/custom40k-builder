@@ -88,15 +88,18 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'chaos_daemons': {
-      const [u, g, tz, arch, rules, discs] = await Promise.all([
+      const [u, g, kh, nu, sl, tz, arch, rules, discs] = await Promise.all([
         import('../../data/parsed/chaos_daemons/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/chaos_daemons/armory/general.json'),
+        import('../../data/parsed/chaos_daemons/armory/mark_khorne.json'),
+        import('../../data/parsed/chaos_daemons/armory/mark_nurgle.json'),
+        import('../../data/parsed/chaos_daemons/armory/mark_slaanesh.json'),
         import('../../data/parsed/chaos_daemons/armory/mark_tzeentch.json'),
         import('../../data/parsed/chaos_daemons/archetypes.json'),
         import('../../data/parsed/chaos_daemons/animosity.json'),
         import('../../data/parsed/chaos_daemons/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, rules, { Tzeentch: tz }, {}, { disciplines: discs });
+      return asm(u, g, arch, rules, { Khorne: kh, Nurgle: nu, Slaanesh: sl, Tzeentch: tz }, {}, { disciplines: discs });
     }
 
     case 'space_marines': {

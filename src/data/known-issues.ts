@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-cd-khorne-nurgle-slaanesh-armory-missing-01',
+    status: 'fixed',
+    title: 'Chaos Daemons — Khorne/Nurgle/Slaanesh armory missing AND their items were wrongly available to every unit via General',
+    description: 'Reported by the user via the wiki (and confirmed live in the app), in two parts. (1) A Daemon unit with a Mark of Khorne, Nurgle, or Slaanesh had zero items in its own Mark armory tab, while Tzeentch-marked units worked correctly — `loaders.ts`\'s chaos_daemons case only ever imported `armory/mark_tzeentch.json` and wired `{ Tzeentch: tz }` into armory_marks; `mark_khorne.json`/`mark_nurgle.json`/`mark_slaanesh.json` were never created. (2) Worse: `armory/general.json`\'s equipment array turned out to be an unfiltered dump of the canonical .ods\'s full shared gift table — it had all 24 Khorne/Nurgle/Slaanesh-exclusive items sitting in the GENERAL tab (with the ods\'s superscript glyph still literally embedded in the displayed name, e.g. "Aura of acquiescenceˢ"), meaning every Daemon unit, marked or not, could already buy any god\'s gifts through General. The .ods has all four Marks\' gifts in one shared table (glyph-tagged ᴷ/ᴺ/ˢ/ᵀ per item, footnote legend confirming "Only for models with Mark of X"); only the ᵀ rows had ever been correctly extracted into mark_tzeentch.json. Extracted the ᴷ/ᴺ/ˢ rows into 3 new mark JSON files (clean names, no glyphs), wired them into the loader, and stripped all 24 glyph-tagged items out of general.json, leaving only the true army-wide gifts + 4 vehicle items. Verified live: Bloodthirster (Khorne-locked)\'s General tab no longer lists any Khorne/Nurgle/Slaanesh item, and its new "Khorne Armoury" tab has all 9 Khorne-only items at the correct costs.',
+  },
+  {
     id: 'ki-ig-atlas-recovery-vehicle-character-mismatch-01',
     status: 'fixed',
     title: 'Imperial Guard — Atlas Recovery Vehicle has an ambiguous Character/Vehicle data mismatch',

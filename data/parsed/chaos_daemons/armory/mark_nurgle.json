@@ -1,0 +1,65 @@
+{
+  "equipment": [
+    {
+      "name": "Cloud of flies",
+      "term_compat": false,
+      "desc": "The model and its attached unit gain the \"Deflect\" ability.",
+      "p_unit": 4,
+      "p_char": 15
+    },
+    {
+      "name": "Full to Bursting",
+      "term_compat": false,
+      "desc": "When this model is killed, it explodes like a vehicle. Cumulative with \"Popping Plague\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Noxious touch",
+      "term_compat": false,
+      "desc": "All melee attacks of the model gain Poison(2+).",
+      "p_unit": 15,
+      "p_char": 15
+    },
+    {
+      "name": "Nurgle's decay",
+      "term_compat": false,
+      "desc": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with S:4 DS:0 D:1 and the \"Seeking\" ability. Unique.",
+      "p_unit": 15,
+      "p_char": 15
+    },
+    {
+      "name": "Palanquin of Nurgle",
+      "term_compat": false,
+      "desc": "The model gains +1 Wound and +1 Attack. Only for Heralds.",
+      "p_unit": 8,
+      "p_char": null,
+      "requires_keywords": [
+        "Herald"
+      ]
+    },
+    {
+      "name": "Plague outburst",
+      "term_compat": false,
+      "desc": "Each time the model casts a psychic power with a 7+, the nearest enemy unit within 21\" suffers 1D3 automatic wound with S:4 DS:0 D:1 and the \"Seeking\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Revoltingly Resilient",
+      "term_compat": false,
+      "desc": "The model gains Regeneration(1). Unique.",
+      "p_unit": 15,
+      "p_char": 40
+    },
+    {
+      "name": "Sow",
+      "term_compat": false,
+      "desc": "After the model loses its last Wound, create a Nurglings unit with 1D3 models as close as possible outside of direct base contact with any enemy unit. The Nurglings get an unused order of your choice.",
+      "p_unit": 24,
+      "p_char": 24
+    }
+  ],
+  "weapons": [],
+  "daemon_weapons": []
+}
