@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
+import { useT } from '../i18n';
 
 interface Props {
   onClose: () => void;
 }
 
 export function CampaignModal({ onClose }: Props) {
+  const t = useT();
   const [campaigns, setCampaigns] = useState<api.CampaignSummary[]>([]);
   const [loading, setLoading]     = useState(true);
   const [error, setError]         = useState('');
@@ -89,7 +91,7 @@ export function CampaignModal({ onClose }: Props) {
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-xl my-4">
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm flex items-center gap-2">
-            Planetary Assault — Campaigns
+            {t('campaignModalTitle')}
             <span className="text-[10px] px-1.5 py-0.5 bg-red-900/60 border border-red-700 text-red-300 tracking-wide normal-case">ALPHA</span>
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl leading-none">✕</button>
@@ -97,8 +99,7 @@ export function CampaignModal({ onClose }: Props) {
 
         <div className="p-4 space-y-4">
           <p className="text-zinc-500 text-[11px] italic">
-            Early preview — only campaign creation and joining work so far. Sectors, buildings,
-            Supply and battle reports are not implemented yet.
+            {t('campaignEarlyPreview')}
           </p>
 
           {error && <p className="text-red-400 text-xs">{error}</p>}
@@ -108,13 +109,13 @@ export function CampaignModal({ onClose }: Props) {
               onClick={() => { setShowCreate(v => !v); setShowJoin(false); }}
               className="flex-1 text-[11px] px-3 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 uppercase tracking-wide"
             >
-              {showCreate ? 'Cancel' : 'Create campaign (become GM)'}
+              {showCreate ? t('cancel') : t('campaignCreateToggle')}
             </button>
             <button
               onClick={() => { setShowJoin(v => !v); setShowCreate(false); }}
               className="flex-1 text-[11px] px-3 py-2 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 uppercase tracking-wide"
             >
-              {showJoin ? 'Cancel' : 'Join with invite code'}
+              {showJoin ? t('cancel') : t('campaignJoinToggle')}
             </button>
           </div>
 
@@ -123,13 +124,13 @@ export function CampaignModal({ onClose }: Props) {
               <input
                 value={newName}
                 onChange={e => setNewName(e.target.value)}
-                placeholder="Campaign name, e.g. Siege of Vesparis"
+                placeholder={t('campaignNamePlaceholder')}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
               />
               <input
                 value={newFactions}
                 onChange={e => setNewFactions(e.target.value)}
-                placeholder="Factions, comma-separated, e.g. Chaos, Imperium"
+                placeholder={t('campaignFactionsPlaceholder')}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
               />
               <button
@@ -137,7 +138,7 @@ export function CampaignModal({ onClose }: Props) {
                 onClick={handleCreate}
                 className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
               >
-                Create
+                {t('createLabel')}
               </button>
             </div>
           )}
@@ -147,13 +148,13 @@ export function CampaignModal({ onClose }: Props) {
               <input
                 value={joinCode}
                 onChange={e => setJoinCode(e.target.value.toUpperCase())}
-                placeholder="Invite code, e.g. K7QX4M"
+                placeholder={t('campaignInviteCodePlaceholder')}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none font-mono tracking-widest"
               />
               <input
                 value={joinFaction}
                 onChange={e => setJoinFaction(e.target.value)}
-                placeholder="Faction to join, e.g. Chaos"
+                placeholder={t('campaignJoinFactionPlaceholder')}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
               />
               <button
@@ -161,16 +162,16 @@ export function CampaignModal({ onClose }: Props) {
                 onClick={handleJoin}
                 className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
               >
-                Join
+                {t('joinLabel')}
               </button>
             </div>
           )}
 
           {loading ? (
-            <p className="text-zinc-500 text-sm text-center py-6">Loading…</p>
+            <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
           ) : campaigns.length === 0 ? (
             <p className="text-zinc-500 italic text-sm text-center py-8">
-              You're not in any campaign yet. Create one or join with an invite code above.
+              {t('campaignNoneYet')}
             </p>
           ) : (
             <div className="space-y-2">
@@ -183,11 +184,11 @@ export function CampaignModal({ onClose }: Props) {
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-semibold text-zinc-100 truncate">
                         {c.name}
-                        {c.role === 'gm' && <span className="ml-2 text-[10px] text-amber-500 normal-case">(you are GM)</span>}
+                        {c.role === 'gm' && <span className="ml-2 text-[10px] text-amber-500 normal-case">{t('campaignYouAreGm')}</span>}
                       </div>
                       <div className="text-[11px] text-zinc-500 mt-1">
                         {c.factions.join(' vs ')}
-                        {c.faction && <span className="text-amber-600"> · playing {c.faction}</span>}
+                        {c.faction && <span className="text-amber-600"> · {t('campaignPlayingPrefix')} {c.faction}</span>}
                       </div>
                     </div>
                     <div className="text-[11px] font-mono tracking-widest text-amber-500 shrink-0">{c.invite_code}</div>
@@ -195,12 +196,12 @@ export function CampaignModal({ onClose }: Props) {
                   {openId === c.id && (
                     <div className="border-t border-zinc-700 p-3 bg-zinc-950/40">
                       {playersLoading ? (
-                        <p className="text-zinc-500 text-xs">Loading players…</p>
+                        <p className="text-zinc-500 text-xs">{t('campaignLoadingPlayers')}</p>
                       ) : (
                         <div className="space-y-1">
                           {players.map(p => (
                             <div key={p.username} className="flex justify-between text-[12px]">
-                              <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> (GM)</span>}</span>
+                              <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> {t('campaignGmSuffix')}</span>}</span>
                               <span className="text-zinc-500">{p.faction ?? '—'}</span>
                             </div>
                           ))}
@@ -216,7 +217,7 @@ export function CampaignModal({ onClose }: Props) {
 
         <div className="px-4 py-3 border-t border-zinc-700 flex justify-end bg-zinc-800">
           <button onClick={onClose} className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide">
-            Close
+            {t('close')}
           </button>
         </div>
       </div>

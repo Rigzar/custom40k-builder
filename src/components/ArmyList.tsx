@@ -6,17 +6,12 @@ import { applyVariantSlotOverride } from '../engine/slotOverrides';
 import { applyPlatoonSlotOverride } from '../engine/codex_imperial_guard/platoon';
 import { resolveUnit, computeUnitPoints } from '../engine/points';
 import { SLOT_ICONS } from '../assets/slotIcons';
+import { useT, type TranslationKey } from '../i18n';
 
-const SLOT_LABELS: Record<string, string> = {
-  'HQ':                   'HQ',
-  'Troops':               'Troops',
-  'Elites':               'Elites',
-  'Fast Attack':          'Fast Attack',
-  'Heavy Support':        'Heavy Support',
-  'Dedicated Transport':  'Dedicated Transport',
-  'Fortifications':       'Fortifications',
-  'Flyers':               'Flyers',
-  'Lords of War':         'Lords of War',
+const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
+  'HQ': 'hq', 'Troops': 'troops', 'Elites': 'elites', 'Fast Attack': 'fastAttack',
+  'Heavy Support': 'heavySupport', 'Dedicated Transport': 'transport',
+  'Fortifications': 'fortifications', 'Flyers': 'flyers', 'Lords of War': 'lordsOfWar',
 };
 
 const SLOT_ICON_STYLE: React.CSSProperties = {
@@ -34,6 +29,7 @@ const SLOT_ICON_STYLE: React.CSSProperties = {
  * here too, not by the primary's archetype.
  */
 export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }) {
+  const t = useT();
   const { army, data, archetype, alliedFaction, alliedArchetype } = useArmyStore();
   if (!data) return null;
 
@@ -46,8 +42,8 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center select-none">
         <div className="text-[42px] mb-4 opacity-20">⚔</div>
-        <div className="font-cinzel text-[11px] uppercase tracking-widest text-zinc-600">No units deployed</div>
-        <div className="text-zinc-700 text-[11px] mt-1.5">Add units from the catalogue on the left.</div>
+        <div className="font-cinzel text-[11px] uppercase tracking-widest text-zinc-600">{t('noUnitsDeployed')}</div>
+        <div className="text-zinc-700 text-[11px] mt-1.5">{t('addUnitsFromCatalogue')}</div>
       </div>
     );
   }
@@ -76,7 +72,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
                 <img src={SLOT_ICONS[slot]} alt="" className="w-4 h-4 shrink-0" style={SLOT_ICON_STYLE} />
               )}
               <span className="font-cinzel text-amber-600/90 uppercase tracking-widest text-[11px] flex-1">
-                {SLOT_LABELS[slot] ?? slot}
+                {t(SLOT_LABEL_KEY[slot] ?? 'hq')}
               </span>
               <span className="text-zinc-500 text-[11px] tabular-nums">
                 {slotUnits.length} {slotUnits.length === 1 ? 'unit' : 'units'} · {slotPts} pts

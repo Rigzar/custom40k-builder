@@ -56,6 +56,7 @@ export const FACTION_NAMES: Record<string, string> = {
 
 // ── Inline army name editor ─────────────────────────────────────────────────
 function ArmyNameEditor() {
+  const t = useT();
   const { armyName, setArmyName } = useArmyStore();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
@@ -94,10 +95,10 @@ function ArmyNameEditor() {
   return (
     <button
       onClick={startEdit}
-      title="Click to rename army"
+      title={t('clickToRenameArmy')}
       className="text-zinc-300 text-sm hover:text-amber-400 transition-colors truncate max-w-[200px] flex items-center gap-1"
     >
-      {armyName || <span className="text-zinc-500 italic">Unnamed Army</span>}
+      {armyName || <span className="text-zinc-500 italic">{t('unnamedArmy')}</span>}
       <span className="text-zinc-600 text-[10px]">✎</span>
     </button>
   );
@@ -234,6 +235,7 @@ function TabBar({
 
 // ── Main App ────────────────────────────────────────────────────────────────
 export default function App() {
+  const t = useT();
   const store = useArmyStore();
   const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
@@ -563,7 +565,7 @@ export default function App() {
             {loadingFaction ? (
               <div className="flex items-center gap-3 text-zinc-500 py-8">
                 <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
-                <span className="text-sm">Loading faction data…</span>
+                <span className="text-sm">{t('loadingFactionData')}</span>
               </div>
             ) : data ? (
               <>
@@ -573,7 +575,7 @@ export default function App() {
                     onClick={handleBuild}
                     className="px-12 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
                   >
-                    Build Army ▶
+                    {t('buildArmy')}
                   </button>
                 </div>
               </>
@@ -651,11 +653,11 @@ export default function App() {
           {/* Builder layout */}
           <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 flex-1">
             <aside className="space-y-2">
-              <CollapsiblePanel title="Unit Catalogue" defaultOpen>
+              <CollapsiblePanel title={t('unitCatalogue')} defaultOpen>
                 <SlotPanel />
               </CollapsiblePanel>
 
-              <CollapsiblePanel title="Allied Detachment" defaultOpen>
+              <CollapsiblePanel title={t('alliedDetachmentPanelTitle')} defaultOpen>
                 <AlliedDetachmentPanel primaryFaction={selectedFaction}
                   tabOpen={openTabs.includes('allied_config')}
                   onOpenTab={() => {
@@ -666,7 +668,7 @@ export default function App() {
 
               <ValidationPanel />
 
-              <CollapsiblePanel title="Army" defaultOpen>
+              <CollapsiblePanel title={t('armyPanelTitle')} defaultOpen>
                 <div className="p-3">
                   <ExportImport onPrint={() => setShowPrint(true)} />
                 </div>
@@ -716,7 +718,7 @@ export default function App() {
               <div className="border border-zinc-800 bg-zinc-900/50">
                 <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
                   <span className="font-cinzel text-[11px] uppercase tracking-widest text-emerald-400">
-                    {alliedFactionLabel} — Unit Catalogue
+                    {alliedFactionLabel} — {t('unitCatalogue')}
                   </span>
                 </div>
                 <div className="p-3">

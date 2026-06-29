@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as api from '../lib/api';
+import { useT } from '../i18n';
 
 type Mode = 'login' | 'register' | 'forgot' | 'lostCode';
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export function AuthModal({ onClose, onLoggedIn }: Props) {
+  const t = useT();
   const [mode, setMode]         = useState<Mode>('login');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -102,11 +104,10 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
   if (revealCode) {
     return (
-      <Shell onClose={onClose} title="Save your recovery code">
+      <Shell onClose={onClose} title={t('authSaveCodeTitle')}>
         <div className="p-4 space-y-3">
           <p className="text-zinc-300 text-sm">
-            Write this down somewhere safe. It's the <strong>only</strong> way to reset your
-            password if you forget it — it will not be shown again.
+            {t('authSaveCodeWarningPart1')} <strong>{t('authSaveCodeWarningStrong')}</strong> {t('authSaveCodeWarningPart2')}
           </p>
           <div className="bg-zinc-950 border border-amber-700 text-amber-400 text-center font-mono text-lg py-3 tracking-widest select-all">
             {revealCode}
@@ -115,7 +116,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
             onClick={() => { setRevealCode(null); onLoggedIn(); }}
             className="w-full px-4 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 uppercase tracking-wide text-sm"
           >
-            I've saved it — continue
+            {t('authSavedContinue')}
           </button>
         </div>
       </Shell>
@@ -124,12 +125,11 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
   if (recoveryUrl) {
     return (
-      <Shell onClose={onClose} title="Recovery request sent">
+      <Shell onClose={onClose} title={t('authRecoverySentTitle')}>
         <div className="p-4 space-y-3">
-          <p className="text-green-400 text-sm">✓ Request filed.</p>
+          <p className="text-green-400 text-sm">{t('authRequestFiled')}</p>
           <p className="text-zinc-400 text-xs leading-relaxed">
-            Keep this link — the repo owner will review your request and reply with a new
-            recovery code on it.
+            {t('authRecoveryKeepLink')}
           </p>
           <a
             href={recoveryUrl}
@@ -143,7 +143,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
             onClick={onClose}
             className="w-full px-4 py-2 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 uppercase tracking-wide text-sm"
           >
-            Close
+            {t('close')}
           </button>
         </div>
       </Shell>
@@ -152,12 +152,12 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
   return (
     <Shell onClose={onClose} title={
-      mode === 'login' ? 'Log in' : mode === 'register' ? 'Create account' :
-      mode === 'forgot' ? 'Reset password' : "Lost your recovery code?"
+      mode === 'login' ? t('login') : mode === 'register' ? t('authCreateAccountTitle') :
+      mode === 'forgot' ? t('authResetPasswordTitle') : t('authLostCodeTitle')
     }>
       <div className="p-4 space-y-3">
         {mode !== 'lostCode' && (
-          <Field label="Username">
+          <Field label={t('fieldUsername')}>
             <input
               value={username}
               onChange={e => setUsername(e.target.value)}
@@ -168,7 +168,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
         )}
 
         {mode === 'login' && (
-          <Field label="Password">
+          <Field label={t('fieldPassword')}>
             <input type="password" value={password} onChange={e => setPassword(e.target.value)}
               className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
           </Field>
@@ -176,17 +176,17 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
         {mode === 'register' && (
           <>
-            <Field label="Password (min. 8 characters)">
+            <Field label={t('fieldPasswordMin')}>
               <input type="password" value={password} onChange={e => setPassword(e.target.value)}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
             </Field>
-            <Field label="Secret question (optional — extra recovery protection)">
+            <Field label={t('fieldSecretQuestion')}>
               <input value={secretQuestion} onChange={e => setSecretQuestion(e.target.value)}
-                placeholder="e.g. What was your first army's faction?"
+                placeholder={t('secretQuestionPlaceholder')}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
             </Field>
             {secretQuestion.trim() && (
-              <Field label="Answer">
+              <Field label={t('fieldAnswer')}>
                 <input value={secretAnswer} onChange={e => setSecretAnswer(e.target.value)}
                   className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
               </Field>
@@ -196,7 +196,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
         {mode === 'forgot' && (
           <>
-            <Field label="Recovery code">
+            <Field label={t('fieldRecoveryCode')}>
               <input value={recoveryCode} onChange={e => setRecoveryCode(e.target.value)}
                 placeholder="XXXX-XXXX-XXXX"
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none font-mono" />
@@ -207,7 +207,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
                   className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
               </Field>
             )}
-            <Field label="New password (min. 8 characters)">
+            <Field label={t('fieldNewPasswordMin')}>
               <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
             </Field>
@@ -216,17 +216,16 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
         {mode === 'lostCode' && (
           <>
-            <Field label="Username">
+            <Field label={t('fieldUsername')}>
               <input value={username} onChange={e => setUsername(e.target.value)}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
             </Field>
-            <Field label="Anything that helps confirm it's your account (optional)">
+            <Field label={t('fieldLostCodeHelp')}>
               <textarea value={message} onChange={e => setMessage(e.target.value)} rows={3}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none resize-none" />
             </Field>
             <p className="text-zinc-500 text-[11px] leading-relaxed">
-              This files a GitHub issue (no password involved) for the repo owner to review and
-              reply with a new recovery code.
+              {t('authLostCodeNote')}
             </p>
           </>
         )}
@@ -242,30 +241,30 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
           }
           className="w-full px-4 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide text-sm"
         >
-          {busy ? 'Working…' :
-            mode === 'login' ? 'Log in' :
-            mode === 'register' ? 'Create account' :
-            mode === 'forgot' ? 'Reset password' : 'Send request'}
+          {busy ? t('authWorking') :
+            mode === 'login' ? t('login') :
+            mode === 'register' ? t('authCreateAccountTitle') :
+            mode === 'forgot' ? t('authResetPasswordTitle') : t('authSendRequest')}
         </button>
 
         <div className="flex flex-wrap justify-between gap-2 pt-1 text-[11px]">
           {mode === 'login' && (
             <>
-              <button onClick={() => { reset(); setMode('register'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">Create an account</button>
-              <button onClick={() => { reset(); setMode('forgot'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">Forgot password?</button>
+              <button onClick={() => { reset(); setMode('register'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('authCreateAccountLink')}</button>
+              <button onClick={() => { reset(); setMode('forgot'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('authForgotPassword')}</button>
             </>
           )}
           {mode === 'register' && (
-            <button onClick={() => { reset(); setMode('login'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">Already have an account? Log in</button>
+            <button onClick={() => { reset(); setMode('login'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('authAlreadyHaveAccount')}</button>
           )}
           {mode === 'forgot' && (
             <>
-              <button onClick={() => { reset(); setMode('login'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">Back to login</button>
-              <button onClick={() => { reset(); setMode('lostCode'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">Lost your code?</button>
+              <button onClick={() => { reset(); setMode('login'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('authBackToLogin')}</button>
+              <button onClick={() => { reset(); setMode('lostCode'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('authLostYourCode')}</button>
             </>
           )}
           {mode === 'lostCode' && (
-            <button onClick={() => { reset(); setMode('forgot'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">Back</button>
+            <button onClick={() => { reset(); setMode('forgot'); }} className="text-zinc-500 hover:text-amber-400 underline underline-offset-2">{t('backSimple')}</button>
           )}
         </div>
       </div>

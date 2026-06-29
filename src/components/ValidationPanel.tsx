@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { validateArmy } from '../engine/validators';
+import { useT } from '../i18n';
 
 export function ValidationPanel() {
+  const t = useT();
   const { data, ...state } = useArmyStore();
   const [open, setOpen] = useState(true);
   if (!data) return null;
@@ -14,10 +16,10 @@ export function ValidationPanel() {
   const accentColor = hasErrors ? 'border-l-red-600' : hasWarns ? 'border-l-amber-500' : 'border-l-green-600';
   const statusDot   = hasErrors ? 'bg-red-500' : hasWarns ? 'bg-amber-400' : 'bg-green-500';
   const statusCount = hasErrors
-    ? `${items.filter(i => i.type === 'error').length} error${items.filter(i => i.type === 'error').length !== 1 ? 's' : ''}`
+    ? `${items.filter(i => i.type === 'error').length} ${t('errorsSuffix')}`
     : hasWarns
-    ? `${items.filter(i => i.type === 'warn').length} warning${items.filter(i => i.type === 'warn').length !== 1 ? 's' : ''}`
-    : 'ready';
+    ? `${items.filter(i => i.type === 'warn').length} ${t('warningsSuffix')}`
+    : t('ready');
 
   return (
     <div className={`border border-zinc-800 bg-zinc-900/50 border-l-4 ${accentColor}`}>
@@ -26,7 +28,7 @@ export function ValidationPanel() {
         className="w-full flex items-center gap-2.5 px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800/60 transition-colors"
       >
         <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${statusDot}`} />
-        <span className="font-cinzel text-[11px] uppercase tracking-widest text-amber-400 flex-1 text-left">Validation</span>
+        <span className="font-cinzel text-[11px] uppercase tracking-widest text-amber-400 flex-1 text-left">{t('validation')}</span>
         <span className="text-zinc-600 text-[10px]">{statusCount}</span>
         <span className="text-zinc-600 text-[10px] ml-1">{open ? '▲' : '▼'}</span>
       </button>

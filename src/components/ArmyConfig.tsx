@@ -49,7 +49,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
   if (isAllied && !data.archetypes.length && !data.legacies.length && !data.traits.length) {
     return (
       <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
-        {alliedFactionLabel ?? 'This faction'} has no Army Customisation options.
+        {alliedFactionLabel ?? 'This faction'} {t('noCustomisationOptions')}
       </div>
     );
   }
@@ -90,7 +90,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
       {/* ── BATTLE SETUP (primary only — the ally shares engagement/points) ── */}
       {!isAllied && (
       <div className="border border-zinc-800 bg-zinc-900/50">
-        <SectionHeader icon="/phase-icons/rally.svg" label="Battle Setup" />
+        <SectionHeader icon="/phase-icons/rally.svg" label={t('battleSetup')} />
         <div className="p-4 space-y-4">
 
           {/* Engagement type */}
@@ -138,7 +138,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
       {/* ── ARMY DOCTRINE + TRAITS ─────────────────────────────────────── */}
       {!hasFullEngine ? (
         <div className="border border-zinc-800 bg-zinc-900/50">
-          <SectionHeader icon="/phase-icons/command.svg" label="Army Doctrine" />
+          <SectionHeader icon="/phase-icons/command.svg" label={t('armyDoctrine')} />
           <div className="p-4">
             <div className="text-[11px] text-zinc-500 border-l-4 border-amber-900/50 pl-3 space-y-1">
               <div className="text-amber-700 font-semibold uppercase tracking-wide text-[10px]">Engine support coming soon</div>
@@ -151,7 +151,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
           {/* Archetype + Legacy */}
           {(data.archetypes.length > 0 || data.legacies.length > 0) && (
             <div className="border border-zinc-800 bg-zinc-900/50">
-              <SectionHeader icon="/phase-icons/command.svg" label="Army Doctrine" accent={accent} />
+              <SectionHeader icon="/phase-icons/command.svg" label={t('armyDoctrine')} accent={accent} />
               <div className="p-4 space-y-4">
 
                 {/* Archetype */}
@@ -168,7 +168,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                       {data.archetypes.map(a => <option key={a.name} value={a.name}>{cleanArchetypeName(a.name)}</option>)}
                     </select>
                     {engagement === 'skirmish' && (
-                      <div className="text-[10px] text-red-500/80 mt-1 pl-1">Not available in Skirmish.</div>
+                      <div className="text-[10px] text-red-500/80 mt-1 pl-1">{t('notAvailableInSkirmish')}</div>
                     )}
                     {archetype && (
                       <div className={`mt-2 border-l-2 ${accentBorder} pl-3 space-y-0.5`}>
@@ -177,7 +177,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                         </div>
                         {getArchetypeMark(archetype) && (
                           <div className={`text-[10px] ${isAllied ? 'text-emerald-600/80' : 'text-amber-600/80'}`}>
-                            Only for armies with Mark of {getArchetypeMark(archetype)}.
+                            {t('onlyForArmiesWithMarkOf')} {getArchetypeMark(archetype)}.
                           </div>
                         )}
                       </div>
@@ -198,7 +198,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                 {data.legacies.length > 0 && (
                   noLegacy ? (
                     <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
-                      Legacies not available with archetype <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
+                      {t('legaciesNotAvailableWithArchetype')} <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
                     </div>
                   ) : (
                     <div>
@@ -225,7 +225,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                             onChange={e => setLegacy2(e.target.value)}
                             className={selectClass}
                           >
-                            <option value="">— 2nd Legacy (none) —</option>
+                            <option value="">{t('secondLegacyNone')}</option>
                             {data.legacies.filter(l => l.name !== legacy).map(l => (
                               <option key={l.name} value={l.name}>{l.name}</option>
                             ))}
@@ -238,7 +238,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                         </div>
                       ) : (
                         <div className="mt-2 text-[10px] text-zinc-600 italic border border-zinc-800 px-3 py-1.5 bg-zinc-950/50">
-                          2nd Legacy unlocked by the second-legion trait.
+                          {t('secondLegacyUnlockedByTrait')}
                         </div>
                       ))}
                     </div>
@@ -251,16 +251,16 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
           {/* Army Traits */}
           {data.traits.length > 0 && (
             <div className="border border-zinc-800 bg-zinc-900/50">
-              <SectionHeader icon="/phase-icons/action.svg" label="Army Traits" accent={accent} />
+              <SectionHeader icon="/phase-icons/action.svg" label={t('armyTraits')} accent={accent} />
               <div className="p-4 space-y-3">
                 {noTraits ? (
                   <div className="text-[10px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50">
-                    Traits not available with archetype <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
+                    {t('traitsNotAvailableWithArchetype')} <span className={accentText}>{cleanArchetypeName(archetype)}</span>.
                   </div>
                 ) : (
                   <>
                     <div className="text-[10px] text-zinc-500 leading-relaxed">
-                      Choose up to {traitSlots.length}. All main-faction units with veteran abilities receive the selected traits.
+                      {t('chooseUpToTraitsPrefix')} {traitSlots.length}{t('chooseUpToTraitsSuffix')}
                     </div>
 
                     {traitSlots.map(slot => (
@@ -274,7 +274,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                         }}
                         className={selectClass}
                       >
-                        <option value="">— Trait {slot + 1} (none) —</option>
+                        <option value="">{t('traitSlotPrefix')} {slot + 1} {t('traitSlotSuffix')}</option>
                         {data.traits
                           .filter(t => !traitSlots.some(s => s !== slot && traitPool[s] === t.name))
                           .map(t => (
@@ -288,7 +288,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                     {!isAllied && traitPool.includes('Black Crusade') && (
                       <div className="border border-zinc-700 bg-zinc-950/60 p-3">
                         <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-2">
-                          Black Crusade — Champion required
+                          {t('blackCrusadeChampionRequired')}
                         </div>
                         {(() => {
                           const champion = army.find(item => {
@@ -300,7 +300,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                             return (
                               <div>
                                 <div className="text-[11px] text-emerald-400 mb-2">
-                                  ⚜ Champion: <span className="font-semibold">{champion.unitName}</span>
+                                  {t('championLabel')} <span className="font-semibold">{champion.unitName}</span>
                                 </div>
                                 <div className="flex gap-1 flex-wrap">
                                   {(['Khorne','Nurgle','Slaanesh','Tzeentch'] as const).map(god => (
@@ -310,16 +310,16 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
                                   ))}
                                 </div>
                                 <div className="text-[10px] text-zinc-600 mt-1.5">
-                                  Pays the combined mark cost for all four gods.
+                                  {t('paysCombinedMarkCost')}
                                 </div>
                               </div>
                             );
                           }
                           return (
                             <div className="text-[10px] text-amber-600/80 leading-relaxed">
-                              ○ No champion designated. Open an HQ unit card and toggle{' '}
-                              <span className="text-amber-400">Black Crusade Champion</span>{' '}
-                              to assign one HQ to carry all four Chaos god marks.
+                              {t('noChampionPart1')}{' '}
+                              <span className="text-amber-400">{t('blackCrusadeChampionToggle')}</span>{' '}
+                              {t('noChampionPart2')}
                             </div>
                           );
                         })()}

@@ -3,11 +3,17 @@ import { useArmyStore } from '../store/army';
 import {
   getAlliableWith,
   getRelationship,
-  RELATIONSHIP_LABELS,
   RELATIONSHIP_COLORS,
-  RELATIONSHIP_DESCRIPTIONS,
   type Relationship,
 } from '../data/alliedMatrix';
+import { useT, type TranslationKey } from '../i18n';
+
+const REL_LABEL_KEY: Record<Relationship, TranslationKey> = {
+  G: 'relBattleBrothers', Y: 'relAlliesOfConvenience', R: 'relDesperateAllies',
+};
+const REL_DESC_KEY: Record<Relationship, TranslationKey> = {
+  G: 'relBattleBrothersDesc', Y: 'relAlliesOfConvenienceDesc', R: 'relDesperateAlliesDesc',
+};
 
 const FACTION_NAMES: Record<string, string> = {
   chaos_space_marines:  'Chaos Space Marines',
@@ -33,9 +39,10 @@ const FACTION_NAMES: Record<string, string> = {
 };
 
 function RelationshipBadge({ rel }: { rel: Relationship }) {
+  const t = useT();
   return (
     <span className={`text-[10px] font-semibold uppercase tracking-wide ${RELATIONSHIP_COLORS[rel]}`}>
-      {RELATIONSHIP_LABELS[rel]}
+      {t(REL_LABEL_KEY[rel])}
     </span>
   );
 }
@@ -49,18 +56,19 @@ function FactionPicker({
   onSelect: (key: string) => void;
   onCancel: () => void;
 }) {
+  const t = useT();
   const options = getAlliableWith(primaryFaction);
   const groups: Relationship[] = ['G', 'Y', 'R'];
 
   return (
     <div className="space-y-3">
       <div className="flex justify-between items-center">
-        <span className="text-[11px] text-zinc-400">Select an allied faction:</span>
+        <span className="text-[11px] text-zinc-400">{t('selectAlliedFaction')}</span>
         <button
           onClick={onCancel}
           className="text-[11px] text-zinc-500 hover:text-zinc-300 transition-colors"
         >
-          Cancel
+          {t('cancel')}
         </button>
       </div>
       {groups.map(rel => {
@@ -69,7 +77,7 @@ function FactionPicker({
         return (
           <div key={rel}>
             <div className={`text-[10px] uppercase tracking-widest mb-1 ${RELATIONSHIP_COLORS[rel]}`}>
-              {RELATIONSHIP_LABELS[rel]}
+              {t(REL_LABEL_KEY[rel])}
             </div>
             <div className="space-y-0.5">
               {inGroup.map(({ key }) => (
@@ -117,6 +125,7 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
   tabOpen?: boolean;
   onOpenTab?: () => void;
 }) {
+  const t = useT();
   const { alliedFaction, setAlliedFaction, engagement } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
 
@@ -126,7 +135,7 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
   if (engagement === 'skirmish') {
     return (
       <div className="text-[11px] text-zinc-500 italic border border-zinc-800 px-3 py-2 bg-zinc-950/50 text-center">
-        Allied Detachments are not available in Skirmish.
+        {t('alliedNotInSkirmish')}
       </div>
     );
   }
@@ -151,7 +160,7 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
         onClick={() => setShowPicker(true)}
         className="w-full text-[12px] text-zinc-400 hover:text-amber-400 border border-dashed border-zinc-600 hover:border-amber-800 py-2 transition-colors text-center"
       >
-        + Add Allied Detachment
+        {t('addAlliedDetachment')}
       </button>
     );
   }
@@ -175,18 +184,18 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
           {!tabOpen && onOpenTab && (
             <button
               onClick={onOpenTab}
-              title="Reopen the Allied Detachment tab"
+              title={t('reopenAlliedTab')}
               className="text-[11px] text-emerald-500 hover:text-emerald-300 border border-emerald-800 hover:border-emerald-600 px-2 py-0.5 transition-colors"
             >
-              Open
+              {t('openLabel')}
             </button>
           )}
           <button
-            onClick={() => { if (confirm(`Remove the ${factionLabel} Allied Detachment? This deletes its entire roster.`)) setAlliedFaction(null); }}
-            title="Remove allied detachment"
+            onClick={() => { if (confirm(`${t('removeAlliedConfirmPart1')} ${factionLabel} ${t('removeAlliedConfirmPart2')}`)) setAlliedFaction(null); }}
+            title={t('removeAlliedTitle')}
             className="text-[11px] text-zinc-500 hover:text-red-400 border border-zinc-700 hover:border-red-800 px-2 py-0.5 transition-colors"
           >
-            Remove
+            {t('removeUnit')}
           </button>
         </div>
       </div>
@@ -194,12 +203,12 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
       {/* Relationship description */}
       {rel && (
         <p className="text-[11px] text-zinc-500 leading-snug">
-          {RELATIONSHIP_DESCRIPTIONS[rel]}
+          {t(REL_DESC_KEY[rel])}
         </p>
       )}
 
       <p className="text-[11px] text-emerald-500/80 leading-snug border-l-2 border-emerald-800 pl-2">
-        Its own Army Customisation and unit catalogue are in the <span className="font-semibold">🤝 Allied: {factionLabel}</span> tab{tabOpen ? ' above' : ' — closed, click "Open" above to get back in'} — independent from {FACTION_NAMES[primaryFaction] ?? primaryFaction}'s.
+        {t('alliedInfoIntro')} <span className="font-semibold">🤝 {t('tabAllied')}: {factionLabel}</span>{tabOpen ? t('alliedInfoStatusOpen') : t('alliedInfoStatusClosed')}{t('alliedInfoIndependentPrefix')} {FACTION_NAMES[primaryFaction] ?? primaryFaction}{t('alliedInfoPossessiveSuffix')}
       </p>
     </div>
   );

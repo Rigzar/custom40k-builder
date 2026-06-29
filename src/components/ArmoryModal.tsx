@@ -14,6 +14,7 @@ import {
   isItemTermCompat, isItemGravisCompat, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo,
   glyphArmourRestriction,
 } from '../engine/keywords';
+import { useT } from '../i18n';
 
 // "Authority of the Inquisition" (Inquisition Index special rule, ki-inquisition-authority-
 // unenforced-01): every model with Armory access may select a single item from any Imperial
@@ -100,6 +101,7 @@ const MARK_BADGE: Record<string, string> = {
 };
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
+  const t = useT();
   const { data, alliedData, legacy, legacy2, archetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
@@ -575,10 +577,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
           <h3 className="text-amber-400 uppercase tracking-widest text-sm">
             {filterCategory === 'veteran'
-              ? `Veteran Abilities — ${unit.name}`
+              ? `${t('veteranAbilities')} — ${unit.name}`
               : filterCategory === 'vehicle'
-                ? `Vehicle Upgrades — ${unit.name}`
-                : `Armoury — ${unit.name}`
+                ? `${t('armoryTitleVehicle')} — ${unit.name}`
+                : `${t('armourySuffix')} — ${unit.name}`
             }
           </h3>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl">✕</button>
@@ -587,17 +589,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         {/* Armory tabs — hidden when opened via a category button (veteran/vehicle) */}
         {!filterCategory && <div className="flex border-b border-zinc-700">
           {/* General tab — always shown */}
-          {(['general'] as ArmoryTab[]).map(t => (
+          {(['general'] as ArmoryTab[]).map(tabKey => (
             <button
-              key={t}
-              onClick={() => setTab(t)}
+              key={tabKey}
+              onClick={() => setTab(tabKey)}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
-                ${tab === t
+                ${tab === tabKey
                   ? 'border-amber-600 text-amber-400'
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              General
+              {t('generalLabel')}
             </button>
           ))}
           {/* Mark tab — shown when unit has a mark WITH data in armory_marks, OR when it's the BC champion */}
@@ -610,7 +612,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {isBlackCrusadeChampion ? '⚜ All Marks' : `${effectiveMark} Armoury`}
+              {isBlackCrusadeChampion ? t('allMarksLabel') : `${effectiveMark} ${t('armourySuffix')}`}
             </button>
           )}
           {/* Legion/Clan tab — only shown when a legacy that grants armory access is active */}
@@ -623,7 +625,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {activeLegionKeys[0]} Armoury
+              {activeLegionKeys[0]} {t('armourySuffix')}
             </button>
           )}
           {/* Authority of the Inquisition tab — Inquisition only */}
@@ -636,7 +638,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              Authority of the Inquisition
+              {t('authorityTabLabel')}
             </button>
           )}
           {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines */}
@@ -649,7 +651,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {archetypeArmoryData?.faction ?? '…'} Armoury
+              {archetypeArmoryData?.faction ?? '…'} {t('armourySuffix')}
             </button>
           )}
         </div>}
@@ -657,7 +659,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         {/* Terminator / Cataphractii armour restriction */}
         {termRestricted && (
           <div className="px-4 py-1.5 bg-amber-900/30 border-b border-amber-800 text-[10px] text-amber-400">
-            Terminator armour — showing only Terminator-compatible items (ᵀ).
+            {t('termArmourNotice')}
           </div>
         )}
 
@@ -674,7 +676,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:text-amber-400'
                   }`}
               >
-                {s === 'weapons' ? 'Weapons' : 'Equipment'}
+                {s === 'weapons' ? t('weaponsLabel') : t('equipment')}
               </button>
             ))}
           </div>
@@ -686,7 +688,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             /* BC champion — show all 4 mark armories */
             <div className="space-y-2">
               <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400 uppercase tracking-wide">
-                ⚜ Black Crusade Champion — access to all four mark armories
+                {t('bcChampionBanner')}
               </div>
               {BC_MARKS.map(markName => {
                 const markArm = activeData.armory_marks[markName];
@@ -695,7 +697,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 const markEq = effectiveSection === 'equipment' ? splitEquipment(markItems) : null;
                 return (
                   <div key={markName}>
-                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1 mt-2">{markName} Armoury</div>
+                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1 mt-2">{markName} {t('armourySuffix')}</div>
                     {markEq ? (
                       <EquipmentGroups
                         regular={markEq.regular} veteran={markEq.veteran} vehicle={markEq.vehicle}
@@ -719,7 +721,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       />
                     ) : (
                       markItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-2">No items in this section</div>
+                        ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
                         : markItems.map((arm, i) => (
                           <ArmoryItemRow
                             key={i} arm={arm} isChar={isChar}
@@ -739,14 +741,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           ) : tab === 'legion' ? (
             activeLegionKeys.length === 0 ? (
               <div className="text-zinc-500 italic text-sm text-center py-8">
-                No active Legacy. Select a Legacy in army configuration.
+                {t('noActiveLegacy')}
               </div>
             ) : mixedWarbandActive && !unitLegacyLock ? (
               /* Mixed Warband: unit hasn't chosen a legacy armory yet */
               <div className="space-y-3 py-4 px-2">
                 <div className="px-2 py-2 bg-amber-900/20 border border-amber-800 text-[11px] text-amber-400 space-y-1">
-                  <div className="font-semibold uppercase tracking-wide">Mixed Warband — Choose Legacy Armory</div>
-                  <div className="text-zinc-400">This unit may only purchase items from <em>one</em> legacy armory. Choose which one applies to this unit. This cannot be changed without clearing all existing legion armory items from this unit.</div>
+                  <div className="font-semibold uppercase tracking-wide">{t('mixedWarbandTitle')}</div>
+                  <div className="text-zinc-400">{t('mixedWarbandBodyPart1')} <em>{t('mixedWarbandBodyEm')}</em> {t('mixedWarbandBodyPart2')}</div>
                 </div>
                 <div className="flex gap-2 flex-wrap">
                   {activeLegionKeys.map(lk => (
@@ -777,9 +779,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         <button
                           onClick={() => setLegacyArmoryLock(item.id, null)}
                           className="text-[10px] text-red-400 hover:text-red-300 border border-red-800 px-1.5 py-0.5 uppercase tracking-wide transition-colors"
-                          title="Clears this unit's legacy armory lock and removes all legion armory items"
+                          title={t('changeArmoryTooltip')}
                         >
-                          Change Armory
+                          {t('changeArmoryButton')}
                         </button>
                       )}
                     </div>
@@ -807,7 +809,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       />
                     ) : (
                       legItems.length === 0
-                        ? <div className="text-zinc-500 italic text-sm text-center py-4">No items in this section</div>
+                        ? <div className="text-zinc-500 italic text-sm text-center py-4">{t('noItemsInSection')}</div>
                         : legItems.map((arm, i) => (
                           <ArmoryItemRow
                             key={i} arm={arm} isChar={isChar} markless={legMarkless(legName)}
@@ -826,11 +828,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           ) : tab === 'authority' ? (
             <div className="space-y-2">
               <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400">
-                Every model with Armory access may select a single item from any Imperial faction's Armory.
+                {t('authorityIntro')}
               </div>
               {authorityCapReached && (
                 <div className="px-2 py-1.5 bg-zinc-800 border border-zinc-700 text-[10px] text-zinc-400">
-                  This model already used its Authority of the Inquisition pick. Remove it below to choose a different one.
+                  {t('authorityCapNotice')}
                 </div>
               )}
               {!authorityFaction ? (
@@ -847,7 +849,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 </div>
               ) : authorityLoading || !authorityCache[authorityFaction] ? (
                 <div className="text-zinc-500 italic text-sm text-center py-8">
-                  Loading {IMPERIAL_AUTHORITY_FACTIONS.find(f => f.key === authorityFaction)?.label}…
+                  {t('loadingPrefix')} {IMPERIAL_AUTHORITY_FACTIONS.find(f => f.key === authorityFaction)?.label}…
                 </div>
               ) : (() => {
                 const fd = authorityCache[authorityFaction];
@@ -859,13 +861,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       onClick={() => setAuthorityFaction(null)}
                       className="text-[10px] text-amber-500 hover:text-amber-300 uppercase tracking-wide"
                     >
-                      ← Choose a different faction
+                      {t('chooseDifferentFaction')}
                     </button>
                     {([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
                       <div key={sec}>
-                        <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? 'Weapons' : 'Equipment'}</div>
+                        <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? t('weaponsLabel') : t('equipment')}</div>
                         {items.length === 0
-                          ? <div className="text-zinc-500 italic text-sm text-center py-2">No items in this section</div>
+                          ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
                           : items.map((arm, i) => {
                             const pts = getItemPts(arm);
                             const blocked = authorityCapReached || pts === null;
@@ -891,20 +893,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
           ) : tab === 'archetypeArmory' ? (
             <div className="space-y-3">
               <div className="px-2 py-1.5 bg-amber-900/20 border border-amber-800 text-[10px] text-amber-400">
-                Models with Armory access may also use the {archetypeArmoryData?.faction ?? 'allied faction'} Armory.
+                {t('archetypeArmoryIntroPart1')} {archetypeArmoryData?.faction ?? 'allied faction'} {t('armourySuffix')}.
               </div>
               {archetypeArmoryLoading || !archetypeArmoryData ? (
                 <div className="text-zinc-500 italic text-sm text-center py-8">
-                  Loading {archetypeArmoryData?.faction ?? 'faction'} Armoury…
+                  {t('loadingPrefix')} {archetypeArmoryData?.faction ?? 'faction'} {t('armourySuffix')}…
                 </div>
               ) : (() => {
                 const foreignWeapons = (archetypeArmoryData.armory_general.weapons ?? []) as ArmoryItem[];
                 const foreignEquip = ((archetypeArmoryData.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
                 return ([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
                   <div key={sec}>
-                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? 'Weapons' : 'Equipment'}</div>
+                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? t('weaponsLabel') : t('equipment')}</div>
                     {items.length === 0
-                      ? <div className="text-zinc-500 italic text-sm text-center py-2">No items in this section</div>
+                      ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
                       : items.map((arm, i) => {
                         const pts = getItemPts(arm);
                         const blocked = pts === null;
@@ -964,7 +966,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             (() => {
               const items = getItems(effectiveSection);
               return items.length === 0
-                ? <div className="text-zinc-500 italic text-sm text-center py-8">No items in this section</div>
+                ? <div className="text-zinc-500 italic text-sm text-center py-8">{t('noItemsInSection')}</div>
                 : items.map((arm, i) => (
                   <ArmoryItemRow
                     key={i} arm={arm} isChar={isChar} markless={isMarklessFaction}
@@ -982,7 +984,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
         <div className="px-4 py-3 border-t border-zinc-700 flex justify-end bg-zinc-800">
           <button onClick={onClose} className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide">
-            Close
+            {t('close')}
           </button>
         </div>
       </div>
@@ -1059,20 +1061,21 @@ function EquipmentGroups({
   eqExarchPower = {},
   onSetEqExarchPower,
 }: EquipGroupsProps) {
+  const t = useT();
   // Build a per-model/per-wound price label for veteran abilities
   function vetPriceLabel(arm: ArmoryItem): string {
     if (isVehicle || isMonster) {
       const vp = parsePrice(arm.p_veh);
       if (vp == null) return '—';
       const total = vp * unitWounds * unitSize;
-      return `+${total} pts (${vp}/wound)`;
+      return `+${total} pts (${vp}${t('perWoundSuffix')})`;
     }
     if (isChar) {
       const cp = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit);
-      return cp != null ? `+${cp * unitWounds * unitSize} pts (${cp}/wound)` : '—';
+      return cp != null ? `+${cp * unitWounds * unitSize} pts (${cp}${t('perWoundSuffix')})` : '—';
     }
     const up = parsePrice(arm.p_unit);
-    return up != null ? `+${up * unitWounds * unitSize} pts (${up}/wound)` : '—';
+    return up != null ? `+${up * unitWounds * unitSize} pts (${up}${t('perWoundSuffix')})` : '—';
   }
 
   function vehPriceLabel(arm: ArmoryItem): string {
@@ -1093,11 +1096,10 @@ function EquipmentGroups({
   if (!hasAnything) {
     return (
       <div className="text-zinc-500 italic text-sm text-center py-8 space-y-2">
-        <div>No items in this section</div>
+        <div>{t('noItemsInSection')}</div>
         {pointToVehicleButton && (
           <div className="text-blue-300 text-[11px] not-italic">
-            This unit's wargear (camo net, smoke launchers, hunter-killer missile…) is under the
-            "⚙ Vehicle equipment" button instead.
+            {t('vehicleWargearHintA')}
           </div>
         )}
       </div>
@@ -1108,8 +1110,7 @@ function EquipmentGroups({
     <div className="space-y-3">
       {pointToVehicleButton && (
         <div className="px-2 py-1.5 bg-blue-900/20 border border-blue-800 text-[10px] text-blue-300">
-          Looking for vehicle wargear (camo net, smoke launchers, hunter-killer missile…)? Use the
-          "⚙ Vehicle equipment" button instead.
+          {t('vehicleWargearHintB')}
         </div>
       )}
       {/* Regular equipment — hidden when opened via category button */}
@@ -1136,13 +1137,13 @@ function EquipmentGroups({
                 {/* Weapon target picker — shown when item needs to target a specific weapon */}
                 {needsTarget && !uniqueSel && !(getSelId?.(arm.name)) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
-                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">Apply to:</span>
+                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('applyToLabel')}</span>
                     <select
                       value={chosenTarget}
                       onChange={e => onSetEqTargetWeapon?.(arm.name, e.target.value)}
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
-                      <option value="">— select a weapon —</option>
+                      <option value="">{t('selectWeaponOption')}</option>
                       {availableWeapons.map(wn => (
                         <option key={wn} value={wn}>{wn}</option>
                       ))}
@@ -1152,13 +1153,13 @@ function EquipmentGroups({
                 {/* Exarch Power picker — shown for Eldar's "Paragon of war" */}
                 {needsPower && !uniqueSel && !(getSelId?.(arm.name)) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
-                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">Exarch power:</span>
+                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('exarchPowerLabel')}</span>
                     <select
                       value={chosenPower}
                       onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
-                      <option value="">— select a power —</option>
+                      <option value="">{t('selectPowerOption')}</option>
                       {ELDAR_EXARCH_POWERS.map(pn => (
                         <option key={pn} value={pn}>{pn}</option>
                       ))}
@@ -1193,7 +1194,7 @@ function EquipmentGroups({
         <div>
           {!filterCategory && (
             <div className="flex items-center gap-2 mb-1 border-t border-zinc-700 pt-2">
-              <span className="text-[10px] text-amber-600 uppercase tracking-widest">Veteran Abilities</span>
+              <span className="text-[10px] text-amber-600 uppercase tracking-widest">{t('veteranAbilities')}</span>
               {armoryVetMax !== null && (
                 <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
                   veteranSlotsFull
@@ -1207,7 +1208,7 @@ function EquipmentGroups({
           )}
           {filterCategory === 'veteran' && armoryVetMax !== null && (
             <div className="flex items-center gap-2 mb-2 px-1">
-              <span className="text-[10px] text-zinc-400 uppercase tracking-widest">Slots used:</span>
+              <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('slotsUsedLabel')}</span>
               <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
                 veteranSlotsFull
                   ? 'bg-red-900/40 border-red-700 text-red-400'
@@ -1242,7 +1243,7 @@ function EquipmentGroups({
         <div>
           {!filterCategory && (
             <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-1 border-t border-zinc-700 pt-2">
-              Vehicle Upgrades
+              {t('armoryTitleVehicle')}
             </div>
           )}
           <div className="space-y-1">
@@ -1273,11 +1274,12 @@ function DaemonWeaponPicker({
   onAdd: (arm: ArmoryItem, targetWeapon?: string) => void;
   onRemove: (id: string) => void;
 }) {
+  const t = useT();
   const capReached = selections.length >= cap;
   return (
     <div className="px-3 pb-2 pt-1.5 bg-zinc-800/40 border-l border-r border-b border-zinc-700 space-y-1">
       <div className="flex items-center gap-2">
-        <span className="text-[10px] text-amber-600 uppercase tracking-widest">Daemon Weapon Abilities</span>
+        <span className="text-[10px] text-amber-600 uppercase tracking-widest">{t('daemonWeaponAbilitiesLabel')}</span>
         <span className={`text-[10px] font-bold px-1.5 py-0.5 border ${
           capReached ? 'bg-amber-900/30 border-amber-700 text-amber-400' : 'bg-zinc-800 border-zinc-600 text-zinc-400'
         }`}>
@@ -1285,7 +1287,7 @@ function DaemonWeaponPicker({
         </span>
       </div>
       {pool.length === 0 ? (
-        <div className="text-zinc-500 italic text-[11px] py-1">No daemon weapon traits available</div>
+        <div className="text-zinc-500 italic text-[11px] py-1">{t('noDaemonWeaponTraits')}</div>
       ) : pool.map((arm, i) => {
         const sel = selections.find(s => s.itemName === arm.name);
         const takenElsewhere = isTakenElsewhere(arm);
@@ -1299,10 +1301,10 @@ function DaemonWeaponPicker({
               <div className="min-w-0">
                 <div className="flex items-center gap-1 flex-wrap">
                   <span className={`text-[12px] font-medium ${lastAdded === arm.name ? 'text-green-400' : 'text-zinc-200'}`}>{arm.name}</span>
-                  {lastAdded === arm.name && <span className="text-green-500 text-[10px] font-bold">✓ Added</span>}
-                  {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">Unique</span>}
-                  {sel && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>}
-                  {takenElsewhere && !sel && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">Taken by another unit</span>}
+                  {lastAdded === arm.name && <span className="text-green-500 text-[10px] font-bold">{t('addedBadge')}</span>}
+                  {unique && <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700 px-1 py-0.5 uppercase tracking-wide">{t('uniqueBadge')}</span>}
+                  {sel && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>}
+                  {takenElsewhere && !sel && <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase">{t('takenByAnotherUnit')}</span>}
                 </div>
                 {arm.desc && <div className="text-[10px] text-zinc-500 mt-0.5">{arm.desc}</div>}
               </div>
@@ -1315,7 +1317,7 @@ function DaemonWeaponPicker({
                     onClick={() => onRemove(sel.id)}
                     className="text-[10px] px-1.5 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
                   >
-                    Remove
+                    {t('removeUnit')}
                   </button>
                 ) : !takenElsewhere && (
                   <button
@@ -1327,20 +1329,20 @@ function DaemonWeaponPicker({
                         : 'bg-zinc-700 border-zinc-600 text-zinc-500 cursor-not-allowed'
                     }`}
                   >
-                    {needsWeapon && !chosenWeapon ? 'Pick weapon ↓' : capReached ? 'Cap reached' : 'Add'}
+                    {needsWeapon && !chosenWeapon ? t('pickWeaponButton') : capReached ? t('capReachedButton') : t('addButton')}
                   </button>
                 )}
               </div>
             </div>
             {needsWeapon && !sel && !takenElsewhere && !capReached && (
               <div className="px-2 pb-1.5 flex items-center gap-2">
-                <span className="text-[10px] text-zinc-400 uppercase tracking-wide">Apply to:</span>
+                <span className="text-[10px] text-zinc-400 uppercase tracking-wide">{t('applyToLabel')}</span>
                 <select
                   value={chosenWeapon}
                   onChange={e => onSetTargetWeapon(arm.name, e.target.value)}
                   className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                 >
-                  <option value="">— select a weapon —</option>
+                  <option value="">{t('selectWeaponOption')}</option>
                   {availableWeapons.map(wn => (
                     <option key={wn} value={wn}>{wn}</option>
                   ))}
@@ -1348,7 +1350,7 @@ function DaemonWeaponPicker({
               </div>
             )}
             {sel?.targetWeapon && (
-              <div className="px-2 pb-1.5 text-[10px] text-zinc-500 italic">Applied to: {sel.targetWeapon}</div>
+              <div className="px-2 pb-1.5 text-[10px] text-zinc-500 italic">{t('appliedToPrefix')} {sel.targetWeapon}</div>
             )}
           </div>
         );
@@ -1378,6 +1380,7 @@ function ArmoryItemRow({
   /** True for Horus Heresy supplement items: a trailing ᵀ is Terminator-compat, not Mark of Tzeentch. */
   markless?: boolean;
 }) {
+  const t = useT();
   const requiredMark = markless ? null : itemRequiredMark(arm.name);
   const displayName = markless ? arm.name : stripMarkGlyph(arm.name);
   const markBadgeClass = requiredMark ? (MARK_BADGE[requiredMark] ?? 'bg-zinc-800 text-zinc-300 border-zinc-600') : '';
@@ -1395,15 +1398,15 @@ function ArmoryItemRow({
         <div className="min-w-0">
           <div className="flex items-center gap-1 flex-wrap">
             <span className="text-sm font-medium text-zinc-400">{displayName}</span>
-            <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">Selected</span>
+            <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase">{t('selectedBadge')}</span>
             {requiredMark && (
               <span className={`text-[9px] border px-1 py-0.5 uppercase tracking-wide ${markBadgeClass}`}>{requiredMark}</span>
             )}
             {isItemGravisCompat(arm) && (
-              <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
+              <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">{t('gravisBadge')}</span>
             )}
             {isItemTermCompat(arm) && (
-              <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">Term</span>
+              <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">{t('termBadge')}</span>
             )}
           </div>
           {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
@@ -1415,7 +1418,7 @@ function ArmoryItemRow({
             onClick={() => onRemove(selectedArmoryId)}
             className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
           >
-            Remove
+            {t('removeUnit')}
           </button>
           {/* A multi-model squad where every model has its own Armory access (e.g. Orks Nobz,
               GitHub #3) may take more than one copy of the same item — `disabled` already
@@ -1426,7 +1429,7 @@ function ArmoryItemRow({
               onClick={onAdd}
               className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-emerald-900/40 border-emerald-700 text-emerald-300 hover:bg-emerald-800/60"
             >
-              + Add another
+              {t('addAnotherButton')}
             </button>
           )}
         </div>
@@ -1453,29 +1456,30 @@ function ArmoryItemRow({
           <span className={`text-sm font-medium transition-colors ${justAdded ? 'text-green-400' : 'text-zinc-200'}`}>
             {displayName}
           </span>
-          {justAdded && <span className="text-green-500 text-xs font-bold">✓ Added</span>}
-          {inProfile && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase tracking-wide">In profile</span>}
+          {justAdded && <span className="text-green-500 text-xs font-bold">{t('addedBadge')}</span>}
+          {inProfile && <span className="text-[9px] bg-zinc-700 text-zinc-400 px-1 py-0.5 uppercase tracking-wide">{t('inProfileBadge')}</span>}
           {requiredMark && (
             <span className={`text-[9px] border px-1 py-0.5 uppercase tracking-wide ${markBadgeClass}`}>{requiredMark}</span>
           )}
           {arm.gravis_compat && (
-            <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">Gravis</span>
+            <span className="text-[9px] bg-blue-800 text-white px-1 py-0.5 uppercase">{t('gravisBadge')}</span>
           )}
           {arm.term_compat && (
-            <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">Term</span>
+            <span className="text-[9px] bg-amber-800 text-white px-1 py-0.5 uppercase">{t('termBadge')}</span>
           )}
         </div>
         {arm.desc && <div className="text-[11px] text-zinc-500 mt-0.5">{arm.desc}</div>}
         <ArmoryWeaponStats arm={arm} />
       </div>
       <span className={`font-bold text-sm whitespace-nowrap shrink-0 ${justAdded ? 'text-green-400' : inProfile ? 'text-zinc-500' : priceIsNull ? 'text-zinc-500' : 'text-amber-500'}`}>
-        {inProfile ? '(free slot)' : displayPrice}
+        {inProfile ? t('freeSlotLabel') : displayPrice}
       </span>
     </button>
   );
 }
 
 function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
+  const t = useT();
   if (arm.profiles && arm.profiles.length > 0) {
     return (
       <div className="mt-0.5 space-y-0.5">
@@ -1500,5 +1504,5 @@ function ArmoryWeaponStats({ arm }: { arm: ArmoryItem }) {
   if (arm.abilities) {
     return <div className="text-[10px] text-zinc-600 italic mt-0.5">{arm.abilities}</div>;
   }
-  return <div className="text-[10px] text-zinc-600 italic mt-0.5">— see faction rules for profile</div>;
+  return <div className="text-[10px] text-zinc-600 italic mt-0.5">{t('seeFactionRulesProfile')}</div>;
 }

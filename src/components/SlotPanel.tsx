@@ -10,6 +10,13 @@ import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupL
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
 import { SLOT_ICONS } from '../assets/slotIcons';
+import { useT, type TranslationKey } from '../i18n';
+
+const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
+  'HQ': 'hq', 'Troops': 'troops', 'Elites': 'elites', 'Fast Attack': 'fastAttack',
+  'Heavy Support': 'heavySupport', 'Dedicated Transport': 'transport',
+  'Fortifications': 'fortifications', 'Flyers': 'flyers', 'Lords of War': 'lordsOfWar',
+};
 
 interface SlotEntry {
   name: string;
@@ -96,13 +103,14 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const isAllied = scope === 'allied';
   const { army, engagement, hqMark, addUnit, alliedFaction, legacy, legacy2 } = store;
   const [open, setOpen] = useState<Record<string, boolean>>({});
+  const t = useT();
 
   const data = isAllied ? store.data?.allied?.[alliedFactionKey!] : store.data;
   const archetype = (isAllied ? store.alliedArchetype : store.archetype) ?? '';
 
   if (!data) return null;
   if (isAllied && !Object.keys(data.units).length) {
-    return <div className="text-[11px] text-zinc-700 px-1 py-1.5 italic">No units available.</div>;
+    return <div className="text-[11px] text-zinc-700 px-1 py-1.5 italic">{t('noUnitsAvailable')}</div>;
   }
   const eng = ENGAGEMENTS[engagement];
   const rule = getArchetypeRule(archetype);
@@ -210,7 +218,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                     style={{ filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
                 )}
                 <span className="font-cinzel text-[10px] uppercase tracking-widest text-emerald-500/80 flex-1 text-left">
-                  {slot}
+                  {t(SLOT_LABEL_KEY[slot] ?? 'hq')}
                 </span>
                 <span className={`text-[11px] tabular-nums ${countColor}`}>
                   {used}<span className="text-zinc-600">/{effectiveMax > 0 ? effectiveMax : '—'}</span>
@@ -221,7 +229,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
               {open[slot] && (
                 <div className="border-t border-zinc-800/60">
                   {units.length === 0 ? (
-                    <div className="text-[11px] text-zinc-700 px-4 py-1.5 italic">No units available</div>
+                    <div className="text-[11px] text-zinc-700 px-4 py-1.5 italic">{t('noUnitsAvailable')}</div>
                   ) : (
                     units.map((entry: SlotEntry) => {
                       const isNested = !!entry.factionSource;
@@ -451,7 +459,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                   style={{ filter: 'brightness(0) invert(1)', opacity: 0.5 }} />
               )}
               <span className="font-cinzel text-[10px] uppercase tracking-widest text-amber-500/80 flex-1 text-left">
-                {slot}
+                {t(SLOT_LABEL_KEY[slot] ?? 'hq')}
               </span>
               <span className={`text-[11px] tabular-nums ${countColor}`}>
                 {isLordsOfWar
@@ -464,7 +472,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
             {open[slot] && (
               <div className="border-t border-zinc-800/60">
                 {units.length === 0 ? (
-                  <div className="text-[11px] text-zinc-700 px-4 py-1.5 italic">No units available</div>
+                  <div className="text-[11px] text-zinc-700 px-4 py-1.5 italic">{t('noUnitsAvailable')}</div>
                 ) : (
                   units.map((entry: SlotEntry, idx: number) => {
                     const originalSlot = entry.factionSource
@@ -489,7 +497,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           <span className="text-[11px] text-amber-900 group-hover:text-amber-500 transition-colors w-3 shrink-0 text-center">+</span>
                           <span className="text-zinc-300 group-hover:text-amber-300 text-[12px] flex-1 transition-colors">{entry.name}</span>
                           {entry.factionSource && !entry.injected && (
-                            <span className="text-[10px] text-zinc-600">[Allied]</span>
+                            <span className="text-[10px] text-zinc-600">{t('alliedBadge')}</span>
                           )}
                           <span className="text-zinc-500 group-hover:text-amber-700/70 text-[11px] tabular-nums transition-colors">{entry.minCost ?? '?'} pts</span>
                         </button>
