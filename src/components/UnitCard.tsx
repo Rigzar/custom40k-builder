@@ -15,6 +15,7 @@ import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
 import { PsychicModal } from './PsychicModal';
+import { useT } from '../i18n';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -163,6 +164,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
 }
 
 export function UnitCard({ item }: Props) {
+  const t = useT();
   const store = useArmyStore();
   const { data, alliedData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
@@ -376,7 +378,7 @@ export function UnitCard({ item }: Props) {
                 <button
                   onClick={() => setEditingName(true)}
                   className="text-zinc-600 hover:text-amber-400 text-[11px] leading-none"
-                  title="Set custom name"
+                  title={t('setCustomNameTitle')}
                 >✎</button>
               </>
             )}
@@ -407,13 +409,13 @@ export function UnitCard({ item }: Props) {
               <span className="ml-1">
                 <MarkBadge
                   mark={effectiveMark}
-                  suffix={u.locked_mark ? '(locked)' : markIsForced ? '(archetype)' : undefined}
+                  suffix={u.locked_mark ? t('lockedSuffix') : markIsForced ? t('archetypeSuffix') : undefined}
                 />
               </span>
             ) : null}
             {isFavored && (
               <span className="text-[9px] bg-amber-900/60 text-amber-300 border border-amber-700/60 px-1.5 py-px uppercase tracking-wide font-semibold rounded-sm">
-                ★ Favored
+                {t('favoredBadge')}
               </span>
             )}
           </div>
@@ -435,7 +437,7 @@ export function UnitCard({ item }: Props) {
             </button>
             <button
               onClick={() => duplicateUnit(item.id)}
-              title="Copy unit (same size, options, armory, etc.)"
+              title={t('copyUnitTitle')}
               className="text-zinc-500 hover:text-amber-400 border border-zinc-700 hover:border-amber-800 px-2 py-0.5 text-[11px]"
             >⧉</button>
             <button
@@ -492,13 +494,13 @@ export function UnitCard({ item }: Props) {
         if (joinableUnits.length === 0) return null;
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">↳ Joins</span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('joinsLabel')}</span>
             <select
               value={item.joinedToUnit ?? ''}
               onChange={e => setUnitJoinTarget(item.id, e.target.value || null)}
               className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
             >
-              <option value="">— no unit —</option>
+              <option value="">{t('noUnitOption')}</option>
               {joinableUnits.map(e => {
                 const eu = resolveUnit(e, data);
                 return (
@@ -521,13 +523,13 @@ export function UnitCard({ item }: Props) {
         if (anchors.length === 0) return null;
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">↳ Platoon</span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('platoonLabel')}</span>
             <select
               value={item.platoonId ?? ''}
               onChange={e => setPlatoonLink(item.id, e.target.value || null)}
               className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
             >
-              <option value="">— independent (own slot) —</option>
+              <option value="">{t('independentOwnSlotOption')}</option>
               {anchors.map(a => (
                 <option key={a.id} value={a.id}>
                   {a.customName || PLATOON_ANCHOR_UNIT} ({a.id.slice(0, 6)})
@@ -545,26 +547,26 @@ export function UnitCard({ item }: Props) {
            resolver.ts/ArmoryModal.tsx's hasMarkGroup, no extra UI needed for that part. */}
       {data?.faction === 'Imperial Guard' && archetype === 'Traitor Guard' && !item.factionSource && !u.locked_mark && (
         <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-          <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">↳ Mark of Chaos</span>
+          <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('markOfChaosLabel')}</span>
           <select
             value={item.mark ?? ''}
             onChange={e => updateUnit(item.id, { mark: (e.target.value || null) as typeof item.mark })}
             className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
           >
-            <option value="">— none —</option>
+            <option value="">{t('noneOption')}</option>
             {u.is_vehicle ? (
               <>
-                <option value="Khorne">Khorne (+10pts flat)</option>
-                <option value="Slaanesh">Slaanesh (+10pts flat)</option>
-                <option value="Nurgle">Nurgle (+10pts flat)</option>
-                <option value="Tzeentch">Tzeentch (+10pts flat)</option>
+                <option value="Khorne">Khorne {t('costFlat10Suffix')}</option>
+                <option value="Slaanesh">Slaanesh {t('costFlat10Suffix')}</option>
+                <option value="Nurgle">Nurgle {t('costFlat10Suffix')}</option>
+                <option value="Tzeentch">Tzeentch {t('costFlat10Suffix')}</option>
               </>
             ) : (
               <>
-                <option value="Khorne">Khorne (+1pt/model/Wound)</option>
-                <option value="Slaanesh">Slaanesh (+1pt/model/Wound)</option>
-                <option value="Nurgle">Nurgle (+2pts/model/Wound)</option>
-                <option value="Tzeentch">Tzeentch (+2pts/model/Wound)</option>
+                <option value="Khorne">Khorne {t('costPerWound1Suffix')}</option>
+                <option value="Slaanesh">Slaanesh {t('costPerWound1Suffix')}</option>
+                <option value="Nurgle">Nurgle {t('costPerWound2Suffix')}</option>
+                <option value="Tzeentch">Tzeentch {t('costPerWound2Suffix')}</option>
               </>
             )}
           </select>
@@ -586,10 +588,10 @@ export function UnitCard({ item }: Props) {
               <div className={`w-3.5 h-3.5 border flex-shrink-0 flex items-center justify-center transition-colors ${checked ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600'}`}>
                 {checked && <span className="text-[8px] text-white leading-none">✓</span>}
               </div>
-              <span className="text-zinc-300">↳ Yngir's chosen C'tan Shard (HQ slot, +1 S/T/I/A, 2+ Sv, +85pts)</span>
+              <span className="text-zinc-300">{t('yngirToggleLabel')}</span>
             </label>
             {otherActive && !checked && (
-              <span className="text-[10px] text-red-400/80">Another C'tan Shard already has this</span>
+              <span className="text-[10px] text-red-400/80">{t('ctanShardTakenLabel')}</span>
             )}
           </div>
         );
@@ -604,7 +606,7 @@ export function UnitCard({ item }: Props) {
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex flex-col gap-1">
             {hasLasgun && (
               <div className="flex items-center gap-2">
-                <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0 flex-1">↳ Lasgun → Pulse rifle (+3pt/model)</span>
+                <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0 flex-1">{t('lasgunSwapLabel')}</span>
                 <input
                   type="number" min={0} max={item.size}
                   value={item.gueVesaLasgunSwaps ?? 0}
@@ -615,7 +617,7 @@ export function UnitCard({ item }: Props) {
             )}
             {hasHotshot && (
               <div className="flex items-center gap-2">
-                <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0 flex-1">↳ Hot-shot lasgun → Pulse rifle (+2pt/model)</span>
+                <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0 flex-1">{t('hotshotSwapLabel')}</span>
                 <input
                   type="number" min={0} max={item.size}
                   value={item.gueVesaHotshotSwaps ?? 0}
@@ -633,7 +635,7 @@ export function UnitCard({ item }: Props) {
           {/* Default loadout */}
           {equippedWith && (
             <div className="md:col-span-2 px-3 py-1.5 bg-zinc-800/50 border-b border-zinc-700/60 text-[11px] text-zinc-400">
-              <span className="text-zinc-500 text-[10px] uppercase tracking-widest mr-1.5">Default loadout:</span>
+              <span className="text-zinc-500 text-[10px] uppercase tracking-widest mr-1.5">{t('defaultLoadoutLabel')}</span>
               {equippedWith}
             </div>
           )}
@@ -641,30 +643,30 @@ export function UnitCard({ item }: Props) {
           {/* ── Live profile (stat block + weapons) — right column on wide screens ── */}
           <div className="md:col-start-2 md:row-start-2 md:border-l md:border-zinc-700/60">
           <div className="px-2 pt-1.5 hidden md:block">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Live profile</span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">{t('liveProfileLabel')}</span>
           </div>
           {/* ── Stat profile ── */}
           <div className="border-b border-zinc-700/60">
             <div className="px-3 pt-2 pb-0">
             <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1 flex items-center gap-3">
-              <span>Profile</span>
+              <span>{t('profileLabel')}</span>
               {(isFavored || blackCrusadeChampion || (statModMark && MARK_STAT_MODS[statModMark] && (
                 u.is_character ? MARK_STAT_MODS[statModMark].char : MARK_STAT_MODS[statModMark].inf
               ))) && (
-                <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">* = mark bonus</span>
+                <span className="ml-2 text-blue-400 normal-case font-normal text-[10px]">{t('markBonusAsteriskNote')}</span>
               )}
               {traitStatMods.length > 0 && (
-                <span className="ml-2 text-emerald-400 normal-case font-normal text-[10px]">† = trait bonus</span>
+                <span className="ml-2 text-emerald-400 normal-case font-normal text-[10px]">{t('traitBonusDaggerNote')}</span>
               )}
               {hasEquipEffects && (
-                <span className="ml-2 text-violet-400 normal-case font-normal text-[10px]">◆ = equipment</span>
+                <span className="ml-2 text-violet-400 normal-case font-normal text-[10px]">{t('equipmentDiamondNote')}</span>
               )}
             </div>
             <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse">
               <thead>
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
-                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">Model</th>
+                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">{t('modelHeader')}</th>
                   {statKeys.map(k => {
                     const label = k === 'InvSv' ? 'Inv' : k;
                     const icon = STAT_ICONS[k];
@@ -877,7 +879,7 @@ export function UnitCard({ item }: Props) {
                         <div>
                           <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
                             <span className="w-3 h-px bg-amber-800 inline-block" />
-                            Ranged Weapons
+                            {t('rangedWeaponsHeader')}
                             <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
                           </div>
                           <WeaponTable weapons={ranged} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} countOverrides={g.countOverrides} />
@@ -887,7 +889,7 @@ export function UnitCard({ item }: Props) {
                         <div>
                           <div className="px-3 pt-2.5 pb-1 text-[10px] text-amber-600 uppercase tracking-widest font-bold flex items-center gap-2">
                             <span className="w-3 h-px bg-amber-800 inline-block" />
-                            Melee Weapons
+                            {t('meleeWeaponsHeader')}
                             <span className="flex-1 h-px bg-zinc-700/60 inline-block" />
                           </div>
                           <WeaponTable weapons={melee} traitMap={g.traitMap ?? weaponTraitMap} count={g.count} countOverrides={g.countOverrides} />
@@ -904,7 +906,7 @@ export function UnitCard({ item }: Props) {
           {/* ── Builder section (interactive) — left column on wide screens ── */}
           <div className="md:col-start-1 md:row-start-2 px-3 py-2 space-y-3">
           <div className="hidden md:block -mx-3 -mt-2 mb-1 px-2 pt-1.5">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Build</span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">{t('buildLabel')}</span>
           </div>
 
           {/* Squad size — per-group when modelSizes is available, single slider otherwise */}
@@ -918,7 +920,7 @@ export function UnitCard({ item }: Props) {
                   <div key={m.name} className="flex items-center gap-2 text-[12px] text-zinc-400">
                     <span className="w-40 truncate text-zinc-300">{m.name}:</span>
                     {isFixed ? (
-                      <span className="text-zinc-500">{m.min} <span className="text-zinc-600 text-[11px]">(fixed)</span></span>
+                      <span className="text-zinc-500">{m.min} <span className="text-zinc-600 text-[11px]">{t('fixedLabel')}</span></span>
                     ) : (
                       <>
                         <div className="flex items-center">
@@ -934,7 +936,7 @@ export function UnitCard({ item }: Props) {
                   </div>
                 );
               })}
-              <div className="text-[11px] text-zinc-500 pt-0.5">Total: {item.size} models</div>
+              <div className="text-[11px] text-zinc-500 pt-0.5">{t('totalLabel')} {item.size} {t('modelsWord')}</div>
               {variantActive && (
                 <div className="text-[11px] text-amber-600/90">
                   {modelsToShow.map((m, i) => {
@@ -954,12 +956,12 @@ export function UnitCard({ item }: Props) {
             <details open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
               <summary className="cursor-pointer px-2 py-1 select-none text-zinc-300">▲ {builtInChampion.name}</summary>
               <div className="px-2 pb-2 text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
-                <span>The {builtInChampion.name} has access to weapons and gear from the Armory.</span>
+                <span>{t('theWord')} {builtInChampion.name} {t('armoryAccessSuffix')}</span>
                 <button
                   onClick={() => setArmoryOpen(true)}
                   className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
                 >
-                  Armory ({item.armory.length})
+                  {t('armory')} ({item.armory.length})
                 </button>
               </div>
             </details>
@@ -985,7 +987,7 @@ export function UnitCard({ item }: Props) {
               <details key={m.name} className="border border-zinc-700 bg-zinc-900/40 text-[12px]">
                 <summary className="cursor-pointer px-2 py-1.5 select-none flex items-center gap-2 bg-zinc-800/40 border-b border-zinc-700/60">
                   <span className="font-cinzel text-[11px] text-zinc-100 uppercase tracking-wider flex-1">{headerText}</span>
-                  <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-emerald-700/60 bg-emerald-900/20 text-emerald-400 shrink-0">Add-on</span>
+                  <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-emerald-700/60 bg-emerald-900/20 text-emerald-400 shrink-0">{t('addOnBadge')}</span>
                   <div className="flex items-center shrink-0" onClick={e => e.stopPropagation()}>
                     <button onClick={() => updateModelSize(item.id, m.name, Math.max(m.min, count - 1))} disabled={count <= m.min}
                       className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">−</button>
@@ -997,12 +999,12 @@ export function UnitCard({ item }: Props) {
                 </summary>
                 <div className="px-2 pb-2 space-y-2">
                   {equipText && (
-                    <div className="text-zinc-400 text-[11px]">Every {m.name} is equipped with: {equipText}.</div>
+                    <div className="text-zinc-400 text-[11px]">{t('everyWord')} {m.name} {t('isEquippedWithSuffix')} {equipText}.</div>
                   )}
                   <ModelProfileRow m={m} statKeys={STAT_KEYS_INF} />
                   {mAbilities.length > 0 && (
                     <div>
-                      <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-0.5">Abilities</div>
+                      <div className="text-[10px] text-amber-700 uppercase tracking-widest mb-0.5">{t('abilities')}</div>
                       {mAbilities.map((a, i) => (
                         <div key={i} className="text-[11px] text-zinc-400">{a}</div>
                       ))}
@@ -1010,13 +1012,13 @@ export function UnitCard({ item }: Props) {
                   )}
                   {mRanged.length > 0 && (
                     <div>
-                      <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-0.5">Ranged Weapons</div>
+                      <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-0.5">{t('rangedWeaponsHeader')}</div>
                       <WeaponTable weapons={mRanged} />
                     </div>
                   )}
                   {mMelee.length > 0 && (
                     <div>
-                      <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-0.5">Melee Weapons</div>
+                      <div className="text-[10px] text-amber-600 uppercase tracking-widest mb-0.5">{t('meleeWeaponsHeader')}</div>
                       <WeaponTable weapons={mMelee} />
                     </div>
                   )}
@@ -1027,7 +1029,7 @@ export function UnitCard({ item }: Props) {
 
           {maxSize > 1 && !item.modelSizes && (
             <div className="flex items-center gap-3">
-              <span className="font-cinzel text-[10px] uppercase tracking-widest text-zinc-500">Size</span>
+              <span className="font-cinzel text-[10px] uppercase tracking-widest text-zinc-500">{t('size')}</span>
               <div className="flex items-center">
                 <button
                   onClick={() => updateUnit(item.id, { size: squadMin && item.size === squadMin ? minSize : Math.max(minSize, item.size - 1) })}
@@ -1058,13 +1060,12 @@ export function UnitCard({ item }: Props) {
                       }`}
                   >
                     {item.blackCrusadeHQ
-                      ? '⚜ Black Crusade Champion — carries all four Chaos god marks'
-                      : '○ Designate as Black Crusade Champion (all four god marks)'}
+                      ? t('blackCrusadeChampionActiveLabel')
+                      : t('blackCrusadeChampionToggleOff')}
                   </button>
                   {item.blackCrusadeHQ && (
                     <div className="text-[10px] text-zinc-500 mt-0.5 pl-2 border-l border-amber-900">
-                      This HQ simultaneously bears Khorne, Nurgle, Slaanesh and Tzeentch.
-                      Pays the combined mark cost for all four gods.
+                      {t('blackCrusadeChampionDesc')}
                     </div>
                   )}
                 </div>
@@ -1078,7 +1079,7 @@ export function UnitCard({ item }: Props) {
                 const availableMarks = markGroup?.choices.map(c => c.name as Mark) ?? MARKS_ALL;
                 return (
                   <div>
-                    <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1.5 font-cinzel">Chaos Mark</div>
+                    <div className="text-[10px] text-amber-700/80 uppercase tracking-widest mb-1.5 font-cinzel">{t('chaosMarkLabel')}</div>
                     <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${Math.min(availableMarks.length, 5)}, minmax(0, 1fr))` }}>
                       {availableMarks.map(m => {
                         const active = item.mark === m;
@@ -1105,23 +1106,23 @@ export function UnitCard({ item }: Props) {
           )}
           {markIsForced && (
             <div className="text-[10px] text-amber-700/60 border-l-2 border-amber-900 pl-2 italic">
-              Mark forced by archetype: {effectiveMark}
+              {t('markForcedPrefix')} {effectiveMark}
             </div>
           )}
           {/* Mark stat bonus — shown for player-chosen or archetype-forced marks (never for locked) */}
           {blackCrusadeChampion ? (
             <div className="text-[10px] text-blue-400/80 border-l-2 border-blue-900 pl-2 mt-0.5">
-              <span className="font-semibold">⚜ All Chaos Marks:</span>{' '}
+              <span className="font-semibold">{t('allChaosMarksLabel')}</span>{' '}
               {u.is_vehicle
-                ? 'Tank Shock (double hit) · Recover damage 2D6/7+ · -1/-2 LD (18″/9″) · Warpflamer'
+                ? t('allMarksVehicleBonus')
                 : u.is_character
-                  ? '+1A +1S · +1T +1W · +1I +2″M · Warded'
-                  : '+1 A · +1 T · +1 I · Warded'
+                  ? t('allMarksCharacterBonus')
+                  : t('allMarksInfantryBonus')
               }
             </div>
           ) : statModMark && MARK_BONUSES[statModMark] ? (
             <div className="text-[10px] text-blue-400/80 border-l-2 border-blue-900 pl-2 mt-0.5">
-              <span className="font-semibold">Mark {statModMark}:</span>{' '}
+              <span className="font-semibold">{t('mark')} {statModMark}:</span>{' '}
               {u.is_vehicle
                 ? MARK_BONUSES[statModMark].veh
                 : u.is_character
@@ -1129,19 +1130,19 @@ export function UnitCard({ item }: Props) {
                   : MARK_BONUSES[statModMark].inf
               }
               {item.mark && !markIsForced && (
-                <span className="text-zinc-500"> · counts as 1 veteran ability slot</span>
+                <span className="text-zinc-500"> {t('vetSlotSuffix')}</span>
               )}
             </div>
           ) : statModMark === 'Undivided' ? (
             <div className="text-[10px] text-zinc-400/80 border-l-2 border-zinc-600 pl-2 mt-0.5">
-              <span className="font-semibold">Mark of Chaos Undivided:</span>{' '}
-              Kill-based progression (in-game rule): 1st kill → one Mark benefit (infantry); 2nd kill → additional character benefit; 3rd kill → Daemon weapon ability; 4th kill → Daemon Prince stats. If slain before the 1st benefit, replaced with a Chaos Spawn (opponent controls).
+              <span className="font-semibold">{t('markOfChaosUndividedLabel')}</span>{' '}
+              {t('undividedKillProgressionText')}
             </div>
           ) : null}
           {isFavored && effectiveMark && SACRED_NUMBERS[effectiveMark] && (
             <div className="text-[10px] text-amber-400/80 border-l-2 border-amber-700 pl-2 mt-0.5">
-              <span className="font-semibold">★ Favored of {effectiveMark}</span>{' '}
-              (size {SACRED_NUMBERS[effectiveMark]}×): squad leader gains +1 Attack + Personal icon (Daemon units deep striking within 3″ of the bearer do not scatter).
+              <span className="font-semibold">{t('favoredOfPrefix')} {effectiveMark}</span>{' '}
+              {t('favoredOfSizePrefix')} {SACRED_NUMBERS[effectiveMark]}{t('favoredOfSizeSuffix')}
             </div>
           )}
 
@@ -1177,7 +1178,7 @@ export function UnitCard({ item }: Props) {
                     />
                     <span className="font-cinzel text-[11px] text-zinc-100 uppercase tracking-wider flex-1">{g.variant_link ?? g.header}</span>
                     {(u.champion_has_armory || /armory|champion|sergeant|leader/i.test(g.header)) && (
-                      <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-amber-700/60 bg-amber-900/20 text-amber-400 shrink-0">Champion</span>
+                      <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-amber-700/60 bg-amber-900/20 text-amber-400 shrink-0">{t('championBadge')}</span>
                     )}
                     {g.inline_pts != null && !headerHasPts(g.inline_pts) && (
                       <span className="text-amber-600 text-[11px]">
@@ -1190,16 +1191,16 @@ export function UnitCard({ item }: Props) {
                       <ModelProfileRow m={variantModel} statKeys={STAT_KEYS_INF} />
                       {(u.champion_has_armory || u.has_armory_access || /armory/i.test(g.header)) && (
                         <div className="text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
-                          <span>The {variantModel.name} has access to weapons and gear from the Armory.</span>
+                          <span>{t('theWord')} {variantModel.name} {t('armoryAccessSuffix')}</span>
                           {active ? (
                             <button
                               onClick={() => setArmoryOpen(true)}
                               className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
                             >
-                              Armory ({item.armory.length})
+                              {t('armory')} ({item.armory.length})
                             </button>
                           ) : (
-                            <span className="text-zinc-600 italic">(select to enable Armory)</span>
+                            <span className="text-zinc-600 italic">{t('selectToEnableArmory')}</span>
                           )}
                         </div>
                       )}
@@ -1233,7 +1234,7 @@ export function UnitCard({ item }: Props) {
                     )}
                   </label>
                   {blocked && g.available_if && (
-                    <div className="text-[10px] text-red-400/80 pb-1 pl-8">Not available with Mark of {g.available_if.keyword}.</div>
+                    <div className="text-[10px] text-red-400/80 pb-1 pl-8">{t('notAvailableWithMarkPrefix')} {g.available_if.keyword}.</div>
                   )}
                 </div>
               );
@@ -1385,13 +1386,13 @@ export function UnitCard({ item }: Props) {
                     <table className="w-full text-xs border-collapse">
                       <thead>
                         <tr className="border-b border-zinc-600">
-                          <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 pr-2 text-[10px] uppercase tracking-wide w-[26%]">Weapon</th>
-                          <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">Range</th>
-                          <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[13%]">Type</th>
+                          <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 pr-2 text-[10px] uppercase tracking-wide w-[26%]">{t('weapon')}</th>
+                          <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[9%]">{t('rangeFullLabel')}</th>
+                          <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[13%]">{t('typeFullLabel')}</th>
                           <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">S</th>
                           <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">AP</th>
                           <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">D</th>
-                          <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">Abilities</th>
+                          <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
                           <th className="text-right text-zinc-500 font-normal py-1.5 px-2 text-[10px] uppercase w-[8%]">Pts</th>
                         </tr>
                       </thead>
@@ -1404,7 +1405,7 @@ export function UnitCard({ item }: Props) {
                           const showRowControl = !singleChoiceEvery;
                           if (weapons.length === 0) {
                             return (
-                              <tr key={ci} className={rowClass} title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}>
+                              <tr key={ci} className={rowClass} title={choiceMarkBlocked ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}` : undefined}>
                                 <td colSpan={7} className="py-1.5 pl-2 pr-2 font-medium text-zinc-100">
                                   {showRowControl ? (
                                     <span className="inline-flex items-center gap-1.5">{control}<span>{c.name}</span></span>
@@ -1426,7 +1427,7 @@ export function UnitCard({ item }: Props) {
                               ? w.name.slice(resolvedBaseName.length + 3)
                               : w.name;
                           const rows = weapons.map((w, wi) => (
-                            <tr key={`${ci}-${wi}`} className={rowClass} title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}>
+                            <tr key={`${ci}-${wi}`} className={rowClass} title={choiceMarkBlocked ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}` : undefined}>
                               <td className="py-1.5 pl-2 pr-2 font-medium text-zinc-100 whitespace-nowrap">
                                 {weapons.length > 1 ? <span className="text-zinc-400 pl-2">{profileName(w)}</span> : (
                                   <span className="inline-flex items-center gap-1.5">{showRowControl && control}<span>{profileName(w)}</span></span>
@@ -1482,7 +1483,7 @@ export function UnitCard({ item }: Props) {
                           className={`flex items-center gap-2.5 px-2.5 py-1.5 transition-colors
                             ${choiceMarkBlocked ? 'opacity-40 cursor-not-allowed' : 'hover:bg-zinc-800/40 cursor-pointer'}
                             ${active ? 'bg-amber-900/10' : ''}`}
-                          title={choiceMarkBlocked ? `Requires Mark of ${choiceMarkReq}` : undefined}
+                          title={choiceMarkBlocked ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}` : undefined}
                           onClick={() => { if (!choiceMarkBlocked && !['per_n','fixed_max','every'].includes(g.constraint.type)) setQty(realGi, ci, active ? 0 : 1); }}
                         >
                           {control}
@@ -1512,7 +1513,7 @@ export function UnitCard({ item }: Props) {
                     : 'border-zinc-700 bg-zinc-900 text-amber-500/80 hover:border-amber-700 hover:text-amber-400'}`}
               >
                 <span className="text-[11px] opacity-70">⚔</span>
-                Armory
+                {t('armory')}
                 {item.armory.filter(a => !['veteran','vehicle'].includes(findArmoryItemData(effectiveArmData,a)?.category??'')).length > 0 && (
                   <span className="text-[9px] bg-amber-800/60 text-amber-200 px-1 py-px rounded-sm">
                     {item.armory.filter(a => !['veteran','vehicle'].includes(findArmoryItemData(effectiveArmData,a)?.category??'')).length}
@@ -1542,7 +1543,7 @@ export function UnitCard({ item }: Props) {
                     ${specialAmmoSelection ? 'border-amber-600 bg-amber-900/30 text-amber-300' : 'border-zinc-700 bg-zinc-900 text-amber-500/80 hover:border-amber-700 hover:text-amber-400'}`}
                 >
                   <span className="text-[11px] opacity-70">◎</span>
-                  Ammo {specialAmmoSelection ? '✓' : `+${ammoPts}`}
+                  {t('ammoLabel')} {specialAmmoSelection ? '✓' : `+${ammoPts}`}
                 </button>
               );
             })()}
@@ -1554,7 +1555,7 @@ export function UnitCard({ item }: Props) {
                     : 'border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-yellow-800 hover:text-yellow-400'}`}
               >
                 <span className="text-[11px] opacity-70">★</span>
-                Veteran
+                {t('veteranLabel')}
                 <span className="flex gap-0.5 ml-0.5">
                   {Array.from({ length: vetMax }).map((_, i) => (
                     <span key={i} className={`inline-block w-1.5 h-1.5 rounded-full ${i < vetItemsCount ? 'bg-yellow-400' : 'bg-zinc-700'}`} />
@@ -1570,7 +1571,7 @@ export function UnitCard({ item }: Props) {
                     : 'border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-blue-800 hover:text-blue-400'}`}
               >
                 <span className="text-[11px] opacity-70">⚙</span>
-                Vehicle equipment {vehItemsCount > 0 && <span className="text-[9px] bg-blue-800/60 text-blue-200 px-1 py-px rounded-sm">{vehItemsCount}</span>}
+                {t('vehicleEquipmentLabel')} {vehItemsCount > 0 && <span className="text-[9px] bg-blue-800/60 text-blue-200 px-1 py-px rounded-sm">{vehItemsCount}</span>}
               </button>
             )}
             {hasTraitConflict && (
@@ -1578,7 +1579,7 @@ export function UnitCard({ item }: Props) {
                 className="inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border border-red-800 bg-red-900/20 text-red-400 hover:bg-red-900/30 transition-colors"
               >
                 <span className="text-[11px]">⚠</span>
-                Traits ({item.traits.length}/{vetMax})
+                {t('traitsCountLabel')} ({item.traits.length}/{vetMax})
               </button>
             )}
             {(() => {
@@ -1595,18 +1596,18 @@ export function UnitCard({ item }: Props) {
               const totalCount = realPowers + item.prayers.length + pactCount;
               const hasAny = totalCount > 0;
               const label = hasPacts && !hasPowers && !hasPrayers
-                ? `Pacts (${pactCount})`
+                ? `${t('pactsCountLabel')} (${pactCount})`
                 : u.is_cult_initiate
-                  ? `Cult Powers (${realPowers})`
+                  ? `${t('cultPowersLabel')} (${realPowers})`
                   : hasPowers && hasPrayers
-                    ? `Powers/Prayers (${totalCount})`
+                    ? `${t('powersPrayersLabel')} (${totalCount})`
                     : hasPrayers
-                      ? `Prayers (${item.prayers.length})`
+                      ? `${t('prayers')} (${item.prayers.length})`
                       : hasChosenDisc
-                        ? `Powers · ${chosenDiscName}`
+                        ? `${t('powersLabel')} · ${chosenDiscName}`
                         : knowsSmiteUnit
-                          ? `Powers (Smite${realPowers > 0 ? ` +${realPowers}` : ''})`
-                          : `Powers (${realPowers})`;
+                          ? `${t('powersLabel')} (Smite${realPowers > 0 ? ` +${realPowers}` : ''})`
+                          : `${t('powersLabel')} (${realPowers})`;
               return (
                 <button onClick={() => setPsyOpen(true)}
                   className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
@@ -1660,7 +1661,7 @@ export function UnitCard({ item }: Props) {
                   {/* Daemon weapon trait targeting a weapon: show which weapon + what it grants */}
                   {weaponTargetingTrait && (
                     <div className="text-[10px] text-violet-400/80 mt-0.5 pl-1">
-                      → {a.targetWeapon}: gains {extractWeaponGains(armItem?.desc ?? '').join(', ')}
+                      → {a.targetWeapon}{t('gainsSuffix')} {extractWeaponGains(armItem?.desc ?? '').join(', ')}
                     </div>
                   )}
                   {/* Daemon weapon trait / equipment: show description (only if not a weapon-targeting trait already displayed) */}
@@ -1673,7 +1674,7 @@ export function UnitCard({ item }: Props) {
                   {/* Eldar "Paragon of war" — show the chosen Exarch Power */}
                   {a.itemName === 'Paragon of war' && a.chosenPower && (
                     <div className="text-[10px] text-violet-400/80 mt-0.5 pl-1">
-                      → Exarch power: {a.chosenPower}
+                      {t('exarchPowerPrefix')} {a.chosenPower}
                     </div>
                   )}
                   <div className="text-[9px] text-zinc-600 mt-0.5">{a.source}</div>
@@ -1685,19 +1686,19 @@ export function UnitCard({ item }: Props) {
               <div className="space-y-2">
                 {regular.length > 0 && (
                   <div className="space-y-1">
-                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">Equipment</div>
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('equipment')}</div>
                     {regular.map(a => <ArmoryRow key={a.id} a={a} />)}
                   </div>
                 )}
                 {veterans.length > 0 && (
                   <div className="space-y-1">
-                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">Veteran Abilities</div>
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('veteranAbilities')}</div>
                     {veterans.map(a => <ArmoryRow key={a.id} a={a} />)}
                   </div>
                 )}
                 {vehicles.length > 0 && (
                   <div className="space-y-1">
-                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">Vehicle Upgrades</div>
+                    <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('armoryTitleVehicle')}</div>
                     {vehicles.map(a => <ArmoryRow key={a.id} a={a} />)}
                   </div>
                 )}
@@ -1709,10 +1710,10 @@ export function UnitCard({ item }: Props) {
           {showTraits && (
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest flex items-center gap-2">
-                Army Traits
+                {t('armyTraitsLabel')}
                 {hasTraitConflict && (
                   <span className="text-amber-500 normal-case">
-                    ({item.traits.length}/{vetMax} — click ⚠ to choose)
+                    ({item.traits.length}/{vetMax} {t('clickToChooseSuffix')})
                   </span>
                 )}
               </div>
@@ -1734,7 +1735,7 @@ export function UnitCard({ item }: Props) {
               ) : (
                 hasTraitConflict && (
                   <div className="text-[10px] text-amber-600 italic px-2">
-                    This unit cannot take all army traits — choose which to apply.
+                    {t('cannotTakeAllTraits')}
                   </div>
                 )
               )}
@@ -1744,11 +1745,11 @@ export function UnitCard({ item }: Props) {
           {/* Powers list */}
           {(u.is_psyker || item.powers.length > 0) && (
             <div className="space-y-1">
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest">Psychic Powers</div>
+              <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('psychicPowers')}</div>
               {/* Smite — always known, shown as fixed (not removable) */}
               {u.is_psyker && (u.abilities ?? []).some(a => /psyker:/i.test(a) && a.toLowerCase().includes('smite')) && (
                 <div className="flex justify-between items-center bg-amber-900/20 border border-amber-800/40 px-2 py-1 text-[11px]">
-                  <span className="text-amber-400">Smite <span className="text-amber-700">(always known)</span></span>
+                  <span className="text-amber-400">Smite <span className="text-amber-700">{t('smiteAlwaysKnownSuffix')}</span></span>
                 </div>
               )}
               {/* Selected powers — filter out internal __discipline__ marker */}
@@ -1768,7 +1769,7 @@ export function UnitCard({ item }: Props) {
                 const disc = item.powers.find(p => p.powerName === '__discipline__')!;
                 return (
                   <div className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                    <span className="text-violet-300">All of: <span className="text-zinc-300">{disc.disciplineName}</span></span>
+                    <span className="text-violet-300">{t('allOfPrefix')} <span className="text-zinc-300">{disc.disciplineName}</span></span>
                     <button
                       onClick={() => useArmyStore.getState().removePower(item.id, disc.disciplineName, '__discipline__')}
                       className="text-red-500 hover:text-red-300"
@@ -1782,7 +1783,7 @@ export function UnitCard({ item }: Props) {
           {/* Prayers list */}
           {item.prayers.length > 0 && (
             <div className="space-y-1">
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest">Prayers</div>
+              <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('prayers')}</div>
               {item.prayers.map((prayer, i) => (
                 <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <span className="text-zinc-300">{prayer}</span>
@@ -1800,7 +1801,7 @@ export function UnitCard({ item }: Props) {
           {/* Pacts list */}
           {(item.pacts ?? []).length > 0 && (
             <div className="space-y-1">
-              <div className="text-[10px] text-amber-700 uppercase tracking-widest">Infernal Pacts</div>
+              <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('infernalPactsLabel')}</div>
               {(item.pacts ?? []).map((pact, i) => (
                 <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
                   <span className="text-zinc-300">{pact}</span>
@@ -1856,7 +1857,7 @@ export function UnitCard({ item }: Props) {
             <details>
               <summary className="text-[10px] text-amber-600 uppercase tracking-widest cursor-pointer select-none flex items-center gap-2 py-2 border-t border-zinc-700/40 hover:text-amber-400 transition-colors">
                 <span className="w-3 h-px bg-amber-800 inline-block" />
-                <span className="font-bold">Abilities</span>
+                <span className="font-bold">{t('abilities')}</span>
                 <span className="text-zinc-600 font-normal normal-case tracking-normal text-[10px]">
                   ({totalAbilityCount})
                 </span>
@@ -1894,7 +1895,7 @@ export function UnitCard({ item }: Props) {
                   <div key={`ta-${i}`} className="border-b border-zinc-700/40 pb-1.5">
                     <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                       {ta.name}
-                      <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Trait</span>
+                      <span className="text-[9px] bg-emerald-900/50 text-emerald-400 border border-emerald-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('traitBadge')}</span>
                     </div>
                     {ta.desc && (
                       <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{ta.desc}</div>
@@ -1908,7 +1909,7 @@ export function UnitCard({ item }: Props) {
                     <div key={`ma-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                         {part.displayName}
-                        <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Mark</span>
+                        <span className="text-[9px] bg-blue-900/50 text-blue-400 border border-blue-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('mark')}</span>
                       </div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
@@ -1921,7 +1922,7 @@ export function UnitCard({ item }: Props) {
                     <div key={`rn-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                         {part.displayName}
-                        <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Rule</span>
+                        <span className="text-[9px] bg-amber-900/50 text-amber-400 border border-amber-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('ruleBadge')}</span>
                       </div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
@@ -1934,7 +1935,7 @@ export function UnitCard({ item }: Props) {
                     <div key={`oa-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                         {part.displayName}
-                        <span className="text-[9px] bg-cyan-900/50 text-cyan-400 border border-cyan-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Option</span>
+                        <span className="text-[9px] bg-cyan-900/50 text-cyan-400 border border-cyan-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('optionBadge')}</span>
                       </div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
@@ -1948,7 +1949,7 @@ export function UnitCard({ item }: Props) {
                     <div key={`eq-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">
                         {part.displayName}
-                        <span className="text-[9px] bg-violet-900/50 text-violet-400 border border-violet-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">Equip</span>
+                        <span className="text-[9px] bg-violet-900/50 text-violet-400 border border-violet-800/50 px-1 py-px rounded-sm font-normal uppercase tracking-wide">{t('equipBadge')}</span>
                       </div>
                       {part.description && (
                         <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{part.description}</div>
@@ -1967,7 +1968,7 @@ export function UnitCard({ item }: Props) {
           {u.keywords.length > 0 && (
             <div className="md:col-span-2 px-3 py-2.5 border-t border-zinc-700 bg-zinc-800/50">
               <div className="flex flex-wrap gap-1.5 items-center">
-                <span className="text-[9px] text-zinc-500 uppercase tracking-widest shrink-0 font-semibold">Keywords</span>
+                <span className="text-[9px] text-zinc-500 uppercase tracking-widest shrink-0 font-semibold">{t('keywords')}</span>
                 <span className="text-zinc-700 text-[9px]">|</span>
                 {u.keywords.map((kw, i) => (
                   <span key={i} className="text-[10px] uppercase tracking-wider text-zinc-400 font-medium">
@@ -1990,6 +1991,7 @@ export function UnitCard({ item }: Props) {
 }
 
 function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryItem; extraTraits?: string[] }) {
+  const t = useT();
   const cls = 'text-[10px] text-zinc-500 mt-0.5 pl-1 border-l border-amber-900/40';
   function appendTraits(base: string | undefined): string {
     const b = (base && base !== '-') ? base : '';
@@ -2026,18 +2028,19 @@ function EquippedWeaponStats({ armItem, extraTraits = [] }: { armItem: ArmoryIte
   if (armItem.abilities) {
     return <div className={`${cls} italic`}>{appendTraits(armItem.abilities)}</div>;
   }
-  return <div className="text-[10px] text-zinc-600 mt-0.5 pl-1 italic">— see faction rules</div>;
+  return <div className="text-[10px] text-zinc-600 mt-0.5 pl-1 italic">{t('seeFactionRulesPlain')}</div>;
 }
 
 /** Single-row stat table for a supplementary model (Chaos Ogryn, Traitor Sergeant, etc.) —
  * same columns as the main Profile table but without mark/trait/equip bonus annotations. */
 function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[] }) {
+  const t = useT();
   return (
     <div className="overflow-x-auto">
     <table className="w-full text-xs border-collapse">
       <thead>
         <tr className="bg-zinc-700/50 border-b border-zinc-600">
-          <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">Model</th>
+          <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">{t('modelHeader')}</th>
           {statKeys.map(k => {
             const icon = STAT_ICONS[k];
             return (
@@ -2073,22 +2076,23 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
 }
 
 function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null; countOverrides?: Map<string, number> }) {
+  const t = useT();
   return (
     <div className="px-3 pb-2 overflow-x-auto">
       <table className="w-full text-xs border-collapse">
         <thead>
           <tr className="border-b border-zinc-600">
-            <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[32%]">Weapon</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[32%]">{t('weapon')}</th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[10%]">
               <div className="flex flex-col items-center gap-0.5">
                 <img src={STAT_ICONS['Range']} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
-                <span>Range</span>
+                <span>{t('rangeFullLabel')}</span>
               </div>
             </th>
             <th className="text-left text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[14%]">
               <div className="flex flex-col items-start gap-0.5">
                 <img src="/weapon-type-icons/type.svg" alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.5, width: 12, height: 12 }} />
-                <span>Type</span>
+                <span>{t('typeFullLabel')}</span>
               </div>
             </th>
             <th className="text-center text-zinc-400 font-semibold py-1.5 px-1 text-[10px] uppercase tracking-wide w-[6%]">
@@ -2109,7 +2113,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 <span>D</span>
               </div>
             </th>
-            <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">Abilities</th>
+            <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 text-[10px] uppercase tracking-wide">{t('abilities')}</th>
           </tr>
         </thead>
         <tbody>
