@@ -21,7 +21,7 @@ export const useLanguage = create<I18nState>()(
 // ── Translations ──────────────────────────────────────────────────────────────
 
 export type TranslationKey =
-  | 'appTitle' | 'appSubtitle' | 'selectFaction' | 'savedArmies' | 'loadArmy'
+  | 'appTitle' | 'appSubtitle' | 'landingQuote' | 'selectFaction' | 'savedArmies' | 'loadArmy'
   | 'buildArmy' | 'updates' | 'battleType' | 'pointsLimit' | 'archetype'
   | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
@@ -31,15 +31,18 @@ export type TranslationKey =
   | 'unitName' | 'customNamePlaceholder'
   | 'weapon' | 'range' | 'strength' | 'ap' | 'damage'
   | 'ranged' | 'melee' | 'equipment' | 'abilities' | 'veteranAbilities' | 'psychicPowers' | 'keywords'
-  | 'armyConfiguration' | 'engagement' | 'points' | 'specialRules'
+  | 'armyConfiguration' | 'loadingFactionData' | 'engagement' | 'points' | 'specialRules'
   | 'models' | 'totalModels'
   | 'fullyReviewed' | 'needsTesting' | 'inReview' | 'notReviewed'
-  | 'supplements' | 'available' | 'comingSoon';
+  | 'supplements' | 'supplementsDesc' | 'available' | 'comingSoon'
+  | 'viewCatalog' | 'hhRequires' | 'hhDesc' | 'escRequires' | 'escDesc' | 'assAlwaysAvailable' | 'assDesc'
+  | 'tabFactions' | 'tabConfig' | 'tabArmy' | 'tabAllied' | 'campaign' | 'campaignAlphaTooltip' | 'login';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
     appTitle: 'Custom40k Army Builder',
     appSubtitle: 'Select your faction and configure your army to begin',
+    landingQuote: 'Victory needs no explanation, defeat allows no excuses.',
     selectFaction: 'Faction',
     savedArmies: 'Saved Armies',
     loadArmy: 'Load Army',
@@ -96,6 +99,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     psychicPowers: 'Psychic Powers',
     keywords: 'Keywords',
     armyConfiguration: 'Army Configuration',
+    loadingFactionData: 'Loading faction data…',
     engagement: 'Engagement',
     points: 'Points',
     specialRules: 'Special Rules',
@@ -106,12 +110,28 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     inReview: 'In review',
     notReviewed: 'Not yet reviewed',
     supplements: 'Supplements',
+    supplementsDesc: 'Expansion rule sets that add new units and options to the core game.',
     available: 'Available',
     comingSoon: 'Coming Soon',
+    viewCatalog: 'View Catalog',
+    hhRequires: 'Requires: Legion archetype',
+    hhDesc: 'Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.',
+    escRequires: 'Requires: Epic Battle (4000+ pts)',
+    escDesc: 'Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Available for all factions.',
+    assAlwaysAvailable: 'Always available — no activation step',
+    assDesc: 'Callidus, Culexus, Eversor, Vindicare. A single Assassin or one of each — counts as a single Elite slot. Granted natively by Demon Hunters / Witch hunters.',
+    tabFactions: 'Factions',
+    tabConfig: 'Config',
+    tabArmy: 'Army',
+    tabAllied: 'Allied',
+    campaign: 'Campaign',
+    campaignAlphaTooltip: 'Planetary Assault campaigns (ALPHA)',
+    login: 'Log in',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
     appSubtitle: 'Fraktion auswählen und Armee konfigurieren',
+    landingQuote: 'Der Sieg braucht keine Erklärung, die Niederlage erlaubt keine Ausreden.',
     selectFaction: 'Fraktion',
     savedArmies: 'Gespeicherte Armeen',
     loadArmy: 'Armee laden',
@@ -168,6 +188,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     psychicPowers: 'Psikräfte',
     keywords: 'Schlüsselwörter',
     armyConfiguration: 'Armeekonfiguration',
+    loadingFactionData: 'Fraktionsdaten werden geladen…',
     engagement: 'Gefechtstyp',
     points: 'Punkte',
     specialRules: 'Sonderregeln',
@@ -178,12 +199,28 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     inReview: 'In Überprüfung',
     notReviewed: 'Noch nicht geprüft',
     supplements: 'Erweiterungen',
+    supplementsDesc: 'Erweiterungsregelwerke, die neue Einheiten und Optionen zum Grundspiel hinzufügen.',
     available: 'Verfügbar',
     comingSoon: 'Demnächst',
+    viewCatalog: 'Katalog ansehen',
+    hhRequires: 'Erfordert: Legion-Archetyp',
+    hhDesc: 'Legiones Astartes zu Beginn der Häresie. Vollständiges Einheitenroster, Legion-Armory und psychische Disziplinen.',
+    escRequires: 'Erfordert: Epic Battle (4000+ Punkte)',
+    escDesc: 'Über-schwere Fahrzeuge, Knights und Titanen. Wird durch das Epic-Battle-Engagement freigeschaltet, begrenzt auf 33% der Punkte. Für alle Fraktionen verfügbar.',
+    assAlwaysAvailable: 'Immer verfügbar — kein Aktivierungsschritt',
+    assDesc: 'Callidus, Culexus, Eversor, Vindicare. Ein einzelner Assassine oder je einer — zählt als ein einzelner Elite-Slot. Wird nativ von Demon Hunters / Witch Hunters gewährt.',
+    tabFactions: 'Fraktionen',
+    tabConfig: 'Konfig',
+    tabArmy: 'Armee',
+    tabAllied: 'Verbündet',
+    campaign: 'Feldzug',
+    campaignAlphaTooltip: 'Planetary-Assault-Feldzüge (ALPHA)',
+    login: 'Anmelden',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
     appSubtitle: 'Selecciona tu facción y configura tu ejército para empezar',
+    landingQuote: 'La victoria no necesita explicación, la derrota no admite excusas.',
     selectFaction: 'Facción',
     savedArmies: 'Ejércitos guardados',
     loadArmy: 'Cargar ejército',
@@ -240,6 +277,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     psychicPowers: 'Poderes psíquicos',
     keywords: 'Palabras clave',
     armyConfiguration: 'Configuración del ejército',
+    loadingFactionData: 'Cargando datos de la facción…',
     engagement: 'Tipo de enfrentamiento',
     points: 'Puntos',
     specialRules: 'Reglas especiales',
@@ -250,8 +288,23 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     inReview: 'En revisión',
     notReviewed: 'Sin revisar',
     supplements: 'Suplementos',
+    supplementsDesc: 'Reglamentos de expansión que añaden nuevas unidades y opciones al juego base.',
     available: 'Disponible',
     comingSoon: 'Próximamente',
+    viewCatalog: 'Ver catálogo',
+    hhRequires: 'Requiere: archetype Legion',
+    hhDesc: 'Legiones Astartes al inicio de la Herejía. Plantel completo de unidades, armería de Legión y disciplinas psíquicas.',
+    escRequires: 'Requiere: Epic Battle (4000+ pts)',
+    escDesc: 'Vehículos super pesados, Knights y Titanes. Se desbloquea con el engagement Epic Battle, limitado al 33% de los puntos. Disponible para todas las facciones.',
+    assAlwaysAvailable: 'Siempre disponible — sin paso de activación',
+    assDesc: 'Callidus, Culexus, Eversor, Vindicare. Un único Assassin o uno de cada — cuenta como un solo slot de Elite. Concedido nativamente por Demon Hunters / Witch hunters.',
+    tabFactions: 'Facciones',
+    tabConfig: 'Config',
+    tabArmy: 'Ejército',
+    tabAllied: 'Aliado',
+    campaign: 'Campaña',
+    campaignAlphaTooltip: 'Campañas Planetary Assault (ALPHA)',
+    login: 'Iniciar sesión',
   },
 };
 

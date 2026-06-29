@@ -27,6 +27,7 @@ import { CloudSavesModal } from './components/CloudSavesModal';
 import { CampaignModal } from './components/CampaignModal';
 import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
+import { useT } from './i18n';
 
 type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
 
@@ -167,12 +168,13 @@ function TabBar({
   onAccountClick: () => void;
   onCampaignClick: () => void;
 }) {
+  const t = useT();
   const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean; allied?: boolean }[] = [
-    { id: 'landing',     label: 'Factions',       icon: false, closeable: false },
-    ...(openTabs.includes('army_config') ? [{ id: 'army_config' as TabId, label: factionLabel || 'Config', icon: true, closeable: true }] : []),
-    ...(openTabs.includes('builder')     ? [{ id: 'builder'     as TabId, label: armyName || 'Army',   icon: true, closeable: true }] : []),
+    { id: 'landing',     label: t('tabFactions'),       icon: false, closeable: false },
+    ...(openTabs.includes('army_config') ? [{ id: 'army_config' as TabId, label: factionLabel || t('tabConfig'), icon: true, closeable: true }] : []),
+    ...(openTabs.includes('builder')     ? [{ id: 'builder'     as TabId, label: armyName || t('tabArmy'),   icon: true, closeable: true }] : []),
     // Distinct icon/label/accent so it's unmistakably "the other army", not a sub-section of the primary's.
-    ...(openTabs.includes('allied_config') ? [{ id: 'allied_config' as TabId, label: `Allied: ${alliedFactionLabel || ''}`, icon: true, closeable: true, allied: true }] : []),
+    ...(openTabs.includes('allied_config') ? [{ id: 'allied_config' as TabId, label: `${t('tabAllied')}: ${alliedFactionLabel || ''}`, icon: true, closeable: true, allied: true }] : []),
   ];
 
   return (
@@ -215,16 +217,16 @@ function TabBar({
       </div>
       <button
         onClick={onCampaignClick}
-        title="Planetary Assault campaigns (ALPHA)"
+        title={t('campaignAlphaTooltip')}
         className="flex items-center shrink-0 gap-1 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-500 hover:text-red-400 transition-colors border-l border-zinc-800"
       >
-        ⚔ Campaign <span className="text-[9px] text-red-500/70">ALPHA</span>
+        ⚔ {t('campaign')} <span className="text-[9px] text-red-500/70">ALPHA</span>
       </button>
       <button
         onClick={onAccountClick}
         className="flex items-center shrink-0 gap-1.5 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors border-l border-zinc-800"
       >
-        {loggedIn ? `☁ ${username}` : 'Log in'}
+        {loggedIn ? `☁ ${username}` : t('login')}
       </button>
     </div>
   );

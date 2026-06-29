@@ -45,6 +45,14 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   },
 };
 
+/** Renders "bold headline — detail" when the text contains an em-dash split; falls back to a
+ * plain paragraph when it doesn't, instead of leaving a dangling " — " with nothing after it. */
+function BoldSplitLine({ text }: { text: string }) {
+  const parts = text.split(' — ');
+  if (parts.length < 2) return <p>{text}</p>;
+  return <p><strong className="text-emerald-400">{parts[0]}</strong> — {parts.slice(1).join(' — ')}</p>;
+}
+
 function CommunityAnnouncement() {
   const { language } = useLanguage();
   const tx = ANNOUNCEMENT_TEXT[language];
@@ -69,9 +77,9 @@ function CommunityAnnouncement() {
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
         <p>{tx.intro}</p>
         <p className="text-amber-300/80">{tx.engine}</p>
-        <p><strong className="text-emerald-400">{tx.csm.split(' — ')[0]}</strong> — {tx.csm.split(' — ').slice(1).join(' — ')}</p>
-        <p><strong className="text-emerald-400">{tx.cd.split(' — ')[0]}</strong> — {tx.cd.split(' — ').slice(1).join(' — ')}</p>
-        <p><strong className="text-emerald-400">{tx.sm.split(' — ')[0]}</strong> — {tx.sm.split(' — ').slice(1).join(' — ')}</p>
+        <BoldSplitLine text={tx.csm} />
+        <BoldSplitLine text={tx.cd} />
+        <BoldSplitLine text={tx.sm} />
         <p className="text-orange-300/80">{tx.legacyfix}</p>
         <p className="text-zinc-400">{tx.contrib}</p>
       </div>
@@ -197,8 +205,8 @@ export function LandingPage({
             <p className="text-zinc-500 text-sm">
               {t('appSubtitle')}
             </p>
-            <p className="text-zinc-600 text-[10px] italic mt-2 font-cinzel tracking-wide">
-              "La victoria no necesita explicación, la derrota no admite excusas."
+            <p className="text-zinc-400 text-[10px] italic mt-2 font-cinzel tracking-wide">
+              "{t('landingQuote')}"
             </p>
           </div>
           <div className="shrink-0 flex items-center gap-2">
@@ -250,15 +258,15 @@ export function LandingPage({
                     <button
                       onClick={() => onDeleteArmy(save.id)}
                       className="text-zinc-600 hover:text-red-400 text-lg leading-none shrink-0 transition-colors"
-                      title="Delete save"
+                      title={t('delete')}
                     >
                       ×
                     </button>
                   </div>
                   <div className="flex items-center gap-3 text-[11px] text-zinc-500">
-                    <span>{save.unitCount} units</span>
+                    <span>{save.unitCount} {t('models')}</span>
                     <span>·</span>
-                    <span>{save.totalPts} pts</span>
+                    <span>{save.totalPts} {t('points')}</span>
                     <span>·</span>
                     <span>{formatDate(save.savedAt)}</span>
                   </div>
@@ -351,12 +359,12 @@ export function LandingPage({
         {!hideArmyConfig && selectedFaction && (
           <section>
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
-              Army Configuration
+              {t('armyConfiguration')}
             </h2>
             {loading || !data ? (
               <div className="flex items-center gap-3 text-zinc-500 py-8">
                 <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
-                <span className="text-sm">Loading faction data…</span>
+                <span className="text-sm">{t('loadingFactionData')}</span>
               </div>
             ) : (
               <div className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-4">
@@ -382,12 +390,12 @@ export function LandingPage({
         <section>
           <div className="flex items-center gap-3 mb-4">
             <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
-              Supplements
+              {t('supplements')}
             </span>
             <div className="flex-1 h-px bg-zinc-800" />
           </div>
-          <p className="text-zinc-600 text-[11px] mb-4">
-            Expansion rule sets that add new units and options to the core game.
+          <p className="text-zinc-500 text-[11px] mb-4">
+            {t('supplementsDesc')}
           </p>
           <div className="flex flex-wrap gap-3">
 
@@ -404,15 +412,15 @@ export function LandingPage({
                 </div>
                 <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
               </div>
-              <div className="text-[10px] text-red-500/80 uppercase tracking-wide">⚙ Requires: Legion archetype</div>
+              <div className="text-[10px] text-red-500/80 uppercase tracking-wide">⚙ {t('hhRequires')}</div>
               <p className="text-zinc-500 text-[12px] leading-snug">
-                Legiones Astartes at the dawn of the Heresy. Full unit roster, Legion armory, and psychic disciplines.
+                {t('hhDesc')}
               </p>
               <button
                 onClick={() => setOpenSupplement('horus_heresy')}
                 className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-red-900/20 border border-red-900/50 text-red-400 hover:bg-red-900/40 transition-colors"
               >
-                View Catalog ▶
+                {t('viewCatalog')} ▶
               </button>
             </div>
 
@@ -429,15 +437,15 @@ export function LandingPage({
                 </div>
                 <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
               </div>
-              <div className="text-[10px] text-amber-500/80 uppercase tracking-wide">⚙ Requires: Epic Battle (4000+ pts)</div>
+              <div className="text-[10px] text-amber-500/80 uppercase tracking-wide">⚙ {t('escRequires')}</div>
               <p className="text-zinc-500 text-[12px] leading-snug">
-                Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Available for all factions.
+                {t('escDesc')}
               </p>
               <button
                 onClick={() => setOpenSupplement('escalation')}
                 className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/20 border border-amber-900/50 text-amber-400 hover:bg-amber-900/40 transition-colors"
               >
-                View Catalog ▶
+                {t('viewCatalog')} ▶
               </button>
             </div>
 
@@ -454,15 +462,15 @@ export function LandingPage({
                 </div>
                 <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Chaos · Imperial</span>
               </div>
-              <div className="text-[10px] text-zinc-500 uppercase tracking-wide">✓ Always available — no activation step</div>
+              <div className="text-[10px] text-zinc-500 uppercase tracking-wide">✓ {t('assAlwaysAvailable')}</div>
               <p className="text-zinc-500 text-[12px] leading-snug">
-                Callidus, Culexus, Eversor, Vindicare. A single Assassin or one of each — counts as a single Elite slot. Granted natively by Demon Hunters / Witch hunters.
+                {t('assDesc')}
               </p>
               <button
                 onClick={() => setOpenSupplement('assassins')}
                 className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-zinc-800/50 border border-zinc-700 text-zinc-400 hover:bg-zinc-800 transition-colors"
               >
-                View Catalog ▶
+                {t('viewCatalog')} ▶
               </button>
             </div>
 
