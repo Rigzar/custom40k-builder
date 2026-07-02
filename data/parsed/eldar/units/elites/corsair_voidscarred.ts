@@ -231,7 +231,7 @@ export const corsairVoidscarred: Unit = {
     {
       "header": "Any Voidscarred may swap their Shuriken rifle",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

@@ -24,6 +24,14 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
   // Only show unit traits (those with per-unit costs)
   const unitTraitDefs = data.traits.filter(t => {
     if (!traitPool.includes(t.name)) return false;
+    // Children of Prophecy (Eldar): "Only for Psykers" — hide for non-psyker units
+    if (t.name === 'Children of Prophecy' && !unit.is_psyker) return false;
+    // Iron Within, Iron Without (CSM): "Only for creature models that do not already have an
+    // invulnerability save" — hide for creature units whose datasheet already grants one
+    if (t.name === 'Iron Within, Iron Without' && !unit.is_vehicle) {
+      const hasInvSave = (unit.abilities ?? []).some(a => /invulnerab(le|ility) save/i.test(a));
+      if (hasInvSave) return false;
+    }
     return [t.pts_unit, t.pts_char, t.pts_veh].some(
       v => v && v !== '-' && v.toLowerCase() !== 'special',
     );

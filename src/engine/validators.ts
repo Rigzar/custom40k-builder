@@ -1,6 +1,7 @@
 import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveRuleFor } from './points';
+import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
 import {
   getArchetypeRule, getEffectiveSlot, getEffectiveHqLimits, countsTroops, cleanArchetypeName,
@@ -695,10 +696,11 @@ export function engagementGateBlockReason(unit: Unit, engagement: string): strin
   return `Requires the Escalation supplement (Epic Battle engagement) — not available in ${engagement === 'skirmish' ? 'Skirmish' : 'Pitched Battle'}.`;
 }
 
-export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null): ValidationItem[] {
+export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
   const eng = ENGAGEMENTS[state.engagement];
   const rule = getArchetypeRule(state.archetype);
   const items: ValidationItem[] = [];
+  const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => tpl(t(language, key), vars ?? {});
 
   const total = state.army.reduce((s, i) => {
     const u = resolveUnit(i, data);
@@ -707,20 +709,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // Point range warnings
   if (state.engagement === 'skirmish') {
-    if (total < 1000) items.push({ type: 'warn', text: `Skirmish recommended 1000–1500 pts (current: ${total}).` });
-    if (total > 1500) items.push({ type: 'warn', text: `Skirmish cap 1500 pts (current: ${total}).` });
+    if (total < 1000) items.push({ type: 'warn', text: T('valSkirmishRecommended', { total }) });
+    if (total > 1500) items.push({ type: 'warn', text: T('valSkirmishCap', { total }) });
   } else if (state.engagement === 'pitched') {
-    if (total < 2500) items.push({ type: 'warn', text: `Pitched Battle recommended 2500–3500 pts (current: ${total}).` });
-    if (total > 3500) items.push({ type: 'warn', text: `Pitched Battle cap 3500 pts (current: ${total}).` });
+    if (total < 2500) items.push({ type: 'warn', text: T('valPitchedRecommended', { total }) });
+    if (total > 3500) items.push({ type: 'warn', text: T('valPitchedCap', { total }) });
   } else {
-    if (total < 4000) items.push({ type: 'warn', text: `Epic Battle recommended 4000+ pts (current: ${total}).` });
+    if (total < 4000) items.push({ type: 'warn', text: T('valEpicRecommended', { total }) });
   }
 
   // Hard point limit
   if (total > state.pointLimit) {
-    items.push({ type: 'error', text: `Over points limit (${total}/${state.pointLimit}).` });
+    items.push({ type: 'error', text: T('valOverPointsLimit', { total, limit: state.pointLimit }) });
   } else if (state.army.length > 0) {
-    items.push({ type: 'ok', text: `Within limit (${total}/${state.pointLimit}).` });
+    items.push({ type: 'ok', text: T('valWithinLimit', { total, limit: state.pointLimit }) });
   }
 
   // ── Required option group validation ─────────────────────────────────────
@@ -733,7 +735,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (!hasSelection) {
         items.push({
           type: 'error',
-          text: `${u.name}: "${g.header}" — a selection is required.`,
+          text: T('valSelectionRequired', { unit: u.name, header: g.header }),
         });
       }
     }
@@ -776,7 +778,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const u = resolveUnit(item, data);
       items.push({
         type: 'error',
-        text: `${u?.name ?? item.unitName}: only one armour per model (${armours.join(', ')}).`,
+        text: T('valOnlyOneArmour', { unit: u?.name ?? item.unitName, armours: armours.join(', ') }),
       });
     }
   }
@@ -810,7 +812,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const names = joiners.map(j => j.customName || j.unitName).join(', ');
         items.push({
           type: 'error',
-          text: `${targetName}: only one character may be attached to a unit at a time (currently joined by ${joiners.length}: ${names}) — additional characters need the "Command Squad" ability.`,
+          text: T('valOnlyOneCharacterAttached', { unit: targetName, count: joiners.length, names }),
         });
       }
     }
@@ -828,7 +830,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (!item.factionSource && rule.bannedUnits.includes(item.unitName)) {
         items.push({
           type: 'error',
-          text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} is not allowed.`,
+          text: T('valArchetypeUnitNotAllowed', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName }),
         });
       }
     }
@@ -839,7 +841,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (!item.factionSource && !rule.allowedUnitsOnly.includes(item.unitName)) {
           items.push({
             type: 'error',
-            text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} is not in the allowed unit list.`,
+            text: T('valArchetypeNotInAllowedList', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName }),
           });
         }
       }
@@ -851,7 +853,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (!item.factionSource && rule.bannedSlots.includes(item.slot)) {
           items.push({
             type: 'error',
-            text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.slot} units are not allowed (${item.unitName}).`,
+            text: T('valArchetypeSlotNotAllowed', { archetype: cleanArchetypeName(state.archetype), slot: item.slot, unit: item.unitName }),
           });
         }
       }
@@ -867,7 +869,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (!hasRequiredHq) {
         items.push({
           type: 'error',
-          text: `Archetype "${cleanArchetypeName(state.archetype)}": requires at least 1 ${rule.requiresHqUnit} as HQ.`,
+          text: T('valArchetypeRequiresHqUnit', { archetype: cleanArchetypeName(state.archetype), hqUnit: rule.requiresHqUnit! }),
         });
       }
     }
@@ -892,7 +894,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (!hasRequiredHqUpgrade) {
         items.push({
           type: 'error',
-          text: `Archetype "${cleanArchetypeName(state.archetype)}": requires at least 1 ${rule.requiresHqUpgrade.unitNameContains} with the ${rule.requiresHqUpgrade.choiceName} upgrade as HQ.`,
+          text: T('valArchetypeRequiresHqUpgrade', { archetype: cleanArchetypeName(state.archetype), hqUnit: rule.requiresHqUpgrade.unitNameContains, upgrade: rule.requiresHqUpgrade.choiceName }),
         });
       }
     }
@@ -913,7 +915,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (otherCount > allowed) {
         items.push({
           type: 'error',
-          text: `Archetype "${cleanArchetypeName(state.archetype)}": only ${allowed} other Troop selection${allowed === 1 ? '' : 's'} allowed (have ${otherCount}) for ${anchorCount} ${anchorUnit}.`,
+          text: T('valArchetypeTroopsRatioCap', { archetype: cleanArchetypeName(state.archetype), allowed, have: otherCount, anchorCount, anchorUnit }),
         });
       }
     }
@@ -934,7 +936,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (troopsCount > escortCount) {
         items.push({
           type: 'error',
-          text: `Archetype "${cleanArchetypeName(state.archetype)}": each ${troopsUnit} taken as Troops needs an accompanying ${escortUnit} (have ${troopsCount} ${troopsUnit}, ${escortCount} ${escortUnit}).`,
+          text: T('valArchetypeRequiresEscort', { archetype: cleanArchetypeName(state.archetype), troopsUnit, escortUnit, troopsCount, escortCount }),
         });
       }
     }
@@ -956,7 +958,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (cappedCount > allowed) {
         items.push({
           type: 'error',
-          text: `Archetype "${cleanArchetypeName(state.archetype)}": only ${allowed} ${cappedUnit} unit${allowed === 1 ? '' : 's'} may count as Troops (have ${cappedCount}) for ${sourceModels} ${sourceUnits.join('/')} model${sourceModels === 1 ? '' : 's'} (1 per ${modelsPerUnit}).`,
+          text: T('valArchetypeTroopsModelRatioCap', { archetype: cleanArchetypeName(state.archetype), allowed, cappedUnit, have: cappedCount, sourceModels, sourceUnits: sourceUnits.join('/'), modelsPerUnit }),
         });
       }
     }
@@ -969,7 +971,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (u && !u.has_veteran_abilities) {
           items.push({
             type: 'error',
-            text: `Legionnaire Warband: ${item.unitName} has no veteran abilities and cannot be included.`,
+            text: T('valArchetypeNoVetAbilities', { unit: item.unitName }),
           });
         }
       }
@@ -985,7 +987,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (lockedMark && lockedMark !== rule.forcedMark) {
           items.push({
             type: 'error',
-            text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} has a locked mark (${lockedMark}) incompatible with ${rule.forcedMark}.`,
+            text: T('valArchetypeForcedMarkConflict', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName, lockedMark, forcedMark: rule.forcedMark! }),
           });
         }
       }
@@ -1003,7 +1005,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           if (!allowed) {
             items.push({
               type: 'error',
-              text: `Archetype "${cleanArchetypeName(state.archetype)}": ${item.unitName} cannot be HQ (only ${rule.hqAllowed.join(', ')}).`,
+              text: T('valArchetypeHqNotAllowed', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName, allowed: rule.hqAllowed.join(', ') }),
             });
           }
         }
@@ -1096,10 +1098,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
     // No legacy/traits when archetype forbids them
     if (rule.noLegacy && (state.legacy || state.legacy2)) {
-      items.push({ type: 'error', text: `Archetype "${cleanArchetypeName(state.archetype)}": no Legacy is allowed.` });
+      items.push({ type: 'error', text: T('valNoLegacyAllowed', { archetype: cleanArchetypeName(state.archetype) }) });
     }
     if (rule.noTraits && state.traitPool.length > 0) {
-      items.push({ type: 'error', text: `Archetype "${cleanArchetypeName(state.archetype)}": no Traits are allowed.` });
+      items.push({ type: 'error', text: T('valNoTraitsAllowed', { archetype: cleanArchetypeName(state.archetype) }) });
     }
 
     // Daemonkin: all units must share the same Chaos Mark
@@ -1206,7 +1208,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (restriction.toLowerCase() !== (mark ?? '').toLowerCase()) {
           items.push({
             type: 'error',
-            text: `${item.unitName}: "${c.name}" requires Mark of ${restriction} (current: ${mark ?? 'none'}).`,
+            text: T('valChoiceMarkRestriction', { unit: item.unitName, choice: c.name, requiredMark: restriction, currentMark: mark ?? 'none' }),
           });
         }
       });
@@ -1224,14 +1226,11 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const selected = Object.entries(item.optionQty?.[gi] ?? {}).some(([, v]) => (v ?? 0) > 0);
       if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction, state.archetype)) {
         const reason = g.available_if.scope === 'unit'
-          ? `not available with Mark of ${g.available_if.keyword}`
+          ? T('valOptionNotAvailableMark', { unit: item.unitName, header: g.header, mark: g.available_if.keyword })
           : g.available_if.scope === 'archetype'
-            ? `requires the "${g.available_if.keyword}" archetype`
-            : `only available in a ${g.available_if.keyword} army`;
-        items.push({
-          type: 'error',
-          text: `${item.unitName}: "${g.header}" is ${reason} — deselect one.`,
-        });
+            ? T('valOptionRequiresArchetype', { unit: item.unitName, header: g.header, archetype: g.available_if.keyword })
+            : T('valOptionOnlyInArmy', { unit: item.unitName, header: g.header, keyword: g.available_if.keyword });
+        items.push({ type: 'error', text: reason });
       }
     });
   }
@@ -1274,7 +1273,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // 2nd legacy requires a "enables_second_legacy" trait to be active
   if (state.legacy2 && !state.traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy)) {
-    items.push({ type: 'error', text: '2nd Legacy requires the second-legion trait to be active.' });
+    items.push({ type: 'error', text: T('val2ndLegacyRequiresTrait') });
   }
 
   // Legacy mark restriction: Alpha Legion, Iron Warriors, Night Lords can only take Undivided or no-mark units.
@@ -1663,7 +1662,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const ruleName = assassinAlignment === 'chaos' ? 'Cults Abominatioe' : 'Execution Force';
       items.push({
         type: 'error',
-        text: `"${ruleName}": select either a single Assassin (Callidus/Culexus/Eversor/Vindicare) or one of each — no other combination.`,
+        text: T('valAssassinSelectionRule', { ruleName }),
       });
     }
   }
@@ -1691,7 +1690,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
     if (scaledMin > 0 && used < scaledMin) {
-      items.push({ type: 'error', text: `Need at least ${scaledMin} ${slot} (have ${used}).` });
+      items.push({ type: 'error', text: T('valNeedAtLeastSlot', { min: scaledMin, slot, used }) });
     }
   }
 
@@ -1730,10 +1729,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (ratio < eng.minTroopsRatio) {
       items.push({
         type: 'error',
-        text: `${label} must be ≥25% of total (${(ratio * 100).toFixed(1)}%, need ${Math.ceil(total * eng.minTroopsRatio)} pts).`,
+        text: T('valTroopsRatioFail', { label, pct: (ratio * 100).toFixed(1), needPts: Math.ceil(total * eng.minTroopsRatio) }),
       });
     } else {
-      items.push({ type: 'ok', text: `${label}: ${(ratio * 100).toFixed(1)}% (≥25%).` });
+      items.push({ type: 'ok', text: T('valTroopsRatioOk', { label, pct: (ratio * 100).toFixed(1) }) });
     }
   }
 
@@ -1759,20 +1758,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (allyRule) {
       for (const item of allyItems) {
         if (allyRule.bannedUnits.includes(item.unitName)) {
-          items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} is not allowed.` });
+          items.push({ type: 'error', text: T('valAllyArchetypeUnitNotAllowed', { archetype: allyLabel, unit: item.unitName }) });
         }
       }
       if (allyRule.allowedUnitsOnly.length > 0) {
         for (const item of allyItems) {
           if (!allyRule.allowedUnitsOnly.includes(item.unitName)) {
-            items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} is not in the allowed unit list.` });
+            items.push({ type: 'error', text: T('valAllyArchetypeNotInAllowedList', { archetype: allyLabel, unit: item.unitName }) });
           }
         }
       }
       if (allyRule.bannedSlots.length > 0) {
         for (const item of allyItems) {
           if (allyRule.bannedSlots.includes(item.slot)) {
-            items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.slot} units are not allowed (${item.unitName}).` });
+            items.push({ type: 'error', text: T('valAllyArchetypeSlotNotAllowed', { archetype: allyLabel, slot: item.slot, unit: item.unitName }) });
           }
         }
       }
@@ -1782,7 +1781,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           return effSlot === 'HQ' && item.unitName.toLowerCase().includes(allyRule.requiresHqUnit!.toLowerCase());
         });
         if (!hasRequiredHq) {
-          items.push({ type: 'error', text: `Allied archetype "${allyLabel}": requires at least 1 ${allyRule.requiresHqUnit} as HQ.` });
+          items.push({ type: 'error', text: T('valAllyArchetypeRequiresHqUnit', { archetype: allyLabel, hqUnit: allyRule.requiresHqUnit }) });
         }
       }
       if (allyRule.hqAllowed.length > 0) {
@@ -1791,7 +1790,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           if (effSlot === 'HQ') {
             const allowed = allyRule.hqAllowed.some(name => item.unitName.toLowerCase().includes(name.toLowerCase()));
             if (!allowed) {
-              items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} cannot be HQ (only ${allyRule.hqAllowed.join(', ')}).` });
+              items.push({ type: 'error', text: T('valAllyArchetypeHqNotAllowed', { archetype: allyLabel, unit: item.unitName, allowed: allyRule.hqAllowed.join(', ') }) });
             }
           }
         }
@@ -1800,7 +1799,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         for (const item of allyItems) {
           const u = resolveUnit(item, data);
           if (u && !u.has_veteran_abilities) {
-            items.push({ type: 'error', text: `Allied archetype "${allyLabel}": ${item.unitName} has no veteran abilities and cannot be included.` });
+            items.push({ type: 'error', text: T('valAllyArchetypeNoVetAbilities', { archetype: allyLabel, unit: item.unitName }) });
           }
         }
       }
@@ -1814,17 +1813,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (lockedMark && lockedMark !== allyRule.forcedMark) {
           items.push({
             type: 'error',
-            text: `Allied archetype "${allyLabel}": ${item.unitName} has a locked mark (${lockedMark}) incompatible with ${allyRule.forcedMark}.`,
+            text: T('valAllyArchetypeForcedMarkConflict', { archetype: allyLabel, unit: item.unitName, lockedMark, forcedMark: allyRule.forcedMark }),
           });
         }
       }
     }
 
     if (allyRule?.noLegacy && state.alliedLegacy) {
-      items.push({ type: 'error', text: `Allied archetype "${allyLabel}": no Legacy is allowed.` });
+      items.push({ type: 'error', text: T('valAllyNoLegacy', { archetype: allyLabel }) });
     }
     if (allyRule?.noTraits && state.alliedTraitPool.length > 0) {
-      items.push({ type: 'error', text: `Allied archetype "${allyLabel}": no Traits are allowed.` });
+      items.push({ type: 'error', text: T('valAllyNoTraits', { archetype: allyLabel }) });
     }
 
     if (allyItems.length > 0) {
@@ -1851,10 +1850,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (allyRatio < eng.minTroopsRatio) {
           items.push({
             type: 'error',
-            text: `Allied archetype "${allyLabel}": ${allyTroopsLabel} must be ≥25% of the ally's own total (${(allyRatio * 100).toFixed(1)}%, need ${Math.ceil(allyTotal * eng.minTroopsRatio)} pts).`,
+            text: T('valAllyTroopsRatioFail', { archetype: allyLabel, label: allyTroopsLabel, pct: (allyRatio * 100).toFixed(1), needPts: Math.ceil(allyTotal * eng.minTroopsRatio) }),
           });
         } else {
-          items.push({ type: 'ok', text: `Allied archetype "${allyLabel}": ${allyTroopsLabel} ${(allyRatio * 100).toFixed(1)}% (≥25%).` });
+          items.push({ type: 'ok', text: T('valAllyTroopsRatioOk', { archetype: allyLabel, label: allyTroopsLabel, pct: (allyRatio * 100).toFixed(1) }) });
         }
       }
     }
@@ -1877,7 +1876,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const totalUnique = Object.values(uniqueArmoryCount).reduce((s, n) => s + n, 0);
     if (totalUnique > 1) {
       const names = Object.keys(uniqueArmoryCount).join(', ');
-      items.push({ type: 'error', text: `Skirmish: only 1 Unique armory item allowed per army (have ${totalUnique}: ${names}).` });
+      items.push({ type: 'error', text: T('valSkirmishUniqueLimit', { count: totalUnique, names }) });
     }
 
     for (const item of state.army) {
@@ -1886,13 +1885,13 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const pts = computeUnitPoints(item, u, effectiveArchetypeFor(item, state));
       const effSlot = getEffectiveSlot(item.unitName, item.slot, effectiveRuleFor(item, state));
       if (effSlot === 'HQ' && pts > 150) {
-        items.push({ type: 'error', text: `Skirmish: HQ ${item.unitName} exceeds 150 pts (${pts}).` });
+        items.push({ type: 'error', text: T('valSkirmishHqExceeds', { unit: item.unitName, pts }) });
       }
       if (effSlot !== 'Troops' && pts > 300) {
-        items.push({ type: 'error', text: `Skirmish: ${item.unitName} exceeds 300 pts (${pts}).` });
+        items.push({ type: 'error', text: T('valSkirmishUnitExceeds', { unit: item.unitName, pts }) });
       }
       if (u.is_squadron && item.size > 1) {
-        items.push({ type: 'error', text: `Skirmish: ${item.unitName} is a Squadron — maximum 1 model (have ${item.size}).` });
+        items.push({ type: 'error', text: T('valSkirmishSquadronMax', { unit: item.unitName, size: item.size }) });
       }
 
       // Combined armour value cap (Missions.txt L82, ki-skirmish-restrictions-unenforced-01 #2):
@@ -1905,7 +1904,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (vStats?.FRONT && vStats?.SIDE && vStats?.REAR) {
         const combined = parseInt(vStats.FRONT) + parseInt(vStats.SIDE) + parseInt(vStats.REAR);
         if (combined >= 34) {
-          items.push({ type: 'error', text: `Skirmish: ${item.unitName} has a combined armour value of ${combined} (Front ${vStats.FRONT} + Side ${vStats.SIDE} + Rear ${vStats.REAR}) — max 33.` });
+          items.push({ type: 'error', text: T('valSkirmishCombinedArmour', { unit: item.unitName, combined, front: vStats.FRONT, side: vStats.SIDE, rear: vStats.REAR }) });
         }
       }
 
@@ -1931,7 +1930,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
             const ai = findArmoryItem(data, a);
             return ai?.desc && /2\+\s+armo/i.test(ai.desc);
           });
-          items.push({ type: 'error', text: `Skirmish: ${item.unitName} gains a 2+ armour save from "${culprit?.itemName ?? 'equipment'}" — not allowed.` });
+          items.push({ type: 'error', text: T('valSkirmishArmourSaveGain', { unit: item.unitName, culprit: culprit?.itemName ?? 'equipment' }) });
         }
 
         // 4+ or better invuln save gained from equipment
@@ -1941,14 +1940,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
             return ai?.desc && /(\d)\+\s+invulnerable/i.test(ai.desc ?? '') &&
               parseInt((ai.desc.match(/(\d)\+\s+invulnerable/i)?.[1] ?? '9')) <= 4;
           });
-          items.push({ type: 'error', text: `Skirmish: ${item.unitName} gains a 4+ or better invulnerable save from "${culprit?.itemName ?? 'equipment'}" — not allowed.` });
+          items.push({ type: 'error', text: T('valSkirmishInvSaveGain', { unit: item.unitName, culprit: culprit?.itemName ?? 'equipment' }) });
         }
 
         // Toughness 8+ from equipment delta
         const baseT = parseInt(String(u.models[0]?.stats?.T ?? '0'));
         const gainedT = mods.statDeltas['T'] ?? 0;
         if (baseT > 0 && baseT + gainedT >= 8) {
-          items.push({ type: 'error', text: `Skirmish: ${item.unitName} reaches T${baseT + gainedT} from equipment — max T7.` });
+          items.push({ type: 'error', text: T('valSkirmishToughnessGain', { unit: item.unitName, t: baseT + gainedT }) });
         }
 
         // Weapon Damage 3+ from any bought weapon item
@@ -1957,7 +1956,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           if (!ai) continue;
           const checkD = (d: string | undefined) => d && parseInt(d) >= 3;
           if (checkD(ai.d) || (ai.profiles ?? []).some(p => checkD(p.d))) {
-            items.push({ type: 'error', text: `Skirmish: ${item.unitName} equips "${sel.itemName}" with Damage 3 or higher — not allowed.` });
+            items.push({ type: 'error', text: T('valSkirmishDamageGain', { unit: item.unitName, item: sel.itemName }) });
           }
         }
       }
@@ -1988,7 +1987,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (used > max) {
           items.push({
             type: 'error',
-            text: `${item.unitName}: "${g.header.substring(0, 50)}" — ${used} swaps, only ${max} allowed for squad of ${item.size}.`,
+            text: T('valPerNExceeded', { unit: item.unitName, header: g.header.substring(0, 50), used, max, size: item.size }),
           });
         }
       }
@@ -1999,7 +1998,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (used > (g.constraint.max ?? 0)) {
           items.push({
             type: 'error',
-            text: `${item.unitName}: "${g.header.substring(0, 50)}" — ${used} swaps, maximum ${g.constraint.max}.`,
+            text: T('valFixedMaxExceeded', { unit: item.unitName, header: g.header.substring(0, 50), used, max: g.constraint.max ?? 0 }),
           });
         }
       }
@@ -2015,7 +2014,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (squadMin && item.size > u!.models[0].min && item.size < squadMin) {
       items.push({
         type: 'error',
-        text: `${item.unitName}: squad size must be ${u!.models[0].min} or ${squadMin}-${u!.models[0].max} (have ${item.size}).`,
+        text: T('valDisjointSquadSize', { unit: item.unitName, min: u!.models[0].min, squadMin, max: u!.models[0].max, size: item.size }),
       });
     }
   }
@@ -2035,7 +2034,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (have > ratioMax) {
         items.push({
           type: 'error',
-          text: `${item.unitName}: ${m.name} requires ${m.ratio_per_n} ${m.ratio_of} per model (have ${have}, only ${ratioMax} allowed with ${primaryCount} ${m.ratio_of}).`,
+          text: T('valRatioPerNExceeded', { unit: item.unitName, model: m.name, ratioPerN: m.ratio_per_n, ratioOf: m.ratio_of, have, max: ratioMax, primaryCount }),
         });
       }
     }
@@ -2072,7 +2071,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (used > poolSize) {
         items.push({
           type: 'error',
-          text: `${item.unitName}: ${used} ${g.replaces![0]} swaps selected across multiple options, but only ${poolSize} models can be swapped.`,
+          text: T('valCrossGroupPoolExceeded', { unit: item.unitName, used, weapon: g.replaces![0], pool: poolSize }),
         });
       }
     });
@@ -2091,7 +2090,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (state.engagement !== 'epic') {
         items.push({
           type: 'error',
-          text: `Lords of War are only allowed in Epic Battle (have ${lowUnits.length}).`,
+          text: T('valLowEpicOnly', { count: lowUnits.length }),
         });
       } else {
         const lowPts = lowUnits.reduce((s, i) => {
@@ -2102,12 +2101,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (lowPts > cap) {
           items.push({
             type: 'error',
-            text: `Lords of War exceed 33% of points (${lowPts}/${cap}).`,
+            text: T('valLowExceeds33', { pts: lowPts, cap }),
           });
         } else {
           items.push({
             type: 'ok',
-            text: `Lords of War: ${lowPts} pts (≤33% = ${cap}).`,
+            text: T('valLowOk', { pts: lowPts, cap }),
           });
         }
       }
@@ -2128,7 +2127,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (linkedCount < min || linkedCount > max) {
           items.push({
             type: 'error',
-            text: `${pcs.unitName} (${pcs.customName ?? pcs.id.slice(0, 6)}): ${linkedCount} linked ${memberName} (allowed ${min}-${max}).`,
+            text: T('valPlatoonLinkedCount', { pcs: `${pcs.unitName} (${pcs.customName ?? pcs.id.slice(0, 6)})`, count: linkedCount, member: memberName, min, max }),
           });
         }
       }
@@ -2156,11 +2155,11 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         : (eng.multiAop ? engMax * aopMult : engMax);
     const effMax = (rule?.slotCapOverride?.slot === slot) ? Math.min(rawEffMax, rule.slotCapOverride.max) : rawEffMax;
     if (used > effMax) {
-      items.push({ type: 'error', text: `${slot} over maximum (${used}/${effMax}).` });
+      items.push({ type: 'error', text: T('valSlotOverMax', { slot, used, max: effMax }) });
     }
   }
   if (eng.multiAop && aopMult > 1) {
-    items.push({ type: 'ok', text: `Using ${aopMult} AOPs.` });
+    items.push({ type: 'ok', text: T('valUsingAops', { n: aopMult }) });
   }
 
   // Allied detachment AOP validation
@@ -2175,17 +2174,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const [min, max] = ALLIED_AOP[slot];
         const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
-          items.push({ type: 'error', text: `Allied detachment: need at least ${min} ${slot} (have ${used}).` });
+          items.push({ type: 'error', text: T('valAlliedNeedAtLeast', { min, slot, used }) });
         }
         if (slot === 'Dedicated Transport') {
           const alliedMax = countInfantrySelections(state, data, true);
           if (used > alliedMax) {
-            items.push({ type: 'error', text: `Allied detachment: Dedicated Transport over maximum (${used}/${alliedMax}).` });
+            items.push({ type: 'error', text: T('valAlliedTransportOverMax', { used, max: alliedMax }) });
           }
         } else if (max === 0 && used > 0) {
-          items.push({ type: 'error', text: `Allied detachment: ${slot} not allowed (have ${used}).` });
+          items.push({ type: 'error', text: T('valAlliedSlotNotAllowed', { slot, used }) });
         } else if (max > 0 && used > max) {
-          items.push({ type: 'error', text: `Allied detachment: ${slot} over maximum (${used}/${max}).` });
+          items.push({ type: 'error', text: T('valAlliedSlotOverMax', { slot, used, max }) });
         }
       }
       // Elites / Fast Attack / Heavy Support limited to 1 each, but +1 per Troop unit beyond 1
@@ -2193,7 +2192,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       for (const slot of ['Elites', 'Fast Attack', 'Heavy Support'] as const) {
         const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (used > alliedTroops) {
-          items.push({ type: 'error', text: `Allied: ${slot} (${used}) exceeds Troops (${alliedTroops}) — 1 ${slot} per Troop unit.` });
+          items.push({ type: 'error', text: T('valAlliedRatioExceedsTroops', { slot, used, troops: alliedTroops }) });
         }
       }
     }
@@ -2214,7 +2213,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (item.mark && !allowed.includes(item.mark)) {
         items.push({
           type: 'error',
-          text: `${item.unitName}: Mark ${item.mark} not allowed (HQ is ${state.hqMark}).`,
+          text: T('valMarkNotAllowedHq', { unit: item.unitName, mark: item.mark, hqMark: state.hqMark }),
         });
       }
       const u = resolveUnit(item, data);
@@ -2222,7 +2221,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (!rule?.requireForcedMarkOnly) {
           items.push({
             type: 'error',
-            text: `${item.unitName}: Locked mark ${u.locked_mark} incompatible with HQ ${state.hqMark}.`,
+            text: T('valLockedMarkIncompatibleHq', { unit: item.unitName, mark: u.locked_mark, hqMark: state.hqMark }),
           });
         }
       }
@@ -2242,14 +2241,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (item.mark && !allyAllowed.includes(item.mark)) {
           items.push({
             type: 'error',
-            text: `${item.unitName}: Mark ${item.mark} not allowed (Allied detachment's HQ is ${state.alliedHqMark ?? 'Undivided'}).`,
+            text: T('valMarkNotAllowedAllyHq', { unit: item.unitName, mark: item.mark, hqMark: state.alliedHqMark ?? 'Undivided' }),
           });
         }
         const u = resolveUnit(item, data);
         if (u?.locked_mark && !allyAllowed.includes(u.locked_mark) && !allyRuleForAnimosity?.requireForcedMarkOnly) {
           items.push({
             type: 'error',
-            text: `${item.unitName}: Locked mark ${u.locked_mark} incompatible with Allied detachment's HQ ${state.alliedHqMark ?? 'Undivided'}.`,
+            text: T('valLockedMarkIncompatibleAllyHq', { unit: item.unitName, mark: u.locked_mark, hqMark: state.alliedHqMark ?? 'Undivided' }),
           });
         }
       }
@@ -2258,7 +2257,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // Army trait limit (max 2)
   if (state.traitPool.length > 2) {
-    items.push({ type: 'error', text: `Only 2 Army Traits allowed (have ${state.traitPool.length}).` });
+    items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length }) });
   }
 
   // veteran_required: unit must have at least 1 veteran ability bought from the armory
@@ -2267,7 +2266,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (u?.veteran_required) {
       const hasVetItem = item.armory.some(sel => findArmoryItem(data, sel)?.category === 'veteran');
       if (!hasVetItem) {
-        items.push({ type: 'error', text: `${item.unitName}: requires at least 1 veteran ability.` });
+        items.push({ type: 'error', text: T('valVeteranRequired', { unit: item.unitName }) });
       }
     }
   }
@@ -2284,7 +2283,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const restrictingLegacy = legacies.find(l => undividedLegacies.includes(l));
         items.push({
           type: 'error',
-          text: `${restrictingLegacy}: ${item.unitName} must be Undivided (current: ${m}).`,
+          text: T('valUndividedLegacyRestriction', { legacy: restrictingLegacy!, unit: item.unitName, mark: m }),
         });
       }
     }
@@ -2308,10 +2307,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // Skirmish: no archetypes, no allied detachment
   if (state.engagement === 'skirmish' && state.archetype) {
-    items.push({ type: 'error', text: 'Skirmish: Archetypes are not allowed.' });
+    items.push({ type: 'error', text: T('valSkirmishNoArchetypes') });
   }
   if (state.engagement === 'skirmish' && state.alliedFaction) {
-    items.push({ type: 'error', text: 'Skirmish: Allied detachments are not allowed.' });
+    items.push({ type: 'error', text: T('valSkirmishNoAllies') });
   }
 
   // ── Faction-specific validators ──────────────────────────────────────────
@@ -2319,7 +2318,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push(...validateSpaceMarines(state, data));
   }
 
-  if (items.length === 0) items.push({ type: 'ok', text: 'Army is valid.' });
+  if (items.length === 0) items.push({ type: 'ok', text: T('valArmyValid') });
   return items;
 }
 

@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { validateArmy } from '../engine/validators';
-import { useT } from '../i18n';
+import { useT, useLanguage } from '../i18n';
 
 export function ValidationPanel() {
   const t = useT();
+  const { language } = useLanguage();
   const { data, ...state } = useArmyStore();
   const [open, setOpen] = useState(true);
   if (!data) return null;
 
-  const items = validateArmy(state, data, state.alliedData);
+  const items = validateArmy(state, data, state.alliedData, language);
   const hasErrors = items.some(i => i.type === 'error');
   const hasWarns  = items.some(i => i.type === 'warn');
 

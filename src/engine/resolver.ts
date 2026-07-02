@@ -342,6 +342,11 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (zeroCountModelWeapons.has(w.name)) return false;
     const owningChoices = optionalWeapons.get(baseName(w.name));
     if (!owningChoices) return true;
+    // A weapon that's a default part of equipped_with must always show even if the same weapon
+    // name also appears as a swap-upgrade choice (e.g. Ironclad's "Heavy flamer" comes with
+    // the Seismic hammer but is also a choice for swapping the Storm bolter — the default copy
+    // must not be hidden because the choice copy hasn't been selected).
+    if (unit.equipped_with?.includes(baseName(w.name))) return true;
     return [...owningChoices].some(cn => selectedChoiceNames.has(cn));
   });
 }

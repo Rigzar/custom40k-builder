@@ -120,7 +120,9 @@ export const stormGuardians: Unit = {
     {
       "header": "For every 5 Guardians, 2 models can swap their Aeldari chainsword and Shuriken pistol",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 5,
+        "count_per_n": 2
       },
       "choices": [
         {
@@ -140,7 +142,7 @@ export const stormGuardians: Unit = {
     {
       "header": "All remaining Guardians can swap their Aeldari chainsword",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

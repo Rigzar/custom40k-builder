@@ -77,6 +77,24 @@ export const vypers: Unit = {
       "ap": "0",
       "d": "1",
       "abilities": "Shuriken"
+    },
+    {
+      "name": "Aeldari missile launcher - Sunburst",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Aeldari missile launcher - Starshot",
+      "range": "48\"",
+      "type": "Heavy 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "Anti-Air, AT(2)"
     }
   ],
   "option_groups": [

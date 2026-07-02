@@ -136,6 +136,21 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     allowedDiscs = allowedDiscs.filter(([discName]) => !Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName));
   }
 
+  // Eldar: each faction discipline is tagged "(X only)" in its key — enforce unit-identity
+  // restrictions so e.g. the Wraithseer only sees "Wraith (Wraithseer only)" and the Warlocks
+  // only see "Battle (Warlocks only)". Units with no matching tag (Spiritseer, Yncarne without
+  // Ynnari archetype) see only general disciplines, which is correct per the .ods.
+  if (data.faction === 'Eldar' && hasPowers) {
+    allowedDiscs = allowedDiscs.filter(([discName]) => {
+      const lc = discName.toLowerCase();
+      if (lc.includes('warlocks only')) return unit.name === 'Warlocks';
+      if (lc.includes('farseers only')) return unit.name === 'Farseer';
+      if (lc.includes('wraithseer only')) return unit.name === 'Wraithseer';
+      if (lc.includes('ynnari only')) return archetype === 'Ynnari';
+      return true;
+    });
+  }
+
   // ── Psyker mechanic from ability text ────────────────────────────────────────
   // SOURCE: core_rules_text.txt L1009-1012 — "If a psyker is limited in the number
   // of powers it knows, they must be selected when creating the army list."
@@ -150,9 +165,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   type PsykerMode = 'all_from_one' | 'one_from_one' | 'n_from_any' | 'unlimited';
   function parsePsykerMode(): { mode: PsykerMode; limit: number; knowsSmite: boolean } {
     const knowsSmite = psykerAbilityText.includes('smite');
-    // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X" (CD god-specific)
+    // "all powers from a chosen discipline" (CSM/generic) OR "all powers from the discipline of X"
+    // (CD god-specific) OR "all powers from the X discipline" (unit-specific, e.g. Wraithseer)
     if (psykerAbilityText.includes('all powers from a chosen discipline') ||
-        psykerAbilityText.includes('all powers from the discipline'))
+        psykerAbilityText.includes('all powers from the discipline') ||
+        /all powers from the \w+ discipline/.test(psykerAbilityText))
       return { mode: 'all_from_one', limit: 999, knowsSmite };
     // "one power of a chosen discipline" (CSM/generic) OR "one power from the discipline of X" (CD)
     if (psykerAbilityText.match(/one (psychic )?power (of a chosen|from the) discipline/))

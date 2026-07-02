@@ -56,7 +56,9 @@ export const rangers: Unit = {
     {
       "header": "For every 5 Rangers, 1 model can be equipped with",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 5,
+        "count_per_n": 1
       },
       "choices": [
         {

@@ -68,6 +68,7 @@ export const honorGuard: Unit = {
       "constraint": {
         "type": "one"
       },
+      "per_model": true,
       "choices": [
         {
           "name": "Inner Circle",

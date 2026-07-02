@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v22_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v23_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — new proactive bug-hunting tool + more fixes',
-    intro: 'Hello commanders! Built a new internal tool (scripts/sanity_sweep.ts) that scans the entire ruleset for structural data bugs without waiting for a player report — its first run already caught and fixed several more issues across Eldar, Harlequins, Imperial Guard, Tau, Orks, and Tyranids.',
-    engine: '🐛 Several "Character Model" units had the Character keyword silently disabled (Eldar Warlocks, Harlequins Death Jester/Shadowseer, IG Crusaders, Tau Sub-Commander) — same bug shape as the Enginseer fix in GH#25, now closed everywhere.',
-    csm: '🐛 Tyranids Trygon\'s "select any number of Biomorphs" upgrade had nothing to select (a phrasing variant of GH#21 the original fix missed); Orks Battle Fortress/Stompa\'s Supa rokkit/Grot bomm upgrades and Tau Piranha\'s Hunter-seeker missile upgrade were unbuyable despite showing a price.',
-    cd:  '🐛 IG Atlas Recovery Vehicle was incorrectly tagged as a Character Model (confirmed with the rules author: it\'s a plain Vehicle) — fixed.',
-    sm:  '✅ The new sweep also checked for dangling slot references, "ghost weapon" swap bugs, and duplicate weapon entries across all 19 factions — all came back clean, a good sign for the data\'s overall health.',
-    legacyfix: '📖 Full list of fixes in the changelog (v1.19) and Known Issues page.',
+    title: 'Developer Update — GitHub bug batch v1.21: 16 reported issues fixed',
+    intro: 'Hello commanders! Closed the full backlog of community-reported GitHub issues (#28–#43) — weapon display bugs, trait picker restrictions, psychic discipline gates, slot counter accuracy, and more across Eldar, Space Marines, Necrons, CSM, and Tyranids.',
+    engine: '🐛 GENERAL — Weapons that are part of a unit\'s default loadout were incorrectly hidden if the same weapon name also appeared as an option swap choice (affected Ironclad Heavy flamer, Dark Reapers\' AML, Tyranid Prime\'s Scything talons, and any similar unit). Now always shown when listed in equipped_with.',
+    csm: '🐛 Eldar — Constraint type fixes for Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred, and Wasps; Vypers now have correct Aeldari missile launcher profiles; Farseer can access Craftworld Armory items; Warlocks free Elite slot now shown correctly in the slot counter; each psyker restricted to their own discipline.',
+    cd:  '🐛 SM — Honor Guard upgrade cost now correctly scales per model. Necrons — Ancient Destructor Lord can now access character-tier Armory items. CSM — "Iron Within, Iron Without" trait hidden for units that already have an invulnerability save. Eldar — "Children of Prophecy" trait hidden for non-Psyker units.',
+    sm:  '✅ All 16 reported issues from this batch are now resolved. The Tyranid Prime default weapon display bug (GH#28) was covered by the same general resolver fix.',
+    legacyfix: '📖 Full list of fixes in the changelog (v1.21) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — neues proaktives Bug-Hunting-Tool + weitere Fixes',
-    intro: 'Hallo Kommandanten! Ein neues internes Tool (scripts/sanity_sweep.ts) durchsucht das gesamte Regelwerk nach strukturellen Datenfehlern, ohne auf einen Spielerbericht zu warten — schon der erste Lauf hat weitere Bugs in Eldar, Harlequins, Imperial Guard, Tau, Orks und Tyranids gefunden und behoben.',
-    engine: '🐛 Mehrere "Character Model"-Einheiten hatten das Character-Keyword unbemerkt deaktiviert (Eldar Warlocks, Harlequins Death Jester/Shadowseer, IG Crusaders, Tau Sub-Commander) — gleiche Bugform wie der Enginseer-Fix in GH#25, jetzt überall behoben.',
-    csm: '🐛 Tyranids Trygons "Biomorphe auswählen"-Upgrade hatte nichts zur Auswahl (eine Textvariante von GH#21, die der ursprüngliche Fix übersehen hat); Orks Battle Fortress/Stompa\'s Supa-Rokkit/Grot-Bomm-Upgrades und Tau Piranhas Hunter-Seeker-Missile-Upgrade waren trotz angezeigtem Preis nicht kaufbar.',
-    cd:  '🐛 IG Atlas Recovery Vehicle war fälschlich als Character Model markiert (mit dem Regelautor bestätigt: es ist ein reines Vehicle) — behoben.',
-    sm:  '✅ Der neue Sweep prüfte zusätzlich auf hängende Slot-Referenzen, "Geisterwaffen"-Tauschbugs und doppelte Waffeneinträge über alle 19 Fraktionen hinweg — alles kam sauber zurück, ein gutes Zeichen für die Datenqualität insgesamt.',
-    legacyfix: '📖 Vollständige Liste im Changelog (v1.19) und auf der Known-Issues-Seite.',
+    title: 'Entwickler-Update — GitHub-Bug-Batch v1.21: 16 gemeldete Probleme behoben',
+    intro: 'Hallo Kommandanten! Der gesamte Rückstand gemeldeter GitHub-Issues (#28–#43) wurde abgearbeitet — Waffenanzeigebugs, Trait-Picker-Einschränkungen, Psionik-Disziplin-Gates, Slot-Zählergenauigkeit und mehr für Eldar, Space Marines, Necrons, CSM und Tyranids.',
+    engine: '🐛 ALLGEMEIN — Waffen aus der Standardausrüstung einer Einheit wurden fälschlich ausgeblendet, wenn derselbe Waffenname auch als Tausch-Option vorkam (betroffen: Ironclad Heavy flamer, Dark Reapers AML, Tyranid Prime Scything talons u. ä.). Werden jetzt immer angezeigt, wenn sie in equipped_with aufgeführt sind.',
+    csm: '🐛 Eldar — Constraint-Typ-Fixes für Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred und Wasps; Vypers haben jetzt korrekte Aeldari-Raketenwerfer-Profile; Farseer kann Craftworld-Rüstkammer-Items kaufen; Freier Elite-Slot der Warlocks wird nun korrekt im Slot-Zähler angezeigt; jeder Psioniker auf seine eigene Disziplin beschränkt.',
+    cd:  '🐛 SM — Honor-Guard-Upgrade-Kosten skalieren jetzt korrekt pro Modell. Necrons — Ancient Destructor Lord kann jetzt Charakter-Rüstkammer-Items kaufen. CSM — "Iron Within, Iron Without" für Einheiten mit bestehendem Unverwundbarkeits-Rettungswurf ausgeblendet. Eldar — "Children of Prophecy" für Nicht-Psioniker ausgeblendet.',
+    sm:  '✅ Alle 16 gemeldeten Issues dieses Batches sind nun behoben. Der Anzeigebug der Standardwaffen des Tyranid Prime (GH#28) wurde durch denselben allgemeinen Resolver-Fix abgedeckt.',
+    legacyfix: '📖 Vollständige Liste im Changelog (v1.21) und auf der Known-Issues-Seite.',
     contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wird weiterhin behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — nueva herramienta de caza proactiva de bugs + más arreglos',
-    intro: '¡Hola comandantes! Construimos una nueva herramienta interna (scripts/sanity_sweep.ts) que escanea todo el reglamento buscando bugs estructurales de datos sin esperar a que un jugador los reporte — ya en su primera pasada encontró y arregló varios bugs más en Eldar, Harlequins, Imperial Guard, Tau, Orks y Tyranids.',
-    engine: '🐛 Varias unidades "Character Model" tenían el keyword Character desactivado en silencio (Eldar Warlocks, Harlequins Death Jester/Shadowseer, IG Crusaders, Tau Sub-Commander) — misma forma de bug que el fix del Enginseer en GH#25, ahora cerrada en todos los casos.',
-    csm: '🐛 El upgrade "seleccionar cualquier número de Biomorfos" del Trygon de Tyranids no tenía nada para elegir (una variante de texto de GH#21 que el fix original no detectó); los upgrades de Supa rokkit/Grot bomm de Battle Fortress/Stompa de Orks y el de Hunter-seeker missile del Piranha de Tau no se podían comprar pese a mostrar precio.',
-    cd:  '🐛 El Atlas Recovery Vehicle de IG estaba mal etiquetado como Character Model (confirmado con el creador de las reglas: es un Vehicle normal) — arreglado.',
-    sm:  '✅ El nuevo barrido también revisó referencias de slot colgantes, bugs de "arma fantasma" en swaps, y armas duplicadas en las 19 facciones — todo salió limpio, buena señal para la salud general de los datos.',
-    legacyfix: '📖 Lista completa en el changelog (v1.19) y en la página de Known Issues.',
+    title: 'Actualización del desarrollador — batch de bugs de GitHub v1.21: 16 issues cerrados',
+    intro: '¡Hola comandantes! Cerramos todo el backlog de issues de GitHub reportados por la comunidad (#28–#43) — bugs de visualización de armas, restricciones del selector de traits, filtros de disciplinas psíquicas, precisión del contador de slots y más, en Eldar, Space Marines, Necrons, CSM y Tyranids.',
+    engine: '🐛 GENERAL — Las armas que forman parte del equipamiento por defecto de una unidad se ocultaban incorrectamente si el mismo nombre de arma aparecía también como opción de intercambio (afectaba al Heavy flamer del Ironclad, el AML de los Dark Reapers, las Scything talons del Tyranid Prime y unidades similares). Ahora siempre se muestran si están en equipped_with.',
+    csm: '🐛 Eldar — Fixes de tipo de constraint en Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred y Wasps; los Vypers tienen ahora los perfiles correctos del lanzamisiles Aeldari; el Farseer puede acceder a ítems de la armería Craftworld; el slot Elite gratuito de los Warlocks ahora se muestra correctamente en el contador de slots; cada psíquico restringido a su propia disciplina.',
+    cd:  '🐛 SM — El coste del upgrade de Honor Guard ahora escala correctamente por modelo. Necrons — el Ancient Destructor Lord puede acceder a ítems de armería de nivel personaje. CSM — el trait "Iron Within, Iron Without" se oculta para unidades con salvación de invulnerabilidad ya en la hoja de datos. Eldar — el trait "Children of Prophecy" se oculta para unidades no Psíquicas.',
+    sm:  '✅ Los 16 issues reportados de este batch están resueltos. El bug de visualización de armas por defecto del Tyranid Prime (GH#28) quedó cubierto por el mismo fix general del resolver.',
+    legacyfix: '📖 Lista completa en el changelog (v1.21) y en la página de Known Issues.',
     contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes se siguen arreglando.',
   },
 };

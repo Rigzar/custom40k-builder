@@ -5,6 +5,66 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-csm-obliterators-iron-within-trait-not-blocked-01',
+    status: 'fixed',
+    title: 'CSM — "Iron Within, Iron Without" trait can still be selected for units with an existing invulnerability save (GH#43)',
+    description: 'The trait\'s own description says "Only for creature models that do not already have an invulnerability save from their datasheet or Armory." The validator already warns when the trait is applied to a unit with an existing invulnerable save, but the trait picker does not block the selection in the first place. Needs a pre-selection filter in the trait picker (ArmyConfig.tsx / trait list) that checks each unit for an existing inv save before offering this trait. Scope: also applies to units from other factions if they ever take an Iron Within-style trait (CSM-specific for now).',
+  },
+  {
+    id: 'ki-eldar-children-of-prophecy-no-psyker-gate-01',
+    status: 'fixed',
+    title: 'Eldar — "Children of Prophecy" trait has no psyker restriction enforced in the engine (GH#32)',
+    description: 'The trait description says "Only for Psykers" and costs 5 points for units, 0 for characters. The trait system has no `psyker_only` flag or equivalent filter — it appears as an option for non-psyker units even though it should not be available to them. Needs either a new `applies_to_psyker` gate on the trait schema, or a codex-level filter in `codex_eldar/traits.ts`.',
+  },
+  {
+    id: 'ki-eldar-wraithseer-discipline-not-restricted-01',
+    status: 'fixed',
+    title: 'Eldar — Wraithseer shows all psychic disciplines; should only be able to manifest from Runes of Battle (GH#33)',
+    description: 'The Wraithseer\'s datasheet restricts it to manifesting powers from the Runes of Battle discipline only. The psyker modal currently shows all available disciplines, allowing it to pick from any Eldar discipline. Needs either a per-unit `allowed_disciplines` field on the Unit type, or a codex-level discipline-filter in PsychicModal.tsx.',
+  },
+  {
+    id: 'ki-tyranid-prime-default-weapons-blank-01',
+    status: 'fixed',
+    title: 'Tyranids — Tyranid Prime shows no default weapons on first add to roster (GH#28)',
+    description: 'Reported: Tyranid Prime is added to the army with no weapons shown in its profile until the player interacts with the option groups. Root cause unclear — the unit has no equipped_with string, and the weapon picker option groups may not be initializing their default state on first render. Needs investigation of the store\'s initUnit() or the resolver\'s handling of option groups with no prior selection.',
+  },
+  {
+    id: 'ki-gh29-40-ironclad-darkreaper-weapon-hidden-01',
+    status: 'fixed',
+    title: 'GENERAL — Weapons in equipped_with were hidden when the same weapon name also appeared as a swap choice (GH#29, GH#40)',
+    description: 'Ironclad Dreadnought\'s Heavy flamer (GH#29) and Dark Reapers\' Aeldari missile launcher (GH#40) both disappeared from the Live Profile unless the player actively chose them in a swap group. Root cause in resolver.ts\'s `computeWeaponsToShow()`: the `optionalWeapons` map was built from all swap-group choices, and the subsequent filter hid any weapon whose base name appeared in that map until the matching choice was selected. It did not account for the case where the weapon is also part of the unit\'s default equipment (`equipped_with`) — those copies should always be visible regardless. Fixed by adding an `equipped_with` check in the filter: if the weapon\'s base name is in `unit.equipped_with`, always show it.',
+  },
+  {
+    id: 'ki-gh30-honor-guard-per-model-missing-01',
+    status: 'fixed',
+    title: 'Space Marines — Honor Guard "upgrade per model" group did not scale cost by squad size (GH#30)',
+    description: 'The "entire squad may receive one of the following upgrades per model" option group was missing `per_model: true`, so selecting e.g. Bladeguard (+6pts) always charged 6pts regardless of squad size instead of 6×n pts. Added `per_model: true` to the group.',
+  },
+  {
+    id: 'ki-gh31-34-35-36-eldar-constraint-types-01',
+    status: 'fixed',
+    title: 'Eldar — Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred, Wasps used wrong constraint types for per-model swaps (GH#31, #34, #35, #36)',
+    description: 'All four units had option groups modelling "any model may swap" or "N per M models" as `type:one` (single whole-squad pick). Storm Guardians: "2 per 5" → per_n, "each" pistol swap → every. Rangers: "1 per 5" → per_n. Corsair Voidreavers and Corsair Voidscarred: "any may swap" → every. Wasps: equipped with 2 Scatter lasers but one group (type:one) for both — split into two independent every-groups so each laser can be swapped independently.',
+  },
+  {
+    id: 'ki-gh38-farseer-craftworld-armory-null-01',
+    status: 'fixed',
+    title: 'Eldar — Farseer could not buy any Craftworld Armory items (GH#38)',
+    description: 'All 5 items in `legion_craftworld.json` had `"p_unit": null`. The pricing function\'s fallback path (`if (arm.p_unit === undefined && cp != null) return cp`) only triggers when p_unit is truly absent (undefined), not when it is explicitly null. Farseers route through `p_unit` as psykers, so they received `null` and were blocked. Fixed by removing the explicit `"p_unit": null` entries from all 5 items — the field is now absent (undefined), correctly triggering the single-column fallback that serves p_char to all eligible buyers.',
+  },
+  {
+    id: 'ki-gh41-vypers-aml-profiles-missing-01',
+    status: 'fixed',
+    title: 'Eldar — Vypers: Aeldari missile launcher swap choice had no weapon profiles defined (GH#41)',
+    description: 'The Vypers option group offered "Aeldari missile launcher" as a swap choice for the Scatter laser, but neither the Sunburst nor Starshot profiles existed in the unit\'s `weapons[]` list, making the weapon unresolvable when selected. Added both profiles (Sunburst: Heavy 1, S4 AP-1 D1 Explosive; Starshot: Heavy 1, S8 AP-3 D2 Anti-Air AT(2)).',
+  },
+  {
+    id: 'ki-gh42-necrons-destructor-lord-ischaracter-01',
+    status: 'fixed',
+    title: 'Necrons — Ancient Destructor Lord had is_character: false, blocking character-tier Armory items (GH#42)',
+    description: 'The Ancient Destructor Lord (an HQ Lord-type unit) had `is_character: false`, which excluded all character-only Armory items (Phylactery, Phase shifter, Orb of Reanimation, Veil of darkness, etc.) from its Armory tab. All other Necron HQ Lords (Lord, Royal Warden, Cryptek, Skorpekh Lord) correctly have `is_character: true`. Fixed.',
+  },
+  {
     id: 'ki-cd-khorne-nurgle-slaanesh-armory-missing-01',
     status: 'fixed',
     title: 'Chaos Daemons — Khorne/Nurgle/Slaanesh armory missing AND their items were wrongly available to every unit via General',

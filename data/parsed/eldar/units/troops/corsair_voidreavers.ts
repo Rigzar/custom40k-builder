@@ -137,7 +137,7 @@ export const corsairVoidreavers: Unit = {
     {
       "header": "Any Voidreaver may swap their Shuriken rifle",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

@@ -90,9 +90,37 @@ export const wasps: Unit = {
   ],
   "option_groups": [
     {
-      "header": "May swap each Scatter laser",
+      "header": "May swap first Scatter laser",
       "constraint": {
-        "type": "one"
+        "type": "every"
+      },
+      "choices": [
+        {
+          "name": "Shuriken cannon",
+          "points": 1
+        },
+        {
+          "name": "Aeldari missile launcher",
+          "points": 22
+        },
+        {
+          "name": "Starcannon",
+          "points": 30
+        },
+        {
+          "name": "Bright lance",
+          "points": 37
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": ["Scatter laser"]
+    },
+    {
+      "header": "May swap second Scatter laser",
+      "constraint": {
+        "type": "every"
       },
       "choices": [
         {

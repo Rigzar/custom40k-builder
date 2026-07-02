@@ -81,7 +81,7 @@ export const ancientDestructorLord: Unit = {
   "unit_type": "Jump Pack, Monstrous Creature, Lord, Necron",
   "keywords": [],
   "is_vehicle": false,
-  "is_character": false,
+  "is_character": true,
   "is_monster": true,
   "is_psyker": false,
   "has_armory_access": true,
