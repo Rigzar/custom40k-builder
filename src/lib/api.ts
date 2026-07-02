@@ -164,3 +164,13 @@ export function logBattle(
 export function listBattles(campaignId: number) {
   return call<{ battles: CampaignBattle[] }>(`/api/campaign/battle-list?campaignId=${campaignId}`);
 }
+
+export interface CampaignSupplyRow { faction: string; amount: number; }
+export function listSupply(campaignId: number) {
+  return call<{ supply: CampaignSupplyRow[] }>(`/api/campaign/supply-list?campaignId=${campaignId}`);
+}
+export function adjustSupply(campaignId: number, faction: string, delta: number) {
+  return call<{ ok: true; amount: number }>('/api/campaign/supply-adjust', {
+    method: 'POST', body: JSON.stringify({ campaignId, faction, delta }),
+  });
+}

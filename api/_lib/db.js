@@ -104,6 +104,18 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_battles_campaign_idx ON campaign_battles(campaign_id)`;
 
+  // Supply ledger: one row per faction per campaign, cumulative total.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_supply (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      faction TEXT NOT NULL,
+      amount INTEGER NOT NULL DEFAULT 0,
+      UNIQUE(campaign_id, faction)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_supply_campaign_idx ON campaign_supply(campaign_id)`;
+
   schemaReady = true;
 }
 

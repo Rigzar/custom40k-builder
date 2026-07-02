@@ -68,6 +68,7 @@ export type TranslationKey =
   | 'campaignSectorCity' | 'campaignSectorIndustrial'
   | 'campaignSectorWasteland' | 'campaignSectorRuin' | 'campaignUnclaimed'
   | 'campaignClaimFor' | 'campaignSaving'
+  | 'campaignSupplyLabel' | 'campaignFactionStandings' | 'campaignAdjusting'
   | 'campaignTurnLabel' | 'campaignAdvanceTurn' | 'campaignAdvancing'
   | 'campaignLogBattle' | 'campaignAttacker' | 'campaignDefender'
   | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
@@ -338,6 +339,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unclaimed',
     campaignClaimFor: 'Claim for…',
     campaignSaving: 'Saving…',
+    campaignSupplyLabel: 'Supply',
+    campaignFactionStandings: 'Faction Standings',
+    campaignAdjusting: 'Adjusting…',
     campaignTurnLabel: 'Turn',
     campaignAdvanceTurn: 'Advance to Turn',
     campaignAdvancing: 'Advancing…',
@@ -813,6 +817,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unbehauptet',
     campaignClaimFor: 'Beanspruchen für…',
     campaignSaving: 'Speichern…',
+    campaignSupplyLabel: 'Nachschub',
+    campaignFactionStandings: 'Fraktionswertung',
+    campaignAdjusting: 'Anpassen…',
     campaignTurnLabel: 'Runde',
     campaignAdvanceTurn: 'Weiter zu Runde',
     campaignAdvancing: 'Weiter…',
@@ -1288,6 +1295,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Sin reclamar',
     campaignClaimFor: 'Reclamar para…',
     campaignSaving: 'Guardando…',
+    campaignSupplyLabel: 'Suministro',
+    campaignFactionStandings: 'Clasificación de facciones',
+    campaignAdjusting: 'Ajustando…',
     campaignTurnLabel: 'Turno',
     campaignAdvanceTurn: 'Avanzar al turno',
     campaignAdvancing: 'Avanzando…',

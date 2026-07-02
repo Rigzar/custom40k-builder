@@ -25,6 +25,8 @@ export default async function handler(req, res) {
       case 'turn-advance':  return turnAdvance(req, res, userId);
       case 'battle-log':    return battleLog(req, res, userId);
       case 'battle-list':   return battleList(req, res, userId);
+      case 'supply-list':   return supplyList(req, res, userId);
+      case 'supply-adjust': return supplyAdjust(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown campaign action' });
     }
@@ -194,15 +196,70 @@ async function sectorClaim(req, res, userId) {
 
 // ── Turn tracker ─────────────────────────────────────────────────────────────
 
-/** POST /api/campaign/turn-advance { campaignId } -> GM increments current_turn by 1. */
+/** POST /api/campaign/turn-advance { campaignId } -> GM increments current_turn and credits supply. */
 async function turnAdvance(req, res, userId) {
   if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
   const { campaignId } = req.body ?? {};
   if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
   const role = await requireMembership(campaignId, userId);
   if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can advance the turn.' }); return; }
-  const result = await sql`UPDATE campaigns SET current_turn = current_turn + 1 WHERE id = ${campaignId} RETURNING current_turn`;
-  res.status(200).json({ ok: true, current_turn: result.rows[0].current_turn });
+
+  const result = await sql`UPDATE campaigns SET current_turn = current_turn + 1 WHERE id = ${campaignId} RETURNING current_turn, factions`;
+  const { current_turn, factions } = result.rows[0];
+
+  // Credit supply: +1 per owned sector per faction. Ensure every faction has a row.
+  const sectorCounts = await sql`
+    SELECT owner_faction, COUNT(*)::int AS cnt
+    FROM campaign_sectors
+    WHERE campaign_id = ${campaignId} AND owner_faction IS NOT NULL
+    GROUP BY owner_faction
+  `;
+  const countMap = Object.fromEntries(sectorCounts.rows.map(r => [r.owner_faction, r.cnt]));
+  for (const faction of factions) {
+    const earned = countMap[faction] ?? 0;
+    await sql`
+      INSERT INTO campaign_supply (campaign_id, faction, amount)
+      VALUES (${campaignId}, ${faction}, ${earned})
+      ON CONFLICT (campaign_id, faction) DO UPDATE SET amount = campaign_supply.amount + ${earned}
+    `;
+  }
+
+  res.status(200).json({ ok: true, current_turn });
+}
+
+/** GET /api/campaign/supply-list?campaignId=N */
+async function supplyList(req, res, userId) {
+  if (req.method !== 'GET') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const campaignId = Number(req.query.campaignId);
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  await requireMembership(campaignId, userId);
+  const result = await sql`SELECT faction, amount FROM campaign_supply WHERE campaign_id = ${campaignId} ORDER BY amount DESC, faction ASC`;
+  // Ensure all campaign factions appear even before first turn-advance
+  const campaign = await sql`SELECT factions FROM campaigns WHERE id = ${campaignId}`;
+  const known = new Set(result.rows.map(r => r.faction));
+  const rows = [...result.rows];
+  for (const f of campaign.rows[0].factions) {
+    if (!known.has(f)) rows.push({ faction: f, amount: 0 });
+  }
+  res.status(200).json({ ok: true, supply: rows });
+}
+
+/** POST /api/campaign/supply-adjust { campaignId, faction, delta } -> GM adjusts a faction's supply. */
+async function supplyAdjust(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, faction, delta } = req.body ?? {};
+  if (!Number.isInteger(campaignId) || typeof faction !== 'string' || !Number.isInteger(delta)) {
+    res.status(400).json({ error: 'Missing campaignId, faction, or delta' }); return;
+  }
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can adjust supply.' }); return; }
+  await sql`
+    INSERT INTO campaign_supply (campaign_id, faction, amount)
+    VALUES (${campaignId}, ${faction}, ${Math.max(0, delta)})
+    ON CONFLICT (campaign_id, faction) DO UPDATE SET amount = GREATEST(0, campaign_supply.amount + ${delta})
+  `;
+  const result = await sql`SELECT amount FROM campaign_supply WHERE campaign_id = ${campaignId} AND faction = ${faction}`;
+  res.status(200).json({ ok: true, amount: result.rows[0]?.amount ?? 0 });
 }
 
 // ── Battle reports ────────────────────────────────────────────────────────────

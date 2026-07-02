@@ -18,6 +18,8 @@ export function CampaignModal({ onClose }: Props) {
   const [openTab, setOpenTab]     = useState<'players' | 'map' | 'battles'>('players');
   const [advancing, setAdvancing] = useState(false);
   const [players, setPlayers]     = useState<api.CampaignPlayer[]>([]);
+  const [supply, setSupply]       = useState<api.CampaignSupplyRow[]>([]);
+  const [adjusting, setAdjusting] = useState<string | null>(null);
   const [playersLoading, setPlayersLoading] = useState(false);
 
   // Create campaign form
@@ -49,12 +51,29 @@ export function CampaignModal({ onClose }: Props) {
   async function handleAdvanceTurn(c: api.CampaignSummary) {
     setAdvancing(true); setError('');
     try {
-      const res = await api.advanceTurn(c.id);
-      setCampaigns(prev => prev.map(x => x.id === c.id ? { ...x, current_turn: res.current_turn } : x));
+      const [turnRes] = await Promise.all([
+        api.advanceTurn(c.id),
+      ]);
+      setCampaigns(prev => prev.map(x => x.id === c.id ? { ...x, current_turn: turnRes.current_turn } : x));
+      // Supply refreshes after advance; re-fetch now that turn-advance credited new supply
+      const fresh = await api.listSupply(c.id);
+      setSupply(fresh.supply);
     } catch (err) {
       setError((err as Error).message);
     } finally {
       setAdvancing(false);
+    }
+  }
+
+  async function handleAdjustSupply(c: api.CampaignSummary, faction: string, delta: number) {
+    setAdjusting(faction); setError('');
+    try {
+      const res = await api.adjustSupply(c.id, faction, delta);
+      setSupply(prev => prev.map(s => s.faction === faction ? { ...s, amount: res.amount } : s));
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setAdjusting(null);
     }
   }
 
@@ -64,8 +83,12 @@ export function CampaignModal({ onClose }: Props) {
     setOpenTab('players');
     setPlayersLoading(true);
     try {
-      const res = await api.listCampaignPlayers(c.id);
-      setPlayers(res.players);
+      const [pRes, sRes] = await Promise.all([
+        api.listCampaignPlayers(c.id),
+        api.listSupply(c.id),
+      ]);
+      setPlayers(pRes.players);
+      setSupply(sRes.supply);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -240,13 +263,44 @@ export function CampaignModal({ onClose }: Props) {
                           playersLoading ? (
                             <p className="text-zinc-500 text-xs">{t('campaignLoadingPlayers')}</p>
                           ) : (
-                            <div className="space-y-1">
-                              {players.map(p => (
-                                <div key={p.username} className="flex justify-between text-[12px]">
-                                  <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> {t('campaignGmSuffix')}</span>}</span>
-                                  <span className="text-zinc-500">{p.faction ?? '—'}</span>
+                            <div className="space-y-3">
+                              {/* Faction standings + supply */}
+                              {supply.length > 0 && (
+                                <div>
+                                  <p className="text-[10px] text-zinc-500 uppercase tracking-wide mb-1.5">{t('campaignFactionStandings')}</p>
+                                  <div className="space-y-1.5">
+                                    {supply.map(s => (
+                                      <div key={s.faction} className="flex items-center gap-2 text-[12px]">
+                                        <span className="text-zinc-200 flex-1">{s.faction}</span>
+                                        <span className="text-amber-400 font-mono font-semibold w-8 text-right">{s.amount}</span>
+                                        <span className="text-zinc-500 text-[10px]">{t('campaignSupplyLabel')}</span>
+                                        {c.role === 'gm' && (
+                                          <div className="flex gap-1">
+                                            <button onClick={() => handleAdjustSupply(c, s.faction, -1)}
+                                              disabled={adjusting === s.faction || s.amount === 0}
+                                              className="w-5 h-5 flex items-center justify-center bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-40 text-xs leading-none">−</button>
+                                            <button onClick={() => handleAdjustSupply(c, s.faction, 1)}
+                                              disabled={adjusting === s.faction}
+                                              className="w-5 h-5 flex items-center justify-center bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-40 text-xs leading-none">+</button>
+                                          </div>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
-                              ))}
+                              )}
+                              {/* Player list */}
+                              <div>
+                                <p className="text-[10px] text-zinc-500 uppercase tracking-wide mb-1.5">{t('campaignTabPlayers')}</p>
+                                <div className="space-y-1">
+                                  {players.map(p => (
+                                    <div key={p.username} className="flex justify-between text-[12px]">
+                                      <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> {t('campaignGmSuffix')}</span>}</span>
+                                      <span className="text-zinc-500">{p.faction ?? '—'}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
                             </div>
                           )
                         ) : openTab === 'map' ? (
