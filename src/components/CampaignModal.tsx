@@ -23,10 +23,12 @@ export function CampaignModal({ onClose }: Props) {
   const [playersLoading, setPlayersLoading] = useState(false);
 
   // Create campaign form
-  const [showCreate, setShowCreate] = useState(false);
-  const [newName, setNewName]       = useState('');
-  const [newFactions, setNewFactions] = useState('Chaos, Imperium');
-  const [creating, setCreating]     = useState(false);
+  const [showCreate, setShowCreate]       = useState(false);
+  const [newName, setNewName]             = useState('');
+  const [newFactions, setNewFactions]     = useState('Chaos, Imperium');
+  const [newMaxTurns, setNewMaxTurns]     = useState(0);
+  const [newSectorsToWin, setNewSectorsToWin] = useState(4);
+  const [creating, setCreating]           = useState(false);
 
   // Join campaign form
   const [showJoin, setShowJoin]     = useState(false);
@@ -51,10 +53,13 @@ export function CampaignModal({ onClose }: Props) {
   async function handleAdvanceTurn(c: api.CampaignSummary) {
     setAdvancing(true); setError('');
     try {
-      const [turnRes] = await Promise.all([
-        api.advanceTurn(c.id),
-      ]);
-      setCampaigns(prev => prev.map(x => x.id === c.id ? { ...x, current_turn: turnRes.current_turn } : x));
+      const turnRes = await api.advanceTurn(c.id);
+      setCampaigns(prev => prev.map(x => x.id === c.id ? {
+        ...x,
+        current_turn: turnRes.current_turn,
+        status: (turnRes.status as 'active' | 'finished'),
+        winner_faction: turnRes.winner_faction,
+      } : x));
       // Supply refreshes after advance; re-fetch now that turn-advance credited new supply
       const fresh = await api.listSupply(c.id);
       setSupply(fresh.supply);
@@ -100,8 +105,8 @@ export function CampaignModal({ onClose }: Props) {
     const factions = newFactions.split(',').map(f => f.trim()).filter(Boolean);
     setCreating(true); setError('');
     try {
-      await api.createCampaign(newName.trim(), factions);
-      setNewName(''); setNewFactions('Chaos, Imperium'); setShowCreate(false);
+      await api.createCampaign(newName.trim(), factions, newMaxTurns, newSectorsToWin);
+      setNewName(''); setNewFactions('Chaos, Imperium'); setNewMaxTurns(0); setNewSectorsToWin(4); setShowCreate(false);
       await refresh();
     } catch (err) {
       setError((err as Error).message);
@@ -173,6 +178,19 @@ export function CampaignModal({ onClose }: Props) {
                 placeholder={t('campaignFactionsPlaceholder')}
                 className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
               />
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="text-[10px] text-zinc-500 uppercase tracking-wide block mb-1">{t('campaignMaxTurnsLabel')}</label>
+                  <input type="number" min={0} value={newMaxTurns} onChange={e => setNewMaxTurns(Math.max(0, Number(e.target.value)))}
+                    className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-1.5 outline-none" />
+                </div>
+                <div>
+                  <label className="text-[10px] text-zinc-500 uppercase tracking-wide block mb-1">{t('campaignSectorsToWinLabel')}</label>
+                  <input type="number" min={0} value={newSectorsToWin} onChange={e => setNewSectorsToWin(Math.max(0, Number(e.target.value)))}
+                    className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-1.5 outline-none" />
+                </div>
+              </div>
+              <p className="text-[10px] text-zinc-600 italic">{t('campaignVictoryHint')}</p>
               <button
                 disabled={creating || !newName.trim()}
                 onClick={handleCreate}
@@ -222,9 +240,10 @@ export function CampaignModal({ onClose }: Props) {
                     className="p-3 flex items-center gap-3 cursor-pointer"
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-zinc-100 truncate">
+                      <div className="text-sm font-semibold text-zinc-100 truncate flex items-center gap-2">
                         {c.name}
-                        {c.role === 'gm' && <span className="ml-2 text-[10px] text-amber-500 normal-case">{t('campaignYouAreGm')}</span>}
+                        {c.role === 'gm' && <span className="text-[10px] text-amber-500 normal-case">{t('campaignYouAreGm')}</span>}
+                        {c.status === 'finished' && <span className="text-[10px] px-1.5 py-0.5 bg-emerald-900/60 border border-emerald-700 text-emerald-300 tracking-wide normal-case">{t('campaignStatusFinished')}</span>}
                       </div>
                       <div className="text-[11px] text-zinc-500 mt-1">
                         {c.factions.join(' vs ')}
@@ -242,10 +261,18 @@ export function CampaignModal({ onClose }: Props) {
                       {c.role === 'gm' && (
                         <div className="flex items-center justify-between px-3 py-2 bg-zinc-900/60 border-b border-zinc-700">
                           <span className="text-[11px] text-amber-500 font-semibold">{t('campaignTurnLabel')} {c.current_turn ?? 1}</span>
-                          <button onClick={() => handleAdvanceTurn(c)} disabled={advancing}
-                            className="text-[10px] px-2 py-1 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">
-                            {advancing ? t('campaignAdvancing') : `${t('campaignAdvanceTurn')} ${(c.current_turn ?? 1) + 1} →`}
-                          </button>
+                          {c.status === 'finished' ? (
+                            <span className="text-[10px] text-emerald-400">
+                              {c.winner_faction
+                                ? `${t('campaignWonBy')}: ${c.winner_faction}`
+                                : t('campaignNoVictor')}
+                            </span>
+                          ) : (
+                            <button onClick={() => handleAdvanceTurn(c)} disabled={advancing}
+                              className="text-[10px] px-2 py-1 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">
+                              {advancing ? t('campaignAdvancing') : `${t('campaignAdvanceTurn')} ${(c.current_turn ?? 1) + 1} →`}
+                            </button>
+                          )}
                         </div>
                       )}
                       {/* Tab bar */}

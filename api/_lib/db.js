@@ -85,8 +85,12 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_sectors_campaign_idx ON campaign_sectors(campaign_id)`;
 
-  // Turn counter on campaigns (ALTER is idempotent)
+  // Turn counter + victory conditions on campaigns (ALTERs are idempotent)
   await sql`ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS current_turn INTEGER NOT NULL DEFAULT 1`;
+  await sql`ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS max_turns INTEGER NOT NULL DEFAULT 0`;
+  await sql`ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS sectors_to_win INTEGER NOT NULL DEFAULT 0`;
+  await sql`ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'active'`;
+  await sql`ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS winner_faction TEXT`;
 
   // Battle reports: GM logs results; sector_id auto-claims the sector to winner_faction.
   await sql`

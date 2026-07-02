@@ -68,6 +68,8 @@ export type TranslationKey =
   | 'campaignSectorCity' | 'campaignSectorIndustrial'
   | 'campaignSectorWasteland' | 'campaignSectorRuin' | 'campaignUnclaimed'
   | 'campaignClaimFor' | 'campaignSaving'
+  | 'campaignMaxTurnsLabel' | 'campaignSectorsToWinLabel' | 'campaignVictoryHint'
+  | 'campaignStatusFinished' | 'campaignWonBy' | 'campaignNoVictor'
   | 'campaignSupplyLabel' | 'campaignFactionStandings' | 'campaignAdjusting'
   | 'campaignTurnLabel' | 'campaignAdvanceTurn' | 'campaignAdvancing'
   | 'campaignLogBattle' | 'campaignAttacker' | 'campaignDefender'
@@ -339,6 +341,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unclaimed',
     campaignClaimFor: 'Claim for…',
     campaignSaving: 'Saving…',
+    campaignMaxTurnsLabel: 'Max turns (0 = no limit)',
+    campaignSectorsToWinLabel: 'Sectors to win (0 = no goal)',
+    campaignVictoryHint: 'Victory: first to reach the sector goal, or most sectors when time runs out.',
+    campaignStatusFinished: 'FINISHED',
+    campaignWonBy: 'Won by',
+    campaignNoVictor: 'Draw — no faction reached the goal',
     campaignSupplyLabel: 'Supply',
     campaignFactionStandings: 'Faction Standings',
     campaignAdjusting: 'Adjusting…',
@@ -817,6 +825,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unbehauptet',
     campaignClaimFor: 'Beanspruchen für…',
     campaignSaving: 'Speichern…',
+    campaignMaxTurnsLabel: 'Max. Runden (0 = kein Limit)',
+    campaignSectorsToWinLabel: 'Sektoren zum Sieg (0 = kein Ziel)',
+    campaignVictoryHint: 'Sieg: Erste Fraktion, die das Sektorziel erreicht, oder die meisten Sektoren bei Zeitablauf.',
+    campaignStatusFinished: 'BEENDET',
+    campaignWonBy: 'Gewonnen von',
+    campaignNoVictor: 'Unentschieden — keine Fraktion hat das Ziel erreicht',
     campaignSupplyLabel: 'Nachschub',
     campaignFactionStandings: 'Fraktionswertung',
     campaignAdjusting: 'Anpassen…',
@@ -1295,6 +1309,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Sin reclamar',
     campaignClaimFor: 'Reclamar para…',
     campaignSaving: 'Guardando…',
+    campaignMaxTurnsLabel: 'Turnos máx. (0 = sin límite)',
+    campaignSectorsToWinLabel: 'Sectores para ganar (0 = sin objetivo)',
+    campaignVictoryHint: 'Victoria: primera facción en alcanzar el objetivo de sectores, o la que más tenga al acabar el tiempo.',
+    campaignStatusFinished: 'FINALIZADA',
+    campaignWonBy: 'Ganada por',
+    campaignNoVictor: 'Empate — ninguna facción alcanzó el objetivo',
     campaignSupplyLabel: 'Suministro',
     campaignFactionStandings: 'Clasificación de facciones',
     campaignAdjusting: 'Ajustando…',

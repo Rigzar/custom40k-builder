@@ -98,15 +98,16 @@ export function deleteRoster(id: number) {
 export interface CampaignSummary {
   id: number; name: string; invite_code: string; factions: string[];
   gm_user_id: number; faction: string | null; role: 'gm' | 'player';
-  current_turn: number;
+  current_turn: number; max_turns: number; sectors_to_win: number;
+  status: 'active' | 'finished'; winner_faction: string | null;
 }
 export function listCampaigns() {
   return call<{ campaigns: CampaignSummary[] }>('/api/campaign/list');
 }
 
-export function createCampaign(name: string, factions: string[]) {
+export function createCampaign(name: string, factions: string[], maxTurns = 0, sectorsToWin = 0) {
   return call<{ campaign: CampaignSummary }>('/api/campaign/create', {
-    method: 'POST', body: JSON.stringify({ name, factions }),
+    method: 'POST', body: JSON.stringify({ name, factions, maxTurns, sectorsToWin }),
   });
 }
 
@@ -141,7 +142,7 @@ export function claimSector(campaignId: number, sectorId: number, ownerFaction: 
 }
 
 export function advanceTurn(campaignId: number) {
-  return call<{ ok: true; current_turn: number }>('/api/campaign/turn-advance', {
+  return call<{ ok: true; current_turn: number; status: string; winner_faction: string | null }>('/api/campaign/turn-advance', {
     method: 'POST', body: JSON.stringify({ campaignId }),
   });
 }

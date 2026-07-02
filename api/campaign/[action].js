@@ -49,7 +49,8 @@ async function list(req, res, userId) {
     return;
   }
   const result = await sql`
-    SELECT c.id, c.name, c.invite_code, c.factions, c.gm_user_id, c.current_turn, cp.faction, cp.role
+    SELECT c.id, c.name, c.invite_code, c.factions, c.gm_user_id, c.current_turn,
+           c.max_turns, c.sectors_to_win, c.status, c.winner_faction, cp.faction, cp.role
     FROM campaigns c
     JOIN campaign_players cp ON cp.campaign_id = c.id
     WHERE cp.user_id = ${userId}
@@ -74,6 +75,8 @@ async function create(req, res, userId) {
     return;
   }
   const cleanFactions = factions.map(f => f.trim());
+  const maxTurns = Number.isInteger(req.body?.maxTurns) ? Math.max(0, req.body.maxTurns) : 0;
+  const sectorsToWin = Number.isInteger(req.body?.sectorsToWin) ? Math.max(0, req.body.sectorsToWin) : 0;
 
   let inviteCode = generateInviteCode();
   for (let attempt = 0; attempt < 5; attempt++) {
@@ -83,9 +86,9 @@ async function create(req, res, userId) {
   }
 
   const inserted = await sql`
-    INSERT INTO campaigns (name, invite_code, factions, gm_user_id)
-    VALUES (${name.trim()}, ${inviteCode}, ${JSON.stringify(cleanFactions)}, ${userId})
-    RETURNING id, name, invite_code, factions, gm_user_id
+    INSERT INTO campaigns (name, invite_code, factions, gm_user_id, max_turns, sectors_to_win)
+    VALUES (${name.trim()}, ${inviteCode}, ${JSON.stringify(cleanFactions)}, ${userId}, ${maxTurns}, ${sectorsToWin})
+    RETURNING id, name, invite_code, factions, gm_user_id, max_turns, sectors_to_win, status, winner_faction
   `;
   const campaign = inserted.rows[0];
   await sql`
@@ -204,10 +207,18 @@ async function turnAdvance(req, res, userId) {
   const role = await requireMembership(campaignId, userId);
   if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can advance the turn.' }); return; }
 
-  const result = await sql`UPDATE campaigns SET current_turn = current_turn + 1 WHERE id = ${campaignId} RETURNING current_turn, factions`;
-  const { current_turn, factions } = result.rows[0];
+  const result = await sql`
+    UPDATE campaigns SET current_turn = current_turn + 1 WHERE id = ${campaignId}
+    RETURNING current_turn, factions, max_turns, sectors_to_win, status
+  `;
+  const { current_turn, factions, max_turns, sectors_to_win, status } = result.rows[0];
 
-  // Credit supply: +1 per owned sector per faction. Ensure every faction has a row.
+  if (status === 'finished') {
+    res.status(200).json({ ok: true, current_turn, status: 'finished' });
+    return;
+  }
+
+  // Credit supply: +1 per owned sector per faction.
   const sectorCounts = await sql`
     SELECT owner_faction, COUNT(*)::int AS cnt
     FROM campaign_sectors
@@ -224,7 +235,42 @@ async function turnAdvance(req, res, userId) {
     `;
   }
 
-  res.status(200).json({ ok: true, current_turn });
+  // Victory check
+  let winner = null;
+  let finished = false;
+
+  if (sectors_to_win > 0) {
+    const leaders = await sql`
+      SELECT owner_faction, COUNT(*)::int AS cnt
+      FROM campaign_sectors
+      WHERE campaign_id = ${campaignId} AND owner_faction IS NOT NULL
+      GROUP BY owner_faction
+      HAVING COUNT(*) >= ${sectors_to_win}
+      ORDER BY cnt DESC LIMIT 1
+    `;
+    if (leaders.rows.length > 0) { winner = leaders.rows[0].owner_faction; finished = true; }
+  }
+
+  if (!finished && max_turns > 0 && current_turn >= max_turns) {
+    const leaders = await sql`
+      SELECT owner_faction, COUNT(*)::int AS cnt
+      FROM campaign_sectors
+      WHERE campaign_id = ${campaignId} AND owner_faction IS NOT NULL
+      GROUP BY owner_faction
+      ORDER BY cnt DESC LIMIT 2
+    `;
+    if (leaders.rows.length > 0) {
+      const top = leaders.rows[0], second = leaders.rows[1];
+      if (!second || top.cnt > second.cnt) winner = top.owner_faction;
+    }
+    finished = true;
+  }
+
+  if (finished) {
+    await sql`UPDATE campaigns SET status = 'finished', winner_faction = ${winner} WHERE id = ${campaignId}`;
+  }
+
+  res.status(200).json({ ok: true, current_turn, status: finished ? 'finished' : 'active', winner_faction: winner });
 }
 
 /** GET /api/campaign/supply-list?campaignId=N */
