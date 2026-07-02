@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.28',
+    date: '2026-07-03',
+    title: 'GENERAL — Campaign persistent roster (Planetary Assault ALPHA)',
+    changes: [
+      'Campaign module — new Roster tab: each campaign now tracks a persistent list of units/heroes across battles. Add a unit (name + slot), track XP with +/− buttons, cycle status (Active → Wounded → Dead by clicking the status badge), remove units. GM can manage all factions; players can only add/edit/remove their own faction\'s units.',
+      'GENERAL — New campaign_roster DB table; four new API actions: roster-list, roster-add, roster-update, roster-remove. New CampaignRosterView component. CampaignModal expanded to 4 tabs. All UI strings translated EN/DE/ES.',
+    ],
+  },
+  {
     version: '1.27',
     date: '2026-07-02',
     title: 'Eldar — GH#44 Windhost Infantry HQ/Warlocks + GH#45 Exarch Shuriken Pistol',

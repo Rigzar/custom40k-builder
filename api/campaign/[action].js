@@ -28,6 +28,10 @@ export default async function handler(req, res) {
       case 'supply-list':   return supplyList(req, res, userId);
       case 'supply-adjust': return supplyAdjust(req, res, userId);
       case 'sector-rename': return sectorRename(req, res, userId);
+      case 'roster-list':   return rosterList(req, res, userId);
+      case 'roster-add':    return rosterAdd(req, res, userId);
+      case 'roster-update': return rosterUpdate(req, res, userId);
+      case 'roster-remove': return rosterRemove(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown campaign action' });
     }
@@ -371,6 +375,108 @@ async function battleList(req, res, userId) {
     ORDER BY b.recorded_at DESC
   `;
   res.status(200).json({ ok: true, battles: result.rows });
+}
+
+// ── Roster ────────────────────────────────────────────────────────────────────
+
+const VALID_SLOTS = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Dedicated Transport', 'Flyers', 'Lords of War'];
+const VALID_STATUSES = ['active', 'wounded', 'dead'];
+
+/** GET /api/campaign/roster-list?campaignId=N */
+async function rosterList(req, res, userId) {
+  if (req.method !== 'GET') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const campaignId = Number(req.query.campaignId);
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  await requireMembership(campaignId, userId);
+  const result = await sql`
+    SELECT id, faction, unit_name, unit_slot, xp, wounds, status, notes, created_at
+    FROM campaign_roster
+    WHERE campaign_id = ${campaignId}
+    ORDER BY faction ASC, created_at ASC
+  `;
+  res.status(200).json({ ok: true, roster: result.rows });
+}
+
+/** POST /api/campaign/roster-add { campaignId, faction, unitName, unitSlot, notes } */
+async function rosterAdd(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, faction, unitName, unitSlot, notes } = req.body ?? {};
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  if (typeof faction !== 'string' || !faction.trim()) { res.status(400).json({ error: 'faction required' }); return; }
+  if (typeof unitName !== 'string' || !unitName.trim()) { res.status(400).json({ error: 'unitName required' }); return; }
+
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') {
+    // Players can only add to their own faction
+    const myFaction = await sql`SELECT faction FROM campaign_players WHERE campaign_id = ${campaignId} AND user_id = ${userId}`;
+    if (myFaction.rows[0]?.faction !== faction.trim()) {
+      res.status(403).json({ error: 'You can only add units to your own faction.' }); return;
+    }
+  }
+
+  const slot = VALID_SLOTS.includes(unitSlot) ? unitSlot : 'HQ';
+  const noteText = typeof notes === 'string' && notes.trim() ? notes.trim() : null;
+
+  const inserted = await sql`
+    INSERT INTO campaign_roster (campaign_id, faction, unit_name, unit_slot, notes)
+    VALUES (${campaignId}, ${faction.trim()}, ${unitName.trim()}, ${slot}, ${noteText})
+    RETURNING id, faction, unit_name, unit_slot, xp, wounds, status, notes, created_at
+  `;
+  res.status(200).json({ ok: true, unit: inserted.rows[0] });
+}
+
+/** POST /api/campaign/roster-update { campaignId, unitId, xp?, wounds?, status?, notes?, unitName? } */
+async function rosterUpdate(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, unitId, xp, wounds, status, notes, unitName } = req.body ?? {};
+  if (!Number.isInteger(campaignId) || !Number.isInteger(unitId)) { res.status(400).json({ error: 'Missing campaignId or unitId' }); return; }
+
+  const role = await requireMembership(campaignId, userId);
+  const cur = await sql`SELECT * FROM campaign_roster WHERE id = ${unitId} AND campaign_id = ${campaignId}`;
+  if (!cur.rows.length) { res.status(404).json({ error: 'Unit not found.' }); return; }
+  const row = cur.rows[0];
+
+  if (role !== 'gm') {
+    const myFaction = await sql`SELECT faction FROM campaign_players WHERE campaign_id = ${campaignId} AND user_id = ${userId}`;
+    if (myFaction.rows[0]?.faction !== row.faction) {
+      res.status(403).json({ error: 'You can only edit your own faction\'s units.' }); return;
+    }
+  }
+
+  const newXp     = Number.isInteger(xp) ? Math.max(0, xp) : row.xp;
+  const newWounds = Number.isInteger(wounds) ? Math.max(0, wounds) : row.wounds;
+  const newStatus = typeof status === 'string' && VALID_STATUSES.includes(status) ? status : row.status;
+  const newNotes  = typeof notes === 'string' ? (notes.trim() || null) : row.notes;
+  const newName   = typeof unitName === 'string' && unitName.trim() ? unitName.trim() : row.unit_name;
+
+  await sql`
+    UPDATE campaign_roster
+    SET xp = ${newXp}, wounds = ${newWounds}, status = ${newStatus}, notes = ${newNotes}, unit_name = ${newName}
+    WHERE id = ${unitId} AND campaign_id = ${campaignId}
+  `;
+  const updated = await sql`SELECT id, faction, unit_name, unit_slot, xp, wounds, status, notes FROM campaign_roster WHERE id = ${unitId}`;
+  res.status(200).json({ ok: true, unit: updated.rows[0] });
+}
+
+/** POST /api/campaign/roster-remove { campaignId, unitId } */
+async function rosterRemove(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, unitId } = req.body ?? {};
+  if (!Number.isInteger(campaignId) || !Number.isInteger(unitId)) { res.status(400).json({ error: 'Missing campaignId or unitId' }); return; }
+
+  const role = await requireMembership(campaignId, userId);
+  const unitRow = await sql`SELECT faction FROM campaign_roster WHERE id = ${unitId} AND campaign_id = ${campaignId}`;
+  if (!unitRow.rows.length) { res.status(404).json({ error: 'Unit not found.' }); return; }
+
+  if (role !== 'gm') {
+    const myFaction = await sql`SELECT faction FROM campaign_players WHERE campaign_id = ${campaignId} AND user_id = ${userId}`;
+    if (myFaction.rows[0]?.faction !== unitRow.rows[0].faction) {
+      res.status(403).json({ error: 'You can only remove your own faction\'s units.' }); return;
+    }
+  }
+
+  await sql`DELETE FROM campaign_roster WHERE id = ${unitId} AND campaign_id = ${campaignId}`;
+  res.status(200).json({ ok: true });
 }
 
 /** GET /api/campaign/players?campaignId=N -> every player + faction + role in a campaign you belong to. */

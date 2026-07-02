@@ -63,7 +63,10 @@ export type TranslationKey =
   | 'campaignInviteCodePlaceholder' | 'campaignJoinFactionPlaceholder' | 'joinLabel'
   | 'loadingEllipsis' | 'campaignNoneYet' | 'campaignYouAreGm' | 'campaignPlayingPrefix'
   | 'campaignLoadingPlayers' | 'campaignGmSuffix'
-  | 'campaignTabPlayers' | 'campaignTabMap' | 'campaignTabBattles'
+  | 'campaignTabPlayers' | 'campaignTabMap' | 'campaignTabBattles' | 'campaignTabRoster'
+  | 'campaignRosterEmpty' | 'campaignRosterAddUnit' | 'campaignRosterUnitName' | 'campaignRosterUnitSlot'
+  | 'campaignRosterXp' | 'campaignRosterWounds' | 'campaignRosterStatus'
+  | 'campaignRosterActive' | 'campaignRosterWounded' | 'campaignRosterDead'
   | 'campaignMapEmpty' | 'campaignInitMap' | 'campaignInitializing'
   | 'campaignSectorCity' | 'campaignSectorIndustrial'
   | 'campaignSectorWasteland' | 'campaignSectorRuin' | 'campaignUnclaimed'
@@ -332,6 +335,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignTabPlayers: 'Players',
     campaignTabMap: 'Sector Map',
     campaignTabBattles: 'Battles',
+    campaignTabRoster: 'Roster',
+    campaignRosterEmpty: 'No units tracked yet.',
+    campaignRosterAddUnit: 'Add unit',
+    campaignRosterUnitName: 'Unit name',
+    campaignRosterUnitSlot: 'Slot',
+    campaignRosterXp: 'XP',
+    campaignRosterWounds: 'Wounds',
+    campaignRosterStatus: 'Status',
+    campaignRosterActive: 'Active',
+    campaignRosterWounded: 'Wounded',
+    campaignRosterDead: 'Dead',
     campaignMapEmpty: 'No sectors yet. Initialize the map to get started.',
     campaignInitMap: 'Initialize Map',
     campaignInitializing: 'Initializing…',
@@ -820,6 +834,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignTabPlayers: 'Spieler',
     campaignTabMap: 'Sektorkarte',
     campaignTabBattles: 'Schlachten',
+    campaignTabRoster: 'Aufstellung',
+    campaignRosterEmpty: 'Noch keine Einheiten erfasst.',
+    campaignRosterAddUnit: 'Einheit hinzufügen',
+    campaignRosterUnitName: 'Einheitenname',
+    campaignRosterUnitSlot: 'Slot',
+    campaignRosterXp: 'EP',
+    campaignRosterWounds: 'Wunden',
+    campaignRosterStatus: 'Status',
+    campaignRosterActive: 'Aktiv',
+    campaignRosterWounded: 'Verwundet',
+    campaignRosterDead: 'Gefallen',
     campaignMapEmpty: 'Noch keine Sektoren. Initialisiere die Karte, um zu beginnen.',
     campaignInitMap: 'Karte initialisieren',
     campaignInitializing: 'Initialisierung…',
@@ -1308,6 +1333,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignTabPlayers: 'Jugadores',
     campaignTabMap: 'Mapa de sectores',
     campaignTabBattles: 'Batallas',
+    campaignTabRoster: 'Efectivos',
+    campaignRosterEmpty: 'Sin unidades registradas todavía.',
+    campaignRosterAddUnit: 'Añadir unidad',
+    campaignRosterUnitName: 'Nombre de unidad',
+    campaignRosterUnitSlot: 'Slot',
+    campaignRosterXp: 'XP',
+    campaignRosterWounds: 'Heridas',
+    campaignRosterStatus: 'Estado',
+    campaignRosterActive: 'Activo',
+    campaignRosterWounded: 'Herido',
+    campaignRosterDead: 'Caído',
     campaignMapEmpty: 'Sin sectores todavía. Inicializa el mapa para empezar.',
     campaignInitMap: 'Inicializar mapa',
     campaignInitializing: 'Inicializando…',

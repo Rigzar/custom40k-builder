@@ -3,6 +3,7 @@ import * as api from '../lib/api';
 import { useT } from '../i18n';
 import { CampaignMapView } from './CampaignMapView';
 import { CampaignBattleLog } from './CampaignBattleLog';
+import { CampaignRosterView } from './CampaignRosterView';
 
 interface Props {
   onClose: () => void;
@@ -15,7 +16,7 @@ export function CampaignModal({ onClose }: Props) {
   const [error, setError]         = useState('');
 
   const [openId, setOpenId]       = useState<number | null>(null);
-  const [openTab, setOpenTab]     = useState<'players' | 'map' | 'battles'>('players');
+  const [openTab, setOpenTab]     = useState<'players' | 'map' | 'battles' | 'roster'>('players');
   const [advancing, setAdvancing] = useState(false);
   const [players, setPlayers]     = useState<api.CampaignPlayer[]>([]);
   const [supply, setSupply]       = useState<api.CampaignSupplyRow[]>([]);
@@ -277,11 +278,11 @@ export function CampaignModal({ onClose }: Props) {
                       )}
                       {/* Tab bar */}
                       <div className="flex border-b border-zinc-700">
-                        {(['players', 'map', 'battles'] as const).map(tab => (
+                        {(['players', 'map', 'battles', 'roster'] as const).map(tab => (
                           <button key={tab}
                             onClick={() => setOpenTab(tab)}
                             className={`flex-1 text-[10px] py-2 uppercase tracking-wide ${openTab === tab ? 'text-amber-400 border-b-2 border-amber-600' : 'text-zinc-500 hover:text-zinc-300'}`}>
-                            {tab === 'players' ? t('campaignTabPlayers') : tab === 'map' ? t('campaignTabMap') : t('campaignTabBattles')}
+                            {tab === 'players' ? t('campaignTabPlayers') : tab === 'map' ? t('campaignTabMap') : tab === 'battles' ? t('campaignTabBattles') : t('campaignTabRoster')}
                           </button>
                         ))}
                       </div>
@@ -332,8 +333,10 @@ export function CampaignModal({ onClose }: Props) {
                           )
                         ) : openTab === 'map' ? (
                           <CampaignMapView campaign={c} isGm={c.role === 'gm'} />
-                        ) : (
+                        ) : openTab === 'battles' ? (
                           <CampaignBattleLog campaign={c} isGm={c.role === 'gm'} />
+                        ) : (
+                          <CampaignRosterView campaign={c} isGm={c.role === 'gm'} myFaction={c.faction ?? null} />
                         )}
                       </div>
                     </div>

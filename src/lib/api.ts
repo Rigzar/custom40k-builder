@@ -180,3 +180,33 @@ export function adjustSupply(campaignId: number, faction: string, delta: number)
     method: 'POST', body: JSON.stringify({ campaignId, faction, delta }),
   });
 }
+
+export interface CampaignRosterEntry {
+  id: number;
+  faction: string;
+  unit_name: string;
+  unit_slot: string;
+  xp: number;
+  wounds: number;
+  status: 'active' | 'wounded' | 'dead';
+  notes: string | null;
+  created_at?: string;
+}
+export function listRoster(campaignId: number) {
+  return call<{ roster: CampaignRosterEntry[] }>(`/api/campaign/roster-list?campaignId=${campaignId}`);
+}
+export function addRosterUnit(campaignId: number, faction: string, unitName: string, unitSlot: string, notes?: string) {
+  return call<{ ok: true; unit: CampaignRosterEntry }>('/api/campaign/roster-add', {
+    method: 'POST', body: JSON.stringify({ campaignId, faction, unitName, unitSlot, notes }),
+  });
+}
+export function updateRosterUnit(campaignId: number, unitId: number, patch: Partial<Pick<CampaignRosterEntry, 'xp' | 'wounds' | 'status' | 'notes'> & { unitName: string }>) {
+  return call<{ ok: true; unit: CampaignRosterEntry }>('/api/campaign/roster-update', {
+    method: 'POST', body: JSON.stringify({ campaignId, unitId, ...patch }),
+  });
+}
+export function removeRosterUnit(campaignId: number, unitId: number) {
+  return call<{ ok: true }>('/api/campaign/roster-remove', {
+    method: 'POST', body: JSON.stringify({ campaignId, unitId }),
+  });
+}

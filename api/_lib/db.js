@@ -120,6 +120,23 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_supply_campaign_idx ON campaign_supply(campaign_id)`;
 
+  // Persistent roster: units/heroes that survive between battles, track XP + wounds.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_roster (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      faction TEXT NOT NULL,
+      unit_name TEXT NOT NULL,
+      unit_slot TEXT NOT NULL DEFAULT 'HQ',
+      xp INTEGER NOT NULL DEFAULT 0,
+      wounds INTEGER NOT NULL DEFAULT 0,
+      status TEXT NOT NULL DEFAULT 'active',
+      notes TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_roster_campaign_idx ON campaign_roster(campaign_id)`;
+
   schemaReady = true;
 }
 
