@@ -68,6 +68,7 @@ export type TranslationKey =
   | 'campaignSectorCity' | 'campaignSectorIndustrial'
   | 'campaignSectorWasteland' | 'campaignSectorRuin' | 'campaignUnclaimed'
   | 'campaignClaimFor' | 'campaignSaving'
+  | 'campaignRenameSector' | 'campaignSectorNameLabel' | 'campaignSectorTypeLabel' | 'campaignRenaming'
   | 'campaignMaxTurnsLabel' | 'campaignSectorsToWinLabel' | 'campaignVictoryHint'
   | 'campaignStatusFinished' | 'campaignWonBy' | 'campaignNoVictor'
   | 'campaignSupplyLabel' | 'campaignFactionStandings' | 'campaignAdjusting'
@@ -341,6 +342,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unclaimed',
     campaignClaimFor: 'Claim for…',
     campaignSaving: 'Saving…',
+    campaignRenameSector: 'Rename / Retype',
+    campaignSectorNameLabel: 'Sector name',
+    campaignSectorTypeLabel: 'Type',
+    campaignRenaming: 'Renaming…',
     campaignMaxTurnsLabel: 'Max turns (0 = no limit)',
     campaignSectorsToWinLabel: 'Sectors to win (0 = no goal)',
     campaignVictoryHint: 'Victory: first to reach the sector goal, or most sectors when time runs out.',
@@ -825,6 +830,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unbehauptet',
     campaignClaimFor: 'Beanspruchen für…',
     campaignSaving: 'Speichern…',
+    campaignRenameSector: 'Umbenennen / Typ ändern',
+    campaignSectorNameLabel: 'Sektorname',
+    campaignSectorTypeLabel: 'Typ',
+    campaignRenaming: 'Umbenennen…',
     campaignMaxTurnsLabel: 'Max. Runden (0 = kein Limit)',
     campaignSectorsToWinLabel: 'Sektoren zum Sieg (0 = kein Ziel)',
     campaignVictoryHint: 'Sieg: Erste Fraktion, die das Sektorziel erreicht, oder die meisten Sektoren bei Zeitablauf.',
@@ -1309,6 +1318,10 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Sin reclamar',
     campaignClaimFor: 'Reclamar para…',
     campaignSaving: 'Guardando…',
+    campaignRenameSector: 'Renombrar / cambiar tipo',
+    campaignSectorNameLabel: 'Nombre del sector',
+    campaignSectorTypeLabel: 'Tipo',
+    campaignRenaming: 'Renombrando…',
     campaignMaxTurnsLabel: 'Turnos máx. (0 = sin límite)',
     campaignSectorsToWinLabel: 'Sectores para ganar (0 = sin objetivo)',
     campaignVictoryHint: 'Victoria: primera facción en alcanzar el objetivo de sectores, o la que más tenga al acabar el tiempo.',

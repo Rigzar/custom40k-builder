@@ -27,6 +27,7 @@ export default async function handler(req, res) {
       case 'battle-list':   return battleList(req, res, userId);
       case 'supply-list':   return supplyList(req, res, userId);
       case 'supply-adjust': return supplyAdjust(req, res, userId);
+      case 'sector-rename': return sectorRename(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown campaign action' });
     }
@@ -271,6 +272,20 @@ async function turnAdvance(req, res, userId) {
   }
 
   res.status(200).json({ ok: true, current_turn, status: finished ? 'finished' : 'active', winner_faction: winner });
+}
+
+/** POST /api/campaign/sector-rename { campaignId, sectorId, name, sectorType } -> GM renames/retypes a sector. */
+async function sectorRename(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, sectorId, name, sectorType } = req.body ?? {};
+  if (!Number.isInteger(campaignId) || !Number.isInteger(sectorId)) { res.status(400).json({ error: 'Missing campaignId or sectorId' }); return; }
+  if (typeof name !== 'string' || !name.trim()) { res.status(400).json({ error: 'name required' }); return; }
+  const VALID_TYPES = ['city', 'industrial', 'wasteland', 'ruin'];
+  const type = VALID_TYPES.includes(sectorType) ? sectorType : 'wasteland';
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can rename sectors.' }); return; }
+  await sql`UPDATE campaign_sectors SET name = ${name.trim()}, sector_type = ${type} WHERE id = ${sectorId} AND campaign_id = ${campaignId}`;
+  res.status(200).json({ ok: true });
 }
 
 /** GET /api/campaign/supply-list?campaignId=N */

@@ -135,6 +135,11 @@ export function initCampaignSectors(campaignId: number) {
     method: 'POST', body: JSON.stringify({ campaignId }),
   });
 }
+export function renameSector(campaignId: number, sectorId: number, name: string, sectorType: SectorType) {
+  return call<{ ok: true }>('/api/campaign/sector-rename', {
+    method: 'POST', body: JSON.stringify({ campaignId, sectorId, name, sectorType }),
+  });
+}
 export function claimSector(campaignId: number, sectorId: number, ownerFaction: string | null) {
   return call<{ ok: true }>('/api/campaign/sector-claim', {
     method: 'POST', body: JSON.stringify({ campaignId, sectorId, ownerFaction }),

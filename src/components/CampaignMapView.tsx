@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import * as api from '../lib/api';
 import { useT } from '../i18n';
 
@@ -35,6 +35,11 @@ export function CampaignMapView({ campaign, isGm }: Props) {
   const [initializing, setInitializing] = useState(false);
   const [selected, setSelected] = useState<api.CampaignSector | null>(null);
   const [saving, setSaving] = useState(false);
+  const [renameMode, setRenameMode] = useState(false);
+  const [editName, setEditName] = useState('');
+  const [editType, setEditType] = useState<api.SectorType>('wasteland');
+  const [renaming, setRenaming] = useState(false);
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   async function load() {
     setLoading(true); setError('');
@@ -59,6 +64,28 @@ export function CampaignMapView({ campaign, isGm }: Props) {
       setError((err as Error).message);
     } finally {
       setInitializing(false);
+    }
+  }
+
+  function openRename(s: api.CampaignSector) {
+    setEditName(s.name);
+    setEditType(s.sector_type);
+    setRenameMode(true);
+    setTimeout(() => nameInputRef.current?.focus(), 50);
+  }
+
+  async function handleRename() {
+    if (!selected) return;
+    setRenaming(true); setError('');
+    try {
+      await api.renameSector(campaign.id, selected.id, editName, editType);
+      setSectors(prev => prev.map(s => s.id === selected.id ? { ...s, name: editName.trim(), sector_type: editType } : s));
+      setSelected(s => s ? { ...s, name: editName.trim(), sector_type: editType } : s);
+      setRenameMode(false);
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setRenaming(false);
     }
   }
 
@@ -151,7 +178,7 @@ export function CampaignMapView({ campaign, isGm }: Props) {
             const typeColor = SECTOR_COLORS[s.sector_type] ?? '#a1a1aa';
             const isSelected = selected?.id === s.id;
             return (
-              <g key={s.id} onClick={() => isGm && setSelected(isSelected ? null : s)}
+              <g key={s.id} onClick={() => { if (!isGm) return; if (isSelected) { setSelected(null); setRenameMode(false); } else { setSelected(s); setRenameMode(false); } }}
                 className={isGm ? 'cursor-pointer' : ''}>
                 {/* Outer ring = sector type color */}
                 <circle cx={s.x} cy={s.y} r={22} fill={typeColor} opacity={0.3}
@@ -174,23 +201,59 @@ export function CampaignMapView({ campaign, isGm }: Props) {
         </svg>
       </div>
 
-      {/* GM claim panel */}
+      {/* GM action panel */}
       {isGm && selected && (
-        <div className="bg-zinc-800/60 border border-zinc-700 p-3 space-y-2">
-          <p className="text-zinc-300 text-xs font-semibold">
-            {selected.name} — {t('campaignClaimFor')}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {campaign.factions.map(f => (
-              <button key={f} onClick={() => handleClaim(f)} disabled={saving}
-                className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">
-                {saving ? t('campaignSaving') : f}
+        <div className="bg-zinc-800/60 border border-zinc-700">
+          {/* mini tab bar */}
+          <div className="flex border-b border-zinc-700">
+            {([false, true] as const).map(isRename => (
+              <button key={String(isRename)}
+                onClick={() => { setRenameMode(isRename); if (isRename) openRename(selected); }}
+                className={`flex-1 text-[10px] py-1.5 uppercase tracking-wide ${renameMode === isRename ? 'text-amber-400 border-b-2 border-amber-600' : 'text-zinc-500 hover:text-zinc-300'}`}>
+                {isRename ? t('campaignRenameSector') : t('campaignClaimFor')}
               </button>
             ))}
-            <button onClick={() => handleClaim(null)} disabled={saving}
-              className="text-[11px] px-3 py-1.5 bg-zinc-900 border border-zinc-600 text-zinc-400 hover:bg-zinc-700 disabled:opacity-50 uppercase tracking-wide">
-              {t('campaignUnclaimed')}
-            </button>
+          </div>
+
+          <div className="p-3 space-y-2">
+            {!renameMode ? (
+              <>
+                <p className="text-zinc-400 text-[11px]">{selected.name}</p>
+                <div className="flex flex-wrap gap-2">
+                  {campaign.factions.map(f => (
+                    <button key={f} onClick={() => handleClaim(f)} disabled={saving}
+                      className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">
+                      {saving ? t('campaignSaving') : f}
+                    </button>
+                  ))}
+                  <button onClick={() => handleClaim(null)} disabled={saving}
+                    className="text-[11px] px-3 py-1.5 bg-zinc-900 border border-zinc-600 text-zinc-400 hover:bg-zinc-700 disabled:opacity-50 uppercase tracking-wide">
+                    {t('campaignUnclaimed')}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <label className="text-[10px] text-zinc-500 uppercase tracking-wide block mb-1">{t('campaignSectorNameLabel')}</label>
+                  <input ref={nameInputRef} value={editName} onChange={e => setEditName(e.target.value)}
+                    className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-xs px-2 py-1.5 outline-none" />
+                </div>
+                <div>
+                  <label className="text-[10px] text-zinc-500 uppercase tracking-wide block mb-1">{t('campaignSectorTypeLabel')}</label>
+                  <select value={editType} onChange={e => setEditType(e.target.value as api.SectorType)}
+                    className="w-full bg-zinc-800 border border-zinc-700 text-zinc-200 text-xs px-2 py-1.5 outline-none focus:border-amber-700">
+                    {(['city','industrial','wasteland','ruin'] as api.SectorType[]).map(tp => (
+                      <option key={tp} value={tp}>{sectorTypeLabel(tp)}</option>
+                    ))}
+                  </select>
+                </div>
+                <button onClick={handleRename} disabled={renaming || !editName.trim()}
+                  className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">
+                  {renaming ? t('campaignRenaming') : t('createLabel')}
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
