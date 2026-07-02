@@ -98,6 +98,7 @@ export function deleteRoster(id: number) {
 export interface CampaignSummary {
   id: number; name: string; invite_code: string; factions: string[];
   gm_user_id: number; faction: string | null; role: 'gm' | 'player';
+  current_turn: number;
 }
 export function listCampaigns() {
   return call<{ campaigns: CampaignSummary[] }>('/api/campaign/list');
@@ -137,4 +138,29 @@ export function claimSector(campaignId: number, sectorId: number, ownerFaction: 
   return call<{ ok: true }>('/api/campaign/sector-claim', {
     method: 'POST', body: JSON.stringify({ campaignId, sectorId, ownerFaction }),
   });
+}
+
+export function advanceTurn(campaignId: number) {
+  return call<{ ok: true; current_turn: number }>('/api/campaign/turn-advance', {
+    method: 'POST', body: JSON.stringify({ campaignId }),
+  });
+}
+
+export interface CampaignBattle {
+  id: number; turn: number;
+  attacker_faction: string; defender_faction: string; winner_faction: string | null;
+  sector_id: number | null; sector_name: string | null; notes: string | null;
+  recorded_at: string;
+}
+export function logBattle(
+  campaignId: number,
+  attackerFaction: string, defenderFaction: string, winnerFaction: string | null,
+  sectorId: number | null, notes: string,
+) {
+  return call<{ ok: true; battleId: number }>('/api/campaign/battle-log', {
+    method: 'POST', body: JSON.stringify({ campaignId, attackerFaction, defenderFaction, winnerFaction, sectorId, notes }),
+  });
+}
+export function listBattles(campaignId: number) {
+  return call<{ battles: CampaignBattle[] }>(`/api/campaign/battle-list?campaignId=${campaignId}`);
 }

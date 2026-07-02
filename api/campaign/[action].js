@@ -22,6 +22,9 @@ export default async function handler(req, res) {
       case 'sector-list':   return sectorList(req, res, userId);
       case 'sector-init':   return sectorInit(req, res, userId);
       case 'sector-claim':  return sectorClaim(req, res, userId);
+      case 'turn-advance':  return turnAdvance(req, res, userId);
+      case 'battle-log':    return battleLog(req, res, userId);
+      case 'battle-list':   return battleList(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown campaign action' });
     }
@@ -44,7 +47,7 @@ async function list(req, res, userId) {
     return;
   }
   const result = await sql`
-    SELECT c.id, c.name, c.invite_code, c.factions, c.gm_user_id, cp.faction, cp.role
+    SELECT c.id, c.name, c.invite_code, c.factions, c.gm_user_id, c.current_turn, cp.faction, cp.role
     FROM campaigns c
     JOIN campaign_players cp ON cp.campaign_id = c.id
     WHERE cp.user_id = ${userId}
@@ -187,6 +190,69 @@ async function sectorClaim(req, res, userId) {
   const owner = typeof ownerFaction === 'string' && ownerFaction.trim() ? ownerFaction.trim() : null;
   await sql`UPDATE campaign_sectors SET owner_faction = ${owner} WHERE id = ${sectorId} AND campaign_id = ${campaignId}`;
   res.status(200).json({ ok: true });
+}
+
+// ── Turn tracker ─────────────────────────────────────────────────────────────
+
+/** POST /api/campaign/turn-advance { campaignId } -> GM increments current_turn by 1. */
+async function turnAdvance(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId } = req.body ?? {};
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can advance the turn.' }); return; }
+  const result = await sql`UPDATE campaigns SET current_turn = current_turn + 1 WHERE id = ${campaignId} RETURNING current_turn`;
+  res.status(200).json({ ok: true, current_turn: result.rows[0].current_turn });
+}
+
+// ── Battle reports ────────────────────────────────────────────────────────────
+
+/** POST /api/campaign/battle-log { campaignId, attackerFaction, defenderFaction, winnerFaction, sectorId?, notes? }
+ *  GM logs a battle. If sectorId + winnerFaction → auto-claims that sector. */
+async function battleLog(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, attackerFaction, defenderFaction, winnerFaction, sectorId, notes } = req.body ?? {};
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  if (typeof attackerFaction !== 'string' || !attackerFaction.trim()) { res.status(400).json({ error: 'attackerFaction required' }); return; }
+  if (typeof defenderFaction !== 'string' || !defenderFaction.trim()) { res.status(400).json({ error: 'defenderFaction required' }); return; }
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can log battles.' }); return; }
+
+  const turnRes = await sql`SELECT current_turn FROM campaigns WHERE id = ${campaignId}`;
+  const turn = turnRes.rows[0]?.current_turn ?? 1;
+  const winner = typeof winnerFaction === 'string' && winnerFaction.trim() ? winnerFaction.trim() : null;
+  const sid = Number.isInteger(sectorId) ? sectorId : null;
+  const noteText = typeof notes === 'string' && notes.trim() ? notes.trim() : null;
+
+  const inserted = await sql`
+    INSERT INTO campaign_battles (campaign_id, turn, attacker_faction, defender_faction, winner_faction, sector_id, notes)
+    VALUES (${campaignId}, ${turn}, ${attackerFaction.trim()}, ${defenderFaction.trim()}, ${winner}, ${sid}, ${noteText})
+    RETURNING id
+  `;
+
+  // Auto-claim the sector if there's a winner and a sector
+  if (sid && winner) {
+    await sql`UPDATE campaign_sectors SET owner_faction = ${winner} WHERE id = ${sid} AND campaign_id = ${campaignId}`;
+  }
+
+  res.status(200).json({ ok: true, battleId: inserted.rows[0].id });
+}
+
+/** GET /api/campaign/battle-list?campaignId=N -> all battles for a campaign, newest first. */
+async function battleList(req, res, userId) {
+  if (req.method !== 'GET') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const campaignId = Number(req.query.campaignId);
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  await requireMembership(campaignId, userId);
+  const result = await sql`
+    SELECT b.id, b.turn, b.attacker_faction, b.defender_faction, b.winner_faction,
+           b.sector_id, s.name AS sector_name, b.notes, b.recorded_at
+    FROM campaign_battles b
+    LEFT JOIN campaign_sectors s ON s.id = b.sector_id
+    WHERE b.campaign_id = ${campaignId}
+    ORDER BY b.recorded_at DESC
+  `;
+  res.status(200).json({ ok: true, battles: result.rows });
 }
 
 /** GET /api/campaign/players?campaignId=N -> every player + faction + role in a campaign you belong to. */

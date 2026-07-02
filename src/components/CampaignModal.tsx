@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useT } from '../i18n';
 import { CampaignMapView } from './CampaignMapView';
+import { CampaignBattleLog } from './CampaignBattleLog';
 
 interface Props {
   onClose: () => void;
@@ -14,7 +15,8 @@ export function CampaignModal({ onClose }: Props) {
   const [error, setError]         = useState('');
 
   const [openId, setOpenId]       = useState<number | null>(null);
-  const [openTab, setOpenTab]     = useState<'players' | 'map'>('players');
+  const [openTab, setOpenTab]     = useState<'players' | 'map' | 'battles'>('players');
+  const [advancing, setAdvancing] = useState(false);
   const [players, setPlayers]     = useState<api.CampaignPlayer[]>([]);
   const [playersLoading, setPlayersLoading] = useState(false);
 
@@ -43,6 +45,18 @@ export function CampaignModal({ onClose }: Props) {
   }
 
   useEffect(() => { refresh(); }, []);
+
+  async function handleAdvanceTurn(c: api.CampaignSummary) {
+    setAdvancing(true); setError('');
+    try {
+      const res = await api.advanceTurn(c.id);
+      setCampaigns(prev => prev.map(x => x.id === c.id ? { ...x, current_turn: res.current_turn } : x));
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setAdvancing(false);
+    }
+  }
 
   async function toggleOpen(c: api.CampaignSummary) {
     if (openId === c.id) { setOpenId(null); return; }
@@ -194,17 +208,30 @@ export function CampaignModal({ onClose }: Props) {
                         {c.faction && <span className="text-amber-600"> · {t('campaignPlayingPrefix')} {c.faction}</span>}
                       </div>
                     </div>
-                    <div className="text-[11px] font-mono tracking-widest text-amber-500 shrink-0">{c.invite_code}</div>
+                    <div className="flex flex-col items-end gap-1 shrink-0">
+                      <span className="text-[11px] font-mono tracking-widest text-amber-500">{c.invite_code}</span>
+                      <span className="text-[10px] text-zinc-500">{t('campaignTurnLabel')} {c.current_turn ?? 1}</span>
+                    </div>
                   </div>
                   {openId === c.id && (
                     <div className="border-t border-zinc-700 bg-zinc-950/40">
+                      {/* Turn bar (GM only) */}
+                      {c.role === 'gm' && (
+                        <div className="flex items-center justify-between px-3 py-2 bg-zinc-900/60 border-b border-zinc-700">
+                          <span className="text-[11px] text-amber-500 font-semibold">{t('campaignTurnLabel')} {c.current_turn ?? 1}</span>
+                          <button onClick={() => handleAdvanceTurn(c)} disabled={advancing}
+                            className="text-[10px] px-2 py-1 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">
+                            {advancing ? t('campaignAdvancing') : `${t('campaignAdvanceTurn')} ${(c.current_turn ?? 1) + 1} →`}
+                          </button>
+                        </div>
+                      )}
                       {/* Tab bar */}
                       <div className="flex border-b border-zinc-700">
-                        {(['players', 'map'] as const).map(tab => (
+                        {(['players', 'map', 'battles'] as const).map(tab => (
                           <button key={tab}
                             onClick={() => setOpenTab(tab)}
                             className={`flex-1 text-[10px] py-2 uppercase tracking-wide ${openTab === tab ? 'text-amber-400 border-b-2 border-amber-600' : 'text-zinc-500 hover:text-zinc-300'}`}>
-                            {tab === 'players' ? t('campaignTabPlayers') : t('campaignTabMap')}
+                            {tab === 'players' ? t('campaignTabPlayers') : tab === 'map' ? t('campaignTabMap') : t('campaignTabBattles')}
                           </button>
                         ))}
                       </div>
@@ -222,8 +249,10 @@ export function CampaignModal({ onClose }: Props) {
                               ))}
                             </div>
                           )
-                        ) : (
+                        ) : openTab === 'map' ? (
                           <CampaignMapView campaign={c} isGm={c.role === 'gm'} />
+                        ) : (
+                          <CampaignBattleLog campaign={c} isGm={c.role === 'gm'} />
                         )}
                       </div>
                     </div>

@@ -85,6 +85,25 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_sectors_campaign_idx ON campaign_sectors(campaign_id)`;
 
+  // Turn counter on campaigns (ALTER is idempotent)
+  await sql`ALTER TABLE campaigns ADD COLUMN IF NOT EXISTS current_turn INTEGER NOT NULL DEFAULT 1`;
+
+  // Battle reports: GM logs results; sector_id auto-claims the sector to winner_faction.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_battles (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      turn INTEGER NOT NULL DEFAULT 1,
+      attacker_faction TEXT NOT NULL,
+      defender_faction TEXT NOT NULL,
+      winner_faction TEXT,
+      sector_id INTEGER REFERENCES campaign_sectors(id) ON DELETE SET NULL,
+      notes TEXT,
+      recorded_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_battles_campaign_idx ON campaign_battles(campaign_id)`;
+
   schemaReady = true;
 }
 

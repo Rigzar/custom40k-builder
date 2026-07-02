@@ -63,10 +63,16 @@ export type TranslationKey =
   | 'campaignInviteCodePlaceholder' | 'campaignJoinFactionPlaceholder' | 'joinLabel'
   | 'loadingEllipsis' | 'campaignNoneYet' | 'campaignYouAreGm' | 'campaignPlayingPrefix'
   | 'campaignLoadingPlayers' | 'campaignGmSuffix'
-  | 'campaignTabPlayers' | 'campaignTabMap' | 'campaignMapEmpty' | 'campaignInitMap'
-  | 'campaignInitializing' | 'campaignSectorCity' | 'campaignSectorIndustrial'
+  | 'campaignTabPlayers' | 'campaignTabMap' | 'campaignTabBattles'
+  | 'campaignMapEmpty' | 'campaignInitMap' | 'campaignInitializing'
+  | 'campaignSectorCity' | 'campaignSectorIndustrial'
   | 'campaignSectorWasteland' | 'campaignSectorRuin' | 'campaignUnclaimed'
   | 'campaignClaimFor' | 'campaignSaving'
+  | 'campaignTurnLabel' | 'campaignAdvanceTurn' | 'campaignAdvancing'
+  | 'campaignLogBattle' | 'campaignAttacker' | 'campaignDefender'
+  | 'campaignWinner' | 'campaignDraw' | 'campaignSectorContested'
+  | 'campaignNoneContested' | 'campaignBattleNotes' | 'campaignNoBattles'
+  | 'campaignLogging'
   | 'armoryTitleVehicle' | 'generalLabel' | 'allMarksLabel' | 'armourySuffix' | 'authorityTabLabel'
   | 'termArmourNotice' | 'weaponsLabel' | 'bcChampionBanner' | 'noItemsInSection' | 'noActiveLegacy'
   | 'mixedWarbandTitle' | 'mixedWarbandBodyPart1' | 'mixedWarbandBodyEm' | 'mixedWarbandBodyPart2'
@@ -321,6 +327,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignGmSuffix: '(GM)',
     campaignTabPlayers: 'Players',
     campaignTabMap: 'Sector Map',
+    campaignTabBattles: 'Battles',
     campaignMapEmpty: 'No sectors yet. Initialize the map to get started.',
     campaignInitMap: 'Initialize Map',
     campaignInitializing: 'Initializing…',
@@ -331,6 +338,19 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unclaimed',
     campaignClaimFor: 'Claim for…',
     campaignSaving: 'Saving…',
+    campaignTurnLabel: 'Turn',
+    campaignAdvanceTurn: 'Advance to Turn',
+    campaignAdvancing: 'Advancing…',
+    campaignLogBattle: 'Log Battle',
+    campaignAttacker: 'Attacker',
+    campaignDefender: 'Defender',
+    campaignWinner: 'Winner',
+    campaignDraw: 'Draw',
+    campaignSectorContested: 'Contested sector (optional)',
+    campaignNoneContested: 'None',
+    campaignBattleNotes: 'Notes (optional)',
+    campaignNoBattles: 'No battles logged yet.',
+    campaignLogging: 'Logging…',
     armoryTitleVehicle: 'Vehicle Upgrades',
     generalLabel: 'General',
     allMarksLabel: '⚜ All Marks',
@@ -782,6 +802,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignGmSuffix: '(SL)',
     campaignTabPlayers: 'Spieler',
     campaignTabMap: 'Sektorkarte',
+    campaignTabBattles: 'Schlachten',
     campaignMapEmpty: 'Noch keine Sektoren. Initialisiere die Karte, um zu beginnen.',
     campaignInitMap: 'Karte initialisieren',
     campaignInitializing: 'Initialisierung…',
@@ -792,6 +813,19 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Unbehauptet',
     campaignClaimFor: 'Beanspruchen für…',
     campaignSaving: 'Speichern…',
+    campaignTurnLabel: 'Runde',
+    campaignAdvanceTurn: 'Weiter zu Runde',
+    campaignAdvancing: 'Weiter…',
+    campaignLogBattle: 'Schlacht eintragen',
+    campaignAttacker: 'Angreifer',
+    campaignDefender: 'Verteidiger',
+    campaignWinner: 'Sieger',
+    campaignDraw: 'Unentschieden',
+    campaignSectorContested: 'Umkämpfter Sektor (optional)',
+    campaignNoneContested: 'Keiner',
+    campaignBattleNotes: 'Notizen (optional)',
+    campaignNoBattles: 'Noch keine Schlachten eingetragen.',
+    campaignLogging: 'Eintragen…',
     armoryTitleVehicle: 'Fahrzeug-Upgrades',
     generalLabel: 'Allgemein',
     allMarksLabel: '⚜ Alle Male',
@@ -1243,6 +1277,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignGmSuffix: '(GM)',
     campaignTabPlayers: 'Jugadores',
     campaignTabMap: 'Mapa de sectores',
+    campaignTabBattles: 'Batallas',
     campaignMapEmpty: 'Sin sectores todavía. Inicializa el mapa para empezar.',
     campaignInitMap: 'Inicializar mapa',
     campaignInitializing: 'Inicializando…',
@@ -1253,6 +1288,19 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     campaignUnclaimed: 'Sin reclamar',
     campaignClaimFor: 'Reclamar para…',
     campaignSaving: 'Guardando…',
+    campaignTurnLabel: 'Turno',
+    campaignAdvanceTurn: 'Avanzar al turno',
+    campaignAdvancing: 'Avanzando…',
+    campaignLogBattle: 'Registrar batalla',
+    campaignAttacker: 'Atacante',
+    campaignDefender: 'Defensor',
+    campaignWinner: 'Ganador',
+    campaignDraw: 'Empate',
+    campaignSectorContested: 'Sector en disputa (opcional)',
+    campaignNoneContested: 'Ninguno',
+    campaignBattleNotes: 'Notas (opcional)',
+    campaignNoBattles: 'No hay batallas registradas aún.',
+    campaignLogging: 'Registrando…',
     armoryTitleVehicle: 'Mejoras de vehículo',
     generalLabel: 'General',
     allMarksLabel: '⚜ Todas las marcas',

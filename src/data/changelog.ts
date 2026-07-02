@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.26',
+    date: '2026-07-02',
+    title: 'GENERAL — Campaign battle reports + turn tracker (Planetary Assault ALPHA)',
+    changes: [
+      'Campaign module — GM can now advance campaign turns (Turn tracker) and log battle results (attacker, defender, winner, contested sector, notes). Logging a battle with a winner + sector auto-claims that sector on the map.',
+      'GENERAL — New campaign_battles table; three new API actions: turn-advance, battle-log, battle-list. New CampaignBattleLog component. CampaignModal expanded to 3 tabs (Players / Sector Map / Battles) with GM turn bar above tabs. All UI strings translated EN/DE/ES.',
+    ],
+  },
+  {
     version: '1.25',
     date: '2026-07-02',
     title: 'GENERAL — Campaign sector map (Planetary Assault ALPHA)',
