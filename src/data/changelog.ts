@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.27',
+    date: '2026-07-02',
+    title: 'Eldar — GH#44 Windhost Infantry HQ/Warlocks + GH#45 Exarch Shuriken Pistol',
+    changes: [
+      'Eldar — GH#44: Windhost archetype no longer blocks Infantry-subtype HQ (Autarch/Farseer/Spiritseer) and Warlocks from being selected. The transportGate.unitHasTransportOption check now matches any unit_type containing "Infantry" (covering "Character Model, Infantry") rather than exact equality, except Jump Pack variants which still cannot embark.',
+      'Eldar — GH#45: Dire Avenger Exarch\'s Shuriken pistol now correctly appears in the Live Profile both on the default loadout (Diresword + Shuriken pistol) and when the Power glaive option is selected. GENERAL resolver fix: variant-only weapons now skip the optional-choice gate and show whenever the variant is active and the weapon has not been replaced; compound-name choices that keep a replaced weapon (e.g. "Power glaive & Shuriken pistol") no longer add it to the replaced-weapon set.',
+    ],
+  },
+  {
     version: '1.26',
     date: '2026-07-02',
     title: 'GENERAL — Campaign battle reports + turn tracker (Planetary Assault ALPHA)',

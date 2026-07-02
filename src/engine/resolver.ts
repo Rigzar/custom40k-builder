@@ -332,12 +332,32 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
       if (choice) selectedChoiceNames.add(choice.name);
     }
   }
+  // Weapons in a `replaces` list that ALSO appear in the selected choice name are net-kept
+  // (e.g. "Power glaive & Shuriken pistol" replaces [Diresword, Shuriken pistol] but keeps
+  // Shuriken pistol — it appears in both the replaces list and the chosen name). Don't mark
+  // these as replaced.
+  const keptByChoice = new Set<string>();
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g?.replaces?.length) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (!qty || ci === '__inline') continue;
+      const choice = g.choices[parseInt(ci)];
+      if (!choice) continue;
+      for (const part of choice.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim())) {
+        if (g.replaces.includes(part)) keptByChoice.add(part);
+      }
+    }
+  }
   const replacedWeaponNames = new Set<string>();
   for (const [name, qty] of replacedWeaponQty) {
-    if (qty >= (replacedWeaponThreshold.get(name) ?? item.size)) replacedWeaponNames.add(name);
+    if (qty >= (replacedWeaponThreshold.get(name) ?? item.size) && !keptByChoice.has(name)) {
+      replacedWeaponNames.add(name);
+    }
   }
   return weapons.filter(w => {
-    if (variantOnlyWeapons.has(w.name) && !variantActive) return false;
+    // Variant-only weapons: show iff variant active AND not replaced by a choice
+    if (variantOnlyWeapons.has(w.name)) return variantActive && !replacedWeaponNames.has(w.name);
     if (replacedWeaponNames.has(w.name)) return false;
     if (zeroCountModelWeapons.has(w.name)) return false;
     const owningChoices = optionalWeapons.get(baseName(w.name));

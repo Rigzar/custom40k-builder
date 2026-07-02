@@ -15,12 +15,14 @@ export function unitMovementInches(unit: Unit): number | null {
   return Number.isNaN(n) ? null : n;
 }
 
-/** Mirrors validators.ts's strict-Infantry definition for the Dedicated Transport AOP cap — a
- * unit can only ever embark in a Dedicated Transport if its (unmodified) unit_type is exactly
- * "Infantry". Static/pre-resolution check, intentionally not option-aware (this runs against
- * catalog entries that haven't been added to the roster yet). */
+/** A unit can embark in a Dedicated Transport if its unit_type contains 'Infantry' (covers
+ * 'Infantry', 'Character Model, Infantry', 'Monstrous Infantry') but NOT 'Jump Pack' variants
+ * (jump packs prevent embarking). Distinct from validators.ts's strict-Infantry check (which
+ * requires exact "Infantry" for the AOP cap) — here we care about physical embark capability. */
 export function unitHasTransportOption(unit: Unit): boolean {
-  return unit.unit_type === 'Infantry';
+  const t = unit.unit_type;
+  if (/jump[\s-]*pack/i.test(t)) return false;
+  return t.toLowerCase().includes('infantry');
 }
 
 /** Returns a disabled-tooltip reason when `rule.lowMoveMustEmbark` blocks this unit from being

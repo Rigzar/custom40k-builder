@@ -5,6 +5,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-eldar-windhost-character-infantry-blocked-gh44-01',
+    status: 'fixed',
+    title: 'Eldar — Windhost archetype incorrectly blocks all Infantry HQ and Warlocks (GH#44)',
+    description: 'FIXED 2026-07-02: transportGate.unitHasTransportOption checked unit_type === "Infantry" exactly, missing "Character Model, Infantry" (used by Autarch, Farseer, Spiritseer, Warlocks). These units do have a transport option (Wave Serpent) and should be allowed under Windhost — just required to start embarked. Fixed by checking unit_type.includes("Infantry") with a Jump Pack exclusion.',
+  },
+  {
+    id: 'ki-eldar-dire-avenger-exarch-shuriken-pistol-gh45-01',
+    status: 'fixed',
+    title: 'Eldar — Dire Avenger Exarch\'s Shuriken pistol absent from Live Profile in all loadouts (GH#45)',
+    description: 'FIXED 2026-07-02: Shuriken pistol was detected as a "variant-only" weapon (in replaces but not equipped_with) AND as an "optional" weapon (parsed from the compound choice name "Power glaive & Shuriken pistol"). The optional-weapon gate hid it when that choice was not selected. Fix: (1) variant-only weapons now bypass the optional-weapon gate entirely — they show whenever the variant is active and no replacement has been chosen; (2) a new keptByChoice set prevents weapons that appear in BOTH the group\'s replaces list AND the selected choice name from being marked as replaced.',
+  },
+  {
     id: 'ki-csm-obliterators-iron-within-trait-not-blocked-01',
     status: 'fixed',
     title: 'CSM — "Iron Within, Iron Without" trait can still be selected for units with an existing invulnerability save (GH#43)',
