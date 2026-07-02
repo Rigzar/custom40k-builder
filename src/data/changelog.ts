@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.22',
+    date: '2026-07-02',
+    title: 'GENERAL — i18n sweep complete: all validator messages now translated (EN/DE/ES)',
+    changes: [
+      'GENERAL — Remaining untranslated validation messages in validators.ts and codex_space_marines/validator.ts now fully translated into EN/DE/ES. Covered: Iron Within Iron Without trait warning, Black Crusade champion messages (4 variants), Mixed Warband multi-legacy error, Chamber Militant legacy requirement, Ordo Minoris 1-item cap, Henchman Warband specialist cap (standard + Inquisitor Lord variant), CSM Legacy armory item restrictions (Khorne mark check + unit-name restriction). Space Marines codex validator now accepts a language parameter; translated: 1st Company forbidden unit, Forlorn Brothers Black Rage requirement, Expanded Armory multi-legacy error, one-per-army checks for Captain/Captain Dreadnought, Master of Sanctity/Chaplain Dreadnought, Chief Librarian/Librarian Dreadnought.',
+      'Tyranids — Scuttlers Special Biomorph corrected to +1pt on Gargoyle Brood, Barbgaunt Brood, Genestealer Brood, and Termagant Brood. Previously priced at 0pts (same data error as Hormagaunt/Neurogaunt fixed in GH#20). Source: Tyranids.ods rows confirmed +1pt for all four units.',
+    ],
+  },
+  {
     version: '1.21',
     date: '2026-07-02',
     title: 'GENERAL — GitHub bug batch (#29-#31, #34-#36, #38, #40-#42): Eldar constraint fixes, weapon visibility, Farseer armory, Necrons',

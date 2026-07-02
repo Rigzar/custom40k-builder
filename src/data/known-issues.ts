@@ -90,7 +90,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-tyranids-scuttlers-unaudited-cost-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Tyranids — 4 more units have "Scuttlers" priced at 0 like the fixed Hormagaunt/Neurogaunt bug, but not yet confirmed against the .ods',
     description: 'While fixing GH#20 (Hormagaunt Brood\'s Scuttlers Special Biomorph priced at 0 instead of the canonical 1pt), found the same "Scuttlers: 0 points" pattern on Gargoyle Brood, Termagant Brood, Genestealer Brood, and Barbgaunt Brood — but other units in the same sweep have Scuttlers at 3 or 5pts (it varies per datasheet), so these 4 need their own .ods lookup rather than a blanket fix.',
   },

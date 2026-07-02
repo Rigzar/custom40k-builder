@@ -117,7 +117,16 @@ export type TranslationKey =
   | 'valAlliedTransportOverMax' | 'valAlliedSlotNotAllowed' | 'valAlliedSlotOverMax' | 'valAlliedRatioExceedsTroops'
   | 'valMarkNotAllowedHq' | 'valLockedMarkIncompatibleHq' | 'valMarkNotAllowedAllyHq'
   | 'valLockedMarkIncompatibleAllyHq' | 'valOnlyTwoTraits' | 'valVeteranRequired' | 'valUndividedLegacyRestriction'
-  | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valArmyValid';
+  | 'valSkirmishNoArchetypes' | 'valSkirmishNoAllies' | 'valArmyValid'
+  | 'valIronWithin'
+  | 'valBlackCrusadeNoChampion' | 'valBlackCrusadeTooMany' | 'valBlackCrusadeLockedMark' | 'valBlackCrusadeChampionOk'
+  | 'valMixedWarbandMultiLegacy'
+  | 'valChamberMilitantNoLegacy'
+  | 'valOrdoMinorisExcess'
+  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord'
+  | 'valCsmLegacyKhorne' | 'valCsmLegacyUnitRestrict'
+  | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
+  | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -544,6 +553,24 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishNoArchetypes: 'Skirmish: Archetypes are not allowed.',
     valSkirmishNoAllies: 'Skirmish: Allied detachments are not allowed.',
     valArmyValid: 'Army is valid.',
+    valIronWithin: 'Iron Within, Iron Without: {unit} already has an invulnerability save and cannot benefit from this trait.',
+    valBlackCrusadeNoChampion: 'Black Crusade: designate one HQ as the champion — open its unit card and toggle "Black Crusade Champion" to grant it all four Chaos god marks.',
+    valBlackCrusadeTooMany: 'Black Crusade: only 1 HQ may be the champion (currently {count} are designated).',
+    valBlackCrusadeLockedMark: 'Black Crusade: {unit} has a locked mark and cannot carry all four god marks — choose a different HQ.',
+    valBlackCrusadeChampionOk: 'Black Crusade: {unit} is the champion, bearing all four Chaos god marks.',
+    valMixedWarbandMultiLegacy: 'Mixed Warband: {unit} has items from multiple legacy armories. Each unit may only use one.',
+    valChamberMilitantNoLegacy: 'Chamber Militant: must select "Legacy of the Alien Hunters" as Legacy.',
+    valOrdoMinorisExcess: '{unit}: Ordo Minoris allows only 1 item from the Ordo Hereticus/Malleus/Xenos Armory (has {items}).',
+    valHenchmanWarbandCap: 'Henchman Warband: up to {cap} specialist models (have {count}).',
+    valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord) (have {count}).',
+    valCsmLegacyKhorne: '{armory} armory — "{item}": only for models with the Mark of Khorne ({unit} has Mark of {mark}).',
+    valCsmLegacyUnitRestrict: '{armory} armory — "{item}": {restriction} (cannot be equipped on {unit}).',
+    valSm1stCompanyForbidden: '1st Company: "{unit}" is not allowed in this archetype.',
+    valSmForlornBrothers: 'Forlorn Brothers: "{unit}" requires the "Black Rage" equipment (Blood Angels Legacy) or must be a Dreadnought/transport.',
+    valSmExpandedArmory: 'Expanded Armory: {unit} has items from multiple legacy armories. Each unit may only use one.',
+    valSmOneCaptain: 'Only one Captain or Captain Dreadnought per army.',
+    valSmOneMasterOfSanctity: 'Only one Master of Sanctity or Chaplain Dreadnought per army.',
+    valSmOneChiefLibrarian: 'Only one Chief Librarian or Librarian Dreadnought per army.',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -969,6 +996,24 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishNoArchetypes: 'Skirmish: Archetypen sind nicht erlaubt.',
     valSkirmishNoAllies: 'Skirmish: Verbündete Abteilungen sind nicht erlaubt.',
     valArmyValid: 'Armee ist gültig.',
+    valIronWithin: 'Iron Within, Iron Without: {unit} hat bereits einen Unverwundbarkeits-Rettungswurf und kann nicht von diesem Trait profitieren.',
+    valBlackCrusadeNoChampion: 'Schwarzer Kreuzzug: einen HQ als Champion bestimmen — Einheitenkarte öffnen und „Schwarzer-Kreuzzug-Champion" aktivieren, um ihm alle vier Chaos-Gottemarks zu verleihen.',
+    valBlackCrusadeTooMany: 'Schwarzer Kreuzzug: nur 1 HQ darf Champion sein (aktuell {count} designiert).',
+    valBlackCrusadeLockedMark: 'Schwarzer Kreuzzug: {unit} hat eine gesperrte Gottesmark und kann nicht alle vier tragen — anderen HQ wählen.',
+    valBlackCrusadeChampionOk: 'Schwarzer Kreuzzug: {unit} ist der Champion und trägt alle vier Chaos-Gottemarks.',
+    valMixedWarbandMultiLegacy: 'Gemischte Kriegschar: {unit} hat Gegenstände aus mehreren Legionsrüstkammern. Jede Einheit darf nur eine verwenden.',
+    valChamberMilitantNoLegacy: 'Streitende Kammer: „Erbe der Alienijäger" als Vermächtnis wählen.',
+    valOrdoMinorisExcess: '{unit}: Ordo Minoris erlaubt nur 1 Gegenstand aus der Ordo-Hereticus/Malleus/Xenos-Rüstkammer (hat {items}).',
+    valHenchmanWarbandCap: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (hat {count}).',
+    valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord) (hat {count}).',
+    valCsmLegacyKhorne: '{armory}-Rüstkammer — „{item}": nur für Modelle mit der Mark des Khorne ({unit} hat Mark des {mark}).',
+    valCsmLegacyUnitRestrict: '{armory}-Rüstkammer — „{item}": {restriction} (nicht ausrüstbar für {unit}).',
+    valSm1stCompanyForbidden: '1. Kompanie: „{unit}" ist in diesem Archetyp nicht erlaubt.',
+    valSmForlornBrothers: 'Verlorene Brüder: „{unit}" benötigt das Ausrüstungsstück „Schwarze Wut" (Blood-Angels-Vermächtnis) oder muss ein Dreadnought/Transport sein.',
+    valSmExpandedArmory: 'Erweiterte Rüstkammer: {unit} hat Gegenstände aus mehreren Legionsrüstkammern. Jede Einheit darf nur eine verwenden.',
+    valSmOneCaptain: 'Nur ein Captain oder Dreadnought-Captain pro Armee.',
+    valSmOneMasterOfSanctity: 'Nur ein Meister der Heiligkeit oder Kaplan-Dreadnought pro Armee.',
+    valSmOneChiefLibrarian: 'Nur ein Oberbibliothekar oder Bibliothekar-Dreadnought pro Armee.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -1394,6 +1439,24 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSkirmishNoArchetypes: 'Skirmish: los Arquetipos no están permitidos.',
     valSkirmishNoAllies: 'Skirmish: los destacamentos aliados no están permitidos.',
     valArmyValid: 'El ejército es válido.',
+    valIronWithin: 'Iron Within, Iron Without: {unit} ya tiene una salvación de invulnerabilidad y no puede beneficiarse de este trait.',
+    valBlackCrusadeNoChampion: 'Cruzada Negra: designa un HQ como campeón — abre su ficha y activa "Campeón de la Cruzada Negra" para concederle las cuatro marcas de los dioses del Caos.',
+    valBlackCrusadeTooMany: 'Cruzada Negra: solo 1 HQ puede ser el campeón (actualmente {count} designados).',
+    valBlackCrusadeLockedMark: 'Cruzada Negra: {unit} tiene una marca bloqueada y no puede llevar las cuatro marcas divinas — elige otro HQ.',
+    valBlackCrusadeChampionOk: 'Cruzada Negra: {unit} es el campeón y lleva las cuatro marcas de los dioses del Caos.',
+    valMixedWarbandMultiLegacy: 'Horda Mixta: {unit} tiene objetos de varias armerías de legión. Cada unidad solo puede usar una.',
+    valChamberMilitantNoLegacy: 'Cámara Militante: debe seleccionarse "Legado de los Cazadores de Alienígenas" como Legado.',
+    valOrdoMinorisExcess: '{unit}: Ordo Minoris permite solo 1 objeto de la Armería del Ordo Hereticus/Malleus/Xenos (tiene {items}).',
+    valHenchmanWarbandCap: 'Séquito: hasta {cap} modelos especialistas (tiene {count}).',
+    valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord) (tiene {count}).',
+    valCsmLegacyKhorne: 'Armería {armory} — "{item}": solo para modelos con la Marca de Khorne ({unit} tiene Marca de {mark}).',
+    valCsmLegacyUnitRestrict: 'Armería {armory} — "{item}": {restriction} (no se puede equipar en {unit}).',
+    valSm1stCompanyForbidden: '1.ª Compañía: "{unit}" no está permitida en este arquetipo.',
+    valSmForlornBrothers: 'Hermanos Perdidos: "{unit}" requiere el equipo "Black Rage" (Legado Blood Angels) o debe ser un Dreadnought/transporte.',
+    valSmExpandedArmory: 'Armería Ampliada: {unit} tiene objetos de varias armerías de legión. Cada unidad solo puede usar una.',
+    valSmOneCaptain: 'Solo un Captain o Captain Dreadnought por ejército.',
+    valSmOneMasterOfSanctity: 'Solo un Master of Sanctity o Chaplain Dreadnought por ejército.',
+    valSmOneChiefLibrarian: 'Solo un Chief Librarian o Librarian Dreadnought por ejército.',
   },
 };
 

@@ -1189,7 +1189,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (hasInvFromDatasheet || hasInvFromArmory) {
         items.push({
           type: 'warn',
-          text: `Iron Within, Iron Without: ${item.unitName} already has an invulnerability save and cannot benefit from this trait (rule: only for models without an existing inv save).`,
+          text: T('valIronWithin', { unit: item.unitName }),
         });
       }
     }
@@ -1247,12 +1247,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (bcChampions.length === 0) {
       items.push({
         type: 'warn',
-        text: 'Black Crusade: designate one HQ as the champion — open its unit card and toggle "Black Crusade Champion" to grant it all four Chaos god marks.',
+        text: T('valBlackCrusadeNoChampion'),
       });
     } else if (bcChampions.length > 1) {
       items.push({
         type: 'error',
-        text: `Black Crusade: only 1 HQ may be the champion (currently ${bcChampions.length} are designated).`,
+        text: T('valBlackCrusadeTooMany', { count: bcChampions.length }),
       });
     } else {
       const champion = bcChampions[0];
@@ -1260,12 +1260,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (u?.locked_mark) {
         items.push({
           type: 'error',
-          text: `Black Crusade: ${champion.unitName} has a locked mark and cannot carry all four god marks — choose a different HQ.`,
+          text: T('valBlackCrusadeLockedMark', { unit: champion.unitName }),
         });
       } else {
         items.push({
           type: 'ok',
-          text: `Black Crusade: ${champion.unitName} is the champion, bearing all four Chaos god marks.`,
+          text: T('valBlackCrusadeChampionOk', { unit: champion.unitName }),
         });
       }
     }
@@ -1314,7 +1314,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (legionSources.size > 1) {
         items.push({
           type: 'error',
-          text: `Mixed Warband: ${entry.unitName} has items from multiple legacy armories. Each unit may only use one.`,
+          text: T('valMixedWarbandMultiLegacy', { unit: entry.unitName }),
         });
       }
     }
@@ -1334,7 +1334,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (![state.legacy, state.legacy2].includes('Legacy of the Alien Hunters')) {
       items.push({
         type: 'error',
-        text: 'Chamber Militant: must select "Legacy of the Alien Hunters" as Legacy.',
+        text: T('valChamberMilitantNoLegacy'),
       });
     }
   }
@@ -1380,7 +1380,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (picked.length > 1) {
         items.push({
           type: 'error',
-          text: `${item.customName || item.unitName}: Ordo Minoris allows only 1 item from the Ordo Hereticus/Malleus/Xenos Armory (has ${picked.map(a => a.itemName).join(', ')}).`,
+          text: T('valOrdoMinorisExcess', { unit: item.customName || item.unitName, items: picked.map(a => a.itemName).join(', ') }),
         });
       }
     }
@@ -1405,7 +1405,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (item.size > cap) {
         items.push({
           type: 'error',
-          text: `Henchman Warband: up to ${cap} specialist models${hasInquisitorLord ? ' (Inquisitor Lord)' : ''} (have ${item.size}).`,
+          text: T(hasInquisitorLord ? 'valHenchmanWarbandCapLord' : 'valHenchmanWarbandCap', { cap, count: item.size }),
         });
       }
     }
@@ -1430,13 +1430,13 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (armoryKey === 'Black Legion' && itemName === 'Heavy bolter') {
           const effMark = unit.locked_mark ?? entry.mark;
           if (effMark !== 'Khorne') {
-            items.push({ type: 'error', text: `${armoryKey} armory — "${itemName}": only for models with the Mark of Khorne (${entry.unitName} has Mark of ${effMark ?? 'none'}).` });
+            items.push({ type: 'error', text: T('valCsmLegacyKhorne', { armory: armoryKey, item: itemName, unit: entry.unitName, mark: effMark ?? 'none' }) });
           }
           continue;
         }
         // Unit-name restriction (Only for Warpsmiths / Only for Dark Apostles)
         if (!unitFilter(entry.unitName)) {
-          items.push({ type: 'error', text: `${armoryKey} armory — "${itemName}": ${restriction} (cannot be equipped on ${entry.unitName}).` });
+          items.push({ type: 'error', text: T('valCsmLegacyUnitRestrict', { armory: armoryKey, item: itemName, restriction, unit: entry.unitName }) });
         }
       }
     }
@@ -2315,7 +2315,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // ── Faction-specific validators ──────────────────────────────────────────
   if (state.faction === 'Space Marines') {
-    items.push(...validateSpaceMarines(state, data));
+    items.push(...validateSpaceMarines(state, data, language));
   }
 
   if (items.length === 0) items.push({ type: 'ok', text: T('valArmyValid') });

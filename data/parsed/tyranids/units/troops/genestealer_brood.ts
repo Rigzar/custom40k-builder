@@ -124,7 +124,7 @@ export const genestealerBrood: Unit = {
       "choices": [
         {
           "name": "Scuttlers",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Feeder Tendrils",

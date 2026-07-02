@@ -142,7 +142,7 @@ export const termagantBrood: Unit = {
       "choices": [
         {
           "name": "Scuttlers",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Endless",

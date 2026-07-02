@@ -61,7 +61,7 @@ export const gargoyleBrood: Unit = {
       "choices": [
         {
           "name": "Scuttlers",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Hardened Carapace",

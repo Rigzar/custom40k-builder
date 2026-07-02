@@ -2,6 +2,8 @@ import type { FactionData } from '../../types/data';
 import type { ArmyState } from '../../types/army';
 import type { ValidationItem } from '../validators';
 import { resolveUnit } from '../points';
+import { t, tpl } from '../../i18n';
+import type { Language } from '../../i18n';
 
 /**
  * Space Marines-specific validation rules.
@@ -18,7 +20,9 @@ import { resolveUnit } from '../points';
 export function validateSpaceMarines(
   state: ArmyState,
   data: FactionData,
+  language: Language = 'en',
 ): ValidationItem[] {
+  const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => tpl(t(language, key), vars ?? {});
   const items: ValidationItem[] = [];
 
   // ── 1st Company ───────────────────────────────────────────────────────────
@@ -37,7 +41,7 @@ export function validateSpaceMarines(
       if (!ALLOWED_1ST.has(item.unitName)) {
         items.push({
           type: 'error',
-          text: `1st Company: "${item.unitName}" is not allowed in this archetype.`,
+          text: T('valSm1stCompanyForbidden', { unit: item.unitName }),
         });
       }
     }
@@ -59,7 +63,7 @@ export function validateSpaceMarines(
       if (!FORLORN_ALLOWED.has(item.unitName) && !hasBlackRage) {
         items.push({
           type: 'error',
-          text: `Forlorn Brothers: "${item.unitName}" requires the "Black Rage" equipment (Blood Angels Legacy) or must be a Dreadnought/transport.`,
+          text: T('valSmForlornBrothers', { unit: item.unitName }),
         });
       }
     }
@@ -83,7 +87,7 @@ export function validateSpaceMarines(
       if (violating.length > 0) {
         items.push({
           type: 'error',
-          text: `Expanded Armory: ${item.unitName} has items from multiple legacy armories. Each unit may only use one.`,
+          text: T('valSmExpandedArmory', { unit: item.unitName }),
         });
       }
     }
@@ -108,7 +112,7 @@ export function validateSpaceMarines(
   if (captainDreadnoughtCount + captainUpgradeCount > 1) {
     items.push({
       type: 'error',
-      text: 'Only one Captain or Captain Dreadnought per army.',
+      text: T('valSmOneCaptain'),
     });
   }
 
@@ -126,7 +130,7 @@ export function validateSpaceMarines(
   if (chaplainDreadnoughtCount + masterOfSanctityCount > 1) {
     items.push({
       type: 'error',
-      text: 'Only one Master of Sanctity or Chaplain Dreadnought per army.',
+      text: T('valSmOneMasterOfSanctity'),
     });
   }
 
@@ -144,7 +148,7 @@ export function validateSpaceMarines(
   if (librarianDreadnoughtCount + chiefLibrarianCount > 1) {
     items.push({
       type: 'error',
-      text: 'Only one Chief Librarian or Librarian Dreadnought per army.',
+      text: T('valSmOneChiefLibrarian'),
     });
   }
 
