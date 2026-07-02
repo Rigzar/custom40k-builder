@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.24',
+    date: '2026-07-02',
+    title: 'Eldar — Guardian Defenders Heavy weapon platform swap fix',
+    changes: [
+      'Eldar — Guardian Defenders: Heavy weapon platform weapon swap now correctly capped to the number of platforms purchased (was using total squad size). Fixed via applies_to_model gate on the swap option group.',
+    ],
+  },
+  {
     version: '1.23',
     date: '2026-07-02',
     title: 'Dark Eldar — Coordinated Raid archetype fully engine-modelled',

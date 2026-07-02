@@ -140,6 +140,7 @@ export const guardianDefenders: Unit = {
       "constraint": {
         "type": "every"
       },
+      "applies_to_model": "Heavy weapon platform",
       "choices": [
         {
           "name": "Shuriken cannon",
