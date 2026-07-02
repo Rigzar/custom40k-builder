@@ -8,6 +8,7 @@ import {
 } from './archetypes';
 import { applyVariantSlotOverride } from './slotOverrides';
 import { validateSpaceMarines } from './codex_space_marines/validator';
+import { validateDarkEldar } from './codex_dark_eldar/validator';
 import { findArmoryItem, isOptionAvailable, resolveUnitProfile } from './resolver';
 import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem } from './equipMods';
@@ -2316,6 +2317,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // ── Faction-specific validators ──────────────────────────────────────────
   if (state.faction === 'Space Marines') {
     items.push(...validateSpaceMarines(state, data, language));
+  }
+  if (state.faction === 'Dark Eldar') {
+    items.push(...validateDarkEldar(state, data, language));
   }
 
   if (items.length === 0) items.push({ type: 'ok', text: T('valArmyValid') });

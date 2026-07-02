@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.23',
+    date: '2026-07-02',
+    title: 'Dark Eldar — Coordinated Raid archetype fully engine-modelled',
+    changes: [
+      'Dark Eldar — Coordinated Raid archetype now grants a 3rd HQ slot (hqOverride [1, 3]) and a 3rd Trait slot.',
+      'Dark Eldar — Coordinated Raid validator: errors when Dracon, Haemonculus, or Succubus (or their upgraded variants) are missing from the roster.',
+      'Dark Eldar — Coordinated Raid validator: errors when no <Coven> (ᶜᵒ), <Kabal> (ᴷ), or <Wyches> (ᶜᵘ) trait is selected, enforcing the one-per-sub-faction rule.',
+      'GENERAL — New archetypeTraitBonus field on ArchetypeRule for trait-slot bonuses granted by the archetype (independent of Legacy trait_slot_bonus); ArmyConfig.tsx and army.ts updated to honour it.',
+    ],
+  },
+  {
     version: '1.22',
     date: '2026-07-02',
     title: 'GENERAL — i18n sweep complete: all validator messages now translated (EN/DE/ES)',

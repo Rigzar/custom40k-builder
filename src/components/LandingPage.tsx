@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v23_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v24_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — GitHub bug batch v1.21: 16 reported issues fixed',
-    intro: 'Hello commanders! Closed the full backlog of community-reported GitHub issues (#28–#43) — weapon display bugs, trait picker restrictions, psychic discipline gates, slot counter accuracy, and more across Eldar, Space Marines, Necrons, CSM, and Tyranids.',
-    engine: '🐛 GENERAL — Weapons that are part of a unit\'s default loadout were incorrectly hidden if the same weapon name also appeared as an option swap choice (affected Ironclad Heavy flamer, Dark Reapers\' AML, Tyranid Prime\'s Scything talons, and any similar unit). Now always shown when listed in equipped_with.',
-    csm: '🐛 Eldar — Constraint type fixes for Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred, and Wasps; Vypers now have correct Aeldari missile launcher profiles; Farseer can access Craftworld Armory items; Warlocks free Elite slot now shown correctly in the slot counter; each psyker restricted to their own discipline.',
-    cd:  '🐛 SM — Honor Guard upgrade cost now correctly scales per model. Necrons — Ancient Destructor Lord can now access character-tier Armory items. CSM — "Iron Within, Iron Without" trait hidden for units that already have an invulnerability save. Eldar — "Children of Prophecy" trait hidden for non-Psyker units.',
-    sm:  '✅ All 16 reported issues from this batch are now resolved. The Tyranid Prime default weapon display bug (GH#28) was covered by the same general resolver fix.',
-    legacyfix: '📖 Full list of fixes in the changelog (v1.21) and Known Issues page.',
+    title: 'Developer Update — v1.23: Dark Eldar Coordinated Raid + i18n validators complete',
+    intro: 'Hello commanders! Two updates shipped today: all validator messages are now fully translated (EN/DE/ES), Tyranid Scuttlers pricing corrected, and the Dark Eldar Coordinated Raid archetype is now fully engine-modelled.',
+    engine: '⚔️ Dark Eldar — Coordinated Raid now grants a 3rd HQ slot and a 3rd Trait slot. The validator enforces the required Dracon + Haemonculus + Succubus composition and checks that each of the three sub-faction traits (<Coven>, <Kabal>, <Wyches>) is covered.',
+    csm: '🌐 GENERAL — Remaining untranslated validator messages (17 keys across validators.ts and the SM codex validator) are now available in DE and ES, completing the full i18n sweep.',
+    cd:  '🐛 Tyranids — Scuttlers Special Biomorph corrected to +1pt (was 0pt) on Gargoyle Brood, Barbgaunt Brood, Genestealer Brood, and Termagant Brood.',
+    sm:  '✅ ki-de-coordinatedraid-unmodelled-01 closed. All known engine gaps across every faction are now resolved.',
+    legacyfix: '📖 Full details in the changelog (v1.22–v1.23) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — GitHub-Bug-Batch v1.21: 16 gemeldete Probleme behoben',
-    intro: 'Hallo Kommandanten! Der gesamte Rückstand gemeldeter GitHub-Issues (#28–#43) wurde abgearbeitet — Waffenanzeigebugs, Trait-Picker-Einschränkungen, Psionik-Disziplin-Gates, Slot-Zählergenauigkeit und mehr für Eldar, Space Marines, Necrons, CSM und Tyranids.',
-    engine: '🐛 ALLGEMEIN — Waffen aus der Standardausrüstung einer Einheit wurden fälschlich ausgeblendet, wenn derselbe Waffenname auch als Tausch-Option vorkam (betroffen: Ironclad Heavy flamer, Dark Reapers AML, Tyranid Prime Scything talons u. ä.). Werden jetzt immer angezeigt, wenn sie in equipped_with aufgeführt sind.',
-    csm: '🐛 Eldar — Constraint-Typ-Fixes für Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred und Wasps; Vypers haben jetzt korrekte Aeldari-Raketenwerfer-Profile; Farseer kann Craftworld-Rüstkammer-Items kaufen; Freier Elite-Slot der Warlocks wird nun korrekt im Slot-Zähler angezeigt; jeder Psioniker auf seine eigene Disziplin beschränkt.',
-    cd:  '🐛 SM — Honor-Guard-Upgrade-Kosten skalieren jetzt korrekt pro Modell. Necrons — Ancient Destructor Lord kann jetzt Charakter-Rüstkammer-Items kaufen. CSM — "Iron Within, Iron Without" für Einheiten mit bestehendem Unverwundbarkeits-Rettungswurf ausgeblendet. Eldar — "Children of Prophecy" für Nicht-Psioniker ausgeblendet.',
-    sm:  '✅ Alle 16 gemeldeten Issues dieses Batches sind nun behoben. Der Anzeigebug der Standardwaffen des Tyranid Prime (GH#28) wurde durch denselben allgemeinen Resolver-Fix abgedeckt.',
-    legacyfix: '📖 Vollständige Liste im Changelog (v1.21) und auf der Known-Issues-Seite.',
+    title: 'Entwickler-Update — v1.23: Dark Eldar Koordinierter Überfall + vollständige i18n-Validatoren',
+    intro: 'Hallo Kommandanten! Zwei Updates heute: alle Validator-Meldungen sind jetzt vollständig übersetzt (EN/DE/ES), die Punktepreise der Tyraniden-Scuttlers wurden korrigiert, und der Dark-Eldar-Archetyp „Koordinierter Überfall" ist jetzt vollständig modelliert.',
+    engine: '⚔️ Dark Eldar — Koordinierter Überfall gewährt jetzt einen 3. HQ-Slot und einen 3. Trait-Slot. Der Validator prüft die erforderliche Zusammensetzung (Dracon + Haemonculus + Succubus) und stellt sicher, dass je ein Merkmal für <Coven>, <Kabal> und <Wyches> gewählt wurde.',
+    csm: '🌐 ALLGEMEIN — Alle verbleibenden nicht übersetzten Validator-Meldungen (17 Schlüssel in validators.ts und SM-Codex-Validator) stehen jetzt auf DE und ES zur Verfügung.',
+    cd:  '🐛 Tyraniden — Scuttlers-Sonderbiomorph auf +1 Punkt korrigiert (war 0) bei Gargoyle Brood, Barbgaunt Brood, Genestealer Brood und Termagant Brood.',
+    sm:  '✅ ki-de-coordinatedraid-unmodelled-01 geschlossen. Alle bekannten Engine-Lücken aller Fraktionen sind damit behoben.',
+    legacyfix: '📖 Alle Details im Changelog (v1.22–v1.23) und auf der Known-Issues-Seite.',
     contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wird weiterhin behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — batch de bugs de GitHub v1.21: 16 issues cerrados',
-    intro: '¡Hola comandantes! Cerramos todo el backlog de issues de GitHub reportados por la comunidad (#28–#43) — bugs de visualización de armas, restricciones del selector de traits, filtros de disciplinas psíquicas, precisión del contador de slots y más, en Eldar, Space Marines, Necrons, CSM y Tyranids.',
-    engine: '🐛 GENERAL — Las armas que forman parte del equipamiento por defecto de una unidad se ocultaban incorrectamente si el mismo nombre de arma aparecía también como opción de intercambio (afectaba al Heavy flamer del Ironclad, el AML de los Dark Reapers, las Scything talons del Tyranid Prime y unidades similares). Ahora siempre se muestran si están en equipped_with.',
-    csm: '🐛 Eldar — Fixes de tipo de constraint en Storm Guardians, Rangers, Corsair Voidreavers/Voidscarred y Wasps; los Vypers tienen ahora los perfiles correctos del lanzamisiles Aeldari; el Farseer puede acceder a ítems de la armería Craftworld; el slot Elite gratuito de los Warlocks ahora se muestra correctamente en el contador de slots; cada psíquico restringido a su propia disciplina.',
-    cd:  '🐛 SM — El coste del upgrade de Honor Guard ahora escala correctamente por modelo. Necrons — el Ancient Destructor Lord puede acceder a ítems de armería de nivel personaje. CSM — el trait "Iron Within, Iron Without" se oculta para unidades con salvación de invulnerabilidad ya en la hoja de datos. Eldar — el trait "Children of Prophecy" se oculta para unidades no Psíquicas.',
-    sm:  '✅ Los 16 issues reportados de este batch están resueltos. El bug de visualización de armas por defecto del Tyranid Prime (GH#28) quedó cubierto por el mismo fix general del resolver.',
-    legacyfix: '📖 Lista completa en el changelog (v1.21) y en la página de Known Issues.',
+    title: 'Actualización del desarrollador — v1.23: Incursión Coordinada Dark Eldar + validadores i18n completos',
+    intro: '¡Hola comandantes! Dos actualizaciones hoy: todos los mensajes de validación están ahora completamente traducidos (EN/DE/ES), precios de Scuttlers Tyranids corregidos, y el arquetipo Dark Eldar Incursión Coordinada está ahora completamente modelado en el motor.',
+    engine: '⚔️ Dark Eldar — Incursión Coordinada ahora otorga un 3.er slot HQ y un 3.er slot de trait. El validador exige la composición de Dracon + Haemonculus + Succubus y comprueba que se cubre un trait de cada subfacción (<Coven>, <Kabal>, <Wyches>).',
+    csm: '🌐 GENERAL — Los mensajes de validación sin traducir restantes (17 claves en validators.ts y el validador del codex SM) ya están disponibles en DE y ES, completando el barrido i18n.',
+    cd:  '🐛 Tyranids — Biomorfo especial Scuttlers corregido a +1 pt (era 0 pt) en Gargoyle Brood, Barbgaunt Brood, Genestealer Brood y Termagant Brood.',
+    sm:  '✅ ki-de-coordinatedraid-unmodelled-01 cerrado. Todos los huecos de motor conocidos en todas las facciones están ya resueltos.',
+    legacyfix: '📖 Detalles completos en el changelog (v1.22–v1.23) y en la página de Known Issues.',
     contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes se siguen arreglando.',
   },
 };

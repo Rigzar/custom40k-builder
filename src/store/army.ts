@@ -390,7 +390,8 @@ export const useArmyStore = create<ArmyStore>()(
         }
         // Re-clip the trait pool if the new legacy grants fewer bonus slots than the old one
         // (e.g. leaving "Ministorum World" drops its 3rd-Trait slot).
-        const maxTraits = 2 + (s.data?.legacies.find(lg => lg.name === l)?.trait_slot_bonus ?? 0);
+        const archetypeTraitBonus = getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0;
+        const maxTraits = 2 + (s.data?.legacies.find(lg => lg.name === l)?.trait_slot_bonus ?? 0) + archetypeTraitBonus;
         if (s.traitPool.length > maxTraits) {
           const newPool = s.traitPool.slice(0, maxTraits);
           return {
@@ -407,8 +408,10 @@ export const useArmyStore = create<ArmyStore>()(
 
       setTraitPool: (pool: string[]) => set((s: S) => {
         // Default budget is 2; a Legacy can grant extra slots (e.g. IG's "Ministorum World":
-        // "The army must select a third Trait" → trait_slot_bonus: 1).
-        const maxTraits = 2 + (s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0);
+        // "The army must select a third Trait" → trait_slot_bonus: 1). Archetypes can also add
+        // bonus slots (e.g. Dark Eldar Coordinated Raid → archetypeTraitBonus: 1).
+        const archetypeTraitBonus2 = getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0;
+        const maxTraits = 2 + (s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0) + archetypeTraitBonus2;
         const newPool = pool.slice(0, maxTraits);
         const hadBC = s.traitPool.includes('Black Crusade');
         const hasBC = newPool.includes('Black Crusade');

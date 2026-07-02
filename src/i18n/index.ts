@@ -126,7 +126,9 @@ export type TranslationKey =
   | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord'
   | 'valCsmLegacyKhorne' | 'valCsmLegacyUnitRestrict'
   | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
-  | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian';
+  | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian'
+  | 'valDeCoordRaidNoDracon' | 'valDeCoordRaidNoHaemonculus' | 'valDeCoordRaidNoSuccubus'
+  | 'valDeCoordRaidTraitCoven' | 'valDeCoordRaidTraitKabal' | 'valDeCoordRaidTraitCult';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -571,6 +573,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSmOneCaptain: 'Only one Captain or Captain Dreadnought per army.',
     valSmOneMasterOfSanctity: 'Only one Master of Sanctity or Chaplain Dreadnought per army.',
     valSmOneChiefLibrarian: 'Only one Chief Librarian or Librarian Dreadnought per army.',
+    valDeCoordRaidNoDracon: 'Coordinated Raid: must include one Dracon (or Archon).',
+    valDeCoordRaidNoHaemonculus: 'Coordinated Raid: must include one Haemonculus (or Master Haemonculus).',
+    valDeCoordRaidNoSuccubus: 'Coordinated Raid: must include one Succubus (or Master Succubus).',
+    valDeCoordRaidTraitCoven: 'Coordinated Raid: must pick one <Coven> trait (ᶜᵒ).',
+    valDeCoordRaidTraitKabal: 'Coordinated Raid: must pick one <Kabal> trait (ᴷ).',
+    valDeCoordRaidTraitCult: 'Coordinated Raid: must pick one <Wyches> trait (ᶜᵘ).',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -1014,6 +1022,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSmOneCaptain: 'Nur ein Captain oder Dreadnought-Captain pro Armee.',
     valSmOneMasterOfSanctity: 'Nur ein Meister der Heiligkeit oder Kaplan-Dreadnought pro Armee.',
     valSmOneChiefLibrarian: 'Nur ein Oberbibliothekar oder Bibliothekar-Dreadnought pro Armee.',
+    valDeCoordRaidNoDracon: 'Koordinierter Überfall: muss einen Dracon (oder Archon) enthalten.',
+    valDeCoordRaidNoHaemonculus: 'Koordinierter Überfall: muss einen Haemonculus (oder Meister-Haemonculus) enthalten.',
+    valDeCoordRaidNoSuccubus: 'Koordinierter Überfall: muss eine Succubus (oder Meister-Succubus) enthalten.',
+    valDeCoordRaidTraitCoven: 'Koordinierter Überfall: muss ein <Coven>-Merkmal (ᶜᵒ) wählen.',
+    valDeCoordRaidTraitKabal: 'Koordinierter Überfall: muss ein <Kabal>-Merkmal (ᴷ) wählen.',
+    valDeCoordRaidTraitCult: 'Koordinierter Überfall: muss ein <Wyches>-Merkmal (ᶜᵘ) wählen.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -1457,6 +1471,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valSmOneCaptain: 'Solo un Captain o Captain Dreadnought por ejército.',
     valSmOneMasterOfSanctity: 'Solo un Master of Sanctity o Chaplain Dreadnought por ejército.',
     valSmOneChiefLibrarian: 'Solo un Chief Librarian o Librarian Dreadnought por ejército.',
+    valDeCoordRaidNoDracon: 'Incursión Coordinada: debe incluir un Dracon (o Archon).',
+    valDeCoordRaidNoHaemonculus: 'Incursión Coordinada: debe incluir un Haemonculus (o Maestro Haemonculus).',
+    valDeCoordRaidNoSuccubus: 'Incursión Coordinada: debe incluir una Succubus (o Maestra Succubus).',
+    valDeCoordRaidTraitCoven: 'Incursión Coordinada: debe elegir un rasgo de <Coven> (ᶜᵒ).',
+    valDeCoordRaidTraitKabal: 'Incursión Coordinada: debe elegir un rasgo de <Kabal> (ᴷ).',
+    valDeCoordRaidTraitCult: 'Incursión Coordinada: debe elegir un rasgo de <Wyches> (ᶜᵘ).',
   },
 };
 

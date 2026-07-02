@@ -164,6 +164,13 @@ export interface ArchetypeRule {
    * MANDATORY count requirement that archetype text states on top of it.
    */
   requiresEscortPerTroopsUnit?: { troopsUnit: string; escortUnit: string } | null;
+  /**
+   * Extra trait slots granted by the archetype itself (independent of the legacy's
+   * `trait_slot_bonus`). E.g. Dark Eldar Coordinated Raid: "The army gets a third trait
+   * and must pick one trait each for <Coven>, <Kabal>, and <Wyches>" — this adds +1 on top
+   * of the base 2 slots, regardless of which Legacy is chosen.
+   */
+  archetypeTraitBonus?: number;
 }
 
 export const BASE: ArchetypeRule = {

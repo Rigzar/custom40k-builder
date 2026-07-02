@@ -61,7 +61,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
-  const traitSlotBonus = data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0;
+  const traitSlotBonus = (data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0) + (rule?.archetypeTraitBonus ?? 0);
   const traitSlots = [0, 1, ...Array.from({ length: traitSlotBonus }, (_, i) => i + 2)];
 
   const ARCHETYPE_MARK: Record<string, string> = {

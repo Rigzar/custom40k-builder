@@ -878,7 +878,7 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-de-coordinatedraid-unmodelled-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Dark Eldar — "Coordinated Raid" archetype (3rd HQ slot + 3rd trait) not engine-modelled',
     description: 'Coordinated Raid requires fielding one Dracon + Haemonculus + Succubus (opens a 3rd HQ slot) and grants a 3rd Trait pick (one per <Kabal>/<Coven>/<Wyches> sub-faction keyword group present). Needs new engine support: a composition validator (one of each of the 3 named HQs) and a trait-slot-count bonus keyed to sub-faction keyword coverage — same shape as ki-admech-veteranmaniple-bonus-unmodelled-01\'s `veteran_max_bonus` but for trait slots instead of Doctrina picks. Rules-owner clarification 2026-06-21: Dark Eldar are a less-played faction — explicitly deprioritized to the backlog, not blocking.',
   },

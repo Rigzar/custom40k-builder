@@ -115,6 +115,15 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   // ── Dark Eldar ────────────────────────────────────────────────────────────
+  'Coordinated Raid': { ...BASE,
+    hqOverride: [1, 3],
+    archetypeTraitBonus: 1,
+    notes: [
+      'The army gets a third HQ slot and must feature one Dracon, one Haemonculus, and one Succubus (or their upgraded variants).',
+      'The army gets a third trait and must pick one trait each for <Coven>, <Kabal>, and <Wyches>.',
+    ],
+  },
+
   'Trueborn': { ...BASE, allowedKeywords: ['Kabal'],
     notes: [
       'The army may only consist of <Kabal> units.',
