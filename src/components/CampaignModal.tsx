@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useT } from '../i18n';
+import { CampaignMapView } from './CampaignMapView';
 
 interface Props {
   onClose: () => void;
@@ -13,6 +14,7 @@ export function CampaignModal({ onClose }: Props) {
   const [error, setError]         = useState('');
 
   const [openId, setOpenId]       = useState<number | null>(null);
+  const [openTab, setOpenTab]     = useState<'players' | 'map'>('players');
   const [players, setPlayers]     = useState<api.CampaignPlayer[]>([]);
   const [playersLoading, setPlayersLoading] = useState(false);
 
@@ -45,6 +47,7 @@ export function CampaignModal({ onClose }: Props) {
   async function toggleOpen(c: api.CampaignSummary) {
     if (openId === c.id) { setOpenId(null); return; }
     setOpenId(c.id);
+    setOpenTab('players');
     setPlayersLoading(true);
     try {
       const res = await api.listCampaignPlayers(c.id);
@@ -194,19 +197,35 @@ export function CampaignModal({ onClose }: Props) {
                     <div className="text-[11px] font-mono tracking-widest text-amber-500 shrink-0">{c.invite_code}</div>
                   </div>
                   {openId === c.id && (
-                    <div className="border-t border-zinc-700 p-3 bg-zinc-950/40">
-                      {playersLoading ? (
-                        <p className="text-zinc-500 text-xs">{t('campaignLoadingPlayers')}</p>
-                      ) : (
-                        <div className="space-y-1">
-                          {players.map(p => (
-                            <div key={p.username} className="flex justify-between text-[12px]">
-                              <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> {t('campaignGmSuffix')}</span>}</span>
-                              <span className="text-zinc-500">{p.faction ?? '—'}</span>
+                    <div className="border-t border-zinc-700 bg-zinc-950/40">
+                      {/* Tab bar */}
+                      <div className="flex border-b border-zinc-700">
+                        {(['players', 'map'] as const).map(tab => (
+                          <button key={tab}
+                            onClick={() => setOpenTab(tab)}
+                            className={`flex-1 text-[10px] py-2 uppercase tracking-wide ${openTab === tab ? 'text-amber-400 border-b-2 border-amber-600' : 'text-zinc-500 hover:text-zinc-300'}`}>
+                            {tab === 'players' ? t('campaignTabPlayers') : t('campaignTabMap')}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="p-3">
+                        {openTab === 'players' ? (
+                          playersLoading ? (
+                            <p className="text-zinc-500 text-xs">{t('campaignLoadingPlayers')}</p>
+                          ) : (
+                            <div className="space-y-1">
+                              {players.map(p => (
+                                <div key={p.username} className="flex justify-between text-[12px]">
+                                  <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> {t('campaignGmSuffix')}</span>}</span>
+                                  <span className="text-zinc-500">{p.faction ?? '—'}</span>
+                                </div>
+                              ))}
                             </div>
-                          ))}
-                        </div>
-                      )}
+                          )
+                        ) : (
+                          <CampaignMapView campaign={c} isGm={c.role === 'gm'} />
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>

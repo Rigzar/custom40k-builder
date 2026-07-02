@@ -119,3 +119,22 @@ export interface CampaignPlayer { username: string; faction: string | null; role
 export function listCampaignPlayers(campaignId: number) {
   return call<{ players: CampaignPlayer[] }>(`/api/campaign/players?campaignId=${campaignId}`);
 }
+
+export type SectorType = 'city' | 'industrial' | 'wasteland' | 'ruin';
+export interface CampaignSector {
+  id: number; campaign_id: number; name: string; sector_type: SectorType;
+  owner_faction: string | null; x: number; y: number;
+}
+export function listCampaignSectors(campaignId: number) {
+  return call<{ sectors: CampaignSector[] }>(`/api/campaign/sector-list?campaignId=${campaignId}`);
+}
+export function initCampaignSectors(campaignId: number) {
+  return call<{ sectors: CampaignSector[] }>('/api/campaign/sector-init', {
+    method: 'POST', body: JSON.stringify({ campaignId }),
+  });
+}
+export function claimSector(campaignId: number, sectorId: number, ownerFaction: string | null) {
+  return call<{ ok: true }>('/api/campaign/sector-claim', {
+    method: 'POST', body: JSON.stringify({ campaignId, sectorId, ownerFaction }),
+  });
+}

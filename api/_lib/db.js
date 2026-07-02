@@ -70,6 +70,21 @@ export async function ensureSchema() {
   await sql`CREATE INDEX IF NOT EXISTS campaign_players_user_idx ON campaign_players(user_id)`;
   await sql`CREATE INDEX IF NOT EXISTS campaign_players_campaign_idx ON campaign_players(campaign_id)`;
 
+  // Sector map: each sector belongs to a campaign, has a type, grid position, and optional owner.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_sectors (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      sector_type TEXT NOT NULL DEFAULT 'wasteland',
+      owner_faction TEXT,
+      x INTEGER NOT NULL DEFAULT 0,
+      y INTEGER NOT NULL DEFAULT 0,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_sectors_campaign_idx ON campaign_sectors(campaign_id)`;
+
   schemaReady = true;
 }
 

@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.25',
+    date: '2026-07-02',
+    title: 'GENERAL — Campaign sector map (Planetary Assault ALPHA)',
+    changes: [
+      'Campaign module — sector map now available in the Map tab when a campaign is expanded. The GM can initialize a default 7-sector map (City/Industrial/Wasteland/Ruin node types) and click any sector to assign it to a faction after a battle. Players see a read-only view.',
+      'GENERAL — New DB table campaign_sectors; three new API actions: sector-list, sector-init, sector-claim. New CampaignMapView component with SVG node graph. All UI strings translated EN/DE/ES.',
+    ],
+  },
+  {
     version: '1.24',
     date: '2026-07-02',
     title: 'Eldar — Guardian Defenders Heavy weapon platform swap fix',
