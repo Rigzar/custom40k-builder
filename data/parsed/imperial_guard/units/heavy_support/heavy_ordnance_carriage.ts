@@ -150,7 +150,7 @@ export const heavyOrdnanceCarriage: Unit = {
     }
   ],
   "abilities": [
-    "Massive(5), Squadron",
+    "Massive(4), Squadron",
     "Support Weapons crew: Every instance of damage can only ever cause 1 wound loss. Attacks with the \"Barrage\" or \"Explosive\" ability cause one hit for each Wound remaining on the model."
   ],
   "unit_type": "Infantry",

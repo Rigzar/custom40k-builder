@@ -97,7 +97,7 @@ export const ratlings: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "The unit may be equipped with a Battlemutt fur +5 points.",
+      "header": "The unit may be equipped with a Battlemutt for +5 points.",
       "constraint": {
         "type": "one"
       },

@@ -25,6 +25,27 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.35',
+    date: '2026-07-04',
+    title: 'Imperial Guard — full ODS re-audit',
+    changes: [
+      'GENERAL — Commissar: advisor:true (does not consume Elite slot)',
+      'GENERAL — Hive Gangers, Infantry Squad, Mechanised Infantry, Stormtroopers, Veterans: has_armory_access corrected to false (only champion/sergeant has armory)',
+      'GENERAL — Penal Legion Squad, Platoon Command Squad: has_armory_access→false, champion_has_armory→true',
+      'GENERAL — Ogryns: added missing Crude weapon profile (Melee +1 AP-1 D1)',
+      'GENERAL — Ratlings: fixed typo "fur" → "for" in Battlemutt option header',
+      'GENERAL — Combat Engineers: added Lasgun to weapons array; equipped_with now includes Machine pistol',
+      'GENERAL — Hellhounds: both option groups changed to "every" (each vehicle in squadron chooses independently)',
+      'GENERAL — Basilisk: Earthshaker Gas shells gained Suppression ability',
+      'GENERAL — Carnodon: Twin autocannon type "Schwer 4" → "Heavy 4"',
+      'GENERAL — Field Ordnance Battery: Massive(3) → Massive(2)',
+      'GENERAL — Griffon: equipped_with corrected to "Griffon heavy mortar" (removed stale "with Smoke shells")',
+      'GENERAL — Heavy Ordnance Carriage: Massive(5) → Massive(4)',
+      'GENERAL — Malcador: rump option "Demolisher cannon" renamed to "Demolisher battle cannon" to match weapon profile',
+      'GENERAL — Vendetta: Hellstrike missiles and Heavy bolters are now two independent optional upgrades (not mutually exclusive)',
+    ],
+  },
+  {
     version: '1.34',
     date: '2026-07-03',
     title: 'Necrons — Lokhust Destroyers weapon swap (GH#59)',

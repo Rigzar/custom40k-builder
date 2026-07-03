@@ -68,7 +68,7 @@ export const combatEngineers: Unit = {
       }
     }
   ],
-  "equipped_with": "Every model is equipped with: Lasgun; Frag grenades.",
+  "equipped_with": "Every model is equipped with: Machine pistol; Lasgun; Frag grenades.",
   "weapons": [
     {
       "name": "Flamer",
@@ -87,6 +87,15 @@ export const combatEngineers: Unit = {
       "ap": "0",
       "d": "1",
       "abilities": "Explosive"
+    },
+    {
+      "name": "Lasgun",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
     },
     {
       "name": "Machine pistol",

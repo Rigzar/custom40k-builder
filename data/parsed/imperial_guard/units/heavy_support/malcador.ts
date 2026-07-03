@@ -193,7 +193,7 @@ export const malcador: Unit = {
           "points": 52
         },
         {
-          "name": "Demolisher cannon",
+          "name": "Demolisher battle cannon",
           "points": 170
         }
       ],

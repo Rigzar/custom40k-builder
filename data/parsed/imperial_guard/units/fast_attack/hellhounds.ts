@@ -83,7 +83,7 @@ export const hellhounds: Unit = {
     {
       "header": "May swap the Inferno cannon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -102,7 +102,7 @@ export const hellhounds: Unit = {
     {
       "header": "May swap the Heavy bolter",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

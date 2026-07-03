@@ -31,7 +31,7 @@ export const griffon: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Griffon is equipped with: Heavy mortar with Smoke shells; Heavy bolter.",
+  "equipped_with": "A Griffon is equipped with: Griffon heavy mortar; Heavy bolter.",
   "weapons": [
     {
       "name": "Griffon heavy mortar",

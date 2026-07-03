@@ -63,7 +63,7 @@ export const vendetta: Unit = {
   ],
   "option_groups": [
     {
-      "header": "May be equipped with",
+      "header": "May be equipped with two Hellstrike missiles",
       "constraint": {
         "type": "one"
       },
@@ -71,7 +71,18 @@ export const vendetta: Unit = {
         {
           "name": "two Hellstrike missiles",
           "points": 81
-        },
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "May be equipped with two Heavy bolters",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
         {
           "name": "two Heavy bolters",
           "points": 27

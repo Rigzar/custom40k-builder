@@ -81,7 +81,7 @@ export const carnodon: Unit = {
     {
       "name": "Twin autocannon",
       "range": "48\"",
-      "type": "Schwer 4",
+      "type": "Heavy 4",
       "s": "7",
       "ap": "-2",
       "d": "1",

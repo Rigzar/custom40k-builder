@@ -76,7 +76,7 @@ export const basilisk: Unit = {
       "s": "1",
       "ap": "0",
       "d": "2",
-      "abilities": "Barrage, Poison(2+), Indirect, Seeking"
+      "abilities": "Barrage, Poison(2+), Indirect, Seeking, Suppression"
     }
   ],
   "option_groups": [
