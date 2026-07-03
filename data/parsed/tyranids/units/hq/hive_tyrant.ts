@@ -148,7 +148,43 @@ export const hiveTyrant: Unit = {
   ],
   "option_groups": [
     {
-      "header": "May swap each of its Monstrous scything talons",
+      "header": "May swap one of its Monstrous scything talons",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [
+        {
+          "name": "Monstrous piercing claws",
+          "points": 0
+        },
+        {
+          "name": "Lash whip and Monstrous bonesword",
+          "points": 5
+        },
+        {
+          "name": "Twin devourer with brainleech worms",
+          "points": 8
+        },
+        {
+          "name": "Stranglethorn cannon",
+          "points": 19
+        },
+        {
+          "name": "Twin deathspitter with slimer maggots",
+          "points": 25
+        },
+        {
+          "name": "Heavy venom cannon",
+          "points": 113
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "replaces": ["Monstrous scything talons"]
+    },
+    {
+      "header": "May also swap the other Monstrous scything talons",
       "constraint": {
         "type": "one"
       },

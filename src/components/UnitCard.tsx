@@ -5,7 +5,7 @@ import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../ty
 import { useArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
-import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
@@ -1302,7 +1302,15 @@ export function UnitCard({ item }: Props) {
                 (s2, [k, v]) => k === '__inline' ? s2 : s2 + (v ?? 0), 0
               );
             }, 0);
-            const sharedPoolSize = modelGroupCap !== null ? modelGroupCap : item.size;
+            // Mirror resolver's N-copies-per-model threshold: if the replaced weapon appears
+            // N times per model (e.g. "2 Monstrous scything talons") and there are N sibling
+            // groups to cover all copies, each group gets its own full-size pool (not shared).
+            const _siblingCopies = siblingGroups.length > 0 && g.replaces?.length
+              ? Math.max(...g.replaces.map(w => weaponCopiesPerModel(u.equipped_with, w)))
+              : 1;
+            const _totalGroupsForWeapon = 1 + siblingGroups.length;
+            const _copiesMultiplier = _siblingCopies > 1 && _totalGroupsForWeapon >= _siblingCopies ? _siblingCopies : 1;
+            const sharedPoolSize = modelGroupCap !== null ? modelGroupCap : item.size * _copiesMultiplier;
             const groupRemainingOwn = groupMax !== null && groupUsed !== null ? groupMax - groupUsed : null;
             const groupRemainingShared = siblingGroups.length > 0 && groupUsed !== null
               ? sharedPoolSize - groupUsed - siblingUsed

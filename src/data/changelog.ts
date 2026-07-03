@@ -25,6 +25,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.29',
+    date: '2026-07-03',
+    title: 'Tyranids — GH#46/47/48: Carnifex Biomorphs per-model + dual MST swaps',
+    changes: [
+      'Tyranids — GH#46: Carnifex Brood Special Biomorphs (Synaptic Node/Hardened Carapace/Regeneration) now correctly scale per model ("every" constraint instead of "one"). A 3-model brood correctly pays 3× the cost.',
+      'Tyranids — GH#47: Carnifex Brood can now independently swap both pairs of Monstrous Scything Talons. GENERAL engine fix: UnitCard siblingGroups shared-pool size now mirrors the resolver\'s N-copies-per-model threshold — units where a weapon appears N times per model and has N independent swap groups each get a full per-model pool, not a single shared one.',
+      'Tyranids — GH#48: Hive Tyrant now has two independent swap groups for its two Monstrous Scything Talons pairs, allowing each to be replaced independently.',
+    ],
+  },
+  {
     version: '1.28',
     date: '2026-07-03',
     title: 'GENERAL — Campaign persistent roster (Planetary Assault ALPHA)',

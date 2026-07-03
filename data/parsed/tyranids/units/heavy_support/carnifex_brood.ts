@@ -208,9 +208,9 @@ export const carnifexBrood: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "May select one Special Biomorph",
+      "header": "Each model may select one Special Biomorph",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
