@@ -371,7 +371,7 @@
     {
       "name": "Illuminor",
       "term_compat": false,
-      "desc": "The model's Rites of Reanimation ability has no range limit anymore. Unique.",
+      "desc": "The model's Technomancer ability has no range limit anymore. Unique.",
       "p_unit": 10,
       "p_char": null
     },

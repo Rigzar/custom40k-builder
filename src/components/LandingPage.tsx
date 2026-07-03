@@ -9,39 +9,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v32_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v132_necrons_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.32: engine validator fixes (Daemonkin + CSM Plaguehost)',
-    intro: 'Hello commanders! A proactive engine review found 2 validator bugs affecting Chaos Space Marines archetypes.',
-    engine: '🐛 GENERAL — Daemonkin: mark-unity check now skips allied Daemon units. Previously, a Daemonkin army with mixed-god allies always failed validation even with a clean CSM side.',
-    csm: '🐛 GENERAL — CSM Plaguehost: slot-max check now applies the same summoning exclusion as slot-min. Plague-cult Daemon units were over-counting toward the slot maximum.',
-    cd:  '✅ v1.31: CSM full ODS audit (2 data fixes). v1.29–v1.30: Tyranids audit + GH#50 armory fix.',
-    sm:  '✅ 6 known engine gaps logged in Known Issues for future sessions.',
-    legacyfix: '📖 Full details in the changelog (v1.30–v1.32) and Known Issues page.',
-    contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
+    title: 'Developer Update — v1.32: Necrons bug batch (GH#54–58 + full ODS re-audit)',
+    intro: 'Hello commanders! A full re-audit of the updated Necrons ODS found 9 issues — all fixed.',
+    engine: '🐛 Necrons — Royal Court engine: Crypteks, Royal Wardens, and extra Lords now correctly skip the HQ slot when an Overlord or Lord is present (GH#55/56). Hexmark Destroyer free Elite slot per Lord/Skorpekh Lord wired (GH#58). Cryptothralls free Elite slot per Cryptek wired.',
+    csm: '🐛 Necrons — Data fixes: Plasmacyte 0pts→15pts (GH#54), Tomb Blades upgrades now per-model (GH#57), Plasmacyte is_character corrected, Illuminor armory description corrected.',
+    cd:  '✅ v1.31 (prev): 20 engine/data fixes across all factions — Daemonkin, forcedMark, allied-scope guards, Tyranids biomorphs per-model, Necrons Tesla AT(-1)×4.',
+    sm:  '📖 32 of 37 Necrons units verified clean against the updated ODS. 1 known display gap (Canoptek Spyders ×2 Particle beamers) logged in Known Issues.',
+    legacyfix: '📖 Full details in the changelog (v1.31–v1.32) and Known Issues page.',
+    contrib: '👷 Found a bug? File it on GitHub — every report gets fixed.',
   },
   de: {
-    title: 'Entwickler-Update — v1.32: Engine-Validator-Fixes (Daemonkin + CSM Plaguehost)',
-    intro: 'Hallo Kommandanten! Eine proaktive Engine-Prüfung fand 2 Validator-Fehler, die CSM-Archetypen betreffen.',
-    engine: '🐛 GENERAL — Daemonkin: Markierungs-Einheitscheck überspringt jetzt alliierte Dämoneneinheiten. Zuvor scheiterte ein Daemonkin-Heer mit Verbündeten verschiedener Götter stets an der Validierung, selbst mit korrekter CSM-Seite.',
-    csm: '🐛 GENERAL — CSM Plaguehost: Slot-Maximum-Check wendet jetzt denselben Beschwörungsausschluss wie Slot-Minimum an. Pest-Kult-Dämoneneinheiten wurden zum Slot-Maximum mitgezählt.',
-    cd:  '✅ v1.31: CSM vollständige ODS-Prüfung (2 Datenkorrekturen). v1.29–v1.30: Tyraniden-Prüfung + GH#50 Armory-Fix.',
-    sm:  '✅ 6 bekannte Engine-Lücken in Known Issues dokumentiert.',
-    legacyfix: '📖 Alle Details im Changelog (v1.30–v1.32) und der Known-Issues-Seite.',
-    contrib: '👷 Bug gefunden? Melden auf GitHub oder im Discord — jeder Bericht wird behoben.',
+    title: 'Entwickler-Update — v1.32: Necrons-Bug-Batch (GH#54–58 + vollständige ODS-Neuprüfung)',
+    intro: 'Hallo Kommandanten! Eine vollständige Neuprüfung des aktualisierten Necrons-ODS fand 9 Probleme — alle behoben.',
+    engine: '🐛 Necrons — Royal-Court-Engine: Crypteks, Royal Wardens und zusätzliche Lords belegen jetzt bei Anwesenheit eines Overlords oder Lords keinen HQ-Slot (GH#55/56). Hexmark-Destroyer-Freiheit pro Lord/Skorpekh Lord verdrahtet (GH#58). Cryptothralls-Freiheit pro Cryptek verdrahtet.',
+    csm: '🐛 Necrons — Datenfixes: Plasmacyte 0Pkt→15Pkt (GH#54), Tomb-Blades-Upgrades jetzt pro Modell (GH#57), Plasmacyte is_character korrigiert, Illuminor-Armory-Beschreibung korrigiert.',
+    cd:  '✅ v1.31 (vorher): 20 Engine-/Datenfixes über alle Fraktionen — Daemonkin, forcedMark, alliierte Bereichsschutzmaßnahmen, Tyraniden-Biomorphs pro Modell, Necrons Tesla AT(-1)×4.',
+    sm:  '📖 32 von 37 Necrons-Einheiten gegen das aktualisierte ODS geprüft und sauber. 1 bekannte Darstellungslücke (Canoptek Spyders ×2 Partikelstrahler) in Known Issues dokumentiert.',
+    legacyfix: '📖 Alle Details im Changelog (v1.31–v1.32) und der Known-Issues-Seite.',
+    contrib: '👷 Bug gefunden? Auf GitHub melden — jeder Bericht wird behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.32: fixes de validador del motor (Daemonkin + CSM Plaguehost)',
-    intro: '¡Hola comandantes! Una revisión proactiva del motor encontró 2 bugs de validador que afectan arquetipos de Chaos Space Marines.',
-    engine: '🐛 GENERAL — Daemonkin: la comprobación de unidad de marca ahora omite las unidades Daemon aliadas. Antes, un ejército Daemonkin con aliados de dioses distintos siempre fallaba la validación aunque el lado CSM fuera correcto.',
-    csm: '🐛 GENERAL — CSM Plaguehost: la comprobación de slot máximo ahora aplica la misma exclusión de invocación que el mínimo. Las unidades Daemon del culto de la plaga contaban de más hacia el máximo de slot.',
-    cd:  '✅ v1.31: auditoría ODS completa de CSM (2 fixes de datos). v1.29–v1.30: auditoría Tyranids + fix armería GH#50.',
-    sm:  '✅ 6 huecos de motor conocidos documentados en Known Issues.',
-    legacyfix: '📖 Detalles en el changelog (v1.30–v1.32) y la página de Known Issues.',
-    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o Discord — todos los reportes se siguen arreglando.',
+    title: 'Actualización del desarrollador — v1.32: batch de bugs Necrons (GH#54–58 + re-auditoría ODS completa)',
+    intro: '¡Hola comandantes! Una re-auditoría completa del ODS de Necrons actualizado encontró 9 problemas — todos corregidos.',
+    engine: '🐛 Necrons — Motor Royal Court: Crypteks, Royal Wardens y Lords adicionales ya no ocupan slot HQ con Overlord o Lord presentes (GH#55/56). Slot Elite libre de Hexmark Destroyer por Lord/Skorpekh Lord implementado (GH#58). Slot Elite libre de Cryptothralls por Cryptek implementado.',
+    csm: '🐛 Necrons — Datos: Plasmacyte 0ptos→15ptos (GH#54), upgrades de Tomb Blades ahora por modelo (GH#57), is_character de Plasmacyte corregido, descripción de armería Illuminor corregida.',
+    cd:  '✅ v1.31 (anterior): 20 fixes de motor/datos en todas las facciones — Daemonkin, forcedMark, guardias de ámbito aliado, biomorphs de Tyranids por modelo, Necrons Tesla AT(-1)×4.',
+    sm:  '📖 32 de 37 unidades de Necrons verificadas contra el ODS actualizado. 1 brecha de visualización conocida (Canoptek Spyders ×2 cañones de partículas) documentada en Known Issues.',
+    legacyfix: '📖 Detalles completos en el changelog (v1.31–v1.32) y la página de Known Issues.',
+    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub — cada reporte se arregla.',
   },
 };
 

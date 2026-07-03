@@ -728,6 +728,102 @@ export function computeSpiritseerFreeSlots(
 }
 
 /**
+ * Necrons Cryptothralls: "For every Cryptek you may select a unit of [Cryptothralls] that take
+ * up no Elite-slot." Ratio-against-Cryptek pattern. Source: Cryptothralls option_group header.
+ */
+export function computeCryptothrallsFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Necrons') return { elites: 0, notes: [] };
+  const cryptothrallCount = army.filter(i => i.unitName === 'Cryptothralls' && !i.factionSource).length;
+  if (cryptothrallCount === 0) return { elites: 0, notes: [] };
+  const cryptekCount = army.filter(i => i.unitName === 'Cryptek' && !i.factionSource).length;
+  if (cryptekCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(cryptothrallCount, cryptekCount);
+  const notes = [`Cryptothralls: ${credited} of ${cryptothrallCount} unit${cryptothrallCount === 1 ? '' : 's'} exempted from Elite slot (1 per Cryptek, have ${cryptekCount}).`];
+  if (cryptothrallCount > cryptekCount) {
+    notes.push(`Cryptothralls: ${cryptothrallCount - cryptekCount} extra unit${cryptothrallCount - cryptekCount === 1 ? '' : 's'} exceed the ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/**
+ * Necrons Hexmark Destroyer: "Royal Assassin — For each Lord or Skorpekh Lord, a Hexmark
+ * Destroyer can be chosen that does not occupy an Elite slot." Ratio-against-sibling pattern,
+ * same as computeKrootShaperFreeSlots. Source: Hexmark Destroyer ability text (datasheet).
+ */
+export function computeHexmarkDestroyerFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { elites: number; notes: string[] } {
+  if (data.faction !== 'Necrons') return { elites: 0, notes: [] };
+  const hexmarkCount = army.filter(i => i.unitName === 'Hexmark Destroyer' && !i.factionSource).length;
+  if (hexmarkCount === 0) return { elites: 0, notes: [] };
+  const anchorCount = army.filter(i => (i.unitName === 'Lord' || i.unitName === 'Skorpekh Lord') && !i.factionSource).length;
+  if (anchorCount === 0) return { elites: 0, notes: [] };
+  const credited = Math.min(hexmarkCount, anchorCount);
+  const notes = [`Royal Assassin: ${credited} of ${hexmarkCount} Hexmark Destroyer${hexmarkCount === 1 ? '' : 's'} exempted from Elite slot (1 per Lord/Skorpekh Lord, have ${anchorCount}).`];
+  if (hexmarkCount > anchorCount) {
+    notes.push(`Royal Assassin: ${hexmarkCount - anchorCount} extra Hexmark Destroyer${hexmarkCount - anchorCount === 1 ? '' : 's'} exceed the ratio and still occupy a normal Elite slot.`);
+  }
+  return { elites: credited, notes };
+}
+
+/**
+ * Necrons Royal Court: Crypteks, Royal Wardens, and Lords can be taken without using an HQ slot
+ * when an Overlord (= a Lord that took the Overlord upgrade, option_groups[0] __inline) or a
+ * Lord is present.
+ *   • Overlord present → up to 4 Crypteks free + up to 4 Royal Wardens free + up to 4 extra Lords free
+ *   • Lord present (no Overlord) → up to 2 Crypteks free + up to 2 Royal Wardens free
+ * Source: ability text on Cryptek, Royal Warden, and Lord datasheets.
+ */
+export function computeRoyalCourtFreeSlots(
+  army: RosterEntry[],
+  data: FactionData,
+): { hq: number; notes: string[] } {
+  if (data.faction !== 'Necrons') return { hq: 0, notes: [] };
+  const hasAnyLord = army.some(i => i.unitName === 'Lord' && !i.factionSource);
+  if (!hasAnyLord) return { hq: 0, notes: [] };
+  // Overlord = a Lord that activated its Overlord upgrade (option_groups[0], __inline)
+  const hasOverlord = army.some(i => i.unitName === 'Lord' && !i.factionSource && !!i.optionQty?.[0]?.['__inline']);
+  const label = hasOverlord ? 'Overlord' : 'Lord';
+  const cap = hasOverlord ? 4 : 2;
+  const notes: string[] = [];
+  let hq = 0;
+
+  const cryptekCount = army.filter(i => i.unitName === 'Cryptek' && !i.factionSource).length;
+  if (cryptekCount > 0) {
+    const free = Math.min(cryptekCount, cap);
+    hq += free;
+    notes.push(`Royal Court (${label}): ${free} of ${cryptekCount} Cryptek${cryptekCount === 1 ? '' : 's'} exempted from HQ slot (max ${cap}).`);
+    if (cryptekCount > cap) notes.push(`Royal Court: ${cryptekCount - cap} extra Cryptek${cryptekCount - cap === 1 ? '' : 's'} exceed the cap and still occupy a normal HQ slot.`);
+  }
+
+  const wardenCount = army.filter(i => i.unitName === 'Royal Warden' && !i.factionSource).length;
+  if (wardenCount > 0) {
+    const free = Math.min(wardenCount, cap);
+    hq += free;
+    notes.push(`Royal Court (${label}): ${free} of ${wardenCount} Royal Warden${wardenCount === 1 ? '' : 's'} exempted from HQ slot (max ${cap}).`);
+    if (wardenCount > cap) notes.push(`Royal Court: ${wardenCount - cap} extra Royal Warden${wardenCount - cap === 1 ? '' : 's'} exceed the cap and still occupy a normal HQ slot.`);
+  }
+
+  // Lords: if Overlord present, up to 4 other Lords (non-Overlord) are free
+  if (hasOverlord) {
+    const extraLords = army.filter(i => i.unitName === 'Lord' && !i.factionSource && !i.optionQty?.[0]?.['__inline']).length;
+    if (extraLords > 0) {
+      const lordCap = 4;
+      const free = Math.min(extraLords, lordCap);
+      hq += free;
+      notes.push(`Royal Court (Overlord): ${free} of ${extraLords} extra Lord${extraLords === 1 ? '' : 's'} exempted from HQ slot (max ${lordCap}).`);
+      if (extraLords > lordCap) notes.push(`Royal Court: ${extraLords - lordCap} extra Lord${extraLords - lordCap === 1 ? '' : 's'} exceed the cap and still occupy a normal HQ slot.`);
+    }
+  }
+
+  return { hq, notes };
+}
+
+/**
  * Generic version of computeEldarWarlockFreeSlots' "1 free per 500pts of game size" shape, for
  * archetypes (not unit abilities) that grant it — e.g. Votann Hearthfyre Arsenal's
  * `pointsBasedHqFree`. Every copy of the named unit is eligible (no per-unit inline flag to
@@ -1751,9 +1847,27 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: note });
   }
 
+  // Necrons Cryptothralls: "1 free Elite slot per Cryptek" (option_group header rule)
+  const cryptothrallsFree = computeCryptothrallsFreeSlots(state.army, data);
+  for (const note of cryptothrallsFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Necrons Hexmark Destroyer: "1 free Elite slot per Lord/Skorpekh Lord" (Royal Assassin ability)
+  const hexmarkFree = computeHexmarkDestroyerFreeSlots(state.army, data);
+  for (const note of hexmarkFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
   // Eldar Spiritseer: "1 free HQ slot per Wraithblades/Wraithguard/Wraithlord" (own ability text)
   const spiritseerFree = computeSpiritseerFreeSlots(state.army, data);
   for (const note of spiritseerFree.notes) {
+    items.push({ type: 'ok', text: note });
+  }
+
+  // Necrons Royal Court: Crypteks/Royal Wardens/Lords free HQ when Overlord/Lord present
+  const royalCourtFree = computeRoyalCourtFreeSlots(state.army, data);
+  for (const note of royalCourtFree.notes) {
     items.push({ type: 'ok', text: note });
   }
 
@@ -1799,10 +1913,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites + cryptothrallsFree.elites + hexmarkFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -2285,10 +2399,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
+    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
+      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites + cryptothrallsFree.elites + hexmarkFree.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not

@@ -79,7 +79,8 @@ export const tombBlades: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "The unit can swap its Twin tesla carbines",

@@ -5,6 +5,36 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-necrons-spyder-particle-beamer-count-display-01',
+    status: 'known',
+    title: 'Necrons — Canoptek Spyders: Particle beamer upgrade shows ×1 but ODS grants ×2',
+    description: 'ODS: "+27 points two Particle beamers." Production shows one Particle beamer weapon when the upgrade is taken. Root cause: the choice name must match the weapon profile name for conditional weapon display (gating), so renaming it back to "Two Particle beamers" would break display. Engine has no per-choice quantity support. Low gameplay impact (stats are the same; the weapon count is the only discrepancy).',
+  },
+  {
+    id: 'ki-necrons-gh58-hexmark-destroyer-free-elite-slot-01',
+    status: 'fixed',
+    title: 'Necrons — Hexmark Destroyer occupied Elite slot even with Lord/Skorpekh Lord present (GH#58)',
+    description: 'FIXED 2026-07-03 (v1.32): Royal Assassin ability grants 1 free Elite slot per Lord or Skorpekh Lord but had no engine implementation. Added computeHexmarkDestroyerFreeSlots() to validators.ts and wired into slotAdj[Elites].',
+  },
+  {
+    id: 'ki-necrons-gh54-plasmacyte-zero-cost-01',
+    status: 'fixed',
+    title: 'Necrons — Plasmacyte showed 0 pts instead of 15 pts (GH#54)',
+    description: 'FIXED 2026-07-03 (v1.32): models[] was empty; cost data was in variant_models with min:0/max:0 (wrong pattern). computeUnitPoints returned 0 because variant_models are only priced via variant_link option groups, which were absent. Fixed by moving the 15-pt model into models[min:1/max:1] and clearing variant_models.',
+  },
+  {
+    id: 'ki-necrons-gh55-gh56-royal-court-hq-slot-01',
+    status: 'fixed',
+    title: 'Necrons — Crypteks and Royal Wardens not exempted from HQ slot with Overlord/Lord present (GH#55/56)',
+    description: 'FIXED 2026-07-03 (v1.32): Royal Court ability grants free HQ slots but the validator had no implementation for it. Added computeRoyalCourtFreeSlots(): Overlord present (= Lord with Overlord upgrade) → up to 4 Crypteks + 4 Royal Wardens + 4 extra Lords free; Lord present (no Overlord) → up to 2 Crypteks + 2 Royal Wardens free. Wired into slotAdj[HQ] in validateArmy().',
+  },
+  {
+    id: 'ki-necrons-gh57-tomb-blades-upgrades-flat-01',
+    status: 'fixed',
+    title: 'Necrons — Tomb Blades Nebuloscope/Shadowloom upgrades charged flat instead of per model (GH#57)',
+    description: 'FIXED 2026-07-03 (v1.32): The upgrade option group in tomb_blades.ts was missing per_model:true. ODS states "+14 points/model" (Nebuloscope) and "+22 points/model" (Shadowloom & shieldvanes). Added per_model:true to the group.',
+  },
+  {
     id: 'ki-necrons-gh52-non-cryptek-hq-cryptek-only-armory-01',
     status: 'fixed',
     title: 'Necrons — non-Cryptek HQ units (Lord, Royal Warden, Skorpekh Lord, Ancient Destructor Lord) could access Cryptek-only armory items (GH#52)',

@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.32',
+    date: '2026-07-03',
+    title: 'Necrons — 4 data/engine fixes (GH#54–57)',
+    changes: [
+      'Necrons — Plasmacyte (GH#54): unit was showing 0 pts instead of 15 pts. The model data used an empty models[] with a variant_models entry (wrong pattern), causing computeUnitPoints to return 0. Fixed: moved the 15-pt model into models[] (min:1/max:1), cleared variant_models, removed the vestigial option_groups entry (free-slot logic already lives in the engine validator).',
+      'Necrons — Royal Court (GH#55/56): Crypteks and Royal Wardens now correctly skip the HQ slot when an Overlord or Lord is present. Also extended to Lords themselves (if Overlord present, up to 4 extra Lords are free). New computeRoyalCourtFreeSlots() in validators.ts: Overlord present → up to 4 Crypteks + 4 Royal Wardens + 4 Lords free; Lord present (no Overlord) → up to 2 Crypteks + 2 Royal Wardens free. Source: Royal Court ability text on Cryptek, Royal Warden, and Lord datasheets.',
+      'Necrons — Tomb Blades (GH#57): Nebuloscope (+14 pts) and Shadowloom & shieldvanes (+22 pts) upgrades were charged as a flat unit cost instead of per model. Added per_model:true to the upgrade option group. ODS: "+14 points/model" / "+22 points/model".',
+      'Necrons — Hexmark Destroyer (GH#58): Royal Assassin ability grants 1 free Elite slot per Lord or Skorpekh Lord in the army. New computeHexmarkDestroyerFreeSlots() in validators.ts wired into slotAdj[Elites].',
+      'Necrons — Cryptothralls: "For every Cryptek, one unit of Cryptothralls takes no Elite slot" was present as ability text but had no engine implementation. Added computeCryptothrallsFreeSlots() wired into slotAdj[Elites].',
+      'Necrons — Plasmacyte: is_character corrected to true (ODS: "A Plasmacyte is a character model").',
+      'Necrons — Armory Illuminor: description corrected from "Rites of Reanimation ability" to "Technomancer ability" (wrong ability name vs ODS).',
+    ],
+  },
+  {
     version: '1.31',
     date: '2026-07-03',
     title: 'GENERAL — engine/validator/data bug batch (17 fixes across all factions)',

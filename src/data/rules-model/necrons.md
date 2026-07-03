@@ -179,3 +179,38 @@ Archetypes / 6 Legacies / all 17 Traits' 3-column pricing) — no discrepancies 
 Build ✓. Live-verified: Lychguard size 1-10 + War scythe swap UI; Skorpekh Destroyers per_n cap
 scaling (1→2 at size 3→6); Canoptek Spyders' 3 options independently selectable. LOCAL NOT PUSHED at
 time of writing.
+
+### 9. Re-audit after .ods replacement (v1.32, 2026-07-03)
+
+User replaced `Necrons ENG.ods`. Full field-by-field re-audit per protocol (all 37 units + Armory +
+Dynasty Armory + Army Customisation). **9 fixes** found and applied:
+
+**Engine — free-slot rules (all were present as text but had zero implementation):**
+- **Royal Court (Cryptek/Royal Warden/Lord)**: Overlord (= Lord with Overlord upgrade) present →
+  up to 4 Crypteks free + up to 4 Royal Wardens free + up to 4 extra Lords free (HQ slot).
+  Lord present (no Overlord) → up to 2 Crypteks free + up to 2 Royal Wardens free. New
+  `computeRoyalCourtFreeSlots()` in `validators.ts` wired into slotAdj[HQ]. (GH#55/56)
+- **Hexmark Destroyer — Royal Assassin**: 1 free Elite slot per Lord or Skorpekh Lord. New
+  `computeHexmarkDestroyerFreeSlots()` wired into slotAdj[Elites]. (GH#58)
+- **Cryptothralls**: 1 free Elite slot per Cryptek. New `computeCryptothrallsFreeSlots()` wired
+  into slotAdj[Elites].
+
+**Data fixes:**
+- **Plasmacyte**: `models[]` was empty (0 pts shown). Fixed to `models[15pts, min:1, max:1]`.
+  Also corrected `is_character: false → true` (ODS: "A Plasmacyte is a character model").
+  `default_size: 0→1`, `min_cost: 0→15`. Bogus `option_groups` entry removed (free-slot already
+  in engine). (GH#54)
+- **Tomb Blades**: Nebuloscope (+14 pts) and Shadowloom & shieldvanes (+22 pts) missing
+  `per_model: true`. ODS: "+14 points/model" / "+22 points/model". (GH#57)
+- **Armory — Illuminor**: description said "Rites of Reanimation ability" → corrected to
+  "Technomancer ability" (ODS-verbatim).
+- **Tesla AT(-1)** (found in previous session when .ods was replaced): Immortals, Royal Warden,
+  Tomb Blades, Doom Scythe all had "Tesla, AT(-1)" — AT(-1) removed from all four. (GH#53)
+
+**Known gap logged (not fixed — engine limitation):**
+- **Canoptek Spyders ×2 Particle beamers**: ODS says "+27 pts two Particle beamers" but
+  production displays one. Choice name must match weapon profile name for weapon gating; engine
+  has no per-choice count support. `ki-necrons-spyder-particle-beamer-count-display-01`.
+
+**32 of 37 units + Armory + Dynasty Armory + Army Customisation (4 archetypes/6 legacies/17 traits)
+verified clean.** Build ✓.
