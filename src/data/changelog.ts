@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.30',
+    date: '2026-07-03',
+    title: 'Tyranids — GH#49: Tyranid Warrior Brood Barbed Strangler/Venom Cannon per-3 cap',
+    changes: [
+      'Tyranids — GH#49: Tyranid Warrior Brood\'s Barbed Strangler/Venom Cannon swap now uses a per_n:3 constraint — 1 swap at 3 models, 2 swaps at 6 models. Was incorrectly set to "one" (always only 1 regardless of brood size).',
+    ],
+  },
+  {
     version: '1.29',
     date: '2026-07-03',
     title: 'Tyranids — GH#46/47/48: Carnifex Biomorphs per-model + dual MST swaps',

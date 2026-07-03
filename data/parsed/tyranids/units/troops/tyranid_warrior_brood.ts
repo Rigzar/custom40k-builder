@@ -119,7 +119,8 @@ export const tyranidWarriorBrood: Unit = {
     {
       "header": "For every three models, one Tyranid Warrior may swap their Spinefists",
       "constraint": {
-        "type": "one"
+        "type": "per_n",
+        "per_n": 3
       },
       "choices": [
         {
