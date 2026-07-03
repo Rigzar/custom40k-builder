@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v24_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v28_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.23: Dark Eldar Coordinated Raid + i18n validators complete',
-    intro: 'Hello commanders! Two updates shipped today: all validator messages are now fully translated (EN/DE/ES), Tyranid Scuttlers pricing corrected, and the Dark Eldar Coordinated Raid archetype is now fully engine-modelled.',
-    engine: '⚔️ Dark Eldar — Coordinated Raid now grants a 3rd HQ slot and a 3rd Trait slot. The validator enforces the required Dracon + Haemonculus + Succubus composition and checks that each of the three sub-faction traits (<Coven>, <Kabal>, <Wyches>) is covered.',
-    csm: '🌐 GENERAL — Remaining untranslated validator messages (17 keys across validators.ts and the SM codex validator) are now available in DE and ES, completing the full i18n sweep.',
-    cd:  '🐛 Tyranids — Scuttlers Special Biomorph corrected to +1pt (was 0pt) on Gargoyle Brood, Barbgaunt Brood, Genestealer Brood, and Termagant Brood.',
-    sm:  '✅ ki-de-coordinatedraid-unmodelled-01 closed. All known engine gaps across every faction are now resolved.',
-    legacyfix: '📖 Full details in the changelog (v1.22–v1.23) and Known Issues page.',
+    title: 'Developer Update — v1.28: Campaign Roster + Tyranids bug fixes',
+    intro: 'Hello commanders! The Campaign module now has a persistent Roster tab to track your units and heroes across battles. Also, four Tyranids bugs closed this session.',
+    engine: '📋 Campaign — new Roster tab: add units (name + slot), track XP with +/− buttons, cycle status Active → Wounded → Dead. GM manages all factions; players only their own. Persisted across sessions.',
+    csm: '🐛 Tyranids — GH#46: Carnifex Brood Special Biomorphs now scale per model (was a flat cost). GH#47: Carnifex Brood can now independently swap both pairs of Monstrous Scything Talons (GENERAL engine fix for N-copies-per-model swap groups).',
+    cd:  '🐛 Tyranids — GH#48: Hive Tyrant now has two independent swap groups for its two MST pairs. GH#49: Tyranid Warrior Brood Barbed Strangler/Venom Cannon now allows 2 swaps at 6 models (per_n:3).',
+    sm:  '✅ GH#44, #45, #46, #47, #48, #49 all closed. 0 open GitHub issues.',
+    legacyfix: '📖 Full details in the changelog (v1.27–v1.28) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — v1.23: Dark Eldar Koordinierter Überfall + vollständige i18n-Validatoren',
-    intro: 'Hallo Kommandanten! Zwei Updates heute: alle Validator-Meldungen sind jetzt vollständig übersetzt (EN/DE/ES), die Punktepreise der Tyraniden-Scuttlers wurden korrigiert, und der Dark-Eldar-Archetyp „Koordinierter Überfall" ist jetzt vollständig modelliert.',
-    engine: '⚔️ Dark Eldar — Koordinierter Überfall gewährt jetzt einen 3. HQ-Slot und einen 3. Trait-Slot. Der Validator prüft die erforderliche Zusammensetzung (Dracon + Haemonculus + Succubus) und stellt sicher, dass je ein Merkmal für <Coven>, <Kabal> und <Wyches> gewählt wurde.',
-    csm: '🌐 ALLGEMEIN — Alle verbleibenden nicht übersetzten Validator-Meldungen (17 Schlüssel in validators.ts und SM-Codex-Validator) stehen jetzt auf DE und ES zur Verfügung.',
-    cd:  '🐛 Tyraniden — Scuttlers-Sonderbiomorph auf +1 Punkt korrigiert (war 0) bei Gargoyle Brood, Barbgaunt Brood, Genestealer Brood und Termagant Brood.',
-    sm:  '✅ ki-de-coordinatedraid-unmodelled-01 geschlossen. Alle bekannten Engine-Lücken aller Fraktionen sind damit behoben.',
-    legacyfix: '📖 Alle Details im Changelog (v1.22–v1.23) und auf der Known-Issues-Seite.',
+    title: 'Entwickler-Update — v1.28: Kampagnen-Aufstellung + Tyraniden-Bugfixes',
+    intro: 'Hallo Kommandanten! Das Kampagnenmodul hat jetzt einen persistenten Aufstellungs-Tab, um Einheiten und Helden zwischen Schlachten zu verfolgen. Außerdem wurden vier Tyraniden-Bugs behoben.',
+    engine: '📋 Kampagne — neuer Aufstellungs-Tab: Einheiten hinzufügen (Name + Slot), EP mit +/− verwalten, Status Active → Wounded → Dead umschalten. SL verwaltet alle Fraktionen; Spieler nur ihre eigene.',
+    csm: '🐛 Tyraniden — GH#46: Carnifex-Brood-Sonderbiomorphe skalieren jetzt pro Modell. GH#47: Carnifex-Brood kann jetzt beide MST-Paare unabhängig tauschen (allgemeiner Engine-Fix für N-Kopien-pro-Modell-Tauschgruppen).',
+    cd:  '🐛 Tyraniden — GH#48: Hive Tyrant hat jetzt zwei unabhängige Tauschgruppen für seine MST-Paare. GH#49: Tyranid-Warrior-Brood Barbed Strangler/Venom Cannon erlaubt bei 6 Modellen 2 Tausche (per_n:3).',
+    sm:  '✅ GH#44, #45, #46, #47, #48, #49 alle geschlossen. 0 offene GitHub-Issues.',
+    legacyfix: '📖 Alle Details im Changelog (v1.27–v1.28) und auf der Known-Issues-Seite.',
     contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wird weiterhin behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.23: Incursión Coordinada Dark Eldar + validadores i18n completos',
-    intro: '¡Hola comandantes! Dos actualizaciones hoy: todos los mensajes de validación están ahora completamente traducidos (EN/DE/ES), precios de Scuttlers Tyranids corregidos, y el arquetipo Dark Eldar Incursión Coordinada está ahora completamente modelado en el motor.',
-    engine: '⚔️ Dark Eldar — Incursión Coordinada ahora otorga un 3.er slot HQ y un 3.er slot de trait. El validador exige la composición de Dracon + Haemonculus + Succubus y comprueba que se cubre un trait de cada subfacción (<Coven>, <Kabal>, <Wyches>).',
-    csm: '🌐 GENERAL — Los mensajes de validación sin traducir restantes (17 claves en validators.ts y el validador del codex SM) ya están disponibles en DE y ES, completando el barrido i18n.',
-    cd:  '🐛 Tyranids — Biomorfo especial Scuttlers corregido a +1 pt (era 0 pt) en Gargoyle Brood, Barbgaunt Brood, Genestealer Brood y Termagant Brood.',
-    sm:  '✅ ki-de-coordinatedraid-unmodelled-01 cerrado. Todos los huecos de motor conocidos en todas las facciones están ya resueltos.',
-    legacyfix: '📖 Detalles completos en el changelog (v1.22–v1.23) y en la página de Known Issues.',
+    title: 'Actualización del desarrollador — v1.28: Efectivos de campaña + correcciones Tyranids',
+    intro: '¡Hola comandantes! El módulo de Campaña tiene ahora una pestaña de Efectivos persistente para rastrear unidades y héroes entre batallas. Además, se cerraron cuatro bugs de Tyranids.',
+    engine: '📋 Campaña — nueva pestaña Efectivos: añade unidades (nombre + slot), gestiona XP con botones +/−, cambia estado Activo → Herido → Caído. El DJ gestiona todas las facciones; los jugadores solo la suya.',
+    csm: '🐛 Tyranids — GH#46: Biomorfos Especiales del Carnifex Brood ahora escalan por modelo. GH#47: el Carnifex Brood puede intercambiar ambos pares de MST de forma independiente (fix general del motor para grupos de swap N-copias/modelo).',
+    cd:  '🐛 Tyranids — GH#48: el Hive Tyrant tiene ahora dos grupos de swap independientes para sus pares de MST. GH#49: el Barbed Strangler/Venom Cannon del Warrior Brood permite 2 swaps con 6 modelos (per_n:3).',
+    sm:  '✅ GH#44, #45, #46, #47, #48, #49 todos cerrados. 0 issues abiertos en GitHub.',
+    legacyfix: '📖 Detalles completos en el changelog (v1.27–v1.28) y en la página de Known Issues.',
     contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes se siguen arreglando.',
   },
 };

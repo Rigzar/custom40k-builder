@@ -5,6 +5,30 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-tyranid-warrior-barbed-strangler-one-cap-gh49-01',
+    status: 'fixed',
+    title: 'Tyranids — Tyranid Warrior Brood Barbed Strangler/Venom Cannon capped at 1 regardless of brood size (GH#49)',
+    description: 'FIXED 2026-07-03: The swap group used constraint.type "one" instead of per_n:3. Changed to per_n:3 — a 3-model brood allows 1 swap, a 6-model brood allows 2.',
+  },
+  {
+    id: 'ki-tyranid-hive-tyrant-single-mst-swap-gh48-01',
+    status: 'fixed',
+    title: 'Tyranids — Hive Tyrant can only swap one of its two Monstrous Scything Talons pairs (GH#48)',
+    description: 'FIXED 2026-07-03: The datasheet has 2 MST but only one option group existed, allowing only one independent swap. Added a second independent option group with the same choices so both pairs can be replaced freely.',
+  },
+  {
+    id: 'ki-tyranid-carnifex-mst-sibling-blocked-gh47-01',
+    status: 'fixed',
+    title: 'Tyranids — Carnifex Brood can only swap one of its two MST pairs; second swap group blocked after first is used (GH#47)',
+    description: 'FIXED 2026-07-03: GENERAL UnitCard bug — siblingGroups shared-pool size was item.size even when the replaced weapon appears N times per model. For Carnifex ("2 Monstrous scything talons" per model, 2 swap groups), sharedPoolSize was 3 (models) instead of 6 (3×2), so after group 0 consumed all 3 slots the + button in group 1 was disabled. Fixed by mirroring the resolver\'s N-copies-per-model threshold expansion: sharedPoolSize = item.size × copies when totalGroups >= copies.',
+  },
+  {
+    id: 'ki-tyranid-carnifex-biomorph-flat-cost-gh46-01',
+    status: 'fixed',
+    title: 'Tyranids — Carnifex Brood Special Biomorphs apply cost once regardless of model count (GH#46)',
+    description: 'FIXED 2026-07-03: Special Biomorphs group (Synaptic Node/Hardened Carapace/Regeneration) had constraint.type "one" (unit-wide single pick). Changed to "every" so the cost scales per model — a 3-model brood correctly pays 3×.',
+  },
+  {
     id: 'ki-eldar-windhost-character-infantry-blocked-gh44-01',
     status: 'fixed',
     title: 'Eldar — Windhost archetype incorrectly blocks all Infantry HQ and Warlocks (GH#44)',
