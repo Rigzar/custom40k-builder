@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.30',
+    date: '2026-07-03',
+    title: 'Tyranids — GH#50: Hive Fleet armory access for all HQ commanders',
+    changes: [
+      'Tyranids — GH#50 FIXED: All six HQ commanders now have access to the Hive Fleet legacy armory (Hive Tyrant, Swarmlord, Neurotyrant, Tervigon, Malanthrope, Tyranid Prime). The four Monstrous Creature HQs also received armory_as_character so they can pick the p_char-only items (Hyper-Toxicity, Monstrous Hunger, One Step Ahead, Perfectly Adapted, Symbiostorm).',
+    ],
+  },
+  {
     version: '1.29',
     date: '2026-07-03',
     title: 'Tyranids — full ODS audit (data fixes)',

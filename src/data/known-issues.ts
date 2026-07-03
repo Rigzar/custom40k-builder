@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-tyranid-hq-no-armory-access-gh50-01',
+    status: 'fixed',
+    title: 'Tyranids — No HQ models had access to the Hive Fleet armory to take legacy items (GH#50)',
+    description: 'FIXED 2026-07-03: All six Tyranid HQ commanders (Hive Tyrant, Swarmlord, Neurotyrant, Tervigon, Malanthrope, Tyranid Prime) now have has_armory_access: true. The four Monstrous Creature HQs also received armory_as_character: true so they can access the p_char-only Hive Fleet armory items (Hyper-Toxicity, Monstrous Hunger, One Step Ahead, Perfectly Adapted, Symbiostorm).',
+  },
+  {
     id: 'ki-tyranid-warrior-barbed-strangler-one-cap-gh49-01',
     status: 'fixed',
     title: 'Tyranids — Tyranid Warrior Brood Barbed Strangler/Venom Cannon capped at 1 regardless of brood size (GH#49)',

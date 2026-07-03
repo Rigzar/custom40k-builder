@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v29_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v30_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.29: Tyranids full ODS audit',
-    intro: 'Hello commanders! A full ODS audit of the Tyranids faction uncovered and fixed a significant batch of data errors. All 18 Monstrous Creature units and several troop cost/rule discrepancies are now corrected.',
-    engine: '🐛 DATA — 18 Tyranids Monstrous Creature units had is_monster: false. Fixed: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Carnifex Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy and more.',
-    csm: '🐛 DATA — Points corrected: Genestealer Brood Scything talons +1pt; Feeder Tendrils +1pt; Ripper Swarms Spinefists +1pt; Termagant Brood Lesser devourer +1pt. Genestealer Brood armory access removed (biomorphs already inline).',
-    cd:  '🐛 DATA — Tyrant Guard Brood: Neurotyrant now listed as valid HQ that enables the Brood and can join it via Shieldwall. Sporocyst name typo fixed. Carnifex Biomorphs reverted to flat cost per ODS (GH#46 was incorrect).',
-    sm:  '✅ GH#46-49 remain closed. Campaign Roster (v1.28) still live. 0 open GitHub issues.',
-    legacyfix: '📖 Full details in the changelog (v1.28–v1.29) and Known Issues page.',
+    title: 'Developer Update — v1.30: Tyranids Hive Fleet armory fixed (GH#50)',
+    intro: 'Hello commanders! Hot on the heels of the v1.29 ODS audit, GH#50 is fixed: all six Tyranid HQ commanders can now access the Hive Fleet legacy armory to pick their Hive Fleet items.',
+    engine: '🐛 GH#50 FIXED — Hive Tyrant, Swarmlord, Neurotyrant, Tervigon, Malanthrope, and Tyranid Prime now have Hive Fleet armory access. Monstrous Creature HQs also received armory_as_character so they see the character-priced items.',
+    csm: '✅ v1.29 (Tyranids full ODS audit) already live — 18 is_monster fixes, 4 point corrections, Sporocyst typo, Carnifex Biomorphs per ODS, Tyrant Guard Brood Neurotyrant wired.',
+    cd:  '✅ GH#46-49 remain closed. Campaign Roster (v1.28) still live.',
+    sm:  '🎉 GH#50 closes the last open GitHub bug — 0 open issues.',
+    legacyfix: '📖 Full details in the changelog (v1.29–v1.30) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — v1.29: Tyraniden vollständige ODS-Prüfung',
-    intro: 'Hallo Kommandanten! Eine vollständige ODS-Prüfung der Tyraniden-Fraktion hat eine erhebliche Anzahl von Datenfehlern aufgedeckt und behoben.',
-    engine: '🐛 DATEN — 18 monströse Kreatureinheiten hatten is_monster: false. Behoben: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Carnifex-Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy u.a.',
-    csm: '🐛 DATEN — Punkte korrigiert: Genestealer-Brood Scything talons +1; Feeder Tendrils +1; Ripper Swarms Spinefists +1; Termagant-Brood Lesser devourer +1. Armory-Zugriff des Genestealer-Brood entfernt.',
-    cd:  '🐛 DATEN — Tyrant Guard Brood: Neurotyrant jetzt korrekt als auslösendes HQ und Shieldwall-Kandidat. Sporocyst-Namentippfehler behoben. Carnifex-Biomorphe auf pauschale Kosten zurückgesetzt (GH#46 war falsch).',
-    sm:  '✅ GH#46-49 bleiben geschlossen. Kampagnen-Aufstellung (v1.28) weiterhin aktiv. 0 offene Issues.',
-    legacyfix: '📖 Alle Details im Changelog (v1.28–v1.29) und der Known-Issues-Seite.',
+    title: 'Entwickler-Update — v1.30: Tyraniden Hive-Fleet-Armory repariert (GH#50)',
+    intro: 'Hallo Kommandanten! Direkt nach der v1.29-ODS-Prüfung ist GH#50 behoben: Alle sechs Tyraniden-HQ-Kommandeure können jetzt auf die Hive-Fleet-Legacy-Armory zugreifen.',
+    engine: '🐛 GH#50 BEHOBEN — Hive Tyrant, Swarmlord, Neurotyrant, Tervigon, Malanthrope und Tyranid Prime haben jetzt Armory-Zugriff. Monströse Kreatur-HQs erhielten armory_as_character für Charakter-Ausrüstung.',
+    csm: '✅ v1.29 (vollständige Tyraniden-ODS-Prüfung) bereits live — 18 is_monster-Korrekturen, 4 Punktekorrekturen, Sporocyst-Tippfehler, Carnifex-Biomorphe nach ODS, Tyrant Guard Brood Neurotyrant verdrahtet.',
+    cd:  '✅ GH#46-49 bleiben geschlossen. Kampagnen-Aufstellung (v1.28) weiterhin aktiv.',
+    sm:  '🎉 GH#50 schließt den letzten offenen GitHub-Bug — 0 offene Issues.',
+    legacyfix: '📖 Alle Details im Changelog (v1.29–v1.30) und der Known-Issues-Seite.',
     contrib: '👷 Bug gefunden? Melden auf GitHub oder im Discord — jeder Bericht wird behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.29: auditoría ODS completa de Tyranids',
-    intro: '¡Hola comandantes! Una auditoría ODS completa de la facción Tyranids ha descubierto y corregido un lote importante de errores de datos.',
-    engine: '🐛 DATOS — 18 unidades Criatura Monstruosa de Tyranids tenían is_monster: false. Corregido: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Carnifex Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy y más.',
-    csm: '🐛 DATOS — Puntos corregidos: Genestealer Brood Scything talons +1pt; Feeder Tendrils +1pt; Ripper Swarms Spinefists +1pt; Termagant Brood Lesser devourer +1pt. Acceso al armería del Genestealer Brood eliminado.',
-    cd:  '🐛 DATOS — Tyrant Guard Brood: Neurotyrant ahora figura como HQ habilitador y puede unirse via Shieldwall. Typo en nombre Sporocyst corregido. Biomorfos del Carnifex revertidos a coste fijo por ODS (GH#46 era incorrecto).',
-    sm:  '✅ GH#46-49 siguen cerrados. Campaign Roster (v1.28) sigue activo. 0 issues abiertos en GitHub.',
-    legacyfix: '📖 Detalles en el changelog (v1.28–v1.29) y la página de Known Issues.',
+    title: 'Actualización del desarrollador — v1.30: armería Hive Fleet de Tyranids arreglada (GH#50)',
+    intro: '¡Hola comandantes! A continuación de la auditoría v1.29, GH#50 está arreglado: los seis comandantes HQ de Tyranids ahora pueden acceder a la armería de legado Hive Fleet.',
+    engine: '🐛 GH#50 ARREGLADO — Hive Tyrant, Swarmlord, Neurotyrant, Tervigon, Malanthrope y Tyranid Prime tienen ahora acceso a la armería. Los HQ Criaturas Monstruosas recibieron armory_as_character para ver los objetos de personaje.',
+    csm: '✅ v1.29 (auditoría ODS completa de Tyranids) ya en vivo — 18 correcciones is_monster, 4 correcciones de puntos, typo Sporocyst, Biomorfos Carnifex por ODS, Tyrant Guard Brood Neurotyrant conectado.',
+    cd:  '✅ GH#46-49 siguen cerrados. Campaign Roster (v1.28) sigue activo.',
+    sm:  '🎉 GH#50 cierra el último bug abierto en GitHub — 0 issues abiertos.',
+    legacyfix: '📖 Detalles en el changelog (v1.29–v1.30) y la página de Known Issues.',
     contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o Discord — todos los reportes se siguen arreglando.',
   },
 };
