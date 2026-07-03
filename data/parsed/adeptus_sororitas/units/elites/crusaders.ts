@@ -57,7 +57,7 @@ export const crusaders: Unit = {
   "is_psyker": false,
   "has_armory_access": false,
   "champion_has_armory": false,
-  "has_veteran_abilities": false,
+  "has_veteran_abilities": true,
   "veteran_required": false,
   "veteran_max": null,
   "is_squadron": true,
@@ -65,5 +65,5 @@ export const crusaders: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 1,
-  "min_cost": 40
+  "min_cost": 44
 };

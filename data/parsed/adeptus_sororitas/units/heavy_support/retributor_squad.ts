@@ -68,8 +68,17 @@ export const retributorSquad: Unit = {
       }
     }
   ],
-  "equipped_with": "Every model is equipped with: Boltgun; Frag grenades; Krak grenades.",
+  "equipped_with": "Every model is equipped with: Bolt pistol; Boltgun; Frag grenades; Krak grenades.",
   "weapons": [
+    {
+      "name": "Bolt pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
     {
       "name": "Boltgun",
       "range": "24\"",

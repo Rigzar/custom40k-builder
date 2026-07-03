@@ -26,6 +26,18 @@
       "p_char": 7
     },
     {
+      "name": "Blessed sword",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Deadly(5+), Slow(-1)",
+      "p_unit": null,
+      "p_char": 6
+    },
+    {
       "name": "Chainsword",
       "term_compat": false,
       "range": "-",
@@ -36,6 +48,38 @@
       "abilities": "-",
       "p_unit": 2,
       "p_char": 3
+    },
+    {
+      "name": "Condemnor bolt pistol",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 3,
+      "p_char": 4,
+      "profiles": [
+        {
+          "name": "Bolt",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Stake",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Psi-shock"
+        }
+      ]
     },
     {
       "name": "Combi flamer",
@@ -61,7 +105,7 @@
         {
           "name": "Flamer",
           "range": "9\"",
-          "type": "Assault 1",
+          "type": "Assault 4",
           "s": "4",
           "ap": "0",
           "d": "1",
@@ -170,7 +214,7 @@
           "s": "3",
           "ap": "-1",
           "d": "1",
-          "abilities": "Always wounds psykers on 2+, Psi-shock"
+          "abilities": "Psi-shock"
         }
       ]
     },
@@ -182,7 +226,7 @@
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "Armorbane, AT(2), Slow(-2), Unwieldy.",
+      "abilities": "AT(2), Slow(-2), Armorbane",
       "p_unit": null,
       "p_char": 11
     },
@@ -359,6 +403,30 @@
       "p_char": 5
     },
     {
+      "name": "Null mace",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Psi-shock",
+      "p_unit": 5,
+      "p_char": 6
+    },
+    {
+      "name": "Power halberd",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Quick(+1)",
+      "p_unit": 4,
+      "p_char": 5
+    },
+    {
       "name": "Power maul",
       "term_compat": false,
       "range": "-",
@@ -366,7 +434,7 @@
       "s": "+3",
       "ap": "-1",
       "d": "1",
-      "abilities": "",
+      "abilities": "-",
       "p_unit": 4,
       "p_char": 5
     },
@@ -378,7 +446,7 @@
       "s": "U",
       "ap": "-3",
       "d": "1",
-      "abilities": "Always wounds psykers on 2+, Psykers suffer a  Peril of the Warp attack for each wound.",
+      "abilities": "Psi-shock",
       "p_unit": 4,
       "p_char": 5
     },
@@ -393,6 +461,18 @@
       "abilities": "-",
       "p_unit": 4,
       "p_char": 5
+    },
+    {
+      "name": "Tempest heavy flamer",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Assault 16",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": null,
+      "p_char": null
     },
     {
       "name": "Storm bolter",
@@ -479,6 +559,13 @@
       "p_char": 5
     },
     {
+      "name": "Holy pulpit",
+      "term_compat": false,
+      "desc": "The model gains +3 Strength, +3 Toughness, +2 Wounds, the \"Anti-Grav\" ability, the \"Monstrous Infantry\" unit type and loses the \"Character model\" ability. Additionally, it gains a Tempest heavy flamer. Only for infantry. Unique.",
+      "p_unit": null,
+      "p_char": 89
+    },
+    {
       "name": "Holy weapon",
       "term_compat": false,
       "desc": "One melee weapon of the model gains +1 Damage. The point cost for this equipment is the same as for the weapon that it enhances. Can only be used on weapons with D:1. Only for Palantines.",
@@ -489,7 +576,7 @@
       "name": "Jump pack",
       "term_compat": false,
       "desc": "The model gains +6\" movement and the \"Jump pack\" rule. Only for infantry.",
-      "p_unit": 10,
+      "p_unit": null,
       "p_char": 16
     },
     {
@@ -503,7 +590,7 @@
       "name": "Master-crafted armor",
       "term_compat": false,
       "desc": "The model gains a 2+ armor save. Not combinable with other armors.",
-      "p_unit": 4,
+      "p_unit": 7,
       "p_char": 12
     },
     {
@@ -538,7 +625,7 @@
       "name": "Praesidium Protectiva",
       "term_compat": false,
       "desc": "The model gains a 4+ invulnerability save.",
-      "p_unit": 4,
+      "p_unit": 8,
       "p_char": 13
     },
     {

@@ -25,6 +25,25 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.33',
+    date: '2026-07-03',
+    title: 'Adeptus Sororitas — full ODS re-audit (12 fixes)',
+    changes: [
+      'Sororitas — Living Saint: Ardent Blade (Melee) was missing AT(1) ability. ODS: "AT(1), Master-crafted, Soul burn(5+)".',
+      'Sororitas — Crusaders: min_cost corrected 40→44 pts (1 model × 44 pts); has_veteran_abilities corrected false→true (ODS: "The unit may gain one Veteran ability").',
+      'Sororitas — Repentia Squad: "Absolution" ability was completely missing. Added: "Repentia reduce the Faith Point cost for \'Spirit of the Martyr\' by 1."',
+      'Sororitas — Retributor Squad: Bolt pistol missing from equipped_with text and weapons array. ODS: "Every model is equipped with: Bolt pistol; Boltgun; Frag grenades; Krak grenades."',
+      'Sororitas — Armory: Combi flamer Flamer sub-profile type corrected Assault 1→Assault 4.',
+      'Sororitas — Armory: Combi stake thrower Stake sub-profile abilities corrected — extra text "Always wounds psykers on 2+" removed; just "Psi-shock" per ODS.',
+      'Sororitas — Armory: Eviscerator abilities corrected — "Unwieldy." removed, not in ODS armory listing. Now "AT(2), Slow(-2), Armorbane" (consistent with unit file).',
+      'Sororitas — Armory: Power maul abilities corrected ""→"-".',
+      'Sororitas — Armory: Power stake abilities corrected — replaced full custom text with "Psi-shock" per ODS.',
+      'Sororitas — Armory: Equipment points corrected: Praesidium Protectiva p_unit 4→8; Jump pack p_unit 10→null (char only per ODS); Master-crafted armor p_unit 4→7.',
+      'Sororitas — Armory: Added 5 missing weapons/equipment: Blessed sword (null/6pts char, Deadly(5+) Slow(-1)), Condemnor bolt pistol (3/4pts, two profiles), Null mace (5/6pts, Psi-shock), Power halberd (4/5pts, Quick(+1)), Tempest heavy flamer (granted, Assault 16 S5 AP-1 D1).',
+      'Sororitas — Armory: Added Holy pulpit equipment (null/89pts char) — grants +3S +3T +2W, Anti-Grav, Monstrous Infantry type, and Tempest heavy flamer; only for infantry. Unique.',
+    ],
+  },
+  {
     version: '1.32',
     date: '2026-07-03',
     title: 'Necrons — 4 data/engine fixes (GH#54–57)',

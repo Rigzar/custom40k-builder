@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v132_necrons_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v133_sororitas_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.32: Necrons bug batch (GH#54–58 + full ODS re-audit)',
-    intro: 'Hello commanders! A full re-audit of the updated Necrons ODS found 9 issues — all fixed.',
-    engine: '🐛 Necrons — Royal Court engine: Crypteks, Royal Wardens, and extra Lords now correctly skip the HQ slot when an Overlord or Lord is present (GH#55/56). Hexmark Destroyer free Elite slot per Lord/Skorpekh Lord wired (GH#58). Cryptothralls free Elite slot per Cryptek wired.',
-    csm: '🐛 Necrons — Data fixes: Plasmacyte 0pts→15pts (GH#54), Tomb Blades upgrades now per-model (GH#57), Plasmacyte is_character corrected, Illuminor armory description corrected.',
-    cd:  '✅ v1.31 (prev): 20 engine/data fixes across all factions — Daemonkin, forcedMark, allied-scope guards, Tyranids biomorphs per-model, Necrons Tesla AT(-1)×4.',
-    sm:  '📖 32 of 37 Necrons units verified clean against the updated ODS. 1 known display gap (Canoptek Spyders ×2 Particle beamers) logged in Known Issues.',
-    legacyfix: '📖 Full details in the changelog (v1.31–v1.32) and Known Issues page.',
+    title: 'Developer Update — v1.33: Adeptus Sororitas full ODS re-audit (12 fixes)',
+    intro: 'Hello commanders! A full re-audit of the updated Sororitas ODS found 12 issues — all fixed.',
+    engine: '🐛 Sororitas — Unit fixes: Living Saint Ardent Blade missing AT(1); Crusaders min_cost and veteran flag corrected; Repentia Squad "Absolution" ability added; Retributor Squad missing Bolt pistol.',
+    csm: '🐛 Sororitas — Armory fixes: Combi flamer Flamer sub-profile Assault 1→4; Power stake/Combi stake thrower abilities corrected to "Psi-shock"; Eviscerator Unwieldy removed; Power maul abilities "-" restored.',
+    cd:  '🐛 Sororitas — Armory points: Praesidium Protectiva p_unit 4→8; Jump pack p_unit 10→null (char only); Master-crafted armor p_unit 4→7.',
+    sm:  '✅ Sororitas — Armory additions: Blessed sword, Condemnor bolt pistol, Null mace, Power halberd, Tempest heavy flamer, Holy pulpit — all missing, now added.',
+    legacyfix: '📖 Full details in the changelog (v1.33) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub — every report gets fixed.',
   },
   de: {
-    title: 'Entwickler-Update — v1.32: Necrons-Bug-Batch (GH#54–58 + vollständige ODS-Neuprüfung)',
-    intro: 'Hallo Kommandanten! Eine vollständige Neuprüfung des aktualisierten Necrons-ODS fand 9 Probleme — alle behoben.',
-    engine: '🐛 Necrons — Royal-Court-Engine: Crypteks, Royal Wardens und zusätzliche Lords belegen jetzt bei Anwesenheit eines Overlords oder Lords keinen HQ-Slot (GH#55/56). Hexmark-Destroyer-Freiheit pro Lord/Skorpekh Lord verdrahtet (GH#58). Cryptothralls-Freiheit pro Cryptek verdrahtet.',
-    csm: '🐛 Necrons — Datenfixes: Plasmacyte 0Pkt→15Pkt (GH#54), Tomb-Blades-Upgrades jetzt pro Modell (GH#57), Plasmacyte is_character korrigiert, Illuminor-Armory-Beschreibung korrigiert.',
-    cd:  '✅ v1.31 (vorher): 20 Engine-/Datenfixes über alle Fraktionen — Daemonkin, forcedMark, alliierte Bereichsschutzmaßnahmen, Tyraniden-Biomorphs pro Modell, Necrons Tesla AT(-1)×4.',
-    sm:  '📖 32 von 37 Necrons-Einheiten gegen das aktualisierte ODS geprüft und sauber. 1 bekannte Darstellungslücke (Canoptek Spyders ×2 Partikelstrahler) in Known Issues dokumentiert.',
-    legacyfix: '📖 Alle Details im Changelog (v1.31–v1.32) und der Known-Issues-Seite.',
+    title: 'Entwickler-Update — v1.33: Adeptus Sororitas vollständige ODS-Neuprüfung (12 Fixes)',
+    intro: 'Hallo Kommandanten! Eine vollständige Neuprüfung des aktualisierten Sororitas-ODS fand 12 Probleme — alle behoben.',
+    engine: '🐛 Sororitas — Einheitenfixes: Lebende Heilige Ardent Blade fehlendes AT(1); Kreuzritter min_cost und Veteranenflag korrigiert; Bußschwester-Trupp „Absolution"-Fähigkeit hinzugefügt; Retributoren fehlendes Bolt pistol.',
+    csm: '🐛 Sororitas — Rüstkammer-Fixes: Kombi-Flammwerfer Flammer-Unterprofil Assault 1→4; Power stake/Kombi-Pfahlwerfer Fähigkeiten auf „Psi-shock" korrigiert; Eviscerator Unwieldy entfernt; Power maul Fähigkeiten „-" wiederhergestellt.',
+    cd:  '🐛 Sororitas — Rüstkammer-Punkte: Praesidium Protectiva p_unit 4→8; Sprungantrieb p_unit 10→null (nur Char); Meisterlich gefertigte Rüstung p_unit 4→7.',
+    sm:  '✅ Sororitas — Rüstkammer-Ergänzungen: Gesegnetes Schwert, Condemnor-Bolzenpistole, Nullkeule, Krafthellebarde, Tempest-Schwerer-Flammenwerfer, Heilige Kanzel — alle fehlten, jetzt hinzugefügt.',
+    legacyfix: '📖 Alle Details im Changelog (v1.33) und der Known-Issues-Seite.',
     contrib: '👷 Bug gefunden? Auf GitHub melden — jeder Bericht wird behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.32: batch de bugs Necrons (GH#54–58 + re-auditoría ODS completa)',
-    intro: '¡Hola comandantes! Una re-auditoría completa del ODS de Necrons actualizado encontró 9 problemas — todos corregidos.',
-    engine: '🐛 Necrons — Motor Royal Court: Crypteks, Royal Wardens y Lords adicionales ya no ocupan slot HQ con Overlord o Lord presentes (GH#55/56). Slot Elite libre de Hexmark Destroyer por Lord/Skorpekh Lord implementado (GH#58). Slot Elite libre de Cryptothralls por Cryptek implementado.',
-    csm: '🐛 Necrons — Datos: Plasmacyte 0ptos→15ptos (GH#54), upgrades de Tomb Blades ahora por modelo (GH#57), is_character de Plasmacyte corregido, descripción de armería Illuminor corregida.',
-    cd:  '✅ v1.31 (anterior): 20 fixes de motor/datos en todas las facciones — Daemonkin, forcedMark, guardias de ámbito aliado, biomorphs de Tyranids por modelo, Necrons Tesla AT(-1)×4.',
-    sm:  '📖 32 de 37 unidades de Necrons verificadas contra el ODS actualizado. 1 brecha de visualización conocida (Canoptek Spyders ×2 cañones de partículas) documentada en Known Issues.',
-    legacyfix: '📖 Detalles completos en el changelog (v1.31–v1.32) y la página de Known Issues.',
+    title: 'Actualización del desarrollador — v1.33: re-auditoría ODS completa Adeptus Sororitas (12 fixes)',
+    intro: '¡Hola comandantes! Una re-auditoría completa del ODS de Sororitas actualizado encontró 12 problemas — todos corregidos.',
+    engine: '🐛 Sororitas — Unidades: Living Saint Ardent Blade sin AT(1); Crusaders min_cost y flag de veterano corregidos; Repentia Squad habilidad "Absolution" añadida; Retributors sin Bolt pistol.',
+    csm: '🐛 Sororitas — Armería: Combi flamer Flamer sub-perfil Assault 1→4; habilidades de Power stake/Combi stake thrower corregidas a "Psi-shock"; Eviscerator Unwieldy eliminado; Power maul habilidades "-" restauradas.',
+    cd:  '🐛 Sororitas — Puntos armería: Praesidium Protectiva p_unit 4→8; Jump pack p_unit 10→null (solo char); Master-crafted armor p_unit 4→7.',
+    sm:  '✅ Sororitas — Armería: Blessed sword, Condemnor bolt pistol, Null mace, Power halberd, Tempest heavy flamer, Holy pulpit — todos faltaban, ahora añadidos.',
+    legacyfix: '📖 Detalles completos en el changelog (v1.33) y la página de Known Issues.',
     contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub — cada reporte se arregla.',
   },
 };

@@ -40,7 +40,7 @@ export const livingSaint: Unit = {
       "s": "+4",
       "ap": "-4",
       "d": "2",
-      "abilities": "Master-crafted, Soul burn(5+)"
+      "abilities": "AT(1), Master-crafted, Soul burn(5+)"
     },
     {
       "name": "Ardent Blade - Ranged",
