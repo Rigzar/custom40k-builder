@@ -131,7 +131,7 @@ export const tzaangors: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Flurry(1)"
     }
   ],
   "option_groups": [

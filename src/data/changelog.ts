@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.31',
+    date: '2026-07-03',
+    title: 'CSM — full ODS audit (2 data fixes)',
+    changes: [
+      'CSM — Tzaangors: Tzaangor blade was missing ability "Flurry(1)" (had "-"). Fixed per ODS canon.',
+      'CSM — Chaos Predator: Sponson option labels corrected to "two Heavy bolters" and "two lascannons" per ODS (were singular "Heavy bolter"/"Lascannon"). 58 of 61 units confirmed clean.',
+    ],
+  },
+  {
     version: '1.30',
     date: '2026-07-03',
     title: 'Tyranids — GH#50: Hive Fleet armory access for all HQ commanders',

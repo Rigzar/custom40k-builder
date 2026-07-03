@@ -262,11 +262,11 @@ export const chaosPredator: Unit = {
       },
       "choices": [
         {
-          "name": "Heavy bolter",
+          "name": "two Heavy bolters",
           "points": 54
         },
         {
-          "name": "Lascannon",
+          "name": "two lascannons",
           "points": 138
         }
       ],
