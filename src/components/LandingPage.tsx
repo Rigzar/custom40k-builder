@@ -9,38 +9,38 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v31_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v32_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.31: CSM full ODS audit (2 fixes)',
-    intro: 'Hello commanders! A full ODS audit of Chaos Space Marines (61 units) found 2 data bugs. 58 units confirmed clean.',
-    engine: '🐛 CSM — Tzaangors: Tzaangor blade was missing ability "Flurry(1)" (showed "-"). Fixed per ODS.',
-    csm: '🐛 CSM — Chaos Predator: Sponson option labels corrected to "two Heavy bolters" / "two lascannons" per ODS.',
-    cd:  '✅ v1.29–v1.30 (Tyranids full ODS audit + GH#50 armory fix) already live.',
-    sm:  '✅ 0 open GitHub issues. sanity_sweep updated: 33 false positives eliminated, now exits clean on all 666 units.',
-    legacyfix: '📖 Full details in the changelog (v1.29–v1.31) and Known Issues page.',
+    title: 'Developer Update — v1.32: engine validator fixes (Daemonkin + CSM Plaguehost)',
+    intro: 'Hello commanders! A proactive engine review found 2 validator bugs affecting Chaos Space Marines archetypes.',
+    engine: '🐛 GENERAL — Daemonkin: mark-unity check now skips allied Daemon units. Previously, a Daemonkin army with mixed-god allies always failed validation even with a clean CSM side.',
+    csm: '🐛 GENERAL — CSM Plaguehost: slot-max check now applies the same summoning exclusion as slot-min. Plague-cult Daemon units were over-counting toward the slot maximum.',
+    cd:  '✅ v1.31: CSM full ODS audit (2 data fixes). v1.29–v1.30: Tyranids audit + GH#50 armory fix.',
+    sm:  '✅ 6 known engine gaps logged in Known Issues for future sessions.',
+    legacyfix: '📖 Full details in the changelog (v1.30–v1.32) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — v1.31: CSM vollständige ODS-Prüfung (2 Korrekturen)',
-    intro: 'Hallo Kommandanten! Eine vollständige ODS-Prüfung der Chaos Space Marines (61 Einheiten) fand 2 Datenfehler. 58 Einheiten bestätigt sauber.',
-    engine: '🐛 CSM — Tzaangors: Tzaangor-Klinge hatte fehlende Fähigkeit "Flurry(1)" (zeigte "-"). Laut ODS korrigiert.',
-    csm: '🐛 CSM — Chaos-Predator: Sponson-Optionsbeschriftungen auf "two Heavy bolters" / "two lascannons" laut ODS korrigiert.',
-    cd:  '✅ v1.29–v1.30 (Tyraniden-ODS-Prüfung + GH#50 Armory-Fix) bereits live.',
-    sm:  '✅ 0 offene GitHub-Issues. sanity_sweep aktualisiert: 33 Falschpositive beseitigt.',
-    legacyfix: '📖 Alle Details im Changelog (v1.29–v1.31) und der Known-Issues-Seite.',
+    title: 'Entwickler-Update — v1.32: Engine-Validator-Fixes (Daemonkin + CSM Plaguehost)',
+    intro: 'Hallo Kommandanten! Eine proaktive Engine-Prüfung fand 2 Validator-Fehler, die CSM-Archetypen betreffen.',
+    engine: '🐛 GENERAL — Daemonkin: Markierungs-Einheitscheck überspringt jetzt alliierte Dämoneneinheiten. Zuvor scheiterte ein Daemonkin-Heer mit Verbündeten verschiedener Götter stets an der Validierung, selbst mit korrekter CSM-Seite.',
+    csm: '🐛 GENERAL — CSM Plaguehost: Slot-Maximum-Check wendet jetzt denselben Beschwörungsausschluss wie Slot-Minimum an. Pest-Kult-Dämoneneinheiten wurden zum Slot-Maximum mitgezählt.',
+    cd:  '✅ v1.31: CSM vollständige ODS-Prüfung (2 Datenkorrekturen). v1.29–v1.30: Tyraniden-Prüfung + GH#50 Armory-Fix.',
+    sm:  '✅ 6 bekannte Engine-Lücken in Known Issues dokumentiert.',
+    legacyfix: '📖 Alle Details im Changelog (v1.30–v1.32) und der Known-Issues-Seite.',
     contrib: '👷 Bug gefunden? Melden auf GitHub oder im Discord — jeder Bericht wird behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.31: auditoría ODS completa de CSM (2 fixes)',
-    intro: '¡Hola comandantes! Una auditoría ODS completa de Chaos Space Marines (61 unidades) encontró 2 errores de datos. 58 unidades confirmadas limpias.',
-    engine: '🐛 CSM — Tzaangors: la Tzaangor blade tenía la habilidad "Flurry(1)" ausente (mostraba "-"). Corregido por ODS.',
-    csm: '🐛 CSM — Chaos Predator: etiquetas de opciones de sponson corregidas a "two Heavy bolters" / "two lascannons" por ODS.',
-    cd:  '✅ v1.29–v1.30 (auditoría ODS Tyranids + fix armería GH#50) ya en vivo.',
-    sm:  '✅ 0 issues abiertos en GitHub. sanity_sweep actualizado: 33 falsos positivos eliminados.',
-    legacyfix: '📖 Detalles en el changelog (v1.29–v1.31) y la página de Known Issues.',
+    title: 'Actualización del desarrollador — v1.32: fixes de validador del motor (Daemonkin + CSM Plaguehost)',
+    intro: '¡Hola comandantes! Una revisión proactiva del motor encontró 2 bugs de validador que afectan arquetipos de Chaos Space Marines.',
+    engine: '🐛 GENERAL — Daemonkin: la comprobación de unidad de marca ahora omite las unidades Daemon aliadas. Antes, un ejército Daemonkin con aliados de dioses distintos siempre fallaba la validación aunque el lado CSM fuera correcto.',
+    csm: '🐛 GENERAL — CSM Plaguehost: la comprobación de slot máximo ahora aplica la misma exclusión de invocación que el mínimo. Las unidades Daemon del culto de la plaga contaban de más hacia el máximo de slot.',
+    cd:  '✅ v1.31: auditoría ODS completa de CSM (2 fixes de datos). v1.29–v1.30: auditoría Tyranids + fix armería GH#50.',
+    sm:  '✅ 6 huecos de motor conocidos documentados en Known Issues.',
+    legacyfix: '📖 Detalles en el changelog (v1.30–v1.32) y la página de Known Issues.',
     contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o Discord — todos los reportes se siguen arreglando.',
   },
 };

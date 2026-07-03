@@ -14,6 +14,8 @@ import { parseInvSaveFromAbilities } from './equipMods';
 import { parseEquipMods, isUniqueItem } from './equipMods';
 import { CSM_LEGACY_ITEM_RESTRICTIONS } from './codex_csm/legacies';
 import { getAssassinAccessAlignment } from './keywords';
+import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
+import { SM_LEGACY_DISC_MAP } from './codex_space_marines/legacies';
 import {
   PLATOON_ANCHOR_UNIT, PLATOON_MEMBER_LIMITS, applyPlatoonSlotOverride, countsTowardOwnSlot,
 } from './codex_imperial_guard/platoon';
@@ -24,6 +26,89 @@ export interface ValidationItem {
 }
 
 type Rule = ReturnType<typeof getArchetypeRule>;
+
+// ── F1 helpers: mirrors PsychicModal's discipline-filtering logic ─────────────
+const _MARK_NAMES = ['khorne', 'tzeentch', 'nurgle', 'slaanesh'] as const;
+function _psyDiscIsMarkOnly(name: string): boolean {
+  const lc = name.toLowerCase();
+  return _MARK_NAMES.some(m => lc.includes(m) && lc.includes('only'));
+}
+function _psyDiscIsCultOnly(name: string): boolean {
+  const lc = name.toLowerCase();
+  return lc.includes('cult') && lc.includes('only');
+}
+function _psyDiscIsLegacy(name: string): boolean {
+  return name.includes('(Legacy)');
+}
+function _getAllowedDiscKeys(
+  unit: { name: string; abilities?: string[]; locked_mark?: string; is_cult_initiate?: boolean },
+  item: { mark?: string; armory: { itemName: string }[] },
+  data: FactionData,
+  archetype: string,
+  legacy: string,
+  legacy2: string,
+): Set<string> {
+  const rule = getArchetypeRule(archetype);
+  const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+  const hasActiveLegacy = !!(legacy || legacy2);
+  const isCultInitiate = !!unit.is_cult_initiate || item.armory.some(a => a.itemName === 'Cult initiate');
+  const isSMFaction = data.faction === 'Space Marines';
+
+  const factionDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
+    if (_psyDiscIsCultOnly(name)) return isCultInitiate;
+    if (isCultInitiate) return false;
+    if (_psyDiscIsMarkOnly(name)) {
+      if (!effectiveMark || effectiveMark === 'Undivided') return false;
+      const lc = name.toLowerCase();
+      return _MARK_NAMES.some(m => lc.includes(m) && effectiveMark.toLowerCase() === m);
+    }
+    if (_psyDiscIsLegacy(name)) {
+      if (isSMFaction) {
+        const required = SM_LEGACY_DISC_MAP[name];
+        if (!required) return hasActiveLegacy;
+        return legacy === required || legacy2 === required;
+      }
+      return hasActiveLegacy;
+    }
+    return true;
+  });
+
+  const generalDiscs = isCultInitiate ? [] : Object.entries(GENERAL_DISCIPLINES);
+  let allowed = [...generalDiscs, ...factionDiscs];
+
+  if (data.faction === 'Chaos Daemons') {
+    const psykerLine = (unit.abilities ?? []).find(a => /^psyker:/i.test(a)) ?? '';
+    const lc = psykerLine.toLowerCase();
+    if (!lc.includes('chosen discipline')) {
+      const allowsGenerals = lc.includes('all general disciplines');
+      allowed = allowed.filter(([discName]) => {
+        if (Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName)) return allowsGenerals;
+        const dn = discName.toLowerCase();
+        if (dn.includes('change')) return lc.includes('discipline of change');
+        if (dn.includes('decay'))  return lc.includes('discipline of decay');
+        if (dn.includes('excess')) return lc.includes('discipline of excess');
+        return true;
+      });
+    }
+  }
+
+  if (data.faction === 'Necrons') {
+    allowed = allowed.filter(([discName]) => !Object.prototype.hasOwnProperty.call(GENERAL_DISCIPLINES, discName));
+  }
+
+  if (data.faction === 'Eldar') {
+    allowed = allowed.filter(([discName]) => {
+      const lc = discName.toLowerCase();
+      if (lc.includes('warlocks only')) return unit.name === 'Warlocks';
+      if (lc.includes('farseers only')) return unit.name === 'Farseer';
+      if (lc.includes('wraithseer only')) return unit.name === 'Wraithseer';
+      if (lc.includes('ynnari only')) return archetype === 'Ynnari';
+      return true;
+    });
+  }
+
+  return new Set(allowed.map(([discName]) => discName));
+}
 
 /**
  * Advisor units' literal datasheet text is "For every HQ selection, one <X> may be selected
@@ -817,6 +902,21 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         });
       }
     }
+
+    // Cross-faction join: a character may not attach to a unit from a different faction scope
+    for (const [targetId, joiners] of joinTargets) {
+      const target = state.army.find(e => e.id === targetId);
+      if (!target) continue;
+      for (const joiner of joiners) {
+        if ((joiner.factionSource ?? '') !== (target.factionSource ?? '')) {
+          const targetName = resolveUnit(target, data)?.name ?? target.unitName;
+          items.push({
+            type: 'error',
+            text: `${joiner.unitName} cannot join ${targetName}: characters may not attach to units from a different faction.`,
+          });
+        }
+      }
+    }
   }
 
   // ── Archetype validation ──────────────────────────────────────────────────
@@ -985,10 +1085,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const u = resolveUnit(item, data);
         if (!u) continue;
         const lockedMark = u.locked_mark;
+        const chosenMark = item.mark;
+        const hasMarkGroup = u.option_groups.some(g => g.constraint?.type === 'mark');
         if (lockedMark && lockedMark !== rule.forcedMark) {
           items.push({
             type: 'error',
             text: T('valArchetypeForcedMarkConflict', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName, lockedMark, forcedMark: rule.forcedMark! }),
+          });
+        } else if (!lockedMark && chosenMark && chosenMark !== rule.forcedMark) {
+          items.push({
+            type: 'error',
+            text: T('valArchetypeForcedMarkConflict', { archetype: cleanArchetypeName(state.archetype), unit: item.unitName, lockedMark: chosenMark, forcedMark: rule.forcedMark! }),
+          });
+        } else if (!lockedMark && hasMarkGroup && !chosenMark) {
+          items.push({
+            type: 'warn',
+            text: `${cleanArchetypeName(state.archetype)}: ${item.unitName} must select the Mark of ${rule.forcedMark}.`,
           });
         }
       }
@@ -1106,9 +1218,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
 
     // Daemonkin: all units must share the same Chaos Mark
+    // Only check PRIMARY units — allied Daemon units can have different gods' marks
+    // (e.g. Bloodletters=Khorne alongside Plaguebearers=Nurgle is valid for the Daemon side).
     if (state.archetype === 'Daemonkin') {
       const marks = new Set<string>();
       for (const item of state.army) {
+        if (item.factionSource) continue;
         const u = resolveUnit(item, data);
         const m = u?.locked_mark ?? item.mark;
         if (m) marks.add(m);
@@ -1796,6 +1911,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           }
         }
       }
+      if (allyRule.requiresHqUpgrade) {
+        const { unitNameContains, choiceName } = allyRule.requiresHqUpgrade;
+        const hasRequiredHqUpgrade = allyItems.some(item => {
+          const effSlot = getEffectiveSlot(item.unitName, item.slot, allyRule!);
+          if (effSlot !== 'HQ' || !item.unitName.toLowerCase().includes(unitNameContains.toLowerCase())) return false;
+          if (item.armory.some(a => a.itemName === choiceName)) return true;
+          const u = resolveUnit(item, data);
+          if (!u) return false;
+          return u.option_groups.some((g, gi) => g.choices.some((c, ci) =>
+            c.name === choiceName && (item.optionQty?.[gi]?.[ci] ?? 0) > 0,
+          ));
+        });
+        if (!hasRequiredHqUpgrade) {
+          items.push({ type: 'error', text: `${allyLabel}: requires an HQ "${unitNameContains}" with the "${choiceName}" upgrade.` });
+        }
+      }
       if (allyRule.requireVetAbilities) {
         for (const item of allyItems) {
           const u = resolveUnit(item, data);
@@ -1811,10 +1942,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const u = resolveUnit(item, data);
         if (!u) continue;
         const lockedMark = u.locked_mark;
+        const chosenMark = item.mark;
+        const hasMarkGroup = u.option_groups.some(g => g.constraint?.type === 'mark');
         if (lockedMark && lockedMark !== allyRule.forcedMark) {
           items.push({
             type: 'error',
             text: T('valAllyArchetypeForcedMarkConflict', { archetype: allyLabel, unit: item.unitName, lockedMark, forcedMark: allyRule.forcedMark }),
+          });
+        } else if (!lockedMark && chosenMark && chosenMark !== allyRule.forcedMark) {
+          items.push({
+            type: 'error',
+            text: T('valAllyArchetypeForcedMarkConflict', { archetype: allyLabel, unit: item.unitName, lockedMark: chosenMark, forcedMark: allyRule.forcedMark }),
+          });
+        } else if (!lockedMark && hasMarkGroup && !chosenMark) {
+          items.push({
+            type: 'warn',
+            text: `${allyLabel}: ${item.unitName} must select the Mark of ${allyRule.forcedMark}.`,
           });
         }
       }
@@ -2140,7 +2283,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (slot === 'Lords of War') continue; // Escalation: handled by the dedicated block above
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
@@ -2312,6 +2455,38 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   }
   if (state.engagement === 'skirmish' && state.alliedFaction) {
     items.push({ type: 'error', text: T('valSkirmishNoAllies') });
+  }
+
+  // ── F1: Psychic discipline-scope validation ───────────────────────────────
+  // Guards against pasted/imported JSON with powers on non-psykers or from
+  // disciplines the unit cannot access (scope mirrors PsychicModal filtering).
+  for (const entry of state.army) {
+    if (!entry.powers.length) continue;
+    const isAlliedEntry = !!entry.factionSource;
+    const entryData = isAlliedEntry ? (alliedData ?? data) : data;
+    const entryArchetype = isAlliedEntry ? (state.alliedArchetype ?? '') : state.archetype;
+    const entryLegacy  = isAlliedEntry ? (state.alliedLegacy ?? '') : state.legacy;
+    const entryLegacy2 = isAlliedEntry ? '' : state.legacy2;
+
+    const u = resolveUnit(entry, entryData);
+    if (!u) continue;
+
+    if (!u.is_psyker) {
+      items.push({ type: 'error', text: `${entry.unitName}: has psychic powers selected but is not a psyker.` });
+      continue;
+    }
+
+    const allowedKeys = _getAllowedDiscKeys(u, entry, entryData, entryArchetype, entryLegacy, entryLegacy2);
+    for (const pw of entry.powers) {
+      if (!allowedKeys.has(pw.disciplineName)) {
+        items.push({
+          type: 'error',
+          text: pw.powerName === '__discipline__'
+            ? `${entry.unitName}: discipline "${pw.disciplineName}" is not available to this unit.`
+            : `${entry.unitName}: power "${pw.powerName}" (discipline "${pw.disciplineName}") is not available to this unit.`,
+        });
+      }
+    }
   }
 
   // ── Faction-specific validators ──────────────────────────────────────────

@@ -316,7 +316,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (g.replaces?.length && groupQty > 0) {
       for (const name of g.replaces) {
         replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
-        if (g.constraint.type === 'one' && variantOnlyWeapons.has(name)) {
+        if (g.constraint.type === 'one' && (variantOnlyWeapons.has(name) || !!g.applies_to_model)) {
           replacedWeaponThreshold.set(name, 1);
         } else if (!replacedWeaponThreshold.has(name)) {
           const copies = weaponCopiesPerModel(unit.equipped_with, name);

@@ -102,7 +102,7 @@ const MARK_BADGE: Record<string, string> = {
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
   const t = useT();
-  const { data, alliedData, legacy, legacy2, archetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, legacy, legacy2, archetype, alliedArchetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -254,7 +254,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
   const rule = getArchetypeRule(archetype);
-  const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+  const effectiveMark = unit.locked_mark ?? ((item.factionSource ? getArchetypeRule(alliedArchetype)?.forcedMark : rule?.forcedMark) ?? null) ?? item.mark;
   // "Has access to gear from the Armory like a Character model" (Sororitas Canoness in Paragon
   // Warsuit, Dogmata on Throne of Condemnation): grants Character-tier armory pricing/items
   // without making is_character true (that would wrongly add the "Character" keyword for

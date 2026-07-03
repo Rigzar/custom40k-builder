@@ -25,6 +25,21 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.32',
+    date: '2026-07-03',
+    title: 'GENERAL — engine logic bug fixes (validator + resolver review)',
+    changes: [
+      'GENERAL — Daemonkin (CSM): mark-unity check now correctly excludes allied Daemon units. Previously, a Daemonkin army with Bloodletters AND Plaguebearers always failed validation even if all CSM units shared the same mark.',
+      'GENERAL — CSM Plaguehost: slot-max check now applies the same "chaos_daemons" summoning exclusion that slot-min already used. Plague-cult Daemon units no longer count toward the primary AOP slot maximum.',
+      'GENERAL — forcedMark (B2): extended to catch units with a mark option group that selected the wrong mark or no mark at all. Applies to both primary and allied archetype checks.',
+      'GENERAL — Allied archetype requiresHqUpgrade (C2): added the missing requiresHqUpgrade validation pass for the Allied Detachment\'s own archetype.',
+      'GENERAL — Cross-faction character join (D1): characters may no longer attach to units from a different faction scope. Validator now errors when joinedToUnit factionSource differs from the joiner\'s.',
+      'GENERAL — Resolver "one"-constraint weapon hide (E1): weapon-hide threshold is now 1 (not squad size) for "one"-type swap groups with applies_to_model set, so a champion\'s personal weapon swap correctly hides the replaced weapon.',
+      'GENERAL — ArmoryModal effectiveMark (H2): allied units now use their own Allied Detachment archetype\'s forcedMark for effectiveMark (mark-tab gating). Previously all units inherited the primary army\'s forcedMark.',
+      'GENERAL — Validator psyker scope (F1): powers stored in imported/pasted JSON are now validated against is_psyker flag and the discipline-scope rules each unit is actually allowed to access (mirrors PsychicModal logic including Chaos Daemons per-unit, Necrons C\'tan-only, and Eldar unit-tagged filtering).',
+    ],
+  },
+  {
     version: '1.31',
     date: '2026-07-03',
     title: 'CSM — full ODS audit (2 data fixes)',

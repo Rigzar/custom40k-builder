@@ -5,6 +5,48 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-engine-validator-review-b5-a2-01',
+    status: 'fixed',
+    title: 'GENERAL — 2 engine validator bugs found in proactive review (v1.32): Daemonkin mark unity + CSM Plaguehost slot-max',
+    description: 'FIXED 2026-07-03: B5 — Daemonkin mark-unity check (validators.ts) iterated all army entries including allied Chaos Daemon units. A Daemonkin army with e.g. Bloodletters (Khorne) AND Plaguebearers (Nurgle) as allies always failed validation even when the CSM primary side all shared the same mark. Fixed by skipping entries where item.factionSource is set. A2 — CSM Plaguehost slot-min correctly excluded Plague-cult Daemon summoning units from slot counting via summoningExcl, but slot-max was missing that same exclusion, allowing those units to over-count toward the slot maximum. Fixed by passing summoningExcl to the getSlotUsage call in the slot-max block too.',
+  },
+  {
+    id: 'ki-engine-cross-faction-join-no-validation-d1-01',
+    status: 'fixed',
+    title: 'GENERAL — Character can join an allied unit cross-faction; no validator checks this',
+    description: 'FIXED 2026-07-03: Added a cross-faction join check in validators.ts. Iterates all joinTargets and errors when a joiner\'s factionSource differs from the target\'s factionSource — e.g. a primary CSM character (factionSource: undefined) may no longer attach to an allied Chaos Daemons unit (factionSource: "chaos_daemons").',
+  },
+  {
+    id: 'ki-engine-allied-requireshqupgrade-unchecked-c2-01',
+    status: 'fixed',
+    title: 'GENERAL — requiresHqUpgrade is never checked for the allied archetype',
+    description: 'FIXED 2026-07-03: Added requiresHqUpgrade validation in the ally-scoped archetype block (validators.ts), parallel to the primary army\'s existing check at line 882. Checks allyItems for an HQ unit matching unitNameContains that has the required choiceName in its optionQty or armory.',
+  },
+  {
+    id: 'ki-engine-forcedmark-missing-mark-not-flagged-b2-01',
+    status: 'fixed',
+    title: 'GENERAL — forcedMark only catches wrong marks, not units with NO mark when a mark is required',
+    description: 'FIXED 2026-07-03: Extended the forcedMark check in validators.ts (both primary and ally blocks) to also catch: (1) units whose player-selected item.mark differs from the forcedMark — these now error via valArchetypeForcedMarkConflict; (2) units that have a mark option group (constraint.type==="mark") but no mark selected — these now warn that the mark must be selected. Previously both cases silently passed.',
+  },
+  {
+    id: 'ki-engine-one-constraint-threshold-variant-only-e1-01',
+    status: 'fixed',
+    title: 'GENERAL — "one"-constraint swap hide-threshold is only reduced to 1 for variant-only weapons, not for all single-model contexts',
+    description: 'FIXED 2026-07-03: Extended the threshold-to-1 condition in resolver.ts to also apply when g.applies_to_model is set (not just variantOnlyWeapons). A "one"-type group with applies_to_model targets a single named model (e.g. a built-in champion), so only 1 copy of its weapon exists — threshold = 1 is correct. Previously the full squad size was used, making the replaced weapon impossible to hide.',
+  },
+  {
+    id: 'ki-engine-psyker-discipline-scope-not-validated-f1-01',
+    status: 'fixed',
+    title: 'GENERAL — no validator checks psyker status or discipline scope for selected powers',
+    description: 'FIXED 2026-07-03: validators.ts now iterates all army entries with item.powers and (1) errors if the unit is not is_psyker, (2) errors if a stored disciplineName is outside the set of disciplines that unit may access. Discipline filtering mirrors PsychicModal\'s logic: general + faction discs with mark-only, cult-only, legacy-only, Chaos Daemons per-unit, Necrons (no generals), and Eldar unit-tagged filters. Guards against pasted/imported JSON with invalid psyker data.',
+  },
+  {
+    id: 'ki-engine-allied-effectivemark-forcedmark-h2-01',
+    status: 'fixed',
+    title: 'GENERAL — allied units use the primary archetype\'s forcedMark for effectiveMark in ArmoryModal',
+    description: 'FIXED 2026-07-03: ArmoryModal.tsx now reads alliedArchetype from the store and uses getArchetypeRule(alliedArchetype)?.forcedMark for any unit with item.factionSource set, instead of the primary rule\'s forcedMark. This prevents an allied unit from showing the wrong mark\'s armory tab (e.g. a Nurgle Plaguehost ally no longer shows the Khorne mark tab when the CSM primary is a Khorne archetype).',
+  },
+  {
     id: 'ki-tyranid-hq-no-armory-access-gh50-01',
     status: 'fixed',
     title: 'Tyranids — No HQ models had access to the Hive Fleet armory to take legacy items (GH#50)',
