@@ -25,30 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '1.30',
-    date: '2026-07-03',
-    title: 'Tyranids — GH#49: Tyranid Warrior Brood Barbed Strangler/Venom Cannon per-3 cap',
-    changes: [
-      'Tyranids — GH#49: Tyranid Warrior Brood\'s Barbed Strangler/Venom Cannon swap now uses a per_n:3 constraint — 1 swap at 3 models, 2 swaps at 6 models. Was incorrectly set to "one" (always only 1 regardless of brood size).',
-    ],
-  },
-  {
-    version: '1.29',
-    date: '2026-07-03',
-    title: 'Tyranids — GH#46/47/48: Carnifex Biomorphs per-model + dual MST swaps',
-    changes: [
-      'Tyranids — GH#46: Carnifex Brood Special Biomorphs (Synaptic Node/Hardened Carapace/Regeneration) now correctly scale per model ("every" constraint instead of "one"). A 3-model brood correctly pays 3× the cost.',
-      'Tyranids — GH#47: Carnifex Brood can now independently swap both pairs of Monstrous Scything Talons. GENERAL engine fix: UnitCard siblingGroups shared-pool size now mirrors the resolver\'s N-copies-per-model threshold — units where a weapon appears N times per model and has N independent swap groups each get a full per-model pool, not a single shared one.',
-      'Tyranids — GH#48: Hive Tyrant now has two independent swap groups for its two Monstrous Scything Talons pairs, allowing each to be replaced independently.',
-    ],
-  },
-  {
     version: '1.28',
     date: '2026-07-03',
-    title: 'GENERAL — Campaign persistent roster (Planetary Assault ALPHA)',
+    title: 'GENERAL — Campaign roster + Tyranids GH#46/47/48/49',
     changes: [
-      'Campaign module — new Roster tab: each campaign now tracks a persistent list of units/heroes across battles. Add a unit (name + slot), track XP with +/− buttons, cycle status (Active → Wounded → Dead by clicking the status badge), remove units. GM can manage all factions; players can only add/edit/remove their own faction\'s units.',
-      'GENERAL — New campaign_roster DB table; four new API actions: roster-list, roster-add, roster-update, roster-remove. New CampaignRosterView component. CampaignModal expanded to 4 tabs. All UI strings translated EN/DE/ES.',
+      'Campaign module — new Roster tab: each campaign now tracks a persistent list of units/heroes across battles. Add a unit (name + slot), track XP with +/− buttons, cycle status (Active → Wounded → Dead by clicking the status badge), remove units. GM can manage all factions; players can only add/edit/remove their own faction\'s units. New campaign_roster DB table; four new API actions; CampaignModal expanded to 4 tabs. All UI strings translated EN/DE/ES.',
+      'Tyranids — GH#46: Carnifex Brood Special Biomorphs now correctly scale per model ("every" constraint instead of "one").',
+      'Tyranids — GH#47: Carnifex Brood can now independently swap both pairs of Monstrous Scything Talons. GENERAL UnitCard fix: siblingGroups shared-pool size now mirrors the resolver\'s N-copies-per-model threshold.',
+      'Tyranids — GH#48: Hive Tyrant now has two independent swap groups for its two Monstrous Scything Talons pairs.',
+      'Tyranids — GH#49: Tyranid Warrior Brood Barbed Strangler/Venom Cannon swap changed to per_n:3 — 1 swap at 3 models, 2 swaps at 6 models.',
     ],
   },
   {
