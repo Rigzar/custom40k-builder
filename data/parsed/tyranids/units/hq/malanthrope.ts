@@ -99,7 +99,7 @@ export const malanthrope: Unit = {
     "Psychic Barrier: The model gains a 5+ invulnerability save.",
     "Toxic Miasma: During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\"."
   ],
-  "unit_type": "Character Model, Monstrous Infantry",
+  "unit_type": "Character model, Monstrous Infantry",
   "keywords": [
     "Tyranid"
   ],
@@ -116,5 +116,5 @@ export const malanthrope: Unit = {
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 99,
-  "is_monster": false
+  "is_monster": true
 };

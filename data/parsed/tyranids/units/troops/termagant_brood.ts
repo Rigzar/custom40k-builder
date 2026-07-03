@@ -97,7 +97,7 @@ export const termagantBrood: Unit = {
       "choices": [
         {
           "name": "Lesser devourer",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Fleshborer",

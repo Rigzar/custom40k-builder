@@ -94,7 +94,7 @@ export const genestealerBrood: Unit = {
       "choices": [
         {
           "name": "Scything talons",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,
@@ -128,7 +128,7 @@ export const genestealerBrood: Unit = {
         },
         {
           "name": "Feeder Tendrils",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Hardened Carapace",
@@ -184,7 +184,7 @@ export const genestealerBrood: Unit = {
   "is_vehicle": false,
   "is_character": false,
   "is_psyker": true,
-  "has_armory_access": true,
+  "has_armory_access": false,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

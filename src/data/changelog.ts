@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.29',
+    date: '2026-07-03',
+    title: 'Tyranids — full ODS audit (data fixes)',
+    changes: [
+      'Tyranids — GENERAL DATA FIX: 18 Monstrous Creature units had is_monster: false. Fixed to true for: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Maleceptor, Toxicrene, Haruspex, Mawloc, Psychophage, Trygon, Carnifex Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy.',
+      'Tyranids — unit_type casing fixed: Malanthrope "Character Model, Monstrous Infantry" → "Character model, Monstrous Infantry"; Tyranid Prime "Character Model, Infantry" → "Character model, Infantry".',
+      'Tyranids — Tyrant Guard Brood: Neurotyrant added to free-slot header and Shieldwall ability text (was missing alongside Hive Tyrant and Swarmlord).',
+      'Tyranids — Points corrected (ODS audit): Genestealer Brood Scything talons 0→1pt; Genestealer Brood Feeder Tendrils 0→1pt; Ripper Swarms Spinefists 0→1pt; Termagant Brood Lesser devourer 0→1pt.',
+      'Tyranids — Genestealer Brood has_armory_access removed (biomorphs are already inline in option_groups; the Hive Fleet armory should not be exposed).',
+      'Tyranids — Carnifex Brood Special Biomorphs reverted to constraint type "one" (unit-level pick per ODS; the GH#46 fix was incorrect — ODS text says "May select one Special Biomorph" with no per-model qualifier).',
+      'Tyranids — Sporocyst name typo fixed: unit name "Sporecyst" → "Sporocyst" (ODS canonical spelling).',
+    ],
+  },
+  {
     version: '1.28',
     date: '2026-07-03',
     title: 'GENERAL — Campaign roster + Tyranids GH#46/47/48/49',

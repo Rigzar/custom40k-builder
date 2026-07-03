@@ -218,5 +218,5 @@ export const tyrannofex: Unit = {
   "slot": "Heavy Support",
   "default_size": 1,
   "min_cost": 225,
-  "is_monster": false
+  "is_monster": true
 };

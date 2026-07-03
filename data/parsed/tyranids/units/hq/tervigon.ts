@@ -206,5 +206,5 @@ export const tervigon: Unit = {
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 237,
-  "is_monster": false
+  "is_monster": true
 };

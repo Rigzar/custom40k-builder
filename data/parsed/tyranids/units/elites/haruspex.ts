@@ -122,5 +122,5 @@ export const haruspex: Unit = {
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 200,
-  "is_monster": false
+  "is_monster": true
 };

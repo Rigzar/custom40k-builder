@@ -52,7 +52,7 @@ export const ripperSwarms: Unit = {
       "choices": [
         {
           "name": "Spinefists",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

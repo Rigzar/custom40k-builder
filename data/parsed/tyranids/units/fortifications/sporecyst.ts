@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const sporecyst: Unit = {
-  "name": "Sporecyst",
+  "name": "Sporocyst",
   "models": [
     {
       "name": "Sporocyst",
@@ -152,5 +152,5 @@ export const sporecyst: Unit = {
   "slot": "Fortifications",
   "default_size": 1,
   "min_cost": 139,
-  "is_monster": false
+  "is_monster": true
 };

@@ -206,7 +206,7 @@ export const tyranidPrime: Unit = {
     "Fearless, Massive(1), Move Through Cover, Synapse",
     "Alpha Warrior: If the model is attached to a unit of Tyranid Warriors, they gain a +1 bons to Weapon Skill and Ballistic Skill."
   ],
-  "unit_type": "Character Model, Infantry",
+  "unit_type": "Character model, Infantry",
   "keywords": [
     "Tyranid"
   ],

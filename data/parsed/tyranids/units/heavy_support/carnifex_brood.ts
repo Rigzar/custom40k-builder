@@ -208,9 +208,9 @@ export const carnifexBrood: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Each model may select one Special Biomorph",
+      "header": "May select one Special Biomorph",
       "constraint": {
-        "type": "every"
+        "type": "one"
       },
       "choices": [
         {
@@ -279,5 +279,5 @@ export const carnifexBrood: Unit = {
   "slot": "Heavy Support",
   "default_size": 1,
   "min_cost": 106,
-  "is_monster": false
+  "is_monster": true
 };

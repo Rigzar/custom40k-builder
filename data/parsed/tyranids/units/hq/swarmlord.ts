@@ -158,5 +158,5 @@ export const swarmlord: Unit = {
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 339,
-  "is_monster": false
+  "is_monster": true
 };

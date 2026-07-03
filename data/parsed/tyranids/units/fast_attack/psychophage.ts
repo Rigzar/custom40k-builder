@@ -126,5 +126,5 @@ export const psychophage: Unit = {
   "slot": "Fast Attack",
   "default_size": 1,
   "min_cost": 134,
-  "is_monster": false
+  "is_monster": true
 };

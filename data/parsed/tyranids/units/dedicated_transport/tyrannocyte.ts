@@ -133,5 +133,5 @@ export const tyrannocyte: Unit = {
   "slot": "Dedicated Transport",
   "default_size": 1,
   "min_cost": 144,
-  "is_monster": false
+  "is_monster": true
 };

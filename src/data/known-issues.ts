@@ -24,9 +24,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-tyranid-carnifex-biomorph-flat-cost-gh46-01',
-    status: 'fixed',
-    title: 'Tyranids — Carnifex Brood Special Biomorphs apply cost once regardless of model count (GH#46)',
-    description: 'FIXED 2026-07-03: Special Biomorphs group (Synaptic Node/Hardened Carapace/Regeneration) had constraint.type "one" (unit-wide single pick). Changed to "every" so the cost scales per model — a 3-model brood correctly pays 3×.',
+    status: 'by_design',
+    title: 'Tyranids — Carnifex Brood Special Biomorphs: flat cost (one pick per unit) per ODS (GH#46)',
+    description: 'ODS audit 2026-07-03: The GH#46 fix was incorrect. ODS text reads "May select one Special Biomorph" (no per-model qualifier). Reverted to constraint.type "one" (unit-level, flat cost). This is by-design per the canonical datasheet.',
   },
   {
     id: 'ki-eldar-windhost-character-infantry-blocked-gh44-01',

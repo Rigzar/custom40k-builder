@@ -150,5 +150,5 @@ export const exocrine: Unit = {
   "slot": "Heavy Support",
   "default_size": 1,
   "min_cost": 218,
-  "is_monster": false
+  "is_monster": true
 };

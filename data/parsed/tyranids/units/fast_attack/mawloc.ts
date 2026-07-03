@@ -155,5 +155,5 @@ export const mawloc: Unit = {
   "slot": "Fast Attack",
   "default_size": 1,
   "min_cost": 147,
-  "is_monster": false
+  "is_monster": true
 };

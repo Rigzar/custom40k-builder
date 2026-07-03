@@ -361,5 +361,5 @@ export const hiveTyrant: Unit = {
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 256,
-  "is_monster": false
+  "is_monster": true
 };

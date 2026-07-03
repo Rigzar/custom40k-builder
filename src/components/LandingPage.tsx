@@ -9,39 +9,39 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v28_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v29_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.28: Campaign Roster + Tyranids bug fixes',
-    intro: 'Hello commanders! The Campaign module now has a persistent Roster tab to track your units and heroes across battles. Also, four Tyranids bugs closed this session.',
-    engine: '📋 Campaign — new Roster tab: add units (name + slot), track XP with +/− buttons, cycle status Active → Wounded → Dead. GM manages all factions; players only their own. Persisted across sessions.',
-    csm: '🐛 Tyranids — GH#46: Carnifex Brood Special Biomorphs now scale per model (was a flat cost). GH#47: Carnifex Brood can now independently swap both pairs of Monstrous Scything Talons (GENERAL engine fix for N-copies-per-model swap groups).',
-    cd:  '🐛 Tyranids — GH#48: Hive Tyrant now has two independent swap groups for its two MST pairs. GH#49: Tyranid Warrior Brood Barbed Strangler/Venom Cannon now allows 2 swaps at 6 models (per_n:3).',
-    sm:  '✅ GH#44, #45, #46, #47, #48, #49 all closed. 0 open GitHub issues.',
-    legacyfix: '📖 Full details in the changelog (v1.27–v1.28) and Known Issues page.',
+    title: 'Developer Update — v1.29: Tyranids full ODS audit',
+    intro: 'Hello commanders! A full ODS audit of the Tyranids faction uncovered and fixed a significant batch of data errors. All 18 Monstrous Creature units and several troop cost/rule discrepancies are now corrected.',
+    engine: '🐛 DATA — 18 Tyranids Monstrous Creature units had is_monster: false. Fixed: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Carnifex Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy and more.',
+    csm: '🐛 DATA — Points corrected: Genestealer Brood Scything talons +1pt; Feeder Tendrils +1pt; Ripper Swarms Spinefists +1pt; Termagant Brood Lesser devourer +1pt. Genestealer Brood armory access removed (biomorphs already inline).',
+    cd:  '🐛 DATA — Tyrant Guard Brood: Neurotyrant now listed as valid HQ that enables the Brood and can join it via Shieldwall. Sporocyst name typo fixed. Carnifex Biomorphs reverted to flat cost per ODS (GH#46 was incorrect).',
+    sm:  '✅ GH#46-49 remain closed. Campaign Roster (v1.28) still live. 0 open GitHub issues.',
+    legacyfix: '📖 Full details in the changelog (v1.28–v1.29) and Known Issues page.',
     contrib: '👷 Found a bug? File it on GitHub or post in Discord — every report keeps getting fixed.',
   },
   de: {
-    title: 'Entwickler-Update — v1.28: Kampagnen-Aufstellung + Tyraniden-Bugfixes',
-    intro: 'Hallo Kommandanten! Das Kampagnenmodul hat jetzt einen persistenten Aufstellungs-Tab, um Einheiten und Helden zwischen Schlachten zu verfolgen. Außerdem wurden vier Tyraniden-Bugs behoben.',
-    engine: '📋 Kampagne — neuer Aufstellungs-Tab: Einheiten hinzufügen (Name + Slot), EP mit +/− verwalten, Status Active → Wounded → Dead umschalten. SL verwaltet alle Fraktionen; Spieler nur ihre eigene.',
-    csm: '🐛 Tyraniden — GH#46: Carnifex-Brood-Sonderbiomorphe skalieren jetzt pro Modell. GH#47: Carnifex-Brood kann jetzt beide MST-Paare unabhängig tauschen (allgemeiner Engine-Fix für N-Kopien-pro-Modell-Tauschgruppen).',
-    cd:  '🐛 Tyraniden — GH#48: Hive Tyrant hat jetzt zwei unabhängige Tauschgruppen für seine MST-Paare. GH#49: Tyranid-Warrior-Brood Barbed Strangler/Venom Cannon erlaubt bei 6 Modellen 2 Tausche (per_n:3).',
-    sm:  '✅ GH#44, #45, #46, #47, #48, #49 alle geschlossen. 0 offene GitHub-Issues.',
-    legacyfix: '📖 Alle Details im Changelog (v1.27–v1.28) und auf der Known-Issues-Seite.',
-    contrib: '👷 Bug gefunden? Meldet ihn auf GitHub oder im Discord — jeder Bericht wird weiterhin behoben.',
+    title: 'Entwickler-Update — v1.29: Tyraniden vollständige ODS-Prüfung',
+    intro: 'Hallo Kommandanten! Eine vollständige ODS-Prüfung der Tyraniden-Fraktion hat eine erhebliche Anzahl von Datenfehlern aufgedeckt und behoben.',
+    engine: '🐛 DATEN — 18 monströse Kreatureinheiten hatten is_monster: false. Behoben: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Carnifex-Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy u.a.',
+    csm: '🐛 DATEN — Punkte korrigiert: Genestealer-Brood Scything talons +1; Feeder Tendrils +1; Ripper Swarms Spinefists +1; Termagant-Brood Lesser devourer +1. Armory-Zugriff des Genestealer-Brood entfernt.',
+    cd:  '🐛 DATEN — Tyrant Guard Brood: Neurotyrant jetzt korrekt als auslösendes HQ und Shieldwall-Kandidat. Sporocyst-Namentippfehler behoben. Carnifex-Biomorphe auf pauschale Kosten zurückgesetzt (GH#46 war falsch).',
+    sm:  '✅ GH#46-49 bleiben geschlossen. Kampagnen-Aufstellung (v1.28) weiterhin aktiv. 0 offene Issues.',
+    legacyfix: '📖 Alle Details im Changelog (v1.28–v1.29) und der Known-Issues-Seite.',
+    contrib: '👷 Bug gefunden? Melden auf GitHub oder im Discord — jeder Bericht wird behoben.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.28: Efectivos de campaña + correcciones Tyranids',
-    intro: '¡Hola comandantes! El módulo de Campaña tiene ahora una pestaña de Efectivos persistente para rastrear unidades y héroes entre batallas. Además, se cerraron cuatro bugs de Tyranids.',
-    engine: '📋 Campaña — nueva pestaña Efectivos: añade unidades (nombre + slot), gestiona XP con botones +/−, cambia estado Activo → Herido → Caído. El DJ gestiona todas las facciones; los jugadores solo la suya.',
-    csm: '🐛 Tyranids — GH#46: Biomorfos Especiales del Carnifex Brood ahora escalan por modelo. GH#47: el Carnifex Brood puede intercambiar ambos pares de MST de forma independiente (fix general del motor para grupos de swap N-copias/modelo).',
-    cd:  '🐛 Tyranids — GH#48: el Hive Tyrant tiene ahora dos grupos de swap independientes para sus pares de MST. GH#49: el Barbed Strangler/Venom Cannon del Warrior Brood permite 2 swaps con 6 modelos (per_n:3).',
-    sm:  '✅ GH#44, #45, #46, #47, #48, #49 todos cerrados. 0 issues abiertos en GitHub.',
-    legacyfix: '📖 Detalles completos en el changelog (v1.27–v1.28) y en la página de Known Issues.',
-    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o en Discord — todos los reportes se siguen arreglando.',
+    title: 'Actualización del desarrollador — v1.29: auditoría ODS completa de Tyranids',
+    intro: '¡Hola comandantes! Una auditoría ODS completa de la facción Tyranids ha descubierto y corregido un lote importante de errores de datos.',
+    engine: '🐛 DATOS — 18 unidades Criatura Monstruosa de Tyranids tenían is_monster: false. Corregido: Hive Tyrant, Malanthrope, Neurotyrant, Swarmlord, Tervigon, Carnifex Brood, Exocrine, Norn, Tyrannofex, Tyrannocyte, Sporocyst, Harpy y más.',
+    csm: '🐛 DATOS — Puntos corregidos: Genestealer Brood Scything talons +1pt; Feeder Tendrils +1pt; Ripper Swarms Spinefists +1pt; Termagant Brood Lesser devourer +1pt. Acceso al armería del Genestealer Brood eliminado.',
+    cd:  '🐛 DATOS — Tyrant Guard Brood: Neurotyrant ahora figura como HQ habilitador y puede unirse via Shieldwall. Typo en nombre Sporocyst corregido. Biomorfos del Carnifex revertidos a coste fijo por ODS (GH#46 era incorrecto).',
+    sm:  '✅ GH#46-49 siguen cerrados. Campaign Roster (v1.28) sigue activo. 0 issues abiertos en GitHub.',
+    legacyfix: '📖 Detalles en el changelog (v1.28–v1.29) y la página de Known Issues.',
+    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub o Discord — todos los reportes se siguen arreglando.',
   },
 };
 

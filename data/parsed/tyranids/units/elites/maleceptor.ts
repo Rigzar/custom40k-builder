@@ -118,5 +118,5 @@ export const maleceptor: Unit = {
   "slot": "Elites",
   "default_size": 1,
   "min_cost": 223,
-  "is_monster": false
+  "is_monster": true
 };

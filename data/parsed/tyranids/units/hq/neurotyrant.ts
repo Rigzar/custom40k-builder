@@ -128,5 +128,5 @@ export const neurotyrant: Unit = {
   "slot": "HQ",
   "default_size": 1,
   "min_cost": 188,
-  "is_monster": false
+  "is_monster": true
 };

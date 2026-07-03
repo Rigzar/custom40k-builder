@@ -183,5 +183,5 @@ export const harpy: Unit = {
   "slot": "Flyers",
   "default_size": 1,
   "min_cost": 213,
-  "is_monster": false
+  "is_monster": true
 };

@@ -191,5 +191,5 @@ export const norn: Unit = {
   "slot": "Heavy Support",
   "default_size": 1,
   "min_cost": 340,
-  "is_monster": false
+  "is_monster": true
 };

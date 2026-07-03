@@ -72,7 +72,7 @@ export const tyrantGuardBrood: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every Hive Tyrant or Swarmlord selection, the army may include one Tyrant Guard Brood that does not take up an HQ slot.",
+      "header": "For every Hive Tyrant, Neurotyrant or Swarmlord selection, the army may include one Tyrant Guard Brood that does not take up an HQ slot.",
       "constraint": {
         "type": "one"
       },
@@ -147,7 +147,7 @@ export const tyrantGuardBrood: Unit = {
   ],
   "abilities": [
     "Bodyguard, Instinctive Behaviour, Massive(1), Move Through Cover",
-    "Shieldwall: A Hive Tyrant or a Swarmlord can attach to the unit like a character model."
+    "Shieldwall: A Hive Tyrant, Neurotyrant or a Swarmlord can attach to the unit like a character model."
   ],
   "unit_type": "Infantry",
   "keywords": [
