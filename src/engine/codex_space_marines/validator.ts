@@ -38,6 +38,7 @@ export function validateSpaceMarines(
       'Repulsor', 'Repulsor Executioner', 'Drop Pod',
     ]);
     for (const item of state.army) {
+      if (item.factionSource) continue; // allied units are not subject to 1st Company restrictions
       if (!ALLOWED_1ST.has(item.unitName)) {
         items.push({
           type: 'error',
@@ -56,6 +57,7 @@ export function validateSpaceMarines(
       'Chaplain Dreadnought', 'Drop Pod', 'Impulsor', 'Razorback', 'Rhino',
     ]);
     for (const item of state.army) {
+      if (item.factionSource) continue; // allied units are not subject to Forlorn Brothers restrictions
       const u = resolveUnit(item, data);
       if (!u) continue;
       // Units that aren't in the explicit allowed list must have Black Rage in their armory

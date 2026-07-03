@@ -297,6 +297,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // dynastyscion-novariant-01). Without this, `isChar` alone (true either way) always preferred
     // p_char, wrongly letting a base Cryptek buy Lord-exclusive gear.
     if (activeData.faction === 'Necrons' && unit.name === 'Cryptek') return activeVariant ? cp : up;
+    // GH#52: Other Necron character units (Lord, Royal Warden, Skorpekh Lord, Ancient Destructor
+    // Lord) price off the LORD column (p_char) only. Without this guard they fall through to
+    // `isChar ? (cp ?? up) : up` below, and the `?? up` fallback lets them buy Cryptek-only items
+    // (those with p_char:null, p_unit:set) at the Cryptek price — which is wrong per the ODS.
+    if (activeData.faction === 'Necrons' && isChar) return cp;
     // Single-column tables (e.g. "DAEMON WEAPONS": one "POINTS" header, no "POINTS CHARACTER
     // MODELS" split at all) have no `p_unit` key in the data — anyone with access (gated
     // separately, e.g. by already owning the "Daemon weapon" gateway item) pays the one listed

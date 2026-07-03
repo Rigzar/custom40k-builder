@@ -5,6 +5,42 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-necrons-gh52-non-cryptek-hq-cryptek-only-armory-01',
+    status: 'fixed',
+    title: 'Necrons — non-Cryptek HQ units (Lord, Royal Warden, Skorpekh Lord, Ancient Destructor Lord) could access Cryptek-only armory items (GH#52)',
+    description: 'FIXED 2026-07-03 (v1.34): In ArmoryModal getItemPts(), Necron non-Cryptek characters fell through to the generic `isChar ? (cp ?? up) : up` path. The `?? up` fallback caused items with p_char:null (Cryptek-only, e.g. Abyssal lance, Canoptek Cloak, Chronometron) to return the Cryptek price (p_unit) to Lords, making them incorrectly purchasable. Fixed by adding a Necrons+isChar guard that returns cp only (no fallback), so Lord-ineligible items (p_char:null) resolve to null and are hidden.',
+  },
+  {
+    id: 'ki-necrons-tesla-at-minus-1-wrong-01',
+    status: 'fixed',
+    title: 'Necrons — Tesla weapons incorrectly had AT(-1) ability (4 units)',
+    description: 'FIXED 2026-07-03 (v1.34): ODS update confirmed Tesla weapons only have the "Tesla" ability with no AT bonus. Immortals (Tesla carbine), Royal Warden (Relic tesla carbine), Tomb Blades (Twin tesla carbine), and Doom Scythe (Twin tesla destructor) all had "Tesla, AT(-1)" in production — AT(-1) removed from all four. GH#53 was reported as this bug but initially closed incorrectly as "by design" before the ODS update clarified the correct data.',
+  },
+  {
+    id: 'ki-tyranids-gh51-special-biomorphs-not-per-model-01',
+    status: 'fixed',
+    title: 'Tyranids — Special Biomorphs cost not multiplied per model (GH#51)',
+    description: 'FIXED 2026-07-03 (v1.34): ODS states "Point costs are paid for every model of the unit" for Special Biomorphs. All 36 Tyranid unit files containing a "May select one Special Biomorph" option group were missing per_model:true, so a 6-model Hive Guard Brood taking Hardened Carapace (7 pts/model) paid 7 pts total instead of 42. Fixed by adding per_model:true to the Special Biomorph option group in all 36 affected unit files.',
+  },
+  {
+    id: 'ki-psychic-modal-atlimit-effectivepowerlimit-j1-01',
+    status: 'fixed',
+    title: 'GENERAL — Psychic power picker disables extra slots even when Psychic training / Baleful tome are equipped (J1)',
+    description: 'FIXED 2026-07-03 (v1.33): The "at limit" boolean in PsychicModal compared selectedPowersCount >= powerLimit (base limit) instead of >= effectivePowerLimit (base + bonus slots from armory items). Because disabled buttons in React don\'t fire onClick, units with Psychic training or Baleful tome could not pick their additional allowed powers even though togglePower() used the correct effectivePowerLimit guard internally. Fixed by changing the atLimit condition to use effectivePowerLimit, and also corrected the n_from_any mode counter label to show effectivePowerLimit as the denominator.',
+  },
+  {
+    id: 'ki-printview-allied-armory-lookup-k1-01',
+    status: 'fixed',
+    title: 'GENERAL — Print view: Allied Detachment units show blank equipment / missing armory item descriptions (K1)',
+    description: 'FIXED 2026-07-03 (v1.33): PrintView.tsx\'s local findArmoryItem function always searched the primary faction\'s armory data (data.armory_general, armory_marks, armory_legions). For allied units (item.factionSource set), their armory items live in data.allied[factionSource] — so equipment entries and special-rules annotations produced blank descriptions or were silently dropped. Fixed by extending findArmoryItem to accept an optional factionSource parameter and redirect the search to data.allied[factionSource] when present. All call-sites in UnitPrintCard and the allSpecialRules aggregation loop updated accordingly.',
+  },
+  {
+    id: 'ki-sm-validator-allied-scope-g1-g2-g3-g4-h1-01',
+    status: 'fixed',
+    title: 'SM/CSM/CD — 5 allied-scope bugs in validators + CD resolver (G1/G2/G3/G4/H1)',
+    description: 'FIXED 2026-07-03 (v1.33): G1 — SM 1st Company restriction check iterated all state.army entries without skipping factionSource entries, so any allied detachment unit not in the ALLOWED_1ST list triggered a false error. G2 — Same pattern in Forlorn Brothers. G3 — Iron Within, Iron Without armory-item inv-save check also lacked a factionSource guard; allied Chaos Daemons (native inv saves) generated spurious warnings. G4 — The duplicate undivided-only mark restriction check (Legacy of the Hydra/Iron Lord/Night Haunter) was missing the factionSource guard; allied Daemon units with non-Undivided locked marks (e.g. Bloodletters) were incorrectly flagged as violating the primary CSM army\'s legacy restriction. All four fixed with a one-line factionSource continue guard. H1 — In cdResolve, the "attached unit" armory item relay (Cloud of flies/Spiked Armor/Thrill Seeker/Unbound fury on a joined Herald) searched the PRIMARY faction\'s armory data, not the CD faction\'s, when CD was used as an Allied Detachment. Fixed by looking up the joiner\'s armory items in its own faction\'s data (data.allied[joiner.factionSource]).',
+  },
+  {
     id: 'ki-engine-validator-review-b5-a2-01',
     status: 'fixed',
     title: 'GENERAL — 2 engine validator bugs found in proactive review (v1.32): Daemonkin mark unity + CSM Plaguehost slot-max',

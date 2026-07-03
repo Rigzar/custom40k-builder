@@ -356,7 +356,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
             {psykerMode === 'n_from_any' && (
               <div className="text-[11px] text-zinc-400 border-l-2 border-amber-800 pl-2 italic">
                 {t('modeNFromAnyPart1')} <strong className="text-amber-400 not-italic">{powerLimit} {t('powersWord')}</strong> {t('modeNFromAnyPart2')}.
-                <span className={`not-italic ml-1 ${selectedPowersCount >= effectivePowerLimit ? 'text-amber-500' : 'text-zinc-500'}`}>({selectedPowersCount}/{powerLimit} {t('selectedCountSuffix')})</span>
+                <span className={`not-italic ml-1 ${selectedPowersCount >= effectivePowerLimit ? 'text-amber-500' : 'text-zinc-500'}`}>({selectedPowersCount}/{effectivePowerLimit} {t('selectedCountSuffix')})</span>
               </div>
             )}
 
@@ -369,7 +369,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               allowedDiscs.map(([discName, powers]) => {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
                 const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
-                  && selectedPowersCount >= powerLimit;
+                  && selectedPowersCount >= effectivePowerLimit;
                 return (
                   <div key={discName}>
                     {/* Discipline header — clickable in all_from_one mode */}

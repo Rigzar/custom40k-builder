@@ -131,8 +131,10 @@ const NON_RULE_TOKENS = new Set([
   'overcharged', 'standard', 'super-charged', 'supercharged',
 ]);
 
-function findArmoryItem(data: FactionData, name: string): ArmoryItem | undefined {
-  const sources = [data.armory_general, ...Object.values(data.armory_marks), ...Object.values(data.armory_legions)];
+function findArmoryItem(data: FactionData, name: string, factionSource?: string): ArmoryItem | undefined {
+  // For allied units, search in the allied faction's own armory, not the primary's.
+  const src = (factionSource && (data.allied as Record<string, FactionData>)?.[factionSource]) ?? data;
+  const sources = [src.armory_general, ...Object.values(src.armory_marks), ...Object.values(src.armory_legions)];
   for (const arm of sources)
     for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
       const found = (arm[sec] as ArmoryItem[]).find(a => a.name === name);
@@ -348,17 +350,17 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   // (GH#19). Only non-weapon equipment/daemon-weapon-trait items need their own list here.
   for (const sel of item.armory) {
     if (sel.section === 'equipment') {
-      const arm = findArmoryItem(data, sel.itemName);
+      const arm = findArmoryItem(data, sel.itemName, item.factionSource);
       if (!isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'daemon_weapons') {
-      const arm = findArmoryItem(data, sel.itemName);
+      const arm = findArmoryItem(data, sel.itemName, item.factionSource);
       if (!isWeaponTrait(arm?.desc) && !isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'weapons') continue;
-    const arm = findArmoryItem(data, sel.itemName);
+    const arm = findArmoryItem(data, sel.itemName, item.factionSource);
     if (arm && !arm.range && !(arm.profiles && arm.profiles.length > 0)) {
       armEquip.push({ name: sel.itemName, desc: arm.desc ?? '' });
     }
@@ -1504,7 +1506,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     }
 
     for (const sel of item.armory) {
-      const arm = findArmoryItem(data, sel.itemName);
+      const arm = findArmoryItem(data, sel.itemName, item.factionSource);
       if (!arm) continue;
       if (sel.section === 'daemon_weapons') {
         if (isWeaponTrait(arm.desc)) {

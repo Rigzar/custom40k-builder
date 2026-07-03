@@ -1295,6 +1295,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Armory items that grant an invulnerability save
     const INV_SAVE_ARMORY_ITEMS = new Set(['Bionics', 'Daemonic aura', 'Daemonic possession', 'Cataphractii armor', 'Terminator armor']);
     for (const item of state.army) {
+      if (item.factionSource) continue; // trait applies only to primary army units
       const u = resolveUnit(item, data);
       if (!u || u.is_vehicle) continue; // vehicles use the Iron Repair effect, not inv save
       // Check datasheet abilities for inv save — uses parseInvSaveFromAbilities for consistency
@@ -2421,6 +2422,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const hasUndividedLegacy = legacies.some(l => undividedLegacies.includes(l));
   if (hasUndividedLegacy) {
     for (const item of state.army) {
+      if (item.factionSource) continue; // allied units are not subject to the primary army's legacy mark restriction
       const u = resolveUnit(item, data);
       const m = u?.locked_mark ?? item.mark;
       if (m && m !== 'Undivided') {

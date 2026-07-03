@@ -1,13 +1,13 @@
-/**
- * SWARMLORD — HQ
+﻿/**
+ * SWARMLORD â€” HQ
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
+ * SOURCE: TODO â€” add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
  *
  * PSYKER RULE (from datasheet):
  *   "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
- *   → Cast/deny limit and discipline access must be derived from this text.
- *   → ENGINE TODO: enforce power limit and 'chosen discipline' mechanic.
+ *   â†’ Cast/deny limit and discipline access must be derived from this text.
+ *   â†’ ENGINE TODO: enforce power limit and 'chosen discipline' mechanic.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -103,7 +103,8 @@ export const swarmlord: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",

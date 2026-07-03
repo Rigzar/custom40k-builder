@@ -1,4 +1,4 @@
-/**
+﻿/**
  * TOMB BLADES — Fast Attack
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -58,7 +58,7 @@ export const tombBlades: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Tesla, AT(-1)"
+      "abilities": "Tesla"
     }
   ],
   "option_groups": [

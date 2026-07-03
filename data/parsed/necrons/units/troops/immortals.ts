@@ -58,7 +58,7 @@ export const immortals: Unit = {
       "s": "5",
       "ap": "0",
       "d": "1",
-      "abilities": "Tesla, AT(-1)"
+      "abilities": "Tesla"
     }
   ],
   "option_groups": [

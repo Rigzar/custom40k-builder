@@ -146,8 +146,14 @@ export const cdResolve: FactionResolverFn = (base, item, unit, state, data) => {
     // itself (p_unit) or a Character buying it to buff whatever it joins (p_char). The joiner is
     // a Character by definition (only Characters can join), so any such item in their own
     // armory relays here the same way the datasheet Loci do above.
+    // When the joiner is an allied unit (e.g. a CD Herald in a CSM+CD army), look up its armory
+    // items in its own faction's data — `data` here is the PRIMARY faction's FactionData, so a
+    // direct `findArmoryItem(data, sel)` would search the wrong armory and silently return undefined.
+    const joinerArmoryData = joiner!.factionSource
+      ? ((data.allied?.[joiner!.factionSource] ?? data) as typeof data)
+      : data;
     for (const sel of joiner!.armory ?? []) {
-      const armItem = findArmoryItem(data, sel);
+      const armItem = findArmoryItem(joinerArmoryData, sel);
       if (armItem?.desc && /\battached unit\b/i.test(armItem.desc)) {
         injectedAbilities.push(`(from attached ${joinerUnit.name}) ${armItem.desc}`);
       }

@@ -25,27 +25,34 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '1.32',
-    date: '2026-07-03',
-    title: 'GENERAL — engine logic bug fixes (validator + resolver review)',
-    changes: [
-      'GENERAL — Daemonkin (CSM): mark-unity check now correctly excludes allied Daemon units. Previously, a Daemonkin army with Bloodletters AND Plaguebearers always failed validation even if all CSM units shared the same mark.',
-      'GENERAL — CSM Plaguehost: slot-max check now applies the same "chaos_daemons" summoning exclusion that slot-min already used. Plague-cult Daemon units no longer count toward the primary AOP slot maximum.',
-      'GENERAL — forcedMark (B2): extended to catch units with a mark option group that selected the wrong mark or no mark at all. Applies to both primary and allied archetype checks.',
-      'GENERAL — Allied archetype requiresHqUpgrade (C2): added the missing requiresHqUpgrade validation pass for the Allied Detachment\'s own archetype.',
-      'GENERAL — Cross-faction character join (D1): characters may no longer attach to units from a different faction scope. Validator now errors when joinedToUnit factionSource differs from the joiner\'s.',
-      'GENERAL — Resolver "one"-constraint weapon hide (E1): weapon-hide threshold is now 1 (not squad size) for "one"-type swap groups with applies_to_model set, so a champion\'s personal weapon swap correctly hides the replaced weapon.',
-      'GENERAL — ArmoryModal effectiveMark (H2): allied units now use their own Allied Detachment archetype\'s forcedMark for effectiveMark (mark-tab gating). Previously all units inherited the primary army\'s forcedMark.',
-      'GENERAL — Validator psyker scope (F1): powers stored in imported/pasted JSON are now validated against is_psyker flag and the discipline-scope rules each unit is actually allowed to access (mirrors PsychicModal logic including Chaos Daemons per-unit, Necrons C\'tan-only, and Eldar unit-tagged filtering).',
-    ],
-  },
-  {
     version: '1.31',
     date: '2026-07-03',
-    title: 'CSM — full ODS audit (2 data fixes)',
+    title: 'GENERAL — engine/validator/data bug batch (17 fixes across all factions)',
     changes: [
-      'CSM — Tzaangors: Tzaangor blade was missing ability "Flurry(1)" (had "-"). Fixed per ODS canon.',
-      'CSM — Chaos Predator: Sponson option labels corrected to "two Heavy bolters" and "two lascannons" per ODS (were singular "Heavy bolter"/"Lascannon"). 58 of 61 units confirmed clean.',
+      // ── Validator + resolver engine (proactive review) ──────────────────
+      'GENERAL — Daemonkin mark-unity check: now skips allied Daemon units. A Daemonkin army with mixed-mark Daemons (e.g. Bloodletters + Plaguebearers) as allies no longer fails validation when all CSM units share the same mark.',
+      'GENERAL — CSM Plaguehost slot-max: now applies the same summoning exclusion that slot-min already used. Plague-cult Daemon units no longer over-count toward the slot maximum.',
+      'GENERAL — forcedMark: extended to catch units with a mark option group that selected the wrong mark or no mark. Applies to both primary and allied archetype checks.',
+      'GENERAL — Allied archetype requiresHqUpgrade: added the missing validation pass for the Allied Detachment\'s own archetype.',
+      'GENERAL — Cross-faction character join: characters may no longer attach to units from a different faction scope.',
+      'GENERAL — Resolver "one"-constraint weapon hide: weapon-hide threshold is now 1 for "one"-type swap groups with applies_to_model, so a champion\'s personal swap correctly hides the replaced weapon.',
+      'GENERAL — ArmoryModal effectiveMark: allied units now use their own Allied Detachment archetype\'s forcedMark for mark-tab gating. Previously all units inherited the primary army\'s forcedMark.',
+      'GENERAL — Validator psyker scope: powers in imported JSON are now validated against is_psyker flag and each unit\'s allowed discipline set.',
+      // ── Codex/validator scope guards (allied unit false-positives) ───────
+      'Space Marines — 1st Company validator: unit restriction check now skips allied units (false errors for any allied unit not in the 1st Company list).',
+      'Space Marines — Forlorn Brothers validator: composition restriction now skips allied units. Same root cause.',
+      'GENERAL — Iron Within, Iron Without: armory-item inv-save check now skips allied units. Allied Chaos Daemons (native inv saves) no longer generate spurious warnings.',
+      'GENERAL — Undivided legacy mark restriction (Hydra/Iron Lord/Night Haunter): check now skips allied units. Allied Daemons with non-Undivided marks were incorrectly flagged.',
+      'Chaos Daemons — attached-unit armory relay: Cloud of flies / Spiked Armor / Thrill Seeker / Unbound fury on a joined Herald now correctly surface on the joined card when CD is an Allied Detachment. Previously, lookup searched the primary (CSM) armory instead of CD\'s.',
+      // ── Component fixes ──────────────────────────────────────────────────
+      'GENERAL — Psychic power picker: the "at limit" disable check now uses effectivePowerLimit (base + Psychic training / Baleful tome slots). Units with those armory items could not pick extra powers because the button was disabled before reaching their true limit.',
+      'GENERAL — Print view allied armory: armory item descriptions for Allied Detachment units now look up in the allied faction\'s data instead of the primary faction\'s. Equipment sections were blank for allied units in print view.',
+      // ── Data fixes ───────────────────────────────────────────────────────
+      'CSM — Tzaangors: Tzaangor blade ability "Flurry(1)" was missing (had "-"). Fixed per ODS.',
+      'CSM — Chaos Predator: sponson option labels corrected to "two Heavy bolters" / "two lascannons" (were singular).',
+      'Necrons — Armory (GH#52): non-Cryptek HQ units (Lord, Royal Warden, Skorpekh Lord, Ancient Destructor Lord) no longer see Cryptek-only armory items. ArmoryModal now returns p_char only (no p_unit fallback) for Necron characters that are not Crypteks.',
+      'Necrons — Tesla weapons: AT(-1) ability removed from Immortals (Tesla carbine), Royal Warden (Relic tesla carbine), Tomb Blades (Twin tesla carbine), Doom Scythe (Twin tesla destructor). ODS update confirms Tesla weapons have only "Tesla".',
+      'Tyranids — Special Biomorphs (GH#51): added per_model:true to "May select one Special Biomorph" groups in all 36 unit files. ODS mandates "Point costs are paid for every model of the unit" — cost now scales with unit size.',
     ],
   },
   {

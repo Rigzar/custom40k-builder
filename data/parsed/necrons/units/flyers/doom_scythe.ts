@@ -1,4 +1,4 @@
-/**
+﻿/**
  * DOOM SCYTHE — Flyers
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -49,7 +49,7 @@ export const doomScythe: Unit = {
       "s": "7",
       "ap": "0",
       "d": "1",
-      "abilities": "Tesla, AT(-1)"
+      "abilities": "Tesla"
     }
   ],
   "option_groups": [],

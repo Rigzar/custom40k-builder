@@ -1,7 +1,7 @@
-/**
- * MAWLOC — Fast Attack
+﻿/**
+ * MAWLOC â€” Fast Attack
  *
- * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
+ * SOURCE: TODO â€” add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
  *
  */
@@ -102,7 +102,8 @@ export const mawloc: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
