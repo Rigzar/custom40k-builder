@@ -63,9 +63,9 @@ export const lokhustDestroyers: Unit = {
   ],
   "option_groups": [
     {
-      "header": "Any Destroyer can swap their Gaus cannon",
+      "header": "Any Destroyer can swap their Gauss cannon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.34',
+    date: '2026-07-03',
+    title: 'Necrons — Lokhust Destroyers weapon swap (GH#59)',
+    changes: [
+      'Necrons — Lokhust Destroyers (GH#59): only one model could swap its Gauss cannon regardless of unit size. Root cause: option group constraint was "one" (unit-level) instead of "every" (per-model). Fixed to "every" so all Destroyers in the unit can independently swap. Also corrected header typo "Gaus cannon" → "Gauss cannon".',
+    ],
+  },
+  {
     version: '1.33',
     date: '2026-07-03',
     title: 'Adeptus Sororitas — full ODS re-audit (12 fixes)',
