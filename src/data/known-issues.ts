@@ -6,9 +6,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ══════════════════════════════════════════════════════════════════════════
   {
     id: 'ki-necrons-spyder-particle-beamer-count-display-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Necrons — Canoptek Spyders: Particle beamer upgrade shows ×1 but ODS grants ×2',
-    description: 'ODS: "+27 points two Particle beamers." Production shows one Particle beamer weapon when the upgrade is taken. Root cause: the choice name must match the weapon profile name for conditional weapon display (gating), so renaming it back to "Two Particle beamers" would break display. Engine has no per-choice quantity support. Low gameplay impact (stats are the same; the weapon count is the only discrepancy).',
+    description: 'Fixed in v1.32: weapon profile and choice both renamed to "Two Particle beamers", restoring weapon gating. Each beamer fires as Assault 1 independently (profiles are not combined).',
   },
   {
     id: 'ki-necrons-gh58-hexmark-destroyer-free-elite-slot-01',

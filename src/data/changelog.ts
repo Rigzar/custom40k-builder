@@ -36,6 +36,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Necrons — Cryptothralls: "For every Cryptek, one unit of Cryptothralls takes no Elite slot" was present as ability text but had no engine implementation. Added computeCryptothrallsFreeSlots() wired into slotAdj[Elites].',
       'Necrons — Plasmacyte: is_character corrected to true (ODS: "A Plasmacyte is a character model").',
       'Necrons — Armory Illuminor: description corrected from "Rites of Reanimation ability" to "Technomancer ability" (wrong ability name vs ODS).',
+      'Necrons — Canoptek Spyders: Particle beamer upgrade renamed to "Two Particle beamers" matching ODS "+27 pts two Particle beamers". Weapon profile and choice name now in sync, restoring correct weapon gating. Each beamer fires independently as Assault 1 — profiles are not combined.',
     ],
   },
   {
