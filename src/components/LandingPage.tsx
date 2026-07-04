@@ -9,39 +9,30 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v133_sororitas_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v135_ordoerratum_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; engine: string; csm: string; cd: string; sm: string; legacyfix: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; ig: string; necrons: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Developer Update — v1.33: Adeptus Sororitas full ODS re-audit (12 fixes)',
-    intro: 'Hello commanders! A full re-audit of the updated Sororitas ODS found 12 issues — all fixed.',
-    engine: '🐛 Sororitas — Unit fixes: Living Saint Ardent Blade missing AT(1); Crusaders min_cost and veteran flag corrected; Repentia Squad "Absolution" ability added; Retributor Squad missing Bolt pistol.',
-    csm: '🐛 Sororitas — Armory fixes: Combi flamer Flamer sub-profile Assault 1→4; Power stake/Combi stake thrower abilities corrected to "Psi-shock"; Eviscerator Unwieldy removed; Power maul abilities "-" restored.',
-    cd:  '🐛 Sororitas — Armory points: Praesidium Protectiva p_unit 4→8; Jump pack p_unit 10→null (char only); Master-crafted armor p_unit 4→7.',
-    sm:  '✅ Sororitas — Armory additions: Blessed sword, Condemnor bolt pistol, Null mace, Power halberd, Tempest heavy flamer, Holy pulpit — all missing, now added.',
-    legacyfix: '📖 Full details in the changelog (v1.33) and Known Issues page.',
-    contrib: '👷 Found a bug? File it on GitHub — every report gets fixed.',
+    title: 'Ordo Erratum — v1.35: Imperial Guard & Necrons data purge (17 heresies eliminated)',
+    intro: 'The Ordo Erratum has dispatched Inquisitors to the Imperial Guard and Necrons databanks. 17 data-heresies have been purged from the records.',
+    ig:      '⚔️ Imperial Guard — 14 fixes: Commissar no longer consumes an Elite slot; armory access corrected on 7 units; Ogryns gained their Crude weapon profile; Hellhounds, Basilisk, Carnodon, Field Ordnance Battery, Griffon, Heavy Ordnance Carriage, Malcador and Vendetta all corrected.',
+    necrons: '🟢 Necrons — 3 fixes: Canoptek Spyders weapon renamed to ODS canonical "Particle beamer"; Tomb Blades weapon swap now priced per model; Lokhust Destroyers unit type capitalisation corrected.',
+    contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'Entwickler-Update — v1.33: Adeptus Sororitas vollständige ODS-Neuprüfung (12 Fixes)',
-    intro: 'Hallo Kommandanten! Eine vollständige Neuprüfung des aktualisierten Sororitas-ODS fand 12 Probleme — alle behoben.',
-    engine: '🐛 Sororitas — Einheitenfixes: Lebende Heilige Ardent Blade fehlendes AT(1); Kreuzritter min_cost und Veteranenflag korrigiert; Bußschwester-Trupp „Absolution"-Fähigkeit hinzugefügt; Retributoren fehlendes Bolt pistol.',
-    csm: '🐛 Sororitas — Rüstkammer-Fixes: Kombi-Flammwerfer Flammer-Unterprofil Assault 1→4; Power stake/Kombi-Pfahlwerfer Fähigkeiten auf „Psi-shock" korrigiert; Eviscerator Unwieldy entfernt; Power maul Fähigkeiten „-" wiederhergestellt.',
-    cd:  '🐛 Sororitas — Rüstkammer-Punkte: Praesidium Protectiva p_unit 4→8; Sprungantrieb p_unit 10→null (nur Char); Meisterlich gefertigte Rüstung p_unit 4→7.',
-    sm:  '✅ Sororitas — Rüstkammer-Ergänzungen: Gesegnetes Schwert, Condemnor-Bolzenpistole, Nullkeule, Krafthellebarde, Tempest-Schwerer-Flammenwerfer, Heilige Kanzel — alle fehlten, jetzt hinzugefügt.',
-    legacyfix: '📖 Alle Details im Changelog (v1.33) und der Known-Issues-Seite.',
-    contrib: '👷 Bug gefunden? Auf GitHub melden — jeder Bericht wird behoben.',
+    title: 'Ordo Erratum — v1.35: Imperialer Garde & Necrons Datenpurge (17 Ketzereien eliminiert)',
+    intro: 'Der Ordo Erratum hat Inquisitoren in die Datenbänke der Imperialen Garde und der Necrons entsandt. 17 Datenketzereien wurden aus den Aufzeichnungen getilgt.',
+    ig:      '⚔️ Imperiale Garde — 14 Fixes: Kommissar belegt keinen Elite-Slot mehr; Rüstkammerzugang bei 7 Einheiten korrigiert; Ogryns erhielten ihr Crude-Waffenprofil; Höllenreiter, Basilisk, Carnodon, Feldartillerie-Batterie, Greif, Schwere Ordonnanz-Lafette, Malcador und Vendetta korrigiert.',
+    necrons: '🟢 Necrons — 3 Fixes: Canoptek-Spyder-Waffe in kanonisches „Particle beamer" umbenannt; Tomb-Blades-Waffentausch wird nun pro Modell berechnet; Lokhust-Zerstörer Einheitentyp-Schreibweise korrigiert.',
+    contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'Actualización del desarrollador — v1.33: re-auditoría ODS completa Adeptus Sororitas (12 fixes)',
-    intro: '¡Hola comandantes! Una re-auditoría completa del ODS de Sororitas actualizado encontró 12 problemas — todos corregidos.',
-    engine: '🐛 Sororitas — Unidades: Living Saint Ardent Blade sin AT(1); Crusaders min_cost y flag de veterano corregidos; Repentia Squad habilidad "Absolution" añadida; Retributors sin Bolt pistol.',
-    csm: '🐛 Sororitas — Armería: Combi flamer Flamer sub-perfil Assault 1→4; habilidades de Power stake/Combi stake thrower corregidas a "Psi-shock"; Eviscerator Unwieldy eliminado; Power maul habilidades "-" restauradas.',
-    cd:  '🐛 Sororitas — Puntos armería: Praesidium Protectiva p_unit 4→8; Jump pack p_unit 10→null (solo char); Master-crafted armor p_unit 4→7.',
-    sm:  '✅ Sororitas — Armería: Blessed sword, Condemnor bolt pistol, Null mace, Power halberd, Tempest heavy flamer, Holy pulpit — todos faltaban, ahora añadidos.',
-    legacyfix: '📖 Detalles completos en el changelog (v1.33) y la página de Known Issues.',
-    contrib: '👷 ¿Encontraste un bug? Repórtalo en GitHub — cada reporte se arregla.',
+    title: 'Ordo Erratum — v1.35: Purga de datos Guardia Imperial & Necrones (17 herejías eliminadas)',
+    intro: 'El Ordo Erratum ha enviado Inquisidores a los bancos de datos de la Guardia Imperial y los Necrones. 17 herejías de datos han sido purgadas de los registros.',
+    ig:      '⚔️ Guardia Imperial — 14 fixes: el Comisario ya no ocupa slot de Élite; acceso a armería corregido en 7 unidades; Ogryns reciben su perfil Crude weapon; Hellhounds, Basilisk, Carnodon, Field Ordnance Battery, Griffon, Heavy Ordnance Carriage, Malcador y Vendetta todos corregidos.',
+    necrons: '🟢 Necrones — 3 fixes: arma de Canoptek Spyders renombrada al nombre canónico ODS "Particle beamer"; swap de armas de Tomb Blades ahora se cobra por modelo; capitalización del tipo de unidad de Lokhust Destroyers corregida.',
+    contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
 
@@ -76,11 +67,8 @@ function CommunityAnnouncement() {
       </div>
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
         <p>{tx.intro}</p>
-        <p className="text-amber-300/80">{tx.engine}</p>
-        <BoldSplitLine text={tx.csm} />
-        <BoldSplitLine text={tx.cd} />
-        <BoldSplitLine text={tx.sm} />
-        <p className="text-orange-300/80">{tx.legacyfix}</p>
+        <BoldSplitLine text={tx.ig} />
+        <BoldSplitLine text={tx.necrons} />
         <p className="text-zinc-400">{tx.contrib}</p>
       </div>
     </div>

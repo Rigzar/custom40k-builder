@@ -7,8 +7,8 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   {
     id: 'ki-necrons-spyder-particle-beamer-count-display-01',
     status: 'fixed',
-    title: 'Necrons — Canoptek Spyders: Particle beamer upgrade shows ×1 but ODS grants ×2',
-    description: 'Fixed in v1.32: weapon profile and choice both renamed to "Two Particle beamers", restoring weapon gating. Each beamer fires as Assault 1 independently (profiles are not combined).',
+    title: 'Necrons — Canoptek Spyders: Particle beamer weapon name corrected to ODS canonical',
+    description: 'v1.32: renamed to "Two Particle beamers" to restore weapon gating. v1.35 (Ordo Erratum re-audit): renamed back to "Particle beamer" — the ODS canonical name. Each beamer fires as Assault 1 independently.',
   },
   {
     id: 'ki-necrons-gh58-hexmark-destroyer-free-elite-slot-01',
