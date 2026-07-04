@@ -86,7 +86,7 @@ export const lokhustDestroyers: Unit = {
   "abilities": [
     "Reanimation Protocols"
   ],
-  "unit_type": "Jet Bike, Necron",
+  "unit_type": "Jet bike, Necron",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

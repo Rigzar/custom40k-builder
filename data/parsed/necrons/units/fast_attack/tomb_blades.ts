@@ -100,6 +100,7 @@ export const tombBlades: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
+      "per_model": true,
       "replaces": ["Twin tesla carbine"]
     }
   ],

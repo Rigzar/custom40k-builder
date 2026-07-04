@@ -43,7 +43,7 @@ export const canoptekSpyders: Unit = {
       "abilities": "-"
     },
     {
-      "name": "Two Particle beamers",
+      "name": "Particle beamer",
       "range": "24\"",
       "type": "Assault 1",
       "s": "6",
@@ -68,7 +68,7 @@ export const canoptekSpyders: Unit = {
           "points": 5
         },
         {
-          "name": "Two Particle beamers",
+          "name": "Particle beamer",
           "points": 27
         }
       ],

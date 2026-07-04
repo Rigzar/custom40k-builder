@@ -27,7 +27,7 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.35',
     date: '2026-07-04',
-    title: 'Imperial Guard — full ODS re-audit',
+    title: 'Imperial Guard + Necrons — full ODS re-audit',
     changes: [
       'GENERAL — Commissar: advisor:true (does not consume Elite slot)',
       'GENERAL — Hive Gangers, Infantry Squad, Mechanised Infantry, Stormtroopers, Veterans: has_armory_access corrected to false (only champion/sergeant has armory)',
@@ -43,6 +43,9 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — Heavy Ordnance Carriage: Massive(5) → Massive(4)',
       'GENERAL — Malcador: rump option "Demolisher cannon" renamed to "Demolisher battle cannon" to match weapon profile',
       'GENERAL — Vendetta: Hellstrike missiles and Heavy bolters are now two independent optional upgrades (not mutually exclusive)',
+      'Necrons — Canoptek Spyders: weapon profile "Two Particle beamers" renamed to "Particle beamer" (ODS canonical name)',
+      'Necrons — Tomb Blades: weapon swap option group (Twin gauss blaster/Particle beamer) now per_model:true (+7/model, +10/model)',
+      'Necrons — Lokhust Destroyers: unit_type "Jet Bike" → "Jet bike" (capitalisation matches ODS)',
     ],
   },
   {
