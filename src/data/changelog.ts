@@ -25,6 +25,33 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.36',
+    date: '2026-07-04',
+    title: 'Tau Empire + Eldar + Space Marines — full ODS re-audit',
+    changes: [
+      'TAU EMPIRE — Commander: is_character corrected to true',
+      'TAU EMPIRE — Kroot Master Shaper + Kroot Shaper: Kroot pistol option cost 0→1pt',
+      'TAU EMPIRE — Kroot Trackers: Knarloc talons gained Flurry(1) ability',
+      'TAU EMPIRE — Vespid Stingwings: armory access moved to champion only (has_armory_access→false, champion_has_armory→true)',
+      'TAU EMPIRE — Sub-Commander: Pulse rifle swap group marked per_model:true',
+      'TAU EMPIRE — Crisis Battlesuits: weapon upgrade group (up to two) marked per_model:true',
+      'TAU EMPIRE — Crisis Honor Guard: both upgrade groups marked per_model:true',
+      'TAU EMPIRE — Ghostkeel Battlesuits: flamer swap group marked per_model:true',
+      'TAU EMPIRE — Hazard Battlesuits: Pulse submunition rifle swap marked per_model:true',
+      'TAU EMPIRE — Broadside Battlesuits: both weapon swap groups marked per_model:true',
+      'ELDAR — Guardian Defenders: Exarch weapon choice "Star cannon"→"Starcannon" (weapon profile name)',
+      'ELDAR — Wraithseer: D-Cannon choice name→"D-cannon"; added missing <Wraith> ability',
+      'ELDAR — Howling Banshees: Exarch Triskele choice→"Triskele - Melee"',
+      'ELDAR — Striking Scorpions: Exarch Scorpion claw choice→"Scorpion claw - Melee"',
+      'ELDAR — Hornets: Scatter laser swap constraint "one"→"every" (each Hornet chooses independently)',
+      'ELDAR — Shining Spears: Exarch weapon choices→"Laser lance - Melee" / "Star lance - Melee"',
+      'SPACE MARINES — Aggressor Squad, Reiver Marines, Terminator Squad, Wolf Scout Squad, Ravenwing Black Knights: armory access moved to champion only (has_armory_access→false, champion_has_armory→true)',
+      'SPACE MARINES — 27 vehicles (6 Dreadnoughts, 10 HS, 5 Dedicated Transports, 5 Flyers, 1 Fortification) corrected to has_armory_access:true per ODS; all SM vehicle armory equipment (Additional armor, Hunter-killer missile, Machine spirit, etc.) now accessible',
+      'ESCALATION — full armory-access sweep: all 26 units verified against ODS; no changes needed (Eldar LoW Lynx/Vampire/Warp Hunter already correct, SM LoW correctly have no armory access per ODS)',
+      'HORUS HERESY SM SUPPLEMENT — full armory-access sweep: all 12 units verified against ODS; no changes needed (vehicles Contemptor/Leviathan/Sicaran/Kharybdis and all infantry squads already correct)',
+    ],
+  },
+  {
     version: '1.35',
     date: '2026-07-04',
     title: 'Imperial Guard + Necrons — full ODS re-audit',

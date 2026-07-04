@@ -1,4 +1,4 @@
-/**
+﻿/**
  * RAVENWING BLACK KNIGHTS — Fast Attack
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -164,8 +164,8 @@ export const ravenwingBlackKnights: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
   "has_veteran_abilities": false,
   "veteran_required": false,
   "veteran_max": null,

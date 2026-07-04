@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CAPTAIN DREADNOUGHT — HQ
  *
  * SOURCE (canonical — Space Marines ENG/Captain Dreadnought.html)
@@ -190,7 +190,7 @@ export const captainDreadnought: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": true,
   "veteran_required": false,

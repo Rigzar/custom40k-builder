@@ -152,11 +152,11 @@ export const shiningSpears: Unit = {
       },
       "choices": [
         {
-          "name": "Laser lance",
+          "name": "Laser lance - Melee",
           "points": 6
         },
         {
-          "name": "Star lance",
+          "name": "Star lance - Melee",
           "points": 14
         }
       ],

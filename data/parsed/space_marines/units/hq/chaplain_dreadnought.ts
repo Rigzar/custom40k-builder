@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CHAPLAIN DREADNOUGHT — HQ
  *
  * SOURCE (canonical — Space Marines ENG/Chaplain Dreadnought.html)
@@ -220,7 +220,7 @@ export const chaplainDreadnought: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": true,
   "veteran_required": false,

@@ -161,7 +161,7 @@ export const wraithseer: Unit = {
           "points": 56
         },
         {
-          "name": "D-Cannon",
+          "name": "D-cannon",
           "points": 108
         }
       ],
@@ -171,6 +171,7 @@ export const wraithseer: Unit = {
     }
   ],
   "abilities": [
+    "<Wraith>",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from the Wraithseer discipline.",
     "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0).",
     "Wraithshield: The model gains a 5+ invulnerability save."

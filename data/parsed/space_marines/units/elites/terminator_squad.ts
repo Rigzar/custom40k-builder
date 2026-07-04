@@ -1,4 +1,4 @@
-/**
+﻿/**
  * TERMINATOR SQUAD — Elites
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -239,8 +239,8 @@ export const terminatorSquad: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
   "has_veteran_abilities": true,
   "veteran_required": false,
   "veteran_max": 1,

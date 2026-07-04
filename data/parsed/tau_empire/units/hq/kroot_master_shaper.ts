@@ -180,7 +180,7 @@ export const krootMasterShaper: Unit = {
       "choices": [
         {
           "name": "Kroot pistol",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Shaper's blade",

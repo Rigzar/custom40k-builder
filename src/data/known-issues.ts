@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-sm-lords-of-war-vehicle-armory-01',
+    status: 'fixed',
+    title: 'Space Marines — Lords of War (Fellblade, Knight Castellan, Knight Paladin, Spartan, Warhound) may be missing vehicle armory access',
+    description: 'VERIFIED 2026-07-04 (v1.36): Escalation ODS confirms these 5 SM LoW have no armory access text — has_armory_access:false is correct. No change needed. Eldar LoW (Lynx, Vampire, Warp Hunter) and all HH supplement units also verified correct.',
+  },
+  {
     id: 'ki-necrons-spyder-particle-beamer-count-display-01',
     status: 'fixed',
     title: 'Necrons — Canoptek Spyders: Particle beamer weapon name corrected to ODS canonical',

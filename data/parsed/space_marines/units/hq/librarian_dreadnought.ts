@@ -1,4 +1,4 @@
-/**
+﻿/**
  * LIBRARIAN DREADNOUGHT — HQ
  *
  * SOURCE (canonical — Space Marines ENG/Librarian Dreadnought.html)
@@ -143,7 +143,7 @@ export const librarianDreadnought: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": true,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": true,
   "veteran_required": false,

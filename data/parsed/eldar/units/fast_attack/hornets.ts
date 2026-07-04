@@ -101,7 +101,7 @@ export const hornets: Unit = {
     {
       "header": "May swap each Scatter laser",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

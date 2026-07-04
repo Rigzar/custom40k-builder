@@ -143,7 +143,8 @@ export const crisisBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Any model may pick up to two SUPPORT SYSTEMS from the armory.",

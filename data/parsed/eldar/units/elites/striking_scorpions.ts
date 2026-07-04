@@ -116,7 +116,7 @@ export const strikingScorpions: Unit = {
       },
       "choices": [
         { "name": "Biting blade", "points": 3 },
-        { "name": "Scorpion claw", "points": 12 }
+        { "name": "Scorpion claw - Melee", "points": 12 }
       ],
       "inline_pts": null,
       "variant_link": null,

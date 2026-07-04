@@ -144,7 +144,8 @@ export const crisisHonorGuard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Any model can be equipped with up to two of the following",
@@ -180,7 +181,8 @@ export const crisisHonorGuard: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "Any model may pick up to two SUPPORT SYSTEMS from the armory.",

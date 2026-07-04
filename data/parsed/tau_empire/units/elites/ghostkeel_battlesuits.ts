@@ -141,6 +141,7 @@ export const ghostkeelBattlesuits: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
+      "per_model": true,
       "replaces": ["Flamer"]
     },
     {

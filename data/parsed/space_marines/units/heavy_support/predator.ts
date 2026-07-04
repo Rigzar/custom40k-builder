@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PREDATOR — Heavy Support
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -172,7 +172,7 @@ export const predator: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": false,
+  "has_armory_access": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

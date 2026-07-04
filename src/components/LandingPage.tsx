@@ -9,29 +9,29 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v135_ordoerratum_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v136_ordoerratum_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; ig: string; necrons: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Ordo Erratum — v1.35: Imperial Guard & Necrons data purge (17 heresies eliminated)',
-    intro: 'The Ordo Erratum has dispatched Inquisitors to the Imperial Guard and Necrons databanks. 17 data-heresies have been purged from the records.',
-    ig:      '⚔️ Imperial Guard — 14 fixes: Commissar no longer consumes an Elite slot; armory access corrected on 7 units; Ogryns gained their Crude weapon profile; Hellhounds, Basilisk, Carnodon, Field Ordnance Battery, Griffon, Heavy Ordnance Carriage, Malcador and Vendetta all corrected.',
-    necrons: '🟢 Necrons — 3 fixes: Canoptek Spyders weapon renamed to ODS canonical "Particle beamer"; Tomb Blades weapon swap now priced per model; Lokhust Destroyers unit type capitalisation corrected.',
+    title: 'Ordo Erratum — v1.36: Tau Empire, Eldar & Space Marines data purge (39 heresies eliminated)',
+    intro: 'The Ordo Erratum has completed a full re-audit of Tau Empire, Eldar and Space Marines. 39 data-heresies have been purged — plus all Escalation and Horus Heresy Supplement units verified clean.',
+    line1: '⚔️ Tau Empire & Eldar — 16 fixes: Tau Commander is_character corrected; Crisis/Broadside/Ghostkeel/Hazard weapon swaps now priced per model; Eldar Exarch weapon choice names corrected (Howling Banshees, Striking Scorpions, Shining Spears); Hornets scatter laser swap constraint fixed.',
+    line2: '🟢 Space Marines — 32 fixes: 5 infantry squads (Aggressors, Reivers, Terminators, Wolf Scouts, Ravenwing) armory access moved to champion only; 27 vehicles now correctly show full vehicle armory (Additional armor, Hunter-killer missile, Machine spirit, etc.).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'Ordo Erratum — v1.35: Imperialer Garde & Necrons Datenpurge (17 Ketzereien eliminiert)',
-    intro: 'Der Ordo Erratum hat Inquisitoren in die Datenbänke der Imperialen Garde und der Necrons entsandt. 17 Datenketzereien wurden aus den Aufzeichnungen getilgt.',
-    ig:      '⚔️ Imperiale Garde — 14 Fixes: Kommissar belegt keinen Elite-Slot mehr; Rüstkammerzugang bei 7 Einheiten korrigiert; Ogryns erhielten ihr Crude-Waffenprofil; Höllenreiter, Basilisk, Carnodon, Feldartillerie-Batterie, Greif, Schwere Ordonnanz-Lafette, Malcador und Vendetta korrigiert.',
-    necrons: '🟢 Necrons — 3 Fixes: Canoptek-Spyder-Waffe in kanonisches „Particle beamer" umbenannt; Tomb-Blades-Waffentausch wird nun pro Modell berechnet; Lokhust-Zerstörer Einheitentyp-Schreibweise korrigiert.',
+    title: 'Ordo Erratum — v1.36: Tau-Imperium, Eldar & Space Marines Datenpurge (39 Ketzereien eliminiert)',
+    intro: 'Der Ordo Erratum hat eine vollständige Neuprüfung von Tau-Imperium, Eldar und Space Marines abgeschlossen. 39 Datenketzereien wurden getilgt — zudem wurden alle Einheiten des Eskalations- und Horus-Häresie-Supplements als korrekt verifiziert.',
+    line1: '⚔️ Tau-Imperium & Eldar — 16 Fixes: Tau-Kommandant is_character korrigiert; Crisis/Breitseite/Geisterkiel/Gefahren-Waffentausch jetzt pro Modell berechnet; Eldar Exarch-Waffennamen korrigiert (Heulende Banshees, Schlagende Skorpione, Glänzende Speere); Hornissen-Streulaser-Tauschbedingung behoben.',
+    line2: '🟢 Space Marines — 32 Fixes: 5 Infanterietrupps (Aggressoren, Räuber, Terminatoren, Wolfspfadfinder, Rabenflügel) Rüstkammerzugang auf Anführer beschränkt; 27 Fahrzeuge zeigen jetzt korrekt die vollständige Fahrzeugrüstkammer (Zusatzpanzerung, Jägerkillrakete, Maschinengeist usw.).',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'Ordo Erratum — v1.35: Purga de datos Guardia Imperial & Necrones (17 herejías eliminadas)',
-    intro: 'El Ordo Erratum ha enviado Inquisidores a los bancos de datos de la Guardia Imperial y los Necrones. 17 herejías de datos han sido purgadas de los registros.',
-    ig:      '⚔️ Guardia Imperial — 14 fixes: el Comisario ya no ocupa slot de Élite; acceso a armería corregido en 7 unidades; Ogryns reciben su perfil Crude weapon; Hellhounds, Basilisk, Carnodon, Field Ordnance Battery, Griffon, Heavy Ordnance Carriage, Malcador y Vendetta todos corregidos.',
-    necrons: '🟢 Necrones — 3 fixes: arma de Canoptek Spyders renombrada al nombre canónico ODS "Particle beamer"; swap de armas de Tomb Blades ahora se cobra por modelo; capitalización del tipo de unidad de Lokhust Destroyers corregida.',
+    title: 'Ordo Erratum — v1.36: Imperio Tau, Eldar & Marines Espaciales purga de datos (39 herejías eliminadas)',
+    intro: 'El Ordo Erratum ha completado una re-auditoría completa del Imperio Tau, Eldar y Marines Espaciales. 39 herejías de datos han sido purgadas — además todas las unidades de los suplementos Escalation y Horus Heresy han sido verificadas como correctas.',
+    line1: '⚔️ Imperio Tau & Eldar — 16 fixes: is_character del Comandante Tau corregido; swaps de armas de Crisis/Broadside/Ghostkeel/Hazard ahora se cobran por modelo; nombres de armas Exarca Eldar corregidos (Banshees Aullantes, Escorpiones, Lanceros Brillantes); restricción de swap de scatter laser de Hornets arreglada.',
+    line2: '🟢 Marines Espaciales — 32 fixes: 5 escuadras de infantería (Agresores, Reivers, Terminadores, Wolf Scouts, Ravenwing) acceso a armería movido a solo el campeón; 27 vehículos ahora muestran correctamente la armería de vehículos completa (Blindaje adicional, Misil cazacarros, Espíritu de máquina, etc.).',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -67,8 +67,8 @@ function CommunityAnnouncement() {
       </div>
       <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
         <p>{tx.intro}</p>
-        <BoldSplitLine text={tx.ig} />
-        <BoldSplitLine text={tx.necrons} />
+        <BoldSplitLine text={tx.line1} />
+        <BoldSplitLine text={tx.line2} />
         <p className="text-zinc-400">{tx.contrib}</p>
       </div>
     </div>

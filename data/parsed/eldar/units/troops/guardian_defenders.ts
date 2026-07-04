@@ -151,7 +151,7 @@ export const guardianDefenders: Unit = {
           "points": 22
         },
         {
-          "name": "Star cannon",
+          "name": "Starcannon",
           "points": 30
         },
         {

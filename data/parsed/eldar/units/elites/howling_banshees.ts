@@ -129,7 +129,7 @@ export const howlingBanshees: Unit = {
           "points": 8
         },
         {
-          "name": "Triskele",
+          "name": "Triskele - Melee",
           "points": 13
         }
       ],
