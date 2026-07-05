@@ -356,12 +356,11 @@ export const useArmyStore = create<ArmyStore>()(
 
       setArchetype: (a: string) => set((s: S) => {
         const newRule = getArchetypeRule(a);
-        // If new archetype forces a mark, clear stale item.mark on non-locked units so
-        // the forced mark is the sole source of truth (resolver: locked > forcedMark > item.mark).
+        // If new archetype forces a mark, apply it to all non-locked units.
         const baseArmy = newRule?.forcedMark
           ? s.army.map((e: RosterEntry) => {
               const u = s.data ? resolveUnit(e, s.data) : null;
-              if (!u?.locked_mark && e.mark) return { ...e, mark: null };
+              if (!u?.locked_mark) return { ...e, mark: newRule.forcedMark as Mark };
               return e;
             })
           : s.army;
@@ -507,6 +506,10 @@ export const useArmyStore = create<ArmyStore>()(
         const computedSize = modelSizes
           ? Object.values(modelSizes).reduce((s, n) => s + n, 0)
           : defaultSize;
+        const archetypeRule = getArchetypeRule(s.archetype);
+        const autoMark = (archetypeRule?.forcedMark && !u.locked_mark)
+          ? archetypeRule.forcedMark as Mark
+          : null;
         const entry: RosterEntry = {
           id: newId(),
           unitName,
@@ -514,7 +517,7 @@ export const useArmyStore = create<ArmyStore>()(
           factionSource,
           ...(nestedFaction ? { nestedFaction } : {}),
           size: computedSize,
-          mark: null,
+          mark: autoMark,
           optionQty: {},
           armory: [],
           traits: [],

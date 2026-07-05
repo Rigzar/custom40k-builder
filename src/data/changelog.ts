@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.38',
+    date: '2026-07-05',
+    title: 'GENERAL — forced mark auto-applied on unit add and archetype switch',
+    changes: [
+      'GENERAL — cult archetypes with forcedMark (Plaguehost, Ambition for Perfection, etc.) now auto-apply the required mark when adding a new unit or switching archetype; units no longer show "must select Mark of X" warnings on a freshly built army',
+    ],
+  },
+  {
     version: '1.37',
     date: '2026-07-04',
     title: 'Chaos Daemons ODS audit + HH supplement weapon display fix',
