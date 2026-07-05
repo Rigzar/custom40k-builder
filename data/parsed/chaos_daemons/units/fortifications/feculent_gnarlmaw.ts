@@ -51,7 +51,7 @@ export const feculentGnarlmaw: Unit = {
     "The Plague Bells Chime: The model may heal a friendly unit (excluding itself) within 7\" for D3 wounds during its activation. Dead models may be revived with this ability. Injured models have to be fully healed first. Only works on models that have the \"Daemon\" and \"Mark of Nurgle\" abilities. Character models and vehicles are always excluded.",
     "Unmanned: A Feculent Gnarlmaw can't contest or capture mission objectives."
   ],
-  "unit_type": "",
+  "unit_type": "Infantry",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

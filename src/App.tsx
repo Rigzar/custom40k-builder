@@ -14,7 +14,7 @@ import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP
 import { validateArmy } from './engine/validators';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
-import { getArmySymbolUrl } from './utils/getArmySymbolUrl';
+import { getArmySymbolPair } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
@@ -269,7 +269,8 @@ export default function App() {
 
   const loaders = FACTION_LOADERS as Record<string, () => Promise<FactionData>>;
 
-  const armySymbolOverride = getArmySymbolUrl(selectedFaction, archetype ?? null, legacy ?? null, legacy2 ?? null);
+  const { primary: armySymbolOverride, secondary: armySymbolSecondary } =
+    getArmySymbolPair(selectedFaction, archetype ?? null, legacy ?? null, legacy2 ?? null);
 
   // Faction loader
   useEffect(() => {
@@ -553,7 +554,12 @@ export default function App() {
           {/* Sub-header */}
           <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
             <div className="max-w-screen-xl mx-auto flex items-center gap-3">
-              {selectedFaction && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />}
+              {selectedFaction && (
+                <div className="flex items-center gap-1">
+                  <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />
+                  {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolSecondary} />}
+                </div>
+              )}
               <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none font-bankgothic">
                 {factionLabel}
               </h1>
@@ -593,7 +599,12 @@ export default function App() {
             <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
               {/* Symbol + title + army name */}
               <div className="flex items-center gap-2 mr-auto min-w-0">
-                {selectedFaction && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />}
+                {selectedFaction && (
+                  <div className="flex items-center gap-1">
+                    <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />
+                    {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolSecondary} />}
+                  </div>
+                )}
                 <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0 font-bankgothic">
                   Custom40k
                 </h1>

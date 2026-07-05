@@ -10,6 +10,7 @@ const CSM_ARCHETYPE_SYMBOL: Record<string, string> = {
   'Ambition for Perfection':   '/legion-symbols/emperors-children.svg',
   'Blood for the Blood God!':  '/legion-symbols/world-eaters.svg',
   'Plaguehost':                '/legion-symbols/death-guard.svg',
+  'Legion':                    '/faction-symbols/horus-heresy.svg',
 };
 
 const CSM_LEGACY_SYMBOL: Record<string, string> = {
@@ -24,7 +25,8 @@ const CSM_LEGACY_SYMBOL: Record<string, string> = {
 };
 
 const SM_ARCHETYPE_SYMBOL: Record<string, string> = {
-  'Renegades': '/legion-symbols/renegade-and-heretics.svg',
+  'Renegades':             '/legion-symbols/renegade-and-heretics.svg',
+  'Legion (Space Marines)':'/faction-symbols/horus-heresy.svg',
 };
 
 const SM_LEGACY_SYMBOL: Record<string, string> = {
@@ -172,6 +174,44 @@ function isSororitas(faction: string): boolean {
   return faction === 'adeptus_sororitas' || /adeptus.sororitas/i.test(faction);
 }
 
+function getSymbols(
+  faction: string,
+  archetype: string | null,
+  legacy: string | null,
+  legacy2: string | null,
+): { archetypeSymbol: string | null; legacySymbol: string | null } {
+  if (isCsm(faction)) return {
+    archetypeSymbol: findSymbol(CSM_ARCHETYPE_SYMBOL, archetype),
+    legacySymbol:    findSymbol(CSM_LEGACY_SYMBOL, legacy) ?? findSymbol(CSM_LEGACY_SYMBOL, legacy2),
+  };
+  if (isSm(faction)) return {
+    archetypeSymbol: findSymbol(SM_ARCHETYPE_SYMBOL, archetype),
+    legacySymbol:    findSymbol(SM_LEGACY_SYMBOL, legacy) ?? findSymbol(SM_LEGACY_SYMBOL, legacy2),
+  };
+  if (isAdMech(faction)) return {
+    archetypeSymbol: findSymbol(ADMECH_ARCHETYPE_SYMBOL, archetype),
+    legacySymbol:    findSymbol(ADMECH_LEGACY_SYMBOL, legacy) ?? findSymbol(ADMECH_LEGACY_SYMBOL, legacy2),
+  };
+  if (isEldar(faction)) return {
+    archetypeSymbol: findSymbol(ELDAR_ARCHETYPE_SYMBOL, archetype),
+    legacySymbol:    findSymbol(ELDAR_LEGACY_SYMBOL, legacy) ?? findSymbol(ELDAR_LEGACY_SYMBOL, legacy2),
+  };
+  if (isOrks(faction)) return {
+    archetypeSymbol: findSymbol(ORKS_ARCHETYPE_SYMBOL, archetype),
+    legacySymbol:    findSymbol(ORKS_LEGACY_SYMBOL, legacy) ?? findSymbol(ORKS_LEGACY_SYMBOL, legacy2),
+  };
+  if (isSororitas(faction)) return {
+    archetypeSymbol: null,
+    legacySymbol:    findSymbol(SORORITAS_LEGACY_SYMBOL, legacy) ?? findSymbol(SORORITAS_LEGACY_SYMBOL, legacy2),
+  };
+  if (isCd(faction))      return { archetypeSymbol: findSymbol(CD_ARCHETYPE_SYMBOL, archetype),      legacySymbol: null };
+  if (isDe(faction))      return { archetypeSymbol: findSymbol(DE_ARCHETYPE_SYMBOL, archetype),      legacySymbol: null };
+  if (isTau(faction))     return { archetypeSymbol: findSymbol(TAU_ARCHETYPE_SYMBOL, archetype),     legacySymbol: null };
+  if (isNecrons(faction)) return { archetypeSymbol: findSymbol(NECRONS_ARCHETYPE_SYMBOL, archetype), legacySymbol: null };
+  if (isIg(faction))      return { archetypeSymbol: findSymbol(IG_ARCHETYPE_SYMBOL, archetype),      legacySymbol: null };
+  return { archetypeSymbol: null, legacySymbol: null };
+}
+
 export function getArmySymbolUrl(
   faction: string | null,
   archetype: string | null,
@@ -179,61 +219,24 @@ export function getArmySymbolUrl(
   legacy2: string | null = null,
 ): string | null {
   if (!faction) return null;
+  const { archetypeSymbol, legacySymbol } = getSymbols(faction, archetype, legacy, legacy2);
+  return archetypeSymbol ?? legacySymbol;
+}
 
-  if (isCsm(faction)) {
-    return findSymbol(CSM_ARCHETYPE_SYMBOL, archetype)
-        ?? findSymbol(CSM_LEGACY_SYMBOL, legacy)
-        ?? findSymbol(CSM_LEGACY_SYMBOL, legacy2);
-  }
-
-  if (isCd(faction)) {
-    return findSymbol(CD_ARCHETYPE_SYMBOL, archetype);
-  }
-
-  if (isSm(faction)) {
-    return findSymbol(SM_ARCHETYPE_SYMBOL, archetype)
-        ?? findSymbol(SM_LEGACY_SYMBOL, legacy)
-        ?? findSymbol(SM_LEGACY_SYMBOL, legacy2);
-  }
-
-  if (isAdMech(faction)) {
-    return findSymbol(ADMECH_ARCHETYPE_SYMBOL, archetype)
-        ?? findSymbol(ADMECH_LEGACY_SYMBOL, legacy)
-        ?? findSymbol(ADMECH_LEGACY_SYMBOL, legacy2);
-  }
-
-  if (isEldar(faction)) {
-    return findSymbol(ELDAR_ARCHETYPE_SYMBOL, archetype)
-        ?? findSymbol(ELDAR_LEGACY_SYMBOL, legacy)
-        ?? findSymbol(ELDAR_LEGACY_SYMBOL, legacy2);
-  }
-
-  if (isDe(faction)) {
-    return findSymbol(DE_ARCHETYPE_SYMBOL, archetype);
-  }
-
-  if (isTau(faction)) {
-    return findSymbol(TAU_ARCHETYPE_SYMBOL, archetype);
-  }
-
-  if (isNecrons(faction)) {
-    return findSymbol(NECRONS_ARCHETYPE_SYMBOL, archetype);
-  }
-
-  if (isOrks(faction)) {
-    return findSymbol(ORKS_ARCHETYPE_SYMBOL, archetype)
-        ?? findSymbol(ORKS_LEGACY_SYMBOL, legacy)
-        ?? findSymbol(ORKS_LEGACY_SYMBOL, legacy2);
-  }
-
-  if (isIg(faction)) {
-    return findSymbol(IG_ARCHETYPE_SYMBOL, archetype);
-  }
-
-  if (isSororitas(faction)) {
-    return findSymbol(SORORITAS_LEGACY_SYMBOL, legacy)
-        ?? findSymbol(SORORITAS_LEGACY_SYMBOL, legacy2);
-  }
-
-  return null;
+/**
+ * Returns up to two symbol URLs for the army badge.
+ * primary  = archetype symbol if present, else legacy symbol.
+ * secondary = legacy symbol only when archetype already occupied primary (both have symbols).
+ */
+export function getArmySymbolPair(
+  faction: string | null,
+  archetype: string | null,
+  legacy: string | null,
+  legacy2: string | null = null,
+): { primary: string | null; secondary: string | null } {
+  if (!faction) return { primary: null, secondary: null };
+  const { archetypeSymbol, legacySymbol } = getSymbols(faction, archetype, legacy, legacy2);
+  const primary   = archetypeSymbol ?? legacySymbol;
+  const secondary = archetypeSymbol && legacySymbol ? legacySymbol : null;
+  return { primary, secondary };
 }

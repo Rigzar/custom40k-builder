@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.37',
+    date: '2026-07-04',
+    title: 'Chaos Daemons ODS audit + HH supplement weapon display fix',
+    changes: [
+      'CHAOS DAEMONS — full ODS audit complete: all 12 HQ + 25 non-HQ units verified field-by-field (stats, weapon profiles, flags, option groups, armory ×5, psychic disciplines ×3 — all correct)',
+      'CHAOS DAEMONS — Feculent Gnarlmaw: unit_type corrected from empty string to "Infantry"',
+      'HORUS HERESY SUPPLEMENT — fixed ghost weapons in Live Profile: 9 swap option groups (Legion Breacher Squad, Legion Tactical Support Squad, Legion Contemptor Dreadnought, Legion Sky-hunter Squadron, Legion Heavy Support Squad, Legion Terminator Cataphractii Squad) were missing replaces[] fields, causing replaced weapons to stay visible in the Live Profile after a swap was selected',
+      'GENERAL — dual army symbol display: when the Legion archetype (CSM/SM) is selected alongside a legacy that also has a symbol, both symbols now appear side by side in the Army Config and Builder headers; applies to any combination of archetype + legacy that both have symbols (e.g. CSM Legion + Legacy of the Warmaster)',
+    ],
+  },
+  {
     version: '1.36',
     date: '2026-07-04',
     title: 'Tau Empire + Eldar + Space Marines — full ODS re-audit',

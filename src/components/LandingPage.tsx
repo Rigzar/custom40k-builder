@@ -9,29 +9,29 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v136_ordoerratum_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v137_dual_symbol_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'Ordo Erratum — v1.36: Tau Empire, Eldar & Space Marines data purge (39 heresies eliminated)',
-    intro: 'The Ordo Erratum has completed a full re-audit of Tau Empire, Eldar and Space Marines. 39 data-heresies have been purged — plus all Escalation and Horus Heresy Supplement units verified clean.',
-    line1: '⚔️ Tau Empire & Eldar — 16 fixes: Tau Commander is_character corrected; Crisis/Broadside/Ghostkeel/Hazard weapon swaps now priced per model; Eldar Exarch weapon choice names corrected (Howling Banshees, Striking Scorpions, Shining Spears); Hornets scatter laser swap constraint fixed.',
-    line2: '🟢 Space Marines — 32 fixes: 5 infantry squads (Aggressors, Reivers, Terminators, Wolf Scouts, Ravenwing) armory access moved to champion only; 27 vehicles now correctly show full vehicle armory (Additional armor, Hunter-killer missile, Machine spirit, etc.).',
+    title: 'v1.37: Chaos Daemons re-audit, HH Supplement weapon fix & dual faction symbol display',
+    intro: 'The Ordo Erratum has completed a full ODS re-audit of Chaos Daemons (all 37 units verified). One data fix, one weapon display fix for the Horus Heresy Supplement, and a new visual feature for Legion armies.',
+    line1: '⚔️ Chaos Daemons — Feculent Gnarlmaw unit_type corrected. Horus Heresy Supplement — 9 swap option groups were missing replaces[] fields, causing replaced weapons to stay visible in the Live Profile after a swap; now fixed.',
+    line2: '🛡️ GENERAL — dual army symbol: when the Legion archetype (CSM/SM) is paired with a legacy that also has a symbol (e.g. Legacy of the Warmaster), both symbols now appear side by side in the Army Config and Builder headers.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'Ordo Erratum — v1.36: Tau-Imperium, Eldar & Space Marines Datenpurge (39 Ketzereien eliminiert)',
-    intro: 'Der Ordo Erratum hat eine vollständige Neuprüfung von Tau-Imperium, Eldar und Space Marines abgeschlossen. 39 Datenketzereien wurden getilgt — zudem wurden alle Einheiten des Eskalations- und Horus-Häresie-Supplements als korrekt verifiziert.',
-    line1: '⚔️ Tau-Imperium & Eldar — 16 Fixes: Tau-Kommandant is_character korrigiert; Crisis/Breitseite/Geisterkiel/Gefahren-Waffentausch jetzt pro Modell berechnet; Eldar Exarch-Waffennamen korrigiert (Heulende Banshees, Schlagende Skorpione, Glänzende Speere); Hornissen-Streulaser-Tauschbedingung behoben.',
-    line2: '🟢 Space Marines — 32 Fixes: 5 Infanterietrupps (Aggressoren, Räuber, Terminatoren, Wolfspfadfinder, Rabenflügel) Rüstkammerzugang auf Anführer beschränkt; 27 Fahrzeuge zeigen jetzt korrekt die vollständige Fahrzeugrüstkammer (Zusatzpanzerung, Jägerkillrakete, Maschinengeist usw.).',
+    title: 'v1.37: Chaos-Dämonen-Neuprüfung, HH-Supplement-Waffenfix & doppelte Fraktionssymbol-Anzeige',
+    intro: 'Der Ordo Erratum hat eine vollständige ODS-Neuprüfung der Chaos-Dämonen abgeschlossen (alle 37 Einheiten geprüft). Ein Datenfix, ein Waffenanzeige-Fix für das Horus-Häresie-Supplement und ein neues visuelles Feature für Legion-Armeen.',
+    line1: '⚔️ Chaos-Dämonen — Feculent Gnarlmaw unit_type korrigiert. Horus-Häresie-Supplement — 9 Tauschoptionsgruppen fehlten replaces[]-Felder, weshalb ersetzte Waffen im Live-Profil sichtbar blieben; jetzt behoben.',
+    line2: '🛡️ ALLGEMEIN — Doppeltes Armeesymbol: Wenn das Legion-Archiv (CSM/SM) mit einem Vermächtnis kombiniert wird, das ebenfalls ein Symbol hat (z.B. Vermächtnis des Kriegsmeisters), erscheinen jetzt beide Symbole nebeneinander in der Armee-Konfiguration und im Builder-Header.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'Ordo Erratum — v1.36: Imperio Tau, Eldar & Marines Espaciales purga de datos (39 herejías eliminadas)',
-    intro: 'El Ordo Erratum ha completado una re-auditoría completa del Imperio Tau, Eldar y Marines Espaciales. 39 herejías de datos han sido purgadas — además todas las unidades de los suplementos Escalation y Horus Heresy han sido verificadas como correctas.',
-    line1: '⚔️ Imperio Tau & Eldar — 16 fixes: is_character del Comandante Tau corregido; swaps de armas de Crisis/Broadside/Ghostkeel/Hazard ahora se cobran por modelo; nombres de armas Exarca Eldar corregidos (Banshees Aullantes, Escorpiones, Lanceros Brillantes); restricción de swap de scatter laser de Hornets arreglada.',
-    line2: '🟢 Marines Espaciales — 32 fixes: 5 escuadras de infantería (Agresores, Reivers, Terminadores, Wolf Scouts, Ravenwing) acceso a armería movido a solo el campeón; 27 vehículos ahora muestran correctamente la armería de vehículos completa (Blindaje adicional, Misil cazacarros, Espíritu de máquina, etc.).',
+    title: 'v1.37: Re-auditoría de Chaos Daemons, fix de armas del suplemento HH y símbolo doble de facción',
+    intro: 'El Ordo Erratum ha completado una re-auditoría ODS completa de Chaos Daemons (las 37 unidades verificadas). Un fix de datos, un fix de visualización de armas para el suplemento Horus Heresy y una nueva función visual para ejércitos Legión.',
+    line1: '⚔️ Chaos Daemons — unit_type de Feculent Gnarlmaw corregido. Suplemento Horus Heresy — 9 grupos de opciones de swap carecían de campos replaces[], por lo que las armas sustituidas seguían visibles en el Perfil en Vivo; corregido.',
+    line2: '🛡️ GENERAL — símbolo doble de ejército: cuando el arquetipo Legión (CSM/SM) se combina con un legado que también tiene símbolo (ej. Legado del Señor de la Guerra), ambos símbolos aparecen lado a lado en la cabecera de Configuración del Ejército y del Generador.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };

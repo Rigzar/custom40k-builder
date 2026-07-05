@@ -4,6 +4,8 @@
 > Companion to [[chaos_space_marines]] (Daemonkin archetype on CSM unlocks the whole CD roster) and
 > the cross-faction `_engine.md`.
 
+**Ordo Erratum — 2026-07-04 (v1.37):** Full ODS audit complete. All 12 HQ + 25 non-HQ units verified field-by-field vs `Chaos Daemons ENG.ods`. 1 bug fixed: Feculent Gnarlmaw unit_type "" → "Infantry". Daemon Prince optional psyker already handled by engine isOptionalPsyker mechanism (detects inline_pts option groups with /psyker/i header).
+
 **Sources read to build this digest** (all on disk, 2026-06-03):
 - `Informacion/core_rules_text.txt` (v1.252 / Balance 5.03) + `Informacion/missions_text.txt`
   (engagement AOPs) — read in full.
