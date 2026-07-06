@@ -20,6 +20,7 @@ const hasPsychic = Object.keys(disciplines).length > 0;
 const hasPrayers = (prayers && prayers.length > 0) || (pacts && pacts.length > 0);
 
 const description = getFactionDescription(factionKey!);
+const hasWarbands = factionKey === 'inquisition';
 
 const PRAYER_LABELS: Record<string, string> = {
   space_marines: 'Litanies', adeptus_sororitas: 'Litanies', grey_knights: 'Litanies',
@@ -151,6 +152,12 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
         <a href={`/factions/${factionKey}/armory`} class="nav-btn">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M2 12 L7 2 L12 12 L9 10 L7 13 L5 10 Z"/></svg>
           Armory
+        </a>
+      )}
+      {hasWarbands && (
+        <a href={`/factions/${factionKey}/warbands`} class="nav-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><circle cx="5" cy="4" r="2"/><circle cx="9" cy="4" r="2"/><path d="M1 12 C1 8 4 7 5 7 C6 7 8 7 9 7 C10 7 13 8 13 12"/></svg>
+          Warbands
         </a>
       )}
       {hasCustomisation && (

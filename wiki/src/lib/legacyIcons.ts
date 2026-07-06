@@ -148,7 +148,15 @@ const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
     'Tzeentch':      '/legion-symbols/tzeentch-god.svg',
   },
   chaos_daemons: {
+    'Khorne':   '/legion-symbols/khorne-god.svg',
+    'Nurgle':   '/legion-symbols/nurgle-god.svg',
+    'Slaanesh': '/legion-symbols/slaanesh-god.svg',
     'Tzeentch': '/legion-symbols/tzeentch-god.svg',
+  },
+  inquisition: {
+    'Ordo Hereticus': '/faction-symbols/inquisition.svg',
+    'Ordo Malleus':   '/faction-symbols/inquisition.svg',
+    'Ordo Xenos':     '/faction-symbols/inquisition.svg',
   },
   space_marines: {
     'Blood Angels':   '/legion-symbols/blood-angels.svg',

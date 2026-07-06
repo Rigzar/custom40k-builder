@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { units, slot_to_units } = await getFactionUnits(factionKey!);
-const slots = Object.keys(slot_to_units);
+const slots = Object.keys(slot_to_units).filter(s => slot_to_units[s].some(name => units[name]));
 const hasEscalation = ESCALATION_FACTIONS.includes(factionKey!);
 ---
 <Layout title={`Units — ${config.label} — Custom40k Wiki`}>

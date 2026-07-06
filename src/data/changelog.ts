@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.41',
+    date: '2026-07-06',
+    title: 'GENERAL — battlefield smoke + wiki audit (empty slots, CD mark armories, Inquisition Ordo/Warbands tabs)',
+    changes: [
+      'GENERAL — landing page hero particles replaced: amber bubble effect removed; new slow-drifting dark battlefield smoke wisps (18 large radial-gradient particles, dark reddish-brown, very low alpha for atmospheric layering)',
+      'GENERAL — landing page click sounds removed entirely (Web Audio AudioContext and playClick removed)',
+      'WIKI — empty slot sections no longer appear on faction unit pages for slots that have no units (e.g. Assassins showed 6 empty sections; now only Elites is displayed)',
+      'WIKI — Chaos Daemons armory now shows all four mark armories: Khorne, Nurgle, and Slaanesh tabs added alongside Tzeentch',
+      'WIKI — Inquisition armory split into three Ordo tabs: Ordo Hereticus, Ordo Malleus, Ordo Xenos (items filtered by requires_army_item at build time)',
+      'WIKI — new Inquisition Warbands page (/factions/inquisition/warbands): Henchman Warband unit + all 18 Warband Specialists from the Elites slot; link added to Inquisition faction hub nav',
+    ],
+  },
+  {
     version: '1.40',
     date: '2026-07-06',
     title: 'GENERAL — visual polish + wiki improvements + allied armory fix',

@@ -1,4 +1,4 @@
-import type { Armory, Archetype, Legacy, Trait, Power } from '../vendor/src/types/data';
+import type { Armory, ArmoryItem, Archetype, Legacy, Trait, Power } from '../vendor/src/types/data';
 
 export interface FactionExtras {
   armoryGeneral: Armory;
@@ -75,14 +75,17 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     }, d(discs), d(prayers), d(pacts), d(anim));
   },
   chaos_daemons: async () => {
-    const [g, tz, arch, discs, anim] = await Promise.all([
+    const [g, kh, nu, sl, tz, arch, discs, anim] = await Promise.all([
       import('../vendor/data/parsed/chaos_daemons/armory/general.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/chaos_daemons/armory/mark_khorne.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/chaos_daemons/armory/mark_nurgle.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/chaos_daemons/armory/mark_slaanesh.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/chaos_daemons/armory/mark_tzeentch.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/chaos_daemons/archetypes.json') as unknown as Promise<Mod<ArchData>>,
       import('../vendor/data/parsed/chaos_daemons/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
       import('../vendor/data/parsed/chaos_daemons/animosity.json') as unknown as Promise<Mod<AnimosityData>>,
     ]);
-    return assemble(d(g), d(arch), { Tzeentch: d(tz) }, d(discs), undefined, undefined, d(anim));
+    return assemble(d(g), d(arch), { Khorne: d(kh), Nurgle: d(nu), Slaanesh: d(sl), Tzeentch: d(tz) }, d(discs), undefined, undefined, d(anim));
   },
   space_marines: async () => {
     const [g, arch, prayers, discs, rel, dw, da, ws, sw, fi, bt, ba, br] = await Promise.all([
@@ -156,7 +159,24 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
       import('../vendor/data/parsed/inquisition/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
       import('../vendor/data/parsed/inquisition/psychic/prayers.json') as unknown as Promise<Mod<Power[]>>,
     ]);
-    return assemble(d(g), d(arch), {}, d(discs), d(prayers));
+    const full = d(g);
+    // Split items gated by requires_army_item into separate Ordo tabs
+    const baseArmory: Armory = {
+      ...full,
+      weapons: full.weapons.filter((w: ArmoryItem) => !w.requires_army_item),
+      equipment: full.equipment.filter((e: ArmoryItem) => !e.requires_army_item),
+    };
+    const makeOrdo = (ordo: string): Armory => ({
+      name: ordo,
+      weapons: full.weapons.filter((w: ArmoryItem) => w.requires_army_item === ordo),
+      equipment: full.equipment.filter((e: ArmoryItem) => e.requires_army_item === ordo),
+      daemon_weapons: [],
+    });
+    return assemble(baseArmory, d(arch), {
+      'Ordo Hereticus': makeOrdo('Ordo Hereticus'),
+      'Ordo Malleus': makeOrdo('Ordo Malleus'),
+      'Ordo Xenos': makeOrdo('Ordo Xenos'),
+    }, d(discs), d(prayers));
   },
   assassins: async () => {
     const [g] = await Promise.all([

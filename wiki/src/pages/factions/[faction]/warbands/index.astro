@@ -1,0 +1,83 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import UnitCard from '../../../../components/UnitCard.astro';
+import { ALL_FACTIONS } from '../../../../lib/factions';
+import { getFactionUnits } from '../../../../lib/units';
+
+export async function getStaticPaths() {
+  return [{ params: { faction: 'inquisition' } }];
+}
+
+const { faction: factionKey } = Astro.params;
+const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
+const { units, slot_to_units } = await getFactionUnits(factionKey!);
+
+const specialistNames = (slot_to_units['Elites'] ?? []).filter(n => units[n]);
+const warbandNames    = (slot_to_units['Troops'] ?? []).filter(n => n === 'Henchman Warband' && units[n]);
+---
+<Layout title={`Warbands — ${config.label} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/factions">&larr; All factions</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> /
+    Warbands
+  </p>
+
+  <h1>Inquisitor Warbands</h1>
+
+  <div class="warband-intro reveal">
+    <p>
+      Every Inquisitor may select a single <strong>Henchman Warband</strong> and must start the
+      game attached to it. A Warband consists of specialists chosen from the list below.
+      An Inquisitor may select up to <strong>6 specialist models</strong>; an
+      <strong>Inquisitor Lord</strong> may select up to <strong>12</strong>.
+      Each specialist type may only be added once.
+    </p>
+  </div>
+
+  {warbandNames.length > 0 && (
+    <section class="reveal">
+      <h2 class="sec-heading">Henchman Warband</h2>
+      <div class="unit-grid">
+        {warbandNames.map(name => (
+          <UnitCard unit={units[name]} factionKey={factionKey!} slot="Troops" />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="reveal">
+    <h2 class="sec-heading">Warband Specialists</h2>
+    <div class="unit-grid">
+      {specialistNames.map(name => (
+        <UnitCard unit={units[name]} factionKey={factionKey!} slot="Elites" />
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .warband-intro {
+    max-width: 42rem;
+    margin: 0 auto 1.8rem;
+    padding: 0.9rem 1.2rem;
+    border: 1px solid rgba(162,18,23,0.25);
+    border-left: 3px solid rgba(162,18,23,0.55);
+    background: rgba(255,252,240,0.65);
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+  .warband-intro p { margin: 0; }
+
+  .sec-heading {
+    display: flex; align-items: center; gap: 0.45rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid rgba(162,18,23,0.25);
+    margin-bottom: 0.65rem;
+  }
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+</style>
