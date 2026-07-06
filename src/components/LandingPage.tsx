@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -38,6 +38,71 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
+
+// ── Floating dust particles for the hero background ─────────────────────────
+function HeroParticles() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let raf: number;
+    let w = 0, h = 0;
+    const COLORS = ['rgba(146,64,14,', 'rgba(120,53,15,', 'rgba(113,113,122,', 'rgba(180,83,9,'];
+    const COUNT = 48;
+    interface P { x:number; y:number; r:number; vx:number; vy:number; alpha:number; aTarget:number; aSpd:number; phase:number; ci:number; }
+    const ps: P[] = [];
+    function spawn(scatterY?: boolean): P {
+      return { x: Math.random()*w, y: scatterY ? Math.random()*h : h+10, r: 0.8+Math.random()*2,
+        vx:(Math.random()-0.5)*0.15, vy:-(0.1+Math.random()*0.28),
+        alpha:0, aTarget:0.06+Math.random()*0.18, aSpd:0.003+Math.random()*0.005,
+        phase:Math.random()*Math.PI*2, ci:Math.floor(Math.random()*COLORS.length) };
+    }
+    function resize() {
+      w = canvas.offsetWidth; h = canvas.offsetHeight;
+      canvas.width = w; canvas.height = h;
+    }
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas.parentElement ?? canvas);
+    for (let i=0;i<COUNT;i++) { const p=spawn(true); p.alpha=p.aTarget*Math.random(); ps.push(p); }
+    function tick() {
+      ctx!.clearRect(0,0,w,h);
+      for (let i=0;i<ps.length;i++) {
+        const p=ps[i];
+        p.phase+=0.008; p.x+=p.vx+Math.sin(p.phase)*0.08; p.y+=p.vy;
+        if (p.alpha<p.aTarget) p.alpha=Math.min(p.aTarget, p.alpha+p.aSpd);
+        const fade=h*0.18;
+        const a = p.y<fade ? p.alpha*(p.y/fade) : p.alpha;
+        if (p.y < -12 || p.x < -20 || p.x > w+20) { ps[i]=spawn(); continue; }
+        ctx!.beginPath(); ctx!.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx!.fillStyle=COLORS[p.ci]+a+')'; ctx!.fill();
+      }
+      raf=requestAnimationFrame(tick);
+    }
+    raf=requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
+  }, []);
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none select-none" style={{zIndex:0}} aria-hidden="true" />;
+}
+
+// ── Mechanical servo click sound (Web Audio, no files) ───────────────────────
+function playClick() {
+  try {
+    const ac = new AudioContext();
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.connect(gain); gain.connect(ac.destination);
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(520, ac.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(70, ac.currentTime + 0.09);
+    gain.gain.setValueAtTime(0.035, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.1);
+    osc.start(ac.currentTime); osc.stop(ac.currentTime + 0.1);
+    setTimeout(() => ac.close(), 300);
+  } catch { /* audio blocked */ }
+}
 
 function BoldSplitLine({ text }: { text: string }) {
   const parts = text.split(' — ');
@@ -234,10 +299,11 @@ export function LandingPage({
   // ── Hero view ───────────────────────────────────────────────────────────────
   if (view === 'hero') {
     return (
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+      <div className="relative min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+        <HeroParticles />
 
         {/* Top bar */}
-        <div className="flex justify-between items-center px-5 py-3 border-b border-zinc-900">
+        <div className="relative z-10 flex justify-between items-center px-5 py-3 border-b border-zinc-900">
           <LanguageSelector />
           <button
             onClick={() => setShowChangelog(true)}
@@ -250,7 +316,7 @@ export function LandingPage({
         {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
 
         {/* Center content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12">
 
           {/* Logo */}
           <img
@@ -297,6 +363,7 @@ export function LandingPage({
               href="https://custom40k-wiki.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={playClick}
               className="flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
@@ -304,7 +371,7 @@ export function LandingPage({
             </a>
 
             <button
-              onClick={onShowAuth}
+              onClick={() => { playClick(); onShowAuth(); }}
               className="flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
@@ -315,6 +382,7 @@ export function LandingPage({
               href="https://custom40k-wiki.vercel.app/glossary"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={playClick}
               className="flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
@@ -322,7 +390,7 @@ export function LandingPage({
             </a>
 
             <button
-              onClick={() => setView('setup')}
+              onClick={() => { playClick(); setView('setup'); }}
               className="flex items-center justify-center gap-2 py-3 px-4 bg-amber-800 border-2 border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
@@ -354,15 +422,15 @@ export function LandingPage({
             <div className="flex-1 h-px bg-zinc-800" />
           </div>
           <div className="flex flex-wrap gap-2">
-            <button onClick={() => setOpenSupplement('horus_heresy')} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-red-900/60 hover:border-red-700 text-zinc-300 hover:text-red-300 transition-colors text-[12px] uppercase tracking-wide">
+            <button onClick={() => { playClick(); setOpenSupplement('horus_heresy'); }} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-red-900/60 hover:border-red-700 text-zinc-300 hover:text-red-300 transition-colors text-[12px] uppercase tracking-wide">
               <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
               Horus Heresy
             </button>
-            <button onClick={() => setOpenSupplement('escalation')} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-amber-900/60 hover:border-amber-700 text-zinc-300 hover:text-amber-300 transition-colors text-[12px] uppercase tracking-wide">
+            <button onClick={() => { playClick(); setOpenSupplement('escalation'); }} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-amber-900/60 hover:border-amber-700 text-zinc-300 hover:text-amber-300 transition-colors text-[12px] uppercase tracking-wide">
               <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
               Escalation
             </button>
-            <button onClick={() => setOpenSupplement('assassins')} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 transition-colors text-[12px] uppercase tracking-wide">
+            <button onClick={() => { playClick(); setOpenSupplement('assassins'); }} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 transition-colors text-[12px] uppercase tracking-wide">
               <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
               Assassins
             </button>

@@ -6,8 +6,6 @@ import Layout from '../components/Layout.astro';
     <img src="/custom40k-logo.png" alt="Custom40k" class="intro-logo" width="260" />
     <h1 class="intro-title">Custom40k Wiki</h1>
 
-    <a href="/factions" class="cta">Browse the factions &rarr;</a>
-
     <div class="ordo-card-outer reveal">
       <img src="/servo-skull.png" class="ordo-skull-img" alt="" />
       <div class="ordo-card">
@@ -16,6 +14,7 @@ import Layout from '../components/Layout.astro';
           <svg width="20" height="26" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="4" rx="5" ry="3.5" fill="none" stroke="#7a6535" stroke-width="2"/><rect x="3" y="6" width="14" height="12" rx="2" fill="#9a8050"/><rect x="1" y="16" width="18" height="6" rx="2" fill="#7a6535"/><circle cx="10" cy="12" r="2.2" fill="#c0a870"/><circle cx="10" cy="12" r="1" fill="#e8d090"/></svg>
           <svg width="20" height="26" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="4" rx="5" ry="3.5" fill="none" stroke="#7a6535" stroke-width="2"/><rect x="3" y="6" width="14" height="12" rx="2" fill="#9a8050"/><rect x="1" y="16" width="18" height="6" rx="2" fill="#7a6535"/><circle cx="10" cy="12" r="2.2" fill="#c0a870"/><circle cx="10" cy="12" r="1" fill="#e8d090"/></svg>
         </div>
+
         <section>
           <h2>1. What is Custom40k?</h2>
           <p>Custom40k is a complete, ready-to-play homebrew ruleset for Warhammer 40,000 that has
@@ -25,41 +24,43 @@ import Layout from '../components/Layout.astro';
             made across all armies, and bringing back army and model customisation via extensive
             armories for every faction.</p>
         </section>
+
+        <section>
+          <h2>2. What are the key differences to current 40k?</h2>
+          <ul>
+            <li><strong>Alternating activation:</strong> Each player only activates one unit at a
+              time, which leads to less downtime and less lethality.</li>
+            <li><strong>Backwards compatibility:</strong> Every model that GW released for Warhammer
+              (and will release in the future) is playable and supported with rules.</li>
+            <li><strong>Balance:</strong> Since its inception, Custom40k has been finetuned over
+              100+ games to ensure that all units are playable and have a purpose in the game.
+              Points are calculated using a unified points calculator. Balancing for a game like 40k
+              is an ever ongoing endeavour, but I'm doing my best to keep all armies and units on an
+              even level.</li>
+            <li><strong>Huge customisation:</strong> Where GW has a strict "No model, no rules"
+              policy, "Customisation" is the name of the game. Each faction features their own,
+              ever expanding armory full of options for character models, units and army
+              composition. Kitbashing and creativity is explicitly desired.</li>
+            <li><strong>Old school systems:</strong> Armor Values for vehicles and the Force
+              Organisation Chart are back.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. What do you need to play Custom40k?</h2>
+          <p>Apart from the regular things for a normal game of Warhammer, what you need in addition
+            are so called "Command tokens". Command tokens are used at the beginning of every battle
+            round to determine what actions a unit may be allowed to do during its activation. While
+            we 3d printed our own tokens for this, a suitable replacement would be a simple deck of
+            cards for each player. You need four different cards (hearts, diamonds, spades, clover)
+            as there are 4 different commands.</p>
+        </section>
+
+        <div class="card-cta">
+          <a href="/factions" class="cta">Browse the factions &rarr;</a>
+        </div>
       </div>
     </div>
-
-    <section>
-      <h2>2. What are the key differences to current 40k?</h2>
-      <ul>
-        <li><strong>Alternating activation:</strong> Each player only activates one unit at a
-          time, which leads to less downtime and less lethality.</li>
-        <li><strong>Backwards compatibility:</strong> Every model that GW released for Warhammer
-          (and will release in the future) is playable and supported with rules.</li>
-        <li><strong>Balance:</strong> Since its inception, Custom40k has been finetuned over
-          100+ games to ensure that all units are playable and have a purpose in the game.
-          Points are calculated using a unified points calculator. Balancing for a game like 40k
-          is an ever ongoing endeavour, but I'm doing my best to keep all armies and units on an
-          even level.</li>
-        <li><strong>Huge customisation:</strong> Where GW has a strict "No model, no rules"
-          policy, "Customisation" is the name of the game. Each faction features their own,
-          ever expanding armory full of options for character models, units and army
-          composition. Kitbashing and creativity is explicitly desired.</li>
-        <li><strong>Old school systems:</strong> Armor Values for vehicles and the Force
-          Organisation Chart are back.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>3. What do you need to play Custom40k?</h2>
-      <p>Apart from the regular things for a normal game of Warhammer, what you need in addition
-        are so called "Command tokens". Command tokens are used at the beginning of every battle
-        round to determine what actions a unit may be allowed to do during its activation. While
-        we 3d printed our own tokens for this, a suitable replacement would be a simple deck of
-        cards for each player. You need four different cards (hearts, diamonds, spades, clover)
-        as there are 4 different commands.</p>
-    </section>
-
-    <a href="/factions" class="cta">Browse the factions &rarr;</a>
   </div>
 </Layout>
 
@@ -67,15 +68,14 @@ import Layout from '../components/Layout.astro';
   .intro { max-width: 42rem; margin: 0 auto; text-align: center; }
   .intro-logo { display: block; margin: 0 auto 1rem; object-fit: contain; }
   .intro-title { border-bottom: none; }
-  .intro section { text-align: left; margin-top: 1.6rem; }
-  .intro section h2 { font-size: 1rem; }
-  .intro section p, .intro section li { font-size: 0.88rem; line-height: 1.6; }
-  .intro ul { padding-left: 1.2rem; }
-  .intro li { margin-bottom: 0.5rem; }
   .ordo-card-outer { margin: 1.4rem auto 0; max-width: 38rem; width: 100%; }
-  .ordo-card section { margin-top: 0; }
-  .ordo-card section h2 { font-size: 1rem; }
-  .ordo-card section p { font-size: 0.88rem; line-height: 1.6; text-align: left; }
+  .ordo-card section { margin-top: 1.4rem; }
+  .ordo-card section:first-of-type { margin-top: 0; }
+  .ordo-card section h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .ordo-card section p, .ordo-card section li { font-size: 0.88rem; line-height: 1.6; text-align: left; }
+  .ordo-card ul { padding-left: 1.2rem; }
+  .ordo-card li { margin-bottom: 0.5rem; }
+  .card-cta { text-align: center; margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid rgba(162,18,23,0.2); }
   .cta {
     display: inline-block; margin: 1.2rem 0;
     font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em;

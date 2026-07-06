@@ -30,6 +30,8 @@ export const CHANGELOG: ChangelogEntry[] = [
     title: 'GENERAL — landing page visual polish + wiki faction naming improvements',
     changes: [
       'GENERAL — landing page hero now has CSS entrance animations: logo emerges with scale+blur, divider and each section fade up with staggered delays (0.15 s steps)',
+      'GENERAL — floating ambient dust particles on the hero background: 48 amber/grey motes drift upward with sine-wave wobble, fade in/out near the top; implemented via canvas + requestAnimationFrame (zero extra dependencies)',
+      'GENERAL — mechanical servo click sound on all landing page action buttons (Wiki, Login, Glossary, Create Army, supplements) using the Web Audio API — no audio files, generated procedurally',
       'GENERAL — Ordo announcement card now displays a large servo skull visually holding the card from above, with binder-clip SVG decorations at the card\'s top edge',
       'WIKI — Space Marines psychic discipline tabs now show chapter-specific icons: Blood Angels for Sanguine, White Scars for Stormspeaking, Space Wolves for Tempestus, Dark Angels for Geokinesis, Deathwatch for Interromancy',
       'WIKI — prayer/litany/mantra section naming is now per-faction: "Litanies" for Space Marines, Adeptus Sororitas, Grey Knights, Imperial Guard and Inquisition; "Mantras" for Tau Empire; "Prayers & Pacts" for Chaos Space Marines; affects page title, breadcrumb, h1, tab label, column header and the faction hub nav button',
