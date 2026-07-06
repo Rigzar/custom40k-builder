@@ -36,6 +36,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — campaign GM can now delete a campaign: trash icon on campaign row opens a confirmation prompt where the GM must type the campaign name exactly; deletes all sectors, battles, roster and players',
       'GENERAL — removed the legacy "Reference" button and ReferencePanel (carried since day one, superseded by the wiki)',
       'WIKI — armory and psychic pages now use JavaScript tabs (one per section/discipline with faction icons); faction hub reverted to single "Units" button; CSM and Chaos Daemons hub now show the Chaos Marks Animosity table; CSS animations added (faction symbol emerge, title reveal, scanlines overlay, scroll-reveal)',
+      'WIKI — visual polish pass: stat and weapon tables with dark steel header + red accent borders + hover rows; archetypes/legacies/traits redesigned as a card grid (was a flat list); unit cards now have hover lift + red points label; slot headings on the units listing page have a red bottom border; armory equipment redesigned as card grid; glossary index now letter-grouped; glossary rule detail shows a styled callout card; favicon added; servo skull + ordo parchment card on landing page with binder-clip SVG decorations',
     ],
   },
   {
