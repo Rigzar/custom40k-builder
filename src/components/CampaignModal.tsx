@@ -31,6 +31,11 @@ export function CampaignModal({ onClose }: Props) {
   const [newSectorsToWin, setNewSectorsToWin] = useState(4);
   const [creating, setCreating]           = useState(false);
 
+  // Delete campaign confirmation
+  const [deletingCampaign, setDeletingCampaign] = useState<api.CampaignSummary | null>(null);
+  const [deleteConfirmName, setDeleteConfirmName] = useState('');
+  const [deleting, setDeleting] = useState(false);
+
   // Join campaign form
   const [showJoin, setShowJoin]     = useState(false);
   const [joinCode, setJoinCode]     = useState('');
@@ -126,6 +131,22 @@ export function CampaignModal({ onClose }: Props) {
       setError((err as Error).message);
     } finally {
       setJoining(false);
+    }
+  }
+
+  async function handleDeleteCampaign() {
+    if (!deletingCampaign) return;
+    setDeleting(true); setError('');
+    try {
+      await api.deleteCampaign(deletingCampaign.id, deleteConfirmName);
+      setCampaigns(prev => prev.filter(c => c.id !== deletingCampaign.id));
+      if (openId === deletingCampaign.id) setOpenId(null);
+      setDeletingCampaign(null);
+      setDeleteConfirmName('');
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -236,11 +257,11 @@ export function CampaignModal({ onClose }: Props) {
             <div className="space-y-2">
               {campaigns.map(c => (
                 <div key={c.id} className="bg-zinc-800 border border-zinc-700 border-l-4 border-l-amber-800">
-                  <div
-                    onClick={() => toggleOpen(c)}
-                    className="p-3 flex items-center gap-3 cursor-pointer"
-                  >
-                    <div className="flex-1 min-w-0">
+                  <div className="p-3 flex items-center gap-3">
+                    <div
+                      onClick={() => toggleOpen(c)}
+                      className="flex-1 min-w-0 cursor-pointer"
+                    >
                       <div className="text-sm font-semibold text-zinc-100 truncate flex items-center gap-2">
                         {c.name}
                         {c.role === 'gm' && <span className="text-[10px] text-amber-500 normal-case">{t('campaignYouAreGm')}</span>}
@@ -255,6 +276,17 @@ export function CampaignModal({ onClose }: Props) {
                       <span className="text-[11px] font-mono tracking-widest text-amber-500">{c.invite_code}</span>
                       <span className="text-[10px] text-zinc-500">{t('campaignTurnLabel')} {c.current_turn ?? 1}</span>
                     </div>
+                    {c.role === 'gm' && (
+                      <button
+                        onClick={e => { e.stopPropagation(); setDeletingCampaign(c); setDeleteConfirmName(''); setError(''); }}
+                        className="ml-1 text-zinc-600 hover:text-red-400 transition-colors shrink-0"
+                        title="Delete campaign"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    )}
                   </div>
                   {openId === c.id && (
                     <div className="border-t border-zinc-700 bg-zinc-950/40">
@@ -346,6 +378,39 @@ export function CampaignModal({ onClose }: Props) {
             </div>
           )}
         </div>
+
+        {/* Delete campaign confirmation overlay */}
+        {deletingCampaign && (
+          <div className="border-t border-red-900/60 bg-red-950/30 p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <p className="text-red-400 text-[12px] font-semibold uppercase tracking-wide">
+                Delete campaign permanently?
+              </p>
+              <button
+                onClick={() => { setDeletingCampaign(null); setDeleteConfirmName(''); }}
+                className="text-zinc-500 hover:text-zinc-300 text-lg leading-none"
+              >×</button>
+            </div>
+            <p className="text-zinc-400 text-[11px]">
+              Type <span className="text-amber-400 font-semibold">{deletingCampaign.name}</span> to confirm. This deletes all sectors, battles, rosters and players.
+            </p>
+            <input
+              autoFocus
+              value={deleteConfirmName}
+              onChange={e => setDeleteConfirmName(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter' && deleteConfirmName === deletingCampaign.name) handleDeleteCampaign(); }}
+              placeholder="Campaign name…"
+              className="w-full bg-zinc-900 border border-red-800/60 focus:border-red-600 text-zinc-200 text-sm px-3 py-2 outline-none"
+            />
+            <button
+              disabled={deleteConfirmName !== deletingCampaign.name || deleting}
+              onClick={handleDeleteCampaign}
+              className="w-full text-[11px] px-3 py-2 bg-red-900 border border-red-700 text-red-200 hover:bg-red-800 disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-wide"
+            >
+              {deleting ? 'Deleting…' : 'Delete campaign permanently'}
+            </button>
+          </div>
+        )}
 
         <div className="px-4 py-3 border-t border-zinc-700 flex justify-end bg-zinc-800">
           <button onClick={onClose} className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide">

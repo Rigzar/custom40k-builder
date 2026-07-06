@@ -166,7 +166,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
 export function UnitCard({ item }: Props) {
   const t = useT();
   const store = useArmyStore();
-  const { data, alliedData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
+  const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -272,10 +272,10 @@ export function UnitCard({ item }: Props) {
   // anything to do there. Used below to hide the generic Armory button for those units instead
   // of leaving a dead-end that duplicates "Vehicle equipment"/"Veteran" (GitHub #15 follow-up).
   // Vehicle-bodied characters (is_character: true) keep access, since relics are priced via p_char.
-  // Reads `data`/`alliedData` directly (not the later `effectiveArmData`) since this only needs
-  // to know whether ANY regular item exists anywhere in the faction, allied or not.
-  const factionHasRegularItems = [data, ...(alliedData ? [alliedData] : [])].some(d =>
-    [d.armory_general, ...Object.values(d.armory_marks), ...Object.values(d.armory_legions)]
+  // Reads all faction data sources (primary, allied detachment, all supplements) since this only
+  // needs to know whether ANY regular item exists anywhere in the faction, allied or not.
+  const factionHasRegularItems = [data, alliedData, ...Object.values(supplementData)].filter(Boolean).some(d =>
+    [d!.armory_general, ...Object.values(d!.armory_marks), ...Object.values(d!.armory_legions)]
       .some(src => (src.equipment as ArmoryItem[]).some(a => !a.category))
   );
   const showArmory = (u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
@@ -297,9 +297,14 @@ export function UnitCard({ item }: Props) {
     ? item.armory.find(a => a.itemName === 'Special ammunition')
     : undefined;
 
-  // Bug 3: for allied units, use the allied faction's armory for capability checks
+  // For allied units, use their own faction's armory for capability checks.
+  // alliedData = user-selected allied detachment; supplementData = primary faction supplementals.
   const isAllied = !!item.factionSource;
-  const effectiveArmData = (isAllied && alliedData) ? alliedData : data;
+  const effectiveArmData = isAllied
+    ? (item.factionSource === alliedFaction && alliedData)
+      ? alliedData
+      : (supplementData[item.factionSource ?? ''] ?? data)
+    : data;
   // "Swarm Controllers" Army Trait (ki-tau-swarmcontrollers-unmodelled-01): "Models with access to
   // drones may buy up to three drones in any combination instead of two" — raises the Drone
   // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.

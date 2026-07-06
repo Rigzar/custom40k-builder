@@ -210,3 +210,8 @@ export function removeRosterUnit(campaignId: number, unitId: number) {
     method: 'POST', body: JSON.stringify({ campaignId, unitId }),
   });
 }
+export function deleteCampaign(campaignId: number, confirmName: string) {
+  return call<{ ok: true }>('/api/campaign/delete', {
+    method: 'POST', body: JSON.stringify({ campaignId, confirmName }),
+  });
+}

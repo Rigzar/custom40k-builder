@@ -26,7 +26,7 @@ function SectionHeader({ icon, label, accent = 'amber' }: { icon: string; label:
  * writes the alliedArchetype/alliedLegacy/alliedTraitPool store fields instead, so the two
  * customisation flows can never drift out of sync with each other again.
  */
-export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 'primary' | 'allied'; alliedFactionLabel?: string }) {
+export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSetup = true }: { scope?: 'primary' | 'allied'; alliedFactionLabel?: string; showBattleSetup?: boolean }) {
   const store = useArmyStore();
   const isAllied = scope === 'allied';
   const accent: 'amber' | 'emerald' = isAllied ? 'emerald' : 'amber';
@@ -88,7 +88,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel }: { scope?: 
     <div className="space-y-4">
 
       {/* ── BATTLE SETUP (primary only — the ally shares engagement/points) ── */}
-      {!isAllied && (
+      {!isAllied && showBattleSetup && (
       <div className="border border-zinc-800 bg-zinc-900/50">
         <SectionHeader icon="/phase-icons/rally.svg" label={t('battleSetup')} />
         <div className="p-4 space-y-4">

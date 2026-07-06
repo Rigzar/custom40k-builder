@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -6,38 +6,39 @@ import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
 import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
+import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
+import { ENGAGEMENTS } from '../engine/engagements';
+import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v139_saveload_fix_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v140_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.39: Save/load fix — autosave now restores your army correctly',
-    intro: 'The "↩ Faction" autosave and crash-recovery entries now load your army and allied detachment properly instead of opening an empty builder.',
-    line1: '💾 GENERAL — the autosave entry was storing the faction as a display label ("Chaos Space Marines") instead of the loader key ("chaos_space_marines"), so clicking "Load" silently failed to find the faction and left everything blank. Fixed in all three save paths (beforeunload, crash-recovery, manual save). Old saves on disk are handled too.',
-    line2: '💾 GENERAL — manual "Save" now preserves the allied detachment (faction, archetype, legacy, traits, mark); previously the ally was silently dropped when reloading a manually saved army. ⚔️ Chaos Space Marines (as ally) — Master of Execution slot counter now correctly shows Elites: 0 when an HQ is present.',
+    title: 'v1.40: New army creation flow + bug fixes',
+    intro: 'Army creation is now a 3-step flow (Battle Setup → Army Config → Builder). Supplements are on the landing page. Plus two bug fixes.',
+    line1: '🪖 GENERAL — new hero landing page with a 3-step army creation flow: pick battle type & points (clamped per type: Skirmish 1000–2499, Pitched 2500–3999, Epic 4000+), then choose faction, then configure archetype/legacy/traits. Supplements (Horus Heresy, Escalation, Assassins) are now accessible directly from the landing page.',
+    line2: '⚔️ GENERAL — allied units now always show their own faction\'s armory (race condition fixed). Deleting a save and saving with a new name no longer reuses the old save slot. Campaign GMs can now delete a campaign via the campaign list.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.39: Speichern/Laden-Fix — Autosave stellt Armee jetzt korrekt wieder her',
-    intro: 'Der „↩ Fraktion"-Autosave und die Absturz-Wiederherstellungseinträge laden jetzt Armee und Verbündeten-Detachement korrekt, statt einen leeren Builder zu öffnen.',
-    line1: '💾 ALLGEMEIN — Der Autosave-Eintrag speicherte die Fraktion als Anzeigename („Chaos Space Marines") statt als Loader-Key („chaos_space_marines"), weshalb „Laden" lautlos scheiterte. In allen drei Speicherpfaden behoben. Alte Speicherstände werden ebenfalls korrekt behandelt.',
-    line2: '💾 ALLGEMEIN — Manuelles „Speichern" bewahrt jetzt das Verbündeten-Detachement (Fraktion, Archetyp, Legacy, Traits, Marke). ⚔️ Chaos Space Marines (als Verbündete) — Master of Execution zählt Elites: 0, wenn ein HQ vorhanden ist.',
+    title: 'v1.40: Neuer Armee-Erstellungsablauf + Fehlerbehebungen',
+    intro: 'Das Erstellen einer Armee erfolgt nun in 3 Schritten (Schlachtaufbau → Armee-Konfiguration → Builder). Supplemente sind auf der Startseite. Dazu zwei Fehlerbehebungen.',
+    line1: '🪖 ALLGEMEIN — neue Startseite mit 3-schrittigem Armee-Erstellungsablauf: Schlachttyp & Punkte wählen (begrenzt: Skirmish 1000–2499, Pitched 2500–3999, Epic 4000+), dann Fraktion, dann Archetyp/Legacy/Merkmale konfigurieren. Supplemente (Horus Heresy, Escalation, Assassinen) sind direkt von der Startseite aus zugänglich.',
+    line2: '⚔️ ALLGEMEIN — Verbündete Einheiten zeigen jetzt immer das Armoury ihrer eigenen Fraktion (Race Condition behoben). Das Löschen eines Speicherstands und das erneute Speichern unter neuem Namen verwendet nicht mehr den alten Slot. Kampagnen-GMs können eine Kampagne jetzt über die Kampagnenliste löschen.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.39: Fix de guardado/carga — el autoguardado restaura el ejército correctamente',
-    intro: 'Las entradas de autoguardado "↩ Facción" y recuperación ante crash ahora cargan el ejército y el destacamento aliado correctamente en lugar de abrir un constructor vacío.',
-    line1: '💾 GENERAL — la entrada de autoguardado almacenaba la facción como etiqueta de pantalla ("Chaos Space Marines") en vez de la clave del loader ("chaos_space_marines"), por lo que "Cargar" fallaba silenciosamente. Corregido en los tres paths de guardado. Los guardados antiguos en disco también se manejan correctamente.',
-    line2: '💾 GENERAL — el guardado manual ahora preserva el destacamento aliado (facción, arquetipo, legado, rasgos, marca). ⚔️ Chaos Space Marines (como aliados) — Master of Execution ahora muestra Elites: 0 correctamente cuando hay un QG presente.',
+    title: 'v1.40: Nuevo flujo de creación de ejércitos + correcciones',
+    intro: 'La creación de ejércitos ahora tiene 3 pasos (Configuración de batalla → Config. de ejército → Constructor). Los suplementos están en la página de inicio. Más dos correcciones de bugs.',
+    line1: '🪖 GENERAL — nueva página de inicio con flujo de 3 pasos: elegir tipo de batalla y puntos (limitados por tipo: Escaramuza 1000–2499, Pitched 2500–3999, Épica 4000+), luego facción, luego configurar arquetipo/legado/rasgos. Los suplementos (Horus Heresy, Escalation, Assassinos) son accesibles directamente desde la página de inicio.',
+    line2: '⚔️ GENERAL — las unidades aliadas ahora muestran siempre la armería de su propia facción (race condition corregida). Borrar un guardado y guardar con nombre nuevo ya no reutiliza el slot antiguo. Los GMs de campaña ahora pueden borrar una campaña desde la lista de campañas.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
 
-/** Renders "bold headline — detail" when the text contains an em-dash split; falls back to a
- * plain paragraph when it doesn't, instead of leaving a dangling " — " with nothing after it. */
 function BoldSplitLine({ text }: { text: string }) {
   const parts = text.split(' — ');
   if (parts.length < 2) return <p>{text}</p>;
@@ -153,6 +154,14 @@ function formatDate(ts: number): string {
   return d.toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
+function getFactionName(key: string): string {
+  for (const cat of CATEGORIES) {
+    const f = cat.factions.find(f => f.key === key);
+    if (f) return f.name;
+  }
+  return key;
+}
+
 interface Props {
   selectedFaction: string | null;
   loading: boolean;
@@ -161,67 +170,385 @@ interface Props {
   onBuild: () => void;
   onLoadArmy: (save: SavedArmy) => void;
   onDeleteArmy: (id: string) => void;
+  onShowAuth: () => void;
   hideArmyConfig?: boolean;
 }
 
 export function LandingPage({
   selectedFaction, loading, saves,
-  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy,
-  hideArmyConfig = false,
+  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowAuth,
 }: Props) {
-  const { data } = useArmyStore();
+  const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
+  const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
   const [showChangelog, setShowChangelog] = useState(false);
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
+  const { loggedIn, username } = useAuth();
 
-  return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+  const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
 
-      {/* ── Header ── */}
-      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-6 py-7">
-        <div className="flex items-center justify-between max-w-screen-lg mx-auto gap-4">
+  function handleSetEngagement(e: EngagementType) {
+    const eng = ENGAGEMENTS[e];
+    setEngagement(e);
+    if (pointLimit < eng.min) setPointLimit(eng.min);
+    else if (pointLimit > eng.max) setPointLimit(eng.max);
+  }
+
+  function handleSelectFactionInSetup(key: string | null) {
+    onSelectFaction(key);
+    if (key) setView('config');
+  }
+
+  // ── Hero view ───────────────────────────────────────────────────────────────
+  if (view === 'hero') {
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+
+        {/* Top bar */}
+        <div className="flex justify-between items-center px-5 py-3 border-b border-zinc-900">
           <LanguageSelector />
-          <div className="flex-1 text-center">
-            <img
-              src="/wh40k-logo.webp"
-              alt="Warhammer 40,000"
-              className="h-16 mx-auto mb-1 object-contain"
-              style={{ filter: 'sepia(1) saturate(4) hue-rotate(-10deg) brightness(1.05)' }}
-              draggable={false}
-            />
-            <p className="text-zinc-500 text-sm">
-              {t('appSubtitle')}
-            </p>
-            <p className="text-zinc-400 text-[10px] italic mt-2 font-cinzel tracking-wide">
-              "{t('landingQuote')}"
-            </p>
+          <button
+            onClick={() => setShowChangelog(true)}
+            className="text-[11px] uppercase tracking-wide text-zinc-500 hover:text-amber-400 transition-colors"
+          >
+            v{latestVersion}
+          </button>
+        </div>
+
+        {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
+
+        {/* Center content */}
+        <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+
+          {/* Logo */}
+          <img
+            src="/custom40k-logo.png"
+            alt="Custom40k"
+            className="w-64 sm:w-80 mb-8 object-contain select-none"
+            draggable={false}
+          />
+
+          {/* Ornamental divider */}
+          <div className="flex items-center gap-3 w-full max-w-xs mb-8">
+            <div className="flex-1 h-px bg-amber-900/50" />
+            <div className="w-1.5 h-1.5 bg-amber-800 rotate-45 shrink-0" />
+            <div className="flex-1 h-px bg-amber-900/50" />
           </div>
-          <div className="shrink-0 flex items-center gap-2">
+
+          {/* Quick-load: saved armies */}
+          {saves.length > 0 && (
+            <div className="w-full max-w-xs mb-6">
+              <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-2 text-center">
+                {t('savedArmies')}
+              </div>
+              <div className="space-y-1.5 max-h-36 overflow-y-auto">
+                {saves.slice(0, 4).map(save => (
+                  <button
+                    key={save.id}
+                    onClick={() => onLoadArmy(save)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 bg-zinc-900 border border-zinc-800 hover:border-amber-800/60 hover:bg-zinc-800 transition-colors text-left"
+                  >
+                    <FactionSymbol factionKey={save.factionKey} size={22} />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[12px] text-zinc-200 truncate">{save.name}</div>
+                      <div className="text-[10px] text-zinc-500">{save.totalPts} pts · {formatDate(save.savedAt)}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Action buttons 2×2 */}
+          <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
             <a
               href="https://custom40k-wiki.vercel.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
+              className="flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
               Wiki
             </a>
+
             <button
-              onClick={() => setShowChangelog(true)}
-              className="text-[11px] uppercase tracking-wide border border-zinc-700 hover:border-amber-800 text-zinc-400 hover:text-amber-400 px-3 py-1.5 transition-colors"
+              onClick={onShowAuth}
+              className="flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
-              {t('updates')} <span className="text-amber-700">v{latestVersion}</span>
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+              {loggedIn ? (username ?? 'Account') : 'Login / Sign in'}
+            </button>
+
+            <a
+              href="https://custom40k-wiki.vercel.app/glossary"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+              Glossary
+            </a>
+
+            <button
+              onClick={() => setView('setup')}
+              className="flex items-center justify-center gap-2 py-3 px-4 bg-amber-800 border-2 border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+              {t('buildArmy')}
             </button>
           </div>
+
+          {/* Discord */}
+          <a
+            href="https://discord.com/invite/wnGAB3TYAY"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 flex items-center gap-2 text-[11px] text-zinc-600 hover:text-indigo-400 transition-colors uppercase tracking-wider"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            Discord
+          </a>
+
+        </div>
+
+        {/* Supplements */}
+        <div className="px-6 pb-6 max-w-screen-sm mx-auto w-full">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
+              {t('supplements')}
+            </span>
+            <div className="flex-1 h-px bg-zinc-800" />
+          </div>
+          <p className="text-zinc-500 text-[11px] mb-4">{t('supplementsDesc')}</p>
+          <div className="flex flex-wrap gap-3">
+
+            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-red-900 p-4 min-w-[200px] flex-1 max-w-xs flex flex-col gap-2">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#2d1010', padding: 4 }}>
+                    <img src="/faction-symbols/horus-heresy.svg" alt="Eye of Horus" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
+                  </div>
+                  <div>
+                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
+                    <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
+                  </div>
+                </div>
+                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
+              </div>
+              <p className="text-zinc-500 text-[11px] leading-snug">{t('hhDesc')}</p>
+              <button onClick={() => setOpenSupplement('horus_heresy')} className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-red-900/20 border border-red-900/50 text-red-400 hover:bg-red-900/40 transition-colors">
+                {t('viewCatalog')} ▶
+              </button>
+            </div>
+
+            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-amber-800 p-4 min-w-[200px] flex-1 max-w-xs flex flex-col gap-2">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
+                    <img src="/faction-symbols/escalation.svg" alt="Escalation" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
+                  </div>
+                  <div>
+                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
+                    <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
+                  </div>
+                </div>
+                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
+              </div>
+              <p className="text-zinc-500 text-[11px] leading-snug">{t('escDesc')}</p>
+              <button onClick={() => setOpenSupplement('escalation')} className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/20 border border-amber-900/50 text-amber-400 hover:bg-amber-900/40 transition-colors">
+                {t('viewCatalog')} ▶
+              </button>
+            </div>
+
+            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-zinc-500 p-4 min-w-[200px] flex-1 max-w-xs flex flex-col gap-2">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
+                    <img src="/faction-symbols/assassins.svg" alt="Officio Assassinorum" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
+                  </div>
+                  <div>
+                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Assassins</div>
+                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Officio Assassinorum</div>
+                  </div>
+                </div>
+                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Chaos · Imperial</span>
+              </div>
+              <p className="text-zinc-500 text-[11px] leading-snug">{t('assDesc')}</p>
+              <button onClick={() => setOpenSupplement('assassins')} className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-zinc-800/50 border border-zinc-700 text-zinc-400 hover:bg-zinc-800 transition-colors">
+                {t('viewCatalog')} ▶
+              </button>
+            </div>
+
+          </div>
+          {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
+        </div>
+
+        {/* Bottom announcement */}
+        <div className="px-6 pb-6 max-w-screen-sm mx-auto w-full">
+          <CommunityAnnouncement />
+        </div>
+
+      </div>
+    );
+  }
+
+  // ── Config view — Army Config (archetype / legacy / traits) ─────────────────
+  if (view === 'config') {
+    const factionName = selectedFaction ? getFactionName(selectedFaction) : '';
+    const engData = ENGAGEMENTS[engagement];
+    return (
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+
+        {/* Sub-header */}
+        <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-3 sticky top-0 z-30">
+          <div className="max-w-screen-lg mx-auto flex items-center justify-between gap-4">
+            <button
+              onClick={() => { onSelectFaction(null); setView('setup'); }}
+              className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-zinc-400 hover:text-amber-400 transition-colors"
+            >
+              ← {t('selectFaction')}
+            </button>
+            <h1 className="font-cinzel text-sm uppercase tracking-widest text-amber-700">
+              {t('armyConfiguration')}
+            </h1>
+            <LanguageSelector />
+          </div>
+        </header>
+
+        {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
+
+        <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-6 w-full">
+
+          {/* Faction + battle summary */}
+          {selectedFaction && (
+            <div className="flex items-center gap-4 px-4 py-3 bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800">
+              <FactionSymbol factionKey={selectedFaction} size={40} />
+              <div>
+                <div className="text-sm font-semibold text-zinc-100">{factionName}</div>
+                <div className="text-[11px] text-amber-700 uppercase tracking-wide mt-0.5">
+                  {engData.name} · {pointLimit} pts
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Army Config */}
+          {loading || !data ? (
+            <div className="flex items-center gap-3 text-zinc-500 py-8">
+              <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
+              <span className="text-sm">{t('loadingFactionData')}</span>
+            </div>
+          ) : (
+            <ArmyConfig showBattleSetup={false} />
+          )}
+
+          {/* Add Troops button */}
+          {data && selectedFaction && (
+            <div className="flex justify-center pt-2 pb-8">
+              <button
+                onClick={onBuild}
+                className="px-10 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
+              >
+                {t('addTroops')} →
+              </button>
+            </div>
+          )}
+
+        </div>
+      </div>
+    );
+  }
+
+  // ── Setup view — Battle Setup + Faction selection ───────────────────────────
+  return (
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
+
+      {/* Sub-header */}
+      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-3 sticky top-0 z-30">
+        <div className="max-w-screen-lg mx-auto flex items-center justify-between gap-4">
+          <button
+            onClick={() => { setView('hero'); onSelectFaction(null); }}
+            className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-zinc-400 hover:text-amber-400 transition-colors"
+          >
+            ← Home
+          </button>
+          <h1 className="font-cinzel text-sm uppercase tracking-widest text-amber-700">
+            {t('buildArmy')}
+          </h1>
+          <LanguageSelector />
         </div>
       </header>
 
       {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
       {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
 
-      <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10">
+      <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10 w-full">
 
-        <CommunityAnnouncement />
+        {/* ── Battle Setup ── */}
+        <section>
+          <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
+            {t('battleSetup')}
+          </h2>
+          <div className="border border-zinc-800 bg-zinc-900/50">
+            <div className="p-4 space-y-4">
+
+              {/* Engagement type */}
+              <div>
+                <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-2">{t('battleType')}</div>
+                <div className="grid grid-cols-3 gap-2">
+                  {engKeys.map(e => (
+                    <button
+                      key={e}
+                      onClick={() => handleSetEngagement(e)}
+                      className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
+                        ${engagement === e
+                          ? 'bg-amber-900/50 border-amber-600 text-amber-300'
+                          : 'bg-zinc-800/60 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'
+                        }`}
+                    >
+                      {ENGAGEMENTS[e].name}
+                    </button>
+                  ))}
+                </div>
+                {ENGAGEMENTS[engagement].notes && (
+                  <div className="mt-2 text-[10px] text-zinc-500 border-l-2 border-amber-900/50 pl-2 leading-relaxed">
+                    {ENGAGEMENTS[engagement].notes}
+                  </div>
+                )}
+              </div>
+
+              {/* Points limit */}
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('pointsLimit')}</span>
+                <input
+                  type="number"
+                  value={pointLimit}
+                  min={ENGAGEMENTS[engagement].min}
+                  max={ENGAGEMENTS[engagement].max}
+                  step={250}
+                  onChange={e => {
+                    const v = Number(e.target.value);
+                    const eng = ENGAGEMENTS[engagement];
+                    setPointLimit(Math.min(eng.max, Math.max(eng.min, v)));
+                  }}
+                  onBlur={e => {
+                    const v = Number(e.target.value);
+                    const eng = ENGAGEMENTS[engagement];
+                    setPointLimit(Math.min(eng.max, Math.max(eng.min, v)));
+                  }}
+                  className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm
+                    focus:outline-none focus:border-amber-600 text-center tabular-nums"
+                />
+                <span className="text-[10px] text-zinc-600">pts</span>
+                <span className="text-[10px] text-zinc-600">({ENGAGEMENTS[engagement].range})</span>
+              </div>
+
+            </div>
+          </div>
+        </section>
 
         {/* ── Saved armies ── */}
         {saves.length > 0 && (
@@ -272,7 +599,6 @@ export function LandingPage({
 
         {/* ── Faction selection ── */}
         <section>
-          {/* Legend */}
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700">{t('selectFaction')}</h2>
             <div className="flex items-center gap-3 text-[10px] text-zinc-500">
@@ -285,7 +611,6 @@ export function LandingPage({
           <div className="space-y-7">
             {CATEGORIES.map(cat => (
               <div key={cat.name}>
-                {/* Category header: icon + name + divider */}
                 <div className="flex items-center gap-2.5 mb-3">
                   <img
                     src={cat.icon}
@@ -302,168 +627,39 @@ export function LandingPage({
                   <div className="flex-1 h-px" style={{ background: cat.dividerColor }} />
                 </div>
 
-                {/* Faction cards */}
                 <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
-                  {cat.factions.map(f => {
-                    const isSelected = selectedFaction === f.key;
-                    return (
-                      <button
-                        key={f.key}
-                        onClick={() => f.available && onSelectFaction(isSelected ? null : f.key)}
-                        disabled={!f.available}
-                        className={`
-                          relative flex flex-col items-center gap-2 pt-4 pb-3 px-2 border rounded-lg text-center transition-all
-                          ${!f.available
-                            ? 'border-zinc-800 bg-zinc-900/50 cursor-not-allowed opacity-40'
-                            : isSelected
-                              ? 'border-amber-600 bg-zinc-800 ring-1 ring-amber-700/50'
-                              : 'border-zinc-700 bg-zinc-900 hover:border-zinc-500 hover:bg-zinc-800 cursor-pointer'
-                          }
-                        `}
-                      >
-                        {/* Status dot */}
-                        {f.available && (
-                          <div
-                            className={`absolute top-2 right-2 w-2 h-2 rounded-full ${STATUS_DOT[f.status]}`}
-                            title={t(STATUS_I18N_KEY[f.status])}
-                          />
-                        )}
-
-                        <FactionSymbol factionKey={f.key} size={40} />
-
-                        <span className={`text-[11px] leading-tight ${isSelected ? 'text-amber-400' : 'text-zinc-300'}`}>
-                          {f.name}
-                        </span>
-                      </button>
-                    );
-                  })}
+                  {cat.factions.map(f => (
+                    <button
+                      key={f.key}
+                      onClick={() => f.available && handleSelectFactionInSetup(f.key)}
+                      disabled={!f.available}
+                      className={`
+                        relative flex flex-col items-center gap-2 pt-4 pb-3 px-2 border rounded-lg text-center transition-all
+                        ${!f.available
+                          ? 'border-zinc-800 bg-zinc-900/50 cursor-not-allowed opacity-40'
+                          : 'border-zinc-700 bg-zinc-900 hover:border-amber-600 hover:bg-zinc-800 cursor-pointer'
+                        }
+                      `}
+                    >
+                      {f.available && (
+                        <div
+                          className={`absolute top-2 right-2 w-2 h-2 rounded-full ${STATUS_DOT[f.status]}`}
+                          title={t(STATUS_I18N_KEY[f.status])}
+                        />
+                      )}
+                      <FactionSymbol factionKey={f.key} size={40} />
+                      <span className="text-[11px] leading-tight text-zinc-300">
+                        {f.name}
+                      </span>
+                    </button>
+                  ))}
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── Army configuration ── */}
-        {!hideArmyConfig && selectedFaction && (
-          <section>
-            <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
-              {t('armyConfiguration')}
-            </h2>
-            {loading || !data ? (
-              <div className="flex items-center gap-3 text-zinc-500 py-8">
-                <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
-                <span className="text-sm">{t('loadingFactionData')}</span>
-              </div>
-            ) : (
-              <div className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-4">
-                <ArmyConfig />
-              </div>
-            )}
-          </section>
-        )}
 
-        {/* ── Build button ── */}
-        {!hideArmyConfig && data && selectedFaction && (
-          <div className="flex justify-center pt-2">
-            <button
-              onClick={onBuild}
-              className="px-10 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
-            >
-              {t('buildArmy')}
-            </button>
-          </div>
-        )}
-
-        {/* ── Supplements ── */}
-        <section>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
-              {t('supplements')}
-            </span>
-            <div className="flex-1 h-px bg-zinc-800" />
-          </div>
-          <p className="text-zinc-500 text-[11px] mb-4">
-            {t('supplementsDesc')}
-          </p>
-          <div className="flex flex-wrap gap-3">
-
-            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-red-900 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: '#2d1010', padding: 4 }}>
-                    <img src="/faction-symbols/horus-heresy.svg" alt="Eye of Horus" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
-                  </div>
-                  <div>
-                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
-                    <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
-                  </div>
-                </div>
-                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
-              </div>
-              <div className="text-[10px] text-red-500/80 uppercase tracking-wide">⚙ {t('hhRequires')}</div>
-              <p className="text-zinc-500 text-[12px] leading-snug">
-                {t('hhDesc')}
-              </p>
-              <button
-                onClick={() => setOpenSupplement('horus_heresy')}
-                className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-red-900/20 border border-red-900/50 text-red-400 hover:bg-red-900/40 transition-colors"
-              >
-                {t('viewCatalog')} ▶
-              </button>
-            </div>
-
-            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-amber-800 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
-                    <img src="/faction-symbols/escalation.svg" alt="Escalation" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
-                  </div>
-                  <div>
-                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
-                    <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
-                  </div>
-                </div>
-                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
-              </div>
-              <div className="text-[10px] text-amber-500/80 uppercase tracking-wide">⚙ {t('escRequires')}</div>
-              <p className="text-zinc-500 text-[12px] leading-snug">
-                {t('escDesc')}
-              </p>
-              <button
-                onClick={() => setOpenSupplement('escalation')}
-                className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/20 border border-amber-900/50 text-amber-400 hover:bg-amber-900/40 transition-colors"
-              >
-                {t('viewCatalog')} ▶
-              </button>
-            </div>
-
-            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-zinc-500 p-4 min-w-[220px] flex-1 max-w-xs flex flex-col gap-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
-                    <img src="/faction-symbols/assassins.svg" alt="Officio Assassinorum" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
-                  </div>
-                  <div>
-                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Assassins</div>
-                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Officio Assassinorum</div>
-                  </div>
-                </div>
-                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Chaos · Imperial</span>
-              </div>
-              <div className="text-[10px] text-zinc-500 uppercase tracking-wide">✓ {t('assAlwaysAvailable')}</div>
-              <p className="text-zinc-500 text-[12px] leading-snug">
-                {t('assDesc')}
-              </p>
-              <button
-                onClick={() => setOpenSupplement('assassins')}
-                className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-zinc-800/50 border border-zinc-700 text-zinc-400 hover:bg-zinc-800 transition-colors"
-              >
-                {t('viewCatalog')} ▶
-              </button>
-            </div>
-
-          </div>
-        </section>
       </div>
     </div>
   );

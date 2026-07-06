@@ -32,6 +32,7 @@ export default async function handler(req, res) {
       case 'roster-add':    return rosterAdd(req, res, userId);
       case 'roster-update': return rosterUpdate(req, res, userId);
       case 'roster-remove': return rosterRemove(req, res, userId);
+      case 'delete':        return deleteCampaign(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown campaign action' });
     }
@@ -476,6 +477,33 @@ async function rosterRemove(req, res, userId) {
   }
 
   await sql`DELETE FROM campaign_roster WHERE id = ${unitId} AND campaign_id = ${campaignId}`;
+  res.status(200).json({ ok: true });
+}
+
+/** POST /api/campaign/delete { campaignId, confirmName } -> GM deletes the campaign and all its data. */
+async function deleteCampaign(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, confirmName } = req.body ?? {};
+  if (!Number.isInteger(campaignId)) { res.status(400).json({ error: 'Missing campaignId' }); return; }
+  if (typeof confirmName !== 'string' || !confirmName.trim()) { res.status(400).json({ error: 'confirmName required' }); return; }
+
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can delete a campaign.' }); return; }
+
+  const result = await sql`SELECT name FROM campaigns WHERE id = ${campaignId}`;
+  if (!result.rows.length) { res.status(404).json({ error: 'Campaign not found.' }); return; }
+  if (result.rows[0].name !== confirmName.trim()) {
+    res.status(400).json({ error: 'Campaign name does not match.' }); return;
+  }
+
+  // Delete in dependency order
+  await sql`DELETE FROM campaign_roster WHERE campaign_id = ${campaignId}`;
+  await sql`DELETE FROM campaign_battles WHERE campaign_id = ${campaignId}`;
+  await sql`DELETE FROM campaign_supply WHERE campaign_id = ${campaignId}`;
+  await sql`DELETE FROM campaign_sectors WHERE campaign_id = ${campaignId}`;
+  await sql`DELETE FROM campaign_players WHERE campaign_id = ${campaignId}`;
+  await sql`DELETE FROM campaigns WHERE id = ${campaignId}`;
+
   res.status(200).json({ ok: true });
 }
 

@@ -102,7 +102,7 @@ const MARK_BADGE: Record<string, string> = {
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
   const t = useT();
-  const { data, alliedData, legacy, legacy2, archetype, alliedArchetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, archetype, alliedArchetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -139,9 +139,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }, [archetypeRuleForArmory?.armoryOnlyFaction]);
   if (!data) return null;
 
-  // Bug 3: for allied units use the allied faction's armory data
+  // For allied units use their own faction's armory data.
+  // alliedData = user-selected allied detachment; supplementData = primary faction's
+  // supplemental/native-ally factions (Assassins, Inquisition, HH, Daemonkin, etc.).
   const isAllied = !!item.factionSource;
-  const activeData = (isAllied && alliedData) ? alliedData : data;
+  const activeData = isAllied
+    ? (item.factionSource === alliedFaction && alliedData)
+      ? alliedData
+      : (supplementData[item.factionSource ?? ''] ?? data)
+    : data;
 
   // Always read armory from the live store so Unique checks stay current after additions
   const currentArmory = (army.find(e => e.id === item.id) ?? item).armory;

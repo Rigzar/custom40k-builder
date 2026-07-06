@@ -4,7 +4,6 @@ import { SlotPanel } from './components/SlotPanel';
 import { ArmyConfig } from './components/ArmyConfig';
 import { ValidationPanel } from './components/ValidationPanel';
 import { ArmyList } from './components/ArmyList';
-import { ReferencePanel } from './components/ReferencePanel';
 import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
 import { FactionSymbol } from './components/FactionSymbol';
@@ -248,7 +247,6 @@ export default function App() {
   const [openTabs, setOpenTabs]                 = useState<TabId[]>(['landing']);
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
   const [loadingFaction, setLoadingFaction]     = useState(false);
-  const [showRef, setShowRef]                   = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
   const [showArmies, setShowArmies]             = useState(false);
   const [showBugReport, setShowBugReport]       = useState(false);
@@ -490,12 +488,17 @@ export default function App() {
       setActiveLocalSaveId(null);
     }
     setSelectedFaction(key);
-    setOpenTabs(prev => {
-      // Changing faction: close the builder tab
-      const base = isNewFaction ? prev.filter(t => t === 'landing') : prev.filter(t => t !== 'builder');
-      return base.includes('army_config') ? base : [...base, 'army_config'];
-    });
-    setActiveTab('army_config');
+    if (activeTab === 'landing') {
+      // Faction picked from the landing pick-view — config is inline there, stay on landing.
+      if (isNewFaction) setOpenTabs(['landing']);
+    } else {
+      // Faction changed from inside the builder (e.g. via a future settings panel).
+      setOpenTabs(prev => {
+        const base = isNewFaction ? prev.filter(t => t === 'landing') : prev.filter(t => t !== 'builder');
+        return base.includes('army_config') ? base : [...base, 'army_config'];
+      });
+      setActiveTab('army_config');
+    }
   }
 
   function handleBuild() {
@@ -557,12 +560,14 @@ export default function App() {
     }
 
     // Not logged in: fall back to the local, per-browser "My Armies" list.
+    // If activeLocalSaveId refers to a deleted save (no longer in the list), treat this as new.
+    const saveStillExists = activeLocalSaveId != null && saves.some(s => s.id === activeLocalSaveId);
     let name = baseName;
-    if (activeLocalSaveId == null) {
+    if (!saveStillExists) {
       name = uniqueName(baseName, saves.filter(s => s.factionKey === selectedFaction).map(s => s.name));
       if (name !== baseName) setArmyName(name);
     }
-    const id = activeLocalSaveId ?? `save-${Date.now()}`;
+    const id = saveStillExists ? activeLocalSaveId! : `save-${Date.now()}`;
     setActiveLocalSaveId(id);
 
     const entry: SavedArmy = {
@@ -613,8 +618,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
-      {/* ── Tab bar (always sticky at top) ── */}
-      <div className="sticky top-0 z-50">
+      {/* ── Tab bar — hidden on landing hero (hero has its own header) ── */}
+      <div className="sticky top-0 z-50" style={{ display: activeTab === 'landing' ? 'none' : 'block' }}>
         <TabBar
           activeTab={activeTab}
           openTabs={openTabs}
@@ -642,8 +647,8 @@ export default function App() {
           onSelectFaction={handleSelectFaction}
           onBuild={handleBuild}
           onLoadArmy={handleLoadArmy}
-          onDeleteArmy={deleteArmy}
-          hideArmyConfig
+          onDeleteArmy={(id) => { deleteArmy(id); if (id === activeLocalSaveId) setActiveLocalSaveId(null); }}
+          onShowAuth={() => setShowAuth(true)}
         />
       </div>
 
@@ -734,14 +739,6 @@ export default function App() {
                 >
                   My Armies
                 </button>
-                {data && (
-                  <button
-                    onClick={() => setShowRef(true)}
-                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-                  >
-                    Reference
-                  </button>
-                )}
                 {data && (
                   <button
                     onClick={() => setShowPrint(true)}
@@ -874,22 +871,7 @@ export default function App() {
 
       <LegalFooter />
 
-      {showRef && !showArmies && (
-        <div
-          className="fixed inset-0 bg-black/80 z-50 flex items-start justify-center p-6 overflow-y-auto"
-          onClick={e => e.target === e.currentTarget && setShowRef(false)}
-        >
-          <div className="w-full max-w-lg relative">
-            <button
-              onClick={() => setShowRef(false)}
-              className="absolute top-2 right-2 z-10 text-zinc-400 hover:text-white text-xl leading-none"
-            >
-              ✕
-            </button>
-            <ReferencePanel />
-          </div>
-        </div>
-      )}
+
     </div>
   );
 }

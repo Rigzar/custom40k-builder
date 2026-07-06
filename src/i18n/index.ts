@@ -22,7 +22,7 @@ export const useLanguage = create<I18nState>()(
 
 export type TranslationKey =
   | 'appTitle' | 'appSubtitle' | 'landingQuote' | 'selectFaction' | 'savedArmies' | 'loadArmy'
-  | 'buildArmy' | 'updates' | 'battleType' | 'pointsLimit' | 'archetype'
+  | 'buildArmy' | 'addTroops' | 'updates' | 'battleType' | 'pointsLimit' | 'archetype'
   | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
@@ -156,6 +156,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     savedArmies: 'Saved Armies',
     loadArmy: 'Load Army',
     buildArmy: 'Build Army ▶',
+    addTroops: 'Add Troops',
     updates: 'Updates',
     battleType: 'Battle Type',
     pointsLimit: 'Points Limit',
@@ -229,7 +230,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     escDesc: 'Super-heavy vehicles, Knights and Titans. Unlocked by the Epic Battle engagement, capped at 33% of points. Available for all factions.',
     assAlwaysAvailable: 'Always available — no activation step',
     assDesc: 'Callidus, Culexus, Eversor, Vindicare. A single Assassin or one of each — counts as a single Elite slot. Granted natively by Demon Hunters / Witch hunters.',
-    tabFactions: 'Factions',
+    tabFactions: 'Home',
     tabConfig: 'Config',
     tabArmy: 'Army',
     tabAllied: 'Allied',
@@ -655,6 +656,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     savedArmies: 'Gespeicherte Armeen',
     loadArmy: 'Armee laden',
     buildArmy: 'Armee bauen ▶',
+    addTroops: 'Truppen hinzufügen',
     updates: 'Updates',
     battleType: 'Schlachttyp',
     pointsLimit: 'Punktelimit',
@@ -1154,6 +1156,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     savedArmies: 'Ejércitos guardados',
     loadArmy: 'Cargar ejército',
     buildArmy: 'Construir ejército ▶',
+    addTroops: 'Agregar tropas',
     updates: 'Actualizaciones',
     battleType: 'Tipo de batalla',
     pointsLimit: 'Límite de puntos',

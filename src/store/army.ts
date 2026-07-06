@@ -184,6 +184,11 @@ export interface ArmyStore extends ArmyState {
   setAlliedData: (d: FactionData | null) => void;
   setAlliedFaction: (key: string | null) => void;
 
+  /** Faction data for supplemental/native-ally factions (Assassins, Inquisition, HH supplement,
+   *  Daemonkin, etc.) injected by the primary faction's archetype/legacy/intrinsic-allies.
+   *  Separate from alliedData to avoid collision with the user-selected allied detachment. */
+  supplementData: Record<string, FactionData>;
+
   setArmyName: (n: string) => void;
   setUnitCustomName: (id: string, name: string) => void;
   setUnitJoinTarget: (id: string, targetId: string | null) => void;
@@ -275,6 +280,7 @@ export const useArmyStore = create<ArmyStore>()(
       ...defaultState,
       data: null,
       alliedData: null,
+      supplementData: {} as Record<string, FactionData>,
 
       setData: (d: FactionData) => set(s => {
         // When loading a DIFFERENT faction (an actual user-driven switch, not the first load
@@ -297,6 +303,7 @@ export const useArmyStore = create<ArmyStore>()(
             hqMark: 'Undivided' as Mark,
             alliedFaction: undefined,
             alliedData: null,
+            supplementData: {},
           };
         }
         return { data: mergeAlliedIntoData(d, s.alliedFaction, s.alliedData), faction: d.faction };
@@ -703,9 +710,10 @@ export const useArmyStore = create<ArmyStore>()(
             [sharedArmoryLabel]: { ...factionData.armory_general, name: sharedArmoryLabel },
           };
         }
-        // Keep the full injected faction data in alliedData so the supplement's own units
-        // (factionSource) resolve their native armory in the modal's General tab.
-        return { alliedData: factionData, data: newData };
+        // Keep the full injected faction data in supplementData so supplement/native-ally units
+        // (factionSource) resolve their native armory in the modal's General tab, without
+        // colliding with the user-selected allied detachment's own alliedData.
+        return { supplementData: { ...s.supplementData, [key]: factionData }, data: newData };
       }),
 
       importRoster: (json: string) => {
@@ -729,7 +737,7 @@ export const useArmyStore = create<ArmyStore>()(
         } catch { /* ignore malformed */ }
       },
 
-      clearArmy: () => set({ ...defaultState, data: get().data, alliedData: null }),
+      clearArmy: () => set({ ...defaultState, data: get().data, alliedData: null, supplementData: {} }),
     }),
     {
       name: 'custom40k-army',

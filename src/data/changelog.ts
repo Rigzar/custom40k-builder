@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.40',
+    date: '2026-07-06',
+    title: 'GENERAL — allied armory race-condition fix + save overwrite fix',
+    changes: [
+      'GENERAL — allied unit armory now always resolves from the correct faction: supplemental/native-ally faction data (Assassins, Inquisition, HH supplement, Daemonkin, etc.) injected by the primary archetype was stored in the same "alliedData" field as the user-selected allied detachment, causing a race condition where whichever async load resolved last would win and serve the wrong armory (e.g. an empty Assassins armory instead of CSM armory for a CSM allied Master of Execution); fixed by introducing a separate supplementData store field',
+      'GENERAL — deleting a saved army and then saving with a new name no longer reuses the old save ID; saving now checks whether the active save ID still exists in the list before performing an in-place update',
+      'GENERAL — new hero landing page: Custom40k logo + four action buttons (Wiki, Login/Sign in, Glossary, Create Army) + Discord link; faction picker is now a separate step reached via "Create Army"; the app tab bar is hidden while on the landing page',
+      'GENERAL — new 3-step army creation flow: (1) Battle Setup page with battle type selector + points limit (clamped per type: Skirmish 1000-2499, Pitched 2500-3999, Epic 4000+; max of each type = min of the next) and faction grid; (2) Army Config page showing only Archetype/Legacy/Traits; (3) builder as before; supplements section moved to hero landing page',
+      'GENERAL — campaign GM can now delete a campaign: trash icon on campaign row opens a confirmation prompt where the GM must type the campaign name exactly; deletes all sectors, battles, roster and players',
+      'GENERAL — removed the legacy "Reference" button and ReferencePanel (carried since day one, superseded by the wiki)',
+    ],
+  },
+  {
     version: '1.39',
     date: '2026-07-06',
     title: 'GENERAL — save/load autosave fix',
