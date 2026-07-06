@@ -3,17 +3,55 @@ import Layout from '../../components/Layout.astro';
 import { RULES } from '../../lib/glossary';
 
 const keys = Object.keys(RULES).sort();
+
+const byLetter: Record<string, Array<{ key: string; name: string }>> = {};
+for (const k of keys) {
+  const letter = RULES[k].name[0].toUpperCase();
+  (byLetter[letter] ??= []).push({ key: k, name: RULES[k].name });
+}
+const letters = Object.keys(byLetter).sort();
 ---
 <Layout title="Glossary — Custom40k Wiki">
-  <p class="crumbs"><a href="/factions">&larr; All factions</a></p>
+  <p class="crumbs"><a href="/">&larr; Home</a></p>
   <h1>Rules glossary</h1>
-  <ul class="glossary-list">
-    {keys.map(key => (
-      <li><a href={`/glossary/${encodeURIComponent(key)}`}>{RULES[key].name}</a></li>
-    ))}
-  </ul>
+  <p class="page-intro">{keys.length} special rules, weapon abilities, and universal keywords.</p>
+
+  {letters.map(letter => (
+    <section class="letter-section reveal">
+      <h2 class="letter-heading">{letter}</h2>
+      <ul class="glossary-list">
+        {byLetter[letter].map(e => (
+          <li><a href={`/glossary/${encodeURIComponent(e.key)}`}>{e.name}</a></li>
+        ))}
+      </ul>
+    </section>
+  ))}
 </Layout>
 
 <style>
-  .glossary-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.3rem; list-style: none; padding: 0; font-size: 0.85rem; }
+  .page-intro { opacity: 0.7; font-size: 0.85rem; margin-bottom: 1.2rem; }
+  .letter-section { margin-bottom: 1rem; }
+  .letter-heading {
+    font-size: 1rem; margin: 0 0 0.4rem; padding-bottom: 0;
+    border-bottom: 1px solid rgba(162,18,23,0.3);
+    letter-spacing: 0.08em;
+  }
+  .glossary-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.25rem 0.5rem;
+    list-style: none; padding: 0; margin: 0;
+    font-size: 0.84rem;
+  }
+  .glossary-list li a {
+    display: block; padding: 0.12rem 0;
+    color: var(--c40k-ink, #2a2420); text-decoration: none;
+    border-bottom: 1px dotted transparent;
+    transition: color 0.12s, border-color 0.12s;
+  }
+  .glossary-list li a:hover {
+    color: var(--c40k-red, #a21217);
+    border-bottom-color: var(--c40k-red, #a21217);
+    text-decoration: none;
+  }
 </style>

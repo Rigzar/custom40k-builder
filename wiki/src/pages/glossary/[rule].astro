@@ -1,6 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
-import { RULES } from '../../lib/glossary';
+import { RULES, normaliseKey } from '../../lib/glossary';
 
 export async function getStaticPaths() {
   return Object.keys(RULES).map(key => ({ params: { rule: key }, props: { entry: RULES[key] } }));
@@ -10,7 +10,45 @@ const { entry } = Astro.props;
 const description = entry.description.replace(/\{X\}/g, 'X');
 ---
 <Layout title={`${entry.name} — Custom40k Wiki Glossary`}>
-  <p class="crumbs"><a href="/factions">&larr; All factions</a> / <a href="/glossary">Glossary</a></p>
+  <p class="crumbs">
+    <a href="/factions">&larr; All factions</a> /
+    <a href="/glossary">Glossary</a> /
+    {entry.name}
+  </p>
   <h1>{entry.name}</h1>
-  <p>{description}</p>
+  <div class="rule-card reveal">
+    <div class="rule-icon-row">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="9" stroke="var(--c40k-red,#a21217)" stroke-width="1.5" fill="none"/>
+        <circle cx="11" cy="11" r="4" fill="var(--c40k-red,#a21217)" opacity="0.7"/>
+      </svg>
+      <span class="rule-label">Special Rule</span>
+    </div>
+    <p class="rule-desc">{description}</p>
+  </div>
+  <p class="back-link"><a href="/glossary">&larr; Back to Glossary</a></p>
 </Layout>
+
+<style>
+  .rule-card {
+    padding: 1rem 1.3rem;
+    border: 1px solid rgba(57,73,80,0.25);
+    border-left: 4px solid var(--c40k-red, #a21217);
+    border-radius: 3px;
+    background: rgba(255,255,255,0.35);
+    margin: 0.8rem 0 1rem;
+  }
+  .rule-icon-row {
+    display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem;
+  }
+  .rule-label {
+    font-family: var(--font-ui, sans-serif); font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--c40k-red, #a21217); opacity: 0.8;
+  }
+  .rule-desc {
+    font-size: 0.9rem; line-height: 1.6; margin: 0;
+    color: var(--c40k-ink, #2a2420);
+  }
+  .back-link { font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; }
+</style>
