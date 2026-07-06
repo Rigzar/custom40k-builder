@@ -31,8 +31,8 @@ const prayerNavLabel = (pacts && pacts.length > 0)
   : (PRAYER_LABELS[factionKey!] ?? 'Prayers');
 
 const MARK_ICONS: Record<string, string> = {
-  'Khorne':  '/legion-symbols/khorne-god.svg',
-  'Nurgle':  '/legion-symbols/nurgle-god.svg',
+  'Khorne':   '/legion-symbols/khorne-god.svg',
+  'Nurgle':   '/legion-symbols/nurgle-god.svg',
   'Slaanesh': '/legion-symbols/slaanesh-god.svg',
   'Tzeentch': '/legion-symbols/tzeentch-god.svg',
 };
@@ -43,6 +43,27 @@ const MARK_COLORS: Record<string, string> = {
   'Slaanesh': '#7b4a8b',
   'Tzeentch': '#1e5a8b',
 };
+
+// Compute rival pairs: marks that CANNOT share a squad
+const rivalPairs: [string, string][] = (() => {
+  if (!animosity) return [];
+  const keys = Object.keys(animosity);
+  const seen = new Set<string>();
+  const pairs: [string, string][] = [];
+  keys.forEach(keyA => {
+    const compatA = new Set(animosity![keyA] as string[]);
+    keys.forEach(keyB => {
+      if (keyA === keyB) return;
+      // normalize "Undivided / Without" → "Undivided" for lookup
+      const bNorm = keyB.replace(/ \/ Without$/, '').trim();
+      if (!compatA.has(keyB) && !compatA.has(bNorm)) {
+        const pairKey = [keyA, keyB].sort().join('||');
+        if (!seen.has(pairKey)) { seen.add(pairKey); pairs.push([keyA, keyB]); }
+      }
+    });
+  });
+  return pairs;
+})();
 
 const baseCanticles = canticles?.filter(c => c.type === 'base') ?? [];
 const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
@@ -66,30 +87,25 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
     </div>
 
     {/* ── Chaos Marks Animosity (CSM + CD) ── */}
-    {animosity && Object.keys(animosity).length > 0 && (
+    {animosity && rivalPairs.length > 0 && (
       <section class="army-rules reveal">
         <h2 class="rules-heading">Chaos Marks Animosity</h2>
-        <p class="rules-note">Units with different Marks may only join together if their Marks are mutually compatible. Each block below shows which Marks can share a squad with the selected Mark.</p>
-        <div class="anim-grid">
-          {Object.entries(animosity).map(([mark, compatible]) => (
-            <div class="anim-card" style={`border-top-color: ${MARK_COLORS[mark] ?? 'rgba(162,18,23,0.5)'}`}>
-              <div class="anim-from">
-                {MARK_ICONS[mark]
-                  ? <img src={MARK_ICONS[mark]} alt={mark} class="anim-icon-lg" />
-                  : <span class="anim-icon-fallback">⚔</span>
-                }
-                <span class="anim-mark-name">{mark}</span>
+        <p class="rules-note">Units bearing rival Marks <strong>cannot share a squad</strong>. All other Mark combinations — and any unit with the Undivided / Without Mark — are freely compatible.</p>
+        <div class="rival-grid">
+          {rivalPairs.map(([a, b]) => (
+            <div class="rival-row">
+              <div class="rival-mark" style={`--mark-color: ${MARK_COLORS[a] ?? '#6b1a1a'}`}>
+                {MARK_ICONS[a]
+                  ? <img src={MARK_ICONS[a]} alt={a} class="rival-icon" />
+                  : <span class="rival-icon-fallback">⚔</span>}
+                <span class="rival-name">{a}</span>
               </div>
-              <div class="anim-sep">can join with</div>
-              <div class="anim-compat">
-                {(compatible as string[]).length === 0 ? (
-                  <span class="anim-none">No other Marks</span>
-                ) : (compatible as string[]).map(c => (
-                  <span class="anim-pill">
-                    {MARK_ICONS[c] && <img src={MARK_ICONS[c]} alt={c} class="anim-icon-sm" />}
-                    {c}
-                  </span>
-                ))}
+              <div class="rival-vs" aria-label="cannot join with">✕</div>
+              <div class="rival-mark" style={`--mark-color: ${MARK_COLORS[b] ?? '#6b1a1a'}`}>
+                {MARK_ICONS[b]
+                  ? <img src={MARK_ICONS[b]} alt={b} class="rival-icon" />
+                  : <span class="rival-icon-fallback">⚔</span>}
+                <span class="rival-name">{b}</span>
               </div>
             </div>
           ))}
@@ -246,76 +262,50 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
   .sub-heading { font-size: 0.82rem; margin: 0.9rem 0 0.35rem; border-bottom: none; animation: none; color: var(--c40k-steel, #394950); }
   .rules-note { font-size: 0.78rem; opacity: 0.7; margin: 0 0 0.8rem; font-style: italic; }
 
-  /* ── Animosity card grid ── */
-  .anim-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 0.6rem;
-  }
-  .anim-card {
-    border: 1px solid rgba(162,18,23,0.22);
-    border-top: 3px solid rgba(162,18,23,0.5);
-    background: rgba(255,252,240,0.55);
-    padding: 0.7rem 0.8rem;
+  /* ── Animosity rival pairs ── */
+  .rival-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.55rem;
   }
-  .anim-from {
+  .rival-row {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.7rem;
+    background: rgba(255,252,240,0.60);
+    border: 1px solid rgba(162,18,23,0.20);
+    padding: 0.65rem 1rem;
   }
-  .anim-icon-lg {
-    width: 28px; height: 28px;
+  .rival-mark {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-width: 0;
+  }
+  .rival-icon {
+    width: 36px; height: 36px;
     object-fit: contain;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
+    filter: drop-shadow(0 1px 6px rgba(0,0,0,0.3));
   }
-  .anim-icon-fallback {
-    font-size: 1.3rem;
-    line-height: 1;
-  }
-  .anim-mark-name {
+  .rival-icon-fallback { font-size: 1.5rem; flex-shrink: 0; }
+  .rival-name {
     font-family: var(--font-ui, sans-serif);
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    color: var(--c40k-ink);
+    color: var(--mark-color, var(--c40k-ink));
+    white-space: nowrap;
   }
-  .anim-sep {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    opacity: 0.5;
-    font-family: var(--font-ui, sans-serif);
-  }
-  .anim-compat {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-  }
-  .anim-none {
-    font-size: 0.72rem;
-    opacity: 0.55;
-    font-style: italic;
-  }
-  .anim-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.2rem;
-    font-family: var(--font-ui, sans-serif);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    padding: 0.15rem 0.4rem;
-    border: 1px solid rgba(162,18,23,0.35);
-    background: rgba(162,18,23,0.07);
-  }
-  .anim-icon-sm {
-    width: 13px; height: 13px;
-    object-fit: contain;
+  .rival-vs {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: rgba(162,18,23,0.75);
+    flex-shrink: 0;
+    width: 1.6rem;
+    text-align: center;
   }
 
   /* ── Canticles table ── */

@@ -60,7 +60,7 @@ function HeroSmoke() {
         vx: (Math.random() - 0.5) * 0.06,
         vy: -(0.04 + Math.random() * 0.12),
         alpha: 0,
-        aTarget: 0.04 + Math.random() * 0.09,
+        aTarget: 0.22 + Math.random() * 0.30,
         phase: Math.random() * Math.PI * 2,
         dr: 0.05 + Math.random() * 0.08,
       };
@@ -86,9 +86,9 @@ function HeroSmoke() {
         const a = p.y < fadeTop ? p.alpha * (p.y / fadeTop) : p.alpha;
         if (p.y < -p.r * 3 || p.x < -p.r * 2 || p.x > w + p.r * 2) { ps[i] = spawn(); continue; }
         const g = ctx!.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-        g.addColorStop(0, `rgba(55,28,22,${(a * 0.65).toFixed(3)})`);
-        g.addColorStop(0.5, `rgba(30,15,12,${(a * 0.35).toFixed(3)})`);
-        g.addColorStop(1, 'rgba(0,0,0,0)');
+        g.addColorStop(0,   `rgba(140,80,55,${(a * 0.70).toFixed(3)})`);
+        g.addColorStop(0.5, `rgba(70,40,28,${(a * 0.40).toFixed(3)})`);
+        g.addColorStop(1,   'rgba(0,0,0,0)');
         ctx!.beginPath(); ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx!.fillStyle = g; ctx!.fill();
       }
@@ -129,12 +129,15 @@ function CommunityAnnouncement() {
 
       {/* Servo skull — large, centered, appears to hold the card from above */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
-        <img
-          src="/servo-skull.png"
-          alt=""
-          className="w-28 h-28 object-contain drop-shadow-[0_4px_20px_rgba(180,83,9,0.45)]"
-          draggable={false}
-        />
+        <div className="relative inline-block w-28 h-28">
+          <img
+            src="/servo-skull.png"
+            alt=""
+            className="w-28 h-28 object-contain drop-shadow-[0_4px_20px_rgba(180,83,9,0.45)]"
+            draggable={false}
+          />
+          <div className="servo-eye" aria-hidden="true" />
+        </div>
       </div>
 
       {/* Binder clips at card top edge, connecting skull to document */}

@@ -69,6 +69,28 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 .anim-delay-5     { animation-delay: 0.75s; }
 .anim-delay-6     { animation-delay: 0.90s; }
 
+/* ── Servo skull blinking eye ── */
+@keyframes servo-eye-blink {
+  0%   { opacity: 0.85; transform: translate(-50%, -50%) scaleY(1); }
+  44%  { opacity: 0.85; transform: translate(-50%, -50%) scaleY(1); }
+  47%  { opacity: 0.08; transform: translate(-50%, -50%) scaleY(0.08); }
+  50%  { opacity: 0.85; transform: translate(-50%, -50%) scaleY(1); }
+  100% { opacity: 0.85; transform: translate(-50%, -50%) scaleY(1); }
+}
+.servo-eye {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #ff2020 0%, #cc0000 45%, transparent 100%);
+  box-shadow: 0 0 10px 4px rgba(220, 30, 30, 0.75), 0 0 22px 8px rgba(180, 0, 0, 0.35);
+  animation: servo-eye-blink 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
 @media print {
   /* Hide the dark overlay shell, leave only the white printable content */
   .fixed.z-50 {

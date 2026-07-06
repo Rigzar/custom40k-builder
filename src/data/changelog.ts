@@ -35,6 +35,9 @@ export const CHANGELOG: ChangelogEntry[] = [
       'WIKI — Chaos Daemons armory now shows all four mark armories: Khorne, Nurgle, and Slaanesh tabs added alongside Tzeentch',
       'WIKI — Inquisition armory split into three Ordo tabs: Ordo Hereticus, Ordo Malleus, Ordo Xenos (items filtered by requires_army_item at build time)',
       'WIKI — new Inquisition Warbands page (/factions/inquisition/warbands): Henchman Warband unit + all 18 Warband Specialists from the Elites slot; link added to Inquisition faction hub nav',
+      'GENERAL — landing page smoke visibility fixed (colors were near-invisible on zinc-950 background); smoke wisps now use warm brownish tone at higher alpha',
+      'GENERAL — servo skull in the Ordo announcement card now has a slowly blinking red eye (CSS keyframe animation, scaleY blink every 3.6 s)',
+      'WIKI — Chaos Marks Animosity section redesigned: instead of verbose "can join with" cards, now shows the two rival pairs (Khorne ✕ Slaanesh, Nurgle ✕ Tzeentch) as clean side-by-side rows with faction icons; computed dynamically from animosity data',
     ],
   },
   {
