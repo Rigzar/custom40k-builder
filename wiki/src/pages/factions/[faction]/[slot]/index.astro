@@ -1,0 +1,67 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import UnitCard from '../../../../components/UnitCard.astro';
+import { ALL_FACTIONS } from '../../../../lib/factions';
+import { getFactionUnits } from '../../../../lib/units';
+import { getSlotIcon } from '../../../../lib/slots';
+import { slugify } from '../../../../lib/slugs';
+import { ESCALATION_FACTIONS } from '../../../../lib/factionMeta';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const f of ALL_FACTIONS) {
+    const { units, slot_to_units } = await getFactionUnits(f.key);
+    for (const slot of Object.keys(slot_to_units)) {
+      if (slot_to_units[slot].some(n => units[n])) {
+        paths.push({ params: { faction: f.key, slot: slugify(slot) }, props: { slotLabel: slot } });
+      }
+    }
+  }
+  return paths;
+}
+
+const { faction: factionKey, slot: slotSlug } = Astro.params;
+const { slotLabel } = Astro.props as { slotLabel: string };
+const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
+const { units, slot_to_units } = await getFactionUnits(factionKey!);
+const hasEscalation = ESCALATION_FACTIONS.includes(factionKey!);
+const unitNames = (slot_to_units[slotLabel] ?? []).filter(n => units[n]);
+const slotIcon = getSlotIcon(slotLabel);
+---
+<Layout title={`${slotLabel} — ${config.label} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/factions">&larr; All factions</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> /
+    {slotLabel}
+  </p>
+
+  <h1 class="slot-heading">
+    {slotIcon && <img src={slotIcon} alt="" width="26" height="26" />}
+    {slotLabel}
+    {slotLabel === 'Lords of War' && hasEscalation && (
+      <img
+        src="/faction-symbols/escalation.svg"
+        alt="Escalation supplement"
+        title="Unlocked via the Escalation supplement (Epic Battle engagement)"
+        width="18" height="18"
+        class="supplement-badge"
+      />
+    )}
+  </h1>
+
+  <div class="unit-grid">
+    {unitNames.map(name => (
+      <UnitCard unit={units[name]} factionKey={factionKey!} slot={slotLabel} />
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .slot-heading { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+  .supplement-badge { object-fit: contain; }
+  .unit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 0.5rem;
+  }
+</style>

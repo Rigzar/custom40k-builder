@@ -2,6 +2,9 @@
 import Layout from '../../../components/Layout.astro';
 import { ALL_FACTIONS } from '../../../lib/factions';
 import { getFactionExtras } from '../../../lib/factionExtras';
+import { getFactionUnits } from '../../../lib/units';
+import { getSlotIcon } from '../../../lib/slots';
+import { slugify } from '../../../lib/slugs';
 import { getFactionDescription } from '../../../lib/factionMeta';
 
 export async function getStaticPaths() {
@@ -11,6 +14,8 @@ export async function getStaticPaths() {
 const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { armoryGeneral, armoryFaction, archetypes, legacies, traits, disciplines } = await getFactionExtras(factionKey!);
+const { slot_to_units, units } = await getFactionUnits(factionKey!);
+const slots = Object.keys(slot_to_units).filter(s => slot_to_units[s].some(n => units[n]));
 
 const hasArmory = armoryGeneral.weapons.length > 0 || armoryGeneral.equipment.length > 0
   || (armoryGeneral.daemon_weapons && armoryGeneral.daemon_weapons.length > 0)
@@ -28,8 +33,22 @@ const description = getFactionDescription(factionKey!);
     <h1 class="hub-title">{config.label}</h1>
     <p class="hub-desc">{description}</p>
 
+    <section class="slots-section">
+      <div class="slots-label">Units</div>
+      <div class="slot-grid">
+        {slots.map(slot => {
+          const icon = getSlotIcon(slot);
+          return (
+            <a href={`/factions/${factionKey}/${slugify(slot)}`} class="slot-link">
+              {icon && <img src={icon} alt="" width="18" height="18" />}
+              {slot}
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
     <nav class="hub-nav">
-      <a href={`/factions/${factionKey}/units`}>Units</a>
       {hasArmory && <a href={`/factions/${factionKey}/armory`}>Armory</a>}
       {hasCustomisation && <a href={`/factions/${factionKey}/archetypes`}>Army Customisation</a>}
       {hasPsychic && <a href={`/factions/${factionKey}/psychic`}>Psychic Powers</a>}
@@ -41,7 +60,25 @@ const description = getFactionDescription(factionKey!);
   .hub { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 0 1rem; }
   .hub-symbol { object-fit: contain; margin-bottom: 0.8rem; }
   .hub-title { margin: 0; }
-  .hub-desc { max-width: 38rem; opacity: 0.85; font-size: 0.85rem; line-height: 1.5; margin: 0.6rem 0 1.6rem; }
+  .hub-desc { max-width: 38rem; opacity: 0.85; font-size: 0.85rem; line-height: 1.5; margin: 0.6rem 0 1.4rem; }
+
+  .slots-section { width: 100%; max-width: 36rem; margin-bottom: 1.2rem; }
+  .slots-label {
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 0.68rem; opacity: 0.5; margin-bottom: 0.5rem; text-align: left;
+  }
+  .slot-grid { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+  .slot-link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em;
+    font-size: 0.72rem; padding: 0.4rem 0.85rem;
+    border: 1px solid rgba(162,18,23,0.5); color: var(--c40k-red, #a21217);
+    text-decoration: none; border-radius: 3px; transition: background 0.15s, color 0.15s;
+  }
+  .slot-link img { object-fit: contain; opacity: 0.75; filter: invert(20%) sepia(80%) saturate(500%) hue-rotate(330deg); }
+  .slot-link:hover { background: var(--c40k-red, #a21217); color: #fff; }
+  .slot-link:hover img { filter: brightness(0) invert(1); }
+
   .hub-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
   .hub-nav a {
     font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em;
