@@ -187,6 +187,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
       }
     }
 
+    const alliedAdvisorExemptIds = advisorExemptIds(army, store.data!, rule, alliedFactionKey ?? undefined);
     return (
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
@@ -196,6 +197,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
 
           const used = army.filter(e => {
             if (e.factionSource !== alliedFactionKey) return false;
+            if (alliedAdvisorExemptIds.has(e.id)) return false;
             return getEffectiveSlot(e.unitName, e.slot, rule) === slot;
           }).length;
           // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic
