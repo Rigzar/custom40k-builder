@@ -8,15 +8,25 @@ import Layout from '../components/Layout.astro';
 
     <a href="/factions" class="cta">Browse the factions &rarr;</a>
 
-    <section>
-      <h2>1. What is Custom40k?</h2>
-      <p>Custom40k is a complete, ready-to-play homebrew ruleset for Warhammer 40,000 that has
-        been in development for the past 2+ years and has become the default system for a
-        local group of about ~15 people. The rules aim to modernise, streamline, and rebalance
-        the "classic era" rules (3rd–7th edition) while still supporting every model GW has ever
-        made across all armies, and bringing back army and model customisation via extensive
-        armories for every faction.</p>
-    </section>
+    <div class="ordo-card-outer reveal">
+      <img src="/servo-skull.png" class="ordo-skull-img" alt="" />
+      <div class="ordo-card">
+        <div class="ordo-card-clips">
+          <svg width="20" height="26" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="4" rx="5" ry="3.5" fill="none" stroke="#7a6535" stroke-width="2"/><rect x="3" y="6" width="14" height="12" rx="2" fill="#9a8050"/><rect x="1" y="16" width="18" height="6" rx="2" fill="#7a6535"/><circle cx="10" cy="12" r="2.2" fill="#c0a870"/><circle cx="10" cy="12" r="1" fill="#e8d090"/></svg>
+          <svg width="20" height="26" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="4" rx="5" ry="3.5" fill="none" stroke="#7a6535" stroke-width="2"/><rect x="3" y="6" width="14" height="12" rx="2" fill="#9a8050"/><rect x="1" y="16" width="18" height="6" rx="2" fill="#7a6535"/><circle cx="10" cy="12" r="2.2" fill="#c0a870"/><circle cx="10" cy="12" r="1" fill="#e8d090"/></svg>
+          <svg width="20" height="26" viewBox="0 0 20 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="10" cy="4" rx="5" ry="3.5" fill="none" stroke="#7a6535" stroke-width="2"/><rect x="3" y="6" width="14" height="12" rx="2" fill="#9a8050"/><rect x="1" y="16" width="18" height="6" rx="2" fill="#7a6535"/><circle cx="10" cy="12" r="2.2" fill="#c0a870"/><circle cx="10" cy="12" r="1" fill="#e8d090"/></svg>
+        </div>
+        <section>
+          <h2>1. What is Custom40k?</h2>
+          <p>Custom40k is a complete, ready-to-play homebrew ruleset for Warhammer 40,000 that has
+            been in development for the past 2+ years and has become the default system for a
+            local group of about ~15 people. The rules aim to modernise, streamline, and rebalance
+            the "classic era" rules (3rd–7th edition) while still supporting every model GW has ever
+            made across all armies, and bringing back army and model customisation via extensive
+            armories for every faction.</p>
+        </section>
+      </div>
+    </div>
 
     <section>
       <h2>2. What are the key differences to current 40k?</h2>
@@ -62,6 +72,10 @@ import Layout from '../components/Layout.astro';
   .intro section p, .intro section li { font-size: 0.88rem; line-height: 1.6; }
   .intro ul { padding-left: 1.2rem; }
   .intro li { margin-bottom: 0.5rem; }
+  .ordo-card-outer { margin: 1.4rem auto 0; max-width: 38rem; width: 100%; }
+  .ordo-card section { margin-top: 0; }
+  .ordo-card section h2 { font-size: 1rem; }
+  .ordo-card section p { font-size: 0.88rem; line-height: 1.6; text-align: left; }
   .cta {
     display: inline-block; margin: 1.2rem 0;
     font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em;

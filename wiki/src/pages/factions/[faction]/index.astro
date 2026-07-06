@@ -44,7 +44,10 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
     {/* ── Chaos Marks Animosity (CSM + CD) ── */}
     {animosity && Object.keys(animosity).length > 0 && (
       <section class="army-rules reveal">
-        <h2 class="rules-heading">Chaos Marks Animosity</h2>
+        <div class="skull-heading">
+          <img src="/servo-skull.png" class="skull-heading-img" alt="" />
+          <h2 class="rules-heading">Chaos Marks Animosity</h2>
+        </div>
         <p class="rules-note">Units with different Marks may only join together if their Marks are mutually compatible.</p>
         <table class="animosity-table">
           <thead>
@@ -75,7 +78,10 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
     {/* ── Canticles of the Omnissiah (AdMech) ── */}
     {canticles && canticles.length > 0 && (
       <section class="army-rules reveal">
-        <h2 class="rules-heading">Canticles of the Omnissiah</h2>
+        <div class="skull-heading">
+          <img src="/servo-skull.png" class="skull-heading-img" alt="" />
+          <h2 class="rules-heading">Canticles of the Omnissiah</h2>
+        </div>
         <p class="rules-note">At the start of each battle round, roll a d6 for each AdMech unit. On a 4+ the unit may use one base canticle. Legacy canticles require the matching Legacy.</p>
 
         {baseCanticles.length > 0 && (
@@ -164,7 +170,7 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
 
   /* Army rules sections */
   .army-rules { width: 100%; max-width: 40rem; margin-bottom: 1.6rem; text-align: left; }
-  .rules-heading { font-size: 1rem; margin: 0 0 0.35rem; border-bottom: 1px solid var(--c40k-red, #a21217); animation: none; }
+  .rules-heading { font-size: 1rem; margin: 0; border-bottom: none; padding-bottom: 0; animation: none; }
   .sub-heading { font-size: 0.82rem; margin: 0.9rem 0 0.35rem; border-bottom: none; animation: none; color: var(--c40k-steel, #394950); }
   .rules-note { font-size: 0.78rem; opacity: 0.7; margin: 0 0 0.6rem; font-style: italic; }
 

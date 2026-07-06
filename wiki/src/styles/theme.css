@@ -165,3 +165,72 @@ body::after {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ── Ordo Card (servo skull presenting a parchment) ───────────────── */
+.ordo-card-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ordo-skull-img {
+  width: 110px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -14px;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.55));
+  animation: symbol-emerge 1.2s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+}
+.ordo-card {
+  position: relative;
+  background: linear-gradient(175deg, #ede2be 0%, #d9c98a 55%, #c8b870 100%);
+  border: 1.5px solid #9a7f55;
+  border-radius: 2px;
+  padding: 0.4rem 1.5rem 1.3rem;
+  box-shadow:
+    inset 0 0 24px rgba(100,70,15,0.14),
+    0 4px 16px rgba(0,0,0,0.35),
+    0 0 0 4px rgba(139,107,65,0.2);
+  color: #1a0d04;
+  width: 100%;
+  animation: fade-up 0.8s 0.5s both;
+}
+.ordo-card h2 {
+  color: #5a2a08;
+  border-color: rgba(90,42,8,0.4);
+}
+.ordo-card h3 {
+  color: #6a3510;
+  border-color: rgba(90,42,8,0.25);
+}
+.ordo-card p, .ordo-card li { color: #1a0d04; }
+.ordo-card a { color: #7a2010; }
+.ordo-card table { background: rgba(255,245,210,0.4); }
+.ordo-card table th { background: #7a6040; border-color: #7a6040; }
+.ordo-card table td { border-color: #b09060; }
+.ordo-card table tbody tr:nth-child(even) td { background-color: rgba(200,180,120,0.25); }
+.ordo-card-clips {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Skull as section-header icon (small use, e.g. army rules heading) */
+.skull-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+.skull-heading-img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5));
+}
+.skull-heading h2 {
+  margin: 0;
+  flex: 1;
+}

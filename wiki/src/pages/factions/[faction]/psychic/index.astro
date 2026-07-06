@@ -18,31 +18,23 @@ function tabId(s: string): string {
 
 const singleTab = disciplineNames.length <= 1;
 
-/* Psychic/prayer discipline icons — extend as icons become available from the icon pass */
+/* Explicit overrides for chaos-god-specific disciplines; everything else falls back to faction symbol */
 const DISC_ICONS: Record<string, Record<string, string>> = {
   chaos_space_marines: {
-    'Prayers': '/faction-symbols/chaos-space-marines.svg',
-    'Pacts':   '/faction-symbols/chaos-daemons.svg',
+    'Change (Tzeentch only)': '/legion-symbols/tzeentch-god.svg',
+    'Decay (Nurgle only)':    '/legion-symbols/nurgle-god.svg',
+    'Excess (Slaanesh only)': '/legion-symbols/slaanesh-god.svg',
   },
   chaos_daemons: {
-    'Prayers': '/faction-symbols/chaos-daemons.svg',
-  },
-  adeptus_sororitas: {
-    'Prayers': '/faction-symbols/adeptus-sororitas.svg',
-  },
-  grey_knights: {
-    'Prayers': '/faction-symbols/grey-knights.svg',
-  },
-  imperial_guard: {
-    'Prayers': '/faction-symbols/imperial-guard.svg',
-  },
-  inquisition: {
-    'Prayers': '/faction-symbols/inquisition.svg',
+    'Change (Tzeentch only)': '/legion-symbols/tzeentch-god.svg',
+    'Decay (Nurgle only)':    '/legion-symbols/nurgle-god.svg',
+    'Excess (Slaanesh only)': '/legion-symbols/slaanesh-god.svg',
   },
 };
 
-function getDiscIcon(name: string): string | null {
-  return DISC_ICONS[factionKey!]?.[name] ?? null;
+/* Always returns an icon: explicit override first, then faction symbol */
+function getDiscIcon(name: string): string {
+  return DISC_ICONS[factionKey!]?.[name] ?? `/faction-symbols/${config.symbol}`;
 }
 ---
 <Layout title={`Psychic Powers — ${config.label} — Custom40k Wiki`}>
