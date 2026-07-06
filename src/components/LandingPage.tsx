@@ -315,73 +315,26 @@ export function LandingPage({
         </div>
 
         {/* Supplements */}
-        <div className="px-6 pb-6 max-w-screen-sm mx-auto w-full">
-          <div className="flex items-center gap-3 mb-4">
+        <div className="px-6 pb-4 max-w-screen-sm mx-auto w-full">
+          <div className="flex items-center gap-3 mb-3">
             <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
               {t('supplements')}
             </span>
             <div className="flex-1 h-px bg-zinc-800" />
           </div>
-          <p className="text-zinc-500 text-[11px] mb-4">{t('supplementsDesc')}</p>
-          <div className="flex flex-wrap gap-3">
-
-            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-red-900 p-4 min-w-[200px] flex-1 max-w-xs flex flex-col gap-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#2d1010', padding: 4 }}>
-                    <img src="/faction-symbols/horus-heresy.svg" alt="Eye of Horus" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
-                  </div>
-                  <div>
-                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Horus Heresy</div>
-                    <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">Space Marines</div>
-                  </div>
-                </div>
-                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
-              </div>
-              <p className="text-zinc-500 text-[11px] leading-snug">{t('hhDesc')}</p>
-              <button onClick={() => setOpenSupplement('horus_heresy')} className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-red-900/20 border border-red-900/50 text-red-400 hover:bg-red-900/40 transition-colors">
-                {t('viewCatalog')} ▶
-              </button>
-            </div>
-
-            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-amber-800 p-4 min-w-[200px] flex-1 max-w-xs flex flex-col gap-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
-                    <img src="/faction-symbols/escalation.svg" alt="Escalation" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
-                  </div>
-                  <div>
-                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Escalation</div>
-                    <div className="text-amber-700 text-[10px] uppercase tracking-widest mt-0.5">Lords of War</div>
-                  </div>
-                </div>
-                <span className="text-[10px] border border-amber-700 text-amber-500 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Beta</span>
-              </div>
-              <p className="text-zinc-500 text-[11px] leading-snug">{t('escDesc')}</p>
-              <button onClick={() => setOpenSupplement('escalation')} className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/20 border border-amber-900/50 text-amber-400 hover:bg-amber-900/40 transition-colors">
-                {t('viewCatalog')} ▶
-              </button>
-            </div>
-
-            <div className="bg-zinc-900 border-2 border-zinc-700 border-l-4 border-l-zinc-500 p-4 min-w-[200px] flex-1 max-w-xs flex flex-col gap-2">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{ background: '#1a1a2a', padding: 4 }}>
-                    <img src="/faction-symbols/assassins.svg" alt="Officio Assassinorum" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }} draggable={false} />
-                  </div>
-                  <div>
-                    <div className="text-zinc-100 font-bold text-sm uppercase tracking-wide">Assassins</div>
-                    <div className="text-zinc-500 text-[10px] uppercase tracking-widest mt-0.5">Officio Assassinorum</div>
-                  </div>
-                </div>
-                <span className="text-[10px] border border-zinc-600 text-zinc-400 px-1.5 py-0.5 uppercase tracking-wide shrink-0">Chaos · Imperial</span>
-              </div>
-              <p className="text-zinc-500 text-[11px] leading-snug">{t('assDesc')}</p>
-              <button onClick={() => setOpenSupplement('assassins')} className="mt-auto w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-zinc-800/50 border border-zinc-700 text-zinc-400 hover:bg-zinc-800 transition-colors">
-                {t('viewCatalog')} ▶
-              </button>
-            </div>
-
+          <div className="flex flex-wrap gap-2">
+            <button onClick={() => setOpenSupplement('horus_heresy')} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-red-900/60 hover:border-red-700 text-zinc-300 hover:text-red-300 transition-colors text-[12px] uppercase tracking-wide">
+              <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
+              Horus Heresy
+            </button>
+            <button onClick={() => setOpenSupplement('escalation')} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-amber-900/60 hover:border-amber-700 text-zinc-300 hover:text-amber-300 transition-colors text-[12px] uppercase tracking-wide">
+              <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
+              Escalation
+            </button>
+            <button onClick={() => setOpenSupplement('assassins')} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 transition-colors text-[12px] uppercase tracking-wide">
+              <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
+              Assassins
+            </button>
           </div>
           {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
         </div>
