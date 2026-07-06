@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
 import type { FactionData, Trait, Unit } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
@@ -713,9 +713,18 @@ export const useArmyStore = create<ArmyStore>()(
         try {
           const parsed = JSON.parse(json);
           const newState = { ...defaultState, ...parsed, data: s.data };
-          const army = s.data
-            ? applyArmyTraits(newState.army, newState.traitPool, s.data, newState.archetype, newState.legacy, newState.alliedFaction, s.alliedData, newState.alliedTraitPool)
+          // Migrate existing saves: apply forcedMark to non-locked units when archetype requires it.
+          const importedRule = getArchetypeRule(newState.archetype);
+          const migratedArmy = importedRule?.forcedMark
+            ? newState.army.map((e: RosterEntry) => {
+                const u = s.data ? resolveUnit(e, s.data) : null;
+                if (!u?.locked_mark) return { ...e, mark: importedRule.forcedMark as Mark };
+                return e;
+              })
             : newState.army;
+          const army = s.data
+            ? applyArmyTraits(migratedArmy, newState.traitPool, s.data, newState.archetype, newState.legacy, newState.alliedFaction, s.alliedData, newState.alliedTraitPool)
+            : migratedArmy;
           set({ ...newState, army });
         } catch { /* ignore malformed */ }
       },
@@ -724,7 +733,8 @@ export const useArmyStore = create<ArmyStore>()(
     }),
     {
       name: 'custom40k-army',
-      version: 2,
+      storage: createJSONStorage(() => sessionStorage),
+      version: 3,
       migrate: (persisted: unknown, fromVersion: number) => {
         const s = persisted as Record<string, unknown>;
         if (fromVersion < 1) {
@@ -733,10 +743,24 @@ export const useArmyStore = create<ArmyStore>()(
           }
         }
         if (fromVersion < 2) {
-          // Add pacts field to existing roster entries
           const army = s.army as Record<string, unknown>[];
           if (Array.isArray(army)) {
             s.army = army.map(e => ({ pacts: [], ...e }));
+          }
+        }
+        if (fromVersion < 3) {
+          // Apply forcedMark to null-mark units in cult archetypes (Plaguehost, Ambition for
+          // Perfection, etc.) — previous versions only applied on addUnit/setArchetype but
+          // not on rehydration, leaving stale null marks in already-persisted sessions.
+          const rule = getArchetypeRule(s.archetype as string);
+          if (rule?.forcedMark) {
+            const army = s.army as Record<string, unknown>[];
+            if (Array.isArray(army)) {
+              s.army = army.map(e => {
+                const entry = e as Record<string, unknown>;
+                return entry.mark ? entry : { ...entry, mark: rule.forcedMark };
+              });
+            }
           }
         }
         return s;
@@ -755,3 +779,22 @@ export const useArmyStore = create<ArmyStore>()(
     }
   )
 );
+
+/** Returns the subset of store state that belongs in a SavedArmy entry.
+ * Keep the field list in sync with the `partialize` option above — update both together. */
+export function getSerializableState(s: {
+  armyName: string; faction: string; engagement: EngagementType;
+  pointLimit: number; hqMark: Mark; archetype: string;
+  legacy: string; legacy2: string; traitPool: string[]; army: RosterEntry[];
+  alliedFaction?: string | null; alliedArchetype?: string;
+  alliedLegacy?: string; alliedTraitPool?: string[]; alliedHqMark?: Mark;
+}): ArmyState {
+  return {
+    armyName: s.armyName, faction: s.faction, engagement: s.engagement,
+    pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype ?? '',
+    legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, army: s.army,
+    alliedFaction: s.alliedFaction ?? undefined, alliedArchetype: s.alliedArchetype ?? '',
+    alliedLegacy: s.alliedLegacy ?? '', alliedTraitPool: s.alliedTraitPool ?? [],
+    alliedHqMark: s.alliedHqMark ?? ('' as Mark),
+  };
+}

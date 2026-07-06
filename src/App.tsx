@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useArmyStore } from './store/army';
+import { useArmyStore, getSerializableState } from './store/army';
 import { SlotPanel } from './components/SlotPanel';
 import { ArmyConfig } from './components/ArmyConfig';
 import { ValidationPanel } from './components/ValidationPanel';
@@ -18,7 +18,7 @@ import { getArmySymbolPair } from './utils/getArmySymbolUrl';
 import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywords';
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
-import { useSavedArmies, type SavedArmy } from './hooks/useSavedArmies';
+import { useSavedArmies, type SavedArmy, AUTOSAVE_ID, AUTOSAVE_DISMISSED_KEY } from './hooks/useSavedArmies';
 import { SavedArmiesModal } from './components/SavedArmiesModal';
 import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
@@ -381,15 +381,106 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedArchetype, alliedData?.faction]);
 
+  // One-time migration: if the old localStorage 'custom40k-army' key has an army (left over
+  // from before the sessionStorage switch), rescue it as an autosave so the user doesn't lose
+  // their work, then remove the orphaned key.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('custom40k-army');
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      const s = parsed?.state as Record<string, unknown> | undefined;
+      if (!s?.faction || !Array.isArray(s.army) || (s.army as unknown[]).length === 0) {
+        localStorage.removeItem('custom40k-army');
+        return;
+      }
+      const SAVES_KEY = 'custom40k-saved-armies';
+      const saves: SavedArmy[] = JSON.parse(localStorage.getItem(SAVES_KEY) ?? '[]');
+      const fKey = s.faction as string;
+      const rescueEntry: SavedArmy = {
+        id: 'autosave-session',
+        name: `↩ ${FACTION_NAMES[fKey] ?? fKey}`,
+        factionKey: fKey,
+        factionLabel: FACTION_NAMES[fKey] ?? fKey,
+        savedAt: Date.now(),
+        totalPts: 0,
+        unitCount: (s.army as unknown[]).length,
+        state: s as unknown as SavedArmy['state'],
+      };
+      const existingIdx = saves.findIndex(x => x.id === 'autosave-session');
+      if (existingIdx >= 0) saves[existingIdx] = rescueEntry; else saves.unshift(rescueEntry);
+      localStorage.setItem(SAVES_KEY, JSON.stringify(saves));
+      localStorage.removeItem('custom40k-army');
+    } catch { /* malformed data — just clean up */ }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auto-save the active session to 'custom40k-saved-armies' when the user closes/navigates
+  // away. Uses a fixed id so it overwrites itself (never accumulates). Reads fresh zustand
+  // state at fire time — no stale-closure risk since getState() is always current.
+  useEffect(() => {
+    function handleBeforeUnload() {
+      try {
+        if (sessionStorage.getItem(AUTOSAVE_DISMISSED_KEY)) return;
+        const st = useArmyStore.getState();
+        if (!st.faction || st.army.length === 0) return;
+        const fKey = st.faction;
+        const SAVES_KEY = 'custom40k-saved-armies';
+        const saves: SavedArmy[] = JSON.parse(localStorage.getItem(SAVES_KEY) ?? '[]');
+        const totalPts = st.data
+          ? st.army.reduce((sum, e) => {
+              const u = resolveUnit(e, st.data!);
+              return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, st)) : 0);
+            }, 0)
+          : 0;
+        const entry: SavedArmy = {
+          id: AUTOSAVE_ID,
+          name: `↩ ${FACTION_NAMES[fKey] ?? fKey}`,
+          factionKey: fKey,
+          factionLabel: FACTION_NAMES[fKey] ?? fKey,
+          savedAt: Date.now(),
+          totalPts,
+          unitCount: st.army.length,
+          state: getSerializableState(st),
+        };
+        const idx = saves.findIndex(x => x.id === AUTOSAVE_ID);
+        if (idx >= 0) saves[idx] = entry; else saves.unshift(entry);
+        localStorage.setItem(SAVES_KEY, JSON.stringify(saves));
+      } catch { /* ignore — private browsing or storage quota exceeded */ }
+    }
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
+
+  // Crash-recovery: write a backup to localStorage every 5 s after the army changes.
+  // The one-time migration effect on the next load picks it up as an autosave entry.
+  useEffect(() => {
+    if (!faction || army.length === 0) {
+      localStorage.removeItem('custom40k-army');
+      return;
+    }
+    const timer = setTimeout(() => {
+      try {
+        const st = useArmyStore.getState();
+        if (!st.faction || st.army.length === 0) return;
+        localStorage.setItem('custom40k-army', JSON.stringify({ state: getSerializableState(st) }));
+      } catch { /* quota exceeded */ }
+    }, 5000);
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [army, faction]);
+
   function handleSelectFaction(key: string | null) {
     if (key === null) {
       setSelectedFaction(null);
       setOpenTabs(['landing']);
       setActiveTab('landing');
       sessionStorage.removeItem('selectedFaction');
+      sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
       return;
     }
     const isNewFaction = key !== selectedFaction;
+    if (isNewFaction) sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
     if (isNewFaction) {
       setActiveCloudRosterId(null);
       setActiveLocalSaveId(null);

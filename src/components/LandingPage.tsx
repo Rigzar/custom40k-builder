@@ -9,29 +9,29 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v137_dual_symbol_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v138_session_bugfix_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.37: Chaos Daemons re-audit, HH Supplement weapon fix & dual faction symbol display',
-    intro: 'The Ordo Erratum has completed a full ODS re-audit of Chaos Daemons (all 37 units verified). One data fix, one weapon display fix for the Horus Heresy Supplement, and a new visual feature for Legion armies.',
-    line1: '⚔️ Chaos Daemons — Feculent Gnarlmaw unit_type corrected. Horus Heresy Supplement — 9 swap option groups were missing replaces[] fields, causing replaced weapons to stay visible in the Live Profile after a swap; now fixed.',
-    line2: '🛡️ GENERAL — dual army symbol: when the Legion archetype (CSM/SM) is paired with a legacy that also has a symbol (e.g. Legacy of the Warmaster), both symbols now appear side by side in the Army Config and Builder headers.',
+    title: 'v1.38: Session auto-save improvements & engine bug fixes',
+    intro: 'A sweep of 11 confirmed bugs found by an automated code review — covering session persistence, validator false positives, and a crash-recovery mechanism.',
+    line1: '💾 GENERAL — crash recovery: your army is now backed up to localStorage every 5 s, so a browser crash loses at most 5 s of work. "↩ Faction" autosave shows correct points, no longer reappears after you delete it, and is serialised through a single helper so future fields are never silently dropped.',
+    line2: '⚔️ Imperial Guard — Mechanised Company: "only 1 Heavy Support" error was firing twice; now fires once. CSM — Daemonkin: false "requires 1 HQ from each Codex" warning eliminated. Validators: pointLimit=0 no longer zeroes free-slot credits for Warlocks, GSC Elites, Plasmacyte, and archetype HQ caps.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.37: Chaos-Dämonen-Neuprüfung, HH-Supplement-Waffenfix & doppelte Fraktionssymbol-Anzeige',
-    intro: 'Der Ordo Erratum hat eine vollständige ODS-Neuprüfung der Chaos-Dämonen abgeschlossen (alle 37 Einheiten geprüft). Ein Datenfix, ein Waffenanzeige-Fix für das Horus-Häresie-Supplement und ein neues visuelles Feature für Legion-Armeen.',
-    line1: '⚔️ Chaos-Dämonen — Feculent Gnarlmaw unit_type korrigiert. Horus-Häresie-Supplement — 9 Tauschoptionsgruppen fehlten replaces[]-Felder, weshalb ersetzte Waffen im Live-Profil sichtbar blieben; jetzt behoben.',
-    line2: '🛡️ ALLGEMEIN — Doppeltes Armeesymbol: Wenn das Legion-Archiv (CSM/SM) mit einem Vermächtnis kombiniert wird, das ebenfalls ein Symbol hat (z.B. Vermächtnis des Kriegsmeisters), erscheinen jetzt beide Symbole nebeneinander in der Armee-Konfiguration und im Builder-Header.',
+    title: 'v1.38: Session-Autosave-Verbesserungen & Engine-Bugfixes',
+    intro: 'Eine Überprüfung von 11 bestätigten Fehlern durch einen automatischen Code-Review — betrifft Session-Persistenz, falsche Validator-Warnungen und einen Absturz-Wiederherstellungsmechanismus.',
+    line1: '💾 ALLGEMEIN — Absturz-Wiederherstellung: Deine Armee wird jetzt alle 5 Sekunden in localStorage gesichert, sodass ein Browser-Absturz höchstens 5 Sekunden Arbeit kostet. „↩ Fraktion"-Autosave zeigt jetzt korrekte Punkte, erscheint nach dem Löschen nicht mehr neu und wird über einen einzigen Helper serialisiert.',
+    line2: '⚔️ Imperiale Garde — Mechanisierte Kompanie: „nur 1 Schwerer Support"-Fehler feuerte doppelt; jetzt einmal. CSM — Dämonenkind: falsche „benötigt 1 HQ aus jedem Codex"-Warnung behoben. Validatoren: pointLimit=0 setzt Free-Slot-Credits für Warlocks, GSC-Elites, Plasmacyte und Archetype-HQ-Kappen nicht mehr auf null.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.37: Re-auditoría de Chaos Daemons, fix de armas del suplemento HH y símbolo doble de facción',
-    intro: 'El Ordo Erratum ha completado una re-auditoría ODS completa de Chaos Daemons (las 37 unidades verificadas). Un fix de datos, un fix de visualización de armas para el suplemento Horus Heresy y una nueva función visual para ejércitos Legión.',
-    line1: '⚔️ Chaos Daemons — unit_type de Feculent Gnarlmaw corregido. Suplemento Horus Heresy — 9 grupos de opciones de swap carecían de campos replaces[], por lo que las armas sustituidas seguían visibles en el Perfil en Vivo; corregido.',
-    line2: '🛡️ GENERAL — símbolo doble de ejército: cuando el arquetipo Legión (CSM/SM) se combina con un legado que también tiene símbolo (ej. Legado del Señor de la Guerra), ambos símbolos aparecen lado a lado en la cabecera de Configuración del Ejército y del Generador.',
+    title: 'v1.38: Mejoras de autoguardado de sesión y correcciones de motor',
+    intro: 'Una revisión de 11 bugs confirmados por un code review automatizado — afecta la persistencia de sesión, falsos positivos del validador y un mecanismo de recuperación ante crashes.',
+    line1: '💾 GENERAL — recuperación ante crash: el ejército se guarda en localStorage cada 5 s, por lo que un crash del navegador pierde como máximo 5 s de trabajo. El autoguardado "↩ Facción" muestra puntos correctos, no reaparece tras borrarlo y se serializa mediante un único helper.',
+    line2: '⚔️ Guardia Imperial — Compañía Mecanizada: el error "solo 1 Soporte Pesado" se disparaba dos veces; ahora una. CSM — Daemonkin: eliminada falsa advertencia "requiere 1 QG de cada Codex". Validadores: pointLimit=0 ya no pone a cero los créditos de slots libres para Warlocks, Elites de GSC, Plasmacyte y caps de QG de arquetipo.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };

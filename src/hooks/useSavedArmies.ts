@@ -13,6 +13,8 @@ export interface SavedArmy {
 }
 
 const STORAGE_KEY = 'custom40k-saved-armies';
+export const AUTOSAVE_ID = 'autosave-session';
+export const AUTOSAVE_DISMISSED_KEY = 'custom40k-autosave-dismissed';
 
 function load(): SavedArmy[] {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]'); }
@@ -40,6 +42,7 @@ export function useSavedArmies() {
   }
 
   function deleteArmy(id: string) {
+    if (id === AUTOSAVE_ID) sessionStorage.setItem(AUTOSAVE_DISMISSED_KEY, '1');
     persist(load().filter(s => s.id !== id));
   }
 

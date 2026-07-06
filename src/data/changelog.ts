@@ -27,9 +27,19 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.38',
     date: '2026-07-05',
-    title: 'GENERAL — forced mark auto-applied on unit add and archetype switch',
+    title: 'GENERAL — forced mark fix + session auto-save',
     changes: [
-      'GENERAL — cult archetypes with forcedMark (Plaguehost, Ambition for Perfection, etc.) now auto-apply the required mark when adding a new unit or switching archetype; units no longer show "must select Mark of X" warnings on a freshly built army',
+      'GENERAL — cult archetypes with forcedMark (Plaguehost, Ambition for Perfection, etc.) now auto-apply the required mark when adding a unit, switching archetype, or loading a saved army; stale "must select Mark of X" warnings eliminated across all entry paths',
+      'GENERAL — active session now stored in sessionStorage (clears on browser close); closing the app auto-saves a "↩ Faction" recovery entry in My Armies so no work is lost',
+      'GENERAL — session migration now always upserts the rescue entry instead of silently discarding the old army when an autosave slot already existed',
+      'GENERAL — beforeunload autosave now wrapped in try/catch; no longer silently fails in private browsing or when localStorage is full',
+      'Imperial Guard — Mechanised Company: removed duplicate "only 1 Heavy Support" error (the generic slotCapOverride check already covers this; inline check was a redundant copy)',
+      'Chaos Space Marines — Daemonkin: allied HQ detection now uses the allied archetype slot rules instead of the primary CSM rule, preventing a false "requires 1 HQ from each Codex" warning',
+      'GENERAL — autosave "↩ Faction" entry no longer re-appears after the user deletes it (a sessionStorage flag prevents recreation in the same session; resets when faction changes)',
+      'GENERAL — "↩ Faction" autosave entry now shows correct point total instead of always showing 0 pts',
+      'GENERAL — crash recovery: army is written to a localStorage backup every 5 s so a browser crash loses at most 5 s of work (rescue entry appears as "↩ Faction" on next load)',
+      'GENERAL — saved-army state serialisation is now driven by a single getSerializableState() helper shared by all save paths; future fields added to persist() are no longer at risk of being silently omitted from autosaves',
+      'GENERAL — validators: pointLimit=0 no longer zeroes all points-based free-slot credits (Eldar Warlocks, GSC Elites, Necrons Plasmacyte, Votann/IG archetype HQ caps) — credits now uncapped when no game size is configured',
     ],
   },
   {

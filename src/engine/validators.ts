@@ -377,6 +377,7 @@ export function computeEldarWarlockFreeSlots(
     if (item.optionQty?.[gi]?.['__inline']) flagged++;
   }
   if (flagged === 0) return { elites: 0, notes: [] };
+  if (!pointLimit) return { elites: flagged, notes: [] };
   const cap = Math.floor(pointLimit / 500);
   const credited = Math.min(flagged, cap);
   const notes = [`Warlocks: ${credited} of ${flagged} "no Elite slot" pick${flagged === 1 ? '' : 's'} credited (1 per 500pts of game size, ${pointLimit}pts → max ${cap}).`];
@@ -473,6 +474,10 @@ export function computeGscEliteFreeSlots(
   pointLimit: number,
 ): { elites: number; notes: string[] } {
   if (data.faction !== 'Genestealer Cults') return { elites: 0, notes: [] };
+  if (!pointLimit) {
+    const elites = GSC_POINTS_FREE_ELITES.reduce((sum, name) => sum + army.filter(i => i.unitName === name).length, 0);
+    return { elites, notes: [] };
+  }
   const cap = Math.floor(pointLimit / 500);
   let elites = 0;
   const notes: string[] = [];
@@ -695,6 +700,7 @@ export function computeNecronPlasmacyteFreeSlots(
   if (data.faction !== 'Necrons') return { elites: 0, notes: [] };
   const count = army.filter(i => i.unitName === 'Plasmacyte').length;
   if (count === 0) return { elites: 0, notes: [] };
+  if (!pointLimit) return { elites: count, notes: [] };
   const cap = Math.floor(pointLimit / 500);
   const credited = Math.min(count, cap);
   const notes = [`Plasmacyte: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the Elite slot (1 per 500pts of game size, ${pointLimit}pts → max ${cap}).`];
@@ -838,6 +844,7 @@ export function computeArchetypeHqFreeSlots(
   const { unitName, perPoints } = rule.pointsBasedHqFree;
   const count = army.filter(i => !i.factionSource && i.unitName === unitName).length;
   if (count === 0) return { hq: 0, notes: [] };
+  if (!pointLimit) return { hq: count, notes: [] };
   const cap = Math.floor(pointLimit / perPoints);
   const credited = Math.min(count, cap);
   const notes = [`${unitName}: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the HQ slot (1 per ${perPoints}pts of game size, ${pointLimit}pts → max ${cap}).`];
@@ -1276,16 +1283,6 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       }
     }
 
-    // Mechanised Company: only 1 Heavy Support unit allowed
-    if (state.archetype === 'Mechanised Company') {
-      const hsCount = state.army.filter(item =>
-        !item.factionSource && getEffectiveSlot(item.unitName, item.slot, rule) === 'Heavy Support',
-      ).length;
-      if (hsCount > 1) {
-        items.push({ type: 'error', text: `Mechanised Company: only 1 Heavy Support unit allowed (have ${hsCount}).` });
-      }
-    }
-
     // Whiteshields: "only one other Troop selection per Conscript Infantry Platoon" (rules-owner
     // clarification 2026-06-22: 1 OTHER Troops slot PER CIP, not a single flat +1 — 2 CIPs allow
     // 2 other Troops selections; the CIP itself doesn't count toward that "other" total).
@@ -1331,11 +1328,12 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         });
       }
       // At least 1 HQ from each codex (CSM and allied Daemons)
+      const alliedRule = getArchetypeRule(state.alliedArchetype);
       const hasMainHq = state.army.some(i =>
         !i.factionSource && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
       );
       const hasAlliedHq = state.army.some(i =>
-        !!i.factionSource && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
+        !!i.factionSource && getEffectiveSlot(i.unitName, i.slot, alliedRule) === 'HQ',
       );
       if (state.army.length > 0 && !(hasMainHq && hasAlliedHq)) {
         items.push({
