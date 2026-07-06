@@ -380,49 +380,63 @@ export function LandingPage({
         </div>
 
         {/* Supplements */}
-        <div className="px-6 pb-4 max-w-xs mx-auto w-full anim-fade-up anim-delay-5">
-          <div className="flex items-center gap-3 mb-3">
+        <div className="px-6 pb-6 max-w-sm mx-auto w-full anim-fade-up anim-delay-5">
+          <div className="flex items-center gap-3 mb-5">
             <div className="flex-1 h-px bg-zinc-800" />
             <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-600 shrink-0">{t('supplements')}</span>
             <div className="flex-1 h-px bg-zinc-800" />
           </div>
-          <div className="flex flex-col gap-1.5">
+
+          <div className="space-y-3">
             <button
               onClick={() => setOpenSupplement('horus_heresy')}
-              className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 border-l-[3px] border-l-red-900 hover:bg-zinc-800 hover:border-l-red-700 transition-all text-left group w-full"
+              className="relative flex items-center gap-4 px-5 py-5 w-full bg-zinc-900 border border-zinc-800 border-l-[4px] border-l-red-900 hover:bg-zinc-800/70 hover:border-zinc-700 hover:border-l-red-700 transition-all text-left group overflow-hidden"
             >
-              <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 38, height: 38, filter: 'brightness(0) invert(1) opacity(0.7)', flexShrink: 0 }} draggable={false} />
-              <div className="flex-1 min-w-0">
-                <div className="text-zinc-100 text-[12px] font-bold uppercase tracking-wide">Horus Heresy</div>
-                <div className="text-zinc-600 text-[10px] uppercase tracking-wide mt-0.5">Legiones Astartes</div>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-950/30 to-transparent pointer-events-none" />
+              <img src="/faction-symbols/horus-heresy.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div className="relative z-10 flex-1 min-w-0">
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Horus Heresy</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">Space Marine legions of the Age of Darkness</div>
+                <div className="text-red-900 group-hover:text-red-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Legiones Astartes</div>
               </div>
-              <span className="text-red-900 group-hover:text-red-500 text-[11px] transition-colors shrink-0">→</span>
+              <svg className="relative z-10 w-4 h-4 text-red-900 group-hover:text-red-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
 
             <button
               onClick={() => setOpenSupplement('escalation')}
-              className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 border-l-[3px] border-l-amber-800 hover:bg-zinc-800 hover:border-l-amber-600 transition-all text-left group w-full"
+              className="relative flex items-center gap-4 px-5 py-5 w-full bg-zinc-900 border border-zinc-800 border-l-[4px] border-l-amber-800 hover:bg-zinc-800/70 hover:border-zinc-700 hover:border-l-amber-600 transition-all text-left group overflow-hidden"
             >
-              <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 38, height: 38, filter: 'brightness(0) invert(1) opacity(0.7)', flexShrink: 0 }} draggable={false} />
-              <div className="flex-1 min-w-0">
-                <div className="text-zinc-100 text-[12px] font-bold uppercase tracking-wide">Escalation</div>
-                <div className="text-zinc-600 text-[10px] uppercase tracking-wide mt-0.5">Lords of War</div>
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-950/30 to-transparent pointer-events-none" />
+              <img src="/faction-symbols/escalation.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div className="relative z-10 flex-1 min-w-0">
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Escalation</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">Super-heavy vehicles and Gargantuan Creatures</div>
+                <div className="text-amber-800 group-hover:text-amber-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Lords of War</div>
               </div>
-              <span className="text-amber-800 group-hover:text-amber-500 text-[11px] transition-colors shrink-0">→</span>
+              <svg className="relative z-10 w-4 h-4 text-amber-800 group-hover:text-amber-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
 
             <button
               onClick={() => setOpenSupplement('assassins')}
-              className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 border-l-[3px] border-l-zinc-600 hover:bg-zinc-800 hover:border-l-zinc-400 transition-all text-left group w-full"
+              className="relative flex items-center gap-4 px-5 py-5 w-full bg-zinc-900 border border-zinc-800 border-l-[4px] border-l-zinc-600 hover:bg-zinc-800/70 hover:border-zinc-600 hover:border-l-zinc-400 transition-all text-left group overflow-hidden"
             >
-              <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 38, height: 38, filter: 'brightness(0) invert(1) opacity(0.7)', flexShrink: 0 }} draggable={false} />
-              <div className="flex-1 min-w-0">
-                <div className="text-zinc-100 text-[12px] font-bold uppercase tracking-wide">Assassins</div>
-                <div className="text-zinc-600 text-[10px] uppercase tracking-wide mt-0.5">Execution Force</div>
+              <div className="absolute inset-0 bg-gradient-to-r from-zinc-800/40 to-transparent pointer-events-none" />
+              <img src="/faction-symbols/assassins.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div className="relative z-10 flex-1 min-w-0">
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Assassins</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">Operatives of the Officio Assassinorum</div>
+                <div className="text-zinc-500 group-hover:text-zinc-300 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Execution Force</div>
               </div>
-              <span className="text-zinc-600 group-hover:text-zinc-300 text-[11px] transition-colors shrink-0">→</span>
+              <svg className="relative z-10 w-4 h-4 text-zinc-600 group-hover:text-zinc-300 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
+
           {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
         </div>
 
