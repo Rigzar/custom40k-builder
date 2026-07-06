@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.41',
+    date: '2026-07-06',
+    title: 'GENERAL — landing page visual polish + wiki faction naming improvements',
+    changes: [
+      'GENERAL — landing page hero now has CSS entrance animations: logo emerges with scale+blur, divider and each section fade up with staggered delays (0.15 s steps)',
+      'GENERAL — Ordo announcement card now displays a large servo skull visually holding the card from above, with binder-clip SVG decorations at the card\'s top edge',
+      'WIKI — Space Marines psychic discipline tabs now show chapter-specific icons: Blood Angels for Sanguine, White Scars for Stormspeaking, Space Wolves for Tempestus, Dark Angels for Geokinesis, Deathwatch for Interromancy',
+      'WIKI — prayer/litany/mantra section naming is now per-faction: "Litanies" for Space Marines, Adeptus Sororitas, Grey Knights, Imperial Guard and Inquisition; "Mantras" for Tau Empire; "Prayers & Pacts" for Chaos Space Marines; affects page title, breadcrumb, h1, tab label, column header and the faction hub nav button',
+    ],
+  },
+  {
     version: '1.40',
     date: '2026-07-06',
     title: 'GENERAL — allied armory race-condition fix + save overwrite fix',

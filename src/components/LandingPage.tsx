@@ -62,19 +62,27 @@ function CommunityAnnouncement() {
   );
   if (dismissed) return null;
   return (
-    <div className="relative mt-2 mb-6">
-      {/* Servo skull floating above card */}
-      <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-10 pointer-events-none select-none">
-        <img src="/servo-skull.png" alt="" className="w-14 h-14 object-contain drop-shadow-lg" draggable={false} />
+    <div className="relative mb-6">
+      {/* Space for skull above the card */}
+      <div className="h-14" />
+
+      {/* Servo skull — large, centered, appears to hold the card from above */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 pointer-events-none select-none">
+        <img
+          src="/servo-skull.png"
+          alt=""
+          className="w-28 h-28 object-contain drop-shadow-[0_4px_20px_rgba(180,83,9,0.45)]"
+          draggable={false}
+        />
       </div>
 
-      {/* Binder clips row */}
-      <div className="flex justify-between px-10 mb-0 pointer-events-none select-none relative z-10">
+      {/* Binder clips at card top edge, connecting skull to document */}
+      <div className="absolute top-14 left-0 right-0 flex justify-between px-8 z-10 pointer-events-none select-none">
         <ClipSvg /><ClipSvg /><ClipSvg />
       </div>
 
-      {/* Ordo card */}
-      <div className="bg-zinc-900 border border-zinc-700 border-t-2 border-t-amber-900/80 px-5 pt-4 pb-4">
+      {/* Ordo card — pt-14 so content clears the skull overlap */}
+      <div className="bg-zinc-900 border border-zinc-700 border-t-2 border-t-amber-900/80 px-5 pt-14 pb-4">
         <div className="flex justify-between items-start gap-4">
           <div className="text-[10px] text-amber-600 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
             <span className="opacity-60">⚙</span>
