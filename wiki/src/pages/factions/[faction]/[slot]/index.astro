@@ -20,7 +20,7 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { faction: factionKey, slot: slotSlug } = Astro.params;
+const { faction: factionKey } = Astro.params;
 const { slotLabel } = Astro.props as { slotLabel: string };
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { units, slot_to_units } = await getFactionUnits(factionKey!);
