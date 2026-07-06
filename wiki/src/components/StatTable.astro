@@ -7,34 +7,76 @@ interface Props {
 }
 const { models, title } = Astro.props;
 
+const COMBAT_COLS = new Set(['WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV', 'FRONT', 'SIDE', 'REAR', 'HP']);
 const cols = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV', 'FRONT', 'SIDE', 'REAR', 'HP'] as const;
 const usedCols = cols.filter(c => models.some(m => m.stats[c] !== undefined));
 ---
-{title && <h3>{title}</h3>}
-<table class="stat-table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Pts</th>
-      <th>Min</th>
-      <th>Max</th>
-      {usedCols.map(c => <th>{c}</th>)}
-    </tr>
-  </thead>
-  <tbody>
-    {models.map(m => (
+{title && <h3 class="stat-sub">{title}</h3>}
+<div class="stat-wrap">
+  <table class="stat-table">
+    <thead>
       <tr>
-        <td>{m.name}</td>
-        <td>{m.points}</td>
-        <td>{m.min}</td>
-        <td>{m.max}</td>
-        {usedCols.map(c => <td>{m.stats[c] ?? '-'}</td>)}
+        <th class="col-name">Profile</th>
+        <th class="col-pts">Pts</th>
+        <th>Min</th>
+        <th>Max</th>
+        {usedCols.map(c => <th class={COMBAT_COLS.has(c) ? 'col-stat' : ''}>{c}</th>)}
       </tr>
-    ))}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {models.map((m, i) => (
+        <tr class={i % 2 === 1 ? 'alt' : ''}>
+          <td class="col-name">{m.name}</td>
+          <td class="col-pts">{m.points}</td>
+          <td class="col-dim">{m.min}</td>
+          <td class="col-dim">{m.max}</td>
+          {usedCols.map(c => <td class={COMBAT_COLS.has(c) ? 'col-stat' : ''}>{m.stats[c] ?? '—'}</td>)}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
 
 <style>
-  .stat-table th, .stat-table td { text-align: center; }
-  .stat-table th:first-child, .stat-table td:first-child { text-align: left; }
+  .stat-sub {
+    font-size: 0.8rem; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(57,73,80,0.3); margin: 1rem 0 0.4rem;
+  }
+  .stat-wrap { overflow-x: auto; margin-bottom: 1rem; }
+
+  .stat-table {
+    border-collapse: collapse; width: 100%; font-size: 0.82rem;
+    border: 1px solid rgba(57,73,80,0.25); border-radius: 3px;
+  }
+
+  .stat-table thead tr {
+    background: var(--c40k-steel, #394950);
+    color: #ddd;
+  }
+  .stat-table th {
+    text-align: center; padding: 0.35rem 0.5rem;
+    font-family: var(--font-ui, sans-serif); font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
+    border: none;
+  }
+  .stat-table th.col-name { text-align: left; }
+
+  .stat-table td {
+    text-align: center; padding: 0.3rem 0.5rem;
+    border-top: 1px solid rgba(57,73,80,0.12);
+  }
+  .stat-table td.col-name {
+    text-align: left; font-weight: 600;
+    border-left: 3px solid var(--c40k-red, #a21217);
+    padding-left: 0.55rem;
+  }
+  .stat-table td.col-pts {
+    font-weight: bold; color: var(--c40k-red, #a21217);
+    font-family: var(--font-ui, sans-serif); font-size: 0.78rem;
+  }
+  .stat-table td.col-dim { opacity: 0.6; font-size: 0.75rem; }
+  .stat-table td.col-stat { font-family: var(--font-ui, sans-serif); font-size: 0.78rem; }
+
+  .stat-table tr.alt td { background: rgba(57,73,80,0.04); }
+  .stat-table tbody tr:hover td { background: rgba(162,18,23,0.04); }
 </style>

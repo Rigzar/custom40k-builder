@@ -7,49 +7,99 @@ interface Props {
 }
 const { weapons } = Astro.props;
 ---
-<table class="weapon-table">
-  <thead>
-    <tr>
-      <th>Weapon</th>
-      <th>Range</th>
-      <th>Type</th>
-      <th>S</th>
-      <th>AP</th>
-      <th>D</th>
-      <th>Abilities</th>
-    </tr>
-  </thead>
-  <tbody>
-    {weapons.map(w => {
-      const parts = w.abilities && w.abilities !== '-' ? parseAbility(w.abilities) : [];
-      return (
-        <tr>
-          <td>{w.name}</td>
-          <td>{w.range}</td>
-          <td>{w.type}</td>
-          <td>{w.s}</td>
-          <td>{w.ap}</td>
-          <td>{w.d}</td>
-          <td>
-            {parts.length === 0 && '-'}
-            {parts.map((part, i) => {
-              const { key } = normaliseKey(part.displayName);
-              const hasGlossaryEntry = !part.isCustom && part.description !== null;
-              return (
-                <>
-                  {i > 0 && ', '}
-                  {hasGlossaryEntry ? <a href={`/glossary/${encodeURIComponent(key)}`}>{part.displayName}</a> : <span>{part.displayName}</span>}
-                </>
-              );
-            })}
-          </td>
-        </tr>
-      );
-    })}
-  </tbody>
-</table>
+<div class="weapon-wrap">
+  <table class="weapon-table">
+    <thead>
+      <tr>
+        <th class="col-name">Weapon</th>
+        <th>Range</th>
+        <th>Type</th>
+        <th class="col-stat">S</th>
+        <th class="col-stat">AP</th>
+        <th class="col-stat">D</th>
+        <th class="col-abilities">Abilities</th>
+      </tr>
+    </thead>
+    <tbody>
+      {weapons.map((w, i) => {
+        const parts = w.abilities && w.abilities !== '-' ? parseAbility(w.abilities) : [];
+        return (
+          <tr class={i % 2 === 1 ? 'alt' : ''}>
+            <td class="col-name">{w.name}</td>
+            <td class="col-center">{w.range}</td>
+            <td class="col-center col-type">{w.type}</td>
+            <td class="col-stat">{w.s}</td>
+            <td class="col-stat">{w.ap}</td>
+            <td class="col-stat">{w.d}</td>
+            <td class="col-abilities">
+              {parts.length === 0 && <span class="no-abilities">—</span>}
+              {parts.map((part, pi) => {
+                const { key } = normaliseKey(part.displayName);
+                const hasGlossaryEntry = !part.isCustom && part.description !== null;
+                return (
+                  <>
+                    {pi > 0 && <span class="ability-sep">, </span>}
+                    {hasGlossaryEntry
+                      ? <a class="ability-link" href={`/glossary/${encodeURIComponent(key)}`}>{part.displayName}</a>
+                      : <span class="ability-plain">{part.displayName}</span>
+                    }
+                  </>
+                );
+              })}
+            </td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>
 
 <style>
-  .weapon-table th:not(:first-child):not(:last-child),
-  .weapon-table td:not(:first-child):not(:last-child) { text-align: center; }
+  .weapon-wrap { overflow-x: auto; margin-bottom: 1rem; }
+
+  .weapon-table {
+    border-collapse: collapse; width: 100%; font-size: 0.82rem;
+    border: 1px solid rgba(57,73,80,0.25);
+  }
+
+  .weapon-table thead tr {
+    background: var(--c40k-steel, #394950);
+    color: #ddd;
+  }
+  .weapon-table th {
+    padding: 0.35rem 0.55rem;
+    font-family: var(--font-ui, sans-serif); font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;
+    border: none; white-space: nowrap;
+    text-align: center;
+  }
+  .weapon-table th.col-name { text-align: left; }
+  .weapon-table th.col-abilities { text-align: left; }
+
+  .weapon-table td {
+    padding: 0.28rem 0.55rem;
+    border-top: 1px solid rgba(57,73,80,0.1);
+    vertical-align: top;
+  }
+  .weapon-table td.col-name {
+    font-weight: 600;
+    border-left: 3px solid var(--c40k-red, #a21217);
+    padding-left: 0.55rem; white-space: nowrap;
+  }
+  .weapon-table td.col-center { text-align: center; white-space: nowrap; }
+  .weapon-table td.col-type { font-family: var(--font-ui, sans-serif); font-size: 0.75rem; opacity: 0.85; }
+  .weapon-table td.col-stat {
+    text-align: center; font-family: var(--font-ui, sans-serif);
+    font-size: 0.8rem; font-weight: 600; white-space: nowrap;
+    color: var(--c40k-ink, #2a2420);
+  }
+  .weapon-table td.col-abilities { font-size: 0.78rem; line-height: 1.4; }
+
+  .weapon-table tr.alt td { background: rgba(57,73,80,0.04); }
+  .weapon-table tbody tr:hover td { background: rgba(162,18,23,0.04); }
+
+  .ability-link { color: var(--c40k-red, #a21217); text-decoration: underline dotted; font-style: italic; }
+  .ability-link:hover { text-decoration: underline; }
+  .ability-plain { font-style: italic; }
+  .no-abilities { opacity: 0.4; }
 </style>
