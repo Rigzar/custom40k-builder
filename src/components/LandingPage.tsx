@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -39,66 +39,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   },
 };
 
-// ── Battlefield smoke rising from the hero background ────────────────────────
-function HeroSmoke() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    let raf: number;
-    let w = 0, h = 0;
-    const COUNT = 18;
-    interface S { x:number; y:number; r:number; vx:number; vy:number; alpha:number; aTarget:number; phase:number; dr:number; }
-    const ps: S[] = [];
-    function spawn(scatterY?: boolean): S {
-      return {
-        x: Math.random() * w,
-        y: scatterY ? h * 0.4 + Math.random() * h * 0.6 : h + 40,
-        r: 22 + Math.random() * 35,
-        vx: (Math.random() - 0.5) * 0.06,
-        vy: -(0.04 + Math.random() * 0.12),
-        alpha: 0,
-        aTarget: 0.22 + Math.random() * 0.30,
-        phase: Math.random() * Math.PI * 2,
-        dr: 0.05 + Math.random() * 0.08,
-      };
-    }
-    function resize() {
-      w = canvas.offsetWidth; h = canvas.offsetHeight;
-      canvas.width = w; canvas.height = h;
-    }
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas.parentElement ?? canvas);
-    for (let i = 0; i < COUNT; i++) { const p = spawn(true); p.alpha = p.aTarget * Math.random(); ps.push(p); }
-    function tick() {
-      ctx!.clearRect(0, 0, w, h);
-      for (let i = 0; i < ps.length; i++) {
-        const p = ps[i];
-        p.phase += 0.004;
-        p.x += p.vx + Math.sin(p.phase) * 0.14;
-        p.y += p.vy;
-        p.r += p.dr;
-        if (p.alpha < p.aTarget) p.alpha = Math.min(p.aTarget, p.alpha + 0.0008);
-        const fadeTop = h * 0.3;
-        const a = p.y < fadeTop ? p.alpha * (p.y / fadeTop) : p.alpha;
-        if (p.y < -p.r * 3 || p.x < -p.r * 2 || p.x > w + p.r * 2) { ps[i] = spawn(); continue; }
-        const g = ctx!.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
-        g.addColorStop(0,   `rgba(140,80,55,${(a * 0.70).toFixed(3)})`);
-        g.addColorStop(0.5, `rgba(70,40,28,${(a * 0.40).toFixed(3)})`);
-        g.addColorStop(1,   'rgba(0,0,0,0)');
-        ctx!.beginPath(); ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx!.fillStyle = g; ctx!.fill();
-      }
-      raf = requestAnimationFrame(tick);
-    }
-    raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
-  }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none select-none" style={{zIndex:0}} aria-hidden="true" />;
-}
+/* canvas-smoke placeholder — wire up here when user provides the effect */
 
 function BoldSplitLine({ text }: { text: string }) {
   const parts = text.split(' — ');
@@ -299,7 +240,7 @@ export function LandingPage({
   if (view === 'hero') {
     return (
       <div className="relative min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-        <HeroSmoke />
+        {/* smoke placeholder — effect removed, user will provide asset */}
 
         {/* Top bar */}
         <div className="relative z-10 flex justify-between items-center px-5 py-3 border-b border-zinc-900">
