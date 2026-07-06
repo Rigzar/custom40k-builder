@@ -22,12 +22,11 @@ const hasPrayers = (prayers && prayers.length > 0) || (pacts && pacts.length > 0
 const description = getFactionDescription(factionKey!);
 
 const MARK_ICONS: Record<string, string> = {
-  'Undivided / Without': '/mark-icons/undivided.svg',
-  'Undivided': '/mark-icons/undivided.svg',
-  'Khorne': '/mark-icons/khorne.svg',
-  'Nurgle': '/mark-icons/nurgle.svg',
-  'Slaanesh': '/mark-icons/slaanesh.svg',
-  'Tzeentch': '/mark-icons/tzeentch.svg',
+  'Khorne':  '/legion-symbols/khorne-god.svg',
+  'Nurgle':  '/legion-symbols/nurgle-god.svg',
+  'Slaanesh': '/legion-symbols/slaanesh-god.svg',
+  'Tzeentch': '/legion-symbols/tzeentch-god.svg',
+  // Undivided/Without has no dedicated icon — intentionally omitted (no broken img)
 };
 
 const baseCanticles = canticles?.filter(c => c.type === 'base') ?? [];
@@ -147,7 +146,7 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
       {hasPrayers && (
         <a href={`/factions/${factionKey}/prayers`} class="nav-btn">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 0 C7 0 4 3 4 6 C4 7.66 5.34 9 7 9 C8.66 9 10 7.66 10 6 C10 3 7 0 7 0 Z M5 11 L9 11 L8.5 14 L5.5 14 Z"/></svg>
-          Prayers & Pacts
+          {(pacts && pacts.length > 0) ? 'Prayers & Pacts' : 'Prayers'}
         </a>
       )}
     </nav>
