@@ -11,12 +11,15 @@ export interface FactionExtras {
   /** Keyed by discipline name, plus synthetic 'Prayers'/'Pacts' groups for factions whose psychic
       data is a flat Power[] (litanies/pacts) rather than a named-discipline record. */
   disciplines: Record<string, Power[]>;
+  /** Mark animosity table: mark name → list of compatible marks. Present for CSM and CD. */
+  animosity?: Record<string, string[]>;
 }
 
 type Mod<T> = { default: T };
 const d = <T,>(m: Mod<T>) => m.default;
 
 interface ArchData { archetypes?: Archetype[]; legacies?: Legacy[]; traits?: Trait[] }
+interface AnimosityData { animosity: Record<string, string[]>; allied: Record<string, unknown> }
 
 function assemble(
   general: Armory,
@@ -25,6 +28,7 @@ function assemble(
   disciplines: Record<string, Power[]>,
   prayers?: Power[],
   pacts?: Power[],
+  animosityRaw?: AnimosityData,
 ): FactionExtras {
   const discs = { ...disciplines };
   if (prayers && prayers.length > 0) discs['Prayers'] = prayers;
@@ -36,12 +40,13 @@ function assemble(
     legacies: archdata?.legacies ?? [],
     traits: archdata?.traits ?? [],
     disciplines: discs,
+    animosity: animosityRaw?.animosity,
   };
 }
 
 const LOADERS: Record<string, () => Promise<FactionExtras>> = {
   chaos_space_marines: async () => {
-    const [g, kh, nu, sl, tz, iron, word, alpha, night, black, arch, pacts, prayers, discs] = await Promise.all([
+    const [g, kh, nu, sl, tz, iron, word, alpha, night, black, arch, pacts, prayers, discs, anim] = await Promise.all([
       import('../vendor/data/parsed/chaos_space_marines/armory/general.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/chaos_space_marines/armory/mark_khorne.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/chaos_space_marines/armory/mark_nurgle.json') as unknown as Promise<Mod<Armory>>,
@@ -56,20 +61,22 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
       import('../vendor/data/parsed/chaos_space_marines/psychic/pacts.json') as unknown as Promise<Mod<Power[]>>,
       import('../vendor/data/parsed/chaos_space_marines/psychic/prayers.json') as unknown as Promise<Mod<Power[]>>,
       import('../vendor/data/parsed/chaos_space_marines/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
+      import('../vendor/data/parsed/chaos_space_marines/animosity.json') as unknown as Promise<Mod<AnimosityData>>,
     ]);
     return assemble(d(g), d(arch), {
       Khorne: d(kh), Nurgle: d(nu), Slaanesh: d(sl), Tzeentch: d(tz),
       'Iron Warriors': d(iron), 'Word Bearers': d(word), 'Alpha Legion': d(alpha), 'Night Lords': d(night), 'Black Legion': d(black),
-    }, d(discs), d(prayers), d(pacts));
+    }, d(discs), d(prayers), d(pacts), d(anim));
   },
   chaos_daemons: async () => {
-    const [g, tz, arch, discs] = await Promise.all([
+    const [g, tz, arch, discs, anim] = await Promise.all([
       import('../vendor/data/parsed/chaos_daemons/armory/general.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/chaos_daemons/armory/mark_tzeentch.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/chaos_daemons/archetypes.json') as unknown as Promise<Mod<ArchData>>,
       import('../vendor/data/parsed/chaos_daemons/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
+      import('../vendor/data/parsed/chaos_daemons/animosity.json') as unknown as Promise<Mod<AnimosityData>>,
     ]);
-    return assemble(d(g), d(arch), { Tzeentch: d(tz) }, d(discs));
+    return assemble(d(g), d(arch), { Tzeentch: d(tz) }, d(discs), undefined, undefined, d(anim));
   },
   space_marines: async () => {
     const [g, arch, prayers, discs, rel, dw, da, ws, sw, fi, bt, ba, br] = await Promise.all([

@@ -117,3 +117,51 @@ table tbody tr:nth-child(even) td {
   font-size: 0.68rem;
   letter-spacing: 0.02em;
 }
+
+/* ── Scanlines overlay ─────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.025) 3px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Global keyframes ──────────────────────────────────────────────── */
+@keyframes symbol-emerge {
+  from { opacity: 0; transform: scale(0.72); filter: blur(10px); }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0px); }
+}
+
+@keyframes title-reveal {
+  from { opacity: 0; transform: translateY(-12px); letter-spacing: 0.18em; }
+  to   { opacity: 1; transform: translateY(0);      letter-spacing: 0.03em; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tab-fade {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scroll-reveal ─────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

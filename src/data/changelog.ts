@@ -35,6 +35,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — new 3-step army creation flow: (1) Battle Setup page with battle type selector + points limit (clamped per type: Skirmish 1000-2499, Pitched 2500-3999, Epic 4000+; max of each type = min of the next) and faction grid; (2) Army Config page showing only Archetype/Legacy/Traits; (3) builder as before; supplements section moved to hero landing page',
       'GENERAL — campaign GM can now delete a campaign: trash icon on campaign row opens a confirmation prompt where the GM must type the campaign name exactly; deletes all sectors, battles, roster and players',
       'GENERAL — removed the legacy "Reference" button and ReferencePanel (carried since day one, superseded by the wiki)',
+      'WIKI — armory and psychic pages now use JavaScript tabs (one per section/discipline with faction icons); faction hub reverted to single "Units" button; CSM and Chaos Daemons hub now show the Chaos Marks Animosity table; CSS animations added (faction symbol emerge, title reveal, scanlines overlay, scroll-reveal)',
     ],
   },
   {

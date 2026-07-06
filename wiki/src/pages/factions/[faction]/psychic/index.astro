@@ -12,30 +12,74 @@ const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { disciplines } = await getFactionExtras(factionKey!);
 const disciplineNames = Object.keys(disciplines);
 
-function slug(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+function tabId(s: string): string {
+  return 'disc-' + s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+const singleTab = disciplineNames.length <= 1;
+
+/* Psychic/prayer discipline icons — extend as icons become available from the icon pass */
+const DISC_ICONS: Record<string, Record<string, string>> = {
+  chaos_space_marines: {
+    'Prayers': '/faction-symbols/chaos-space-marines.svg',
+    'Pacts':   '/faction-symbols/chaos-daemons.svg',
+  },
+  chaos_daemons: {
+    'Prayers': '/faction-symbols/chaos-daemons.svg',
+  },
+  adeptus_sororitas: {
+    'Prayers': '/faction-symbols/adeptus-sororitas.svg',
+  },
+  grey_knights: {
+    'Prayers': '/faction-symbols/grey-knights.svg',
+  },
+  imperial_guard: {
+    'Prayers': '/faction-symbols/imperial-guard.svg',
+  },
+  inquisition: {
+    'Prayers': '/faction-symbols/inquisition.svg',
+  },
+};
+
+function getDiscIcon(name: string): string | null {
+  return DISC_ICONS[factionKey!]?.[name] ?? null;
 }
 ---
-<Layout title={`Psychic powers — ${config.label} — Custom40k Wiki`}>
+<Layout title={`Psychic Powers — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Psychic powers
+    <a href="/factions">&larr; All factions</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / Psychic Powers
   </p>
-  <h1>Psychic powers</h1>
+  <h1>Psychic Powers</h1>
 
-  {disciplineNames.length > 1 && (
-    <nav class="toc">
-      <strong>Contents</strong>
-      <ul>
-        {disciplineNames.map(name => (
-          <li><a href={`#${slug(name)}`}>{name}</a></li>
-        ))}
-      </ul>
-    </nav>
+  {!singleTab && (
+    <div class="tab-bar" role="tablist">
+      {disciplineNames.map((name, i) => {
+        const icon = getDiscIcon(name);
+        return (
+          <button
+            class={`tab-btn${i === 0 ? ' active' : ''}`}
+            data-tab={tabId(name)}
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+          >
+            {icon && <img src={icon} alt="" width="16" height="16" class="tab-icon" />}
+            {name}
+          </button>
+        );
+      })}
+    </div>
   )}
 
-  {disciplineNames.map(name => (
-    <section>
-      <h2 id={slug(name)}>{name}</h2>
+  {disciplineNames.map((name, i) => (
+    <div id={tabId(name)} class={`tab-panel${(singleTab || i === 0) ? ' active' : ''}`}>
+      {singleTab && <h2>{name}</h2>}
+      {!singleTab && (
+        <div class="disc-header">
+          {getDiscIcon(name) && <img src={getDiscIcon(name)!} alt="" width="28" height="28" class="disc-icon" />}
+          <span class="disc-name">{name}</span>
+        </div>
+      )}
       <table class="power-table">
         <thead>
           <tr>
@@ -43,7 +87,7 @@ function slug(s: string): string {
             <th>Type</th>
             <th>Range</th>
             <th>Target</th>
-            <th>Cast value</th>
+            <th>Cast</th>
             <th>Effect</th>
             <th>Duration</th>
             <th>Complexity</th>
@@ -52,29 +96,89 @@ function slug(s: string): string {
         <tbody>
           {disciplines[name].map(p => (
             <tr>
-              <td>{p.name}</td>
-              <td>{p.type ?? '-'}</td>
-              <td>{p.range ?? '-'}</td>
-              <td>{p.target ?? '-'}</td>
-              <td>{p.cast_value ?? '-'}</td>
-              <td>{p.effect ?? '-'}</td>
-              <td>{p.duration ?? '-'}</td>
-              <td>{p.complexity ?? '-'}</td>
+              <td class="power-name">{p.name}</td>
+              <td class="center">{p.type ?? '-'}</td>
+              <td class="center">{p.range ?? '-'}</td>
+              <td class="center">{p.target ?? '-'}</td>
+              <td class="center cast">{p.cast_value ?? '-'}</td>
+              <td class="effect">{p.effect ?? '-'}</td>
+              <td class="center">{p.duration ?? '-'}</td>
+              <td class="center">{p.complexity ?? '-'}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </section>
+    </div>
   ))}
 </Layout>
 
 <style>
-  .power-table th:not(:first-child):not(:nth-child(6)),
-  .power-table td:not(:first-child):not(:nth-child(6)) { text-align: center; }
-  .toc {
-    background: rgba(255,255,255,0.35); border: 1px solid #9a978b; border-radius: 4px;
-    padding: 0.7rem 1rem; margin: 0.8rem 0 1.2rem; font-size: 0.82rem;
+  .tab-bar {
+    display: flex; flex-wrap: wrap; gap: 0.3rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid var(--c40k-red, #a21217);
+    padding-bottom: 0;
   }
-  .toc strong { font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.72rem; }
-  .toc ul { columns: 2; column-gap: 1.5rem; margin: 0.4rem 0 0; padding-left: 1.1rem; }
+  .tab-btn {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase;
+    letter-spacing: 0.04em; font-size: 0.72rem;
+    padding: 0.45rem 1rem; cursor: pointer;
+    border: 1px solid transparent; border-bottom: none;
+    border-radius: 3px 3px 0 0;
+    background: rgba(255,255,255,0.2);
+    color: var(--c40k-ink, #2a2420);
+    transition: background 0.12s, color 0.12s;
+    position: relative; bottom: -2px;
+  }
+  .tab-btn:hover { background: rgba(162,18,23,0.1); color: var(--c40k-red, #a21217); }
+  .tab-btn.active {
+    background: var(--c40k-red, #a21217); color: #fff;
+    border-color: var(--c40k-red, #a21217);
+  }
+  .tab-btn.active .tab-icon { filter: brightness(0) invert(1) opacity(0.9); }
+  .tab-icon { object-fit: contain; opacity: 0.8; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active {
+    display: block;
+    animation: tab-fade 0.22s ease both;
+  }
+
+  .disc-header {
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 0.8rem; padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(162,18,23,0.3);
+  }
+  .disc-icon { object-fit: contain; opacity: 0.85; }
+  .disc-name {
+    font-family: var(--font-heading, sans-serif); font-size: 1.1rem;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--c40k-red, #a21217);
+  }
+
+  .power-table .power-name { font-weight: 600; white-space: nowrap; }
+  .power-table .center { text-align: center; white-space: nowrap; }
+  .power-table .cast { font-family: var(--font-ui, sans-serif); font-size: 0.78rem; }
+  .power-table .effect { font-size: 0.82rem; line-height: 1.4; max-width: 28rem; }
 </style>
+
+<script is:inline>
+  (function () {
+    var buttons = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        var target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+  })();
+</script>
