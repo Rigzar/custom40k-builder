@@ -9,28 +9,61 @@ const { items } = Astro.props;
 
 function pts(item: ArmoryItem): string {
   const parts: string[] = [];
-  if (item.p_unit != null) parts.push(`${item.p_unit} pts per model`);
-  if (item.p_char != null) parts.push(`${item.p_char} pts for a Character`);
-  if (item.p_veh != null) parts.push(`${item.p_veh} pts for a Vehicle`);
-  return parts.length > 0 ? parts.join(' / ') : '-';
+  if (item.p_unit != null) parts.push(`${item.p_unit}/model`);
+  if (item.p_char != null) parts.push(`${item.p_char} (char)`);
+  if (item.p_veh != null) parts.push(`${item.p_veh} (veh)`);
+  return parts.length > 0 ? parts.join(' · ') : '—';
 }
 ---
-<ul class="equipment-list">
+<div class="equipment-grid">
   {items.map(item => {
     const clan = findClanIcon(item.desc);
     return (
-      <li>
-        {clan && <img src={clan.icon} alt={clan.name} title={clan.name} width="22" height="22" />}
-        <strong>{item.name}</strong> — {pts(item)}
-        {item.desc && <p>{item.desc}</p>}
-      </li>
+      <div class="equipment-card">
+        <div class="equipment-header">
+          {clan && <img src={clan.icon} alt={clan.name} title={clan.name} width="18" height="18" class="clan-icon" />}
+          <span class="equipment-name">{item.name}</span>
+          <span class="equipment-pts">{pts(item)}</span>
+        </div>
+        {item.desc && <p class="equipment-desc">{item.desc}</p>}
+      </div>
     );
   })}
-</ul>
+</div>
 
 <style>
-  .equipment-list { padding-left: 1.1rem; font-size: 0.85rem; }
-  .equipment-list li { margin-bottom: 0.45rem; }
-  .equipment-list img { vertical-align: middle; margin-right: 0.25rem; }
-  .equipment-list p { margin: 0.15rem 0 0; font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.8rem; white-space: pre-line; }
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .equipment-card {
+    padding: 0.5rem 0.7rem;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(57,73,80,0.18);
+    border-left: 3px solid var(--c40k-red, #a21217);
+    border-radius: 2px;
+  }
+  .equipment-header {
+    display: flex; align-items: center; gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+  .clan-icon { object-fit: contain; flex-shrink: 0; }
+  .equipment-name {
+    font-weight: 600; font-size: 0.82rem;
+    font-family: var(--font-heading, sans-serif);
+    flex: 1; min-width: 0;
+  }
+  .equipment-pts {
+    font-family: var(--font-ui, sans-serif); font-size: 0.68rem;
+    color: var(--c40k-red, #a21217); font-weight: bold;
+    white-space: nowrap;
+  }
+  .equipment-desc {
+    margin: 0.25rem 0 0;
+    font-family: var(--font-ui, system-ui, sans-serif);
+    font-size: 0.75rem; line-height: 1.4;
+    white-space: pre-line; opacity: 0.85;
+  }
 </style>
