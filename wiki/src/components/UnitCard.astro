@@ -27,8 +27,8 @@ const href = `/factions/${factionKey}/${slugify(slot ?? unit.slot)}/${slugify(un
 <a class="unit-card" href={href}>
   <div class="unit-card-name">{unit.name}</div>
   <div class="unit-card-meta">
-    <span>{minPts}+ pts</span>
-    <span>{sizeLabel}</span>
+    <span class="pts-label">{minPts}+ pts</span>
+    <span class="size-label">{sizeLabel}</span>
     {badges.map(b => <span class="badge">{b}</span>)}
   </div>
 </a>
@@ -44,7 +44,16 @@ const href = `/factions/${factionKey}/${slugify(slot ?? unit.slot)}/${slugify(un
     color: var(--c40k-ink, #2a2420);
     background: rgba(215, 214, 204, 0.55);
     background-blend-mode: multiply;
+    transition: border-color 0.14s, background 0.14s, transform 0.12s;
+  }
+  .unit-card:hover {
+    border-color: var(--c40k-red, #a21217);
+    background: rgba(240, 235, 220, 0.75);
+    transform: translateY(-1px);
+    text-decoration: none;
   }
   .unit-card-name { font-weight: 700; font-size: 0.88rem; font-family: var(--font-heading, Georgia, serif); letter-spacing: 0.01em; }
-  .unit-card-meta { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.68rem; opacity: 0.85; display: flex; gap: 0.35rem; margin-top: 0.25rem; flex-wrap: wrap; align-items: center; }
+  .unit-card-meta { font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.68rem; display: flex; gap: 0.35rem; margin-top: 0.25rem; flex-wrap: wrap; align-items: center; }
+  .pts-label { font-weight: bold; color: var(--c40k-red, #a21217); }
+  .size-label { opacity: 0.7; }
 </style>

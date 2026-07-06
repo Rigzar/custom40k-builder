@@ -13,71 +13,139 @@ const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
 const { archetypes, legacies, traits } = await getFactionExtras(factionKey!);
 
-function ptsRow(t: { pts_unit: string | null; pts_char: string | null; pts_monster: string | null; pts_veh: string | null }): string {
-  return `Unit: ${t.pts_unit ?? '-'} · Char: ${t.pts_char ?? '-'} · Monster: ${t.pts_monster ?? '-'} · Veh: ${t.pts_veh ?? '-'}`;
+type Trait = { name: string; desc: string; pts_unit?: string|null; pts_char?: string|null; pts_monster?: string|null; pts_veh?: string|null };
+function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
+  const rows: Array<{ label: string; pts: string }> = [];
+  if (t.pts_unit)    rows.push({ label: 'Unit',     pts: t.pts_unit });
+  if (t.pts_char)    rows.push({ label: 'Character', pts: t.pts_char });
+  if (t.pts_monster) rows.push({ label: 'Monster',  pts: t.pts_monster });
+  if (t.pts_veh)     rows.push({ label: 'Vehicle',  pts: t.pts_veh });
+  return rows;
 }
 ---
-<Layout title={`Archetypes — ${config.label} — Custom40k Wiki`}>
+<Layout title={`Army Customisation — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> / <a href={`/factions/${factionKey}`}>{config.label}</a> / Army Customisation
+    <a href="/factions">&larr; All factions</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / Army Customisation
   </p>
+  <h1>Army Customisation</h1>
 
   {archetypes.length > 0 && (
-    <>
-      <h1>Archetypes</h1>
-      <ul class="entry-list">
-        {archetypes.map(a => {
+    <section class="reveal">
+      <h2 class="section-h">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 1 L9.5 5.5 H14 L10.5 8.5 L12 13 L8 10 L4 13 L5.5 8.5 L2 5.5 H6.5 Z"/></svg>
+        Archetypes
+      </h2>
+      <div class="card-grid">
+        {archetypes.map((a: { name: string; desc: string }) => {
           const icon = getLegacyIcon(factionKey!, a.name);
           return (
-            <li>
-              {icon && <img src={icon} alt={a.name} title={a.name} width="22" height="22" />}
-              <strong>{a.name}</strong>
-              <p>{a.desc}</p>
-            </li>
+            <div class="entry-card">
+              <div class="entry-card-title">
+                {icon && <img src={icon} alt="" width="20" height="20" class="entry-icon" />}
+                <span>{a.name}</span>
+              </div>
+              {a.desc && <p class="entry-desc">{a.desc}</p>}
+            </div>
           );
         })}
-      </ul>
-    </>
+      </div>
+    </section>
   )}
 
   {legacies.length > 0 && (
-    <>
-      <h1>Legacies</h1>
-      <ul class="entry-list">
-        {legacies.map(l => {
+    <section class="reveal">
+      <h2 class="section-h">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3 13 L3 3 L5 5 L8 2 L11 5 L13 3 L13 13 Z"/></svg>
+        Legacies
+      </h2>
+      <div class="card-grid">
+        {legacies.map((l: { name: string; desc: string }) => {
           const icon = getLegacyIcon(factionKey!, l.name) ?? findClanIcon(l.desc)?.icon ?? null;
           return (
-            <li>
-              {icon && <img src={icon} alt={l.name} title={l.name} width="22" height="22" />}
-              <strong>{l.name}</strong>
-              <p>{l.desc}</p>
-            </li>
+            <div class="entry-card">
+              <div class="entry-card-title">
+                {icon && <img src={icon} alt="" width="20" height="20" class="entry-icon" />}
+                <span>{l.name}</span>
+              </div>
+              {l.desc && <p class="entry-desc">{l.desc}</p>}
+            </div>
           );
         })}
-      </ul>
-    </>
+      </div>
+    </section>
   )}
 
   {traits.length > 0 && (
-    <>
-      <h1>Traits</h1>
-      <ul class="entry-list">
-        {traits.map(t => (
-          <li>
-            <strong>{t.name}</strong>
-            <p>{t.desc}</p>
-            <p class="pts">{ptsRow(t)}</p>
-          </li>
-        ))}
-      </ul>
-    </>
+    <section class="reveal">
+      <h2 class="section-h">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="3"/></svg>
+        Traits
+      </h2>
+      <div class="card-grid">
+        {traits.map((t: Trait) => {
+          const ptsList = ptsEntries(t);
+          return (
+            <div class="entry-card">
+              <div class="entry-card-title"><span>{t.name}</span></div>
+              {t.desc && <p class="entry-desc">{t.desc}</p>}
+              {ptsList.length > 0 && (
+                <div class="pts-row">
+                  {ptsList.map(row => (
+                    <span class="pts-pill"><span class="pts-label">{row.label}</span> {row.pts} pts</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
   )}
 </Layout>
 
 <style>
-  .entry-list { padding-left: 1.1rem; font-size: 0.85rem; }
-  .entry-list li { margin-bottom: 0.7rem; }
-  .entry-list img { vertical-align: middle; margin-right: 0.25rem; }
-  .entry-list p { margin: 0.15rem 0 0; font-family: var(--font-ui, system-ui, sans-serif); font-size: 0.8rem; white-space: pre-line; }
-  .pts { opacity: 0.75; font-size: 0.72rem; }
+  .section-h {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-size: 1.1rem; margin-bottom: 0.8rem;
+  }
+  .section-h svg { flex-shrink: 0; opacity: 0.85; }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.7rem;
+    margin-bottom: 1.4rem;
+  }
+  .entry-card {
+    padding: 0.7rem 0.9rem;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(57,73,80,0.2);
+    border-top: 2px solid var(--c40k-red, #a21217);
+    border-radius: 3px;
+  }
+  .entry-card-title {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-family: var(--font-heading, sans-serif);
+    font-weight: 700; font-size: 0.88rem;
+    text-transform: uppercase; letter-spacing: 0.02em;
+    color: var(--c40k-red, #a21217);
+    margin-bottom: 0.3rem;
+  }
+  .entry-icon { object-fit: contain; flex-shrink: 0; opacity: 0.9; }
+  .entry-desc {
+    font-size: 0.8rem; line-height: 1.45; margin: 0 0 0.4rem;
+    white-space: pre-line; color: var(--c40k-ink, #2a2420);
+  }
+  .pts-row {
+    display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.3rem;
+  }
+  .pts-pill {
+    font-family: var(--font-ui, sans-serif); font-size: 0.65rem;
+    padding: 0.12rem 0.4rem; border-radius: 2px;
+    border: 1px solid rgba(57,73,80,0.3);
+    background: rgba(57,73,80,0.06);
+    color: var(--c40k-ink, #2a2420);
+  }
+  .pts-label { font-weight: bold; opacity: 0.7; }
 </style>
