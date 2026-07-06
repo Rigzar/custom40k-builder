@@ -13,6 +13,8 @@ export interface FactionExtras {
   disciplines: Record<string, Power[]>;
   /** Mark animosity table: mark name → list of compatible marks. Present for CSM and CD. */
   animosity?: Record<string, string[]>;
+  /** Canticles of the Omnissiah — base and legacy-granted. Present for AdMech. */
+  canticles?: Array<{ name: string; effect: string; type: string; grantedByLegacy?: string }>;
 }
 
 type Mod<T> = { default: T };
@@ -20,6 +22,7 @@ const d = <T,>(m: Mod<T>) => m.default;
 
 interface ArchData { archetypes?: Archetype[]; legacies?: Legacy[]; traits?: Trait[] }
 interface AnimosityData { animosity: Record<string, string[]>; allied: Record<string, unknown> }
+interface CanticleEntry { name: string; effect: string; type: string; grantedByLegacy?: string }
 
 function assemble(
   general: Armory,
@@ -29,6 +32,7 @@ function assemble(
   prayers?: Power[],
   pacts?: Power[],
   animosityRaw?: AnimosityData,
+  canticlesRaw?: CanticleEntry[],
 ): FactionExtras {
   const discs = { ...disciplines };
   if (prayers && prayers.length > 0) discs['Prayers'] = prayers;
@@ -41,6 +45,7 @@ function assemble(
     traits: archdata?.traits ?? [],
     disciplines: discs,
     animosity: animosityRaw?.animosity,
+    canticles: canticlesRaw,
   };
 }
 
@@ -109,12 +114,13 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     return assemble(d(g), d(arch), {}, d(discs), d(prayers));
   },
   adeptus_mechanicus: async () => {
-    const [g, arch, leg] = await Promise.all([
+    const [g, arch, leg, cant] = await Promise.all([
       import('../vendor/data/parsed/adeptus_mechanicus/armory/general.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/adeptus_mechanicus/archetypes.json') as unknown as Promise<Mod<ArchData>>,
       import('../vendor/data/parsed/adeptus_mechanicus/armory/legion_forge_world.json') as unknown as Promise<Mod<Armory>>,
+      import('../vendor/data/parsed/adeptus_mechanicus/canticles.json') as unknown as Promise<Mod<CanticleEntry[]>>,
     ]);
-    return assemble(d(g), d(arch), { 'Forge World': d(leg) }, {});
+    return assemble(d(g), d(arch), { 'Forge World': d(leg) }, {}, undefined, undefined, undefined, d(cant));
   },
   adeptus_custodes: async () => {
     const [g, arch, leg] = await Promise.all([
