@@ -130,10 +130,11 @@ const NAME_TABLES: Record<string, Record<string, string>> = {
   adeptus_sororitas:   { ...SORORITAS_LEGACY_SYMBOL },
 };
 
-/** armory_legions Record key (Legion/Chapter/Forge World/Craftworld/Order/Mark name) -> icon.
- *  CSM and Chaos Daemons marks reuse the same 4 Chaos-god icons already used for the matching
- *  Chaos Daemons archetypes (Goretide/Figureheads/Host Duplicitous/Popping Plague) — one set of
- *  god icons, not a duplicate icon per faction. */
+/** armory_legions Record key -> icon.  Key = the label used in armoryFaction (the string passed
+ *  as the object key to assemble() in factionExtras.ts).  Factions where every sub-faction has
+ *  its own armory JSON (CSM marks/legions, SM chapters) get one entry per chapter/mark; factions
+ *  that aggregate everything into one key (Eldar "Craftworld", AdMech "Forge World", etc.) get a
+ *  single entry for that aggregate label, using the faction symbol as representative icon. */
 const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
   chaos_space_marines: {
     'Word Bearers':  '/legion-symbols/word-bearers.svg',
@@ -147,8 +148,6 @@ const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
     'Tzeentch':      '/legion-symbols/tzeentch-god.svg',
   },
   chaos_daemons: {
-    // Only Tzeentch has a dedicated mark armory in production data — Khorne/Nurgle/Slaanesh
-    // Daemons have no per-mark armory section to attach an icon to.
     'Tzeentch': '/legion-symbols/tzeentch-god.svg',
   },
   space_marines: {
@@ -163,28 +162,37 @@ const ARMORY_KEY_TABLES: Record<string, Record<string, string>> = {
     'Relictors':      '/legion-symbols/skull-01.svg',
   },
   adeptus_mechanicus: {
-    'Metalica':     '/legion-symbols/admech-metalica.svg',
-    'Lucius':       '/legion-symbols/admech-lucius.svg',
-    'Graia':        '/legion-symbols/admech-graia.svg',
-    'Ryza':         '/legion-symbols/admech-ryza.svg',
-    'Mars':         '/legion-symbols/admech-mars.svg',
-    'Agripinaa':    '/legion-symbols/admech-agripinaa.svg',
-    'Stygies VIII': '/legion-symbols/admech-stygies-viii.svg',
+    'Forge World': '/faction-symbols/adeptus-mechanicus.svg',
   },
-  eldar: {
-    'Alaitoc':  '/legion-symbols/eldar-alaitoc.svg',
-    'Altansar': '/legion-symbols/eldar-altansar.svg',
-    'Biel-Tan': '/legion-symbols/eldar-biel-tan.svg',
-    'Iyanden':  '/legion-symbols/eldar-iyanden.svg',
-    'Saim-Hann': '/legion-symbols/eldar-saim-hann.svg',
+  adeptus_custodes: {
+    'Shield Host': '/faction-symbols/adeptus-custodes.svg',
   },
   adeptus_sororitas: {
-    'Valorous Heart':    '/legion-symbols/sororitas-valorous-heart.svg',
-    'Ebon Chalice':       '/legion-symbols/sororitas-ebon-chalice.svg',
-    'Argent Shroud':      '/legion-symbols/sororitas-argent-shroud.svg',
-    'Our Martyred Lady':  '/legion-symbols/sororitas-our-martyred-lady.svg',
-    'Bloody Rose':        '/legion-symbols/sororitas-bloody-rose.svg',
-    'Sacred Rose':        '/legion-symbols/sororitas-sacred-rose.svg',
+    'Order': '/faction-symbols/adeptus-sororitas.svg',
+  },
+  eldar: {
+    'Craftworld': '/faction-symbols/eldar.svg',
+    'Ynnari':     '/legion-symbols/ynnari.svg',
+  },
+  dark_eldar: {
+    'Kabal': '/faction-symbols/dark-eldar.svg',
+    'Wych':  '/faction-symbols/dark-eldar.svg',
+    'Coven': '/faction-symbols/dark-eldar.svg',
+  },
+  tau_empire: {
+    'Sept': '/faction-symbols/tau-empire.svg',
+  },
+  necrons: {
+    'Dynasty': '/faction-symbols/necrons.svg',
+  },
+  orks: {
+    'Klan': '/faction-symbols/orks.svg',
+  },
+  leagues_of_votann: {
+    'League': '/faction-symbols/leagues-of-votann.svg',
+  },
+  tyranids: {
+    'Hive Fleet': '/faction-symbols/tyranids.svg',
   },
 };
 
