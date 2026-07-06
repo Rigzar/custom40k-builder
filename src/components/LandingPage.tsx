@@ -12,29 +12,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v140_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v141_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.40: New army creation flow + bug fixes',
-    intro: 'Army creation is now a 3-step flow (Battle Setup → Army Config → Builder). Supplements are on the landing page. Plus two bug fixes.',
-    line1: '🪖 GENERAL — new hero landing page with a 3-step army creation flow: pick battle type & points (clamped per type: Skirmish 1000–2499, Pitched 2500–3999, Epic 4000+), then choose faction, then configure archetype/legacy/traits. Supplements (Horus Heresy, Escalation, Assassins) are now accessible directly from the landing page.',
-    line2: '⚔️ GENERAL — allied units now always show their own faction\'s armory (race condition fixed). Deleting a save and saving with a new name no longer reuses the old save slot. Campaign GMs can now delete a campaign via the campaign list.',
+    title: 'v1.41: Visual effects + wiki improvements',
+    intro: 'Ambient particles and servo-click sounds on the landing page. The wiki now shows faction descriptions and all landing content sits inside the Ordo parchment.',
+    line1: '✨ GENERAL — floating dust particles drift across the hero background; every action button now plays a mechanical servo click (Web Audio, no files). The Ordo announcement card displays a large servo skull holding it from above with binder-clip decorations.',
+    line2: '📖 WIKI — faction hub pages now show a lore description for all 19 factions. The wiki landing page has all three introduction sections inside the parchment card. Space Marines psychic discipline tabs show chapter-specific icons; prayer sections use each faction\'s proper name (Litanies / Mantras / Prayers).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.40: Neuer Armee-Erstellungsablauf + Fehlerbehebungen',
-    intro: 'Das Erstellen einer Armee erfolgt nun in 3 Schritten (Schlachtaufbau → Armee-Konfiguration → Builder). Supplemente sind auf der Startseite. Dazu zwei Fehlerbehebungen.',
-    line1: '🪖 ALLGEMEIN — neue Startseite mit 3-schrittigem Armee-Erstellungsablauf: Schlachttyp & Punkte wählen (begrenzt: Skirmish 1000–2499, Pitched 2500–3999, Epic 4000+), dann Fraktion, dann Archetyp/Legacy/Merkmale konfigurieren. Supplemente (Horus Heresy, Escalation, Assassinen) sind direkt von der Startseite aus zugänglich.',
-    line2: '⚔️ ALLGEMEIN — Verbündete Einheiten zeigen jetzt immer das Armoury ihrer eigenen Fraktion (Race Condition behoben). Das Löschen eines Speicherstands und das erneute Speichern unter neuem Namen verwendet nicht mehr den alten Slot. Kampagnen-GMs können eine Kampagne jetzt über die Kampagnenliste löschen.',
+    title: 'v1.41: Visuelle Effekte + Wiki-Verbesserungen',
+    intro: 'Ambiente Partikel und Servo-Klick-Sounds auf der Startseite. Das Wiki zeigt nun Fraktionsbeschreibungen und alle Startseiteninhalte befinden sich in der Ordo-Pergamentkarte.',
+    line1: '✨ ALLGEMEIN — schwebende Staubpartikel im Hintergrund; jeder Aktionsknopf spielt jetzt einen mechanischen Servo-Klick ab (Web Audio, keine Dateien). Die Ordo-Ankündigungskarte zeigt einen großen Servo-Schädel, der sie von oben hält.',
+    line2: '📖 WIKI — Fraktions-Hub-Seiten zeigen jetzt Lore-Beschreibungen für alle 19 Fraktionen. Die Wiki-Startseite hat alle drei Einführungsabschnitte innerhalb der Pergamentkarte. Space Marines Psykiker-Disziplin-Tabs zeigen kapitelspezifische Icons; Gebetsabschnitte verwenden den richtigen Namen jeder Fraktion.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.40: Nuevo flujo de creación de ejércitos + correcciones',
-    intro: 'La creación de ejércitos ahora tiene 3 pasos (Configuración de batalla → Config. de ejército → Constructor). Los suplementos están en la página de inicio. Más dos correcciones de bugs.',
-    line1: '🪖 GENERAL — nueva página de inicio con flujo de 3 pasos: elegir tipo de batalla y puntos (limitados por tipo: Escaramuza 1000–2499, Pitched 2500–3999, Épica 4000+), luego facción, luego configurar arquetipo/legado/rasgos. Los suplementos (Horus Heresy, Escalation, Assassinos) son accesibles directamente desde la página de inicio.',
-    line2: '⚔️ GENERAL — las unidades aliadas ahora muestran siempre la armería de su propia facción (race condition corregida). Borrar un guardado y guardar con nombre nuevo ya no reutiliza el slot antiguo. Los GMs de campaña ahora pueden borrar una campaña desde la lista de campañas.',
+    title: 'v1.41: Efectos visuales + mejoras en la wiki',
+    intro: 'Partículas ambientales y sonidos de servo-clic en la página de inicio. La wiki ahora muestra descripciones de facción y todo el contenido de la landing está dentro del pergamino del Ordo.',
+    line1: '✨ GENERAL — partículas de polvo flotantes en el fondo del hero; cada botón de acción reproduce un clic mecánico de servo (Web Audio, sin archivos). La tarjeta de anuncio del Ordo muestra una calavera servo grande sujetándola desde arriba con clips.',
+    line2: '📖 WIKI — las páginas de facción ahora muestran una descripción de lore para las 19 facciones. La landing de la wiki tiene las tres secciones de introducción dentro de la tarjeta de pergamino. Las pestañas de disciplinas psíquicas de Space Marines muestran iconos de capítulo; las secciones de plegarias usan el nombre correcto de cada facción.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
