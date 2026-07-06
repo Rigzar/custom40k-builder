@@ -272,13 +272,14 @@ export function SupplementModal({ supplement, onClose }: Props) {
   }, [supplement]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-start justify-center overflow-y-auto py-8 px-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4 py-8" onClick={onClose}>
       <div
-        className={`bg-zinc-900 border-2 border-zinc-700 border-l-4 ${def.accent} w-full max-w-3xl my-auto`}
+        className={`bg-zinc-900 border-2 border-zinc-700 border-l-4 ${def.accent} w-full max-w-3xl flex flex-col`}
+        style={{ maxHeight: 'calc(100vh - 4rem)' }}
         onClick={e => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-start justify-between gap-4 px-5 py-4 border-b border-zinc-800 sticky top-0 bg-zinc-900 z-10">
+        {/* Header — fijo, fuera del área scrolleable */}
+        <div className="flex items-start justify-between gap-4 px-5 py-4 border-b border-zinc-800 shrink-0">
           <div>
             <div className="text-zinc-100 font-bold uppercase tracking-widest text-lg">{def.title}</div>
             <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">{def.subtitle}</div>
@@ -286,7 +287,8 @@ export function SupplementModal({ supplement, onClose }: Props) {
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-200 text-2xl leading-none shrink-0">×</button>
         </div>
 
-        <div className="px-5 py-4 space-y-5">
+        {/* Body — único área scrolleable */}
+        <div className="overflow-y-auto flex-1 px-5 py-4 space-y-5">
           <p className="text-zinc-400 text-[12px] leading-relaxed">{def.blurb}</p>
 
           {/* How to activate */}
