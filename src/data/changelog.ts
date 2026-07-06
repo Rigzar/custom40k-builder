@@ -25,22 +25,9 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '1.41',
-    date: '2026-07-06',
-    title: 'GENERAL — landing page visual polish + wiki faction naming improvements',
-    changes: [
-      'GENERAL — landing page hero now has CSS entrance animations: logo emerges with scale+blur, divider and each section fade up with staggered delays (0.15 s steps)',
-      'GENERAL — floating ambient dust particles on the hero background: 48 amber/grey motes drift upward with sine-wave wobble, fade in/out near the top; implemented via canvas + requestAnimationFrame (zero extra dependencies)',
-      'GENERAL — mechanical servo click sound on all landing page action buttons (Wiki, Login, Glossary, Create Army, supplements) using the Web Audio API — no audio files, generated procedurally',
-      'GENERAL — Ordo announcement card now displays a large servo skull visually holding the card from above, with binder-clip SVG decorations at the card\'s top edge',
-      'WIKI — Space Marines psychic discipline tabs now show chapter-specific icons: Blood Angels for Sanguine, White Scars for Stormspeaking, Space Wolves for Tempestus, Dark Angels for Geokinesis, Deathwatch for Interromancy',
-      'WIKI — prayer/litany/mantra section naming is now per-faction: "Litanies" for Space Marines, Adeptus Sororitas, Grey Knights, Imperial Guard and Inquisition; "Mantras" for Tau Empire; "Prayers & Pacts" for Chaos Space Marines; affects page title, breadcrumb, h1, tab label, column header and the faction hub nav button',
-    ],
-  },
-  {
     version: '1.40',
     date: '2026-07-06',
-    title: 'GENERAL — allied armory race-condition fix + save overwrite fix',
+    title: 'GENERAL — visual polish + wiki improvements + allied armory fix',
     changes: [
       'GENERAL — allied unit armory now always resolves from the correct faction: supplemental/native-ally faction data (Assassins, Inquisition, HH supplement, Daemonkin, etc.) injected by the primary archetype was stored in the same "alliedData" field as the user-selected allied detachment, causing a race condition where whichever async load resolved last would win and serve the wrong armory (e.g. an empty Assassins armory instead of CSM armory for a CSM allied Master of Execution); fixed by introducing a separate supplementData store field',
       'GENERAL — deleting a saved army and then saving with a new name no longer reuses the old save ID; saving now checks whether the active save ID still exists in the list before performing an in-place update',
@@ -48,8 +35,19 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — new 3-step army creation flow: (1) Battle Setup page with battle type selector + points limit (clamped per type: Skirmish 1000-2499, Pitched 2500-3999, Epic 4000+; max of each type = min of the next) and faction grid; (2) Army Config page showing only Archetype/Legacy/Traits; (3) builder as before; supplements section moved to hero landing page',
       'GENERAL — campaign GM can now delete a campaign: trash icon on campaign row opens a confirmation prompt where the GM must type the campaign name exactly; deletes all sectors, battles, roster and players',
       'GENERAL — removed the legacy "Reference" button and ReferencePanel (carried since day one, superseded by the wiki)',
-      'WIKI — armory and psychic pages now use JavaScript tabs (one per section/discipline with faction icons); faction hub reverted to single "Units" button; CSM and Chaos Daemons hub now show the Chaos Marks Animosity table; CSS animations added (faction symbol emerge, title reveal, scanlines overlay, scroll-reveal)',
-      'WIKI — visual polish pass: stat and weapon tables with dark steel header + red accent borders + hover rows; archetypes/legacies/traits redesigned as a card grid (was a flat list); unit cards now have hover lift + red points label; slot headings on the units listing page have a red bottom border; armory equipment redesigned as card grid; glossary index now letter-grouped; glossary rule detail shows a styled callout card; favicon added; servo skull + ordo parchment card on landing page with binder-clip SVG decorations',
+      'GENERAL — landing page hero now has CSS entrance animations: logo emerges with scale+blur, divider and each section fade up with staggered delays (0.15 s steps)',
+      'GENERAL — floating ambient dust particles on the hero background: 60 amber/gold motes drift upward with sine-wave wobble, fade in/out near the top; implemented via canvas + requestAnimationFrame (zero extra dependencies)',
+      'GENERAL — mechanical servo click sound on all landing page action buttons (Wiki, Login, Glossary, Create Army, supplements) using the Web Audio API — no audio files, generated procedurally via shared AudioContext with explicit resume()',
+      'GENERAL — Ordo announcement card now displays a large servo skull visually holding the card from above, with binder-clip SVG decorations at the card\'s top edge',
+      'GENERAL — supplement entry buttons redesigned from small chip-style into visual cards (grid of 3): large faction symbol (32 px), title, subtitle (Legiones Astartes / Lords of War / Execution Force), colour-coded top border per supplement',
+      'GENERAL — app favicon changed from the Vercel lightning bolt to the Custom40k logo, matching the wiki tab icon',
+      'WIKI — armory and psychic pages now use JavaScript tabs (one per section/discipline with faction icons); faction hub reverted to single "Units" button; CSS animations added (faction symbol emerge, title reveal, scanlines overlay, scroll-reveal)',
+      'WIKI — visual polish pass: stat and weapon tables with dark steel header + red accent borders + hover rows; archetypes/legacies/traits redesigned as a card grid; unit cards now have hover lift + red points label; glossary index now letter-grouped; servo skull + ordo parchment card on landing page with binder-clip SVG decorations',
+      'WIKI — Space Marines psychic discipline tabs now show chapter-specific icons: Blood Angels for Sanguine, White Scars for Stormspeaking, Space Wolves for Tempestus, Dark Angels for Geokinesis, Deathwatch for Interromancy',
+      'WIKI — prayer/litany/mantra section naming is now per-faction: "Litanies" for SM/Sororitas/GK/IG/Inquisition; "Mantras" for Tau Empire; "Prayers & Pacts" for Chaos Space Marines',
+      'WIKI — Horus Heresy and Escalation supplements added to the wiki (Supplements category): full unit listings, armory, archetypes and extras pages; Escalation aggregates Lords of War from 8 factions',
+      'WIKI — faction description redesigned as a side-skull parchment card: servo skull on the left with chain element, cream-bordered card with thick red left border; applies to all 21 factions + supplements',
+      'WIKI — Chaos Marks Animosity redesigned as a colour-coded card grid (per-mark card with large icon + "can join with" listing), replacing the hard-to-read table',
     ],
   },
   {

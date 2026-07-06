@@ -42,7 +42,7 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/imperium.svg',
     pillFg: '#9a9aa8',
     dividerColor: '#28283a',
-    factionKeys: ['assassins'],
+    factionKeys: ['assassins', 'horus_heresy', 'escalation'],
   },
 ];
 
@@ -92,6 +92,10 @@ export const FACTION_DESCRIPTIONS: Record<string, string> = {
     'The Tyranids are a vast inter-galactic swarm driven by a single insatiable hunger: to consume all biomass in the galaxy and grow stronger. Countless alien organisms purpose-evolved by the Hive Mind advance in waves that can blot out the sky, absorbing and adapting to every resistance until nothing is left but bare rock.',
   assassins:
     'The Officio Assassinorum maintains six Temples, each training killers of unmatched lethality in a single specialisation — Vindicare marksmen, Callidus shape-changers, Eversor berserkers, Culexus soul-eaters, Vanus information-ghosts, and Venenum poisoners. A single Assassin can topple a planetary government; a full Execution Force has ended wars.',
+  horus_heresy:
+    'Ten thousand years ago the Emperor\'s most beloved son, Horus Warmaster, turned against his father and plunged the Imperium into a catastrophic civil war. The Horus Heresy supplement covers the Legiones Astartes of that age — Space Marine Legions before the Codex Astartes split them into Chapters, fielding Primarchs, massive Terminator formations, and weaponry since lost to the Long Night. These rules allow you to field armies from the Age of Darkness alongside or against contemporary forces.',
+  escalation:
+    'The Escalation supplement unlocks Lords of War — the mightiest war engines and most powerful individual combatants available to eight major factions. From the Chaos Space Marines\' towering Daemon Engines to the Necrons\' monolithic Tesseract Vaults and the Orks\' rampaging Stompas, these are the apocalyptic centrepieces reserved for Epic Battle engagements where the stakes demand nothing less than total annihilation.',
 };
 
 export function getFactionDescription(key: string): string {

@@ -24,6 +24,8 @@ export const ALL_FACTIONS: FactionConfig[] = [
   { key: 'harlequins', label: 'Harlequins', symbol: 'harlequins.svg' },
   { key: 'leagues_of_votann', label: 'Leagues of Votann', symbol: 'leagues-of-votann.svg' },
   { key: 'tyranids', label: 'Tyranids', symbol: 'tyranids.svg' },
+  { key: 'horus_heresy', label: 'Horus Heresy', symbol: 'horus-heresy.svg' },
+  { key: 'escalation', label: 'Escalation', symbol: 'escalation.svg' },
 ];
 
 export function getFactionConfig(key: string): FactionConfig | undefined {

@@ -17,22 +17,22 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v141_dismissed';
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.41: Visual effects + wiki improvements',
-    intro: 'Ambient particles and servo-click sounds on the landing page. The wiki now shows faction descriptions and all landing content sits inside the Ordo parchment.',
+    title: 'v1.40: Visual effects + wiki improvements',
+    intro: 'Ambient particles and servo-click sounds on the landing page. The wiki now shows faction descriptions, HH + Escalation supplements, and all landing content sits inside the Ordo parchment.',
     line1: '✨ GENERAL — floating dust particles drift across the hero background; every action button now plays a mechanical servo click (Web Audio, no files). The Ordo announcement card displays a large servo skull holding it from above with binder-clip decorations.',
     line2: '📖 WIKI — faction hub pages now show a lore description for all 19 factions. The wiki landing page has all three introduction sections inside the parchment card. Space Marines psychic discipline tabs show chapter-specific icons; prayer sections use each faction\'s proper name (Litanies / Mantras / Prayers).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.41: Visuelle Effekte + Wiki-Verbesserungen',
-    intro: 'Ambiente Partikel und Servo-Klick-Sounds auf der Startseite. Das Wiki zeigt nun Fraktionsbeschreibungen und alle Startseiteninhalte befinden sich in der Ordo-Pergamentkarte.',
+    title: 'v1.40: Visuelle Effekte + Wiki-Verbesserungen',
+    intro: 'Ambiente Partikel und Servo-Klick-Sounds auf der Startseite. Das Wiki zeigt nun Fraktionsbeschreibungen, HH + Eskalation-Supplemente, und alle Inhalte in der Ordo-Pergamentkarte.',
     line1: '✨ ALLGEMEIN — schwebende Staubpartikel im Hintergrund; jeder Aktionsknopf spielt jetzt einen mechanischen Servo-Klick ab (Web Audio, keine Dateien). Die Ordo-Ankündigungskarte zeigt einen großen Servo-Schädel, der sie von oben hält.',
     line2: '📖 WIKI — Fraktions-Hub-Seiten zeigen jetzt Lore-Beschreibungen für alle 19 Fraktionen. Die Wiki-Startseite hat alle drei Einführungsabschnitte innerhalb der Pergamentkarte. Space Marines Psykiker-Disziplin-Tabs zeigen kapitelspezifische Icons; Gebetsabschnitte verwenden den richtigen Namen jeder Fraktion.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.41: Efectos visuales + mejoras en la wiki',
-    intro: 'Partículas ambientales y sonidos de servo-clic en la página de inicio. La wiki ahora muestra descripciones de facción y todo el contenido de la landing está dentro del pergamino del Ordo.',
+    title: 'v1.40: Efectos visuales + mejoras en la wiki',
+    intro: 'Partículas ambientales y sonidos de servo-clic en la landing. La wiki ahora muestra descripciones de facción, suplementos HH + Escalation, y todo el contenido dentro del pergamino del Ordo.',
     line1: '✨ GENERAL — partículas de polvo flotantes en el fondo del hero; cada botón de acción reproduce un clic mecánico de servo (Web Audio, sin archivos). La tarjeta de anuncio del Ordo muestra una calavera servo grande sujetándola desde arriba con clips.',
     line2: '📖 WIKI — las páginas de facción ahora muestran una descripción de lore para las 19 facciones. La landing de la wiki tiene las tres secciones de introducción dentro de la tarjeta de pergamino. Las pestañas de disciplinas psíquicas de Space Marines muestran iconos de capítulo; las secciones de plegarias usan el nombre correcto de cada facción.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
@@ -49,14 +49,14 @@ function HeroParticles() {
     if (!ctx) return;
     let raf: number;
     let w = 0, h = 0;
-    const COLORS = ['rgba(146,64,14,', 'rgba(120,53,15,', 'rgba(113,113,122,', 'rgba(180,83,9,'];
-    const COUNT = 48;
+    const COLORS = ['rgba(217,119,6,', 'rgba(251,191,36,', 'rgba(180,83,9,', 'rgba(163,163,163,'];
+    const COUNT = 60;
     interface P { x:number; y:number; r:number; vx:number; vy:number; alpha:number; aTarget:number; aSpd:number; phase:number; ci:number; }
     const ps: P[] = [];
     function spawn(scatterY?: boolean): P {
-      return { x: Math.random()*w, y: scatterY ? Math.random()*h : h+10, r: 0.8+Math.random()*2,
+      return { x: Math.random()*w, y: scatterY ? Math.random()*h : h+10, r: 1.2+Math.random()*2.8,
         vx:(Math.random()-0.5)*0.15, vy:-(0.1+Math.random()*0.28),
-        alpha:0, aTarget:0.06+Math.random()*0.18, aSpd:0.003+Math.random()*0.005,
+        alpha:0, aTarget:0.22+Math.random()*0.38, aSpd:0.003+Math.random()*0.005,
         phase:Math.random()*Math.PI*2, ci:Math.floor(Math.random()*COLORS.length) };
     }
     function resize() {
@@ -88,20 +88,29 @@ function HeroParticles() {
 }
 
 // ── Mechanical servo click sound (Web Audio, no files) ───────────────────────
+// Shared context — avoids suspended-state issue from creating a new one each click
+let _audioCtx: AudioContext | null = null;
+function getAudioCtx(): AudioContext {
+  if (!_audioCtx || _audioCtx.state === 'closed') _audioCtx = new AudioContext();
+  return _audioCtx;
+}
 function playClick() {
   try {
-    const ac = new AudioContext();
-    const osc = ac.createOscillator();
-    const gain = ac.createGain();
-    osc.connect(gain); gain.connect(ac.destination);
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(520, ac.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(70, ac.currentTime + 0.09);
-    gain.gain.setValueAtTime(0.035, ac.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.1);
-    osc.start(ac.currentTime); osc.stop(ac.currentTime + 0.1);
-    setTimeout(() => ac.close(), 300);
-  } catch { /* audio blocked */ }
+    const ac = getAudioCtx();
+    const play = () => {
+      const now = ac.currentTime;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.connect(gain); gain.connect(ac.destination);
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(80, now + 0.1);
+      gain.gain.setValueAtTime(0.28, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.start(now); osc.stop(now + 0.16);
+    };
+    if (ac.state === 'suspended') { ac.resume().then(play); } else { play(); }
+  } catch { /* audio blocked by browser policy */ }
 }
 
 function BoldSplitLine({ text }: { text: string }) {
@@ -421,18 +430,44 @@ export function LandingPage({
             </span>
             <div className="flex-1 h-px bg-zinc-800" />
           </div>
-          <div className="flex flex-wrap gap-2">
-            <button onClick={() => { playClick(); setOpenSupplement('horus_heresy'); }} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-red-900/60 hover:border-red-700 text-zinc-300 hover:text-red-300 transition-colors text-[12px] uppercase tracking-wide">
-              <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
-              Horus Heresy
+          <div className="grid grid-cols-3 gap-2">
+            {/* Horus Heresy */}
+            <button
+              onClick={() => { playClick(); setOpenSupplement('horus_heresy'); }}
+              className="flex flex-col items-center gap-2 px-3 py-4 bg-zinc-900/80 border border-zinc-800 border-t-2 border-t-red-900 hover:bg-zinc-800/80 hover:border-zinc-600 hover:border-t-red-700 transition-all text-center group"
+            >
+              <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div>
+                <div className="text-zinc-100 text-[11px] font-bold uppercase tracking-wide leading-tight">Horus Heresy</div>
+                <div className="text-zinc-600 text-[9px] uppercase tracking-wide mt-0.5">Legiones Astartes</div>
+              </div>
+              <div className="text-red-800 group-hover:text-red-500 text-[9px] uppercase tracking-widest transition-colors">Browse →</div>
             </button>
-            <button onClick={() => { playClick(); setOpenSupplement('escalation'); }} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-amber-900/60 hover:border-amber-700 text-zinc-300 hover:text-amber-300 transition-colors text-[12px] uppercase tracking-wide">
-              <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
-              Escalation
+
+            {/* Escalation */}
+            <button
+              onClick={() => { playClick(); setOpenSupplement('escalation'); }}
+              className="flex flex-col items-center gap-2 px-3 py-4 bg-zinc-900/80 border border-zinc-800 border-t-2 border-t-amber-800 hover:bg-zinc-800/80 hover:border-zinc-600 hover:border-t-amber-600 transition-all text-center group"
+            >
+              <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div>
+                <div className="text-zinc-100 text-[11px] font-bold uppercase tracking-wide leading-tight">Escalation</div>
+                <div className="text-zinc-600 text-[9px] uppercase tracking-wide mt-0.5">Lords of War</div>
+              </div>
+              <div className="text-amber-800 group-hover:text-amber-500 text-[9px] uppercase tracking-widest transition-colors">Browse →</div>
             </button>
-            <button onClick={() => { playClick(); setOpenSupplement('assassins'); }} className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 transition-colors text-[12px] uppercase tracking-wide">
-              <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 14, height: 14, filter: 'brightness(0) invert(1) opacity(0.7)' }} draggable={false} />
-              Assassins
+
+            {/* Assassins */}
+            <button
+              onClick={() => { playClick(); setOpenSupplement('assassins'); }}
+              className="flex flex-col items-center gap-2 px-3 py-4 bg-zinc-900/80 border border-zinc-800 border-t-2 border-t-zinc-600 hover:bg-zinc-800/80 hover:border-zinc-600 hover:border-t-zinc-400 transition-all text-center group"
+            >
+              <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div>
+                <div className="text-zinc-100 text-[11px] font-bold uppercase tracking-wide leading-tight">Assassins</div>
+                <div className="text-zinc-600 text-[9px] uppercase tracking-wide mt-0.5">Execution Force</div>
+              </div>
+              <div className="text-zinc-500 group-hover:text-zinc-300 text-[9px] uppercase tracking-widest transition-colors">Browse →</div>
             </button>
           </div>
           {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}

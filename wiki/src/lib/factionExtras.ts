@@ -244,6 +244,27 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     ]);
     return assemble(d(g), d(arch), { 'Hive Fleet': d(leg) }, d(discs));
   },
+  horus_heresy: async () => {
+    const mod = await import('../vendor/data/parsed/_supplements/horus_heresy.json');
+    const data = ((mod as unknown as { default: unknown }).default ?? mod) as Record<string, unknown>;
+    const armoryFaction: Record<string, Armory> = {};
+    if (data.armory_legions && typeof data.armory_legions === 'object') {
+      Object.assign(armoryFaction, data.armory_legions as Record<string, Armory>);
+    }
+    if (data.armory_marks && typeof data.armory_marks === 'object') {
+      Object.assign(armoryFaction, data.armory_marks as Record<string, Armory>);
+    }
+    return assemble(
+      (data.armory_general ?? []) as Armory,
+      { archetypes: data.archetypes as Archetype[], legacies: data.legacies as Legacy[], traits: data.traits as Trait[] },
+      armoryFaction,
+      (data.disciplines ?? {}) as Record<string, Power[]>,
+      data.prayers as Power[] | undefined,
+      data.pacts as Power[] | undefined,
+      data.animosity ? { animosity: data.animosity as Record<string, string[]>, allied: {} } : undefined,
+    );
+  },
+  escalation: async () => assemble({ name: 'Escalation', weapons: [], equipment: [] } as unknown as Armory, undefined, {}, {}),
 };
 
 export function getFactionExtras(factionKey: string): Promise<FactionExtras> {

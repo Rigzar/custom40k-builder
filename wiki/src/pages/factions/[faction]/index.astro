@@ -34,7 +34,13 @@ const MARK_ICONS: Record<string, string> = {
   'Nurgle':  '/legion-symbols/nurgle-god.svg',
   'Slaanesh': '/legion-symbols/slaanesh-god.svg',
   'Tzeentch': '/legion-symbols/tzeentch-god.svg',
-  // Undivided/Without has no dedicated icon — intentionally omitted (no broken img)
+};
+
+const MARK_COLORS: Record<string, string> = {
+  'Khorne':   '#8b1c1c',
+  'Nurgle':   '#4a6b2a',
+  'Slaanesh': '#7b4a8b',
+  'Tzeentch': '#1e5a8b',
 };
 
 const baseCanticles = canticles?.filter(c => c.type === 'base') ?? [];
@@ -46,39 +52,47 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
   <div class="hub">
     <img src={`/faction-symbols/${config.symbol}`} alt={config.label} class="hub-symbol" width="140" height="140" />
     <h1 class="hub-title">{config.label}</h1>
-    <p class="hub-desc">{description}</p>
+
+    {/* ── Description card with side servo skull ── */}
+    <div class="desc-outer reveal">
+      <div class="desc-skull-col">
+        <img src="/servo-skull.png" class="desc-skull" alt="" />
+        <div class="desc-chain"></div>
+      </div>
+      <div class="desc-card">
+        <p class="desc-text">{description}</p>
+      </div>
+    </div>
 
     {/* ── Chaos Marks Animosity (CSM + CD) ── */}
     {animosity && Object.keys(animosity).length > 0 && (
       <section class="army-rules reveal">
-        <div class="skull-heading">
-          <img src="/servo-skull.png" class="skull-heading-img" alt="" />
-          <h2 class="rules-heading">Chaos Marks Animosity</h2>
+        <h2 class="rules-heading">Chaos Marks Animosity</h2>
+        <p class="rules-note">Units with different Marks may only join together if their Marks are mutually compatible. Each block below shows which Marks can share a squad with the selected Mark.</p>
+        <div class="anim-grid">
+          {Object.entries(animosity).map(([mark, compatible]) => (
+            <div class="anim-card" style={`border-top-color: ${MARK_COLORS[mark] ?? 'rgba(162,18,23,0.5)'}`}>
+              <div class="anim-from">
+                {MARK_ICONS[mark]
+                  ? <img src={MARK_ICONS[mark]} alt={mark} class="anim-icon-lg" />
+                  : <span class="anim-icon-fallback">⚔</span>
+                }
+                <span class="anim-mark-name">{mark}</span>
+              </div>
+              <div class="anim-sep">can join with</div>
+              <div class="anim-compat">
+                {(compatible as string[]).length === 0 ? (
+                  <span class="anim-none">No other Marks</span>
+                ) : (compatible as string[]).map(c => (
+                  <span class="anim-pill">
+                    {MARK_ICONS[c] && <img src={MARK_ICONS[c]} alt={c} class="anim-icon-sm" />}
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-        <p class="rules-note">Units with different Marks may only join together if their Marks are mutually compatible.</p>
-        <table class="animosity-table">
-          <thead>
-            <tr><th>Mark</th><th>Compatible with</th></tr>
-          </thead>
-          <tbody>
-            {Object.entries(animosity).map(([mark, compatible]) => (
-              <tr>
-                <td class="mark-cell">
-                  {MARK_ICONS[mark] && <img src={MARK_ICONS[mark]} alt="" width="16" height="16" class="mark-icon" />}
-                  {mark}
-                </td>
-                <td class="compat-cell">
-                  {compatible.map(c => (
-                    <span class="mark-pill">
-                      {MARK_ICONS[c] && <img src={MARK_ICONS[c]} alt="" width="13" height="13" class="mark-icon" />}
-                      {c}
-                    </span>
-                  ))}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </section>
     )}
 
@@ -168,34 +182,146 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
     object-fit: contain; margin-bottom: 0.8rem;
     animation: symbol-emerge 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .hub-title { margin: 0; animation: title-reveal 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .hub-desc {
-    max-width: 38rem; opacity: 0.85; font-size: 0.85rem; line-height: 1.5;
-    margin: 0.6rem 0 1.6rem;
+  .hub-title { margin: 0 0 0.6rem; animation: title-reveal 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  /* ── Description card with side servo skull ── */
+  .desc-outer {
+    display: flex;
+    align-items: stretch;
+    max-width: 42rem;
+    width: 100%;
+    margin: 0 0 1.8rem;
     animation: fade-up 0.8s 0.6s both;
   }
+  .desc-skull-col {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.5rem;
+    margin-right: -1px;
+    z-index: 2;
+  }
+  .desc-skull {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 14px rgba(180,83,9,0.5));
+    flex-shrink: 0;
+  }
+  .desc-chain {
+    width: 2px;
+    flex: 1;
+    min-height: 12px;
+    background: linear-gradient(to bottom, rgba(162,130,60,0.55), rgba(162,130,60,0.05));
+    margin-top: 2px;
+  }
+  .desc-card {
+    flex: 1;
+    border: 1px solid rgba(162,18,23,0.28);
+    border-left: 3px solid rgba(162,18,23,0.55);
+    padding: 1rem 1.2rem;
+    background: rgba(255,252,240,0.72);
+    box-shadow: 2px 3px 10px rgba(0,0,0,0.10);
+    text-align: left;
+  }
+  .desc-text {
+    font-size: 0.85rem;
+    line-height: 1.65;
+    margin: 0;
+    color: var(--c40k-ink);
+    font-style: italic;
+  }
 
-  /* Army rules sections */
-  .army-rules { width: 100%; max-width: 40rem; margin-bottom: 1.6rem; text-align: left; }
-  .rules-heading { font-size: 1rem; margin: 0; border-bottom: none; padding-bottom: 0; animation: none; }
+  /* ── Army rules sections ── */
+  .army-rules { width: 100%; max-width: 42rem; margin-bottom: 1.6rem; text-align: left; }
+  .rules-heading { font-size: 1rem; margin: 0 0 0.4rem; border-bottom: none; padding-bottom: 0; animation: none; }
   .sub-heading { font-size: 0.82rem; margin: 0.9rem 0 0.35rem; border-bottom: none; animation: none; color: var(--c40k-steel, #394950); }
-  .rules-note { font-size: 0.78rem; opacity: 0.7; margin: 0 0 0.6rem; font-style: italic; }
+  .rules-note { font-size: 0.78rem; opacity: 0.7; margin: 0 0 0.8rem; font-style: italic; }
 
-  /* Animosity table */
-  .animosity-table { font-size: 0.82rem; margin: 0; }
-  .animosity-table th { text-align: left; }
-  .mark-cell { display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; font-family: var(--font-ui, sans-serif); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
-  .mark-icon { object-fit: contain; flex-shrink: 0; }
-  .compat-cell { display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; padding: 0.3rem 0.5rem; }
-  .mark-pill { display: inline-flex; align-items: center; gap: 0.25rem; font-family: var(--font-ui, sans-serif); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.02em; padding: 0.15rem 0.45rem; border: 1px solid rgba(162,18,23,0.4); border-radius: 2px; background: rgba(162,18,23,0.06); }
+  /* ── Animosity card grid ── */
+  .anim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.6rem;
+  }
+  .anim-card {
+    border: 1px solid rgba(162,18,23,0.22);
+    border-top: 3px solid rgba(162,18,23,0.5);
+    background: rgba(255,252,240,0.55);
+    padding: 0.7rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .anim-from {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .anim-icon-lg {
+    width: 28px; height: 28px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(0,0,0,0.25));
+  }
+  .anim-icon-fallback {
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .anim-mark-name {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c40k-ink);
+  }
+  .anim-sep {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    font-family: var(--font-ui, sans-serif);
+  }
+  .anim-compat {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  .anim-none {
+    font-size: 0.72rem;
+    opacity: 0.55;
+    font-style: italic;
+  }
+  .anim-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid rgba(162,18,23,0.35);
+    background: rgba(162,18,23,0.07);
+  }
+  .anim-icon-sm {
+    width: 13px; height: 13px;
+    object-fit: contain;
+  }
 
-  /* Canticles table */
+  /* ── Canticles table ── */
   .canticle-table { font-size: 0.82rem; margin: 0 0 0.5rem; }
   .canticle-table th { text-align: left; }
   .canticle-name { font-family: var(--font-ui, sans-serif); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap; }
   .legacy-name { font-size: 0.78rem; opacity: 0.75; white-space: nowrap; }
 
-  /* Nav */
+  /* ── Skull heading (canticles) ── */
+  .skull-heading { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+  .skull-heading-img { width: 36px; height: 36px; object-fit: contain; filter: drop-shadow(0 1px 6px rgba(180,83,9,0.35)); }
+
+  /* ── Nav ── */
   .hub-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; animation: fade-up 0.8s 0.9s both; }
   .nav-btn {
     display: inline-flex; align-items: center; gap: 0.4rem;

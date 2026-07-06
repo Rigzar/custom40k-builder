@@ -34,6 +34,7 @@ const copies = [
   ['src/types/data.ts', 'src/types/data.ts'],
   ['src/data/coreRules.ts', 'src/data/coreRules.ts'],
   ...FACTIONS.map(f => [`data/parsed/${f}`, `data/parsed/${f}`]),
+  ['data/parsed/_supplements', 'data/parsed/_supplements'],
 ];
 
 for (const [from, to] of copies) {
