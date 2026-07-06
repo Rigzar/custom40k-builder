@@ -41,6 +41,34 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 .font-bankgothic { font-family: var(--font-bankgothic); }
 #root { min-height: 100vh; }
 
+/* ── Landing page entrance animations ── */
+@keyframes c40k-emerge {
+  from { opacity: 0; transform: scale(0.82); filter: blur(6px); }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+@keyframes c40k-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes c40k-divider-in {
+  from { opacity: 0; transform: scaleX(0); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+@keyframes c40k-scan {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
+}
+
+.anim-emerge      { animation: c40k-emerge   1.3s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-fade-up     { animation: c40k-fade-up  0.7s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-divider     { animation: c40k-divider-in 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.anim-delay-1     { animation-delay: 0.15s; }
+.anim-delay-2     { animation-delay: 0.30s; }
+.anim-delay-3     { animation-delay: 0.45s; }
+.anim-delay-4     { animation-delay: 0.60s; }
+.anim-delay-5     { animation-delay: 0.75s; }
+.anim-delay-6     { animation-delay: 0.90s; }
+
 @media print {
   /* Hide the dark overlay shell, leave only the white printable content */
   .fixed.z-50 {

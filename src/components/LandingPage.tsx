@@ -45,6 +45,15 @@ function BoldSplitLine({ text }: { text: string }) {
   return <p><strong className="text-emerald-400">{parts[0]}</strong> — {parts.slice(1).join(' — ')}</p>;
 }
 
+function ClipSvg() {
+  return (
+    <svg width="14" height="22" viewBox="0 0 14 22" fill="none" aria-hidden="true">
+      <rect x="1.5" y="0.5" width="11" height="15" rx="2.5" stroke="#52525b" strokeWidth="1.5" fill="#27272a"/>
+      <rect x="4"   y="7"   width="6"  height="15" rx="1.5" stroke="#3f3f46" strokeWidth="1.5" fill="#3f3f46"/>
+    </svg>
+  );
+}
+
 function CommunityAnnouncement() {
   const { language } = useLanguage();
   const tx = ANNOUNCEMENT_TEXT[language];
@@ -53,24 +62,38 @@ function CommunityAnnouncement() {
   );
   if (dismissed) return null;
   return (
-    <div className="bg-zinc-900 border-l-4 border-amber-700 border border-zinc-700 px-5 py-4 mb-6">
-      <div className="flex justify-between items-start gap-4">
-        <div className="text-[11px] text-amber-600 uppercase tracking-widest font-semibold mb-2">
-          {tx.title}
-        </div>
-        <button
-          onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
-          className="text-zinc-600 hover:text-zinc-300 text-lg leading-none shrink-0"
-          title="Dismiss"
-        >
-          ×
-        </button>
+    <div className="relative mt-2 mb-6">
+      {/* Servo skull floating above card */}
+      <div className="absolute -top-7 left-1/2 -translate-x-1/2 z-10 pointer-events-none select-none">
+        <img src="/servo-skull.png" alt="" className="w-14 h-14 object-contain drop-shadow-lg" draggable={false} />
       </div>
-      <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
-        <p>{tx.intro}</p>
-        <BoldSplitLine text={tx.line1} />
-        <BoldSplitLine text={tx.line2} />
-        <p className="text-zinc-400">{tx.contrib}</p>
+
+      {/* Binder clips row */}
+      <div className="flex justify-between px-10 mb-0 pointer-events-none select-none relative z-10">
+        <ClipSvg /><ClipSvg /><ClipSvg />
+      </div>
+
+      {/* Ordo card */}
+      <div className="bg-zinc-900 border border-zinc-700 border-t-2 border-t-amber-900/80 px-5 pt-4 pb-4">
+        <div className="flex justify-between items-start gap-4">
+          <div className="text-[10px] text-amber-600 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
+            <span className="opacity-60">⚙</span>
+            {tx.title}
+          </div>
+          <button
+            onClick={() => { localStorage.setItem(ANNOUNCEMENT_KEY, 'true'); setDismissed(true); }}
+            className="text-zinc-600 hover:text-zinc-300 text-lg leading-none shrink-0 transition-colors"
+            title="Dismiss"
+          >
+            ×
+          </button>
+        </div>
+        <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
+          <p>{tx.intro}</p>
+          <BoldSplitLine text={tx.line1} />
+          <BoldSplitLine text={tx.line2} />
+          <p className="text-zinc-400">{tx.contrib}</p>
+        </div>
       </div>
     </div>
   );
@@ -225,12 +248,12 @@ export function LandingPage({
           <img
             src="/custom40k-logo.png"
             alt="Custom40k"
-            className="w-64 sm:w-80 mb-8 object-contain select-none"
+            className="w-64 sm:w-80 mb-8 object-contain select-none anim-emerge"
             draggable={false}
           />
 
           {/* Ornamental divider */}
-          <div className="flex items-center gap-3 w-full max-w-xs mb-8">
+          <div className="flex items-center gap-3 w-full max-w-xs mb-8 anim-divider anim-delay-1">
             <div className="flex-1 h-px bg-amber-900/50" />
             <div className="w-1.5 h-1.5 bg-amber-800 rotate-45 shrink-0" />
             <div className="flex-1 h-px bg-amber-900/50" />
@@ -238,7 +261,7 @@ export function LandingPage({
 
           {/* Quick-load: saved armies */}
           {saves.length > 0 && (
-            <div className="w-full max-w-xs mb-6">
+            <div className="w-full max-w-xs mb-6 anim-fade-up anim-delay-2">
               <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-2 text-center">
                 {t('savedArmies')}
               </div>
@@ -261,7 +284,7 @@ export function LandingPage({
           )}
 
           {/* Action buttons 2×2 */}
-          <div className="grid grid-cols-2 gap-3 w-full max-w-xs">
+          <div className="grid grid-cols-2 gap-3 w-full max-w-xs anim-fade-up anim-delay-3">
             <a
               href="https://custom40k-wiki.vercel.app"
               target="_blank"
@@ -304,7 +327,7 @@ export function LandingPage({
             href="https://discord.com/invite/wnGAB3TYAY"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 flex items-center gap-2 text-[11px] text-zinc-600 hover:text-indigo-400 transition-colors uppercase tracking-wider"
+            className="mt-8 flex items-center gap-2 text-[11px] text-zinc-600 hover:text-indigo-400 transition-colors uppercase tracking-wider anim-fade-up anim-delay-4"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
@@ -315,7 +338,7 @@ export function LandingPage({
         </div>
 
         {/* Supplements */}
-        <div className="px-6 pb-4 max-w-screen-sm mx-auto w-full">
+        <div className="px-6 pb-4 max-w-screen-sm mx-auto w-full anim-fade-up anim-delay-5">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
               {t('supplements')}
@@ -340,7 +363,7 @@ export function LandingPage({
         </div>
 
         {/* Bottom announcement */}
-        <div className="px-6 pb-6 max-w-screen-sm mx-auto w-full">
+        <div className="px-6 pb-6 max-w-screen-sm mx-auto w-full anim-fade-up anim-delay-6">
           <CommunityAnnouncement />
         </div>
 
