@@ -1,0 +1,179 @@
+---
+import Layout from '../../../../components/Layout.astro';
+import { ALL_FACTIONS } from '../../../../lib/factions';
+import { getFactionExtras } from '../../../../lib/factionExtras';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const f of ALL_FACTIONS) {
+    const { prayers, pacts } = await getFactionExtras(f.key);
+    if ((prayers && prayers.length > 0) || (pacts && pacts.length > 0)) {
+      paths.push({ params: { faction: f.key } });
+    }
+  }
+  return paths;
+}
+
+const { faction: factionKey } = Astro.params;
+const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
+const { prayers, pacts } = await getFactionExtras(factionKey!);
+
+function tabId(s: string): string {
+  return 'p-' + s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+const hasPrayers = prayers && prayers.length > 0;
+const hasPacts = pacts && pacts.length > 0;
+const singleTab = !(hasPrayers && hasPacts);
+
+const tabs = [
+  ...(hasPrayers ? [{ id: tabId('prayers'), label: 'Prayers', icon: `/faction-symbols/${config.symbol}` }] : []),
+  ...(hasPacts   ? [{ id: tabId('pacts'),   label: 'Daemonic Pacts', icon: '/faction-symbols/chaos-daemons.svg' }] : []),
+];
+---
+<Layout title={`Prayers & Pacts — ${config.label} — Custom40k Wiki`}>
+  <p class="crumbs">
+    <a href="/factions">&larr; All factions</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / Prayers & Pacts
+  </p>
+  <h1>Prayers &amp; Pacts</h1>
+  <p class="page-note">These are <strong>not</strong> psychic powers. They are spoken by specific non-psyker units (e.g. Dark Apostle, Chaplain) or represent pacts made with daemons. No Warp charge is required.</p>
+
+  {!singleTab && (
+    <div class="tab-bar" role="tablist">
+      {tabs.map((tab, i) => (
+        <button
+          class={`tab-btn${i === 0 ? ' active' : ''}`}
+          data-tab={tab.id}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+        >
+          {tab.icon && <img src={tab.icon} alt="" width="16" height="16" class="tab-icon" />}
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  )}
+
+  {hasPrayers && (
+    <div id={tabId('prayers')} class="tab-panel active">
+      {singleTab && <h2>Prayers</h2>}
+      <table class="power-table">
+        <thead>
+          <tr>
+            <th>Prayer</th>
+            <th>Type</th>
+            <th>Range</th>
+            <th>Target</th>
+            <th>Cast</th>
+            <th>Effect</th>
+            <th>Duration</th>
+            <th>Complexity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {prayers!.map(p => (
+            <tr>
+              <td class="power-name">{p.name}</td>
+              <td class="center">{p.type ?? '-'}</td>
+              <td class="center">{p.range ?? '-'}</td>
+              <td class="center">{p.target ?? '-'}</td>
+              <td class="center cast">{p.cast_value ?? '-'}</td>
+              <td class="effect">{p.effect ?? '-'}</td>
+              <td class="center">{p.duration ?? '-'}</td>
+              <td class="center">{p.complexity ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+
+  {hasPacts && (
+    <div id={tabId('pacts')} class={`tab-panel${!hasPrayers ? ' active' : ''}`}>
+      {singleTab && <h2>Daemonic Pacts</h2>}
+      <table class="power-table">
+        <thead>
+          <tr>
+            <th>Pact</th>
+            <th>Type</th>
+            <th>Range</th>
+            <th>Target</th>
+            <th>Cast</th>
+            <th>Effect</th>
+            <th>Duration</th>
+            <th>Complexity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pacts!.map(p => (
+            <tr>
+              <td class="power-name">{p.name}</td>
+              <td class="center">{p.type ?? '-'}</td>
+              <td class="center">{p.range ?? '-'}</td>
+              <td class="center">{p.target ?? '-'}</td>
+              <td class="center cast">{p.cast_value ?? '-'}</td>
+              <td class="effect">{p.effect ?? '-'}</td>
+              <td class="center">{p.duration ?? '-'}</td>
+              <td class="center">{p.complexity ?? '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</Layout>
+
+<style>
+  .page-note {
+    font-size: 0.82rem; opacity: 0.8; font-style: italic;
+    margin-bottom: 1rem; padding: 0.5rem 0.8rem;
+    border-left: 3px solid var(--c40k-red, #a21217);
+    background: rgba(162,18,23,0.05);
+  }
+  .tab-bar {
+    display: flex; flex-wrap: wrap; gap: 0.3rem;
+    margin-bottom: 1.2rem;
+    border-bottom: 2px solid var(--c40k-red, #a21217);
+  }
+  .tab-btn {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase;
+    letter-spacing: 0.04em; font-size: 0.72rem;
+    padding: 0.45rem 1rem; cursor: pointer;
+    border: 1px solid transparent; border-bottom: none;
+    border-radius: 3px 3px 0 0;
+    background: rgba(255,255,255,0.2); color: var(--c40k-ink, #2a2420);
+    transition: background 0.12s, color 0.12s;
+    position: relative; bottom: -2px;
+  }
+  .tab-btn:hover { background: rgba(162,18,23,0.1); color: var(--c40k-red, #a21217); }
+  .tab-btn.active { background: var(--c40k-red, #a21217); color: #fff; border-color: var(--c40k-red, #a21217); }
+  .tab-btn.active .tab-icon { filter: brightness(0) invert(1); }
+  .tab-icon { object-fit: contain; opacity: 0.8; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: tab-fade 0.22s ease both; }
+
+  .power-table .power-name { font-weight: 600; white-space: nowrap; }
+  .power-table .center { text-align: center; white-space: nowrap; }
+  .power-table .cast { font-family: var(--font-ui, sans-serif); font-size: 0.78rem; }
+  .power-table .effect { font-size: 0.82rem; line-height: 1.4; max-width: 28rem; }
+</style>
+
+<script is:inline>
+  (function () {
+    var buttons = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        var target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+  })();
+</script>

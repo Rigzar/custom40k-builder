@@ -2,15 +2,17 @@ import type { Armory, Archetype, Legacy, Trait, Power } from '../vendor/src/type
 
 export interface FactionExtras {
   armoryGeneral: Armory;
-  /** Keyed by mark/legion/clan/dynasty/etc. label, e.g. Orks: { Klan: ... }, CSM: { Khorne: ...,
-      'Black Legion': ... } (marks and legions share one record — both are "extra armories" here). */
+  /** Keyed by mark/legion/clan/dynasty/etc. label */
   armoryFaction: Record<string, Armory>;
   archetypes: Archetype[];
   legacies: Legacy[];
   traits: Trait[];
-  /** Keyed by discipline name, plus synthetic 'Prayers'/'Pacts' groups for factions whose psychic
-      data is a flat Power[] (litanies/pacts) rather than a named-discipline record. */
+  /** Actual warp-based psychic disciplines only — no prayers, no pacts. */
   disciplines: Record<string, Power[]>;
+  /** Litanies / prayers said by non-psyker units (Dark Apostle, Chaplain, etc.). NOT psychic powers. */
+  prayers?: Power[];
+  /** Daemonic pacts — CSM only. NOT psychic powers. */
+  pacts?: Power[];
   /** Mark animosity table: mark name → list of compatible marks. Present for CSM and CD. */
   animosity?: Record<string, string[]>;
   /** Canticles of the Omnissiah — base and legacy-granted. Present for AdMech. */
@@ -34,16 +36,15 @@ function assemble(
   animosityRaw?: AnimosityData,
   canticlesRaw?: CanticleEntry[],
 ): FactionExtras {
-  const discs = { ...disciplines };
-  if (prayers && prayers.length > 0) discs['Prayers'] = prayers;
-  if (pacts && pacts.length > 0) discs['Pacts'] = pacts;
   return {
     armoryGeneral: general,
     armoryFaction,
     archetypes: archdata?.archetypes ?? [],
     legacies: archdata?.legacies ?? [],
     traits: archdata?.traits ?? [],
-    disciplines: discs,
+    disciplines,
+    prayers: prayers && prayers.length > 0 ? prayers : undefined,
+    pacts: pacts && pacts.length > 0 ? pacts : undefined,
     animosity: animosityRaw?.animosity,
     canticles: canticlesRaw,
   };

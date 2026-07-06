@@ -10,13 +10,14 @@ export async function getStaticPaths() {
 
 const { faction: factionKey } = Astro.params;
 const config = ALL_FACTIONS.find(f => f.key === factionKey)!;
-const { armoryGeneral, armoryFaction, archetypes, legacies, traits, disciplines, animosity, canticles } = await getFactionExtras(factionKey!);
+const { armoryGeneral, armoryFaction, archetypes, legacies, traits, disciplines, prayers, pacts, animosity, canticles } = await getFactionExtras(factionKey!);
 
 const hasArmory = armoryGeneral.weapons.length > 0 || armoryGeneral.equipment.length > 0
   || (armoryGeneral.daemon_weapons && armoryGeneral.daemon_weapons.length > 0)
   || Object.keys(armoryFaction).length > 0;
 const hasCustomisation = archetypes.length > 0 || legacies.length > 0 || traits.length > 0;
 const hasPsychic = Object.keys(disciplines).length > 0;
+const hasPrayers = (prayers && prayers.length > 0) || (pacts && pacts.length > 0);
 
 const description = getFactionDescription(factionKey!);
 
@@ -135,6 +136,12 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
         <a href={`/factions/${factionKey}/psychic`} class="nav-btn">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1 L8.5 5.5 L13 5.5 L9.5 8.5 L11 13 L7 10 L3 13 L4.5 8.5 L1 5.5 L5.5 5.5 Z"/></svg>
           Psychic Powers
+        </a>
+      )}
+      {hasPrayers && (
+        <a href={`/factions/${factionKey}/prayers`} class="nav-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 0 C7 0 4 3 4 6 C4 7.66 5.34 9 7 9 C8.66 9 10 7.66 10 6 C10 3 7 0 7 0 Z M5 11 L9 11 L8.5 14 L5.5 14 Z"/></svg>
+          Prayers & Pacts
         </a>
       )}
     </nav>
