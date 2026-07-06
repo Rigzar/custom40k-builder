@@ -18,17 +18,26 @@ function tabId(s: string): string {
 
 const singleTab = disciplineNames.length <= 1;
 
-/* Explicit overrides for chaos-god-specific disciplines; everything else falls back to faction symbol */
+/* Explicit icon overrides per discipline name; everything else falls back to faction symbol */
 const DISC_ICONS: Record<string, Record<string, string>> = {
   chaos_space_marines: {
     'Change (Tzeentch only)': '/legion-symbols/tzeentch-god.svg',
     'Decay (Nurgle only)':    '/legion-symbols/nurgle-god.svg',
     'Excess (Slaanesh only)': '/legion-symbols/slaanesh-god.svg',
+    // Dark Hereticus, Malefic, Cult Powers → fall back to CSM faction symbol
   },
   chaos_daemons: {
     'Change (Tzeentch only)': '/legion-symbols/tzeentch-god.svg',
     'Decay (Nurgle only)':    '/legion-symbols/nurgle-god.svg',
     'Excess (Slaanesh only)': '/legion-symbols/slaanesh-god.svg',
+  },
+  space_marines: {
+    'Sanguine (Legacy)':      '/legion-symbols/blood-angels.svg',     // Blood Angels
+    'Stormspeaking (Legacy)': '/legion-symbols/white-scars.svg',      // White Scars (Spirits of Chogoris)
+    'Tempestus (Legacy)':     '/legion-symbols/space-wolves.svg',     // Space Wolves (Maw of the World Wolf)
+    'Geokinesis (Legacy)':    '/legion-symbols/dark-angels.svg',      // Dark Angels
+    'Interromancy (Legacy)':  '/legion-symbols/deathwatch.svg',       // Deathwatch
+    // Librarius → fall back to SM faction symbol
   },
 };
 

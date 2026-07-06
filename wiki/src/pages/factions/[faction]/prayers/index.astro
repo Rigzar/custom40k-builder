@@ -26,17 +26,34 @@ const hasPrayers = prayers && prayers.length > 0;
 const hasPacts = pacts && pacts.length > 0;
 const singleTab = !(hasPrayers && hasPacts);
 
+/* Each faction calls their abilities by their own in-game name */
+const PRAYER_LABELS: Record<string, string> = {
+  space_marines:     'Litanies',
+  adeptus_sororitas: 'Litanies',
+  grey_knights:      'Litanies',
+  imperial_guard:    'Litanies',
+  inquisition:       'Litanies',
+  tau_empire:        'Mantras',
+  // chaos_space_marines → 'Prayers' (default); handled separately for '& Pacts'
+};
+const prayerLabel = PRAYER_LABELS[factionKey!] ?? 'Prayers';
+const prayerSingular: Record<string, string> = {
+  Litanies: 'Litany', Mantras: 'Mantra', Prayers: 'Prayer',
+};
+const prayerColHead = prayerSingular[prayerLabel] ?? prayerLabel;
+const pageTitle = hasPacts ? `${prayerLabel} & Pacts` : prayerLabel;
+
 const tabs = [
-  ...(hasPrayers ? [{ id: tabId('prayers'), label: 'Prayers', icon: `/faction-symbols/${config.symbol}` }] : []),
+  ...(hasPrayers ? [{ id: tabId('prayers'), label: prayerLabel, icon: `/faction-symbols/${config.symbol}` }] : []),
   ...(hasPacts   ? [{ id: tabId('pacts'),   label: 'Daemonic Pacts', icon: '/faction-symbols/chaos-daemons.svg' }] : []),
 ];
 ---
-<Layout title={`Prayers & Pacts — ${config.label} — Custom40k Wiki`}>
+<Layout title={`${pageTitle} — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
     <a href="/factions">&larr; All factions</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / Prayers & Pacts
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / {pageTitle}
   </p>
-  <h1>Prayers &amp; Pacts</h1>
+  <h1>{pageTitle}</h1>
   <p class="page-note">These are <strong>not</strong> psychic powers. They are spoken by specific non-psyker units (e.g. Dark Apostle, Chaplain) or represent pacts made with daemons. No Warp charge is required.</p>
 
   {!singleTab && (
@@ -57,11 +74,11 @@ const tabs = [
 
   {hasPrayers && (
     <div id={tabId('prayers')} class="tab-panel active">
-      {singleTab && <h2>Prayers</h2>}
+      {singleTab && <h2>{prayerLabel}</h2>}
       <table class="power-table">
         <thead>
           <tr>
-            <th>Prayer</th>
+            <th>{prayerColHead}</th>
             <th>Type</th>
             <th>Range</th>
             <th>Target</th>

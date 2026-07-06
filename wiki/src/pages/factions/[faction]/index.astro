@@ -21,6 +21,14 @@ const hasPrayers = (prayers && prayers.length > 0) || (pacts && pacts.length > 0
 
 const description = getFactionDescription(factionKey!);
 
+const PRAYER_LABELS: Record<string, string> = {
+  space_marines: 'Litanies', adeptus_sororitas: 'Litanies', grey_knights: 'Litanies',
+  imperial_guard: 'Litanies', inquisition: 'Litanies', tau_empire: 'Mantras',
+};
+const prayerNavLabel = (pacts && pacts.length > 0)
+  ? 'Prayers & Pacts'
+  : (PRAYER_LABELS[factionKey!] ?? 'Prayers');
+
 const MARK_ICONS: Record<string, string> = {
   'Khorne':  '/legion-symbols/khorne-god.svg',
   'Nurgle':  '/legion-symbols/nurgle-god.svg',
@@ -146,7 +154,7 @@ const legacyCanticles = canticles?.filter(c => c.type === 'legacy') ?? [];
       {hasPrayers && (
         <a href={`/factions/${factionKey}/prayers`} class="nav-btn">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 0 C7 0 4 3 4 6 C4 7.66 5.34 9 7 9 C8.66 9 10 7.66 10 6 C10 3 7 0 7 0 Z M5 11 L9 11 L8.5 14 L5.5 14 Z"/></svg>
-          {(pacts && pacts.length > 0) ? 'Prayers & Pacts' : 'Prayers'}
+          {prayerNavLabel}
         </a>
       )}
     </nav>
