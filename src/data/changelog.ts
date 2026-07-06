@@ -25,6 +25,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.39',
+    date: '2026-07-06',
+    title: 'GENERAL — save/load autosave fix',
+    changes: [
+      'GENERAL — autosave "↩ Faction" entry now loads correctly: the saved faction key was stored as the display label ("Chaos Space Marines") instead of the loader key ("chaos_space_marines"), causing the faction loader to silently bail out and leave the army empty on restore; fixed in the beforeunload handler, crash-recovery migration, and handleLoadArmy (handles old saves already on disk)',
+      'GENERAL — manual "Save" now includes the allied detachment state (faction, archetype, legacy, traits, mark); previously the allied army was silently dropped when reloading a manually saved army',
+      'Chaos Space Marines (ally) — Master of Execution in an allied detachment no longer counts against the Elite slot cap when an HQ is present (advisor-exemption was applied by the validator but not by the slot display counter)',
+    ],
+  },
+  {
     version: '1.38',
     date: '2026-07-05',
     title: 'GENERAL — forced mark fix + session auto-save',

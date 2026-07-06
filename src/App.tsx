@@ -396,7 +396,9 @@ export default function App() {
       }
       const SAVES_KEY = 'custom40k-saved-armies';
       const saves: SavedArmy[] = JSON.parse(localStorage.getItem(SAVES_KEY) ?? '[]');
-      const fKey = s.faction as string;
+      // s.faction is the display label; reverse-map to the snake_case loader key.
+      const fLabel = s.faction as string;
+      const fKey = Object.entries(FACTION_NAMES).find(([, v]) => v === fLabel)?.[0] ?? fLabel;
       const rescueEntry: SavedArmy = {
         id: 'autosave-session',
         name: `↩ ${FACTION_NAMES[fKey] ?? fKey}`,
@@ -424,7 +426,9 @@ export default function App() {
         if (sessionStorage.getItem(AUTOSAVE_DISMISSED_KEY)) return;
         const st = useArmyStore.getState();
         if (!st.faction || st.army.length === 0) return;
-        const fKey = st.faction;
+        // st.faction stores the display label ('Chaos Space Marines'); reverse-map to the
+        // snake_case loader key ('chaos_space_marines') so handleLoadArmy can find it.
+        const fKey = Object.entries(FACTION_NAMES).find(([, v]) => v === st.faction)?.[0] ?? st.faction;
         const SAVES_KEY = 'custom40k-saved-armies';
         const saves: SavedArmy[] = JSON.parse(localStorage.getItem(SAVES_KEY) ?? '[]');
         const totalPts = st.data
@@ -569,7 +573,7 @@ export default function App() {
       savedAt: Date.now(),
       totalPts: total,
       unitCount: army.length,
-      state: { armyName: name, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army },
+      state: getSerializableState({ armyName: name, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
     };
 
     saveArmy(entry);
@@ -581,7 +585,11 @@ export default function App() {
     pendingLoad.current = save;
     setActiveLocalSaveId(save.id);
     setActiveCloudRosterId(null);
-    setSelectedFaction(save.factionKey);
+    // Normalize: old saves stored the display label as factionKey; new ones store the snake_case key.
+    const fKey = FACTION_NAMES[save.factionKey]
+      ? save.factionKey
+      : Object.entries(FACTION_NAMES).find(([, v]) => v === save.factionKey)?.[0] ?? save.factionKey;
+    setSelectedFaction(fKey);
     setOpenTabs(['landing', 'army_config', 'builder']);
     setActiveTab('builder');
   }

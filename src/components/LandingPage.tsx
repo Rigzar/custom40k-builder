@@ -9,29 +9,29 @@ import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v138_session_bugfix_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v139_saveload_fix_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.38: Session auto-save improvements & engine bug fixes',
-    intro: 'A sweep of 11 confirmed bugs found by an automated code review — covering session persistence, validator false positives, and a crash-recovery mechanism.',
-    line1: '💾 GENERAL — crash recovery: your army is now backed up to localStorage every 5 s, so a browser crash loses at most 5 s of work. "↩ Faction" autosave shows correct points, no longer reappears after you delete it, and is serialised through a single helper so future fields are never silently dropped.',
-    line2: '⚔️ Imperial Guard — Mechanised Company: "only 1 Heavy Support" error was firing twice; now fires once. CSM — Daemonkin: false "requires 1 HQ from each Codex" warning eliminated. Validators: pointLimit=0 no longer zeroes free-slot credits for Warlocks, GSC Elites, Plasmacyte, and archetype HQ caps.',
+    title: 'v1.39: Save/load fix — autosave now restores your army correctly',
+    intro: 'The "↩ Faction" autosave and crash-recovery entries now load your army and allied detachment properly instead of opening an empty builder.',
+    line1: '💾 GENERAL — the autosave entry was storing the faction as a display label ("Chaos Space Marines") instead of the loader key ("chaos_space_marines"), so clicking "Load" silently failed to find the faction and left everything blank. Fixed in all three save paths (beforeunload, crash-recovery, manual save). Old saves on disk are handled too.',
+    line2: '💾 GENERAL — manual "Save" now preserves the allied detachment (faction, archetype, legacy, traits, mark); previously the ally was silently dropped when reloading a manually saved army. ⚔️ Chaos Space Marines (as ally) — Master of Execution slot counter now correctly shows Elites: 0 when an HQ is present.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.38: Session-Autosave-Verbesserungen & Engine-Bugfixes',
-    intro: 'Eine Überprüfung von 11 bestätigten Fehlern durch einen automatischen Code-Review — betrifft Session-Persistenz, falsche Validator-Warnungen und einen Absturz-Wiederherstellungsmechanismus.',
-    line1: '💾 ALLGEMEIN — Absturz-Wiederherstellung: Deine Armee wird jetzt alle 5 Sekunden in localStorage gesichert, sodass ein Browser-Absturz höchstens 5 Sekunden Arbeit kostet. „↩ Fraktion"-Autosave zeigt jetzt korrekte Punkte, erscheint nach dem Löschen nicht mehr neu und wird über einen einzigen Helper serialisiert.',
-    line2: '⚔️ Imperiale Garde — Mechanisierte Kompanie: „nur 1 Schwerer Support"-Fehler feuerte doppelt; jetzt einmal. CSM — Dämonenkind: falsche „benötigt 1 HQ aus jedem Codex"-Warnung behoben. Validatoren: pointLimit=0 setzt Free-Slot-Credits für Warlocks, GSC-Elites, Plasmacyte und Archetype-HQ-Kappen nicht mehr auf null.',
+    title: 'v1.39: Speichern/Laden-Fix — Autosave stellt Armee jetzt korrekt wieder her',
+    intro: 'Der „↩ Fraktion"-Autosave und die Absturz-Wiederherstellungseinträge laden jetzt Armee und Verbündeten-Detachement korrekt, statt einen leeren Builder zu öffnen.',
+    line1: '💾 ALLGEMEIN — Der Autosave-Eintrag speicherte die Fraktion als Anzeigename („Chaos Space Marines") statt als Loader-Key („chaos_space_marines"), weshalb „Laden" lautlos scheiterte. In allen drei Speicherpfaden behoben. Alte Speicherstände werden ebenfalls korrekt behandelt.',
+    line2: '💾 ALLGEMEIN — Manuelles „Speichern" bewahrt jetzt das Verbündeten-Detachement (Fraktion, Archetyp, Legacy, Traits, Marke). ⚔️ Chaos Space Marines (als Verbündete) — Master of Execution zählt Elites: 0, wenn ein HQ vorhanden ist.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.38: Mejoras de autoguardado de sesión y correcciones de motor',
-    intro: 'Una revisión de 11 bugs confirmados por un code review automatizado — afecta la persistencia de sesión, falsos positivos del validador y un mecanismo de recuperación ante crashes.',
-    line1: '💾 GENERAL — recuperación ante crash: el ejército se guarda en localStorage cada 5 s, por lo que un crash del navegador pierde como máximo 5 s de trabajo. El autoguardado "↩ Facción" muestra puntos correctos, no reaparece tras borrarlo y se serializa mediante un único helper.',
-    line2: '⚔️ Guardia Imperial — Compañía Mecanizada: el error "solo 1 Soporte Pesado" se disparaba dos veces; ahora una. CSM — Daemonkin: eliminada falsa advertencia "requiere 1 QG de cada Codex". Validadores: pointLimit=0 ya no pone a cero los créditos de slots libres para Warlocks, Elites de GSC, Plasmacyte y caps de QG de arquetipo.',
+    title: 'v1.39: Fix de guardado/carga — el autoguardado restaura el ejército correctamente',
+    intro: 'Las entradas de autoguardado "↩ Facción" y recuperación ante crash ahora cargan el ejército y el destacamento aliado correctamente en lugar de abrir un constructor vacío.',
+    line1: '💾 GENERAL — la entrada de autoguardado almacenaba la facción como etiqueta de pantalla ("Chaos Space Marines") en vez de la clave del loader ("chaos_space_marines"), por lo que "Cargar" fallaba silenciosamente. Corregido en los tres paths de guardado. Los guardados antiguos en disco también se manejan correctamente.',
+    line2: '💾 GENERAL — el guardado manual ahora preserva el destacamento aliado (facción, arquetipo, legado, rasgos, marca). ⚔️ Chaos Space Marines (como aliados) — Master of Execution ahora muestra Elites: 0 correctamente cuando hay un QG presente.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
