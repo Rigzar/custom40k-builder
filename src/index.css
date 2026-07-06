@@ -69,6 +69,18 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 .anim-delay-5     { animation-delay: 0.75s; }
 .anim-delay-6     { animation-delay: 0.90s; }
 
+/* ── Fog / mist background (SVG feTurbulence) ── */
+.fog-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 70% at 15% 50%, rgba(210,210,225,0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 80%  60% at 85% 55%, rgba(200,200,218,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 90%  50% at 50% 90%, rgba(190,190,210,0.18) 0%, transparent 60%);
+  filter: url('#c40k-fog') blur(6px);
+}
+
 /* ── Servo skull blinking eye ── */
 @keyframes servo-eye-blink {
   0%   { opacity: 0.90; transform: translate(-50%, -50%) scale(1);    }

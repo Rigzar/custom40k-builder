@@ -241,7 +241,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                       return (
                         <button
                           key={`${entry.factionSource ?? 'base'}::${entry.name}`}
-                          onClick={() => addUnit(entry.name, originalSlot, alliedFactionKey, isNested ? entry.factionSource : undefined)}
+                          onClick={() => { addUnit(entry.name, originalSlot, alliedFactionKey, isNested ? entry.factionSource : undefined); }}
                           disabled={isFull}
                           className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${
                             isFull ? 'opacity-40 cursor-not-allowed' : 'hover:bg-emerald-900/10 group'
@@ -490,7 +490,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
                           </div>
                         )}
                         <button
-                          onClick={() => !entry.disabledReason && addUnit(entry.name, originalSlot, entry.factionSource)}
+                          onClick={() => { if (!entry.disabledReason) { addUnit(entry.name, originalSlot, entry.factionSource); } }}
                           disabled={!!entry.disabledReason}
                           title={entry.disabledReason}
                           className={`w-full flex items-center gap-2 px-3 py-1.5 border-b border-zinc-800/40 last:border-b-0 transition-colors text-left ${

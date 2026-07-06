@@ -963,7 +963,7 @@ export function UnitCard({ item }: Props) {
               <div className="px-2 pb-2 text-[11px] text-zinc-400 flex items-center gap-2 flex-wrap">
                 <span>{t('theWord')} {builtInChampion.name} {t('armoryAccessSuffix')}</span>
                 <button
-                  onClick={() => setArmoryOpen(true)}
+                  onClick={() => { setArmoryOpen(true); }}
                   className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
                 >
                   {t('armory')} ({item.armory.length})
@@ -1199,7 +1199,7 @@ export function UnitCard({ item }: Props) {
                           <span>{t('theWord')} {variantModel.name} {t('armoryAccessSuffix')}</span>
                           {active ? (
                             <button
-                              onClick={() => setArmoryOpen(true)}
+                              onClick={() => { setArmoryOpen(true); }}
                               className="text-[11px] px-2 py-1 bg-zinc-900 border border-zinc-600 text-amber-500 hover:bg-zinc-700 uppercase tracking-wide"
                             >
                               {t('armory')} ({item.armory.length})
@@ -1519,7 +1519,7 @@ export function UnitCard({ item }: Props) {
           {/* Action buttons */}
           <div className="flex flex-wrap gap-1.5 pt-2 border-t-2 border-zinc-800/80 mt-1">
             {showArmory && (
-              <button onClick={() => setArmoryOpen(true)}
+              <button onClick={() => { setArmoryOpen(true); }}
                 className={`inline-flex items-center gap-1.5 font-cinzel text-[10px] uppercase tracking-widest px-2.5 py-1.5 border transition-colors
                   ${item.armory.filter(a => !['veteran','vehicle'].includes(findArmoryItemData(effectiveArmData,a)?.category??'')).length > 0
                     ? 'border-amber-700 bg-amber-900/20 text-amber-300 hover:bg-amber-900/40'

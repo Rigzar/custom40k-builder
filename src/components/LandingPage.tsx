@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -12,29 +12,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v141_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v140_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.41: Battlefield smoke + wiki audit',
-    intro: 'The landing page hero now shows drifting battlefield smoke instead of bubbles. The wiki received a full audit: empty unit slots removed, Chaos Daemons mark armories added, and Inquisition gains dedicated Ordo and Warbands tabs.',
-    line1: '✨ GENERAL — landing page hero now displays slow-drifting dark smoke wisps (battlefield atmosphere). Click sounds removed.',
-    line2: '📖 WIKI — empty slot sections no longer appear for factions with no units there. Chaos Daemons wiki now shows all four mark armories (Khorne / Nurgle / Slaanesh / Tzeentch). Inquisition armory is split into three Ordo tabs. A new Warbands page lists Henchman Warband + all 18 Warband Specialists.',
+    title: 'v1.40: Visual polish, wiki audit + app improvements',
+    intro: 'Landing page redesigned with new hero, particles removed, servo skull eye blink added. Supplement buttons redesigned. Wiki received a full audit: empty slots removed, Chaos Daemons mark armories, Inquisition Ordo tabs and new Warbands page.',
+    line1: '✨ GENERAL — new hero landing page, entrance animations, supplement buttons redesigned as vertical list cards. Servo skull eye now blinks red slowly. Allied armory race condition fixed.',
+    line2: '📖 WIKI — empty slot sections removed. Chaos Daemons now shows all four mark armories. Inquisition armory split into three Ordo tabs. New Inquisition Warbands page. Animosity redesigned as rival-pair rows.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.41: Schlachtfeld-Rauch + Wiki-Audit',
-    intro: 'Der Hintergrund der Startseite zeigt nun langsam treibenden Schlachtfeld-Rauch statt Blasen. Das Wiki wurde vollständig auditiert: leere Einheitenslots entfernt, Chaos-Dämonen-Markierungsarsenal hinzugefügt, Inquisition erhält eigene Ordo- und Warbands-Tabs.',
-    line1: '✨ ALLGEMEIN — der Landing-Hintergrund zeigt jetzt langsam treibende dunkle Rauchschwaden (Schlachtfeld-Atmosphäre). Klick-Sounds entfernt.',
-    line2: '📖 WIKI — leere Slot-Sektionen erscheinen nicht mehr für Fraktionen ohne Einheiten dort. Das Chaos-Dämonen-Wiki zeigt nun alle vier Markierungs-Arsenale (Khorne / Nurgle / Slaanesh / Tzeentch). Das Inquisitions-Arsenal ist in drei Ordo-Tabs aufgeteilt. Eine neue Warbands-Seite listet Henchman Warband + alle 18 Warband-Spezialisten.',
+    title: 'v1.40: Visuelle Politur, Wiki-Audit + App-Verbesserungen',
+    intro: 'Startseite mit neuem Hero, Partikel entfernt, Servo-Schädel-Augen-Blinken hinzugefügt. Supplement-Buttons neu gestaltet. Wiki vollständig auditiert: leere Slots entfernt, Chaos-Dämonen-Markierungsarsenale, Inquisitions-Ordo-Tabs und neue Warbands-Seite.',
+    line1: '✨ ALLGEMEIN — neue Hero-Startseite, Eingangsanimationen, Supplement-Buttons als vertikale Listenkarten neu gestaltet. Servo-Schädel-Auge blinkt jetzt langsam rot. Verbündeten-Arsenal-Wettlaufbedingung behoben.',
+    line2: '📖 WIKI — leere Slot-Sektionen entfernt. Chaos-Dämonen zeigt nun alle vier Markierungs-Arsenale. Inquisitions-Arsenal in drei Ordo-Tabs aufgeteilt. Neue Inquisitions-Warbands-Seite. Animosität als Rivalen-Paar-Reihen neu gestaltet.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.41: Humo de batalla + auditoría de la wiki',
-    intro: 'El fondo de la landing ahora muestra humo de campo de batalla en lugar de burbujas. La wiki recibió una auditoría completa: slots vacíos eliminados, armerías de marca de Demonios del Caos añadidas, e Inquisición gana pestañas dedicadas de Ordo y Warbands.',
-    line1: '✨ GENERAL — el fondo de la landing ahora muestra lentas volutas de humo oscuro (atmósfera de campo de batalla). Sonidos de clic eliminados.',
-    line2: '📖 WIKI — las secciones de slots vacíos ya no aparecen para facciones sin unidades ahí. La wiki de Demonios del Caos ahora muestra las cuatro armerías de marca (Khorne / Nurgle / Slaanesh / Tzeentch). La armería de Inquisición está dividida en tres pestañas de Ordo. Una nueva página de Warbands lista Henchman Warband + los 18 Especialistas de Warband.',
+    title: 'v1.40: Pulido visual, auditoría de wiki + mejoras',
+    intro: 'Landing rediseñada con nuevo hero, partículas eliminadas, parpadeo del ojo del servo-cráneo añadido. Botones de suplementos rediseñados. La wiki recibió auditoría completa: slots vacíos eliminados, armerías de marca de Demonios del Caos, pestañas Ordo de Inquisición y nueva página de Warbands.',
+    line1: '✨ GENERAL — nueva landing hero, animaciones de entrada, botones de suplementos rediseñados como lista vertical. El ojo del servo-cráneo parpadea en rojo lentamente. Bug de armería aliada corregido.',
+    line2: '📖 WIKI — secciones de slots vacíos eliminadas. Demonios del Caos muestra las cuatro armerías de marca. Armería de Inquisición dividida en tres pestañas de Ordo. Nueva página de Warbands de Inquisición. Animosidad rediseñada como filas de pares rivales.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -217,6 +217,23 @@ export function LandingPage({
   const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
   const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
   const [showChangelog, setShowChangelog] = useState(false);
+  const turbulenceRef = useRef<SVGFETurbulenceElement>(null);
+  useEffect(() => {
+    const el = turbulenceRef.current;
+    if (!el) return;
+    let frames = 1;
+    const rad = Math.PI / 180;
+    let animId: number;
+    function animate() {
+      frames += 0.15;
+      const bfx = 0.025 + 0.008 * Math.cos(frames * rad);
+      const bfy = 0.025 + 0.008 * Math.sin(frames * rad);
+      el.setAttributeNS(null, 'baseFrequency', `${bfx} ${bfy}`);
+      animId = requestAnimationFrame(animate);
+    }
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, []);
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
@@ -239,24 +256,35 @@ export function LandingPage({
   // ── Hero view ───────────────────────────────────────────────────────────────
   if (view === 'hero') {
     return (
-      <div className="relative min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-        {/* smoke placeholder — effect removed, user will provide asset */}
+      <div className="relative min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-hidden">
+        {/* SVG fog filter */}
+        <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+          <defs>
+            <filter id="c40k-fog" x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence ref={turbulenceRef} type="fractalNoise" baseFrequency="0.025" numOctaves="6" />
+              <feDisplacementMap in="SourceGraphic" scale="55" />
+            </filter>
+          </defs>
+        </svg>
+        <div className="fog-layer" />
 
         {/* Top bar */}
         <div className="relative z-10 flex justify-between items-center px-5 py-3 border-b border-zinc-900">
           <LanguageSelector />
-          <button
-            onClick={() => setShowChangelog(true)}
-            className="text-[11px] uppercase tracking-wide text-zinc-500 hover:text-amber-400 transition-colors"
-          >
-            v{latestVersion}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowChangelog(true)}
+              className="text-[11px] uppercase tracking-wide text-zinc-500 hover:text-amber-400 transition-colors"
+            >
+              v{latestVersion}
+            </button>
+          </div>
         </div>
 
         {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
 
         {/* Center content */}
-        <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 py-12">
+        <div className="relative z-10 flex flex-col items-center pt-14 pb-8 px-6">
 
           {/* Logo */}
           <img
@@ -352,51 +380,47 @@ export function LandingPage({
         </div>
 
         {/* Supplements */}
-        <div className="px-6 pb-4 max-w-screen-sm mx-auto w-full anim-fade-up anim-delay-5">
+        <div className="px-6 pb-4 max-w-xs mx-auto w-full anim-fade-up anim-delay-5">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full bg-zinc-800 text-zinc-500 shrink-0">
-              {t('supplements')}
-            </span>
+            <div className="flex-1 h-px bg-zinc-800" />
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-600 shrink-0">{t('supplements')}</span>
             <div className="flex-1 h-px bg-zinc-800" />
           </div>
-          <div className="grid grid-cols-3 gap-2">
-            {/* Horus Heresy */}
+          <div className="flex flex-col gap-1.5">
             <button
               onClick={() => setOpenSupplement('horus_heresy')}
-              className="flex flex-col items-center gap-2 px-3 py-4 bg-zinc-900/80 border border-zinc-800 border-t-2 border-t-red-900 hover:bg-zinc-800/80 hover:border-zinc-600 hover:border-t-red-700 transition-all text-center group"
+              className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 border-l-[3px] border-l-red-900 hover:bg-zinc-800 hover:border-l-red-700 transition-all text-left group w-full"
             >
-              <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
-              <div>
-                <div className="text-zinc-100 text-[11px] font-bold uppercase tracking-wide leading-tight">Horus Heresy</div>
-                <div className="text-zinc-600 text-[9px] uppercase tracking-wide mt-0.5">Legiones Astartes</div>
+              <img src="/faction-symbols/horus-heresy.svg" alt="" style={{ width: 38, height: 38, filter: 'brightness(0) invert(1) opacity(0.7)', flexShrink: 0 }} draggable={false} />
+              <div className="flex-1 min-w-0">
+                <div className="text-zinc-100 text-[12px] font-bold uppercase tracking-wide">Horus Heresy</div>
+                <div className="text-zinc-600 text-[10px] uppercase tracking-wide mt-0.5">Legiones Astartes</div>
               </div>
-              <div className="text-red-800 group-hover:text-red-500 text-[9px] uppercase tracking-widest transition-colors">Browse →</div>
+              <span className="text-red-900 group-hover:text-red-500 text-[11px] transition-colors shrink-0">→</span>
             </button>
 
-            {/* Escalation */}
             <button
               onClick={() => setOpenSupplement('escalation')}
-              className="flex flex-col items-center gap-2 px-3 py-4 bg-zinc-900/80 border border-zinc-800 border-t-2 border-t-amber-800 hover:bg-zinc-800/80 hover:border-zinc-600 hover:border-t-amber-600 transition-all text-center group"
+              className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 border-l-[3px] border-l-amber-800 hover:bg-zinc-800 hover:border-l-amber-600 transition-all text-left group w-full"
             >
-              <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
-              <div>
-                <div className="text-zinc-100 text-[11px] font-bold uppercase tracking-wide leading-tight">Escalation</div>
-                <div className="text-zinc-600 text-[9px] uppercase tracking-wide mt-0.5">Lords of War</div>
+              <img src="/faction-symbols/escalation.svg" alt="" style={{ width: 38, height: 38, filter: 'brightness(0) invert(1) opacity(0.7)', flexShrink: 0 }} draggable={false} />
+              <div className="flex-1 min-w-0">
+                <div className="text-zinc-100 text-[12px] font-bold uppercase tracking-wide">Escalation</div>
+                <div className="text-zinc-600 text-[10px] uppercase tracking-wide mt-0.5">Lords of War</div>
               </div>
-              <div className="text-amber-800 group-hover:text-amber-500 text-[9px] uppercase tracking-widest transition-colors">Browse →</div>
+              <span className="text-amber-800 group-hover:text-amber-500 text-[11px] transition-colors shrink-0">→</span>
             </button>
 
-            {/* Assassins */}
             <button
               onClick={() => setOpenSupplement('assassins')}
-              className="flex flex-col items-center gap-2 px-3 py-4 bg-zinc-900/80 border border-zinc-800 border-t-2 border-t-zinc-600 hover:bg-zinc-800/80 hover:border-zinc-600 hover:border-t-zinc-400 transition-all text-center group"
+              className="flex items-center gap-3 px-4 py-3 bg-zinc-900 border border-zinc-800 border-l-[3px] border-l-zinc-600 hover:bg-zinc-800 hover:border-l-zinc-400 transition-all text-left group w-full"
             >
-              <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 32, height: 32, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
-              <div>
-                <div className="text-zinc-100 text-[11px] font-bold uppercase tracking-wide leading-tight">Assassins</div>
-                <div className="text-zinc-600 text-[9px] uppercase tracking-wide mt-0.5">Execution Force</div>
+              <img src="/faction-symbols/assassins.svg" alt="" style={{ width: 38, height: 38, filter: 'brightness(0) invert(1) opacity(0.7)', flexShrink: 0 }} draggable={false} />
+              <div className="flex-1 min-w-0">
+                <div className="text-zinc-100 text-[12px] font-bold uppercase tracking-wide">Assassins</div>
+                <div className="text-zinc-600 text-[10px] uppercase tracking-wide mt-0.5">Execution Force</div>
               </div>
-              <div className="text-zinc-500 group-hover:text-zinc-300 text-[9px] uppercase tracking-widest transition-colors">Browse →</div>
+              <span className="text-zinc-600 group-hover:text-zinc-300 text-[11px] transition-colors shrink-0">→</span>
             </button>
           </div>
           {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
@@ -465,7 +489,7 @@ export function LandingPage({
           {data && selectedFaction && (
             <div className="flex justify-center pt-2 pb-8">
               <button
-                onClick={onBuild}
+                onClick={() => onBuild()}
                 className="px-10 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
               >
                 {t('addTroops')} →
@@ -647,7 +671,7 @@ export function LandingPage({
                   {cat.factions.map(f => (
                     <button
                       key={f.key}
-                      onClick={() => f.available && handleSelectFactionInSetup(f.key)}
+                      onClick={() => { if (f.available) { handleSelectFactionInSetup(f.key); } }}
                       disabled={!f.available}
                       className={`
                         relative flex flex-col items-center gap-2 pt-4 pb-3 px-2 border rounded-lg text-center transition-all
