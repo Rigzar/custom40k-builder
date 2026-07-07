@@ -621,24 +621,81 @@ import Layout from '../../components/Layout.astro';
       <div class="section-divider"><span>Alliance Levels</span></div>
       <div class="alliance-grid">
         <div class="alliance-card alliance-card--g">
-          <div class="alliance-badge">Battle Brothers</div>
-          <p>Full allies. Share orders, joined units, and special rules freely. Benefit from each other's abilities.</p>
+          <div class="alliance-badge">🟢 Battle Brothers</div>
+          <ul>
+            <li>Allied units are treated as friendly in all respects.</li>
+            <li>Auras and psychic powers can be cast on allied units.</li>
+            <li>Transport vehicles can carry units from both factions freely.</li>
+          </ul>
         </div>
         <div class="alliance-card alliance-card--y">
-          <div class="alliance-badge">Allies of Convenience</div>
-          <p>Limited cooperation. Cannot join units. Do not share orders or most special rules. May not end movement within 6″ of each other.</p>
+          <div class="alliance-badge">🟡 Allies of Convenience</div>
+          <ul>
+            <li>Allied units are treated as separate armies.</li>
+            <li>Auras and psychic powers only affect the primary faction's units.</li>
+            <li>Transports can only carry units of the primary faction.</li>
+          </ul>
         </div>
         <div class="alliance-card alliance-card--r">
-          <div class="alliance-badge">Come the Apocalypse</div>
-          <p>Desperate alliance. Same restrictions as Allies of Convenience, plus: may not end movement within 12″ of each other (must actively avoid). Cannot benefit from each other's abilities in any way.</p>
+          <div class="alliance-badge">🔴 Desperate Allies</div>
+          <ul>
+            <li>Same restrictions as Allies of Convenience, plus:</li>
+            <li>Units within 12″ of the ally must pass a Ld test (−1) or lose their order for that turn.</li>
+            <li>Uses own mini-AOP: 0–1 HQ · 1–2 Troops · 0–1 Elite/FA/HS per Troop · 0–ᵀ Transports.</li>
+            <li>Cannot select a second AOP after filling all slots.</li>
+            <li>May select own Army Customisation options.</li>
+          </ul>
         </div>
       </div>
+      <p class="note">A faction may always ally with itself. Two Inquisition forces or two Dark Eldar Kabals allied together count as Allies of Convenience (Y), not Battle Brothers.</p>
     </div>
 
     <div class="rule-section reveal">
-      <div class="section-divider"><span>Supplements</span></div>
-      <p>Supplements provide additional units (Lords of War, Assassins) that extend the core army with their own rules. The Escalation supplement grants access to super-heavy vehicles in Epic Battle-sized games. The Horus Heresy SM Supplement provides alternative unit options for Space Marines.</p>
-      <p class="note">FAQ #5: Rules in a Codex always override Core Rules. This applies to all supplements as well.</p>
+      <div class="section-divider"><span>Alliance Matrix</span></div>
+      <p class="section-note">Row = primary faction · Column = ally. The matrix is symmetric. 🟢 Battle Brothers · 🟡 Allies of Convenience · 🔴 Desperate Allies</p>
+      <div class="matrix-scroll">
+        <table class="ally-matrix">
+          <thead>
+            <tr>
+              <th></th>
+              <th title="Adeptus Sororitas">AdS</th>
+              <th title="Space Marines">SM</th>
+              <th title="Adeptus Custodes">AdC</th>
+              <th title="Adeptus Mechanicus">AdM</th>
+              <th title="Chaos Daemons">CD</th>
+              <th title="Chaos Space Marines">CSM</th>
+              <th title="Dark Eldar">DaE</th>
+              <th title="Imperial Guard">IG</th>
+              <th title="Inquisition">Inq</th>
+              <th title="Leagues of Votann">LoV</th>
+              <th title="Necrons">Nec</th>
+              <th title="Orks">Ork</th>
+              <th title="Genestealer Cults">GSC</th>
+              <th title="Tau Empire">Tau</th>
+              <th title="Tyranids">Tyr</th>
+              <th title="Eldar">Eld</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th title="Adeptus Sororitas">AdS</th><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Space Marines">SM</th><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Adeptus Custodes">AdC</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Adeptus Mechanicus">AdM</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Chaos Daemons">CD</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
+            <tr><th title="Chaos Space Marines">CSM</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
+            <tr><th title="Dark Eldar">DaE</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y mx-d">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Imperial Guard">IG</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Inquisition">Inq</th><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-g">G</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g">G</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Leagues of Votann">LoV</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y mx-d">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Necrons">Nec</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g mx-d">G</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td></tr>
+            <tr><th title="Orks">Ork</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Genestealer Cults">GSC</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-r">R</td></tr>
+            <tr><th title="Tau Empire">Tau</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td><td class="mx-y">Y</td></tr>
+            <tr><th title="Tyranids">Tyr</th><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-g">G</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td><td class="mx-r">R</td></tr>
+            <tr><th title="Eldar">Eld</th><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-y">Y</td><td class="mx-r">R</td><td class="mx-g mx-d">G</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="rule-section reveal">
@@ -884,7 +941,19 @@ import Layout from '../../components/Layout.astro';
   .alliance-card--g .alliance-badge { color: #1a5c1a; }
   .alliance-card--y .alliance-badge { color: #8b6908; }
   .alliance-card--r .alliance-badge { color: var(--c40k-red); }
-  .alliance-card p { margin: 0; opacity: 0.88; }
+  .alliance-card ul { margin: 0; padding-left: 1.1rem; }
+  .alliance-card li { margin-bottom: 0.2rem; opacity: 0.88; }
+
+  /* ── Alliance Matrix ──────────────────────────────────── */
+  .matrix-scroll { overflow-x: auto; margin-bottom: 0.8rem; }
+  .ally-matrix { font-size: 0.68rem; border-collapse: collapse; white-space: nowrap; }
+  .ally-matrix th, .ally-matrix td { border: 1px solid rgba(57,73,80,0.2); padding: 0.2rem 0.35rem; text-align: center; min-width: 2rem; }
+  .ally-matrix thead th { font-family: var(--font-ui); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(57,73,80,0.08); }
+  .ally-matrix tbody th { font-family: var(--font-ui); font-size: 0.62rem; font-weight: 700; text-align: left; background: rgba(57,73,80,0.05); padding: 0.2rem 0.5rem; }
+  .mx-g { background: rgba(26,92,26,0.18); color: #1a5c1a; font-weight: 700; }
+  .mx-y { background: rgba(180,140,0,0.18); color: #7a5c00; font-weight: 700; }
+  .mx-r { background: rgba(162,18,23,0.15); color: #8b0e11; font-weight: 700; }
+  .mx-d { outline: 2px solid rgba(0,0,0,0.25); outline-offset: -2px; }
 
   /* ── Scroll reveal ─────────────────────────────────────── */
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
