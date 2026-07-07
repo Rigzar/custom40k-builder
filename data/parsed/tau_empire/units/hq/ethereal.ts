@@ -137,6 +137,7 @@ export const ethereal: Unit = {
   "is_psyker": false,
   "is_priest": true,
   "has_armory_access": true,
+  "armory_gear_only": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

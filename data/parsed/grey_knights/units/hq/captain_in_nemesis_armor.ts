@@ -173,6 +173,7 @@ export const captainInNemesisArmor: Unit = {
   "is_monster": true,
   "is_psyker": true,
   "has_armory_access": true,
+  "armory_gear_only": true,
   "champion_has_armory": false,
   "has_veteran_abilities": true,
   "veteran_required": false,

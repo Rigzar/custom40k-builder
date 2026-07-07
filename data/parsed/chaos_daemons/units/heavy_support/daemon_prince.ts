@@ -173,6 +173,7 @@ export const daemonPrince: Unit = {
   "is_monster": true,
   "is_psyker": false,
   "has_armory_access": true,
+  "armory_gear_only": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,

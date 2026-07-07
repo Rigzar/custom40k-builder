@@ -557,8 +557,13 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     ...(chamberMilitantOrdoName ? inquisitionLegacyOrdoUnlocks(chamberMilitantOrdoName) : []),
   ];
 
+  const isWeaponsOnly = unit.armory_weapons_only === true;
+  const isGearOnly = unit.armory_gear_only === true;
+
   function getItems(sec: Section): ArmoryItem[] {
     if (!armory) return [];
+    if (sec === 'equipment' && isWeaponsOnly) return [];
+    if (sec === 'weapons' && isGearOnly) return [];
     return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[]))))
       .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
   }
@@ -572,8 +577,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     };
   }
 
-  // When opened via a category button, always show the equipment section filtered to that category
-  const effectiveSection: Section = filterCategory ? 'equipment' : section;
+  // When opened via a category button, always show the equipment section filtered to that category.
+  // For weapons-only units, always force the weapons section regardless of state.
+  const effectiveSection: Section = filterCategory ? 'equipment' : (isWeaponsOnly ? 'weapons' : isGearOnly ? 'equipment' : section);
 
   const equipItems = getItems('equipment');
   const { regular: regularEquip, veteran: veteranEquip, vehicle: vehicleEquip } = splitEquipment(equipItems);
@@ -677,7 +683,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         {/* Section tabs — hidden when opened via a specific category button */}
         {!filterCategory && (
           <div className="flex gap-1 p-2 bg-zinc-800 border-b border-zinc-700">
-            {(['weapons','equipment'] as Section[]).map(s => (
+            {(['weapons','equipment'] as Section[]).filter(s => !(s === 'equipment' && isWeaponsOnly) && !(s === 'weapons' && isGearOnly)).map(s => (
               <button
                 key={s}
                 onClick={() => setSection(s)}

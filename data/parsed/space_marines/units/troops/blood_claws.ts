@@ -28,8 +28,9 @@
  * ABILITIES: Blind Rage, Furious Charge, They Shall Know No Fear
  * UNIT TYPE: Infantry (Jump Pack Infantry if jump packs taken)
  *
- * ENGINE STATUS: ✓ all data matches HTML. has_armory_access:true (Pack Leader direct access).
- *   set_unit_type "Jump Pack Infantry" + stat_mod M+6 on jump pack option correct.
+ * ENGINE STATUS: ✓ all data matches ODS. champion_has_armory:true + armory_weapons_only:true
+ *   (Pack Leader has weapons-only access; not all models). set_unit_type "Jump Pack Infantry"
+ *   + stat_mod M+6 on jump pack option correct.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -244,8 +245,9 @@ export const bloodClaws: Unit = {
   "is_character": false,
   "is_monster": false,
   "is_psyker": false,
-  "has_armory_access": true,
-  "champion_has_armory": false,
+  "has_armory_access": false,
+  "champion_has_armory": true,
+  "armory_weapons_only": true,
   "has_veteran_abilities": false,
   "veteran_required": false,
   "veteran_max": null,

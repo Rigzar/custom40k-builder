@@ -226,6 +226,12 @@ export interface Unit {
    *  targeting) elsewhere. */
   armory_as_character?: boolean;
   champion_has_armory: boolean;
+  /** When true, the unit (or champion) may only access weapons from the Armory — the equipment
+   *  section (armour, relics, veteran abilities, vehicle upgrades) is hidden entirely. */
+  armory_weapons_only?: boolean;
+  /** When true, the unit (or champion) may only access gear (equipment) from the Armory — the
+   *  weapons section is hidden entirely. Symmetric counterpart to armory_weapons_only. */
+  armory_gear_only?: boolean;
   has_veteran_abilities: boolean;
   veteran_required: boolean;
   /** Max veteran abilities this unit may have (default 2 if unspecified) */

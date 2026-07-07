@@ -76,6 +76,7 @@ export const deathCompany: Unit = {
   "is_psyker": false,
   "has_armory_access": true,
   "champion_has_armory": false,
+  "armory_weapons_only": true,
   "has_veteran_abilities": false,
   "veteran_required": false,
   "veteran_max": null,

@@ -80,6 +80,7 @@ export const infernalEnrapturess: Unit = {
   "is_monster": false,
   "is_psyker": true,
   "has_armory_access": true,
+  "armory_gear_only": true,
   "champion_has_armory": false,
   "has_veteran_abilities": false,
   "veteran_required": false,
