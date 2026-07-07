@@ -9,13 +9,14 @@ interface Props {
   onLogout: () => void;
   activeRosterId: number | null;
   onActiveRosterIdChange: (id: number | null) => void;
+  onOpenAdmin?: () => void;
 }
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, onActiveRosterIdChange }: Props) {
+export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin }: Props) {
   const {
     army, engagement, hqMark, archetype, legacy, legacy2, traitPool,
     faction, pointLimit, armyName, importRoster,
@@ -168,7 +169,17 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
     >
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-xl my-4">
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
-          <h3 className="text-amber-400 uppercase tracking-widest text-sm">Cloud Saves — {username}</h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-amber-400 uppercase tracking-widest text-sm">Cloud Saves — {username}</h3>
+            {onOpenAdmin && (
+              <button
+                onClick={() => { onClose(); onOpenAdmin(); }}
+                className="text-zinc-700 hover:text-zinc-500 text-xs leading-none select-none"
+                tabIndex={-1}
+                aria-hidden
+              >◈</button>
+            )}
+          </div>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl leading-none">✕</button>
         </div>
 

@@ -97,7 +97,6 @@ export const slot_to_units: Record<string, string[]> = {
     "Warkopta"
   ],
   "Heavy Support": [
-    "Battle Fortress",
     "Battlewagon",
     "Deff Dreads",
     "Flash Gits",

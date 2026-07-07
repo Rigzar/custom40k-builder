@@ -889,6 +889,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   const eng = ENGAGEMENTS[state.engagement];
   const rule = getArchetypeRule(state.archetype);
   const items: ValidationItem[] = [];
+
+  // True when the primary archetype grants a supplement faction (HH, future similar supplements)
+  // whose units should be treated as part of the primary army — no Allied-Detachment separation.
+  // Legion (CSM) and Legion (SM) both set rule.alliedFaction = 'horus_heresy'.
+  const isIntegratedSuppl = !!(rule?.alliedFaction && state.alliedFaction && rule.alliedFaction === state.alliedFaction);
+  // Helper: is this item an integrated supplement unit?
+  const isSupplItem = (item: { factionSource?: string | null }) =>
+    isIntegratedSuppl && item.factionSource === state.alliedFaction;
   const T = (key: Parameters<typeof t>[1], vars?: Record<string, string | number>) => tpl(t(language, key), vars ?? {});
 
   const total = state.army.reduce((s, i) => {
@@ -1006,12 +1014,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       }
     }
 
-    // Cross-faction join: a character may not attach to a unit from a different faction scope
+    // Cross-faction join: a character may not attach to a unit from a different faction scope.
+    // Exception: integrated supplements (HH) — a primary-army character joining a supplement unit
+    // or vice versa is fine because they're treated as one army.
     for (const [targetId, joiners] of joinTargets) {
       const target = state.army.find(e => e.id === targetId);
       if (!target) continue;
       for (const joiner of joiners) {
         if ((joiner.factionSource ?? '') !== (target.factionSource ?? '')) {
+          // Allow cross-join if both sides belong to the same integrated supplement pool
+          const joinerIsSuppl = isSupplItem(joiner);
+          const targetIsSuppl = isSupplItem(target);
+          if (isIntegratedSuppl && (joinerIsSuppl || !joiner.factionSource) && (targetIsSuppl || !target.factionSource)) {
+            continue;
+          }
           const targetName = resolveUnit(target, data)?.name ?? target.unitName;
           items.push({
             type: 'error',
@@ -1389,8 +1405,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // Armory items that grant an invulnerability save
     const INV_SAVE_ARMORY_ITEMS = new Set(['Bionics', 'Daemonic aura', 'Daemonic possession', 'Cataphractii armor', 'Terminator armor']);
     for (const item of state.army) {
-      if (item.factionSource) continue; // trait applies only to primary army units
-      const u = resolveUnit(item, data);
+      if (item.factionSource && !isSupplItem(item)) continue; // trait applies only to primary army units (+ integrated supplement)
+      const u = resolveUnit(item, data) ?? (isSupplItem(item) && alliedData ? resolveUnit(item, alliedData) : null);
       if (!u || u.is_vehicle) continue; // vehicles use the Iron Repair effect, not inv save
       // Check datasheet abilities for inv save — uses parseInvSaveFromAbilities for consistency
       // with the InvSv stat display (same source of truth).
@@ -1910,7 +1926,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (slot === 'Lords of War') continue; // Escalation: Epic-only + 33% pts cap, handled separately
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
+    // For integrated supplements (HH Legion), count both primary and supplement units toward the primary AOP.
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl);
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
@@ -1927,22 +1944,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   if (state.army.length > 0 && total > 0) {
     const baseTroopsPts = state.army
       .filter(i => {
-        // Exclude allied units from the 25% Troops calculation
-        if (state.alliedFaction && i.factionSource === state.alliedFaction) return false;
-        const u = resolveUnit(i, data);
+        // Exclude true allied units (not integrated supplement) from the 25% Troops calculation
+        if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return false;
+        const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
         if (!u) return false;
         if (getEffectiveSlot(i.unitName, i.slot, rule) !== 'Troops') return false;
         return countsTroops(i.unitName, u.locked_mark, rule);
       })
       .reduce((s, i) => {
-        const u = resolveUnit(i, data);
+        const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
         return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
       }, 0);
     // Mechanised Company: Dedicated Transports count at 50% toward the Troops 25%
     const transportBonus = state.archetype === 'Mechanised Company'
       ? state.army
           .filter(i => {
-            if (state.alliedFaction && i.factionSource === state.alliedFaction) return false;
+            if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return false;
             return i.slot === 'Dedicated Transport';
           })
           .reduce((s, i) => {
@@ -2396,7 +2413,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     if (slot === 'Lords of War') continue; // Escalation: handled by the dedicated block above
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
-    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, false, state.engagement, summoningExcl);
+    const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl);
     const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
@@ -2419,8 +2436,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     items.push({ type: 'ok', text: T('valUsingAops', { n: aopMult }) });
   }
 
-  // Allied detachment AOP validation
-  if (state.alliedFaction) {
+  // Allied detachment AOP validation — skip for integrated supplements (HH Legion); their units
+  // are already counted in the primary AOP block above.
+  if (state.alliedFaction && !isIntegratedSuppl) {
     const alliedUnits = state.army.filter(e => e.factionSource === state.alliedFaction);
     if (alliedUnits.length > 0) {
       // The ALLY's own archetype rule (e.g. a troopsRemap-style slot effect) governs how its OWN

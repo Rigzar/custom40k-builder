@@ -30,6 +30,9 @@ export async function ensureSchema() {
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS recovery_code_encrypted TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS secret_question TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS secret_answer_hash TEXT`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT false`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_seen_at TIMESTAMPTZ`;
+  await sql`UPDATE users SET is_admin = true WHERE username = 'rigzar' AND is_admin = false`;
   await sql`
     CREATE TABLE IF NOT EXISTS rosters (
       id SERIAL PRIMARY KEY,

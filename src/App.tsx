@@ -27,6 +27,9 @@ import { CampaignModal } from './components/CampaignModal';
 import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
 import { useT } from './i18n';
+import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
+import { PrefsModal } from './components/PrefsModal';
+import { AdminPanel } from './components/AdminPanel';
 
 type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
 
@@ -236,7 +239,7 @@ function TabBar({
 export default function App() {
   const t = useT();
   const store = useArmyStore();
-  const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit,
+  const { setData, data, army, armyName, setArmyName, faction, engagement, pointLimit, setEngagement, setPointLimit,
           hqMark, archetype, legacy, legacy2, traitPool, importRoster,
           alliedFaction, alliedData, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, setAlliedData,
           injectArchetypeFaction, injectAlliedArchetypeFaction } = store;
@@ -253,7 +256,8 @@ export default function App() {
   const [showAuth, setShowAuth]                 = useState(false);
   const [showCloudSaves, setShowCloudSaves]     = useState(false);
   const [showCampaign, setShowCampaign]         = useState(false);
-  const { username, loggedIn, refresh: refreshAuth, logout } = useAuth();
+  const { username, loggedIn, isAdmin, refresh: refreshAuth, logout } = useAuth();
+  const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
   const restoringSession                        = useRef(false);
@@ -265,6 +269,12 @@ export default function App() {
   const loggedInRef = useRef(false);
   useEffect(() => { loggedInRef.current = loggedIn; }, [loggedIn]);
   const [activeLocalSaveId, setActiveLocalSaveId]     = useState<string | null>(null);
+
+  const { prefs, setPrefs } = usePrefs();
+  // Ref so the beforeunload handler sees current prefs without stale closure.
+  const prefsRef = useRef(prefs);
+  useEffect(() => { prefsRef.current = prefs; }, [prefs]);
+  const [showPrefs, setShowPrefs] = useState(false);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
 
@@ -425,6 +435,7 @@ export default function App() {
     function handleBeforeUnload() {
       try {
         if (!loggedInRef.current) return;
+        if (prefsRef.current.autosaveInterval === 'off') return;
         if (sessionStorage.getItem(AUTOSAVE_DISMISSED_KEY)) return;
         const st = useArmyStore.getState();
         if (!st.faction || st.army.length === 0) return;
@@ -458,10 +469,12 @@ export default function App() {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, []);
 
-  // Crash-recovery: write a backup to localStorage every 5 s after the army changes.
+
+  // Crash-recovery: write a backup to localStorage after army changes (delay = autosave interval pref).
   // Only for logged-in users — the one-time migration effect on the next load picks it up as an autosave entry.
   useEffect(() => {
-    if (!loggedIn || !faction || army.length === 0) {
+    const delay = autosaveDelayMs(prefs.autosaveInterval);
+    if (!loggedIn || !faction || army.length === 0 || delay === null) {
       localStorage.removeItem('custom40k-army');
       return;
     }
@@ -471,10 +484,10 @@ export default function App() {
         if (!st.faction || st.army.length === 0) return;
         localStorage.setItem('custom40k-army', JSON.stringify({ state: getSerializableState(st) }));
       } catch { /* quota exceeded */ }
-    }, 5000);
+    }, delay);
     return () => clearTimeout(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [army, faction, loggedIn]);
+  }, [army, faction, loggedIn, prefs.autosaveInterval]);
 
   function handleSelectFaction(key: string | null) {
     if (key === null) {
@@ -490,6 +503,11 @@ export default function App() {
     if (isNewFaction) {
       setActiveCloudRosterId(null);
       setActiveLocalSaveId(null);
+      // Apply default engagement / points when starting a fresh army.
+      if (army.length === 0) {
+        if (prefs.defaultEngagement) setEngagement(prefs.defaultEngagement as import('./types/army').EngagementType);
+        if (prefs.defaultPoints !== '') setPointLimit(prefs.defaultPoints as number);
+      }
     }
     setSelectedFaction(key);
     if (activeTab === 'landing') {
@@ -754,6 +772,13 @@ export default function App() {
                   </button>
                 )}
                 <button
+                  onClick={() => setShowPrefs(true)}
+                  title="Preferences"
+                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
+                >
+                  ⚙
+                </button>
+                <button
                   onClick={() => setShowBugReport(true)}
                   className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
                 >
@@ -858,6 +883,7 @@ export default function App() {
       {/* ── Modals ── */}
       {showPrint     && <PrintView onClose={() => setShowPrint(false)} />}
       {showArmies    && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
+      {showPrefs     && <PrefsModal prefs={prefs} loggedIn={loggedIn} onSave={setPrefs} onClose={() => setShowPrefs(false)} />}
       {showBugReport && (
         <BugReportModal
           onClose={() => setShowBugReport(false)}
@@ -870,11 +896,13 @@ export default function App() {
           onLoggedIn={async () => { await refreshAuth(); setShowAuth(false); }}
         />
       )}
+      {showAdmin     && <AdminPanel onClose={() => setShowAdmin(false)} />}
       {showCloudSaves && username && (
         <CloudSavesModal
           username={username}
           onClose={() => setShowCloudSaves(false)}
           onLogout={async () => { await logout(); }}
+          onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
           activeRosterId={activeCloudRosterId}
           onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
         />

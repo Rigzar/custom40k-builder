@@ -12,7 +12,7 @@ async function call<T>(url: string, options?: RequestInit): Promise<T> {
   return json as T;
 }
 
-export interface MeResponse { loggedIn: boolean; username?: string }
+export interface MeResponse { loggedIn: boolean; username?: string; isAdmin?: boolean }
 export function getMe() {
   return call<MeResponse>('/api/auth/me');
 }
@@ -214,4 +214,22 @@ export function deleteCampaign(campaignId: number, confirmName: string) {
   return call<{ ok: true }>('/api/campaign/delete', {
     method: 'POST', body: JSON.stringify({ campaignId, confirmName }),
   });
+}
+
+export interface AdminUserRow {
+  id: number; username: string; created_at: string;
+  last_seen_at: string | null; last_login_at: string; is_admin: boolean; roster_count: number;
+}
+export interface AdminStats { totalUsers: number; totalRosters: number; users: AdminUserRow[] }
+export function adminStats() { return call<{ ok: true } & AdminStats>('/api/admin/stats'); }
+export function adminResetPw(userId: number) {
+  return call<{ ok: true; tempPassword: string; recoveryCode: string }>('/api/admin/pw', {
+    method: 'POST', body: JSON.stringify({ userId }),
+  });
+}
+export function adminDelUser(userId: number) {
+  return call<{ ok: true }>('/api/admin/del', { method: 'POST', body: JSON.stringify({ userId }) });
+}
+export function adminPromote(userId: number, makeAdmin: boolean) {
+  return call<{ ok: true }>('/api/admin/promote', { method: 'POST', body: JSON.stringify({ userId, makeAdmin }) });
 }

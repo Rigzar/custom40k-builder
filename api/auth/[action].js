@@ -77,13 +77,14 @@ async function me(req, res) {
 
   try {
     await ensureSchema();
-    const result = await sql`SELECT username FROM users WHERE id = ${userId}`;
+    const result = await sql`SELECT username, is_admin FROM users WHERE id = ${userId}`;
     const user = result.rows[0];
     if (!user) {
       res.status(200).json({ ok: true, loggedIn: false });
       return;
     }
-    res.status(200).json({ ok: true, loggedIn: true, username: user.username });
+    sql`UPDATE users SET last_seen_at = now() WHERE id = ${userId}`.catch(() => {});
+    res.status(200).json({ ok: true, loggedIn: true, username: user.username, isAdmin: user.is_admin === true });
   } catch (err) {
     res.status(500).json({ error: 'Failed to check session', detail: String(err) });
   }
