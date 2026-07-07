@@ -236,7 +236,7 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/orks/armory/legion_clan.json'),
         import('../../data/parsed/orks/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Klan': leg }, { disciplines: discs });
+      return asm(u, g, arch, noRules, {}, { 'Clan': leg }, { disciplines: discs });
     }
 
     case 'eldar': {

@@ -35,7 +35,7 @@ export const burnaBoyz: Unit = {
       "name": "Spanna",
       "points": 16,
       "min": 0,
-      "max": 0,
+      "max": 3,
       "stats": {
         "M": "6\"",
         "WS": "3+",
@@ -140,7 +140,8 @@ export const burnaBoyz: Unit = {
     {
       "header": "Up to three Burna Boyz may be upgraded to Spannas for +0 points each.",
       "constraint": {
-        "type": "one"
+        "type": "fixed_max",
+        "max": 3
       },
       "choices": [],
       "inline_pts": 0,

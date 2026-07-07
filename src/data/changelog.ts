@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.42',
+    date: '2026-07-07',
+    title: 'ORKS — GH#60–65: legacy armory, Warbuggy, Burna Boyz, Artifact stat bug',
+    changes: [
+      'ORKS GH#60 — fixed Clan legacy armory not appearing for HQ units: loader registered the armory under key "Klan" but archetypes.json used armory_key "Clan" — key mismatch now corrected',
+      'ORKS GH#62 — Warbuggy weapon choices now scale per model: big gun, small gun, and crew weapon groups all flagged per_model:true so each vehicle in a squadron independently picks its weapons',
+      'ORKS GH#63 — Warbuggy ghost weapons fixed: choice names with asterisk suffixes (*) and "with Grot Gunner" annotations renamed to match weapon profile names exactly (Grot Gunner BS 4+ rule still documented in unit abilities)',
+      'ORKS GH#64 — Burna Boyz Spanna upgrade fixed: variant_model max was 0 (should be 3); option group constraint changed from type:"one" to fixed_max:3 to allow up to three Spannas per unit',
+      'GENERAL GH#65 — Artifact of Gork ... or Mork (and any equipment item whose description starts with "One weapon of the model gains") no longer incorrectly applies +Strength/+Attacks/etc. to the model\'s stat block — the bonus is for the targeted weapon, not the bearer',
+      'GENERAL GH#61 — engine now recognises "The vehicle/model receives an additional weapon: X" pattern in equipment item descriptions as a weapon-grant (same as "The model gains a X"); weapon profile must exist in armory_general.weapons to appear in Live Profile',
+    ],
+  },
+  {
     version: '1.41',
     date: '2026-07-07',
     title: 'WIKI — Missions supplement page + army rules visual polish',

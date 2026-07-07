@@ -24,8 +24,10 @@ const EQUIP_STAT_MAP: [RegExp, string][] = [
   [/\+(\d+)\s+weapon\s+skill/i,    'WS'],
 ];
 
-// Descriptions that indicate the bonus applies to OTHER units, not the bearer
-const AURA_PHRASES = /attached unit|friendly unit|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an/i;
+// Descriptions that indicate the bonus applies to OTHER units/a WEAPON, not the bearer's stat block.
+// "one weapon of the model gains" → bonus goes to a single weapon (e.g. Artifact of Gork ... or Mork),
+// not to the model's base stats.
+const AURA_PHRASES = /attached unit|friendly unit|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|one (?:melee |ranged )?weapon of the model/i;
 
 // Quoted words that name a UNIT TYPE, not an ability. When an item says "gains the unit type 'Bike'"
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a
@@ -152,9 +154,10 @@ export function isWeaponTrait(desc: string | undefined): boolean {
  *   "The model gains the 'X' ranged weapon." (Kai daemon weapon)
  *   "The model gains a X."                   (Hunter-killer missile vehicle upgrade)
  *   "The model gains the 'X' weapon"          (Living vehicle vehicle upgrade)
+ *   "The vehicle/model receives an additional weapon: X." (Orks vehicle equipment)
  */
 export function isGrantWeapon(desc: string | undefined): boolean {
-  return /\bthe model gains (?:the ['"][^'"]+['"]\s+\w+\s+weapon|a [\w\s-]+(?:missile|weapon|gun|cannon))\b/i
+  return /\bthe model gains (?:the ['"][^'"]+['"]\s+\w+\s+weapon|a [\w\s-]+(?:missile|weapon|gun|cannon))\b|\bthe (?:model|vehicle) receives an additional weapon:/i
     .test(desc ?? '');
 }
 
@@ -166,6 +169,9 @@ export function extractGrantedWeaponName(desc: string): string | null {
   // Pattern 2: "The model gains a X." (X = weapon name ending in known suffixes)
   const m2 = desc.match(/\bthe model gains a ([\w\s-]+(?:missile|weapon|gun|cannon))\b/i);
   if (m2) return m2[1].trim();
+  // Pattern 3: "The vehicle/model receives an additional weapon: X."
+  const m3 = desc.match(/\bthe (?:model|vehicle) receives an additional weapon:\s*([^.]+)\./i);
+  if (m3) return m3[1].trim();
   return null;
 }
 

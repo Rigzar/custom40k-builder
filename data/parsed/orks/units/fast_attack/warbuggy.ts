@@ -193,6 +193,7 @@ export const warbuggy: Unit = {
       "constraint": {
         "type": "one"
       },
+      "per_model": true,
       "choices": [
         {
           "name": "Lobba",
@@ -207,7 +208,7 @@ export const warbuggy: Unit = {
           "points": 20
         },
         {
-          "name": "Squig launcha with Grot Gunner",
+          "name": "Squig launcha",
           "points": 25
         },
         {
@@ -223,7 +224,7 @@ export const warbuggy: Unit = {
           "points": 36
         },
         {
-          "name": "Shokk rifle with Grot Gunner",
+          "name": "Shokk rifle",
           "points": 41
         }
       ],
@@ -234,9 +235,9 @@ export const warbuggy: Unit = {
     {
       "header": "May be equipped with one small gun. If the warbuggy doesn't have a big gun, it may take up to three small guns",
       "constraint": {
-        "type": "fixed_max",
-        "max": 3
+        "type": "one"
       },
+      "per_model": true,
       "choices": [
         {
           "name": "Big shoota",
@@ -247,7 +248,7 @@ export const warbuggy: Unit = {
           "points": 16
         },
         {
-          "name": "Squig launcha*",
+          "name": "Squig launcha",
           "points": 16
         },
         {
@@ -263,7 +264,7 @@ export const warbuggy: Unit = {
           "points": 31
         },
         {
-          "name": "Rokkit kannon*",
+          "name": "Rokkit kannon",
           "points": 43
         }
       ],
@@ -276,6 +277,7 @@ export const warbuggy: Unit = {
       "constraint": {
         "type": "one"
       },
+      "per_model": true,
       "choices": [
         {
           "name": "Stikkbombz",
@@ -286,11 +288,11 @@ export const warbuggy: Unit = {
           "points": 4
         },
         {
-          "name": "Big shoota with Grot Gunner",
+          "name": "Big shoota",
           "points": 17
         },
         {
-          "name": "Twin-linked Big shoota with Grot Gunner",
+          "name": "Twin-linked big shoota",
           "points": 35
         }
       ],

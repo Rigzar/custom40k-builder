@@ -5,6 +5,12 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // OPEN — known, investigating, planned, or by-design (most relevant first)
   // ══════════════════════════════════════════════════════════════════════════
   {
+    id: 'ki-orks-stikkbombz-launcha-profile-missing-01',
+    status: 'known',
+    title: 'Orks — "Stikkbombz launcha" vehicle equipment upgrade shows no weapon profile',
+    description: 'The engine now correctly recognises the "vehicle receives an additional weapon: X" grant pattern (GH#61 partial fix, v1.42). However, the weapon profile for "Stikkbombz launcha" does not exist in armory/general.json\'s weapons section — the profile lookup silently finds nothing. Weapon stats (Range, Type, S, AP, D, Abilities) must be added to armory_general.weapons once verified against the Orks ODS.',
+  },
+  {
     id: 'ki-sm-lords-of-war-vehicle-armory-01',
     status: 'fixed',
     title: 'Space Marines — Lords of War (Fellblade, Knight Castellan, Knight Paladin, Spartan, Warhound) may be missing vehicle armory access',
