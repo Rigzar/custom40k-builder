@@ -1,0 +1,1091 @@
+---
+import Layout from '../../components/Layout.astro';
+---
+<Layout title="Missions — Custom40k Wiki">
+
+<div class="missions-page">
+
+  {/* ── Hero Header ─────────────────────────────────────────────── */}
+  <div class="missions-hero">
+    <div class="missions-hero-bg" aria-hidden="true" />
+    <div class="missions-hero-content">
+      <div class="missions-seal" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="72" height="72" fill="none">
+          <polygon points="32,2 38,22 58,22 43,34 49,54 32,42 15,54 21,34 6,22 26,22" stroke="#a21217" stroke-width="1.5" fill="rgba(162,18,23,0.08)"/>
+          <circle cx="32" cy="32" r="12" stroke="#a21217" stroke-width="1" fill="rgba(162,18,23,0.12)"/>
+          <text x="32" y="36" text-anchor="middle" font-size="10" fill="#a21217" font-family="sans-serif" font-weight="700">M</text>
+        </svg>
+      </div>
+      <p class="missions-supertitle">Custom40k Supplement</p>
+      <h1 class="missions-title">Missions</h1>
+      <p class="missions-subtitle">7 missions across 3 engagement types · Tactical battlefield scenarios</p>
+    </div>
+  </div>
+
+  {/* ── Engagement Types ────────────────────────────────────────── */}
+  <section class="section reveal">
+    <div class="section-header">
+      <div class="section-line" />
+      <h2 class="section-heading">Engagement Types</h2>
+      <div class="section-line" />
+    </div>
+    <p class="section-intro">Each engagement type defines army size, AOP slots, and special restrictions. All engagements require at least 25% of points spent on Troops.</p>
+
+    <div class="engagement-grid">
+
+      {/* Skirmish */}
+      <div class="engagement-card engagement-card--skirmish">
+        <div class="engagement-header">
+          <div class="engagement-badge">Skirmish</div>
+          <div class="engagement-pts">1 000 – 1 500 pts</div>
+        </div>
+        <p class="engagement-flavour">A smaller clash between two factions.</p>
+
+        <div class="aop-table-wrap">
+          <div class="aop-label">Army Organisation</div>
+          <table class="aop-table">
+            <tbody>
+              <tr><td>HQ</td><td>0–1</td></tr>
+              <tr><td>Troops</td><td>1–3</td></tr>
+              <tr><td>Elites</td><td>0–1</td></tr>
+              <tr><td>Fast Attack</td><td>0–1</td></tr>
+              <tr><td>Heavy Support</td><td>0–1</td></tr>
+              <tr><td>Dedicated Transport</td><td>0–1</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="restriction-block">
+          <div class="restriction-heading">Unit Restrictions</div>
+          <ul class="restriction-list">
+            <li>HQ models may not take "once per army" upgrades.</li>
+            <li>HQ units and Characters may not exceed 150 pts with upgrades.</li>
+            <li>No single unit may exceed 300 pts with upgrades (Troops exempt).</li>
+            <li>Squadron units may only field one model per slot.</li>
+            <li>All units occupy an AOP slot, even if their rules state otherwise.</li>
+          </ul>
+        </div>
+
+        <div class="restriction-block">
+          <div class="restriction-heading">Stat &amp; Equipment Caps</div>
+          <ul class="restriction-list">
+            <li>No unit may have a 2+ armour save or better.</li>
+            <li>No unit may have a 4+ invulnerable save or better.</li>
+            <li>No unit may have Toughness 8 or better.</li>
+            <li>No weapon may deal Damage 3 or better.</li>
+            <li>No combined armour value of 34+ (Front+Side+Rear).</li>
+          </ul>
+        </div>
+
+        <div class="restriction-block">
+          <div class="restriction-heading">Special Rules</div>
+          <ul class="restriction-list">
+            <li>One unique Armory item per army.</li>
+            <li>No allies. No Archetypes.</li>
+            <li>No unit may cast more than one psychic power per turn.</li>
+            <li>Recommended table: 48"×48" to 72"×48".</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Pitched Battle */}
+      <div class="engagement-card engagement-card--pitched">
+        <div class="engagement-header">
+          <div class="engagement-badge">Pitched Battle</div>
+          <div class="engagement-pts">2 500 – 3 500 pts</div>
+        </div>
+        <p class="engagement-flavour">A big battle between equal forces.</p>
+
+        <div class="aop-table-wrap">
+          <div class="aop-label">Army Organisation</div>
+          <table class="aop-table">
+            <tbody>
+              <tr><td>HQ</td><td>1–2</td></tr>
+              <tr><td>Troops</td><td>2–6</td></tr>
+              <tr><td>Elites</td><td>0–3</td></tr>
+              <tr><td>Fast Attack</td><td>0–3</td></tr>
+              <tr><td>Heavy Support</td><td>0–3</td></tr>
+              <tr><td>Dedicated Transport</td><td>0–ᵀ *</td></tr>
+              <tr><td>Fortification</td><td>0–1 *</td></tr>
+              <tr><td>Flyer</td><td>0–2 *</td></tr>
+            </tbody>
+          </table>
+          <p class="aop-note">ᵀ One per Infantry selection. * Do not have to be filled to get another AOP.</p>
+        </div>
+
+        <div class="restriction-block">
+          <div class="restriction-heading">Basics</div>
+          <ul class="restriction-list">
+            <li>25% minimum on Troops (including upgrades).</li>
+            <li>Recommended table: 72"×48".</li>
+          </ul>
+        </div>
+      </div>
+
+      {/* Epic Battle */}
+      <div class="engagement-card engagement-card--epic">
+        <div class="engagement-header">
+          <div class="engagement-badge">Epic Battle</div>
+          <div class="engagement-pts">4 000+ pts</div>
+        </div>
+        <p class="engagement-flavour">All-out war.</p>
+
+        <div class="aop-table-wrap">
+          <div class="aop-label">Army Organisation</div>
+          <table class="aop-table">
+            <tbody>
+              <tr><td>HQ</td><td>1–2</td></tr>
+              <tr><td>Troops</td><td>2–6</td></tr>
+              <tr><td>Elites</td><td>0–3</td></tr>
+              <tr><td>Fast Attack</td><td>0–3</td></tr>
+              <tr><td>Heavy Support</td><td>0–3</td></tr>
+              <tr><td>Dedicated Transport</td><td>0–ᵀ *</td></tr>
+              <tr><td>Fortification</td><td>0–1 *</td></tr>
+              <tr><td>Flyer</td><td>0–2 *</td></tr>
+              <tr class="row-highlight"><td>Lords of War</td><td>0+ *</td></tr>
+            </tbody>
+          </table>
+          <p class="aop-note">ᵀ One per Infantry selection. * Do not have to be filled to get another AOP.</p>
+        </div>
+
+        <div class="restriction-block">
+          <div class="restriction-heading">Basics</div>
+          <ul class="restriction-list">
+            <li>25% minimum on Troops (including upgrades).</li>
+            <li>Lords of War capped at 33% of total points.</li>
+            <li>Minimum recommended table: 72"×48".</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {/* ── Scoring ─────────────────────────────────────────────────── */}
+  <section class="section reveal">
+    <div class="section-header">
+      <div class="section-line" />
+      <h2 class="section-heading">Scoring</h2>
+      <div class="section-line" />
+    </div>
+    <div class="scoring-grid">
+      <div class="scoring-card">
+        <div class="scoring-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+            <path d="M16 4 L20 14 L30 14 L22 20 L25 30 L16 24 L7 30 L10 20 L2 14 L12 14 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="scoring-title">Attrition</div>
+        <p class="scoring-desc">Units are worth their point cost in VP when destroyed by end of round 5. Units at or below half strength are worth 50% of their cost. Single-model units use remaining Wounds/HP to determine value.</p>
+      </div>
+      <div class="scoring-card">
+        <div class="scoring-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+            <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <circle cx="16" cy="16" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <line x1="16" y1="4" x2="16" y2="11" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="16" y1="21" x2="16" y2="28" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="4" y1="16" x2="11" y2="16" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="21" y1="16" x2="28" y2="16" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="scoring-title">Mission Objectives</div>
+        <p class="scoring-desc">Hold an objective by keeping at least one model within 3" of it with no enemy model in range. If both sides have models in range, the objective is contested. Elevation: units one level above or below can contest.</p>
+      </div>
+      <div class="scoring-card">
+        <div class="scoring-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="32" height="32" fill="none">
+            <rect x="6" y="6" width="20" height="20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+            <path d="M6 20 L16 10 L26 20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="scoring-title">Winning</div>
+        <p class="scoring-desc">After round 5, count all VP for each side. A player wins by having at least <strong>100 more VP</strong> than the opponent. Otherwise the game is a draw.</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Secondary Objectives ────────────────────────────────────── */}
+  <section class="section reveal">
+    <div class="section-header">
+      <div class="section-line" />
+      <h2 class="section-heading">Secondary Objectives</h2>
+      <div class="section-line" />
+    </div>
+    <p class="section-intro">Used by all missions unless stated otherwise. Each secondary objective is worth <strong>200 VP</strong>.</p>
+    <div class="secondaries-grid">
+      <div class="secondary-card">
+        <div class="secondary-name">Hold the Line</div>
+        <p class="secondary-desc">By end of round 5, no enemy unit may be within your own deployment zone.</p>
+      </div>
+      <div class="secondary-card">
+        <div class="secondary-name">Linebreaker</div>
+        <p class="secondary-desc">By end of round 5, at least one friendly unit must be within the enemy's deployment zone.</p>
+      </div>
+      <div class="secondary-card">
+        <div class="secondary-name">Relic Hunt</div>
+        <p class="secondary-desc">For objective-marker missions only. When an objective outside any deployment zone is controlled for the first time, roll a die — on 5+ it becomes a relic worth +100 extra VP at game end.</p>
+      </div>
+      <div class="secondary-card">
+        <div class="secondary-name">Save the Warlord</div>
+        <p class="secondary-desc">Your highest-cost HQ unit must survive to end of round 5. If tied, choose before deployment.</p>
+      </div>
+      <div class="secondary-card">
+        <div class="secondary-name">Slay the Warlord</div>
+        <p class="secondary-desc">The enemy's highest-cost HQ unit must be destroyed by end of round 5. If tied, opponent chooses before deployment.</p>
+      </div>
+    </div>
+  </section>
+
+  {/* ── Missions ────────────────────────────────────────────────── */}
+  <section class="section reveal">
+    <div class="section-header">
+      <div class="section-line" />
+      <h2 class="section-heading">Mission List</h2>
+      <div class="section-line" />
+    </div>
+
+    {/* ── Skirmish ── */}
+    <div class="engagement-label engagement-label--skirmish">
+      <span>Skirmish Missions</span>
+    </div>
+
+    {/* Mission 1: Control */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">01</span>
+        <h3 class="mission-name">Control</h3>
+        <span class="mission-type-badge mission-type--skirmish">Skirmish</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            {/* Board */}
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Deploy zones (diagonal quarters) */}
+            <polygon points="4,4 100,4 100,69 4,69" fill="rgba(162,18,23,0.12)"/>
+            <polygon points="100,65 196,65 196,126 100,126" fill="rgba(162,18,23,0.12)"/>
+            {/* Deploy labels */}
+            <text x="40" y="38" text-anchor="middle" font-size="7" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.7">P1</text>
+            <text x="160" y="105" text-anchor="middle" font-size="7" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.7">P2</text>
+            {/* Dividing lines */}
+            <line x1="100" y1="4" x2="100" y2="126" stroke="#394950" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+            <line x1="4" y1="65" x2="196" y2="65" stroke="#394950" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+            {/* Objectives */}
+            <circle cx="52" cy="35" r="7" fill="#a21217"/>
+            <text x="52" y="38" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="148" cy="35" r="7" fill="#394950"/>
+            <text x="148" y="38" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="52" cy="96" r="7" fill="#394950"/>
+            <text x="52" y="99" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="148" cy="96" r="7" fill="#a21217"/>
+            <text x="148" y="99" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            {/* Border */}
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--red"></span>Objective</span>
+            <span class="legend-item"><span class="legend-box legend-box--red"></span>Deployment</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Divide the board into four quarters and place an objective marker in the middle of each.</li>
+              <li>Both players roll a die; the highest score picks which quarter to deploy in. The other player's deployment zone is the opposite quarter.</li>
+              <li>Starting with the winner of the roll, both players alternate deploying one unit at a time.</li>
+              <li>No unit can be deployed within 9" of the centre of the table at game start.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Control Table Quarters</div>
+            <p>To control a table quarter, a unit must control the mission objectives inside it. A unit can only occupy one quarter — if spread over more than one, roll randomly. At the end of each battle round, a player scores <strong>200 VP</strong> per controlled table quarter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Mission 2: Salvage */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">02</span>
+        <h3 class="mission-name">Salvage</h3>
+        <span class="mission-type-badge mission-type--skirmish">Skirmish</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Deploy zones top + bottom strips */}
+            <rect x="4" y="4" width="192" height="22" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <rect x="4" y="104" width="192" height="22" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <text x="100" y="17" text-anchor="middle" font-size="7" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.7">P1 DEPLOY</text>
+            <text x="100" y="117" text-anchor="middle" font-size="7" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.7">P2 DEPLOY</text>
+            {/* 9 objectives in 3×3 grid */}
+            {([33,100,167] as const).flatMap(cx =>
+              ([40,65,90] as const).map(cy => (
+                <g>
+                  <circle cx={cx} cy={cy} r="6" fill="#6b5030"/>
+                  <text x={cx} y={cy+3} text-anchor="middle" font-size="7" fill="#e8dfc8" font-family="sans-serif">★</text>
+                </g>
+              ))
+            )}
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--brown"></span>Wreckage (×9)</span>
+            <span class="legend-item"><span class="legend-box legend-box--red"></span>Deployment</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Place 9 mission objectives (wreckage) evenly distributed on the field.</li>
+              <li>Both players roll a die; the winner chooses which table edge to deploy along. Their opponent gets the opposite edge.</li>
+              <li>Starting with the winner of the roll, both players alternate deploying one unit at a time.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Collect Wreckage / Attrition</div>
+            <p>To collect wreckage, a unit must be in base contact with the objective and use a <em>Stand &amp; Shoot</em> command to pick it up. A unit can only hold one wreckage. Securing wreckage scores <strong>200 VP</strong> per piece; the objective is then removed. Additionally, VP are awarded for destroyed enemy units.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* ── Pitched Battle ── */}
+    <div class="engagement-label engagement-label--pitched">
+      <span>Pitched Battle Missions</span>
+    </div>
+
+    {/* Mission 3: Frontlines */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">03</span>
+        <h3 class="mission-name">Frontlines</h3>
+        <span class="mission-type-badge mission-type--pitched">Pitched Battle</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Deploy zones left + right strips */}
+            <rect x="4" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <rect x="160" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <text x="22" y="10" text-anchor="middle" font-size="6.5" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.8" writing-mode="vertical-lr" transform="translate(22,70) rotate(-90)">P1</text>
+            <text x="178" y="10" text-anchor="middle" font-size="6.5" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.8" writing-mode="vertical-lr" transform="translate(178,70) rotate(90)">P2</text>
+            {/* Command posts */}
+            <rect x="28" y="22" width="14" height="14" fill="none" stroke="#394950" stroke-width="2"/>
+            <text x="35" y="32" text-anchor="middle" font-size="7" fill="#394950" font-family="sans-serif" font-weight="700">CP</text>
+            <rect x="158" y="94" width="14" height="14" fill="none" stroke="#394950" stroke-width="2"/>
+            <text x="165" y="104" text-anchor="middle" font-size="7" fill="#394950" font-family="sans-serif" font-weight="700">CP</text>
+            {/* 3 objectives in center column */}
+            <circle cx="100" cy="30" r="7" fill="#a21217"/>
+            <text x="100" y="33" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="100" cy="65" r="7" fill="#a21217"/>
+            <text x="100" y="68" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="100" cy="100" r="7" fill="#a21217"/>
+            <text x="100" y="103" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            {/* 18" scanner zone (dashed ring around CP) */}
+            <circle cx="35" cy="29" r="22" fill="none" stroke="#394950" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.4"/>
+            <circle cx="165" cy="101" r="22" fill="none" stroke="#394950" stroke-width="0.8" stroke-dasharray="3,2" opacity="0.4"/>
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--red"></span>Objective</span>
+            <span class="legend-item"><span class="legend-sq legend-sq--steel"></span>Command Post</span>
+            <span class="legend-item"><span class="legend-circle-dash"></span>18" scanner</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Place one command post in each deployment zone (Position: 12" in, 12" up from corner).</li>
+              <li>Place three objectives in a line between both deployment zones.</li>
+              <li>Each command post has an 18" scanner/jammer: no unit may deploy within 18" of the enemy command post. Deep Strike scatters into this zone return to reserves.</li>
+              <li>Both players roll a die; the winner chooses deployment side. Alternate deploying one unit at a time.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Control Objectives / Sabotage Command Post</div>
+            <p>Controlling one objective at end of a battle round scores <strong>200 VP</strong>. If a player occupies the enemy's command post, they win automatically regardless of VP. If both lose their command posts in the same round, the higher VP player wins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Mission 4: Take & Hold */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">04</span>
+        <h3 class="mission-name">Take &amp; Hold</h3>
+        <span class="mission-type-badge mission-type--pitched">Pitched Battle</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Deploy zones */}
+            <rect x="4" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <rect x="160" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            {/* Quarter lines */}
+            <line x1="4" y1="65" x2="196" y2="65" stroke="#394950" stroke-width="0.8" stroke-dasharray="4,3" opacity="0.3"/>
+            {/* Center objective */}
+            <circle cx="100" cy="65" r="8" fill="#a21217"/>
+            <text x="100" y="68" text-anchor="middle" font-size="9" fill="white" font-family="sans-serif">★</text>
+            {/* Diagonal pair — 12" in, 12" up from corners */}
+            <circle cx="60" cy="28" r="7" fill="#a21217"/>
+            <text x="60" y="31" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="140" cy="102" r="7" fill="#a21217"/>
+            <text x="140" y="105" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            {/* Other pair — 24" in, 12" up */}
+            <circle cx="60" cy="102" r="7" fill="#394950"/>
+            <text x="60" y="105" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="140" cy="28" r="7" fill="#394950"/>
+            <text x="140" y="31" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--red"></span>Objective</span>
+            <span class="legend-item"><span class="legend-box legend-box--red"></span>Deployment</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Place one objective in the middle of the table.</li>
+              <li>Place two objectives in diagonally opposing quarters (12" in, 12" up from corner).</li>
+              <li>Place the remaining two objectives in the two empty quarters (24" in, 12" up).</li>
+              <li>Both players roll a die; highest score chooses deployment zone. Alternate deploying one unit at a time.</li>
+              <li>No unit may deploy within 9" of the table centre at game start.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Control Objectives</div>
+            <p>Controlling one objective at end of a battle round scores <strong>200 VP</strong> (up to 600 VP per round if holding all three active objectives in a line). The player with the most VP at game end wins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Mission 5: Tug of War */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">05</span>
+        <h3 class="mission-name">Tug of War</h3>
+        <span class="mission-type-badge mission-type--pitched">Pitched Battle</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Deploy zones */}
+            <rect x="4" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <rect x="160" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            {/* Center relic — larger, golden */}
+            <circle cx="100" cy="65" r="11" fill="#8b6914"/>
+            <circle cx="100" cy="65" r="9" fill="#c49a22"/>
+            <text x="100" y="68" text-anchor="middle" font-size="9" fill="white" font-family="sans-serif" font-weight="700">★</text>
+            <text x="100" y="84" text-anchor="middle" font-size="7" fill="#6b4a10" font-family="sans-serif" font-weight="700">RELIC</text>
+            {/* Movement arrows */}
+            <path d="M72 65 L52 65" stroke="#394950" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+            <path d="M128 65 L148 65" stroke="#394950" stroke-width="1.5" fill="none" stroke-dasharray="3,2"/>
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--gold"></span>Relic</span>
+            <span class="legend-item"><span class="legend-box legend-box--red"></span>Deployment</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Place one objective in the middle of the table.</li>
+              <li>Both players roll a die; highest score chooses deployment zone. Alternate deploying one unit at a time.</li>
+              <li>No unit may deploy within 9" of the table centre at game start.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Secure Relic / Attrition</div>
+            <p>A creature unit must end a battle round in base contact with the relic to control it. The relic moves with the unit (max 6"/round). If the controlling unit is in melee or both sides are in base contact, it is contested. Controlling the relic at end of a round scores <strong>800 VP</strong>, or <strong>1 600 VP</strong> if within own deployment zone. Additionally, VP are awarded for destroyed enemy units.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* ── Epic Battle ── */}
+    <div class="engagement-label engagement-label--epic">
+      <span>Epic Battle Missions</span>
+    </div>
+
+    {/* Mission 6: King of the Hill */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">06</span>
+        <h3 class="mission-name">King of the Hill</h3>
+        <span class="mission-type-badge mission-type--epic">Epic Battle</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Deploy zones */}
+            <rect x="4" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            <rect x="160" y="4" width="36" height="122" fill="rgba(162,18,23,0.12)" rx="2"/>
+            {/* Flank objectives (6" from board short edges = near deploy zones) */}
+            <circle cx="22" cy="65" r="7" fill="#394950"/>
+            <text x="22" y="68" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <text x="22" y="80" text-anchor="middle" font-size="6" fill="#394950" font-family="sans-serif">200 VP</text>
+            <circle cx="178" cy="65" r="7" fill="#394950"/>
+            <text x="178" y="68" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <text x="178" y="80" text-anchor="middle" font-size="6" fill="#394950" font-family="sans-serif">200 VP</text>
+            {/* Center objective — larger, high value */}
+            <circle cx="100" cy="65" r="10" fill="#a21217"/>
+            <text x="100" y="68" text-anchor="middle" font-size="9" fill="white" font-family="sans-serif">★</text>
+            <text x="100" y="81" text-anchor="middle" font-size="6" fill="#a21217" font-family="sans-serif" font-weight="700">400 VP</text>
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--red"></span>Center (400 VP)</span>
+            <span class="legend-item"><span class="legend-dot legend-dot--steel"></span>Flanks (200 VP)</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Place one objective in the middle of the table.</li>
+              <li>Place two objectives on the same horizontal line at opposing ends, 6" from each board edge.</li>
+              <li>Both players roll a die; highest score chooses deployment zone. Alternate deploying one unit at a time.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Control Objectives</div>
+            <p>At end of each battle round: controlling a side objective scores <strong>200 VP</strong>; controlling the middle objective scores <strong>400 VP</strong>. The player with the most VP at game end wins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Mission 7: Z */}
+    <div class="mission-card reveal">
+      <div class="mission-header">
+        <span class="mission-num">07</span>
+        <h3 class="mission-name">Z</h3>
+        <span class="mission-type-badge mission-type--epic">Epic Battle</span>
+      </div>
+      <div class="mission-body">
+        <div class="mission-map">
+          <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" class="map-svg">
+            <rect x="4" y="4" width="192" height="122" fill="#e8dfc8" rx="2"/>
+            {/* Z-shaped zone divisions — 4 zones formed by diagonal + horizontal cuts */}
+            {/* Zone 1: top-left triangle (P1 deploy) */}
+            <polygon points="4,4 120,4 4,65" fill="rgba(162,18,23,0.14)"/>
+            {/* Zone 4: bottom-right triangle (P2 deploy) */}
+            <polygon points="196,65 80,126 196,126" fill="rgba(162,18,23,0.14)"/>
+            {/* Zone dividers — the "Z" diagonals */}
+            <line x1="4" y1="65" x2="120" y2="4" stroke="#394950" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.5"/>
+            <line x1="80" y1="126" x2="196" y2="65" stroke="#394950" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.5"/>
+            <line x1="4" y1="65" x2="196" y2="65" stroke="#394950" stroke-width="1" stroke-dasharray="4,3" opacity="0.35"/>
+            {/* Zone labels */}
+            <text x="35" y="38" text-anchor="middle" font-size="7" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.8">P1</text>
+            <text x="165" y="110" text-anchor="middle" font-size="7" fill="#a21217" font-family="sans-serif" font-weight="700" opacity="0.8">P2</text>
+            {/* 4 objectives — one per zone */}
+            <circle cx="45" cy="28" r="7" fill="#a21217"/>
+            <text x="45" y="31" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="150" cy="32" r="7" fill="#394950"/>
+            <text x="150" y="35" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="50" cy="100" r="7" fill="#394950"/>
+            <text x="50" y="103" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <circle cx="155" cy="100" r="7" fill="#a21217"/>
+            <text x="155" y="103" text-anchor="middle" font-size="8" fill="white" font-family="sans-serif">★</text>
+            <rect x="4" y="4" width="192" height="122" fill="none" stroke="#9a8060" stroke-width="1.5" rx="2"/>
+          </svg>
+          <div class="map-legend">
+            <span class="legend-item"><span class="legend-dot legend-dot--red"></span>Objective</span>
+            <span class="legend-item"><span class="legend-box legend-box--red"></span>Deployment</span>
+          </div>
+        </div>
+        <div class="mission-rules">
+          <div class="mission-setup">
+            <div class="rules-label">Set-Up</div>
+            <ol class="setup-steps">
+              <li>Divide the board into Z-shaped zones as shown in the diagram and place one objective in the middle of each zone.</li>
+              <li>Both players roll a die; highest score chooses deployment zone.</li>
+              <li>The other player deploys on the opposite side.</li>
+              <li>Starting with the winner of the roll, both players alternate deploying one unit at a time.</li>
+            </ol>
+          </div>
+          <div class="victory-box">
+            <div class="victory-label">Victory Condition</div>
+            <div class="victory-title">Control Zones</div>
+            <p>To control a zone, a unit must control the objective inside it. A unit can only occupy one zone — if spread over more than one, roll randomly. At end of each battle round, a player scores <strong>200 VP</strong> per controlled zone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div>
+</Layout>
+
+<style>
+  /* ── Page wrapper ────────────────────────────────────────── */
+  .missions-page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────── */
+  .missions-hero {
+    position: relative;
+    text-align: center;
+    padding: 2.8rem 1.5rem 2rem;
+    margin: -2rem -2rem 2rem;
+    overflow: hidden;
+  }
+  .missions-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 100% at 50% 100%, rgba(162,18,23,0.10) 0%, transparent 70%),
+      linear-gradient(to bottom, rgba(57,73,80,0.08) 0%, transparent 100%);
+    pointer-events: none;
+  }
+  .missions-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+  .missions-seal {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    animation: symbol-emerge 1.2s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .missions-supertitle {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.7;
+    margin: 0 0 0.3rem;
+    animation: fade-up 0.8s 0.3s both;
+  }
+  .missions-title {
+    font-size: 2.8rem;
+    margin: 0 0 0.5rem;
+    border-bottom: none;
+    padding-bottom: 0;
+    letter-spacing: 0.06em;
+    animation: title-reveal 1s 0.4s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .missions-subtitle {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.65;
+    margin: 0;
+    animation: fade-up 0.8s 0.6s both;
+  }
+
+  /* ── Section ─────────────────────────────────────────────── */
+  .section { margin-bottom: 2.8rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(162,18,23,0.4), transparent);
+  }
+  .section-heading {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    animation: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .section-intro {
+    font-size: 0.83rem;
+    opacity: 0.72;
+    margin-bottom: 1.4rem;
+    font-style: italic;
+  }
+
+  /* ── Engagement grid ─────────────────────────────────────── */
+  .engagement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .engagement-card {
+    border: 1px solid rgba(57,73,80,0.3);
+    border-top-width: 3px;
+    background: rgba(255,252,240,0.62);
+    padding: 1rem;
+  }
+  .engagement-card--skirmish { border-top-color: #394950; }
+  .engagement-card--pitched  { border-top-color: #a21217; }
+  .engagement-card--epic     { border-top-color: #8b1a08; }
+
+  .engagement-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .engagement-badge {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--c40k-red, #a21217);
+  }
+  .engagement-pts {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.7;
+  }
+  .engagement-flavour {
+    font-size: 0.78rem;
+    font-style: italic;
+    opacity: 0.65;
+    margin: 0 0 0.8rem;
+  }
+  .aop-table-wrap { margin-bottom: 0.8rem; }
+  .aop-label {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.7;
+    margin-bottom: 0.3rem;
+  }
+  .aop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    margin-bottom: 0;
+  }
+  .aop-table td {
+    padding: 0.18rem 0.4rem;
+    border: 1px solid rgba(57,73,80,0.2);
+  }
+  .aop-table td:first-child { color: var(--c40k-ink); }
+  .aop-table td:last-child  {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.72rem;
+    text-align: right;
+    color: var(--c40k-red, #a21217);
+    font-weight: 700;
+  }
+  .aop-table .row-highlight td {
+    background: rgba(162,18,23,0.08);
+    color: var(--c40k-red, #a21217);
+    font-weight: 700;
+  }
+  .aop-note {
+    font-size: 0.68rem;
+    opacity: 0.6;
+    font-style: italic;
+    margin: 0.3rem 0 0;
+  }
+  .restriction-block { margin-bottom: 0.8rem; }
+  .restriction-heading {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.7;
+    margin-bottom: 0.3rem;
+  }
+  .restriction-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    opacity: 0.82;
+  }
+  .restriction-list li { margin-bottom: 0.15rem; }
+
+  /* ── Scoring ─────────────────────────────────────────────── */
+  .scoring-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  .scoring-card {
+    border: 1px solid rgba(57,73,80,0.25);
+    border-left: 4px solid var(--c40k-steel, #394950);
+    background: rgba(255,252,240,0.65);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .scoring-icon {
+    color: var(--c40k-steel, #394950);
+    opacity: 0.6;
+    margin-bottom: 0.2rem;
+  }
+  .scoring-title {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--c40k-ink);
+  }
+  .scoring-desc { font-size: 0.78rem; line-height: 1.55; margin: 0; opacity: 0.82; }
+
+  /* ── Secondaries ─────────────────────────────────────────── */
+  .secondaries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    gap: 0.8rem;
+  }
+  .secondary-card {
+    border: 1px solid rgba(162,18,23,0.22);
+    border-top: 3px solid var(--c40k-red, #a21217);
+    background: rgba(255,252,240,0.65);
+    padding: 0.75rem;
+  }
+  .secondary-name {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c40k-red, #a21217);
+    margin-bottom: 0.35rem;
+  }
+  .secondary-desc { font-size: 0.75rem; line-height: 1.5; margin: 0; opacity: 0.8; }
+
+  /* ── Engagement labels ───────────────────────────────────── */
+  .engagement-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 2rem 0 1rem;
+  }
+  .engagement-label::before,
+  .engagement-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.2;
+  }
+  .engagement-label span {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    white-space: nowrap;
+    padding: 0.2em 0.8em;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+  .engagement-label--skirmish { color: #394950; }
+  .engagement-label--skirmish span { background: rgba(57,73,80,0.12); color: #394950; }
+  .engagement-label--pitched  { color: #a21217; }
+  .engagement-label--pitched span  { background: rgba(162,18,23,0.10); color: #a21217; }
+  .engagement-label--epic     { color: #8b1a08; }
+  .engagement-label--epic span     { background: rgba(139,26,8,0.12); color: #8b1a08; }
+
+  /* ── Mission card ────────────────────────────────────────── */
+  .mission-card {
+    border: 1px solid rgba(57,73,80,0.22);
+    background: rgba(255,252,240,0.70);
+    margin-bottom: 1.4rem;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .mission-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.65rem 1rem;
+    background: rgba(57,73,80,0.06);
+    border-bottom: 1px solid rgba(57,73,80,0.14);
+  }
+  .mission-num {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--c40k-red, #a21217);
+    opacity: 0.45;
+    letter-spacing: 0;
+    line-height: 1;
+    min-width: 2rem;
+  }
+  .mission-name {
+    font-family: var(--font-heading, sans-serif);
+    font-size: 1.1rem;
+    margin: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    animation: none;
+    flex: 1;
+    letter-spacing: 0.04em;
+  }
+  .mission-type-badge {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2em 0.55em;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+  .mission-type--skirmish { background: rgba(57,73,80,0.15); color: #394950; }
+  .mission-type--pitched  { background: rgba(162,18,23,0.12); color: #a21217; }
+  .mission-type--epic     { background: rgba(139,26,8,0.14); color: #8b1a08; }
+
+  .mission-body {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+  }
+  @media (max-width: 600px) {
+    .mission-body { grid-template-columns: 1fr; }
+  }
+
+  /* ── SVG map ─────────────────────────────────────────────── */
+  .mission-map {
+    padding: 0.9rem;
+    border-right: 1px solid rgba(57,73,80,0.14);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(57,73,80,0.03);
+  }
+  @media (max-width: 600px) {
+    .mission-map { border-right: none; border-bottom: 1px solid rgba(57,73,80,0.14); }
+  }
+  .map-svg {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 1px 4px rgba(0,0,0,0.12));
+  }
+  .map-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.75;
+  }
+  .legend-dot {
+    width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+  }
+  .legend-dot--red   { background: #a21217; }
+  .legend-dot--steel { background: #394950; }
+  .legend-dot--brown { background: #6b5030; }
+  .legend-dot--gold  { background: #c49a22; }
+  .legend-box {
+    width: 9px; height: 9px; flex-shrink: 0;
+  }
+  .legend-box--red   { background: rgba(162,18,23,0.25); border: 1px solid rgba(162,18,23,0.5); }
+  .legend-sq {
+    width: 9px; height: 9px; flex-shrink: 0; border: 2px solid;
+  }
+  .legend-sq--steel  { border-color: #394950; }
+  .legend-circle-dash {
+    width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+    border: 1px dashed #394950;
+  }
+
+  /* ── Mission rules ───────────────────────────────────────── */
+  .mission-rules { padding: 1rem 1.1rem; }
+
+  .rules-label {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.63rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--c40k-steel, #394950);
+    opacity: 0.65;
+    margin-bottom: 0.4rem;
+  }
+  .setup-steps {
+    margin: 0 0 1rem;
+    padding-left: 1.2rem;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    opacity: 0.82;
+  }
+  .setup-steps li { margin-bottom: 0.2rem; }
+
+  .victory-box {
+    border: 1px solid rgba(162,18,23,0.25);
+    border-left: 4px solid var(--c40k-red, #a21217);
+    background: rgba(162,18,23,0.04);
+    padding: 0.65rem 0.9rem;
+  }
+  .victory-label {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--c40k-red, #a21217);
+    opacity: 0.75;
+    margin-bottom: 0.2rem;
+  }
+  .victory-title {
+    font-family: var(--font-ui, sans-serif);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c40k-ink);
+    margin-bottom: 0.35rem;
+  }
+  .victory-box p {
+    font-size: 0.78rem;
+    line-height: 1.55;
+    margin: 0;
+    opacity: 0.82;
+  }
+  .mission-setup { margin-bottom: 0.9rem; }
+</style>

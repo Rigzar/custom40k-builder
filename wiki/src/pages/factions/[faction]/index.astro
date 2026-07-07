@@ -347,19 +347,36 @@ const TAG_COLORS: Record<string, string> = {
     border-top: 1px solid rgba(162,18,23,0.18);
     border-right: 1px solid rgba(162,18,23,0.10);
     border-bottom: 1px solid rgba(162,18,23,0.10);
-    background: linear-gradient(135deg, rgba(255,252,240,0.78) 0%, rgba(255,252,240,0.58) 100%);
-    padding: 0.75rem 1rem 0.75rem 1rem;
+    background: linear-gradient(135deg, rgba(255,252,240,0.82) 0%, rgba(255,252,240,0.58) 100%);
+    padding: 0.75rem 1rem;
     position: relative;
-    transition: box-shadow 0.15s;
+    transition: box-shadow 0.15s, transform 0.12s;
   }
   .rule-card:hover {
-    box-shadow: 2px 4px 14px rgba(162,18,23,0.12);
+    box-shadow: 2px 5px 18px rgba(162,18,23,0.13);
+    transform: translateX(2px);
   }
-  .rule-card--signature  { border-left-color: #8b1c1c; }
-  .rule-card--universal  { border-left-color: #1e4e7a; }
-  .rule-card--ally       { border-left-color: #1e5a30; }
-  .rule-card--deployment { border-left-color: #5a2e7a; }
-  .rule-card--weapon     { border-left-color: #6b4a12; }
+  .rule-card--signature {
+    border-left-color: #8b1c1c;
+    border-left-width: 5px;
+    background: linear-gradient(135deg, rgba(139,28,28,0.07) 0%, rgba(255,252,240,0.78) 40%, rgba(255,252,240,0.58) 100%);
+  }
+  .rule-card--universal  {
+    border-left-color: #1e4e7a;
+    background: linear-gradient(135deg, rgba(30,78,122,0.06) 0%, rgba(255,252,240,0.78) 40%, rgba(255,252,240,0.58) 100%);
+  }
+  .rule-card--ally       {
+    border-left-color: #1e5a30;
+    background: linear-gradient(135deg, rgba(30,90,48,0.06) 0%, rgba(255,252,240,0.78) 40%, rgba(255,252,240,0.58) 100%);
+  }
+  .rule-card--deployment {
+    border-left-color: #5a2e7a;
+    background: linear-gradient(135deg, rgba(90,46,122,0.06) 0%, rgba(255,252,240,0.78) 40%, rgba(255,252,240,0.58) 100%);
+  }
+  .rule-card--weapon     {
+    border-left-color: #6b4a12;
+    background: linear-gradient(135deg, rgba(107,74,18,0.06) 0%, rgba(255,252,240,0.78) 40%, rgba(255,252,240,0.58) 100%);
+  }
   .rule-card-header {
     display: flex;
     align-items: baseline;

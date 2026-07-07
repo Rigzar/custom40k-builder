@@ -11,7 +11,8 @@ export type SupplementKey = 'horus_heresy' | 'escalation' | 'assassins';
 interface SupplementDef {
   title: string;
   subtitle: string;
-  accent: string;       // border-l color
+  accentTop: string;   // top border color class
+  accentText: string;  // text color class for subtitle
   blurb: string;
   activation: string[]; // bullet steps
   load: () => Promise<{ units: Record<string, Unit>; slots: Record<string, string[]>; armory?: Armory; armoryNote?: string }>;
@@ -24,7 +25,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
   horus_heresy: {
     title: 'Horus Heresy',
     subtitle: 'Space Marines supplement',
-    accent: 'border-l-red-900',
+    accentTop: 'border-t-red-800',
+    accentText: 'text-red-600',
     blurb:
       'Legiones Astartes at the dawn of the Heresy — a full Legion roster, its own armory and ' +
       'psychic disciplines. These are not an allied faction: when activated, the Legion units count ' +
@@ -48,7 +50,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
   assassins: {
     title: 'Assassins',
     subtitle: '"Cults Abominatioe" / "Execution Force"',
-    accent: 'border-l-zinc-500',
+    accentTop: 'border-t-zinc-500',
+    accentText: 'text-zinc-400',
     blurb:
       'A 4-unit catalog (Callidus, Culexus, Eversor, Vindicare) — not a standalone playable ' +
       'army. Their own datasheet carries two universal special rules: "Cults Abominatioe": ' +
@@ -69,7 +72,8 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
   escalation: {
     title: 'Escalation',
     subtitle: 'Lords of War',
-    accent: 'border-l-amber-700',
+    accentTop: 'border-t-amber-700',
+    accentText: 'text-amber-600',
     blurb:
       'Super-heavy vehicles, Knights and Titans. Lords of War are unlocked by the largest ' +
       'engagement and are capped at 33% of your total points. Available for Chaos Space Marines, ' +
@@ -131,7 +135,6 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
 };
 
 function renderActivation(step: string) {
-  // bold the **…** segments
   const parts = step.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((p, i) =>
     p.startsWith('**') && p.endsWith('**')
@@ -261,6 +264,13 @@ export function SupplementModal({ supplement, onClose }: Props) {
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState<Awaited<ReturnType<SupplementDef['load']>> | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Trigger slide-in on mount
+    const t = setTimeout(() => setVisible(true), 10);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     let alive = true;
@@ -271,24 +281,53 @@ export function SupplementModal({ supplement, onClose }: Props) {
     return () => { alive = false; };
   }, [supplement]);
 
+  // Close with Escape key
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center px-4 py-8" onClick={onClose}>
+    <>
+      {/* Backdrop — click to close */}
       <div
-        className={`bg-zinc-900 border-2 border-zinc-700 border-l-4 ${def.accent} w-full max-w-3xl flex flex-col`}
-        style={{ maxHeight: 'calc(100vh - 4rem)' }}
+        className="fixed inset-0 bg-black/60 z-[200]"
+        style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.25s ease' }}
+        onClick={onClose}
+      />
+
+      {/* Drawer — slides in from the right */}
+      <div
+        className={`fixed top-0 right-0 bottom-0 z-[201] flex flex-col bg-zinc-900 border-l border-zinc-700 border-t-4 ${def.accentTop} shadow-2xl`}
+        style={{
+          width: 'min(480px, 100vw)',
+          transform: visible ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.28s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
         onClick={e => e.stopPropagation()}
       >
-        {/* Header — fijo, fuera del área scrolleable */}
-        <div className="flex items-start justify-between gap-4 px-5 py-4 border-b border-zinc-800 shrink-0">
+        {/* Header — fixed at top of drawer */}
+        <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-zinc-800 shrink-0">
           <div>
-            <div className="text-zinc-100 font-bold uppercase tracking-widest text-lg">{def.title}</div>
-            <div className="text-red-700 text-[10px] uppercase tracking-widest mt-0.5">{def.subtitle}</div>
+            <div className="text-zinc-100 font-bold uppercase tracking-widest text-base">{def.title}</div>
+            <div className={`${def.accentText} text-[10px] uppercase tracking-widest mt-0.5`}>{def.subtitle}</div>
           </div>
-          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-200 text-2xl leading-none shrink-0">×</button>
+          <button
+            onClick={onClose}
+            className="flex items-center justify-center w-8 h-8 text-zinc-500 hover:text-zinc-100 hover:bg-zinc-800 transition-colors rounded shrink-0"
+            aria-label="Close"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <line x1="1" y1="1" x2="13" y2="13" />
+              <line x1="13" y1="1" x2="1" y2="13" />
+            </svg>
+          </button>
         </div>
 
-        {/* Body — único área scrolleable */}
-        <div className="overflow-y-auto flex-1 px-5 py-4 space-y-5">
+        {/* Body — the only scrollable area */}
+        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
+
           <p className="text-zinc-400 text-[12px] leading-relaxed">{def.blurb}</p>
 
           {/* How to activate */}
@@ -304,7 +343,12 @@ export function SupplementModal({ supplement, onClose }: Props) {
           {/* Catalog */}
           <div>
             <div className="text-[10px] uppercase tracking-widest text-amber-700 mb-2">Catalog</div>
-            {loading && <p className="text-zinc-500 text-[12px]">Loading…</p>}
+            {loading && (
+              <div className="flex items-center gap-2 text-zinc-500 text-[12px] py-2">
+                <div className="w-3.5 h-3.5 border border-amber-700 border-t-transparent rounded-full animate-spin" />
+                Loading…
+              </div>
+            )}
             {!loading && content && (
               <div className="space-y-4">
                 {Object.entries(content.slots).map(([slot, names]) => {
@@ -321,6 +365,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
                           return (
                             <div key={name}>
                               <button
+                                type="button"
                                 onClick={() => setExpanded(isOpen ? null : name)}
                                 className="w-full flex items-center justify-between gap-3 px-3 py-2 text-left hover:bg-zinc-800/40 transition-colors"
                               >
@@ -372,8 +417,9 @@ export function SupplementModal({ supplement, onClose }: Props) {
               </div>
             </div>
           )}
+
         </div>
       </div>
-    </div>
+    </>
   );
 }

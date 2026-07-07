@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.41',
+    date: '2026-07-07',
+    title: 'WIKI — Missions supplement page + army rules visual polish',
+    changes: [
+      'WIKI — new Missions page (/missions): full Custom40k Missions supplement — 3 engagement type panels (Skirmish/Pitched Battle/Epic Battle) with AOP tables and unit/stat restrictions; scoring rules (Attrition, Mission Objectives, Winning); 5 Secondary Objectives (200 VP each); 7 missions (Control, Salvage, Frontlines, Take & Hold, Tug of War, King of the Hill, Z) each with an SVG tactical diagram showing objective placement and deployment zones',
+      'WIKI — Missions added to top navigation bar (Home / Factions / Missions / Glossary)',
+      'WIKI — army rules cards on faction hub pages now have subtle tag-tinted backgrounds: Signature rules get a faint red gradient, Universal a faint blue, Ally a faint green, Deployment a faint purple, Weapon Rule a faint amber; Signature left border widened to 5 px; cards slide right on hover',
+      'GENERAL — supplement viewer redesigned as a right-side slide-over drawer: slides in from the right edge with a CSS transition, full-height scrollable body, header always visible at the top; backdrop click or Escape key closes it; drawer rendered at root level to avoid z-index / overflow-hidden clipping from parent containers',
+    ],
+  },
+  {
     version: '1.40',
     date: '2026-07-06',
     title: 'GENERAL — visual polish + wiki improvements + allied armory fix',

@@ -436,14 +436,15 @@ export function LandingPage({
               </svg>
             </button>
           </div>
-
-          {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
         </div>
 
         {/* Bottom announcement */}
         <div className="px-6 pb-6 max-w-screen-sm mx-auto w-full anim-fade-up anim-delay-6">
           <CommunityAnnouncement />
         </div>
+
+        {/* Supplement drawer — rendered at root level to escape any container z-index/overflow */}
+        {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
 
       </div>
     );
