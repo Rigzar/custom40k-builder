@@ -491,10 +491,23 @@ function PrefsTab() {
 // ── Account tab ──────────────────────────────────────────────────────────────
 
 const FACTION_AVATARS = [
-  'chaos_space_marines','chaos_daemons','space_marines','imperial_guard','adeptus_mechanicus',
-  'adeptus_custodes','adeptus_sororitas','grey_knights','inquisition','tau_empire','necrons',
-  'orks','eldar','dark_eldar','genestealer_cults','harlequins','leagues_of_votann','tyranids',
+  'chaos-space-marines','chaos-daemons','space-marines','imperial-guard','adeptus-mechanicus',
+  'adeptus-custodes','adeptus-sororitas','grey-knights','inquisition','tau-empire','necrons',
+  'orks','eldar','dark-eldar','genestealer-cults','harlequins','leagues-of-votann','tyranids',
   'assassins','horus-heresy','escalation',
+];
+
+const AVATAR_PALETTE = [
+  { label: 'White',  hex: '#ffffff' },
+  { label: 'Gold',   hex: '#d4af37' },
+  { label: 'Red',    hex: '#ef4444' },
+  { label: 'Blue',   hex: '#3b82f6' },
+  { label: 'Green',  hex: '#22c55e' },
+  { label: 'Purple', hex: '#a855f7' },
+  { label: 'Orange', hex: '#f97316' },
+  { label: 'Cyan',   hex: '#06b6d4' },
+  { label: 'Pink',   hex: '#f43f5e' },
+  { label: 'Bone',   hex: '#e8dcc8' },
 ];
 
 const SOCIAL_PLATFORMS: { key: string; label: string; placeholder: string }[] = [
@@ -516,7 +529,21 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   onClose: () => void;
   onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
 }) {
-  const [curAvatar, setCurAvatar]   = useState(initAvatar ?? null);
+  // Avatar state: faction key + tint color, OR custom image, OR null (initials)
+  const initParsed = (() => {
+    const av = initAvatar;
+    if (!av) return { key: null as string|null, color: '#d4af37', custom: null as string|null };
+    if (av.startsWith('data:')) return { key: null as string|null, color: '#d4af37', custom: av };
+    const hi = av.indexOf('#');
+    if (hi >= 0) return { key: av.slice(0, hi), color: av.slice(hi), custom: null as string|null };
+    return { key: av, color: '#ffffff', custom: null as string|null };
+  })();
+  const [selKey,    setSelKey]    = useState<string|null>(initParsed.key);
+  const [selColor,  setSelColor]  = useState(initParsed.color);
+  const [selCustom, setSelCustom] = useState<string|null>(initParsed.custom);
+  const curAvatar = selCustom ?? (selKey ? `${selKey}${selColor}` : null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const [links, setLinks]           = useState<Record<string, string>>(initLinks ?? {});
   const [linksPublic, setLinksPublic] = useState(initPublic ?? false);
   const [saving, setSaving]         = useState(false);
@@ -533,6 +560,27 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const [secBusy, setSecBusy]             = useState(false);
   const [secError, setSecError]           = useState('');
   const [secMsg, setSecMsg]               = useState('');
+
+  function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]; if (!file) return;
+    e.target.value = '';
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = canvas.height = 128;
+        const ctx = canvas.getContext('2d')!;
+        const min = Math.min(img.width, img.height);
+        ctx.drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, 128, 128);
+        const dataURL = canvas.toDataURL('image/jpeg', 0.75);
+        if (dataURL.length > 180000) { setMsg('Image too large after compression. Try a smaller or lower-res file.'); return; }
+        setSelCustom(dataURL); setSelKey(null);
+      };
+      img.src = ev.target!.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 
   async function handleSaveProfile() {
     setSaving(true); setMsg('');
@@ -588,12 +636,17 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
         <div className="flex items-center gap-3 mb-3">
           <Avatar username={username} avatar={curAvatar} size={44} />
           <div className="text-sm text-zinc-200 font-semibold">{username}</div>
+          {selCustom && (
+            <button onClick={() => setSelCustom(null)} className="text-[10px] text-zinc-500 hover:text-red-400 underline underline-offset-2 ml-auto">Remove image</button>
+          )}
         </div>
-        <div className="grid grid-cols-7 gap-1.5">
+
+        {/* Faction symbol picker */}
+        <div className="grid grid-cols-7 gap-1.5 mb-3">
           <button
-            onClick={() => setCurAvatar(null)}
-            className={`aspect-square flex items-center justify-center rounded border text-[11px] uppercase ${
-              curAvatar === null ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
+            onClick={() => { setSelKey(null); setSelCustom(null); }}
+            className={`aspect-square flex items-center justify-center rounded border ${
+              !selKey && !selCustom ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
             }`}
             title="None (initials)"
           >
@@ -602,16 +655,52 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
           {FACTION_AVATARS.map(k => (
             <button
               key={k}
-              onClick={() => setCurAvatar(k)}
-              className={`aspect-square flex items-center justify-center rounded border ${
-                curAvatar === k ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
+              onClick={() => { setSelKey(k); setSelCustom(null); }}
+              className={`aspect-square flex items-center justify-center rounded border bg-zinc-900 ${
+                selKey === k && !selCustom ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 hover:border-zinc-500'
               }`}
-              title={k.replace(/_/g, ' ')}
+              title={k.replace(/-/g, ' ')}
             >
-              <img src={`/faction-symbols/${k}.svg`} alt={k} style={{ width: 22, height: 22, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+              <div style={{
+                width: 22, height: 22,
+                backgroundColor: selColor,
+                WebkitMaskImage: `url(/faction-symbols/${k}.svg)`,
+                maskImage: `url(/faction-symbols/${k}.svg)`,
+                WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+                WebkitMaskSize: 'contain', maskSize: 'contain',
+                WebkitMaskPosition: 'center', maskPosition: 'center',
+              }} />
             </button>
           ))}
         </div>
+
+        {/* Color palette — only shown when a faction symbol is selected */}
+        {selKey && !selCustom && (
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-wide shrink-0">Color</span>
+            <div className="flex flex-wrap gap-1.5">
+              {AVATAR_PALETTE.map(c => (
+                <button
+                  key={c.hex}
+                  onClick={() => setSelColor(c.hex)}
+                  title={c.label}
+                  className={`w-5 h-5 rounded-full border-2 transition-transform ${selColor === c.hex ? 'border-amber-400 scale-110' : 'border-transparent hover:border-zinc-400'}`}
+                  style={{ background: c.hex }}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Custom image upload */}
+        <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="text-[11px] px-3 py-1.5 border border-zinc-700 bg-zinc-800 hover:border-zinc-500 text-zinc-300 uppercase tracking-wide"
+        >
+          {selCustom ? 'Replace image' : '+ Upload image'}
+        </button>
+        <span className="text-[10px] text-zinc-600 ml-2">Max ~150 KB · auto-compressed</span>
       </section>
 
       <div className="border-t border-zinc-800" />

@@ -23,7 +23,7 @@ async function updateProfile(req, res) {
     await ensureSchema();
     const { avatar, socialLinks, socialPublic } = req.body ?? {};
     if (avatar !== undefined) {
-      const val = avatar === null ? null : String(avatar).slice(0, 60);
+      const val = avatar === null ? null : String(avatar).slice(0, 200000);
       await sql`UPDATE users SET avatar = ${val} WHERE id = ${userId}`;
     }
     if (socialLinks !== undefined && typeof socialLinks === 'object' && socialLinks !== null) {
