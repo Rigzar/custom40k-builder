@@ -1232,16 +1232,17 @@ function EquipmentGroups({
           <div className="space-y-1">
             {veteran.map((arm, i) => {
               const inProfile = profileAbilityNames.has(arm.name.toLowerCase());
+              const isSelected = !!(getSelId ? getSelId(arm.name) : undefined);
               return (
                 <ArmoryItemRow
                   key={i} arm={arm} isChar={isChar} markless={markless}
-                  disabled={(armoryVetMax !== null && veteranSlotsFull && !inProfile) || inProfile}
+                  disabled={(armoryVetMax !== null && (veteranSlotsFull || isSelected) && !inProfile) || inProfile}
                   justAdded={lastAdded === arm.name}
                   priceLabel={vetPriceLabel(arm)}
                   inProfile={inProfile}
-                  selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
+                  selectedArmoryId={undefined}
                   onRemove={onRemove}
-                  onAdd={() => !inProfile && onAdd(arm)}
+                  onAdd={() => !inProfile && !isSelected && onAdd(arm)}
                 />
               );
             })}
