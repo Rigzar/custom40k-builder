@@ -12,29 +12,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v142_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v142b_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.42: Orks bug fixes (GH#60–65)',
-    intro: '6 Orks bugs fixed: Clan legacy armory now accessible for HQ units, Warbuggy weapon choices scale per model in squadrons, ghost weapons removed from Warbuggy, Burna Boyz Spanna capped correctly, Artifact of Gork stat bug fixed.',
-    line1: '🔧 ORKS — Clan legacy armory (Goff, Bad Moons, etc.) now accessible to HQ characters. Warbuggy big gun, small gun, and crew weapon choices are per-model for squadrons. Ghost weapon profiles (Rokkit Kannon, Shokk Rifle, Squig Launcha) no longer appear when not selected.',
-    line2: '🔧 ORKS / GENERAL — Burna Boyz can now upgrade up to three models to Spannas (was locked at 1). Artifact of Gork ... or Mork no longer adds +1 Strength to the bearer\'s stat line — the bonus correctly goes to the targeted weapon.',
+    title: 'v1.42: Orks, per-model costs, CSM wiring + wiki Missions',
+    intro: 'Major data sweep: 12 units across Grey Knights, CSM and Imperial Guard were charging upgrade costs once per unit instead of once per model — now fixed. Orks Nob armory access restored on 8 units. CSM Sorcerer Circle now correctly grants Command Squad. Wiki gets a full Missions page.',
+    line1: '🔧 GENERAL — per-model upgrade costs fixed on 12 units (GK: Psy-ammunition in 7 squads; CSM: Possessed jump packs, Big Mutants; IG: Rough Riders, Stormtroopers, Penal Legion). ORKS — Nob champion armory access restored on 8 units (Boyz, Skarboyz, Kommandos, Tankbustas, etc.).',
+    line2: '🔧 CSM — Sorcerer Circle archetype now grants Chaos Sorcerers the Command Squad ability (engine wiring was missing). WIKI — new Missions page with all 7 missions, engagement type rules, and SVG tactical maps. Supplement viewer redesigned as a slide-over drawer.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.42: Orks-Fehlerbehebungen (GH#60–65)',
-    intro: '6 Orks-Fehler behoben: Clan-Legacy-Arsenal jetzt für HQ-Einheiten zugänglich, Warbuggy-Waffenoptionen skalieren pro Modell in Staffeln, Geisterwaffen aus Warbuggy entfernt, Burna-Boyz-Spanna-Upgrade korrekt begrenzt, Artefakt-von-Gork-Stat-Fehler behoben.',
-    line1: '🔧 ORKS — Clan-Legacy-Arsenal (Goff, Bad Moons usw.) jetzt für HQ-Charaktere zugänglich. Warbuggy-Wahloptionen für große Kanone, kleine Kanone und Besatzungswaffe sind jetzt pro Modell in Staffeln. Geisterwaffen-Profile (Rokkit-Kannon, Shokk-Gewehr, Squig-Werfer) erscheinen nicht mehr, wenn nicht ausgewählt.',
-    line2: '🔧 ORKS / ALLGEMEIN — Burna-Boyz können jetzt bis zu drei Modelle zu Spannas upgraden (war auf 1 begrenzt). Artefakt von Gork ... oder Mork erhöht nicht mehr fälschlicherweise die Stärke des Trägers — der Bonus geht korrekt zur Zielwaffe.',
+    title: 'v1.42: Orks, Pro-Modell-Kosten, CSM-Verkabelung + Wiki-Missionen',
+    intro: 'Großer Datensweep: 12 Einheiten bei Grey Knights, CSM und Imperialer Garde berechneten Upgrade-Kosten pro Einheit statt pro Modell — jetzt behoben. Orks-Nob-Arsenal auf 8 Einheiten wiederhergestellt. CSM-Zaubererkreis gewährt jetzt korrekt den Befehlstrupp. Das Wiki erhält eine vollständige Missionsseite.',
+    line1: '🔧 ALLGEMEIN — Pro-Modell-Upgrade-Kosten auf 12 Einheiten behoben (GK: Psy-Munition in 7 Trupps; CSM: Possessed Sprungmodule, Große Mutanten; IG: Rough Riders, Sturmtruppen, Straflegion). ORKS — Nob-Arsenal auf 8 Einheiten (Boyz, Skarboyz, Kommandos, Tankbustas usw.) wiederhergestellt.',
+    line2: '🔧 CSM — Zaubererkreis-Archetyp gewährt Chaos-Zauberern jetzt die Befehlstrupp-Fähigkeit (Engine-Verkabelung fehlte). WIKI — neue Missionsseite mit allen 7 Missionen, Einsatztyp-Regeln und SVG-Taktikkarten. Supplement-Viewer als Slide-Over-Schublade neu gestaltet.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.42: Correcciones de bugs de Orks (GH#60–65)',
-    intro: '6 bugs de Orks corregidos: armería del legado Clan ahora accesible para unidades HQ, opciones de armas del Warbuggy escalan por modelo en escuadrones, armas fantasma eliminadas del Warbuggy, mejora Spanna de Burna Boyz correctamente limitada, bug de estadística del Artefacto de Gork corregido.',
-    line1: '🔧 ORKS — Armería del legado Clan (Goff, Bad Moons, etc.) ahora accesible para personajes HQ. Las opciones de arma grande, arma pequeña y arma de tripulación del Warbuggy son ahora por modelo en escuadrones. Los perfiles de armas fantasma (Rokkit Kannon, Shokk Rifle, Squig Launcha) ya no aparecen cuando no están seleccionados.',
-    line2: '🔧 ORKS / GENERAL — Los Burna Boyz ahora pueden mejorar hasta tres modelos a Spannas (estaba bloqueado en 1). El Artefacto de Gork ... o Mork ya no añade erróneamente +1 Fuerza al portador — el bonus va correctamente al arma objetivo.',
+    title: 'v1.42: Orks, costes por modelo, CSM + wiki Misiones',
+    intro: 'Barrido masivo de datos: 12 unidades de Grey Knights, CSM e Imperial Guard cobraban mejoras por unidad en lugar de por modelo — corregido. Armería Nob de Orks restaurada en 8 unidades. El Círculo de Hechiceros CSM ahora otorga correctamente el Escuadron de Mando. La wiki estrena página de Misiones completa.',
+    line1: '🔧 GENERAL — costes de mejora por modelo corregidos en 12 unidades (GK: Psy-ammunition en 7 escuadrones; CSM: propulsores de Possessed, Grandes Mutantes; IG: Rough Riders, Stormtroopers, Penal Legion). ORKS — acceso a la armería del campeón Nob restaurado en 8 unidades (Boyz, Skarboyz, Kommandos, Tankbustas, etc.).',
+    line2: '🔧 CSM — el arquetipo Círculo de Hechiceros ahora otorga a los Chaos Sorcerers la habilidad Command Squad (faltaba el cableado del motor). WIKI — nueva página de Misiones con las 7 misiones, reglas de tipo de enfrentamiento y mapas tácticos SVG. El visor de suplementos rediseñado como cajón deslizante lateral.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
