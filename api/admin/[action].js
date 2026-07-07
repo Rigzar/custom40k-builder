@@ -1,5 +1,5 @@
 import { sql, ensureSchema } from '../_lib/db.js';
-import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode, decryptRecoveryCode } from '../_lib/auth.js';
+import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode } from '../_lib/auth.js';
 
 async function requireAdmin(req, res) {
   const userId = getSessionUserId(req);
