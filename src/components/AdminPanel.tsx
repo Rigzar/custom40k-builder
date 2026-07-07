@@ -40,7 +40,7 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function handlePromote(userId: number, username: string, makeAdmin: boolean) {
-    if (!confirm(`${makeAdmin ? 'Grant' : 'Revoke'} admin for "${username}"?`)) return;
+    if (!confirm(`${makeAdmin ? 'Grant' : 'Revoke'} Inquisidor for "${username}"?`)) return;
     try {
       await api.adminPromote(userId, makeAdmin);
       await load();
@@ -53,7 +53,7 @@ export function AdminPanel({ onClose }: Props) {
 
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-900 border-b border-zinc-700">
           <div className="flex items-center gap-3">
-            <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">Control Panel</span>
+            <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">Panel Inquisidor</span>
             {stats && (
               <span className="text-zinc-500 text-xs font-mono">
                 {stats.totalUsers} users · {stats.totalRosters} saved armies
@@ -85,7 +85,7 @@ export function AdminPanel({ onClose }: Props) {
                     <tr key={u.id} className="border-b border-zinc-900 hover:bg-zinc-900/50">
                       <td className="py-2 pr-3">
                         <span className={u.is_admin ? 'text-amber-400' : 'text-zinc-200'}>{u.username}</span>
-                        {u.is_admin && <span className="ml-1 text-[10px] text-amber-600">admin</span>}
+                        {u.is_admin && <span className="ml-1 text-[10px] text-amber-600">inqui</span>}
                       </td>
                       <td className="py-2 pr-3 text-zinc-500">{fmt(u.created_at)}</td>
                       <td className="py-2 pr-3 text-zinc-400">{fmt(u.last_seen_at)}</td>
@@ -99,7 +99,7 @@ export function AdminPanel({ onClose }: Props) {
                           <button
                             onClick={() => handlePromote(u.id, u.username, !u.is_admin)}
                             className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
-                          >{u.is_admin ? '−admin' : '+admin'}</button>
+                          >{u.is_admin ? '−inqui' : '+inqui'}</button>
                           <button
                             onClick={() => handleDelete(u.id, u.username)}
                             className="text-[11px] px-2 py-0.5 border border-red-900/50 text-red-700 hover:text-red-400 hover:border-red-700"

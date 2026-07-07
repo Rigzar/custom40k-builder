@@ -1020,8 +1020,22 @@ export function CloudSavesModal({
             {onOpenAdmin && (
               <button
                 onClick={() => { onClose(); onOpenAdmin(); }}
-                className="text-[10px] px-2 py-0.5 border border-amber-900/60 text-amber-700 hover:text-amber-400 hover:border-amber-600 uppercase tracking-widest transition-colors"
-              >Admin</button>
+                className="flex items-center gap-1.5 text-[10px] px-2 py-0.5 border border-amber-700 text-amber-400 hover:bg-amber-900/30 uppercase tracking-widest transition-colors"
+                title="Panel Inquisidor"
+              >
+                <span
+                  style={{
+                    display: 'inline-block', width: 14, height: 14, flexShrink: 0,
+                    backgroundColor: 'currentColor',
+                    maskImage: 'url(/faction-symbols/inquisition.svg)',
+                    WebkitMaskImage: 'url(/faction-symbols/inquisition.svg)',
+                    maskSize: 'contain', maskRepeat: 'no-repeat', maskPosition: 'center',
+                    WebkitMaskSize: 'contain', WebkitMaskRepeat: 'no-repeat', WebkitMaskPosition: 'center',
+                  }}
+                  aria-hidden="true"
+                />
+                Inquisidor
+              </button>
             )}
           </div>
           <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl leading-none">✕</button>
