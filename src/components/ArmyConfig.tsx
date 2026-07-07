@@ -382,7 +382,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                           const fmtCost = (raw: string | null | undefined, label: string) => {
                             if (!raw || raw === '-' || raw.toLowerCase() === 'special') return null;
                             const perW = raw.trim().endsWith('*');
-                            const num = raw.replace('*', '').trim();
+                            const num = raw.replaceAll('*', '').trim();
                             if (num === '0') return `free (${label})`;
                             return `+${num}${perW ? ' pts/W' : ' pts'} ${label}`;
                           };

@@ -855,11 +855,6 @@ export function UnitCard({ item }: Props) {
               </div>
             ))}
             {/* Equipment granted abilities (inv save now shown in stats table) */}
-            {(!u.is_vehicle && false) && (
-              <div className="mt-1 text-[10px] text-violet-400/90 border-l-2 border-violet-900 pl-2">
-                <span className="font-semibold">Equipment:</span> {equipMods.invulnSave}+ Invulnerable Save
-              </div>
-            )}
             {/* Equipment-granted abilities are shown in the Abilities section below */}
             </div>{/* close px-3 */}
           </div>{/* close stat section */}

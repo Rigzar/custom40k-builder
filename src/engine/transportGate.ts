@@ -11,7 +11,7 @@ import type { ArchetypeRule } from './archetypes/base';
 export function unitMovementInches(unit: Unit): number | null {
   const m = unit.models[0]?.stats.M;
   if (!m) return null;
-  const n = parseInt(m.replace('"', ''), 10);
+  const n = parseInt(m.replaceAll('"', ''), 10);
   return Number.isNaN(n) ? null : n;
 }
 
