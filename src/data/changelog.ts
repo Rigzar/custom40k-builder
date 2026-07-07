@@ -44,6 +44,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'WIKI — Missions added to top navigation bar (Home / Factions / Missions / Glossary)',
       'WIKI — army rules cards on faction hub pages now have subtle tag-tinted backgrounds: Signature rules get a faint red gradient, Universal a faint blue, Ally a faint green, Deployment a faint purple, Weapon Rule a faint amber; Signature left border widened to 5 px; cards slide right on hover',
       'GENERAL — supplement viewer redesigned as a right-side slide-over drawer: slides in from the right edge with a CSS transition, full-height scrollable body, header always visible at the top; backdrop click or Escape key closes it; drawer rendered at root level to avoid z-index / overflow-hidden clipping from parent containers',
+      'GENERAL — servo skull eye reworked: glow reduced ~40% (less aggressive), blink animation changed from a quick scaleY squish to a slow CRT power-off collapse (narrows vertically over 0.8 s, holds dark, then slowly powers back on); cycle extended to 4.2 s',
     ],
   },
   {
