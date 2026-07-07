@@ -255,8 +255,9 @@ export default function App() {
   const [showBugReport, setShowBugReport]       = useState(false);
   const [showAuth, setShowAuth]                 = useState(false);
   const [showCloudSaves, setShowCloudSaves]     = useState(false);
+  const [cloudSavesDefaultTab, setCloudSavesDefaultTab] = useState<'armies' | 'community' | 'friends' | 'preferences' | 'account'>('armies');
   const [showCampaign, setShowCampaign]         = useState(false);
-  const { username, loggedIn, isAdmin, refresh: refreshAuth, logout } = useAuth();
+  const { username, loggedIn, isAdmin, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
   const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
@@ -671,7 +672,11 @@ export default function App() {
           onLoadArmy={handleLoadArmy}
           onDeleteArmy={(id) => { deleteArmy(id); if (id === activeLocalSaveId) setActiveLocalSaveId(null); }}
           onShowAuth={() => setShowAuth(true)}
-          onShowCloudSaves={loggedIn ? () => setShowCloudSaves(true) : undefined}
+          onShowCloudSaves={loggedIn ? () => { setCloudSavesDefaultTab('armies'); setShowCloudSaves(true); } : undefined}
+          onShowCommunity={loggedIn
+            ? () => { setCloudSavesDefaultTab('community'); setShowCloudSaves(true); }
+            : () => setShowAuth(true)
+          }
         />
       </div>
 
@@ -901,11 +906,16 @@ export default function App() {
       {showCloudSaves && username && (
         <CloudSavesModal
           username={username}
+          avatar={avatar}
+          socialLinks={socialLinks}
+          socialPublic={socialPublic}
           onClose={() => setShowCloudSaves(false)}
           onLogout={async () => { await logout(); }}
           onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
           activeRosterId={activeCloudRosterId}
           onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
+          onProfileUpdate={() => refreshAuth()}
+          defaultTab={cloudSavesDefaultTab}
         />
       )}
       {showCampaign && <CampaignModal onClose={() => setShowCampaign(false)} />}

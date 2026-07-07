@@ -32,7 +32,10 @@ export async function ensureSchema() {
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS secret_answer_hash TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT false`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_seen_at TIMESTAMPTZ`;
-  await sql`UPDATE users SET is_admin = true WHERE username = 'rigzar' AND is_admin = false`;
+  await sql`UPDATE users SET is_admin = true WHERE LOWER(username) = 'rigzar' AND is_admin = false`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar TEXT`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS social_links JSONB`;
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS social_public BOOLEAN NOT NULL DEFAULT false`;
   await sql`
     CREATE TABLE IF NOT EXISTS rosters (
       id SERIAL PRIMARY KEY,
@@ -44,6 +47,19 @@ export async function ensureSchema() {
     )
   `;
   await sql`CREATE INDEX IF NOT EXISTS rosters_user_id_idx ON rosters(user_id)`;
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS is_public BOOLEAN NOT NULL DEFAULT false`;
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS source_roster_id INTEGER`;
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS source_username TEXT`;
+  await sql`
+    CREATE TABLE IF NOT EXISTS friends (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      friend_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at TIMESTAMPTZ DEFAULT now(),
+      UNIQUE(user_id, friend_id)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS friends_user_idx ON friends(user_id)`;
 
   // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
   // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when

@@ -5,6 +5,7 @@ import { ChangelogModal } from './ChangelogModal';
 import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
+import { Avatar } from './Avatar';
 import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
 import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
@@ -12,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v143_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v144_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.43: Preferences panel + Horus Heresy fully integrated + landing UX',
-    intro: 'New Preferences panel (⚙) lets you control autosave interval and set defaults for engagement type and points. Horus Heresy is now fully integrated — HH units count toward your primary AOP, CSM characters can join HH squads, Iron Within applies. Landing page cleaned up: autosaves hidden, announcement shown first.',
-    line1: '🔧 GENERAL — new ⚙ Preferences panel: autosave interval (Off / On close / 30s / 5min), default engagement type, default points limit. GENERAL — Horus Heresy (Legion / Legion (Space Marines) archetypes) now treated as a fully integrated supplement: HH units count toward primary AOP and Troops 25%, cross-faction character joins allowed, Iron Within applies.',
-    line2: '🔧 GENERAL — landing page: username button opens Cloud Saves when logged in. Autosaved armies hidden from landing (still visible in My Armies). Announcement card positioned first after the logo. ORKS — Battle Fortress moved to Lords of War only (game designer confirmed).',
+    title: 'v1.44: Social profiles, community armies & friends',
+    intro: 'Players can now share armies publicly, browse community armies from other players, and add friends. The account modal has been redesigned with 5 tabs — My Armies, Community, Friends, Preferences, and Account — plus a new avatar picker (choose your faction symbol) and optional social links.',
+    line1: '🔧 GENERAL — "Community Armies" button on the landing page; browse public armies from all players or friends-only. Copy any army to your own account (logged in required). GENERAL — avatar picker: select any faction symbol as your profile picture, shown next to your username.',
+    line2: '🔧 GENERAL — public/private toggle per saved army (🔒 Private by default, 🌐 Public when shared). GENERAL — friends: search players by username, add/remove, see their public armies. GENERAL — Account tab: add your Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, GitHub handles (optional visibility toggle).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.43: Einstellungen + Horus Heresy vollständig integriert + Startseite',
-    intro: 'Neues Einstellungspanel (⚙) für Autosave-Intervall und Standardwerte für Gefechtstyp und Punkte. Horus Heresy vollständig integriert — HH-Einheiten zählen für das primäre AOP, CSM-Charaktere können HH-Trupps beitreten, Iron Within gilt. Startseite bereinigt.',
-    line1: '🔧 ALLGEMEIN — neues ⚙-Einstellungspanel: Autosave-Intervall (Aus / Beim Schließen / 30s / 5min), Standard-Gefechtstyp, Standard-Punktelimit. ALLGEMEIN — Horus Heresy (Legion-Archetypen) als vollständig integriertes Supplement: HH-Einheiten zählen für primäres AOP und Truppen 25%, fraktionsübergreifende Charaktere erlaubt, Iron Within gilt.',
-    line2: '🔧 ALLGEMEIN — Startseite: Benutzername-Button öffnet Cloud-Speicher wenn eingeloggt. Autospeicherungen auf der Startseite ausgeblendet. Ankündigung erscheint zuerst nach dem Logo. ORKS — Battle Fortress nur noch bei Lords of War.',
+    title: 'v1.44: Soziale Profile, Community-Armeen & Freunde',
+    intro: 'Spieler können jetzt Armeen öffentlich teilen, Community-Armeen anderer Spieler durchsuchen und Freunde hinzufügen. Das Konto-Modal wurde mit 5 Tabs neu gestaltet — Meine Armeen, Community, Freunde, Einstellungen und Konto — plus Avatar-Auswahl und optionale Social-Links.',
+    line1: '🔧 ALLGEMEIN — "Community-Armeen"-Button auf der Startseite; Community-Armeen aller Spieler oder nur Freunde durchsuchen. Jede Armee in das eigene Konto kopieren (Login erforderlich). ALLGEMEIN — Avatar: Fraktionssymbol als Profilbild wählen.',
+    line2: '🔧 ALLGEMEIN — Öffentlich/Privat-Schalter pro gespeicherter Armee. ALLGEMEIN — Freunde: Spieler suchen, hinzufügen/entfernen, ihre öffentlichen Armeen sehen. ALLGEMEIN — Konto-Tab: Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, GitHub-Handles (optional).',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.43: Panel de preferencias + Horus Heresy integrado + UX de inicio',
-    intro: 'Nuevo panel de Preferencias (⚙) para controlar el autoguardado y establecer tipo de enfrentamiento y puntos por defecto. Horus Heresy ahora completamente integrado — unidades HH cuentan para el AOP principal, los personajes CSM pueden unirse a escuadrones HH, Iron Within aplica.',
-    line1: '🔧 GENERAL — nuevo panel ⚙ de Preferencias: intervalo de autoguardado (Desactivado / Al cerrar / 30s / 5min), tipo de enfrentamiento por defecto, límite de puntos por defecto. GENERAL — Horus Heresy (arquetipos Legión) como suplemento completamente integrado: unidades HH cuentan para AOP principal y 25% Tropas, personajes entre facciones permitidos, Iron Within aplica.',
-    line2: '🔧 GENERAL — pantalla de inicio: botón de usuario abre Cloud Saves al estar logueado. Autoguardados ocultos en la pantalla de inicio (siguen en Mis Ejércitos). Anuncio aparece primero tras el logo. ORKS — Battle Fortress solo en Lords of War.',
+    title: 'v1.44: Perfiles sociales, ejércitos comunitarios y amigos',
+    intro: 'Los jugadores ya pueden compartir ejércitos públicamente, explorar ejércitos de la comunidad y añadir amigos. El modal de cuenta ha sido rediseñado con 5 pestañas — Mis Ejércitos, Comunidad, Amigos, Preferencias y Cuenta — más selector de avatar y enlaces sociales opcionales.',
+    line1: '🔧 GENERAL — botón "Ejércitos Comunitarios" en la pantalla de inicio; explora ejércitos públicos de todos o solo amigos. Copia cualquier ejército a tu cuenta (requiere login). GENERAL — avatar: elige tu símbolo de facción como foto de perfil.',
+    line2: '🔧 GENERAL — toggle Público/Privado por ejército guardado. GENERAL — amigos: busca jugadores, añade/elimina, ve sus ejércitos públicos. GENERAL — Pestaña Cuenta: Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, GitHub (visibilidad opcional).',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -208,12 +209,13 @@ interface Props {
   onDeleteArmy: (id: string) => void;
   onShowAuth: () => void;
   onShowCloudSaves?: () => void;
+  onShowCommunity?: () => void;
   hideArmyConfig?: boolean;
 }
 
 export function LandingPage({
   selectedFaction, loading, saves,
-  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowAuth, onShowCloudSaves,
+  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowAuth, onShowCloudSaves, onShowCommunity,
 }: Props) {
   const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
   const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
@@ -238,7 +240,7 @@ export function LandingPage({
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
-  const { loggedIn, username } = useAuth();
+  const { loggedIn, username, avatar } = useAuth();
 
   const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
 
@@ -305,7 +307,7 @@ export function LandingPage({
           </div>
 
           {/* Announcement — always first after title */}
-          <div className="w-full max-w-xs mb-2 anim-fade-up anim-delay-2">
+          <div className="w-full mb-2 anim-fade-up anim-delay-2">
             <CommunityAnnouncement />
           </div>
 
@@ -349,7 +351,10 @@ export function LandingPage({
               onClick={() => loggedIn ? onShowCloudSaves?.() : onShowAuth()}
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
-              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+              {loggedIn && username
+                ? <Avatar username={username} avatar={avatar} size={18} />
+                : <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+              }
               {loggedIn ? (username ?? 'Account') : 'Login / Sign in'}
             </button>
 
@@ -369,6 +374,14 @@ export function LandingPage({
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
               {t('buildArmy')}
+            </button>
+
+            <button
+              onClick={() => onShowCommunity ? onShowCommunity() : (loggedIn ? onShowCloudSaves?.() : onShowAuth())}
+              className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              Community Armies
             </button>
           </div>
 

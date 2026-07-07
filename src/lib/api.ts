@@ -12,7 +12,10 @@ async function call<T>(url: string, options?: RequestInit): Promise<T> {
   return json as T;
 }
 
-export interface MeResponse { loggedIn: boolean; username?: string; isAdmin?: boolean }
+export interface MeResponse {
+  loggedIn: boolean; username?: string; isAdmin?: boolean;
+  avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean;
+}
 export function getMe() {
   return call<MeResponse>('/api/auth/me');
 }
@@ -68,7 +71,16 @@ export function requestAccountRecovery(username: string, message: string) {
   });
 }
 
-export interface RosterSummary { id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string }
+export interface RosterSummary {
+  id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
+  is_public?: boolean; source_roster_id?: number | null; source_username?: string | null;
+}
+export interface PublicArmySummary {
+  id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
+  username: string; avatar?: string | null;
+}
+export interface UserSearchResult { username: string; avatar: string | null; isFriend: boolean; publicArmyCount: number; }
+export interface FriendRow { username: string; avatar: string | null; publicArmyCount: number; }
 export function listRosters() {
   return call<{ rosters: RosterSummary[] }>('/api/rosters');
 }
@@ -91,6 +103,44 @@ export function loadRoster(id: number) {
 
 export function deleteRoster(id: number) {
   return call<{ ok: true }>(`/api/rosters/${id}`, { method: 'DELETE' });
+}
+
+export function toggleRosterPublic(id: number, isPublic: boolean) {
+  return call<{ ok: true }>(`/api/rosters/${id}`, { method: 'PUT', body: JSON.stringify({ is_public: isPublic }) });
+}
+
+// ── Profile / social / friends ───────────────────────────────────────────────
+
+export function updateProfile(patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) {
+  return call<{ ok: true; avatar: string | null; socialLinks: Record<string, string>; socialPublic: boolean }>(
+    '/api/profile/update', { method: 'POST', body: JSON.stringify(patch) },
+  );
+}
+
+export function searchUsers(q: string) {
+  return call<{ ok: true; users: UserSearchResult[] }>(`/api/profile/search?q=${encodeURIComponent(q)}`);
+}
+
+export function addFriend(username: string) {
+  return call<{ ok: true }>('/api/profile/friend-add', { method: 'POST', body: JSON.stringify({ username }) });
+}
+
+export function removeFriend(username: string) {
+  return call<{ ok: true }>('/api/profile/friend-remove', { method: 'POST', body: JSON.stringify({ username }) });
+}
+
+export function listFriends() {
+  return call<{ ok: true; friends: FriendRow[] }>('/api/profile/friends');
+}
+
+export function getPublicArmies(type: 'all' | 'friends' = 'all') {
+  return call<{ ok: true; armies: PublicArmySummary[] }>(`/api/profile/public-armies?type=${type}`);
+}
+
+export function copyPublicArmy(rosterId: number) {
+  return call<{ ok: true; roster: RosterSummary }>('/api/profile/copy-army', {
+    method: 'POST', body: JSON.stringify({ rosterId }),
+  });
 }
 
 // ── Planetary Assault campaign module (ALPHA) ───────────────────────────────

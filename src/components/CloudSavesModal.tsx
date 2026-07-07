@@ -1,20 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as api from '../lib/api';
+import type { PublicArmySummary, FriendRow, UserSearchResult } from '../lib/api';
 import { useArmyStore } from '../store/army';
 import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine/points';
 import { usePrefs, type AutosaveInterval } from '../hooks/usePrefs';
+import { Avatar } from './Avatar';
 import type { EngagementType } from '../types/army';
 
 interface Props {
   username: string;
+  avatar?: string | null;
+  socialLinks?: Record<string, string>;
+  socialPublic?: boolean;
   onClose: () => void;
   onLogout: () => void;
   activeRosterId: number | null;
   onActiveRosterIdChange: (id: number | null) => void;
   onOpenAdmin?: () => void;
+  onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
+  defaultTab?: Tab;
 }
 
-type Tab = 'armies' | 'preferences' | 'account';
+type Tab = 'armies' | 'community' | 'friends' | 'preferences' | 'account';
+
+const TAB_LABELS: { key: Tab; label: string }[] = [
+  { key: 'armies',      label: 'My Armies' },
+  { key: 'community',   label: 'Community' },
+  { key: 'friends',     label: 'Friends' },
+  { key: 'preferences', label: 'Prefs' },
+  { key: 'account',     label: 'Account' },
+];
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
@@ -48,8 +63,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
 
   const stateSnapshot = {
     armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
-    alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
-    totalPts,
+    alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, totalPts,
   };
 
   async function refresh() {
@@ -101,6 +115,11 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
     catch (err) { setError((err as Error).message); }
   }
 
+  async function handleTogglePublic(id: number, cur: boolean) {
+    try { await api.toggleRosterPublic(id, !cur); await refresh(); }
+    catch (err) { setError((err as Error).message); }
+  }
+
   return (
     <div className="p-4 space-y-4">
       <div className="flex gap-2">
@@ -115,18 +134,14 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
           onClick={handleSaveNew}
           className="text-[11px] px-3 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
         >
-          Save current
+          Save
         </button>
       </div>
-
       {error && <p className="text-red-400 text-xs">{error}</p>}
-
       {loading ? (
         <p className="text-zinc-500 text-sm text-center py-6">Loading…</p>
       ) : rosters.length === 0 ? (
-        <p className="text-zinc-500 italic text-sm text-center py-8">
-          No cloud saves yet. Save your current army above.
-        </p>
+        <p className="text-zinc-500 italic text-sm text-center py-8">No cloud saves yet.</p>
       ) : (
         <div className="space-y-2">
           {rosters.map(r => (
@@ -134,27 +149,267 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
               r.id === activeRosterId ? 'border-amber-500 border-l-4' : 'border-zinc-700 border-l-4 border-l-amber-800'
             }`}>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-semibold text-zinc-100 truncate">
-                  {r.name}
-                  {r.id === activeRosterId && <span className="ml-2 text-[10px] text-amber-500 normal-case">(open)</span>}
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-semibold text-zinc-100 truncate">
+                    {r.name}
+                    {r.id === activeRosterId && <span className="ml-2 text-[10px] text-amber-500 normal-case">(open)</span>}
+                  </span>
+                  {r.source_username && (
+                    <span className="text-[10px] text-zinc-600 shrink-0">copy of {r.source_username}</span>
+                  )}
                 </div>
                 {r.faction_label && (
                   <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{r.faction_label}</div>
                 )}
-                <div className="text-[11px] text-zinc-500 mt-1">
-                  {r.total_pts != null ? <span className="text-zinc-400 mr-2">{r.total_pts} pts</span> : null}
-                  {formatDate(r.updated_at)}
+                <div className="flex items-center gap-3 mt-1">
+                  <span className="text-[11px] text-zinc-500">{r.total_pts != null ? `${r.total_pts} pts · ` : ''}{formatDate(r.updated_at)}</span>
+                  <button
+                    onClick={() => handleTogglePublic(r.id, r.is_public ?? false)}
+                    className={`text-[10px] px-1.5 py-0.5 border uppercase tracking-wide transition-colors ${
+                      r.is_public
+                        ? 'border-emerald-700/60 text-emerald-500 hover:text-red-400 hover:border-red-700/50'
+                        : 'border-zinc-700 text-zinc-600 hover:text-zinc-300'
+                    }`}
+                    title={r.is_public ? 'Public — click to make private' : 'Private — click to share'}
+                  >
+                    {r.is_public ? '🌐 Public' : '🔒 Private'}
+                  </button>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <button onClick={() => handleLoad(r.id)} className="text-[11px] px-3 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">Load</button>
-                <button disabled={saving} onClick={() => handleOverwrite(r.id)} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">Overwrite</button>
-                <button onClick={() => handleDelete(r.id)} className="text-zinc-600 hover:text-red-400 text-xl leading-none" title="Delete">×</button>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">Load</button>
+                <button disabled={saving} onClick={() => handleOverwrite(r.id)} className="text-[11px] px-2.5 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">Save</button>
+                <button onClick={() => handleDelete(r.id)} className="text-zinc-600 hover:text-red-400 text-xl leading-none">×</button>
               </div>
             </div>
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+// ── Community tab ────────────────────────────────────────────────────────────
+
+function CommunityTab({ loggedIn }: { loggedIn: boolean }) {
+  const [filter, setFilter] = useState<'all' | 'friends'>('all');
+  const [armies, setArmies] = useState<PublicArmySummary[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [copying, setCopying] = useState<number | null>(null);
+  const [copied, setCopied] = useState<number | null>(null);
+  const { importRoster } = useArmyStore();
+
+  async function load(type: 'all' | 'friends') {
+    setLoading(true); setError('');
+    try { const res = await api.getPublicArmies(type); setArmies(res.armies); }
+    catch (err) { setError((err as Error).message); }
+    finally { setLoading(false); }
+  }
+
+  useEffect(() => { load(filter); }, [filter]);
+
+  async function handleCopy(army: PublicArmySummary) {
+    if (!loggedIn) return;
+    setCopying(army.id); setError('');
+    try {
+      await api.copyPublicArmy(army.id);
+      setCopied(army.id);
+      setTimeout(() => setCopied(null), 2000);
+    } catch (err) { setError((err as Error).message); }
+    finally { setCopying(null); }
+  }
+
+  async function handleLoad(army: PublicArmySummary) {
+    try {
+      const res = await api.loadRoster(army.id);
+      importRoster(JSON.stringify(res.roster.data));
+    } catch (err) { setError((err as Error).message); }
+  }
+
+  return (
+    <div className="p-4 space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="text-[11px] text-zinc-500">Community armies — view and copy</div>
+        {loggedIn && (
+          <div className="flex gap-1">
+            {(['all', 'friends'] as const).map(f => (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`text-[10px] px-2.5 py-1 uppercase tracking-wide border transition-colors ${
+                  filter === f ? 'bg-amber-900/40 border-amber-700 text-amber-400' : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'
+                }`}
+              >
+                {f === 'all' ? 'All' : 'Friends'}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+      {error && <p className="text-red-400 text-xs">{error}</p>}
+      {loading ? (
+        <p className="text-zinc-500 text-sm text-center py-6">Loading…</p>
+      ) : armies.length === 0 ? (
+        <p className="text-zinc-500 italic text-sm text-center py-8">
+          {filter === 'friends' ? 'No public armies from your friends yet.' : 'No public armies yet.'}
+        </p>
+      ) : (
+        <div className="space-y-2">
+          {armies.map(a => (
+            <div key={a.id} className="bg-zinc-800 border border-zinc-700 border-l-4 border-l-zinc-600 p-3 flex items-center gap-3">
+              <Avatar username={a.username} avatar={a.avatar} size={30} />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm text-zinc-100 font-semibold truncate">{a.name}</div>
+                <div className="text-[10px] text-zinc-500">
+                  <span className="text-amber-700">{a.username}</span>
+                  {a.faction_label ? ` · ${a.faction_label}` : ''}
+                  {a.total_pts != null ? ` · ${a.total_pts} pts` : ''}
+                  <span className="ml-1">· {formatDate(a.updated_at)}</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button
+                  onClick={() => handleLoad(a)}
+                  className="text-[11px] px-2 py-1 border border-zinc-600 text-zinc-400 hover:text-zinc-200 uppercase tracking-wide"
+                  title="Load (view only — not saved to your account)"
+                >
+                  View
+                </button>
+                {loggedIn && (
+                  <button
+                    onClick={() => handleCopy(a)}
+                    disabled={copying === a.id}
+                    className="text-[11px] px-2 py-1 bg-amber-900/30 border border-amber-800 text-amber-400 hover:bg-amber-800/40 disabled:opacity-50 uppercase tracking-wide"
+                  >
+                    {copied === a.id ? '✓ Copied' : copying === a.id ? '…' : 'Copy'}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {!loggedIn && (
+        <p className="text-[11px] text-zinc-600 text-center mt-2">Log in to copy armies to your account.</p>
+      )}
+    </div>
+  );
+}
+
+// ── Friends tab ──────────────────────────────────────────────────────────────
+
+function FriendsTab() {
+  const [friends, setFriends] = useState<FriendRow[]>([]);
+  const [search, setSearch]   = useState('');
+  const [results, setResults] = useState<UserSearchResult[]>([]);
+  const [searching, setSearching] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState('');
+  const [busy, setBusy]       = useState('');
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  async function loadFriends() {
+    setLoading(true);
+    try { const r = await api.listFriends(); setFriends(r.friends); }
+    catch (err) { setError((err as Error).message); }
+    finally { setLoading(false); }
+  }
+
+  useEffect(() => { loadFriends(); }, []);
+
+  function onSearchChange(v: string) {
+    setSearch(v);
+    if (searchTimer.current) clearTimeout(searchTimer.current);
+    if (v.trim().length < 2) { setResults([]); return; }
+    searchTimer.current = setTimeout(async () => {
+      setSearching(true);
+      try { const r = await api.searchUsers(v.trim()); setResults(r.users); }
+      catch { setResults([]); }
+      finally { setSearching(false); }
+    }, 400);
+  }
+
+  async function handleAdd(username: string) {
+    setBusy(username); setError('');
+    try { await api.addFriend(username); await loadFriends(); setResults(r => r.map(u => u.username === username ? { ...u, isFriend: true } : u)); }
+    catch (err) { setError((err as Error).message); }
+    finally { setBusy(''); }
+  }
+
+  async function handleRemove(username: string) {
+    setBusy(username); setError('');
+    try { await api.removeFriend(username); await loadFriends(); setResults(r => r.map(u => u.username === username ? { ...u, isFriend: false } : u)); }
+    catch (err) { setError((err as Error).message); }
+    finally { setBusy(''); }
+  }
+
+  return (
+    <div className="p-4 space-y-4">
+      {/* Search */}
+      <div>
+        <input
+          value={search}
+          onChange={e => onSearchChange(e.target.value)}
+          placeholder="Search players by username…"
+          className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
+        />
+        {searching && <p className="text-zinc-500 text-xs mt-1">Searching…</p>}
+        {results.length > 0 && (
+          <div className="mt-2 space-y-1.5">
+            {results.map(u => (
+              <div key={u.username} className="flex items-center gap-3 bg-zinc-800 border border-zinc-700 px-3 py-2">
+                <Avatar username={u.username} avatar={u.avatar} size={28} />
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm text-zinc-200">{u.username}</div>
+                  {u.publicArmyCount > 0 && (
+                    <div className="text-[10px] text-zinc-500">{u.publicArmyCount} public {u.publicArmyCount === 1 ? 'army' : 'armies'}</div>
+                  )}
+                </div>
+                <button
+                  disabled={busy === u.username}
+                  onClick={() => u.isFriend ? handleRemove(u.username) : handleAdd(u.username)}
+                  className={`text-[11px] px-2.5 py-1 border uppercase tracking-wide disabled:opacity-50 transition-colors ${
+                    u.isFriend
+                      ? 'border-red-900/50 text-red-600 hover:text-red-400 hover:border-red-700'
+                      : 'border-amber-800 text-amber-600 hover:text-amber-400 hover:border-amber-600'
+                  }`}
+                >
+                  {u.isFriend ? 'Remove' : '+ Add'}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {error && <p className="text-red-400 text-xs">{error}</p>}
+
+      {/* Friends list */}
+      <div>
+        <div className="text-[11px] uppercase tracking-widest text-zinc-600 mb-2">
+          {loading ? 'Loading…' : friends.length === 0 ? 'No friends yet — search above to add players' : `${friends.length} friend${friends.length !== 1 ? 's' : ''}`}
+        </div>
+        <div className="space-y-1.5">
+          {friends.map(f => (
+            <div key={f.username} className="flex items-center gap-3 bg-zinc-800/50 border border-zinc-700 px-3 py-2">
+              <Avatar username={f.username} avatar={f.avatar} size={28} />
+              <div className="flex-1 min-w-0">
+                <div className="text-sm text-zinc-200">{f.username}</div>
+                {f.publicArmyCount > 0 && (
+                  <div className="text-[10px] text-zinc-500">{f.publicArmyCount} public {f.publicArmyCount === 1 ? 'army' : 'armies'}</div>
+                )}
+              </div>
+              <button
+                disabled={busy === f.username}
+                onClick={() => handleRemove(f.username)}
+                className="text-zinc-600 hover:text-red-400 text-sm disabled:opacity-50"
+                title="Remove friend"
+              >×</button>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -177,32 +432,24 @@ const ENGAGEMENT_OPTIONS: { value: EngagementType | ''; label: string }[] = [
 
 const DEFAULT_POINTS_OPTIONS = [
   { value: '' as const,  label: 'No default' },
-  { value: 500,  label: '500 pts' },
-  { value: 750,  label: '750 pts' },
-  { value: 1000, label: '1 000 pts' },
-  { value: 1500, label: '1 500 pts' },
-  { value: 2000, label: '2 000 pts' },
-  { value: 2500, label: '2 500 pts' },
+  { value: 500,  label: '500 pts' }, { value: 750,  label: '750 pts' },
+  { value: 1000, label: '1 000 pts' }, { value: 1500, label: '1 500 pts' },
+  { value: 2000, label: '2 000 pts' }, { value: 2500, label: '2 500 pts' },
   { value: 3000, label: '3 000 pts' },
 ];
 
 function PrefsTab() {
   const { prefs, setPrefs } = usePrefs();
-
   return (
-    <div className="p-5 space-y-6">
+    <div className="p-5 space-y-5">
       <section>
         <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Cloud autosave</div>
-        <p className="text-[11px] text-zinc-500 mb-3">How often your army is saved automatically while you build.</p>
+        <p className="text-[11px] text-zinc-500 mb-3">How often your army is saved automatically while building.</p>
         <div className="space-y-2">
           {AUTOSAVE_OPTIONS.map(opt => (
             <label key={opt.value} className="flex items-start gap-3 cursor-pointer group">
-              <input
-                type="radio" name="autosave" value={opt.value}
-                checked={prefs.autosaveInterval === opt.value}
-                onChange={() => setPrefs({ autosaveInterval: opt.value })}
-                className="mt-0.5 accent-amber-500"
-              />
+              <input type="radio" name="autosave" value={opt.value} checked={prefs.autosaveInterval === opt.value}
+                onChange={() => setPrefs({ autosaveInterval: opt.value })} className="mt-0.5 accent-amber-500" />
               <div>
                 <div className="text-sm text-zinc-200 group-hover:text-amber-300 transition-colors">{opt.label}</div>
                 <div className="text-[11px] text-zinc-500">{opt.desc}</div>
@@ -211,41 +458,27 @@ function PrefsTab() {
           ))}
         </div>
       </section>
-
       <div className="border-t border-zinc-800" />
-
       <section>
         <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Default engagement</div>
-        <p className="text-[11px] text-zinc-500 mb-3">Pre-selects the engagement type when you start a new army.</p>
         <div className="space-y-2">
           {ENGAGEMENT_OPTIONS.map(opt => (
             <label key={opt.value} className="flex items-center gap-3 cursor-pointer group">
-              <input
-                type="radio" name="engagement" value={opt.value}
-                checked={prefs.defaultEngagement === opt.value}
-                onChange={() => setPrefs({ defaultEngagement: opt.value as EngagementType | '' })}
-                className="accent-amber-500"
-              />
+              <input type="radio" name="engagement" value={opt.value} checked={prefs.defaultEngagement === opt.value}
+                onChange={() => setPrefs({ defaultEngagement: opt.value as EngagementType | '' })} className="accent-amber-500" />
               <span className="text-sm text-zinc-200 group-hover:text-amber-300 transition-colors">{opt.label}</span>
             </label>
           ))}
         </div>
       </section>
-
       <div className="border-t border-zinc-800" />
-
       <section>
         <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Default points limit</div>
-        <p className="text-[11px] text-zinc-500 mb-3">Pre-fills the points limit when you start a new army.</p>
         <div className="grid grid-cols-2 gap-1.5">
           {DEFAULT_POINTS_OPTIONS.map(opt => (
             <label key={String(opt.value)} className="flex items-center gap-2 cursor-pointer group">
-              <input
-                type="radio" name="points" value={String(opt.value)}
-                checked={prefs.defaultPoints === opt.value}
-                onChange={() => setPrefs({ defaultPoints: opt.value as number | '' })}
-                className="accent-amber-500"
-              />
+              <input type="radio" name="points" value={String(opt.value)} checked={prefs.defaultPoints === opt.value}
+                onChange={() => setPrefs({ defaultPoints: opt.value as number | '' })} className="accent-amber-500" />
               <span className="text-sm text-zinc-200 group-hover:text-amber-300 transition-colors">{opt.label}</span>
             </label>
           ))}
@@ -257,7 +490,39 @@ function PrefsTab() {
 
 // ── Account tab ──────────────────────────────────────────────────────────────
 
-function AccountTab({ username, onLogout, onClose }: { username: string; onLogout: () => void; onClose: () => void }) {
+const FACTION_AVATARS = [
+  'chaos_space_marines','chaos_daemons','space_marines','imperial_guard','adeptus_mechanicus',
+  'adeptus_custodes','adeptus_sororitas','grey_knights','inquisition','tau_empire','necrons',
+  'orks','eldar','dark_eldar','genestealer_cults','harlequins','leagues_of_votann','tyranids',
+  'assassins','horus-heresy','escalation',
+];
+
+const SOCIAL_PLATFORMS: { key: string; label: string; placeholder: string }[] = [
+  { key: 'discord',   label: 'Discord',   placeholder: 'username' },
+  { key: 'twitter',   label: 'X / Twitter', placeholder: '@handle' },
+  { key: 'instagram', label: 'Instagram', placeholder: '@handle' },
+  { key: 'twitch',    label: 'Twitch',    placeholder: 'handle' },
+  { key: 'youtube',   label: 'YouTube',   placeholder: 'channel' },
+  { key: 'reddit',    label: 'Reddit',    placeholder: 'u/handle' },
+  { key: 'github',    label: 'GitHub',    placeholder: 'username' },
+];
+
+function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, socialPublic: initPublic, onLogout, onClose, onProfileUpdate }: {
+  username: string;
+  avatar?: string | null;
+  socialLinks?: Record<string, string>;
+  socialPublic?: boolean;
+  onLogout: () => void;
+  onClose: () => void;
+  onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
+}) {
+  const [curAvatar, setCurAvatar]   = useState(initAvatar ?? null);
+  const [links, setLinks]           = useState<Record<string, string>>(initLinks ?? {});
+  const [linksPublic, setLinksPublic] = useState(initPublic ?? false);
+  const [saving, setSaving]         = useState(false);
+  const [msg, setMsg]               = useState('');
+
+  // Security
   const [showSecurity, setShowSecurity]   = useState(false);
   const [recoveryCode, setRecoveryCode]   = useState<string | null>(null);
   const [codeRevealed, setCodeRevealed]   = useState(false);
@@ -268,6 +533,17 @@ function AccountTab({ username, onLogout, onClose }: { username: string; onLogou
   const [secBusy, setSecBusy]             = useState(false);
   const [secError, setSecError]           = useState('');
   const [secMsg, setSecMsg]               = useState('');
+
+  async function handleSaveProfile() {
+    setSaving(true); setMsg('');
+    try {
+      const res = await api.updateProfile({ avatar: curAvatar, socialLinks: links, socialPublic: linksPublic });
+      onProfileUpdate?.({ avatar: res.avatar, socialLinks: res.socialLinks, socialPublic: res.socialPublic });
+      setMsg('Saved!');
+      setTimeout(() => setMsg(''), 2000);
+    } catch (err) { setMsg((err as Error).message); }
+    finally { setSaving(false); }
+  }
 
   async function loadSecurity() {
     setCodeLoading(true);
@@ -305,90 +581,113 @@ function AccountTab({ username, onLogout, onClose }: { username: string; onLogou
   }
 
   return (
-    <div className="p-4 space-y-4">
-      {/* Account info */}
-      <div className="bg-zinc-800 border border-zinc-700 px-4 py-3 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-full bg-amber-900/50 border border-amber-800 flex items-center justify-center text-amber-400 font-bold uppercase text-sm shrink-0">
-          {username[0]}
+    <div className="p-4 space-y-5">
+      {/* Avatar */}
+      <section>
+        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-2">Avatar</div>
+        <div className="flex items-center gap-3 mb-3">
+          <Avatar username={username} avatar={curAvatar} size={44} />
+          <div className="text-sm text-zinc-200 font-semibold">{username}</div>
         </div>
-        <div>
-          <div className="text-sm font-semibold text-zinc-100">{username}</div>
-          <div className="text-[11px] text-zinc-500">Logged in</div>
+        <div className="grid grid-cols-7 gap-1.5">
+          <button
+            onClick={() => setCurAvatar(null)}
+            className={`aspect-square flex items-center justify-center rounded border text-[11px] uppercase ${
+              curAvatar === null ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
+            }`}
+            title="None (initials)"
+          >
+            <Avatar username={username} avatar={null} size={26} />
+          </button>
+          {FACTION_AVATARS.map(k => (
+            <button
+              key={k}
+              onClick={() => setCurAvatar(k)}
+              className={`aspect-square flex items-center justify-center rounded border ${
+                curAvatar === k ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
+              }`}
+              title={k.replace(/_/g, ' ')}
+            >
+              <img src={`/faction-symbols/${k}.svg`} alt={k} style={{ width: 22, height: 22, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
+            </button>
+          ))}
         </div>
+      </section>
+
+      <div className="border-t border-zinc-800" />
+
+      {/* Social links */}
+      <section>
+        <div className="flex items-center justify-between mb-2">
+          <div className="text-[11px] uppercase tracking-widest text-amber-600">Social links</div>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" checked={linksPublic} onChange={e => setLinksPublic(e.target.checked)} className="accent-amber-500" />
+            <span className="text-[11px] text-zinc-400">Visible to others</span>
+          </label>
+        </div>
+        <div className="space-y-2">
+          {SOCIAL_PLATFORMS.map(p => (
+            <div key={p.key} className="flex items-center gap-2">
+              <span className="text-[11px] text-zinc-500 w-20 shrink-0">{p.label}</span>
+              <input
+                value={links[p.key] ?? ''}
+                onChange={e => setLinks(prev => ({ ...prev, [p.key]: e.target.value }))}
+                placeholder={p.placeholder}
+                className="flex-1 bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-2 py-1.5 outline-none"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="flex items-center gap-3">
+        <button
+          disabled={saving}
+          onClick={handleSaveProfile}
+          className="text-[11px] px-4 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
+        >
+          {msg || 'Save profile'}
+        </button>
       </div>
+
+      <div className="border-t border-zinc-800" />
 
       {/* Security */}
       <div className="border border-zinc-800 bg-zinc-900/40">
-        <button
-          onClick={toggleSecurity}
-          className="w-full flex items-center justify-between px-4 py-3 text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide transition-colors"
-        >
+        <button onClick={toggleSecurity} className="w-full flex items-center justify-between px-4 py-3 text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide transition-colors">
           <span>Account security</span>
           <span className="text-zinc-600">{showSecurity ? '▾' : '▸'}</span>
         </button>
-
         {showSecurity && (
           <div className="px-4 pb-4 space-y-4 border-t border-zinc-800">
             {secError && <p className="text-red-400 text-xs pt-3">{secError}</p>}
-
             <div className="pt-3">
               <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Recovery code</div>
-              {codeLoading ? (
-                <p className="text-zinc-500 text-xs">Loading…</p>
-              ) : recoveryCode ? (
+              {codeLoading ? <p className="text-zinc-500 text-xs">Loading…</p> : recoveryCode ? (
                 <div className="flex items-center gap-2">
-                  <div className={`bg-zinc-950 border border-amber-700 text-amber-400 font-mono text-sm px-3 py-2 tracking-widest flex-1 select-all ${codeRevealed ? '' : 'blur-sm'}`}>
-                    {recoveryCode}
-                  </div>
-                  <button onClick={() => setCodeRevealed(v => !v)} className="text-lg px-2 text-zinc-400 hover:text-amber-400">
-                    {codeRevealed ? '🙈' : '👁'}
-                  </button>
+                  <div className={`bg-zinc-950 border border-amber-700 text-amber-400 font-mono text-sm px-3 py-2 tracking-widest flex-1 select-all ${codeRevealed ? '' : 'blur-sm'}`}>{recoveryCode}</div>
+                  <button onClick={() => setCodeRevealed(v => !v)} className="text-lg px-2 text-zinc-400 hover:text-amber-400">{codeRevealed ? '🙈' : '👁'}</button>
                 </div>
               ) : (
-                <p className="text-zinc-500 text-xs italic">
-                  No code on file yet — reset your password once to get one.
-                </p>
+                <p className="text-zinc-500 text-xs italic">No code on file yet — reset your password once to get one.</p>
               )}
             </div>
-
             <div>
               <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Secret question</div>
               {secQuestion && !editQuestion && (
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-zinc-300 text-sm">{secQuestion}</span>
-                  <button onClick={() => setEditQuestion(secQuestion)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2 shrink-0">
-                    Change
-                  </button>
+                  <button onClick={() => setEditQuestion(secQuestion)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2 shrink-0">Change</button>
                 </div>
               )}
               {(!secQuestion || editQuestion) && (
                 <div className="space-y-2">
-                  {!secQuestion && (
-                    <p className="text-zinc-500 text-[11px] italic">Optional — required alongside recovery code to reset password.</p>
-                  )}
-                  <input
-                    value={editQuestion}
-                    onChange={e => setEditQuestion(e.target.value)}
-                    placeholder="e.g. What was your first army's faction?"
-                    className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
-                  />
-                  {editQuestion.trim() && (
-                    <input
-                      value={editAnswer}
-                      onChange={e => setEditAnswer(e.target.value)}
-                      placeholder="Answer"
-                      className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
-                    />
-                  )}
+                  {!secQuestion && <p className="text-zinc-500 text-[11px] italic">Optional — required with recovery code to reset password.</p>}
+                  <input value={editQuestion} onChange={e => setEditQuestion(e.target.value)} placeholder="e.g. What was your first army's faction?" className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+                  {editQuestion.trim() && <input value={editAnswer} onChange={e => setEditAnswer(e.target.value)} placeholder="Answer" className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />}
                   <div className="flex gap-2">
-                    <button disabled={secBusy} onClick={handleSaveSecretQuestion} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">
-                      {secMsg || 'Save'}
-                    </button>
-                    {secQuestion && (
-                      <button onClick={() => { setEditQuestion(''); setEditAnswer(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide">
-                        Cancel
-                      </button>
-                    )}
+                    <button disabled={secBusy} onClick={handleSaveSecretQuestion} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">{secMsg || 'Save'}</button>
+                    {secQuestion && <button onClick={() => { setEditQuestion(''); setEditAnswer(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide">Cancel</button>}
                   </div>
                 </div>
               )}
@@ -397,29 +696,23 @@ function AccountTab({ username, onLogout, onClose }: { username: string; onLogou
         )}
       </div>
 
-      {/* Logout */}
-      <div className="pt-2">
-        <button
-          onClick={async () => { await onLogout(); onClose(); }}
-          className="w-full text-center text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide py-2 border border-red-900/40 hover:border-red-700/60 transition-colors"
-        >
-          Log out
-        </button>
-      </div>
+      <button
+        onClick={async () => { await onLogout(); onClose(); }}
+        className="w-full text-center text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide py-2 border border-red-900/40 hover:border-red-700/60 transition-colors"
+      >
+        Log out
+      </button>
     </div>
   );
 }
 
 // ── Main modal ───────────────────────────────────────────────────────────────
 
-const TAB_LABELS: { key: Tab; label: string }[] = [
-  { key: 'armies',      label: 'My Armies' },
-  { key: 'preferences', label: 'Preferences' },
-  { key: 'account',     label: 'Account' },
-];
-
-export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin }: Props) {
-  const [tab, setTab] = useState<Tab>('armies');
+export function CloudSavesModal({
+  username, avatar, socialLinks, socialPublic,
+  onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin, onProfileUpdate, defaultTab,
+}: Props) {
+  const [tab, setTab] = useState<Tab>(defaultTab ?? 'armies');
 
   return (
     <div
@@ -427,10 +720,10 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
       onClick={e => e.target === e.currentTarget && onClose()}
     >
       <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-xl my-4">
-
         {/* Header */}
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
+            <Avatar username={username} avatar={avatar} size={28} />
             <h3 className="text-amber-400 uppercase tracking-widest text-sm">{username}</h3>
             {onOpenAdmin && (
               <button
@@ -448,7 +741,7 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex-1 py-2.5 text-[11px] uppercase tracking-widest transition-colors ${
+              className={`flex-1 py-2.5 text-[10px] uppercase tracking-widest transition-colors ${
                 tab === t.key
                   ? 'text-amber-400 border-b-2 border-amber-500 bg-zinc-800/50'
                   : 'text-zinc-500 hover:text-zinc-300'
@@ -459,19 +752,21 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
           ))}
         </div>
 
-        {/* Tab content */}
-        {tab === 'armies' && (
-          <ArmiesTab
-            onClose={onClose}
-            activeRosterId={activeRosterId}
-            onActiveRosterIdChange={onActiveRosterIdChange}
-          />
-        )}
-        {tab === 'preferences' && <PrefsTab />}
-        {tab === 'account' && (
-          <AccountTab username={username} onLogout={onLogout} onClose={onClose} />
-        )}
-
+        {/* Content */}
+        <div className="max-h-[70vh] overflow-y-auto">
+          {tab === 'armies' && (
+            <ArmiesTab onClose={onClose} activeRosterId={activeRosterId} onActiveRosterIdChange={onActiveRosterIdChange} />
+          )}
+          {tab === 'community' && <CommunityTab loggedIn={true} />}
+          {tab === 'friends' && <FriendsTab />}
+          {tab === 'preferences' && <PrefsTab />}
+          {tab === 'account' && (
+            <AccountTab
+              username={username} avatar={avatar} socialLinks={socialLinks} socialPublic={socialPublic}
+              onLogout={onLogout} onClose={onClose} onProfileUpdate={onProfileUpdate}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

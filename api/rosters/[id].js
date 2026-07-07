@@ -35,10 +35,15 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
-      const { name, data } = req.body ?? {};
+      const { name, data, is_public } = req.body ?? {};
       const existing = await sql`SELECT id FROM rosters WHERE id = ${id} AND user_id = ${userId}`;
       if (existing.rows.length === 0) {
         res.status(404).json({ error: 'Not found' });
+        return;
+      }
+      if (typeof is_public === 'boolean') {
+        await sql`UPDATE rosters SET is_public = ${is_public}, updated_at = now() WHERE id = ${id} AND user_id = ${userId}`;
+        res.status(200).json({ ok: true });
         return;
       }
       if (name !== undefined && (typeof name !== 'string' || !name.trim())) {

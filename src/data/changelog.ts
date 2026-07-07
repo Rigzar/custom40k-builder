@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.44',
+    date: '2026-07-07',
+    title: 'GENERAL — social profiles, community armies, friends',
+    changes: [
+      'GENERAL — account modal redesigned with 5 tabs: My Armies (with per-army public/private toggle), Community (browse shared armies from all players or friends), Friends (search players, add/remove), Preferences, Account (avatar picker + social links)',
+      'GENERAL — avatar picker in Account tab: choose any of the 19 faction symbols as your profile picture, visible next to your username on the landing page and in all social views; defaults to coloured initials if no avatar is set',
+      'GENERAL — social links: optionally add your Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, and GitHub handles to your profile, with a public/private visibility toggle',
+      'GENERAL — public armies: toggle any saved army as Public so other players can view and copy it; copied armies are independent — the original is never modified',
+      'GENERAL — friends: search players by username, add or remove friends; friends tab shows their public army count',
+      'GENERAL — "Community Armies" button added to the landing page; opens the Community tab directly (logged-in users can copy armies; guests can view)',
+    ],
+  },
+  {
     version: '1.43',
     date: '2026-07-07',
     title: 'GENERAL — landing page UX fixes',
