@@ -162,11 +162,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // single-model entry, item.size is 1 so this still means "can't add the same item twice" as before.
   // For a multi-model squad where every model individually has Armory access (canonical OPTIONS text
   // "All models got access to weapons and gear from the Armory", e.g. Orks Nobz — GitHub #3), each
-  // model may carry its own copy, so the cap scales with squad size instead of being hardcoded to 1.
-  // Safe to apply uniformly: a unit with `is_character: false` never gets access to true-Character-
-  // only (p_char-exclusive, two-column) items in the first place (see getItemPts below / ki-armory-
-  // pchar-truechar-only-01), so every item purchasable here by a multi-model squad is already a
-  // squad-wide p_unit allowance, never a single Champion's personal one-off.
+  // model may carry its own copy, so the cap scales with squad size.
+  // For champion-only access (champion_has_armory:true without has_armory_access:true), only 1 model
+  // (the sergeant/champion) has access — cap is 1 regardless of squad size. Vehicles always use
+  // item.size so vehicle squadrons can equip each vehicle individually (ki-armory-champion-cap-01).
   // "Waaagh! Coast Kustoms" Army Trait (ki-orks-waaaghcoastkustoms-unmodelled-01): "Each Kustom
   // job can be taken one additional time" — raises the per-vehicle cap on the 16 named Kustom Job
   // items by +1. Uses the allied trait pool when this item belongs to an allied Orks detachment.
@@ -174,9 +173,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (isMultipleAllowed(arm.desc)) return false;
     const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
+    const accessorCount = (isVehicle || unit.has_armory_access) ? item.size : 1;
     const cap = (isOrkKustomJob(arm.name) && effectiveTraitPool.includes('Waaagh! Coast Kustoms'))
-      ? item.size + 1
-      : item.size * multiplesPerModel(arm.desc);
+      ? accessorCount + 1
+      : accessorCount * multiplesPerModel(arm.desc);
     return owned >= cap;
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it

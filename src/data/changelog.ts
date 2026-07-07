@@ -37,6 +37,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — "Community Armies" button added to the landing page; opens the Community tab directly (logged-in users can copy armies; guests can view)',
       'GENERAL — voting system for community armies: logged-in users can upvote (👍) or downvote (👎) any public army list; clicking the same vote again removes it; clicking the opposite switches it; one vote per user per army enforced at database level',
       'GENERAL — in-app account recovery system: users submit recovery requests directly in the app (no GitHub issue); the Inquisidor panel shows pending requests with a Resolve button that generates new credentials; user can check request status and collect their temporary password + new recovery code without leaving the app',
+      'GENERAL — armory once-per-model cap fixed for champion-only access: units where only the sergeant/champion has armory access (champion_has_armory:true, has_armory_access:false — 106 units across all factions, e.g. SM Tactical Squad, CSM Raptors/Warp Talons, and every infantry squad with a sergeant upgrade) were wrongly capping the per-item purchase limit at the squad\'s total size instead of 1; the rule "every item can only be purchased once by each model" is now correctly applied — the champion may only buy each item once, not once per model in the squad; vehicle squadrons are unaffected (each vehicle in a squadron still gets its own copy)',
     ],
   },
   {
