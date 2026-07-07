@@ -13,27 +13,27 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v144_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v145_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.44: Social profiles, community armies & friends',
-    intro: 'Players can now share armies publicly, browse community armies from other players, and add friends. The account modal has been redesigned with 5 tabs — My Armies, Community, Friends, Preferences, and Account — plus a new avatar picker (choose your faction symbol) and optional social links.',
-    line1: '🔧 GENERAL — "Community Armies" button on the landing page; browse public armies from all players or friends-only. Copy any army to your own account (logged in required). GENERAL — avatar picker: select any faction symbol as your profile picture, shown next to your username.',
+    title: 'v1.45: Social profiles, community armies & full i18n',
+    intro: 'Players can now share armies publicly, browse community armies from other players, and add friends. The account modal has been redesigned with 5 tabs — My Armies, Community, Friends, Preferences, and Account — plus a new avatar picker (choose your faction symbol) and optional social links. All 5 tabs are now fully translated in English, German, and Spanish.',
+    line1: '🔧 GENERAL — "Community Armies" button on the landing page; browse public armies from all players or friends-only. Copy any army to your own account (login required). GENERAL — avatar picker: select any faction symbol as your profile picture, shown next to your username.',
     line2: '🔧 GENERAL — public/private toggle per saved army (🔒 Private by default, 🌐 Public when shared). GENERAL — friends: search players by username, add/remove, see their public armies. GENERAL — Account tab: add your Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, GitHub handles (optional visibility toggle). 🔧 GENERAL — armory access types corrected for 25 units across 8 factions: units with weapons-only or gear-only armory access (per ODS) now show only the correct section — affects SM Death Company / Blood Claws, Eldar Wraithseer, GK Captain in Nemesis Armor, Necrons Ancient Destructor Lord, Sororitas Paragon units, Tau commanders & Kroots, CSM Red Butchers, and all 14 Chaos Daemons HQ/HS characters.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.44: Soziale Profile, Community-Armeen & Freunde',
-    intro: 'Spieler können jetzt Armeen öffentlich teilen, Community-Armeen anderer Spieler durchsuchen und Freunde hinzufügen. Das Konto-Modal wurde mit 5 Tabs neu gestaltet — Meine Armeen, Community, Freunde, Einstellungen und Konto — plus Avatar-Auswahl und optionale Social-Links.',
+    title: 'v1.45: Soziale Profile, Community-Armeen & volles i18n',
+    intro: 'Spieler können jetzt Armeen öffentlich teilen, Community-Armeen anderer Spieler durchsuchen und Freunde hinzufügen. Das Konto-Modal wurde mit 5 Tabs neu gestaltet — Meine Armeen, Community, Freunde, Einstellungen und Konto — plus Avatar-Auswahl und optionale Social-Links. Alle 5 Tabs sind jetzt vollständig auf Englisch, Deutsch und Spanisch übersetzt.',
     line1: '🔧 ALLGEMEIN — "Community-Armeen"-Button auf der Startseite; Community-Armeen aller Spieler oder nur Freunde durchsuchen. Jede Armee in das eigene Konto kopieren (Login erforderlich). ALLGEMEIN — Avatar: Fraktionssymbol als Profilbild wählen.',
     line2: '🔧 ALLGEMEIN — Öffentlich/Privat-Schalter pro gespeicherter Armee. ALLGEMEIN — Freunde: Spieler suchen, hinzufügen/entfernen, ihre öffentlichen Armeen sehen. ALLGEMEIN — Konto-Tab: Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, GitHub-Handles (optional). 🔧 ALLGEMEIN — Armoriezugangstypen für 25 Einheiten in 8 Fraktionen korrigiert: Einheiten mit nur Waffen- oder nur Ausrüstungszugang (laut ODS) zeigen jetzt nur den richtigen Bereich — betrifft SM Todescompanie / Blutsklauen, Eldar Wraithseer, GK Hauptmann in Nemesis-Rüstung, Necrons Antiker Destruktorlord, Sororitas Paragon-Einheiten, Tau-Kommandeure & Kroot, CSM Rote Schlächter und alle 14 Chaos-Dämonen HQ/HS-Charaktere.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.44: Perfiles sociales, ejércitos comunitarios y amigos',
-    intro: 'Los jugadores ya pueden compartir ejércitos públicamente, explorar ejércitos de la comunidad y añadir amigos. El modal de cuenta ha sido rediseñado con 5 pestañas — Mis Ejércitos, Comunidad, Amigos, Preferencias y Cuenta — más selector de avatar y enlaces sociales opcionales.',
+    title: 'v1.45: Perfiles sociales, ejércitos comunitarios e i18n completo',
+    intro: 'Los jugadores ya pueden compartir ejércitos públicamente, explorar ejércitos de la comunidad y añadir amigos. El modal de cuenta ha sido rediseñado con 5 pestañas — Mis Ejércitos, Comunidad, Amigos, Preferencias y Cuenta — más selector de avatar y enlaces sociales opcionales. Las 5 pestañas están ahora completamente traducidas al inglés, alemán y español.',
     line1: '🔧 GENERAL — botón "Ejércitos Comunitarios" en la pantalla de inicio; explora ejércitos públicos de todos o solo amigos. Copia cualquier ejército a tu cuenta (requiere login). GENERAL — avatar: elige tu símbolo de facción como foto de perfil.',
     line2: '🔧 GENERAL — toggle Público/Privado por ejército guardado. GENERAL — amigos: busca jugadores, añade/elimina, ve sus ejércitos públicos. GENERAL — Pestaña Cuenta: Discord, Twitter/X, Instagram, Twitch, YouTube, Reddit, GitHub (visibilidad opcional). 🔧 GENERAL — tipos de acceso a armería corregidos en 25 unidades de 8 facciones: las unidades con acceso solo a armas o solo a equipo (según el ODS) ahora muestran únicamente la sección correcta — afecta a SM Compañía de la Muerte / Garras de Sangre, Eldar Wraithseer, GK Capitán en Armadura Nemesis, Necrons Lord Destructor Antiguo, unidades Paragon de Sororitas, comandantes y Kroot Tau, Terminadores Carniceros Rojos de CSM y los 14 personajes HQ/HS de Chaos Daemons.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
