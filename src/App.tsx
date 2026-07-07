@@ -671,6 +671,7 @@ export default function App() {
           onLoadArmy={handleLoadArmy}
           onDeleteArmy={(id) => { deleteArmy(id); if (id === activeLocalSaveId) setActiveLocalSaveId(null); }}
           onShowAuth={() => setShowAuth(true)}
+          onShowCloudSaves={loggedIn ? () => setShowCloudSaves(true) : undefined}
         />
       </div>
 

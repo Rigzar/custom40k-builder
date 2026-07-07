@@ -12,29 +12,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v142b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v143_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.42: Orks, per-model costs, CSM wiring + wiki Missions',
-    intro: 'Major data sweep: 12 units across Grey Knights, CSM and Imperial Guard were charging upgrade costs once per unit instead of once per model — now fixed. Orks Nob armory access restored on 8 units. CSM Sorcerer Circle now correctly grants Command Squad. Wiki gets a full Missions page.',
-    line1: '🔧 GENERAL — per-model upgrade costs fixed on 12 units (GK: Psy-ammunition in 7 squads; CSM: Possessed jump packs, Big Mutants; IG: Rough Riders, Stormtroopers, Penal Legion). ORKS — Nob champion armory access restored on 8 units (Boyz, Skarboyz, Kommandos, Tankbustas, etc.).',
-    line2: '🔧 CSM — Sorcerer Circle archetype now grants Chaos Sorcerers the Command Squad ability (engine wiring was missing). WIKI — new Missions page with all 7 missions, engagement type rules, and SVG tactical maps. Supplement viewer redesigned as a slide-over drawer.',
+    title: 'v1.43: Preferences panel + Horus Heresy fully integrated + landing UX',
+    intro: 'New Preferences panel (⚙) lets you control autosave interval and set defaults for engagement type and points. Horus Heresy is now fully integrated — HH units count toward your primary AOP, CSM characters can join HH squads, Iron Within applies. Landing page cleaned up: autosaves hidden, announcement shown first.',
+    line1: '🔧 GENERAL — new ⚙ Preferences panel: autosave interval (Off / On close / 30s / 5min), default engagement type, default points limit. GENERAL — Horus Heresy (Legion / Legion (Space Marines) archetypes) now treated as a fully integrated supplement: HH units count toward primary AOP and Troops 25%, cross-faction character joins allowed, Iron Within applies.',
+    line2: '🔧 GENERAL — landing page: username button opens Cloud Saves when logged in. Autosaved armies hidden from landing (still visible in My Armies). Announcement card positioned first after the logo. ORKS — Battle Fortress moved to Lords of War only (game designer confirmed).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.42: Orks, Pro-Modell-Kosten, CSM-Verkabelung + Wiki-Missionen',
-    intro: 'Großer Datensweep: 12 Einheiten bei Grey Knights, CSM und Imperialer Garde berechneten Upgrade-Kosten pro Einheit statt pro Modell — jetzt behoben. Orks-Nob-Arsenal auf 8 Einheiten wiederhergestellt. CSM-Zaubererkreis gewährt jetzt korrekt den Befehlstrupp. Das Wiki erhält eine vollständige Missionsseite.',
-    line1: '🔧 ALLGEMEIN — Pro-Modell-Upgrade-Kosten auf 12 Einheiten behoben (GK: Psy-Munition in 7 Trupps; CSM: Possessed Sprungmodule, Große Mutanten; IG: Rough Riders, Sturmtruppen, Straflegion). ORKS — Nob-Arsenal auf 8 Einheiten (Boyz, Skarboyz, Kommandos, Tankbustas usw.) wiederhergestellt.',
-    line2: '🔧 CSM — Zaubererkreis-Archetyp gewährt Chaos-Zauberern jetzt die Befehlstrupp-Fähigkeit (Engine-Verkabelung fehlte). WIKI — neue Missionsseite mit allen 7 Missionen, Einsatztyp-Regeln und SVG-Taktikkarten. Supplement-Viewer als Slide-Over-Schublade neu gestaltet.',
+    title: 'v1.43: Einstellungen + Horus Heresy vollständig integriert + Startseite',
+    intro: 'Neues Einstellungspanel (⚙) für Autosave-Intervall und Standardwerte für Gefechtstyp und Punkte. Horus Heresy vollständig integriert — HH-Einheiten zählen für das primäre AOP, CSM-Charaktere können HH-Trupps beitreten, Iron Within gilt. Startseite bereinigt.',
+    line1: '🔧 ALLGEMEIN — neues ⚙-Einstellungspanel: Autosave-Intervall (Aus / Beim Schließen / 30s / 5min), Standard-Gefechtstyp, Standard-Punktelimit. ALLGEMEIN — Horus Heresy (Legion-Archetypen) als vollständig integriertes Supplement: HH-Einheiten zählen für primäres AOP und Truppen 25%, fraktionsübergreifende Charaktere erlaubt, Iron Within gilt.',
+    line2: '🔧 ALLGEMEIN — Startseite: Benutzername-Button öffnet Cloud-Speicher wenn eingeloggt. Autospeicherungen auf der Startseite ausgeblendet. Ankündigung erscheint zuerst nach dem Logo. ORKS — Battle Fortress nur noch bei Lords of War.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.42: Orks, costes por modelo, CSM + wiki Misiones',
-    intro: 'Barrido masivo de datos: 12 unidades de Grey Knights, CSM e Imperial Guard cobraban mejoras por unidad en lugar de por modelo — corregido. Armería Nob de Orks restaurada en 8 unidades. El Círculo de Hechiceros CSM ahora otorga correctamente el Escuadron de Mando. La wiki estrena página de Misiones completa.',
-    line1: '🔧 GENERAL — costes de mejora por modelo corregidos en 12 unidades (GK: Psy-ammunition en 7 escuadrones; CSM: propulsores de Possessed, Grandes Mutantes; IG: Rough Riders, Stormtroopers, Penal Legion). ORKS — acceso a la armería del campeón Nob restaurado en 8 unidades (Boyz, Skarboyz, Kommandos, Tankbustas, etc.).',
-    line2: '🔧 CSM — el arquetipo Círculo de Hechiceros ahora otorga a los Chaos Sorcerers la habilidad Command Squad (faltaba el cableado del motor). WIKI — nueva página de Misiones con las 7 misiones, reglas de tipo de enfrentamiento y mapas tácticos SVG. El visor de suplementos rediseñado como cajón deslizante lateral.',
+    title: 'v1.43: Panel de preferencias + Horus Heresy integrado + UX de inicio',
+    intro: 'Nuevo panel de Preferencias (⚙) para controlar el autoguardado y establecer tipo de enfrentamiento y puntos por defecto. Horus Heresy ahora completamente integrado — unidades HH cuentan para el AOP principal, los personajes CSM pueden unirse a escuadrones HH, Iron Within aplica.',
+    line1: '🔧 GENERAL — nuevo panel ⚙ de Preferencias: intervalo de autoguardado (Desactivado / Al cerrar / 30s / 5min), tipo de enfrentamiento por defecto, límite de puntos por defecto. GENERAL — Horus Heresy (arquetipos Legión) como suplemento completamente integrado: unidades HH cuentan para AOP principal y 25% Tropas, personajes entre facciones permitidos, Iron Within aplica.',
+    line2: '🔧 GENERAL — pantalla de inicio: botón de usuario abre Cloud Saves al estar logueado. Autoguardados ocultos en la pantalla de inicio (siguen en Mis Ejércitos). Anuncio aparece primero tras el logo. ORKS — Battle Fortress solo en Lords of War.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -207,12 +207,13 @@ interface Props {
   onLoadArmy: (save: SavedArmy) => void;
   onDeleteArmy: (id: string) => void;
   onShowAuth: () => void;
+  onShowCloudSaves?: () => void;
   hideArmyConfig?: boolean;
 }
 
 export function LandingPage({
   selectedFaction, loading, saves,
-  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowAuth,
+  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowAuth, onShowCloudSaves,
 }: Props) {
   const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
   const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
@@ -238,6 +239,8 @@ export function LandingPage({
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
   const { loggedIn, username } = useAuth();
+
+  const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
 
   const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
 
@@ -301,14 +304,19 @@ export function LandingPage({
             <div className="flex-1 h-px bg-amber-900/50" />
           </div>
 
+          {/* Announcement — always first after title */}
+          <div className="w-full max-w-xs mb-2 anim-fade-up anim-delay-2">
+            <CommunityAnnouncement />
+          </div>
+
           {/* Quick-load: saved armies */}
-          {saves.length > 0 && (
-            <div className="w-full max-w-xs mb-6 anim-fade-up anim-delay-2">
+          {displaySaves.length > 0 && (
+            <div className="w-full max-w-xs mb-6 anim-fade-up anim-delay-3">
               <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-2 text-center">
                 {t('savedArmies')}
               </div>
               <div className="space-y-1.5 max-h-36 overflow-y-auto">
-                {saves.slice(0, 4).map(save => (
+                {displaySaves.slice(0, 4).map(save => (
                   <button
                     key={save.id}
                     onClick={() => onLoadArmy(save)}
@@ -326,7 +334,7 @@ export function LandingPage({
           )}
 
           {/* Action buttons 2×2 */}
-          <div className="grid grid-cols-2 gap-3 w-full max-w-xs anim-fade-up anim-delay-3">
+          <div className="grid grid-cols-2 gap-3 w-full max-w-xs anim-fade-up anim-delay-4">
             <a
               href="https://custom40k-wiki.vercel.app"
               target="_blank"
@@ -338,7 +346,7 @@ export function LandingPage({
             </a>
 
             <button
-              onClick={() => onShowAuth()}
+              onClick={() => loggedIn ? onShowCloudSaves?.() : onShowAuth()}
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
@@ -369,7 +377,7 @@ export function LandingPage({
             href="https://discord.com/invite/wnGAB3TYAY"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 flex items-center gap-2 text-[11px] text-zinc-600 hover:text-indigo-400 transition-colors uppercase tracking-wider anim-fade-up anim-delay-4"
+            className="mt-8 flex items-center gap-2 text-[11px] text-zinc-600 hover:text-indigo-400 transition-colors uppercase tracking-wider anim-fade-up anim-delay-5"
           >
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
@@ -377,11 +385,6 @@ export function LandingPage({
             Discord
           </a>
 
-        </div>
-
-        {/* Announcement */}
-        <div className="px-6 pb-2 max-w-screen-sm mx-auto w-full anim-fade-up anim-delay-5">
-          <CommunityAnnouncement />
         </div>
 
         {/* Supplements */}
@@ -606,13 +609,13 @@ export function LandingPage({
         </section>
 
         {/* ── Saved armies ── */}
-        {saves.length > 0 && (
+        {displaySaves.length > 0 && (
           <section>
             <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
               {t('savedArmies')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {saves.map(save => (
+              {displaySaves.map(save => (
                 <div
                   key={save.id}
                   className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-3 flex flex-col gap-2 rounded-sm"

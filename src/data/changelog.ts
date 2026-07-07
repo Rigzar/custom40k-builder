@@ -25,6 +25,16 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.43',
+    date: '2026-07-07',
+    title: 'GENERAL — landing page UX fixes',
+    changes: [
+      'GENERAL — on the landing page, clicking your username while logged in now opens the Cloud Saves modal directly instead of re-opening the login screen',
+      'GENERAL — autosaved army entries no longer appear on the landing page (hero quick-load strip and setup view); they remain visible only in the "My Armies" save manager',
+      'GENERAL — the version announcement card is now always positioned immediately after the title/logo, before the saved armies list and action buttons',
+    ],
+  },
+  {
     version: '1.42',
     date: '2026-07-07',
     title: 'ORKS GH#60–65 + per_model sweep + CSM wiring + WIKI Missions',
