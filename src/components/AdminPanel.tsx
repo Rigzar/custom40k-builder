@@ -13,14 +13,30 @@ export function AdminPanel({ onClose }: Props) {
   const [loading, setLoading] = useState(true);
   const [msg, setMsg]         = useState('');
   const [revealed, setRevealed] = useState<Record<number, { pw: string; rc: string }>>({});
+  const [requests, setRequests] = useState<api.RecoveryRequest[]>([]);
+  const [resolving, setResolving] = useState<number | null>(null);
 
   async function load() {
     setLoading(true);
-    try { setStats(await api.adminStats()); } catch (e) { setMsg(String(e)); }
+    try {
+      const [s, r] = await Promise.all([api.adminStats(), api.adminListRecoveryRequests()]);
+      setStats(s);
+      setRequests(r.requests);
+    } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
 
   useEffect(() => { load(); }, []);
+
+  async function handleResolve(requestId: number, username: string) {
+    if (!confirm(`¿Resolver solicitud de "${username}"? Se generarán nuevas credenciales.`)) return;
+    setResolving(requestId);
+    try {
+      await api.adminResolveRecovery(requestId);
+      setRequests(prev => prev.map(r => r.id === requestId ? { ...r, status: 'resolved' as const } : r));
+    } catch (e) { setMsg(String(e)); }
+    finally { setResolving(null); }
+  }
 
   async function handleResetPw(userId: number, username: string) {
     if (!confirm(`Reset password for "${username}"?`)) return;
@@ -68,7 +84,50 @@ export function AdminPanel({ onClose }: Props) {
         {loading ? (
           <div className="p-8 text-center text-zinc-600 text-sm">Loading…</div>
         ) : !stats ? null : (
-          <div className="p-4">
+          <div className="p-4 space-y-6">
+            {/* Recovery requests */}
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
+                Solicitudes de recuperación
+                {requests.filter(r => r.status === 'pending').length > 0 && (
+                  <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded">
+                    {requests.filter(r => r.status === 'pending').length} pendiente{requests.filter(r => r.status === 'pending').length > 1 ? 's' : ''}
+                  </span>
+                )}
+              </div>
+              {requests.length === 0 ? (
+                <p className="text-zinc-600 text-xs font-mono italic">Sin solicitudes.</p>
+              ) : (
+                <div className="space-y-1.5">
+                  {requests.map(r => (
+                    <div key={r.id} className={`flex items-start gap-3 p-2 border text-xs font-mono ${
+                      r.status === 'pending' ? 'border-amber-800/60 bg-amber-950/20' : 'border-zinc-800 opacity-50'
+                    }`}>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-amber-400">{r.username}</span>
+                        <span className="text-zinc-600 ml-2">{fmt(r.created_at)}</span>
+                        {r.message && <p className="text-zinc-400 text-[10px] mt-0.5 truncate">{r.message}</p>}
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className={`text-[9px] uppercase px-1 ${
+                          r.status === 'pending' ? 'text-amber-500' : r.status === 'resolved' ? 'text-green-500' : 'text-zinc-500'
+                        }`}>{r.status}</span>
+                        {r.status === 'pending' && (
+                          <button
+                            onClick={() => handleResolve(r.id, r.username)}
+                            disabled={resolving === r.id}
+                            className="text-[10px] px-2 py-0.5 border border-amber-700 text-amber-400 hover:bg-amber-900/30 disabled:opacity-50"
+                          >{resolving === r.id ? '…' : 'Resolver'}</button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Users table */}
+            <div>
             <table className="w-full text-xs font-mono border-collapse">
               <thead>
                 <tr className="border-b border-zinc-800">
@@ -122,6 +181,7 @@ export function AdminPanel({ onClose }: Props) {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 

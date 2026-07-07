@@ -20,7 +20,8 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
   const [error, setError]       = useState('');
   const [busy, setBusy]         = useState(false);
   const [revealCode, setRevealCode] = useState<string | null>(null);
-  const [recoveryUrl, setRecoveryUrl] = useState<string | null>(null);
+  const [recoveryPending, setRecoveryPending] = useState<{ requestId: number; username: string } | null>(null);
+  const [recoveryResolved, setRecoveryResolved] = useState<{ tempPassword: string; newRecoveryCode: string } | null>(null);
 
   // Registration: optional secret question, an extra factor required (alongside the recovery
   // code) when resetting the password later.
@@ -33,7 +34,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
   const [resetSecretAnswer, setResetSecretAnswer]     = useState('');
 
   function reset() {
-    setError(''); setRevealCode(null); setRecoveryUrl(null);
+    setError(''); setRevealCode(null); setRecoveryPending(null); setRecoveryResolved(null);
     setSecretQuestion(''); setSecretAnswer('');
     setResetSecretQuestion(null); setResetSecretAnswer('');
   }
@@ -94,7 +95,25 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
     setError(''); setBusy(true);
     try {
       const res = await api.requestAccountRecovery(username.trim(), message.trim());
-      setRecoveryUrl(res.url);
+      setRecoveryPending({ requestId: res.requestId, username: username.trim() });
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleCheckStatus() {
+    if (!recoveryPending) return;
+    setError(''); setBusy(true);
+    try {
+      const res = await api.checkRecoveryStatus(recoveryPending.username, recoveryPending.requestId);
+      if (res.status === 'resolved') {
+        setRecoveryResolved({ tempPassword: res.tempPassword, newRecoveryCode: res.newRecoveryCode });
+        setRecoveryPending(null);
+      } else {
+        setError('Solicitud aún pendiente. El Inquisidor no la ha procesado todavía.');
+      }
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -123,22 +142,51 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
     );
   }
 
-  if (recoveryUrl) {
+  if (recoveryResolved) {
     return (
-      <Shell onClose={onClose} title={t('authRecoverySentTitle')}>
+      <Shell onClose={onClose} title="Cuenta reactivada">
         <div className="p-4 space-y-3">
-          <p className="text-green-400 text-sm">{t('authRequestFiled')}</p>
-          <p className="text-zinc-400 text-xs leading-relaxed">
-            {t('authRecoveryKeepLink')}
-          </p>
-          <a
-            href={recoveryUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="block text-amber-400 text-xs underline break-all"
+          <p className="text-green-400 text-sm">El Inquisidor ha procesado tu solicitud. Guarda estas credenciales — solo se muestran una vez.</p>
+          <div>
+            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Contraseña temporal</p>
+            <div className="bg-zinc-950 border border-amber-700 text-amber-400 text-center font-mono text-base py-2 tracking-widest select-all">
+              {recoveryResolved.tempPassword}
+            </div>
+          </div>
+          <div>
+            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Nuevo código de recuperación</p>
+            <div className="bg-zinc-950 border border-amber-700 text-amber-400 text-center font-mono text-base py-2 tracking-widest select-all">
+              {recoveryResolved.newRecoveryCode}
+            </div>
+          </div>
+          <p className="text-zinc-500 text-xs">Inicia sesión con la contraseña temporal y cámbiala desde tu cuenta.</p>
+          <button
+            onClick={onClose}
+            className="w-full px-4 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 uppercase tracking-wide text-sm"
           >
-            {recoveryUrl}
-          </a>
+            Entendido
+          </button>
+        </div>
+      </Shell>
+    );
+  }
+
+  if (recoveryPending) {
+    return (
+      <Shell onClose={onClose} title="Solicitud enviada">
+        <div className="p-4 space-y-3">
+          <p className="text-green-400 text-sm">Solicitud registrada. El Inquisidor la revisará en breve.</p>
+          <p className="text-zinc-400 text-xs leading-relaxed">
+            Vuelve aquí y pulsa "Comprobar estado" cuando hayas esperado un rato. Cuando esté resuelta recibirás una contraseña temporal y un nuevo código de recuperación.
+          </p>
+          {error && <p className="text-amber-400 text-xs">{error}</p>}
+          <button
+            onClick={handleCheckStatus}
+            disabled={busy}
+            className="w-full px-4 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide text-sm"
+          >
+            {busy ? '…' : 'Comprobar estado'}
+          </button>
           <button
             onClick={onClose}
             className="w-full px-4 py-2 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 uppercase tracking-wide text-sm"

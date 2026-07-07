@@ -66,8 +66,28 @@ export function getRecoveryCode() {
 }
 
 export function requestAccountRecovery(username: string, message: string) {
-  return call<{ url: string }>('/api/account-recovery', {
+  return call<{ ok: true; requestId: number }>('/api/account-recovery', {
     method: 'POST', body: JSON.stringify({ username, message }),
+  });
+}
+
+export function checkRecoveryStatus(username: string, requestId: number) {
+  return call<
+    | { ok: true; status: 'pending'; created_at: string }
+    | { ok: true; status: 'resolved'; tempPassword: string; newRecoveryCode: string; resolved_at: string }
+  >(`/api/auth/recovery-status?username=${encodeURIComponent(username)}&requestId=${requestId}`);
+}
+
+export interface RecoveryRequest {
+  id: number; username: string; message: string | null;
+  status: 'pending' | 'resolved' | 'collected'; created_at: string; resolved_at: string | null;
+}
+export function adminListRecoveryRequests() {
+  return call<{ ok: true; requests: RecoveryRequest[] }>('/api/admin/recovery-requests');
+}
+export function adminResolveRecovery(requestId: number) {
+  return call<{ ok: true }>('/api/admin/resolve-recovery', {
+    method: 'POST', body: JSON.stringify({ requestId }),
   });
 }
 

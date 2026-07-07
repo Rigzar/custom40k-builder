@@ -17,7 +17,8 @@ export default async function handler(req, res) {
     case 'register': return register(req, res);
     case 'reset-password': return resetPassword(req, res);
     case 'secret-question': return secretQuestion(req, res);
-    case 'recovery-code': return recoveryCode(req, res);
+    case 'recovery-code':   return recoveryCode(req, res);
+    case 'recovery-status': return recoveryStatus(req, res);
     default:
       res.status(404).json({ error: 'Unknown auth action' });
   }
@@ -297,5 +298,33 @@ async function recoveryCode(req, res) {
     res.status(200).json({ ok: true, hasCode: true, code });
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve recovery code', detail: String(err) });
+  }
+}
+
+async function recoveryStatus(req, res) {
+  if (req.method !== 'GET') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const username = typeof req.query.username === 'string' ? req.query.username.trim() : '';
+  const requestId = req.query.requestId ? Number(req.query.requestId) : null;
+  if (!username || !requestId) { res.status(400).json({ error: 'Missing username or requestId' }); return; }
+  try {
+    await ensureSchema();
+    const r = await sql`
+      SELECT id, status, temp_password_enc, new_recovery_code_enc, created_at, resolved_at
+      FROM recovery_requests
+      WHERE id = ${requestId} AND username = ${username}
+    `;
+    if (!r.rows[0]) { res.status(404).json({ error: 'Request not found' }); return; }
+    const row = r.rows[0];
+    if (row.status === 'pending') {
+      res.status(200).json({ ok: true, status: 'pending', created_at: row.created_at });
+      return;
+    }
+    // Resolved — decrypt and return credentials, mark as collected
+    const tempPassword   = decryptRecoveryCode(row.temp_password_enc);
+    const newRecoveryCode = decryptRecoveryCode(row.new_recovery_code_enc);
+    await sql`UPDATE recovery_requests SET status='collected' WHERE id=${requestId}`;
+    res.status(200).json({ ok: true, status: 'resolved', tempPassword, newRecoveryCode, resolved_at: row.resolved_at });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to check status', detail: String(err) });
   }
 }

@@ -1,5 +1,5 @@
 import { sql, ensureSchema } from '../_lib/db.js';
-import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode } from '../_lib/auth.js';
+import { getSessionUserId, hashPassword, generateRecoveryCode, hashRecoveryCode, encryptRecoveryCode, decryptRecoveryCode } from '../_lib/auth.js';
 
 async function requireAdmin(req, res) {
   const userId = getSessionUserId(req);
@@ -12,12 +12,14 @@ async function requireAdmin(req, res) {
 
 export default async function handler(req, res) {
   switch (req.query.action) {
-    case 'stats':   return stats(req, res);
-    case 'users':   return users(req, res);
-    case 'pw':      return resetPw(req, res);
-    case 'del':     return delUser(req, res);
-    case 'promote': return promote(req, res);
-    default:        res.status(404).json({ error: 'Unknown action' });
+    case 'stats':             return stats(req, res);
+    case 'users':             return users(req, res);
+    case 'pw':                return resetPw(req, res);
+    case 'del':               return delUser(req, res);
+    case 'promote':           return promote(req, res);
+    case 'recovery-requests': return recoveryRequests(req, res);
+    case 'resolve-recovery':  return resolveRecovery(req, res);
+    default:                  res.status(404).json({ error: 'Unknown action' });
   }
 }
 
@@ -83,6 +85,60 @@ async function delUser(req, res) {
   if (Number(userId) === adminId) return res.status(400).json({ error: 'Cannot delete own account here' });
   try {
     await sql`DELETE FROM users WHERE id = ${userId}`;
+    res.status(200).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+async function recoveryRequests(req, res) {
+  if (req.method !== 'GET') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  try {
+    const r = await sql`
+      SELECT id, username, message, status, created_at, resolved_at
+      FROM recovery_requests
+      ORDER BY created_at DESC
+      LIMIT 100
+    `;
+    res.status(200).json({ ok: true, requests: r.rows });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+async function resolveRecovery(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  const adminId = await requireAdmin(req, res);
+  if (!adminId) return;
+  const { requestId } = req.body ?? {};
+  if (!requestId) return res.status(400).json({ error: 'Missing requestId' });
+  try {
+    const req2 = await sql`SELECT id, username, status FROM recovery_requests WHERE id = ${requestId}`;
+    if (!req2.rows[0]) return res.status(404).json({ error: 'Request not found' });
+    if (req2.rows[0].status !== 'pending') return res.status(400).json({ error: 'Already resolved' });
+
+    const user = await sql`SELECT id FROM users WHERE username = ${req2.rows[0].username}`;
+    if (!user.rows[0]) return res.status(404).json({ error: 'User not found' });
+    const userId = user.rows[0].id;
+
+    // Generate new credentials
+    const tempPw = generateRecoveryCode().toLowerCase().replaceAll('-', '');
+    const pwHash  = await hashPassword(tempPw);
+    const rc      = generateRecoveryCode();
+    const rcHash  = await hashRecoveryCode(rc);
+    const rcEnc   = encryptRecoveryCode(rc);
+    const tempPwEnc = encryptRecoveryCode(tempPw);
+
+    // Update user account
+    await sql`UPDATE users SET password_hash=${pwHash}, recovery_code_hash=${rcHash}, recovery_code_encrypted=${rcEnc} WHERE id=${userId}`;
+
+    // Mark request resolved, store encrypted credentials
+    await sql`
+      UPDATE recovery_requests
+      SET status='resolved', resolved_at=now(), temp_password_enc=${tempPwEnc}, new_recovery_code_enc=${rcEnc}
+      WHERE id=${requestId}
+    `;
     res.status(200).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: String(err) });

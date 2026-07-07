@@ -36,6 +36,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — friends: search players by username, add or remove friends; friends tab shows their public army count',
       'GENERAL — "Community Armies" button added to the landing page; opens the Community tab directly (logged-in users can copy armies; guests can view)',
       'GENERAL — voting system for community armies: logged-in users can upvote (👍) or downvote (👎) any public army list; clicking the same vote again removes it; clicking the opposite switches it; one vote per user per army enforced at database level',
+      'GENERAL — in-app account recovery system: users submit recovery requests directly in the app (no GitHub issue); the Inquisidor panel shows pending requests with a Resolve button that generates new credentials; user can check request status and collect their temporary password + new recovery code without leaving the app',
     ],
   },
   {
