@@ -68,7 +68,7 @@ export function requestAccountRecovery(username: string, message: string) {
   });
 }
 
-export interface RosterSummary { id: number; name: string; updated_at: string }
+export interface RosterSummary { id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string }
 export function listRosters() {
   return call<{ rosters: RosterSummary[] }>('/api/rosters');
 }

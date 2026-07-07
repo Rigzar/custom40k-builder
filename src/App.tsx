@@ -261,6 +261,9 @@ export default function App() {
   // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
   // a fresh entry instead of silently overwriting whatever was last bound.
   const [activeCloudRosterId, setActiveCloudRosterId] = useState<number | null>(null);
+  // Ref so the beforeunload/autosave handlers always see the current login state without stale closure.
+  const loggedInRef = useRef(false);
+  useEffect(() => { loggedInRef.current = loggedIn; }, [loggedIn]);
   const [activeLocalSaveId, setActiveLocalSaveId]     = useState<string | null>(null);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
@@ -421,6 +424,7 @@ export default function App() {
   useEffect(() => {
     function handleBeforeUnload() {
       try {
+        if (!loggedInRef.current) return;
         if (sessionStorage.getItem(AUTOSAVE_DISMISSED_KEY)) return;
         const st = useArmyStore.getState();
         if (!st.faction || st.army.length === 0) return;
@@ -455,9 +459,9 @@ export default function App() {
   }, []);
 
   // Crash-recovery: write a backup to localStorage every 5 s after the army changes.
-  // The one-time migration effect on the next load picks it up as an autosave entry.
+  // Only for logged-in users — the one-time migration effect on the next load picks it up as an autosave entry.
   useEffect(() => {
-    if (!faction || army.length === 0) {
+    if (!loggedIn || !faction || army.length === 0) {
       localStorage.removeItem('custom40k-army');
       return;
     }
@@ -470,7 +474,7 @@ export default function App() {
     }, 5000);
     return () => clearTimeout(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [army, faction]);
+  }, [army, faction, loggedIn]);
 
   function handleSelectFaction(key: string | null) {
     if (key === null) {
@@ -733,12 +737,14 @@ export default function App() {
                     {savedMsg || 'Save'}
                   </button>
                 )}
-                <button
-                  onClick={() => setShowArmies(true)}
-                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
-                >
-                  My Armies
-                </button>
+                {!loggedIn && (
+                  <button
+                    onClick={() => setShowArmies(true)}
+                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                  >
+                    My Armies
+                  </button>
+                )}
                 {data && (
                   <button
                     onClick={() => setShowPrint(true)}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useArmyStore } from '../store/army';
+import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine/points';
 
 interface Props {
   username: string;
@@ -94,9 +95,18 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
 
   useEffect(() => { refresh(); }, []);
 
+  const store = useArmyStore();
+  const totalPts = store.data
+    ? army.reduce((sum, e) => {
+        const u = resolveUnit(e, store.data!);
+        return sum + (u ? computeUnitPoints(e, u, effectiveArchetypeFor(e, store)) : 0);
+      }, 0)
+    : 0;
+
   const stateSnapshot = {
     armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
+    totalPts,
   };
 
   async function handleSaveNew() {
@@ -117,7 +127,8 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
   async function handleOverwrite(id: number) {
     setSaving(true); setError('');
     try {
-      await api.updateRoster(id, { data: stateSnapshot });
+      const name = armyName.trim() || faction || 'Army';
+      await api.updateRoster(id, { name, data: stateSnapshot });
       onActiveRosterIdChange(id);
       await refresh();
     } catch (err) {
@@ -197,7 +208,13 @@ export function CloudSavesModal({ username, onClose, onLogout, activeRosterId, o
                       {r.name}
                       {r.id === activeRosterId && <span className="ml-2 text-[10px] text-amber-500 normal-case">(currently open)</span>}
                     </div>
-                    <div className="text-[11px] text-zinc-500 mt-1">Updated {formatDate(r.updated_at)}</div>
+                    {r.faction_label && (
+                      <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{r.faction_label}</div>
+                    )}
+                    <div className="text-[11px] text-zinc-500 mt-1">
+                      {r.total_pts != null ? <span className="text-zinc-400 mr-2">{r.total_pts} pts</span> : null}
+                      {formatDate(r.updated_at)}
+                    </div>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <button onClick={() => handleLoad(r.id)} className="text-[11px] px-3 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">Load</button>

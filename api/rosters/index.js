@@ -18,7 +18,10 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
       const result = await sql`
-        SELECT id, name, updated_at FROM rosters
+        SELECT id, name, updated_at,
+          CAST(NULLIF(data->>'totalPts', '') AS INTEGER) AS total_pts,
+          data->>'faction' AS faction_label
+        FROM rosters
         WHERE user_id = ${userId}
         ORDER BY updated_at DESC
       `;
