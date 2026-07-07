@@ -41,7 +41,7 @@ import Layout from '../../components/Layout.astro';
 
     <div class="phase-grid">
       <div class="phase-card phase-card--1">
-        <div class="phase-num">01</div>
+        <img src="/phase-icons/rally.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Rally Phase</div>
         <p>Take Leadership tests for units with Battleshock tokens (2D6 ≤ Ld to pass). Pass: remove all tokens. Fail: tokens remain. 2 tokens = Fleeing.</p>
         <div class="sub-rule">
@@ -54,7 +54,7 @@ import Layout from '../../components/Layout.astro';
       </div>
 
       <div class="phase-card phase-card--2">
-        <div class="phase-num">02</div>
+        <img src="/phase-icons/reinforce.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Reinforcement Phase</div>
         <p>Roll reinforcement dice equal to the battle round number. Each 4+ brings one unit from reserve.</p>
         <table class="compact-table">
@@ -71,7 +71,7 @@ import Layout from '../../components/Layout.astro';
       </div>
 
       <div class="phase-card phase-card--3">
-        <div class="phase-num">03</div>
+        <img src="/phase-icons/command.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Command Phase</div>
         <p>Both players assign orders face-down to all units simultaneously. Orders determine what a unit can do in the Action Phase.</p>
         <div class="order-grid">
@@ -86,13 +86,13 @@ import Layout from '../../components/Layout.astro';
       </div>
 
       <div class="phase-card phase-card--4">
-        <div class="phase-num">04</div>
+        <img src="/phase-icons/initiative.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Initiative Phase</div>
         <p>Both players roll 2D6. Higher result wins initiative and activates first in the Action Phase. Ties: player who did NOT have initiative last round wins. First round: whoever finished deploying first.</p>
       </div>
 
       <div class="phase-card phase-card--5">
-        <div class="phase-num">05</div>
+        <img src="/phase-icons/action.svg" class="phase-icon" alt="" aria-hidden="true">
         <div class="phase-name">Action Phase</div>
         <p>Players alternate activating one unit at a time, starting with the initiative holder. Each unit carries out its assigned order.</p>
         <p class="note">A unit may move, shoot, and fight in the same round — but each action only once. A unit already activated may still fight if charged later.</p>
@@ -288,7 +288,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">👣</span>
           <span class="unit-type-name">Infantry</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -297,7 +296,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">🏍</span>
           <span class="unit-type-name">Bike</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -312,7 +310,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">⚜</span>
           <span class="unit-type-name">Character Model</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -329,7 +326,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">🛸</span>
           <span class="unit-type-name">Jet Bike</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -344,7 +340,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">✈</span>
           <span class="unit-type-name">Jump Pack Infantry</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -356,7 +351,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">🦖</span>
           <span class="unit-type-name">Monstrous Creature</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -370,7 +364,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">🦣</span>
           <span class="unit-type-name">Monstrous Infantry</span>
           <span class="unit-type-sub">Creature</span>
         </div>
@@ -384,7 +377,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">🤖</span>
           <span class="unit-type-name">Walker</span>
           <span class="unit-type-sub">Vehicle</span>
         </div>
@@ -397,7 +389,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card">
         <div class="unit-type-header">
-          <span class="unit-type-icon">🚂</span>
           <span class="unit-type-name">Vehicle</span>
           <span class="unit-type-sub">Vehicle</span>
         </div>
@@ -414,7 +405,6 @@ import Layout from '../../components/Layout.astro';
 
       <div class="unit-type-card unit-type-card--wide">
         <div class="unit-type-header">
-          <span class="unit-type-icon">✈</span>
           <span class="unit-type-name">Flyer</span>
           <span class="unit-type-sub">Vehicle</span>
         </div>
@@ -434,16 +424,16 @@ import Layout from '../../components/Layout.astro';
     <div class="rule-section reveal">
       <div class="section-divider"><span>Profile Values Reference</span></div>
       <div class="stat-ref-grid">
-        <div class="stat-ref"><span class="stat-letter">M</span><div><strong>Movement</strong> — Speed in inches. "−" = cannot move.</div></div>
-        <div class="stat-ref"><span class="stat-letter">WS</span><div><strong>Weapon Skill</strong> — Melee hit roll target. "−" = cannot fight in melee. Max 1+.</div></div>
-        <div class="stat-ref"><span class="stat-letter">BS</span><div><strong>Ballistic Skill</strong> — Ranged hit roll target. "−" = cannot shoot. Max 1+.</div></div>
-        <div class="stat-ref"><span class="stat-letter">S</span><div><strong>Strength</strong> — Melee wounding power. Max 10 or D.</div></div>
-        <div class="stat-ref"><span class="stat-letter">T</span><div><strong>Toughness</strong> — Damage resistance. Max 10.</div></div>
-        <div class="stat-ref"><span class="stat-letter">W</span><div><strong>Wounds</strong> — Damage capacity. Excess damage doesn't carry over between models.</div></div>
-        <div class="stat-ref"><span class="stat-letter">I</span><div><strong>Initiative</strong> — Melee activation order, highest first. Max 10.</div></div>
-        <div class="stat-ref"><span class="stat-letter">A</span><div><strong>Attacks</strong> — Melee attacks per activation. "−" = cannot fight in melee. Max 10.</div></div>
-        <div class="stat-ref"><span class="stat-letter">Ld</span><div><strong>Leadership</strong> — Bravery. Uses highest in squad including attached characters. Max 10.</div></div>
-        <div class="stat-ref"><span class="stat-letter">Sv</span><div><strong>Save</strong> — Armour protection, modified by weapon AP. Roll of 1 always fails. Max 1+.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/move.svg" class="stat-icon" alt="M"><div><strong>Movement</strong> — Speed in inches. "−" = cannot move.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/weapon-skill.svg" class="stat-icon" alt="WS"><div><strong>Weapon Skill</strong> — Melee hit roll target. "−" = cannot fight in melee. Max 1+.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/ballistic-skill.svg" class="stat-icon" alt="BS"><div><strong>Ballistic Skill</strong> — Ranged hit roll target. "−" = cannot shoot. Max 1+.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/strength.svg" class="stat-icon" alt="S"><div><strong>Strength</strong> — Melee wounding power. Max 10 or D.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/toughness.svg" class="stat-icon" alt="T"><div><strong>Toughness</strong> — Damage resistance. Max 10.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/wounds.svg" class="stat-icon" alt="W"><div><strong>Wounds</strong> — Damage capacity. Excess damage doesn't carry over between models.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/initiative.svg" class="stat-icon" alt="I"><div><strong>Initiative</strong> — Melee activation order, highest first. Max 10.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/attacks.svg" class="stat-icon" alt="A"><div><strong>Attacks</strong> — Melee attacks per activation. "−" = cannot fight in melee. Max 10.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/leadership.svg" class="stat-icon" alt="Ld"><div><strong>Leadership</strong> — Bravery. Uses highest in squad including attached characters. Max 10.</div></div>
+        <div class="stat-ref"><img src="/stat-icons/save.svg" class="stat-icon" alt="Sv"><div><strong>Save</strong> — Armour protection, modified by weapon AP. Roll of 1 always fails. Max 1+.</div></div>
         <div class="stat-ref"><span class="stat-letter">Inv</span><div><strong>Invulnerability Save</strong> — Not affected by AP. Max 4+ (unless stated otherwise).</div></div>
       </div>
     </div>
@@ -462,12 +452,12 @@ import Layout from '../../components/Layout.astro';
           </tr>
         </thead>
         <tbody>
-          <tr><td>Assault</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
-          <tr><td>Grenade¹</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓*</td></tr>
-          <tr><td>Heavy</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Melee²</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
-          <tr><td>Pistol³</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
-          <tr><td>Rapid Fire⁴</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><img src="/weapon-type-icons/assault.svg" class="wtype-icon" alt=""> Assault</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+          <tr><td><img src="/weapon-type-icons/grenade.svg" class="wtype-icon" alt=""> Grenade¹</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓*</td></tr>
+          <tr><td><img src="/weapon-type-icons/heavy.svg" class="wtype-icon" alt=""> Heavy</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><img src="/weapon-type-icons/melee.svg" class="wtype-icon" alt=""> Melee²</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+          <tr><td><img src="/weapon-type-icons/pistol.svg" class="wtype-icon" alt=""> Pistol³</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+          <tr><td><img src="/weapon-type-icons/rapid-fire.svg" class="wtype-icon" alt=""> Rapid Fire⁴</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
       <ul class="notes-list">
@@ -601,14 +591,14 @@ import Layout from '../../components/Layout.astro';
       <table class="ref-table">
         <thead><tr><th>Slot</th><th>Slots (Pitched Battle)</th></tr></thead>
         <tbody>
-          <tr><td>HQ</td><td>1–2</td></tr>
-          <tr><td>Troops</td><td>2–6</td></tr>
-          <tr><td>Elites</td><td>0–3</td></tr>
-          <tr><td>Fast Attack</td><td>0–3</td></tr>
-          <tr><td>Heavy Support</td><td>0–3</td></tr>
-          <tr><td>Dedicated Transport</td><td>0–ᵀ (one per Infantry unit)</td></tr>
-          <tr><td>Fortification</td><td>0–1</td></tr>
-          <tr><td>Flyer</td><td>0–2</td></tr>
+          <tr><td><img src="/slot-icons/hq.svg" class="slot-icon" alt=""> HQ</td><td>1–2</td></tr>
+          <tr><td><img src="/slot-icons/troops.svg" class="slot-icon" alt=""> Troops</td><td>2–6</td></tr>
+          <tr><td><img src="/slot-icons/elites.svg" class="slot-icon" alt=""> Elites</td><td>0–3</td></tr>
+          <tr><td><img src="/slot-icons/fast-attack.svg" class="slot-icon" alt=""> Fast Attack</td><td>0–3</td></tr>
+          <tr><td><img src="/slot-icons/heavy-support.svg" class="slot-icon" alt=""> Heavy Support</td><td>0–3</td></tr>
+          <tr><td><img src="/slot-icons/dedicated-transport.svg" class="slot-icon" alt=""> Dedicated Transport</td><td>0–ᵀ (one per Infantry unit)</td></tr>
+          <tr><td><img src="/slot-icons/fortification.svg" class="slot-icon" alt=""> Fortification</td><td>0–1</td></tr>
+          <tr><td><img src="/slot-icons/flyer.svg" class="slot-icon" alt=""> Flyer</td><td>0–2</td></tr>
         </tbody>
       </table>
       <ul class="plain-list">
@@ -621,7 +611,7 @@ import Layout from '../../components/Layout.astro';
       <div class="section-divider"><span>Alliance Levels</span></div>
       <div class="alliance-grid">
         <div class="alliance-card alliance-card--g">
-          <div class="alliance-badge">🟢 Battle Brothers</div>
+          <div class="alliance-badge"><span class="dot dot-g"></span> Battle Brothers</div>
           <ul>
             <li>Allied units are treated as friendly in all respects.</li>
             <li>Auras and psychic powers can be cast on allied units.</li>
@@ -629,7 +619,7 @@ import Layout from '../../components/Layout.astro';
           </ul>
         </div>
         <div class="alliance-card alliance-card--y">
-          <div class="alliance-badge">🟡 Allies of Convenience</div>
+          <div class="alliance-badge"><span class="dot dot-y"></span> Allies of Convenience</div>
           <ul>
             <li>Allied units are treated as separate armies.</li>
             <li>Auras and psychic powers only affect the primary faction's units.</li>
@@ -637,7 +627,7 @@ import Layout from '../../components/Layout.astro';
           </ul>
         </div>
         <div class="alliance-card alliance-card--r">
-          <div class="alliance-badge">🔴 Desperate Allies</div>
+          <div class="alliance-badge"><span class="dot dot-r"></span> Desperate Allies</div>
           <ul>
             <li>Same restrictions as Allies of Convenience, plus:</li>
             <li>Units within 12″ of the ally must pass a Ld test (−1) or lose their order for that turn.</li>
@@ -652,7 +642,7 @@ import Layout from '../../components/Layout.astro';
 
     <div class="rule-section reveal">
       <div class="section-divider"><span>Alliance Matrix</span></div>
-      <p class="section-note">Row = primary faction · Column = ally. The matrix is symmetric. 🟢 Battle Brothers · 🟡 Allies of Convenience · 🔴 Desperate Allies</p>
+      <p class="section-note">Row = primary faction · Column = ally. The matrix is symmetric. <span class="dot dot-g"></span> Battle Brothers · <span class="dot dot-y"></span> Allies of Convenience · <span class="dot dot-r"></span> Desperate Allies</p>
       <div class="matrix-scroll">
         <table class="ally-matrix">
           <thead>
@@ -843,7 +833,7 @@ import Layout from '../../components/Layout.astro';
     border-top: 3px solid var(--c40k-steel); padding: 0.9rem 1rem; font-size: 0.82rem;
   }
   .phase-card--3, .phase-card--5 { border-top-color: var(--c40k-red); }
-  .phase-num { font-family: var(--font-ui); font-size: 0.6rem; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 0.2rem; }
+  .phase-icon { width: 28px; height: 28px; margin-bottom: 0.3rem; opacity: 0.75; display: block; }
   .phase-name { font-family: var(--font-heading); font-size: 1rem; color: var(--c40k-red); text-transform: uppercase; margin-bottom: 0.5rem; }
   .phase-card p { margin: 0 0 0.5rem; }
   .phase-card ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
@@ -898,7 +888,9 @@ import Layout from '../../components/Layout.astro';
   .notes-list { font-size: 0.78rem; margin-top: 0.5rem; padding-left: 1.2rem; }
   .notes-list li { margin-bottom: 0.3rem; }
   .weapon-types-table td, .weapon-types-table th { text-align: center; }
-  .weapon-types-table td:first-child { text-align: left; }
+  .weapon-types-table td:first-child { text-align: left; display: flex; align-items: center; gap: 0.35rem; }
+  .wtype-icon { width: 18px; height: 18px; opacity: 0.8; flex-shrink: 0; }
+  .slot-icon { width: 16px; height: 16px; opacity: 0.75; vertical-align: middle; margin-right: 0.2rem; }
 
   /* ── Steps list ───────────────────────────────────────── */
   .steps-list { padding-left: 1.3rem; font-size: 0.83rem; }
@@ -918,8 +910,7 @@ import Layout from '../../components/Layout.astro';
   .unit-type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1.8rem; }
   .unit-type-card { background: rgba(255,252,240,0.6); border: 1px solid rgba(57,73,80,0.25); padding: 0.8rem 1rem; font-size: 0.80rem; }
   .unit-type-card--wide { grid-column: 1 / -1; }
-  .unit-type-header { display: flex; align-items: baseline; gap: 0.45rem; margin-bottom: 0.5rem; }
-  .unit-type-icon { font-size: 1rem; }
+  .unit-type-header { display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.5rem; }
   .unit-type-name { font-family: var(--font-heading); font-size: 1rem; color: var(--c40k-red); text-transform: uppercase; }
   .unit-type-sub { font-family: var(--font-ui); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c40k-steel); opacity: 0.65; border: 1px solid rgba(57,73,80,0.3); padding: 0 0.3rem; }
   .unit-type-card ul { margin: 0; padding-left: 1.1rem; }
@@ -929,7 +920,8 @@ import Layout from '../../components/Layout.astro';
   /* ── Stat ref ─────────────────────────────────────────── */
   .stat-ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.5rem; }
   .stat-ref { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.80rem; padding: 0.4rem 0; border-bottom: 1px solid rgba(57,73,80,0.12); }
-  .stat-letter { font-family: var(--font-ui); font-size: 0.85rem; font-weight: 700; color: var(--c40k-red); min-width: 2rem; text-align: right; flex-shrink: 0; }
+  .stat-icon { width: 28px; height: 28px; flex-shrink: 0; opacity: 0.85; }
+  .stat-letter { font-family: var(--font-ui); font-size: 0.85rem; font-weight: 700; color: var(--c40k-red); min-width: 28px; text-align: center; flex-shrink: 0; }
 
   /* ── Alliance ─────────────────────────────────────────── */
   .alliance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 0.8rem; }
@@ -937,7 +929,11 @@ import Layout from '../../components/Layout.astro';
   .alliance-card--g { background: rgba(26,92,26,0.06); border-color: rgba(26,92,26,0.4); }
   .alliance-card--y { background: rgba(139,105,8,0.06); border-color: rgba(139,105,8,0.4); }
   .alliance-card--r { background: rgba(162,18,23,0.06); border-color: rgba(162,18,23,0.4); }
-  .alliance-badge { font-family: var(--font-ui); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; margin-bottom: 0.4rem; }
+  .alliance-badge { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-ui); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; margin-bottom: 0.4rem; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-g { background: #1a5c1a; }
+  .dot-y { background: #8b6908; }
+  .dot-r { background: var(--c40k-red, #a21217); }
   .alliance-card--g .alliance-badge { color: #1a5c1a; }
   .alliance-card--y .alliance-badge { color: #8b6908; }
   .alliance-card--r .alliance-badge { color: var(--c40k-red); }
