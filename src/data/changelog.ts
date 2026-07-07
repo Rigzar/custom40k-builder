@@ -35,6 +35,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — public armies: toggle any saved army as Public so other players can view and copy it; copied armies are independent — the original is never modified',
       'GENERAL — friends: search players by username, add or remove friends; friends tab shows their public army count',
       'GENERAL — "Community Armies" button added to the landing page; opens the Community tab directly (logged-in users can copy armies; guests can view)',
+      'GENERAL — voting system for community armies: logged-in users can upvote (👍) or downvote (👎) any public army list; clicking the same vote again removes it; clicking the opposite switches it; one vote per user per army enforced at database level',
     ],
   },
   {

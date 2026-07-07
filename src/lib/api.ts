@@ -78,6 +78,7 @@ export interface RosterSummary {
 export interface PublicArmySummary {
   id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
   username: string; avatar?: string | null;
+  upvotes: number; downvotes: number; user_vote: 1 | -1 | null;
 }
 export interface UserSearchResult { username: string; avatar: string | null; isFriend: boolean; publicArmyCount: number; }
 export interface FriendRow { username: string; avatar: string | null; publicArmyCount: number; }
@@ -140,6 +141,12 @@ export function getPublicArmies(type: 'all' | 'friends' = 'all') {
 export function copyPublicArmy(rosterId: number) {
   return call<{ ok: true; roster: RosterSummary }>('/api/profile/copy-army', {
     method: 'POST', body: JSON.stringify({ rosterId }),
+  });
+}
+
+export function voteArmy(rosterId: number, vote: 1 | -1) {
+  return call<{ ok: true; user_vote: 1 | -1 | null }>('/api/profile/vote-army', {
+    method: 'POST', body: JSON.stringify({ rosterId, vote }),
   });
 }
 

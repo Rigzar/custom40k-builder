@@ -10,6 +10,7 @@ export default async function handler(req, res) {
     case 'friends':       return getFriends(req, res);
     case 'public-armies': return getPublicArmies(req, res);
     case 'copy-army':     return copyArmy(req, res);
+    case 'vote-army':     return voteArmy(req, res);
     default:
       res.status(404).json({ error: 'Unknown profile action' });
   }
@@ -136,32 +137,98 @@ async function getPublicArmies(req, res) {
     const type = req.query.type ?? 'all';
     const userId = getSessionUserId(req);
 
+    const mapRow = r => ({
+      ...r,
+      avatar: r.avatar ?? null,
+      upvotes:   Number(r.upvotes ?? 0),
+      downvotes: Number(r.downvotes ?? 0),
+      user_vote: r.user_vote != null ? Number(r.user_vote) : null,
+    });
+
     if (type === 'friends') {
       if (!userId) { res.status(401).json({ error: 'Not logged in' }); return; }
       const results = await sql`
         SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
           CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
-          r.data->>'faction' AS faction_label
+          r.data->>'faction' AS faction_label,
+          COALESCE(SUM(CASE WHEN rv.vote =  1 THEN 1 ELSE 0 END), 0)::int AS upvotes,
+          COALESCE(SUM(CASE WHEN rv.vote = -1 THEN 1 ELSE 0 END), 0)::int AS downvotes,
+          MAX(CASE WHEN rv.user_id = ${userId} THEN rv.vote END) AS user_vote
         FROM rosters r
         JOIN users u ON u.id = r.user_id
         JOIN friends f ON f.friend_id = r.user_id AND f.user_id = ${userId}
+        LEFT JOIN roster_votes rv ON rv.roster_id = r.id
         WHERE r.is_public = true
+        GROUP BY r.id, u.username, u.avatar
         ORDER BY r.updated_at DESC LIMIT 50
       `;
-      res.status(200).json({ ok: true, armies: results.rows.map(r => ({ ...r, avatar: r.avatar ?? null })) });
+      res.status(200).json({ ok: true, armies: results.rows.map(mapRow) });
       return;
     }
 
-    const results = await sql`
-      SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
-        CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
-        r.data->>'faction' AS faction_label
-      FROM rosters r
-      JOIN users u ON u.id = r.user_id
-      WHERE r.is_public = true
-      ORDER BY r.updated_at DESC LIMIT 50
-    `;
-    res.status(200).json({ ok: true, armies: results.rows.map(r => ({ ...r, avatar: r.avatar ?? null })) });
+    if (userId) {
+      const results = await sql`
+        SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
+          CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
+          r.data->>'faction' AS faction_label,
+          COALESCE(SUM(CASE WHEN rv.vote =  1 THEN 1 ELSE 0 END), 0)::int AS upvotes,
+          COALESCE(SUM(CASE WHEN rv.vote = -1 THEN 1 ELSE 0 END), 0)::int AS downvotes,
+          MAX(CASE WHEN rv.user_id = ${userId} THEN rv.vote END) AS user_vote
+        FROM rosters r
+        JOIN users u ON u.id = r.user_id
+        LEFT JOIN roster_votes rv ON rv.roster_id = r.id
+        WHERE r.is_public = true
+        GROUP BY r.id, u.username, u.avatar
+        ORDER BY r.updated_at DESC LIMIT 50
+      `;
+      res.status(200).json({ ok: true, armies: results.rows.map(mapRow) });
+    } else {
+      const results = await sql`
+        SELECT r.id, r.name, r.updated_at, u.username, u.avatar,
+          CAST(NULLIF(r.data->>'totalPts','') AS INTEGER) AS total_pts,
+          r.data->>'faction' AS faction_label,
+          COALESCE(SUM(CASE WHEN rv.vote =  1 THEN 1 ELSE 0 END), 0)::int AS upvotes,
+          COALESCE(SUM(CASE WHEN rv.vote = -1 THEN 1 ELSE 0 END), 0)::int AS downvotes,
+          NULL::int AS user_vote
+        FROM rosters r
+        JOIN users u ON u.id = r.user_id
+        LEFT JOIN roster_votes rv ON rv.roster_id = r.id
+        WHERE r.is_public = true
+        GROUP BY r.id, u.username, u.avatar
+        ORDER BY r.updated_at DESC LIMIT 50
+      `;
+      res.status(200).json({ ok: true, armies: results.rows.map(mapRow) });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Request failed', detail: String(err) });
+  }
+}
+
+async function voteArmy(req, res) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const userId = getSessionUserId(req);
+  if (!userId) { res.status(401).json({ error: 'Not logged in' }); return; }
+  try {
+    await ensureSchema();
+    const { rosterId, vote } = req.body ?? {};
+    const id = Number(rosterId);
+    if (!Number.isInteger(id)) { res.status(400).json({ error: 'Invalid rosterId' }); return; }
+    if (vote !== 1 && vote !== -1) { res.status(400).json({ error: 'vote must be 1 or -1' }); return; }
+    const pub = await sql`SELECT id FROM rosters WHERE id = ${id} AND is_public = true`;
+    if (!pub.rows[0]) { res.status(404).json({ error: 'Army not found' }); return; }
+    const existing = await sql`SELECT vote FROM roster_votes WHERE roster_id = ${id} AND user_id = ${userId}`;
+    if (existing.rows[0]) {
+      if (existing.rows[0].vote === vote) {
+        await sql`DELETE FROM roster_votes WHERE roster_id = ${id} AND user_id = ${userId}`;
+        res.status(200).json({ ok: true, user_vote: null });
+      } else {
+        await sql`UPDATE roster_votes SET vote = ${vote} WHERE roster_id = ${id} AND user_id = ${userId}`;
+        res.status(200).json({ ok: true, user_vote: vote });
+      }
+    } else {
+      await sql`INSERT INTO roster_votes (roster_id, user_id, vote) VALUES (${id}, ${userId}, ${vote})`;
+      res.status(200).json({ ok: true, user_vote: vote });
+    }
   } catch (err) {
     res.status(500).json({ error: 'Request failed', detail: String(err) });
   }

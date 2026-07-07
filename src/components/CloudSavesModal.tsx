@@ -209,6 +209,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
   const [error, setError] = useState('');
   const [copying, setCopying] = useState<number | null>(null);
   const [copied, setCopied] = useState<number | null>(null);
+  const [votingId, setVotingId] = useState<number | null>(null);
 
   async function load(type: 'all' | 'friends') {
     setLoading(true); setError('');
@@ -228,6 +229,38 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
       setTimeout(() => setCopied(null), 2000);
     } catch (err) { setError((err as Error).message); }
     finally { setCopying(null); }
+  }
+
+  async function handleVote(army: PublicArmySummary, vote: 1 | -1) {
+    if (!loggedIn || votingId === army.id) return;
+    const prev = armies.find(a => a.id === army.id);
+    if (!prev) return;
+    const wasVote = prev.user_vote;
+    const removing = wasVote === vote;
+    // Optimistic update
+    setArmies(cur => cur.map(a => {
+      if (a.id !== army.id) return a;
+      const newUserVote = removing ? null : vote;
+      const upvotes = a.upvotes
+        + (newUserVote === 1 ? 1 : 0)
+        - (wasVote === 1 ? 1 : 0);
+      const downvotes = a.downvotes
+        + (newUserVote === -1 ? 1 : 0)
+        - (wasVote === -1 ? 1 : 0);
+      return { ...a, upvotes, downvotes, user_vote: newUserVote };
+    }));
+    setVotingId(army.id);
+    try {
+      const res = await api.voteArmy(army.id, vote);
+      setArmies(cur => cur.map(a =>
+        a.id === army.id ? { ...a, user_vote: res.user_vote } : a
+      ));
+    } catch {
+      // Revert on error
+      setArmies(cur => cur.map(a =>
+        a.id === army.id ? { ...a, upvotes: prev.upvotes, downvotes: prev.downvotes, user_vote: wasVote } : a
+      ));
+    } finally { setVotingId(null); }
   }
 
   async function handleLoad(army: PublicArmySummary) {
@@ -283,6 +316,37 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                 </div>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
+                {loggedIn && (
+                  <>
+                    <button
+                      onClick={() => handleVote(a, 1)}
+                      disabled={votingId === a.id}
+                      title="Upvote"
+                      className={`flex items-center gap-0.5 text-[11px] px-1.5 py-1 border transition-colors disabled:opacity-50 ${
+                        a.user_vote === 1
+                          ? 'bg-green-900/40 border-green-700 text-green-400'
+                          : 'border-zinc-700 text-zinc-500 hover:text-green-400 hover:border-green-700'
+                      }`}
+                    >
+                      👍 <span>{a.upvotes ?? 0}</span>
+                    </button>
+                    <button
+                      onClick={() => handleVote(a, -1)}
+                      disabled={votingId === a.id}
+                      title="Downvote"
+                      className={`flex items-center gap-0.5 text-[11px] px-1.5 py-1 border transition-colors disabled:opacity-50 ${
+                        a.user_vote === -1
+                          ? 'bg-red-900/40 border-red-700 text-red-400'
+                          : 'border-zinc-700 text-zinc-500 hover:text-red-400 hover:border-red-700'
+                      }`}
+                    >
+                      👎 <span>{a.downvotes ?? 0}</span>
+                    </button>
+                  </>
+                )}
+                {!loggedIn && (a.upvotes > 0 || a.downvotes > 0) && (
+                  <span className="text-[10px] text-zinc-600">👍{a.upvotes} 👎{a.downvotes}</span>
+                )}
                 <button
                   onClick={() => handleLoad(a)}
                   className="text-[11px] px-2 py-1 border border-zinc-600 text-zinc-400 hover:text-zinc-200 uppercase tracking-wide"

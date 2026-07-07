@@ -61,6 +61,18 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS friends_user_idx ON friends(user_id)`;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS roster_votes (
+      id SERIAL PRIMARY KEY,
+      roster_id INTEGER NOT NULL REFERENCES rosters(id) ON DELETE CASCADE,
+      user_id  INTEGER NOT NULL REFERENCES users(id)   ON DELETE CASCADE,
+      vote     INTEGER NOT NULL CHECK (vote IN (1, -1)),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE(roster_id, user_id)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS roster_votes_roster_idx ON roster_votes(roster_id)`;
+
   // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
   // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when
   // joining via campaign_players.faction. The GM's own row has faction = NULL unless they also
