@@ -1,0 +1,892 @@
+---
+import Layout from '../../components/Layout.astro';
+---
+<Layout title="Core Rules — Custom40k Wiki">
+
+<div class="rules-page">
+
+  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <div class="rules-hero">
+    <div class="rules-hero-bg" aria-hidden="true"></div>
+    <div class="rules-hero-content">
+      <div class="rules-seal" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="68" height="68" fill="none">
+          <circle cx="32" cy="32" r="30" stroke="#a21217" stroke-width="1.2" fill="rgba(162,18,23,0.06)"/>
+          <circle cx="32" cy="32" r="22" stroke="#a21217" stroke-width="0.8" fill="none" stroke-dasharray="3,2"/>
+          <polygon points="32,8 35,22 50,22 38,30 42,44 32,36 22,44 26,30 14,22 29,22" fill="rgba(162,18,23,0.15)" stroke="#a21217" stroke-width="1"/>
+          <circle cx="32" cy="32" r="5" fill="#a21217" opacity="0.7"/>
+        </svg>
+      </div>
+      <p class="rules-supertitle">Custom40k Reference</p>
+      <h1 class="rules-title">Core Rules</h1>
+      <p class="rules-meta">v1.255 · Balance 5.03 · FAQ #5: Codex rules override Core Rules</p>
+    </div>
+  </div>
+
+  <!-- ── Tab Nav ────────────────────────────────────────────────── -->
+  <nav class="tab-bar" role="tablist" aria-label="Core Rules sections">
+    <button class="tab-btn tab-active" data-tab="battle" role="tab">Battle Round</button>
+    <button class="tab-btn" data-tab="combat" role="tab">Combat</button>
+    <button class="tab-btn" data-tab="units" role="tab">Unit Types</button>
+    <button class="tab-btn" data-tab="special" role="tab">Special Rules</button>
+    <button class="tab-btn" data-tab="weapons" role="tab">Weapon Abilities</button>
+    <button class="tab-btn" data-tab="army" role="tab">Army &amp; Allies</button>
+    <button class="tab-btn" data-tab="psychic" role="tab">Psychic</button>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: BATTLE ROUND                                          -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-battle" class="tab-panel tab-panel--active">
+
+    <div class="phase-grid">
+      <div class="phase-card phase-card--1">
+        <div class="phase-num">01</div>
+        <div class="phase-name">Rally Phase</div>
+        <p>Take Leadership tests for units with Battleshock tokens (2D6 ≤ Ld to pass). Pass: remove all tokens. Fail: tokens remain. 2 tokens = Fleeing.</p>
+        <div class="sub-rule">
+          <strong>Battleshock Tokens</strong>
+          <ul>
+            <li><span class="badge-inline">1 token — Pinned</span> −1 to hit, movement halved, no Charge bonus.</li>
+            <li><span class="badge-inline badge-red">2 tokens — Fleeing</span> Move D6+6″ toward nearest friendly board edge. Can't receive orders. Removed if reaching board edge.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase-card phase-card--2">
+        <div class="phase-num">02</div>
+        <div class="phase-name">Reinforcement Phase</div>
+        <p>Roll reinforcement dice equal to the battle round number. Each 4+ brings one unit from reserve.</p>
+        <table class="compact-table">
+          <thead><tr><th>Round</th><th>Dice</th><th>Auto Units</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>1D6</td><td>—</td></tr>
+            <tr><td>2</td><td>2D6</td><td>—</td></tr>
+            <tr><td>3</td><td>3D6</td><td>+1</td></tr>
+            <tr><td>4</td><td>4D6</td><td>+2</td></tr>
+            <tr><td>5</td><td>5D6</td><td>+3</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Transports + embarked units count as one reserve. Characters attached to a unit roll together.</p>
+      </div>
+
+      <div class="phase-card phase-card--3">
+        <div class="phase-num">03</div>
+        <div class="phase-name">Command Phase</div>
+        <p>Both players assign orders face-down to all units simultaneously. Orders determine what a unit can do in the Action Phase.</p>
+        <div class="order-grid">
+          <div class="order-pill">Advance</div>
+          <div class="order-pill">Charge</div>
+          <div class="order-pill">Escape</div>
+          <div class="order-pill">Fight</div>
+          <div class="order-pill">Move &amp; Shoot</div>
+          <div class="order-pill">Stand &amp; Shoot</div>
+        </div>
+        <p class="note">If one player has more orders, the other gets Skip tokens (1 per 2 extra orders, rounded up).</p>
+      </div>
+
+      <div class="phase-card phase-card--4">
+        <div class="phase-num">04</div>
+        <div class="phase-name">Initiative Phase</div>
+        <p>Both players roll 2D6. Higher result wins initiative and activates first in the Action Phase. Ties: player who did NOT have initiative last round wins. First round: whoever finished deploying first.</p>
+      </div>
+
+      <div class="phase-card phase-card--5">
+        <div class="phase-num">05</div>
+        <div class="phase-name">Action Phase</div>
+        <p>Players alternate activating one unit at a time, starting with the initiative holder. Each unit carries out its assigned order.</p>
+        <p class="note">A unit may move, shoot, and fight in the same round — but each action only once. A unit already activated may still fight if charged later.</p>
+      </div>
+    </div>
+
+    <!-- Orders detail -->
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Orders</span></div>
+      <div class="rule-grid">
+        <div class="rule-card">
+          <div class="rule-name">Advance</div>
+          <p>Move up to M. May Advance D6″ extra. Shoot Assault/Pistol/Grenade at −1. Cannot target units in melee.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Charge</div>
+          <p>Move up to M (max 12″). Declare charge targets. Make a 6″ Charge move to reach them. Gain +1 A or +1 I as Charge bonus. Then resolve Fight.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Escape</div>
+          <p>Must be in melee. Receive 1 automatic hit per enemy model in range. Gain 2 Battleshock tokens and flee.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Fight</div>
+          <p>Must be in melee. Resolve the melee combat. Removes orders from all units in the melee.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Move &amp; Shoot</div>
+          <p>Move up to M. Fire any weapon except Heavy. Cast basic and normal psychic powers.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Stand &amp; Shoot</div>
+          <p>Cannot move. Fire any weapon including Heavy. −1 to total hit penalty. Cast all psychic powers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meta Orders -->
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Meta Orders (Defensive Reactions)</span></div>
+      <p class="section-note">Triggered in specific situations — not assigned in the Command Phase. Can only be used by units that haven't activated yet this round and are not in melee.</p>
+      <div class="rule-grid">
+        <div class="rule-card">
+          <div class="rule-name">Counter-Attack</div>
+          <p>Requires Counter-Attack ability. When declared as a charge target: treated as having executed a Charge order. Must pick Charge bonus before attacker does.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Defensive Fire</div>
+          <p>When declared as a charge target: fire ranged weapons at the charger at −1 to hit. Attacker auto-passes Leadership during this.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Hold Your Ground</div>
+          <p>When declared as a charge target: negates the attacker's Charge bonus. At least 50% of charged units must use this to negate the bonus.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Take Cover</div>
+          <p>When declared as a ranged target: +1 to Saving throws vs ranged attacks and −1 AT until end of enemy activation.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-battle -->
+
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: COMBAT                                                -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-combat" class="tab-panel">
+
+    <div class="rule-section">
+      <div class="section-divider"><span>Ranged Combat Sequence</span></div>
+      <ol class="steps-list">
+        <li><strong>Choose Targets</strong> — Select targets for all weapons before resolving. At least one model visible and in range. Can't target units in melee.</li>
+        <li><strong>Resolve Attacks</strong> — If multiple targets, resolve all attacks vs one unit before moving to next.</li>
+        <li><strong>Hit Rolls</strong> — Roll to hit vs model's BS. Roll of 6 always succeeds.</li>
+        <li><strong>Wound Rolls</strong> — Roll based on weapon Strength vs target Toughness.</li>
+        <li><strong>Saving Throws</strong> — Roll save, subtract weapon AP. Invulnerability save unaffected by AP.</li>
+        <li><strong>Damage</strong> — Failed save = damage equal to weapon profile. When damage ≥ Wounds, model removed. Damage doesn't carry over.</li>
+        <li><strong>Leadership Test</strong> — If unit drops below half starting strength, pass Ld test or receive 2 Battleshock tokens.</li>
+      </ol>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Strength vs. Toughness</span></div>
+      <table class="ref-table">
+        <thead><tr><th>Condition</th><th>To Wound Roll</th></tr></thead>
+        <tbody>
+          <tr><td>S ≥ 2×T</td><td class="roll-good">2+</td></tr>
+          <tr><td>S &gt; T</td><td class="roll-good">3+</td></tr>
+          <tr><td>S = T</td><td>4+</td></tr>
+          <tr><td>S &lt; T</td><td class="roll-bad">5+</td></tr>
+          <tr><td>S ≤ ½T</td><td class="roll-bad">6+</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Strength "D": wound roll of 2+ always succeeds; armor penetration roll of 2+ is always a penetrating hit.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Melee Combat Sequence</span></div>
+      <ol class="steps-list">
+        <li><strong>Defender Movement</strong> — Defender moves up to 6″ to place models in base contact. Characters take priority.</li>
+        <li><strong>Initiative Order</strong> — Models act from highest to lowest Initiative. Same Initiative = simultaneous.</li>
+        <li><strong>Engagement Range</strong> — Base contact OR within 1″ of a friendly model in base contact. Can fight one level up/down.</li>
+        <li><strong>Resolve Attacks</strong> — Distribute A stat freely among melee weapons. Roll vs WS. Roll of 6 always hits.</li>
+        <li><strong>Combat Result</strong> — Score: +1 for more remaining wounds, +1 per wound caused, +1 per penetrating hit. Winner = more points.</li>
+        <li><strong>Losing Combat</strong> — Loser takes Ld test with penalty = result difference. Fail: 2 Battleshock tokens (flee).</li>
+        <li><strong>Pursuit</strong> — Winner may pursue fleeing units: roll D6+highest I. Match or exceed fleeing unit's roll to catch (+1 auto hit per model, −1 Battleshock token from fleeing unit).</li>
+      </ol>
+      <p class="note">*Vehicle remaining HP count as 5 Wounds each for combat scoring.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Cover</span></div>
+      <div class="cover-grid">
+        <div class="cover-card">
+          <div class="cover-title">Light Cover</div>
+          <ul><li>+1 Armour Save</li><li>−1 hit to ranged attackers</li><li>−1 AT to incoming ranged</li><li>Example: sandbag barricades</li></ul>
+        </div>
+        <div class="cover-card">
+          <div class="cover-title">Heavy Cover</div>
+          <ul><li>+2 Armour Save</li><li>−1 hit to ranged attackers</li><li>−1 AT to incoming ranged</li><li>Example: bunkers</li></ul>
+        </div>
+        <div class="cover-card">
+          <div class="cover-title">Obscuring Terrain</div>
+          <ul><li>Cover if line passes through terrain ≥ ½ height &amp; width</li><li>−1 hit for attacker</li><li>No AP penalty or armour save bonus (not treated as cover)</li></ul>
+        </div>
+      </div>
+      <p class="note">Cover requires ≥50% of models/bases to be in it. If both sides benefit from the same terrain, neither gets the bonus. Units in cover that are charged always get Hold Your Ground.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Terrain Types</span></div>
+      <div class="rule-grid">
+        <div class="rule-card">
+          <div class="rule-name">Normal Terrain</div>
+          <p>No movement restrictions.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Difficult Terrain</div>
+          <p>Movement penalty: M3″=−1″ / M6″=−2″ / M12″=−4″ / M24″=−8″ (or 33% rounded up). Penalty applies once per activation. Alt: move full speed but treat as dangerous.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Dangerous Terrain</div>
+          <p>Each model rolls 1D6; each 1 = wound (no saves). Vehicles suffer Engine Damage instead. Test once per activation.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-name">Impassable Terrain</div>
+          <p>Cannot pass through. Anti-Grav and Jump Pack models may move over it. Cannot end movement on it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Vehicle Damage Chart</span></div>
+      <table class="ref-table">
+        <thead><tr><th>D6</th><th>Result</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>—</td><td>Nothing happens.</td></tr>
+          <tr><td>2</td><td class="result-label">Crew Shaken</td><td>−1 to hit, −50% movement until end of next activation. Not cumulative.</td></tr>
+          <tr><td>3</td><td class="result-label">Engine Damage</td><td>Movement reduced by ⅓ permanently. Fully immobilised = can't move, no melee lock. If can't reduce further → lose 1 HP.</td></tr>
+          <tr><td>4</td><td class="result-label">Weapon Damage</td><td>Owner chooses a weapon — permanently destroyed. Can spend 1 HP instead of losing last weapon.</td></tr>
+          <tr><td>5</td><td class="result-label">Structural Damage</td><td>Lose 1 Hull Point.</td></tr>
+          <tr><td>6</td><td class="result-label result-crit">Critical Damage</td><td>Attacker picks: Engine Damage, Weapon Damage, or Structural Damage.</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Glancing Hit: roll chart × AT value, apply only highest result (no 6s). Penetrating Hit: roll × AT value, apply ALL results.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Mixed Units</span></div>
+      <ul class="plain-list">
+        <li><strong>Mixed Armour Save:</strong> Use the save value that occurs most. Tie = controlling player chooses. Casualties from failed saves must come from models matching that save first.</li>
+        <li><strong>Mixed Toughness:</strong> Use the T value that occurs most. Tie = controlling player chooses.</li>
+        <li><strong>Mixed Defensive Rules:</strong> Use the special rule (or lack of one) that occurs most.</li>
+        <li><strong>Characters:</strong> Cannot voluntarily take wounds for the unit. Always use their own armour/invul save.</li>
+      </ul>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Suppressive Fire</span></div>
+      <p>Scoring 6+ ranged hits with non-Suppression weapons forces the target to take a Ld test. For every additional 6 hits: cumulative −1 penalty. Fail → 1 Battleshock token (if they had none).</p>
+    </div>
+
+  </div><!-- /tab-combat -->
+
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: UNIT TYPES                                            -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-units" class="tab-panel">
+
+    <div class="unit-type-grid">
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">👣</span>
+          <span class="unit-type-name">Infantry</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <p>Follows all standard rules without exceptions. The baseline unit type.</p>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">🏍</span>
+          <span class="unit-type-name">Bike</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <ul>
+          <li>Cannot move vertically on terrain.</li>
+          <li>Auto-advances 6″ on Advance order.</li>
+          <li>May fire Heavy weapons with Move &amp; Shoot.</li>
+          <li>Always fires Rapid Fire at full range.</li>
+          <li>Fires all weapon types on Charge at −1.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">⚜</span>
+          <span class="unit-type-name">Character Model</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <ul>
+          <li>Can join a creature unit (start Command Phase within 2″).</li>
+          <li>One character per unit. Cannot join Monstrous Creatures or Vehicles.</li>
+          <li>Must be targeted separately in melee.</li>
+          <li>Auto-rallies during Rally Phase if alone.</li>
+          <li>Cannot take wounds for unit in ranged. Uses own armour/invul.</li>
+          <li>Fires only one weapon per activation (unless equipment states otherwise).</li>
+          <li>Ignored when determining half-strength.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">🛸</span>
+          <span class="unit-type-name">Jet Bike</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <ul>
+          <li>Ignores terrain and vertical movement costs.</li>
+          <li>Auto-advances 6″ on Advance order.</li>
+          <li>May fire Heavy weapons with Move &amp; Shoot.</li>
+          <li>Always fires Rapid Fire at full range.</li>
+          <li>Fires all weapon types on Charge at −1.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">✈</span>
+          <span class="unit-type-name">Jump Pack Infantry</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <ul>
+          <li>Ignores terrain and vertical movement costs.</li>
+          <li>Gains the Deep Strike special rule.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">🦖</span>
+          <span class="unit-type-name">Monstrous Creature</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <ul>
+          <li>Cannot be joined by a Character Model.</li>
+          <li>Cannot enter transport vehicles.</li>
+          <li>Rolls additional D6 (Strength + 2D6 total) to penetrate vehicle armour.</li>
+          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">🦣</span>
+          <span class="unit-type-name">Monstrous Infantry</span>
+          <span class="unit-type-sub">Creature</span>
+        </div>
+        <ul>
+          <li>Cannot be joined by a Character Model.</li>
+          <li>Cannot enter transport vehicles.</li>
+          <li>Rolls additional D3 (Strength + 1D6 + 1D3 total) to penetrate vehicle armour.</li>
+          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">🤖</span>
+          <span class="unit-type-name">Walker</span>
+          <span class="unit-type-sub">Vehicle</span>
+        </div>
+        <ul>
+          <li>Treated like vehicles but locked in melee like infantry.</li>
+          <li>May change facing during its own initiative step in melee.</li>
+          <li>May fire Heavy with Move &amp; Shoot. Always Rapid Fire at full range. All types on Charge at −1.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">🚂</span>
+          <span class="unit-type-name">Vehicle</span>
+          <span class="unit-type-sub">Vehicle</span>
+        </div>
+        <ul>
+          <li>Has Front/Side/Rear armour values and Hull Points.</li>
+          <li>Auto-passes Leadership tests.</li>
+          <li>Tank Shock on Charge: 1 auto hit per inch travelled at Initiative 10.</li>
+          <li>Not locked in melee — can be given any order while in melee.</li>
+          <li>Cannot shoot if enemy is in base contact.</li>
+          <li>Turret weapons: 360°. Chassis weapons: 180°.</li>
+          <li>Move &gt;12″: cannot fire any weapons. Move 6–12″: fire 1 weapon.</li>
+        </ul>
+      </div>
+
+      <div class="unit-type-card unit-type-card--wide">
+        <div class="unit-type-header">
+          <span class="unit-type-icon">✈</span>
+          <span class="unit-type-name">Flyer</span>
+          <span class="unit-type-sub">Vehicle</span>
+        </div>
+        <ul>
+          <li>Deployed during Reinforcement phase, anywhere on the battlefield.</li>
+          <li>Can only receive Advance (fire 1 weapon) or Move &amp; Shoot (fire all weapons) orders. Cannot activate first in a turn.</li>
+          <li>Always counts as having moved 24″ when not in Hover Mode.</li>
+          <li>Subtract 12″ from weapon range when shooting at or from flyers. −1 hit penalty when targeting flyers.</li>
+          <li>On Advance order: 4+ invulnerability save. Cannot engage or be engaged in melee.</li>
+          <li>3 permanent Engine Damage = disabled for one full round, then all Engine Damage removed and redeployed.</li>
+          <li><strong>Hover Mode:</strong> Can capture/hold/contest objectives. Must start in hover mode during deployment or enter by not repositioning in reserve phase.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Profile Values Reference</span></div>
+      <div class="stat-ref-grid">
+        <div class="stat-ref"><span class="stat-letter">M</span><div><strong>Movement</strong> — Speed in inches. "−" = cannot move.</div></div>
+        <div class="stat-ref"><span class="stat-letter">WS</span><div><strong>Weapon Skill</strong> — Melee hit roll target. "−" = cannot fight in melee. Max 1+.</div></div>
+        <div class="stat-ref"><span class="stat-letter">BS</span><div><strong>Ballistic Skill</strong> — Ranged hit roll target. "−" = cannot shoot. Max 1+.</div></div>
+        <div class="stat-ref"><span class="stat-letter">S</span><div><strong>Strength</strong> — Melee wounding power. Max 10 or D.</div></div>
+        <div class="stat-ref"><span class="stat-letter">T</span><div><strong>Toughness</strong> — Damage resistance. Max 10.</div></div>
+        <div class="stat-ref"><span class="stat-letter">W</span><div><strong>Wounds</strong> — Damage capacity. Excess damage doesn't carry over between models.</div></div>
+        <div class="stat-ref"><span class="stat-letter">I</span><div><strong>Initiative</strong> — Melee activation order, highest first. Max 10.</div></div>
+        <div class="stat-ref"><span class="stat-letter">A</span><div><strong>Attacks</strong> — Melee attacks per activation. "−" = cannot fight in melee. Max 10.</div></div>
+        <div class="stat-ref"><span class="stat-letter">Ld</span><div><strong>Leadership</strong> — Bravery. Uses highest in squad including attached characters. Max 10.</div></div>
+        <div class="stat-ref"><span class="stat-letter">Sv</span><div><strong>Save</strong> — Armour protection, modified by weapon AP. Roll of 1 always fails. Max 1+.</div></div>
+        <div class="stat-ref"><span class="stat-letter">Inv</span><div><strong>Invulnerability Save</strong> — Not affected by AP. Max 4+ (unless stated otherwise).</div></div>
+      </div>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Weapon Types</span></div>
+      <table class="weapon-types-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Stand &amp; Shoot</th>
+            <th>Move &amp; Shoot</th>
+            <th>Advance</th>
+            <th>Charge</th>
+            <th>Fight</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Assault</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+          <tr><td>Grenade¹</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>✓*</td></tr>
+          <tr><td>Heavy</td><td>✓</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Melee²</td><td>—</td><td>—</td><td>—</td><td>✓</td><td>✓</td></tr>
+          <tr><td>Pistol³</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td>—</td></tr>
+          <tr><td>Rapid Fire⁴</td><td>✓</td><td>✓</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <ul class="notes-list">
+        <li>¹ One model per unit may use a grenade. In melee, grenades have 1 attack and can only target Vehicles or Monstrous Creatures.</li>
+        <li>² If a model has at least one melee weapon AND one pistol, gains +1 Attack in melee.</li>
+        <li>³ A model can fire up to two pistols, OR other eligible weapons (not both).</li>
+        <li>⁴ Doubles shots at half range. With S&amp;S order only: can fire at full range too.</li>
+      </ul>
+    </div>
+
+  </div><!-- /tab-units -->
+
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: SPECIAL RULES                                         -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-special" class="tab-panel">
+    <p class="tab-intro">All model special rules from the Core Rules v1.255. Codex rules may add to or override these (FAQ #5).</p>
+    <div class="ability-grid">
+
+      <div class="ability-card"><div class="ability-name">Acute Senses</div><p>Infiltrators always stay 18″ apart during deployment, even without direct LOS.</p></div>
+      <div class="ability-card"><div class="ability-name">Aegis (X+)</div><p>Dispel any psychic power directly targeting this model on X+. Also prevent Perils of the Warp on X+. Best Aegis in unit applies.</p></div>
+      <div class="ability-card"><div class="ability-name">Anti-Grav</div><p>Ignores terrain, units, and vertical movement costs when moving.</p></div>
+      <div class="ability-card"><div class="ability-name">Berserk (X+)</div><p>Gain X+ invulnerability save (doesn't work vs S8+). Cannot use Escape or Take Cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Blind Rage</div><p>Instead of Battleshock tests: move D6″ toward nearest enemy (may trigger charge). In melee: fail Ld test → lose D3 wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Bodyguard</div><p>Ranged wounds assigned to Bodyguard before characters. Attacks in melee must target Bodyguard first. Can pile in simultaneously with characters.</p></div>
+      <div class="ability-card"><div class="ability-name">Brotherhood of Psykers</div><p>If unit has ≥2 models with this rule: +1 to all psychic cast and deny rolls.</p></div>
+      <div class="ability-card"><div class="ability-name">Combat Squads</div><p>If unit is at maximum models, may split into two equal units during deployment.</p></div>
+      <div class="ability-card"><div class="ability-name">Command Squad</div><p>Models with this ability can join: a squad, a single character, or a squad that already has a character attached.</p></div>
+      <div class="ability-card"><div class="ability-name">Counter-Attack</div><p>Model is able to use the Counter-Attack Meta-Order.</p></div>
+      <div class="ability-card"><div class="ability-name">Daemon</div><p>The model has a 5+ invulnerability save.</p></div>
+      <div class="ability-card"><div class="ability-name">Daemonic Instability</div><p>Ignore effects of 1 Battleshock token. On 2nd token: suffer D3 auto wounds (no saves), discard all tokens, do not flee. In melee: suffer D3+1 auto wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Deep Strike</div><p>When arriving from reserve, place anywhere. Roll scatter die: hit icon = stay, arrow = move 2D6″. If landing on enemy: D6 roll 1–3 back to reserve, 4–6 opponent places unit. Models on terrain take dangerous terrain test.</p></div>
+      <div class="ability-card"><div class="ability-name">Deflect</div><p>Ranged attacks against this model suffer −1 to hit rolls.</p></div>
+      <div class="ability-card"><div class="ability-name">Fast</div><p>Vehicles double their movement (max 24″). May fire one additional weapon if moved up to 12″.</p></div>
+      <div class="ability-card"><div class="ability-name">Fearless</div><p>Automatically passes any Leadership test. Cannot use Escape or Take Cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Favoured Enemy</div><p>At game start, choose a faction. Reduce total hit penalty against that faction by −1 (min 0). Leadership tests caused by this model vs that faction suffer cumulative −1.</p></div>
+      <div class="ability-card"><div class="ability-name">Frenzy (x″)</div><p>Infantry model gains x″ increased movement for Charge movement.</p></div>
+      <div class="ability-card"><div class="ability-name">Furious Charge</div><p>Gain +1 Strength and +1 Initiative until end of battle round when making a charge move.</p></div>
+      <div class="ability-card"><div class="ability-name">Greater Daemon</div><p>The model has a 4+ invulnerability save.</p></div>
+      <div class="ability-card"><div class="ability-name">Haste (x″)</div><p>Infantry model gains x″ increased movement for Advance movement.</p></div>
+      <div class="ability-card"><div class="ability-name">Hit &amp; Run</div><p>After all models in melee activated (before result): unit may move 3D6″ away in straight line. Cannot enter engagement range. Enemy cannot pursue.</p></div>
+      <div class="ability-card"><div class="ability-name">Infiltrator</div><p>After all normal deployment, deploy anywhere: 18″ from enemies in LOS, 12″ from enemies out of LOS. Cannot Vanguard move. Alternate placement if both players have Infiltrators.</p></div>
+      <div class="ability-card"><div class="ability-name">Massive (X)</div><p>Occupies X additional spaces in transport vehicles.</p></div>
+      <div class="ability-card"><div class="ability-name">Mindless</div><p>Auto-passes every Leadership test. Can contest objectives but never hold them.</p></div>
+      <div class="ability-card"><div class="ability-name">Move Through Cover</div><p>Does not suffer movement penalties for moving through terrain.</p></div>
+      <div class="ability-card"><div class="ability-name">Narthecium</div><p>Once per turn, reduce damage of one wound to the model or its unit by 1 (declared after saves). Doesn't work vs S8+, or Mortal Wounds.</p></div>
+      <div class="ability-card"><div class="ability-name">Objective Secured!</div><p>Captured objective remains under control even with no friendly units in range — until opponent contests/conquers it at end of a battle round. Automatically granted to all Troops selections.</p></div>
+      <div class="ability-card"><div class="ability-name">Open</div><p>Vehicle has fire hatches = passenger capacity. Passengers can be targeted, cast psychic powers, benefit from cover with transport. Cannot fight in melee while inside. After disembarking, can always make 6″ Charge if vehicle moved ≤12″.</p></div>
+      <div class="ability-card"><div class="ability-name">Outflank</div><p>When arriving from reserve, may deploy along side edges (not opponent's deployment zone, not turn 1). Counts as moved at maximum range, Move &amp; Shoot order only.</p></div>
+      <div class="ability-card"><div class="ability-name">Parry</div><p>Melee attacks against the model suffer −1 to hit rolls.</p></div>
+      <div class="ability-card"><div class="ability-name">Regeneration (X)</div><p>Regains X wounds at the start of each Reinforcement phase.</p></div>
+      <div class="ability-card"><div class="ability-name">Retribution (X)</div><p>Melee hits against the model cause X auto wounds per battle round (S4 AP0 D1) against the attacking unit. Multiple models with this rule pool their instances.</p></div>
+      <div class="ability-card"><div class="ability-name">Squadron</div><p>All models treated as independent units during deployment. Own orders, no formation requirement.</p></div>
+      <div class="ability-card"><div class="ability-name">Stealth</div><p>The model always counts as being in Heavy cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Swarm</div><p>Each instance of damage can only cause 1 wound loss. Barrage/Explosive cause 1 hit per remaining Wound on the model.</p></div>
+      <div class="ability-card"><div class="ability-name">Tank Hunter</div><p>One armor penetration roll vs vehicle (or wound roll vs Monstrous Creature) may be re-rolled. Multiple models with the same weapon: one roll per model may be re-rolled.</p></div>
+      <div class="ability-card"><div class="ability-name">Terrifying (−X)</div><p>Enemy units within 6″ suffer −X Leadership.</p></div>
+      <div class="ability-card"><div class="ability-name">Unique</div><p>The weapon or wargear may only be included once per army.</p></div>
+      <div class="ability-card"><div class="ability-name">Unyielding</div><p>May fire Heavy with Move &amp; Shoot. Always fires Rapid Fire at full range OR twice at half range. All weapon types at −1 on Charge. Cannot Advance or pursue fleeing units in melee.</p></div>
+      <div class="ability-card"><div class="ability-name">Use Cover</div><p>Models benefiting from cover impose an additional −1 to hit rolls for ranged attacks.</p></div>
+      <div class="ability-card"><div class="ability-name">Vanguard</div><p>At the start of the first battle round: move 6″ (or 12″ from a transport). Alternate activation with opponent's Vanguard units, starting with the player who deployed first.</p></div>
+      <div class="ability-card"><div class="ability-name">Warded</div><p>Gain a 6+ invulnerability save, or improve existing invul by +1 (max 4+). Cumulative with itself.</p></div>
+
+    </div>
+  </div><!-- /tab-special -->
+
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: WEAPON ABILITIES                                      -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-weapons" class="tab-panel">
+    <p class="tab-intro">Weapon ability keywords that appear in weapon profiles. Codex entries may define additional faction-specific abilities.</p>
+    <div class="ability-grid">
+
+      <div class="ability-card"><div class="ability-name">Ammo (X)</div><p>This weapon can only be used X times per game.</p></div>
+      <div class="ability-card"><div class="ability-name">Anti-Air</div><p>Attacks vs Anti-Grav, Jet Bike, Jump Pack models or Flyers gain +1 to hit and +1 Strength.</p></div>
+      <div class="ability-card"><div class="ability-name">Armorbane</div><p>Rolls an additional 1D6 for armor penetration.</p></div>
+      <div class="ability-card"><div class="ability-name">Armor Piercing (X+)</div><p>Wound rolls of X+ always succeed and gain −2 AP. Armor penetration rolls of X+ gain +1 AT and roll an extra 1D3 for armor penetration.</p></div>
+      <div class="ability-card"><div class="ability-name">AT (X)</div><p>Can cause Penetrating Hits. On a penetrating hit, roll X dice on the Vehicle Damage Chart and apply all results.</p></div>
+      <div class="ability-card"><div class="ability-name">Barrage</div><p>Successful hit → up to 5 additional hits (6 total, if enough models). Failed hit → re-roll once for up to 2 additional hits (3 total). Each model only hit once per shot.</p></div>
+      <div class="ability-card"><div class="ability-name">Beam</div><p>Choose target, make normal hit roll. If hit: draw a line from shooting model's base to target. Make wound roll vs target AND any unit the line passes through.</p></div>
+      <div class="ability-card"><div class="ability-name">Blind</div><p>If weapon scores at least one hit, target unit does not gain a Charge bonus for its Charge order.</p></div>
+      <div class="ability-card"><div class="ability-name">Blood Drinker</div><p>When the model causes a Wound loss, it regains 1 Wound (up to starting value).</p></div>
+      <div class="ability-card"><div class="ability-name">Bomb</div><p>Range unaffected by the −12″ range reduction for Flyers.</p></div>
+      <div class="ability-card"><div class="ability-name">Combi</div><p>Combines two weapon profiles. Can fire both simultaneously at same target at −1 to hit.</p></div>
+      <div class="ability-card"><div class="ability-name">Deadly (X+)</div><p>Wound rolls of X+ increase the Damage value of the attack by +1.</p></div>
+      <div class="ability-card"><div class="ability-name">Decimate</div><p>Wound rolls gain +1. Does not work against Vehicles.</p></div>
+      <div class="ability-card"><div class="ability-name">Deflagrate (X+)</div><p>Hit rolls of X+ score an additional hit.</p></div>
+      <div class="ability-card"><div class="ability-name">Explosive</div><p>Successful hit → up to 3 additional hits (4 total). Failed hit → re-roll once for up to 1 additional hit (2 total). Each model only hit once per shot.</p></div>
+      <div class="ability-card"><div class="ability-name">Extra Attack (X)</div><p>Weapon profile can be used an extra X times per activation in addition to other weapons. Maximum X attacks with this weapon per battle round.</p></div>
+      <div class="ability-card"><div class="ability-name">Flames</div><p>Weapon hits automatically. Units in cover reduce their cover armour save bonus by cumulative −1 (min 0).</p></div>
+      <div class="ability-card"><div class="ability-name">Flurry (X)</div><p>Model makes X additional attacks with this weapon's profile per battle round (can still make more attacks with this weapon).</p></div>
+      <div class="ability-card"><div class="ability-name">Force Weapon</div><p>If bearer successfully manifests ≥1 psychic power during activation, this weapon gains +1 Damage for the rest of the battle round.</p></div>
+      <div class="ability-card"><div class="ability-name">Grav</div><p>Unless already better, wound roll = enemy's armour save. Unless already worse, enemy's armour save against this = 5+. Does not work vs Vehicles.</p></div>
+      <div class="ability-card"><div class="ability-name">Graviton</div><p>Creatures hit must pass Strength test or suffer S4 AP0 D1 Seeking wound (in addition to normal hit). If target in cover and ≥1 hit: terrain becomes difficult and dangerous until next activation.</p></div>
+      <div class="ability-card"><div class="ability-name">Gruesome</div><p>Each wound caused counts as two for combat resolution. Fleeing models caught by pursuit suffer one additional automatic wound.</p></div>
+      <div class="ability-card"><div class="ability-name">Haywire</div><p>Each hit causes one automatic penetrating hit against a Vehicle (in addition to normal damage). Does not work vs Creatures.</p></div>
+      <div class="ability-card"><div class="ability-name">Indirect</div><p>Does not require LOS. Target only gets cover bonus if in a terrain zone. Can only be fired with Stand &amp; Shoot order.</p></div>
+      <div class="ability-card"><div class="ability-name">Lance (+X)</div><p>Armor penetration rolls gain +X bonus.</p></div>
+      <div class="ability-card"><div class="ability-name">Life Curse</div><p>One wound roll may be re-rolled against Creatures. Multiple models with same weapon: one wound roll per model may be re-rolled.</p></div>
+      <div class="ability-card"><div class="ability-name">Master-crafted</div><p>One hit roll may be re-rolled (or wound/AP roll for Barrage/Explosive/Flames). Multiple models: one roll per model. Cannot be used on Grenade weapons with Ammo(X).</p></div>
+      <div class="ability-card"><div class="ability-name">Melta</div><p>At half range: +1 Damage, +2 AT, and roll an extra 1D6 for armor penetration.</p></div>
+      <div class="ability-card"><div class="ability-name">Monofilament</div><p>If target in cover and ≥1 hit: terrain becomes difficult and dangerous until end of target's next activation.</p></div>
+      <div class="ability-card"><div class="ability-name">Overheating</div><p>Each roll of 1 on a hit roll → user suffers a Mortal Wound (or glancing hit for vehicles, using weapon's AT). Re-rolls: initial roll determines overheating. Auto-hit weapons: roll of 1 to wound instead triggers this.</p></div>
+      <div class="ability-card"><div class="ability-name">Poison (X+)</div><p>Wound rolls of X+ against Creatures always succeed.</p></div>
+      <div class="ability-card"><div class="ability-name">Precision (X+)</div><p>Successful hit rolls of X+ automatically wound Creatures. Cannot be used with Barrage or Explosive.</p></div>
+      <div class="ability-card"><div class="ability-name">Psi-shock</div><p>If creature unit is hit, a random psyker in that unit must pass a Ld value test or suffer D3 Mortal Wounds. Vehicles: random psyker suffers D3 Critical Damage instead. Each additional hit from same unit = cumulative −1. Triggers once per activating unit.</p></div>
+      <div class="ability-card"><div class="ability-name">Quick (+X)</div><p>The model gains +X to its Initiative.</p></div>
+      <div class="ability-card"><div class="ability-name">Rending (X+)</div><p>Wound rolls of X+ gain an additional −1 AP.</p></div>
+      <div class="ability-card"><div class="ability-name">Seeking</div><p>Enemy units in cover do not gain any cover benefit and are treated as being outside cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Shield Breaker (−X)</div><p>Invulnerability saves of enemy models are degraded by −X.</p></div>
+      <div class="ability-card"><div class="ability-name">Shred</div><p>May re-roll to wound rolls with this weapon.</p></div>
+      <div class="ability-card"><div class="ability-name">Slow (−X)</div><p>The model suffers −X to its Initiative.</p></div>
+      <div class="ability-card"><div class="ability-name">Soul Burn (X+)</div><p>Wound rolls of X+ against Creatures inflict 1 Mortal Wound. Does not work vs Vehicles.</p></div>
+      <div class="ability-card"><div class="ability-name">Sunder (X)</div><p>Enemy units in cover reduce their cover armour save bonus by −X (min 0).</p></div>
+      <div class="ability-card"><div class="ability-name">Suppression</div><p>1 ranged hit forces target to take a Ld test. Additional Suppression weapons vs same target: cumulative −1. Explosive: +−1. Barrage: +−2. Fail = 1 Battleshock token (if unit has none). Stacks with Suppressive Fire penalties.</p></div>
+      <div class="ability-card"><div class="ability-name">Unwieldy</div><p>Model does not gain the +1 Attack for having a pistol in melee. Each model may carry only one Unwieldy item.</p></div>
+
+    </div>
+  </div><!-- /tab-weapons -->
+
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: ARMY & ALLIES                                         -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-army" class="tab-panel">
+
+    <div class="rule-section">
+      <div class="section-divider"><span>Army Organisation Plan (AOP)</span></div>
+      <table class="ref-table">
+        <thead><tr><th>Slot</th><th>Slots (Pitched Battle)</th></tr></thead>
+        <tbody>
+          <tr><td>HQ</td><td>1–2</td></tr>
+          <tr><td>Troops</td><td>2–6</td></tr>
+          <tr><td>Elites</td><td>0–3</td></tr>
+          <tr><td>Fast Attack</td><td>0–3</td></tr>
+          <tr><td>Heavy Support</td><td>0–3</td></tr>
+          <tr><td>Dedicated Transport</td><td>0–ᵀ (one per Infantry unit)</td></tr>
+          <tr><td>Fortification</td><td>0–1</td></tr>
+          <tr><td>Flyer</td><td>0–2</td></tr>
+        </tbody>
+      </table>
+      <ul class="plain-list">
+        <li><strong>Minimum requirements:</strong> At least 1 HQ + 2 Troops + ≥25% of total points spent on Troops.</li>
+        <li><strong>Exceeding AOP:</strong> When all slots are filled, gain a second identical AOP (same minimums apply). Transports, Fortifications, and Flyers don't need to be filled to trigger this.</li>
+      </ul>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Alliance Levels</span></div>
+      <div class="alliance-grid">
+        <div class="alliance-card alliance-card--g">
+          <div class="alliance-badge">Battle Brothers</div>
+          <p>Full allies. Share orders, joined units, and special rules freely. Benefit from each other's abilities.</p>
+        </div>
+        <div class="alliance-card alliance-card--y">
+          <div class="alliance-badge">Allies of Convenience</div>
+          <p>Limited cooperation. Cannot join units. Do not share orders or most special rules. May not end movement within 6″ of each other.</p>
+        </div>
+        <div class="alliance-card alliance-card--r">
+          <div class="alliance-badge">Come the Apocalypse</div>
+          <p>Desperate alliance. Same restrictions as Allies of Convenience, plus: may not end movement within 12″ of each other (must actively avoid). Cannot benefit from each other's abilities in any way.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Supplements</span></div>
+      <p>Supplements provide additional units (Lords of War, Assassins) that extend the core army with their own rules. The Escalation supplement grants access to super-heavy vehicles in Epic Battle-sized games. The Horus Heresy SM Supplement provides alternative unit options for Space Marines.</p>
+      <p class="note">FAQ #5: Rules in a Codex always override Core Rules. This applies to all supplements as well.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Setting Up Units</span></div>
+      <ul class="plain-list">
+        <li>Both players alternate deploying one unit at a time (roll-off to determine who goes first).</li>
+        <li>Units are deployed within the player's deployment zone unless special rules state otherwise.</li>
+        <li>Units held in reserve are declared before deployment begins.</li>
+        <li>Infiltrators deploy after all normal deployment is complete.</li>
+        <li>Vanguard moves occur at the start of the first battle round before orders are assigned.</li>
+      </ul>
+    </div>
+
+  </div><!-- /tab-army -->
+
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!-- TAB: PSYCHIC                                               -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div id="tab-psychic" class="tab-panel">
+
+    <div class="rule-section">
+      <div class="section-divider"><span>Casting Psychic Powers</span></div>
+      <ul class="plain-list">
+        <li>Models with the <strong>Psyker</strong> rule can manifest psychic powers.</li>
+        <li>Powers are classified as <strong>Basic</strong>, <strong>Normal</strong>, or <strong>Complex</strong> — see each order for which categories can be cast.</li>
+        <li>Roll 2D6. Result must meet or exceed the power's cast value.</li>
+        <li>Casting the same power again in the same turn: −1 cumulative penalty per attempt.</li>
+        <li>Requires LOS to target unless stated otherwise.</li>
+        <li>Psykers have access to the General Disciplines and their Codex disciplines.</li>
+      </ul>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Overchanneling</span></div>
+      <p>May roll an extra die (3D6 total) when manifesting a power. Suffers D3 Mortal Wounds on any double (in addition to any Perils of the Warp).</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Dispelling</span></div>
+      <p>Some models may dispel powers. If an enemy psyker within 24″ successfully manifests a power: roll 2D6. Result must be <em>greater</em> than the psychic test result to dispel. Dispelled powers have no effect.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Psychic Powers in Melee</span></div>
+      <ul class="plain-list">
+        <li>Psykers in melee can only cast <strong>basic</strong> psychic powers during their initiative phase.</li>
+        <li>Targets limited to: the psyker, or friendly/enemy units in the same melee.</li>
+        <li>Psykers not in melee cannot target units in melee with Witchfire powers.</li>
+      </ul>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Hymns, Invocations &amp; Prayers</span></div>
+      <p>Cannot be dispelled. May only be attempted once per battle round per unit. If the user is eliminated, effects persist until the Rally phase of the next battle round.</p>
+    </div>
+
+    <div class="rule-section reveal">
+      <div class="section-divider"><span>Perils of the Warp</span></div>
+      <p>Triggered on a double 1 or double 6 during the psychic test. Roll 1D6:</p>
+      <table class="ref-table">
+        <thead><tr><th>D6</th><th>Name</th><th>Effect</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="result-label">Sucked into the Warp</td><td>Pass Ld value test: 1 Mortal Wound. Fail: removed as casualty.</td></tr>
+          <tr><td>2</td><td class="result-label">Mindsteal</td><td>1 Mortal Wound. The attempted power cannot be used for the rest of the game.</td></tr>
+          <tr><td>3</td><td class="result-label">Power Drain</td><td>1 Mortal Wound. Roll 1D3: both players subtract result from all psychic tests for the rest of the round (cumulative).</td></tr>
+          <tr><td>4</td><td class="result-label">Psionic Feedback</td><td>1 Mortal Wound.</td></tr>
+          <tr><td>5</td><td class="result-label">Empyrian Aftermath</td><td>Fail Ld value test: 1 Mortal Wound.</td></tr>
+          <tr><td>6</td><td class="result-label result-good">Warp Boost</td><td>Pass Ld value test: +1 to hit and +1 to wound rolls until end of next activation. Fail: 1 Mortal Wound.</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Vehicles use Leadership 10 for Perils tests. Fearless models still must pass Leadership <em>value</em> tests.</p>
+    </div>
+
+  </div><!-- /tab-psychic -->
+
+</div><!-- /rules-page -->
+</Layout>
+
+<script is:inline>
+(function () {
+  var btns = document.querySelectorAll('.tab-btn');
+  var panels = document.querySelectorAll('.tab-panel');
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-tab');
+      btns.forEach(function (b) { b.classList.remove('tab-active'); });
+      panels.forEach(function (p) { p.classList.remove('tab-panel--active'); });
+      btn.classList.add('tab-active');
+      var panel = document.getElementById('tab-' + id);
+      if (panel) { panel.classList.add('tab-panel--active'); }
+    });
+  });
+})();
+</script>
+
+<style>
+  /* ── Page ─────────────────────────────────────────────── */
+  .rules-page { max-width: 900px; margin: 0 auto; }
+
+  /* ── Hero ─────────────────────────────────────────────── */
+  .rules-hero {
+    position: relative; text-align: center;
+    padding: 2.5rem 1.5rem 1.8rem;
+    margin: -2rem -2rem 0; overflow: hidden;
+  }
+  .rules-hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 100% at 50% 100%, rgba(57,73,80,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 30%, rgba(162,18,23,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 30%, rgba(162,18,23,0.06) 0%, transparent 70%);
+  }
+  .rules-hero-content { position: relative; z-index: 1; }
+  .rules-seal { display: flex; justify-content: center; margin-bottom: 0.6rem; animation: symbol-emerge 1.2s 0.1s cubic-bezier(0.22,1,0.36,1) both; }
+  .rules-supertitle { font-family: var(--font-ui); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.22em; color: var(--c40k-steel); opacity: 0.7; margin: 0 0 0.25rem; }
+  .rules-title { font-size: 2.6rem; margin: 0 0 0.4rem; border-bottom: none; padding-bottom: 0; letter-spacing: 0.06em; animation: title-reveal 1s 0.35s cubic-bezier(0.22,1,0.36,1) both; }
+  .rules-meta { font-family: var(--font-ui); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--c40k-steel); opacity: 0.6; margin: 0; animation: fade-up 0.8s 0.6s both; }
+
+  /* ── Tab bar ──────────────────────────────────────────── */
+  .tab-bar {
+    display: flex; flex-wrap: wrap; gap: 0.25rem;
+    border-bottom: 2px solid rgba(162,18,23,0.25);
+    padding: 1.2rem 0 0; margin-bottom: 1.6rem;
+  }
+  .tab-btn {
+    font-family: var(--font-ui); font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.06em; background: none; border: none; cursor: pointer;
+    padding: 0.45rem 0.85rem; color: var(--c40k-ink); opacity: 0.55;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+    transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { opacity: 0.85; color: var(--c40k-red); }
+  .tab-btn.tab-active { opacity: 1; color: var(--c40k-red); border-bottom-color: var(--c40k-red); font-weight: 700; }
+
+  /* ── Panels ───────────────────────────────────────────── */
+  .tab-panel { display: none; animation: tab-fade 0.25s ease both; }
+  .tab-panel--active { display: block; }
+  .tab-intro { font-style: italic; opacity: 0.72; font-size: 0.85rem; margin-bottom: 1.2rem; }
+
+  /* ── Phase grid ───────────────────────────────────────── */
+  .phase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem; margin-bottom: 1.8rem; }
+  .phase-card {
+    background: rgba(255,252,240,0.65); border: 1px solid rgba(57,73,80,0.25);
+    border-top: 3px solid var(--c40k-steel); padding: 0.9rem 1rem; font-size: 0.82rem;
+  }
+  .phase-card--3, .phase-card--5 { border-top-color: var(--c40k-red); }
+  .phase-num { font-family: var(--font-ui); font-size: 0.6rem; letter-spacing: 0.2em; opacity: 0.5; margin-bottom: 0.2rem; }
+  .phase-name { font-family: var(--font-heading); font-size: 1rem; color: var(--c40k-red); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .phase-card p { margin: 0 0 0.5rem; }
+  .phase-card ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+  .phase-card li { margin-bottom: 0.25rem; }
+  .sub-rule { border-top: 1px solid rgba(57,73,80,0.2); padding-top: 0.5rem; margin-top: 0.5rem; }
+  .sub-rule strong { display: block; font-family: var(--font-ui); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c40k-steel); margin-bottom: 0.3rem; }
+  .badge-inline { display: inline-block; font-family: var(--font-ui); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.04em; background: rgba(57,73,80,0.15); border: 1px solid rgba(57,73,80,0.3); padding: 0 0.3rem; margin-right: 0.2rem; }
+  .badge-red { background: rgba(162,18,23,0.12); border-color: rgba(162,18,23,0.35); color: #7a0e12; }
+  .order-grid { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.5rem; }
+  .order-pill { font-family: var(--font-ui); font-size: 0.63rem; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(162,18,23,0.1); border: 1px solid rgba(162,18,23,0.3); padding: 0.15rem 0.5rem; }
+
+  /* ── Section dividers ─────────────────────────────────── */
+  .rule-section { margin-bottom: 2rem; }
+  .section-divider {
+    display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(162,18,23,0.35), transparent);
+  }
+  .section-divider span {
+    font-family: var(--font-ui); font-size: 0.66rem; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--c40k-red); white-space: nowrap; flex-shrink: 0;
+  }
+  .section-note { font-size: 0.82rem; font-style: italic; opacity: 0.7; margin-bottom: 0.8rem; }
+
+  /* ── Rule/ability cards ───────────────────────────────── */
+  .rule-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.7rem; }
+  .rule-card {
+    background: rgba(255,252,240,0.55); border: 1px solid rgba(57,73,80,0.22);
+    border-left: 3px solid var(--c40k-steel); padding: 0.65rem 0.8rem; font-size: 0.81rem;
+  }
+  .rule-name { font-family: var(--font-ui); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--c40k-steel); margin-bottom: 0.3rem; font-weight: 700; }
+  .rule-card p { margin: 0; opacity: 0.88; }
+
+  .ability-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.6rem; }
+  .ability-card {
+    background: rgba(255,252,240,0.50); border: 1px solid rgba(57,73,80,0.20);
+    border-left: 3px solid rgba(162,18,23,0.5); padding: 0.6rem 0.8rem; font-size: 0.80rem;
+  }
+  .ability-name { font-family: var(--font-ui); font-size: 0.69rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--c40k-red); margin-bottom: 0.25rem; font-weight: 700; }
+  .ability-card p { margin: 0; opacity: 0.88; }
+
+  /* ── Tables ───────────────────────────────────────────── */
+  .compact-table { font-size: 0.78rem; margin-top: 0.5rem; }
+  .ref-table { font-size: 0.82rem; margin-bottom: 0.6rem; }
+  .roll-good { color: #1a5c1a; font-weight: 700; }
+  .roll-bad  { color: #8b1a08; font-weight: 700; }
+  .result-label { font-family: var(--font-ui); font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 700; color: var(--c40k-steel); }
+  .result-crit { color: var(--c40k-red) !important; }
+  .result-good { color: #1a5c1a !important; }
+  .notes-list { font-size: 0.78rem; margin-top: 0.5rem; padding-left: 1.2rem; }
+  .notes-list li { margin-bottom: 0.3rem; }
+  .weapon-types-table td, .weapon-types-table th { text-align: center; }
+  .weapon-types-table td:first-child { text-align: left; }
+
+  /* ── Steps list ───────────────────────────────────────── */
+  .steps-list { padding-left: 1.3rem; font-size: 0.83rem; }
+  .steps-list li { margin-bottom: 0.45rem; }
+  .plain-list { padding-left: 1.2rem; font-size: 0.83rem; }
+  .plain-list li { margin-bottom: 0.4rem; }
+  .note { font-size: 0.77rem; font-style: italic; opacity: 0.68; margin-top: 0.4rem; }
+
+  /* ── Cover ────────────────────────────────────────────── */
+  .cover-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.7rem; margin-bottom: 0.8rem; }
+  .cover-card { background: rgba(57,73,80,0.07); border: 1px solid rgba(57,73,80,0.25); border-top: 3px solid var(--c40k-steel); padding: 0.7rem 0.85rem; font-size: 0.80rem; }
+  .cover-title { font-family: var(--font-ui); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c40k-steel); font-weight: 700; margin-bottom: 0.35rem; }
+  .cover-card ul { margin: 0; padding-left: 1.1rem; }
+  .cover-card li { margin-bottom: 0.2rem; }
+
+  /* ── Unit type cards ──────────────────────────────────── */
+  .unit-type-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.75rem; margin-bottom: 1.8rem; }
+  .unit-type-card { background: rgba(255,252,240,0.6); border: 1px solid rgba(57,73,80,0.25); padding: 0.8rem 1rem; font-size: 0.80rem; }
+  .unit-type-card--wide { grid-column: 1 / -1; }
+  .unit-type-header { display: flex; align-items: baseline; gap: 0.45rem; margin-bottom: 0.5rem; }
+  .unit-type-icon { font-size: 1rem; }
+  .unit-type-name { font-family: var(--font-heading); font-size: 1rem; color: var(--c40k-red); text-transform: uppercase; }
+  .unit-type-sub { font-family: var(--font-ui); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--c40k-steel); opacity: 0.65; border: 1px solid rgba(57,73,80,0.3); padding: 0 0.3rem; }
+  .unit-type-card ul { margin: 0; padding-left: 1.1rem; }
+  .unit-type-card li { margin-bottom: 0.25rem; }
+  .unit-type-card p { margin: 0; }
+
+  /* ── Stat ref ─────────────────────────────────────────── */
+  .stat-ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.5rem; }
+  .stat-ref { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.80rem; padding: 0.4rem 0; border-bottom: 1px solid rgba(57,73,80,0.12); }
+  .stat-letter { font-family: var(--font-ui); font-size: 0.85rem; font-weight: 700; color: var(--c40k-red); min-width: 2rem; text-align: right; flex-shrink: 0; }
+
+  /* ── Alliance ─────────────────────────────────────────── */
+  .alliance-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 0.8rem; }
+  .alliance-card { border: 1px solid; padding: 0.8rem 1rem; font-size: 0.82rem; }
+  .alliance-card--g { background: rgba(26,92,26,0.06); border-color: rgba(26,92,26,0.4); }
+  .alliance-card--y { background: rgba(139,105,8,0.06); border-color: rgba(139,105,8,0.4); }
+  .alliance-card--r { background: rgba(162,18,23,0.06); border-color: rgba(162,18,23,0.4); }
+  .alliance-badge { font-family: var(--font-ui); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 700; margin-bottom: 0.4rem; }
+  .alliance-card--g .alliance-badge { color: #1a5c1a; }
+  .alliance-card--y .alliance-badge { color: #8b6908; }
+  .alliance-card--r .alliance-badge { color: var(--c40k-red); }
+  .alliance-card p { margin: 0; opacity: 0.88; }
+
+  /* ── Scroll reveal ─────────────────────────────────────── */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>

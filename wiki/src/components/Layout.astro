@@ -5,6 +5,11 @@ interface Props {
   title: string;
 }
 const { title } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+function active(href: string) {
+  if (href === '/') return path === '/';
+  return path === href || path.startsWith(href + '/');
+}
 ---
 <html lang="en">
   <head>
@@ -15,10 +20,11 @@ const { title } = Astro.props;
   </head>
   <body>
     <header class="site-nav">
-      <a href="/">Home</a>
-      <a href="/factions">Factions</a>
-      <a href="/missions">Missions</a>
-      <a href="/glossary">Glossary</a>
+      <a href="/" class={active('/') ? 'nav-active' : ''}>Home</a>
+      <a href="/factions" class={active('/factions') ? 'nav-active' : ''}>Factions</a>
+      <a href="/missions" class={active('/missions') ? 'nav-active' : ''}>Missions</a>
+      <a href="/rules" class={active('/rules') ? 'nav-active' : ''}>Core Rules</a>
+      <a href="/glossary" class={active('/glossary') ? 'nav-active' : ''}>Glossary</a>
     </header>
     <main>
       <slot />
@@ -38,11 +44,30 @@ const { title } = Astro.props;
 
 <style>
   .site-nav {
-    display: flex; justify-content: center; gap: 1.4rem;
-    max-width: 1000px; margin: 0 auto; padding: 0.8rem 2rem 0;
-    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.05em;
-    font-size: 0.72rem;
+    display: flex; justify-content: center; gap: 0.2rem;
+    max-width: 1000px; margin: 0 auto; padding: 0.7rem 2rem 0;
+    font-family: var(--font-ui, sans-serif); text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 0.68rem;
   }
-  .site-nav a { color: var(--c40k-ink, #2a2420); text-decoration: none; opacity: 0.75; }
-  .site-nav a:hover { opacity: 1; color: var(--c40k-red, #a21217); text-decoration: none; }
+  .site-nav a {
+    color: var(--c40k-ink, #2a2420);
+    text-decoration: none;
+    opacity: 0.65;
+    padding: 0.35rem 0.7rem;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+    cursor: pointer;
+  }
+  .site-nav a:hover {
+    opacity: 1;
+    color: var(--c40k-red, #a21217);
+    text-decoration: none;
+    border-bottom-color: rgba(162,18,23,0.35);
+  }
+  .site-nav a.nav-active {
+    opacity: 1;
+    color: var(--c40k-red, #a21217);
+    border-bottom-color: var(--c40k-red, #a21217);
+    font-weight: 700;
+  }
 </style>
