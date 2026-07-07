@@ -314,6 +314,18 @@
       "p_char": 5
     },
     {
+      "name": "Stikkbombz launcha",
+      "term_compat": false,
+      "range": "6\"",
+      "type": "Grenade 3",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
       "name": "Tellyport blastaᴹ",
       "term_compat": false,
       "range": "12\"",

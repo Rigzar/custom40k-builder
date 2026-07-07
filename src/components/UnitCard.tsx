@@ -341,9 +341,9 @@ export function UnitCard({ item }: Props) {
   }
 
   return (
-    <div className="bg-zinc-900 border border-zinc-700 mb-3 overflow-hidden">
+    <div className={`bg-zinc-900 border border-zinc-700 mb-3 overflow-hidden unit-card${u.is_character ? ' unit-card-char' : ''}`}>
       {/* ── Header ── */}
-      <div className="flex justify-between items-start px-3 py-2.5 border-b-2"
+      <div className="unit-card-holo flex justify-between items-start px-3 py-2.5 border-b-2"
         style={{ background: HDR_BG[factionCat], borderBottomColor: HDR_BORDER[factionCat] }}
       >
         <div className="flex-1 min-w-0 flex items-start gap-2">

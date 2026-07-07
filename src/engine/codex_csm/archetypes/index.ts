@@ -140,6 +140,7 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
   //   powers known to the Chaos Sorcerer and receive a +1 bonus to manifesting and dispelling.
   'Sorcerer Circle': { ...BASE,
     hqOverride: [1, 4], hqAllowed: ['Chaos Sorcerer', 'Master of Sorcery'],
+    grantsCommandSquad: ['Chaos Sorcerer'],
     notes: [
       '4 HQ slots (minimum 1, maximum 4).',
       'Only Chaos Sorcerer and Master of Sorcery as HQ.',

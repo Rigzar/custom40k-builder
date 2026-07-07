@@ -277,7 +277,8 @@ export const roughRiders: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "One Rough Rider may be equipped with: +5 points Vox.",

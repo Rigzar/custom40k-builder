@@ -123,7 +123,7 @@ function HeaderStatus() {
   return (
     <div className="flex items-center gap-3">
       <div className="flex items-center gap-2">
-        <span className={`text-sm font-bold tabular-nums ${over ? 'text-red-400' : 'text-amber-400'}`}>
+        <span className={`text-sm font-bold tabular-nums ${over ? 'text-red-400 pts-over-glow' : 'text-amber-400'}`}>
           {total}
         </span>
         <div className="w-20 h-1.5 bg-zinc-700 rounded overflow-hidden">

@@ -211,7 +211,8 @@ export const purifierSquad: Unit = {
       "choices": [],
       "inline_pts": 1,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     }
   ],
   "abilities": [

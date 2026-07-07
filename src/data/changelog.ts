@@ -27,7 +27,7 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.42',
     date: '2026-07-07',
-    title: 'ORKS — GH#60–65: legacy armory, Warbuggy, Burna Boyz, Artifact stat bug',
+    title: 'ORKS GH#60–65 + per_model sweep + CSM wiring + WIKI Missions',
     changes: [
       'ORKS GH#60 — fixed Clan legacy armory not appearing for HQ units: loader registered the armory under key "Klan" but archetypes.json used armory_key "Clan" — key mismatch now corrected',
       'ORKS GH#62 — Warbuggy weapon choices now scale per model: big gun, small gun, and crew weapon groups all flagged per_model:true so each vehicle in a squadron independently picks its weapons',
@@ -35,13 +35,11 @@ export const CHANGELOG: ChangelogEntry[] = [
       'ORKS GH#64 — Burna Boyz Spanna upgrade fixed: variant_model max was 0 (should be 3); option group constraint changed from type:"one" to fixed_max:3 to allow up to three Spannas per unit',
       'GENERAL GH#65 — Artifact of Gork ... or Mork (and any equipment item whose description starts with "One weapon of the model gains") no longer incorrectly applies +Strength/+Attacks/etc. to the model\'s stat block — the bonus is for the targeted weapon, not the bearer',
       'GENERAL GH#61 — engine now recognises "The vehicle/model receives an additional weapon: X" pattern in equipment item descriptions as a weapon-grant (same as "The model gains a X"); weapon profile must exist in armory_general.weapons to appear in Live Profile',
-    ],
-  },
-  {
-    version: '1.41',
-    date: '2026-07-07',
-    title: 'WIKI — Missions supplement page + army rules visual polish',
-    changes: [
+      'ORKS — Nob upgrade armory access fixed across 8 units (Boyz, Skarboyz, Beast Snagga Boyz, Kommandos, Tankbustas, Squighog Boyz, Stormboyz, Warbikers): champion_has_armory was false despite ODS stating "gains access to weapons and gear from the Armory" for each Nob upgrade — verified against Orks ENG.ods',
+      'ORKS — Battle Fortress correctly listed in both Heavy Support (Orks codex, Orks ENG.ods) and Lords of War (Escalation supplement, Escalation.ods); erroneous removal from Heavy Support reverted',
+      'ORKS — Stikkbombz launcha weapon profile added to armory weapons (6", Grenade 3, S4, AP0, D1, Explosive); the armory equipment item already existed and the engine correctly grants it as an additional weapon — only the weapon stats entry was missing, so the Live Profile showed nothing when the item was purchased; profile verified against Orks ENG.ods',
+      'GENERAL — per_model flag added to 12 units across 3 factions where per-model upgrade costs were being charged once per unit instead of once per model: GREY KNIGHTS — Psy-ammunition (+1 pt/model) in Strike Squad, Terminator Squad, Ghost Terminator Squad, Paladin Squad, Purifier Squad, Interceptor Squad, Purgator Squad (7 units); CSM — Possessed jump packs (+11/model), Big Mutants Bloated upgrade (+11/model) and Machine gun upgrade (+1/model); IMPERIAL GUARD — Rough Riders mount upgrades (+2–9/model), Stormtroopers Deep Strike/Infiltrator (+1/model), Stormtrooper Command Squad same abilities, Penal Legion Squad Knife fighters/Gunslingers (+1–2/model)',
+      'CSM — Sorcerer Circle archetype now correctly grants Chaos Sorcerers the "Command Squad" ability (grantsCommandSquad wiring was missing — the canonical rule text stated Chaos Sorcerers gain this ability, and the structured note had category:mechanic, but the ArchetypeRule had no grantsCommandSquad field; mirrored SM Librarian Conclave which is the canonical reference for this pattern)',
       'WIKI — new Missions page (/missions): full Custom40k Missions supplement — 3 engagement type panels (Skirmish/Pitched Battle/Epic Battle) with AOP tables and unit/stat restrictions; scoring rules (Attrition, Mission Objectives, Winning); 5 Secondary Objectives (200 VP each); 7 missions (Control, Salvage, Frontlines, Take & Hold, Tug of War, King of the Hill, Z) each with an SVG tactical diagram showing objective placement and deployment zones',
       'WIKI — Missions added to top navigation bar (Home / Factions / Missions / Glossary)',
       'WIKI — army rules cards on faction hub pages now have subtle tag-tinted backgrounds: Signature rules get a faint red gradient, Universal a faint blue, Ally a faint green, Deployment a faint purple, Weapon Rule a faint amber; Signature left border widened to 5 px; cards slide right on hover',

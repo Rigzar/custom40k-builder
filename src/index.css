@@ -83,13 +83,18 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 
 /* ── Servo skull blinking eye ── */
 @keyframes servo-eye-blink {
-  0%   { opacity: 0.90; transform: translate(-50%, -50%) scale(1);    }
-  20%  { opacity: 1.00; transform: translate(-50%, -50%) scale(1.35); }
-  40%  { opacity: 0.90; transform: translate(-50%, -50%) scale(1);    }
-  44%  { opacity: 0.90; transform: translate(-50%, -50%) scaleY(1);   }
-  47%  { opacity: 0.06; transform: translate(-50%, -50%) scaleY(0.06);}
-  50%  { opacity: 0.90; transform: translate(-50%, -50%) scaleY(1);   }
-  100% { opacity: 0.90; transform: translate(-50%, -50%) scale(1);    }
+  /* ambient dim glow */
+  0%, 65%  { opacity: 0.70; transform: translate(-50%, -50%) scale(1);    }
+  /* slow subtle pulse */
+  22%       { opacity: 0.78; transform: translate(-50%, -50%) scale(1.08); }
+  /* power-down: collapse vertically and fade — like a CRT dying */
+  73%       { opacity: 0.45; transform: translate(-50%, -50%) scaleY(0.45); }
+  81%       { opacity: 0.03; transform: translate(-50%, -50%) scaleY(0.04); }
+  /* stay dark */
+  89%       { opacity: 0.03; transform: translate(-50%, -50%) scaleY(0.04); }
+  /* slow power-on */
+  98%       { opacity: 0.72; transform: translate(-50%, -50%) scale(1);    }
+  100%      { opacity: 0.70; transform: translate(-50%, -50%) scale(1);    }
 }
 .servo-eye {
   position: absolute;
@@ -99,10 +104,89 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
   width: 16px;
   height: 11px;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, #ff1a1a 0%, #cc0000 45%, transparent 100%);
-  box-shadow: 0 0 12px 5px rgba(220, 30, 30, 0.80), 0 0 26px 10px rgba(180, 0, 0, 0.40);
-  animation: servo-eye-blink 3.6s ease-in-out infinite;
+  background: radial-gradient(ellipse at center, #e01010 0%, #aa0000 50%, transparent 100%);
+  box-shadow: 0 0 7px 3px rgba(200, 20, 20, 0.50), 0 0 16px 6px rgba(155, 0, 0, 0.22);
+  animation: servo-eye-blink 4.2s ease-in-out infinite;
   pointer-events: none;
+}
+
+/* ── Visual effects ────────────────────────────────────────────────────────── */
+
+/* 1 ── Logo: periodic glitch (filter + skew burst every ~10 s) */
+@keyframes c40k-logo-glitch {
+  0%, 88%, 100% { filter: none; transform: none; }
+  89%  { filter: brightness(1.5) saturate(2.5) hue-rotate(12deg) contrast(1.3);  transform: skewX(1.8deg) translateX(-4px); }
+  90%  { filter: brightness(0.8) saturate(0.6) hue-rotate(-18deg);                transform: skewX(-0.7deg) translateX(5px); }
+  91%  { filter: brightness(1.4) saturate(3)   hue-rotate(25deg);                 transform: skewX(0.5deg) scaleX(0.97); }
+  92%  { filter: brightness(1)   saturate(1)   hue-rotate(-8deg);                 transform: translateX(-2px); }
+  93%  { filter: none; transform: none; }
+  95%  { filter: brightness(1.2) saturate(1.5) hue-rotate(5deg);                  transform: skewX(-0.3deg); }
+  96%  { filter: none; transform: none; }
+}
+.logo-glitch {
+  animation:
+    c40k-emerge       1.3s cubic-bezier(0.22,1,0.36,1) both,
+    c40k-logo-glitch  10s  ease-in-out 3s infinite;
+}
+
+/* 2 ── Buttons: golden glow pulse on hover */
+@keyframes c40k-btn-glow {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(180,120,30,0.30), 0 0  8px rgba(180,120,30,0.10); }
+  50%       { box-shadow: 0 0 0 1px rgba(255,195,60,0.65), 0 0 20px rgba(255,195,60,0.22); }
+}
+.btn-sweep { transition: border-color 0.25s ease; }
+.btn-sweep:hover { animation: c40k-btn-glow 2s ease-in-out infinite; }
+
+/* 3 ── Points: neon red pulse when over budget */
+@keyframes c40k-neon-pulse {
+  0%, 100% { text-shadow: 0 0  5px rgba(248,113,113,0.70), 0 0 12px rgba(220,38,38,0.40); }
+  50%       { text-shadow: 0 0 10px rgba(248,113,113,1.00), 0 0 24px rgba(220,38,38,0.80), 0 0 40px rgba(185,28,28,0.40); }
+}
+.pts-over-glow { animation: c40k-neon-pulse 1.8s ease-in-out infinite; }
+
+/* 4 ── Unit cards: ambient glow on hover */
+.unit-card { transition: box-shadow 0.35s ease; }
+.unit-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(145,110,35,0.22),
+    0 0 16px rgba(145,110,35,0.08),
+    0 6px 28px rgba(0,0,0,0.50);
+}
+
+/* 5 ── Character cards: stronger golden halo on hover */
+.unit-card-char:hover {
+  box-shadow:
+    0 0 0 1px rgba(218,165,32,0.50),
+    0 0 22px rgba(218,165,32,0.16),
+    0 6px 28px rgba(0,0,0,0.50);
+}
+
+/* 6 ── Character card headers: holographic iridescent shimmer */
+@keyframes c40k-holo {
+  0%   { background-position:   0% 50%; opacity: 0;   }
+  12%  {                                opacity: 0.65; }
+  50%  { background-position: 100% 50%; opacity: 1;   }
+  88%  {                                opacity: 0.65; }
+  100% { background-position:   0% 50%; opacity: 0;   }
+}
+.unit-card-holo { position: relative; overflow: hidden; }
+.unit-card-char .unit-card-holo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    transparent 15%,
+    rgba(255,210,80,0.07)  28%,
+    rgba(190,130,255,0.07) 40%,
+    rgba(80,200,255,0.07)  53%,
+    rgba(255,210,80,0.07)  66%,
+    transparent 78%
+  );
+  background-size: 300% 300%;
+  animation: c40k-holo 6s ease-in-out 1s infinite;
+  mix-blend-mode: screen;
 }
 
 @media print {

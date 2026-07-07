@@ -206,7 +206,8 @@ export const stormtrooperCommandSquad: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "per_model": true
     },
     {
       "header": "For each HQ selection, one Stormtrooper Command Squad may be selected that does not occupy an Elite slot.",

@@ -6,9 +6,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   // ══════════════════════════════════════════════════════════════════════════
   {
     id: 'ki-orks-stikkbombz-launcha-profile-missing-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Orks — "Stikkbombz launcha" vehicle equipment upgrade shows no weapon profile',
-    description: 'The engine now correctly recognises the "vehicle receives an additional weapon: X" grant pattern (GH#61 partial fix, v1.42). However, the weapon profile for "Stikkbombz launcha" does not exist in armory/general.json\'s weapons section — the profile lookup silently finds nothing. Weapon stats (Range, Type, S, AP, D, Abilities) must be added to armory_general.weapons once verified against the Orks ODS.',
+    description: 'FIXED 2026-07-07 (v1.42): Added weapon profile entry to armory/general.json weapons array: 6", Grenade 3, S4, AP0, D1, Explosive. Profile verified against Orks ENG.ods row 35. The armory equipment item (5 pts, vehicle category) and the isGrantWeapon engine pattern were already correct; only the stats entry was missing.',
   },
   {
     id: 'ki-sm-lords-of-war-vehicle-armory-01',
