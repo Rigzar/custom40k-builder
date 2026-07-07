@@ -760,6 +760,12 @@ export default function App() {
           {/* Builder layout */}
           <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 flex-1">
             <aside className="space-y-2">
+              <CollapsiblePanel title={t('battleSetup')} defaultOpen={false}>
+                <div className="px-3 py-3">
+                  <ArmyConfig onlyBattleSetup />
+                </div>
+              </CollapsiblePanel>
+
               <CollapsiblePanel title={t('unitCatalogue')} defaultOpen>
                 <SlotPanel />
               </CollapsiblePanel>

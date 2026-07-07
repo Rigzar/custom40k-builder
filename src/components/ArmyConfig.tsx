@@ -26,7 +26,7 @@ function SectionHeader({ icon, label, accent = 'amber' }: { icon: string; label:
  * writes the alliedArchetype/alliedLegacy/alliedTraitPool store fields instead, so the two
  * customisation flows can never drift out of sync with each other again.
  */
-export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSetup = true }: { scope?: 'primary' | 'allied'; alliedFactionLabel?: string; showBattleSetup?: boolean }) {
+export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSetup = true, onlyBattleSetup = false }: { scope?: 'primary' | 'allied'; alliedFactionLabel?: string; showBattleSetup?: boolean; onlyBattleSetup?: boolean }) {
   const store = useArmyStore();
   const isAllied = scope === 'allied';
   const accent: 'amber' | 'emerald' = isAllied ? 'emerald' : 'amber';
@@ -44,6 +44,53 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const setTraitPool = isAllied ? store.setAlliedTraitPool : store.setTraitPool;
 
   const t = useT();
+
+  if (onlyBattleSetup) {
+    return (
+      <div className="space-y-4">
+        <div className="border border-zinc-800 bg-zinc-900/50">
+          <SectionHeader icon="/phase-icons/rally.svg" label={t('battleSetup')} />
+          <div className="p-4 space-y-4">
+            <div>
+              <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-2">{t('battleType')}</div>
+              <div className="grid grid-cols-3 gap-2">
+                {(Object.keys(ENGAGEMENTS) as EngagementType[]).map(e => (
+                  <button
+                    key={e}
+                    onClick={() => setEngagement(e)}
+                    className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
+                      ${engagement === e
+                        ? 'bg-amber-900/50 border-amber-600 text-amber-300'
+                        : 'bg-zinc-800/60 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'
+                      }`}
+                  >
+                    {ENGAGEMENTS[e].name}
+                  </button>
+                ))}
+              </div>
+              {ENGAGEMENTS[engagement].notes && (
+                <div className="mt-2 text-[10px] text-zinc-500 border-l-2 border-amber-900/50 pl-2 leading-relaxed">
+                  {ENGAGEMENTS[engagement].notes}
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('pointsLimit')}</span>
+              <input
+                type="number"
+                value={pointLimit}
+                onChange={e => setPointLimit(Number(e.target.value))}
+                step={250}
+                className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm
+                  focus:outline-none focus:border-amber-600 text-center tabular-nums"
+              />
+              <span className="text-[10px] text-zinc-600">pts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!data) return null;
   if (isAllied && !data.archetypes.length && !data.legacies.length && !data.traits.length) {
