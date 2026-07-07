@@ -145,7 +145,33 @@ export type TranslationKey =
   | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
   | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian'
   | 'valDeCoordRaidNoDracon' | 'valDeCoordRaidNoHaemonculus' | 'valDeCoordRaidNoSuccubus'
-  | 'valDeCoordRaidTraitCoven' | 'valDeCoordRaidTraitKabal' | 'valDeCoordRaidTraitCult';
+  | 'valDeCoordRaidTraitCoven' | 'valDeCoordRaidTraitKabal' | 'valDeCoordRaidTraitCult'
+  // Social modal tabs
+  | 'tabMyArmies' | 'tabCommunity' | 'tabFriends' | 'tabPrefs' | 'tabAccount'
+  // Armies tab
+  | 'saveNamePlaceholder' | 'noCloudSaves' | 'deleteArmyConfirm'
+  | 'openBadge' | 'copyOfPrefix' | 'publicLabel' | 'privateLabel'
+  | 'makePrivateHint' | 'makePublicHint' | 'loadButton'
+  // Community tab
+  | 'communityHeader' | 'filterAll' | 'noFriendArmies' | 'noPublicArmies'
+  | 'viewButton' | 'viewOnlyHint' | 'copyButton' | 'loginToCopyHint'
+  // Friends tab
+  | 'searchPlayersPlaceholder' | 'searchingLabel'
+  | 'publicArmySingular' | 'publicArmyPlural'
+  | 'removeLabel' | 'addFriendButton' | 'noFriendsYet'
+  | 'friendSingular' | 'friendPlural'
+  // Prefs tab
+  | 'cloudAutosave' | 'autosaveDesc'
+  | 'autosaveOff' | 'autosaveOnClose' | 'autosave30s' | 'autosave5min'
+  | 'autosaveOffDesc' | 'autosaveOnCloseDesc' | 'autosave30sDesc' | 'autosave5minDesc'
+  | 'defaultEngagement' | 'noDefault' | 'defaultPointsLimit'
+  // Account tab
+  | 'avatarLabel' | 'removeImageButton' | 'colorLabel' | 'noneInitials'
+  | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
+  | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
+  | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
+  | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
+  | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -647,6 +673,39 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valDeCoordRaidTraitCoven: 'Coordinated Raid: must pick one <Coven> trait (ᶜᵒ).',
     valDeCoordRaidTraitKabal: 'Coordinated Raid: must pick one <Kabal> trait (ᴷ).',
     valDeCoordRaidTraitCult: 'Coordinated Raid: must pick one <Wyches> trait (ᶜᵘ).',
+    tabMyArmies: 'My Armies', tabCommunity: 'Community', tabFriends: 'Friends', tabPrefs: 'Prefs', tabAccount: 'Account',
+    saveNamePlaceholder: 'Name this save…', noCloudSaves: 'No cloud saves yet.',
+    deleteArmyConfirm: 'Delete this saved army? This cannot be undone.',
+    openBadge: '(open)', copyOfPrefix: 'copy of',
+    publicLabel: '🌐 Public', privateLabel: '🔒 Private',
+    makePrivateHint: 'Public — click to make private', makePublicHint: 'Private — click to share',
+    loadButton: 'Load',
+    communityHeader: 'Community armies — view and copy', filterAll: 'All',
+    noFriendArmies: 'No public armies from your friends yet.', noPublicArmies: 'No public armies yet.',
+    viewButton: 'View', viewOnlyHint: 'Load (view only — not saved to your account)',
+    copyButton: 'Copy', loginToCopyHint: 'Log in to copy armies to your account.',
+    searchPlayersPlaceholder: 'Search players by username…', searchingLabel: 'Searching…',
+    publicArmySingular: 'public army', publicArmyPlural: 'public armies',
+    removeLabel: 'Remove', addFriendButton: '+ Add',
+    noFriendsYet: 'No friends yet — search above to add players',
+    friendSingular: 'friend', friendPlural: 'friends',
+    cloudAutosave: 'Cloud autosave', autosaveDesc: 'How often your army is saved automatically while building.',
+    autosaveOff: 'Off', autosaveOnClose: 'On close', autosave30s: 'Every 30 s', autosave5min: 'Every 5 min',
+    autosaveOffDesc: 'No automatic saving', autosaveOnCloseDesc: 'Only when you close the tab',
+    autosave30sDesc: 'After 30 s of inactivity (recommended)', autosave5minDesc: 'After 5 min of inactivity',
+    defaultEngagement: 'Default engagement', noDefault: 'No default', defaultPointsLimit: 'Default points limit',
+    avatarLabel: 'Avatar', removeImageButton: 'Remove image', colorLabel: 'Color', noneInitials: 'None (initials)',
+    socialLinksLabel: 'Social links', visibleToOthers: 'Visible to others',
+    saveProfile: 'Save profile', savedMsg: 'Saved!',
+    accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
+    noRecoveryCode: 'No code on file yet — reset your password once to get one.',
+    secretQuestionSectionLabel: 'Secret question', changeButton: 'Change',
+    secretQuestionOptionalHint: 'Optional — required with recovery code to reset password.',
+    secretQuestionExample: "e.g. What was your first army's faction?", answerPlaceholder: 'Answer',
+    logoutButton: 'Log out',
+    imageTooLarge: 'Image too large after compression. Try a smaller or lower-res file.',
+    imageUploadHint: 'Max ~150 KB · auto-compressed',
+    uploadImageButton: '+ Upload image', replaceImageButton: 'Replace image',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -1147,6 +1206,39 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valDeCoordRaidTraitCoven: 'Koordinierter Überfall: muss ein <Coven>-Merkmal (ᶜᵒ) wählen.',
     valDeCoordRaidTraitKabal: 'Koordinierter Überfall: muss ein <Kabal>-Merkmal (ᴷ) wählen.',
     valDeCoordRaidTraitCult: 'Koordinierter Überfall: muss ein <Wyches>-Merkmal (ᶜᵘ) wählen.',
+    tabMyArmies: 'Meine Armeen', tabCommunity: 'Community', tabFriends: 'Freunde', tabPrefs: 'Einst.', tabAccount: 'Konto',
+    saveNamePlaceholder: 'Speichername…', noCloudSaves: 'Noch keine Cloud-Speicherstände.',
+    deleteArmyConfirm: 'Diesen Armeelisten-Speicherstand löschen? Diese Aktion kann nicht rückgängig gemacht werden.',
+    openBadge: '(offen)', copyOfPrefix: 'Kopie von',
+    publicLabel: '🌐 Öffentlich', privateLabel: '🔒 Privat',
+    makePrivateHint: 'Öffentlich — klicken zum Privatisieren', makePublicHint: 'Privat — klicken zum Teilen',
+    loadButton: 'Laden',
+    communityHeader: 'Community-Armeen — ansehen und kopieren', filterAll: 'Alle',
+    noFriendArmies: 'Noch keine öffentlichen Armeen deiner Freunde.', noPublicArmies: 'Noch keine öffentlichen Armeen.',
+    viewButton: 'Ansehen', viewOnlyHint: 'Laden (nur ansehen — wird nicht in deinem Konto gespeichert)',
+    copyButton: 'Kopieren', loginToCopyHint: 'Anmelden um Armeen in dein Konto zu kopieren.',
+    searchPlayersPlaceholder: 'Spieler nach Benutzername suchen…', searchingLabel: 'Suchen…',
+    publicArmySingular: 'öffentliche Armee', publicArmyPlural: 'öffentliche Armeen',
+    removeLabel: 'Entfernen', addFriendButton: '+ Hinzufügen',
+    noFriendsYet: 'Noch keine Freunde — oben suchen um Spieler hinzuzufügen',
+    friendSingular: 'Freund', friendPlural: 'Freunde',
+    cloudAutosave: 'Cloud-Autospeicherung', autosaveDesc: 'Wie oft deine Armee beim Erstellen automatisch gespeichert wird.',
+    autosaveOff: 'Aus', autosaveOnClose: 'Beim Schließen', autosave30s: 'Alle 30 s', autosave5min: 'Alle 5 min',
+    autosaveOffDesc: 'Keine automatische Speicherung', autosaveOnCloseDesc: 'Nur beim Schließen des Tabs',
+    autosave30sDesc: 'Nach 30 s Inaktivität (empfohlen)', autosave5minDesc: 'Nach 5 min Inaktivität',
+    defaultEngagement: 'Standard-Gefechtstyp', noDefault: 'Kein Standard', defaultPointsLimit: 'Standard-Punktelimit',
+    avatarLabel: 'Avatar', removeImageButton: 'Bild entfernen', colorLabel: 'Farbe', noneInitials: 'Keines (Initialen)',
+    socialLinksLabel: 'Social-Links', visibleToOthers: 'Für andere sichtbar',
+    saveProfile: 'Profil speichern', savedMsg: 'Gespeichert!',
+    accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
+    noRecoveryCode: 'Noch kein Code vorhanden — Passwort einmal zurücksetzen um einen zu erhalten.',
+    secretQuestionSectionLabel: 'Sicherheitsfrage', changeButton: 'Ändern',
+    secretQuestionOptionalHint: 'Optional — zusammen mit dem Wiederherstellungscode zum Zurücksetzen des Passworts erforderlich.',
+    secretQuestionExample: 'z.B. Welche Fraktion war deine erste Armee?', answerPlaceholder: 'Antwort',
+    logoutButton: 'Abmelden',
+    imageTooLarge: 'Bild nach Komprimierung zu groß. Bitte kleinere oder geringer aufgelöste Datei verwenden.',
+    imageUploadHint: 'Max. ~150 KB · automatisch komprimiert',
+    uploadImageButton: '+ Bild hochladen', replaceImageButton: 'Bild ersetzen',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -1647,6 +1739,39 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valDeCoordRaidTraitCoven: 'Incursión Coordinada: debe elegir un rasgo de <Coven> (ᶜᵒ).',
     valDeCoordRaidTraitKabal: 'Incursión Coordinada: debe elegir un rasgo de <Kabal> (ᴷ).',
     valDeCoordRaidTraitCult: 'Incursión Coordinada: debe elegir un rasgo de <Wyches> (ᶜᵘ).',
+    tabMyArmies: 'Mis Ejércitos', tabCommunity: 'Comunidad', tabFriends: 'Amigos', tabPrefs: 'Prefs', tabAccount: 'Cuenta',
+    saveNamePlaceholder: 'Nombre del guardado…', noCloudSaves: 'Aún no hay partidas guardadas en la nube.',
+    deleteArmyConfirm: '¿Eliminar este ejército guardado? Esta acción no se puede deshacer.',
+    openBadge: '(abierto)', copyOfPrefix: 'copia de',
+    publicLabel: '🌐 Público', privateLabel: '🔒 Privado',
+    makePrivateHint: 'Público — clic para hacer privado', makePublicHint: 'Privado — clic para compartir',
+    loadButton: 'Cargar',
+    communityHeader: 'Ejércitos de la comunidad — ver y copiar', filterAll: 'Todos',
+    noFriendArmies: 'Aún no hay ejércitos públicos de tus amigos.', noPublicArmies: 'Aún no hay ejércitos públicos.',
+    viewButton: 'Ver', viewOnlyHint: 'Cargar (solo ver — no se guarda en tu cuenta)',
+    copyButton: 'Copiar', loginToCopyHint: 'Inicia sesión para copiar ejércitos a tu cuenta.',
+    searchPlayersPlaceholder: 'Buscar jugadores por nombre de usuario…', searchingLabel: 'Buscando…',
+    publicArmySingular: 'ejército público', publicArmyPlural: 'ejércitos públicos',
+    removeLabel: 'Eliminar', addFriendButton: '+ Añadir',
+    noFriendsYet: 'Aún no hay amigos — busca arriba para añadir jugadores',
+    friendSingular: 'amigo', friendPlural: 'amigos',
+    cloudAutosave: 'Autoguardado en la nube', autosaveDesc: 'Con qué frecuencia se guarda automáticamente tu ejército mientras lo construyes.',
+    autosaveOff: 'Desactivado', autosaveOnClose: 'Al cerrar', autosave30s: 'Cada 30 s', autosave5min: 'Cada 5 min',
+    autosaveOffDesc: 'Sin guardado automático', autosaveOnCloseDesc: 'Solo al cerrar la pestaña',
+    autosave30sDesc: 'Tras 30 s de inactividad (recomendado)', autosave5minDesc: 'Tras 5 min de inactividad',
+    defaultEngagement: 'Tipo de batalla predeterminado', noDefault: 'Sin predeterminado', defaultPointsLimit: 'Límite de puntos predeterminado',
+    avatarLabel: 'Avatar', removeImageButton: 'Eliminar imagen', colorLabel: 'Color', noneInitials: 'Ninguno (iniciales)',
+    socialLinksLabel: 'Enlaces sociales', visibleToOthers: 'Visible para otros',
+    saveProfile: 'Guardar perfil', savedMsg: '¡Guardado!',
+    accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',
+    noRecoveryCode: 'Aún no hay código — restablece tu contraseña una vez para obtener uno.',
+    secretQuestionSectionLabel: 'Pregunta secreta', changeButton: 'Cambiar',
+    secretQuestionOptionalHint: 'Opcional — necesaria junto al código de recuperación para restablecer la contraseña.',
+    secretQuestionExample: 'ej. ¿Cuál fue la facción de tu primer ejército?', answerPlaceholder: 'Respuesta',
+    logoutButton: 'Cerrar sesión',
+    imageTooLarge: 'Imagen demasiado grande tras la compresión. Prueba con un archivo más pequeño o de menor resolución.',
+    imageUploadHint: 'Máx. ~150 KB · compresión automática',
+    uploadImageButton: '+ Subir imagen', replaceImageButton: 'Reemplazar imagen',
   },
 };
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as api from '../lib/api';
 import type { PublicArmySummary, FriendRow, UserSearchResult } from '../lib/api';
+import { useT } from '../i18n';
 import { useArmyStore } from '../store/army';
 import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine/points';
 import { usePrefs, type AutosaveInterval } from '../hooks/usePrefs';
@@ -25,13 +26,7 @@ interface Props {
 
 type Tab = 'armies' | 'community' | 'friends' | 'preferences' | 'account';
 
-const TAB_LABELS: { key: Tab; label: string }[] = [
-  { key: 'armies',      label: 'My Armies' },
-  { key: 'community',   label: 'Community' },
-  { key: 'friends',     label: 'Friends' },
-  { key: 'preferences', label: 'Prefs' },
-  { key: 'account',     label: 'Account' },
-];
+// TAB_LABELS computed inside CloudSavesModal with t()
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
@@ -51,6 +46,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
   } = useArmyStore();
 
+  const t = useT();
   const [rosters, setRosters] = useState<api.RosterSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState('');
@@ -116,7 +112,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   }
 
   async function handleDelete(id: number) {
-    if (!confirm('Delete this saved army? This cannot be undone.')) return;
+    if (!confirm(t('deleteArmyConfirm'))) return;
     setError('');
     try { await api.deleteRoster(id); await refresh(); }
     catch (err) { setError((err as Error).message); }
@@ -133,7 +129,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
         <input
           value={newName}
           onChange={e => setNewName(e.target.value)}
-          placeholder={armyName.trim() || 'Name this save…'}
+          placeholder={armyName.trim() || t('saveNamePlaceholder')}
           className="flex-1 bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
         />
         <button
@@ -141,14 +137,14 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
           onClick={handleSaveNew}
           className="text-[11px] px-3 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
         >
-          Save
+          {t('save')}
         </button>
       </div>
       {error && <p className="text-red-400 text-xs">{error}</p>}
       {loading ? (
-        <p className="text-zinc-500 text-sm text-center py-6">Loading…</p>
+        <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
       ) : rosters.length === 0 ? (
-        <p className="text-zinc-500 italic text-sm text-center py-8">No cloud saves yet.</p>
+        <p className="text-zinc-500 italic text-sm text-center py-8">{t('noCloudSaves')}</p>
       ) : (
         <div className="space-y-2">
           {rosters.map(r => (
@@ -159,10 +155,10 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-semibold text-zinc-100 truncate">
                     {r.name}
-                    {r.id === activeRosterId && <span className="ml-2 text-[10px] text-amber-500 normal-case">(open)</span>}
+                    {r.id === activeRosterId && <span className="ml-2 text-[10px] text-amber-500 normal-case">{t('openBadge')}</span>}
                   </span>
                   {r.source_username && (
-                    <span className="text-[10px] text-zinc-600 shrink-0">copy of {r.source_username}</span>
+                    <span className="text-[10px] text-zinc-600 shrink-0">{t('copyOfPrefix')} {r.source_username}</span>
                   )}
                 </div>
                 {r.faction_label && (
@@ -177,15 +173,15 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                         ? 'border-emerald-700/60 text-emerald-500 hover:text-red-400 hover:border-red-700/50'
                         : 'border-zinc-700 text-zinc-600 hover:text-zinc-300'
                     }`}
-                    title={r.is_public ? 'Public — click to make private' : 'Private — click to share'}
+                    title={r.is_public ? t('makePrivateHint') : t('makePublicHint')}
                   >
-                    {r.is_public ? '🌐 Public' : '🔒 Private'}
+                    {r.is_public ? t('publicLabel') : t('privateLabel')}
                   </button>
                 </div>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">Load</button>
-                <button disabled={saving} onClick={() => handleOverwrite(r.id)} className="text-[11px] px-2.5 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">Save</button>
+                <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">{t('loadButton')}</button>
+                <button disabled={saving} onClick={() => handleOverwrite(r.id)} className="text-[11px] px-2.5 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">{t('save')}</button>
                 <button onClick={() => handleDelete(r.id)} className="text-zinc-600 hover:text-red-400 text-xl leading-none">×</button>
               </div>
             </div>
@@ -203,6 +199,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
   onClose: () => void;
   onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
 }) {
+  const t = useT();
   const [filter, setFilter] = useState<'all' | 'friends'>('all');
   const [armies, setArmies] = useState<PublicArmySummary[]>([]);
   const [loading, setLoading] = useState(true);
@@ -277,7 +274,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
   return (
     <div className="p-4 space-y-3">
       <div className="flex items-center justify-between">
-        <div className="text-[11px] text-zinc-500">Community armies — view and copy</div>
+        <div className="text-[11px] text-zinc-500">{t('communityHeader')}</div>
         {loggedIn && (
           <div className="flex gap-1">
             {(['all', 'friends'] as const).map(f => (
@@ -288,7 +285,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                   filter === f ? 'bg-amber-900/40 border-amber-700 text-amber-400' : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'
                 }`}
               >
-                {f === 'all' ? 'All' : 'Friends'}
+                {f === 'all' ? t('filterAll') : t('tabFriends')}
               </button>
             ))}
           </div>
@@ -296,10 +293,10 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
       </div>
       {error && <p className="text-red-400 text-xs">{error}</p>}
       {loading ? (
-        <p className="text-zinc-500 text-sm text-center py-6">Loading…</p>
+        <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
       ) : armies.length === 0 ? (
         <p className="text-zinc-500 italic text-sm text-center py-8">
-          {filter === 'friends' ? 'No public armies from your friends yet.' : 'No public armies yet.'}
+          {filter === 'friends' ? t('noFriendArmies') : t('noPublicArmies')}
         </p>
       ) : (
         <div className="space-y-2">
@@ -350,9 +347,9 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                 <button
                   onClick={() => handleLoad(a)}
                   className="text-[11px] px-2 py-1 border border-zinc-600 text-zinc-400 hover:text-zinc-200 uppercase tracking-wide"
-                  title="Load (view only — not saved to your account)"
+                  title={t('viewOnlyHint')}
                 >
-                  View
+                  {t('viewButton')}
                 </button>
                 {loggedIn && (
                   <button
@@ -360,7 +357,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                     disabled={copying === a.id}
                     className="text-[11px] px-2 py-1 bg-amber-900/30 border border-amber-800 text-amber-400 hover:bg-amber-800/40 disabled:opacity-50 uppercase tracking-wide"
                   >
-                    {copied === a.id ? '✓ Copied' : copying === a.id ? '…' : 'Copy'}
+                    {copied === a.id ? t('copiedLabel') : copying === a.id ? '…' : t('copyButton')}
                   </button>
                 )}
               </div>
@@ -369,7 +366,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
         </div>
       )}
       {!loggedIn && (
-        <p className="text-[11px] text-zinc-600 text-center mt-2">Log in to copy armies to your account.</p>
+        <p className="text-[11px] text-zinc-600 text-center mt-2">{t('loginToCopyHint')}</p>
       )}
     </div>
   );
@@ -378,6 +375,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
 // ── Friends tab ──────────────────────────────────────────────────────────────
 
 function FriendsTab() {
+  const t = useT();
   const [friends, setFriends] = useState<FriendRow[]>([]);
   const [search, setSearch]   = useState('');
   const [results, setResults] = useState<UserSearchResult[]>([]);
@@ -429,10 +427,10 @@ function FriendsTab() {
         <input
           value={search}
           onChange={e => onSearchChange(e.target.value)}
-          placeholder="Search players by username…"
+          placeholder={t('searchPlayersPlaceholder')}
           className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
         />
-        {searching && <p className="text-zinc-500 text-xs mt-1">Searching…</p>}
+        {searching && <p className="text-zinc-500 text-xs mt-1">{t('searchingLabel')}</p>}
         {results.length > 0 && (
           <div className="mt-2 space-y-1.5">
             {results.map(u => (
@@ -441,7 +439,7 @@ function FriendsTab() {
                 <div className="flex-1 min-w-0">
                   <div className="text-sm text-zinc-200">{u.username}</div>
                   {u.publicArmyCount > 0 && (
-                    <div className="text-[10px] text-zinc-500">{u.publicArmyCount} public {u.publicArmyCount === 1 ? 'army' : 'armies'}</div>
+                    <div className="text-[10px] text-zinc-500">{u.publicArmyCount} {u.publicArmyCount === 1 ? t('publicArmySingular') : t('publicArmyPlural')}</div>
                   )}
                 </div>
                 <button
@@ -453,7 +451,7 @@ function FriendsTab() {
                       : 'border-amber-800 text-amber-600 hover:text-amber-400 hover:border-amber-600'
                   }`}
                 >
-                  {u.isFriend ? 'Remove' : '+ Add'}
+                  {u.isFriend ? t('removeLabel') : t('addFriendButton')}
                 </button>
               </div>
             ))}
@@ -466,7 +464,7 @@ function FriendsTab() {
       {/* Friends list */}
       <div>
         <div className="text-[11px] uppercase tracking-widest text-zinc-600 mb-2">
-          {loading ? 'Loading…' : friends.length === 0 ? 'No friends yet — search above to add players' : `${friends.length} friend${friends.length !== 1 ? 's' : ''}`}
+          {loading ? t('loadingEllipsis') : friends.length === 0 ? t('noFriendsYet') : `${friends.length} ${friends.length === 1 ? t('friendSingular') : t('friendPlural')}`}
         </div>
         <div className="space-y-1.5">
           {friends.map(f => (
@@ -475,7 +473,7 @@ function FriendsTab() {
               <div className="flex-1 min-w-0">
                 <div className="text-sm text-zinc-200">{f.username}</div>
                 {f.publicArmyCount > 0 && (
-                  <div className="text-[10px] text-zinc-500">{f.publicArmyCount} public {f.publicArmyCount === 1 ? 'army' : 'armies'}</div>
+                  <div className="text-[10px] text-zinc-500">{f.publicArmyCount} {f.publicArmyCount === 1 ? t('publicArmySingular') : t('publicArmyPlural')}</div>
                 )}
               </div>
               <button
@@ -494,35 +492,35 @@ function FriendsTab() {
 
 // ── Preferences tab ──────────────────────────────────────────────────────────
 
-const AUTOSAVE_OPTIONS: { value: AutosaveInterval; label: string; desc: string }[] = [
-  { value: 'off',        label: 'Off',         desc: 'No automatic saving' },
-  { value: 'close-only', label: 'On close',     desc: 'Only when you close the tab' },
-  { value: '30s',        label: 'Every 30 s',   desc: 'After 30 s of inactivity (recommended)' },
-  { value: '5min',       label: 'Every 5 min',  desc: 'After 5 min of inactivity' },
-];
-
-const ENGAGEMENT_OPTIONS: { value: EngagementType | ''; label: string }[] = [
-  { value: '',         label: 'No default' },
-  { value: 'skirmish', label: 'Skirmish' },
-  { value: 'pitched',  label: 'Pitched Battle' },
-  { value: 'epic',     label: 'Epic Battle' },
-];
-
-const DEFAULT_POINTS_OPTIONS = [
-  { value: '' as const,  label: 'No default' },
-  { value: 500,  label: '500 pts' }, { value: 750,  label: '750 pts' },
-  { value: 1000, label: '1 000 pts' }, { value: 1500, label: '1 500 pts' },
-  { value: 2000, label: '2 000 pts' }, { value: 2500, label: '2 500 pts' },
-  { value: 3000, label: '3 000 pts' },
-];
-
 function PrefsTab() {
+  const t = useT();
   const { prefs, setPrefs } = usePrefs();
+
+  const AUTOSAVE_OPTIONS: { value: AutosaveInterval; label: string; desc: string }[] = [
+    { value: 'off',        label: t('autosaveOff'),     desc: t('autosaveOffDesc') },
+    { value: 'close-only', label: t('autosaveOnClose'), desc: t('autosaveOnCloseDesc') },
+    { value: '30s',        label: t('autosave30s'),     desc: t('autosave30sDesc') },
+    { value: '5min',       label: t('autosave5min'),    desc: t('autosave5minDesc') },
+  ];
+  const ENGAGEMENT_OPTIONS: { value: EngagementType | ''; label: string }[] = [
+    { value: '',         label: t('noDefault') },
+    { value: 'skirmish', label: t('skirmish') },
+    { value: 'pitched',  label: t('pitched') },
+    { value: 'epic',     label: t('epic') },
+  ];
+  const DEFAULT_POINTS_OPTIONS: { value: number | ''; label: string }[] = [
+    { value: '' as const, label: t('noDefault') },
+    { value: 500,  label: '500 pts' }, { value: 750,  label: '750 pts' },
+    { value: 1000, label: '1 000 pts' }, { value: 1500, label: '1 500 pts' },
+    { value: 2000, label: '2 000 pts' }, { value: 2500, label: '2 500 pts' },
+    { value: 3000, label: '3 000 pts' },
+  ];
+
   return (
     <div className="p-5 space-y-5">
       <section>
-        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Cloud autosave</div>
-        <p className="text-[11px] text-zinc-500 mb-3">How often your army is saved automatically while building.</p>
+        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('cloudAutosave')}</div>
+        <p className="text-[11px] text-zinc-500 mb-3">{t('autosaveDesc')}</p>
         <div className="space-y-2">
           {AUTOSAVE_OPTIONS.map(opt => (
             <label key={opt.value} className="flex items-start gap-3 cursor-pointer group">
@@ -538,7 +536,7 @@ function PrefsTab() {
       </section>
       <div className="border-t border-zinc-800" />
       <section>
-        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Default engagement</div>
+        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('defaultEngagement')}</div>
         <div className="space-y-2">
           {ENGAGEMENT_OPTIONS.map(opt => (
             <label key={opt.value} className="flex items-center gap-3 cursor-pointer group">
@@ -551,7 +549,7 @@ function PrefsTab() {
       </section>
       <div className="border-t border-zinc-800" />
       <section>
-        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Default points limit</div>
+        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('defaultPointsLimit')}</div>
         <div className="grid grid-cols-2 gap-1.5">
           {DEFAULT_POINTS_OPTIONS.map(opt => (
             <label key={String(opt.value)} className="flex items-center gap-2 cursor-pointer group">
@@ -727,6 +725,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
 
   const [links, setLinks]           = useState<Record<string, string>>(initLinks ?? {});
   const [linksPublic, setLinksPublic] = useState(initPublic ?? false);
+  const t = useT();
   const [saving, setSaving]         = useState(false);
   const [msg, setMsg]               = useState('');
 
@@ -755,7 +754,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
         const min = Math.min(img.width, img.height);
         ctx.drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, 128, 128);
         const dataURL = canvas.toDataURL('image/jpeg', 0.75);
-        if (dataURL.length > 180000) { setMsg('Image too large after compression. Try a smaller or lower-res file.'); return; }
+        if (dataURL.length > 180000) { setMsg(t('imageTooLarge')); return; }
         setSelCustom(dataURL); setSelKey(null);
       };
       img.src = ev.target!.result as string;
@@ -768,7 +767,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
     try {
       const res = await api.updateProfile({ avatar: curAvatar, socialLinks: links, socialPublic: linksPublic });
       onProfileUpdate?.({ avatar: res.avatar, socialLinks: res.socialLinks, socialPublic: res.socialPublic });
-      setMsg('Saved!');
+      setMsg(t('savedMsg'));
       setTimeout(() => setMsg(''), 2000);
     } catch (err) { setMsg((err as Error).message); }
     finally { setSaving(false); }
@@ -813,19 +812,19 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
     <div className="p-4 space-y-5">
       {/* Avatar */}
       <section>
-        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-2">Avatar</div>
+        <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-2">{t('avatarLabel')}</div>
         <div className="flex items-center gap-3 mb-3">
           <Avatar username={username} avatar={curAvatar} size={44} />
           <div className="text-sm text-zinc-200 font-semibold">{username}</div>
           {selCustom && (
-            <button onClick={() => setSelCustom(null)} className="text-[10px] text-zinc-500 hover:text-red-400 underline underline-offset-2 ml-auto">Remove image</button>
+            <button onClick={() => setSelCustom(null)} className="text-[10px] text-zinc-500 hover:text-red-400 underline underline-offset-2 ml-auto">{t('removeImageButton')}</button>
           )}
         </div>
 
         {/* Color palette — shown when a faction symbol is selected */}
         {selKey && !selCustom && (
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-wide shrink-0">Color</span>
+            <span className="text-[10px] text-zinc-500 uppercase tracking-wide shrink-0">{t('colorLabel')}</span>
             <div className="flex flex-wrap gap-1.5">
               {AVATAR_PALETTE.map(c => (
                 <button key={c.hex} onClick={() => setSelColor(c.hex)} title={c.label}
@@ -846,7 +845,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
             }`}
           >
             <Avatar username={username} avatar={null} size={20} />
-            <span>None (initials)</span>
+            <span>{t('noneInitials')}</span>
           </button>
           <div className="border-t border-zinc-800" />
           {AVATAR_GROUPS.map(group => {
@@ -900,9 +899,9 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
           onClick={() => fileInputRef.current?.click()}
           className="text-[11px] px-3 py-1.5 border border-zinc-700 bg-zinc-800 hover:border-zinc-500 text-zinc-300 uppercase tracking-wide"
         >
-          {selCustom ? 'Replace image' : '+ Upload image'}
+          {selCustom ? t('replaceImageButton') : t('uploadImageButton')}
         </button>
-        <span className="text-[10px] text-zinc-600 ml-2">Max ~150 KB · auto-compressed</span>
+        <span className="text-[10px] text-zinc-600 ml-2">{t('imageUploadHint')}</span>
       </section>
 
       <div className="border-t border-zinc-800" />
@@ -910,10 +909,10 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
       {/* Social links */}
       <section>
         <div className="flex items-center justify-between mb-2">
-          <div className="text-[11px] uppercase tracking-widest text-amber-600">Social links</div>
+          <div className="text-[11px] uppercase tracking-widest text-amber-600">{t('socialLinksLabel')}</div>
           <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" checked={linksPublic} onChange={e => setLinksPublic(e.target.checked)} className="accent-amber-500" />
-            <span className="text-[11px] text-zinc-400">Visible to others</span>
+            <span className="text-[11px] text-zinc-400">{t('visibleToOthers')}</span>
           </label>
         </div>
         <div className="space-y-2">
@@ -937,7 +936,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
           onClick={handleSaveProfile}
           className="text-[11px] px-4 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
         >
-          {msg || 'Save profile'}
+          {msg || t('saveProfile')}
         </button>
       </div>
 
@@ -946,39 +945,39 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
       {/* Security */}
       <div className="border border-zinc-800 bg-zinc-900/40">
         <button onClick={toggleSecurity} className="w-full flex items-center justify-between px-4 py-3 text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide transition-colors">
-          <span>Account security</span>
+          <span>{t('accountSecurity')}</span>
           <span className="text-zinc-600">{showSecurity ? '▾' : '▸'}</span>
         </button>
         {showSecurity && (
           <div className="px-4 pb-4 space-y-4 border-t border-zinc-800">
             {secError && <p className="text-red-400 text-xs pt-3">{secError}</p>}
             <div className="pt-3">
-              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Recovery code</div>
-              {codeLoading ? <p className="text-zinc-500 text-xs">Loading…</p> : recoveryCode ? (
+              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('recoveryCodeLabel')}</div>
+              {codeLoading ? <p className="text-zinc-500 text-xs">{t('loadingEllipsis')}</p> : recoveryCode ? (
                 <div className="flex items-center gap-2">
                   <div className={`bg-zinc-950 border border-amber-700 text-amber-400 font-mono text-sm px-3 py-2 tracking-widest flex-1 select-all ${codeRevealed ? '' : 'blur-sm'}`}>{recoveryCode}</div>
                   <button onClick={() => setCodeRevealed(v => !v)} className="text-lg px-2 text-zinc-400 hover:text-amber-400">{codeRevealed ? '🙈' : '👁'}</button>
                 </div>
               ) : (
-                <p className="text-zinc-500 text-xs italic">No code on file yet — reset your password once to get one.</p>
+                <p className="text-zinc-500 text-xs italic">{t('noRecoveryCode')}</p>
               )}
             </div>
             <div>
-              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">Secret question</div>
+              <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-1">{t('secretQuestionSectionLabel')}</div>
               {secQuestion && !editQuestion && (
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-zinc-300 text-sm">{secQuestion}</span>
-                  <button onClick={() => setEditQuestion(secQuestion)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2 shrink-0">Change</button>
+                  <button onClick={() => setEditQuestion(secQuestion)} className="text-[11px] text-zinc-500 hover:text-amber-400 underline underline-offset-2 shrink-0">{t('changeButton')}</button>
                 </div>
               )}
               {(!secQuestion || editQuestion) && (
                 <div className="space-y-2">
-                  {!secQuestion && <p className="text-zinc-500 text-[11px] italic">Optional — required with recovery code to reset password.</p>}
-                  <input value={editQuestion} onChange={e => setEditQuestion(e.target.value)} placeholder="e.g. What was your first army's faction?" className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
-                  {editQuestion.trim() && <input value={editAnswer} onChange={e => setEditAnswer(e.target.value)} placeholder="Answer" className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />}
+                  {!secQuestion && <p className="text-zinc-500 text-[11px] italic">{t('secretQuestionOptionalHint')}</p>}
+                  <input value={editQuestion} onChange={e => setEditQuestion(e.target.value)} placeholder={t('secretQuestionExample')} className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />
+                  {editQuestion.trim() && <input value={editAnswer} onChange={e => setEditAnswer(e.target.value)} placeholder={t('answerPlaceholder')} className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none" />}
                   <div className="flex gap-2">
-                    <button disabled={secBusy} onClick={handleSaveSecretQuestion} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">{secMsg || 'Save'}</button>
-                    {secQuestion && <button onClick={() => { setEditQuestion(''); setEditAnswer(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide">Cancel</button>}
+                    <button disabled={secBusy} onClick={handleSaveSecretQuestion} className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide">{secMsg || t('save')}</button>
+                    {secQuestion && <button onClick={() => { setEditQuestion(''); setEditAnswer(''); }} className="text-[11px] px-3 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 uppercase tracking-wide">{t('cancel')}</button>}
                   </div>
                 </div>
               )}
@@ -991,7 +990,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
         onClick={async () => { await onLogout(); onClose(); }}
         className="w-full text-center text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide py-2 border border-red-900/40 hover:border-red-700/60 transition-colors"
       >
-        Log out
+        {t('logoutButton')}
       </button>
     </div>
   );
@@ -1004,7 +1003,15 @@ export function CloudSavesModal({
   onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin, onProfileUpdate,
   onLoadCommunityArmy, onLoadCloudRoster, defaultTab,
 }: Props) {
+  const t = useT();
   const [tab, setTab] = useState<Tab>(defaultTab ?? 'armies');
+  const TAB_LABELS = [
+    { key: 'armies' as Tab,       label: t('tabMyArmies') },
+    { key: 'community' as Tab,    label: t('tabCommunity') },
+    { key: 'friends' as Tab,      label: t('tabFriends') },
+    { key: 'preferences' as Tab,  label: t('tabPrefs') },
+    { key: 'account' as Tab,      label: t('tabAccount') },
+  ];
 
   return (
     <div
@@ -1043,17 +1050,17 @@ export function CloudSavesModal({
 
         {/* Tabs */}
         <div className="flex border-b border-zinc-700">
-          {TAB_LABELS.map(t => (
+          {TAB_LABELS.map(tab_ => (
             <button
-              key={t.key}
-              onClick={() => setTab(t.key)}
+              key={tab_.key}
+              onClick={() => setTab(tab_.key)}
               className={`flex-1 py-2.5 text-[10px] uppercase tracking-widest transition-colors ${
-                tab === t.key
+                tab === tab_.key
                   ? 'text-amber-400 border-b-2 border-amber-500 bg-zinc-800/50'
                   : 'text-zinc-500 hover:text-zinc-300'
               }`}
             >
-              {t.label}
+              {tab_.label}
             </button>
           ))}
         </div>

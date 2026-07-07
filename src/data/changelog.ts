@@ -25,6 +25,14 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.45',
+    date: '2026-07-07',
+    title: 'GENERAL — full i18n sweep of CloudSavesModal (EN/DE/ES)',
+    changes: [
+      'GENERAL — CloudSavesModal: all 5 tabs (My Armies, Community, Friends, Prefs, Account) now fully translated in English, German, and Spanish; previously hardcoded in English only',
+    ],
+  },
+  {
     version: '1.44',
     date: '2026-07-07',
     title: 'GENERAL — social profiles, community armies, friends',
