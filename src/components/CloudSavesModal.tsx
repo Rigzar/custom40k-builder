@@ -145,8 +145,8 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
       ) : (
         <div className="space-y-2">
           {rosters.map(r => (
-            <div key={r.id} className={`bg-zinc-800 border p-3 flex items-center gap-3 ${
-              r.id === activeRosterId ? 'border-amber-500 border-l-4' : 'border-zinc-700 border-l-4 border-l-amber-800'
+            <div key={r.id} className={`bg-zinc-800 border border-zinc-700 border-l-4 p-3 flex items-center gap-3 ${
+              r.id === activeRosterId ? 'border-l-amber-500' : r.is_public ? 'border-l-emerald-600' : 'border-l-zinc-600'
             }`}>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
@@ -191,7 +191,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
 
 // ── Community tab ────────────────────────────────────────────────────────────
 
-function CommunityTab({ loggedIn }: { loggedIn: boolean }) {
+function CommunityTab({ loggedIn, onClose }: { loggedIn: boolean; onClose: () => void }) {
   const [filter, setFilter] = useState<'all' | 'friends'>('all');
   const [armies, setArmies] = useState<PublicArmySummary[]>([]);
   const [loading, setLoading] = useState(true);
@@ -224,6 +224,7 @@ function CommunityTab({ loggedIn }: { loggedIn: boolean }) {
     try {
       const res = await api.loadRoster(army.id);
       importRoster(JSON.stringify(res.roster.data));
+      onClose();
     } catch (err) { setError((err as Error).message); }
   }
 
@@ -846,7 +847,7 @@ export function CloudSavesModal({
           {tab === 'armies' && (
             <ArmiesTab onClose={onClose} activeRosterId={activeRosterId} onActiveRosterIdChange={onActiveRosterIdChange} />
           )}
-          {tab === 'community' && <CommunityTab loggedIn={true} />}
+          {tab === 'community' && <CommunityTab loggedIn={true} onClose={onClose} />}
           {tab === 'friends' && <FriendsTab />}
           {tab === 'preferences' && <PrefsTab />}
           {tab === 'account' && (

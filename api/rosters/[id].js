@@ -24,7 +24,8 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
       const result = await sql`
-        SELECT id, name, data, updated_at FROM rosters WHERE id = ${id} AND user_id = ${userId}
+        SELECT id, name, data, updated_at FROM rosters
+        WHERE id = ${id} AND (user_id = ${userId} OR is_public = true)
       `;
       if (result.rows.length === 0) {
         res.status(404).json({ error: 'Not found' });
