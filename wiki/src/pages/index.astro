@@ -5,6 +5,7 @@ import Layout from '../components/Layout.astro';
   <div class="intro">
     <img src="/custom40k-logo.png" alt="Custom40k" class="intro-logo" width="260" />
     <h1 class="intro-title">Custom40k Wiki</h1>
+    <p class="intro-tagline"><span class="typing-line" data-text="Rules · Factions · Armory · Missions"></span></p>
 
     <div class="ordo-card-outer reveal">
       <img src="/servo-skull.png" class="ordo-skull-img" alt="" />
@@ -68,6 +69,15 @@ import Layout from '../components/Layout.astro';
   .intro { max-width: 42rem; margin: 0 auto; text-align: center; }
   .intro-logo { display: block; margin: 0 auto 1rem; object-fit: contain; }
   .intro-title { border-bottom: none; }
+  .intro-tagline {
+    font-family: var(--font-ui, sans-serif); font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.2em; color: var(--c40k-steel); opacity: 0.7; margin: 0.2rem 0 1.2rem;
+    min-height: 1.2em;
+  }
+  .typing-line {
+    border-right: 2px solid var(--c40k-red, #a21217);
+    padding-right: 2px;
+  }
   .ordo-card-outer { margin: 1.4rem auto 0; max-width: 38rem; width: 100%; }
   .ordo-card section { margin-top: 1.4rem; }
   .ordo-card section:first-of-type { margin-top: 0; }
@@ -85,3 +95,27 @@ import Layout from '../components/Layout.astro';
   }
   .cta:hover { background: var(--c40k-red, #a21217); color: #fff; text-decoration: none; }
 </style>
+
+<script is:inline>
+(function () {
+  var el = document.querySelector('.typing-line');
+  if (!el) return;
+  var text = el.getAttribute('data-text') || '';
+  var i = 0;
+  function type() {
+    el.textContent = text.slice(0, i);
+    i++;
+    if (i <= text.length) {
+      setTimeout(type, 55);
+    } else {
+      var blinks = 0;
+      var iv = setInterval(function () {
+        el.style.borderRightColor = blinks % 2 ? '#a21217' : 'transparent';
+        blinks++;
+        if (blinks > 7) { clearInterval(iv); el.style.borderRight = 'none'; }
+      }, 480);
+    }
+  }
+  setTimeout(type, 900);
+})();
+</script>

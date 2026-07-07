@@ -189,6 +189,34 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
   mix-blend-mode: screen;
 }
 
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+* { scrollbar-color: #394950 rgba(0,0,0,0.18); scrollbar-width: thin; }
+
+/* ── Form accent color ───────────────────────────────────────────────────── */
+:root { accent-color: #a21217; }
+
+/* ── Faction card 3D tilt + spotlight shine ─────────────────────────────── */
+.faction-tilt {
+  transform: perspective(500px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.12s ease !important;
+  will-change: transform;
+}
+.faction-tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    rgba(255,195,60,0.22) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.faction-tilt:hover::after { opacity: 1; }
+
 @media print {
   /* Hide the dark overlay shell, leave only the white printable content */
   .fixed.z-50 {

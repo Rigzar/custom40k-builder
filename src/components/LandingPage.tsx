@@ -688,11 +688,24 @@ export function LandingPage({
                       key={f.key}
                       onClick={() => { if (f.available) { handleSelectFactionInSetup(f.key); } }}
                       disabled={!f.available}
+                      onMouseMove={f.available ? (e) => {
+                        const r = e.currentTarget.getBoundingClientRect();
+                        const x = (e.clientX - r.left) / r.width - 0.5;
+                        const y = (e.clientY - r.top) / r.height - 0.5;
+                        e.currentTarget.style.setProperty('--tilt-x', `${y * -10}deg`);
+                        e.currentTarget.style.setProperty('--tilt-y', `${x * 10}deg`);
+                        e.currentTarget.style.setProperty('--shine-x', `${(x + 0.5) * 100}%`);
+                        e.currentTarget.style.setProperty('--shine-y', `${(y + 0.5) * 100}%`);
+                      } : undefined}
+                      onMouseLeave={f.available ? (e) => {
+                        e.currentTarget.style.setProperty('--tilt-x', '0deg');
+                        e.currentTarget.style.setProperty('--tilt-y', '0deg');
+                      } : undefined}
                       className={`
                         relative flex flex-col items-center gap-2 pt-4 pb-3 px-2 border rounded-lg text-center transition-all
                         ${!f.available
                           ? 'border-zinc-800 bg-zinc-900/50 cursor-not-allowed opacity-40'
-                          : 'border-zinc-700 bg-zinc-900 hover:border-amber-600 hover:bg-zinc-800 cursor-pointer'
+                          : 'border-zinc-700 bg-zinc-900 hover:border-amber-600 hover:bg-zinc-800 cursor-pointer faction-tilt'
                         }
                       `}
                     >

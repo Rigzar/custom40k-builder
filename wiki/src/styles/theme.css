@@ -118,6 +118,9 @@ table tbody tr:nth-child(even) td {
   letter-spacing: 0.02em;
 }
 
+/* ── Scrollbar ─────────────────────────────────────────────────────── */
+* { scrollbar-color: #394950 rgba(0,0,0,0.15); scrollbar-width: thin; }
+
 /* ── Scanlines overlay ─────────────────────────────────────────────── */
 body::after {
   content: '';
@@ -164,6 +167,22 @@ body::after {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── Section divider draw-in (fires once on scroll reveal) ─────────── */
+@keyframes line-in-left {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes line-in-right {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+.reveal.visible .section-divider::before {
+  animation: line-in-left  0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+}
+.reveal.visible .section-divider::after {
+  animation: line-in-right 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
 }
 
 /* ── Ordo Card (servo skull presenting a parchment) ───────────────── */
