@@ -40,6 +40,8 @@ export function Avatar({ username, avatar, size = 32, className = '' }: AvatarPr
   }
 
   if (parsed?.type === 'faction') {
+    // key is either "faction-symbols/orks" (new) or bare "orks" (legacy → faction-symbols/)
+    const svgPath = parsed.key.includes('/') ? `/${parsed.key}.svg` : `/faction-symbols/${parsed.key}.svg`;
     return (
       <div
         className={`rounded-full flex items-center justify-center shrink-0 bg-zinc-900 border border-zinc-700 ${className}`}
@@ -49,8 +51,8 @@ export function Avatar({ username, avatar, size = 32, className = '' }: AvatarPr
           width:  size * 0.65,
           height: size * 0.65,
           backgroundColor: parsed.color,
-          WebkitMaskImage: `url(/faction-symbols/${parsed.key}.svg)`,
-          maskImage:        `url(/faction-symbols/${parsed.key}.svg)`,
+          WebkitMaskImage: `url(${svgPath})`,
+          maskImage:        `url(${svgPath})`,
           WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
           WebkitMaskSize:   'contain',   maskSize:   'contain',
           WebkitMaskPosition: 'center',  maskPosition: 'center',

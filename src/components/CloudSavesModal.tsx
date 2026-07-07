@@ -498,11 +498,108 @@ function PrefsTab() {
 
 // ── Account tab ──────────────────────────────────────────────────────────────
 
-const FACTION_AVATARS = [
-  'chaos-space-marines','chaos-daemons','space-marines','imperial-guard','adeptus-mechanicus',
-  'adeptus-custodes','adeptus-sororitas','grey-knights','inquisition','tau-empire','necrons',
-  'orks','eldar','dark-eldar','genestealer-cults','harlequins','leagues-of-votann','tyranids',
-  'assassins','horus-heresy','escalation',
+const AVATAR_GROUPS: { label: string; items: { key: string; label: string }[] }[] = [
+  { label: 'Space Marines', items: [
+    { key: 'faction-symbols/space-marines',   label: 'Space Marines' },
+    { key: 'legion-symbols/blood-angels',     label: 'Blood Angels' },
+    { key: 'legion-symbols/dark-angels',      label: 'Dark Angels' },
+    { key: 'legion-symbols/imperial-fists',   label: 'Imperial Fists' },
+    { key: 'legion-symbols/black-templars',   label: 'Black Templars' },
+    { key: 'legion-symbols/white-scars',      label: 'White Scars' },
+    { key: 'legion-symbols/space-wolves',     label: 'Space Wolves' },
+    { key: 'legion-symbols/blood-ravens',     label: 'Blood Ravens' },
+    { key: 'legion-symbols/deathwatch',       label: 'Deathwatch' },
+  ]},
+  { label: 'Chaos Space Marines', items: [
+    { key: 'faction-symbols/chaos-space-marines', label: 'Chaos SM' },
+    { key: 'legion-symbols/black-legion',     label: 'Black Legion' },
+    { key: 'legion-symbols/alpha-legion',     label: 'Alpha Legion' },
+    { key: 'legion-symbols/iron-warriors',    label: 'Iron Warriors' },
+    { key: 'legion-symbols/night-lords',      label: 'Night Lords' },
+    { key: 'legion-symbols/word-bearers',     label: 'Word Bearers' },
+    { key: 'legion-symbols/world-eaters',     label: 'World Eaters' },
+    { key: 'legion-symbols/death-guard',      label: 'Death Guard' },
+    { key: 'legion-symbols/thousand-sons',    label: 'Thousand Sons' },
+    { key: 'legion-symbols/emperors-children',label: "Emperor's Children" },
+  ]},
+  { label: 'Chaos Daemons', items: [
+    { key: 'faction-symbols/chaos-daemons',   label: 'Chaos Daemons' },
+    { key: 'legion-symbols/khorne-god',       label: 'Khorne' },
+    { key: 'legion-symbols/nurgle-god',       label: 'Nurgle' },
+    { key: 'legion-symbols/slaanesh-god',     label: 'Slaanesh' },
+    { key: 'legion-symbols/tzeentch-god',     label: 'Tzeentch' },
+  ]},
+  { label: 'Imperial Guard', items: [
+    { key: 'faction-symbols/imperial-guard',        label: 'Imperial Guard' },
+    { key: 'legion-symbols/ig-catachan',            label: 'Catachan' },
+    { key: 'legion-symbols/ig-brood-brothers',      label: 'Brood Brothers' },
+    { key: 'legion-symbols/ig-lost-and-damned',     label: 'Lost & Damned' },
+    { key: 'legion-symbols/ig-gueVesa',             label: "Gue'vesa" },
+    { key: 'legion-symbols/renegade-and-heretics',  label: 'Renegades' },
+  ]},
+  { label: 'Adeptus Mechanicus', items: [
+    { key: 'faction-symbols/adeptus-mechanicus',      label: 'AdMech' },
+    { key: 'legion-symbols/admech-mars',              label: 'Mars' },
+    { key: 'legion-symbols/admech-lucius',            label: 'Lucius' },
+    { key: 'legion-symbols/admech-ryza',              label: 'Ryza' },
+    { key: 'legion-symbols/admech-metalica',          label: 'Metalica' },
+    { key: 'legion-symbols/admech-graia',             label: 'Graia' },
+    { key: 'legion-symbols/admech-agripinaa',         label: 'Agripinaa' },
+    { key: 'legion-symbols/admech-stygies-viii',      label: 'Stygies VIII' },
+    { key: 'legion-symbols/admech-cybernetica',       label: 'Cybernetica' },
+    { key: 'legion-symbols/admech-dark-mechanicum',   label: 'Dark Mech' },
+    { key: 'legion-symbols/admech-collegia-titanica', label: 'Titanica' },
+  ]},
+  { label: 'Adeptus Sororitas', items: [
+    { key: 'faction-symbols/adeptus-sororitas',           label: 'Sororitas' },
+    { key: 'legion-symbols/sororitas-sacred-rose',        label: 'Sacred Rose' },
+    { key: 'legion-symbols/sororitas-valorous-heart',     label: 'Valorous Heart' },
+    { key: 'legion-symbols/sororitas-ebon-chalice',       label: 'Ebon Chalice' },
+    { key: 'legion-symbols/sororitas-argent-shroud',      label: 'Argent Shroud' },
+    { key: 'legion-symbols/sororitas-our-martyred-lady',  label: 'Martyred Lady' },
+    { key: 'legion-symbols/sororitas-bloody-rose',        label: 'Bloody Rose' },
+  ]},
+  { label: 'Eldar', items: [
+    { key: 'faction-symbols/eldar',           label: 'Eldar' },
+    { key: 'legion-symbols/eldar-iyanden',    label: 'Iyanden' },
+    { key: 'legion-symbols/eldar-saim-hann',  label: 'Saim-Hann' },
+    { key: 'legion-symbols/eldar-biel-tan',   label: 'Biel-Tan' },
+    { key: 'legion-symbols/eldar-alaitoc',    label: 'Alaitoc' },
+    { key: 'legion-symbols/eldar-altansar',   label: 'Altansar' },
+    { key: 'legion-symbols/ynnari',           label: 'Ynnari' },
+  ]},
+  { label: 'Harlequins',       items: [{ key: 'faction-symbols/harlequins',       label: 'Harlequins' }] },
+  { label: 'Dark Eldar',       items: [{ key: 'faction-symbols/dark-eldar',        label: 'Dark Eldar' }] },
+  { label: 'Tau Empire', items: [
+    { key: 'faction-symbols/tau-empire',      label: 'Tau Empire' },
+    { key: 'legion-symbols/tau-farsight',     label: 'Farsight' },
+    { key: 'legion-symbols/tau-kroot',        label: 'Kroot' },
+  ]},
+  { label: 'Orks', items: [
+    { key: 'faction-symbols/orks',            label: 'Orks' },
+    { key: 'legion-symbols/orks-goffs',       label: 'Goffs' },
+    { key: 'legion-symbols/orks-bad-moons',   label: 'Bad Moons' },
+    { key: 'legion-symbols/orks-snakebites',  label: 'Snakebites' },
+    { key: 'legion-symbols/orks-evil-sunz',   label: 'Evil Sunz' },
+    { key: 'legion-symbols/orks-blood-axes',  label: 'Blood Axes' },
+    { key: 'legion-symbols/orks-deathskulls', label: 'Deathskulls' },
+  ]},
+  { label: 'Necrons',           items: [
+    { key: 'faction-symbols/necrons',         label: 'Necrons' },
+    { key: 'legion-symbols/necrons-ctan',     label: "C'tan" },
+  ]},
+  { label: 'Tyranids',          items: [{ key: 'faction-symbols/tyranids',          label: 'Tyranids' }] },
+  { label: 'Genestealer Cults', items: [{ key: 'faction-symbols/genestealer-cults', label: 'GSC' }] },
+  { label: 'Grey Knights',      items: [{ key: 'faction-symbols/grey-knights',      label: 'Grey Knights' }] },
+  { label: 'Adeptus Custodes',  items: [{ key: 'faction-symbols/adeptus-custodes',  label: 'Custodes' }] },
+  { label: 'Inquisition',       items: [{ key: 'faction-symbols/inquisition',       label: 'Inquisition' }] },
+  { label: 'Assassins',         items: [{ key: 'faction-symbols/assassins',         label: 'Assassins' }] },
+  { label: 'Leagues of Votann', items: [{ key: 'faction-symbols/leagues-of-votann', label: 'Votann' }] },
+  { label: 'Supplements', items: [
+    { key: 'faction-symbols/horus-heresy',    label: 'Horus Heresy' },
+    { key: 'faction-symbols/escalation',      label: 'Escalation' },
+    { key: 'legion-symbols/skull-01',         label: 'Skull' },
+  ]},
 ];
 
 const AVATAR_PALETTE = [
@@ -551,6 +648,12 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const [selCustom, setSelCustom] = useState<string|null>(initParsed.custom);
   const curAvatar = selCustom ?? (selKey ? `${selKey}${selColor}` : null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const initGroup = AVATAR_GROUPS.find(g => g.items.some(i => i.key === selKey))?.label;
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(initGroup ? [initGroup] : []));
+  function toggleGroup(label: string) {
+    setExpandedGroups(prev => { const n = new Set(prev); n.has(label) ? n.delete(label) : n.add(label); return n; });
+  }
 
   const [links, setLinks]           = useState<Record<string, string>>(initLinks ?? {});
   const [linksPublic, setLinksPublic] = useState(initPublic ?? false);
@@ -649,56 +752,77 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
           )}
         </div>
 
-        {/* Faction symbol picker */}
-        <div className="grid grid-cols-7 gap-1.5 mb-3">
-          <button
-            onClick={() => { setSelKey(null); setSelCustom(null); }}
-            className={`aspect-square flex items-center justify-center rounded border ${
-              !selKey && !selCustom ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
-            }`}
-            title="None (initials)"
-          >
-            <Avatar username={username} avatar={null} size={26} />
-          </button>
-          {FACTION_AVATARS.map(k => (
-            <button
-              key={k}
-              onClick={() => { setSelKey(k); setSelCustom(null); }}
-              className={`aspect-square flex items-center justify-center rounded border bg-zinc-900 ${
-                selKey === k && !selCustom ? 'border-amber-500 bg-amber-900/30' : 'border-zinc-700 hover:border-zinc-500'
-              }`}
-              title={k.replace(/-/g, ' ')}
-            >
-              <div style={{
-                width: 22, height: 22,
-                backgroundColor: selColor,
-                WebkitMaskImage: `url(/faction-symbols/${k}.svg)`,
-                maskImage: `url(/faction-symbols/${k}.svg)`,
-                WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
-                WebkitMaskSize: 'contain', maskSize: 'contain',
-                WebkitMaskPosition: 'center', maskPosition: 'center',
-              }} />
-            </button>
-          ))}
-        </div>
-
-        {/* Color palette — only shown when a faction symbol is selected */}
+        {/* Color palette — shown when a faction symbol is selected */}
         {selKey && !selCustom && (
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2">
             <span className="text-[10px] text-zinc-500 uppercase tracking-wide shrink-0">Color</span>
             <div className="flex flex-wrap gap-1.5">
               {AVATAR_PALETTE.map(c => (
-                <button
-                  key={c.hex}
-                  onClick={() => setSelColor(c.hex)}
-                  title={c.label}
+                <button key={c.hex} onClick={() => setSelColor(c.hex)} title={c.label}
                   className={`w-5 h-5 rounded-full border-2 transition-transform ${selColor === c.hex ? 'border-amber-400 scale-110' : 'border-transparent hover:border-zinc-400'}`}
-                  style={{ background: c.hex }}
-                />
+                  style={{ background: c.hex }} />
               ))}
             </div>
           </div>
         )}
+
+        {/* Faction symbol picker — grouped, collapsible */}
+        <div className="border border-zinc-800 mb-3">
+          {/* "None" row */}
+          <button
+            onClick={() => { setSelKey(null); setSelCustom(null); }}
+            className={`w-full flex items-center gap-2 px-2 py-1.5 text-[11px] text-left transition-colors ${
+              !selKey && !selCustom ? 'bg-amber-900/30 text-amber-400' : 'text-zinc-400 hover:bg-zinc-800'
+            }`}
+          >
+            <Avatar username={username} avatar={null} size={20} />
+            <span>None (initials)</span>
+          </button>
+          <div className="border-t border-zinc-800" />
+          {AVATAR_GROUPS.map(group => {
+            const open = expandedGroups.has(group.label);
+            const groupHasSel = group.items.some(i => i.key === selKey) && !selCustom;
+            return (
+              <div key={group.label} className="border-t border-zinc-800 first:border-t-0">
+                <button
+                  onClick={() => toggleGroup(group.label)}
+                  className={`w-full flex items-center justify-between px-3 py-1.5 text-[11px] uppercase tracking-wide transition-colors ${
+                    groupHasSel ? 'text-amber-400 bg-amber-900/20' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'
+                  }`}
+                >
+                  <span>{group.label}</span>
+                  <span className="text-zinc-600">{open ? '▾' : '▸'}</span>
+                </button>
+                {open && (
+                  <div className="grid grid-cols-7 gap-1 p-2 bg-zinc-900/40">
+                    {group.items.map(item => (
+                      <button
+                        key={item.key}
+                        onClick={() => { setSelKey(item.key); setSelCustom(null); }}
+                        title={item.label}
+                        className={`aspect-square flex items-center justify-center rounded border ${
+                          selKey === item.key && !selCustom
+                            ? 'border-amber-500 bg-amber-900/30'
+                            : 'border-zinc-700 bg-zinc-800 hover:border-zinc-500'
+                        }`}
+                      >
+                        <div style={{
+                          width: 20, height: 20,
+                          backgroundColor: selColor,
+                          WebkitMaskImage: `url(/${item.key}.svg)`,
+                          maskImage:        `url(/${item.key}.svg)`,
+                          WebkitMaskRepeat: 'no-repeat', maskRepeat: 'no-repeat',
+                          WebkitMaskSize:   'contain',   maskSize:   'contain',
+                          WebkitMaskPosition: 'center',  maskPosition: 'center',
+                        }} />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
 
         {/* Custom image upload */}
         <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
