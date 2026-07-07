@@ -18,6 +18,7 @@ interface Props {
   onActiveRosterIdChange: (id: number | null) => void;
   onOpenAdmin?: () => void;
   onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
+  onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
   defaultTab?: Tab;
 }
 
@@ -191,14 +192,17 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange }: {
 
 // ── Community tab ────────────────────────────────────────────────────────────
 
-function CommunityTab({ loggedIn, onClose }: { loggedIn: boolean; onClose: () => void }) {
+function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
+  loggedIn: boolean;
+  onClose: () => void;
+  onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
+}) {
   const [filter, setFilter] = useState<'all' | 'friends'>('all');
   const [armies, setArmies] = useState<PublicArmySummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [copying, setCopying] = useState<number | null>(null);
   const [copied, setCopied] = useState<number | null>(null);
-  const { importRoster } = useArmyStore();
 
   async function load(type: 'all' | 'friends') {
     setLoading(true); setError('');
@@ -223,8 +227,11 @@ function CommunityTab({ loggedIn, onClose }: { loggedIn: boolean; onClose: () =>
   async function handleLoad(army: PublicArmySummary) {
     try {
       const res = await api.loadRoster(army.id);
-      importRoster(JSON.stringify(res.roster.data));
-      onClose();
+      if (onLoadCommunityArmy) {
+        onLoadCommunityArmy(res.roster.data as Record<string, unknown>);
+      } else {
+        onClose();
+      }
     } catch (err) { setError((err as Error).message); }
   }
 
@@ -800,7 +807,8 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
 
 export function CloudSavesModal({
   username, avatar, socialLinks, socialPublic,
-  onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin, onProfileUpdate, defaultTab,
+  onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin, onProfileUpdate,
+  onLoadCommunityArmy, defaultTab,
 }: Props) {
   const [tab, setTab] = useState<Tab>(defaultTab ?? 'armies');
 
@@ -847,7 +855,7 @@ export function CloudSavesModal({
           {tab === 'armies' && (
             <ArmiesTab onClose={onClose} activeRosterId={activeRosterId} onActiveRosterIdChange={onActiveRosterIdChange} />
           )}
-          {tab === 'community' && <CommunityTab loggedIn={true} onClose={onClose} />}
+          {tab === 'community' && <CommunityTab loggedIn={true} onClose={onClose} onLoadCommunityArmy={onLoadCommunityArmy} />}
           {tab === 'friends' && <FriendsTab />}
           {tab === 'preferences' && <PrefsTab />}
           {tab === 'account' && (

@@ -622,6 +622,28 @@ export default function App() {
     setActiveTab('builder');
   }
 
+  function handleLoadCommunityArmy(data: Record<string, unknown>) {
+    const fLabel = data.faction as string;
+    const fKey = FACTION_NAMES[fLabel]
+      ? fLabel
+      : Object.entries(FACTION_NAMES).find(([, v]) => v === fLabel)?.[0] ?? fLabel;
+    pendingLoad.current = {
+      id: 'community-view',
+      factionKey: fKey,
+      factionLabel: FACTION_NAMES[fKey] ?? fKey,
+      name: '',
+      state: data as unknown as SavedArmy['state'],
+      savedAt: Date.now(),
+      totalPts: (data.totalPts as number) ?? 0,
+      unitCount: ((data.army as unknown[])?.length) ?? 0,
+    };
+    setActiveCloudRosterId(null);
+    setSelectedFaction(fKey);
+    setOpenTabs(['landing', 'army_config', 'builder']);
+    setActiveTab('builder');
+    setShowCloudSaves(false);
+  }
+
   function handleCloseTab(tab: TabId) {
     // Closing a tab's × is always a UI-only action — it hides the tab, it never deletes data.
     // The allied detachment's units stay intact in the background even with its tab closed;
@@ -915,6 +937,7 @@ export default function App() {
           activeRosterId={activeCloudRosterId}
           onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
           onProfileUpdate={() => refreshAuth()}
+          onLoadCommunityArmy={handleLoadCommunityArmy}
           defaultTab={cloudSavesDefaultTab}
         />
       )}
