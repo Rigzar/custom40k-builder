@@ -237,16 +237,16 @@ parche, esto falta y por qué").
 - `mark` 🟢 (richest) — resolve `resolver.ts:90-100`; cost `points.ts:50-69`; injection
   `resolver-csm.ts:45-112` / `resolver-chaos-daemons.ts:41-84`; animosity `validators.ts:777-797`;
   vet-slot `resolver.ts:99-100`; Black Crusade (4 marks) own branch in cost + injection.
-- `single-slot` (armour) 🟡 — BOUGHT only: `equipMods.ts:36-43` applies only most-protective profile;
-  2-armour validator `validators.ts:184-195`. `armourKeyword` is on `ArmoryItem` (`data.ts:104`) but
-  **NOT on `Unit`** → innate-armour override still missing (ki-csm-armourslot-01).
+- `single-slot` (armour) 🟢 — BOUGHT only: `equipMods.ts:36-43` applies only most-protective profile;
+  2-armour validator `validators.ts:184-195`. `Unit.armourKeyword` added (innate armour keyword);
+  bought armour now treated as SWAP, not add. `ki-csm-armourslot-01` FIXED v0.51.
 - `stat-override` 🟡 — TWO mechanisms: (a) regex on desc `equipMods.ts:24-28` + `:54-57` (fragile,
   text-driven, collides with single-slot); (b) full-profile swap via `variant_models` (clean, but
   only for named variants e.g. Ascended DP). No structured stat-override field.
-- `gated` 🟡 — locked_mark, `veteran_max`, `(X only)` choice gate `validators.ts:455-473`, "no Mark
-  of Khorne" header gate `:475-491`, archetype gates `:198-353`, psyker `resolver.ts:113-119`. Many
-  via regex-on-text (patch). Armory ᵀ-gate still on old `term_compat`/`category` flags, not keyword
-  (ki-csm-tgate-01). Free-text gates ("Warpsmith-only") unstructured.
+- `gated` 🟢 — locked_mark, `veteran_max`, `(X only)` choice gate `validators.ts:455-473`, "no Mark
+  of Khorne" header gate `:475-491`, archetype gates `:198-353`, psyker `resolver.ts:113-119`. Armory
+  ᵀ-gate now keyword-derived via `unit.armourKeyword` + `modelRestrictsToTermSubset()`.
+  `ki-csm-tgate-01` FIXED v0.51. Free-text gates ("Warpsmith-only") unstructured.
 - `replace(A→B)` 🔴 — **not modelled.** `ConstraintType` has no `replace`; "May replace X with Y"
   uses a `one` group with dropped item A living only in header TEXT. No code removes A's profile (you
   pay for Y, X still shows). Real weapon swaps exist only by ARCHETYPE (`weapons/csm.ts:51`,
@@ -254,11 +254,11 @@ parche, esto falta y por qué").
 
 **Dependency chains (§0):** A (composition) 🟢 `validators.ts:626-748` + `:38-51` 2nd-AOP + `:800`
 trait cap + `:356-361` noLegacy/noTraits + `:530` 2nd-legacy; B (mark/animosity) 🟢 `:53-58`,
-`:777-797`, `:294-309` Abaddon exception; C (armour keyword) 🟡 single-slot partial + ᵀ-gate not
-keyword-derived (ki-csm-tgate-01); D (shooting weapon×order) ⚪ in-game, builder doesn't validate;
-E (psychic) 🟡 psyker flags resolved but "pick N powers from General+Codex" NOT enforced, cast-order
-in-game; F (allies) 🟢 list-build AOP `:750-775`, skirmish-no-allies `:850` (G/Y/R Ld-1/Obj-secured
-are in-game).
+`:777-797`, `:294-309` Abaddon exception; C (armour keyword) 🟢 single-slot + ᵀ-gate both
+keyword-derived (`ki-csm-tgate-01`/`ki-csm-armourslot-01` FIXED v0.51); D (shooting weapon×order) ⚪
+in-game, builder doesn't validate; E (psychic) 🟡 psyker flags resolved but "pick N powers from
+General+Codex" NOT enforced, cast-order in-game; F (allies) 🟢 list-build AOP `:750-775`,
+skirmish-no-allies `:850` (G/Y/R Ld-1/Obj-secured are in-game).
 
 **Per-faction engine coverage:** CSM 🟢 fullest resolver (`resolver-csm.ts`: per-type mark injection,
 Favored, vehicle weapon overrides, Plaguehost, combi-surcharge, Black Crusade). CD 🟢 `cdResolve`
@@ -267,7 +267,8 @@ Bound Beast `validators.ts:69-135`. HH 🟡 = injectable catalog, **no own resol
 the CSM resolver; dynamic Cataphractii applies.
 
 **Ranked remaining ENGINE work (by impact):** 1) 🔴 structured `replace` (remove dropped profile);
-2) 🟡 innate `single-slot` = `Unit.armourKeyword` (ki-csm-armourslot-01); 3) 🟡 structured
-`stat-override` field (fixes single-slot collision); 4) 🟡 keyword-derived ᵀ-gate (ki-csm-tgate-01);
-5) 🟡 `choose-one` validator; 6) 🟡 enforce psychic "pick N powers". Assume-enforced (solid): `add`,
-`fixed_max`, `per_n`, `every`, `mark`, AOP/slots, animosity, allies, CD slot math.
+2) 🟡 structured `stat-override` field (fixes single-slot collision edge cases); 3) 🟡 `choose-one`
+validator; 4) 🟡 enforce psychic "pick N powers". DONE: `ki-csm-armourslot-01` ✅ v0.51 (innate
+armourKeyword + swap semantics), `ki-csm-tgate-01` ✅ v0.51 (keyword-derived ᵀ-gate).
+Assume-enforced (solid): `add`, `fixed_max`, `per_n`, `every`, `mark`, AOP/slots, animosity, allies,
+CD slot math, `single-slot` armour, armory ᵀ-gate.

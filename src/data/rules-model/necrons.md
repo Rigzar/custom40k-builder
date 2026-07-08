@@ -160,13 +160,13 @@ Customisation. **19 fixes** found and applied — full list in `changelog.ts` v0
    S:"D6" instead of the `.ods`'s literal "D"; Ancient Destructor Lord's `unit_type` still listed
    Infantry (it's a Monstrous Creature).
 
-**New Known Issues logged** (none of these were fixed — left as gaps pending a design decision or a
-careful cross-faction engine change): `ki-necrons-lychguard-disjoint-sizerange-01`,
-`ki-necrons-ctanshard-armywide-cap-unenforced-01` (the 4 C'tan Shard variants share an army-wide cap
-that nothing enforces — `validators.ts`'s `uniqueUnitCounts` only blocks repeats of the SAME unit
-name), `ki-necrons-cryptek-dynastyscion-novariant-01` (Cryptek's "Dynasty Scion" choice never
-activates its `variant_models` profile swap — the engine has no per-choice `variant_link` within a
-multi-choice group). The cross-faction `ki-crossfaction-one-constraint-multimodel-replaces-noop-01`
+**All 3 KIs from this pass — FIXED (closed in known-issues.ts):**
+- `ki-necrons-lychguard-disjoint-sizerange-01` — FIXED (2026-06-21): new `Model.squad_min` field;
+  stepper now jumps 1↔4 directly.
+- `ki-necrons-ctanshard-armywide-cap-unenforced-01` — FIXED (2026-06-21): `ctanShardCapBlockReason`
+  greys out all C'tan Shard entries once any variant is already in the roster.
+- `ki-necrons-cryptek-dynastyscion-novariant-01` — FIXED (2026-06-21): per-choice `variant_link`
+  + `unique_per_army` added to `Choice` type; Dynasty Scion correctly swaps profile + armory tier. The cross-faction `ki-crossfaction-one-constraint-multimodel-replaces-noop-01`
 (a `constraint:'one'` swap on a multi-model squad never reaches the `replaces` threshold, since the
 toggle always stores qty=1 regardless of squad size) is now CLOSED — every concrete instance found
 (Immortals, Warriors, Tomb Blades, all re-checked 2026-06-23 against `Necrons ENG.ods`'s "+N
