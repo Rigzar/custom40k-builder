@@ -234,8 +234,7 @@ these.
    Inquisitor Lord `inline_pts: 15` (36+15=51pts), separate Priest +5pts AND Psyker +5pts option
    groups both present, `has_veteran_abilities: true`/`veteran_max: 1`, and the
    Quarry/"Inquisitor Lord: may choose a second quarry" ability lines are both in `abilities[]`.
-   Fixed in an earlier session not reflected when this note was written; KI
-   `ki-inquisition-inquisitor-sheet-gaps-01` can be closed.
+   Fixed in an earlier session. `ki-inquisition-inquisitor-sheet-gaps-01` — **FIXED** (closed).
 
 ### 9. June 2026 changelog (external ruleset update) — Inquisition items
 
@@ -261,11 +260,8 @@ new 40-sheet `Inquisition.ods`:
    ALL ~8 Imperial factions (vs. Heretic/Iconoclast's single Chaos/Xenos pick). No existing
    UI surfaces "always-on special rules" text for any faction (special-abilities.ts files are
    migration/audit docs only, not rendered). Documented as a new `INQ_SPECIAL_ABILITIES`
-   entry (`engine/codex_inquisition/special-abilities.ts`, category 'army-rule'). New KI
-   `ki-inquisition-authority-unenforced-01` — no UI/engine support for cross-Imperial-faction
-   armory access exists; would need a new "browse another Imperial faction's general armory"
-   mechanism (bigger than the existing per-Legacy `armory_legions` tab, which is single-
-   faction).
+   entry (`engine/codex_inquisition/special-abilities.ts`, category 'army-rule').
+   `ki-inquisition-authority-unenforced-01` — **FIXED** (closed in known-issues.ts).
 
 **10. "Added Repressors" — FIXED.** New `units/dedicated_transport/repressor.ts` (129pts,
    M12"/WS6+/BS3+/S6/F11/Sd11/R10/I4/A1/HP2, Heavy flamer + Storm bolter, optional 2nd Storm
