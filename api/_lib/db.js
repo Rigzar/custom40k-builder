@@ -183,6 +183,43 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_roster_campaign_idx ON campaign_roster(campaign_id)`;
 
+  // Extra columns added in v1.46 — all idempotent via ADD COLUMN IF NOT EXISTS
+  await sql`ALTER TABLE campaign_battles ADD COLUMN IF NOT EXISTS engagement_type TEXT NOT NULL DEFAULT 'pitched'`;
+  await sql`ALTER TABLE campaign_roster  ADD COLUMN IF NOT EXISTS trait TEXT`;
+  await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS building_slots INTEGER NOT NULL DEFAULT 2`;
+
+  // Buildings: each sector can host buildings up to its building_slots limit.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_buildings (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      sector_id   INTEGER NOT NULL REFERENCES campaign_sectors(id) ON DELETE CASCADE,
+      building_type TEXT NOT NULL,
+      level INTEGER NOT NULL DEFAULT 1,
+      is_active BOOLEAN NOT NULL DEFAULT true,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_buildings_campaign_idx ON campaign_buildings(campaign_id)`;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_buildings_sector_idx   ON campaign_buildings(sector_id)`;
+
+  // Weekly events: one row per faction per turn. GM draws; stays hidden from other factions.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_events (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      faction TEXT NOT NULL,
+      turn INTEGER NOT NULL,
+      event_id INTEGER NOT NULL,
+      event_name TEXT NOT NULL,
+      event_effect TEXT NOT NULL,
+      resolved BOOLEAN NOT NULL DEFAULT false,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE(campaign_id, faction, turn)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_events_campaign_idx ON campaign_events(campaign_id)`;
+
   schemaReady = true;
 }
 

@@ -1102,16 +1102,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-3',
-    status: 'known',
+    status: 'investigating',
     title: {
-      en: 'Print layout and app not optimised for mobile or non-Chrome browsers',
-      de: 'Drucklayout und App nicht für Mobilgeräte oder Nicht-Chrome-Browser optimiert',
-      es: 'El diseño de impresión y la app no están optimizados para móviles ni navegadores que no sean Chrome',
+      en: 'Print layout not optimised for mobile or non-Chrome browsers',
+      de: 'Drucklayout nicht für Mobilgeräte oder Nicht-Chrome-Browser optimiert',
+      es: 'El diseño de impresión no está optimizado para móviles ni navegadores que no sean Chrome',
     },
     description: {
-      en: 'The app is currently built and tested on desktop Chrome/Edge. Mobile layout and Firefox/Safari support will be improved once the core feature set is stable.',
-      de: 'Die App wird derzeit für Desktop Chrome/Edge entwickelt und getestet. Das mobile Layout und die Unterstützung für Firefox/Safari werden verbessert, sobald der Kernfunktionsumfang stabil ist.',
-      es: 'La app está actualmente desarrollada y probada en Chrome/Edge de escritorio. El diseño móvil y el soporte para Firefox/Safari se mejorarán una vez que el conjunto de funciones principal sea estable.',
+      en: 'v1.46: the main app builder is now usable on mobile phones (header collapses, buttons reduce to icons, weapon tables scroll horizontally). Remaining gap: PrintView is still desktop-only and may render incorrectly on mobile or non-Chrome browsers.',
+      de: 'v1.46: Die Haupt-App ist jetzt auf Mobilgeräten nutzbar (Header kollabiert, Buttons werden zu Icons, Waffentabellen scrollen horizontal). Verbleibend: PrintView ist noch desktop-only und kann auf Mobilgeräten oder Nicht-Chrome-Browsern falsch dargestellt werden.',
+      es: 'v1.46: la app principal ya es usable en móvil (el header se colapsa, los botones se reducen a iconos, las tablas de armas se desplazan horizontalmente). Pendiente: PrintView sigue siendo solo escritorio y puede verse mal en móvil o en navegadores que no sean Chrome.',
     },
   },
   {

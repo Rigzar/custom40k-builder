@@ -4,6 +4,17 @@ import { useT } from '../i18n';
 import { CampaignMapView } from './CampaignMapView';
 import { CampaignBattleLog } from './CampaignBattleLog';
 import { CampaignRosterView } from './CampaignRosterView';
+import { CampaignBuildingsView } from './CampaignBuildingsView';
+
+type TabId = 'players' | 'map' | 'battles' | 'roster' | 'buildings';
+
+const TABS: { key: TabId; label: string }[] = [
+  { key: 'players',   label: 'COMMAND' },
+  { key: 'map',       label: 'MAP' },
+  { key: 'battles',   label: 'BATTLES' },
+  { key: 'roster',    label: 'ROSTER' },
+  { key: 'buildings', label: 'INFRA' },
+];
 
 interface Props {
   onClose: () => void;
@@ -16,14 +27,15 @@ export function CampaignModal({ onClose }: Props) {
   const [error, setError]         = useState('');
 
   const [openId, setOpenId]       = useState<number | null>(null);
-  const [openTab, setOpenTab]     = useState<'players' | 'map' | 'battles' | 'roster'>('players');
+  const [openTab, setOpenTab]     = useState<TabId>('players');
+  const [mapRefreshTick, setMapRefreshTick] = useState(0);
   const [advancing, setAdvancing] = useState(false);
   const [players, setPlayers]     = useState<api.CampaignPlayer[]>([]);
   const [supply, setSupply]       = useState<api.CampaignSupplyRow[]>([]);
+  const [sectors, setSectors]     = useState<api.CampaignSector[]>([]);
   const [adjusting, setAdjusting] = useState<string | null>(null);
   const [playersLoading, setPlayersLoading] = useState(false);
 
-  // Create campaign form
   const [showCreate, setShowCreate]       = useState(false);
   const [newName, setNewName]             = useState('');
   const [newFactions, setNewFactions]     = useState('Chaos, Imperium');
@@ -31,12 +43,10 @@ export function CampaignModal({ onClose }: Props) {
   const [newSectorsToWin, setNewSectorsToWin] = useState(4);
   const [creating, setCreating]           = useState(false);
 
-  // Delete campaign confirmation
   const [deletingCampaign, setDeletingCampaign] = useState<api.CampaignSummary | null>(null);
   const [deleteConfirmName, setDeleteConfirmName] = useState('');
   const [deleting, setDeleting] = useState(false);
 
-  // Join campaign form
   const [showJoin, setShowJoin]     = useState(false);
   const [joinCode, setJoinCode]     = useState('');
   const [joinFaction, setJoinFaction] = useState('');
@@ -66,7 +76,6 @@ export function CampaignModal({ onClose }: Props) {
         status: (turnRes.status as 'active' | 'finished'),
         winner_faction: turnRes.winner_faction,
       } : x));
-      // Supply refreshes after advance; re-fetch now that turn-advance credited new supply
       const fresh = await api.listSupply(c.id);
       setSupply(fresh.supply);
     } catch (err) {
@@ -94,12 +103,14 @@ export function CampaignModal({ onClose }: Props) {
     setOpenTab('players');
     setPlayersLoading(true);
     try {
-      const [pRes, sRes] = await Promise.all([
+      const [pRes, sRes, secRes] = await Promise.all([
         api.listCampaignPlayers(c.id),
         api.listSupply(c.id),
+        api.listCampaignSectors(c.id),
       ]);
       setPlayers(pRes.players);
       setSupply(sRes.supply);
+      setSectors(secRes.sectors);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -152,196 +163,189 @@ export function CampaignModal({ onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/80 flex items-start justify-center z-50 p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black/90 flex items-start justify-center z-50 p-4 overflow-y-auto"
       onClick={e => e.target === e.currentTarget && onClose()}
     >
-      <div className="bg-zinc-900 border-2 border-amber-800 w-full max-w-xl my-4">
-        <div className="flex justify-between items-center px-4 py-3 bg-zinc-800 border-b border-amber-800">
-          <h3 className="text-amber-400 uppercase tracking-widest text-sm flex items-center gap-2">
-            {t('campaignModalTitle')}
-            <span className="text-[10px] px-1.5 py-0.5 bg-red-900/60 border border-red-700 text-red-300 tracking-wide normal-case">ALPHA</span>
-          </h3>
-          <button onClick={onClose} className="text-zinc-400 hover:text-white text-xl leading-none">✕</button>
+      <div className="cog-bg border border-[#39d353] w-full max-w-xl my-4 cog-text relative overflow-hidden">
+        {/* Scanline overlay */}
+        <div className="absolute inset-0 pointer-events-none z-0 cog-scanlines" />
+
+        {/* Header */}
+        <div className="relative z-10 flex justify-between items-center px-4 py-3 border-b border-[#1a5c25]">
+          <div className="flex items-center gap-2">
+            <span className="cog-text-bright text-sm tracking-widest uppercase">⬡ PLANETARY ASSAULT</span>
+            <span className="text-[9px] px-1.5 py-0.5 border border-[#ff3030] cog-text-red tracking-wide">ALPHA</span>
+          </div>
+          <button onClick={onClose} className="cog-text-dim hover:cog-text-red text-lg leading-none transition-colors">✕</button>
         </div>
 
-        <div className="p-4 space-y-4">
-          <p className="text-zinc-500 text-[11px] italic">
+        <div className="relative z-10 p-4 space-y-4">
+          <p className="cog-text-dim text-[10px] italic">
             {t('campaignEarlyPreview')}
           </p>
 
-          {error && <p className="text-red-400 text-xs">{error}</p>}
+          {error && <p className="cog-text-red text-xs">⚠ {error}</p>}
 
           <div className="flex gap-2">
             <button
               onClick={() => { setShowCreate(v => !v); setShowJoin(false); }}
-              className="flex-1 text-[11px] px-3 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 uppercase tracking-wide"
-            >
+              className={`flex-1 cog-btn cog-btn-amber text-[10px] ${showCreate ? 'cog-btn-active' : ''}`}>
               {showCreate ? t('cancel') : t('campaignCreateToggle')}
             </button>
             <button
               onClick={() => { setShowJoin(v => !v); setShowCreate(false); }}
-              className="flex-1 text-[11px] px-3 py-2 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 uppercase tracking-wide"
-            >
+              className={`flex-1 cog-btn text-[10px] ${showJoin ? 'cog-btn-active' : ''}`}>
               {showJoin ? t('cancel') : t('campaignJoinToggle')}
             </button>
           </div>
 
           {showCreate && (
-            <div className="bg-zinc-800/60 border border-zinc-700 p-3 space-y-2">
-              <input
-                value={newName}
-                onChange={e => setNewName(e.target.value)}
+            <div className="cog-panel cog-appear p-3 space-y-2">
+              <p className="cog-text-dim text-[9px] tracking-widest">◈ NEW CAMPAIGN PARAMETERS ◈</p>
+              <input value={newName} onChange={e => setNewName(e.target.value)}
                 placeholder={t('campaignNamePlaceholder')}
-                className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
-              />
-              <input
-                value={newFactions}
-                onChange={e => setNewFactions(e.target.value)}
+                className="cog-input w-full text-[11px]" />
+              <input value={newFactions} onChange={e => setNewFactions(e.target.value)}
                 placeholder={t('campaignFactionsPlaceholder')}
-                className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
-              />
+                className="cog-input w-full text-[11px]" />
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] text-zinc-500 uppercase tracking-wide block mb-1">{t('campaignMaxTurnsLabel')}</label>
-                  <input type="number" min={0} value={newMaxTurns} onChange={e => setNewMaxTurns(Math.max(0, Number(e.target.value)))}
-                    className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-1.5 outline-none" />
+                  <label className="cog-text-dim text-[9px] tracking-wide block mb-1">{t('campaignMaxTurnsLabel')}</label>
+                  <input type="number" min={0} value={newMaxTurns}
+                    onChange={e => setNewMaxTurns(Math.max(0, Number(e.target.value)))}
+                    className="cog-input w-full text-[11px]" />
                 </div>
                 <div>
-                  <label className="text-[10px] text-zinc-500 uppercase tracking-wide block mb-1">{t('campaignSectorsToWinLabel')}</label>
-                  <input type="number" min={0} value={newSectorsToWin} onChange={e => setNewSectorsToWin(Math.max(0, Number(e.target.value)))}
-                    className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-1.5 outline-none" />
+                  <label className="cog-text-dim text-[9px] tracking-wide block mb-1">{t('campaignSectorsToWinLabel')}</label>
+                  <input type="number" min={0} value={newSectorsToWin}
+                    onChange={e => setNewSectorsToWin(Math.max(0, Number(e.target.value)))}
+                    className="cog-input w-full text-[11px]" />
                 </div>
               </div>
-              <p className="text-[10px] text-zinc-600 italic">{t('campaignVictoryHint')}</p>
-              <button
-                disabled={creating || !newName.trim()}
-                onClick={handleCreate}
-                className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
-              >
+              <p className="cog-text-dim text-[9px] italic">{t('campaignVictoryHint')}</p>
+              <button disabled={creating || !newName.trim()} onClick={handleCreate}
+                className="cog-btn cog-btn-amber text-[10px]">
                 {t('createLabel')}
               </button>
             </div>
           )}
 
           {showJoin && (
-            <div className="bg-zinc-800/60 border border-zinc-700 p-3 space-y-2">
-              <input
-                value={joinCode}
-                onChange={e => setJoinCode(e.target.value.toUpperCase())}
+            <div className="cog-panel cog-appear p-3 space-y-2">
+              <p className="cog-text-dim text-[9px] tracking-widest">◈ ENTER CAMPAIGN UPLINK CODE ◈</p>
+              <input value={joinCode} onChange={e => setJoinCode(e.target.value.toUpperCase())}
                 placeholder={t('campaignInviteCodePlaceholder')}
-                className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none font-mono tracking-widest"
-              />
-              <input
-                value={joinFaction}
-                onChange={e => setJoinFaction(e.target.value)}
+                className="cog-input w-full text-[11px] tracking-widest" />
+              <input value={joinFaction} onChange={e => setJoinFaction(e.target.value)}
                 placeholder={t('campaignJoinFactionPlaceholder')}
-                className="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-sm px-3 py-2 outline-none"
-              />
-              <button
-                disabled={joining || !joinCode.trim() || !joinFaction.trim()}
-                onClick={handleJoin}
-                className="text-[11px] px-3 py-1.5 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide"
-              >
+                className="cog-input w-full text-[11px]" />
+              <button disabled={joining || !joinCode.trim() || !joinFaction.trim()} onClick={handleJoin}
+                className="cog-btn cog-btn-amber text-[10px]">
                 {t('joinLabel')}
               </button>
             </div>
           )}
 
           {loading ? (
-            <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
+            <p className="cog-text text-sm text-center py-6 cog-flicker">▌ QUERYING CAMPAIGN DATABASE... ▐</p>
           ) : campaigns.length === 0 ? (
-            <p className="text-zinc-500 italic text-sm text-center py-8">
-              {t('campaignNoneYet')}
-            </p>
+            <p className="cog-text-dim italic text-sm text-center py-8">[ NO ACTIVE CAMPAIGNS ]</p>
           ) : (
             <div className="space-y-2">
               {campaigns.map(c => (
-                <div key={c.id} className="bg-zinc-800 border border-zinc-700 border-l-4 border-l-amber-800">
+                <div key={c.id} className="border border-[#1a5c25] border-l-2 border-l-[#57ff6a] bg-[#020702]">
                   <div className="p-3 flex items-center gap-3">
-                    <div
-                      onClick={() => toggleOpen(c)}
-                      className="flex-1 min-w-0 cursor-pointer"
-                    >
-                      <div className="text-sm font-semibold text-zinc-100 truncate flex items-center gap-2">
-                        {c.name}
-                        {c.role === 'gm' && <span className="text-[10px] text-amber-500 normal-case">{t('campaignYouAreGm')}</span>}
-                        {c.status === 'finished' && <span className="text-[10px] px-1.5 py-0.5 bg-emerald-900/60 border border-emerald-700 text-emerald-300 tracking-wide normal-case">{t('campaignStatusFinished')}</span>}
+                    <div onClick={() => toggleOpen(c)} className="flex-1 min-w-0 cursor-pointer">
+                      <div className="text-sm cog-text-bright truncate flex items-center gap-2 tracking-wide">
+                        {c.name.toUpperCase()}
+                        {c.role === 'gm' && <span className="text-[9px] cog-text-amber">[GM]</span>}
+                        {c.status === 'finished' && (
+                          <span className="text-[9px] px-1 border border-[#39d353] cog-text tracking-wide">COMPLETED</span>
+                        )}
                       </div>
-                      <div className="text-[11px] text-zinc-500 mt-1">
+                      <div className="cog-text-dim text-[10px] mt-0.5">
                         {c.factions.join(' vs ')}
-                        {c.faction && <span className="text-amber-600"> · {t('campaignPlayingPrefix')} {c.faction}</span>}
+                        {c.faction && <span className="cog-text-amber"> · {c.faction}</span>}
                       </div>
                     </div>
-                    <div className="flex flex-col items-end gap-1 shrink-0">
-                      <span className="text-[11px] font-mono tracking-widest text-amber-500">{c.invite_code}</span>
-                      <span className="text-[10px] text-zinc-500">{t('campaignTurnLabel')} {c.current_turn ?? 1}</span>
+                    <div className="flex flex-col items-end gap-0.5 shrink-0">
+                      <span className="cog-text-amber font-mono text-[11px] tracking-widest">{c.invite_code}</span>
+                      <span className="cog-text-dim text-[9px]">T.{String(c.current_turn ?? 1).padStart(3, '0')}</span>
                     </div>
                     {c.role === 'gm' && (
                       <button
                         onClick={e => { e.stopPropagation(); setDeletingCampaign(c); setDeleteConfirmName(''); setError(''); }}
-                        className="ml-1 text-zinc-600 hover:text-red-400 transition-colors shrink-0"
-                        title="Delete campaign"
-                      >
+                        className="ml-1 cog-text-dim hover:cog-text-red transition-colors shrink-0"
+                        title="Delete campaign">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
                       </button>
                     )}
                   </div>
+
                   {openId === c.id && (
-                    <div className="border-t border-zinc-700 bg-zinc-950/40">
+                    <div className="border-t border-[#1a5c25]">
                       {/* Turn bar (GM only) */}
                       {c.role === 'gm' && (
-                        <div className="flex items-center justify-between px-3 py-2 bg-zinc-900/60 border-b border-zinc-700">
-                          <span className="text-[11px] text-amber-500 font-semibold">{t('campaignTurnLabel')} {c.current_turn ?? 1}</span>
+                        <div className="flex items-center justify-between px-3 py-2 border-b border-[#1a5c25]">
+                          <span className="cog-text-amber text-[10px] tracking-widest">
+                            ◈ TURN {String(c.current_turn ?? 1).padStart(3, '0')}
+                          </span>
                           {c.status === 'finished' ? (
-                            <span className="text-[10px] text-emerald-400">
+                            <span className="cog-text text-[10px]">
                               {c.winner_faction
-                                ? `${t('campaignWonBy')}: ${c.winner_faction}`
-                                : t('campaignNoVictor')}
+                                ? `VICTORY: ${c.winner_faction.toUpperCase()}`
+                                : 'NO VICTOR'}
                             </span>
                           ) : (
                             <button onClick={() => handleAdvanceTurn(c)} disabled={advancing}
-                              className="text-[10px] px-2 py-1 bg-zinc-700 border border-zinc-600 text-zinc-200 hover:bg-zinc-600 disabled:opacity-50 uppercase tracking-wide">
-                              {advancing ? t('campaignAdvancing') : `${t('campaignAdvanceTurn')} ${(c.current_turn ?? 1) + 1} →`}
+                              className="cog-btn text-[9px] py-0.5">
+                              {advancing ? 'ADVANCING...' : `ADVANCE → T.${String((c.current_turn ?? 1) + 1).padStart(3,'0')}`}
                             </button>
                           )}
                         </div>
                       )}
+
                       {/* Tab bar */}
-                      <div className="flex border-b border-zinc-700">
-                        {(['players', 'map', 'battles', 'roster'] as const).map(tab => (
-                          <button key={tab}
-                            onClick={() => setOpenTab(tab)}
-                            className={`flex-1 text-[10px] py-2 uppercase tracking-wide ${openTab === tab ? 'text-amber-400 border-b-2 border-amber-600' : 'text-zinc-500 hover:text-zinc-300'}`}>
-                            {tab === 'players' ? t('campaignTabPlayers') : tab === 'map' ? t('campaignTabMap') : tab === 'battles' ? t('campaignTabBattles') : t('campaignTabRoster')}
+                      <div className="flex border-b border-[#1a5c25]">
+                        {TABS.map(tab => (
+                          <button key={tab.key}
+                            onClick={() => setOpenTab(tab.key)}
+                            className={`flex-1 text-[9px] py-1.5 tracking-widest transition-colors ${
+                              openTab === tab.key
+                                ? 'cog-text-amber border-b border-[#ffb020]'
+                                : 'cog-text-dim hover:cog-text'
+                            }`}>
+                            {tab.label}
                           </button>
                         ))}
                       </div>
+
                       <div className="p-3">
-                        {openTab === 'players' ? (
+                        {openTab === 'players' && (
                           playersLoading ? (
-                            <p className="text-zinc-500 text-xs">{t('campaignLoadingPlayers')}</p>
+                            <p className="cog-text-dim text-xs cog-flicker">▌ LOADING... ▐</p>
                           ) : (
                             <div className="space-y-3">
-                              {/* Faction standings + supply */}
                               {supply.length > 0 && (
                                 <div>
-                                  <p className="text-[10px] text-zinc-500 uppercase tracking-wide mb-1.5">{t('campaignFactionStandings')}</p>
+                                  <p className="cog-text-dim text-[9px] tracking-widest uppercase mb-2">◈ FACTION SUPPLY ◈</p>
                                   <div className="space-y-1.5">
                                     {supply.map(s => (
-                                      <div key={s.faction} className="flex items-center gap-2 text-[12px]">
-                                        <span className="text-zinc-200 flex-1">{s.faction}</span>
-                                        <span className="text-amber-400 font-mono font-semibold w-8 text-right">{s.amount}</span>
-                                        <span className="text-zinc-500 text-[10px]">{t('campaignSupplyLabel')}</span>
+                                      <div key={s.faction} className="flex items-center gap-2 text-[11px]">
+                                        <span className="cog-text flex-1 tracking-wide">{s.faction}</span>
+                                        <span className="cog-text-amber font-mono font-semibold w-8 text-right">{s.amount}</span>
+                                        <span className="cog-text-dim text-[9px]">⊗</span>
                                         {c.role === 'gm' && (
                                           <div className="flex gap-1">
                                             <button onClick={() => handleAdjustSupply(c, s.faction, -1)}
                                               disabled={adjusting === s.faction || s.amount === 0}
-                                              className="w-5 h-5 flex items-center justify-center bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-40 text-xs leading-none">−</button>
+                                              className="cog-btn text-[9px] py-0 px-1 w-4 h-4 flex items-center justify-center">−</button>
                                             <button onClick={() => handleAdjustSupply(c, s.faction, 1)}
                                               disabled={adjusting === s.faction}
-                                              className="w-5 h-5 flex items-center justify-center bg-zinc-700 border border-zinc-600 text-zinc-300 hover:bg-zinc-600 disabled:opacity-40 text-xs leading-none">+</button>
+                                              className="cog-btn text-[9px] py-0 px-1 w-4 h-4 flex items-center justify-center">+</button>
                                           </div>
                                         )}
                                       </div>
@@ -349,26 +353,36 @@ export function CampaignModal({ onClose }: Props) {
                                   </div>
                                 </div>
                               )}
-                              {/* Player list */}
+                              <hr className="cog-divider" />
                               <div>
-                                <p className="text-[10px] text-zinc-500 uppercase tracking-wide mb-1.5">{t('campaignTabPlayers')}</p>
+                                <p className="cog-text-dim text-[9px] tracking-widest uppercase mb-2">◈ PERSONNEL ◈</p>
                                 <div className="space-y-1">
                                   {players.map(p => (
-                                    <div key={p.username} className="flex justify-between text-[12px]">
-                                      <span className="text-zinc-300">{p.username}{p.role === 'gm' && <span className="text-amber-600"> {t('campaignGmSuffix')}</span>}</span>
-                                      <span className="text-zinc-500">{p.faction ?? '—'}</span>
+                                    <div key={p.username} className="flex justify-between text-[11px]">
+                                      <span className="cog-text">
+                                        {p.username}
+                                        {p.role === 'gm' && <span className="cog-text-amber ml-1">[GM]</span>}
+                                      </span>
+                                      <span className="cog-text-dim">{p.faction ?? '—'}</span>
                                     </div>
                                   ))}
                                 </div>
                               </div>
                             </div>
                           )
-                        ) : openTab === 'map' ? (
-                          <CampaignMapView campaign={c} isGm={c.role === 'gm'} />
-                        ) : openTab === 'battles' ? (
-                          <CampaignBattleLog campaign={c} isGm={c.role === 'gm'} />
-                        ) : (
+                        )}
+                        {openTab === 'map' && (
+                          <CampaignMapView campaign={c} isGm={c.role === 'gm'} refreshTick={mapRefreshTick} />
+                        )}
+                        {openTab === 'battles' && (
+                          <CampaignBattleLog campaign={c} isGm={c.role === 'gm'}
+                            onSectorChanged={() => setMapRefreshTick(tick => tick + 1)} />
+                        )}
+                        {openTab === 'roster' && (
                           <CampaignRosterView campaign={c} isGm={c.role === 'gm'} myFaction={c.faction ?? null} />
+                        )}
+                        {openTab === 'buildings' && (
+                          <CampaignBuildingsView campaign={c} sectors={sectors} isGm={c.role === 'gm'} />
                         )}
                       </div>
                     </div>
@@ -379,43 +393,33 @@ export function CampaignModal({ onClose }: Props) {
           )}
         </div>
 
-        {/* Delete campaign confirmation overlay */}
+        {/* Delete confirmation */}
         {deletingCampaign && (
-          <div className="border-t border-red-900/60 bg-red-950/30 p-4 space-y-3">
+          <div className="relative z-10 border-t border-[#ff3030]/40 bg-[#0a0202] p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-red-400 text-[12px] font-semibold uppercase tracking-wide">
-                Delete campaign permanently?
-              </p>
-              <button
-                onClick={() => { setDeletingCampaign(null); setDeleteConfirmName(''); }}
-                className="text-zinc-500 hover:text-zinc-300 text-lg leading-none"
-              >×</button>
+              <p className="cog-text-red text-[11px] tracking-widest">⚠ PURGE CAMPAIGN PERMANENTLY?</p>
+              <button onClick={() => { setDeletingCampaign(null); setDeleteConfirmName(''); }}
+                className="cog-text-dim hover:cog-text text-lg leading-none">×</button>
             </div>
-            <p className="text-zinc-400 text-[11px]">
-              Type <span className="text-amber-400 font-semibold">{deletingCampaign.name}</span> to confirm. This deletes all sectors, battles, rosters and players.
+            <p className="cog-text-dim text-[10px]">
+              Type <span className="cog-text-amber">{deletingCampaign.name}</span> to confirm. Deletes all sectors, battles, rosters and players.
             </p>
-            <input
-              autoFocus
-              value={deleteConfirmName}
+            <input autoFocus value={deleteConfirmName}
               onChange={e => setDeleteConfirmName(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && deleteConfirmName === deletingCampaign.name) handleDeleteCampaign(); }}
               placeholder="Campaign name…"
-              className="w-full bg-zinc-900 border border-red-800/60 focus:border-red-600 text-zinc-200 text-sm px-3 py-2 outline-none"
-            />
+              className="cog-input w-full text-[11px]" />
             <button
               disabled={deleteConfirmName !== deletingCampaign.name || deleting}
               onClick={handleDeleteCampaign}
-              className="w-full text-[11px] px-3 py-2 bg-red-900 border border-red-700 text-red-200 hover:bg-red-800 disabled:opacity-40 disabled:cursor-not-allowed uppercase tracking-wide"
-            >
-              {deleting ? 'Deleting…' : 'Delete campaign permanently'}
+              className="cog-btn cog-btn-danger w-full text-[10px]">
+              {deleting ? 'PURGING...' : 'CONFIRM PURGE'}
             </button>
           </div>
         )}
 
-        <div className="px-4 py-3 border-t border-zinc-700 flex justify-end bg-zinc-800">
-          <button onClick={onClose} className="px-4 py-1.5 bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm hover:bg-zinc-600 uppercase tracking-wide">
-            {t('close')}
-          </button>
+        <div className="relative z-10 px-4 py-3 border-t border-[#1a5c25] flex justify-end">
+          <button onClick={onClose} className="cog-btn text-[10px]">{t('close')}</button>
         </div>
       </div>
     </div>

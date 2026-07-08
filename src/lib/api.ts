@@ -229,9 +229,11 @@ export function advanceTurn(campaignId: number) {
   });
 }
 
+export type EngagementType = 'kill-team' | 'skirmish' | 'pitched' | 'epic';
 export interface CampaignBattle {
   id: number; turn: number;
   attacker_faction: string; defender_faction: string; winner_faction: string | null;
+  engagement_type: EngagementType;
   sector_id: number | null; sector_name: string | null; notes: string | null;
   recorded_at: string;
 }
@@ -239,9 +241,10 @@ export function logBattle(
   campaignId: number,
   attackerFaction: string, defenderFaction: string, winnerFaction: string | null,
   sectorId: number | null, notes: string,
+  engagementType: EngagementType = 'pitched',
 ) {
-  return call<{ ok: true; battleId: number }>('/api/campaign/battle-log', {
-    method: 'POST', body: JSON.stringify({ campaignId, attackerFaction, defenderFaction, winnerFaction, sectorId, notes }),
+  return call<{ ok: true; battleId: number; supplyCostDeducted: number }>('/api/campaign/battle-log', {
+    method: 'POST', body: JSON.stringify({ campaignId, attackerFaction, defenderFaction, winnerFaction, sectorId, notes, engagementType }),
   });
 }
 export function listBattles(campaignId: number) {
@@ -267,6 +270,7 @@ export interface CampaignRosterEntry {
   wounds: number;
   status: 'active' | 'wounded' | 'dead';
   notes: string | null;
+  trait: string | null;
   created_at?: string;
 }
 export function listRoster(campaignId: number) {
@@ -277,9 +281,71 @@ export function addRosterUnit(campaignId: number, faction: string, unitName: str
     method: 'POST', body: JSON.stringify({ campaignId, faction, unitName, unitSlot, notes }),
   });
 }
-export function updateRosterUnit(campaignId: number, unitId: number, patch: Partial<Pick<CampaignRosterEntry, 'xp' | 'wounds' | 'status' | 'notes'> & { unitName: string }>) {
+export function updateRosterUnit(campaignId: number, unitId: number, patch: Partial<Pick<CampaignRosterEntry, 'xp' | 'wounds' | 'status' | 'notes' | 'trait'> & { unitName: string }>) {
   return call<{ ok: true; unit: CampaignRosterEntry }>('/api/campaign/roster-update', {
     method: 'POST', body: JSON.stringify({ campaignId, unitId, ...patch }),
+  });
+}
+
+// ── Buildings ────────────────────────────────────────────────────────────────
+export interface CampaignBuilding {
+  id: number; campaign_id: number; sector_id: number;
+  building_type: string; level: number; is_active: boolean;
+  sector_name: string; owner_faction: string | null; created_at: string;
+}
+export function listBuildings(campaignId: number) {
+  return call<{ buildings: CampaignBuilding[] }>(`/api/campaign/building-list?campaignId=${campaignId}`);
+}
+export function addBuilding(campaignId: number, sectorId: number, buildingType: string) {
+  return call<{ ok: true; building: CampaignBuilding }>('/api/campaign/building-add', {
+    method: 'POST', body: JSON.stringify({ campaignId, sectorId, buildingType }),
+  });
+}
+export function upgradeBuilding(campaignId: number, buildingId: number) {
+  return call<{ ok: true }>('/api/campaign/building-upgrade', {
+    method: 'POST', body: JSON.stringify({ campaignId, buildingId }),
+  });
+}
+export function removeBuilding(campaignId: number, buildingId: number) {
+  return call<{ ok: true }>('/api/campaign/building-remove', {
+    method: 'POST', body: JSON.stringify({ campaignId, buildingId }),
+  });
+}
+
+// ── Weekly events ────────────────────────────────────────────────────────────
+export interface CampaignEvent {
+  id: number; campaign_id: number; faction: string; turn: number;
+  event_id: number; event_name: string; event_effect: string;
+  resolved: boolean; created_at: string;
+}
+export interface DrawEventResult {
+  ok: true;
+  requiresChoice: boolean;
+  candidates: { id: number; name: string; effect: string }[] | null;
+  event: { id: number; event_name: string; event_effect: string } | null;
+}
+export function drawEvent(campaignId: number, faction: string) {
+  return call<DrawEventResult>('/api/campaign/event-draw', {
+    method: 'POST', body: JSON.stringify({ campaignId, faction }),
+  });
+}
+export function confirmEvent(campaignId: number, faction: string, eventId: number) {
+  return call<{ ok: true; event: { id: number; event_name: string; event_effect: string } }>('/api/campaign/event-confirm', {
+    method: 'POST', body: JSON.stringify({ campaignId, faction, eventId }),
+  });
+}
+export function useStratagem(campaignId: number, faction: string, stratagemKey: string) {
+  return call<{ ok: true; supplyCostDeducted: number; newSupply: number | null }>('/api/campaign/stratagem-use', {
+    method: 'POST', body: JSON.stringify({ campaignId, faction, stratagemKey }),
+  });
+}
+export function listEvents(campaignId: number, faction?: string) {
+  const q = faction ? `&faction=${encodeURIComponent(faction)}` : '';
+  return call<{ events: CampaignEvent[] }>(`/api/campaign/event-list?campaignId=${campaignId}${q}`);
+}
+export function resolveEvent(campaignId: number, eventId: number) {
+  return call<{ ok: true }>('/api/campaign/event-resolve', {
+    method: 'POST', body: JSON.stringify({ campaignId, eventId }),
   });
 }
 export function removeRosterUnit(campaignId: number, unitId: number) {

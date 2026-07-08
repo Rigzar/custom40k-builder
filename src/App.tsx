@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { useArmyStore, getSerializableState } from './store/army';
 import { SlotPanel } from './components/SlotPanel';
 import { ArmyConfig } from './components/ArmyConfig';
@@ -7,7 +7,6 @@ import { ArmyList } from './components/ArmyList';
 import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
 import { FactionSymbol } from './components/FactionSymbol';
-import { PrintView } from './components/PrintView';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
@@ -18,18 +17,19 @@ import { getAssassinAccessAlignment, chamberMilitantOrdo } from './engine/keywor
 import type { FactionData } from './types/data';
 import { FACTION_LOADERS } from './data/loaders';
 import { useSavedArmies, type SavedArmy, AUTOSAVE_ID, AUTOSAVE_DISMISSED_KEY } from './hooks/useSavedArmies';
-import { SavedArmiesModal } from './components/SavedArmiesModal';
-import { BugReportModal } from './components/BugReportModal';
 import { LegalFooter } from './components/LegalModal';
-import { AuthModal } from './components/AuthModal';
-import { CloudSavesModal } from './components/CloudSavesModal';
-import { CampaignModal } from './components/CampaignModal';
 import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
 import { useT } from './i18n';
 import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
-import { PrefsModal } from './components/PrefsModal';
-import { AdminPanel } from './components/AdminPanel';
+const PrintView        = lazy(() => import('./components/PrintView').then(m => ({ default: m.PrintView })));
+const SavedArmiesModal = lazy(() => import('./components/SavedArmiesModal').then(m => ({ default: m.SavedArmiesModal })));
+const BugReportModal   = lazy(() => import('./components/BugReportModal').then(m => ({ default: m.BugReportModal })));
+const AuthModal        = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
+const CloudSavesModal  = lazy(() => import('./components/CloudSavesModal').then(m => ({ default: m.CloudSavesModal })));
+const CampaignModal    = lazy(() => import('./components/CampaignModal').then(m => ({ default: m.CampaignModal })));
+const PrefsModal       = lazy(() => import('./components/PrefsModal').then(m => ({ default: m.PrefsModal })));
+const AdminPanel       = lazy(() => import('./components/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
 type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
 
@@ -129,13 +129,13 @@ function HeaderStatus() {
         <span className={`text-sm font-bold tabular-nums ${over ? 'text-red-400 pts-over-glow' : 'text-amber-400'}`}>
           {total}
         </span>
-        <div className="w-20 h-1.5 bg-zinc-700 rounded overflow-hidden">
+        <div className="hidden sm:block w-20 h-1.5 bg-zinc-700 rounded overflow-hidden">
           <div
             className={`h-full transition-all duration-300 ${over ? 'bg-red-500' : 'bg-amber-600'}`}
             style={{ width: `${pct}%` }}
           />
         </div>
-        <span className="text-zinc-500 text-xs tabular-nums">{state.pointLimit} pts</span>
+        <span className="hidden sm:inline text-zinc-500 text-xs tabular-nums">/ {state.pointLimit}</span>
       </div>
 
       {errors > 0 ? (
@@ -221,15 +221,17 @@ function TabBar({
       <button
         onClick={onCampaignClick}
         title={t('campaignAlphaTooltip')}
-        className="flex items-center shrink-0 gap-1 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-500 hover:text-red-400 transition-colors border-l border-zinc-800"
+        className="flex items-center shrink-0 gap-1 px-2 sm:px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-500 hover:text-red-400 transition-colors border-l border-zinc-800"
       >
-        ⚔ {t('campaign')} <span className="text-[9px] text-red-500/70">ALPHA</span>
+        <span>⚔</span>
+        <span className="hidden sm:inline">{t('campaign')}</span>
+        <span className="hidden sm:inline text-[9px] text-red-500/70">ALPHA</span>
       </button>
       <button
         onClick={onAccountClick}
-        className="flex items-center shrink-0 gap-1.5 px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors border-l border-zinc-800"
+        className="flex items-center shrink-0 gap-1.5 px-2 sm:px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors border-l border-zinc-800"
       >
-        {loggedIn ? `☁ ${username}` : t('login')}
+        {loggedIn ? <><span>☁</span><span className="hidden sm:inline"> {username}</span></> : <><span>☁</span><span className="hidden sm:inline"> {t('login')}</span></>}
       </button>
     </div>
   );
@@ -782,10 +784,10 @@ export default function App() {
                     {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolSecondary} />}
                   </div>
                 )}
-                <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0 font-bankgothic">
+                <h1 className="hidden sm:block text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0 font-bankgothic">
                   Custom40k
                 </h1>
-                <span className="text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
+                <span className="hidden sm:inline text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
                 <ArmyNameEditor />
               </div>
 
@@ -809,17 +811,21 @@ export default function App() {
                 {!loggedIn && (
                   <button
                     onClick={() => setShowArmies(true)}
-                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                    title="My Armies"
+                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
                   >
-                    My Armies
+                    <span className="sm:hidden">📋</span>
+                    <span className="hidden sm:inline">My Armies</span>
                   </button>
                 )}
                 {data && (
                   <button
                     onClick={() => setShowPrint(true)}
-                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-3 py-1 transition-colors"
+                    title="Print"
+                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
                   >
-                    Print
+                    <span className="sm:hidden">🖨</span>
+                    <span className="hidden sm:inline">Print</span>
                   </button>
                 )}
                 <button
@@ -831,9 +837,11 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setShowBugReport(true)}
-                  className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-3 py-1 transition-colors"
+                  title="Report a bug"
+                  className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-2.5 py-1 transition-colors"
                 >
-                  Bug
+                  <span className="sm:hidden">🐛</span>
+                  <span className="hidden sm:inline">Bug</span>
                 </button>
               </div>
             </div>
@@ -931,41 +939,43 @@ export default function App() {
         </div>
       )}
 
-      {/* ── Modals ── */}
-      {showPrint     && <PrintView onClose={() => setShowPrint(false)} />}
-      {showArmies    && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
-      {showPrefs     && <PrefsModal prefs={prefs} loggedIn={loggedIn} onSave={setPrefs} onClose={() => setShowPrefs(false)} />}
-      {showBugReport && (
-        <BugReportModal
-          onClose={() => setShowBugReport(false)}
-          currentFaction={selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : undefined}
-        />
-      )}
-      {showAuth && (
-        <AuthModal
-          onClose={() => setShowAuth(false)}
-          onLoggedIn={async () => { await refreshAuth(); setShowAuth(false); }}
-        />
-      )}
-      {showAdmin     && <AdminPanel onClose={() => setShowAdmin(false)} />}
-      {showCloudSaves && username && (
-        <CloudSavesModal
-          username={username}
-          avatar={avatar}
-          socialLinks={socialLinks}
-          socialPublic={socialPublic}
-          onClose={() => setShowCloudSaves(false)}
-          onLogout={async () => { await logout(); }}
-          onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
-          activeRosterId={activeCloudRosterId}
-          onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
-          onProfileUpdate={() => refreshAuth()}
-          onLoadCommunityArmy={handleLoadCommunityArmy}
-          onLoadCloudRoster={handleLoadCloudRoster}
-          defaultTab={cloudSavesDefaultTab}
-        />
-      )}
-      {showCampaign && <CampaignModal onClose={() => setShowCampaign(false)} />}
+      {/* ── Modals (lazy-loaded) ── */}
+      <Suspense fallback={null}>
+        {showPrint     && <PrintView onClose={() => setShowPrint(false)} />}
+        {showArmies    && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
+        {showPrefs     && <PrefsModal prefs={prefs} loggedIn={loggedIn} onSave={setPrefs} onClose={() => setShowPrefs(false)} />}
+        {showBugReport && (
+          <BugReportModal
+            onClose={() => setShowBugReport(false)}
+            currentFaction={selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : undefined}
+          />
+        )}
+        {showAuth && (
+          <AuthModal
+            onClose={() => setShowAuth(false)}
+            onLoggedIn={async () => { await refreshAuth(); setShowAuth(false); }}
+          />
+        )}
+        {showAdmin     && <AdminPanel onClose={() => setShowAdmin(false)} />}
+        {showCloudSaves && username && (
+          <CloudSavesModal
+            username={username}
+            avatar={avatar}
+            socialLinks={socialLinks}
+            socialPublic={socialPublic}
+            onClose={() => setShowCloudSaves(false)}
+            onLogout={async () => { await logout(); }}
+            onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
+            activeRosterId={activeCloudRosterId}
+            onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
+            onProfileUpdate={() => refreshAuth()}
+            onLoadCommunityArmy={handleLoadCommunityArmy}
+            onLoadCloudRoster={handleLoadCloudRoster}
+            defaultTab={cloudSavesDefaultTab}
+          />
+        )}
+        {showCampaign && <CampaignModal onClose={() => setShowCampaign(false)} />}
+      </Suspense>
 
       <LegalFooter />
 

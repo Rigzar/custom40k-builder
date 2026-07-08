@@ -25,11 +25,24 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
-    version: '1.45',
-    date: '2026-07-07',
-    title: 'GENERAL — full i18n sweep of CloudSavesModal (EN/DE/ES)',
+    version: '1.46',
+    date: '2026-07-08',
+    title: 'GENERAL — bundle optimisation + mobile layout + campaign improvements',
     changes: [
-      'GENERAL — CloudSavesModal: all 5 tabs (My Armies, Community, Friends, Prefs, Account) now fully translated in English, German, and Spanish; previously hardcoded in English only',
+      'GENERAL — performance: 8 modals (CloudSaves, PrintView, Campaign, Auth, Admin, BugReport, Prefs, SavedArmies) are now lazy-loaded; initial bundle reduced by ~34 kB gzip — modal code only downloaded on first use',
+      'GENERAL — mobile: builder header now collapses on small screens — title/faction label hidden below 640px, Print/Bug/My Armies reduced to icon-only, progress bar hidden; tab bar Campaign and Login collapse to icon-only; app is usable on phones for the first time',
+      'Campaign — battle log now auto-refreshes the sector map in the same session: logging a battle with a winner + sector claimed instantly updates the Map tab without a manual reload',
+      'Campaign — supply income now weighted by sector type: City +3, Industrial +2, Wasteland/Ruin +1 per turn (was flat +1 per sector regardless of type)',
+      'Campaign — engagement types: battle log now requires selecting Kill Team (free), Skirmish (−1 ⊗), Pitched (−3 ⊗), or Epic Battle (−6 ⊗); Supply is auto-deducted from the attacker on submit; engagement type shown on battle history entries',
+      'Campaign — buildings system (Planetary Assault supplement): GMs can construct 21 building types in sector slots (Barracks, Hospital, HQ, Satlink, Radio Tower, Void Shields, etc.); Outpost adds +1 slot per sector; upgradeable buildings support Lv.2; sector slot usage shown (e.g. 2/2 SLOTS); building list in new INFRA tab',
+      'Campaign — unit traits (Planetary Assault supplement): click any roster unit to expand trait picker — 6 Infantry traits, 6 Monster traits, 6 Vehicle traits; trait badge shown inline on unit row; slot type informs which trait list is offered',
+      'Campaign — weekly events: GMs draw random event (1-18) per faction per turn from the Astropathic Transmission deck; events are faction-private; resolved events tracked with timestamp; events visible in INFRA tab',
+      'Campaign — cogitator terminal aesthetic: all campaign screens (modal, map, battle log, roster, buildings) now render in Warhammer 40k cogitator style — phosphor green text (#39d353), dark background, scanline overlay, corner brackets, glow effects, monospace font, amber/red alert variants',
+      'Campaign — buildings now deduct Supply on construction (sector ownership required) and on Lv.2 upgrade; deducted amount shown as feedback after each action',
+      'Campaign — traits now deduct Supply on first assignment: Infantry=2 ⊗, Monstrous Creature/Vehicle=4 ⊗; exact cost shown in trait picker header; deduction feedback displayed after assignment',
+      'Campaign — Space Port building: GMs draw 2 event cards per faction and choose 1 (instead of drawing 1 directly); card picker shown inline in INFRA tab',
+      'Campaign — stratagems section in INFRA tab: per-faction available stratagems derived from owned buildings; Low Orbital Strike always available (free); building-unlocked stratagems cost 2 ⊗ each; USE button calls supply deduction on server',
+      'Campaign — delete campaign now correctly removes all associated data (buildings and events tables were previously orphaned)',
     ],
   },
   {

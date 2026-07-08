@@ -217,6 +217,145 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 }
 .faction-tilt:hover::after { opacity: 1; }
 
+/* ── Campaign: Cogitator terminal aesthetic ──────────────────────────────── */
+.cog-bg { background-color: #030a03; }
+.cog-text { color: #39d353; font-family: 'Courier New', Courier, monospace; }
+.cog-text-bright { color: #57ff6a; text-shadow: 0 0 8px rgba(87,255,106,0.55); }
+.cog-text-dim { color: #1a5c25; font-family: 'Courier New', Courier, monospace; }
+.cog-text-amber { color: #ffb020; text-shadow: 0 0 6px rgba(255,176,32,0.45); }
+.cog-text-red { color: #ff3030; text-shadow: 0 0 6px rgba(255,48,48,0.45); }
+
+.cog-panel {
+  background: #050f05;
+  border: 1px solid #1a5c25;
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+}
+.cog-panel::before, .cog-panel::after {
+  content: '';
+  position: absolute;
+  width: 10px; height: 10px;
+  border-style: solid;
+  border-color: #57ff6a;
+  z-index: 1;
+}
+.cog-panel::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.cog-panel::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.cog-scanlines { position: relative; }
+.cog-scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px, transparent 3px,
+    rgba(0,0,0,0.10) 3px, rgba(0,0,0,0.10) 4px
+  );
+  pointer-events: none;
+  z-index: 200;
+}
+
+.cog-btn {
+  background: #050f05;
+  border: 1px solid #2d7a3a;
+  color: #39d353;
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  font-size: 11px;
+  padding: 4px 10px;
+}
+.cog-btn:hover:not(:disabled) {
+  background: #0a1a0a;
+  border-color: #57ff6a;
+  color: #57ff6a;
+  box-shadow: 0 0 10px rgba(87,255,106,0.25), inset 0 0 4px rgba(87,255,106,0.06);
+  text-shadow: 0 0 6px rgba(87,255,106,0.5);
+}
+.cog-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.cog-btn-active {
+  background: #0a1f0a !important;
+  border-color: #57ff6a !important;
+  color: #57ff6a !important;
+  box-shadow: 0 0 10px rgba(87,255,106,0.25), inset 0 0 4px rgba(87,255,106,0.06) !important;
+  text-shadow: 0 0 6px rgba(87,255,106,0.5) !important;
+}
+.cog-btn-amber { border-color: #8a5a10; color: #ffb020; }
+.cog-btn-amber:hover:not(:disabled) {
+  border-color: #ffb020; color: #ffd060;
+  box-shadow: 0 0 10px rgba(255,176,32,0.25);
+  text-shadow: 0 0 6px rgba(255,176,32,0.5);
+  background: #1a0f00;
+}
+.cog-btn-danger { border-color: #6b0000; color: #ff3030; }
+.cog-btn-danger:hover:not(:disabled) {
+  border-color: #ff3030; color: #ff6060;
+  box-shadow: 0 0 10px rgba(255,48,48,0.25);
+  text-shadow: 0 0 6px rgba(255,48,48,0.5);
+  background: #1a0000;
+}
+
+.cog-input {
+  background: #020702;
+  border: 1px solid #1a5c25;
+  color: #39d353;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  outline: none;
+  caret-color: #57ff6a;
+  padding: 6px 8px;
+}
+.cog-input::placeholder { color: #1a5c25; }
+.cog-input:focus { border-color: #39d353; box-shadow: 0 0 6px rgba(57,211,83,0.3); }
+
+.cog-select {
+  background: #020702;
+  border: 1px solid #1a5c25;
+  color: #39d353;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  padding: 6px 8px;
+}
+.cog-select:focus { border-color: #39d353; }
+.cog-select option { background: #020702; color: #39d353; }
+
+.cog-divider {
+  border: none;
+  border-top: 1px solid #1a5c25;
+  margin: 0;
+}
+
+@keyframes cog-flicker {
+  0%, 88%, 92%, 100% { opacity: 1; }
+  89% { opacity: 0.55; }
+  90% { opacity: 0.9; }
+  91% { opacity: 0.6; }
+}
+.cog-flicker { animation: cog-flicker 6s ease-in-out infinite; }
+
+@keyframes cog-blink {
+  0%, 49%, 100% { opacity: 1; }
+  50%, 99% { opacity: 0; }
+}
+.cog-blink { animation: cog-blink 1s step-end infinite; }
+
+@keyframes cog-glow-pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(57,211,83,0.15); }
+  50% { box-shadow: 0 0 14px rgba(57,211,83,0.45), 0 0 28px rgba(57,211,83,0.15); }
+}
+.cog-glow-pulse { animation: cog-glow-pulse 3s ease-in-out infinite; }
+
+@keyframes cog-appear {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cog-appear { animation: cog-appear 0.25s ease-out both; }
+
 @media print {
   /* Hide the dark overlay shell, leave only the white printable content */
   .fixed.z-50 {
