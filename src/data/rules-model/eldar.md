@@ -106,16 +106,10 @@ Shots / Masters of Concealment / Mobile Fighters / Savage Blades / Students of V
    `p_unit` (no value-move). "Spirit stones" also appears as an equipment-section version (idx 19,
    46) — only the vehicle block (idx 41-48) was tagged. NO veteran-side fix: Eldar have no veteran
    tier (0 `has_veteran_abilities`).
-2. **`<Aspect>` / `<Wraith>` sub-types not in production `keywords[]`** (candidate KI
-   `ki-eldar-aspect-wraith-keyword-01`, KNOWN): the Aspect Focus + Wraithhost archetypes gate on
-   `<Aspect>` / `<Wraith>` (per the `.ods`), but production carries `keywords: []` on all 38 units —
-   so these sub-types are not keyword-tagged (the archetype slot-remap must be resolving them by
-   unit name/identity instead, or the gating is incomplete). UNLIKE Dark Eldar, whose Kabal/Coven/
-   Cult sub-factions ARE in `keywords[]`. Worth tagging the Aspect Warriors (Dire Avengers/Fire
-   Dragons/Howling Banshees/Striking Scorpions/Dark Reapers/Swooping Hawks/Warp Spiders/Shining
-   Spears/Shadow Spectres) with "Aspect" and the Wraith units (Wraithblades/Wraithguard/Wraithlord/
-   Wraithseer) with "Wraith" so the archetype gating is keyword-driven (matching the Dark Eldar
-   model). Needs a per-unit data pass + user confirm of the exact Aspect/Wraith membership.
+2. **~~`<Aspect>` / `<Wraith>` sub-types not in production `keywords[]`~~ — FIXED v0.60**
+   (`ki-eldar-aspect-wraith-keyword-01`, closed in known-issues.ts): 9 Aspect Warriors tagged
+   `keywords: ["Aspect"]` and 4 Wraith units tagged `keywords: ["Wraith"]`; Aspect Focus
+   archetype now has correct `troopsRemap` list.
 3. **~~Eldar psychic discipline + Revenant not wired into the loader~~** (`ki-eldar-psychic-unwired-01`,
    **FIXED v0.60**): the Eldar psychic discipline (64 rows) + Ynnari "Revenant" discipline are now
    wired into the loader. KI closed in known-issues.ts.

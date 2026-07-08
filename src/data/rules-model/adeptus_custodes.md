@@ -107,13 +107,9 @@ Hostless→Emperor's Chosen / Warders of the Dark Cells→Shadowkeepers. Shield 
    pre-keyword-seam state CSM had ([[project_pipeline_migration]]) — left as-is (the cross-faction
    keyword-engine refactor, not this migration's scope). GK, by contrast, already uses the
    `armour_compat: string[]` array shape ([[project_grey_knights_digest]]).
-3. **"Vigilators" — phantom slot reference** (candidate KI `ki-custodes-vigilators-phantom-01`,
-   KNOWN): `slot_to_units.Elites` lists "Vigilators" (the melee Sisters of Silence build) but there
-   is NO `units["Vigilators"]` datasheet entry — a dangling roster reference (20 slot names vs 19
-   unit entries). Likely a Sisters-of-Silence variant that was never split into its own datasheet,
-   or a leftover roster row. Excluded from the Fase 4 codex (slots/unit-types catalogue only the 19
-   real units). Needs the user to confirm whether Vigilators should be its own datasheet or removed
-   from the slot index.
+3. **~~"Vigilators" phantom slot reference~~ — FIXED v0.60** (`ki-custodes-vigilators-phantom-01`,
+   closed in known-issues.ts): "Vigilators" was a dangling Sisters-of-Silence variant reference;
+   removed from `slot_to_units.Elites`.
 4. **Roster cross-check**: production 19 units / 7 populated slots (HQ 4/Troops 3/Elites 7 [6 real
    + Vigilators phantom]/Fast Attack 1/Heavy Support 3/Dedicated Transport 2; Fortifications 0,
    Flyers 0). Matches the Index roster apart from the Vigilators phantom (§6.3) and "Vertus Praetor"

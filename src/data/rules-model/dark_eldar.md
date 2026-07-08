@@ -109,13 +109,9 @@ Toxin Crafters. Canonical in `archetypes.json`.
    selected). Combat Drugs (idx 26-31) deliberately left `category: none` — they are a separate
    selectable pool (the Combat drugs army rule), not vehicle/veteran items. NO veteran-side fix:
    Dark Eldar have no veteran tier (like CD/Sororitas).
-2. **"Furious Charge" — phantom slot reference** (candidate KI `ki-dark-eldar-furiouscharge-phantom-01`,
-   KNOWN): `slot_to_units.Elites` lists "Furious Charge" but there is NO `units["Furious Charge"]`
-   datasheet — it is a Power-through-Pain BONUS name (Index special-rules list: "Aegis(4+) /
-   Berserk(4+) / Furious Charge / +1 Initiative / ...") that leaked into the Elites slot index (20
-   slot names vs 19 unit entries). Excluded from the Fase 4 codex. Same class as the Custodes
-   "Vigilators" phantom (`ki-custodes-vigilators-phantom-01`). Needs the user to confirm removal
-   from the slot index.
+2. **~~"Furious Charge" phantom slot reference~~ — FIXED v0.60** (`ki-dark-eldar-furiouscharge-phantom-01`,
+   closed in known-issues.ts): removed from `slot_to_units.Elites`; was a Power-through-Pain
+   bonus name, not a real datasheet.
 3. **Roster cross-check**: production 19 units / 7 populated slots (HQ 3/Troops 3/Elites 3 [+1
    "Furious Charge" phantom]/Fast Attack 3/Heavy Support 3/Dedicated Transport 2/Flyers 2;
    Fortifications 0). Matches the Index roster apart from the phantom. Clean.
