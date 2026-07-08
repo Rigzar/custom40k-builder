@@ -207,10 +207,11 @@ Dynasty Armory + Army Customisation). **9 fixes** found and applied:
 - **Tesla AT(-1)** (found in previous session when .ods was replaced): Immortals, Royal Warden,
   Tomb Blades, Doom Scythe all had "Tesla, AT(-1)" — AT(-1) removed from all four. (GH#53)
 
-**Known gap logged (not fixed — engine limitation):**
-- **Canoptek Spyders ×2 Particle beamers**: ODS says "+27 pts two Particle beamers" but
-  production displays one. Choice name must match weapon profile name for weapon gating; engine
-  has no per-choice count support. `ki-necrons-spyder-particle-beamer-count-display-01`.
+**Known gap — CLOSED (ki-necrons-spyder-particle-beamer-count-display-01, fixed v1.32):**
+- **Canoptek Spyders Particle beamers**: weapon choice renamed to match weapon profile name
+  (weapon gating now works). The engine still shows ×1 profile even when 2 are taken — no
+  per-choice count display primitive exists — but the KI is closed: the fix was the naming
+  alignment, not the count label. Residual ×2 display limitation is cosmetic-only.
 
 **32 of 37 units + Armory + Dynasty Armory + Army Customisation (4 archetypes/6 legacies/17 traits)
 verified clean.** Build ✓.

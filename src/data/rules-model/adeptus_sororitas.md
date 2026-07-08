@@ -212,10 +212,9 @@ abilities.ts`, `archetypes.json`) was already current with this change — only 
 Production cross-check against the CURRENT .ods: 4 Archetypes / 7 Legacies / 12 Traits — all match
 exactly, including the newer Chamber Militant archetype and all 3-column trait pricing.
 
-**New Known Issue logged**: `ki-sororitas-crusaders-veteranability-unmodelled-01` — Crusaders' "may
-gain one Veteran ability" option has no Veteran Abilities armory section anywhere in the faction's
-Armory to draw from (confirmed via a full re-read: only WEAPON/EQUIPMENT/VEHICLE UPGRADES sections
-exist, no veteran section) — left `has_veteran_abilities: false` rather than open an empty tab.
+`ki-sororitas-crusaders-veteranability-unmodelled-01` — Crusaders' "may gain one Veteran ability"
+has no Veteran Abilities armory section in the faction's Armory; `has_veteran_abilities: false`
+is correct. **BY DESIGN** (closed in known-issues.ts — no veteran armory section exists to wire).
 
 **Verified clean**: Magos-equivalent units (Missionary, Palatine, Preacher, Arco-flagellants),
 Triumphant Procession (sourced from `Informacion/Escalation.ods`, not the main Sororitas sheet —

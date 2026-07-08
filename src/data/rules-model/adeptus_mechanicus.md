@@ -127,8 +127,8 @@ Imperative may purchase a second one" — the key cross-link to §2/§6.1's Doct
    Raiders/Sulphurhounds, Sydonian Dragoons, Ironstrider Ballistarii). FIXED v0.60: all 13 units now
    carry `has_veteran_abilities: true` + `veteran_max: 1`; the 4 armory items are tagged
    `category: 'veteran'` with the correct `p_veh`/`p_char`. Remaining follow-up:
-   `ki-admech-veteranmaniple-bonus-unmodelled-01` (Veteran Maniple trait's +1 slot bonus still not
-   modelled).
+   `ki-admech-veteranmaniple-bonus-unmodelled-01` (Veteran Maniple trait's +1 slot bonus — FIXED,
+   closed in known-issues.ts).
 2. **Vehicle Equipment untagged — FIXED** (`ki-admech-vetvehcategory-01`): the 9 Vehicle Equipment
    items were `category: none`; tagged `category: 'vehicle'`. Their POINTS value was ALREADY in
    `p_unit` (unlike IG's misplacement in `p_char`), so no value-move was needed — pure tagging.

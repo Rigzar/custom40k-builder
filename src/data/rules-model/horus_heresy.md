@@ -216,7 +216,7 @@ priced **flat +10 per god** (single-model vehicle pricing), unlike the +2/+5 per
   launcher ×2 / Missile launcher ×2 / Plasma blaster ×2 / Plasma cannon ×2 = 11 profiles) — **FIXED
   2026-06-12**: all 11 were absent from `weapons[]` until this audit pass (§7.8), display now ✅.
   Conversion beamer's "Only for Techmarines" note (.ods header row) is not gated —
-  `ki-hh-contemptor-conversionbeamer-techmarine-01`.
+  `ki-hh-contemptor-conversionbeamer-techmarine-01` (**BY DESIGN**: see known-issues.ts).
 - **Legion Terminator Cataphractii Squad** — **the ᵀ-gate test unit:** wears **Cataphractii armor**
   (2+ save baked; abilities Deep strike / Massive(1) / Unyielding + *Cataphractii Terminator armor*
   4++) → its Sergeant's armory access is **restricted to ᵀ items only** (§2; and the ᵀ-vs-Tzeentch
@@ -346,9 +346,8 @@ mark** (Kakophoni Slaanesh-only) ✅; **vehicle "vehicle equipment" with no HH v
    - **3 name fixes**: "Vulkite caliver"→"Volkite caliver" (Heavy Support Squad option choice),
      "Laserkanone"→"Lascannon" and "Quad Maschinenkanone"→"Quad autocannon" (item 7, above).
      Leviathan needed no new `weapons[]` entries — its "Quad autocannon" entry already matched.
-   - **New known issue**: Contemptor's Conversion beamer "Only for Techmarines" note (.ods header
-     row) is not repeated in OPTIONS text and not gated by the engine —
-     `ki-hh-contemptor-conversionbeamer-techmarine-01`.
+   - Contemptor's Conversion beamer "Only for Techmarines" note (.ods header row) is not gated —
+     `ki-hh-contemptor-conversionbeamer-techmarine-01` (**BY DESIGN**, see known-issues.ts).
    - §4b/§4c corrected accordingly (Contemptor + Sky-hunter multi-profile display claims).
 
 ## 8. "Lo demás" pass (2026-06-13)

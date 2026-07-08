@@ -116,12 +116,9 @@ Shots / Masters of Concealment / Mobile Fighters / Savage Blades / Students of V
    Spears/Shadow Spectres) with "Aspect" and the Wraith units (Wraithblades/Wraithguard/Wraithlord/
    Wraithseer) with "Wraith" so the archetype gating is keyword-driven (matching the Dark Eldar
    model). Needs a per-unit data pass + user confirm of the exact Aspect/Wraith membership.
-3. **⚠ Eldar psychic discipline + Revenant not wired into the loader** (`ki-eldar-psychic-unwired-01`,
-   KNOWN): the `.ods` has a large "Eldar psychic discipline" (64 rows) + the Ynnari "Revenant"
-   discipline, and Eldar has 6 psyker units, but `loaders.ts` imports only units+general+archetypes+
-   Craftworld+Ynnari armories — NO psychic-discipline file (the disciplines slot is `{}`). Same gap
-   class as IG (`ki-ig-psychic-unwired-01`). Larger separate scope (parse the discipline into JSON +
-   wire into the loader).
+3. **~~Eldar psychic discipline + Revenant not wired into the loader~~** (`ki-eldar-psychic-unwired-01`,
+   **FIXED v0.60**): the Eldar psychic discipline (64 rows) + Ynnari "Revenant" discipline are now
+   wired into the loader. KI closed in known-issues.ts.
 4. **"Swooping Hawks" `unit_type` artifact**: production has `unit_type: "Jump pack"` (should be
    "Jump Pack Infantry"). Cosmetic, `ki-unittype-residuals-01` family.
 5. **Roster cross-check**: production 38 units / 7 populated slots (HQ 6/Troops 5/Elites 10/Fast
@@ -134,10 +131,8 @@ Shots / Masters of Concealment / Mobile Fighters / Savage Blades / Students of V
 1. **Index "Special rules"**: re-read raw `Index.html` — 4 verbatim entries (Battle Focus, Shuriken,
    Visitors of the Black Library, Webway strike), all already present in §4. No gaps.
 2. **Psychic disciplines / prayers**: no "Faithful"/prayers sheet in the `.ods`. The "Eldar psychic
-   discipline" (64 rows) + Ynnari "Revenant" discipline gap was already found and documented in §6.3
-   (`ki-eldar-psychic-unwired-01`, KNOWN) — a much larger scope than the IG/Sororitas hymn fixes
-   (single 5-row prayer table copy-paste). Not tackled in this lighter "lo demás" pass; remains a
-   separate follow-up item.
+   discipline" (64 rows) + Ynnari "Revenant" discipline — documented in §6.3 as gap, now **FIXED
+   v0.60** (`ki-eldar-psychic-unwired-01` closed in known-issues.ts).
 
 **Eldar "lo demás" complete** — Index fully covered, psychic gap already tracked (no new findings).
 Doc-only, no build required.

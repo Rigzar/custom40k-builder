@@ -196,9 +196,8 @@ these.
    + ~6 Malleus-only + ~6 Xenos-only). Canonical text says "An Inquisitor MAY select a single
    Henchman Warband" — user decided this should become an **optional Inquisitor-attached
    selection** (not a fixed Troops unit), pooling all 18 specialists subject to
-   Ordo-allegiance/Legacy gating, capped at 6 (Inquisitor) / 12 (Inquisitor Lord). New KI
-   `ki-inquisition-henchman-warband-restructure-01` — large structural rework, needs its own
-   design pass before implementation.
+   Ordo-allegiance/Legacy gating, capped at 6 (Inquisitor) / 12 (Inquisitor Lord).
+   `ki-inquisition-henchman-warband-restructure-01` — **FIXED**, closed in known-issues.ts.
 
 6. **Army Customisation Legacy mechanic — FULLY REPLACED (closing `ki-inquisition-army-
    customisation-replace-01`, 2026-06-23).** User decided ("sustituye sistema viejo") that the
