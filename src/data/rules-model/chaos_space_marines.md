@@ -112,8 +112,7 @@ found in the Armory sections.
   Khorne/Slaanesh description paragraphs (Nurgle's was already present).
 - Infernal Pacts (6) and Prayers to the Dark Gods (10, incl. "Lower prayers") — match
   `psychic/pacts.json` / `psychic/prayers.json` 1:1, no fixes needed.
-- Open KI: `ki-csm-poxwalkers-slavesofdarkness-text-01` (Poxwalkers' "Slaves of Darkness" ability
-  text needs verification against the .ods — extractor only returns "Mark of Nurgle").
+- `ki-csm-poxwalkers-slavesofdarkness-text-01` — **FIXED** (closed in known-issues.ts).
 
 **"Lo demás" complete** — all non-unit CSM sheets audited. Next: unit-by-unit audit of the 62
 datasheets.

@@ -117,8 +117,8 @@ parser stub). It is a pure **catalog**: weapons + equipment + 12 datasheets.
   where both live. Engine must scope the superscript per source. ❌/🟡 — verify no cross-read.
 - **"Only for infantry" gates** (Cataphractii armor, Legion Scimitar Jetbike) — confirm non-infantry
   excluded. 🟡
-- **Jetbike / Cataphractii type+stat mounts** — change unit-type + stats; same unmodeled primitive as
-  CSM/CD (`ki-parser-02`). ❌
+- **Jetbike / Cataphractii type+stat mounts** — change unit-type + stats; same primitive as
+  CSM/CD — `ki-parser-02` **FIXED v0.51** (closed in known-issues.ts).
 - **replace drop-side** (Boltgun/Flamer/Heavy-flamer/Combi-bolter swaps across nearly every squad) —
   pts ✅, the "remove the original weapon" side 🟡; **`per_n(N,K)`** (Breacher per-5, Cataphractii
   per-5) ratio not enforced 🟡; **choose-exactly-two** (Contemptor, Leviathan ×2 slots) 🟡;

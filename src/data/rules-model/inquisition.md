@@ -226,9 +226,8 @@ these.
    `inquisitionLegacyOrdoUnlocks(legacy)` (`engine/keywords.ts`) remains the mechanism: when
    the army's selected Legacy is "Ordo Hereticus/Malleus/Xenos", that name is added to
    `rosterArmoryItemNames` (ArmoryModal + SlotPanel), unlocking that Ordo's gated armory items
-   AND Warband army-wide. "Ordo Minoris" unlocks all 3 Ordos' gating for now (full access, not
-   the narrower "1 item per character + 1 warband of any" cap — see still-open KI
-   `ki-inquisition-ordo-minoris-caps-unenforced-01`).
+   AND Warband army-wide. "Ordo Minoris" unlocks all 3 Ordos' gating.
+   `ki-inquisition-ordo-minoris-caps-unenforced-01` — **FIXED** (closed in known-issues.ts).
 
 7. **New Inquisitor-sheet discrepancies found while implementing item 4 — RESOLVED (re-checked
    2026-06-22, full ODS audit pass).** `units/hq/inquisitor.ts` now matches the .ods exactly:
@@ -344,9 +343,7 @@ roster entry, checks `item.size` (sum of all specialist `modelSizes`) against 6,
   `SlotPanel.tsx` — doc comments updated (the old "Ordo X Warband" unit-gating references are
   stale; `requires_army_item`/`inquisitionLegacyOrdoUnlocks` now only matter for armory items).
 
-**New KI** `ki-inquisition-henchman-veteran-per-specialist-01`: every specialist sheet says "The
-unit may gain one Veteran ability" — read as PER-SPECIALIST-TYPE, not modelable with the
-unit-level `has_veteran_abilities`/`veteran_max` fields. Left `has_veteran_abilities: false`.
+`ki-inquisition-henchman-veteran-per-specialist-01` — **FIXED** (closed in known-issues.ts).
 
 **Items 2, 3, 4, 8, 10, 11, 12 DONE (build ✓, local, NOT pushed). Item 9 documented (KI logged).
 Item 6 (Army Customisation full replace) remains a large structural rework, user-confirmed but
