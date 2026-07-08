@@ -306,9 +306,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-campaign-alpha-scope-01',
-    status: 'known',
-    title: 'ALPHA — Planetary Assault campaign module only has campaign create/join so far',
-    description: 'First foundation slice of the Planetary Assault supplement (sectors, buildings, Supply economy, unit upgrades, Stratagems, weekly events, battle reports) — only the GM-creates-campaign / player-joins-with-invite-code flow exists right now. No sector map, no Supply tracking, no unit upgrade picker, no battle report form yet. The roster builder also doesn\'t read campaign state yet (e.g. showing which Upgrades/unique gear your faction has unlocked this round).',
+    status: 'fixed',
+    title: 'ALPHA → v1.46: Planetary Assault campaign module fully implemented',
+    description: 'v1.46: all supplement mechanics are now live — cogitator UI across all campaign screens, sector map with ownership, battle log with engagement types (Kill Team/Skirmish/Pitched/Epic Battle) and auto-Supply deduction, 21-building infrastructure system with Supply costs, unit trait picker (Infantry/MC/Vehicle, 2–4 ⊗ first assign), stratagem tracker (per-faction from owned buildings), weekly events with Astropathic Transmission deck (Space Port draws 2, pick 1), turn advance with weighted supply income by sector type.',
   },
   {
     id: 'ki-advisor-flag-audit-pending-01',

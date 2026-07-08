@@ -84,9 +84,7 @@
 
 - **Malicious Volley** (trait): now correctly excludes "Heavy" weapons from Deflagrate(5+)
   (`resolver.ts` weapon-ability matcher).
-- **Chaos Space Marine bike**: `effect` now includes `stat_mod` M+6/T+1/W+1 (was missing,
-  desc-only). Still missing: free Combi-bolter grant — no `effect.grants_weapons` mechanism
-  exists yet (`ki-csm-bike-combibolter-grant-unmodelled-01`).
+- **Chaos Space Marine bike**: `effect` now includes `stat_mod` M+6/T+1/W+1 and free Combi-bolter grant via `effect.grants_weapons: ["Combi-bolter"]` (resolved v0.67, `ki-csm-bike-combibolter-grant-unmodelled-01`).
 - **Daemonic stature**: `effect` now grants Deep Strike ability (was missing).
 - **Juggernaut of Khorne**: `effect` now includes `stat_mod` M+6/T+1/W+2/A+1 (was missing).
 - **Steed of Slaanesh**: `effect` now includes `stat_mod` M+6/T+1/W+1/A+1 (was missing).
