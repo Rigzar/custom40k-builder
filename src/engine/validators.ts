@@ -2449,7 +2449,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // call needs the matching rule for whichever side it's counting.
       const allyRuleForAop = getArchetypeRule(state.alliedArchetype);
       for (const slot of SLOT_ORDER) {
-        const [min, max] = ALLIED_AOP[slot];
+        const [min, max] = slot === 'HQ'
+          ? getEffectiveHqLimits(allyRuleForAop, ALLIED_AOP['HQ'] as [number, number])
+          : ALLIED_AOP[slot];
         const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: T('valAlliedNeedAtLeast', { min, slot, used }) });

@@ -191,7 +191,9 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     return (
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
-          const [min, max] = ALLIED_AOP[slot];
+          const [min, max] = slot === 'HQ'
+            ? getEffectiveHqLimits(rule, ALLIED_AOP['HQ'] as [number, number])
+            : ALLIED_AOP[slot];
           const units = effectiveSlotUnits[slot] ?? [];
           if (max === 0 && units.length === 0) return null;
 

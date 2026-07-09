@@ -27,11 +27,13 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.47',
     date: '2026-07-09',
-    title: 'Campaign API fixes + advisor HQ validator fix',
+    title: 'Campaign API fixes + Allied Detachment bug sweep',
     changes: [
       'Campaign — fix: building construction was always rejected with "Can only construct buildings in a controlled sector" due to a missing field in the sector query (owner_faction was never fetched); all building-add calls now work correctly',
       'Campaign — fix: advancing the turn on an already-finished campaign incremented the turn counter in the DB; turn advance is now a no-op when campaign status = finished',
       'GENERAL — fix: advisor units (e.g. Chaos Lieutenant) were counting themselves toward the HQ cap that gates their own exemption, allowing up to N advisors to be exempt even when there were 0 real HQ selections; hqCount in advisorExemptIds now excludes advisor units so the ratio is correctly based on non-advisor HQ selections only',
+      'GENERAL — fix: Allied Detachment HQ slot cap/minimum never respected the ally archetype\'s hqOverride (e.g. "Circle of Sorcerers" allowing 4 HQ slots never opened beyond the default 2); getEffectiveHqLimits now applied to the allied AOP HQ slot in both the validator and the SlotPanel counter',
+      'GENERAL — fix: when adding units to an Allied Detachment, the primary army\'s forcedMark (e.g. Plaguehost → Nurgle) was automatically applied to all ally units regardless of the ally\'s own archetype; addUnit now uses the ally\'s own archetype to determine autoMark for ally-scoped units',
     ],
   },
   {

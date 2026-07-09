@@ -513,7 +513,8 @@ export const useArmyStore = create<ArmyStore>()(
         const computedSize = modelSizes
           ? Object.values(modelSizes).reduce((s, n) => s + n, 0)
           : defaultSize;
-        const archetypeRule = getArchetypeRule(s.archetype);
+        const isAlliedScopeUnit = !!(factionSource && factionSource === s.alliedFaction);
+        const archetypeRule = getArchetypeRule(isAlliedScopeUnit ? (s.alliedArchetype ?? '') : s.archetype);
         const autoMark = (archetypeRule?.forcedMark && !u.locked_mark)
           ? archetypeRule.forcedMark as Mark
           : null;
