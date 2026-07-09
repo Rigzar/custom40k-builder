@@ -223,15 +223,17 @@ async function turnAdvance(req, res, userId) {
   if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can advance the turn.' }); return; }
 
   const result = await sql`
-    UPDATE campaigns SET current_turn = current_turn + 1 WHERE id = ${campaignId}
+    UPDATE campaigns SET current_turn = current_turn + 1
+    WHERE id = ${campaignId} AND status = 'active'
     RETURNING current_turn, factions, max_turns, sectors_to_win, status
   `;
-  const { current_turn, factions, max_turns, sectors_to_win, status } = result.rows[0];
-
-  if (status === 'finished') {
-    res.status(200).json({ ok: true, current_turn, status: 'finished' });
+  if (!result.rows.length) {
+    const camp = await sql`SELECT current_turn, status, winner_faction FROM campaigns WHERE id = ${campaignId}`;
+    const r = camp.rows[0];
+    res.status(200).json({ ok: true, current_turn: r.current_turn, status: r.status, winner_faction: r.winner_faction });
     return;
   }
+  const { current_turn, factions, max_turns, sectors_to_win, status } = result.rows[0];
 
   // Credit supply by sector type: city=3, industrial=2, wasteland/ruin=1
   const SUPPLY_BY_TYPE = { city: 3, industrial: 2, wasteland: 1, ruin: 1 };
@@ -606,7 +608,7 @@ async function buildingAdd(req, res, userId) {
   if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can construct buildings.' }); return; }
 
   // Check building slot capacity (Outpost does not occupy a slot)
-  const sector = await sql`SELECT building_slots FROM campaign_sectors WHERE id = ${sectorId} AND campaign_id = ${campaignId}`;
+  const sector = await sql`SELECT building_slots, owner_faction FROM campaign_sectors WHERE id = ${sectorId} AND campaign_id = ${campaignId}`;
   if (!sector.rows.length) { res.status(404).json({ error: 'Sector not found' }); return; }
   const slots = sector.rows[0].building_slots ?? 2;
   const current = await sql`SELECT COUNT(*)::int AS cnt FROM campaign_buildings WHERE sector_id = ${sectorId} AND building_type != 'outpost'`;

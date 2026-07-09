@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.47',
+    date: '2026-07-09',
+    title: 'Campaign — two API bug fixes',
+    changes: [
+      'Campaign — fix: building construction was always rejected with "Can only construct buildings in a controlled sector" due to a missing field in the sector query (owner_faction was never fetched); all building-add calls now work correctly',
+      'Campaign — fix: advancing the turn on an already-finished campaign incremented the turn counter in the DB; turn advance is now a no-op when campaign status = finished',
+    ],
+  },
+  {
     version: '1.46',
     date: '2026-07-08',
     title: 'GENERAL — bundle optimisation + mobile layout + campaign improvements',
