@@ -13,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v146_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v147_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.46: Campaign — full Planetary Assault supplement implementation',
-    intro: 'The Planetary Assault campaign module is now fully implemented from the supplement rules. All campaign screens use the Warhammer 40k cogitator terminal aesthetic (phosphor green, scanlines, glow effects). Every supplement mechanic now has server-side enforcement: Supply costs are deducted automatically for battles, buildings, traits, and stratagems.',
-    line1: '⬡ Engagement types: Kill Team (free), Skirmish (−1 ⊗), Pitched (−3 ⊗), Epic Battle (−6 ⊗) — Supply auto-deducted from attacker. ⬡ Buildings: construct 21 types in sector slots; construction and Lv.2 upgrade deduct Supply from your faction. ⬡ Space Port: GMs draw 2 event cards and choose 1 (instead of drawing blind).',
-    line2: '⬡ Traits: click any roster unit to open the trait picker — 6 Infantry / 6 Monstrous Creature / 6 Vehicle traits; first assignment costs 2 ⊗ (Infantry) or 4 ⊗ (MC/Vehicle). ⬡ Stratagems: INFRA tab shows per-faction available stratagems derived from owned buildings; USE deducts 2 ⊗; Low Orbital Strike always available free. ⬡ Supply income weighted by sector type: City +3, Industrial +2, Wasteland/Ruin +1 per turn.',
+    title: 'v1.47: Allied Detachment overhaul + SM weapon fixes',
+    intro: 'Seven engine bugs in the Allied Detachment system have been corrected: archetype hqOverride, forcedMark bleed from the primary army, trait pool bypass for same-faction allies, Elites/Fast Attack/Heavy Support slot scaling, and legacy armory access for allied units. Space Marine multi-profile weapons (Missile launcher, Plasma cannon) no longer appear as ghost weapons when no weapon is selected.',
+    line1: '⬡ Allied Detachment: archetypes with hqOverride (e.g. Circle of Sorcerers) now correctly unlock the extra HQ slots. ⬡ Allied traits/legacies: selecting a Legacy in the Allied tab now unlocks that Legacy\'s armory for the ally\'s units. ⬡ forcedMark: the primary army\'s forced mark (e.g. Plaguehost → Nurgle) no longer bleeds onto allied units.',
+    line2: '⬡ Slot scaling: Allied Elites/FA/HS caps now scale with allied Troop count (Core Rules: +1 per Troop beyond 1). ⬡ Same-faction allies: a CSM + CSM detachment now correctly uses its own allied trait pool instead of the primary\'s. ⬡ Space Marines: Dreadnought, Redemptor, Terminators, Tacticals, Devastators, Scouts and others no longer show ghost weapon profiles.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.46: Kampagne — vollständige Planetary Assault Supplement-Implementierung',
-    intro: 'Das Planetary Assault Kampagnenmodul ist nun vollständig nach den Supplement-Regeln implementiert. Alle Kampagnenbildschirme nutzen die Warhammer 40k Kogitator-Ästhetik. Alle Supplement-Mechaniken werden serverseitig erzwungen: Versorgungskosten werden automatisch für Schlachten, Gebäude, Traits und Strategeme abgezogen.',
-    line1: '⬡ Gefechtstypen: Kill Team (kostenlos), Scharmützel (−1 ⊗), Pitched (−3 ⊗), Epische Schlacht (−6 ⊗) — Versorgung automatisch abgezogen. ⬡ Gebäude: 21 Typen in Sektorslots; Bau und Stufe-2-Aufrüstung ziehen Versorgung ab. ⬡ Raumhafen: GMs ziehen 2 Ereigniskarten und wählen 1.',
-    line2: '⬡ Traits: Einheit anklicken für Trait-Auswahl — 6 Infanterie/6 Monsterkreatur/6 Fahrzeug-Traits; Erstbelegung kostet 2 ⊗ (Infanterie) oder 4 ⊗ (MC/Fahrzeug). ⬡ Strategeme: INFRA-Tab zeigt fraktionseigene Strategeme aus Gebäuden; Nutzung kostet 2 ⊗; Niedriger Orbitalschlag immer kostenlos. ⬡ Versorgungseinkommen nach Sektortyp: Stadt +3, Industrie +2, Ödland/Ruine +1.',
+    title: 'v1.47: Verbündetes Detachement Überarbeitung + SM Waffen-Fixes',
+    intro: 'Sieben Engine-Fehler im Verbündeten Detachement wurden behoben: Archetype hqOverride, forcedMark-Bleeding aus der Hauptarmee, Trait-Pool-Bypass für gleichfraktionelle Verbündete, Eliten/Schnellangriff/Schwere-Unterstützung-Slot-Skalierung und Legacy-Armory-Zugriff für verbündete Einheiten. SM-Mehrprofil-Waffen erscheinen nicht mehr als Geister-Waffen.',
+    line1: '⬡ Verbündetes Detachement: Archetypen mit hqOverride (z.B. Zirkel der Zauberer) entsperren nun korrekt die Extra-HQ-Slots. ⬡ Verbündete Traits/Vermächtnisse: Ein Legacy im Verbündeten-Tab entsperrt nun die Legacy-Rüstkammer für verbündete Einheiten. ⬡ forcedMark: Das Zwangszeichen der Hauptarmee blutet nicht mehr auf verbündete Einheiten.',
+    line2: '⬡ Slot-Skalierung: Verbündete Eliten/SA/SU-Caps skalieren nun mit der verbündeten Truppen-Anzahl. ⬡ Gleichfraktionelle Verbündete: Ein CSM+CSM-Detachement nutzt nun korrekt seinen eigenen Trait-Pool. ⬡ Space Marines: Dreadnought, Terminator, Taktiker usw. zeigen keine Geister-Waffenprofile mehr.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.46: Campaña — implementación completa del suplemento Asalto Planetario',
-    intro: 'El módulo de campaña Asalto Planetario está ahora completamente implementado según las reglas del suplemento. Todas las pantallas de campaña usan la estética de terminal cogitator de Warhammer 40k. Todas las mecánicas del suplemento tienen validación en servidor: los costes de Suministro se deducen automáticamente para batallas, edificios, rasgos y estratagemas.',
-    line1: '⬡ Tipos de compromiso: Kill Team (gratis), Escaramuza (−1 ⊗), Pitched (−3 ⊗), Batalla Épica (−6 ⊗) — Suministro deducido automáticamente al atacante. ⬡ Edificios: 21 tipos en ranuras de sector; construir y mejorar a Nv.2 deduce Suministro. ⬡ Puerto Espacial: los GMs sacan 2 cartas de evento y eligen 1.',
-    line2: '⬡ Rasgos: clic en cualquier unidad del roster para elegir rasgo — 6 Infantería/6 Criatura Monstruosa/6 Vehículo; primera asignación cuesta 2 ⊗ (Infantería) o 4 ⊗ (CM/Vehículo). ⬡ Estratagemas: pestaña INFRA muestra estratagemas disponibles por facción según edificios propios; usar cuesta 2 ⊗; Ataque Orbital Bajo siempre disponible gratis. ⬡ Ingresos de Suministro por tipo de sector: Ciudad +3, Industrial +2, Páramo/Ruina +1.',
+    title: 'v1.47: Revisión del Destacamento Aliado + correcciones de armas SM',
+    intro: 'Se han corregido siete bugs del motor en el sistema de Destacamento Aliado: hqOverride de arquetipos, sangrado de forcedMark desde el ejército principal, bypass del pool de rasgos en aliados de la misma facción, escala de slots de Élite/Ataque Rápido/Apoyo Pesado, y acceso al armario de Legacy para unidades aliadas. Las armas de perfil múltiple de Marines Espaciales ya no aparecen como armas fantasma.',
+    line1: '⬡ Destacamento Aliado: los arquetipos con hqOverride (ej. Círculo de Hechiceros) ahora desbloquean correctamente los slots de HQ extra. ⬡ Rasgos/Legados aliados: seleccionar un Legado en la pestaña Aliado ahora desbloquea el armario de ese Legado para las unidades aliadas. ⬡ forcedMark: la marca forzada del ejército principal (ej. Plaguehost → Nurgle) ya no se aplica a unidades aliadas.',
+    line2: '⬡ Escala de slots: los límites de Élite/AR/AP del aliado ahora escalan con el número de Tropas aliadas (Reglas Básicas: +1 por Tropa más allá de 1). ⬡ Aliados de la misma facción: un destacamento CSM+CSM usa ahora correctamente su propio pool de rasgos aliado. ⬡ Marines Espaciales: Dreadnought, Terminator, Tácticos y otros ya no muestran perfiles de arma fantasma.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
