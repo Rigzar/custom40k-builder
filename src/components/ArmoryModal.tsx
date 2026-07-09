@@ -102,7 +102,7 @@ const MARK_BADGE: Record<string, string> = {
 
 export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
   const t = useT();
-  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, archetype, alliedArchetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -469,7 +469,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const archetypeArmoryKey = rule?.sharedSupplementArmory;
   const grantedArchetypeKeys = archetypeArmoryKey && archetypeArmoryKey in data.armory_legions
     ? [archetypeArmoryKey] : [];
-  const activeLegionKeys = isAllied ? [] : [...legacyLegionKeys, ...grantedArchetypeKeys];
+  // Allied units' OWN legacy armory (from the ally's selected alliedLegacy) — separate from the
+  // primary's legacyLegionKeys. Supplement units (not alliedFaction scope) get no legacy armory.
+  const allyLegacyLegionKeys = (isAllied && item.factionSource === alliedFaction && alliedData)
+    ? [alliedLegacy ?? '']
+        .filter(Boolean)
+        .map(name => alliedData.legacies.find(l => l.name === name)?.armory_key)
+        .filter((k): k is string => !!k && k in alliedData.armory_legions)
+    : [];
+  const activeLegionKeys = isAllied ? allyLegacyLegionKeys : [...legacyLegionKeys, ...grantedArchetypeKeys];
   const hasLegion = activeLegionKeys.length > 0;
 
   // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE
