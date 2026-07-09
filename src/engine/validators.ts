@@ -2103,37 +2103,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       items.push({ type: 'error', text: T('valAllyNoTraits', { archetype: allyLabel }) });
     }
 
-    if (allyItems.length > 0) {
-      const allyTotal = allyItems.reduce((s, i) => {
-        const u = resolveUnit(i, data);
-        return s + (u ? computeUnitPoints(i, u, state.alliedArchetype) : 0);
-      }, 0);
-      if (allyTotal > 0) {
-        const allyTroopsPts = allyItems
-          .filter(i => {
-            const u = resolveUnit(i, data);
-            if (!u) return false;
-            if (getEffectiveSlot(i.unitName, i.slot, allyRule) !== 'Troops') return false;
-            return countsTroops(i.unitName, u.locked_mark, allyRule);
-          })
-          .reduce((s, i) => {
-            const u = resolveUnit(i, data);
-            return s + (u ? computeUnitPoints(i, u, state.alliedArchetype) : 0);
-          }, 0);
-        const allyRatio = allyTroopsPts / allyTotal;
-        const allyTroopsLabel = (allyRule && allyRule.troopsCount !== 'all')
-          ? `Qualifying Troops (${allyRule.troopsCount === 'locked' ? 'locked mark' : allyRule.troopsRemap.join('/')})`
-          : 'Troops';
-        if (allyRatio < eng.minTroopsRatio) {
-          items.push({
-            type: 'error',
-            text: T('valAllyTroopsRatioFail', { archetype: allyLabel, label: allyTroopsLabel, pct: (allyRatio * 100).toFixed(1), needPts: Math.ceil(allyTotal * eng.minTroopsRatio) }),
-          });
-        } else {
-          items.push({ type: 'ok', text: T('valAllyTroopsRatioOk', { archetype: allyLabel, label: allyTroopsLabel, pct: (allyRatio * 100).toFixed(1) }) });
-        }
-      }
-    }
+    // NOTE: Core Rules L1476 "At least 25% of the played points have to be spent on Troop units"
+    // applies ONLY to the primary army's AOP. The Allied Detachment AOP (L1825-1832) only requires
+    // 1-2 Troop units by count — no percentage minimum. The count minimum is enforced above by the
+    // ALLIED_AOP slot minimum (min=1). No percentage check is applied here.
   }
 
   // Skirmish stat caps
