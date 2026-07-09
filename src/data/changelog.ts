@@ -27,10 +27,11 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.47',
     date: '2026-07-09',
-    title: 'Campaign — two API bug fixes',
+    title: 'Campaign API fixes + advisor HQ validator fix',
     changes: [
       'Campaign — fix: building construction was always rejected with "Can only construct buildings in a controlled sector" due to a missing field in the sector query (owner_faction was never fetched); all building-add calls now work correctly',
       'Campaign — fix: advancing the turn on an already-finished campaign incremented the turn counter in the DB; turn advance is now a no-op when campaign status = finished',
+      'GENERAL — fix: advisor units (e.g. Chaos Lieutenant) were counting themselves toward the HQ cap that gates their own exemption, allowing up to N advisors to be exempt even when there were 0 real HQ selections; hqCount in advisorExemptIds now excludes advisor units so the ratio is correctly based on non-advisor HQ selections only',
     ],
   },
   {

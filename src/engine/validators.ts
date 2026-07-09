@@ -133,7 +133,10 @@ export function advisorExemptIds(
     if (!hqCountCache.has(isAllied)) {
       const n = army.filter(j => {
         const jIsAllied = !!(j.factionSource && j.factionSource === alliedFaction);
-        return jIsAllied === isAllied && getEffectiveSlot(j.unitName, j.slot, rule) === 'HQ';
+        if (jIsAllied !== isAllied) return false;
+        if (getEffectiveSlot(j.unitName, j.slot, rule) !== 'HQ') return false;
+        const u = resolveUnit(j, data);
+        return !u?.advisor; // advisors don't count as HQ selections for their own ratio cap
       }).length;
       hqCountCache.set(isAllied, n);
     }
