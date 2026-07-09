@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CHAPLAIN DREADNOUGHT — HQ
  *
  * SOURCE (canonical — Space Marines ENG/Chaplain Dreadnought.html)
@@ -11,8 +11,8 @@
  *   Heavy flamer            9"  Assault 4 S:5  AP:-1 D:1  Flames
  *   Inferno cannon          12" Heavy 6   S:6  AP:-2 D:1  Flames
  *   Multi-melta             24" Assault 1 S:8  AP:-5 D:2  AT(2), Melta
- *   Plasma cannon (Standard)  36" Heavy 1 S:7  AP:-3 D:1  AT(1), Explosive
- *   Plasma cannon (Overcharged) 36" Heavy 1 S:8 AP:-4 D:2 AT(2), Explosive, Overheating
+ *   Plasma cannon - Standard  36" Heavy 1 S:7  AP:-3 D:1  AT(1), Explosive
+ *   Plasma cannon - Overcharged 36" Heavy 1 S:8 AP:-4 D:2 AT(2), Explosive, Overheating
  *   Storm bolter            24" Rapid Fire 2 S:4 AP:-1 D:1  -
  *   Twin lascannon          48" Heavy 2   S:9  AP:-4 D:3  AT(3)
  * OPTIONS:
@@ -124,7 +124,7 @@ export const chaplainDreadnought: Unit = {
       "abilities": "AT(3)"
     },
     {
-      "name": "Plasma cannon (Standard)",
+      "name": "Plasma cannon - Standard",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "7",
@@ -133,7 +133,7 @@ export const chaplainDreadnought: Unit = {
       "abilities": "AT(1), Explosive"
     },
     {
-      "name": "Plasma cannon (Overcharged)",
+      "name": "Plasma cannon - Overcharged",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "8",

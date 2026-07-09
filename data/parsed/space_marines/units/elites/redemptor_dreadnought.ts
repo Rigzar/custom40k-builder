@@ -1,4 +1,4 @@
-﻿/**
+/**
  * REDEMPTOR DREADNOUGHT — Elites
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -160,7 +160,7 @@ export const redemptorDreadnought: Unit = {
       "abilities": "AT(3), Explosive, Overheating"
     },
     {
-      "name": "Missile launcher (Frag)",
+      "name": "Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "4",
@@ -169,7 +169,7 @@ export const redemptorDreadnought: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Missile launcher (Krak)",
+      "name": "Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",

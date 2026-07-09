@@ -1,4 +1,4 @@
-﻿/**
+/**
  * WOLF SCOUT SQUAD — Elites
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -124,7 +124,7 @@ export const wolfScoutSquad: Unit = {
       "abilities": "Armor piercing(5+), Suppression"
     },
     {
-      "name": "Missile launcher (Frag)",
+      "name": "Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "4",
@@ -133,7 +133,7 @@ export const wolfScoutSquad: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Missile launcher (Krak)",
+      "name": "Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",

@@ -14,8 +14,8 @@
  *   Boltgun                 24" Rapid Fire 1  S:4  AP:-1 D:1  -
  *   Sniper rifle            36" Heavy 1       S:5  AP:-2 D:2  Armor piercing(5+), Suppression
  *   Heavy bolter            36" Rapid Fire 2  S:5  AP:-2 D:1  -
- *   Missile launcher (Frag) 48" Heavy 1       S:4  AP:0  D:1  Explosive
- *   Missile launcher (Krak) 48" Heavy 1       S:8  AP:-3 D:2  AT(2), Anti-air
+ *   Missile launcher - Frag 48" Heavy 1       S:4  AP:0  D:1  Explosive
+ *   Missile launcher - Krak 48" Heavy 1       S:8  AP:-3 D:2  AT(2), Anti-air
  *   Frag grenade             6" Grenade 1     S:4  AP:0  D:1  Explosive
  *   Krak grenade             6" Grenade 1     S:6  AP:-2 D:1  -
  * OPTIONS:
@@ -150,7 +150,7 @@ export const scoutSquad: Unit = {
       "abilities": "Armor piercing(5+), Suppression"
     },
     {
-      "name": "Missile launcher (Frag)",
+      "name": "Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "4",
@@ -159,7 +159,7 @@ export const scoutSquad: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Missile launcher (Krak)",
+      "name": "Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",

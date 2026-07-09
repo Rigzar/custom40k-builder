@@ -151,7 +151,7 @@ export const dreadnought: Unit = {
       "abilities": "AT(3)"
     },
     {
-      "name": "Missile launcher (Frag)",
+      "name": "Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "4",
@@ -160,7 +160,7 @@ export const dreadnought: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Missile launcher (Krak)",
+      "name": "Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",
@@ -169,7 +169,7 @@ export const dreadnought: Unit = {
       "abilities": "AT(2), Anti-air"
     },
     {
-      "name": "Plasma cannon (Standard)",
+      "name": "Plasma cannon - Standard",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "7",
@@ -178,7 +178,7 @@ export const dreadnought: Unit = {
       "abilities": "AT(1), Explosive"
     },
     {
-      "name": "Plasma cannon (Overcharged)",
+      "name": "Plasma cannon - Overcharged",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "8",

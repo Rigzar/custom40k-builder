@@ -107,7 +107,7 @@ export const centurionDevastatorSquad: Unit = {
       "abilities": "AT(3)"
     },
     {
-      "name": "Missile launcher (Frag)",
+      "name": "Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "4",
@@ -116,7 +116,7 @@ export const centurionDevastatorSquad: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Missile launcher (Krak)",
+      "name": "Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * CAPTAIN DREADNOUGHT — HQ
  *
  * SOURCE (canonical — Space Marines ENG/Captain Dreadnought.html)
@@ -9,8 +9,8 @@
  *   Assault cannon         24" Heavy 4  S:6  AP:-2 D:1  Armor piercing(5+)
  *   Dreadnought cccw        -  Melee    S:x2 AP:-3 D:2  AT(2)
  *   Heavy flamer           9" Assault 4 S:5  AP:-1 D:1  Flames
- *   Plasma cannon (Standard)  36" Heavy 1 S:7  AP:-3 D:1  AT(1), Explosive
- *   Plasma cannon (Overcharged) 36" Heavy 1 S:8 AP:-4 D:2  AT(2), Explosive, Overheating
+ *   Plasma cannon - Standard  36" Heavy 1 S:7  AP:-3 D:1  AT(1), Explosive
+ *   Plasma cannon - Overcharged 36" Heavy 1 S:8 AP:-4 D:2  AT(2), Explosive, Overheating
  *   Storm bolter           24" Rapid Fire 2 S:4 AP:-1 D:1  -
  *   Twin lascannon         48" Heavy 2  S:9  AP:-4 D:3  AT(3)
  * OPTIONS:
@@ -102,7 +102,7 @@ export const captainDreadnought: Unit = {
       "abilities": "AT(3)"
     },
     {
-      "name": "Plasma cannon (Standard)",
+      "name": "Plasma cannon - Standard",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "7",
@@ -111,7 +111,7 @@ export const captainDreadnought: Unit = {
       "abilities": "AT(1), Explosive"
     },
     {
-      "name": "Plasma cannon (Overcharged)",
+      "name": "Plasma cannon - Overcharged",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "8",

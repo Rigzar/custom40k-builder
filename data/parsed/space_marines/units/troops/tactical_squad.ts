@@ -19,12 +19,12 @@
  *   Lascannon                   48" Heavy 1       S:9  AP:-4 D:3  AT(2)
  *   Melta                       12" Assault 1     S:8  AP:-5 D:1  AT(1), Melta
  *   Multi-melta                 24" Assault 1     S:8  AP:-5 D:2  AT(2), Melta
- *   Missile launcher (Frag)     48" Heavy 1       S:4  AP:0  D:1  Explosive
- *   Missile launcher (Krak)     48" Heavy 1       S:8  AP:-3 D:2  AT(2), Anti-air
+ *   Missile launcher - Frag     48" Heavy 1       S:4  AP:0  D:1  Explosive
+ *   Missile launcher - Krak     48" Heavy 1       S:8  AP:-3 D:2  AT(2), Anti-air
  *   Plasma gun (Standard)       24" Rapid Fire 1  S:7  AP:-3 D:1  AT(1)
  *   Plasma gun (Overheating)    24" Rapid Fire 1  S:8  AP:-4 D:2  AT(2), Overheating
- *   Plasma cannon (Standard)    36" Heavy 1       S:7  AP:-3 D:1  AT(1), Explosive
- *   Plasma cannon (Overheating) 36" Heavy 1       S:8  AP:-4 D:2  AT(2), Explosive, Overheating
+ *   Plasma cannon - Standard    36" Heavy 1       S:7  AP:-3 D:1  AT(1), Explosive
+ *   Plasma cannon - Overheating 36" Heavy 1       S:8  AP:-4 D:2  AT(2), Explosive, Overheating
  *   Frag grenade                 6" Grenade 1     S:4  AP:0  D:1  Explosive
  *   Krak grenade                 6" Grenade 1     S:6  AP:-2 D:1  -
  * OPTIONS:
@@ -213,7 +213,7 @@ export const tacticalSquad: Unit = {
       "abilities": "AT(2), Melta"
     },
     {
-      "name": "Missile launcher (Frag)",
+      "name": "Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "4",
@@ -222,7 +222,7 @@ export const tacticalSquad: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Missile launcher (Krak)",
+      "name": "Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 1",
       "s": "8",
@@ -231,7 +231,7 @@ export const tacticalSquad: Unit = {
       "abilities": "AT(2), Anti-air"
     },
     {
-      "name": "Plasma cannon (Standard)",
+      "name": "Plasma cannon - Standard",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "7",
@@ -240,7 +240,7 @@ export const tacticalSquad: Unit = {
       "abilities": "AT(1), Explosive"
     },
     {
-      "name": "Plasma cannon (Overheating)",
+      "name": "Plasma cannon - Overheating",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "8",

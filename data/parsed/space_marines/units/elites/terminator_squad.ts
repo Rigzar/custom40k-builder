@@ -1,4 +1,4 @@
-﻿/**
+/**
  * TERMINATOR SQUAD — Elites
  *
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
@@ -124,7 +124,7 @@ export const terminatorSquad: Unit = {
       "abilities": "AT(3), Slow(-3)"
     },
     {
-      "name": "Cyclone missile launcher (Frag)",
+      "name": "Cyclone Missile launcher - Frag",
       "range": "48\"",
       "type": "Heavy 2",
       "s": "4",
@@ -133,7 +133,7 @@ export const terminatorSquad: Unit = {
       "abilities": "Explosive"
     },
     {
-      "name": "Cyclone missile launcher (Krak)",
+      "name": "Cyclone Missile launcher - Krak",
       "range": "48\"",
       "type": "Heavy 2",
       "s": "8",
@@ -142,7 +142,7 @@ export const terminatorSquad: Unit = {
       "abilities": "AT(1), Anti-air"
     },
     {
-      "name": "Plasma cannon (Standard)",
+      "name": "Plasma cannon - Standard",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "7",
@@ -151,7 +151,7 @@ export const terminatorSquad: Unit = {
       "abilities": "AT(1), Explosive"
     },
     {
-      "name": "Plasma cannon (Overcharged)",
+      "name": "Plasma cannon - Overcharged",
       "range": "36\"",
       "type": "Heavy 1",
       "s": "8",
