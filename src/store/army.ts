@@ -132,6 +132,17 @@ function applyArmyTraits(
     : [];
 
   return army.map(item => {
+    // Check allied scope FIRST so same-faction allies (primary=CSM, ally=CSM) don't fall into
+    // the isMainFaction branch and incorrectly receive the primary trait pool.
+    if (alliedFaction && alliedData && item.factionSource === alliedFaction) {
+      const unit = resolveUnit(item, data); // data.allied[factionSource] was merged in by setAlliedFaction
+      if (!unit || !allyTraitNames.length) return { ...item, traits: [] };
+      if (alliedData.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
+        return { ...item, traits: [] };
+      }
+      return { ...item, traits: computeTraitSelections(unit, item, allyTraitNames, alliedData.traits, alliedData) };
+    }
+
     const isMainFaction = item.unitName in data.units;
 
     if (isMainFaction) {
@@ -158,16 +169,6 @@ function applyArmyTraits(
 
       // All selected traits apply to all eligible units — veteran_max limits only armory items
       return { ...item, traits: computeTraitSelections(unit, item, unitTraitNames, data.traits, data) };
-    }
-
-    // Allied Detachment's own trait pool — independent of the primary faction's
-    if (alliedFaction && alliedData && item.factionSource === alliedFaction) {
-      const unit = resolveUnit(item, data); // data.allied[factionSource] was merged in by setAlliedFaction
-      if (!unit || !allyTraitNames.length) return { ...item, traits: [] };
-      if (alliedData.faction === 'Chaos Space Marines' && !unit.keywords.includes('Chaos Space Marine')) {
-        return { ...item, traits: [] };
-      }
-      return { ...item, traits: computeTraitSelections(unit, item, allyTraitNames, alliedData.traits, alliedData) };
     }
 
     return { ...item, traits: [] };

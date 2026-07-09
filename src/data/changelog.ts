@@ -34,6 +34,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — fix: advisor units (e.g. Chaos Lieutenant) were counting themselves toward the HQ cap that gates their own exemption, allowing up to N advisors to be exempt even when there were 0 real HQ selections; hqCount in advisorExemptIds now excludes advisor units so the ratio is correctly based on non-advisor HQ selections only',
       'GENERAL — fix: Allied Detachment HQ slot cap/minimum never respected the ally archetype\'s hqOverride (e.g. "Circle of Sorcerers" allowing 4 HQ slots never opened beyond the default 2); getEffectiveHqLimits now applied to the allied AOP HQ slot in both the validator and the SlotPanel counter',
       'GENERAL — fix: when adding units to an Allied Detachment, the primary army\'s forcedMark (e.g. Plaguehost → Nurgle) was automatically applied to all ally units regardless of the ally\'s own archetype; addUnit now uses the ally\'s own archetype to determine autoMark for ally-scoped units',
+      'GENERAL — fix: same-faction Allied Detachments (ally faction = primary faction, e.g. CSM + CSM) had their trait pool bypassed — applyArmyTraits checked isMainFaction before factionSource, so ally units hit the primary-traits branch and got primary traits instead of their own alliedTraitPool; allied scope is now checked first',
+      'GENERAL — fix: Allied Detachment Elites/Fast Attack/Heavy Support slot counter always showed a hard cap of 1 (from ALLIED_AOP); Core Rules grant +1 per Troop beyond 1, so the effective max now scales with the allied Troop count (1 Troop → max 1, 2 Troops → max 2) — matching the validator',
     ],
   },
   {

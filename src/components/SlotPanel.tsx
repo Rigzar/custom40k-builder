@@ -188,6 +188,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     }
 
     const alliedAdvisorExemptIds = advisorExemptIds(army, store.data!, rule, alliedFactionKey ?? undefined);
+    // Core Rules: each Troop beyond 1 grants +1 Elites/FA/HS slot — precompute troop count.
+    const allyTroopCount = army.filter(e =>
+      e.factionSource === alliedFactionKey && getEffectiveSlot(e.unitName, e.slot, rule) === 'Troops'
+    ).length;
     return (
       <div className="divide-y divide-zinc-800/50">
         {SLOT_ORDER.map(slot => {
@@ -202,10 +206,12 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
             if (alliedAdvisorExemptIds.has(e.id)) return false;
             return getEffectiveSlot(e.unitName, e.slot, rule) === slot;
           }).length;
-          // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic
-          // (one per Infantry-type selection), never the ALLIED_AOP placeholder's flat 3.
+          // Core Rules L1831: Allied Detachment AOP is "0-ᵀ Transports" — always dynamic.
+          // Elites/FA/HS scale with Troop count: max = allyTroopCount (1 Troop → 1 each, 2 Troops → 2 each).
           const effectiveMax = slot === 'Dedicated Transport'
             ? countInfantrySelections(store, store.data as FactionData, true)
+            : (slot === 'Elites' || slot === 'Fast Attack' || slot === 'Heavy Support')
+            ? allyTroopCount
             : max;
           const isFull = effectiveMax > 0 && used >= effectiveMax;
           const isUnder = min > 0 && used < min;
