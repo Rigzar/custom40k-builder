@@ -233,7 +233,7 @@ async function turnAdvance(req, res, userId) {
     res.status(200).json({ ok: true, current_turn: r.current_turn, status: r.status, winner_faction: r.winner_faction });
     return;
   }
-  const { current_turn, factions, max_turns, sectors_to_win, status } = result.rows[0];
+  const { current_turn, factions, max_turns, sectors_to_win } = result.rows[0];
 
   // Credit supply by sector type: city=3, industrial=2, wasteland/ruin=1
   const SUPPLY_BY_TYPE = { city: 3, industrial: 2, wasteland: 1, ruin: 1 };
