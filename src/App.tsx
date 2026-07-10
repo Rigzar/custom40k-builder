@@ -22,6 +22,7 @@ import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
 import { useT } from './i18n';
 import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
+import { ErrorBoundary } from './components/ErrorBoundary';
 const PrintView        = lazy(() => import('./components/PrintView').then(m => ({ default: m.PrintView })));
 const SavedArmiesModal = lazy(() => import('./components/SavedArmiesModal').then(m => ({ default: m.SavedArmiesModal })));
 const BugReportModal   = lazy(() => import('./components/BugReportModal').then(m => ({ default: m.BugReportModal })));
@@ -955,7 +956,11 @@ export default function App() {
 
       {/* ── Modals (lazy-loaded) ── */}
       <Suspense fallback={null}>
-        {showPrint     && <PrintView onClose={() => setShowPrint(false)} />}
+        {showPrint     && (
+          <ErrorBoundary label="Print View" onClose={() => setShowPrint(false)}>
+            <PrintView onClose={() => setShowPrint(false)} />
+          </ErrorBoundary>
+        )}
         {showArmies    && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
         {showPrefs     && <PrefsModal prefs={prefs} loggedIn={loggedIn} onSave={setPrefs} onClose={() => setShowPrefs(false)} />}
         {showBugReport && (
