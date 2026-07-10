@@ -109,7 +109,7 @@ export type TranslationKey =
   | 'chaosMarkLabel' | 'markForcedPrefix' | 'allChaosMarksLabel' | 'allMarksVehicleBonus'
   | 'allMarksCharacterBonus' | 'allMarksInfantryBonus' | 'vetSlotSuffix' | 'markOfChaosUndividedLabel'
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
-  | 'requiresMarkOfPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'rangeFullLabel' | 'typeFullLabel'
+  | 'requiresMarkOfPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'uniqueTakenBadge' | 'rangeFullLabel' | 'typeFullLabel'
   | 'armyTraitsLabel' | 'clickToChooseSuffix' | 'cannotTakeAllTraits' | 'smiteAlwaysKnownSuffix' | 'allOfPrefix'
   | 'exarchPowerPrefix' | 'gainsSuffix' | 'traitBadge' | 'ruleBadge' | 'optionBadge' | 'equipBadge'
   | 'seeFactionRulesPlain' | 'ammoLabel' | 'veteranLabel' | 'vehicleEquipmentLabel' | 'traitsCountLabel'
@@ -550,6 +550,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     requiresMarkOfPrefix: 'Requires Mark of',
     notAvailableWithMarkPrefix: 'Not available with Mark of',
     championBadge: 'Champion',
+    uniqueTakenBadge: 'Unique — already in army',
     rangeFullLabel: 'Range',
     typeFullLabel: 'Type',
     armyTraitsLabel: 'Army Traits',
@@ -1083,6 +1084,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     requiresMarkOfPrefix: 'Erfordert Mal von',
     notAvailableWithMarkPrefix: 'Nicht verfügbar mit Mal von',
     championBadge: 'Champion',
+    uniqueTakenBadge: 'Einzigartig — bereits in der Armee',
     rangeFullLabel: 'Reichweite',
     typeFullLabel: 'Typ',
     armyTraitsLabel: 'Armee-Eigenschaften',
@@ -1616,6 +1618,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     requiresMarkOfPrefix: 'Requiere Marca de',
     notAvailableWithMarkPrefix: 'No disponible con Marca de',
     championBadge: 'Campeón',
+    uniqueTakenBadge: 'Único — ya en el ejército',
     rangeFullLabel: 'Alcance',
     typeFullLabel: 'Tipo',
     armyTraitsLabel: 'Rasgos de Ejército',

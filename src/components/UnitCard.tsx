@@ -376,14 +376,16 @@ export function UnitCard({ item }: Props) {
               />
             ) : (
               <>
+                {/* A promoted variant (e.g. Chaos Sorcerer → Master of Sorcery) REPLACES the base
+                    model, so the card title shows the evolved name directly — no arrow. */}
                 <span className="font-cinzel text-white font-bold text-base uppercase tracking-wider leading-tight">
-                  {item.customName || u.name}
+                  {item.customName || (variant ? variant.name : u.name)}
                 </span>
                 {item.customName && (
-                  <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>
+                  <span className="text-zinc-500 font-normal text-[10px]">({variant ? variant.name : u.name})</span>
                 )}
-                {variant && (
-                  <span className="text-amber-600 font-normal text-xs">→ {variant.name}</span>
+                {variant && !item.customName && (
+                  <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>
                 )}
                 <button
                   onClick={() => setEditingName(true)}
@@ -1185,16 +1187,31 @@ export function UnitCard({ item }: Props) {
             if (g.variant_link) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
               const variantModel = u.variant_models.find(vm => vm.name === g.variant_link);
+              // "Unique per army" variant promotions (datasheet-verbatim, e.g. Master of Sorcery):
+              // once ANY other entry in the roster (primary or allied — Core L1837: allying with
+              // the same faction still counts as one army for "once per army" upgrades) has this
+              // variant active, block picking it here instead of only flagging a validation error.
+              const uniqueTakenElsewhere = !!g.is_unique_per_army && !active && army.some(e => {
+                if (e.id === item.id) return false;
+                const eu = resolveUnit(e, data);
+                if (!eu) return false;
+                return eu.option_groups.some((og, ogi) =>
+                  og.is_unique_per_army && og.variant_link === g.variant_link && !!e.optionQty?.[ogi]?.['__inline']);
+              });
               return (
                 <details key={realGi} open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
                   <summary className="cursor-pointer px-2 py-1.5 flex items-center gap-2 select-none bg-zinc-800/60 border-b border-zinc-700/60">
                     <input
                       type="checkbox"
                       checked={active}
+                      disabled={uniqueTakenElsewhere}
                       onClick={e => e.stopPropagation()}
-                      onChange={() => setQty(realGi, '__inline', active ? 0 : 1)}
+                      onChange={() => { if (!uniqueTakenElsewhere) setQty(realGi, '__inline', active ? 0 : 1); }}
                     />
-                    <span className="font-cinzel text-[11px] text-zinc-100 uppercase tracking-wider flex-1">{g.variant_link ?? g.header}</span>
+                    <span className={`font-cinzel text-[11px] uppercase tracking-wider flex-1 ${uniqueTakenElsewhere ? 'text-zinc-600' : 'text-zinc-100'}`}>{g.variant_link ?? g.header}</span>
+                    {uniqueTakenElsewhere && (
+                      <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-zinc-700 bg-zinc-900/60 text-zinc-500 shrink-0">{t('uniqueTakenBadge')}</span>
+                    )}
                     {(u.champion_has_armory || /armory|champion|sergeant|leader/i.test(g.header)) && (
                       <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-amber-700/60 bg-amber-900/20 text-amber-400 shrink-0">{t('championBadge')}</span>
                     )}
