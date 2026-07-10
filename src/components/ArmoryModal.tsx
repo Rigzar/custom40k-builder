@@ -365,7 +365,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Veteran slot tracking for armory items — independent of whether the faction has traits
   const armoryVetEnabled = effectiveHasVetAbilities ?? unit.has_veteran_abilities;
   // Marks count as 1 veteran ability for ALL units — locked-mark units use veteran_max:1 in data instead
-  const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!rule?.grantsMarkPurchase;
+  // grantsMarkPurchase is an archetype grant — read the archetype governing THIS item's own
+  // detachment (ally rule for allied-scope units), never the primary's unconditionally.
+  const itemRule = item.factionSource ? getArchetypeRule(alliedArchetype) : rule;
+  const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!itemRule?.grantsMarkPurchase;
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
   // Henchman Warband: every specialist sheet grants "one Veteran ability" PER SPECIALIST TYPE
   // present in the unit, not a flat per-unit pool — count distinct model types with count > 0.
@@ -480,9 +483,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const activeLegionKeys = isAllied ? allyLegacyLegionKeys : [...legacyLegionKeys, ...grantedArchetypeKeys];
   const hasLegion = activeLegionKeys.length > 0;
 
-  // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE
-  const isMixedWarband = traitPool.some(n =>
-    data!.traits.find(t => t.name === n)?.enables_second_legacy
+  // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE.
+  // Scoped to the item's OWN detachment — an allied unit reads its ally trait pool + faction data,
+  // never the primary army's (a same-faction ally could otherwise inherit the primary's Mixed
+  // Warband state, or an allied CSM unit miss its own).
+  const isMixedWarband = effectiveTraitPool.some(n =>
+    activeData!.traits.find(t => t.name === n)?.enables_second_legacy
   );
   const hasTwoLegacies = activeLegionKeys.length >= 2;
   const mixedWarbandActive = isMixedWarband && hasTwoLegacies;
@@ -562,6 +568,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const rosterArmoryItemNames = [
     ...army.flatMap(e => e.armory.map(a => a.itemName)),
     ...inquisitionLegacyOrdoUnlocks(legacy),
+    // Allied Inquisition uses its OWN Army Customisation Legacy (alliedLegacy), not the primary
+    // army's — so its Ordo Hereticus/Malleus/Xenos wargear (Purified weapon etc.) is unlocked from
+    // there. Without this, an allied Inquisition never saw any Ordo-gated armory item (reported:
+    // IG + Inquisition ally, "Purified weapon not selectable"). Only Inquisition units carry
+    // Ordo-gated items, so adding these army-wide names is harmless to the primary faction.
+    ...inquisitionLegacyOrdoUnlocks(alliedLegacy),
     ...(chamberMilitantOrdoName ? inquisitionLegacyOrdoUnlocks(chamberMilitantOrdoName) : []),
   ];
 
@@ -666,8 +678,10 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               {t('authorityTabLabel')}
             </button>
           )}
-          {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines */}
-          {rule?.armoryOnlyFaction && (
+          {/* Archetype-granted cross-faction armory — e.g. IG Traitor Guard → Chaos Space Marines.
+              PRIMARY-archetype grant only: an allied unit uses its own Army Customisation, so the
+              primary archetype's foreign-armory tab must not appear on allied-scope units. */}
+          {!isAllied && rule?.armoryOnlyFaction && (
             <button
               onClick={() => setTab('archetypeArmory')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors

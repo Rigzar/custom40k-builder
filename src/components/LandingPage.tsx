@@ -13,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v147_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v148_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.47: Allied Detachment overhaul + SM weapon fixes',
-    intro: 'Seven engine bugs in the Allied Detachment system have been corrected: archetype hqOverride, forcedMark bleed from the primary army, trait pool bypass for same-faction allies, Elites/Fast Attack/Heavy Support slot scaling, and legacy armory access for allied units. Space Marine multi-profile weapons (Missile launcher, Plasma cannon) no longer appear as ghost weapons when no weapon is selected.',
-    line1: '⬡ Allied Detachment: archetypes with hqOverride (e.g. Circle of Sorcerers) now correctly unlock the extra HQ slots. ⬡ Allied traits/legacies: selecting a Legacy in the Allied tab now unlocks that Legacy\'s armory for the ally\'s units. ⬡ forcedMark: the primary army\'s forced mark (e.g. Plaguehost → Nurgle) no longer bleeds onto allied units.',
-    line2: '⬡ Slot scaling: Allied Elites/FA/HS caps now scale with allied Troop count (Core Rules: +1 per Troop beyond 1). ⬡ Same-faction allies: a CSM + CSM detachment now correctly uses its own allied trait pool instead of the primary\'s. ⬡ Space Marines: Dreadnought, Redemptor, Terminators, Tacticals, Devastators, Scouts and others no longer show ghost weapon profiles.',
+    title: 'v1.48: Allied Detachment full scope overhaul',
+    intro: 'A full audit of the Allied Detachment system: every place that read the primary army\'s archetype, legacy or traits for allied units has been corrected — allies now truly use their own Army Customisation everywhere. Also fixed: equipment stat stacking (Jump packs no longer add +6" movement per copy).',
+    line1: '⬡ Allied Inquisition: Ordo Hereticus/Malleus/Xenos wargear (e.g. Purified weapon) now unlocks from the ally\'s own Legacy. ⬡ Troops 25%: the primary army\'s minimum is now computed on the primary detachment\'s own points, not the whole army\'s — each detachment follows its own AOP rules. ⬡ Elites/FA/HS: the false "over max 1" error is gone; caps scale with the ally\'s Troop count.',
+    line2: '⬡ Allied scope sweep: mark purchase, archetype armory tab, archetype-gated options, forcedMark validation and the per-unit trait picker all now read the ally\'s own detachment. ⬡ Equipment stacking: buying the same stat item for several models (e.g. Jump packs) no longer multiplies the bonus on the profile.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.47: Verbündetes Detachement Überarbeitung + SM Waffen-Fixes',
-    intro: 'Sieben Engine-Fehler im Verbündeten Detachement wurden behoben: Archetype hqOverride, forcedMark-Bleeding aus der Hauptarmee, Trait-Pool-Bypass für gleichfraktionelle Verbündete, Eliten/Schnellangriff/Schwere-Unterstützung-Slot-Skalierung und Legacy-Armory-Zugriff für verbündete Einheiten. SM-Mehrprofil-Waffen erscheinen nicht mehr als Geister-Waffen.',
-    line1: '⬡ Verbündetes Detachement: Archetypen mit hqOverride (z.B. Zirkel der Zauberer) entsperren nun korrekt die Extra-HQ-Slots. ⬡ Verbündete Traits/Vermächtnisse: Ein Legacy im Verbündeten-Tab entsperrt nun die Legacy-Rüstkammer für verbündete Einheiten. ⬡ forcedMark: Das Zwangszeichen der Hauptarmee blutet nicht mehr auf verbündete Einheiten.',
-    line2: '⬡ Slot-Skalierung: Verbündete Eliten/SA/SU-Caps skalieren nun mit der verbündeten Truppen-Anzahl. ⬡ Gleichfraktionelle Verbündete: Ein CSM+CSM-Detachement nutzt nun korrekt seinen eigenen Trait-Pool. ⬡ Space Marines: Dreadnought, Terminator, Taktiker usw. zeigen keine Geister-Waffenprofile mehr.',
+    title: 'v1.48: Verbündetes Detachement — vollständige Überarbeitung',
+    intro: 'Ein vollständiges Audit des Verbündeten-Systems: Jede Stelle, die für verbündete Einheiten Archetyp, Vermächtnis oder Traits der Hauptarmee las, wurde korrigiert — Verbündete nutzen nun überall wirklich ihre eigene Armee-Anpassung. Ebenfalls behoben: Ausrüstungs-Stat-Stacking (Sprungmodule addieren nicht mehr +6" Bewegung pro Exemplar).',
+    line1: '⬡ Verbündete Inquisition: Ordo-Ausrüstung (z.B. Geläuterte Waffe) wird nun vom eigenen Vermächtnis des Verbündeten freigeschaltet. ⬡ 25% Truppen: Das Minimum der Hauptarmee wird nun auf die eigenen Punkte des Haupt-Detachements berechnet, nicht auf die Gesamtarmee — jedes Detachement folgt seinen eigenen AOP-Regeln. ⬡ Eliten/SA/SU: Der falsche "über Max 1"-Fehler ist weg; Caps skalieren mit der Truppen-Anzahl des Verbündeten.',
+    line2: '⬡ Verbündeten-Scope-Sweep: Malkauf, Archetyp-Rüstkammer-Tab, archetyp-abhängige Optionen, forcedMark-Validierung und die Trait-Auswahl pro Einheit lesen nun das eigene Detachement des Verbündeten. ⬡ Ausrüstungs-Stacking: Dasselbe Stat-Item für mehrere Modelle (z.B. Sprungmodule) multipliziert den Bonus im Profil nicht mehr.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.47: Revisión del Destacamento Aliado + correcciones de armas SM',
-    intro: 'Se han corregido siete bugs del motor en el sistema de Destacamento Aliado: hqOverride de arquetipos, sangrado de forcedMark desde el ejército principal, bypass del pool de rasgos en aliados de la misma facción, escala de slots de Élite/Ataque Rápido/Apoyo Pesado, y acceso al armario de Legacy para unidades aliadas. Las armas de perfil múltiple de Marines Espaciales ya no aparecen como armas fantasma.',
-    line1: '⬡ Destacamento Aliado: los arquetipos con hqOverride (ej. Círculo de Hechiceros) ahora desbloquean correctamente los slots de HQ extra. ⬡ Rasgos/Legados aliados: seleccionar un Legado en la pestaña Aliado ahora desbloquea el armario de ese Legado para las unidades aliadas. ⬡ forcedMark: la marca forzada del ejército principal (ej. Plaguehost → Nurgle) ya no se aplica a unidades aliadas.',
-    line2: '⬡ Escala de slots: los límites de Élite/AR/AP del aliado ahora escalan con el número de Tropas aliadas (Reglas Básicas: +1 por Tropa más allá de 1). ⬡ Aliados de la misma facción: un destacamento CSM+CSM usa ahora correctamente su propio pool de rasgos aliado. ⬡ Marines Espaciales: Dreadnought, Terminator, Tácticos y otros ya no muestran perfiles de arma fantasma.',
+    title: 'v1.48: Revisión completa del Destacamento Aliado',
+    intro: 'Auditoría completa del sistema de Destacamento Aliado: se corrigió cada punto que leía el arquetipo, legado o rasgos del ejército principal para unidades aliadas — los aliados ahora usan de verdad su propia Personalización de Ejército en todas partes. También corregido: el apilado de stats de equipo (los Jump packs ya no suman +6" de movimiento por copia).',
+    line1: '⬡ Inquisición aliada: el equipo de Ordo Hereticus/Malleus/Xenos (ej. Purified weapon) ahora se desbloquea desde el Legado propio del aliado. ⬡ 25% de Tropas: el mínimo del ejército principal se calcula ahora sobre los puntos del destacamento principal, no de todo el ejército — cada destacamento sigue sus propias reglas de AOP. ⬡ Élite/AR/AP: eliminado el error falso "supera máx. 1"; los límites escalan con las Tropas del aliado.',
+    line2: '⬡ Barrido de scope aliado: compra de marcas, pestaña de armería de arquetipo, opciones condicionadas a arquetipo, validación de forcedMark y el selector de rasgos por unidad leen ahora el destacamento propio del aliado. ⬡ Apilado de equipo: comprar el mismo objeto con stats para varios modelos (ej. Jump packs) ya no multiplica el bonus en el perfil.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };

@@ -101,7 +101,7 @@ function computeAopMult(
 export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'primary' | 'allied'; alliedFactionKey?: string }) {
   const store = useArmyStore();
   const isAllied = scope === 'allied';
-  const { army, engagement, hqMark, addUnit, alliedFaction, legacy, legacy2 } = store;
+  const { army, engagement, hqMark, addUnit, alliedFaction, legacy, legacy2, alliedLegacy } = store;
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const t = useT();
 
@@ -300,6 +300,9 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   const rosterArmoryItemNames = [
     ...army.flatMap(e => e.armory.map(a => a.itemName)),
     ...inquisitionLegacyOrdoUnlocks(legacy),
+    // Allied Inquisition unlocks its Ordo armory/units from its OWN Legacy (alliedLegacy), mirroring
+    // ArmoryModal — without this an allied Inquisition's Ordo-gated content stays hidden.
+    ...inquisitionLegacyOrdoUnlocks(alliedLegacy),
     ...(chamberMilitantOrdoName ? inquisitionLegacyOrdoUnlocks(chamberMilitantOrdoName) : []),
   ];
 

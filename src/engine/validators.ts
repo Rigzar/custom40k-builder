@@ -1449,12 +1449,15 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
-    // Use the same priority as the resolver: locked mark > archetype forcedMark > chosen mark
-    const mark = u.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
+    // Use the same priority as the resolver: locked mark > archetype forcedMark > chosen mark.
+    // Scoped to the item's OWN detachment: an allied unit's forcedMark and scope-'archetype'
+    // conditions come from the ALLY's archetype, never the primary's.
+    const itemRule = effectiveRuleFor(item, state);
+    const mark = u.locked_mark ?? (itemRule?.forcedMark ?? null) ?? item.mark;
     u.option_groups.forEach((g, gi) => {
       if (!g.available_if) return;
       const selected = Object.entries(item.optionQty?.[gi] ?? {}).some(([, v]) => (v ?? 0) > 0);
-      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction, state.archetype)) {
+      if (selected && !isOptionAvailable(g.available_if, mark, u.keywords, data.faction, effectiveArchetypeFor(item, state))) {
         const reason = g.available_if.scope === 'unit'
           ? T('valOptionNotAvailableMark', { unit: item.unitName, header: g.header, mark: g.available_if.keyword })
           : g.available_if.scope === 'archetype'
@@ -1971,14 +1974,26 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           }, 0)
       : 0;
     const troopsPts = baseTroopsPts + transportBonus;
-    const ratio = troopsPts / total;
+    // Each detachment has its OWN AOP rules even though they share one point pool (Core Rules:
+    // the primary AOP's "25% of the played points on Troop units" is a PRIMARY-army rule; the
+    // Allied AOP has no percentage rule at all). So the denominator is the PRIMARY detachment's
+    // own points — `total` includes the ally's points (resolveUnit finds ally units via the
+    // merged data.allied catalog), which used to inflate the requirement (e.g. 1500 primary +
+    // 500 ally demanded 500 pts of primary Troops instead of 375). Integrated supplements (HH)
+    // ARE part of the primary detachment and stay counted.
+    const primaryTotal = state.army.reduce((s, i) => {
+      if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return s;
+      const u = resolveUnit(i, data);
+      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
+    }, 0);
+    const ratio = primaryTotal > 0 ? troopsPts / primaryTotal : 1;
     const label = (rule && rule.troopsCount !== 'all')
       ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : rule.troopsRemap.join('/')})`
       : 'Troops';
     if (ratio < eng.minTroopsRatio) {
       items.push({
         type: 'error',
-        text: T('valTroopsRatioFail', { label, pct: (ratio * 100).toFixed(1), needPts: Math.ceil(total * eng.minTroopsRatio) }),
+        text: T('valTroopsRatioFail', { label, pct: (ratio * 100).toFixed(1), needPts: Math.ceil(primaryTotal * eng.minTroopsRatio) }),
       });
     } else {
       items.push({ type: 'ok', text: T('valTroopsRatioOk', { label, pct: (ratio * 100).toFixed(1) }) });
@@ -2421,10 +2436,19 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // units' slots resolve here, never the primary's `rule` — getSlotUsage's getEffectiveSlot
       // call needs the matching rule for whichever side it's counting.
       const allyRuleForAop = getArchetypeRule(state.alliedArchetype);
+      // Core Rules L1832 (Allied AOP): "For each Troop unit, one Elite, Fast Attack, or Heavy
+      // Support unit may be chosen." User ruling 2026-07-10 (rules author): the per-slot cap for
+      // Elites/Fast Attack/Heavy Support SCALES with the number of allied Troop units — 2 Troops
+      // means up to 2 Elites AND 2 Fast Attack AND 2 Heavy Support (each slot independently), not a
+      // flat 1. Codex may override Core (FAQ #5). So these three slots are NOT capped by the flat
+      // ALLIED_AOP max of 1 — their effective max is the allied Troop count.
+      const troopScaledSlots: readonly string[] = ['Elites', 'Fast Attack', 'Heavy Support'];
+      const alliedTroops = getSlotUsage(state.army, data, 'Troops', allyRuleForAop, state.alliedFaction, true, state.engagement);
       for (const slot of SLOT_ORDER) {
-        const [min, max] = slot === 'HQ'
+        const [min, baseMax] = slot === 'HQ'
           ? getEffectiveHqLimits(allyRuleForAop, ALLIED_AOP['HQ'] as [number, number])
           : ALLIED_AOP[slot];
+        const max = troopScaledSlots.includes(slot) ? alliedTroops : baseMax;
         const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
         if (min > 0 && used < min) {
           items.push({ type: 'error', text: T('valAlliedNeedAtLeast', { min, slot, used }) });
@@ -2434,18 +2458,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           if (used > alliedMax) {
             items.push({ type: 'error', text: T('valAlliedTransportOverMax', { used, max: alliedMax }) });
           }
+        } else if (troopScaledSlots.includes(slot) && used > max) {
+          // Elite/FA/HS over the Troop-scaled cap: report against the Troop count so the message
+          // explains WHY (1 slot per Troop), not a misleading flat "max 1".
+          items.push({ type: 'error', text: T('valAlliedRatioExceedsTroops', { slot, used, troops: alliedTroops }) });
         } else if (max === 0 && used > 0) {
           items.push({ type: 'error', text: T('valAlliedSlotNotAllowed', { slot, used }) });
         } else if (max > 0 && used > max) {
           items.push({ type: 'error', text: T('valAlliedSlotOverMax', { slot, used, max }) });
-        }
-      }
-      // Elites / Fast Attack / Heavy Support limited to 1 each, but +1 per Troop unit beyond 1
-      const alliedTroops = getSlotUsage(state.army, data, 'Troops', allyRuleForAop, state.alliedFaction, true, state.engagement);
-      for (const slot of ['Elites', 'Fast Attack', 'Heavy Support'] as const) {
-        const used = getSlotUsage(state.army, data, slot, allyRuleForAop, state.alliedFaction, true, state.engagement);
-        if (used > alliedTroops) {
-          items.push({ type: 'error', text: T('valAlliedRatioExceedsTroops', { slot, used, troops: alliedTroops }) });
         }
       }
     }

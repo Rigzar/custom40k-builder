@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.48',
+    date: '2026-07-10',
+    title: 'GENERAL — Allied Detachment full scope overhaul + equipment stacking fix',
+    changes: [
+      'Inquisition — fix: an allied Inquisition detachment could not access its Ordo Hereticus/Malleus/Xenos wargear (e.g. Purified weapon) even with the Ordo Legacy set — the Ordo armory unlock (requires_army_item gate) was read only from the PRIMARY army\'s Legacy, never from the ally\'s own alliedLegacy; the roster armory-item gate in both the armory and the slot panel now also unlocks Ordo items from the allied Legacy (GH#67, reported: Imperial Guard + Inquisition ally)',
+      'GENERAL — fix: Allied Detachment Elites/Fast Attack/Heavy Support raised a false "over max 1" error when Troop count allowed more — the validator ran two conflicting checks (a flat ALLIED_AOP cap of 1 AND a Troop-scaled cap), so 2 Troops + 2 Elites was wrongly rejected by the flat check; the flat cap no longer applies to those three slots — their effective max is the allied Troop count (1 slot per Troop unit), matching the SlotPanel counter',
+      'GENERAL — fix: the primary army\'s 25% Troops minimum divided by the WHOLE army\'s points (ally included) instead of the primary detachment\'s own total — detachments share one point pool but each AOP has its own rules, so e.g. 1500 pts primary + 500 pts ally wrongly demanded 500 pts of primary Troops instead of 375; the ratio and the "need N pts" message now use the primary detachment\'s own points (integrated supplements like Horus Heresy still count as primary)',
+      'GENERAL — fix: buying multiple copies of the same stat-modifying armory equipment stacked the stat bonus on the unit profile — e.g. 3 Jump packs on Kill Team Veterans showed M +18" instead of +6" (each copy belongs to a different model, so the one-model profile must apply the effect exactly once); equipment stat effects are now deduplicated by item name across all factions (GH#66)',
+      'GENERAL — fix: Mixed Warband (2nd-legacy trait) detection in the armory read the PRIMARY army\'s trait pool and faction data even for allied units, so an allied detachment\'s own Mixed Warband state was wrong (a same-faction ally could inherit the primary\'s, or an allied CSM unit miss its own); it now reads the item\'s own detachment trait pool and faction data',
+      'GENERAL — Allied Detachment scope sweep: 5 more places read the PRIMARY army\'s archetype/legacy/traits for allied units — grantsMarkPurchase in the armory, the archetype foreign-armory tab (shown on ally units), scope-\'archetype\' option conditions (UnitCard + validator, e.g. Kroot Master Shaper\'s Kroot Hunting Pack option when Tau is the ally), forcedMark in the option-condition validator, and the per-unit trait picker (TraitsModal listed the primary\'s trait pool for allied units); all now use the item\'s own detachment scope',
+    ],
+  },
+  {
     version: '1.47',
     date: '2026-07-09',
     title: 'Campaign API fixes + Allied Detachment bug sweep',
@@ -38,6 +51,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — fix: Allied Detachment Elites/Fast Attack/Heavy Support slot counter always showed a hard cap of 1 (from ALLIED_AOP); Core Rules grant +1 per Troop beyond 1, so the effective max now scales with the allied Troop count (1 Troop → max 1, 2 Troops → max 2) — matching the validator',
       'Space Marines — fix: multi-profile weapons (Missile launcher and Plasma cannon) were named with parenthetical suffixes "(Frag)", "(Krak)", "(Standard)", "(Overcharged)", "(Overheating)" instead of the " - Profile" dash convention; the resolver\'s baseName() strips only " - " separators, so these profiles were never recognised as gated by their option group and always appeared in the weapon list regardless of which weapon was selected (ghost weapons on Dreadnought, Redemptor, Terminators, Tacticals, Devastators, Scouts, Kill Team Veterans, Wolf Scouts, Centurion Devastators, Captain/Chaplain Dreadnoughts); renamed to "Weapon - Profile" across all 11 affected files',
       'GENERAL — fix: Allied Detachment units had no access to their own faction\'s Legacy armory — ArmoryModal hardcoded activeLegionKeys=[] for all allied units, so selecting a Legacy in an Allied Detachment\'s Army Customisation never unlocked that Legacy\'s armory tab for the ally\'s units; the armory now reads alliedLegacy and the ally faction\'s own armory_legions to derive the active legacy key for allied-scope units',
+      'GENERAL — fix: removed the bogus "Troops must be ≥25% of the ally\'s own total" error on Allied Detachments — the Core Rules 25% Troops minimum applies only to the primary army\'s AOP; the Allied AOP requires 1-2 Troop units by count, no percentage',
     ],
   },
   {

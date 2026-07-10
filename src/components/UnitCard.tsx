@@ -244,9 +244,14 @@ export function UnitCard({ item }: Props) {
   };
   // Only count mark groups whose host condition holds — a Horus Heresy unit's Mark-of-Chaos
   // group (available_if: Chaos Space Marines force) must not show under a Space Marine host.
+  // scope 'archetype' conditions must check the archetype governing THIS item's own detachment
+  // (ally archetype for allied-scope units — e.g. Kroot Master Shaper's "Kroot Hunting Pack"
+  // option when Tau is the ALLY); scope 'force' stays on the PRIMARY faction by design (its only
+  // data user is the integrated HH supplement, whose host is the primary army).
+  const itemArchetype = effectiveArchetypeFor(item, store);
   const hasMarkGroup = u.option_groups.some(g =>
     g.constraint.type === 'mark' &&
-    isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype));
+    isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype));
   const hasMarks = Object.keys(data.animosity).length > 0;
   // Armory access gated behind a variant promotion (e.g. Traitor Sergeant, Aspiring Champion —
   // header says "...gains access to [weapons and gear from] the Armory") is shown inside that
@@ -1154,7 +1159,7 @@ export function UnitCard({ item }: Props) {
             // "if part of a Space Marine army" option is hidden under a Chaos Space Marine host.
             // Unit-scope conditions stay visible-but-disabled below (validated UX); force-scope is hidden.
             if ((g.available_if?.scope === 'force' || g.available_if?.scope === 'archetype') &&
-                !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype)) return null;
+                !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype)) return null;
 
             // Required OG warning: show if nothing is selected
             const isRequired = g.constraint.required;
@@ -1216,7 +1221,7 @@ export function UnitCard({ item }: Props) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
               // Keyword-gated availability (BSData condition primitive). effectiveMark is the
               // resolver output — covers locked mark, archetype-forced mark, and chosen mark.
-              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, archetype);
+              const blocked = !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype);
               return (
                 <div key={realGi} className={`border-l-2 ${active ? 'border-amber-700/70' : 'border-zinc-700/50'} ${blocked ? 'opacity-50' : ''} transition-colors`}>
                   <label

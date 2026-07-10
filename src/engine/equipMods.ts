@@ -78,7 +78,21 @@ export function parseEquipMods(
     const a = readSaves(it.desc), b = readSaves(activeArmour.desc);
     if (a.sv < b.sv || (a.sv === b.sv && a.inv < b.inv)) activeArmour = it;
   }
-  const effective = items.filter(i => !i.armourKeyword || i === activeArmour);
+  const rawEffective = items.filter(i => !i.armourKeyword || i === activeArmour);
+
+  // GENERAL (GH#66): multiple copies of the SAME item exist because each MODEL in the squad
+  // carries its own copy (per-model armory access, e.g. Kill Team Veterans buying one Jump pack
+  // per model) — the displayed profile shows ONE model's stats, so a same-named item's stat
+  // effect must apply exactly once, never once per copy (3 Jump packs used to show M +18").
+  // Safe to dedupe unconditionally: the only "Can be taken multiple times" items with stat text
+  // are the weapon-relic gateways ("One weapon of the model gains ..."), which AURA_PHRASES
+  // already excludes from bearer stat deltas.
+  const seenNames = new Set<string>();
+  const effective = rawEffective.filter(i => {
+    if (seenNames.has(i.name)) return false;
+    seenNames.add(i.name);
+    return true;
+  });
 
   for (const it of effective) {
     const desc = it.desc;

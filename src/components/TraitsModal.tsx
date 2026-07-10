@@ -16,7 +16,12 @@ interface Props {
  * subset of the army's unit traits to assign to this unit.
  */
 export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props) {
-  const { data, traitPool, setUnitTraitChoice } = useArmyStore();
+  const { data: primaryData, alliedData, alliedFaction, traitPool: primaryTraitPool, alliedTraitPool, setUnitTraitChoice } = useArmyStore();
+  // An allied unit picks from its OWN detachment's trait pool and trait definitions (Core Rules:
+  // allies use their own Army Customisation), never the primary army's.
+  const isAllied = !!item.factionSource && item.factionSource === alliedFaction;
+  const data = isAllied ? alliedData : primaryData;
+  const traitPool = isAllied ? (alliedTraitPool ?? []) : primaryTraitPool;
   if (!data) return null;
 
   const maxTraits = Math.max(0, (unit.veteran_max ?? 2) - (markUsesSlot ? 1 : 0));
