@@ -13,7 +13,7 @@ export const chimera: Unit = {
   "models": [
     {
       "name": "Chimera",
-      "points": 201,
+      "points": 186,
       "min": 1,
       "max": 1,
       "stats": {
@@ -151,5 +151,5 @@ export const chimera: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 201
+  "min_cost": 186
 };

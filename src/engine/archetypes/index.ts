@@ -245,7 +245,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     lowMoveMustEmbark: { creatureOnly: true },
     slotCapOverride: { slot: 'Heavy Support', max: 1 },
     notes: [
-      'Dedicated Transports from Mechanised Infantry squads count at 50% of their points toward the 25% Troops requirement.',
+      'Transport vehicles from Mechanised Infantry squads count at 75% of their points toward the 25% Troops requirement (50% by default without this archetype).',
       'All creature units with M<12" must start the game as passengers inside a transport.',
       'May only take a single Heavy Support selection.',
       'Leman Russ Tank Commander and Leman Russ Commissar cannot be selected.',

@@ -1961,17 +1961,32 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
         return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
       }, 0);
-    // Mechanised Company: Dedicated Transports count at 50% toward the Troops 25%
-    const transportBonus = state.archetype === 'Mechanised Company'
+    // Transport vehicles "from Mechanised Infantry" count toward the 25% Troops requirement
+    // (Imperial Guard 1.01.ods): 50% of their point cost BY DEFAULT, raised to 75% by the
+    // "Mechanised Company" archetype. Transports aren't parent-linked in the roster model, so
+    // this counts up to (number of Mechanised Infantry units) Dedicated Transport entries —
+    // each Mechanised Infantry "must select a transport" — taking the most expensive ones.
+    const isImperialGuard = data.faction === 'Imperial Guard';
+    const mechInfCount = isImperialGuard
+      ? state.army.filter(i =>
+          i.unitName === 'Mechanised Infantry' &&
+          !(state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)),
+        ).length
+      : 0;
+    const transportPct = state.archetype === 'Mechanised Company' ? 0.75 : 0.5;
+    const transportBonus = mechInfCount > 0
       ? state.army
           .filter(i => {
             if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return false;
             return i.slot === 'Dedicated Transport';
           })
-          .reduce((s, i) => {
+          .map(i => {
             const u = resolveUnit(i, data);
-            return s + (u ? Math.floor(computeUnitPoints(i, u, state.archetype) * 0.5) : 0);
-          }, 0)
+            return u ? computeUnitPoints(i, u, state.archetype) : 0;
+          })
+          .sort((a, b) => b - a)
+          .slice(0, mechInfCount)
+          .reduce((s, pts) => s + Math.floor(pts * transportPct), 0)
       : 0;
     const troopsPts = baseTroopsPts + transportBonus;
     // Each detachment has its OWN AOP rules even though they share one point pool (Core Rules:

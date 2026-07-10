@@ -101,3 +101,13 @@ export const FACTION_DESCRIPTIONS: Record<string, string> = {
 export function getFactionDescription(key: string): string {
   return FACTION_DESCRIPTIONS[key] ?? 'Description coming soon.';
 }
+
+/** Codex document version, from each faction's canonical .ods title. Only factions whose .ods
+ *  carries a version in its title are listed; others render without a version badge. */
+export const FACTION_VERSIONS: Record<string, string> = {
+  imperial_guard: '1.01',
+};
+
+export function getFactionVersion(key: string): string | undefined {
+  return FACTION_VERSIONS[key];
+}

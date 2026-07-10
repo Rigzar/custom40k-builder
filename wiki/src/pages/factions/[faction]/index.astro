@@ -2,7 +2,7 @@
 import Layout from '../../../components/Layout.astro';
 import { ALL_FACTIONS } from '../../../lib/factions';
 import { getFactionExtras } from '../../../lib/factionExtras';
-import { getFactionDescription } from '../../../lib/factionMeta';
+import { getFactionDescription, getFactionVersion } from '../../../lib/factionMeta';
 import { ARMY_RULES } from '../../../lib/armyRules';
 
 export async function getStaticPaths() {
@@ -21,6 +21,7 @@ const hasPsychic = Object.keys(disciplines).length > 0;
 const hasPrayers = (prayers && prayers.length > 0) || (pacts && pacts.length > 0);
 
 const description = getFactionDescription(factionKey!);
+const codexVersion = getFactionVersion(factionKey!);
 const hasWarbands = factionKey === 'inquisition';
 
 const PRAYER_LABELS: Record<string, string> = {
@@ -91,6 +92,7 @@ const TAG_COLORS: Record<string, string> = {
   <div class="hub">
     <img src={`/faction-symbols/${config.symbol}`} alt={config.label} class="hub-symbol" width="140" height="140" />
     <h1 class="hub-title">{config.label}</h1>
+    {codexVersion && <p class="hub-version">Codex v{codexVersion}</p>}
 
     {/* ── Description card with side servo skull ── */}
     <div class="desc-outer reveal">
@@ -250,7 +252,12 @@ const TAG_COLORS: Record<string, string> = {
     object-fit: contain; margin-bottom: 0.8rem;
     animation: symbol-emerge 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .hub-title { margin: 0 0 0.6rem; animation: title-reveal 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hub-title { margin: 0 0 0.4rem; animation: title-reveal 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hub-version {
+    margin: 0 0 0.6rem; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #b8945a; opacity: 0.85;
+    animation: title-reveal 0.9s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
 
   /* ── Description card with side servo skull ── */
   .desc-outer {

@@ -13,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v148_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v149_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.48: Allied Detachment full scope overhaul + Command squad',
-    intro: 'A full audit of the Allied Detachment system: every place that read the primary army\'s archetype, legacy or traits for allied units has been corrected — allies now truly use their own Army Customisation everywhere, including trait effects on unit profiles. The "Command squad" ability is now fully modelled, and equipment stat stacking is fixed (Jump packs no longer add +6" movement per copy).',
-    line1: '⬡ Command squad: models with the ability (innate or archetype-granted, e.g. Sorcerer Circle\'s Chaos Sorcerers) can now join a lone character, and the grant is shown on the unit profile. ⬡ Allied traits: an ally\'s trait effects (stats, saves, abilities) now actually apply to its units\' profiles. ⬡ Allied Inquisition: Ordo wargear (e.g. Purified weapon) now unlocks from the ally\'s own Legacy.',
-    line2: '⬡ Troops 25%: the primary army\'s minimum is computed on the primary detachment\'s own points — each detachment follows its own AOP rules. ⬡ Elites/FA/HS: the false "over max 1" error is gone; caps scale with the ally\'s Troop count. ⬡ Equipment stacking: buying the same stat item for several models no longer multiplies the bonus on the profile.',
+    title: 'v1.49: Imperial Guard codex 1.01',
+    intro: 'The Imperial Guard codex has been updated to version 1.01 (shown on the faction button and the wiki), with three new units, a Chimera point correction, and reworked Mechanised Infantry transport rules. The wiki\'s Core Rules also gained the full Allied Detachment AOP, deployment sequence, and a "Playing Your First Game" guide.',
+    line1: '⬡ New units: Centaur RSV (Transport, 105 pts), Vigilator RSV (Transport, 147 pts, Aquiline Prow), Hippogriff AFV (Fast Attack squadron, 125 pts). ⬡ Chimera: 201 → 186 pts.',
+    line2: '⬡ Mechanised Infantry transports now count 50% of their points toward the 25% Troops requirement by default (75% under the Mechanised Company archetype), and may be any vehicle with a transport capacity. ⬡ Wiki: full ally matrix + AOP, deployment sequence, and first-game guide.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.48: Verbündetes Detachement — vollständige Überarbeitung + Kommandotrupp',
-    intro: 'Ein vollständiges Audit des Verbündeten-Systems: Jede Stelle, die für verbündete Einheiten Archetyp, Vermächtnis oder Traits der Hauptarmee las, wurde korrigiert — Verbündete nutzen nun überall wirklich ihre eigene Armee-Anpassung, einschließlich Trait-Effekten auf Einheitenprofilen. Die Fähigkeit "Kommandotrupp" ist nun vollständig modelliert, und Ausrüstungs-Stat-Stacking ist behoben (Sprungmodule addieren nicht mehr +6" Bewegung pro Exemplar).',
-    line1: '⬡ Kommandotrupp: Modelle mit der Fähigkeit (angeboren oder vom Archetyp verliehen, z.B. Chaos-Hexer des Zirkels der Zauberer) können sich nun einem einzelnen Charakter anschließen; die Fähigkeit wird im Profil angezeigt. ⬡ Verbündeten-Traits: Trait-Effekte des Verbündeten (Stats, Rettungswürfe, Fähigkeiten) wirken nun tatsächlich auf dessen Einheitenprofile. ⬡ Verbündete Inquisition: Ordo-Ausrüstung wird nun vom eigenen Vermächtnis freigeschaltet.',
-    line2: '⬡ 25% Truppen: Das Minimum der Hauptarmee wird auf die eigenen Punkte des Haupt-Detachements berechnet — jedes Detachement folgt seinen eigenen AOP-Regeln. ⬡ Eliten/SA/SU: Der falsche "über Max 1"-Fehler ist weg; Caps skalieren mit der Truppen-Anzahl. ⬡ Ausrüstungs-Stacking: Dasselbe Stat-Item für mehrere Modelle multipliziert den Bonus nicht mehr.',
+    title: 'v1.49: Imperiale Armee Codex 1.01',
+    intro: 'Der Codex der Imperialen Armee wurde auf Version 1.01 aktualisiert (angezeigt auf dem Fraktions-Button und im Wiki), mit drei neuen Einheiten, einer Chimäre-Punktekorrektur und überarbeiteten Transportregeln für Mechanisierte Infanterie. Die Kernregeln im Wiki erhielten außerdem den vollständigen Verbündeten-AOP, die Aufstellungssequenz und einen "Erstes Spiel"-Leitfaden.',
+    line1: '⬡ Neue Einheiten: Centaur RSV (Transport, 105 Pkt.), Vigilator RSV (Transport, 147 Pkt., Aquiline Prow), Hippogriff AFV (Schneller Angriff, Geschwader, 125 Pkt.). ⬡ Chimäre: 201 → 186 Pkt.',
+    line2: '⬡ Transporter der Mechanisierten Infanterie zählen nun standardmäßig 50% ihrer Punkte zur 25%-Truppenanforderung (75% mit dem Archetyp Mechanisierte Kompanie) und dürfen jedes Fahrzeug mit Transportkapazität sein. ⬡ Wiki: vollständige Allianzmatrix + AOP, Aufstellungssequenz und Erstspiel-Leitfaden.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.48: Revisión completa del Destacamento Aliado + Command squad',
-    intro: 'Auditoría completa del sistema de Destacamento Aliado: se corrigió cada punto que leía el arquetipo, legado o rasgos del ejército principal para unidades aliadas — los aliados ahora usan de verdad su propia Personalización de Ejército en todas partes, incluidos los efectos de rasgos en los perfiles. La habilidad "Command squad" está ahora completamente modelada, y corregido el apilado de stats de equipo (los Jump packs ya no suman +6" de movimiento por copia).',
-    line1: '⬡ Command squad: los modelos con la habilidad (innata u otorgada por arquetipo, ej. Chaos Sorcerers del Círculo de Hechiceros) pueden ahora unirse a un personaje solo, y la habilidad se muestra en el perfil. ⬡ Rasgos aliados: los efectos de los rasgos del aliado (stats, salvaciones, habilidades) ahora se aplican de verdad a los perfiles de sus unidades. ⬡ Inquisición aliada: el equipo de Ordo (ej. Purified weapon) se desbloquea desde el Legado propio del aliado.',
-    line2: '⬡ 25% de Tropas: el mínimo del ejército principal se calcula sobre los puntos del destacamento principal — cada destacamento sigue sus propias reglas de AOP. ⬡ Élite/AR/AP: eliminado el error falso "supera máx. 1"; los límites escalan con las Tropas del aliado. ⬡ Apilado de equipo: comprar el mismo objeto con stats para varios modelos ya no multiplica el bonus en el perfil.',
+    title: 'v1.49: Códex de la Guardia Imperial 1.01',
+    intro: 'El códex de la Guardia Imperial se ha actualizado a la versión 1.01 (visible en el botón de la facción y en la wiki), con tres unidades nuevas, una corrección de puntos del Chimera y reglas de transporte revisadas para la Infantería Mecanizada. Las Core Rules de la wiki también recibieron el AOP aliado completo, la secuencia de despliegue y una guía de "Tu primera partida".',
+    line1: '⬡ Unidades nuevas: Centaur RSV (Transporte, 105 pts), Vigilator RSV (Transporte, 147 pts, Aquiline Prow), Hippogriff AFV (Ataque Rápido, escuadrón, 125 pts). ⬡ Chimera: 201 → 186 pts.',
+    line2: '⬡ Los transportes de la Infantería Mecanizada cuentan ahora el 50% de sus puntos hacia el 25% de Tropas por defecto (75% con el arquetipo Compañía Mecanizada), y pueden ser cualquier vehículo con capacidad de transporte. ⬡ Wiki: matriz de aliados + AOP completos, secuencia de despliegue y guía de primera partida.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -120,6 +120,8 @@ interface FactionDef {
   name: string;
   available: boolean;
   status: FactionStatus;
+  /** Codex document version (from the faction's canonical .ods title), shown on the button. */
+  version?: string;
 }
 
 interface Category {
@@ -160,7 +162,7 @@ const CATEGORIES: Category[] = [
     pillFg: '#c8b56a', dividerColor: '#3a3520',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'testing', version: '1.01' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'testing' },
@@ -735,6 +737,11 @@ export function LandingPage({
                       <span className="text-[11px] leading-tight text-zinc-300">
                         {f.name}
                       </span>
+                      {f.version && (
+                        <span className="font-cinzel text-[8px] uppercase tracking-widest text-amber-600/80 -mt-1">
+                          v{f.version}
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>

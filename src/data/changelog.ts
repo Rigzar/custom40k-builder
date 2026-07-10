@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.49',
+    date: '2026-07-10',
+    title: 'Imperial Guard — codex 1.01 update (new units, Chimera, transport rules)',
+    changes: [
+      'Imperial Guard — codex updated to version 1.01 (shown on the faction button and the wiki).',
+      'Imperial Guard — new unit Centaur RSV (Dedicated Transport, 105 pts, Open, transport capacity 12).',
+      'Imperial Guard — new unit Vigilator RSV (Dedicated Transport, 147 pts, Open, Aquiline Prow, transport capacity 6; one per Commissar/Commissar Lord).',
+      'Imperial Guard — new unit Hippogriff AFV (Fast Attack squadron 1-2, 125 pts, Chiron gatling cannon + Heavy stubber with weapon swaps).',
+      'Imperial Guard — Chimera point correction: 201 → 186 pts.',
+      'Imperial Guard — transport vehicles from Mechanised Infantry now count 50% of their points toward the 25% Troops requirement by default (was 25%); the Mechanised Company archetype raises this to 75%.',
+      'Imperial Guard — Mechanised Infantry may now select any vehicle with a transport capacity as its transport.',
+    ],
+  },
+  {
     version: '1.48',
     date: '2026-07-10',
     title: 'GENERAL — Allied Detachment full scope overhaul + Command squad + equipment stacking',

@@ -208,7 +208,7 @@ export const mechanisedInfantry: Unit = {
   ],
   "option_groups": [
     {
-      "header": "The unit must select a dedicated transport vehicle and start the game in it. 25% (round up) of the transport's point cost are counted towards the 25% Troops requirement.",
+      "header": "The unit must select a transport vehicle (any vehicle with a transport capacity) and start the game in it. 50% (round up) of the transport's point cost are counted towards the 25% Troops requirement.",
       "constraint": {
         "type": "one"
       },
