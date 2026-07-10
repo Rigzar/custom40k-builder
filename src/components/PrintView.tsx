@@ -132,12 +132,20 @@ const NON_RULE_TOKENS = new Set([
 ]);
 
 function findArmoryItem(data: FactionData, name: string, factionSource?: string): ArmoryItem | undefined {
-  // For allied units, search in the allied faction's own armory, not the primary's.
-  const src = (factionSource && (data.allied as Record<string, FactionData>)?.[factionSource]) ?? data;
-  const sources = [src.armory_general, ...Object.values(src.armory_marks), ...Object.values(src.armory_legions)];
+  // For allied units, search in the allied faction's own armory, not the primary's. NOTE:
+  // `data.allied[factionSource]` is a STRIPPED AlliedFaction (units/slots only) — it has NO
+  // armory_general / armory_marks / armory_legions, so guard every field: reading
+  // Object.values(undefined) here used to throw and blank the whole Print View for any army with
+  // an allied unit that carried an armory item.
+  const src = (factionSource && (data.allied as Record<string, Partial<FactionData>>)?.[factionSource]) ?? data;
+  const sources = [
+    src.armory_general,
+    ...Object.values(src.armory_marks ?? {}),
+    ...Object.values(src.armory_legions ?? {}),
+  ].filter((a): a is NonNullable<typeof a> => !!a);
   for (const arm of sources)
     for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
-      const found = (arm[sec] as ArmoryItem[]).find(a => a.name === name);
+      const found = ((arm[sec] as ArmoryItem[] | undefined) ?? []).find(a => a.name === name);
       if (found) return found;
     }
   return undefined;
