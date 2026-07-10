@@ -376,17 +376,26 @@ export function UnitCard({ item }: Props) {
               />
             ) : (
               <>
-                {/* A promoted variant (e.g. Chaos Sorcerer → Master of Sorcery) REPLACES the base
-                    model, so the card title shows the evolved name directly — no arrow. */}
-                <span className="font-cinzel text-white font-bold text-base uppercase tracking-wider leading-tight">
-                  {item.customName || (variant ? variant.name : u.name)}
-                </span>
-                {item.customName && (
-                  <span className="text-zinc-500 font-normal text-[10px]">({variant ? variant.name : u.name})</span>
-                )}
-                {variant && !item.customName && (
-                  <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>
-                )}
+                {/* A promoted CHARACTER variant (e.g. Chaos Sorcerer → Master of Sorcery) REPLACES
+                    the model itself, so the card title shows the evolved name — no arrow. On a
+                    SQUAD, a variant promotes one member (Sergeant/Champion), so the squad keeps
+                    its own name and the promotion stays visible only inside its option block. */}
+                {(() => {
+                  const evolvedName = (variant && u.is_character) ? variant.name : u.name;
+                  return (
+                    <>
+                      <span className="font-cinzel text-white font-bold text-base uppercase tracking-wider leading-tight">
+                        {item.customName || evolvedName}
+                      </span>
+                      {item.customName && (
+                        <span className="text-zinc-500 font-normal text-[10px]">({evolvedName})</span>
+                      )}
+                      {variant && u.is_character && !item.customName && (
+                        <span className="text-zinc-500 font-normal text-[10px]">({u.name})</span>
+                      )}
+                    </>
+                  );
+                })()}
                 <button
                   onClick={() => setEditingName(true)}
                   className="text-zinc-600 hover:text-amber-400 text-[11px] leading-none"
