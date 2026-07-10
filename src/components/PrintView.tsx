@@ -316,12 +316,15 @@ const pillBase: React.CSSProperties = {
 
 // ── Unit print card ───────────────────────────────────────────────────────────
 function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData }) {
+  // Hooks must run before any early return (rules of hooks) — a unit that fails to resolve used
+  // to `return null` BEFORE useLanguage(), so if resolution flipped across renders React threw
+  // "rendered fewer hooks than expected" and the whole print view blanked out.
+  const { language: lang } = useLanguage();
   const u = resolveUnit(item, data);
   if (!u) return null;
 
   const storeState = useArmyStore.getState();
   const { archetype, legacy, legacy2 } = storeState;
-  const { language: lang } = useLanguage();
   const rp = resolveUnitProfile(item, u, storeState, data);
   const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap,
           injectedAbilities, optionStatMods, optionAbilities,
