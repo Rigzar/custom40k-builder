@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -222,34 +222,10 @@ export function LandingPage({
   const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
   const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
   const [showChangelog, setShowChangelog] = useState(false);
-  const turbulenceRef = useRef<SVGFETurbulenceElement>(null);
-  useEffect(() => {
-    const el = turbulenceRef.current;
-    if (!el) return;
-    // The fog re-renders a full-screen fractalNoise turbulence + displacement map every time
-    // baseFrequency changes. Recomputing that at 60fps pegged the CPU (~40% reported), so:
-    //  • respect prefers-reduced-motion — leave the fog static, no animation loop at all;
-    //  • otherwise throttle updates to ~12fps (every 80ms) — the drift is slow and subtle, so
-    //    fewer turbulence recomputes are visually indistinguishable but a fraction of the cost;
-    //  • pause entirely while the tab is hidden.
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
-    let frames = 1;
-    const rad = Math.PI / 180;
-    let animId: number;
-    let last = 0;
-    const STEP = 80; // ms between turbulence recomputes (~12fps)
-    function animate(now: number) {
-      animId = requestAnimationFrame(animate);
-      if (document.hidden || now - last < STEP) return;
-      last = now;
-      frames += 0.15 * (STEP / 16.7); // keep drift speed independent of frame throttling
-      const bfx = 0.025 + 0.008 * Math.cos(frames * rad);
-      const bfy = 0.025 + 0.008 * Math.sin(frames * rad);
-      el.setAttributeNS(null, 'baseFrequency', `${bfx} ${bfy}`);
-    }
-    animId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animId);
-  }, []);
+  // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
+  // fractalNoise + displacement filter every update — even throttled it kept the CPU at ~12% idle
+  // and spun up fans. The static turbulence renders once and then just composites, so idle CPU
+  // drops to ~0 while the fog still looks the same. (No rAF loop, no per-frame recompute.)
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
@@ -279,7 +255,7 @@ export function LandingPage({
         <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
           <defs>
             <filter id="c40k-fog" x="0%" y="0%" width="100%" height="100%">
-              <feTurbulence ref={turbulenceRef} type="fractalNoise" baseFrequency="0.025" numOctaves="3" />
+              <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" />
               <feDisplacementMap in="SourceGraphic" scale="55" />
             </filter>
           </defs>
