@@ -323,7 +323,7 @@ const pillBase: React.CSSProperties = {
 };
 
 // ── Unit print card ───────────────────────────────────────────────────────────
-function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData }) {
+function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: FactionData; armoryData?: FactionData }) {
   // Hooks must run before any early return (rules of hooks) — a unit that fails to resolve used
   // to `return null` BEFORE useLanguage(), so if resolution flipped across renders React threw
   // "rendered fewer hooks than expected" and the whole print view blanked out.
@@ -359,19 +359,20 @@ function UnitPrintCard({ item, data }: { item: RosterEntry; data: FactionData })
   // grant-weapon) are already folded into rp.weaponGroups by resolver.ts's pushGrantedWeapon —
   // do NOT re-derive them here too, that double-rendered every armory weapon on the datacard
   // (GH#19). Only non-weapon equipment/daemon-weapon-trait items need their own list here.
+  const armData = armoryData ?? data;
   for (const sel of item.armory) {
     if (sel.section === 'equipment') {
-      const arm = findArmoryItem(data, sel.itemName, item.factionSource);
+      const arm = findArmoryItem(armData, sel.itemName);
       if (!isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'daemon_weapons') {
-      const arm = findArmoryItem(data, sel.itemName, item.factionSource);
+      const arm = findArmoryItem(armData, sel.itemName);
       if (!isWeaponTrait(arm?.desc) && !isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'weapons') continue;
-    const arm = findArmoryItem(data, sel.itemName, item.factionSource);
+    const arm = findArmoryItem(armData, sel.itemName);
     if (arm && !arm.range && !(arm.profiles && arm.profiles.length > 0)) {
       armEquip.push({ name: sel.itemName, desc: arm.desc ?? '' });
     }
@@ -1376,6 +1377,23 @@ function SlotDivider({ slot, color }: { slot: string; color: string }) {
   );
 }
 
+// ── Detachment header (separates the Allied Detachment from the primary army) ──
+function DetachmentHeader({ label, color }: { label: string; color: string }) {
+  return (
+    <div style={{
+      margin: '30px 0 6px', breakInside: 'avoid', pageBreakInside: 'avoid',
+      background: HDR_BG, color: '#fff', borderTop: `3px solid ${color}`,
+      padding: '8px 16px', position: 'relative', overflow: 'hidden',
+    }}>
+      <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${color}55 0%, transparent 55%)`, pointerEvents: 'none' }} />
+      <span style={{
+        position: 'relative', zIndex: 1, fontFamily: CONDUIT, fontWeight: 800,
+        textTransform: 'uppercase', letterSpacing: '.14em', fontSize: '.95em',
+      }}>{label}</span>
+    </div>
+  );
+}
+
 // ── Compact list view ─────────────────────────────────────────────────────────
 function CompactList({ army, data, color }: { army: RosterEntry[]; data: FactionData; color: string }) {
   const storeState = useArmyStore.getState();
@@ -1444,10 +1462,25 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
 
 // ── Print View root ───────────────────────────────────────────────────────────
 export function PrintView({ onClose }: { onClose: () => void }) {
-  const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark, armyName } = useArmyStore();
+  const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark, armyName,
+          alliedFaction, alliedData, supplementData } = useArmyStore();
   const { language: rootLang } = useLanguage();
   const [mode, setMode] = useState<'cards' | 'simple' | 'list'>('cards');
   if (!data) return null;
+
+  // The FULL FactionData (WITH armory) an item's armory items should be looked up in. `data.allied`
+  // only carries stripped unit data, so allied/supplement items need the real allied/supplement
+  // FactionData or their descriptions never print.
+  const armoryDataFor = (factionSource?: string): FactionData => {
+    if (!factionSource) return data;
+    if (factionSource === alliedFaction && alliedData) return alliedData;
+    return supplementData[factionSource] ?? data;
+  };
+  // True allied-detachment unit (not an integrated supplement like Assassins/Horus Heresy) — these
+  // print in their own "Allied Detachment" section.
+  const isAlliedDetachmentItem = (i: RosterEntry) =>
+    !!(alliedFaction && i.factionSource === alliedFaction);
+  const alliedFactionName = alliedData?.faction ?? alliedFaction ?? 'Allied Detachment';
 
   const rule         = getArchetypeRule(archetype);
   const forcedMark   = rule?.forcedMark ? rule.forcedMark as Mark : null;
@@ -1517,7 +1550,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     }
 
     for (const sel of item.armory) {
-      const arm = findArmoryItem(data, sel.itemName, item.factionSource);
+      const arm = findArmoryItem(armoryDataFor(item.factionSource), sel.itemName);
       if (!arm) continue;
       if (sel.section === 'daemon_weapons') {
         if (isWeaponTrait(arm.desc)) {
@@ -1593,24 +1626,40 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         )}
 
         {(mode === 'cards' || mode === 'simple') && (() => {
-          const sorted = [...army].sort((a, b) => {
+          const bySlot = (a: RosterEntry, b: RosterEntry) => {
             const ai = SLOT_ORDER.indexOf(a.slot as typeof SLOT_ORDER[number]);
             const bi = SLOT_ORDER.indexOf(b.slot as typeof SLOT_ORDER[number]);
             return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
-          });
-          let lastSlot = '';
-          return sorted.map(item => {
-            const showDivider = item.slot !== lastSlot;
-            lastSlot = item.slot;
-            return (
-              <Fragment key={item.id}>
-                {showDivider && <SlotDivider slot={item.slot} color={primaryColor} />}
-                {mode === 'cards'
-                  ? <UnitPrintCard item={item} data={data} />
-                  : <SimpleUnitCard item={item} data={data} />}
-              </Fragment>
-            );
-          });
+          };
+          // Split into the primary army and a separate Allied Detachment section.
+          const primaryUnits = army.filter(i => !isAlliedDetachmentItem(i));
+          const alliedUnits  = army.filter(isAlliedDetachmentItem);
+          const renderGroup = (units: RosterEntry[]) => {
+            let lastSlot = '';
+            return [...units].sort(bySlot).map(item => {
+              const showDivider = item.slot !== lastSlot;
+              lastSlot = item.slot;
+              return (
+                <Fragment key={item.id}>
+                  {showDivider && <SlotDivider slot={item.slot} color={primaryColor} />}
+                  {mode === 'cards'
+                    ? <UnitPrintCard item={item} data={data} armoryData={armoryDataFor(item.factionSource)} />
+                    : <SimpleUnitCard item={item} data={data} />}
+                </Fragment>
+              );
+            });
+          };
+          return (
+            <>
+              {renderGroup(primaryUnits)}
+              {alliedUnits.length > 0 && (
+                <>
+                  <DetachmentHeader label={`Allied Detachment — ${alliedFactionName}`} color={primaryColor} />
+                  {renderGroup(alliedUnits)}
+                </>
+              )}
+            </>
+          );
         })()}
 
         {/* Army configuration block */}
