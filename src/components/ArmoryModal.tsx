@@ -273,11 +273,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // CD-specific: Greater Daemons pay from the p_char column ("POINTS GREATER DEMON");
   // all other units (Heralds, Daemon Prince, Soul Grinder) pay from p_unit ("POINTS").
   const isCD = activeData.faction === 'Chaos Daemons';
-  // The Horus Heresy supplement has NO Chaos Marks: a trailing ᵀ on an HH item means
-  // Terminator-compat (term_compat), not Mark of Tzeentch. When the active unit's armory IS
-  // the HH supplement, every item is mark-less. The host's HH legion tab is handled per-armory
-  // below via legMarkless(). See ki-hh-tcollision-01.
-  const isMarklessFaction = activeData.faction === 'Horus Heresy Space Marines';
+  // Chaos Mark glyphs (ᴷ Khorne, ᴺ Nurgle, ˢ Slaanesh, ᶻ Tzeentch) in item names are ONLY
+  // meaningful for the two factions that actually use Chaos Marks: Chaos Space Marines and Chaos
+  // Daemons. Every other faction is mark-less here, so a trailing glyph must never be read as a
+  // Mark. This resolves a real collision: Dark Eldar uses ᴷ for its <Kabal> sub-faction (and ᶜᵒ
+  // Coven / ᶜᵘ Cult), so "Blasterᴷ" etc. were wrongly tagged/gated as Mark of Khorne. Horus Heresy
+  // is likewise mark-less (a trailing ᵀ there is Terminator-compat, not Tzeentch — ki-hh-tcollision-01).
+  const MARK_FACTIONS = new Set(['Chaos Space Marines', 'Chaos Daemons']);
+  const isMarklessFaction = !MARK_FACTIONS.has(activeData.faction);
   /** True when the given legion-armory key is the archetype-granted supplement (e.g. Horus Heresy). */
   const legMarkless = (legName: string): boolean =>
     isMarklessFaction || legName === rule?.sharedSupplementArmory;

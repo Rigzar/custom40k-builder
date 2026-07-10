@@ -18,24 +18,24 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v149_dismissed';
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.49: Imperial Guard codex 1.01',
-    intro: 'The Imperial Guard codex has been updated to version 1.01 (shown on the faction button and the wiki), with three new units, a Chimera point correction, and reworked Mechanised Infantry transport rules. The wiki\'s Core Rules also gained the full Allied Detachment AOP, deployment sequence, and a "Playing Your First Game" guide.',
-    line1: '⬡ New units: Centaur RSV (Transport, 105 pts), Vigilator RSV (Transport, 147 pts, Aquiline Prow), Hippogriff AFV (Fast Attack squadron, 125 pts). ⬡ Chimera: 201 → 186 pts.',
-    line2: '⬡ Mechanised Infantry transports now count 50% of their points toward the 25% Troops requirement by default (75% under the Mechanised Company archetype), and may be any vehicle with a transport capacity. ⬡ Wiki: full ally matrix + AOP, deployment sequence, and first-game guide.',
+    title: 'v1.49: Imperial Guard 1.01 + Dark Eldar Kabal fix',
+    intro: 'The Imperial Guard codex is updated to version 1.01 (shown on the faction button and the wiki) with three new units, a Chimera point correction, and reworked Mechanised Infantry transport rules. Dark Eldar Kabal wargear is no longer mistagged as Mark of Khorne, the landing page fog no longer pins the CPU, and the wiki gained the full Allied AOP / deployment / first-game guides plus a corrected Frontlines map.',
+    line1: '⬡ Imperial Guard 1.01: new Centaur RSV (105 pts) & Vigilator RSV (147 pts) Transports and Hippogriff AFV (Fast Attack, 125 pts); Chimera 201→186; Mechanised Infantry transports count 50% toward Troops (75% under Mechanised Company). ⬡ Dark Eldar: Kabal items/traits no longer treated as Mark of Khorne (the ᴷ glyph clashed with Khorne).',
+    line2: '⬡ Performance: the landing fog uses fewer octaves, updates at a lower rate, pauses on a hidden tab and respects "reduce motion" — much lower idle CPU. ⬡ Wiki: full ally matrix + AOP, deployment sequence, first-game guide, and a corrected Frontlines deployment map.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.49: Imperiale Armee Codex 1.01',
-    intro: 'Der Codex der Imperialen Armee wurde auf Version 1.01 aktualisiert (angezeigt auf dem Fraktions-Button und im Wiki), mit drei neuen Einheiten, einer Chimäre-Punktekorrektur und überarbeiteten Transportregeln für Mechanisierte Infanterie. Die Kernregeln im Wiki erhielten außerdem den vollständigen Verbündeten-AOP, die Aufstellungssequenz und einen "Erstes Spiel"-Leitfaden.',
-    line1: '⬡ Neue Einheiten: Centaur RSV (Transport, 105 Pkt.), Vigilator RSV (Transport, 147 Pkt., Aquiline Prow), Hippogriff AFV (Schneller Angriff, Geschwader, 125 Pkt.). ⬡ Chimäre: 201 → 186 Pkt.',
-    line2: '⬡ Transporter der Mechanisierten Infanterie zählen nun standardmäßig 50% ihrer Punkte zur 25%-Truppenanforderung (75% mit dem Archetyp Mechanisierte Kompanie) und dürfen jedes Fahrzeug mit Transportkapazität sein. ⬡ Wiki: vollständige Allianzmatrix + AOP, Aufstellungssequenz und Erstspiel-Leitfaden.',
+    title: 'v1.49: Imperiale Armee 1.01 + Dark-Eldar-Kabal-Fix',
+    intro: 'Der Codex der Imperialen Armee ist auf Version 1.01 aktualisiert (auf dem Fraktions-Button und im Wiki) mit drei neuen Einheiten, einer Chimäre-Punktekorrektur und überarbeiteten Transportregeln. Dark-Eldar-Kabal-Ausrüstung gilt nicht mehr fälschlich als Mal des Khorne, der Startseiten-Nebel belastet die CPU nicht mehr, und das Wiki erhielt die vollständigen Verbündeten-/Aufstellungs-/Erstspiel-Leitfäden sowie eine korrigierte Frontlines-Karte.',
+    line1: '⬡ Imperiale Armee 1.01: neue Transporter Centaur RSV (105 Pkt.) & Vigilator RSV (147 Pkt.) und Hippogriff AFV (Schneller Angriff, 125 Pkt.); Chimäre 201→186; Transporter der Mechanisierten Infanterie zählen 50% zur Truppenanforderung (75% mit Mechanisierter Kompanie). ⬡ Dark Eldar: Kabal-Gegenstände/-Traits gelten nicht mehr als Mal des Khorne (das ᴷ-Zeichen kollidierte mit Khorne).',
+    line2: '⬡ Leistung: Der Startseiten-Nebel nutzt weniger Oktaven, aktualisiert seltener, pausiert bei verstecktem Tab und respektiert "Bewegung reduzieren" — deutlich weniger Leerlauf-CPU. ⬡ Wiki: vollständige Allianzmatrix + AOP, Aufstellungssequenz, Erstspiel-Leitfaden und korrigierte Frontlines-Karte.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.49: Códex de la Guardia Imperial 1.01',
-    intro: 'El códex de la Guardia Imperial se ha actualizado a la versión 1.01 (visible en el botón de la facción y en la wiki), con tres unidades nuevas, una corrección de puntos del Chimera y reglas de transporte revisadas para la Infantería Mecanizada. Las Core Rules de la wiki también recibieron el AOP aliado completo, la secuencia de despliegue y una guía de "Tu primera partida".',
-    line1: '⬡ Unidades nuevas: Centaur RSV (Transporte, 105 pts), Vigilator RSV (Transporte, 147 pts, Aquiline Prow), Hippogriff AFV (Ataque Rápido, escuadrón, 125 pts). ⬡ Chimera: 201 → 186 pts.',
-    line2: '⬡ Los transportes de la Infantería Mecanizada cuentan ahora el 50% de sus puntos hacia el 25% de Tropas por defecto (75% con el arquetipo Compañía Mecanizada), y pueden ser cualquier vehículo con capacidad de transporte. ⬡ Wiki: matriz de aliados + AOP completos, secuencia de despliegue y guía de primera partida.',
+    title: 'v1.49: Guardia Imperial 1.01 + fix de Kabal (Dark Eldar)',
+    intro: 'El códex de la Guardia Imperial se actualiza a la versión 1.01 (visible en el botón de la facción y en la wiki) con tres unidades nuevas, una corrección de puntos del Chimera y reglas de transporte revisadas. El equipo de Kabal de Dark Eldar ya no se marca por error como Marca de Khorne, la niebla de la landing ya no clava la CPU, y la wiki recibió las guías completas de AOP aliado / despliegue / primera partida más un mapa de Frontlines corregido.',
+    line1: '⬡ Guardia Imperial 1.01: nuevos Transportes Centaur RSV (105 pts) y Vigilator RSV (147 pts) y el Hippogriff AFV (Ataque Rápido, 125 pts); Chimera 201→186; los transportes de Infantería Mecanizada cuentan 50% hacia Tropas (75% con Compañía Mecanizada). ⬡ Dark Eldar: los objetos/rasgos de Kabal ya no se tratan como Marca de Khorne (el glifo ᴷ chocaba con Khorne).',
+    line2: '⬡ Rendimiento: la niebla de la landing usa menos octavas, se actualiza más despacio, se pausa con la pestaña oculta y respeta "reducir movimiento" — mucha menos CPU en reposo. ⬡ Wiki: matriz de aliados + AOP completos, secuencia de despliegue, guía de primera partida y mapa de Frontlines corregido.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -226,15 +226,26 @@ export function LandingPage({
   useEffect(() => {
     const el = turbulenceRef.current;
     if (!el) return;
+    // The fog re-renders a full-screen fractalNoise turbulence + displacement map every time
+    // baseFrequency changes. Recomputing that at 60fps pegged the CPU (~40% reported), so:
+    //  • respect prefers-reduced-motion — leave the fog static, no animation loop at all;
+    //  • otherwise throttle updates to ~12fps (every 80ms) — the drift is slow and subtle, so
+    //    fewer turbulence recomputes are visually indistinguishable but a fraction of the cost;
+    //  • pause entirely while the tab is hidden.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
     let frames = 1;
     const rad = Math.PI / 180;
     let animId: number;
-    function animate() {
-      frames += 0.15;
+    let last = 0;
+    const STEP = 80; // ms between turbulence recomputes (~12fps)
+    function animate(now: number) {
+      animId = requestAnimationFrame(animate);
+      if (document.hidden || now - last < STEP) return;
+      last = now;
+      frames += 0.15 * (STEP / 16.7); // keep drift speed independent of frame throttling
       const bfx = 0.025 + 0.008 * Math.cos(frames * rad);
       const bfy = 0.025 + 0.008 * Math.sin(frames * rad);
       el.setAttributeNS(null, 'baseFrequency', `${bfx} ${bfy}`);
-      animId = requestAnimationFrame(animate);
     }
     animId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animId);
@@ -268,7 +279,7 @@ export function LandingPage({
         <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
           <defs>
             <filter id="c40k-fog" x="0%" y="0%" width="100%" height="100%">
-              <feTurbulence ref={turbulenceRef} type="fractalNoise" baseFrequency="0.025" numOctaves="6" />
+              <feTurbulence ref={turbulenceRef} type="fractalNoise" baseFrequency="0.025" numOctaves="3" />
               <feDisplacementMap in="SourceGraphic" scale="55" />
             </filter>
           </defs>

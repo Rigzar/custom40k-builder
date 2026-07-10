@@ -27,8 +27,11 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.49',
     date: '2026-07-10',
-    title: 'Imperial Guard — codex 1.01 update (new units, Chimera, transport rules)',
+    title: 'Imperial Guard codex 1.01 + Dark Eldar Kabal fix + landing performance',
     changes: [
+      'Dark Eldar — fix: Kabal armory items and traits (Blaster, Djinn blade, Husk blade, Shadow field, Realspace raider, and the ᴷ-tagged traits) were wrongly tagged and gated as Mark of Khorne. Dark Eldar uses the ᴷ glyph for its <Kabal> sub-faction, which collided with the Chaos Mark of Khorne glyph; Chaos Mark glyphs are now only interpreted for Chaos Space Marines and Chaos Daemons (the only factions that use Marks), so sub-faction glyphs on any other faction are no longer misread as Marks.',
+      'GENERAL — performance: the landing page fog animation was recomputing a full-screen fractal-noise turbulence filter at 60fps, pinning the CPU (~40% reported). It now uses fewer octaves (6 → 3), updates at ~12fps, pauses while the browser tab is hidden, and stays static for users with "reduce motion" enabled — cutting idle CPU dramatically with no visible change to the effect.',
+      'Missions (wiki) — the Frontlines deployment map was redrawn to match the canonical diagram: diagonal triangular deployment zones in opposite corners, with the command posts and three objectives placed along the diagonal (previously shown as left/right strips).',
       'Imperial Guard — codex updated to version 1.01 (shown on the faction button and the wiki).',
       'Imperial Guard — new unit Centaur RSV (Dedicated Transport, 105 pts, Open, transport capacity 12).',
       'Imperial Guard — new unit Vigilator RSV (Dedicated Transport, 147 pts, Open, Aquiline Prow, transport capacity 6; one per Commissar/Commissar Lord).',
