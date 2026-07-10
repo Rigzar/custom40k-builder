@@ -264,6 +264,11 @@ export default function App() {
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
   const restoringSession                        = useRef(false);
+  // Serialized roster state as of the last load/save — the "clean" baseline. Compared against the
+  // live state to decide whether the "unsaved changes — save them?" prompt should appear before
+  // this army is replaced (loading another save, or starting a new faction). null = no baseline
+  // yet (a from-scratch army with units counts as dirty, which is what the prompt is for).
+  const baselineSnapshot                        = useRef<string | null>(null);
   // Tracks which save (cloud roster id, or local save id) the "Save" button currently updates
   // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
   // a fresh entry instead of silently overwriting whatever was last bound.
@@ -303,6 +308,7 @@ export default function App() {
           const save = pendingLoad.current;
           pendingLoad.current = null;
           importRoster(JSON.stringify(save.state));
+          baselineSnapshot.current = JSON.stringify(getSerializableState(useArmyStore.getState()));
         }
         if (restoringSession.current) {
           restoringSession.current = false;
@@ -492,7 +498,7 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [army, faction, loggedIn, prefs.autosaveInterval]);
 
-  function handleSelectFaction(key: string | null) {
+  async function handleSelectFaction(key: string | null) {
     if (key === null) {
       setSelectedFaction(null);
       setOpenTabs(['landing']);
@@ -502,6 +508,9 @@ export default function App() {
       return;
     }
     const isNewFaction = key !== selectedFaction;
+    // Switching faction discards the open army — offer to save unsaved changes first
+    // (same prompt as loading another list; silent when the army is clean or empty).
+    if (isNewFaction) await offerToSaveIfDirty();
     if (isNewFaction) sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
     if (isNewFaction) {
       setActiveCloudRosterId(null);
@@ -577,6 +586,7 @@ export default function App() {
           setActiveCloudRosterId(res.roster.id);
         }
         setSavedMsg('Saved to cloud!');
+        baselineSnapshot.current = JSON.stringify(getSerializableState(useArmyStore.getState()));
       } catch {
         setSavedMsg('Save failed');
       }
@@ -607,11 +617,38 @@ export default function App() {
     };
 
     saveArmy(entry);
+    baselineSnapshot.current = JSON.stringify(getSerializableState(useArmyStore.getState()));
     setSavedMsg('Saved!');
     setTimeout(() => setSavedMsg(''), 2000);
   }
 
-  function handleLoadArmy(save: SavedArmy) {
+  /** Before replacing the open army (loading another save, starting a new faction): if it has
+   *  unsaved changes, offer to save them first. Only prompts when something actually changed
+   *  since the last load/save; a clean or empty army switches silently. */
+  async function offerToSaveIfDirty() {
+    const st = useArmyStore.getState();
+    if (st.army.length === 0) return;
+    const snap = JSON.stringify(getSerializableState(st));
+    if (baselineSnapshot.current !== null && snap === baselineSnapshot.current) return;
+    if (window.confirm(t('unsavedChangesConfirm'))) {
+      await handleSaveArmy();
+    }
+  }
+
+  /** The faction-loader effect only fires when `selectedFaction` CHANGES — loading a save of the
+   *  SAME faction as the open army never re-ran it, so pendingLoad was silently ignored and the
+   *  old roster stayed on screen. Consume the pending load directly in that case. */
+  function consumePendingLoadIfSameFaction(fKey: string) {
+    if (fKey === selectedFaction && data && pendingLoad.current) {
+      const save = pendingLoad.current;
+      pendingLoad.current = null;
+      importRoster(JSON.stringify(save.state));
+      baselineSnapshot.current = JSON.stringify(getSerializableState(useArmyStore.getState()));
+    }
+  }
+
+  async function handleLoadArmy(save: SavedArmy) {
+    await offerToSaveIfDirty();
     pendingLoad.current = save;
     setActiveLocalSaveId(save.id);
     setActiveCloudRosterId(null);
@@ -619,12 +656,14 @@ export default function App() {
     const fKey = FACTION_NAMES[save.factionKey]
       ? save.factionKey
       : Object.entries(FACTION_NAMES).find(([, v]) => v === save.factionKey)?.[0] ?? save.factionKey;
+    consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
     setOpenTabs(['landing', 'army_config', 'builder']);
     setActiveTab('builder');
   }
 
-  function handleLoadCloudRoster(data: Record<string, unknown>, rosterId: number) {
+  async function handleLoadCloudRoster(data: Record<string, unknown>, rosterId: number) {
+    await offerToSaveIfDirty();
     const fLabel = data.faction as string;
     const fKey = FACTION_NAMES[fLabel]
       ? fLabel
@@ -641,13 +680,15 @@ export default function App() {
     };
     setActiveCloudRosterId(rosterId);
     setActiveLocalSaveId(null);
+    consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
     setOpenTabs(['landing', 'army_config', 'builder']);
     setActiveTab('builder');
     setShowCloudSaves(false);
   }
 
-  function handleLoadCommunityArmy(data: Record<string, unknown>) {
+  async function handleLoadCommunityArmy(data: Record<string, unknown>) {
+    await offerToSaveIfDirty();
     const fLabel = data.faction as string;
     const fKey = FACTION_NAMES[fLabel]
       ? fLabel
@@ -663,6 +704,7 @@ export default function App() {
       unitCount: ((data.army as unknown[])?.length) ?? 0,
     };
     setActiveCloudRosterId(null);
+    consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
     setOpenTabs(['landing', 'army_config', 'builder']);
     setActiveTab('builder');

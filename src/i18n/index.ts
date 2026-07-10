@@ -109,7 +109,7 @@ export type TranslationKey =
   | 'chaosMarkLabel' | 'markForcedPrefix' | 'allChaosMarksLabel' | 'allMarksVehicleBonus'
   | 'allMarksCharacterBonus' | 'allMarksInfantryBonus' | 'vetSlotSuffix' | 'markOfChaosUndividedLabel'
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
-  | 'requiresMarkOfPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'uniqueTakenBadge' | 'rangeFullLabel' | 'typeFullLabel'
+  | 'requiresMarkOfPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'uniqueTakenBadge' | 'unsavedChangesConfirm' | 'rangeFullLabel' | 'typeFullLabel'
   | 'armyTraitsLabel' | 'clickToChooseSuffix' | 'cannotTakeAllTraits' | 'smiteAlwaysKnownSuffix' | 'allOfPrefix'
   | 'exarchPowerPrefix' | 'gainsSuffix' | 'traitBadge' | 'ruleBadge' | 'optionBadge' | 'equipBadge'
   | 'seeFactionRulesPlain' | 'ammoLabel' | 'veteranLabel' | 'vehicleEquipmentLabel' | 'traitsCountLabel'
@@ -551,6 +551,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     notAvailableWithMarkPrefix: 'Not available with Mark of',
     championBadge: 'Champion',
     uniqueTakenBadge: 'Unique — already in army',
+    unsavedChangesConfirm: 'This army has unsaved changes. Save them before switching?',
     rangeFullLabel: 'Range',
     typeFullLabel: 'Type',
     armyTraitsLabel: 'Army Traits',
@@ -1085,6 +1086,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     notAvailableWithMarkPrefix: 'Nicht verfügbar mit Mal von',
     championBadge: 'Champion',
     uniqueTakenBadge: 'Einzigartig — bereits in der Armee',
+    unsavedChangesConfirm: 'Diese Armee hat ungespeicherte Änderungen. Vor dem Wechsel speichern?',
     rangeFullLabel: 'Reichweite',
     typeFullLabel: 'Typ',
     armyTraitsLabel: 'Armee-Eigenschaften',
@@ -1619,6 +1621,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     notAvailableWithMarkPrefix: 'No disponible con Marca de',
     championBadge: 'Campeón',
     uniqueTakenBadge: 'Único — ya en el ejército',
+    unsavedChangesConfirm: 'Este ejército tiene cambios sin guardar. ¿Guardarlos antes de cambiar?',
     rangeFullLabel: 'Alcance',
     typeFullLabel: 'Tipo',
     armyTraitsLabel: 'Rasgos de Ejército',
