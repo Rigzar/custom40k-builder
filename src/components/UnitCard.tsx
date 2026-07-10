@@ -490,7 +490,20 @@ export function UnitCard({ item }: Props) {
           // never join anything at all, not even its own ally's troops.
           if ((e.factionSource ?? null) !== (item.factionSource ?? null)) return false;
           const eu = resolveUnit(e, data);
-          if (!eu || eu.is_character || eu.is_vehicle || eu.is_monster) return false;
+          if (!eu || eu.is_vehicle || eu.is_monster) return false;
+          // Core Rules "Command Squad" (L1172-76): models with this ability can join a squad,
+          // "a single character", or a squad that already has a character attached. WITHOUT the
+          // ability, characters are never valid join targets; WITH it, a character is a valid
+          // target only while it stands alone ("a single character" — nobody else attached to it,
+          // and it isn't itself attached to someone). This is the whole point of e.g. Sorcerer
+          // Circle's grant (4 character HQs joining each other) — it used to be unreachable
+          // because character targets were excluded unconditionally.
+          if (eu.is_character) {
+            if (!hasCommandSquad) return false;
+            if (e.joinedToUnit && e.id !== item.joinedToUnit) return false;
+            const occupied = army.some(other => other.id !== item.id && other.joinedToUnit === e.id);
+            if (occupied && e.id !== item.joinedToUnit) return false;
+          }
           if (effectiveArmData?.faction === 'Chaos Space Marines' || effectiveArmData?.faction === 'Chaos Daemons') {
             const unitMark = (eu.locked_mark ?? rule?.forcedMark ?? e.mark ?? null) as Mark | null;
             if (effectiveMark && unitMark && effectiveMark !== unitMark) return false;

@@ -560,9 +560,19 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Trait effects
   // CSM army traits only apply to models with the "Chaos Space Marine" keyword.
   // Subfaction units (World Eaters, Death Guard, Thousand Sons, Emperor's Children) are excluded.
-  const isMainFaction = item.unitName in data.units;
+  // Allied Detachment units apply their OWN detachment's traits too — item.traits is already
+  // populated from alliedTraitPool by applyArmyTraits, but the old `item.unitName in data.units`
+  // gate silently discarded them for any ally of a DIFFERENT faction (name not in the primary
+  // catalog), so allied trait stat mods/abilities never reached the profile. The CSM-keyword
+  // restriction is evaluated against the item's OWN faction, not the primary's.
+  const isAlliedScopeItem = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
+  const isMainFaction = !item.factionSource && item.unitName in data.units;
+  const itemFactionForTraits = isAlliedScopeItem
+    ? (FACTION_SLUG_TO_NAME[item.factionSource!] ?? '')
+    : data.faction;
   const hasCSMKeyword = unit.keywords?.includes('Chaos Space Marine') ?? false;
-  const traitsApply = isMainFaction && (data.faction !== 'Chaos Space Marines' || hasCSMKeyword);
+  const traitsApply = (isMainFaction || isAlliedScopeItem) &&
+    (itemFactionForTraits !== 'Chaos Space Marines' || hasCSMKeyword);
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
   const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
@@ -705,9 +715,18 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ruleNotes.push('Objective secured!');
   }
   // Archetype-forced mandatory ability (Brood Brothers' Ambush, Gue'vesa's Supporting Fire) —
-  // no opt-out, so it's always shown, never a toggle. Main-faction units only.
-  if (rule?.forcedAbility && !item.factionSource && !(rule.forcedAbility.creatureOnly && unit.is_vehicle)) {
+  // no opt-out, so it's always shown, never a toggle. `rule` is already scoped to THIS item's own
+  // detachment (effectiveArchetypeFor above), so an Allied Detachment whose OWN archetype forces
+  // an ability shows it too — the old `!item.factionSource` gate wrongly suppressed it for allies
+  // (and was redundant for supplement units, whose scoped rule is undefined anyway).
+  if (rule?.forcedAbility && !(rule.forcedAbility.creatureOnly && unit.is_vehicle)) {
     ruleNotes.push(rule.forcedAbility.name);
+  }
+  // Archetype-granted "Command squad" (e.g. Sorcerer Circle → Chaos Sorcerers, Librarian
+  // Conclave → Librarians): surface the granted ability on the profile so the player can SEE it —
+  // the join mechanics read the same grant (UnitCard dropdown + validator). Scoped via `rule`.
+  if (rule?.grantsCommandSquad?.includes(item.unitName)) {
+    ruleNotes.push('Command squad');
   }
 
   return {
