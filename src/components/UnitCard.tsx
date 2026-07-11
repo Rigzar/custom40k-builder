@@ -333,13 +333,21 @@ export function UnitCard({ item }: Props) {
     // "one" constraint = exclusive pick (radio), not independent checkboxes — selecting a new
     // choice must clear any other choice already on in this group, or the player ends up able
     // to buy every option in a "may be equipped with one of the following" group at once.
+    // Exception: Eldar "Exemplars of the Shrines" lets an Exarch take TWO Exarch Powers, so the
+    // "one Exarch Power" group is allowed up to `exarchPowersCount` selections instead of 1.
     const g = u.option_groups[gi];
     if (g?.constraint.type === 'one' && qty > 0 && ci !== '__inline') {
+      const isExarchPowerGroup = /Exarch Power/i.test(g.header);
+      const oneMax = isExarchPowerGroup
+        ? (getArchetypeRule(effectiveArchetypeFor(item, store))?.exarchPowersCount ?? 1)
+        : 1;
       const current = item.optionQty?.[gi] ?? {};
-      for (const otherCi of Object.keys(current)) {
-        if (otherCi !== String(ci) && otherCi !== '__inline' && current[Number(otherCi)]) {
-          setOptionQty(item.id, gi, Number(otherCi), 0);
-        }
+      const others = Object.keys(current).filter(
+        o => o !== String(ci) && o !== '__inline' && current[Number(o)] > 0,
+      );
+      // Keep at most (oneMax − 1) other selections on; clear the excess.
+      for (const otherCi of others.slice(0, Math.max(0, others.length - (oneMax - 1)))) {
+        setOptionQty(item.id, gi, Number(otherCi), 0);
       }
     }
     setOptionQty(item.id, gi, ci, qty);

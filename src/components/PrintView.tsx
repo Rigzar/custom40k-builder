@@ -545,11 +545,11 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
 
           {/* Pill row */}
           <div style={{ display: 'flex', gap: 4, marginTop: 6, alignItems: 'center', flexWrap: 'wrap' }}>
-            {SLOT_ICONS[item.slot] && (
-              <img src={SLOT_ICONS[item.slot]} alt="" style={{ width: 11, height: 11, opacity: .62, filter: 'invert(1)', flexShrink: 0 }} />
+            {SLOT_ICONS[rp.effectiveSlot] && (
+              <img src={SLOT_ICONS[rp.effectiveSlot]} alt="" style={{ width: 11, height: 11, opacity: .62, filter: 'invert(1)', flexShrink: 0 }} />
             )}
             <span style={{ ...pillBase, background: `${color}bb`, border: `1px solid ${color}`, color: '#fff' }}>
-              {item.slot}
+              {rp.effectiveSlot}
             </span>
             {u.unit_type && (
               <span style={{ ...pillBase, background: 'rgba(255,255,255,.1)', border: '1px solid rgba(255,255,255,.17)', color: 'rgba(255,255,255,.88)' }}>
@@ -1074,8 +1074,9 @@ const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', '
 const COMP_LABELS = ['HQ', 'Troops', 'Elites', 'Fast Atk', 'Heavy', 'Transport', 'Flyers', 'LoW'];
 const COMP_MAX    = [2, 6, 3, 3, 3, 3, 1, 3];
 
-function SummaryPage({ army, data, color, factionName, symbolUrl }: {
+function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
   army: RosterEntry[]; data: FactionData; color: string; factionName: string; symbolUrl: string;
+  slotMap: Map<string, string>;
 }) {
   const storeState = useArmyStore.getState();
   const units = army.flatMap(item => {
@@ -1086,17 +1087,18 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
       ? parseInt(u.models[0]?.stats.HP ?? '1')
       : parseInt(u.models[0]?.stats.W  ?? '1');
     const totalW = item.size * (isNaN(wPerModel) ? 1 : wPerModel);
-    return [{ item, u, pts, totalW }];
+    const slot = slotMap.get(item.id) ?? item.slot;
+    return [{ item, u, pts, totalW, slot }];
   });
 
   const slotIdx  = (slot: string) => { const i = SLOT_ORDER.indexOf(slot as typeof SLOT_ORDER[number]); return i === -1 ? 99 : i; };
-  const sortedBySlot = [...units].sort((a, b) => slotIdx(a.item.slot) - slotIdx(b.item.slot));
+  const sortedBySlot = [...units].sort((a, b) => slotIdx(a.slot) - slotIdx(b.slot));
   const grandPts = units.reduce((s, x) => s + x.pts, 0);
   const grandW   = units.reduce((s, x) => s + x.totalW, 0);
 
   const compCountsForRadar = COMP_SLOTS.map(slot => {
     const effectiveSlot = slot === 'Transport' ? 'Dedicated Transport' : slot;
-    return army.filter(item => item.slot === effectiveSlot).length;
+    return units.filter(x => x.slot === effectiveSlot).length;
   });
   // Dedicated Transport has no fixed cap: the AOP is "0-ᵀ" = one transport per Infantry-type
   // selection. So the Transport axis max is the number of Infantry units in the army, not a flat 3
@@ -1183,7 +1185,7 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
             }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <span style={{ fontFamily: CONDUIT, fontSize: '.68em', color, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '.04em', width: '4.4em', flexShrink: 0 }}>
-                  {x.item.slot.replace('Dedicated Transport', 'DT').replace('Fortifications', 'Fort')}
+                  {x.slot.replace('Dedicated Transport', 'DT').replace('Fortifications', 'Fort')}
                 </span>
                 {x.item.customName || x.u.name}
               </span>
@@ -1219,15 +1221,15 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
 }
 
 // ── Cover / muster sheet (pure CSS — no background image) ────────────────────
-function CoverPage({ army, color, factionName, armyName, engagement, archetype, legacy, legacy2, totalPts, pointLimit, symbolUrl }: {
+function CoverPage({ army, color, factionName, armyName, engagement, archetype, legacy, legacy2, totalPts, pointLimit, symbolUrl, slotMap }: {
   army: RosterEntry[]; color: string; factionName: string;
   armyName: string; engagement: string; archetype: string | null;
   legacy: string | null; legacy2: string | null; totalPts: number; pointLimit: number;
-  symbolUrl: string;
+  symbolUrl: string; slotMap: Map<string, string>;
 }) {
   const compCounts = COMP_SLOTS.map(slot => {
     const eff = slot === 'Transport' ? 'Dedicated Transport' : slot;
-    return army.filter(i => i.slot === eff).length;
+    return army.filter(i => (slotMap.get(i.id) ?? i.slot) === eff).length;
   });
   const configRows: [string, string][] = [
     ['Engagement', ENGAGEMENTS[engagement as keyof typeof ENGAGEMENTS]?.name ?? engagement],
@@ -1397,7 +1399,12 @@ function DetachmentHeader({ label, color }: { label: string; color: string }) {
 function CompactList({ army, data, color }: { army: RosterEntry[]; data: FactionData; color: string }) {
   const storeState = useArmyStore.getState();
   const slotIdx = (slot: string) => { const i = SLOT_ORDER.indexOf(slot as typeof SLOT_ORDER[number]); return i === -1 ? 99 : i; };
-  const sorted  = [...army].sort((a, b) => slotIdx(a.slot) - slotIdx(b.slot));
+  // Effective slot (archetype troopsRemap — e.g. Windhost → Windriders as Troops), matching the builder.
+  const effOf = (item: RosterEntry): string => {
+    const u = resolveUnit(item, data);
+    return u ? resolveUnitProfile(item, u, storeState, data).effectiveSlot : item.slot;
+  };
+  const sorted  = [...army].sort((a, b) => slotIdx(effOf(a)) - slotIdx(effOf(b)));
   let grand   = 0;
   let lastSlot = '';
   const rows: ReactElement[] = [];
@@ -1405,6 +1412,7 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
   for (const item of sorted) {
     const u = resolveUnit(item, data);
     if (!u) continue;
+    const eff = effOf(item);
     const pts = resolveUnitProfile(item, u, storeState, data).pts;
     grand += pts;
     const wargear = [
@@ -1413,16 +1421,16 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
       ...item.powers.map(p => p.powerName),
       ...item.prayers,
     ];
-    if (item.slot !== lastSlot) {
-      lastSlot = item.slot;
+    if (eff !== lastSlot) {
+      lastSlot = eff;
       rows.push(
-        <div key={`s-${item.slot}`} style={{
+        <div key={`s-${eff}`} style={{
           background: color, color: '#fff',
           fontFamily: CONDUIT, fontWeight: 800, fontSize: '.7em',
           textTransform: 'uppercase', letterSpacing: '.08em',
           padding: '3px 10px', marginTop: rows.length ? 4 : 0,
         }}>
-          {item.slot}
+          {eff}
         </div>
       );
     }
@@ -1492,6 +1500,17 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     const u = resolveUnit(item, data);
     return s + (u ? resolveUnitProfile(item, u, storeState, data).pts : 0);
   }, 0);
+
+  // Effective slot per item (archetype troopsRemap/demote — e.g. Windhost makes Windriders Troops).
+  // The builder categorises units by resolveUnitProfile's effectiveSlot; the printout must match it
+  // or a remapped unit still prints under its base slot (Windriders → Fast Attack) and the
+  // composition counts disagree with the builder. Reported for Windhost/Windriders.
+  const slotMap = new Map<string, string>();
+  for (const item of army) {
+    const u = resolveUnit(item, data);
+    slotMap.set(item.id, u ? resolveUnitProfile(item, u, storeState, data).effectiveSlot : item.slot);
+  }
+  const slotOf = (i: RosterEntry) => slotMap.get(i.id) ?? i.slot;
 
   const allSpecialRules = new Map<string, string | null>();
   const addRule = (name: string, desc: string | null) => {
@@ -1619,11 +1638,11 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           <CoverPage army={army} color={primaryColor} factionName={data.faction}
             armyName={armyName} engagement={engagement} archetype={archetype}
             legacy={legacy} legacy2={legacy2} totalPts={totalPts} pointLimit={pointLimit}
-            symbolUrl={symbolUrl} />
+            symbolUrl={symbolUrl} slotMap={slotMap} />
         )}
 
         {army.length > 0 && (
-          <SummaryPage army={army} data={data} color={primaryColor} factionName={data.faction} symbolUrl={symbolUrl} />
+          <SummaryPage army={army} data={data} color={primaryColor} factionName={data.faction} symbolUrl={symbolUrl} slotMap={slotMap} />
         )}
 
         {mode === 'list' && army.length > 0 && (
@@ -1632,8 +1651,8 @@ export function PrintView({ onClose }: { onClose: () => void }) {
 
         {(mode === 'cards' || mode === 'simple') && (() => {
           const bySlot = (a: RosterEntry, b: RosterEntry) => {
-            const ai = SLOT_ORDER.indexOf(a.slot as typeof SLOT_ORDER[number]);
-            const bi = SLOT_ORDER.indexOf(b.slot as typeof SLOT_ORDER[number]);
+            const ai = SLOT_ORDER.indexOf(slotOf(a) as typeof SLOT_ORDER[number]);
+            const bi = SLOT_ORDER.indexOf(slotOf(b) as typeof SLOT_ORDER[number]);
             return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
           };
           // Split into the primary army and a separate Allied Detachment section.
@@ -1642,11 +1661,12 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           const renderGroup = (units: RosterEntry[]) => {
             let lastSlot = '';
             return [...units].sort(bySlot).map(item => {
-              const showDivider = item.slot !== lastSlot;
-              lastSlot = item.slot;
+              const eff = slotOf(item);
+              const showDivider = eff !== lastSlot;
+              lastSlot = eff;
               return (
                 <Fragment key={item.id}>
-                  {showDivider && <SlotDivider slot={item.slot} color={primaryColor} />}
+                  {showDivider && <SlotDivider slot={eff} color={primaryColor} />}
                   {mode === 'cards'
                     ? <UnitPrintCard item={item} data={data} armoryData={armoryDataFor(item.factionSource)} />
                     : <SimpleUnitCard item={item} data={data} />}

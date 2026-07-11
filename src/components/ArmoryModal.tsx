@@ -587,8 +587,19 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (!armory) return [];
     if (sec === 'equipment' && isWeaponsOnly) return [];
     if (sec === 'weapons' && isGearOnly) return [];
-    return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[]))))
+    let list = filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(armory[sec] as ArmoryItem[]))))
       .filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+    // Eldar: the 16 Exarch Powers sit in the general armoury as individual +5pt equipment rows so
+    // an Aspect squad's Exarch can buy one directly. Their p_char is null (= "not for Character
+    // models"), but Eldar psyker characters (Farseer/Spiritseer/Wraithseer) price the general
+    // armoury off the p_unit/"POINTS PSYKER" column (resolveEldarCharPrice), which collides with
+    // the Exarch pool's p_unit:5 and wrongly exposed all 16 to them (reported for Farseer). A
+    // character only ever gains an Exarch Power via the "Paragon of war" item (its own picker), so
+    // hide the raw power rows from any Eldar character.
+    if (sec === 'equipment' && activeData.faction === 'Eldar' && isChar) {
+      list = list.filter(a => !ELDAR_EXARCH_POWERS.includes(a.name));
+    }
+    return list;
   }
 
   // Split equipment into groups

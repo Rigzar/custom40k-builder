@@ -164,6 +164,7 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Exemplars of the Shrines': { ...BASE,
+    exarchPowersCount: 2,
     notes: [
       'All Exarchs must gain two Exarch powers.',
       'Exarch powers are no longer unique — multiple units may share the same power.',

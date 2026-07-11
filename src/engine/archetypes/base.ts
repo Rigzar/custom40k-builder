@@ -171,6 +171,12 @@ export interface ArchetypeRule {
    * of the base 2 slots, regardless of which Legacy is chosen.
    */
   archetypeTraitBonus?: number;
+  /**
+   * Number of Exarch Powers each Aspect Warrior Exarch may take (Eldar). Default (undefined) = 1,
+   * as the unit's "The Exarch can gain one Exarch Power" option group ("one" constraint) allows.
+   * Eldar "Exemplars of the Shrines" sets this to 2 ("All Exarchs must gain two Exarch powers").
+   */
+  exarchPowersCount?: number;
 }
 
 export const BASE: ArchetypeRule = {

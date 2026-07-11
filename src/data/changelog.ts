@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.50',
+    date: '2026-07-11',
+    title: 'Troops % vs point limit + Eldar character armoury + Print View slots',
+    changes: [
+      'GENERAL — the "Troops must be ≥25%" validation now measures against the game\'s point limit (the played points, e.g. 2500), not the points currently mustered. A half-built list no longer reads a misleading percentage of its running total, matching the canonical AOP wording ("25% of the point limit"). Allied-detachment points are excluded from the primary army\'s share, as before.',
+      'Eldar — fix: the 16 Exarch Powers were shown as buyable +5 pt equipment in the general Armoury of Eldar characters (reported for the Farseer). Because Eldar psyker characters price the general Armoury off the "psyker" points column, the Exarch pool (which is meant for an Aspect squad\'s Exarch, not characters) leaked in. Characters gain an Exarch Power only via the "Paragon of war" item, so the raw power rows are now hidden from every Eldar character.',
+      'GENERAL — Print View now shows each unit\'s effective slot after archetype remaps, matching the builder. A unit moved to Troops by its archetype (e.g. Windriders under the Eldar Windhost) printed under its base slot (Fast Attack) and was miscounted in the Force Composition; the slot label, dividers, army overview and composition now all use the remapped slot.',
+      'Eldar — fix (GH#68): under the "Exemplars of the Shrines" archetype, an Aspect Warrior Exarch can now take two Exarch Powers instead of one (the archetype grants "two Exarch powers"). Without it, an Exarch still takes exactly one.',
+    ],
+  },
+  {
     version: '1.49',
     date: '2026-07-10',
     title: 'Imperial Guard codex 1.01 + Dark Eldar Kabal fix + landing performance',

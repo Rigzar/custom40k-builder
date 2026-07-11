@@ -2001,14 +2001,23 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       const u = resolveUnit(i, data);
       return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
     }, 0);
-    const ratio = primaryTotal > 0 ? troopsPts / primaryTotal : 1;
+    // Canon (Missions.txt: "25% of the point limit"; Core Rules: "25% of the played points") —
+    // the denominator is the agreed GAME SIZE, not the points currently mustered. A half-built
+    // 1688/2500 army must still plan its Troops against 2500, so basing the % on the running
+    // total is misleading (reported by a player). Allied points are excluded from the primary's
+    // played points (the Allied AOP has no Troops rule — see note above): the primary's share of
+    // the limit = pointLimit − allied points currently taken. Falls back to primaryTotal if no
+    // limit is set.
+    const alliedPts = total - primaryTotal;
+    const ratioBase = state.pointLimit > 0 ? Math.max(state.pointLimit - alliedPts, 1) : primaryTotal;
+    const ratio = ratioBase > 0 ? troopsPts / ratioBase : 1;
     const label = (rule && rule.troopsCount !== 'all')
       ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : rule.troopsRemap.join('/')})`
       : 'Troops';
     if (ratio < eng.minTroopsRatio) {
       items.push({
         type: 'error',
-        text: T('valTroopsRatioFail', { label, pct: (ratio * 100).toFixed(1), needPts: Math.ceil(primaryTotal * eng.minTroopsRatio) }),
+        text: T('valTroopsRatioFail', { label, pct: (ratio * 100).toFixed(1), needPts: Math.ceil(ratioBase * eng.minTroopsRatio) }),
       });
     } else {
       items.push({ type: 'ok', text: T('valTroopsRatioOk', { label, pct: (ratio * 100).toFixed(1) }) });

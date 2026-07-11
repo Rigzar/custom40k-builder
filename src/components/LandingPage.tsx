@@ -13,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v149_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v150_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.49: Imperial Guard 1.01 + Dark Eldar Kabal fix',
-    intro: 'The Imperial Guard codex is updated to version 1.01 (shown on the faction button and the wiki) with three new units, a Chimera point correction, and reworked Mechanised Infantry transport rules. Dark Eldar Kabal wargear is no longer mistagged as Mark of Khorne, the landing page fog no longer pins the CPU, and the wiki gained the full Allied AOP / deployment / first-game guides plus a corrected Frontlines map.',
-    line1: '⬡ Imperial Guard 1.01: new Centaur RSV (105 pts) & Vigilator RSV (147 pts) Transports and Hippogriff AFV (Fast Attack, 125 pts); Chimera 201→186; Mechanised Infantry transports count 50% toward Troops (75% under Mechanised Company). ⬡ Dark Eldar: Kabal items/traits no longer treated as Mark of Khorne (the ᴷ glyph clashed with Khorne).',
-    line2: '⬡ Performance: the landing fog uses fewer octaves, updates at a lower rate, pauses on a hidden tab and respects "reduce motion" — much lower idle CPU. ⬡ Wiki: full ally matrix + AOP, deployment sequence, first-game guide, and a corrected Frontlines deployment map.',
+    title: 'v1.50: Troops %, Eldar armoury & Print View fixes',
+    intro: 'The "25% Troops" check now measures against the game\'s point limit instead of the points you have mustered so far, so a half-built list no longer reads a misleading percentage. Several Eldar fixes land alongside a Print View that finally respects archetype slot remaps.',
+    line1: '⬡ Troops requirement: measured against the point limit (the played points, e.g. 2500), not the running total — allied points still excluded from the primary army\'s share. ⬡ Eldar: characters no longer see the 16 Exarch Powers as buyable equipment (Farseer), and under "Exemplars of the Shrines" an Exarch may now take two Exarch Powers.',
+    line2: '⬡ Print View: each unit prints under its effective slot after archetype remaps (e.g. Windriders under Windhost print as Troops), and the Force Composition counts match the builder.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.49: Imperiale Armee 1.01 + Dark-Eldar-Kabal-Fix',
-    intro: 'Der Codex der Imperialen Armee ist auf Version 1.01 aktualisiert (auf dem Fraktions-Button und im Wiki) mit drei neuen Einheiten, einer Chimäre-Punktekorrektur und überarbeiteten Transportregeln. Dark-Eldar-Kabal-Ausrüstung gilt nicht mehr fälschlich als Mal des Khorne, der Startseiten-Nebel belastet die CPU nicht mehr, und das Wiki erhielt die vollständigen Verbündeten-/Aufstellungs-/Erstspiel-Leitfäden sowie eine korrigierte Frontlines-Karte.',
-    line1: '⬡ Imperiale Armee 1.01: neue Transporter Centaur RSV (105 Pkt.) & Vigilator RSV (147 Pkt.) und Hippogriff AFV (Schneller Angriff, 125 Pkt.); Chimäre 201→186; Transporter der Mechanisierten Infanterie zählen 50% zur Truppenanforderung (75% mit Mechanisierter Kompanie). ⬡ Dark Eldar: Kabal-Gegenstände/-Traits gelten nicht mehr als Mal des Khorne (das ᴷ-Zeichen kollidierte mit Khorne).',
-    line2: '⬡ Leistung: Der Startseiten-Nebel nutzt weniger Oktaven, aktualisiert seltener, pausiert bei verstecktem Tab und respektiert "Bewegung reduzieren" — deutlich weniger Leerlauf-CPU. ⬡ Wiki: vollständige Allianzmatrix + AOP, Aufstellungssequenz, Erstspiel-Leitfaden und korrigierte Frontlines-Karte.',
+    title: 'v1.50: Truppen-%, Eldar-Arsenal & Druckansicht-Fixes',
+    intro: 'Die "25% Truppen"-Prüfung misst jetzt gegen die Punktgrenze des Spiels statt gegen die bisher aufgestellten Punkte, sodass eine halbfertige Liste keinen irreführenden Prozentsatz mehr anzeigt. Dazu kommen mehrere Eldar-Fixes und eine Druckansicht, die Archetyp-Slot-Umordnungen endlich berücksichtigt.',
+    line1: '⬡ Truppen-Anforderung: gemessen an der Punktgrenze (den gespielten Punkten, z. B. 2500), nicht am laufenden Gesamtwert — Verbündeten-Punkte bleiben aus dem Anteil der Hauptarmee ausgenommen. ⬡ Eldar: Charaktere sehen die 16 Exarchen-Kräfte nicht mehr als kaufbare Ausrüstung (Runenprophet), und unter "Exemplars of the Shrines" darf ein Exarch nun zwei Exarchen-Kräfte nehmen.',
+    line2: '⬡ Druckansicht: Jede Einheit wird unter ihrem effektiven Slot nach Archetyp-Umordnung gedruckt (z. B. Windreiter unter Windhost als Truppen), und die Streitmacht-Zusammensetzung stimmt mit dem Builder überein.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.49: Guardia Imperial 1.01 + fix de Kabal (Dark Eldar)',
-    intro: 'El códex de la Guardia Imperial se actualiza a la versión 1.01 (visible en el botón de la facción y en la wiki) con tres unidades nuevas, una corrección de puntos del Chimera y reglas de transporte revisadas. El equipo de Kabal de Dark Eldar ya no se marca por error como Marca de Khorne, la niebla de la landing ya no clava la CPU, y la wiki recibió las guías completas de AOP aliado / despliegue / primera partida más un mapa de Frontlines corregido.',
-    line1: '⬡ Guardia Imperial 1.01: nuevos Transportes Centaur RSV (105 pts) y Vigilator RSV (147 pts) y el Hippogriff AFV (Ataque Rápido, 125 pts); Chimera 201→186; los transportes de Infantería Mecanizada cuentan 50% hacia Tropas (75% con Compañía Mecanizada). ⬡ Dark Eldar: los objetos/rasgos de Kabal ya no se tratan como Marca de Khorne (el glifo ᴷ chocaba con Khorne).',
-    line2: '⬡ Rendimiento: la niebla de la landing usa menos octavas, se actualiza más despacio, se pausa con la pestaña oculta y respeta "reducir movimiento" — mucha menos CPU en reposo. ⬡ Wiki: matriz de aliados + AOP completos, secuencia de despliegue, guía de primera partida y mapa de Frontlines corregido.',
+    title: 'v1.50: % de Tropas, armería Eldar y fixes de impresión',
+    intro: 'La comprobación "25% de Tropas" ahora se mide contra el límite de puntos de la partida en vez de contra los puntos que llevas montados, así que una lista a medias ya no muestra un porcentaje engañoso. Llegan además varios fixes de Eldar y una Vista de Impresión que por fin respeta los cambios de slot por arquetipo.',
+    line1: '⬡ Requisito de Tropas: se mide contra el límite de puntos (los puntos jugados, p. ej. 2500), no contra el total actual — los puntos aliados siguen excluidos de la parte del ejército primario. ⬡ Eldar: los personajes ya no ven los 16 Poderes de Exarca como equipo comprable (Vidente), y con "Exemplars of the Shrines" un Exarca ya puede coger dos Poderes de Exarca.',
+    line2: '⬡ Vista de Impresión: cada unidad se imprime bajo su slot efectivo tras los cambios del arquetipo (p. ej. los Vientojinetes con Windhost salen como Tropas), y la Composición de Fuerza coincide con el builder.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
