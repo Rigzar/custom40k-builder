@@ -18,24 +18,24 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v150_dismissed';
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.50: Troops %, Eldar armoury & Print View fixes',
-    intro: 'The "25% Troops" check now measures against the game\'s point limit instead of the points you have mustered so far, so a half-built list no longer reads a misleading percentage. Several Eldar fixes land alongside a Print View that finally respects archetype slot remaps.',
-    line1: '⬡ Troops requirement: measured against the point limit (the played points, e.g. 2500), not the running total — allied points still excluded from the primary army\'s share. ⬡ Eldar: characters no longer see the 16 Exarch Powers as buyable equipment (Farseer), and under "Exemplars of the Shrines" an Exarch may now take two Exarch Powers.',
-    line2: '⬡ Print View: each unit prints under its effective slot after archetype remaps (e.g. Windriders under Windhost print as Troops), and the Force Composition counts match the builder.',
+    title: 'v1.50: Print View, Troops % & Eldar armoury fixes',
+    intro: 'The printout no longer repeats the same page over and over — the sheet now prints cleanly, exactly like the on-screen preview, with your Traits listed next to the Legacy. The "25% Troops" check is reworked, and several Eldar fixes land too.',
+    line1: '⬡ Print View: fixed the repeating-page printout and blank pages; the roster prints on its own, paginated, matching the preview; chosen Traits now appear beside the Legacy; and remapped units (e.g. Windriders under Windhost) print/count under their effective slot.',
+    line2: '⬡ Troops requirement: measured against the point limit (the played points, e.g. 2500), not the running total — and Allied Detachment Troops count towards a single common 25% (the two detachments share it; neither needs 25% alone). ⬡ Eldar: characters no longer see the 16 Exarch Powers as buyable equipment (Farseer); "Exemplars of the Shrines" grants an Exarch two Exarch Powers; and an equipment-only Craftworld armoury no longer opens on an empty Weapons tab.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.50: Truppen-%, Eldar-Arsenal & Druckansicht-Fixes',
-    intro: 'Die "25% Truppen"-Prüfung misst jetzt gegen die Punktgrenze des Spiels statt gegen die bisher aufgestellten Punkte, sodass eine halbfertige Liste keinen irreführenden Prozentsatz mehr anzeigt. Dazu kommen mehrere Eldar-Fixes und eine Druckansicht, die Archetyp-Slot-Umordnungen endlich berücksichtigt.',
-    line1: '⬡ Truppen-Anforderung: gemessen an der Punktgrenze (den gespielten Punkten, z. B. 2500), nicht am laufenden Gesamtwert — Verbündeten-Punkte bleiben aus dem Anteil der Hauptarmee ausgenommen. ⬡ Eldar: Charaktere sehen die 16 Exarchen-Kräfte nicht mehr als kaufbare Ausrüstung (Runenprophet), und unter "Exemplars of the Shrines" darf ein Exarch nun zwei Exarchen-Kräfte nehmen.',
-    line2: '⬡ Druckansicht: Jede Einheit wird unter ihrem effektiven Slot nach Archetyp-Umordnung gedruckt (z. B. Windreiter unter Windhost als Truppen), und die Streitmacht-Zusammensetzung stimmt mit dem Builder überein.',
+    title: 'v1.50: Druckansicht, Truppen-% & Eldar-Arsenal-Fixes',
+    intro: 'Der Ausdruck wiederholt nicht mehr dieselbe Seite immer wieder — das Blatt druckt jetzt sauber, genau wie die Vorschau am Bildschirm, mit deinen Traits neben dem Vermächtnis. Die "25% Truppen"-Prüfung wurde überarbeitet, dazu mehrere Eldar-Fixes.',
+    line1: '⬡ Druckansicht: wiederholte Seiten und Leerseiten behoben; die Armeeliste druckt eigenständig und paginiert, passend zur Vorschau; gewählte Traits erscheinen nun neben dem Vermächtnis; umgeordnete Einheiten (z. B. Windreiter unter Windhost) werden unter ihrem effektiven Slot gedruckt/gezählt.',
+    line2: '⬡ Truppen-Anforderung: gemessen an der Punktgrenze (den gespielten Punkten, z. B. 2500), nicht am laufenden Gesamtwert — und Truppen des Verbündeten-Detachments zählen zu EINEM gemeinsamen 25% (beide teilen es sich; keines braucht allein 25%). ⬡ Eldar: Charaktere sehen die 16 Exarchen-Kräfte nicht mehr als kaufbare Ausrüstung (Runenprophet); "Exemplars of the Shrines" gewährt einem Exarch zwei Exarchen-Kräfte; und ein reines Ausrüstungs-Craftworld-Arsenal öffnet nicht mehr auf einem leeren Waffen-Tab.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.50: % de Tropas, armería Eldar y fixes de impresión',
-    intro: 'La comprobación "25% de Tropas" ahora se mide contra el límite de puntos de la partida en vez de contra los puntos que llevas montados, así que una lista a medias ya no muestra un porcentaje engañoso. Llegan además varios fixes de Eldar y una Vista de Impresión que por fin respeta los cambios de slot por arquetipo.',
-    line1: '⬡ Requisito de Tropas: se mide contra el límite de puntos (los puntos jugados, p. ej. 2500), no contra el total actual — los puntos aliados siguen excluidos de la parte del ejército primario. ⬡ Eldar: los personajes ya no ven los 16 Poderes de Exarca como equipo comprable (Vidente), y con "Exemplars of the Shrines" un Exarca ya puede coger dos Poderes de Exarca.',
-    line2: '⬡ Vista de Impresión: cada unidad se imprime bajo su slot efectivo tras los cambios del arquetipo (p. ej. los Vientojinetes con Windhost salen como Tropas), y la Composición de Fuerza coincide con el builder.',
+    title: 'v1.50: Vista de Impresión, % de Tropas y armería Eldar',
+    intro: 'El impreso ya no repite la misma página una y otra vez — la hoja se imprime limpia, igual que la vista previa, con tus Rasgos junto al Legado. Se rehace la comprobación de "25% de Tropas" y llegan varios fixes de Eldar.',
+    line1: '⬡ Vista de Impresión: arreglada la repetición de página y las páginas en blanco; la lista se imprime sola y paginada, igual que la vista previa; los Rasgos elegidos aparecen junto al Legado; y las unidades remapeadas (p. ej. Vientojinetes con Windhost) se imprimen/cuentan bajo su slot efectivo.',
+    line2: '⬡ Requisito de Tropas: se mide contra el límite de puntos (los puntos jugados, p. ej. 2500), no contra el total actual — y las Tropas del destacamento aliado cuentan hacia un ÚNICO 25% común (ambos lo comparten; ninguno necesita el 25% por separado). ⬡ Eldar: los personajes ya no ven los 16 Poderes de Exarca como equipo (Vidente); "Exemplars of the Shrines" da al Exarca dos Poderes; y una armería Craftworld solo-equipo ya no abre en una pestaña de Armas vacía.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };

@@ -1948,18 +1948,22 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
 
   // Troops 25% — archetype may restrict which Troops count (main faction only)
   if (state.army.length > 0 && total > 0) {
+    // Troops from the Allied Detachment DO count towards the requirement (rules clarification): the
+    // primary and allied detachments share ONE common 25% of the point limit — they do not each
+    // fulfil 25% individually. So every Troops-slot unit counts, using its OWN detachment's
+    // archetype for the slot remap / "only X Troops count" restriction (allied units use the allied
+    // archetype, which normally has no such restriction).
     const baseTroopsPts = state.army
       .filter(i => {
-        // Exclude true allied units (not integrated supplement) from the 25% Troops calculation
-        if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return false;
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
         if (!u) return false;
-        if (getEffectiveSlot(i.unitName, i.slot, rule) !== 'Troops') return false;
-        return countsTroops(i.unitName, u.locked_mark, rule);
+        const iRule = getArchetypeRule(effectiveArchetypeFor(i, state));
+        if (getEffectiveSlot(i.unitName, i.slot, iRule) !== 'Troops') return false;
+        return countsTroops(i.unitName, u.locked_mark, iRule);
       })
       .reduce((s, i) => {
         const u = resolveUnit(i, data) ?? (isSupplItem(i) && alliedData ? resolveUnit(i, alliedData) : null);
-        return s + (u ? computeUnitPoints(i, u, state.archetype) : 0);
+        return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
       }, 0);
     // Transport vehicles "from Mechanised Infantry" count toward the 25% Troops requirement
     // (Imperial Guard 1.01.ods): 50% of their point cost BY DEFAULT, raised to 75% by the
@@ -1989,27 +1993,13 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           .reduce((s, pts) => s + Math.floor(pts * transportPct), 0)
       : 0;
     const troopsPts = baseTroopsPts + transportBonus;
-    // Each detachment has its OWN AOP rules even though they share one point pool (Core Rules:
-    // the primary AOP's "25% of the played points on Troop units" is a PRIMARY-army rule; the
-    // Allied AOP has no percentage rule at all). So the denominator is the PRIMARY detachment's
-    // own points — `total` includes the ally's points (resolveUnit finds ally units via the
-    // merged data.allied catalog), which used to inflate the requirement (e.g. 1500 primary +
-    // 500 ally demanded 500 pts of primary Troops instead of 375). Integrated supplements (HH)
-    // ARE part of the primary detachment and stay counted.
-    const primaryTotal = state.army.reduce((s, i) => {
-      if (state.alliedFaction && i.factionSource === state.alliedFaction && !isSupplItem(i)) return s;
-      const u = resolveUnit(i, data);
-      return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
-    }, 0);
-    // Canon (Missions.txt: "25% of the point limit"; Core Rules: "25% of the played points") —
-    // the denominator is the agreed GAME SIZE, not the points currently mustered. A half-built
-    // 1688/2500 army must still plan its Troops against 2500, so basing the % on the running
-    // total is misleading (reported by a player). Allied points are excluded from the primary's
-    // played points (the Allied AOP has no Troops rule — see note above): the primary's share of
-    // the limit = pointLimit − allied points currently taken. Falls back to primaryTotal if no
-    // limit is set.
-    const alliedPts = total - primaryTotal;
-    const ratioBase = state.pointLimit > 0 ? Math.max(state.pointLimit - alliedPts, 1) : primaryTotal;
+    // Canon (Missions.txt: "25% of the point limit"; Core Rules: "25% of the played points") — the
+    // denominator is the agreed GAME SIZE, not the points currently mustered. A half-built
+    // 1688/2500 army must still plan its Troops against 2500, so basing the % on the running total
+    // is misleading (reported by a player). The primary + allied detachments share ONE common
+    // requirement against the full limit (allied Troops are in the numerator above), so the
+    // denominator is the whole point limit. Falls back to the current total if no limit is set.
+    const ratioBase = state.pointLimit > 0 ? state.pointLimit : total;
     const ratio = ratioBase > 0 ? troopsPts / ratioBase : 1;
     const label = (rule && rule.troopsCount !== 'all')
       ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : rule.troopsRemap.join('/')})`

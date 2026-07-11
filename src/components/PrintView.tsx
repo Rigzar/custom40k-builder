@@ -1,4 +1,5 @@
 import { useState, Fragment } from 'react';
+import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
@@ -1221,10 +1222,10 @@ function SummaryPage({ army, data, color, factionName, symbolUrl, slotMap }: {
 }
 
 // ── Cover / muster sheet (pure CSS — no background image) ────────────────────
-function CoverPage({ army, color, factionName, armyName, engagement, archetype, legacy, legacy2, totalPts, pointLimit, symbolUrl, slotMap }: {
+function CoverPage({ army, color, factionName, armyName, engagement, archetype, legacy, legacy2, traits, totalPts, pointLimit, symbolUrl, slotMap }: {
   army: RosterEntry[]; color: string; factionName: string;
   armyName: string; engagement: string; archetype: string | null;
-  legacy: string | null; legacy2: string | null; totalPts: number; pointLimit: number;
+  legacy: string | null; legacy2: string | null; traits: string[]; totalPts: number; pointLimit: number;
   symbolUrl: string; slotMap: Map<string, string>;
 }) {
   const compCounts = COMP_SLOTS.map(slot => {
@@ -1236,6 +1237,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
     ['Points', `${totalPts} / ${pointLimit}`],
     ...(archetype ? [['Archetype', archetype] as [string, string]] : []),
     ...(legacy ? [['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')] as [string, string]] : []),
+    ...(traits.length > 0 ? [['Traits', traits.join(', ')] as [string, string]] : []),
   ];
   const fillIn = ['Player', 'Warlord'];
 
@@ -1470,7 +1472,7 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
 // ── Print View root ───────────────────────────────────────────────────────────
 export function PrintView({ onClose }: { onClose: () => void }) {
   const { data, army, archetype, legacy, legacy2, pointLimit, engagement, hqMark, armyName,
-          alliedFaction, alliedData, supplementData } = useArmyStore();
+          alliedFaction, alliedData, supplementData, traitPool } = useArmyStore();
   const { language: rootLang } = useLanguage();
   const [mode, setMode] = useState<'cards' | 'simple' | 'list'>('cards');
   if (!data) return null;
@@ -1600,7 +1602,10 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     }
   }
 
-  return (
+  // Render into a portal at <body> (outside #root) so printing can simply hide #root and leave only
+  // this sheet. Printing the overlay in-place made a position:fixed ancestor repeat on every page
+  // (the "same page over and over" bug) and left blank pages from the app shell behind it.
+  return createPortal((
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#18171a' }}>
       {/* Toolbar */}
       <div className="print:hidden sticky top-0 z-10 bg-zinc-900 border-b border-zinc-700 px-4 py-2 flex items-center justify-between gap-4">
@@ -1637,7 +1642,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         {army.length > 0 && (
           <CoverPage army={army} color={primaryColor} factionName={data.faction}
             armyName={armyName} engagement={engagement} archetype={archetype}
-            legacy={legacy} legacy2={legacy2} totalPts={totalPts} pointLimit={pointLimit}
+            legacy={legacy} legacy2={legacy2} traits={traitPool} totalPts={totalPts} pointLimit={pointLimit}
             symbolUrl={symbolUrl} slotMap={slotMap} />
         )}
 
@@ -1711,6 +1716,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
                 engagement && ['Engagement', ENGAGEMENTS[engagement]?.name ?? engagement],
                 archetype  && ['Archetype', archetype],
                 legacy     && ['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')],
+                traitPool.length > 0 && ['Traits', traitPool.join(', ')],
                 ['Points', `${totalPts} / ${pointLimit} pts · ${army.length} units`],
               ].filter(Boolean).map(([label, value]) => (
                 <div key={label as string}>
@@ -1774,5 +1780,5 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         )}
       </div>
     </div>
-  );
+  ), document.body);
 }
