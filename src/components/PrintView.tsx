@@ -652,10 +652,10 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.63em', textTransform: 'uppercase', color, letterSpacing: '.09em', marginBottom: 3 }}>
                 {tFn(lang, 'equipment')}
               </div>
+              {/* Names only — descriptions live in the Special Rules section at the end of the sheet. */}
               {armEquip.map((eq, i) => (
-                <div key={i} style={{ fontSize: '.76em', lineHeight: 1.45, marginBottom: 2, color: '#222' }}>
-                  <span style={{ fontWeight: 700 }}>{eq.name}</span>
-                  {eq.desc && <span style={{ color: '#666', marginLeft: 4, fontStyle: 'italic' }}>— {eq.desc}</span>}
+                <div key={i} style={{ fontSize: '.76em', lineHeight: 1.35, marginBottom: 1, color: '#222', fontWeight: 700 }}>
+                  {eq.name}
                 </div>
               ))}
             </div>
@@ -673,43 +673,18 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
             }}>
               {tFn(lang, 'abilities')}
             </div>
-            {abilitiesList.length > 1 && (
-              <div style={{
-                padding: '4px 8px', borderBottom: `1px dotted ${color}33`,
-                display: 'flex', flexWrap: 'wrap', gap: 4, alignItems: 'center',
-              }}>
-                <span style={{ fontFamily: CONDUIT, fontSize: '.58em', fontWeight: 800, color: '#999', letterSpacing: '.06em', marginRight: 2 }}>
-                  RULES:
-                </span>
-                {abilitiesList.map((ab, i) => {
-                  const ci = ab.indexOf(':');
-                  const ruleName = ci > 0 && ci < 52 ? ab.slice(0, ci) : ab;
-                  return (
-                    <span key={i} style={{
-                      fontSize: '.66em', fontWeight: 700, color,
-                      background: `${color}14`, padding: '1px 6px', borderRadius: 2,
-                      whiteSpace: 'nowrap',
-                    }}>
-                      {ruleName}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
-            <div style={{ flex: 1, padding: '6px 8px', display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <div style={{ flex: 1, padding: '6px 8px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {/* Names only — the full rule text is collected once in the Special Rules section
+                  at the end of the sheet, so it isn't repeated (and clipped) on every card. */}
               {abilitiesList.map((ab, i) => {
                 const ci = ab.indexOf(':');
-                const split = ci > 0 && ci < 52;
+                const name = ci > 0 && ci < 52 ? ab.slice(0, ci) : ab;
                 return (
                   <div key={i} style={{
-                    fontSize: '.75em', lineHeight: 1.45, color: '#222',
+                    fontSize: '.75em', lineHeight: 1.35, color: '#222', fontWeight: 700,
                     paddingLeft: 7, borderLeft: `3px solid ${color}`,
                   }}>
-                    {split
-                      ? <><span style={{ fontWeight: 700 }}>{ab.slice(0, ci + 1)}</span>{' '}
-                          <span dangerouslySetInnerHTML={{ __html: highlightRules(ab.slice(ci + 1).trim()) }} /></>
-                      : <span style={{ fontWeight: 700 }}>{ab}</span>
-                    }
+                    {name}
                   </div>
                 );
               })}
@@ -1539,7 +1514,13 @@ export function PrintView({ onClose }: { onClose: () => void }) {
         if (choice && optWpnNames.has(choice.name)) selWpnNames.add(choice.name);
       }
     }
-    const shownWeapons = resolveUnitProfile(item, u, storeState, data).weapons
+    const rpForRules = resolveUnitProfile(item, u, storeState, data);
+    // Abilities shown by NAME on the cards (marks, Deep strike, psyker, granted/option abilities)
+    // get their full text collected here so the end-of-sheet Special Rules section explains them.
+    for (const ab of rpForRules.injectedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
+    for (const ab of rpForRules.optionAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
+    for (const ab of rpForRules.equipMods.grantedAbilities) if (!/^\d+$/.test(ab.trim())) parseGeneric(ab);
+    const shownWeapons = rpForRules.weapons
       .filter(w => !optWpnNames.has(w.name) || selWpnNames.has(w.name));
     for (const w of shownWeapons) {
       if (w.abilities && w.abilities !== '-') parseGeneric(w.abilities);
@@ -1726,15 +1707,15 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'specialRules')}</span>
             </div>
             <div style={{
-              padding: '8px 14px', background: PARCHMENT,
-              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2px 20px',
+              padding: '6px 14px', background: PARCHMENT,
+              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 20px',
             }}>
               {[...allSpecialRules.entries()]
                 .sort(([a], [b]) => a.localeCompare(b))
                 .map(([name, desc]) => (
                   <div key={name} style={{
-                    breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.45,
-                    color: '#222', paddingBottom: 4,
+                    breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.28,
+                    color: '#222', paddingBottom: 1,
                     paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55`,
                   }}>
                     {desc
