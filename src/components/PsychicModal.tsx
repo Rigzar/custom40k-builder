@@ -360,38 +360,50 @@ export function PsychicModal({ item, unit, onClose }: Props) {
               </div>
             )}
 
-            {/* Disciplines */}
+            {/* Disciplines — collapsible accordion so a psyker with many disciplines (General +
+                faction) isn't one long scroll. Each opens by default only if it holds a selection
+                (or is the chosen discipline), or when it's the only one. Powers render in a
+                2-column grid to roughly halve the height. */}
             {allowedDiscs.length === 0 ? (
               <div className="text-zinc-500 italic text-sm text-center py-8">
                 {t('noDisciplinesAvailable')}
               </div>
             ) : (
-              allowedDiscs.map(([discName, powers]) => {
+              <div className="space-y-2">
+              {allowedDiscs.map(([discName, powers]) => {
                 const isChosen = psykerMode === 'all_from_one' && chosenDisc === discName;
                 const atLimit = psykerMode !== 'unlimited' && psykerMode !== 'all_from_one'
                   && selectedPowersCount >= effectivePowerLimit;
+                const powersArr = (powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite'));
+                const selectedInDisc = psykerMode === 'all_from_one'
+                  ? (isChosen ? powersArr.length : 0)
+                  : powersArr.filter(p => isPowerSelected(discName, p.name)).length;
+                const defaultOpen = allowedDiscs.length === 1 || selectedInDisc > 0 || isChosen;
                 return (
-                  <div key={discName}>
-                    {/* Discipline header — clickable in all_from_one mode */}
-                    <div
-                      className={`flex items-center justify-between text-[11px] uppercase tracking-widest border-b pb-1 mb-2
-                        ${psykerMode === 'all_from_one'
-                          ? `cursor-pointer ${isChosen ? 'border-amber-600 text-amber-400' : 'border-zinc-700 text-zinc-500 hover:text-amber-600 hover:border-amber-800'}`
-                          : 'border-zinc-700 text-amber-700 cursor-default'}`}
-                      onClick={() => psykerMode === 'all_from_one' && chooseAllFromDisc(discName)}
-                    >
-                      <span>{discName}</span>
-                      {psykerMode === 'all_from_one' && (
-                        <span className={`text-[9px] px-1.5 py-px border font-bold normal-case tracking-normal ${isChosen ? 'bg-amber-800 border-amber-600 text-amber-200' : 'border-zinc-700 text-zinc-600'}`}>
+                  <details key={discName} open={defaultOpen} className={`border bg-zinc-900/20 ${isChosen ? 'border-amber-700/70' : 'border-zinc-800'}`}>
+                    {/* Discipline header — the whole row toggles open/close; in all_from_one mode the
+                        "Choose" badge (which selects the whole discipline) is a separate control. */}
+                    <summary className="flex items-center justify-between gap-2 px-2.5 py-1.5 cursor-pointer select-none hover:bg-zinc-800/40">
+                      <span className={`text-[11px] uppercase tracking-widest ${isChosen ? 'text-amber-400' : 'text-amber-700'}`}>{discName}</span>
+                      {psykerMode === 'all_from_one' ? (
+                        <button
+                          onClick={e => { e.preventDefault(); e.stopPropagation(); chooseAllFromDisc(discName); }}
+                          className={`shrink-0 text-[9px] px-2 py-0.5 border font-bold uppercase tracking-wide transition-colors
+                            ${isChosen ? 'bg-amber-800 border-amber-600 text-amber-200' : 'border-zinc-600 text-zinc-400 hover:text-amber-400 hover:border-amber-700'}`}
+                        >
                           {isChosen ? t('chosenBadge') : t('chooseWord')}
-                        </span>
+                        </button>
+                      ) : selectedInDisc > 0 ? (
+                        <span className="shrink-0 text-[9px] px-1.5 py-px bg-amber-900/40 border border-amber-800 text-amber-300 tracking-wide">{selectedInDisc}</span>
+                      ) : (
+                        <span className="shrink-0 text-[9px] text-zinc-600">{powersArr.length}</span>
                       )}
-                    </div>
+                    </summary>
 
-                    {/* Powers list — in all_from_one: shown as "all included when discipline chosen".
+                    {/* Powers grid — in all_from_one: shown as "all included when discipline chosen".
                         Smite is filtered out here — it's already shown as "Always known" above. */}
-                    <div className="space-y-1">
-                      {(powers as Power[]).filter(p => !(knowsSmite && p.name === 'Smite')).map(p => {
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-2 pt-0.5">
+                      {powersArr.map(p => {
                         const sel = psykerMode === 'all_from_one' ? isChosen : isPowerSelected(discName, p.name);
                         const disabled = !sel && atLimit;
                         return (
@@ -399,7 +411,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                             key={p.name}
                             disabled={disabled}
                             onClick={() => psykerMode !== 'all_from_one' && togglePower(discName, p.name)}
-                            className={`w-full text-left px-3 py-2 border transition-colors
+                            className={`text-left px-3 py-2 border transition-colors
                               ${sel
                                 ? 'bg-amber-900/30 border-amber-700 text-amber-300'
                                 : disabled
@@ -426,9 +438,10 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                         );
                       })}
                     </div>
-                  </div>
+                  </details>
                 );
-              })
+              })}
+              </div>
             )}
           </div>)}
 

@@ -611,26 +611,42 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     };
   }
 
-  // A legacy/legion armory can be equipment-only (e.g. the Eldar Craftworld Armory has no weapons,
-  // only 5 relics). Its tab defaulted to the empty WEAPONS section, reading "No items in this
-  // section" even though a legacy was selected (reported for the Autarch). When the active legion
-  // tab has no weapons but does have equipment, default to EQUIPMENT and hide the dead WEAPONS
-  // sub-tab. Applies to any faction's legacy armory, not just CSM legions.
+  // A WEAPONS/EQUIPMENT sub-tab is pointless when the ACTIVE armoury tab has no items in that
+  // section — e.g. the Eldar Craftworld Armory is relics-only (no weapons), and some mark/archetype
+  // armouries are one-sided too. Compute what the current tab actually offers, then hide the empty
+  // sub-tab and open on the non-empty one. Generic across every faction and every armoury tab.
+  // Reported for the Eldar Autarch opening the Craftworld tab on an empty WEAPONS section.
+  const filterArmoryList = (list: ArmoryItem[] | undefined): ArmoryItem[] =>
+    filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat((list ?? []) as ArmoryItem[]))));
   const legionSources = tab === 'legion'
     ? Object.entries(activeData.armory_legions)
         .filter(([k]) => activeLegionKeys.includes(k))
         .map(([, v]) => v)
     : [];
-  const legionEquipOnly = tab === 'legion'
-    && !legionSources.some(s => ((s.weapons as ArmoryItem[])?.length ?? 0) > 0)
-    && legionSources.some(s => ((s.equipment as ArmoryItem[])?.length ?? 0) > 0);
+  function activeTabSectionItems(sec: Section): ArmoryItem[] {
+    if (tab === 'general') return filterArmoryList(activeData.armory_general[sec] as ArmoryItem[]);
+    if (tab === 'mark') {
+      if (isBlackCrusadeChampion) return BC_MARKS.flatMap(m => filterArmoryList(activeData.armory_marks[m]?.[sec] as ArmoryItem[]));
+      return effectiveMark ? filterArmoryList(activeData.armory_marks[effectiveMark]?.[sec] as ArmoryItem[]) : [];
+    }
+    if (tab === 'legion') return legionSources.flatMap(s => filterArmoryList(s[sec] as ArmoryItem[]));
+    if (tab === 'archetypeArmory') return filterArmoryList(archetypeArmoryData?.armory_general?.[sec] as ArmoryItem[]);
+    return [];
+  }
+  // Only the section-tabbed armoury tabs participate (the 'authority' tab renders its own content).
+  const sectionTabbed = tab === 'general' || tab === 'mark' || tab === 'legion' || tab === 'archetypeArmory';
+  const wpnCount = sectionTabbed ? activeTabSectionItems('weapons').length : 1;
+  const eqpCount = sectionTabbed ? activeTabSectionItems('equipment').length : 1;
+  const hideWeaponsTab = wpnCount === 0 && eqpCount > 0;
+  const hideEquipmentTab = eqpCount === 0 && wpnCount > 0;
 
   // When opened via a category button, always show the equipment section filtered to that category.
   // For weapons-only units, always force the weapons section regardless of state.
   const effectiveSection: Section = filterCategory ? 'equipment'
     : isWeaponsOnly ? 'weapons'
     : isGearOnly ? 'equipment'
-    : legionEquipOnly ? 'equipment'
+    : hideWeaponsTab ? 'equipment'
+    : hideEquipmentTab ? 'weapons'
     : section;
 
   const equipItems = getItems('equipment');
@@ -737,7 +753,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         {/* Section tabs — hidden when opened via a specific category button */}
         {!filterCategory && (
           <div className="flex gap-1 p-2 bg-zinc-800 border-b border-zinc-700">
-            {(['weapons','equipment'] as Section[]).filter(s => !(s === 'equipment' && isWeaponsOnly) && !(s === 'weapons' && isGearOnly) && !(s === 'weapons' && legionEquipOnly)).map(s => (
+            {(['weapons','equipment'] as Section[]).filter(s => !(s === 'equipment' && isWeaponsOnly) && !(s === 'weapons' && isGearOnly) && !(s === 'weapons' && hideWeaponsTab) && !(s === 'equipment' && hideEquipmentTab)).map(s => (
               <button
                 key={s}
                 onClick={() => setSection(s)}

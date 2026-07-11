@@ -106,6 +106,9 @@ export function getFactionDescription(key: string): string {
  *  carries a version in its title are listed; others render without a version badge. */
 export const FACTION_VERSIONS: Record<string, string> = {
   imperial_guard: '1.01',
+  grey_knights: '1.01',
+  orks: '1.01',
+  eldar: '1.01',
 };
 
 export function getFactionVersion(key: string): string | undefined {

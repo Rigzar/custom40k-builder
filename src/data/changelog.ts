@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.51',
+    date: '2026-07-11',
+    title: 'Eldar / Grey Knights / Orks codex 1.01 + armoury & psychic UI',
+    changes: [
+      'Eldar — codex updated to version 1.01 (shown on the faction button and the wiki). Aspect Focus archetype: Dark Reapers are now exempted — they stay Heavy Support and no longer count as Troops ("with the exception of Dark Reapers, <Aspect> units can be taken as Troops").',
+      'Grey Knights — codex updated to version 1.01 (button + wiki). "Chamber of Purity" (Purifier Squads) and "Hall of Champions" (Paladin Squads) no longer limit that unit to 1 per army — with the archetype it counts as Troops and may be taken in multiples. The base-codex 1-per-army limit still applies without the archetype.',
+      'Orks — codex updated to version 1.01 (button + wiki). The Battle Fortress is now an Escalation-only unit (a duplicate codex entry was removed); it remains available as a Lords of War pick in Epic Battle, exactly as before.',
+      'GENERAL — Armoury: any armoury tab (General, Mark, Legacy, Archetype) that has no items in one section no longer shows an empty WEAPONS or EQUIPMENT sub-tab reading "No items in this section". The empty sub-tab is hidden and the tab opens on the section that actually has items — e.g. the Eldar Craftworld Armory (relics-only) now opens straight on EQUIPMENT. Works for every faction (reported for the Eldar Autarch with a Craftworld legacy).',
+      'GENERAL — psychic power selection is easier to navigate: disciplines are now collapsible sections (a psyker with the General disciplines plus its faction ones is no longer one long scroll), each opening automatically when it holds a selected power, and powers are laid out in two columns. The selection rules are unchanged.',
+      'Imperial Guard — tidy: the Mechanised Infantry "must take a transport (50% counts toward Troops)" reminder is now shown as a unit ability instead of an empty, non-interactive option row.',
+    ],
+  },
+  {
     version: '1.50',
     date: '2026-07-11',
     title: 'Troops % vs point limit + Eldar character armoury + Print View slots',
@@ -34,7 +47,6 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — Print View now shows each unit\'s effective slot after archetype remaps, matching the builder. A unit moved to Troops by its archetype (e.g. Windriders under the Eldar Windhost) printed under its base slot (Fast Attack) and was miscounted in the Force Composition; the slot label, dividers, army overview and composition now all use the remapped slot.',
       'GENERAL — Print View: fixed the printout repeating the same page over and over (a position:fixed overlay ancestor was reprinted on every page) and leaving blank pages from the app behind it. The sheet now renders in its own layer so only the roster prints, paginated cleanly — the on-screen preview was already correct. The chosen Traits are now listed next to the Legacy on both the cover sheet and the army configuration block.',
       'Eldar — fix (GH#68): under the "Exemplars of the Shrines" archetype, an Aspect Warrior Exarch can now take two Exarch Powers instead of one (the archetype grants "two Exarch powers"). Without it, an Exarch still takes exactly one.',
-      'GENERAL — Armoury: a legacy/legion armoury that only has equipment (e.g. the Eldar Craftworld Armory, which is relics-only) no longer opens on an empty WEAPONS sub-tab reading "No items in this section". Such a tab now opens on EQUIPMENT and hides the dead WEAPONS sub-tab (reported for the Eldar Autarch with a Craftworld legacy).',
     ],
   },
   {

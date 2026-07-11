@@ -13,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v150_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v151_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.50: Print View, Troops % & Eldar armoury fixes',
-    intro: 'The printout no longer repeats the same page over and over — the sheet now prints cleanly, exactly like the on-screen preview, with your Traits listed next to the Legacy. The "25% Troops" check is reworked, and several Eldar fixes land too.',
-    line1: '⬡ Print View: fixed the repeating-page printout and blank pages; the roster prints on its own, paginated, matching the preview; chosen Traits now appear beside the Legacy; and remapped units (e.g. Windriders under Windhost) print/count under their effective slot.',
-    line2: '⬡ Troops requirement: measured against the point limit (the played points, e.g. 2500), not the running total — and Allied Detachment Troops count towards a single common 25% (the two detachments share it; neither needs 25% alone). ⬡ Eldar: characters no longer see the 16 Exarch Powers as buyable equipment (Farseer); "Exemplars of the Shrines" grants an Exarch two Exarch Powers; and an equipment-only Craftworld armoury no longer opens on an empty Weapons tab.',
+    title: 'v1.51: Eldar, Grey Knights & Orks codex 1.01',
+    intro: 'Three codices step up to version 1.01, and two UI annoyances are cleaned up. Version badges now show on the Eldar, Grey Knights and Orks faction buttons and in the wiki.',
+    line1: '⬡ Eldar 1.01: Aspect Focus no longer turns Dark Reapers into Troops. ⬡ Grey Knights 1.01: Chamber of Purity (Purifier) and Hall of Champions (Paladin) drop the 1-per-army limit when taken. ⬡ Orks 1.01: the Battle Fortress is now an Escalation-only Lords of War pick (a duplicate codex entry was removed).',
+    line2: '⬡ Armoury: an armoury tab with no items in a section no longer opens on an empty Weapons/Equipment sub-tab — it hides the empty one and opens where the items are. ⬡ Psychic powers: disciplines are now collapsible and laid out in two columns, so a psyker\'s power list is no longer one long scroll.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.50: Druckansicht, Truppen-% & Eldar-Arsenal-Fixes',
-    intro: 'Der Ausdruck wiederholt nicht mehr dieselbe Seite immer wieder — das Blatt druckt jetzt sauber, genau wie die Vorschau am Bildschirm, mit deinen Traits neben dem Vermächtnis. Die "25% Truppen"-Prüfung wurde überarbeitet, dazu mehrere Eldar-Fixes.',
-    line1: '⬡ Druckansicht: wiederholte Seiten und Leerseiten behoben; die Armeeliste druckt eigenständig und paginiert, passend zur Vorschau; gewählte Traits erscheinen nun neben dem Vermächtnis; umgeordnete Einheiten (z. B. Windreiter unter Windhost) werden unter ihrem effektiven Slot gedruckt/gezählt.',
-    line2: '⬡ Truppen-Anforderung: gemessen an der Punktgrenze (den gespielten Punkten, z. B. 2500), nicht am laufenden Gesamtwert — und Truppen des Verbündeten-Detachments zählen zu EINEM gemeinsamen 25% (beide teilen es sich; keines braucht allein 25%). ⬡ Eldar: Charaktere sehen die 16 Exarchen-Kräfte nicht mehr als kaufbare Ausrüstung (Runenprophet); "Exemplars of the Shrines" gewährt einem Exarch zwei Exarchen-Kräfte; und ein reines Ausrüstungs-Craftworld-Arsenal öffnet nicht mehr auf einem leeren Waffen-Tab.',
+    title: 'v1.51: Eldar-, Grey-Knights- & Ork-Codex 1.01',
+    intro: 'Drei Codizes steigen auf Version 1.01, und zwei UI-Ärgernisse sind bereinigt. Versions-Abzeichen erscheinen nun auf den Fraktions-Buttons von Eldar, Grey Knights und Orks sowie im Wiki.',
+    line1: '⬡ Eldar 1.01: Aspect Focus macht Dark Reapers nicht mehr zu Truppen. ⬡ Grey Knights 1.01: Chamber of Purity (Purifier) und Hall of Champions (Paladin) lassen das 1-pro-Armee-Limit fallen, wenn gewählt. ⬡ Orks 1.01: Die Battle Fortress ist nun eine Escalation-exklusive Lords-of-War-Wahl (ein doppelter Codex-Eintrag wurde entfernt).',
+    line2: '⬡ Arsenal: ein Arsenal-Tab ohne Einträge in einem Abschnitt öffnet nicht mehr auf einem leeren Waffen-/Ausrüstungs-Tab — der leere wird ausgeblendet, geöffnet wird dort, wo die Einträge sind. ⬡ Psi-Kräfte: Disziplinen sind jetzt einklappbar und zweispaltig, sodass die Kräfteliste eines Psikers kein langes Scrollen mehr ist.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.50: Vista de Impresión, % de Tropas y armería Eldar',
-    intro: 'El impreso ya no repite la misma página una y otra vez — la hoja se imprime limpia, igual que la vista previa, con tus Rasgos junto al Legado. Se rehace la comprobación de "25% de Tropas" y llegan varios fixes de Eldar.',
-    line1: '⬡ Vista de Impresión: arreglada la repetición de página y las páginas en blanco; la lista se imprime sola y paginada, igual que la vista previa; los Rasgos elegidos aparecen junto al Legado; y las unidades remapeadas (p. ej. Vientojinetes con Windhost) se imprimen/cuentan bajo su slot efectivo.',
-    line2: '⬡ Requisito de Tropas: se mide contra el límite de puntos (los puntos jugados, p. ej. 2500), no contra el total actual — y las Tropas del destacamento aliado cuentan hacia un ÚNICO 25% común (ambos lo comparten; ninguno necesita el 25% por separado). ⬡ Eldar: los personajes ya no ven los 16 Poderes de Exarca como equipo (Vidente); "Exemplars of the Shrines" da al Exarca dos Poderes; y una armería Craftworld solo-equipo ya no abre en una pestaña de Armas vacía.',
+    title: 'v1.51: códex 1.01 de Eldar, Grey Knights y Orks',
+    intro: 'Tres códices suben a la versión 1.01 y se pulen dos molestias de interfaz. Los distintivos de versión ya aparecen en los botones de facción de Eldar, Grey Knights y Orks y en la wiki.',
+    line1: '⬡ Eldar 1.01: Aspect Focus ya no convierte a los Dark Reapers en Tropas. ⬡ Grey Knights 1.01: Chamber of Purity (Purifier) y Hall of Champions (Paladin) quitan el límite de 1 por ejército al tomarse. ⬡ Orks 1.01: la Battle Fortress es ahora una elección de Lords of War solo de Escalation (se quitó una entrada duplicada del códex).',
+    line2: '⬡ Armería: una pestaña de armería sin objetos en una sección ya no abre en una sub-pestaña de Armas/Equipo vacía — oculta la vacía y abre donde están los objetos. ⬡ Poderes psíquicos: las disciplinas ahora son plegables y en dos columnas, así la lista de poderes ya no es un scroll interminable.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -166,7 +166,7 @@ const CATEGORIES: Category[] = [
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'testing' },
-      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'testing' },
+      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'testing', version: '1.01' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'testing' },
     ],
   },
@@ -177,8 +177,8 @@ const CATEGORIES: Category[] = [
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'testing' },
       { key: 'necrons',           name: 'Necrons',           available: true, status: 'testing' },
-      { key: 'orks',              name: 'Orks',              available: true, status: 'testing' },
-      { key: 'eldar',             name: 'Eldar',             available: true, status: 'testing' },
+      { key: 'orks',              name: 'Orks',              available: true, status: 'testing', version: '1.01' },
+      { key: 'eldar',             name: 'Eldar',             available: true, status: 'testing', version: '1.01' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'testing' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'testing' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing' },

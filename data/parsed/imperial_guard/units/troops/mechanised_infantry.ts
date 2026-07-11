@@ -208,16 +208,6 @@ export const mechanisedInfantry: Unit = {
   ],
   "option_groups": [
     {
-      "header": "The unit must select a transport vehicle (any vehicle with a transport capacity) and start the game in it. 50% (round up) of the transport's point cost are counted towards the 25% Troops requirement.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
       "header": "One Guardsman may be equipped with a vox for +5 points.",
       "constraint": {
         "type": "one"
@@ -332,6 +322,7 @@ export const mechanisedInfantry: Unit = {
     }
   ],
   "abilities": [
+    "Mechanised: The unit must select a transport vehicle (any vehicle with a transport capacity) and start the game in it. 50% (round up) of the transport's point cost are counted towards the 25% Troops requirement.",
     "Combined squads: During deployment, Infantry squads can be combined with any number of other Infantry squads. They act as a single unit for the rest of the game.",
     "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
   ],

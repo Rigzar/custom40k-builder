@@ -155,10 +155,13 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   // ── Eldar ─────────────────────────────────────────────────────────────────
   'Aspect Focus': { ...BASE,
-    troopsRemap: ['Dire Avengers', 'Fire Dragons', 'Howling Banshees', 'Shadow Spectres', 'Striking Scorpions', 'Shining Spears', 'Swooping Hawks', 'Warp Spiders', 'Dark Reapers'],
+    // Eldar 1.01: Dark Reapers are exempted from Aspect Focus — they stay Heavy Support and no
+    // longer count as Troops ("With the exception of Dark Reapers, <Aspect> units can be taken as
+    // Troops").
+    troopsRemap: ['Dire Avengers', 'Fire Dragons', 'Howling Banshees', 'Shadow Spectres', 'Striking Scorpions', 'Shining Spears', 'Swooping Hawks', 'Warp Spiders'],
     demoteOtherTroops: true,
     notes: [
-      'All Aspect Warrior units count as Troops.',
+      'All Aspect Warrior units except Dark Reapers count as Troops.',
       'Non-Aspect Troops are moved to the Elites slot.',
     ],
   },
@@ -213,16 +216,18 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // ── Grey Knights ──────────────────────────────────────────────────────────
   'Chamber of Purity': { ...BASE,
     troopsRemap: ['Purifier Squad'], demoteOtherTroops: true,
+    liftsUniqueLimit: ['Purifier Squad'],  // GK 1.01: no longer limited to 1 per army
     notes: [
-      'Purifier Squads count as Troops.',
+      'Purifier Squads count as Troops and are no longer limited to 1 per army.',
       'All other Troops choices are moved to the Elites slot.',
     ],
   },
 
   'Hall of Champions': { ...BASE,
     troopsRemap: ['Paladin Squad'], demoteOtherTroops: true,
+    liftsUniqueLimit: ['Paladin Squad'],  // GK 1.01: no longer limited to 1 per army
     notes: [
-      'Paladin Squads count as Troops.',
+      'Paladin Squads count as Troops and are no longer limited to 1 per army.',
       'All other Troops choices are moved to the Elites slot.',
     ],
   },

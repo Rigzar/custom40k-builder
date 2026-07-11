@@ -177,6 +177,12 @@ export interface ArchetypeRule {
    * Eldar "Exemplars of the Shrines" sets this to 2 ("All Exarchs must gain two Exarch powers").
    */
   exarchPowersCount?: number;
+  /**
+   * Unit names whose base-codex "only one per army" cap (a `unique_upgrade` option group) this
+   * archetype lifts. E.g. Grey Knights 1.01 "Chamber of Purity" makes Purifier Squads Troops AND
+   * removes their 1-per-army limit; "Hall of Champions" does the same for Paladin Squads.
+   */
+  liftsUniqueLimit?: string[];
 }
 
 export const BASE: ArchetypeRule = {

@@ -1680,6 +1680,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
+    // An archetype may lift a unit's 1-per-army cap (GK "Chamber of Purity"/"Hall of Champions" —
+    // Purifier/Paladin Squads are no longer limited to 1 per army). Use the item's OWN detachment
+    // archetype so an ally's rule doesn't leak onto the primary and vice versa.
+    if (getArchetypeRule(effectiveArchetypeFor(item, state))?.liftsUniqueLimit?.includes(item.unitName)) continue;
     const isUniqueUnit = u.option_groups.some(
       g => g.is_unique_per_army && !g.variant_link && g.constraint.type === 'unique_upgrade',
     );
