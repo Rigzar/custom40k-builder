@@ -89,7 +89,11 @@ const MARK_ICON: Record<string, string> = {
 };
 
 const STAT_KEYS_INF = ['M','WS','BS','S','T','W','I','A','LD','SV'] as const;
-const STAT_KEYS_VEH = ['M','BS','S','FR','SI','RE','I','A','HP'] as const;
+// Vehicle armour lives under FRONT/SIDE/REAR in the data — the display used FR/SI/RE keys, so the
+// lookup `stats['FR']` always missed and vehicle armour printed blank. Use the real keys and shorten
+// only the visible label.
+const STAT_KEYS_VEH = ['M','BS','S','FRONT','SIDE','REAR','I','A','HP'] as const;
+const STAT_LABEL: Record<string, string> = { FRONT: 'FR', SIDE: 'SI', REAR: 'RE' };
 
 const MARK_STAT_MODS: Record<string, { stat: string; delta: number } | null> = {
   Khorne: { stat: 'A', delta: 1 }, Nurgle: { stat: 'T', delta: 1 },
@@ -231,7 +235,7 @@ function StatRow({ keys, stats, mod, showLabels, modelLabel, color }: {
           <div key={k} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {showLabels && (
               <span style={{ fontSize: '.52em', fontWeight: 800, color: 'rgba(255,255,255,.65)', marginBottom: 2, letterSpacing: '.05em', fontFamily: CONDUIT }}>
-                {k}
+                {STAT_LABEL[k] ?? k}
               </span>
             )}
             <FancyBox color={boosted ? '#b44444' : color}>
@@ -377,6 +381,18 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       armEquip.push({ name: sel.itemName, desc: arm.desc ?? '' });
     }
   }
+
+  // Selected inline wargear options (no sub-choices, priced upgrades that aren't a model promotion)
+  // — e.g. IG "One Guardsman may be equipped with a vox for +5 points". These weren't shown at all.
+  u.option_groups.forEach((g, gi) => {
+    if (g.choices.length > 0 || g.inline_pts == null || g.variant_link) return;
+    if (!item.optionQty?.[gi]?.['__inline']) return;
+    const m = g.header.match(/(?:equipped with|gains?|receives?|may take|carr(?:y|ies))\s*(?:a |an |one |: )?([a-z][a-z0-9'\-/ ]*?)(?:\s+for\b|\s*\(|[.,:]|$)/i);
+    const name = m ? m[1].trim().replace(/\b\w/, c => c.toUpperCase()) : g.header.replace(/\s+for\b.*$/i, '').trim();
+    if (name && !armEquip.some(e => e.name.toLowerCase() === name.toLowerCase())) {
+      armEquip.push({ name, desc: '' });
+    }
+  });
 
   const weaponGroupsPrint = rp.weaponGroups.map(g => {
     const tm     = g.traitMap ?? weaponTraitMap;
@@ -835,7 +851,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
           <tr><th colSpan={statKeys.length + 1} style={simpleSectionLabel}>Unit</th></tr>
           <tr>
             <th style={{ ...simpleTh, textAlign: 'left' }}>Model</th>
-            {statKeys.map(k => <th key={k} style={simpleTh}>{k}</th>)}
+            {statKeys.map(k => <th key={k} style={simpleTh}>{STAT_LABEL[k] ?? k}</th>)}
           </tr>
         </thead>
         <tbody>
@@ -1082,8 +1098,16 @@ function SummaryPage({ army, data, color, factionName, symbolUrl }: {
     const effectiveSlot = slot === 'Transport' ? 'Dedicated Transport' : slot;
     return army.filter(item => item.slot === effectiveSlot).length;
   });
-  const compValues = compCountsForRadar.map((count, i) => Math.min((count / COMP_MAX[i]) * 10, 10));
-  const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${COMP_MAX[i]}`);
+  // Dedicated Transport has no fixed cap: the AOP is "0-ᵀ" = one transport per Infantry-type
+  // selection. So the Transport axis max is the number of Infantry units in the army, not a flat 3
+  // (which made a Mechanised army read "5/3").
+  const infantryCount = army.filter(item => {
+    const u = resolveUnit(item, data);
+    return !!u && !u.is_vehicle && (u.unit_type ?? '').toLowerCase().includes('infantry');
+  }).length;
+  const compMax = COMP_MAX.map((m, i) => (COMP_SLOTS[i] === 'Transport' ? Math.max(infantryCount, 1) : m));
+  const compValues = compCountsForRadar.map((count, i) => Math.min((count / compMax[i]) * 10, 10));
+  const compSubLabels = compCountsForRadar.map((count, i) => `${count}/${compMax[i]}`);
 
   const statSums = [0, 0, 0, 0, 0, 0];
   let statCount  = 0;
@@ -1211,7 +1235,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
     ...(archetype ? [['Archetype', archetype] as [string, string]] : []),
     ...(legacy ? [['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')] as [string, string]] : []),
   ];
-  const fillIn = ['Player', 'Warlord', 'Reinforcement Points'];
+  const fillIn = ['Player', 'Warlord'];
 
   return (
     <div style={{

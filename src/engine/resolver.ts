@@ -924,7 +924,10 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
-      if (!g.replaces?.length) continue;
+      // Process BOTH swap groups (`replaces`) and add-only weapon-grant groups. Add-only groups
+      // (e.g. IG "Another Guardsman may be equipped with a Special weapon: Flamer") were skipped,
+      // so the granted weapon fell back to the squad's model count and printed "10x Flamer"
+      // instead of the quantity actually bought.
       if (g.applies_to_model) {
         if (!(Array.isArray(g.applies_to_model) ? g.applies_to_model.includes(grp.label) : g.applies_to_model === grp.label)) continue;
       } else if (builtInChampion && grp.label === builtInChampion.name) {
@@ -946,7 +949,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         }
       }
       if (groupQty === 0) continue;
-      for (const replaced of g.replaces) {
+      for (const replaced of (g.replaces ?? [])) {
         replacedQty.set(replaced, (replacedQty.get(replaced) ?? 0) + groupQty);
       }
     }

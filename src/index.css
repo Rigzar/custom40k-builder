@@ -347,11 +347,18 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
 .cog-appear { animation: cog-appear 0.25s ease-out both; }
 
 @media print {
-  /* Hide the dark overlay shell, leave only the white printable content */
-  .fixed.z-50 {
-    position: static !important;
-    background: white !important;
-    overflow: visible !important;
+  /* Print ONLY the Print View's printable area. Everything else (the builder shell behind the
+     overlay, the toolbar, etc.) is hidden — otherwise the dark unit cards from the app bled in at
+     the top of the printout. Classic "print just this element" pattern: hide all, re-show the
+     printable subtree, and pull it to the top-left so it isn't pushed down by hidden content. */
+  body * { visibility: hidden !important; }
+  #pv-printable, #pv-printable * { visibility: visible !important; }
+  #pv-printable {
+    position: absolute !important;
+    left: 0 !important; top: 0 !important;
+    width: 100% !important; max-width: none !important;
+    background: #fff !important;
   }
-  #root { min-width: 960px; }
+  .print\:hidden { display: none !important; }
+  #root { min-width: 0 !important; }
 }
