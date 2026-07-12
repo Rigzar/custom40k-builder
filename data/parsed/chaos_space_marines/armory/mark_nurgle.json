@@ -299,7 +299,7 @@
     {
       "name": "Shamblerot",
       "term_compat": true,
-      "desc": "Roll 1D6 during the model's acitvation, if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
+      "desc": "Roll 1D6 during the model's activation, if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [

@@ -143,9 +143,16 @@ export function parseEquipMods(
     // Don't also add to grantedAbilities — that would duplicate the display.
     const isGlobalWeaponAbility = /\bAll\s+\w*\s*weapons?\b.*\bgain\b/i.test(desc);
     if (!isGlobalWeaponAbility) {
-      // Match both double-quotes "X" and single-quotes 'X' (armory items use both)
-      for (const match of Array.from(desc.matchAll(/["']([^"']+)["']/g))) {
-        const ab = match[1];
+      // Ability names appear in quotes, e.g. gains the ability "Deep strike" / 'Feel no pain'.
+      // Match double- and single-quoted names SEPARATELY so an opening ' never pairs with a later
+      // " — and guard single quotes so a contraction apostrophe (model's, it's) is NOT read as an
+      // opening quote. The old combined /["']…["']/ regex captured a whole sentence fragment from
+      // e.g. Shamblerot's desc ("…the model'␣s acitvation, if an enemy vehicle is within 6"…").
+      const quoted = [
+        ...Array.from(desc.matchAll(/"([^"]+)"/g), m => m[1]),
+        ...Array.from(desc.matchAll(/(?<![A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[1]),
+      ];
+      for (const ab of quoted) {
         // A quoted unit-type word is handled by the type system, not shown as an ability.
         if (UNIT_TYPE_WORDS.has(ab.toLowerCase().trim())) continue;
         // Only add what the model doesn't already have (don't re-grant a base ability).

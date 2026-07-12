@@ -166,16 +166,16 @@ const CONDUIT   = "'ConduitITCStd', 'Arial Narrow', Arial, sans-serif";
 function FancyBox({ children, color }: { children: React.ReactNode; color: string }) {
   return (
     <div style={{
-      background: color, padding: 2.5, flexShrink: 0,
+      background: color, padding: 2, flexShrink: 0,
       clipPath: 'polygon(13% 0%, 100% 0%, 100% 87%, 87% 100%, 0% 100%, 0% 13%)',
     }}>
       <div style={{
-        minWidth: '2.1rem', minHeight: '2.1rem',
+        minWidth: '1.72rem', minHeight: '1.72rem',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: PARCHMENT,
         clipPath: 'polygon(11% 0%, 100% 0%, 100% 89%, 89% 100%, 0% 100%, 0% 11%)',
-        fontSize: '1.02em', fontWeight: 900, color: '#1a0a0a',
-        fontFamily: CONDUIT, padding: '2px 0',
+        fontSize: '.92em', fontWeight: 900, color: '#1a0a0a',
+        fontFamily: CONDUIT, padding: '1px 0',
       }}>
         {children}
       </div>
@@ -460,7 +460,18 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
     ...optionAbilities.filter(ab =>
       !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))
     ),
-  ];
+  ].filter((() => {
+    // De-dupe by ability NAME (case-insensitive) so an item-granted ability and the base ability of
+    // the same name don't both show (e.g. "Tank hunter" from equipment + "Tank Hunter" base).
+    const seen = new Set<string>();
+    return (ab: string) => {
+      const ci = ab.indexOf(':');
+      const key = (ci > 0 ? ab.slice(0, ci) : ab).trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    };
+  })());
   const traitList  = item.traits.map(t => t.name);
   const powerList  = item.powers.map(p => `${p.powerName} (${p.disciplineName})`);
   const prayerList = item.prayers;
@@ -474,7 +485,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
 
   return (
     <div style={{
-      marginBottom: 10, pageBreakInside: 'avoid', breakInside: 'avoid',
+      marginBottom: 7, pageBreakInside: 'avoid', breakInside: 'avoid',
       border: `1px solid ${color}55`,
       boxShadow: `0 2px 8px rgba(0,0,0,.22), inset 0 0 0 1px ${color}18`,
       fontFamily: "'Trebuchet MS', sans-serif",
@@ -486,8 +497,8 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       <div style={{
         position: 'relative', overflow: 'hidden',
         background: HDR_BG,
-        borderTop: `4px solid ${color}`,
-        minHeight: 88,
+        borderTop: `3px solid ${color}`,
+        minHeight: 60,
       }}>
         {/* Diagonal color wash */}
         <div style={{
@@ -505,18 +516,18 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
         {symbolUrl && (
           <img src={symbolUrl} alt="" style={{
             position: 'absolute', right: -6, top: '50%', transform: 'translateY(-50%)',
-            height: '118%', maxHeight: 108, opacity: .17,
+            height: '112%', maxHeight: 74, opacity: .17,
             filter: 'invert(1) brightness(10)', pointerEvents: 'none',
           }} />
         )}
 
-        <div style={{ position: 'relative', zIndex: 1, padding: '10px 115px 9px 15px', color: '#fff' }}>
+        <div style={{ position: 'relative', zIndex: 1, padding: '7px 104px 6px 14px', color: '#fff' }}>
           {/* Unit name + pts badge */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 }}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{
                 fontFamily: CONDUIT, fontWeight: 800,
-                fontSize: '1.92em', textTransform: 'uppercase',
+                fontSize: '1.5em', textTransform: 'uppercase',
                 letterSpacing: '.04em', lineHeight: 1,
                 whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
               }}>
@@ -533,9 +544,9 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
             <div style={{
               background: color, flexShrink: 0,
               clipPath: 'polygon(10% 0%, 100% 0%, 100% 90%, 90% 100%, 0% 100%, 0% 10%)',
-              padding: '5px 13px', textAlign: 'center', minWidth: 56,
+              padding: '4px 11px', textAlign: 'center', minWidth: 48,
             }}>
-              <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '1.78em', lineHeight: 1, color: '#fff' }}>
+              <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '1.4em', lineHeight: 1, color: '#fff' }}>
                 {pts}
               </div>
               <div style={{ fontFamily: CONDUIT, fontSize: '.54em', fontWeight: 700, letterSpacing: '.1em', color: 'rgba(255,255,255,.68)', textTransform: 'uppercase' }}>
@@ -545,7 +556,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
           </div>
 
           {/* Pill row */}
-          <div style={{ display: 'flex', gap: 4, marginTop: 6, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 4, marginTop: 4, alignItems: 'center', flexWrap: 'wrap' }}>
             {SLOT_ICONS[rp.effectiveSlot] && (
               <img src={SLOT_ICONS[rp.effectiveSlot]} alt="" style={{ width: 11, height: 11, opacity: .62, filter: 'invert(1)', flexShrink: 0 }} />
             )}
@@ -583,7 +594,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
           </div>
 
           {/* Stat rows */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 8 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 5 }}>
             {modelsToShow.map((m, mi) => {
               const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
@@ -837,7 +848,16 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
     ...injectedAbilities.filter(ab => !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))),
     ...equipMods.grantedAbilities.filter(ab => !u.abilities.some((a: string) => (a.includes(':') ? a.split(':')[0] : a).trim().toLowerCase() === ab.toLowerCase())),
     ...optionAbilities.filter(ab => !u.abilities.some((a: string) => a.toLowerCase().includes(ab.toLowerCase()))),
-  ];
+  ].filter((() => {
+    const seen = new Set<string>();
+    return (ab: string) => {
+      const ci = ab.indexOf(':');
+      const key = (ci > 0 ? ab.slice(0, ci) : ab).trim().toLowerCase();
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    };
+  })());
   const ruleNames = abilitiesList.map(ab => { const ci = ab.indexOf(':'); return ci > 0 && ci < 52 ? ab.slice(0, ci) : ab; });
 
   return (
@@ -1354,7 +1374,7 @@ function CoverPage({ army, color, factionName, armyName, engagement, archetype, 
 function SlotDivider({ slot, color }: { slot: string; color: string }) {
   const iconSrc = SLOT_ICONS[slot];
   return (
-    <div style={{ display: 'flex', alignItems: 'stretch', margin: '16px 0 8px', breakInside: 'avoid' }}>
+    <div style={{ display: 'flex', alignItems: 'stretch', margin: '10px 0 6px', breakInside: 'avoid', breakAfter: 'avoid', pageBreakAfter: 'avoid' }}>
       {/* Left bookmark */}
       <div style={{ width: 5, background: color, borderRadius: '3px 0 0 3px', flexShrink: 0 }} />
       {/* Label chip */}

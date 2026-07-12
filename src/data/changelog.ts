@@ -27,10 +27,12 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.52',
     date: '2026-07-12',
-    title: 'Crusader fixes (Neophytes, Imperial Guard Crusader wounds)',
+    title: 'Crusader fixes + Print View density & ability cleanup',
     changes: [
       'GENERAL — fix: a squad whose optional (0-N) model was listed first — e.g. the Space Marines Indomitus Crusader Squad, whose Neophytes come before the Initiates — showed no stepper for that model, so it could not be added (reported: "can\'t add Neophytes to Crusader squads"). Every optional model now gets its own +/- control regardless of its position in the datasheet.',
       'Imperial Guard — fix: Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts). Corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader profile (reported on Discord; the Crusader was missed in the IG 1.01 re-audit).',
+      'GENERAL — Print View: unit cards are more compact (smaller header, points badge and stat boxes, tighter spacing) so more than one card now fits per page instead of one-per-page, cutting the printout down and removing most of the wasted whitespace. Slot dividers ("HQ", "Troops"…) now stay attached to the first card of their slot instead of being orphaned at the bottom of a page.',
+      'GENERAL — Print View: fixed two ability glitches on unit cards. A contraction apostrophe in an item description (e.g. Shamblerot\'s "the model\'s activation…") was mis-read as a quote and printed a garbled sentence fragment in the Abilities column; and an ability granted by gear plus the same base ability (e.g. "Tank hunter"/"Tank Hunter") were listed twice — both are now clean.',
     ],
   },
   {
