@@ -18,24 +18,24 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v152_dismissed';
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.52: Crusader fixes',
-    intro: 'Two Crusader bugs reported on Discord are fixed.',
-    line1: '⬡ Any squad whose optional (0-N) model was listed first — like the Space Marines Indomitus Crusader Squad\'s Neophytes — now gets its own +/- control, so you can finally add those models.',
-    line2: '⬡ Imperial Guard Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts); corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader.',
+    title: 'v1.52: Cleaner printout + a batch of fixes',
+    intro: 'The army printout got tighter and cleaner, and a stack of unit and armoury bugs from Discord are fixed.',
+    line1: '⬡ Print View: unit cards are more compact (more than one now fits per page), slot headers stay with their units instead of stranding at the bottom of a page, the end-of-sheet Special Rules pack into two even columns, and two ability glitches (a garbled sentence fragment and a duplicated ability) are gone.',
+    line2: '⬡ Fixes: Neophytes can be added to Crusader-type squads; Imperial Guard Crusaders corrected to Wounds 2 / WS 2+ / 44 pts; the Exalted Plague Champion only shows its Plague sprayer once upgraded to Foul Blightspawn; and the Storm shield can now be taken by Sororitas squads (e.g. Celestians).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.52: Kreuzritter-Fixes',
-    intro: 'Zwei auf Discord gemeldete Kreuzritter-Fehler sind behoben.',
-    line1: '⬡ Jede Einheit, deren optionales (0-N) Modell zuerst gelistet war — wie die Neophyten der Indomitus-Kreuzritter-Trupps der Space Marines — bekommt nun ein eigenes +/- Steuerelement, sodass sich diese Modelle endlich hinzufügen lassen.',
-    line2: '⬡ Die Kreuzritter der Imperialen Armee hatten das falsche Profil (Wunden 1, WS 3+, 23 Pkt.); korrigiert auf den 1.01-Kanon — Wunden 2, WS 2+, 44 Pkt. — passend zum Inquisitions-/Sororitas-Kreuzritter.',
+    title: 'v1.52: Saubererer Ausdruck + viele Fixes',
+    intro: 'Der Armee-Ausdruck ist kompakter und sauberer, und ein Stapel von Einheiten- und Arsenal-Fehlern aus Discord ist behoben.',
+    line1: '⬡ Druckansicht: Einheitenkarten sind kompakter (mehr als eine passt jetzt pro Seite), Slot-Überschriften bleiben bei ihren Einheiten statt am Seitenende zu stranden, die Spezialregeln am Blattende füllen zwei gleichmäßige Spalten, und zwei Fähigkeits-Fehler (ein verstümmeltes Satzfragment und eine doppelte Fähigkeit) sind weg.',
+    line2: '⬡ Fixes: Neophyten lassen sich zu Kreuzritter-Trupps hinzufügen; Kreuzritter der Imperialen Armee auf Wunden 2 / WS 2+ / 44 Pkt. korrigiert; der Exalted Plague Champion zeigt seinen Plague sprayer erst nach dem Upgrade zum Foul Blightspawn; und das Sturmschild lässt sich nun von Sororitas-Trupps (z. B. Celestians) nehmen.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.52: fixes de Crusaders',
-    intro: 'Corregidos dos bugs de Crusaders reportados en Discord.',
-    line1: '⬡ Toda unidad cuyo modelo opcional (0-N) estaba listado primero — como los Neophytes del Indomitus Crusader Squad de los Space Marines — ya tiene su propio control +/-, así que por fin puedes añadir esos modelos.',
-    line2: '⬡ Los Crusaders de la Guardia Imperial tenían el perfil equivocado (Heridas 1, HA 3+, 23 pts); corregido al canon 1.01 — Heridas 2, HA 2+, 44 pts — igual que el Crusader de Inquisition/Sororitas.',
+    title: 'v1.52: impreso más limpio + varios fixes',
+    intro: 'El impreso del ejército quedó más compacto y limpio, y se corrigió un buen puñado de bugs de unidades y armería reportados en Discord.',
+    line1: '⬡ Vista de Impresión: las cartas de unidad son más compactas (ya entra más de una por hoja), las cabeceras de slot se quedan con sus unidades en vez de colgar al final de una página, la sección de Special Rules del final se reparte en dos columnas parejas, y desaparecen dos fallos de abilities (un fragmento de frase roto y una ability duplicada).',
+    line2: '⬡ Fixes: se pueden añadir Neophytes a los escuadrones tipo Crusader; los Crusaders de la Guardia Imperial corregidos a Heridas 2 / HA 2+ / 44 pts; el Exalted Plague Champion solo muestra el Plague sprayer al mejorarse a Foul Blightspawn; y el Storm shield ya lo pueden coger los escuadrones Sororitas (p. ej. Celestians).',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
