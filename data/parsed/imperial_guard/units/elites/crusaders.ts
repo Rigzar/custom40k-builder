@@ -13,16 +13,16 @@ export const crusaders: Unit = {
   "models": [
     {
       "name": "Crusader",
-      "points": 23,
+      "points": 44,
       "min": 1,
       "max": 4,
       "stats": {
         "M": "6\"",
-        "WS": "3+",
+        "WS": "2+",
         "BS": "3+",
         "S": "3",
         "T": "3",
-        "W": "1",
+        "W": "2",
         "I": "3",
         "A": "2",
         "LD": "7",
@@ -75,5 +75,5 @@ export const crusaders: Unit = {
   "advisor": true,
   "slot": "Elites",
   "default_size": 1,
-  "min_cost": 40
+  "min_cost": 44
 };

@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.52',
+    date: '2026-07-12',
+    title: 'Crusader fixes (Neophytes, Imperial Guard Crusader wounds)',
+    changes: [
+      'GENERAL — fix: a squad whose optional (0-N) model was listed first — e.g. the Space Marines Indomitus Crusader Squad, whose Neophytes come before the Initiates — showed no stepper for that model, so it could not be added (reported: "can\'t add Neophytes to Crusader squads"). Every optional model now gets its own +/- control regardless of its position in the datasheet.',
+      'Imperial Guard — fix: Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts). Corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader profile (reported on Discord; the Crusader was missed in the IG 1.01 re-audit).',
+    ],
+  },
+  {
     version: '1.51',
     date: '2026-07-11',
     title: 'Eldar / Grey Knights / Orks codex 1.01 + armoury & psychic UI',

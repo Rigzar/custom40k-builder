@@ -13,29 +13,29 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v151_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v152_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.51: Eldar, Grey Knights & Orks codex 1.01',
-    intro: 'Three codices step up to version 1.01, and two UI annoyances are cleaned up. Version badges now show on the Eldar, Grey Knights and Orks faction buttons and in the wiki.',
-    line1: '⬡ Eldar 1.01: Aspect Focus no longer turns Dark Reapers into Troops. ⬡ Grey Knights 1.01: Chamber of Purity (Purifier) and Hall of Champions (Paladin) drop the 1-per-army limit when taken. ⬡ Orks 1.01: the Battle Fortress is now an Escalation-only Lords of War pick (a duplicate codex entry was removed).',
-    line2: '⬡ Armoury: an armoury tab with no items in a section no longer opens on an empty Weapons/Equipment sub-tab — it hides the empty one and opens where the items are. ⬡ Psychic powers: disciplines are now collapsible and laid out in two columns, so a psyker\'s power list is no longer one long scroll.',
+    title: 'v1.52: Crusader fixes',
+    intro: 'Two Crusader bugs reported on Discord are fixed.',
+    line1: '⬡ Any squad whose optional (0-N) model was listed first — like the Space Marines Indomitus Crusader Squad\'s Neophytes — now gets its own +/- control, so you can finally add those models.',
+    line2: '⬡ Imperial Guard Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts); corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.51: Eldar-, Grey-Knights- & Ork-Codex 1.01',
-    intro: 'Drei Codizes steigen auf Version 1.01, und zwei UI-Ärgernisse sind bereinigt. Versions-Abzeichen erscheinen nun auf den Fraktions-Buttons von Eldar, Grey Knights und Orks sowie im Wiki.',
-    line1: '⬡ Eldar 1.01: Aspect Focus macht Dark Reapers nicht mehr zu Truppen. ⬡ Grey Knights 1.01: Chamber of Purity (Purifier) und Hall of Champions (Paladin) lassen das 1-pro-Armee-Limit fallen, wenn gewählt. ⬡ Orks 1.01: Die Battle Fortress ist nun eine Escalation-exklusive Lords-of-War-Wahl (ein doppelter Codex-Eintrag wurde entfernt).',
-    line2: '⬡ Arsenal: ein Arsenal-Tab ohne Einträge in einem Abschnitt öffnet nicht mehr auf einem leeren Waffen-/Ausrüstungs-Tab — der leere wird ausgeblendet, geöffnet wird dort, wo die Einträge sind. ⬡ Psi-Kräfte: Disziplinen sind jetzt einklappbar und zweispaltig, sodass die Kräfteliste eines Psikers kein langes Scrollen mehr ist.',
+    title: 'v1.52: Kreuzritter-Fixes',
+    intro: 'Zwei auf Discord gemeldete Kreuzritter-Fehler sind behoben.',
+    line1: '⬡ Jede Einheit, deren optionales (0-N) Modell zuerst gelistet war — wie die Neophyten der Indomitus-Kreuzritter-Trupps der Space Marines — bekommt nun ein eigenes +/- Steuerelement, sodass sich diese Modelle endlich hinzufügen lassen.',
+    line2: '⬡ Die Kreuzritter der Imperialen Armee hatten das falsche Profil (Wunden 1, WS 3+, 23 Pkt.); korrigiert auf den 1.01-Kanon — Wunden 2, WS 2+, 44 Pkt. — passend zum Inquisitions-/Sororitas-Kreuzritter.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.51: códex 1.01 de Eldar, Grey Knights y Orks',
-    intro: 'Tres códices suben a la versión 1.01 y se pulen dos molestias de interfaz. Los distintivos de versión ya aparecen en los botones de facción de Eldar, Grey Knights y Orks y en la wiki.',
-    line1: '⬡ Eldar 1.01: Aspect Focus ya no convierte a los Dark Reapers en Tropas. ⬡ Grey Knights 1.01: Chamber of Purity (Purifier) y Hall of Champions (Paladin) quitan el límite de 1 por ejército al tomarse. ⬡ Orks 1.01: la Battle Fortress es ahora una elección de Lords of War solo de Escalation (se quitó una entrada duplicada del códex).',
-    line2: '⬡ Armería: una pestaña de armería sin objetos en una sección ya no abre en una sub-pestaña de Armas/Equipo vacía — oculta la vacía y abre donde están los objetos. ⬡ Poderes psíquicos: las disciplinas ahora son plegables y en dos columnas, así la lista de poderes ya no es un scroll interminable.',
+    title: 'v1.52: fixes de Crusaders',
+    intro: 'Corregidos dos bugs de Crusaders reportados en Discord.',
+    line1: '⬡ Toda unidad cuyo modelo opcional (0-N) estaba listado primero — como los Neophytes del Indomitus Crusader Squad de los Space Marines — ya tiene su propio control +/-, así que por fin puedes añadir esos modelos.',
+    line2: '⬡ Los Crusaders de la Guardia Imperial tenían el perfil equivocado (Heridas 1, HA 3+, 23 pts); corregido al canon 1.01 — Heridas 2, HA 2+, 44 pts — igual que el Crusader de Inquisition/Sororitas.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };

@@ -1005,9 +1005,11 @@ export function UnitCard({ item }: Props) {
           )}
 
           {/* Optional extra models (e.g. Chaos Ogryn, min:0) — collapsible profile/abilities/weapons block.
-              Built-in models (min>0, e.g. Plague Champion) are already shown in the Profile table above
-              and are not rendered here — there's no "buy more of these" rule to show for them. */}
-          {item.modelSizes && u.models.slice(1).filter(m => m.min === 0 && m.max > 0).map(m => {
+              Built-in models (min>0, e.g. Plague Champion) are shown in the Profile table above and by
+              the min>0 stepper block, so they're excluded here by the min===0 filter — no positional
+              slice (the optional model can be at index 0, e.g. the Indomitus Crusader Squad's Neophyte,
+              and slicing the first model dropped its stepper entirely, so it couldn't be added). */}
+          {item.modelSizes && u.models.filter(m => m.min === 0 && m.max > 0).map(m => {
             const count = item.modelSizes![m.name] ?? m.min;
             const max = effectiveModelMax(m);
             const equipMatch = u.equipped_with.match(new RegExp(`Every ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
