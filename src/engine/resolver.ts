@@ -237,6 +237,27 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     }
   }
 
+  // Conditional grants written into equipped_with as "A <specialisation> is additionally equipped
+  // with: <weapon>." — the weapon belongs ONLY to that named option choice, not the base loadout, so
+  // it must stay hidden until that choice is picked (e.g. the Exalted Plague Champion's Plague
+  // sprayer, only when upgraded to Foul Blightspawn). Tie it to the choice like any optional weapon,
+  // and remember it so the "always show if in equipped_with" rule below skips it.
+  const conditionalGrantWeapons = new Set<string>();
+  if (unit.equipped_with) {
+    const allChoiceNames = new Set(unit.option_groups.flatMap(g => g.choices.map(c => c.name)));
+    for (const m of unit.equipped_with.matchAll(/\bAn?\s+([^.]+?)\s+is additionally equipped with:\s*([^.]+)\./gi)) {
+      const who = m[1].trim();
+      if (!allChoiceNames.has(who)) continue;
+      for (const wname of m[2].split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
+        const bn = baseName(wname);
+        if (!unit.weapons.some(w => baseName(w.name) === bn)) continue;
+        conditionalGrantWeapons.add(bn);
+        if (!optionalWeapons.has(bn)) optionalWeapons.set(bn, new Set());
+        optionalWeapons.get(bn)!.add(who);
+      }
+    }
+  }
+
   // Weapons exclusive to a secondary model that hasn't been bought yet (e.g. Chaos
   // Ogryn's Power maul before any Ogryn is added) aren't part of the starting loadout.
   const zeroCountModelWeapons = new Set<string>();
@@ -366,7 +387,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     // name also appears as a swap-upgrade choice (e.g. Ironclad's "Heavy flamer" comes with
     // the Seismic hammer but is also a choice for swapping the Storm bolter — the default copy
     // must not be hidden because the choice copy hasn't been selected).
-    if (unit.equipped_with?.includes(baseName(w.name))) return true;
+    if (unit.equipped_with?.includes(baseName(w.name)) && !conditionalGrantWeapons.has(baseName(w.name))) return true;
     return [...owningChoices].some(cn => selectedChoiceNames.has(cn));
   });
 }

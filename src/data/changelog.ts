@@ -34,6 +34,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'GENERAL — Print View: unit cards are more compact (smaller header, points badge and stat boxes, tighter spacing) so more than one card now fits per page instead of one-per-page, cutting the printout down and removing most of the wasted whitespace. Slot dividers ("HQ", "Troops"…) now stay attached to the first card of their slot instead of being orphaned at the bottom of a page.',
       'GENERAL — Print View: fixed two ability glitches on unit cards. A contraction apostrophe in an item description (e.g. Shamblerot\'s "the model\'s activation…") was mis-read as a quote and printed a garbled sentence fragment in the Abilities column; and an ability granted by gear plus the same base ability (e.g. "Tank hunter"/"Tank Hunter") were listed twice — both are now clean.',
       'GENERAL — Print View: the end-of-sheet Special Rules section now flows in two even columns instead of a grid, so a short rule next to a tall one is no longer stretched with big empty gaps between entries.',
+      'Chaos Space Marines — fix: the Exalted Plague Champion always showed the Plague sprayer, which it only carries when upgraded to Foul Blightspawn. A weapon written into a datasheet as "A <specialisation> is additionally equipped with…" is now tied to that upgrade and only appears once it is chosen (works for any unit with that wording).',
+      'Adeptus Sororitas — fix: the Storm shield could not be added to non-Character squads (e.g. a Celestian Squad). Its non-Character price was missing (only the Character price was set); corrected to the .ods value (2 pts / 6 pts Character), so any Sororitas unit with Armoury access can now take it.',
     ],
   },
   {

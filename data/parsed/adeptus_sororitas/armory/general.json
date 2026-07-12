@@ -653,7 +653,7 @@
       "name": "Storm shield",
       "term_compat": false,
       "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
-      "p_unit": null,
+      "p_unit": 2,
       "p_char": 6
     },
     {
