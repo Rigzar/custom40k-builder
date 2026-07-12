@@ -33,6 +33,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Imperial Guard — fix: Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts). Corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader profile (reported on Discord; the Crusader was missed in the IG 1.01 re-audit).',
       'GENERAL — Print View: unit cards are more compact (smaller header, points badge and stat boxes, tighter spacing) so more than one card now fits per page instead of one-per-page, cutting the printout down and removing most of the wasted whitespace. Slot dividers ("HQ", "Troops"…) now stay attached to the first card of their slot instead of being orphaned at the bottom of a page.',
       'GENERAL — Print View: fixed two ability glitches on unit cards. A contraction apostrophe in an item description (e.g. Shamblerot\'s "the model\'s activation…") was mis-read as a quote and printed a garbled sentence fragment in the Abilities column; and an ability granted by gear plus the same base ability (e.g. "Tank hunter"/"Tank Hunter") were listed twice — both are now clean.',
+      'GENERAL — Print View: the end-of-sheet Special Rules section now flows in two even columns instead of a grid, so a short rule next to a tall one is no longer stretched with big empty gaps between entries.',
     ],
   },
   {

@@ -1778,14 +1778,16 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             </div>
             <div style={{
               padding: '6px 14px', background: PARCHMENT,
-              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 20px',
+              // Multi-column (not grid): items flow and pack to their own height, so a short rule
+              // next to a tall one isn't stretched to match row height (which left big uneven gaps).
+              columnCount: 2, columnGap: 20,
             }}>
               {[...allSpecialRules.entries()]
                 .sort(([a], [b]) => a.localeCompare(b))
                 .map(([name, desc]) => (
                   <div key={name} style={{
                     breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.28,
-                    color: '#222', paddingBottom: 1,
+                    color: '#222', marginBottom: 5,
                     paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55`,
                   }}>
                     {desc
