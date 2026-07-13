@@ -57,6 +57,9 @@ export type TranslationKey =
   | 'fieldUsername' | 'fieldPassword' | 'fieldPasswordMin' | 'fieldSecretQuestion' | 'secretQuestionPlaceholder'
   | 'fieldAnswer' | 'fieldRecoveryCode' | 'fieldNewPasswordMin' | 'fieldLostCodeHelp' | 'authLostCodeNote'
   | 'authWorking' | 'authSendRequest' | 'authCreateAccountLink' | 'authForgotPassword' | 'authAlreadyHaveAccount'
+  | 'authRecoveryStillPending' | 'authAccountReactivatedTitle' | 'authAccountReactivatedIntro'
+  | 'authTempPasswordLabel' | 'authNewRecoveryCodeLabel' | 'authTempLoginNote' | 'authUnderstood'
+  | 'authRequestSentTitle' | 'authRequestRegistered' | 'authCheckStatusNote' | 'authCheckStatusButton'
   | 'authBackToLogin' | 'authLostYourCode' | 'backSimple'
   | 'campaignModalTitle' | 'campaignEarlyPreview' | 'campaignCreateToggle' | 'campaignJoinToggle'
   | 'campaignNamePlaceholder' | 'campaignFactionsPlaceholder' | 'createLabel'
@@ -102,6 +105,7 @@ export type TranslationKey =
   | 'noUnitOption' | 'platoonLabel' | 'independentOwnSlotOption' | 'markOfChaosLabel' | 'noneOption'
   | 'costFlat10Suffix' | 'costPerWound1Suffix' | 'costPerWound2Suffix' | 'ctanShardTakenLabel' | 'yngirToggleLabel'
   | 'lasgunSwapLabel' | 'hotshotSwapLabel' | 'defaultLoadoutLabel' | 'liveProfileLabel' | 'profileLabel'
+  | 'subfactionLabel' | 'combatDrugsLabel'
   | 'markBonusAsteriskNote' | 'traitBonusDaggerNote' | 'equipmentDiamondNote' | 'modelHeader' | 'buildLabel'
   | 'fixedLabel' | 'totalLabel' | 'modelsWord' | 'theWord' | 'armoryAccessSuffix' | 'selectToEnableArmory'
   | 'addOnBadge' | 'everyWord' | 'isEquippedWithSuffix' | 'rangedWeaponsHeader' | 'meleeWeaponsHeader'
@@ -337,6 +341,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     authLostCodeNote: 'This files a GitHub issue (no password involved) for the repo owner to review and reply with a new recovery code.',
     authWorking: 'Working…',
     authSendRequest: 'Send request',
+    authRecoveryStillPending: 'Request still pending. The Inquisitor has not processed it yet.',
+    authAccountReactivatedTitle: 'Account reactivated',
+    authAccountReactivatedIntro: 'The Inquisitor has processed your request. Save these credentials — they are shown only once.',
+    authTempPasswordLabel: 'Temporary password',
+    authNewRecoveryCodeLabel: 'New recovery code',
+    authTempLoginNote: 'Log in with the temporary password and change it from your account.',
+    authUnderstood: 'Got it',
+    authRequestSentTitle: 'Request sent',
+    authRequestRegistered: 'Request registered. The Inquisitor will review it shortly.',
+    authCheckStatusNote: 'Come back here and press "Check status" once you have waited a while. When it is resolved you will receive a temporary password and a new recovery code.',
+    authCheckStatusButton: 'Check status',
     authCreateAccountLink: 'Create an account',
     authForgotPassword: 'Forgot password?',
     authAlreadyHaveAccount: 'Already have an account? Log in',
@@ -513,6 +528,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     yngirToggleLabel: "↳ Yngir's chosen C'tan Shard (HQ slot, +1 S/T/I/A, 2+ Sv, +85pts)",
     lasgunSwapLabel: '↳ Lasgun → Pulse rifle (+3pt/model)',
     hotshotSwapLabel: '↳ Hot-shot lasgun → Pulse rifle (+2pt/model)',
+    subfactionLabel: 'Sub-faction',
+    combatDrugsLabel: 'Combat drugs',
     defaultLoadoutLabel: 'Default loadout:',
     liveProfileLabel: 'Live profile',
     profileLabel: 'Profile',
@@ -872,6 +889,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     authLostCodeNote: 'Dies erstellt ein GitHub-Issue (kein Passwort beteiligt) für den Repo-Besitzer zur Prüfung und Antwort mit einem neuen Wiederherstellungscode.',
     authWorking: 'Wird bearbeitet…',
     authSendRequest: 'Anfrage senden',
+    authRecoveryStillPending: 'Anfrage noch offen. Der Inquisitor hat sie noch nicht bearbeitet.',
+    authAccountReactivatedTitle: 'Konto reaktiviert',
+    authAccountReactivatedIntro: 'Der Inquisitor hat deine Anfrage bearbeitet. Speichere diese Zugangsdaten — sie werden nur einmal angezeigt.',
+    authTempPasswordLabel: 'Temporäres Passwort',
+    authNewRecoveryCodeLabel: 'Neuer Wiederherstellungscode',
+    authTempLoginNote: 'Melde dich mit dem temporären Passwort an und ändere es in deinem Konto.',
+    authUnderstood: 'Verstanden',
+    authRequestSentTitle: 'Anfrage gesendet',
+    authRequestRegistered: 'Anfrage registriert. Der Inquisitor prüft sie in Kürze.',
+    authCheckStatusNote: 'Komm hierher zurück und drücke „Status prüfen“, sobald du eine Weile gewartet hast. Sobald sie bearbeitet ist, erhältst du ein temporäres Passwort und einen neuen Wiederherstellungscode.',
+    authCheckStatusButton: 'Status prüfen',
     authCreateAccountLink: 'Konto erstellen',
     authForgotPassword: 'Passwort vergessen?',
     authAlreadyHaveAccount: 'Schon ein Konto? Anmelden',
@@ -1048,6 +1076,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     yngirToggleLabel: '↳ Yngirs gewählte C\'tan-Scherbe (HQ-Slot, +1 S/T/I/A, 2+ Sv, +85Pkt)',
     lasgunSwapLabel: '↳ Lasgewehr → Pulsgewehr (+3Pkt/Modell)',
     hotshotSwapLabel: '↳ Hot-Shot-Lasgewehr → Pulsgewehr (+2Pkt/Modell)',
+    subfactionLabel: 'Unterfraktion',
+    combatDrugsLabel: 'Kampfdrogen',
     defaultLoadoutLabel: 'Standardausrüstung:',
     liveProfileLabel: 'Live-Profil',
     profileLabel: 'Profil',
@@ -1407,6 +1437,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     authLostCodeNote: 'Esto crea un issue de GitHub (sin contraseña involucrada) para que el propietario del repositorio lo revise y responda con un nuevo código de recuperación.',
     authWorking: 'Procesando…',
     authSendRequest: 'Enviar solicitud',
+    authRecoveryStillPending: 'Solicitud aún pendiente. El Inquisidor no la ha procesado todavía.',
+    authAccountReactivatedTitle: 'Cuenta reactivada',
+    authAccountReactivatedIntro: 'El Inquisidor ha procesado tu solicitud. Guarda estas credenciales — solo se muestran una vez.',
+    authTempPasswordLabel: 'Contraseña temporal',
+    authNewRecoveryCodeLabel: 'Nuevo código de recuperación',
+    authTempLoginNote: 'Inicia sesión con la contraseña temporal y cámbiala desde tu cuenta.',
+    authUnderstood: 'Entendido',
+    authRequestSentTitle: 'Solicitud enviada',
+    authRequestRegistered: 'Solicitud registrada. El Inquisidor la revisará en breve.',
+    authCheckStatusNote: 'Vuelve aquí y pulsa "Comprobar estado" cuando hayas esperado un rato. Cuando esté resuelta recibirás una contraseña temporal y un nuevo código de recuperación.',
+    authCheckStatusButton: 'Comprobar estado',
     authCreateAccountLink: 'Crear una cuenta',
     authForgotPassword: '¿Olvidaste tu contraseña?',
     authAlreadyHaveAccount: '¿Ya tienes cuenta? Inicia sesión',
@@ -1583,6 +1624,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     yngirToggleLabel: '↳ Fragmento C\'tan elegido por Yngir (slot HQ, +1 F/R/I/A, Sv 2+, +85pts)',
     lasgunSwapLabel: '↳ Lasfusil → Fusil de impulsos (+3pt/modelo)',
     hotshotSwapLabel: '↳ Lasfusil de sobrecarga → Fusil de impulsos (+2pt/modelo)',
+    subfactionLabel: 'Subfacción',
+    combatDrugsLabel: 'Drogas de combate',
     defaultLoadoutLabel: 'Equipo por defecto:',
     liveProfileLabel: 'Perfil en vivo',
     profileLabel: 'Perfil',

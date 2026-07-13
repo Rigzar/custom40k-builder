@@ -7,6 +7,8 @@ import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
+import { effectiveSubfactions, traitRequiredSubfaction } from './codex_dark_eldar/subfaction';
+import { getCombatDrug } from './codex_dark_eldar/combatDrugs';
 import { csmResolve } from './codex_csm/resolver';
 import { cdResolve } from './codex_chaos_daemons/resolver';
 import { smResolve } from './codex_space_marines/resolver';
@@ -597,8 +599,18 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   const traitStatMods: Array<{ stat: string; delta: number }> = [];
   const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
   const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
+  // Dark Eldar traits are sub-faction-gated: a ᴷ/ᶜᵒ/ᶜᵘ trait only applies to a unit whose
+  // effective sub-faction (its keyword, or the player's pick for shared multi-keyword units)
+  // matches. Non-Dark-Eldar trait names carry no marker, so this never gates other factions.
+  const deEffectiveSub = itemFactionForTraits === 'Dark Eldar'
+    ? effectiveSubfactions(unit.keywords, item.subfaction)
+    : null;
   if (traitsApply && item.traits.length > 0) {
     for (const t of item.traits) {
+      if (deEffectiveSub) {
+        const req = traitRequiredSubfaction(t.name);
+        if (req && !deEffectiveSub.includes(req)) continue;
+      }
       for (const e of getTraitEffects(t.name, unit)) {
         if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });
         else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save` });
@@ -720,6 +732,18 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
         .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
       if (granted) pushGrantedWeapon(granted);
+    }
+  }
+
+  // Dark Eldar Combat Drugs (army rule, free): a unit-wide stat bump (Adrenalight/Grave lotus/
+  // Painbringer) or a rules ability (Hypex/Serpentin/Splintermind). Selected via the per-unit
+  // picker; capped by base 1 + one per Stimulant supply, enforced in the UI.
+  if (item.combatDrugs?.length) {
+    for (const dn of item.combatDrugs) {
+      const drug = getCombatDrug(dn);
+      if (!drug) continue;
+      for (const sm of drug.statMods) optionStatMods.push(sm);
+      if (drug.ability) optionAbilities.push(`${drug.name} (Combat drug): ${drug.desc}`);
     }
   }
 

@@ -11,6 +11,8 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
+import { unitSubfactions } from '../engine/codex_dark_eldar/subfaction';
+import { DARK_ELDAR_COMBAT_DRUGS, hasCombatDrugs } from '../engine/codex_dark_eldar/combatDrugs';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
@@ -668,6 +670,69 @@ export function UnitCard({ item }: Props) {
                 />
               </div>
             )}
+          </div>
+        );
+      })()}
+
+      {/* ── Dark Eldar sub-faction picker — only for units carrying more than one of
+           Kabal/Coven/Cult (the shared vehicles/flyers). Narrows which sub-faction's traits
+           apply to this unit (see codex_dark_eldar/subfaction). ── */}
+      {data?.faction === 'Dark Eldar' && !item.factionSource && (() => {
+        const subs = unitSubfactions(u.keywords);
+        if (subs.length <= 1) return null;
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
+            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('subfactionLabel')}</span>
+            <select
+              value={item.subfaction ?? ''}
+              onChange={e => updateUnit(item.id, { subfaction: e.target.value || null })}
+              className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+            >
+              <option value="">{t('noneOption')}</option>
+              {subs.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+        );
+      })()}
+
+      {/* ── Dark Eldar Combat Drugs — free army-rule pick for units with the "Combat drugs"
+           ability. Base cap 1, +1 per equipped "Stimulant supply". ── */}
+      {hasCombatDrugs(u.abilities) && (() => {
+        const selected = item.combatDrugs ?? [];
+        const stim = item.armory.filter(a => a.itemName === 'Stimulant supply').length;
+        const cap = 1 + stim;
+        const toggle = (name: string) => {
+          const has = selected.includes(name);
+          if (has) updateUnit(item.id, { combatDrugs: selected.filter(d => d !== name) });
+          else if (selected.length < cap) updateUnit(item.id, { combatDrugs: [...selected, name] });
+        };
+        return (
+          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('combatDrugsLabel')}</span>
+              <span className="text-[10px] text-zinc-600">{selected.length}/{cap}</span>
+            </div>
+            <div className="flex flex-wrap gap-1">
+              {DARK_ELDAR_COMBAT_DRUGS.map(d => {
+                const active = selected.includes(d.name);
+                const disabled = !active && selected.length >= cap;
+                return (
+                  <button
+                    key={d.name}
+                    onClick={() => toggle(d.name)}
+                    disabled={disabled}
+                    title={d.desc}
+                    className={`text-[10px] px-2 py-0.5 border transition-colors ${active
+                      ? 'bg-fuchsia-900/60 border-fuchsia-600 text-fuchsia-200'
+                      : disabled
+                        ? 'bg-zinc-900 border-zinc-800 text-zinc-600 cursor-not-allowed'
+                        : 'bg-zinc-800 border-zinc-600 text-zinc-300 hover:border-fuchsia-700'}`}
+                  >
+                    {d.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         );
       })()}

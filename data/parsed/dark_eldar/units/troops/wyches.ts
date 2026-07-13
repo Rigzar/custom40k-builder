@@ -113,7 +113,7 @@ export const wyches: Unit = {
       "constraint": {
         "type": "per_n",
         "per_n": 5,
-        "count_per_n": 1
+        "count_per_n": 2
       },
       "choices": [
         {

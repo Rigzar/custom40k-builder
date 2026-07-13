@@ -5,9 +5,10 @@
  *
  * Status: complete — all 22 traits encoded. Trait names carry sub-faction superscripts
  * (ᶜᵘ Cult, ᶜᵒ Coven, ᴷ Kabal) that are part of the canonical name string itself — kept verbatim
- * as dictionary keys. Per-trait keyword enforcement (which sub-faction may actually buy which
- * trait) is a separate, already-tracked gap (ki-21a) — these superscripts are display-only,
- * same as before; this file only wires the EFFECT once a trait is taken, not who may take it.
+ * as dictionary keys. Per-trait sub-faction enforcement is now wired (2026-07-13): the superscript
+ * is parsed by `subfaction.ts` (`traitRequiredSubfaction`) and gated against the unit's effective
+ * sub-faction in `resolver.ts` before applying any effect — a ᴷ trait no longer reaches a Coven
+ * unit. This file still only defines the EFFECT; the who-may-take gate lives in the resolver.
  * "Creatures only" restrictions use applies_to: 'creature' (non-vehicle).
  */
 

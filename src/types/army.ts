@@ -119,6 +119,18 @@ export interface RosterEntry {
    * `is_unique_per_army` variant-promotion check.
    */
   ctanYngirUpgrade?: boolean;
+  /**
+   * Dark Eldar sub-faction (Kabal / Coven / Cult) chosen for a unit that carries more than one
+   * sub-faction keyword (the shared vehicles/flyers: Raider, Venom, Ravager, Razorwing, Voidraven).
+   * Narrows which sub-faction's traits apply to this unit. Null/undefined = un-chosen → every
+   * sub-faction keyword the datasheet carries is eligible (permissive default).
+   */
+  subfaction?: string | null;
+  /**
+   * Dark Eldar Combat Drugs chosen for this unit (army rule, free). Only units with the
+   * "Combat drugs" ability may hold any; base cap 1, +1 per "Stimulant supply" equipped.
+   */
+  combatDrugs?: string[];
 }
 
 export interface ArmyState {

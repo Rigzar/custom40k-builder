@@ -27,8 +27,13 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.52',
     date: '2026-07-12',
-    title: 'Cheat Sheets + Crusader fixes + Print View density & ability cleanup',
+    title: 'Cheat Sheets + Dark Eldar overhaul + Crusader fixes + Print View cleanup',
     changes: [
+      'Dark Eldar — traits now respect the sub-faction. A trait marked ᴷ (Kabal), ᶜᵒ (Coven) or ᶜᵘ (Cult) only affects units of that sub-faction instead of the whole army (e.g. a Kabal trait no longer buffs your Wyches).',
+      'Dark Eldar — units that belong to several sub-factions (the shared vehicles/flyers: Raider, Venom, Ravager, Razorwing, Voidraven) now have a Sub-faction selector, so you can pick which one they count as and get the right trait.',
+      'Dark Eldar — Combat Drugs can finally be selected. Any unit with the "Combat drugs" ability gets a picker for the six drugs (Adrenalight, Grave lotus, Painbringer, Hypex, Serpentin, Splintermind), free; each equipped "Stimulant supply" allows one extra drug. The chosen drug\'s bonus is applied to the profile.',
+      'Dark Eldar — fix: Wyches could only swap one weapon per 5 models; corrected to two per 5 (matching the datasheet\'s "up to two Wyches").',
+      'GENERAL — i18n: the account-recovery screens (lost recovery code → temporary password / new code) were hard-coded in Spanish and never followed the app language. They are now fully translated in English, German and Spanish.',
       'GENERAL — new "Cheat Sheets" button (always visible in the header): opens a quick-reference card you can read on screen and print or save as PDF, exactly like the army Print View. First sheet: Morale — when to test, the cumulative Leadership penalties, the 2D6 ≤ Ld test, and the Battleshock token effects. Corrects two common mistakes from a community-made card: Suppression counts weapons fired (not hits), and there is no "-1 for Explosive". More sheets can be added over time.',
       'GENERAL — fix: a squad whose optional (0-N) model was listed first — e.g. the Space Marines Indomitus Crusader Squad, whose Neophytes come before the Initiates — showed no stepper for that model, so it could not be added (reported: "can\'t add Neophytes to Crusader squads"). Every optional model now gets its own +/- control regardless of its position in the datasheet.',
       'Imperial Guard — fix: Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts). Corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader profile (reported on Discord; the Crusader was missed in the IG 1.01 re-audit).',

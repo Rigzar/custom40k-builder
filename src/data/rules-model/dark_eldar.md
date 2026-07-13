@@ -95,6 +95,21 @@ Budget: **0-1 Archetype, 0-1 Legacy, 0-2 Traits**. Production cross-check CLEAN:
 **3 Legacies** — each grants one sub-faction's armory: Butchers of Flesh→Coven / Spectacle of
 Murder→Wych / Thirst for Power→Kabal.
 
+> **2026-07-13 — sub-faction trait gating IMPLEMENTED (was ki-21a).** Trait effects now only reach
+> a unit whose effective sub-faction matches the trait's superscript (ᴷ Kabal / ᶜᵒ Coven / ᶜᵘ Cult).
+> Engine: `codex_dark_eldar/subfaction.ts` (`traitRequiredSubfaction` parses the marker,
+> `effectiveSubfactions` derives the unit's sub-faction from `keywords[]` or the player's pick);
+> gated in `resolver.ts` before the trait loop. Shared multi-keyword vehicles get a per-unit
+> Sub-faction selector (`RosterEntry.subfaction`) in UnitCard. Distribution verified: Cult 7 /
+> Coven 8 / Kabal 7 = 22.
+>
+> **2026-07-13 — Combat Drugs picker IMPLEMENTED.** `codex_dark_eldar/combatDrugs.ts` (6 drugs,
+> stat/ability effects); per-unit picker on any unit with the "Combat drugs" ability (base cap 1,
+> +1 per Stimulant supply); applied via `optionStatMods`/`optionAbilities` in `resolver.ts`. They
+> are NO longer reachable only as null-priced armory items. `RosterEntry.combatDrugs`.
+>
+> **2026-07-13 — Wyches data fix.** Per-5 weapon-swap `count_per_n` 1→2 (datasheet says "up to two").
+
 **22 Traits** — ALL sub-faction-gated via the `?`/`??` glyph → "Only for <Coven>/<Cult>/<Kabal>"
 (the most granular trait-gating of any faction migrated; many are additionally "Only for
 creatures"). Examples: Acrobatic Display / Dark Technomancers / Masters of Mutagens / Merciless

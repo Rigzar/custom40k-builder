@@ -112,7 +112,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
         setRecoveryResolved({ tempPassword: res.tempPassword, newRecoveryCode: res.newRecoveryCode });
         setRecoveryPending(null);
       } else {
-        setError('Solicitud aún pendiente. El Inquisidor no la ha procesado todavía.');
+        setError(t('authRecoveryStillPending'));
       }
     } catch (err) {
       setError((err as Error).message);
@@ -144,27 +144,27 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
   if (recoveryResolved) {
     return (
-      <Shell onClose={onClose} title="Cuenta reactivada">
+      <Shell onClose={onClose} title={t('authAccountReactivatedTitle')}>
         <div className="p-4 space-y-3">
-          <p className="text-green-400 text-sm">El Inquisidor ha procesado tu solicitud. Guarda estas credenciales — solo se muestran una vez.</p>
+          <p className="text-green-400 text-sm">{t('authAccountReactivatedIntro')}</p>
           <div>
-            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Contraseña temporal</p>
+            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">{t('authTempPasswordLabel')}</p>
             <div className="bg-zinc-950 border border-amber-700 text-amber-400 text-center font-mono text-base py-2 tracking-widest select-all">
               {recoveryResolved.tempPassword}
             </div>
           </div>
           <div>
-            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Nuevo código de recuperación</p>
+            <p className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">{t('authNewRecoveryCodeLabel')}</p>
             <div className="bg-zinc-950 border border-amber-700 text-amber-400 text-center font-mono text-base py-2 tracking-widest select-all">
               {recoveryResolved.newRecoveryCode}
             </div>
           </div>
-          <p className="text-zinc-500 text-xs">Inicia sesión con la contraseña temporal y cámbiala desde tu cuenta.</p>
+          <p className="text-zinc-500 text-xs">{t('authTempLoginNote')}</p>
           <button
             onClick={onClose}
             className="w-full px-4 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 uppercase tracking-wide text-sm"
           >
-            Entendido
+            {t('authUnderstood')}
           </button>
         </div>
       </Shell>
@@ -173,11 +173,11 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
 
   if (recoveryPending) {
     return (
-      <Shell onClose={onClose} title="Solicitud enviada">
+      <Shell onClose={onClose} title={t('authRequestSentTitle')}>
         <div className="p-4 space-y-3">
-          <p className="text-green-400 text-sm">Solicitud registrada. El Inquisidor la revisará en breve.</p>
+          <p className="text-green-400 text-sm">{t('authRequestRegistered')}</p>
           <p className="text-zinc-400 text-xs leading-relaxed">
-            Vuelve aquí y pulsa "Comprobar estado" cuando hayas esperado un rato. Cuando esté resuelta recibirás una contraseña temporal y un nuevo código de recuperación.
+            {t('authCheckStatusNote')}
           </p>
           {error && <p className="text-amber-400 text-xs">{error}</p>}
           <button
@@ -185,7 +185,7 @@ export function AuthModal({ onClose, onLoggedIn }: Props) {
             disabled={busy}
             className="w-full px-4 py-2 bg-amber-800 border border-amber-600 text-white hover:bg-amber-700 disabled:opacity-50 uppercase tracking-wide text-sm"
           >
-            {busy ? '…' : 'Comprobar estado'}
+            {busy ? '…' : t('authCheckStatusButton')}
           </button>
           <button
             onClick={onClose}
