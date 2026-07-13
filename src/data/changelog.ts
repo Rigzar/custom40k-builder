@@ -29,7 +29,8 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-07-12',
     title: 'Cheat Sheets + Dark Eldar overhaul + Crusader fixes + Print View cleanup',
     changes: [
-      'Dark Eldar — traits now respect the sub-faction. A trait marked ᴷ (Kabal), ᶜᵒ (Coven) or ᶜᵘ (Cult) only affects units of that sub-faction instead of the whole army (e.g. a Kabal trait no longer buffs your Wyches).',
+      'Dark Eldar — traits now respect the sub-faction. A trait marked ᴷ (Kabal), ᶜᵒ (Coven) or ᶜᵘ (Cult) only affects units of that sub-faction instead of the whole army (e.g. a Kabal trait no longer buffs your Wyches). Its points cost now follows the same rule and updates live when you change a unit\'s sub-faction, so a shared vehicle picked as one sub-faction no longer pays for the other two.',
+      'GENERAL — trait costs: per a ruling by the game\'s author, a vehicle no longer pays for a "creature only" trait (any trait whose text says "Only for creatures / creature units / creature models"), since it cannot benefit from it. Applies to every faction (15 traits across Chaos Space Marines, Dark Eldar, Genestealer Cults, Imperial Guard and Space Marines).',
       'Dark Eldar — units that belong to several sub-factions (the shared vehicles/flyers: Raider, Venom, Ravager, Razorwing, Voidraven) now have a Sub-faction selector, so you can pick which one they count as and get the right trait.',
       'Dark Eldar — Combat Drugs can finally be selected. Any unit with the "Combat drugs" ability gets a picker for the six drugs (Adrenalight, Grave lotus, Painbringer, Hypex, Serpentin, Splintermind), free; each equipped "Stimulant supply" allows one extra drug. The chosen drug\'s bonus is applied to the profile.',
       'Dark Eldar — fix: Wyches could only swap one weapon per 5 models; corrected to two per 5 (matching the datasheet\'s "up to two Wyches").',

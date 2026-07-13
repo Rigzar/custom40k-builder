@@ -7,6 +7,7 @@ import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { findArmoryItem } from '../engine/resolver';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
+import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -69,16 +70,32 @@ function computeTraitSelections(
       if (name === 'Heavy Infantry' && alreadyHasArmorSave4Plus(unit, item, data)) return null;
       if (name === 'Bionic Improvement' && alreadyHasInvulnSave(unit, item, data)) return null;
 
+      // Dark Eldar sub-faction gate: a ᴷ/ᶜᵒ/ᶜᵘ trait is only paid for by units of that sub-faction
+      // (its keyword, or the player's pick for multi-keyword shared vehicles). Mirrors the effect
+      // gate in resolver.ts — so a Raider picked as Kabal no longer pays for Coven/Cult traits.
+      // Dark Eldar sub-faction gate (DE-only): a ᴷ/ᶜᵒ/ᶜᵘ trait is only paid for by units of that
+      // sub-faction (its keyword, or the player's pick for multi-keyword shared vehicles).
+      if (data.faction === 'Dark Eldar') {
+        const req = traitRequiredSubfaction(name);
+        if (req && !effectiveSubfactions(unit.keywords, item.subfaction).includes(req)) return null;
+      }
+
       const def = traits.find(t => t.name === name);
       if (!def) return null;
 
+      // Creature-only traits are not paid for by vehicles (rules owner atypicalhero, 2026-07-13:
+      // "you only pay for a trait if your type is not excluded in the trait text — creature-only
+      // traits don't apply to vehicles and they don't pay for it"). Text-based so it works across
+      // every faction regardless of how the effect's applies_to was modelled. Matches all phrasings:
+      // "Only for creatures." / "Only for creature units." / "Only for creature models …".
+      if (unit.is_vehicle && /only for creature/i.test(def.desc)) return null;
+
       let raw: string | null | undefined;
       if (unit.is_vehicle) {
-        // Canonical rule (Army Customisation source): "MONSTROUS CREATURES & VEHICLES" is one
-        // shared column — vehicles pay the same cost as monsters, even when the trait's effect
-        // only applies to creature units. Canonical table is the source of truth (FAQ #5: Codex
-        // > Core). pts_veh holds the vehicle cost directly; if absent, fall back to pts_monster
-        // (the shared column); no effect-presence check — the cost is paid regardless.
+        // "MONSTROUS CREATURES & VEHICLES" is one shared cost column: pts_veh holds the vehicle
+        // cost directly; if absent, fall back to pts_monster (the shared column). Creature-only
+        // traits were already dropped above (a vehicle never pays for them), so this only prices
+        // vehicles for traits they can actually take.
         raw = def.pts_veh ?? def.pts_monster ?? null;
       } else if (unit.is_character) {
         raw = def.pts_char;
@@ -589,8 +606,9 @@ export const useArmyStore = create<ArmyStore>()(
 
       updateUnit: (id: string, patch: Partial<RosterEntry>) => set((s: S) => {
         const newArmy = s.army.map((e: RosterEntry) => e.id === id ? { ...e, ...patch } : e);
-        // Re-sync traits when mark changes (mark uses a veteran slot)
-        const army = ('mark' in patch) && s.data
+        // Re-sync traits when the mark changes (mark uses a veteran slot) OR when a Dark Eldar
+        // unit's sub-faction pick changes — the pick gates which traits it pays for.
+        const army = (('mark' in patch) || ('subfaction' in patch)) && s.data
           ? applyArmyTraits(newArmy, s.traitPool, s.data, s.archetype, s.legacy, s.alliedFaction, s.alliedData, s.alliedTraitPool)
           : newArmy;
         // Sync hqMark when an HQ unit's mark changes (not for multi-mark archetypes). Scoped: an
