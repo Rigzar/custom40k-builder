@@ -18,22 +18,22 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v152_dismissed';
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.52: Cleaner printout + a batch of fixes',
-    intro: 'The army printout got tighter and cleaner, and a stack of unit and armoury bugs from Discord are fixed.',
+    title: 'v1.52: Cheat Sheets + cleaner printout + a batch of fixes',
+    intro: 'New "Cheat Sheets" button in the header — a printable quick-reference you can read or save as PDF, starting with a Morale card. Plus a tighter army printout and a stack of unit and armoury bug fixes from Discord.',
     line1: '⬡ Print View: unit cards are more compact (more than one now fits per page), slot headers stay with their units instead of stranding at the bottom of a page, the end-of-sheet Special Rules pack into two even columns, and two ability glitches (a garbled sentence fragment and a duplicated ability) are gone.',
     line2: '⬡ Fixes: Neophytes can be added to Crusader-type squads; Imperial Guard Crusaders corrected to Wounds 2 / WS 2+ / 44 pts; the Exalted Plague Champion only shows its Plague sprayer once upgraded to Foul Blightspawn; and the Storm shield can now be taken by Sororitas squads (e.g. Celestians).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.52: Saubererer Ausdruck + viele Fixes',
-    intro: 'Der Armee-Ausdruck ist kompakter und sauberer, und ein Stapel von Einheiten- und Arsenal-Fehlern aus Discord ist behoben.',
+    title: 'v1.52: Cheat Sheets + sauberer Ausdruck + viele Fixes',
+    intro: 'Neuer "Cheat Sheets"-Knopf in der Kopfzeile — eine druckbare Schnellreferenz zum Lesen oder als PDF speichern, beginnend mit einer Moral-Karte. Dazu ein kompakterer Armee-Ausdruck und ein Stapel behobener Einheiten- und Arsenal-Fehler aus Discord.',
     line1: '⬡ Druckansicht: Einheitenkarten sind kompakter (mehr als eine passt jetzt pro Seite), Slot-Überschriften bleiben bei ihren Einheiten statt am Seitenende zu stranden, die Spezialregeln am Blattende füllen zwei gleichmäßige Spalten, und zwei Fähigkeits-Fehler (ein verstümmeltes Satzfragment und eine doppelte Fähigkeit) sind weg.',
     line2: '⬡ Fixes: Neophyten lassen sich zu Kreuzritter-Trupps hinzufügen; Kreuzritter der Imperialen Armee auf Wunden 2 / WS 2+ / 44 Pkt. korrigiert; der Exalted Plague Champion zeigt seinen Plague sprayer erst nach dem Upgrade zum Foul Blightspawn; und das Sturmschild lässt sich nun von Sororitas-Trupps (z. B. Celestians) nehmen.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.52: impreso más limpio + varios fixes',
-    intro: 'El impreso del ejército quedó más compacto y limpio, y se corrigió un buen puñado de bugs de unidades y armería reportados en Discord.',
+    title: 'v1.52: Cheat Sheets + impreso más limpio + varios fixes',
+    intro: 'Nuevo botón "Cheat Sheets" en la cabecera — una referencia rápida imprimible que puedes ver o guardar como PDF, empezando por una carta de Moral. Además, un impreso del ejército más compacto y un buen puñado de bugs de unidades y armería corregidos desde Discord.',
     line1: '⬡ Vista de Impresión: las cartas de unidad son más compactas (ya entra más de una por hoja), las cabeceras de slot se quedan con sus unidades en vez de colgar al final de una página, la sección de Special Rules del final se reparte en dos columnas parejas, y desaparecen dos fallos de abilities (un fragmento de frase roto y una ability duplicada).',
     line2: '⬡ Fixes: se pueden añadir Neophytes a los escuadrones tipo Crusader; los Crusaders de la Guardia Imperial corregidos a Heridas 2 / HA 2+ / 44 pts; el Exalted Plague Champion solo muestra el Plague sprayer al mejorarse a Foul Blightspawn; y el Storm shield ya lo pueden coger los escuadrones Sororitas (p. ej. Celestians).',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',

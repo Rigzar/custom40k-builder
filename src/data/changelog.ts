@@ -27,8 +27,9 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.52',
     date: '2026-07-12',
-    title: 'Crusader fixes + Print View density & ability cleanup',
+    title: 'Cheat Sheets + Crusader fixes + Print View density & ability cleanup',
     changes: [
+      'GENERAL — new "Cheat Sheets" button (always visible in the header): opens a quick-reference card you can read on screen and print or save as PDF, exactly like the army Print View. First sheet: Morale — when to test, the cumulative Leadership penalties, the 2D6 ≤ Ld test, and the Battleshock token effects. Corrects two common mistakes from a community-made card: Suppression counts weapons fired (not hits), and there is no "-1 for Explosive". More sheets can be added over time.',
       'GENERAL — fix: a squad whose optional (0-N) model was listed first — e.g. the Space Marines Indomitus Crusader Squad, whose Neophytes come before the Initiates — showed no stepper for that model, so it could not be added (reported: "can\'t add Neophytes to Crusader squads"). Every optional model now gets its own +/- control regardless of its position in the datasheet.',
       'Imperial Guard — fix: Crusaders had the wrong profile (Wounds 1, WS 3+, 23 pts). Corrected to the 1.01 canon — Wounds 2, WS 2+, 44 pts — matching the Inquisition/Sororitas Crusader profile (reported on Discord; the Crusader was missed in the IG 1.01 re-audit).',
       'GENERAL — Print View: unit cards are more compact (smaller header, points badge and stat boxes, tighter spacing) so more than one card now fits per page instead of one-per-page, cutting the printout down and removing most of the wasted whitespace. Slot dividers ("HQ", "Troops"…) now stay attached to the first card of their slot instead of being orphaned at the bottom of a page.',

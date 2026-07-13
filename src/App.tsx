@@ -24,6 +24,7 @@ import { useT } from './i18n';
 import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
 import { ErrorBoundary } from './components/ErrorBoundary';
 const PrintView        = lazy(() => import('./components/PrintView').then(m => ({ default: m.PrintView })));
+const CheatSheetModal  = lazy(() => import('./components/CheatSheetModal').then(m => ({ default: m.CheatSheetModal })));
 const SavedArmiesModal = lazy(() => import('./components/SavedArmiesModal').then(m => ({ default: m.SavedArmiesModal })));
 const BugReportModal   = lazy(() => import('./components/BugReportModal').then(m => ({ default: m.BugReportModal })));
 const AuthModal        = lazy(() => import('./components/AuthModal').then(m => ({ default: m.AuthModal })));
@@ -254,6 +255,7 @@ export default function App() {
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
   const [loadingFaction, setLoadingFaction]     = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
+  const [showCheatSheets, setShowCheatSheets]   = useState(false);
   const [showArmies, setShowArmies]             = useState(false);
   const [showBugReport, setShowBugReport]       = useState(false);
   const [showAuth, setShowAuth]                 = useState(false);
@@ -844,6 +846,14 @@ export default function App() {
                   </button>
                 )}
                 <button
+                  onClick={() => setShowCheatSheets(true)}
+                  title="Cheat Sheets"
+                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
+                >
+                  <span className="sm:hidden">📜</span>
+                  <span className="hidden sm:inline">Cheat Sheets</span>
+                </button>
+                <button
                   onClick={() => setShowPrefs(true)}
                   title="Preferences"
                   className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
@@ -959,6 +969,11 @@ export default function App() {
         {showPrint     && (
           <ErrorBoundary label="Print View" onClose={() => setShowPrint(false)}>
             <PrintView onClose={() => setShowPrint(false)} />
+          </ErrorBoundary>
+        )}
+        {showCheatSheets && (
+          <ErrorBoundary label="Cheat Sheets" onClose={() => setShowCheatSheets(false)}>
+            <CheatSheetModal onClose={() => setShowCheatSheets(false)} />
           </ErrorBoundary>
         )}
         {showArmies    && <SavedArmiesModal onLoad={save => { handleLoadArmy(save); setShowArmies(false); }} onClose={() => setShowArmies(false)} />}
