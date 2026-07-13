@@ -29,15 +29,18 @@ export function unitSubfactions(keywords: string[] | undefined): DESubfaction[] 
 }
 
 /**
- * The sub-faction(s) used to gate this unit's traits: the player-chosen one when the unit can
- * choose (multi-keyword unit + a valid selection), otherwise every sub-faction keyword the unit
- * carries (the permissive default — an un-chosen shared vehicle still receives any of the three).
+ * The sub-faction(s) used to gate this unit's traits:
+ * - a unit that carries NO sub-faction keyword (the mercenary "-" units: Incubi, Mandrakes,
+ *   Scourges) uses the player's chosen sub-faction, or none if unchosen;
+ * - a unit that carries sub-faction keyword(s) uses the chosen one when it is one of its own,
+ *   otherwise every sub-faction keyword it carries (the permissive default — an un-chosen shared
+ *   vehicle still receives any of the three).
  */
 export function effectiveSubfactions(
   keywords: string[] | undefined,
   chosen: string | null | undefined,
 ): DESubfaction[] {
   const own = unitSubfactions(keywords);
-  if (chosen && own.includes(chosen as DESubfaction)) return [chosen as DESubfaction];
+  if (chosen && (own.length === 0 || own.includes(chosen as DESubfaction))) return [chosen as DESubfaction];
   return own;
 }

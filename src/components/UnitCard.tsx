@@ -11,7 +11,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { SACRED_NUMBERS } from '../engine/codex_chaos_daemons/resolver';
-import { unitSubfactions } from '../engine/codex_dark_eldar/subfaction';
+import { unitSubfactions, DE_SUBFACTIONS } from '../engine/codex_dark_eldar/subfaction';
 import { DARK_ELDAR_COMBAT_DRUGS, hasCombatDrugs } from '../engine/codex_dark_eldar/combatDrugs';
 import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
@@ -674,12 +674,14 @@ export function UnitCard({ item }: Props) {
         );
       })()}
 
-      {/* ── Dark Eldar sub-faction picker — only for units carrying more than one of
-           Kabal/Coven/Cult (the shared vehicles/flyers). Narrows which sub-faction's traits
-           apply to this unit (see codex_dark_eldar/subfaction). ── */}
+      {/* ── Dark Eldar sub-faction picker — for units that can CHOOSE a sub-faction: the shared
+           vehicles/flyers (all three keywords) and the mercenary "-" units with no sub-faction of
+           their own (Incubi, Mandrakes, Scourges). A unit locked to a single sub-faction keyword
+           shows no picker. Narrows which sub-faction's traits apply (codex_dark_eldar/subfaction). ── */}
       {data?.faction === 'Dark Eldar' && !item.factionSource && (() => {
         const subs = unitSubfactions(u.keywords);
-        if (subs.length <= 1) return null;
+        if (subs.length === 1) return null;                    // fixed sub-faction — no choice
+        const options = subs.length > 1 ? subs : [...DE_SUBFACTIONS]; // no keyword → offer all three
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
             <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('subfactionLabel')}</span>
@@ -689,7 +691,7 @@ export function UnitCard({ item }: Props) {
               className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
             >
               <option value="">{t('noneOption')}</option>
-              {subs.map(s => <option key={s} value={s}>{s}</option>)}
+              {options.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
         );
