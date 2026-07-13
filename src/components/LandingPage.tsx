@@ -15,27 +15,30 @@ import type { EngagementType } from '../types/army';
 
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v152_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.52: Cheat Sheets + cleaner printout + a batch of fixes',
-    intro: 'New "Cheat Sheets" button in the header — a printable quick-reference you can read or save as PDF, starting with a Morale card. Plus a tighter army printout and a stack of unit and armoury bug fixes from Discord.',
+    title: 'v1.52: Cheat Sheets + Dark Eldar overhaul + cleaner printout + fixes',
+    intro: 'New "Cheat Sheets" button (now a floating button, always visible) — a printable quick-reference you can read or save as PDF, starting with a Morale card. Plus a Dark Eldar overhaul, a tighter army printout and a stack of bug fixes from Discord.',
     line1: '⬡ Print View: unit cards are more compact (more than one now fits per page), slot headers stay with their units instead of stranding at the bottom of a page, the end-of-sheet Special Rules pack into two even columns, and two ability glitches (a garbled sentence fragment and a duplicated ability) are gone.',
-    line2: '⬡ Fixes: Neophytes can be added to Crusader-type squads; Imperial Guard Crusaders corrected to Wounds 2 / WS 2+ / 44 pts; the Exalted Plague Champion only shows its Plague sprayer once upgraded to Foul Blightspawn; and the Storm shield can now be taken by Sororitas squads (e.g. Celestians).',
+    line2: '⬡ Fixes: Neophytes can be added to Crusader-type squads; Imperial Guard Crusaders corrected to Wounds 2 / WS 2+ / 44 pts; the Exalted Plague Champion only shows its Plague sprayer once upgraded to Foul Blightspawn; the Storm shield can now be taken by Sororitas squads; and the account-recovery screens now follow your language instead of always being in Spanish.',
+    line3: '⬡ Dark Eldar: army traits now respect the sub-faction (a Kabal/Coven/Cult trait only affects units of that sub-faction), shared vehicles get a Sub-faction selector, Combat Drugs can finally be picked on any unit with the ability, and Wyches swap two weapons per 5 models (was one).',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.52: Cheat Sheets + sauberer Ausdruck + viele Fixes',
-    intro: 'Neuer "Cheat Sheets"-Knopf in der Kopfzeile — eine druckbare Schnellreferenz zum Lesen oder als PDF speichern, beginnend mit einer Moral-Karte. Dazu ein kompakterer Armee-Ausdruck und ein Stapel behobener Einheiten- und Arsenal-Fehler aus Discord.',
+    title: 'v1.52: Cheat Sheets + Dark-Eldar-Überarbeitung + sauberer Ausdruck + Fixes',
+    intro: 'Neuer "Cheat Sheets"-Knopf (jetzt ein schwebender Knopf, immer sichtbar) — eine druckbare Schnellreferenz zum Lesen oder als PDF speichern, beginnend mit einer Moral-Karte. Dazu eine Dark-Eldar-Überarbeitung, ein kompakterer Armee-Ausdruck und ein Stapel behobener Fehler aus Discord.',
     line1: '⬡ Druckansicht: Einheitenkarten sind kompakter (mehr als eine passt jetzt pro Seite), Slot-Überschriften bleiben bei ihren Einheiten statt am Seitenende zu stranden, die Spezialregeln am Blattende füllen zwei gleichmäßige Spalten, und zwei Fähigkeits-Fehler (ein verstümmeltes Satzfragment und eine doppelte Fähigkeit) sind weg.',
-    line2: '⬡ Fixes: Neophyten lassen sich zu Kreuzritter-Trupps hinzufügen; Kreuzritter der Imperialen Armee auf Wunden 2 / WS 2+ / 44 Pkt. korrigiert; der Exalted Plague Champion zeigt seinen Plague sprayer erst nach dem Upgrade zum Foul Blightspawn; und das Sturmschild lässt sich nun von Sororitas-Trupps (z. B. Celestians) nehmen.',
+    line2: '⬡ Fixes: Neophyten lassen sich zu Kreuzritter-Trupps hinzufügen; Kreuzritter der Imperialen Armee auf Wunden 2 / WS 2+ / 44 Pkt. korrigiert; der Exalted Plague Champion zeigt seinen Plague sprayer erst nach dem Upgrade zum Foul Blightspawn; das Sturmschild lässt sich nun von Sororitas-Trupps nehmen; und die Konto-Wiederherstellung folgt jetzt deiner Sprache statt immer auf Spanisch zu sein.',
+    line3: '⬡ Dark Eldar: Armee-Traits berücksichtigen jetzt die Unterfraktion (ein Kabal-/Coven-/Cult-Trait wirkt nur auf Einheiten dieser Unterfraktion), geteilte Fahrzeuge erhalten einen Unterfraktions-Wähler, Kampfdrogen lassen sich endlich bei jeder Einheit mit der Fähigkeit wählen, und Wyches tauschen zwei Waffen pro 5 Modelle (vorher eine).',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.52: Cheat Sheets + impreso más limpio + varios fixes',
-    intro: 'Nuevo botón "Cheat Sheets" en la cabecera — una referencia rápida imprimible que puedes ver o guardar como PDF, empezando por una carta de Moral. Además, un impreso del ejército más compacto y un buen puñado de bugs de unidades y armería corregidos desde Discord.',
+    title: 'v1.52: Cheat Sheets + revisión de Dark Eldar + impreso más limpio + fixes',
+    intro: 'Nuevo botón "Cheat Sheets" (ahora un botón flotante, siempre visible) — una referencia rápida imprimible que puedes ver o guardar como PDF, empezando por una carta de Moral. Además, una revisión de Dark Eldar, un impreso del ejército más compacto y un buen puñado de bugs corregidos desde Discord.',
     line1: '⬡ Vista de Impresión: las cartas de unidad son más compactas (ya entra más de una por hoja), las cabeceras de slot se quedan con sus unidades en vez de colgar al final de una página, la sección de Special Rules del final se reparte en dos columnas parejas, y desaparecen dos fallos de abilities (un fragmento de frase roto y una ability duplicada).',
-    line2: '⬡ Fixes: se pueden añadir Neophytes a los escuadrones tipo Crusader; los Crusaders de la Guardia Imperial corregidos a Heridas 2 / HA 2+ / 44 pts; el Exalted Plague Champion solo muestra el Plague sprayer al mejorarse a Foul Blightspawn; y el Storm shield ya lo pueden coger los escuadrones Sororitas (p. ej. Celestians).',
+    line2: '⬡ Fixes: se pueden añadir Neophytes a los escuadrones tipo Crusader; los Crusaders de la Guardia Imperial corregidos a Heridas 2 / HA 2+ / 44 pts; el Exalted Plague Champion solo muestra el Plague sprayer al mejorarse a Foul Blightspawn; el Storm shield ya lo pueden coger los escuadrones Sororitas; y las pantallas de recuperación de cuenta ahora siguen tu idioma en vez de estar siempre en español.',
+    line3: '⬡ Dark Eldar: los traits de ejército ahora respetan la sub-facción (un trait Kabal/Coven/Cult solo afecta a unidades de esa sub-facción), los vehículos compartidos tienen un selector de sub-facción, las Combat Drugs por fin se pueden elegir en cualquier unidad con la ability, y las Wyches cambian dos armas por cada 5 modelos (antes una).',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -106,6 +109,7 @@ function CommunityAnnouncement() {
           <p>{tx.intro}</p>
           <BoldSplitLine text={tx.line1} />
           <BoldSplitLine text={tx.line2} />
+          <BoldSplitLine text={tx.line3} />
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>
