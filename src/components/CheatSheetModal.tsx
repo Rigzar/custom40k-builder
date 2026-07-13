@@ -91,10 +91,10 @@ function MoraleSheet() {
             for every <strong>additional Suppression weapon</strong> fired at the same target that
             activation <em>(count weapons, not hits)</em>.
           </Line>
-          <Line lead="−2">extra if a Suppression weapon has <strong>Barrage</strong>.</Line>
-          <Line lead="−1">permanent, while <strong>below half</strong> Starting Strength.</Line>
+          <Line lead="−2">extra <strong>per</strong> Suppression weapon that also has <strong>Barrage</strong>.</Line>
+          <Line lead="−1">permanent, while the squad is <strong>below half</strong> Starting Strength.</Line>
           <div style={{ fontSize: '0.78rem', color: MUTED, marginTop: 6, fontStyle: 'italic', paddingLeft: 14 }}>
-            Suppressive Fire and Suppression penalties stack.
+            Everything is cumulative — add up every penalty above.
           </div>
         </div>
 
