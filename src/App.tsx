@@ -705,6 +705,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
+      {/* ── Cheat Sheets — floating button, always visible on every screen (landing + all tabs) ── */}
+      <button
+        onClick={() => setShowCheatSheets(true)}
+        title="Cheat Sheets"
+        className="fixed bottom-4 right-4 z-[60] flex items-center gap-1.5 bg-zinc-900/90 hover:bg-amber-800 text-amber-400 hover:text-white border border-amber-800/70 hover:border-amber-500 px-3 py-2 text-[11px] uppercase tracking-wide shadow-lg backdrop-blur transition-colors print:hidden"
+      >
+        <span>📜</span>
+        <span className="hidden sm:inline">Cheat Sheets</span>
+      </button>
+
       {/* ── Tab bar — hidden on landing hero (hero has its own header) ── */}
       <div className="sticky top-0 z-50" style={{ display: activeTab === 'landing' ? 'none' : 'block' }}>
         <TabBar
@@ -845,14 +855,6 @@ export default function App() {
                     <span className="hidden sm:inline">Print</span>
                   </button>
                 )}
-                <button
-                  onClick={() => setShowCheatSheets(true)}
-                  title="Cheat Sheets"
-                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
-                >
-                  <span className="sm:hidden">📜</span>
-                  <span className="hidden sm:inline">Cheat Sheets</span>
-                </button>
                 <button
                   onClick={() => setShowPrefs(true)}
                   title="Preferences"
