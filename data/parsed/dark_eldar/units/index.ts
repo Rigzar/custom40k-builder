@@ -21,17 +21,24 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Kabalite Warriors": troops.kabaliteWarriors,
   "Wracks": troops.wracks,
   "Wyches": troops.wyches,
+  "Court of the Archon": elites.courtOfTheArchon,
   "Grotesques": elites.grotesques,
+  "Haemoxytes": elites.haemoxytes,
+  "Hekatrix Bloodbrides": elites.hekatrixBloodbrides,
   "Incubi": elites.incubi,
+  "Kabalite Trueborn": elites.kabaliteTrueborn,
   "Mandrakes": elites.mandrakes,
+  "Beastpack": fastAttack.beastpack,
   "Hellions": fastAttack.hellions,
   "Reavers": fastAttack.reavers,
   "Scourges": fastAttack.scourges,
   "Cronos": heavySupport.cronos,
   "Ravager": heavySupport.ravager,
+  "Reaper": heavySupport.reaper,
   "Talos": heavySupport.talos,
   "Raider": dedicatedTransport.raider,
   "Venom": dedicatedTransport.venom,
+  "Raven Fighter": flyers.ravenFighter,
   "Razorwing Jetfighter": flyers.razorwingJetfighter,
   "Voidraven Bomber": flyers.voidravenBomber,
 };
@@ -49,11 +56,16 @@ export const slot_to_units: Record<string, string[]> = {
     "Wyches"
   ],
   "Elites": [
+    "Court of the Archon",
     "Grotesques",
+    "Haemoxytes",
+    "Hekatrix Bloodbrides",
     "Incubi",
+    "Kabalite Trueborn",
     "Mandrakes"
   ],
   "Fast Attack": [
+    "Beastpack",
     "Hellions",
     "Reavers",
     "Scourges"
@@ -61,6 +73,7 @@ export const slot_to_units: Record<string, string[]> = {
   "Heavy Support": [
     "Cronos",
     "Ravager",
+    "Reaper",
     "Talos"
   ],
   "Dedicated Transport": [
@@ -69,6 +82,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fortifications": [],
   "Flyers": [
+    "Raven Fighter",
     "Razorwing Jetfighter",
     "Voidraven Bomber"
   ]

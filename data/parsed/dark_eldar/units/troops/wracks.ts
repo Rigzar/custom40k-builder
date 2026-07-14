@@ -13,7 +13,7 @@ export const wracks: Unit = {
   "models": [
     {
       "name": "Wrack",
-      "points": 11,
+      "points": 10,
       "min": 5,
       "max": 20,
       "stats": {
@@ -33,7 +33,7 @@ export const wracks: Unit = {
   "variant_models": [
     {
       "name": "Acothyst",
-      "points": 16,
+      "points": 15,
       "min": 0,
       "max": 0,
       "stats": {
@@ -134,5 +134,5 @@ export const wracks: Unit = {
   "advisor": false,
   "slot": "Troops",
   "default_size": 5,
-  "min_cost": 55
+  "min_cost": 50
 };

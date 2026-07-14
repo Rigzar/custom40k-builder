@@ -32,7 +32,7 @@ export const DARK_ELDAR_SPECIAL_ABILITIES: DarkEldarSpecialAbilityEntry[] = [
     category: 'army-rule',
     text: 'Verbatim (Index): "Each time an enemy unit is destroyed, the army gains a \'Power Through ' +
       'Pain\' token, assigned a special rule from the list, distributed to any friendly PtP unit..." ' +
-      '6 bonuses: Aegis(4+) / Berserk(4+) / Furious Charge / +1 Initiative / +1 Leadership / +1 ' +
+      '6 bonuses: Aegis(4+) / Berserk(5+) / Furious Charge / +1 Initiative / +1 Leadership / +1 ' +
       'Strength. Joined characters pool tokens; split evenly on leaving. (NOTE: "Furious Charge" — ' +
       'a bonus NAME — leaked into the Elites slot index as a phantom unit, ' +
       '`ki-dark-eldar-furiouscharge-phantom-01`.)',

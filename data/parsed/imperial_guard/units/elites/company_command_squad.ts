@@ -261,9 +261,9 @@ export const companyCommandSquad: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Another Veteran may be equipped with a Special weapon",
+      "header": "All remaining Guardmen may be equipped with a Special weapon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

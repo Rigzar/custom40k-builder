@@ -2,7 +2,7 @@
   "archetypes": [
     {
       "name": "Bloodbrides",
-      "desc": "- The army may only consist of <Cult> units.\n- Each unit gains +1 Leadership and doubles the amount of weapons the individual models may swap. Example: If the unit entry says that \"for every 5 models, one may swap its weapon\", the unit would be allowed to swap two weapons per 5 models."
+      "desc": "- Hekatrix Bloodbrides can be taken as Troops and they are not limited to one per Succubus anymore.\n- The army may only consist of <Cult> units."
     },
     {
       "name": "Coordinated Raid",
@@ -10,11 +10,11 @@
     },
     {
       "name": "Haemoxytes",
-      "desc": "- The army may only consist of <Coven> units.\n- Each unit gains +1 Leadership and doubles the amount of weapons the individual models may swap. Example: If the unit entry says that \"for every 5 models, one may swap its weapon\", the unit would be allowed to swap two weapons per 5 models."
+      "desc": "- Haemoxytes can be taken as Troops and they are not limited to one per Haemonculus anymore.\n- The army may only consist of <Coven> units."
     },
     {
       "name": "Trueborn",
-      "desc": "- The army may only consist of <Kabal> units.\n- Each unit gains +1 Leadership and doubles the amount of weapons the individual models may swap. Example: If the unit entry says that \"for every 5 models, one may swap its weapon\", the unit would be allowed to swap two weapons per 5 models."
+      "desc": "- Kabalite Trueborn can be taken as Troops and they are not limited to one per Dracon anymore.\n- The army may only consist of <Kabal> units."
     },
     {
       "name": "Ynnari",
@@ -50,7 +50,7 @@
     },
     {
       "name": "Artists of the Fleshᶜᵒ",
-      "desc": "The unit gains +1 Strength and the \"Berserk(5+)\" ability. Only for creatures.",
+      "desc": "The unit gains +1 Strength and the \"Berserk(5+)\" ability. If it gains \"Berserk\" again from another source, it is increased to 4+. Only for creatures.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",
@@ -59,7 +59,7 @@
     },
     {
       "name": "Berserk Fugueᶜᵘ",
-      "desc": "The unit gains the \"Berserk(5+)\" and \"Furious Charge\" abilities. Only for creatures.",
+      "desc": "The unit gains the \"Berserk(5+)\" and \"Furious Charge\" abilities. If it gains \"Berserk\" again from another source, it is increased to 4+. Only for creatures.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

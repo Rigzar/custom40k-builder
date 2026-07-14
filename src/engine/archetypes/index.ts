@@ -124,24 +124,33 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
+  // DE 1.01: the three sub-faction-purity archetypes were rewritten. They no longer grant
+  // "+1 Ld + double weapon swaps"; instead each lets its named Elite unit be taken as Troops and
+  // removes its one-per-HQ limit. Normal Troops are unaffected (no demoteOtherTroops).
   'Trueborn': { ...BASE, allowedKeywords: ['Kabal'],
+    troopsRemap: ['Kabalite Trueborn'],
+    liftsUniqueLimit: ['Kabalite Trueborn'],
     notes: [
       'The army may only consist of <Kabal> units.',
-      'Each unit gains +1 Leadership and doubles the number of weapon swap choices.',
+      'Kabalite Trueborn can be taken as Troops and are no longer limited to one per Dracon.',
     ],
   },
 
   'Haemoxytes': { ...BASE, allowedKeywords: ['Coven'],
+    troopsRemap: ['Haemoxytes'],
+    liftsUniqueLimit: ['Haemoxytes'],
     notes: [
       'The army may only consist of <Coven> units.',
-      'Each unit gains +1 Leadership and doubles the number of weapon swap choices.',
+      'Haemoxytes can be taken as Troops and are no longer limited to one per Haemonculus.',
     ],
   },
 
   'Bloodbrides': { ...BASE, allowedKeywords: ['Cult'],
+    troopsRemap: ['Hekatrix Bloodbrides'],
+    liftsUniqueLimit: ['Hekatrix Bloodbrides'],
     notes: [
       'The army may only consist of <Cult> units.',
-      'Each unit gains +1 Leadership and doubles the number of weapon swap choices.',
+      'Hekatrix Bloodbrides can be taken as Troops and are no longer limited to one per Succubus.',
     ],
   },
 

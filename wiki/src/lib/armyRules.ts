@@ -99,7 +99,7 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
   imperial_guard: [
     {
       name: 'Orders',
-      description: 'Each officer issues the army one or more orders, which can be selected or exchanged in the Reinforcement phase of each turn. Each Imperial Guard unit can use one of the previously selected orders at the specified time, as long as it is within 12" of an officer at the start of its activation. An order is not consumed and any number of units can use the same order in a turn. Unless otherwise stated, the effect lasts until the end of the unit\'s activation. Each unit can only benefit from a single order per turn. An officer knows all orders from the list.',
+      description: 'Each officer issues the army one or more orders, which can be selected or exchanged in the Reinforcement phase of each turn. Each Imperial Guard unit can use one of the previously selected orders at the specified time, as long as it is within 12" of an officer that is not fleeing at the start of its activation. An order is not consumed and any number of units can use the same order in a turn. Unless otherwise stated, the effect lasts until the end of the unit\'s activation. Each unit can only benefit from a single order per turn. An officer knows all orders from the list.',
       tag: 'signature',
     },
     {
@@ -260,7 +260,7 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
     },
     {
       name: 'Power through Pain',
-      description: 'Each time an enemy unit is destroyed, the army gains a "Power Through Pain" token, which is assigned a special rule from the list, then distributed to any friendly unit with this rule. All models in a unit benefit from the bonus, but multiple markers with the same bonus don\'t stack. Available bonuses: Aegis(4+), Berserk(4+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength. Character models that join a unit pool their tokens together; once they leave, tokens are split evenly.',
+      description: 'Each time an enemy unit is destroyed, the army gains a "Power Through Pain" token, which is assigned a special rule from the list, then distributed to any friendly unit with this rule. All models in a unit benefit from the bonus, but multiple markers with the same bonus don\'t stack. Available bonuses: Aegis(4+), Berserk(5+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength. Character models that join a unit pool their tokens together; once they leave, tokens are split evenly.',
       tag: 'signature',
     },
     {

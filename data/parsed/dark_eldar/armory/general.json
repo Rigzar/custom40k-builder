@@ -290,6 +290,18 @@
       "p_char": 5
     },
     {
+      "name": "Shardcarbine",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "2",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Poison(3+)",
+      "p_unit": 7,
+      "p_char": 8
+    },
+    {
       "name": "Shardnet and impalerᶜᵘ",
       "term_compat": false,
       "range": "-",
@@ -553,13 +565,6 @@
       "name": "Painbringer",
       "term_compat": false,
       "desc": "The unit gains +1 Toughness.",
-      "p_unit": null,
-      "p_char": null
-    },
-    {
-      "name": "Splintermind",
-      "term_compat": false,
-      "desc": "The unit starts with a(n) (additional) \"Power through Pain\" token.",
       "p_unit": null,
       "p_char": null
     },

@@ -492,7 +492,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'power through pain': {
     name: 'Power Through Pain',
-    description: 'Each time an enemy unit is destroyed, the army gains a Power Through Pain token with a special rule assigned from the list (Aegis(4+), Berserk(4+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength). Distribute it to any friendly unit with this rule. Multiple tokens with the same bonus do not stack. Characters joining a unit pool tokens together; tokens split evenly when they leave.',
+    description: 'Each time an enemy unit is destroyed, the army gains a Power Through Pain token with a special rule assigned from the list (Aegis(4+), Berserk(5+), Furious Charge, +1 Initiative, +1 Leadership, +1 Strength). Distribute it to any friendly unit with this rule. Multiple tokens with the same bonus do not stack. Characters joining a unit pool tokens together; tokens split evenly when they leave.',
   },
   'combat drugs': {
     name: 'Combat Drugs',

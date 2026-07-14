@@ -82,11 +82,12 @@ export const raider: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fast, Open",
+    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit.",
     "Transport: This model has a transport capacity of 11 infantry models."
   ],
   "unit_type": "Vehicle",
   "keywords": [
-    "Coven", "Cult", "Kabal"
+    "-"
   ],
   "is_vehicle": true,
   "is_character": false,

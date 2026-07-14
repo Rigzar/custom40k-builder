@@ -25,6 +25,22 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.53',
+    date: '2026-07-14',
+    title: 'Dark Eldar codex 1.01 (7 new units) + Imperial Guard codex 1.02',
+    changes: [
+      'Dark Eldar — codex updated to version 1.01. Seven new units added: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
+      'Dark Eldar — the Bloodbride, Haemoxyte and Trueborn archetypes were reworked to fit the new units: each now lets its veteran squad (Hekatrix Bloodbrides / Haemoxytes / Kabalite Trueborn) be taken as Troops with no per-HQ limit, instead of the old "+1 Leadership / double weapon swaps".',
+      'Dark Eldar — Armoury: added the Shardcarbine; removed Splintermind from the Combat Drugs (so Stimulant supply no longer offers it).',
+      'Dark Eldar — the Power through Pain "Berserk" bonus was worsened from 4+ to 5+. The Artists of the Flesh and Berserk Fugue traits now stack with it (a second Berserk improves it to 4+).',
+      'Dark Eldar — the shared vehicles/flyers (Ravager, Raider, Venom, Razorwing Jetfighter, Voidraven Bomber) now use the "Swords for hire" rule — pick their sub-faction with the per-unit selector — instead of always carrying all three keywords. If one of these in a saved list loses its traits, re-pick its sub-faction on the unit card.',
+      'Dark Eldar — points: Wracks corrected to 10 pts (Acothyst 15).',
+      'Imperial Guard — codex updated to version 1.02. In a Company Command Squad, all remaining Guardsmen (not just one) may now take a Special weapon.',
+      'Imperial Guard — Orders: a fleeing officer may no longer issue orders; the "Mount up!" and "Suppressive fire!" order effects were updated to the 1.02 wording.',
+      'Imperial Guard — points: Taurox corrected to 120 (was 121).',
+    ],
+  },
+  {
     version: '1.52',
     date: '2026-07-12',
     title: 'Cheat Sheets + Dark Eldar overhaul + Crusader fixes + Print View cleanup',

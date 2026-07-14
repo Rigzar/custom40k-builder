@@ -81,11 +81,12 @@ export const ravager: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fast, Squadron",
-    "Aerial assault: The unit may fire all ranged weapons if it moved up to 12\"."
+    "Aerial assault: The unit may fire all ranged weapons if it moved up to 12\".",
+    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
   ],
   "unit_type": "Vehicle",
   "keywords": [
-    "Coven", "Cult", "Kabal"
+    "-"
   ],
   "is_vehicle": true,
   "is_character": false,

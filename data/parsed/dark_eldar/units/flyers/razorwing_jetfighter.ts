@@ -141,10 +141,12 @@ export const razorwingJetfighter: Unit = {
       "is_unique_per_army": false
     }
   ],
-  "abilities": [],
+  "abilities": [
+    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
+  ],
   "unit_type": "Flyer",
   "keywords": [
-    "Coven", "Cult", "Kabal"
+    "-"
   ],
   "is_vehicle": true,
   "is_character": false,

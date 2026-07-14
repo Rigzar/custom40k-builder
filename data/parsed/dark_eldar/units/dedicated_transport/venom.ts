@@ -91,12 +91,13 @@ export const venom: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fast, Open",
+    "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit.",
     "Transport: This model has a transport capacity of 6 infantry models.",
     "Vector Strike: Any unit this model overflows takes an automatic hit with its melee weapon profile."
   ],
   "unit_type": "Vehicle",
   "keywords": [
-    "Coven", "Cult", "Kabal"
+    "-"
   ],
   "is_vehicle": true,
   "is_character": false,
