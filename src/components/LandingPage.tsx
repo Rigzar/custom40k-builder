@@ -13,32 +13,32 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v152_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v153_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.52: Cheat Sheets + Dark Eldar overhaul + cleaner printout + fixes',
-    intro: 'New "Cheat Sheets" button (a floating button, always visible) — printable quick-reference cards you can read or save as PDF: Morale, Shooting, Melee and Psychic. Plus a Dark Eldar overhaul, a tighter army printout and a stack of bug fixes from Discord.',
-    line1: '⬡ Print View: unit cards are more compact (more than one now fits per page), slot headers stay with their units instead of stranding at the bottom of a page, the end-of-sheet Special Rules pack into two even columns, and two ability glitches (a garbled sentence fragment and a duplicated ability) are gone.',
-    line2: '⬡ Fixes: Neophytes can be added to Crusader-type squads; Imperial Guard Crusaders corrected to Wounds 2 / WS 2+ / 44 pts; the Exalted Plague Champion only shows its Plague sprayer once upgraded to Foul Blightspawn; the Storm shield can now be taken by Sororitas squads; and the account-recovery screens now follow your language instead of always being in Spanish.',
-    line3: '⬡ Dark Eldar: army traits now respect the sub-faction (a Kabal/Coven/Cult trait only affects units of that sub-faction), shared vehicles get a Sub-faction selector, Combat Drugs can finally be picked on any unit with the ability, and Wyches swap two weapons per 5 models (was one).',
+    title: 'v1.53: Dark Eldar codex 1.01 (7 new units) + Imperial Guard codex 1.02',
+    intro: 'Both codices were re-audited against their newest .ods. Dark Eldar steps up to 1.01 with seven brand-new units and a rules overhaul; Imperial Guard moves to 1.02.',
+    line1: '⬡ Dark Eldar — 7 new units: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
+    line2: '⬡ Dark Eldar — the Bloodbride / Haemoxyte / Trueborn archetypes now make their veteran squad Troops; the shared vehicles use "Swords for hire" (pick a sub-faction); the Shardcarbine was added and Splintermind removed from the Combat Drugs; Power through Pain "Berserk" is now 5+; and Wracks cost 10 pts.',
+    line3: '⬡ Imperial Guard 1.02 — in a Company Command Squad all remaining Guardsmen may take a Special weapon, a fleeing officer can no longer issue orders, and the Taurox is corrected to 120 pts.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.52: Cheat Sheets + Dark-Eldar-Überarbeitung + sauberer Ausdruck + Fixes',
-    intro: 'Neuer "Cheat Sheets"-Knopf (ein schwebender Knopf, immer sichtbar) — druckbare Schnellreferenz-Karten zum Lesen oder als PDF speichern: Moral, Schießen, Nahkampf und Psi. Dazu eine Dark-Eldar-Überarbeitung, ein kompakterer Armee-Ausdruck und ein Stapel behobener Fehler aus Discord.',
-    line1: '⬡ Druckansicht: Einheitenkarten sind kompakter (mehr als eine passt jetzt pro Seite), Slot-Überschriften bleiben bei ihren Einheiten statt am Seitenende zu stranden, die Spezialregeln am Blattende füllen zwei gleichmäßige Spalten, und zwei Fähigkeits-Fehler (ein verstümmeltes Satzfragment und eine doppelte Fähigkeit) sind weg.',
-    line2: '⬡ Fixes: Neophyten lassen sich zu Kreuzritter-Trupps hinzufügen; Kreuzritter der Imperialen Armee auf Wunden 2 / WS 2+ / 44 Pkt. korrigiert; der Exalted Plague Champion zeigt seinen Plague sprayer erst nach dem Upgrade zum Foul Blightspawn; das Sturmschild lässt sich nun von Sororitas-Trupps nehmen; und die Konto-Wiederherstellung folgt jetzt deiner Sprache statt immer auf Spanisch zu sein.',
-    line3: '⬡ Dark Eldar: Armee-Traits berücksichtigen jetzt die Unterfraktion (ein Kabal-/Coven-/Cult-Trait wirkt nur auf Einheiten dieser Unterfraktion), geteilte Fahrzeuge erhalten einen Unterfraktions-Wähler, Kampfdrogen lassen sich endlich bei jeder Einheit mit der Fähigkeit wählen, und Wyches tauschen zwei Waffen pro 5 Modelle (vorher eine).',
+    title: 'v1.53: Dark-Eldar-Codex 1.01 (7 neue Einheiten) + Imperiale-Armee-Codex 1.02',
+    intro: 'Beide Codices wurden gegen ihre neueste .ods geprüft. Dark Eldar steigt auf 1.01 mit sieben brandneuen Einheiten und einer Regel-Überarbeitung; die Imperiale Armee geht auf 1.02.',
+    line1: '⬡ Dark Eldar — 7 neue Einheiten: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides und Kabalite Trueborn (Elite), Beastpack (Sturmangriff), Reaper (Schwere Unterstützung) und Raven Fighter (Flieger).',
+    line2: '⬡ Dark Eldar — die Archetypen Bloodbride / Haemoxyte / Trueborn machen ihren Veteranen-Trupp zu Truppen; die geteilten Fahrzeuge nutzen "Swords for hire" (Unterfraktion wählen); der Shardcarbine kam hinzu und Splintermind wurde aus den Kampfdrogen entfernt; das "Berserk" von Power through Pain ist jetzt 5+; und Wracks kosten 10 Pkt.',
+    line3: '⬡ Imperiale Armee 1.02 — in einem Kompaniekommandotrupp dürfen alle übrigen Gardisten eine Spezialwaffe nehmen, ein fliehender Offizier kann keine Befehle mehr erteilen, und der Taurox ist auf 120 Pkt. korrigiert.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.52: Cheat Sheets + revisión de Dark Eldar + impreso más limpio + fixes',
-    intro: 'Nuevo botón "Cheat Sheets" (un botón flotante, siempre visible) — cartas de referencia rápida imprimibles que puedes ver o guardar como PDF: Moral, Disparo, Combate y Psíquica. Además, una revisión de Dark Eldar, un impreso del ejército más compacto y un buen puñado de bugs corregidos desde Discord.',
-    line1: '⬡ Vista de Impresión: las cartas de unidad son más compactas (ya entra más de una por hoja), las cabeceras de slot se quedan con sus unidades en vez de colgar al final de una página, la sección de Special Rules del final se reparte en dos columnas parejas, y desaparecen dos fallos de abilities (un fragmento de frase roto y una ability duplicada).',
-    line2: '⬡ Fixes: se pueden añadir Neophytes a los escuadrones tipo Crusader; los Crusaders de la Guardia Imperial corregidos a Heridas 2 / HA 2+ / 44 pts; el Exalted Plague Champion solo muestra el Plague sprayer al mejorarse a Foul Blightspawn; el Storm shield ya lo pueden coger los escuadrones Sororitas; y las pantallas de recuperación de cuenta ahora siguen tu idioma en vez de estar siempre en español.',
-    line3: '⬡ Dark Eldar: los traits de ejército ahora respetan la sub-facción (un trait Kabal/Coven/Cult solo afecta a unidades de esa sub-facción), los vehículos compartidos tienen un selector de sub-facción, las Combat Drugs por fin se pueden elegir en cualquier unidad con la ability, y las Wyches cambian dos armas por cada 5 modelos (antes una).',
+    title: 'v1.53: códice Dark Eldar 1.01 (7 unidades nuevas) + Guardia Imperial 1.02',
+    intro: 'Se re-auditaron los dos códices contra su .ods más reciente. Dark Eldar sube a 1.01 con siete unidades nuevas y una revisión de reglas; la Guardia Imperial pasa a 1.02.',
+    line1: '⬡ Dark Eldar — 7 unidades nuevas: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides y Kabalite Trueborn (Elite), Beastpack (Ataque Rápido), Reaper (Apoyo Pesado) y Raven Fighter (Volador).',
+    line2: '⬡ Dark Eldar — los arquetipos Bloodbride / Haemoxyte / Trueborn ahora hacen Troops a su escuadrón veterano; los vehículos compartidos usan "Swords for hire" (eliges sub-facción); se añadió el Shardcarbine y se quitó Splintermind de las Combat Drugs; el "Berserk" de Power through Pain ahora es 5+; y las Wracks cuestan 10 pts.',
+    line3: '⬡ Guardia Imperial 1.02 — en un Company Command Squad todos los Guardsmen restantes pueden llevar arma especial, un oficial huyendo ya no puede dar órdenes, y el Taurox se corrige a 120 pts.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
