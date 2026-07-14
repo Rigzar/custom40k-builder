@@ -288,9 +288,16 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // weapon can only be the variant's own default, so only show it once that variant is active.
   const variantOnlyWeapons = new Set<string>();
   if (unit.variant_models.length > 0) {
+    // Compare against equipped_with using the weapon's BARE name — strip a multi-profile suffix,
+    // either " - Standard" or " (Bolt ammo)" — because equipped_with names the weapon generically
+    // (e.g. "Heavy bolt rifle") while weapons[]/replaces carry the ammo-profile variants
+    // ("Heavy bolt rifle (Bolt ammo)"). Without this, a base weapon with ammo profiles is
+    // mis-flagged as variant-only and hidden whenever the variant model isn't active (GH#69:
+    // Heavy Intercessors' Heavy bolt rifle vanished as soon as a Heavy bolter was added).
+    const bare = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim();
     for (const g of unit.option_groups) {
       for (const name of g.replaces ?? []) {
-        if (!unit.equipped_with?.includes(name) && unit.weapons.some(w => w.name === name)) {
+        if (!unit.equipped_with?.includes(bare(name)) && unit.weapons.some(w => w.name === name)) {
           variantOnlyWeapons.add(name);
         }
       }

@@ -38,6 +38,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Imperial Guard — codex updated to version 1.02. In a Company Command Squad, all remaining Guardsmen (not just one) may now take a Special weapon.',
       'Imperial Guard — Orders: a fleeing officer may no longer issue orders; the "Mount up!" and "Suppressive fire!" order effects were updated to the 1.02 wording.',
       'Imperial Guard — points: Taurox corrected to 120 (was 121).',
+      'GENERAL — fix (GH#69): a squad whose default weapon has ammo profiles (e.g. Heavy Intercessors\' "Heavy bolt rifle (Bolt ammo/Stalker/Assault)") no longer loses that weapon when a model swaps to the alternative (Heavy bolter). The remaining models keep and correctly count their original weapon (e.g. 2× Heavy bolter + 8× Heavy bolt rifle).',
     ],
   },
   {
