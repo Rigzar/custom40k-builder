@@ -520,7 +520,7 @@
       "term_compat": false,
       "desc": "The Lord can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the deep strike rules. Additionally, the model and its attached unit gain the \"Deep strike\" ability. Unique.",
       "p_unit": null,
-      "p_char": 40
+      "p_char": 25
     },
     {
       "name": "Additional armor",

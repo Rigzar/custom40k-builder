@@ -27,8 +27,14 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.53',
     date: '2026-07-14',
-    title: 'Dark Eldar codex 1.01 (7 new units) + Imperial Guard codex 1.02',
+    title: 'Dark Eldar codex 1.01 + Imperial Guard codex 1.02 + Orks & Tyranids codex 1.01',
     changes: [
+      'Orks — codex updated to version 1.01. The Battle Fortress was removed from the regular codex; it remains available as an Escalation-only Lord of War.',
+      'Tyranids — codex updated to version 1.01. Genestealers and Broodlords lose 1 Initiative (Genestealer I5, Broodlord I6).',
+      'Tyranids — the Parasite of Mortrex\'s "Parasitic Infestation" now triggers on a successful wound (before any save rolls), not after saves.',
+      'Tyranids — Boneswords gain the Deadly(5+) ability for the Tyranid Prime and the Tyranid Warrior Broods.',
+      'Tyranids — points (full re-audit against the 1.01 .ods): Genestealer corrected to 15 pts; the Tyranid Prime / Tyranid Warrior melee swaps re-costed (Rending claws 3, Boneswords 6, Lash whip and Bonesword 6).',
+      'Necrons — the Veil of Darkness relic was reduced from 40 to 25 points.',
       'Dark Eldar — codex updated to version 1.01. Seven new units added: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
       'Dark Eldar — the Bloodbride, Haemoxyte and Trueborn archetypes were reworked to fit the new units: each now lets its veteran squad (Hekatrix Bloodbrides / Haemoxytes / Kabalite Trueborn) be taken as Troops with no per-HQ limit, instead of the old "+1 Leadership / double weapon swaps".',
       'Dark Eldar — Armoury: added the Shardcarbine; removed Splintermind from the Combat Drugs (so Stimulant supply no longer offers it).',

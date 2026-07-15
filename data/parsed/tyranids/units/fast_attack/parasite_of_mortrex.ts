@@ -104,7 +104,7 @@ export const parasiteOfMortrex: Unit = {
   ],
   "abilities": [
     "Fearless, Squadron, Synapse",
-    "Parasitic infestation: The model may only make a single attack with the Barbed ovipositor per activation. If it successfully wounds the target, roll 1D3. The target suffers the result in Mortal Wounds and you may spawn the same amount of Ripper Swarms (as one unit) in direct base contact with the Parasite of Mortrex and/or the enemy unit, if it still has models left."
+    "Parasitic infestation: The model may only make a single attack with the Barbed ovipositor per activation. If it successfully wounds the target (before any save rolls), roll 1D3. The target suffers the result in Mortal Wounds and you may spawn the same amount of Ripper Swarms (as one unit) in direct base contact with the Parasite of Mortrex and/or the enemy unit, if it still has models left."
   ],
   "unit_type": "Jump Pack Infantry",
   "keywords": [

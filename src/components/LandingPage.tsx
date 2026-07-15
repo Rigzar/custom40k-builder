@@ -13,35 +13,35 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v153_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v153b_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.53: Dark Eldar codex 1.01 (7 new units) + Imperial Guard codex 1.02',
-    intro: 'Both codices were re-audited against their newest .ods. Dark Eldar steps up to 1.01 with seven brand-new units and a rules overhaul; Imperial Guard moves to 1.02.',
-    line1: '⬡ Dark Eldar — 7 new units: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
-    line2: '⬡ Dark Eldar — the Bloodbride / Haemoxyte / Trueborn archetypes now make their veteran squad Troops; the shared vehicles use "Swords for hire" (pick a sub-faction); the Shardcarbine was added and Splintermind removed from the Combat Drugs; Power through Pain "Berserk" is now 5+; and Wracks cost 10 pts.',
-    line3: '⬡ Imperial Guard 1.02 — in a Company Command Squad all remaining Guardsmen may take a Special weapon, a fleeing officer can no longer issue orders, and the Taurox is corrected to 120 pts.',
-    line4: '⬡ Fix: Heavy Intercessors (and any unit with an ammo-profile default weapon) no longer lose their Heavy bolt rifles when a model swaps to a Heavy bolter — the rest of the squad keeps and correctly counts them.',
+    title: 'v1.53: Orks & Tyranids codex 1.01 + Necrons tweak',
+    intro: 'Orks and Tyranids step up to codex 1.01, plus a small Necrons points fix.',
+    line1: '⬡ Orks 1.01 — the Battle Fortress is removed from the regular codex; it stays an Escalation-only Lord of War.',
+    line2: '⬡ Tyranids 1.01 — Genestealers and Broodlords lose 1 Initiative, and the Parasite of Mortrex\'s "Parasitic Infestation" now triggers on a successful wound (before any save rolls).',
+    line3: '⬡ Tyranids 1.01 — Boneswords gain Deadly(5+) for the Tyranid Prime and Tyranid Warrior Broods.',
+    line4: '⬡ Necrons — the Veil of Darkness relic is reduced to 25 points.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.53: Dark-Eldar-Codex 1.01 (7 neue Einheiten) + Imperiale-Armee-Codex 1.02',
-    intro: 'Beide Codices wurden gegen ihre neueste .ods geprüft. Dark Eldar steigt auf 1.01 mit sieben brandneuen Einheiten und einer Regel-Überarbeitung; die Imperiale Armee geht auf 1.02.',
-    line1: '⬡ Dark Eldar — 7 neue Einheiten: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides und Kabalite Trueborn (Elite), Beastpack (Sturmangriff), Reaper (Schwere Unterstützung) und Raven Fighter (Flieger).',
-    line2: '⬡ Dark Eldar — die Archetypen Bloodbride / Haemoxyte / Trueborn machen ihren Veteranen-Trupp zu Truppen; die geteilten Fahrzeuge nutzen "Swords for hire" (Unterfraktion wählen); der Shardcarbine kam hinzu und Splintermind wurde aus den Kampfdrogen entfernt; das "Berserk" von Power through Pain ist jetzt 5+; und Wracks kosten 10 Pkt.',
-    line3: '⬡ Imperiale Armee 1.02 — in einem Kompaniekommandotrupp dürfen alle übrigen Gardisten eine Spezialwaffe nehmen, ein fliehender Offizier kann keine Befehle mehr erteilen, und der Taurox ist auf 120 Pkt. korrigiert.',
-    line4: '⬡ Fix: Schwere Intercessors (und jede Einheit mit einer Standardwaffe mit Munitionsprofilen) verlieren ihre Schweren Boltgewehre nicht mehr, wenn ein Modell auf einen Schweren Bolter wechselt — der Rest des Trupps behält und zählt sie korrekt.',
+    title: 'v1.53: Orks- & Tyraniden-Codex 1.01 + Necrons-Anpassung',
+    intro: 'Orks und Tyraniden steigen auf Codex 1.01, dazu eine kleine Punkte-Korrektur bei den Necrons.',
+    line1: '⬡ Orks 1.01 — die Battle Fortress wird aus dem regulären Codex entfernt; sie bleibt ein Escalation-exklusiver Lord of War.',
+    line2: '⬡ Tyraniden 1.01 — Genestealer und Brutlords verlieren 1 Initiative, und die "Parasitäre Infestation" des Parasite of Mortrex greift jetzt bei einer erfolgreichen Verwundung (vor allen Rettungswürfen).',
+    line3: '⬡ Tyraniden 1.01 — Knochenschwerter erhalten Deadly(5+) für den Tyranidenprimus und die Tyranidenkrieger-Bruten.',
+    line4: '⬡ Necrons — die Reliquie Schleier der Dunkelheit kostet jetzt 25 Punkte.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.53: códice Dark Eldar 1.01 (7 unidades nuevas) + Guardia Imperial 1.02',
-    intro: 'Se re-auditaron los dos códices contra su .ods más reciente. Dark Eldar sube a 1.01 con siete unidades nuevas y una revisión de reglas; la Guardia Imperial pasa a 1.02.',
-    line1: '⬡ Dark Eldar — 7 unidades nuevas: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides y Kabalite Trueborn (Elite), Beastpack (Ataque Rápido), Reaper (Apoyo Pesado) y Raven Fighter (Volador).',
-    line2: '⬡ Dark Eldar — los arquetipos Bloodbride / Haemoxyte / Trueborn ahora hacen Troops a su escuadrón veterano; los vehículos compartidos usan "Swords for hire" (eliges sub-facción); se añadió el Shardcarbine y se quitó Splintermind de las Combat Drugs; el "Berserk" de Power through Pain ahora es 5+; y las Wracks cuestan 10 pts.',
-    line3: '⬡ Guardia Imperial 1.02 — en un Company Command Squad todos los Guardsmen restantes pueden llevar arma especial, un oficial huyendo ya no puede dar órdenes, y el Taurox se corrige a 120 pts.',
-    line4: '⬡ Fix: los Heavy Intercessors (y cualquier unidad con arma por defecto de perfil-munición) ya no pierden sus Heavy bolt rifle al cambiar un modelo a Heavy bolter — el resto del escuadrón los conserva y cuenta bien.',
+    title: 'v1.53: códice Orks y Tyranids 1.01 + ajuste Necrons',
+    intro: 'Orks y Tyranids suben a códice 1.01, más una pequeña corrección de puntos en Necrons.',
+    line1: '⬡ Orks 1.01 — la Battle Fortress se retira del códice normal; queda como Lord of War exclusivo de Escalation.',
+    line2: '⬡ Tyranids 1.01 — Genestealers y Broodlords pierden 1 de Iniciativa, y la "Parasitic Infestation" del Parasite of Mortrex ahora se activa al herir (antes de las tiradas de salvación).',
+    line3: '⬡ Tyranids 1.01 — las Boneswords ganan Deadly(5+) para el Tyranid Prime y las Tyranid Warrior Broods.',
+    line4: '⬡ Necrons — la reliquia Veil of Darkness se reduce a 25 puntos.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -191,7 +191,7 @@ const CATEGORIES: Category[] = [
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'testing' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'testing' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'testing' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.01' },
     ],
   },
 ];

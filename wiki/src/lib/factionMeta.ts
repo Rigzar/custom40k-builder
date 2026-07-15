@@ -110,6 +110,7 @@ export const FACTION_VERSIONS: Record<string, string> = {
   orks: '1.01',
   eldar: '1.01',
   dark_eldar: '1.01',
+  tyranids: '1.01',
 };
 
 export function getFactionVersion(key: string): string | undefined {

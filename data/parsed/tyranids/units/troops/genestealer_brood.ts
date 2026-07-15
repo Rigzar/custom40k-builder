@@ -17,7 +17,7 @@ export const genestealerBrood: Unit = {
   "models": [
     {
       "name": "Genestealer",
-      "points": 16,
+      "points": 15,
       "min": 5,
       "max": 10,
       "stats": {
@@ -27,7 +27,7 @@ export const genestealerBrood: Unit = {
         "S": "4",
         "T": "4",
         "W": "1",
-        "I": "6",
+        "I": "5",
         "A": "3",
         "LD": "10",
         "SV": "5+"
@@ -47,7 +47,7 @@ export const genestealerBrood: Unit = {
         "S": "5",
         "T": "5",
         "W": "3",
-        "I": "7",
+        "I": "6",
         "A": "4",
         "LD": "10",
         "SV": "4+"
@@ -194,6 +194,6 @@ export const genestealerBrood: Unit = {
   "advisor": false,
   "slot": "Troops",
   "default_size": 5,
-  "min_cost": 80,
+  "min_cost": 75,
   "is_monster": false
 };

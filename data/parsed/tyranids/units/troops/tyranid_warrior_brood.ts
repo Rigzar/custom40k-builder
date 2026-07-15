@@ -49,7 +49,7 @@ export const tyranidWarriorBrood: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flurry(1)"
+      "abilities": "Deadly(5+), Flurry(1)"
     },
     {
       "name": "Deathspitter",
@@ -144,15 +144,15 @@ export const tyranidWarriorBrood: Unit = {
       "choices": [
         {
           "name": "Rending claws",
-          "points": 0
+          "points": 3
         },
         {
           "name": "Boneswords",
-          "points": 2
+          "points": 6
         },
         {
           "name": "Lash whip and Bonesword",
-          "points": 2
+          "points": 6
         }
       ],
       "inline_pts": null,
