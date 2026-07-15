@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
+import { useLanguage, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 
 interface Props { onClose: () => void }
@@ -29,7 +30,113 @@ function downloadText(filename: string, text: string, mime = 'text/csv') {
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
+/** Local, admin-only translations (kept out of the global TranslationKey union). */
+interface AdminTx {
+  title: string;
+  usersSaved: (u: number, r: number) => string;
+  loading: string;
+  reload: string;
+  recoveryTitle: string;
+  pending: (n: number) => string;
+  noRequests: string;
+  resolve: string;
+  resolveConfirm: (u: string) => string;
+  statusPending: string; statusResolved: string; statusCollected: string;
+  active7: string; active30: string; admins: string; noArmies: string;
+  searchPlaceholder: string;
+  exportCsv: string;
+  colUser: string; colRegistered: string; colLastSeen: string; colArmies: string; colActions: string;
+  resetPw: string; makeAdmin: string; revokeAdmin: string; del: string;
+  resetPwConfirm: (u: string) => string;
+  deleteConfirm: (u: string) => string;
+  promoteConfirm: (grant: boolean, u: string) => string;
+  tempPw: string; recovery: string; hide: string;
+  dataHealthTitle: string; dataHealthDesc: string; check: string; checking: string;
+  noFindings: string; findings: (n: number) => string;
+}
+
+const ADMIN_I18N: Record<Language, AdminTx> = {
+  en: {
+    title: 'Inquisitor Panel',
+    usersSaved: (u, r) => `${u} users · ${r} saved armies`,
+    loading: 'Loading…',
+    reload: 'Reload',
+    recoveryTitle: 'Recovery requests',
+    pending: n => `${n} pending`,
+    noRequests: 'No requests.',
+    resolve: 'Resolve',
+    resolveConfirm: u => `Resolve request from "${u}"? New credentials will be generated.`,
+    statusPending: 'pending', statusResolved: 'resolved', statusCollected: 'collected',
+    active7: 'Active 7d', active30: 'Active 30d', admins: 'Inquisitors', noArmies: 'No armies',
+    searchPlaceholder: 'Search user…',
+    exportCsv: 'export CSV',
+    colUser: 'User', colRegistered: 'Registered', colLastSeen: 'Last seen', colArmies: 'Armies', colActions: 'Actions',
+    resetPw: 'reset pw', makeAdmin: '+inqui', revokeAdmin: '−inqui', del: 'del',
+    resetPwConfirm: u => `Reset password for "${u}"?`,
+    deleteConfirm: u => `DELETE account "${u}" and all their saves? This cannot be undone.`,
+    promoteConfirm: (grant, u) => `${grant ? 'Grant' : 'Revoke'} Inquisitor for "${u}"?`,
+    tempPw: 'Temp pw: ', recovery: 'Recovery: ', hide: 'hide',
+    dataHealthTitle: 'Data health',
+    dataHealthDesc: 'Checks structural consistency across all factions (empty groups, ghost weapons, dangling references…). Read-only; does not validate rules.',
+    check: 'Check', checking: 'Checking…',
+    noFindings: 'no findings', findings: n => `${n} finding${n > 1 ? 's' : ''}`,
+  },
+  de: {
+    title: 'Inquisitor-Panel',
+    usersSaved: (u, r) => `${u} Nutzer · ${r} gespeicherte Armeen`,
+    loading: 'Lädt…',
+    reload: 'Neu laden',
+    recoveryTitle: 'Wiederherstellungsanfragen',
+    pending: n => `${n} ausstehend`,
+    noRequests: 'Keine Anfragen.',
+    resolve: 'Bearbeiten',
+    resolveConfirm: u => `Anfrage von "${u}" bearbeiten? Es werden neue Zugangsdaten erzeugt.`,
+    statusPending: 'ausstehend', statusResolved: 'erledigt', statusCollected: 'abgeholt',
+    active7: 'Aktiv 7T', active30: 'Aktiv 30T', admins: 'Inquisitoren', noArmies: 'Ohne Armeen',
+    searchPlaceholder: 'Nutzer suchen…',
+    exportCsv: 'CSV export',
+    colUser: 'Nutzer', colRegistered: 'Registriert', colLastSeen: 'Zuletzt gesehen', colArmies: 'Armeen', colActions: 'Aktionen',
+    resetPw: 'PW zurücks.', makeAdmin: '+inqui', revokeAdmin: '−inqui', del: 'lösch.',
+    resetPwConfirm: u => `Passwort für "${u}" zurücksetzen?`,
+    deleteConfirm: u => `Konto "${u}" und alle Speicherstände LÖSCHEN? Kann nicht rückgängig gemacht werden.`,
+    promoteConfirm: (grant, u) => `Inquisitor für "${u}" ${grant ? 'gewähren' : 'entziehen'}?`,
+    tempPw: 'Temp-PW: ', recovery: 'Wiederherst.: ', hide: 'verbergen',
+    dataHealthTitle: 'Datenintegrität',
+    dataHealthDesc: 'Prüft die strukturelle Konsistenz aller Fraktionen (leere Gruppen, Geisterwaffen, ungültige Referenzen…). Nur Lesen; prüft keine Regeln.',
+    check: 'Prüfen', checking: 'Prüfe…',
+    noFindings: 'keine Befunde', findings: n => `${n} Befund${n > 1 ? 'e' : ''}`,
+  },
+  es: {
+    title: 'Panel Inquisidor',
+    usersSaved: (u, r) => `${u} usuarios · ${r} ejércitos guardados`,
+    loading: 'Cargando…',
+    reload: 'Recargar',
+    recoveryTitle: 'Solicitudes de recuperación',
+    pending: n => `${n} pendiente${n > 1 ? 's' : ''}`,
+    noRequests: 'Sin solicitudes.',
+    resolve: 'Resolver',
+    resolveConfirm: u => `¿Resolver solicitud de "${u}"? Se generarán nuevas credenciales.`,
+    statusPending: 'pendiente', statusResolved: 'resuelta', statusCollected: 'recogida',
+    active7: 'Activos 7d', active30: 'Activos 30d', admins: 'Inquisidores', noArmies: 'Sin ejércitos',
+    searchPlaceholder: 'Buscar usuario…',
+    exportCsv: 'exportar CSV',
+    colUser: 'Usuario', colRegistered: 'Registro', colLastSeen: 'Última vez', colArmies: 'Ejércitos', colActions: 'Acciones',
+    resetPw: 'reset pw', makeAdmin: '+inqui', revokeAdmin: '−inqui', del: 'borrar',
+    resetPwConfirm: u => `¿Resetear la contraseña de "${u}"?`,
+    deleteConfirm: u => `¿BORRAR la cuenta "${u}" y todos sus guardados? No se puede deshacer.`,
+    promoteConfirm: (grant, u) => `¿${grant ? 'Otorgar' : 'Retirar'} Inquisidor a "${u}"?`,
+    tempPw: 'Contraseña temp: ', recovery: 'Recuperación: ', hide: 'ocultar',
+    dataHealthTitle: 'Integridad de datos',
+    dataHealthDesc: 'Comprueba consistencia estructural de todas las facciones (grupos vacíos, armas fantasma, referencias colgantes…). Solo lectura; no valida reglas.',
+    check: 'Comprobar', checking: 'Analizando…',
+    noFindings: 'sin hallazgos', findings: n => `${n} hallazgo${n > 1 ? 's' : ''}`,
+  },
+};
+
 export function AdminPanel({ onClose }: Props) {
+  const { language } = useLanguage();
+  const L = ADMIN_I18N[language] ?? ADMIN_I18N.en;
+
   const [stats, setStats]     = useState<api.AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [msg, setMsg]         = useState('');
@@ -54,8 +161,11 @@ export function AdminPanel({ onClose }: Props) {
 
   useEffect(() => { load(); }, []);
 
+  const statusLabel = (s: api.RecoveryRequest['status']) =>
+    s === 'pending' ? L.statusPending : s === 'resolved' ? L.statusResolved : L.statusCollected;
+
   async function handleResolve(requestId: number, username: string) {
-    if (!confirm(`¿Resolver solicitud de "${username}"? Se generarán nuevas credenciales.`)) return;
+    if (!confirm(L.resolveConfirm(username))) return;
     setResolving(requestId);
     try {
       await api.adminResolveRecovery(requestId);
@@ -65,7 +175,7 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function handleResetPw(userId: number, username: string) {
-    if (!confirm(`Reset password for "${username}"?`)) return;
+    if (!confirm(L.resetPwConfirm(username))) return;
     try {
       const r = await api.adminResetPw(userId);
       setRevealed(prev => ({ ...prev, [userId]: { pw: r.tempPassword, rc: r.recoveryCode } }));
@@ -74,7 +184,7 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function handleDelete(userId: number, username: string) {
-    if (!confirm(`DELETE account "${username}" and all their saves? This cannot be undone.`)) return;
+    if (!confirm(L.deleteConfirm(username))) return;
     try {
       await api.adminDelUser(userId);
       await load();
@@ -89,7 +199,7 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function handlePromote(userId: number, username: string, makeAdmin: boolean) {
-    if (!confirm(`${makeAdmin ? 'Grant' : 'Revoke'} Inquisidor for "${username}"?`)) return;
+    if (!confirm(L.promoteConfirm(makeAdmin, username))) return;
     try {
       await api.adminPromote(userId, makeAdmin);
       await load();
@@ -121,6 +231,9 @@ export function AdminPanel({ onClose }: Props) {
   const adminCount = allUsers.filter(u => u.is_admin).length;
   const emptyCount = allUsers.filter(u => u.roster_count === 0).length;
   const arrow = (key: SortKey) => (key === sortKey ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '');
+  const pendingCount = requests.filter(r => r.status === 'pending').length;
+
+  const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-start justify-center z-[60] p-4 overflow-y-auto" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -128,34 +241,44 @@ export function AdminPanel({ onClose }: Props) {
 
         <div className="flex justify-between items-center px-4 py-3 bg-zinc-900 border-b border-zinc-700">
           <div className="flex items-center gap-3">
-            <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">Panel Inquisidor</span>
+            <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">{L.title}</span>
             {stats && (
-              <span className="text-zinc-500 text-xs font-mono">
-                {stats.totalUsers} users · {stats.totalRosters} saved armies
-              </span>
+              <span className="text-zinc-500 text-xs font-mono">{L.usersSaved(stats.totalUsers, stats.totalRosters)}</span>
             )}
           </div>
           <button onClick={onClose} className="text-zinc-500 hover:text-white text-xl">✕</button>
         </div>
 
+        {/* Options toolbar — every action visible on entry */}
+        <div className="flex flex-wrap items-center gap-2 px-4 py-2 border-b border-zinc-800 bg-zinc-900/40">
+          <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
+          <button onClick={handleRunHealth} disabled={healthRunning} className={toolbarBtn}>{healthRunning ? L.checking : L.dataHealthTitle}</button>
+          <button
+            onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
+            disabled={allUsers.length === 0}
+            className={toolbarBtn}
+          >{L.exportCsv}</button>
+          {pendingCount > 0 && (
+            <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded font-mono">{L.pending(pendingCount)}</span>
+          )}
+        </div>
+
         {msg && <div className="mx-4 mt-3 text-red-400 text-xs font-mono bg-red-950/30 border border-red-800/50 px-3 py-2">{msg}</div>}
 
         {loading ? (
-          <div className="p-8 text-center text-zinc-600 text-sm">Loading…</div>
+          <div className="p-8 text-center text-zinc-600 text-sm">{L.loading}</div>
         ) : !stats ? null : (
           <div className="p-4 space-y-6">
             {/* Recovery requests */}
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
-                Solicitudes de recuperación
-                {requests.filter(r => r.status === 'pending').length > 0 && (
-                  <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded">
-                    {requests.filter(r => r.status === 'pending').length} pendiente{requests.filter(r => r.status === 'pending').length > 1 ? 's' : ''}
-                  </span>
+                {L.recoveryTitle}
+                {pendingCount > 0 && (
+                  <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded">{L.pending(pendingCount)}</span>
                 )}
               </div>
               {requests.length === 0 ? (
-                <p className="text-zinc-600 text-xs font-mono italic">Sin solicitudes.</p>
+                <p className="text-zinc-600 text-xs font-mono italic">{L.noRequests}</p>
               ) : (
                 <div className="space-y-1.5">
                   {requests.map(r => (
@@ -170,13 +293,13 @@ export function AdminPanel({ onClose }: Props) {
                       <div className="flex items-center gap-2 shrink-0">
                         <span className={`text-[9px] uppercase px-1 ${
                           r.status === 'pending' ? 'text-amber-500' : r.status === 'resolved' ? 'text-green-500' : 'text-zinc-500'
-                        }`}>{r.status}</span>
+                        }`}>{statusLabel(r.status)}</span>
                         {r.status === 'pending' && (
                           <button
                             onClick={() => handleResolve(r.id, r.username)}
                             disabled={resolving === r.id}
                             className="text-[10px] px-2 py-0.5 border border-amber-700 text-amber-400 hover:bg-amber-900/30 disabled:opacity-50"
-                          >{resolving === r.id ? '…' : 'Resolver'}</button>
+                          >{resolving === r.id ? '…' : L.resolve}</button>
                         )}
                       </div>
                     </div>
@@ -188,10 +311,10 @@ export function AdminPanel({ onClose }: Props) {
             {/* Activity summary */}
             <div className="flex flex-wrap gap-2 text-[10px] font-mono">
               {[
-                { label: 'Activos 7d', value: active7 },
-                { label: 'Activos 30d', value: active30 },
-                { label: 'Inquisidores', value: adminCount },
-                { label: 'Sin ejércitos', value: emptyCount },
+                { label: L.active7, value: active7 },
+                { label: L.active30, value: active30 },
+                { label: L.admins, value: adminCount },
+                { label: L.noArmies, value: emptyCount },
               ].map(s => (
                 <div key={s.label} className="border border-zinc-800 bg-zinc-900/50 px-3 py-1.5">
                   <span className="text-zinc-500">{s.label}: </span>
@@ -206,23 +329,19 @@ export function AdminPanel({ onClose }: Props) {
               <input
                 value={filter}
                 onChange={e => setFilter(e.target.value)}
-                placeholder="Buscar usuario…"
+                placeholder={L.searchPlaceholder}
                 className="flex-1 bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
               />
               <span className="text-zinc-600 text-[10px] font-mono">{visibleUsers.length}/{allUsers.length}</span>
-              <button
-                onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
-                className="text-[11px] px-2 py-1 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
-              >export CSV</button>
             </div>
             <table className="w-full text-xs font-mono border-collapse">
               <thead>
                 <tr className="border-b border-zinc-800">
-                  <th onClick={() => toggleSort('username')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">User{arrow('username')}</th>
-                  <th onClick={() => toggleSort('created_at')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">Registered{arrow('created_at')}</th>
-                  <th onClick={() => toggleSort('last_seen_at')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">Last seen{arrow('last_seen_at')}</th>
-                  <th onClick={() => toggleSort('roster_count')} className="text-center py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">Armies{arrow('roster_count')}</th>
-                  <th className="py-2 text-zinc-500 font-normal text-right">Actions</th>
+                  <th onClick={() => toggleSort('username')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">{L.colUser}{arrow('username')}</th>
+                  <th onClick={() => toggleSort('created_at')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">{L.colRegistered}{arrow('created_at')}</th>
+                  <th onClick={() => toggleSort('last_seen_at')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">{L.colLastSeen}{arrow('last_seen_at')}</th>
+                  <th onClick={() => toggleSort('roster_count')} className="text-center py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">{L.colArmies}{arrow('roster_count')}</th>
+                  <th className="py-2 text-zinc-500 font-normal text-right">{L.colActions}</th>
                 </tr>
               </thead>
               <tbody>
@@ -241,26 +360,26 @@ export function AdminPanel({ onClose }: Props) {
                           <button
                             onClick={() => handleResetPw(u.id, u.username)}
                             className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
-                          >reset pw</button>
+                          >{L.resetPw}</button>
                           <button
                             onClick={() => handlePromote(u.id, u.username, !u.is_admin)}
                             className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
-                          >{u.is_admin ? '−inqui' : '+inqui'}</button>
+                          >{u.is_admin ? L.revokeAdmin : L.makeAdmin}</button>
                           <button
                             onClick={() => handleDelete(u.id, u.username)}
                             className="text-[11px] px-2 py-0.5 border border-red-900/50 text-red-700 hover:text-red-400 hover:border-red-700"
-                          >del</button>
+                          >{L.del}</button>
                         </div>
                       </td>
                     </tr>
                     {revealed[u.id] && (
                       <tr key={`${u.id}-rev`} className="bg-zinc-900/60">
                         <td colSpan={5} className="px-3 py-2 text-[11px]">
-                          <span className="text-zinc-500">Temp pw: </span>
+                          <span className="text-zinc-500">{L.tempPw}</span>
                           <span className="text-green-400 select-all">{revealed[u.id].pw}</span>
-                          <span className="text-zinc-500 ml-4">Recovery: </span>
+                          <span className="text-zinc-500 ml-4">{L.recovery}</span>
                           <span className="text-amber-400 select-all">{revealed[u.id].rc}</span>
-                          <button onClick={() => setRevealed(p => { const n={...p}; delete n[u.id]; return n; })} className="ml-4 text-zinc-600 hover:text-zinc-400">hide</button>
+                          <button onClick={() => setRevealed(p => { const n={...p}; delete n[u.id]; return n; })} className="ml-4 text-zinc-600 hover:text-zinc-400">{L.hide}</button>
                         </td>
                       </tr>
                     )}
@@ -273,21 +392,19 @@ export function AdminPanel({ onClose }: Props) {
             {/* Data Health */}
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
-                Integridad de datos
+                {L.dataHealthTitle}
                 {health && (
                   <span className={`px-1.5 py-0.5 text-[9px] rounded ${health.length === 0 ? 'bg-green-900 text-green-300' : 'bg-amber-800 text-amber-200'}`}>
-                    {health.length === 0 ? 'sin hallazgos' : `${health.length} hallazgo${health.length > 1 ? 's' : ''}`}
+                    {health.length === 0 ? L.noFindings : L.findings(health.length)}
                   </span>
                 )}
               </div>
-              <p className="text-zinc-600 text-[10px] font-mono mb-2">
-                Comprueba consistencia estructural de todas las facciones (grupos vacíos, armas fantasma, referencias colgantes…). Solo lectura; no valida reglas.
-              </p>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.dataHealthDesc}</p>
               <button
                 onClick={handleRunHealth}
                 disabled={healthRunning}
                 className="text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50 mb-2"
-              >{healthRunning ? 'Analizando…' : 'Comprobar'}</button>
+              >{healthRunning ? L.checking : L.check}</button>
               {health && health.length > 0 && (
                 <div className="space-y-0.5 max-h-72 overflow-y-auto border border-zinc-800 p-2">
                   {health.map((f, i) => (
