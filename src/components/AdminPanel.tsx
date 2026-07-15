@@ -53,6 +53,10 @@ interface AdminTx {
   tempPw: string; recovery: string; hide: string;
   dataHealthTitle: string; dataHealthDesc: string; check: string; checking: string;
   noFindings: string; findings: (n: number) => string;
+  exportDb: string;
+  auditTitle: string; auditEmpty: string;
+  armies: string; hideArmies: string; userNoArmies: string; publicBadge: string;
+  delRoster: string; delRosterConfirm: (name: string) => string;
 }
 
 const ADMIN_I18N: Record<Language, AdminTx> = {
@@ -80,6 +84,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     dataHealthDesc: 'Checks structural consistency across all factions (empty groups, ghost weapons, dangling references…). Read-only; does not validate rules.',
     check: 'Check', checking: 'Checking…',
     noFindings: 'no findings', findings: n => `${n} finding${n > 1 ? 's' : ''}`,
+    exportDb: 'export DB (JSON)',
+    auditTitle: 'Audit log', auditEmpty: 'No actions logged yet.',
+    armies: 'armies', hideArmies: 'hide', userNoArmies: 'This user has no saved armies.', publicBadge: 'public',
+    delRoster: 'del', delRosterConfirm: name => `Delete the army "${name}"? This cannot be undone.`,
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -105,6 +113,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     dataHealthDesc: 'Prüft die strukturelle Konsistenz aller Fraktionen (leere Gruppen, Geisterwaffen, ungültige Referenzen…). Nur Lesen; prüft keine Regeln.',
     check: 'Prüfen', checking: 'Prüfe…',
     noFindings: 'keine Befunde', findings: n => `${n} Befund${n > 1 ? 'e' : ''}`,
+    exportDb: 'DB export (JSON)',
+    auditTitle: 'Aktionsprotokoll', auditEmpty: 'Noch keine Aktionen protokolliert.',
+    armies: 'Armeen', hideArmies: 'verbergen', userNoArmies: 'Dieser Nutzer hat keine gespeicherten Armeen.', publicBadge: 'öffentlich',
+    delRoster: 'lösch.', delRosterConfirm: name => `Armee "${name}" löschen? Kann nicht rückgängig gemacht werden.`,
   },
   es: {
     title: 'Panel Inquisidor',
@@ -130,6 +142,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     dataHealthDesc: 'Comprueba consistencia estructural de todas las facciones (grupos vacíos, armas fantasma, referencias colgantes…). Solo lectura; no valida reglas.',
     check: 'Comprobar', checking: 'Analizando…',
     noFindings: 'sin hallazgos', findings: n => `${n} hallazgo${n > 1 ? 's' : ''}`,
+    exportDb: 'exportar BD (JSON)',
+    auditTitle: 'Registro de acciones', auditEmpty: 'Sin acciones registradas todavía.',
+    armies: 'ejércitos', hideArmies: 'ocultar', userNoArmies: 'Este usuario no tiene ejércitos guardados.', publicBadge: 'público',
+    delRoster: 'borrar', delRosterConfirm: name => `¿Borrar el ejército "${name}"? No se puede deshacer.`,
   },
 };
 
@@ -148,13 +164,22 @@ export function AdminPanel({ onClose }: Props) {
   const [filter, setFilter]   = useState('');
   const [sortKey, setSortKey] = useState<SortKey>('created_at');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [auditLog, setAuditLog] = useState<api.AdminAction[]>([]);
+  const [expandedUser, setExpandedUser] = useState<number | null>(null);
+  const [userRosters, setUserRosters] = useState<Record<number, api.AdminRosterRow[]>>({});
+  const [exporting, setExporting] = useState(false);
 
   async function load() {
     setLoading(true);
     try {
-      const [s, r] = await Promise.all([api.adminStats(), api.adminListRecoveryRequests()]);
+      const [s, r, a] = await Promise.all([
+        api.adminStats(),
+        api.adminListRecoveryRequests(),
+        api.adminActions().catch(() => ({ actions: [] })),
+      ]);
       setStats(s);
       setRequests(r.requests);
+      setAuditLog(a.actions);
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -203,6 +228,35 @@ export function AdminPanel({ onClose }: Props) {
     try {
       await api.adminPromote(userId, makeAdmin);
       await load();
+    } catch (e) { setMsg(String(e)); }
+  }
+
+  async function handleExport() {
+    setExporting(true);
+    try {
+      const data = await api.adminExport();
+      downloadText(`custom40k-backup-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2), 'application/json');
+    } catch (e) { setMsg(String(e)); }
+    finally { setExporting(false); }
+  }
+
+  async function toggleUserRosters(userId: number) {
+    if (expandedUser === userId) { setExpandedUser(null); return; }
+    setExpandedUser(userId);
+    if (!userRosters[userId]) {
+      try {
+        const r = await api.adminUserRosters(userId);
+        setUserRosters(prev => ({ ...prev, [userId]: r.rosters }));
+      } catch (e) { setMsg(String(e)); }
+    }
+  }
+
+  async function handleDelRoster(rosterId: number, userId: number, name: string) {
+    if (!confirm(L.delRosterConfirm(name))) return;
+    try {
+      await api.adminDelRoster(rosterId);
+      setUserRosters(prev => ({ ...prev, [userId]: (prev[userId] ?? []).filter(r => r.id !== rosterId) }));
+      setStats(prev => prev && { ...prev, totalRosters: prev.totalRosters - 1, users: prev.users.map(u => u.id === userId ? { ...u, roster_count: Math.max(0, u.roster_count - 1) } : u) });
     } catch (e) { setMsg(String(e)); }
   }
 
@@ -258,6 +312,7 @@ export function AdminPanel({ onClose }: Props) {
             disabled={allUsers.length === 0}
             className={toolbarBtn}
           >{L.exportCsv}</button>
+          <button onClick={handleExport} disabled={exporting} className={toolbarBtn}>{L.exportDb}</button>
           {pendingCount > 0 && (
             <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded font-mono">{L.pending(pendingCount)}</span>
           )}
@@ -358,6 +413,11 @@ export function AdminPanel({ onClose }: Props) {
                       <td className="py-2 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <button
+                            onClick={() => toggleUserRosters(u.id)}
+                            disabled={u.roster_count === 0}
+                            className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800 disabled:opacity-40"
+                          >{expandedUser === u.id ? L.hideArmies : `${L.armies} (${u.roster_count})`}</button>
+                          <button
                             onClick={() => handleResetPw(u.id, u.username)}
                             className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
                           >{L.resetPw}</button>
@@ -380,6 +440,30 @@ export function AdminPanel({ onClose }: Props) {
                           <span className="text-zinc-500 ml-4">{L.recovery}</span>
                           <span className="text-amber-400 select-all">{revealed[u.id].rc}</span>
                           <button onClick={() => setRevealed(p => { const n={...p}; delete n[u.id]; return n; })} className="ml-4 text-zinc-600 hover:text-zinc-400">{L.hide}</button>
+                        </td>
+                      </tr>
+                    )}
+                    {expandedUser === u.id && (
+                      <tr key={`${u.id}-arm`} className="bg-zinc-900/40">
+                        <td colSpan={5} className="px-3 py-2">
+                          {(userRosters[u.id] ?? []).length === 0 ? (
+                            <p className="text-zinc-600 text-[10px] font-mono italic">{L.userNoArmies}</p>
+                          ) : (
+                            <div className="space-y-1">
+                              {(userRosters[u.id] ?? []).map(r => (
+                                <div key={r.id} className="flex items-center gap-2 text-[10px] font-mono">
+                                  <span className="text-zinc-200 flex-1 truncate">{r.name}</span>
+                                  {r.faction && <span className="text-zinc-500">{r.faction}</span>}
+                                  {r.is_public && <span className="text-green-600">{L.publicBadge}</span>}
+                                  <span className="text-zinc-600">{fmt(r.updated_at)}</span>
+                                  <button
+                                    onClick={() => handleDelRoster(r.id, u.id, r.name)}
+                                    className="px-1.5 py-0.5 border border-red-900/50 text-red-700 hover:text-red-400 hover:border-red-700"
+                                  >{L.delRoster}</button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </td>
                       </tr>
                     )}
@@ -412,6 +496,25 @@ export function AdminPanel({ onClose }: Props) {
                       <span className="text-amber-700 shrink-0 w-4">{f.category}</span>
                       <span className="text-zinc-500 shrink-0">{f.faction}{f.unit ? ` · ${f.unit}` : ''}</span>
                       <span className="text-zinc-400">{f.message}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Audit log */}
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2">{L.auditTitle}</div>
+              {auditLog.length === 0 ? (
+                <p className="text-zinc-600 text-xs font-mono italic">{L.auditEmpty}</p>
+              ) : (
+                <div className="space-y-0.5 max-h-72 overflow-y-auto border border-zinc-800 p-2">
+                  {auditLog.map(a => (
+                    <div key={a.id} className="text-[10px] font-mono flex gap-2">
+                      <span className="text-zinc-600 shrink-0">{fmt(a.created_at)}</span>
+                      <span className="text-amber-500 shrink-0">{a.admin_username ?? '—'}</span>
+                      <span className="text-zinc-300 shrink-0">{a.action}</span>
+                      <span className="text-zinc-400 truncate">{a.target_username ?? ''}{a.detail ? ` · ${a.detail}` : ''}</span>
                     </div>
                   ))}
                 </div>

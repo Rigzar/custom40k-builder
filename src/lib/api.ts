@@ -376,3 +376,29 @@ export function adminDelUser(userId: number) {
 export function adminPromote(userId: number, makeAdmin: boolean) {
   return call<{ ok: true }>('/api/admin/promote', { method: 'POST', body: JSON.stringify({ userId, makeAdmin }) });
 }
+
+export interface AdminAction {
+  id: number; admin_username: string | null; action: string;
+  target_username: string | null; detail: string | null; created_at: string;
+}
+export function adminActions() {
+  return call<{ ok: true; actions: AdminAction[] }>('/api/admin/actions');
+}
+
+export interface AdminRosterRow {
+  id: number; name: string; is_public: boolean;
+  created_at: string; updated_at: string; faction: string | null;
+}
+export function adminUserRosters(userId: number) {
+  return call<{ ok: true; rosters: AdminRosterRow[] }>(`/api/admin/user-rosters?userId=${userId}`);
+}
+export function adminDelRoster(rosterId: number) {
+  return call<{ ok: true }>('/api/admin/del-roster', { method: 'POST', body: JSON.stringify({ rosterId }) });
+}
+export interface AdminExport {
+  exported_at: string; counts: { users: number; rosters: number };
+  users: unknown[]; rosters: unknown[];
+}
+export function adminExport() {
+  return call<{ ok: true } & AdminExport>('/api/admin/export');
+}

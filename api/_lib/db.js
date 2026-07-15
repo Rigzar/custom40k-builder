@@ -88,6 +88,23 @@ export async function ensureSchema() {
   await sql`CREATE INDEX IF NOT EXISTS recovery_requests_username_idx ON recovery_requests(username)`;
   await sql`CREATE INDEX IF NOT EXISTS recovery_requests_status_idx  ON recovery_requests(status)`;
 
+  // Admin action audit log: one row per privileged action (reset pw, delete, promote, resolve, …).
+  // admin_id kept as SET NULL so the log survives an admin account deletion; usernames stored
+  // denormalised so the log stays readable even after the referenced rows are gone.
+  await sql`
+    CREATE TABLE IF NOT EXISTS admin_actions (
+      id SERIAL PRIMARY KEY,
+      admin_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      admin_username TEXT,
+      action TEXT NOT NULL,
+      target_user_id INTEGER,
+      target_username TEXT,
+      detail TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS admin_actions_created_idx ON admin_actions(created_at)`;
+
   // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
   // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when
   // joining via campaign_players.faction. The GM's own row has faction = NULL unless they also
