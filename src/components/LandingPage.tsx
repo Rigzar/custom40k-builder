@@ -15,7 +15,7 @@ import type { EngagementType } from '../types/army';
 
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v153_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: 'v1.53: Dark Eldar codex 1.01 (7 new units) + Imperial Guard codex 1.02',
@@ -23,6 +23,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line1: '⬡ Dark Eldar — 7 new units: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
     line2: '⬡ Dark Eldar — the Bloodbride / Haemoxyte / Trueborn archetypes now make their veteran squad Troops; the shared vehicles use "Swords for hire" (pick a sub-faction); the Shardcarbine was added and Splintermind removed from the Combat Drugs; Power through Pain "Berserk" is now 5+; and Wracks cost 10 pts.',
     line3: '⬡ Imperial Guard 1.02 — in a Company Command Squad all remaining Guardsmen may take a Special weapon, a fleeing officer can no longer issue orders, and the Taurox is corrected to 120 pts.',
+    line4: '⬡ Fix: Heavy Intercessors (and any unit with an ammo-profile default weapon) no longer lose their Heavy bolt rifles when a model swaps to a Heavy bolter — the rest of the squad keeps and correctly counts them.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
@@ -31,6 +32,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line1: '⬡ Dark Eldar — 7 neue Einheiten: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides und Kabalite Trueborn (Elite), Beastpack (Sturmangriff), Reaper (Schwere Unterstützung) und Raven Fighter (Flieger).',
     line2: '⬡ Dark Eldar — die Archetypen Bloodbride / Haemoxyte / Trueborn machen ihren Veteranen-Trupp zu Truppen; die geteilten Fahrzeuge nutzen "Swords for hire" (Unterfraktion wählen); der Shardcarbine kam hinzu und Splintermind wurde aus den Kampfdrogen entfernt; das "Berserk" von Power through Pain ist jetzt 5+; und Wracks kosten 10 Pkt.',
     line3: '⬡ Imperiale Armee 1.02 — in einem Kompaniekommandotrupp dürfen alle übrigen Gardisten eine Spezialwaffe nehmen, ein fliehender Offizier kann keine Befehle mehr erteilen, und der Taurox ist auf 120 Pkt. korrigiert.',
+    line4: '⬡ Fix: Schwere Intercessors (und jede Einheit mit einer Standardwaffe mit Munitionsprofilen) verlieren ihre Schweren Boltgewehre nicht mehr, wenn ein Modell auf einen Schweren Bolter wechselt — der Rest des Trupps behält und zählt sie korrekt.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
@@ -39,6 +41,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line1: '⬡ Dark Eldar — 7 unidades nuevas: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides y Kabalite Trueborn (Elite), Beastpack (Ataque Rápido), Reaper (Apoyo Pesado) y Raven Fighter (Volador).',
     line2: '⬡ Dark Eldar — los arquetipos Bloodbride / Haemoxyte / Trueborn ahora hacen Troops a su escuadrón veterano; los vehículos compartidos usan "Swords for hire" (eliges sub-facción); se añadió el Shardcarbine y se quitó Splintermind de las Combat Drugs; el "Berserk" de Power through Pain ahora es 5+; y las Wracks cuestan 10 pts.',
     line3: '⬡ Guardia Imperial 1.02 — en un Company Command Squad todos los Guardsmen restantes pueden llevar arma especial, un oficial huyendo ya no puede dar órdenes, y el Taurox se corrige a 120 pts.',
+    line4: '⬡ Fix: los Heavy Intercessors (y cualquier unidad con arma por defecto de perfil-munición) ya no pierden sus Heavy bolt rifle al cambiar un modelo a Heavy bolter — el resto del escuadrón los conserva y cuenta bien.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -110,6 +113,7 @@ function CommunityAnnouncement() {
           <BoldSplitLine text={tx.line1} />
           <BoldSplitLine text={tx.line2} />
           <BoldSplitLine text={tx.line3} />
+          <BoldSplitLine text={tx.line4} />
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>
