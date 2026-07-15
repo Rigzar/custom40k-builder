@@ -57,6 +57,17 @@ interface AdminTx {
   auditTitle: string; auditEmpty: string;
   armies: string; hideArmies: string; userNoArmies: string; publicBadge: string;
   delRoster: string; delRosterConfirm: (name: string) => string;
+  helpReload: string; helpDataHealth: string; helpExportCsv: string; helpExportDb: string;
+}
+
+/** Small "?" badge — native tooltip on hover, language-aware text. */
+function Help({ text }: { text: string }) {
+  return (
+    <span
+      title={text}
+      className="ml-1 inline-flex items-center justify-center w-3.5 h-3.5 rounded-full border border-zinc-600 text-zinc-500 text-[8px] leading-none cursor-help select-none"
+    >?</span>
+  );
 }
 
 const ADMIN_I18N: Record<Language, AdminTx> = {
@@ -88,6 +99,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     auditTitle: 'Audit log', auditEmpty: 'No actions logged yet.',
     armies: 'armies', hideArmies: 'hide', userNoArmies: 'This user has no saved armies.', publicBadge: 'public',
     delRoster: 'del', delRosterConfirm: name => `Delete the army "${name}"? This cannot be undone.`,
+    helpReload: 'Reload the panel data (users, requests, audit log) from the server.',
+    helpDataHealth: 'Scan all faction data for structural problems (empty option groups, ghost weapons, dangling references). Read-only; results show here.',
+    helpExportCsv: 'Download the user list as a CSV spreadsheet (id, username, admin, army count, dates). Opens in Excel / Google Sheets.',
+    helpExportDb: 'Download a full JSON backup of the database: all users (without passwords) and every saved army.',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -117,6 +132,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     auditTitle: 'Aktionsprotokoll', auditEmpty: 'Noch keine Aktionen protokolliert.',
     armies: 'Armeen', hideArmies: 'verbergen', userNoArmies: 'Dieser Nutzer hat keine gespeicherten Armeen.', publicBadge: 'öffentlich',
     delRoster: 'lösch.', delRosterConfirm: name => `Armee "${name}" löschen? Kann nicht rückgängig gemacht werden.`,
+    helpReload: 'Panel-Daten (Nutzer, Anfragen, Protokoll) neu vom Server laden.',
+    helpDataHealth: 'Alle Fraktionsdaten auf strukturelle Probleme prüfen (leere Gruppen, Geisterwaffen, ungültige Referenzen). Nur Lesen; Ergebnisse erscheinen hier.',
+    helpExportCsv: 'Nutzerliste als CSV-Tabelle herunterladen (ID, Name, Admin, Armee-Anzahl, Daten). Öffnet in Excel / Google Sheets.',
+    helpExportDb: 'Vollständiges JSON-Backup der Datenbank herunterladen: alle Nutzer (ohne Passwörter) und alle gespeicherten Armeen.',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -146,6 +165,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     auditTitle: 'Registro de acciones', auditEmpty: 'Sin acciones registradas todavía.',
     armies: 'ejércitos', hideArmies: 'ocultar', userNoArmies: 'Este usuario no tiene ejércitos guardados.', publicBadge: 'público',
     delRoster: 'borrar', delRosterConfirm: name => `¿Borrar el ejército "${name}"? No se puede deshacer.`,
+    helpReload: 'Recarga los datos del panel (usuarios, solicitudes, registro) desde el servidor.',
+    helpDataHealth: 'Analiza los datos de todas las facciones en busca de problemas estructurales (grupos vacíos, armas fantasma, referencias colgantes). Solo lectura; los resultados salen aquí.',
+    helpExportCsv: 'Descarga la lista de usuarios como hoja CSV (id, usuario, admin, nº de ejércitos, fechas). Se abre en Excel / Google Sheets.',
+    helpExportDb: 'Descarga una copia completa en JSON de la base de datos: todos los usuarios (sin contraseñas) y cada ejército guardado.',
   },
 };
 
@@ -303,20 +326,56 @@ export function AdminPanel({ onClose }: Props) {
           <button onClick={onClose} className="text-zinc-500 hover:text-white text-xl">✕</button>
         </div>
 
-        {/* Options toolbar — every action visible on entry */}
-        <div className="flex flex-wrap items-center gap-2 px-4 py-2 border-b border-zinc-800 bg-zinc-900/40">
-          <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
-          <button onClick={handleRunHealth} disabled={healthRunning} className={toolbarBtn}>{healthRunning ? L.checking : L.dataHealthTitle}</button>
-          <button
-            onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
-            disabled={allUsers.length === 0}
-            className={toolbarBtn}
-          >{L.exportCsv}</button>
-          <button onClick={handleExport} disabled={exporting} className={toolbarBtn}>{L.exportDb}</button>
+        {/* Options toolbar — every action visible on entry, each with a ? tooltip */}
+        <div className="flex flex-wrap items-center gap-3 px-4 py-2 border-b border-zinc-800 bg-zinc-900/40">
+          <span className="inline-flex items-center">
+            <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
+            <Help text={L.helpReload} />
+          </span>
+          <span className="inline-flex items-center">
+            <button onClick={handleRunHealth} disabled={healthRunning} className={toolbarBtn}>{healthRunning ? L.checking : L.dataHealthTitle}</button>
+            <Help text={L.helpDataHealth} />
+          </span>
+          <span className="inline-flex items-center">
+            <button
+              onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
+              disabled={allUsers.length === 0}
+              className={toolbarBtn}
+            >{L.exportCsv}</button>
+            <Help text={L.helpExportCsv} />
+          </span>
+          <span className="inline-flex items-center">
+            <button onClick={handleExport} disabled={exporting} className={toolbarBtn}>{L.exportDb}</button>
+            <Help text={L.helpExportDb} />
+          </span>
           {pendingCount > 0 && (
             <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded font-mono">{L.pending(pendingCount)}</span>
           )}
         </div>
+
+        {/* Data Health results — shown right under its toolbar button */}
+        {health && (
+          <div className="mx-4 mt-3 border border-zinc-800 bg-zinc-900/40 p-2">
+            <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1 flex items-center gap-2">
+              {L.dataHealthTitle}
+              <span className={`px-1.5 py-0.5 text-[9px] rounded ${health.length === 0 ? 'bg-green-900 text-green-300' : 'bg-amber-800 text-amber-200'}`}>
+                {health.length === 0 ? L.noFindings : L.findings(health.length)}
+              </span>
+              <button onClick={() => setHealth(null)} className="ml-auto text-zinc-600 hover:text-zinc-400 text-[10px] normal-case tracking-normal">{L.hide}</button>
+            </div>
+            {health.length > 0 && (
+              <div className="space-y-0.5 max-h-72 overflow-y-auto">
+                {health.map((f, i) => (
+                  <div key={i} className="text-[10px] font-mono flex gap-2">
+                    <span className="text-amber-700 shrink-0 w-4">{f.category}</span>
+                    <span className="text-zinc-500 shrink-0">{f.faction}{f.unit ? ` · ${f.unit}` : ''}</span>
+                    <span className="text-zinc-400">{f.message}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
         {msg && <div className="mx-4 mt-3 text-red-400 text-xs font-mono bg-red-950/30 border border-red-800/50 px-3 py-2">{msg}</div>}
 
@@ -471,35 +530,6 @@ export function AdminPanel({ onClose }: Props) {
                 ))}
               </tbody>
             </table>
-            </div>
-
-            {/* Data Health */}
-            <div>
-              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
-                {L.dataHealthTitle}
-                {health && (
-                  <span className={`px-1.5 py-0.5 text-[9px] rounded ${health.length === 0 ? 'bg-green-900 text-green-300' : 'bg-amber-800 text-amber-200'}`}>
-                    {health.length === 0 ? L.noFindings : L.findings(health.length)}
-                  </span>
-                )}
-              </div>
-              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.dataHealthDesc}</p>
-              <button
-                onClick={handleRunHealth}
-                disabled={healthRunning}
-                className="text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50 mb-2"
-              >{healthRunning ? L.checking : L.check}</button>
-              {health && health.length > 0 && (
-                <div className="space-y-0.5 max-h-72 overflow-y-auto border border-zinc-800 p-2">
-                  {health.map((f, i) => (
-                    <div key={i} className="text-[10px] font-mono flex gap-2">
-                      <span className="text-amber-700 shrink-0 w-4">{f.category}</span>
-                      <span className="text-zinc-500 shrink-0">{f.faction}{f.unit ? ` · ${f.unit}` : ''}</span>
-                      <span className="text-zinc-400">{f.message}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Audit log */}
