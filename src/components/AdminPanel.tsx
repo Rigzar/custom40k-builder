@@ -9,6 +9,26 @@ function fmt(iso: string | null) {
   return new Date(iso).toLocaleString(undefined, { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 
+type SortKey = 'username' | 'created_at' | 'last_seen_at' | 'roster_count';
+const daysAgo = (n: number) => Date.now() - n * 86_400_000;
+const seenWithin = (iso: string | null, days: number) => iso != null && new Date(iso).getTime() >= daysAgo(days);
+
+function usersToCsv(users: api.AdminUserRow[]): string {
+  const esc = (v: string | number | boolean) => `"${String(v).replace(/"/g, '""')}"`;
+  const head = ['id', 'username', 'is_admin', 'roster_count', 'created_at', 'last_seen_at', 'last_login_at'];
+  const rows = users.map(u => [u.id, u.username, u.is_admin, u.roster_count, u.created_at, u.last_seen_at ?? '', u.last_login_at].map(esc).join(','));
+  return [head.join(','), ...rows].join('\r\n');
+}
+
+function downloadText(filename: string, text: string, mime = 'text/csv') {
+  const blob = new Blob([text], { type: `${mime};charset=utf-8` });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
 export function AdminPanel({ onClose }: Props) {
   const [stats, setStats]     = useState<api.AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,6 +38,9 @@ export function AdminPanel({ onClose }: Props) {
   const [resolving, setResolving] = useState<number | null>(null);
   const [health, setHealth]   = useState<HealthFinding[] | null>(null);
   const [healthRunning, setHealthRunning] = useState(false);
+  const [filter, setFilter]   = useState('');
+  const [sortKey, setSortKey] = useState<SortKey>('created_at');
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
   async function load() {
     setLoading(true);
@@ -72,6 +95,32 @@ export function AdminPanel({ onClose }: Props) {
       await load();
     } catch (e) { setMsg(String(e)); }
   }
+
+  function toggleSort(key: SortKey) {
+    if (key === sortKey) setSortDir(d => (d === 'asc' ? 'desc' : 'asc'));
+    else { setSortKey(key); setSortDir(key === 'username' ? 'asc' : 'desc'); }
+  }
+
+  const allUsers = stats?.users ?? [];
+  const q = filter.trim().toLowerCase();
+  const visibleUsers = allUsers
+    .filter(u => q === '' || u.username.toLowerCase().includes(q))
+    .sort((a, b) => {
+      let d: number;
+      if (sortKey === 'username') d = a.username.localeCompare(b.username);
+      else if (sortKey === 'roster_count') d = a.roster_count - b.roster_count;
+      else {
+        const av = a[sortKey] ? new Date(a[sortKey] as string).getTime() : 0;
+        const bv = b[sortKey] ? new Date(b[sortKey] as string).getTime() : 0;
+        d = av - bv;
+      }
+      return sortDir === 'asc' ? d : -d;
+    });
+  const active7  = allUsers.filter(u => seenWithin(u.last_seen_at, 7)).length;
+  const active30 = allUsers.filter(u => seenWithin(u.last_seen_at, 30)).length;
+  const adminCount = allUsers.filter(u => u.is_admin).length;
+  const emptyCount = allUsers.filter(u => u.roster_count === 0).length;
+  const arrow = (key: SortKey) => (key === sortKey ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '');
 
   return (
     <div className="fixed inset-0 bg-black/90 flex items-start justify-center z-[60] p-4 overflow-y-auto" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -136,20 +185,48 @@ export function AdminPanel({ onClose }: Props) {
               )}
             </div>
 
+            {/* Activity summary */}
+            <div className="flex flex-wrap gap-2 text-[10px] font-mono">
+              {[
+                { label: 'Activos 7d', value: active7 },
+                { label: 'Activos 30d', value: active30 },
+                { label: 'Inquisidores', value: adminCount },
+                { label: 'Sin ejércitos', value: emptyCount },
+              ].map(s => (
+                <div key={s.label} className="border border-zinc-800 bg-zinc-900/50 px-3 py-1.5">
+                  <span className="text-zinc-500">{s.label}: </span>
+                  <span className="text-zinc-200">{s.value}</span>
+                </div>
+              ))}
+            </div>
+
             {/* Users table */}
             <div>
+            <div className="flex items-center gap-2 mb-2">
+              <input
+                value={filter}
+                onChange={e => setFilter(e.target.value)}
+                placeholder="Buscar usuario…"
+                className="flex-1 bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+              />
+              <span className="text-zinc-600 text-[10px] font-mono">{visibleUsers.length}/{allUsers.length}</span>
+              <button
+                onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
+                className="text-[11px] px-2 py-1 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
+              >export CSV</button>
+            </div>
             <table className="w-full text-xs font-mono border-collapse">
               <thead>
                 <tr className="border-b border-zinc-800">
-                  <th className="text-left py-2 pr-3 text-zinc-500 font-normal">User</th>
-                  <th className="text-left py-2 pr-3 text-zinc-500 font-normal">Registered</th>
-                  <th className="text-left py-2 pr-3 text-zinc-500 font-normal">Last seen</th>
-                  <th className="text-center py-2 pr-3 text-zinc-500 font-normal">Armies</th>
+                  <th onClick={() => toggleSort('username')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">User{arrow('username')}</th>
+                  <th onClick={() => toggleSort('created_at')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">Registered{arrow('created_at')}</th>
+                  <th onClick={() => toggleSort('last_seen_at')} className="text-left py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">Last seen{arrow('last_seen_at')}</th>
+                  <th onClick={() => toggleSort('roster_count')} className="text-center py-2 pr-3 text-zinc-500 font-normal cursor-pointer hover:text-zinc-300 select-none">Armies{arrow('roster_count')}</th>
                   <th className="py-2 text-zinc-500 font-normal text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {stats.users.map(u => (
+                {visibleUsers.map(u => (
                   <>
                     <tr key={u.id} className="border-b border-zinc-900 hover:bg-zinc-900/50">
                       <td className="py-2 pr-3">

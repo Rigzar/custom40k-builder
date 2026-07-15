@@ -37,6 +37,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Necrons — the Veil of Darkness relic was reduced from 40 to 25 points.',
       'GENERAL — every faction button now shows its codex version. Factions not yet on a newer codex display 1.00.',
       'ADMIN — new "Data Health" check in the Inquisitor panel: runs the structural/consistency sweep (empty option groups, ghost weapons, dangling references, …) over all factions from inside the app.',
+      'ADMIN — the Inquisitor panel gained an activity summary (active in 7/30 days, admins, users with no armies), a user search box, sortable table columns and a CSV export of the user list.',
       'Dark Eldar — codex updated to version 1.01. Seven new units added: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
       'Dark Eldar — the Bloodbride, Haemoxyte and Trueborn archetypes were reworked to fit the new units: each now lets its veteran squad (Hekatrix Bloodbrides / Haemoxytes / Kabalite Trueborn) be taken as Troops with no per-HQ limit, instead of the old "+1 Leadership / double weapon swaps".',
       'Dark Eldar — Armoury: added the Shardcarbine; removed Splintermind from the Combat Drugs (so Stimulant supply no longer offers it).',
