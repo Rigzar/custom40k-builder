@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
+import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 
 interface Props { onClose: () => void }
 
@@ -15,6 +16,8 @@ export function AdminPanel({ onClose }: Props) {
   const [revealed, setRevealed] = useState<Record<number, { pw: string; rc: string }>>({});
   const [requests, setRequests] = useState<api.RecoveryRequest[]>([]);
   const [resolving, setResolving] = useState<number | null>(null);
+  const [health, setHealth]   = useState<HealthFinding[] | null>(null);
+  const [healthRunning, setHealthRunning] = useState(false);
 
   async function load() {
     setLoading(true);
@@ -53,6 +56,13 @@ export function AdminPanel({ onClose }: Props) {
       await api.adminDelUser(userId);
       await load();
     } catch (e) { setMsg(String(e)); }
+  }
+
+  async function handleRunHealth() {
+    setHealthRunning(true);
+    try { setHealth(await runDataHealth()); }
+    catch (e) { setMsg(String(e)); }
+    finally { setHealthRunning(false); }
   }
 
   async function handlePromote(userId: number, username: string, makeAdmin: boolean) {
@@ -181,6 +191,37 @@ export function AdminPanel({ onClose }: Props) {
                 ))}
               </tbody>
             </table>
+            </div>
+
+            {/* Data Health */}
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
+                Integridad de datos
+                {health && (
+                  <span className={`px-1.5 py-0.5 text-[9px] rounded ${health.length === 0 ? 'bg-green-900 text-green-300' : 'bg-amber-800 text-amber-200'}`}>
+                    {health.length === 0 ? 'sin hallazgos' : `${health.length} hallazgo${health.length > 1 ? 's' : ''}`}
+                  </span>
+                )}
+              </div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">
+                Comprueba consistencia estructural de todas las facciones (grupos vacíos, armas fantasma, referencias colgantes…). Solo lectura; no valida reglas.
+              </p>
+              <button
+                onClick={handleRunHealth}
+                disabled={healthRunning}
+                className="text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50 mb-2"
+              >{healthRunning ? 'Analizando…' : 'Comprobar'}</button>
+              {health && health.length > 0 && (
+                <div className="space-y-0.5 max-h-72 overflow-y-auto border border-zinc-800 p-2">
+                  {health.map((f, i) => (
+                    <div key={i} className="text-[10px] font-mono flex gap-2">
+                      <span className="text-amber-700 shrink-0 w-4">{f.category}</span>
+                      <span className="text-zinc-500 shrink-0">{f.faction}{f.unit ? ` · ${f.unit}` : ''}</span>
+                      <span className="text-zinc-400">{f.message}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}

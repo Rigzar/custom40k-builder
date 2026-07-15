@@ -35,6 +35,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Tyranids — Boneswords gain the Deadly(5+) ability for the Tyranid Prime and the Tyranid Warrior Broods.',
       'Tyranids — points (full re-audit against the 1.01 .ods): Genestealer corrected to 15 pts; the Tyranid Prime / Tyranid Warrior melee swaps re-costed (Rending claws 3, Boneswords 6, Lash whip and Bonesword 6).',
       'Necrons — the Veil of Darkness relic was reduced from 40 to 25 points.',
+      'GENERAL — every faction button now shows its codex version. Factions not yet on a newer codex display 1.00.',
+      'ADMIN — new "Data Health" check in the Inquisitor panel: runs the structural/consistency sweep (empty option groups, ghost weapons, dangling references, …) over all factions from inside the app.',
       'Dark Eldar — codex updated to version 1.01. Seven new units added: Court of the Archon, Haemoxytes, Hekatrix Bloodbrides and Kabalite Trueborn (Elites), Beastpack (Fast Attack), Reaper (Heavy Support) and Raven Fighter (Flyer).',
       'Dark Eldar — the Bloodbride, Haemoxyte and Trueborn archetypes were reworked to fit the new units: each now lets its veteran squad (Hekatrix Bloodbrides / Haemoxytes / Kabalite Trueborn) be taken as Troops with no per-HQ limit, instead of the old "+1 Leadership / double weapon swaps".',
       'Dark Eldar — Armoury: added the Shardcarbine; removed Splintermind from the Combat Drugs (so Stimulant supply no longer offers it).',
