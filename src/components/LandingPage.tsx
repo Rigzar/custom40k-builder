@@ -15,35 +15,38 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v153b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v153c_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; line5: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.53: Orks & Tyranids codex 1.01 + Necrons tweak',
-    intro: 'Orks and Tyranids step up to codex 1.01, plus a small Necrons points fix.',
+    title: 'v1.53: Orks & Tyranids codex 1.01 + Necrons tweak + Direct messages',
+    intro: 'Orks and Tyranids step up to codex 1.01, a small Necrons points fix, and a brand-new messaging system.',
     line1: '⬡ Orks 1.01 — the Battle Fortress is removed from the regular codex; it stays an Escalation-only Lord of War.',
     line2: '⬡ Tyranids 1.01 — Genestealers and Broodlords lose 1 Initiative, and the Parasite of Mortrex\'s "Parasitic Infestation" now triggers on a successful wound (before any save rolls).',
     line3: '⬡ Tyranids 1.01 — Boneswords gain Deadly(5+) for the Tyranid Prime and Tyranid Warrior Broods.',
     line4: '⬡ Necrons — the Veil of Darkness relic is reduced to 25 points.',
+    line5: '✉️ New — Direct messages: logged-in users can now message each other from the "Messages" button (with an unread badge). Messages from the team carry the Inquisitor badge.',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.53: Orks- & Tyraniden-Codex 1.01 + Necrons-Anpassung',
-    intro: 'Orks und Tyraniden steigen auf Codex 1.01, dazu eine kleine Punkte-Korrektur bei den Necrons.',
+    title: 'v1.53: Orks- & Tyraniden-Codex 1.01 + Necrons-Anpassung + Direktnachrichten',
+    intro: 'Orks und Tyraniden steigen auf Codex 1.01, eine kleine Necrons-Korrektur und ein brandneues Nachrichtensystem.',
     line1: '⬡ Orks 1.01 — die Battle Fortress wird aus dem regulären Codex entfernt; sie bleibt ein Escalation-exklusiver Lord of War.',
     line2: '⬡ Tyraniden 1.01 — Genestealer und Brutlords verlieren 1 Initiative, und die "Parasitäre Infestation" des Parasite of Mortrex greift jetzt bei einer erfolgreichen Verwundung (vor allen Rettungswürfen).',
     line3: '⬡ Tyraniden 1.01 — Knochenschwerter erhalten Deadly(5+) für den Tyranidenprimus und die Tyranidenkrieger-Bruten.',
     line4: '⬡ Necrons — die Reliquie Schleier der Dunkelheit kostet jetzt 25 Punkte.',
+    line5: '✉️ Neu — Direktnachrichten: angemeldete Nutzer können sich jetzt über den "Nachrichten"-Button schreiben (mit Ungelesen-Zähler). Nachrichten vom Team tragen das Inquisitor-Abzeichen.',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.53: códice Orks y Tyranids 1.01 + ajuste Necrons',
-    intro: 'Orks y Tyranids suben a códice 1.01, más una pequeña corrección de puntos en Necrons.',
+    title: 'v1.53: códice Orks y Tyranids 1.01 + ajuste Necrons + Mensajes directos',
+    intro: 'Orks y Tyranids suben a códice 1.01, una pequeña corrección de puntos en Necrons y un sistema de mensajes nuevo.',
     line1: '⬡ Orks 1.01 — la Battle Fortress se retira del códice normal; queda como Lord of War exclusivo de Escalation.',
     line2: '⬡ Tyranids 1.01 — Genestealers y Broodlords pierden 1 de Iniciativa, y la "Parasitic Infestation" del Parasite of Mortrex ahora se activa al herir (antes de las tiradas de salvación).',
     line3: '⬡ Tyranids 1.01 — las Boneswords ganan Deadly(5+) para el Tyranid Prime y las Tyranid Warrior Broods.',
     line4: '⬡ Necrons — la reliquia Veil of Darkness se reduce a 25 puntos.',
+    line5: '✉️ Nuevo — Mensajes directos: los usuarios registrados ya pueden escribirse entre sí desde el botón "Mensajes" (con contador de no leídos). Los mensajes del equipo llevan el distintivo de Inquisidor.',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
   },
 };
@@ -116,6 +119,7 @@ function CommunityAnnouncement() {
           <BoldSplitLine text={tx.line2} />
           <BoldSplitLine text={tx.line3} />
           <BoldSplitLine text={tx.line4} />
+          <BoldSplitLine text={tx.line5} />
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>

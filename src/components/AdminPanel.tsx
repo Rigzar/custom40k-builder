@@ -80,9 +80,11 @@ interface AdminTx {
   save: string; saving: string; saved: string;
   factionSectionTitle: string; factionAvailHint: string;
   transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
+  transOnlyUntranslated: string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
   tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -136,9 +138,17 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'UI translations',
     transHint: 'Edit the German / Spanish text of any interface string. English is the source. Fields left empty or unchanged keep the built-in text. Saved changes go live for everyone.',
     transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
+    transOnlyUntranslated: 'only untranslated', transBoth: 'DE + ES',
     annTranslate: 'auto-translate the others from this', annTranslating: 'translating…',
     backToApp: '← Back to app',
     tabOverview: 'Overview', tabUsers: 'Users', tabHealth: 'Data health', tabAudit: 'Audit log', tabAnnounce: 'Announcement', tabFactions: 'Factions', tabI18n: 'Translations',
+    helpTabOverview: 'Site activity, account-recovery requests, and full database backup.',
+    helpTabUsers: 'Search users; reset passwords, grant/revoke admin, view or delete their armies, export the list as CSV.',
+    helpTabHealth: 'Scan all faction data for structural problems (empty groups, ghost weapons, dangling references). Read-only.',
+    helpTabAudit: 'Log of every privileged admin action (who did what, when).',
+    helpTabAnnounce: 'Write and enable the landing announcement banner; auto-translate it to the other languages.',
+    helpTabFactions: 'Turn each faction on or off in the builder.',
+    helpTabI18n: 'Edit the German / Spanish text of any interface string.',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -180,9 +190,17 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'UI-Übersetzungen',
     transHint: 'Bearbeite den deutschen / spanischen Text jeder Oberflächen-Zeichenkette. Englisch ist die Quelle. Leere oder unveränderte Felder behalten den eingebauten Text. Gespeicherte Änderungen gehen für alle live.',
     transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
+    transOnlyUntranslated: 'nur unübersetzte', transBoth: 'DE + ES',
     annTranslate: 'die anderen hiervon automatisch übersetzen', annTranslating: 'übersetze…',
     backToApp: '← Zurück zur App',
     tabOverview: 'Übersicht', tabUsers: 'Nutzer', tabHealth: 'Datenintegrität', tabAudit: 'Protokoll', tabAnnounce: 'Ankündigung', tabFactions: 'Fraktionen', tabI18n: 'Übersetzungen',
+    helpTabOverview: 'Aktivität, Wiederherstellungsanfragen und vollständiges Datenbank-Backup.',
+    helpTabUsers: 'Nutzer suchen; Passwörter zurücksetzen, Admin geben/entziehen, Armeen ansehen/löschen, Liste als CSV exportieren.',
+    helpTabHealth: 'Alle Fraktionsdaten auf strukturelle Probleme prüfen (leere Gruppen, Geisterwaffen, ungültige Referenzen). Nur Lesen.',
+    helpTabAudit: 'Protokoll jeder privilegierten Admin-Aktion (wer, was, wann).',
+    helpTabAnnounce: 'Ankündigungsbanner schreiben und aktivieren; in die anderen Sprachen übersetzen.',
+    helpTabFactions: 'Jede Fraktion im Builder ein- oder ausschalten.',
+    helpTabI18n: 'Den deutschen / spanischen Text jeder Oberflächen-Zeichenkette bearbeiten.',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -224,9 +242,17 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'Traducciones de la interfaz',
     transHint: 'Edita el texto en alemán / español de cualquier cadena de la interfaz. El inglés es la fuente. Los campos vacíos o sin cambios conservan el texto original. Los cambios guardados se aplican en vivo para todos.',
     transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
+    transOnlyUntranslated: 'solo sin traducir', transBoth: 'DE + ES',
     annTranslate: 'auto-traducir los demás desde este', annTranslating: 'traduciendo…',
     backToApp: '← Volver a la app',
     tabOverview: 'Resumen', tabUsers: 'Usuarios', tabHealth: 'Integridad', tabAudit: 'Registro', tabAnnounce: 'Anuncio', tabFactions: 'Facciones', tabI18n: 'Traducciones',
+    helpTabOverview: 'Actividad del sitio, solicitudes de recuperación y copia completa de la base de datos.',
+    helpTabUsers: 'Buscar usuarios; resetear contraseñas, dar/quitar admin, ver o borrar sus ejércitos, exportar la lista en CSV.',
+    helpTabHealth: 'Analiza los datos de todas las facciones en busca de problemas estructurales (grupos vacíos, armas fantasma, referencias colgantes). Solo lectura.',
+    helpTabAudit: 'Registro de cada acción privilegiada de admin (quién, qué y cuándo).',
+    helpTabAnnounce: 'Escribe y activa el banner de anuncio; auto-traduce a los otros idiomas.',
+    helpTabFactions: 'Activa o desactiva cada facción en el builder.',
+    helpTabI18n: 'Edita el texto en alemán / español de cualquier cadena de la interfaz.',
   },
 };
 
@@ -257,6 +283,8 @@ export function AdminPanel({ onClose }: Props) {
   const [flags, setFlags] = useState<Record<string, boolean>>({});
   const [transEdits, setTransEdits] = useState<Record<'de' | 'es', Record<string, string>>>({ de: {}, es: {} });
   const [transFilter, setTransFilter] = useState('');
+  const [transLang, setTransLang] = useState<'both' | 'de' | 'es'>('both');
+  const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
   const [tab, setTab] = useState<AdminTab>('overview');
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
@@ -468,20 +496,29 @@ export function AdminPanel({ onClose }: Props) {
   // Translation editor: source strings + filtered key list (capped when unfiltered for perf)
   const SRC = sourceStrings();
   const tq = transFilter.trim().toLowerCase();
-  const transKeysAll = allTranslationKeys().filter(k =>
-    tq === '' || k.toLowerCase().includes(tq) || (SRC[k] ?? '').toLowerCase().includes(tq));
+  const shownLangs: ('de' | 'es')[] = transLang === 'both' ? ['de', 'es'] : [transLang];
+  // "untranslated" = the DE/ES value is empty or still identical to the English source
+  const isUntranslated = (lang: 'de' | 'es', k: string) => {
+    const v = transEdits[lang][k];
+    return v == null || v.trim() === '' || v === SRC[k];
+  };
+  const transKeysAll = allTranslationKeys().filter(k => {
+    if (tq !== '' && !(k.toLowerCase().includes(tq) || (SRC[k] ?? '').toLowerCase().includes(tq))) return false;
+    if (transUntranslated && !shownLangs.some(l => isUntranslated(l, k))) return false;
+    return true;
+  });
   const transKeys = transKeysAll.slice(0, 150);
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
-  const TAB_DEFS: { id: AdminTab; label: string }[] = [
-    { id: 'overview', label: L.tabOverview },
-    { id: 'users',    label: L.tabUsers },
-    { id: 'health',   label: L.tabHealth },
-    { id: 'audit',    label: L.tabAudit },
-    { id: 'announce', label: L.tabAnnounce },
-    { id: 'factions', label: L.tabFactions },
-    { id: 'i18n',     label: L.tabI18n },
+  const TAB_DEFS: { id: AdminTab; label: string; help: string }[] = [
+    { id: 'overview', label: L.tabOverview, help: L.helpTabOverview },
+    { id: 'users',    label: L.tabUsers,    help: L.helpTabUsers },
+    { id: 'health',   label: L.tabHealth,   help: L.helpTabHealth },
+    { id: 'audit',    label: L.tabAudit,    help: L.helpTabAudit },
+    { id: 'announce', label: L.tabAnnounce, help: L.helpTabAnnounce },
+    { id: 'factions', label: L.tabFactions, help: L.helpTabFactions },
+    { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n },
   ];
 
   return (
@@ -493,17 +530,22 @@ export function AdminPanel({ onClose }: Props) {
           <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">{L.title}</span>
           {stats && <span className="hidden sm:inline text-zinc-500 text-xs font-mono">{L.usersSaved(stats.totalUsers, stats.totalRosters)}</span>}
         </div>
-        <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
+        <span className="inline-flex items-center">
+          <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
+          <Help text={L.helpReload} />
+        </span>
       </div>
 
       {/* Tab nav */}
       <div className="flex flex-wrap gap-1 px-4 py-2 bg-zinc-900/60 border-b border-zinc-800 shrink-0">
         {TAB_DEFS.map(td => (
-          <button
-            key={td.id}
-            onClick={() => setTab(td.id)}
-            className={`text-[11px] px-3 py-1 border font-mono uppercase tracking-wider ${tab === td.id ? 'border-amber-700 text-amber-400 bg-amber-950/20' : 'border-zinc-800 text-zinc-400 hover:text-zinc-200'}`}
-          >{td.label}{td.id === 'overview' && pendingCount > 0 ? ` (${pendingCount})` : ''}</button>
+          <span key={td.id} className="inline-flex items-center">
+            <button
+              onClick={() => setTab(td.id)}
+              className={`text-[11px] px-3 py-1 border font-mono uppercase tracking-wider ${tab === td.id ? 'border-amber-700 text-amber-400 bg-amber-950/20' : 'border-zinc-800 text-zinc-400 hover:text-zinc-200'}`}
+            >{td.label}{td.id === 'overview' && pendingCount > 0 ? ` (${pendingCount})` : ''}</button>
+            <Help text={td.help} />
+          </span>
         ))}
       </div>
 
@@ -805,13 +847,26 @@ export function AdminPanel({ onClose }: Props) {
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.transSectionTitle}</div>
               <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.transHint}</p>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
                 <input
                   value={transFilter}
                   onChange={e => setTransFilter(e.target.value)}
                   placeholder={L.transSearch}
-                  className="flex-1 bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                  className="flex-1 min-w-[140px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
                 />
+                <select
+                  value={transLang}
+                  onChange={e => setTransLang(e.target.value as 'both' | 'de' | 'es')}
+                  className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
+                >
+                  <option value="both">{L.transBoth}</option>
+                  <option value="de">DE</option>
+                  <option value="es">ES</option>
+                </select>
+                <label className="flex items-center gap-1.5 text-[10px] font-mono text-zinc-400">
+                  <input type="checkbox" checked={transUntranslated} onChange={e => setTransUntranslated(e.target.checked)} />
+                  {L.transOnlyUntranslated}
+                </label>
                 <span className="text-zinc-600 text-[10px] font-mono">{transKeys.length}/{transKeysAll.length}</span>
               </div>
               <div className="space-y-2 max-h-96 overflow-y-auto border border-zinc-800 p-2">
@@ -821,10 +876,10 @@ export function AdminPanel({ onClose }: Props) {
                       <span className="text-amber-700 shrink-0">{k}</span>
                       <span className="text-zinc-500 truncate" title={SRC[k]}>{L.transSource}: {SRC[k]}</span>
                     </div>
-                    <div className="grid gap-1.5 md:grid-cols-2">
-                      {TRANS_LANGS.map(lang => (
+                    <div className={`grid gap-1.5 ${shownLangs.length > 1 ? 'md:grid-cols-2' : ''}`}>
+                      {shownLangs.map(lang => (
                         <div key={lang} className="flex items-center gap-1.5">
-                          <span className="text-zinc-600 text-[9px] uppercase w-4 shrink-0">{lang}</span>
+                          <span className={`text-[9px] uppercase w-4 shrink-0 ${isUntranslated(lang, k) ? 'text-red-500' : 'text-zinc-600'}`}>{lang}</span>
                           <input
                             value={transEdits[lang][k] ?? ''}
                             onChange={e => setTransEdits(prev => ({ ...prev, [lang]: { ...prev[lang], [k]: e.target.value } }))}
