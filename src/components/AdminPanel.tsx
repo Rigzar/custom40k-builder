@@ -94,6 +94,7 @@ interface AdminTx {
   helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
   srcCoverage: (fetched: number, total: number) => string;
+  srcWhereSheet: string; srcWhereReview: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -166,6 +167,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcCoverage: (f, t) => f < t
       ? `Read ${f}/${t} unit tabs — ${t - f} could not be read (renamed tab, or the sheet rate-limited us). Those units were NOT checked.`
       : `Read all ${t} unit tabs.`,
+    srcWhereSheet: 'sheet', srcWhereReview: 'review',
+    srcOpenSheet: 'Open the spreadsheet ↗',
+    srcTabHint: tab => `In the spreadsheet: tab "${tab}". In the app: this faction's unit of the same name.`,
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -226,6 +230,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcCoverage: (f, t) => f < t
       ? `${f}/${t} Einheiten-Registerkarten gelesen — ${t - f} nicht lesbar (umbenannt oder Rate-Limit). Diese Einheiten wurden NICHT geprüft.`
       : `Alle ${t} Einheiten-Registerkarten gelesen.`,
+    srcWhereSheet: 'Tabelle', srcWhereReview: 'prüfen',
+    srcOpenSheet: 'Tabelle öffnen ↗',
+    srcTabHint: tab => `In der Tabelle: Registerkarte "${tab}". In der App: die gleichnamige Einheit dieser Fraktion.`,
   },
   es: {
     title: 'Panel Inquisidor',
@@ -286,6 +293,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcCoverage: (f, t) => f < t
       ? `Leídas ${f}/${t} pestañas de unidad — ${t - f} no se pudieron leer (pestaña renombrada, o la hoja nos limitó). Esas unidades NO se comprobaron.`
       : `Leídas las ${t} pestañas de unidad.`,
+    srcWhereSheet: 'hoja', srcWhereReview: 'revisar',
+    srcOpenSheet: 'Abrir la hoja ↗',
+    srcTabHint: tab => `En la hoja: pestaña "${tab}". En la app: la unidad con ese mismo nombre en esta facción.`,
   },
 };
 
@@ -991,9 +1001,16 @@ export function AdminPanel({ onClose }: Props) {
                 </button>
               </div>
               {srcCoverage && (
-                <p className={`text-[10px] font-mono mb-2 ${srcCoverage.fetched < srcCoverage.total ? 'text-amber-500' : 'text-zinc-500'}`}>
-                  {L.srcCoverage(srcCoverage.fetched, srcCoverage.total)}
-                </p>
+                <div className="flex flex-wrap items-center gap-2 mb-2">
+                  <p className={`text-[10px] font-mono ${srcCoverage.fetched < srcCoverage.total ? 'text-amber-500' : 'text-zinc-500'}`}>
+                    {L.srcCoverage(srcCoverage.fetched, srcCoverage.total)}
+                  </p>
+                  <a
+                    href={`https://docs.google.com/spreadsheets/d/${srcId.trim()}/edit`}
+                    target="_blank" rel="noopener noreferrer"
+                    className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
+                  >{L.srcOpenSheet}</a>
+                </div>
               )}
               {srcFindings && (
                 srcFindings.length === 0 ? (
@@ -1006,7 +1023,15 @@ export function AdminPanel({ onClose }: Props) {
                           f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
                           : f.kind === 'sheet' ? 'text-red-500' : 'text-fuchsia-500'
                         }`}>{f.kind}</span>
-                        <span className="text-zinc-300 flex-1 truncate" title={L.srcCol(f.unit, f.target)}>
+                        <span
+                          title={f.why ?? ''}
+                          className={`shrink-0 text-[8px] uppercase px-1 rounded border ${
+                            f.where === 'sheet'
+                              ? 'border-red-800 text-red-400 bg-red-950/30 cursor-help'
+                              : 'border-zinc-700 text-zinc-500'
+                          }`}
+                        >{f.where === 'sheet' ? L.srcWhereSheet : L.srcWhereReview}</span>
+                        <span className="text-zinc-300 flex-1 truncate" title={L.srcTabHint(f.unit)}>
                           {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
                         </span>
                         <span className="text-zinc-500 shrink-0">app <span className="text-red-400">{f.prod || '—'}</span></span>

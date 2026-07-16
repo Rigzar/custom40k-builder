@@ -25,6 +25,25 @@ export interface SourceFinding {
   field: string;
   source: string;
   prod: string;
+  /**
+   * Where the problem most likely is. 'sheet' only when the sheet's own value fails a sanity check
+   * (so we can say it with evidence); otherwise 'review' — the two simply disagree and a human has
+   * to decide. We never claim the app is wrong: nothing here proves that.
+   */
+  where: 'sheet' | 'review';
+  /** why we blamed the sheet (shown to the maintainer) */
+  why?: string;
+}
+
+/** Weapon types the rules actually use — anything else in the sheet is a typo (e.g. "Nahkampf"). */
+const VALID_WEAPON_TYPE = /^(-|Melee|Rapid Fire \d+|Assault \d+|Heavy \d+|Grenade \d+|Pistol \d+)$/i;
+
+/** Sanity-check a sheet value; returns why it's suspect, or null if it looks legitimate. */
+function sheetIssue(field: string, sheetVal: string): string | null {
+  if (field === 'type' && !VALID_WEAPON_TYPE.test(sheetVal)) return `"${sheetVal}" is not a valid weapon type`;
+  if (field === 'd' && /^-\d/.test(sheetVal)) return `damage "${sheetVal}" is negative`;
+  if (field === 's' && /^-\d/.test(sheetVal)) return `strength "${sheetVal}" is negative`;
+  return null;
 }
 
 /** Stat column headers we know how to compare (infantry + vehicle). */
@@ -141,13 +160,13 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
       const sm = srcModels[m.name];
       if (!sm) continue;                               // name doesn't line up — skip, don't guess
       if (sm.points != null && sm.points !== m.points) {
-        findings.push({ unit: unit.name, kind: 'points', target: m.name, field: 'points', source: String(sm.points), prod: String(m.points) });
+        findings.push({ unit: unit.name, kind: 'points', target: m.name, field: 'points', source: String(sm.points), prod: String(m.points), where: 'review' });
       }
       for (const [k, sv] of Object.entries(sm.stats)) {
         const pv = norm((m.stats as Record<string, string>)?.[k]);
         if (!pv) continue;                             // production doesn't track this stat here
         if (norm(sv) !== pv) {
-          findings.push({ unit: unit.name, kind: 'stat', target: m.name, field: k, source: sv, prod: pv });
+          findings.push({ unit: unit.name, kind: 'stat', target: m.name, field: k, source: sv, prod: pv, where: 'review' });
         }
       }
     }
@@ -155,7 +174,11 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
     // ── weapons: range / type / S / AP / D / abilities ──
     const { weapons: srcWeapons, duplicates } = extractWeapons(csv);
     for (const dup of duplicates) {
-      findings.push({ unit: unit.name, kind: 'sheet', target: dup, field: 'duplicate row', source: 'listed more than once', prod: '—' });
+      findings.push({
+        unit: unit.name, kind: 'sheet', target: dup, field: 'duplicate row',
+        source: 'listed more than once', prod: '—',
+        where: 'sheet', why: 'the same weapon name is on more than one row — one of them is probably a different weapon that was mislabelled',
+      });
     }
     for (const w of unit.weapons ?? []) {
       const sw = srcWeapons[w.name];
@@ -171,7 +194,11 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
       for (const [field, sv, pv] of pairs) {
         if (!sv) continue;                             // sheet left it blank → nothing to compare
         if (norm(sv) !== pv) {
-          findings.push({ unit: unit.name, kind: 'weapon', target: w.name, field, source: sv, prod: pv });
+          const why = sheetIssue(field, sv);
+          findings.push({
+            unit: unit.name, kind: 'weapon', target: w.name, field, source: sv, prod: pv,
+            where: why ? 'sheet' : 'review', ...(why ? { why } : {}),
+          });
         }
       }
     }
