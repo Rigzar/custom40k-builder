@@ -427,3 +427,7 @@ export function adminGetSettings() {
 export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
 }
+/** Best-effort machine translation of short admin strings (announcement editor). */
+export function adminTranslate(texts: string[], from: string, to: string) {
+  return call<{ ok: true; translations: string[] }>('/api/admin/translate', { method: 'POST', body: JSON.stringify({ texts, from, to }) });
+}

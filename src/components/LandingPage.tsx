@@ -64,37 +64,13 @@ function ClipSvg() {
   );
 }
 
-interface ResolvedAnnouncement { title: string; intro: string; lines: string[]; contrib: string; dismissKey: string; }
-
-/** Merge the admin override (from DB) over the hard-coded default; fail-soft to the default. */
-function resolveAnnouncement(language: Language, override: api.AnnouncementSetting | null | undefined): ResolvedAnnouncement | null {
-  const def = ANNOUNCEMENT_TEXT[language];
-  const defResolved: ResolvedAnnouncement = {
-    title: def.title, intro: def.intro,
-    lines: [def.line1, def.line2, def.line3, def.line4].filter(Boolean),
-    contrib: def.contrib, dismissKey: ANNOUNCEMENT_KEY,
-  };
-  if (!override) return defResolved;
-  if (override.enabled === false) return null;                 // banner explicitly turned off
-  const ot = override.text?.[language] ?? override.text?.en;   // fall back across languages
-  if (!ot) return defResolved;
-  return {
-    title: ot.title ?? def.title,
-    intro: ot.intro ?? def.intro,
-    lines: Array.isArray(ot.lines) && ot.lines.length ? ot.lines.filter(Boolean) : defResolved.lines,
-    contrib: ot.contrib ?? def.contrib,
-    dismissKey: override.version ? `c40k_announcement_${override.version}_dismissed` : ANNOUNCEMENT_KEY,
-  };
-}
-
-function CommunityAnnouncement({ override }: { override?: api.AnnouncementSetting | null }) {
+function CommunityAnnouncement() {
   const { language } = useLanguage();
-  const tx = resolveAnnouncement(language, override);
-  const dismissKey = tx?.dismissKey ?? ANNOUNCEMENT_KEY;
+  const tx = ANNOUNCEMENT_TEXT[language];
   const [dismissed, setDismissed] = useState(
-    () => localStorage.getItem(dismissKey) === 'true'
+    () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
   );
-  if (!tx || dismissed) return null;
+  if (dismissed) return null;
   return (
     <div className="relative mb-6">
       {/* Space for skull above the card */}
@@ -135,9 +111,45 @@ function CommunityAnnouncement({ override }: { override?: api.AnnouncementSettin
         </div>
         <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
-          {tx.lines.map((line, i) => <BoldSplitLine key={i} text={line} />)}
+          <BoldSplitLine text={tx.line1} />
+          <BoldSplitLine text={tx.line2} />
+          <BoldSplitLine text={tx.line3} />
+          <BoldSplitLine text={tx.line4} />
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/** Separate, admin-authored announcement banner (from the DB), shown BELOW the release-notes card. */
+function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | null }) {
+  const { language } = useLanguage();
+  const version = setting?.version || 'default';
+  const dismissKey = `c40k_admin_ann_${version}_dismissed`;
+  const [dismissed, setDismissed] = useState(() => localStorage.getItem(dismissKey) === 'true');
+  if (!setting || setting.enabled === false) return null;
+  const t = setting.text?.[language] ?? setting.text?.en;
+  const lines = (t?.lines ?? []).filter(Boolean);
+  if (!t || (!t.title && !t.intro && lines.length === 0)) return null;   // nothing to show
+  if (dismissed) return null;
+  return (
+    <div className="relative mb-6 bg-zinc-900 border border-sky-900/70 border-l-2 border-l-sky-500/80 px-5 py-4">
+      <div className="flex justify-between items-start gap-4">
+        <div className="text-[10px] text-sky-400 uppercase tracking-widest font-semibold mb-2 flex items-center gap-1.5">
+          <span className="opacity-80">📣</span>
+          {t.title}
+        </div>
+        <button
+          onClick={() => { localStorage.setItem(dismissKey, 'true'); setDismissed(true); }}
+          className="text-zinc-600 hover:text-zinc-300 text-lg leading-none shrink-0 transition-colors"
+          title="Dismiss"
+        >×</button>
+      </div>
+      <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
+        {t.intro && <p>{t.intro}</p>}
+        {lines.map((line, i) => <BoldSplitLine key={i} text={line} />)}
+        {t.contrib && <p className="text-zinc-400">{t.contrib}</p>}
       </div>
     </div>
   );
@@ -343,7 +355,8 @@ export function LandingPage({
 
           {/* Announcement — always first after title */}
           <div className="w-full mb-2 anim-fade-up anim-delay-2">
-            <CommunityAnnouncement override={announcement} />
+            <CommunityAnnouncement />
+            <AdminAnnouncement setting={announcement} />
           </div>
 
           {/* Quick-load: saved armies */}

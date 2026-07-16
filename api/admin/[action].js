@@ -36,6 +36,7 @@ export default async function handler(req, res) {
     case 'export':            return exportData(req, res);
     case 'get-settings':      return getSettings(req, res);
     case 'set-setting':       return setSetting(req, res);
+    case 'translate':         return translate(req, res);
     default:                  res.status(404).json({ error: 'Unknown action' });
   }
 }
@@ -273,6 +274,28 @@ async function getSettings(req, res) {
     res.status(200).json({ ok: true, settings });
   } catch (err) {
     res.status(500).json({ error: String(err) });
+  }
+}
+
+// POST { texts:[], from, to } — machine-translate short admin strings (best-effort, keyless).
+// Used by the announcement editor's "auto-translate" button. Admin-only; low volume.
+async function translate(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  const { texts, from, to } = req.body ?? {};
+  if (!Array.isArray(texts) || !to) return res.status(400).json({ error: 'Missing texts/to' });
+  try {
+    const out = await Promise.all(texts.map(async (txt) => {
+      if (!txt || !String(txt).trim()) return '';
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(from || 'auto')}&tl=${encodeURIComponent(to)}&dt=t&q=${encodeURIComponent(String(txt))}`;
+      const r = await fetch(url, { headers: { 'User-Agent': 'custom40k-builder' } });
+      if (!r.ok) throw new Error(`translate upstream ${r.status}`);
+      const data = await r.json();
+      return (data[0] || []).map((seg) => seg[0]).join('');
+    }));
+    res.status(200).json({ ok: true, translations: out });
+  } catch (err) {
+    res.status(502).json({ error: 'Translation failed', detail: String(err) });
   }
 }
 

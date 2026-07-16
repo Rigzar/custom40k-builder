@@ -77,6 +77,7 @@ interface AdminTx {
   save: string; saving: string; saved: string;
   factionSectionTitle: string; factionAvailHint: string;
   transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
+  annTranslate: string; annTranslating: string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -130,6 +131,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'UI translations',
     transHint: 'Edit the German / Spanish text of any interface string. English is the source. Fields left empty or unchanged keep the built-in text. Saved changes go live for everyone.',
     transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
+    annTranslate: 'auto-translate the others from this', annTranslating: 'translating…',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -171,6 +173,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'UI-Übersetzungen',
     transHint: 'Bearbeite den deutschen / spanischen Text jeder Oberflächen-Zeichenkette. Englisch ist die Quelle. Leere oder unveränderte Felder behalten den eingebauten Text. Gespeicherte Änderungen gehen für alle live.',
     transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
+    annTranslate: 'die anderen hiervon automatisch übersetzen', annTranslating: 'übersetze…',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -212,6 +215,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'Traducciones de la interfaz',
     transHint: 'Edita el texto en alemán / español de cualquier cadena de la interfaz. El inglés es la fuente. Los campos vacíos o sin cambios conservan el texto original. Los cambios guardados se aplican en vivo para todos.',
     transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
+    annTranslate: 'auto-traducir los demás desde este', annTranslating: 'traduciendo…',
   },
 };
 
@@ -241,6 +245,7 @@ export function AdminPanel({ onClose }: Props) {
   const [flags, setFlags] = useState<Record<string, boolean>>({});
   const [transEdits, setTransEdits] = useState<Record<'de' | 'es', Record<string, string>>>({ de: {}, es: {} });
   const [transFilter, setTransFilter] = useState('');
+  const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -337,6 +342,25 @@ export function AdminPanel({ onClose }: Props) {
       setTimeout(() => setSavedKey(k => (k === key ? null : k)), 2500);
     } catch (e) { setMsg(String(e)); }
     finally { setSavingKey(null); }
+  }
+
+  async function handleTranslateAnnFrom(src: Language) {
+    const f = annText[src];
+    const linesArr = f.lines.split('\n').map(s => s.trim()).filter(Boolean);
+    const payload = [f.title, f.intro, f.contrib, ...linesArr];   // fixed head + variable lines
+    setTranslatingFrom(src);
+    try {
+      const targets = EDIT_LANGS.filter(l => l !== src);
+      const results = await Promise.all(targets.map(to => api.adminTranslate(payload, src, to).then(r => ({ to, tr: r.translations }))));
+      setAnnText(prev => {
+        const next = { ...prev };
+        for (const { to, tr } of results) {
+          next[to] = { title: tr[0] ?? '', intro: tr[1] ?? '', contrib: tr[2] ?? '', lines: tr.slice(3).join('\n') };
+        }
+        return next;
+      });
+    } catch (e) { setMsg(String(e)); }
+    finally { setTranslatingFrom(null); }
   }
 
   function handleSaveAnnouncement() {
@@ -702,7 +726,15 @@ export function AdminPanel({ onClose }: Props) {
                   const inp = 'w-full bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800';
                   return (
                     <div key={lang} className="border border-zinc-800 p-2 space-y-1.5">
-                      <div className="text-amber-600 text-[10px] uppercase tracking-widest">{lang}</div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-amber-600 text-[10px] uppercase tracking-widest">{lang}</span>
+                        <button
+                          onClick={() => handleTranslateAnnFrom(lang)}
+                          disabled={translatingFrom !== null}
+                          title={L.annTranslate}
+                          className="text-[9px] px-1.5 py-0.5 border border-sky-900/60 text-sky-400 hover:bg-sky-900/20 disabled:opacity-50"
+                        >{translatingFrom === lang ? L.annTranslating : '↺ ⇄'}</button>
+                      </div>
                       <input className={inp} placeholder={L.annFieldTitle} value={f.title} onChange={e => set({ title: e.target.value })} />
                       <input className={inp} placeholder={L.annFieldIntro} value={f.intro} onChange={e => set({ intro: e.target.value })} />
                       <textarea className={`${inp} h-24 resize-y`} placeholder={L.annFieldLines} value={f.lines} onChange={e => set({ lines: e.target.value })} />
