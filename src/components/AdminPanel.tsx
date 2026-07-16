@@ -2,13 +2,20 @@ import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
+import { comparePoints, type SourceFinding } from '../engine/sourceCompare';
+import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS } from './LandingPage';
 import { useAuth } from '../hooks/useAuth';
 
 // Languages a translator edits (English is the source, shown read-only).
 const TRANS_LANGS: Exclude<Language, 'en'>[] = ['de', 'es'];
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n';
+/** Default source spreadsheets by faction (creator's live Google Sheets). Admin can add/override. */
+const DEFAULT_SOURCE_IDS: Record<string, string> = {
+  chaos_space_marines: '1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw',
+};
+
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -83,8 +90,9 @@ interface AdminTx {
   transOnlyUntranslated: string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string;
+  srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -149,6 +157,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabAnnounce: 'Write and enable the landing announcement banner; auto-translate it to the other languages.',
     helpTabFactions: 'Turn each faction on or off in the builder.',
     helpTabI18n: 'Edit the German / Spanish text of any interface string.',
+    tabSource: 'Source check',
+    helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
+    srcHint: 'Pick a faction and paste its Google Sheet ID (from the sheet URL). "Compare" fetches every unit tab and lists point differences vs the app. Read-only — nothing is changed automatically.',
+    srcSpreadsheetId: 'Google Sheet ID', srcCompare: 'Compare', srcComparing: 'Comparing…', srcNoDiff: 'No point differences — the app matches the sheet.',
+    srcCol: (unit, model) => `${unit} · ${model}`,
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -201,6 +214,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabAnnounce: 'Ankündigungsbanner schreiben und aktivieren; in die anderen Sprachen übersetzen.',
     helpTabFactions: 'Jede Fraktion im Builder ein- oder ausschalten.',
     helpTabI18n: 'Den deutschen / spanischen Text jeder Oberflächen-Zeichenkette bearbeiten.',
+    tabSource: 'Quellenabgleich',
+    helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
+    srcHint: 'Fraktion wählen und die Google-Sheet-ID (aus der Sheet-URL) einfügen. "Vergleichen" lädt jede Einheiten-Registerkarte und listet Punkt-Abweichungen gegenüber der App. Nur Lesen — nichts wird automatisch geändert.',
+    srcSpreadsheetId: 'Google-Sheet-ID', srcCompare: 'Vergleichen', srcComparing: 'Vergleiche…', srcNoDiff: 'Keine Punkt-Abweichungen — die App stimmt mit dem Sheet überein.',
+    srcCol: (unit, model) => `${unit} · ${model}`,
   },
   es: {
     title: 'Panel Inquisidor',
@@ -253,6 +271,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabAnnounce: 'Escribe y activa el banner de anuncio; auto-traduce a los otros idiomas.',
     helpTabFactions: 'Activa o desactiva cada facción en el builder.',
     helpTabI18n: 'Edita el texto en alemán / español de cualquier cadena de la interfaz.',
+    tabSource: 'Comparar fuente',
+    helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
+    srcHint: 'Elige una facción y pega el ID de su hoja de Google (de la URL de la hoja). "Comparar" descarga cada pestaña de unidad y lista las diferencias de puntos vs la app. Solo lectura — no se cambia nada automáticamente.',
+    srcSpreadsheetId: 'ID de la hoja de Google', srcCompare: 'Comparar', srcComparing: 'Comparando…', srcNoDiff: 'Sin diferencias de puntos — la app coincide con la hoja.',
+    srcCol: (unit, model) => `${unit} · ${model}`,
   },
 };
 
@@ -287,6 +310,12 @@ export function AdminPanel({ onClose }: Props) {
   const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
   const [tab, setTab] = useState<AdminTab>('overview');
+  // Source-compare tool
+  const [sourceIds, setSourceIds] = useState<Record<string, string>>(DEFAULT_SOURCE_IDS);
+  const [srcFaction, setSrcFaction] = useState<string>('chaos_space_marines');
+  const [srcId, setSrcId] = useState<string>(DEFAULT_SOURCE_IDS.chaos_space_marines ?? '');
+  const [srcRunning, setSrcRunning] = useState(false);
+  const [srcFindings, setSrcFindings] = useState<SourceFinding[] | null>(null);
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -297,7 +326,7 @@ export function AdminPanel({ onClose }: Props) {
         api.adminStats(),
         api.adminListRecoveryRequests(),
         api.adminActions().catch(() => ({ actions: [] })),
-        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides } })),
+        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string> } })),
       ]);
       setStats(s);
       setRequests(r.requests);
@@ -324,6 +353,10 @@ export function AdminPanel({ onClose }: Props) {
         es[k] = tr.es?.[k] ?? defaultString('es', k);
       }
       setTransEdits({ de, es });
+      // hydrate source-sheet ids (stored override merged over the built-in defaults)
+      const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
+      setSourceIds(ids);
+      setSrcId(ids[srcFaction] ?? '');
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -365,6 +398,25 @@ export function AdminPanel({ onClose }: Props) {
     try { setHealth(await runDataHealth()); }
     catch (e) { setMsg(String(e)); }
     finally { setHealthRunning(false); }
+  }
+
+  async function handleSourceCompare() {
+    const id = srcId.trim();
+    if (!id) return;
+    setSrcRunning(true); setSrcFindings(null); setMsg('');
+    try {
+      const loader = FACTION_LOADERS[srcFaction];
+      if (!loader) throw new Error(`No data for ${srcFaction}`);
+      const data = await loader();
+      const unitNames = Object.keys(data.units);
+      const resp = await api.adminSourceSheets(id, unitNames);
+      setSrcFindings(comparePoints(data, resp.data));
+      // remember the id for this faction
+      const next = { ...sourceIds, [srcFaction]: id };
+      setSourceIds(next);
+      api.adminSetSetting('source_sheets', next).catch(() => {});
+    } catch (e) { setMsg(String(e)); }
+    finally { setSrcRunning(false); }
   }
 
   async function handlePromote(userId: number, username: string, makeAdmin: boolean) {
@@ -519,6 +571,7 @@ export function AdminPanel({ onClose }: Props) {
     { id: 'announce', label: L.tabAnnounce, help: L.helpTabAnnounce },
     { id: 'factions', label: L.tabFactions, help: L.helpTabFactions },
     { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n },
+    { id: 'source',   label: L.tabSource,   help: L.helpTabSource },
   ];
 
   return (
@@ -900,6 +953,47 @@ export function AdminPanel({ onClose }: Props) {
                 </button>
                 {savedKey === 'translations' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
               </div>
+            </div>
+            )}
+
+            {tab === 'source' && (
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.tabSource}</div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.srcHint}</p>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <select
+                  value={srcFaction}
+                  onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcFindings(null); }}
+                  className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
+                >
+                  {ALL_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
+                </select>
+                <input
+                  value={srcId}
+                  onChange={e => setSrcId(e.target.value)}
+                  placeholder={L.srcSpreadsheetId}
+                  className="flex-1 min-w-[220px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                />
+                <button onClick={handleSourceCompare} disabled={srcRunning || !srcId.trim()} className={toolbarBtn}>
+                  {srcRunning ? L.srcComparing : L.srcCompare}
+                </button>
+              </div>
+              {srcFindings && (
+                srcFindings.length === 0 ? (
+                  <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>
+                ) : (
+                  <div className="space-y-0.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
+                    {srcFindings.map((f, i) => (
+                      <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
+                        <span className="text-zinc-300 flex-1 truncate">{L.srcCol(f.unit, f.model)}</span>
+                        <span className="text-zinc-500">app <span className="text-red-400">{f.prod}</span></span>
+                        <span className="text-zinc-600">→</span>
+                        <span className="text-zinc-500">sheet <span className="text-green-400">{f.source}</span></span>
+                      </div>
+                    ))}
+                  </div>
+                )
+              )}
             </div>
             )}
           </div>

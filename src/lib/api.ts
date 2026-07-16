@@ -424,10 +424,14 @@ export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string> } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
+}
+/** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */
+export function adminSourceSheets(id: string, sheets: string[]) {
+  return call<{ ok: true; data: Record<string, string | null> }>('/api/admin/source-sheets', { method: 'POST', body: JSON.stringify({ id, sheets }) });
 }
 /** Best-effort machine translation of short admin strings (announcement editor). */
 export function adminTranslate(texts: string[], from: string, to: string) {

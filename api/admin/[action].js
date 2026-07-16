@@ -37,6 +37,7 @@ export default async function handler(req, res) {
     case 'get-settings':      return getSettings(req, res);
     case 'set-setting':       return setSetting(req, res);
     case 'translate':         return translate(req, res);
+    case 'source-sheets':     return sourceSheets(req, res);
     default:                  res.status(404).json({ error: 'Unknown action' });
   }
 }
@@ -260,8 +261,34 @@ async function exportData(req, res) {
   }
 }
 
+// POST { id, sheets: [names] } — batch-fetch tabs of a public Google Sheet as CSV (server-side
+// proxy so the browser isn't blocked by CORS). Best-effort: a tab that fails comes back null.
+async function sourceSheets(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  const { id, sheets } = req.body ?? {};
+  if (!id || !/^[A-Za-z0-9_-]+$/.test(String(id))) return res.status(400).json({ error: 'Bad spreadsheet id' });
+  if (!Array.isArray(sheets) || sheets.length === 0) return res.status(400).json({ error: 'Missing sheets' });
+  const names = sheets.slice(0, 120).map(String);
+  try {
+    const entries = await Promise.all(names.map(async (name) => {
+      const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+      try {
+        const r = await fetch(url, { headers: { 'User-Agent': 'custom40k-builder' } });
+        if (!r.ok) return [name, null];
+        const text = await r.text();
+        // gviz returns an HTML error page for a missing tab; only keep real CSV
+        return [name, text.startsWith('<') ? null : text];
+      } catch { return [name, null]; }
+    }));
+    res.status(200).json({ ok: true, data: Object.fromEntries(entries) });
+  } catch (err) {
+    res.status(502).json({ error: 'Fetch failed', detail: String(err) });
+  }
+}
+
 // Only these keys can be read/written through the settings admin API.
-const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations']);
+const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets']);
 
 // GET — all editable app settings as a { key: value } map.
 async function getSettings(req, res) {
