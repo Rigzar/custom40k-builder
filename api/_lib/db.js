@@ -105,6 +105,16 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS admin_actions_created_idx ON admin_actions(created_at)`;
 
+  // App settings: small key→JSONB store for admin-editable, publicly-readable config
+  // (currently the landing announcement banner and per-faction availability flags).
+  await sql`
+    CREATE TABLE IF NOT EXISTS app_settings (
+      key TEXT PRIMARY KEY,
+      value JSONB NOT NULL,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
   // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
   // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when
   // joining via campaign_players.faction. The GM's own row has faction = NULL unless they also

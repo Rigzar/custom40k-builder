@@ -402,3 +402,25 @@ export interface AdminExport {
 export function adminExport() {
   return call<{ ok: true } & AdminExport>('/api/admin/export');
 }
+
+// ── App settings (announcement banner + faction availability) ──────────────────
+export interface AnnouncementSetting {
+  enabled: boolean;
+  version: string;
+  text: Partial<Record<'en' | 'de' | 'es', { title: string; intro: string; lines: string[]; contrib: string }>>;
+}
+export type FactionFlags = Record<string, boolean>;
+export interface PublicSettings {
+  announcement: AnnouncementSetting | null;
+  factionFlags: FactionFlags | null;
+}
+/** Public, fail-soft — the landing page uses this to override its defaults. */
+export function getPublicSettings() {
+  return call<{ ok: true } & PublicSettings>('/api/settings');
+}
+export function adminGetSettings() {
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags } }>('/api/admin/get-settings');
+}
+export function adminSetSetting(key: 'announcement' | 'faction_flags', value: unknown) {
+  return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
+}

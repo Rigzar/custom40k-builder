@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import * as api from '../lib/api';
 import { useArmyStore } from '../store/army';
 import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
@@ -63,13 +64,37 @@ function ClipSvg() {
   );
 }
 
-function CommunityAnnouncement() {
+interface ResolvedAnnouncement { title: string; intro: string; lines: string[]; contrib: string; dismissKey: string; }
+
+/** Merge the admin override (from DB) over the hard-coded default; fail-soft to the default. */
+function resolveAnnouncement(language: Language, override: api.AnnouncementSetting | null | undefined): ResolvedAnnouncement | null {
+  const def = ANNOUNCEMENT_TEXT[language];
+  const defResolved: ResolvedAnnouncement = {
+    title: def.title, intro: def.intro,
+    lines: [def.line1, def.line2, def.line3, def.line4].filter(Boolean),
+    contrib: def.contrib, dismissKey: ANNOUNCEMENT_KEY,
+  };
+  if (!override) return defResolved;
+  if (override.enabled === false) return null;                 // banner explicitly turned off
+  const ot = override.text?.[language] ?? override.text?.en;   // fall back across languages
+  if (!ot) return defResolved;
+  return {
+    title: ot.title ?? def.title,
+    intro: ot.intro ?? def.intro,
+    lines: Array.isArray(ot.lines) && ot.lines.length ? ot.lines.filter(Boolean) : defResolved.lines,
+    contrib: ot.contrib ?? def.contrib,
+    dismissKey: override.version ? `c40k_announcement_${override.version}_dismissed` : ANNOUNCEMENT_KEY,
+  };
+}
+
+function CommunityAnnouncement({ override }: { override?: api.AnnouncementSetting | null }) {
   const { language } = useLanguage();
-  const tx = ANNOUNCEMENT_TEXT[language];
+  const tx = resolveAnnouncement(language, override);
+  const dismissKey = tx?.dismissKey ?? ANNOUNCEMENT_KEY;
   const [dismissed, setDismissed] = useState(
-    () => localStorage.getItem(ANNOUNCEMENT_KEY) === 'true'
+    () => localStorage.getItem(dismissKey) === 'true'
   );
-  if (dismissed) return null;
+  if (!tx || dismissed) return null;
   return (
     <div className="relative mb-6">
       {/* Space for skull above the card */}
@@ -110,10 +135,7 @@ function CommunityAnnouncement() {
         </div>
         <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
-          <BoldSplitLine text={tx.line1} />
-          <BoldSplitLine text={tx.line2} />
-          <BoldSplitLine text={tx.line3} />
-          <BoldSplitLine text={tx.line4} />
+          {tx.lines.map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>
@@ -196,6 +218,10 @@ const CATEGORIES: Category[] = [
   },
 ];
 
+/** Flat {key,name,defaultAvailable} list of every faction — used by the admin availability toggles. */
+export const ALL_FACTIONS: { key: string; name: string; defaultAvailable: boolean }[] =
+  CATEGORIES.flatMap(c => c.factions.map(f => ({ key: f.key, name: f.name, defaultAvailable: f.available })));
+
 function formatDate(ts: number): string {
   const d = new Date(ts);
   return d.toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
@@ -235,6 +261,14 @@ export function LandingPage({
   // and spun up fans. The static turbulence renders once and then just composites, so idle CPU
   // drops to ~0 while the fog still looks the same. (No rAF loop, no per-frame recompute.)
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
+  // Admin-editable overrides fetched from the DB (fail-soft: defaults from code if this never loads).
+  const [announcement, setAnnouncement] = useState<api.AnnouncementSetting | null>(null);
+  const [factionFlags, setFactionFlags] = useState<api.FactionFlags | null>(null);
+  useEffect(() => {
+    api.getPublicSettings()
+      .then(s => { setAnnouncement(s.announcement); setFactionFlags(s.factionFlags); })
+      .catch(() => { /* keep code defaults */ });
+  }, []);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
   const { loggedIn, username, avatar } = useAuth();
@@ -305,7 +339,7 @@ export function LandingPage({
 
           {/* Announcement — always first after title */}
           <div className="w-full mb-2 anim-fade-up anim-delay-2">
-            <CommunityAnnouncement />
+            <CommunityAnnouncement override={announcement} />
           </div>
 
           {/* Quick-load: saved armies */}
@@ -696,7 +730,10 @@ export function LandingPage({
                 </div>
 
                 <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
-                  {cat.factions.map(f => (
+                  {cat.factions.map(fDef => {
+                    // availability can be overridden by the admin faction-flags setting
+                    const f = { ...fDef, available: factionFlags?.[fDef.key] ?? fDef.available };
+                    return (
                     <button
                       key={f.key}
                       onClick={() => { if (f.available) { handleSelectFactionInSetup(f.key); } }}
@@ -738,7 +775,8 @@ export function LandingPage({
                         </span>
                       )}
                     </button>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}

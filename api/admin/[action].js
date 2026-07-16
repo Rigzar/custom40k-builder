@@ -34,6 +34,8 @@ export default async function handler(req, res) {
     case 'user-rosters':      return userRosters(req, res);
     case 'del-roster':        return delRoster(req, res);
     case 'export':            return exportData(req, res);
+    case 'get-settings':      return getSettings(req, res);
+    case 'set-setting':       return setSetting(req, res);
     default:                  res.status(404).json({ error: 'Unknown action' });
   }
 }
@@ -252,6 +254,44 @@ async function exportData(req, res) {
       users: users.rows,
       rosters: rosters.rows,
     });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+// Only these keys can be read/written through the settings admin API.
+const SETTING_KEYS = new Set(['announcement', 'faction_flags']);
+
+// GET — all editable app settings as a { key: value } map.
+async function getSettings(req, res) {
+  if (req.method !== 'GET') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  try {
+    const r = await sql`SELECT key, value FROM app_settings`;
+    const settings = {};
+    for (const row of r.rows) settings[row.key] = row.value;
+    res.status(200).json({ ok: true, settings });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+// POST { key, value } — upsert one whitelisted setting.
+async function setSetting(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  const adminId = await requireAdmin(req, res);
+  if (!adminId) return;
+  const { key, value } = req.body ?? {};
+  if (!SETTING_KEYS.has(key)) return res.status(400).json({ error: 'Unknown setting key' });
+  if (value === undefined) return res.status(400).json({ error: 'Missing value' });
+  try {
+    const json = JSON.stringify(value);
+    await sql`
+      INSERT INTO app_settings (key, value, updated_at) VALUES (${key}, ${json}::jsonb, now())
+      ON CONFLICT (key) DO UPDATE SET value = ${json}::jsonb, updated_at = now()
+    `;
+    await logAction(adminId, 'set_setting', null, null, key);
+    res.status(200).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: String(err) });
   }

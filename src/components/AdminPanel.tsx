@@ -2,6 +2,17 @@ import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
+import { ALL_FACTIONS } from './LandingPage';
+
+const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
+type AnnFields = { title: string; intro: string; lines: string; contrib: string };
+const emptyAnnFields = (): AnnFields => ({ title: '', intro: '', lines: '', contrib: '' });
+/** Read one language's fields out of a stored announcement setting (lines array → textarea text). */
+function annFieldsFrom(ann: api.AnnouncementSetting, lang: Language): AnnFields {
+  const t = ann.text?.[lang];
+  if (!t) return emptyAnnFields();
+  return { title: t.title ?? '', intro: t.intro ?? '', lines: (t.lines ?? []).join('\n'), contrib: t.contrib ?? '' };
+}
 
 interface Props { onClose: () => void }
 
@@ -58,6 +69,10 @@ interface AdminTx {
   armies: string; hideArmies: string; userNoArmies: string; publicBadge: string;
   delRoster: string; delRosterConfirm: (name: string) => string;
   helpReload: string; helpDataHealth: string; helpExportCsv: string; helpExportDb: string;
+  annSectionTitle: string; annEnabled: string; annVersion: string; annVersionHint: string;
+  annFieldTitle: string; annFieldIntro: string; annFieldLines: string; annFieldContrib: string;
+  save: string; saving: string; saved: string;
+  factionSectionTitle: string; factionAvailHint: string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -103,6 +118,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpDataHealth: 'Scan all faction data for structural problems (empty option groups, ghost weapons, dangling references). Read-only; results show here.',
     helpExportCsv: 'Download the user list as a CSV spreadsheet (id, username, admin, army count, dates). Opens in Excel / Google Sheets.',
     helpExportDb: 'Download a full JSON backup of the database: all users (without passwords) and every saved army.',
+    annSectionTitle: 'Announcement banner', annEnabled: 'Show the banner',
+    annVersion: 'Version (dismiss key)', annVersionHint: 'Change this to re-show the banner to users who already dismissed the previous one.',
+    annFieldTitle: 'Title', annFieldIntro: 'Intro', annFieldLines: 'Lines (one per line; text before " — " is bold)', annFieldContrib: 'Footer',
+    save: 'Save', saving: 'Saving…', saved: 'Saved ✓',
+    factionSectionTitle: 'Faction availability', factionAvailHint: 'Unchecked factions are greyed out and cannot be selected in the builder.',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -136,6 +156,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpDataHealth: 'Alle Fraktionsdaten auf strukturelle Probleme prüfen (leere Gruppen, Geisterwaffen, ungültige Referenzen). Nur Lesen; Ergebnisse erscheinen hier.',
     helpExportCsv: 'Nutzerliste als CSV-Tabelle herunterladen (ID, Name, Admin, Armee-Anzahl, Daten). Öffnet in Excel / Google Sheets.',
     helpExportDb: 'Vollständiges JSON-Backup der Datenbank herunterladen: alle Nutzer (ohne Passwörter) und alle gespeicherten Armeen.',
+    annSectionTitle: 'Ankündigungsbanner', annEnabled: 'Banner anzeigen',
+    annVersion: 'Version (Ausblend-Schlüssel)', annVersionHint: 'Ändern, um das Banner erneut anzuzeigen für Nutzer, die das vorige bereits ausgeblendet haben.',
+    annFieldTitle: 'Titel', annFieldIntro: 'Einleitung', annFieldLines: 'Zeilen (eine pro Zeile; Text vor " — " ist fett)', annFieldContrib: 'Fußzeile',
+    save: 'Speichern', saving: 'Speichere…', saved: 'Gespeichert ✓',
+    factionSectionTitle: 'Fraktions-Verfügbarkeit', factionAvailHint: 'Nicht angehakte Fraktionen sind ausgegraut und im Builder nicht wählbar.',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -169,6 +194,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpDataHealth: 'Analiza los datos de todas las facciones en busca de problemas estructurales (grupos vacíos, armas fantasma, referencias colgantes). Solo lectura; los resultados salen aquí.',
     helpExportCsv: 'Descarga la lista de usuarios como hoja CSV (id, usuario, admin, nº de ejércitos, fechas). Se abre en Excel / Google Sheets.',
     helpExportDb: 'Descarga una copia completa en JSON de la base de datos: todos los usuarios (sin contraseñas) y cada ejército guardado.',
+    annSectionTitle: 'Banner de anuncio', annEnabled: 'Mostrar el banner',
+    annVersion: 'Versión (clave de descarte)', annVersionHint: 'Cámbiala para volver a mostrar el banner a quien ya cerró el anterior.',
+    annFieldTitle: 'Título', annFieldIntro: 'Intro', annFieldLines: 'Líneas (una por línea; el texto antes de " — " va en negrita)', annFieldContrib: 'Pie',
+    save: 'Guardar', saving: 'Guardando…', saved: 'Guardado ✓',
+    factionSectionTitle: 'Disponibilidad de facciones', factionAvailHint: 'Las facciones sin marcar se muestran en gris y no se pueden seleccionar en el builder.',
   },
 };
 
@@ -191,18 +221,40 @@ export function AdminPanel({ onClose }: Props) {
   const [expandedUser, setExpandedUser] = useState<number | null>(null);
   const [userRosters, setUserRosters] = useState<Record<number, api.AdminRosterRow[]>>({});
   const [exporting, setExporting] = useState(false);
+  // Announcement editor + faction availability
+  const [annEnabled, setAnnEnabled] = useState(false);
+  const [annVersion, setAnnVersion] = useState('');
+  const [annText, setAnnText] = useState<Record<Language, AnnFields>>({ en: emptyAnnFields(), de: emptyAnnFields(), es: emptyAnnFields() });
+  const [flags, setFlags] = useState<Record<string, boolean>>({});
+  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | null>(null);
+  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | null>(null);
 
   async function load() {
     setLoading(true);
     try {
-      const [s, r, a] = await Promise.all([
+      const [s, r, a, cfg] = await Promise.all([
         api.adminStats(),
         api.adminListRecoveryRequests(),
         api.adminActions().catch(() => ({ actions: [] })),
+        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags } })),
       ]);
       setStats(s);
       setRequests(r.requests);
       setAuditLog(a.actions);
+      // hydrate announcement editor
+      const ann = cfg.settings.announcement;
+      if (ann) {
+        setAnnEnabled(ann.enabled !== false);
+        setAnnVersion(ann.version ?? '');
+        setAnnText({
+          en: annFieldsFrom(ann, 'en'), de: annFieldsFrom(ann, 'de'), es: annFieldsFrom(ann, 'es'),
+        });
+      }
+      // hydrate faction availability (default from code, overridden by stored flags)
+      const stored = cfg.settings.faction_flags ?? {};
+      const merged: Record<string, boolean> = {};
+      for (const f of ALL_FACTIONS) merged[f.key] = stored[f.key] ?? f.defaultAvailable;
+      setFlags(merged);
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -252,6 +304,33 @@ export function AdminPanel({ onClose }: Props) {
       await api.adminPromote(userId, makeAdmin);
       await load();
     } catch (e) { setMsg(String(e)); }
+  }
+
+  async function saveSetting(key: 'announcement' | 'faction_flags', value: unknown) {
+    setSavingKey(key); setSavedKey(null);
+    try {
+      await api.adminSetSetting(key, value);
+      setSavedKey(key);
+      setTimeout(() => setSavedKey(k => (k === key ? null : k)), 2500);
+    } catch (e) { setMsg(String(e)); }
+    finally { setSavingKey(null); }
+  }
+
+  function handleSaveAnnouncement() {
+    const text: api.AnnouncementSetting['text'] = {};
+    for (const lang of EDIT_LANGS) {
+      const f = annText[lang];
+      text[lang] = {
+        title: f.title, intro: f.intro,
+        lines: f.lines.split('\n').map(s => s.trim()).filter(Boolean),
+        contrib: f.contrib,
+      };
+    }
+    saveSetting('announcement', { enabled: annEnabled, version: annVersion.trim(), text });
+  }
+
+  function handleSaveFlags() {
+    saveSetting('faction_flags', flags);
   }
 
   async function handleExport() {
@@ -549,6 +628,73 @@ export function AdminPanel({ onClose }: Props) {
                   ))}
                 </div>
               )}
+            </div>
+
+            {/* Announcement banner editor */}
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-3">
+                {L.annSectionTitle}
+                <label className="flex items-center gap-1.5 normal-case tracking-normal text-zinc-400 text-[11px] font-mono">
+                  <input type="checkbox" checked={annEnabled} onChange={e => setAnnEnabled(e.target.checked)} />
+                  {L.annEnabled}
+                </label>
+              </div>
+              <div className="flex items-center gap-2 mb-2">
+                <label className="text-zinc-500 text-[10px] font-mono">{L.annVersion}</label>
+                <input
+                  value={annVersion}
+                  onChange={e => setAnnVersion(e.target.value)}
+                  placeholder="1.53"
+                  className="w-24 bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
+                />
+                <span className="text-zinc-600 text-[9px] font-mono">{L.annVersionHint}</span>
+              </div>
+              <div className="grid gap-3 md:grid-cols-3">
+                {EDIT_LANGS.map(lang => {
+                  const f = annText[lang];
+                  const set = (patch: Partial<AnnFields>) => setAnnText(prev => ({ ...prev, [lang]: { ...prev[lang], ...patch } }));
+                  const inp = 'w-full bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800';
+                  return (
+                    <div key={lang} className="border border-zinc-800 p-2 space-y-1.5">
+                      <div className="text-amber-600 text-[10px] uppercase tracking-widest">{lang}</div>
+                      <input className={inp} placeholder={L.annFieldTitle} value={f.title} onChange={e => set({ title: e.target.value })} />
+                      <input className={inp} placeholder={L.annFieldIntro} value={f.intro} onChange={e => set({ intro: e.target.value })} />
+                      <textarea className={`${inp} h-24 resize-y`} placeholder={L.annFieldLines} value={f.lines} onChange={e => set({ lines: e.target.value })} />
+                      <input className={inp} placeholder={L.annFieldContrib} value={f.contrib} onChange={e => set({ contrib: e.target.value })} />
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button onClick={handleSaveAnnouncement} disabled={savingKey === 'announcement'} className={toolbarBtn}>
+                  {savingKey === 'announcement' ? L.saving : L.save}
+                </button>
+                {savedKey === 'announcement' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
+              </div>
+            </div>
+
+            {/* Faction availability */}
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.factionSectionTitle}</div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.factionAvailHint}</p>
+              <div className="grid gap-x-4 gap-y-1" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))' }}>
+                {ALL_FACTIONS.map(f => (
+                  <label key={f.key} className="flex items-center gap-1.5 text-[11px] font-mono text-zinc-300">
+                    <input
+                      type="checkbox"
+                      checked={flags[f.key] ?? f.defaultAvailable}
+                      onChange={e => setFlags(prev => ({ ...prev, [f.key]: e.target.checked }))}
+                    />
+                    {f.name}
+                  </label>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button onClick={handleSaveFlags} disabled={savingKey === 'faction_flags'} className={toolbarBtn}>
+                  {savingKey === 'faction_flags' ? L.saving : L.save}
+                </button>
+                {savedKey === 'faction_flags' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
+              </div>
             </div>
           </div>
         )}
