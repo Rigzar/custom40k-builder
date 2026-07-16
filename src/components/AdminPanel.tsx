@@ -3,6 +3,7 @@ import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { ALL_FACTIONS } from './LandingPage';
+import { useAuth } from '../hooks/useAuth';
 
 // Languages a translator edits (English is the source, shown read-only).
 const TRANS_LANGS: Exclude<Language, 'en'>[] = ['de', 'es'];
@@ -232,6 +233,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
 export function AdminPanel({ onClose }: Props) {
   const { language } = useLanguage();
   const L = ADMIN_I18N[language] ?? ADMIN_I18N.en;
+  const { username: adminUsername } = useAuth();
 
   const [stats, setStats]     = useState<api.AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -384,7 +386,7 @@ export function AdminPanel({ onClose }: Props) {
         contrib: f.contrib,
       };
     }
-    saveSetting('announcement', { enabled: annEnabled, version: annVersion.trim(), text });
+    saveSetting('announcement', { enabled: annEnabled, version: annVersion.trim(), author: adminUsername ?? undefined, text });
   }
 
   function handleSaveFlags() {

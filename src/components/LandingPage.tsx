@@ -7,6 +7,7 @@ import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
 import { Avatar } from './Avatar';
+import { MessagesModal, InquisitorBadge } from './MessagesModal';
 import { useT, useLanguage, setTranslationOverrides, type Language, type TranslationKey } from '../i18n';
 import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
@@ -150,6 +151,12 @@ function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | nul
         {t.intro && <p>{t.intro}</p>}
         {lines.map((line, i) => <BoldSplitLine key={i} text={line} />)}
         {t.contrib && <p className="text-zinc-400">{t.contrib}</p>}
+        {setting.author && (
+          <p className="text-[11px] text-zinc-500 flex items-center gap-1.5 pt-1">
+            — <span className="text-amber-400">{setting.author}</span>
+            <InquisitorBadge label="Inquisitor" />
+          </p>
+        )}
       </div>
     </div>
   );
@@ -276,6 +283,8 @@ export function LandingPage({
   // Admin-editable overrides fetched from the DB (fail-soft: defaults from code if this never loads).
   const [announcement, setAnnouncement] = useState<api.AnnouncementSetting | null>(null);
   const [factionFlags, setFactionFlags] = useState<api.FactionFlags | null>(null);
+  const [showMessages, setShowMessages] = useState(false);
+  const [unread, setUnread] = useState(0);
   useEffect(() => {
     api.getPublicSettings()
       .then(s => {
@@ -288,6 +297,8 @@ export function LandingPage({
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
   const { loggedIn, username, avatar } = useAuth();
+  const refreshUnread = () => { api.getUnreadCount().then(r => setUnread(r.count)).catch(() => {}); };
+  useEffect(() => { if (loggedIn) refreshUnread(); else setUnread(0); }, [loggedIn]);
 
   const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
 
@@ -334,6 +345,7 @@ export function LandingPage({
         </div>
 
         {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
+        {showMessages && <MessagesModal onClose={() => { setShowMessages(false); refreshUnread(); }} />}
 
         {/* Center content */}
         <div className="relative z-10 flex flex-col items-center pt-14 pb-8 px-6">
@@ -405,6 +417,19 @@ export function LandingPage({
               }
               {loggedIn ? (username ?? 'Account') : 'Login / Sign in'}
             </button>
+
+            {loggedIn && (
+              <button
+                onClick={() => setShowMessages(true)}
+                className="btn-sweep relative flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-300 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
+              >
+                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                Messages
+                {unread > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-amber-700 text-amber-100 text-[9px] rounded-full px-1.5 py-0.5 leading-none">{unread}</span>
+                )}
+              </button>
+            )}
 
             <a
               href="https://custom40k-wiki.vercel.app/glossary"
@@ -538,6 +563,7 @@ export function LandingPage({
         </header>
 
         {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
+        {showMessages && <MessagesModal onClose={() => { setShowMessages(false); refreshUnread(); }} />}
 
         <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-6 w-full">
 
@@ -603,6 +629,7 @@ export function LandingPage({
 
       {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
       {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
+      {showMessages && <MessagesModal onClose={() => { setShowMessages(false); refreshUnread(); }} />}
 
       <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10 w-full">
 

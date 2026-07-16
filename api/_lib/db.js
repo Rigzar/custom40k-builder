@@ -115,6 +115,20 @@ export async function ensureSchema() {
     )
   `;
 
+  // Direct messages between users. read_at NULL = unread.
+  await sql`
+    CREATE TABLE IF NOT EXISTS messages (
+      id SERIAL PRIMARY KEY,
+      from_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      to_user_id   INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      body TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      read_at TIMESTAMPTZ
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS messages_to_idx ON messages(to_user_id)`;
+  await sql`CREATE INDEX IF NOT EXISTS messages_pair_idx ON messages(from_user_id, to_user_id)`;
+
   // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
   // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when
   // joining via campaign_players.faction. The GM's own row has faction = NULL unless they also

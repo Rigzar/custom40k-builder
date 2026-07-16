@@ -407,6 +407,8 @@ export function adminExport() {
 export interface AnnouncementSetting {
   enabled: boolean;
   version: string;
+  /** username of the admin who last saved it — shown with the Inquisitor badge on the banner */
+  author?: string;
   text: Partial<Record<'en' | 'de' | 'es', { title: string; intro: string; lines: string[]; contrib: string }>>;
 }
 export type FactionFlags = Record<string, boolean>;
@@ -430,4 +432,25 @@ export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'transla
 /** Best-effort machine translation of short admin strings (announcement editor). */
 export function adminTranslate(texts: string[], from: string, to: string) {
   return call<{ ok: true; translations: string[] }>('/api/admin/translate', { method: 'POST', body: JSON.stringify({ texts, from, to }) });
+}
+
+// ── Direct messages ────────────────────────────────────────────────────────────
+export interface Conversation {
+  username: string; is_admin: boolean; last: string; created_at: string; unread: number;
+}
+export interface Message {
+  id: number; from_user_id: number; body: string; created_at: string; read_at: string | null;
+  from_username: string; from_admin: boolean;
+}
+export function getUnreadCount() {
+  return call<{ ok: true; count: number }>('/api/messages/unread');
+}
+export function getInbox() {
+  return call<{ ok: true; conversations: Conversation[] }>('/api/messages/inbox');
+}
+export function getThread(withUsername: string) {
+  return call<{ ok: true; messages: Message[]; other: { username: string; is_admin: boolean } }>(`/api/messages/thread?with=${encodeURIComponent(withUsername)}`);
+}
+export function sendMessage(to: string, body: string) {
+  return call<{ ok: true }>('/api/messages/send', { method: 'POST', body: JSON.stringify({ to, body }) });
 }
