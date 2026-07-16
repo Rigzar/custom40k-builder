@@ -431,7 +431,7 @@ export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'transla
 }
 /** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */
 export function adminSourceSheets(id: string, sheets: string[]) {
-  return call<{ ok: true; data: Record<string, string | null> }>('/api/admin/source-sheets', { method: 'POST', body: JSON.stringify({ id, sheets }) });
+  return call<{ ok: true; data: Record<string, string | null>; fetched: number; total: number }>('/api/admin/source-sheets', { method: 'POST', body: JSON.stringify({ id, sheets }) });
 }
 /** Best-effort machine translation of short admin strings (announcement editor). */
 export function adminTranslate(texts: string[], from: string, to: string) {

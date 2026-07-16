@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
-import { comparePoints, type SourceFinding } from '../engine/sourceCompare';
+import { compareFaction, type SourceFinding } from '../engine/sourceCompare';
 import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS } from './LandingPage';
 import { useAuth } from '../hooks/useAuth';
@@ -93,6 +93,7 @@ interface AdminTx {
   tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string;
   helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
+  srcCoverage: (fetched: number, total: number) => string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -162,6 +163,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcHint: 'Pick a faction and paste its Google Sheet ID (from the sheet URL). "Compare" fetches every unit tab and lists point differences vs the app. Read-only — nothing is changed automatically.',
     srcSpreadsheetId: 'Google Sheet ID', srcCompare: 'Compare', srcComparing: 'Comparing…', srcNoDiff: 'No point differences — the app matches the sheet.',
     srcCol: (unit, model) => `${unit} · ${model}`,
+    srcCoverage: (f, t) => f < t
+      ? `Read ${f}/${t} unit tabs — ${t - f} could not be read (renamed tab, or the sheet rate-limited us). Those units were NOT checked.`
+      : `Read all ${t} unit tabs.`,
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -219,6 +223,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcHint: 'Fraktion wählen und die Google-Sheet-ID (aus der Sheet-URL) einfügen. "Vergleichen" lädt jede Einheiten-Registerkarte und listet Punkt-Abweichungen gegenüber der App. Nur Lesen — nichts wird automatisch geändert.',
     srcSpreadsheetId: 'Google-Sheet-ID', srcCompare: 'Vergleichen', srcComparing: 'Vergleiche…', srcNoDiff: 'Keine Punkt-Abweichungen — die App stimmt mit dem Sheet überein.',
     srcCol: (unit, model) => `${unit} · ${model}`,
+    srcCoverage: (f, t) => f < t
+      ? `${f}/${t} Einheiten-Registerkarten gelesen — ${t - f} nicht lesbar (umbenannt oder Rate-Limit). Diese Einheiten wurden NICHT geprüft.`
+      : `Alle ${t} Einheiten-Registerkarten gelesen.`,
   },
   es: {
     title: 'Panel Inquisidor',
@@ -276,6 +283,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcHint: 'Elige una facción y pega el ID de su hoja de Google (de la URL de la hoja). "Comparar" descarga cada pestaña de unidad y lista las diferencias de puntos vs la app. Solo lectura — no se cambia nada automáticamente.',
     srcSpreadsheetId: 'ID de la hoja de Google', srcCompare: 'Comparar', srcComparing: 'Comparando…', srcNoDiff: 'Sin diferencias de puntos — la app coincide con la hoja.',
     srcCol: (unit, model) => `${unit} · ${model}`,
+    srcCoverage: (f, t) => f < t
+      ? `Leídas ${f}/${t} pestañas de unidad — ${t - f} no se pudieron leer (pestaña renombrada, o la hoja nos limitó). Esas unidades NO se comprobaron.`
+      : `Leídas las ${t} pestañas de unidad.`,
   },
 };
 
@@ -316,6 +326,7 @@ export function AdminPanel({ onClose }: Props) {
   const [srcId, setSrcId] = useState<string>(DEFAULT_SOURCE_IDS.chaos_space_marines ?? '');
   const [srcRunning, setSrcRunning] = useState(false);
   const [srcFindings, setSrcFindings] = useState<SourceFinding[] | null>(null);
+  const [srcCoverage, setSrcCoverage] = useState<{ fetched: number; total: number } | null>(null);
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -403,14 +414,15 @@ export function AdminPanel({ onClose }: Props) {
   async function handleSourceCompare() {
     const id = srcId.trim();
     if (!id) return;
-    setSrcRunning(true); setSrcFindings(null); setMsg('');
+    setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setMsg('');
     try {
       const loader = FACTION_LOADERS[srcFaction];
       if (!loader) throw new Error(`No data for ${srcFaction}`);
       const data = await loader();
       const unitNames = Object.keys(data.units);
       const resp = await api.adminSourceSheets(id, unitNames);
-      setSrcFindings(comparePoints(data, resp.data));
+      setSrcCoverage({ fetched: resp.fetched, total: resp.total });
+      setSrcFindings(compareFaction(data, resp.data));
       // remember the id for this faction
       const next = { ...sourceIds, [srcFaction]: id };
       setSourceIds(next);
@@ -978,6 +990,11 @@ export function AdminPanel({ onClose }: Props) {
                   {srcRunning ? L.srcComparing : L.srcCompare}
                 </button>
               </div>
+              {srcCoverage && (
+                <p className={`text-[10px] font-mono mb-2 ${srcCoverage.fetched < srcCoverage.total ? 'text-amber-500' : 'text-zinc-500'}`}>
+                  {L.srcCoverage(srcCoverage.fetched, srcCoverage.total)}
+                </p>
+              )}
               {srcFindings && (
                 srcFindings.length === 0 ? (
                   <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>
@@ -985,10 +1002,16 @@ export function AdminPanel({ onClose }: Props) {
                   <div className="space-y-0.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
                     {srcFindings.map((f, i) => (
                       <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
-                        <span className="text-zinc-300 flex-1 truncate">{L.srcCol(f.unit, f.model)}</span>
-                        <span className="text-zinc-500">app <span className="text-red-400">{f.prod}</span></span>
-                        <span className="text-zinc-600">→</span>
-                        <span className="text-zinc-500">sheet <span className="text-green-400">{f.source}</span></span>
+                        <span className={`shrink-0 w-14 text-[9px] uppercase ${
+                          f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
+                          : f.kind === 'sheet' ? 'text-red-500' : 'text-fuchsia-500'
+                        }`}>{f.kind}</span>
+                        <span className="text-zinc-300 flex-1 truncate" title={L.srcCol(f.unit, f.target)}>
+                          {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
+                        </span>
+                        <span className="text-zinc-500 shrink-0">app <span className="text-red-400">{f.prod || '—'}</span></span>
+                        <span className="text-zinc-600 shrink-0">→</span>
+                        <span className="text-zinc-500 shrink-0">sheet <span className="text-green-400">{f.source}</span></span>
                       </div>
                     ))}
                   </div>

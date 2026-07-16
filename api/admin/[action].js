@@ -270,18 +270,39 @@ async function sourceSheets(req, res) {
   if (!id || !/^[A-Za-z0-9_-]+$/.test(String(id))) return res.status(400).json({ error: 'Bad spreadsheet id' });
   if (!Array.isArray(sheets) || sheets.length === 0) return res.status(400).json({ error: 'Missing sheets' });
   const names = sheets.slice(0, 120).map(String);
-  try {
-    const entries = await Promise.all(names.map(async (name) => {
-      const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+
+  // Google rate-limits bursts: firing every tab at once makes most come back empty, which would
+  // silently look like "no differences". Fetch with small concurrency + a retry instead.
+  async function fetchTab(name) {
+    const url = `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}`;
+    for (let attempt = 0; attempt < 2; attempt++) {
       try {
         const r = await fetch(url, { headers: { 'User-Agent': 'custom40k-builder' } });
-        if (!r.ok) return [name, null];
-        const text = await r.text();
-        // gviz returns an HTML error page for a missing tab; only keep real CSV
-        return [name, text.startsWith('<') ? null : text];
-      } catch { return [name, null]; }
-    }));
-    res.status(200).json({ ok: true, data: Object.fromEntries(entries) });
+        if (r.ok) {
+          const text = await r.text();
+          // gviz returns an HTML error page for a missing tab; only keep real CSV
+          if (!text.startsWith('<')) return text;
+        }
+      } catch { /* retry */ }
+      await sleep(400);
+    }
+    return null;
+  }
+
+  try {
+    const data = {};
+    let cursor = 0;
+    const worker = async () => {
+      while (cursor < names.length) {
+        const name = names[cursor++];
+        data[name] = await fetchTab(name);
+        await sleep(80);
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(4, names.length) }, worker));
+    const fetched = Object.values(data).filter(Boolean).length;
+    res.status(200).json({ ok: true, data, fetched, total: names.length });
   } catch (err) {
     res.status(502).json({ error: 'Fetch failed', detail: String(err) });
   }
