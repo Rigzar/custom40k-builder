@@ -522,7 +522,7 @@ export function AdminPanel({ onClose }: Props) {
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/95 z-[60] flex flex-col">
+    <div className="fixed inset-0 bg-zinc-950 z-[100] flex flex-col">
       {/* Control-panel header */}
       <div className="flex justify-between items-center px-4 py-3 bg-zinc-900 border-b border-zinc-700 shrink-0">
         <div className="flex items-center gap-3">
