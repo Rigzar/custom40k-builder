@@ -260,7 +260,7 @@ async function exportData(req, res) {
 }
 
 // Only these keys can be read/written through the settings admin API.
-const SETTING_KEYS = new Set(['announcement', 'faction_flags']);
+const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations']);
 
 // GET — all editable app settings as a { key: value } map.
 async function getSettings(req, res) {

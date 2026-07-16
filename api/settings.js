@@ -11,15 +11,16 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
   try {
     await ensureSchema();
-    const r = await sql`SELECT key, value FROM app_settings WHERE key IN ('announcement', 'faction_flags')`;
+    const r = await sql`SELECT key, value FROM app_settings WHERE key IN ('announcement', 'faction_flags', 'translations')`;
     const map = {};
     for (const row of r.rows) map[row.key] = row.value;
     res.status(200).json({
       ok: true,
       announcement: map.announcement ?? null,
       factionFlags: map.faction_flags ?? null,
+      translations: map.translations ?? null,
     });
   } catch {
-    res.status(200).json({ ok: true, announcement: null, factionFlags: null });
+    res.status(200).json({ ok: true, announcement: null, factionFlags: null, translations: null });
   }
 }

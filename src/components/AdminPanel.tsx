@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
-import { useLanguage, type Language } from '../i18n';
+import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { ALL_FACTIONS } from './LandingPage';
+
+// Languages a translator edits (English is the source, shown read-only).
+const TRANS_LANGS: Exclude<Language, 'en'>[] = ['de', 'es'];
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -73,6 +76,7 @@ interface AdminTx {
   annFieldTitle: string; annFieldIntro: string; annFieldLines: string; annFieldContrib: string;
   save: string; saving: string; saved: string;
   factionSectionTitle: string; factionAvailHint: string;
+  transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -123,6 +127,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     annFieldTitle: 'Title', annFieldIntro: 'Intro', annFieldLines: 'Lines (one per line; text before " — " is bold)', annFieldContrib: 'Footer',
     save: 'Save', saving: 'Saving…', saved: 'Saved ✓',
     factionSectionTitle: 'Faction availability', factionAvailHint: 'Unchecked factions are greyed out and cannot be selected in the builder.',
+    transSectionTitle: 'UI translations',
+    transHint: 'Edit the German / Spanish text of any interface string. English is the source. Fields left empty or unchanged keep the built-in text. Saved changes go live for everyone.',
+    transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -161,6 +168,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     annFieldTitle: 'Titel', annFieldIntro: 'Einleitung', annFieldLines: 'Zeilen (eine pro Zeile; Text vor " — " ist fett)', annFieldContrib: 'Fußzeile',
     save: 'Speichern', saving: 'Speichere…', saved: 'Gespeichert ✓',
     factionSectionTitle: 'Fraktions-Verfügbarkeit', factionAvailHint: 'Nicht angehakte Fraktionen sind ausgegraut und im Builder nicht wählbar.',
+    transSectionTitle: 'UI-Übersetzungen',
+    transHint: 'Bearbeite den deutschen / spanischen Text jeder Oberflächen-Zeichenkette. Englisch ist die Quelle. Leere oder unveränderte Felder behalten den eingebauten Text. Gespeicherte Änderungen gehen für alle live.',
+    transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -199,6 +209,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     annFieldTitle: 'Título', annFieldIntro: 'Intro', annFieldLines: 'Líneas (una por línea; el texto antes de " — " va en negrita)', annFieldContrib: 'Pie',
     save: 'Guardar', saving: 'Guardando…', saved: 'Guardado ✓',
     factionSectionTitle: 'Disponibilidad de facciones', factionAvailHint: 'Las facciones sin marcar se muestran en gris y no se pueden seleccionar en el builder.',
+    transSectionTitle: 'Traducciones de la interfaz',
+    transHint: 'Edita el texto en alemán / español de cualquier cadena de la interfaz. El inglés es la fuente. Los campos vacíos o sin cambios conservan el texto original. Los cambios guardados se aplican en vivo para todos.',
+    transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
   },
 };
 
@@ -226,8 +239,10 @@ export function AdminPanel({ onClose }: Props) {
   const [annVersion, setAnnVersion] = useState('');
   const [annText, setAnnText] = useState<Record<Language, AnnFields>>({ en: emptyAnnFields(), de: emptyAnnFields(), es: emptyAnnFields() });
   const [flags, setFlags] = useState<Record<string, boolean>>({});
-  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | null>(null);
-  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | null>(null);
+  const [transEdits, setTransEdits] = useState<Record<'de' | 'es', Record<string, string>>>({ de: {}, es: {} });
+  const [transFilter, setTransFilter] = useState('');
+  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
+  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
   async function load() {
     setLoading(true);
@@ -236,7 +251,7 @@ export function AdminPanel({ onClose }: Props) {
         api.adminStats(),
         api.adminListRecoveryRequests(),
         api.adminActions().catch(() => ({ actions: [] })),
-        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags } })),
+        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides } })),
       ]);
       setStats(s);
       setRequests(r.requests);
@@ -255,6 +270,14 @@ export function AdminPanel({ onClose }: Props) {
       const merged: Record<string, boolean> = {};
       for (const f of ALL_FACTIONS) merged[f.key] = stored[f.key] ?? f.defaultAvailable;
       setFlags(merged);
+      // hydrate translation editor (effective value = override ?? code default)
+      const tr = cfg.settings.translations ?? {};
+      const de: Record<string, string> = {}, es: Record<string, string> = {};
+      for (const k of allTranslationKeys()) {
+        de[k] = tr.de?.[k] ?? defaultString('de', k);
+        es[k] = tr.es?.[k] ?? defaultString('es', k);
+      }
+      setTransEdits({ de, es });
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -306,7 +329,7 @@ export function AdminPanel({ onClose }: Props) {
     } catch (e) { setMsg(String(e)); }
   }
 
-  async function saveSetting(key: 'announcement' | 'faction_flags', value: unknown) {
+  async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations', value: unknown) {
     setSavingKey(key); setSavedKey(null);
     try {
       await api.adminSetSetting(key, value);
@@ -331,6 +354,22 @@ export function AdminPanel({ onClose }: Props) {
 
   function handleSaveFlags() {
     saveSetting('faction_flags', flags);
+  }
+
+  function handleSaveTranslations() {
+    // store only values that differ from the code default (keeps overrides small; future code
+    // string changes still flow through for untouched keys)
+    const out: api.TranslationOverrides = {};
+    for (const lang of TRANS_LANGS) {
+      const m: Record<string, string> = {};
+      for (const k of allTranslationKeys()) {
+        const v = transEdits[lang][k];
+        if (v != null && v.trim() !== '' && v !== defaultString(lang, k)) m[k] = v;
+      }
+      if (Object.keys(m).length) out[lang] = m;
+    }
+    setTranslationOverrides(out);   // apply live in this session immediately
+    saveSetting('translations', out);
   }
 
   async function handleExport() {
@@ -388,6 +427,13 @@ export function AdminPanel({ onClose }: Props) {
   const emptyCount = allUsers.filter(u => u.roster_count === 0).length;
   const arrow = (key: SortKey) => (key === sortKey ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '');
   const pendingCount = requests.filter(r => r.status === 'pending').length;
+
+  // Translation editor: source strings + filtered key list (capped when unfiltered for perf)
+  const SRC = sourceStrings();
+  const tq = transFilter.trim().toLowerCase();
+  const transKeysAll = allTranslationKeys().filter(k =>
+    tq === '' || k.toLowerCase().includes(tq) || (SRC[k] ?? '').toLowerCase().includes(tq));
+  const transKeys = transKeysAll.slice(0, 150);
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
@@ -694,6 +740,52 @@ export function AdminPanel({ onClose }: Props) {
                   {savingKey === 'faction_flags' ? L.saving : L.save}
                 </button>
                 {savedKey === 'faction_flags' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
+              </div>
+            </div>
+
+            {/* UI translations editor */}
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.transSectionTitle}</div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.transHint}</p>
+              <div className="flex items-center gap-2 mb-2">
+                <input
+                  value={transFilter}
+                  onChange={e => setTransFilter(e.target.value)}
+                  placeholder={L.transSearch}
+                  className="flex-1 bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                />
+                <span className="text-zinc-600 text-[10px] font-mono">{transKeys.length}/{transKeysAll.length}</span>
+              </div>
+              <div className="space-y-2 max-h-96 overflow-y-auto border border-zinc-800 p-2">
+                {transKeys.map(k => (
+                  <div key={k} className="border-b border-zinc-900 pb-1.5">
+                    <div className="flex gap-2 text-[10px] font-mono mb-1">
+                      <span className="text-amber-700 shrink-0">{k}</span>
+                      <span className="text-zinc-500 truncate" title={SRC[k]}>{L.transSource}: {SRC[k]}</span>
+                    </div>
+                    <div className="grid gap-1.5 md:grid-cols-2">
+                      {TRANS_LANGS.map(lang => (
+                        <div key={lang} className="flex items-center gap-1.5">
+                          <span className="text-zinc-600 text-[9px] uppercase w-4 shrink-0">{lang}</span>
+                          <input
+                            value={transEdits[lang][k] ?? ''}
+                            onChange={e => setTransEdits(prev => ({ ...prev, [lang]: { ...prev[lang], [k]: e.target.value } }))}
+                            className="flex-1 bg-zinc-900 border border-zinc-800 px-2 py-0.5 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {transKeysAll.length > transKeys.length && (
+                  <p className="text-zinc-600 text-[10px] font-mono italic pt-1">+{transKeysAll.length - transKeys.length} more — refine the filter to see them.</p>
+                )}
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button onClick={handleSaveTranslations} disabled={savingKey === 'translations'} className={toolbarBtn}>
+                  {savingKey === 'translations' ? L.saving : L.save}
+                </button>
+                {savedKey === 'translations' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
               </div>
             </div>
           </div>

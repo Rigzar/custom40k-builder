@@ -7,7 +7,7 @@ import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
 import { Avatar } from './Avatar';
-import { useT, useLanguage, type Language, type TranslationKey } from '../i18n';
+import { useT, useLanguage, setTranslationOverrides, type Language, type TranslationKey } from '../i18n';
 import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
@@ -266,7 +266,11 @@ export function LandingPage({
   const [factionFlags, setFactionFlags] = useState<api.FactionFlags | null>(null);
   useEffect(() => {
     api.getPublicSettings()
-      .then(s => { setAnnouncement(s.announcement); setFactionFlags(s.factionFlags); })
+      .then(s => {
+        setAnnouncement(s.announcement);
+        setFactionFlags(s.factionFlags);
+        setTranslationOverrides(s.translations);   // apply admin-edited UI strings app-wide
+      })
       .catch(() => { /* keep code defaults */ });
   }, []);
   const latestVersion = CHANGELOG[0]?.version ?? '';

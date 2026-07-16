@@ -6,6 +6,8 @@ export type Language = 'en' | 'de' | 'es';
 interface I18nState {
   language: Language;
   setLanguage: (l: Language) => void;
+  /** bumped whenever runtime translation overrides change, to force re-renders */
+  i18nVersion: number;
 }
 
 export const useLanguage = create<I18nState>()(
@@ -13,10 +15,19 @@ export const useLanguage = create<I18nState>()(
     (set) => ({
       language: 'en',
       setLanguage: (language) => set({ language }),
+      i18nVersion: 0,
     }),
-    { name: 'c40k_language' }
+    { name: 'c40k_language', partialize: (s) => ({ language: s.language }) }
   )
 );
+
+// Runtime translation overrides (admin-edited, fetched from the DB). Merged over the compiled
+// `translations` below; empty by default so nothing changes until an override is loaded.
+let OVERRIDES: Partial<Record<Language, Record<string, string>>> = {};
+export function setTranslationOverrides(o: Partial<Record<Language, Record<string, string>>> | null | undefined) {
+  OVERRIDES = o ?? {};
+  useLanguage.setState((s) => ({ i18nVersion: s.i18nVersion + 1 }));
+}
 
 // ── Translations ──────────────────────────────────────────────────────────────
 
@@ -1825,12 +1836,28 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
 };
 
 export function useT() {
-  const { language } = useLanguage();
-  return (key: TranslationKey): string => translations[language][key] ?? translations.en[key];
+  // subscribe to i18nVersion too, so admin translation edits re-render live
+  const language = useLanguage((s) => s.language);
+  useLanguage((s) => s.i18nVersion);
+  return (key: TranslationKey): string =>
+    OVERRIDES[language]?.[key] ?? translations[language][key] ?? translations.en[key];
 }
 
 export function t(language: Language, key: TranslationKey): string {
-  return translations[language][key] ?? translations.en[key];
+  return OVERRIDES[language]?.[key] ?? translations[language][key] ?? translations.en[key];
+}
+
+/** The compiled English source strings (read-only reference for the admin translation editor). */
+export function sourceStrings(): Record<string, string> {
+  return translations.en;
+}
+/** The compiled default string for a given language+key (used to diff admin overrides). */
+export function defaultString(language: Language, key: string): string {
+  return (translations[language] as Record<string, string>)[key] ?? translations.en[key as TranslationKey] ?? '';
+}
+/** Every translatable key, in declaration order. */
+export function allTranslationKeys(): string[] {
+  return Object.keys(translations.en);
 }
 
 /** Interpolates `{name}` placeholders in a translated template string. Used outside React (e.g.

@@ -410,17 +410,20 @@ export interface AnnouncementSetting {
   text: Partial<Record<'en' | 'de' | 'es', { title: string; intro: string; lines: string[]; contrib: string }>>;
 }
 export type FactionFlags = Record<string, boolean>;
+/** Per-language map of translation-key → overridden string. */
+export type TranslationOverrides = Partial<Record<'en' | 'de' | 'es', Record<string, string>>>;
 export interface PublicSettings {
   announcement: AnnouncementSetting | null;
   factionFlags: FactionFlags | null;
+  translations: TranslationOverrides | null;
 }
 /** Public, fail-soft — the landing page uses this to override its defaults. */
 export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
 }
