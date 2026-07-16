@@ -7,6 +7,8 @@ import { ALL_FACTIONS } from './LandingPage';
 // Languages a translator edits (English is the source, shown read-only).
 const TRANS_LANGS: Exclude<Language, 'en'>[] = ['de', 'es'];
 
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n';
+
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
 const emptyAnnFields = (): AnnFields => ({ title: '', intro: '', lines: '', contrib: '' });
@@ -78,6 +80,8 @@ interface AdminTx {
   factionSectionTitle: string; factionAvailHint: string;
   transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
   annTranslate: string; annTranslating: string;
+  backToApp: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -132,6 +136,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transHint: 'Edit the German / Spanish text of any interface string. English is the source. Fields left empty or unchanged keep the built-in text. Saved changes go live for everyone.',
     transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
     annTranslate: 'auto-translate the others from this', annTranslating: 'translating…',
+    backToApp: '← Back to app',
+    tabOverview: 'Overview', tabUsers: 'Users', tabHealth: 'Data health', tabAudit: 'Audit log', tabAnnounce: 'Announcement', tabFactions: 'Factions', tabI18n: 'Translations',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -174,6 +180,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transHint: 'Bearbeite den deutschen / spanischen Text jeder Oberflächen-Zeichenkette. Englisch ist die Quelle. Leere oder unveränderte Felder behalten den eingebauten Text. Gespeicherte Änderungen gehen für alle live.',
     transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
     annTranslate: 'die anderen hiervon automatisch übersetzen', annTranslating: 'übersetze…',
+    backToApp: '← Zurück zur App',
+    tabOverview: 'Übersicht', tabUsers: 'Nutzer', tabHealth: 'Datenintegrität', tabAudit: 'Protokoll', tabAnnounce: 'Ankündigung', tabFactions: 'Fraktionen', tabI18n: 'Übersetzungen',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -216,6 +224,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transHint: 'Edita el texto en alemán / español de cualquier cadena de la interfaz. El inglés es la fuente. Los campos vacíos o sin cambios conservan el texto original. Los cambios guardados se aplican en vivo para todos.',
     transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
     annTranslate: 'auto-traducir los demás desde este', annTranslating: 'traduciendo…',
+    backToApp: '← Volver a la app',
+    tabOverview: 'Resumen', tabUsers: 'Usuarios', tabHealth: 'Integridad', tabAudit: 'Registro', tabAnnounce: 'Anuncio', tabFactions: 'Facciones', tabI18n: 'Traducciones',
   },
 };
 
@@ -246,6 +256,7 @@ export function AdminPanel({ onClose }: Props) {
   const [transEdits, setTransEdits] = useState<Record<'de' | 'es', Record<string, string>>>({ de: {}, es: {} });
   const [transFilter, setTransFilter] = useState('');
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
+  const [tab, setTab] = useState<AdminTab>('overview');
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -461,77 +472,46 @@ export function AdminPanel({ onClose }: Props) {
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
+  const TAB_DEFS: { id: AdminTab; label: string }[] = [
+    { id: 'overview', label: L.tabOverview },
+    { id: 'users',    label: L.tabUsers },
+    { id: 'health',   label: L.tabHealth },
+    { id: 'audit',    label: L.tabAudit },
+    { id: 'announce', label: L.tabAnnounce },
+    { id: 'factions', label: L.tabFactions },
+    { id: 'i18n',     label: L.tabI18n },
+  ];
+
   return (
-    <div className="fixed inset-0 bg-black/90 flex items-start justify-center z-[60] p-4 overflow-y-auto" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="bg-zinc-950 border border-zinc-700 w-full max-w-4xl my-4">
-
-        <div className="flex justify-between items-center px-4 py-3 bg-zinc-900 border-b border-zinc-700">
-          <div className="flex items-center gap-3">
-            <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">{L.title}</span>
-            {stats && (
-              <span className="text-zinc-500 text-xs font-mono">{L.usersSaved(stats.totalUsers, stats.totalRosters)}</span>
-            )}
-          </div>
-          <button onClick={onClose} className="text-zinc-500 hover:text-white text-xl">✕</button>
+    <div className="fixed inset-0 bg-black/95 z-[60] flex flex-col">
+      {/* Control-panel header */}
+      <div className="flex justify-between items-center px-4 py-3 bg-zinc-900 border-b border-zinc-700 shrink-0">
+        <div className="flex items-center gap-3">
+          <button onClick={onClose} className="text-[11px] px-2 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800">{L.backToApp}</button>
+          <span className="text-zinc-300 text-sm font-mono uppercase tracking-widest">{L.title}</span>
+          {stats && <span className="hidden sm:inline text-zinc-500 text-xs font-mono">{L.usersSaved(stats.totalUsers, stats.totalRosters)}</span>}
         </div>
+        <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
+      </div>
 
-        {/* Options toolbar — every action visible on entry, each with a ? tooltip */}
-        <div className="flex flex-wrap items-center gap-3 px-4 py-2 border-b border-zinc-800 bg-zinc-900/40">
-          <span className="inline-flex items-center">
-            <button onClick={load} disabled={loading} className={toolbarBtn}>↻ {L.reload}</button>
-            <Help text={L.helpReload} />
-          </span>
-          <span className="inline-flex items-center">
-            <button onClick={handleRunHealth} disabled={healthRunning} className={toolbarBtn}>{healthRunning ? L.checking : L.dataHealthTitle}</button>
-            <Help text={L.helpDataHealth} />
-          </span>
-          <span className="inline-flex items-center">
-            <button
-              onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
-              disabled={allUsers.length === 0}
-              className={toolbarBtn}
-            >{L.exportCsv}</button>
-            <Help text={L.helpExportCsv} />
-          </span>
-          <span className="inline-flex items-center">
-            <button onClick={handleExport} disabled={exporting} className={toolbarBtn}>{L.exportDb}</button>
-            <Help text={L.helpExportDb} />
-          </span>
-          {pendingCount > 0 && (
-            <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded font-mono">{L.pending(pendingCount)}</span>
-          )}
-        </div>
+      {/* Tab nav */}
+      <div className="flex flex-wrap gap-1 px-4 py-2 bg-zinc-900/60 border-b border-zinc-800 shrink-0">
+        {TAB_DEFS.map(td => (
+          <button
+            key={td.id}
+            onClick={() => setTab(td.id)}
+            className={`text-[11px] px-3 py-1 border font-mono uppercase tracking-wider ${tab === td.id ? 'border-amber-700 text-amber-400 bg-amber-950/20' : 'border-zinc-800 text-zinc-400 hover:text-zinc-200'}`}
+          >{td.label}{td.id === 'overview' && pendingCount > 0 ? ` (${pendingCount})` : ''}</button>
+        ))}
+      </div>
 
-        {/* Data Health results — shown right under its toolbar button */}
-        {health && (
-          <div className="mx-4 mt-3 border border-zinc-800 bg-zinc-900/40 p-2">
-            <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1 flex items-center gap-2">
-              {L.dataHealthTitle}
-              <span className={`px-1.5 py-0.5 text-[9px] rounded ${health.length === 0 ? 'bg-green-900 text-green-300' : 'bg-amber-800 text-amber-200'}`}>
-                {health.length === 0 ? L.noFindings : L.findings(health.length)}
-              </span>
-              <button onClick={() => setHealth(null)} className="ml-auto text-zinc-600 hover:text-zinc-400 text-[10px] normal-case tracking-normal">{L.hide}</button>
-            </div>
-            {health.length > 0 && (
-              <div className="space-y-0.5 max-h-72 overflow-y-auto">
-                {health.map((f, i) => (
-                  <div key={i} className="text-[10px] font-mono flex gap-2">
-                    <span className="text-amber-700 shrink-0 w-4">{f.category}</span>
-                    <span className="text-zinc-500 shrink-0">{f.faction}{f.unit ? ` · ${f.unit}` : ''}</span>
-                    <span className="text-zinc-400">{f.message}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+      {msg && <div className="mx-4 mt-3 text-red-400 text-xs font-mono bg-red-950/30 border border-red-800/50 px-3 py-2 shrink-0">{msg}</div>}
 
-        {msg && <div className="mx-4 mt-3 text-red-400 text-xs font-mono bg-red-950/30 border border-red-800/50 px-3 py-2">{msg}</div>}
-
-        {loading ? (
-          <div className="p-8 text-center text-zinc-600 text-sm">{L.loading}</div>
-        ) : !stats ? null : (
-          <div className="p-4 space-y-6">
+      {loading ? (
+        <div className="p-8 text-center text-zinc-600 text-sm">{L.loading}</div>
+      ) : !stats ? null : (
+        <div className="flex-1 overflow-y-auto p-4 space-y-6 w-full max-w-5xl mx-auto">
+            {tab === 'overview' && (<>
             {/* Recovery requests */}
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
@@ -586,7 +566,13 @@ export function AdminPanel({ onClose }: Props) {
               ))}
             </div>
 
-            {/* Users table */}
+            <div className="flex items-center gap-2">
+              <button onClick={handleExport} disabled={exporting} className={toolbarBtn}>{L.exportDb}</button>
+              <Help text={L.helpExportDb} />
+            </div>
+            </>)}
+
+            {tab === 'users' && (
             <div>
             <div className="flex items-center gap-2 mb-2">
               <input
@@ -596,6 +582,11 @@ export function AdminPanel({ onClose }: Props) {
                 className="flex-1 bg-zinc-900 border border-zinc-800 px-2 py-1 text-xs font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
               />
               <span className="text-zinc-600 text-[10px] font-mono">{visibleUsers.length}/{allUsers.length}</span>
+              <button
+                onClick={() => downloadText(`custom40k-users-${new Date().toISOString().slice(0, 10)}.csv`, usersToCsv(allUsers))}
+                disabled={allUsers.length === 0}
+                className={toolbarBtn}
+              >{L.exportCsv}</button>
             </div>
             <table className="w-full text-xs font-mono border-collapse">
               <thead>
@@ -680,8 +671,35 @@ export function AdminPanel({ onClose }: Props) {
               </tbody>
             </table>
             </div>
+            )}
 
-            {/* Audit log */}
+            {tab === 'health' && (
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
+                {L.dataHealthTitle}
+                <button onClick={handleRunHealth} disabled={healthRunning} className={`${toolbarBtn} normal-case`}>{healthRunning ? L.checking : L.check}</button>
+                {health && (
+                  <span className={`px-1.5 py-0.5 text-[9px] rounded normal-case tracking-normal ${health.length === 0 ? 'bg-green-900 text-green-300' : 'bg-amber-800 text-amber-200'}`}>
+                    {health.length === 0 ? L.noFindings : L.findings(health.length)}
+                  </span>
+                )}
+              </div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.dataHealthDesc}</p>
+              {health && health.length > 0 && (
+                <div className="space-y-0.5 max-h-[60vh] overflow-y-auto border border-zinc-800 p-2">
+                  {health.map((f, i) => (
+                    <div key={i} className="text-[10px] font-mono flex gap-2">
+                      <span className="text-amber-700 shrink-0 w-4">{f.category}</span>
+                      <span className="text-zinc-500 shrink-0">{f.faction}{f.unit ? ` · ${f.unit}` : ''}</span>
+                      <span className="text-zinc-400">{f.message}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            )}
+
+            {tab === 'audit' && (
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2">{L.auditTitle}</div>
               {auditLog.length === 0 ? (
@@ -700,7 +718,9 @@ export function AdminPanel({ onClose }: Props) {
               )}
             </div>
 
-            {/* Announcement banner editor */}
+            )}
+
+            {tab === 'announce' && (
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-3">
                 {L.annSectionTitle}
@@ -751,7 +771,9 @@ export function AdminPanel({ onClose }: Props) {
               </div>
             </div>
 
-            {/* Faction availability */}
+            )}
+
+            {tab === 'factions' && (
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.factionSectionTitle}</div>
               <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.factionAvailHint}</p>
@@ -775,7 +797,9 @@ export function AdminPanel({ onClose }: Props) {
               </div>
             </div>
 
-            {/* UI translations editor */}
+            )}
+
+            {tab === 'i18n' && (
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.transSectionTitle}</div>
               <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.transHint}</p>
@@ -820,10 +844,9 @@ export function AdminPanel({ onClose }: Props) {
                 {savedKey === 'translations' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
               </div>
             </div>
+            )}
           </div>
         )}
-
-      </div>
     </div>
   );
 }
