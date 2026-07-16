@@ -395,9 +395,16 @@ export function adminUserRosters(userId: number) {
 export function adminDelRoster(rosterId: number) {
   return call<{ ok: true }>('/api/admin/del-roster', { method: 'POST', body: JSON.stringify({ rosterId }) });
 }
+/**
+ * Full DB backup. `tables.users` includes password hashes and recovery-code columns — the file is
+ * credential material, so it must be stored securely and never shared.
+ */
 export interface AdminExport {
-  exported_at: string; counts: { users: number; rosters: number };
-  users: unknown[]; rosters: unknown[];
+  exported_at: string;
+  full: true;
+  warning: string;
+  counts: Record<string, number | null>;
+  tables: Record<string, unknown[] | null>;
 }
 export function adminExport() {
   return call<{ ok: true } & AdminExport>('/api/admin/export');

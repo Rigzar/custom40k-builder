@@ -81,7 +81,7 @@ interface AdminTx {
   auditTitle: string; auditEmpty: string;
   armies: string; hideArmies: string; userNoArmies: string; publicBadge: string;
   delRoster: string; delRosterConfirm: (name: string) => string;
-  helpReload: string; helpDataHealth: string; helpExportCsv: string; helpExportDb: string;
+  helpReload: string; helpDataHealth: string; helpExportCsv: string; helpExportDb: string; exportDbConfirm: string;
   annSectionTitle: string; annEnabled: string; annVersion: string; annVersionHint: string;
   annFieldTitle: string; annFieldIntro: string; annFieldLines: string; annFieldContrib: string;
   save: string; saving: string; saved: string;
@@ -139,7 +139,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpReload: 'Reload the panel data (users, requests, audit log) from the server.',
     helpDataHealth: 'Scan all faction data for structural problems (empty option groups, ghost weapons, dangling references). Read-only; results show here.',
     helpExportCsv: 'Download the user list as a CSV spreadsheet (id, username, admin, army count, dates). Opens in Excel / Google Sheets.',
-    helpExportDb: 'Download a full JSON backup of the database: all users (without passwords) and every saved army.',
+    helpExportDb: 'Download a FULL JSON backup of the database — every table, every column, including password hashes and recovery codes, so accounts can actually be restored. The file is credential material: store it securely and never share it.',
+    exportDbConfirm: 'This downloads a FULL backup of the database.\n\nIt includes password hashes and recovery codes for every account — treat the file like a password: store it somewhere safe and never share or upload it.\n\nContinue?',
     annSectionTitle: 'Announcement banner', annEnabled: 'Show the banner',
     annVersion: 'Version (dismiss key)', annVersionHint: 'Change this to re-show the banner to users who already dismissed the previous one.',
     annFieldTitle: 'Title', annFieldIntro: 'Intro', annFieldLines: 'Lines (one per line; text before " — " is bold)', annFieldContrib: 'Footer',
@@ -202,7 +203,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpReload: 'Panel-Daten (Nutzer, Anfragen, Protokoll) neu vom Server laden.',
     helpDataHealth: 'Alle Fraktionsdaten auf strukturelle Probleme prüfen (leere Gruppen, Geisterwaffen, ungültige Referenzen). Nur Lesen; Ergebnisse erscheinen hier.',
     helpExportCsv: 'Nutzerliste als CSV-Tabelle herunterladen (ID, Name, Admin, Armee-Anzahl, Daten). Öffnet in Excel / Google Sheets.',
-    helpExportDb: 'Vollständiges JSON-Backup der Datenbank herunterladen: alle Nutzer (ohne Passwörter) und alle gespeicherten Armeen.',
+    helpExportDb: 'VOLLSTÄNDIGES JSON-Backup der Datenbank herunterladen — jede Tabelle, jede Spalte, inklusive Passwort-Hashes und Wiederherstellungscodes, damit Konten wirklich wiederhergestellt werden können. Die Datei ist Zugangsdaten-Material: sicher aufbewahren, niemals weitergeben.',
+    exportDbConfirm: 'Dies lädt ein VOLLSTÄNDIGES Backup der Datenbank herunter.\n\nEs enthält Passwort-Hashes und Wiederherstellungscodes aller Konten — behandle die Datei wie ein Passwort: sicher speichern, niemals teilen oder hochladen.\n\nFortfahren?',
     annSectionTitle: 'Ankündigungsbanner', annEnabled: 'Banner anzeigen',
     annVersion: 'Version (Ausblend-Schlüssel)', annVersionHint: 'Ändern, um das Banner erneut anzuzeigen für Nutzer, die das vorige bereits ausgeblendet haben.',
     annFieldTitle: 'Titel', annFieldIntro: 'Einleitung', annFieldLines: 'Zeilen (eine pro Zeile; Text vor " — " ist fett)', annFieldContrib: 'Fußzeile',
@@ -265,7 +267,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpReload: 'Recarga los datos del panel (usuarios, solicitudes, registro) desde el servidor.',
     helpDataHealth: 'Analiza los datos de todas las facciones en busca de problemas estructurales (grupos vacíos, armas fantasma, referencias colgantes). Solo lectura; los resultados salen aquí.',
     helpExportCsv: 'Descarga la lista de usuarios como hoja CSV (id, usuario, admin, nº de ejércitos, fechas). Se abre en Excel / Google Sheets.',
-    helpExportDb: 'Descarga una copia completa en JSON de la base de datos: todos los usuarios (sin contraseñas) y cada ejército guardado.',
+    helpExportDb: 'Descarga una copia COMPLETA en JSON de la base de datos — todas las tablas y columnas, incluidos los hashes de contraseña y los códigos de recuperación, para que las cuentas se puedan restaurar de verdad. El archivo son credenciales: guárdalo a buen recaudo y no lo compartas nunca.',
+    exportDbConfirm: 'Esto descarga una copia COMPLETA de la base de datos.\n\nIncluye los hashes de contraseña y los códigos de recuperación de todas las cuentas — trata el archivo como una contraseña: guárdalo en un sitio seguro y no lo compartas ni lo subas a ningún lado.\n\n¿Continuar?',
     annSectionTitle: 'Banner de anuncio', annEnabled: 'Mostrar el banner',
     annVersion: 'Versión (clave de descarte)', annVersionHint: 'Cámbiala para volver a mostrar el banner a quien ya cerró el anterior.',
     annFieldTitle: 'Título', annFieldIntro: 'Intro', annFieldLines: 'Líneas (una por línea; el texto antes de " — " va en negrita)', annFieldContrib: 'Pie',
@@ -512,10 +515,11 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function handleExport() {
+    if (!confirm(L.exportDbConfirm)) return;
     setExporting(true);
     try {
       const data = await api.adminExport();
-      downloadText(`custom40k-backup-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2), 'application/json');
+      downloadText(`custom40k-FULL-backup-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2), 'application/json');
     } catch (e) { setMsg(String(e)); }
     finally { setExporting(false); }
   }

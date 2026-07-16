@@ -238,23 +238,48 @@ async function delRoster(req, res) {
   }
 }
 
-// GET — full JSON backup of non-sensitive data (users without secrets + all rosters).
+// Every table we back up. A restore has to be able to bring accounts back, so this is a FULL dump:
+// `users` includes password_hash and the recovery-code columns. That makes the resulting file
+// credential material — it must be stored like a password, never shared. The UI warns before the
+// download and the action is written to the audit log.
+const BACKUP_TABLES = [
+  'users', 'rosters', 'friends', 'roster_votes', 'recovery_requests', 'messages',
+  'app_settings', 'admin_actions',
+  'campaigns', 'campaign_players', 'campaign_sectors', 'campaign_battles',
+  'campaign_supply', 'campaign_roster', 'campaign_buildings', 'campaign_events',
+];
+
+// GET — full JSON backup: every table, every column (including password hashes).
 async function exportData(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
   const adminId = await requireAdmin(req, res);
   if (!adminId) return;
   try {
-    const [users, rosters] = await Promise.all([
-      sql`SELECT id, username, created_at, last_seen_at, last_login_at, is_admin FROM users ORDER BY id`,
-      sql`SELECT id, user_id, name, data, is_public, created_at, updated_at FROM rosters ORDER BY id`,
-    ]);
-    await logAction(adminId, 'export_db', null, null, `${users.rows.length} users, ${rosters.rows.length} rosters`);
+    const tables = {};
+    const counts = {};
+    for (const t of BACKUP_TABLES) {
+      try {
+        // table name comes from the fixed list above, never from user input.
+        // No ORDER BY: not every table has an `id` (app_settings is keyed by `key`), and ordering
+        // doesn't matter for a backup — assuming `id` here silently dropped tables from the dump.
+        const r = await sql.query(`SELECT * FROM ${t}`);
+        tables[t] = r.rows;
+        counts[t] = r.rows.length;
+      } catch {
+        // a table that doesn't exist yet (older DB) shouldn't sink the whole backup
+        tables[t] = null;
+        counts[t] = null;
+      }
+    }
+    await logAction(adminId, 'export_db', null, null,
+      `FULL backup (incl. credentials): ${Object.entries(counts).map(([k, v]) => `${k}=${v}`).join(', ')}`);
     res.status(200).json({
       ok: true,
       exported_at: new Date().toISOString(),
-      counts: { users: users.rows.length, rosters: rosters.rows.length },
-      users: users.rows,
-      rosters: rosters.rows,
+      full: true,
+      warning: 'CONTAINS CREDENTIALS (password hashes and recovery codes). Store this file securely; never share it.',
+      counts,
+      tables,
     });
   } catch (err) {
     res.status(500).json({ error: String(err) });
