@@ -15,6 +15,18 @@ const DEFAULT_SOURCE_IDS: Record<string, string> = {
   chaos_space_marines: '1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw',
 };
 
+/**
+ * A Google Sheet id is only these characters. Mirrors the server-side check — never interpolate an
+ * unvalidated id into a URL, and don't offer a link for one we haven't validated.
+ */
+const SHEET_ID_RE = /^[A-Za-z0-9_-]+$/;
+/** Accept a pasted full sheet URL as well as a bare id. */
+function toSheetId(input: string): string {
+  const s = input.trim();
+  const m = s.match(/\/spreadsheets\/d\/([A-Za-z0-9_-]+)/);
+  return m ? m[1] : s;
+}
+
 type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
@@ -425,8 +437,8 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function handleSourceCompare() {
-    const id = srcId.trim();
-    if (!id) return;
+    const id = toSheetId(srcId);
+    if (!SHEET_ID_RE.test(id)) return;
     setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setMsg('');
     try {
       const loader = FACTION_LOADERS[srcFaction];
@@ -586,6 +598,10 @@ export function AdminPanel({ onClose }: Props) {
     return true;
   });
   const transKeys = transKeysAll.slice(0, 150);
+
+  // normalised + validated sheet id (accepts a pasted URL); gates both the request and the link
+  const srcSheetId = toSheetId(srcId);
+  const srcIdOk = SHEET_ID_RE.test(srcSheetId);
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
@@ -1000,7 +1016,7 @@ export function AdminPanel({ onClose }: Props) {
                   placeholder={L.srcSpreadsheetId}
                   className="flex-1 min-w-[220px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
                 />
-                <button onClick={handleSourceCompare} disabled={srcRunning || !srcId.trim()} className={toolbarBtn}>
+                <button onClick={handleSourceCompare} disabled={srcRunning || !srcIdOk} className={toolbarBtn}>
                   {srcRunning ? L.srcComparing : L.srcCompare}
                 </button>
               </div>
@@ -1009,11 +1025,13 @@ export function AdminPanel({ onClose }: Props) {
                   <p className={`text-[10px] font-mono ${srcCoverage.fetched < srcCoverage.total ? 'text-amber-500' : 'text-zinc-500'}`}>
                     {L.srcCoverage(srcCoverage.fetched, srcCoverage.total)}
                   </p>
-                  <a
-                    href={`https://docs.google.com/spreadsheets/d/${srcId.trim()}/edit`}
-                    target="_blank" rel="noopener noreferrer"
-                    className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
-                  >{L.srcOpenSheet}</a>
+                  {srcIdOk && (
+                    <a
+                      href={`https://docs.google.com/spreadsheets/d/${encodeURIComponent(srcSheetId)}/edit`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
+                    >{L.srcOpenSheet}</a>
+                  )}
                 </div>
               )}
               {srcFindings && (
