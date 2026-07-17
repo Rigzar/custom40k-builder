@@ -181,7 +181,7 @@ export function CampaignBattleLog({ campaign, isGm, onSectorChanged }: Props) {
 
               {/* Notes */}
               <input value={notes} onChange={e => setNotes(e.target.value)}
-                placeholder="Battle notes..."
+                placeholder={t('campaignBattleNotesPlaceholder')}
                 className="cog-input w-full text-[11px]" />
 
               <button className="cog-btn cog-btn-amber w-full text-[10px]"

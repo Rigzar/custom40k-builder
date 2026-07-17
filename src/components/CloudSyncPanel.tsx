@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import { useCloudSync } from '../hooks/useCloudSync';
 import { useSavedArmies } from '../hooks/useSavedArmies';
+import { useT } from '../i18n';
 
 export function CloudSyncPanel() {
+  const t = useT();
   const { syncKey, status, lastSync, push, pull, enabled } = useCloudSync();
   const { saves, saveArmy } = useSavedArmies();
   const [importing, setImporting] = useState(false);
@@ -104,7 +106,7 @@ export function CloudSyncPanel() {
           <input
             value={importKey}
             onChange={e => setImportKey(e.target.value.toUpperCase())}
-            placeholder="Enter sync key…"
+            placeholder={t('cloudSyncKeyPlaceholder')}
             maxLength={12}
             className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-200 text-[11px] font-mono px-2 py-1 min-w-0 focus:outline-none focus:border-amber-600"
           />

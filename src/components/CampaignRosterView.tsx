@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
+import { useT } from '../i18n';
 
 const SLOTS = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Dedicated Transport', 'Flyers', 'Lords of War'];
 const STATUSES: api.CampaignRosterEntry['status'][] = ['active', 'wounded', 'dead'];
@@ -51,6 +52,7 @@ interface Props {
 }
 
 export function CampaignRosterView({ campaign, isGm, myFaction }: Props) {
+  const t = useT();
   const [roster, setRoster]   = useState<api.CampaignRosterEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError]     = useState('');
@@ -151,7 +153,7 @@ export function CampaignRosterView({ campaign, isGm, myFaction }: Props) {
         <div className="cog-panel cog-appear p-3 space-y-2">
           <p className="cog-text-dim text-[9px] tracking-widest">◈ UNIT ENLISTMENT FORM ◈</p>
           <input value={addName} onChange={e => setAddName(e.target.value)}
-            placeholder="Unit designation..."
+            placeholder={t('campaignUnitDesignationPlaceholder')}
             className="cog-input w-full text-[11px]" />
           <div className="grid grid-cols-2 gap-2">
             {isGm ? (

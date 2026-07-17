@@ -186,7 +186,14 @@ export type TranslationKey =
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
   | 'secretQuestionExample' | 'answerPlaceholder' | 'logoutButton'
-  | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton';
+  | 'imageTooLarge' | 'imageUploadHint' | 'uploadImageButton' | 'replaceImageButton'
+  // strings migrated out of hard-coded components so the translator can reach them (seeded = EN)
+  | 'prefsCloudAutosave' | 'prefsDefaultEngagement' | 'cloudSyncKeyPlaceholder'
+  | 'campaignDeleteTitle' | 'campaignUnitDesignationPlaceholder' | 'campaignBattleNotesPlaceholder'
+  | 'prefsTitle' | 'prefsAutosaveOff' | 'prefsAutosaveOffDesc' | 'prefsAutosaveClose' | 'prefsAutosaveCloseDesc'
+  | 'prefsAutosave30' | 'prefsAutosave30Desc' | 'prefsAutosave5' | 'prefsAutosave5Desc'
+  | 'prefsDefaultEngagementHint' | 'prefsEngNoDefault' | 'prefsEngSkirmish' | 'prefsEngPitched' | 'prefsEngEpic'
+  | 'prefsDefaultPoints' | 'prefsDefaultPointsHint' | 'prefsPointsNoDefault';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -736,6 +743,18 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     imageTooLarge: 'Image too large after compression. Try a smaller or lower-res file.',
     imageUploadHint: 'Max ~150 KB · auto-compressed',
     uploadImageButton: '+ Upload image', replaceImageButton: 'Replace image',
+    prefsCloudAutosave: 'Cloud autosave', prefsDefaultEngagement: 'Default engagement',
+    cloudSyncKeyPlaceholder: 'Enter sync key…',
+    campaignDeleteTitle: 'Delete campaign',
+    campaignUnitDesignationPlaceholder: 'Unit designation...', campaignBattleNotesPlaceholder: 'Battle notes...',
+    prefsTitle: 'Preferences',
+    prefsAutosaveOff: 'Off', prefsAutosaveOffDesc: 'No automatic saving',
+    prefsAutosaveClose: 'On close', prefsAutosaveCloseDesc: 'Only when you close the tab',
+    prefsAutosave30: 'Every 30 s', prefsAutosave30Desc: 'After 30 s of inactivity (recommended)',
+    prefsAutosave5: 'Every 5 min', prefsAutosave5Desc: 'After 5 min of inactivity',
+    prefsDefaultEngagementHint: 'Pre-selects the engagement type when you start a new army.',
+    prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
+    prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -1284,6 +1303,18 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     imageTooLarge: 'Bild nach Komprimierung zu groß. Bitte kleinere oder geringer aufgelöste Datei verwenden.',
     imageUploadHint: 'Max. ~150 KB · automatisch komprimiert',
     uploadImageButton: '+ Bild hochladen', replaceImageButton: 'Bild ersetzen',
+    prefsCloudAutosave: 'Cloud autosave', prefsDefaultEngagement: 'Default engagement',
+    cloudSyncKeyPlaceholder: 'Enter sync key…',
+    campaignDeleteTitle: 'Delete campaign',
+    campaignUnitDesignationPlaceholder: 'Unit designation...', campaignBattleNotesPlaceholder: 'Battle notes...',
+    prefsTitle: 'Preferences',
+    prefsAutosaveOff: 'Off', prefsAutosaveOffDesc: 'No automatic saving',
+    prefsAutosaveClose: 'On close', prefsAutosaveCloseDesc: 'Only when you close the tab',
+    prefsAutosave30: 'Every 30 s', prefsAutosave30Desc: 'After 30 s of inactivity (recommended)',
+    prefsAutosave5: 'Every 5 min', prefsAutosave5Desc: 'After 5 min of inactivity',
+    prefsDefaultEngagementHint: 'Pre-selects the engagement type when you start a new army.',
+    prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
+    prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -1832,6 +1863,18 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     imageTooLarge: 'Imagen demasiado grande tras la compresión. Prueba con un archivo más pequeño o de menor resolución.',
     imageUploadHint: 'Máx. ~150 KB · compresión automática',
     uploadImageButton: '+ Subir imagen', replaceImageButton: 'Reemplazar imagen',
+    prefsCloudAutosave: 'Cloud autosave', prefsDefaultEngagement: 'Default engagement',
+    cloudSyncKeyPlaceholder: 'Enter sync key…',
+    campaignDeleteTitle: 'Delete campaign',
+    campaignUnitDesignationPlaceholder: 'Unit designation...', campaignBattleNotesPlaceholder: 'Battle notes...',
+    prefsTitle: 'Preferences',
+    prefsAutosaveOff: 'Off', prefsAutosaveOffDesc: 'No automatic saving',
+    prefsAutosaveClose: 'On close', prefsAutosaveCloseDesc: 'Only when you close the tab',
+    prefsAutosave30: 'Every 30 s', prefsAutosave30Desc: 'After 30 s of inactivity (recommended)',
+    prefsAutosave5: 'Every 5 min', prefsAutosave5Desc: 'After 5 min of inactivity',
+    prefsDefaultEngagementHint: 'Pre-selects the engagement type when you start a new army.',
+    prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
+    prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
   },
 };
 

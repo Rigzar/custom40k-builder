@@ -276,7 +276,7 @@ export function CampaignModal({ onClose }: Props) {
                       <button
                         onClick={e => { e.stopPropagation(); setDeletingCampaign(c); setDeleteConfirmName(''); setError(''); }}
                         className="ml-1 cog-text-dim hover:cog-text-red transition-colors shrink-0"
-                        title="Delete campaign">
+                        title={t('campaignDeleteTitle')}>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -407,7 +407,7 @@ export function CampaignModal({ onClose }: Props) {
             <input autoFocus value={deleteConfirmName}
               onChange={e => setDeleteConfirmName(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter' && deleteConfirmName === deletingCampaign.name) handleDeleteCampaign(); }}
-              placeholder="Campaign name…"
+              placeholder={t('campaignNamePlaceholder')}
               className="cog-input w-full text-[11px]" />
             <button
               disabled={deleteConfirmName !== deletingCampaign.name || deleting}
