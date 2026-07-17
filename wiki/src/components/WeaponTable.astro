@@ -1,6 +1,7 @@
 ---
 import type { Weapon } from '../vendor/src/types/data';
 import { parseAbility, normaliseKey } from '../lib/glossary';
+import { wt } from '../lib/i18n';
 
 interface Props {
   weapons: Weapon[];
@@ -11,13 +12,13 @@ const { weapons } = Astro.props;
   <table class="weapon-table">
     <thead>
       <tr>
-        <th class="col-name">Weapon</th>
-        <th>Range</th>
-        <th>Type</th>
+        <th class="col-name">{wt('colWeapon')}</th>
+        <th>{wt('colRange')}</th>
+        <th>{wt('colType')}</th>
         <th class="col-stat">S</th>
         <th class="col-stat">AP</th>
         <th class="col-stat">D</th>
-        <th class="col-abilities">Abilities</th>
+        <th class="col-abilities">{wt('colAbilities')}</th>
       </tr>
     </thead>
     <tbody>
