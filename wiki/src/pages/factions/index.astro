@@ -2,15 +2,16 @@
 import Layout from '../../components/Layout.astro';
 import { ALL_FACTIONS } from '../../lib/factions';
 import { CATEGORIES } from '../../lib/factionMeta';
+import { wt } from '../../lib/i18n';
 
 function configFor(key: string) {
   return ALL_FACTIONS.find(f => f.key === key);
 }
 ---
 <Layout title="Factions — Custom40k Wiki">
-  <p class="crumbs"><a href="/">&larr; Home</a></p>
-  <h1 class="page-title">Factions</h1>
-  <p class="page-intro">Faction codices — units, weapons, abilities and points, generated from the canonical data.</p>
+  <p class="crumbs"><a href="/">&larr; {wt('crumbHome')}</a></p>
+  <h1 class="page-title">{wt('navFactions')}</h1>
+  <p class="page-intro">{wt('factionsIntro')}</p>
 
   <div class="categories">
     {CATEGORIES.map(cat => (

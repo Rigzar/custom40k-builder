@@ -5,6 +5,7 @@ import ArmoryEquipmentList from '../../../../components/ArmoryEquipmentList.astr
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { getArmoryKeyIcon } from '../../../../lib/legacyIcons';
+import { wt } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -35,10 +36,10 @@ const singleTab = allTabs.length <= 1;
 ---
 <Layout title={`Armory — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / Armory
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / {wt('headingArmory')}
   </p>
-  <h1>Armory</h1>
+  <h1>{wt('headingArmory')}</h1>
 
   {!singleTab && (
     <div class="tab-bar" role="tablist">
@@ -61,19 +62,19 @@ const singleTab = allTabs.length <= 1;
     <div id={tabId('general')} class="tab-panel active">
       {armoryGeneral.weapons.length > 0 && (
         <>
-          <h2>Weapons</h2>
+          <h2>{wt('headingWeapons')}</h2>
           <ArmoryWeaponTable items={armoryGeneral.weapons} />
         </>
       )}
       {armoryGeneral.equipment.length > 0 && (
         <>
-          <h2>Equipment</h2>
+          <h2>{wt('headingEquipment')}</h2>
           <ArmoryEquipmentList items={armoryGeneral.equipment} />
         </>
       )}
       {armoryGeneral.daemon_weapons && armoryGeneral.daemon_weapons.length > 0 && (
         <>
-          <h2>Daemon Weapons</h2>
+          <h2>{wt('headingDaemonWeapons')}</h2>
           <ArmoryWeaponTable items={armoryGeneral.daemon_weapons} />
         </>
       )}
@@ -100,15 +101,15 @@ const singleTab = allTabs.length <= 1;
         )}
         {armory.weapons.length > 0 && (
           <>
-            {!singleTab && <h2>Weapons</h2>}
-            {singleTab && <h3>Weapons</h3>}
+            {!singleTab && <h2>{wt('headingWeapons')}</h2>}
+            {singleTab && <h3>{wt('headingWeapons')}</h3>}
             <ArmoryWeaponTable items={armory.weapons} />
           </>
         )}
         {armory.equipment.length > 0 && (
           <>
-            {!singleTab && <h2>Equipment</h2>}
-            {singleTab && <h3>Equipment</h3>}
+            {!singleTab && <h2>{wt('headingEquipment')}</h2>}
+            {singleTab && <h3>{wt('headingEquipment')}</h3>}
             <ArmoryEquipmentList items={armory.equipment} />
           </>
         )}

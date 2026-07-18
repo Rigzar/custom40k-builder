@@ -4,6 +4,7 @@ import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { findClanIcon } from '../../../../lib/clans';
 import { getLegacyIcon } from '../../../../lib/legacyIcons';
+import { wt } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -25,10 +26,10 @@ function ptsEntries(t: Trait): Array<{ label: string; pts: string }> {
 ---
 <Layout title={`Army Customisation — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / Army Customisation
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / {wt('headingArmyCustomisation')}
   </p>
-  <h1>Army Customisation</h1>
+  <h1>{wt('headingArmyCustomisation')}</h1>
 
   {archetypes.length > 0 && (
     <section class="reveal">

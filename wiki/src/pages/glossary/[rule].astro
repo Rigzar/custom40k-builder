@@ -1,18 +1,21 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { RULES, normaliseKey } from '../../lib/glossary';
+import { wt, wtContent } from '../../lib/i18n';
 
 export async function getStaticPaths() {
   return Object.keys(RULES).map(key => ({ params: { rule: key }, props: { entry: RULES[key] } }));
 }
 
 const { entry } = Astro.props;
-const description = entry.description.replace(/\{X\}/g, 'X');
+// rule descriptions are translatable content, keyed by the rule's glossary key
+const ruleKey = String(Astro.params.rule);
+const description = wtContent('glossary', ruleKey, entry.description).replace(/\{X\}/g, 'X');
 ---
 <Layout title={`${entry.name} — Custom40k Wiki Glossary`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
-    <a href="/glossary">Glossary</a> /
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
+    <a href="/glossary">{wt('crumbGlossary')}</a> /
     {entry.name}
   </p>
   <h1>{entry.name}</h1>
@@ -22,11 +25,11 @@ const description = entry.description.replace(/\{X\}/g, 'X');
         <circle cx="11" cy="11" r="9" stroke="var(--c40k-red,#a21217)" stroke-width="1.5" fill="none"/>
         <circle cx="11" cy="11" r="4" fill="var(--c40k-red,#a21217)" opacity="0.7"/>
       </svg>
-      <span class="rule-label">Special Rule</span>
+      <span class="rule-label">{wt('glossaryRuleLabel')}</span>
     </div>
     <p class="rule-desc">{description}</p>
   </div>
-  <p class="back-link"><a href="/glossary">&larr; Back to Glossary</a></p>
+  <p class="back-link"><a href="/glossary">&larr; {wt('glossaryBack')}</a></p>
 </Layout>
 
 <style>

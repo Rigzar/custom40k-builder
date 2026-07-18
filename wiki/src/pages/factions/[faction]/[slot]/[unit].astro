@@ -7,6 +7,7 @@ import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionUnits } from '../../../../lib/units';
 import { slugify } from '../../../../lib/slugs';
 import { getSlotIcon } from '../../../../lib/slots';
+import { wt } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -42,9 +43,9 @@ const costLabel = unit.models.length === 1
 ---
 <Layout title={`${unit.name} — ${factionLabel} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
     <a href={`/factions/${factionKey}`}>{factionLabel}</a> /
-    <a href={`/factions/${factionKey}/units`}>Units</a> /
+    <a href={`/factions/${factionKey}/units`}>{wt('crumbUnits')}</a> /
     {slotIcon
       ? <span class="crumb-slot"><img src={slotIcon} alt="" width="13" height="13" /> {slot}</span>
       : slot}
@@ -100,7 +101,7 @@ const costLabel = unit.models.length === 1
   <!-- Weapons -->
   {unit.weapons.length > 0 && (
     <section class="reveal">
-      <h2>Weapons</h2>
+      <h2>{wt('headingWeapons')}</h2>
       <WeaponTable weapons={unit.weapons} />
     </section>
   )}
@@ -108,7 +109,7 @@ const costLabel = unit.models.length === 1
   <!-- Wargear options -->
   {unit.option_groups.length > 0 && (
     <section class="reveal">
-      <h2>Wargear Options</h2>
+      <h2>{wt('headingWargearOptions')}</h2>
       <div class="option-groups">
         {unit.option_groups.map(g => (
           <div class="option-group">
@@ -138,7 +139,7 @@ const costLabel = unit.models.length === 1
   <!-- Abilities -->
   {unit.abilities.length > 0 && (
     <section class="reveal">
-      <h2>Abilities</h2>
+      <h2>{wt('headingAbilities')}</h2>
       <AbilityList abilities={unit.abilities} />
     </section>
   )}

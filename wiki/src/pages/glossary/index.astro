@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
 import { RULES } from '../../lib/glossary';
+import { wt, wtf } from '../../lib/i18n';
 
 const keys = Object.keys(RULES).sort();
 
@@ -12,9 +13,9 @@ for (const k of keys) {
 const letters = Object.keys(byLetter).sort();
 ---
 <Layout title="Glossary — Custom40k Wiki">
-  <p class="crumbs"><a href="/">&larr; Home</a></p>
-  <h1>Rules glossary</h1>
-  <p class="page-intro">{keys.length} special rules, weapon abilities, and universal keywords.</p>
+  <p class="crumbs"><a href="/">&larr; {wt('crumbHome')}</a></p>
+  <h1>{wt('glossaryHeading')}</h1>
+  <p class="page-intro">{wtf('glossaryIntro', { n: keys.length })}</p>
 
   {letters.map(letter => (
     <section class="letter-section reveal">

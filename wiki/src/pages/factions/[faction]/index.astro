@@ -4,6 +4,7 @@ import { ALL_FACTIONS } from '../../../lib/factions';
 import { getFactionExtras } from '../../../lib/factionExtras';
 import { getFactionDescription, getFactionVersion } from '../../../lib/factionMeta';
 import { ARMY_RULES } from '../../../lib/armyRules';
+import { wtContent } from '../../../lib/i18n';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -126,7 +127,7 @@ const TAG_COLORS: Record<string, string> = {
                   </span>
                 )}
               </div>
-              <p class="rule-desc">{rule.description}</p>
+              <p class="rule-desc">{wtContent('armyRules', `${factionKey}::${rule.name}`, rule.description)}</p>
             </div>
           ))}
         </div>

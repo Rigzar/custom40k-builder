@@ -31,6 +31,30 @@ export const WIKI_STRINGS = {
   colProfile: 'Profile', colPts: 'Pts', colMin: 'Min', colMax: 'Max',
   // weapon table
   colWeapon: 'Weapon', colRange: 'Range', colType: 'Type', colAbilities: 'Abilities',
+  // breadcrumbs / shared
+  crumbHome: 'Home', crumbAllFactions: 'All factions', crumbGlossary: 'Glossary', crumbUnits: 'Units',
+  // glossary
+  glossaryHeading: 'Rules glossary',
+  glossaryIntro: '{n} special rules, weapon abilities, and universal keywords.',
+  glossaryRuleLabel: 'Special Rule',
+  glossaryBack: 'Back to Glossary',
+  // factions index
+  factionsIntro: 'Faction codices — units, weapons, abilities and points, generated from the canonical data.',
+  // faction sub-pages
+  headingArmyCustomisation: 'Army Customisation',
+  headingArmory: 'Armory',
+  headingWeapons: 'Weapons',
+  headingEquipment: 'Equipment',
+  headingDaemonWeapons: 'Daemon Weapons',
+  headingWargearOptions: 'Wargear Options',
+  headingAbilities: 'Abilities',
+  headingPsychicPowers: 'Psychic Powers',
+  colPower: 'Power', colTarget: 'Target', colCast: 'Cast',
+  // missions
+  missionsEngagementTypes: 'Engagement Types',
+  missionsScoring: 'Scoring',
+  missionsSecondary: 'Secondary Objectives',
+  missionsList: 'Mission List',
 } as const;
 
 export type WikiKey = keyof typeof WIKI_STRINGS;
@@ -46,6 +70,11 @@ const O = overrides as OverrideShape;
 /** Translate a UI/chrome key (falls back to the English source). */
 export function wt(key: WikiKey): string {
   return O[WIKI_LANG]?.ui?.[key] ?? WIKI_STRINGS[key];
+}
+
+/** Translate a UI key and interpolate `{name}` placeholders. */
+export function wtf(key: WikiKey, vars: Record<string, string | number>): string {
+  return wt(key).replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? ''));
 }
 
 /** Translate a content string by namespace + id, falling back to the given English text. */

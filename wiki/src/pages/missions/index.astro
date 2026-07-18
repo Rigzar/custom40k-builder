@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/Layout.astro';
+import { wt } from '../../lib/i18n';
 ---
 <Layout title="Missions — Custom40k Wiki">
 
@@ -26,7 +27,7 @@ import Layout from '../../components/Layout.astro';
   <section class="section reveal">
     <div class="section-header">
       <div class="section-line" />
-      <h2 class="section-heading">Engagement Types</h2>
+      <h2 class="section-heading">{wt('missionsEngagementTypes')}</h2>
       <div class="section-line" />
     </div>
     <p class="section-intro">Each engagement type defines army size, AOP slots, and special restrictions. All engagements require at least 25% of points spent on Troops.</p>
@@ -165,7 +166,7 @@ import Layout from '../../components/Layout.astro';
   <section class="section reveal">
     <div class="section-header">
       <div class="section-line" />
-      <h2 class="section-heading">Scoring</h2>
+      <h2 class="section-heading">{wt('missionsScoring')}</h2>
       <div class="section-line" />
     </div>
     <div class="scoring-grid">
@@ -209,7 +210,7 @@ import Layout from '../../components/Layout.astro';
   <section class="section reveal">
     <div class="section-header">
       <div class="section-line" />
-      <h2 class="section-heading">Secondary Objectives</h2>
+      <h2 class="section-heading">{wt('missionsSecondary')}</h2>
       <div class="section-line" />
     </div>
     <p class="section-intro">Used by all missions unless stated otherwise. Each secondary objective is worth <strong>200 VP</strong>.</p>
@@ -241,7 +242,7 @@ import Layout from '../../components/Layout.astro';
   <section class="section reveal">
     <div class="section-header">
       <div class="section-line" />
-      <h2 class="section-heading">Mission List</h2>
+      <h2 class="section-heading">{wt('missionsList')}</h2>
       <div class="section-line" />
     </div>
 

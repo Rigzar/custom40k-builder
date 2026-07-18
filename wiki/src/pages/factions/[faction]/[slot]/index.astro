@@ -6,6 +6,7 @@ import { getFactionUnits } from '../../../../lib/units';
 import { getSlotIcon } from '../../../../lib/slots';
 import { slugify } from '../../../../lib/slugs';
 import { ESCALATION_FACTIONS } from '../../../../lib/factionMeta';
+import { wt } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   const paths = [];
@@ -30,7 +31,7 @@ const slotIcon = getSlotIcon(slotLabel);
 ---
 <Layout title={`${slotLabel} — ${config.label} — Custom40k Wiki`}>
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
     <a href={`/factions/${factionKey}`}>{config.label}</a> /
     {slotLabel}
   </p>

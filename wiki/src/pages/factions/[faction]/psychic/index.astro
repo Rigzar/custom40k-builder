@@ -3,6 +3,7 @@ import Layout from '../../../../components/Layout.astro';
 import { ALL_FACTIONS } from '../../../../lib/factions';
 import { getFactionExtras } from '../../../../lib/factionExtras';
 import { GENERAL_DISCIPLINES } from '../../../../lib/generalDisciplines';
+import { wt } from '../../../../lib/i18n';
 
 export async function getStaticPaths() {
   return ALL_FACTIONS.map(f => ({ params: { faction: f.key } }));
@@ -58,10 +59,10 @@ function getDiscIcon(name: string): string {
 <Layout title={`Psychic Powers — ${config.label} — Custom40k Wiki`}>
   <!-- Disciplines only: prayers and pacts have their own page at /prayers -->
   <p class="crumbs">
-    <a href="/factions">&larr; All factions</a> /
-    <a href={`/factions/${factionKey}`}>{config.label}</a> / Psychic Powers
+    <a href="/factions">&larr; {wt('crumbAllFactions')}</a> /
+    <a href={`/factions/${factionKey}`}>{config.label}</a> / {wt('headingPsychicPowers')}
   </p>
-  <h1>Psychic Powers</h1>
+  <h1>{wt('headingPsychicPowers')}</h1>
 
   {!singleTab && (
     <div class="tab-bar" role="tablist">
@@ -94,11 +95,11 @@ function getDiscIcon(name: string): string {
       <table class="power-table">
         <thead>
           <tr>
-            <th>Power</th>
-            <th>Type</th>
-            <th>Range</th>
-            <th>Target</th>
-            <th>Cast</th>
+            <th>{wt('colPower')}</th>
+            <th>{wt('colType')}</th>
+            <th>{wt('colRange')}</th>
+            <th>{wt('colTarget')}</th>
+            <th>{wt('colCast')}</th>
             <th>Effect</th>
             <th>Duration</th>
             <th>Complexity</th>
