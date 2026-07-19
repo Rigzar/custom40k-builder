@@ -99,7 +99,7 @@ export const defiler: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AP(2), Barrage, Tank hunter"
+      "abilities": "AT(2), Barrage, Tank hunter"
     },
     {
       "name": "Combi-bolter",

@@ -58,7 +58,7 @@ export const mutalithVortexBeast: Unit = {
       "s": "10",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(4), Beam, Soul fire(5+)"
+      "abilities": "AT(4), Beam, Soul burn(5+)"
     },
     {
       "name": "Warp Vortex - Immaterial Flare",
@@ -67,7 +67,7 @@ export const mutalithVortexBeast: Unit = {
       "s": "6",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Soul fire(5+)"
+      "abilities": "Flames, Soul burn(5+)"
     }
   ],
   "option_groups": [],

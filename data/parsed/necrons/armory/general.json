@@ -185,7 +185,7 @@
       "s": "10",
       "ap": "-5",
       "d": "3",
-      "abilities": "Ammunition(1), AT(5), Beam",
+      "abilities": "Ammo(1), AT(5), Beam",
       "p_unit": null,
       "p_char": 26
     },

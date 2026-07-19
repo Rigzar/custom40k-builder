@@ -113,7 +113,7 @@ export const atalanJackals: Unit = {
       "s": "8",
       "ap": "-2",
       "d": "2",
-      "abilities": "Ammo(1), AT(2), Barrage, Munition(1), Seeking"
+      "abilities": "Ammo(1), AT(2), Barrage, Ammo(1), Seeking"
     },
     {
       "name": "Heavy stubber",

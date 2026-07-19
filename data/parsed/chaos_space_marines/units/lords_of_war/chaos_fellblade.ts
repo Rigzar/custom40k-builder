@@ -130,7 +130,7 @@ export const chaosFellblade: Unit = {
       "s": "9",
       "ap": "-4",
       "d": "3",
-      "abilities": "AP(3)"
+      "abilities": "AT(3)"
     },
     {
       "name": "Storm bolter",

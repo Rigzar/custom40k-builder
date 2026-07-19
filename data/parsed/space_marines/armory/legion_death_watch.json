@@ -111,7 +111,7 @@
       "s": "D",
       "ap": "-4",
       "d": "3",
-      "abilities": "Ammunition(1), AT(4), Unique",
+      "abilities": "Ammo(1), AT(4), Unique",
       "p_unit": null,
       "p_char": 13
     },

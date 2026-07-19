@@ -552,15 +552,60 @@ export const RULES: Record<string, RuleEntry> = {
  * (engine/specialRules.ts) reuses the exact same "Name(param)" extraction (e.g.
  * "Rending(4+)" -> { key: 'rending', param: '4+' }) instead of re-implementing it.
  */
+/**
+ * Shorthand the codices use consistently for a Core Rules ability. These are house style, not
+ * typos — the .ods writes them this way on many sheets — so they are resolved here rather than
+ * rewritten in the data, which keeps future imports working and leaves the printed text alone.
+ */
+const RULE_ALIASES: Record<string, string> = {
+  'overheat': 'overheating',      // Core Rules L1413 "Overheating"; every codex writes "Overheat"
+  'indirect fire': 'indirect',    // Core Rules L1402 "Indirect"
+};
+
+/** Split "Rending(4+)" into key + param. No restriction-sentence handling — see normaliseKey. */
+function splitToken(t: string): { key: string; param: string | null } {
+  const m = t.trim().match(/^(.+?)\s*\(([^)]+)\)\s*$/);
+  return m
+    ? { key: m[1].trim().toLowerCase(), param: m[2].trim() }
+    : { key: t.trim().toLowerCase(), param: null };
+}
+
+const resolveAlias = (k: string) => RULE_ALIASES[k] ?? k;
+
+/**
+ * Turn one raw ability token into a glossary key + parameter.
+ *
+ * Ability tokens are comma-separated, but the codices routinely append a restriction sentence to
+ * one of them rather than putting it elsewhere — "Armorbane. Only for Warpsmiths",
+ * "Poison(4+). Painboy only.", "Soul Burn(5+) Forge World Ryza only.", or just a stray trailing
+ * period ("Unwieldy."). Matching only the whole token silently dropped the ability on 26 weapons
+ * across 10 factions: no glossary link, and invisible to every engine query. So try, in order:
+ * the whole token, the part before the first period, then a leading "Name(param)" prefix.
+ */
 export function normaliseKey(raw: string): { key: string; param: string | null } {
-  const m = raw.trim().match(/^(.+?)\s*\(([^)]+)\)\s*$/);
-  if (m) {
-    return {
-      key: m[1].trim().toLowerCase(),
-      param: m[2].trim(),
-    };
+  const trimmed = raw.trim();
+
+  const direct = splitToken(trimmed);
+  const directKey = resolveAlias(direct.key);
+  if (Object.prototype.hasOwnProperty.call(RULES, directKey)) {
+    return { key: directKey, param: direct.param };
   }
-  return { key: raw.trim().toLowerCase(), param: null };
+
+  const head = trimmed.split('.')[0].trim();
+  if (head && head !== trimmed) {
+    const h = splitToken(head);
+    const hk = resolveAlias(h.key);
+    if (Object.prototype.hasOwnProperty.call(RULES, hk)) return { key: hk, param: h.param };
+  }
+
+  // "Soul Burn(5+) Forge World Ryza only." — restriction appended with no separating period.
+  const lead = trimmed.match(/^([A-Za-z][A-Za-z '-]*?)\s*\(([^)]+)\)/);
+  if (lead) {
+    const lk = resolveAlias(lead[1].trim().toLowerCase());
+    if (Object.prototype.hasOwnProperty.call(RULES, lk)) return { key: lk, param: lead[2].trim() };
+  }
+
+  return { key: directKey, param: direct.param };
 }
 
 /**
@@ -632,7 +677,15 @@ export function parseAbility(raw: string): AbilityPart[] {
     if (!t) return null;
     const found = lookupRule(t);
     if (found) {
-      return { displayName: found.displayName, description: found.description, isCustom: false };
+      // normaliseKey now resolves a token that carries a restriction sentence
+      // ("Armorbane. Only for Warpsmiths"). Keep the WHOLE token as the label so the
+      // restriction stays on screen — only the description comes from the glossary.
+      const carriesRestriction = /\.\s*\S/.test(t) || /\)\s+\S/.test(t);
+      return {
+        displayName: carriesRestriction ? t.replace(/\s+$/, '') : found.displayName,
+        description: found.description,
+        isCustom: false,
+      };
     }
     return { displayName: t, description: null, isCustom: false };
   }).filter(Boolean) as AbilityPart[];

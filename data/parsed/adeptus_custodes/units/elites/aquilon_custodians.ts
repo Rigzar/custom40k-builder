@@ -58,7 +58,7 @@ export const aquilonCustodians: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AP(2), Slow(-1)"
+      "abilities": "AT(2), Slow(-1)"
     },
     {
       "name": "Solerite power talon",

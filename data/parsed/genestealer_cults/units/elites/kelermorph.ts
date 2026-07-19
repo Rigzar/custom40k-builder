@@ -40,7 +40,7 @@ export const kelermorph: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armor piercing(5+), Deflagration(5+)"
+      "abilities": "Armor piercing(5+), Deflagrate(5+)"
     }
   ],
   "option_groups": [

@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-ability-token-restriction-suffix-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — an ability written with a restriction attached ("Armorbane. Only for Warpsmiths") was dropped entirely: no glossary description and invisible to every rules query',
+    description: 'FIXED 2026-07-19 (v1.54). The token parser split `weapon.abilities` on commas/semicolons and looked the whole token up in the glossary, so anything carrying trailing prose failed. 26 weapons across 10 factions: "Armorbane. Only for Warpsmiths", "Poison(4+). Painboy only.", "Unwieldy.", "Combi.", "Soul Burn(5+) Forge World Ryza only." and similar. Fixed at the right altitude — in `normaliseKey` (coreRules.ts), which feeds BOTH the display layer (lookupRule/parseAbility) and the engine query layer (parseRuleList/hasRule) — by trying the whole token, then the part before the first period, then a leading "Name(param)" prefix. `parseAbility` keeps the full original text as the chip label when it carries a restriction, so the restriction stays on screen and only the description comes from the glossary. Also added a small alias map for shorthand the codices use consistently: "Overheat" → Overheating (Core Rules L1413) and "Indirect fire" → Indirect (L1402), 18 more weapons — aliased rather than rewritten so future .ods imports keep working. Verified by re-running the full unresolved-token audit: 26 → 0. The 64 tokens still unresolved are faction-specific weapon keywords with no Core Rules entry (Shuriken, Tesla, Gauss, Luminagen, Markerlight, Cognis...) and datasheet prose — not typos.',
+  },
+  {
     id: 'ki-traits-vehicle-shared-monster-column-01',
     status: 'fixed',
     title: 'CROSS-FACTION — no vehicle could select an Army Trait in 8 factions, and 3 vehicle-only traits never appeared in the picker at all',

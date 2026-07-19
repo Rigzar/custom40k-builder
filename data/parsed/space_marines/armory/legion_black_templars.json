@@ -14,7 +14,7 @@
       "s": "1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Ammunition(1), AT(2), Explosive, Haywire, Poison(2+), Unique",
+      "abilities": "Ammo(1), AT(2), Explosive, Haywire, Poison(2+), Unique",
       "p_unit": 5,
       "p_char": 5
     }
