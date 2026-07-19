@@ -15,7 +15,7 @@
       "type": "Witchfire",
       "range": "18\"",
       "target": "Enemy unit",
-      "cast_value": "5",
+      "cast_value": "6",
       "effect": "The target unit receives 3 hits +1 for each Judgement token on the target unit. The hits are resolved with S:5 AP:-2 D:1, Seeking.",
       "duration": "Instant",
       "complexity": "Normal"
@@ -25,8 +25,8 @@
       "type": "Augmentation",
       "range": "12\"",
       "target": "Friendly unit",
-      "cast_value": "5",
-      "effect": "The target may change the result of a single die roll to any result during their own activation.",
+      "cast_value": "6",
+      "effect": "The target may change the result of a single die roll of their own dice to any result during their own activation.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

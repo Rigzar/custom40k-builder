@@ -306,7 +306,7 @@
       "name": "Melta bombs",
       "term_compat": false,
       "range": "3\"",
-      "type": "Granate",
+      "type": "Grenade",
       "s": "8",
       "ap": "-5",
       "d": "2",

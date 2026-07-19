@@ -54,7 +54,12 @@ function _getAllowedDiscKeys(
   const isCultInitiate = !!unit.is_cult_initiate || item.armory.some(a => a.itemName === 'Cult initiate');
   const isSMFaction = data.faction === 'Space Marines';
 
-  const factionDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
+  // Mirrors PsychicModal: a "counts as Chaos" archetype (Traitor Guard, Dark Mechanicum) REPLACES
+  // this faction's disciplines with the granting faction's. `data` is the allied faction's own
+  // FactionData for allied entries, which never carries archetype_armory — so allies keep theirs.
+  const chaosGrant = data.archetype_armory?.grantsMarks ? data.archetype_armory : null;
+
+  const factionDiscs = Object.entries(chaosGrant ? chaosGrant.disciplines : (data.disciplines ?? {})).filter(([name]) => {
     if (_psyDiscIsCultOnly(name)) return isCultInitiate;
     if (isCultInitiate) return false;
     if (_psyDiscIsMarkOnly(name)) {
@@ -2403,6 +2408,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // per PCS instance (unlinked members aren't part of any platoon, so they're not checked here
   // — they each cost their own normal slot per countsTowardOwnSlot()).
   {
+    // An Infantry Squad is a platoon member with min 2 — it has no legal existence outside a
+    // platoon, so an unlinked one is an error (reported on Discord 2026-07-18: they could sit in
+    // an "independent" Troops slot forever). The other three members have min 0 and their own
+    // printed slot, so unlinked copies of those stay legal.
+    const orphanInfantry = state.army.filter(i =>
+      i.unitName === 'Infantry Squad' && !i.factionSource &&
+      !state.army.some(p => p.id === i.platoonId && p.unitName === PLATOON_ANCHOR_UNIT)
+    ).length;
+    if (orphanInfantry > 0) {
+      items.push({ type: 'error', text: T('valPlatoonUnlinkedInfantry', { count: orphanInfantry }) });
+    }
+
     const pcsUnits = state.army.filter(i => i.unitName === PLATOON_ANCHOR_UNIT && !i.factionSource);
     for (const pcs of pcsUnits) {
       for (const [memberName, { min, max }] of Object.entries(PLATOON_MEMBER_LIMITS)) {
@@ -2619,7 +2636,11 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const u = resolveUnit(entry, entryData);
     if (!u) continue;
 
-    if (!u.is_psyker) {
+    // `u.is_psyker` is the raw datasheet flag — a unit can BECOME a psyker at roster time
+    // (Mark of Tzeentch on a Character, or a paid "may be a psyker" option group), and the
+    // profile resolver is the only place that knows. Checking the raw flag wrongly invalidated
+    // every legal Tzeentch character carrying powers (Discord 2026-07-18).
+    if (!resolveUnitProfile(entry, u, state, entryData).effectivePsyker) {
       items.push({ type: 'error', text: `${entry.unitName}: has psychic powers selected but is not a psyker.` });
       continue;
     }

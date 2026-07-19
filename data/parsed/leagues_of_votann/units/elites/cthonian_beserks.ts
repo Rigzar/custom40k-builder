@@ -40,7 +40,7 @@ export const cthonianBeserks: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Slow(-2), Unwieldy"
+      "abilities": "AT(2), Slow(-2), Unwieldy"
     },
     {
       "name": "Heavy plasma axe",

@@ -2,6 +2,48 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-traitorguard-mark-armory-disciplines-01',
+    status: 'fixed',
+    title: 'Imperial Guard — Traitor Guard could not reach the Khorne/Nurgle/Slaanesh/Tzeentch armouries or the Chaos disciplines',
+    description: 'FIXED 2026-07-19 (v1.54), reported on Discord. The archetype text only names "the Chaos Space Marine Armory", so the four Mark armouries and the Disciplines of Chaos were left out. Creator ruling 2026-07-19: a unit that can take a Mark of Chaos counts as Chaos, so it reaches that Mark\'s armoury AND the Chaos disciplines, and correspondingly may NOT use the Imperium (Psikana) disciplines. ArmoryModal now falls back to the granted faction\'s armory_marks when the unit\'s own faction has none, and PsychicModal + the psychic validator REPLACE the faction disciplines with the granted faction\'s when the archetype also grants Marks. Gated on `grantsMarkPurchase && armoryOnlyFaction`, so it covers Traitor Guard and Dark Mechanicum but not Brood Brothers or Gue\'vesa (no Marks, no discipline grant). Allied units are unaffected — they use their own detachment\'s Army Customisation.',
+  },
+  {
+    id: 'ki-votann-warhead-grant-name-mismatch-01',
+    status: 'known',
+    title: 'Leagues of Votann — the "Ancestor\'s jugdement warhead" and "Skimmer bike" upgrades name a weapon that does not match any weapon row, so neither grant resolves',
+    description: 'Found during the 1.01 re-audit (2026-07-19). Two vehicle/equipment upgrades grant a weapon by name, but the name in the description does not match the weapon row in the Armory sheet. (1) The equipment is spelled "Ancestor\'s jugdement warhead" while its own description says "The model gains an Ancestor\'s judgement warhead" — "jugdement" vs "judgement". (2) "Skimmer bike" says the model gains a "Magna-coil autogun", but the weapon is called "Magna-coil autocannon" everywhere else in the codex. Both weapon profiles have been added to the Armory (they are listed there with a "-" cost, i.e. not directly purchasable), so the moment the naming is reconciled the grants will resolve. Not fixed in the app because the mismatch is in the source spreadsheet and correcting a weapon NAME is a rules fact, not a display choice — raised with the codex author.',
+  },
+  {
+    id: 'ki-archetype-foreign-armory-no-rules-effect-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — items bought from an archetype-granted foreign Armory (Traitor Guard → CSM, etc.) cost points but applied no rules; the CSM Daemon weapon had no ability picker there at all',
+    description: 'FIXED 2026-07-18 (v1.54), reported on Discord. Two layered bugs. (1) UI: the archetypeArmory tab rendered only armory_general.weapons + equipment, so the "Daemon weapon"/"Greater Daemon weapon" gateway could be bought with no way to pick its abilities — the DaemonWeaponPicker is now rendered inline under the gateway on that tab too, drawing on the foreign general + the unit\'s active Mark pool. (2) Engine: ArmoryModal lazy-loaded the foreign faction locally, so `findArmoryItem(data, sel)` could never find those items and every purchase resolved to nothing. Added `FactionData.archetype_armory`, populated by a new `injectArchetypeArmory` store action from an App effect keyed on the archetype, and searched last by findArmoryItem (and by the granted-weapon lookup, so "Kai" finds the Kai gun). Applies to Traitor Guard and Dark Mechanicum (CSM), Brood Brothers (GSC) and Gue\'vesa (Tau).',
+  },
+  {
+    id: 'ki-ig-heavy-infantry-grants-unmodelled-01',
+    status: 'fixed',
+    title: 'Imperial Guard — the "Heavy Infantry" trait printed its text but never granted Krak grenades or the 4+ armour save',
+    description: 'FIXED 2026-07-18 (v1.54), reported on Discord. TraitEffect had no way to hand a unit an Armory item, so the trait was encoded as descriptive `unit_ability` text only. Added the `grant_armory_item` effect type: weapons go through pushGrantedWeapon, equipment is appended to the equipItems list feeding parseEquipMods (so "Plate armor" → 4+ via the existing best-save-wins rule, which also honours the trait\'s "only for models without a 4+ save" proviso for free). The trait-effect collection was hoisted above the weapon-grant loop and equipMods in resolver.ts so grants reach both paths. Verified: Infantry Squad SV 5+ → armorSave 4, Krak grenades present.',
+  },
+  {
+    id: 'ki-tzeentch-mark-psyker-validator-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — a Character with the Mark of Tzeentch was reported as "not a psyker" and invalidated any list with powers on it',
+    description: 'FIXED 2026-07-18 (v1.54), reported on Discord. The psychic-scope validator read the raw datasheet flag `u.is_psyker`, but a unit can become a psyker at roster time — Mark of Tzeentch on a Character, or a paid "may be a psyker" option group. It now reads `resolveUnitProfile(...).effectivePsyker`, which is the only thing that knows. Also widened `isTzeentchPsyker` to Monstrous Creatures, per the Core Rules text ("Character models and Monstrous Creatures become a Psyker").',
+  },
+  {
+    id: 'ki-ig-infantry-squad-without-platoon-01',
+    status: 'fixed',
+    title: 'Imperial Guard — an Infantry Squad not linked to a Platoon Command Squad was silently legal in an independent Troops slot',
+    description: 'FIXED 2026-07-18 (v1.54), reported on Discord. The per-PCS ratio check (2-5 Infantry Squads) only ever looked at squads already linked to a platoon, so an unlinked one was never counted anywhere. Infantry Squad is the only platoon member with min 2 — it has no legal standalone existence — so unlinked copies are now an error. The other three members (Conscript Infantry Platoon, Special Weapon Squad, Heavy Weapon Squad) have min 0 and their own printed slot, so they stay legal unlinked.',
+  },
+  {
+    id: 'ki-printview-cards-mobile-stat-clip-01',
+    status: 'fixed',
+    title: 'Print/Cards view on a narrow phone clipped the right end of the stat line — armour save and invulnerable save unreachable',
+    description: 'FIXED 2026-07-18 (v1.54), reported on Discord (Firefox/Android). The unit card carries `overflow: hidden` (the header colour wash needs it), so on a viewport narrower than the stat strip the last columns were cut off with no way to scroll to them. The stat-rows container is now `overflowX: auto` with non-shrinking rows: the print layout is byte-identical, but on a phone the strip itself can be swiped.',
+  },
+  {
     id: 'ki-orks-stikkbombz-launcha-profile-missing-01',
     status: 'fixed',
     title: 'Orks — "Stikkbombz launcha" vehicle equipment upgrade shows no weapon profile',

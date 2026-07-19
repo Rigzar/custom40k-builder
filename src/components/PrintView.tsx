@@ -593,15 +593,18 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
             {buildModelCountLabel(item, u)}
           </div>
 
-          {/* Stat rows */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 5 }}>
+          {/* Stat rows — the card itself is overflow:hidden (the header wash needs it), so on a
+              narrow phone the last columns (SV, and the invuln shield) were simply clipped away
+              with no way to reach them (Discord 2026-07-18, Firefox/Android). Scrolling the strip
+              itself keeps the print layout identical while making them reachable on mobile. */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 5, overflowX: 'auto' }}>
             {modelsToShow.map((m, mi) => {
               const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
               }
               return (
-                <div key={mi} style={{ display: 'flex', alignItems: 'flex-end' }}>
+                <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexShrink: 0 }}>
                   <StatRow keys={statKeys} stats={modStats} mod={mod} showLabels={mi === 0}
                     modelLabel={modelsToShow.length > 1
                       ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name)

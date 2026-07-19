@@ -207,9 +207,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function isTerminatorArmor(arm: ArmoryItem): boolean {
     return isTerminatorArmourName(arm.name);
   }
+  /** Every armory the unit can currently buy from — own faction plus, when an archetype grants a
+   *  foreign one (Traitor Guard → CSM), that faction's sheets too. Name lookups over bought items
+   *  must see the foreign sheets or a cross-faction purchase looks like an unknown item. */
+  function allArmorySources() {
+    return [
+      activeData.armory_general,
+      ...Object.values(markArmories),
+      ...Object.values(activeData.armory_legions),
+      ...(archetypeArmoryData && !isAllied && archetypeRuleForArmory?.armoryOnlyFaction
+        ? [archetypeArmoryData.armory_general]
+        : []),
+    ];
+  }
   function armorConflict(arm: ArmoryItem): boolean {
     if (!isTerminatorArmor(arm)) return false;
-    const allSrcs = [activeData.armory_general, ...Object.values(activeData.armory_marks), ...Object.values(activeData.armory_legions)];
+    const allSrcs = allArmorySources();
     return currentArmory.some(sel => {
       if (sel.section !== 'equipment') return false;
       for (const src of allSrcs) {
@@ -222,7 +235,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Collect armour-class keywords from already-bought equipment (for effectiveKeywords).
   function getBoughtArmourKws(): string[] {
     const kw: string[] = [];
-    const allSrcs = [activeData.armory_general, ...Object.values(activeData.armory_marks), ...Object.values(activeData.armory_legions)];
+    const allSrcs = allArmorySources();
     for (const sel of currentArmory) {
       if (sel.section !== 'equipment') continue;
       for (const src of allSrcs) {
@@ -336,8 +349,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark });
   }
 
+  // Mark armories. Normally the unit's own faction supplies them, but an archetype that grants
+  // Marks of Chaos to a mark-less faction (IG "Traitor Guard", AdMech "Dark Mechanicum") also
+  // grants the granting faction's Mark armories — creator ruling 2026-07-19: "if they can pick a
+  // Mark they get its armoury and its psychic powers, because they count as Chaos". Own faction
+  // wins whenever it has any, so this only ever fills a genuine gap.
+  const markArmories = Object.keys(activeData.armory_marks).length > 0
+    ? activeData.armory_marks
+    : (!isAllied && archetypeRuleForArmory?.armoryOnlyFaction ? (archetypeArmoryData?.armory_marks ?? {}) : {});
   // Faction capability flags — use activeData (allied faction's armory for allied units)
-  const hasMark = Object.keys(activeData.armory_marks).length > 0;
+  const hasMark = Object.keys(markArmories).length > 0;
   const hasLegionData = Object.keys(activeData.armory_legions).length > 0;
   // Label for the legacy/legion/clan tab — use the first armory_legions key as the name
   // legionTabLabel kept as fallback reference (unused now that tab only shows when legacy is active)
@@ -351,7 +372,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function getDaemonWeaponPool(): ArmoryItem[] {
     const sources = [
       activeData.armory_general,
-      ...(effectiveMark && activeData.armory_marks[effectiveMark] ? [activeData.armory_marks[effectiveMark]] : []),
+      ...(effectiveMark && markArmories[effectiveMark] ? [markArmories[effectiveMark]] : []),
     ];
     const pool = sources.flatMap(src => src.daemon_weapons as ArmoryItem[]);
     return filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(pool))))
@@ -394,7 +415,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         if (profileAbilityNames.has(a.itemName.toLowerCase())) return false;
         const sources = [
           activeData.armory_general,
-          ...Object.values(activeData.armory_marks),
+          ...Object.values(markArmories),
           ...Object.values(activeData.armory_legions),
         ];
         for (const src of sources) {
@@ -507,7 +528,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function getArmory() {
     if (tab === 'mark') {
       if (isBlackCrusadeChampion) return null; // rendered inline as 4 sections
-      if (effectiveMark) return activeData.armory_marks[effectiveMark];
+      if (effectiveMark) return markArmories[effectiveMark];
     }
     if (tab === 'legion') return null;
     return activeData.armory_general;
@@ -626,8 +647,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function activeTabSectionItems(sec: Section): ArmoryItem[] {
     if (tab === 'general') return filterArmoryList(activeData.armory_general[sec] as ArmoryItem[]);
     if (tab === 'mark') {
-      if (isBlackCrusadeChampion) return BC_MARKS.flatMap(m => filterArmoryList(activeData.armory_marks[m]?.[sec] as ArmoryItem[]));
-      return effectiveMark ? filterArmoryList(activeData.armory_marks[effectiveMark]?.[sec] as ArmoryItem[]) : [];
+      if (isBlackCrusadeChampion) return BC_MARKS.flatMap(m => filterArmoryList(markArmories[m]?.[sec] as ArmoryItem[]));
+      return effectiveMark ? filterArmoryList(markArmories[effectiveMark]?.[sec] as ArmoryItem[]) : [];
     }
     if (tab === 'legion') return legionSources.flatMap(s => filterArmoryList(s[sec] as ArmoryItem[]));
     if (tab === 'archetypeArmory') return filterArmoryList(archetypeArmoryData?.armory_general?.[sec] as ArmoryItem[]);
@@ -688,7 +709,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             </button>
           ))}
           {/* Mark tab — shown when unit has a mark WITH data in armory_marks, OR when it's the BC champion */}
-          {(isBlackCrusadeChampion || (hasMark && effectiveMark && activeData.armory_marks[effectiveMark])) && (
+          {(isBlackCrusadeChampion || (hasMark && effectiveMark && markArmories[effectiveMark])) && (
             <button
               onClick={() => setTab('mark')}
               className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
@@ -778,7 +799,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 {t('bcChampionBanner')}
               </div>
               {BC_MARKS.map(markName => {
-                const markArm = activeData.armory_marks[markName];
+                const markArm = markArmories[markName];
                 if (!markArm) return null;
                 const markItems = filterByUnitType(filterGlyphArmourCompat(filterGravisCompat(filterTermCompat(markArm[effectiveSection] as ArmoryItem[]))));
                 const markEq = effectiveSection === 'equipment' ? splitEquipment(markItems) : null;
@@ -989,6 +1010,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               ) : (() => {
                 const foreignWeapons = (archetypeArmoryData.armory_general.weapons ?? []) as ArmoryItem[];
                 const foreignEquip = ((archetypeArmoryData.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                // Daemon-weapon ability pool from the FOREIGN armory. IG "Traitor Guard" / AdMech
+                // "Dark Mechanicum" buy the CSM "Daemon weapon" gateway on THIS tab, so the picker
+                // has to live here too — getDaemonWeaponPool() reads activeData, which is the
+                // unit's own faction and carries no daemon_weapons at all. Same combined-pool rule
+                // as the native CSM tab: general + the unit's active mark.
+                const foreignDaemonPool = [
+                  ...((archetypeArmoryData.armory_general.daemon_weapons ?? []) as ArmoryItem[]),
+                  ...(effectiveMark && archetypeArmoryData.armory_marks?.[effectiveMark]
+                    ? ((archetypeArmoryData.armory_marks[effectiveMark].daemon_weapons ?? []) as ArmoryItem[])
+                    : []),
+                ].filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+                const foreignSrcLabel = `${archetype} — ${archetypeArmoryData.faction} Armoury`;
                 return ([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
                   <div key={sec}>
                     <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? t('weaponsLabel') : t('equipment')}</div>
@@ -997,16 +1030,33 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       : items.map((arm, i) => {
                         const pts = getItemPts(arm);
                         const blocked = pts === null;
+                        const isDaemonGateway = arm.name === 'Daemon weapon' || arm.name === 'Greater Daemon weapon';
                         return (
-                          <ArmoryItemRow
-                            key={i} arm={arm} isChar={isChar}
-                            justAdded={lastAdded === arm.name}
-                            disabled={blocked}
-                            selectedArmoryId={getSelId(arm.name, sec)}
-                            ptsOverride={pts}
-                            onRemove={removeItem}
-                            onAdd={() => !blocked && add(arm, `${archetype} — ${archetypeArmoryData.faction} Armoury`, sec)}
-                          />
+                          <div key={i}>
+                            <ArmoryItemRow
+                              arm={arm} isChar={isChar}
+                              justAdded={lastAdded === arm.name}
+                              disabled={blocked}
+                              selectedArmoryId={getSelId(arm.name, sec)}
+                              ptsOverride={pts}
+                              onRemove={removeItem}
+                              onAdd={() => !blocked && add(arm, foreignSrcLabel, sec)}
+                            />
+                            {isDaemonGateway && getSelId(arm.name, sec) && (
+                              <DaemonWeaponPicker
+                                pool={foreignDaemonPool}
+                                cap={arm.name === 'Greater Daemon weapon' ? 2 : 1}
+                                selections={daemonWeaponSelections}
+                                lastAdded={lastAdded}
+                                availableWeapons={availableWeapons}
+                                dwTargetWeapon={dwTargetWeapon}
+                                onSetTargetWeapon={(n, w) => setDwTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                                isTakenElsewhere={a => uniqueArmyBlocked(a, 'daemon_weapons')}
+                                onAdd={(a, tw) => add(a, foreignSrcLabel, 'daemon_weapons', tw)}
+                                onRemove={removeItem}
+                              />
+                            )}
+                          </div>
                         );
                       })
                     }

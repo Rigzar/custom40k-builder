@@ -19,7 +19,14 @@ export type TraitEffect =
   | { type: 'stat_mod';       stat: string; delta: number;                                applies_to: AppliesTo }
   | { type: 'inv_save';       value: number;                                               applies_to: AppliesTo }
   | { type: 'unit_ability';   name: string; desc?: string;                                applies_to: AppliesTo }
-  | { type: 'weapon_ability'; name: string; weapon_type?: 'ranged' | 'melee' | 'bolt';   applies_to: AppliesTo };
+  | { type: 'weapon_ability'; name: string; weapon_type?: 'ranged' | 'melee' | 'bolt';   applies_to: AppliesTo }
+  /**
+   * The trait hands the unit an item from its own faction's general Armory, free of charge —
+   * e.g. IG "Heavy Infantry": "The unit gains Krak grenades and Plate armor." `item` must match
+   * an Armory entry by name; weapons are added to the profile, equipment runs through
+   * parseEquipMods like a bought item (so "4+ armor save" text actually moves the save).
+   */
+  | { type: 'grant_armory_item'; item: string;                                          applies_to: AppliesTo };
 
 function effectApplies(effect: TraitEffect, unit: Unit): boolean {
   switch (effect.applies_to) {

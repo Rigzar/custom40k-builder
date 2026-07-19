@@ -111,7 +111,12 @@ export const IG_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   //  Only for creature models that do not already have a 4+ armor save from their datasheet
   //  or Armory."
   // COST: 3* | 0 | - | -
+  // The two grants are real wargear, not flavour text: Krak grenades join the weapon table and
+  // Plate armor's "4+ armor save" runs through parseEquipMods (which only ever improves a save,
+  // so a unit that already has 4+ or better is unaffected — matching the trait's own proviso).
   'Heavy Infantry': [
+    { type: 'grant_armory_item', item: 'Krak grenades', applies_to: 'creature' },
+    { type: 'grant_armory_item', item: 'Plate armor',   applies_to: 'creature' },
     {
       type: 'unit_ability',
       name: 'Heavy Infantry',

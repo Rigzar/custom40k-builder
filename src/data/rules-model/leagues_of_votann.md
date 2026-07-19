@@ -120,3 +120,37 @@ Outriders / Trivârg Cyber Implants / Vengeful / Voidship Specialists. Canonical
 
 **Votann "lo demás" complete** — Index already grounded in .ods, psychic discipline already wired
 (stale doc corrected). Doc-only, no build required.
+
+---
+
+### 8. Codex 1.01 re-audit (2026-07-19) — `Informacion/Leagues of Votann 1.01.ods`
+
+Full field-by-field pass over all 22 sheets (Index, Army Customisation, Armory, League Armory,
+Skeinwrought discipline, 18 datasheets). Every unit's stats, points, min/max, equipped_with, weapon
+profiles and option groups were compared against production; Army Customisation (4 archetypes,
+5 legacies, 17 traits) and the League Armory matched 1:1 with no changes.
+
+**Applied — the author''s own 1.01 change list:**
+- `Grudgepyre` and `Interface Echo` Cast value 5 → **6**.
+- `Interface Echo` effect now reads "...a single die roll **of their own dice**...".
+- Cthonian Beserks'' **Concussion maul** AT(1) → **AT(2)**.
+- Armory **Concussion gauntletᴱ** and **Concussion hammerᴱ**: `Unwieldy` removed. Armory-only — the
+  *datasheet* copies (Hearthkyn Warriors, Ironkin Steeljacks, Einhyr Hearthguard, Cthonian Beserks)
+  still carry Unwieldy in the .ods and were left as-is.
+- Armory **Mass gauntletᴱ** and **Mass hammerᴱ** removed (the equipment item "Mass driver
+  accelerators" is unrelated and stays).
+
+**Applied — found by the audit, NOT in the author''s change list** (the Wracks/Taurox pattern again):
+- Hernkyn Yaegirs, "All remaining models may swap their Bolt shotguns → Bolt revolver and Plasma
+  knife": **0 → +1 point/model**.
+- Armory was missing two weapon rows the .ods lists with a `-` cost (reference profiles for grants):
+  **Ancestor''s jugdement warhead** (120", Heavy 1, S8, AP-3, D2, Ammo(1)/AT(2)) and **Magna-coil
+  autocannon** (24", Assault 2, S7, AP-2, D1, AT(1)). Added as non-purchasable.
+
+**Open — raised with the author, not fixed in the app** (`ki-votann-warhead-grant-name-mismatch-01`):
+the two grant descriptions name weapons that don''t match any weapon row — "Ancestor''s **judgement**
+warhead" vs the row''s "**jugdement**", and Skimmer bike''s "Magna-coil **autogun**" vs the row''s
+"Magna-coil **autocannon**". Correcting a weapon name is a rules fact, so production stays faithful
+to the sheet until the author reconciles it.
+
+Faction badge moved to green / version 1.01 (app + wiki).

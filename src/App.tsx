@@ -381,6 +381,21 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, legacy, legacy2, data?.faction]);
 
+  // Archetype-granted FOREIGN ARMORY (armory-only, no units): IG "Traitor Guard"/AdMech "Dark
+  // Mechanicum" → CSM, "Brood Brothers" → GSC, "Gue'vesa" → Tau. ArmoryModal loads this faction
+  // for its own tab, but the resolver needs it in the store too, otherwise items bought there
+  // cost points and grant nothing (Discord 2026-07-18: CSM Daemon weapon on Traitor Guard).
+  useEffect(() => {
+    if (!data) return;
+    const archRule = getArchetypeRule(archetype);
+    const fk = archRule?.armoryOnlyFaction;
+    if (!fk || !loaders[fk]) { store.injectArchetypeArmory(null); return; }
+    loaders[fk]()
+      .then(m => store.injectArchetypeArmory(m as FactionData, !!archRule?.grantsMarkPurchase))
+      .catch(e => console.error('Error loading archetype-granted armory faction', e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [archetype, data?.faction]);
+
   // Mirrors the effect above, but for the Allied Detachment's OWN archetype-granted intrinsic
   // ally (e.g. CSM "Plaguehost" chosen as the ally's archetype → Chaos Daemons with Mark of
   // Nurgle) — the ally's catalogue needs the exact same lazy-load, keyed on the ally's own

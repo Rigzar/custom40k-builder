@@ -15,39 +15,42 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v153c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v154_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; line5: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.53: Orks & Tyranids codex 1.01 + Necrons tweak + Direct messages',
-    intro: 'Orks and Tyranids step up to codex 1.01, a small Necrons points fix, and a brand-new messaging system.',
-    line1: '⬡ Orks 1.01 — the Battle Fortress is removed from the regular codex; it stays an Escalation-only Lord of War.',
-    line2: '⬡ Tyranids 1.01 — Genestealers and Broodlords lose 1 Initiative, and the Parasite of Mortrex\'s "Parasitic Infestation" now triggers on a successful wound (before any save rolls).',
-    line3: '⬡ Tyranids 1.01 — Boneswords gain Deadly(5+) for the Tyranid Prime and Tyranid Warrior Broods.',
-    line4: '⬡ Necrons — the Veil of Darkness relic is reduced to 25 points.',
-    line5: '✉️ New — Direct messages: logged-in users can now message each other from the "Messages" button (with an unread badge). Messages from the team carry the Inquisitor badge.',
-    contrib: '👁️ Spotted a heresy in the data? File it on GitHub — every report is investigated by the Ordo.',
+    title: 'v1.54: Leagues of Votann 1.01 + Traitor Guard armoury, Heavy Infantry, Tzeentch psykers',
+    intro: 'The Votann codex moves to 1.01, plus a round of fixes straight from the community bug reports — thank you for every one of them.',
+    line6: '⬡ Leagues of Votann — codex 1.01: "Grudgepyre" and "Interface Echo" cast at 6, "Interface Echo" only changes your own dice, the Concussion maul is AT(2), the Armory\'s Concussion weapons lost "Unwieldy", and the Mass gauntlet/hammer are gone. The full re-audit also caught a Hernkyn Yaegirs swap that should cost +1 point per model.',
+    line1: '⬡ Traitor Guard — the Chaos "Daemon weapon" can finally have its abilities chosen, a unit with a Mark of Chaos now reaches that Mark\'s armoury, and Traitor Guard psykers use the Chaos disciplines instead of the Imperium ones. More broadly, anything bought from an archetype-granted foreign armoury (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) now actually applies its rules instead of only costing points.',
+    line2: '⬡ Imperial Guard — the "Heavy Infantry" trait really grants Krak grenades and Plate armor (4+ save) now, not just the text.',
+    line3: '⬡ Mark of Tzeentch — a Character or Monstrous Creature carrying it now counts as a Psyker, so a list with powers on it is no longer flagged invalid.',
+    line4: '⬡ Imperial Guard — an Infantry Squad with no Platoon Command Squad is now flagged as an error (2-5 per platoon).',
+    line5: '📱 Print/Cards view on phones no longer cuts off the right edge — armour save and invulnerable save are reachable again.',
+    contrib: '👁️ Spotted a heresy in the data? File it on GitHub or tell us on Discord — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.53: Orks- & Tyraniden-Codex 1.01 + Necrons-Anpassung + Direktnachrichten',
-    intro: 'Orks und Tyraniden steigen auf Codex 1.01, eine kleine Necrons-Korrektur und ein brandneues Nachrichtensystem.',
-    line1: '⬡ Orks 1.01 — die Battle Fortress wird aus dem regulären Codex entfernt; sie bleibt ein Escalation-exklusiver Lord of War.',
-    line2: '⬡ Tyraniden 1.01 — Genestealer und Brutlords verlieren 1 Initiative, und die "Parasitäre Infestation" des Parasite of Mortrex greift jetzt bei einer erfolgreichen Verwundung (vor allen Rettungswürfen).',
-    line3: '⬡ Tyraniden 1.01 — Knochenschwerter erhalten Deadly(5+) für den Tyranidenprimus und die Tyranidenkrieger-Bruten.',
-    line4: '⬡ Necrons — die Reliquie Schleier der Dunkelheit kostet jetzt 25 Punkte.',
-    line5: '✉️ Neu — Direktnachrichten: angemeldete Nutzer können sich jetzt über den "Nachrichten"-Button schreiben (mit Ungelesen-Zähler). Nachrichten vom Team tragen das Inquisitor-Abzeichen.',
-    contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden — jeder Bericht wird vom Ordo untersucht.',
+    title: 'v1.54: Leagues of Votann 1.01 + Traitor-Guard-Rüstkammer, Heavy Infantry, Tzeentch-Psioniker',
+    intro: 'Der Votann-Codex geht auf 1.01, dazu eine Runde Korrekturen direkt aus den Fehlermeldungen der Community — vielen Dank für jede einzelne.',
+    line6: '⬡ Leagues of Votann — Codex 1.01: "Grudgepyre" und "Interface Echo" haben Beschwörungswert 6, "Interface Echo" verändert nur eigene Würfel, der Concussion maul hat AT(2), den Concussion-Waffen der Rüstkammer fehlt jetzt "Unwieldy", und Mass gauntlet/hammer wurden entfernt. Die vollständige Neuprüfung fand außerdem einen Hernkyn-Yaegirs-Tausch, der +1 Punkt pro Modell kosten muss.',
+    line1: '⬡ Traitor Guard — die Chaos-"Daemon weapon" lässt endlich ihre Fähigkeiten auswählen, eine Einheit mit einem Mal des Chaos erreicht jetzt die Rüstkammer dieses Mals, und Traitor-Guard-Psioniker nutzen die Chaos-Disziplinen statt der imperialen. Allgemeiner: Alles, was aus einer per Archetyp gewährten fremden Rüstkammer gekauft wird (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa), wendet jetzt tatsächlich seine Regeln an, statt nur Punkte zu kosten.',
+    line2: '⬡ Imperial Guard — die Eigenschaft "Heavy Infantry" gewährt jetzt wirklich Krak-Granaten und Plattenrüstung (4+ Rüstungswurf), nicht nur den Text.',
+    line3: '⬡ Mal des Tzeentch — ein Charaktermodell oder eine Monströse Kreatur damit gilt jetzt als Psioniker, eine Liste mit Kräften wird also nicht mehr als ungültig gemeldet.',
+    line4: '⬡ Imperial Guard — ein Infanterietrupp ohne Zugkommandotrupp wird jetzt als Fehler markiert (2-5 pro Zug).',
+    line5: '📱 Die Druck-/Karten-Ansicht schneidet auf dem Handy den rechten Rand nicht mehr ab — Rüstungswurf und Rettungswurf sind wieder erreichbar.',
+    contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden oder auf Discord sagen — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.53: códice Orks y Tyranids 1.01 + ajuste Necrons + Mensajes directos',
-    intro: 'Orks y Tyranids suben a códice 1.01, una pequeña corrección de puntos en Necrons y un sistema de mensajes nuevo.',
-    line1: '⬡ Orks 1.01 — la Battle Fortress se retira del códice normal; queda como Lord of War exclusivo de Escalation.',
-    line2: '⬡ Tyranids 1.01 — Genestealers y Broodlords pierden 1 de Iniciativa, y la "Parasitic Infestation" del Parasite of Mortrex ahora se activa al herir (antes de las tiradas de salvación).',
-    line3: '⬡ Tyranids 1.01 — las Boneswords ganan Deadly(5+) para el Tyranid Prime y las Tyranid Warrior Broods.',
-    line4: '⬡ Necrons — la reliquia Veil of Darkness se reduce a 25 puntos.',
-    line5: '✉️ Nuevo — Mensajes directos: los usuarios registrados ya pueden escribirse entre sí desde el botón "Mensajes" (con contador de no leídos). Los mensajes del equipo llevan el distintivo de Inquisidor.',
-    contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub — el Ordo investiga cada reporte.',
+    title: 'v1.54: Leagues of Votann 1.01 + armería de la Traitor Guard, Heavy Infantry, psíquicos de Tzeentch',
+    intro: 'El códex de Votann pasa a 1.01, más una tanda de correcciones salidas directamente de los reportes de la comunidad — gracias por cada uno.',
+    line6: '⬡ Leagues of Votann — códex 1.01: "Grudgepyre" e "Interface Echo" se lanzan a 6, "Interface Echo" solo cambia dados propios, el Concussion maul es AT(2), las armas Concussion de la Armería pierden "Unwieldy" y desaparecen el Mass gauntlet y el Mass hammer. La re-auditoría completa encontró además un cambio de arma de los Hernkyn Yaegirs que debe costar +1 punto por modelo.',
+    line1: '⬡ Traitor Guard — por fin se pueden elegir las habilidades del "Daemon weapon" del Caos, una unidad con Marca del Caos accede ya a la armería de esa Marca, y los psíquicos de la Traitor Guard usan las disciplinas del Caos en vez de las del Imperio. Y en general: todo lo comprado en una armería ajena concedida por el arquetipo (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) ahora aplica sus reglas de verdad, en vez de solo costar puntos.',
+    line2: '⬡ Imperial Guard — el rasgo "Heavy Infantry" ahora sí concede granadas Krak y Plate armor (salvación 4+), no solo el texto.',
+    line3: '⬡ Marca de Tzeentch — un modelo Personaje o una Criatura Monstruosa que la lleve cuenta ya como Psíquico, así que una lista con poderes deja de marcarse como inválida.',
+    line4: '⬡ Imperial Guard — una Infantry Squad sin Platoon Command Squad se marca ahora como error (2-5 por pelotón).',
+    line5: '📱 La vista de Impresión/Cartas ya no corta el borde derecho en el móvil — la salvación y la salvación invulnerable vuelven a verse.',
+    contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub o dínoslo en Discord — el Ordo investiga cada reporte.',
   },
 };
 
@@ -115,6 +118,7 @@ function CommunityAnnouncement() {
         </div>
         <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
+          <BoldSplitLine text={tx.line6} />
           <BoldSplitLine text={tx.line1} />
           <BoldSplitLine text={tx.line2} />
           <BoldSplitLine text={tx.line3} />
@@ -235,7 +239,7 @@ const CATEGORIES: Category[] = [
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.01' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'testing', version: '1.00' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing', version: '1.00' },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'testing', version: '1.00' },
+      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.01' },
       { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.01' },
     ],
   },

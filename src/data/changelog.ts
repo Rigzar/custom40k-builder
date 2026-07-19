@@ -25,6 +25,23 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.54',
+    date: '2026-07-19',
+    title: 'Leagues of Votann codex 1.01 + community bug reports (Traitor Guard, Heavy Infantry, Tzeentch psykers, platoons, mobile cards)',
+    changes: [
+      'Leagues of Votann — codex updated to version 1.01. "Grudgepyre" and "Interface Echo" both cost 1 more to cast (Cast value 6), and "Interface Echo" now specifies it may only change one of the target\'s OWN dice. The Cthonian Beserks\' Concussion maul is AT(2). The Armory\'s Concussion gauntlet and Concussion hammer lost "Unwieldy", and the "Mass gauntlet" and "Mass hammer" were removed from the Armory entirely.',
+      'Leagues of Votann — full re-audit against the 1.01 codex also found two items the official change list does not mention: the Hernkyn Yaegirs\' "Bolt revolver and Plasma knife" swap costs +1 point per model (was free), and the Armory was missing the "Ancestor\'s jugdement warhead" and "Magna-coil autocannon" weapon profiles.',
+      'Imperial Guard — Traitor Guard: a unit that has bought a Mark of Chaos now also reaches that Mark\'s Chaos Space Marine armoury, and Traitor Guard psykers use the Chaos disciplines instead of the Imperium ones (creator ruling: a unit that can take a Mark counts as Chaos). Applies to the Adeptus Mechanicus "Dark Mechanicum" archetype too.',
+      'GENERAL — corrected leftover German weapon types in three armouries: Imperial Guard "Krak grenades" and "Melta bomb", Adepta Sororitas "Melta bombs" and Inquisition "Frag grenade" all read "Granate" instead of "Grenade".',
+      'Imperial Guard — Traitor Guard: the Chaos Space Marine "Daemon weapon" / "Greater Daemon weapon" could be bought but its abilities could never be chosen. The Daemon-weapon ability picker now appears on the Chaos Space Marines armoury tab, exactly as it does for a Chaos Space Marine army.',
+      'GENERAL — anything bought from an archetype-granted foreign armoury (Traitor Guard and Dark Mechanicum → Chaos Space Marines, Brood Brothers → Genestealer Cults, Gue\'vesa → T\'au) now actually applies its rules. Until now those items were charged points but granted no weapon, stat change or ability.',
+      'Imperial Guard — the "Heavy Infantry" trait now really grants Krak grenades and Plate armor (4+ armour save) instead of only printing the text. Units that already have a 4+ or better save are unaffected, as the trait says.',
+      'GENERAL — a Character or Monstrous Creature with the Mark of Tzeentch is now recognised as a Psyker, so a list with psychic powers on it no longer shows as invalid.',
+      'Imperial Guard — an Infantry Squad that is not linked to a Platoon Command Squad is now flagged as an error: every Infantry Squad must belong to a platoon (2-5 per Platoon Command Squad).',
+      'GENERAL — Print/Cards view on phones: the stat line no longer gets cut off at the right edge, so the armour save and invulnerable save are reachable (reported on Firefox/Android).',
+    ],
+  },
+  {
     version: '1.53',
     date: '2026-07-14',
     title: 'Dark Eldar codex 1.01 + Imperial Guard codex 1.02 + Orks & Tyranids codex 1.01',

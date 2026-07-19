@@ -137,7 +137,7 @@ export const hernkynYaegirs: Unit = {
       "choices": [
         {
           "name": "Bolt revolver and Plasma knife",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

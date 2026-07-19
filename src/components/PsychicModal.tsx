@@ -85,7 +85,15 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // ── Discipline filtering ──────────────────────────────────────────────────
   // Cult initiates (Dark Commune) see ONLY Cult Powers — no General, no other faction discs
   // All other psykers see General + faction discs EXCLUDING cult-only ones
-  const factionDiscs = Object.entries(data.disciplines ?? {}).filter(([name]) => {
+  // "Counts as Chaos" archetypes (IG Traitor Guard, AdMech Dark Mechanicum): every unit may buy a
+  // Mark of Chaos, and per the creator's ruling (2026-07-19) a unit that can take a Mark reaches
+  // the Chaos disciplines and LOSES its own Imperium ones — so the granting faction's disciplines
+  // REPLACE this faction's rather than adding to them. Allied units keep their own (they use their
+  // own detachment's Army Customisation).
+  const chaosGrant = !isAllied && data.archetype_armory?.grantsMarks ? data.archetype_armory : null;
+  const ownDisciplines = chaosGrant ? chaosGrant.disciplines : (data.disciplines ?? {});
+
+  const factionDiscs = Object.entries(ownDisciplines).filter(([name]) => {
     if (isCultOnlyDisc(name)) return isCultInitiate;  // Cult Powers only for cult initiates
     if (isCultInitiate) return false;                 // Cult initiates see ONLY Cult Powers
     if (isMarkOnlyDisc(name)) {

@@ -501,6 +501,26 @@ export interface FactionData {
    * (injectArchetypeFaction / SlotPanel ownGrantedFaction — mirrors v0.56 Alien Hunters fix).
    */
   intrinsic_allies?: string[];
+  /**
+   * Armory of a FOREIGN faction that the primary archetype grants access to without granting
+   * any of its units — `ArchetypeRule.armoryOnlyFaction` (IG "Traitor Guard" / AdMech "Dark
+   * Mechanicum" → Chaos Space Marines, IG "Brood Brothers" → Genestealer Cults, "Gue'vesa" →
+   * Tau Empire). Distinct from `allied` (which carries units and shows an [Allied] badge).
+   * `findArmoryItem` searches it last, so items bought from that tab resolve their rules
+   * effects (weapon traits, granted weapons, stat mods) instead of being points-only.
+   *
+   * `marks`/`disciplines` only apply to the archetypes that also grant Marks of Chaos (Traitor
+   * Guard, Dark Mechanicum) — creator ruling 2026-07-19: a unit that can take a Mark counts as
+   * Chaos, so it reaches that Mark's armoury AND the Chaos disciplines, and loses access to its
+   * own Imperium disciplines.
+   */
+  archetype_armory?: {
+    general: Armory;
+    marks: Record<string, Armory>;
+    disciplines: Record<string, Power[]>;
+    /** True when the granting archetype also grants Marks of Chaos (gates marks + disciplines). */
+    grantsMarks: boolean;
+  };
   /** Tau Empire only — see DroneType doc comment. Data-only, not yet wired into any UI/engine path. */
   drones?: DroneType[];
   /** Adeptus Mechanicus only — see Canticle doc comment. Data-only, not yet wired into any UI/engine path. */

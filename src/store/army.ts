@@ -256,6 +256,7 @@ export interface ArmyStore extends ArmyState {
 
   /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
   injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => void;
+  injectArchetypeArmory: (factionData: FactionData | null, grantsMarks?: boolean) => void;
   /** Same, but for the Allied Detachment's own archetype-granted intrinsic ally. */
   injectAlliedArchetypeFaction: (key: string, factionData: FactionData) => void;
   importRoster: (json: string) => void;
@@ -709,6 +710,26 @@ export const useArmyStore = create<ArmyStore>()(
           alliedData: newAlliedData,
           data: s.data ? mergeAlliedIntoData(s.data, s.alliedFaction, newAlliedData) : s.data,
         };
+      }),
+
+      // Archetype `armoryOnlyFaction` grant (Traitor Guard → CSM, Brood Brothers → GSC,
+      // Gue'vesa → Tau). Units are NOT injected — only the foreign armory, so the resolver can
+      // apply the rules effects of items bought from that tab. Pass null to clear it when the
+      // archetype changes to one without the grant.
+      injectArchetypeArmory: (factionData: FactionData | null, grantsMarks = false) => set((s: S) => {
+        if (!s.data) return {};
+        const next = factionData
+          ? {
+              general: factionData.armory_general,
+              marks: factionData.armory_marks,
+              disciplines: factionData.disciplines ?? {},
+              grantsMarks,
+            }
+          : undefined;
+        if (!next && !s.data.archetype_armory) return {};
+        if (next && s.data.archetype_armory?.general === next.general
+            && s.data.archetype_armory.grantsMarks === grantsMarks) return {};
+        return { data: { ...s.data, archetype_armory: next } };
       }),
 
       injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => set((s: S) => {

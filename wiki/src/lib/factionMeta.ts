@@ -123,7 +123,7 @@ export const FACTION_VERSIONS: Record<string, string> = {
   necrons: '1.00',
   genestealer_cults: '1.00',
   harlequins: '1.00',
-  leagues_of_votann: '1.00',
+  leagues_of_votann: '1.01',
 };
 
 export function getFactionVersion(key: string): string | undefined {

@@ -147,6 +147,11 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
     data.armory_general,
     ...Object.values(data.armory_marks),
     ...Object.values(data.armory_legions),
+    // Archetype-granted foreign armory (Traitor Guard → CSM, etc.) searched LAST, so a
+    // same-named item in the unit's own codex always wins.
+    ...(data.archetype_armory
+      ? [data.archetype_armory.general, ...Object.values(data.archetype_armory.marks)]
+      : []),
   ];
   for (const armory of sources) {
     const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);
@@ -493,7 +498,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   );
   const isOptionalPsyker = !unit.is_psyker && psykerGroupIdx >= 0 &&
     (item.optionQty[psykerGroupIdx]?.['__inline'] ?? 0) > 0;
-  const isTzeentchPsyker = unit.is_character && !unit.is_psyker && statModMark === 'Tzeentch';
+  // Core Rules "Mark of Tzeentch": "Character models AND Monstrous Creatures become a Psyker
+  // knowing 1 power from any discipline" — the monster half was missing.
+  const isTzeentchPsyker = (unit.is_character || unit.is_monster) && !unit.is_psyker && statModMark === 'Tzeentch';
   const effectivePsyker = unit.is_psyker || isTzeentchPsyker || isOptionalPsyker;
 
   // Weapons & loadout (unmodified — faction resolvers apply overrides)
@@ -522,6 +529,50 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
 
   // NOTE: global trait weapon abilities are injected into weaponTraitMap after traitWeaponAbilities
   // is populated below (see "Inject global trait weapon abilities" comment).
+
+  // Trait effects — resolved BEFORE the weapon-grant loop and equipMods below, because a trait
+  // can hand the unit an Armory item (IG "Heavy Infantry" → Krak grenades + Plate armor) that
+  // has to flow through those same two paths to actually reach the profile.
+  // CSM army traits only apply to models with the "Chaos Space Marine" keyword.
+  // Subfaction units (World Eaters, Death Guard, Thousand Sons, Emperor's Children) are excluded.
+  // Allied Detachment units apply their OWN detachment's traits too — item.traits is already
+  // populated from alliedTraitPool by applyArmyTraits, but the old `item.unitName in data.units`
+  // gate silently discarded them for any ally of a DIFFERENT faction (name not in the primary
+  // catalog), so allied trait stat mods/abilities never reached the profile. The CSM-keyword
+  // restriction is evaluated against the item's OWN faction, not the primary's.
+  const isAlliedScopeItem = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
+  const isMainFaction = !item.factionSource && item.unitName in data.units;
+  const itemFactionForTraits = isAlliedScopeItem
+    ? (FACTION_SLUG_TO_NAME[item.factionSource!] ?? '')
+    : data.faction;
+  const hasCSMKeyword = unit.keywords?.includes('Chaos Space Marine') ?? false;
+  const traitsApply = (isMainFaction || isAlliedScopeItem) &&
+    (itemFactionForTraits !== 'Chaos Space Marines' || hasCSMKeyword);
+  const traitStatMods: Array<{ stat: string; delta: number }> = [];
+  const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
+  const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
+  const traitGrantedItems: string[] = [];
+  // Dark Eldar traits are sub-faction-gated: a ᴷ/ᶜᵒ/ᶜᵘ trait only applies to a unit whose
+  // effective sub-faction (its keyword, or the player's pick for shared multi-keyword units)
+  // matches. Non-Dark-Eldar trait names carry no marker, so this never gates other factions.
+  const deEffectiveSub = itemFactionForTraits === 'Dark Eldar'
+    ? effectiveSubfactions(unit.keywords, item.subfaction)
+    : null;
+  if (traitsApply && item.traits.length > 0) {
+    for (const t of item.traits) {
+      if (deEffectiveSub) {
+        const req = traitRequiredSubfaction(t.name);
+        if (req && !deEffectiveSub.includes(req)) continue;
+      }
+      for (const e of getTraitEffects(t.name, unit)) {
+        if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });
+        else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save` });
+        else if (e.type === 'unit_ability')   traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
+        else if (e.type === 'weapon_ability') traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
+        else if (e.type === 'grant_armory_item') traitGrantedItems.push(e.item);
+      }
+    }
+  }
 
   // Items that GRANT a new weapon to the model — daemon weapons, vehicle upgrades, and plain
   // weapons bought from the Armory's "weapons" section (e.g. Boltgun on a Traitor Sergeant).
@@ -567,10 +618,29 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (!armItem?.desc || !isGrantWeapon(armItem.desc)) continue;
     const grantedName = extractGrantedWeaponName(armItem.desc);
     if (!grantedName) continue;
-    // Find the weapon profile in armory_general.weapons
-    const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
-      .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+    // Find the weapon profile in armory_general.weapons — plus the archetype-granted foreign
+    // armory, whose grant-items name weapons that only exist over there (CSM "Kai" → Kai gun).
+    const weaponPool = [
+      ...(data.armory_general.weapons as import('../types/data').ArmoryItem[]),
+      ...((data.archetype_armory?.general.weapons ?? []) as import('../types/data').ArmoryItem[]),
+    ];
+    const granted = weaponPool.find(w => w.name.toLowerCase() === grantedName.toLowerCase());
     if (granted) pushGrantedWeapon(granted);
+  }
+
+  // Armory items handed over by an army Trait (IG "Heavy Infantry" → Krak grenades + Plate
+  // armor). Weapons join the profile; equipment is collected here and fed to parseEquipMods
+  // below alongside the bought items, so its desc text ("4+ armor save") moves the stat.
+  type EquipInput = { name: string; desc: string; armourKeyword?: string };
+  const traitGrantedEquip: EquipInput[] = [];
+  for (const itemName of traitGrantedItems) {
+    const lc = itemName.toLowerCase();
+    const asWeapon = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
+      .find(w => w.name.toLowerCase() === lc);
+    if (asWeapon) { pushGrantedWeapon(asWeapon); continue; }
+    const asEquip = (data.armory_general.equipment as import('../types/data').ArmoryItem[])
+      .find(e => e.name.toLowerCase() === lc);
+    if (asEquip) traitGrantedEquip.push({ name: asEquip.name, desc: asEquip.desc ?? '', armourKeyword: asEquip.armourKeyword });
   }
 
   // Equipment mods
@@ -581,51 +651,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       if (a.section === 'equipment') return !isGrantWeapon(ai?.desc); // exclude weapon-granting upgrades
       return false;
     })
-    .map(a => {
+    .map((a): EquipInput => {
       const found = findArmoryItem(data, a);
       return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
-    });
+    })
+    .concat(traitGrantedEquip);
   const equipMods: EquipMods = parseEquipMods(equipItems, unit.armourKeyword, unit.abilities);
-
-  // Trait effects
-  // CSM army traits only apply to models with the "Chaos Space Marine" keyword.
-  // Subfaction units (World Eaters, Death Guard, Thousand Sons, Emperor's Children) are excluded.
-  // Allied Detachment units apply their OWN detachment's traits too — item.traits is already
-  // populated from alliedTraitPool by applyArmyTraits, but the old `item.unitName in data.units`
-  // gate silently discarded them for any ally of a DIFFERENT faction (name not in the primary
-  // catalog), so allied trait stat mods/abilities never reached the profile. The CSM-keyword
-  // restriction is evaluated against the item's OWN faction, not the primary's.
-  const isAlliedScopeItem = !!(state.alliedFaction && item.factionSource === state.alliedFaction);
-  const isMainFaction = !item.factionSource && item.unitName in data.units;
-  const itemFactionForTraits = isAlliedScopeItem
-    ? (FACTION_SLUG_TO_NAME[item.factionSource!] ?? '')
-    : data.faction;
-  const hasCSMKeyword = unit.keywords?.includes('Chaos Space Marine') ?? false;
-  const traitsApply = (isMainFaction || isAlliedScopeItem) &&
-    (itemFactionForTraits !== 'Chaos Space Marines' || hasCSMKeyword);
-  const traitStatMods: Array<{ stat: string; delta: number }> = [];
-  const traitAbilities: Array<{ traitName: string; name: string; desc?: string }> = [];
-  const traitWeaponAbilities: Array<{ traitName: string; name: string; weapon_type?: string }> = [];
-  // Dark Eldar traits are sub-faction-gated: a ᴷ/ᶜᵒ/ᶜᵘ trait only applies to a unit whose
-  // effective sub-faction (its keyword, or the player's pick for shared multi-keyword units)
-  // matches. Non-Dark-Eldar trait names carry no marker, so this never gates other factions.
-  const deEffectiveSub = itemFactionForTraits === 'Dark Eldar'
-    ? effectiveSubfactions(unit.keywords, item.subfaction)
-    : null;
-  if (traitsApply && item.traits.length > 0) {
-    for (const t of item.traits) {
-      if (deEffectiveSub) {
-        const req = traitRequiredSubfaction(t.name);
-        if (req && !deEffectiveSub.includes(req)) continue;
-      }
-      for (const e of getTraitEffects(t.name, unit)) {
-        if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });
-        else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save` });
-        else if (e.type === 'unit_ability')   traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
-        else if (e.type === 'weapon_ability') traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
-      }
-    }
-  }
 
   // Inject global trait weapon abilities into weaponTraitMap so the WeaponTable shows them
   // directly on each weapon row (e.g. Siege Experts → Sunder(1) on every ranged weapon).
