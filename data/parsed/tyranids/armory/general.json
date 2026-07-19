@@ -1,6 +1,207 @@
 {
   "name": "Armory",
-  "weapons": [],
-  "equipment": [],
+  "weapons": [
+    {
+      "name": "Implant Attack",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "2",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Extra Attack(1), Hits automatically wound the target",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Symbiote Rippers",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Flurry(3)",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Acid Maw",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. The model may re-roll one to wound roll in melee per battle round.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Adrenal Glands",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. The model gains \"Haste(2\")\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Enhanced Senses",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. The model gains the \"Acute Senses\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Heightened Reflexes",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. If the unit has not already activated this turn, it may immediately use up its order and fire at an enemy unit within 18\" that is deployed as reinforcement as if it had been given the \"Stand & Shoot\" order. The attack resolves after the enemy unit has been deployed and before it takes another action.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Pathogenesis",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. The model adds +3\" to all of its ranged weapons.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Relentless Hunger",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. The model gains +3\" for its Consolidation moves.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Toxin Sacs",
+      "term_compat": false,
+      "desc": "Basic Biomorph. Point costs are paid per unit. The model gains +1 Strength and the \"Poison(4+)\" ability for all melee attacks.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Acid Blood",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model gains the \"Retribution(3)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Extremely Volatile",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model always explodes like a vehicle. The explosion is resolved at Strength 7.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Implant Attack",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model gains the \"Implant Attack\" weapon.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Infrasonic Roar",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model gains the \"Suppression\" ability for all ranged attacks made against targets within 12\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Resonance Barb",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The models gains +1 to all tests for manifesting a psychic power.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Symbiote Rippers",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model gains the \"Symbiote Rippers\" weapon.",
+      "p_unit": 3,
+      "p_char": 3
+    },
+    {
+      "name": "Thornback",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model doubles the final combat result for its own army in each melee in which it participates.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Tusked",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model gains +1 additional attack as a Charge bonus.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Warped",
+      "term_compat": false,
+      "desc": "Advanced Biomorph. Point costs are paid for every model of the unit. The model gains the ability \"Terrifying(-1)\".",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Endless",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. If the unit is below half its starting strength or is destroyed, it can be removed from the field once per game at the end of the battle round and automatically reappears as a reserve at full starting strength in the next battle round. Additionally, you get one \"Spawning pool\" token for every started three units with the \"Endless\" ability. You may set them up after all Infiltrators have been placed during the Deployment phase. They have to be placed at least 12\" away from the enemy deployment zone and at least 6\" away from any mission objective. Units with the \"Endless\" ability may enter the game through these tokens when arriving from reserve.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Feeder Tendrils",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model gains the \"Prefered Enemy(everything)\" ability for itself and any friendly unit in the same melee combat.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Hardened Carapace",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model improves its armor save by +1.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Leaping",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model gains the \"Frenzy(6\")\" ability.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Norn Crown",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model may cast and deny 1 more psychic power per battle round.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Regeneration",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model gains the \"Regeneration(1)\" ability.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Scuttlers",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model gains the \"Vanguard\" ability.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Synaptic Node",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model gains the \"Fearless\" and \"Synapse\" ability. Only a single unit per army may take this Biomorph.",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Winged",
+      "term_compat": false,
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The model gains +6\" Movement as well as the \"Anti-Grav\" and \"Deep Strike\" abilities.",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
   "daemon_weapons": []
 }
