@@ -39,7 +39,7 @@ export const hekatrixBloodbrides: Unit = {
     { "name": "Hydra gauntlets", "range": "-", "type": "Melee", "s": "U", "ap": "-2", "d": "1", "abilities": "Flurry(3)" },
     { "name": "Razorflails", "range": "-", "type": "Melee", "s": "U", "ap": "-2", "d": "1", "abilities": "Re-roll to hit and to wound rolls, Flurry(1)" },
     { "name": "Plasma grenade", "range": "-", "type": "Grenade 1", "s": "4", "ap": "-2", "d": "1", "abilities": "Explosive" },
-    { "name": "Splinter pistol", "range": "12\"", "type": "Pistole 1", "s": "2", "ap": "0", "d": "1", "abilities": "Poison(3+)" }
+    { "name": "Splinter pistol", "range": "12\"", "type": "Pistol 1", "s": "2", "ap": "0", "d": "1", "abilities": "Poison(3+)" }
   ],
   "option_groups": [
     {

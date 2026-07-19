@@ -58,7 +58,7 @@ export const daemonettes: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armour piercing(5+)"
+      "abilities": "Armor piercing(5+)"
     }
   ],
   "option_groups": [

@@ -117,7 +117,7 @@ export const warbuggy: Unit = {
     {
       "name": "Rokkit launcha",
       "range": "24\"",
-      "type": "Assasult 1",
+      "type": "Assault 1",
       "s": "8",
       "ap": "-3",
       "d": "2",

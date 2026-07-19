@@ -17,7 +17,7 @@
  * OPTIONS:
  *   Marks (per model): Khorne+1 / Slaanesh+1 / Nurgle+1 / Tzeentch+2 (NO Undivided)
  *   Each model Lasgun -> Chainsword + Laspistol (free)
- *   Per 10 models: 1 Guardsman -> Flamer+5 / Melter+11 / Plasma gun+15
+ *   Per 10 models: 1 Guardsman -> Flamer+5 / Meltagun+11 / Plasma gun+15
  *   For each 10 models: 1 Chaos Ogryn (0-3 max)
  *   Traitor Sergeant: armory access (+5pts)
  *
@@ -154,13 +154,13 @@ export const traitorGuard: Unit = {
       "abilities": "-"
     },
     {
-      "name": "Melter",
+      "name": "Meltagun",
       "range": "12\"",
       "type": "Assault 1",
       "s": "8",
       "ap": "-5",
       "d": "1",
-      "abilities": "AT(1), Melter"
+      "abilities": "AT(1), Melta"
     },
     {
       "name": "Plasma gun - Standard",
@@ -222,7 +222,7 @@ export const traitorGuard: Unit = {
       "applies_to_model": "Traitor Guardsman",
       "choices": [
         { "name": "Flamer",    "points": 5  },
-        { "name": "Melter",    "points": 11 },
+        { "name": "Meltagun",    "points": 11 },
         { "name": "Plasma gun","points": 15 }
       ],
       "inline_pts": null,

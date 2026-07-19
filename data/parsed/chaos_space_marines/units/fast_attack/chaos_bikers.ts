@@ -31,7 +31,7 @@
  *   Plasma gun - Standard       24"  Rapid fire 1  S7   AP-3  D1  AT(1)
  *   Plasma gun - Overcharged    24"  Rapid fire 1  S8   AP-4  D2  AT(2), Overheat
  *
- *   NOTE: HTML source uses locale artefacts "Pistole 1"/"Granate 1" (German for
+ *   NOTE: HTML source uses locale artefacts "Pistol 1"/"Granate 1" (German for
  *   "Pistol 1"/"Grenade 1") and labels combi-plasma sub-profiles "Plasma (Standard/
  *   Overcharged)". Production JSON is canonical here — both normalized; combi-weapon
  *   sub-profiles correctly split into separate "<combi> - <profile>" weapon entries.

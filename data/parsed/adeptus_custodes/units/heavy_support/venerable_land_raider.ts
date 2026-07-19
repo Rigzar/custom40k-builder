@@ -82,7 +82,7 @@ export const venerableLandRaider: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Can be equipped with a Multi-melter for +46 points.",
+      "header": "Can be equipped with a Multi-melta for +46 points.",
       "constraint": {
         "type": "one"
       },

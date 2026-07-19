@@ -19,7 +19,7 @@
  *   Flamer                       9"  Assault 4     S4   AP 0  D1  Flames
  *   Frag grenade                 6"  Grenade 1     S4   AP 0  D1  Explosive
  *   Krak grenade                 6"  Grenade 1     S6   AP-2  D1  -
- *   Meltagun                    12"  Assault 1     S8   AP-5  D1  AT(1), Melter
+ *   Meltagun                    12"  Assault 1     S8   AP-5  D1  AT(1), Melta
  *   Plasma gun - Standard       24"  Rapid fire 1  S7   AP-3  D1  AT(1)
  *   Plasma gun - Overcharged    24"  Rapid fire 1  S8   AP-4  D2  AT(2), Overheat
  *   Plasma pistol - Standard    12"  Pistol 1      S7   AP-3  D1  AT(1)
@@ -172,7 +172,7 @@ export const raptors: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "1",
-      "abilities": "AT(1), Melter"
+      "abilities": "AT(1), Melta"
     },
     {
       "name": "Plasma gun - Standard",

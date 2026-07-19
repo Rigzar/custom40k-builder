@@ -40,7 +40,7 @@ export const seekerChariot: Unit = {
       "s": "+1",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armour piercing(5+)"
+      "abilities": "Armor piercing(5+)"
     },
     {
       "name": "Piercing claws",
@@ -49,7 +49,7 @@ export const seekerChariot: Unit = {
       "s": "U",
       "ap": "-1",
       "d": "1",
-      "abilities": "Armour piercing(5+), Flurry(4)"
+      "abilities": "Armor piercing(5+), Flurry(4)"
     }
   ],
   "option_groups": [],

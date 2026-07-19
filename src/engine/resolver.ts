@@ -624,7 +624,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       ...(data.armory_general.weapons as import('../types/data').ArmoryItem[]),
       ...((data.archetype_armory?.general.weapons ?? []) as import('../types/data').ArmoryItem[]),
     ];
-    const granted = weaponPool.find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+    // Match apostrophe-insensitively: the source spreadsheets mix the typographic apostrophe (’)
+    // in weapon NAMES with the plain one (') in the prose that grants them, so an exact compare
+    // silently dropped grants like Votann's "Ancestor’s judgement warhead".
+    const sameName = (a: string, b: string) =>
+      a.toLowerCase().replace(/[’‘`´]/g, "'") === b.toLowerCase().replace(/[’‘`´]/g, "'");
+    const granted = weaponPool.find(w => sameName(w.name, grantedName));
     if (granted) pushGrantedWeapon(granted);
   }
 

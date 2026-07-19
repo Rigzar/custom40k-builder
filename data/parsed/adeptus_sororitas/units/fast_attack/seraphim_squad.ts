@@ -72,7 +72,7 @@ export const seraphimSquad: Unit = {
     {
       "name": "Hand flamer",
       "range": "6\"",
-      "type": "Pistole 4",
+      "type": "Pistol 4",
       "s": "4",
       "ap": "0",
       "d": "1",

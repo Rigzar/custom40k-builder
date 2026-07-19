@@ -14,7 +14,7 @@
       "p_char": 5
     },
     {
-      "name": "Ancestor’s jugdement warhead",
+      "name": "Ancestor’s judgement warhead",
       "term_compat": false,
       "range": "120\"",
       "type": "Heavy 1",
@@ -318,7 +318,7 @@
     {
       "name": "Skimmer bike",
       "term_compat": false,
-      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Magna-coil autogun, the ability \"Jet bike\" and \"Vanguard\". Only for infantry.",
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Magna-coil autocannon, the ability \"Jet bike\" and \"Vanguard\". Only for infantry.",
       "p_unit": null,
       "p_char": 85
     },
@@ -388,7 +388,7 @@
       "category": "vehicle"
     },
     {
-      "name": "Ancestor’s jugdement warhead",
+      "name": "Ancestor’s judgement warhead",
       "term_compat": false,
       "desc": "The model gains an Ancestor's judgement warhead.",
       "p_unit": 5,

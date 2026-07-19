@@ -100,7 +100,7 @@ export const wyches: Unit = {
     {
       "name": "Splinter pistol",
       "range": "12\"",
-      "type": "Pistole 1",
+      "type": "Pistol 1",
       "s": "2",
       "ap": "0",
       "d": "1",

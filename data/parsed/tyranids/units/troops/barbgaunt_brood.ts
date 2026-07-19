@@ -40,7 +40,7 @@ export const barbgauntBrood: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Explosive, Indirect, Supression"
+      "abilities": "Explosive, Indirect, Suppression"
     }
   ],
   "option_groups": [
