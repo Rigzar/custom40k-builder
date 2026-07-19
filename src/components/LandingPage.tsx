@@ -17,11 +17,12 @@ import type { EngagementType } from '../types/army';
 
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v154_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.54: five codex updates (Votann 1.02, Tyranids 1.02, Necrons 1.01, Space Marines 1.01) + community fixes',
-    intro: 'A big data day: five replaced codex sheets, each re-read page by page, plus a round of fixes straight from the community bug reports — thank you for every one of them.',
+    title: 'v1.54: install it on your phone + five codex updates',
+    intro: 'The app can now be installed on your phone and the army builder works offline. Plus five replaced codex sheets, each re-read page by page, and a round of fixes straight from the community bug reports — thank you for every one of them.',
+    install: '📲 Install it — on Android open the menu in Chrome and pick "Install app"; on iPhone use Share → "Add to Home Screen". It gets its own icon and opens full screen. Once installed the builder works with NO INTERNET: every faction\'s units, weapons and points live on your device, so you can build lists at the club or in a shop with no signal. Logging in, cloud saves and campaigns still need a connection.',
     line6: '⬡ Leagues of Votann 1.02 — new unit, the Hearthkyn Skyriggers (Elites, Jump Pack Infantry). Hearthkyn Warriors gain a 3+ armour save. Concussion and Mass weapons consolidated. ⬡ Tyranids 1.02 — the Tyrant Guard Brood gains a Wound and becomes Monstrous Infantry; the Norn gains a defensive option. ⬡ Necrons 1.01 — Veil of Darkness costs 35 and scatters on 1D6; Monoliths can no longer mishap on Deep Strike. ⬡ Space Marines 1.01 — the Emperor\'s Champion\'s Oaths are reworked, with a fourth oath added.',
     line1: '⬡ Traitor Guard — the Chaos "Daemon weapon" can finally have its abilities chosen, a unit with a Mark of Chaos now reaches that Mark\'s armoury, and Traitor Guard psykers use the Chaos disciplines instead of the Imperium ones. More broadly, anything bought from an archetype-granted foreign armoury (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) now actually applies its rules instead of only costing points.',
     line2: '⬡ Imperial Guard — the "Heavy Infantry" trait really grants Krak grenades and Plate armor (4+ save) now, not just the text.',
@@ -31,8 +32,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub or tell us on Discord — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.54: fünf Codex-Updates (Votann 1.02, Tyraniden 1.02, Necrons 1.01, Space Marines 1.01) + Community-Korrekturen',
-    intro: 'Ein großer Datentag: fünf ersetzte Codex-Tabellen, jede Seite für Seite neu gelesen, dazu eine Runde Korrekturen direkt aus den Fehlermeldungen der Community — vielen Dank für jede einzelne.',
+    title: 'v1.54: auf dem Handy installierbar + fünf Codex-Updates',
+    intro: 'Die App lässt sich jetzt auf dem Handy installieren, und der Armee-Builder funktioniert offline. Dazu fünf ersetzte Codex-Tabellen, jede Seite für Seite neu gelesen, und eine Runde Korrekturen direkt aus den Fehlermeldungen der Community — vielen Dank für jede einzelne.',
+    install: '📲 Installieren — unter Android im Chrome-Menü „App installieren" wählen; auf dem iPhone über Teilen → „Zum Home-Bildschirm". Sie bekommt ein eigenes Symbol und startet im Vollbild. Einmal installiert läuft der Builder OHNE INTERNET: Einheiten, Waffen und Punkte jeder Fraktion liegen auf dem Gerät, du kannst also im Verein oder im Laden ohne Empfang Listen bauen. Anmeldung, Cloud-Speicher und Kampagnen brauchen weiterhin eine Verbindung.',
     line6: '⬡ Leagues of Votann 1.02 — neue Einheit, die Hearthkyn Skyriggers (Elite, Sprungmodul-Infanterie). Hearthkyn Warriors erhalten einen 3+ Rüstungswurf. Concussion- und Mass-Waffen zusammengefasst. ⬡ Tyraniden 1.02 — der Tyrant Guard Brood erhält eine Lebenspunkt und wird Monströse Infanterie; die Norn erhält eine defensive Option. ⬡ Necrons 1.01 — Veil of Darkness kostet 35 und streut nur 1W6; Monolithen können beim Deep Strike nicht mehr verunglücken. ⬡ Space Marines 1.01 — die Schwüre des Emperor\'s Champion wurden überarbeitet, ein vierter Schwur kam hinzu.',
     line1: '⬡ Traitor Guard — die Chaos-"Daemon weapon" lässt endlich ihre Fähigkeiten auswählen, eine Einheit mit einem Mal des Chaos erreicht jetzt die Rüstkammer dieses Mals, und Traitor-Guard-Psioniker nutzen die Chaos-Disziplinen statt der imperialen. Allgemeiner: Alles, was aus einer per Archetyp gewährten fremden Rüstkammer gekauft wird (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa), wendet jetzt tatsächlich seine Regeln an, statt nur Punkte zu kosten.',
     line2: '⬡ Imperial Guard — die Eigenschaft "Heavy Infantry" gewährt jetzt wirklich Krak-Granaten und Plattenrüstung (4+ Rüstungswurf), nicht nur den Text.',
@@ -42,8 +44,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden oder auf Discord sagen — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.54: cinco actualizaciones de códex (Votann 1.02, Tyranids 1.02, Necrons 1.01, Space Marines 1.01) + correcciones de la comunidad',
-    intro: 'Un día grande de datos: cinco hojas de códex sustituidas, releídas página a página, más una tanda de correcciones salidas directamente de los reportes de la comunidad — gracias por cada uno.',
+    title: 'v1.54: instálala en el móvil + cinco actualizaciones de códex',
+    intro: 'La app ya se puede instalar en el móvil y el creador de listas funciona sin conexión. Además, cinco hojas de códex sustituidas y releídas página a página, y una tanda de correcciones salidas directamente de los reportes de la comunidad — gracias por cada uno.',
+    install: '📲 Instálala — en Android abre el menú de Chrome y elige "Instalar aplicación"; en iPhone usa Compartir → "Añadir a pantalla de inicio". Tendrá su propio icono y se abre a pantalla completa. Una vez instalada, el creador de listas funciona SIN INTERNET: las unidades, armas y puntos de cada facción quedan en tu dispositivo, así que puedes montar listas en el club o en una tienda sin cobertura. Iniciar sesión, el guardado en la nube y las campañas siguen necesitando conexión.',
     line6: '⬡ Leagues of Votann 1.02 — unidad nueva, los Hearthkyn Skyriggers (Élite, Infantería con Retrorreactor). Los Hearthkyn Warriors ganan salvación 3+. Armas Concussion y Mass consolidadas. ⬡ Tyranids 1.02 — el Tyrant Guard Brood gana una Herida y pasa a Infantería Monstruosa; la Norn gana una opción defensiva. ⬡ Necrons 1.01 — el Veil of Darkness cuesta 35 y dispersa solo 1D6; los Monolitos ya no sufren percance al llegar por Deep Strike. ⬡ Space Marines 1.01 — los Juramentos del Emperor\'s Champion se rehacen, con un cuarto juramento nuevo.',
     line1: '⬡ Traitor Guard — por fin se pueden elegir las habilidades del "Daemon weapon" del Caos, una unidad con Marca del Caos accede ya a la armería de esa Marca, y los psíquicos de la Traitor Guard usan las disciplinas del Caos en vez de las del Imperio. Y en general: todo lo comprado en una armería ajena concedida por el arquetipo (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) ahora aplica sus reglas de verdad, en vez de solo costar puntos.',
     line2: '⬡ Imperial Guard — el rasgo "Heavy Infantry" ahora sí concede granadas Krak y Plate armor (salvación 4+), no solo el texto.',
@@ -118,6 +121,11 @@ function CommunityAnnouncement() {
         </div>
         <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
+          {/* Install/offline gets its own highlighted block — it's the headline change of the
+              release and the one thing a returning player would otherwise never discover. */}
+          <p className="border-l-2 border-emerald-600/70 bg-emerald-950/20 pl-3 py-2 text-zinc-200">
+            {tx.install}
+          </p>
           <BoldSplitLine text={tx.line6} />
           <BoldSplitLine text={tx.line1} />
           <BoldSplitLine text={tx.line2} />
