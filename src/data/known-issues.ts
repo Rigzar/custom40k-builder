@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-admin-announcement-dismiss-sticky-01',
+    status: 'fixed',
+    title: 'Admin announcement — dismissing one banner permanently hid every future announcement',
+    description: 'FIXED 2026-07-19 (v1.54). Two chained bugs. (1) The dismissal was keyed on `setting.version`, which is optional in the admin form and fell back to the literal string "default" — so every announcement written without bumping that field shared one localStorage key, and dismissing the first one hid all the rest forever. The key is now a hash of the announcement CONTENT (version + the per-language text), so any edit or new announcement gets a fresh key and shows again, while re-dismissing the same text keeps it hidden. (2) `dismissed` was initialised once via useState, but the announcement arrives asynchronously from /api/settings, so the flag was computed before the key was known and never re-read; it now re-syncs in a useEffect keyed on the dismiss key. Verified by replaying six cases: first show, dismiss, same text stays hidden, edited text reappears, brand-new announcement reappears, bumped version reappears.',
+  },
+  {
     id: 'ki-armoury-modal-tdz-blank-screen-01',
     status: 'fixed',
     title: 'CROSS-FACTION — opening the Armoury showed a blank screen (regression introduced the same day)',

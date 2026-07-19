@@ -132,11 +132,32 @@ function CommunityAnnouncement() {
 }
 
 /** Separate, admin-authored announcement banner (from the DB), shown BELOW the release-notes card. */
+/** Stable 32-bit hash of a string — used to key an announcement's dismissal by its CONTENT. */
+function hashString(s: string): string {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+  return (h >>> 0).toString(36);
+}
+
 function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | null }) {
   const { language } = useLanguage();
-  const version = setting?.version || 'default';
-  const dismissKey = `c40k_admin_ann_${version}_dismissed`;
-  const [dismissed, setDismissed] = useState(() => localStorage.getItem(dismissKey) === 'true');
+  // Key the dismissal off the announcement's CONTENT, not its `version` field. `version` is
+  // optional in the admin form, so it fell back to the literal 'default' — dismissing one
+  // announcement then hid EVERY future one forever, because the key never changed. Hashing the
+  // text means any edit (or a brand-new announcement) produces a new key and shows again, while
+  // re-dismissing the same text keeps it hidden. `version` still participates when it is set.
+  const dismissKey = setting
+    ? `c40k_admin_ann_${hashString((setting.version || '') + JSON.stringify(setting.text ?? {}))}_dismissed`
+    : 'c40k_admin_ann_pending';
+  const [dismissed, setDismissed] = useState(false);
+
+  // The setting arrives asynchronously from /api/settings, so the key is not known on first
+  // render. Re-read the stored flag whenever the key changes, or the initial (keyless) state
+  // would stick and a fresh announcement would stay hidden.
+  useEffect(() => {
+    setDismissed(localStorage.getItem(dismissKey) === 'true');
+  }, [dismissKey]);
+
   if (!setting || setting.enabled === false) return null;
   const t = setting.text?.[language] ?? setting.text?.en;
   const lines = (t?.lines ?? []).filter(Boolean);
