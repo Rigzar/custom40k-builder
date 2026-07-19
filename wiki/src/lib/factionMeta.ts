@@ -112,9 +112,9 @@ export const FACTION_VERSIONS: Record<string, string> = {
   dark_eldar: '1.01',
   tyranids: '1.02',
   // all other audited factions default to their first published version
-  chaos_space_marines: '1.00',
+  chaos_space_marines: '1.01',
   chaos_daemons: '1.00',
-  space_marines: '1.00',
+  space_marines: '1.01',
   adeptus_mechanicus: '1.00',
   adeptus_custodes: '1.00',
   adeptus_sororitas: '1.00',

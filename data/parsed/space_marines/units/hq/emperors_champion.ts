@@ -108,12 +108,13 @@ export const emperorsChampion: Unit = {
   "abilities": [
     "They Shall Know No Fear",
     "The Armor of Faith: The model gains a 4+ invulnerability save.",
-    "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 12\", the placed Order is converted to \"Charge\". The Emperor's Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model.",
+    "Honor or Death: At the start of the activation, if an enemy HQ or Character model is within 10\", the placed Order is converted to \"Charge\". The Emperor's Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model.",
     "Martial superiority: The model can re-roll 1 to hit and 1 to wound roll.",
-    "Oath: Choose an oath to start the first round of combat. The effects are active throughout the game for all of your Space Marine creatures (=> no vehicles) from the same army organization plan.",
-    "Abhor the Witch: All units gain the trait \"Aegis(5+)\". The army is not allowed to include psykers.",
-    "Accept any Challenge: All units receive +1 to their Strength and Leadership. At the start of every activation, if an enemy unit is within 12\", the placed order is converted to \"Charge\". The order must be used to engage in close combat with at least one enemy unit. Units must always pursue the opponent and are not allowed to flee voluntarily.",
-    "Uphold the Honour of the Emperor: All units gain +1 to their armor saves against ranged attacks. Units can never benefit from cover."
+    "Oath: Choose an oath at the start of the first battle round. The effects are active throughout the game for all of your Space Marine creatures (=> no vehicles) from the same army organization plan.",
+    "Abhor the Witch, Destroy the Witch: All units gain the \"Aegis(5+)\" and \"Vanguard\" abilities. Can only be selected if the enemy army includes at least one psyker and if the own army does not include any psykers.",
+    "Accept any Challenge, No Matter the Odds: All units gain +1 to their melee hit rolls, but they may never use the \"Escape\" order.",
+    "Suffer not the Unclean to Live: All units gain +2 Strength, but they suffer a -1 penalty to their Initiative.",
+    "Uphold the Honor of the Emperor: All units gain +1 to their armor saves, but they can never benefit from any cover (including Obscuring cover)."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

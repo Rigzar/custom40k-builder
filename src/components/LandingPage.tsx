@@ -20,9 +20,9 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v154_dismissed';
 type AnnouncementLang = { title: string; intro: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.54: Leagues of Votann 1.01 + Traitor Guard armoury, Heavy Infantry, Tzeentch psykers',
-    intro: 'The Votann codex moves to 1.01, plus a round of fixes straight from the community bug reports — thank you for every one of them.',
-    line6: '⬡ Leagues of Votann — codex 1.01: "Grudgepyre" and "Interface Echo" cast at 6, "Interface Echo" only changes your own dice, the Concussion maul is AT(2), the Armory\'s Concussion weapons lost "Unwieldy", and the Mass gauntlet/hammer are gone. The full re-audit also caught a Hernkyn Yaegirs swap that should cost +1 point per model.',
+    title: 'v1.54: five codex updates (Votann 1.02, Tyranids 1.02, Necrons 1.01, Space Marines 1.01) + community fixes',
+    intro: 'A big data day: five replaced codex sheets, each re-read page by page, plus a round of fixes straight from the community bug reports — thank you for every one of them.',
+    line6: '⬡ Leagues of Votann 1.02 — new unit, the Hearthkyn Skyriggers (Elites, Jump Pack Infantry). Hearthkyn Warriors gain a 3+ armour save. Concussion and Mass weapons consolidated. ⬡ Tyranids 1.02 — the Tyrant Guard Brood gains a Wound and becomes Monstrous Infantry; the Norn gains a defensive option. ⬡ Necrons 1.01 — Veil of Darkness costs 35 and scatters on 1D6; Monoliths can no longer mishap on Deep Strike. ⬡ Space Marines 1.01 — the Emperor\'s Champion\'s Oaths are reworked, with a fourth oath added.',
     line1: '⬡ Traitor Guard — the Chaos "Daemon weapon" can finally have its abilities chosen, a unit with a Mark of Chaos now reaches that Mark\'s armoury, and Traitor Guard psykers use the Chaos disciplines instead of the Imperium ones. More broadly, anything bought from an archetype-granted foreign armoury (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) now actually applies its rules instead of only costing points.',
     line2: '⬡ Imperial Guard — the "Heavy Infantry" trait really grants Krak grenades and Plate armor (4+ save) now, not just the text.',
     line3: '⬡ Mark of Tzeentch — a Character or Monstrous Creature carrying it now counts as a Psyker, so a list with powers on it is no longer flagged invalid.',
@@ -31,9 +31,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub or tell us on Discord — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.54: Leagues of Votann 1.01 + Traitor-Guard-Rüstkammer, Heavy Infantry, Tzeentch-Psioniker',
-    intro: 'Der Votann-Codex geht auf 1.01, dazu eine Runde Korrekturen direkt aus den Fehlermeldungen der Community — vielen Dank für jede einzelne.',
-    line6: '⬡ Leagues of Votann — Codex 1.01: "Grudgepyre" und "Interface Echo" haben Beschwörungswert 6, "Interface Echo" verändert nur eigene Würfel, der Concussion maul hat AT(2), den Concussion-Waffen der Rüstkammer fehlt jetzt "Unwieldy", und Mass gauntlet/hammer wurden entfernt. Die vollständige Neuprüfung fand außerdem einen Hernkyn-Yaegirs-Tausch, der +1 Punkt pro Modell kosten muss.',
+    title: 'v1.54: fünf Codex-Updates (Votann 1.02, Tyraniden 1.02, Necrons 1.01, Space Marines 1.01) + Community-Korrekturen',
+    intro: 'Ein großer Datentag: fünf ersetzte Codex-Tabellen, jede Seite für Seite neu gelesen, dazu eine Runde Korrekturen direkt aus den Fehlermeldungen der Community — vielen Dank für jede einzelne.',
+    line6: '⬡ Leagues of Votann 1.02 — neue Einheit, die Hearthkyn Skyriggers (Elite, Sprungmodul-Infanterie). Hearthkyn Warriors erhalten einen 3+ Rüstungswurf. Concussion- und Mass-Waffen zusammengefasst. ⬡ Tyraniden 1.02 — der Tyrant Guard Brood erhält eine Lebenspunkt und wird Monströse Infanterie; die Norn erhält eine defensive Option. ⬡ Necrons 1.01 — Veil of Darkness kostet 35 und streut nur 1W6; Monolithen können beim Deep Strike nicht mehr verunglücken. ⬡ Space Marines 1.01 — die Schwüre des Emperor\'s Champion wurden überarbeitet, ein vierter Schwur kam hinzu.',
     line1: '⬡ Traitor Guard — die Chaos-"Daemon weapon" lässt endlich ihre Fähigkeiten auswählen, eine Einheit mit einem Mal des Chaos erreicht jetzt die Rüstkammer dieses Mals, und Traitor-Guard-Psioniker nutzen die Chaos-Disziplinen statt der imperialen. Allgemeiner: Alles, was aus einer per Archetyp gewährten fremden Rüstkammer gekauft wird (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa), wendet jetzt tatsächlich seine Regeln an, statt nur Punkte zu kosten.',
     line2: '⬡ Imperial Guard — die Eigenschaft "Heavy Infantry" gewährt jetzt wirklich Krak-Granaten und Plattenrüstung (4+ Rüstungswurf), nicht nur den Text.',
     line3: '⬡ Mal des Tzeentch — ein Charaktermodell oder eine Monströse Kreatur damit gilt jetzt als Psioniker, eine Liste mit Kräften wird also nicht mehr als ungültig gemeldet.',
@@ -42,9 +42,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden oder auf Discord sagen — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.54: Leagues of Votann 1.01 + armería de la Traitor Guard, Heavy Infantry, psíquicos de Tzeentch',
-    intro: 'El códex de Votann pasa a 1.01, más una tanda de correcciones salidas directamente de los reportes de la comunidad — gracias por cada uno.',
-    line6: '⬡ Leagues of Votann — códex 1.01: "Grudgepyre" e "Interface Echo" se lanzan a 6, "Interface Echo" solo cambia dados propios, el Concussion maul es AT(2), las armas Concussion de la Armería pierden "Unwieldy" y desaparecen el Mass gauntlet y el Mass hammer. La re-auditoría completa encontró además un cambio de arma de los Hernkyn Yaegirs que debe costar +1 punto por modelo.',
+    title: 'v1.54: cinco actualizaciones de códex (Votann 1.02, Tyranids 1.02, Necrons 1.01, Space Marines 1.01) + correcciones de la comunidad',
+    intro: 'Un día grande de datos: cinco hojas de códex sustituidas, releídas página a página, más una tanda de correcciones salidas directamente de los reportes de la comunidad — gracias por cada uno.',
+    line6: '⬡ Leagues of Votann 1.02 — unidad nueva, los Hearthkyn Skyriggers (Élite, Infantería con Retrorreactor). Los Hearthkyn Warriors ganan salvación 3+. Armas Concussion y Mass consolidadas. ⬡ Tyranids 1.02 — el Tyrant Guard Brood gana una Herida y pasa a Infantería Monstruosa; la Norn gana una opción defensiva. ⬡ Necrons 1.01 — el Veil of Darkness cuesta 35 y dispersa solo 1D6; los Monolitos ya no sufren percance al llegar por Deep Strike. ⬡ Space Marines 1.01 — los Juramentos del Emperor\'s Champion se rehacen, con un cuarto juramento nuevo.',
     line1: '⬡ Traitor Guard — por fin se pueden elegir las habilidades del "Daemon weapon" del Caos, una unidad con Marca del Caos accede ya a la armería de esa Marca, y los psíquicos de la Traitor Guard usan las disciplinas del Caos en vez de las del Imperio. Y en general: todo lo comprado en una armería ajena concedida por el arquetipo (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) ahora aplica sus reglas de verdad, en vez de solo costar puntos.',
     line2: '⬡ Imperial Guard — el rasgo "Heavy Infantry" ahora sí concede granadas Krak y Plate armor (salvación 4+), no solo el texto.',
     line3: '⬡ Marca de Tzeentch — un modelo Personaje o una Criatura Monstruosa que la lleve cuenta ya como Psíquico, así que una lista con poderes deja de marcarse como inválida.',
@@ -218,7 +218,7 @@ const CATEGORIES: Category[] = [
     icon: '/category-icons/imperium.svg',
     pillFg: '#c8b56a', dividerColor: '#3a3520',
     factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.00' },
+      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.01' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.02' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing', version: '1.00' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing', version: '1.00' },
