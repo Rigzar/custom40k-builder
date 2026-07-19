@@ -207,6 +207,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function isTerminatorArmor(arm: ArmoryItem): boolean {
     return isTerminatorArmourName(arm.name);
   }
+  // Mark armories. Normally the unit's own faction supplies them, but an archetype that grants
+  // Marks of Chaos to a mark-less faction (IG "Traitor Guard", AdMech "Dark Mechanicum") also
+  // grants the granting faction's Mark armories — creator ruling 2026-07-19: "if they can pick a
+  // Mark they get its armoury and its psychic powers, because they count as Chaos". Own faction
+  // wins whenever it has any, so this only ever fills a genuine gap.
+  //
+  // MUST stay above allArmorySources(): that function reads markArmories and is called during
+  // render by getBoughtArmourKws(). Declaring it further down left it in the temporal dead zone,
+  // which threw "Cannot access 'markArmories' before initialization" and blanked the whole
+  // Armoury modal for every faction (Discord 2026-07-19).
+  const markArmories = Object.keys(activeData.armory_marks).length > 0
+    ? activeData.armory_marks
+    : (!isAllied && archetypeRuleForArmory?.armoryOnlyFaction ? (archetypeArmoryData?.armory_marks ?? {}) : {});
+
   /** Every armory the unit can currently buy from — own faction plus, when an archetype grants a
    *  foreign one (Traitor Guard → CSM), that faction's sheets too. Name lookups over bought items
    *  must see the foreign sheets or a cross-faction purchase looks like an unknown item. */
@@ -349,14 +363,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return isItemMarkBlocked(arm, { markless: isMarklessFaction, effectiveMark });
   }
 
-  // Mark armories. Normally the unit's own faction supplies them, but an archetype that grants
-  // Marks of Chaos to a mark-less faction (IG "Traitor Guard", AdMech "Dark Mechanicum") also
-  // grants the granting faction's Mark armories — creator ruling 2026-07-19: "if they can pick a
-  // Mark they get its armoury and its psychic powers, because they count as Chaos". Own faction
-  // wins whenever it has any, so this only ever fills a genuine gap.
-  const markArmories = Object.keys(activeData.armory_marks).length > 0
-    ? activeData.armory_marks
-    : (!isAllied && archetypeRuleForArmory?.armoryOnlyFaction ? (archetypeArmoryData?.armory_marks ?? {}) : {});
   // Faction capability flags — use activeData (allied faction's armory for allied units)
   const hasMark = Object.keys(markArmories).length > 0;
   const hasLegionData = Object.keys(activeData.armory_legions).length > 0;

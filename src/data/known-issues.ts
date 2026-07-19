@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-armoury-modal-tdz-blank-screen-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — opening the Armoury showed a blank screen (regression introduced the same day)',
+    description: 'FIXED 2026-07-19 (v1.54), reported on Discord for Necrons but it affected every faction. The Traitor Guard work earlier that day added `allArmorySources()` near the top of ArmoryModal, which reads the `markArmories` const — but that const was declared ~140 lines further down. `allArmorySources()` is called during render by `getBoughtArmourKws()`, so it hit the temporal dead zone and threw "Cannot access \'markArmories\' before initialization", which unmounted the whole modal and left a blank overlay. Fixed by moving the `markArmories` declaration above `allArmorySources()`, with a comment recording the ordering constraint. LESSON: `npm run build` cannot catch this — TypeScript does not flag TDZ violations, so the build was green while the app was broken for every user. A runtime click-through is the only thing that would have caught it, and this one was verified that way: Necron Lord → Armoury opens, tabs render, no console errors.',
+  },
+  {
     id: 'ki-codex-weapon-abilities-missing-glossary-01',
     status: 'fixed',
     title: 'CROSS-FACTION — 20 codex weapon abilities (Shuriken, Tesla, Gauss, Markerlight...) rendered as bare words with no description on 150+ weapon profiles',
