@@ -518,9 +518,9 @@
     {
       "name": "Veil of darkness",
       "term_compat": false,
-      "desc": "The Lord can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the deep strike rules. Additionally, the model and its attached unit gain the \"Deep strike\" ability. Unique.",
+      "desc": "The Lord can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the Deep Strike rules. Additionally, the model and its attached unit gain the \"Deep Strike\" ability. Additionally, the unit only rolls 1D6 for scatter distance. Unique.",
       "p_unit": null,
-      "p_char": 25
+      "p_char": 35
     },
     {
       "name": "Additional armor",

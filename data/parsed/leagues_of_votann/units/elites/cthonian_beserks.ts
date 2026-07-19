@@ -34,13 +34,13 @@ export const cthonianBeserks: Unit = {
   "equipped_with": "Every model is equipped with: Heavy plasma axe.",
   "weapons": [
     {
-      "name": "Concussion maul",
+      "name": "Concussion weapon",
       "range": "-",
       "type": "Melee",
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Slow(-2), Unwieldy"
+      "abilities": "AT(2), Slow(-2)"
     },
     {
       "name": "Heavy plasma axe",
@@ -49,7 +49,7 @@ export const cthonianBeserks: Unit = {
       "s": "+3",
       "ap": "-2",
       "d": "1",
-      "abilities": "Unwieldy"
+      "abilities": "AT(1)"
     },
     {
       "name": "Mole grenade launcher",
@@ -61,7 +61,7 @@ export const cthonianBeserks: Unit = {
       "abilities": "Explosive, Indirect, Suppression"
     },
     {
-      "name": "Twin concussion gauntlet",
+      "name": "Twin concussion weapon",
       "range": "-",
       "type": "Melee",
       "s": "x2",
@@ -78,7 +78,7 @@ export const cthonianBeserks: Unit = {
       },
       "choices": [
         {
-          "name": "Concussion maul",
+          "name": "Concussion weapon",
           "points": 10
         }
       ],
@@ -100,7 +100,7 @@ export const cthonianBeserks: Unit = {
           "points": 10
         },
         {
-          "name": "Twin concussion gauntlet",
+          "name": "Twin concussion weapon",
           "points": 11
         }
       ],

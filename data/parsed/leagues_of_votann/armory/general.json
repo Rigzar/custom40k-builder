@@ -74,7 +74,7 @@
       "p_char": 6
     },
     {
-      "name": "Concussion gauntletᴱ",
+      "name": "Concussion weaponᴱ",
       "term_compat": false,
       "range": "-",
       "type": "Melee",
@@ -86,7 +86,7 @@
       "p_char": 17
     },
     {
-      "name": "Concussion hammerᴱ",
+      "name": "Mass weaponᴱ",
       "term_compat": false,
       "range": "-",
       "type": "Melee",

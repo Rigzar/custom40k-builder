@@ -159,7 +159,7 @@ export const hiveTyrant: Unit = {
         },
         {
           "name": "Lash whip and Monstrous bonesword",
-          "points": 5
+          "points": 10
         },
         {
           "name": "Twin devourer with brainleech worms",
@@ -195,7 +195,7 @@ export const hiveTyrant: Unit = {
         },
         {
           "name": "Lash whip and Monstrous bonesword",
-          "points": 5
+          "points": 10
         },
         {
           "name": "Twin devourer with brainleech worms",

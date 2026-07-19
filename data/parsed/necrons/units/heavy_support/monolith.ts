@@ -83,7 +83,7 @@ export const monolith: Unit = {
     "Anti-Grav, Deep strike",
     "Gate of Eternity: Instead of using its particle whip, a Monolith can teleport a friendly <Necron> unit to it. Remove the target unit from the battlefield and redeploy it within 3\" of the Monolith.",
     "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
-    "Lumbering: The model can never move more than 6\". If it arrives via Deep strike from reserve and would land on top of an enemy unit, move all models as little as possible to make room for the Monolith."
+    "Lumbering: The model can never move more than 6\". If it arrives via Deep Strike from reserve and would land on top of an enemy unit, move all models as little as possible to make room for the Monolith. If it would land on impassable terrain or outside the battlefield, reduce the scatter distance as much as necessary to place the model."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

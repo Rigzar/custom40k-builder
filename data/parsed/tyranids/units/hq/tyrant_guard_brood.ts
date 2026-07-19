@@ -13,7 +13,7 @@ export const tyrantGuardBrood: Unit = {
   "models": [
     {
       "name": "Tyrant Guard",
-      "points": 43,
+      "points": 55,
       "min": 1,
       "max": 6,
       "stats": {
@@ -22,7 +22,7 @@ export const tyrantGuardBrood: Unit = {
         "BS": "3+",
         "S": "5",
         "T": "6",
-        "W": "2",
+        "W": "3",
         "I": "4",
         "A": "2",
         "LD": "7",
@@ -109,7 +109,7 @@ export const tyrantGuardBrood: Unit = {
       "choices": [
         {
           "name": "Hardened Carapace",
-          "points": 8
+          "points": 12
         }
       ],
       "inline_pts": null,
@@ -150,7 +150,7 @@ export const tyrantGuardBrood: Unit = {
     "Bodyguard, Instinctive Behaviour, Massive(1), Move Through Cover",
     "Shieldwall: A Hive Tyrant, Neurotyrant or a Swarmlord can attach to the unit like a character model."
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Monstrous Infantry",
   "keywords": [
     "Tyranid"
   ],

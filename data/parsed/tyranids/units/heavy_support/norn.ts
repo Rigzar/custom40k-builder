@@ -170,7 +170,7 @@ export const norn: Unit = {
     "Fearless, Move Through Cover, Synapse",
     "Psychic Barrier: The model gains a 5+ invulnerability save.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline.",
-    "Singular Purpose: Select one enemy unit at the beginning of the first Battle round. The model may re-roll all to hit and all to wound rolls against the target.",
+    "Singular Purpose: Select one enemy unit at the beginning of the first Battle round. The model may re-roll all to hit and all to wound rolls against the target. Alternatively, select a mission objective at the beginning of the first Battle round. The model gains the \"Objective Secured!\" ability for this objective only. Additionally, it may re-roll armor save and invulnerability saves of 1 while within 3\" of that objective.",
     "Norn Emissary",
     "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and two powers from a chosen discipline.",
     "Warp Barrier: The model gains a 4+ invulnerability save."

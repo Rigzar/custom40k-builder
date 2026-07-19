@@ -233,14 +233,14 @@ const CATEGORIES: Category[] = [
     pillFg: '#6ab88a', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'testing', version: '1.00' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'testing', version: '1.00' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.01' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.01' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.01' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.01' },
       { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'testing', version: '1.00' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing', version: '1.00' },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.01' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.01' },
+      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.02' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.02' },
     ],
   },
 ];

@@ -110,7 +110,7 @@ export const FACTION_VERSIONS: Record<string, string> = {
   orks: '1.01',
   eldar: '1.01',
   dark_eldar: '1.01',
-  tyranids: '1.01',
+  tyranids: '1.02',
   // all other audited factions default to their first published version
   chaos_space_marines: '1.00',
   chaos_daemons: '1.00',
@@ -120,10 +120,10 @@ export const FACTION_VERSIONS: Record<string, string> = {
   adeptus_sororitas: '1.00',
   inquisition: '1.00',
   tau_empire: '1.00',
-  necrons: '1.00',
+  necrons: '1.01',
   genestealer_cults: '1.00',
   harlequins: '1.00',
-  leagues_of_votann: '1.01',
+  leagues_of_votann: '1.02',
 };
 
 export function getFactionVersion(key: string): string | undefined {
