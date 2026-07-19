@@ -1,4 +1,5 @@
 ---
+import type { ArmoryItem } from '../../../../vendor/src/types/data';
 import Layout from '../../../../components/Layout.astro';
 import ArmoryWeaponTable from '../../../../components/ArmoryWeaponTable.astro';
 import ArmoryEquipmentList from '../../../../components/ArmoryEquipmentList.astro';
@@ -19,6 +20,21 @@ const factionEntries = Object.entries(armoryFaction);
 
 function tabId(s: string): string {
   return 'tab-' + s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+/**
+ * The codex Armory sheets are split into WEAPON / EQUIPMENT / VEHICLE EQUIPMENT (and on some
+ * factions VETERAN ABILITIES). Production keeps that split as a `category` on each equipment
+ * item, and the builder app honours it — vehicle gear sits behind its own button. The wiki was
+ * printing one flat Equipment list, so 143 vehicle items and 52 veteran abilities across the
+ * codices were mixed in with the general wargear. Split them back out to match the sheets.
+ */
+function splitEquipment(items: ArmoryItem[]) {
+  return {
+    general: items.filter(e => !e.category),
+    vehicle: items.filter(e => e.category === 'vehicle'),
+    veteran: items.filter(e => e.category === 'veteran'),
+  };
 }
 
 const hasGeneral = armoryGeneral.weapons.length > 0 || armoryGeneral.equipment.length > 0
@@ -66,10 +82,22 @@ const singleTab = allTabs.length <= 1;
           <ArmoryWeaponTable items={armoryGeneral.weapons} />
         </>
       )}
-      {armoryGeneral.equipment.length > 0 && (
+      {splitEquipment(armoryGeneral.equipment).general.length > 0 && (
         <>
           <h2>{wt('headingEquipment')}</h2>
-          <ArmoryEquipmentList items={armoryGeneral.equipment} />
+          <ArmoryEquipmentList items={splitEquipment(armoryGeneral.equipment).general} />
+        </>
+      )}
+      {splitEquipment(armoryGeneral.equipment).veteran.length > 0 && (
+        <>
+          <h2>{wt('headingVeteranAbilities')}</h2>
+          <ArmoryEquipmentList items={splitEquipment(armoryGeneral.equipment).veteran} />
+        </>
+      )}
+      {splitEquipment(armoryGeneral.equipment).vehicle.length > 0 && (
+        <>
+          <h2>{wt('headingVehicleEquipment')}</h2>
+          <ArmoryEquipmentList items={splitEquipment(armoryGeneral.equipment).vehicle} />
         </>
       )}
       {armoryGeneral.daemon_weapons && armoryGeneral.daemon_weapons.length > 0 && (
@@ -106,11 +134,25 @@ const singleTab = allTabs.length <= 1;
             <ArmoryWeaponTable items={armory.weapons} />
           </>
         )}
-        {armory.equipment.length > 0 && (
+        {splitEquipment(armory.equipment).general.length > 0 && (
           <>
             {!singleTab && <h2>{wt('headingEquipment')}</h2>}
             {singleTab && <h3>{wt('headingEquipment')}</h3>}
-            <ArmoryEquipmentList items={armory.equipment} />
+            <ArmoryEquipmentList items={splitEquipment(armory.equipment).general} />
+          </>
+        )}
+        {splitEquipment(armory.equipment).veteran.length > 0 && (
+          <>
+            {!singleTab && <h2>{wt('headingVeteranAbilities')}</h2>}
+            {singleTab && <h3>{wt('headingVeteranAbilities')}</h3>}
+            <ArmoryEquipmentList items={splitEquipment(armory.equipment).veteran} />
+          </>
+        )}
+        {splitEquipment(armory.equipment).vehicle.length > 0 && (
+          <>
+            {!singleTab && <h2>{wt('headingVehicleEquipment')}</h2>}
+            {singleTab && <h3>{wt('headingVehicleEquipment')}</h3>}
+            <ArmoryEquipmentList items={splitEquipment(armory.equipment).vehicle} />
           </>
         )}
       </div>

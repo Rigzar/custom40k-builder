@@ -45,6 +45,11 @@ export const WIKI_STRINGS = {
   headingArmory: 'Armory',
   headingWeapons: 'Weapons',
   headingEquipment: 'Equipment',
+  // The codex Armory sheets keep vehicle gear and veteran abilities in their own sections;
+  // production tags them with a `category`, so the wiki prints them under their own headings
+  // rather than mixed into the general Equipment list.
+  headingVehicleEquipment: 'Vehicle Equipment',
+  headingVeteranAbilities: 'Veteran Abilities',
   headingDaemonWeapons: 'Daemon Weapons',
   headingWargearOptions: 'Wargear Options',
   headingAbilities: 'Abilities',
