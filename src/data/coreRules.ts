@@ -195,6 +195,101 @@ export const RULES: Record<string, RuleEntry> = {
     description: 'The model does not gain an additional attack for having a pistol in close combat. Each model may carry only one Unwieldy item.',
   },
 
+  // ── Codex weapon abilities ────────────────────────────────────────────────
+  // These are NOT in Custom40k Core Rules.txt — each is defined in its own faction's .ods
+  // (Index / "Weapon abilities" section) and the text below is verbatim from there. They were
+  // rendering as bare unexplained words on 150+ weapon profiles until 2026-07-19.
+  // Keys are lowercased by normaliseKey, so one entry covers every capitalisation in the data.
+
+  // Eldar 1.01.ods + Harlequins.ods (same wording in both)
+  'shuriken': {
+    name: 'Shuriken',
+    description: 'To wound rolls of 5+ gain additional -2 AP.',
+  },
+  // Eldar 1.01.ods
+  'ghostlight': {
+    name: 'Ghostlight',
+    description: 'If a unit scores two or more hits with weapons with this ability, you may resolve the hits normally or inflict a single combined attack. When combining attacks, choose one Ghostlight hit to be the primary hit. Resolve only the primary hit; for each other Ghostlight hit, the primary hit gains +1 Strength, -1 AP, +1 Damage, and AT(1), to a maximum of 10 Strength, -6 AP, 4 Damage, and AT(4).',
+  },
+  'distortion': {
+    name: 'Distortion',
+    description: 'The weapon has a -1 penalty for to wound rolls.',
+  },
+  // Escalation.ods (the Lynx's Sonic lance is a Lord of War)
+  'soundquake': {
+    name: 'Soundquake',
+    description: 'To wound rolls of 3+ against creatures always succeed. If this weapon targets a vehicle, it suffers one automatic hit at Strength 1 that rolls 3D6 for armor penetration.',
+  },
+  // Necrons ENG.ods + Adeptus Mechanicus ENG.ods (Tesla appears in both, identical wording)
+  'gauss': {
+    name: 'Gauss',
+    description: 'To wound rolls of 5+ against creatures are always successful. Armor penetration rolls of 5+ against vehicles gain a cumulative +1 AT and always inflict a Glancing Hit, unless the result is already sufficient for a Penetrating Hit.',
+  },
+  'tesla': {
+    name: 'Tesla',
+    description: 'To hit rolls of 5+ are always successful and the target suffers 2 additional automatic hits.',
+  },
+  // Adeptus Mechanicus ENG.ods
+  'cognis': {
+    name: 'Cognis',
+    description: 'The weapon reduces its total penalty to hit rolls in ranged combat by -1, down to a minimum of 0.',
+  },
+  'luminagen': {
+    name: 'Luminagen',
+    description: 'A unit that suffers one or more unsaved Wounds, glancing or penetrating hits caused by a weapon with this special rule counts its cover saves as being 1 point worse than normal until the end of the battle round. Furthermore, they suffer an additional -1 to hit penalty for Defensive fire.',
+  },
+  // Tau Empire ENG.ods — abridged: the full entry carries a token-cost table, kept as prose.
+  'markerlight': {
+    name: 'Markerlight',
+    description: 'During each Reinforcement phase, place a number of Markerlight tokens next to each unit equal to the number of "Markerlight" shots they have. These tokens can be assigned to enemy units targeted by the activated unit; friendly units in range and line of sight of the target may assign theirs to it during the same activation. A unit\'s own tokens must be used up first. Cannot be assigned while locked in melee combat. Tokens are spent for these benefits — 1: one Seeker missile equipped by the unit automatically hits the target (per token removed); 1: reduce enemy Leadership by a cumulative 1 until the end of the battle round; 2: attacks gain the cumulative "Sunder(1)" ability; 2: reduce the to hit penalty for Defensive Fire by 1; 2: re-roll ranged to hit rolls of 1; 3: the target must pass a Leadership test or gain a Battleshock token; 3: the target is hit by a Seeker missile from outside the battlefield (vehicles are hit on the side the unit would normally be able to hit). Each token can only be used for a single effect, unused tokens are discarded at the end of the battle round, and an enemy unit may not have more than 4 Markerlight tokens on it at the same time.',
+  },
+  // Harlequins.ods
+  'neuro disruptor': {
+    name: 'Neuro disruptor',
+    description: 'Roll 3D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound.',
+  },
+  'bio-explosion': {
+    name: 'Bio-explosion',
+    description: 'If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking.',
+  },
+  // Orks 1.01.ods
+  'grot-guided': {
+    name: 'Grot-guided',
+    description: 'This weapon is fired with a BS of 4+ and ignores cover. Enemy targets in cover do not gain an armor bonus, and the firer suffers no hit penalty.',
+  },
+  'grot gunner': {
+    name: 'Grot Gunner',
+    description: 'A weapon with a Grot gunner is fired with a BS of 4+.',
+  },
+  'looted': {
+    name: 'Looted',
+    description: 'When a unit shoots with this weapon, before selecting a target roll a D6. On a result of 1-3, all deffguns in the unit must use the "Shooty" profile. On a result of 4-6, they must all use the "Beamy" profile.',
+  },
+  'lifta': {
+    name: 'Lifta',
+    description: 'When this weapon scores a hit on a vehicle, the Battlewagon\'s controlling player may move the target anywhere within D6" of its starting location that is not within 1" of another model. Then resolve the rest of the attack.',
+  },
+  'bubbles': {
+    name: 'Bubbles',
+    description: 'When a unit shoots with this weapon, before selecting a target roll a D6. On a result of 1-2, all bubblechukkas in the unit must use the "Weedy" profile. On a result of 3-4, they must all use the "Big" profile. On a result of 5-6, they must all use the "\'Uge" profile.',
+  },
+  'mek weapon': {
+    name: 'Mek weapon',
+    description: 'Cannot be combined with any equipment that explicitly changes the stats of a weapon. For example, "Precision Squig" can be combined, but "More Dakka" cannot.',
+  },
+  'shokk tunnel': {
+    name: 'Shokk Tunnel',
+    description: 'When an "Advance" command is given, instead of moving the model an additional 1D6", a model with this weapon is removed from the board and immediately repositioned according to the rules for Deep Strike. Then roll 1D6. On a 1 or 2, the model suffers a penetrating hit.',
+  },
+  'traktor': {
+    name: 'Traktor',
+    description: 'Attacks with this weapon against vehicles receive an additional +1 bonus on hit rolls.',
+  },
+  'tellyported': {
+    name: 'Tellyported',
+    description: 'Any To Wound roll of a 6 made with this weapon inflicts 1 Mortal Wound. If this weapon rolls a 6 for armour penetration, it causes a penetrating hit, regardless of whether the armour penetration result was higher than the target\'s armour value or not.',
+  },
+
   // ── Weapon types ──────────────────────────────────────────────────────────
   // Source: Custom40k Core Rules.txt L1072-1128 ("Weapon types" — its own canonical
   // glossary category, distinct from Weapon/Model abilities). Order-compatibility

@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-codex-weapon-abilities-missing-glossary-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — 20 codex weapon abilities (Shuriken, Tesla, Gauss, Markerlight...) rendered as bare words with no description on 150+ weapon profiles',
+    description: 'FIXED 2026-07-19 (v1.54). The glossary only carried Custom40k Core Rules abilities, so every faction-specific weapon ability fell through to plain unexplained text and was invisible to engine queries. Added 20 entries, each with its text taken VERBATIM from that faction\'s own .ods (Index / weapon-abilities section) rather than written from memory: Shuriken (Eldar + Harlequins, 63 profiles), Tesla (Necrons + AdMech, 16), Gauss (Necrons, 13), Luminagen (12), Cognis (9), Markerlight (T\'au, 6 — the full token-cost table kept as prose), Grot-guided (5), Looted (4), Lifta (3), Bubbles (3), Mek weapon (3), Ghostlight (2), Neuro disruptor (2), Distortion, Soundquake (defined in Escalation.ods, not the Eldar codex — the Lynx is a Lord of War), Bio-explosion, Grot Gunner, Shokk Tunnel, Traktor, Tellyported. Keys are lowercased by normaliseKey so one entry covers every capitalisation ("Mek Weapon" and "Mek weapon" both resolve). Remaining unresolved tokens are restriction phrases that are correct as plain text ("Only for Techmarines", "Gravis armor only", "Charge order only", "Only for Missionary", "Hits automatically wound") plus one genuine unknown: "Impuls" on the Horus Heresy Graviton gun, which is defined nowhere in any .ods or the Core Rules — left as-is and raised with the codex author rather than guessed at.',
+  },
+  {
     id: 'ki-ability-token-restriction-suffix-01',
     status: 'fixed',
     title: 'CROSS-FACTION — an ability written with a restriction attached ("Armorbane. Only for Warpsmiths") was dropped entirely: no glossary description and invisible to every rules query',
