@@ -37,7 +37,12 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
       const hasInvSave = (unit.abilities ?? []).some(a => /invulnerab(le|ility) save/i.test(a));
       if (hasInvSave) return false;
     }
-    return [t.pts_unit, t.pts_char, t.pts_veh].some(
+    // `pts_monster` must be in this list: every faction .ods prices the third column as
+    // "MONSTROUS CREATURES & VEHICLES" (verified across all 12 codices that have the table), and
+    // production stores that shared column in pts_monster with pts_veh usually null. Omitting it
+    // hid every trait priced ONLY in that column — e.g. Votann's "HUNTR's Mark" and "Master
+    // Salvagers" ( - | - | 5 ) never appeared in the picker at all.
+    return [t.pts_unit, t.pts_char, t.pts_monster, t.pts_veh].some(
       v => v && v !== '-' && v.toLowerCase() !== 'special',
     );
   });
@@ -85,7 +90,14 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
         <div className="overflow-y-auto flex-1 p-3 space-y-1">
           {unitTraitDefs.map(t => {
             const isSelected = selected.includes(t.name);
-            const raw = unit.is_vehicle ? t.pts_veh : unit.is_character ? t.pts_char : t.pts_unit;
+            // Must mirror the pricing in store/army.ts: a vehicle falls back to the shared
+            // "MONSTROUS CREATURES & VEHICLES" column when pts_veh is absent. Without the
+            // fallback the picker greyed out traits the engine would happily have charged for,
+            // so no vehicle in 8 factions could take any Army Trait.
+            const raw = unit.is_vehicle ? (t.pts_veh ?? t.pts_monster)
+              : unit.is_character ? t.pts_char
+              : unit.is_monster ? t.pts_monster
+              : t.pts_unit;
             const applicable = raw && raw !== '-' && raw.toLowerCase() !== 'special';
             return (
               <button

@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-traits-vehicle-shared-monster-column-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — no vehicle could select an Army Trait in 8 factions, and 3 vehicle-only traits never appeared in the picker at all',
+    description: 'FIXED 2026-07-19 (v1.54), found during the Votann 1.01 re-audit. Every faction .ods prices the third trait column as "MONSTROUS CREATURES & VEHICLES" — one SHARED column — and production stores it in `pts_monster`, leaving `pts_veh` null for most traits. `store/army.ts` already priced vehicles as `pts_veh ?? pts_monster`, but `TraitsModal.tsx` read `pts_veh` alone: for a vehicle every trait came back null → `applicable:false` → greyed out with "Not applicable to this unit type". Affected AdMech (0→14 selectable), Sororitas (0→12), Dark Eldar (0→22), Eldar (1→8), GSC (0→7), Votann (0→11), Necrons (1→12) and Space Marines (0→16). Separately, the availability filter listed a trait only if pts_unit/pts_char/pts_veh was set, so a trait priced ONLY in the shared column was invisible to every unit type: Votann "HUNTR\'s Mark" and "Master Salvagers", GSC "War Convoy". The picker now mirrors the engine exactly (vehicle → `pts_veh ?? pts_monster`, monster → `pts_monster`) and includes `pts_monster` in the filter. Verified by replaying both predicates over the real archetypes.json of all 19 factions. Note the stale comment in `codex_adeptus_sororitas/traits.ts` claiming Sororitas vehicles cannot take traits was a misreading of the header — corrected.',
+  },
+  {
     id: 'ki-traitorguard-mark-armory-disciplines-01',
     status: 'fixed',
     title: 'Imperial Guard — Traitor Guard could not reach the Khorne/Nurgle/Slaanesh/Tzeentch armouries or the Chaos disciplines',

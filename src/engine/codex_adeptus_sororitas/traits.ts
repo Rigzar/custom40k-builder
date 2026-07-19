@@ -2,8 +2,12 @@
  * Adeptus Sororitas Trait effects.
  *
  * SOURCE: data/parsed/adeptus_sororitas/archetypes.json "traits" (canonical desc text).
- * Same cost-column shape as Space Marines: NORMAL | CHARACTER MODELS | MONSTROUS CREATURES
- * (pts_veh is null for every Sororitas trait — vehicles cannot take Army Traits at all).
+ * Same cost-column shape as Space Marines: NORMAL | CHARACTER MODELS | MONSTROUS CREATURES &
+ * VEHICLES. `pts_veh` is null for every Sororitas trait because that third column is SHARED —
+ * the cost lives in `pts_monster` and vehicles fall back to it. (An earlier version of this note
+ * claimed Sororitas vehicles could not take Army Traits at all; that was a misreading of the
+ * header, corrected 2026-07-19 after checking every faction .ods — all of them read
+ * "MONSTROUS CREATURES & VEHICLES".)
  *
  * Status: complete — all 12 traits encoded. Two traits (Raging Fervour, Rites of Fire) grant a
  * weapon range bonus the engine has no numeric range-mod effect type for — kept as descriptive
