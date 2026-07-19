@@ -39,7 +39,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Imperial Guard — the "Heavy Infantry" trait now really grants Krak grenades and Plate armor (4+ armour save) instead of only printing the text. Units that already have a 4+ or better save are unaffected, as the trait says.',
       'GENERAL — a Character or Monstrous Creature with the Mark of Tzeentch is now recognised as a Psyker, so a list with psychic powers on it no longer shows as invalid.',
       'Imperial Guard — an Infantry Squad that is not linked to a Platoon Command Squad is now flagged as an error: every Infantry Squad must belong to a platoon (2-5 per Platoon Command Squad).',
-      'GENERAL — Print/Cards view on phones: the stat line no longer gets cut off at the right edge, so the armour save and invulnerable save are reachable (reported on Firefox/Android).',
+      'GENERAL — Print/Cards view on phones: the stat line no longer gets cut off at the right edge, so the armour save and invulnerable save are reachable (reported on Firefox/Android). The view\'s toolbar also wraps instead of forcing the whole page sideways, which was the second reason the sheet looked cut off. Printed output is unchanged. This closes the last open "print layout not optimised for mobile" issue.',
     ],
   },
   {

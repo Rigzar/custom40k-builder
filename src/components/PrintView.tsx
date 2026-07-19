@@ -1628,31 +1628,36 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   // Render into a portal at <body> (outside #root) so printing can simply hide #root and leave only
   // this sheet. Printing the overlay in-place made a position:fixed ancestor repeat on every page
   // (the "same page over and over" bug) and left blank pages from the app shell behind it.
+  // overflow-x-hidden on #pv-root: the toolbar below used to be a single non-wrapping row, so on a
+  // phone it made this overlay wider than the viewport. The printable area is fluid and stayed at
+  // viewport width, which is why the card looked "cut off on the right" with the SV/invuln columns
+  // unreachable (Discord 2026-07-18, Firefox/Android) — scrolling right only revealed empty
+  // background. The toolbar now wraps, and this guards against any future wide child.
   return createPortal((
-    <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#18171a' }}>
-      {/* Toolbar */}
-      <div className="print:hidden sticky top-0 z-10 bg-zinc-900 border-b border-zinc-700 px-4 py-2 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="text-amber-400 font-bold text-sm uppercase tracking-widest">{data.faction}</span>
-          <span className="text-zinc-400 text-sm">{totalPts} / {pointLimit} pts</span>
-          {archetype && <span className="text-zinc-500 text-xs">{archetype}</span>}
-          {legacy && <span className="text-zinc-500 text-xs">{legacy}{legacy2 ? ` · ${legacy2}` : ''}</span>}
+    <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden" style={{ background: '#18171a' }}>
+      {/* Toolbar — wraps on narrow screens so it can never force horizontal overflow */}
+      <div className="print:hidden sticky top-0 z-10 bg-zinc-900 border-b border-zinc-700 px-3 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 min-w-0">
+          <span className="text-amber-400 font-bold text-xs sm:text-sm uppercase tracking-widest">{data.faction}</span>
+          <span className="text-zinc-400 text-xs sm:text-sm whitespace-nowrap">{totalPts} / {pointLimit} pts</span>
+          {archetype && <span className="text-zinc-500 text-xs hidden sm:inline">{archetype}</span>}
+          {legacy && <span className="text-zinc-500 text-xs hidden sm:inline">{legacy}{legacy2 ? ` · ${legacy2}` : ''}</span>}
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1 mr-1">
+        <div className="flex items-center gap-1.5 sm:gap-2 ml-auto">
+          <div className="flex items-center gap-1 sm:mr-1">
             {(['cards', 'simple', 'list'] as const).map(m => (
               <button key={m} onClick={() => setMode(m)}
-                className={`px-3 py-1.5 text-xs uppercase tracking-wide border transition-colors ${mode === m ? 'bg-amber-800 border-amber-600 text-white' : 'bg-zinc-700 border-zinc-600 text-zinc-300 hover:bg-zinc-600'}`}>
+                className={`px-2 sm:px-3 py-1.5 text-[10px] sm:text-xs uppercase tracking-wide border transition-colors ${mode === m ? 'bg-amber-800 border-amber-600 text-white' : 'bg-zinc-700 border-zinc-600 text-zinc-300 hover:bg-zinc-600'}`}>
                 {m === 'cards' ? 'Cards' : m === 'simple' ? 'Simple' : 'List'}
               </button>
             ))}
           </div>
           <button onClick={() => window.print()}
-            className="px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-sm uppercase tracking-wide transition-colors">
+            className="px-3 sm:px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-xs sm:text-sm uppercase tracking-wide transition-colors">
             Print
           </button>
           <button onClick={onClose}
-            className="px-4 py-1.5 bg-zinc-700 hover:bg-zinc-600 border border-zinc-600 text-zinc-200 text-sm uppercase tracking-wide transition-colors">
+            className="px-3 sm:px-4 py-1.5 bg-zinc-700 hover:bg-zinc-600 border border-zinc-600 text-zinc-200 text-xs sm:text-sm uppercase tracking-wide transition-colors">
             ← Back
           </button>
         </div>

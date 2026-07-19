@@ -775,16 +775,16 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-3',
-    status: 'investigating',
+    status: 'fixed',
     title: {
       en: 'Print layout not optimised for mobile or non-Chrome browsers',
       de: 'Drucklayout nicht für Mobilgeräte oder Nicht-Chrome-Browser optimiert',
       es: 'El diseño de impresión no está optimizado para móviles ni navegadores que no sean Chrome',
     },
     description: {
-      en: 'v1.46: the main app builder is now usable on mobile phones (header collapses, buttons reduce to icons, weapon tables scroll horizontally). Remaining gap: PrintView is still desktop-only and may render incorrectly on mobile or non-Chrome browsers.',
-      de: 'v1.46: Die Haupt-App ist jetzt auf Mobilgeräten nutzbar (Header kollabiert, Buttons werden zu Icons, Waffentabellen scrollen horizontal). Verbleibend: PrintView ist noch desktop-only und kann auf Mobilgeräten oder Nicht-Chrome-Browsern falsch dargestellt werden.',
-      es: 'v1.46: la app principal ya es usable en móvil (el header se colapsa, los botones se reducen a iconos, las tablas de armas se desplazan horizontalmente). Pendiente: PrintView sigue siendo solo escritorio y puede verse mal en móvil o en navegadores que no sean Chrome.',
+      en: 'FIXED 2026-07-19 (v1.54). v1.46 made the builder usable on phones; the Print/Cards view was the remaining gap, reported on Firefox/Android as "it cuts off the right side and I can\'t see the save and inv save". Two separate causes, both now fixed: (1) the card is overflow:hidden for its header wash, so a narrow screen simply clipped the last stat columns — the stat strip scrolls on its own now, leaving the printed layout untouched; (2) the toolbar was one non-wrapping row, so it made the whole overlay wider than the viewport while the fluid printable area stayed at viewport width — scrolling right just revealed empty background. The toolbar now wraps and shrinks on small screens, and #pv-root is overflow-x-hidden. Print output itself is unchanged.',
+      de: 'BEHOBEN 2026-07-19 (v1.54). v1.46 machte den Builder auf Handys nutzbar; die Druck-/Kartenansicht war die verbleibende Lücke, gemeldet unter Firefox/Android: "der rechte Rand wird abgeschnitten, ich sehe Rüstungs- und Rettungswurf nicht". Zwei Ursachen, beide behoben: (1) die Karte ist wegen ihres Kopfverlaufs overflow:hidden, wodurch schmale Bildschirme die letzten Werte-Spalten schlicht abschnitten — die Werteleiste scrollt jetzt selbst, das Drucklayout bleibt unverändert; (2) die Werkzeugleiste war eine einzige nicht umbrechende Zeile und machte das gesamte Overlay breiter als das Ansichtsfenster. Sie bricht jetzt um und verkleinert sich auf kleinen Bildschirmen. Die Druckausgabe selbst ist unverändert.',
+      es: 'ARREGLADO 2026-07-19 (v1.54). v1.46 hizo usable el builder en móvil; la vista de Impresión/Cartas era lo que quedaba, reportado en Firefox/Android como "corta el lado derecho y no veo la salvación ni la invulnerable". Dos causas distintas, ambas resueltas: (1) la carta es overflow:hidden por el degradado de su cabecera, así que en pantalla estrecha recortaba las últimas columnas de stats — ahora la tira de stats se desplaza sola y el diseño impreso no cambia; (2) la barra de herramientas era una fila sin envolver y hacía todo el overlay más ancho que la pantalla, mientras el área imprimible fluida se quedaba al ancho del móvil: al desplazar a la derecha solo aparecía fondo vacío. Ahora la barra envuelve y se reduce en pantallas pequeñas. La salida impresa no cambia.',
     },
   },
   {
