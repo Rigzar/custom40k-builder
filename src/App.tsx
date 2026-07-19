@@ -23,6 +23,7 @@ import * as api from './lib/api';
 import { useT } from './i18n';
 import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { PwaUpdatePrompt } from './components/PwaUpdatePrompt';
 const PrintView        = lazy(() => import('./components/PrintView').then(m => ({ default: m.PrintView })));
 const CheatSheetModal  = lazy(() => import('./components/CheatSheetModal').then(m => ({ default: m.CheatSheetModal })));
 const SavedArmiesModal = lazy(() => import('./components/SavedArmiesModal').then(m => ({ default: m.SavedArmiesModal })));
@@ -1030,7 +1031,9 @@ export default function App() {
 
       <LegalFooter />
 
-
+      {/* Service-worker update / offline-ready toast. Outside <Suspense> so it can surface even
+          while a lazy modal is loading, and print:hidden so it never lands on a printed sheet. */}
+      <PwaUpdatePrompt />
     </div>
   );
 }
