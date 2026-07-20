@@ -15,44 +15,44 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v154_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v155_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.54: install it on your phone + five codex updates',
-    intro: 'The app can now be installed on your phone and the army builder works offline. Plus five replaced codex sheets, each re-read page by page, and a round of fixes straight from the community bug reports — thank you for every one of them.',
-    install: '📲 Install it — on Android open the menu in Chrome and pick "Install app"; on iPhone use Share → "Add to Home Screen". It gets its own icon and opens full screen. Once installed the builder works with NO INTERNET: every faction\'s units, weapons and points live on your device, so you can build lists at the club or in a shop with no signal. Logging in, cloud saves and campaigns still need a connection.',
-    line6: '⬡ Leagues of Votann 1.02 — new unit, the Hearthkyn Skyriggers (Elites, Jump Pack Infantry). Hearthkyn Warriors gain a 3+ armour save. Concussion and Mass weapons consolidated. ⬡ Tyranids 1.02 — the Tyrant Guard Brood gains a Wound and becomes Monstrous Infantry; the Norn gains a defensive option. ⬡ Necrons 1.01 — Veil of Darkness costs 35 and scatters on 1D6; Monoliths can no longer mishap on Deep Strike. ⬡ Space Marines 1.01 — the Emperor\'s Champion\'s Oaths are reworked, with a fourth oath added.',
-    line1: '⬡ Traitor Guard — the Chaos "Daemon weapon" can finally have its abilities chosen, a unit with a Mark of Chaos now reaches that Mark\'s armoury, and Traitor Guard psykers use the Chaos disciplines instead of the Imperium ones. More broadly, anything bought from an archetype-granted foreign armoury (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) now actually applies its rules instead of only costing points.',
-    line2: '⬡ Imperial Guard — the "Heavy Infantry" trait really grants Krak grenades and Plate armor (4+ save) now, not just the text.',
-    line3: '⬡ Mark of Tzeentch — a Character or Monstrous Creature carrying it now counts as a Psyker, so a list with powers on it is no longer flagged invalid.',
-    line4: '⬡ Imperial Guard — an Infantry Squad with no Platoon Command Squad is now flagged as an error (2-5 per platoon).',
-    line5: '📱 Print/Cards view on phones no longer cuts off the right edge — armour save and invulnerable save are reachable again.',
+    title: 'v1.55: three fixes from your bug reports',
+    intro: 'A quick round of fixes straight from Discord and GitHub — thank you for every report.',
+    install: '',
+    line6: '',
+    line1: '⚔ Upgrades whose cost equals the weapon they enhance can finally be picked — the Sisters\' Holy weapon, the Space Marines\' Relic blade, the Chaos Cursed blade and the Harlequins\' Crescendo. They were greyed out; they now show the price "Special" (the app adds 0 and the description tells you the real cost, since only you know the weapon).',
+    line2: '📱 Mobile — the top bar (tabs, Save, Print, armoury) no longer hides under your phone\'s clock and signal icons. If you installed the app already, close and reopen it once.',
+    line3: '📱 The main menu now scrolls smoothly on phones — the fog behind the title was too heavy for some devices and stuttered on every scroll.',
+    line4: 'ⁱ Leagues of Votann — the "Elites over Maximum" on the Memnyr Strategist in a Skirmish game is actually correct: in Skirmish every unit takes a slot, even Advisors. In Pitched and Epic it is free, as its rule says.',
+    line5: '',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub or tell us on Discord — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.54: auf dem Handy installierbar + fünf Codex-Updates',
-    intro: 'Die App lässt sich jetzt auf dem Handy installieren, und der Armee-Builder funktioniert offline. Dazu fünf ersetzte Codex-Tabellen, jede Seite für Seite neu gelesen, und eine Runde Korrekturen direkt aus den Fehlermeldungen der Community — vielen Dank für jede einzelne.',
-    install: '📲 Installieren — unter Android im Chrome-Menü „App installieren" wählen; auf dem iPhone über Teilen → „Zum Home-Bildschirm". Sie bekommt ein eigenes Symbol und startet im Vollbild. Einmal installiert läuft der Builder OHNE INTERNET: Einheiten, Waffen und Punkte jeder Fraktion liegen auf dem Gerät, du kannst also im Verein oder im Laden ohne Empfang Listen bauen. Anmeldung, Cloud-Speicher und Kampagnen brauchen weiterhin eine Verbindung.',
-    line6: '⬡ Leagues of Votann 1.02 — neue Einheit, die Hearthkyn Skyriggers (Elite, Sprungmodul-Infanterie). Hearthkyn Warriors erhalten einen 3+ Rüstungswurf. Concussion- und Mass-Waffen zusammengefasst. ⬡ Tyraniden 1.02 — der Tyrant Guard Brood erhält eine Lebenspunkt und wird Monströse Infanterie; die Norn erhält eine defensive Option. ⬡ Necrons 1.01 — Veil of Darkness kostet 35 und streut nur 1W6; Monolithen können beim Deep Strike nicht mehr verunglücken. ⬡ Space Marines 1.01 — die Schwüre des Emperor\'s Champion wurden überarbeitet, ein vierter Schwur kam hinzu.',
-    line1: '⬡ Traitor Guard — die Chaos-"Daemon weapon" lässt endlich ihre Fähigkeiten auswählen, eine Einheit mit einem Mal des Chaos erreicht jetzt die Rüstkammer dieses Mals, und Traitor-Guard-Psioniker nutzen die Chaos-Disziplinen statt der imperialen. Allgemeiner: Alles, was aus einer per Archetyp gewährten fremden Rüstkammer gekauft wird (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa), wendet jetzt tatsächlich seine Regeln an, statt nur Punkte zu kosten.',
-    line2: '⬡ Imperial Guard — die Eigenschaft "Heavy Infantry" gewährt jetzt wirklich Krak-Granaten und Plattenrüstung (4+ Rüstungswurf), nicht nur den Text.',
-    line3: '⬡ Mal des Tzeentch — ein Charaktermodell oder eine Monströse Kreatur damit gilt jetzt als Psioniker, eine Liste mit Kräften wird also nicht mehr als ungültig gemeldet.',
-    line4: '⬡ Imperial Guard — ein Infanterietrupp ohne Zugkommandotrupp wird jetzt als Fehler markiert (2-5 pro Zug).',
-    line5: '📱 Die Druck-/Karten-Ansicht schneidet auf dem Handy den rechten Rand nicht mehr ab — Rüstungswurf und Rettungswurf sind wieder erreichbar.',
+    title: 'v1.55: drei Korrekturen aus euren Fehlermeldungen',
+    intro: 'Eine schnelle Runde Korrekturen direkt aus Discord und GitHub — vielen Dank für jede Meldung.',
+    install: '',
+    line6: '',
+    line1: '⚔ Ausrüstung, deren Kosten der verbesserten Waffe entsprechen, lässt sich endlich auswählen — die Holy weapon der Schwestern, die Relic blade der Space Marines, die Chaos-Cursed blade und das Crescendo der Harlequins. Sie waren ausgegraut; jetzt zeigen sie den Preis „Special" (die App rechnet 0 und die Beschreibung nennt den echten Preis, denn nur du kennst die Waffe).',
+    line2: '📱 Mobil — die obere Leiste (Tabs, Speichern, Drucken, Rüstkammer) verschwindet nicht mehr unter Uhr und Signal-Symbolen des Handys. Wenn du die App bereits installiert hast, schließe und öffne sie einmal neu.',
+    line3: '📱 Das Hauptmenü scrollt jetzt flüssig auf Handys — der Nebel hinter dem Titel war für manche Geräte zu aufwändig und ruckelte bei jedem Scrollen.',
+    line4: 'ⁱ Leagues of Votann — die Meldung „Elite über Maximum" beim Memnyr Strategist in einem Scharmützel ist korrekt: Im Scharmützel belegt jede Einheit einen Slot, auch Berater. In Erbitterten und Epischen Schlachten ist er frei, wie seine Regel sagt.',
+    line5: '',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden oder auf Discord sagen — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.54: instálala en el móvil + cinco actualizaciones de códex',
-    intro: 'La app ya se puede instalar en el móvil y el creador de listas funciona sin conexión. Además, cinco hojas de códex sustituidas y releídas página a página, y una tanda de correcciones salidas directamente de los reportes de la comunidad — gracias por cada uno.',
-    install: '📲 Instálala — en Android abre el menú de Chrome y elige "Instalar aplicación"; en iPhone usa Compartir → "Añadir a pantalla de inicio". Tendrá su propio icono y se abre a pantalla completa. Una vez instalada, el creador de listas funciona SIN INTERNET: las unidades, armas y puntos de cada facción quedan en tu dispositivo, así que puedes montar listas en el club o en una tienda sin cobertura. Iniciar sesión, el guardado en la nube y las campañas siguen necesitando conexión.',
-    line6: '⬡ Leagues of Votann 1.02 — unidad nueva, los Hearthkyn Skyriggers (Élite, Infantería con Retrorreactor). Los Hearthkyn Warriors ganan salvación 3+. Armas Concussion y Mass consolidadas. ⬡ Tyranids 1.02 — el Tyrant Guard Brood gana una Herida y pasa a Infantería Monstruosa; la Norn gana una opción defensiva. ⬡ Necrons 1.01 — el Veil of Darkness cuesta 35 y dispersa solo 1D6; los Monolitos ya no sufren percance al llegar por Deep Strike. ⬡ Space Marines 1.01 — los Juramentos del Emperor\'s Champion se rehacen, con un cuarto juramento nuevo.',
-    line1: '⬡ Traitor Guard — por fin se pueden elegir las habilidades del "Daemon weapon" del Caos, una unidad con Marca del Caos accede ya a la armería de esa Marca, y los psíquicos de la Traitor Guard usan las disciplinas del Caos en vez de las del Imperio. Y en general: todo lo comprado en una armería ajena concedida por el arquetipo (Traitor Guard, Dark Mechanicum, Brood Brothers, Gue\'vesa) ahora aplica sus reglas de verdad, en vez de solo costar puntos.',
-    line2: '⬡ Imperial Guard — el rasgo "Heavy Infantry" ahora sí concede granadas Krak y Plate armor (salvación 4+), no solo el texto.',
-    line3: '⬡ Marca de Tzeentch — un modelo Personaje o una Criatura Monstruosa que la lleve cuenta ya como Psíquico, así que una lista con poderes deja de marcarse como inválida.',
-    line4: '⬡ Imperial Guard — una Infantry Squad sin Platoon Command Squad se marca ahora como error (2-5 por pelotón).',
-    line5: '📱 La vista de Impresión/Cartas ya no corta el borde derecho en el móvil — la salvación y la salvación invulnerable vuelven a verse.',
+    title: 'v1.55: tres correcciones de vuestros reportes',
+    intro: 'Una tanda rápida de correcciones salidas directamente de Discord y GitHub — gracias por cada reporte.',
+    install: '',
+    line6: '',
+    line1: '⚔ El equipo cuyo coste es igual al del arma que mejora ya se puede elegir — el Holy weapon de las Hermanas, el Relic blade de los Space Marines, el Cursed blade del Caos y el Crescendo de los Harlequins. Estaban en gris; ahora muestran el precio "Special" (la app suma 0 y la descripción indica el coste real, porque solo tú sabes qué arma mejoras).',
+    line2: '📱 Móvil — la barra superior (pestañas, Guardar, Imprimir, armería) ya no se esconde bajo el reloj y los iconos de señal del móvil. Si ya tenías la app instalada, ciérrala y ábrela una vez.',
+    line3: '📱 El menú principal ya se desplaza con fluidez en el móvil — la niebla tras el título era demasiado pesada para algunos dispositivos y daba tirones al hacer scroll.',
+    line4: 'ⁱ Leagues of Votann — el "Elites over Maximum" del Memnyr Strategist en una partida de Escaramuza es correcto: en Escaramuza toda unidad ocupa un slot, también los Advisor. En Batalla Campal y Épica es gratis, como dice su regla.',
+    line5: '',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub o dínoslo en Discord — el Ordo investiga cada reporte.',
   },
 };
@@ -121,17 +121,16 @@ function CommunityAnnouncement() {
         </div>
         <div className="text-[12px] text-zinc-300 leading-relaxed space-y-2">
           <p>{tx.intro}</p>
-          {/* Install/offline gets its own highlighted block — it's the headline change of the
-              release and the one thing a returning player would otherwise never discover. */}
-          <p className="border-l-2 border-emerald-600/70 bg-emerald-950/20 pl-3 py-2 text-zinc-200">
-            {tx.install}
-          </p>
-          <BoldSplitLine text={tx.line6} />
-          <BoldSplitLine text={tx.line1} />
-          <BoldSplitLine text={tx.line2} />
-          <BoldSplitLine text={tx.line3} />
-          <BoldSplitLine text={tx.line4} />
-          <BoldSplitLine text={tx.line5} />
+          {/* `install` is a highlighted block used only when a release leads with the PWA/offline
+              news; empty on releases that don't (skipped so it leaves no gap). */}
+          {tx.install && (
+            <p className="border-l-2 border-emerald-600/70 bg-emerald-950/20 pl-3 py-2 text-zinc-200">
+              {tx.install}
+            </p>
+          )}
+          {[tx.line6, tx.line1, tx.line2, tx.line3, tx.line4, tx.line5]
+            .filter(Boolean)
+            .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>

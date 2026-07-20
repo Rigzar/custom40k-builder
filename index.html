@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
 <link rel="icon" type="image/png" href="/custom40k-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <!-- iOS ignores the web manifest, so the home-screen icon and standalone mode come from these. -->
+    <!-- iOS ignores the web manifest, so the home-screen icon and standalone mode come from these.
+         status-bar-style "black" (NOT "black-translucent"): with viewport-fit=cover the top bar now
+         pads itself by env(safe-area-inset-top) so its buttons never hide under the system status
+         bar; "black-translucent" additionally tinted the bar and is not needed (Discord 2026-07-20,
+         screenshot: the tab bar was drawn under the clock/signal icons and untappable). -->
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Custom40k" />
     <meta name="theme-color" content="#18171a" />
     <title>Custom40k Army Builder</title>

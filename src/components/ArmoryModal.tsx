@@ -73,6 +73,18 @@ function parsePrice(v: number | null | undefined | string): number | null {
   return isNaN(n) ? null : n;
 }
 
+/** An armory item whose point cost equals the weapon it enhances (the .ods prices it "Special").
+ *  Holy weapon (Sororitas), Relic blade (SM), Cursed blade (CSM), Crescendo (Harlequins). The app
+ *  can't compute a weapon-dependent cost, so it treats these as selectable at 0 pts and shows the
+ *  price as "Special"; the item's own description states the true cost. */
+function isWeaponCostSpecial(desc?: string): boolean {
+  // Two wordings across the codices: "...cost ... is the same as for the weapon that it enhances"
+  // (Holy weapon / Relic blade / Cursed blade) and "...cost is the same as the weapon that gets
+  // this equipment" (Harlequins Crescendo). Match "cost ... is the same as ... weapon" within one
+  // sentence (no intervening period), which covers all four and nothing else.
+  return !!desc && /cost\b[^.]*\bis the same as\b[^.]*\bweapon\b/i.test(desc);
+}
+
 /**
  * Eldar's general Armory ("Armory" sheet, Eldar ENG.ods) prices character buyers from two
  * separate columns, "POINTS PSYKER"/"POINTS AUTARCH" (e.g. Witchblade is Psyker-only, Aspect
@@ -317,6 +329,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   /** Returns the correct pts for this unit, or null if the item cannot be purchased ("-"). */
   function getItemPts(arm: ArmoryItem): number | null {
+    // "Cost = the same as the weapon it enhances" items (Sororitas Holy weapon, SM Relic blade,
+    // CSM Cursed blade, Harlequins Crescendo). The .ods prices these "Special"; the parser dropped
+    // that to null, so getItemPts returned null and isAddBlocked greyed them out — a legal upgrade
+    // no one could pick (GH#71). The app can't know the enhanced weapon's cost, so it adds 0 and
+    // the item's own description states the real cost; the row shows "Special" rather than "+0".
+    if (isWeaponCostSpecial(arm.desc)) return 0;
     const cp = parsePrice(arm.p_char);
     const up = parsePrice(arm.p_unit);
     if (isCD) return isGreaterDaemon ? cp : up;
@@ -1534,7 +1552,11 @@ function ArmoryItemRow({
   // Use ptsOverride when explicitly provided (including null); fall back to isChar logic
   const pts = ptsOverride !== undefined ? ptsOverride : (isChar ? (charPrice ?? unitPrice) : unitPrice);
   const priceIsNull = pts === null;
-  const displayPrice = priceLabel ?? (priceIsNull ? '—' : (pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—'));
+  // "Special" cost items (cost = the enhanced weapon) carry 0 in the total but must not read as
+  // "+0 pts" / free — the price is deliberately player-computed from the weapon, per the desc.
+  const displayPrice = isWeaponCostSpecial(arm.desc)
+    ? 'Special'
+    : (priceLabel ?? (priceIsNull ? '—' : (pts != null ? `${pts >= 0 ? '+' : ''}${pts} pts` : '—')));
 
   if (selectedArmoryId && onRemove) {
     return (

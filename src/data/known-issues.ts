@@ -2,6 +2,30 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-weapon-cost-special-greyed-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION (GH#71) — "cost = the weapon it enhances" armoury upgrades were greyed out and unbuyable',
+    description: 'FIXED 2026-07-20 (v1.55). Sororitas "Holy weapon", SM "Relic blade", CSM "Cursed blade", Harlequins "Crescendo" are priced "Special" in the .ods (cost = the enhanced weapon\'s cost). The parser dropped that to p_unit:null/p_char:null, so getItemPts returned null and isAddBlocked greyed them — a legal upgrade no one could select. New module helper isWeaponCostSpecial() detects the two "cost ... is the same as ... weapon" wordings; getItemPts returns 0 (selectable) for them and ArmoryItemRow shows the price as "Special" rather than "+0 pts". The app adds 0 and the desc states the real cost. Verified: exactly those 4 items match, no false positives.',
+  },
+  {
+    id: 'ki-mobile-top-bar-under-statusbar-01',
+    status: 'fixed',
+    title: 'MOBILE — the top bar could render under the phone status bar in an installed PWA and be untappable',
+    description: 'FIXED 2026-07-20 (v1.55), Discord report with screenshot. The PWA work the day before set apple-mobile-web-app-status-bar-style "black-translucent" + viewport-fit=cover, which pulls content up under the system status bar; the sticky tab bar (top-0) landed under the clock/signal icons and its buttons (close tab, Save, Print, armoury) couldn\'t be tapped. Fixed by (a) status-bar-style "black" on iOS, and (b) padding the sticky tab bar by env(safe-area-inset-top) with the app-coloured bg filling the inset, plus the three sub-headers now stick at calc(38px + env(safe-area-inset-top)). Robust on both iOS and Android edge-to-edge; a no-op (inset 0) in browsers.',
+  },
+  {
+    id: 'ki-landing-fog-scroll-jank-mobile-01',
+    status: 'fixed',
+    title: 'MOBILE — the landing page stuttered for ~1s on every scroll',
+    description: 'FIXED 2026-07-20 (v1.55), reported on Firefox/Pixel 5. The title fog uses an SVG feTurbulence + feDisplacementMap filter over a full-screen layer; even static, compositing it on a phone GPU janked every scroll. On coarse-pointer / <=640px screens the SVG filter is now replaced with a plain blur(10px) (near-identical look), and the fog layer is promoted to its own compositor layer (translateZ(0)) so scrolling the hero no longer repaints it. Desktop keeps the full filter.',
+  },
+  {
+    id: 'ki-votann-memnyr-skirmish-elite-slot-01',
+    status: 'by_design',
+    title: 'Leagues of Votann (GH#70) — "Elites over Maximum" on the Memnyr Strategist in Skirmish is correct',
+    description: 'NOT A BUG (confirmed 2026-07-20). The Memnyr Strategist is an Advisor ("may be selected without taking up an Elite slot"), so in Pitched/Epic it is correctly exempt from the Elite slot count (verified: no error). In SKIRMISH, Missions.txt restriction #5 — "All units occupy an Army Organisation slot, even if their rules state otherwise" — overrides the Advisor rule, and the Skirmish Elite cap is 0-1, so a Memnyr plus any other Elite is legitimately over the maximum. The app enforces this correctly. No code change; documented for the reporter.',
+  },
+  {
     id: 'ki-admin-announcement-dismiss-sticky-01',
     status: 'fixed',
     title: 'Admin announcement — dismissing one banner permanently hid every future announcement',

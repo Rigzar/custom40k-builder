@@ -79,6 +79,18 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
     radial-gradient(ellipse 80%  60% at 85% 55%, rgba(200,200,218,0.22) 0%, transparent 65%),
     radial-gradient(ellipse 90%  50% at 50% 90%, rgba(190,190,210,0.18) 0%, transparent 60%);
   filter: url('#c40k-fog') blur(6px);
+  /* Promote to its own compositor layer so scrolling the hero doesn't repaint the filtered fog. */
+  transform: translateZ(0);
+  will-change: transform;
+}
+/* The feTurbulence + feDisplacementMap filter is far too heavy for phone GPUs — it made the
+   landing stutter for ~1s on every scroll on a Pixel 5 (Discord 2026-07-20). On coarse-pointer /
+   small screens, drop the SVG filter and keep only the cheap radial-gradient fog with a light
+   blur; the look is nearly identical and scrolling is smooth. */
+@media (hover: none), (max-width: 640px) {
+  .fog-layer {
+    filter: blur(10px);
+  }
 }
 
 /* ── Servo skull blinking eye ── */

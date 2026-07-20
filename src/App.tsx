@@ -731,8 +731,18 @@ export default function App() {
         <span className="hidden sm:inline">Cheat Sheets</span>
       </button>
 
-      {/* ── Tab bar — hidden on landing hero (hero has its own header) ── */}
-      <div className="sticky top-0 z-50" style={{ display: activeTab === 'landing' ? 'none' : 'block' }}>
+      {/* ── Tab bar — hidden on landing hero (hero has its own header) ──
+           paddingTop = safe-area inset so on an installed PWA (viewport-fit=cover) the bar sits
+           BELOW the system status bar instead of under the clock/signal icons; the app-coloured bg
+           fills the inset strip. Sub-headers below stick at 38px + the same inset. */}
+      <div
+        className="sticky top-0 z-50"
+        style={{
+          display: activeTab === 'landing' ? 'none' : 'block',
+          paddingTop: 'env(safe-area-inset-top)',
+          background: '#18171a',
+        }}
+      >
         <TabBar
           activeTab={activeTab}
           openTabs={openTabs}
@@ -774,7 +784,7 @@ export default function App() {
       {openTabs.includes('army_config') && (
         <div style={{ display: activeTab === 'army_config' ? 'flex' : 'none' }} className="flex-col flex-1">
           {/* Sub-header */}
-          <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
+          <header className="sticky z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5" style={{ top: 'calc(38px + env(safe-area-inset-top))' }}>
             <div className="max-w-screen-xl mx-auto flex items-center gap-3">
               {selectedFaction && (
                 <div className="flex items-center gap-1">
@@ -817,7 +827,7 @@ export default function App() {
         <div style={{ display: activeTab === 'builder' ? 'flex' : 'none' }} className="flex-col flex-1">
 
           {/* Builder sticky header */}
-          <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5">
+          <header className="sticky z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5" style={{ top: 'calc(38px + env(safe-area-inset-top))' }}>
             <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
               {/* Symbol + title + army name */}
               <div className="flex items-center gap-2 mr-auto min-w-0">
@@ -931,7 +941,7 @@ export default function App() {
       {/* ── Allied Detachment tab — its own army: Customisation + catalogue, full width ── */}
       {openTabs.includes('allied_config') && alliedFaction && (
         <div style={{ display: activeTab === 'allied_config' ? 'flex' : 'none' }} className="flex-col flex-1">
-          <header className="sticky top-[38px] z-40 bg-zinc-900 border-b-2 border-emerald-900/60 px-4 py-2.5">
+          <header className="sticky z-40 bg-zinc-900 border-b-2 border-emerald-900/60 px-4 py-2.5" style={{ top: 'calc(38px + env(safe-area-inset-top))' }}>
             <div className="max-w-screen-xl mx-auto flex items-center gap-3">
               <FactionSymbol factionKey={alliedFaction} size={28} />
               <h1 className="text-emerald-500 font-bold uppercase tracking-widest text-base leading-none font-bankgothic">

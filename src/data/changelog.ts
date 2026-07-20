@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.55',
+    date: '2026-07-20',
+    title: 'Community bug reports: "cost = the weapon" upgrades selectable, mobile top bar, landing scroll speed',
+    changes: [
+      'GENERAL (GitHub #71) — armoury upgrades whose cost equals the weapon they enhance were greyed out and impossible to pick: Adeptus Sororitas "Holy weapon", Space Marines "Relic blade", Chaos Space Marines "Cursed blade" and Harlequins "Crescendo". The codex prices these "Special" (the cost is the weapon\'s own cost), which the app couldn\'t represent as a fixed number, so it wrongly blocked them. They\'re now selectable, shown with the price "Special"; the app adds 0 points and the item\'s description states the real cost, since only you know which weapon you\'re enhancing.',
+      'GENERAL — mobile: on an installed app the top bar (tabs, Save, Print, armoury) could be drawn under the phone\'s clock and signal icons and become untappable. The bar now sits below the system status bar (Discord report with screenshot). If you installed the app before this, close and reopen it once.',
+      'GENERAL — the main menu now scrolls smoothly on phones. The animated fog behind the title used a heavy graphics filter that stuttered for about a second on every scroll on devices like the Pixel 5; on phones it now uses a lighter effect that looks nearly identical.',
+      'Leagues of Votann (GitHub #70) — the "Elites over Maximum" error on the Memnyr Strategist in a Skirmish game is correct, not a bug: in Skirmish the Missions rules say every unit takes an Army Organisation slot "even if their rules state otherwise", so an Advisor like the Memnyr Strategist does occupy an Elite slot there (the Skirmish cap is 0-1 Elite). In Pitched and Epic games it is correctly free.',
+    ],
+  },
+  {
     version: '1.54',
     date: '2026-07-19',
     title: 'Leagues of Votann codex 1.01 + community bug reports (Traitor Guard, Heavy Infantry, Tzeentch psykers, platoons, mobile cards)',
