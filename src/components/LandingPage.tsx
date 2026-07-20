@@ -15,43 +15,43 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v155_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v155b_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.55: three fixes from your bug reports',
-    intro: 'A quick round of fixes straight from Discord and GitHub — thank you for every report.',
+    title: 'v1.55: upgrade weapons no longer show unless you take them',
+    intro: 'A fix that touches every faction, plus a full re-audit of the Space Marines codex.',
     install: '',
     line6: '',
-    line1: '⚔ Upgrades whose cost equals the weapon they enhance can finally be picked — the Sisters\' Holy weapon, the Space Marines\' Relic blade, the Chaos Cursed blade and the Harlequins\' Crescendo. They were greyed out; they now show the price "Special" (the app adds 0 and the description tells you the real cost, since only you know the weapon).',
-    line2: '📱 Mobile — the top bar (tabs, Save, Print, armoury) no longer hides under your phone\'s clock and signal icons. If you installed the app already, close and reopen it once.',
-    line3: '📱 The main menu now scrolls smoothly on phones — the fog behind the title was too heavy for some devices and stuttered on every scroll.',
-    line4: 'ⁱ Leagues of Votann — the "Elites over Maximum" on the Memnyr Strategist in a Skirmish game is actually correct: in Skirmish every unit takes a slot, even Advisors. In Pitched and Epic it is free, as its rule says.',
+    line1: '🔫 All factions — a lot of upgrade weapons were shown in a unit\'s profile even when you hadn\'t bought them (vehicle turrets/sponsons, two-mode plasma and melta, the Plagueburst Crawler\'s Entropy cannons, the Daemon Prince\'s Plague spewer, and more). They now stay hidden until you actually take them; your default weapons are unaffected. About 180 phantom entries cleaned up.',
+    line2: '⚔ Space Marines — the Indomitus Crusader Squad now has its "Squires" rule: Neophytes are always removed first as casualties and use their own defensive profile, even when they are not the majority. It was missing from the datasheet.',
+    line3: '',
+    line4: '',
     line5: '',
     contrib: '👁️ Spotted a heresy in the data? File it on GitHub or tell us on Discord — every report is investigated by the Ordo.',
   },
   de: {
-    title: 'v1.55: drei Korrekturen aus euren Fehlermeldungen',
-    intro: 'Eine schnelle Runde Korrekturen direkt aus Discord und GitHub — vielen Dank für jede Meldung.',
+    title: 'v1.55: Ausrüstungswaffen erscheinen nur noch, wenn du sie nimmst',
+    intro: 'Eine Korrektur, die jede Fraktion betrifft, plus eine vollständige Nachprüfung des Space-Marines-Codex.',
     install: '',
     line6: '',
-    line1: '⚔ Ausrüstung, deren Kosten der verbesserten Waffe entsprechen, lässt sich endlich auswählen — die Holy weapon der Schwestern, die Relic blade der Space Marines, die Chaos-Cursed blade und das Crescendo der Harlequins. Sie waren ausgegraut; jetzt zeigen sie den Preis „Special" (die App rechnet 0 und die Beschreibung nennt den echten Preis, denn nur du kennst die Waffe).',
-    line2: '📱 Mobil — die obere Leiste (Tabs, Speichern, Drucken, Rüstkammer) verschwindet nicht mehr unter Uhr und Signal-Symbolen des Handys. Wenn du die App bereits installiert hast, schließe und öffne sie einmal neu.',
-    line3: '📱 Das Hauptmenü scrollt jetzt flüssig auf Handys — der Nebel hinter dem Titel war für manche Geräte zu aufwändig und ruckelte bei jedem Scrollen.',
-    line4: 'ⁱ Leagues of Votann — die Meldung „Elite über Maximum" beim Memnyr Strategist in einem Scharmützel ist korrekt: Im Scharmützel belegt jede Einheit einen Slot, auch Berater. In Erbitterten und Epischen Schlachten ist er frei, wie seine Regel sagt.',
+    line1: '🔫 Alle Fraktionen — viele Ausrüstungswaffen wurden im Profil angezeigt, obwohl du sie nicht gekauft hattest (Fahrzeug-Türme/-Sponsons, Plasma und Melta mit zwei Modi, die Entropy cannons des Plagueburst Crawlers, der Plague spewer des Daemon Prince und mehr). Sie bleiben jetzt verborgen, bis du sie wirklich nimmst; deine Standardwaffen sind nicht betroffen. Rund 180 Geistereinträge bereinigt.',
+    line2: '⚔ Space Marines — die Indomitus Crusader Squad hat jetzt ihre Regel „Squires": Neophyten werden immer zuerst als Verluste entfernt und nutzen ihr eigenes Verteidigungsprofil, auch wenn sie nicht die Mehrheit sind. Sie fehlte im Datenblatt.',
+    line3: '',
+    line4: '',
     line5: '',
     contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden oder auf Discord sagen — jeder Bericht wird vom Ordo untersucht.',
   },
   es: {
-    title: 'v1.55: tres correcciones de vuestros reportes',
-    intro: 'Una tanda rápida de correcciones salidas directamente de Discord y GitHub — gracias por cada reporte.',
+    title: 'v1.55: las armas de mejora ya no se muestran si no las coges',
+    intro: 'Una corrección que afecta a todas las facciones, más una re-auditoría completa del códex Space Marines.',
     install: '',
     line6: '',
-    line1: '⚔ El equipo cuyo coste es igual al del arma que mejora ya se puede elegir — el Holy weapon de las Hermanas, el Relic blade de los Space Marines, el Cursed blade del Caos y el Crescendo de los Harlequins. Estaban en gris; ahora muestran el precio "Special" (la app suma 0 y la descripción indica el coste real, porque solo tú sabes qué arma mejoras).',
-    line2: '📱 Móvil — la barra superior (pestañas, Guardar, Imprimir, armería) ya no se esconde bajo el reloj y los iconos de señal del móvil. Si ya tenías la app instalada, ciérrala y ábrela una vez.',
-    line3: '📱 El menú principal ya se desplaza con fluidez en el móvil — la niebla tras el título era demasiado pesada para algunos dispositivos y daba tirones al hacer scroll.',
-    line4: 'ⁱ Leagues of Votann — el "Elites over Maximum" del Memnyr Strategist en una partida de Escaramuza es correcto: en Escaramuza toda unidad ocupa un slot, también los Advisor. En Batalla Campal y Épica es gratis, como dice su regla.',
+    line1: '🔫 Todas las facciones — muchas armas de mejora se mostraban en el perfil de una unidad aunque no las hubieras comprado (torretas y patrocinadores de vehículos, plasma y melta de dos modos, los Entropy cannons del Plagueburst Crawler, el Plague spewer del Daemon Prince y más). Ahora quedan ocultas hasta que las coges de verdad; tus armas por defecto no cambian. Unas 180 entradas fantasma limpiadas.',
+    line2: '⚔ Space Marines — la Indomitus Crusader Squad ya tiene su regla "Squires": los Neophytes se retiran siempre primero como bajas y usan su propio perfil defensivo, aunque no sean la mayoría. Faltaba en la hoja de datos.',
+    line3: '',
+    line4: '',
     line5: '',
     contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub o dínoslo en Discord — el Ordo investiga cada reporte.',
   },

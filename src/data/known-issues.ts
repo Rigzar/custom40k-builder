@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-phantom-optional-weapons-engine-01',
+    status: 'fixed',
+    title: 'CROSS-FACTION — upgrade weapons displayed in the live profile even when not selected',
+    description: 'FIXED 2026-07-20 (v1.55). computeWeaponsToShow links an option-granted weapon to its choice by matching the choice name to the weapon name; a weapon in weapons[] that matched no choice was treated as a fixed default and always shown. Any wording gap broke the match and produced a phantom always-on weapon: multi-profile weapons named with parentheses ("Plasma gun (Standard)"/"(Overheating)"), swaps phrased as a count ("two Entropy cannons" on the Plagueburst Crawler → weapon "Entropy cannon"), or a qualifier baked into the choice ("Plague spewer (Nurgle only)" on the Daemon Prince → weapon "Plague spewer"). Fixed at the engine level: the matcher now normalises both sides with a wkey() that strips a "- profile"/"(profile)" suffix, a leading count word/number ("two"/"2"/"a"/"an"/"a pair of"), and a trailing plural before comparing, AND keeps the full choice name as a candidate (not only the &/and-split parts) so a weapon whose own name contains "and" — "Shardnet and impaler" (Wyches, Hekatrix Bloodbrides), "Lash whip and Bonesword"/"Lash whip and Monstrous bonesword" (Hive Tyrant, Tyranid Prime, Tyrant Guard, Warrior Brood) — still links to its choice. Monotonic and safe — it can only move an option-matched weapon to hidden-until-picked, never hides a non-option default (equipped_with defaults stay protected). Verified: runtime phantom weapons dropped 314→~120 across all factions (residual are legit defaults not written into equipped_with); Predator/Leman Russ keep their default turret; Daemon Prince, Plagueburst, Wyches, Tyranid Warriors and Blightlords spot-tested (hidden by default, shown when bought). Genuine per-unit choice typos were fixed in data too: Blightlord Terminators\' "Bubonic axe" swap → "Bubotic axe" (matches the datasheet weapon), and the Daemon Prince ("Plague spewer (Nurgle only)"→"Plague spewer") and Plagueburst Crawler ("two Entropy cannons"→"Entropy cannon") choice names. Supersedes the Blightlord/Myphitic per-unit ghost-weapon fixes with a general mechanism.',
+  },
+  {
     id: 'ki-weapon-cost-special-greyed-01',
     status: 'fixed',
     title: 'CROSS-FACTION (GH#71) — "cost = the weapon it enhances" armoury upgrades were greyed out and unbuyable',

@@ -29,7 +29,8 @@
  *   Per-10 models, two Initiates swap Astartes chainsword: Pyroblaster+1, Power fist+11
  *   Per-10 models, two Initiates swap Heavy bolt pistols: Pyro pistol+2, Plasma pistol+7
  *   Sword Brother has access to weapons and gear from the Armory.
- * ABILITIES: Combat squads, They Shall Know No Fear
+ * ABILITIES: Combat squads, They Shall Know No Fear; Squires (Neophytes removed first as
+ *   casualties, use own defensive profile even if not the majority) — added SM 1.01.
  * UNIT TYPE: Infantry
  *
  * ENGINE STATUS: equipped_with field only stores Neophyte line (string limitation); Initiate/Sword
@@ -265,7 +266,8 @@ export const indomitusCrusaderSquad: Unit = {
     }
   ],
   "abilities": [
-    "Combat squads, They Shall Know No Fear"
+    "Combat squads, They Shall Know No Fear",
+    "Squires: Neophytes may always be removed first as casualties and use their own defensive profile, even if they are not the majority in the unit."
   ],
   "unit_type": "Infantry",
   "keywords": [],

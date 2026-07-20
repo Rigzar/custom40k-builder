@@ -258,7 +258,7 @@ export const blightlordTerminators: Unit = {
       },
       "choices": [
         {
-          "name": "Bubonic axe",
+          "name": "Bubotic axe",
           "points": 0
         },
         {

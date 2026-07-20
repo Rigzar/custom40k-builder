@@ -218,14 +218,29 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // blastgun"), so match a choice against the weapon name BEFORE the " - " profile suffix.
   const baseName = (n: string) => n.split(' - ')[0];
 
-  // Map each weapon (by base name) granted by an option choice to the choice name(s) that
+  // Normalised key for linking an option choice to the weapon it grants. Beyond the " - profile"
+  // strip above, drop a "(profile)" suffix, a leading count word/number ("two", "2", "a pair of")
+  // and a trailing plural "s", then lowercase. Without this, multi-profile weapons named with
+  // parentheses ("Plasma gun (Standard)") and count-phrased swap choices ("two Entropy cannons"
+  // -> weapon "Entropy cannon") never match their choice, so the weapon is treated as a fixed
+  // default and rendered in the live profile even when it was never bought (phantom weapon).
+  const wkey = (n: string) => baseName(n)
+    .replace(/\s*\([^)]*\)\s*$/, '')
+    .trim()
+    .toLowerCase()
+    .replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/, '')
+    .replace(/s$/, '');
+
+  // Map each weapon (by normalised key) granted by an option choice to the choice name(s) that
   // unlock it. Compound choices ("Chainsword & Laspistol") are split so both weapons are
-  // recognised as optional, not just an exact name match against the whole choice.
+  // recognised as optional; the FULL choice name is also kept as a candidate so a weapon whose
+  // own name contains "and" ("Shardnet and impaler", "Lash whip and Bonesword") still matches the
+  // choice that grants it, instead of the split turning it into a phantom always-shown weapon.
   const optionalWeapons = new Map<string, Set<string>>();
   for (const g of unit.option_groups) {
     for (const c of g.choices) {
       const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-      for (const part of parts.length > 1 ? parts : [c.name]) {
+      for (const part of parts.length > 1 ? [c.name, ...parts] : [c.name]) {
         // A choice that just re-buys an ADDITIONAL copy of a weapon the unit is already
         // equipped with by default (e.g. Chaos Rhino's base "Combi-bolter" vs. its separate
         // "May be equipped with one of the following: Combi-flamer/Combi-bolter/Combi-melta"
@@ -236,9 +251,10 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         // even though the group has a `replaces` link, since this map is what hides THEM (the
         // new weapon) until bought; `replaces` only handles removing the OLD weapon, separately.
         if (!g.replaces?.length && unit.equipped_with?.includes(part)) continue;
-        if (unit.weapons.some(w => baseName(w.name) === part)) {
-          if (!optionalWeapons.has(part)) optionalWeapons.set(part, new Set());
-          optionalWeapons.get(part)!.add(c.name);
+        const pk = wkey(part);
+        if (unit.weapons.some(w => wkey(w.name) === pk)) {
+          if (!optionalWeapons.has(pk)) optionalWeapons.set(pk, new Set());
+          optionalWeapons.get(pk)!.add(c.name);
         }
       }
     }
@@ -395,7 +411,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (variantOnlyWeapons.has(w.name)) return variantActive && !replacedWeaponNames.has(w.name);
     if (replacedWeaponNames.has(w.name)) return false;
     if (zeroCountModelWeapons.has(w.name)) return false;
-    const owningChoices = optionalWeapons.get(baseName(w.name));
+    const owningChoices = optionalWeapons.get(wkey(w.name));
     if (!owningChoices) return true;
     // A weapon that's a default part of equipped_with must always show even if the same weapon
     // name also appears as a swap-upgrade choice (e.g. Ironclad's "Heavy flamer" comes with

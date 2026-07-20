@@ -38,6 +38,9 @@
  *   ✓ all 3 weapons match HTML exactly
  *   ✓ marks: K/S/N/T only — no Undivided (correct per HTML) ✓
  *   ✓ Plague spewer available_if: instanceOf Nurgle ✓
+ *   ✓ Plague spewer option choice name == weapon name "Plague spewer" (NOT "... (Nurgle only)")
+ *     so computeWeaponsToShow hides it until picked — a mismatch made it a phantom default that
+ *     always showed in the live profile for any mark (v1.55 fix).
  *   ✓ Wings effect: stat_mod M+6 + adds_unit_types [“Jump pack infantry”] ✓
  *   ⚠ Wings effect missing grants_abilities: [“Deep Strike”] — armory jump-pack and
  *     possessed.ts include this; Daemon Prince wings option should too (ENGINE TODO)
@@ -130,13 +133,13 @@ export const daemonPrince: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Can get one of the following weapons",
+      "header": "Can get the following weapon (Nurgle only)",
       "constraint": {
         "type": "one"
       },
       "choices": [
         {
-          "name": "Plague spewer (Nurgle only)",
+          "name": "Plague spewer",
           "points": 13
         }
       ],
