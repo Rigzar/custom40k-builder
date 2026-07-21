@@ -29,7 +29,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: '',
     line4: '',
     line5: '',
-    contrib: '👁️ Spotted a heresy in the data? File it on GitHub or tell us on Discord — every report is investigated by the Ordo.',
+    contrib: '👁️ Reporting a bug? Please be specific — come to our Discord and explain exactly what happens (which unit, engagement and archetype) with a screenshot. Vague reports like "it says 6 Troops but I have 0" (that "6" is the slot maximum 2-6, not a count) can\'t be reproduced, so we can\'t fix them.',
   },
   de: {
     title: 'v1.55: Ausrüstungswaffen erscheinen nur noch, wenn du sie nimmst',
@@ -41,7 +41,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: '',
     line4: '',
     line5: '',
-    contrib: '👁️ Eine Ketzerei in den Daten entdeckt? Auf GitHub melden oder auf Discord sagen — jeder Bericht wird vom Ordo untersucht.',
+    contrib: '👁️ Einen Fehler gefunden? Bitte sei konkret — komm auf unseren Discord und erkläre genau, was passiert (welche Einheit, Engagement und Archetyp), mit einem Screenshot. Vage Meldungen wie „es zeigt 6 Truppen, ich habe aber 0" (die „6" ist das Slot-Maximum 2-6, keine Anzahl) lassen sich nicht nachstellen und daher nicht beheben.',
   },
   es: {
     title: 'v1.55: las armas de mejora ya no se muestran si no las coges',
@@ -53,7 +53,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: '',
     line4: '',
     line5: '',
-    contrib: '👁️ ¿Detectaste una herejía en los datos? Repórtala en GitHub o dínoslo en Discord — el Ordo investiga cada reporte.',
+    contrib: '👁️ ¿Encontraste un bug? Sé específico, por favor — pásate por nuestro Discord y explica exactamente qué pasa (qué unidad, engagement y arquetipo) con una captura de pantalla. Los reportes vagos como "dice que tengo 6 tropas pero tengo 0" (ese "6" es el máximo del slot 2-6, no un recuento) no se pueden reproducir, así que no podemos arreglarlos.',
   },
 };
 
