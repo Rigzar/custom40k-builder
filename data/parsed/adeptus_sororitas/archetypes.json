@@ -102,7 +102,7 @@
     },
     {
       "name": "Raging Fervour",
-      "desc": "Inferno pistols gain 1,5\" range, Meltas gain 3\" range and Multi-melta gain 6\" range.",
+      "desc": "Inferno pistols gain 1.5\" range for their \"Melta\" rule, Meltas gain 3\" range for their \"Melta\" rule and Multi-meltas gain 6\" range for their \"Melta\" rule. (Note that this does NOT increase the actual weapon's range.)",
       "pts_unit": "3",
       "pts_char": "0",
       "pts_monster": "3",

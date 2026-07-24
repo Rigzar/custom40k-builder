@@ -480,11 +480,16 @@ export function UnitCard({ item }: Props) {
         </div>
       </div>
 
-      {/* ── Join Unit (Character Models, or non-Characters with their own "Command squad"-
-          style join ability, e.g. CSM's Master of Execution/Chosen/Dark Commune — is_character
-          is correctly false on those per their .ods unit-type text, but the ability text itself
-          grants the joining capability independent of the Character keyword). ── */}
-      {(u.is_character || !!u.abilities?.some(a => /Command Squad/i.test(a)) || !!getArchetypeRule(effectiveArchetypeFor(item, store))?.grantsCommandSquad?.includes(item.unitName)) && !u.is_vehicle && (() => {
+      {/* ── Join Unit — REMOVED in v1.56 at the designer's request (Discord, Dominic): "there is
+          a selection for characters which unit they join. This is unnecessary, as it can be
+          changed each round if they join or detach from a unit. And it doesn't matter for the
+          deployment, either." Joining is an in-game decision, not a list-building one, so the
+          picker no longer appears.
+          The `joinedToUnit` FIELD and every engine consumer of it (validators' Command Squad
+          check, CSM Zombie-lord aura, Chaos Daemons resolver, IG platoon grouping, print view)
+          are deliberately left intact so previously saved lists keep resolving exactly as before
+          and the behaviour can be restored by re-enabling this block alone. ── */}
+      {false && (u.is_character || !!u.abilities?.some(a => /Command Squad/i.test(a)) || !!getArchetypeRule(effectiveArchetypeFor(item, store))?.grantsCommandSquad?.includes(item.unitName)) && !u.is_vehicle && (() => {
         // Animosity of the Gods join sub-clause — present VERBATIM in BOTH factions' own
         // Index/Army Customisation text (each codex carries its own copy, not a shared Core
         // rule): CSM digest §4b "a model with a Mark of Chaos may only join a unit that has

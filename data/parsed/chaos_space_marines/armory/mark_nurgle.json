@@ -222,6 +222,36 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Orb of desiccation",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "2",
+      "abilities": "Ammo(1), Barrage, Poison(4+). Only for models in Cataphractii or Terminator armor.",
+      "p_unit": null,
+      "p_char": 7,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Plaguereaper",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(1), Poison(4+), Slow(-2), Unwieldy. Only for models in Cataphractii or Terminator armor.",
+      "p_unit": null,
+      "p_char": 24,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -315,6 +345,47 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Ferric blight",
+      "term_compat": true,
+      "desc": "Roll 1D6 during the model's activation, if an enemy vehicle is within 7\": 1 - Nothing happens. 2 to 4 - The vehicle suffers a glancing hit. 5 to 6 - The vehicle suffers a penetrating hit. Can not be taken together with other plagues.",
+      "p_unit": null,
+      "p_char": 12,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Gloaming bloat",
+      "term_compat": true,
+      "desc": "If this model and any attached unit perform a Charge Order, the declared targets may not perform a Defensive Reaction. Can not be taken together with other plagues.",
+      "p_unit": null,
+      "p_char": 15,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Miasmic turbine",
+      "term_compat": false,
+      "desc": "If targeted for Ranged attacks by an enemy unit 18\" or further away, this model and any attached unit are treated as having \"Stealth\". Can not be taken together with other plagues.",
+      "p_unit": null,
+      "p_char": 35
+    },
+    {
+      "name": "The Droning",
+      "term_compat": false,
+      "desc": "This model and any attached unit may roll 2D6 and discard the lowest die result when rolling to Pursue after winning Close Combat.",
+      "p_unit": 15,
+      "p_char": 25
+    },
+    {
+      "name": "Plague carrier",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "All models of the first enemy unit each round activating within 7\" must pass a Toughness test or suffer a wound with Strength: 4 AP: 0 D: 1 and the \"Sunder(2)\" ability.",
+      "p_unit": 15
     }
   ],
   "daemon_weapons": [

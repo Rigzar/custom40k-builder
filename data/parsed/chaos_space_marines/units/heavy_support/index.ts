@@ -1,6 +1,8 @@
+export { bloodSlaughterer } from './blood_slaughterer';
 export { chaosLandRaider } from './chaos_land_raider';
 export { chaosPredator } from './chaos_predator';
 export { chaosVindicator } from './chaos_vindicator';
+export { decimator } from './decimator';
 export { defiler } from './defiler';
 export { forgefiend } from './forgefiend';
 export { havocs } from './havocs';

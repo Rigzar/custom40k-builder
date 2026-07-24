@@ -104,7 +104,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'graviton': {
     name: 'Graviton',
-    description: 'Creatures hit must pass a Strength test or suffer a wound (S4 AP0 D1; Seeking). If the target is in cover and at least one hit is scored, the terrain becomes difficult and dangerous until the next activation of the unit that caused the hit.',
+    description: 'Creatures that lose a wound by this weapon must pass a Strength test or suffer another wound with S: 4 AP: 0 D: 1; Seeking. This is in addition to the actual wound roll.',
   },
   'gruesome': {
     name: 'Gruesome',
@@ -624,7 +624,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'strength d': {
     name: 'Strength "D"',
-    description: 'A to-wound roll of 2+ always wounds a creature or penetrates a vehicle.',
+    description: 'Instead of the regular tables for wounding creatures and vehicles: a to wound roll of 2+ is always successful; vehicles with AV 10 or less are automatically penetrated; against all other vehicles an armor penetration roll of 2+ is always a penetrating hit. If the armor penetration roll was high enough to actually cause a penetrating hit (treat Strength: D as Strength: 10), you cause an automatic Critical Hit in addition to your actual rolls.',
   },
   'gargantuan creature': {
     name: 'Gargantuan Creature',

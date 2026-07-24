@@ -67,6 +67,30 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Amulet of Spawndom",
+      "term_compat": true,
+      "desc": "If the model destroys an enemy character model, you can immediately place a friendly Chaos Spawn within 3\" of this model. If not, you can set up a Chaos Spawn following the rules for Deep Strike in any subsequent Reinforcement Phase. When set up, the closest enemy unit within 12\" immediately gains one Battleshock token. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Fell-blessed machine",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "The vehicle may pray once per turn. A prayer is successful at a roll of 3+. The vehicle knows all prayers to the dark gods.",
+      "p_unit": 10
+    },
+    {
+      "name": "Mhara Gal",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "All weapons of the model gain \"Soul Burn(5+)\". Only for Walkers.",
+      "p_unit": 30
     }
   ],
   "daemon_weapons": []

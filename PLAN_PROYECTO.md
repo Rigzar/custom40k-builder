@@ -832,7 +832,7 @@ Leyenda: 🟢 completa · 🟠 auditada (pueden quedar detalles) · 🔴 sin emp
    gigante) que consolide Index+Archetypes+Legacies/Traits/Resolver/Engine de CSM. Migrar lo
    disperso (`engine/legacies/`, `engine/traits/`, `engine/resolvers/`, `engine/archetypes/
    chaos_space_marines/`) queda PENDIENTE — preguntar antes de mover nada.
-5. Para verificar datos de CSM: usar **`Informacion/Chaos Space Marines ENG.ods`** directamente
+5. Para verificar datos de CSM: usar **`Codex/Chaos Space Marines ENG.ods`** directamente
    (no pedir HTML — el .ods ya está disponible y es más cómodo de leer).
 
 **Sesión 2026-06-08 (cont.):** Paso 1 del piloto `codex_csm` completo — los 6 archivos
@@ -1037,7 +1037,7 @@ ayuda de tu parte (puedes hacerlo en cualquier momento, no hace falta que sepas 
    pregunto si quieres probar — si algo no cuadra con las reglas que tú conoces, dímelo aunque
    no sepas explicar el "por qué" técnico; yo investigo el resto.
 
-5. **Montar los inputs que te pida en `Informacion/factions/<facción>/`** cuando empecemos una
+5. **Montar los inputs que te pida en `Codex/factions/<facción>/`** cuando empecemos una
    facción nueva — te diré exactamente qué archivos necesito (HTML de unidades, de armería, de
    reglas de facción) antes de arrancar.
 

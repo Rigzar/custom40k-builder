@@ -26,8 +26,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# Source data (xlsx files — not needed for the app)
-Informacion/
+# Source data (canonical .ods codexes + rules — not needed for the app build)
+Codex/
+_Personal/
 data/source/
 *.xlsx
 

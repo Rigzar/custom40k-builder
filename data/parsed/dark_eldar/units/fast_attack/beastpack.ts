@@ -52,10 +52,10 @@ export const beastpack: Unit = {
   ],
   "option_groups": [],
   "abilities": [
-    "Berserk(5+) (Clawed Fiend only), Deep Strike (Khymerae only), Power through Pain, Terrifying(-1) (Khymerae only)",
+    "Berserk(5+) (Clawed Fiend only), Deep Strike (Khymerae only), Power through Pain, Swarm (Razorwing Flock only), Terrifying(-1) (Khymerae only)",
     "Otherwordly: Khymaraes gain a 5+ invulnerability save.",
     "The unit consists of 3 to 11 models in any combination.",
-    "Unit types: Bike (Khymaerae only), Jump pack Infantry (Beastmaster and Razorwing Flock only), Monstrous Infantry (Clawed Fiend only), Swarm (Razorwing Flock only).",
+    "Unit types: Bike (Khymaerae only), Jump pack Infantry (Beastmaster and Razorwing Flock only), Monstrous Infantry (Clawed Fiend only).",
     "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
   ],
   "unit_type": "Infantry",

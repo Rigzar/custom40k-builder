@@ -113,7 +113,7 @@ custom40k-builder/
 │       ├── Chaos Space Marines ENG/
 │       └── ... (one folder per faction)
 │
-├── Informacion/             # Canonical rules sources (not pushed) — Core Rules/Missions .txt, one .ods per faction
+├── Codex/             # Canonical rules sources (not pushed) — Core Rules/Missions .txt, one .ods per faction
 │
 └── scripts/
     ├── _html2txt.cjs           # Strip HTML source to readable text for auditing
@@ -202,7 +202,7 @@ The maintainer can review faction data directly from the canonical Google Sheets
 1. Maintainer pastes a link to the faction's source sheet (Google Sheets, HTML or text)
 2. The engine reads the source and cross-checks it against the production JSON
 3. Discrepancies are listed (wrong stats, missing weapons, wrong costs, unimplemented options)
-4. Each discrepancy is grounded against the canonical rules files (`Informacion/core_rules_text.txt`, `missions_text.txt`) before a fix is applied
+4. Each discrepancy is grounded against the canonical rules files (`Codex/core_rules_text.txt`, `missions_text.txt`) before a fix is applied
 5. Fix is applied, build verified, and logged in the changelog
 
 **If you have the source data for an unaudited faction**, open a GitHub Issue with the link or paste the data — that immediately unblocks a full audit. See `OPEN_QUESTIONS.md` for the current list of open items.

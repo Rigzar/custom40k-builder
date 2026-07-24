@@ -162,6 +162,37 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Rage stimms",
+      "term_compat": false,
+      "desc": "Once per game, when this model activates, this model and any attached unit may gain Mindless and improve their A characteristic by 1. Lasts until this model's next activation. Only for <Cultist> units.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Witchskull totem",
+      "term_compat": true,
+      "desc": "If this model used an Advance or Charge order this turn, psykers within 12\" suffer a -1 penalty when attempting to manifest psychic powers.",
+      "p_unit": 10,
+      "p_char": 12,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Ascendant spirit",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Whenever the model successfully performs a Charge order against an enemy vehicle, immediately inflict a Glancing hit with AT(2) against that vehicle.",
+      "p_unit": 10
+    },
+    {
+      "name": "Gruesome spikes",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "If this model successfully pursues an enemy unit after winning Melee Combat, inflict automatic hits according to the rules of Tank Shock, treating the distance travelled as 6.",
+      "p_unit": 10
     }
   ],
   "daemon_weapons": [

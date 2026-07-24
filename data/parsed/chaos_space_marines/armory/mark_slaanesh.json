@@ -203,6 +203,45 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Doombike",
+      "term_compat": false,
+      "requires_keywords": [
+        "Infantry"
+      ],
+      "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a Combi-bolter, the \"Daemon\" and \"Deep Strike\" abilities and the unit type \"Bike\". The model does not scatter when being deployed via Deep Strike. Only for Infantry. Unique.",
+      "p_unit": null,
+      "p_char": 73,
+      "effect": {
+        "adds_unit_types": [
+          "Bike"
+        ]
+      }
+    },
+    {
+      "name": "Shrieking armor",
+      "term_compat": false,
+      "desc": "The model gains the \"Retribution(3)\" ability.",
+      "p_unit": 5,
+      "p_char": 5
+    },
+    {
+      "name": "Xenotech implants",
+      "term_compat": true,
+      "desc": "If this model would fire a ranged weapon, take a Leadership test. If successful, you can reroll all To Wound rolls made with that weapon. If unsuccessful, you cannot fire.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Warp amp",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Enemy units within 12\" have -1 Ld and -2 Ld if within 6\". Cannot be taken if the model already has a Dirge Caster.",
+      "p_unit": 10
     }
   ],
   "daemon_weapons": [

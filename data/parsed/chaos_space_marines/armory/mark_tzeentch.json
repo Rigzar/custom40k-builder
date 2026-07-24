@@ -168,6 +168,21 @@
       "abilities": "Flames",
       "p_unit": 6,
       "p_char": 4
+    },
+    {
+      "name": "Coruscating beam",
+      "term_compat": true,
+      "range": "Unlimited",
+      "type": "Heavy 1",
+      "s": "9",
+      "ap": "-4",
+      "d": "3",
+      "abilities": "Ammunition(1), AT(4), Barrage, Lance(+2)",
+      "p_unit": null,
+      "p_char": null,
+      "armour_compat": [
+        "Terminator"
+      ]
     }
   ],
   "equipment": [
@@ -275,6 +290,57 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Arch-sorcerer's staff",
+      "term_compat": true,
+      "desc": "Once per activation, when this model successfully manifests a psychic power, roll a D6. On a 5+, you successfully manifest Doombolt in addition and can select another target. The spell can't be denied. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Blasted standard",
+      "term_compat": false,
+      "desc": "Once per game, when this model is selected as the target of a Charge order, you immediately manifest Doombolt (see Tzeentch psychic discipline), targeting the charging unit.",
+      "p_unit": 5,
+      "p_char": null
+    },
+    {
+      "name": "Lord of the Silver Tower",
+      "term_compat": true,
+      "desc": "Once per game, instead of using any other ranged weapon or a psychic power, the model may shoot the Coruscating beam. Unique. Only for Master of Sorcery.",
+      "p_unit": null,
+      "p_char": 90,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Stone of siphoning",
+      "term_compat": true,
+      "desc": "When another friendly psyker successfully manifests a psychic power, you may immediately treat the power as dispelled. Then, this model regains 1 Wound. Cannot exceed starting Wounds.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Mirror plate",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "When selected as a target of a friendly's psyker's Augmentation psychic power, you can choose a friendly unit within 12\" that this model has Line of Sight to. That unit gains the effects of the psychic power in addition of this model, if able.",
+      "p_unit": 10
+    },
+    {
+      "name": "Warpflame gargoyles",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "When this model is set up during Deployment, choose one of its weapons with the Flames ability. That weapon can always fire, ignoring distance traveled.",
+      "p_unit": 5
     }
   ],
   "daemon_weapons": [

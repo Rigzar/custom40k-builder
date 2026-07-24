@@ -303,11 +303,27 @@ export const helbrute: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
+    },
+    {
+      "header": "If the Mark of Tzeentch is taken, can be upgraded to a psyker for +5 points.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": 5,
+      "variant_link": null,
+      "is_unique_per_army": false,
+      "available_if": {
+        "type": "instanceOf",
+        "scope": "unit",
+        "keyword": "Tzeentch"
+      }
     }
   ],
   "abilities": [
     "Squadron",
-    "Furioso: If the model is equipped with two melee weapons, it gains +2 attacks."
+    "Furioso: If the model is equipped with two melee weapons, it gains +2 attacks.",
+    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline."
   ],
   "unit_type": "Walker",
   "keywords": [

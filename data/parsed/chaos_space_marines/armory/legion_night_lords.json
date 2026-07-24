@@ -72,6 +72,30 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Warp-fuelled thrusters",
+      "term_compat": false,
+      "requires_keywords": [
+        "Jump Pack Infantry"
+      ],
+      "desc": "Once per game at the end of this model's activation, if it is not engaged in Melee Combat, you can put it and any attached Jump Pack Infantry unit in reserves. Only for Jump Pack Infantry.",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Anguish engines",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Units within 12\" have -2 to their Leadership. Only for Flyers.",
+      "p_unit": 10
+    },
+    {
+      "name": "Flayed trophies",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Whenever the model successfully performs a Charge order, the charged units must immediately resolve a Leadership Test with a -1 penalty. If fail, they gain 1 Battleshock token.",
+      "p_unit": 5
     }
   ],
   "daemon_weapons": []

@@ -15,44 +15,44 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v155b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v156_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.55: upgrade weapons no longer show unless you take them',
-    intro: 'A fix that touches every faction, plus a full re-audit of the Space Marines codex.',
+    title: 'v1.56: six codices updated to their newest version',
+    intro: 'The new codex documents are in. Here is what changed, faction by faction:',
     install: '',
     line6: '',
-    line1: '🔫 All factions — a lot of upgrade weapons were shown in a unit\'s profile even when you hadn\'t bought them (vehicle turrets/sponsons, two-mode plasma and melta, the Plagueburst Crawler\'s Entropy cannons, the Daemon Prince\'s Plague spewer, and more). They now stay hidden until you actually take them; your default weapons are unaffected. About 180 phantom entries cleaned up.',
-    line2: '⚔ Space Marines — the Indomitus Crusader Squad now has its "Squires" rule: Neophytes are always removed first as casualties and use their own defensive profile, even when they are not the majority. It was missing from the datasheet.',
-    line3: '',
-    line4: '',
-    line5: '',
+    line1: '☠ Chaos Space Marines (1.02) — four new units: Blood Slaughterer and Decimator (Heavy Support), Mutilator and Slaughterbound (Elites). The Helbrute can become a psyker with the Mark of Tzeentch. The Defiler was reworked: 293 pts instead of 419, now starting with an Ectoplasma destructor and two Power scourges, with the big guns as paid options. Plus 38 new Armory items across all ten armouries.',
+    line2: '⚙ Necrons (1.02) — the Ancient Destructor Lord is now allowed by the Destroyer Cult archetype, and the Monolith no longer opens the general Armory (its datasheet only grants vehicle equipment).',
+    line3: '🔥 Adeptus Sororitas (1.01) — "Raging Fervour" now says clearly that it extends the range of the "Melta" rule, not the weapon\'s own range. · 🐛 Genestealer Cults (1.01), 👹 Chaos Daemons (1.01) and 🎖 Imperial Guard (1.03) — full re-check against the new documents, everything already matched.',
+    line4: '🦂 Tyranids — the Parasite of Mortrex\'s ovipositor does 2 Damage and its Mortal Wounds are added on top of the normal damage; the Hive Tyrant\'s Indescribable Horror now costs 5 pts and Old Adversary 10 pts. · 🗡 Dark Eldar — the Beastpack lists "Swarm (Razorwing Flock only)".',
+    line5: '🔧 Everyone — a unit that starts with two of the same weapon now shows "2x" in its profile; the Plague ammunition only affects the champion who buys it (GitHub #73); the points limit can be typed freely again on phones; and the "which unit does this character join" picker is gone, since joining is decided during the game.',
     contrib: '👁️ Reporting a bug? Please be specific — come to our Discord and explain exactly what happens (which unit, engagement and archetype) with a screenshot. Vague reports like "it says 6 Troops but I have 0" (that "6" is the slot maximum 2-6, not a count) can\'t be reproduced, so we can\'t fix them.',
   },
   de: {
-    title: 'v1.55: Ausrüstungswaffen erscheinen nur noch, wenn du sie nimmst',
-    intro: 'Eine Korrektur, die jede Fraktion betrifft, plus eine vollständige Nachprüfung des Space-Marines-Codex.',
+    title: 'v1.56: sechs Codices auf ihre neueste Version gebracht',
+    intro: 'Die neuen Codex-Dokumente sind da. Das hat sich geändert, Fraktion für Fraktion:',
     install: '',
     line6: '',
-    line1: '🔫 Alle Fraktionen — viele Ausrüstungswaffen wurden im Profil angezeigt, obwohl du sie nicht gekauft hattest (Fahrzeug-Türme/-Sponsons, Plasma und Melta mit zwei Modi, die Entropy cannons des Plagueburst Crawlers, der Plague spewer des Daemon Prince und mehr). Sie bleiben jetzt verborgen, bis du sie wirklich nimmst; deine Standardwaffen sind nicht betroffen. Rund 180 Geistereinträge bereinigt.',
-    line2: '⚔ Space Marines — die Indomitus Crusader Squad hat jetzt ihre Regel „Squires": Neophyten werden immer zuerst als Verluste entfernt und nutzen ihr eigenes Verteidigungsprofil, auch wenn sie nicht die Mehrheit sind. Sie fehlte im Datenblatt.',
-    line3: '',
-    line4: '',
-    line5: '',
+    line1: '☠ Chaos Space Marines (1.02) — vier neue Einheiten: Blood Slaughterer und Decimator (Schwere Unterstützung), Mutilator und Slaughterbound (Elite). Der Helbrute kann mit dem Mal des Tzeentch zum Psioniker werden. Der Defiler wurde überarbeitet: 293 statt 419 Punkte, jetzt mit Ectoplasma destructor und zwei Power scourges, die schweren Geschütze gibt es als Option. Dazu 38 neue Rüstkammer-Gegenstände in allen zehn Armorys.',
+    line2: '⚙ Necrons (1.02) — der Ancient Destructor Lord ist jetzt im Archetyp Destroyer Cult erlaubt, und der Monolith öffnet nicht mehr die allgemeine Rüstkammer (sein Datenblatt gewährt nur Fahrzeug-Ausrüstung).',
+    line3: '🔥 Adeptus Sororitas (1.01) — „Raging Fervour" sagt jetzt klar, dass es die Reichweite der „Melta"-Regel erhöht, nicht die der Waffe selbst. · 🐛 Genestealer Cults (1.01), 👹 Chaos Daemons (1.01) und 🎖 Imperial Guard (1.03) — vollständig gegen die neuen Dokumente geprüft, alles stimmte bereits.',
+    line4: '🦂 Tyranids — der Ovipositor des Parasite of Mortrex macht 2 Schaden und seine Mortal Wounds kommen zusätzlich zum normalen Schaden; beim Hive Tyrant kostet Indescribable Horror jetzt 5 und Old Adversary 10 Punkte. · 🗡 Dark Eldar — der Beastpack führt „Swarm (nur Razorwing Flock)".',
+    line5: '🔧 Für alle — eine Einheit mit zwei gleichen Waffen zeigt jetzt „2x" im Profil; die Plague ammunition wirkt nur auf den Champion, der sie kauft (GitHub #73); das Punktelimit lässt sich am Handy wieder frei eintippen; und die Auswahl „welcher Einheit schließt sich dieser Charakter an" ist entfallen, da das im Spiel entschieden wird.',
     contrib: '👁️ Einen Fehler gefunden? Bitte sei konkret — komm auf unseren Discord und erkläre genau, was passiert (welche Einheit, Engagement und Archetyp), mit einem Screenshot. Vage Meldungen wie „es zeigt 6 Truppen, ich habe aber 0" (die „6" ist das Slot-Maximum 2-6, keine Anzahl) lassen sich nicht nachstellen und daher nicht beheben.',
   },
   es: {
-    title: 'v1.55: las armas de mejora ya no se muestran si no las coges',
-    intro: 'Una corrección que afecta a todas las facciones, más una re-auditoría completa del códex Space Marines.',
+    title: 'v1.56: seis códices actualizados a su versión más reciente',
+    intro: 'Ya están los nuevos documentos de códex. Esto es lo que cambió, facción por facción:',
     install: '',
     line6: '',
-    line1: '🔫 Todas las facciones — muchas armas de mejora se mostraban en el perfil de una unidad aunque no las hubieras comprado (torretas y patrocinadores de vehículos, plasma y melta de dos modos, los Entropy cannons del Plagueburst Crawler, el Plague spewer del Daemon Prince y más). Ahora quedan ocultas hasta que las coges de verdad; tus armas por defecto no cambian. Unas 180 entradas fantasma limpiadas.',
-    line2: '⚔ Space Marines — la Indomitus Crusader Squad ya tiene su regla "Squires": los Neophytes se retiran siempre primero como bajas y usan su propio perfil defensivo, aunque no sean la mayoría. Faltaba en la hoja de datos.',
-    line3: '',
-    line4: '',
-    line5: '',
+    line1: '☠ Chaos Space Marines (1.02) — cuatro unidades nuevas: Blood Slaughterer y Decimator (Apoyo Pesado), Mutilator y Slaughterbound (Élite). El Helbrute puede volverse psíquico con la Marca de Tzeentch. El Defiler fue rediseñado: 293 pts en vez de 419, ahora empieza con Ectoplasma destructor y dos Power scourges, y las armas pesadas son opciones de pago. Además, 38 objetos nuevos de armería repartidos por las diez armerías.',
+    line2: '⚙ Necrons (1.02) — el Ancient Destructor Lord ya está permitido en el arquetipo Destroyer Cult, y el Monolith ya no abre la armería general (su hoja solo da equipo de vehículo).',
+    line3: '🔥 Adeptus Sororitas (1.01) — "Raging Fervour" ahora dice claramente que amplía el alcance de la regla "Melta", no el del arma. · 🐛 Genestealer Cults (1.01), 👹 Chaos Daemons (1.01) y 🎖 Imperial Guard (1.03) — revisión completa contra los nuevos documentos: todo ya coincidía.',
+    line4: '🦂 Tyranids — el ovipositor del Parasite of Mortrex hace 2 de Daño y sus Heridas Mortales se suman al daño normal; en el Hive Tyrant, Indescribable Horror pasa a 5 pts y Old Adversary a 10. · 🗡 Dark Eldar — el Beastpack ya lista "Swarm (solo Razorwing Flock)".',
+    line5: '🔧 Para todos — una unidad que empieza con dos armas iguales ahora muestra "2x" en su perfil; la Plague ammunition solo afecta al campeón que la compra (GitHub #73); el límite de puntos vuelve a poder escribirse en el móvil; y el selector de "a qué unidad se une este personaje" desaparece, porque eso se decide durante la partida.',
     contrib: '👁️ ¿Encontraste un bug? Sé específico, por favor — pásate por nuestro Discord y explica exactamente qué pasa (qué unidad, engagement y arquetipo) con una captura de pantalla. Los reportes vagos como "dice que tengo 6 tropas pero tengo 0" (ese "6" es el máximo del slot 2-6, no un recuento) no se pueden reproducir, así que no podemos arreglarlos.',
   },
 };
@@ -237,8 +237,8 @@ const CATEGORIES: Category[] = [
     icon: '/category-icons/chaos.svg',
     pillFg: '#cc8888', dividerColor: '#3a1a1a',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.00' },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.00' },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.02' },
+      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.01' },
     ],
   },
   {
@@ -247,10 +247,10 @@ const CATEGORIES: Category[] = [
     pillFg: '#c8b56a', dividerColor: '#3a3520',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.01' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.02' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.03' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing', version: '1.00' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing', version: '1.00' },
-      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'testing', version: '1.00' },
+      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.01' },
       { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.01' },
       { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'testing', version: '1.00' },
     ],
@@ -261,11 +261,11 @@ const CATEGORIES: Category[] = [
     pillFg: '#6ab88a', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'testing', version: '1.00' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.01' },
+      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.02' },
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.01' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.01' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.01' },
-      { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'testing', version: '1.00' },
+      { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.01' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing', version: '1.00' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.02' },
       { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.02' },
@@ -311,6 +311,8 @@ export function LandingPage({
   const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
   const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
   const [showChangelog, setShowChangelog] = useState(false);
+  // Raw text of the points-limit box while it is being edited (null = show the store value).
+  const [pointDraft, setPointDraft] = useState<string | null>(null);
   // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
   // fractalNoise + displacement filter every update — even throttled it kept the CPU at ~12% idle
   // and spun up fans. The static turbulence renders once and then just composites, so idle CPU
@@ -707,19 +709,23 @@ export function LandingPage({
                 <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('pointsLimit')}</span>
                 <input
                   type="number"
-                  value={pointLimit}
+                  inputMode="numeric"
+                  // Typing is kept as free text and only clamped on blur/Enter. Clamping inside
+                  // onChange re-clamped every keystroke, so typing "1500" turned the first "1"
+                  // into the minimum and the field could only ever end up at min or max — the
+                  // "can't change pts limit on mobile, it's just 1000 or 2499" Discord report.
+                  value={pointDraft ?? pointLimit}
                   min={ENGAGEMENTS[engagement].min}
                   max={ENGAGEMENTS[engagement].max}
                   step={250}
-                  onChange={e => {
-                    const v = Number(e.target.value);
-                    const eng = ENGAGEMENTS[engagement];
-                    setPointLimit(Math.min(eng.max, Math.max(eng.min, v)));
-                  }}
+                  onChange={e => setPointDraft(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
                   onBlur={e => {
-                    const v = Number(e.target.value);
                     const eng = ENGAGEMENTS[engagement];
-                    setPointLimit(Math.min(eng.max, Math.max(eng.min, v)));
+                    const raw = e.target.value.trim();
+                    const v = raw === '' ? pointLimit : Number(raw);
+                    setPointLimit(Number.isFinite(v) ? Math.min(eng.max, Math.max(eng.min, v)) : pointLimit);
+                    setPointDraft(null);
                   }}
                   className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm
                     focus:outline-none focus:border-amber-600 text-center tabular-nums"

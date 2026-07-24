@@ -77,6 +77,27 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Warp Breacher",
+      "term_compat": false,
+      "desc": "At the start of the model's activation, select a friendly vehicle within 6\". That vehicle gains \"Daemon\" until the end of its next activation. Additionally, it can immediately resolve a Charge order, if able. Unique. Only for Warpsmiths and Lord Discordants.",
+      "p_unit": null,
+      "p_char": 30
+    },
+    {
+      "name": "Techinfernal foci",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "The vehicle gains \"Tank Hunter\". Vehicles destroyed by this model always explode with a 6\" radius.",
+      "p_unit": 10
+    },
+    {
+      "name": "Warp-fissure engine",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "When the model successfully destroys an enemy vehicle, remove one \"Weapon Destroyed\" or all \"Engine Damage\" results from this model. Forgefiends, Maulerfiends and Venomcrawlers only.",
+      "p_unit": 5
     }
   ],
   "daemon_weapons": []

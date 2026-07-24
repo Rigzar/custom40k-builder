@@ -30,6 +30,38 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "The Instrument",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": null,
+      "p_char": 37,
+      "profiles": [
+        {
+          "name": "Rapid shot",
+          "range": "24\"",
+          "type": "Assault 3",
+          "s": "5",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Suppression, Unique"
+        },
+        {
+          "name": "Execution shot",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(1), Sniper, Sunder(2), Suppression, Unique"
+        }
+      ]
     }
   ],
   "equipment": [
@@ -69,6 +101,30 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "I am Alpharius",
+      "term_compat": true,
+      "desc": "If at least one character model from the same Army Organisation Plan is alive at the end of the last battle round, the army scores the \"Protect the Warlord\" secondary objective and the enemy can't score the \"Slay the Warlord\" secondary objective. Unique.",
+      "p_unit": null,
+      "p_char": 10,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Hidden compartments",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "<Cultist> models embarked within this model occupy only half the capacity they normally would.",
+      "p_unit": 10
+    },
+    {
+      "name": "Improved jammer",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Once per game during your Reinforcement Phase, before players perform their reinforcement rolls, this model can gain this ability: \"Units can not arrive from reserves within 12\" of this unit. If units would scatter within range of this ability, they are returned to reserves\". This ability lasts until the next Reinforcement Phase.",
+      "p_unit": 15
     }
   ],
   "daemon_weapons": []

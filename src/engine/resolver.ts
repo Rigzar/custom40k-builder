@@ -371,7 +371,12 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
           replacedWeaponThreshold.set(name, 1);
         } else if (!replacedWeaponThreshold.has(name)) {
           const copies = weaponCopiesPerModel(unit.equipped_with, name);
-          if (copies > 1 && (replaceGroupCountByName.get(name) ?? 0) >= copies) {
+          // Either N independent per-copy groups (Talos/Carnifex), or a single group whose header
+          // explicitly swaps just ONE of the N copies ("May replace one Dreadnought close combat
+          // weapon" on a model equipped with 2) — both leave the other copies on the datasheet,
+          // so the weapon must not vanish after the first swap.
+          const singleCopySwap = /\b(one|the other|a)\b/i.test(g.header ?? '');
+          if (copies > 1 && ((replaceGroupCountByName.get(name) ?? 0) >= copies || singleCopySwap)) {
             replacedWeaponThreshold.set(name, item.size * copies);
           }
         }
@@ -530,6 +535,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // applied later to just that model's own weapon group.
   const builtInChampionForTraits = getBuiltInChampion(unit);
   const hasCharacterScopedBuyer = (!!builtInChampionForTraits && unit.models[0].max > 1) || !!activeVariant;
+  // When ONLY the champion has Armory access (champion_has_armory, no unit-wide has_armory_access),
+  // the buyer of any weapon-ability item is that champion — so a "…of the model gain X" item scopes
+  // to the champion even if it also carries a p_unit price (e.g. Nurgle "Plague ammunition", both
+  // p_unit and p_char set: without this it wrongly gave Poison(3+) to every Cultist's ranged weapon
+  // instead of just the Aspiring Cultist Champion's — GH#73).
+  const championOnlyArmory = !!unit.champion_has_armory && !unit.has_armory_access;
   const weaponTraitMap = new Map<string, string[]>();
   const championWeaponTraitMap = new Map<string, string[]>();
   for (const sel of item.armory) {
@@ -538,7 +549,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (!armItem?.desc || !isWeaponTrait(armItem.desc)) continue;
     const gains = extractWeaponGains(armItem.desc);
     if (gains.length === 0) continue;
-    const isCharacterScoped = armItem.p_char != null && armItem.p_unit == null;
+    const isCharacterScoped = (armItem.p_char != null && armItem.p_unit == null) || championOnlyArmory;
     const target = (isCharacterScoped && hasCharacterScopedBuyer) ? championWeaponTraitMap : weaponTraitMap;
     target.set(sel.targetWeapon, [...(target.get(sel.targetWeapon) ?? []), ...gains]);
   }
@@ -718,7 +729,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     // A Character-only-priced item (p_char, no p_unit) on a squad with a Champion/promoted
     // Sergeant only affects THAT model's own weapons, not the whole squad's — same scoping
     // as the targeted daemon-weapon traits above.
-    const isCharacterScoped = armItem.p_char != null && armItem.p_unit == null;
+    const isCharacterScoped = (armItem.p_char != null && armItem.p_unit == null) || championOnlyArmory;
     const target = (isCharacterScoped && hasCharacterScopedBuyer) ? championWeaponTraitMap : weaponTraitMap;
     for (const weapon of weapons) {
       const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
@@ -1024,7 +1035,11 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     // `count` is still a real number (squad + Champion), so per-weapon swap quantities must
     // still be computed for it — skipping on `!grp.label` silently dropped every partial-squad
     // weapon swap's count override whenever the Champion's gear happened to match the squad's.
-    if (grp.count == null) continue;
+    // A null count means "single model" (most vehicles/characters). Those still need per-weapon
+    // counts when the datasheet hands the model MORE THAN ONE copy of a weapon ("equipped with:
+    // 2 Power scourges"), so only skip when nothing in the group is multi-copy.
+    if (grp.count == null &&
+        !grp.weapons.some(w => weaponCopiesPerModel(unit.equipped_with, baseName(w.name)) > 1)) continue;
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
@@ -1057,10 +1072,19 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         replacedQty.set(replaced, (replacedQty.get(replaced) ?? 0) + groupQty);
       }
     }
-    if (replacedQty.size === 0 && grantedQty.size === 0) continue;
     const overrides = new Map<string, number>();
     for (const w of grp.weapons) {
       const bn = baseName(w.name);
+      if (!replacedQty.has(bn) && !grantedQty.has(bn)) {
+        // Multi-copy base loadout: the datasheet says "…is equipped with: 2 Power scourges" but
+        // nothing has swapped them, so no override was ever set and the profile printed a single
+        // row with no count — the live profile must mirror the basic loadout ("x2"). Only kicks in
+        // for weapons the equipped_with text really gives more than one copy of.
+        const baseCopies = weaponCopiesPerModel(unit.equipped_with, bn);
+        // grp.count is null for single-model groups (most vehicles) — treat that as one model.
+        if (baseCopies > 1) overrides.set(w.name, (grp.count ?? 1) * baseCopies);
+        continue;
+      }
       if (replacedQty.has(bn)) {
         // Same N-copies-per-model adjustment as computeWeaponsToShow's threshold — grp.count is
         // a MODEL count, but the base weapon's true starting quantity is copies × model count.
@@ -1070,9 +1094,15 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // in one choice) would never reach the inflated count and show a bogus negative-derived
         // leftover (ki-replaces-swap-manual-review-01 regression, found 2026-06-27).
         const copies = weaponCopiesPerModel(unit.equipped_with, bn);
-        const replaceGroupCount = unit.option_groups.filter(g => g.replaces?.includes(bn)).length;
-        const effectiveCopies = copies > 1 && replaceGroupCount >= copies ? copies : 1;
-        overrides.set(w.name, Math.max(0, grp.count * effectiveCopies - replacedQty.get(bn)!));
+        const replaceGroups = unit.option_groups.filter(g => g.replaces?.includes(bn));
+        // A group whose header explicitly swaps a SINGLE copy ("May replace one Siege claw…",
+        // "May replace the other Power scourge") only ever removes one of the N copies, so the
+        // base quantity must stay copies×models — unlike a bulk swap that trades all N at once
+        // ("may swap their 2 Laser destroyers" -> one "2 Quad lascannons" choice), which is why
+        // this is keyed on the header wording instead of assuming one shape for both.
+        const singleCopySwap = replaceGroups.some(g => /\b(one|the other|a)\b/i.test(g.header ?? ''));
+        const effectiveCopies = copies > 1 && (replaceGroups.length >= copies || singleCopySwap) ? copies : 1;
+        overrides.set(w.name, Math.max(0, (grp.count ?? 1) * effectiveCopies - replacedQty.get(bn)!));
       } else if (grantedQty.has(bn)) {
         overrides.set(w.name, grantedQty.get(bn)!);
       }

@@ -82,6 +82,30 @@
       "armour_compat": [
         "Terminator"
       ]
+    },
+    {
+      "name": "Sightless Helm",
+      "term_compat": true,
+      "desc": "Worsen this model's BS by 1, then improve the AP of all your weapons by 1 to a maximum of -4.",
+      "p_unit": 10,
+      "p_char": 12,
+      "armour_compat": [
+        "Terminator"
+      ]
+    },
+    {
+      "name": "Unholy markings",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Friendly models within 6\" range gain the \"Furious Charge\" ability.",
+      "p_unit": 15
+    },
+    {
+      "name": "Unnatural hunger",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "During deployment, select an enemy unit. This model gains \"Favoured Enemy(x)\" when resolving attacks against that unit. If that unit is destroyed by this model, regain one Hull Point (cannot exceed maximum).",
+      "p_unit": 5
     }
   ],
   "daemon_weapons": []

@@ -269,11 +269,11 @@ export const hiveTyrant: Unit = {
         },
         {
           "name": "Indescribable Horror",
-          "points": 10
+          "points": 5
         },
         {
           "name": "Old Adversary",
-          "points": 15
+          "points": 10
         }
       ],
       "inline_pts": null,

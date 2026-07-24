@@ -187,7 +187,7 @@ import Layout from '../../components/Layout.astro';
           <tr><td>S ≤ ½T</td><td class="roll-bad">6+</td></tr>
         </tbody>
       </table>
-      <p class="note">Strength "D": wound roll of 2+ always succeeds; armor penetration roll of 2+ is always a penetrating hit.</p>
+      <p class="note">Strength "D": wound roll of 2+ always succeeds; vehicles with AV 10 or less are automatically penetrated; against all other vehicles an armor penetration roll of 2+ is always a penetrating hit. If the penetration roll was high enough to actually pen (treat Strength: D as Strength: 10), you also cause an automatic Critical Hit.</p>
     </div>
 
     <div class="rule-section reveal">
@@ -553,7 +553,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Flurry (X)</div><p>Model makes X additional attacks with this weapon's profile per battle round (can still make more attacks with this weapon).</p></div>
       <div class="ability-card"><div class="ability-name">Force Weapon</div><p>If bearer successfully manifests ≥1 psychic power during activation, this weapon gains +1 Damage for the rest of the battle round.</p></div>
       <div class="ability-card"><div class="ability-name">Grav</div><p>Unless already better, wound roll = enemy's armour save. Unless already worse, enemy's armour save against this = 5+. Does not work vs Vehicles.</p></div>
-      <div class="ability-card"><div class="ability-name">Graviton</div><p>Creatures hit must pass Strength test or suffer S4 AP0 D1 Seeking wound (in addition to normal hit). If target in cover and ≥1 hit: terrain becomes difficult and dangerous until next activation.</p></div>
+      <div class="ability-card"><div class="ability-name">Graviton</div><p>Creatures that <em>lose a wound</em> to this weapon must pass a Strength test or suffer another wound with S:4 AP:0 D:1, Seeking. This is in addition to the actual wound roll.</p></div>
       <div class="ability-card"><div class="ability-name">Gruesome</div><p>Each wound caused counts as two for combat resolution. Fleeing models caught by pursuit suffer one additional automatic wound.</p></div>
       <div class="ability-card"><div class="ability-name">Haywire</div><p>Each hit causes one automatic penetrating hit against a Vehicle (in addition to normal damage). Does not work vs Creatures.</p></div>
       <div class="ability-card"><div class="ability-name">Indirect</div><p>Does not require LOS. Target only gets cover bonus if in a terrain zone. Can only be fired with Stand &amp; Shoot order.</p></div>
