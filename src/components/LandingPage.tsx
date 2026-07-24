@@ -140,6 +140,9 @@ function CommunityAnnouncement() {
 
 /** Separate, admin-authored announcement banner (from the DB), shown BELOW the release-notes card. */
 /** Stable 32-bit hash of a string — used to key an announcement's dismissal by its CONTENT. */
+/** Single key holding the content-hash of the admin announcement this browser dismissed. */
+const ADMIN_ANN_DISMISSED_KEY = 'c40k_admin_ann_dismissed_hash';
+
 function hashString(s: string): string {
   let h = 0;
   for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
@@ -148,22 +151,24 @@ function hashString(s: string): string {
 
 function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | null }) {
   const { language } = useLanguage();
-  // Key the dismissal off the announcement's CONTENT, not its `version` field. `version` is
-  // optional in the admin form, so it fell back to the literal 'default' — dismissing one
-  // announcement then hid EVERY future one forever, because the key never changed. Hashing the
-  // text means any edit (or a brand-new announcement) produces a new key and shows again, while
-  // re-dismissing the same text keeps it hidden. `version` still participates when it is set.
-  const dismissKey = setting
-    ? `c40k_admin_ann_${hashString((setting.version || '') + JSON.stringify(setting.text ?? {}))}_dismissed`
-    : 'c40k_admin_ann_pending';
-  const [dismissed, setDismissed] = useState(false);
+  // Dismissal is keyed off the announcement's CONTENT, and stored as the hash of the announcement
+  // that was dismissed under ONE stable key. Earlier versions wrote a separate `..._<hash>_dismissed`
+  // flag per announcement, which meant a browser that had dismissed anything under the older
+  // scheme (where the key fell back to the literal 'default') kept a permanent "true" lying around
+  // and could keep hiding banners. Storing the dismissed hash instead makes it self-healing: the
+  // banner is hidden only while the CURRENT content hash equals the stored one, so writing a new
+  // announcement — or editing an existing one — always shows it again, on every existing browser.
+  const contentHash = setting
+    ? hashString((setting.version || '') + JSON.stringify(setting.text ?? {}))
+    : null;
+  const [dismissedHash, setDismissedHash] = useState<string | null>(null);
 
-  // The setting arrives asynchronously from /api/settings, so the key is not known on first
-  // render. Re-read the stored flag whenever the key changes, or the initial (keyless) state
-  // would stick and a fresh announcement would stay hidden.
+  // The setting arrives asynchronously from /api/settings, so the hash is unknown on first render.
+  // Re-read the stored value whenever it changes, or the initial (empty) state would stick.
   useEffect(() => {
-    setDismissed(localStorage.getItem(dismissKey) === 'true');
-  }, [dismissKey]);
+    setDismissedHash(localStorage.getItem(ADMIN_ANN_DISMISSED_KEY));
+  }, [contentHash]);
+  const dismissed = !!contentHash && dismissedHash === contentHash;
 
   if (!setting || setting.enabled === false) return null;
   const t = setting.text?.[language] ?? setting.text?.en;
@@ -178,7 +183,10 @@ function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | nul
           {t.title}
         </div>
         <button
-          onClick={() => { localStorage.setItem(dismissKey, 'true'); setDismissed(true); }}
+          onClick={() => {
+            if (contentHash) localStorage.setItem(ADMIN_ANN_DISMISSED_KEY, contentHash);
+            setDismissedHash(contentHash);
+          }}
           className="text-zinc-600 hover:text-zinc-300 text-lg leading-none shrink-0 transition-colors"
           title="Dismiss"
         >×</button>

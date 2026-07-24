@@ -46,10 +46,13 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         // Never serve a cached API response: rosters, campaigns and admin settings must be live.
-        navigateFallbackDenylist: [/^\/api\//],
+        // NOTE: a RegExp route is tested against the FULL url ("https://host/api/settings"), so an
+        // anchored /^\/api\// can never match and the rule was silently dead. Match on the parsed
+        // pathname with a callback instead — that is unambiguous for same- and cross-origin alike.
+        navigateFallbackDenylist: [/\/api\//],
         runtimeCaching: [
           {
-            urlPattern: /^\/api\//,
+            urlPattern: ({ url }: { url: URL }) => url.pathname.startsWith('/api/'),
             handler: 'NetworkOnly',
           },
         ],
