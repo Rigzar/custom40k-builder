@@ -123,6 +123,48 @@ function nearMatch(name: string, candidates: string[]): string | null {
   return best && best.d > 0 && best.d <= Math.max(1, Math.floor(a.length / 8)) ? best.name : null;
 }
 
+/**
+ * A weapon name split into the weapon itself and its firing-mode label. Both sides write these two
+ * parts the same way in principle and differently in practice:
+ *
+ *     sheet "Missile launcher - Frag missile"   app "Missile launcher - Frag"
+ *     sheet "Bolt rifle - Bolt ammo"            app "Bolt rifle (Bolt ammo)"
+ *     sheet "Plasma gun - Standard"             app "Plasma gun (Standard)"
+ *
+ * Matched literally, none of those pair up, so the weapon looks missing on BOTH sides at once and
+ * its Range/Type/S/AP/D/Abilities are never compared — over a hundred Space Marine weapons were in
+ * exactly that state. Splitting the name lets the profiles be compared, which is the whole point:
+ * this is not softening a difference, it is what makes the real differences visible.
+ */
+function splitProfile(name: string): { base: string; profile: string } {
+  const n = norm(name).replace(/\.$/, '');            // some sheet rows end in a stray full stop
+  const paren = n.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+  if (paren) return { base: loose(paren[1]), profile: loose(paren[2]) };
+  const dash = n.split(' - ');
+  return dash.length > 1
+    ? { base: loose(dash[0]), profile: loose(dash.slice(1).join(' - ')) }
+    : { base: loose(n), profile: '' };
+}
+
+/** Profiles match when they are the same, or when one is a shortening of the other
+ *  ("Frag" ⊂ "Frag missile", "Standard" ⊂ "Plasma gun (Standard)"). */
+function profilesMatch(a: string, b: string): boolean {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  return a.includes(b) || b.includes(a);
+}
+
+/** Find the sheet's row for an app weapon, tolerating the two sides' profile spellings. */
+export function findSourceWeapon<T>(appName: string, sheet: Record<string, T>): T | undefined {
+  if (sheet[appName]) return sheet[appName];
+  const a = splitProfile(appName);
+  for (const [sName, sw] of Object.entries(sheet)) {
+    const s = splitProfile(sName);
+    if (s.base === a.base && profilesMatch(a.profile, s.profile)) return sw;
+  }
+  return undefined;
+}
+
 /** Stat column headers we know how to compare (infantry + vehicle). */
 const STAT_KEYS = ['M', 'WS', 'BS', 'S', 'T', 'W', 'I', 'A', 'LD', 'SV', 'FRONT', 'SIDE', 'REAR', 'HP'];
 
@@ -329,10 +371,16 @@ export function coverageGaps(faction: FactionData, csvByUnit: Record<string, str
     const appWeapons = (unit.weapons ?? []).map(w => w.name);
     const sheetWeapons = Object.keys(srcWeapons);
     if (sheetWeapons.length > 0) {
+      // Pair the two sides on weapon + firing mode first (see findSourceWeapon) — a weapon the app
+      // writes "Bolt rifle (Bolt ammo)" and the sheet "Bolt rifle - Bolt ammo" is one weapon, not
+      // one missing on each side.
+      const appByName = Object.fromEntries(appWeapons.map(n => [n, n]));
+      const unmatchedApp = appWeapons.filter(n => !findSourceWeapon(n, srcWeapons));
+      const unmatchedSheet = sheetWeapons.filter(n => !findSourceWeapon(n, appByName));
+
       const pairedApp = new Set<string>();
-      for (const name of sheetWeapons) {
-        if (appWeapons.includes(name)) continue;
-        const twin = nearMatch(name, appWeapons.filter(w => !srcWeapons[w]));
+      for (const name of unmatchedSheet) {
+        const twin = nearMatch(name, unmatchedApp);
         if (twin) {
           pairedApp.add(twin);
           gaps.push({
@@ -349,8 +397,8 @@ export function coverageGaps(faction: FactionData, csvByUnit: Record<string, str
         }
       }
       const equipped = equipText(csv);
-      for (const name of appWeapons) {
-        if (srcWeapons[name] || pairedApp.has(name)) continue;
+      for (const name of unmatchedApp) {
+        if (pairedApp.has(name)) continue;
         // The equipment line handing the model this weapon, with no profile row for it, is the
         // sheet contradicting itself — we can say which side is wrong instead of guessing.
         const inEquipLine = equipped.includes(name.toLowerCase().replace(/s$/, ''));
@@ -412,7 +460,7 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
       });
     }
     for (const w of unit.weapons ?? []) {
-      const sw = srcWeapons[w.name];
+      const sw = findSourceWeapon(w.name, srcWeapons);
       if (!sw) continue;
       const pairs: [string, string, string][] = [
         ['range', sw.range, norm(w.range)],

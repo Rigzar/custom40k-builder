@@ -238,6 +238,20 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
   // choice that grants it, instead of the split turning it into a phantom always-shown weapon.
   const optionalWeapons = new Map<string, Set<string>>();
   for (const g of unit.option_groups) {
+    // A tick-box option has no choices at all — the weapon it buys is named only in its header
+    // ("May take a Markerlight for +10 points."). With nothing to match, the weapon counted as a
+    // fixed default and appeared on the datasheet for free. Tie it to the group's '__inline'
+    // pseudo-choice, the same key the tick-box writes into optionQty.
+    if (g.choices.length === 0 && g.inline_pts != null) {
+      for (const w of unit.weapons) {
+        const k = wkey(w.name);
+        if (!new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}s?\\b`, 'i').test(g.header)) continue;
+        if (unit.equipped_with?.includes(baseName(w.name))) continue;   // already a real default
+        if (!optionalWeapons.has(k)) optionalWeapons.set(k, new Set());
+        optionalWeapons.get(k)!.add('__inline');
+      }
+      continue;
+    }
     for (const c of g.choices) {
       const parts = c.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
       for (const part of parts.length > 1 ? [c.name, ...parts] : [c.name]) {
@@ -251,10 +265,23 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         // even though the group has a `replaces` link, since this map is what hides THEM (the
         // new weapon) until bought; `replaces` only handles removing the OLD weapon, separately.
         if (!g.replaces?.length && unit.equipped_with?.includes(part)) continue;
-        const pk = wkey(part);
-        if (unit.weapons.some(w => wkey(w.name) === pk)) {
+        // A choice can name the CREW as well as the gun ("Kustom mega-blasta with grot gunner",
+        // "Twin-linked Big shoota with Grot Gunner") while the weapon row is just the gun. Try the
+        // full name first, and only if nothing matches fall back to the name without that trailing
+        // qualifier — otherwise the option never links to its weapon and the gun is treated as a
+        // fixed default, shown on the datasheet whether or not it was ever bought.
+        const full = wkey(part);
+        const stripped = full.replace(/\s+with\s+.+$/, '');
+        // Only fall back when the stripped name isn't itself part of the base loadout: a choice
+        // reading "Big shoota with Grot Gunner" must not hide a Big shoota the model already
+        // carries as standard.
+        const candidates = stripped !== full && !unit.equipped_with?.toLowerCase().includes(stripped)
+          ? [full, stripped] : [full];
+        for (const pk of candidates) {
+          if (!unit.weapons.some(w => wkey(w.name) === pk)) continue;
           if (!optionalWeapons.has(pk)) optionalWeapons.set(pk, new Set());
           optionalWeapons.get(pk)!.add(c.name);
+          break;
         }
       }
     }
@@ -382,6 +409,9 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         }
       }
     }
+    // A ticked tick-box counts as picking its group's pseudo-choice, so a weapon named only in
+    // that group's header (see optionalWeapons above) appears exactly when the box is ticked.
+    if (ch['__inline']) selectedChoiceNames.add('__inline');
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];

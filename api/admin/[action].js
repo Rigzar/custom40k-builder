@@ -324,13 +324,32 @@ async function sourceSheets(req, res) {
     // to it as missing.
     const fallback = await fetchTab('__c40k_no_such_tab__');
 
+    const isMissing = (text) => text == null || (fallback != null && text === fallback);
+
+    // The two sides don't always spell a tab the same way ("Chaos Biker" vs the app's "Chaos
+    // Bikers", "Daemon Prince" vs "Daemon prince"). Rather than report the whole datasheet as
+    // uncomparable over an 's' or a capital letter, try the obvious variants before giving up.
+    const variants = (name) => [
+      name.replace(/s$/, ''),
+      `${name}s`,
+      name.replace(/\w\S*/g, w => w[0].toUpperCase() + w.slice(1)),
+      name.toLowerCase(),
+    ].filter((v, i, all) => v !== name && all.indexOf(v) === i);
+
     const data = {};
     let cursor = 0;
     const worker = async () => {
       while (cursor < names.length) {
         const name = names[cursor++];
-        const text = await fetchTab(name);
-        data[name] = fallback != null && text === fallback ? null : text;
+        let text = await fetchTab(name);
+        if (isMissing(text)) {
+          for (const v of variants(name)) {
+            const alt = await fetchTab(v);
+            if (!isMissing(alt)) { text = alt; break; }
+            await sleep(80);
+          }
+        }
+        data[name] = isMissing(text) ? null : text;
         await sleep(80);
       }
     };
