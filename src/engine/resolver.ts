@@ -1036,10 +1036,17 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     // still be computed for it — skipping on `!grp.label` silently dropped every partial-squad
     // weapon swap's count override whenever the Champion's gear happened to match the squad's.
     // A null count means "single model" (most vehicles/characters). Those still need per-weapon
-    // counts when the datasheet hands the model MORE THAN ONE copy of a weapon ("equipped with:
-    // 2 Power scourges"), so only skip when nothing in the group is multi-copy.
-    if (grp.count == null &&
-        !grp.weapons.some(w => weaponCopiesPerModel(unit.equipped_with, baseName(w.name)) > 1)) continue;
+    // counts in two cases: the datasheet hands the model MORE THAN ONE copy of a weapon ("equipped
+    // with: 2 Power scourges"), or the player bought the same option weapon twice through separate
+    // groups (Defiler: Reaper autocannon in BOTH "replace one Power scourge" and "replace the other
+    // Power scourge" — that is 2 Reaper autocannons and must read "2x").
+    // Both tests deliberately look at the UNIT's declared loadout and the player's selections, not
+    // at `grp.weapons`: once both scourges are swapped away the multi-copy weapon is gone from the
+    // filtered list, and testing that list skipped the whole block and dropped every count.
+    const unitHasMultiCopyWeapon = unit.weapons
+      .some(w => weaponCopiesPerModel(unit.equipped_with, baseName(w.name)) > 1);
+    const hasAnyOptionSelection = Object.keys(item.optionQty ?? {}).length > 0;
+    if (grp.count == null && !unitHasMultiCopyWeapon && !hasAnyOptionSelection) continue;
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
@@ -1073,8 +1080,20 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       }
     }
     const overrides = new Map<string, number>();
+    // A multi-profile weapon ("Knight melee weapon - Strike" / "- Sweep", "Plasma cannon -
+    // Standard" / "- Overcharged") occupies several rows that are MODES of one weapon, not
+    // separate weapons. The quantity belongs to the weapon, so it is printed on the first
+    // profile row only — otherwise a model carrying two of them reads as "2x Strike" AND
+    // "2x Sweep", i.e. four weapons instead of two.
+    const countedBaseNames = new Set<string>();
     for (const w of grp.weapons) {
       const bn = baseName(w.name);
+      // Mark on the FIRST row of each weapon — whether its quantity ends up coming from an
+      // override below or from the group's own model count — so every later mode row of the same
+      // weapon is forced to 1 and renders bare ("10x Burna - Melee" + "Burna - Shooting", never
+      // "10x" twice, which would read as twenty weapons instead of ten with two modes).
+      if (countedBaseNames.has(bn)) { overrides.set(w.name, 1); continue; }
+      countedBaseNames.add(bn);
       if (!replacedQty.has(bn) && !grantedQty.has(bn)) {
         // Multi-copy base loadout: the datasheet says "…is equipped with: 2 Power scourges" but
         // nothing has swapped them, so no override was ever set and the profile printed a single

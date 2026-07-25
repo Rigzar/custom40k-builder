@@ -260,9 +260,19 @@ export function isOrkKustomJob(name: string): boolean {
 export function weaponCopiesPerModel(equippedWith: string | undefined, weaponName: string): number {
   if (!equippedWith) return 1;
   const escaped = weaponName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const m = equippedWith.match(new RegExp(`(\\d+)\\s+${escaped}s?\\b`, 'i'));
-  return m ? parseInt(m[1], 10) : 1;
+  // Counts are written either as a digit ("2 Macro-scalpels", Talos) or as a word ("two Plague
+  // spewers", Plagueburst Crawler) — both forms appear across the codices, so accept both or the
+  // word-form datasheets silently fall back to 1 copy and lose their "2x" in the live profile.
+  const m = equippedWith.match(new RegExp(`\\b(\\d+|${Object.keys(NUMBER_WORDS).join('|')})\\s+${escaped}s?\\b`, 'i'));
+  if (!m) return 1;
+  const raw = m[1].toLowerCase();
+  return NUMBER_WORDS[raw] ?? parseInt(raw, 10) ?? 1;
 }
+
+/** Written-out counts used in `equipped_with` text. */
+const NUMBER_WORDS: Record<string, number> = {
+  two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
+};
 
 /**
  * Parse the best (lowest = strongest) invulnerability save from a unit's base ability strings.
