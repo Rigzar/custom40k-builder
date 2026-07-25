@@ -46,7 +46,7 @@
  *     "9''"/"12''" double-prime artefact, consistent with prod JSON convention elsewhere)
  *   ✓ variant_models: Aspiring Raptor Champion (champion upgrade, variant_link)
  *   ✓ option_groups: mark (per-model) / fixed_max(2) Bolt-pistol swap (Plasma pistol only —
- *     matches; only ONE choice listed in source for this group, unlike Chaos Bikers' 3-choice
+ *     matches; only ONE choice listed in source for this group, unlike Chaos Biker' 3-choice
  *     analogue) / fixed_max(2) chainsword+pistol swap / champion→variant "one" (inline_pts 10)
  *   ✓ unit_type: "Jump Pack Infantry" — title-cased from source's "Jump pack infantry"
  *     (global unit_type casing normalization, ki-jumppack-otherfactions-01 fix, v0.51)

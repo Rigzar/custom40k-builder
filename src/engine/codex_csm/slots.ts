@@ -48,7 +48,7 @@ export const CSM_SLOTS: CsmSlotEntry[] = [
     units: [
       'Big Mutants', 'Blightlord Terminators', 'Chaos Terminators', 'Chosen',
       'Cultist Firebrand', 'Dark Commune', 'Deathshroud Terminators', 'Eightbound',
-      'Exalted Plague Champion', 'Flawless Blades', 'Helbrute', 'Khorne Berzerkers',
+      'Foetid Virion', 'Flawless Blades', 'Helbrute', 'Khorne Berzerkers',
       'Legionnaires', 'Master of Execution', 'Noise Marines', 'Plague Marines', 'Possessed',
       'Red Butcher Terminators', 'Rubric Marines', 'Scarab Occult Terminators',
       'Sekhetar Robots', 'Tzaangor Shaman',
@@ -57,7 +57,7 @@ export const CSM_SLOTS: CsmSlotEntry[] = [
   {
     slot: 'Fast Attack',
     units: [
-      'Chaos Bikers', 'Chaos Spawn', 'Foetid Bloat-Drone', 'Juggernaut Hellriders',
+      'Chaos Biker', 'Chaos Spawn', 'Foetid Bloat-Drone', 'Juggernaut Hellriders',
       'Myphitic Blight-Hauler', 'Raptors', 'Tzaangor Enlightened', 'Venomcrawler',
       'Warptalons',
     ],

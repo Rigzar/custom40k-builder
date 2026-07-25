@@ -43,7 +43,7 @@
  * ENGINE STATUS:
  *   ✓ stats, pts, weapons, options match HTML verbatim (combi-weapon and twin entropy
  *     cannon sub-profiles correctly split into separate "<weapon> - <profile>" entries,
- *     same convention as Chaos Land Raider/Chaos Bikers)
+ *     same convention as Chaos Land Raider/Chaos Biker)
  *   ✓ option_groups: "mark" (flat unit-level pick, +10pts uniform per god) / "one"
  *     structured replace (replaces:["Predator autocannon"], Twin entropy cannon
  *     [Nurgle only — text-only restriction, no enforced gate] / Twin lascannon, both +50) /

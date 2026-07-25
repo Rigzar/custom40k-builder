@@ -62,7 +62,7 @@ export const CSM_UNIT_TYPES: CsmUnitTypeEntry[] = [
   { unitName: 'Dark Commune', types: ['Infantry'], slot: 'Elites' },
   { unitName: 'Deathshroud Terminators', types: ['Infantry'], slot: 'Elites' },
   { unitName: 'Eightbound', types: ['Infantry'], slot: 'Elites' },
-  { unitName: 'Exalted Plague Champion', types: ['Character Model', 'Infantry'], slot: 'Elites' },
+  { unitName: 'Foetid Virion', types: ['Character Model', 'Infantry'], slot: 'Elites' },
   { unitName: 'Flawless Blades', types: ['Infantry'], slot: 'Elites' },
   { unitName: 'Helbrute', types: ['Walker'], slot: 'Elites' },
   { unitName: 'Khorne Berzerkers', types: ['Infantry'], slot: 'Elites' },
@@ -78,7 +78,7 @@ export const CSM_UNIT_TYPES: CsmUnitTypeEntry[] = [
   { unitName: 'Tzaangor Shaman', types: ['Character Model', 'Infantry'], slot: 'Elites' },
 
   // --- Fast Attack (9) ---
-  { unitName: 'Chaos Bikers', types: ['Bike'], slot: 'Fast Attack' },
+  { unitName: 'Chaos Biker', types: ['Bike'], slot: 'Fast Attack' },
   { unitName: 'Chaos Spawn', types: ['Monstrous Infantry'], slot: 'Fast Attack' },
   { unitName: 'Foetid Bloat-Drone', types: ['Vehicle'], slot: 'Fast Attack' },
   { unitName: 'Juggernaut Hellriders', types: ['Bike'], slot: 'Fast Attack' },

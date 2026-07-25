@@ -332,6 +332,28 @@ function getDataOverrides(): Promise<DataOverrides> {
 /** Drop the cached corrections so the next faction load re-reads them (used after an admin saves). */
 export function refreshDataOverrides(): void { overridesPromise = null; }
 
+/**
+ * Units the codex renamed, old name → new name. A saved army stores the unit's NAME, so renaming a
+ * unit orphans every list that contains it. Each old name is re-added to `units` as a
+ * NON-ENUMERABLE alias for the renamed unit: a lookup by the old name still finds it, while
+ * anything that walks the unit list (the pickers, the source check, the health tools) sees the unit
+ * exactly once, under its new name.
+ */
+const UNIT_RENAMES: Record<string, Record<string, string>> = {
+  chaos_space_marines: {
+    'Exalted Plague Champion': 'Foetid Virion',
+    'Chaos Bikers': 'Chaos Biker',
+  },
+};
+
+function aliasRenamedUnits(data: FactionData, factionKey: string): void {
+  for (const [oldName, newName] of Object.entries(UNIT_RENAMES[factionKey] ?? {})) {
+    const unit = data.units[newName];
+    if (!unit || data.units[oldName]) continue;
+    Object.defineProperty(data.units, oldName, { value: unit, enumerable: false, configurable: true });
+  }
+}
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
@@ -339,6 +361,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
    'tyranids', 'horus_heresy'].map(k => [k, async () => {
      const data = await loadFaction(k);
+     aliasRenamedUnits(data, k);
      applyDataOverrides(data, (await getDataOverrides())[k]);
      return data;
    }])

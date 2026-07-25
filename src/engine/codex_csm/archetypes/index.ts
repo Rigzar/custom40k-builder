@@ -118,14 +118,14 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
   },
 
   // SOURCE — The Swift Blade:
-  // - Chaos Bikers can be taken as Troops.
+  // - Chaos Biker can be taken as Troops.
   // - Outflanking units may be deployed on turn 1.
   // - All units with less than 12" Movement must start the game as passengers inside a transport.
   // - Units that have no transport option and less than 12" Movement cannot be taken at all.
   'The Swift Blade': { ...BASE,
-    troopsRemap: ['Chaos Bikers'],
+    troopsRemap: ['Chaos Biker'],
     notes: [
-      'Chaos Bikers count as Troops.',
+      'Chaos Biker count as Troops.',
       'Outflanking units may deploy on turn 1.',
       'All units with M<12" must start the game as passengers inside a transport.',
       'Units with M<12" and no transport option cannot be selected.',

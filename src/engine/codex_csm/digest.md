@@ -202,11 +202,11 @@ These are finer gates the columns don't capture; parser can't derive cleanly, ne
 - **Troops:** Accursed Cultists, Chaos Space Marines, Cultists, Jakhals, Mutants, Poxwalkers,
   Traitor Guard, Tzaangors.
 - **Elites:** Big Mutants, Blightlord Terminators, Chaos Terminators, Chosen, Cultist Firebrand,
-  Dark Commune, Deathshroud Terminators, Eightbound, Exalted Plague Champion, Flawless Blades,
+  Dark Commune, Deathshroud Terminators, Eightbound, Foetid Virion, Flawless Blades,
   Helbrute, Khorne Berzerkers, Legionnaires, Master of Execution, Noise Marines, Plague Marines,
   Possessed, Red Butcher Terminators, Rubric Marines, Scarab Occult Terminators, Sekhetar Robots,
   Tzaangor Shaman.
-- **Fast Attack:** Chaos Bikers, Chaos Spawn, Foetid Bloat-Drone, Juggernaut Hellriders, Myphitic
+- **Fast Attack:** Chaos Biker, Chaos Spawn, Foetid Bloat-Drone, Juggernaut Hellriders, Myphitic
   Blight-Hauler, Raptors, Tzaangor Enlightened, Venomcrawler, Warptalons.
 - **Heavy Support:** Chaos Land Raider, Chaos Predator, Chaos Vindicator, Defiler, Forgefiend,
   Havocs, Maulerfiend, Obliterator, Plagueburst Crawler.
@@ -331,7 +331,7 @@ lossless for the rest). Stats M/WS/BS/S/T/W/I/A/Ld/Sv; `base` = base model pts. 
 | Dark Commune | Dark Executioner (1-2)† | 6 | 4+ | — | 4 | 3 | 1 | 3 | 2 | 6 | 4+ | 13 | Cultist | — | std |
 | Deathshroud Terminators | Deathshroud Terminator (2-6) | 6 | 2+ | 3+ | 4 | 6 | 3 | 4 | 3 | 9 | 2+ | 117 | Death Guard | **Nurgle** | **Cataphractii** (4+inv) |
 | Eightbound | Eightbound (2-7) | 6 | 3+ | 3+ | 6 | 5 | 2 | 4 | 4 | 8 | 3+ | 52 | World Eaters | **Khorne** | std |
-| Exalted Plague Champion | Exalted Plague Champion (1-1) | 6 | 3+ | 3+ | 4 | 5 | 4 | 4 | 2 | 8 | 3+ | 62 | Death Guard | **Nurgle** | std |
+| Foetid Virion | Foetid Virion (1-1) | 6 | 3+ | 3+ | 4 | 5 | 4 | 4 | 2 | 8 | 3+ | 62 | Death Guard | **Nurgle** | std |
 | Flawless Blades | Flawless Blade (3-6) | 8 | 2+ | 3+ | 5 | 5 | 2 | 5 | 2 | 8 | 3+ | 54 | Emperor's Children | **Slaanesh** | std |
 | Helbrute‡ | Helbrute (1-2) | 6 | 3+ | 3+ | 6 | — | — | 4 | 3 | — | — | 174 | Chaos Space Marine | — | vehicle |
 | Khorne Berzerkers | Khorne Berzerker (4-7) | 6 | 3+ | 3+ | 5 | 4 | 2 | 4 | 3 | 8 | 3+ | 46 | World Eaters | **Khorne** | std |
@@ -400,7 +400,7 @@ logic text-only · ❌ not modeled.
 - **Eightbound** — locked Khorne; `one` Champion (Eightbound Goremonger) swap · ✅; `every` "upgrade
   to Exalted Eightbound +20" (→+1W +Daemon) · `every`+choice→stat/keyword 🟡 (pts ✅, +1W/Daemon
   injection ❌). No armory.
-- **Exalted Plague Champion** — Character, advisor (5 per HQ) ✅; `one required:true` "Must be
+- **Foetid Virion** — Character, advisor (5 per HQ) ✅; `one required:true` "Must be
   upgraded to one of" 5 specialisations, each with `abilities[]` · forced-`one`+choice→ability
   🟡 (forces pick & pts ✅; ability effects text-only ❌). armory ✅.
 - **Flawless Blades** — locked Slaanesh; Daemon / Parry; NO options. vet_max 1.
@@ -443,10 +443,10 @@ logic text-only · ❌ not modeled.
    on Choice/OptionGroup carries `grants_abilities` / `stat_mod` / `adds_unit_types` (ADDITIVE). Tagged:
    Possessed Jump packs (→Deep strike + Jump pack infantry) and Daemon Prince wings (+6" M + Jump pack
    infantry). STILL UNTAGGED (same primitive applies, just add `effect`): Big Mutants (Bloated→4+sv),
-   Eightbound (Exalted→+1W+Daemon), Exalted Plague Champion & Chosen specialisations.
+   Eightbound (Exalted→+1W+Daemon), Foetid Virion & Chosen specialisations.
 4. **Slot-exemption primitive** ❌ — Cultist Firebrand "does not occupy an Elite slot" (per Cultists
    unit). Not modeled; flag for AOP layer. *(New observation.)*
-5. **forced `one required`** 🟡 — Exalted Plague Champion must pick a specialisation; pts/force ✅,
+5. **forced `one required`** 🟡 — Foetid Virion must pick a specialisation; pts/force ✅,
    effects text-only.
 6. **ᵀ-gate via armour KEYWORD** ❌ — see bug; Crux-Terminatus units slip the gate.
 7. **2nd-profile / advisor / Battle-Protocol caps** — advisor ✅ (validators); Battle Protocols are
@@ -461,7 +461,7 @@ shape (footnote ‡).
 
 | Unit | base model (min-max) | type | M | WS | BS | S | T | W | I | A | Ld | Sv | Pts | Keyword | Locked mark |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Chaos Bikers | Chaos Biker (2-9) | Bike | 12 | 3+ | 3+ | 4 | 5 | 3 | 4 | 2 | 7 | 3+ | 66 | Chaos Space Marine | — |
+| Chaos Biker | Chaos Biker (2-9) | Bike | 12 | 3+ | 3+ | 4 | 5 | 3 | 4 | 2 | 7 | 3+ | 66 | Chaos Space Marine | — |
 | Chaos Spawn | Chaos Spawn (1-4) | Monst Inf | 12 | 4+ | — | 5 | 5 | 3 | 3 | 3 | 10 | 6+ | 22 | Cultist | — |
 | Foetid Bloat-Drone‡ | Foetid Bloat-Drone (1-2) | Vehicle | 12 | — | 3+ | 5 | — | — | 4 | 1 | — | — | 136 | Death Guard | **Nurgle** |
 | Juggernaut Hellriders | Hellrider (2-7) | Bike | 12 | 3+ | 3+ | 5 | 5 | 4 | 4 | 4 | 8 | 3+ | 104 | World Eaters | **Khorne** |
@@ -475,7 +475,7 @@ shape (footnote ‡).
 11/11/10, I4 A1 HP2 · Myphitic Blight-Hauler M12" WS3+ BS3+ S5, 11/11/10, I4 A2 HP2 · Venomcrawler
 M12" WS3+ BS3+ S5, 11/11/10, I4 A3 HP2.
 
-**Mark pricing:** non-locked CSM-keyword units carry a `mark` group — Chaos Bikers 3/3/3/7,
+**Mark pricing:** non-locked CSM-keyword units carry a `mark` group — Chaos Biker 3/3/3/7,
 Chaos Spawn 2/2/2/6, Raptors & Warptalons 2/2/2/5 (K/S/N/T); vehicles flat **+10 each god**
 (Venomcrawler), Undivided = free default (not listed). 4 locked-mark units (Hellriders=Khorne,
 Bloat-Drone & Blight-Hauler=Nurgle, Tzaangor Enlightened=Tzeentch) omit the selector + carry
@@ -483,7 +483,7 @@ Bloat-Drone & Blight-Hauler=Nurgle, Tzaangor Enlightened=Tzeentch) omit the sele
 
 **Option-semantics — per unit** (literal text · primitive · status). ✅ enforced · 🟡 points-only ·
 ❌ not modeled.
-- **Chaos Bikers** — `mark` ✅; `fixed_max{2}` "Two Bikers may be equipped" Flamer/Melta/Plasma add ·
+- **Chaos Biker** — `mark` ✅; `fixed_max{2}` "Two Bikers may be equipped" Flamer/Melta/Plasma add ·
   ✅count; `fixed_max{2}` "**Alternatively** two may swap their Combi-bolter" Combi-flamer/melta/plasma ·
   ✅count/❌drop + **cross-group "Alternatively" exclusivity ❌** (same 2 models, two groups mutually
   exclusive — not enforced); `one` Champion→Aspiring Chaos Biker Champion +10 (`variant_link`, grants
@@ -515,7 +515,7 @@ Bloat-Drone & Blight-Hauler=Nurgle, Tzaangor Enlightened=Tzeentch) omit the sele
 primitives beyond what §4f already flagged):**
 1. **`replace` drop-side** ❌ — Bloat-Drone/Hellriders/Raptors/Tzaangor swaps drop weapons named only
    in header text (Raptors & Tzaangor drop 2 each).
-2. **Cross-group "Alternatively" exclusivity** ❌ — Chaos Bikers & Raptors: the second `fixed_max{2}`
+2. **Cross-group "Alternatively" exclusivity** ❌ — Chaos Biker & Raptors: the second `fixed_max{2}`
    group is mutually exclusive with the first on the SAME models; engine offers both independently.
    *(Same class as the Elites cross-option exclusivity gap.)*
 3. **choice→ability/stat linkage** ❌ — Chaos Spawn (Grasping/Toxic/Subcutaneous), Tzaangor (greatbow
@@ -678,7 +678,7 @@ models/units in the army must be upgraded with it** (unless the trait states oth
   shares its powers and gets +1 manifest/dispel.
 - **Special Operations:** Cultists must pick two Veteran abilities, one of which must be
   "Infiltrator".
-- **The Swift Blade:** Chaos Bikers as Troops; outflankers may deploy turn 1; all units <12" Move
+- **The Swift Blade:** Chaos Biker as Troops; outflankers may deploy turn 1; all units <12" Move
   must start as transport passengers; units with no transport option and <12" Move can't be taken.
 
 ### 5b. Legacies (0-1; grant a legion armory)

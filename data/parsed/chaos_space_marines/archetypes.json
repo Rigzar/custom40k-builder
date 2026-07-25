@@ -50,7 +50,7 @@
     },
     {
       "name": "The Swift Blade",
-      "desc": "- Chaos Bikers can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
+      "desc": "- Chaos Biker can be taken as Troops.\n- Outflanking units may be deployed on turn 1.\n- All units with less than 12\" Movement must start the game as passengers inside a transport.\n- Units that have no transport option and less than 12\" Movement cannot be taken at all."
     }
   ],
   "legacies": [

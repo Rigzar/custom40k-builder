@@ -1,12 +1,12 @@
 ﻿/**
  * EXALTED PLAGUE CHAMPION — Elites
  *
- * SOURCE: Chaos Space Marines ENG / Exalted Plague Champion.html (canonical datasheet)
+ * SOURCE: Chaos Space Marines ENG / Foetid Virion.html (canonical datasheet)
  * ─────────────────────────────────────────────────────────────────────────────────────
  *
  * PROFILE:
  *   No.  NAME                    M    WS  BS  S  T  W  I  A  LD  SV  PTS
- *   1+   Exalted Plague Champion 6”   3+  3+  4  5  4  4  2   8  3+   62
+ *   1+   Foetid Virion 6”   3+  3+  4  5  4  4  2   8  3+   62
  *
  * EQUIPPED WITH: Blight grenades; Krak grenades; Plague knife.
  *   Foul Blightspawn additionally equipped with: Plague sprayer.
@@ -27,7 +27,7 @@
  *
  * ABILITIES (verbatim):
  *   Command squad, Mark of Nurgle
- *   Advisor: For every HQ unit, up to 5 Exalted Plague Champions without Elite slot.
+ *   Advisor: For every HQ unit, up to 5 Foetid Virions without Elite slot.
  *   (NOTE: HTML typo “Foul Infiusion” in Biologus ability → corrected to “Foul Infusion” in TS)
  *
  * UNIT TYPE: Character Model, Infantry
@@ -46,10 +46,10 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const exaltedPlagueChampion: Unit = {
-  "name": "Exalted Plague Champion",
+  "name": "Foetid Virion",
   "models": [
     {
-      "name": "Exalted Plague Champion",
+      "name": "Foetid Virion",
       "points": 62,
       "min": 1,
       "max": 1,
@@ -68,7 +68,7 @@ export const exaltedPlagueChampion: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Exalted Plague Champion is equipped with: Blight grenades; Krak grenades; Plague knife. A Foul Blightspawn is additionally equipped with: Plague sprayer.",
+  "equipped_with": "A Foetid Virion is equipped with: Blight grenades; Krak grenades; Plague knife. A Foul Blightspawn is additionally equipped with: Plague sprayer.",
   "weapons": [
     {
       "name": "Blight grenades",
@@ -171,7 +171,7 @@ export const exaltedPlagueChampion: Unit = {
   ],
   "abilities": [
     "Command squad, Mark of Nurgle",
-    "Advisor: For every HQ unit, you may select up to 5 Exalted Plague Champions without using up an Elite slot. Each specialisation can only be selected once per HQ unit."
+    "Advisor: For every HQ unit, you may select up to 5 Foetid Virions without using up an Elite slot. Each specialisation can only be selected once per HQ unit."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

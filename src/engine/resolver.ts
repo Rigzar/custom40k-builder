@@ -289,7 +289,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
 
   // Conditional grants written into equipped_with as "A <specialisation> is additionally equipped
   // with: <weapon>." — the weapon belongs ONLY to that named option choice, not the base loadout, so
-  // it must stay hidden until that choice is picked (e.g. the Exalted Plague Champion's Plague
+  // it must stay hidden until that choice is picked (e.g. the Foetid Virion's Plague
   // sprayer, only when upgraded to Foul Blightspawn). Tie it to the choice like any optional weapon,
   // and remember it so the "always show if in equipped_with" rule below skips it.
   const conditionalGrantWeapons = new Set<string>();

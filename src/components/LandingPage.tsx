@@ -143,6 +143,13 @@ function CommunityAnnouncement() {
 /** Single key holding the content-hash of the admin announcement this browser dismissed. */
 const ADMIN_ANN_DISMISSED_KEY = 'c40k_admin_ann_dismissed_hash';
 
+/** Shown at the foot of every admin announcement — see the comment where it is rendered. */
+const BROKEN_LIST_NOTE: Record<Language, string> = {
+  en: '⚠️ A unit renamed to match the codex can disappear from a list that already contained it. If one of your lists comes back wrong, tell us on Discord and send us its .json — we will repair it and send it back.',
+  de: '⚠️ Eine Einheit, die an den Codex angeglichen und dabei umbenannt wurde, kann aus einer Liste verschwinden, die sie bereits enthielt. Falls eine deiner Listen falsch zurückkommt, sag uns auf Discord Bescheid und schick uns ihre .json — wir reparieren sie und schicken sie zurück.',
+  es: '⚠️ Una unidad renombrada para cuadrar con el códex puede desaparecer de una lista que ya la tenía. Si alguna de tus listas vuelve mal, dínoslo en Discord y mándanos su .json — te la arreglamos y te la devolvemos.',
+};
+
 function hashString(s: string): string {
   let h = 0;
   for (let i = 0; i < s.length; i++) h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
@@ -195,6 +202,10 @@ function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | nul
         {t.intro && <p>{t.intro}</p>}
         {lines.map((line, i) => <BoldSplitLine key={i} text={line} />)}
         {t.contrib && <p className="text-zinc-400">{t.contrib}</p>}
+        {/* Standing support note, carried by every admin announcement: renaming a unit to match the
+            codex orphans it in lists that already contain it, and the player can't tell that's what
+            happened. Say so once, in the place everyone reads, with the way to get it fixed. */}
+        <p className="text-[11px] text-zinc-500 border-t border-zinc-800 pt-2">{BROKEN_LIST_NOTE[language] ?? BROKEN_LIST_NOTE.en}</p>
         {setting.author && (
           <p className="text-[11px] text-zinc-500 flex items-center gap-1.5 pt-1">
             — <span className="text-amber-400">{setting.author}</span>

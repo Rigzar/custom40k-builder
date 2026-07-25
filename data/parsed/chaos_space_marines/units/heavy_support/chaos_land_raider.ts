@@ -39,7 +39,7 @@
  * ENGINE STATUS:
  *   ✓ stats, pts, weapons, options, abilities all match HTML verbatim (combi-weapon
  *     sub-profiles correctly split into separate "<combi> - <profile>" weapon entries,
- *     same convention as Chaos Bikers)
+ *     same convention as Chaos Biker)
  *   ✓ option_groups: "mark" (flat unit-level pick, +10pts uniform per god) / "one"
  *     additive combi-weapon pick (Combi-flamer/-bolter/-melta — bonus weapon, no
  *     `replaces`, matches "May be equipped with" not "may swap") / "one" inline_pts:29

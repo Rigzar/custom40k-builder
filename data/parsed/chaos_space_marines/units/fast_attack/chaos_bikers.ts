@@ -39,8 +39,8 @@
  * OPTIONS:
  *   • All models may receive a Mark of Chaos (per model): Khorne/Slaanesh/Nurgle +3pts,
  *     Tzeentch +7pts
- *   • Two Chaos Bikers may each be equipped with: Flamer +5 / Melta +17 / Plasma gun +22
- *   • Alternatively, two Chaos Bikers may each swap their Combi-bolter for:
+ *   • Two Chaos Biker may each be equipped with: Flamer +5 / Melta +17 / Plasma gun +22
+ *   • Alternatively, two Chaos Biker may each swap their Combi-bolter for:
  *     Combi-flamer +0 / Combi-melta +5 / Combi-plasma +10
  *   • The Chaos Biker Champion may be upgraded to an Aspiring Chaos Biker Champion for
  *     +10pts and gains access to weapons and gear from the Armory
@@ -67,7 +67,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const chaosBikers: Unit = {
-  "name": "Chaos Bikers",
+  "name": "Chaos Biker",
   "models": [
     {
       "name": "Chaos Biker",
@@ -302,7 +302,7 @@ export const chaosBikers: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Two Chaos Bikers may be equipped with each each",
+      "header": "Two Chaos Biker may be equipped with each each",
       "constraint": {
         "type": "fixed_max",
         "max": 2
@@ -326,7 +326,7 @@ export const chaosBikers: Unit = {
       "is_unique_per_army": false
     },
     {
-      "header": "Alternatively, two Chaos Bikers may swap their Combi-bolter each",
+      "header": "Alternatively, two Chaos Biker may swap their Combi-bolter each",
       "constraint": {
         "type": "fixed_max",
         "max": 2

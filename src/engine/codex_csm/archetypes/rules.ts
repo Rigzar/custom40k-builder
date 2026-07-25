@@ -110,7 +110,7 @@ export const CSM_STRUCTURED_NOTES: Record<string, StructuredNote[]> = {
   ],
 
   'The Swift Blade': [
-    { category: 'troops',      text: 'Chaos Bikers count as Troops.' },
+    { category: 'troops',      text: 'Chaos Biker count as Troops.' },
     { category: 'mechanic',    text: 'Outflanking units may deploy on turn 1.' },
     { category: 'in_game',     text: 'All units with M<12\\" must start the game as passengers inside a transport.' },
     { category: 'restriction', text: 'Units with M<12\\" that have no transport option cannot be selected.' },
