@@ -145,6 +145,68 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
   return { weapons: out, duplicates };
 }
 
+/**
+ * A place where the comparison could NOT run, rather than a difference it found. `compareFaction`
+ * is deliberately silent about these (it skips a unit with no tab, a model whose name doesn't line
+ * up, a weapon the sheet doesn't list), which means a whole datasheet can quietly go unchecked and
+ * look like "no differences". This is the visible counterpart: it says what was skipped and why.
+ */
+export interface SourceGap {
+  unit: string;
+  kind:
+    | 'tab'            // no CSV came back for this unit's tab
+    | 'block'          // tab fetched but a whole block failed to parse (no POINTS / no WEAPON header)
+    | 'model'          // model in the app, absent from the sheet's model block
+    | 'sheet-model'    // model in the sheet, absent from the app
+    | 'weapon'         // weapon in the app, absent from the sheet's weapon block
+    | 'sheet-weapon';  // weapon in the sheet, absent from the app
+  detail: string;
+}
+
+const GAP_ORDER: SourceGap['kind'][] = ['tab', 'block', 'sheet-weapon', 'sheet-model', 'weapon', 'model'];
+
+/**
+ * Report what `compareFaction` had to skip for this faction — unfetched tabs, unparsed blocks, and
+ * names present on one side only. A sheet weapon missing from the app ('sheet-weapon') is the one
+ * that matters most: it is a datasheet string that never made it into the app at all, which no
+ * value-by-value diff can ever surface.
+ */
+export function coverageGaps(faction: FactionData, csvByUnit: Record<string, string | null>): SourceGap[] {
+  const gaps: SourceGap[] = [];
+  for (const unit of Object.values(faction.units as Record<string, Unit>)) {
+    const csv = csvByUnit[unit.name];
+    if (!csv) {
+      gaps.push({ unit: unit.name, kind: 'tab', detail: 'no tab came back — the sheet has no tab with this exact name, or the fetch failed' });
+      continue;
+    }
+    const srcModels = extractModels(csv);
+    const { weapons: srcWeapons } = extractWeapons(csv);
+    if (Object.keys(srcModels).length === 0) gaps.push({ unit: unit.name, kind: 'block', detail: 'no model block found (no POINTS header on the tab)' });
+    if (Object.keys(srcWeapons).length === 0) gaps.push({ unit: unit.name, kind: 'block', detail: 'no weapon block found (no WEAPON header on the tab)' });
+
+    const appModels = [...(unit.models ?? []), ...(unit.variant_models ?? [])].map(m => m.name);
+    if (Object.keys(srcModels).length > 0) {
+      for (const name of appModels) {
+        if (!srcModels[name]) gaps.push({ unit: unit.name, kind: 'model', detail: `"${name}" — in the app, not on the sheet` });
+      }
+      for (const name of Object.keys(srcModels)) {
+        if (!appModels.includes(name)) gaps.push({ unit: unit.name, kind: 'sheet-model', detail: `"${name}" — on the sheet, missing from the app` });
+      }
+    }
+
+    const appWeapons = (unit.weapons ?? []).map(w => w.name);
+    if (Object.keys(srcWeapons).length > 0) {
+      for (const name of appWeapons) {
+        if (!srcWeapons[name]) gaps.push({ unit: unit.name, kind: 'weapon', detail: `"${name}" — in the app, not on the sheet` });
+      }
+      for (const name of Object.keys(srcWeapons)) {
+        if (!appWeapons.includes(name)) gaps.push({ unit: unit.name, kind: 'sheet-weapon', detail: `"${name}" — on the sheet, missing from the app` });
+      }
+    }
+  }
+  return gaps.sort((a, b) => GAP_ORDER.indexOf(a.kind) - GAP_ORDER.indexOf(b.kind) || a.unit.localeCompare(b.unit));
+}
+
 /** Diff production (models: points + stats, weapons: full profile) vs the source CSVs by unit name. */
 export function compareFaction(faction: FactionData, csvByUnit: Record<string, string | null>): SourceFinding[] {
   const findings: SourceFinding[] = [];

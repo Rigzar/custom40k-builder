@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
-import { compareFaction, type SourceFinding } from '../engine/sourceCompare';
+import { compareFaction, coverageGaps, type SourceFinding, type SourceGap } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -22,6 +22,15 @@ const DEFAULT_SOURCE_IDS: Record<string, string> = {
  * unvalidated id into a URL, and don't offer a link for one we haven't validated.
  */
 const SHEET_ID_RE = /^[A-Za-z0-9_-]+$/;
+
+/** One faction's source-check result: what differs, what couldn't be checked, and how much loaded. */
+interface SourceRun {
+  findings: SourceFinding[];
+  gaps: SourceGap[];
+  coverage: { fetched: number; total: number };
+  /** set instead of results when that faction's fetch threw, so one failure doesn't stop the sweep */
+  error?: string;
+}
 /** Accept a pasted full sheet URL as well as a bare id. */
 function toSheetId(input: string): string {
   const s = input.trim();
@@ -111,6 +120,10 @@ interface AdminTx {
   srcWhereSheet: string; srcWhereReview: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
   srcApply: string; srcApplying: string; srcUndo: string; srcAppliedTag: string;
   srcApplyHint: string; srcApplied: (unit: string, field: string, value: string) => string; srcUndone: string;
+  srcCompareAll: string; srcAllTitle: string; srcAllFailed: string; srcNoSheetIds: string;
+  srcAllProgress: (done: number, total: number, current: string) => string;
+  srcAllDiffs: (n: number) => string; srcAllGaps: (n: number) => string;
+  srcGapsNone: string; srcGapsCount: (n: number) => string; srcGapsHint: string;
   srcOverridesActive: (n: number) => string;
 }
 
@@ -193,6 +206,16 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcApplied: (unit, field, value) => `Applied: ${unit} · ${field} → ${value}. Live for all players.`,
     srcUndone: 'Correction removed — the built-in value is used again.',
     srcOverridesActive: n => `${n} correction${n === 1 ? '' : 's'} active for this faction.`,
+    srcCompareAll: 'Compare all',
+    srcAllTitle: 'All factions — click one to see its findings',
+    srcAllFailed: 'fetch failed',
+    srcNoSheetIds: 'No spreadsheet ids stored yet. Compare a faction once to save its id, then "Compare all" will include it.',
+    srcAllProgress: (done, total, current) => `Comparing ${done + 1}/${total} — ${current}…`,
+    srcAllDiffs: n => `${n} diff${n === 1 ? '' : 's'}`,
+    srcAllGaps: n => `${n} unchecked`,
+    srcGapsNone: 'Everything was checked — every tab loaded and every name lines up.',
+    srcGapsCount: n => `${n} thing${n === 1 ? '' : 's'} could NOT be checked`,
+    srcGapsHint: 'These were skipped by the comparison, so they can hide real problems. "sheet-weapon" / "sheet-model" = it is on the sheet but missing from the app; "tab" / "block" = nothing was read for that unit at all.',
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -262,6 +285,16 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcApplied: (unit, field, value) => `Übernommen: ${unit} · ${field} → ${value}. Für alle Spieler live.`,
     srcUndone: 'Korrektur entfernt — es gilt wieder der eingebaute Wert.',
     srcOverridesActive: n => `${n} Korrektur${n === 1 ? '' : 'en'} für diese Fraktion aktiv.`,
+    srcCompareAll: 'Alle vergleichen',
+    srcAllTitle: 'Alle Fraktionen — zum Anzeigen der Befunde anklicken',
+    srcAllFailed: 'Abruf fehlgeschlagen',
+    srcNoSheetIds: 'Noch keine Sheet-IDs gespeichert. Vergleiche eine Fraktion einmal, dann nimmt „Alle vergleichen" sie mit auf.',
+    srcAllProgress: (done, total, current) => `Vergleiche ${done + 1}/${total} — ${current}…`,
+    srcAllDiffs: n => `${n} Abweichung${n === 1 ? '' : 'en'}`,
+    srcAllGaps: n => `${n} ungeprüft`,
+    srcGapsNone: 'Alles geprüft — jeder Tab geladen und alle Namen passen zusammen.',
+    srcGapsCount: n => `${n} Sache${n === 1 ? '' : 'n'} konnte${n === 1 ? '' : 'n'} NICHT geprüft werden`,
+    srcGapsHint: 'Diese hat der Vergleich übersprungen, sie können echte Probleme verbergen. „sheet-weapon" / „sheet-model" = steht im Sheet, fehlt aber in der App; „tab" / „block" = für diese Einheit wurde gar nichts gelesen.',
   },
   es: {
     title: 'Panel Inquisidor',
@@ -331,6 +364,16 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcApplied: (unit, field, value) => `Aplicado: ${unit} · ${field} → ${value}. En vivo para todos los jugadores.`,
     srcUndone: 'Corrección eliminada — vuelve a usarse el valor original.',
     srcOverridesActive: n => `${n} corrección${n === 1 ? '' : 'es'} activa${n === 1 ? '' : 's'} en esta facción.`,
+    srcCompareAll: 'Comparar todas',
+    srcAllTitle: 'Todas las facciones — pulsa una para ver sus hallazgos',
+    srcAllFailed: 'fallo al descargar',
+    srcNoSheetIds: 'Todavía no hay ids de hoja guardados. Compara una facción una vez y "Comparar todas" ya la incluirá.',
+    srcAllProgress: (done, total, current) => `Comparando ${done + 1}/${total} — ${current}…`,
+    srcAllDiffs: n => `${n} diferencia${n === 1 ? '' : 's'}`,
+    srcAllGaps: n => `${n} sin comprobar`,
+    srcGapsNone: 'Se comprobó todo — todas las pestañas cargaron y todos los nombres cuadran.',
+    srcGapsCount: n => `${n} cosa${n === 1 ? '' : 's'} NO se pudo comprobar`,
+    srcGapsHint: 'La comparación se las saltó, así que pueden esconder problemas reales. "sheet-weapon" / "sheet-model" = está en la hoja pero falta en la app; "tab" / "block" = de esa unidad no se leyó nada.',
   },
 };
 
@@ -376,6 +419,14 @@ export function AdminPanel({ onClose }: Props) {
   /** overrideKey of the row whose save is in flight (disables just that row's buttons). */
   const [srcApplying, setSrcApplying] = useState<string | null>(null);
   const [srcCoverage, setSrcCoverage] = useState<{ fetched: number; total: number } | null>(null);
+  /** What the comparison could NOT check for the selected faction (unfetched tabs, names present
+   *  on one side only) — a diff that finds nothing is meaningless if half the sheet never loaded. */
+  const [srcGaps, setSrcGaps] = useState<SourceGap[] | null>(null);
+  const [srcShowGaps, setSrcShowGaps] = useState(false);
+  /** "Compare all": per-faction results, so one run covers the whole codex set and clicking a row
+   *  just swaps the already-computed findings in (no refetch, Apply stays scoped to that faction). */
+  const [srcAll, setSrcAll] = useState<Record<string, SourceRun> | null>(null);
+  const [srcAllProgress, setSrcAllProgress] = useState<{ done: number; total: number; current: string } | null>(null);
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -461,24 +512,63 @@ export function AdminPanel({ onClose }: Props) {
     finally { setHealthRunning(false); }
   }
 
+  /** Fetch one faction's sheet and diff it. Shared by the single-faction and "compare all" runs. */
+  async function runSourceCompare(factionKey: string, id: string): Promise<SourceRun> {
+    const loader = FACTION_LOADERS[factionKey];
+    if (!loader) throw new Error(`No data for ${factionKey}`);
+    const data = await loader();
+    const resp = await api.adminSourceSheets(id, Object.keys(data.units));
+    return {
+      findings: compareFaction(data, resp.data),
+      gaps: coverageGaps(data, resp.data),
+      coverage: { fetched: resp.fetched, total: resp.total },
+    };
+  }
+
+  function showRun(factionKey: string, run: SourceRun) {
+    setSrcFaction(factionKey);
+    setSrcId(sourceIds[factionKey] ?? '');
+    setSrcFindings(run.findings);
+    setSrcGaps(run.gaps);
+    setSrcCoverage(run.coverage);
+  }
+
   async function handleSourceCompare() {
     const id = toSheetId(srcId);
     if (!SHEET_ID_RE.test(id)) return;
-    setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setMsg('');
+    setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setSrcGaps(null); setSrcAll(null); setMsg('');
     try {
-      const loader = FACTION_LOADERS[srcFaction];
-      if (!loader) throw new Error(`No data for ${srcFaction}`);
-      const data = await loader();
-      const unitNames = Object.keys(data.units);
-      const resp = await api.adminSourceSheets(id, unitNames);
-      setSrcCoverage({ fetched: resp.fetched, total: resp.total });
-      setSrcFindings(compareFaction(data, resp.data));
+      const run = await runSourceCompare(srcFaction, id);
+      setSrcFindings(run.findings); setSrcGaps(run.gaps); setSrcCoverage(run.coverage);
       // remember the id for this faction
       const next = { ...sourceIds, [srcFaction]: id };
       setSourceIds(next);
       api.adminSetSetting('source_sheets', next).catch(() => {});
     } catch (e) { setMsg(String(e)); }
     finally { setSrcRunning(false); }
+  }
+
+  /**
+   * Run the comparison for every faction that has a spreadsheet id stored, one after another —
+   * each run fetches ~60 tabs from Google, so they are sequential on purpose (parallel bursts come
+   * back empty and would read as "no differences"). A faction that throws is recorded with its
+   * error instead of aborting the sweep.
+   */
+  async function handleSourceCompareAll() {
+    const targets = ALL_FACTIONS
+      .map(f => ({ key: f.key, name: f.name, id: toSheetId(sourceIds[f.key] ?? '') }))
+      .filter(t => SHEET_ID_RE.test(t.id) && FACTION_LOADERS[t.key]);
+    if (targets.length === 0) { setMsg(L.srcNoSheetIds); return; }
+    setSrcRunning(true); setSrcFindings(null); setSrcCoverage(null); setSrcGaps(null); setMsg('');
+    const results: Record<string, SourceRun> = {};
+    for (const [i, t] of targets.entries()) {
+      setSrcAllProgress({ done: i, total: targets.length, current: t.name });
+      try { results[t.key] = await runSourceCompare(t.key, t.id); }
+      catch (e) { results[t.key] = { findings: [], gaps: [], coverage: { fetched: 0, total: 0 }, error: String(e) }; }
+      setSrcAll({ ...results });
+    }
+    setSrcAllProgress(null);
+    setSrcRunning(false);
   }
 
   /**
@@ -1091,7 +1181,48 @@ export function AdminPanel({ onClose }: Props) {
                 <button onClick={handleSourceCompare} disabled={srcRunning || !srcIdOk} className={toolbarBtn}>
                   {srcRunning ? L.srcComparing : L.srcCompare}
                 </button>
+                <button onClick={handleSourceCompareAll} disabled={srcRunning} className={toolbarBtn}>
+                  {L.srcCompareAll}
+                </button>
               </div>
+              {srcAllProgress && (
+                <p className="text-amber-500 text-[10px] font-mono mb-2">
+                  {L.srcAllProgress(srcAllProgress.done, srcAllProgress.total, srcAllProgress.current)}
+                </p>
+              )}
+              {srcAll && (
+                <div className="mb-3 border border-zinc-800">
+                  <div className="text-[9px] uppercase tracking-widest text-zinc-500 px-2 py-1 border-b border-zinc-800">{L.srcAllTitle}</div>
+                  {Object.entries(srcAll).map(([key, run]) => {
+                    const name = ALL_FACTIONS.find(f => f.key === key)?.name ?? key;
+                    const missing = run.coverage.total - run.coverage.fetched;
+                    return (
+                      <button
+                        key={key}
+                        onClick={() => showRun(key, run)}
+                        className={`w-full text-left text-[11px] font-mono flex gap-3 items-center px-2 py-1 border-b border-zinc-900 hover:bg-zinc-900 ${key === srcFaction ? 'bg-zinc-900' : ''}`}
+                      >
+                        <span className="flex-1 truncate text-zinc-300">{name}</span>
+                        {run.error ? (
+                          <span className="text-red-500 truncate max-w-[50%]" title={run.error}>{L.srcAllFailed}</span>
+                        ) : (
+                          <>
+                            <span className={missing > 0 ? 'text-amber-500' : 'text-zinc-600'}>
+                              {run.coverage.fetched}/{run.coverage.total}
+                            </span>
+                            <span className={run.findings.length > 0 ? 'text-fuchsia-400' : 'text-green-600'}>
+                              {L.srcAllDiffs(run.findings.length)}
+                            </span>
+                            <span className={run.gaps.length > 0 ? 'text-amber-500' : 'text-zinc-600'}>
+                              {L.srcAllGaps(run.gaps.length)}
+                            </span>
+                          </>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
               {srcCoverage && (
                 <div className="flex flex-wrap items-center gap-2 mb-2">
                   <p className={`text-[10px] font-mono ${srcCoverage.fetched < srcCoverage.total ? 'text-amber-500' : 'text-zinc-500'}`}>
@@ -1103,6 +1234,32 @@ export function AdminPanel({ onClose }: Props) {
                       target="_blank" rel="noopener noreferrer"
                       className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
                     >{L.srcOpenSheet}</a>
+                  )}
+                </div>
+              )}
+              {srcGaps && (
+                <div className="mb-2">
+                  <button
+                    onClick={() => setSrcShowGaps(v => !v)}
+                    className={`text-[10px] font-mono underline ${srcGaps.length > 0 ? 'text-amber-500 hover:text-amber-300' : 'text-green-600'}`}
+                  >
+                    {srcGaps.length === 0 ? L.srcGapsNone : `${srcShowGaps ? '▾' : '▸'} ${L.srcGapsCount(srcGaps.length)}`}
+                  </button>
+                  {srcShowGaps && srcGaps.length > 0 && (
+                    <div className="mt-1 space-y-0.5 max-h-[35vh] overflow-y-auto border border-zinc-800 p-2">
+                      <p className="text-zinc-600 text-[10px] font-mono mb-1">{L.srcGapsHint}</p>
+                      {srcGaps.map((g, i) => (
+                        <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
+                          <span className={`shrink-0 w-24 text-[9px] uppercase ${
+                            g.kind === 'tab' || g.kind === 'block' ? 'text-red-500'
+                            : g.kind === 'sheet-weapon' || g.kind === 'sheet-model' ? 'text-amber-500'
+                            : 'text-zinc-500'
+                          }`}>{g.kind}</span>
+                          <span className="text-zinc-300 shrink-0">{g.unit}</span>
+                          <span className="text-zinc-500 flex-1 truncate" title={g.detail}>{g.detail}</span>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               )}
