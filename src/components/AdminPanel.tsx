@@ -117,7 +117,7 @@ interface AdminTx {
   helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
   srcCoverage: (fetched: number, total: number) => string;
-  srcWhereSheet: string; srcWhereReview: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
+  srcWhereSheet: string; srcWhereReview: string; srcWhereReviewHint: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
   srcApply: string; srcApplying: string; srcUndo: string; srcAppliedTag: string;
   srcApplyHint: string; srcApplied: (unit: string, field: string, value: string) => string; srcUndone: string;
   srcCompareAll: string; srcAllTitle: string; srcAllFailed: string; srcNoSheetIds: string;
@@ -199,6 +199,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
       ? `Read ${f}/${t} unit tabs — ${t - f} could not be read (renamed tab, or the sheet rate-limited us). Those units were NOT checked.`
       : `Read all ${t} unit tabs.`,
     srcWhereSheet: 'sheet', srcWhereReview: 'review',
+    srcWhereReviewHint: 'The app and the sheet simply disagree — nothing here proves which side is wrong. Open the unit tab to decide: fix the sheet there, or Apply to take the sheet value into the app.',
     srcOpenSheet: 'Open the spreadsheet ↗',
     srcTabHint: tab => `In the spreadsheet: tab "${tab}". In the app: this faction's unit of the same name.`,
     srcApply: 'Apply', srcApplying: '…', srcUndo: 'Undo', srcAppliedTag: 'applied',
@@ -278,6 +279,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
       ? `${f}/${t} Einheiten-Registerkarten gelesen — ${t - f} nicht lesbar (umbenannt oder Rate-Limit). Diese Einheiten wurden NICHT geprüft.`
       : `Alle ${t} Einheiten-Registerkarten gelesen.`,
     srcWhereSheet: 'Tabelle', srcWhereReview: 'prüfen',
+    srcWhereReviewHint: 'App und Sheet widersprechen sich einfach — nichts beweist hier, welche Seite falsch ist. Öffne den Einheiten-Tab und entscheide: dort das Sheet korrigieren, oder mit Übernehmen den Sheet-Wert in die App holen.',
     srcOpenSheet: 'Tabelle öffnen ↗',
     srcTabHint: tab => `In der Tabelle: Registerkarte "${tab}". In der App: die gleichnamige Einheit dieser Fraktion.`,
     srcApply: 'Übernehmen', srcApplying: '…', srcUndo: 'Rückgängig', srcAppliedTag: 'übernommen',
@@ -357,6 +359,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
       ? `Leídas ${f}/${t} pestañas de unidad — ${t - f} no se pudieron leer (pestaña renombrada, o la hoja nos limitó). Esas unidades NO se comprobaron.`
       : `Leídas las ${t} pestañas de unidad.`,
     srcWhereSheet: 'hoja', srcWhereReview: 'revisar',
+    srcWhereReviewHint: 'La app y la hoja simplemente no coinciden — nada demuestra aquí cuál de las dos está mal. Abre la pestaña de la unidad y decide: corregir ahí la hoja, o pulsar Aplicar para llevar el valor de la hoja a la app.',
     srcOpenSheet: 'Abrir la hoja ↗',
     srcTabHint: tab => `En la hoja: pestaña "${tab}". En la app: la unidad con ese mismo nombre en esta facción.`,
     srcApply: 'Aplicar', srcApplying: '…', srcUndo: 'Deshacer', srcAppliedTag: 'aplicado',
@@ -427,6 +430,9 @@ export function AdminPanel({ onClose }: Props) {
    *  just swaps the already-computed findings in (no refetch, Apply stays scoped to that faction). */
   const [srcAll, setSrcAll] = useState<Record<string, SourceRun> | null>(null);
   const [srcAllProgress, setSrcAllProgress] = useState<{ done: number; total: number; current: string } | null>(null);
+  /** Which "Compare all" faction rows are unfolded — each shows its own findings + Apply buttons
+   *  in place, so a correction can be made without leaving the summary. */
+  const [srcExpanded, setSrcExpanded] = useState<Record<string, boolean>>({});
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -525,14 +531,6 @@ export function AdminPanel({ onClose }: Props) {
     };
   }
 
-  function showRun(factionKey: string, run: SourceRun) {
-    setSrcFaction(factionKey);
-    setSrcId(sourceIds[factionKey] ?? '');
-    setSrcFindings(run.findings);
-    setSrcGaps(run.gaps);
-    setSrcCoverage(run.coverage);
-  }
-
   async function handleSourceCompare() {
     const id = toSheetId(srcId);
     if (!SHEET_ID_RE.test(id)) return;
@@ -577,12 +575,12 @@ export function AdminPanel({ onClose }: Props) {
    * three value kinds are patchable — a 'sheet' finding is a problem in the source document, so
    * there is nothing to copy into the app.
    */
-  async function handleApplyFinding(f: SourceFinding) {
+  async function handleApplyFinding(f: SourceFinding, factionKey: string = srcFaction) {
     if (f.kind === 'sheet') return;
     const key = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
     const next: api.DataOverrides = { ...dataOverrides };
-    const list = (next[srcFaction] ?? []).filter(o => overrideKey(o) !== key);
-    next[srcFaction] = [...list, {
+    const list = (next[factionKey] ?? []).filter(o => overrideKey(o) !== key);
+    next[factionKey] = [...list, {
       unit: f.unit, kind: f.kind, target: f.target, field: f.field, value: f.source,
       by: adminUsername ?? undefined, at: new Date().toISOString(),
     }];
@@ -597,12 +595,12 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   /** Drop a previously applied override, so the bundled value takes over again. */
-  async function handleUndoFinding(f: SourceFinding) {
+  async function handleUndoFinding(f: SourceFinding, factionKey: string = srcFaction) {
     if (f.kind === 'sheet') return;
     const key = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
     const next: api.DataOverrides = { ...dataOverrides };
-    next[srcFaction] = (next[srcFaction] ?? []).filter(o => overrideKey(o) !== key);
-    if (next[srcFaction].length === 0) delete next[srcFaction];
+    next[factionKey] = (next[factionKey] ?? []).filter(o => overrideKey(o) !== key);
+    if (next[factionKey].length === 0) delete next[factionKey];
     setSrcApplying(key);
     try {
       await api.adminSetSetting('data_overrides', next);
@@ -761,6 +759,87 @@ export function AdminPanel({ onClose }: Props) {
   const srcIdOk = SHEET_ID_RE.test(srcSheetId);
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
+
+  /** The list of things the comparison could not check. Same markup inline under a faction row in
+   *  "Compare all" and under the single-faction panel. */
+  function renderGaps(gaps: SourceGap[]) {
+    return (
+      <div className="mt-1 space-y-0.5 max-h-[35vh] overflow-y-auto border border-zinc-800 p-2">
+        <p className="text-zinc-600 text-[10px] font-mono mb-1">{L.srcGapsHint}</p>
+        {gaps.map((g, i) => (
+          <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
+            <span className={`shrink-0 w-24 text-[9px] uppercase ${
+              g.kind === 'tab' || g.kind === 'block' ? 'text-red-500'
+              : g.kind === 'sheet-weapon' || g.kind === 'sheet-model' ? 'text-amber-500'
+              : 'text-zinc-500'
+            }`}>{g.kind}</span>
+            <span className="text-zinc-300 shrink-0">{g.unit}</span>
+            <span className="text-zinc-500 flex-1 truncate" title={g.detail}>{g.detail}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  /**
+   * The findings list, with the Apply/Undo buttons bound to `factionKey` — so it works both under
+   * the single-faction panel and expanded inline under a "Compare all" row, without first having to
+   * switch the whole screen to that faction.
+   */
+  function renderFindings(factionKey: string, findings: SourceFinding[]) {
+    if (findings.length === 0) return <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>;
+    return (
+      <div className="space-y-0.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
+        {findings.map((f, i) => (
+          <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
+            <span className={`shrink-0 w-14 text-[9px] uppercase ${
+              f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
+              : f.kind === 'sheet' ? 'text-red-500' : 'text-fuchsia-500'
+            }`}>{f.kind}</span>
+            <span
+              title={f.why ?? L.srcWhereReviewHint}
+              className={`shrink-0 text-[8px] uppercase px-1 rounded border cursor-help ${
+                f.where === 'sheet'
+                  ? 'border-red-800 text-red-400 bg-red-950/30'
+                  : 'border-zinc-700 text-zinc-500'
+              }`}
+            >{f.where === 'sheet' ? L.srcWhereSheet : L.srcWhereReview}</span>
+            <span className="text-zinc-300 flex-1 truncate" title={L.srcTabHint(f.unit)}>
+              {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
+            </span>
+            <span className="text-zinc-500 shrink-0">app <span className="text-red-400">{f.prod || '—'}</span></span>
+            <span className="text-zinc-600 shrink-0">→</span>
+            <span className="text-zinc-500 shrink-0">sheet <span className="text-green-400">{f.source}</span></span>
+            {(() => {
+              // 'sheet' findings are a problem in the source document — there is no trustworthy
+              // value to copy into the app, so no button is offered.
+              if (f.kind === 'sheet') return null;
+              const k = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
+              const active = (dataOverrides[factionKey] ?? []).find(o => overrideKey(o) === k);
+              const busy = srcApplying === k;
+              return active ? (
+                <span className="shrink-0 flex items-center gap-1">
+                  <span className="text-[8px] uppercase px-1 rounded border border-green-800 text-green-400 bg-green-950/30">{L.srcAppliedTag}</span>
+                  <button
+                    onClick={() => handleUndoFinding(f, factionKey)}
+                    disabled={busy}
+                    className="text-[9px] uppercase px-1.5 py-0.5 border border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 disabled:opacity-40"
+                  >{busy ? L.srcApplying : L.srcUndo}</button>
+                </span>
+              ) : (
+                <button
+                  onClick={() => handleApplyFinding(f, factionKey)}
+                  disabled={busy}
+                  title={L.srcApplyHint}
+                  className="shrink-0 text-[9px] uppercase px-1.5 py-0.5 border border-amber-800 text-amber-500 hover:border-amber-600 hover:text-amber-300 disabled:opacity-40"
+                >{busy ? L.srcApplying : L.srcApply}</button>
+              );
+            })()}
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   const TAB_DEFS: { id: AdminTab; label: string; help: string }[] = [
     { id: 'overview', label: L.tabOverview, help: L.helpTabOverview },
@@ -1196,29 +1275,57 @@ export function AdminPanel({ onClose }: Props) {
                   {Object.entries(srcAll).map(([key, run]) => {
                     const name = ALL_FACTIONS.find(f => f.key === key)?.name ?? key;
                     const missing = run.coverage.total - run.coverage.fetched;
+                    const open = !!srcExpanded[key];
+                    const sheetId = toSheetId(sourceIds[key] ?? '');
                     return (
-                      <button
-                        key={key}
-                        onClick={() => showRun(key, run)}
-                        className={`w-full text-left text-[11px] font-mono flex gap-3 items-center px-2 py-1 border-b border-zinc-900 hover:bg-zinc-900 ${key === srcFaction ? 'bg-zinc-900' : ''}`}
-                      >
-                        <span className="flex-1 truncate text-zinc-300">{name}</span>
-                        {run.error ? (
-                          <span className="text-red-500 truncate max-w-[50%]" title={run.error}>{L.srcAllFailed}</span>
-                        ) : (
-                          <>
-                            <span className={missing > 0 ? 'text-amber-500' : 'text-zinc-600'}>
-                              {run.coverage.fetched}/{run.coverage.total}
-                            </span>
-                            <span className={run.findings.length > 0 ? 'text-fuchsia-400' : 'text-green-600'}>
-                              {L.srcAllDiffs(run.findings.length)}
-                            </span>
-                            <span className={run.gaps.length > 0 ? 'text-amber-500' : 'text-zinc-600'}>
-                              {L.srcAllGaps(run.gaps.length)}
-                            </span>
-                          </>
+                      <div key={key} className="border-b border-zinc-900">
+                        <button
+                          onClick={() => setSrcExpanded(m => ({ ...m, [key]: !m[key] }))}
+                          className={`w-full text-left text-[11px] font-mono flex gap-3 items-center px-2 py-1 hover:bg-zinc-900 ${open ? 'bg-zinc-900' : ''}`}
+                        >
+                          <span className="shrink-0 text-zinc-600">{open ? '▾' : '▸'}</span>
+                          <span className="flex-1 truncate text-zinc-300">{name}</span>
+                          {run.error ? (
+                            <span className="text-red-500 truncate max-w-[50%]" title={run.error}>{L.srcAllFailed}</span>
+                          ) : (
+                            <>
+                              <span className={missing > 0 ? 'text-amber-500' : 'text-zinc-600'}>
+                                {run.coverage.fetched}/{run.coverage.total}
+                              </span>
+                              <span className={run.findings.length > 0 ? 'text-fuchsia-400' : 'text-green-600'}>
+                                {L.srcAllDiffs(run.findings.length)}
+                              </span>
+                              <span className={run.gaps.length > 0 ? 'text-amber-500' : 'text-zinc-600'}>
+                                {L.srcAllGaps(run.gaps.length)}
+                              </span>
+                            </>
+                          )}
+                        </button>
+                        {open && (
+                          <div className="px-2 pb-2">
+                            {run.error ? (
+                              <p className="text-red-400 text-[10px] font-mono break-all">{run.error}</p>
+                            ) : (
+                              <>
+                                <div className="flex flex-wrap items-center gap-3 mb-1">
+                                  {SHEET_ID_RE.test(sheetId) && (
+                                    <a
+                                      href={`https://docs.google.com/spreadsheets/d/${encodeURIComponent(sheetId)}/edit`}
+                                      target="_blank" rel="noopener noreferrer"
+                                      className="text-[10px] font-mono text-sky-400 hover:text-sky-300 underline"
+                                    >{L.srcOpenSheet}</a>
+                                  )}
+                                  {(dataOverrides[key]?.length ?? 0) > 0 && (
+                                    <span className="text-green-600 text-[10px] font-mono">{L.srcOverridesActive(dataOverrides[key].length)}</span>
+                                  )}
+                                </div>
+                                {run.gaps.length > 0 && renderGaps(run.gaps)}
+                                <div className="mt-1">{renderFindings(key, run.findings)}</div>
+                              </>
+                            )}
+                          </div>
                         )}
-                      </button>
+                      </div>
                     );
                   })}
                 </div>
@@ -1245,79 +1352,10 @@ export function AdminPanel({ onClose }: Props) {
                   >
                     {srcGaps.length === 0 ? L.srcGapsNone : `${srcShowGaps ? '▾' : '▸'} ${L.srcGapsCount(srcGaps.length)}`}
                   </button>
-                  {srcShowGaps && srcGaps.length > 0 && (
-                    <div className="mt-1 space-y-0.5 max-h-[35vh] overflow-y-auto border border-zinc-800 p-2">
-                      <p className="text-zinc-600 text-[10px] font-mono mb-1">{L.srcGapsHint}</p>
-                      {srcGaps.map((g, i) => (
-                        <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
-                          <span className={`shrink-0 w-24 text-[9px] uppercase ${
-                            g.kind === 'tab' || g.kind === 'block' ? 'text-red-500'
-                            : g.kind === 'sheet-weapon' || g.kind === 'sheet-model' ? 'text-amber-500'
-                            : 'text-zinc-500'
-                          }`}>{g.kind}</span>
-                          <span className="text-zinc-300 shrink-0">{g.unit}</span>
-                          <span className="text-zinc-500 flex-1 truncate" title={g.detail}>{g.detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  {srcShowGaps && srcGaps.length > 0 && renderGaps(srcGaps)}
                 </div>
               )}
-              {srcFindings && (
-                srcFindings.length === 0 ? (
-                  <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>
-                ) : (
-                  <div className="space-y-0.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
-                    {srcFindings.map((f, i) => (
-                      <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
-                        <span className={`shrink-0 w-14 text-[9px] uppercase ${
-                          f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
-                          : f.kind === 'sheet' ? 'text-red-500' : 'text-fuchsia-500'
-                        }`}>{f.kind}</span>
-                        <span
-                          title={f.why ?? ''}
-                          className={`shrink-0 text-[8px] uppercase px-1 rounded border ${
-                            f.where === 'sheet'
-                              ? 'border-red-800 text-red-400 bg-red-950/30 cursor-help'
-                              : 'border-zinc-700 text-zinc-500'
-                          }`}
-                        >{f.where === 'sheet' ? L.srcWhereSheet : L.srcWhereReview}</span>
-                        <span className="text-zinc-300 flex-1 truncate" title={L.srcTabHint(f.unit)}>
-                          {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
-                        </span>
-                        <span className="text-zinc-500 shrink-0">app <span className="text-red-400">{f.prod || '—'}</span></span>
-                        <span className="text-zinc-600 shrink-0">→</span>
-                        <span className="text-zinc-500 shrink-0">sheet <span className="text-green-400">{f.source}</span></span>
-                        {(() => {
-                          // 'sheet' findings are a problem in the source document — there is no
-                          // trustworthy value to copy into the app, so no button is offered.
-                          if (f.kind === 'sheet') return null;
-                          const k = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
-                          const active = (dataOverrides[srcFaction] ?? []).find(o => overrideKey(o) === k);
-                          const busy = srcApplying === k;
-                          return active ? (
-                            <span className="shrink-0 flex items-center gap-1">
-                              <span className="text-[8px] uppercase px-1 rounded border border-green-800 text-green-400 bg-green-950/30">{L.srcAppliedTag}</span>
-                              <button
-                                onClick={() => handleUndoFinding(f)}
-                                disabled={busy}
-                                className="text-[9px] uppercase px-1.5 py-0.5 border border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 disabled:opacity-40"
-                              >{busy ? L.srcApplying : L.srcUndo}</button>
-                            </span>
-                          ) : (
-                            <button
-                              onClick={() => handleApplyFinding(f)}
-                              disabled={busy}
-                              title={L.srcApplyHint}
-                              className="shrink-0 text-[9px] uppercase px-1.5 py-0.5 border border-amber-800 text-amber-500 hover:border-amber-600 hover:text-amber-300 disabled:opacity-40"
-                            >{busy ? L.srcApplying : L.srcApply}</button>
-                          );
-                        })()}
-                      </div>
-                    ))}
-                  </div>
-                )
-              )}
+              {srcFindings && renderFindings(srcFaction, srcFindings)}
             </div>
             )}
           </div>
