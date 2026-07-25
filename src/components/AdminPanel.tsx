@@ -23,6 +23,19 @@ const DEFAULT_SOURCE_IDS: Record<string, string> = {
  */
 const SHEET_ID_RE = /^[A-Za-z0-9_-]+$/;
 
+/**
+ * Everything the source check can compare — driven by FACTION_LOADERS, not by the landing page's
+ * ALL_FACTIONS. The two differ: Assassins and the Horus Heresy supplement have loadable datasets
+ * but appear on the landing page as supplements rather than faction cards, so keying off
+ * ALL_FACTIONS silently left them out of both the picker and "Compare all". (Escalation has no
+ * dataset of its own — its Lords of War live inside each faction's data and are checked there.)
+ */
+const SOURCE_FACTIONS: { key: string; name: string }[] = Object.keys(FACTION_LOADERS).map(key => ({
+  key,
+  name: ALL_FACTIONS.find(f => f.key === key)?.name
+    ?? key.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' '),
+}));
+
 /** One faction's source-check result: what differs, what couldn't be checked, and how much loaded. */
 interface SourceRun {
   findings: SourceFinding[];
@@ -553,7 +566,7 @@ export function AdminPanel({ onClose }: Props) {
    * error instead of aborting the sweep.
    */
   async function handleSourceCompareAll() {
-    const targets = ALL_FACTIONS
+    const targets = SOURCE_FACTIONS
       .map(f => ({ key: f.key, name: f.name, id: toSheetId(sourceIds[f.key] ?? '') }))
       .filter(t => SHEET_ID_RE.test(t.id) && FACTION_LOADERS[t.key]);
     if (targets.length === 0) { setMsg(L.srcNoSheetIds); return; }
@@ -1249,7 +1262,7 @@ export function AdminPanel({ onClose }: Props) {
                   onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcFindings(null); }}
                   className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
                 >
-                  {ALL_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
+                  {SOURCE_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
                 </select>
                 <input
                   value={srcId}
@@ -1273,7 +1286,7 @@ export function AdminPanel({ onClose }: Props) {
                 <div className="mb-3 border border-zinc-800">
                   <div className="text-[9px] uppercase tracking-widest text-zinc-500 px-2 py-1 border-b border-zinc-800">{L.srcAllTitle}</div>
                   {Object.entries(srcAll).map(([key, run]) => {
-                    const name = ALL_FACTIONS.find(f => f.key === key)?.name ?? key;
+                    const name = SOURCE_FACTIONS.find(f => f.key === key)?.name ?? key;
                     const missing = run.coverage.total - run.coverage.fetched;
                     const open = !!srcExpanded[key];
                     const sheetId = toSheetId(sourceIds[key] ?? '');
