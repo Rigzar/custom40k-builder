@@ -607,11 +607,23 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // missile), or a direct "weapons" section purchase (the item itself IS the weapon).
   const armoryGrantedWeapons: string[] = [];
   const pushGrantedWeapon = (granted: import('../types/data').ArmoryItem) => {
-    if (weapons.find(w => w.name === granted.name)) return;
+    // A weapon the datasheet ALREADY lists (e.g. Plague Marines' "Plasma gun", also sold in the
+    // Nurgle armoury for the Champion) must not be pushed a second time: the duplicate row would
+    // render twice — once with the datasheet's wording, once with the armoury's — and, being
+    // flagged as armoury-granted, would also drag the squad's own copy out of the squad's weapon
+    // group into the Champion's. Record the name so the Champion still keeps it, but reuse the
+    // datasheet row. Checked per profile, since a multi-profile weapon lives in `weapons` as
+    // "<name> - <profile>" rows and never under its bare name.
+    const record = (name: string) => {
+      armoryGrantedWeapons.push(name);
+      return weapons.some(w => w.name === name);
+    };
     if (granted.profiles && granted.profiles.length > 0) {
       for (const p of granted.profiles) {
+        const name = `${granted.name} - ${p.name}`;
+        if (record(name)) continue;
         weapons.push({
-          name: `${granted.name} - ${p.name}`,
+          name,
           range: p.range ?? '',
           type: p.type ?? '',
           s: p.s ?? '',
@@ -619,9 +631,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
           d: p.d ?? '',
           abilities: p.abilities ?? '-',
         });
-        armoryGrantedWeapons.push(`${granted.name} - ${p.name}`);
       }
     } else {
+      if (record(granted.name)) return;
       weapons.push({
         name: granted.name,
         range: granted.range ?? '',
@@ -631,7 +643,6 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         d: granted.d ?? '',
         abilities: granted.abilities ?? '-',
       });
-      armoryGrantedWeapons.push(granted.name);
     }
   };
   for (const sel of item.armory) {
@@ -903,12 +914,18 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const promotedModelName = variantArmoryActive ? profile.modelsToShow[variantIdx - 1].name : null;
 
   const grantedSet = new Set(profile.armoryGrantedWeapons);
+  // Only weapons the Armory purchase actually ADDED belong exclusively to the Champion. When the
+  // bought weapon is also on the unit's own datasheet (Plague Marines' Plasma gun is both a squad
+  // swap option and a Nurgle armoury item), the row is shared: moving it into the Champion's block
+  // would delete the squad's purchased copies from their own weapon table.
+  const datasheetNames = new Set(unit.weapons.map(w => w.name));
+  const addedByArmory = (name: string) => grantedSet.has(name) && !datasheetNames.has(name);
   const extractGranted = championArmoryInOwnBlock || variantArmoryActive;
   const championExtraWeapons = extractGranted
-    ? profile.weaponsToShow.filter(w => grantedSet.has(w.name))
+    ? profile.weaponsToShow.filter(w => addedByArmory(w.name))
     : [];
   const remaining = extractGranted
-    ? profile.weaponsToShow.filter(w => !grantedSet.has(w.name))
+    ? profile.weaponsToShow.filter(w => !addedByArmory(w.name))
     : profile.weaponsToShow;
 
   const clauses = [...unit.equipped_with.matchAll(/Every ([^.]+?) is equipped with:\s*([^.]+)\./g)];
