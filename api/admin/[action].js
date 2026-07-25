@@ -334,7 +334,7 @@ async function sourceSheets(req, res) {
 }
 
 // Only these keys can be read/written through the settings admin API.
-const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets']);
+const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides']);
 
 // GET — all editable app settings as a { key: value } map.
 async function getSettings(req, res) {

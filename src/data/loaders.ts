@@ -24,6 +24,7 @@
  */
 
 import type { FactionData } from '../types/data';
+import { applyDataOverrides, type DataOverrides } from '../engine/dataOverrides';
 
 type Mod = { default: any };
 const d = (m: Mod) => m.default;
@@ -312,10 +313,33 @@ async function loadFaction(key: string): Promise<FactionData> {
   }
 }
 
+/**
+ * Admin corrections fetched once from /api/settings and applied to every faction as it loads, so
+ * a wrong point cost or stat can be fixed from the admin Source-check screen without a redeploy.
+ * Fail-soft by design: if the fetch fails the app just uses the bundled data, which is what it did
+ * before this existed — the builder must never depend on the network to open a faction.
+ */
+let overridesPromise: Promise<DataOverrides> | null = null;
+function getDataOverrides(): Promise<DataOverrides> {
+  if (typeof fetch !== 'function') return Promise.resolve({});
+  overridesPromise ??= fetch('/api/settings', { credentials: 'include' })
+    .then(r => (r.ok ? r.json() : null))
+    .then(j => (j?.dataOverrides ?? {}) as DataOverrides)
+    .catch(() => ({} as DataOverrides));
+  return overridesPromise;
+}
+
+/** Drop the cached corrections so the next faction load re-reads them (used after an admin saves). */
+export function refreshDataOverrides(): void { overridesPromise = null; }
+
 /** Public loader map - used by App.tsx for both primary and allied faction loading. */
 export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Object.fromEntries(
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
    'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'assassins', 'tau_empire',
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
-   'tyranids', 'horus_heresy'].map(k => [k, () => loadFaction(k)])
+   'tyranids', 'horus_heresy'].map(k => [k, async () => {
+     const data = await loadFaction(k);
+     applyDataOverrides(data, (await getDataOverrides())[k]);
+     return data;
+   }])
 );

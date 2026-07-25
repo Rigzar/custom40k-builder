@@ -1,5 +1,7 @@
 /** Thin fetch wrappers for the account/cloud-saves backend (api/*.js). Cookie-based session —
  * every call sends credentials so the HttpOnly session cookie round-trips automatically. */
+import type { DataOverrides } from '../engine/dataOverrides';
+export type { DataOverride, DataOverrides } from '../engine/dataOverrides';
 
 async function call<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -425,15 +427,17 @@ export interface PublicSettings {
   announcement: AnnouncementSetting | null;
   factionFlags: FactionFlags | null;
   translations: TranslationOverrides | null;
+  /** Admin corrections applied on top of the bundled faction data (src/engine/dataOverrides.ts). */
+  dataOverrides: DataOverrides | null;
 }
 /** Public, fail-soft — the landing page uses this to override its defaults. */
 export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string> } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
 }
 /** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */

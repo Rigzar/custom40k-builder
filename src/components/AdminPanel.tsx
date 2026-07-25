@@ -3,6 +3,8 @@ import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, type SourceFinding } from '../engine/sourceCompare';
+import { overrideKey } from '../engine/dataOverrides';
+import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS } from './LandingPage';
 import { useAuth } from '../hooks/useAuth';
@@ -107,6 +109,9 @@ interface AdminTx {
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
   srcCoverage: (fetched: number, total: number) => string;
   srcWhereSheet: string; srcWhereReview: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
+  srcApply: string; srcApplying: string; srcUndo: string; srcAppliedTag: string;
+  srcApplyHint: string; srcApplied: (unit: string, field: string, value: string) => string; srcUndone: string;
+  srcOverridesActive: (n: number) => string;
 }
 
 /** Small "?" badge — native tooltip on hover, language-aware text. */
@@ -183,6 +188,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcWhereSheet: 'sheet', srcWhereReview: 'review',
     srcOpenSheet: 'Open the spreadsheet ↗',
     srcTabHint: tab => `In the spreadsheet: tab "${tab}". In the app: this faction's unit of the same name.`,
+    srcApply: 'Apply', srcApplying: '…', srcUndo: 'Undo', srcAppliedTag: 'applied',
+    srcApplyHint: 'Apply writes the sheet value into the live app for everyone, straight away, without a redeploy. Only points, stats and weapon fields can be patched; Undo restores the built-in value.',
+    srcApplied: (unit, field, value) => `Applied: ${unit} · ${field} → ${value}. Live for all players.`,
+    srcUndone: 'Correction removed — the built-in value is used again.',
+    srcOverridesActive: n => `${n} correction${n === 1 ? '' : 's'} active for this faction.`,
   },
   de: {
     title: 'Inquisitor-Panel',
@@ -247,6 +257,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcWhereSheet: 'Tabelle', srcWhereReview: 'prüfen',
     srcOpenSheet: 'Tabelle öffnen ↗',
     srcTabHint: tab => `In der Tabelle: Registerkarte "${tab}". In der App: die gleichnamige Einheit dieser Fraktion.`,
+    srcApply: 'Übernehmen', srcApplying: '…', srcUndo: 'Rückgängig', srcAppliedTag: 'übernommen',
+    srcApplyHint: 'Übernehmen schreibt den Sheet-Wert sofort und für alle in die Live-App, ohne neues Deployment. Nur Punkte, Werte und Waffenfelder sind änderbar; Rückgängig stellt den eingebauten Wert wieder her.',
+    srcApplied: (unit, field, value) => `Übernommen: ${unit} · ${field} → ${value}. Für alle Spieler live.`,
+    srcUndone: 'Korrektur entfernt — es gilt wieder der eingebaute Wert.',
+    srcOverridesActive: n => `${n} Korrektur${n === 1 ? '' : 'en'} für diese Fraktion aktiv.`,
   },
   es: {
     title: 'Panel Inquisidor',
@@ -311,6 +326,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcWhereSheet: 'hoja', srcWhereReview: 'revisar',
     srcOpenSheet: 'Abrir la hoja ↗',
     srcTabHint: tab => `En la hoja: pestaña "${tab}". En la app: la unidad con ese mismo nombre en esta facción.`,
+    srcApply: 'Aplicar', srcApplying: '…', srcUndo: 'Deshacer', srcAppliedTag: 'aplicado',
+    srcApplyHint: 'Aplicar escribe el valor de la hoja en la app en vivo, para todos y al instante, sin volver a desplegar. Solo se pueden corregir puntos, características y campos de arma; Deshacer restaura el valor original.',
+    srcApplied: (unit, field, value) => `Aplicado: ${unit} · ${field} → ${value}. En vivo para todos los jugadores.`,
+    srcUndone: 'Corrección eliminada — vuelve a usarse el valor original.',
+    srcOverridesActive: n => `${n} corrección${n === 1 ? '' : 'es'} activa${n === 1 ? '' : 's'} en esta facción.`,
   },
 };
 
@@ -351,6 +371,10 @@ export function AdminPanel({ onClose }: Props) {
   const [srcId, setSrcId] = useState<string>(DEFAULT_SOURCE_IDS.chaos_space_marines ?? '');
   const [srcRunning, setSrcRunning] = useState(false);
   const [srcFindings, setSrcFindings] = useState<SourceFinding[] | null>(null);
+  /** Admin corrections currently stored in app_settings.data_overrides, keyed by faction. */
+  const [dataOverrides, setDataOverrides] = useState<api.DataOverrides>({});
+  /** overrideKey of the row whose save is in flight (disables just that row's buttons). */
+  const [srcApplying, setSrcApplying] = useState<string | null>(null);
   const [srcCoverage, setSrcCoverage] = useState<{ fetched: number; total: number } | null>(null);
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
@@ -362,7 +386,7 @@ export function AdminPanel({ onClose }: Props) {
         api.adminStats(),
         api.adminListRecoveryRequests(),
         api.adminActions().catch(() => ({ actions: [] })),
-        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string> } })),
+        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides } })),
       ]);
       setStats(s);
       setRequests(r.requests);
@@ -393,6 +417,7 @@ export function AdminPanel({ onClose }: Props) {
       const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
       setSourceIds(ids);
       setSrcId(ids[srcFaction] ?? '');
+      setDataOverrides((cfg.settings.data_overrides ?? {}) as api.DataOverrides);
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -454,6 +479,48 @@ export function AdminPanel({ onClose }: Props) {
       api.adminSetSetting('source_sheets', next).catch(() => {});
     } catch (e) { setMsg(String(e)); }
     finally { setSrcRunning(false); }
+  }
+
+  /**
+   * Apply one Source-check finding to the live app: store the sheet's value as a data override so
+   * every player sees the corrected number immediately, without waiting for a redeploy. Only the
+   * three value kinds are patchable — a 'sheet' finding is a problem in the source document, so
+   * there is nothing to copy into the app.
+   */
+  async function handleApplyFinding(f: SourceFinding) {
+    if (f.kind === 'sheet') return;
+    const key = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
+    const next: api.DataOverrides = { ...dataOverrides };
+    const list = (next[srcFaction] ?? []).filter(o => overrideKey(o) !== key);
+    next[srcFaction] = [...list, {
+      unit: f.unit, kind: f.kind, target: f.target, field: f.field, value: f.source,
+      by: adminUsername ?? undefined, at: new Date().toISOString(),
+    }];
+    setSrcApplying(key);
+    try {
+      await api.adminSetSetting('data_overrides', next);
+      setDataOverrides(next);
+      refreshDataOverrides();               // next faction load re-reads them
+      setMsg(L.srcApplied(f.unit, f.field, f.source));
+    } catch (e) { setMsg(String(e)); }
+    finally { setSrcApplying(null); }
+  }
+
+  /** Drop a previously applied override, so the bundled value takes over again. */
+  async function handleUndoFinding(f: SourceFinding) {
+    if (f.kind === 'sheet') return;
+    const key = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
+    const next: api.DataOverrides = { ...dataOverrides };
+    next[srcFaction] = (next[srcFaction] ?? []).filter(o => overrideKey(o) !== key);
+    if (next[srcFaction].length === 0) delete next[srcFaction];
+    setSrcApplying(key);
+    try {
+      await api.adminSetSetting('data_overrides', next);
+      setDataOverrides(next);
+      refreshDataOverrides();
+      setMsg(L.srcUndone);
+    } catch (e) { setMsg(String(e)); }
+    finally { setSrcApplying(null); }
   }
 
   async function handlePromote(userId: number, username: string, makeAdmin: boolean) {
@@ -1001,7 +1068,12 @@ export function AdminPanel({ onClose }: Props) {
             {tab === 'source' && (
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-1">{L.tabSource}</div>
-              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.srcHint}</p>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.srcHint} {L.srcApplyHint}</p>
+              {(dataOverrides[srcFaction]?.length ?? 0) > 0 && (
+                <p className="text-green-600 text-[10px] font-mono mb-2">
+                  {L.srcOverridesActive(dataOverrides[srcFaction].length)}
+                </p>
+              )}
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <select
                   value={srcFaction}
@@ -1059,6 +1131,31 @@ export function AdminPanel({ onClose }: Props) {
                         <span className="text-zinc-500 shrink-0">app <span className="text-red-400">{f.prod || '—'}</span></span>
                         <span className="text-zinc-600 shrink-0">→</span>
                         <span className="text-zinc-500 shrink-0">sheet <span className="text-green-400">{f.source}</span></span>
+                        {(() => {
+                          // 'sheet' findings are a problem in the source document — there is no
+                          // trustworthy value to copy into the app, so no button is offered.
+                          if (f.kind === 'sheet') return null;
+                          const k = overrideKey({ unit: f.unit, kind: f.kind, target: f.target, field: f.field });
+                          const active = (dataOverrides[srcFaction] ?? []).find(o => overrideKey(o) === k);
+                          const busy = srcApplying === k;
+                          return active ? (
+                            <span className="shrink-0 flex items-center gap-1">
+                              <span className="text-[8px] uppercase px-1 rounded border border-green-800 text-green-400 bg-green-950/30">{L.srcAppliedTag}</span>
+                              <button
+                                onClick={() => handleUndoFinding(f)}
+                                disabled={busy}
+                                className="text-[9px] uppercase px-1.5 py-0.5 border border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200 disabled:opacity-40"
+                              >{busy ? L.srcApplying : L.srcUndo}</button>
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleApplyFinding(f)}
+                              disabled={busy}
+                              title={L.srcApplyHint}
+                              className="shrink-0 text-[9px] uppercase px-1.5 py-0.5 border border-amber-800 text-amber-500 hover:border-amber-600 hover:text-amber-300 disabled:opacity-40"
+                            >{busy ? L.srcApplying : L.srcApply}</button>
+                          );
+                        })()}
                       </div>
                     ))}
                   </div>
