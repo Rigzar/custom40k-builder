@@ -1080,20 +1080,12 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       }
     }
     const overrides = new Map<string, number>();
-    // A multi-profile weapon ("Knight melee weapon - Strike" / "- Sweep", "Plasma cannon -
-    // Standard" / "- Overcharged") occupies several rows that are MODES of one weapon, not
-    // separate weapons. The quantity belongs to the weapon, so it is printed on the first
-    // profile row only — otherwise a model carrying two of them reads as "2x Strike" AND
-    // "2x Sweep", i.e. four weapons instead of two.
-    const countedBaseNames = new Set<string>();
+    // NOTE: a multi-profile weapon ("Knight melee weapon - Strike"/"- Sweep") keeps the SAME real
+    // quantity on each of its mode rows here — the data stays truthful. Not repeating that number
+    // visually is a rendering concern and is handled once in the weapon tables, which skip the
+    // count on a row whose weapon matches the previous row.
     for (const w of grp.weapons) {
       const bn = baseName(w.name);
-      // Mark on the FIRST row of each weapon — whether its quantity ends up coming from an
-      // override below or from the group's own model count — so every later mode row of the same
-      // weapon is forced to 1 and renders bare ("10x Burna - Melee" + "Burna - Shooting", never
-      // "10x" twice, which would read as twenty weapons instead of ten with two modes).
-      if (countedBaseNames.has(bn)) { overrides.set(w.name, 1); continue; }
-      countedBaseNames.add(bn);
       if (!replacedQty.has(bn) && !grantedQty.has(bn)) {
         // Multi-copy base loadout: the datasheet says "…is equipped with: 2 Power scourges" but
         // nothing has swapped them, so no override was ever set and the profile printed a single

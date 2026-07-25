@@ -2252,8 +2252,14 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
         </thead>
         <tbody>
           {weapons.map((w: Weapon, i: number) => {
-            const rowCount = countOverrides?.get(w.name) ?? count;
-            if (rowCount === 0) return null;
+            const rowCountRaw = countOverrides?.get(w.name) ?? count;
+            if (rowCountRaw === 0) return null;
+            // A weapon with several firing modes is listed as one row per mode ("Knight melee
+            // weapon - Strike" / "- Sweep", "Plasma cannon - Standard" / "- Overcharged"). The
+            // quantity belongs to the WEAPON, so print it on the first mode only — repeating it
+            // read as "2x Strike" + "2x Sweep", i.e. four weapons instead of two with two modes.
+            const wBase = (n: string) => n.split(' - ')[0];
+            const rowCount = i > 0 && wBase(weapons[i - 1].name) === wBase(w.name) ? null : rowCountRaw;
             const extraTraits = traitMap?.get(w.name) ?? [];
             const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
             // Merge: keeps best value per ability type. Returns improved (replaced) + added (new).

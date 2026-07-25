@@ -15,6 +15,9 @@ import type { EquipMods } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 
+/** Weapon name without its firing-mode suffix ("Plasma cannon - Standard" → "Plasma cannon"). */
+const weaponBaseName = (n: string) => n.split(' - ')[0];
+
 // ── Faction symbol map (CSS-only design — no background images) ───────────────
 const FACTION_SYMBOL: Record<string, string> = {
   'Chaos Space Marines':        '/faction-symbols/chaos-space-marines.svg',
@@ -401,12 +404,16 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       const c = g.countOverrides?.get(w.name) ?? g.count;
       return c != null ? `${c}x ` : '';
     };
-    const ranged = g.weapons
-      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
-      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
-    const melee = g.weapons
-      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
-      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
+    // A weapon with several firing modes is one row per mode; the quantity belongs to the weapon,
+    // so it is printed on the first mode only (never "2x Strike" AND "2x Sweep").
+    const withCounts = (list: Weapon[]) => list.map((w, i) => {
+      const repeat = i > 0 && weaponBaseName(list[i - 1].name) === weaponBaseName(w.name);
+      return { ...mergeTraits(w, tm), name: (repeat ? '' : prefixFor(w)) + w.name };
+    });
+    const ranged = withCounts(g.weapons
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
+    const melee = withCounts(g.weapons
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     return { label: g.label, ranged, melee };
   }).concat(attachedDrones.map(({ drone, count }) => ({
     label: `${count}x ${drone.name}`,
@@ -802,12 +809,16 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
       const c = g.countOverrides?.get(w.name) ?? g.count;
       return c != null ? `${c}x ` : '';
     };
-    const ranged = g.weapons
-      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
-      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
-    const melee = g.weapons
-      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0)
-      .map(w => ({ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }));
+    // A weapon with several firing modes is one row per mode; the quantity belongs to the weapon,
+    // so it is printed on the first mode only (never "2x Strike" AND "2x Sweep").
+    const withCounts = (list: Weapon[]) => list.map((w, i) => {
+      const repeat = i > 0 && weaponBaseName(list[i - 1].name) === weaponBaseName(w.name);
+      return { ...mergeTraits(w, tm), name: (repeat ? '' : prefixFor(w)) + w.name };
+    });
+    const ranged = withCounts(g.weapons
+      .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
+    const melee = withCounts(g.weapons
+      .filter(w => (w.range === 'Melee' || w.type === 'Melee') && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
     return { ranged, melee };
   });
   const ranged = weaponGroupsPrint.flatMap(g => g.ranged).concat(
