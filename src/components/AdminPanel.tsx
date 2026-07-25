@@ -4,6 +4,7 @@ import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
+import { CHANGELOG } from '../data/changelog';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS } from './LandingPage';
@@ -151,6 +152,7 @@ interface AdminTx {
   fixSheetHint: string; fixCodeHint: string; fixUnknownHint: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
   srcApply: string; srcApplying: string; srcUndo: string; srcAppliedTag: string;
   srcApplyHint: string; srcApplied: (unit: string, field: string, value: string) => string; srcUndone: string;
+  srcExport: string; srcExportHint: string;
   srcCompareAll: string; srcAllTitle: string; srcAllFailed: string; srcNoSheetIds: string;
   srcAllProgress: (done: number, total: number, current: string) => string;
   srcAllDiffs: (n: number) => string; srcAllGaps: (n: number) => string;
@@ -248,6 +250,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcApplied: (unit, field, value) => `Applied: ${unit} · ${field} → ${value}. Live for all players.`,
     srcUndone: 'Correction removed — the built-in value is used again.',
     srcOverridesActive: n => `${n} correction${n === 1 ? '' : 's'} active for this faction.`,
+    srcExport: 'Export .json',
+    srcExportHint: 'Download the whole check as one file — every faction, what differs and what could not be compared — instead of copying rows out by hand.',
     srcCompareAll: 'Compare all',
     srcAllTitle: 'All factions — click one to see its findings',
     srcAllFailed: 'fetch failed',
@@ -338,6 +342,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcApplied: (unit, field, value) => `Übernommen: ${unit} · ${field} → ${value}. Für alle Spieler live.`,
     srcUndone: 'Korrektur entfernt — es gilt wieder der eingebaute Wert.',
     srcOverridesActive: n => `${n} Korrektur${n === 1 ? '' : 'en'} für diese Fraktion aktiv.`,
+    srcExport: '.json exportieren',
+    srcExportHint: 'Die gesamte Prüfung als eine Datei herunterladen — alle Fraktionen, was abweicht und was nicht verglichen werden konnte — statt Zeilen von Hand herauszukopieren.',
     srcCompareAll: 'Alle vergleichen',
     srcAllTitle: 'Alle Fraktionen — zum Anzeigen der Befunde anklicken',
     srcAllFailed: 'Abruf fehlgeschlagen',
@@ -428,6 +434,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     srcApplied: (unit, field, value) => `Aplicado: ${unit} · ${field} → ${value}. En vivo para todos los jugadores.`,
     srcUndone: 'Corrección eliminada — vuelve a usarse el valor original.',
     srcOverridesActive: n => `${n} corrección${n === 1 ? '' : 'es'} activa${n === 1 ? '' : 's'} en esta facción.`,
+    srcExport: 'Exportar .json',
+    srcExportHint: 'Descarga el chequeo entero en un archivo — todas las facciones, lo que difiere y lo que no se pudo comparar — en vez de copiar filas a mano.',
     srcCompareAll: 'Comparar todas',
     srcAllTitle: 'Todas las facciones — pulsa una para ver sus hallazgos',
     srcAllFailed: 'fallo al descargar',
@@ -879,6 +887,37 @@ export function AdminPanel({ onClose }: Props) {
         }`}
       >{ignored ? L.srcUnignore : L.srcIgnore}</button>
     );
+  }
+
+  /**
+   * Download the whole source check as one .json — every faction that was run, what differs and
+   * what could not be compared. The long "action" sentences are left out: they are generated from
+   * the other fields, and the point of the file is to be small enough to hand over instead of
+   * pasting hundreds of rows.
+   */
+  function handleExportReport() {
+    const runs: Record<string, SourceRun> = srcAll
+      ?? (srcFindings ? { [srcFaction]: { findings: srcFindings, gaps: srcGaps ?? [], coverage: srcCoverage ?? { fetched: 0, total: 0 } } } : {});
+    if (Object.keys(runs).length === 0) return;
+    const report = {
+      generatedAt: new Date().toISOString(),
+      appVersion: CHANGELOG[0]?.version ?? null,
+      factions: Object.fromEntries(Object.entries(runs).map(([key, run]) => [key, {
+        coverage: run.coverage,
+        ...(run.error ? { error: run.error } : {}),
+        findings: run.findings.map(f => ({
+          fix: f.fix, kind: f.kind, unit: f.unit, target: f.target, field: f.field,
+          app: f.prod, sheet: f.source,
+          ...(isIgnored(f, key) ? { ignored: true } : {}),
+        })),
+        gaps: run.gaps.map(g => ({
+          fix: g.fix, kind: g.kind, unit: g.unit, what: g.what,
+          ...(isIgnored(g, key) ? { ignored: true } : {}),
+        })),
+      }])),
+    };
+    downloadText(`custom40k-source-check-${new Date().toISOString().slice(0, 10)}.json`,
+      JSON.stringify(report, null, 2), 'application/json');
   }
 
   /** Who has to make the fix — the first thing to read on every row, so nobody hunts a spreadsheet
@@ -1407,6 +1446,12 @@ export function AdminPanel({ onClose }: Props) {
                 <button onClick={handleSourceCompareAll} disabled={srcRunning} className={toolbarBtn}>
                   {L.srcCompareAll}
                 </button>
+                <button
+                  onClick={handleExportReport}
+                  disabled={srcRunning || (!srcAll && !srcFindings)}
+                  title={L.srcExportHint}
+                  className={toolbarBtn}
+                >{L.srcExport}</button>
                 {(() => {
                   const n = Object.values(srcIgnores).reduce((s, l) => s + l.length, 0);
                   if (n === 0) return null;
