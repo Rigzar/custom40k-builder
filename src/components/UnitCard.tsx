@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { mergeWeaponAbilities } from '../engine/abilityMerge';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
@@ -2254,12 +2254,20 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
           {weapons.map((w: Weapon, i: number) => {
             const rowCountRaw = countOverrides?.get(w.name) ?? count;
             if (rowCountRaw === 0) return null;
-            // A weapon with several firing modes is listed as one row per mode ("Knight melee
-            // weapon - Strike" / "- Sweep", "Plasma cannon - Standard" / "- Overcharged"). The
-            // quantity belongs to the WEAPON, so print it on the first mode only — repeating it
-            // read as "2x Strike" + "2x Sweep", i.e. four weapons instead of two with two modes.
+            // A weapon with several firing modes is stored as one entry per mode ("Knight melee
+            // weapon - Strike"/"- Sweep", "Plasma cannon - Standard"/"- Overcharged"). Present it
+            // the way the codex does — the weapon named once, with its modes listed beneath —
+            // instead of repeating the full name and the quantity on every mode.
             const wBase = (n: string) => n.split(' - ')[0];
-            const rowCount = i > 0 && wBase(weapons[i - 1].name) === wBase(w.name) ? null : rowCountRaw;
+            const wMode = (n: string) => { const p = n.split(' - '); return p.length > 1 ? p.slice(1).join(' - ') : null; };
+            const base = wBase(w.name);
+            const isModeRow = wMode(w.name) != null && (
+              (i > 0 && wBase(weapons[i - 1].name) === base) ||
+              (i < weapons.length - 1 && wBase(weapons[i + 1].name) === base)
+            );
+            const startsModeGroup = isModeRow && !(i > 0 && wBase(weapons[i - 1].name) === base);
+            const rowCount = isModeRow ? null : rowCountRaw;
+            const displayName = isModeRow ? `— ${wMode(w.name)}` : w.name;
             const extraTraits = traitMap?.get(w.name) ?? [];
             const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
             // Merge: keeps best value per ability type. Returns improved (replaced) + added (new).
@@ -2274,8 +2282,17 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                   .join(', ') || '—'
               : allAbilities || '—';
             return (
-              <tr key={i} className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
-                <td className="py-1.5 pr-2 font-medium text-zinc-100">{rowCount != null ? `${rowCount}x ` : ''}{w.name}</td>
+              <Fragment key={i}>
+              {startsModeGroup && (
+                <tr className="border-b border-zinc-700/40">
+                  <td className="pt-1.5 pr-2 font-medium text-zinc-100">
+                    {rowCountRaw != null ? `${rowCountRaw}x ` : ''}{base}
+                  </td>
+                  <td colSpan={6} />
+                </tr>
+              )}
+              <tr className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
+                <td className={`py-1.5 pr-2 font-medium ${isModeRow ? 'pl-3 text-zinc-400 text-[11px]' : 'text-zinc-100'}`}>{rowCount != null ? `${rowCount}x ` : ''}{displayName}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
                 <td className="py-1.5 px-1 text-zinc-400 text-[11px]">
                   {(() => {
@@ -2294,6 +2311,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
                 <td className={`py-1.5 pl-2 text-[11px] ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities}</td>
               </tr>
+              </Fragment>
             );
           })}
         </tbody>

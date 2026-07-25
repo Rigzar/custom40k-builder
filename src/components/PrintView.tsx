@@ -404,11 +404,20 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       const c = g.countOverrides?.get(w.name) ?? g.count;
       return c != null ? `${c}x ` : '';
     };
-    // A weapon with several firing modes is one row per mode; the quantity belongs to the weapon,
-    // so it is printed on the first mode only (never "2x Strike" AND "2x Sweep").
-    const withCounts = (list: Weapon[]) => list.map((w, i) => {
-      const repeat = i > 0 && weaponBaseName(list[i - 1].name) === weaponBaseName(w.name);
-      return { ...mergeTraits(w, tm), name: (repeat ? '' : prefixFor(w)) + w.name };
+    // A weapon with several firing modes is stored as one entry per mode. Print it the way the
+    // codex does: the weapon named once (with its quantity), then its modes indented beneath —
+    // never the full name and the quantity repeated on every mode.
+    const withCounts = (list: Weapon[]) => list.flatMap((w, i) => {
+      const base = weaponBaseName(w.name);
+      const mode = w.name.slice(base.length).replace(/^\s*-\s*/, '');
+      const prevSame = i > 0 && weaponBaseName(list[i - 1].name) === base;
+      const nextSame = i < list.length - 1 && weaponBaseName(list[i + 1].name) === base;
+      const isMode = !!mode && (prevSame || nextSame);
+      if (!isMode) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
+      const row = { ...mergeTraits(w, tm), name: `— ${mode}` };
+      return prevSame
+        ? [row]
+        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '' }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
@@ -809,11 +818,20 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
       const c = g.countOverrides?.get(w.name) ?? g.count;
       return c != null ? `${c}x ` : '';
     };
-    // A weapon with several firing modes is one row per mode; the quantity belongs to the weapon,
-    // so it is printed on the first mode only (never "2x Strike" AND "2x Sweep").
-    const withCounts = (list: Weapon[]) => list.map((w, i) => {
-      const repeat = i > 0 && weaponBaseName(list[i - 1].name) === weaponBaseName(w.name);
-      return { ...mergeTraits(w, tm), name: (repeat ? '' : prefixFor(w)) + w.name };
+    // A weapon with several firing modes is stored as one entry per mode. Print it the way the
+    // codex does: the weapon named once (with its quantity), then its modes indented beneath —
+    // never the full name and the quantity repeated on every mode.
+    const withCounts = (list: Weapon[]) => list.flatMap((w, i) => {
+      const base = weaponBaseName(w.name);
+      const mode = w.name.slice(base.length).replace(/^\s*-\s*/, '');
+      const prevSame = i > 0 && weaponBaseName(list[i - 1].name) === base;
+      const nextSame = i < list.length - 1 && weaponBaseName(list[i + 1].name) === base;
+      const isMode = !!mode && (prevSame || nextSame);
+      if (!isMode) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
+      const row = { ...mergeTraits(w, tm), name: `— ${mode}` };
+      return prevSame
+        ? [row]
+        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '' }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
