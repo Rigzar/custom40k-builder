@@ -1,7 +1,9 @@
 /** Thin fetch wrappers for the account/cloud-saves backend (api/*.js). Cookie-based session —
  * every call sends credentials so the HttpOnly session cookie round-trips automatically. */
 import type { DataOverrides } from '../engine/dataOverrides';
+import type { SourceIgnores } from '../engine/sourceCompare';
 export type { DataOverride, DataOverrides } from '../engine/dataOverrides';
+export type { SourceIgnore, SourceIgnores } from '../engine/sourceCompare';
 
 async function call<T>(url: string, options?: RequestInit): Promise<T> {
   const res = await fetch(url, {
@@ -435,9 +437,9 @@ export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; source_ignores?: SourceIgnores } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'source_ignores', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
 }
 /** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */

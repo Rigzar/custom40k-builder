@@ -74,15 +74,6 @@ export const hiveTyrant: Unit = {
       "abilities": "AT(2), Quick(+1)"
     },
     {
-      "name": "Monstrous boneswords",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-3",
-      "d": "2",
-      "abilities": "AT(2), Deadly(5+)"
-    },
-    {
       "name": "Monstrous scything talons",
       "range": "-",
       "type": "Melee",

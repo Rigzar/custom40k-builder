@@ -15,6 +15,16 @@
  */
 import type { FactionData, Unit } from '../types/data';
 
+/**
+ * Who has to make the fix. Every finding and gap carries one, because the two live in different
+ * places: the spreadsheet is the creator's to edit, the app's data and parser are ours.
+ *  - 'sheet'   — the evidence points at the spreadsheet; the action says which tab/cell.
+ *  - 'code'    — the app's data or this parser is wrong; nothing for the creator to do.
+ *  - 'unknown' — the two disagree and nothing proves which side is wrong; the action says what to
+ *                look at to decide. Stated as a suspicion, never as a verdict.
+ */
+export type FixOwner = 'sheet' | 'code' | 'unknown';
+
 export interface SourceFinding {
   unit: string;
   /** 'sheet' = an anomaly in the source itself (e.g. the same weapon listed twice) */
@@ -25,14 +35,9 @@ export interface SourceFinding {
   field: string;
   source: string;
   prod: string;
-  /**
-   * Where the problem most likely is. 'sheet' only when the sheet's own value fails a sanity check
-   * (so we can say it with evidence); otherwise 'review' — the two simply disagree and a human has
-   * to decide. We never claim the app is wrong: nothing here proves that.
-   */
-  where: 'sheet' | 'review';
-  /** why we blamed the sheet (shown to the maintainer) */
-  why?: string;
+  fix: FixOwner;
+  /** what to do about it, concretely — where to look and what to change */
+  action: string;
 }
 
 /** Weapon types the rules actually use — anything else in the sheet is a typo (e.g. "Nahkampf"). */
@@ -44,6 +49,78 @@ function sheetIssue(field: string, sheetVal: string): string | null {
   if (field === 'd' && /^-\d/.test(sheetVal)) return `damage "${sheetVal}" is negative`;
   if (field === 's' && /^-\d/.test(sheetVal)) return `strength "${sheetVal}" is negative`;
   return null;
+}
+
+/**
+ * Stable identity for a finding or gap, so an admin can mark it "known and accepted" and stop
+ * seeing it on every run — a naming convention both sides are happy with, or a unit whose tab
+ * lives in another workbook. Built from what the row is ABOUT, never from the values, so an
+ * ignored row comes back the moment the underlying disagreement changes.
+ */
+export interface SourceIgnore {
+  key: string;
+  /** what the row was, kept readable so the ignore list can be reviewed later */
+  label: string;
+  by?: string;
+  at?: string;
+}
+/** Ignored rows per faction key. */
+export type SourceIgnores = Record<string, SourceIgnore[]>;
+
+export function ignoreKey(row: SourceFinding | SourceGap): string {
+  return 'what' in row
+    ? ['gap', row.unit, row.kind, row.what].join('|')
+    : ['find', row.unit, row.kind, row.target, row.field].join('|');
+}
+
+/** Levenshtein distance, used only to tell a typo apart from a genuinely different name. */
+function editDistance(a: string, b: string): number {
+  const prev = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    let diag = prev[0];
+    prev[0] = i;
+    for (let j = 1; j <= b.length; j++) {
+      const tmp = prev[j];
+      prev[j] = Math.min(prev[j] + 1, prev[j - 1] + 1, diag + (a[i - 1] === b[j - 1] ? 0 : 1));
+      diag = tmp;
+    }
+  }
+  return prev[b.length];
+}
+
+const loose = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+/**
+ * The tab's "… is equipped with: …" lines. Used to tell two very different cases apart when a
+ * weapon is in the app but has no row in the sheet's WEAPON block: if the equipment line names it,
+ * the sheet itself is inconsistent (it hands the model a weapon it never gives a profile — the
+ * Noise Marines' Bolt pistol, the Dark Commune's Frag grenade); if nothing mentions it, the app is
+ * probably carrying a leftover.
+ */
+function equipText(csv: string): string {
+  return csvRows(csv)
+    .filter(r => /equipped with/i.test(r[0] ?? ''))
+    .map(r => r[0])
+    .join(' | ')
+    .toLowerCase();
+}
+
+/**
+ * Find the name on the other side that this one is almost certainly a misspelling of. A near match
+ * ("Parasite of Mortex" vs "Parasite of Mortrex") means a typo — someone has to fix one spelling.
+ * No near match means the entry genuinely exists on one side only, which is a different problem
+ * with a different fix, so the two must never be reported the same way.
+ */
+function nearMatch(name: string, candidates: string[]): string | null {
+  const a = loose(name);
+  if (a.length < 4) return null;
+  let best: { name: string; d: number } | null = null;
+  for (const c of candidates) {
+    const d = editDistance(a, loose(c));
+    if (!best || d < best.d) best = { name: c, d };
+  }
+  // allow ~1 character per 8, minimum 1 — enough for a dropped letter or a swapped pair
+  return best && best.d > 0 && best.d <= Math.max(1, Math.floor(a.length / 8)) ? best.name : null;
 }
 
 /** Stat column headers we know how to compare (infantry + vehicle). */
@@ -124,7 +201,16 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
     const c0 = norm(r[0]);
     if (!c0) break;                                    // blank ends the weapon block
     if (c0.startsWith('*')) break;                     // footnote ("* Choose one of the following")
-    if (/^(OPTIONS|ABILITIES|SPECIAL RULES|KEYWORDS)$/i.test(c0)) break;   // next section
+    if (/^(OPTIONS?|OPTIONEN|OPCIONES|ABILITIES|SPECIAL RULES|KEYWORDS)$/i.test(c0)) break;  // next section
+    // The options list starts with bullets ("• Can replace the Rothail volley gun:"). Stop there
+    // too: some tabs write the section header in another language (the Plagueburst Crawler's says
+    // "OPTIONEN"), and without this the whole options list is read as weapons — the option lines
+    // become weapon names, and each "- <choice>" under them becomes one of their sub-profiles.
+    if (c0.startsWith('•')) break;
+    // A row that is nothing but dashes is the sheet's "this unit has no weapons" placeholder
+    // (Neurogaunt Brood: "Every model is equipped with: -." then a row of "-"). Without this it
+    // parses as a sub-profile of a non-existent parent and invents a weapon literally named " - ".
+    if (r.slice(0, 7).every(c => { const v = norm(c); return v === '' || v === '-'; })) continue;
 
     const isSub = c0.startsWith('-');
     const name = isSub ? `${parent} - ${norm(c0.replace(/^-\s*/, ''))}` : c0.replace(/\s*\*$/, '').trim();
@@ -154,53 +240,129 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
 export interface SourceGap {
   unit: string;
   kind:
-    | 'tab'            // no CSV came back for this unit's tab
-    | 'block'          // tab fetched but a whole block failed to parse (no POINTS / no WEAPON header)
-    | 'model'          // model in the app, absent from the sheet's model block
-    | 'sheet-model'    // model in the sheet, absent from the app
-    | 'weapon'         // weapon in the app, absent from the sheet's weapon block
-    | 'sheet-weapon';  // weapon in the sheet, absent from the app
-  detail: string;
+    | 'tab'              // no CSV came back for this unit's tab
+    | 'block'            // tab fetched but a whole block failed to parse (no POINTS / no WEAPON header)
+    | 'name-mismatch'    // the same thing spelled differently on each side — one spelling is a typo
+    | 'missing-in-app'   // on the sheet, nothing like it in the app
+    | 'missing-in-sheet';// in the app, nothing like it on the sheet
+  fix: FixOwner;
+  /** what is wrong */
+  what: string;
+  /** what to do about it — names the tab, the row and which side to change */
+  action: string;
 }
 
-const GAP_ORDER: SourceGap['kind'][] = ['tab', 'block', 'sheet-weapon', 'sheet-model', 'weapon', 'model'];
+const GAP_ORDER: SourceGap['kind'][] = ['tab', 'block', 'name-mismatch', 'missing-in-app', 'missing-in-sheet'];
 
 /**
  * Report what `compareFaction` had to skip for this faction — unfetched tabs, unparsed blocks, and
- * names present on one side only. A sheet weapon missing from the app ('sheet-weapon') is the one
- * that matters most: it is a datasheet string that never made it into the app at all, which no
- * value-by-value diff can ever surface.
+ * names that don't line up. This is where most real damage hides: a name that doesn't match means
+ * that model's points and stats, or that weapon's whole profile, are never compared at all, and the
+ * faction still reports "no differences".
+ *
+ * Each gap says who has to fix it. The distinction that makes it actionable is near-match: a name
+ * one letter off its counterpart ("Parasite of Mortex" vs "Parasite of Mortrex") is a typo someone
+ * has to correct, while a name with no counterpart at all is an entry that genuinely exists on one
+ * side only. Same symptom, opposite fixes.
  */
 export function coverageGaps(faction: FactionData, csvByUnit: Record<string, string | null>): SourceGap[] {
   const gaps: SourceGap[] = [];
   for (const unit of Object.values(faction.units as Record<string, Unit>)) {
     const csv = csvByUnit[unit.name];
     if (!csv) {
-      gaps.push({ unit: unit.name, kind: 'tab', detail: 'no tab came back — the sheet has no tab with this exact name, or the fetch failed' });
+      gaps.push({
+        unit: unit.name, kind: 'tab', fix: 'unknown',
+        what: 'nothing was read for this unit — it was not compared at all',
+        action: `This workbook has no tab named exactly "${unit.name}" (or that one tab failed to download — re-run once to rule that out). Usual causes: singular vs plural or a spelling difference in the tab name, or the unit belongs to a supplement and its tab lives in that other workbook.`,
+      });
       continue;
     }
     const srcModels = extractModels(csv);
     const { weapons: srcWeapons } = extractWeapons(csv);
-    if (Object.keys(srcModels).length === 0) gaps.push({ unit: unit.name, kind: 'block', detail: 'no model block found (no POINTS header on the tab)' });
-    if (Object.keys(srcWeapons).length === 0) gaps.push({ unit: unit.name, kind: 'block', detail: 'no weapon block found (no WEAPON header on the tab)' });
+    if (Object.keys(srcModels).length === 0) {
+      gaps.push({
+        unit: unit.name, kind: 'block', fix: 'sheet',
+        what: 'no model block found — points and stats were not compared',
+        action: `On tab "${unit.name}", the header row with NAME … POINTS is missing or renamed. Restore it so the model rows can be read.`,
+      });
+    }
+    if (Object.keys(srcWeapons).length === 0) {
+      gaps.push({
+        unit: unit.name, kind: 'block', fix: 'sheet',
+        what: 'no weapon block found — no weapon profile was compared',
+        action: `On tab "${unit.name}", the row starting with WEAPON is missing or renamed. Restore it so the weapon rows can be read.`,
+      });
+    }
 
     const appModels = [...(unit.models ?? []), ...(unit.variant_models ?? [])].map(m => m.name);
-    if (Object.keys(srcModels).length > 0) {
-      for (const name of appModels) {
-        if (!srcModels[name]) gaps.push({ unit: unit.name, kind: 'model', detail: `"${name}" — in the app, not on the sheet` });
+    const sheetModels = Object.keys(srcModels);
+    if (sheetModels.length > 0) {
+      const pairedApp = new Set<string>();
+      for (const name of sheetModels) {
+        if (appModels.includes(name)) continue;
+        const twin = nearMatch(name, appModels.filter(m => !srcModels[m]));
+        if (twin) {
+          pairedApp.add(twin);
+          gaps.push({
+            unit: unit.name, kind: 'name-mismatch', fix: 'sheet',
+            what: `model spelled "${name}" on the sheet, "${twin}" in the app`,
+            action: `Almost certainly a typo in the NAME cell on tab "${unit.name}". Fix it there and this model's points and stats start being compared — right now none of them are.`,
+          });
+        } else {
+          gaps.push({
+            unit: unit.name, kind: 'missing-in-app', fix: 'code',
+            what: `the sheet has a model "${name}" the app doesn't`,
+            action: 'Nothing to do on the sheet — the app is missing this model and we have to add it.',
+          });
+        }
       }
-      for (const name of Object.keys(srcModels)) {
-        if (!appModels.includes(name)) gaps.push({ unit: unit.name, kind: 'sheet-model', detail: `"${name}" — on the sheet, missing from the app` });
+      for (const name of appModels) {
+        if (srcModels[name] || pairedApp.has(name)) continue;
+        gaps.push({
+          unit: unit.name, kind: 'missing-in-sheet', fix: 'unknown',
+          what: `the app has a model "${name}" the sheet doesn't list`,
+          action: `Check the model rows on tab "${unit.name}": either a row is missing there, or the app is carrying a model from an older version that we have to remove.`,
+        });
       }
     }
 
     const appWeapons = (unit.weapons ?? []).map(w => w.name);
-    if (Object.keys(srcWeapons).length > 0) {
-      for (const name of appWeapons) {
-        if (!srcWeapons[name]) gaps.push({ unit: unit.name, kind: 'weapon', detail: `"${name}" — in the app, not on the sheet` });
+    const sheetWeapons = Object.keys(srcWeapons);
+    if (sheetWeapons.length > 0) {
+      const pairedApp = new Set<string>();
+      for (const name of sheetWeapons) {
+        if (appWeapons.includes(name)) continue;
+        const twin = nearMatch(name, appWeapons.filter(w => !srcWeapons[w]));
+        if (twin) {
+          pairedApp.add(twin);
+          gaps.push({
+            unit: unit.name, kind: 'name-mismatch', fix: 'sheet',
+            what: `weapon spelled "${name}" on the sheet, "${twin}" in the app`,
+            action: `Almost certainly a typo in the WEAPON column on tab "${unit.name}". Until the two spellings match, this weapon's Range/Type/S/AP/D/Abilities are never compared.`,
+          });
+        } else {
+          gaps.push({
+            unit: unit.name, kind: 'missing-in-app', fix: 'code',
+            what: `the sheet has a weapon "${name}" the app doesn't`,
+            action: 'Nothing to do on the sheet — the app never got this weapon and we have to add it.',
+          });
+        }
       }
-      for (const name of Object.keys(srcWeapons)) {
-        if (!appWeapons.includes(name)) gaps.push({ unit: unit.name, kind: 'sheet-weapon', detail: `"${name}" — on the sheet, missing from the app` });
+      const equipped = equipText(csv);
+      for (const name of appWeapons) {
+        if (srcWeapons[name] || pairedApp.has(name)) continue;
+        // The equipment line handing the model this weapon, with no profile row for it, is the
+        // sheet contradicting itself — we can say which side is wrong instead of guessing.
+        const inEquipLine = equipped.includes(name.toLowerCase().replace(/s$/, ''));
+        gaps.push({
+          unit: unit.name, kind: 'missing-in-sheet', fix: inEquipLine ? 'sheet' : 'unknown',
+          what: inEquipLine
+            ? `"${name}" is handed out by the equipment line but has no WEAPON row`
+            : `the app has a weapon "${name}" the sheet doesn't list`,
+          action: inEquipLine
+            ? `Tab "${unit.name}" says the model is equipped with "${name}", but the WEAPON block has no row for it, so its profile can never be checked. Add the row.`
+            : `Check the WEAPON block on tab "${unit.name}". If the weapon really shouldn't exist, it is a leftover in the app from an older version and we remove it — that kind of leftover shows on every model's profile even though nothing can select it.`,
+        });
       }
     }
   }
@@ -222,13 +384,20 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
       const sm = srcModels[m.name];
       if (!sm) continue;                               // name doesn't line up — skip, don't guess
       if (sm.points != null && sm.points !== m.points) {
-        findings.push({ unit: unit.name, kind: 'points', target: m.name, field: 'points', source: String(sm.points), prod: String(m.points), where: 'review' });
+        findings.push({
+          unit: unit.name, kind: 'points', target: m.name, field: 'points',
+          source: String(sm.points), prod: String(m.points), fix: 'unknown',
+          action: `Tab "${unit.name}", row "${m.name}", POINTS column. If the sheet is right, press Apply and the app matches it immediately; if the app is right, change the cell.`,
+        });
       }
       for (const [k, sv] of Object.entries(sm.stats)) {
         const pv = norm((m.stats as Record<string, string>)?.[k]);
         if (!pv) continue;                             // production doesn't track this stat here
         if (norm(sv) !== pv) {
-          findings.push({ unit: unit.name, kind: 'stat', target: m.name, field: k, source: sv, prod: pv, where: 'review' });
+          findings.push({
+            unit: unit.name, kind: 'stat', target: m.name, field: k, source: sv, prod: pv, fix: 'unknown',
+            action: `Tab "${unit.name}", row "${m.name}", column ${k}. If the sheet is right, press Apply; if the app is right, change the cell.`,
+          });
         }
       }
     }
@@ -238,8 +407,8 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
     for (const dup of duplicates) {
       findings.push({
         unit: unit.name, kind: 'sheet', target: dup, field: 'duplicate row',
-        source: 'listed more than once', prod: '—',
-        where: 'sheet', why: 'the same weapon name is on more than one row — one of them is probably a different weapon that was mislabelled',
+        source: 'listed more than once', prod: '—', fix: 'sheet',
+        action: `Tab "${unit.name}" lists "${dup}" on more than one WEAPON row. One of them is probably a different weapon that got the wrong name — only the first row is read, so the other weapon is invisible to the check. Rename it.`,
       });
     }
     for (const w of unit.weapons ?? []) {
@@ -259,7 +428,11 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
           const why = sheetIssue(field, sv);
           findings.push({
             unit: unit.name, kind: 'weapon', target: w.name, field, source: sv, prod: pv,
-            where: why ? 'sheet' : 'review', ...(why ? { why } : {}),
+            fix: why ? 'sheet' : 'unknown',
+            action: why
+              // the sheet's own value fails a sanity check, so we can name the problem outright
+              ? `Tab "${unit.name}", weapon "${w.name}", column ${field.toUpperCase()}: ${why}. Fix the cell — there is no correct value to copy into the app.`
+              : `Tab "${unit.name}", weapon "${w.name}", column ${field.toUpperCase()}. If the sheet is right, press Apply and the app matches it immediately; if the app is right, change the cell.`,
           });
         }
       }

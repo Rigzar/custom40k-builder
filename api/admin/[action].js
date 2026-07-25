@@ -316,25 +316,34 @@ async function sourceSheets(req, res) {
   }
 
   try {
+    // Google's gviz endpoint does NOT fail on an unknown tab name: it silently returns the FIRST
+    // tab of the workbook (the Index). Taken at face value that looks like a successful fetch of a
+    // datasheet with no headers, so a unit whose tab is misnamed — or that lives in another
+    // workbook entirely, like the Escalation Lords of War — reads as "compared, no differences".
+    // Fetch one deliberately impossible name up front and treat any tab that comes back identical
+    // to it as missing.
+    const fallback = await fetchTab('__c40k_no_such_tab__');
+
     const data = {};
     let cursor = 0;
     const worker = async () => {
       while (cursor < names.length) {
         const name = names[cursor++];
-        data[name] = await fetchTab(name);
+        const text = await fetchTab(name);
+        data[name] = fallback != null && text === fallback ? null : text;
         await sleep(80);
       }
     };
     await Promise.all(Array.from({ length: Math.min(4, names.length) }, worker));
     const fetched = Object.values(data).filter(Boolean).length;
-    res.status(200).json({ ok: true, data, fetched, total: names.length });
+    res.status(200).json({ ok: true, data, fetched, total: names.length, fallbackDetected: fallback != null });
   } catch (err) {
     res.status(502).json({ error: 'Fetch failed', detail: String(err) });
   }
 }
 
 // Only these keys can be read/written through the settings admin API.
-const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides']);
+const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides', 'source_ignores']);
 
 // GET — all editable app settings as a { key: value } map.
 async function getSettings(req, res) {

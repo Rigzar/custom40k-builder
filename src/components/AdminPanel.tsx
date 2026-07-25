@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
-import { compareFaction, coverageGaps, type SourceFinding, type SourceGap } from '../engine/sourceCompare';
+import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -35,6 +35,11 @@ const SOURCE_FACTIONS: { key: string; name: string }[] = Object.keys(FACTION_LOA
   name: ALL_FACTIONS.find(f => f.key === key)?.name
     ?? key.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' '),
 }));
+
+/** Where a faction's SECOND workbook id is stored in the same source_sheets map — the supplement
+ *  (Escalation, Horus Heresy) that holds datasheets for units the army can field but whose tabs
+ *  are not in the army's own spreadsheet. */
+const supplementKey = (factionKey: string) => `${factionKey}#supplement`;
 
 /** One faction's source-check result: what differs, what couldn't be checked, and how much loaded. */
 interface SourceRun {
@@ -130,7 +135,12 @@ interface AdminTx {
   helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
   srcCoverage: (fetched: number, total: number) => string;
-  srcWhereSheet: string; srcWhereReview: string; srcWhereReviewHint: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
+  srcWhereSheet: string; srcWhereReview: string; srcWhereReviewHint: string;
+  fixSheet: string; fixCode: string; fixUnknown: string;
+  srcIgnore: string; srcUnignore: string; srcIgnoreHint: string; srcUnignoreHint: string;
+  srcShowIgnored: (n: number) => string; srcHideIgnored: (n: number) => string;
+  srcSupplementId: string; srcSupplementHint: string;
+  fixSheetHint: string; fixCodeHint: string; fixUnknownHint: string; srcOpenSheet: string; srcTabHint: (tab: string) => string;
   srcApply: string; srcApplying: string; srcUndo: string; srcAppliedTag: string;
   srcApplyHint: string; srcApplied: (unit: string, field: string, value: string) => string; srcUndone: string;
   srcCompareAll: string; srcAllTitle: string; srcAllFailed: string; srcNoSheetIds: string;
@@ -212,6 +222,16 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
       ? `Read ${f}/${t} unit tabs — ${t - f} could not be read (renamed tab, or the sheet rate-limited us). Those units were NOT checked.`
       : `Read all ${t} unit tabs.`,
     srcWhereSheet: 'sheet', srcWhereReview: 'review',
+    fixSheet: 'sheet', fixCode: 'code', fixUnknown: 'check',
+    srcIgnore: 'ignore', srcUnignore: 'restore',
+    srcIgnoreHint: 'Mark as known and accepted so it stops appearing on every run. Nothing is deleted — ignored rows stay counted and can be brought back.',
+    srcUnignoreHint: 'Show this row again on every run.',
+    srcShowIgnored: n => `show ${n} ignored`, srcHideIgnored: n => `hide ${n} ignored`,
+    srcSupplementId: 'Supplement sheet ID (optional)',
+    srcSupplementHint: 'A second workbook to look in for units this army can field whose tabs are not in its own spreadsheet — the Escalation Lords of War, the Horus Heresy datasheets. Only the units missing from the main workbook are looked up here.',
+    fixSheetHint: 'The evidence points at the spreadsheet. Nothing for us to change — the line below says which tab and cell.',
+    fixCodeHint: 'Ours to fix: the app data or the comparison itself is wrong. Nothing to do on the spreadsheet.',
+    fixUnknownHint: 'Neither side is proven wrong. The line below says what to look at to decide.',
     srcWhereReviewHint: 'The app and the sheet simply disagree — nothing here proves which side is wrong. Open the unit tab to decide: fix the sheet there, or Apply to take the sheet value into the app.',
     srcOpenSheet: 'Open the spreadsheet ↗',
     srcTabHint: tab => `In the spreadsheet: tab "${tab}". In the app: this faction's unit of the same name.`,
@@ -292,6 +312,16 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
       ? `${f}/${t} Einheiten-Registerkarten gelesen — ${t - f} nicht lesbar (umbenannt oder Rate-Limit). Diese Einheiten wurden NICHT geprüft.`
       : `Alle ${t} Einheiten-Registerkarten gelesen.`,
     srcWhereSheet: 'Tabelle', srcWhereReview: 'prüfen',
+    fixSheet: 'Sheet', fixCode: 'Code', fixUnknown: 'prüfen',
+    srcIgnore: 'ignorieren', srcUnignore: 'zurückholen',
+    srcIgnoreHint: 'Als bekannt und akzeptiert markieren, damit es nicht bei jedem Lauf wieder erscheint. Nichts wird gelöscht — ignorierte Zeilen bleiben gezählt und lassen sich zurückholen.',
+    srcUnignoreHint: 'Diese Zeile wieder bei jedem Lauf anzeigen.',
+    srcShowIgnored: n => `${n} ignorierte zeigen`, srcHideIgnored: n => `${n} ignorierte ausblenden`,
+    srcSupplementId: 'Sheet-ID des Supplements (optional)',
+    srcSupplementHint: 'Eine zweite Arbeitsmappe für Einheiten dieser Armee, deren Tabs nicht in ihrer eigenen Tabelle liegen — die Escalation Lords of War, die Horus-Heresy-Datenblätter. Nur die in der Hauptmappe fehlenden Einheiten werden hier gesucht.',
+    fixSheetHint: 'Die Hinweise deuten auf die Tabelle. Für uns nichts zu tun — die Zeile darunter nennt Tab und Zelle.',
+    fixCodeHint: 'Unsere Sache: die App-Daten oder der Vergleich selbst sind falsch. An der Tabelle ist nichts zu ändern.',
+    fixUnknownHint: 'Keine Seite ist bewiesen falsch. Die Zeile darunter sagt, was zu prüfen ist.',
     srcWhereReviewHint: 'App und Sheet widersprechen sich einfach — nichts beweist hier, welche Seite falsch ist. Öffne den Einheiten-Tab und entscheide: dort das Sheet korrigieren, oder mit Übernehmen den Sheet-Wert in die App holen.',
     srcOpenSheet: 'Tabelle öffnen ↗',
     srcTabHint: tab => `In der Tabelle: Registerkarte "${tab}". In der App: die gleichnamige Einheit dieser Fraktion.`,
@@ -372,6 +402,16 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
       ? `Leídas ${f}/${t} pestañas de unidad — ${t - f} no se pudieron leer (pestaña renombrada, o la hoja nos limitó). Esas unidades NO se comprobaron.`
       : `Leídas las ${t} pestañas de unidad.`,
     srcWhereSheet: 'hoja', srcWhereReview: 'revisar',
+    fixSheet: 'hoja', fixCode: 'código', fixUnknown: 'revisar',
+    srcIgnore: 'ignorar', srcUnignore: 'recuperar',
+    srcIgnoreHint: 'Marcar como conocido y aceptado para que deje de salir en cada pasada. No se borra nada — las filas ignoradas se siguen contando y se pueden recuperar.',
+    srcUnignoreHint: 'Volver a mostrar esta fila en cada pasada.',
+    srcShowIgnored: n => `ver ${n} ignoradas`, srcHideIgnored: n => `ocultar ${n} ignoradas`,
+    srcSupplementId: 'ID de la hoja del suplemento (opcional)',
+    srcSupplementHint: 'Un segundo libro donde buscar las unidades que este ejército puede llevar pero cuyas pestañas no están en su propia hoja — los Lords of War de Escalation, las fichas de Horus Heresy. Aquí solo se buscan las unidades que faltaban en el libro principal.',
+    fixSheetHint: 'Las pistas apuntan a la hoja. Por nuestra parte no hay nada que cambiar — la línea de abajo dice qué pestaña y qué celda.',
+    fixCodeHint: 'Nos toca a nosotros: los datos de la app o la propia comparación están mal. En la hoja no hay nada que tocar.',
+    fixUnknownHint: 'Ninguno de los dos lados está demostrado. La línea de abajo dice qué mirar para decidir.',
     srcWhereReviewHint: 'La app y la hoja simplemente no coinciden — nada demuestra aquí cuál de las dos está mal. Abre la pestaña de la unidad y decide: corregir ahí la hoja, o pulsar Aplicar para llevar el valor de la hoja a la app.',
     srcOpenSheet: 'Abrir la hoja ↗',
     srcTabHint: tab => `En la hoja: pestaña "${tab}". En la app: la unidad con ese mismo nombre en esta facción.`,
@@ -429,6 +469,8 @@ export function AdminPanel({ onClose }: Props) {
   const [srcFaction, setSrcFaction] = useState<string>('chaos_space_marines');
   const [srcId, setSrcId] = useState<string>(DEFAULT_SOURCE_IDS.chaos_space_marines ?? '');
   const [srcRunning, setSrcRunning] = useState(false);
+  /** Optional second workbook for this faction's supplement units (see supplementKey). */
+  const [srcSuppId, setSrcSuppId] = useState<string>('');
   const [srcFindings, setSrcFindings] = useState<SourceFinding[] | null>(null);
   /** Admin corrections currently stored in app_settings.data_overrides, keyed by faction. */
   const [dataOverrides, setDataOverrides] = useState<api.DataOverrides>({});
@@ -446,6 +488,11 @@ export function AdminPanel({ onClose }: Props) {
   /** Which "Compare all" faction rows are unfolded — each shows its own findings + Apply buttons
    *  in place, so a correction can be made without leaving the summary. */
   const [srcExpanded, setSrcExpanded] = useState<Record<string, boolean>>({});
+  /** Rows marked "known and accepted" — hidden from the lists but counted, and restorable. Lets a
+   *  difference both sides are happy with (a naming convention, a unit whose tab lives in another
+   *  workbook) stop drowning the rows that still need doing. Nothing is ever dropped silently. */
+  const [srcIgnores, setSrcIgnores] = useState<api.SourceIgnores>({});
+  const [srcShowIgnored, setSrcShowIgnored] = useState(false);
   const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
   const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
 
@@ -456,7 +503,7 @@ export function AdminPanel({ onClose }: Props) {
         api.adminStats(),
         api.adminListRecoveryRequests(),
         api.adminActions().catch(() => ({ actions: [] })),
-        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides } })),
+        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides; source_ignores?: api.SourceIgnores } })),
       ]);
       setStats(s);
       setRequests(r.requests);
@@ -487,7 +534,9 @@ export function AdminPanel({ onClose }: Props) {
       const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
       setSourceIds(ids);
       setSrcId(ids[srcFaction] ?? '');
+      setSrcSuppId(ids[supplementKey(srcFaction)] ?? '');
       setDataOverrides((cfg.settings.data_overrides ?? {}) as api.DataOverrides);
+      setSrcIgnores((cfg.settings.source_ignores ?? {}) as api.SourceIgnores);
     } catch (e) { setMsg(String(e)); }
     setLoading(false);
   }
@@ -536,11 +585,26 @@ export function AdminPanel({ onClose }: Props) {
     const loader = FACTION_LOADERS[factionKey];
     if (!loader) throw new Error(`No data for ${factionKey}`);
     const data = await loader();
-    const resp = await api.adminSourceSheets(id, Object.keys(data.units));
+    const names = Object.keys(data.units);
+    const resp = await api.adminSourceSheets(id, names);
+    const csv = { ...resp.data };
+    let fetched = resp.fetched;
+
+    // Units the faction's own workbook doesn't have a tab for are not necessarily missing: a
+    // supplement keeps its datasheets in its OWN spreadsheet (the Escalation Lords of War — Chaos
+    // Fellblade, Knight Rampager, War Dog…— are in the army's list but live in the Escalation
+    // workbook). Look the leftovers up there before calling them uncomparable.
+    const extraId = toSheetId(sourceIds[supplementKey(factionKey)] ?? '');
+    const missing = names.filter(n => !csv[n]);
+    if (missing.length > 0 && SHEET_ID_RE.test(extraId)) {
+      const extra = await api.adminSourceSheets(extraId, missing);
+      for (const [n, text] of Object.entries(extra.data)) if (text) { csv[n] = text; fetched++; }
+    }
+
     return {
-      findings: compareFaction(data, resp.data),
-      gaps: coverageGaps(data, resp.data),
-      coverage: { fetched: resp.fetched, total: resp.total },
+      findings: compareFaction(data, csv),
+      gaps: coverageGaps(data, csv),
+      coverage: { fetched, total: resp.total },
     };
   }
 
@@ -552,7 +616,7 @@ export function AdminPanel({ onClose }: Props) {
       const run = await runSourceCompare(srcFaction, id);
       setSrcFindings(run.findings); setSrcGaps(run.gaps); setSrcCoverage(run.coverage);
       // remember the id for this faction
-      const next = { ...sourceIds, [srcFaction]: id };
+      const next = { ...sourceIds, [srcFaction]: id, [supplementKey(srcFaction)]: toSheetId(srcSuppId) };
       setSourceIds(next);
       api.adminSetSetting('source_sheets', next).catch(() => {});
     } catch (e) { setMsg(String(e)); }
@@ -773,21 +837,75 @@ export function AdminPanel({ onClose }: Props) {
 
   const toolbarBtn = 'text-[11px] px-3 py-1 border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-50';
 
+  /**
+   * Mark a row as known-and-accepted (or bring it back). Stored per faction in app_settings so the
+   * decision survives sessions and is shared between admins — the alternative is everyone re-reading
+   * the same accepted difference on every run until the real ones get ignored too.
+   */
+  async function toggleIgnore(row: SourceFinding | SourceGap, factionKey: string, label: string) {
+    const key = ignoreKey(row);
+    const list = srcIgnores[factionKey] ?? [];
+    const next: api.SourceIgnores = { ...srcIgnores };
+    next[factionKey] = list.some(i => i.key === key)
+      ? list.filter(i => i.key !== key)
+      : [...list, { key, label, by: adminUsername ?? undefined, at: new Date().toISOString() }];
+    if (next[factionKey].length === 0) delete next[factionKey];
+    setSrcIgnores(next);
+    try { await api.adminSetSetting('source_ignores', next); }
+    catch (e) { setMsg(String(e)); }
+  }
+
+  const isIgnored = (row: SourceFinding | SourceGap, factionKey: string) =>
+    (srcIgnores[factionKey] ?? []).some(i => i.key === ignoreKey(row));
+
+  /** The small "ignore / bring back" control shared by both lists. */
+  function ignoreButton(row: SourceFinding | SourceGap, factionKey: string, label: string) {
+    const ignored = isIgnored(row, factionKey);
+    return (
+      <button
+        onClick={() => toggleIgnore(row, factionKey, label)}
+        title={ignored ? L.srcUnignoreHint : L.srcIgnoreHint}
+        className={`shrink-0 text-[9px] uppercase px-1.5 py-0.5 border ${
+          ignored ? 'border-zinc-700 text-zinc-400 hover:text-zinc-200'
+                  : 'border-zinc-800 text-zinc-600 hover:border-zinc-600 hover:text-zinc-300'
+        }`}
+      >{ignored ? L.srcUnignore : L.srcIgnore}</button>
+    );
+  }
+
+  /** Who has to make the fix — the first thing to read on every row, so nobody hunts a spreadsheet
+   *  cell for something only we can change (or waits on us for a typo in a tab). */
+  function fixBadge(fix: FixOwner) {
+    const style = fix === 'sheet' ? 'border-amber-700 text-amber-400 bg-amber-950/30'
+      : fix === 'code' ? 'border-sky-800 text-sky-400 bg-sky-950/30'
+      : 'border-zinc-700 text-zinc-500';
+    return (
+      <span
+        title={fix === 'sheet' ? L.fixSheetHint : fix === 'code' ? L.fixCodeHint : L.fixUnknownHint}
+        className={`shrink-0 w-14 text-center text-[8px] uppercase px-1 rounded border cursor-help ${style}`}
+      >{fix === 'sheet' ? L.fixSheet : fix === 'code' ? L.fixCode : L.fixUnknown}</span>
+    );
+  }
+
   /** The list of things the comparison could not check. Same markup inline under a faction row in
    *  "Compare all" and under the single-faction panel. */
-  function renderGaps(gaps: SourceGap[]) {
+  function renderGaps(gaps: SourceGap[], factionKey: string) {
+    const shown = srcShowIgnored ? gaps : gaps.filter(g => !isIgnored(g, factionKey));
+    if (shown.length === 0) return null;
     return (
-      <div className="mt-1 space-y-0.5 max-h-[35vh] overflow-y-auto border border-zinc-800 p-2">
+      <div className="mt-1 space-y-1.5 max-h-[45vh] overflow-y-auto border border-zinc-800 p-2">
         <p className="text-zinc-600 text-[10px] font-mono mb-1">{L.srcGapsHint}</p>
-        {gaps.map((g, i) => (
-          <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
-            <span className={`shrink-0 w-24 text-[9px] uppercase ${
-              g.kind === 'tab' || g.kind === 'block' ? 'text-red-500'
-              : g.kind === 'sheet-weapon' || g.kind === 'sheet-model' ? 'text-amber-500'
-              : 'text-zinc-500'
-            }`}>{g.kind}</span>
-            <span className="text-zinc-300 shrink-0">{g.unit}</span>
-            <span className="text-zinc-500 flex-1 truncate" title={g.detail}>{g.detail}</span>
+        {shown.map((g, i) => (
+          <div key={i} className={`text-[11px] font-mono ${isIgnored(g, factionKey) ? 'opacity-40' : ''}`}>
+            <div className="flex gap-2 items-center">
+              {fixBadge(g.fix)}
+              <span className="shrink-0 w-28 text-[9px] uppercase text-zinc-600">{g.kind}</span>
+              <span className="text-zinc-300 shrink-0">{g.unit}</span>
+              <span className="text-zinc-400 flex-1 truncate" title={g.what}>{g.what}</span>
+              {ignoreButton(g, factionKey, `${g.unit}: ${g.what}`)}
+            </div>
+            {/* the action is the point of the row — always visible, never only a tooltip */}
+            <div className="text-[10px] text-zinc-500 pl-[6.5rem] leading-snug">{g.action}</div>
           </div>
         ))}
       </div>
@@ -800,23 +918,18 @@ export function AdminPanel({ onClose }: Props) {
    * switch the whole screen to that faction.
    */
   function renderFindings(factionKey: string, findings: SourceFinding[]) {
-    if (findings.length === 0) return <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>;
+    const shown = srcShowIgnored ? findings : findings.filter(f => !isIgnored(f, factionKey));
+    if (shown.length === 0) return <p className="text-green-500 text-[11px] font-mono">{L.srcNoDiff}</p>;
     return (
-      <div className="space-y-0.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
-        {findings.map((f, i) => (
-          <div key={i} className="text-[11px] font-mono flex gap-2 items-center">
+      <div className="space-y-1.5 max-h-[55vh] overflow-y-auto border border-zinc-800 p-2">
+        {shown.map((f, i) => (
+          <div key={i} className={`text-[11px] font-mono ${isIgnored(f, factionKey) ? 'opacity-40' : ''}`}>
+          <div className="flex gap-2 items-center">
+            {fixBadge(f.fix)}
             <span className={`shrink-0 w-14 text-[9px] uppercase ${
               f.kind === 'points' ? 'text-amber-500' : f.kind === 'stat' ? 'text-sky-500'
               : f.kind === 'sheet' ? 'text-red-500' : 'text-fuchsia-500'
             }`}>{f.kind}</span>
-            <span
-              title={f.why ?? L.srcWhereReviewHint}
-              className={`shrink-0 text-[8px] uppercase px-1 rounded border cursor-help ${
-                f.where === 'sheet'
-                  ? 'border-red-800 text-red-400 bg-red-950/30'
-                  : 'border-zinc-700 text-zinc-500'
-              }`}
-            >{f.where === 'sheet' ? L.srcWhereSheet : L.srcWhereReview}</span>
             <span className="text-zinc-300 flex-1 truncate" title={L.srcTabHint(f.unit)}>
               {L.srcCol(f.unit, f.target)} <span className="text-zinc-600">· {f.field}</span>
             </span>
@@ -848,6 +961,9 @@ export function AdminPanel({ onClose }: Props) {
                 >{busy ? L.srcApplying : L.srcApply}</button>
               );
             })()}
+            {ignoreButton(f, factionKey, `${f.unit} · ${f.target} · ${f.field}`)}
+          </div>
+          <div className="text-[10px] text-zinc-500 pl-[4.5rem] leading-snug">{f.action}</div>
           </div>
         ))}
       </div>
@@ -1259,7 +1375,7 @@ export function AdminPanel({ onClose }: Props) {
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <select
                   value={srcFaction}
-                  onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcFindings(null); }}
+                  onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcSuppId(sourceIds[supplementKey(e.target.value)] ?? ''); setSrcFindings(null); }}
                   className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
                 >
                   {SOURCE_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
@@ -1268,7 +1384,14 @@ export function AdminPanel({ onClose }: Props) {
                   value={srcId}
                   onChange={e => setSrcId(e.target.value)}
                   placeholder={L.srcSpreadsheetId}
-                  className="flex-1 min-w-[220px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                  className="flex-1 min-w-[200px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                />
+                <input
+                  value={srcSuppId}
+                  onChange={e => setSrcSuppId(e.target.value)}
+                  placeholder={L.srcSupplementId}
+                  title={L.srcSupplementHint}
+                  className="flex-1 min-w-[200px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
                 />
                 <button onClick={handleSourceCompare} disabled={srcRunning || !srcIdOk} className={toolbarBtn}>
                   {srcRunning ? L.srcComparing : L.srcCompare}
@@ -1276,6 +1399,15 @@ export function AdminPanel({ onClose }: Props) {
                 <button onClick={handleSourceCompareAll} disabled={srcRunning} className={toolbarBtn}>
                   {L.srcCompareAll}
                 </button>
+                {(() => {
+                  const n = Object.values(srcIgnores).reduce((s, l) => s + l.length, 0);
+                  if (n === 0) return null;
+                  return (
+                    <button onClick={() => setSrcShowIgnored(v => !v)} className={toolbarBtn} title={L.srcIgnoreHint}>
+                      {srcShowIgnored ? L.srcHideIgnored(n) : L.srcShowIgnored(n)}
+                    </button>
+                  );
+                })()}
               </div>
               {srcAllProgress && (
                 <p className="text-amber-500 text-[10px] font-mono mb-2">
@@ -1332,7 +1464,7 @@ export function AdminPanel({ onClose }: Props) {
                                     <span className="text-green-600 text-[10px] font-mono">{L.srcOverridesActive(dataOverrides[key].length)}</span>
                                   )}
                                 </div>
-                                {run.gaps.length > 0 && renderGaps(run.gaps)}
+                                {run.gaps.length > 0 && renderGaps(run.gaps, key)}
                                 <div className="mt-1">{renderFindings(key, run.findings)}</div>
                               </>
                             )}
@@ -1365,7 +1497,7 @@ export function AdminPanel({ onClose }: Props) {
                   >
                     {srcGaps.length === 0 ? L.srcGapsNone : `${srcShowGaps ? '▾' : '▸'} ${L.srcGapsCount(srcGaps.length)}`}
                   </button>
-                  {srcShowGaps && srcGaps.length > 0 && renderGaps(srcGaps)}
+                  {srcShowGaps && srcGaps.length > 0 && renderGaps(srcGaps, srcFaction)}
                 </div>
               )}
               {srcFindings && renderFindings(srcFaction, srcFindings)}
