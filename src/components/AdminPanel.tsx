@@ -41,6 +41,14 @@ const SOURCE_FACTIONS: { key: string; name: string }[] = Object.keys(FACTION_LOA
  *  are not in the army's own spreadsheet. */
 const supplementKey = (factionKey: string) => `${factionKey}#supplement`;
 
+/**
+ * Escalation, used as the default second workbook for every faction. Its Lords of War (Fellblade,
+ * Spartan, Warhound, the Knights, War Dog, Armiger, Lord of Skulls…) appear in many armies' unit
+ * lists but their datasheets live only here, so without it those units are never compared at all.
+ * A per-faction id saved in the second field overrides this.
+ */
+const DEFAULT_SUPPLEMENT_ID = '1i9o9KowRslsN4e1UXjzqME5OzcH5A9nR78LjvTVwXRY';
+
 /** One faction's source-check result: what differs, what couldn't be checked, and how much loaded. */
 interface SourceRun {
   findings: SourceFinding[];
@@ -534,7 +542,7 @@ export function AdminPanel({ onClose }: Props) {
       const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
       setSourceIds(ids);
       setSrcId(ids[srcFaction] ?? '');
-      setSrcSuppId(ids[supplementKey(srcFaction)] ?? '');
+      setSrcSuppId(ids[supplementKey(srcFaction)] ?? DEFAULT_SUPPLEMENT_ID);
       setDataOverrides((cfg.settings.data_overrides ?? {}) as api.DataOverrides);
       setSrcIgnores((cfg.settings.source_ignores ?? {}) as api.SourceIgnores);
     } catch (e) { setMsg(String(e)); }
@@ -594,7 +602,7 @@ export function AdminPanel({ onClose }: Props) {
     // supplement keeps its datasheets in its OWN spreadsheet (the Escalation Lords of War — Chaos
     // Fellblade, Knight Rampager, War Dog…— are in the army's list but live in the Escalation
     // workbook). Look the leftovers up there before calling them uncomparable.
-    const extraId = toSheetId(sourceIds[supplementKey(factionKey)] ?? '');
+    const extraId = toSheetId(sourceIds[supplementKey(factionKey)] ?? DEFAULT_SUPPLEMENT_ID);
     const missing = names.filter(n => !csv[n]);
     if (missing.length > 0 && SHEET_ID_RE.test(extraId)) {
       const extra = await api.adminSourceSheets(extraId, missing);
@@ -1375,7 +1383,7 @@ export function AdminPanel({ onClose }: Props) {
               <div className="flex flex-wrap items-center gap-2 mb-2">
                 <select
                   value={srcFaction}
-                  onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcSuppId(sourceIds[supplementKey(e.target.value)] ?? ''); setSrcFindings(null); }}
+                  onChange={e => { setSrcFaction(e.target.value); setSrcId(sourceIds[e.target.value] ?? ''); setSrcSuppId(sourceIds[supplementKey(e.target.value)] ?? DEFAULT_SUPPLEMENT_ID); setSrcFindings(null); }}
                   className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
                 >
                   {SOURCE_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}

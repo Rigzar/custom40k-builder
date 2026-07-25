@@ -20,7 +20,7 @@
  *
  * OPTIONS:
  *   • MUST upgrade to one of 5 specialisations (required: true):
- *     Noxious Blightbringer+5 / Tallyman+5 / Biologus Putrifier+10 /
+ *     Tallyman+5 / Noxious Blightbringer+8 / Biologus Putrifier+17 /
  *     Foul Blightspawn+29 / Plague Surgeon+43
  *   • Has armory access; up to 1 veteran ability
  *   • Advisor: up to 5 per HQ unit (each specialisation once per HQ)
@@ -126,7 +126,7 @@ export const exaltedPlagueChampion: Unit = {
       "choices": [
         {
           "name": "Noxious Blightbringer",
-          "points": 5,
+          "points": 8,
           "abilities": [
             "Bell of Demise: Enemy attempts at Hymns, Invocations, Prayers and Psychic powers within 21\" of the model get -1 penalty to succeed."
           ]
@@ -140,7 +140,7 @@ export const exaltedPlagueChampion: Unit = {
         },
         {
           "name": "Biologus Putrifier",
-          "points": 10,
+          "points": 17,
           "abilities": [
             "Blight Racks: The Biologus Putrifier and any attached unit uses the \"Enhanced blight grenades\" profile for their Blight grenades.",
             "Foul Infusion: All melee attacks of the Biologus Putrifier and his attached unit gain the \"Deadly(5+)\" ability.",
