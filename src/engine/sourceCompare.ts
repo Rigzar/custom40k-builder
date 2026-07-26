@@ -250,6 +250,16 @@ export interface SourceWeapon { range: string; type: string; s: string; ap: stri
  * A "Plasma gun *" parent row followed by "- Standard" / "- Overcharged" becomes
  * "Plasma gun - Standard" / "Plasma gun - Overcharged", matching how production names them.
  */
+/** Does the next non-empty row start with "-"? That, and only that, makes row `i` a profile header. */
+function nextRowIsSubProfile(rows: string[][], i: number): boolean {
+  for (let j = i + 1; j < rows.length; j++) {
+    const c = norm(rows[j][0]);
+    if (!c) return false;                 // blank row ends the block, so nothing follows
+    return c.startsWith('-') && c !== '-';   // a lone "-" is the "no weapons" placeholder
+  }
+  return false;
+}
+
 export function extractWeapons(csv: string): { weapons: Record<string, SourceWeapon>; duplicates: string[] } {
   const rows = csvRows(csv);
   const out: Record<string, SourceWeapon> = {};
@@ -280,12 +290,14 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
     };
     if (!isSub) {
       parent = name;
-      // A parent row heads its sub-profiles and is not itself a weapon. Test that on S/AP/D, which
-      // every real weapon fills: the parent's other cells often carry a note meant for all the
-      // profiles under it — "Only for Techmarines" in ABILITIES on the Contemptor's Conversion
-      // beamer, "If you use this weapon, pick one profile:" in RANGE on the Stormsurge's Pulse
-      // blastcannon — and those notes must not make the header look like a missing weapon.
-      if (!w.s && !w.ap && !w.d) continue;
+      // A row is a header only when sub-profile rows actually follow it — that is what makes it
+      // one. Judging by its own cells instead does not work in either direction: a header often
+      // carries a note meant for the profiles under it ("Only for Techmarines" in ABILITIES on the
+      // Contemptor's Conversion beamer, "If you use this weapon, pick one profile:" in RANGE on the
+      // Stormsurge's Pulse blastcannon), while a real weapon can leave S/AP/D empty because its
+      // ability defines them (the Voidreavers' Neuro disruptor, the Talos' ichor injector) — and
+      // dropping THOSE reports a weapon as missing from a sheet that does list it.
+      if (nextRowIsSubProfile(rows, i)) continue;
     }
     // Keep the FIRST row for a name and flag the repeat. The sheet sometimes repeats a name for a
     // different weapon (e.g. a Krak grenade row mislabelled "Frag grenade"); last-wins would hide
