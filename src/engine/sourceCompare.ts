@@ -272,6 +272,11 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
     const c0 = norm(r[0]);
     if (!c0) break;                                    // blank ends the weapon block
     if (c0.startsWith('*')) break;                     // footnote ("* Choose one of the following")
+    // A legend row explaining a marker ("ˣ = Experimental weapons are unique"). It normally sits
+    // after a blank row, which would end the block — but the CSV export drops empty rows, so the
+    // legend lands straight after the last weapon and would be read as one.
+    // (a leading "-" is a sub-profile and a leading "'" starts Ork weapons like "'Urty klaw")
+    if (/\s=\s/.test(c0) || /^[^A-Za-z0-9"'(-]/.test(c0)) break;
     if (/^(OPTIONS?|OPTIONEN|OPCIONES|ABILITIES|SPECIAL RULES|KEYWORDS)$/i.test(c0)) break;  // next section
     // The options list starts with bullets ("• Can replace the Rothail volley gun:"). Stop there
     // too: some tabs write the section header in another language (the Plagueburst Crawler's says
@@ -297,7 +302,10 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
       // Stormsurge's Pulse blastcannon), while a real weapon can leave S/AP/D empty because its
       // ability defines them (the Voidreavers' Neuro disruptor, the Talos' ichor injector) — and
       // dropping THOSE reports a weapon as missing from a sheet that does list it.
-      if (nextRowIsSubProfile(rows, i)) continue;
+      // The trailing "*" is the sheet's own header marker, paired with a "* Choose one of the
+      // following profiles" footnote. The Razorwing Jetfighter's "Razorwing missiles*" needs it:
+      // its profiles are listed as plain rows, not "- " sub-rows, so there is nothing else to go on.
+      if (c0.endsWith('*') || nextRowIsSubProfile(rows, i)) continue;
     }
     // Keep the FIRST row for a name and flag the repeat. The sheet sometimes repeats a name for a
     // different weapon (e.g. a Krak grenade row mislabelled "Frag grenade"); last-wins would hide

@@ -34,24 +34,6 @@ export const reductusSaboteur: Unit = {
   "equipped_with": "A Reductus Saboteur is equipped with: Autopistol; Remote explosives.",
   "weapons": [
     {
-      "name": "Remote explosives",
-      "range": "24\"",
-      "type": "Assault 1",
-      "s": "5",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "Explosive"
-    },
-    {
-      "name": "Autopistol",
-      "range": "12\"",
-      "type": "Pistol 1",
-      "s": "3",
-      "ap": "0",
-      "d": "1",
-      "abilities": "-"
-    },
-    {
       "name": "Remote explosives - Blasting charges",
       "range": "24\"",
       "type": "Assault 1",
@@ -68,6 +50,15 @@ export const reductusSaboteur: Unit = {
       "ap": "-2",
       "d": "2",
       "abilities": "Ammo(1), AT(2), Barrage, Seeking"
+    },
+    {
+      "name": "Autopistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
     }
   ],
   "option_groups": [
