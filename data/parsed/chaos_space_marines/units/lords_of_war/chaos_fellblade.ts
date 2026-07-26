@@ -66,7 +66,7 @@ export const chaosFellblade: Unit = {
   "name": "Chaos Fellblade",
   "models": [
     {
-      "name": "Chaos Fellblade",
+      "name": "Fellblade",
       "points": 1042,
       "min": 1,
       "max": 1,

@@ -16,7 +16,7 @@
  *   Bolt pistol                      12"  Pistol 1      S4   AP-1  D1   -
  *   Bolter                           24"  Rapid Fire 1  S4   AP-1  D1   -
  *   Frag grenade                      6"  Grenade 1     S4   AP 0  D1   Explosive
- *   Heavy bolter                     36"  Rapid fire 2  S5   AP-2  D1   -
+ *   Heavy bolter                     36"  Rapid Fire 2  S5   AP-2  D1   -
  *   Krak grenade                      6"  Grenade 1     S6   AP-2  D1   -
  *   Lascannon                        48''  Heavy 1      S9   AP-4  D3   AT(2)
  *   Missile launcher - Frag missile  48"  Heavy 1       S4   AP 0  D1   Explosive
@@ -148,7 +148,7 @@ export const havocs: Unit = {
     {
       "name": "Heavy bolter",
       "range": "36\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "5",
       "ap": "-2",
       "d": "1",

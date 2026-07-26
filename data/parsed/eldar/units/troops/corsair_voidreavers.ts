@@ -117,7 +117,7 @@ export const corsairVoidreavers: Unit = {
     {
       "name": "Shuriken rifle",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",

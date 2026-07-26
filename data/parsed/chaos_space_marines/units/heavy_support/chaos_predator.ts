@@ -11,10 +11,10 @@
  * EQUIPPED WITH: A Predator is equipped with: Predator autocannon.
  *
  * WEAPONS:
- *   Combi-bolter            24"  Rapid fire 2  S4   AP-1  D1  -
- *   Combi-flamer - Bolter   24"  Rapid fire 1  S4   AP-1  D1  -
+ *   Combi-bolter            24"  Rapid Fire 2  S4   AP-1  D1  -
+ *   Combi-flamer - Bolter   24"  Rapid Fire 1  S4   AP-1  D1  -
  *   Combi-flamer - Flamer    9"  Assault 4     S4   AP 0  D1  Flames
- *   Combi-melta - Bolter    24"  Rapid fire 1  S4   AP-1  D1  -
+ *   Combi-melta - Bolter    24"  Rapid Fire 1  S4   AP-1  D1  -
  *   Combi-melta - Melta     12"  Assault 1     S8   AP-5  D1  AT(1), Melta
  *   Havoc launcher          48"  Heavy 1       S5   AP-1  D1  Anti-Air, Explosive
  *   Heavy bolter            36"  Rapid Fire 2  S5   AP-2  D1  -
@@ -99,7 +99,7 @@ export const chaosPredator: Unit = {
     {
       "name": "Combi-bolter",
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -153,7 +153,7 @@ export const chaosPredator: Unit = {
     {
       "name": "Combi-flamer - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -171,7 +171,7 @@ export const chaosPredator: Unit = {
     {
       "name": "Combi-melta - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",

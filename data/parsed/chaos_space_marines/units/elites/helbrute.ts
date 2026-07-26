@@ -11,7 +11,7 @@
  * EQUIPPED WITH: A Helbrute is equipped with: Helbrute fist; Power scourge.
  *
  * WEAPONS:
- *   Combi-bolter              24”  Rapid fire 2  4   AP-1  D1  —
+ *   Combi-bolter              24”  Rapid Fire 2  4   AP-1  D1  —
  *   Heavy flamer               9”  Assault 4     5   AP-1  D1  Flames
  *   Helbrute fist              —   Melee        x2   AP-3  D2  AT(2)
  *   Helbrute hammer            —   Melee        x2   AP-3  D3  AT(3), Armorbane
@@ -91,7 +91,7 @@ export const helbrute: Unit = {
     {
       "name": "Combi-bolter",
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",

@@ -18,7 +18,7 @@
  *   Force stave              —    Melee        +3  AP-1  D1  Force weapon
  *   Heavy warpflamer          9”  Assault 4     5  AP-2  D1  Flames
  *   Hellfyre missile rack    36”  Heavy 2       8  AP-2  D2  AT(2), Anti-air
- *   Inferno combi-bolter     24”  Rapid fire 2  4  AP-2  D1  —
+ *   Inferno combi-bolter     24”  Rapid Fire 2  4  AP-2  D1  —
  *   Prosperine khopesh        —   Melee        +2  AP-2  D1  Soul burn(5+)
  *   Soulreaper cannon        24”  Heavy 4       6  AP-2  D1  Armor piercing(5+)
  *
@@ -125,7 +125,7 @@ export const scarabOccultTerminators: Unit = {
     {
       "name": "Inferno combi-bolter",
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-2",
       "d": "1",

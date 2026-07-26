@@ -13,7 +13,7 @@
  *   Aspiring Sorcerer: Inferno bolt pistol; Force staff.
  *
  * WEAPONS:
- *   Inferno bolter       24”  Rapid fire 1  4  AP-2  D1  —
+ *   Inferno bolter       24”  Rapid Fire 1  4  AP-2  D1  —
  *   Inferno bolt pistol  12”  Pistol 1      4  AP-2  D1  —
  *   Force staff           —   Melee        +3  AP-1  D1  AT(1), Force weapon
  *   Soulreaper cannon    24”  Heavy 4       6  AP-2  D1  Armor piercing(5+)
@@ -92,7 +92,7 @@ export const rubricMarines: Unit = {
     {
       "name": "Inferno bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-2",
       "d": "1",

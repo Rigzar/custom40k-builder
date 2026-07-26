@@ -16,20 +16,20 @@
  * WEAPONS:
  *   Astartes Chainsword          -    Melee         SU   AP-1  D1  -
  *   Bolt pistol                 12"  Pistol 1      S4   AP-1  D1  -
- *   Combi-bolter                24"  Rapid fire 2  S4   AP-1  D1  -
- *   Combi-flamer - Bolter       24"  Rapid fire 1  S4   AP-1  D1  -
+ *   Combi-bolter                24"  Rapid Fire 2  S4   AP-1  D1  -
+ *   Combi-flamer - Bolter       24"  Rapid Fire 1  S4   AP-1  D1  -
  *   Combi-flamer - Flamer        9"  Assault 4     S4   AP 0  D1  Flames
- *   Combi-melta - Bolter        24"  Rapid fire 1  S4   AP-1  D1  -
+ *   Combi-melta - Bolter        24"  Rapid Fire 1  S4   AP-1  D1  -
  *   Combi-melta - Melta         12"  Assault 1     S8   AP-5  D1  AT(1), Melta
- *   Combi-plasma - Bolter       24"  Rapid fire 1  S4   AP-1  D1  -
- *   Combi-plasma - Standard     24"  Rapid fire 1  S7   AP-3  D1  AT(1)
- *   Combi-plasma - Overcharged  24"  Rapid fire 1  S8   AP-4  D2  AT(2), Overheat
+ *   Combi-plasma - Bolter       24"  Rapid Fire 1  S4   AP-1  D1  -
+ *   Combi-plasma - Standard     24"  Rapid Fire 1  S7   AP-3  D1  AT(1)
+ *   Combi-plasma - Overcharged  24"  Rapid Fire 1  S8   AP-4  D2  AT(2), Overheat
  *   Flamer                       9"  Assault 4     S4   AP 0  D1  Flames
  *   Frag grenade                 6"  Grenade 1     S4   AP 0  D1  Explosive
  *   Krak grenade                 6"  Grenade 1     S6   AP-2  D1  -
  *   Melta                       12"  Assault 1     S8   AP-5  D1  AT(1), Melta
- *   Plasma gun - Standard       24"  Rapid fire 1  S7   AP-3  D1  AT(1)
- *   Plasma gun - Overcharged    24"  Rapid fire 1  S8   AP-4  D2  AT(2), Overheat
+ *   Plasma gun - Standard       24"  Rapid Fire 1  S7   AP-3  D1  AT(1)
+ *   Plasma gun - Overcharged    24"  Rapid Fire 1  S8   AP-4  D2  AT(2), Overheat
  *
  *   NOTE: HTML source uses locale artefacts "Pistol 1"/"Granate 1" (German for
  *   "Pistol 1"/"Grenade 1") and labels combi-plasma sub-profiles "Plasma (Standard/
@@ -149,7 +149,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Combi-bolter",
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -194,7 +194,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Combi-flamer - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -212,7 +212,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Combi-melta - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -230,7 +230,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Combi-plasma - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -239,7 +239,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Combi-plasma - Standard",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "7",
       "ap": "-3",
       "d": "1",
@@ -248,7 +248,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Combi-plasma - Overcharged",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "8",
       "ap": "-4",
       "d": "2",
@@ -257,7 +257,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Plasma gun - Standard",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "7",
       "ap": "-3",
       "d": "1",
@@ -266,7 +266,7 @@ export const chaosBikers: Unit = {
     {
       "name": "Plasma gun - Overcharged",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "8",
       "ap": "-4",
       "d": "2",

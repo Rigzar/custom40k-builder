@@ -16,7 +16,7 @@
  *   Crude melee weapon  —    Melee         U  AP0  D1  —
  *   Flamer              9"   Assault 4     4  AP0  D1  Flames         [option, per 10 models]
  *   Frag grenade        6"   Grenade 1     4  AP0  D1  Explosive
- *   Grenade launcher   24"   Rapid fire 1  4  AP0  D1  Explosive      [option, per 10 models]
+ *   Grenade launcher   24"   Rapid Fire 1  4  AP0  D1  Explosive      [option, per 10 models]
  *   Heavy machine gun  36"   Heavy 3       4  AP0  D1  Suppression    [option, per 10 models]
  *   Machine gun        24"   Rapid Fire 1  3  AP0  D1  —              [option swap]
  *   Machine pistol     12"   Pistol 1      3  AP0  D1  —

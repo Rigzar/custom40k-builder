@@ -81,7 +81,7 @@ export const fieldOrdnanceBattery: Unit = {
     {
       "name": "Lasgun",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "3",
       "ap": "0",
       "d": "1",

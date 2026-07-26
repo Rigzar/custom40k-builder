@@ -20,8 +20,8 @@
  *   Frag grenade                 6"  Grenade 1     S4   AP 0  D1  Explosive
  *   Krak grenade                 6"  Grenade 1     S6   AP-2  D1  -
  *   Meltagun                    12"  Assault 1     S8   AP-5  D1  AT(1), Melta
- *   Plasma gun - Standard       24"  Rapid fire 1  S7   AP-3  D1  AT(1)
- *   Plasma gun - Overcharged    24"  Rapid fire 1  S8   AP-4  D2  AT(2), Overheat
+ *   Plasma gun - Standard       24"  Rapid Fire 1  S7   AP-3  D1  AT(1)
+ *   Plasma gun - Overcharged    24"  Rapid Fire 1  S8   AP-4  D2  AT(2), Overheat
  *   Plasma pistol - Standard    12"  Pistol 1      S7   AP-3  D1  AT(1)
  *   Plasma pistol - Overcharged 12"  Pistol 1      S8   AP-4  D2  AT(2), Overheat
  *
@@ -177,7 +177,7 @@ export const raptors: Unit = {
     {
       "name": "Plasma gun - Standard",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "7",
       "ap": "-3",
       "d": "1",
@@ -186,7 +186,7 @@ export const raptors: Unit = {
     {
       "name": "Plasma gun - Overcharged",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "8",
       "ap": "-4",
       "d": "2",

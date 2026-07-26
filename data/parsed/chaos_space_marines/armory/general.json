@@ -41,7 +41,7 @@
       "name": "Combi-bolter",
       "term_compat": true,
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -67,7 +67,7 @@
         {
           "name": "Bolter",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "4",
           "ap": "-1",
           "d": "1",
@@ -102,7 +102,7 @@
         {
           "name": "Bolter",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "4",
           "ap": "-1",
           "d": "1",
@@ -137,7 +137,7 @@
         {
           "name": "Bolter",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "4",
           "ap": "-1",
           "d": "1",
@@ -146,7 +146,7 @@
         {
           "name": "Plasma (Standard)",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "7",
           "ap": "-3",
           "d": "1",
@@ -155,7 +155,7 @@
         {
           "name": "Plasma (Overcharged)",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "8",
           "ap": "-4",
           "d": "2",

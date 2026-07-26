@@ -138,7 +138,7 @@ export const traitorGuard: Unit = {
     {
       "name": "Lasgun",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "3",
       "ap": "0",
       "d": "1",
@@ -165,7 +165,7 @@ export const traitorGuard: Unit = {
     {
       "name": "Plasma gun - Standard",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "7",
       "ap": "-3",
       "d": "1",
@@ -174,7 +174,7 @@ export const traitorGuard: Unit = {
     {
       "name": "Plasma gun - Overcharged",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "8",
       "ap": "-4",
       "d": "2",

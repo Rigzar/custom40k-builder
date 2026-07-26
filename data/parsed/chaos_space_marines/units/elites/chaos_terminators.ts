@@ -118,7 +118,7 @@ export const chaosTerminators: Unit = {
     {
       "name": "Combi-bolter",
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -127,7 +127,7 @@ export const chaosTerminators: Unit = {
     {
       "name": "Combi-flamer - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -145,7 +145,7 @@ export const chaosTerminators: Unit = {
     {
       "name": "Combi-melta - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -163,7 +163,7 @@ export const chaosTerminators: Unit = {
     {
       "name": "Combi-plasma - Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -172,7 +172,7 @@ export const chaosTerminators: Unit = {
     {
       "name": "Combi-plasma - Standard",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "7",
       "ap": "-3",
       "d": "1",
@@ -181,7 +181,7 @@ export const chaosTerminators: Unit = {
     {
       "name": "Combi-plasma - Overcharged",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "8",
       "ap": "-4",
       "d": "2",

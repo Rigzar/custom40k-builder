@@ -13,7 +13,7 @@
  * EQUIPPED WITH: A Chaos Spartan is equipped with: 2 Laser destroyers; Twin heavy flamer.
  *
  * WEAPONS:
- *   Combi-bolter        24"  Rapid fire 2  S4   AP-1  D1  -
+ *   Combi-bolter        24"  Rapid Fire 2  S4   AP-1  D1  -
  *   Heavy bolter        36"  Heavy 3       S5   AP-2  D1  -
  *   Heavy flamer         9"  Assault 4     S5   AP-1  D1  Flames
  *   Laser destroyer     72"  Heavy 1       S10  AP-6  D4  AT(4), Lance(1), Tank hunter
@@ -93,7 +93,7 @@ export const chaosSpartan: Unit = {
     {
       "name": "Combi-bolter",
       "range": "24\"",
-      "type": "Rapid fire 2",
+      "type": "Rapid Fire 2",
       "s": "4",
       "ap": "-1",
       "d": "1",

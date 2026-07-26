@@ -17,7 +17,7 @@
  *   Astartes Chainsword          —    Melee         U  AP-1  D1  —
  *   Autocannon                  48”   Heavy 2       7  AP-2  D1  AT(1)
  *   Bolt pistol                 12”   Pistol 1      4  AP-1  D1  —
- *   Bolter                      24”   Rapid fire 1  4  AP-1  D1  —
+ *   Bolter                      24”   Rapid Fire 1  4  AP-1  D1  —
  *   Flamer                       9”   Assault 4     4  AP0   D1  Flames
  *   Frag grenade                 6”   Grenade 1     4  AP0   D1  Explosive
  *   Heavy bolter                36”   Rapid Fire 2  5  AP-2  D1  —
@@ -27,8 +27,8 @@
  *   Missile launcher - Frag     48”   Heavy 1       4  AP0   D1  Explosive
  *   Missile launcher - Krak     48”   Heavy 1       8  AP-3  D2  AT(2), Anti-Air
  *   Meltagun                    12”   Assault 1     8  AP-5  D1  AT(1), Melta
- *   Plasma gun - Standard       24”   Rapid fire 1  7  AP-3  D1  AT(1)
- *   Plasma gun - Overcharged    24”   Rapid fire 1  8  AP-4  D2  AT(2), Overheat
+ *   Plasma gun - Standard       24”   Rapid Fire 1  7  AP-3  D1  AT(1)
+ *   Plasma gun - Overcharged    24”   Rapid Fire 1  8  AP-4  D2  AT(2), Overheat
  *   Reaper chaincannon          24”   Assault 4     5  AP-1  D-1 Suppression
  *
  * OPTIONS:
@@ -149,7 +149,7 @@ export const chaosSpaceMarines: Unit = {
     {
       "name": "Bolter",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "4",
       "ap": "-1",
       "d": "1",
@@ -230,7 +230,7 @@ export const chaosSpaceMarines: Unit = {
     {
       "name": "Plasma gun - Standard",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "7",
       "ap": "-3",
       "d": "1",
@@ -239,7 +239,7 @@ export const chaosSpaceMarines: Unit = {
     {
       "name": "Plasma gun - Overcharged",
       "range": "24\"",
-      "type": "Rapid fire 1",
+      "type": "Rapid Fire 1",
       "s": "8",
       "ap": "-4",
       "d": "2",

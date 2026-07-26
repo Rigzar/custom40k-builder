@@ -46,7 +46,7 @@
         {
           "name": "Bolter",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "4",
           "ap": "-1",
           "d": "1",
@@ -171,7 +171,7 @@
         {
           "name": "Standard",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "7",
           "ap": "-3",
           "d": "1",
@@ -180,7 +180,7 @@
         {
           "name": "Overcharged",
           "range": "24\"",
-          "type": "Rapid fire 1",
+          "type": "Rapid Fire 1",
           "s": "8",
           "ap": "-4",
           "d": "2",

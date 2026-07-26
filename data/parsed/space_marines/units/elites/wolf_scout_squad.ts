@@ -139,7 +139,7 @@ export const wolfScoutSquad: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Anti-air"
+      "abilities": "AT(2), Anti-air"
     }
   ],
   "option_groups": [
