@@ -260,12 +260,15 @@ function nextRowIsSubProfile(rows: string[][], i: number): boolean {
   return false;
 }
 
-export function extractWeapons(csv: string): { weapons: Record<string, SourceWeapon>; duplicates: string[] } {
+export function extractWeapons(csv: string): { weapons: Record<string, SourceWeapon>; duplicates: string[]; hasBlock: boolean } {
   const rows = csvRows(csv);
   const out: Record<string, SourceWeapon> = {};
   const duplicates: string[] = [];
   const headerIdx = rows.findIndex(r => norm(r[0]).toUpperCase() === 'WEAPON');
-  if (headerIdx === -1) return { weapons: out, duplicates };
+  // An empty result means two different things — the tab has no WEAPON block, or it has one that
+  // correctly says the unit carries no weapons (a row of dashes: the Necron Lord, the Cryptek, the
+  // Tzaangor Shaman and a dozen more). Only the first is a problem, so say which happened.
+  if (headerIdx === -1) return { weapons: out, duplicates, hasBlock: false };
   let parent = '';
   for (let i = headerIdx + 1; i < rows.length; i++) {
     const r = rows[i];
@@ -313,7 +316,7 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
     if (out[name]) { if (!duplicates.includes(name)) duplicates.push(name); continue; }
     out[name] = w;
   }
-  return { weapons: out, duplicates };
+  return { weapons: out, duplicates, hasBlock: true };
 }
 
 /**
@@ -372,7 +375,7 @@ export function coverageGaps(faction: FactionData, csvByUnit: Record<string, str
       continue;
     }
     const srcModels = extractModels(csv);
-    const { weapons: srcWeapons } = extractWeapons(csv);
+    const { weapons: srcWeapons, hasBlock: hasWeaponBlock } = extractWeapons(csv);
     if (Object.keys(srcModels).length === 0) {
       gaps.push({
         unit: unit.name, kind: 'block', fix: 'sheet',
@@ -380,7 +383,9 @@ export function coverageGaps(faction: FactionData, csvByUnit: Record<string, str
         action: `On tab "${unit.name}", the header row with NAME … POINTS is missing or renamed. Restore it so the model rows can be read.`,
       });
     }
-    if (Object.keys(srcWeapons).length === 0) {
+    // Only when the block is absent. A block that reads "-" is the sheet saying this unit carries
+    // no weapons, which is an answer, not a gap.
+    if (!hasWeaponBlock) {
       gaps.push({
         unit: unit.name, kind: 'block', fix: 'sheet',
         what: 'no weapon block found — no weapon profile was compared',
