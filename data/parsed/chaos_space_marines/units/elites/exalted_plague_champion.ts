@@ -68,7 +68,7 @@ export const exaltedPlagueChampion: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Foetid Virion is equipped with: Blight grenades; Krak grenades; Plague knife. A Foul Blightspawn is additionally equipped with: Plague sprayer.",
+  "equipped_with": "A Foetid Virion is equipped with: Blight grenades; Krak grenades; Plague knife. A Biologus Putrifier is additionally equipped with: Injector pistol. A Foul Blightspawn is additionally equipped with: Plague sprayer. A Noxious Blightbringer is additionally equipped with: Cursed plague bell.",
   "weapons": [
     {
       "name": "Blight grenades",
@@ -96,6 +96,24 @@ export const exaltedPlagueChampion: Unit = {
       "ap": "-2",
       "d": "1",
       "abilities": "-"
+    },
+    {
+      "name": "Cursed plague bell",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "0",
+      "d": "2",
+      "abilities": "Poison(4+), Psi-shock"
+    },
+    {
+      "name": "Injector pistol",
+      "range": "3\"",
+      "type": "Pistol 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "2",
+      "abilities": "Deadly(5+), Poison(4+), Sniper"
     },
     {
       "name": "Plague knife",

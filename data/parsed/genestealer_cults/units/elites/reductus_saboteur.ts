@@ -34,6 +34,15 @@ export const reductusSaboteur: Unit = {
   "equipped_with": "A Reductus Saboteur is equipped with: Autopistol; Remote explosives.",
   "weapons": [
     {
+      "name": "Remote explosives",
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
       "name": "Autopistol",
       "range": "12\"",
       "type": "Pistol 1",

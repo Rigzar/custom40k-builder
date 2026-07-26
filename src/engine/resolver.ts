@@ -302,8 +302,12 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         const bn = baseName(wname);
         if (!unit.weapons.some(w => baseName(w.name) === bn)) continue;
         conditionalGrantWeapons.add(bn);
-        if (!optionalWeapons.has(bn)) optionalWeapons.set(bn, new Set());
-        optionalWeapons.get(bn)!.add(who);
+        // optionalWeapons is read back with wkey(), so it must be WRITTEN with wkey() too —
+        // keying by baseName here meant the lookup never matched and every "additionally equipped
+        // with" weapon was treated as a fixed default, shown on the datasheet from the start.
+        const ck = wkey(bn);
+        if (!optionalWeapons.has(ck)) optionalWeapons.set(ck, new Set());
+        optionalWeapons.get(ck)!.add(who);
       }
     }
   }

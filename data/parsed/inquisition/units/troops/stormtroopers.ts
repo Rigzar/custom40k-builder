@@ -79,6 +79,42 @@ export const stormtroopers: Unit = {
       "abilities": "Explosive"
     },
     {
+      "name": "Grenade launcher (Frag)",
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Grenade launcher (Krak)",
+      "range": "24\"",
+      "type": "Assault 1",
+      "s": "6",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Plasma gun (Standard)",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "7",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "AT(1)"
+    },
+    {
+      "name": "Plasma gun (Supercharge)",
+      "range": "24\"",
+      "type": "Rapid Fire 1",
+      "s": "8",
+      "ap": "-4",
+      "d": "2",
+      "abilities": "AT(2), Overheating"
+    },
+    {
       "name": "Hot-shot lasgun",
       "range": "24\"",
       "type": "Rapid Fire 1",

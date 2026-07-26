@@ -274,8 +274,12 @@ export function extractWeapons(csv: string): { weapons: Record<string, SourceWea
     };
     if (!isSub) {
       parent = name;
-      // a bare parent row (only a name, no profile) just heads its sub-profiles — not a weapon
-      if (!w.range && !w.type && !w.s && !w.ap && !w.d && !w.abilities) continue;
+      // A parent row heads its sub-profiles and is not itself a weapon. Test that on S/AP/D, which
+      // every real weapon fills: the parent's other cells often carry a note meant for all the
+      // profiles under it — "Only for Techmarines" in ABILITIES on the Contemptor's Conversion
+      // beamer, "If you use this weapon, pick one profile:" in RANGE on the Stormsurge's Pulse
+      // blastcannon — and those notes must not make the header look like a missing weapon.
+      if (!w.s && !w.ap && !w.d) continue;
     }
     // Keep the FIRST row for a name and flag the repeat. The sheet sometimes repeats a name for a
     // different weapon (e.g. a Krak grenade row mislabelled "Frag grenade"); last-wins would hide

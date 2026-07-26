@@ -34,6 +34,24 @@ export const hammerfallBunker: Unit = {
   "equipped_with": "A Hammerfall Bunker is a single model and equipped with: Hammerstrike missile launcher; 2 Heavy bolter arrays.",
   "weapons": [
     {
+      "name": "Hammerstrike missile launcher (Frag)",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive, Anti-air"
+    },
+    {
+      "name": "Hammerstrike missile launcher (Krak)",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "9",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Anti-air"
+    },
+    {
       "name": "Heavy bolter array",
       "range": "36\"",
       "type": "Rapid Fire 4",

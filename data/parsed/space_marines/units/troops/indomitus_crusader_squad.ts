@@ -129,6 +129,33 @@ export const indomitusCrusaderSquad: Unit = {
       "abilities": "-"
     },
     {
+      "name": "Bolt rifle (Bolt ammo)",
+      "range": "30\"",
+      "type": "Rapid Fire 1",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Bolt rifle (Stalker ammo)",
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Bolt rifle (Assault ammo)",
+      "range": "24\"",
+      "type": "Assault 2",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
       "name": "Bolt pistol",
       "range": "12\"",
       "type": "Pistol 1",

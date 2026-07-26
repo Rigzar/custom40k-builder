@@ -70,6 +70,24 @@ export const taurox: Unit = {
       "abilities": "-"
     },
     {
+      "name": "Taurox missile launcher (Frag)",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive"
+    },
+    {
+      "name": "Taurox missile launcher (Krak)",
+      "range": "48\"",
+      "type": "Heavy 2",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)"
+    },
+    {
       "name": "Taurox battle cannon",
       "range": "48\"",
       "type": "Heavy 1",
