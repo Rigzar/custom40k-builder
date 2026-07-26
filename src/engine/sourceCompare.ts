@@ -110,7 +110,11 @@ const loose = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
  */
 function equipText(csv: string): string {
   return csvRows(csv)
-    .filter(r => /equipped with/i.test(r[0] ?? ''))
+    // "<X> is equipped with:" only. "Can be equipped with one of the following: +11 points Storm
+    // bolter" is an OPTION, and counting it here made the report say a weapon was handed out for
+    // free when it is something you pay for.
+    .filter(r => /\b(is|are)\s+(additionally\s+)?equipped with\b/i.test(r[0] ?? ''))
+    .filter(r => !/^\s*[•\-]/.test(r[0] ?? ''))
     .map(r => r[0])
     .join(' | ')
     .toLowerCase();
@@ -213,6 +217,28 @@ export function csvRows(text: string): string[][] {
 const norm = (s: string | number | null | undefined) => String(s ?? '').trim().replace(/\s+/g, ' ');
 
 export interface SourceModel { points: number | null; stats: Record<string, string> }
+
+/**
+ * Model names the tab uses twice. Only the last row survives the parse, so the other model's points
+ * and stats vanish silently — the Crimson Hunter's tab calls both its rows "Crimson Hunter Exarch"
+ * (388 pts at BS 3+ and 443 at BS 2+), and the 388 one is really the base model.
+ */
+export function duplicateModelNames(csv: string): string[] {
+  const rows = csvRows(csv);
+  const headerIdx = rows.findIndex(r => r.some(c => c.trim().toUpperCase() === 'POINTS'));
+  if (headerIdx === -1) return [];
+  const header = rows[headerIdx].map(c => c.trim().toUpperCase());
+  const nameCol = header.indexOf('NAME') === -1 ? 1 : header.indexOf('NAME');
+  const seen = new Set<string>();
+  const dups: string[] = [];
+  for (let i = headerIdx + 1; i < rows.length; i++) {
+    const name = norm(rows[i][nameCol]);
+    if (!name) break;
+    if (seen.has(name)) { if (!dups.includes(name)) dups.push(name); }
+    else seen.add(name);
+  }
+  return dups;
+}
 
 /** Parse the model block of a unit tab: NAME + stat columns + POINTS, driven by the header row. */
 export function extractModels(csv: string): Record<string, SourceModel> {
@@ -505,6 +531,14 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
           });
         }
       }
+    }
+
+    for (const dup of duplicateModelNames(csv)) {
+      findings.push({
+        unit: unit.name, kind: 'sheet', target: dup, field: 'duplicate model row',
+        source: 'listed more than once', prod: '—', fix: 'sheet',
+        action: `Tab "${unit.name}" names more than one model row "${dup}". Only the last one is read, so the other model's points and stats are never compared — rename it to what that model actually is.`,
+      });
     }
 
     // ── weapons: range / type / S / AP / D / abilities ──
