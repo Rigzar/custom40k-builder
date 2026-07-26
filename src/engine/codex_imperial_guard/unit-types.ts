@@ -41,7 +41,7 @@ export const IG_UNIT_TYPES: IgUnitTypeEntry[] = [
   { name: 'Platoon Command Squad', unit_type: 'Infantry' },
   // Elites
   { name: 'Astropath', unit_type: 'Character Model, Infantry' },
-  { name: 'Atlas Recovery Vehicle', unit_type: 'Vehicle, Character Model, Infantry' },
+  { name: 'Atlas', unit_type: 'Vehicle, Character Model, Infantry' },
   { name: 'Bullgryns', unit_type: 'Infantry' },
   { name: 'Commissar', unit_type: 'Character Model, Infantry' },
   { name: 'Company Command Squad', unit_type: 'Infantry' },
@@ -63,7 +63,7 @@ export const IG_UNIT_TYPES: IgUnitTypeEntry[] = [
   { name: 'Stormtroopers', unit_type: 'Infantry' },
   { name: 'Veterans', unit_type: 'Infantry' },
   // Fast Attack
-  { name: 'Armoured Sentinels', unit_type: 'Vehicle, Walker' },
+  { name: 'Armoured Sentinel', unit_type: 'Vehicle, Walker' },
   { name: 'Combat Engineers', unit_type: 'Infantry' },
   { name: 'Hellhounds', unit_type: 'Vehicle' },
   { name: 'Rough Riders', unit_type: 'Bike' },

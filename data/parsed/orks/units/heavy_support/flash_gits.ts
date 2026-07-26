@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const flashGits: Unit = {
-  "name": "Flash Gits",
+  "name": "Flash Gitz",
   "models": [
     {
       "name": "Flash Git",

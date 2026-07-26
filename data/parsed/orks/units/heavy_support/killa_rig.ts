@@ -13,7 +13,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const killaRig: Unit = {
-  "name": "Killa Rig",
+  "name": "Kill Rig",
   "models": [
     {
       "name": "Kill Rig",

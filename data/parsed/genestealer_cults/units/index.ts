@@ -20,7 +20,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Primus": hq.primus,
   "Acolyte Hybrids": troops.acolyteHybrids,
   "Neophyte Hybrids": troops.neophyteHybrids,
-  "Abberants": elites.abberants,
+  "Aberrants": elites.abberants,
   "Abominant": elites.abominant,
   "Biophagus": elites.biophagus,
   "Clamavus": elites.clamavus,
@@ -49,7 +49,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Neophyte Hybrids"
   ],
   "Elites": [
-    "Abberants",
+    "Aberrants",
     "Abominant",
     "Biophagus",
     "Clamavus",

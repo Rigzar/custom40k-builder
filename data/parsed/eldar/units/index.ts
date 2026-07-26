@@ -22,12 +22,12 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Spiritseer": hq.spiritseer,
   "Wraithseer": hq.wraithseer,
   "Yncarne": hq.yncarne,
-  "Corsair Voidreavers": troops.corsairVoidreavers,
+  "Voidreavers": troops.corsairVoidreavers,
   "Guardian Defenders": troops.guardianDefenders,
   "Rangers": troops.rangers,
   "Storm Guardians": troops.stormGuardians,
   "Wasps": troops.wasps,
-  "Corsair Voidscarred": elites.corsairVoidscarred,
+  "Voidscarred": elites.corsairVoidscarred,
   "Dire Avengers": elites.direAvengers,
   "Fire Dragons": elites.fireDragons,
   "Howling Banshees": elites.howlingBanshees,
@@ -71,14 +71,14 @@ export const slot_to_units: Record<string, string[]> = {
     "Yncarne"
   ],
   "Troops": [
-    "Corsair Voidreavers",
+    "Voidreavers",
     "Guardian Defenders",
     "Rangers",
     "Storm Guardians",
     "Wasps"
   ],
   "Elites": [
-    "Corsair Voidscarred",
+    "Voidscarred",
     "Dire Avengers",
     "Fire Dragons",
     "Howling Banshees",

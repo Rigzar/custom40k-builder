@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const fireRaptor: Unit = {
-  "name": "Fire Raptor",
+  "name": "Fire Raptor Gunship",
   "models": [
     {
       "name": "Fire Raptor",

@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const atlasRecoveryVehicle: Unit = {
-  "name": "Atlas Recovery Vehicle",
+  "name": "Atlas",
   "models": [
     {
       "name": "Atlas",

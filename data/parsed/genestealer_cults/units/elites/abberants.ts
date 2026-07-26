@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const abberants: Unit = {
-  "name": "Abberants",
+  "name": "Aberrants",
   "models": [
     {
       "name": "Aberrant",

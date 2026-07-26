@@ -117,14 +117,14 @@ function _getAllowedDiscKeys(
 
 /**
  * Advisor units' literal datasheet text is "For every HQ selection, one <X> may be selected
- * without taking up a [slot]" (e.g. Orks Mekboy/Painboy, SM Techmarine, CSM Master of Execution)
+ * without taking up a [slot]" (e.g. Orks Mekboyz/Painboyz, SM Techmarine, CSM Master of Execution)
  * — a 1-per-HQ ratio keyed to that specific unit NAME (or `unit.advisorRatio` copies per HQ for
  * the rare exception, e.g. CSM Foetid Virion's "up to 5 per HQ unit"). Core Rules
  * doesn't define a generic "Advisor" special rule; `advisor: true` just flags this per-unit
  * pattern, so the ratio has to be enforced here rather than read off a shared rule. Returns the
  * RosterEntry ids exempt from slot occupancy: the first N copies of each advisor unit name in a
  * given allied/primary scope, capped at (HQ selections in that SAME scope) × ratio — extra copies
- * beyond the ratio occupy their slot like any other unit (GitHub #10: Mekboy/Painboy never took
+ * beyond the ratio occupy their slot like any other unit (GitHub #10: Mekboyz/Painboyz never took
  * up a slot regardless of HQ count, because the old check exempted advisor units unconditionally).
  */
 export function advisorExemptIds(

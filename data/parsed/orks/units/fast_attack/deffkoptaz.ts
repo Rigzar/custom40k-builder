@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const deffkoptaz: Unit = {
-  "name": "Deffkoptaz",
+  "name": "Deffkoptas",
   "models": [
     {
       "name": "Killakopta",

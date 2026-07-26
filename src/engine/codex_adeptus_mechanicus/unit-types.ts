@@ -23,7 +23,7 @@ export const ADMECH_UNIT_TYPES: AdMechUnitTypeEntry[] = [
   // Troops
   { name: 'Skitarii Rangers', unit_type: 'Infantry' },
   { name: 'Skitarii Vanguard', unit_type: 'Infantry' },
-  { name: 'Tech Thralls', unit_type: 'Infantry' },
+  { name: 'Tech-thralls', unit_type: 'Infantry' },
   // Elites
   { name: 'Corpuscarii Electro-Priests', unit_type: 'Infantry' },
   { name: 'Fulgurite Electro-Priests', unit_type: 'Infantry' },

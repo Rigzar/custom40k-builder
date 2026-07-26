@@ -23,13 +23,13 @@ export const ELDAR_UNIT_TYPES: EldarUnitTypeEntry[] = [
   { name: 'Wraithseer', unit_type: 'Monstrous Creature' },
   { name: 'Yncarne', unit_type: 'Monstrous Creature' },
   // Troops
-  { name: 'Corsair Voidreavers', unit_type: 'Infantry' },
+  { name: 'Voidreavers', unit_type: 'Infantry' },
   { name: 'Guardian Defenders', unit_type: 'Infantry' },
   { name: 'Rangers', unit_type: 'Infantry' },
   { name: 'Storm Guardians', unit_type: 'Infantry' },
   { name: 'Wasps', unit_type: 'Walker' },
   // Elites
-  { name: 'Corsair Voidscarred', unit_type: 'Infantry' },
+  { name: 'Voidscarred', unit_type: 'Infantry' },
   { name: 'Dire Avengers', unit_type: 'Infantry' },
   { name: 'Fire Dragons', unit_type: 'Infantry' },
   { name: 'Howling Banshees', unit_type: 'Infantry' },

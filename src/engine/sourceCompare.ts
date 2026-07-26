@@ -48,6 +48,11 @@ function sheetIssue(field: string, sheetVal: string): string | null {
   if (field === 'type' && !VALID_WEAPON_TYPE.test(sheetVal)) return `"${sheetVal}" is not a valid weapon type`;
   if (field === 'd' && /^-\d/.test(sheetVal)) return `damage "${sheetVal}" is negative`;
   if (field === 's' && /^-\d/.test(sheetVal)) return `strength "${sheetVal}" is negative`;
+  // Armour penetration is 0 or negative — a bare positive number is a dropped minus sign.
+  if (field === 'ap' && /^\+?[1-9]\d*$/.test(sheetVal)) return `armour penetration "${sheetVal}" is positive — the minus sign is missing`;
+  // There is no "AP(x)" weapon ability; the armour-piercing one is AT(x). Writing AP(x) in the
+  // ABILITIES column is a recurring slip (the Quad lascannon on four different tanks).
+  if (field === 'abilities' && /\bAP\(\s*\d+\s*\)/i.test(sheetVal)) return `"AP(x)" is not a weapon ability — the armour-piercing one is "AT(x)"`;
   return null;
 }
 
@@ -158,11 +163,19 @@ function profilesMatch(a: string, b: string): boolean {
 export function findSourceWeapon<T>(appName: string, sheet: Record<string, T>): T | undefined {
   if (sheet[appName]) return sheet[appName];
   const a = splitProfile(appName);
+  const exact: T[] = [];
+  const loose: T[] = [];
   for (const [sName, sw] of Object.entries(sheet)) {
     const s = splitProfile(sName);
-    if (s.base === a.base && profilesMatch(a.profile, s.profile)) return sw;
+    if (s.base !== a.base) continue;
+    if (s.profile === a.profile) exact.push(sw);
+    else if (profilesMatch(a.profile, s.profile)) loose.push(sw);
   }
-  return undefined;
+  if (exact.length === 1) return exact[0];
+  // Only accept a shortened profile when it can mean ONE row. The Hellblaster's plasma incinerator
+  // has "Standard", "Assault standard" and "Heavy standard": pairing "Standard" with whichever of
+  // those came first would compare two different profiles and invent differences in every field.
+  return loose.length === 1 ? loose[0] : undefined;
 }
 
 /** Stat column headers we know how to compare (infantry + vehicle). */

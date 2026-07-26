@@ -119,7 +119,7 @@ Strike Swiftly / Swarm Controllers (more drones) / Turbo Jets. Canonical in `arc
 5. **Roster cross-check**: production 42 units / 8 populated slots (HQ 5/Troops 4/Elites 7/Fast
    Attack 14/Heavy Support 5/Dedicated Transport 1/Fortifications 3/Flyers 3). Uses every slot
    (Fortifications = 3 Tidewall pieces). No phantoms; matches the Index roster. (Index "Great
-   Knarloc" = production "Great Knarloc" in Fast Attack — Kroot beast.)
+   Knarloc" = production "Kroot Great Knarloc" in Fast Attack — Kroot beast.)
 
 ### 7. "Lo demás" pass (2026-06-13)
 

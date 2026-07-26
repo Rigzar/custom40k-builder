@@ -23,7 +23,7 @@ export const GSC_UNIT_TYPES: GscUnitTypeEntry[] = [
   { name: 'Acolyte Hybrids', unit_type: 'Infantry' },
   { name: 'Neophyte Hybrids', unit_type: 'Infantry' },
   // Elites
-  { name: 'Abberants', unit_type: 'Monstrous Infantry' },
+  { name: 'Aberrants', unit_type: 'Monstrous Infantry' },
   { name: 'Abominant', unit_type: 'Character Model, Monstrous Infantry' },
   { name: 'Biophagus', unit_type: 'Character Model, Infantry' },
   { name: 'Clamavus', unit_type: 'Character Model, Infantry' },

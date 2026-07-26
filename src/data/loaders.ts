@@ -344,6 +344,30 @@ const UNIT_RENAMES: Record<string, Record<string, string>> = {
     'Exalted Plague Champion': 'Foetid Virion',
     'Chaos Bikers': 'Chaos Biker',
   },
+  orks: {
+    'Cybork Slashaz': 'Cybork Slashas',
+    'Deffkoptaz': 'Deffkoptas',
+    'Flash Gits': 'Flash Gitz',
+    'Killa Rig': 'Kill Rig',
+    'Mekboy': 'Mekboyz',
+    'Painboy': 'Painboyz',
+  },
+  genestealer_cults: { 'Abberants': 'Aberrants' },
+  eldar: {
+    'Corsair Voidreavers': 'Voidreavers',
+    'Corsair Voidscarred': 'Voidscarred',
+  },
+  imperial_guard: {
+    'Armoured  Sentinels': 'Armoured Sentinel',
+    'Armoured Sentinels': 'Armoured Sentinel',
+    'Atlas Recovery Vehicle': 'Atlas',
+  },
+  adeptus_mechanicus: { 'Tech Thralls': 'Tech-thralls' },
+  tau_empire: {
+    'Great Knarloc': 'Kroot Great Knarloc',
+    'Tidewall Shieldline': 'Tidewall Shieldwall',
+  },
+  space_marines: { 'Fire Raptor': 'Fire Raptor Gunship' },
 };
 
 function aliasRenamedUnits(data: FactionData, factionKey: string): void {

@@ -28,14 +28,14 @@ export const ELDAR_SLOTS: EldarSlotEntry[] = [
   { name: 'Yncarne', slot: 'HQ' },
 
   // --- Troops (5) ---
-  { name: 'Corsair Voidreavers', slot: 'Troops' },
+  { name: 'Voidreavers', slot: 'Troops' },
   { name: 'Guardian Defenders', slot: 'Troops' },
   { name: 'Rangers', slot: 'Troops' },
   { name: 'Storm Guardians', slot: 'Troops' },
   { name: 'Wasps', slot: 'Troops' },
 
   // --- Elites (10) ---
-  { name: 'Corsair Voidscarred', slot: 'Elites' },
+  { name: 'Voidscarred', slot: 'Elites' },
   { name: 'Dire Avengers', slot: 'Elites' },
   { name: 'Fire Dragons', slot: 'Elites' },
   { name: 'Howling Banshees', slot: 'Elites' },

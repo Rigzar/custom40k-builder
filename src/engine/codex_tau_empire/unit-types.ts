@@ -37,7 +37,7 @@ export const TAU_UNIT_TYPES: TauUnitTypeEntry[] = [
   { name: 'Stealth Battlesuits', unit_type: 'Infantry, Jump pack' },
   // Fast Attack
   { name: 'Firesight Marksman', unit_type: 'Infantry' },
-  { name: 'Great Knarloc', unit_type: 'Monstrous Creature, Kroot' },
+  { name: 'Kroot Great Knarloc', unit_type: 'Monstrous Creature, Kroot' },
   { name: 'Hazard Battlesuits', unit_type: 'Jump pack, Monstrous Infantry' },
   { name: 'Kroot Hounds', unit_type: 'Bike, Kroot' },
   { name: 'Kroot Trackers', unit_type: 'Bike, Kroot' },
@@ -61,7 +61,7 @@ export const TAU_UNIT_TYPES: TauUnitTypeEntry[] = [
   // Fortifications
   { name: 'Tidewall Droneport', unit_type: 'Vehicle' },
   { name: 'Tidewall Gunrig', unit_type: 'Vehicle' },
-  { name: 'Tidewall Shieldline', unit_type: 'Vehicle' },
+  { name: 'Tidewall Shieldwall', unit_type: 'Vehicle' },
   // Flyers
   { name: 'Barracuda Air Superiority Fighter', unit_type: 'Flyer' },
   { name: 'Razorshark Strike Fighter', unit_type: 'Flyer' },

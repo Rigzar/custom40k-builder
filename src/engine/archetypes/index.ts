@@ -423,9 +423,9 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // ── Orks ──────────────────────────────────────────────────────────────────
   'Krumpa Kompany': { ...BASE,
     troopsRemap: ['Nobz'],
-    allowedUnitsOnly: ['Boss', 'Big Mek', 'Mekboy', 'Mekboy Junka', 'Painboy', 'Nobz', 'Battlewagon', 'Deff Dreads'],
+    allowedUnitsOnly: ['Boss', 'Big Mek', 'Mekboyz', 'Mekboy Junka', 'Painboyz', 'Nobz', 'Battlewagon', 'Deff Dreads'],
     notes: [
-      'Restricted unit list — only: Boss, Big Mek, Mekboy, Painboy, Nobz, Battlewagon, Deff Dreads.',
+      'Restricted unit list — only: Boss, Big Mek, Mekboyz, Painboyz, Nobz, Battlewagon, Deff Dreads.',
       'Nobz count as Troops. All models that can must be equipped with Mega armor.',
       'All units gain "Objective secured!".',
     ],

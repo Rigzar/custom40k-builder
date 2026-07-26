@@ -37,7 +37,7 @@ export const IG_SLOTS: IgSlotEntry[] = [
 
   // --- Elites (20) ---
   { name: 'Astropath', slot: 'Elites' },
-  { name: 'Atlas Recovery Vehicle', slot: 'Elites' },
+  { name: 'Atlas', slot: 'Elites' },
   { name: 'Bullgryns', slot: 'Elites' },
   { name: 'Commissar', slot: 'Elites' },
   { name: 'Company Command Squad', slot: 'Elites' },
@@ -58,7 +58,7 @@ export const IG_SLOTS: IgSlotEntry[] = [
   { name: 'Veterans', slot: 'Elites' },
 
   // --- Fast Attack (7) ---
-  { name: 'Armoured Sentinels', slot: 'Fast Attack' },
+  { name: 'Armoured Sentinel', slot: 'Fast Attack' },
   { name: 'Combat Engineers', slot: 'Fast Attack' },
   { name: 'Hellhounds', slot: 'Fast Attack' },
   { name: 'Rough Riders', slot: 'Fast Attack' },

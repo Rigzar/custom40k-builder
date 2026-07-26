@@ -36,7 +36,7 @@
   Legacy/Clan axis (§5), not a base keyword.
 - **Unit types** (production, 41 units): `Infantry` (13), `Vehicle` (11), `Character Model,
   Infantry` (6), `Flyer` (3), `Bike` (2), `Walker` (2, Deff Dreads/Killa Kans), `Jetbike` (1,
-  Deffkoptaz), `Jump Pack Infantry` (1, Stormboyz), `Super-heavy Vehicle` (1, Battle Fortress),
+  Deffkoptas), `Jump Pack Infantry` (1, Stormboyz), `Super-heavy Vehicle` (1, Battle Fortress),
   `Monstrous Creature` (1, Squiggoth). No parser artifacts. FIRST faction migrated with a populated
   Fortifications slot.
 - **Datasheet keywords[]: EMPTY.** All 41 units `keywords: []`.

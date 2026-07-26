@@ -25,7 +25,7 @@ export const ADMECH_SLOTS: AdMechSlotEntry[] = [
   // --- Troops (3) ---
   { name: 'Skitarii Rangers', slot: 'Troops' },
   { name: 'Skitarii Vanguard', slot: 'Troops' },
-  { name: 'Tech Thralls', slot: 'Troops' },
+  { name: 'Tech-thralls', slot: 'Troops' },
 
   // --- Elites (11) ---
   { name: 'Corpuscarii Electro-Priests', slot: 'Elites' },

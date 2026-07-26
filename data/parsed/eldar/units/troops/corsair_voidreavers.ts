@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const corsairVoidreavers: Unit = {
-  "name": "Corsair Voidreavers",
+  "name": "Voidreavers",
   "models": [
     {
       "name": "Voidreaver",

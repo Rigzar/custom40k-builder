@@ -34,7 +34,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Kroot Shaper": elites.krootShaper,
   "Stealth Battlesuits": elites.stealthBattlesuits,
   "Firesight Marksman": fastAttack.firesightMarksman,
-  "Great Knarloc": fastAttack.greatKnarloc,
+  "Kroot Great Knarloc": fastAttack.greatKnarloc,
   "Hazard Battlesuits": fastAttack.hazardBattlesuits,
   "Kroot Hounds": fastAttack.krootHounds,
   "Kroot Trackers": fastAttack.krootTrackers,
@@ -55,7 +55,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Devilfish": dedicatedTransport.devilfish,
   "Tidewall Droneport": fortifications.tidewallDroneport,
   "Tidewall Gunrig": fortifications.tidewallGunrig,
-  "Tidewall Shieldline": fortifications.tidewallShieldline,
+  "Tidewall Shieldwall": fortifications.tidewallShieldline,
   "Barracuda Air Superiority Fighter": flyers.barracudaAirSuperiorityFighter,
   "Razorshark Strike Fighter": flyers.razorsharkStrikeFighter,
   "Sun Shark Bomber": flyers.sunSharkBomber,
@@ -88,7 +88,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Fast Attack": [
     "Firesight Marksman",
-    "Great Knarloc",
+    "Kroot Great Knarloc",
     "Hazard Battlesuits",
     "Kroot Hounds",
     "Kroot Trackers",
@@ -115,7 +115,7 @@ export const slot_to_units: Record<string, string[]> = {
   "Fortifications": [
     "Tidewall Droneport",
     "Tidewall Gunrig",
-    "Tidewall Shieldline"
+    "Tidewall Shieldwall"
   ],
   "Flyers": [
     "Barracuda Air Superiority Fighter",

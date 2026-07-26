@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const cyborkSlashaz: Unit = {
-  "name": "Cybork Slashaz",
+  "name": "Cybork Slashas",
   "models": [
     {
       "name": "Cybork Slasha",

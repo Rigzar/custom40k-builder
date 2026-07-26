@@ -9,10 +9,10 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const armouredSentinels: Unit = {
-  "name": "Armoured  Sentinels",
+  "name": "Armoured Sentinel",
   "models": [
     {
-      "name": "Armoured  Sentinels",
+      "name": "Armoured Sentinel",
       "points": 97,
       "min": 1,
       "max": 3,
@@ -31,7 +31,7 @@ export const armouredSentinels: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Armoured  Sentinels is equipped with: Multilaser.",
+  "equipped_with": "A Armoured Sentinel is equipped with: Multilaser.",
   "weapons": [
     {
       "name": "Autocannon",

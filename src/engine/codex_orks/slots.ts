@@ -35,16 +35,16 @@ export const ORK_SLOTS: OrkSlotEntry[] = [
 
   // --- Elites (8) ---
   { name: 'Burna Boyz', slot: 'Elites' },
-  { name: 'Cybork Slashaz', slot: 'Elites' },
+  { name: 'Cybork Slashas', slot: 'Elites' },
   { name: 'Kommandos', slot: 'Elites' },
-  { name: 'Mekboy', slot: 'Elites' },
+  { name: 'Mekboyz', slot: 'Elites' },
   { name: 'Mekboy Junka', slot: 'Elites' },
   { name: 'Nobz', slot: 'Elites' },
-  { name: 'Painboy', slot: 'Elites' },
+  { name: 'Painboyz', slot: 'Elites' },
   { name: 'Tankbustas', slot: 'Elites' },
 
   // --- Fast Attack (7) ---
-  { name: 'Deffkoptaz', slot: 'Fast Attack' },
+  { name: 'Deffkoptas', slot: 'Fast Attack' },
   { name: 'Grot Tanks', slot: 'Fast Attack' },
   { name: 'Squighog Boyz', slot: 'Fast Attack' },
   { name: 'Stormboyz', slot: 'Fast Attack' },
@@ -56,10 +56,10 @@ export const ORK_SLOTS: OrkSlotEntry[] = [
   { name: 'Battle Fortress', slot: 'Heavy Support' },
   { name: 'Battlewagon', slot: 'Heavy Support' },
   { name: 'Deff Dreads', slot: 'Heavy Support' },
-  { name: 'Flash Gits', slot: 'Heavy Support' },
+  { name: 'Flash Gitz', slot: 'Heavy Support' },
   { name: 'Hunta Rig', slot: 'Heavy Support' },
   { name: 'Killa Kans', slot: 'Heavy Support' },
-  { name: 'Killa Rig', slot: 'Heavy Support' },
+  { name: 'Kill Rig', slot: 'Heavy Support' },
   { name: 'Lootas', slot: 'Heavy Support' },
   { name: 'Mek Gunz', slot: 'Heavy Support' },
   { name: 'Wagon', slot: 'Heavy Support' },

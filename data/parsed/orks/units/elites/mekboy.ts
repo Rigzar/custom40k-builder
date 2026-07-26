@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const mekboy: Unit = {
-  "name": "Mekboy",
+  "name": "Mekboyz",
   "models": [
     {
       "name": "Mekboy",

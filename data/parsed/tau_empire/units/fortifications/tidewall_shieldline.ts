@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const tidewallShieldline: Unit = {
-  "name": "Tidewall Shieldline",
+  "name": "Tidewall Shieldwall",
   "models": [
     {
       "name": "Tidewall Shieldline",

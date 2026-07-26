@@ -30,7 +30,7 @@ export const GSC_SLOTS: GscSlotEntry[] = [
   { name: 'Neophyte Hybrids', slot: 'Troops' },
 
   // --- Elites (10) ---
-  { name: 'Abberants', slot: 'Elites' },
+  { name: 'Aberrants', slot: 'Elites' },
   { name: 'Abominant', slot: 'Elites' },
   { name: 'Biophagus', slot: 'Elites' },
   { name: 'Clamavus', slot: 'Elites' },

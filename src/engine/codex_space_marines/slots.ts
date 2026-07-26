@@ -27,5 +27,5 @@ export const SM_SLOTS: SmSlotEntry[] = [
   { slot: 'Heavy Support', units: ['Centurion Devastator Squad', 'Desolation Squad', 'Devastator Squad', 'Eliminator Squad', 'Eradicator Squad', 'Firestrike Servo-turret', 'Gladiator', 'Hellblaster Squad', 'Land Raider', 'Land Raider Ares', 'Land Raider Crusader', 'Land Raider Redeemer', 'Predator', 'Repulsor', 'Repulsor Executioner', 'Thunderfire Cannon', 'Vindicator', 'Whirlwind'] },
   { slot: 'Dedicated Transport', units: ['Drop Pod', 'Impulsor', 'Land Speeder Storm', 'Razorback', 'Rhino'] },
   { slot: 'Fortifications', units: ['Hammerfall Bunker'] },
-  { slot: 'Flyers', units: ['Fire Raptor', 'Nephilim Jetfighter', 'Stormhawk Interceptor', 'Stormraven Gunship', 'Stormtalon Gunship'] },
+  { slot: 'Flyers', units: ['Fire Raptor Gunship', 'Nephilim Jetfighter', 'Stormhawk Interceptor', 'Stormraven Gunship', 'Stormtalon Gunship'] },
 ];

@@ -60,7 +60,7 @@ export const ORK_SPECIAL_ABILITIES: OrkSpecialAbilityEntry[] = [
   {
     name: 'Archetypes (2 total)',
     category: 'archetype',
-    text: 'Budget 0-1 Archetype. Krumpa Kompany (roster restricted to Boss/Mek/Painboy/Nobs/' +
+    text: 'Budget 0-1 Archetype. Krumpa Kompany (roster restricted to Boss/Mek/Painboyz/Nobs/' +
       'Battlewagons/Deff Dreads; Nobs→Troops; all must take Mega armor; all gain Objective ' +
       'secured!), Speedfreaks (Stormboyz/Warbikers→Troops; <12"M units must start embarked). ' +
       'Canonical in `archetypes.json`.',

@@ -107,7 +107,7 @@ export const SM_UNIT_TYPES: SmUnitTypeEntry[] = [
   { name: 'Hammerfall Bunker', unit_type: 'Vehicle' },
 
   // Flyers (5)
-  { name: 'Fire Raptor', unit_type: 'Flyer' },
+  { name: 'Fire Raptor Gunship', unit_type: 'Flyer' },
   { name: 'Nephilim Jetfighter', unit_type: 'Flyer' },
   { name: 'Stormhawk Interceptor', unit_type: 'Flyer' },
   { name: 'Stormraven Gunship', unit_type: 'Flyer' },

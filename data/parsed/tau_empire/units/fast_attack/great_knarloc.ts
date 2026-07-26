@@ -9,7 +9,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const greatKnarloc: Unit = {
-  "name": "Great Knarloc",
+  "name": "Kroot Great Knarloc",
   "models": [
     {
       "name": "Great Knarloc",

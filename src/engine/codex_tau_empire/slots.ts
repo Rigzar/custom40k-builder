@@ -44,7 +44,7 @@ export const TAU_SLOTS: TauSlotEntry[] = [
 
   // --- Fast Attack (14) ---
   { name: 'Firesight Marksman', slot: 'Fast Attack' },
-  { name: 'Great Knarloc', slot: 'Fast Attack' },
+  { name: 'Kroot Great Knarloc', slot: 'Fast Attack' },
   { name: 'Hazard Battlesuits', slot: 'Fast Attack' },
   { name: 'Kroot Hounds', slot: 'Fast Attack' },
   { name: 'Kroot Trackers', slot: 'Fast Attack' },
@@ -71,7 +71,7 @@ export const TAU_SLOTS: TauSlotEntry[] = [
   // --- Fortifications (3) ---
   { name: 'Tidewall Droneport', slot: 'Fortifications' },
   { name: 'Tidewall Gunrig', slot: 'Fortifications' },
-  { name: 'Tidewall Shieldline', slot: 'Fortifications' },
+  { name: 'Tidewall Shieldwall', slot: 'Fortifications' },
 
   // --- Flyers (3) ---
   { name: 'Barracuda Air Superiority Fighter', slot: 'Flyers' },

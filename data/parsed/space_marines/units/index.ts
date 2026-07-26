@@ -87,7 +87,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Razorback": dedicatedTransport.razorback,
   "Rhino": dedicatedTransport.rhino,
   "Hammerfall Bunker": fortifications.hammerfallBunker,
-  "Fire Raptor": flyers.fireRaptor,
+  "Fire Raptor Gunship": flyers.fireRaptor,
   "Nephilim Jetfighter": flyers.nephilimJetfighter,
   "Stormhawk Interceptor": flyers.stormhawkInterceptor,
   "Stormraven Gunship": flyers.stormravenGunship,
@@ -186,7 +186,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Hammerfall Bunker"
   ],
   "Flyers": [
-    "Fire Raptor",
+    "Fire Raptor Gunship",
     "Nephilim Jetfighter",
     "Stormhawk Interceptor",
     "Stormraven Gunship",

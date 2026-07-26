@@ -28,7 +28,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Penal Legion Squad": troops.penalLegionSquad,
   "Platoon Command Squad": troops.platoonCommandSquad,
   "Astropath": elites.astropath,
-  "Atlas Recovery Vehicle": elites.atlasRecoveryVehicle,
+  "Atlas": elites.atlasRecoveryVehicle,
   "Bullgryns": elites.bullgryns,
   "Commissar": elites.commissar,
   "Company Command Squad": elites.companyCommandSquad,
@@ -54,7 +54,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Salamander Scout": fastAttack.salamanderScout,
   "Sentinel": fastAttack.sentinel,
   "Tauros": fastAttack.tauros,
-  "Armoured Sentinels": fastAttack.armouredSentinels,
+  "Armoured Sentinel": fastAttack.armouredSentinels,
   "Basilisk": heavySupport.basilisk,
   "Carnodon": heavySupport.carnodon,
   "Colossus Bombard": heavySupport.colossusBombard,
@@ -103,7 +103,7 @@ export const slot_to_units: Record<string, string[]> = {
   ],
   "Elites": [
     "Astropath",
-    "Atlas Recovery Vehicle",
+    "Atlas",
     "Bullgryns",
     "Commissar",
     "Company Command Squad",
@@ -124,7 +124,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Veterans"
   ],
   "Fast Attack": [
-    "Armoured Sentinels",
+    "Armoured Sentinel",
     "Combat Engineers",
     "Hellhounds",
     "Hippogriff AFV",

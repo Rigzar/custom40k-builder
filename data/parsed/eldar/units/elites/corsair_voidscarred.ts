@@ -13,7 +13,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const corsairVoidscarred: Unit = {
-  "name": "Corsair Voidscarred",
+  "name": "Voidscarred",
   "models": [
     {
       "name": "Voidscarred",
