@@ -326,6 +326,15 @@ const GAP_ORDER: SourceGap['kind'][] = ['tab', 'block', 'name-mismatch', 'missin
  */
 export function coverageGaps(faction: FactionData, csvByUnit: Record<string, string | null>): SourceGap[] {
   const gaps: SourceGap[] = [];
+  // A weapon sold by the Armory carries its profile there, so a datasheet that merely offers it
+  // ("Can buy up to two Hunter-seeker missiles") has no reason to repeat the row. Reporting those
+  // as missing from the sheet is noise — the Tau Piranha's Seeker missile is the example.
+  const armoryWeapons = new Set<string>();
+  for (const a of [faction.armory_general, ...Object.values(faction.armory_marks ?? {}), ...Object.values(faction.armory_legions ?? {})]) {
+    for (const list of [a?.weapons, a?.equipment, a?.daemon_weapons]) {
+      for (const it of list ?? []) armoryWeapons.add(loose(it.name));
+    }
+  }
   for (const unit of Object.values(faction.units as Record<string, Unit>)) {
     const csv = csvByUnit[unit.name];
     if (!csv) {
@@ -415,7 +424,7 @@ export function coverageGaps(faction: FactionData, csvByUnit: Record<string, str
       }
       const equipped = equipText(csv);
       for (const name of unmatchedApp) {
-        if (pairedApp.has(name)) continue;
+        if (pairedApp.has(name) || armoryWeapons.has(loose(name))) continue;
         // The equipment line handing the model this weapon, with no profile row for it, is the
         // sheet contradicting itself — we can say which side is wrong instead of guessing.
         const inEquipLine = equipped.includes(name.toLowerCase().replace(/s$/, ''));
