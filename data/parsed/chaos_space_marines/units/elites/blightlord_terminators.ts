@@ -181,7 +181,7 @@ export const blightlordTerminators: Unit = {
       "abilities": "AT(1)"
     },
     {
-      "name": "Combi-plasma - Supercharged",
+      "name": "Combi-plasma - Overcharged",
       "range": "24\"",
       "type": "Rapid Fire 1",
       "s": "8",

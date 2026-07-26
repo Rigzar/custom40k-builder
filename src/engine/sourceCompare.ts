@@ -44,7 +44,13 @@ export interface SourceFinding {
 const VALID_WEAPON_TYPE = /^(-|Melee|Rapid Fire \d+|Assault \d+|Heavy \d+|Grenade \d+|Pistol \d+)$/i;
 
 /** Sanity-check a sheet value; returns why it's suspect, or null if it looks legitimate. */
-function sheetIssue(field: string, sheetVal: string): string | null {
+function sheetIssue(field: string, sheetVal: string, appVal?: string): string | null {
+  // Weapon types are proper names in the rules ("Rapid Fire 1", "Heavy 2"). When the only
+  // difference is capitalisation, the sheet is writing the same type two ways in different rows —
+  // it is not a disagreement about the weapon, and there is nothing to decide.
+  if (field === 'type' && appVal && sheetVal !== appVal && sheetVal.toLowerCase() === appVal.toLowerCase()) {
+    return `"${sheetVal}" is the same type as the app's "${appVal}", only capitalised differently — the rules write it "${appVal}"`;
+  }
   if (field === 'type' && !VALID_WEAPON_TYPE.test(sheetVal)) return `"${sheetVal}" is not a valid weapon type`;
   if (field === 'd' && /^-\d/.test(sheetVal)) return `damage "${sheetVal}" is negative`;
   if (field === 's' && /^-\d/.test(sheetVal)) return `strength "${sheetVal}" is negative`;
@@ -499,7 +505,7 @@ export function compareFaction(faction: FactionData, csvByUnit: Record<string, s
       for (const [field, sv, pv] of pairs) {
         if (!sv) continue;                             // sheet left it blank → nothing to compare
         if (norm(sv) !== pv) {
-          const why = sheetIssue(field, sv);
+          const why = sheetIssue(field, sv, pv);
           findings.push({
             unit: unit.name, kind: 'weapon', target: w.name, field, source: sv, prod: pv,
             fix: why ? 'sheet' : 'unknown',

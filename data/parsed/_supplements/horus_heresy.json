@@ -1198,7 +1198,7 @@
           "abilities": "-"
         },
         {
-          "name": "Combi-plasma - Plasma (Standard)",
+          "name": "Combi-plasma - Standard",
           "range": "24\"",
           "type": "Rapid Fire 1",
           "s": "7",
@@ -1207,7 +1207,7 @@
           "abilities": "AT(1)"
         },
         {
-          "name": "Combi-plasma - Plasma (Overcharged)",
+          "name": "Combi-plasma - Overcharged",
           "range": "24\"",
           "type": "Rapid Fire 1",
           "s": "8",
