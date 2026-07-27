@@ -139,7 +139,8 @@ interface AdminTx {
   factionSectionTitle: string; factionAvailHint: string;
   transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
   transOnlyUntranslated: string;
-  transNoDatasheets: string; transAbilitiesHint: string; transBoth: string;
+  transNoDatasheets: string; transAbilitiesHint: string;
+  transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
   tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string;
@@ -216,6 +217,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
     transOnlyUntranslated: 'only untranslated',
     transNoDatasheets: 'Datasheet texts: none',
+    transAbilitiesLoaded: n => `${n} datasheet texts, listed first`,
     transAbilitiesHint: 'Also load one codex\'s datasheet ability texts ("Fearless, Synapse", "Advisor: …"). They are keyed by the English text, so a sentence shared by several units is translated once. Edit and save them like any other string.', transBoth: 'DE + ES',
     annTranslate: 'auto-translate the others from this', annTranslating: 'translating…',
     backToApp: '← Back to app',
@@ -310,6 +312,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
     transOnlyUntranslated: 'nur unübersetzte',
     transNoDatasheets: 'Datenblatt-Texte: keine',
+    transAbilitiesLoaded: n => `${n} Datenblatt-Texte, zuerst gelistet`,
     transAbilitiesHint: 'Zusätzlich die Fähigkeitstexte eines Codex laden („Fearless, Synapse\", „Advisor: …\"). Sie werden über den englischen Text adressiert, ein von mehreren Einheiten geteilter Satz wird also nur einmal übersetzt. Bearbeiten und speichern wie jede andere Zeichenkette.', transBoth: 'DE + ES',
     annTranslate: 'die anderen hiervon automatisch übersetzen', annTranslating: 'übersetze…',
     backToApp: '← Zurück zur App',
@@ -404,6 +407,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
     transOnlyUntranslated: 'solo sin traducir',
     transNoDatasheets: 'Textos de ficha: ninguno',
+    transAbilitiesLoaded: n => `${n} textos de ficha, al principio de la lista`,
     transAbilitiesHint: 'Carga además los textos de habilidad de un códex (\"Fearless, Synapse\", \"Advisor: …\"). Se indexan por el texto en inglés, así que una frase que comparten varias unidades se traduce una sola vez. Se editan y guardan como cualquier otra cadena.', transBoth: 'DE + ES',
     annTranslate: 'auto-traducir los demás desde este', annTranslating: 'traduciendo…',
     backToApp: '← Volver a la app',
@@ -852,13 +856,16 @@ export function AdminPanel({ onClose }: Props) {
     const v = transEdits[lang][k];
     return v == null || v.trim() === '' || v === SRC[k];
   };
-  const transKeysAll = [...allTranslationKeys(), ...Object.keys(transAbilities)].filter(k => {
+  // A picked codex goes FIRST: picking one is a request to work on it, and there are already ~900
+  // UI and glossary keys — appended after those, its texts fell past the display cut and choosing a
+  // faction looked like it did nothing.
+  const transKeysAll = [...Object.keys(transAbilities), ...allTranslationKeys()].filter(k => {
     if (tq !== '' && !(k.toLowerCase().includes(tq) || (SRC[k] ?? '').toLowerCase().includes(tq))) return false;
     if (transUntranslated && !shownLangs.some(l => isUntranslated(l, k))) return false;
     return true;
   });
-  // The glossary adds ~290 keys on top of the UI labels, so show more before the list is cut;
-  // the search box and the "untranslated only" filter are what actually narrow it down.
+  // Enough to hold a whole codex plus the glossary; the search box and the "untranslated only"
+  // filter are what actually narrow it down.
   const transKeys = transKeysAll.slice(0, 400);
 
   // normalised + validated sheet id (accepts a pasted URL); gates both the request and the link
@@ -1418,6 +1425,9 @@ export function AdminPanel({ onClose }: Props) {
                   {SOURCE_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
                 </select>
                 <span className="text-zinc-600 text-[10px] font-mono">{transKeys.length}/{transKeysAll.length}</span>
+                {Object.keys(transAbilities).length > 0 && (
+                  <span className="text-amber-600 text-[10px] font-mono">{L.transAbilitiesLoaded(Object.keys(transAbilities).length)}</span>
+                )}
               </div>
               <div className="space-y-2 max-h-96 overflow-y-auto border border-zinc-800 p-2">
                 {transKeys.map(k => (
