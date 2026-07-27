@@ -845,7 +845,9 @@ export function AdminPanel({ onClose }: Props) {
     if (transUntranslated && !shownLangs.some(l => isUntranslated(l, k))) return false;
     return true;
   });
-  const transKeys = transKeysAll.slice(0, 150);
+  // The glossary adds ~290 keys on top of the UI labels, so show more before the list is cut;
+  // the search box and the "untranslated only" filter are what actually narrow it down.
+  const transKeys = transKeysAll.slice(0, 400);
 
   // normalised + validated sheet id (accepts a pasted URL); gates both the request and the link
   const srcSheetId = toSheetId(srcId);

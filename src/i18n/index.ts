@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { ruleStrings, setRuleLanguage, setRuleOverrides } from '../data/coreRules';
 
 export type Language = 'en' | 'de' | 'es';
 
@@ -26,8 +27,16 @@ export const useLanguage = create<I18nState>()(
 let OVERRIDES: Partial<Record<Language, Record<string, string>>> = {};
 export function setTranslationOverrides(o: Partial<Record<Language, Record<string, string>>> | null | undefined) {
   OVERRIDES = o ?? {};
+  // The rules glossary keeps its own copy: it is compiled data (the wiki builds it too), so it
+  // imports nothing and is fed from here instead.
+  setRuleOverrides(o);
   useLanguage.setState((s) => ({ i18nVersion: s.i18nVersion + 1 }));
 }
+
+// Keep the glossary on the reader's language. lookupRule() and friends are called from plain
+// render code with no hooks, so the language is pushed to them rather than passed at every call.
+setRuleLanguage(useLanguage.getState().language);
+useLanguage.subscribe((s) => setRuleLanguage(s.language));
 
 // ── Translations ──────────────────────────────────────────────────────────────
 
@@ -1893,17 +1902,24 @@ export function t(language: Language, key: TranslationKey): string {
   return OVERRIDES[language]?.[key] ?? translations[language][key] ?? translations.en[key];
 }
 
-/** The compiled English source strings (read-only reference for the admin translation editor). */
+/**
+ * The strings the admin translation editor works on: the UI labels compiled below, followed by the
+ * rules glossary. The glossary is only written in English (it is data, not an i18n table), so its
+ * English text is the default for every language and an override is what translates it.
+ */
 export function sourceStrings(): Record<string, string> {
-  return translations.en;
+  return { ...translations.en, ...ruleStrings() };
 }
 /** The compiled default string for a given language+key (used to diff admin overrides). */
 export function defaultString(language: Language, key: string): string {
-  return (translations[language] as Record<string, string>)[key] ?? translations.en[key as TranslationKey] ?? '';
+  return (translations[language] as Record<string, string>)[key]
+    ?? translations.en[key as TranslationKey]
+    ?? ruleStrings()[key]
+    ?? '';
 }
 /** Every translatable key, in declaration order. */
 export function allTranslationKeys(): string[] {
-  return Object.keys(translations.en);
+  return [...Object.keys(translations.en), ...Object.keys(ruleStrings())];
 }
 
 /** Interpolates `{name}` placeholders in a translated template string. Used outside React (e.g.

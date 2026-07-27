@@ -703,6 +703,40 @@ export function normaliseKey(raw: string): { key: string; param: string | null }
   return { key: directKey, param: direct.param };
 }
 
+// ── Translating the glossary ──────────────────────────────────────────────────
+// The rules glossary is the text players actually read — it is what a weapon's abilities and the
+// Core Rules screen show. It lives here rather than in the i18n tables because this is its source
+// of truth, so translations are layered on top instead: one key per field, edited from the admin
+// Translations tab like any other string. This module deliberately imports nothing (the wiki
+// compiles it too), so i18n pushes the language and the overrides in rather than being read out.
+
+/** Translation key for a glossary field, e.g. "rule.melta.name" / "rule.melta.desc". */
+export const ruleKey = (key: string, field: 'name' | 'desc') => `rule.${key}.${field}`;
+
+/** Every glossary string, keyed for the translation editor. */
+export function ruleStrings(): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [key, entry] of Object.entries(RULES)) {
+    out[ruleKey(key, 'name')] = entry.name;
+    out[ruleKey(key, 'desc')] = entry.description;
+  }
+  return out;
+}
+
+let RULE_LANG = 'en';
+let RULE_OVERRIDES: Partial<Record<string, Record<string, string>>> = {};
+/** Set by i18n whenever the reader's language changes. */
+export function setRuleLanguage(language: string) { RULE_LANG = language; }
+/** Set by i18n when the admin-edited translations arrive from the DB. */
+export function setRuleOverrides(o: Partial<Record<string, Record<string, string>>> | null | undefined) {
+  RULE_OVERRIDES = o ?? {};
+}
+
+/** The translated text for a glossary field, or the English original when there is none. */
+function localised(key: string, field: 'name' | 'desc', fallback: string): string {
+  return RULE_OVERRIDES[RULE_LANG]?.[ruleKey(key, field)] || fallback;
+}
+
 /**
  * Returns the generic (non-parameterized) form of a rule — for reference glossaries
  * where "Terrifying(-1)" and "Terrifying(-2)" should collapse into one "Terrifying(X)" entry.
@@ -712,7 +746,10 @@ export function lookupRuleGeneric(token: string): { displayName: string; descrip
   const entry = RULES[key];
   if (!entry) return null;
   const clean = (s: string) => s.replace(/\{X\}/g, 'X');
-  return { displayName: clean(entry.name), description: clean(entry.description) };
+  return {
+    displayName: clean(localised(key, 'name', entry.name)),
+    description: clean(localised(key, 'desc', entry.description)),
+  };
 }
 
 /**
@@ -725,7 +762,10 @@ export function lookupWeaponType(raw: string): { displayName: string; descriptio
   const key = raw.trim().toLowerCase().replace(/\s+\d+$/, '');
   const entry = RULES[key];
   if (!entry) return null;
-  return { displayName: entry.name, description: entry.description };
+  return {
+    displayName: localised(key, 'name', entry.name),
+    description: localised(key, 'desc', entry.description),
+  };
 }
 
 /** Look up a single ability token. Returns null if not in the glossary. */
@@ -736,8 +776,8 @@ export function lookupRule(token: string): { displayName: string; description: s
 
   const sub = (s: string) => param ? s.replace(/\{X\}/g, param) : s;
   return {
-    displayName: sub(entry.name),
-    description: sub(entry.description),
+    displayName: sub(localised(key, 'name', entry.name)),
+    description: sub(localised(key, 'desc', entry.description)),
   };
 }
 
