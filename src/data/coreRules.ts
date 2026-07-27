@@ -738,6 +738,30 @@ function localised(key: string, field: 'name' | 'desc', fallback: string): strin
 }
 
 /**
+ * Translation key for a datasheet ability, derived from the English text itself (FNV-1a, base36).
+ *
+ * Keying by content rather than by unit and position is what makes this survive the codex: the same
+ * sentence written on forty datasheets is translated once, reordering a unit's abilities changes
+ * nothing, and when the creator EDITS the English the key changes — so the stale translation simply
+ * stops applying and the reader sees the new English instead of the old text in their language.
+ * Getting the fresh original is the safe failure; showing a confidently wrong translation is not.
+ */
+export function abilityKey(text: string): string {
+  let h = 0x811c9dc5;
+  const s = text.trim();
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return `ab.${(h >>> 0).toString(36)}`;
+}
+
+/** The translated datasheet ability, or the English original when there is none. */
+export function localiseAbility(raw: string): string {
+  return RULE_OVERRIDES[RULE_LANG]?.[abilityKey(raw)] || raw;
+}
+
+/**
  * Returns the generic (non-parameterized) form of a rule — for reference glossaries
  * where "Terrifying(-1)" and "Terrifying(-2)" should collapse into one "Terrifying(X)" entry.
  */
@@ -795,7 +819,7 @@ export interface AbilityPart {
 }
 
 export function parseAbility(raw: string): AbilityPart[] {
-  const trimmed = raw.trim();
+  const trimmed = localiseAbility(raw).trim();
 
   // Detect "Name: Description" format: colon-space before a long description
   // Heuristic: colon occurs in the first 60 chars and there's substantial text after it

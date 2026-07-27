@@ -5,6 +5,7 @@ import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { CHANGELOG } from '../data/changelog';
+import { abilityKey } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS } from './LandingPage';
@@ -137,7 +138,8 @@ interface AdminTx {
   save: string; saving: string; saved: string;
   factionSectionTitle: string; factionAvailHint: string;
   transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
-  transOnlyUntranslated: string; transBoth: string;
+  transOnlyUntranslated: string;
+  transNoDatasheets: string; transAbilitiesHint: string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
   tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string;
@@ -212,7 +214,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'UI translations',
     transHint: 'Edit the German / Spanish text of any interface string. English is the source. Fields left empty or unchanged keep the built-in text. Saved changes go live for everyone.',
     transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
-    transOnlyUntranslated: 'only untranslated', transBoth: 'DE + ES',
+    transOnlyUntranslated: 'only untranslated',
+    transNoDatasheets: 'Datasheet texts: none',
+    transAbilitiesHint: 'Also load one codex\'s datasheet ability texts ("Fearless, Synapse", "Advisor: …"). They are keyed by the English text, so a sentence shared by several units is translated once. Edit and save them like any other string.', transBoth: 'DE + ES',
     annTranslate: 'auto-translate the others from this', annTranslating: 'translating…',
     backToApp: '← Back to app',
     tabOverview: 'Overview', tabUsers: 'Users', tabHealth: 'Data health', tabAudit: 'Audit log', tabAnnounce: 'Announcement', tabFactions: 'Factions', tabI18n: 'Translations',
@@ -304,7 +308,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'UI-Übersetzungen',
     transHint: 'Bearbeite den deutschen / spanischen Text jeder Oberflächen-Zeichenkette. Englisch ist die Quelle. Leere oder unveränderte Felder behalten den eingebauten Text. Gespeicherte Änderungen gehen für alle live.',
     transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
-    transOnlyUntranslated: 'nur unübersetzte', transBoth: 'DE + ES',
+    transOnlyUntranslated: 'nur unübersetzte',
+    transNoDatasheets: 'Datenblatt-Texte: keine',
+    transAbilitiesHint: 'Zusätzlich die Fähigkeitstexte eines Codex laden („Fearless, Synapse\", „Advisor: …\"). Sie werden über den englischen Text adressiert, ein von mehreren Einheiten geteilter Satz wird also nur einmal übersetzt. Bearbeiten und speichern wie jede andere Zeichenkette.', transBoth: 'DE + ES',
     annTranslate: 'die anderen hiervon automatisch übersetzen', annTranslating: 'übersetze…',
     backToApp: '← Zurück zur App',
     tabOverview: 'Übersicht', tabUsers: 'Nutzer', tabHealth: 'Datenintegrität', tabAudit: 'Protokoll', tabAnnounce: 'Ankündigung', tabFactions: 'Fraktionen', tabI18n: 'Übersetzungen',
@@ -396,7 +402,9 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     transSectionTitle: 'Traducciones de la interfaz',
     transHint: 'Edita el texto en alemán / español de cualquier cadena de la interfaz. El inglés es la fuente. Los campos vacíos o sin cambios conservan el texto original. Los cambios guardados se aplican en vivo para todos.',
     transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
-    transOnlyUntranslated: 'solo sin traducir', transBoth: 'DE + ES',
+    transOnlyUntranslated: 'solo sin traducir',
+    transNoDatasheets: 'Textos de ficha: ninguno',
+    transAbilitiesHint: 'Carga además los textos de habilidad de un códex (\"Fearless, Synapse\", \"Advisor: …\"). Se indexan por el texto en inglés, así que una frase que comparten varias unidades se traduce una sola vez. Se editan y guardan como cualquier otra cadena.', transBoth: 'DE + ES',
     annTranslate: 'auto-traducir los demás desde este', annTranslating: 'traduciendo…',
     backToApp: '← Volver a la app',
     tabOverview: 'Resumen', tabUsers: 'Usuarios', tabHealth: 'Integridad', tabAudit: 'Registro', tabAnnounce: 'Anuncio', tabFactions: 'Facciones', tabI18n: 'Traducciones',
@@ -477,6 +485,10 @@ export function AdminPanel({ onClose }: Props) {
   const [transEdits, setTransEdits] = useState<Record<'de' | 'es', Record<string, string>>>({ de: {}, es: {} });
   const [transFilter, setTransFilter] = useState('');
   const [transLang, setTransLang] = useState<'both' | 'de' | 'es'>('both');
+  /** Datasheet ability texts of ONE faction, loaded on demand: there are ~1100 of them across the
+   *  game, and a translator works through a codex at a time. '' = only UI labels and the glossary. */
+  const [transFaction, setTransFaction] = useState('');
+  const [transAbilities, setTransAbilities] = useState<Record<string, string>>({});
   const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
   const [tab, setTab] = useState<AdminTab>('overview');
@@ -832,7 +844,7 @@ export function AdminPanel({ onClose }: Props) {
   const pendingCount = requests.filter(r => r.status === 'pending').length;
 
   // Translation editor: source strings + filtered key list (capped when unfiltered for perf)
-  const SRC = sourceStrings();
+  const SRC = { ...sourceStrings(), ...transAbilities };
   const tq = transFilter.trim().toLowerCase();
   const shownLangs: ('de' | 'es')[] = transLang === 'both' ? ['de', 'es'] : [transLang];
   // "untranslated" = the DE/ES value is empty or still identical to the English source
@@ -840,7 +852,7 @@ export function AdminPanel({ onClose }: Props) {
     const v = transEdits[lang][k];
     return v == null || v.trim() === '' || v === SRC[k];
   };
-  const transKeysAll = allTranslationKeys().filter(k => {
+  const transKeysAll = [...allTranslationKeys(), ...Object.keys(transAbilities)].filter(k => {
     if (tq !== '' && !(k.toLowerCase().includes(tq) || (SRC[k] ?? '').toLowerCase().includes(tq))) return false;
     if (transUntranslated && !shownLangs.some(l => isUntranslated(l, k))) return false;
     return true;
@@ -920,6 +932,26 @@ export function AdminPanel({ onClose }: Props) {
     };
     downloadText(`custom40k-source-check-${new Date().toISOString().slice(0, 10)}.json`,
       JSON.stringify(report, null, 2), 'application/json');
+  }
+
+  /**
+   * Load one faction's datasheet ability texts into the translation editor. Keyed by the English
+   * text itself (see abilityKey), so the same sentence shared by many units is one row to translate.
+   */
+  async function loadFactionAbilities(factionKey: string) {
+    setTransFaction(factionKey);
+    if (!factionKey) { setTransAbilities({}); return; }
+    try {
+      const data = await FACTION_LOADERS[factionKey]();
+      const out: Record<string, string> = {};
+      for (const unit of Object.values(data.units)) {
+        for (const a of unit.abilities ?? []) {
+          const text = String(a).trim();
+          if (text) out[abilityKey(text)] = text;
+        }
+      }
+      setTransAbilities(out);
+    } catch (e) { setMsg(String(e)); }
   }
 
   /** Who has to make the fix — the first thing to read on every row, so nobody hunts a spreadsheet
@@ -1376,6 +1408,15 @@ export function AdminPanel({ onClose }: Props) {
                   <input type="checkbox" checked={transUntranslated} onChange={e => setTransUntranslated(e.target.checked)} />
                   {L.transOnlyUntranslated}
                 </label>
+                <select
+                  value={transFaction}
+                  onChange={e => loadFactionAbilities(e.target.value)}
+                  title={L.transAbilitiesHint}
+                  className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 focus:outline-none focus:border-amber-800"
+                >
+                  <option value="">{L.transNoDatasheets}</option>
+                  {SOURCE_FACTIONS.map(f => <option key={f.key} value={f.key}>{f.name}</option>)}
+                </select>
                 <span className="text-zinc-600 text-[10px] font-mono">{transKeys.length}/{transKeysAll.length}</span>
               </div>
               <div className="space-y-2 max-h-96 overflow-y-auto border border-zinc-800 p-2">

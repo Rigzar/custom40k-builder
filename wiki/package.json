@@ -7,9 +7,10 @@
     "vendor": "node scripts/vendor.mjs",
     "predev": "npm run vendor",
     "dev": "astro dev",
-    "prebuild": "npm run vendor",
+    "prebuild": "npm run vendor && npm run sync-translations",
     "build": "astro check && astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync-translations": "node scripts/sync-translations.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0"
