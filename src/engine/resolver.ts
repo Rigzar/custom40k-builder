@@ -212,7 +212,11 @@ export function isOptionAvailable(
  * weapons that were not selected. A weapon counts as optional when it also appears
  * as a choice in some option group; built-in gear (not in any group) is always shown.
  */
-export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: RosterEntry): Weapon[] {
+export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: RosterEntry, armoryGranted: string[] = []): Weapon[] {
+  // A weapon bought from the Armory is on the model, full stop. When the datasheet ALSO lists it as
+  // a squad swap (the Plague Marines' Plasma gun), it would otherwise stay hidden behind an option
+  // the buyer never took — so a Champion could pay for a weapon that then appeared nowhere.
+  const boughtFromArmory = new Set(armoryGranted);
   // Multi-profile weapons are stored as several entries named "<Weapon> - <Profile>"
   // (e.g. "Plasma blastgun - Rapid"). An option choice names the parent weapon ("Plasma
   // blastgun"), so match a choice against the weapon name BEFORE the " - " profile suffix.
@@ -450,6 +454,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (variantOnlyWeapons.has(w.name)) return variantActive && !replacedWeaponNames.has(w.name);
     if (replacedWeaponNames.has(w.name)) return false;
     if (zeroCountModelWeapons.has(w.name)) return false;
+    if (boughtFromArmory.has(w.name)) return true;
     const owningChoices = optionalWeapons.get(wkey(w.name));
     if (!owningChoices) return true;
     // A weapon that's a default part of equipped_with must always show even if the same weapon
@@ -962,6 +967,36 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     ? profile.weaponsToShow.filter(w => !addedByArmory(w.name))
     : profile.weaponsToShow;
 
+  // Weapons the SQUAD bought through its own option groups ("two Plague Marines may swap their
+  // Bolters") — never the Champion's. Computed before the groups are built because it decides both
+  // what the Champion's row may show and, mirrored just below, what the squad's row may show.
+  const squadOnlyGrantedNames = new Set<string>();
+  if (builtInChampion) {
+    for (const [gi, g] of unit.option_groups.entries()) {
+      if (!g.replaces?.length || g.applies_to_model) continue;
+      for (const [ci, qty] of Object.entries(item.optionQty[gi] ?? {})) {
+        if (ci === '__inline' || !qty) continue;
+        const choice = g.choices[parseInt(ci)];
+        if (!choice) continue;
+        const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
+        for (const part of (parts.length > 1 ? parts : [choice.name])) squadOnlyGrantedNames.add(part);
+      }
+    }
+  }
+
+  // The mirror image: a weapon the Champion bought from the Armory that the squad did NOT buy.
+  // These are shared rows — the weapon is on the datasheet too (the Plague Marines' Plasma gun is
+  // both a squad swap and a Nurgle armoury item), so they are not in `championExtraWeapons` and,
+  // left alone, the Champion's purchase silently vanished into the squad's line and the Champion
+  // got no row of its own at all.
+  const championBought = builtInChampion
+    ? remaining.filter(w => grantedSet.has(w.name) && datasheetNames.has(w.name))
+    : [];
+  // Of those, the ones the squad never bought for itself belong to the Champion alone and must be
+  // kept off the squad's row.
+  const championOnlyWeapons = championBought.filter(w => !squadOnlyGrantedNames.has(baseName(w.name)));
+  const squadWeapons = remaining.filter(w => !championOnlyWeapons.includes(w));
+
   const clauses = [...unit.equipped_with.matchAll(/Every ([^.]+?) is equipped with:\s*([^.]+)\./g)];
 
   let groups: WeaponGroup[];
@@ -1024,7 +1059,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       champTraitMap.set(k, [...(champTraitMap.get(k) ?? []), ...v]);
     }
 
-    const identical = championExtraWeapons.length === 0 &&
+    // Anything the Champion alone carries — an added Armory weapon, or a shared one only it bought
+    // — means the two loadouts differ and each needs its own row.
+    const identical = championExtraWeapons.length === 0 && championBought.length === 0 &&
       remaining.every(w => renderedAbilities(w, profile.weaponTraitMap) === renderedAbilities(w, champTraitMap));
 
     if (squadCount <= 0) {
@@ -1033,7 +1070,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       groups = [{ label: null, count: squadCount + championCount, weapons: remaining, traitMap: profile.weaponTraitMap }];
     } else {
       groups = [
-        { label: unit.models[0].name, count: squadCount, weapons: remaining, traitMap: profile.weaponTraitMap },
+        { label: unit.models[0].name, count: squadCount, weapons: squadWeapons, traitMap: profile.weaponTraitMap },
         { label: builtInChampion.name, count: championCount, weapons: [...remaining, ...championExtraWeapons], traitMap: champTraitMap },
       ];
     }
@@ -1057,19 +1094,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // squad's), that row must not show the squad-only swapped weapon at all (it didn't buy it),
   // and the override below must not apply to it either (or the purchased qty shows doubled —
   // once correctly on the squad row, once spuriously on the Champion's).
-  const squadOnlyGrantedNames = new Set<string>();
   if (builtInChampion) {
-    for (const [gi, g] of unit.option_groups.entries()) {
-      if (!g.replaces?.length || g.applies_to_model) continue;
-      const ch = item.optionQty[gi] ?? {};
-      for (const [ci, qty] of Object.entries(ch)) {
-        if (ci === '__inline' || !qty) continue;
-        const choice = g.choices[parseInt(ci)];
-        if (!choice) continue;
-        const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-        for (const part of (parts.length > 1 ? parts : [choice.name])) squadOnlyGrantedNames.add(part);
-      }
-    }
     if (squadOnlyGrantedNames.size > 0) {
       for (const grp of groups) {
         if (grp.label === builtInChampion.name) {
@@ -1230,7 +1255,7 @@ export function resolveUnitProfile(
   const factionFn = FACTION_RESOLVERS[resolverFaction];
   const profile = factionFn ? factionFn(base, item, unit, state, data) : base;
   // Faction resolvers may rewrite `weapons`; derive the display list from the final set.
-  profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item);
+  profile.weaponsToShow = computeWeaponsToShow(profile.weapons, unit, item, profile.armoryGrantedWeapons);
   // Cosmetic archetype renames/ability-injections apply AFTER gating (see weaponDisplayOverride
   // doc) so they never interfere with matching choice names against original weapon names.
   if (profile.weaponDisplayOverride) profile.weaponsToShow = profile.weaponDisplayOverride(profile.weaponsToShow);
