@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as api from '../lib/api';
 import { useLanguage, setTranslationOverrides, allTranslationKeys, defaultString, sourceStrings, type Language } from '../i18n';
 import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
@@ -492,6 +492,8 @@ export function AdminPanel({ onClose }: Props) {
   /** Datasheet ability texts of ONE faction, loaded on demand: there are ~1100 of them across the
    *  game, and a translator works through a codex at a time. '' = only UI labels and the glossary. */
   const [transFaction, setTransFaction] = useState('');
+  /** Bumped after a save so the 'only untranslated' list is re-evaluated then — and only then. */
+  const [transListVersion, setTransListVersion] = useState(0);
   const [transAbilities, setTransAbilities] = useState<Record<string, string>>({});
   const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
@@ -787,6 +789,7 @@ export function AdminPanel({ onClose }: Props) {
       if (Object.keys(m).length) out[lang] = m;
     }
     setTranslationOverrides(out);   // apply live in this session immediately
+    setTransListVersion(v => v + 1);  // now the finished rows may leave the 'untranslated' list
     saveSetting('translations', out);
   }
 
@@ -859,11 +862,26 @@ export function AdminPanel({ onClose }: Props) {
   // A picked codex goes FIRST: picking one is a request to work on it, and there are already ~900
   // UI and glossary keys — appended after those, its texts fell past the display cut and choosing a
   // faction looked like it did nothing.
-  const transKeysAll = [...Object.keys(transAbilities), ...allTranslationKeys()].filter(k => {
-    if (tq !== '' && !(k.toLowerCase().includes(tq) || (SRC[k] ?? '').toLowerCase().includes(tq))) return false;
-    if (transUntranslated && !shownLangs.some(l => isUntranslated(l, k))) return false;
-    return true;
-  });
+  // The "only untranslated" filter is evaluated ONCE per change of filter, language, search or
+  // codex — never while typing. Re-running it on every keystroke made a row stop matching the
+  // moment the first character was entered, so it vanished mid-word and the edit was unfinishable.
+  // The list is deliberately not a function of transEdits; the rows you are working on stay put
+  // until you change what you are looking at.
+  const editsRef = useRef(transEdits);
+  editsRef.current = transEdits;
+  const transKeysAll = useMemo(() => {
+    const src = { ...sourceStrings(), ...transAbilities };
+    const stillEnglish = (lang: 'de' | 'es', k: string) => {
+      const v = editsRef.current[lang][k];
+      return v == null || v.trim() === '' || v === src[k];
+    };
+    return [...Object.keys(transAbilities), ...allTranslationKeys()].filter(k => {
+      if (tq !== '' && !(k.toLowerCase().includes(tq) || (src[k] ?? '').toLowerCase().includes(tq))) return false;
+      if (transUntranslated && !shownLangs.some(l => stillEnglish(l, k))) return false;
+      return true;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tq, transUntranslated, transLang, transAbilities, transListVersion]);
   // Enough to hold a whole codex plus the glossary; the search box and the "untranslated only"
   // filter are what actually narrow it down.
   const transKeys = transKeysAll.slice(0, 400);
