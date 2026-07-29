@@ -42,7 +42,7 @@ useLanguage.subscribe((s) => setRuleLanguage(s.language));
 
 export type TranslationKey =
   | 'appTitle' | 'appSubtitle' | 'landingQuote' | 'selectFaction' | 'savedArmies' | 'loadArmy'
-  | 'buildArmy' | 'addTroops' | 'updates' | 'battleType' | 'pointsLimit' | 'archetype'
+  | 'buildArmy' | 'addTroops' | 'updates' | 'battleType' | 'pointsLimit' | 'pointsLeft' | 'pointsOver' | 'archetype'
   | 'legacy' | 'armyTraits' | 'noArchetype' | 'noLegacy' | 'noTrait'
   | 'skirmish' | 'pitched' | 'epic'
   | 'hq' | 'troops' | 'elites' | 'fastAttack' | 'heavySupport' | 'transport' | 'fortifications' | 'flyers' | 'lordsOfWar'
@@ -217,6 +217,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     updates: 'Updates',
     battleType: 'Battle Type',
     pointsLimit: 'Points Limit',
+    pointsLeft: '{n} left', pointsOver: '{n} over the limit',
     archetype: 'Archetype',
     legacy: 'Legacy',
     armyTraits: 'Army Traits',
@@ -778,6 +779,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     updates: 'Updates',
     battleType: 'Schlachttyp',
     pointsLimit: 'Punktelimit',
+    pointsLeft: 'noch {n}', pointsOver: '{n} über dem Limit',
     archetype: 'Archetyp',
     legacy: 'Vermächtnis',
     armyTraits: 'Armeeeigenschaften',
@@ -1339,6 +1341,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     updates: 'Actualizaciones',
     battleType: 'Tipo de batalla',
     pointsLimit: 'Límite de puntos',
+    pointsLeft: 'quedan {n}', pointsOver: '{n} por encima del límite',
     archetype: 'Arquetipo',
     legacy: 'Legado',
     armyTraits: 'Rasgos del ejército',

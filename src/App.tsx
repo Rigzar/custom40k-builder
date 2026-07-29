@@ -281,6 +281,12 @@ export default function App() {
   // Ref so the beforeunload handler sees current prefs without stale closure.
   const prefsRef = useRef(prefs);
   useEffect(() => { prefsRef.current = prefs; }, [prefs]);
+
+  // A new screen starts at the top. The browser keeps the scroll offset of the page you left, so on
+  // a phone — where the whole thing is one long column — picking a faction or pressing "Add Troops"
+  // dropped you into the middle of the new screen with the Archetype selector off-screen above,
+  // looking like it wasn't there (Discord report).
+  useEffect(() => { window.scrollTo({ top: 0 }); }, [activeTab]);
   const [showPrefs, setShowPrefs] = useState(false);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
