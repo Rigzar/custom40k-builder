@@ -1192,7 +1192,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
 
     // Units banned because they have no vet abilities (Legionnaire Warband)
-    if (rule.requireVetAbilities) {
+    if (rule.requireVetAbilities && !rule.grantVetAbilitiesToAll) {
       for (const item of state.army) {
         if (item.factionSource) continue;
         const u = resolveUnit(item, data);

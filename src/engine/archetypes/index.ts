@@ -286,10 +286,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   },
 
   'Veteran Company': { ...BASE,
-    troopsRemap: ['Veterans'], requireVetAbilities: true,
+    troopsRemap: ['Veterans'], requireVetAbilities: true, grantVetAbilitiesToAll: true,
     notes: [
       'Veterans count as Troops.',
-      'All units must select at least one veteran ability.',
+      'All units gain access to veteran abilities and must select at least one.',
     ],
   },
 
@@ -522,7 +522,8 @@ export function isUnitAllowed(
   if (rule.requireForcedMarkOnly && rule.forcedMark) {
     if (unit.locked_mark && unit.locked_mark !== rule.forcedMark) return false;
   }
-  if (rule.requireVetAbilities && !unit.has_veteran_abilities) return false;
+  // ...unless the archetype hands that access out itself (see grantVetAbilitiesToAll).
+  if (rule.requireVetAbilities && !rule.grantVetAbilitiesToAll && !unit.has_veteran_abilities) return false;
   if (rule.allowedUnitsOnly.length > 0 && !rule.allowedUnitsOnly.includes(unitName)) return false;
   if (rule.allowedKeywords.length > 0) {
     const kws = unit.keywords ?? [];

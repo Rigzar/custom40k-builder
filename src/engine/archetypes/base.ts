@@ -26,6 +26,14 @@ export interface ArchetypeRule {
   requireVetAbilities: boolean;
   /** Units listed here gain veteran ability access even if has_veteran_abilities is false in data. */
   grantVetAbilities: string[];
+  /**
+   * The archetype gives EVERY unit access to veteran abilities, so none is excluded for lacking it.
+   * Two codex wordings look alike and mean opposite things: the CSM Legionnaire Warband says "units
+   * who cannot take a Veteran ability may not be selected" (a restriction), while the IG Veteran
+   * Company says all units "gain the ability to and must select a Veteran ability" (a grant). Read
+   * as a restriction, the second one emptied the roster down to the one unit that already had it.
+   */
+  grantVetAbilitiesToAll: boolean;
   /** Units listed here gain the "Command Squad" ability (can join a squad, or attach to a
    * single character on its own) — e.g. Librarian Conclave grants it to Librarians. */
   grantsCommandSquad: string[];
@@ -189,7 +197,7 @@ export const BASE: ArchetypeRule = {
   troopsRemap: [], forcedMark: null, requireForcedMarkOnly: false,
   bannedUnits: [], bannedSlots: [], hqOverride: null, hqAllowed: [],
   requiresHqUnit: null, noAnimosity: false, noLegacy: false, noTraits: false,
-  troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], grantsCommandSquad: [], demoteOtherTroops: false,
+  troopsCount: 'all', requireVetAbilities: false, grantVetAbilities: [], grantVetAbilitiesToAll: false, grantsCommandSquad: [], demoteOtherTroops: false,
   alliedFaction: null, alliedMarkFilter: 'all', allowedUnitsOnly: [], allowedKeywords: [], notes: [],
 };
 

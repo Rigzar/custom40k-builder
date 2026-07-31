@@ -506,7 +506,9 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ? state.traitPool.reduce((s, n) => s + (data.traits.find(t => t.name === n)?.veteran_max_bonus ?? 0), 0)
     : 0;
   const vetMax = Math.max(0, (unit.veteran_max ?? 2) - (markUsesVetSlot ? 1 : 0) + traitVetMaxBonus);
-  const effectiveHasVetAbilities = unit.has_veteran_abilities || !!(rule?.grantVetAbilities?.includes(item.unitName));
+  const effectiveHasVetAbilities = unit.has_veteran_abilities
+    || !!rule?.grantVetAbilitiesToAll
+    || !!(rule?.grantVetAbilities?.includes(item.unitName));
 
   // Models to display — variant replaces the model group it's promoted from (derived from
   // the option group's own wording, since that group isn't always last in unit.models —
