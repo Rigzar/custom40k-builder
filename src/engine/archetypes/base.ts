@@ -191,6 +191,14 @@ export interface ArchetypeRule {
    * removes their 1-per-army limit; "Hall of Champions" does the same for Paladin Squads.
    */
   liftsUniqueLimit?: string[];
+  /**
+   * Unit names whose per-CHOICE "unique per army" cap this archetype lifts — the sibling of
+   * `liftsUniqueLimit`, which lifts a whole unit's cap. Necrons 1.1 "Canoptek Court": "Cryptek
+   * specialisations are no longer unique", so the army may field two Plasmancers. Distinct
+   * because the two caps are enforced by different validator passes (`Choice.unique_per_army`
+   * vs the `unique_upgrade` option group).
+   */
+  liftsUniqueChoices?: string[];
 }
 
 export const BASE: ArchetypeRule = {

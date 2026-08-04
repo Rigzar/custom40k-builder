@@ -120,7 +120,7 @@ export const FACTION_VERSIONS: Record<string, string> = {
   adeptus_sororitas: '1.01',
   inquisition: '1.00',
   tau_empire: '1.00',
-  necrons: '1.02',
+  necrons: '1.1',
   genestealer_cults: '1.01',
   harlequins: '1.00',
   leagues_of_votann: '1.02',

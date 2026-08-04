@@ -13,7 +13,7 @@ export const lychguard: Unit = {
   "models": [
     {
       "name": "Lychguard",
-      "points": 67,
+      "points": 54,
       "min": 1,
       "max": 10,
       "squad_min": 4,
@@ -62,7 +62,7 @@ export const lychguard: Unit = {
       "choices": [
         {
           "name": "War scythe",
-          "points": 16
+          "points": 20
         }
       ],
       "inline_pts": null,
@@ -83,7 +83,7 @@ export const lychguard: Unit = {
   ],
   "abilities": [
     "Bodyguard, Command squad, Reanimation Protocols",
-    "Dispersion shield: The model gains a 5+ invulnerability save and the abilities \"Deflect\" and \"Parry\".",
+    "Dispersion shield: The model gains the abilities \"Deflect\" and \"Parry\".",
     "Varguard: If a single Lychguard model is selected, it becomes a character model."
   ],
   "unit_type": "Infantry, Necron",

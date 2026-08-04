@@ -1733,6 +1733,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   for (const item of state.army) {
     const u = resolveUnit(item, data);
     if (!u) continue;
+    // Necrons "Canoptek Court" lifts the Cryptek specialisation cap ("Cryptek specialisations are
+    // no longer unique"). Read from the item's OWN detachment so an ally's archetype can't lift it.
+    if (getArchetypeRule(effectiveArchetypeFor(item, state))?.liftsUniqueChoices?.includes(item.unitName)) continue;
     u.option_groups.forEach((g, gi) => {
       g.choices.forEach((c, ci) => {
         if (!c.unique_per_army) return;

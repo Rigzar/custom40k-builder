@@ -13,7 +13,7 @@ export const ophydianDestroyers: Unit = {
   "models": [
     {
       "name": "Destroyer",
-      "points": 52,
+      "points": 50,
       "min": 3,
       "max": 6,
       "stats": {

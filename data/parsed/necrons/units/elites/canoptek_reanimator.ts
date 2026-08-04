@@ -13,7 +13,7 @@ export const canoptekReanimator: Unit = {
   "models": [
     {
       "name": "Reanimator",
-      "points": 166,
+      "points": 144,
       "min": 1,
       "max": 2,
       "stats": {

@@ -13,7 +13,7 @@ export const immortals: Unit = {
   "models": [
     {
       "name": "Immortal",
-      "points": 43,
+      "points": 40,
       "min": 5,
       "max": 10,
       "stats": {
@@ -70,7 +70,7 @@ export const immortals: Unit = {
       "choices": [
         {
           "name": "Gauss blaster",
-          "points": 4
+          "points": 5
         }
       ],
       "inline_pts": null,

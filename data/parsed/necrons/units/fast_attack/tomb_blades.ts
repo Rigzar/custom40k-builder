@@ -13,7 +13,7 @@ export const tombBlades: Unit = {
   "models": [
     {
       "name": "Tomb Blades",
-      "points": 47,
+      "points": 44,
       "min": 3,
       "max": 9,
       "stats": {
@@ -70,11 +70,11 @@ export const tombBlades: Unit = {
       "choices": [
         {
           "name": "Nebuloscope",
-          "points": 14
+          "points": 8
         },
         {
           "name": "Shadowloom & shieldvanes",
-          "points": 22
+          "points": 12
         }
       ],
       "inline_pts": null,
@@ -90,7 +90,7 @@ export const tombBlades: Unit = {
       "choices": [
         {
           "name": "Twin gauss blaster",
-          "points": 7
+          "points": 8
         },
         {
           "name": "Particle beamer",
@@ -107,7 +107,7 @@ export const tombBlades: Unit = {
   "abilities": [
     "Massive(2), Reanimation Protocols",
     "Nebuloscope: Ranged attacks gain \"Seeking\".",
-    "Shadowloom and shieldvanes: The model gains a 3+ armor save and a  5+ invulnerability save."
+    "Shadowloom and shieldvanes: The model gains a 3+ armor save."
   ],
   "unit_type": "Jet Bike, Necron",
   "keywords": [],

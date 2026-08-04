@@ -54,7 +54,7 @@ export const cryptothralls: Unit = {
   ],
   "option_groups": [
     {
-      "header": "For every Cryptek you may select a unit of Technothralls that take up no Elite-slot.",
+      "header": "For every Cryptek you may select a unit of Cryptothralls that take up no Elite-slot.",
       "constraint": {
         "type": "one"
       },
@@ -67,9 +67,9 @@ export const cryptothralls: Unit = {
   "abilities": [
     "Bodyguard, Regeneration(1)",
     "Servant: The unit cannot contest or hold mission objectives.",
-    "Systematic Vigour: If a Cryptek is attached to the unit, each Technothrall gains a bonus of +1 on to hit rolls. Technothralls do not prevent a Cryptek from joining another unit."
+    "Systematic Vigour: If a Cryptek is attached to the unit, each Cryptothrall gains a bonus of +1 on to hit rolls. Cryptothralls do not prevent a Cryptek from joining another unit."
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Infantry, Canoptek",
   "keywords": [],
   "is_vehicle": false,
   "is_character": false,

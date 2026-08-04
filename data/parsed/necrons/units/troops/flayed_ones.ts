@@ -13,7 +13,7 @@ export const flayedOnes: Unit = {
   "models": [
     {
       "name": "Flayed Ones",
-      "points": 22,
+      "points": 20,
       "min": 5,
       "max": 20,
       "stats": {

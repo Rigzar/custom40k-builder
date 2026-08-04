@@ -13,7 +13,7 @@ export const skorpekhDestroyers: Unit = {
   "models": [
     {
       "name": "Destroyer",
-      "points": 48,
+      "points": 47,
       "min": 3,
       "max": 6,
       "stats": {

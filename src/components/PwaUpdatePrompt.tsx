@@ -14,24 +14,27 @@ import { useLanguage, type Language } from '../i18n';
  * Self-contained strings, same pattern as the landing announcement: this is a two-line widget, not
  * worth adding to the global i18n key union.
  */
-type Tx = { ready: string; update: string; later: string; offline: string };
+type Tx = { ready: string; update: string; updating: string; later: string; offline: string };
 
 const TEXT: Record<Language, Tx> = {
   en: {
     ready: 'A new version is available — it may include codex changes.',
     update: 'Update now',
+    updating: 'Updating…',
     later: 'Later',
     offline: 'Ready to work offline.',
   },
   de: {
     ready: 'Eine neue Version ist verfügbar — sie kann Codex-Änderungen enthalten.',
     update: 'Jetzt aktualisieren',
+    updating: 'Wird aktualisiert…',
     later: 'Später',
     offline: 'Bereit für die Offline-Nutzung.',
   },
   es: {
     ready: 'Hay una versión nueva — puede incluir cambios de códex.',
     update: 'Actualizar ahora',
+    updating: 'Actualizando…',
     later: 'Más tarde',
     offline: 'Listo para funcionar sin conexión.',
   },
@@ -41,6 +44,7 @@ export function PwaUpdatePrompt() {
   const { language } = useLanguage();
   const tx = TEXT[language] ?? TEXT.en;
   const [dismissed, setDismissed] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
   const {
     needRefresh: [needRefresh],
@@ -60,6 +64,23 @@ export function PwaUpdatePrompt() {
     return () => clearTimeout(t);
   }, [offlineReady, setOfflineReady]);
 
+  /**
+   * Apply the waiting service worker, then make sure the page actually reloads.
+   *
+   * `updateServiceWorker(true)` tells the waiting worker to skip waiting and reloads when the
+   * browser fires `controllerchange`. That event never arrives in two ordinary situations — the
+   * waiting worker was already activated (a second tab took it first), or this page has no
+   * controller at all — and then nothing happens and the button looks broken. So: show that the
+   * click registered, and reload ourselves if the event has not done it for us. A reload is safe
+   * to do twice; leaving the user on a stale codex is not.
+   */
+  async function applyUpdate() {
+    if (updating) return;
+    setUpdating(true);
+    try { await updateServiceWorker(true); } catch { /* fall through to the reload */ }
+    setTimeout(() => window.location.reload(), 1500);
+  }
+
   const show = (needRefresh && !dismissed) || offlineReady;
   if (!show) return null;
 
@@ -75,14 +96,17 @@ export function PwaUpdatePrompt() {
         <>
           <span className="text-[12px] text-zinc-200 flex-1 leading-snug">{tx.ready}</span>
           <button
-            onClick={() => updateServiceWorker(true)}
+            onClick={applyUpdate}
+            disabled={updating}
             className="shrink-0 px-3 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600
-                       text-white text-[11px] uppercase tracking-wide transition-colors"
+                       text-white text-[11px] uppercase tracking-wide transition-colors
+                       disabled:opacity-60 disabled:cursor-wait"
           >
-            {tx.update}
+            {updating ? tx.updating : tx.update}
           </button>
           <button
             onClick={() => setDismissed(true)}
+            disabled={updating}
             className="shrink-0 px-2 py-1.5 text-zinc-400 hover:text-zinc-200 text-[11px]
                        uppercase tracking-wide transition-colors"
           >

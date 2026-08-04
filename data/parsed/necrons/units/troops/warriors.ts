@@ -13,7 +13,7 @@ export const warriors: Unit = {
   "models": [
     {
       "name": "Warrior",
-      "points": 19,
+      "points": 18,
       "min": 10,
       "max": 20,
       "stats": {

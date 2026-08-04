@@ -5,7 +5,8 @@ import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { CHANGELOG } from '../data/changelog';
-import { abilityKey } from '../data/coreRules';
+import { BOARDING_RULES, BOARDING_SAMPLE_LISTS, BOARDING_DRAFT } from '../data/boarding';
+import { abilityKey, ruleStrings } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
 import { ALL_FACTIONS } from './LandingPage';
@@ -13,6 +14,27 @@ import { useAuth } from '../hooks/useAuth';
 
 // Languages a translator edits (English is the source, shown read-only).
 const TRANS_LANGS: Exclude<Language, 'en'>[] = ['de', 'es'];
+
+/** One place a search phrase occurs, precise enough for the creator to find it in his spreadsheet. */
+type TextHit = { faction: string; where: string; field: string; text: string };
+
+/**
+ * Every string in a faction dataset, with a readable path.
+ *
+ * WHY A BLIND WALK AND NOT A CURATED FIELD LIST: the creator asked "show me everywhere this wording
+ * is used" so he can retire a phrase in favour of a new special rule. A curated list is exactly the
+ * thing that would silently miss the one option header nobody remembered, which is the failure the
+ * search exists to prevent. So it walks the whole object; a field the search shouldn't have found
+ * is a cheap thing to ignore, a field it missed is a rule left half-renamed.
+ */
+function walkStrings(node: unknown, path: string[], emit: (path: string[], text: string) => void, depth = 0): void {
+  if (depth > 14) return;
+  if (typeof node === 'string') { if (node.length > 1) emit(path, node); return; }
+  if (Array.isArray(node)) { for (const v of node) walkStrings(v, path, emit, depth + 1); return; }
+  if (node && typeof node === 'object') {
+    for (const [k, v] of Object.entries(node as Record<string, unknown>)) walkStrings(v, path.concat(k), emit, depth + 1);
+  }
+}
 
 /** Default source spreadsheets by faction (creator's live Google Sheets). Admin can add/override. */
 const DEFAULT_SOURCE_IDS: Record<string, string> = {
@@ -66,7 +88,7 @@ function toSheetId(input: string): string {
   return m ? m[1] : s;
 }
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'boarding';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -143,8 +165,10 @@ interface AdminTx {
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabBoarding: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabBoarding: string; boardingPrivate: string; boardingHint: string; boardingSamples: string;
+  findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
+  findNone: string; findCount: (hits: number, factions: number) => string; findExport: string; findScanning: (f: string) => string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
   srcCoverage: (fetched: number, total: number) => string;
   srcWhereSheet: string; srcWhereReview: string; srcWhereReviewHint: string;
@@ -231,6 +255,19 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabI18n: 'Edit the German / Spanish text of any interface string.',
     tabSource: 'Source check',
     helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
+    tabFind: 'Find text',
+    tabBoarding: 'Boarding',
+    boardingPrivate: 'private', boardingSamples: 'Reference lists',
+    boardingHint: 'Working draft of the Boarding Actions supplement — a small-scale Custom40k mode fought in corridors. Read-only here. It is deliberately NOT wired into the builder: there is no Boarding engagement, so no player can select it and no saved list can reference it.',
+    helpTabBoarding: 'Working draft of the Boarding Actions supplement. Admin-only — it is not wired into the builder and no player can see or select it.',
+    helpTabFind: 'Search every faction\'s data for a word or phrase and list every place it appears.',
+    findHint: 'Type any wording — an ability, a rules phrase, a weapon name — and this lists every place it appears across all factions: unit abilities, weapon abilities, option headers, armoury descriptions and the rules glossary. Useful before replacing a phrase with a new special rule. Read-only.',
+    findPlaceholder: 'e.g. Can only be used with a Charge order',
+    findRun: 'Search', findRunning: 'Searching…',
+    findWhole: 'Whole words only', findCase: 'Match case',
+    findNone: 'Not found anywhere.',
+    findCount: (h, f) => `${h} ${h === 1 ? 'hit' : 'hits'} in ${f} ${f === 1 ? 'faction' : 'factions'}`,
+    findExport: 'Export .json', findScanning: f => `Scanning ${f}…`,
     srcHint: 'Pick a faction and paste its Google Sheet ID (from the sheet URL). "Compare" fetches every unit tab and lists point differences vs the app. Read-only — nothing is changed automatically.',
     srcSpreadsheetId: 'Google Sheet ID', srcCompare: 'Compare', srcComparing: 'Comparing…', srcNoDiff: 'No point differences — the app matches the sheet.',
     srcCol: (unit, model) => `${unit} · ${model}`,
@@ -326,6 +363,19 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabI18n: 'Den deutschen / spanischen Text jeder Oberflächen-Zeichenkette bearbeiten.',
     tabSource: 'Quellenabgleich',
     helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
+    tabFind: 'Text suchen',
+    tabBoarding: 'Boarding',
+    boardingPrivate: 'privat', boardingSamples: 'Referenzlisten',
+    boardingHint: 'Arbeitsentwurf der Boarding-Actions-Erweiterung — ein Custom40k-Modus im kleinen Maßstab, gekämpft in Korridoren. Hier nur lesbar. Bewusst NICHT im Builder verdrahtet: es gibt kein Boarding-Engagement, also kann es kein Spieler auswählen.',
+    helpTabBoarding: 'Arbeitsentwurf der Boarding-Actions-Erweiterung. Nur für Admins — nicht im Builder verdrahtet, für Spieler unsichtbar.',
+    helpTabFind: 'Alle Fraktionsdaten nach einem Wort oder Satz durchsuchen und jede Fundstelle auflisten.',
+    findHint: 'Gib eine beliebige Formulierung ein — eine Fähigkeit, einen Regelsatz, einen Waffennamen — und hier erscheint jede Fundstelle über alle Fraktionen hinweg: Einheiten-Fähigkeiten, Waffen-Fähigkeiten, Options-Überschriften, Arsenal-Beschreibungen und das Regelglossar. Praktisch, bevor man eine Formulierung durch eine neue Spezialregel ersetzt. Nur Lesen.',
+    findPlaceholder: 'z. B. Can only be used with a Charge order',
+    findRun: 'Suchen', findRunning: 'Suche…',
+    findWhole: 'Nur ganze Wörter', findCase: 'Groß-/Kleinschreibung',
+    findNone: 'Nirgends gefunden.',
+    findCount: (h, f) => `${h} ${h === 1 ? 'Treffer' : 'Treffer'} in ${f} ${f === 1 ? 'Fraktion' : 'Fraktionen'}`,
+    findExport: '.json exportieren', findScanning: f => `Durchsuche ${f}…`,
     srcHint: 'Fraktion wählen und die Google-Sheet-ID (aus der Sheet-URL) einfügen. "Vergleichen" lädt jede Einheiten-Registerkarte und listet Punkt-Abweichungen gegenüber der App. Nur Lesen — nichts wird automatisch geändert.',
     srcSpreadsheetId: 'Google-Sheet-ID', srcCompare: 'Vergleichen', srcComparing: 'Vergleiche…', srcNoDiff: 'Keine Punkt-Abweichungen — die App stimmt mit dem Sheet überein.',
     srcCol: (unit, model) => `${unit} · ${model}`,
@@ -421,6 +471,19 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabI18n: 'Edita el texto en alemán / español de cualquier cadena de la interfaz.',
     tabSource: 'Comparar fuente',
     helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
+    tabFind: 'Buscar texto',
+    tabBoarding: 'Boarding',
+    boardingPrivate: 'privado', boardingSamples: 'Listas de referencia',
+    boardingHint: 'Borrador del suplemento Boarding Actions — un modo de Custom40k a pequeña escala, en pasillos. Aquí solo de lectura. A propósito NO está conectado al builder: no existe el engagement Boarding, así que ningún jugador puede elegirlo ni guardarlo en una lista.',
+    helpTabBoarding: 'Borrador del suplemento de Boarding Actions. Solo admins — no está conectado al builder y ningún jugador puede verlo ni elegirlo.',
+    helpTabFind: 'Busca una palabra o frase en los datos de todas las facciones y lista dónde aparece.',
+    findHint: 'Escribe cualquier texto — una habilidad, una frase de reglas, un nombre de arma — y aquí sale cada sitio donde aparece en todas las facciones: habilidades de unidad, habilidades de arma, cabeceras de opciones, descripciones de armería y el glosario de reglas. Útil antes de sustituir una frase por una regla especial nueva. Solo lectura.',
+    findPlaceholder: 'p. ej. Can only be used with a Charge order',
+    findRun: 'Buscar', findRunning: 'Buscando…',
+    findWhole: 'Solo palabras completas', findCase: 'Distinguir mayúsculas',
+    findNone: 'No aparece en ningún sitio.',
+    findCount: (h, f) => `${h} ${h === 1 ? 'resultado' : 'resultados'} en ${f} ${f === 1 ? 'facción' : 'facciones'}`,
+    findExport: 'Exportar .json', findScanning: f => `Buscando en ${f}…`,
     srcHint: 'Elige una facción y pega el ID de su hoja de Google (de la URL de la hoja). "Comparar" descarga cada pestaña de unidad y lista las diferencias de puntos vs la app. Solo lectura — no se cambia nada automáticamente.',
     srcSpreadsheetId: 'ID de la hoja de Google', srcCompare: 'Comparar', srcComparing: 'Comparando…', srcNoDiff: 'Sin diferencias de puntos — la app coincide con la hoja.',
     srcCol: (unit, model) => `${unit} · ${model}`,
@@ -498,6 +561,12 @@ export function AdminPanel({ onClose }: Props) {
   const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
   const [tab, setTab] = useState<AdminTab>('overview');
+  const [findQuery, setFindQuery] = useState('');
+  const [findWhole, setFindWhole] = useState(false);
+  const [findCase, setFindCase] = useState(false);
+  const [findHits, setFindHits] = useState<TextHit[] | null>(null);
+  const [findRunning, setFindRunning] = useState(false);
+  const [findProgress, setFindProgress] = useState('');
   // Source-compare tool
   const [sourceIds, setSourceIds] = useState<Record<string, string>>(DEFAULT_SOURCE_IDS);
   const [srcFaction, setSrcFaction] = useState<string>('chaos_space_marines');
@@ -963,6 +1032,56 @@ export function AdminPanel({ onClose }: Props) {
    * Load one faction's datasheet ability texts into the translation editor. Keyed by the English
    * text itself (see abilityKey), so the same sentence shared by many units is one row to translate.
    */
+  /**
+   * Search every faction dataset (plus the rules glossary) for a phrase.
+   *
+   * Loads the factions one at a time and yields to the event loop between them: the datasets are
+   * megabytes of JSON and doing all twenty in one synchronous pass freezes the tab for seconds with
+   * no sign it is working. The progress label is the whole point of the pause.
+   */
+  async function runFind() {
+    const needle = findQuery.trim();
+    if (!needle) return;
+    setFindRunning(true); setFindHits(null); setMsg('');
+    const flags = findCase ? 'g' : 'gi';
+    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(findWhole ? `\\b${escaped}\\b` : escaped, flags);
+    const hits: TextHit[] = [];
+    try {
+      for (const f of SOURCE_FACTIONS) {
+        setFindProgress(f.name);
+        await new Promise(r => setTimeout(r, 0));
+        let data;
+        try { data = await FACTION_LOADERS[f.key](); } catch { continue; }
+        walkStrings(data, [], (path, text) => {
+          re.lastIndex = 0;
+          if (!re.test(text)) return;
+          // path[0] is the dataset section ('units', 'traits', …); for units path[1] is the name.
+          const where = path[0] === 'units' && path[1] ? path[1] : (path[0] ?? '—');
+          const field = path.slice(path[0] === 'units' ? 2 : 1).join(' › ') || (path[0] ?? '—');
+          hits.push({ faction: f.name, where, field, text });
+        });
+      }
+      setFindProgress('');
+      for (const [key, text] of Object.entries(ruleStrings())) {
+        re.lastIndex = 0;
+        if (re.test(text)) hits.push({ faction: 'Core rules', where: key.split('.')[1] ?? key, field: key.split('.').pop() ?? '', text });
+      }
+      setFindHits(hits);
+    } catch (e) { setMsg(String(e)); }
+    finally { setFindRunning(false); setFindProgress(''); }
+  }
+
+  function exportFind() {
+    if (!findHits) return;
+    const blob = new Blob([JSON.stringify({ query: findQuery, wholeWords: findWhole, matchCase: findCase, generated: new Date().toISOString(), hits: findHits }, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `custom40k-find-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
   async function loadFactionAbilities(factionKey: string) {
     setTransFaction(factionKey);
     if (!factionKey) { setTransAbilities({}); return; }
@@ -1085,6 +1204,8 @@ export function AdminPanel({ onClose }: Props) {
     { id: 'factions', label: L.tabFactions, help: L.helpTabFactions },
     { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n },
     { id: 'source',   label: L.tabSource,   help: L.helpTabSource },
+    { id: 'find',     label: L.tabFind,     help: L.helpTabFind },
+    { id: 'boarding', label: L.tabBoarding, help: L.helpTabBoarding },
   ];
 
   return (
@@ -1625,6 +1746,119 @@ export function AdminPanel({ onClose }: Props) {
                 </div>
               )}
               {srcFindings && renderFindings(srcFaction, srcFindings)}
+            </div>
+            )}
+
+            {tab === 'find' && (
+            <div>
+              <p className="text-zinc-500 text-[11px] font-mono mb-2">{L.findHint}</p>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <input
+                  value={findQuery}
+                  onChange={e => setFindQuery(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter' && !findRunning) runFind(); }}
+                  placeholder={L.findPlaceholder}
+                  className="flex-1 min-w-[260px] bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-amber-800"
+                />
+                <label className="text-[10px] font-mono text-zinc-400 flex items-center gap-1">
+                  <input type="checkbox" checked={findWhole} onChange={e => setFindWhole(e.target.checked)} /> {L.findWhole}
+                </label>
+                <label className="text-[10px] font-mono text-zinc-400 flex items-center gap-1">
+                  <input type="checkbox" checked={findCase} onChange={e => setFindCase(e.target.checked)} /> {L.findCase}
+                </label>
+                <button onClick={runFind} disabled={findRunning || !findQuery.trim()} className={toolbarBtn}>
+                  {findRunning ? L.findRunning : L.findRun}
+                </button>
+                <button onClick={exportFind} disabled={!findHits || findHits.length === 0} className={toolbarBtn}>
+                  {L.findExport}
+                </button>
+                {findProgress && <span className="text-zinc-600 text-[10px] font-mono">{L.findScanning(findProgress)}</span>}
+              </div>
+
+              {findHits && findHits.length === 0 && (
+                <p className="text-green-600 text-[11px] font-mono">{L.findNone}</p>
+              )}
+              {findHits && findHits.length > 0 && (
+                <>
+                  <p className="text-amber-500 text-[11px] font-mono mb-2">
+                    {L.findCount(findHits.length, new Set(findHits.map(h => h.faction)).size)}
+                  </p>
+                  <div className="border border-zinc-800 max-h-[60vh] overflow-y-auto">
+                    {findHits.map((h, i) => (
+                      <div key={i} className="px-2 py-1 border-b border-zinc-900 last:border-b-0">
+                        <div className="flex flex-wrap items-baseline gap-2">
+                          <span className="text-amber-600 text-[10px] font-mono uppercase">{h.faction}</span>
+                          <span className="text-zinc-200 text-[11px] font-mono">{h.where}</span>
+                          <span className="text-zinc-600 text-[10px] font-mono">{h.field}</span>
+                        </div>
+                        <p className="text-zinc-400 text-[11px] whitespace-pre-wrap break-words">{h.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+            )}
+
+            {tab === 'boarding' && (
+            <div className="max-w-3xl">
+              <div className="flex flex-wrap items-baseline gap-3 mb-3">
+                <h2 className="text-amber-400 text-sm font-mono uppercase tracking-widest">Boarding Actions</h2>
+                <span className="text-zinc-600 text-[10px] font-mono">{BOARDING_DRAFT}</span>
+                <span className="text-[9px] uppercase px-1 border border-amber-800 text-amber-500">{L.boardingPrivate}</span>
+              </div>
+              <p className="text-zinc-500 text-[11px] font-mono mb-4">{L.boardingHint}</p>
+
+              {BOARDING_RULES.map(sec => (
+                <section key={sec.id} className="mb-5">
+                  <h3 className="text-zinc-200 text-[12px] font-mono uppercase tracking-wider border-b border-zinc-800 pb-1 mb-2">{sec.title}</h3>
+                  {sec.blocks.map((b, i) => {
+                    if ('p' in b) return <p key={i} className="text-zinc-400 text-[12px] leading-relaxed mb-2">{b.p}</p>;
+                    if ('note' in b) return (
+                      <p key={i} className="text-amber-600/90 text-[11px] leading-relaxed mb-2 border-l-2 border-amber-900 pl-2">{b.note}</p>
+                    );
+                    if ('ul' in b) return (
+                      <ul key={i} className="mb-2 space-y-1">
+                        {b.ul.map((li, j) => (
+                          <li key={j} className="text-zinc-400 text-[12px] leading-relaxed pl-3 border-l border-zinc-800">{li}</li>
+                        ))}
+                      </ul>
+                    );
+                    return (
+                      <div key={i} className="mb-3 overflow-x-auto">
+                        <table className="text-[11px] font-mono border border-zinc-800">
+                          <thead>
+                            <tr>{b.table.head.map(h => (
+                              <th key={h} className="text-left text-zinc-500 px-2 py-1 border-b border-zinc-800 whitespace-nowrap">{h}</th>
+                            ))}</tr>
+                          </thead>
+                          <tbody>
+                            {b.table.rows.map((r, ri) => (
+                              <tr key={ri}>{r.map((c, ci) => (
+                                <td key={ci} className={`px-2 py-1 whitespace-nowrap ${ci === 0 ? 'text-zinc-200' : 'text-zinc-400'}`}>{c}</td>
+                              ))}</tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    );
+                  })}
+                </section>
+              ))}
+
+              <section className="mb-4">
+                <h3 className="text-zinc-200 text-[12px] font-mono uppercase tracking-wider border-b border-zinc-800 pb-1 mb-2">{L.boardingSamples}</h3>
+                {BOARDING_SAMPLE_LISTS.map(l => (
+                  <div key={l.name} className="mb-3">
+                    <p className="text-amber-500 text-[11px] font-mono">{l.name} — {l.total} pts, {l.models} models</p>
+                    <ul className="mt-1 space-y-0.5">
+                      {l.lines.map((x, i) => (
+                        <li key={i} className="text-zinc-400 text-[12px] pl-3 border-l border-zinc-800">{x}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </section>
             </div>
             )}
           </div>

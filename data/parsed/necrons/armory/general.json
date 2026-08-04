@@ -4,130 +4,50 @@
     {
       "name": "Abyssal lance",
       "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 24,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Quick(+1)"
-        },
-        {
-          "name": "Shooting",
-          "range": "18\"",
-          "type": "Assault 1",
-          "s": "4",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "Explosive, Suppression"
-        }
-      ]
+      "range": "9\"",
+      "type": "Assault 2",
+      "s": "8",
+      "ap": "*",
+      "d": "*",
+      "abilities": "Wound rolls are done against the target's Leadership value. Successfull wounds cause one Mortal Wound each.",
+      "p_unit": 36,
+      "p_char": 45
     },
     {
       "name": "Aeonstave",
       "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 30,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Quick(+1)"
-        },
-        {
-          "name": "Shooting",
-          "range": "18\"",
-          "type": "Assault 1",
-          "s": "5",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "Explosive, Shield breaker(-3)"
-        }
-      ]
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Shield breaker(-3)",
+      "p_unit": 7,
+      "p_char": 10
     },
     {
-      "name": "Eldritch lance",
+      "name": "Disruptor field",
       "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 34,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Quick(+1)"
-        },
-        {
-          "name": "Shooting",
-          "range": "18\"",
-          "type": "Assault 1",
-          "s": "8",
-          "ap": "-3",
-          "d": "2",
-          "abilities": "AT(2)"
-        }
-      ]
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 3,
+      "p_char": 4
     },
     {
-      "name": "Entropic lance",
+      "name": "Entropic staff",
       "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "Unique",
-      "p_unit": 20,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Quick(+1)"
-        },
-        {
-          "name": "Shooting",
-          "range": "18\"",
-          "type": "Assault 1",
-          "s": "4",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "Armor piercing(5+), Explosive"
-        }
-      ]
+      "range": "12\"",
+      "type": "Assault 2",
+      "s": "6",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 21,
+      "p_char": 27
     },
     {
       "name": "Fire gauntlet",
@@ -138,7 +58,7 @@
       "ap": "-1",
       "d": "1",
       "abilities": "Flames",
-      "p_unit": 13,
+      "p_unit": null,
       "p_char": 13
     },
     {
@@ -172,10 +92,58 @@
       "type": "Assault 2",
       "s": "7",
       "ap": "-2",
-      "d": "2",
+      "d": "1",
       "abilities": "AT(1)",
       "p_unit": null,
-      "p_char": 52
+      "p_char": 26
+    },
+    {
+      "name": "Plasmic lance",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2)",
+      "p_unit": 30,
+      "p_char": 38
+    },
+    {
+      "name": "Searing beam",
+      "term_compat": false,
+      "range": "2D6\"",
+      "type": "Assault 1",
+      "s": "6",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "Ammo(1), Armorbane, Beam",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Staff of Light",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 20,
+      "p_char": 25
+    },
+    {
+      "name": "Staff of Time",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Quick(+3)",
+      "p_unit": 7,
+      "p_char": 10
     },
     {
       "name": "Tachyon arrow",
@@ -190,68 +158,16 @@
       "p_char": 26
     },
     {
-      "name": "Staff of light",
+      "name": "Tremorstave",
       "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 28,
-      "p_char": 28,
-      "profiles": [
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Quick(+1)"
-        },
-        {
-          "name": "Shooting",
-          "range": "18\"",
-          "type": "Assault 3",
-          "s": "5",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "-"
-        }
-      ]
-    },
-    {
-      "name": "Plasmic lance",
-      "term_compat": false,
-      "range": "",
-      "type": "",
-      "s": "",
-      "ap": "",
-      "d": "",
-      "abilities": "",
-      "p_unit": 23,
-      "p_char": null,
-      "profiles": [
-        {
-          "name": "Melee",
-          "range": "-",
-          "type": "Melee",
-          "s": "+1",
-          "ap": "-2",
-          "d": "1",
-          "abilities": "Quick(+1)"
-        },
-        {
-          "name": "Shooting",
-          "range": "18\"",
-          "type": "Assault 2",
-          "s": "7",
-          "ap": "-3",
-          "d": "1",
-          "abilities": "AT(1), Haywire"
-        }
-      ]
+      "range": "18\"",
+      "type": "Assault 1",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Explosive, Monofilament",
+      "p_unit": 20,
+      "p_char": 25
     },
     {
       "name": "Voidblade",
@@ -278,12 +194,24 @@
       "p_char": 20
     },
     {
+      "name": "Voltaic staff",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "5",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Haywire",
+      "p_unit": 20,
+      "p_char": 25
+    },
+    {
       "name": "War scythe",
       "term_compat": false,
       "range": "-",
       "type": "Melee",
       "s": "x2",
-      "ap": "-3",
+      "ap": "-4",
       "d": "3",
       "abilities": "AT(3), Slow(-2)",
       "p_unit": null,
@@ -294,37 +222,37 @@
     {
       "name": "Atomic Energy Manipulator",
       "term_compat": false,
-      "desc": "Once per game, the model can boost a friendly infantry unit within 3\" range. Roll 1D3: \n1 - The unit gains +1 Strength. \n2 - The unit gains +1 Toughness. \n3 - The unit gets +1 BS and +1 WS. \nCharacter models cannot be upgraded. Unique.",
+      "desc": "Once per game, the model can boost a friendly infantry unit within 3\" range. Roll 1D3:\n1 - The unit gains +1 Strength.\n2 - The unit gains +1 Toughness.\n3 - The unit gets +1 BS and +1 WS.\nCharacter models cannot be upgraded. Unique.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": 10
     },
     {
       "name": "Canoptek Cloak",
       "term_compat": false,
-      "desc": "The model gains the \"Jump pack\" special rule. At the end of its activation, it can heal a friendly Canoptek unit within 6\" for 1 Wound, 1 permanent vehicle damage or 1 Hull point.",
-      "p_unit": 10,
-      "p_char": null
+      "desc": "The model gains the \"Jump pack\" ability. At the end of its activation, it can heal a friendly Canoptek unit within 6\" for 1 Wound or 1 vehicle damage result. Unique.",
+      "p_unit": 12,
+      "p_char": 24
     },
     {
       "name": "Canoptek Control Node",
       "term_compat": false,
-      "desc": "At the start of the activation, pick a single friendly <Canoptek> unit within 12\". It gets +1 to hit rolls until the end of its activation.",
-      "p_unit": 15,
-      "p_char": null
+      "desc": "At the start of the activation, pick a single friendly <Canoptek> unit within 12\". It gets +1 to hit rolls until the end of its activation. Unique.",
+      "p_unit": 10,
+      "p_char": 10
     },
     {
       "name": "Chronometron",
       "term_compat": false,
-      "desc": "The model and its attached unit gain a 6+ invulnerability save against ranged attacks. In addition, the model and an attached unit gain a +3 bonus for pursuit rolls.",
-      "p_unit": 20,
-      "p_char": null
+      "desc": "The model may re-roll any one die per activation. Unique.",
+      "p_unit": 5,
+      "p_char": 5
     },
     {
       "name": "Countertemporal Nanomines",
       "term_compat": false,
       "desc": "Once per battle, this unit can place Countertemporal nanomine while moving. This must be placed within 1\" of the unit and more than 3\" away from enemy units. The first enemy unit that comes within 3\" of the nanomine suffers 1D3+1 wounds with Strength: 4, AP: -4, D: 1. Vehicles suffer 1D3 glancing hits.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": 10
     },
     {
       "name": "Destroyer body",
@@ -338,14 +266,21 @@
       "term_compat": false,
       "desc": "Psykers within 18\" suffer a \"Perils of the Warp\" attack on each double when trying to manifest a psychic power. Unique.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": 10
     },
     {
-      "name": "Gaze of the flame",
+      "name": "Ether crystal",
       "term_compat": false,
-      "desc": "Enemy units gain no bonus attack when charging and suffer a -1 penalty to Leadership while in melee.",
-      "p_unit": null,
+      "desc": "Units arriving via Deep Strike that land within 12\" receive 1D3 Mortal Wounds. Unique.",
+      "p_unit": 10,
       "p_char": 10
+    },
+    {
+      "name": "Gaze of Flame",
+      "term_compat": false,
+      "desc": "Enemy units gain no Charge bonus when charging this model and suffer a -1 penalty to Leadership while in melee. Unique.",
+      "p_unit": 5,
+      "p_char": 5
     },
     {
       "name": "Grand strategist",
@@ -355,39 +290,32 @@
       "p_char": 5
     },
     {
-      "name": "Harbinger of Despair",
+      "name": "Harp of Dissonance",
       "term_compat": false,
-      "desc": "Pick an enemy unit within 18\" and roll 3D6 during your activation. If your result is higher than the target's Leadership value, the target gains a Battleshock token.",
-      "p_unit": 15,
-      "p_char": null
-    },
-    {
-      "name": "Harbinger of Destruction",
-      "term_compat": false,
-      "desc": "Roll 5D6 during your activation. For every 4+ an enemy unit within 24\" suffers an automatic wound with S:4 AP:-1 Dmg:1, Seeking.",
-      "p_unit": 24,
-      "p_char": null
+      "desc": "Roll 1D6 during activation if an enemy vehicle is within 6\":\n1 - Nothing happens.\n2 to 4 - The vehicle suffers a glancing hit.\n5 to 6 - The vehicle suffers a penetrating hit.\nUnique.",
+      "p_unit": 10,
+      "p_char": 10
     },
     {
       "name": "Illuminor",
       "term_compat": false,
-      "desc": "The model's Technomancer ability has no range limit anymore. Unique.",
+      "desc": "Target a friendly <Necron> unit within 12\". The target immediately succeeds at 1 Reanimation Protocol roll. Unique.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": 10
     },
     {
       "name": "Lightning field",
       "term_compat": false,
-      "desc": "The model gains the \"Retribution(3)\" ability.",
+      "desc": "The model gains the \"Retribution(3)\" ability. Unique.",
       "p_unit": 5,
       "p_char": 5
     },
     {
       "name": "Living Lightning",
       "term_compat": false,
-      "desc": "Roll 1D6 for every enemy model in the same close combat with this model. On a 4+ it suffers an automatic wound with S:4 AP:-1 D:1.",
-      "p_unit": 10,
-      "p_char": null
+      "desc": "Roll 5D6 during your activation. For every 4+ an enemy unit within 24\" suffers an automatic wound with S:4 AP:-1 Dmg:1, Seeking.",
+      "p_unit": 24,
+      "p_char": 24
     },
     {
       "name": "Master-crafted weapon",
@@ -427,23 +355,37 @@
     {
       "name": "Phase adjuster",
       "term_compat": false,
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": 8,
       "p_char": 20
     },
     {
       "name": "Phase shifter",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": null,
       "p_char": 35
     },
     {
       "name": "Phylactery",
       "term_compat": false,
-      "desc": "Roll a die the first time the Lord is eliminated. \n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
+      "desc": "Roll a die the first time the Lord is eliminated.\n1,2 - Remove the model.\n3,4 - Set it back up with 1 wound.\n5,6 - Set it up again with 2 wounds. Unique.",
       "p_unit": null,
       "p_char": 15
+    },
+    {
+      "name": "Prescient strike",
+      "term_compat": false,
+      "desc": "The model can re-roll 1 to hit and 1 to wound roll. Unique.",
+      "p_unit": 4,
+      "p_char": 4
+    },
+    {
+      "name": "Seismic crucible",
+      "term_compat": false,
+      "desc": "Reduce enemy Charge movements that target the model or its attached unit by 2\". Unique.",
+      "p_unit": 5,
+      "p_char": 5
     },
     {
       "name": "Sempiternal weave",
@@ -467,18 +409,32 @@
       "p_char": null
     },
     {
-      "name": "Solar impulse",
+      "name": "Solar Pulse",
       "term_compat": false,
-      "desc": "During the model's activation, the solar impulse can be used once to give all units on the table a -1 hit penalty until the end of the battle round. Unique.",
-      "p_unit": 20,
-      "p_char": 20
+      "desc": "During the model's activation, the Solar Pulse can be used once to give all units on the table a -1 hit penalty until the end of the battle round. Unique.",
+      "p_unit": 10,
+      "p_char": 10
+    },
+    {
+      "name": "Staff of the Destroyer",
+      "term_compat": false,
+      "desc": "The model gains the \"Searing beam\" weapon. Unique.",
+      "p_unit": null,
+      "p_char": 5
     },
     {
       "name": "Teleport homing beacon",
       "term_compat": false,
-      "desc": "A friendly unit arriving within 3\" of the bearer via Deep strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
+      "desc": "A friendly unit arriving within 3\" of the bearer via Deep Strike does not scatter. The Teleport homer must be present on the table at the beginning of the battle round in order to be used.",
       "p_unit": 10,
       "p_char": 10
+    },
+    {
+      "name": "Temporal snares",
+      "term_compat": false,
+      "desc": "Once per game, the own Initiative roll may be re-rolled. Unique.",
+      "p_unit": 5,
+      "p_char": 5
     },
     {
       "name": "Tesseract labyrinth",
@@ -488,11 +444,18 @@
       "p_char": 5
     },
     {
+      "name": "The Stars Are Right",
+      "term_compat": false,
+      "desc": "Roll 1D6 during each Reinfocement phase. If the result is equal or lower to the current Battle round, the model gains +2 Strength, +2 Toughness and +1 Attack for the rest of the game. Unique.",
+      "p_unit": 4,
+      "p_char": 11
+    },
+    {
       "name": "Timesplinter mantle",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save.",
-      "p_unit": 12,
-      "p_char": null
+      "desc": "The model gains the abilities \"Deflect\" and \"Parry\". Unique.",
+      "p_unit": 4,
+      "p_char": 8
     },
     {
       "name": "Tomb world relic",
@@ -505,7 +468,7 @@
       "name": "Translocation shroud",
       "term_compat": false,
       "desc": "The model gains \"Anti-Grav\" and always advances 6\" when using an \"Advance\" order without rolling for it.",
-      "p_unit": null,
+      "p_unit": 4,
       "p_char": 4
     },
     {
@@ -518,8 +481,8 @@
     {
       "name": "Veil of darkness",
       "term_compat": false,
-      "desc": "The Lord can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the Deep Strike rules. Additionally, the model and its attached unit gain the \"Deep Strike\" ability. Additionally, the unit only rolls 1D6 for scatter distance. Unique.",
-      "p_unit": null,
+      "desc": "The model can use a \"Stand & Shoot\" order to immediately redeploy himself and an attached unit using the Deep Strike rules. Additionally, the model and its attached unit gain the \"Deep Strike\" ability. Unique.",
+      "p_unit": 35,
       "p_char": 35
     },
     {
@@ -541,7 +504,7 @@
     {
       "name": "Jammer",
       "term_compat": false,
-      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deep strike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
+      "desc": "Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via Deep Strike that land within 12\" roll 4D6 instead of 2D6 for scattering.",
       "p_unit": 15,
       "p_char": null,
       "category": "vehicle"

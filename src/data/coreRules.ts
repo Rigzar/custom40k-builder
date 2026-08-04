@@ -17,11 +17,11 @@ export const RULES: Record<string, RuleEntry> = {
   // ── Weapon abilities ──────────────────────────────────────────────────────
   'ammo': {
     name: 'Ammo({X})',
-    description: 'This weapon can only be used {X} times per game.',
+    description: 'Wargear with this special rule can only be used {X} times per game',
   },
   'anti-air': {
     name: 'Anti-Air',
-    description: 'Attacks against models with Anti-Grav, Jet Bike, Jump Pack, or the Flyer unit type gain +1 to hit rolls and +1 Strength.',
+    description: 'Attacks made with this weapon against models with the Anti-Grav, Jet Bike, or Jump Pack special rules or the Flyer unit type gain +1 to hit rolls and +1 Strength.',
   },
   // Core Rules L714-718 ("Jump Pack Infantry" type) + designer confirmation (2026-06-12):
   // the "Jump pack" ability referenced standalone at L551 and L1331 is the package granted
@@ -44,19 +44,19 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'barrage': {
     name: 'Barrage',
-    description: 'A successful hit generates up to 5 additional hits (6 total) if the target has enough models. A failed hit can be re-rolled once and generates up to 2 additional hits (3 total). Each model can only be hit once per shot.',
+    description: 'A successful hit roll with this weapon generates up to 5 additional hits (=6 in total), if the target unit consists of enough models. An unsuccessful hit roll can be re-rolled once and generates up to 2 additional hits (=3 in total). Each model in the target unit can only be hit once per shot.',
   },
   'beam': {
     name: 'Beam',
-    description: 'Make a hit roll as normal. If successful, draw a straight line from the shooting model to the target. Make a wound roll against the target and any other units the line passes over.',
+    description: 'Choose a target and make a hit roll with the weapon as normal. If the hit is successful, draw a 1mm straight line from the nearest point of the shooting model\'s base to the nearest point of a model in the target unit. Make a wound roll against the target unit and any other units the line passes over.',
   },
   'blind': {
     name: 'Blind',
-    description: 'If this weapon scores at least one hit, the target unit does not gain a Charge bonus for executing a Charge order.',
+    description: 'If a weapon with this rule scores at least one hit, the target unit does not gain a Charge bonus for executing a Charge order.',
   },
   'blood drinker': {
     name: 'Blood Drinker',
-    description: 'When the model causes a Wound loss, it regains 1 Wound, up to its starting value.',
+    description: 'When the model causes a Wound loss, it regains 1 Wound, up to the starting value in its profile.',
   },
   'bomb': {
     name: 'Bomb',
@@ -64,7 +64,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'combi': {
     name: 'Combi',
-    description: 'A combi-weapon combines two profiles into one. Both profiles can be fired simultaneously at the same target with a -1 penalty to hit.',
+    description: 'Combination weapons, like the "Combi-melta," combine two profiles into one. A combi-weapon can fire both profiles simultaneously at the same target, with a -1 penalty to hit.',
   },
   'deadly': {
     name: 'Deadly({X})',
@@ -80,7 +80,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'explosive': {
     name: 'Explosive',
-    description: 'A successful hit generates up to 3 additional hits (4 total) if the target has enough models. A failed hit can be re-rolled once and generates up to 1 additional hit (2 total). Each model can only be hit once per shot.',
+    description: 'A successful hit roll with this weapon generates up to 3 additional hits (=4 in total), if the target unit consists of enough models. An unsuccessful hit roll can be re-rolled once and generates up to 1 additional hit (=2 in total). Each model in the target unit can only be hit once per shot.',
   },
   'extra attack': {
     name: 'Extra Attack({X})',
@@ -88,15 +88,15 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'flames': {
     name: 'Flames',
-    description: 'The weapon hits automatically. Enemy units in cover reduce their cover armor save benefit by a cumulative -1 (minimum 0).',
+    description: 'The weapon hits automatically. Enemy units in cover reduce the benefit to their armor save from cover by a cumulative -1 (to a minimum of 0).',
   },
   'flurry': {
     name: 'Flurry({X})',
-    description: 'The model makes {X} additional attacks with this weapon per battle round.',
+    description: 'The model makes {X} additional attacks with the respective weapon\'s profile per battle round. This does not prevent the model from choosing to make additional attacks with this weapon.',
   },
   'force weapon': {
     name: 'Force Weapon',
-    description: 'If the bearer successfully manifests at least one psychic power during their activation, any Force weapon they carry gains +1 Damage for the rest of the battle round.',
+    description: 'If the bearer successfully manifests at least one psychic power during their activation, any Force weapon they carry gains +1 Damage for the remainder of the battle round.',
   },
   'grav': {
     name: 'Grav',
@@ -104,11 +104,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'graviton': {
     name: 'Graviton',
-    description: 'Creatures that lose a wound by this weapon must pass a Strength test or suffer another wound with S: 4 AP: 0 D: 1; Seeking. This is in addition to the actual wound roll.',
+    description: 'Creatures that lose a wound by this weapon must pass a Strength test or suffer another wound with S: 4 AP: 0 D: 1; Seeking. This is in addition to the actual wound roll. If the target enemy unit is in cover and at least one hit is scored with this weapon, the terrain becomes difficult and dangerous terrain until the next unit activation that caused the hit.',
   },
   'gruesome': {
     name: 'Gruesome',
-    description: 'Every wound caused counts as two for combat resolution. Models caught fleeing from close combat suffer an additional automatic wound.',
+    description: 'Every wound caused by a weapon with this rule counts as two for combat resolution. Models that are caught while fleeing from close combat suffer an additional automatic wound from this weapon.',
   },
   'haywire': {
     name: 'Haywire',
@@ -120,11 +120,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'life curse': {
     name: 'Life Curse',
-    description: 'A single wound roll against Creatures can be re-rolled. If multiple models in a unit have the same weapon with this rule, they can make their wound rolls together — in which case, one wound roll per model may be re-rolled.',
+    description: 'A single wound roll can be re-rolled against Creatures. If multiple models in a unit have the same weapon with this rule, they can make their wound rolls together. In this case, one wound roll per model may be re-rolled.',
   },
   'indirect': {
     name: 'Indirect',
-    description: 'The weapon does not require line of sight. Targets only gain a cover bonus if in a terrain zone. Can only be fired using the Stand & Shoot command.',
+    description: 'The weapon does not require line of sight to target. Targets only gain a cover bonus if they are in a terrain zone. Weapons can only be fired indirectly using the "Stand & Shoot" command.',
   },
   'master-crafted': {
     name: 'Master-crafted',
@@ -136,15 +136,15 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'monofilament': {
     name: 'Monofilament',
-    description: 'If the target is in cover and at least one hit has been scored, the terrain counts as difficult and dangerous until the end of the next activation of the target unit.',
+    description: 'If at least one hit has been scored with the weapon, the target counts as being in difficult and dangerous terrain until the end of the next activation of the target unit.',
   },
   'overheating': {
     name: 'Overheating',
-    description: 'Each roll of a 1 on a hit roll causes the user to suffer a Mortal Wound (or a glancing hit using the AT value, for vehicles). Re-roll abilities do not prevent overheating — the initial roll determines it. For weapons that hit automatically, a roll of 1 on the wound roll triggers the same penalty instead. Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons and cannot spill over to other models, overriding the standard "remove whole models first" rule.',
+    description: 'Self-Inflicted Damage on Hit Rolls: Each roll of a 1 on a hit roll with this weapon causes the user to suffer a Mortal Wound. If the model is a vehicle, it instead suffers a glancing hit using the weapon\'s AT value. Re-Roll Restriction: If the model has any ability to re-roll hit rolls (such as from Barrage, Explosive, Psychic effects, or other rules), the result of the initial roll determines whether the weapon is overheating. Automatic Hits: For weapons that hit automatically, any roll of a 1 when determining wound rolls causes the user to suffer the same penalty: a Mortal Wound or, for vehicles, a glancing hit using the weapon\'s AT value. Wound Assignment: Wounds caused by Overheating must be allocated first to models equipped with Overheating weapons. These wounds cannot spill over to other models without Overheating weapons, overriding the standard rule that entire models must be removed first.',
   },
   'poison': {
     name: 'Poison({X})',
-    description: 'To-wound rolls of {X} against Creatures always succeed. If the weapon already has Poison, take the better value.',
+    description: 'To wound rolls of {X} against creatures always succeed.',
   },
   'precision': {
     name: 'Precision({X})',
@@ -152,7 +152,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'psi-shock': {
     name: 'Psi-shock',
-    description: 'If a creature unit gets hit, a randomly chosen psyker must pass a Leadership test or suffer 1D3 Mortal Wounds. Against vehicles, it suffers 1D3 instances of Critical Damage instead. Each additional hit from the same unit incurs a cumulative -1 penalty. Can only trigger once per activated unit.',
+    description: 'If a creature unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 Mortal Wounds. If a vehicle unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 instances of Critical Damage. Each additional hit from the same unit during the same activation incurs a cumulative -1 penalty for the test. Can\'t be triggered more than once per activated unit.',
   },
   'quick': {
     name: 'Quick({X})',
@@ -160,7 +160,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'rending': {
     name: 'Rending({X})',
-    description: 'Wound rolls of {X} gain an additional -1 AP bonus.',
+    description: 'Wound rolls of {X} gain an additional bonus of -1 to their AP.',
   },
   'seeking': {
     name: 'Seeking',
@@ -168,11 +168,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'shield breaker': {
     name: 'Shield Breaker({X})',
-    description: 'Invulnerability saves of enemy models are degraded by {X}.',
+    description: 'Ward saves of enemy models are degraded by {X}.',
   },
   'shred': {
     name: 'Shred',
-    description: 'The model may re-roll wound rolls with this weapon.',
+    description: 'The model may re-roll to wound rolls with this weapon.',
   },
   'slow': {
     name: 'Slow({X})',
@@ -184,11 +184,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'sunder': {
     name: 'Sunder({X})',
-    description: 'Enemy units in cover reduce their cover armor save benefit by {X} (minimum 0).',
+    description: 'Enemy units in cover reduce the benefit to their armor save from cover by {X} (to a minimum of 0).',
   },
   'suppression': {
     name: 'Suppression',
-    description: 'Scoring 1 ranged hit forces the target to take a Leadership test. Each additional weapon with this rule fired at the same target adds a cumulative -1 penalty. Barrage adds -2; Explosive adds -1. Leadership penalties from Suppressive Fire and Suppression weapons are cumulative with each other. A failed test gives the target a Battleshock token (if the unit is also forced to test for both Suppressive/Suppression fire and sustaining casualties below half strength in the same activation, it tests only once with all penalties combined, and gains two Battleshock tokens on a fail).',
+    description: 'A weapon with this ability that scores 1 ranged hit on an enemy forces the target to take a Leadership test. For every additional weapon with this rule fired at the same target during the same unit activations, the Leadership test is done with a cumulative -1 penalty. Weapons with the "Explosive" special rule incur an additional -1 penalty. Weapons with the "Barrage" special rule incur an additional -2 penalty. Leadership penalties from Suppressive Fire and Suppression weapons are cumulative. If the enemy unit fails the test and has no Battleshock token, it receives one now. In case an enemy unit is forced to do a Leadership test for Suppressive Fire (or Suppression weapons) and for sustaining casualties below half starting strength at the same time, it only has to test once (including all Leadership penalties) and would receive two Battleshock tokens, if the test fails.',
   },
   'unwieldy': {
     name: 'Unwieldy',
@@ -334,15 +334,15 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'berserk': {
     name: 'Berserk({X})',
-    description: 'The model gains a {X} invulnerability save, but it does not work against weapons with Strength 8 or higher. Cannot use the Escape command or Take Cover reaction.',
+    description: 'The model gains a {X} ward save, but it does not work against weapons with Strength 8 or higher. Limitations Cannot use the Escape command. Cannot use the Take Cover defensive reaction.',
   },
   'blind rage': {
     name: 'Blind Rage',
-    description: 'When not in melee: the unit moves 1D6" toward the nearest enemy instead of taking Leadership tests. When in melee: a failed Leadership test causes 1D3 wounds instead of fleeing. Cannot use the Escape command or Take Cover reaction.',
+    description: 'When not engaged in melee The unit moves 1D6" toward the nearest enemy unit instead of taking Leadership tests or receiving Battleshock tokens. This can result in the unit entering engagement range and starting melee combat as if using a Charge command. When engaged in melee If the unit fails a Leadership test, it loses 1D3 wounds instead of fleeing. Limitations Cannot use the Escape command. Cannot use the Take Cover defensive reaction.',
   },
   'bodyguard': {
     name: 'Bodyguard',
-    description: 'Wounds must be assigned to the Bodyguard model before character models can be targeted. In melee, attacks must target the Bodyguard first.',
+    description: 'Ranged Combat Wounds must first be assigned to the Bodyguard model before character models in the unit can be selected as targets. Close Combat Attacks must first target the Bodyguard model (if possible), before targeting characters. Bodyguards can pile in at the same time as character models in melee.',
   },
   'brotherhood of psykers': {
     name: 'Brotherhood of Psykers',
@@ -350,11 +350,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'combat squads': {
     name: 'Combat Squads',
-    description: 'If the unit has the maximum number of models, it may be split into two equal-sized units during deployment.',
+    description: 'If the unit has the maximum number of models, it may be split into two smaller units of equal size during deployment.',
   },
   'command squad': {
     name: 'Command Squad',
-    description: 'Models with this ability can join a squad, or attach to a single character on its own.',
+    description: 'Models with this ability can join A squad. A single character. A squad that already has a character attached.',
   },
   'counter-attack': {
     name: 'Counter-Attack',
@@ -362,11 +362,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'deep strike': {
     name: 'Deep Strike',
-    description: 'Models arriving from reserve can be placed anywhere on the battlefield. Place one model, roll a scatter die: on a hit icon it stays, on an arrow it moves 2D6" in that direction. Remaining models form circles around the first. If the first model lands off the table or in base contact with an enemy, roll D6 — on 1-3 return to reserve; on 4-6 the opponent places the unit.',
+    description: 'Models arriving from reserve can be placed anywhere on the battlefield. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, the unit goes back into reserve. If the first model lands in direct base contact with or on an enemy unit: Roll a D6: 1-3: The unit returns to reserve. 4-6: The opponent sets up the unit anywhere on the battlefield (except impassable terrain) using Deep Strike rules without rolling scatter. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. Units deployed via Deep Strike count as having moved at maximum range and can only use the Move & Shoot command. Example The first model (1) is placed on the battlefield. A circle of models (2) is formed around the first. If there are any remaining models, another circle (3) is formed, and this process continues until all models are placed.',
   },
   'deepstrike': {
     name: 'Deep Strike',
-    description: 'Models arriving from reserve can be placed anywhere on the battlefield. Place one model, roll a scatter die: on a hit icon it stays, on an arrow it moves 2D6" in that direction. Remaining models form circles around the first. If the first model lands off the table or in base contact with an enemy, roll D6 — on 1-3 return to reserve; on 4-6 the opponent places the unit.',
+    description: 'Models arriving from reserve can be placed anywhere on the battlefield. Deployment Process: Place one model from the unit on the battlefield in the desired position. Roll a scatter die: If the result is a hit icon, the model remains in place. If the result is an arrow, move the model 2D6" in the indicated direction. Remaining models in the unit must be placed in a circle around the first model, touching it. If the first circle is full, begin a second circle, with each model touching one from the first circle. If the first model lands outside the playing field, the unit goes back into reserve. If the first model lands in direct base contact with or on an enemy unit: Roll a D6: 1-3: The unit returns to reserve. 4-6: The opponent sets up the unit anywhere on the battlefield (except impassable terrain) using Deep Strike rules without rolling scatter. Models placed on terrain must take a dangerous terrain test, even if they normally ignore terrain. Placement Exceptions: If models cannot be placed due to space limitations, they count as destroyed. On terrain floors, models are only destroyed if there is no more available space. Empty spaces in the circle can be mentally skipped. Units deployed via Deep Strike count as having moved at maximum range and can only use the Move & Shoot command. Example The first model (1) is placed on the battlefield. A circle of models (2) is formed around the first. If there are any remaining models, another circle (3) is formed, and this process continues until all models are placed.',
   },
   'deflect': {
     name: 'Deflect',
@@ -374,27 +374,27 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'daemon': {
     name: 'Daemon',
-    description: 'The model has a 5+ invulnerability save.',
+    description: 'The model has a 5+ ward save.',
   },
   'daemonic instability': {
     name: 'Daemonic Instability',
-    description: 'The unit ignores the effects of a single Battleshock token. Upon gaining a second token, it suffers 1D3 automatic wounds (no saves) and discards all tokens. In close combat, instead of fleeing it suffers 1D3+1 automatic wounds. Cannot use Escape or Take Cover.',
+    description: 'The unit ignores the effects of a single Battleshock token. Upon gaining a second Battleshock token, the unit: Suffers 1D3 Mortal Wounds. Discards all Battleshock tokens. Does not flee. Close Combat Instead of fleeing, the unit suffers 1D3+1 Mortal Wounds and remains in place. Limitations Cannot use the Escape command. Cannot use the Take Cover defensive reaction.',
   },
   'fast': {
     name: 'Fast',
-    description: 'Vehicles double their movement range (max 24"). The model may fire one additional weapon if it moves up to 12".',
+    description: 'Vehicles double their movement range (up to a maximum of 24"). The model may fire one additional weapon if it moves up to 12".',
   },
   'fearless': {
     name: 'Fearless',
-    description: 'Automatically passes any Leadership test. Cannot use the Escape command or Take Cover defensive reaction.',
+    description: 'Automatically passes any Leadership test. Limitations Cannot use the Escape command. Cannot use the Take Cover defensive reaction.',
   },
   'favoured enemy': {
     name: 'Favoured Enemy',
-    description: 'At the start of the first battle round, select a faction. The model reduces its total penalty to hit rolls against that faction by -1 (min 0). Leadership tests caused by this model against that faction suffer a cumulative -1 penalty.',
+    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from equipment and abilities by -1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
   },
   'favored enemy': {
     name: 'Favoured Enemy',
-    description: 'At the start of the first battle round, select a faction. The model reduces its total penalty to hit rolls against that faction by -1 (min 0). Leadership tests caused by this model against that faction suffer a cumulative -1 penalty.',
+    description: 'At the start of the first battle round, select a faction (e.g., Space Marines). The model reduces its total penalty to hit rolls against the chosen faction from equipment and abilities by -1, down to a minimum of 0. Additionally, Leadership tests caused by this model against the chosen faction have to be resolved with a cumulative penalty of -1.',
   },
   'fire hatches': {
     name: 'Fire Hatches({X})',
@@ -402,23 +402,23 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'frenzy': {
     name: 'Frenzy({X})',
-    description: 'The Infantry model gains {X} increased movement for Charge movement.',
+    description: 'The Infantry model gains {X}" increased movement for Charge movement.',
   },
   'furious charge': {
     name: 'Furious Charge',
-    description: 'The model gains +1 Strength and +1 Initiative until the end of the current battle round when making a charge move.',
+    description: 'The model gains +1 Strength and +1 Initiative until the end of the current battle round, when making a charge move.',
   },
   'greater daemon': {
     name: 'Greater Daemon',
-    description: 'The model has a 4+ invulnerability save.',
+    description: 'The model has a 4+ ward save.',
   },
   'haste': {
     name: 'Haste({X})',
-    description: 'The Infantry model gains {X} increased movement for Advance movement.',
+    description: 'The Infantry model gains {X}" increased movement for Advance movement.',
   },
   'hit & run': {
     name: 'Hit & Run',
-    description: 'After all models in a melee have been activated (before the result is determined), the unit may move 3D6" away from the enemy in a straight line. Enemy units cannot pursue.',
+    description: 'After all models in a melee combat have been activated (but before the result is determined), the unit may move 3D6" away from the enemy in a straight line. The unit may not get into engagement range with another enemy unit with this move. Enemy units cannot pursue and must reposition if able.',
   },
   'infiltrate': {
     name: 'Infiltrate',
@@ -426,7 +426,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'infiltrator': {
     name: 'Infiltrator',
-    description: 'After all normal deployment, this unit can be deployed anywhere on the battlefield — maintaining 18" from enemy units in line of sight, or 12" if out of line of sight. Units deployed this way cannot make a Vanguard move.',
+    description: 'During deployment, a unit with this ability can be declared as an Infiltrator. After all normal deployment is complete, Infiltrators can be deployed anywhere on the battlefield, maintaining: 18" distance from enemy units if in direct line of sight. 12" distance if out of line of sight. Units deployed this way cannot make a Vanguard move. Simultaneous Units: If both players have Infiltrator units, alternate deploying them, starting with the player who deployed first.',
   },
   'massive': {
     name: 'Massive({X})',
@@ -434,7 +434,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'mindless': {
     name: 'Mindless',
-    description: 'The unit automatically passes every Leadership test. It can contest mission objectives but never hold them.',
+    description: 'The unit automatically passes every Leadership test. It can contest mission objectives, but never hold them.',
   },
   'move through cover': {
     name: 'Move Through Cover',
@@ -442,15 +442,15 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'narthecium': {
     name: 'Narthecium',
-    description: 'Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. Does not work against weapons with Strength 8 or higher, or against Mortal Wounds.',
+    description: 'Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. Limitations: Can be declared after armor and ward saves. Does not work against weapons with Strength 8 or higher. Does not work against Mortal Wounds.',
   },
   'open': {
     name: 'Open',
-    description: 'The vehicle has fire hatches equal to its passenger capacity. Passengers can be targeted for ranged attacks and count as present on the battlefield.',
+    description: 'The vehicle has fire hatches equal to its passenger capacity. Passengers Can be targeted for ranged attacks. Count as physically present on the battlefield (e.g., Psykers can manifest powers). Ranges are measured from the transport\'s hull. Benefit from cover if the transport does. Cannot participate in melee combat while inside the vehicle. Can always make a 6" Charge move after disembarking, if the vehicle moved up to 12".',
   },
   'outflank': {
     name: 'Outflank',
-    description: 'When arriving from reserves, the unit may also be deployed along the side edges of the battlefield. It must receive a Move & Shoot order and counts as having moved at maximum range.',
+    description: 'When arriving from reserves, the unit may also be deployed along the side edges of the battlefield. Limitations When deployed in that way, it must receive a "Move & Shoot" order and already counts as having moved with maximum range when being activated. Units may not be deployed in the opponent\'s deployment zone. Units may not be deployed on the side edges on turn 1.',
   },
   'parry': {
     name: 'Parry',
@@ -462,7 +462,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'retribution': {
     name: 'Retribution({X})',
-    description: 'Melee hits against the model cause {X} automatic wounds per battle round (S4 AP0 D1) against the attacking unit.',
+    description: 'Melee hits against the model cause {X} automatic wounds per battle round with Strength: 4 AP: 0 D: 1 against the attacking unit. If a unit consisting of several models with this rule is hit in melee, pool all instances of Retribution({X}) together.',
   },
   'squadron': {
     name: 'Squadron',
@@ -490,7 +490,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'tank hunter': {
     name: 'Tank Hunter',
-    description: 'A single armor penetration roll against a vehicle or wound roll against a Monstrous creature can be re-rolled. If multiple models in a unit have this rule, one roll per model may be re-rolled.',
+    description: 'A single armor penetration roll against a vehicle or wound roll against a Monstrous creature can be re-rolled. If multiple models in a unit have the same weapon with this rule, the corresponding hit rolls can be made together. In this case, one roll per model may be re-rolled.',
   },
   'terrifying': {
     name: 'Terrifying({X})',
@@ -502,19 +502,19 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'unique': {
     name: 'Unique',
-    description: 'This weapon or wargear may only be included once per army.',
+    description: 'The weapon or wargear may only be included once per army.',
   },
   'unyielding': {
     name: 'Unyielding',
-    description: 'Shoot Heavy weapons with a Move & Shoot order. Always shoot Rapid Fire at full range OR twice at half range. Fire all weapon types at -1 hit when executing a Charge order. Cannot receive the Advance order or pursue fleeing units in close combat.',
+    description: 'Ranged Combat Shoot Heavy weapons with a Move & Shoot order. Always shoot Rapid Fire weapons at full range OR twice at half range. Fire all weapon types at a -1 hit penalty when executing a Charge order. Limitations Cannot receive the Advance order. Cannot pursue fleeing units in close combat.',
   },
   'vanguard': {
     name: 'Vanguard',
-    description: 'At the start of the first battle round, the unit can move 6" if deployed on the battlefield, or 12" if deployed in a dedicated transport vehicle.',
+    description: 'At the start of the first battle round, the unit can: Move 6" if deployed on the battlefield. Move 12" if deployed in a dedicated transport vehicle. Simultaneous Units: If both players have Vanguard units, alternate activating them, starting with the player who deployed first.',
   },
   'warded': {
     name: 'Warded',
-    description: 'The model gains a 6+ invulnerability save, or improves an existing invulnerability save by +1 (maximum 4+). Cumulative with itself.',
+    description: 'The model gains a 6+ ward save, or improves an existing ward save by +1 (to a maximum of 4+). Cumulative with itself.',
   },
   'objective secured': {
     name: 'Objective Secured!',
@@ -615,7 +615,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'hover mode': {
     name: 'Hover Mode',
-    description: 'The flyer can behave like a standard model. It may start in Hover Mode during deployment. It enters Hover Mode by not repositioning during the reserve phase, and exits by being removed during the reserve phase (returning as a normal flyer next round). In Hover Mode the flyer can capture, hold and contest objectives, and can be healed or repaired by other models. When not in Hover Mode, the flyer always counts as having moved 24". Passengers may only disembark while the flyer is in Hover Mode; if the flyer is destroyed by an explosion, passengers suffer double the automatic wounds.',
+    description: 'Flyers with the Hover Mode feature can behave like standard models when in this mode: Setup: A flyer may start in hover mode during deployment before the first battle round. Entering Hover Mode: A flyer enters hover mode by not repositioning during the reserve phase. Exiting Hover Mode: The flyer is removed from the battlefield during the reserve phase and treated as a regular flyer in the following reserve phase. Hover Mode Benefits Flyers in hover mode can capture, hold, or contest objectives. Flyers can only be healed or repaired by models (e.g., Blessing of the Omnissiah) while in hover mode.',
   },
   // ── Escalation supplement (Gargantuan Creatures & Super-heavy Vehicles) ──────
   'colossal blast': {
@@ -638,7 +638,7 @@ export const RULES: Record<string, RuleEntry> = {
   // completely optional"; this is the LAST entry in the canonical Core Rules text) ───────────
   'sniper': {
     name: 'Sniper',
-    description: 'The model may select a specific character model in the target unit for all hit and wound rolls, using the target\'s individual defensive profile for hitting and wounding it. (Experimental — add this ability to weapons in your army meant to represent a sniper rifle of the respective faction.)',
+    description: 'The model may select a specific character model in the target unit for all to hit and to wound rolls. Use the target\'s individual defensive profile for hitting and wounding it.',
   },
 };
 

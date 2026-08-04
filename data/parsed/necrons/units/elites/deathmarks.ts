@@ -13,7 +13,7 @@ export const deathmarks: Unit = {
   "models": [
     {
       "name": "Deathmark",
-      "points": 65,
+      "points": 63,
       "min": 5,
       "max": 10,
       "stats": {

@@ -13,7 +13,7 @@ export const lokhustDestroyers: Unit = {
   "models": [
     {
       "name": "Destroyer",
-      "points": 108,
+      "points": 111,
       "min": 1,
       "max": 3,
       "stats": {
@@ -70,11 +70,11 @@ export const lokhustDestroyers: Unit = {
       "choices": [
         {
           "name": "Enmitic exterminator",
-          "points": 8
+          "points": 6
         },
         {
           "name": "Heavy gauss cannon",
-          "points": 25
+          "points": 24
         }
       ],
       "inline_pts": null,

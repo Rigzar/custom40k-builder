@@ -13,7 +13,7 @@ export const triarchPraetorians: Unit = {
   "models": [
     {
       "name": "Praetorian",
-      "points": 59,
+      "points": 61,
       "min": 5,
       "max": 10,
       "stats": {
@@ -57,7 +57,7 @@ export const triarchPraetorians: Unit = {
       "type": "Pistol 1",
       "s": "5",
       "ap": "-4",
-      "d": "2",
+      "d": "1",
       "abilities": "-"
     },
     {
@@ -67,7 +67,7 @@ export const triarchPraetorians: Unit = {
       "s": "+3",
       "ap": "-1",
       "d": "1",
-      "abilities": "Unwieldy"
+      "abilities": "AT(1), Unwieldy"
     }
   ],
   "option_groups": [
@@ -79,7 +79,7 @@ export const triarchPraetorians: Unit = {
       "choices": [
         {
           "name": "Rod of covenant",
-          "points": 8
+          "points": 2
         }
       ],
       "inline_pts": null,
