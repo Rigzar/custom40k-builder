@@ -60,6 +60,8 @@ export function CampaignMapView({ campaign, isGm, refreshTick }: Props) {
     }
   }
 
+  // `load` is redeclared on every render, so listing it here would re-fetch in a loop.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [campaign.id, refreshTick]);
 
   async function handleInit() {

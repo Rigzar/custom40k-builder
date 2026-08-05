@@ -59,6 +59,8 @@ export function CampaignBattleLog({ campaign, isGm, onSectorChanged }: Props) {
     } catch (err) { setError((err as Error).message); }
     finally { setLoading(false); }
   }
+  // `load` is redeclared on every render, so listing it here would re-fetch in a loop.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [campaign.id]);
 
   async function handleLog() {

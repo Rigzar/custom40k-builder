@@ -720,7 +720,11 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const initGroup = AVATAR_GROUPS.find(g => g.items.some(i => i.key === selKey))?.label;
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(initGroup ? [initGroup] : []));
   function toggleGroup(label: string) {
-    setExpandedGroups(prev => { const n = new Set(prev); n.has(label) ? n.delete(label) : n.add(label); return n; });
+    setExpandedGroups(prev => {
+      const n = new Set(prev);
+      if (n.has(label)) n.delete(label); else n.add(label);
+      return n;
+    });
   }
 
   const [links, setLinks]           = useState<Record<string, string>>(initLinks ?? {});

@@ -74,6 +74,8 @@ export function CampaignRosterView({ campaign, isGm, myFaction }: Props) {
     } catch (e) { setError((e as Error).message); }
     finally { setLoading(false); }
   }
+  // `load` is redeclared on every render, so listing it here would re-fetch in a loop.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { load(); }, [campaign.id]);
 
   async function handleAdd() {

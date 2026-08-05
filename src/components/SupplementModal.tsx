@@ -304,6 +304,8 @@ export function SupplementModal({ supplement, onClose }: Props) {
       .then(c => { if (alive) { setContent(c); setLoading(false); } })
       .catch(e => { console.error('Error loading supplement', e); if (alive) setLoading(false); });
     return () => { alive = false; };
+    // `def` is looked up from `supplement`, so the list is complete as written.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supplement]);
 
   // Close with Escape key
