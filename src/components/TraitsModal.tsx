@@ -22,6 +22,13 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
   const isAllied = !!item.factionSource && item.factionSource === alliedFaction;
   const data = isAllied ? alliedData : primaryData;
   const traitPool = isAllied ? (alliedTraitPool ?? []) : primaryTraitPool;
+
+  // Above the `!data` guard on purpose: React matches state to the ORDER hooks are called
+  // in, so a render that returns early must not skip one.
+  const [selected, setSelected] = useState<string[]>(
+    item.traits.map(t => t.name),
+  );
+
   if (!data) return null;
 
   const maxTraits = Math.max(0, (unit.veteran_max ?? 2) - (markUsesSlot ? 1 : 0));
@@ -47,9 +54,6 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
     );
   });
 
-  const [selected, setSelected] = useState<string[]>(
-    item.traits.map(t => t.name),
-  );
 
   function toggle(name: string) {
     setSelected(prev => {

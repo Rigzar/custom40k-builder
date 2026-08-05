@@ -43,6 +43,12 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const archetype = isAllied ? (store.alliedArchetype ?? '') : primaryArchetype;
   const legacy = isAllied ? (store.alliedLegacy ?? '') : primaryLegacy;
   const legacy2 = isAllied ? '' : primaryLegacy2; // ally has only one Legacy slot, no legacy2
+
+  // Above the `!data` guard on purpose: React matches state to the ORDER hooks are called in,
+  // so a render that returns early must not skip one. The default tab can only be worked out
+  // further down, so the state holds null until the player picks a tab and the default fills in.
+  const [pickedTab, setTab] = useState<ModalTab | null>(null);
+
   if (!data) return null;
 
   const rule = getArchetypeRule(archetype);
@@ -80,7 +86,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const isCultInitiate = !!(unit.is_cult_initiate) || hasCultInitiateItem;
 
   const defaultTab: ModalTab = hasPowers ? 'powers' : hasPrayers ? 'prayers' : 'pacts';
-  const [tab, setTab] = useState<ModalTab>(defaultTab);
+  const tab: ModalTab = pickedTab ?? defaultTab;
 
   // ── Discipline filtering ──────────────────────────────────────────────────
   // Cult initiates (Dark Commune) see ONLY Cult Powers — no General, no other faction discs

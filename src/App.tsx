@@ -361,7 +361,7 @@ export default function App() {
       setOpenTabs(prev => prev.filter(t => t !== 'allied_config'));
       setActiveTab(prev => prev === 'allied_config' ? 'builder' : prev);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [alliedFaction]);
 
   // Archetype / legacy / native-ally faction loader
@@ -454,7 +454,7 @@ export default function App() {
       localStorage.setItem(SAVES_KEY, JSON.stringify(saves));
       localStorage.removeItem('custom40k-army');
     } catch { /* malformed data — just clean up */ }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   // Auto-save the active session to 'custom40k-saved-armies' when the user closes/navigates
@@ -515,7 +515,7 @@ export default function App() {
       } catch { /* quota exceeded */ }
     }, delay);
     return () => clearTimeout(timer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [army, faction, loggedIn, prefs.autosaveInterval]);
 
   async function handleSelectFaction(key: string | null) {
