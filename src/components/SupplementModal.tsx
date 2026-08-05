@@ -6,7 +6,7 @@ import type { Unit, Weapon, Model, Armory } from '../types/data';
 // the user browse each unit's ficha. Activation stays where the rules put it:
 // Horus Heresy = pick the Legion archetype; Escalation/Lords of War = Epic Battle engagement.
 
-export type SupplementKey = 'horus_heresy' | 'escalation' | 'assassins';
+export type SupplementKey = 'horus_heresy' | 'legio_titanicus' | 'escalation' | 'assassins';
 
 interface SupplementDef {
   title: string;
@@ -44,6 +44,31 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
         slots: j.slot_to_units,
         armory: j.armory_general as Armory,
         armoryNote: 'Granted army-wide via the Legion archetype (shared Horus Heresy armory).',
+      };
+    },
+  },
+  legio_titanicus: {
+    title: 'Legio Titanicus',
+    subtitle: 'Horus Heresy supplement',
+    accentTop: 'border-t-orange-800',
+    accentText: 'text-orange-600',
+    blurb:
+      'The Secutarii who march beside the god-engines of the Collegia Titanica. A small supplement ' +
+      'for now \u2014 one datasheet and its own armory \u2014 and, like the Legiones Astartes supplement, ' +
+      'its units count as your own rather than as allies.',
+    activation: [
+      'Pick an Adeptus Mechanicus army.',
+      'In Army Configuration, choose the **Titan Legion** archetype.',
+      'The Legio Titanicus units and armory are injected into your roster automatically.',
+    ],
+    load: async () => {
+      const m = (await import('../../data/parsed/_supplements/legio_titanicus.json')) as { default: any };
+      const j = m.default;
+      return {
+        units: j.units,
+        slots: j.slot_to_units,
+        armory: j.armory_general as Armory,
+        armoryNote: 'Granted army-wide via the Titan Legion archetype.',
       };
     },
   },

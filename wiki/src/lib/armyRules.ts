@@ -394,5 +394,6 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
   // ── SUPPLEMENTS ────────────────────────────────────────────────────────────
   // HH supplement and Escalation use the rules of the parent codex (SM/CSM and faction codices respectively).
   horus_heresy: [],
+  legio_titanicus: [],
   escalation: [],
 };

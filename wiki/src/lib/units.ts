@@ -56,6 +56,11 @@ const LOADERS: Record<string, () => Promise<FactionUnits>> = {
     const data = (mod.default ?? mod) as unknown as { units: Record<string, Unit>; slot_to_units: Record<string, string[]> };
     return { units: data.units, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
   },
+  legio_titanicus: async () => {
+    const mod = await import('../vendor/data/parsed/_supplements/legio_titanicus.json');
+    const data = (mod.default ?? mod) as unknown as { units: Record<string, Unit>; slot_to_units: Record<string, string[]> };
+    return { units: data.units, slot_to_units: data.slot_to_units, faction: 'Horus Heresy' };
+  },
   escalation: loadEscalation,
 };
 

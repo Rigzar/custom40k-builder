@@ -25,6 +25,7 @@ export const ALL_FACTIONS: FactionConfig[] = [
   { key: 'leagues_of_votann', label: 'Leagues of Votann', symbol: 'leagues-of-votann.svg' },
   { key: 'tyranids', label: 'Tyranids', symbol: 'tyranids.svg' },
   { key: 'horus_heresy', label: 'Horus Heresy', symbol: 'horus-heresy.svg' },
+  { key: 'legio_titanicus', label: 'Legio Titanicus', symbol: 'horus-heresy.svg' },
   { key: 'escalation', label: 'Escalation', symbol: 'escalation.svg' },
 ];
 
