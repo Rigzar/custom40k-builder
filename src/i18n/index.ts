@@ -146,7 +146,7 @@ export type TranslationKey =
   | 'valArchetypeNoVetAbilities' | 'valArchetypeHqNotAllowed' | 'valArchetypeForcedMarkConflict'
   | 'valNoLegacyAllowed' | 'valNoTraitsAllowed' | 'valChoiceMarkRestriction' | 'valOptionNotAvailableMark'
   | 'valOptionRequiresArchetype' | 'valOptionOnlyInArmy' | 'val2ndLegacyRequiresTrait' | 'valAssassinSelectionRule'
-  | 'valNeedAtLeastSlot' | 'valTroopsRatioFail' | 'valTroopsRatioOk' | 'valAllyArchetypeUnitNotAllowed'
+  | 'valNeedAtLeastSlot' | 'valSkirmishHqOncePerArmy' | 'valTroopsRatioFail' | 'valTroopsRatioOk' | 'valAllyArchetypeUnitNotAllowed'
   | 'valAllyArchetypeNotInAllowedList' | 'valAllyArchetypeSlotNotAllowed' | 'valAllyArchetypeRequiresHqUnit'
   | 'valAllyArchetypeHqNotAllowed' | 'valAllyArchetypeNoVetAbilities' | 'valAllyArchetypeForcedMarkConflict'
   | 'valAllyNoLegacy' | 'valAllyNoTraits' | 'valAllyTroopsRatioFail' | 'valAllyTroopsRatioOk'
@@ -648,6 +648,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     val2ndLegacyRequiresTrait: '2nd Legacy requires the second-legion trait to be active.',
     valAssassinSelectionRule: '"{ruleName}": select either a single Assassin (Callidus/Culexus/Eversor/Vindicare) or one of each — no other combination.',
     valNeedAtLeastSlot: 'Need at least {min} {slot} (have {used}).',
+    valSkirmishHqOncePerArmy: 'Skirmish: {unit} is an HQ and may not take a "once per army" upgrade — {upgrade}.',
     valTroopsRatioFail: '{label}: {havePts} of the {needPts} pts required (25% of the {limit} pt limit).',
     valTroopsRatioOk: '{label}: {havePts} pts (≥{needPts} required).',
     valAllyArchetypeUnitNotAllowed: 'Allied archetype "{archetype}": {unit} is not allowed.',
@@ -1210,6 +1211,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     val2ndLegacyRequiresTrait: '2. Legacy erfordert die aktivierte Eigenschaft der zweiten Legion.',
     valAssassinSelectionRule: '„{ruleName}": wähle entweder einen einzelnen Assassinen (Callidus/Culexus/Eversor/Vindicare) oder einen von jedem — keine andere Kombination.',
     valNeedAtLeastSlot: 'Mindestens {min} {slot} benötigt (haben {used}).',
+    valSkirmishHqOncePerArmy: 'Skirmish: {unit} ist HQ und darf kein „einmal pro Armee“-Upgrade nehmen — {upgrade}.',
     valTroopsRatioFail: '{label}: {havePts} von {needPts} benötigten Pkt (25% der {limit}-Punkte-Grenze).',
     valTroopsRatioOk: '{label}: {havePts} Pkt (≥{needPts} benötigt).',
     valAllyArchetypeUnitNotAllowed: 'Verbündeter Archetyp „{archetype}": {unit} ist nicht erlaubt.',
@@ -1772,6 +1774,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     val2ndLegacyRequiresTrait: 'El 2º Legado requiere que el rasgo de la segunda legión esté activo.',
     valAssassinSelectionRule: '"{ruleName}": elige un solo Asesino (Callidus/Culexus/Eversor/Vindicare) o uno de cada uno — ninguna otra combinación.',
     valNeedAtLeastSlot: 'Se necesitan al menos {min} {slot} (tienes {used}).',
+    valSkirmishHqOncePerArmy: 'Skirmish: {unit} es HQ y no puede coger una mejora “una vez por ejército” — {upgrade}.',
     valTroopsRatioFail: '{label}: {havePts} de los {needPts} pts necesarios (25% del límite de {limit} pts).',
     valTroopsRatioOk: '{label}: {havePts} pts (≥{needPts} necesarios).',
     valAllyArchetypeUnitNotAllowed: 'Arquetipo aliado "{archetype}": {unit} no está permitido.',

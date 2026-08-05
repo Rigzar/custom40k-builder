@@ -2198,6 +2198,19 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (effSlot !== 'Troops' && pts > 300) {
         items.push({ type: 'error', text: T('valSkirmishUnitExceeds', { unit: item.unitName, pts }) });
       }
+      // "HQ models may not take 'once per army' upgrades" — an upgrade is a datasheet option
+      // group the codex caps at one per army (`unique_upgrade`), such as the Necron Lord's
+      // promotion to Overlord. Armory "Unique" items are the OTHER Skirmish rule, capped at one
+      // for the whole army above, and are not restricted by slot.
+      if (effSlot === 'HQ') {
+        u.option_groups.forEach((g, gi) => {
+          if (g.constraint.type !== 'unique_upgrade') return;
+          const picked = item.optionQty?.[gi];
+          if (picked && Object.values(picked).some(q => q > 0)) {
+            items.push({ type: 'error', text: T('valSkirmishHqOncePerArmy', { unit: item.unitName, upgrade: g.header }) });
+          }
+        });
+      }
       if (u.is_squadron && item.size > 1) {
         items.push({ type: 'error', text: T('valSkirmishSquadronMax', { unit: item.unitName, size: item.size }) });
       }

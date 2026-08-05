@@ -112,9 +112,9 @@ const MARK_BADGE: Record<string, string> = {
   Nurgle:   'bg-green-900/60 text-green-300 border-green-700',
 };
 
-export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities, effectiveSlot }: Props) {
+export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasVetAbilities }: Props) {
   const t = useT();
-  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, engagement, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
+  const { data, alliedData, alliedFaction, supplementData, legacy, legacy2, alliedLegacy, archetype, alliedArchetype, traitPool, alliedTraitPool, addArmoryItem, removeArmoryItem, setLegacyArmoryLock, army } = useArmyStore();
   const [tab, setTab] = useState<ArmoryTab>('general');
   const [section, setSection] = useState<Section>('weapons');
   const [lastAdded, setLastAdded] = useState<string | null>(null);
@@ -206,15 +206,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       return !!found && isUnwieldyItem(found.desc);
     });
   }
-  // Skirmish Unit Restriction #1 (Missions.txt L72, ki-skirmish-restrictions-unenforced-01):
-  // "HQ models may not take 'once per army' upgrades" — the canonical glossary defines a
-  // "once per army" upgrade as exactly what the "Unique" ability means ("This weapon or
-  // wargear may only be included once per army", coreRules.ts). So in Skirmish, an HQ-slot
-  // unit's models may not select Unique items at all (a stricter, engagement-scoped ban —
-  // distinct from uniqueArmyBlocked's normal "only if another unit already has it" gate).
-  function skirmishHqUniqueBlocked(arm: ArmoryItem): boolean {
-    return engagement === 'skirmish' && effectiveSlot === 'HQ' && isUniqueItem(arm.desc);
-  }
+  // Skirmish's "HQ models may not take 'once per army' upgrades" used to be enforced here, as a
+  // ban on Armory "Unique" items for HQ-slot units. That was the wrong half of the rule: the Core
+  // Rules name them separately — "'Unique' equipment or 'once per army' upgrades (like for HQ
+  // selections)" — so an upgrade is a datasheet option group (`unique_upgrade`, e.g. the Necron
+  // Lord's promotion to Overlord), not an Armory item. Banning both here also made Skirmish's
+  // other rule, "the army may select one unique item from the Armory", unreachable for the very
+  // models that buy relics. The upgrade half now lives in validators.ts; the Armory item half is
+  // the army-wide cap of one, also in validators.ts.
   // Level 3 — terminator armor conflict: can't stack two Terminator-type armors
   function isTerminatorArmor(arm: ArmoryItem): boolean {
     return isTerminatorArmourName(arm.name);
@@ -281,7 +280,6 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (oncePerModelBlocked(arm, sec)) return true;
     if (uniqueArmyBlocked(arm, sec)) return true;
     if (unwieldyModelBlocked(arm, sec)) return true;
-    if (skirmishHqUniqueBlocked(arm)) return true;
     if (sec === 'equipment' && armorConflict(arm)) return true;
     if (sec === 'equipment' && daemonGatewayConflict(arm)) return true;
     // instanceOf gate: requires_keywords checked against effectiveKeywords (BSData model)
