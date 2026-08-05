@@ -3016,6 +3016,18 @@
         "p_char": 16
       },
       {
+        "name": "Heavy bolter",
+        "term_compat": false,
+        "range": "36\"",
+        "type": "Rapid Fire 2",
+        "s": "5",
+        "ap": "-2",
+        "d": "1",
+        "abilities": "-",
+        "p_unit": null,
+        "p_char": null
+      },
+      {
         "name": "Nemesis-Bolter",
         "term_compat": false,
         "range": "48\"",
