@@ -120,7 +120,7 @@ export const deathleaper: Unit = {
     "Assassin: If all attacks are resolved against a single model, the Lictor may re-roll all to hit and to wound rolls.",
     "Chameleonic Skin: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
     "Pheromone Trail: A friendly unit arriving within 6\" of this model via Deep strike does not scatter. The Lictor must be present on the table at the beginning of the battle round in order to use this rule.",
-    "Unnatural Speed: The model has a 5+ invulnerability save."
+    "Unnatural Speed: The model has a 5+ ward save."
   ],
   "unit_type": "Monstrous Infantry",
   "keywords": [

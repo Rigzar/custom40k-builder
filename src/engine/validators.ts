@@ -1407,10 +1407,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Iron Within, Iron Without: only for creature models without an existing invulnerability save
+  // Iron Within, Iron Without: only for creature models without an existing ward save
   const ironWithinActive = state.traitPool.includes('Iron Within, Iron Without');
   if (ironWithinActive) {
-    // Armory items that grant an invulnerability save
+    // Armory items that grant a ward save
     const INV_SAVE_ARMORY_ITEMS = new Set(['Bionics', 'Daemonic aura', 'Daemonic possession', 'Cataphractii armor', 'Terminator armor']);
     for (const item of state.army) {
       if (item.factionSource && !isSupplItem(item)) continue; // trait applies only to primary army units (+ integrated supplement)
@@ -2228,8 +2228,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         if (mods.invulnSave !== null && mods.invulnSave <= 4) {
           const culprit = item.armory.find(a => {
             const ai = findArmoryItem(data, a);
-            return ai?.desc && /(\d)\+\s+invulnerable/i.test(ai.desc ?? '') &&
-              parseInt((ai.desc.match(/(\d)\+\s+invulnerable/i)?.[1] ?? '9')) <= 4;
+            return ai?.desc && /(\d)\+\s+(?:ward|invulnerab(?:le|ility))/i.test(ai.desc ?? '') &&
+              parseInt((ai.desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))/i)?.[1] ?? '9')) <= 4;
           });
           items.push({ type: 'error', text: T('valSkirmishInvSaveGain', { unit: item.unitName, culprit: culprit?.itemName ?? 'equipment' }) });
         }
@@ -2601,9 +2601,9 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Iron Within, Iron Without: warn if unit already has an invulnerability save from its datasheet
+  // Iron Within, Iron Without: warn if unit already has a ward save from its datasheet
   if (data.faction === 'Chaos Space Marines' && state.traitPool.includes('Iron Within, Iron Without')) {
-    const INV_SAVE_PATTERNS = /invulnerab(le|ility) save/i;
+    const INV_SAVE_PATTERNS = /(?:ward|invulnerab(?:le|ility)) save/i;
     for (const entry of state.army) {
       if (!entry.traits.some(t => t.name === 'Iron Within, Iron Without')) continue;
       const u = resolveUnit(entry, data);
@@ -2611,7 +2611,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       if (u.abilities.some(a => INV_SAVE_PATTERNS.test(a))) {
         items.push({
           type: 'warn',
-          text: `Iron Within, Iron Without: ${entry.unitName} already has an invulnerability save — the 6+ inv save bonus does not apply (rules restriction).`,
+          text: `Iron Within, Iron Without: ${entry.unitName} already has a ward save — the 6+ ward save bonus does not apply (rules restriction).`,
         });
       }
     }

@@ -56,7 +56,7 @@ export const hospitaller: Unit = {
   "abilities": [
     "Acts of Faith, Command squad, Shield of Faith",
     "Advisor: For every HQ selection, one Hospitaller may be selected without taking up an Elite slot.",
-    "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
+    "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

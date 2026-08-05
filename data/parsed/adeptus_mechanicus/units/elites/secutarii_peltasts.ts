@@ -113,7 +113,7 @@ export const secutariiPeltasts: Unit = {
   "abilities": [
     "Canticles of the Omnissiah",
     "Blind Barrage: Once per game, instead of firing normally, select a friendly unit within 18\". The selected unit gains the benefit of obscuring terrain until this unit's next activation.",
-    "Kyropatris Field Generator: This model receives a 5+ invulnerability save."
+    "Kyropatris Field Generator: This model receives a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

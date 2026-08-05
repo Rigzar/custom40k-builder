@@ -148,7 +148,7 @@ export const wraithknight: Unit = {
   ],
   "abilities": [
     "Battle Focus, Deflect, Fearless, Parry",
-    "Scatter shield: The model gains a 4+ invulnerability save.",
+    "Scatter shield: The model gains a 4+ ward save.",
     "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
   ],
   "unit_type": "Gargantuan Creature",

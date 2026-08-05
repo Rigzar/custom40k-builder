@@ -87,7 +87,7 @@ export const vindicare: Unit = {
   "abilities": [
     "Deep Strike, Deflect, Hit & Run, Infiltrator, Move through cover, Parry",
     "Headshot: If an enemy model suffers a wound from the Exitus rifle or pistol but is not eliminated, roll 1D6. On a 3+ the model suffers one Mortal Wound.",
-    "Lightning reflexes: The model gains a 4+ invulnerability save.",
+    "Lightning reflexes: The model gains a 4+ ward save.",
     "Perfect aim: The model ignores any negative to hit modifications. The player may chose which model in the target unit has to be removed as a casualty.",
     "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
     "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."

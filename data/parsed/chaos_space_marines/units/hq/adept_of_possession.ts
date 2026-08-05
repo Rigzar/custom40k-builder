@@ -21,7 +21,7 @@
  *   May have up to 2 veteran abilities.
  *
  * ABILITIES:
- *   Daemon: 5+ invulnerable save (Core Rules, Daemon ability).
+ *   Daemon: 5+ ward save (Core Rules, Daemon ability).
  *
  * PSYKER: NOT a psyker — no "Psyker" ability on the datasheet.
  *

@@ -170,7 +170,7 @@ export const ancient: Unit = {
     "Advisor: For each HQ selection, one Ancient may be selected that does not occupy an Elite slot.",
     "Company standard: Friendly units within 12\" gain +1 Leadership.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
-    "Terminator armor: The model gains a 5+ invulnerability save."
+    "Terminator armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

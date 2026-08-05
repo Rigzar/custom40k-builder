@@ -187,7 +187,7 @@ export const ghostTerminatorSquad: Unit = {
   "abilities": [
     "Aegis(5+), Deep Strike, Massive(1), Stealth, They Shall Know No Fear, True Grit, Unyielding",
     "Incorporeal: The unit ignores terrain and units when moving. Additionally, the unit must land at least 6\" away from other units (friendly or enemy) when using Deep Strike and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
-    "Terminator armor: The model gains a 5+ invulnerability save."
+    "Terminator armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

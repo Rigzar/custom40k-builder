@@ -107,7 +107,7 @@ export const servitors: Unit = {
   ],
   "abilities": [
     "Unyielding",
-    "Bionics: The model gains a 6+ invulnerability save.",
+    "Bionics: The model gains a 6+ ward save.",
     "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls."
   ],
   "unit_type": "Infantry",

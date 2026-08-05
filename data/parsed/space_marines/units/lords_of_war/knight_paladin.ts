@@ -150,7 +150,7 @@ export const knightPaladin: Unit = {
     }
   ],
   "abilities": [
-    "Ion shield: The model gains a 4+ invulnerability save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
+    "Ion shield: The model gains a 4+ ward save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
   ],
   "unit_type": "Super-heavy Vehicle",
   "keywords": [

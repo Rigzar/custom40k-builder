@@ -225,9 +225,9 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — The Flesh is Weak:
-  // "Creature models gain a 6+ invulnerability save. Vehicles repair either one Engine Damage
+  // "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage
   //  or Weapon Damage on themselves during each Rally phase. Only for creature models that do
-  //  not already have an invulnerability save from their datasheet or Armory."
+  //  not already have a ward save from their datasheet or Armory."
   // COST: 2* | 0 | 5*   (* = per Wound / Hull Point)
   'The Flesh is Weak': [
     { type: 'inv_save', value: 6, applies_to: 'creature' },

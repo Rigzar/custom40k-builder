@@ -170,7 +170,7 @@
     },
     {
       "name": "Signature Evolutionary Adaption",
-      "desc": "Select one Adaptation that must be applied to all Kroot units:\n- Bold: The model gains +1 Leadership.\n- Chameleon: The model gains the \"Deflect\" ability.\n- Fast Reflexes: The model gains +1 Initiative.\n- Hyperactive Nymune Organ: The model gains the \"Frenzy(2\")\" ability.\n- Ork Hybrid: The model gains +1 Toughness.\n- Sixth Sense: The model gains a 6+ invulnerability save.",
+      "desc": "Select one Adaptation that must be applied to all Kroot units:\n- Bold: The model gains +1 Leadership.\n- Chameleon: The model gains the \"Deflect\" ability.\n- Fast Reflexes: The model gains +1 Initiative.\n- Hyperactive Nymune Organ: The model gains the \"Frenzy(2\")\" ability.\n- Ork Hybrid: The model gains +1 Toughness.\n- Sixth Sense: The model gains a 6+ ward save.",
       "pts_unit": "5",
       "pts_char": "0",
       "pts_monster": "5",

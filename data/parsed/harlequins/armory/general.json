@@ -143,7 +143,7 @@
     {
       "name": "Starmist Raiment",
       "term_compat": false,
-      "desc": "The model may activate its Starmist Raiment to gain a 3+ invulnerability save until the start of its next activation. Ammunition(1), Unique.",
+      "desc": "The model may activate its Starmist Raiment to gain a 3+ ward save until the start of its next activation. Ammunition(1), Unique.",
       "p_unit": null,
       "p_char": 25
     },

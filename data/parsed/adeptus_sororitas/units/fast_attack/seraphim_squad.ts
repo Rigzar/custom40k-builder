@@ -122,7 +122,7 @@ export const seraphimSquad: Unit = {
   ],
   "abilities": [
     "Acts of Faith, Hit & Run, Shield of Faith",
-    "Angelic Visage: The model gains a 5+ invulnerability save.",
+    "Angelic Visage: The model gains a 5+ ward save.",
     "Pious: A Seraphim Superior increases the Faith Points by +1."
   ],
   "unit_type": "Infantry, Jump Pack Infantry",

@@ -157,7 +157,7 @@ export const barracudaAirSuperiorityFighter: Unit = {
   ],
   "abilities": [
     "Supporting Fire",
-    "Dispersion field: The model gains a 5+ invulnerability save."
+    "Dispersion field: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [],

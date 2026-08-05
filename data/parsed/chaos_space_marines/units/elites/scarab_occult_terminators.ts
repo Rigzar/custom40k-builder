@@ -31,7 +31,7 @@
  *
  * ABILITIES (verbatim):
  *   Deep strike, Mark of Tzeentch, Massive(1), Unyielding
- *   Crux Terminatus: This unit has a 5+ invulnerable save.
+ *   Crux Terminatus: This unit has a 5+ ward save.
  *   Psyker: A Scarab Occult Sorcerer may cast and/or deny 1 psychic power.
  *     He knows smite as well as one psychic power of a chosen discipline.
  *   ENGINE TODO: enforce cast/deny limit and ‘chosen discipline’ mechanic.
@@ -224,7 +224,7 @@ export const scarabOccultTerminators: Unit = {
   ],
   "abilities": [
     "Deep strike, Mark of Tzeentch, Massive(1), Unyielding",
-    "Crux Terminatus: This unit has a 5+ invulnerable save.",
+    "Crux Terminatus: This unit has a 5+ ward save.",
     "Psyker: A Scarab Occult Sorcerer may cast and/or deny 1 psychic power. He knows smite as well as one psychic power of a chosen discipline."
   ],
   "unit_type": "Infantry",

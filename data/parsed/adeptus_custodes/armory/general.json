@@ -107,7 +107,7 @@
     {
       "name": "Praetorian plate",
       "term_compat": true,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": 15,
       "p_char": null
     },

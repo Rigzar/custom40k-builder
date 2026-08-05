@@ -46,7 +46,7 @@ export const deathcultAssassins: Unit = {
   "option_groups": [],
   "abilities": [
     "Infiltrator",
-    "Lightning reflexes: The model gains a 5+ invulnerability save."
+    "Lightning reflexes: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

@@ -193,7 +193,7 @@
     {
       "name": "Amulet of the Voidwyrm",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save. Unique.",
+      "desc": "The model gains a 4+ ward save. Unique.",
       "p_unit": 5,
       "p_char": 20
     },
@@ -284,7 +284,7 @@
     {
       "name": "Preternatural senses",
       "term_compat": false,
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": 3,
       "p_char": 13
     },

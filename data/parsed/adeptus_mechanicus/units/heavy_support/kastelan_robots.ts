@@ -110,7 +110,7 @@ export const kastelanRobots: Unit = {
     "- Aegis: All models in the unit gain +1 Toughness. This is the default selection in the first battle round until the first actual activation.",
     "- Conqueror: All models in the unit gain +1 WS.",
     "- Protector: All models in the unit gain +1 BS.",
-    "Repulsor Grid: The model gains a 5+ invulnerability save."
+    "Repulsor Grid: The model gains a 5+ ward save."
   ],
   "unit_type": "Monstrous Infantry",
   "keywords": [],

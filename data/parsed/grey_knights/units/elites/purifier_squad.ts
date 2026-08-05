@@ -218,7 +218,7 @@ export const purifierSquad: Unit = {
   "abilities": [
     "Aegis(4+), Brotherhood of Psykers, Combat squads, Shrouding, They Shall Know No Fear, True Grit",
     "Psyker: The unit can cast 1 power and deny 1 power per battle round. It knows Smite and 1 power from a chosen discipline.",
-    "Soulfire: The model has a 5+ invulnerability save."
+    "Soulfire: The model has a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

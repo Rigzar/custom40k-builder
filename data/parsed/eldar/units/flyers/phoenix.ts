@@ -112,7 +112,7 @@ export const phoenix: Unit = {
   ],
   "abilities": [
     "Battle Focus, Deflect",
-    "Vector Dancer: The model gains a 4+ invulnerability save."
+    "Vector Dancer: The model gains a 4+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [],

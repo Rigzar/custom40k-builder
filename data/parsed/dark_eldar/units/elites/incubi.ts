@@ -114,7 +114,7 @@ export const incubi: Unit = {
   ],
   "abilities": [
     "Power through Pain",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
+    "Aspect armor: The model gains a 5+ ward save.",
     "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORDS to the unit."
   ],
   "unit_type": "Infantry",

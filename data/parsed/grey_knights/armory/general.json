@@ -138,7 +138,7 @@
       "armour_compat": [
         "Terminator"
       ],
-      "desc": "Once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique.",
+      "desc": "Once per game, the model may gain a 3+ ward save until the start of its next activation. Unique.",
       "p_unit": null,
       "p_char": 15
     },
@@ -228,7 +228,7 @@
       "armour_compat": [
         "Terminator"
       ],
-      "desc": "Enemy models in direct base contact suffer a -1 penalty to their invulnerability saves.",
+      "desc": "Enemy models in direct base contact suffer a -1 penalty to their ward saves.",
       "p_unit": 5,
       "p_char": 5
     },
@@ -248,7 +248,7 @@
       "armour_compat": [
         "Terminator"
       ],
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": 15,
       "p_char": 13
     },
@@ -360,7 +360,7 @@
       "name": "Refractor field",
       "term_compat": false,
       "armour_compat": [],
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": 11,
       "p_char": null
     },

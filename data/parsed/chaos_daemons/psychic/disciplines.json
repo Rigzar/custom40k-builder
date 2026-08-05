@@ -46,7 +46,7 @@
       "range": "18\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target may re-roll 1s for its invulnerability saving throws.",
+      "effect": "The target may re-roll 1s for its ward saves.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

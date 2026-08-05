@@ -64,7 +64,7 @@ export const coronusGravCarrier: Unit = {
   "option_groups": [],
   "abilities": [
     "Anti-Grav, Shield Host",
-    "Flare Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
+    "Flare Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
     "Transport: This model has a transport capacity of 12 infantry models."
   ],
   "unit_type": "Vehicle",

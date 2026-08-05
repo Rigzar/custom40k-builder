@@ -331,7 +331,7 @@ export const hiveTyrant: Unit = {
   "abilities": [
     "Fearless, Move Through Cover, Synapse",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
-    "Warp Barrier: The model gains a 4+ invulnerability save.",
+    "Warp Barrier: The model gains a 4+ ward save.",
     "Hive Commander: Select two units from your army. Both gain the \"Outflank\" ability.",
     "Indescribable Horror: Units taking a Leadership test caused by this model must roll an extra dice when taking the test and use the highest two results. In most circumstances, this will mean the unit rolls 3D6 and discards the lowest dice roll.",
     "Old Adversary: The model may re-roll one to hit and one to wound roll each battle round."

@@ -25,7 +25,7 @@
  *
  * ABILITIES (verbatim):
  *   Deep strike, Mark of Nurgle, Massive(1), Unyielding
- *   Cataphractii armor: The model has a 4+ invulnerability save.
+ *   Cataphractii armor: The model has a 4+ ward save.
  *
  * UNIT TYPE: Infantry
  * KEYWORDS: Death Guard
@@ -318,7 +318,7 @@ export const blightlordTerminators: Unit = {
   ],
   "abilities": [
     "Deep strike, Mark of Nurgle, Massive(1), Unyielding",
-    "Cataphractii armor: The model has a 4+ invulnerability save."
+    "Cataphractii armor: The model has a 4+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

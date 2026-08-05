@@ -95,7 +95,7 @@
     },
     {
       "name": "Bionic Improvement",
-      "desc": "Creature models gain a 6+ invulnerability save. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+      "desc": "Creature models gain a 6+ ward save. Only for creature models that do not already have a ward save from their datasheet or Armory.",
       "pts_unit": "1*",
       "pts_char": "0",
       "pts_monster": "1*",

@@ -624,7 +624,7 @@
     {
       "name": "Praesidium Protectiva",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": 8,
       "p_char": 13
     },

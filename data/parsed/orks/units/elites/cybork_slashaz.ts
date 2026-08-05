@@ -229,9 +229,9 @@ export const cyborkSlashaz: Unit = {
   ],
   "abilities": [
     "Dakka Dakka Dakka, Furious charge, Mob, Waaagh!",
-    "Cybork Body: Each model has a 5+ invulnerability save.",
+    "Cybork Body: Each model has a 5+ ward save.",
     "Dok's Speriments: After deployment and before the start of the first battle round, roll on the table below for each Cybork Slasha unit in the army:",
-    "Narthecium: Once per turn, the damage of a wound against the unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
+    "Narthecium: Once per turn, the damage of a wound against the unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
   ],
   "unit_type": "Infantry",
   "keywords": [],

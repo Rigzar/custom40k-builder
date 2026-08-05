@@ -153,7 +153,7 @@ export const strikingScorpions: Unit = {
   ],
   "abilities": [
     "Battle Focus, Infiltrator, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
+    "Aspect armor: The model gains a 5+ ward save.",
     "Mandiblaster: During the model's initiave step, roll a D6. On a 4+, one enemy unit in melee suffers an automatic wound with S:4 AP:-2 D:1."
   ],
   "unit_type": "Infantry",

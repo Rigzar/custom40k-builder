@@ -38,7 +38,7 @@ export const tidewallShieldline: Unit = {
     "Anti-Grav, Open",
     "Transport: This model has a transport capacity of 10 models.",
     "Mobile defenses: The model can only move if it has embarked passengers inside.",
-    "Tidewall shield generator: The model and all embarked units have a 4+ invulnerability save."
+    "Tidewall shield generator: The model and all embarked units have a 4+ ward save."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

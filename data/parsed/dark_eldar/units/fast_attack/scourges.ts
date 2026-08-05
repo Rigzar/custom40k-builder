@@ -176,7 +176,7 @@ export const scourges: Unit = {
   ],
   "abilities": [
     "Power through Pain",
-    "Ghostplate armor: The unit got a 5+ invulnerability save.",
+    "Ghostplate armor: The unit got a 5+ ward save.",
     "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORDS to the unit."
   ],
   "unit_type": "Jump Pack Infantry",

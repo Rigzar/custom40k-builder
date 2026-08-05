@@ -120,7 +120,7 @@ export const warWalkers: Unit = {
   ],
   "abilities": [
     "Battle Focus, Squadron",
-    "Power field: The model gains a 5+ invulnerability save."
+    "Power field: The model gains a 5+ ward save."
   ],
   "unit_type": "Walker",
   "keywords": [],

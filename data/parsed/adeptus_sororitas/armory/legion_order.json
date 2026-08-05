@@ -33,7 +33,7 @@
     {
       "name": "Shield Bearer",
       "term_compat": false,
-      "desc": "Once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique. Order of Our Martyred Lady only.",
+      "desc": "Once per game, the model may gain a 3+ ward save until the start of its next activation. Unique. Order of Our Martyred Lady only.",
       "p_unit": null,
       "p_char": 15
     },

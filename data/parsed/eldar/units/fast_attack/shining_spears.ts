@@ -221,8 +221,8 @@ export const shiningSpears: Unit = {
   ],
   "abilities": [
     "Battle Focus, Deflect, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
-    "Shimmershield: The model and its attached unit gain a 4+ invulnerability save in melee."
+    "Aspect armor: The model gains a 5+ ward save.",
+    "Shimmershield: The model and its attached unit gain a 4+ ward save in melee."
   ],
   "unit_type": "Jetbike",
   "keywords": [

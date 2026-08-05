@@ -169,7 +169,7 @@ import Layout from '../../components/Layout.astro';
         <li><strong>Resolve Attacks</strong> — If multiple targets, resolve all attacks vs one unit before moving to next.</li>
         <li><strong>Hit Rolls</strong> — Roll to hit vs model's BS. Roll of 6 always succeeds.</li>
         <li><strong>Wound Rolls</strong> — Roll based on weapon Strength vs target Toughness.</li>
-        <li><strong>Saving Throws</strong> — Roll save, subtract weapon AP. Invulnerability save unaffected by AP.</li>
+        <li><strong>Saving Throws</strong> — Roll save, subtract weapon AP. Ward save unaffected by AP.</li>
         <li><strong>Damage</strong> — Failed save = damage equal to weapon profile. When damage ≥ Wounds, model removed. Damage doesn't carry over.</li>
         <li><strong>Leadership Test</strong> — If unit drops below half starting strength, pass Ld test or receive 2 Battleshock tokens.</li>
       </ol>
@@ -413,7 +413,7 @@ import Layout from '../../components/Layout.astro';
           <li>Can only receive Advance (fire 1 weapon) or Move &amp; Shoot (fire all weapons) orders. Cannot activate first in a turn.</li>
           <li>Always counts as having moved 24″ when not in Hover Mode.</li>
           <li>Subtract 12″ from weapon range when shooting at or from flyers. −1 hit penalty when targeting flyers.</li>
-          <li>On Advance order: 4+ invulnerability save. Cannot engage or be engaged in melee.</li>
+          <li>On Advance order: 4+ ward save. Cannot engage or be engaged in melee.</li>
           <li>3 permanent Engine Damage = disabled for one full round, then all Engine Damage removed and redeployed.</li>
           <li><strong>Hover Mode:</strong> Can capture/hold/contest objectives. Must start in hover mode during deployment or enter by not repositioning in reserve phase.</li>
         </ul>
@@ -434,7 +434,7 @@ import Layout from '../../components/Layout.astro';
         <div class="stat-ref"><img src="/stat-icons/attacks.svg" class="stat-icon" alt="A"><div><strong>Attacks</strong> — Melee attacks per activation. "−" = cannot fight in melee. Max 10.</div></div>
         <div class="stat-ref"><img src="/stat-icons/leadership.svg" class="stat-icon" alt="Ld"><div><strong>Leadership</strong> — Bravery. Uses highest in squad including attached characters. Max 10.</div></div>
         <div class="stat-ref"><img src="/stat-icons/save.svg" class="stat-icon" alt="Sv"><div><strong>Save</strong> — Armour protection, modified by weapon AP. Roll of 1 always fails. Max 1+.</div></div>
-        <div class="stat-ref"><span class="stat-letter">Inv</span><div><strong>Invulnerability Save</strong> — Not affected by AP. Max 4+ (unless stated otherwise).</div></div>
+        <div class="stat-ref"><span class="stat-letter">Inv</span><div><strong>Ward Save</strong> — Not affected by AP. Max 4+ (unless stated otherwise).</div></div>
       </div>
     </div>
 
@@ -481,14 +481,14 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Acute Senses</div><p>Infiltrators always stay 18″ apart during deployment, even without direct LOS.</p></div>
       <div class="ability-card"><div class="ability-name">Aegis (X+)</div><p>Dispel any psychic power directly targeting this model on X+. Also prevent Perils of the Warp on X+. Best Aegis in unit applies.</p></div>
       <div class="ability-card"><div class="ability-name">Anti-Grav</div><p>Ignores terrain, units, and vertical movement costs when moving.</p></div>
-      <div class="ability-card"><div class="ability-name">Berserk (X+)</div><p>Gain X+ invulnerability save (doesn't work vs S8+). Cannot use Escape or Take Cover.</p></div>
+      <div class="ability-card"><div class="ability-name">Berserk (X+)</div><p>Gain X+ ward save (doesn't work vs S8+). Cannot use Escape or Take Cover.</p></div>
       <div class="ability-card"><div class="ability-name">Blind Rage</div><p>Instead of Battleshock tests: move D6″ toward nearest enemy (may trigger charge). In melee: fail Ld test → lose D3 wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
       <div class="ability-card"><div class="ability-name">Bodyguard</div><p>Ranged wounds assigned to Bodyguard before characters. Attacks in melee must target Bodyguard first. Can pile in simultaneously with characters.</p></div>
       <div class="ability-card"><div class="ability-name">Brotherhood of Psykers</div><p>If unit has ≥2 models with this rule: +1 to all psychic cast and deny rolls.</p></div>
       <div class="ability-card"><div class="ability-name">Combat Squads</div><p>If unit is at maximum models, may split into two equal units during deployment.</p></div>
       <div class="ability-card"><div class="ability-name">Command Squad</div><p>Models with this ability can join: a squad, a single character, or a squad that already has a character attached.</p></div>
       <div class="ability-card"><div class="ability-name">Counter-Attack</div><p>Model is able to use the Counter-Attack Meta-Order.</p></div>
-      <div class="ability-card"><div class="ability-name">Daemon</div><p>The model has a 5+ invulnerability save.</p></div>
+      <div class="ability-card"><div class="ability-name">Daemon</div><p>The model has a 5+ ward save.</p></div>
       <div class="ability-card"><div class="ability-name">Daemonic Instability</div><p>Ignore effects of 1 Battleshock token. On 2nd token: suffer D3 auto wounds (no saves), discard all tokens, do not flee. In melee: suffer D3+1 auto wounds instead of fleeing. Cannot Escape or Take Cover.</p></div>
       <div class="ability-card"><div class="ability-name">Deep Strike</div><p>When arriving from reserve, place anywhere. Roll scatter die: hit icon = stay, arrow = move 2D6″. If landing on enemy: D6 roll 1–3 back to reserve, 4–6 opponent places unit. Models on terrain take dangerous terrain test.</p></div>
       <div class="ability-card"><div class="ability-name">Deflect</div><p>Ranged attacks against this model suffer −1 to hit rolls.</p></div>
@@ -497,7 +497,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Favoured Enemy</div><p>At game start, choose a faction. Reduce total hit penalty against that faction by −1 (min 0). Leadership tests caused by this model vs that faction suffer cumulative −1.</p></div>
       <div class="ability-card"><div class="ability-name">Frenzy (x″)</div><p>Infantry model gains x″ increased movement for Charge movement.</p></div>
       <div class="ability-card"><div class="ability-name">Furious Charge</div><p>Gain +1 Strength and +1 Initiative until end of battle round when making a charge move.</p></div>
-      <div class="ability-card"><div class="ability-name">Greater Daemon</div><p>The model has a 4+ invulnerability save.</p></div>
+      <div class="ability-card"><div class="ability-name">Greater Daemon</div><p>The model has a 4+ ward save.</p></div>
       <div class="ability-card"><div class="ability-name">Haste (x″)</div><p>Infantry model gains x″ increased movement for Advance movement.</p></div>
       <div class="ability-card"><div class="ability-name">Hit &amp; Run</div><p>After all models in melee activated (before result): unit may move 3D6″ away in straight line. Cannot enter engagement range. Enemy cannot pursue.</p></div>
       <div class="ability-card"><div class="ability-name">Infiltrator</div><p>After all normal deployment, deploy anywhere: 18″ from enemies in LOS, 12″ from enemies out of LOS. Cannot Vanguard move. Alternate placement if both players have Infiltrators.</p></div>
@@ -520,7 +520,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Unyielding</div><p>May fire Heavy with Move &amp; Shoot. Always fires Rapid Fire at full range OR twice at half range. All weapon types at −1 on Charge. Cannot Advance or pursue fleeing units in melee.</p></div>
       <div class="ability-card"><div class="ability-name">Use Cover</div><p>Models benefiting from cover impose an additional −1 to hit rolls for ranged attacks.</p></div>
       <div class="ability-card"><div class="ability-name">Vanguard</div><p>At the start of the first battle round: move 6″ (or 12″ from a transport). Alternate activation with opponent's Vanguard units, starting with the player who deployed first.</p></div>
-      <div class="ability-card"><div class="ability-name">Warded</div><p>Gain a 6+ invulnerability save, or improve existing invul by +1 (max 4+). Cumulative with itself.</p></div>
+      <div class="ability-card"><div class="ability-name">Warded</div><p>Gain a 6+ ward save, or improve existing invul by +1 (max 4+). Cumulative with itself.</p></div>
 
     </div>
   </div><!-- /tab-special -->
@@ -569,7 +569,7 @@ import Layout from '../../components/Layout.astro';
       <div class="ability-card"><div class="ability-name">Quick (+X)</div><p>The model gains +X to its Initiative.</p></div>
       <div class="ability-card"><div class="ability-name">Rending (X+)</div><p>Wound rolls of X+ gain an additional −1 AP.</p></div>
       <div class="ability-card"><div class="ability-name">Seeking</div><p>Enemy units in cover do not gain any cover benefit and are treated as being outside cover.</p></div>
-      <div class="ability-card"><div class="ability-name">Shield Breaker (−X)</div><p>Invulnerability saves of enemy models are degraded by −X.</p></div>
+      <div class="ability-card"><div class="ability-name">Shield Breaker (−X)</div><p>Ward saves of enemy models are degraded by −X.</p></div>
       <div class="ability-card"><div class="ability-name">Shred</div><p>May re-roll to wound rolls with this weapon.</p></div>
       <div class="ability-card"><div class="ability-name">Slow (−X)</div><p>The model suffers −X to its Initiative.</p></div>
       <div class="ability-card"><div class="ability-name">Soul Burn (X+)</div><p>Wound rolls of X+ against Creatures inflict 1 Mortal Wound. Does not work vs Vehicles.</p></div>

@@ -184,7 +184,7 @@ export const harlequinWraithlord: Unit = {
   ],
   "abilities": [
     "Squadron, Terrifying(-1)",
-    "Holo-suit: The model gains a 4+ invulnerability save.",
+    "Holo-suit: The model gains a 4+ ward save.",
     "Wraithbone: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
   ],
   "unit_type": "Monstrous Creature",

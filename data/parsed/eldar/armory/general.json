@@ -600,7 +600,7 @@
     {
       "name": "Aspect armor",
       "term_compat": false,
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": null,
       "p_char": 12
     },
@@ -635,7 +635,7 @@
     {
       "name": "Forcefield",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": null,
       "p_char": 17
     },
@@ -740,7 +740,7 @@
     {
       "name": "Rune armor",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": 17,
       "p_char": null
     },
@@ -845,7 +845,7 @@
     {
       "name": "Graceful avoidance",
       "term_compat": false,
-      "desc": "The model and its unit got a 4+ invulnerability save against melee attacks.",
+      "desc": "The model and its unit got a 4+ ward save against melee attacks.",
       "p_unit": 5,
       "p_char": null
     },

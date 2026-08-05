@@ -106,7 +106,7 @@ export const kataphronBreachers: Unit = {
   ],
   "abilities": [
     "Massive(1), Monotask, Unyielding",
-    "Bionics: This model receives a 6+ invulnerability save."
+    "Bionics: This model receives a 6+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

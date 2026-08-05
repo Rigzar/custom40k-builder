@@ -333,7 +333,7 @@
     {
       "name": "Bionics",
       "term_compat": false,
-      "desc": "The model gains a 6+ invulnerability save.",
+      "desc": "The model gains a 6+ ward save.",
       "p_unit": null,
       "p_char": 5
     },
@@ -445,7 +445,7 @@
     {
       "name": "Refractor field",
       "term_compat": false,
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": 4,
       "p_char": 6
     },

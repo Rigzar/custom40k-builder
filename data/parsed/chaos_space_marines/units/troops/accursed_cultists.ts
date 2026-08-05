@@ -25,7 +25,7 @@
  *   Unpredictable mutations: At the start of each battle round, before any unit activates,
  *     roll a D6 for each unit of Accursed Cultists. On a 4+, the controlling player may select
  *     one of the following until the end of the battle round: +1 Strength, +1 Toughness, or +1
- *     to invulnerable saves (to a minimum of 4+).
+ *     to ward saves (to a minimum of 4+).
  *
  * UNIT TYPE: Infantry
  * KEYWORDS: Cultist

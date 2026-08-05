@@ -129,7 +129,7 @@ export const inceptorSquad: Unit = {
   ],
   "abilities": [
     "Combat squads, Massive(1), They Shall Know No Fear, Unyielding",
-    "Gravis armor: The model gains a 6+ invulnerability save."
+    "Gravis armor: The model gains a 6+ ward save."
   ],
   "unit_type": "Jump Pack Infantry",
   "keywords": [],

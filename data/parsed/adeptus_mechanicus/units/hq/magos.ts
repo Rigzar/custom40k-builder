@@ -309,7 +309,7 @@ export const magos: Unit = {
     "Archmagos: The range of this model's Canticles of the Omnissiah is extended by 3\".",
     "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
     "Mechandrite Harness: This model may use up to three ranged weapons per activation, regardless of their type.",
-    "Enhanced Bionics: This model receives a 5+ invulnerability save.",
+    "Enhanced Bionics: This model receives a 5+ ward save.",
     "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1.",
     "Enginseer:\nImproved Blessing of the Omnissiah: This model may use Blessing of the Omnissiah one additional time per activation and the roll is successfull on a 3+.",
     "Manipulus\nGalvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1.",

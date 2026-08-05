@@ -58,7 +58,7 @@ export const solitaire: Unit = {
   "abilities": [
     "Anti-grav, Deep strike, Deflect, Fearless, Parry, Terrifying(-1)",
     "Blitz: Once per battle you can make a Blitz move. Add 1D6\" to the Charge and Attack characteristics until the end of this turn.",
-    "Holo-suit: The model gains a 4+ invulnerability save.",
+    "Holo-suit: The model gains a 4+ ward save.",
     "Impossible Form: The model can't be targeted by anything outside of 18\".",
     "Path of Damnation: The model can never be joined by other units."
   ],

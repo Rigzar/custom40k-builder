@@ -142,7 +142,7 @@
         "name": "Residual Magic",
         "cost": "3",
         "when": "After successfully manifesting a psychic power.",
-        "effect": "Select one of the following effects to apply to the caster and their attached unit until their next activation:\n- Add +6\" range to all ranged weapons.\n- The unit gains +1 Strength.\n- The unit gains a 6+ invulnerability save."
+        "effect": "Select one of the following effects to apply to the caster and their attached unit until their next activation:\n- Add +6\" range to all ranged weapons.\n- The unit gains +1 Strength.\n- The unit gains a 6+ ward save."
       }
     ]
   },

@@ -153,7 +153,7 @@ export const onagerDunecrawler: Unit = {
   ],
   "abilities": [
     "Move through cover, Squadron",
-    "Emanatus force field: The model gains a 5+ invulnerability save.",
+    "Emanatus force field: The model gains a 5+ ward save.",
     "Icarus array: The model may fire with all three weapons at the same target each activation."
   ],
   "unit_type": "Vehicle",

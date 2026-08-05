@@ -109,7 +109,7 @@ export const gorgonHeavyTransport: Unit = {
     }
   ],
   "abilities": [
-    "Heavy armored prow: The model gains a 5+ invulnerability save against ranged attacks from the front.",
+    "Heavy armored prow: The model gains a 5+ ward save against ranged attacks from the front.",
     "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
     "Lumbering Behemoth: The model may not receive an \"Advance\" order. Additionally, it always counts as having received a \"Stand & Shoot\" order when shooting its weapons.",
     "Transport: This model has a transport capacity of 50 infantry models."

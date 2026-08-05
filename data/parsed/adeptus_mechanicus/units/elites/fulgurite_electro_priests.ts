@@ -47,7 +47,7 @@ export const fulguriteElectroPriests: Unit = {
   "abilities": [
     "Blind Rage, Canticles of the Omnissiah, Choir Master, Furious Charge",
     "Siphoned Vigour: Everytime this unit caused an unsaved Wound, one previously slain model is restored to the unit.",
-    "Voltagheist Field: The model gains a 4+ invulnerability save."
+    "Voltagheist Field: The model gains a 4+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

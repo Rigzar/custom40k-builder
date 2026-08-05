@@ -159,7 +159,7 @@ export const stormGuardians: Unit = {
   "abilities": [
     "Battle Focus",
     "Crewed platform: If the last Guardian Defender is removed, all remaining Serpent scale platforms are destroyed. They are ignored for all kinds of unit strength and moral purposes.",
-    "Serpent shield: The model and its attached unit have a 5+ invulnerability save against ranged attacks. If the unit got 2 Serpent scale platforms, the invulnerability save is improved to 4+."
+    "Serpent shield: The model and its attached unit have a 5+ ward save against ranged attacks. If the unit got 2 Serpent scale platforms, the ward save is improved to 4+."
   ],
   "unit_type": "Infantry",
   "keywords": [],

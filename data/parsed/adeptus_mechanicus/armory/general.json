@@ -341,7 +341,7 @@
     {
       "name": "Bionics",
       "term_compat": false,
-      "desc": "The model receives a 6+ invulnerability save.",
+      "desc": "The model receives a 6+ ward save.",
       "p_unit": 3,
       "p_char": 9
     },
@@ -362,7 +362,7 @@
     {
       "name": "Conversion field",
       "term_compat": false,
-      "desc": "The model receives a 4+ invulnerability save.",
+      "desc": "The model receives a 4+ ward save.",
       "p_unit": 10,
       "p_char": 26
     },
@@ -383,7 +383,7 @@
     {
       "name": "Enhanced Bionics",
       "term_compat": false,
-      "desc": "The model receives a 5+ invulnerability save.",
+      "desc": "The model receives a 5+ ward save.",
       "p_unit": 7,
       "p_char": 17
     },

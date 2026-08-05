@@ -5,7 +5,7 @@
     {
       "name": "Da Best Armor Teef Can Buy",
       "term_compat": false,
-      "desc": "The model gains a 3+ armor save and a 4+ invulnerable save. Unique. Bad Moons only.",
+      "desc": "The model gains a 3+ armor save and a 4+ ward save. Unique. Bad Moons only.",
       "p_unit": null,
       "p_char": 61
     },

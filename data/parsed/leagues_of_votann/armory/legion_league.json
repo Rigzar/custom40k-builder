@@ -32,7 +32,7 @@
     {
       "name": "Korvyk's Cuirass",
       "term_compat": false,
-      "desc": "This model gains a 4+ invulnerability save. Enemy attacks reduce their AT and AP value by an additional -1, to a minimum of 0 each. Greater Thurian League only.",
+      "desc": "This model gains a 4+ ward save. Enemy attacks reduce their AT and AP value by an additional -1, to a minimum of 0 each. Greater Thurian League only.",
       "p_unit": null,
       "p_char": 38
     },

@@ -67,7 +67,7 @@ export const greatHarlequin: Unit = {
   "abilities": [
     "Anti-grav, Deflect, Parry, Terrifying(-1)",
     "Cegorach’s Favour: The model may re-roll any one die per activation.",
-    "Holo-suit: The model gains a 4+ invulnerability save."
+    "Holo-suit: The model gains a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

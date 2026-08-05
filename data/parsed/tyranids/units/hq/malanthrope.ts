@@ -97,7 +97,7 @@ export const malanthrope: Unit = {
     "Anti-Grav, Fearless, Synapse",
     "Enhanced Sporecloud: Friendly models within 9\" benefit from Obscuring cover.",
     "Prey Adaption: The first time an enemy model is killed within 3\" of the model, all units of your army gain the \"Preferred Enemy\" ability against all enemy units.",
-    "Psychic Barrier: The model gains a 5+ invulnerability save.",
+    "Psychic Barrier: The model gains a 5+ ward save.",
     "Toxic Miasma: During its activation, the model inflicts 1 Mortal Wound on a 3+ against all enemy units within 3\"."
   ],
   "unit_type": "Character model, Monstrous Infantry",

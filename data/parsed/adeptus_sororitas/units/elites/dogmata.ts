@@ -66,7 +66,7 @@ export const dogmata: Unit = {
     "Acts of Faith, Command squad, Shield of Faith",
     "Advisor: For every HQ selection, one Dogmata may be selected without taking up an Elite slot.",
     "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
-    "Unwavering Resolve: The Dogmata and an attached unit get a 5+ invulnerability saving throw as long as she is within 3\" of a mission objective. Does not work against weapons with a Strength of 8 or higher."
+    "Unwavering Resolve: The Dogmata and an attached unit get a 5+ ward save as long as she is within 3\" of a mission objective. Does not work against weapons with a Strength of 8 or higher."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

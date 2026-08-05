@@ -137,7 +137,7 @@ export const crimsonHunter: Unit = {
   ],
   "abilities": [
     "Battle Focus, Deflect",
-    "Vector dancer: The model gains a 5+ invulnerability save."
+    "Vector dancer: The model gains a 5+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [],

@@ -103,7 +103,7 @@ export const secutariiHoplites: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Parry",
-    "Kyropatris Field Generator: This model receives a 5+ invulnerability save.",
+    "Kyropatris Field Generator: This model receives a 5+ ward save.",
     "Mag-inverter Shield: Each time this model makes an unmodified saving throw of 6 against a melee attack, the attacking unit suffers 1 mortal wound after it has made all of its attacks."
   ],
   "unit_type": "Infantry",

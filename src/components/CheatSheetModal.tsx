@@ -157,7 +157,7 @@ function RangedSheet() {
           <Line lead="1.">Choose targets: at least one model visible &amp; in range; a model fires all its datasheet weapons OR one armoury weapon. Units in melee can&apos;t be targeted.</Line>
           <Line lead="2.">Hit rolls = the weapon type (Rapid Fire 1 = 1, Assault 2 = 2…); hit on <strong>≥ BS</strong>.</Line>
           <Line lead="3.">Wound: <strong>S vs T</strong> (table).</Line>
-          <Line lead="4.">Saves: subtract <strong>AP</strong> from the roll; an <strong>Invulnerable</strong> save ignores AP and can be tried if the normal save fails.</Line>
+          <Line lead="4.">Saves: subtract <strong>AP</strong> from the roll; an <strong>Ward</strong> save ignores AP and can be tried if the normal save fails.</Line>
           <Line lead="5.">Damage ≥ the model&apos;s Wounds removes it; excess does not carry over.</Line>
           <Line lead="6.">Below half strength (or losing a model while already below) → Leadership test or 2 tokens &amp; Fleeing.</Line>
         </div>

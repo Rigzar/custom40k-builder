@@ -75,7 +75,7 @@ export const callidus: Unit = {
   "option_groups": [],
   "abilities": [
     "Deep Strike, Deflect, Hit & Run, Infiltrator, Move through cover, Parry",
-    "Lightning reflexes: The model gains a 4+ invulnerability save.",
+    "Lightning reflexes: The model gains a 4+ ward save.",
     "Neural shredder: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",
     "Polymorphine: The model does not scatter when being set up via Deep Strike. Additionally, instead of using a \"Move & Shoot\" command, it always uses a \"Charge\" command and may still perform a 6\" Charge move after being set up via Deep Strike.",
     "Reign of Confusion: You may demand to re-roll either your or your enemy's first Initiative roll. Additionally you may decide whether your enemy rolls for Reinforcements during the first battle round.",

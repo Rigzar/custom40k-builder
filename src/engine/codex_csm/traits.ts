@@ -56,7 +56,7 @@ export const CSM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Desecration:
-  // "The unit gains a 5+ invulnerability save while within 6" of an objective. Doesn't work
+  // "The unit gains a 5+ ward save while within 6" of an objective. Doesn't work
   //  against weapons with strength 8 and above."
   // COST: 5 | 0 | -   (vehicles/monsters: cost "-" → excluded at applyArmyTraits level)
   // NOTE: pts_char = 0 → characters CAN take this trait (free) and receive the effect.
@@ -66,7 +66,7 @@ export const CSM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
     {
       type: 'unit_ability',
       name: 'Desecration',
-      desc: 'This unit has a 5+ invulnerability save while within 6" of an objective marker. Does not work against weapons with Strength 8 or above.',
+      desc: 'This unit has a 5+ ward save while within 6" of an objective marker. Does not work against weapons with Strength 8 or above.',
       applies_to: 'creature',
     },
   ],
@@ -109,9 +109,9 @@ export const CSM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Iron Within, Iron Without:
-  // "Creature models gain a 6+ invulnerability save. Vehicles repair either one Engine Damage
+  // "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage
   //  or Weapon Damage on themselves during each Rally phase. Only for creature models that do
-  //  not already have an invulnerability save from their datasheet or Armory."
+  //  not already have a ward save from their datasheet or Armory."
   // COST: 2* | 0 | 5*   (* = per Wound / Hull Point)
   'Iron Within, Iron Without': [
     {

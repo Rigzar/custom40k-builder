@@ -225,7 +225,7 @@ export const corsairVoidreavers: Unit = {
     }
   ],
   "abilities": [
-    "Mistshield: The model and it's attached unit gain a 5+ invulnerability save against ranged attacks.",
+    "Mistshield: The model and it's attached unit gain a 5+ ward save against ranged attacks.",
     "Neuro disruptor: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",
     "Outcasts and Pirates: This unit can't be a mandatory Troop selection."
   ],

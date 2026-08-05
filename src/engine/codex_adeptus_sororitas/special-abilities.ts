@@ -40,7 +40,7 @@ export const SORORITAS_SPECIAL_ABILITIES: SororitasSpecialAbilityEntry[] = [
   {
     name: 'Shield of Faith',
     category: 'army-rule',
-    text: 'Verbatim (Index): "The model receives a 6+ invulnerability save." Army-wide baseline ' +
+    text: 'Verbatim (Index): "The model receives a 6+ ward save." Army-wide baseline ' +
       'invuln on Sororitas models.',
   },
   {

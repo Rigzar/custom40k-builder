@@ -92,7 +92,7 @@ export const dogmataOnThroneOfCondemnation: Unit = {
     "Acts of Faith, Shield of Faith",
     "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows one Hymn of Battle.",
     "Just Accusation: Select one enemy unit during each Rally phase. All units may re-roll a single to hit or to wound roll against that target until the end of the current battle round.",
-    "Unwavering Resolve: The Dogmata gets a 5+ invulnerability saving throw as long as she is within 3\" of a mission objective."
+    "Unwavering Resolve: The Dogmata gets a 5+ ward save as long as she is within 3\" of a mission objective."
   ],
   "unit_type": "Monstrous Infantry",
   "keywords": [],

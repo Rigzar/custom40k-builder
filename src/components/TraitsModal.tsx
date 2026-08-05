@@ -32,9 +32,9 @@ export function TraitsModal({ item, unit, markUsesSlot = false, onClose }: Props
     // Children of Prophecy (Eldar): "Only for Psykers" — hide for non-psyker units
     if (t.name === 'Children of Prophecy' && !unit.is_psyker) return false;
     // Iron Within, Iron Without (CSM): "Only for creature models that do not already have an
-    // invulnerability save" — hide for creature units whose datasheet already grants one
+    // ward save" — hide for creature units whose datasheet already grants one
     if (t.name === 'Iron Within, Iron Without' && !unit.is_vehicle) {
-      const hasInvSave = (unit.abilities ?? []).some(a => /invulnerab(le|ility) save/i.test(a));
+      const hasInvSave = (unit.abilities ?? []).some(a => /(?:ward|invulnerab(?:le|ility)) save/i.test(a));
       if (hasInvSave) return false;
     }
     // `pts_monster` must be in this list: every faction .ods prices the third column as

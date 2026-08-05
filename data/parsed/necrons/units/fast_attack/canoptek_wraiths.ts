@@ -99,7 +99,7 @@ export const canoptekWraiths: Unit = {
   ],
   "abilities": [
     "Whip coils: Enemy models in base contact get -1 attack in close combat, to a minimum of 1. Stacks with itself.",
-    "Wraith form: The model gains a 4+ invulnerability save."
+    "Wraith form: The model gains a 4+ ward save."
   ],
   "unit_type": "Jet Bike, Monstrous Infantry, Canoptek",
   "keywords": [],

@@ -74,7 +74,7 @@ export const triumphantProcession: Unit = {
   "abilities": [
     "Acts of Faith, Shield of Faith",
     "Palanquin Bearers: All damage against the model is reduced to 1.",
-    "Praesidium Protectiva: The model gains a 4+ invulnerability save.",
+    "Praesidium Protectiva: The model gains a 4+ ward save.",
     "Unbound Faith: While the Triumphant Procession is on the battlefield, all Acts of Faith are constantly active for all models with the rule of the same name."
   ],
   "unit_type": "Monstrous Infantry",

@@ -222,7 +222,7 @@ export const stormtrooperCommandSquad: Unit = {
   ],
   "abilities": [
     "Banner: The unit gains a bonus of +1 to Leadership.",
-    "Medical bag: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
+    "Medical bag: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
     "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
   ],
   "unit_type": "Infantry",

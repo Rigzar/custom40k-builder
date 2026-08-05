@@ -13,7 +13,7 @@
  *     veteran-ability grants from §4b, sacred numbers (Favored Units), Animosity rivalries
  *     (identical structure + rival pairs to CSM, shared `validators.ts allowedMarks()`).
  *   - `faction` — "Daemon" / "Greater Daemon", the army-wide identity keyword (§1 line 37-39):
- *     grants invulnerable saves + Daemonic Instability (Core Rules special-rules block) and is
+ *     grants ward saves + Daemonic Instability (Core Rules special-rules block) and is
  *     also the pricing-tier / Entourage-Herald-stacking keyword.
  *   - `datasheet` — EMPTY. Grepped all 37 units' `keywords[]` (production data): every single
  *     one is `[]`. Unlike CSM (which has 6 legion/warband-identity keywords — Cultist/Death
@@ -80,7 +80,7 @@ export const CD_KEYWORDS: CdKeywordEntry[] = [
   {
     keyword: 'Daemon',
     axis: 'faction',
-    gates: 'Every CD unit carries this. Grants Daemon 5+ invulnerable save / Daemonic Instability ' +
+    gates: 'Every CD unit carries this. Grants Daemon 5+ ward save / Daemonic Instability ' +
       '(Core Rules special-rules block) — "Greater Daemon" variant (4+ inv) is the HQ pricing-tier ' +
       'name and the Entourage/Herald HQ-stacking keyword (up to two Heralds as a single HQ choice).',
   },

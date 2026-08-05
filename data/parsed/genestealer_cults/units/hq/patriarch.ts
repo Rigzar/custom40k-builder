@@ -77,7 +77,7 @@ export const patriarch: Unit = {
   "abilities": [
     "Ambush, Deflect, Infiltrator, Massive(1), Parry, Terrifying(-1), Use cover",
     "Living Idol: Friendly units within 12\" range may use the Patriarch's Leadership value.",
-    "Preternatural senses: The model gains a 5+ invulnerability save.",
+    "Preternatural senses: The model gains a 5+ ward save.",
     "Psyker: The model can cast 2 powers and deny 2 powers per battle round. It knows Smite and all powers from a chosen discipline.",
     "Unquestioning Loyalty: This model may join any Genestealer Cults creature unit (regardless of their unit type). Additionally, that unit gains the \"Bodyguard\" ability."
   ],

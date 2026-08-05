@@ -168,7 +168,7 @@ export const shadowSpectres: Unit = {
   ],
   "abilities": [
     "Battle Focus, Deflect, Terrifying(-1), <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
+    "Aspect armor: The model gains a 5+ ward save.",
     "Ghostlight: If a unit scores two or more hits with weapons with this ability, you may resolve the hits normally or inflict a single combined attack. When combining attacks, choose one Ghostlight hit to be the primary hit. Resolve only the primary hit; for each other Ghostlight hit, the primary hit gains +1 Strength, -1 AP, +1 Damage, and AT(1), to a maximum of 10 Strength, -6 AP, 4 Damage, and AT(4)."
   ],
   "unit_type": "Jump Pack Infantry",

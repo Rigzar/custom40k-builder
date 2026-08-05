@@ -70,7 +70,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Foresight',
       type: 'Augmentation', range: '12"', target: 'Friendly unit',
       cast_value: '6', duration: 'Until the caster\'s next activation', complexity: 'Basic',
-      effect: 'The target gains a 5+ invulnerability save.',
+      effect: 'The target gains a 5+ ward save.',
     },
     {
       name: 'Misfortune',

@@ -126,7 +126,7 @@ export const serberysSulphurhounds: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Move through cover",
-    "Bionics: This model receives a 6+ invulnerability save.",
+    "Bionics: This model receives a 6+ ward save.",
     "Rad-saturation: Enemy models in direct base contact suffer a -1 penalty to their Toughness."
   ],
   "unit_type": "Bike",

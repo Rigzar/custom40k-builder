@@ -119,7 +119,7 @@ export const aquilonCustodians: Unit = {
   ],
   "abilities": [
     "Deep strike, Massive(1), Shield Host, Unyielding",
-    "Custodian terminator armor: The model gains a 4+ invulnerability save."
+    "Custodian terminator armor: The model gains a 4+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

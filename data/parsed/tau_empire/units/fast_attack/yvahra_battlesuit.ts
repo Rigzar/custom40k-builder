@@ -114,7 +114,7 @@ export const yvahraBattlesuit: Unit = {
     "Supporting Fire",
     "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
     "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius.",
-    "Y'vahra shield generator: The model has a 5+ invulnerability save."
+    "Y'vahra shield generator: The model has a 5+ ward save."
   ],
   "unit_type": "Jump Pack Infantry, Monstrous Creature",
   "keywords": [],

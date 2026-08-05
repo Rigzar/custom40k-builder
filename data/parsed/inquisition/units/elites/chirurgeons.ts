@@ -38,7 +38,7 @@ export const chirurgeons: Unit = {
   "option_groups": [],
   "abilities": [
     "Command Squad",
-    "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above."
+    "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
   ],
   "unit_type": "Infantry",
   "keywords": [],

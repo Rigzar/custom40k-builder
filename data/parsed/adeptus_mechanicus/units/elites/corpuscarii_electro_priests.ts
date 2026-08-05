@@ -55,7 +55,7 @@ export const corpuscariiElectroPriests: Unit = {
   "option_groups": [],
   "abilities": [
     "Blind Rage, Canticles of the Omnissiah, Choir Master, Furious Charge",
-    "Voltagheist Field: The model gains a 4+ invulnerability save."
+    "Voltagheist Field: The model gains a 4+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

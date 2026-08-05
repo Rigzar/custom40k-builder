@@ -23,7 +23,7 @@
  *
  * ABILITIES (verbatim):
  *   Blind Rage, Deep strike, Mark of Khorne, Massive(1), Unyielding
- *   Cataphractii armor: The model has a 4+ invulnerability save.
+ *   Cataphractii armor: The model has a 4+ ward save.
  *
  *   NOTE: "Blind Rage" (capital R) on this sheet vs "Blind rage" on Khorne Berzerkers —
  *   per FAQ #5 each sheet is canonical for its own ability name.
@@ -127,7 +127,7 @@ export const redButcherTerminators: Unit = {
   ],
   "abilities": [
     "Blind Rage, Deep strike, Mark of Khorne, Massive(1), Unyielding",
-    "Cataphractii armor: The model has a 4+ invulnerability save."
+    "Cataphractii armor: The model has a 4+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

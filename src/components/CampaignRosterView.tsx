@@ -11,7 +11,7 @@ const TRAITS_BY_CLASS: Record<string, { key: string; label: string; effect: stri
     { key: 'battle-tested',     label: 'Battle-Tested',     effect: 'Gains Objective Secured (or ignores enemy contesting)' },
     { key: 'cool-headed',       label: 'Cool-Headed',        effect: 'Re-roll failed Leadership tests' },
     { key: 'fleet-of-foot',     label: 'Fleet of Foot',      effect: 'Roll 2D6 Advance, take highest + Move through cover' },
-    { key: 'grizzled',          label: 'Grizzled',            effect: '6+ invulnerability save' },
+    { key: 'grizzled',          label: 'Grizzled',            effect: '6+ ward save' },
     { key: 'rapid-deployment',  label: 'Rapid Deployment',   effect: 'Gains Vanguard + +1 to Reinforcement arrival roll' },
     { key: 'veteran-warriors',  label: 'Veteran Warriors',   effect: 'Re-roll one to-hit die per activation' },
   ],
@@ -25,7 +25,7 @@ const TRAITS_BY_CLASS: Record<string, { key: string; label: string; effect: stri
   ],
   Vehicle: [
     { key: 'expert-gunnery',      label: 'Expert Gunnery',      effect: 'Re-roll one to-hit die per activation' },
-    { key: 'blessed-hull',        label: 'Blessed Hull',         effect: '6+ invulnerability save' },
+    { key: 'blessed-hull',        label: 'Blessed Hull',         effect: '6+ ward save' },
     { key: 'hardened-crew',       label: 'Hardened Crew',        effect: 'Ignore one temporary vehicle damage per round' },
     { key: 'enhanced-engines',    label: 'Enhanced Engines',     effect: 'Gains Fast' },
     { key: 'improved-shielding',  label: 'Improved Shielding',   effect: 'Reduce first damage roll each round by 1 (min 1)' },

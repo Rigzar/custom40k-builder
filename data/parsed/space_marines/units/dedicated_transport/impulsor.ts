@@ -174,7 +174,7 @@ export const impulsor: Unit = {
   "abilities": [
     "Anti-Grav, Fire hatches(6)",
     "Orbital vox relay: Gain a +1 bonus to your rolls in the Reinforcement phase.",
-    "Shield dome: The model gains a 5+ invulnerability save.",
+    "Shield dome: The model gains a 5+ ward save.",
     "Transport: This model has a transport capacity of 6 infantry models, excluding models in Terminator armor."
   ],
   "unit_type": "Vehicle",

@@ -132,7 +132,7 @@ export const warpSpiders: Unit = {
   ],
   "abilities": [
     "Battle Focus, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
+    "Aspect armor: The model gains a 5+ ward save.",
     "Shunting: The unit rolls and moves an additional 1D6 when using the Advance order. If a double 1 is rolled, the unit suffers one Mortal Wound."
   ],
   "unit_type": "Jump Pack Infantry",

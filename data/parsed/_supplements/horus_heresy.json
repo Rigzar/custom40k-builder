@@ -453,7 +453,7 @@
         }
       ],
       "abilities": [
-        "Heart of the Legion: The unit gains a 5+ invulnerability saving throw while within 6\" of a mission objective.",
+        "Heart of the Legion: The unit gains a 5+ ward save while within 6\" of a mission objective.",
         "Wrath of the Legion: All weapons in the unit have the \"Deflagrate(5+)\" ability."
       ],
       "unit_type": "Infantry",
@@ -1078,7 +1078,7 @@
       ],
       "abilities": [
         "Squadron",
-        "Atomantic Shielding: The model has a 5+ invulnerability save.",
+        "Atomantic Shielding: The model has a 5+ ward save.",
         "Furioso: If the model has two melee weapons, it gains +2 attacks."
       ],
       "unit_type": "Vehicle, Walker",
@@ -1480,7 +1480,7 @@
       ],
       "abilities": [
         "Deep strike, Massive(1), Unyielding",
-        "Cataphractii Terminator armor: The model gains a 4+ invulnerability save."
+        "Cataphractii Terminator armor: The model gains a 4+ ward save."
       ],
       "unit_type": "Infantry",
       "keywords": [],
@@ -2602,7 +2602,7 @@
         }
       ],
       "abilities": [
-        "Atomantic Shielding: The model has a 5+ invulnerability save.",
+        "Atomantic Shielding: The model has a 5+ ward save.",
         "Furioso: If the model has two melee weapons, it gains +2 attacks."
       ],
       "unit_type": "Vehicle, Walker",
@@ -3059,7 +3059,7 @@
         "name": "Cataphractii armor",
         "armourKeyword": "Cataphractii",
         "term_compat": false,
-        "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+        "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
         "p_unit": null,
         "p_char": 80
       },

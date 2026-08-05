@@ -450,7 +450,7 @@
     {
       "name": "Bionics",
       "term_compat": true,
-      "desc": "The model gains a 6+ invulnerable save.",
+      "desc": "The model gains a 6+ ward save.",
       "p_unit": 5,
       "p_char": 9,
       "armour_compat": [
@@ -541,7 +541,7 @@
     {
       "name": "Daemonic aura",
       "term_compat": true,
-      "desc": "The model gains the \"Daemon\" ability (Note: a 5+ invulnerability save).",
+      "desc": "The model gains the \"Daemon\" ability (Note: a 5+ ward save).",
       "p_unit": 10,
       "p_char": 20,
       "armour_compat": [
@@ -742,7 +742,7 @@
       "requires_keywords": [
         "Infantry"
       ],
-      "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 5+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+      "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 5+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
       "p_unit": 23,
       "p_char": 46
     },
@@ -903,7 +903,7 @@
       "name": "Daemonic possession",
       "term_compat": false,
       "category": "vehicle",
-      "desc": "The model gains the \"Daemon\" ability (5+ invulnerability save). The model reduces its BS and WS by -1. The model ignores \"Crew Shaken\" vehicle damage. If transporting a unit, during each activation roll 1D6 per model — on a 1 or 2 the unit suffers a Mortal Wound.",
+      "desc": "The model gains the \"Daemon\" ability (5+ ward save). The model reduces its BS and WS by -1. The model ignores \"Crew Shaken\" vehicle damage. If transporting a unit, during each activation roll 1D6 per model — on a 1 or 2 the unit suffers a Mortal Wound.",
       "p_unit": 0
     },
     {

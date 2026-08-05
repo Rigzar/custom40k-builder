@@ -425,7 +425,7 @@
     {
       "name": "Cybork bodyᴹ",
       "term_compat": false,
-      "desc": "The model receives a 5+ invulnerability save.",
+      "desc": "The model receives a 5+ ward save.",
       "p_unit": 7,
       "p_char": 20
     },
@@ -446,7 +446,7 @@
     {
       "name": "Gold teeth armor",
       "term_compat": false,
-      "desc": "The model gains a 3+ armor save and a 5+ invulnerable save. Unique",
+      "desc": "The model gains a 3+ armor save and a 5+ ward save. Unique",
       "p_unit": null,
       "p_char": 46
     },
@@ -614,7 +614,7 @@
     {
       "name": "Wildorkᴹ",
       "term_compat": false,
-      "desc": "The model receives the <Wildork> keyword and a 6+ invulnerability saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+      "desc": "The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
       "p_unit": null,
       "p_char": 10
     },
@@ -656,7 +656,7 @@
     {
       "name": "Fortress on Wheels",
       "term_compat": false,
-      "desc": "This model receives a 5+ invulnerability saving throw. Battlewagon and Battle Fortress only.",
+      "desc": "This model receives a 5+ ward save. Battlewagon and Battle Fortress only.",
       "p_unit": 75,
       "p_char": null
     },

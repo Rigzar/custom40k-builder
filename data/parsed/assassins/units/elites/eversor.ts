@@ -87,7 +87,7 @@ export const eversor: Unit = {
     "Deep Strike, Deflect, Frenzy(6\"), Furious Charge, Hit & Run, Infiltrator, Move through cover, Parry",
     "Bio Meltdown: After the unit is eliminated, all units within a 6\" radius suffer 2D3 Mortal Wounds.",
     "Hyper metabolism: The model gets 1D6+1 bonus attacks for charging instead of just 1.",
-    "Lightning reflexes: The model gains a 4+ invulnerability save.",
+    "Lightning reflexes: The model gains a 4+ ward save.",
     "Stim Overdrive: Once per game the unit can double its attacks. Decide to use this rule when it is the Eversor's turn to fight in melee. Then remove the unit and execute the “Bio meltdown” rule.",
     "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
     "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."

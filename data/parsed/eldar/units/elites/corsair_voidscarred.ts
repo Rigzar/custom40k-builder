@@ -356,10 +356,10 @@ export const corsairVoidscarred: Unit = {
     }
   ],
   "abilities": [
-    "Channeler stones: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
+    "Channeler stones: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
     "Faolchú: All weapons of the unit gain +1 AP when shooting at targets that benefit from cover.",
     "Ghosthelm: The Way Seeker ignores the first Perils of the warp attack each round.",
-    "Mistshield: The model and it's attached unit gain a 5+ invulnerability save against ranged attacks.",
+    "Mistshield: The model and it's attached unit gain a 5+ ward save against ranged attacks.",
     "Neuro disruptor: Roll 2D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound for each point above their Ld value.",
     "Psyker: The Way Seeker can cast 1 power and deny 1 power per battle round. They know Smite and 1 power from either the Battle or Fate discipline.",
     "Shade Runner Assault: After finishing a charge move, the enemy unit suffers one automatic wound with S:4 AP:0 D:1 for every friendly model that made it into base contact.",

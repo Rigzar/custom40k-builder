@@ -99,7 +99,7 @@ export const voidweaver: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fast, Open, Squadron",
-    "Holo-suit: The model gains a 4+ invulnerability save.",
+    "Holo-suit: The model gains a 4+ ward save.",
     "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover."
   ],
   "unit_type": "Vehicle",

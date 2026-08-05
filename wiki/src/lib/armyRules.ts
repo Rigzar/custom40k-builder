@@ -188,7 +188,7 @@ export const ARMY_RULES: Record<string, ArmyRule[]> = {
     },
     {
       name: 'Shield of Faith',
-      description: 'The model receives a 6+ invulnerability save.',
+      description: 'The model receives a 6+ ward save.',
       tag: 'universal',
     },
   ],

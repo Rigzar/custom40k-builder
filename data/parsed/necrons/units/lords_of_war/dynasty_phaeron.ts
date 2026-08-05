@@ -113,7 +113,7 @@ export const dynastyPhaeron: Unit = {
     "Obeisance Generators: Enemy models in direct base contact suffer a -4 penalty to their Initiative.",
     "Powers of the C'tan: The Dynasty Phaeron can manifest 2 powers per turn. He knows all the powers from the list of C'tan powers. Each power can only be used once per battle round.",
     "Royal Necrodermis: Reduces AP of enemy attacks against the Dynasty Phaeron by -1 (to a minimum of 0).",
-    "Transtemporal Force Field: Models in this unit gain a 4+ invulnerability save."
+    "Transtemporal Force Field: Models in this unit gain a 4+ ward save."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [

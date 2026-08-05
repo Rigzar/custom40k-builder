@@ -230,7 +230,7 @@ export const terminatorSquad: Unit = {
   ],
   "abilities": [
     "Combat squads, Deep Strike, Massive(1), They Shall Know No Fear, Unyielding",
-    "Terminator armor: The model gains a 5+ invulnerability save."
+    "Terminator armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

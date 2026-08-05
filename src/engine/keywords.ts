@@ -36,7 +36,7 @@ export function isTerminatorArmourName(name: string): boolean {
  *
  * Rules (grounded, CSM Armory.html): "Models wearing Cataphractii or Terminator armor can only
  * receive equipment with ᵀ." Both armour keywords gate identically to the ᵀ subset — they differ
- * only in the invulnerable save (Cataphractii 4+ / Terminator 5+), not in what wargear they allow.
+ * only in the ward save (Cataphractii 4+ / Terminator 5+), not in what wargear they allow.
  *
  * The restriction fires when the model carries a Terminator-class armour keyword, whether
  * INNATE (the datasheet bakes it in — `unit.armourKeyword`) or DYNAMICALLY BOUGHT (the model has

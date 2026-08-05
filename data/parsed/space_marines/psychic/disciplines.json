@@ -36,7 +36,7 @@
       "range": "12\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target gains a 5+ invulnerability save.",
+      "effect": "The target gains a 5+ ward save.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -56,7 +56,7 @@
       "range": "6\" radius",
       "target": "Self",
       "cast_value": "7",
-      "effect": "All enemy units in range lose their invulnerability saving throw. Psychic test results from enemy units are halved.",
+      "effect": "All enemy units in range lose their ward save. Psychic test results from enemy units are halved.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }
@@ -242,7 +242,7 @@
       "range": "12\"",
       "target": "Friendly unit",
       "cast_value": "6",
-      "effect": "The target unit gains a 5+ invulnerability save.",
+      "effect": "The target unit gains a 5+ ward save.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }

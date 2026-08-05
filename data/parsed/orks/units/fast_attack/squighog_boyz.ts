@@ -114,7 +114,7 @@ export const squighogBoyz: Unit = {
   ],
   "abilities": [
     "Dakka Dakka Dakka, Mob, Furious charge, Waaagh!, <Squig>, <Wildork>",
-    "Wildork: The model receives the <Wildork> keyword and a 6+ invulnerability saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability."
+    "Wildork: The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability."
   ],
   "unit_type": "Bike",
   "keywords": [],

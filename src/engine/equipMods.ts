@@ -49,7 +49,7 @@ function baseAbilitySet(baseAbilities: string[]): Set<string> {
 /** Lower save = better. Extract (armorSave, invulnSave) from a description for ranking armour. */
 function readSaves(desc: string): { sv: number; inv: number } {
   const a = desc.match(/(\d)\+\s+armou?r\s+save/i);
-  const i = desc.match(/(\d)\+\s+invulnerable\s+save/i);
+  const i = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i);
   return { sv: a ? parseInt(a[1]) : 99, inv: i ? parseInt(i[1]) : 99 };
 }
 
@@ -137,7 +137,7 @@ export function parseEquipMods(
     }
     const armor = desc.match(/(\d)\+\s+armou?r\s+save/i);
     if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }
-    const invuln = desc.match(/(\d)\+\s+invulnerab(?:le|ility)\s+save/i);
+    const invuln = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i);
     if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }
     // "All [type] weapons gain 'X'" → handled by the weapon table injection in resolver.ts.
     // Don't also add to grantedAbilities — that would duplicate the display.
@@ -275,7 +275,7 @@ const NUMBER_WORDS: Record<string, number> = {
 };
 
 /**
- * Parse the best (lowest = strongest) invulnerability save from a unit's base ability strings.
+ * Parse the best (lowest = strongest) ward save from a unit's base ability strings.
  * Grounded in core_rules_text.txt: Daemon=5+, Greater Daemon=4+, Berserk(X+)=X+, Seal of
  * corruption=4+, Warded=6+ (or improves existing), etc.
  * Returns the numeric value (e.g. 5 for "5+") or null if none found.
@@ -283,8 +283,8 @@ const NUMBER_WORDS: Record<string, number> = {
 export function parseInvSaveFromAbilities(abilities: string[]): number | null {
   let best: number | null = null;
   for (const ab of abilities) {
-    // Direct patterns: "X+ invulnerable save" / "X+ invulnerability save"
-    const direct = ab.match(/(\d)\+\s+invulnerab(?:le|ility)\s+save/gi);
+    // Direct patterns: "X+ ward save" / "X+ ward save"
+    const direct = ab.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/gi);
     if (direct) {
       for (const m of direct) {
         const v = parseInt(m);

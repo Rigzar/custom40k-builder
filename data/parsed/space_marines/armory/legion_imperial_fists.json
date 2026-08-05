@@ -23,7 +23,7 @@
     {
       "name": "Auric Aquila",
       "term_compat": true,
-      "desc": "The model gains a 4+ invulnerability save. Additionally, once per game, the model may gain a 3+ invulnerability save until the start of its next activation. Unique.",
+      "desc": "The model gains a 4+ ward save. Additionally, once per game, the model may gain a 3+ ward save until the start of its next activation. Unique.",
       "p_unit": null,
       "p_char": 45,
       "gravis_compat": true,

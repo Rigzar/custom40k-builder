@@ -108,7 +108,7 @@
       "range": "24\"",
       "target": "Friendly unit",
       "cast_value": "7",
-      "effect": "The target receives a 4+ invulnerability save.",
+      "effect": "The target receives a 4+ ward save.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -160,7 +160,7 @@
       "range": "24\"",
       "target": "Friendly unit",
       "cast_value": "7",
-      "effect": "The target receives a 4+ invulnerability save.",
+      "effect": "The target receives a 4+ ward save.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

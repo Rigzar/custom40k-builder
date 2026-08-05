@@ -161,7 +161,7 @@ export const riptideBattlesuit: Unit = {
   "abilities": [
     "Supporting Fire, Unyielding",
     "Nova reactor: After the model loses its last Wound, it explodes with a 6\" radius.",
-    "Riptide shield generator: The model has a 5+ invulnerability save."
+    "Riptide shield generator: The model has a 5+ ward save."
   ],
   "unit_type": "Jump Pack Infantry, Monstrous Creature",
   "keywords": [],

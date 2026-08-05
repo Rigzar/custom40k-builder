@@ -31,8 +31,8 @@ export const IG_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Bionic Improvement:
-  // "Creature models gain a 6+ invulnerability save. Only for creature models that do not
-  //  already have an invulnerability save from their datasheet or Armory."
+  // "Creature models gain a 6+ ward save. Only for creature models that do not
+  //  already have a ward save from their datasheet or Armory."
   // COST: 1* | 0 | 1* | 1*
   'Bionic Improvement': [
     { type: 'inv_save', value: 6, applies_to: 'creature' },

@@ -185,7 +185,7 @@ export const infiltratorSquad: Unit = {
   ],
   "abilities": [
     "Infiltrator, Move through cover, They Shall Know No Fear",
-    "Helix Adept: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
+    "Helix Adept: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
     "Haywire mine: Once per battle, this unit can place an Haywire mine while moving. This must be placed within 1\" of the unit and more than 3\" away from enemy units. The first enemy unit that come within 3\" of the Haywire mine suffers 1D3+1 wounds with Strength: 4, AP: -4, D: 1. Vehicles suffer 1D3 glancing hits.",
     "Smoke grenades: The unit can use its Smoke grenades once per game:\n- During normal activation.\n- If it has not yet carried out its order this round and is targeted by an enemy unit.\nThe unit gains the \"Deflect\" ability.",
     "Omni scrambler: Equipment such as icons or homing beacons do not function within 6\" of the model. Additionally, units arriving via deepstrike that land within 12\" roll 4D6 instead of 2D6 for scattering."

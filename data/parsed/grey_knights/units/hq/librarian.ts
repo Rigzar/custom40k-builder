@@ -148,7 +148,7 @@ export const librarian: Unit = {
     "Chief Librarian: The model can manifest and deny 1 additional power per turn.",
     "Psychic hood: The models gains a +1 bonus to deny psychic powers.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline.",
-    "Terminator armor: The model gains a 5+ invulnerability save."
+    "Terminator armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

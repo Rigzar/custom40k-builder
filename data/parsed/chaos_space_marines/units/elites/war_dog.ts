@@ -31,7 +31,7 @@
  * ABILITIES (verbatim):
  *   Squadron
  *   Elite: Chaos armies may select units of War Dogs as an Elite choice.
- *   Ion shield: The model gains a 5+ invulnerability save against ranged attacks.
+ *   Ion shield: The model gains a 5+ ward save against ranged attacks.
  *     During activation, select which facing the Ion shield covers (default: front).
  *
  * UNIT TYPE: Walker
@@ -261,7 +261,7 @@ export const warDog: Unit = {
   "abilities": [
     "Squadron",
     "Elite: Chaos armies may select units of War Dogs as an Elite choice.",
-    "Ion shield: The model gains a 5+ invulnerability save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
+    "Ion shield: The model gains a 5+ ward save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
   ],
   "unit_type": "Walker",
   "keywords": [

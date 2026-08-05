@@ -39,8 +39,8 @@ export const GSC_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Cyborgised Hybrids:
-  // "Creature models gain a 6+ invulnerability save. Only for creature models that do not
-  //  already have an invulnerability save from their datasheet or Armory."
+  // "Creature models gain a 6+ ward save. Only for creature models that do not
+  //  already have a ward save from their datasheet or Armory."
   // COST: 1* | 0 | 1* | -
   'Cyborgised Hybrids': [
     { type: 'inv_save', value: 6, applies_to: 'creature' },

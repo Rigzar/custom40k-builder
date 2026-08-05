@@ -60,7 +60,7 @@ export const tesseractVault: Unit = {
     "Gravity pulse: All enemy Anti-Grav, Flyer and Jetbike units treat all terrain within 18\" of a Tesseract Vault, including open ground, as dangerous terrain. If any of these units do anything within 18\" range, they have to make a difficult terrain test.",
     "Hovering sentinel: If the model uses a \"Stand & Shoot\" order, it may use the \"Sentinel\" profile for its Tesla Spheres.",
     "Powers of the Transcended C'tan: The model can manifest 3 powers per turn. It knows all the powers from the list of C'tan powers. Each C'tan power can be used up to three times per battle round.",
-    "Transtemporal Force Field: The model gains a 4+ invulnerability save."
+    "Transtemporal Force Field: The model gains a 4+ ward save."
   ],
   "unit_type": "Super-heavy Vehicle",
   "keywords": [

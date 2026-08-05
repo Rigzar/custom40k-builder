@@ -107,7 +107,7 @@ export const emperorsChampion: Unit = {
   ],
   "abilities": [
     "They Shall Know No Fear",
-    "The Armor of Faith: The model gains a 4+ invulnerability save.",
+    "The Armor of Faith: The model gains a 4+ ward save.",
     "Honor or Death: At the start of the activation, if an enemy HQ or Character model is within 10\", the placed Order is converted to \"Charge\". The Emperor's Champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model.",
     "Martial superiority: The model can re-roll 1 to hit and 1 to wound roll.",
     "Oath: Choose an oath at the start of the first battle round. The effects are active throughout the game for all of your Space Marine creatures (=> no vehicles) from the same army organization plan.",

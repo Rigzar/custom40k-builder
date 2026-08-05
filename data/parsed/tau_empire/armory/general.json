@@ -182,7 +182,7 @@
     {
       "name": "Mark of the Favored Childᴵ",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerable save. Unique. Kroot only.",
+      "desc": "The model gains a 4+ ward save. Unique. Kroot only.",
       "p_unit": 18,
       "p_char": 29
     },
@@ -245,7 +245,7 @@
     {
       "name": "Stimulant injectorᴵ",
       "term_compat": false,
-      "desc": "The model gains a 5+ invulnerability save. Does not work against weapons with strength 8 and above.",
+      "desc": "The model gains a 5+ ward save. Does not work against weapons with strength 8 and above.",
       "p_unit": 12,
       "p_char": 22
     },
@@ -413,7 +413,7 @@
     {
       "name": "Shield generatorᴵ",
       "term_compat": false,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": 19,
       "p_char": 39
     },

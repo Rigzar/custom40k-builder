@@ -634,7 +634,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
       }
       for (const e of getTraitEffects(t.name, unit)) {
         if (e.type === 'stat_mod')      traitStatMods.push({ stat: e.stat, delta: e.delta });
-        else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Invulnerability Save` });
+        else if (e.type === 'inv_save') traitAbilities.push({ traitName: t.name, name: `${e.value}+ Ward Save` });
         else if (e.type === 'unit_ability')   traitAbilities.push({ traitName: t.name, name: e.name, desc: e.desc });
         else if (e.type === 'weapon_ability') traitWeaponAbilities.push({ traitName: t.name, name: e.name, weapon_type: e.weapon_type });
         else if (e.type === 'grant_armory_item') traitGrantedItems.push(e.item);

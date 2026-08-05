@@ -168,9 +168,9 @@ export const apothecary: Unit = {
   "abilities": [
     "Aegis(5+), Brotherhood of Psykers, Command squad, Deep Strike, Massive(1), Shrouding, They Shall Know No Fear, True Grit, Unyielding",
     "Advisor: For each HQ selection, one Apothecary may be selected that does not occupy an Elite slot.",
-    "Narthecium: Twice per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
+    "Narthecium: Twice per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
-    "Terminator armor: The model gains a 5+ invulnerability save."
+    "Terminator armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

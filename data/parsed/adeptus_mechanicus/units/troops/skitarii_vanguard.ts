@@ -168,7 +168,7 @@ export const skitariiVanguard: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah",
-    "Bionics: The model receives a 6+ invulnerability save.",
+    "Bionics: The model receives a 6+ ward save.",
     "Rad-saturation: Enemy models in direct base contact suffer a -1 penalty to their Toughness.",
     "Sniper: A model equipped with a Transuranic arquebus improves its BS by +1."
   ],

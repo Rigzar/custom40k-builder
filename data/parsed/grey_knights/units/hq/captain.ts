@@ -179,7 +179,7 @@ export const captain: Unit = {
     "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
     "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
-    "Terminator armor: The model gains a 5+ invulnerability save."
+    "Terminator armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

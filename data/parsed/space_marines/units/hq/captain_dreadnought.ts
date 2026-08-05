@@ -182,7 +182,7 @@ export const captainDreadnought: Unit = {
   "abilities": [
     "Combat Tactics: The Captain Dreadnought can assign 2 free Veteran abilities to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit can have.",
     "Furioso: If the model has two melee weapons, it gains +2 attacks.",
-    "Refractor field: The model receives a 5+ invulnerability save."
+    "Refractor field: The model receives a 5+ ward save."
   ],
   "unit_type": "Vehicle, Walker",
   "keywords": [],

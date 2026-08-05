@@ -66,7 +66,7 @@ export const ctanShardOfTheDragon: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fearless, Regeneration(1), Terrifying(-1)",
-    "Necrodermis: The model has a 4+ invulnerability save. If it loses its last wound, it explodes like a vehicle.",
+    "Necrodermis: The model has a 4+ ward save. If it loses its last wound, it explodes like a vehicle.",
     "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
   ],
   "unit_type": "Monstrous Creature",

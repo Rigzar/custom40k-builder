@@ -162,7 +162,7 @@ export const captainInNemesisArmor: Unit = {
   "abilities": [
     "Aegis(5+), Shrouding, They Shall Know No Fear",
     "Combat tactics: The Captain can assign two free Veteran abilities to himself and a friendly unit at the start of deployment. Both units must be able to acquire the Veteran ability. It does not count against the limit of how many Veteran abilities a unit can have.",
-    "Dreadknight force field: The model gains a 4+ invulnerability save.",
+    "Dreadknight force field: The model gains a 4+ ward save.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
     "Shunt: Once per game, the unit may move up to 24\" with an Advance order."
   ],

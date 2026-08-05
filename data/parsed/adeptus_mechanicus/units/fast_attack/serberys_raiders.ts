@@ -99,7 +99,7 @@ export const serberysRaiders: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Move through cover, Outflank, Vanguard",
-    "Bionics: This model receives a 6+ invulnerability save.",
+    "Bionics: This model receives a 6+ ward save.",
     "Target Acquired: Select one enemy unit that was hit by this unit during the activation. The next friendly unit firing on the same target can re-roll one failed to hit and wound roll."
   ],
   "unit_type": "Bike",

@@ -92,7 +92,7 @@ export const sydonianSkatros: Unit = {
   "abilities": [
     "Canticles of the Omnissiah, Squadron, Stealth",
     "Achillan Eye: All Heavy weapons wielded by this model gain the Shred, Suppression, and Tank Hunter abilities.",
-    "Enhanced Bionics: This model receives a 5+ invulnerability save."
+    "Enhanced Bionics: This model receives a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

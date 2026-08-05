@@ -74,7 +74,7 @@ export const judicar: Unit = {
   "abilities": [
     "Command squad, They Shall Know No Fear",
     "Advisor: For every HQ selection, one Judicar may be selected without taking up an Elite slot.",
-    "Blade barrier: The model gains a 4+ invulnerability save in close combat.",
+    "Blade barrier: The model gains a 4+ ward save in close combat.",
     "Tempor Mortis: The model and its attached unit always benefit from the \"Hold your ground\" meta order effect."
   ],
   "unit_type": "Character Model, Infantry",

@@ -165,7 +165,7 @@ export const swoopingHawks: Unit = {
   ],
   "abilities": [
     "Battle Focus, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save.",
+    "Aspect armor: The model gains a 5+ ward save.",
     "Sky Dive: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
   ],
   "unit_type": "Jump Pack Infantry",

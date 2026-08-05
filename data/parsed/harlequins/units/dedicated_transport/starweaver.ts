@@ -46,7 +46,7 @@ export const starweaver: Unit = {
   "option_groups": [],
   "abilities": [
     "Anti-Grav, Fast, Open",
-    "Holo-suit: The model gains a 4+ invulnerability save.",
+    "Holo-suit: The model gains a 4+ ward save.",
     "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover.",
     "Transport: This model has a transport capacity of 6 infantry models."
   ],

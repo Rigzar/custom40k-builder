@@ -56,7 +56,7 @@ export const nightwing: Unit = {
   "abilities": [
     "Battle Focus, Deflect",
     "Interceptor: All ranged attacks of the model gain the \"Anti-Air\" ability.",
-    "Vector Dancer: The model gains a 4+ invulnerability save."
+    "Vector Dancer: The model gains a 4+ ward save."
   ],
   "unit_type": "Flyer",
   "keywords": [],

@@ -81,7 +81,7 @@ export const caladiusGravTank: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Shield Host",
-    "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1)."
+    "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 1)."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

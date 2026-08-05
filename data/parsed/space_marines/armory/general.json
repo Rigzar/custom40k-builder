@@ -914,14 +914,14 @@
     {
       "name": "Gravis armor",
       "term_compat": false,
-      "desc": "The model gains +1 Toughness, a 6+ invulnerability save and the special rules \"Massive(1)\" and \"Unyielding\". Not combinable with other armors.",
+      "desc": "The model gains +1 Toughness, a 6+ ward save and the special rules \"Massive(1)\" and \"Unyielding\". Not combinable with other armors.",
       "p_unit": 6,
       "p_char": 13
     },
     {
       "name": "Iron halo",
       "term_compat": true,
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": null,
       "p_char": 30,
       "gravis_compat": true,
@@ -1031,7 +1031,7 @@
     {
       "name": "Refractor field",
       "term_compat": false,
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": 11,
       "p_char": 20,
       "gravis_compat": true,
@@ -1141,7 +1141,7 @@
     {
       "name": "Terminator armor",
       "term_compat": false,
-      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ invulnerable save, and the abilities \"Massive(1)\", \"Deep Strike\" and \"Unyielding.\" Only for infantry. Not combinable with other armors.",
+      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1)\", \"Deep Strike\" and \"Unyielding.\" Only for infantry. Not combinable with other armors.",
       "p_unit": 23,
       "p_char": 46,
       "requires_keywords": [

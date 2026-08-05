@@ -82,7 +82,7 @@ export const ironstriderBallistarii: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Deflect, Squadron",
-    "Bionics: The model receives a 6+ invulnerability save."
+    "Bionics: The model receives a 6+ ward save."
   ],
   "unit_type": "Bike, Monstrous Creature",
   "keywords": [],

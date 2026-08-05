@@ -126,7 +126,7 @@ export const chaplain: Unit = {
     "They Shall Know No Fear",
     "Faithful: Can recite 1 prayer per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
     "Master of Sanctity: A Master of Sanctity may recite 1 additional prayer per turn.",
-    "Rosarius: The model receives a 4+ invulnerability save."
+    "Rosarius: The model receives a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

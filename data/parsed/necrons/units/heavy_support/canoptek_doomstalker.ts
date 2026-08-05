@@ -54,7 +54,7 @@ export const canoptekDoomstalker: Unit = {
   ],
   "option_groups": [],
   "abilities": [
-    "Containment field: The model has a 5+ invulnerability save.",
+    "Containment field: The model has a 5+ ward save.",
     "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
     "Sentinel construct: If a friendly unit is charged within 12\", the Dominator Strider can also fire Overwatch."
   ],

@@ -90,7 +90,7 @@ export const vertusPraetor: Unit = {
   ],
   "abilities": [
     "Shield Host",
-    "Custodian armor: The model gains a 5+ invulnerability save."
+    "Custodian armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Jetbike",
   "keywords": [],

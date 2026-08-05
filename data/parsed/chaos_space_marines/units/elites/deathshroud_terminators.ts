@@ -23,7 +23,7 @@
  *
  * ABILITIES (verbatim):
  *   Bodyguard, Deepstrike, Mark of Nurgle, Massive(1), Unyielding
- *   Cataphractii armor: The model has a 4+ invulnerability save.
+ *   Cataphractii armor: The model has a 4+ ward save.
  *   Eyes of Mortarion: Attached HQ models gain +1 attack in melee.
  *
  * UNIT TYPE: Infantry
@@ -119,7 +119,7 @@ export const deathshroudTerminators: Unit = {
   "option_groups": [],
   "abilities": [
     "Bodyguard, Deepstrike, Mark of Nurgle, Massive(1), Unyielding",
-    "Cataphractii armor: The model has a 4+ invulnerability save.",
+    "Cataphractii armor: The model has a 4+ ward save.",
     "Eyes of Mortarion: Attached HQ models gain +1 attack in melee."
   ],
   "unit_type": "Infantry",

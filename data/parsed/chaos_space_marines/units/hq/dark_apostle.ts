@@ -25,7 +25,7 @@
  * ABILITIES (verbatim):
  *   Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+.
  *     A Dark Apostle knows all prayers to the dark gods.
- *   Seal of corruption: This model has a 4+ invulnerable save.
+ *   Seal of corruption: This model has a 4+ ward save.
  *   Sinister Bishop: A Sinister Bishop may pray one additional time per battle round.
  *
  * UNIT TYPE: Character model, Infantry
@@ -162,7 +162,7 @@ export const darkApostle: Unit = {
   ],
   "abilities": [
     "Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+. A Dark Apostle knows all prayers to the dark gods.",
-    "Seal of corruption: This model has a 4+ invulnerable save.",
+    "Seal of corruption: This model has a 4+ ward save.",
     "Sinister Bishop: A Sinister Bishop may pray one additional time per battle round."
   ],
   "unit_type": "Character Model, Infantry",

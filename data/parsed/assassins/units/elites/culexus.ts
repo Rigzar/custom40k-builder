@@ -77,7 +77,7 @@ export const culexus: Unit = {
     "Deep Strike, Hit & Run, Infiltrator, Move through cover",
     "Animus Speculum: If a psyker is within 18\" range, the type changes to \"Assault 6\"",
     "Etherium: The Culexus can never be hit on anything better but a natural roll of 6.",
-    "Lightning reflexes: The model gains a 4+ invulnerability save.",
+    "Lightning reflexes: The model gains a 4+ ward save.",
     "Psionic Abomination: The unit can never be targeted by psychic powers. Enemy psykers within 18\" suffer a -1 penalty on any roll to manifest and dispel psychic powers. Enemy units within 12\" suffer a -1 penalty to their Leadership. All ranged and melee attacks made by the unit against a target within 6\" gain \"Shield breaker(-1)\".",
     "Cults Abominatioe: Any Chaos army may select either a single Assassin or one of each for a single Elite slot.",
     "Execution Force: Any Imperial army may select either a single Assassin or one of each for a single Elite slot."

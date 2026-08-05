@@ -183,7 +183,7 @@ export const stormsurge: Unit = {
   ],
   "abilities": [
     "Fearless, Supporting Fire",
-    "Shield generator: The model gains a 4+ invulnerability save."
+    "Shield generator: The model gains a 4+ ward save."
   ],
   "unit_type": "Gargantuan Creature",
   "keywords": [

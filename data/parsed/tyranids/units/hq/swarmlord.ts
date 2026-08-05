@@ -140,7 +140,7 @@ export const swarmlord: Unit = {
     "Alien Cunning: A Swarmlord can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
     "Swarm Leader: Select an ability during each activation: Counter-attack, Favoured enemy, or Tank hunter. The ability is active for the model and the attached unit until the next activation.",
-    "Warp Barrier: The model gains a 4+ invulnerability save."
+    "Warp Barrier: The model gains a 4+ ward save."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [

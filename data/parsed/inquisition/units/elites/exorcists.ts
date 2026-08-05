@@ -47,7 +47,7 @@ export const exorcists: Unit = {
   "option_groups": [],
   "abilities": [
     "Command Squad, Squadron",
-    "Aura of Faith: While an Exorcist is alive, the unit gains a 6+ invulnerability save against melee weapons. If two are alive, they gain a 5+ invulnerability save instead."
+    "Aura of Faith: While an Exorcist is alive, the unit gains a 6+ ward save against melee weapons. If two are alive, they gain a 5+ ward save instead."
   ],
   "unit_type": "Infantry",
   "keywords": [],

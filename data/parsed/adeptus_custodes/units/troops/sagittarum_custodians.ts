@@ -46,7 +46,7 @@ export const sagittarumCustodians: Unit = {
   "option_groups": [],
   "abilities": [
     "Massive(1), Shield Host",
-    "Custodian armor: The model gains a 5+ invulnerability save."
+    "Custodian armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

@@ -65,7 +65,7 @@ export const jokaeroWeaponsmiths: Unit = {
   "option_groups": [],
   "abilities": [
     "Infiltrator",
-    "Defence orb: The model gains a 5+ invulnerability save."
+    "Defence orb: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

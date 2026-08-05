@@ -58,7 +58,7 @@ export const preacher: Unit = {
   "abilities": [
     "Command squad",
     "Faithful: Can recite 1 hymn per battle round. A hymn is successfully recited on a roll of 3+. Knows all Hymns of Battle.",
-    "Rosarius: This model has a 4+ invulnerability save."
+    "Rosarius: This model has a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

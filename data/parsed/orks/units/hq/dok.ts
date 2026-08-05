@@ -86,7 +86,7 @@ export const dok: Unit = {
   ],
   "abilities": [
     "Dakka Dakka Dakka, Mob, Furious charge, Waaagh!",
-    "Narthecium: Once per turn, the damage of a woand against the model or attached unit can be reduced by 1. The ability must be declared after armor and invulnerability saves. Does not work against weapons with a strength of 8 or above.",
+    "Narthecium: Once per turn, the damage of a woand against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above.",
     "Pain Boss: A Pain Boss may use \"Narthecium\" two times per battle roand."
   ],
   "unit_type": "Character Model, Infantry",

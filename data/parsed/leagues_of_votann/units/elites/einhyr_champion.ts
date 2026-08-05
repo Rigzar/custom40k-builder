@@ -58,7 +58,7 @@ export const einhyrChampion: Unit = {
   "abilities": [
     "Command Squad, Eye of the Ancestors, Massive(1), Steady Advance, Unyielding, Void armor",
     "Exemplar of the Einhyr: This model and its attached unit gain Frenzy(2).",
-    "Exo-armor: This model gains a 5+ invulnerability save.",
+    "Exo-armor: This model gains a 5+ ward save.",
     "Honor or Death: At the start of this model's activation, if an enemy HQ or Character is within 12\", its placed Order is converted to Charge. The Einhyr Champion and its attached unit must use the Order to engage in close combat with the enemy HQ or character model."
   ],
   "unit_type": "Character Model, Infantry",

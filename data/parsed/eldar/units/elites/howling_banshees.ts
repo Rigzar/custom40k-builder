@@ -184,7 +184,7 @@ export const howlingBanshees: Unit = {
   ],
   "abilities": [
     "Battle Focus, Deflect, Furious Charge, Parry, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save."
+    "Aspect armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

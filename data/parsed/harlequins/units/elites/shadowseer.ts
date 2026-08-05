@@ -50,7 +50,7 @@ export const shadowseer: Unit = {
   "option_groups": [],
   "abilities": [
     "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1)",
-    "Holo-suit: The model gains a 4+ invulnerability save.",
+    "Holo-suit: The model gains a 4+ ward save.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
   ],
   "unit_type": "Character Model, Infantry",

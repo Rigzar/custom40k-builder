@@ -101,7 +101,7 @@ export const techPriest: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Choir Master, Command Squad",
-    "Bionics: This model receives a 6+ invulnerability save.",
+    "Bionics: This model receives a 6+ ward save.",
     "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1.",
     "Enginseer:\nBlessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
     "Manipulus\nGalvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1.",

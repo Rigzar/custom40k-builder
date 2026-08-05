@@ -56,7 +56,7 @@
     {
       "name": "The Crucible of Lies",
       "term_compat": true,
-      "desc": "The model may re-roll invulnerability save rolls of 1. Unique.",
+      "desc": "The model may re-roll ward save rolls of 1. Unique.",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [

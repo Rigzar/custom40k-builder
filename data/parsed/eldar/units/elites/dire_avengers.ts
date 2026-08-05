@@ -143,7 +143,7 @@ export const direAvengers: Unit = {
       "variant_link": null,
       "is_unique_per_army": false,
       "effect": {
-        "grants_abilities": ["Shimmershield: The model and its attached unit gain a 4+ invulnerability save in melee."]
+        "grants_abilities": ["Shimmershield: The model and its attached unit gain a 4+ ward save in melee."]
       }
     },
     {
@@ -176,7 +176,7 @@ export const direAvengers: Unit = {
   ],
   "abilities": [
     "Battle Focus, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save."
+    "Aspect armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

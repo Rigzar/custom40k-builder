@@ -168,7 +168,7 @@ export const skitariiRangers: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Vanguard",
-    "Bionics: The model receives a 6+ invulnerability save.",
+    "Bionics: The model receives a 6+ ward save.",
     "Sniper: A model equipped with a Transuranic arquebus improves its BS by +1."
   ],
   "unit_type": "Infantry",

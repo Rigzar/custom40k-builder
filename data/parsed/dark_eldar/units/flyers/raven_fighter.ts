@@ -28,7 +28,7 @@ export const ravenFighter: Unit = {
   ],
   "option_groups": [],
   "abilities": [
-    "Vector Dancer: The model gains a 4+ invulnerability save.",
+    "Vector Dancer: The model gains a 4+ ward save.",
     "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORD to the unit."
   ],
   "unit_type": "Flyer",

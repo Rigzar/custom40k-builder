@@ -559,7 +559,7 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'shield of faith': {
     name: 'Shield of Faith',
-    description: 'The model gains a 6+ invulnerability save.',
+    description: 'The model gains a 6+ ward save.',
   },
   'ambush': {
     name: 'Ambush',
@@ -636,11 +636,11 @@ export const RULES: Record<string, RuleEntry> = {
   },
   'gargantuan creature': {
     name: 'Gargantuan Creature',
-    description: 'Follows the rules for Monstrous Creatures with these exceptions: can ignore enemy models when moving (unless another super-heavy or gargantuan); need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1 (unless the actual result is already better); ignores difficult terrain movement penalties and auto-passes dangerous terrain; invulnerability saves against Strength D can only be taken by other gargantuan or super-heavy models.',
+    description: 'Follows the rules for Monstrous Creatures with these exceptions: can ignore enemy models when moving (unless another super-heavy or gargantuan); need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1 (unless the actual result is already better); ignores difficult terrain movement penalties and auto-passes dangerous terrain; ward saves against Strength D can only be taken by other gargantuan or super-heavy models.',
   },
   'super-heavy vehicle': {
     name: 'Super-heavy Vehicle',
-    description: 'Follows the rules for vehicles with these exceptions: need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1; ignores difficult terrain and auto-passes dangerous terrain; invulnerability saves against Strength D only for other gargantuan/super-heavy models; can always shoot one more weapon than allowed for the distance moved; on losing its last Hull Point, on a 4+ it explodes (2D6" radius, S7 AP-2 D2). Uses its own super-heavy vehicle damage chart.',
+    description: 'Follows the rules for vehicles with these exceptions: need not use Defensive fire or fight in melee when charged (unless by another super-heavy/gargantuan); is never bound in melee unless engaged by another super-heavy/gargantuan; automatically wins melee with a total of +1; ignores difficult terrain and auto-passes dangerous terrain; ward saves against Strength D only for other gargantuan/super-heavy models; can always shoot one more weapon than allowed for the distance moved; on losing its last Hull Point, on a 4+ it explodes (2D6" radius, S7 AP-2 D2). Uses its own super-heavy vehicle damage chart.',
   },
   // ── Experimental Rules (Core Rules.txt L1940-1949 — "currently undergoing playtesting and
   // completely optional"; this is the LAST entry in the canonical Core Rules text) ───────────

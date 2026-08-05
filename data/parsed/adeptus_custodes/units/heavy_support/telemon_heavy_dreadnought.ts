@@ -112,7 +112,7 @@ export const telemonHeavyDreadnought: Unit = {
   ],
   "abilities": [
     "Shield Host",
-    "Reinforced Atomantic Shielding: The model has a 4+ invulnerability save. Enemy attacks receive a -3 AT penalty (to a minimum of -3)."
+    "Reinforced Atomantic Shielding: The model has a 4+ ward save. Enemy attacks receive a -3 AT penalty (to a minimum of -3)."
   ],
   "unit_type": "Vehicle, Walker",
   "keywords": [],

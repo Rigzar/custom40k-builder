@@ -152,9 +152,9 @@ export const einhyrHearthguard: Unit = {
   ],
   "abilities": [
     "Bodyguard, Eye of the Ancestors, Massive(1), Steady Advance, Unyielding, Void armor",
-    "Exo-armor: The model gains a 5+ invulnerability save.",
+    "Exo-armor: The model gains a 5+ ward save.",
     "Teleportation crest: The model gains the \"Deep Strike\" ability. Limit one crest per model.",
-    "Weavefield crest: The model gains a 4+ invulnerability save. Limit one crest per model."
+    "Weavefield crest: The model gains a 4+ ward save. Limit one crest per model."
   ],
   "unit_type": "Infantry",
   "keywords": [],

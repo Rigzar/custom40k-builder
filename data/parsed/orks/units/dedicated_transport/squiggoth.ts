@@ -104,7 +104,7 @@ export const squiggoth: Unit = {
     "Open, <Squig>, <Wildork>",
     "Enraged demise: The model explodes like a vehicle upon losing its last Wound.",
     "Transport: This model has a transport capacity of 15 infantry models.",
-    "Wildork: The model receives the <Wildork> keyword and a 6+ invulnerability saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability."
+    "Wildork: The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [],

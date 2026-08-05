@@ -133,7 +133,7 @@ export const librarianDreadnought: Unit = {
     }
   ],
   "abilities": [
-    "Psionic shield: The model receives a 5+ invulnerability save.",
+    "Psionic shield: The model receives a 5+ ward save.",
     "Psychic hood: Add +1 to rolls to deny enemy psychic powers.",
     "Psyker: The model can cast 2 power and deny 2 power per battle round. It knows Smite and all powers from a chosen discipline."
   ],

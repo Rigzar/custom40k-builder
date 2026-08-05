@@ -72,7 +72,7 @@
       "abilities": [
         "Unyielding",
         "Drone protocols: Drones are ignored when determining the unit's most used Toughness and Defensive rules. They move as fast as the unit they are attached to and only use the attached unit's movement restriction. They are considered as being part of the model that controls them. Drones controlled by a Drone controller can not be removed as casualties.",
-        "Shielded: Shield Drones confer a 5+ invulnerability save to themselves and their attached units."
+        "Shielded: Shield Drones confer a 5+ ward save to themselves and their attached units."
       ]
     },
     {

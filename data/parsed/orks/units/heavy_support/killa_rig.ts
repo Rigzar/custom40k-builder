@@ -80,7 +80,7 @@ export const killaRig: Unit = {
     "Snagged: Vehicles and Monstrous creatures hit by the Stikka kannon can't move more than 6\" away from the Hunta Rig until it is activated again.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
     "Transport: This model has a transport capacity of 10 infantry models.",
-    "Wildork: The model receives the <Wildork> keyword and a 6+ invulnerability saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+    "Wildork: The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
     "Wurrtower: To fire this weapon, the model must pass a psychic test (Cast value: 6, Complexity: Basic). If it suffers a \"Perils of the Warp\" attack, the two closest units within 24\" each receive a hit.",
     "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation."
   ],

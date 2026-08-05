@@ -132,7 +132,7 @@ export const troupe: Unit = {
   ],
   "abilities": [
     "Anti-grav, Deflect, Parry, Terrifying(-1)",
-    "Holo-suit: The model gains a 4+ invulnerability save.",
+    "Holo-suit: The model gains a 4+ ward save.",
     "Neuro disruptor: Roll 3D6 after a successful hit and compare it with the Leadership value of the unit. If your roll is higher, the target suffers one Mortal Wound."
   ],
   "unit_type": "Infantry",

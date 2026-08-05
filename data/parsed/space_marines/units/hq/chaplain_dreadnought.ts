@@ -212,7 +212,7 @@ export const chaplainDreadnought: Unit = {
   "abilities": [
     "Faithful: Can recite 2 prayers per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
     "Furioso: If the model has two melee weapons, it gains +2 attacks.",
-    "Reliquary: The model receives a 5+ invulnerability save."
+    "Reliquary: The model receives a 5+ ward save."
   ],
   "unit_type": "Vehicle, Walker",
   "keywords": [],

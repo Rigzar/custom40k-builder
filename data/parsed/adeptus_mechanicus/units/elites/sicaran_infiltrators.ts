@@ -118,7 +118,7 @@ export const sicaranInfiltrators: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Deflect, Infiltrator, Massive(1), Move through cover, Parry",
-    "Enhanced Bionics: The model receives a 5+ invulnerability save."
+    "Enhanced Bionics: The model receives a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

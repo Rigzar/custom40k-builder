@@ -110,7 +110,7 @@ export const vampire: Unit = {
   ],
   "abilities": [
     "Battle Focus, Fast, Hover Mode",
-    "Improved Holo-fields: The model gains a 4+ invulnerability save.",
+    "Improved Holo-fields: The model gains a 4+ ward save.",
     "Transport: This model has a transport capacity of 30 infantry models. When equipped with Pulsars and Phoenix missile launchers, it has a transport capacity of 0 infantry models."
   ],
   "unit_type": "Super-heavy Flyer, Vehicle",

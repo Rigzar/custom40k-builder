@@ -262,7 +262,7 @@
       "requires_keywords": [
         "Infantry"
       ],
-      "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ invulnerable save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
+      "desc": "The model gains +1 Toughness, +1 Attack, a 2+ armor save, a 4+ ward save and the abilities \"Deep strike\", \"Massive(1)\" and \"Unyielding\". Only for infantry.",
       "p_unit": null,
       "p_char": 76
     },

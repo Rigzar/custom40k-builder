@@ -27,7 +27,7 @@
  *
  * ABILITIES (verbatim):
  *   Deep strike, Massive(1), Unyielding
- *   Crux Terminatus: This unit has a 5+ invulnerable save.
+ *   Crux Terminatus: This unit has a 5+ ward save.
  *
  * UNIT TYPE: Infantry
  * KEYWORDS: Chaos Space Marine
@@ -376,7 +376,7 @@ export const chaosTerminators: Unit = {
   ],
   "abilities": [
     "Deep strike, Massive(1), Unyielding",
-    "Crux Terminatus: This unit has a 5+ invulnerable save."
+    "Crux Terminatus: This unit has a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

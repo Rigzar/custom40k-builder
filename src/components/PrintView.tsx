@@ -188,7 +188,7 @@ function FancyBox({ children, color }: { children: React.ReactNode; color: strin
   );
 }
 
-// ── FancyShield — invulnerable save ──────────────────────────────────────────
+// ── FancyShield — ward save ──────────────────────────────────────────
 function FancyShield({ value, color }: { value: number; color: string }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: 6 }}>

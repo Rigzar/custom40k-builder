@@ -64,14 +64,14 @@ export const ADMECH_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   ],
 
   // SOURCE — Phased-Plasma Coils:
-  // "This unit may roll their invulnerable save against any wound caused by a plasma
+  // "This unit may roll their ward save against any wound caused by a plasma
   //  weapon's Overheating ability."
   // COST: 5 | 0 | 5 | -
   'Phased-Plasma Coils': [
     {
       type: 'unit_ability',
       name: 'Phased-Plasma Coils',
-      desc: 'This unit may roll their invulnerable save against any wound caused by a plasma weapon\'s Overheating ability.',
+      desc: 'This unit may roll their ward save against any wound caused by a plasma weapon\'s Overheating ability.',
       applies_to: 'all',
     },
   ],

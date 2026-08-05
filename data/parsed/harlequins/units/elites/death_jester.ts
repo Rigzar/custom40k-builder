@@ -126,7 +126,7 @@ export const deathJester: Unit = {
   "abilities": [
     "Anti-grav, Command squad, Deflect, Parry, Squadron, Terrifying(-1)",
     "Bio-explosion: If a model is killed by the Shrieker cannon, it explodes! The remaining unit suffers 4 automatic hits with Strength: 6, AP: -1, Damage: 1; Seeking.",
-    "Holo-suit: The model gains a 4+ invulnerability save."
+    "Holo-suit: The model gains a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

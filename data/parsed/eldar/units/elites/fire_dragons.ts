@@ -141,7 +141,7 @@ export const fireDragons: Unit = {
   ],
   "abilities": [
     "Battle Focus, <Aspect>",
-    "Aspect armor: The model gains a 5+ invulnerability save."
+    "Aspect armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

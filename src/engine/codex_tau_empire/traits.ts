@@ -169,13 +169,13 @@ export const TAU_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
   // SOURCE — Signature Evolutionary Adaption:
   // "Select one Adaptation that must be applied to all Kroot units: Bold (+1 Leadership),
   //  Chameleon (Deflect), Fast Reflexes (+1 Initiative), Hyperactive Nymune Organ
-  //  (Frenzy(2")), Ork Hybrid (+1 Toughness), Sixth Sense (6+ invulnerability save)."
+  //  (Frenzy(2")), Ork Hybrid (+1 Toughness), Sixth Sense (6+ ward save)."
   // COST: 5 | 0 | 5 | 5
   'Signature Evolutionary Adaption': [
     {
       type: 'unit_ability',
       name: 'Signature Evolutionary Adaption',
-      desc: 'Select one Adaptation for all Kroot units: Bold (+1 Leadership), Chameleon (Deflect), Fast Reflexes (+1 Initiative), Hyperactive Nymune Organ (Frenzy(2")), Ork Hybrid (+1 Toughness), or Sixth Sense (6+ invulnerability save).',
+      desc: 'Select one Adaptation for all Kroot units: Bold (+1 Leadership), Chameleon (Deflect), Fast Reflexes (+1 Initiative), Hyperactive Nymune Organ (Frenzy(2")), Ork Hybrid (+1 Toughness), or Sixth Sense (6+ ward save).',
       applies_to: 'all',
     },
   ],

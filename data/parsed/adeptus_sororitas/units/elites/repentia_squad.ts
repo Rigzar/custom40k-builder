@@ -101,7 +101,7 @@ export const repentiaSquad: Unit = {
   "abilities": [
     "Acts of Faith, Berserk(5+), Blind rage",
     "Absolution: Repentia reduce the Faith Point cost for 'Spirit of the Martyr' by 1.",
-    "Shield of Faith: The Repentia Superior has a 6+ invulnerability save."
+    "Shield of Faith: The Repentia Superior has a 6+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

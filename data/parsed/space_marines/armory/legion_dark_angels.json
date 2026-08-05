@@ -40,7 +40,7 @@
         "Terminator",
         "Gravis"
       ],
-      "desc": "The model gains a 4+ invulnerability save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
+      "desc": "The model gains a 4+ ward save. If it makes at least one successfull save during its activation, to hit rolls against the model suffer a cumulative -1 penalty until the start of its next activation.",
       "p_unit": null,
       "p_char": 35
     },

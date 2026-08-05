@@ -84,7 +84,7 @@ export const geminaeSuperia: Unit = {
   ],
   "abilities": [
     "Acts of Faith, Bodyguard, Command Squad, Shield of Faith",
-    "Saintly Visage: The model gains a 4+ invulnerability save.",
+    "Saintly Visage: The model gains a 4+ ward save.",
     "Bound by Faith: The models have to start the game as a unit together with the Living Saint and may not voluntarily leave the unit. They do not pay points for any army traits."
   ],
   "unit_type": "Infantry, Jump Pack Infantry",

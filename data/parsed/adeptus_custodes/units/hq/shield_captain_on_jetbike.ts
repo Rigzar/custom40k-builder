@@ -140,7 +140,7 @@ export const shieldCaptainOnJetbike: Unit = {
   "abilities": [
     "Shield Host",
     "Battle Tactics: The Shield-Captain can assign two free Veteran abilities to himself and a friendly unit at the start of the deployment and replace both abilities during each Reinforcement phase. The friendly unit can be changed during each Reinforcement phase. All units must be able to gain the Veteran abilities. It does not count against the limit on how many Veteran abilities a unit can have.",
-    "Custodian armor: The model gains a 5+ invulnerability save."
+    "Custodian armor: The model gains a 5+ ward save."
   ],
   "unit_type": "Character Model, Jetbike",
   "keywords": [],

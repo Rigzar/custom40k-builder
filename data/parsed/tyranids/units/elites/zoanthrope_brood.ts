@@ -100,7 +100,7 @@ export const zoanthropeBrood: Unit = {
   ],
   "abilities": [
     "Anti-Grav, Fearless, Massive(1), Synapse",
-    "Warp Barrier: The model gains a 4+ invulnerability save."
+    "Warp Barrier: The model gains a 4+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [

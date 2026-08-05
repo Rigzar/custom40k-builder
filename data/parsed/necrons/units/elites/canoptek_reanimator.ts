@@ -55,7 +55,7 @@ export const canoptekReanimator: Unit = {
   "option_groups": [],
   "abilities": [
     "Squadron",
-    "Containment field: The model has a 5+ invulnerability save.",
+    "Containment field: The model has a 5+ ward save.",
     "Living metal: The model repairs one vehicle damage at the start of each Reinforcement phase in any order.",
     "Nanoscarab reanimator beam: Instead of using the Atomiser beam, you may target a friendly <Necron> unit within 12\". The target immediately succeeds at 2 Reanimation Protocol rolls."
   ],

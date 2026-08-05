@@ -95,7 +95,7 @@ export const venerableLandRaider: Unit = {
   "abilities": [
     "Shield Host",
     "Assault ramp: Passengers can still make a 6\" charge move after the vehicle moves and they exit.",
-    "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
+    "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 1).",
     "Transport: This model has a transport capacity of 10 infantry models."
   ],
   "unit_type": "Vehicle",

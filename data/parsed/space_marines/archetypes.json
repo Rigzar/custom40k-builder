@@ -240,7 +240,7 @@
     },
     {
       "name": "The Flesh is Weak",
-      "desc": "Creature models gain a 6+ invulnerability save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have an invulnerability save from their datasheet or Armory.",
+      "desc": "Creature models gain a 6+ ward save. Vehicles repair either one Engine Damage or Weapon Damage on themselves during each Rally phase. Only for creature models that do not already have a ward save from their datasheet or Armory.",
       "pts_unit": "2*",
       "pts_char": "0",
       "pts_monster": "5*",

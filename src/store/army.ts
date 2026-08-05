@@ -51,13 +51,13 @@ function alreadyHasArmorSave4Plus(unit: Unit, item: RosterEntry, data: FactionDa
   });
 }
 
-/** Same exemption pattern, for Bionic Improvement's "...do not already have an invulnerability
+/** Same exemption pattern, for Bionic Improvement's "...do not already have a ward
  *  save from their datasheet or Armory." */
 function alreadyHasInvulnSave(unit: Unit, item: RosterEntry, data: FactionData): boolean {
   if (parseInvSaveFromAbilities(unit.abilities ?? []) !== null) return true;
   return (item.armory ?? []).some(sel => {
     const ai = findArmoryItem(data, sel);
-    return ai?.desc != null && /\d\+\s+invulnerable\s+save/i.test(ai.desc);
+    return ai?.desc != null && /\d\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i.test(ai.desc);
   });
 }
 

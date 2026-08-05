@@ -75,7 +75,7 @@ export const mandrakes: Unit = {
     "infiltrator, Move through cover, Power through Pain",
     "Hunter: The unit rerolls hit and wound rolls against HQ and character models.",
     "Fade away: During each Reinforcement phase, the unit may be set up again following the rules for Infiltrator.",
-    "Shadow Creature: The unit has a 5+ invulnerability saving throw. Hit rolls against the unit suffer a –1 penalty.",
+    "Shadow Creature: The unit has a 5+ ward save. Hit rolls against the unit suffer a –1 penalty.",
     "Swords for hire: Add the <Kabal>, <Coven> or <Cult> KEYWORDS to the unit."
   ],
   "unit_type": "Infantry",

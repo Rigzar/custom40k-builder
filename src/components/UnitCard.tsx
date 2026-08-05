@@ -202,7 +202,7 @@ export function UnitCard({ item }: Props) {
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
   const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
   // InvSv stat: best of base-ability + equipment + ACTIVE TRAITS inv saves.
-  // SOURCE (core_rules_text.txt): Invulnerability Save is unaffected by AP, used after armor save fails.
+  // SOURCE (core_rules_text.txt): Ward Save is unaffected by AP, used after armor save fails.
   // Unconditional sources all update the stat column:
   //   - base abilities (Daemon=5+, Greater Daemon=4+, Seal of corruption=4+…)
   //   - equipment (Terminator armor=5+, Cataphractii=4+…)
@@ -214,10 +214,10 @@ export function UnitCard({ item }: Props) {
   // the option actually being selected (see resolver.ts's optionAbilities/effect.grants_abilities),
   // unlike u.abilities — which is why they need their own scan rather than folding into baseInvSave.
   const optionInvSave = parseInvSaveFromAbilities(optionAbilities);
-  // Trait inv saves: "X+ Invulnerability Save" in traitAbilities (from inv_save effect)
+  // Trait inv saves: "X+ Ward Save" in traitAbilities (from inv_save effect)
   // + Berserk(X+) ability name (gives X+ inv per core rules)
   const traitInvSave: number | null = traitAbilities.reduce<number | null>((best, ta) => {
-    const m1 = ta.name.match(/^(\d)\+\s+Invulnerability/i);
+    const m1 = ta.name.match(/^(\d)\+\s+(?:Ward|Invulnerability)/i);
     if (m1) { const v = parseInt(m1[1]); return best === null || v < best ? v : best; }
     const m2 = ta.name.match(/^Berserk\((\d)\+\)/i);
     if (m2) { const v = parseInt(m2[1]); return best === null || v < best ? v : best; }
@@ -782,7 +782,7 @@ export function UnitCard({ item }: Props) {
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
                   <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">{t('modelHeader')}</th>
                   {statKeys.map(k => {
-                    const label = k === 'InvSv' ? 'Inv' : k;
+                    const label = k === 'InvSv' ? 'Ward' : k;
                     const icon = STAT_ICONS[k];
                     return (
                       <th key={k} className={`font-bold text-center py-1.5 px-1 text-[10px] uppercase tracking-wide min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>

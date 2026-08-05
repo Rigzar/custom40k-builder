@@ -798,7 +798,7 @@
     {
       "name": "Bionics",
       "term_compat": true,
-      "desc": "The model gains a 6+ invulnerability save.",
+      "desc": "The model gains a 6+ ward save.",
       "p_unit": 1,
       "p_char": 5
     },
@@ -858,7 +858,7 @@
       "name": "Hexagram warding runes",
       "term_compat": true,
       "requires_army_item": "Ordo Hereticus",
-      "desc": "Enemy models in direct base contact suffer a -1 penalty to their invulnerability saves.",
+      "desc": "Enemy models in direct base contact suffer a -1 penalty to their ward saves.",
       "p_unit": null,
       "p_char": 10
     },
@@ -924,7 +924,7 @@
       "name": "Praesidium Protectiva",
       "term_compat": true,
       "requires_army_item": "Ordo Hereticus",
-      "desc": "The model gains a 4+ invulnerability save.",
+      "desc": "The model gains a 4+ ward save.",
       "p_unit": null,
       "p_char": 15
     },
@@ -968,7 +968,7 @@
     {
       "name": "Refractor field",
       "term_compat": true,
-      "desc": "The model gains a 5+ invulnerability save.",
+      "desc": "The model gains a 5+ ward save.",
       "p_unit": null,
       "p_char": 10
     },
@@ -1031,7 +1031,7 @@
     {
       "name": "Terminator armor",
       "term_compat": false,
-      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ invulnerable save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
+      "desc": "The model gains +1 Toughness, +1 Attack, 2+ armor save, 5+ ward save, and the abilities \"Massive(1),\" \"Shock Troops,\" and \"Unyielding.\" Only for infantry.",
       "p_unit": null,
       "p_char": 43
     },

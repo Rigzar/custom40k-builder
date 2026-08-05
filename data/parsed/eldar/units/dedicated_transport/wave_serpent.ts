@@ -155,7 +155,7 @@ export const waveSerpent: Unit = {
   "abilities": [
     "Anti-Grav, Battle Focus",
     "Transport: This model has a transport capacity of 12 infantry models.",
-    "Wave Serpent Shield: The model has a 5+ invulnerability save."
+    "Wave Serpent Shield: The model has a 5+ ward save."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

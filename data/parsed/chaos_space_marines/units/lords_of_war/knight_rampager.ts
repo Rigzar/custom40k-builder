@@ -22,7 +22,7 @@
  *   • May receive a Mark of Chaos: Khorne/Nurgle/Slaanesh/Tzeentch +20 points (each)
  *
  * ABILITIES (verbatim):
- *   Ion shield: The model gains a 4+ invulnerability save against ranged attacks.
+ *   Ion shield: The model gains a 4+ ward save against ranged attacks.
  *   During the activation, you have to select wether the Ion shield covers attacks
  *   from the front, the left side, the right side or the back. The default side is
  *   always the front.
@@ -52,7 +52,7 @@
  *     per the cross-faction supplement architecture — same pattern as Desecrator
  *   ✓ is_vehicle: true / unit_type: "Super-heavy Vehicle" / default_size: 1 /
  *     min_cost: 385
- *   🟡 Ion shield is a text-only special rule (situational invulnerability save with
+ *   🟡 Ion shield is a text-only special rule (situational ward save with
  *     a player-chosen facing) — no dedicated engine primitive for directional saves;
  *     consistent treatment with Desecrator and CSM vehicles generally
  *   (Fixed mojibake in the old header comment: "â€”" → "—", encoding artefact from migration)
@@ -143,7 +143,7 @@ export const knightRampager: Unit = {
     }
   ],
   "abilities": [
-    "Ion shield: The model gains a 4+ invulnerability save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
+    "Ion shield: The model gains a 4+ ward save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
   ],
   "unit_type": "Super-heavy Vehicle",
   "keywords": [

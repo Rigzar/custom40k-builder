@@ -118,7 +118,7 @@ export const sicaranRuststalkers: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Massive(1), Move through cover, Use cover",
-    "Enhanced Bionics: The model receives a 5+ invulnerability save."
+    "Enhanced Bionics: The model receives a 5+ ward save."
   ],
   "unit_type": "Infantry",
   "keywords": [],

@@ -58,7 +58,7 @@ export const ctanShardOfTheDeceiver: Unit = {
   "abilities": [
     "Anti-Grav, Deflect, Fearless, Hit & Run, Parry, Regeneration(1), Terrifying(-1)",
     "Great Illusion: At the beginning of the first battle round, the Deceiver can remove up to three units from his own army from the field and relocate them within his own deployment zone. Alternatively, each unit can also be placed in reserve.",
-    "Necrodermis: The model has a 4+ invulnerability save. If it loses its last wound, it explodes like a vehicle.",
+    "Necrodermis: The model has a 4+ ward save. If it loses its last wound, it explodes like a vehicle.",
     "Powers of the C'tan: The model can manifest 2 powers per turn automatically. It knows all the powers from the list of C'tan powers. Each C'tan can only use each power once per battle round."
   ],
   "unit_type": "Monstrous Creature",

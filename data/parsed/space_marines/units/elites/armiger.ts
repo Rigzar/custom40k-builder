@@ -146,7 +146,7 @@ export const armiger: Unit = {
   "abilities": [
     "Squadron",
     "Elite: Imperial armies may select units of Armigers as an Elite choice.",
-    "Ion shield: The model gains a 5+ invulnerability save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
+    "Ion shield: The model gains a 5+ ward save against ranged attacks. During the activation, you have to select wether the Ion shield covers attacks from the front, the left side, the right side or the back. The default side is always the front."
   ],
   "unit_type": "Walker",
   "keywords": [],

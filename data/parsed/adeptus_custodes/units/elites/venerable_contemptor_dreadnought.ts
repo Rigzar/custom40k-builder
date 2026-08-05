@@ -90,7 +90,7 @@ export const venerableContemptorDreadnought: Unit = {
   ],
   "abilities": [
     "Shield Host, Squadron",
-    "Custodes Atomantic Shielding: The model has a 5+ invulnerability save. Enemy attacks receive a -1 AT penalty (to a minimum of 1)."
+    "Custodes Atomantic Shielding: The model has a 5+ ward save. Enemy attacks receive a -1 AT penalty (to a minimum of 1)."
   ],
   "unit_type": "Vehicle, Walker",
   "keywords": [],

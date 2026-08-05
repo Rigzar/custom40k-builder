@@ -84,7 +84,7 @@ export const huntaRig: Unit = {
     "Dakka Dakka Dakka, Waaagh!, <Squig>, <Wildork>",
     "Snagged: Vehicles and Monstrous creatures hit by the Stikka kannon can't move more than 6\" away from the Hunta Rig until it is activated again.",
     "Transport: This model has a transport capacity of 15 infantry models.",
-    "Wildork: The model receives the <Wildork> keyword and a 6+ invulnerability saving throw. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
+    "Wildork: The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability.",
     "Ramshackle: Roll D6 when the vehicle is destroyed — 1-2: Kaboom! The vehicle explodes with a radius of 6\". 3-4: Kareen! Move the vehicle 3D6\" in a random direction and then Kaboom! The vehicle stops at the first unit it contacts. On a hit symbol the controlling player chooses direction. 5-6: Kerrunch! Passengers disembark unharmed; the vehicle remains as wreckage. If immobilized, the player may roll on this table with any command during their next activation."
   ],
   "unit_type": "Vehicle",

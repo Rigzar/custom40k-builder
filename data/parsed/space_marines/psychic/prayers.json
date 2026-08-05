@@ -11,7 +11,7 @@
     "name": "Focus Recitation",
     "range": "-",
     "target": "Self + attached unit",
-    "effect": "The target gains a 5+ invulnerability save.",
+    "effect": "The target gains a 5+ ward save.",
     "duration": "Until the caster's next activation",
     "complexity": "Basic"
   },
@@ -51,7 +51,7 @@
     "name": "Litany of Divine Protection",
     "range": "-",
     "target": "Self + attached unit",
-    "effect": "The target gains a 4+ invulnerability save.",
+    "effect": "The target gains a 4+ ward save.",
     "duration": "Until the caster's next activation",
     "complexity": "Basic"
   },
