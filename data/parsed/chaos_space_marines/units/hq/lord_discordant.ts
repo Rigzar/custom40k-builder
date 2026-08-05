@@ -16,7 +16,7 @@
  *   Baleflamer                     12”  Assault 4   6  AP-2  D1  Flames                              [default]
  *   Bladed limbs                    —   Melee       6  AP-2  D1  Flurry(2)    [fixed S=6, not S+X]
  *   Frag grenade                   6”   Grenade 1   4  AP0   D1  Explosive
- *   Impaler chainglaive - Charge    —   Melee      x2  AP-3  D2  AT(2), Can only be used with a Charge order
+ *   Impaler chainglaive - Charge    —   Melee      x2  AP-3  D2  AT(2), Charge
  *   Impaler chainglaive - Melee     —   Melee      +2  AP-3  D1  —
  *   Krak grenade                   6”   Grenade 1   6  AP-2  D1  —
  *   Magma cutter                   12”  Pistol 1    8  AP-5  D2  AT(2), Melta  [option]
@@ -134,7 +134,7 @@ export const lordDiscordant: Unit = {
       "s": "x2",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Can only be used with a Charge order"
+      "abilities": "AT(2), Charge"
     },
     {
       "name": "Impaler chainglaive - Melee",

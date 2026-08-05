@@ -86,7 +86,7 @@ export const shiningSpears: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "Quick(+1), Can only be used with a charge order"
+      "abilities": "Quick(+1), Charge"
     },
     {
       "name": "Laser lance - Melee",
@@ -113,7 +113,7 @@ export const shiningSpears: Unit = {
       "s": "+5",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Quick(+1), Can only be used with a charge order"
+      "abilities": "AT(2), Quick(+1), Charge"
     },
     {
       "name": "Star lance - Melee",

@@ -5,7 +5,6 @@ import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { CHANGELOG } from '../data/changelog';
-import { BOARDING_RULES, BOARDING_SAMPLE_LISTS, BOARDING_DRAFT } from '../data/boarding';
 import { abilityKey, ruleStrings } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -88,7 +87,7 @@ function toSheetId(input: string): string {
   return m ? m[1] : s;
 }
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'boarding';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -165,8 +164,8 @@ interface AdminTx {
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabBoarding: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabBoarding: string; boardingPrivate: string; boardingHint: string; boardingSamples: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string;
   findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
   findNone: string; findCount: (hits: number, factions: number) => string; findExport: string; findScanning: (f: string) => string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
@@ -256,10 +255,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Source check',
     helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
     tabFind: 'Find text',
-    tabBoarding: 'Boarding',
-    boardingPrivate: 'private', boardingSamples: 'Reference lists',
-    boardingHint: 'Working draft of the Boarding Actions supplement — a small-scale Custom40k mode fought in corridors. Read-only here. It is deliberately NOT wired into the builder: there is no Boarding engagement, so no player can select it and no saved list can reference it.',
-    helpTabBoarding: 'Working draft of the Boarding Actions supplement. Admin-only — it is not wired into the builder and no player can see or select it.',
     helpTabFind: 'Search every faction\'s data for a word or phrase and list every place it appears.',
     findHint: 'Type any wording — an ability, a rules phrase, a weapon name — and this lists every place it appears across all factions: unit abilities, weapon abilities, option headers, armoury descriptions and the rules glossary. Useful before replacing a phrase with a new special rule. Read-only.',
     findPlaceholder: 'e.g. Can only be used with a Charge order',
@@ -364,10 +359,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Quellenabgleich',
     helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
     tabFind: 'Text suchen',
-    tabBoarding: 'Boarding',
-    boardingPrivate: 'privat', boardingSamples: 'Referenzlisten',
-    boardingHint: 'Arbeitsentwurf der Boarding-Actions-Erweiterung — ein Custom40k-Modus im kleinen Maßstab, gekämpft in Korridoren. Hier nur lesbar. Bewusst NICHT im Builder verdrahtet: es gibt kein Boarding-Engagement, also kann es kein Spieler auswählen.',
-    helpTabBoarding: 'Arbeitsentwurf der Boarding-Actions-Erweiterung. Nur für Admins — nicht im Builder verdrahtet, für Spieler unsichtbar.',
     helpTabFind: 'Alle Fraktionsdaten nach einem Wort oder Satz durchsuchen und jede Fundstelle auflisten.',
     findHint: 'Gib eine beliebige Formulierung ein — eine Fähigkeit, einen Regelsatz, einen Waffennamen — und hier erscheint jede Fundstelle über alle Fraktionen hinweg: Einheiten-Fähigkeiten, Waffen-Fähigkeiten, Options-Überschriften, Arsenal-Beschreibungen und das Regelglossar. Praktisch, bevor man eine Formulierung durch eine neue Spezialregel ersetzt. Nur Lesen.',
     findPlaceholder: 'z. B. Can only be used with a Charge order',
@@ -472,10 +463,6 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Comparar fuente',
     helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
     tabFind: 'Buscar texto',
-    tabBoarding: 'Boarding',
-    boardingPrivate: 'privado', boardingSamples: 'Listas de referencia',
-    boardingHint: 'Borrador del suplemento Boarding Actions — un modo de Custom40k a pequeña escala, en pasillos. Aquí solo de lectura. A propósito NO está conectado al builder: no existe el engagement Boarding, así que ningún jugador puede elegirlo ni guardarlo en una lista.',
-    helpTabBoarding: 'Borrador del suplemento de Boarding Actions. Solo admins — no está conectado al builder y ningún jugador puede verlo ni elegirlo.',
     helpTabFind: 'Busca una palabra o frase en los datos de todas las facciones y lista dónde aparece.',
     findHint: 'Escribe cualquier texto — una habilidad, una frase de reglas, un nombre de arma — y aquí sale cada sitio donde aparece en todas las facciones: habilidades de unidad, habilidades de arma, cabeceras de opciones, descripciones de armería y el glosario de reglas. Útil antes de sustituir una frase por una regla especial nueva. Solo lectura.',
     findPlaceholder: 'p. ej. Can only be used with a Charge order',
@@ -1205,7 +1192,6 @@ export function AdminPanel({ onClose }: Props) {
     { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n },
     { id: 'source',   label: L.tabSource,   help: L.helpTabSource },
     { id: 'find',     label: L.tabFind,     help: L.helpTabFind },
-    { id: 'boarding', label: L.tabBoarding, help: L.helpTabBoarding },
   ];
 
   return (
@@ -1800,67 +1786,6 @@ export function AdminPanel({ onClose }: Props) {
             </div>
             )}
 
-            {tab === 'boarding' && (
-            <div className="max-w-3xl">
-              <div className="flex flex-wrap items-baseline gap-3 mb-3">
-                <h2 className="text-amber-400 text-sm font-mono uppercase tracking-widest">Boarding Actions</h2>
-                <span className="text-zinc-600 text-[10px] font-mono">{BOARDING_DRAFT}</span>
-                <span className="text-[9px] uppercase px-1 border border-amber-800 text-amber-500">{L.boardingPrivate}</span>
-              </div>
-              <p className="text-zinc-500 text-[11px] font-mono mb-4">{L.boardingHint}</p>
-
-              {BOARDING_RULES.map(sec => (
-                <section key={sec.id} className="mb-5">
-                  <h3 className="text-zinc-200 text-[12px] font-mono uppercase tracking-wider border-b border-zinc-800 pb-1 mb-2">{sec.title}</h3>
-                  {sec.blocks.map((b, i) => {
-                    if ('p' in b) return <p key={i} className="text-zinc-400 text-[12px] leading-relaxed mb-2">{b.p}</p>;
-                    if ('note' in b) return (
-                      <p key={i} className="text-amber-600/90 text-[11px] leading-relaxed mb-2 border-l-2 border-amber-900 pl-2">{b.note}</p>
-                    );
-                    if ('ul' in b) return (
-                      <ul key={i} className="mb-2 space-y-1">
-                        {b.ul.map((li, j) => (
-                          <li key={j} className="text-zinc-400 text-[12px] leading-relaxed pl-3 border-l border-zinc-800">{li}</li>
-                        ))}
-                      </ul>
-                    );
-                    return (
-                      <div key={i} className="mb-3 overflow-x-auto">
-                        <table className="text-[11px] font-mono border border-zinc-800">
-                          <thead>
-                            <tr>{b.table.head.map(h => (
-                              <th key={h} className="text-left text-zinc-500 px-2 py-1 border-b border-zinc-800 whitespace-nowrap">{h}</th>
-                            ))}</tr>
-                          </thead>
-                          <tbody>
-                            {b.table.rows.map((r, ri) => (
-                              <tr key={ri}>{r.map((c, ci) => (
-                                <td key={ci} className={`px-2 py-1 whitespace-nowrap ${ci === 0 ? 'text-zinc-200' : 'text-zinc-400'}`}>{c}</td>
-                              ))}</tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    );
-                  })}
-                </section>
-              ))}
-
-              <section className="mb-4">
-                <h3 className="text-zinc-200 text-[12px] font-mono uppercase tracking-wider border-b border-zinc-800 pb-1 mb-2">{L.boardingSamples}</h3>
-                {BOARDING_SAMPLE_LISTS.map(l => (
-                  <div key={l.name} className="mb-3">
-                    <p className="text-amber-500 text-[11px] font-mono">{l.name} — {l.total} pts, {l.models} models</p>
-                    <ul className="mt-1 space-y-0.5">
-                      {l.lines.map((x, i) => (
-                        <li key={i} className="text-zinc-400 text-[12px] pl-3 border-l border-zinc-800">{x}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </section>
-            </div>
-            )}
           </div>
         )}
     </div>

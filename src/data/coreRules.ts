@@ -62,6 +62,10 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Bomb',
     description: 'The range of this weapon is unaffected by the range reduction rules for Flyers.',
   },
+  'charge': {
+    name: 'Charge',
+    description: 'A weapon profile with this ability can only be used if the model is using a Charge command.',
+  },
   'combi': {
     name: 'Combi',
     description: 'Combination weapons, like the "Combi-melta," combine two profiles into one. A combi-weapon can fire both profiles simultaneously at the same target, with a -1 penalty to hit.',

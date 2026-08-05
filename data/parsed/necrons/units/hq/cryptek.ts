@@ -10,10 +10,13 @@
  * unfinished one.
  *
  * Dynasty Scion is the odd one out: it is the only specialisation that changes the profile
- * (variant_models) and the only one with no weapon of its own. It is priced by the variant's own
- * POINTS cell (45), not by base + the "+14pts" option row — engine/points.ts prices a
- * variant_link choice off the variant alone, and the two numbers in the sheet disagree by 1
- * anyway (30 + 14 = 44).
+ * (variant_models) and the only one with no weapon of its own.
+ *
+ * Its cost is 44, NOT the 45 printed in the variant's POINTS cell. The sheet gives the figure
+ * twice and the two disagree — base 30 + the "+14pts" option row is 44 — and the author confirmed
+ * 44 is correct (2026-08-05). engine/points.ts prices a `variant_link` choice off the variant's
+ * own points and ignores the choice's, so the 44 has to live on the variant; the choice keeps its
+ * "+14" so the option list still reads the way the datasheet prints it.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -43,7 +46,7 @@ export const cryptek: Unit = {
   "variant_models": [
     {
       "name": "Dynasty Scion",
-      "points": 45,
+      "points": 44,
       "min": 0,
       "max": 0,
       "stats": {
@@ -215,5 +218,5 @@ export const cryptek: Unit = {
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 45
+  "min_cost": 44
 };

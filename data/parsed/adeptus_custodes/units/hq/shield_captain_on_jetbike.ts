@@ -85,7 +85,7 @@ export const shieldCaptainOnJetbike: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(2), Quick(+1), Can only be used with a Charge order"
+      "abilities": "AT(2), Quick(+1), Charge"
     },
     {
       "name": "Relic interceptor lance - Melee",

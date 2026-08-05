@@ -58,7 +58,7 @@ export const vertusPraetor: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Quick(+1), Can only be used with a Charge order"
+      "abilities": "AT(2), Quick(+1), Charge"
     },
     {
       "name": "Interceptor lance - Melee",

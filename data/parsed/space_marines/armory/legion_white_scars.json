@@ -36,7 +36,7 @@
           "s": "x2",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Quick(+2), Can only be used with a Charge order."
+          "abilities": "AT(2), Quick(+2), Charge"
         },
         {
           "name": "Melee",
