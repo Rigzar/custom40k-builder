@@ -1946,7 +1946,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const min = slot === 'HQ' ? hqLimits[0] : eng.aop[slot][0];
     // For integrated supplements (HH Legion), count both primary and supplement units toward the primary AOP.
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
+    // Skirmish (Missions, Unit Restrictions): "All units occupy an Army Organisation slot, even if
+    // their rules state otherwise." That is every free-slot mechanism in the game, not only the
+    // Advisor one getSlotUsage already switches off — Royal Court, the Daemon heralds, Geminae
+    // Superia, Tyrant Guard, Ethereal Guard, Spiritseer, the Assassins' shared Elite slot, and the
+    // rest. At 0-1 Elite and 0-1 HQ a single leaked exemption doubles what the list may field, so
+    // the whole adjustment is zeroed rather than each function being taught the engagement.
+    const slotAdj = state.engagement === 'skirmish' ? 0
+      : slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
       : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites + cryptothrallsFree.elites + hexmarkFree.elites
@@ -2448,7 +2455,14 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const hqLimits = getEffectiveHqLimits(rule, eng.aop.HQ);
     const engMax = slot === 'HQ' ? hqLimits[1] : eng.aop[slot][1];
     const rawUsed = getSlotUsage(state.army, data, slot, rule, state.alliedFaction, isIntegratedSuppl ? undefined : false, state.engagement, summoningExcl);
-    const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
+    // Skirmish (Missions, Unit Restrictions): "All units occupy an Army Organisation slot, even if
+    // their rules state otherwise." That is every free-slot mechanism in the game, not only the
+    // Advisor one getSlotUsage already switches off — Royal Court, the Daemon heralds, Geminae
+    // Superia, Tyrant Guard, Ethereal Guard, Spiritseer, the Assassins' shared Elite slot, and the
+    // rest. At 0-1 Elite and 0-1 HQ a single leaked exemption doubles what the list may field, so
+    // the whole adjustment is zeroed rather than each function being taught the engagement.
+    const slotAdj = state.engagement === 'skirmish' ? 0
+      : slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
       : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
       : slot === 'Heavy Support' ? krootEscortFree.hs
       : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites + cryptothrallsFree.elites + hexmarkFree.elites

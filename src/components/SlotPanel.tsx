@@ -48,10 +48,16 @@ function getSlotUsage(
   slot: string,
   rule: ReturnType<typeof getArchetypeRule>,
   alliedFaction?: string | null,
+  engagement?: string,
 ): number {
   // See validators.ts's advisorExemptIds doc comment: only the first N copies of an advisor
   // unit (N = HQ selections in the same scope) are exempt from slot occupancy, not every copy.
-  const exemptIds = advisorExemptIds(army, data, rule, alliedFaction ?? undefined);
+  // In Skirmish nothing is exempt at all (Missions: "All units occupy an Army Organisation slot,
+  // even if their rules state otherwise"), and this counter must agree with the validator or the
+  // panel says a slot is free while the list is illegal.
+  const exemptIds = engagement === 'skirmish'
+    ? new Set<string>()
+    : advisorExemptIds(army, data, rule, alliedFaction ?? undefined);
   return army.filter(i => {
     // Bug 4: exclude allied units from the main faction slot count
     if (alliedFaction && i.factionSource === alliedFaction) return false;
@@ -74,6 +80,7 @@ function computeAopMult(
   multiAop: boolean,
   rule: ReturnType<typeof getArchetypeRule>,
   alliedFaction?: string | null,
+  engagement?: string,
 ): number {
   if (!multiAop) return 1;
   let aops = 1;
@@ -81,7 +88,7 @@ function computeAopMult(
     if (slot === 'HQ') continue;
     const max = aop[slot][1];
     if (max <= 0) continue;
-    const used = getSlotUsage(army, data, slot, rule, alliedFaction);
+    const used = getSlotUsage(army, data, slot, rule, alliedFaction, engagement);
     if (used > max) aops = Math.max(aops, Math.ceil(used / max));
   }
   return aops;
@@ -403,7 +410,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
     }
   }
 
-  const aopMult = computeAopMult(army, primaryData, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule, alliedFaction);
+  const aopMult = computeAopMult(army, primaryData, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule, alliedFaction, engagement);
   const cdFree = computeCdFreeSlots(army, primaryData, rule);
   // "Cults Abominatioe"/"Execution Force": Assassin selection collapses to a single Elite slot
   const assassinFree = computeAssassinFreeSlots(army, primaryData);
@@ -452,12 +459,13 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         if (slot === 'Lords of War' && (engagement !== 'epic' || units.length === 0)) return null;
         const isLordsOfWar = slot === 'Lords of War';
 
-        const slotAdj = slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
+        const slotAdj = engagement === 'skirmish' ? 0
+          : slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
           : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
           : slot === 'Heavy Support' ? krootEscortFree.hs
           : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
           : 0;
-        const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction) - slotAdj);
+        const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction, engagement) - slotAdj);
         const isFull = used >= max && max > 0;
         const isUnder = used < min;
         const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';
