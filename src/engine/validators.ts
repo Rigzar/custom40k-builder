@@ -161,6 +161,11 @@ export function advisorExemptIds(
   return exempt;
 }
 
+/**
+ * How many slots of `slot` the roster occupies. Exported because SlotPanel draws the same number
+ * on screen: it used to keep its own copy, the two drifted, and the panel ended up telling players
+ * a Skirmish Elite slot was free while the validator called the list illegal.
+ */
 function getSlotUsage(
   army: RosterEntry[],
   data: FactionData,

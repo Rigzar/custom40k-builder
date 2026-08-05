@@ -2,10 +2,8 @@ import { Fragment, useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
-import { applyVariantSlotOverride } from '../engine/slotOverrides';
-import { applyPlatoonSlotOverride, countsTowardOwnSlot } from '../engine/codex_imperial_guard/platoon';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, computeGscEliteFreeSlots, computeEinhyrChampionFreeSlots, computeTyrantGuardFreeSlots, computeCultistFirebrandFreeSlots, computeCommissarFreeSlots, computeSubCommanderFreeSlots, computeEtherealGuardFreeSlots, computeKrootCarnivoreEscortFreeSlots, computeKrootShaperFreeSlots, computeNecronPlasmacyteFreeSlots, computeSpiritseerFreeSlots, computeEldarWarlockFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds } from '../engine/validators';
+import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, computeGscEliteFreeSlots, computeEinhyrChampionFreeSlots, computeTyrantGuardFreeSlots, computeCultistFirebrandFreeSlots, computeCommissarFreeSlots, computeSubCommanderFreeSlots, computeEtherealGuardFreeSlots, computeKrootCarnivoreEscortFreeSlots, computeKrootShaperFreeSlots, computeNecronPlasmacyteFreeSlots, computeSpiritseerFreeSlots, computeEldarWarlockFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds, getSlotUsage } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -42,35 +40,6 @@ interface SlotEntry {
   disabledReason?: string;
 }
 
-function getSlotUsage(
-  army: RosterEntry[],
-  data: FactionData,
-  slot: string,
-  rule: ReturnType<typeof getArchetypeRule>,
-  alliedFaction?: string | null,
-  engagement?: string,
-): number {
-  // See validators.ts's advisorExemptIds doc comment: only the first N copies of an advisor
-  // unit (N = HQ selections in the same scope) are exempt from slot occupancy, not every copy.
-  // In Skirmish nothing is exempt at all (Missions: "All units occupy an Army Organisation slot,
-  // even if their rules state otherwise"), and this counter must agree with the validator or the
-  // panel says a slot is free while the list is illegal.
-  const exemptIds = engagement === 'skirmish'
-    ? new Set<string>()
-    : advisorExemptIds(army, data, rule, alliedFaction ?? undefined);
-  return army.filter(i => {
-    // Bug 4: exclude allied units from the main faction slot count
-    if (alliedFaction && i.factionSource === alliedFaction) return false;
-    if (exemptIds.has(i.id)) return false;
-    const u = i.factionSource
-      ? data.allied?.[i.factionSource]?.units[i.unitName]
-      : data.units[i.unitName];
-    const baseSlot = applyVariantSlotOverride(i, u ?? undefined, getEffectiveSlot(i.unitName, i.slot, rule));
-    const effSlot = applyPlatoonSlotOverride(i, army, baseSlot);
-    if (effSlot !== slot) return false;
-    return countsTowardOwnSlot(i, army);
-  }).length;
-}
 
 /** Mirrors the validator's AOP multiplier so the slot panel shows correct limits. */
 function computeAopMult(
@@ -88,7 +57,7 @@ function computeAopMult(
     if (slot === 'HQ') continue;
     const max = aop[slot][1];
     if (max <= 0) continue;
-    const used = getSlotUsage(army, data, slot, rule, alliedFaction, engagement);
+    const used = getSlotUsage(army, data, slot, rule, alliedFaction ?? undefined, false, engagement);
     if (used > max) aops = Math.max(aops, Math.ceil(used / max));
   }
   return aops;
@@ -465,7 +434,7 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
           : slot === 'Heavy Support' ? krootEscortFree.hs
           : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
           : 0;
-        const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction, engagement) - slotAdj);
+        const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction ?? undefined, false, engagement) - slotAdj);
         const isFull = used >= max && max > 0;
         const isUnder = used < min;
         const countColor = isFull ? 'text-red-400' : isUnder ? 'text-amber-400' : 'text-zinc-400';
