@@ -2016,13 +2016,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const label = (rule && rule.troopsCount !== 'all')
       ? `Qualifying Troops (${rule.troopsCount === 'locked' ? 'locked mark' : rule.troopsRemap.join('/')})`
       : 'Troops';
+    // Reported as a bug and it is not one, but the wording caused it: the percentage is Troops
+    // over the POINT LIMIT, and a reader takes it as Troops over the army. An army of nothing but
+    // Cultists was told it was "9% Troops", which is plainly false — it was 100% Troops and 9% of
+    // a 1000-point game. Say it in points instead, where there is nothing to misread.
+    const needPts = Math.ceil(ratioBase * eng.minTroopsRatio);
     if (ratio < eng.minTroopsRatio) {
       items.push({
         type: 'error',
-        text: T('valTroopsRatioFail', { label, pct: (ratio * 100).toFixed(1), needPts: Math.ceil(ratioBase * eng.minTroopsRatio) }),
+        text: T('valTroopsRatioFail', { label, havePts: troopsPts, needPts, limit: ratioBase }),
       });
     } else {
-      items.push({ type: 'ok', text: T('valTroopsRatioOk', { label, pct: (ratio * 100).toFixed(1) }) });
+      items.push({ type: 'ok', text: T('valTroopsRatioOk', { label, havePts: troopsPts, needPts, limit: ratioBase }) });
     }
   }
 
