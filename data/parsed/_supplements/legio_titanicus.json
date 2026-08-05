@@ -1,0 +1,147 @@
+{
+  "faction": "Horus Heresy Legio Titanicus",
+  "slot_to_units": {
+    "HQ": [
+      "Secutarii Axiarch"
+    ],
+    "Troops": [],
+    "Elites": [],
+    "Fast Attack": [],
+    "Heavy Support": [],
+    "Dedicated Transport": [],
+    "Fortifications": [],
+    "Flyers": []
+  },
+  "units": {
+    "Secutarii Axiarch": {
+      "name": "Secutarii Axiarch",
+      "models": [
+        {
+          "name": "Secutarii Axiarch",
+          "points": 35,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "2+",
+            "BS": "2+",
+            "S": "3",
+            "T": "3",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "7",
+            "SV": "4+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "A Secutarii Axiarch is equipped with: -.",
+      "weapons": [],
+      "option_groups": [],
+      "abilities": [
+        "Command squad",
+        "Advisor: For every HQ selection, one Secutarii Axiarch may be selected without taking up an HQ slot.",
+        "Legio Armsmen: One of your units automatically succeeds to rally during each Rally phase. Additionally, while a friendly vehicle is alive on the field, this model gains +1 Leadership."
+      ],
+      "unit_type": "Character model, Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": true,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": true,
+      "slot": "HQ",
+      "default_size": 1,
+      "min_cost": 35
+    }
+  },
+  "armory_general": {
+    "name": "Armory",
+    "weapons": [
+      {
+        "name": "Arc lance",
+        "term_compat": false,
+        "range": "",
+        "type": "",
+        "s": "",
+        "ap": "",
+        "d": "",
+        "abilities": "",
+        "p_unit": 9,
+        "p_char": 11,
+        "profiles": [
+          {
+            "name": "Charge",
+            "range": "-",
+            "type": "Melee",
+            "s": "+3",
+            "ap": "-3",
+            "d": "2",
+            "abilities": "AT(1), Charge, Haywire, Quick(+1)"
+          },
+          {
+            "name": "Melee",
+            "range": "-",
+            "type": "Melee",
+            "s": "+1",
+            "ap": "-3",
+            "d": "1",
+            "abilities": "Haywire, Unwieldy"
+          }
+        ]
+      },
+      {
+        "name": "Frag grenade",
+        "term_compat": false,
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "4",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Explosive",
+        "p_unit": 1,
+        "p_char": 1
+      },
+      {
+        "name": "Rad grenade",
+        "term_compat": false,
+        "range": "6\"",
+        "type": "Grenade 1",
+        "s": "4",
+        "ap": "0",
+        "d": "1",
+        "abilities": "Rad",
+        "p_unit": 1,
+        "p_char": 1
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Mag-inverter shield",
+        "term_compat": false,
+        "desc": "The model gains the abilities \"Deflect\" and \"Parry\".",
+        "p_unit": 2,
+        "p_char": 6
+      }
+    ],
+    "daemon_weapons": []
+  },
+  "armory_marks": {},
+  "armory_legions": {},
+  "archetypes": [],
+  "legacies": [],
+  "traits": [],
+  "animosity": {},
+  "disciplines": {},
+  "pacts": [],
+  "prayers": [],
+  "daemonkin": {},
+  "allied": {}
+}

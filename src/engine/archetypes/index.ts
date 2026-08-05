@@ -78,9 +78,11 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   'Titan Legion': { ...BASE,
     troopsRemap: ['Secutarii Hoplites', 'Secutarii Peltasts'], troopsCount: 'remap',
+    alliedFaction: 'legio_titanicus', alliedMarkFilter: 'all',
     notes: [
       'Secutarii Hoplites and Peltasts count as Troops.',
       'Only Secutarii units count towards the 25% Troops requirement.',
+      'Access to the Horus Heresy Legio Titanicus supplement.',
     ],
   },
 

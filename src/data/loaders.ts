@@ -308,6 +308,9 @@ async function loadFaction(key: string): Promise<FactionData> {
     case 'horus_heresy':
       return import('../../data/parsed/_supplements/horus_heresy.json').then(m => d(m as Mod));
 
+    case 'legio_titanicus':
+      return import('../../data/parsed/_supplements/legio_titanicus.json').then(m => d(m as Mod));
+
     default:
       throw new Error('Unknown faction: ' + key);
   }
@@ -383,7 +386,7 @@ export const FACTION_LOADERS: Record<string, () => Promise<FactionData>> = Objec
   ['chaos_space_marines', 'chaos_daemons', 'space_marines', 'imperial_guard', 'adeptus_mechanicus',
    'adeptus_custodes', 'adeptus_sororitas', 'grey_knights', 'inquisition', 'assassins', 'tau_empire',
    'necrons', 'orks', 'eldar', 'dark_eldar', 'genestealer_cults', 'harlequins', 'leagues_of_votann',
-   'tyranids', 'horus_heresy'].map(k => [k, async () => {
+   'tyranids', 'horus_heresy', 'legio_titanicus'].map(k => [k, async () => {
      const data = await loadFaction(k);
      aliasRenamedUnits(data, k);
      applyDataOverrides(data, (await getDataOverrides())[k]);

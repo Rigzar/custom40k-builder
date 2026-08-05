@@ -158,6 +158,10 @@ export const RULES: Record<string, RuleEntry> = {
     name: 'Psi-shock',
     description: 'If a creature unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 Mortal Wounds. If a vehicle unit gets hit, a randomly chosen psyker model in that unit must pass a Leadership value test or suffer 1D3 instances of Critical Damage. Each additional hit from the same unit during the same activation incurs a cumulative -1 penalty for the test. Can\'t be triggered more than once per activated unit.',
   },
+  'rad': {
+    name: 'Rad',
+    description: 'A unit that got hit by this weapon suffers a -1 penalty to its Toughness value until the end of their next activation.',
+  },
   'quick': {
     name: 'Quick({X})',
     description: 'The model gains {X} to its Initiative.',

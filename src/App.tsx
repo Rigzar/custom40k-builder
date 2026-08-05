@@ -56,7 +56,8 @@ export const FACTION_NAMES: Record<string, string> = {
   harlequins:           'Harlequins',
   leagues_of_votann:    'Leagues of Votann',
   tyranids:             'Tyranids',
-  horus_heresy:         'Horus Heresy Space Marines',
+  horus_heresy:         'Horus Heresy Legiones Astartes',
+  legio_titanicus:      'Horus Heresy Legio Titanicus',
 };
 
 // ── Inline army name editor ─────────────────────────────────────────────────

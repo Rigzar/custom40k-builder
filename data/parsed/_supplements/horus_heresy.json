@@ -1,5 +1,5 @@
 {
-  "faction": "Horus Heresy Space Marines",
+  "faction": "Horus Heresy Legiones Astartes",
   "slot_to_units": {
     "HQ": [],
     "Troops": [
@@ -10,7 +10,8 @@
     "Elites": [
       "Legion Contemptor Dreadnought",
       "Legion Terminator Cataphractii Squad",
-      "Palatine Blade Squad"
+      "Palatine Blade Squad",
+      "Saturnine Terminator Squad"
     ],
     "Fast Attack": [
       "Legion Sky-hunter Squadron"
@@ -216,7 +217,9 @@
             "per_n": 5,
             "count_per_n": 2
           },
-          "replaces": ["Boltgun"],
+          "replaces": [
+            "Boltgun"
+          ],
           "choices": [
             {
               "name": "Flamer",
@@ -666,7 +669,9 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Flamer"],
+          "replaces": [
+            "Flamer"
+          ],
           "choices": [
             {
               "name": "Volkite charger",
@@ -1039,7 +1044,9 @@
           "constraint": {
             "type": "one"
           },
-          "replaces": ["Storm bolter"],
+          "replaces": [
+            "Storm bolter"
+          ],
           "choices": [
             {
               "name": "Heavy flamer",
@@ -1104,7 +1111,7 @@
             "WS": "3+",
             "BS": "3+",
             "S": "4",
-            "T": "4",
+            "T": "5",
             "W": "2",
             "I": "4",
             "A": "3",
@@ -1122,7 +1129,7 @@
             "WS": "3+",
             "BS": "3+",
             "S": "4",
-            "T": "4",
+            "T": "5",
             "W": "2",
             "I": "4",
             "A": "3",
@@ -1368,7 +1375,9 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Combi-bolter"],
+          "replaces": [
+            "Combi-bolter"
+          ],
           "choices": [
             {
               "name": "Volkite charger",
@@ -1396,7 +1405,9 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Power sword"],
+          "replaces": [
+            "Power sword"
+          ],
           "choices": [
             {
               "name": "Power axe",
@@ -1424,7 +1435,10 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Combi-bolter", "Power sword"],
+          "replaces": [
+            "Combi-bolter",
+            "Power sword"
+          ],
           "choices": [
             {
               "name": "Pair of lightning claws",
@@ -1442,7 +1456,9 @@
             "per_n": 5,
             "count_per_n": 2
           },
-          "replaces": ["Combi-bolter"],
+          "replaces": [
+            "Combi-bolter"
+          ],
           "choices": [
             {
               "name": "Heavy flamer",
@@ -1808,7 +1824,9 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Heavy bolter"],
+          "replaces": [
+            "Heavy bolter"
+          ],
           "choices": [
             {
               "name": "Volkite culverin",
@@ -1832,7 +1850,9 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Bolt pistol"],
+          "replaces": [
+            "Bolt pistol"
+          ],
           "choices": [
             {
               "name": "Hand flamer",
@@ -2318,7 +2338,9 @@
           "constraint": {
             "type": "every"
           },
-          "replaces": ["Heavy flamer"],
+          "replaces": [
+            "Heavy flamer"
+          ],
           "choices": [
             {
               "name": "Heavy bolter",
@@ -2569,7 +2591,10 @@
             "max": 3
           },
           "choices": [
-            { "name": "Hunter-killer missile", "points": 5 }
+            {
+              "name": "Hunter-killer missile",
+              "points": 5
+            }
           ],
           "inline_pts": null,
           "variant_link": null,
@@ -2752,6 +2777,215 @@
       "slot": "Heavy Support",
       "default_size": 1,
       "min_cost": 305
+    },
+    "Saturnine Terminator Squad": {
+      "name": "Saturnine Terminator Squad",
+      "models": [
+        {
+          "name": "Saturnine Terminator",
+          "points": 146,
+          "min": 2,
+          "max": 5,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "6",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        },
+        {
+          "name": "Saturnine Terminator Sergeant",
+          "points": 151,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "4",
+            "T": "6",
+            "W": "3",
+            "I": "4",
+            "A": "3",
+            "LD": "8",
+            "SV": "2+"
+          }
+        }
+      ],
+      "variant_models": [],
+      "equipped_with": "Every model is equipped with: Power fist; Twin heavy disintegrator.",
+      "weapons": [
+        {
+          "name": "Particle shredder",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Plasma bombard - Standard",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "6",
+          "ap": "-3",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Plasma bombard - Overcharged",
+          "range": "24\"",
+          "type": "Heavy 1",
+          "s": "7",
+          "ap": "-4",
+          "d": "2",
+          "abilities": "AT(1), Explosive, Overheating"
+        },
+        {
+          "name": "Power fist",
+          "range": "-",
+          "type": "Melee",
+          "s": "x2",
+          "ap": "-3",
+          "d": "2",
+          "abilities": "AT(2), Slow(-2)"
+        },
+        {
+          "name": "Twin heavy disintegrator",
+          "range": "24\"",
+          "type": "Heavy 2",
+          "s": "7",
+          "ap": "-2",
+          "d": "2",
+          "abilities": "AT(1)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model)",
+          "constraint": {
+            "type": "all"
+          },
+          "choices": [],
+          "inline_pts": 2,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "per_model": true
+        },
+        {
+          "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Khorne",
+              "points": 4
+            },
+            {
+              "name": "Slaanesh",
+              "points": 4
+            },
+            {
+              "name": "Nurgle",
+              "points": 4
+            },
+            {
+              "name": "Tzeentch",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "per_model": true
+        },
+        {
+          "header": "Every model may swap their Power fist with",
+          "constraint": {
+            "type": "all"
+          },
+          "choices": [
+            {
+              "name": "Twin heavy disintegrator",
+              "points": 18
+            },
+            {
+              "name": "Plasma bombard",
+              "points": 47
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "replaces": [
+            "Power fist"
+          ],
+          "per_model": true
+        },
+        {
+          "header": "Every model may swap their Twin heavy disintegrator with",
+          "constraint": {
+            "type": "all"
+          },
+          "choices": [
+            {
+              "name": "Plasma bombard",
+              "points": 29
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "replaces": [
+            "Twin heavy disintegrator"
+          ],
+          "per_model": true
+        },
+        {
+          "header": "Every model with a Power fist may get",
+          "constraint": {
+            "type": "all"
+          },
+          "choices": [
+            {
+              "name": "Particle shredder",
+              "points": 19
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "per_model": true
+        }
+      ],
+      "abilities": [
+        "Deep strike, Massive(2), Unyielding",
+        "Saturnine Terminator armor: The model gains a 4+ ward save."
+      ],
+      "unit_type": "Infantry",
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": true,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "slot": "Elites",
+      "default_size": 3,
+      "min_cost": 297
     }
   },
   "armory_general": {

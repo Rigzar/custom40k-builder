@@ -76,7 +76,7 @@ export const CSM_STRUCTURED_NOTES: Record<string, StructuredNote[]> = {
   ],
 
   'Legion': [
-    { category: 'mechanic',    text: 'Access to all Horus Heresy Space Marines supplement units.' },
+    { category: 'mechanic',    text: 'Access to all Horus Heresy Legiones Astartes supplement units.' },
     { category: 'restriction', text: 'Only HH Troops (Breacher, Tactical, Tactical Support Squads) count towards the 25% Troops requirement.' },
   ],
 

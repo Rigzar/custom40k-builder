@@ -235,7 +235,7 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
   'Dreadclaw Assault': dropPodArchetype('Dreadclaw Drop Pod'),
 
   // SOURCE — Legion:
-  // - The army has access to everything from the Horus Heresy Space Marines supplement.
+  // - The army has access to everything from the Horus Heresy Legiones Astartes supplement.
   // - Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops.
   'Legion': { ...BASE,
     troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
@@ -243,7 +243,7 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
     alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',
     sharedSupplementArmory: 'Horus Heresy',
     notes: [
-      'Access to all Horus Heresy Space Marines supplement units.',
+      'Access to all Horus Heresy Legiones Astartes supplement units.',
       'Access to the Horus Heresy Armory for the whole army.',
       'Only HH supplement Troops (Breacher, Tactical, Tactical Support) count towards the 25%.',
     ],

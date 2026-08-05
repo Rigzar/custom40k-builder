@@ -44,7 +44,7 @@ export const SM_STRUCTURED_NOTES: Record<string, StructuredNote[]> = {
   ],
 
   'Legion (Space Marines)': [
-    { category: 'mechanic',     text: 'Access to all Horus Heresy Space Marines supplement units.' },
+    { category: 'mechanic',     text: 'Access to all Horus Heresy Legiones Astartes supplement units.' },
     { category: 'restriction',  text: 'Only Troops from the Horus Heresy Space Marine Supplement count towards the 25% Troops requirement.' },
   ],
 

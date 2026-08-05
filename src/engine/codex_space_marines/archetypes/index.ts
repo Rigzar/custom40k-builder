@@ -81,14 +81,14 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
   },
 
   // SOURCE — Legion:
-  // "- The army has access to everything from the Horus Heresy Space Marines supplement.
+  // "- The army has access to everything from the Horus Heresy Legiones Astartes supplement.
   //  - Only Troops from the Horus Heresy Space Marine Supplement count towards the 25%."
   'Legion (Space Marines)': { ...BASE,
     troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
     troopsCount: 'remap',
     alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',
     notes: [
-      'Access to all Horus Heresy Space Marines supplement units.',
+      'Access to all Horus Heresy Legiones Astartes supplement units.',
       'Only HH supplement Troops count towards the 25%.',
     ],
   },
