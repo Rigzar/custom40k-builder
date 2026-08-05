@@ -168,7 +168,7 @@ function resolveChoiceWeapons(weapons: Weapon[], choiceName: string): { weapons:
 export function UnitCard({ item }: Props) {
   const t = useT();
   const store = useArmyStore();
-  const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setUnitJoinTarget, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
+  const { data, alliedData, alliedFaction, supplementData, traitPool, alliedTraitPool, removeUnit, duplicateUnit, updateUnit, updateModelSize, setOptionQty, setUnitCustomName, setPlatoonLink, army, legacy, legacy2, archetype, addArmoryItem, removeArmoryItem } = store;
   const [armoryOpen, setArmoryOpen] = useState(false);
   const [vetOpen, setVetOpen] = useState(false);
   const [vehOpen, setVehOpen] = useState(false);
@@ -480,88 +480,14 @@ export function UnitCard({ item }: Props) {
         </div>
       </div>
 
-      {/* ── Join Unit — REMOVED in v1.56 at the designer's request (Discord, Dominic): "there is
-          a selection for characters which unit they join. This is unnecessary, as it can be
-          changed each round if they join or detach from a unit. And it doesn't matter for the
-          deployment, either." Joining is an in-game decision, not a list-building one, so the
-          picker no longer appears.
-          The `joinedToUnit` FIELD and every engine consumer of it (validators' Command Squad
-          check, CSM Zombie-lord aura, Chaos Daemons resolver, IG platoon grouping, print view)
-          are deliberately left intact so previously saved lists keep resolving exactly as before
-          and the behaviour can be restored by re-enabling this block alone. ── */}
-      {false && (u.is_character || !!u.abilities?.some(a => /Command Squad/i.test(a)) || !!getArchetypeRule(effectiveArchetypeFor(item, store))?.grantsCommandSquad?.includes(item.unitName)) && !u.is_vehicle && (() => {
-        // Animosity of the Gods join sub-clause — present VERBATIM in BOTH factions' own
-        // Index/Army Customisation text (each codex carries its own copy, not a shared Core
-        // rule): CSM digest §4b "a model with a Mark of Chaos may only join a unit that has
-        // the same Mark, or no Mark" / CD digest §4b "a character with a mark may only attach
-        // to units of the same mark or no mark" (ki-csm-animosity-joinmark-01, extended to CD
-        // — both factions' marks gate this identically; the original CSM-only scoping comment
-        // here was wrong about CD's text, corrected after re-reading chaos_daemons.md §4b).
-        // Use THIS item's own scope (primary vs allied) for its archetype rule — `rule` here
-        // governs the joining character's own grantsCommandSquad/forcedMark, which must come
-        // from its own detachment's archetype, not whichever happens to be the primary's.
-        const rule = getArchetypeRule(effectiveArchetypeFor(item, store));
-        // Core Rules glossary, "Command Squad": only models with this ability may join a unit
-        // that already has another character attached — see the matching validator in
-        // validators.ts. Block it here too, not just as a post-hoc warning, so the player can't
-        // pick an already-occupied unit in the first place unless they actually have the ability.
-        const hasCommandSquad =
-          !!u.abilities?.some(a => /Command Squad/i.test(a)) ||
-          !!rule?.grantsCommandSquad?.includes(item.unitName);
-        const joinableUnits = army.filter(e => {
-          if (e.id === item.id) return false;
-          // Scope-match: an allied-detachment character may only join units of its OWN
-          // detachment (same factionSource), never the primary army's units or another ally's —
-          // this used to hard-block ANY `e.factionSource` unconditionally, so an allied HQ could
-          // never join anything at all, not even its own ally's troops.
-          if ((e.factionSource ?? null) !== (item.factionSource ?? null)) return false;
-          const eu = resolveUnit(e, data);
-          if (!eu || eu.is_vehicle || eu.is_monster) return false;
-          // Core Rules "Command Squad" (L1172-76): models with this ability can join a squad,
-          // "a single character", or a squad that already has a character attached. WITHOUT the
-          // ability, characters are never valid join targets; WITH it, a character is a valid
-          // target only while it stands alone ("a single character" — nobody else attached to it,
-          // and it isn't itself attached to someone). This is the whole point of e.g. Sorcerer
-          // Circle's grant (4 character HQs joining each other) — it used to be unreachable
-          // because character targets were excluded unconditionally.
-          if (eu.is_character) {
-            if (!hasCommandSquad) return false;
-            if (e.joinedToUnit && e.id !== item.joinedToUnit) return false;
-            const occupied = army.some(other => other.id !== item.id && other.joinedToUnit === e.id);
-            if (occupied && e.id !== item.joinedToUnit) return false;
-          }
-          if (effectiveArmData?.faction === 'Chaos Space Marines' || effectiveArmData?.faction === 'Chaos Daemons') {
-            const unitMark = (eu.locked_mark ?? rule?.forcedMark ?? e.mark ?? null) as Mark | null;
-            if (effectiveMark && unitMark && effectiveMark !== unitMark) return false;
-          }
-          if (!hasCommandSquad && e.id !== item.joinedToUnit) {
-            const alreadyJoined = army.some(other => other.id !== item.id && other.joinedToUnit === e.id);
-            if (alreadyJoined) return false;
-          }
-          return true;
-        });
-        if (joinableUnits.length === 0) return null;
-        return (
-          <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('joinsLabel')}</span>
-            <select
-              value={item.joinedToUnit ?? ''}
-              onChange={e => setUnitJoinTarget(item.id, e.target.value || null)}
-              className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
-            >
-              <option value="">{t('noUnitOption')}</option>
-              {joinableUnits.map(e => {
-                const eu = resolveUnit(e, data);
-                return (
-                  <option key={e.id} value={e.id}>
-                    {e.customName || eu?.name || e.unitName}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        );
-      })()}
+      {/* The "which unit does this character join" picker was removed in v1.56 at the designer's
+          request (Discord): joining and detaching is decided during the game each round, so it is
+          not a list-building choice. The disabled markup that used to sit here was deleted in
+          v1.57 once he confirmed the rule is not coming back.
+          The `joinedToUnit` FIELD stays, and so do its engine consumers (the Command Squad check,
+          the CSM Zombie-lord aura, the Chaos Daemons resolver, IG platoon grouping, the print
+          view) — saved lists still carry the field, and dropping it would change how they
+          resolve. ── */}
 
       {/* ── Platoon link (Imperial Guard "Platoon" grouping, ki-45b) ──
            Infantry Squad / Conscript Infantry Platoon / Special Weapon Squad / Heavy Weapon
