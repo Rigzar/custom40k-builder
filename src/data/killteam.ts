@@ -22,7 +22,7 @@ export const KT_ALPHA = 'alpha 0.1 — 2026-08-06';
 /** The whole balance of the mode, in three numbers. */
 export const KT_BUDGET = 300;
 export const KT_MIN_OPERATIVES = 6;
-export const KT_MAX_OPERATIVES = 9;
+export const KT_MAX_OPERATIVES = 14;
 
 /**
  * An operative worth more than this multiple of its team's basic operative may only be taken
@@ -204,8 +204,24 @@ export const KT_TEAMS: KtTeam[] = [
  * Guard, whose bare Veteran is worth 7.0, would be told to bring forty-three.
  */
 export function ktTeamSize(team: KtTeam): number {
-  const base = Math.min(...team.operatives.filter(o => !o.leader).map(o => o.value));
-  return Math.max(KT_MIN_OPERATIVES, Math.min(KT_MAX_OPERATIVES, Math.round(KT_BUDGET / base)));
+  return Math.max(KT_MIN_OPERATIVES, Math.min(KT_MAX_OPERATIVES, Math.round(KT_BUDGET / ktTypical(team))));
+}
+
+/**
+ * What one operative in this team is actually worth: the MEDIAN of its list, not the cheapest
+ * entry.
+ *
+ * The cheapest was wrong and the author said so — an Imperial Guard team came out the same size
+ * as a Space Marine one, when a Stormtrooper is about half a Boltgun Marine and the Guard should
+ * clearly field more bodies. The reason is that a bare Veteran at 7.0 is not an operative anyone
+ * would take; a Guard kill team is Veterans carrying meltaguns and autocannons, and the median of
+ * the list is what one of those costs. Dividing the budget by THAT gives the Guard fourteen and
+ * the Death Guard six, which is the shape the game should have.
+ */
+export function ktTypical(team: KtTeam): number {
+  const v = team.operatives.filter(o => !o.leader).map(o => o.value).sort((a, b) => a - b);
+  const mid = Math.floor(v.length / 2);
+  return v.length % 2 ? v[mid] : (v[mid - 1] + v[mid]) / 2;
 }
 
 /**
@@ -220,7 +236,7 @@ export function ktTeamSize(team: KtTeam): number {
  */
 export function ktIsUnique(team: KtTeam, op: KtOperative): boolean {
   if (op.leader) return true;
-  return op.value > (KT_BUDGET / ktTeamSize(team)) * KT_UNIQUE_MULTIPLIER;
+  return op.value > ktTypical(team) * KT_UNIQUE_MULTIPLIER;
 }
 
 export interface KtBlock { title: string; body: string[] }
@@ -268,7 +284,14 @@ export const KT_RULES: KtBlock[] = [
     ],
   },
   {
-    title: '6. Still to write',
+    title: '6. Where this comes from',
+    body: [
+      'A fan project. Custom40k is written and maintained by its author; this mode is not, and he has no hand in it. Nothing here should be taken as official, and any oddity in it is ours and not his.',
+      'His own caution about the calculator, and it is the right one: the formula does not judge a model on its own. Feed it invented stats and it will happily price a creature with 1s everywhere, Toughness 10 and a 4+ ward save at under twelve points, and that model would be the worst roadblock in the game. We only ever run it over datasheets he has already written and priced himself, which is a different thing — we are checking that two teams built from HIS units come out even, not making up new ones.',
+    ],
+  },
+  {
+    title: '7. Still to write',
     body: [
       'The board and its terrain.',
       'Missions and how the game is scored.',
