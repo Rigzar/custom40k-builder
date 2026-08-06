@@ -1,8 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   creaturePoints, vehiclePoints, rangedPoints, meleePoints, CALC_NOTES,
+  DEFAULT_TABLES, TABLE_META, isLadder, type CalcTables,
 } from '../data/pointsCalculator';
 import { SPECIAL_RULE_COSTS } from '../data/specialRuleCosts';
+import { buildCalculatorWorkbook, downloadBlob } from '../lib/calcWorkbook';
+
+/** Where a retuned table set is kept. Local to the browser on purpose: this is the designer's
+ *  scratch copy while he decides, not a change to what the app charges anyone. */
+const TABLES_KEY = 'c40k_calc_tables';
 
 /**
  * The author's points calculator, inside the app.
@@ -14,7 +20,7 @@ import { SPECIAL_RULE_COSTS } from '../data/specialRuleCosts';
  * Admin-only, like the rest of this panel.
  */
 
-type Tab = 'creature' | 'vehicle' | 'ranged' | 'melee' | 'rules';
+type Tab = 'creature' | 'vehicle' | 'ranged' | 'melee' | 'rules' | 'tables';
 
 const box = 'bg-zinc-900 border border-zinc-700 px-1.5 py-0.5 text-[11px] font-mono text-zinc-200 w-16 focus:outline-none focus:border-amber-700';
 
@@ -52,6 +58,41 @@ function Result({ n }: { n: number }) {
 export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
   const [tab, setTab] = useState<Tab>('creature');
   const [q, setQ] = useState('');
+  const [tables, setTables] = useState<CalcTables>(() => {
+    try {
+      const raw = localStorage.getItem(TABLES_KEY);
+      // Merged over the defaults, never used alone: a stored copy from an older version could be
+      // missing a table, and a half-empty table set prices everything at zero.
+      return raw ? { ...DEFAULT_TABLES, ...JSON.parse(raw) } as CalcTables : DEFAULT_TABLES;
+    } catch { return DEFAULT_TABLES; }
+  });
+  const [busy, setBusy] = useState(false);
+  const edited = useMemo(() => JSON.stringify(tables) !== JSON.stringify(DEFAULT_TABLES), [tables]);
+  useEffect(() => {
+    if (edited) localStorage.setItem(TABLES_KEY, JSON.stringify(tables));
+    else localStorage.removeItem(TABLES_KEY);
+  }, [tables, edited]);
+
+  async function exportWorkbook() {
+    setBusy(true);
+    try {
+      const blob = await buildCalculatorWorkbook(tables);
+      const stamp = new Date().toISOString().slice(0, 10);
+      downloadBlob(blob, `Points calculator ${stamp}.xlsx`);
+    } finally { setBusy(false); }
+  }
+
+  /** Edit one cost. The value column is never editable — the formulas' lookup ranges are fixed
+   *  addresses, so adding or removing a row would silently break the exported workbook. */
+  function setCost(key: keyof CalcTables, at: number, cost: number) {
+    setTables(prev => {
+      if (isLadder(key)) {
+        const l = (prev[key] as [number, number][]).map(([v, c]) => (v === at ? [v, cost] : [v, c]) as [number, number]);
+        return { ...prev, [key]: l };
+      }
+      return { ...prev, [key]: { ...(prev[key] as Record<number, number>), [at]: cost } };
+    });
+  }
 
   const [c, setC] = useState({ s: 4, t: 4, w: 1, i: 4, a: 2, ld: 8, sv: 3, ward: 0, move: 6, flying: false });
   const [v, setV] = useState({ s: 6, front: 12, side: 11, back: 10, i: 3, a: 1, hp: 3, ward: 0, move: 12, transport: 0, antiGrav: false });
@@ -62,19 +103,26 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
     en: { creature: 'Creature', vehicle: 'Vehicle', ranged: 'Ranged weapon', melee: 'Melee weapon',
           rules: 'Special rule costs', search: 'Search a rule…', normal: 'model', big: 'monster / vehicle',
           notes: 'His notes — apply these by hand', warn: 'The formula prices stats, it does not read a datasheet. A model with 1s everywhere, Toughness 10, Leadership 10 and a 4+ ward save comes to under twelve points and would be the worst roadblock in the game. Treat the number as a starting point.',
+          tables: 'Tables', export: 'Download a working copy (.xlsx)', reset: 'Reset to v5.4', edited: 'edited', exporting: 'building…',
+          tablesNote: 'Change a cost and every tab above reprices immediately \u2014 the fastest way to see what a tweak does to a model whose price you already know. Kept in this browser only: it changes nothing the app charges anyone. The exported file carries these values AND the real formulas, so it works like the original.',
           rulesNote: 'Straight from his sheet, his wording, not parsed and not added automatically. "LP" is Wounds. A printed unit cost is its body PLUS its weapons PLUS these.' },
     de: { creature: 'Kreatur', vehicle: 'Fahrzeug', ranged: 'Fernkampfwaffe', melee: 'Nahkampfwaffe',
           rules: 'Sonderregel-Kosten', search: 'Regel suchen…', normal: 'Modell', big: 'Monster / Fahrzeug',
           notes: 'Seine Notizen — von Hand anwenden', warn: 'Die Formel bewertet Werte, sie liest kein Datenblatt. Ein Modell mit lauter 1en, Widerstand 10, Moral 10 und 4+ Ward Save kommt auf unter zwölf Punkte und wäre die schlimmste Blockade im Spiel. Die Zahl ist ein Ausgangspunkt.',
+          tables: 'Tabellen', export: 'Arbeitskopie herunterladen (.xlsx)', reset: 'Auf v5.4 zur\u00fccksetzen', edited: 'ge\u00e4ndert', exporting: 'wird erstellt\u2026',
+          tablesNote: 'Kosten \u00e4ndern und alle Reiter oben rechnen sofort neu \u2014 der schnellste Weg zu sehen, was eine Anpassung mit einem Modell macht, dessen Preis du kennst. Nur in diesem Browser: es \u00e4ndert nichts, was die App berechnet. Die exportierte Datei enth\u00e4lt diese Werte UND die echten Formeln.',
           rulesNote: 'Direkt aus seiner Tabelle, sein Wortlaut, nicht geparst und nicht automatisch addiert. „LP" sind Lebenspunkte. Gedruckte Punkte sind Körper PLUS Waffen PLUS diese.' },
     es: { creature: 'Criatura', vehicle: 'Vehículo', ranged: 'Arma de disparo', melee: 'Arma de cuerpo a cuerpo',
           rules: 'Coste de reglas especiales', search: 'Buscar una regla…', normal: 'modelo', big: 'monstruo / vehículo',
           notes: 'Sus notas — se aplican a mano', warn: 'La fórmula tasa características, no lee una hoja de unidad. Un modelo con todo 1, Resistencia 10, Liderazgo 10 y ward save de 4+ sale por menos de doce puntos y sería el peor tapón del juego. El número es un punto de partida.',
+          tables: 'Tablas', export: 'Descargar copia de trabajo (.xlsx)', reset: 'Volver a v5.4', edited: 'editado', exporting: 'generando\u2026',
+          tablesNote: 'Cambia un coste y todas las pesta\u00f1as de arriba recalculan al momento \u2014 la forma m\u00e1s r\u00e1pida de ver qu\u00e9 le hace un ajuste a un modelo cuyo precio ya conoces. Solo en este navegador: no cambia nada de lo que cobra la app. El archivo exportado lleva estos valores Y las f\u00f3rmulas de verdad.',
           rulesNote: 'Tal cual de su hoja, con sus palabras, sin interpretar y sin sumarse solo. "LP" son Heridas. Los puntos impresos son cuerpo MÁS armas MÁS esto.' },
   }[lang];
 
   const TABS: [Tab, string][] = [
-    ['creature', L.creature], ['vehicle', L.vehicle], ['ranged', L.ranged], ['melee', L.melee], ['rules', L.rules],
+    ['creature', L.creature], ['vehicle', L.vehicle], ['ranged', L.ranged], ['melee', L.melee],
+    ['tables', L.tables], ['rules', L.rules],
   ];
 
   const rules = useMemo(() => {
@@ -90,6 +138,17 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
         <h2 className="text-amber-400 text-sm font-mono uppercase tracking-widest">Points calculator</h2>
         <span className="text-zinc-600 text-[10px] font-mono">Points calculator_v5.4.xlsx</span>
         <span className="text-[9px] uppercase px-1 border border-amber-800 text-amber-500">admin only</span>
+        {edited && <span className="text-[9px] uppercase px-1 border border-sky-800 text-sky-400">{L.edited}</span>}
+        <button onClick={exportWorkbook} disabled={busy}
+          className="ml-auto px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider border border-zinc-700 text-zinc-300 hover:text-amber-400 hover:border-amber-800 disabled:opacity-40">
+          {busy ? L.exporting : L.export}
+        </button>
+        {edited && (
+          <button onClick={() => setTables(DEFAULT_TABLES)}
+            className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider border border-zinc-800 text-zinc-500 hover:text-red-400 hover:border-red-900">
+            {L.reset}
+          </button>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-1 mb-3">
@@ -115,7 +174,7 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
             <Field label="Movement" value={c.move} set={n => setC({ ...c, move: n })} step={2} hint="inches" />
             <Toggle label="Flying" value={c.flying} set={b => setC({ ...c, flying: b })} />
           </div>
-          <Result n={creaturePoints(c)} />
+          <Result n={creaturePoints(c, tables)} />
         </div>
       )}
 
@@ -135,7 +194,7 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
             <Toggle label="Anti-Grav" value={v.antiGrav} set={b => setV({ ...v, antiGrav: b })} />
           </div>
           <p className="text-zinc-600 text-[10px] font-mono mt-2">Front / Side / Rear are added raw, not looked up — that is what his sheet does, and it is why armour dominates a vehicle's price.</p>
-          <Result n={vehiclePoints(v)} />
+          <Result n={vehiclePoints(v, tables)} />
         </div>
       )}
 
@@ -149,7 +208,7 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
             <Field label="Damage" value={r.damage} set={n => setR({ ...r, damage: n })} />
             <Field label="Ballistic skill" value={r.bs} set={n => setR({ ...r, bs: n })} hint="3 = 3+" />
           </div>
-          <Result n={rangedPoints(r)} />
+          <Result n={rangedPoints(r, tables)} />
         </div>
       )}
 
@@ -162,7 +221,43 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
             <Field label="Weapon skill" value={m.ws} set={n => setM({ ...m, ws: n })} hint="3 = 3+" />
           </div>
           <p className="text-zinc-600 text-[10px] font-mono mt-2">No range term at all — a melee weapon costs the same whatever the board size.</p>
-          <Result n={meleePoints(m)} />
+          <Result n={meleePoints(m, tables)} />
+        </div>
+      )}
+
+      {tab === 'tables' && (
+        <div>
+          <p className="text-zinc-500 text-[11px] mb-3 max-w-3xl">{L.tablesNote}</p>
+          <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))' }}>
+            {TABLE_META.map(({ key, label, note }) => {
+              const entries: [number, number][] = isLadder(key)
+                ? (tables[key] as [number, number][])
+                : Object.keys(tables[key] as Record<number, number>).map(Number).sort((a, b) => a - b)
+                    .map(v => [v, (tables[key] as Record<number, number>)[v]]);
+              return (
+                <div key={key} className="border border-zinc-800">
+                  <div className="px-2 py-1 border-b border-zinc-800 flex items-baseline gap-2">
+                    <span className="text-zinc-200 text-[11px] font-mono uppercase tracking-wider">{label}</span>
+                    {note && <span className="text-zinc-600 text-[9px]">{note}</span>}
+                  </div>
+                  {entries.map(([v, cost]) => (
+                    <div key={v} className="flex items-center gap-2 px-2 py-0.5 border-b border-zinc-900 last:border-b-0">
+                      <span className="w-8 text-right text-zinc-500 text-[11px] font-mono">{v}</span>
+                      <input
+                        type="number" step={0.0001} value={cost}
+                        onChange={e => setCost(key, v, Number(e.target.value))}
+                        className={`w-20 bg-zinc-900 border px-1 py-0.5 text-[11px] font-mono focus:outline-none focus:border-amber-700 ${
+                          cost !== (isLadder(key)
+                            ? (DEFAULT_TABLES[key] as [number, number][]).find(d => d[0] === v)?.[1]
+                            : (DEFAULT_TABLES[key] as Record<number, number>)[v])
+                            ? 'border-sky-800 text-sky-300' : 'border-zinc-700 text-zinc-300'}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 
@@ -198,7 +293,7 @@ export function PointsCalculator({ lang }: { lang: 'en' | 'de' | 'es' }) {
         </div>
       )}
 
-      {tab !== 'rules' && (
+      {tab !== 'rules' && tab !== 'tables' && (
         <section className="mt-4 max-w-3xl">
           <p className="text-amber-500/90 text-[11px] leading-relaxed border-l-2 border-amber-900 pl-3 mb-3">{L.warn}</p>
           <h3 className="text-zinc-200 text-[11px] font-mono uppercase tracking-wider border-b border-zinc-800 pb-1 mb-2">{L.notes}</h3>
