@@ -9,7 +9,8 @@ import { KillTeamAlpha } from './KillTeamAlpha';
 import { abilityKey, ruleStrings } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
-import { ALL_FACTIONS } from './LandingPage';
+import { ALL_FACTIONS, DEFAULT_CODEX_VERSIONS } from './LandingPage';
+import { PointsCalculator } from './PointsCalculator';
 import { useAuth } from '../hooks/useAuth';
 
 // Languages a translator edits (English is the source, shown read-only).
@@ -88,7 +89,7 @@ function toSheetId(input: string): string {
   return m ? m[1] : s;
 }
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'killteam';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'killteam' | 'calc';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -165,8 +166,9 @@ interface AdminTx {
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabKillTeam: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabKillTeam: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabKillTeam: string; tabCalc: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabKillTeam: string; helpTabCalc: string;
+  codexVerTitle: string; codexVerHint: string;
   findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
   findNone: string; findCount: (hits: number, factions: number) => string; findExport: string; findScanning: (f: string) => string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
@@ -257,6 +259,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
     tabFind: 'Find text',
     tabKillTeam: 'Kill Team',
+    tabCalc: 'Calculator',
+    helpTabCalc: 'The game author\u2019s own points calculator, with his special-rule price list. Reference only \u2014 it changes nothing in the app.',
+    codexVerTitle: 'Codex versions',
+    codexVerHint: 'The version and readiness badge on each faction button. Saving publishes immediately \u2014 no deploy needed.',
     helpTabKillTeam: 'Alpha of the Kill Team mode \u2014 the draft rules and a team builder. Admin-only: it is not wired into the builder, so no player can reach it.',
     helpTabFind: 'Search every faction\'s data for a word or phrase and list every place it appears.',
     findHint: 'Type any wording — an ability, a rules phrase, a weapon name — and this lists every place it appears across all factions: unit abilities, weapon abilities, option headers, armoury descriptions and the rules glossary. Useful before replacing a phrase with a new special rule. Read-only.',
@@ -363,6 +369,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
     tabFind: 'Text suchen',
     tabKillTeam: 'Kill Team',
+    tabCalc: 'Rechner',
+    helpTabCalc: 'Der Punkterechner des Autors, mit seiner Sonderregel-Preisliste. Nur Nachschlagewerk \u2014 \u00e4ndert nichts in der App.',
+    codexVerTitle: 'Codex-Versionen',
+    codexVerHint: 'Version und Status auf jedem Fraktions-Button. Speichern ver\u00f6ffentlicht sofort \u2014 kein Deploy n\u00f6tig.',
     helpTabKillTeam: 'Alpha des Kill-Team-Modus \u2014 Regelentwurf und Team-Baukasten. Nur f\u00fcr Admins, nicht im Builder verdrahtet.',
     helpTabFind: 'Alle Fraktionsdaten nach einem Wort oder Satz durchsuchen und jede Fundstelle auflisten.',
     findHint: 'Gib eine beliebige Formulierung ein — eine Fähigkeit, einen Regelsatz, einen Waffennamen — und hier erscheint jede Fundstelle über alle Fraktionen hinweg: Einheiten-Fähigkeiten, Waffen-Fähigkeiten, Options-Überschriften, Arsenal-Beschreibungen und das Regelglossar. Praktisch, bevor man eine Formulierung durch eine neue Spezialregel ersetzt. Nur Lesen.',
@@ -469,6 +479,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
     tabFind: 'Buscar texto',
     tabKillTeam: 'Kill Team',
+    tabCalc: 'Calculadora',
+    helpTabCalc: 'La calculadora de puntos del autor, con su lista de precios de reglas especiales. Solo consulta \u2014 no cambia nada en la app.',
+    codexVerTitle: 'Versiones de codex',
+    codexVerHint: 'La versi\u00f3n y el estado que salen en cada bot\u00f3n de facci\u00f3n. Guardar publica al momento \u2014 sin desplegar.',
     helpTabKillTeam: 'Alpha del modo Kill Team \u2014 el borrador de reglas y un montador de equipos. Solo admins: no est\u00e1 conectado al builder, ning\u00fan jugador puede llegar.',
     helpTabFind: 'Busca una palabra o frase en los datos de todas las facciones y lista dónde aparece.',
     findHint: 'Escribe cualquier texto — una habilidad, una frase de reglas, un nombre de arma — y aquí sale cada sitio donde aparece en todas las facciones: habilidades de unidad, habilidades de arma, cabeceras de opciones, descripciones de armería y el glosario de reglas. Útil antes de sustituir una frase por una regla especial nueva. Solo lectura.',
@@ -590,8 +604,11 @@ export function AdminPanel({ onClose }: Props) {
    *  workbook) stop drowning the rows that still need doing. Nothing is ever dropped silently. */
   const [srcIgnores, setSrcIgnores] = useState<api.SourceIgnores>({});
   const [srcShowIgnored, setSrcShowIgnored] = useState(false);
-  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
-  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | null>(null);
+  // Codex versions live beside the availability flags because they are the same decision seen
+  // twice: which factions are open, and how finished each one is.
+  const [codexVer, setCodexVer] = useState<api.CodexVersions>(DEFAULT_CODEX_VERSIONS);
+  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | null>(null);
+  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | null>(null);
 
   async function load() {
     setLoading(true);
@@ -600,7 +617,7 @@ export function AdminPanel({ onClose }: Props) {
         api.adminStats(),
         api.adminListRecoveryRequests(),
         api.adminActions().catch(() => ({ actions: [] })),
-        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides; source_ignores?: api.SourceIgnores } })),
+        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides; source_ignores?: api.SourceIgnores; codex_versions?: api.CodexVersions } })),
       ]);
       setStats(s);
       setRequests(r.requests);
@@ -615,6 +632,7 @@ export function AdminPanel({ onClose }: Props) {
         });
       }
       // hydrate faction availability (default from code, overridden by stored flags)
+      setCodexVer({ ...DEFAULT_CODEX_VERSIONS, ...(cfg.settings.codex_versions ?? {}) });
       const stored = cfg.settings.faction_flags ?? {};
       const merged: Record<string, boolean> = {};
       for (const f of ALL_FACTIONS) merged[f.key] = stored[f.key] ?? f.defaultAvailable;
@@ -795,7 +813,7 @@ export function AdminPanel({ onClose }: Props) {
     } catch (e) { setMsg(String(e)); }
   }
 
-  async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations', value: unknown) {
+  async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'codex_versions', value: unknown) {
     setSavingKey(key); setSavedKey(null);
     try {
       await api.adminSetSetting(key, value);
@@ -1202,6 +1220,7 @@ export function AdminPanel({ onClose }: Props) {
     { id: 'source',   label: L.tabSource,   help: L.helpTabSource },
     { id: 'find',     label: L.tabFind,     help: L.helpTabFind },
     { id: 'killteam', label: L.tabKillTeam, help: L.helpTabKillTeam },
+    { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc },
   ];
 
   return (
@@ -1522,6 +1541,43 @@ export function AdminPanel({ onClose }: Props) {
                 </button>
                 {savedKey === 'faction_flags' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
               </div>
+
+              {/* ── Codex version + readiness, editable without a deploy ──
+                  The point of this block is that the game's author can ship a document and mark it
+                  himself the same minute, instead of asking us to change a line of code. */}
+              <div className="text-[10px] uppercase tracking-widest text-amber-600 mt-5 mb-1">{L.codexVerTitle}</div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.codexVerHint}</p>
+              <div className="grid gap-x-4 gap-y-1" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
+                {ALL_FACTIONS.map(f => {
+                  const cur = codexVer[f.key] ?? DEFAULT_CODEX_VERSIONS[f.key] ?? { version: '1.00', status: 'testing' as const };
+                  return (
+                    <div key={f.key} className="flex items-center gap-1.5 text-[11px] font-mono">
+                      <span className="flex-1 min-w-0 truncate text-zinc-300">{f.name}</span>
+                      <input
+                        value={cur.version}
+                        onChange={e => setCodexVer(p => ({ ...p, [f.key]: { ...cur, version: e.target.value } }))}
+                        className="w-14 bg-zinc-900 border border-zinc-700 px-1 py-0.5 text-zinc-200 focus:outline-none focus:border-amber-700"
+                      />
+                      <select
+                        value={cur.status}
+                        onChange={e => setCodexVer(p => ({ ...p, [f.key]: { ...cur, status: e.target.value as api.CodexStatus } }))}
+                        className="bg-zinc-900 border border-zinc-700 px-1 py-0.5 text-zinc-300 focus:outline-none focus:border-amber-700"
+                      >
+                        <option value="complete">complete</option>
+                        <option value="testing">testing</option>
+                        <option value="inreview">in review</option>
+                        <option value="unreviewed">not reviewed</option>
+                      </select>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button onClick={() => saveSetting('codex_versions', codexVer)} disabled={savingKey === 'codex_versions'} className={toolbarBtn}>
+                  {savingKey === 'codex_versions' ? L.saving : L.save}
+                </button>
+                {savedKey === 'codex_versions' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
+              </div>
             </div>
 
             )}
@@ -1797,6 +1853,8 @@ export function AdminPanel({ onClose }: Props) {
             )}
 
             {tab === 'killteam' && <KillTeamAlpha lang={language} />}
+
+            {tab === 'calc' && <PointsCalculator lang={language} />}
 
           </div>
         )}

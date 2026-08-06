@@ -296,6 +296,15 @@ const CATEGORIES: Category[] = [
 export const ALL_FACTIONS: { key: string; name: string; defaultAvailable: boolean }[] =
   CATEGORIES.flatMap(c => c.factions.map(f => ({ key: f.key, name: f.name, defaultAvailable: f.available })));
 
+/**
+ * The versions compiled into this build — what the admin editor starts from and what the app
+ * falls back to when the DB has nothing to say. Keeping the code defaults means a wiped or
+ * unreachable settings row can never blank the badges.
+ */
+export const DEFAULT_CODEX_VERSIONS: Record<string, { version: string; status: FactionStatus }> =
+  Object.fromEntries(CATEGORIES.flatMap(c => c.factions.map(f =>
+    [f.key, { version: f.version ?? '1.00', status: f.status }])));
+
 function formatDate(ts: number): string {
   const d = new Date(ts);
   return d.toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
@@ -340,6 +349,7 @@ export function LandingPage({
   // Admin-editable overrides fetched from the DB (fail-soft: defaults from code if this never loads).
   const [announcement, setAnnouncement] = useState<api.AnnouncementSetting | null>(null);
   const [factionFlags, setFactionFlags] = useState<api.FactionFlags | null>(null);
+  const [codexVersions, setCodexVersions] = useState<api.CodexVersions | null>(null);
   const [showMessages, setShowMessages] = useState(false);
   const [unread, setUnread] = useState(0);
   useEffect(() => {
@@ -347,6 +357,7 @@ export function LandingPage({
       .then(s => {
         setAnnouncement(s.announcement);
         setFactionFlags(s.factionFlags);
+        setCodexVersions(s.codexVersions);
         setTranslationOverrides(s.translations);   // apply admin-edited UI strings app-wide
       })
       .catch(() => { /* keep code defaults */ });
@@ -853,7 +864,11 @@ export function LandingPage({
                 <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
                   {cat.factions.map(fDef => {
                     // availability can be overridden by the admin faction-flags setting
-                    const f = { ...fDef, available: factionFlags?.[fDef.key] ?? fDef.available };
+                    const over = codexVersions?.[fDef.key];
+                    const f = { ...fDef,
+                      available: factionFlags?.[fDef.key] ?? fDef.available,
+                      version: over?.version ?? fDef.version,
+                      status: over?.status ?? fDef.status };
                     return (
                     <button
                       key={f.key}

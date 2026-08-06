@@ -423,6 +423,13 @@ export interface AnnouncementSetting {
   text: Partial<Record<'en' | 'de' | 'es', { title: string; intro: string; lines: string[]; contrib: string }>>;
 }
 export type FactionFlags = Record<string, boolean>;
+/**
+ * Per-faction codex version and readiness, keyed by faction key. Lives in the DB rather than in
+ * code so the game's author can publish "Imperial Guard 1.04" himself the moment he ships the
+ * document — no commit, no deploy, no waiting for us.
+ */
+export type CodexStatus = 'complete' | 'testing' | 'inreview' | 'unreviewed';
+export type CodexVersions = Record<string, { version: string; status: CodexStatus }>;
 /** Per-language map of translation-key → overridden string. */
 export type TranslationOverrides = Partial<Record<'en' | 'de' | 'es', Record<string, string>>>;
 export interface PublicSettings {
@@ -431,15 +438,16 @@ export interface PublicSettings {
   translations: TranslationOverrides | null;
   /** Admin corrections applied on top of the bundled faction data (src/engine/dataOverrides.ts). */
   dataOverrides: DataOverrides | null;
+  codexVersions: CodexVersions | null;
 }
 /** Public, fail-soft — the landing page uses this to override its defaults. */
 export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; source_ignores?: SourceIgnores } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; source_ignores?: SourceIgnores; codex_versions?: CodexVersions } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'source_ignores', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'source_ignores' | 'codex_versions', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
 }
 /** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */

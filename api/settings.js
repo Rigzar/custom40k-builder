@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
   try {
     await ensureSchema();
-    const r = await sql`SELECT key, value FROM app_settings WHERE key IN ('announcement', 'faction_flags', 'translations', 'data_overrides')`;
+    const r = await sql`SELECT key, value FROM app_settings WHERE key IN ('announcement', 'faction_flags', 'translations', 'data_overrides', 'codex_versions')`;
     const map = {};
     for (const row of r.rows) map[row.key] = row.value;
     res.status(200).json({
@@ -21,8 +21,10 @@ export default async function handler(req, res) {
       translations: map.translations ?? null,
       // Admin-applied corrections to the bundled faction data (see src/engine/dataOverrides.ts).
       dataOverrides: map.data_overrides ?? null,
+      // Per-faction codex version + status, editable by the designer without a deploy.
+      codexVersions: map.codex_versions ?? null,
     });
   } catch {
-    res.status(200).json({ ok: true, announcement: null, factionFlags: null, translations: null, dataOverrides: null });
+    res.status(200).json({ ok: true, announcement: null, factionFlags: null, translations: null, dataOverrides: null, codexVersions: null });
   }
 }
