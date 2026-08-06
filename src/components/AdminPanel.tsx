@@ -5,6 +5,7 @@ import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { CHANGELOG } from '../data/changelog';
+import { KillTeamAlpha } from './KillTeamAlpha';
 import { abilityKey, ruleStrings } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -87,7 +88,7 @@ function toSheetId(input: string): string {
   return m ? m[1] : s;
 }
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'killteam';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -164,8 +165,8 @@ interface AdminTx {
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabKillTeam: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabKillTeam: string;
   findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
   findNone: string; findCount: (hits: number, factions: number) => string; findExport: string; findScanning: (f: string) => string;
   srcHint: string; srcSpreadsheetId: string; srcCompare: string; srcComparing: string; srcNoDiff: string; srcCol: (unit: string, model: string) => string;
@@ -255,6 +256,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Source check',
     helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
     tabFind: 'Find text',
+    tabKillTeam: 'Kill Team',
+    helpTabKillTeam: 'Alpha of the Kill Team mode \u2014 the draft rules and a team builder. Admin-only: it is not wired into the builder, so no player can reach it.',
     helpTabFind: 'Search every faction\'s data for a word or phrase and list every place it appears.',
     findHint: 'Type any wording — an ability, a rules phrase, a weapon name — and this lists every place it appears across all factions: unit abilities, weapon abilities, option headers, armoury descriptions and the rules glossary. Useful before replacing a phrase with a new special rule. Read-only.',
     findPlaceholder: 'e.g. Can only be used with a Charge order',
@@ -359,6 +362,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Quellenabgleich',
     helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
     tabFind: 'Text suchen',
+    tabKillTeam: 'Kill Team',
+    helpTabKillTeam: 'Alpha des Kill-Team-Modus \u2014 Regelentwurf und Team-Baukasten. Nur f\u00fcr Admins, nicht im Builder verdrahtet.',
     helpTabFind: 'Alle Fraktionsdaten nach einem Wort oder Satz durchsuchen und jede Fundstelle auflisten.',
     findHint: 'Gib eine beliebige Formulierung ein — eine Fähigkeit, einen Regelsatz, einen Waffennamen — und hier erscheint jede Fundstelle über alle Fraktionen hinweg: Einheiten-Fähigkeiten, Waffen-Fähigkeiten, Options-Überschriften, Arsenal-Beschreibungen und das Regelglossar. Praktisch, bevor man eine Formulierung durch eine neue Spezialregel ersetzt. Nur Lesen.',
     findPlaceholder: 'z. B. Can only be used with a Charge order',
@@ -463,6 +468,8 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Comparar fuente',
     helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
     tabFind: 'Buscar texto',
+    tabKillTeam: 'Kill Team',
+    helpTabKillTeam: 'Alpha del modo Kill Team \u2014 el borrador de reglas y un montador de equipos. Solo admins: no est\u00e1 conectado al builder, ning\u00fan jugador puede llegar.',
     helpTabFind: 'Busca una palabra o frase en los datos de todas las facciones y lista dónde aparece.',
     findHint: 'Escribe cualquier texto — una habilidad, una frase de reglas, un nombre de arma — y aquí sale cada sitio donde aparece en todas las facciones: habilidades de unidad, habilidades de arma, cabeceras de opciones, descripciones de armería y el glosario de reglas. Útil antes de sustituir una frase por una regla especial nueva. Solo lectura.',
     findPlaceholder: 'p. ej. Can only be used with a Charge order',
@@ -1194,6 +1201,7 @@ export function AdminPanel({ onClose }: Props) {
     { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n },
     { id: 'source',   label: L.tabSource,   help: L.helpTabSource },
     { id: 'find',     label: L.tabFind,     help: L.helpTabFind },
+    { id: 'killteam', label: L.tabKillTeam, help: L.helpTabKillTeam },
   ];
 
   return (
@@ -1787,6 +1795,8 @@ export function AdminPanel({ onClose }: Props) {
               )}
             </div>
             )}
+
+            {tab === 'killteam' && <KillTeamAlpha lang={language} />}
 
           </div>
         )}
