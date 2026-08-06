@@ -344,6 +344,7 @@ export function refreshDataOverrides(): void { overridesPromise = null; }
  */
 const UNIT_RENAMES: Record<string, Record<string, string>> = {
   chaos_space_marines: {
+    'Decimator': 'Chaos Decimator',
     'Exalted Plague Champion': 'Foetid Virion',
     'Chaos Bikers': 'Chaos Biker',
   },

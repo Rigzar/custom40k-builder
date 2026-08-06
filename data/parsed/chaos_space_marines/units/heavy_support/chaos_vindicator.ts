@@ -123,7 +123,7 @@ export const chaosVindicator: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Combi"
     },
     {
       "name": "Combi-flamer - Flamer",
@@ -132,7 +132,7 @@ export const chaosVindicator: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Combi, Flames"
     },
     {
       "name": "Combi-melta - Bolter",
@@ -141,7 +141,7 @@ export const chaosVindicator: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Combi"
     },
     {
       "name": "Combi-melta - Melta",
@@ -150,7 +150,7 @@ export const chaosVindicator: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "1",
-      "abilities": "AT(1), Melta"
+      "abilities": "AT(1), Combi, Melta"
     }
   ],
   "option_groups": [

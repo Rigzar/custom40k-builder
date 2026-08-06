@@ -56,7 +56,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Flamer",
@@ -65,7 +65,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Combi, Flames"
         }
       ]
     },
@@ -88,7 +88,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Melta",
@@ -97,7 +97,7 @@
           "s": "8",
           "ap": "-5",
           "d": "1",
-          "abilities": "AT(1), Melta"
+          "abilities": "AT(1), Combi, Melta"
         }
       ]
     },
@@ -120,7 +120,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Plasma gun (Standard)",
@@ -129,7 +129,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1)"
+          "abilities": "AT(1), Combi"
         },
         {
           "name": "Plasma gun (Supercharged)",
@@ -138,7 +138,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Overheating"
+          "abilities": "AT(2), Combi, Overheating"
         }
       ]
     },
@@ -240,24 +240,24 @@
       "p_char": 5
     },
     {
-      "name": "Frag grenade",
-      "term_compat": true,
-      "range": "6\"",
-      "type": "Grenade 1",
-      "s": "4",
-      "ap": "0",
-      "d": "1",
-      "abilities": "Explosive",
-      "p_unit": 1,
-      "p_char": 1
-    },
-    {
       "name": "Force axe",
       "term_compat": true,
       "range": "-",
       "type": "Melee",
       "s": "+2",
       "ap": "-2",
+      "d": "1",
+      "abilities": "Force weapon",
+      "p_unit": null,
+      "p_char": 4
+    },
+    {
+      "name": "Force stave",
+      "term_compat": true,
+      "range": "-",
+      "type": "Melee",
+      "s": "+3",
+      "ap": "-1",
       "d": "1",
       "abilities": "Force weapon",
       "p_unit": null,
@@ -276,16 +276,16 @@
       "p_char": 4
     },
     {
-      "name": "Force stave",
+      "name": "Frag grenade",
       "term_compat": true,
-      "range": "-",
-      "type": "Melee",
-      "s": "+3",
-      "ap": "-1",
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "4",
+      "ap": "0",
       "d": "1",
-      "abilities": "Force weapon",
-      "p_unit": null,
-      "p_char": 4
+      "abilities": "Explosive",
+      "p_unit": 1,
+      "p_char": 1
     },
     {
       "name": "Hand flamer",
@@ -626,7 +626,7 @@
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Enemy models in melee suffer a -1 to their Toughness value, if the bearer used a Charge order this turn.",
+      "abilities": "Rad",
       "p_unit": null,
       "p_char": 1
     },
@@ -665,6 +665,18 @@
       "abilities": "AT(2), Slow(-3)",
       "p_unit": 12,
       "p_char": 16
+    },
+    {
+      "name": "Triple multi-melta",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 3",
+      "s": "8",
+      "ap": "-5",
+      "d": "2",
+      "abilities": "AT(2), Melta",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [

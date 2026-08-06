@@ -8,7 +8,7 @@
 import type { Unit } from '../../../../../src/types/data';
 
 export const decimator: Unit = {
-  "name": "Decimator",
+  "name": "Chaos Decimator",
   "models": [
     {
       "name": "Decimator",

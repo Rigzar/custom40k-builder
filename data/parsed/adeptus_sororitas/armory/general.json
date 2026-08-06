@@ -100,7 +100,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Flamer",
@@ -109,7 +109,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Combi, Flames"
         }
       ]
     },
@@ -132,7 +132,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Melta",
@@ -141,7 +141,7 @@
           "s": "8",
           "ap": "-5",
           "d": "1",
-          "abilities": "AT(1), Melta"
+          "abilities": "AT(1), Combi, Melta"
         }
       ]
     },
@@ -164,7 +164,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Standard",
@@ -173,7 +173,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1)"
+          "abilities": "AT(1), Combi"
         },
         {
           "name": "Overheat",
@@ -182,7 +182,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Overheating"
+          "abilities": "AT(2), Combi, Overheating"
         }
       ]
     },
@@ -205,7 +205,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Stake",
@@ -214,7 +214,7 @@
           "s": "3",
           "ap": "-1",
           "d": "1",
-          "abilities": "Psi-shock"
+          "abilities": "Combi, Psi-shock"
         }
       ]
     },

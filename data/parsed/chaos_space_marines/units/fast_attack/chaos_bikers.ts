@@ -198,7 +198,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Combi"
     },
     {
       "name": "Combi-flamer - Flamer",
@@ -207,7 +207,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames"
+      "abilities": "Combi, Flames"
     },
     {
       "name": "Combi-melta - Bolter",
@@ -216,7 +216,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Combi"
     },
     {
       "name": "Combi-melta - Melta",
@@ -225,7 +225,7 @@ export const chaosBikers: Unit = {
       "s": "8",
       "ap": "-5",
       "d": "1",
-      "abilities": "AT(1), Melta"
+      "abilities": "AT(1), Combi, Melta"
     },
     {
       "name": "Combi-plasma - Bolter",
@@ -234,7 +234,7 @@ export const chaosBikers: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Combi"
     },
     {
       "name": "Combi-plasma - Standard",
@@ -348,7 +348,9 @@ export const chaosBikers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Combi-bolter"]
+      "replaces": [
+        "Combi-bolter"
+      ]
     },
     {
       "header": "The Chaos Biker Champion may be upgraded to an Aspiring Chaos Biker Champion for +10pts and gains access to weapons and gear from the Armory.",

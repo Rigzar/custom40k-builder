@@ -36,7 +36,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Combi, Flames"
         },
         {
           "name": "Assault ammo",
@@ -45,7 +45,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         }
       ]
     },
@@ -68,7 +68,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1)"
+          "abilities": "AT(1), Combi"
         },
         {
           "name": "Plasma (Overcharged)",
@@ -77,7 +77,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Overheating"
+          "abilities": "AT(2), Combi, Overheating"
         },
         {
           "name": "Assault ammo",
@@ -86,7 +86,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         }
       ]
     },
@@ -245,7 +245,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Flamer",
@@ -254,7 +254,7 @@
           "s": "4",
           "ap": "0",
           "d": "1",
-          "abilities": "Flames"
+          "abilities": "Combi, Flames"
         }
       ]
     },
@@ -280,7 +280,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Melta",
@@ -289,7 +289,7 @@
           "s": "8",
           "ap": "-5",
           "d": "1",
-          "abilities": "AT(1), Melta"
+          "abilities": "AT(1), Combi, Melta"
         }
       ]
     },
@@ -315,7 +315,7 @@
           "s": "4",
           "ap": "-1",
           "d": "1",
-          "abilities": "-"
+          "abilities": "Combi"
         },
         {
           "name": "Plasma (Standard)",
@@ -324,7 +324,7 @@
           "s": "7",
           "ap": "-3",
           "d": "1",
-          "abilities": "AT(1)"
+          "abilities": "AT(1), Combi"
         },
         {
           "name": "Plasma (Overcharged)",
@@ -333,7 +333,7 @@
           "s": "8",
           "ap": "-4",
           "d": "2",
-          "abilities": "AT(2), Overheating"
+          "abilities": "AT(2), Combi, Overheating"
         }
       ]
     },
