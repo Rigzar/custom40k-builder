@@ -149,7 +149,7 @@ export const roughRiders: Unit = {
       "s": "+1",
       "ap": "-1",
       "d": "2",
-      "abilities": "Quick(+1)"
+      "abilities": "Charge, Quick(+1)"
     },
     {
       "name": "Frag lance (Normal)",
@@ -167,7 +167,7 @@ export const roughRiders: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "2",
-      "abilities": "Quick(+1), Deflagrate(5+)"
+      "abilities": "Charge, Deflagrate(5+), Quick(+1)"
     },
     {
       "name": "Goad lance (Normal)",
@@ -185,7 +185,7 @@ export const roughRiders: Unit = {
       "s": "+3",
       "ap": "-2",
       "d": "2",
-      "abilities": "Quick(+1)"
+      "abilities": "Charge, Quick(+1)"
     },
     {
       "name": "Krak lance (Normal)",
@@ -203,7 +203,7 @@ export const roughRiders: Unit = {
       "s": "+5",
       "ap": "-5",
       "d": "3",
-      "abilities": "Armorbane, AT(4), Quick(+1)"
+      "abilities": "Armorbane, AT(4), Charge, Quick(+1)"
     },
     {
       "name": "Melta lance (Normal)",
@@ -309,7 +309,9 @@ export const roughRiders: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Chainsword"]
+      "replaces": [
+        "Chainsword"
+      ]
     },
     {
       "header": "All remaining models may swap their Chainsword",
@@ -329,7 +331,9 @@ export const roughRiders: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Chainsword"]
+      "replaces": [
+        "Chainsword"
+      ]
     },
     {
       "header": "Up to two Rough Riders may take a special weapon",

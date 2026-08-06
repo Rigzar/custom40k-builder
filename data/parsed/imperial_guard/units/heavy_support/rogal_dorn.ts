@@ -94,7 +94,7 @@ export const rogalDorn: Unit = {
       "s": "10",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(4), Barrage"
+      "abilities": "AT(4), Barrage, Tank hunter"
     },
     {
       "name": "Pulveriser cannon",
@@ -112,7 +112,7 @@ export const rogalDorn: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Barrage"
+      "abilities": "AT(2), Barrage, Tank hunter"
     }
   ],
   "option_groups": [

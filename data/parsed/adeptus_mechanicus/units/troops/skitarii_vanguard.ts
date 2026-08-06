@@ -76,7 +76,7 @@ export const skitariiVanguard: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "Decimate"
+      "abilities": "Rad"
     },
     {
       "name": "Transuranic arquebus",

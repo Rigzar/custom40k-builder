@@ -49,7 +49,7 @@ export const sydonianSkatros: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Decimate, Suppression"
+      "abilities": "Armor piercing(5+), Rad, Suppression"
     },
     {
       "name": "Transuranic arquebus",
@@ -76,7 +76,9 @@ export const sydonianSkatros: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Radium jezzail"]
+      "replaces": [
+        "Radium jezzail"
+      ]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",

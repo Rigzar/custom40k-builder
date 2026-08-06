@@ -49,17 +49,8 @@ export const ogryns: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Crude weapon; Frag bombs.",
+  "equipped_with": "Every model is equipped with: Frag bombs; Ripper gun.",
   "weapons": [
-    {
-      "name": "Crude weapon",
-      "range": "-",
-      "type": "Melee",
-      "s": "+1",
-      "ap": "-1",
-      "d": "1",
-      "abilities": "-"
-    },
     {
       "name": "Frag bomb",
       "range": "6\"",

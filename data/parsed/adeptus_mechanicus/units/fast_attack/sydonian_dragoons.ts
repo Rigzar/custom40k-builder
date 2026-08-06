@@ -49,7 +49,7 @@ export const sydonianDragoons: Unit = {
       "s": "5",
       "ap": "-2",
       "d": "2",
-      "abilities": "Armor piercing(5+), Decimate, Suppression"
+      "abilities": "Armor piercing(5+), Rad, Suppression"
     },
     {
       "name": "Taser lance - Charge",
@@ -85,7 +85,10 @@ export const sydonianDragoons: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Taser lance - Charge", "Taser lance - Melee"]
+      "replaces": [
+        "Taser lance - Charge",
+        "Taser lance - Melee"
+      ]
     },
     {
       "header": "May be equipped with",

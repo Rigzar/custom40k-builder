@@ -32,7 +32,7 @@ export const crimsonHunter: Unit = {
   ],
   "variant_models": [
     {
-      "name": "Crimson Hunter Exarch",
+      "name": "Crimson Hunter",
       "points": 443,
       "min": 0,
       "max": 0,
@@ -105,7 +105,9 @@ export const crimsonHunter: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Starcannon"]
+      "replaces": [
+        "Starcannon"
+      ]
     },
     {
       "header": "The Exarch can gain one Exarch Power",
@@ -113,22 +115,70 @@ export const crimsonHunter: Unit = {
         "type": "one"
       },
       "choices": [
-        { "name": "Bladestorm", "points": 5 },
-        { "name": "Burning heat", "points": 5 },
-        { "name": "Crack shot", "points": 5 },
-        { "name": "Crushing blows", "points": 5 },
-        { "name": "Defensive stance", "points": 5 },
-        { "name": "Dragon's bite", "points": 5 },
-        { "name": "Graceful avoidance", "points": 5 },
-        { "name": "Heartstrike", "points": 5 },
-        { "name": "Lightning attacks", "points": 5 },
-        { "name": "Piercing strike", "points": 5 },
-        { "name": "Rapid redeployment", "points": 5 },
-        { "name": "Reaper's reach", "points": 5 },
-        { "name": "Scorpion's sting", "points": 5 },
-        { "name": "Skyhunter", "points": 5 },
-        { "name": "Stand firm", "points": 5 },
-        { "name": "Surprise assault", "points": 5 }
+        {
+          "name": "Bladestorm",
+          "points": 5
+        },
+        {
+          "name": "Burning heat",
+          "points": 5
+        },
+        {
+          "name": "Crack shot",
+          "points": 5
+        },
+        {
+          "name": "Crushing blows",
+          "points": 5
+        },
+        {
+          "name": "Defensive stance",
+          "points": 5
+        },
+        {
+          "name": "Dragon's bite",
+          "points": 5
+        },
+        {
+          "name": "Graceful avoidance",
+          "points": 5
+        },
+        {
+          "name": "Heartstrike",
+          "points": 5
+        },
+        {
+          "name": "Lightning attacks",
+          "points": 5
+        },
+        {
+          "name": "Piercing strike",
+          "points": 5
+        },
+        {
+          "name": "Rapid redeployment",
+          "points": 5
+        },
+        {
+          "name": "Reaper's reach",
+          "points": 5
+        },
+        {
+          "name": "Scorpion's sting",
+          "points": 5
+        },
+        {
+          "name": "Skyhunter",
+          "points": 5
+        },
+        {
+          "name": "Stand firm",
+          "points": 5
+        },
+        {
+          "name": "Surprise assault",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,

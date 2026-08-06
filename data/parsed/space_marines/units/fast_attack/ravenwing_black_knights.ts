@@ -121,7 +121,7 @@ export const ravenwingBlackKnights: Unit = {
       "s": "3",
       "ap": "0",
       "d": "1",
-      "abilities": "-"
+      "abilities": "Rad"
     },
     {
       "name": "Ravenwing Grenade launcher (Stasis)",
@@ -150,12 +150,13 @@ export const ravenwingBlackKnights: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Plasma talon"]
+      "replaces": [
+        "Plasma talon"
+      ]
     }
   ],
   "abilities": [
     "Outflank, Terrain Expert, They Shall Know No Fear, Vanguard",
-    "Rad Poisoning: An enemy unit hit by a Rad grenade reduces its Toughness by -1 until the end of this unit's activation.",
     "Stasis Anomaly: An enemy unit hit by a Stasis grenade reduces its Ballistic Skill and Weapon Skill by -1 until the end of this unit's activation."
   ],
   "unit_type": "Bike",
