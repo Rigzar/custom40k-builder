@@ -495,16 +495,23 @@ export function UnitCard({ item }: Props) {
            slot instead of each costing their own. */}
       {data?.faction === 'Imperial Guard' && !item.factionSource && isPlatoonMemberUnit(item.unitName) && (() => {
         const anchors = listPlatoonAnchors(army);
-        if (anchors.length === 0) return null;
+        // The picker is shown even with no Platoon Command Squad in the list. Hiding it was a trap
+        // (Discord, a first-time Guard player): the validator says "every Infantry Squad must be
+        // linked to a Platoon Command Squad", and the control that would do the linking was not on
+        // the card, because the anchor it needs did not exist yet. An empty dropdown that names
+        // the missing piece answers the error where the error sends you looking.
         return (
           <div className="px-3 py-1.5 bg-zinc-900 border-b border-zinc-700 flex items-center gap-2">
             <span className="text-[10px] text-zinc-500 uppercase tracking-widest shrink-0">{t('platoonLabel')}</span>
             <select
               value={item.platoonId ?? ''}
               onChange={e => setPlatoonLink(item.id, e.target.value || null)}
-              className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700"
+              disabled={anchors.length === 0}
+              className="flex-1 bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700 disabled:text-zinc-500 disabled:border-zinc-700"
             >
-              <option value="">{t('independentOwnSlotOption')}</option>
+              {anchors.length === 0
+                ? <option value="">{t('platoonNoAnchorOption')}</option>
+                : <option value="">{t('independentOwnSlotOption')}</option>}
               {anchors.map(a => (
                 <option key={a.id} value={a.id}>
                   {a.customName || PLATOON_ANCHOR_UNIT} ({a.id.slice(0, 6)})

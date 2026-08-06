@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-ig-platoon-picker-hidden-01',
+    status: 'fixed',
+    title: 'Imperial Guard — the "↳ Platoon" picker was hidden until the army already had a Platoon Command Squad, so a new player could not satisfy the error telling them to link',
+    description: 'FIXED 2026-08-06 (v1.58), Discord report from a first-time Guard player. UnitCard.tsx returned null for the whole platoon bar when listPlatoonAnchors() came back empty, which is exactly the state the validator complains about — the error said "every Infantry Squad must be linked to a Platoon Command Squad" and the control that does the linking was not rendered, because the anchor it links to did not exist yet. The picker is now always rendered for platoon-member units; with no anchor it is disabled and reads "add a Platoon Command Squad first" (new i18n key platoonNoAnchorOption, EN/DE/ES). valPlatoonUnlinkedInfantry also gained the two concrete steps in all three languages. No rules or slot behaviour changed.',
+  },
+  {
     id: 'ki-plague-ammunition-squad-wide-01',
     status: 'fixed',
     title: 'Chaos Space Marines (GitHub #73) — "Plague ammunition" gave Poison(3+) to the whole squad, not just the champion who bought it',

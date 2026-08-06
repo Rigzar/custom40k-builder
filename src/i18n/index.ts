@@ -122,7 +122,7 @@ export type TranslationKey =
   | 'noneChosenYet' | 'onePowerLabel' | 'fromWord' | 'selectedCountSuffix' | 'modeNFromAnyPart1' | 'powersWord'
   | 'modeNFromAnyPart2' | 'noDisciplinesAvailable' | 'chosenBadge' | 'includedBadge' | 'noDisciplineChosenWord'
   | 'setCustomNameTitle' | 'copyUnitTitle' | 'favoredBadge' | 'lockedSuffix' | 'archetypeSuffix' | 'joinsLabel'
-  | 'noUnitOption' | 'platoonLabel' | 'independentOwnSlotOption' | 'markOfChaosLabel' | 'noneOption'
+  | 'noUnitOption' | 'platoonLabel' | 'independentOwnSlotOption' | 'platoonNoAnchorOption' | 'markOfChaosLabel' | 'noneOption'
   | 'costFlat10Suffix' | 'costPerWound1Suffix' | 'costPerWound2Suffix' | 'ctanShardTakenLabel' | 'yngirToggleLabel'
   | 'lasgunSwapLabel' | 'hotshotSwapLabel' | 'defaultLoadoutLabel' | 'liveProfileLabel' | 'profileLabel'
   | 'subfactionLabel' | 'combatDrugsLabel'
@@ -547,6 +547,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noUnitOption: '— no unit —',
     platoonLabel: '↳ Platoon',
     independentOwnSlotOption: '— independent (own slot) —',
+    platoonNoAnchorOption: '— add a Platoon Command Squad first —',
     markOfChaosLabel: '↳ Mark of Chaos',
     noneOption: '— none —',
     costFlat10Suffix: '(+10pts flat)',
@@ -680,7 +681,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valLowExceeds33: 'Lords of War exceed 33% of points ({pts}/{cap}).',
     valLowOk: 'Lords of War: {pts} pts (≤33% = {cap}).',
     valPlatoonLinkedCount: '{pcs}: {count} linked {member} (allowed {min}-{max}).',
-    valPlatoonUnlinkedInfantry: '{count} Infantry Squad(s) are not linked to a Platoon Command Squad — every Infantry Squad must belong to a platoon (2-5 per Platoon Command Squad).',
+    valPlatoonUnlinkedInfantry: '{count} Infantry Squad(s) are not linked to a Platoon Command Squad — every Infantry Squad must belong to a platoon (2-5 per Platoon Command Squad). Add a Platoon Command Squad, then pick it in the "↳ Platoon" dropdown on each squad.',
     valSlotOverMax: '{slot} over maximum ({used}/{max}).',
     valUsingAops: 'Using {n} AOPs.',
     valAlliedNeedAtLeast: 'Allied detachment: need at least {min} {slot} (have {used}).',
@@ -1110,6 +1111,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noUnitOption: '— keine Einheit —',
     platoonLabel: '↳ Zug',
     independentOwnSlotOption: '— eigenständig (eigener Slot) —',
+    platoonNoAnchorOption: '— zuerst einen Zugkommandotrupp aufstellen —',
     markOfChaosLabel: '↳ Mal des Chaos',
     noneOption: '— keines —',
     costFlat10Suffix: '(+10Pkt pauschal)',
@@ -1243,7 +1245,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valLowExceeds33: 'Lords of War überschreiten 33% der Punkte ({pts}/{cap}).',
     valLowOk: 'Lords of War: {pts} Pkt (≤33% = {cap}).',
     valPlatoonLinkedCount: '{pcs}: {count} verknüpfte {member} (erlaubt {min}-{max}).',
-    valPlatoonUnlinkedInfantry: '{count} Infanterietrupp(s) sind mit keinem Zugkommandotrupp verknüpft — jeder Infanterietrupp muss zu einem Zug gehören (2-5 pro Zugkommandotrupp).',
+    valPlatoonUnlinkedInfantry: '{count} Infanterietrupp(s) sind mit keinem Zugkommandotrupp verknüpft — jeder Infanterietrupp muss zu einem Zug gehören (2-5 pro Zugkommandotrupp). Stelle einen Zugkommandotrupp auf und wähle ihn dann im Feld „↳ Zug" jedes Trupps aus.',
     valSlotOverMax: '{slot} über Maximum ({used}/{max}).',
     valUsingAops: 'Verwendet {n} AOPs.',
     valAlliedNeedAtLeast: 'Verbündete Abteilung: mindestens {min} {slot} benötigt (haben {used}).',
@@ -1673,6 +1675,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noUnitOption: '— ninguna unidad —',
     platoonLabel: '↳ Pelotón',
     independentOwnSlotOption: '— independiente (slot propio) —',
+    platoonNoAnchorOption: '— añade antes un Escuadrón de Mando de Pelotón —',
     markOfChaosLabel: '↳ Marca del Caos',
     noneOption: '— ninguna —',
     costFlat10Suffix: '(+10pts fijo)',
@@ -1806,7 +1809,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valLowExceeds33: 'Los Lords of War exceden el 33% de los puntos ({pts}/{cap}).',
     valLowOk: 'Lords of War: {pts} pts (≤33% = {cap}).',
     valPlatoonLinkedCount: '{pcs}: {count} {member} vinculados (permitido {min}-{max}).',
-    valPlatoonUnlinkedInfantry: '{count} Escuadra(s) de Infantería sin vincular a un Escuadrón de Mando de Pelotón — toda Escuadra de Infantería debe pertenecer a un pelotón (2-5 por Escuadrón de Mando).',
+    valPlatoonUnlinkedInfantry: '{count} Escuadra(s) de Infantería sin vincular a un Escuadrón de Mando de Pelotón — toda Escuadra de Infantería debe pertenecer a un pelotón (2-5 por Escuadrón de Mando). Añade un Escuadrón de Mando de Pelotón y elígelo en el desplegable "↳ Pelotón" de cada escuadra.',
     valSlotOverMax: '{slot} por encima del máximo ({used}/{max}).',
     valUsingAops: 'Usando {n} AOPs.',
     valAlliedNeedAtLeast: 'Destacamento aliado: se necesitan al menos {min} {slot} (tienes {used}).',

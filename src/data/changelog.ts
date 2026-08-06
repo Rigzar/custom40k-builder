@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.58',
+    date: '2026-08-06',
+    title: 'Imperial Guard: the platoon link is findable now',
+    changes: [
+      'Imperial Guard — the "↳ Platoon" dropdown was hidden until the army already contained a Platoon Command Squad. That made the rule impossible to follow for anyone meeting it for the first time: the list said "every Infantry Squad must be linked to a Platoon Command Squad", and the control that does the linking was not on the card, because the thing it links to did not exist yet. The dropdown is now always on the card, and when there is no Platoon Command Squad in the list it says so — "add a Platoon Command Squad first". The error message also spells out both steps. Nothing about the rule changed: a platoon is one Platoon Command Squad plus 2-5 Infantry Squads, optionally 0-1 Conscript Infantry Platoon, 0-2 Special Weapon Squads and 0-3 Heavy Weapon Squads, all sharing that squad\'s single Troops slot (Discord report).',
+      'GENERAL — the v1.57 landing note read "“ward save” is now “ward save” everywhere", because the rename swept over the sentence that was announcing it. It now reads as intended.',
+    ],
+  },
+  {
     version: '1.57',
     date: '2026-08-04',
     title: 'Necrons codex 1.1 — the Cryptek rework; Core Rules glossary rewritten from the new rulebook',

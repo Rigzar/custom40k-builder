@@ -239,6 +239,72 @@ export function ktIsUnique(team: KtTeam, op: KtOperative): boolean {
   return op.value > ktTypical(team) * KT_UNIQUE_MULTIPLIER;
 }
 
+/* ── Armoury pricing at kill-team scale ─────────────────────────────────────────────────────── */
+
+/**
+ * The author's own cost tables, read straight out of `Codex/Points calculator_v5.4.xlsx`
+ * (sheet "Punkterechner v5", rows 47-72). His ranged formula is
+ *
+ *     (Range + Strength + AP) x Shots x Damage x SkillMultiplier
+ *
+ * and only the first bracket depends on the range.
+ */
+const KT_RANGE_COST: [number, number][] = [
+  [6, 0.5], [9, 1], [12, 1.5], [15, 2], [18, 2.5], [21, 3], [24, 3.5], [27, 4], [30, 4.5],
+  [33, 5], [36, 6], [39, 7], [42, 8], [45, 9], [48, 10.5], [51, 12], [54, 13.5], [57, 15],
+  [60, 16.5], [63, 18], [66, 19.5], [69, 21], [72, 22.5],
+];
+const KT_S_COST: Record<number, number> = { 1: 0.5, 2: 1.5, 3: 2.5, 4: 3.5, 5: 4.5, 6: 5.5, 7: 6.5, 8: 15, 9: 17, 10: 19 };
+const KT_AP_COST: Record<number, number> = { 0: -2, 1: 1, 2: 3, 3: 5, 4: 7, 5: 9, 6: 11 };
+
+function rangeCost(inches: number): number {
+  if (inches >= 72) return 24;
+  let last = 0.5;
+  for (const [v, c] of KT_RANGE_COST) { if (inches <= v) return c; last = c; }
+  return last;
+}
+
+/**
+ * What an Armory item costs an operative in this mode.
+ *
+ * Equipment, and any melee weapon, costs exactly what the author printed: his melee formula has no
+ * range term, so halving the board changes nothing about a power fist. A RANGED weapon does change,
+ * because every operative's own weapon was priced at half range and mixing the two scales would
+ * quietly make the leader's plasma pistol the most overpriced thing on the table.
+ *
+ * So a ranged weapon is scaled by the only part of his formula that moved — the (Range + S + AP)
+ * bracket, at half range over full range. Shots, Damage and the skill multiplier are identical in
+ * both, so they cancel and we never have to guess them. Multi-profile weapons are scaled on their
+ * longest profile, which is the one his sheet prices.
+ */
+export function ktArmoryValue(item: {
+  p_unit?: number | null; range?: string; s?: string; ap?: string;
+  profiles?: { range?: string; s?: string; ap?: string }[];
+}): number {
+  const base = item.p_unit ?? 0;
+  const modes = item.profiles?.length ? item.profiles : [item];
+  let best: { r: number; s: number; ap: number } | null = null;
+  for (const m of modes) {
+    const r = parseFloat(String(m.range ?? '').replace(/[^\d.]/g, ''));
+    if (!r) continue;                                  // melee, or no range printed
+    const s = parseInt(String(m.s ?? ''), 10);
+    const ap = Math.abs(parseInt(String(m.ap ?? ''), 10) || 0);
+    if (!best || r > best.r) best = { r, s: Number.isFinite(s) ? s : 4, ap };
+  }
+  if (!best) return base;
+  const flat = (KT_S_COST[best.s] ?? 3.5) + (KT_AP_COST[best.ap] ?? 0);
+  const full = rangeCost(best.r) + flat;
+  const half = rangeCost(best.r / 2) + flat;
+  if (full <= 0) return base;
+  return Math.round(base * (half / full) * 10) / 10;
+}
+
+/** Halve a printed range for display, so the card matches the price. */
+export function ktRange(range?: string): string {
+  const n = parseFloat(String(range ?? '').replace(/[^\d.]/g, ''));
+  return n ? `${Math.round(n / 2)}"` : (range ?? '-');
+}
+
 export interface KtBlock { title: string; body: string[] }
 
 export const KT_RULES: KtBlock[] = [
