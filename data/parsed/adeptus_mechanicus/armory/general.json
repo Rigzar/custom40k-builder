@@ -294,6 +294,18 @@
       "p_char": 1
     },
     {
+      "name": "Sulphur breath",
+      "term_compat": false,
+      "range": "9\"",
+      "type": "Pistol 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Flames",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
       "name": "Taser goad",
       "term_compat": false,
       "range": "-",
@@ -544,7 +556,10 @@
       "category": "veteran",
       "effect": {
         "stat_mod": [
-          { "stat": "M", "delta": 2 }
+          {
+            "stat": "M",
+            "delta": 2
+          }
         ]
       }
     },
@@ -557,7 +572,9 @@
       "p_veh": 2,
       "category": "veteran",
       "effect": {
-        "grants_abilities": ["Narthecium"]
+        "grants_abilities": [
+          "Narthecium"
+        ]
       }
     },
     {
@@ -569,7 +586,9 @@
       "p_veh": 2,
       "category": "veteran",
       "effect": {
-        "grants_abilities": ["Furious Charge"]
+        "grants_abilities": [
+          "Furious Charge"
+        ]
       }
     },
     {
@@ -581,7 +600,9 @@
       "p_veh": 0,
       "category": "veteran",
       "effect": {
-        "grants_abilities": ["Unyielding"]
+        "grants_abilities": [
+          "Unyielding"
+        ]
       }
     },
     {

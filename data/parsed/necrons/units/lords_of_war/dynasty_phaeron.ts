@@ -32,8 +32,8 @@ export const dynastyPhaeron: Unit = {
     {
       "name": "Triarchal Mehir",
       "points": 0,
-      "min": 1,
-      "max": 1,
+      "min": 2,
+      "max": 2,
       "stats": {
         "M": "12\"",
         "WS": "6+",

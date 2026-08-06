@@ -140,7 +140,7 @@ export const magos: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Decimate"
+      "abilities": "Flames, Rad"
     },
     {
       "name": "Rotor cannon",

@@ -58,7 +58,7 @@ export const battleFortress: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2), Explosive"
+      "abilities": "AT(3), Explosive"
     },
     {
       "name": "Deff kannon",
@@ -76,7 +76,7 @@ export const battleFortress: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Anti-air, Explosive, Sunder(1)"
+      "abilities": "AT(1), Anti-air, Explosive, Sunder(1)"
     },
     {
       "name": "Gigashoota",
@@ -85,7 +85,7 @@ export const battleFortress: Unit = {
       "s": "6",
       "ap": "-2",
       "d": "1",
-      "abilities": "Deflagrate(6+)"
+      "abilities": "AT(1), Deflagrate(6+)"
     },
     {
       "name": "Grot bomm",
@@ -148,7 +148,7 @@ export const battleFortress: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Anti-air"
+      "abilities": "AT(2)"
     },
     {
       "name": "Skorcha",
@@ -166,7 +166,7 @@ export const battleFortress: Unit = {
       "s": "7",
       "ap": "-2",
       "d": "2",
-      "abilities": "Colossal Blast, Indirect"
+      "abilities": "AT(1), Colossal Blast, Indirect"
     },
     {
       "name": "Supa-kannon",
@@ -184,7 +184,7 @@ export const battleFortress: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "Ammo(2), AT(2), Barrage"
+      "abilities": "Ammo(1), AT(2), Barrage"
     },
     {
       "name": "Twin-linked big shoota",
@@ -211,7 +211,7 @@ export const battleFortress: Unit = {
       "s": "2D6",
       "ap": "-4",
       "d": "3",
-      "abilities": "AT(2)"
+      "abilities": "AT(3)"
     }
   ],
   "option_groups": [

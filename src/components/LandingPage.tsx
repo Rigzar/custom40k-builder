@@ -15,7 +15,7 @@ import { CHANGELOG } from '../data/changelog';
 import { ENGAGEMENTS } from '../engine/engagements';
 import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v158_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v158b_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
@@ -25,7 +25,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: '',
     line1: '⚔ Imperial Guard — the “↳ Platoon” dropdown only appeared once your list already held a Platoon Command Squad. So a new player added Infantry Squads, was told every one of them must be linked to a Platoon Command Squad, and found no control anywhere on the card to do it — because the thing it links to did not exist yet. The dropdown is now always there, and when the list has no Platoon Command Squad it says “add a Platoon Command Squad first”. The error message spells out both steps too. The rule itself is unchanged: one Platoon Command Squad plus 2-5 Infantry Squads, optionally a Conscript Infantry Platoon, up to two Special Weapon Squads and up to three Heavy Weapon Squads, all sharing that one Troops slot.',
     line2: '📖 Everyone — the v1.57 note here managed to say ““ward save” is now “ward save” everywhere”, because the rename swept over the sentence announcing it. Fixed. It was meant to say that what used to be called an invulnerability save is now a ward save.',
-    line3: '',
+    line3: '⚙ Adeptus Mechanicus — re-audited against the new document. The Rad cleanser, the Rad engine and the Twin-linked rad cleanser now carry “Rad” instead of “Decimate”. Those are two different rules: Decimate adds +1 to wound rolls and does nothing to vehicles, Rad takes a point of Toughness off the target until the end of its next activation. So this changes what those three weapons DO. The Radium weapons keep Decimate. · ⚔ Escalation — the Ork Battle Fortress had seven weapon abilities out of date: Big zzappa and Zzap gun are AT(3), the Flakka gunz, Gigashoota and Supa-lobba each gained AT(1), the Supa rokkit is Ammo(1), and the Twin-linked rokkit launcha lost Anti-air. The Necron Dynasty Phaeron brings two Triarchal Mehir, not one — free, they were just missing.',
     line4: '',
     line5: '',
     line6: '',
@@ -37,7 +37,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: '',
     line1: '⚔ Imperial Guard — das Feld „↳ Zug“ erschien erst, wenn die Liste bereits einen Zugkommandotrupp enthielt. Ein neuer Spieler stellte also Infanterietrupps auf, bekam gesagt, jeder davon müsse mit einem Zugkommandotrupp verknüpft sein — und fand auf der Karte nirgends ein Bedienelement dafür, weil das Ziel der Verknüpfung noch gar nicht existierte. Das Feld ist jetzt immer da und sagt, wenn kein Zugkommandotrupp in der Liste steht: „zuerst einen Zugkommandotrupp aufstellen“. Auch die Fehlermeldung nennt jetzt beide Schritte. Die Regel selbst bleibt gleich: ein Zugkommandotrupp plus 2-5 Infanterietrupps, dazu optional ein Conscript Infantry Platoon, bis zu zwei Special Weapon Squads und bis zu drei Heavy Weapon Squads, alle im selben Troops-Slot.',
     line2: '📖 Für alle — der v1.57-Hinweis an dieser Stelle schaffte es, „„Ward Save“ heißt jetzt überall „Ward Save““ zu schreiben, weil die Umbenennung über genau den Satz lief, der sie ankündigte. Behoben. Gemeint war: was früher Invulnerability Save hieß, heißt jetzt Ward Save.',
-    line3: '',
+    line3: '⚙ Adeptus Mechanicus — gegen das neue Dokument geprüft. Rad cleanser, Rad engine und Twin-linked rad cleanser tragen jetzt „Rad“ statt „Decimate“. Das sind zwei verschiedene Regeln: Decimate gibt +1 auf Verwundungswürfe und wirkt nicht gegen Fahrzeuge, Rad nimmt dem Ziel bis zum Ende seiner nächsten Aktivierung einen Punkt Widerstand. Es ändert also, was diese drei Waffen TUN. Die Radium-Waffen behalten Decimate. · ⚔ Escalation — beim Ork Battle Fortress waren sieben Waffenfähigkeiten veraltet: Big zzappa und Zzap gun sind AT(3), Flakka gunz, Gigashoota und Supa-lobba bekamen je AT(1), die Supa rokkit hat Ammo(1), und die Twin-linked rokkit launcha verlor Anti-air. Der Necron Dynasty Phaeron bringt zwei Triarchal Mehir mit, nicht einen — kostenlos, sie fehlten schlicht.',
     line4: '',
     line5: '',
     line6: '',
@@ -49,7 +49,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     install: '',
     line1: '⚔ Imperial Guard — el desplegable “↳ Pelotón” solo aparecía si la lista ya tenía un Escuadrón de Mando de Pelotón. Así que un jugador nuevo añadía Escuadras de Infantería, se le decía que todas debían estar vinculadas a un Escuadrón de Mando de Pelotón, y no encontraba en la ficha ningún control para hacerlo — porque aquello a lo que hay que vincularlas todavía no existía. Ahora el desplegable está siempre, y si no hay ningún Escuadrón de Mando en la lista lo dice: “añade antes un Escuadrón de Mando de Pelotón”. El mensaje de error también explica los dos pasos. La regla no cambia: un Escuadrón de Mando de Pelotón más 2-5 Escuadras de Infantería, y opcionalmente un Conscript Infantry Platoon, hasta dos Special Weapon Squads y hasta tres Heavy Weapon Squads, todos compartiendo ese único slot de Troops.',
     line2: '📖 Para todos — la nota de v1.57 de aquí llegó a decir ““ward save” ahora es “ward save” en todas partes”, porque el renombrado pasó por encima de la propia frase que lo anunciaba. Arreglado. Lo que quería decir es que lo que antes se llamaba tirada de invulnerable ahora se llama ward save.',
-    line3: '',
+    line3: '⚙ Adeptus Mechanicus — reauditado contra el documento nuevo. El Rad cleanser, el Rad engine y el Twin-linked rad cleanser llevan ahora “Rad” en vez de “Decimate”. Son dos reglas distintas: Decimate da +1 a las tiradas para herir y no hace nada a vehículos, Rad le quita un punto de Resistencia al objetivo hasta el final de su siguiente activación. Así que cambia lo que HACEN esas tres armas. Las armas Radium mantienen Decimate. · ⚔ Escalation — el Battle Fortress orko tenía siete habilidades de arma desactualizadas: Big zzappa y Zzap gun son AT(3), Flakka gunz, Gigashoota y Supa-lobba ganan AT(1), la Supa rokkit es Ammo(1), y la Twin-linked rokkit launcha pierde Anti-air. El Dynasty Phaeron necrón trae dos Triarchal Mehir, no uno — gratis, sencillamente faltaban.',
     line4: '',
     line5: '',
     line6: '',

@@ -103,7 +103,7 @@ export const macrocaridExplorator: Unit = {
       "s": "6",
       "ap": "-3",
       "d": "1",
-      "abilities": "Flames, Decimate"
+      "abilities": "Flames, Rad"
     },
     {
       "name": "Storm bolter",
@@ -139,7 +139,7 @@ export const macrocaridExplorator: Unit = {
       "s": "5",
       "ap": "-1",
       "d": "1",
-      "abilities": "Flames, Decimate"
+      "abilities": "Flames, Rad"
     },
     {
       "name": "Twin-linked plasma fusil - Standard",

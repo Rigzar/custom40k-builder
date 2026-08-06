@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-escalation-zzap-gun-cells-01',
+    status: 'known',
+    title: 'Escalation — the Ork Battle Fortress Zzap gun has an unreadable AP and a Damage cell the spreadsheet turned into a date',
+    description: 'FOUND 2026-08-06 while re-auditing Escalation.ods. On the "Battle Fortress" tab the Zzap gun row reads AP "26-12" and Damage "2-1", and the Damage cell is stored as a DATE (office:date-value 1900-01-02) rather than text — the spreadsheet reinterpreted what was typed. Neither value is usable as a rule, and nothing in the sheet says what they should be, so the app keeps the previously printed AP -4 / Damage 3 until the author rules on it. Only the ability was updated (AT(2) to AT(3)), which that row states plainly. Asked on Discord.',
+  },
+  {
+    id: 'ki-admech-volkite-serpenta-damage-01',
+    status: 'known',
+    title: 'Adeptus Mechanicus — the Volkite serpenta is printed with Damage -1',
+    description: 'FOUND 2026-08-06 re-auditing Adeptus Mechanicus ENG.ods. The Armory tab gives the Volkite serpenta Damage "-1"; damage cannot be negative, and every other Volkite weapon in the game does 1. Production carries the sheet\'s value verbatim rather than guessing. Same tab: "Mindscanner probe" has no price in either column, so it cannot be bought. Both asked on Discord.',
+  },
+  {
     id: 'ki-ig-platoon-picker-hidden-01',
     status: 'fixed',
     title: 'Imperial Guard — the "↳ Platoon" picker was hidden until the army already had a Platoon Command Squad, so a new player could not satisfy the error telling them to link',
