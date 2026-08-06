@@ -274,27 +274,34 @@ function rangeCost(inches: number): number {
  *
  * So a ranged weapon is scaled by the only part of his formula that moved — the (Range + S + AP)
  * bracket, at half range over full range. Shots, Damage and the skill multiplier are identical in
- * both, so they cancel and we never have to guess them. Multi-profile weapons are scaled on their
- * longest profile, which is the one his sheet prices.
+ * both, so they cancel and we never have to guess them.
+ *
+ * A multi-profile weapon is scaled on its MOST EXPENSIVE profile, because that is the one his sheet
+ * priced (his own note: only the dearest mode is paid for). Ranking by bracket x damage is enough
+ * to pick it — a Plasma pistol's Overcharged mode wins on S8/AP-4/D2 over the Standard S7/AP-3/D1,
+ * and it is the mode that set the printed 10 points.
  */
 export function ktArmoryValue(item: {
-  p_unit?: number | null; range?: string; s?: string; ap?: string;
-  profiles?: { range?: string; s?: string; ap?: string }[];
+  p_unit?: number | null; range?: string; s?: string; ap?: string; d?: string;
+  profiles?: { range?: string; s?: string; ap?: string; d?: string }[];
 }): number {
   const base = item.p_unit ?? 0;
   const modes = item.profiles?.length ? item.profiles : [item];
-  let best: { r: number; s: number; ap: number } | null = null;
+  let best: { r: number; flat: number } | null = null;
+  let bestWorth = -Infinity;
   for (const m of modes) {
     const r = parseFloat(String(m.range ?? '').replace(/[^\d.]/g, ''));
     if (!r) continue;                                  // melee, or no range printed
     const s = parseInt(String(m.s ?? ''), 10);
     const ap = Math.abs(parseInt(String(m.ap ?? ''), 10) || 0);
-    if (!best || r > best.r) best = { r, s: Number.isFinite(s) ? s : 4, ap };
+    const dmg = parseFloat(String(m.d ?? '1').replace(/[^\d.]/g, '')) || 1;
+    const flat = (KT_S_COST[Number.isFinite(s) ? s : 4] ?? 3.5) + (KT_AP_COST[ap] ?? 0);
+    const worth = (rangeCost(r) + flat) * dmg;
+    if (worth > bestWorth) { bestWorth = worth; best = { r, flat }; }
   }
   if (!best) return base;
-  const flat = (KT_S_COST[best.s] ?? 3.5) + (KT_AP_COST[best.ap] ?? 0);
-  const full = rangeCost(best.r) + flat;
-  const half = rangeCost(best.r / 2) + flat;
+  const full = rangeCost(best.r) + best.flat;
+  const half = rangeCost(best.r / 2) + best.flat;
   if (full <= 0) return base;
   return Math.round(base * (half / full) * 10) / 10;
 }

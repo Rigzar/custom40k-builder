@@ -37,6 +37,8 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
   const [teamKey, setTeamKey] = useState(KT_TEAMS[0].key);
   const [roster, setRoster] = useState<Pick[]>([]);
   const [seq, setSeq] = useState(1);
+  /** Which half of the leader's Armory is on screen — 'w'eapons or wargea'g'. */
+  const [armTab, setArmTab] = useState<'w' | 'g'>('w');
   const team = KT_TEAMS.find(t => t.key === teamKey) as KtTeam;
 
   /**
@@ -251,28 +253,41 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                   {op.leader && (
                     <div className="mt-1">
                       <p className="text-sky-400/80 text-[10px] mb-1">{L.armory}{armory.length ? ` (${armory.length})` : '…'}</p>
-                      <select
-                        value=""
-                        onChange={e => { const v = e.target.value; if (!v) return;
-                          setRoster(r => r.map(x => (x.id === p.id && !x.armory.includes(v) ? { ...x, armory: [...x.armory, v] } : x))); }}
-                        className="w-full bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] text-zinc-300 focus:outline-none focus:border-sky-700"
-                      >
-                        <option value="">{L.addArmory}</option>
-                        <optgroup label={L.armWeapons}>
-                          {armory.filter(i => i.weaponItem).map(i => (
-                            <option key={i.name} value={i.name} disabled={p.armory.includes(i.name)}>
-                              {i.name} — {ktArmoryValue(i).toFixed(1)}
-                            </option>
-                          ))}
-                        </optgroup>
-                        <optgroup label={L.armGear}>
-                          {armory.filter(i => !i.weaponItem).map(i => (
-                            <option key={i.name} value={i.name} disabled={p.armory.includes(i.name)}>
-                              {i.name} — {ktArmoryValue(i).toFixed(1)}
-                            </option>
-                          ))}
-                        </optgroup>
-                      </select>
+                      {/* Two sub-tabs and a browsable list rather than one dropdown: weapons and
+                          wargear read as different things, and a weapon is unpickable without its
+                          profile next to the price. Same shape as the builder's own Armory. */}
+                      <div className="flex gap-1 mb-1">
+                        {([['w', L.armWeapons], ['g', L.armGear]] as const).map(([k, label]) => (
+                          <button
+                            key={k}
+                            onClick={() => setArmTab(k)}
+                            className={`px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider border ${
+                              armTab === k ? 'border-sky-700 text-sky-300 bg-sky-950/40' : 'border-zinc-800 text-zinc-500 hover:text-zinc-300'}`}
+                          >{label} ({armory.filter(i => i.weaponItem === (k === 'w')).length})</button>
+                        ))}
+                      </div>
+                      <div className="border border-zinc-800 max-h-52 overflow-y-auto">
+                        {armory.filter(i => i.weaponItem === (armTab === 'w')).map(i => {
+                          const has = p.armory.includes(i.name);
+                          return (
+                            <div key={i.name} className="flex items-start gap-2 px-2 py-1 border-b border-zinc-900 last:border-b-0">
+                              <button
+                                onClick={() => setRoster(r => r.map(x => (x.id === p.id && !x.armory.includes(i.name) ? { ...x, armory: [...x.armory, i.name] } : x)))}
+                                disabled={has}
+                                className="shrink-0 mt-0.5 px-1.5 border border-zinc-700 text-zinc-400 text-[10px] font-mono
+                                           hover:text-sky-300 hover:border-sky-800 disabled:opacity-30 disabled:cursor-not-allowed"
+                              >+</button>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-baseline gap-2">
+                                  <span className={`text-[11px] ${has ? 'text-zinc-600' : 'text-zinc-200'}`}>{i.name}</span>
+                                  <span className="text-zinc-600 text-[10px] font-mono ml-auto shrink-0">{ktArmoryValue(i).toFixed(1)}</span>
+                                </div>
+                                <p className="text-zinc-500 text-[10px] font-mono leading-snug">{armoryProfile(i)}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
                       {p.armory.map(n => {
                         const it = armBy.get(n);
                         return (
