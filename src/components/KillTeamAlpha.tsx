@@ -1,4 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { FACTION_LOADERS } from '../data/loaders';
+import type { ArmoryItem } from '../types/data';
 import {
   KT_TEAMS, KT_RULES, KT_ALPHA, KT_BUDGET, KT_MIN_OPERATIVES, KT_MAX_OPERATIVES,
   ktIsUnique, ktTeamSize, type KtTeam, type KtOperative,
@@ -20,7 +22,7 @@ import {
  * terms before anyone plays them.
  */
 
-interface Pick { id: number; op: string; equip: string }
+interface Pick { id: number; op: string; equip: string; weapon?: string; armory: string[] }
 
 export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
   const [teamKey, setTeamKey] = useState(KT_TEAMS[0].key);
@@ -28,33 +30,82 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
   const [seq, setSeq] = useState(1);
   const team = KT_TEAMS.find(t => t.key === teamKey) as KtTeam;
 
+  /**
+   * The leader's Armory, pulled from the real faction data rather than restated here — general
+   * plus its Mark's, which is exactly what the builder gives a squad champion. Loaded lazily
+   * because a faction dataset is megabytes and most of this screen does not need it.
+   */
+  const [armory, setArmory] = useState<ArmoryItem[]>([]);
+  useEffect(() => {
+    let alive = true;
+    // The clear happens inside the promise, not before it: emptying the list synchronously here
+    // makes React re-render twice for every team change and the linter is right to say so.
+    FACTION_LOADERS[team.faction]?.().then(d => {
+      if (!alive) return;
+      const gen = (d.armory_general?.equipment ?? []) as ArmoryItem[];
+      const mk = (team.mark ? (d.armory_marks?.[team.mark]?.equipment ?? []) : []) as ArmoryItem[];
+      // A squad champion pays the unit column, not the character one (ArmoryModal, ki-armory-
+      // pchar-truechar-only-01), so an item with no p_unit is not for it.
+      // Curated for this scale rather than handed over whole: an item is out if it prices only
+      // for vehicles, if it works on "the attached unit" (there are no squads here), or if it is
+      // a psychic hook (powers are out of the alpha). Armours stay in, Terminator plate included —
+      // it is one of the few upgrades that visibly changes an operative, which is the point.
+      const OUT = /only for (vehicle|warpsmith|lord|sorcerer|dark apostle)|attached unit|psychic|psyker|daemon unit|deep ?strike.*scatter/i;
+      setArmory([...gen, ...mk]
+        .filter((i: ArmoryItem) => i.p_unit != null && i.p_unit !== 0)
+        .filter((i: ArmoryItem) => !i.category)
+        .filter((i: ArmoryItem) => !OUT.test(String(i.desc ?? '')))
+        .sort((a: ArmoryItem, b: ArmoryItem) => (a.p_unit ?? 0) - (b.p_unit ?? 0)));
+    }).catch(() => {});
+    return () => { alive = false; };
+  }, [team]);
+
   const L = {
     en: { budget: 'budget', operatives: 'operatives', clear: 'Clear', once: 'once only',
           leader: 'leader', over: 'over budget', under: 'room left', tooFew: 'too few operatives',
           tooMany: 'too many operatives', ok: 'legal team', suggested: 'suggested size',
           abilities: 'Team rules', roster: 'Your kill team', pick: 'Add', none: '— no equipment —',
-          taken: 'taken', available: 'Operatives', equipHead: 'Equipment — one per operative, never the same twice',
+          taken: 'taken', available: 'Operatives', equipHead: 'Equipment — one per operative; only “Unique” items are one per team',
+          keepWeapon: 'keep', addArmory: 'Add from the Armory…',
           armory: 'Leader: also has Armory access (general + Mark), same as in the builder.' },
     de: { budget: 'Budget', operatives: 'Operative', clear: 'Leeren', once: 'nur einmal',
           leader: 'Anführer', over: 'über Budget', under: 'Rest', tooFew: 'zu wenige Operative',
           tooMany: 'zu viele Operative', ok: 'gültiges Team', suggested: 'empfohlene Größe',
           abilities: 'Teamregeln', roster: 'Dein Kill Team', pick: 'Hinzufügen', none: '— keine Ausrüstung —',
-          taken: 'vergeben', available: 'Operative', equipHead: 'Ausrüstung — eine je Operativem, nie zweimal dieselbe',
+          taken: 'vergeben', available: 'Operative', equipHead: 'Ausrüstung — eine je Operativem; nur „Unique“-Gegenstände einmal pro Team',
+          keepWeapon: 'behalten', addArmory: 'Aus der Rüstkammer…',
           armory: 'Anführer: hat zusätzlich Zugriff auf die Rüstkammer (allgemein + Mal), wie im Builder.' },
     es: { budget: 'presupuesto', operatives: 'operativos', clear: 'Vaciar', once: 'solo uno',
           leader: 'líder', over: 'te pasas', under: 'te queda', tooFew: 'faltan operativos',
           tooMany: 'sobran operativos', ok: 'equipo legal', suggested: 'tamaño sugerido',
           abilities: 'Reglas de equipo', roster: 'Tu kill team', pick: 'Añadir', none: '— sin equipo —',
-          taken: 'cogido', available: 'Operativos', equipHead: 'Equipo — uno por operativo, nunca el mismo dos veces',
+          taken: 'cogido', available: 'Operativos', equipHead: 'Equipo — uno por operativo; solo los “Unique” son uno por equipo',
+          keepWeapon: 'mantener', addArmory: 'Añadir de la Armería…',
           armory: 'Líder: además tiene acceso a la Armería (general + Marca), igual que en el builder.' },
   }[lang];
 
   const opBy = useMemo(() => new Map(team.operatives.map(o => [o.name, o])), [team]);
-  const total = useMemo(() => roster.reduce((s, p) => s + (opBy.get(p.op)?.value ?? 0), 0), [roster, opBy]);
+  const armBy = useMemo(() => new Map(armory.map(i => [i.name, i])), [armory]);
+  /** An operative costs its own value, or the value of the weapon its leader swapped to, plus
+   *  whatever it bought from the Armory. */
+  function pickValue(p: Pick): number {
+    const base = p.weapon ? (opBy.get(p.weapon)?.value ?? 0) : (opBy.get(p.op)?.value ?? 0);
+    return base + p.armory.reduce((s, n) => s + (armBy.get(n)?.p_unit ?? 0), 0);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- pickValue is rebuilt each render from opBy/armBy, which ARE listed
+  const total = useMemo(() => roster.reduce((s, p) => s + pickValue(p), 0), [roster, opBy, armBy]);
   const count = roster.length;
   const suggested = ktTeamSize(team);
   const over = total > KT_BUDGET;
-  const takenEquip = useMemo(() => new Set(roster.map(p => p.equip).filter(Boolean)), [roster]);
+  /**
+   * Only equipment the Armory itself marks "Unique" is one per team. Everything else may be taken
+   * by as many operatives as want it — a squad where only one man may carry blessed ammunition is
+   * a rule nobody would write, and the data already says which items are actually one-of.
+   */
+  const takenEquip = useMemo(
+    () => new Set(roster.map(p => p.equip).filter(e => e && e.includes('Unique'))),
+    [roster],
+  );
 
   const status = count === 0 ? '' :
     count < KT_MIN_OPERATIVES ? L.tooFew :
@@ -68,7 +119,7 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
   }
   function add(op: KtOperative) {
     if (!canAdd(op)) return;
-    setRoster(r => [...r, { id: seq, op: op.name, equip: '' }]);
+    setRoster(r => [...r, { id: seq, op: op.name, equip: '', armory: [] }]);
     setSeq(n => n + 1);
   }
 
@@ -152,8 +203,20 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                     <span className="text-zinc-100 text-[12px] font-semibold">{op.name}</span>
                     {op.leader && <span className="text-[9px] uppercase px-1 border border-sky-800 text-sky-400">{L.leader}</span>}
                     <span className="text-zinc-500 text-[11px]">{op.weapon}</span>
-                    <span className="text-zinc-600 text-[10px] font-mono ml-auto">{op.value.toFixed(1)}</span>
+                    <span className="text-zinc-600 text-[10px] font-mono ml-auto">{pickValue(p).toFixed(1)}</span>
                   </div>
+                  {op.leader && (
+                    <select
+                      value={p.weapon ?? ''}
+                      onChange={e => setRoster(r => r.map(x => (x.id === p.id ? { ...x, weapon: e.target.value || undefined } : x)))}
+                      className="mt-1 w-full bg-zinc-900 border border-sky-900 px-2 py-1 text-[11px] text-sky-300 focus:outline-none focus:border-sky-700"
+                    >
+                      <option value="">{L.keepWeapon} — {op.weapon}</option>
+                      {team.operatives.filter(o => !o.leader).map(o => (
+                        <option key={o.name} value={o.name}>{o.weapon} ({o.value.toFixed(1)})</option>
+                      ))}
+                    </select>
+                  )}
                   <select
                     value={p.equip}
                     onChange={e => setRoster(r => r.map(x => (x.id === p.id ? { ...x, equip: e.target.value } : x)))}
@@ -167,7 +230,31 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                     })}
                   </select>
                   {p.equip && <p className="text-amber-500/90 text-[11px] mt-1 pl-3 border-l border-amber-900">{p.equip}</p>}
-                  {op.leader && <p className="text-sky-400/80 text-[10px] mt-1 pl-3 border-l border-sky-900">{L.armory}</p>}
+                  {op.leader && (
+                    <div className="mt-1">
+                      <p className="text-sky-400/80 text-[10px] mb-1">{L.armory}{armory.length ? ` (${armory.length})` : '…'}</p>
+                      <select
+                        value=""
+                        onChange={e => { const v = e.target.value; if (!v) return;
+                          setRoster(r => r.map(x => (x.id === p.id && !x.armory.includes(v) ? { ...x, armory: [...x.armory, v] } : x))); }}
+                        className="w-full bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] text-zinc-300 focus:outline-none focus:border-sky-700"
+                      >
+                        <option value="">{L.addArmory}</option>
+                        {armory.map(i => (
+                          <option key={i.name} value={i.name} disabled={p.armory.includes(i.name)}>
+                            {i.name} — {i.p_unit} pts
+                          </option>
+                        ))}
+                      </select>
+                      {p.armory.map(n => (
+                        <p key={n} className="text-sky-300/90 text-[11px] mt-1 pl-3 border-l border-sky-900 flex gap-2">
+                          <button onClick={() => setRoster(r => r.map(x => (x.id === p.id ? { ...x, armory: x.armory.filter(a => a !== n) } : x)))}
+                            className="text-zinc-600 hover:text-red-400">×</button>
+                          <span>{n} <span className="text-zinc-600 font-mono">{armBy.get(n)?.p_unit} pts</span></span>
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             })}

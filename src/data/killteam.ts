@@ -46,6 +46,9 @@ export interface KtTeam {
   key: string;
   name: string;
   subtitle: string;
+  /** Faction whose Armory the leader reaches, and the Mark armoury on top of it, if any. */
+  faction: string;
+  mark?: string;
   /** Datasheet the operatives are built from, and the body cost the calculator gives it. */
   source: string;
   body: number;
@@ -58,6 +61,8 @@ export interface KtTeam {
 export const KT_TEAMS: KtTeam[] = [
   {
     key: 'death_guard',
+    faction: 'chaos_space_marines',
+    mark: 'Nurgle',
     name: 'Death Guard',
     subtitle: 'Plague Marines',
     source: 'Chaos Space Marines — Plague Marines',
@@ -91,6 +96,8 @@ export const KT_TEAMS: KtTeam[] = [
   },
   {
     key: 'emperors_children',
+    faction: 'chaos_space_marines',
+    mark: 'Slaanesh',
     name: "Emperor's Children",
     subtitle: 'Noise Marines',
     source: 'Chaos Space Marines — Noise Marines',
@@ -124,6 +131,7 @@ export const KT_TEAMS: KtTeam[] = [
   },
   {
     key: 'space_marines',
+    faction: 'space_marines',
     name: 'Space Marines',
     subtitle: 'Tactical Squad',
     source: 'Space Marines — Tactical Squad',
@@ -155,6 +163,7 @@ export const KT_TEAMS: KtTeam[] = [
   },
   {
     key: 'imperial_guard',
+    faction: 'imperial_guard',
     name: 'Imperial Guard',
     subtitle: 'Veterans',
     source: 'Imperial Guard — Veterans',
