@@ -14,13 +14,12 @@ import type { Unit } from '../../../../../src/types/data';
 
 export const brotherhoodChampion: Unit = {
   "name": "Brotherhood Champion",
-  "models": [],
-  "variant_models": [
+  "models": [
     {
       "name": "Brotherhood Champion",
       "points": 104,
-      "min": 0,
-      "max": 0,
+      "min": 1,
+      "max": 1,
       "stats": {
         "M": "6\"",
         "WS": "2+",
@@ -35,6 +34,7 @@ export const brotherhoodChampion: Unit = {
       }
     }
   ],
+  "variant_models": [],
   "equipped_with": "A Brotherhood Champion is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
   "weapons": [
     {
@@ -111,7 +111,9 @@ export const brotherhoodChampion: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Nemesis force weapon"]
+      "replaces": [
+        "Nemesis force weapon"
+      ]
     },
     {
       "header": "Only one per army.",
@@ -144,6 +146,6 @@ export const brotherhoodChampion: Unit = {
   "locked_mark": null,
   "advisor": false,
   "slot": "HQ",
-  "default_size": 0,
-  "min_cost": 0
+  "default_size": 1,
+  "min_cost": 104
 };

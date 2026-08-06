@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-gk-star-model-count-01',
+    status: 'fixed',
+    title: 'Grey Knights — Brotherhood Champion and Captain had no stat line and cost 0 points',
+    description: 'FIXED 2026-08-06 (v1.58), Discord report with a screenshot. Both datasheets write "*" in the No. column instead of a model count — the author\'s footnote mark for the "Only one per army" line that follows in OPTIONS. The import could not read it as a number, so the model landed in `variant_models` with min 0 / max 0 and `models` stayed empty: the card rendered a stat header with no row, and `min_cost` was 0. Fixed by reading the mark as a single model — Brotherhood Champion 104, Captain 152, `default_size` and `min_cost` set. The one-per-army rule was never involved; it is a separate `unique_upgrade` option group and still applies. Swept every unit in every faction for the same signature (empty `models` with a populated `variant_models`): these two were the only ones, and no other Grey Knights sheet uses the mark.',
+  },
+  {
     id: 'ki-escalation-zzap-gun-cells-01',
     status: 'known',
     title: 'Escalation — the Ork Battle Fortress Zzap gun has an unreadable AP and a Damage cell the spreadsheet turned into a date',

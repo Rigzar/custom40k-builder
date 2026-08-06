@@ -14,13 +14,12 @@ import type { Unit } from '../../../../../src/types/data';
 
 export const captain: Unit = {
   "name": "Captain",
-  "models": [],
-  "variant_models": [
+  "models": [
     {
       "name": "Captain",
       "points": 152,
-      "min": 0,
-      "max": 0,
+      "min": 1,
+      "max": 1,
       "stats": {
         "M": "6\"",
         "WS": "2+",
@@ -35,6 +34,7 @@ export const captain: Unit = {
       }
     }
   ],
+  "variant_models": [],
   "equipped_with": "A Captain is equipped with: Nemesis force weapon; Storm bolter; Frag grenade; Krak grenade.",
   "weapons": [
     {
@@ -138,7 +138,9 @@ export const captain: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Nemesis force weapon"]
+      "replaces": [
+        "Nemesis force weapon"
+      ]
     },
     {
       "header": "Can replace the Storm bolter",
@@ -162,7 +164,9 @@ export const captain: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Storm bolter"]
+      "replaces": [
+        "Storm bolter"
+      ]
     },
     {
       "header": "Only one Captain or Captain in Nemesis Armor per army.",
@@ -196,6 +200,6 @@ export const captain: Unit = {
   "locked_mark": null,
   "advisor": false,
   "slot": "HQ",
-  "default_size": 0,
-  "min_cost": 0
+  "default_size": 1,
+  "min_cost": 152
 };
