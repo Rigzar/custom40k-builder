@@ -276,6 +276,15 @@ function mergeAlliedIntoData(data: FactionData, alliedFaction: string | undefine
   };
 }
 
+/**
+ * Every field a fresh army starts from. `clearArmy` and the faction switch both spread this, and
+ * Zustand's `set` MERGES — so a field missing here is a field that survives a clear.
+ *
+ * The allied ones were missing, which is why a new army silently kept the previous army's Allied
+ * Detachment: it stayed in the store, counted against the point limit and showed up in the slot
+ * maths, with nothing on screen explaining where it came from (user report 2026-08-06). Anything
+ * added to ArmyState from now on belongs here too, even when its resting value is `undefined`.
+ */
 const defaultState: ArmyState = {
   armyName: '',
   faction: 'Chaos Space Marines',
@@ -288,6 +297,10 @@ const defaultState: ArmyState = {
   legacy2: '',
   traitPool: [],
   army: [],
+  alliedFaction: undefined,
+  alliedArchetype: '',
+  alliedLegacy: '',
+  alliedTraitPool: [],
 };
 
 type S = ArmyStore;

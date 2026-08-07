@@ -710,14 +710,16 @@ export function UnitCard({ item }: Props) {
               )}
             </div>
             <div className="overflow-x-auto">
-            {/* table-fixed with a narrow model column: a vehicle profile is twelve columns wide and
-                on a phone the last of them — Pts — was off-screen behind a drag. Fixed layout lets
-                the stat cells share what is left evenly and the model name wrap, which fits the
-                common cases outright; the scroll stays as the fallback for the widest sheets. */}
-            <table className="w-full table-fixed text-xs border-collapse">
+            {/* Deliberately NOT table-fixed. It was, briefly, to stop the Pts column falling off a
+                phone — but equal columns are wrong for this table: a vehicle profile is twelve
+                columns of very different widths, and forcing 33px each made "FRONT" spill over
+                "SIDE" and the header row overlap itself. Auto layout gives each header the room it
+                needs; the scroll below is the honest answer for a table this wide. The padding is
+                still trimmed on small screens so it fits outright far more often. */}
+            <table className="w-full text-xs border-collapse">
               <thead>
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
-                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide w-[22%] break-words">{t('modelHeader')}</th>
+                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">{t('modelHeader')}</th>
                   {statKeys.map(k => {
                     const label = k === 'InvSv' ? 'Ward' : k;
                     const icon = STAT_ICONS[k];

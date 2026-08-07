@@ -90,8 +90,10 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
           taken: 'taken', available: 'Operatives', equipHead: 'Equipment — one per operative; only “Unique” items are one per team',
           keepWeapon: 'keep', addArmory: 'Add from the Armory…',
           teamGear: 'Team equipment', carrying: 'Carrying',
-          armWeapons: 'Weapons', armGear: 'Wargear',
-          armory: 'Armory (general + Mark) \u2014 a weapon here REPLACES the leader\u2019s own; wargear is added on top.' },
+          armWeapons: 'Replace weapon', armGear: 'Add equipment',
+          armoryHint: 'may swap it for one of these, and buy equipment on top',
+          swapBack: 'back to', replaces: 'replaces',
+          armory: 'Armory (general + Mark)' },
     de: { budget: 'Budget', operatives: 'Operative', clear: 'Leeren', once: 'nur einmal',
           leader: 'Anführer', over: 'über Budget', under: 'Rest', tooFew: 'zu wenige Operative',
           tooMany: 'zu viele Operative', ok: 'gültiges Team', suggested: 'empfohlene Größe',
@@ -99,8 +101,10 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
           taken: 'vergeben', available: 'Operative', equipHead: 'Ausrüstung — eine je Operativem; nur „Unique“-Gegenstände einmal pro Team',
           keepWeapon: 'behalten', addArmory: 'Aus der Rüstkammer…',
           teamGear: 'Team-Ausr\u00fcstung', carrying: 'Tr\u00e4gt',
-          armWeapons: 'Waffen', armGear: 'Ausrüstung',
-          armory: 'Anführer: hat zusätzlich Zugriff auf die Rüstkammer (allgemein + Mal), wie im Builder.' },
+          armWeapons: 'Waffe tauschen', armGear: 'Ausrüstung kaufen',
+          armoryHint: 'darf sie gegen eine davon tauschen und zus\u00e4tzlich Ausr\u00fcstung kaufen',
+          swapBack: 'zur\u00fcck zu', replaces: 'ersetzt',
+          armory: 'R\u00fcstkammer (allgemein + Mal)' },
     es: { budget: 'presupuesto', operatives: 'operativos', clear: 'Vaciar', once: 'solo uno',
           leader: 'líder', over: 'te pasas', under: 'te queda', tooFew: 'faltan operativos',
           tooMany: 'sobran operativos', ok: 'equipo legal', suggested: 'tamaño sugerido',
@@ -108,8 +112,10 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
           taken: 'cogido', available: 'Operativos', equipHead: 'Equipo — uno por operativo; solo los “Unique” son uno por equipo',
           keepWeapon: 'mantener', addArmory: 'Añadir de la Armería…',
           teamGear: 'Equipo del equipo', carrying: 'Lleva',
-          armWeapons: 'Armas', armGear: 'Equipo',
-          armory: 'Líder: además tiene acceso a la Armería (general + Marca), igual que en el builder.' },
+          armWeapons: 'Cambiar arma', armGear: 'Comprar equipo',
+          armoryHint: 'puede cambiarla por una de estas, y comprar equipo aparte',
+          swapBack: 'volver a', replaces: 'sustituye a',
+          armory: 'Armer\u00eda (general + Marca)' },
   }[lang];
 
   const opBy = useMemo(() => new Map(team.operatives.map(o => [o.name, o])), [team]);
@@ -237,11 +243,20 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                     <span className="text-zinc-500 text-[11px]">{op.weapon}</span>
                     <span className="text-zinc-600 text-[10px] font-mono ml-auto">{pickValue(p).toFixed(1)}</span>
                   </div>
-                  {op.leader && p.weapon && (
-                    <p className="text-sky-300 text-[11px] mt-1 pl-3 border-l border-sky-800">
-                      {L.carrying} <strong>{p.weapon}</strong>
-                      <button onClick={() => setRoster(r => r.map(x => (x.id === p.id ? { ...x, weapon: undefined } : x)))}
-                        className="ml-2 text-zinc-600 hover:text-red-400">×</button>
+                  {op.leader && (
+                    <p className="text-[11px] mt-1 pl-3 border-l border-sky-800">
+                      {p.weapon ? (
+                        <>
+                          <strong className="text-sky-300">{p.weapon}</strong>
+                          <span className="text-zinc-500"> — {L.replaces} {op.weapon}. </span>
+                          <button onClick={() => setRoster(r => r.map(x => (x.id === p.id ? { ...x, weapon: undefined } : x)))}
+                            className="text-zinc-500 hover:text-sky-300 underline decoration-dotted">{L.swapBack} {op.weapon}</button>
+                        </>
+                      ) : (
+                        <span className="text-zinc-500">
+                          {L.carrying} <strong className="text-zinc-300">{op.weapon}</strong> — {L.armoryHint}.
+                        </span>
+                      )}
                     </p>
                   )}
                   <p className="text-amber-600/80 text-[10px] uppercase tracking-widest mt-2">{L.teamGear}</p>
@@ -263,9 +278,10 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                       <p className="text-sky-400/80 text-[10px] uppercase tracking-widest mt-2 mb-1 pt-2 border-t border-zinc-800">
                         {L.armory}{armory.length ? ` (${armory.length})` : '…'}
                       </p>
-                      {/* Two sub-tabs and a browsable list rather than one dropdown: weapons and
-                          wargear read as different things, and a weapon is unpickable without its
-                          profile next to the price. Same shape as the builder's own Armory. */}
+                      {/* Sub-tabs named after what they DO, not what they hold. "Weapons" and
+                          "Wargear" were two nouns for one idea, sitting next to the team's own
+                          "Equipment" list — and the swap, the whole reason the leader reaches the
+                          Armory, looked like just another "+" that adds something. */}
                       <div className="flex gap-1 mb-1">
                         {([['w', L.armWeapons], ['g', L.armGear]] as const).map(([k, label]) => (
                           <button
@@ -292,7 +308,8 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                                 disabled={!i.weaponItem && has}
                                 className="shrink-0 mt-0.5 px-1.5 border border-zinc-700 text-zinc-400 text-[10px] font-mono
                                            hover:text-sky-300 hover:border-sky-800 disabled:opacity-30 disabled:cursor-not-allowed"
-                              >+</button>
+                                title={i.weaponItem ? L.armWeapons : L.armGear}
+                              >{i.weaponItem ? (p.weapon === i.name ? '↺' : '↔') : '+'}</button>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-baseline gap-2">
                                   <span className={`text-[11px] ${
