@@ -221,7 +221,10 @@ function StatRow({ keys, stats, mod, showLabels, modelLabel, color }: {
   color: string;
 }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4 }}>
+    // Wrapping rather than scrolling. `flex-wrap` costs nothing where the row fits — on paper and
+    // on a desktop it never triggers — and on a phone it puts the trailing stats on a second line
+    // instead of behind a drag gesture nobody knows is there.
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, flexWrap: 'wrap' }}>
       {modelLabel && (
         <div style={{
           display: 'flex', alignItems: 'center',
@@ -615,14 +618,22 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               narrow phone the last columns (SV, and the invuln shield) were simply clipped away
               with no way to reach them (Discord 2026-07-18, Firefox/Android). Scrolling the strip
               itself keeps the print layout identical while making them reachable on mobile. */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 3, marginTop: 5, overflowX: 'auto' }}>
+          {/* The stats were being CLIPPED on a phone, not lost: this is a COLUMN flex container,
+              so its rows are cross-axis items and were stretched to the card's width. The
+              overflowX added in v1.55 therefore had nothing to scroll to — the trailing boxes
+              simply fell outside. A Preacher showed 7 of its 10 stats and a two-model squad only 5,
+              because the longer row labels pushed more of them out (Discord 2026-08-06).
+              The rows now wrap instead. Scrolling would also have fixed the clipping, but a strip
+              you have to drag on a phone is a poor answer; wrapping never triggers where the row
+              fits, so print and desktop are untouched. */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 3, marginTop: 5 }}>
             {modelsToShow.map((m, mi) => {
               const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
               }
               return (
-                <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexShrink: 0 }}>
+                <div key={mi} style={{ display: 'flex', alignItems: 'flex-end', flexWrap: 'wrap' }}>
                   <StatRow keys={statKeys} stats={modStats} mod={mod} showLabels={mi === 0}
                     modelLabel={modelsToShow.length > 1
                       ? (modelCounts[mi] != null ? `${modelCounts[mi]}× ${m.name}` : m.name)

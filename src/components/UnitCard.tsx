@@ -710,15 +710,19 @@ export function UnitCard({ item }: Props) {
               )}
             </div>
             <div className="overflow-x-auto">
-            <table className="w-full text-xs border-collapse">
+            {/* table-fixed with a narrow model column: a vehicle profile is twelve columns wide and
+                on a phone the last of them — Pts — was off-screen behind a drag. Fixed layout lets
+                the stat cells share what is left evenly and the model name wrap, which fits the
+                common cases outright; the scroll stays as the fallback for the widest sheets. */}
+            <table className="w-full table-fixed text-xs border-collapse">
               <thead>
                 <tr className="bg-zinc-700/50 border-b border-zinc-600">
-                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide">{t('modelHeader')}</th>
+                  <th className="text-left text-zinc-300 font-semibold py-2 px-2 text-[11px] uppercase tracking-wide w-[22%] break-words">{t('modelHeader')}</th>
                   {statKeys.map(k => {
                     const label = k === 'InvSv' ? 'Ward' : k;
                     const icon = STAT_ICONS[k];
                     return (
-                      <th key={k} className={`font-bold text-center py-1.5 px-1 text-[10px] uppercase tracking-wide min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>
+                      <th key={k} className={`font-bold text-center py-1.5 px-0.5 sm:px-1 text-[10px] uppercase tracking-wide min-w-[1.6rem] sm:min-w-[2rem] ${k === 'InvSv' ? 'text-violet-400' : 'text-amber-500'}`}>
                         {icon ? (
                           <div className="flex flex-col items-center gap-0.5">
                             <img src={icon} alt="" aria-hidden="true"
@@ -1449,8 +1453,10 @@ export function UnitCard({ item }: Props) {
                 </summary>
                 <div className="px-2 pb-2">
                 {groupHasWeapons ? (
-                  <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
-                    <table className="w-full text-xs border-collapse">
+                  <div className="bg-zinc-900 border border-zinc-600">
+                    {/* table-fixed so the declared widths hold and a long weapon name wraps
+                        instead of pushing the Pts column off the right edge. */}
+                    <table className="w-full table-fixed text-xs border-collapse">
                       <thead>
                         <tr className="border-b border-zinc-600">
                           <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 pr-2 text-[10px] uppercase tracking-wide w-[26%]">{t('weapon')}</th>
@@ -1501,12 +1507,12 @@ export function UnitCard({ item }: Props) {
                                 )}
                               </td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
-                              <td className="py-1.5 px-1 text-zinc-400 text-[11px]">
+                              <td className="py-1.5 px-1 text-zinc-400 text-[11px] break-words">
                                 {(() => {
                                   const typeKey = Object.keys(WEAPON_TYPE_ICONS).find(k => w.type?.toLowerCase().startsWith(k.toLowerCase()));
                                   const icon = typeKey ? WEAPON_TYPE_ICONS[typeKey] : undefined;
                                   return (
-                                    <span className="flex items-center gap-1">
+                                    <span className="flex flex-wrap items-center gap-x-1 leading-tight">
                                       {icon && <img src={icon} alt="" aria-hidden="true" style={{ filter: TYPE_ICON_FILTER, opacity: 0.6, width: 13, height: 13, flexShrink: 0 }} />}
                                       <span>{w.type}</span>
                                     </span>
@@ -1516,7 +1522,7 @@ export function UnitCard({ item }: Props) {
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                               <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500">{(w.abilities && w.abilities !== '-') ? w.abilities : '—'}</td>
+                              <td className="py-1.5 pl-2 text-[11px] text-zinc-500 break-words">{(w.abilities && w.abilities !== '-') ? w.abilities : '—'}</td>
                               {compound ? (
                                 <td className="py-1.5 px-2 text-right text-amber-600">{ptsLabel}</td>
                               ) : weapons.length === 1 ? (
@@ -2145,8 +2151,13 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
 function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null; countOverrides?: Map<string, number> }) {
   const t = useT();
   return (
-    <div className="px-3 pb-2 overflow-x-auto">
-      <table className="w-full text-xs border-collapse">
+    <div className="px-3 pb-2">
+      {/* `table-fixed` makes the percentage widths declared below actually apply. Without it the
+          default auto layout let a long weapon name or ability list push the table past its
+          container, and the card gained a horizontal scrollbar — so on a phone the last columns,
+          points included, sat off-screen behind a drag (user report 2026-08-06). Wrapping the text
+          cells is the other half: fixed columns with unbreakable content would just overflow. */}
+      <table className="w-full table-fixed text-xs border-collapse">
         <thead>
           <tr className="border-b border-zinc-600">
             <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[32%]">{t('weapon')}</th>
@@ -2218,16 +2229,16 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
               <Fragment key={i}>
               {startsModeGroup && (
                 <tr className="border-b border-zinc-700/40">
-                  <td className="pt-1.5 pr-2 font-medium text-zinc-100">
+                  <td className="pt-1.5 pr-2 font-medium text-zinc-100 break-words">
                     {rowCountRaw != null ? `${rowCountRaw}x ` : ''}{base}
                   </td>
                   <td colSpan={6} />
                 </tr>
               )}
               <tr className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
-                <td className={`py-1.5 pr-2 font-medium ${isModeRow ? 'pl-3 text-zinc-400 text-[11px]' : 'text-zinc-100'}`}>{rowCount != null ? `${rowCount}x ` : ''}{displayName}</td>
+                <td className={`py-1.5 pr-2 font-medium break-words ${isModeRow ? 'pl-3 text-zinc-400 text-[11px]' : 'text-zinc-100'}`}>{rowCount != null ? `${rowCount}x ` : ''}{displayName}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
-                <td className="py-1.5 px-1 text-zinc-400 text-[11px]">
+                <td className="py-1.5 px-1 text-zinc-400 text-[11px] break-words">
                   {(() => {
                     const typeKey = Object.keys(WEAPON_TYPE_ICONS).find(k => w.type?.toLowerCase().startsWith(k.toLowerCase()));
                     const icon = typeKey ? WEAPON_TYPE_ICONS[typeKey] : undefined;
@@ -2242,7 +2253,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.s}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.ap}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-200">{w.d}</td>
-                <td className={`py-1.5 pl-2 text-[11px] ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities}</td>
+                <td className={`py-1.5 pl-2 text-[11px] break-words ${hasTraitEffect ? 'text-violet-300' : 'text-zinc-500'}`}>{displayAbilities}</td>
               </tr>
               </Fragment>
             );
