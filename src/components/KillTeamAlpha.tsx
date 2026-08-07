@@ -66,11 +66,17 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
       // for vehicles, if it works on "the attached unit" (there are no squads here), or if it is
       // a psychic hook (powers are out of the alpha). Armours stay in, Terminator plate included —
       // it is one of the few upgrades that visibly changes an operative, which is the point.
+      // Out by DESCRIPTION: priced for vehicles only, works on "the attached unit" (there are
+      // no squads at this scale), or hangs off the psychic phase, which the alpha does not have.
       const OUT = /only for (vehicle|warpsmith|lord|sorcerer|dark apostle)|attached unit|psychic|psyker|daemon unit|deep ?strike.*scatter/i;
+      // Out by NAME: everything that turns the operative into a daemon or hands it a daemon
+      // weapon. A kill team is a squad of mortals; "the model gains the Daemon ability" is a
+      // different game. The whole Daemonic family goes, not only the obvious ones.
+      const OUT_NAME = /^(daemonic|greater daemon|daemon weapon)\b|^(icon of chaos|personal icon|familiar|baleful tome|psychic training|blasphemous rune|doombike|plague outburst)$/i;
       setArmory([...pull(d.armory_general), ...pull(team.mark ? d.armory_marks?.[team.mark] : undefined)]
         .filter(i => i.p_unit != null && i.p_unit !== 0)
         .filter(i => !i.category)
-        .filter(i => !OUT.test(String(i.desc ?? '')))
+        .filter(i => !OUT.test(String(i.desc ?? '')) && !OUT_NAME.test(i.name))
         .sort((a, b) => ktArmoryValue(a) - ktArmoryValue(b)));
     }).catch(() => {});
     return () => { alive = false; };
@@ -83,14 +89,16 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
           abilities: 'Team rules', roster: 'Your kill team', pick: 'Add', none: '— no equipment —',
           taken: 'taken', available: 'Operatives', equipHead: 'Equipment — one per operative; only “Unique” items are one per team',
           keepWeapon: 'keep', addArmory: 'Add from the Armory…',
+          teamGear: 'Team equipment', carrying: 'Carrying',
           armWeapons: 'Weapons', armGear: 'Wargear',
-          armory: 'Leader: also has Armory access (general + Mark), same as in the builder.' },
+          armory: 'Armory (general + Mark) \u2014 a weapon here REPLACES the leader\u2019s own; wargear is added on top.' },
     de: { budget: 'Budget', operatives: 'Operative', clear: 'Leeren', once: 'nur einmal',
           leader: 'Anführer', over: 'über Budget', under: 'Rest', tooFew: 'zu wenige Operative',
           tooMany: 'zu viele Operative', ok: 'gültiges Team', suggested: 'empfohlene Größe',
           abilities: 'Teamregeln', roster: 'Dein Kill Team', pick: 'Hinzufügen', none: '— keine Ausrüstung —',
           taken: 'vergeben', available: 'Operative', equipHead: 'Ausrüstung — eine je Operativem; nur „Unique“-Gegenstände einmal pro Team',
           keepWeapon: 'behalten', addArmory: 'Aus der Rüstkammer…',
+          teamGear: 'Team-Ausr\u00fcstung', carrying: 'Tr\u00e4gt',
           armWeapons: 'Waffen', armGear: 'Ausrüstung',
           armory: 'Anführer: hat zusätzlich Zugriff auf die Rüstkammer (allgemein + Mal), wie im Builder.' },
     es: { budget: 'presupuesto', operatives: 'operativos', clear: 'Vaciar', once: 'solo uno',
@@ -99,6 +107,7 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
           abilities: 'Reglas de equipo', roster: 'Tu kill team', pick: 'Añadir', none: '— sin equipo —',
           taken: 'cogido', available: 'Operativos', equipHead: 'Equipo — uno por operativo; solo los “Unique” son uno por equipo',
           keepWeapon: 'mantener', addArmory: 'Añadir de la Armería…',
+          teamGear: 'Equipo del equipo', carrying: 'Lleva',
           armWeapons: 'Armas', armGear: 'Equipo',
           armory: 'Líder: además tiene acceso a la Armería (general + Marca), igual que en el builder.' },
   }[lang];
@@ -108,7 +117,10 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
   /** An operative costs its own value, or the value of the weapon its leader swapped to, plus
    *  whatever it bought from the Armory. */
   function pickValue(p: Pick): number {
-    const base = p.weapon ? (opBy.get(p.weapon)?.value ?? 0) : (opBy.get(p.op)?.value ?? 0);
+    // A leader carrying an Armory weapon costs the team's body plus that weapon — its listed
+    // value already includes the weapon it is giving up.
+    const swapped = p.weapon ? armBy.get(p.weapon) : undefined;
+    const base = swapped ? team.body + ktArmoryValue(swapped) : (opBy.get(p.op)?.value ?? 0);
     const bought = p.armory.reduce((s, n) => { const i = armBy.get(n); return s + (i ? ktArmoryValue(i) : 0); }, 0);
     return base + bought;
   }
@@ -225,18 +237,14 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                     <span className="text-zinc-500 text-[11px]">{op.weapon}</span>
                     <span className="text-zinc-600 text-[10px] font-mono ml-auto">{pickValue(p).toFixed(1)}</span>
                   </div>
-                  {op.leader && (
-                    <select
-                      value={p.weapon ?? ''}
-                      onChange={e => setRoster(r => r.map(x => (x.id === p.id ? { ...x, weapon: e.target.value || undefined } : x)))}
-                      className="mt-1 w-full bg-zinc-900 border border-sky-900 px-2 py-1 text-[11px] text-sky-300 focus:outline-none focus:border-sky-700"
-                    >
-                      <option value="">{L.keepWeapon} — {op.weapon}</option>
-                      {team.operatives.filter(o => !o.leader).map(o => (
-                        <option key={o.name} value={o.name}>{o.weapon} ({o.value.toFixed(1)})</option>
-                      ))}
-                    </select>
+                  {op.leader && p.weapon && (
+                    <p className="text-sky-300 text-[11px] mt-1 pl-3 border-l border-sky-800">
+                      {L.carrying} <strong>{p.weapon}</strong>
+                      <button onClick={() => setRoster(r => r.map(x => (x.id === p.id ? { ...x, weapon: undefined } : x)))}
+                        className="ml-2 text-zinc-600 hover:text-red-400">×</button>
+                    </p>
                   )}
+                  <p className="text-amber-600/80 text-[10px] uppercase tracking-widest mt-2">{L.teamGear}</p>
                   <select
                     value={p.equip}
                     onChange={e => setRoster(r => r.map(x => (x.id === p.id ? { ...x, equip: e.target.value } : x)))}
@@ -252,7 +260,9 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                   {p.equip && <p className="text-amber-500/90 text-[11px] mt-1 pl-3 border-l border-amber-900">{p.equip}</p>}
                   {op.leader && (
                     <div className="mt-1">
-                      <p className="text-sky-400/80 text-[10px] mb-1">{L.armory}{armory.length ? ` (${armory.length})` : '…'}</p>
+                      <p className="text-sky-400/80 text-[10px] uppercase tracking-widest mt-2 mb-1 pt-2 border-t border-zinc-800">
+                        {L.armory}{armory.length ? ` (${armory.length})` : '…'}
+                      </p>
                       {/* Two sub-tabs and a browsable list rather than one dropdown: weapons and
                           wargear read as different things, and a weapon is unpickable without its
                           profile next to the price. Same shape as the builder's own Armory. */}
@@ -272,14 +282,21 @@ export function KillTeamAlpha({ lang }: { lang: 'en' | 'de' | 'es' }) {
                           return (
                             <div key={i.name} className="flex items-start gap-2 px-2 py-1 border-b border-zinc-900 last:border-b-0">
                               <button
-                                onClick={() => setRoster(r => r.map(x => (x.id === p.id && !x.armory.includes(i.name) ? { ...x, armory: [...x.armory, i.name] } : x)))}
-                                disabled={has}
+                                onClick={() => setRoster(r => r.map(x => {
+                                  if (x.id !== p.id) return x;
+                                  // A weapon REPLACES the one the leader is listed with — it is a
+                                  // swap, not a second gun. Wargear stacks.
+                                  if (i.weaponItem) return { ...x, weapon: x.weapon === i.name ? undefined : i.name };
+                                  return x.armory.includes(i.name) ? x : { ...x, armory: [...x.armory, i.name] };
+                                }))}
+                                disabled={!i.weaponItem && has}
                                 className="shrink-0 mt-0.5 px-1.5 border border-zinc-700 text-zinc-400 text-[10px] font-mono
                                            hover:text-sky-300 hover:border-sky-800 disabled:opacity-30 disabled:cursor-not-allowed"
                               >+</button>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-baseline gap-2">
-                                  <span className={`text-[11px] ${has ? 'text-zinc-600' : 'text-zinc-200'}`}>{i.name}</span>
+                                  <span className={`text-[11px] ${
+                                    (i.weaponItem ? p.weapon === i.name : has) ? 'text-sky-300' : 'text-zinc-200'}`}>{i.name}</span>
                                   <span className="text-zinc-600 text-[10px] font-mono ml-auto shrink-0">{ktArmoryValue(i).toFixed(1)}</span>
                                 </div>
                                 <p className="text-zinc-500 text-[10px] font-mono leading-snug">{armoryProfile(i)}</p>
