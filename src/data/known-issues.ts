@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-safari-lookbehind-white-screen-01',
+    status: 'fixed',
+    title: 'The whole app was a blank white page on older iPads (and on any browser there, including "Firefox")',
+    description: 'FIXED 2026-08-06, Discord report. `equipMods.ts` extracted quoted ability names with a negative lookbehind, /(?<![A-Za-z0-9])\'([^\']+?)\'(?![A-Za-z0-9])/, to keep a contraction apostrophe ("the model\'s activation") from being read as an opening quote. Safari did not support lookbehind until 16.4, and an unsupported regex literal is a PARSE error: the bundle never executes, so the page is blank with no error a user can see. Every browser on iPadOS is WebKit, which is why swapping to Firefox changed nothing while desktop Firefox and Brave worked — the detail that identified it. Rewritten as /(^|[^A-Za-z0-9])\'([^\']+?)\'(?![A-Za-z0-9])/ reading the preceding character forwards (capture group 2), verified identical on eight cases including the apostrophe trap, and the built bundle now contains no lookbehind in any chunk. WORTH REMEMBERING: `tsconfig` targets es2023 and esbuild cannot down-level regex syntax at all, so any modern regex feature reaches the browser as written.',
+  },
+  {
     id: 'ki-gk-star-model-count-01',
     status: 'fixed',
     title: 'Grey Knights — Brotherhood Champion and Captain had no stat line and cost 0 points',

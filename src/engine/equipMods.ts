@@ -148,9 +148,17 @@ export function parseEquipMods(
       // " — and guard single quotes so a contraction apostrophe (model's, it's) is NOT read as an
       // opening quote. The old combined /["']…["']/ regex captured a whole sentence fragment from
       // e.g. Shamblerot's desc ("…the model'␣s acitvation, if an enemy vehicle is within 6"…").
+      // NO LOOKBEHIND. Safari only learned `(?<!…)` in 16.4, and an unsupported regex is a SYNTAX
+      // error, not a runtime one — it kills the whole bundle before a line of it runs. Every
+      // browser on iPadOS is WebKit, so an older iPad showed a white page and so did "Firefox" on
+      // it, while desktop Firefox and Brave were fine (Discord 2026-08-06).
+      // Same rule, expressed forwards: capture the character before the quote and require it to be
+      // a non-alphanumeric, so a contraction apostrophe (model's, it's) is not read as an opening
+      // quote. `(^|[^A-Za-z0-9])` needs the match to start one character earlier, which is why the
+      // captured group is m[2] here.
       const quoted = [
         ...Array.from(desc.matchAll(/"([^"]+)"/g), m => m[1]),
-        ...Array.from(desc.matchAll(/(?<![A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[1]),
+        ...Array.from(desc.matchAll(/(^|[^A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[2]),
       ];
       for (const ab of quoted) {
         // A quoted unit-type word is handled by the type system, not shown as an ability.
