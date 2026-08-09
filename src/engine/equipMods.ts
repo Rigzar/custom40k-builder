@@ -315,6 +315,21 @@ export function parseInvSaveFromAbilities(abilities: string[]): number | null {
       if (!isNaN(v) && (best === null || v < best)) best = v;
     }
   }
+
+  // "Warded" is the odd one out: not a value but a MODIFIER — "gains a 6+ ward save, or improves
+  // an existing ward save by +1 (to a maximum of 4+). Cumulative with itself." It was missing
+  // entirely, so a Chaos Terminator with the Mark of Tzeentch kept the 5+ from its armour and the
+  // word "Warded" appeared beside it with nothing behind it (Discord report).
+  // It has to be applied AFTER the flat sources above, because what it improves is whatever they
+  // settled on — and counted, not just detected, since two instances stack.
+  const warded = abilities.filter(ab => /(^|[^A-Za-z])Warded\b/i.test(ab)).length;
+  if (warded > 0) {
+    // No ward save yet: the first instance grants 6+, and each further one improves it.
+    let v = best ?? 7;
+    v -= warded;
+    if (best === null) v = Math.min(6, 7 - warded);
+    best = Math.max(4, v);
+  }
   return best;
 }
 
