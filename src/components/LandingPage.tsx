@@ -1,58 +1,54 @@
 import { useState, useEffect } from 'react';
 import * as api from '../lib/api';
-import { useArmyStore } from '../store/army';
-import { ArmyConfig } from './ArmyConfig';
 import { ChangelogModal } from './ChangelogModal';
 import { LanguageSelector } from './LanguageSelector';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
 import { Avatar } from './Avatar';
 import { MessagesModal, InquisitorBadge } from './MessagesModal';
-import { useT, useLanguage, setTranslationOverrides, type Language, type TranslationKey } from '../i18n';
+import { useT, useLanguage, type Language } from '../i18n';
 import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
-import { ENGAGEMENTS } from '../engine/engagements';
-import type { EngagementType } from '../types/army';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v158b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v158c_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: 'v1.58: the Imperial Guard platoon link is findable now',
-    intro: 'A small release, from a first-time Guard player who could not do what the app was telling him to do:',
-    install: '',
+    title: 'v1.58: building an army is four numbered steps now',
+    intro: 'The bar across the top was pretty and nobody could navigate with it. It has been rebuilt:',
+    install: '🧭 ① Faction → ② Configuration → ③ Units → ④ Review. The bar is visible from the very first screen — it used to stay hidden until you pressed “Add Troops”, so you set up a whole army without ever seeing it — and it now says where you are and what is left instead of listing open tabs.',
+    line6: '↩ Going back can no longer make your army vanish. The old “← Select Faction” button cleared your faction, which closed the tab holding your list: the army was still there, just unreachable. Moving between steps is free now and discards nothing. Only one move costs you anything — switching to a different faction while units are on the table — and it asks first. · ⚙ Archetype, Legacy, Traits and allies live on step ② and you can return to them whenever you like; from inside the builder there was previously no way to reach them at all. · ✗ The error counter in the header is a button now: it opens step ④, which lists every error and warning in full.',
+    line5: '🤝 An Allied Detachment is no longer a tab next to your army — it is a Primary / Allied switch on the Units step. The two share one point limit and one validation, so showing them as separate tabs was exactly what made them look like two separate armies. Each still keeps its own Army Organisation Plan and its own customisation.',
     line1: '⚔ Imperial Guard — the “↳ Platoon” dropdown only appeared once your list already held a Platoon Command Squad. So a new player added Infantry Squads, was told every one of them must be linked to a Platoon Command Squad, and found no control anywhere on the card to do it — because the thing it links to did not exist yet. The dropdown is now always there, and when the list has no Platoon Command Squad it says “add a Platoon Command Squad first”. The error message spells out both steps too. The rule itself is unchanged: one Platoon Command Squad plus 2-5 Infantry Squads, optionally a Conscript Infantry Platoon, up to two Special Weapon Squads and up to three Heavy Weapon Squads, all sharing that one Troops slot.',
     line2: '📖 Everyone — the v1.57 note here managed to say ““ward save” is now “ward save” everywhere”, because the rename swept over the sentence announcing it. Fixed. It was meant to say that what used to be called an invulnerability save is now a ward save.',
     line3: '⚙ Adeptus Mechanicus — re-audited against the new document. The Rad cleanser, the Rad engine and the Twin-linked rad cleanser now carry “Rad” instead of “Decimate”. Those are two different rules: Decimate adds +1 to wound rolls and does nothing to vehicles, Rad takes a point of Toughness off the target until the end of its next activation. So this changes what those three weapons DO. The Radium weapons keep Decimate. · ⚔ Escalation — the Ork Battle Fortress had seven weapon abilities out of date: Big zzappa and Zzap gun are AT(3), the Flakka gunz, Gigashoota and Supa-lobba each gained AT(1), the Supa rokkit is Ammo(1), and the Twin-linked rokkit launcha lost Anti-air. The Necron Dynasty Phaeron brings two Triarchal Mehir, not one — free, they were just missing.',
     line4: '',
-    line5: '',
-    line6: '',
     contrib: '👁️ Reporting a bug? Please be specific — come to our Discord and explain exactly what happens (which unit, engagement and archetype) with a screenshot. Vague reports cannot be reproduced, so we cannot fix them.',
   },
   de: {
-    title: 'v1.58: Die Zug-Verknüpfung der Imperial Guard ist jetzt auffindbar',
-    intro: 'Ein kleines Release, ausgelöst von einem Guard-Neuling, der nicht tun konnte, was die App ihm sagte:',
-    install: '',
+    title: 'v1.58: Der Armeebau besteht jetzt aus vier nummerierten Schritten',
+    intro: 'Die Leiste oben war hübsch, aber niemand konnte damit navigieren. Sie wurde neu gebaut:',
+    install: '🧭 ① Fraktion → ② Konfiguration → ③ Einheiten → ④ Prüfung. Die Leiste ist ab dem allerersten Bildschirm sichtbar — bisher blieb sie verborgen, bis man „Truppen hinzufügen“ drückte, man richtete also eine ganze Armee ein, ohne sie je zu sehen — und sie zeigt jetzt, wo man ist und was noch fehlt, statt offene Tabs aufzuzählen.',
+    line6: '↩ Zurückgehen kann deine Armee nicht mehr verschwinden lassen. Der alte Knopf „← Fraktion wählen“ setzte die Fraktion zurück und schloss damit den Tab mit deiner Liste: Die Armee war noch da, nur nicht mehr erreichbar. Zwischen den Schritten zu wechseln kostet jetzt nichts. Nur ein Schritt kostet etwas — der Wechsel zu einer anderen Fraktion, während Einheiten in der Liste stehen — und der fragt vorher nach. · ⚙ Archetyp, Legacy, Traits und Verbündete liegen auf Schritt ② und sind jederzeit wieder erreichbar; aus dem Builder heraus gab es bisher überhaupt keinen Weg dorthin. · ✗ Der Fehlerzähler in der Kopfzeile ist jetzt ein Knopf: Er öffnet Schritt ④ mit der vollständigen Liste aller Fehler und Warnungen.',
+    line5: '🤝 Ein verbündetes Detachment ist kein eigener Tab mehr neben deiner Armee, sondern ein Umschalter Primär / Verbündet auf dem Einheiten-Schritt. Beide teilen sich ein Punktelimit und eine Prüfung — sie als getrennte Tabs zu zeigen war genau der Grund, warum sie wie zwei getrennte Armeen aussahen. Jedes behält weiterhin seinen eigenen Army Organisation Plan und seine eigene Anpassung.',
     line1: '⚔ Imperial Guard — das Feld „↳ Zug“ erschien erst, wenn die Liste bereits einen Zugkommandotrupp enthielt. Ein neuer Spieler stellte also Infanterietrupps auf, bekam gesagt, jeder davon müsse mit einem Zugkommandotrupp verknüpft sein — und fand auf der Karte nirgends ein Bedienelement dafür, weil das Ziel der Verknüpfung noch gar nicht existierte. Das Feld ist jetzt immer da und sagt, wenn kein Zugkommandotrupp in der Liste steht: „zuerst einen Zugkommandotrupp aufstellen“. Auch die Fehlermeldung nennt jetzt beide Schritte. Die Regel selbst bleibt gleich: ein Zugkommandotrupp plus 2-5 Infanterietrupps, dazu optional ein Conscript Infantry Platoon, bis zu zwei Special Weapon Squads und bis zu drei Heavy Weapon Squads, alle im selben Troops-Slot.',
     line2: '📖 Für alle — der v1.57-Hinweis an dieser Stelle schaffte es, „„Ward Save“ heißt jetzt überall „Ward Save““ zu schreiben, weil die Umbenennung über genau den Satz lief, der sie ankündigte. Behoben. Gemeint war: was früher Invulnerability Save hieß, heißt jetzt Ward Save.',
     line3: '⚙ Adeptus Mechanicus — gegen das neue Dokument geprüft. Rad cleanser, Rad engine und Twin-linked rad cleanser tragen jetzt „Rad“ statt „Decimate“. Das sind zwei verschiedene Regeln: Decimate gibt +1 auf Verwundungswürfe und wirkt nicht gegen Fahrzeuge, Rad nimmt dem Ziel bis zum Ende seiner nächsten Aktivierung einen Punkt Widerstand. Es ändert also, was diese drei Waffen TUN. Die Radium-Waffen behalten Decimate. · ⚔ Escalation — beim Ork Battle Fortress waren sieben Waffenfähigkeiten veraltet: Big zzappa und Zzap gun sind AT(3), Flakka gunz, Gigashoota und Supa-lobba bekamen je AT(1), die Supa rokkit hat Ammo(1), und die Twin-linked rokkit launcha verlor Anti-air. Der Necron Dynasty Phaeron bringt zwei Triarchal Mehir mit, nicht einen — kostenlos, sie fehlten schlicht.',
     line4: '',
-    line5: '',
-    line6: '',
     contrib: '👁️ Einen Fehler gefunden? Bitte sei konkret — komm auf unseren Discord und erkläre genau, was passiert (welche Einheit, Engagement und Archetyp), mit einem Screenshot. Vage Meldungen lassen sich nicht nachstellen und daher nicht beheben.',
   },
   es: {
-    title: 'v1.58: el enlace de pelotón de la Guardia por fin se encuentra',
-    intro: 'Release pequeño, a partir de un jugador novato de Guardia que no podía hacer lo que la app le pedía:',
-    install: '',
+    title: 'v1.58: construir un ejército son cuatro pasos numerados',
+    intro: 'La barra de arriba era bonita y nadie sabía moverse con ella. Está rehecha:',
+    install: '🧭 ① Facción → ② Configuración → ③ Unidades → ④ Revisión. La barra se ve desde la primera pantalla — antes estaba oculta hasta que pulsabas “Agregar tropas”, así que montabas un ejército entero sin verla nunca — y ahora dice dónde estás y qué falta, en vez de enumerar pestañas abiertas.',
+    line6: '↩ Volver atrás ya no puede hacer desaparecer tu ejército. El viejo botón “← Facción” borraba la facción, y eso cerraba la pestaña que tenía tu lista: el ejército seguía ahí, pero era inalcanzable. Moverte entre pasos ya no cuesta nada. Solo hay un movimiento que cuesta algo — cambiar a otra facción con unidades ya puestas — y ese pregunta antes. · ⚙ Arquetipo, Legacy, Traits y aliados están en el paso ② y puedes volver a ellos cuando quieras; desde dentro del builder antes no había ninguna forma de llegar. · ✗ El contador de errores de la cabecera ahora es un botón: abre el paso ④, con la lista completa de errores y avisos.',
+    line5: '🤝 Un Destacamento Aliado ya no es una pestaña al lado de tu ejército, sino un conmutador Principal / Aliado en el paso de Unidades. Los dos comparten un único límite de puntos y una única validación, así que enseñarlos como pestañas separadas era justo lo que hacía que parecieran dos ejércitos distintos. Cada uno conserva su propio Army Organisation Plan y su propia personalización.',
     line1: '⚔ Imperial Guard — el desplegable “↳ Pelotón” solo aparecía si la lista ya tenía un Escuadrón de Mando de Pelotón. Así que un jugador nuevo añadía Escuadras de Infantería, se le decía que todas debían estar vinculadas a un Escuadrón de Mando de Pelotón, y no encontraba en la ficha ningún control para hacerlo — porque aquello a lo que hay que vincularlas todavía no existía. Ahora el desplegable está siempre, y si no hay ningún Escuadrón de Mando en la lista lo dice: “añade antes un Escuadrón de Mando de Pelotón”. El mensaje de error también explica los dos pasos. La regla no cambia: un Escuadrón de Mando de Pelotón más 2-5 Escuadras de Infantería, y opcionalmente un Conscript Infantry Platoon, hasta dos Special Weapon Squads y hasta tres Heavy Weapon Squads, todos compartiendo ese único slot de Troops.',
     line2: '📖 Para todos — la nota de v1.57 de aquí llegó a decir ““ward save” ahora es “ward save” en todas partes”, porque el renombrado pasó por encima de la propia frase que lo anunciaba. Arreglado. Lo que quería decir es que lo que antes se llamaba tirada de invulnerable ahora se llama ward save.',
     line3: '⚙ Adeptus Mechanicus — reauditado contra el documento nuevo. El Rad cleanser, el Rad engine y el Twin-linked rad cleanser llevan ahora “Rad” en vez de “Decimate”. Son dos reglas distintas: Decimate da +1 a las tiradas para herir y no hace nada a vehículos, Rad le quita un punto de Resistencia al objetivo hasta el final de su siguiente activación. Así que cambia lo que HACEN esas tres armas. Las armas Radium mantienen Decimate. · ⚔ Escalation — el Battle Fortress orko tenía siete habilidades de arma desactualizadas: Big zzappa y Zzap gun son AT(3), Flakka gunz, Gigashoota y Supa-lobba ganan AT(1), la Supa rokkit es Ammo(1), y la Twin-linked rokkit launcha pierde Anti-air. El Dynasty Phaeron necrón trae dos Triarchal Mehir, no uno — gratis, sencillamente faltaban.',
     line4: '',
-    line5: '',
-    line6: '',
     contrib: '👁️ ¿Encontraste un bug? Sé específico, por favor — pásate por nuestro Discord y explica exactamente qué pasa (qué unidad, engagement y arquetipo) con una captura. Los reportes vagos no se pueden reproducir, así que no podemos arreglarlos.',
   },
 };
@@ -128,7 +124,9 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {[tx.line6, tx.line1, tx.line2, tx.line3, tx.line4, tx.line5]
+          {/* line6 and line5 are prepend slots: a release that leads with something other than
+              line1 puts it there without renumbering every line below. */}
+          {[tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
@@ -217,151 +215,45 @@ function AdminAnnouncement({ setting }: { setting: api.AnnouncementSetting | nul
   );
 }
 
-type FactionStatus = 'complete' | 'testing' | 'inreview' | 'unreviewed';
-
-interface FactionDef {
-  key: string;
-  name: string;
-  available: boolean;
-  status: FactionStatus;
-  /** Codex document version (from the faction's canonical .ods title), shown on the button. */
-  version?: string;
-}
-
-interface Category {
-  name: string;
-  icon: string;
-  pillFg: string;
-  dividerColor: string;
-  factions: FactionDef[];
-}
-
-const STATUS_DOT: Record<FactionStatus, string> = {
-  complete:   'bg-green-500',
-  testing:    'bg-amber-400',
-  inreview:   'bg-orange-500',
-  unreviewed: 'bg-red-500',
-};
-
-const STATUS_I18N_KEY: Record<FactionStatus, TranslationKey> = {
-  complete:   'fullyReviewed',
-  testing:    'needsTesting',
-  inreview:   'inReview',
-  unreviewed: 'notReviewed',
-};
-
-const CATEGORIES: Category[] = [
-  {
-    name: 'Chaos',
-    icon: '/category-icons/chaos.svg',
-    pillFg: '#cc8888', dividerColor: '#3a1a1a',
-    factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.02' },
-      { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.01' },
-    ],
-  },
-  {
-    name: 'Imperium',
-    icon: '/category-icons/imperium.svg',
-    pillFg: '#c8b56a', dividerColor: '#3a3520',
-    factions: [
-      { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.01' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.03' },
-      { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing', version: '1.00' },
-      { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing', version: '1.00' },
-      { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.01' },
-      { key: 'grey_knights',       name: 'Grey Knights',       available: true, status: 'complete', version: '1.01' },
-      { key: 'inquisition',        name: 'Inquisition',        available: true, status: 'testing', version: '1.00' },
-    ],
-  },
-  {
-    name: 'Xenos',
-    icon: '/category-icons/xenos.svg',
-    pillFg: '#6ab88a', dividerColor: '#1a3a28',
-    factions: [
-      { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'testing', version: '1.00' },
-      { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.1' },
-      { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.01' },
-      { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.01' },
-      { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.01' },
-      { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.01' },
-      { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing', version: '1.00' },
-      { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.02' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.02' },
-    ],
-  },
-];
-
-/** Flat {key,name,defaultAvailable} list of every faction — used by the admin availability toggles. */
-export const ALL_FACTIONS: { key: string; name: string; defaultAvailable: boolean }[] =
-  CATEGORIES.flatMap(c => c.factions.map(f => ({ key: f.key, name: f.name, defaultAvailable: f.available })));
-
-/**
- * The versions compiled into this build — what the admin editor starts from and what the app
- * falls back to when the DB has nothing to say. Keeping the code defaults means a wiped or
- * unreachable settings row can never blank the badges.
- */
-export const DEFAULT_CODEX_VERSIONS: Record<string, { version: string; status: FactionStatus }> =
-  Object.fromEntries(CATEGORIES.flatMap(c => c.factions.map(f =>
-    [f.key, { version: f.version ?? '1.00', status: f.status }])));
-
 function formatDate(ts: number): string {
   const d = new Date(ts);
   return d.toLocaleDateString(undefined, { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-function getFactionName(key: string): string {
-  for (const cat of CATEGORIES) {
-    const f = cat.factions.find(f => f.key === key);
-    if (f) return f.name;
-  }
-  return key;
-}
-
+/**
+ * The front door — logo, release notes, the admin announcement, quick-load and the supplements.
+ *
+ * It used to be all three of those AND a hidden three-state machine (`hero` → `setup` → `config`)
+ * that carried Battle Setup, faction selection and Army Customisation, with the app's own
+ * navigation bar switched off the whole time. Those two screens are real steps now
+ * (`FactionStep` and App's Config step), so this component only owns the front door.
+ */
 interface Props {
-  selectedFaction: string | null;
-  loading: boolean;
   saves: SavedArmy[];
-  onSelectFaction: (key: string | null) => void;
-  onBuild: () => void;
+  /** Fetched once in App and passed down, so the settings endpoint is hit exactly once. */
+  announcement: api.AnnouncementSetting | null;
+  /** True when there is a faction picked and units on the table — offers "continue" over "start". */
+  canResume: boolean;
+  onStart: () => void;
+  onResume: () => void;
   onLoadArmy: (save: SavedArmy) => void;
-  onDeleteArmy: (id: string) => void;
   onShowAuth: () => void;
   onShowCloudSaves?: () => void;
   onShowCommunity?: () => void;
-  hideArmyConfig?: boolean;
 }
 
 export function LandingPage({
-  selectedFaction, loading, saves,
-  onSelectFaction, onBuild, onLoadArmy, onDeleteArmy, onShowAuth, onShowCloudSaves, onShowCommunity,
+  saves, announcement, canResume,
+  onStart, onResume, onLoadArmy, onShowAuth, onShowCloudSaves, onShowCommunity,
 }: Props) {
-  const { data, engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
-  const [view, setView] = useState<'hero' | 'setup' | 'config'>('hero');
   const [showChangelog, setShowChangelog] = useState(false);
-  // Raw text of the points-limit box while it is being edited (null = show the store value).
-  const [pointDraft, setPointDraft] = useState<string | null>(null);
   // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
   // fractalNoise + displacement filter every update — even throttled it kept the CPU at ~12% idle
   // and spun up fans. The static turbulence renders once and then just composites, so idle CPU
   // drops to ~0 while the fog still looks the same. (No rAF loop, no per-frame recompute.)
   const [openSupplement, setOpenSupplement] = useState<SupplementKey | null>(null);
-  // Admin-editable overrides fetched from the DB (fail-soft: defaults from code if this never loads).
-  const [announcement, setAnnouncement] = useState<api.AnnouncementSetting | null>(null);
-  const [factionFlags, setFactionFlags] = useState<api.FactionFlags | null>(null);
-  const [codexVersions, setCodexVersions] = useState<api.CodexVersions | null>(null);
   const [showMessages, setShowMessages] = useState(false);
   const [unread, setUnread] = useState(0);
-  useEffect(() => {
-    api.getPublicSettings()
-      .then(s => {
-        setAnnouncement(s.announcement);
-        setFactionFlags(s.factionFlags);
-        setCodexVersions(s.codexVersions);
-        setTranslationOverrides(s.translations);   // apply admin-edited UI strings app-wide
-      })
-      .catch(() => { /* keep code defaults */ });
-  }, []);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
   const { loggedIn, username, avatar } = useAuth();
@@ -370,23 +262,7 @@ export function LandingPage({
 
   const displaySaves = saves.filter(s => s.id !== 'autosave-session' && !s.id.startsWith('autosave'));
 
-  const engKeys = Object.keys(ENGAGEMENTS) as EngagementType[];
-
-  function handleSetEngagement(e: EngagementType) {
-    const eng = ENGAGEMENTS[e];
-    setEngagement(e);
-    if (pointLimit < eng.min) setPointLimit(eng.min);
-    else if (pointLimit > eng.max) setPointLimit(eng.max);
-  }
-
-  function handleSelectFactionInSetup(key: string | null) {
-    onSelectFaction(key);
-    if (key) setView('config');
-  }
-
-  // ── Hero view ───────────────────────────────────────────────────────────────
-  if (view === 'hero') {
-    return (
+  return (
       <div className="relative min-h-screen bg-zinc-950 text-zinc-100 flex flex-col overflow-hidden">
         {/* SVG fog filter */}
         <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
@@ -510,12 +386,23 @@ export function LandingPage({
             </a>
 
             <button
-              onClick={() => setView('setup')}
+              onClick={onStart}
               className="flex items-center justify-center gap-2 py-3 px-4 bg-amber-800 border-2 border-amber-600 hover:bg-amber-700 text-white text-[12px] uppercase tracking-wider font-bold transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
               {t('buildArmy')}
             </button>
+
+            {/* Going Home never discards the list, so there has to be a way back into it. */}
+            {canResume && (
+              <button
+                onClick={onResume}
+                className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-emerald-800 hover:border-emerald-600 text-emerald-400 hover:text-emerald-300 text-[12px] uppercase tracking-wider transition-colors"
+              >
+                <span>↩</span>
+                {t('continueArmy')}
+              </button>
+            )}
 
             <button
               onClick={() => onShowCommunity ? onShowCommunity() : (loggedIn ? onShowCloudSaves?.() : onShowAuth())}
@@ -620,307 +507,5 @@ export function LandingPage({
         {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
 
       </div>
-    );
-  }
-
-  // ── Config view — Army Config (archetype / legacy / traits) ─────────────────
-  if (view === 'config') {
-    const factionName = selectedFaction ? getFactionName(selectedFaction) : '';
-    const engData = ENGAGEMENTS[engagement];
-    return (
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-
-        {/* Sub-header */}
-        <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-3 sticky top-0 z-30">
-          <div className="max-w-screen-lg mx-auto flex items-center justify-between gap-4">
-            <button
-              onClick={() => { onSelectFaction(null); setView('setup'); }}
-              className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-zinc-400 hover:text-amber-400 transition-colors"
-            >
-              ← {t('selectFaction')}
-            </button>
-            <h1 className="font-cinzel text-sm uppercase tracking-widest text-amber-700">
-              {t('armyConfiguration')}
-            </h1>
-            <LanguageSelector />
-          </div>
-        </header>
-
-        {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
-        {showMessages && <MessagesModal onClose={() => { setShowMessages(false); refreshUnread(); }} />}
-
-        <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-6 w-full">
-
-          {/* Faction + battle summary */}
-          {selectedFaction && (
-            <div className="flex items-center gap-4 px-4 py-3 bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800">
-              <FactionSymbol factionKey={selectedFaction} size={40} />
-              <div>
-                <div className="text-sm font-semibold text-zinc-100">{factionName}</div>
-                <div className="text-[11px] text-amber-700 uppercase tracking-wide mt-0.5">
-                  {engData.name} · {pointLimit} pts
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Army Config */}
-          {loading || !data ? (
-            <div className="flex items-center gap-3 text-zinc-500 py-8">
-              <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
-              <span className="text-sm">{t('loadingFactionData')}</span>
-            </div>
-          ) : (
-            <ArmyConfig showBattleSetup={false} />
-          )}
-
-          {/* Add Troops button */}
-          {data && selectedFaction && (
-            <div className="flex justify-center pt-2 pb-8">
-              <button
-                onClick={() => onBuild()}
-                className="px-10 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
-              >
-                {t('addTroops')} →
-              </button>
-            </div>
-          )}
-
-        </div>
-      </div>
-    );
-  }
-
-  // ── Setup view — Battle Setup + Faction selection ───────────────────────────
-  return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-
-      {/* Sub-header */}
-      <header className="bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-3 sticky top-0 z-30">
-        <div className="max-w-screen-lg mx-auto flex items-center justify-between gap-4">
-          <button
-            onClick={() => { setView('hero'); onSelectFaction(null); }}
-            className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-zinc-400 hover:text-amber-400 transition-colors"
-          >
-            ← Home
-          </button>
-          <h1 className="font-cinzel text-sm uppercase tracking-widest text-amber-700">
-            {t('buildArmy')}
-          </h1>
-          <LanguageSelector />
-        </div>
-      </header>
-
-      {showChangelog && <ChangelogModal onClose={() => setShowChangelog(false)} />}
-      {openSupplement && <SupplementModal supplement={openSupplement} onClose={() => setOpenSupplement(null)} />}
-      {showMessages && <MessagesModal onClose={() => { setShowMessages(false); refreshUnread(); }} />}
-
-      <div className="max-w-screen-lg mx-auto px-4 py-8 space-y-10 w-full">
-
-        {/* ── Battle Setup ── */}
-        <section>
-          <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
-            {t('battleSetup')}
-          </h2>
-          <div className="border border-zinc-800 bg-zinc-900/50">
-            <div className="p-4 space-y-4">
-
-              {/* Engagement type */}
-              <div>
-                <div className="text-[10px] text-zinc-400 uppercase tracking-widest mb-2">{t('battleType')}</div>
-                <div className="grid grid-cols-3 gap-2">
-                  {engKeys.map(e => (
-                    <button
-                      key={e}
-                      onClick={() => handleSetEngagement(e)}
-                      className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
-                        ${engagement === e
-                          ? 'bg-amber-900/50 border-amber-600 text-amber-300'
-                          : 'bg-zinc-800/60 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'
-                        }`}
-                    >
-                      {ENGAGEMENTS[e].name}
-                    </button>
-                  ))}
-                </div>
-                {ENGAGEMENTS[engagement].notes && (
-                  <div className="mt-2 text-[10px] text-zinc-500 border-l-2 border-amber-900/50 pl-2 leading-relaxed">
-                    {ENGAGEMENTS[engagement].notes}
-                  </div>
-                )}
-              </div>
-
-              {/* Points limit */}
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] text-zinc-400 uppercase tracking-widest">{t('pointsLimit')}</span>
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  // Typing is kept as free text and only clamped on blur/Enter. Clamping inside
-                  // onChange re-clamped every keystroke, so typing "1500" turned the first "1"
-                  // into the minimum and the field could only ever end up at min or max — the
-                  // "can't change pts limit on mobile, it's just 1000 or 2499" Discord report.
-                  value={pointDraft ?? pointLimit}
-                  min={ENGAGEMENTS[engagement].min}
-                  max={ENGAGEMENTS[engagement].max}
-                  step={250}
-                  onChange={e => setPointDraft(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); }}
-                  onBlur={e => {
-                    const eng = ENGAGEMENTS[engagement];
-                    const raw = e.target.value.trim();
-                    const v = raw === '' ? pointLimit : Number(raw);
-                    setPointLimit(Number.isFinite(v) ? Math.min(eng.max, Math.max(eng.min, v)) : pointLimit);
-                    setPointDraft(null);
-                  }}
-                  className="w-28 bg-zinc-950 border border-zinc-700 text-amber-300 px-3 py-1.5 text-sm
-                    focus:outline-none focus:border-amber-600 text-center tabular-nums"
-                />
-                <span className="text-[10px] text-zinc-600">pts</span>
-                <span className="text-[10px] text-zinc-600">({ENGAGEMENTS[engagement].range})</span>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* ── Saved armies ── */}
-        {displaySaves.length > 0 && (
-          <section>
-            <h2 className="text-[11px] uppercase tracking-widest text-amber-700 mb-4">
-              {t('savedArmies')}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {displaySaves.map(save => (
-                <div
-                  key={save.id}
-                  className="bg-zinc-900 border border-zinc-700 border-l-4 border-l-amber-800 p-3 flex flex-col gap-2 rounded-sm"
-                >
-                  <div className="flex items-start justify-between gap-2 min-w-0">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <FactionSymbol factionKey={save.factionKey} size={28} />
-                      <div className="min-w-0">
-                        <div className="text-sm font-semibold text-zinc-100 truncate">{save.name}</div>
-                        <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{save.factionLabel}</div>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => onDeleteArmy(save.id)}
-                      className="text-zinc-600 hover:text-red-400 text-lg leading-none shrink-0 transition-colors"
-                      title={t('delete')}
-                    >
-                      ×
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-3 text-[11px] text-zinc-500">
-                    <span>{save.unitCount} {t('models')}</span>
-                    <span>·</span>
-                    <span>{save.totalPts} {t('points')}</span>
-                    <span>·</span>
-                    <span>{formatDate(save.savedAt)}</span>
-                  </div>
-                  <button
-                    onClick={() => onLoadArmy(save)}
-                    className="mt-1 w-full text-center text-[11px] uppercase tracking-wide py-1.5 bg-amber-900/30 border border-amber-800/60 text-amber-400 hover:bg-amber-800/40 transition-colors"
-                  >
-                    {t('loadArmy')}
-                  </button>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Faction selection ── */}
-        <section>
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="text-[11px] uppercase tracking-widest text-amber-700">{t('selectFaction')}</h2>
-            <div className="flex items-center gap-3 text-[10px] text-zinc-500">
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500 inline-block" />{t('fullyReviewed')}</span>
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-amber-400 inline-block" />{t('needsTesting')}</span>
-              <span className="flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-orange-500 inline-block" />{t('inReview')}</span>
-            </div>
-          </div>
-
-          <div className="space-y-7">
-            {CATEGORIES.map(cat => (
-              <div key={cat.name}>
-                <div className="flex items-center gap-2.5 mb-3">
-                  <img
-                    src={cat.icon}
-                    alt={cat.name}
-                    className="shrink-0"
-                    style={{ width: cat.name === 'Imperium' ? 68 : 52, height: cat.name === 'Imperium' ? 68 : 52, filter: 'brightness(0) invert(1)', opacity: 0.60 }}
-                  />
-                  <span
-                    className="font-cinzel text-[11px] uppercase tracking-widest shrink-0"
-                    style={{ color: cat.pillFg }}
-                  >
-                    {cat.name}
-                  </span>
-                  <div className="flex-1 h-px" style={{ background: cat.dividerColor }} />
-                </div>
-
-                <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))' }}>
-                  {cat.factions.map(fDef => {
-                    // availability can be overridden by the admin faction-flags setting
-                    const over = codexVersions?.[fDef.key];
-                    const f = { ...fDef,
-                      available: factionFlags?.[fDef.key] ?? fDef.available,
-                      version: over?.version ?? fDef.version,
-                      status: over?.status ?? fDef.status };
-                    return (
-                    <button
-                      key={f.key}
-                      onClick={() => { if (f.available) { handleSelectFactionInSetup(f.key); } }}
-                      disabled={!f.available}
-                      onMouseMove={f.available ? (e) => {
-                        const r = e.currentTarget.getBoundingClientRect();
-                        const x = (e.clientX - r.left) / r.width - 0.5;
-                        const y = (e.clientY - r.top) / r.height - 0.5;
-                        e.currentTarget.style.setProperty('--tilt-x', `${y * -10}deg`);
-                        e.currentTarget.style.setProperty('--tilt-y', `${x * 10}deg`);
-                        e.currentTarget.style.setProperty('--shine-x', `${(x + 0.5) * 100}%`);
-                        e.currentTarget.style.setProperty('--shine-y', `${(y + 0.5) * 100}%`);
-                      } : undefined}
-                      onMouseLeave={f.available ? (e) => {
-                        e.currentTarget.style.setProperty('--tilt-x', '0deg');
-                        e.currentTarget.style.setProperty('--tilt-y', '0deg');
-                      } : undefined}
-                      className={`
-                        relative flex flex-col items-center gap-2 pt-4 pb-3 px-2 border rounded-lg text-center transition-all
-                        ${!f.available
-                          ? 'border-zinc-800 bg-zinc-900/50 cursor-not-allowed opacity-40'
-                          : 'border-zinc-700 bg-zinc-900 hover:border-amber-600 hover:bg-zinc-800 cursor-pointer faction-tilt'
-                        }
-                      `}
-                    >
-                      {f.available && (
-                        <div
-                          className={`absolute top-2 right-2 w-2 h-2 rounded-full ${STATUS_DOT[f.status]}`}
-                          title={t(STATUS_I18N_KEY[f.status])}
-                        />
-                      )}
-                      <FactionSymbol factionKey={f.key} size={40} />
-                      <span className="text-[11px] leading-tight text-zinc-300">
-                        {f.name}
-                      </span>
-                      {f.version && (
-                        <span className="font-cinzel text-[8px] uppercase tracking-widest text-amber-600/80 -mt-1">
-                          v{f.version}
-                        </span>
-                      )}
-                    </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-
-      </div>
-    </div>
   );
 }

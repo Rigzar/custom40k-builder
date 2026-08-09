@@ -19,7 +19,7 @@
  *   1. Create data/parsed/<faction>/ with the files above.
  *   2. Add a `case '<faction>'` here that loads and assembles the files.
  *   3. Add the key to FACTION_LOADERS at the bottom.
- *   4. Register in LandingPage.tsx (App.tsx auto-picks up via FACTION_LOADERS).
+ *   4. Register in data/factionCatalog.ts (App.tsx auto-picks up via FACTION_LOADERS).
  *   5. Add engine/factions/<faction>/ if it needs a custom resolver/traits/validators.
  */
 

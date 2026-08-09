@@ -265,6 +265,29 @@ src/data/       Static data — changelog, faction metadata
 src/i18n/       Translation strings (EN / DE / ES)
 ```
 
+### Navigation — the four steps
+
+Building an army is a linear flow of four steps, not a set of tabs. `App.tsx` holds all of the
+navigation state: `screen` (`'home'` | `'flow'`), `step`, and `detachment` (which army the Units
+step is showing). Nothing else in the app decides where the player is — if you find yourself
+adding a second state machine inside a screen component, that is the mistake this replaced.
+
+| File | Responsibility |
+|---|---|
+| `components/StepBar.tsx` | The step bar itself + the `Step` type and `STEP_ORDER`. Steps ②-④ are locked until a faction's data has loaded. On a phone only the active step keeps its label. |
+| `components/LandingPage.tsx` | ONLY the front door — logo, release notes, admin announcement, quick-load, supplements. It must not grow screens of its own. |
+| `components/FactionStep.tsx` | ① Battle Setup + saved armies + the faction grid. |
+| `components/ReviewStep.tsx` | ④ Verdict, points (split per detachment), the full validation list, save/print/export. |
+| `data/factionCatalog.ts` | `CATEGORIES` / `ALL_FACTIONS` / `DEFAULT_CODEX_VERSIONS` — plain data shared by the faction grid and the admin panel. |
+
+Steps ② (Configuration) and ③ (Units) are rendered inline in `App.tsx`. ② owns everything about
+the army that is not a unit: doctrine, legacy, traits, and the Allied Detachment. ③ owns the
+catalogue and the list, with a Primary / Allied switch when an ally exists.
+
+**Rules for anything you add here:** moving between steps must never discard data — the one
+exception is switching to a different faction with units on the table, and it asks first. Any
+screen a player can reach must have a visible way out that does not destroy their work.
+
 ### Engine files
 
 | File | Responsibility |
@@ -325,7 +348,7 @@ The loader that assembles each faction's `FactionData` is **`src/data/loaders.ts
 2. Add optional sub-files (`archetypes.json`, `animosity.json` if the faction has marks, `psychic/`, more armory files) as needed.
 3. Add a `case '<faction>'` in `src/data/loaders.ts` that loads the files and calls `asm(...)`.
 4. Add the key to `FACTION_LOADERS` at the bottom of `loaders.ts`.
-5. Register the faction in `src/components/LandingPage.tsx` (the card grid) and add its abbreviation / category to `src/components/FactionSymbol.tsx`.
+5. Register the faction in `src/data/factionCatalog.ts` (the `CATEGORIES` list that feeds the card grid, the admin availability toggles and the codex-version badges) and add its abbreviation / category to `src/components/FactionSymbol.tsx`.
 6. Add engine rules if needed: `src/engine/factions/<faction>/` (resolver, archetypes, traits, validators).
 
 ### Where to start / how to help

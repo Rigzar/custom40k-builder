@@ -264,6 +264,32 @@ src/data/       Statische Daten – Changelog, Fraktionsmetadaten
 src/i18n/       Übersetzungstexte (EN / DE / ES)
 ```
 
+### Navigation — die vier Schritte
+
+Eine Armee zu bauen ist ein linearer Ablauf aus vier Schritten, kein Satz von Tabs. Der gesamte
+Navigationszustand liegt in `App.tsx`: `screen` (`'home'` | `'flow'`), `step` und `detachment`
+(welche Armee der Einheiten-Schritt zeigt). Keine andere Datei entscheidet, wo der Spieler ist —
+wenn du eine zweite Zustandsmaschine innerhalb einer Bildschirm-Komponente anlegst, ist das genau
+der Fehler, den das hier ersetzt hat.
+
+| Datei | Zustaendigkeit |
+|---|---|
+| `components/StepBar.tsx` | Die Schrittleiste selbst + der Typ `Step` und `STEP_ORDER`. Die Schritte ②-④ sind gesperrt, bis die Daten einer Fraktion geladen sind. Auf dem Handy behaelt nur der aktive Schritt seine Beschriftung. |
+| `components/LandingPage.tsx` | NUR die Startseite — Logo, Release-Notes, Admin-Ankuendigung, Schnellladen, Supplements. Sie darf keine eigenen Bildschirme mehr bekommen. |
+| `components/FactionStep.tsx` | ① Schlachtvorbereitung + gespeicherte Armeen + das Fraktionsraster. |
+| `components/ReviewStep.tsx` | ④ Urteil, Punkte (getrennt nach Detachment), die vollstaendige Pruefliste, Speichern/Drucken/Exportieren. |
+| `data/factionCatalog.ts` | `CATEGORIES` / `ALL_FACTIONS` / `DEFAULT_CODEX_VERSIONS` — reine Daten, geteilt von Fraktionsraster und Admin-Panel. |
+
+Die Schritte ② (Konfiguration) und ③ (Einheiten) werden direkt in `App.tsx` gerendert. ② enthaelt
+alles an der Armee, was keine Einheit ist: Doktrin, Legacy, Traits und das verbuendete Detachment.
+③ enthaelt Katalog und Liste, mit einem Umschalter Primaer / Verbuendet, sobald es einen
+Verbuendeten gibt.
+
+**Regeln fuer alles, was du hier ergaenzt:** Ein Schrittwechsel darf niemals Daten verwerfen — die
+einzige Ausnahme ist der Wechsel zu einer anderen Fraktion, waehrend Einheiten in der Liste
+stehen, und der fragt vorher nach. Jeder Bildschirm, den ein Spieler erreichen kann, braucht einen
+sichtbaren Ausgang, der seine Arbeit nicht zerstoert.
+
 ### Engine-Dateien
 
 | Datei | Zuständigkeit |
@@ -297,7 +323,7 @@ Fraktionsdaten liegen in `data/parsed/<fraktion>/` -- ein Ordner pro Fraktion. I
 
 Der Loader, der jede `FactionData` zusammensetzt, ist **`src/data/loaders.ts`** -- er importiert die Einzeldateien mit statischen Pfaden (von Vite gefordert) und fuegt sie zusammen. Das Engine erhalt dasselbe Objekt wie vorher; nur die Dateiorganisation hat sich geandert.
 
-**Neue Fraktion hinzufuegen:** Ordner + Dateien erstellen → `case` in `loaders.ts` hinzufuegen → zu `FACTION_LOADERS` hinzufuegen → in `LandingPage.tsx` registrieren und Abkuerzung/Kategorie in `FactionSymbol.tsx` eintragen → (optional) `engine/factions/<fraktion>/` fuer eigene Resolver/Traits/Validatoren.
+**Neue Fraktion hinzufuegen:** Ordner + Dateien erstellen → `case` in `loaders.ts` hinzufuegen → zu `FACTION_LOADERS` hinzufuegen → in `data/factionCatalog.ts` registrieren und Abkuerzung/Kategorie in `FactionSymbol.tsx` eintragen → (optional) `engine/factions/<fraktion>/` fuer eigene Resolver/Traits/Validatoren.
 
 ### Wo anfangen / wie helfen
 

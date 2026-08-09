@@ -9,7 +9,7 @@ import { KillTeamAlpha } from './KillTeamAlpha';
 import { abilityKey, ruleStrings } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
-import { ALL_FACTIONS, DEFAULT_CODEX_VERSIONS } from './LandingPage';
+import { ALL_FACTIONS, DEFAULT_CODEX_VERSIONS } from '../data/factionCatalog';
 import { PointsCalculator } from './PointsCalculator';
 import { useAuth } from '../hooks/useAuth';
 

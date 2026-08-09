@@ -262,6 +262,30 @@ src/data/       Datos estáticos — changelog, metadatos de facciones
 src/i18n/       Textos de traducción (EN / DE / ES)
 ```
 
+### Navegación — los cuatro pasos
+
+Construir un ejército es un flujo lineal de cuatro pasos, no un conjunto de pestañas. Todo el
+estado de navegación vive en `App.tsx`: `screen` (`'home'` | `'flow'`), `step` y `detachment`
+(qué ejército muestra el paso de Unidades). Ningún otro archivo decide dónde está el jugador —
+si te encontrás agregando una segunda máquina de estados dentro de una pantalla, ese es
+exactamente el error que esto vino a reemplazar.
+
+| Archivo | Responsabilidad |
+|---|---|
+| `components/StepBar.tsx` | La barra de pasos + el tipo `Step` y `STEP_ORDER`. Los pasos ②-④ están bloqueados hasta que cargan los datos de una facción. En el teléfono solo el paso activo conserva su etiqueta. |
+| `components/LandingPage.tsx` | SOLO la portada — logo, notas de versión, anuncio del admin, carga rápida, suplementos. No debe hacerle crecer pantallas propias. |
+| `components/FactionStep.tsx` | ① Configuración de batalla + ejércitos guardados + la grilla de facciones. |
+| `components/ReviewStep.tsx` | ④ Veredicto, puntos (separados por destacamento), la lista completa de validación, guardar/imprimir/exportar. |
+| `data/factionCatalog.ts` | `CATEGORIES` / `ALL_FACTIONS` / `DEFAULT_CODEX_VERSIONS` — datos planos que comparten la grilla de facciones y el panel de admin. |
+
+Los pasos ② (Configuración) y ③ (Unidades) se renderizan directamente en `App.tsx`. El ② tiene
+todo lo del ejército que no es una unidad: doctrina, legacy, traits y el Destacamento Aliado. El
+③ tiene el catálogo y la lista, con un conmutador Principal / Aliado cuando hay aliado.
+
+**Reglas para lo que agregues acá:** moverse entre pasos nunca puede descartar datos — la única
+excepción es cambiar de facción con unidades ya puestas, y eso pregunta antes. Toda pantalla a la
+que llegue un jugador tiene que tener una salida visible que no destruya su trabajo.
+
 ### Archivos del motor
 
 | Archivo | Responsabilidad |
@@ -295,7 +319,7 @@ Los datos de facción viven en `data/parsed/<faccion>/` — una carpeta por facc
 
 El loader que ensambla cada `FactionData` es **`src/data/loaders.ts`** — importa los archivos individuales con rutas estáticas (requerido por Vite) y los fusiona. El engine recibe exactamente el mismo objeto que antes; solo cambió la organización de archivos.
 
-**Añadir una nueva facción:** crear la carpeta + archivos → añadir `case` en `loaders.ts` → añadir a `FACTION_LOADERS` → registrar en `LandingPage.tsx` y añadir abreviatura/categoría en `FactionSymbol.tsx` → (opcional) añadir `engine/factions/<faccion>/` si necesita resolver/rasgos/validadores propios.
+**Añadir una nueva facción:** crear la carpeta + archivos → añadir `case` en `loaders.ts` → añadir a `FACTION_LOADERS` → registrar en `data/factionCatalog.ts` y añadir abreviatura/categoría en `FactionSymbol.tsx` → (opcional) añadir `engine/factions/<faccion>/` si necesita resolver/rasgos/validadores propios.
 
 ### Por dónde empezar / cómo ayudar
 

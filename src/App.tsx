@@ -4,12 +4,15 @@ import { SlotPanel } from './components/SlotPanel';
 import { ArmyConfig } from './components/ArmyConfig';
 import { ValidationPanel } from './components/ValidationPanel';
 import { ArmyList } from './components/ArmyList';
-import { ExportImport } from './components/ExportImport';
 import { LandingPage } from './components/LandingPage';
+import { FactionStep } from './components/FactionStep';
+import { ReviewStep } from './components/ReviewStep';
+import { StepBar, type Step } from './components/StepBar';
 import { FactionSymbol } from './components/FactionSymbol';
 import { AlliedDetachmentPanel } from './components/AlliedDetachmentPanel';
 import { getRelationship, RELATIONSHIP_LABELS, RELATIONSHIP_COLORS, RELATIONSHIP_DESCRIPTIONS } from './data/alliedMatrix';
 import { validateArmy } from './engine/validators';
+import { ENGAGEMENTS } from './engine/engagements';
 import { computeUnitPoints, resolveUnit, effectiveArchetypeFor } from './engine/points';
 import { getArchetypeRule } from './engine/archetypes';
 import { getArmySymbolPair } from './utils/getArmySymbolUrl';
@@ -20,7 +23,7 @@ import { useSavedArmies, type SavedArmy, AUTOSAVE_ID, AUTOSAVE_DISMISSED_KEY } f
 import { LegalFooter } from './components/LegalModal';
 import { useAuth } from './hooks/useAuth';
 import * as api from './lib/api';
-import { useT } from './i18n';
+import { useT, setTranslationOverrides } from './i18n';
 import { usePrefs, autosaveDelayMs } from './hooks/usePrefs';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { PwaUpdatePrompt } from './components/PwaUpdatePrompt';
@@ -34,7 +37,17 @@ const CampaignModal    = lazy(() => import('./components/CampaignModal').then(m 
 const PrefsModal       = lazy(() => import('./components/PrefsModal').then(m => ({ default: m.PrefsModal })));
 const AdminPanel       = lazy(() => import('./components/AdminPanel').then(m => ({ default: m.AdminPanel })));
 
-type TabId = 'landing' | 'army_config' | 'builder' | 'allied_config';
+/**
+ * Where the player is. `screen` is the front door vs the build flow; `step` is which of the four
+ * steps of the flow (see StepBar.tsx). This replaced an `openTabs`/`activeTab` pair that modelled
+ * the screens as closeable browser tabs — a metaphor that hid the first half of the flow entirely,
+ * put the config step in two different places depending on how you got there, and let a back
+ * button silently close the tab holding your army.
+ */
+type Screen = 'home' | 'flow';
+
+/** Which detachment the Units step is showing. The ally used to be a tab of its own. */
+type Detachment = 'primary' | 'allied';
 
 export const FACTION_NAMES: Record<string, string> = {
   chaos_space_marines:  'Chaos Space Marines',
@@ -111,7 +124,10 @@ function ArmyNameEditor() {
 }
 
 // ── Compact status bar shown in the sticky header ──────────────────────────
-function HeaderStatus() {
+// The error/warning chip is a button: it is the permanent way into step ④, so a player who sees
+// "✗ 2" is one click from being told what the two problems are. It used to be dead text, and the
+// only copy of the validation list was a collapsible in the builder's left sidebar.
+function HeaderStatus({ onOpenReview }: { onOpenReview: () => void }) {
   const { data, ...state } = useArmyStore();
   if (!data || state.army.length === 0) return null;
 
@@ -142,100 +158,15 @@ function HeaderStatus() {
         <span className="hidden sm:inline text-zinc-500 text-xs tabular-nums">/ {state.pointLimit}</span>
       </div>
 
-      {errors > 0 ? (
-        <span className="text-[11px] text-red-400 border border-red-800/70 px-1.5 py-0.5 leading-none">✗ {errors}</span>
-      ) : warns > 0 ? (
-        <span className="text-[11px] text-amber-400 border border-amber-800/70 px-1.5 py-0.5 leading-none">⚠ {warns}</span>
-      ) : (
-        <span className="text-[11px] text-green-500 border border-green-800/70 px-1.5 py-0.5 leading-none">✓</span>
-      )}
-    </div>
-  );
-}
-
-// ── Tab bar ─────────────────────────────────────────────────────────────────
-function TabBar({
-  activeTab, openTabs, selectedFaction, factionLabel, armyName, symbolOverride,
-  alliedFactionKey, alliedFactionLabel,
-  onSwitch, onClose,
-  loggedIn, username, onAccountClick, onCampaignClick,
-}: {
-  activeTab: TabId;
-  openTabs: TabId[];
-  selectedFaction: string | null;
-  factionLabel: string;
-  armyName: string;
-  symbolOverride: string | null;
-  alliedFactionKey?: string | null;
-  alliedFactionLabel?: string;
-  onSwitch: (tab: TabId) => void;
-  onClose: (tab: TabId) => void;
-  loggedIn: boolean;
-  username: string | null;
-  onAccountClick: () => void;
-  onCampaignClick: () => void;
-}) {
-  const t = useT();
-  const tabs: { id: TabId; label: string; icon: boolean; closeable: boolean; allied?: boolean }[] = [
-    { id: 'landing',     label: t('tabFactions'),       icon: false, closeable: false },
-    ...(openTabs.includes('army_config') ? [{ id: 'army_config' as TabId, label: factionLabel || t('tabConfig'), icon: true, closeable: true }] : []),
-    ...(openTabs.includes('builder')     ? [{ id: 'builder'     as TabId, label: armyName || t('tabArmy'),   icon: true, closeable: true }] : []),
-    // Distinct icon/label/accent so it's unmistakably "the other army", not a sub-section of the primary's.
-    ...(openTabs.includes('allied_config') ? [{ id: 'allied_config' as TabId, label: `${t('tabAllied')}: ${alliedFactionLabel || ''}`, icon: true, closeable: true, allied: true }] : []),
-  ];
-
-  return (
-    <div className="flex items-stretch h-[38px] bg-zinc-950 border-b border-zinc-800 px-2">
-      <div className="flex items-stretch overflow-x-auto flex-1 min-w-0">
-      {tabs.map(tab => {
-        const active = activeTab === tab.id;
-        return (
-          <div
-            key={tab.id}
-            onClick={() => onSwitch(tab.id)}
-            className={`
-              flex items-center gap-1.5 px-3 py-2 text-[11px] uppercase tracking-wide font-cinzel
-              cursor-pointer select-none shrink-0 border-b-2 transition-colors
-              ${active
-                ? (tab.allied ? 'border-emerald-500 text-emerald-300 bg-zinc-900/70' : 'border-amber-600 text-amber-300 bg-zinc-900/70')
-                : (tab.allied ? 'border-transparent text-emerald-700/70 hover:text-emerald-400 hover:bg-zinc-900/30' : 'border-transparent text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900/30')
-              }
-            `}
-          >
-            {tab.allied && <span className="text-[12px] leading-none">🤝</span>}
-            {tab.icon && !tab.allied && selectedFaction && (
-              <FactionSymbol factionKey={selectedFaction} size={13} naked overrideUrl={symbolOverride ?? undefined} />
-            )}
-            {tab.icon && tab.allied && alliedFactionKey && (
-              <FactionSymbol factionKey={alliedFactionKey} size={13} naked />
-            )}
-            <span>{tab.label}</span>
-            {tab.closeable && (
-              <span
-                onClick={e => { e.stopPropagation(); onClose(tab.id); }}
-                className="ml-0.5 text-zinc-600 hover:text-red-400 transition-colors leading-none text-sm"
-              >
-                ×
-              </span>
-            )}
-          </div>
-        );
-      })}
-      </div>
       <button
-        onClick={onCampaignClick}
-        title={t('campaignAlphaTooltip')}
-        className="flex items-center shrink-0 gap-1 px-2 sm:px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-500 hover:text-red-400 transition-colors border-l border-zinc-800"
+        onClick={onOpenReview}
+        className={`text-[11px] border px-1.5 py-0.5 leading-none transition-colors ${
+          errors > 0 ? 'text-red-400 border-red-800/70 hover:bg-red-900/30'
+          : warns > 0 ? 'text-amber-400 border-amber-800/70 hover:bg-amber-900/30'
+          : 'text-green-500 border-green-800/70 hover:bg-green-900/30'
+        }`}
       >
-        <span>⚔</span>
-        <span className="hidden sm:inline">{t('campaign')}</span>
-        <span className="hidden sm:inline text-[9px] text-red-500/70">ALPHA</span>
-      </button>
-      <button
-        onClick={onAccountClick}
-        className="flex items-center shrink-0 gap-1.5 px-2 sm:px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors border-l border-zinc-800"
-      >
-        {loggedIn ? <><span>☁</span><span className="hidden sm:inline"> {username}</span></> : <><span>☁</span><span className="hidden sm:inline"> {t('login')}</span></>}
+        {errors > 0 ? `✗ ${errors}` : warns > 0 ? `⚠ ${warns}` : '✓'}
       </button>
     </div>
   );
@@ -250,10 +181,11 @@ export default function App() {
           alliedFaction, alliedData, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, setAlliedData,
           injectArchetypeFaction, injectAlliedArchetypeFaction } = store;
 
-  // Always land on the Factions tab on a fresh page load/reload — never auto-resume straight
+  // Always land on the front door on a fresh page load/reload — never auto-resume straight
   // into the builder, even if a prior session left a faction selected in sessionStorage.
-  const [activeTab, setActiveTab]               = useState<TabId>('landing');
-  const [openTabs, setOpenTabs]                 = useState<TabId[]>(['landing']);
+  const [screen, setScreen]                     = useState<Screen>('home');
+  const [step, setStep]                         = useState<Step>('faction');
+  const [detachment, setDetachment]             = useState<Detachment>('primary');
   const [selectedFaction, setSelectedFaction]   = useState<string | null>(null);
   const [loadingFaction, setLoadingFaction]     = useState(false);
   const [showPrint, setShowPrint]               = useState(false);
@@ -268,7 +200,21 @@ export default function App() {
   const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
-  const restoringSession                        = useRef(false);
+  // Admin-editable public settings — fetched once here (the landing page used to fetch them, which
+  // meant the Faction step needed its own second call to the same endpoint).
+  const [announcement, setAnnouncement]         = useState<api.AnnouncementSetting | null>(null);
+  const [factionFlags, setFactionFlags]         = useState<api.FactionFlags | null>(null);
+  const [codexVersions, setCodexVersions]       = useState<api.CodexVersions | null>(null);
+  useEffect(() => {
+    api.getPublicSettings()
+      .then(s => {
+        setAnnouncement(s.announcement);
+        setFactionFlags(s.factionFlags);
+        setCodexVersions(s.codexVersions);
+        setTranslationOverrides(s.translations);   // apply admin-edited UI strings app-wide
+      })
+      .catch(() => { /* keep code defaults */ });
+  }, []);
   // Tracks which save (cloud roster id, or local save id) the "Save" button currently updates
   // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
   // a fresh entry instead of silently overwriting whatever was last bound.
@@ -287,7 +233,7 @@ export default function App() {
   // a phone — where the whole thing is one long column — picking a faction or pressing "Add Troops"
   // dropped you into the middle of the new screen with the Archetype selector off-screen above,
   // looking like it wasn't there (Discord report).
-  useEffect(() => { window.scrollTo({ top: 0 }); }, [activeTab]);
+  useEffect(() => { window.scrollTo({ top: 0 }); }, [screen, step, detachment]);
   const [showPrefs, setShowPrefs] = useState(false);
 
   const { saves, saveArmy, deleteArmy } = useSavedArmies();
@@ -315,11 +261,6 @@ export default function App() {
           pendingLoad.current = null;
           importRoster(JSON.stringify(save.state));
         }
-        if (restoringSession.current) {
-          restoringSession.current = false;
-          setOpenTabs(['landing', 'army_config', 'builder']);
-          setActiveTab('builder');
-        }
       })
       .catch(e => {
         console.error('Error loading faction data', e);
@@ -342,26 +283,20 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alliedFaction]);
 
-  // Opens its own "Allied: <faction>" tab the moment an allied detachment is picked, and jumps
-  // straight to it — same pattern as Build Army opening the builder tab. Closes (and switches
-  // away from) it automatically when the ally is removed, so the tab can never outlive the ally.
+  // Picking an allied detachment switches the Units step over to it, so the catalogue you are
+  // looking at is the one you just chose. Removing it switches back. The ally used to get a tab of
+  // its own next to "Home" — two documents and two steps on the same row — and that tab had a ×
+  // that hid it while the ally stayed in the list, with no obvious way back in.
   // Skips the very first run (mount/page-load): zustand persists alliedFaction across reloads,
-  // and the app must always cold-start on the Factions tab regardless of what was persisted —
-  // this effect should only react to the player actively picking/removing an ally afterwards.
-  const skipFirstAlliedTabEffect = useRef(true);
+  // and the app must always cold-start on the front door regardless of what was persisted.
+  const skipFirstAlliedEffect = useRef(true);
   useEffect(() => {
-    if (skipFirstAlliedTabEffect.current) {
-      skipFirstAlliedTabEffect.current = false;
+    if (skipFirstAlliedEffect.current) {
+      skipFirstAlliedEffect.current = false;
       return;
     }
-    if (alliedFaction) {
-      setOpenTabs(prev => prev.includes('allied_config') ? prev : [...prev, 'allied_config']);
-      setActiveTab('allied_config');
-    } else {
-      setOpenTabs(prev => prev.filter(t => t !== 'allied_config'));
-      setActiveTab(prev => prev === 'allied_config' ? 'builder' : prev);
-    }
-   
+    setDetachment(alliedFaction ? 'allied' : 'primary');
+    if (alliedFaction) setStep('units');
   }, [alliedFaction]);
 
   // Archetype / legacy / native-ally faction loader
@@ -518,18 +453,25 @@ export default function App() {
    
   }, [army, faction, loggedIn, prefs.autosaveInterval]);
 
-  async function handleSelectFaction(key: string | null) {
-    if (key === null) {
-      setSelectedFaction(null);
-      setOpenTabs(['landing']);
-      setActiveTab('landing');
-      sessionStorage.removeItem('selectedFaction');
-      sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
-      return;
-    }
+  /**
+   * Picking a faction on step ①. Changing to a DIFFERENT faction with units already on the table
+   * is the one destructive move in the flow, so it asks first — the old faction's units cannot
+   * resolve against the new catalogue and would silently rot in the list.
+   */
+  function handlePickFaction(key: string) {
     const isNewFaction = key !== selectedFaction;
-    if (isNewFaction) sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
+    // Whether this actually orphans a list is decided by the faction the UNITS belong to, not by
+    // `selectedFaction`: a page reload resets `selectedFaction` to null while zustand still holds
+    // the army, so comparing against it would offer to wipe the list for re-picking its own
+    // faction. `store.faction` is the display label, hence the reverse-map.
+    const armyFactionKey = faction
+      ? (FACTION_NAMES[faction] ? faction : Object.entries(FACTION_NAMES).find(([, v]) => v === faction)?.[0] ?? faction)
+      : null;
+    const orphansTheList = army.length > 0 && !!armyFactionKey && armyFactionKey !== key;
+    if (orphansTheList && !confirm(t('changeFactionConfirm'))) return;
     if (isNewFaction) {
+      if (orphansTheList) store.clearArmy();
+      sessionStorage.removeItem(AUTOSAVE_DISMISSED_KEY);
       setActiveCloudRosterId(null);
       setActiveLocalSaveId(null);
       // Apply default engagement / points when starting a fresh army.
@@ -539,33 +481,23 @@ export default function App() {
       }
     }
     setSelectedFaction(key);
-    if (activeTab === 'landing') {
-      // Faction picked from the landing pick-view — config is inline there, stay on landing.
-      if (isNewFaction) setOpenTabs(['landing']);
-    } else {
-      // Faction changed from inside the builder (e.g. via a future settings panel).
-      setOpenTabs(prev => {
-        const base = isNewFaction ? prev.filter(t => t === 'landing') : prev.filter(t => t !== 'builder');
-        return base.includes('army_config') ? base : [...base, 'army_config'];
-      });
-      setActiveTab('army_config');
-    }
+    setStep('config');
   }
 
+  /** Moving on from the Config step. Names the army if the player never did. */
   function handleBuild() {
     if (!armyName.trim() && selectedFaction) {
       setArmyName(`${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`);
     }
     if (!data || !selectedFaction) return;
-    setOpenTabs(prev => {
-      const withBuilder: TabId[] = prev.includes('builder') ? prev : [...prev, 'builder'];
-      // Re-open the allied tab too if an ally was already configured (e.g. resuming a saved
-      // army) — otherwise the sidebar's "open the Allied tab" pointer would lead nowhere.
-      return alliedFaction && !withBuilder.includes('allied_config')
-        ? [...withBuilder, 'allied_config']
-        : withBuilder;
-    });
-    setActiveTab('builder');
+    setStep('units');
+  }
+
+  /** Jump into the flow at a given step — used by every "load an army" path. */
+  function enterFlow(s: Step) {
+    setScreen('flow');
+    setStep(s);
+    setDetachment('primary');
   }
 
   /** Windows-Explorer-style dedup: "Name" -> "Name (1)" -> "Name (2)" against a list of names
@@ -658,8 +590,7 @@ export default function App() {
       : Object.entries(FACTION_NAMES).find(([, v]) => v === save.factionKey)?.[0] ?? save.factionKey;
     consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
-    setOpenTabs(['landing', 'army_config', 'builder']);
-    setActiveTab('builder');
+    enterFlow('units');
   }
 
   function handleLoadCloudRoster(data: Record<string, unknown>, rosterId: number) {
@@ -681,8 +612,7 @@ export default function App() {
     setActiveLocalSaveId(null);
     consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
-    setOpenTabs(['landing', 'army_config', 'builder']);
-    setActiveTab('builder');
+    enterFlow('units');
     setShowCloudSaves(false);
   }
 
@@ -704,31 +634,22 @@ export default function App() {
     setActiveCloudRosterId(null);
     consumePendingLoadIfSameFaction(fKey);
     setSelectedFaction(fKey);
-    setOpenTabs(['landing', 'army_config', 'builder']);
-    setActiveTab('builder');
+    enterFlow('units');
     setShowCloudSaves(false);
-  }
-
-  function handleCloseTab(tab: TabId) {
-    // Closing a tab's × is always a UI-only action — it hides the tab, it never deletes data.
-    // The allied detachment's units stay intact in the background even with its tab closed;
-    // re-opening it (sidebar's "Allied: X" widget) shows the same roster exactly as left it.
-    // The ONLY ways to actually delete the ally are the dedicated "Remove" button (just the
-    // ally) or "Clear" (the whole army, which cascades to the ally too).
-    setOpenTabs(prev => prev.filter(t => t !== tab));
-    if (activeTab === tab) {
-      const remaining = openTabs.filter(t => t !== tab);
-      setActiveTab(remaining[remaining.length - 1] ?? 'landing');
-    }
   }
 
   const factionLabel = selectedFaction ? (FACTION_NAMES[selectedFaction] ?? selectedFaction) : '';
   const alliedFactionLabel = alliedFaction ? (FACTION_NAMES[alliedFaction] ?? alliedFaction) : '';
 
+  /** Steps ②-④ need a faction whose catalogue has finished loading. */
+  const flowUnlocked = !!selectedFaction && !!data;
+  const showAlly = !!alliedFaction && detachment === 'allied';
+  const accentBorder = showAlly ? 'border-emerald-900/60' : 'border-amber-900/60';
+
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
 
-      {/* ── Cheat Sheets — floating button, always visible on every screen (landing + all tabs) ── */}
+      {/* ── Cheat Sheets — floating button, always visible on every screen ── */}
       <button
         onClick={() => setShowCheatSheets(true)}
         title="Cheat Sheets"
@@ -738,46 +659,108 @@ export default function App() {
         <span className="hidden sm:inline">Cheat Sheets</span>
       </button>
 
-      {/* ── Tab bar — hidden on landing hero (hero has its own header) ──
+      {/* ── Navigation chrome — one sticky block for the whole flow ──
+           Row 1 is the four steps, row 2 is the army it applies to. Hidden on the front door,
+           which has its own header.
            paddingTop = safe-area inset so on an installed PWA (viewport-fit=cover) the bar sits
            BELOW the system status bar instead of under the clock/signal icons; the app-coloured bg
-           fills the inset strip. Sub-headers below stick at 38px + the same inset. */}
-      <div
-        className="sticky top-0 z-50"
-        style={{
-          display: activeTab === 'landing' ? 'none' : 'block',
-          paddingTop: 'env(safe-area-inset-top)',
-          background: '#18171a',
-        }}
-      >
-        <TabBar
-          activeTab={activeTab}
-          openTabs={openTabs}
-          selectedFaction={selectedFaction}
-          factionLabel={factionLabel}
-          armyName={armyName}
-          symbolOverride={armySymbolOverride}
-          alliedFactionKey={alliedFaction}
-          alliedFactionLabel={alliedFactionLabel}
-          onSwitch={setActiveTab}
-          onClose={handleCloseTab}
-          loggedIn={loggedIn}
-          username={username}
-          onAccountClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
-          onCampaignClick={() => loggedIn ? setShowCampaign(true) : setShowAuth(true)}
-        />
-      </div>
+           fills the inset strip. */}
+      {screen === 'flow' && (
+        <div
+          className="sticky top-0 z-50"
+          style={{ paddingTop: 'env(safe-area-inset-top)', background: '#18171a' }}
+        >
+          <StepBar
+            step={step}
+            unlocked={flowUnlocked}
+            onGo={setStep}
+            onHome={() => setScreen('home')}
+            loggedIn={loggedIn}
+            username={username}
+            onAccountClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
+            onCampaignClick={() => loggedIn ? setShowCampaign(true) : setShowAuth(true)}
+          />
 
-      {/* ── Landing tab ── */}
-      <div style={{ display: activeTab === 'landing' ? 'contents' : 'none' }}>
+          {/* Army bar — the same identity strip on every step past the faction grid, instead of
+              the three near-identical sub-headers the old tabs each carried. */}
+          {step !== 'faction' && selectedFaction && (
+            <header className={`bg-zinc-900 border-b-2 ${accentBorder} px-4 py-2`}>
+              <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-2 mr-auto min-w-0">
+                  <div className="flex items-center gap-1">
+                    <FactionSymbol factionKey={selectedFaction} size={24} overrideUrl={armySymbolOverride ?? undefined} />
+                    {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={24} overrideUrl={armySymbolSecondary} />}
+                  </div>
+                  <span className="hidden sm:inline text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
+                  <ArmyNameEditor />
+                </div>
+
+                <HeaderStatus onOpenReview={() => setStep('review')} />
+
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {data && (
+                    <button
+                      onClick={handleSaveArmy}
+                      className={`text-[11px] uppercase tracking-wide border px-2.5 py-1 transition-colors
+                        ${savedMsg
+                          ? 'text-green-400 border-green-700 bg-green-900/20'
+                          : 'text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800'
+                        }`}
+                    >
+                      {savedMsg || t('save')}
+                    </button>
+                  )}
+                  {!loggedIn && (
+                    <button
+                      onClick={() => setShowArmies(true)}
+                      title="My Armies"
+                      className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2 py-1 transition-colors"
+                    >
+                      <span className="sm:hidden">📋</span>
+                      <span className="hidden sm:inline">My Armies</span>
+                    </button>
+                  )}
+                  {data && (
+                    <button
+                      onClick={() => setShowPrint(true)}
+                      title="Print"
+                      className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2 py-1 transition-colors"
+                    >
+                      <span className="sm:hidden">🖨</span>
+                      <span className="hidden sm:inline">{t('print')}</span>
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setShowPrefs(true)}
+                    title="Preferences"
+                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2 py-1 transition-colors"
+                  >
+                    ⚙
+                  </button>
+                  <button
+                    onClick={() => setShowBugReport(true)}
+                    title="Report a bug"
+                    className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-2 py-1 transition-colors"
+                  >
+                    <span className="sm:hidden">🐛</span>
+                    <span className="hidden sm:inline">Bug</span>
+                  </button>
+                </div>
+              </div>
+            </header>
+          )}
+        </div>
+      )}
+
+      {/* ── Front door ── */}
+      {screen === 'home' && (
         <LandingPage
-          selectedFaction={selectedFaction}
-          loading={loadingFaction}
           saves={saves}
-          onSelectFaction={handleSelectFaction}
-          onBuild={handleBuild}
+          announcement={announcement}
+          canResume={flowUnlocked && army.length > 0}
+          onStart={() => { setScreen('flow'); setStep('faction'); }}
+          onResume={() => { setScreen('flow'); setStep('units'); }}
           onLoadArmy={handleLoadArmy}
-          onDeleteArmy={(id) => { deleteArmy(id); if (id === activeLocalSaveId) setActiveLocalSaveId(null); }}
           onShowAuth={() => setShowAuth(true)}
           onShowCloudSaves={loggedIn ? () => { setCloudSavesDefaultTab('armies'); setShowCloudSaves(true); } : undefined}
           onShowCommunity={loggedIn
@@ -785,218 +768,175 @@ export default function App() {
             : () => setShowAuth(true)
           }
         />
-      </div>
-
-      {/* ── Army Config tab ── */}
-      {openTabs.includes('army_config') && (
-        <div style={{ display: activeTab === 'army_config' ? 'flex' : 'none' }} className="flex-col flex-1">
-          {/* Sub-header */}
-          <header className="sticky z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5" style={{ top: 'calc(38px + env(safe-area-inset-top))' }}>
-            <div className="max-w-screen-xl mx-auto flex items-center gap-3">
-              {selectedFaction && (
-                <div className="flex items-center gap-1">
-                  <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />
-                  {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolSecondary} />}
-                </div>
-              )}
-              <h1 className="text-amber-500 font-bold uppercase tracking-widest text-base leading-none font-bankgothic">
-                {factionLabel}
-              </h1>
-            </div>
-          </header>
-
-          {/* Config content */}
-          <div className="max-w-screen-md mx-auto w-full px-4 py-6">
-            {loadingFaction ? (
-              <div className="flex items-center gap-3 text-zinc-500 py-8">
-                <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
-                <span className="text-sm">{t('loadingFactionData')}</span>
-              </div>
-            ) : data ? (
-              <>
-                <ArmyConfig />
-                <div className="flex justify-center mt-8">
-                  <button
-                    onClick={handleBuild}
-                    className="px-12 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
-                  >
-                    {t('buildArmy')}
-                  </button>
-                </div>
-              </>
-            ) : null}
-          </div>
-        </div>
       )}
 
-      {/* ── Builder tab ── */}
-      {openTabs.includes('builder') && (
-        <div style={{ display: activeTab === 'builder' ? 'flex' : 'none' }} className="flex-col flex-1">
-
-          {/* Builder sticky header */}
-          <header className="sticky z-40 bg-zinc-900 border-b-2 border-amber-900/60 px-4 py-2.5" style={{ top: 'calc(38px + env(safe-area-inset-top))' }}>
-            <div className="max-w-screen-xl mx-auto flex items-center gap-3 flex-wrap">
-              {/* Symbol + title + army name */}
-              <div className="flex items-center gap-2 mr-auto min-w-0">
-                {selectedFaction && (
-                  <div className="flex items-center gap-1">
-                    <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolOverride ?? undefined} />
-                    {armySymbolSecondary && <FactionSymbol factionKey={selectedFaction} size={28} overrideUrl={armySymbolSecondary} />}
-                  </div>
-                )}
-                <h1 className="hidden sm:block text-amber-500 font-bold uppercase tracking-widest text-base leading-none shrink-0 font-bankgothic">
-                  Custom40k
-                </h1>
-                <span className="hidden sm:inline text-zinc-600 text-xs shrink-0">{factionLabel} ·</span>
-                <ArmyNameEditor />
-              </div>
-
-              {/* Points + validation */}
-              <HeaderStatus />
-
-              {/* Actions */}
-              <div className="flex items-center gap-2 flex-wrap">
-                {data && (
-                  <button
-                    onClick={handleSaveArmy}
-                    className={`text-[11px] uppercase tracking-wide border px-3 py-1 transition-colors
-                      ${savedMsg
-                        ? 'text-green-400 border-green-700 bg-green-900/20'
-                        : 'text-zinc-400 hover:text-amber-400 border-zinc-700 hover:border-amber-800'
-                      }`}
-                  >
-                    {savedMsg || 'Save'}
-                  </button>
-                )}
-                {!loggedIn && (
-                  <button
-                    onClick={() => setShowArmies(true)}
-                    title="My Armies"
-                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
-                  >
-                    <span className="sm:hidden">📋</span>
-                    <span className="hidden sm:inline">My Armies</span>
-                  </button>
-                )}
-                {data && (
-                  <button
-                    onClick={() => setShowPrint(true)}
-                    title="Print"
-                    className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
-                  >
-                    <span className="sm:hidden">🖨</span>
-                    <span className="hidden sm:inline">Print</span>
-                  </button>
-                )}
-                <button
-                  onClick={() => setShowPrefs(true)}
-                  title="Preferences"
-                  className="text-[11px] text-zinc-400 hover:text-amber-400 uppercase tracking-wide border border-zinc-700 hover:border-amber-800 px-2.5 py-1 transition-colors"
-                >
-                  ⚙
-                </button>
-                <button
-                  onClick={() => setShowBugReport(true)}
-                  title="Report a bug"
-                  className="text-[11px] text-red-500/70 hover:text-red-400 uppercase tracking-wide border border-red-900/50 hover:border-red-700 px-2.5 py-1 transition-colors"
-                >
-                  <span className="sm:hidden">🐛</span>
-                  <span className="hidden sm:inline">Bug</span>
-                </button>
-              </div>
-            </div>
-          </header>
-
-          {/* Builder layout */}
-          <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 flex-1">
-            <aside className="space-y-2">
-              <CollapsiblePanel title={t('battleSetup')} defaultOpen={false}>
-                <div className="px-3 py-3">
-                  <ArmyConfig onlyBattleSetup />
-                </div>
-              </CollapsiblePanel>
-
-              <CollapsiblePanel title={t('unitCatalogue')} defaultOpen>
-                <SlotPanel />
-              </CollapsiblePanel>
-
-              <CollapsiblePanel title={t('alliedDetachmentPanelTitle')} defaultOpen>
-                <AlliedDetachmentPanel primaryFaction={selectedFaction}
-                  tabOpen={openTabs.includes('allied_config')}
-                  onOpenTab={() => {
-                    setOpenTabs(prev => prev.includes('allied_config') ? prev : [...prev, 'allied_config']);
-                    setActiveTab('allied_config');
-                  }} />
-              </CollapsiblePanel>
-
-              <ValidationPanel />
-
-              <CollapsiblePanel title={t('armyPanelTitle')} defaultOpen>
-                <div className="p-3">
-                  <ExportImport onPrint={() => setShowPrint(true)} />
-                </div>
-              </CollapsiblePanel>
-            </aside>
-
-            <main>
-              <ArmyList />
-            </main>
-          </div>
-        </div>
+      {/* ── ① Faction ── */}
+      {screen === 'flow' && step === 'faction' && (
+        <FactionStep
+          selectedFaction={selectedFaction}
+          saves={saves}
+          factionFlags={factionFlags}
+          codexVersions={codexVersions}
+          onPickFaction={handlePickFaction}
+          onLoadArmy={handleLoadArmy}
+          onDeleteArmy={(id) => { deleteArmy(id); if (id === activeLocalSaveId) setActiveLocalSaveId(null); }}
+          onContinue={() => setStep('config')}
+        />
       )}
 
-      {/* ── Allied Detachment tab — its own army: Customisation + catalogue, full width ── */}
-      {openTabs.includes('allied_config') && alliedFaction && (
-        <div style={{ display: activeTab === 'allied_config' ? 'flex' : 'none' }} className="flex-col flex-1">
-          <header className="sticky z-40 bg-zinc-900 border-b-2 border-emerald-900/60 px-4 py-2.5" style={{ top: 'calc(38px + env(safe-area-inset-top))' }}>
-            <div className="max-w-screen-xl mx-auto flex items-center gap-3">
-              <FactionSymbol factionKey={alliedFaction} size={28} />
-              <h1 className="text-emerald-500 font-bold uppercase tracking-widest text-base leading-none font-bankgothic">
-                🤝 Allied: {alliedFactionLabel}
-              </h1>
-              {selectedFaction && (() => {
-                const rel = getRelationship(selectedFaction, alliedFaction);
-                return rel ? (
-                  <span className={`text-[10px] font-semibold uppercase tracking-wide ${RELATIONSHIP_COLORS[rel]}`}>
-                    {RELATIONSHIP_LABELS[rel]}
+      {/* ── ② Configuration — everything about the army that is not a unit ── */}
+      {screen === 'flow' && step === 'config' && (
+        <div className="max-w-screen-md mx-auto w-full px-4 py-6 space-y-5">
+          {loadingFaction ? (
+            <div className="flex items-center gap-3 text-zinc-500 py-8">
+              <div className="w-5 h-5 border-2 border-amber-700 border-t-transparent rounded-full animate-spin" />
+              <span className="text-sm">{t('loadingFactionData')}</span>
+            </div>
+          ) : data ? (
+            <>
+              {/* Battle setup is step ①'s — shown here as a summary with a way back, rather than a
+                  second copy of the same two controls. */}
+              <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-zinc-900 border border-zinc-800 border-l-4 border-l-amber-800">
+                <span className="text-[11px] text-zinc-400">
+                  <span className="text-amber-600 uppercase tracking-wide">{ENGAGEMENTS[engagement].name}</span>
+                  <span className="text-zinc-600"> · </span>
+                  <span className="tabular-nums">{pointLimit} pts</span>
+                </span>
+                <button
+                  onClick={() => setStep('faction')}
+                  className="text-[10px] uppercase tracking-wide text-zinc-500 hover:text-amber-400 transition-colors shrink-0"
+                >
+                  {t('changeLabel')}
+                </button>
+              </div>
+
+              <ArmyConfig showBattleSetup={false} />
+
+              {/* The allied detachment is part of configuring the army, not of picking units — it
+                  used to live in the builder's left sidebar, four collapsibles down. */}
+              <div className="border border-zinc-800 bg-zinc-900/50">
+                <div className="px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
+                  <span className="font-cinzel text-[11px] uppercase tracking-widest text-amber-400">
+                    {t('alliedDetachmentPanelTitle')}
                   </span>
-                ) : null;
-              })()}
-            </div>
-          </header>
+                </div>
+                <div className="p-3 space-y-3">
+                  <AlliedDetachmentPanel primaryFaction={selectedFaction} />
+                  {alliedFaction && (
+                    <div className="pt-1 border-t border-zinc-800">
+                      <ArmyConfig scope="allied" alliedFactionLabel={alliedFactionLabel} />
+                    </div>
+                  )}
+                </div>
+              </div>
 
-          <div className="max-w-screen-xl mx-auto px-4 py-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4 flex-1">
-            <aside className="space-y-2">
-              <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3">
-                This is a separate detachment from {factionLabel}'s army — its own Army
-                Organisation Plan, its own Army Customisation, sharing only the total point limit.
+              <div className="flex justify-center pt-2 pb-6">
+                <button
+                  onClick={handleBuild}
+                  className="px-12 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
+                >
+                  {t('addTroops')} →
+                </button>
+              </div>
+            </>
+          ) : null}
+        </div>
+      )}
+
+      {/* ── ③ Units — kept mounted so the catalogue's open sections survive a trip to ④ ── */}
+      {screen === 'flow' && flowUnlocked && (
+        <div style={{ display: step === 'units' ? 'flex' : 'none' }} className="flex-col flex-1">
+          <div className="max-w-screen-xl mx-auto px-4 py-4 w-full flex-1">
+
+            {/* Detachment switch — only once there is a second detachment to switch to. */}
+            {alliedFaction && (
+              <div className="flex items-stretch gap-1 mb-3 border border-zinc-800 bg-zinc-900/50 p-1 w-fit">
+                <button
+                  onClick={() => setDetachment('primary')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-wide font-cinzel transition-colors
+                    ${detachment === 'primary'
+                      ? 'bg-amber-900/40 border border-amber-700 text-amber-300'
+                      : 'border border-transparent text-zinc-500 hover:text-zinc-300'}`}
+                >
+                  <FactionSymbol factionKey={selectedFaction!} size={13} naked overrideUrl={armySymbolOverride ?? undefined} />
+                  {t('detachmentPrimary')}
+                </button>
+                <button
+                  onClick={() => setDetachment('allied')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-wide font-cinzel transition-colors
+                    ${detachment === 'allied'
+                      ? 'bg-emerald-900/40 border border-emerald-700 text-emerald-300'
+                      : 'border border-transparent text-zinc-500 hover:text-zinc-300'}`}
+                >
+                  <span>🤝</span>
+                  <FactionSymbol factionKey={alliedFaction} size={13} naked />
+                  {alliedFactionLabel}
+                </button>
+              </div>
+            )}
+
+            {showAlly && (
+              <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3 mb-3">
+                {t('alliedSeparateDetachment')} {factionLabel}.
                 {selectedFaction && (() => {
-                  const rel = getRelationship(selectedFaction, alliedFaction);
+                  const rel = getRelationship(selectedFaction, alliedFaction!);
                   return rel ? ` ${RELATIONSHIP_DESCRIPTIONS[rel]}` : '';
                 })()}
+                {selectedFaction && (() => {
+                  const rel = getRelationship(selectedFaction, alliedFaction!);
+                  return rel ? (
+                    <span className={`ml-1.5 font-semibold uppercase tracking-wide ${RELATIONSHIP_COLORS[rel]}`}>
+                      {RELATIONSHIP_LABELS[rel]}
+                    </span>
+                  ) : null;
+                })()}
               </p>
+            )}
 
-              <ArmyConfig scope="allied" alliedFactionLabel={alliedFactionLabel} />
+            <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
+              <aside className="space-y-2">
+                <CollapsiblePanel title={t('unitCatalogue')} defaultOpen>
+                  {showAlly
+                    ? <SlotPanel scope="allied" alliedFactionKey={alliedFaction!} />
+                    : <SlotPanel />}
+                </CollapsiblePanel>
 
-              <div className="border border-zinc-800 bg-zinc-900/50">
-                <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
-                  <span className="font-cinzel text-[11px] uppercase tracking-widest text-emerald-400">
-                    {alliedFactionLabel} — {t('unitCatalogue')}
-                  </span>
+                <ValidationPanel />
+
+                {/* Doctrine/traits are step ②'s — say where they went instead of leaving the
+                    player hunting for the archetype dropdown that used to be one tab away. */}
+                <button
+                  onClick={() => setStep('config')}
+                  className="w-full text-left text-[11px] text-zinc-500 hover:text-amber-400 border border-zinc-800 hover:border-amber-900 px-3 py-2 transition-colors"
+                >
+                  ← {t('backToConfig')}
+                </button>
+              </aside>
+
+              <main>
+                <ArmyList scope={showAlly ? 'allied' : 'primary'} />
+                <div className="flex justify-center py-6">
+                  <button
+                    onClick={() => setStep('review')}
+                    className="px-10 py-3 bg-amber-800 border-2 border-amber-600 text-white font-bold uppercase tracking-widest text-sm hover:bg-amber-700 transition-colors"
+                  >
+                    {t('reviewList')} →
+                  </button>
                 </div>
-                <div className="p-3">
-                  <SlotPanel scope="allied" alliedFactionKey={alliedFaction} />
-                </div>
-              </div>
-
-              <ValidationPanel />
-            </aside>
-
-            <main>
-              <ArmyList scope="allied" />
-            </main>
+              </main>
+            </div>
           </div>
         </div>
+      )}
+
+      {/* ── ④ Review ── */}
+      {screen === 'flow' && step === 'review' && flowUnlocked && (
+        <ReviewStep
+          onPrint={() => setShowPrint(true)}
+          onSave={handleSaveArmy}
+          savedMsg={savedMsg}
+          onBack={() => setStep('units')}
+        />
       )}
 
       {/* ── Modals (lazy-loaded) ── */}

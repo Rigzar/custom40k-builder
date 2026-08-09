@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-tab-navigation-unintuitive-01',
+    status: 'fixed',
+    title: 'The top navigation was pretty but nobody could move through army creation with it',
+    description: 'FIXED 2026-08-09 (v1.58), user report: "la navegación de pestañas es bonita pero no es nada intuitiva para moverse por la creación de ejército, es muy rara". Six causes, all structural rather than cosmetic. (1) TWO navigation systems that did not know about each other: LandingPage held a hidden `view` state machine (hero → setup → config) with its own "← Home" / "← Select Faction" buttons, while App held the tab bar — and the tab bar was `display:none` for that entire stretch, so it appeared out of nowhere at "Add Troops". (2) The "Home" tab returned to LandingPage, which kept its internal view, so you landed on the config screen whose only back button called `onSelectFaction(null)` → `setOpenTabs([\'landing\'])`, CLOSING the tab that held your army. (3) The config step lived inside the landing for a new army but in an `army_config` tab for a loaded one — same content, two homes. (4) From the builder there was no route to archetype/legacy/traits at all: the sidebar panel was `ArmyConfig onlyBattleSetup`. (5) The tabs carried × like browser tabs but were a linear flow, and mixed a place, a step and two documents on one row. (6) Validation had no home: a sidebar collapsible, with a header chip that was not clickable. Replaced with a four-step bar (① Faction ② Configuration ③ Units ④ Review), `screen`/`step`/`detachment` state, `FactionStep.tsx` + `ReviewStep.tsx` + `StepBar.tsx`, the faction catalogue moved out of LandingPage into `data/factionCatalog.ts`, and the allied detachment turned from a sibling tab into a Primary/Allied switch on step ③. Going back is now free; only changing faction with units on the table is destructive, and it asks first.',
+  },
+  {
     id: 'ki-admin-panel-promise-all-01',
     status: 'fixed',
     title: 'The admin panel crashed to a blank screen whenever one of its endpoints failed',

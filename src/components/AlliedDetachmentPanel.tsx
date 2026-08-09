@@ -115,16 +115,13 @@ function FactionPicker({
  */
 
 /**
- * Sidebar widget: lets the player attach/detach the allied detachment and shows the relationship
- * at a glance. Once attached, its own Army Customisation and unit catalogue live in the dedicated
- * "Allied: <faction>" tab (App.tsx) — not here — so the two armies stay visually separate.
+ * Lets the player attach/detach the allied detachment and shows the relationship at a glance.
+ * Lives on the Configuration step, right above the ally's own Army Customisation; its units are
+ * picked on the Units step through the Primary/Allied switch. It used to sit in the builder's
+ * left sidebar and send you to a separate "Allied: <faction>" tab.
  */
-export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
+export function AlliedDetachmentPanel({ primaryFaction }: {
   primaryFaction: string | null;
-  /** Whether the "Allied: X" tab is currently open — closing it (×) only hides the tab, it
-   * never deletes the ally's roster, so this widget needs a way back in. */
-  tabOpen?: boolean;
-  onOpenTab?: () => void;
 }) {
   const t = useT();
   const { alliedFaction, setAlliedFaction, engagement } = useArmyStore();
@@ -182,15 +179,6 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
           </div>
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
-          {!tabOpen && onOpenTab && (
-            <button
-              onClick={onOpenTab}
-              title={t('reopenAlliedTab')}
-              className="text-[11px] text-emerald-500 hover:text-emerald-300 border border-emerald-800 hover:border-emerald-600 px-2 py-0.5 transition-colors"
-            >
-              {t('openLabel')}
-            </button>
-          )}
           <button
             onClick={() => { if (confirm(`${t('removeAlliedConfirmPart1')} ${factionLabel} ${t('removeAlliedConfirmPart2')}`)) setAlliedFaction(null); }}
             title={t('removeAlliedTitle')}
@@ -209,7 +197,7 @@ export function AlliedDetachmentPanel({ primaryFaction, tabOpen, onOpenTab }: {
       )}
 
       <p className="text-[11px] text-emerald-500/80 leading-snug border-l-2 border-emerald-800 pl-2">
-        {t('alliedInfoIntro')} <span className="font-semibold">🤝 {t('tabAllied')}: {factionLabel}</span>{tabOpen ? t('alliedInfoStatusOpen') : t('alliedInfoStatusClosed')}{t('alliedInfoIndependentPrefix')} {FACTION_NAMES[primaryFaction] ?? primaryFaction}{t('alliedInfoPossessiveSuffix')}
+        {t('alliedInfoIntro')}{t('alliedInfoIndependentPrefix')} {FACTION_NAMES[primaryFaction] ?? primaryFaction}{t('alliedInfoPossessiveSuffix')}
       </p>
     </div>
   );
