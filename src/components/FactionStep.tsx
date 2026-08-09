@@ -5,6 +5,7 @@ import { FactionSymbol } from './FactionSymbol';
 import { useT } from '../i18n';
 import { CATEGORIES, STATUS_DOT, STATUS_I18N_KEY } from '../data/factionCatalog';
 import { ENGAGEMENTS } from '../engine/engagements';
+import { allowEngagementChange } from '../utils/engagementGuard';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import type { EngagementType } from '../types/army';
 
@@ -36,7 +37,7 @@ export function FactionStep({
   onContinue: () => void;
 }) {
   const t = useT();
-  const { engagement, pointLimit, setEngagement, setPointLimit } = useArmyStore();
+  const { engagement, pointLimit, setEngagement, setPointLimit, alliedFaction } = useArmyStore();
   // Raw text of the points-limit box while it is being edited (null = show the store value).
   const [pointDraft, setPointDraft] = useState<string | null>(null);
 
@@ -45,6 +46,7 @@ export function FactionStep({
 
   function handleSetEngagement(e: EngagementType) {
     const eng = ENGAGEMENTS[e];
+    if (!allowEngagementChange(e, alliedFaction, t('skirmishDropsAllyConfirm'))) return;
     setEngagement(e);
     if (pointLimit < eng.min) setPointLimit(eng.min);
     else if (pointLimit > eng.max) setPointLimit(eng.max);

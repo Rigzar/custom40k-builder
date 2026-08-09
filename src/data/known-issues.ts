@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-skirmish-silently-drops-ally-01',
+    status: 'fixed',
+    title: 'Switching the battle type to Skirmish deleted the Allied Detachment with no warning and no way back',
+    description: 'FIXED 2026-08-09 (v1.58), user report: reviewing an old list with allies, changed the battle type, and the whole allied detachment was gone — setting the points back did not restore it. `setEngagement` in `store/army.ts` drops `alliedFaction` and filters every `factionSource` unit out of the army when the new engagement is Skirmish. The RULE is right (Missions, Skirmish: "No allies may be included") and it is not new — the store was not touched by the navigation rework. What was wrong is that it happened silently and irreversibly: switching back to Pitched Battle does not restore the detachment, its units, or its own archetype/legacy/traits. The step redesign made it far easier to hit, because Battle Setup moved to step ① and going back a step is now both encouraged and advertised as safe. Fixed with `utils/engagementGuard.ts` — `allowEngagementChange()` — called by every engagement picker (FactionStep and both of ArmyConfig\'s Battle Setup blocks), so no picker can bypass it. Cancelling leaves engagement, ally and units untouched; accepting still enforces the rule. NOTE: the point limit is also reset to the new engagement\'s default by the same store action, which is intended.',
+  },
+  {
     id: 'ki-tab-navigation-unintuitive-01',
     status: 'fixed',
     title: 'The top navigation was pretty but nobody could move through army creation with it',

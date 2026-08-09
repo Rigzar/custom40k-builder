@@ -1,6 +1,7 @@
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
+import { allowEngagementChange } from '../utils/engagementGuard';
 import { useT } from '../i18n';
 
 import type { EngagementType, Mark } from '../types/army';
@@ -57,7 +58,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                 {(Object.keys(ENGAGEMENTS) as EngagementType[]).map(e => (
                   <button
                     key={e}
-                    onClick={() => setEngagement(e)}
+                    onClick={() => { if (allowEngagementChange(e, store.alliedFaction, t('skirmishDropsAllyConfirm'))) setEngagement(e); }}
                     className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
                       ${engagement === e
                         ? 'bg-amber-900/50 border-amber-600 text-amber-300'
@@ -147,7 +148,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
               {engKeys.map(e => (
                 <button
                   key={e}
-                  onClick={() => setEngagement(e)}
+                  onClick={() => { if (allowEngagementChange(e, store.alliedFaction, t('skirmishDropsAllyConfirm'))) setEngagement(e); }}
                   className={`py-2.5 font-cinzel text-[10px] uppercase tracking-wide border transition-colors
                     ${engagement === e
                       ? 'bg-amber-900/50 border-amber-600 text-amber-300'
