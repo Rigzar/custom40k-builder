@@ -917,15 +917,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     return s + (u ? computeUnitPoints(i, u, effectiveArchetypeFor(i, state)) : 0);
   }, 0);
 
-  // Point range warnings
-  if (state.engagement === 'skirmish') {
-    if (total < 1000) items.push({ type: 'warn', text: T('valSkirmishRecommended', { total }) });
-    if (total > 1500) items.push({ type: 'warn', text: T('valSkirmishCap', { total }) });
-  } else if (state.engagement === 'pitched') {
-    if (total < 2500) items.push({ type: 'warn', text: T('valPitchedRecommended', { total }) });
-    if (total > 3500) items.push({ type: 'warn', text: T('valPitchedCap', { total }) });
-  } else {
-    if (total < 4000) items.push({ type: 'warn', text: T('valEpicRecommended', { total }) });
+  // Point ranges. Missions states these as the size of the game, not as advice — "Skirmish
+  // (1000 - 1500 points)" — so an army outside its engagement's band is an error, the same as any
+  // other restriction the supplement prints. An empty army is exempt: a list you have not started
+  // yet is not a broken list, and opening the builder to a red error helps nobody.
+  if (total > 0) {
+    if (state.engagement === 'skirmish') {
+      if (total < 1000) items.push({ type: 'error', text: T('valSkirmishRecommended', { total }) });
+      if (total > 1500) items.push({ type: 'error', text: T('valSkirmishCap', { total }) });
+    } else if (state.engagement === 'pitched') {
+      if (total < 2500) items.push({ type: 'error', text: T('valPitchedRecommended', { total }) });
+      if (total > 3500) items.push({ type: 'error', text: T('valPitchedCap', { total }) });
+    } else {
+      if (total < 4000) items.push({ type: 'error', text: T('valEpicRecommended', { total }) });
+    }
   }
 
   // Hard point limit
