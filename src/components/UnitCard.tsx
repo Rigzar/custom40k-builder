@@ -1455,10 +1455,14 @@ export function UnitCard({ item }: Props) {
                 </summary>
                 <div className="px-2 pb-2">
                 {groupHasWeapons ? (
-                  <div className="bg-zinc-900 border border-zinc-600">
-                    {/* table-fixed so the declared widths hold and a long weapon name wraps
-                        instead of pushing the Pts column off the right edge. */}
-                    <table className="w-full table-fixed text-xs border-collapse">
+                  <div className="overflow-x-auto bg-zinc-900 border border-zinc-600">
+                    {/* NOT table-fixed. It was tried, to stop long weapon names pushing the Pts
+                        column out of view — but this table lives in the narrow option panel, and
+                        forcing the declared percentages there gives "RANGE" about 22px, so the
+                        headers pile on top of each other and the names overlap their own values
+                        (user report, twice). The percentages are only a hint under auto layout,
+                        which is what makes the header readable; the scroll is the honest cost. */}
+                    <table className="w-full text-xs border-collapse">
                       <thead>
                         <tr className="border-b border-zinc-600">
                           <th className="text-left text-zinc-400 font-semibold py-1.5 pl-2 pr-2 text-[10px] uppercase tracking-wide w-[26%]">{t('weapon')}</th>
@@ -2153,13 +2157,13 @@ function ModelProfileRow({ m, statKeys }: { m: Model; statKeys: readonly string[
 function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: Weapon[]; traitMap?: Map<string, string[]>; count?: number | null; countOverrides?: Map<string, number> }) {
   const t = useT();
   return (
-    <div className="px-3 pb-2">
-      {/* `table-fixed` makes the percentage widths declared below actually apply. Without it the
-          default auto layout let a long weapon name or ability list push the table past its
-          container, and the card gained a horizontal scrollbar — so on a phone the last columns,
-          points included, sat off-screen behind a drag (user report 2026-08-06). Wrapping the text
-          cells is the other half: fixed columns with unbreakable content would just overflow. */}
-      <table className="w-full table-fixed text-xs border-collapse">
+    <div className="px-3 pb-2 overflow-x-auto">
+      {/* NOT table-fixed — see the option table above for what happened when it was. The declared
+          percentages are a hint under auto layout, and that is what keeps the headers legible when
+          the card is narrow. The `break-words` on the text cells stays: it lets a long weapon name
+          or ability list wrap, which is what stopped the table stretching in the first place, and
+          it costs nothing where there is room. */}
+      <table className="w-full text-xs border-collapse">
         <thead>
           <tr className="border-b border-zinc-600">
             <th className="text-left text-zinc-400 font-semibold py-1.5 pr-2 text-[10px] uppercase tracking-wide w-[32%]">{t('weapon')}</th>
