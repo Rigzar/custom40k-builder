@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-admin-panel-promise-all-01',
+    status: 'fixed',
+    title: 'The admin panel crashed to a blank screen whenever one of its endpoints failed',
+    description: 'FIXED 2026-08-06. `load()` fetched four things with `Promise.all`, and only two of them carried a `.catch`. Promise.all rejects as a whole, so a single failing request took the other three down with it and the panel rendered against undefined — "Cannot read properties of undefined (reading \'filter\')", a blank crash rather than a panel with one section missing. Found while trying to open the panel on a local build, where there is no API at all and so every call fails; the same would happen in production any time one endpoint was briefly down. Each call now has its own fallback (`adminStats` → null, recovery requests → an empty list) so the rest of the panel still renders. Admin-only, so no changelog entry — the standing rule is that admin features stay private.',
+  },
+  {
     id: 'ki-safari-lookbehind-white-screen-01',
     status: 'fixed',
     title: 'The whole app was a blank white page on older iPads (and on any browser there, including "Firefox")',

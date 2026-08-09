@@ -613,9 +613,14 @@ export function AdminPanel({ onClose }: Props) {
   async function load() {
     setLoading(true);
     try {
+      // Every call carries its own fallback. `Promise.all` rejects as a whole, so one unguarded
+      // request took the other three down with it and left the panel rendering against undefined —
+      // "Cannot read properties of undefined (reading 'filter')", a blank crash rather than a
+      // panel with a missing section. That is what happens with no API at all (a local build) and
+      // equally when one endpoint is briefly down in production.
       const [s, r, a, cfg] = await Promise.all([
-        api.adminStats(),
-        api.adminListRecoveryRequests(),
+        api.adminStats().catch(() => null),
+        api.adminListRecoveryRequests().catch(() => ({ requests: [] as api.RecoveryRequest[] })),
         api.adminActions().catch(() => ({ actions: [] })),
         api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides; source_ignores?: api.SourceIgnores; codex_versions?: api.CodexVersions } })),
       ]);
