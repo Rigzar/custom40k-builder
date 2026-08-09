@@ -3,7 +3,7 @@ import { useArmyStore } from '../store/army';
 import { SLOT_ORDER, ENGAGEMENTS, ALLIED_AOP } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, isUnitAllowed, getEffectiveHqLimits } from '../engine/archetypes';
 import { lowMoveEmbarkBlockReason } from '../engine/transportGate';
-import { computeCdFreeSlots, computeAssassinFreeSlots, computeGeminaeSuperiaFreeSlots, computeCrusadersFreeSlots, computeServitorFreeSlots, computeArchetypeHqFreeSlots, computeGscEliteFreeSlots, computeEinhyrChampionFreeSlots, computeTyrantGuardFreeSlots, computeCultistFirebrandFreeSlots, computeCommissarFreeSlots, computeSubCommanderFreeSlots, computeEtherealGuardFreeSlots, computeKrootCarnivoreEscortFreeSlots, computeKrootShaperFreeSlots, computeNecronPlasmacyteFreeSlots, computeSpiritseerFreeSlots, computeEldarWarlockFreeSlots, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds, getSlotUsage } from '../engine/validators';
+import { computeFreeSlotAdjustments, ctanShardCapBlockReason, engagementGateBlockReason, countInfantrySelections, advisorExemptIds, getSlotUsage } from '../engine/validators';
 import { isArmyItemGateBlocked, getAssassinAccessAlignment, assassinAccessGroupLabel, inquisitionLegacyOrdoUnlocks, chamberMilitantOrdo } from '../engine/keywords';
 import type { FactionData } from '../types/data';
 import type { RosterEntry } from '../types/army';
@@ -380,28 +380,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
   }
 
   const aopMult = computeAopMult(army, primaryData, eng.aop as unknown as Record<string, [number, number]>, eng.multiAop, rule, alliedFaction, engagement);
-  const cdFree = computeCdFreeSlots(army, primaryData, rule);
-  // "Cults Abominatioe"/"Execution Force": Assassin selection collapses to a single Elite slot
-  const assassinFree = computeAssassinFreeSlots(army, primaryData);
-  // Same ratio-against-a-sibling-unit shape, mirrored here so the catalogue's slot-full gating
-  // matches what validators.ts actually allows (otherwise the picker would show "Elites full"
-  // for a unit the validator considers exempt).
-  const geminaeSuperiaFree = computeGeminaeSuperiaFreeSlots(army, primaryData);
-  const crusadersFree = computeCrusadersFreeSlots(army, primaryData);
-  const servitorFree = computeServitorFreeSlots(army, primaryData);
-  const archetypeHqFree = computeArchetypeHqFreeSlots(army, rule, store.pointLimit);
-  const gscEliteFree = computeGscEliteFreeSlots(army, primaryData, store.pointLimit);
-  const einhyrChampionFree = computeEinhyrChampionFreeSlots(army, primaryData);
-  const tyrantGuardFree = computeTyrantGuardFreeSlots(army, primaryData);
-  const cultistFirebrandFree = computeCultistFirebrandFreeSlots(army, primaryData);
-  const commissarFree = computeCommissarFreeSlots(army, primaryData, store);
-  const subCommanderFree = computeSubCommanderFreeSlots(army, primaryData);
-  const etherealGuardFree = computeEtherealGuardFreeSlots(army, primaryData);
-  const krootEscortFree = computeKrootCarnivoreEscortFreeSlots(army, primaryData);
-  const krootShaperFree = computeKrootShaperFreeSlots(army, primaryData);
-  const plasmacyteFree = computeNecronPlasmacyteFreeSlots(army, primaryData, store.pointLimit);
-  const spiritseerFree = computeSpiritseerFreeSlots(army, primaryData);
-  const warlockFree = computeEldarWarlockFreeSlots(army, primaryData, store.pointLimit);
+  // One shared computation with validators.ts, so the catalogue can never grey out a "+" for a
+  // unit the validator would accept. The two used to keep separate hand-written lists and this
+  // one had fallen three mechanics behind (Necron Royal Court, Cryptothralls, Hexmark Destroyer).
+  const freeSlots = computeFreeSlotAdjustments(army, primaryData, rule, store);
 
   return (
     <div className="divide-y divide-zinc-800/50">
@@ -429,10 +411,10 @@ export function SlotPanel({ scope = 'primary', alliedFactionKey }: { scope?: 'pr
         const isLordsOfWar = slot === 'Lords of War';
 
         const slotAdj = engagement === 'skirmish' ? 0
-          : slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq
-          : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
-          : slot === 'Heavy Support' ? krootEscortFree.hs
-          : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites
+          : slot === 'HQ' ? freeSlots.hq
+          : slot === 'Fast Attack' ? freeSlots.fa
+          : slot === 'Heavy Support' ? freeSlots.hs
+          : slot === 'Elites' ? freeSlots.elites
           : 0;
         const used = Math.max(0, getSlotUsage(army, primaryData, slot, rule, alliedFaction ?? undefined, false, engagement) - slotAdj);
         const isFull = used >= max && max > 0;

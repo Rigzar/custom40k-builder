@@ -701,9 +701,14 @@ export function computeKrootShaperFreeSlots(
 }
 
 /**
- * Necrons Plasmacyte: "For each started 500 points game size, one Plasmacyte may be taken
- * without using up an Elite slot." Same points-capped (not ratio-capped) shape as
- * computeGscEliteFreeSlots, found unwired during the 2026-06-28 cross-faction free-slot sweep.
+ * Necrons Plasmacyte (Necrons 1.1.ods, "Plasmacyte" sheet, verbatim): "For each started 500
+ * points game size, one Plasmacyte may be taken without using up an Elite slot."
+ *
+ * "For each STARTED 500 points" rounds UP, and this used ceil's opposite for two months: at 2750
+ * pts a started sixth block gives 6, not the 5 floor produced. It is deliberately NOT the same
+ * arithmetic as computeGscEliteFreeSlots, whose sheets all say "For every 500 points of game
+ * size" — that one floors. The two wordings sit one sheet apart in different codices and mean
+ * different things; check which one a sheet uses before copying either.
  */
 export function computeNecronPlasmacyteFreeSlots(
   army: RosterEntry[],
@@ -714,9 +719,9 @@ export function computeNecronPlasmacyteFreeSlots(
   const count = army.filter(i => i.unitName === 'Plasmacyte').length;
   if (count === 0) return { elites: 0, notes: [] };
   if (!pointLimit) return { elites: count, notes: [] };
-  const cap = Math.floor(pointLimit / 500);
+  const cap = Math.ceil(pointLimit / 500);
   const credited = Math.min(count, cap);
-  const notes = [`Plasmacyte: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the Elite slot (1 per 500pts of game size, ${pointLimit}pts → max ${cap}).`];
+  const notes = [`Plasmacyte: ${credited} of ${count} unit${count === 1 ? '' : 's'} exempted from the Elite slot (1 per started 500pts of game size, ${pointLimit}pts → max ${cap}).`];
   if (count > cap) {
     notes.push(`Plasmacyte: ${count - cap} extra unit${count - cap === 1 ? '' : 's'} exceed the game-size cap and still occupy a normal Elite slot.`);
   }
@@ -896,6 +901,76 @@ export function ctanShardCapBlockReason(unitName: string, faction: string, army:
 export function engagementGateBlockReason(unit: Unit, engagement: string): string | null {
   if (!unit.requires_engagement || unit.requires_engagement === engagement) return null;
   return `Requires the Escalation supplement (Epic Battle engagement) — not available in ${engagement === 'skirmish' ? 'Skirmish' : 'Pitched Battle'}.`;
+}
+
+export interface FreeSlotAdjustments {
+  hq: number;
+  elites: number;
+  fa: number;
+  hs: number;
+  /** Per-mechanic explanations, in a stable order. Suppressed in Skirmish by the caller. */
+  notes: string[];
+}
+
+/**
+ * Every "this unit does not occupy a slot" mechanic in the game, summed per slot, in ONE place.
+ *
+ * This used to be two hand-maintained lists — one in `validateArmy`, one in `SlotPanel` — and they
+ * drifted: the catalogue's copy was missing the Necron Royal Court, Cryptothralls and Hexmark
+ * Destroyer, so it reported the HQ or Elites slot full and greyed out the "+" for units the
+ * validator was perfectly happy to accept. Both callers use this now; adding a mechanic here
+ * reaches the picker and the validator at once, and neither can fall behind the other again.
+ *
+ * NOTE: this deliberately does NOT apply the Skirmish rule. Missions (Skirmish, Unit
+ * Restrictions) says "All units occupy an Army Organisation slot, even if their rules state
+ * otherwise", so both callers zero the whole adjustment in Skirmish — see their `slotAdj`.
+ */
+export function computeFreeSlotAdjustments(
+  army: RosterEntry[],
+  data: FactionData,
+  rule: Rule,
+  state: ArmyState,
+): FreeSlotAdjustments {
+  const pts = state.pointLimit;
+  const cd              = computeCdFreeSlots(army, data, rule);
+  const assassin        = computeAssassinFreeSlots(army, data);
+  const warlock         = computeEldarWarlockFreeSlots(army, data, pts);
+  const geminaeSuperia  = computeGeminaeSuperiaFreeSlots(army, data);
+  const archetypeHq     = computeArchetypeHqFreeSlots(army, rule, pts);
+  const crusaders       = computeCrusadersFreeSlots(army, data);
+  const servitor        = computeServitorFreeSlots(army, data);
+  const gscElite        = computeGscEliteFreeSlots(army, data, pts);
+  const einhyrChampion  = computeEinhyrChampionFreeSlots(army, data);
+  const tyrantGuard     = computeTyrantGuardFreeSlots(army, data);
+  const cultistFirebrand= computeCultistFirebrandFreeSlots(army, data);
+  const commissar       = computeCommissarFreeSlots(army, data, state);
+  const subCommander    = computeSubCommanderFreeSlots(army, data);
+  const etherealGuard   = computeEtherealGuardFreeSlots(army, data);
+  const krootEscort     = computeKrootCarnivoreEscortFreeSlots(army, data);
+  const krootShaper     = computeKrootShaperFreeSlots(army, data);
+  const plasmacyte      = computeNecronPlasmacyteFreeSlots(army, data, pts);
+  const cryptothralls   = computeCryptothrallsFreeSlots(army, data);
+  const hexmark         = computeHexmarkDestroyerFreeSlots(army, data);
+  const spiritseer      = computeSpiritseerFreeSlots(army, data);
+  const royalCourt      = computeRoyalCourtFreeSlots(army, data);
+
+  return {
+    hq: cd.hq + geminaeSuperia.hq + archetypeHq.hq + tyrantGuard.hq + subCommander.hq
+      + etherealGuard.hq + spiritseer.hq + royalCourt.hq,
+    elites: assassin.elites + warlock.elites + crusaders.elites + servitor.elites + gscElite.elites
+      + einhyrChampion.elites + cultistFirebrand.elites + commissar.elites + krootEscort.elites
+      + krootShaper.elites + plasmacyte.elites + cryptothralls.elites + hexmark.elites,
+    fa: cd.fa + krootEscort.fa,
+    hs: krootEscort.hs,
+    notes: [
+      ...cd.notes, ...assassin.notes, ...warlock.notes, ...geminaeSuperia.notes,
+      ...archetypeHq.notes, ...crusaders.notes, ...servitor.notes, ...gscElite.notes,
+      ...einhyrChampion.notes, ...tyrantGuard.notes, ...cultistFirebrand.notes, ...commissar.notes,
+      ...subCommander.notes, ...etherealGuard.notes, ...krootEscort.notes, ...krootShaper.notes,
+      ...plasmacyte.notes, ...cryptothralls.notes, ...hexmark.notes, ...spiritseer.notes,
+      ...royalCourt.notes,
+    ],
+  };
 }
 
 export function validateArmy(state: ArmyState, data: FactionData, alliedData?: FactionData | null, language: Language = 'en'): ValidationItem[] {
@@ -1791,92 +1866,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  /**
-   * Every "this unit does not take up a slot" mechanic reports through here instead of pushing
-   * straight into `items`, because in Skirmish none of them apply and the panel used to say
-   * otherwise — see the flush below.
-   */
-  const freeSlotNotes: string[] = [];
-
-  // CD special rules: Entourage / Herald / Bound Beast
-  const cdFree = computeCdFreeSlots(state.army, data, rule);
-  freeSlotNotes.push(...cdFree.notes);
-
-  // "Cults Abominatioe"/"Execution Force" — Assassin selection collapses to a single
-  // Elite slot (any Chaos or Imperial army — the Assassins' OWN universal grant)
-  const assassinFree = computeAssassinFreeSlots(state.army, data);
-  freeSlotNotes.push(...assassinFree.notes);
-
-  // Eldar Warlocks: "1 free per 500pts of game size" Elite-slot exemption (Warlocks.ods)
-  const warlockFree = computeEldarWarlockFreeSlots(state.army, data, state.pointLimit);
-  freeSlotNotes.push(...warlockFree.notes);
-
-  // Sororitas Geminae Superia: "1 free HQ slot per Living Saint" (Geminae Superia.ods)
-  const geminaeSuperiaFree = computeGeminaeSuperiaFreeSlots(state.army, data);
-  freeSlotNotes.push(...geminaeSuperiaFree.notes);
-
-  // Votann Hearthfyre Arsenal: "1 free HQ slot per 500pts of game size" (archetype-specific)
-  const archetypeHqFree = computeArchetypeHqFreeSlots(state.army, rule, state.pointLimit);
-  freeSlotNotes.push(...archetypeHqFree.notes);
-
-  // Sororitas Crusaders: "1 free Elite slot per Preacher" (Crusaders.ods Concession ability)
-  const crusadersFree = computeCrusadersFreeSlots(state.army, data);
-  freeSlotNotes.push(...crusadersFree.notes);
-
-  // AdMech Servitors: "1 free Elite slot per Magos/Archmagos/Tech-Priest" (servitors.ts' own option_group)
-  const servitorFree = computeServitorFreeSlots(state.army, data);
-  freeSlotNotes.push(...servitorFree.notes);
-
-  // GSC: "1 free Elite slot per 500pts of game size" for 8 named characters (own ability text each)
-  const gscEliteFree = computeGscEliteFreeSlots(state.army, data, state.pointLimit);
-  freeSlotNotes.push(...gscEliteFree.notes);
-
-  // Votann Einhyr Champion: "1 free Elite slot per Einhyr Hearthguard" (own ability text)
-  const einhyrChampionFree = computeEinhyrChampionFreeSlots(state.army, data);
-  freeSlotNotes.push(...einhyrChampionFree.notes);
-
-  // Tyranids Tyrant Guard Brood: "1 free HQ slot per Hive Tyrant/Swarmlord" (own ability text)
-  const tyrantGuardFree = computeTyrantGuardFreeSlots(state.army, data);
-  freeSlotNotes.push(...tyrantGuardFree.notes);
-
-  // CSM Cultist Firebrand: "1 free Elite slot per Cultists unit" (own ability text)
-  const cultistFirebrandFree = computeCultistFirebrandFreeSlots(state.army, data);
-  freeSlotNotes.push(...cultistFirebrandFree.notes);
-
-  // IG Commissar: "1 free Elite slot per Infantry-type selection" (own ability text — NOT a
-  // per-HQ advisor ratio, see computeCommissarFreeSlots' doc comment)
-  const commissarFree = computeCommissarFreeSlots(state.army, data, state);
-  freeSlotNotes.push(...commissarFree.notes);
-
-  // T'au Sub-Commander/Ethereal Guard/Kroot Carnivores escorts: wrong-anchor advisor fixes
-  const subCommanderFree = computeSubCommanderFreeSlots(state.army, data);
-  freeSlotNotes.push(...subCommanderFree.notes);
-  const etherealGuardFree = computeEtherealGuardFreeSlots(state.army, data);
-  freeSlotNotes.push(...etherealGuardFree.notes);
-  const krootEscortFree = computeKrootCarnivoreEscortFreeSlots(state.army, data);
-  freeSlotNotes.push(...krootEscortFree.notes);
-  const krootShaperFree = computeKrootShaperFreeSlots(state.army, data);
-  freeSlotNotes.push(...krootShaperFree.notes);
-
-  // Necrons Plasmacyte: "1 free Elite slot per 500pts of game size" (own ability text)
-  const plasmacyteFree = computeNecronPlasmacyteFreeSlots(state.army, data, state.pointLimit);
-  freeSlotNotes.push(...plasmacyteFree.notes);
-
-  // Necrons Cryptothralls: "1 free Elite slot per Cryptek" (option_group header rule)
-  const cryptothrallsFree = computeCryptothrallsFreeSlots(state.army, data);
-  freeSlotNotes.push(...cryptothrallsFree.notes);
-
-  // Necrons Hexmark Destroyer: "1 free Elite slot per Lord/Skorpekh Lord" (Royal Assassin ability)
-  const hexmarkFree = computeHexmarkDestroyerFreeSlots(state.army, data);
-  freeSlotNotes.push(...hexmarkFree.notes);
-
-  // Eldar Spiritseer: "1 free HQ slot per Wraithblades/Wraithguard/Wraithlord" (own ability text)
-  const spiritseerFree = computeSpiritseerFreeSlots(state.army, data);
-  freeSlotNotes.push(...spiritseerFree.notes);
-
-  // Necrons Royal Court: Crypteks/Royal Wardens/Lords free HQ when Overlord/Lord present
-  const royalCourtFree = computeRoyalCourtFreeSlots(state.army, data);
-  freeSlotNotes.push(...royalCourtFree.notes);
+  const freeSlots = computeFreeSlotAdjustments(state.army, data, rule, state);
 
   // Missions (Skirmish, Unit Restrictions): "All units occupy an Army Organisation slot, even if
   // their rules state otherwise." `slotAdj` below is forced to 0 in Skirmish accordingly — but
@@ -1886,11 +1876,11 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // simply wrong (GitHub #76 — the second report of this shape after #70). The rule was right and
   // the explanation was a lie; say what is actually happening instead.
   if (state.engagement === 'skirmish') {
-    if (freeSlotNotes.length > 0) {
+    if (freeSlots.notes.length > 0) {
       items.push({ type: 'ok', text: T('valSkirmishNoFreeSlots') });
     }
   } else {
-    for (const note of freeSlotNotes) {
+    for (const note of freeSlots.notes) {
       items.push({ type: 'ok', text: note });
     }
   }
@@ -1945,10 +1935,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // rest. At 0-1 Elite and 0-1 HQ a single leaked exemption doubles what the list may field, so
     // the whole adjustment is zeroed rather than each function being taught the engagement.
     const slotAdj = state.engagement === 'skirmish' ? 0
-      : slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
-      : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
-      : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites + cryptothrallsFree.elites + hexmarkFree.elites
+      : slot === 'HQ' ? freeSlots.hq
+      : slot === 'Fast Attack' ? freeSlots.fa
+      : slot === 'Heavy Support' ? freeSlots.hs
+      : slot === 'Elites' ? freeSlots.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     const scaledMin = eng.multiAop ? min * aopMult : min;
@@ -2467,10 +2457,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     // rest. At 0-1 Elite and 0-1 HQ a single leaked exemption doubles what the list may field, so
     // the whole adjustment is zeroed rather than each function being taught the engagement.
     const slotAdj = state.engagement === 'skirmish' ? 0
-      : slot === 'HQ' ? cdFree.hq + geminaeSuperiaFree.hq + archetypeHqFree.hq + tyrantGuardFree.hq + subCommanderFree.hq + etherealGuardFree.hq + spiritseerFree.hq + royalCourtFree.hq
-      : slot === 'Fast Attack' ? cdFree.fa + krootEscortFree.fa
-      : slot === 'Heavy Support' ? krootEscortFree.hs
-      : slot === 'Elites' ? assassinFree.elites + warlockFree.elites + crusadersFree.elites + servitorFree.elites + gscEliteFree.elites + einhyrChampionFree.elites + cultistFirebrandFree.elites + commissarFree.elites + krootEscortFree.elites + krootShaperFree.elites + plasmacyteFree.elites + cryptothrallsFree.elites + hexmarkFree.elites
+      : slot === 'HQ' ? freeSlots.hq
+      : slot === 'Fast Attack' ? freeSlots.fa
+      : slot === 'Heavy Support' ? freeSlots.hs
+      : slot === 'Elites' ? freeSlots.elites
       : 0;
     const used = Math.max(0, rawUsed - slotAdj);
     // Dedicated Transport's Pitched/Epic cap is dynamic ("1 per Infantry-type selection"), not
