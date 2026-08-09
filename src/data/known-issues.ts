@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-skirmish-free-slot-notes-lied-01',
+    status: 'fixed',
+    title: 'Skirmish — the validation panel printed "exempted from the Elite slot" notes for exemptions it was correctly refusing to grant',
+    description: 'FIXED 2026-08-09 (v1.58), GitHub #76 (Genestealer Cults, 1250 pts). Reported as "1 exemption per 500 points, at 1250 it is only 1 and the list is not valid — it should be 2". Checked against canon first: the GSC .ods says "For every 500 points of game size, one <name> may be included in the army that does not take up an Elite slot" on all 8 named characters (so `Math.floor(pts/500)` is right — it is NOT the "for each started 500 points" wording the Ambush marker uses), and Missions, Skirmish → Unit Restrictions says "All units occupy an Army Organisation slot, even if their rules state otherwise", with a Skirmish AOP of 0-1 Elite. 1250 pts is only legal in Skirmish (1000-1500), so the correct answer is ZERO exemptions and a single Elite slot — the engine was already right, and `slotAdj` is deliberately forced to 0 in Skirmish in BOTH validators.ts and SlotPanel.tsx. THE ACTUAL BUG: all 21 free-slot note blocks pushed their notes into the panel unconditionally, so the player was shown a green "Clamavus: 1 of 1 unit exempted from the Elite slot (1 per 500pts of game size, 1250pts → max 2)" next to the error rejecting the list. The app taught the reporter the number they then filed as expected behaviour. All 21 now report through one `freeSlotNotes` collector, flushed as the per-unit notes outside Skirmish and as a single `valSkirmishNoFreeSlots` line inside it. Same shape as GitHub #70 (Memnyr "Elites over Maximum" in Skirmish), which was closed as by-design without fixing the explanation — hence the repeat report. FOUND IN PASSING, NOT FIXED: SlotPanel\'s slotAdj omits royalCourtFree.hq, cryptothrallsFree.elites and hexmarkFree.elites, which validators.ts includes, so the Necron catalogue can show a slot as full for a unit the validator would accept.',
+  },
+  {
     id: 'ki-skirmish-silently-drops-ally-01',
     status: 'fixed',
     title: 'Switching the battle type to Skirmish deleted the Allied Detachment with no warning and no way back',
