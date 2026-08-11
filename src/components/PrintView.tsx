@@ -18,6 +18,14 @@ import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 /** Weapon name without its firing-mode suffix ("Plasma cannon - Standard" → "Plasma cannon"). */
 const weaponBaseName = (n: string) => n.split(' - ')[0];
 
+/**
+ * A printed weapon row. `isProfileHeader` marks the name-only line that introduces a multi-profile
+ * weapon ("Plasma pistol", then "— Standard" / "— Overcharged" beneath it). It carries no stats by
+ * design, which is exactly what `WeaponRow`'s empty-row guard used to throw away — so the weapon
+ * printed as two anonymous modes with its name nowhere on the card (GitHub #77).
+ */
+type PrintWeapon = Weapon & { isProfileHeader?: boolean };
+
 // ── Faction symbol map (CSS-only design — no background images) ───────────────
 const FACTION_SYMBOL: Record<string, string> = {
   'Chaos Space Marines':        '/faction-symbols/chaos-space-marines.svg',
@@ -259,7 +267,7 @@ function StatRow({ keys, stats, mod, showLabels, modelLabel, color }: {
 
 // ── Weapon section header + rows ──────────────────────────────────────────────
 function WeaponSection({ title, weapons, color, iconUrl }: {
-  title: string; weapons: Weapon[]; color: string; iconUrl: string;
+  title: string; weapons: PrintWeapon[]; color: string; iconUrl: string;
 }) {
   if (!weapons.length) return null;
   return (
@@ -280,8 +288,11 @@ function WeaponSection({ title, weapons, color, iconUrl }: {
   );
 }
 
-function WeaponRow({ weapon: w, shade, color }: { weapon: Weapon; shade: boolean; color: string }) {
-  if (!w.range && !w.type && !w.s) return null;
+function WeaponRow({ weapon: w, shade, color }: { weapon: PrintWeapon; shade: boolean; color: string }) {
+  // The name-only header of a multi-profile weapon has no stats on purpose — keep it, or the
+  // weapon's own name never appears and the card shows two orphan "— Standard"/"— Overcharged"
+  // lines (GitHub #77, Lieutenant with a Plasma pistol).
+  if (!w.isProfileHeader && !w.range && !w.type && !w.s) return null;
   const typeTag = w.type && w.type !== '-'
     ? ` <span style="font-size:.7em;font-weight:700;color:${color};opacity:.75;text-transform:uppercase"> [${w.type}]</span>`
     : '';
@@ -422,7 +433,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
       const row = { ...mergeTraits(w, tm), name: `— ${mode}` };
       return prevSame
         ? [row]
-        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '' }, row];
+        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
@@ -844,7 +855,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
       const row = { ...mergeTraits(w, tm), name: `— ${mode}` };
       return prevSame
         ? [row]
-        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '' }, row];
+        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));

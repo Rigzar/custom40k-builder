@@ -999,7 +999,14 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const championOnlyWeapons = championBought.filter(w => !squadOnlyGrantedNames.has(baseName(w.name)));
   const squadWeapons = remaining.filter(w => !championOnlyWeapons.includes(w));
 
-  const clauses = [...unit.equipped_with.matchAll(/Every ([^.]+?) is equipped with:\s*([^.]+)\./g)];
+  // "Every Terminator is equipped with: …" AND "The Terminator Sergeant is equipped with: …" —
+  // the article varies on the author's sheets, and matching only "Every" meant a squad whose
+  // second clause opened with "The" was read as ONE loadout: the Terminator Squad showed 5x Power
+  // fist AND 5x Power sword on five models instead of 4x and 1x (GitHub #77). Checked across all
+  // 667 equipped_with strings in the game: this splits 5 units that were previously merged
+  // (Terminator Squad, Rubric Marines, Dark Commune, Incubi, Dynasty Phaeron) and every clause
+  // label in them resolves to a real model group, so no unit gains an orphan row.
+  const clauses = [...unit.equipped_with.matchAll(/(?:Every|The|An?) ([^.]+?) is equipped with:\s*([^.]+)\./g)];
 
   let groups: WeaponGroup[];
   if (clauses.length > 1) {
