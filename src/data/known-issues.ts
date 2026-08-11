@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-sm-terminator-phantom-weapons-print-01',
+    status: 'investigating',
+    title: 'Space Marines — a Terminator Squad lists weapons it did not take, and a Lieutenant\'s Plasma pistol is missing from the printed card',
+    description: 'REPORTED 2026-08-10 (GitHub #77), two separate problems, neither reproduced yet. (1) A Terminator Squad shows 5x Power sword alongside the chainaxes, power fists and the ranged weapons — the "phantom weapon" pattern, where a weapon that is one of several OPTIONS is displayed as though every model always carried it. A general fix shipped in v1.55 (the `wkey()` normaliser in `computeWeaponsToShow`) cut these from 314 to roughly 120 across all factions, so this is most likely one of the survivors rather than a new fault; the remainder need per-unit checks against the .ods. (2) On the printed unit card, the Lieutenant\'s Plasma pistol name is missing from the profile — the weapon is there, the name is not, which points at the print view rather than the resolver. WHAT WOULD SETTLE IT: the list\'s .json (Review step → ↓ JSON), plus which options were chosen on the Terminator Squad. Asked on GitHub and on Discord.',
+  },
+  {
+    id: 'ki-tyranids-biomorph-cap-16-01',
+    status: 'investigating',
+    title: 'Tyranids — selecting Basic/Advanced Biomorphs stops at 16',
+    description: 'REPORTED 2026-08-10 (GitHub #78): "there is a cap of sixteen that I can select", against datasheets that read "May additionally select any number of Basic and Advanced Biomorphs". Checked the sources: the Biomorph pricing is Basic = flat per unit, Advanced = PER MODEL, and the armoury caps a per-model item at one copy per model in the unit — so 16 is very probably the brood\'s model count rather than a hard limit. That leaves two readings with different fixes, and the report does not distinguish them: (a) the same biomorph is being added once per model and stops at the 16th, in which case an Advanced Biomorph should almost certainly be ONE selection covering the unit at a per-model price, and modelling it as sixteen additions is the bug; or (b) more than 16 DIFFERENT biomorphs cannot be added to one unit, which would be a genuine cap that should not exist. Not guessing at a rules change — asked the reporter which one it is, with the unit, its model count and the biomorphs involved.',
+  },
+  {
     id: 'ki-admin-translations-wiped-on-save-01',
     status: 'fixed',
     title: 'Admin — datasheet translations were never actually saved, and a failed settings fetch let a save wipe every stored override',
