@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-admin-translations-wiped-on-save-01',
+    status: 'fixed',
+    title: 'Admin — datasheet translations were never actually saved, and a failed settings fetch let a save wipe every stored override',
+    description: 'FIXED 2026-08-11, translator report: days of work on Grey Knights, Assassins, Imperial Guard and Sororitas came back empty, "I always pushed the save button". TWO independent faults. (1) `handleSaveTranslations` rebuilt the whole overrides object while iterating `allTranslationKeys()` only. Datasheet ability texts are keyed by a content hash of their English text (`abilityKey`), so they are NOT in that list: they were listed in the editor, typed into, reported "saved" — and dropped from the payload every single time. `load()` had the same blind spot, so even a stored one would never have been read back. (2) `adminGetSettings()` carried a `.catch(() => ({ settings: {} }))` (added in 82b6dfe to stop one dead endpoint blanking the panel), which made a failed fetch indistinguishable from "nothing configured yet": every editor hydrated from code defaults and the next Save persisted that over the real data. Fix: saving now MERGES into a `storedTrans` copy of what the DB actually holds, covering `allTranslationKeys()` PLUS the loaded codex\'s ability keys (a rebuild would still have dropped the other codices, since only one codex is loaded at a time); `load()` also hydrates every stored key; and `settingsLoaded` gates all four Save buttons with an explicit message when the settings fetch failed. Also added a paste-import (English/German/Spanish tab-separated, matched by English text with parameter-notation normalisation so "Aegis(X+)" finds the glossary\'s "Aegis({X})") — the terms workbook is 305 rows and retyping them is how work gets lost. Import column detection picks the offset that matches the most rows: a first attempt counted trailing cells, which slid a column over on rows whose Spanish was still blank and would have written the ENGLISH text in as the German. LOST WORK IS NOT RECOVERABLE — it never reached the database.',
+  },
+  {
+    id: 'ki-tyranids-tyrant-guard-neurotyrant-01',
+    status: 'fixed',
+    title: 'Tyranids — Tyrant Guard Brood did not get its free HQ slot from a Neurotyrant',
+    description: 'FIXED 2026-08-11 (v1.58), GitHub #79. Tyranids 1.02.ods, "Tyrant Guard Brood" sheet, verbatim: "For every Hive Tyrant, Neurotyrant or Swarmlord selection, the army may include one Tyrant Guard Brood that does not take up an HQ slot." `computeTyrantGuardFreeSlots` counted only `Hive Tyrant` and `Swarmlord` as anchors, so a Guard bought alongside a Neurotyrant occupied a normal HQ slot. Anchors moved to a named `TYRANT_GUARD_ANCHORS` list including Neurotyrant; both the exemption and its two panel notes updated. The catalogue picks this up for free now that it shares `computeFreeSlotAdjustments` with the validator.',
+  },
+  {
     id: 'ki-freeslot-picker-validator-drift-01',
     status: 'fixed',
     title: 'Necrons — the catalogue reported HQ/Elites full for units the validator accepted (two hand-maintained free-slot lists had drifted)',

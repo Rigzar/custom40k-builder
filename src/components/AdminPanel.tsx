@@ -161,6 +161,9 @@ interface AdminTx {
   save: string; saving: string; saved: string;
   factionSectionTitle: string; factionAvailHint: string;
   transSectionTitle: string; transHint: string; transSearch: string; transSource: string;
+  settingsLoadFailed: string;
+  transImportTitle: string; transImportHint: string; transImportBtn: string;
+  transImportResult: (ok: number, bad: number, sample: string[]) => string;
   transOnlyUntranslated: string;
   transNoDatasheets: string; transAbilitiesHint: string;
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
@@ -238,6 +241,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     annFieldTitle: 'Title', annFieldIntro: 'Intro', annFieldLines: 'Lines (one per line; text before " — " is bold)', annFieldContrib: 'Footer',
     save: 'Save', saving: 'Saving…', saved: 'Saved ✓',
     factionSectionTitle: 'Faction availability', factionAvailHint: 'Unchecked factions are greyed out and cannot be selected in the builder.',
+    transImportTitle: 'Import terms',
+    transImportHint: 'Paste rows from the terms spreadsheet: English, German, Spanish, separated by tabs (a leading Category column is ignored). Matched by the English text. This only fills the fields below — press Save to store them.',
+    transImportBtn: 'Fill fields',
+    transImportResult: (ok, bad, sample) => bad === 0 ? `${ok} terms matched and filled in.` : `${ok} matched, ${bad} not found (no translatable string has that English text): ${sample.join(', ')}${bad > sample.length ? ' …' : ''}`,
+    settingsLoadFailed: 'Settings could not be loaded, so saving is disabled — saving now would overwrite the stored translations, announcement and flags with empty defaults. Reload the panel.',
     transSectionTitle: 'UI translations',
     transHint: 'Edit the German / Spanish text of any interface string. English is the source. Fields left empty or unchanged keep the built-in text. Saved changes go live for everyone.',
     transSearch: 'Filter strings (key or English text)…', transSource: 'EN (source)',
@@ -348,6 +356,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     annFieldTitle: 'Titel', annFieldIntro: 'Einleitung', annFieldLines: 'Zeilen (eine pro Zeile; Text vor " — " ist fett)', annFieldContrib: 'Fußzeile',
     save: 'Speichern', saving: 'Speichere…', saved: 'Gespeichert ✓',
     factionSectionTitle: 'Fraktions-Verfügbarkeit', factionAvailHint: 'Nicht angehakte Fraktionen sind ausgegraut und im Builder nicht wählbar.',
+    transImportTitle: 'Begriffe importieren',
+    transImportHint: 'Zeilen aus der Begriffstabelle einfügen: Englisch, Deutsch, Spanisch, durch Tabs getrennt (eine führende Kategorie-Spalte wird ignoriert). Zuordnung über den englischen Text. Füllt nur die Felder unten — zum Speichern auf Speichern drücken.',
+    transImportBtn: 'Felder füllen',
+    transImportResult: (ok, bad, sample) => bad === 0 ? `${ok} Begriffe zugeordnet und eingetragen.` : `${ok} zugeordnet, ${bad} nicht gefunden (kein übersetzbarer Text mit diesem englischen Wortlaut): ${sample.join(', ')}${bad > sample.length ? ' …' : ''}`,
+    settingsLoadFailed: 'Einstellungen konnten nicht geladen werden, Speichern ist deshalb deaktiviert — es würde die gespeicherten Übersetzungen, die Ankündigung und die Flags mit leeren Standardwerten überschreiben. Panel neu laden.',
     transSectionTitle: 'UI-Übersetzungen',
     transHint: 'Bearbeite den deutschen / spanischen Text jeder Oberflächen-Zeichenkette. Englisch ist die Quelle. Leere oder unveränderte Felder behalten den eingebauten Text. Gespeicherte Änderungen gehen für alle live.',
     transSearch: 'Zeichenketten filtern (Schlüssel oder engl. Text)…', transSource: 'EN (Quelle)',
@@ -458,6 +471,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     annFieldTitle: 'Título', annFieldIntro: 'Intro', annFieldLines: 'Líneas (una por línea; el texto antes de " — " va en negrita)', annFieldContrib: 'Pie',
     save: 'Guardar', saving: 'Guardando…', saved: 'Guardado ✓',
     factionSectionTitle: 'Disponibilidad de facciones', factionAvailHint: 'Las facciones sin marcar se muestran en gris y no se pueden seleccionar en el builder.',
+    transImportTitle: 'Importar términos',
+    transImportHint: 'Pega filas de la hoja de términos: inglés, alemán, español, separados por tabuladores (una primera columna de categoría se ignora). Se emparejan por el texto en inglés. Solo rellena los campos de abajo — pulsa Guardar para almacenarlos.',
+    transImportBtn: 'Rellenar campos',
+    transImportResult: (ok, bad, sample) => bad === 0 ? `${ok} términos emparejados y rellenados.` : `${ok} emparejados, ${bad} no encontrados (ningún texto traducible tiene ese inglés): ${sample.join(', ')}${bad > sample.length ? ' …' : ''}`,
+    settingsLoadFailed: 'No se pudieron cargar los ajustes, así que guardar está desactivado — guardar ahora sobrescribiría las traducciones, el anuncio y los flags guardados con valores por defecto vacíos. Recarga el panel.',
     transSectionTitle: 'Traducciones de la interfaz',
     transHint: 'Edita el texto en alemán / español de cualquier cadena de la interfaz. El inglés es la fuente. Los campos vacíos o sin cambios conservan el texto original. Los cambios guardados se aplican en vivo para todos.',
     transSearch: 'Filtrar cadenas (clave o texto en inglés)…', transSource: 'EN (fuente)',
@@ -566,6 +584,21 @@ export function AdminPanel({ onClose }: Props) {
   /** Bumped after a save so the 'only untranslated' list is re-evaluated then — and only then. */
   const [transListVersion, setTransListVersion] = useState(0);
   const [transAbilities, setTransAbilities] = useState<Record<string, string>>({});
+  /**
+   * The translation overrides EXACTLY as stored in the DB. Saving merges into this instead of
+   * rebuilding the whole object from the editor, because the editor only ever holds one codex's
+   * datasheet texts at a time — rebuilding dropped every other codex's work (see
+   * handleSaveTranslations).
+   */
+  const [storedTrans, setStoredTrans] = useState<api.TranslationOverrides>({});
+  const [transImport, setTransImport] = useState('');
+  const [transImportMsg, setTransImportMsg] = useState('');
+  /**
+   * False until adminGetSettings has actually answered. Saving while false would persist an editor
+   * hydrated purely from code defaults, i.e. wipe every stored override — the failed-fetch path is
+   * silent, so the Save button has to be the thing that refuses.
+   */
+  const [settingsLoaded, setSettingsLoaded] = useState(false);
   const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
   const [tab, setTab] = useState<AdminTab>('overview');
@@ -622,11 +655,20 @@ export function AdminPanel({ onClose }: Props) {
         api.adminStats().catch(() => null),
         api.adminListRecoveryRequests().catch(() => ({ requests: [] as api.RecoveryRequest[] })),
         api.adminActions().catch(() => ({ actions: [] })),
-        api.adminGetSettings().catch(() => ({ settings: {} as { announcement?: api.AnnouncementSetting; faction_flags?: api.FactionFlags; translations?: api.TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: api.DataOverrides; source_ignores?: api.SourceIgnores; codex_versions?: api.CodexVersions } })),
+        api.adminGetSettings().catch(() => null),
       ]);
       setStats(s);
       setRequests(r.requests);
       setAuditLog(a.actions);
+      // A failed settings fetch must NOT look like "there are no settings": the editors would
+      // hydrate from code defaults and the next Save would persist that over the real data. Leave
+      // them untouched and let `settingsLoaded` keep the Save buttons shut.
+      if (!cfg) {
+        setSettingsLoaded(false);
+        setMsg(L.settingsLoadFailed);
+        setLoading(false);
+        return;
+      }
       // hydrate announcement editor
       const ann = cfg.settings.announcement;
       if (ann) {
@@ -644,11 +686,17 @@ export function AdminPanel({ onClose }: Props) {
       setFlags(merged);
       // hydrate translation editor (effective value = override ?? code default)
       const tr = cfg.settings.translations ?? {};
+      setStoredTrans(tr);
+      setSettingsLoaded(true);
       const de: Record<string, string> = {}, es: Record<string, string> = {};
       for (const k of allTranslationKeys()) {
         de[k] = tr.de?.[k] ?? defaultString('de', k);
         es[k] = tr.es?.[k] ?? defaultString('es', k);
       }
+      // Datasheet ability texts are keyed by their English text, so they are NOT in
+      // allTranslationKeys() — without this they came back blank every time and looked deleted.
+      for (const k of Object.keys(tr.de ?? {})) if (de[k] == null) de[k] = tr.de![k];
+      for (const k of Object.keys(tr.es ?? {})) if (es[k] == null) es[k] = tr.es![k];
       setTransEdits({ de, es });
       // hydrate source-sheet ids (stored override merged over the built-in defaults)
       const ids = { ...DEFAULT_SOURCE_IDS, ...(cfg.settings.source_sheets ?? {}) };
@@ -819,6 +867,11 @@ export function AdminPanel({ onClose }: Props) {
   }
 
   async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'codex_versions', value: unknown) {
+    // Every one of these four editors is hydrated from adminGetSettings. If that call failed the
+    // editors hold code defaults, and writing them back replaces whatever is really stored —
+    // silently, because a failed fetch produced an empty object that looked exactly like
+    // "nothing configured yet". Refuse instead.
+    if (!settingsLoaded) { setMsg(L.settingsLoadFailed); return; }
     setSavingKey(key); setSavedKey(null);
     try {
       await api.adminSetSetting(key, value);
@@ -864,18 +917,84 @@ export function AdminPanel({ onClose }: Props) {
     saveSetting('faction_flags', flags);
   }
 
+  /**
+   * Saving MERGES into what is already stored. It used to rebuild the whole overrides object from
+   * the editor and iterate `allTranslationKeys()` only — datasheet ability texts are keyed by their
+   * English text and are not in that list, so a codex's translations were silently dropped from
+   * every save. They were edited, listed, reported "saved", and never actually written; reloading
+   * showed empty fields and looked like a wipe (translator report 2026-08-11, four factions lost).
+   *
+   * Rebuilding was also wrong for a second reason: the editor only ever holds ONE codex's ability
+   * texts at a time, so even once they were included, a full rebuild would drop every other codex.
+   */
+  /**
+   * Paste rows straight out of the terms spreadsheet — `English <TAB> German <TAB> Spanish`, which
+   * is what you get by selecting the columns and copying. Matching is by the English text, so the
+   * translator never has to know a key exists, and a term that is written with its parameter
+   * notation ("Aegis(X+)") still finds the glossary entry stored as "Aegis({X})".
+   *
+   * It only fills the editor — nothing is stored until Save, so a bad paste is one reload away
+   * from being undone.
+   */
+  function handleImportTerms() {
+    const src = { ...sourceStrings(), ...transAbilities };
+    const norm = (s: string) => s.toLowerCase().trim();
+    const bare = (s: string) => norm(s).replace(/\s*\(.*$/, '').trim();
+    const byText = new Map<string, string>();
+    for (const [k, v] of Object.entries(src)) {
+      if (!v) continue;
+      byText.set(norm(v), k);
+      if (!byText.has(bare(v))) byText.set(bare(v), k);
+    }
+
+    const lookup = (s: string) => (s ? byText.get(norm(s)) ?? byText.get(bare(s)) : undefined);
+    const rows = transImport.split('\n').map(r => r.split('\t').map(c => c.trim()));
+
+    // Which column holds the English? The sheet may or may not lead with a Category column, and
+    // counting trailing cells is not safe: a row whose Spanish is still blank arrives with one
+    // cell fewer, so "the last three" silently slid over and read the CATEGORY as the English and
+    // the English as the translation. Pick the offset that matches the most rows and use it for
+    // the whole paste — a per-row guess would shift mid-file.
+    const score = (off: number) => rows.reduce((n, c) => n + (lookup(c[off] ?? '') ? 1 : 0), 0);
+    const offset = score(1) > score(0) ? 1 : 0;
+
+    const de = { ...transEdits.de }, es = { ...transEdits.es };
+    let matched = 0; const unmatched: string[] = [];
+    for (const cells of rows) {
+      const en = cells[offset] ?? '', dev = cells[offset + 1] ?? '', esv = cells[offset + 2] ?? '';
+      if (!en || (!dev && !esv)) continue;
+      const key = lookup(en);
+      if (!key) { unmatched.push(en); continue; }
+      if (dev) de[key] = dev;
+      if (esv) es[key] = esv;
+      matched++;
+    }
+    setTransEdits({ de, es });
+    setTransListVersion(v => v + 1);
+    setTransImportMsg(L.transImportResult(matched, unmatched.length, unmatched.slice(0, 8)));
+  }
+
   function handleSaveTranslations() {
-    // store only values that differ from the code default (keeps overrides small; future code
-    // string changes still flow through for untouched keys)
+    if (!settingsLoaded) { setMsg(L.settingsLoadFailed); return; }
+    const src = { ...sourceStrings(), ...transAbilities };
+    // Everything the editor can currently speak for: the UI/glossary keys plus whichever codex's
+    // datasheet texts are loaded. Keys outside this set are carried over from storage untouched.
+    const editableKeys = [...allTranslationKeys(), ...Object.keys(transAbilities)];
     const out: api.TranslationOverrides = {};
     for (const lang of TRANS_LANGS) {
-      const m: Record<string, string> = {};
-      for (const k of allTranslationKeys()) {
+      const m: Record<string, string> = { ...(storedTrans[lang] ?? {}) };
+      for (const k of editableKeys) {
         const v = transEdits[lang][k];
-        if (v != null && v.trim() !== '' && v !== defaultString(lang, k)) m[k] = v;
+        // "unset" = blank, or still identical to what it would say without an override: the code
+        // default for a UI key, the English source text for a datasheet ability (which has no
+        // code default — defaultString returns '' for those).
+        const baseline = defaultString(lang, k) || src[k] || '';
+        if (v == null || v.trim() === '' || v === baseline) delete m[k];
+        else m[k] = v;
       }
       if (Object.keys(m).length) out[lang] = m;
     }
+    setStoredTrans(out);
     setTranslationOverrides(out);   // apply live in this session immediately
     setTransListVersion(v => v + 1);  // now the finished rows may leave the 'untranslated' list
     saveSetting('translations', out);
@@ -1625,6 +1744,30 @@ export function AdminPanel({ onClose }: Props) {
                   <span className="text-amber-600 text-[10px] font-mono">{L.transAbilitiesLoaded(Object.keys(transAbilities).length)}</span>
                 )}
               </div>
+              {/* Paste-from-spreadsheet import — the translator's terms workbook has hundreds of
+                  rows and retyping them into the list below is how work gets lost. */}
+              <details className="border border-zinc-800 mb-2">
+                <summary className="cursor-pointer px-2 py-1.5 text-[11px] font-mono text-amber-600 select-none">
+                  {L.transImportTitle}
+                </summary>
+                <div className="p-2 space-y-1.5">
+                  <div className="text-[10px] font-mono text-zinc-500 leading-relaxed">{L.transImportHint}</div>
+                  <textarea
+                    value={transImport}
+                    onChange={e => setTransImport(e.target.value)}
+                    rows={5}
+                    spellCheck={false}
+                    placeholder={'Melta\tSchmelzer\nAegis(X+)\tAegis (X+)'}
+                    className="w-full bg-zinc-900 border border-zinc-800 px-2 py-1 text-[11px] font-mono text-zinc-200 placeholder-zinc-700 focus:outline-none focus:border-amber-800"
+                  />
+                  <div className="flex items-center gap-2">
+                    <button onClick={handleImportTerms} disabled={!transImport.trim()} className={toolbarBtn}>
+                      {L.transImportBtn}
+                    </button>
+                    {transImportMsg && <span className="text-[10px] font-mono text-zinc-400">{transImportMsg}</span>}
+                  </div>
+                </div>
+              </details>
               <div className="space-y-2 max-h-96 overflow-y-auto border border-zinc-800 p-2">
                 {transKeys.map(k => (
                   <div key={k} className="border-b border-zinc-900 pb-1.5">

@@ -529,22 +529,27 @@ export function computeEinhyrChampionFreeSlots(
 }
 
 /**
- * Tyranids Tyrant Guard Brood: "For every Hive Tyrant or Swarmlord selection, the army may
- * include one Tyrant Guard Brood that does not take up an HQ slot." Same shape, HQ instead of
+ * Tyranids Tyrant Guard Brood (Tyranids 1.02.ods, "Tyrant Guard Brood" sheet, verbatim): "For
+ * every Hive Tyrant, Neurotyrant or Swarmlord selection, the army may include one Tyrant Guard
+ * Brood that does not take up an HQ slot." Same shape as the Elite exemptions, HQ instead of
  * Elites (Tyrant Guard Brood's own printed slot is HQ).
+ *
+ * The Neurotyrant was missing from the anchor list, so a Guard bought alongside one took a normal
+ * HQ slot (GitHub #79).
  */
+const TYRANT_GUARD_ANCHORS = ['Hive Tyrant', 'Neurotyrant', 'Swarmlord'];
 export function computeTyrantGuardFreeSlots(
   army: RosterEntry[],
   data: FactionData,
 ): { hq: number; notes: string[] } {
   if (data.faction !== 'Tyranids') return { hq: 0, notes: [] };
   const guardCount = army.filter(i => i.unitName === 'Tyrant Guard Brood').length;
-  const anchorCount = army.filter(i => i.unitName === 'Hive Tyrant' || i.unitName === 'Swarmlord').length;
+  const anchorCount = army.filter(i => TYRANT_GUARD_ANCHORS.includes(i.unitName)).length;
   if (guardCount === 0 || anchorCount === 0) return { hq: 0, notes: [] };
   const credited = Math.min(guardCount, anchorCount);
-  const notes = [`Tyrant Guard Brood: ${credited} of ${guardCount} unit${guardCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Hive Tyrant/Swarmlord, have ${anchorCount}).`];
+  const notes = [`Tyrant Guard Brood: ${credited} of ${guardCount} unit${guardCount === 1 ? '' : 's'} exempted from the HQ slot (1 per Hive Tyrant/Neurotyrant/Swarmlord, have ${anchorCount}).`];
   if (guardCount > anchorCount) {
-    notes.push(`Tyrant Guard Brood: ${guardCount - anchorCount} extra unit${guardCount - anchorCount === 1 ? '' : 's'} exceed the Hive Tyrant/Swarmlord ratio and still occupy a normal HQ slot.`);
+    notes.push(`Tyrant Guard Brood: ${guardCount - anchorCount} extra unit${guardCount - anchorCount === 1 ? '' : 's'} exceed the Hive Tyrant/Neurotyrant/Swarmlord ratio and still occupy a normal HQ slot.`);
   }
   return { hq: credited, notes };
 }
