@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-csm-reaver-lord-cross-armory-01',
+    status: 'known',
+    title: 'Chaos Space Marines — the Red Corsairs "Reaver Lord" cannot yet pick its borrowed item inside the app',
+    description: 'FOUND 2026-08-11 with CSM codex 1.03, and flagged on Discord before we spotted it ("you might need some special logic for Red Corsairs. One wargear item lets them pick from any SM or CSM armory"). Verbatim from the Red Corsairs Armory sheet: "Select a single item from any Space Marine or Chaos Space Marine Armory for the stated cost. Requirements like \'Only for psykers\' must be met. Unique." No other item in the game prices itself off a DIFFERENT item chosen from a DIFFERENT faction\'s armoury, so there is no existing seam for it: the armoury modal shows one faction\'s sections, and an armoury entry carries a number or null, not a pointer to another entry. What ships now: the Reaver Lord is present, marked "Special" and selectable, and contributes 0 to the total — the same convention already used for the weapon-priced items (Holy weapon, Relic blade, Cursed blade, Crescendo). It had to be excluded from the null-price rule that greys an item out, or it could not be bought at all. WHAT IS MISSING: a second picker that opens the full Space Marine and Chaos Space Marine armouries, enforces the chosen item\'s own requirements, charges its cost, and holds the "Unique" limit across the army. Until then the player adds those points by hand. SHEET NOTE for Dominic: the Trophy taker entry spells the ability "Terrífying" with an accent; stored as "Terrifying" to match the glossary.',
+  },
+  {
     id: 'ki-pwa-stale-cache-white-screen-01',
     status: 'fixed',
     title: 'White screen after several deploys in one day — the service worker kept serving a build the server no longer had',

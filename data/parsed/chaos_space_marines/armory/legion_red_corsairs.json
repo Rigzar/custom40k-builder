@@ -1,0 +1,87 @@
+{
+  "name": "Red Corsairs",
+  "weapons": [],
+  "equipment": [
+    {
+      "name": "Angel of Hatred",
+      "term_compat": true,
+      "desc": "The model gains the \"Furious Charge\" ability.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Armor of Badab",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Warded\" ability. Unique.",
+      "p_unit": null,
+      "p_char": 25,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Corpsemaster",
+      "term_compat": true,
+      "desc": "The model gains the \"Narthecium\" ability.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Dark Raider",
+      "term_compat": true,
+      "desc": "The model and its attached unit gain the \"Haste(2\")\" ability.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Hamadrya familiar",
+      "term_compat": true,
+      "desc": "The model may re-roll one die per activation. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Maelstrom Weapon",
+      "term_compat": true,
+      "desc": "One ranged weapon of the model gains +1 Strength for all of its profiles.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Reaver Lord",
+      "term_compat": true,
+      "desc": "Select a single item from any Space Marine or Chaos Space Marine Armory for the stated cost. Requirements like \"Only for psykers\" must be met. Unique.",
+      "p_unit": null,
+      "p_char": null,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Reaver Weapon",
+      "term_compat": true,
+      "desc": "One melee weapon of the model gains +1 Strength for all of its profiles.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Traitor's Laurels",
+      "term_compat": true,
+      "desc": "The model gains +1 Attack. Unique.",
+      "p_unit": null,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    },
+    {
+      "name": "Trophy taker",
+      "term_compat": true,
+      "desc": "You gain 1 Trophy point each time this models kills at least one model in melee, but not more than 1 point per unique enemy unit. The model gains +x Leadership and the \"Terrifying(-x)\" ability, where x is the amount of Trophy points you have.",
+      "p_unit": 5,
+      "p_char": 5,
+      "armour_compat": ["Terminator"]
+    }
+  ],
+  "daemon_weapons": []
+}

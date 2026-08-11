@@ -63,7 +63,7 @@ async function loadFaction(key: string): Promise<FactionData> {
   switch (key) {
 
     case 'chaos_space_marines': {
-      const [u, g, kh, nu, sl, tz, iron, word, alpha, night, black, arch, rules, pacts, prayers, dk, discs] = await Promise.all([
+      const [u, g, kh, nu, sl, tz, iron, word, alpha, night, black, redc, arch, rules, pacts, prayers, dk, discs] = await Promise.all([
         import('../../data/parsed/chaos_space_marines/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/chaos_space_marines/armory/general.json'),
         import('../../data/parsed/chaos_space_marines/armory/mark_khorne.json'),
@@ -75,6 +75,7 @@ async function loadFaction(key: string): Promise<FactionData> {
         import('../../data/parsed/chaos_space_marines/armory/legion_alpha_legion.json'),
         import('../../data/parsed/chaos_space_marines/armory/legion_night_lords.json'),
         import('../../data/parsed/chaos_space_marines/armory/legion_black_legion.json'),
+        import('../../data/parsed/chaos_space_marines/armory/legion_red_corsairs.json'),
         import('../../data/parsed/chaos_space_marines/archetypes.json'),
         import('../../data/parsed/chaos_space_marines/animosity.json'),
         import('../../data/parsed/chaos_space_marines/psychic/pacts.json'),
@@ -84,7 +85,7 @@ async function loadFaction(key: string): Promise<FactionData> {
       ]);
       return asm(u, g, arch, rules,
         { Khorne: kh, Nurgle: nu, Slaanesh: sl, Tzeentch: tz },
-        { 'Iron Warriors': iron, 'Word Bearers': word, 'Alpha Legion': alpha, 'Night Lords': night, 'Black Legion': black },
+        { 'Iron Warriors': iron, 'Word Bearers': word, 'Alpha Legion': alpha, 'Night Lords': night, 'Black Legion': black, 'Red Corsairs': redc },
         { pacts, prayers, daemonkin: dk, disciplines: discs });
     }
 

@@ -78,11 +78,19 @@ function parsePrice(v: number | null | undefined | string): number | null {
  *  can't compute a weapon-dependent cost, so it treats these as selectable at 0 pts and shows the
  *  price as "Special"; the item's own description states the true cost. */
 function isWeaponCostSpecial(desc?: string): boolean {
-  // Two wordings across the codices: "...cost ... is the same as for the weapon that it enhances"
-  // (Holy weapon / Relic blade / Cursed blade) and "...cost is the same as the weapon that gets
-  // this equipment" (Harlequins Crescendo). Match "cost ... is the same as ... weapon" within one
-  // sentence (no intervening period), which covers all four and nothing else.
-  return !!desc && /cost\b[^.]*\bis the same as\b[^.]*\bweapon\b/i.test(desc);
+  // Items whose price is not a number on the sheet because it is decided by something else you
+  // pick. Two shapes:
+  //  · "...cost ... is the same as for the weapon that it enhances" (Holy weapon / Relic blade /
+  //    Cursed blade) and "...cost is the same as the weapon that gets this equipment"
+  //    (Harlequins Crescendo) — priced off a weapon.
+  //  · Red Corsairs "Reaver Lord": "Select a single item from any Space Marine or Chaos Space
+  //    Marine Armory for the stated cost" — priced off the item you choose (CSM 1.03).
+  // Without the second case the item has no price, so it renders greyed out and unbuyable, which
+  // is worse than showing "Special" and letting the player add the chosen item's cost by hand.
+  return !!desc && (
+    /cost\b[^.]*\bis the same as\b[^.]*\bweapon\b/i.test(desc) ||
+    /\bfor the stated cost\b/i.test(desc)
+  );
 }
 
 /**
@@ -1549,7 +1557,12 @@ function ArmoryItemRow({
   const unitPrice = parsePrice(arm.p_unit);
   // Use ptsOverride when explicitly provided (including null); fall back to isChar logic
   const pts = ptsOverride !== undefined ? ptsOverride : (isChar ? (charPrice ?? unitPrice) : unitPrice);
-  const priceIsNull = pts === null;
+  // A "Special" cost is a price the PLAYER computes (from the weapon it enhances, or from the
+  // item a Red Corsairs Reaver Lord picks), not an absent one. Treating it as absent greyed the
+  // row out and made a legal purchase impossible, which is why it is excluded from the block
+  // below rather than just relabelled.
+  const costIsSpecial = isWeaponCostSpecial(arm.desc);
+  const priceIsNull = pts === null && !costIsSpecial;
   // "Special" cost items (cost = the enhanced weapon) carry 0 in the total but must not read as
   // "+0 pts" / free — the price is deliberately player-computed from the weapon, per the desc.
   const displayPrice = isWeaponCostSpecial(arm.desc)

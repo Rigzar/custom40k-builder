@@ -36,9 +36,9 @@
     {
       "name": "Curze's Orb",
       "term_compat": true,
-      "desc": "The model may re-roll any one die per activation. Unique.",
+      "desc": "The army may re-roll any one die per activation. Unique.",
       "p_unit": null,
-      "p_char": 5,
+      "p_char": 10,
       "armour_compat": [
         "Terminator"
       ]

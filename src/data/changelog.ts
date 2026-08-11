@@ -25,6 +25,17 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.59',
+    date: '2026-08-11',
+    title: 'Chaos Space Marines codex 1.03 — the Red Corsairs',
+    changes: [
+      'Chaos Space Marines (codex 1.03) — new Legacy, "Legacy of the Tyrant", which gives the army the new Red Corsairs Armory. Ten items: Angel of Hatred (+5, Furious Charge), Armor of Badab (+25, the model and its unit gain Warded, unique), Corpsemaster (+5, Narthecium), Dark Raider (+5, the model and its unit gain Haste(2")), Hamadrya familiar (+5, re-roll one die per activation, unique), Maelstrom Weapon (+5, one ranged weapon gains +1 Strength on all profiles), Reaver Weapon (+5, the same for one melee weapon), Traitor\'s Laurels (+5, +1 Attack, unique), Trophy taker (+5, Trophy points give +x Leadership and Terrifying(-x)) and the Reaver Lord. Every one of them may be taken by a model in Terminator armour.',
+      'Chaos Space Marines (codex 1.03) — the Reaver Lord "may select a single item from any Space Marine or Chaos Space Marine Armory for the stated cost", so its price depends on what you pick. It shows as "Special" and can be taken; add the chosen item\'s cost to your total yourself for now, and note the requirements on that item ("Only for psykers" and the like) still have to be met. Choosing the borrowed item inside the app is not built yet — see Known Issues.',
+      'Chaos Space Marines (codex 1.03) — the four Legacies that restrict which units you may take now say it more precisely: "Can only select CHAOS SPACE MARINE units with no Mark or the Mark of Chaos Undivided" and, new, "Can select any Chaos Daemons units". The old wording read as though the Mark restriction applied to a Daemon ally as well. This affects the Legacy of the Hydra, of the Iron Lord, of the Night Haunter and of the Tyrant; the Arch Traitor and the Warmaster never had the restriction.',
+      'Chaos Space Marines (codex 1.03) — Curze\'s Orb (Night Lords Armory) now lets THE ARMY re-roll one die per activation rather than the model, and costs 10 points instead of 5.',
+    ],
+  },
+  {
     version: '1.58',
     date: '2026-08-06',
     title: 'Imperial Guard: the platoon link is findable now',

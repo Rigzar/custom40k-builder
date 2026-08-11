@@ -61,18 +61,23 @@
     },
     {
       "name": "Legacy of the Hydra",
-      "desc": "The army has access to the Alpha Legion Armory.\nCan only select units with no Mark or the Mark of Chaos Undivided.",
+      "desc": "The army has access to the Alpha Legion Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
       "armory_key": "Alpha Legion"
     },
     {
       "name": "Legacy of the Iron Lord",
-      "desc": "The army has access to the Iron Warriors Armory.\nCan only select units with no Mark or the Mark of Chaos Undivided.",
+      "desc": "The army has access to the Iron Warriors Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
       "armory_key": "Iron Warriors"
     },
     {
       "name": "Legacy of the Night Haunter",
-      "desc": "The army has access to the Night Lords Armory.\nCan only select units with no Mark or the Mark of Chaos Undivided.",
+      "desc": "The army has access to the Night Lords Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
       "armory_key": "Night Lords"
+    },
+    {
+      "name": "Legacy of the Tyrant",
+      "desc": "The army has access to the Red Corsairs Armory.\nCan only select Chaos Space Marine units with no Mark or the Mark of Chaos Undivided.\nCan select any Chaos Daemons units.",
+      "armory_key": "Red Corsairs"
     },
     {
       "name": "Legacy of the Warmaster",

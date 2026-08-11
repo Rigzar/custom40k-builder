@@ -48,7 +48,7 @@ export const CATEGORIES: FactionCategory[] = [
     icon: '/category-icons/chaos.svg',
     pillFg: '#cc8888', dividerColor: '#3a1a1a',
     factions: [
-      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.02' },
+      { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.03' },
       { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.01' },
     ],
   },

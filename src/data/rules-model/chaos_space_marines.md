@@ -30,8 +30,9 @@
 - **Unit types (additive, per Jump Pack Infantry precedent):** Bike, Jetbike, Jump Pack
   Infantry, Monstrous Infantry — all granted by armory equipment items via
   `effect.adds_unit_types` + matching `effect.stat_mod`/`grants_abilities`.
-- **Legion keywords:** Alpha Legion / Black Legion / Iron Warriors / Night Lords / Word Bearers —
-  granted via the 5 Legacies (`armory_key` unlocks that Legion's dedicated Armory sheet).
+- **Legion keywords:** Alpha Legion / Black Legion / Iron Warriors / Night Lords / Red Corsairs /
+  Word Bearers — granted via the 6 Legacies (`armory_key` unlocks that Legion's dedicated Armory
+  sheet). Red Corsairs added in codex **1.03** (2026-08-11).
 - **Other:** Cultist, Daemon, Priest (gates "Demagogue", Dark Apostle-only), Lieutenant (gates
   "Cursed blade"), Sorcerer (gates "Familiar"), Warpsmith (gates Iron Warriors melee weapons).
 
@@ -42,7 +43,7 @@
 | General Armory ᵀ items | — | non-Terminator models can't take | `armour_compat: ["Terminator"]` |
 | Mark Armory (Khorne/Nurgle/Slaanesh/Tzeentch) | matching Mark | — | unlocked when Mark purchased/locked |
 | Manreaper, Twin plague spewer | Cataphractii (Nurgle armory) | — | `requires_keywords` |
-| Legion Armory (5x) | matching Legacy selected | — | `armory_key` on legacy |
+| Legion Armory (6x) | matching Legacy selected | — | `armory_key` on legacy |
 | Demagogue | Priest | — | Dark Apostles only |
 | Cursed blade | Lieutenant | — | |
 | Familiar | Sorcerer | — | |
@@ -75,9 +76,9 @@
 
 ### 5. Archetypes / Legacies / Traits
 
-- 13 Archetypes, 5 Legacies (Arch Traitor→Word Bearers Armory, Hydra→Alpha Legion Armory, Iron
-  Lord→Iron Warriors Armory, Night Haunter→Night Lords Armory, Warmaster→Black Legion Armory),
-  17 Traits. Selection limits: 0-1 Archetype, 0-1 Legacy, 0-2 Traits (some traits via
+- 13 Archetypes, 6 Legacies (Arch Traitor→Word Bearers Armory, Hydra→Alpha Legion Armory, Iron
+  Lord→Iron Warriors Armory, Night Haunter→Night Lords Armory, **Tyrant→Red Corsairs Armory**,
+  Warmaster→Black Legion Armory), 17 Traits. Selection limits: 0-1 Archetype, 0-1 Legacy, 0-2 Traits (some traits via
   `enables_second_legacy`). All names confirmed 1:1 against the .ods "Army Customisation" sheet.
 
 ### 6. Findings this pass (all fixed v0.61, build ✓, local NOT pushed)
@@ -116,3 +117,32 @@ found in the Armory sections.
 
 **"Lo demás" complete** — all non-unit CSM sheets audited. Next: unit-by-unit audit of the 62
 datasheets.
+
+---
+
+## Codex 1.03 (2026-08-11) — full .ods×.ods delta
+
+Diffed 1.02 vs 1.03 cell by cell across all sheets (87 → 88). Everything that changed:
+
+1. **NEW SHEET "Red Corsairs Armory"** — 10 equipment items, every one ᵀ (Terminator-legal),
+   no weapons and no vehicle upgrades. Wired as `armory/legion_red_corsairs.json`.
+2. **NEW Legacy "Legacy of the Tyrant"** → `armory_key: "Red Corsairs"`.
+3. **Legacy restriction re-worded** on Hydra / Iron Lord / Night Haunter (and the new Tyrant):
+   *"Can only select **Chaos Space Marine** units with no Mark or the Mark of Chaos Undivided"*
+   plus a new line *"Can select any Chaos Daemons units."* — the old text read as if the Mark
+   restriction bound a Daemon ally too. Arch Traitor and Warmaster never carried it.
+4. **Curze's Orb** (Night Lords Armory): *model* → **army** may re-roll one die per activation;
+   5 → **10** pts.
+
+Nothing else moved: no unit, stat, points or weapon change anywhere in the other 85 sheets.
+
+### Reaver Lord — the one thing NOT modelled
+
+*"Select a single item from any Space Marine or Chaos Space Marine Armory for the stated cost.
+Requirements like 'Only for psykers' must be met. Unique."* No other item in the game prices
+itself off a different item in a different faction's armoury. Ships as a selectable "Special"
+cost contributing 0, same convention as the weapon-priced items; the cross-armoury picker is
+open work (see known-issues `ki-csm-reaver-lord-cross-armory-01`).
+
+**Sheet note for Dominic:** Trophy taker spells the ability "Terrífying"; stored as
+"Terrifying" to match the glossary.
