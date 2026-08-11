@@ -2295,13 +2295,19 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         }
       }
       if (g.constraint?.type === 'fixed_max') {
-        const used = Object.entries(item.optionQty?.[gi] ?? {}).reduce((s, [k, v]) => {
-          return k === '__inline' ? s : s + (v ?? 0);
-        }, 0);
-        if (used > (g.constraint.max ?? 0)) {
+        // `independent_choices`: each choice has its own allowance rather than one shared pool, so
+        // the check is per choice and the cap defaults to the unit's model count (Tyranid
+        // Biomorphs — "any number", "once per model"). Summing them would re-impose the very
+        // shared budget the flag exists to remove.
+        const max = g.constraint.max ?? (g.independent_choices ? item.size : 0);
+        const qtys = Object.entries(item.optionQty?.[gi] ?? {}).filter(([k]) => k !== '__inline');
+        const used = g.independent_choices
+          ? qtys.reduce((m, [, v]) => Math.max(m, v ?? 0), 0)
+          : qtys.reduce((s, [, v]) => s + (v ?? 0), 0);
+        if (used > max) {
           items.push({
             type: 'error',
-            text: T('valFixedMaxExceeded', { unit: item.unitName, header: g.header.substring(0, 50), used, max: g.constraint.max ?? 0 }),
+            text: T('valFixedMaxExceeded', { unit: item.unitName, header: g.header.substring(0, 50), used, max }),
           });
         }
       }

@@ -128,8 +128,7 @@ export const trygon: Unit = {
     {
       "header": "May select any number of Biomorphs (see list below).",
       "constraint": {
-        "type": "fixed_max",
-        "max": 16
+        "type": "fixed_max"
       },
       "choices": [
         { "name": "Acid Maw", "points": 5 },
@@ -151,7 +150,8 @@ export const trygon: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "independent_choices": true
     }
   ],
   "abilities": [

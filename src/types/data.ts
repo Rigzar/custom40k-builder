@@ -145,6 +145,18 @@ export interface OptionGroup {
   variant_link: string | null;
   is_unique_per_army: boolean;
   /**
+   * Each choice gets its OWN allowance instead of the whole group sharing one pool.
+   *
+   * A `fixed_max` group normally shares its budget across every choice, which is right for a swap
+   * ("two Raptors may exchange their chainsword for a Flamer/Meltagun/Plasma gun" — three options,
+   * two models). It is wrong where the choices are independent purchases: the Tyranid Biomorphs
+   * say "may additionally select ANY NUMBER of Basic and Advanced Biomorphs", and the Armory adds
+   * "every item can only be purchased once by each model" — so each biomorph is capped at the
+   * unit's model count and taking a full set of one must not lock out all the others
+   * (GitHub #78: a 20-model Hormagaunt Brood was stopped at 16 purchases across ALL biomorphs).
+   */
+  independent_choices?: boolean;
+  /**
    * Optional keyword gate: this option group is only available (and only valid) when the
    * condition holds. Used for cross-option dependencies the header text only states in prose,
    * e.g. "If no Mark of Khorne is taken …" → { type: 'notInstanceOf', scope: 'unit', keyword: 'Khorne' }.

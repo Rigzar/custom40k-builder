@@ -1342,7 +1342,10 @@ export function UnitCard({ item }: Props) {
             // choices — e.g. Kroot Farstalkers' Kroot pistol/Kroot scattergun swap, or Raptors'
             // "two Raptors may swap their chainsword+pistol for Flamer/Meltagun/Plasma gun" can't
             // independently hit the cap on each choice, they must add up to no more than the max.
-            const groupUsed = (isPerN || isEvery || isFixedMax)
+            // `independent_choices` groups do NOT share one pool — each choice is capped on its
+            // own, so a full set of one biomorph cannot lock out every other one. Their per-choice
+            // remaining is computed inside qtyControl instead (see there).
+            const groupUsed = (isPerN || isEvery || isFixedMax) && !g.independent_choices
               ? Object.entries(item.optionQty?.[realGi] ?? {}).reduce(
                   (s, [k, v]) => k === '__inline' ? s : s + (v ?? 0), 0
                 )
@@ -1405,7 +1408,12 @@ export function UnitCard({ item }: Props) {
             function qtyControl(ci: number, c: Choice) {
               const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
               const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
-              const inputMax = groupRemaining !== null ? qty + groupRemaining : undefined;
+              // Independent choices measure against their own quantity, so each one may run up to
+              // the group's max (the unit's model count for Biomorphs) without touching the others.
+              const remaining = g.independent_choices && groupMax !== null
+                ? groupMax - qty
+                : groupRemaining;
+              const inputMax = remaining !== null ? qty + remaining : undefined;
               // Detect "(X only)" mark restrictions embedded in choice names
               const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;
               const choiceMarkBlocked = choiceMarkReq != null

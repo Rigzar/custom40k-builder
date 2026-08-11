@@ -72,8 +72,7 @@ export const zoanthropeBrood: Unit = {
     {
       "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",
       "constraint": {
-        "type": "fixed_max",
-        "max": 16
+        "type": "fixed_max"
       },
       "choices": [
         { "name": "Acid Maw", "points": 5 },
@@ -95,7 +94,8 @@ export const zoanthropeBrood: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "independent_choices": true
     }
   ],
   "abilities": [
