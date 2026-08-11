@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-pwa-stale-cache-white-screen-01',
+    status: 'fixed',
+    title: 'White screen after several deploys in one day — the service worker kept serving a build the server no longer had',
+    description: 'FIXED 2026-08-11, user report "pantallazo blanco, la app no carga". Production was healthy and current — the deployed bundle was verified to contain that day\'s newest code — so nothing was wrong server-side. The fault was the PWA: `registerType: \'prompt\'` means a device keeps its cached build until the user accepts the update prompt, and with SIX deploys in one afternoon a device could sit several builds behind. Reproduced live in the browser pane: the page being served was a precached `index.html` from an older build (no new markup, old bundle hash) while the server\'s own HTML pointed at the current one. When such a build\'s chunks are gone from the server, or iOS has evicted part of the precache, the module never loads, nothing renders, and RELOADING SERVES THE SAME BROKEN CACHE AGAIN — the user has no way out. Two fixes: (1) `cleanupOutdatedCaches: true` in the workbox config, so superseded precaches are deleted instead of accumulating; (2) a self-heal script inlined in index.html BEFORE the module, which unregisters every service worker, deletes every cache and reloads ONCE — triggered by `vite:preloadError`, by a failed script/link element, or by `#root` still being empty 8 seconds in. The once is enforced with a sessionStorage flag so a genuine app crash can never become a reload loop, and a clean boot clears the flag so a later breakage can still heal. Verified: firing `vite:preloadError` unregisters the worker, drops the caches, reloads, and the app renders. IMPORTANT LIMITATION: the script can only help a device once it has loaded a build that CONTAINS it — anyone already stuck on a white screen has to clear the site data (or reinstall the PWA) one last time.',
+  },
+  {
     id: 'ki-sm-terminator-phantom-weapons-print-01',
     status: 'fixed',
     title: 'Weapon counts ignored which models carry them, and multi-profile weapons printed with no name',

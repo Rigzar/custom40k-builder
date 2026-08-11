@@ -41,6 +41,11 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Delete the precache of every superseded build. Without this they pile up: several
+        // deploys in one day leave a device holding caches for builds whose files the server no
+        // longer has, and a partly-evicted one of those is a white screen (see the self-heal
+        // script in index.html, which is the safety net for when this is not enough).
+        cleanupOutdatedCaches: true,
         // The faction chunks are large and there are many of them — the default 2 MiB cap would
         // silently skip the biggest ones and break offline for exactly the factions that need it.
         maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,

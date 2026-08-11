@@ -21,6 +21,58 @@
   </head>
   <body>
     <div id="root"></div>
+    <!--
+      WHITE-SCREEN SELF-HEAL. This runs before the bundle, on purpose.
+
+      The service worker precaches a whole build. When several deploys land in a day, a device can
+      be left holding an old build whose chunks the server no longer has — or whose cache iOS has
+      partly evicted. The module then fails to load, nothing renders, and the user sees a blank
+      page with no way out: reloading serves the same broken cache again.
+
+      So: if the app has not mounted a few seconds in, or a chunk fails outright, throw away every
+      service worker and cache and reload ONCE (the sessionStorage flag makes it once — a genuine
+      app bug must never become a reload loop). Costs nothing when the app is healthy.
+    -->
+    <script>
+      (function () {
+        var KEY = 'c40k_sw_selfheal';
+        function heal(why) {
+          if (sessionStorage.getItem(KEY)) return;          // already tried this tab — don't loop
+          sessionStorage.setItem(KEY, why || '1');
+          var done = function () { location.reload(); };
+          var jobs = [];
+          if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+            jobs.push(navigator.serviceWorker.getRegistrations()
+              .then(function (rs) { return Promise.all(rs.map(function (r) { return r.unregister(); })); })
+              .catch(function () {}));
+          }
+          if (window.caches && caches.keys) {
+            jobs.push(caches.keys()
+              .then(function (ks) { return Promise.all(ks.map(function (k) { return caches.delete(k); })); })
+              .catch(function () {}));
+          }
+          Promise.all(jobs).then(done, done);
+        }
+        // A chunk that never arrives (404 from a purged deploy, or an evicted cache entry).
+        window.addEventListener('vite:preloadError', function () { heal('preload'); });
+        window.addEventListener('error', function (e) {
+          var t = e && e.target;
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) heal('asset');
+        }, true);
+        // Belt and braces: nothing rendered at all after 8s means the bundle never ran.
+        setTimeout(function () {
+          var root = document.getElementById('root');
+          if (root && root.childElementCount === 0) heal('blank');
+        }, 8000);
+        // A clean boot clears the flag, so a future breakage may heal itself again.
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            var root = document.getElementById('root');
+            if (root && root.childElementCount > 0) sessionStorage.removeItem(KEY);
+          }, 3000);
+        });
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
