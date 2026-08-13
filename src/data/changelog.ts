@@ -46,6 +46,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Imperial Guard — four new Elite advisors, none of which take an Elite slot: Ambassador (17), Company Hero (17, with an Animal Companion), Scribe Historicus (18) and Staff Officer (18).',
       'Imperial Guard — Platoon and Company Command Squads can arm two models with a melee weapon (Las pistol and power sword +2, or power fist +7 / +9). The Engineseer\'s Servitors gain a Power fist option, and their heavy weapons are now a flat "up to 2" rather than one per two Servitors.',
       'Imperial Guard — combined Infantry Squads may also absorb a Platoon Command Squad, once at least two squads are combined.',
+      'Eldar — the Crimson Hunter Exarch upgrade did nothing at all: it charged no points and applied none of the Exarch\'s profile, so the unit stayed at 388 pts instead of 443 and kept BS 3+ instead of 2+. Any list with one is 55 pts light. Also, the Wraithlord\'s "2 Aeldari flamers" swap cost 0 instead of 1.',
       'Eldar — Conceal grants heavy cover and Reveal strips any cover, per the updated discipline.',
       'Tyranids — Tervigon 237 → 223 pts and its Stinger salvo is now Rapid Fire 4, S5, AP-1. Tyrannofex 225 → 222. Every Lash whip and Bonesword gains Deadly(5+). The Tyranid Prime and Tyranid Warriors are Monstrous Infantry now, and a Zoanthrope Brood may upgrade one model to a Neurothrope (+25 pts, a psyker).',
       'Dark Eldar — the Dracon redeploys two units instead of one, and the Archon upgrade another two.',

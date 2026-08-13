@@ -133,13 +133,15 @@ export const wraithlord: Unit = {
       "choices": [
         {
           "name": "2 Aeldari flamers",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Shuriken catapult"]
+      "replaces": [
+        "Shuriken catapult"
+      ]
     },
     {
       "header": "Can be equipped with Ghostglaive for +11 points.",

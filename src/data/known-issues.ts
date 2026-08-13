@@ -26,6 +26,18 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: "BY DESIGN, GitHub #80, closed without a code change. Reported as \"Tau Commander does not have access to dawn blade or fusion blades … should have access to these items per the armoury\". Tau Empire ENG.ods, \"Commander\" sheet, OPTIONS, verbatim: \"• May pick up to two SUPPORT SYSTEMS from the armory.\" and \"• Has access to GEAR from the Armory.\" — gear, not weapons. Its weapons come from its own datasheet list (Flamer, Airbursting fragmentation projector, Burst cannon, Plasma rifle, High-output burst cannon, Missile pod, Fusion blaster, High-intensity plasma rifle, Cyclic ion blaster). Dawn blade and Fusion blade are Armory WEAPONS, so they are correctly out of reach, and the unit's `armory_gear_only: true` is right. Confirms the same for the Onager gauntlet and every other armoury weapon on that model.",
   },
   {
+    id: 'ki-eldar-crimson-hunter-exarch-dead-link-01',
+    status: 'fixed',
+    title: 'Eldar — the Crimson Hunter Exarch upgrade charged nothing and granted nothing',
+    description: 'FIXED 2026-08-13, found by running the new ods_audit over Eldar rather than from a report. The upgrade group carries `variant_link: "Crimson Hunter Exarch"` but the entry in `variant_models` was named just "Crimson Hunter", so `getActiveVariant` looked the link up, found nothing, and returned null. The result: ticking "One model may be upgraded to an Exarch for +55 points" left the unit at 388 pts instead of 443 — no points charged — and none of the Exarch profile applied, so it kept BS 3+ instead of 2+. Any saved list with a Crimson Hunter Exarch is 55 points light and will not match its opponent\'s maths. Fixed by naming the variant model as the link expects. WORTH NOTING: `sanity_sweep` check G) had been reporting this all along — it was sitting in the 184 informational findings, and it went unnoticed because the run was only being grepped for [E] errors. It is the only dangling variant_link in the game; the count is now zero. Found alongside it: the Wraithlord\'s "2 Aeldari flamers" swap was priced 0 against the sheet\'s +1 point.',
+  },
+  {
+    id: 'ki-eldar-missing-loadout-clauses-01',
+    status: 'known',
+    title: 'Eldar — eleven datasheets are missing the second clause of their default loadout',
+    description: 'OPEN, found 2026-08-13 by ods_audit. Eleven Eldar units carry only the first sentence of their `equipped_with` and drop the rest, which on these datasheets is what arms the squad\'s special models. Guardian Defenders lose "Every Heavy weapon platform is equipped with: Scatter laser."; Storm Guardians lose "Every Serpent shield platform is equipped with: Serpent shield."; the Dire Avenger, Dark Reaper and Shining Spear Exarchs lose their own weapon lines; the Corsair Voidscarred lose all three specialist lines (Shade Runner, Soul Weaver, Way Seeker). Also affected: Autarch, Farseer, Spiritseer, Warlocks and Fire Dragons. The weapons themselves are present in `weapons[]`, so nothing has vanished from the card, but the resolver splits `equipped_with` into one clause per model group to decide which weapons belong to which model — with a single clause everything attaches to the whole unit. NOT fixed in this pass: adding the clauses changes how weapon groups are split and rendered on every one of the eleven, which needs verifying unit by unit rather than a bulk edit. Pre-existing and unrelated to any codex change; the Eldar sheet only changed its psychic discipline tab this round.',
+  },
+  {
     id: 'ki-all-codex-sheets-resynced-2026-08-13',
     status: 'fixed',
     title: 'All 22 canon sheets re-synced — 13 were stale, some by whole units',

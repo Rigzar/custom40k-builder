@@ -32,7 +32,7 @@ export const crimsonHunter: Unit = {
   ],
   "variant_models": [
     {
-      "name": "Crimson Hunter",
+      "name": "Crimson Hunter Exarch",
       "points": 443,
       "min": 0,
       "max": 0,
