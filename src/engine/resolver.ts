@@ -152,6 +152,18 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
     ...(data.archetype_armory
       ? [data.archetype_armory.general, ...Object.values(data.archetype_armory.marks)]
       : []),
+    // Supplements and allied detachments carry their OWN Armory (Legio Titanicus' Arc lance and
+    // Mag-inverter shield are in neither the parent codex nor any legion tab). Searched after
+    // everything above for the same reason: a same-named item in the primary faction wins.
+    // Missing this meant an item bought on a supplement unit was charged and then granted
+    // nothing at all — no weapon row, and none of its equipment abilities (user report
+    // 2026-08-11: a Secutarii Axiarch paid 11+6 pts for an Arc lance and a Mag-inverter shield
+    // and received neither the weapon nor Deflect/Parry).
+    ...Object.values(data.allied ?? {}).flatMap(a => [
+      a.armory_general,
+      ...Object.values(a.armory_marks ?? {}),
+      ...Object.values(a.armory_legions ?? {}),
+    ]).filter((x): x is NonNullable<typeof x> => !!x),
   ];
   for (const armory of sources) {
     const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);

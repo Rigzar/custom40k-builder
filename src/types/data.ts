@@ -480,6 +480,18 @@ export interface AlliedFaction {
   /** This faction's own base_allied grant (e.g. Grey Knights + Inquisition) — carries over when
    * this faction is picked AS the Allied Detachment, not just when it's the primary army. */
   base_allied?: string[];
+  /**
+   * This faction's OWN Armory, carried across so items bought on its units actually resolve.
+   *
+   * Without it the engine looked the purchase up in the PARENT faction's armouries, found nothing,
+   * and granted nothing — while still charging the points, because the price is stored on the
+   * selection itself. A Legio Titanicus Secutarii Axiarch could buy an Arc lance and a
+   * Mag-inverter shield, pay for both, and get neither the weapon nor Deflect/Parry
+   * (user report 2026-08-11).
+   */
+  armory_general?: Armory;
+  armory_marks?: Record<string, Armory>;
+  armory_legions?: Record<string, Armory>;
 }
 
 export interface FactionData {

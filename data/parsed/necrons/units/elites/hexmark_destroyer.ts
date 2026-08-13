@@ -46,7 +46,7 @@ export const hexmarkDestroyer: Unit = {
   "option_groups": [],
   "abilities": [
     "Command squad, Deep strike, Regeneration(1)",
-    "Royal Assassin: For each Lord or Skorpekh Lord, a Hexmark Destructor can be chosen that does not occupy an elite slot."
+    "Royal Assassin: For each Lord or Skorpekh Lord, a Hexmark Destroyer can be chosen that does not occupy an elite slot."
   ],
   "unit_type": "Character Model, Infantry, Necron",
   "keywords": [],

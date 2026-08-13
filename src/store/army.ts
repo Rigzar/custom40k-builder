@@ -272,6 +272,10 @@ function mergeAlliedIntoData(data: FactionData, alliedFaction: string | undefine
     allied: { ...(data.allied ?? {}), [alliedFaction]: {
       faction: alliedData.faction, slot_to_units: alliedData.slot_to_units, units: alliedData.units,
       allied: alliedData.allied, base_allied: alliedData.base_allied,
+      // Its Armory travels too — an item bought on one of its units has to be findable, or the
+      // engine charges the points and grants nothing (see AlliedFaction.armory_general).
+      armory_general: alliedData.armory_general, armory_marks: alliedData.armory_marks,
+      armory_legions: alliedData.armory_legions,
     } },
   };
 }
@@ -744,7 +748,16 @@ export const useArmyStore = create<ArmyStore>()(
           ...s.data,
           allied: {
             ...(s.data.allied ?? {}),
-            [key]: { slot_to_units: factionData.slot_to_units, units: factionData.units },
+            [key]: {
+              slot_to_units: factionData.slot_to_units, units: factionData.units,
+              // The supplement's own Armory rides along so purchases made on ITS units resolve.
+              // `supplementData` below already holds the whole faction for the modal, but that is
+              // a store field — `findArmoryItem` only ever sees FactionData, so without this the
+              // engine charged for a Legio Titanicus Arc lance and granted no weapon at all.
+              armory_general: factionData.armory_general,
+              armory_marks: factionData.armory_marks,
+              armory_legions: factionData.armory_legions,
+            },
           },
         };
         // Supplement-granting archetypes (e.g. Legion → 'Horus Heresy') expose the supplement's

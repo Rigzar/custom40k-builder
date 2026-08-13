@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: 'ki-supplement-armory-not-resolved-01',
+    status: 'fixed',
+    title: 'Armory items bought on a supplement unit were charged but granted nothing',
+    description: 'FIXED 2026-08-11, user report: "the Axiarch\'s equipment is not showing up on the simple or card printouts". Reproduced, and it was not a print bug — the item never reached the unit at all. A Legio Titanicus Secutarii Axiarch (reached through the AdMech "Titan Legion" archetype) buys an Arc lance and a Mag-inverter shield from the supplement Armory; the card totals 52 pts = 35 + 11 + 6, so the money goes in, but the weapon appears in NO weapon table (app card or either print layout) and the shield grants neither Deflect nor Parry — the abilities list stayed at the datasheet\'s three. CAUSE: `injectArchetypeFaction` and `mergeAlliedIntoData` copied only `faction`/`slot_to_units`/`units` into `data.allied[key]`, so the supplement\'s Armory never entered FactionData. `findArmoryItem` searched armory_general + marks + legions + archetype_armory of the PARENT faction, missed, and returned undefined, so `pushGrantedWeapon` was never called and `equipItems` got an empty desc. The price looked right the whole time because it is stored on the ArmorySelection, not looked up — which is exactly why this went unnoticed. FIX: `AlliedFaction` gained optional `armory_general`/`armory_marks`/`armory_legions`, both injection paths populate them, and `findArmoryItem` searches them LAST (so a same-named item in the primary codex still wins). Verified end to end on the reported case: the Arc lance now prints with both profiles (Charge +3/-3/2 and Melee +1/-3/1) and the shield grants Deflect and Parry. Affected every supplement or allied faction with its own Armory, not just Legio Titanicus.',
+  },
+  {
     id: 'ki-csm-reaver-lord-cross-armory-01',
     status: 'known',
     title: 'Chaos Space Marines — the Red Corsairs "Reaver Lord" cannot yet pick its borrowed item inside the app',
