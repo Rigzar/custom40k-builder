@@ -94,13 +94,15 @@ export const voidweaver: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Haywire cannon"]
+      "replaces": [
+        "Haywire cannon"
+      ]
     }
   ],
   "abilities": [
     "Anti-Grav, Fast, Open, Squadron",
     "Holo-suit: The model gains a 4+ ward save.",
-    "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover."
+    "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of light cover."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

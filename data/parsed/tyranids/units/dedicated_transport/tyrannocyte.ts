@@ -87,22 +87,70 @@ export const tyrannocyte: Unit = {
         "type": "fixed_max"
       },
       "choices": [
-        { "name": "Acid Maw", "points": 5 },
-        { "name": "Adrenal Glands", "points": 5 },
-        { "name": "Enhanced Senses", "points": 5 },
-        { "name": "Heightened Reflexes", "points": 5 },
-        { "name": "Pathogenesis", "points": 5 },
-        { "name": "Relentless Hunger", "points": 5 },
-        { "name": "Toxin Sacs", "points": 5 },
-        { "name": "Acid Blood", "points": 5 },
-        { "name": "Extremely Volatile", "points": 5 },
-        { "name": "Implant Attack", "points": 5 },
-        { "name": "Infrasonic Roar", "points": 5 },
-        { "name": "Resonance Barb", "points": 5 },
-        { "name": "Symbiote Rippers", "points": 3 },
-        { "name": "Thornback", "points": 5 },
-        { "name": "Tusked", "points": 5 },
-        { "name": "Warped", "points": 5 }
+        {
+          "name": "Acid Maw",
+          "points": 5
+        },
+        {
+          "name": "Adrenal Glands",
+          "points": 5
+        },
+        {
+          "name": "Enhanced Senses",
+          "points": 5
+        },
+        {
+          "name": "Heightened Reflexes",
+          "points": 5
+        },
+        {
+          "name": "Pathogenesis",
+          "points": 5
+        },
+        {
+          "name": "Relentless Hunger",
+          "points": 5
+        },
+        {
+          "name": "Toxin Sacs",
+          "points": 5
+        },
+        {
+          "name": "Acid Blood",
+          "points": 5
+        },
+        {
+          "name": "Extremely Volatile",
+          "points": 5
+        },
+        {
+          "name": "Implant Attack",
+          "points": 5
+        },
+        {
+          "name": "Infrasonic Roar",
+          "points": 5
+        },
+        {
+          "name": "Resonance Barb",
+          "points": 5
+        },
+        {
+          "name": "Symbiote Rippers",
+          "points": 3
+        },
+        {
+          "name": "Thornback",
+          "points": 5
+        },
+        {
+          "name": "Tusked",
+          "points": 5
+        },
+        {
+          "name": "Warped",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -114,7 +162,7 @@ export const tyrannocyte: Unit = {
     "Deep Strike, Mindless, Move Through Cover, Unyielding",
     "Tyrannocyte Winged: The unit must land at least 6\" away from other units (friendly or enemy) and can never stray closer than 1\" to another unit, terrain, or the edge of the field. Reduce the deviation only enough to place the model.",
     "Tyrannocyte Assault: Tyrannocytes always start the game as reserves and are always set up via Deep Strike. Even if the played mission does not allow reinforcements and/or Deep Strike!",
-    "Transport: This model has a transport capacity of 20 Infantry models or 1 Monstrous Creature."
+    "Transport: This model has a transport capacity of 20 (Monstrous) Infantry models or 1 Monstrous Creature."
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [

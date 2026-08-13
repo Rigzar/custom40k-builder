@@ -148,7 +148,9 @@ export const corsairVoidreavers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Shuriken rifle"]
+      "replaces": [
+        "Shuriken rifle"
+      ]
     },
     {
       "header": "The Felarch may swap their Shuriken pistol",
@@ -164,7 +166,12 @@ export const corsairVoidreavers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Shuriken pistol"]
+      "replaces": [
+        "Shuriken pistol"
+      ],
+      "requires_choice": [
+        "Shuriken pistol & Power sword"
+      ]
     },
     {
       "header": "The Felarch may be equipped with",
@@ -201,7 +208,9 @@ export const corsairVoidreavers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Shuriken rifle"]
+      "replaces": [
+        "Shuriken rifle"
+      ]
     },
     {
       "header": "If this unit contains 10 models, one Voidreaver may swap their Shuriken rifle",
@@ -221,7 +230,9 @@ export const corsairVoidreavers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Shuriken rifle"]
+      "replaces": [
+        "Shuriken rifle"
+      ]
     }
   ],
   "abilities": [

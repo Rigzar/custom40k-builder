@@ -75,7 +75,7 @@ export const goliathTruck: Unit = {
   ],
   "abilities": [
     "Ambush, Infiltrator, Open, Use cover",
-    "Transport: This model has a transport capacity of 10 infantry models."
+    "Transport: This model has a transport capacity of 10 (Monstrous) Infantry models."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

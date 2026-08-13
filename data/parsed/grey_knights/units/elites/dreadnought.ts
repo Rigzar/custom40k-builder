@@ -217,7 +217,10 @@ export const dreadnought: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "requires_choice": [
+        "Dreadnought close combat weapon and Storm bolter"
+      ]
     }
   ],
   "abilities": [

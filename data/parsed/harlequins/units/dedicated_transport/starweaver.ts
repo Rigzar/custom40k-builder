@@ -47,7 +47,7 @@ export const starweaver: Unit = {
   "abilities": [
     "Anti-Grav, Fast, Open",
     "Holo-suit: The model gains a 4+ ward save.",
-    "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover.",
+    "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of light cover.",
     "Transport: This model has a transport capacity of 6 infantry models."
   ],
   "unit_type": "Vehicle",

@@ -65,13 +65,13 @@ export const hiveTyrant: Unit = {
       "abilities": "AT(2), Explosive"
     },
     {
-      "name": "Lash whip and Monstrous bonesword",
+      "name": "Lash whip and bonesword",
       "range": "-",
       "type": "Melee",
       "s": "+1",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Quick(+1)"
+      "abilities": "AT(2), Deadly(5+), Quick(+1)"
     },
     {
       "name": "Monstrous scything talons",
@@ -149,7 +149,7 @@ export const hiveTyrant: Unit = {
           "points": 0
         },
         {
-          "name": "Lash whip and Monstrous bonesword",
+          "name": "Lash whip and bonesword",
           "points": 10
         },
         {
@@ -172,7 +172,9 @@ export const hiveTyrant: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Monstrous scything talons"]
+      "replaces": [
+        "Monstrous scything talons"
+      ]
     },
     {
       "header": "May also swap the other Monstrous scything talons",
@@ -185,7 +187,7 @@ export const hiveTyrant: Unit = {
           "points": 0
         },
         {
-          "name": "Lash whip and Monstrous bonesword",
+          "name": "Lash whip and bonesword",
           "points": 10
         },
         {
@@ -208,7 +210,9 @@ export const hiveTyrant: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Monstrous scything talons"]
+      "replaces": [
+        "Monstrous scything talons"
+      ]
     },
     {
       "header": "May be equipped with one of the following",
@@ -305,22 +309,70 @@ export const hiveTyrant: Unit = {
         "type": "fixed_max"
       },
       "choices": [
-        { "name": "Acid Maw", "points": 5 },
-        { "name": "Adrenal Glands", "points": 5 },
-        { "name": "Enhanced Senses", "points": 5 },
-        { "name": "Heightened Reflexes", "points": 5 },
-        { "name": "Pathogenesis", "points": 5 },
-        { "name": "Relentless Hunger", "points": 5 },
-        { "name": "Toxin Sacs", "points": 5 },
-        { "name": "Acid Blood", "points": 5 },
-        { "name": "Extremely Volatile", "points": 5 },
-        { "name": "Implant Attack", "points": 5 },
-        { "name": "Infrasonic Roar", "points": 5 },
-        { "name": "Resonance Barb", "points": 5 },
-        { "name": "Symbiote Rippers", "points": 3 },
-        { "name": "Thornback", "points": 5 },
-        { "name": "Tusked", "points": 5 },
-        { "name": "Warped", "points": 5 }
+        {
+          "name": "Acid Maw",
+          "points": 5
+        },
+        {
+          "name": "Adrenal Glands",
+          "points": 5
+        },
+        {
+          "name": "Enhanced Senses",
+          "points": 5
+        },
+        {
+          "name": "Heightened Reflexes",
+          "points": 5
+        },
+        {
+          "name": "Pathogenesis",
+          "points": 5
+        },
+        {
+          "name": "Relentless Hunger",
+          "points": 5
+        },
+        {
+          "name": "Toxin Sacs",
+          "points": 5
+        },
+        {
+          "name": "Acid Blood",
+          "points": 5
+        },
+        {
+          "name": "Extremely Volatile",
+          "points": 5
+        },
+        {
+          "name": "Implant Attack",
+          "points": 5
+        },
+        {
+          "name": "Infrasonic Roar",
+          "points": 5
+        },
+        {
+          "name": "Resonance Barb",
+          "points": 5
+        },
+        {
+          "name": "Symbiote Rippers",
+          "points": 3
+        },
+        {
+          "name": "Thornback",
+          "points": 5
+        },
+        {
+          "name": "Tusked",
+          "points": 5
+        },
+        {
+          "name": "Warped",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,

@@ -76,7 +76,7 @@ export const tyranidWarriorBrood: Unit = {
       "s": "+1",
       "ap": "-3",
       "d": "1",
-      "abilities": "Quick(+1)"
+      "abilities": "Deadly(5+), Quick(+1)"
     },
     {
       "name": "Rending claws",
@@ -158,7 +158,9 @@ export const tyranidWarriorBrood: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Scything talons"]
+      "replaces": [
+        "Scything talons"
+      ]
     },
     {
       "header": "Each model may swap their Spinefists",
@@ -182,7 +184,9 @@ export const tyranidWarriorBrood: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Spinefists"]
+      "replaces": [
+        "Spinefists"
+      ]
     },
     {
       "header": "May select one Special Biomorph",
@@ -214,22 +218,70 @@ export const tyranidWarriorBrood: Unit = {
         "type": "fixed_max"
       },
       "choices": [
-        { "name": "Acid Maw", "points": 5 },
-        { "name": "Adrenal Glands", "points": 5 },
-        { "name": "Enhanced Senses", "points": 5 },
-        { "name": "Heightened Reflexes", "points": 5 },
-        { "name": "Pathogenesis", "points": 5 },
-        { "name": "Relentless Hunger", "points": 5 },
-        { "name": "Toxin Sacs", "points": 5 },
-        { "name": "Acid Blood", "points": 5 },
-        { "name": "Extremely Volatile", "points": 5 },
-        { "name": "Implant Attack", "points": 5 },
-        { "name": "Infrasonic Roar", "points": 5 },
-        { "name": "Resonance Barb", "points": 5 },
-        { "name": "Symbiote Rippers", "points": 3 },
-        { "name": "Thornback", "points": 5 },
-        { "name": "Tusked", "points": 5 },
-        { "name": "Warped", "points": 5 }
+        {
+          "name": "Acid Maw",
+          "points": 5
+        },
+        {
+          "name": "Adrenal Glands",
+          "points": 5
+        },
+        {
+          "name": "Enhanced Senses",
+          "points": 5
+        },
+        {
+          "name": "Heightened Reflexes",
+          "points": 5
+        },
+        {
+          "name": "Pathogenesis",
+          "points": 5
+        },
+        {
+          "name": "Relentless Hunger",
+          "points": 5
+        },
+        {
+          "name": "Toxin Sacs",
+          "points": 5
+        },
+        {
+          "name": "Acid Blood",
+          "points": 5
+        },
+        {
+          "name": "Extremely Volatile",
+          "points": 5
+        },
+        {
+          "name": "Implant Attack",
+          "points": 5
+        },
+        {
+          "name": "Infrasonic Roar",
+          "points": 5
+        },
+        {
+          "name": "Resonance Barb",
+          "points": 5
+        },
+        {
+          "name": "Symbiote Rippers",
+          "points": 3
+        },
+        {
+          "name": "Thornback",
+          "points": 5
+        },
+        {
+          "name": "Tusked",
+          "points": 5
+        },
+        {
+          "name": "Warped",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -241,7 +293,7 @@ export const tyranidWarriorBrood: Unit = {
     "Fearless, Massive(1), Move Through Cover, Synapse",
     "Winged: If this Biomorph is taken, the unit counts as a Fast Attack selection."
   ],
-  "unit_type": "Infantry",
+  "unit_type": "Monstrous Infantry",
   "keywords": [
     "Tyranid"
   ],

@@ -13,7 +13,7 @@ export const tyrannofex: Unit = {
   "models": [
     {
       "name": "Tyrannofex",
-      "points": 225,
+      "points": 222,
       "min": 1,
       "max": 1,
       "stats": {
@@ -125,7 +125,9 @@ export const tyrannofex: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Acid spray"]
+      "replaces": [
+        "Acid spray"
+      ]
     },
     {
       "header": "Each model may be equipped with one of the following",
@@ -176,22 +178,70 @@ export const tyrannofex: Unit = {
         "type": "fixed_max"
       },
       "choices": [
-        { "name": "Acid Maw", "points": 5 },
-        { "name": "Adrenal Glands", "points": 5 },
-        { "name": "Enhanced Senses", "points": 5 },
-        { "name": "Heightened Reflexes", "points": 5 },
-        { "name": "Pathogenesis", "points": 5 },
-        { "name": "Relentless Hunger", "points": 5 },
-        { "name": "Toxin Sacs", "points": 5 },
-        { "name": "Acid Blood", "points": 5 },
-        { "name": "Extremely Volatile", "points": 5 },
-        { "name": "Implant Attack", "points": 5 },
-        { "name": "Infrasonic Roar", "points": 5 },
-        { "name": "Resonance Barb", "points": 5 },
-        { "name": "Symbiote Rippers", "points": 3 },
-        { "name": "Thornback", "points": 5 },
-        { "name": "Tusked", "points": 5 },
-        { "name": "Warped", "points": 5 }
+        {
+          "name": "Acid Maw",
+          "points": 5
+        },
+        {
+          "name": "Adrenal Glands",
+          "points": 5
+        },
+        {
+          "name": "Enhanced Senses",
+          "points": 5
+        },
+        {
+          "name": "Heightened Reflexes",
+          "points": 5
+        },
+        {
+          "name": "Pathogenesis",
+          "points": 5
+        },
+        {
+          "name": "Relentless Hunger",
+          "points": 5
+        },
+        {
+          "name": "Toxin Sacs",
+          "points": 5
+        },
+        {
+          "name": "Acid Blood",
+          "points": 5
+        },
+        {
+          "name": "Extremely Volatile",
+          "points": 5
+        },
+        {
+          "name": "Implant Attack",
+          "points": 5
+        },
+        {
+          "name": "Infrasonic Roar",
+          "points": 5
+        },
+        {
+          "name": "Resonance Barb",
+          "points": 5
+        },
+        {
+          "name": "Symbiote Rippers",
+          "points": 3
+        },
+        {
+          "name": "Thornback",
+          "points": 5
+        },
+        {
+          "name": "Tusked",
+          "points": 5
+        },
+        {
+          "name": "Warped",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -218,6 +268,6 @@ export const tyrannofex: Unit = {
   "advisor": false,
   "slot": "Heavy Support",
   "default_size": 1,
-  "min_cost": 225,
+  "min_cost": 222,
   "is_monster": true
 };

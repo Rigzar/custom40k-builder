@@ -76,8 +76,8 @@ export const dracon: Unit = {
   ],
   "abilities": [
     "Power through Pain",
-    "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy one of his units.",
-    "Archon: Another unit may be redeployed."
+    "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy two of his units.",
+    "Archon: Another two units may be redeployed."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

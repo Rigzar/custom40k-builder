@@ -17,7 +17,7 @@ export const tervigon: Unit = {
   "models": [
     {
       "name": "Tervigon",
-      "points": 237,
+      "points": 223,
       "min": 1,
       "max": 1,
       "stats": {
@@ -85,11 +85,11 @@ export const tervigon: Unit = {
     {
       "name": "Stinger salvo",
       "range": "24\"",
-      "type": "Assault 2",
+      "type": "Rapid Fire 4",
       "s": "5",
-      "ap": "0",
+      "ap": "-1",
       "d": "1",
-      "abilities": "Explosive"
+      "abilities": "-"
     }
   ],
   "option_groups": [
@@ -107,7 +107,9 @@ export const tervigon: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Monstrous scything talons"]
+      "replaces": [
+        "Monstrous scything talons"
+      ]
     },
     {
       "header": "May be equipped with one of the following",
@@ -162,22 +164,70 @@ export const tervigon: Unit = {
         "type": "fixed_max"
       },
       "choices": [
-        { "name": "Acid Maw", "points": 5 },
-        { "name": "Adrenal Glands", "points": 5 },
-        { "name": "Enhanced Senses", "points": 5 },
-        { "name": "Heightened Reflexes", "points": 5 },
-        { "name": "Pathogenesis", "points": 5 },
-        { "name": "Relentless Hunger", "points": 5 },
-        { "name": "Toxin Sacs", "points": 5 },
-        { "name": "Acid Blood", "points": 5 },
-        { "name": "Extremely Volatile", "points": 5 },
-        { "name": "Implant Attack", "points": 5 },
-        { "name": "Infrasonic Roar", "points": 5 },
-        { "name": "Resonance Barb", "points": 5 },
-        { "name": "Symbiote Rippers", "points": 3 },
-        { "name": "Thornback", "points": 5 },
-        { "name": "Tusked", "points": 5 },
-        { "name": "Warped", "points": 5 }
+        {
+          "name": "Acid Maw",
+          "points": 5
+        },
+        {
+          "name": "Adrenal Glands",
+          "points": 5
+        },
+        {
+          "name": "Enhanced Senses",
+          "points": 5
+        },
+        {
+          "name": "Heightened Reflexes",
+          "points": 5
+        },
+        {
+          "name": "Pathogenesis",
+          "points": 5
+        },
+        {
+          "name": "Relentless Hunger",
+          "points": 5
+        },
+        {
+          "name": "Toxin Sacs",
+          "points": 5
+        },
+        {
+          "name": "Acid Blood",
+          "points": 5
+        },
+        {
+          "name": "Extremely Volatile",
+          "points": 5
+        },
+        {
+          "name": "Implant Attack",
+          "points": 5
+        },
+        {
+          "name": "Infrasonic Roar",
+          "points": 5
+        },
+        {
+          "name": "Resonance Barb",
+          "points": 5
+        },
+        {
+          "name": "Symbiote Rippers",
+          "points": 3
+        },
+        {
+          "name": "Thornback",
+          "points": 5
+        },
+        {
+          "name": "Tusked",
+          "points": 5
+        },
+        {
+          "name": "Warped",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -207,6 +257,6 @@ export const tervigon: Unit = {
   "advisor": false,
   "slot": "HQ",
   "default_size": 1,
-  "min_cost": 237,
+  "min_cost": 223,
   "is_monster": true
 };

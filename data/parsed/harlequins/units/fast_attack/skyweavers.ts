@@ -94,7 +94,9 @@ export const skyweavers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Zephyrglaive"]
+      "replaces": [
+        "Zephyrglaive"
+      ]
     },
     {
       "header": "Any model may replace its Twin shuriken catapult",
@@ -114,7 +116,9 @@ export const skyweavers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Twin shuriken catapult"]
+      "replaces": [
+        "Twin shuriken catapult"
+      ]
     },
     {
       "header": "One model may be upgraded to a Lead Player for +17 points.",
@@ -130,7 +134,7 @@ export const skyweavers: Unit = {
   "abilities": [
     "Deflect, Parry, Terrifying(-1)",
     "Holo-suit: The model gains a 4+ ward save.",
-    "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of cover."
+    "Mirage launcher: Instead of shooting a weapon, the unit may gain the benefit of light cover."
   ],
   "unit_type": "Jetbike",
   "keywords": [],
