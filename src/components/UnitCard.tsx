@@ -1,5 +1,6 @@
 import { useState, Fragment } from 'react';
 import { mergeWeaponAbilities } from '../engine/abilityMerge';
+import { armoryDataFor } from '../engine/armorySource';
 import type { RosterEntry, Mark, ArmorySelection, TraitSelection } from '../types/army';
 import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../types/data';
 import { useArmyStore } from '../store/army';
@@ -307,11 +308,7 @@ export function UnitCard({ item }: Props) {
   // For allied units, use their own faction's armory for capability checks.
   // alliedData = user-selected allied detachment; supplementData = primary faction supplementals.
   const isAllied = !!item.factionSource;
-  const effectiveArmData = isAllied
-    ? (item.factionSource === alliedFaction && alliedData)
-      ? alliedData
-      : (supplementData[item.factionSource ?? ''] ?? data)
-    : data;
+  const effectiveArmData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
   // "Swarm Controllers" Army Trait (ki-tau-swarmcontrollers-unmodelled-01): "Models with access to
   // drones may buy up to three drones in any combination instead of two" — raises the Drone
   // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.

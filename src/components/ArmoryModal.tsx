@@ -3,6 +3,7 @@ import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
+import { armoryDataFor } from '../engine/armorySource';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, requiresWeaponTarget, isOrkKustomJob } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
@@ -163,11 +164,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // alliedData = user-selected allied detachment; supplementData = primary faction's
   // supplemental/native-ally factions (Assassins, Inquisition, HH, Daemonkin, etc.).
   const isAllied = !!item.factionSource;
-  const activeData = isAllied
-    ? (item.factionSource === alliedFaction && alliedData)
-      ? alliedData
-      : (supplementData[item.factionSource ?? ''] ?? data)
-    : data;
+  const activeData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
 
   // Always read armory from the live store so Unique checks stay current after additions
   const currentArmory = (army.find(e => e.id === item.id) ?? item).armory;

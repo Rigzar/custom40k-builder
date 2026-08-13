@@ -506,6 +506,20 @@ export interface AlliedFaction {
   armory_general?: Armory;
   armory_marks?: Record<string, Armory>;
   armory_legions?: Record<string, Armory>;
+  /**
+   * This faction's units also reach the PARENT codex's Armory. Set only where the supplement says
+   * so: Forces of the Machine God opens with "The following rules can only be used in conjunction
+   * with the Adeptus Mechanicus Codex", and its datasheets rely on that — the Secutarii "may select
+   * one Doctrina Imperative" (an Adeptus Mechanicus veteran item) and the Triaros and Macrocarid
+   * "have access to vehicle equipment from the Armory" (Adeptus Mechanicus vehicle items). Neither
+   * category exists in the supplement's own three-weapon Armory, so without this the Veteran and
+   * Vehicle Equipment buttons never appear and the tanks are offered an Arc lance instead
+   * (user report 2026-08-13).
+   *
+   * NOT a default. A supplement with a codex of its own — Assassins, Inquisition, the Legiones
+   * Astartes — must keep its own Armory and nothing else.
+   */
+  inherits_parent_armory?: boolean;
 }
 
 export interface FactionData {
@@ -523,6 +537,8 @@ export interface FactionData {
   pacts: Power[];
   prayers: Power[];
   daemonkin: Record<string, DaemonkinGod>;
+  /** See AlliedFaction.inherits_parent_armory — same meaning, for a supplement loaded as FactionData. */
+  inherits_parent_armory?: boolean;
   /** Allied faction data keyed by faction slug (e.g. 'chaos_daemons') */
   allied?: Record<string, AlliedFaction>;
   /** Allied factions always available regardless of archetype (e.g. GK + Inquisition) */

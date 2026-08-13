@@ -3140,5 +3140,6 @@
       "items": []
     }
   },
-  "allied": {}
+  "allied": {},
+  "inherits_parent_armory": true
 }

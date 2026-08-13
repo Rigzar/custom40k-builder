@@ -677,5 +677,6 @@
   "pacts": [],
   "prayers": [],
   "daemonkin": {},
-  "allied": {}
+  "allied": {},
+  "inherits_parent_armory": true
 }

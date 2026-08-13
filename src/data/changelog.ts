@@ -42,6 +42,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Space Marines — the Dreadnought can take a Flamestorm cannon after all, +36 pts. We said it could not when we removed it in v1.59; the author has since added the option to the datasheet, so the reporter was right (GitHub #82).',
       'Space Marines — the Dreadnought only offers its Storm bolter swap once you pick a weapon that comes with a Storm bolter. Before, you could buy the swap with no Storm bolter to swap.',
       'Space Marines — the Stormtalon Gunship\'s Typhoon missile launcher (Krak) is AT(1); the Stormhawk\'s and Stormraven\'s stay AT(2). The sheets really do differ. And the Stormcaller psychic power grants light cover, not cover.',
+      'Supplements — units from Forces of the Machine God and from the Legiones Astartes supplement can reach the parent codex Armory again, as their front page says they should. The Secutarii get their Doctrina Imperative and Veteran ability back, and the Triaros and Macrocarid are offered vehicle equipment instead of an Arc lance. Also affected the Contemptor and Leviathan Dreadnoughts, the Cataphractii and Saturnine Terminators, the Palatine Blades, the Kharybdis and the Sicaran (user report).',
     ],
   },
   {
