@@ -387,12 +387,13 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   'Persecution Prospect': fastArchetype(['Hernkyn Yaegirs']),
 
   // ── Necrons ───────────────────────────────────────────────────────────────
+  // The 2026-08 Necrons sheet DELETED the line "Cryptek specialisations are no longer unique",
+  // so `liftsUniqueChoices` went with it — each specialisation is once per army again, as it is
+  // for every other archetype.
   'Canoptek Court': { ...BASE,
     hqAllowed: ['Cryptek'],
-    liftsUniqueChoices: ['Cryptek'],
     notes: [
       'Only Crypteks may be taken as HQ. Up to 2 Crypteks may be taken per HQ slot.',
-      'Cryptek specialisations are no longer unique — the army may field two of the same kind.',
       'Canoptek units gain the "Objective secured!" ability.',
     ],
   },

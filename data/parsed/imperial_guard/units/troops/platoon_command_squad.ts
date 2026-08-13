@@ -185,6 +185,33 @@ export const platoonCommandSquad: Unit = {
       "ap": "-3",
       "d": "2",
       "abilities": "Anti-air, AT(2)"
+    },
+    {
+      "name": "Las pistol",
+      "range": "12\"",
+      "type": "Pistol 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Power sword",
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "-"
+    },
+    {
+      "name": "Power fist",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)"
     }
   ],
   "option_groups": [
@@ -264,6 +291,26 @@ export const platoonCommandSquad: Unit = {
         {
           "name": "Sniper rifle",
           "points": 16
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "Two Guardsmen may be equipped with a Melee weapon",
+      "constraint": {
+        "type": "fixed_max",
+        "max": 2
+      },
+      "choices": [
+        {
+          "name": "Las pistol and power sword",
+          "points": 2
+        },
+        {
+          "name": "Las pistol and power fist",
+          "points": 7
         }
       ],
       "inline_pts": null,

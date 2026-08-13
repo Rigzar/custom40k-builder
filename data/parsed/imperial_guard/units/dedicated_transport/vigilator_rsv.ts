@@ -58,7 +58,7 @@ export const vigilator_rsv: Unit = {
   "option_groups": [],
   "abilities": [
     "Open",
-    "Aquiline Prow: When performing a Tank Shock the front AV is considered to be 13 instead of 11.",
+    "Aquiline Prow: When performing a Tank Shock, the front AV is considered to be 13 and the Strength is considered to be 8.",
     "Transport: This model has a transport capacity of 6 infantry models.",
     "You may select one Vigilator RSV per Commissar or Commissar Lord."
   ],

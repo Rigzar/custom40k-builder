@@ -332,7 +332,7 @@ export const infantrySquad: Unit = {
     }
   ],
   "abilities": [
-    "Combined squads: During deployment, Infantry squads can be combined with any number of other Infantry squads. They act as a single unit for the rest of the game.",
+    "Combined squads: During deployment, Infantry Squads can be combined with any number of other Infantry Squads. If at least two Infantry Squads are combined, they may additionally be combined with a Platoon Command Squad. They act as a single unit for the rest of the game.",
     "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
   ],
   "unit_type": "Infantry",

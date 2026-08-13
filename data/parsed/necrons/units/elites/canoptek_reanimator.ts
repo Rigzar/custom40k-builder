@@ -74,5 +74,5 @@ export const canoptekReanimator: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 1,
-  "min_cost": 166
+  "min_cost": 144
 };

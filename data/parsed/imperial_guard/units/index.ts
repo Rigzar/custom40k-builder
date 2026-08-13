@@ -27,6 +27,10 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Mechanised Infantry": troops.mechanisedInfantry,
   "Penal Legion Squad": troops.penalLegionSquad,
   "Platoon Command Squad": troops.platoonCommandSquad,
+  "Ambassador": elites.ambassador,
+  "Company Hero": elites.companyHero,
+  "Scribe Historicus": elites.scribeHistoricus,
+  "Staff Officer": elites.staffOfficer,
   "Astropath": elites.astropath,
   "Atlas": elites.atlasRecoveryVehicle,
   "Bullgryns": elites.bullgryns,
@@ -102,6 +106,10 @@ export const slot_to_units: Record<string, string[]> = {
     "Platoon Command Squad"
   ],
   "Elites": [
+    "Staff Officer",
+    "Scribe Historicus",
+    "Company Hero",
+    "Ambassador",
     "Astropath",
     "Atlas",
     "Bullgryns",

@@ -18,3 +18,7 @@ export { specialWeaponSquad } from './special_weapon_squad';
 export { stormtrooperCommandSquad } from './stormtrooper_command_squad';
 export { stormtroopers } from './stormtroopers';
 export { veterans } from './veterans';
+export { ambassador } from './ambassador';
+export { companyHero } from './company_hero';
+export { scribeHistoricus } from './scribe_historicus';
+export { staffOfficer } from './staff_officer';

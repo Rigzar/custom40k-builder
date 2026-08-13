@@ -16,7 +16,7 @@
       "range": "24\"",
       "target": "Friendly unit",
       "cast_value": "7",
-      "effect": "The target gains the benefit of cover.",
+      "effect": "The target gains the benefit of heavy cover.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },
@@ -56,7 +56,7 @@
       "range": "24\"",
       "target": "Enemy unit",
       "cast_value": "7",
-      "effect": "The target loses the benefit of cover.",
+      "effect": "The target loses the benefit of any cover.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     }

@@ -104,15 +104,39 @@ export const engineseer: Unit = {
       "ap": "-4",
       "d": "2",
       "abilities": "AT(2), Explosive, Overheating"
+    },
+    {
+      "name": "Power fist",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2)"
     }
   ],
   "option_groups": [
     {
-      "header": "For every 2 Servitors, one of them may be equipped with",
+      "header": "Up to 2 Servitors may be equipped with",
       "constraint": {
-        "type": "per_n",
-        "per_n": 2,
-        "count_per_n": 1
+        "type": "fixed_max",
+        "max": 2
+      },
+      "choices": [
+        {
+          "name": "Power fist",
+          "points": 5
+        }
+      ],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    },
+    {
+      "header": "Up to 2 Servitors may be equipped with",
+      "constraint": {
+        "type": "fixed_max",
+        "max": 2
       },
       "choices": [
         {

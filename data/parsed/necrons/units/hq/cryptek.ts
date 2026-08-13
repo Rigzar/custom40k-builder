@@ -147,43 +147,71 @@ export const cryptek: Unit = {
           "name": "Astromancer",
           "points": 17,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Staff of Time"] }
+          "effect": {
+            "grants_weapons": [
+              "Staff of Time"
+            ]
+          }
         },
         {
           "name": "Chronomancer",
           "points": 27,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Aeonstave"] }
+          "effect": {
+            "grants_weapons": [
+              "Aeonstave"
+            ]
+          }
         },
         {
           "name": "Ethermancer",
           "points": 30,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Voltaic staff"] }
+          "effect": {
+            "grants_weapons": [
+              "Voltaic staff"
+            ]
+          }
         },
         {
           "name": "Technomancer",
           "points": 35,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Staff of Light"] }
+          "effect": {
+            "grants_weapons": [
+              "Staff of Light"
+            ]
+          }
         },
         {
           "name": "Geomancer",
           "points": 40,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Tremorstave"] }
+          "effect": {
+            "grants_weapons": [
+              "Tremorstave"
+            ]
+          }
         },
         {
           "name": "Plasmancer",
           "points": 45,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Plasmic lance"] }
+          "effect": {
+            "grants_weapons": [
+              "Plasmic lance"
+            ]
+          }
         },
         {
           "name": "Psychomancer",
           "points": 56,
           "unique_per_army": true,
-          "effect": { "grants_weapons": ["Abyssal lance"] }
+          "effect": {
+            "grants_weapons": [
+              "Abyssal lance"
+            ]
+          }
         }
       ],
       "inline_pts": null,
@@ -200,7 +228,7 @@ export const cryptek: Unit = {
     "Ethermancer: An Ether crystal used by this model causes 2D3 hits. Additionally, this model's Lightning Field grants the \"Retribution(1)\" ability to its attached unit.",
     "Geomancer: A Harp of Dissonance used by this model has unlimited range. Additionally, a Seismic crucible grants its effect to this model and its attached unit.",
     "Plasmancer: A Gaze of Flame's effect may be used for this model and its attached unit. Additionally, this model and its attached unit are not affected by a Solar Pulse.",
-    "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness only scatters 1D6 less (so normally only 1D6\") when used by this model.",
+    "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness scatters 1D6 less (so normally only 1D6\") when used by this model.",
     "Technomancer: A Canoptek Cloak used by this model may repair 2 Wounds or 2 vehicle damage results per turn. Additionally, it may use a Canoptek Control Node a second time each activation."
   ],
   "unit_type": "Character Model, Infantry, Cryptek, Necron",

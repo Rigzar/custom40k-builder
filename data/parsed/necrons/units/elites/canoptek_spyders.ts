@@ -37,7 +37,7 @@ export const canoptekSpyders: Unit = {
       "name": "Automaton claws",
       "range": "-",
       "type": "Melee",
-      "s": "T",
+      "s": "U",
       "ap": "-2",
       "d": "1",
       "abilities": "-"

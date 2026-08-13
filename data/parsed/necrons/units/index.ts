@@ -46,6 +46,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Triarch Praetorians": fastAttack.triarchPraetorians,
   "Annihilation Barge": heavySupport.annihilationBarge,
   "Canoptek Doomstalker": heavySupport.canoptekDoomstalker,
+  "Canoptek Tomb Stalker": heavySupport.canoptekTombStalker,
   "Doomsday Ark": heavySupport.doomsdayArk,
   "Lokhust Destroyers": heavySupport.lokhustDestroyers,
   "Monolith": heavySupport.monolith,
@@ -96,6 +97,7 @@ export const slot_to_units: Record<string, string[]> = {
     "Triarch Praetorians"
   ],
   "Heavy Support": [
+    "Canoptek Tomb Stalker",
     "Annihilation Barge",
     "Canoptek Doomstalker",
     "Doomsday Ark",
