@@ -1329,10 +1329,21 @@ export function UnitCard({ item }: Props) {
             const isDroneGroup = isFixedMax && !!effectiveArmData.drones?.length &&
               g.choices.every(c => effectiveArmData.drones!.some(d => d.name === c.name));
             const swarmControllersBonus = (isDroneGroup && effectiveTraitPool.includes('Swarm Controllers')) ? 1 : 0;
+            // A swap group can be PER COPY, and the header is what says so: "may swap EACH Scatter
+            // laser" is one swap per copy carried, while "may swap BOTH Storm bolters" / "their two
+            // Power fists" is a single selection covering all of them. Only the first multiplies
+            // the allowance — the War Walkers carry 2 Scatter lasers each and could only ever
+            // replace one per model (GitHub #81). Checked across the game: 6 groups are worded
+            // "each <weapon>", 54 cover all copies at once and are deliberately left alone.
+            const _perCopyHeader = !!g.replaces?.length && g.replaces.some(w =>
+              new RegExp(`\\beach\\s+${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(g.header));
+            const _headerCopies = _perCopyHeader
+              ? Math.max(...g.replaces!.map(w => weaponCopiesPerModel(u.equipped_with, w)))
+              : 1;
             const groupMax = perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
               : isEvery
-                ? (modelGroupCap !== null ? modelGroupCap : item.size)
+                ? (modelGroupCap !== null ? modelGroupCap : item.size) * _headerCopies
                 : isFixedMax
                   ? (modelGroupCap !== null
                       ? Math.min((g.constraint.max ?? item.size) + swarmControllersBonus, modelGroupCap)
@@ -1377,7 +1388,9 @@ export function UnitCard({ item }: Props) {
               ? Math.max(...g.replaces.map(w => weaponCopiesPerModel(u.equipped_with, w)))
               : 1;
             const _totalGroupsForWeapon = 1 + siblingGroups.length;
-            const _copiesMultiplier = _siblingCopies > 1 && _totalGroupsForWeapon >= _siblingCopies ? _siblingCopies : 1;
+            const _copiesMultiplier = _headerCopies > 1
+              ? _headerCopies
+              : (_siblingCopies > 1 && _totalGroupsForWeapon >= _siblingCopies ? _siblingCopies : 1);
             const sharedPoolSize = modelGroupCap !== null ? modelGroupCap : item.size * _copiesMultiplier;
             const groupRemainingOwn = groupMax !== null && groupUsed !== null ? groupMax - groupUsed : null;
             const groupRemainingShared = siblingGroups.length > 0 && groupUsed !== null

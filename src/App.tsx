@@ -902,11 +902,11 @@ export default function App() {
               <p className="text-[11px] text-zinc-500 leading-snug border-l-2 border-emerald-800 pl-3 mb-3">
                 {t('alliedSeparateDetachment')} {factionLabel}.
                 {selectedFaction && (() => {
-                  const rel = getRelationship(selectedFaction, alliedFaction!);
+                  const rel = getRelationship(selectedFaction, alliedFaction!, getArchetypeRule(archetype)?.alliedRelationshipOverrides);
                   return rel ? ` ${RELATIONSHIP_DESCRIPTIONS[rel]}` : '';
                 })()}
                 {selectedFaction && (() => {
-                  const rel = getRelationship(selectedFaction, alliedFaction!);
+                  const rel = getRelationship(selectedFaction, alliedFaction!, getArchetypeRule(archetype)?.alliedRelationshipOverrides);
                   return rel ? (
                     <span className={`ml-1.5 font-semibold uppercase tracking-wide ${RELATIONSHIP_COLORS[rel]}`}>
                       {RELATIONSHIP_LABELS[rel]}

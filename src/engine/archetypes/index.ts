@@ -353,6 +353,10 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
 
   // ── Leagues of Votann ─────────────────────────────────────────────────────
   'Demiurg': { ...BASE,
+    // Votann 1.02, Army Customisation, verbatim: "This army and the Tau consider each other
+    // Battle Brothers (Green allies)." Without the override the matrix's standing Y (Allies of
+    // Convenience) stood and the ally showed yellow (GitHub #83).
+    alliedRelationshipOverrides: { tau_empire: 'G' },
     notes: [
       'Allied to Tau Empire as Battle Brothers.',
       'The army must either take an Allied Tau detachment, or be an Allied detachment to a Tau primary army.',

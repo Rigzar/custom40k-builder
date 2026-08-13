@@ -61,15 +61,6 @@ export const dreadnought: Unit = {
       "abilities": "AT(2)"
     },
     {
-      "name": "Flamestorm cannon",
-      "range": "12\"",
-      "type": "Heavy 6",
-      "s": "6",
-      "ap": "-3",
-      "d": "1",
-      "abilities": "Flames"
-    },
-    {
       "name": "Frag cannon",
       "range": "12\"",
       "type": "Assault 6",

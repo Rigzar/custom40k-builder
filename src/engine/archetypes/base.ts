@@ -41,6 +41,16 @@ export interface ArchetypeRule {
   alliedFaction: string | null;
   alliedMarkFilter: 'forced' | 'hq_mark' | 'all';
   /**
+   * Archetype-specific rewrite of the allied-relationship matrix, keyed by faction.
+   *
+   * The matrix is the standing relationship between two codices; an archetype can change it for
+   * the army that takes it. Votann "Demiurg" (1.02, verbatim): "This army and the Tau consider
+   * each other Battle Brothers (Green allies)." — Votann↔T'au is Allies of Convenience otherwise,
+   * so without this the panel kept showing the ally in yellow and applying the yellow
+   * restrictions (GitHub #83).
+   */
+  alliedRelationshipOverrides?: Record<string, 'G' | 'Y' | 'R'>;
+  /**
    * Restricts the `alliedFaction` roster-injection to ONLY these unit names (by exact name),
    * instead of the faction's whole roster — e.g. Adeptus Mechanicus' Dark Mechanicum grants just
    * 5 named Chaos Space Marine daemon-engines (Venomcrawler/Defiler/Forgefiend/Maulerfiend/

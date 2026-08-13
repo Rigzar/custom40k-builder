@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useArmyStore } from '../store/army';
+import { getArchetypeRule } from '../engine/archetypes';
 import {
   getAlliableWith,
   getRelationship,
@@ -58,7 +59,11 @@ function FactionPicker({
   onCancel: () => void;
 }) {
   const t = useT();
-  const options = getAlliableWith(primaryFaction);
+  // The active archetype may rewrite the matrix (Votann "Demiurg" → T'au are Battle Brothers),
+  // so the picker has to group and colour the options by the relationship THIS army actually has.
+  const archetype = useArmyStore(s => s.archetype);
+  const relOverrides = getArchetypeRule(archetype)?.alliedRelationshipOverrides;
+  const options = getAlliableWith(primaryFaction, relOverrides);
   const groups: Relationship[] = ['G', 'Y', 'R'];
 
   return (
@@ -124,7 +129,7 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   primaryFaction: string | null;
 }) {
   const t = useT();
-  const { alliedFaction, setAlliedFaction, engagement } = useArmyStore();
+  const { alliedFaction, setAlliedFaction, engagement, archetype } = useArmyStore();
   const [showPicker, setShowPicker] = useState(false);
 
   if (!primaryFaction) return null;
@@ -164,7 +169,7 @@ export function AlliedDetachmentPanel({ primaryFaction }: {
   }
 
   // ── Allied faction selected ──────────────────────────────────────────────
-  const rel = getRelationship(primaryFaction, alliedFaction);
+  const rel = getRelationship(primaryFaction, alliedFaction, getArchetypeRule(archetype)?.alliedRelationshipOverrides);
   const factionLabel = FACTION_NAMES[alliedFaction] ?? alliedFaction;
 
   return (

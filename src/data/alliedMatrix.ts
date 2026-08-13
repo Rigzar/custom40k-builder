@@ -62,15 +62,30 @@ const MATRIX: Record<string, Record<string, Relationship>> = {
   Eld: { AdS:'Y', SM:'Y', AdC:'Y', AdM:'Y', CD:'R', CSM:'R', DaE:'Y', IG:'Y', Inq:'Y', LoV:'Y', Nec:'R', Ork:'Y', GSC:'R', Tau:'Y', Tyr:'R', Eld:'G' },
 };
 
-export function getRelationship(factionKeyA: string, factionKeyB: string): Relationship | null {
+/**
+ * @param overrides the ACTIVE archetype's `alliedRelationshipOverrides`, keyed by the other
+ *   faction. An archetype may rewrite the standing relationship for the army that takes it —
+ *   Votann "Demiurg" makes T'au Battle Brothers where the matrix says Allies of Convenience.
+ */
+export function getRelationship(
+  factionKeyA: string,
+  factionKeyB: string,
+  overrides?: Record<string, Relationship>,
+): Relationship | null {
+  const forced = overrides?.[factionKeyB];
+  if (forced) return forced;
   const codeA = FACTION_TO_CODE[factionKeyA];
   const codeB = FACTION_TO_CODE[factionKeyB];
   if (!codeA || !codeB) return null;
   return MATRIX[codeA]?.[codeB] ?? null;
 }
 
-/** Returns all factions with their relationship to the given faction, sorted G → Y → R. */
-export function getAlliableWith(factionKey: string): Array<{ key: string; relationship: Relationship }> {
+/** Returns all factions with their relationship to the given faction, sorted G → Y → R.
+ *  `overrides` is the active archetype's `alliedRelationshipOverrides` — see getRelationship. */
+export function getAlliableWith(
+  factionKey: string,
+  overrides?: Record<string, Relationship>,
+): Array<{ key: string; relationship: Relationship }> {
   const codeA = FACTION_TO_CODE[factionKey];
   if (!codeA) return [];
   const seen = new Set<string>();
@@ -78,7 +93,7 @@ export function getAlliableWith(factionKey: string): Array<{ key: string; relati
   for (const [key, code] of Object.entries(FACTION_TO_CODE)) {
     if (seen.has(key)) continue;
     seen.add(key);
-    const rel = MATRIX[codeA]?.[code];
+    const rel = overrides?.[key] ?? MATRIX[codeA]?.[code];
     if (rel) result.push({ key, relationship: rel });
   }
   const order: Relationship[] = ['G', 'Y', 'R'];

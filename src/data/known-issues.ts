@@ -2,6 +2,30 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-eldar-war-walker-each-copy-swap-01",
+    status: "fixed",
+    title: "Eldar — a War Walker could only swap one of its two Scatter lasers",
+    description: "FIXED 2026-08-12 (v1.59), GitHub #81. Eldar 1.01 \"War Walkers\": equipped_with is \"A War Walker is equipped with: 2 Scatter lasers\" and the option header is \"Each model may swap EACH Scatter laser\" — so one walker has two swaps and a squadron of two has four. The app allowed one per model. CAUSE: UnitCard's groupMax for an 'every' group was item.size, and the per-copy multiplier only applied when the datasheet split the swap into N SIBLING groups (Talos' 2 Macro-scalpels, Carnifex Brood's 2 Monstrous scything talons); a single group covering each copy had no way to say so. FIX: the header is the signal — \"swap EACH <weapon>\" is per copy, \"swap BOTH <weapons>\" / \"their two <weapons>\" is one selection covering all of them. groupMax now multiplies by weaponCopiesPerModel when the header names the replaced weapon right after the word \"each\". MEASURED FIRST: of 60 groups in the game replacing a weapon a model carries more than one of, exactly 6 are worded \"each <weapon>\" — this one plus the Custodes Telemon Heavy Dreadnought, the Chaos Decimator, Eldar Hornets, Tau Ghostkeel Battlesuits and Tau Hazard Battlesuits — and 54 cover all copies at once and are deliberately untouched, which is the distinction ki-replaces-swap-manual-review-01 warns about. Verified: 1 walker accepts 2 swaps, 2 walkers accept 4.",
+  },
+  {
+    id: "ki-sm-dreadnought-flamestorm-orphan-01",
+    status: "fixed",
+    title: "Space Marines — the Dreadnought carried an unremovable Flamestorm cannon it can never take",
+    description: "FIXED 2026-08-12 (v1.59), GitHub #82. Space Marines 1.01 \"Dreadnought\": equipped_with is \"-\" (nothing by default) and OPTIONS is \"Must pick two weapons from this list\" — eleven entries, none of them the Flamestorm cannon. The weapon nevertheless sits in that sheet's WEAPON table, and our data copied it faithfully; with no option able to grant it and no default loadout to belong to, computeWeaponsToShow treated it as fixed equipment and printed it on every Dreadnought. REMOVED from the unit's weapons[]. NOTE ON THE REQUEST: the reporter asked for it to be made selectable instead — the datasheet does not offer it, so that would be inventing a rule. The Ironclad Dreadnought is the one that can take a Flamestorm cannon (+9 points), and it is correct there. CONSIDERED AND REJECTED: a general \"empty default loadout ⇒ hide any weapon no option can grant\" rule. Measured it — 7 units match, and several of their orphans are legitimate (Genestealer Cults Patriarch claws, the Mucolid Spore Cluster's explosion, the Necron Cryptek's seven specialisation weapons), so the blanket rule would have hidden real gear. This is a per-datasheet data fix. SHEET NOTE for Dominic: the Flamestorm cannon row on the plain Dreadnought sheet looks like a copy-paste leftover from the Ironclad.",
+  },
+  {
+    id: "ki-votann-demiurg-tau-battle-brothers-01",
+    status: "fixed",
+    title: "Leagues of Votann — the Demiurg archetype did not make the Tau green allies",
+    description: "FIXED 2026-08-12 (v1.59), GitHub #83. Leagues of Votann 1.02, Army Customisation, Demiurg, verbatim: \"This army and the Tau consider each other Battle Brothers (Green allies).\" The archetype carried that only as display text in `notes`, so getRelationship kept returning the standing matrix value for Votann↔T'au, which is Y (Allies of Convenience) — the ally picker grouped the Tau under yellow, the badge read yellow, and the yellow restrictions applied. FIX: new ArchetypeRule.alliedRelationshipOverrides (faction → G/Y/R), set to { tau_empire: 'G' } on Demiurg; getRelationship and getAlliableWith take the active archetype's overrides and prefer them over the matrix. Verified both ways: with Demiurg the Tau read \"Battle Brothers\", without it they read \"Allies of Convenience\" again, so the override stays scoped to the archetype that grants it.",
+  },
+  {
+    id: "ki-tau-commander-armory-weapons-01",
+    status: "by_design",
+    title: "T'au — the Commander cannot buy Dawn blade or Fusion blades (by design)",
+    description: "BY DESIGN, GitHub #80, closed without a code change. Reported as \"Tau Commander does not have access to dawn blade or fusion blades … should have access to these items per the armoury\". Tau Empire ENG.ods, \"Commander\" sheet, OPTIONS, verbatim: \"• May pick up to two SUPPORT SYSTEMS from the armory.\" and \"• Has access to GEAR from the Armory.\" — gear, not weapons. Its weapons come from its own datasheet list (Flamer, Airbursting fragmentation projector, Burst cannon, Plasma rifle, High-output burst cannon, Missile pod, Fusion blaster, High-intensity plasma rifle, Cyclic ion blaster). Dawn blade and Fusion blade are Armory WEAPONS, so they are correctly out of reach, and the unit's `armory_gear_only: true` is right. Confirms the same for the Onager gauntlet and every other armoury weapon on that model.",
+  },
+  {
     id: 'ki-supplement-armory-not-resolved-01',
     status: 'fixed',
     title: 'Armory items bought on a supplement unit were charged but granted nothing',
