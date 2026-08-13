@@ -1,14 +1,21 @@
 {
-  "faction": "Horus Heresy Legio Titanicus",
+  "faction": "Horus Heresy Forces of the Machine God",
   "slot_to_units": {
     "HQ": [
       "Secutarii Axiarch"
     ],
-    "Troops": [],
+    "Troops": [
+      "Secutarii Hoplites",
+      "Secutarii Peltasts",
+      "Tech-thralls"
+    ],
     "Elites": [],
     "Fast Attack": [],
     "Heavy Support": [],
-    "Dedicated Transport": [],
+    "Dedicated Transport": [
+      "Macrocarid Explorator",
+      "Triaros Armored Conveyor"
+    ],
     "Fortifications": [],
     "Flyers": []
   },
@@ -30,7 +37,7 @@
             "W": "3",
             "I": "4",
             "A": "3",
-            "LD": "7",
+            "LD": "8",
             "SV": "4+"
           }
         }
@@ -38,9 +45,20 @@
       "variant_models": [],
       "equipped_with": "A Secutarii Axiarch is equipped with: -.",
       "weapons": [],
-      "option_groups": [],
+      "option_groups": [
+        {
+          "header": "Can select one Doctrina Imperative.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
       "abilities": [
-        "Command squad",
+        "Canticles of the Omnissiah, Command squad",
         "Advisor: For every HQ selection, one Secutarii Axiarch may be selected without taking up an HQ slot.",
         "Legio Armsmen: One of your units automatically succeeds to rally during each Rally phase. Additionally, while a friendly vehicle is alive on the field, this model gains +1 Leadership."
       ],
@@ -52,14 +70,530 @@
       "is_psyker": false,
       "has_armory_access": true,
       "champion_has_armory": false,
-      "has_veteran_abilities": false,
+      "has_veteran_abilities": true,
       "veteran_required": false,
-      "veteran_max": null,
+      "veteran_max": 1,
       "locked_mark": null,
       "advisor": true,
       "slot": "HQ",
       "default_size": 1,
       "min_cost": 35
+    },
+    "Secutarii Hoplites": {
+      "variant_models": [],
+      "weapons": [
+        {
+          "name": "Arc lance - Shock",
+          "range": "12\"",
+          "type": "Pistol 1",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Haywire"
+        },
+        {
+          "name": "Arc lance - Thrust",
+          "range": "-",
+          "type": "Melee",
+          "s": "+3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Haywire"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "One model may be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Enhanced data-tether",
+              "points": 10
+            },
+            {
+              "name": "Omnispex",
+              "points": 10
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit may select one Doctrina Imperative.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Canticles of the Omnissiah",
+        "Kyropatris Field Generator: This model receives a 5+ ward save."
+      ],
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": true,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "name": "Secutarii Hoplites",
+      "models": [
+        {
+          "name": "Hoplite",
+          "points": 20,
+          "min": 4,
+          "max": 19,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "3",
+            "A": "1",
+            "LD": "6",
+            "SV": "4+"
+          }
+        },
+        {
+          "name": "Hoplite Alpha",
+          "points": 25,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "3",
+            "A": "1",
+            "LD": "7",
+            "SV": "4+"
+          }
+        }
+      ],
+      "equipped_with": "Every model is equipped with: Arc lance; Mag-inverter shield.",
+      "unit_type": "Infantry",
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 105
+    },
+    "Secutarii Peltasts": {
+      "variant_models": [],
+      "weapons": [
+        {
+          "name": "Galvanic caster",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "3",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Haywire"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "One model may be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Enhanced data-tether",
+              "points": 10
+            },
+            {
+              "name": "Omnispex",
+              "points": 10
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        },
+        {
+          "header": "The unit may select one Doctrina Imperative.",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Canticles of the Omnissiah",
+        "Kyropatris Field Generator: This model receives a 5+ ward save."
+      ],
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": true,
+      "has_veteran_abilities": true,
+      "veteran_required": false,
+      "veteran_max": 1,
+      "locked_mark": null,
+      "advisor": false,
+      "name": "Secutarii Peltasts",
+      "models": [
+        {
+          "name": "Peltast",
+          "points": 16,
+          "min": 4,
+          "max": 19,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "3",
+            "A": "1",
+            "LD": "6",
+            "SV": "4+"
+          }
+        },
+        {
+          "name": "Peltast Alpha",
+          "points": 21,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "6\"",
+            "WS": "3+",
+            "BS": "3+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "3",
+            "A": "1",
+            "LD": "7",
+            "SV": "4+"
+          }
+        }
+      ],
+      "equipped_with": "Every model is equipped with: Galvanic caster.",
+      "unit_type": "Infantry",
+      "slot": "Troops",
+      "default_size": 5,
+      "min_cost": 85
+    },
+    "Tech-thralls": {
+      "variant_models": [],
+      "weapons": [
+        {
+          "name": "Chainsword",
+          "range": "-",
+          "type": "Melee",
+          "s": "U",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Las-lock",
+          "range": "18\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Mitra-lock",
+          "range": "9\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Flames, Suppression"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "All tech-thralls may swap their Chainswords and Las-locks",
+          "constraint": {
+            "type": "every"
+          },
+          "choices": [
+            {
+              "name": "Mitra-lock",
+              "points": 0
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "replaces": [
+            "Chainsword",
+            "Las-lock"
+          ]
+        }
+      ],
+      "abilities": [
+        "Mindless, Monotask, Unyielding"
+      ],
+      "keywords": [],
+      "is_vehicle": false,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": false,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "name": "Tech-thralls",
+      "models": [
+        {
+          "name": "Tech-thrall",
+          "points": 9,
+          "min": 10,
+          "max": 30,
+          "stats": {
+            "M": "6\"",
+            "WS": "5+",
+            "BS": "5+",
+            "S": "3",
+            "T": "3",
+            "W": "1",
+            "I": "2",
+            "A": "1",
+            "LD": "6",
+            "SV": "5+"
+          }
+        }
+      ],
+      "equipped_with": "Each Tech-thrall is equipped with: Bionics; Chainsword; Las-lock.",
+      "unit_type": "Infantry",
+      "slot": "Troops",
+      "default_size": 10,
+      "min_cost": 90
+    },
+    "Macrocarid Explorator": {
+      "variant_models": [],
+      "weapons": [
+        {
+          "name": "Graviton imploder",
+          "range": "18\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3), Graviton, Suppression"
+        },
+        {
+          "name": "Lascannon",
+          "range": "48\"",
+          "type": "Heavy 1",
+          "s": "9",
+          "ap": "-4",
+          "d": "3",
+          "abilities": "AT(3)"
+        },
+        {
+          "name": "Mauler bolt cannon",
+          "range": "24\"",
+          "type": "Rapid Fire 2",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Twin rad cleanser",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "2",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "Flames, Poison(2+), Rad"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May swap the Mauler bolt cannon",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "Graviton imploder",
+              "points": 37
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false,
+          "replaces": [
+            "Mauler bolt cannon"
+          ]
+        },
+        {
+          "header": "May be equipped with",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [
+            {
+              "name": "2 Twin rad cleanser",
+              "points": 38
+            },
+            {
+              "name": "2 Lascannons",
+              "points": 138
+            }
+          ],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Move Through Cover",
+        "Anbaric claw: The model causes double hits when performing a Tank Shock",
+        "Flare Shield: Ranged attacks against the front armor of this vehicle have -1 Strength.",
+        "Transport: This model has a transport capacity of 10 infantry models."
+      ],
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "name": "Macrocarid Explorator",
+      "models": [
+        {
+          "name": "Macrocarid Explorator",
+          "points": 281,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "7",
+            "FRONT": "14",
+            "SIDE": "14",
+            "REAR": "14",
+            "I": "3",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "equipped_with": "A Macrocarid Explorator is equipped with: Mauler bolt cannon.",
+      "unit_type": "Vehicle",
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 281
+    },
+    "Triaros Armored Conveyor": {
+      "variant_models": [],
+      "weapons": [
+        {
+          "name": "Twin mauler bolt cannon",
+          "range": "24\"",
+          "type": "Rapid Fire 4",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        },
+        {
+          "name": "Volkite caliver",
+          "range": "30\"",
+          "type": "Heavy 3",
+          "s": "6",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Soul Burn(6+)"
+        }
+      ],
+      "option_groups": [
+        {
+          "header": "May take up to two Hunter-killer missiles from the Armory",
+          "constraint": {
+            "type": "one"
+          },
+          "choices": [],
+          "inline_pts": null,
+          "variant_link": null,
+          "is_unique_per_army": false
+        }
+      ],
+      "abilities": [
+        "Flare Shield: Ranged attacks against the front armor of this vehicle have -1 Strength.",
+        "Galvanic Traction Drive: This vehicle may re-roll dangerous terrain tests and ignores difficult terrain.",
+        "Shock Ram: This model's Tank Shocks gain the \"Haywire\" ability. Its Strength is considered to be 10.",
+        "Transport: This model has a transport capacity of 20 infantry models."
+      ],
+      "keywords": [],
+      "is_vehicle": true,
+      "is_character": false,
+      "is_monster": false,
+      "is_psyker": false,
+      "has_armory_access": true,
+      "champion_has_armory": false,
+      "has_veteran_abilities": false,
+      "veteran_required": false,
+      "veteran_max": null,
+      "locked_mark": null,
+      "advisor": false,
+      "name": "Triaros Armored Conveyor",
+      "models": [
+        {
+          "name": "Triaros",
+          "points": 330,
+          "min": 1,
+          "max": 1,
+          "stats": {
+            "M": "12\"",
+            "WS": "-",
+            "BS": "3+",
+            "S": "7",
+            "FRONT": "14",
+            "SIDE": "12",
+            "REAR": "12",
+            "I": "3",
+            "A": "1",
+            "HP": "4"
+          }
+        }
+      ],
+      "equipped_with": "A Triaros is equipped with: Twin mauler bolt cannon; 2 Volkite calivers.",
+      "unit_type": "Vehicle",
+      "slot": "Dedicated Transport",
+      "default_size": 1,
+      "min_cost": 330
     }
   },
   "armory_general": {
@@ -74,26 +608,26 @@
         "ap": "",
         "d": "",
         "abilities": "",
-        "p_unit": 9,
-        "p_char": 11,
+        "p_unit": 7,
+        "p_char": 8,
         "profiles": [
           {
-            "name": "Charge",
+            "name": "Shock",
+            "range": "12\"",
+            "type": "Pistol 1",
+            "s": "6",
+            "ap": "-1",
+            "d": "1",
+            "abilities": "Haywire"
+          },
+          {
+            "name": "Thrust",
             "range": "-",
             "type": "Melee",
             "s": "+3",
-            "ap": "-3",
-            "d": "2",
-            "abilities": "AT(1), Charge, Haywire, Quick(+1)"
-          },
-          {
-            "name": "Melee",
-            "range": "-",
-            "type": "Melee",
-            "s": "+1",
-            "ap": "-3",
+            "ap": "-1",
             "d": "1",
-            "abilities": "Haywire, Unwieldy"
+            "abilities": "Haywire"
           }
         ]
       },

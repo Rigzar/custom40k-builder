@@ -83,7 +83,14 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // with one from the list of 'Cult Powers'." pU:0 pC:0 (free). Grants cult power access
   // when purchased, even if the unit's datasheet doesn't have is_cult_initiate set.
   const hasCultInitiateItem = item.armory.some(a => a.itemName === 'Cult initiate');
-  const isCultInitiate = !!(unit.is_cult_initiate) || hasCultInitiateItem;
+  // GH#85. Two different things wear the same name and only one of them narrows what the model
+  // may know. The Armory item is an EXCHANGE — "may exchange one psychic power it knows with one
+  // from the list of Cult Powers" — so a Chaos Sorcerer that buys it keeps its own disciplines
+  // and swaps a single power; treating it as a restriction locked the Sorcerer out of every
+  // discipline it already had. Only the Dark Commune, which carries `is_cult_initiate` on its
+  // DATASHEET, is a cult psyker that knows Cult Powers and nothing else.
+  const cultPowersOnly = !!unit.is_cult_initiate;
+  const canTakeCultPowers = cultPowersOnly || hasCultInitiateItem;
 
   const defaultTab: ModalTab = hasPowers ? 'powers' : hasPrayers ? 'prayers' : 'pacts';
   const tab: ModalTab = pickedTab ?? defaultTab;
@@ -100,8 +107,8 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   const ownDisciplines = chaosGrant ? chaosGrant.disciplines : (data.disciplines ?? {});
 
   const factionDiscs = Object.entries(ownDisciplines).filter(([name]) => {
-    if (isCultOnlyDisc(name)) return isCultInitiate;  // Cult Powers only for cult initiates
-    if (isCultInitiate) return false;                 // Cult initiates see ONLY Cult Powers
+    if (isCultOnlyDisc(name)) return canTakeCultPowers;  // Cult Powers need the item or the flag
+    if (cultPowersOnly) return false;                    // datasheet cult psykers see ONLY those
     if (isMarkOnlyDisc(name)) {
       if (!effectiveMark || effectiveMark === 'Undivided') return false;
       const lc = name.toLowerCase();
@@ -118,7 +125,7 @@ export function PsychicModal({ item, unit, onClose }: Props) {
     return true;
   });
 
-  const generalDiscs = isCultInitiate ? [] : Object.entries(GENERAL_DISCIPLINES);
+  const generalDiscs = cultPowersOnly ? [] : Object.entries(GENERAL_DISCIPLINES);
   let allowedDiscs = [...generalDiscs, ...factionDiscs];
 
   // CD: per-unit discipline access derived from psyker ability text.
@@ -267,7 +274,9 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   // Power count display (excluding the discipline marker)
   const selectedPowersCount = item.powers.filter(p => p.powerName !== '__discipline__').length;
   // Label for the powers button
-  const powersLabel = isCultInitiate ? t('cultPowersLabel') : t('psychicPowersLabel');
+  // Only a cult psyker's tab is titled "Cult Powers"; a Sorcerer that bought the item still has a
+  // full psychic repertoire and one Cult Power inside it.
+  const powersLabel = cultPowersOnly ? t('cultPowersLabel') : t('psychicPowersLabel');
 
   return (
     <div

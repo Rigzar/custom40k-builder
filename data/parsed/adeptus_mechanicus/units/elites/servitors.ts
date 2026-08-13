@@ -13,7 +13,7 @@ export const servitors: Unit = {
   "models": [
     {
       "name": "Servitor",
-      "points": 12,
+      "points": 10,
       "min": 3,
       "max": 9,
       "stats": {
@@ -147,7 +147,9 @@ export const servitors: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Paired shock chargers"]
+      "replaces": [
+        "Paired shock chargers"
+      ]
     },
     {
       "header": "For every three Servitors in the unit, one may swap their Paired shock chargers for a Shock charger and one of the following",
@@ -177,7 +179,9 @@ export const servitors: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Paired shock chargers"]
+      "replaces": [
+        "Paired shock chargers"
+      ]
     },
     {
       "header": "For each Magos, Archmagos, or Tech-Priest selection, one Servitor squad may be selected that does not occupy an Elite slot.",
@@ -192,7 +196,6 @@ export const servitors: Unit = {
   ],
   "abilities": [
     "Monotask, Unyielding",
-    "Bionics: This model receives a 6+ ward save.",
     "Mind-lock: As long as a character is attached to this unit, the Servitors get +1 to hit rolls."
   ],
   "unit_type": "Infantry",
@@ -210,5 +213,5 @@ export const servitors: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 3,
-  "min_cost": 36
+  "min_cost": 30
 };

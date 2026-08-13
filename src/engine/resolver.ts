@@ -742,6 +742,52 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (asEquip) traitGrantedEquip.push({ name: asEquip.name, desc: asEquip.desc ?? '', armourKeyword: asEquip.armourKeyword });
   }
 
+  // Equipment a model carries as part of its DEFAULT loadout, named in `equipped_with` rather
+  // than bought. The datasheets say "Every model is equipped with: Bionics; Galvanic rifle." and
+  // expect the reader to look Bionics up in the Armory; until now the engine only resolved
+  // WEAPONS out of that sentence, so a Sororitas Crusader's Storm shield, a Space Marine Assault
+  // Squad's Jump pack and every AdMech unit's Bionics were printed in the loadout line and then
+  // granted nothing at all. Feeding them through the same parseEquipMods path as bought items
+  // means the rule text shows up AND its stat/ward effect actually applies.
+  //
+  // Three deliberate exclusions, each measured across all 19 factions before being written:
+  //   - items with an `armourKeyword` — armour is already modelled via the unit's own keyword,
+  //     and re-applying it here would double-count the profile bonuses baked into the statline
+  //     (Gravis armor on the Aggressor/Inceptor/Eradicator/Heavy Intercessor squads);
+  //   - names that are also a weapon on this datasheet — several armouries list a weapon in the
+  //     equipment section too, and the profile row already covers it (IG Heavy stubber on five
+  //     vehicles, Dark Eldar Bladevanes, Tyranid Acid Maw, the Judicar's Relic blade);
+  //   - one- and two-character names, because "-" is a real entry in some equipment tables and
+  //     `equipped_with: "... is equipped with: -."` would match it.
+  // Anything whose effect the datasheet ALREADY spells out in its abilities is deduped inside
+  // parseEquipMods against `baseAbilities`, so this cannot print a rule twice.
+  const defaultEquip: EquipInput[] = [];
+  {
+    const ew = unit.equipped_with ?? '';
+    const datasheetWeapons = new Set(unit.weapons.map(w => w.name.split(' - ')[0].toLowerCase()));
+    const seen = new Set<string>();
+    const pools = [
+      data.armory_general,
+      ...Object.values(data.armory_marks),
+      ...Object.values(data.armory_legions),
+      ...(data.archetype_armory ? [data.archetype_armory.general, ...Object.values(data.archetype_armory.marks)] : []),
+      ...Object.values(data.allied ?? {}).map(a => a.armory_general).filter((x): x is NonNullable<typeof x> => !!x),
+    ];
+    for (const pool of pools) {
+      for (const e of (pool.equipment ?? []) as import('../types/data').ArmoryItem[]) {
+        if (!e.desc || e.name.length < 3 || e.armourKeyword) continue;
+        const lc = e.name.toLowerCase();
+        if (seen.has(lc) || datasheetWeapons.has(lc)) continue;
+        // Delimited match: the loadout is a "; "/", "-separated list, so require the name to sit
+        // on its own rather than inside a longer one ("Bionics" must not fire on "Enhanced Bionics").
+        const esc = e.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (!new RegExp(`(?:^|[:;,]\\s*|\\s)${esc}\\s*(?:[;,.]|$)`, 'i').test(ew)) continue;
+        seen.add(lc);
+        defaultEquip.push({ name: e.name, desc: e.desc });
+      }
+    }
+  }
+
   // Equipment mods
   const equipItems = item.armory
     .filter(a => {
@@ -756,6 +802,20 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     })
     .concat(traitGrantedEquip);
   const equipMods: EquipMods = parseEquipMods(equipItems, unit.armourKeyword, unit.abilities);
+
+  // Default gear is parsed SEPARATELY and contributes only its rule text and its ward save.
+  // A datasheet's printed statline is authored with the default loadout already on the model —
+  // a Space Marine Assault Squad prints 12" precisely BECAUSE every model carries a Jump pack —
+  // so applying the item's "+6\" movement" on top would move them to 18". Ward saves are the
+  // exception worth carrying: they appear in no stat column, which is why an Adeptus Mechanicus
+  // unit's Bionics has to come from here now that the sheet no longer prints it as an ability.
+  if (defaultEquip.length > 0) {
+    const dm = parseEquipMods(defaultEquip, unit.armourKeyword, unit.abilities);
+    if (dm.invulnSave !== null && (equipMods.invulnSave === null || dm.invulnSave < equipMods.invulnSave)) {
+      equipMods.invulnSave = dm.invulnSave;
+    }
+    equipMods.grantedAbilities.push(...dm.grantedAbilities);
+  }
 
   // Inject global trait weapon abilities into weaponTraitMap so the WeaponTable shows them
   // directly on each weapon row (e.g. Siege Experts → Sunder(1) on every ranged weapon).

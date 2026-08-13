@@ -302,6 +302,16 @@ export const magos: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
+    },
+    {
+      "header": "Can select one Doctrina Imperative.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
     }
   ],
   "abilities": [
@@ -325,9 +335,9 @@ export const magos: Unit = {
   "is_psyker": false,
   "has_armory_access": true,
   "champion_has_armory": false,
-  "has_veteran_abilities": false,
+  "has_veteran_abilities": true,
   "veteran_required": false,
-  "veteran_max": null,
+  "veteran_max": 1,
   "locked_mark": null,
   "advisor": false,
   "slot": "HQ",

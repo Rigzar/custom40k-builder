@@ -58,7 +58,7 @@ export const sydonianDragoons: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Tesla, Quick(+1)"
+      "abilities": "AT(2), Quick(+1), Tesla"
     },
     {
       "name": "Taser lance - Melee",
@@ -117,8 +117,7 @@ export const sydonianDragoons: Unit = {
     }
   ],
   "abilities": [
-    "Canticles of the Omnissiah, Deflect, Squadron",
-    "Bionics: The model receives a 6+ ward save."
+    "Canticles of the Omnissiah, Deflect, Squadron"
   ],
   "unit_type": "Bike, Monstrous Creature",
   "keywords": [],

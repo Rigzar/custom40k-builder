@@ -25,7 +25,7 @@ export const skitariiMarshal: Unit = {
         "W": "3",
         "I": "4",
         "A": "3",
-        "LD": "7",
+        "LD": "8",
         "SV": "4+"
       }
     }
@@ -33,7 +33,18 @@ export const skitariiMarshal: Unit = {
   "variant_models": [],
   "equipped_with": "A Skitarii Marshal is equipped with: -.",
   "weapons": [],
-  "option_groups": [],
+  "option_groups": [
+    {
+      "header": "Can select one Doctrina Imperative.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
+    }
+  ],
   "abilities": [
     "Canticles of the Omnissiah, Command squad",
     "Advisor: For every HQ selection, one Skitarii Marshal may be selected without taking up an HQ slot.",
@@ -47,9 +58,9 @@ export const skitariiMarshal: Unit = {
   "is_psyker": false,
   "has_armory_access": true,
   "champion_has_armory": false,
-  "has_veteran_abilities": false,
+  "has_veteran_abilities": true,
   "veteran_required": false,
-  "veteran_max": null,
+  "veteran_max": 1,
   "locked_mark": null,
   "advisor": true,
   "slot": "HQ",

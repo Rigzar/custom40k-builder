@@ -25,6 +25,23 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.60',
+    date: '2026-08-13',
+    title: 'Adeptus Mechanicus codex update — Forces of the Machine God',
+    changes: [
+      'Adeptus Mechanicus — Bionics is wargear now, not a printed rule. It shows in the loadout instead of the ability list; the 6+ ward save is unchanged.',
+      'Adeptus Mechanicus — Servitors drop to 10 pts: they are the one unit that genuinely lost Bionics. Skitarii Marshal goes to Leadership 8.',
+      'Adeptus Mechanicus — the Magos, the Skitarii Marshal and the Tech-Priest can take a Doctrina Imperative.',
+      'The Legio Titanicus supplement is now Forces of the Machine God, and its archetype is Taghmata. Lists saved with Titan Legion keep working.',
+      'Five datasheets moved into that supplement, all rewritten by the author: Secutarii Hoplites, Secutarii Peltasts, Tech-thralls, the Macrocarid Explorator (now 281 pts, was 408) and the new Triaros Armored Conveyor.',
+      'Adeptus Mechanicus — "swap both" on the Termite and the Archaeopter now gives you the pair of weapons the sheet grants, not one.',
+      'Chaos Daemons — Pink and Blue Horror squads no longer arrive with free Blue and Brimstone Horrors you cannot remove. Those are split profiles, kept for reference (GitHub #84).',
+      'Chaos Space Marines — a Sorcerer that takes Cult initiate keeps its own disciplines. The item exchanges one power, it does not replace the model\'s whole repertoire (GitHub #85).',
+      'GENERAL — 81 Armory items across every faction printed a garbled rule name (bikes, jump packs, steeds, wings). They now show the rule they actually grant.',
+      'GENERAL — gear that a datasheet lists in a model\'s default loadout applies its rule instead of being decoration.',
+    ],
+  },
+  {
     version: '1.59',
     date: '2026-08-11',
     title: 'Chaos Space Marines codex 1.03 — the Red Corsairs',

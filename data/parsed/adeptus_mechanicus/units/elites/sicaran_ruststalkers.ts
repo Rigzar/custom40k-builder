@@ -103,7 +103,9 @@ export const sicaranRuststalkers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Transonic blades"]
+      "replaces": [
+        "Transonic blades"
+      ]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",
@@ -117,8 +119,7 @@ export const sicaranRuststalkers: Unit = {
     }
   ],
   "abilities": [
-    "Canticles of the Omnissiah, Massive(1), Move through cover, Use cover",
-    "Enhanced Bionics: The model receives a 5+ ward save."
+    "Canticles of the Omnissiah, Massive(1), Move through cover, Use cover"
   ],
   "unit_type": "Infantry",
   "keywords": [],

@@ -48,18 +48,18 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
     },
   },
   legio_titanicus: {
-    title: 'Legio Titanicus',
+    title: 'Forces of the Machine God',
     subtitle: 'Horus Heresy supplement',
     accentTop: 'border-t-orange-800',
     accentText: 'text-orange-600',
     blurb:
-      'The Secutarii who march beside the god-engines of the Collegia Titanica. A small supplement ' +
-      'for now \u2014 one datasheet and its own armory \u2014 and, like the Legiones Astartes supplement, ' +
-      'its units count as your own rather than as allies.',
+      'The Secutarii who march beside the god-engines of the Collegia Titanica, their tech-thrall ' +
+      'levies and the heavy conveyors that carry them. Like the Legiones Astartes supplement, its ' +
+      'units count as your own rather than as allies.',
     activation: [
       'Pick an Adeptus Mechanicus army.',
-      'In Army Configuration, choose the **Titan Legion** archetype.',
-      'The Legio Titanicus units and armory are injected into your roster automatically.',
+      'In Army Configuration, choose the **Taghmata** archetype.',
+      'The supplement\'s units and armory are injected into your roster automatically.',
     ],
     load: async () => {
       const m = (await import('../../data/parsed/_supplements/legio_titanicus.json')) as { default: any };

@@ -76,13 +76,15 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
     ],
   },
 
-  'Titan Legion': { ...BASE,
-    troopsRemap: ['Secutarii Hoplites', 'Secutarii Peltasts'], troopsCount: 'remap',
+  // Renamed from "Titan Legion" in the 2026-08 codex, and rewritten with it: the Secutarii no
+  // longer live in the AdMech codex at all, so the archetype no longer remaps named units into
+  // Troops — it opens the supplement, whose own Troops are the ones that count. Saved armies
+  // that still carry the old name are mapped onto this rule by getArchetypeRule.
+  'Taghmata': { ...BASE,
     alliedFaction: 'legio_titanicus', alliedMarkFilter: 'all',
     notes: [
-      'Secutarii Hoplites and Peltasts count as Troops.',
-      'Only Secutarii units count towards the 25% Troops requirement.',
-      'Access to the Horus Heresy Legio Titanicus supplement.',
+      'Access to everything in the Horus Heresy Forces of the Machine God supplement.',
+      'Only Troops from that supplement count towards the 25% Troops requirement.',
     ],
   },
 
@@ -499,8 +501,23 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // → see engine/archetypes/chaos_daemons/ (spread via CD_ARCHETYPES above)
 };
 
+/**
+ * Archetypes the author has renamed. A saved army stores the archetype by name, so without this
+ * every list built before the rename would silently lose its archetype — its supplement units
+ * would go unrecognised and its slot maths would change. Keep entries here forever; they cost
+ * nothing and removing one breaks somebody's saved list.
+ */
+const RENAMED_ARCHETYPES: Record<string, string> = {
+  'Titan Legion': 'Taghmata',   // Adeptus Mechanicus, 2026-08 codex
+};
+
 export function getArchetypeRule(archetype: string): ArchetypeRule | null {
-  return ARCHETYPE_RULES[archetype] ?? null;
+  return ARCHETYPE_RULES[archetype] ?? ARCHETYPE_RULES[RENAMED_ARCHETYPES[archetype]] ?? null;
+}
+
+/** The current name for an archetype, for saved armies written before a rename. */
+export function currentArchetypeName(archetype: string): string {
+  return RENAMED_ARCHETYPES[archetype] ?? archetype;
 }
 
 /** Strip trailing god superscripts (ˢ ᴷ ᵀ ᴺ) from archetype names for display. */

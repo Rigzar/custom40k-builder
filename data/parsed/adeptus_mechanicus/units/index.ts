@@ -19,13 +19,10 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Skitarii Marshal": hq.skitariiMarshal,
   "Skitarii Rangers": troops.skitariiRangers,
   "Skitarii Vanguard": troops.skitariiVanguard,
-  "Tech-thralls": troops.techThralls,
   "Corpuscarii Electro-Priests": elites.corpuscariiElectroPriests,
   "Fulgurite Electro-Priests": elites.fulguriteElectroPriests,
   "Kataphron Breachers": elites.kataphronBreachers,
   "Kataphron Destroyers": elites.kataphronDestroyers,
-  "Secutarii Hoplites": elites.secutariiHoplites,
-  "Secutarii Peltasts": elites.secutariiPeltasts,
   "Servitors": elites.servitors,
   "Sicaran Infiltrators": elites.sicaranInfiltrators,
   "Sicaran Ruststalkers": elites.sicaranRuststalkers,
@@ -38,7 +35,6 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Sydonian Dragoons": fastAttack.sydonianDragoons,
   "Ironstrider Ballistarii": heavySupport.ironstriderBallistarii,
   "Kastelan Robots": heavySupport.kastelanRobots,
-  "Macrocarid Explorator": heavySupport.macrocaridExplorator,
   "Onager Dunecrawler": heavySupport.onagerDunecrawler,
   "Skorpius Disintegrator": heavySupport.skorpiusDisintegrator,
   "Skorpius Dunerider": dedicatedTransport.skorpiusDunerider,
@@ -55,15 +51,12 @@ export const slot_to_units: Record<string, string[]> = {
   "Troops": [
     "Skitarii Rangers",
     "Skitarii Vanguard",
-    "Tech-thralls"
   ],
   "Elites": [
     "Corpuscarii Electro-Priests",
     "Fulgurite Electro-Priests",
     "Kataphron Breachers",
     "Kataphron Destroyers",
-    "Secutarii Hoplites",
-    "Secutarii Peltasts",
     "Servitors",
     "Sicaran Infiltrators",
     "Sicaran Ruststalkers",
@@ -80,7 +73,6 @@ export const slot_to_units: Record<string, string[]> = {
   "Heavy Support": [
     "Ironstrider Ballistarii",
     "Kastelan Robots",
-    "Macrocarid Explorator",
     "Onager Dunecrawler",
     "Skorpius Disintegrator"
   ],

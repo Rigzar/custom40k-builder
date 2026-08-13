@@ -31,7 +31,7 @@ export const sydonianSkatros: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Sydonian Skatros is equipped with: Archeo-revolver; Radium jezzail.",
+  "equipped_with": "A Sydonian Skatros is equipped with: Archeo-revolver; Enhanced Bionics; Radium jezzail.",
   "weapons": [
     {
       "name": "Archeo-revolver",
@@ -93,8 +93,7 @@ export const sydonianSkatros: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Squadron, Stealth",
-    "Achillan Eye: All Heavy weapons wielded by this model gain the Shred, Suppression, and Tank Hunter abilities.",
-    "Enhanced Bionics: This model receives a 5+ ward save."
+    "Achillan Eye: All Heavy weapons wielded by this model gain the Shred, Suppression, and Tank Hunter abilities."
   ],
   "unit_type": "Infantry",
   "keywords": [],

@@ -46,12 +46,14 @@ export const pinkHorrors: Unit = {
         "LD": "9",
         "SV": "6+"
       }
-    },
+    }
+  ],
+  "variant_models": [
     {
       "name": "Blue Horror",
       "points": 0,
-      "min": 1,
-      "max": 1,
+      "min": 0,
+      "max": 0,
       "stats": {
         "M": "6\"",
         "WS": "5+",
@@ -68,8 +70,8 @@ export const pinkHorrors: Unit = {
     {
       "name": "Brimstone Horror",
       "points": 0,
-      "min": 1,
-      "max": 1,
+      "min": 0,
+      "max": 0,
       "stats": {
         "M": "6\"",
         "WS": "6+",
@@ -84,7 +86,6 @@ export const pinkHorrors: Unit = {
       }
     }
   ],
-  "variant_models": [],
   "equipped_with": "Every model is equipped with: Coruscating flames.",
   "weapons": [
     {
@@ -149,6 +150,6 @@ export const pinkHorrors: Unit = {
   "locked_mark": "Tzeentch",
   "advisor": false,
   "slot": "Troops",
-  "default_size": 11,
-  "min_cost": 360
+  "default_size": 9,
+  "min_cost": 342
 };

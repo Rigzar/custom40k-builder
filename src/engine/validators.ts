@@ -51,7 +51,11 @@ function _getAllowedDiscKeys(
   const rule = getArchetypeRule(archetype);
   const effectiveMark = unit.locked_mark ?? (rule?.forcedMark ?? null) ?? item.mark;
   const hasActiveLegacy = !!(legacy || legacy2);
-  const isCultInitiate = !!unit.is_cult_initiate || item.armory.some(a => a.itemName === 'Cult initiate');
+  // Mirrors PsychicModal (GH#85): the bought "Cult initiate" item ADDS Cult Powers (it exchanges
+  // one known power), while the datasheet flag marks a psyker that knows Cult Powers and nothing
+  // else. Conflating them made the validator reject every discipline a Sorcerer legally kept.
+  const cultPowersOnly = !!unit.is_cult_initiate;
+  const canTakeCultPowers = cultPowersOnly || item.armory.some(a => a.itemName === 'Cult initiate');
   const isSMFaction = data.faction === 'Space Marines';
 
   // Mirrors PsychicModal: a "counts as Chaos" archetype (Traitor Guard, Dark Mechanicum) REPLACES
@@ -60,8 +64,8 @@ function _getAllowedDiscKeys(
   const chaosGrant = data.archetype_armory?.grantsMarks ? data.archetype_armory : null;
 
   const factionDiscs = Object.entries(chaosGrant ? chaosGrant.disciplines : (data.disciplines ?? {})).filter(([name]) => {
-    if (_psyDiscIsCultOnly(name)) return isCultInitiate;
-    if (isCultInitiate) return false;
+    if (_psyDiscIsCultOnly(name)) return canTakeCultPowers;
+    if (cultPowersOnly) return false;
     if (_psyDiscIsMarkOnly(name)) {
       if (!effectiveMark || effectiveMark === 'Undivided') return false;
       const lc = name.toLowerCase();
@@ -78,7 +82,7 @@ function _getAllowedDiscKeys(
     return true;
   });
 
-  const generalDiscs = isCultInitiate ? [] : Object.entries(GENERAL_DISCIPLINES);
+  const generalDiscs = cultPowersOnly ? [] : Object.entries(GENERAL_DISCIPLINES);
   let allowed = [...generalDiscs, ...factionDiscs];
 
   if (data.faction === 'Chaos Daemons') {

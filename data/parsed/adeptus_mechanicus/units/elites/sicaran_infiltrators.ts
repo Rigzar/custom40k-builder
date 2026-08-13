@@ -103,7 +103,10 @@ export const sicaranInfiltrators: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Flechette blaster", "Taser goad"]
+      "replaces": [
+        "Flechette blaster",
+        "Taser goad"
+      ]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",
@@ -117,8 +120,7 @@ export const sicaranInfiltrators: Unit = {
     }
   ],
   "abilities": [
-    "Canticles of the Omnissiah, Deflect, Infiltrator, Massive(1), Move through cover, Parry",
-    "Enhanced Bionics: The model receives a 5+ ward save."
+    "Canticles of the Omnissiah, Deflect, Infiltrator, Massive(1), Move through cover, Parry"
   ],
   "unit_type": "Infantry",
   "keywords": [],

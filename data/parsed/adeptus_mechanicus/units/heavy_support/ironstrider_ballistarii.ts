@@ -67,7 +67,9 @@ export const ironstriderBallistarii: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Twin cognis autocannon"]
+      "replaces": [
+        "Twin cognis autocannon"
+      ]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",
@@ -81,8 +83,7 @@ export const ironstriderBallistarii: Unit = {
     }
   ],
   "abilities": [
-    "Canticles of the Omnissiah, Deflect, Squadron",
-    "Bionics: The model receives a 6+ ward save."
+    "Canticles of the Omnissiah, Deflect, Squadron"
   ],
   "unit_type": "Bike, Monstrous Creature",
   "keywords": [],

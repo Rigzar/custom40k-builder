@@ -156,9 +156,15 @@ export function parseEquipMods(
       // a non-alphanumeric, so a contraction apostrophe (model's, it's) is not read as an opening
       // quote. `(^|[^A-Za-z0-9])` needs the match to start one character earlier, which is why the
       // captured group is m[2] here.
+      // An inches mark is a double quote too. `The model gains +6" movement and the "Jump pack"
+      // rule.` made the scanner pair the inches quote with the one that opens "Jump pack", so the
+      // item granted an ability literally called `" movement and the "` and the real rule name was
+      // never seen. A quote straight after a digit is a measurement, never an opening quote —
+      // swap those for the prime character before scanning.
+      const quotable = desc.replace(/(\d)"/g, '$1″');
       const quoted = [
-        ...Array.from(desc.matchAll(/"([^"]+)"/g), m => m[1]),
-        ...Array.from(desc.matchAll(/(^|[^A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[2]),
+        ...Array.from(quotable.matchAll(/"([^"]+)"/g), m => m[1]),
+        ...Array.from(quotable.matchAll(/(^|[^A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[2]),
       ];
       for (const ab of quoted) {
         // A quoted unit-type word is handled by the type system, not shown as an ability.

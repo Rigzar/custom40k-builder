@@ -49,7 +49,7 @@ export const serberysSulphurhounds: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: 2 Phosphor pistols, Sulphur breath.",
+  "equipped_with": "Every model is equipped with: 2 Phosphor pistols, Bionics; Sulphur breath.",
   "weapons": [
     {
       "name": "Phosphor blast carbine",
@@ -111,7 +111,9 @@ export const serberysSulphurhounds: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Phosphor pistol"]
+      "replaces": [
+        "Phosphor pistol"
+      ]
     },
     {
       "header": "The unit may select one Doctrina Imperative.",
@@ -126,7 +128,6 @@ export const serberysSulphurhounds: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Move through cover",
-    "Bionics: This model receives a 6+ ward save.",
     "Rad-saturation: Enemy models in direct base contact suffer a -1 penalty to their Toughness."
   ],
   "unit_type": "Bike",

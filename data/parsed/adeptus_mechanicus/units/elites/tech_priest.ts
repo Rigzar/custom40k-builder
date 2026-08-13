@@ -31,7 +31,7 @@ export const techPriest: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Tech-priest is equipped with: Omnissian axe; Servo arm.",
+  "equipped_with": "A Tech-priest is equipped with: Bionics; Omnissian axe; Servo arm.",
   "weapons": [
     {
       "name": "Omnissian axe",
@@ -97,11 +97,20 @@ export const techPriest: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
+    },
+    {
+      "header": "Can select one Doctrina Imperative.",
+      "constraint": {
+        "type": "one"
+      },
+      "choices": [],
+      "inline_pts": null,
+      "variant_link": null,
+      "is_unique_per_army": false
     }
   ],
   "abilities": [
     "Canticles of the Omnissiah, Choir Master, Command Squad",
-    "Bionics: This model receives a 6+ ward save.",
     "Datasmith\nCybertheurgy: This model may be attached to units of Robot Monstrous Infantry. If this model is attached to a unit of Robots, the bonus from their Battle Protocols is improved by +1.",
     "Enginseer:\nBlessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
     "Manipulus\nGalvanic Field: This model and its attached unit's Arc, Galvanic and Radium weapons increase their range by 6\". Additionally, their AP increases by -1.",
@@ -117,9 +126,9 @@ export const techPriest: Unit = {
   "is_psyker": false,
   "has_armory_access": true,
   "champion_has_armory": false,
-  "has_veteran_abilities": false,
+  "has_veteran_abilities": true,
   "veteran_required": false,
-  "veteran_max": null,
+  "veteran_max": 1,
   "locked_mark": null,
   "advisor": true,
   "slot": "Elites",

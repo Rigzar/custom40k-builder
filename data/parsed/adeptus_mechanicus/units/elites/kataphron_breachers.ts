@@ -31,7 +31,7 @@ export const kataphronBreachers: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Arc claw; Heavy arc rifle.",
+  "equipped_with": "Every model is equipped with: Arc claw; Bionics; Heavy arc rifle.",
   "weapons": [
     {
       "name": "Arc claw",
@@ -85,7 +85,9 @@ export const kataphronBreachers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Arc claw"]
+      "replaces": [
+        "Arc claw"
+      ]
     },
     {
       "header": "Any model may swap their Heavy arc rifle",
@@ -101,12 +103,13 @@ export const kataphronBreachers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Heavy arc rifle"]
+      "replaces": [
+        "Heavy arc rifle"
+      ]
     }
   ],
   "abilities": [
-    "Massive(1), Monotask, Unyielding",
-    "Bionics: This model receives a 6+ ward save."
+    "Massive(1), Monotask, Unyielding"
   ],
   "unit_type": "Infantry",
   "keywords": [],

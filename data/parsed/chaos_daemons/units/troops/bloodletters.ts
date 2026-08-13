@@ -12,7 +12,7 @@ export const bloodletters: Unit = {
   "name": "Bloodletters",
   "models": [
     {
-      "name": "Bloodletters",
+      "name": "Bloodletter",
       "points": 14,
       "min": 7,
       "max": 23,

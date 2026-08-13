@@ -17,8 +17,8 @@
       "desc": "- Servitors can be taken as Troops.\n- For each Servitor unit taken as Troops, the army must also take a Tech-priest. This Tech-priest does not occupy an Elite slot, but must always be attached to a Servitor unit.\n- Skitarii units do not count towards the 25% Troops limitation."
     },
     {
-      "name": "Titan Legion",
-      "desc": "- Secutarii Hoplites and Peltasts can be taken as Troops.\n- Only Secutarii units count towards the 25% Troops limitation.\n- Grants access to the Horus Heresy Legio Titanicus supplement."
+      "name": "Taghmata",
+      "desc": "- The army has access to everything from the Horus Heresy Forces of the Machine God Supplement.\n- Only Troops from the Horus Heresy Forces of the Machine God Supplement count towards the 25% Troops limitation."
     }
   ],
   "legacies": [

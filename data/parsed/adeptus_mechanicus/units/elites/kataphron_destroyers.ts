@@ -31,7 +31,7 @@ export const kataphronDestroyers: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Cognis flamer; Heavy grav-cannon.",
+  "equipped_with": "Every model is equipped with: Bionics; Cognis flamer; Heavy grav-cannon.",
   "weapons": [
     {
       "name": "Cognis flamer",
@@ -94,7 +94,9 @@ export const kataphronDestroyers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Cognis flamer"]
+      "replaces": [
+        "Cognis flamer"
+      ]
     },
     {
       "header": "Any model may swap their Heavy grav-cannon",
@@ -110,12 +112,13 @@ export const kataphronDestroyers: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Heavy grav-cannon"]
+      "replaces": [
+        "Heavy grav-cannon"
+      ]
     }
   ],
   "abilities": [
-    "Massive(1), Monotask, Unyielding",
-    "Bionics: This model receives a 6+ ward save."
+    "Massive(1), Monotask, Unyielding"
   ],
   "unit_type": "Infantry",
   "keywords": [],

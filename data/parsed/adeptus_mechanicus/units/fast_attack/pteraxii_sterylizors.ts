@@ -49,7 +49,7 @@ export const pteraxiiSterylizors: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Arc grenades; Phosphor torch.",
+  "equipped_with": "Every model is equipped with: Arc grenades; Bionics; Phosphor torch.",
   "weapons": [
     {
       "name": "Arc grenade",
@@ -93,7 +93,6 @@ export const pteraxiiSterylizors: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah",
-    "Bionics: This model receives a 6+ ward save.",
     "Sky Dive: Once per game, at the start of their activation, the unit may use a Stand & Shoot order to be immediately re-deployed anywhere on the battlefield. They must keep a minimum distance of 6\" to enemy models."
   ],
   "unit_type": "Jump Pack Infantry",

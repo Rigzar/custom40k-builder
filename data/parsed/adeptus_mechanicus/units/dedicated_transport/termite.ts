@@ -87,18 +87,20 @@ export const termite: Unit = {
       },
       "choices": [
         {
-          "name": "Heavy flamer",
+          "name": "2 Heavy flamers",
           "points": 5
         },
         {
-          "name": "Twin-linked volkite charger",
+          "name": "2 Twin-linked volkite chargers",
           "points": 19
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Storm bolter"]
+      "replaces": [
+        "Storm bolter"
+      ]
     }
   ],
   "abilities": [

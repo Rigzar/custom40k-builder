@@ -12,7 +12,7 @@ export const plaguebearers: Unit = {
   "name": "Plaguebearers",
   "models": [
     {
-      "name": "Plaguebearers",
+      "name": "Plaguebearer",
       "points": 20,
       "min": 6,
       "max": 20,

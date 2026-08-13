@@ -49,7 +49,7 @@ export const serberysRaiders: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every model is equipped with: Galvanic carbine; Power sword.",
+  "equipped_with": "Every model is equipped with: Bionics; Galvanic carbine; Power sword.",
   "weapons": [
     {
       "name": "Galvanic carbine",
@@ -99,7 +99,6 @@ export const serberysRaiders: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Move through cover, Outflank, Vanguard",
-    "Bionics: This model receives a 6+ ward save.",
     "Target Acquired: Select one enemy unit that was hit by this unit during the activation. The next friendly unit firing on the same target can re-roll one failed to hit and wound roll."
   ],
   "unit_type": "Bike",

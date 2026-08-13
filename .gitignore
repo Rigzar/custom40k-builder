@@ -50,3 +50,4 @@ dev-server.log
 __pycache__/
 .vercel
 .env*
+.codex-live/
