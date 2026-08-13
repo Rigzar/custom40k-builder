@@ -198,8 +198,20 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   }
   // Level 2 — Unique: once per army; blocked if any OTHER unit in the army already has it
   function uniqueArmyBlocked(arm: ArmoryItem, sec: Section): boolean {
-    if (!isUniqueItem(arm.desc)) return false;
+    // "Every Kustom job is unique." — the Orks Armory prints that once at the FOOT of the KUSTOM
+    // JOBS section rather than on each of the sixteen entries, so `isUniqueItem(arm.desc)` never
+    // saw it and the same Kustom job could be bought by every unit in the army.
+    if (!isUniqueItem(arm.desc) && !isOrkKustomJob(arm.name)) return false;
     return army.filter(e => e.id !== item.id).some(e => e.armory.some(a => a.itemName === arm.name && a.section === sec));
+  }
+  // "Can get one Kustom job." — the datasheet line grants exactly one, whatever the unit's size.
+  // Without this a Trukk could buy all sixteen, since each is a different item and so never trips
+  // the per-item cap. The Waaagh! Coast Kustoms trait raises the per-ITEM cap (above), not this one:
+  // it says each job may be taken one additional time across the army, not that a unit gets two.
+  function kustomJobSlotFull(arm: ArmoryItem): boolean {
+    if (!isOrkKustomJob(arm.name)) return false;
+    if (currentArmory.some(a => a.itemName === arm.name)) return false;   // already this one — removal still allowed
+    return currentArmory.some(a => isOrkKustomJob(a.itemName));
   }
   // Level 2b — Unwieldy: once per MODEL (Core Rules glossary, ki-unwieldy-permodel-unenforced-01).
   // Blocked if this model's own armory already carries a (different) Unwieldy item.
@@ -284,6 +296,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function isAddBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (oncePerModelBlocked(arm, sec)) return true;
     if (uniqueArmyBlocked(arm, sec)) return true;
+    if (kustomJobSlotFull(arm)) return true;
     if (unwieldyModelBlocked(arm, sec)) return true;
     if (sec === 'equipment' && armorConflict(arm)) return true;
     if (sec === 'equipment' && daemonGatewayConflict(arm)) return true;
@@ -509,6 +522,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         return true;
       }
       if (!arm.category && isTauPlainInfantry && !arm.name.includes('ᴵ')) return false;
+      // A vehicle cannot shop the general WEAPON/EQUIPMENT sections. Checked against every live
+      // sheet: 178 vehicle datasheets say "Has access to vehicle equipment from the Armory" and
+      // NOT ONE grants general access. The sheets say it structurally too — the general sections
+      // are priced "POINTS / POINTS CHARACTER MODELS", with no vehicle column, while VEHICLE
+      // UPGRADES has its own. Until now `showArmory` let any vehicle in as long as the faction had
+      // regular items anywhere, so a Rhino was offered a power sword.
+      //
+      // The single exception is an Ork Kustom job: its own section on the sheet, flat-priced
+      // rather than per hull point (which is why these are not modelled as veteran items), and
+      // Ork vehicle datasheets explicitly say "Can get one Kustom job" — 13 of them do.
+      // Character-bodied vehicles keep full access: their relics are priced via p_char.
+      if (!arm.category && isVehicle && !unit.is_character) return isOrkKustomJob(arm.name);
       return true;
     });
   }

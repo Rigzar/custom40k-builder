@@ -6,7 +6,7 @@ import type { Unit, Weapon, Choice, ArmoryItem, FactionData, Model } from '../ty
 import { useArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
-import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel } from '../engine/equipMods';
+import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
@@ -282,12 +282,19 @@ export function UnitCard({ item }: Props) {
   // Vehicle-bodied characters (is_character: true) keep access, since relics are priced via p_char.
   // Reads all faction data sources (primary, allied detachment, all supplements) since this only
   // needs to know whether ANY regular item exists anywhere in the faction, allied or not.
-  const factionHasRegularItems = [data, alliedData, ...Object.values(supplementData)].filter(Boolean).some(d =>
+  // What a non-character VEHICLE can still find in the general sections. Nothing, in every faction
+  // but Orks: 178 vehicle datasheets across the live sheets grant "vehicle equipment from the
+  // Armory" and none grants general access, and the general sections carry no vehicle price column.
+  // Ork Kustom jobs are the exception — their own section, flat-priced, and 13 Ork vehicle
+  // datasheets say "Can get one Kustom job". Mirrors the filter in ArmoryModal; without this the
+  // button would open an empty window for every other faction's tanks.
+  const vehicleHasGeneralItems = [data, alliedData, ...Object.values(supplementData)].filter(Boolean).some(d =>
     [d!.armory_general, ...Object.values(d!.armory_marks), ...Object.values(d!.armory_legions)]
-      .some(src => (src.equipment as ArmoryItem[]).some(a => !a.category))
+      .some(src => [...(src.weapons as ArmoryItem[]), ...(src.equipment as ArmoryItem[])]
+        .some(a => !a.category && isOrkKustomJob(a.name)))
   );
   const showArmory = (u.has_armory_access || (u.champion_has_armory && !armoryGatedByVariant && !championArmoryInOwnBlock))
-    && (!u.is_vehicle || u.is_character || factionHasRegularItems);
+    && (!u.is_vehicle || u.is_character || vehicleHasGeneralItems);
   // When Armory access is gated to a single champion/promoted-variant model (not the whole unit),
   // the live profile's equipment stat-mods (T/Sv/etc. from `item.armory`) must only land on THAT
   // model's row — applying them to every row would bleed e.g. a Nob's Mega armor onto the base

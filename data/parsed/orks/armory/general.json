@@ -635,7 +635,7 @@
     {
       "name": "Eavy armour cabin",
       "term_compat": false,
-      "desc": "Passengers receive the benefit of cover. Transport vehicle only.",
+      "desc": "Passengers receive the benefit of light cover. Transport vehicle only.",
       "p_unit": 10,
       "p_char": null
     },
