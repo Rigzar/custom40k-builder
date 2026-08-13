@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import type { ArmyState, RosterEntry, Mark, EngagementType, ArmorySelection, TraitSelection } from '../types/army';
-import type { FactionData, Trait, Unit } from '../types/data';
+import type { FactionData, Trait, Unit, Armory } from '../types/data';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
@@ -256,6 +256,8 @@ export interface ArmyStore extends ArmyState {
   /** Inject a faction's unit data into data.allied[key] for archetype-unlocked factions. */
   injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => void;
   injectArchetypeArmory: (factionData: FactionData | null, grantsMarks?: boolean) => void;
+  /** Park another codex's armouries as BORROW-ONLY (Red Corsairs "Reaver Lord"). Pass null to clear. */
+  injectBorrowableArmories: (armories: Record<string, Armory> | null) => void;
   /** Same, but for the Allied Detachment's own archetype-granted intrinsic ally. */
   injectAlliedArchetypeFaction: (key: string, factionData: FactionData) => void;
   importRoster: (json: string) => void;
@@ -662,9 +664,13 @@ export const useArmyStore = create<ArmyStore>()(
       addArmoryItem: (id: string, item: ArmorySelection) => set((s: S) => ({
         army: s.army.map((e: RosterEntry) => e.id !== id ? e : { ...e, armory: [...e.armory, item] }),
       })),
+      // Removing a selection also removes anything BORROWED through it — the Red Corsairs
+      // "Reaver Lord" buys the right to one item out of another Armory, so dropping the Lord and
+      // leaving the fetched item behind would keep granting gear nothing is paying for.
       removeArmoryItem: (id: string, armoryId: string) => set((s: S) => ({
         army: s.army.map((e: RosterEntry) => e.id !== id ? e : {
-          ...e, armory: e.armory.filter((a: ArmorySelection) => a.id !== armoryId),
+          ...e, armory: e.armory.filter((a: ArmorySelection) =>
+            a.id !== armoryId && a.borrowedVia !== armoryId),
         }),
       })),
 
@@ -740,6 +746,19 @@ export const useArmyStore = create<ArmyStore>()(
         if (next && s.data.archetype_armory?.general === next.general
             && s.data.archetype_armory.grantsMarks === grantsMarks) return {};
         return { data: { ...s.data, archetype_armory: next } };
+      }),
+
+      injectBorrowableArmories: (armories: Record<string, Armory> | null) => set((s: S) => {
+        if (!s.data) return {};
+        const cur = s.data.borrowable_armories;
+        // Same keys already parked? Nothing to do — this runs from an effect and a fresh object
+        // every render would loop.
+        const sameKeys = !!cur && !!armories
+          && Object.keys(cur).length === Object.keys(armories).length
+          && Object.keys(armories).every(k => k in cur);
+        if (!armories && !cur) return {};
+        if (sameKeys) return {};
+        return { data: { ...s.data, borrowable_armories: armories ?? undefined } };
       }),
 
       injectArchetypeFaction: (key: string, factionData: FactionData, sharedArmoryLabel?: string) => set((s: S) => {

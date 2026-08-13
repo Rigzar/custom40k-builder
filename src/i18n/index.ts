@@ -61,6 +61,7 @@ export type TranslationKey =
   | 'continueLabel' | 'continueArmy' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
   | 'skirmishDropsAllyConfirm'
+  | 'reaverLordPickLabel' | 'reaverLordChosenLabel' | 'reaverLordSearch'
   | 'noCustomisationOptions' | 'battleSetup' | 'armyDoctrine' | 'notAvailableInSkirmish' | 'onlyForArmiesWithMarkOf'
   | 'legaciesNotAvailableWithArchetype' | 'secondLegacyNone' | 'secondLegacyUnlockedByTrait'
   | 'chooseUpToTraitsPrefix' | 'chooseUpToTraitsSuffix' | 'traitSlotPrefix' | 'traitSlotSuffix'
@@ -313,6 +314,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     backToUnits: 'Back to the units',
     saveAndExport: 'Save & export',
     alliedSeparateDetachment: 'A separate detachment: its own Army Organisation Plan and its own customisation, sharing only the point limit with',
+    reaverLordPickLabel: 'Reaver Lord — choose one item from any Space Marine or Chaos Space Marine Armory',
+    reaverLordChosenLabel: 'Reaver Lord — item taken',
+    reaverLordSearch: 'Search the armouries…',
     skirmishDropsAllyConfirm: 'Skirmish allows no allies, so switching to it REMOVES your Allied Detachment and every unit in it. Going back to another engagement will not bring them back. Continue?',
     campaign: 'Campaign',
     campaignAlphaTooltip: 'Planetary Assault campaigns (ALPHA)',
@@ -895,6 +899,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     backToUnits: 'Zurück zu den Einheiten',
     saveAndExport: 'Speichern & exportieren',
     alliedSeparateDetachment: 'Ein eigenes Detachment: eigener Army Organisation Plan und eigene Anpassung, geteilt wird nur das Punktelimit mit',
+    reaverLordPickLabel: 'Reaver Lord — einen Gegenstand aus einer beliebigen Space-Marine- oder Chaos-Space-Marine-Armory wählen',
+    reaverLordChosenLabel: 'Reaver Lord — gewählter Gegenstand',
+    reaverLordSearch: 'Armories durchsuchen…',
     skirmishDropsAllyConfirm: 'Skirmish erlaubt keine Verbündeten. Der Wechsel dorthin ENTFERNT dein verbündetes Detachment und alle seine Einheiten. Ein Wechsel zurück bringt sie nicht wieder. Fortfahren?',
     campaign: 'Feldzug',
     campaignAlphaTooltip: 'Planetary-Assault-Feldzüge (ALPHA)',
@@ -1477,6 +1484,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     backToUnits: 'Volver a las unidades',
     saveAndExport: 'Guardar y exportar',
     alliedSeparateDetachment: 'Un destacamento aparte: su propio Army Organisation Plan y su propia personalización, compartiendo solo el límite de puntos con',
+    reaverLordPickLabel: 'Reaver Lord — elige un objeto de cualquier armería de Space Marines o Chaos Space Marines',
+    reaverLordChosenLabel: 'Reaver Lord — objeto tomado',
+    reaverLordSearch: 'Buscar en las armerías…',
     skirmishDropsAllyConfirm: 'Skirmish no permite aliados, así que cambiar a él ELIMINA tu Destacamento Aliado y todas sus unidades. Volver a otro tipo de batalla no los recupera. ¿Continuar?',
     campaign: 'Campaña',
     campaignAlphaTooltip: 'Campañas Planetary Assault (ALPHA)',

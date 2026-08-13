@@ -614,6 +614,60 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
   const armory = getArmory();
 
+  /**
+   * Red Corsairs "Reaver Lord" — the pool it may reach into, and the single item it has fetched.
+   *
+   * Pool = every Space Marine armoury (parked as borrow-only by App when the Legacy of the Tyrant
+   * is active) plus this army's own Chaos armouries, which is exactly what the sheet allows:
+   * "any Space Marine or Chaos Space Marine Armory". Only entries a character can actually be
+   * charged for are offered — an item priced "-" for characters cannot be selected, per the
+   * Armory's own preamble.
+   */
+  // `currentArmory`, not `item.armory` — the prop is the snapshot the modal opened with, so
+  // reading it would not see the Reaver Lord until the modal was closed and reopened.
+  const reaverSel = currentArmory.find(a => a.itemName === 'Reaver Lord');
+  const borrowedSel = reaverSel ? currentArmory.find(a => a.borrowedVia === reaverSel.id) : undefined;
+  const reaverLordCtx = (() => {
+    if (!reaverSel) return undefined;
+    const pools: Record<string, ArmoryItem[]> = {};
+    const usable = (list?: ArmoryItem[]) =>
+      (list ?? []).filter(a => a.name !== 'Reaver Lord' && parsePrice(a.p_char) != null);
+    const addPool = (label: string, arm?: { weapons?: ArmoryItem[]; equipment?: ArmoryItem[] }) => {
+      const items = [...usable(arm?.weapons as ArmoryItem[]), ...usable(arm?.equipment as ArmoryItem[])];
+      if (items.length) pools[label] = items;
+    };
+    addPool(`${data.faction} — General`, data.armory_general);
+    for (const [k, v] of Object.entries(data.armory_legions ?? {})) addPool(`${data.faction} — ${k}`, v);
+    for (const [k, v] of Object.entries(data.borrowable_armories ?? {})) addPool(k, v);
+    return {
+      pools,
+      chosen: borrowedSel
+        ? { id: borrowedSel.id, itemName: borrowedSel.itemName, source: borrowedSel.source, points: borrowedSel.points }
+        : null,
+      onChoose: (arm: ArmoryItem, source: string) => {
+        const pts = parsePrice(arm.p_char) ?? 0;
+        addArmoryItem(item.id, {
+          id: selId(),
+          itemName: arm.name,
+          source: `Reaver Lord · ${source}`,
+          // A borrowed WEAPON has to land in the weapons section or the resolver will not turn it
+          // into a profile row; everything else is equipment.
+          section: (arm.profiles?.length || arm.range) ? 'weapons' : 'equipment',
+          points: pts,
+          isCharacter: true,
+          borrowedVia: reaverSel.id,
+        });
+      },
+      onClear: (id: string) => removeItem(id),
+      // "Requirements like 'Only for psykers' must be met" — the same keyword gate every other
+      // purchase goes through — plus the army-wide unique check. Deliberately NOT the full
+      // isAddBlocked: its mark test belongs to this codex's own armouries and would wrongly
+      // reject a Space Marine item for having no Chaos mark.
+      isTakenElsewhere: (arm: ArmoryItem) =>
+        uniqueArmyBlocked(arm, 'equipment') || isItemRequirementsBlocked(arm, _effectiveKws),
+    };
+  })();
+
   // Flattened item names across the WHOLE roster — backs the army-wide gate (requires_army_item):
   // e.g. picking "Ordo Xenos" on any Inquisitor unlocks Ordo Xenos equipment for every model.
   // Plus any "Ordo X" names unlocked by the selected Army Customisation Legacy (Inquisition),
@@ -944,6 +998,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         availableWeapons={availableWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                        reaverLord={reaverLordCtx}
                       />
                     ) : (
                       legItems.length === 0
@@ -1206,6 +1261,14 @@ interface EquipGroupsProps {
     onAdd: (arm: ArmoryItem, targetWeapon?: string) => void;
     onRemove: (id: string) => void;
   };
+  /** Inline cross-armoury picker for the Red Corsairs "Reaver Lord" — see ReaverLordPicker. */
+  reaverLord?: {
+    pools: Record<string, ArmoryItem[]>;
+    chosen: { id: string; itemName: string; source: string; points: number } | null;
+    onChoose: (arm: ArmoryItem, source: string) => void;
+    onClear: (id: string) => void;
+    isTakenElsewhere: (arm: ArmoryItem) => boolean;
+  };
 }
 
 function EquipmentGroups({
@@ -1222,6 +1285,7 @@ function EquipmentGroups({
   getSelId, onRemove,
   onAdd,
   daemonWeapon,
+  reaverLord,
   availableWeapons = [],
   eqTargetWeapon = {},
   onSetEqTargetWeapon,
@@ -1350,6 +1414,16 @@ function EquipmentGroups({
                     onRemove={daemonWeapon.onRemove}
                   />
                 )}
+                {/* Reaver Lord — the cross-armoury pick, inline under the item once it is bought. */}
+                {reaverLord && arm.name === 'Reaver Lord' && getSelId?.(arm.name) && (
+                  <ReaverLordPicker
+                    pools={reaverLord.pools}
+                    chosen={reaverLord.chosen}
+                    onChoose={reaverLord.onChoose}
+                    onClear={reaverLord.onClear}
+                    isTakenElsewhere={reaverLord.isTakenElsewhere}
+                  />
+                )}
               </div>
             );
           })}
@@ -1426,6 +1500,119 @@ function EquipmentGroups({
 }
 
 // ── Daemon weapon ability picker ────────────────────────────────────────────
+
+/**
+ * Red Corsairs "Reaver Lord" — Chaos Space Marines 1.03, verbatim:
+ *   "Select a single item from any Space Marine or Chaos Space Marine Armory for the stated cost.
+ *    Requirements like 'Only for psykers' must be met. Unique."
+ *
+ * Shown once the Reaver Lord itself has been bought. What it fetches is added as an ORDINARY
+ * selection carrying the borrowed item's own price and section, tagged with `borrowedVia` — so
+ * pricing, resolution and the item's own rules text all flow through the machinery that already
+ * exists, and dropping the Reaver Lord takes the borrowed item with it (see the store's
+ * removeArmoryItem).
+ *
+ * "For the stated cost" means the item's CHARACTER price: the Reaver Lord is character-only
+ * (p_unit is "-" on the sheet), so anything it fetches is being taken by a character model.
+ */
+function ReaverLordPicker({
+  pools, chosen, onChoose, onClear, isTakenElsewhere,
+}: {
+  /** Armoury label → its items, already filtered to what a character may take. */
+  pools: Record<string, ArmoryItem[]>;
+  chosen: { id: string; itemName: string; source: string; points: number } | null;
+  onChoose: (arm: ArmoryItem, source: string) => void;
+  onClear: (id: string) => void;
+  isTakenElsewhere: (arm: ArmoryItem) => boolean;
+}) {
+  const t = useT();
+  const [open, setOpen] = useState<string>('');
+  const [filter, setFilter] = useState('');
+  const q = filter.trim().toLowerCase();
+
+  if (chosen) {
+    return (
+      <div className="px-3 pb-2 pt-1.5 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
+        <div className="flex items-center justify-between gap-2">
+          <div className="min-w-0">
+            <div className="text-[10px] text-amber-600 uppercase tracking-widest">{t('reaverLordChosenLabel')}</div>
+            <div className="text-sm text-zinc-200 truncate">{chosen.itemName}</div>
+            <div className="text-[10px] text-zinc-500">{chosen.source}</div>
+          </div>
+          <div className="flex flex-col items-end gap-1 shrink-0">
+            <span className="font-bold text-sm text-amber-500 whitespace-nowrap">+{chosen.points} pts</span>
+            <button
+              onClick={() => onClear(chosen.id)}
+              className="text-[11px] px-2 py-0.5 border uppercase tracking-wide bg-red-900/60 border-red-700 text-red-300 hover:bg-red-800"
+            >
+              {t('removeUnit')}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const labels = Object.keys(pools);
+  return (
+    <div className="px-3 pb-2 pt-1.5 bg-zinc-800/40 border-l border-r border-b border-zinc-700 space-y-1.5">
+      <div className="text-[10px] text-amber-600 uppercase tracking-widest">{t('reaverLordPickLabel')}</div>
+      <input
+        value={filter}
+        onChange={e => setFilter(e.target.value)}
+        placeholder={t('reaverLordSearch')}
+        className="w-full bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-1 focus:outline-none focus:border-amber-600"
+      />
+      <div className="max-h-64 overflow-y-auto space-y-1">
+        {labels.map(label => {
+          const items = pools[label].filter(a => !q || a.name.toLowerCase().includes(q)
+            || (a.desc ?? '').toLowerCase().includes(q));
+          if (items.length === 0) return null;
+          const isOpen = q !== '' || open === label;
+          return (
+            <div key={label} className="border border-zinc-700/70">
+              <button
+                onClick={() => setOpen(o => (o === label ? '' : label))}
+                className="w-full flex justify-between items-center px-2 py-1 bg-zinc-900/70 hover:bg-zinc-800"
+              >
+                <span className="text-[11px] text-zinc-300">{label}</span>
+                <span className="text-[10px] text-zinc-500">{items.length} {isOpen ? '▲' : '▼'}</span>
+              </button>
+              {isOpen && (
+                <div className="p-1 space-y-0.5">
+                  {items.map((arm, i) => {
+                    const taken = isTakenElsewhere(arm);
+                    const pts = parsePrice(arm.p_char) ?? parsePrice(arm.p_unit);
+                    return (
+                      <button
+                        key={i}
+                        disabled={taken || pts == null}
+                        onClick={() => onChoose(arm, label)}
+                        className={`w-full text-left px-2 py-1 border text-[11px] flex justify-between gap-2 ${
+                          taken || pts == null
+                            ? 'border-zinc-800 text-zinc-600 cursor-not-allowed'
+                            : 'border-zinc-700 text-zinc-300 hover:border-amber-700 hover:text-amber-300'
+                        }`}
+                      >
+                        <span className="min-w-0">
+                          <span className="block truncate">{arm.name}</span>
+                          {arm.desc && <span className="block text-[10px] text-zinc-500 truncate">{arm.desc}</span>}
+                        </span>
+                        <span className="shrink-0 font-bold">
+                          {taken ? t('takenByAnotherUnit') : pts == null ? '—' : `+${pts}`}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function DaemonWeaponPicker({
   pool, cap, selections, lastAdded, availableWeapons,

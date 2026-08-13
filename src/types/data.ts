@@ -545,6 +545,17 @@ export interface FactionData {
     /** True when the granting archetype also grants Marks of Chaos (gates marks + disciplines). */
     grantsMarks: boolean;
   };
+  /**
+   * Armouries a single ITEM may borrow one entry from — NOT army-wide access. Nothing in here is
+   * purchasable on its own and it adds no tab.
+   *
+   * Red Corsairs "Reaver Lord": "Select a single item from any Space Marine or Chaos Space Marine
+   * Armory for the stated cost." The Chaos armouries are already on FactionData; the Space Marine
+   * ones belong to another codex entirely, so they are loaded on demand and parked here, keyed by
+   * a display label ("Space Marines — General", "Space Marines — Dark Angels", …). `findArmoryItem`
+   * searches this last so a same-named item in the unit's own codex always wins.
+   */
+  borrowable_armories?: Record<string, Armory>;
   /** Tau Empire only — see DroneType doc comment. Data-only, not yet wired into any UI/engine path. */
   drones?: DroneType[];
   /** Adeptus Mechanicus only — see Canticle doc comment. Data-only, not yet wired into any UI/engine path. */

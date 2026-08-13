@@ -164,6 +164,9 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
       ...Object.values(a.armory_marks ?? {}),
       ...Object.values(a.armory_legions ?? {}),
     ]).filter((x): x is NonNullable<typeof x> => !!x),
+    // Borrow-only armouries (Red Corsairs "Reaver Lord" reaching into the Space Marine codex).
+    // Last of all: these are not this army's own gear, they are one item it was allowed to fetch.
+    ...Object.values(data.borrowable_armories ?? {}),
   ];
   for (const armory of sources) {
     const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);

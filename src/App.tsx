@@ -339,6 +339,29 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [archetype, data?.faction]);
 
+  // Red Corsairs "Reaver Lord" (CSM 1.03): "Select a single item from any Space Marine or Chaos
+  // Space Marine Armory for the stated cost." The Chaos armouries are already loaded; the Space
+  // Marine ones are another codex, so they are fetched only when the Legacy that unlocks the Red
+  // Corsairs Armory is actually chosen, and parked as BORROW-ONLY — no tab, nothing purchasable
+  // on its own, just reachable so the borrowed item resolves and prices like any other.
+  useEffect(() => {
+    if (!data || data.faction !== 'Chaos Space Marines' || legacy !== 'Legacy of the Tyrant') {
+      store.injectBorrowableArmories(null);
+      return;
+    }
+    loaders['space_marines']()
+      .then(m => {
+        const sm = m as FactionData;
+        const out: Record<string, import('./types/data').Armory> = {
+          'Space Marines — General': sm.armory_general,
+        };
+        for (const [k, v] of Object.entries(sm.armory_legions ?? {})) out[`Space Marines — ${k}`] = v;
+        store.injectBorrowableArmories(out);
+      })
+      .catch(e => console.error('Error loading the Space Marine armoury for the Reaver Lord', e));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [legacy, data?.faction]);
+
   // Mirrors the effect above, but for the Allied Detachment's OWN archetype-granted intrinsic
   // ally (e.g. CSM "Plaguehost" chosen as the ally's archetype → Chaos Daemons with Mark of
   // Nurgle) — the ally's catalogue needs the exact same lazy-load, keyed on the ally's own

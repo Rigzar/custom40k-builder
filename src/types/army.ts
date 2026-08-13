@@ -28,6 +28,16 @@ export interface ArmorySelection {
   /** Eldar "Paragon of war" — which Exarch Power the model gains (chosen from the universal
    *  16-power pool shared by every Aspect Warrior squad). See ELDAR_EXARCH_POWERS. */
   chosenPower?: string;
+  /**
+   * Red Corsairs "Reaver Lord": the id of the selection this one was BORROWED through.
+   *
+   * The Reaver Lord itself grants nothing — it buys the right to take one item out of any Space
+   * Marine or Chaos Space Marine Armory "for the stated cost". Rather than invent a second kind
+   * of purchase, the borrowed item is added as an ordinary selection carrying its own real price
+   * and section, so pricing, resolution and requirements all work through the existing machinery.
+   * This field only ties the two together, so removing the Reaver Lord removes what it fetched.
+   */
+  borrowedVia?: string;
 }
 
 export interface TraitSelection {
