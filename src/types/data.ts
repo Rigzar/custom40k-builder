@@ -163,6 +163,20 @@ export interface OptionGroup {
    */
   available_if?: OptionCondition;
   /**
+   * Names of choices, in the unit's OTHER option groups, that must be selected before this group
+   * can be used. For a swap whose weapon the model does not start with: the Space Marine
+   * Dreadnought's default loadout is "-" and its "Can swap a Storm bolter" group only makes sense
+   * once you have picked one of the two entries that come WITH a Storm bolter — confirmed by the
+   * author, 2026-08-13: "the Storm bolter swap can be done if you select a weapon that comes with
+   * one."
+   *
+   * Deliberately NOT derived from `replaces`. Measured across the game: 19 groups replace a weapon
+   * absent from `equipped_with`, and 16 of them are a Champion's/Exarch's own gear, which the base
+   * loadout sentence never mentions (the resolver's `variantOnlyWeapons` handles those). A general
+   * "you must own what you swap" rule would hide all of them.
+   */
+  requires_choice?: string[];
+  /**
    * Names of the weapon(s) this group removes when one of its choices is selected
    * ("Each model's X may be replaced" / "May replace its X" → ["X"]). Structures the
    * dropped item the header text only names. Set ONLY for unit-wide swaps (every model,

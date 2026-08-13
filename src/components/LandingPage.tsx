@@ -24,7 +24,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: '',
     line4: '🐛 Both of your reports. Horror squads no longer arrive with a free Blue and Brimstone Horror you cannot remove — those are split profiles for mid-battle, not models you buy (#84). And a Sorcerer that takes Cult initiate keeps its own disciplines: the item exchanges one power, it does not replace the lot (#85).',
     line5: '⚔ Found while fixing the above: 81 Armory items across every faction printed a garbled rule name — jump packs, bikes, jetbikes, steeds, wings, teleporters, biomorphs. They now show the rule they actually grant.',
-    line6: '',
+    line6: '🛡 Space Marines — the Dreadnought CAN take a Flamestorm cannon, +36 pts. When we removed it in v1.59 we said the datasheet did not offer it; the author has since added the option, so whoever reported it was right. It also only offers the Storm bolter swap once you pick a weapon that actually comes with a Storm bolter.',
     contrib: '👁️ Both bugs this round came through the in-app report form, and both were fixable because the report said which unit and what was expected. Keep them coming: unit, engagement, archetype, and a picture. If the list itself misbehaves, Review → ↓ JSON gives us the exact army.',
   },
   de: {
@@ -36,7 +36,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: '',
     line4: '🐛 Beide eurer Meldungen. Horror-Trupps kommen nicht mehr mit einem unentfernbaren Blue und Brimstone Horror — das sind Profile für die Aufspaltung im Spiel, keine Modelle zum Kaufen (#84). Und ein Sorcerer mit Cult initiate behält seine eigenen Disziplinen: Der Gegenstand tauscht EINE Kraft, er ersetzt nicht alle (#85).',
     line5: '⚔ Beim Beheben gefunden: 81 Armory-Gegenstände in allen Fraktionen zeigten einen zerstückelten Regelnamen — Sprungmodule, Bikes, Jetbikes, Reittiere, Schwingen, Teleporter, Biomorphe. Jetzt steht dort die Regel, die sie wirklich geben.',
-    line6: '',
+    line6: '🛡 Space Marines — der Dreadnought DARF eine Flamestorm-Kanone nehmen, +36 Punkte. Als wir sie in v1.59 entfernt haben, hieß es, das Datenblatt biete sie nicht an; der Autor hat die Option inzwischen ergänzt — wer das gemeldet hat, hatte also recht. Außerdem gibt es den Storm-Bolter-Tausch jetzt nur noch, wenn die gewählte Waffe auch einen Storm Bolter mitbringt.',
     contrib: '👁️ Beide Fehler dieser Runde kamen über das Melde-Formular in der App, und beide waren behebbar, weil in der Meldung stand, welche Einheit und was erwartet wurde. Bitte weiter so: Einheit, Engagement, Archetyp und ein Bild. Wenn die Liste selbst spinnt, liefert Prüfung → ↓ JSON die exakte Armee.',
   },
   es: {
@@ -48,7 +48,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: '',
     line4: '🐛 Vuestros dos reportes. Las unidades de Horrors ya no vienen con un Blue y un Brimstone Horror gratis que no se podían quitar — son perfiles para cuando la unidad se divide en partida, no modelos que se compran (#84). Y un Sorcerer con Cult initiate conserva sus disciplinas: el objeto intercambia UN poder, no los sustituye todos (#85).',
     line5: '⚔ Encontrado al arreglar lo anterior: 81 objetos de armería en todas las facciones mostraban el nombre de su regla hecho trizas — jump packs, motos, jetbikes, monturas, alas, teleportadores, biomorfos. Ahora muestran la regla que dan de verdad.',
-    line6: '',
+    line6: '🛡 Space Marines — el Dreadnought SÍ puede llevar Flamestorm cannon, +36 puntos. Cuando lo quitamos en v1.59 dijimos que la ficha no lo ofrecía; el autor ha añadido la opción desde entonces, así que quien lo reportó tenía razón. Y el cambio de Storm bolter solo aparece si eliges un arma que venga con uno.',
     contrib: '👁️ Los dos fallos de esta ronda llegaron por el formulario de reporte de la app, y los dos se pudieron arreglar porque el reporte decía qué unidad y qué se esperaba. Seguid así: unidad, engagement, arquetipo y una imagen. Si lo que falla es la lista, Revisión → ↓ JSON nos da el ejército exacto.',
   },
 };

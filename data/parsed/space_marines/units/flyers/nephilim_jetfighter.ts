@@ -12,7 +12,7 @@ export const nephilimJetfighter: Unit = {
   "name": "Nephilim Jetfighter",
   "models": [
     {
-      "name": "Nephelim Jetfighter",
+      "name": "Nephilim Jetfighter",
       "points": 237,
       "min": 1,
       "max": 1,

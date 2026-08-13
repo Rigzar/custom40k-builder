@@ -85,7 +85,7 @@ export const stormtalonGunship: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Anti-air"
+      "abilities": "AT(1), Anti-air"
     }
   ],
   "option_groups": [
@@ -111,7 +111,9 @@ export const stormtalonGunship: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Twin heavy bolter"]
+      "replaces": [
+        "Twin heavy bolter"
+      ]
     }
   ],
   "abilities": [

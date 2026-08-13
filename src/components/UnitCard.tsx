@@ -1206,6 +1206,12 @@ export function UnitCard({ item }: Props) {
             if ((g.available_if?.scope === 'force' || g.available_if?.scope === 'archetype') &&
                 !isOptionAvailable(g.available_if, effectiveMark ?? null, u.keywords, data.faction, itemArchetype)) return null;
 
+            // A swap for a weapon the model does not start with: hidden until something you picked
+            // actually gives you one (see OptionGroup.requires_choice).
+            if (g.requires_choice?.length && !u.option_groups.some((og, ogi) =>
+              og !== g && og.choices.some((c, ci) =>
+                g.requires_choice!.includes(c.name) && (item.optionQty?.[ogi]?.[ci] ?? 0) > 0))) return null;
+
             // Required OG warning: show if nothing is selected
             const isRequired = g.constraint.required;
             const hasSelection = isRequired && g.choices.some((_, ci) => (item.optionQty?.[realGi]?.[ci] ?? 0) > 0);

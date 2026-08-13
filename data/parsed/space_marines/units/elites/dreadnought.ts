@@ -70,6 +70,15 @@ export const dreadnought: Unit = {
       "abilities": "Armor piercing(5+), Suppression"
     },
     {
+      "name": "Flamestorm cannon",
+      "range": "12\"",
+      "type": "Heavy 6",
+      "s": "6",
+      "ap": "-3",
+      "d": "1",
+      "abilities": "Flames"
+    },
+    {
       "name": "Heavy flamer",
       "range": "9\"",
       "type": "Assault 4",
@@ -203,6 +212,10 @@ export const dreadnought: Unit = {
           "points": 32
         },
         {
+          "name": "Flamestorm cannon",
+          "points": 36
+        },
+        {
           "name": "Twin heavy bolter",
           "points": 36
         },
@@ -253,7 +266,13 @@ export const dreadnought: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Storm bolter"]
+      "replaces": [
+        "Storm bolter"
+      ],
+      "requires_choice": [
+        "Dreadnought claw and Storm bolter",
+        "Dreadnought close combat weapon and Storm bolter"
+      ]
     }
   ],
   "abilities": [

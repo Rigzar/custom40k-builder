@@ -39,6 +39,9 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Chaos Space Marines — a Sorcerer that takes Cult initiate keeps its own disciplines. The item exchanges one power, it does not replace the model\'s whole repertoire (GitHub #85).',
       'GENERAL — 81 Armory items across every faction printed a garbled rule name (bikes, jump packs, steeds, wings). They now show the rule they actually grant.',
       'GENERAL — gear that a datasheet lists in a model\'s default loadout applies its rule instead of being decoration.',
+      'Space Marines — the Dreadnought can take a Flamestorm cannon after all, +36 pts. We said it could not when we removed it in v1.59; the author has since added the option to the datasheet, so the reporter was right (GitHub #82).',
+      'Space Marines — the Dreadnought only offers its Storm bolter swap once you pick a weapon that comes with a Storm bolter. Before, you could buy the swap with no Storm bolter to swap.',
+      'Space Marines — the Stormtalon Gunship\'s Typhoon missile launcher (Krak) is AT(1); the Stormhawk\'s and Stormraven\'s stay AT(2). The sheets really do differ. And the Stormcaller psychic power grants light cover, not cover.',
     ],
   },
   {

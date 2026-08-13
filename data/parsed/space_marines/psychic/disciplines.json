@@ -356,7 +356,7 @@
       "range": "-",
       "target": "Self + attached unit",
       "cast_value": "6",
-      "effect": "The target gains the benefit of cover.",
+      "effect": "The target gains the benefit of light cover.",
       "duration": "Until the caster's next activation",
       "complexity": "Basic"
     },

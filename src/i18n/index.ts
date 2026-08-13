@@ -150,7 +150,7 @@ export type TranslationKey =
   | 'valArchetypeTroopsRatioCap' | 'valArchetypeRequiresEscort' | 'valArchetypeTroopsModelRatioCap'
   | 'valArchetypeNoVetAbilities' | 'valArchetypeHqNotAllowed' | 'valArchetypeForcedMarkConflict'
   | 'valNoLegacyAllowed' | 'valNoTraitsAllowed' | 'valChoiceMarkRestriction' | 'valOptionNotAvailableMark'
-  | 'valOptionRequiresArchetype' | 'valOptionOnlyInArmy' | 'val2ndLegacyRequiresTrait' | 'valAssassinSelectionRule'
+  | 'valOptionRequiresArchetype' | 'valOptionRequiresChoice' | 'valOptionOnlyInArmy' | 'val2ndLegacyRequiresTrait' | 'valAssassinSelectionRule'
   | 'valNeedAtLeastSlot' | 'valSkirmishHqOncePerArmy' | 'valTroopsRatioFail' | 'valTroopsRatioOk' | 'valAllyArchetypeUnitNotAllowed'
   | 'valSkirmishNoFreeSlots'
   | 'valAllyArchetypeNotInAllowedList' | 'valAllyArchetypeSlotNotAllowed' | 'valAllyArchetypeRequiresHqUnit'
@@ -671,6 +671,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valChoiceMarkRestriction: '{unit}: "{choice}" requires Mark of {requiredMark} (current: {currentMark}).',
     valOptionNotAvailableMark: '{unit}: "{header}" is not available with Mark of {mark} — deselect one.',
     valOptionRequiresArchetype: '{unit}: "{header}" requires the "{archetype}" archetype — deselect one.',
+    valOptionRequiresChoice: '{unit}: "{header}" needs one of {choices} selected first — deselect it.',
     valOptionOnlyInArmy: '{unit}: "{header}" is only available in a {keyword} army — deselect one.',
     val2ndLegacyRequiresTrait: '2nd Legacy requires the second-legion trait to be active.',
     valAssassinSelectionRule: '"{ruleName}": select either a single Assassin (Callidus/Culexus/Eversor/Vindicare) or one of each — no other combination.',
@@ -1256,6 +1257,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valChoiceMarkRestriction: '{unit}: „{choice}" erfordert Mal von {requiredMark} (aktuell: {currentMark}).',
     valOptionNotAvailableMark: '{unit}: „{header}" ist mit Mal von {mark} nicht verfügbar — bitte abwählen.',
     valOptionRequiresArchetype: '{unit}: „{header}" erfordert den Archetyp „{archetype}" — bitte abwählen.',
+    valOptionRequiresChoice: '{unit}: „{header}" setzt voraus, dass zuvor {choices} gewählt wurde — bitte abwählen.',
     valOptionOnlyInArmy: '{unit}: „{header}" ist nur in einer {keyword}-Armee verfügbar — bitte abwählen.',
     val2ndLegacyRequiresTrait: '2. Legacy erfordert die aktivierte Eigenschaft der zweiten Legion.',
     valAssassinSelectionRule: '„{ruleName}": wähle entweder einen einzelnen Assassinen (Callidus/Culexus/Eversor/Vindicare) oder einen von jedem — keine andere Kombination.',
@@ -1841,6 +1843,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valChoiceMarkRestriction: '{unit}: "{choice}" requiere Marca de {requiredMark} (actual: {currentMark}).',
     valOptionNotAvailableMark: '{unit}: "{header}" no está disponible con Marca de {mark} — deselecciónalo.',
     valOptionRequiresArchetype: '{unit}: "{header}" requiere el arquetipo "{archetype}" — deselecciónalo.',
+    valOptionRequiresChoice: '{unit}: "{header}" necesita que antes elijas {choices} — deselecciónalo.',
     valOptionOnlyInArmy: '{unit}: "{header}" solo está disponible en un ejército {keyword} — deselecciónalo.',
     val2ndLegacyRequiresTrait: 'El 2º Legado requiere que el rasgo de la segunda legión esté activo.',
     valAssassinSelectionRule: '"{ruleName}": elige un solo Asesino (Callidus/Culexus/Eversor/Vindicare) o uno de cada uno — ninguna otra combinación.',

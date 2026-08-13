@@ -1565,6 +1565,21 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         items.push({ type: 'error', text: reason });
       }
     });
+    // Selection-gated groups (requires_choice): a swap for a weapon the model does not start with
+    // is only legal once a choice that grants it is selected. The UI hides the group, so this only
+    // fires on a list loaded or imported with the selection already in it.
+    u.option_groups.forEach((g, gi) => {
+      if (!g.requires_choice?.length) return;
+      const selected = Object.entries(item.optionQty?.[gi] ?? {}).some(([, v]) => (v ?? 0) > 0);
+      if (!selected) return;
+      const granted = u.option_groups.some((og, ogi) => og !== g && og.choices.some((c, ci) =>
+        g.requires_choice!.includes(c.name) && (item.optionQty?.[ogi]?.[ci] ?? 0) > 0));
+      if (!granted) {
+        items.push({ type: 'error', text: T('valOptionRequiresChoice', {
+          unit: item.unitName, header: g.header, choices: g.requires_choice.join(' / '),
+        }) });
+      }
+    });
   }
 
   // Black Crusade trait: one chosen HQ carries all four Chaos god marks simultaneously
