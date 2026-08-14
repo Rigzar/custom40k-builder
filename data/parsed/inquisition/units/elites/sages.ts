@@ -7,7 +7,7 @@ export const sages: Unit = {
       "name": "Sage",
       "points": 16,
       "min": 1,
-      "max": 6,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "4+",

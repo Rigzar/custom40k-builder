@@ -426,7 +426,16 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
           // weapon" on a model equipped with 2) — both leave the other copies on the datasheet,
           // so the weapon must not vanish after the first swap.
           const singleCopySwap = /\b(one|the other|a)\b/i.test(g.header ?? '');
-          if (copies > 1 && ((replaceGroupCountByName.get(name) ?? 0) >= copies || singleCopySwap)) {
+          // A single group worded "may swap EACH <weapon>" also swaps the copies one at a time —
+          // UnitCard reads the same signal to offer N swaps per model (v1.59, GH#81), and the
+          // hide-threshold has to agree with it. It did not: an Eldar War Walker carries two
+          // Scatter lasers, swapping ONE reached the default threshold of item.size and both
+          // vanished from the profile (GH#86). Kept separate from `singleCopySwap` because the
+          // wordings mean different things — "each" is every copy individually, "one" is one of
+          // them — but they need the same threshold.
+          const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const perCopySwap = new RegExp(`\\beach\\s+${esc}`, 'i').test(g.header ?? '');
+          if (copies > 1 && ((replaceGroupCountByName.get(name) ?? 0) >= copies || singleCopySwap || perCopySwap)) {
             replacedWeaponThreshold.set(name, item.size * copies);
           }
         }

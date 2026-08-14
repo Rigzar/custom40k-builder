@@ -7,7 +7,7 @@ export const crusaders: Unit = {
       "name": "Crusader",
       "points": 44,
       "min": 1,
-      "max": 6,
+      "max": 4,
       "stats": {
         "M": "6\"",
         "WS": "2+",

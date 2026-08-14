@@ -7,7 +7,7 @@ export const jokaeroWeaponsmiths: Unit = {
       "name": "Jokaero Weaponsmith",
       "points": 64,
       "min": 1,
-      "max": 6,
+      "max": 3,
       "stats": {
         "M": "6\"",
         "WS": "6+",

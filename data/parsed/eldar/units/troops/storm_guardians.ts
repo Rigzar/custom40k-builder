@@ -49,7 +49,7 @@ export const stormGuardians: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Storm Guardian is equipped with: Aeldari chainsword; Plasma grenade; Shuriken pistol.",
+  "equipped_with": "Every Storm Guardian is equipped with: Aeldari chainsword; Plasma grenade; Shuriken pistol. Every Serpent scale platform is equipped with: Serpent shield.",
   "weapons": [
     {
       "name": "Aeldari chainsword",
@@ -137,7 +137,10 @@ export const stormGuardians: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Aeldari chainsword", "Shuriken pistol"]
+      "replaces": [
+        "Aeldari chainsword",
+        "Shuriken pistol"
+      ]
     },
     {
       "header": "All remaining Guardians can swap their Aeldari chainsword",
@@ -153,7 +156,9 @@ export const stormGuardians: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Aeldari chainsword"]
+      "replaces": [
+        "Aeldari chainsword"
+      ]
     }
   ],
   "abilities": [

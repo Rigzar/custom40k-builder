@@ -7,7 +7,7 @@ export const xenologists: Unit = {
       "name": "Xenologist",
       "points": 16,
       "min": 1,
-      "max": 6,
+      "max": 1,
       "stats": {
         "M": "6\"",
         "WS": "4+",

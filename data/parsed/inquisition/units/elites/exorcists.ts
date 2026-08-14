@@ -7,7 +7,7 @@ export const exorcists: Unit = {
       "name": "Exorcist",
       "points": 22,
       "min": 1,
-      "max": 6,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "4+",

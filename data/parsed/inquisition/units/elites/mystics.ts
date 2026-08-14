@@ -7,7 +7,7 @@ export const mystics: Unit = {
       "name": "Mystic",
       "points": 17,
       "min": 1,
-      "max": 6,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "4+",

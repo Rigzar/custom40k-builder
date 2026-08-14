@@ -7,7 +7,7 @@ export const acolytes: Unit = {
       "name": "Acolyte",
       "points": 12,
       "min": 1,
-      "max": 6,
+      "max": 12,
       "stats": {
         "M": "6\"",
         "WS": "4+",

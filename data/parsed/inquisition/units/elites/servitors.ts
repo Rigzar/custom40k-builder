@@ -7,7 +7,7 @@ export const servitors: Unit = {
       "name": "Servitor",
       "points": 22,
       "min": 1,
-      "max": 6,
+      "max": 3,
       "stats": {
         "M": "6\"",
         "WS": "5+",

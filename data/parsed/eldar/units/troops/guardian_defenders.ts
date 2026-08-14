@@ -49,7 +49,7 @@ export const guardianDefenders: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Guardian Defender is equipped with: Plasma grenade; Shuriken catapult.",
+  "equipped_with": "Every Guardian Defender is equipped with: Plasma grenade; Shuriken catapult. Every Heavy weapon platform is equipped with: Scatter laser.",
   "weapons": [
     {
       "name": "Bright lance",
@@ -162,7 +162,9 @@ export const guardianDefenders: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Scatter laser"]
+      "replaces": [
+        "Scatter laser"
+      ]
     }
   ],
   "abilities": [

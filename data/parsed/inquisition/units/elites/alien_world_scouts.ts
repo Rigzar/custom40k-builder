@@ -7,7 +7,7 @@ export const alienWorldScouts: Unit = {
       "name": "Alien World Scout",
       "points": 16,
       "min": 1,
-      "max": 6,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "4+",

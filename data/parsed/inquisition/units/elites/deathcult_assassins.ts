@@ -14,7 +14,7 @@ export const deathcultAssassins: Unit = {
     {
       "name": "Deathcult Assassin",
       "points": 23,
-      "min": 2,
+      "min": 1,
       "max": 6,
       "stats": {
         "M": "6\"",
@@ -63,5 +63,5 @@ export const deathcultAssassins: Unit = {
   "advisor": false,
   "slot": "Elites",
   "default_size": 2,
-  "min_cost": 46
+  "min_cost": 23
 };

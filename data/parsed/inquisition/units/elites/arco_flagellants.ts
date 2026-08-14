@@ -7,7 +7,7 @@ export const arcoFlagellants: Unit = {
       "name": "Arco-flagellant",
       "points": 21,
       "min": 1,
-      "max": 6,
+      "max": 10,
       "stats": {
         "M": "6\"",
         "WS": "3+",

@@ -7,7 +7,7 @@ export const penitents: Unit = {
       "name": "Penitent",
       "points": 16,
       "min": 1,
-      "max": 6,
+      "max": 2,
       "stats": {
         "M": "6\"",
         "WS": "4+",
