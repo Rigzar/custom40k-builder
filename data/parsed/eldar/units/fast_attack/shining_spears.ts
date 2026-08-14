@@ -86,7 +86,7 @@ export const shiningSpears: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "Quick(+1), Charge"
+      "abilities": "Charge, Quick(+1)"
     },
     {
       "name": "Laser lance - Melee",
@@ -113,7 +113,7 @@ export const shiningSpears: Unit = {
       "s": "+5",
       "ap": "-4",
       "d": "2",
-      "abilities": "AT(2), Quick(+1), Charge"
+      "abilities": "AT(2), Charge, Quick(+1)"
     },
     {
       "name": "Star lance - Melee",
@@ -163,7 +163,9 @@ export const shiningSpears: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Paragon sabre"]
+      "replaces": [
+        "Paragon sabre"
+      ]
     },
     {
       "header": "The Exarch can swap their Twin shuriken catapult",
@@ -179,7 +181,9 @@ export const shiningSpears: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Twin shuriken catapult"]
+      "replaces": [
+        "Twin shuriken catapult"
+      ]
     },
     {
       "header": "The Exarch can be equipped with: +10 points Shimmershield.",
@@ -197,22 +201,70 @@ export const shiningSpears: Unit = {
         "type": "one"
       },
       "choices": [
-        { "name": "Bladestorm", "points": 5 },
-        { "name": "Burning heat", "points": 5 },
-        { "name": "Crack shot", "points": 5 },
-        { "name": "Crushing blows", "points": 5 },
-        { "name": "Defensive stance", "points": 5 },
-        { "name": "Dragon's bite", "points": 5 },
-        { "name": "Graceful avoidance", "points": 5 },
-        { "name": "Heartstrike", "points": 5 },
-        { "name": "Lightning attacks", "points": 5 },
-        { "name": "Piercing strike", "points": 5 },
-        { "name": "Rapid redeployment", "points": 5 },
-        { "name": "Reaper's reach", "points": 5 },
-        { "name": "Scorpion's sting", "points": 5 },
-        { "name": "Skyhunter", "points": 5 },
-        { "name": "Stand firm", "points": 5 },
-        { "name": "Surprise assault", "points": 5 }
+        {
+          "name": "Bladestorm",
+          "points": 5
+        },
+        {
+          "name": "Burning heat",
+          "points": 5
+        },
+        {
+          "name": "Crack shot",
+          "points": 5
+        },
+        {
+          "name": "Crushing blows",
+          "points": 5
+        },
+        {
+          "name": "Defensive stance",
+          "points": 5
+        },
+        {
+          "name": "Dragon's bite",
+          "points": 5
+        },
+        {
+          "name": "Graceful avoidance",
+          "points": 5
+        },
+        {
+          "name": "Heartstrike",
+          "points": 5
+        },
+        {
+          "name": "Lightning attacks",
+          "points": 5
+        },
+        {
+          "name": "Piercing strike",
+          "points": 5
+        },
+        {
+          "name": "Rapid redeployment",
+          "points": 5
+        },
+        {
+          "name": "Reaper's reach",
+          "points": 5
+        },
+        {
+          "name": "Scorpion's sting",
+          "points": 5
+        },
+        {
+          "name": "Skyhunter",
+          "points": 5
+        },
+        {
+          "name": "Stand firm",
+          "points": 5
+        },
+        {
+          "name": "Surprise assault",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,

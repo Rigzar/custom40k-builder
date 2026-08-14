@@ -68,7 +68,7 @@ export const canoptekSpyders: Unit = {
           "points": 5
         },
         {
-          "name": "Particle beamer",
+          "name": "Two particle beamers",
           "points": 27
         }
       ],

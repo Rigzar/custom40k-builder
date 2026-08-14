@@ -167,7 +167,7 @@ export const roughRiders: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "2",
-      "abilities": "Charge, Deflagrate(5+), Quick(+1)"
+      "abilities": "Charge, Quick(+1), Deflagrate(5+)"
     },
     {
       "name": "Goad lance (Normal)",

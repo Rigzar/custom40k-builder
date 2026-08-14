@@ -85,7 +85,7 @@ export const jetbikeCustodians: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Quick(+1), Charge"
+      "abilities": "AT(2), Charge, Quick(+1)"
     },
     {
       "name": "Interceptor lance - Melee",
@@ -124,7 +124,9 @@ export const jetbikeCustodians: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Lastrum bolt cannon"]
+      "replaces": [
+        "Lastrum bolt cannon"
+      ]
     }
   ],
   "abilities": [

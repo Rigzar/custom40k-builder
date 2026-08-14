@@ -49,7 +49,7 @@ export const tyrantGuardBrood: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Slow(-1)"
+      "abilities": "AT(2), Slow(-2)"
     },
     {
       "name": "Rending claws",

@@ -133,7 +133,7 @@ export const blightlordTerminators: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Combi"
+      "abilities": "Combi, Poison(4+)"
     },
     {
       "name": "Combi-flamer - Flamer",
@@ -151,7 +151,7 @@ export const blightlordTerminators: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Combi"
+      "abilities": "Combi, Poison(4+)"
     },
     {
       "name": "Combi-melta - Melta",
@@ -169,7 +169,7 @@ export const blightlordTerminators: Unit = {
       "s": "4",
       "ap": "-1",
       "d": "1",
-      "abilities": "Combi"
+      "abilities": "Combi, Poison(4+)"
     },
     {
       "name": "Combi-plasma - Standard",

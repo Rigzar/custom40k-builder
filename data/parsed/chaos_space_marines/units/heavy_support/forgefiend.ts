@@ -130,7 +130,7 @@ export const forgefiend: Unit = {
       },
       "choices": [
         {
-          "name": "Ectoplasma gun",
+          "name": "two Ectoplasma guns",
           "points": 21
         }
       ],

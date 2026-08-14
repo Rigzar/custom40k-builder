@@ -85,7 +85,7 @@ export const cyborkSlashaz: Unit = {
       "s": "4",
       "ap": "0",
       "d": "1",
-      "abilities": "Flames, Combi"
+      "abilities": "Combi, Flames"
     },
     {
       "name": "Kombi-rokkit launcha - Shoota",
@@ -170,7 +170,9 @@ export const cyborkSlashaz: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Choppa"]
+      "replaces": [
+        "Choppa"
+      ]
     },
     {
       "header": "Any number of Cybork Slashas may swap their Slugga",
@@ -194,7 +196,9 @@ export const cyborkSlashaz: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Slugga"]
+      "replaces": [
+        "Slugga"
+      ]
     },
     {
       "header": "The entire squad may receive one of the following upgrades per model",

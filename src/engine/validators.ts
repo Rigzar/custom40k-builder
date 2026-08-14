@@ -1565,6 +1565,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         items.push({ type: 'error', text: reason });
       }
     });
+    // Inquisitor: "May be upgraded to ONE of the following: Priest +5, Psyker +5." Production
+    // carries them as two independent inline toggles, so both could be ticked for +10. Enforced
+    // here rather than by merging the two groups into one: `optionQty` is keyed by group INDEX,
+    // and renumbering them would silently drop the upgrade (and its points) from every saved list
+    // that already has one.
+    if (u.name === 'Inquisitor') {
+      const ticked = u.option_groups
+        .map((g, gi) => ({ g, gi }))
+        .filter(({ g, gi }) => /upgraded to a (priest|psyker)/i.test(g.header)
+          && !!item.optionQty?.[gi]?.['__inline']);
+      if (ticked.length > 1) {
+        items.push({ type: 'error', text: T('valInquisitorOneUpgrade', { unit: item.unitName }) });
+      }
+    }
     // Selection-gated groups (requires_choice): a swap for a weapon the model does not start with
     // is only legal once a choice that grants it is selected. The UI hides the group, so this only
     // fires on a list loaded or imported with the selection already in it.

@@ -67,7 +67,7 @@ export const krootLoneSpear: Unit = {
       "s": "+2",
       "ap": "-2",
       "d": "2",
-      "abilities": "AT(1), Quick(+1), Charge"
+      "abilities": "AT(1), Charge, Quick(+1)"
     },
     {
       "name": "Kroot javelins - Melee",
@@ -104,7 +104,9 @@ export const krootLoneSpear: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Kroot long gun"]
+      "replaces": [
+        "Kroot long gun"
+      ]
     }
   ],
   "abilities": [

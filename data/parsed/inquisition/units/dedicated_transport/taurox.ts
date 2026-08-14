@@ -85,7 +85,7 @@ export const taurox: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2)"
+      "abilities": "Anti-air, AT(2)"
     },
     {
       "name": "Taurox battle cannon",

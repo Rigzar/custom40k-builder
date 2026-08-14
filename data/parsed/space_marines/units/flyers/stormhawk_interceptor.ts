@@ -94,7 +94,7 @@ export const stormhawkInterceptor: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(2), Anti-air"
+      "abilities": "Anti-Air, AT(2)"
     }
   ],
   "option_groups": [
@@ -116,7 +116,9 @@ export const stormhawkInterceptor: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Twin heavy bolter"]
+      "replaces": [
+        "Twin heavy bolter"
+      ]
     },
     {
       "header": "Can replace the Icarus stormcannon",
@@ -132,7 +134,9 @@ export const stormhawkInterceptor: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Icarus stormcannon"]
+      "replaces": [
+        "Icarus stormcannon"
+      ]
     }
   ],
   "abilities": [],

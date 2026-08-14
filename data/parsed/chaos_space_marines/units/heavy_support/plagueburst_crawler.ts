@@ -168,7 +168,7 @@ export const plagueburstCrawler: Unit = {
       },
       "choices": [
         {
-          "name": "Entropy cannon",
+          "name": "two Entropy cannons",
           "points": 27
         }
       ],

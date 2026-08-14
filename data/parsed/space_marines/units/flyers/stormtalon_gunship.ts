@@ -85,7 +85,7 @@ export const stormtalonGunship: Unit = {
       "s": "8",
       "ap": "-3",
       "d": "2",
-      "abilities": "AT(1), Anti-air"
+      "abilities": "Anti-Air, AT(1)"
     }
   ],
   "option_groups": [

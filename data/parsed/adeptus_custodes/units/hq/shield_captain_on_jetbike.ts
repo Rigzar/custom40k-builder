@@ -85,7 +85,7 @@ export const shieldCaptainOnJetbike: Unit = {
       "s": "+3",
       "ap": "-3",
       "d": "3",
-      "abilities": "AT(2), Quick(+1), Charge"
+      "abilities": "AT(2), Charge, Quick(+1)"
     },
     {
       "name": "Relic interceptor lance - Melee",
@@ -134,7 +134,9 @@ export const shieldCaptainOnJetbike: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Lastrum bolt cannon"]
+      "replaces": [
+        "Lastrum bolt cannon"
+      ]
     }
   ],
   "abilities": [

@@ -61,6 +61,7 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Chaos Biker": fastAttack.chaosBikers,
   "Chaos Spawn": fastAttack.chaosSpawn,
   "Foetid Bloat-Drone": fastAttack.foetidBloatDrone,
+  "Greater Blight Drone": fastAttack.greaterBlightDrone,
   "Juggernaut Hellriders": fastAttack.juggernautHellriders,
   "Myphitic Blight-Hauler": fastAttack.myphiticBlightHauler,
   "Raptors": fastAttack.raptors,
@@ -141,6 +142,7 @@ export const slot_to_units: Record<string, string[]> = {
     "War Dog"
   ],
   "Fast Attack": [
+    "Greater Blight Drone",
     "Chaos Biker",
     "Chaos Spawn",
     "Foetid Bloat-Drone",

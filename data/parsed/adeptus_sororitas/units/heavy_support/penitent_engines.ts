@@ -89,7 +89,9 @@ export const penitentEngines: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Penitent flail"]
+      "replaces": [
+        "Penitent flail"
+      ]
     },
     {
       "header": "Each model may swap both Heavy flamers",
@@ -98,14 +100,16 @@ export const penitentEngines: Unit = {
       },
       "choices": [
         {
-          "name": "Heavy bolter",
+          "name": "2 Heavy bolters",
           "points": 10
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Heavy flamer"]
+      "replaces": [
+        "Heavy flamer"
+      ]
     }
   ],
   "abilities": [

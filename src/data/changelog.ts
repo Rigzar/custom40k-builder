@@ -29,6 +29,10 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-08-13',
     title: 'A full audit of all 19 codices against the author\'s sheets',
     changes: [
+      'Chaos Space Marines — new unit: the Greater Blight Drone (Fast Attack, 1-2 models, 231 pts, Mark of Nurgle). It has a full datasheet and an Index entry, and simply was not in the app.',
+      'GENERAL — seven more "swap both" options were named in the singular, so you paid for a pair and received one weapon: the Seraphim Squad\'s hand flamers and inferno pistols, the Penitent Engines\' heavy bolters, the Forgefiend\'s ectoplasma guns, the Plagueburst Crawler\'s entropy cannons, the Monolith\'s death rays and the Canoptek Spyders\' particle beamers.',
+      'Chaos Space Marines — Blightlord Terminators\' combi-weapons carry Poison(4+) on their bolter profile. Tyranids — the Tyrant Guard\'s mashing claws are Slow(-2), not Slow(-1). Inquisition — the Taurox missile launcher\'s krak profile is Anti-air.',
+      'Inquisition — an Inquisitor may be upgraded to a Priest OR a Psyker, not both. Taking both was possible and cost 10 points.',
       'Every faction was compared with its sheet field by field for the first time — model sizes, points, stats, weapon profiles, loadouts and option prices. What follows is what that turned up.',
       'Inquisition — retinue specialists were all capped at 6, which is the Warband limit and not their own. Chirurgeons, Daemonhosts, Missionaries, Psykers and Xenologists are 1; Acolytes go to 12 and Arco-flagellants to 10. Seventeen datasheets were wrong in one direction or the other.',
       'Inquisition — Land Raider Prometheus 390 → 395 pts, Chimera 189 → 186, Taurox 121 → 120. The Chimera is BS 4+, the Taurox S5, and the Land Raider WS 6+. The Chimera\'s Twin heavy bolter drops to 14 and its Autocannon rises to 20. Stormtrooper Flamers cost -1 point, and Deep strike and Infiltrator 1 each.',

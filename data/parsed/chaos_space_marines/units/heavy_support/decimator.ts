@@ -11,7 +11,7 @@ export const decimator: Unit = {
   "name": "Chaos Decimator",
   "models": [
     {
-      "name": "Decimator",
+      "name": "Chaos Decimator",
       "points": 182,
       "min": 1,
       "max": 1,
@@ -112,10 +112,22 @@ export const decimator: Unit = {
         "type": "mark"
       },
       "choices": [
-        { "name": "Khorne", "points": 10 },
-        { "name": "Nurgle", "points": 10 },
-        { "name": "Slaanesh", "points": 10 },
-        { "name": "Tzeentch", "points": 10 }
+        {
+          "name": "Khorne",
+          "points": 10
+        },
+        {
+          "name": "Nurgle",
+          "points": 10
+        },
+        {
+          "name": "Slaanesh",
+          "points": 10
+        },
+        {
+          "name": "Tzeentch",
+          "points": 10
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -127,7 +139,10 @@ export const decimator: Unit = {
         "type": "one"
       },
       "choices": [
-        { "name": "Conversion beamer", "points": 34 }
+        {
+          "name": "Conversion beamer",
+          "points": 34
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -143,9 +158,18 @@ export const decimator: Unit = {
         "max": 2
       },
       "choices": [
-        { "name": "Soulburner petard", "points": 0 },
-        { "name": "Storm laser", "points": 11 },
-        { "name": "Butcher cannon", "points": 45 }
+        {
+          "name": "Soulburner petard",
+          "points": 0
+        },
+        {
+          "name": "Storm laser",
+          "points": 11
+        },
+        {
+          "name": "Butcher cannon",
+          "points": 45
+        }
       ],
       "inline_pts": null,
       "variant_link": null,

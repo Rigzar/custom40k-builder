@@ -69,14 +69,16 @@ export const monolith: Unit = {
       },
       "choices": [
         {
-          "name": "Death ray",
+          "name": "four Death rays",
           "points": 148
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Gauss flux arc"]
+      "replaces": [
+        "Gauss flux arc"
+      ]
     }
   ],
   "abilities": [
