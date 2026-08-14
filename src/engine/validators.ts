@@ -1982,6 +1982,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     const scaledMin = eng.multiAop ? min * aopMult : min;
     if (scaledMin > 0 && used < scaledMin) {
       items.push({ type: 'error', text: T('valNeedAtLeastSlot', { min: scaledMin, slot, used }) });
+      // "Need at least 1 HQ (have 0)" while a Great Unclean One sits in the HQ slot reads like a
+      // bug, and was reported as one (GitHub #88). It is the Summoning rule doing its job —
+      // "Chaos Daemons can not be used to fulfill mandatory AOP selections" — but the count alone
+      // never says so. Same lesson as GH#76: the rule was right and the message taught the player
+      // the wrong thing. Only added when a Daemon unit is actually sitting in the slot being
+      // complained about, so it explains a specific list rather than lecturing in general.
+      if (summoningExcl && state.army.some(i =>
+        i.factionSource === 'chaos_daemons' &&
+        getEffectiveSlot(i.unitName, i.slot, rule) === slot)) {
+        items.push({ type: 'warn', text: T('valSummoningNoMandatoryAop', { slot }) });
+      }
     }
   }
 

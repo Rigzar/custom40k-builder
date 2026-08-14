@@ -29,6 +29,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-08-13',
     title: 'A full audit of all 19 codices against the author\'s sheets',
     changes: [
+      'Chaos Space Marines — the validator now explains why a Chaos Daemons unit does not satisfy a mandatory slot. The Summoning rule says Daemons cannot fill mandatory AOP selections, so a Great Unclean One left the army reading "Need at least 1 HQ (have 0)" with an HQ on screen. The rule was right; the message was not. Daemonkin ignores Summoning and is the archetype that lets a Daemon HQ count (GitHub #88).',
       'Chaos Space Marines — new unit: the Greater Blight Drone (Fast Attack, 1-2 models, 231 pts, Mark of Nurgle). It has a full datasheet and an Index entry, and simply was not in the app.',
       'GENERAL — seven more "swap both" options were named in the singular, so you paid for a pair and received one weapon: the Seraphim Squad\'s hand flamers and inferno pistols, the Penitent Engines\' heavy bolters, the Forgefiend\'s ectoplasma guns, the Plagueburst Crawler\'s entropy cannons, the Monolith\'s death rays and the Canoptek Spyders\' particle beamers.',
       'Chaos Space Marines — Blightlord Terminators\' combi-weapons carry Poison(4+) on their bolter profile. Tyranids — the Tyrant Guard\'s mashing claws are Slow(-2), not Slow(-1). Inquisition — the Taurox missile launcher\'s krak profile is Anti-air.',
