@@ -14,7 +14,7 @@ export const skyweavers: Unit = {
     {
       "name": "Skyweaver",
       "points": 81,
-      "min": 1,
+      "min": 2,
       "max": 6,
       "stats": {
         "M": "14\"",
@@ -151,5 +151,5 @@ export const skyweavers: Unit = {
   "advisor": false,
   "slot": "Fast Attack",
   "default_size": 2,
-  "min_cost": 81
+  "min_cost": 162
 };

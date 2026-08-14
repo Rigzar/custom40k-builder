@@ -180,7 +180,7 @@ export const stormtroopers: Unit = {
       "choices": [
         {
           "name": "Flamer",
-          "points": 0
+          "points": -1
         },
         {
           "name": "Grenade launcher",
@@ -215,11 +215,11 @@ export const stormtroopers: Unit = {
       "choices": [
         {
           "name": "Deep strike",
-          "points": 0
+          "points": 1
         },
         {
           "name": "Infiltrator",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

@@ -13,13 +13,13 @@ export const chimera: Unit = {
   "models": [
     {
       "name": "Chimera",
-      "points": 189,
+      "points": 186,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
         "WS": "-",
-        "BS": "3+",
+        "BS": "4+",
         "S": "6",
         "FRONT": "12",
         "SIDE": "10",
@@ -105,11 +105,11 @@ export const chimera: Unit = {
         },
         {
           "name": "Autocannon",
-          "points": 14
+          "points": 20
         },
         {
           "name": "Twin heavy bolter",
-          "points": 23
+          "points": 14
         }
       ],
       "inline_pts": null,
@@ -151,5 +151,5 @@ export const chimera: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 189
+  "min_cost": 186
 };

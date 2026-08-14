@@ -49,7 +49,7 @@ export const rvarnaBattlesuit: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A R’varna Battlesuit is a single model and equipped with: 2 Pulse submunitions cannons.",
+  "equipped_with": "A R’varna Battlesuit is a single model and equipped with: 2 Pulse submunitions cannons. Every Missile Drone is equipped with: Missile pod.",
   "weapons": [
     {
       "name": "Missile pod",

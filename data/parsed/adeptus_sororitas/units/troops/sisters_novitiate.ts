@@ -68,7 +68,7 @@ export const sistersNovitiate: Unit = {
       }
     }
   ],
-  "equipped_with": "Every Sister Novitiate is equipped with: Autogun; Auto pistol; Frag grenades; Krak grenades.",
+  "equipped_with": "Every Sister Novitiate is equipped with: Autogun; Auto pistol; Frag grenades; Krak grenades. The Sister Superior is equipped with: Boltgun; Frag grenades; Krak grenades.",
   "weapons": [
     {
       "name": "Auto pistol",
@@ -141,7 +141,9 @@ export const sistersNovitiate: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Autogun"]
+      "replaces": [
+        "Autogun"
+      ]
     },
     {
       "header": "All Sister Novitiate may swap their Autoguns",
@@ -157,7 +159,9 @@ export const sistersNovitiate: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Autogun"]
+      "replaces": [
+        "Autogun"
+      ]
     },
     {
       "header": "One model may receive a Simulacrum (see Armory) for +5 points.",

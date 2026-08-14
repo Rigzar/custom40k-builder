@@ -68,7 +68,7 @@ export const atalanJackals: Unit = {
       }
     }
   ],
-  "equipped_with": "Every model is equipped with: Atalan small arms; Blasting charges.",
+  "equipped_with": "Every model is equipped with: Atalan small arms; Blasting charges. Every Atalan Wolfquad is additionally equipped with: Heavy stubber.",
   "weapons": [
     {
       "name": "Atalan incinerator",

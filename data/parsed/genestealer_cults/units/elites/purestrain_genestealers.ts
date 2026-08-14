@@ -23,7 +23,7 @@ export const purestrainGenestealers: Unit = {
         "S": "4",
         "T": "4",
         "W": "1",
-        "I": "6",
+        "I": "5",
         "A": "4",
         "LD": "10",
         "SV": "5+"
@@ -59,9 +59,18 @@ export const purestrainGenestealers: Unit = {
         "type": "every"
       },
       "choices": [
-        { "name": "Miasmic strain", "points": 1 },
-        { "name": "Reaperfex strain", "points": 2 },
-        { "name": "Bulwark strain", "points": 5 }
+        {
+          "name": "Miasmic strain",
+          "points": 1
+        },
+        {
+          "name": "Reaperfex strain",
+          "points": 2
+        },
+        {
+          "name": "Bulwark strain",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,

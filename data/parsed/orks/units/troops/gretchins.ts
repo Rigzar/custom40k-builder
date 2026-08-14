@@ -49,7 +49,7 @@ export const gretchins: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Gretchin is equipped with: Grot blasta.",
+  "equipped_with": "Every Gretchin is equipped with: Grot blasta. Every Runtherd is equipped with: Grabba stikk; Slugga, Squig hound.",
   "weapons": [
     {
       "name": "Grot blasta",

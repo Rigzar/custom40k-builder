@@ -342,11 +342,31 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (!item.modelSizes) continue;
     const count = item.modelSizes[m.name] ?? m.min;
     if (count > 0) continue;
-    const equipMatch = unit.equipped_with.match(new RegExp(`Every ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
+    // Datasheets introduce a model's own loadout with any of "Every / Each / A / An / The", not
+    // just "Every" — the Corsair Voidscarred specialists read "A Shade Runner is equipped with:".
+    // Matching only "Every" meant those clauses were parsed by nothing and the specialists' weapons
+    // showed on a squad that had taken none of them.
+    const equipMatch = unit.equipped_with.match(
+      new RegExp(`(?:Every|Each|An|A|The) ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
     const equipText = equipMatch?.[1];
     if (!equipText) continue;
     for (const name of equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
       zeroCountModelWeapons.add(name);
+    }
+  }
+  // A weapon the absent model SHARES with a model that IS present stays on the profile. The
+  // Corsair Voidscarred specialists each carry a Plasma grenade, and so does every Voidscarred and
+  // Felarch in the squad — hiding it because no Shade Runner was bought would strip a grenade from
+  // ten models who have one.
+  if (zeroCountModelWeapons.size > 0) {
+    for (const m of unit.models) {
+      const present = (item.modelSizes?.[m.name] ?? m.min) > 0;
+      if (!present) continue;
+      const match = unit.equipped_with.match(
+        new RegExp(`(?:Every|Each|An|A|The) ${m.name}[^.]*? is equipped with:\\s*([^.]+)\\.`, 'i'));
+      for (const name of (match?.[1] ?? '').split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
+        zeroCountModelWeapons.delete(name);
+      }
     }
   }
 

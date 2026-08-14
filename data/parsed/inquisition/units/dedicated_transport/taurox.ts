@@ -13,14 +13,14 @@ export const taurox: Unit = {
   "models": [
     {
       "name": "Taurox",
-      "points": 121,
+      "points": 120,
       "min": 1,
       "max": 1,
       "stats": {
         "M": "12\"",
         "WS": "-",
         "BS": "3+",
-        "S": "6",
+        "S": "5",
         "FRONT": "11",
         "SIDE": "10",
         "REAR": "10",
@@ -184,5 +184,5 @@ export const taurox: Unit = {
   "advisor": false,
   "slot": "Dedicated Transport",
   "default_size": 1,
-  "min_cost": 121
+  "min_cost": 120
 };

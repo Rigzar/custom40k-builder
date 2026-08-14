@@ -133,7 +133,7 @@ export const harlequinWraithlord: Unit = {
       "choices": [
         {
           "name": "2 Aeldari flamers",
-          "points": 0
+          "points": 1
         }
       ],
       "inline_pts": null,

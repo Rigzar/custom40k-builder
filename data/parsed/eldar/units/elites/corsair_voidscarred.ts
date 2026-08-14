@@ -107,7 +107,7 @@ export const corsairVoidscarred: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Voidscarred and Felarch is equipped with: Plasma grenade; Shuriken rifle.",
+  "equipped_with": "Every Voidscarred and Felarch is equipped with: Plasma grenade; Shuriken rifle. A Shade Runner is equipped with: Paired Hekatarii blades; Plasma grenade; Shuriken pistol. A Soul Weaver is equipped with: Channeler stones; Plasma grenade; Power sword; Shuriken pistol. A Way Seeker is equipped with: Plasma grenade; Shuriken pistol; Witch staff.",
   "weapons": [
     {
       "name": "Blaster",

@@ -15,7 +15,7 @@ export const heavyWeaponSquad: Unit = {
       "name": "Heavy Weapons Team",
       "points": 15,
       "min": 1,
-      "max": 3,
+      "max": 9,
       "stats": {
         "M": "6\"",
         "WS": "4+",

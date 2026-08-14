@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.61',
+    date: '2026-08-13',
+    title: 'A full audit of all 19 codices against the author\'s sheets',
+    changes: [
+      'Every faction was compared with its sheet field by field for the first time — model sizes, points, stats, weapon profiles, loadouts and option prices. What follows is what that turned up.',
+      'Inquisition — retinue specialists were all capped at 6, which is the Warband limit and not their own. Chirurgeons, Daemonhosts, Missionaries, Psykers and Xenologists are 1; Acolytes go to 12 and Arco-flagellants to 10. Seventeen datasheets were wrong in one direction or the other.',
+      'Inquisition — Land Raider Prometheus 390 → 395 pts, Chimera 189 → 186, Taurox 121 → 120. The Chimera is BS 4+, the Taurox S5, and the Land Raider WS 6+. The Chimera\'s Twin heavy bolter drops to 14 and its Autocannon rises to 20. Stormtrooper Flamers cost -1 point, and Deep strike and Infiltrator 1 each.',
+      'Harlequins — a Troupe is 5 Players minimum and Skyweavers come in 2s. The Harlequin Wraithlord\'s "2 Aeldari flamers" swap costs 1 point.',
+      'Imperial Guard — a Heavy Weapon Squad can field up to 9 Heavy Weapons Teams, not 3.',
+      'Genestealer Cults — Purestrain Genestealers are Initiative 5.',
+      'GENERAL — a squad no longer shows the weapons of a special model it has not bought. Corsair Voidscarred listed the Shade Runner\'s blades, the Soul Weaver\'s power sword and the Way Seeker\'s witch staff whether or not any were taken; Sisters Novitiate, Repentia, Atalan Jackals, Gretchins, Snotlings and three Tau battlesuits had the same gap.',
+    ],
+  },
+  {
     version: '1.60',
     date: '2026-08-13',
     title: 'Adeptus Mechanicus codex update — Forces of the Machine God',

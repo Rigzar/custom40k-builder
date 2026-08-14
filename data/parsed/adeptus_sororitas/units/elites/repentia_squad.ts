@@ -49,7 +49,7 @@ export const repentiaSquad: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Repentia is equipped with: Eviscerator.",
+  "equipped_with": "Every Repentia is equipped with: Eviscerator. The Repentia Superior is equipped with: Bolt pistol;Frag grenades; Krak grenades; Neural whip.",
   "weapons": [
     {
       "name": "Bolt pistol",

@@ -49,7 +49,7 @@ export const yvahraBattlesuit: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "A Y'vahra Battlesuit is a single model and equipped with: Ionic discharge cannon; Phased plasma flamer; 2 Missile drones.",
+  "equipped_with": "A Y'vahra Battlesuit is a single model and equipped with: Ionic discharge cannon; Phased plasma flamer; 2 Missile drones. Every Missile Drone is equipped with: Missile pod.",
   "weapons": [
     {
       "name": "Missile pod",

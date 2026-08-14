@@ -49,7 +49,7 @@ export const snotlings: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Snotling Herd is equipped with: Hopes and dreams (Nothing).",
+  "equipped_with": "Every Snotling Herd is equipped with: Hopes and dreams (Nothing). Every Runtherd is equipped with: Grabba stikk; Slugga, Squig hound.",
   "weapons": [
     {
       "name": "Grabba stikk",
