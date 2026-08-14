@@ -46,7 +46,7 @@ export const canoptekReanimator: Unit = {
       "name": "Reanimator claws",
       "range": "-",
       "type": "Melee",
-      "s": "T",
+      "s": "U",
       "ap": "-2",
       "d": "1",
       "abilities": "-"

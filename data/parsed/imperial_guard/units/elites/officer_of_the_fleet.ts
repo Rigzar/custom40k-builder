@@ -47,7 +47,7 @@ export const officerOfTheFleet: Unit = {
   "abilities": [
     "Command Squad",
     "Advisor: For each HQ selection, one Officier of the Fleet may be selected that does not occupy an Elite slot.",
-    "Logistics Coordination: Add +1 to rolls during the Initiative and Reinfocement phase as long as there is at least one Officer of the Fleet on the field."
+    "Logistics Coordination: Add +1 to rolls during the Initiative phase as long as there is at least one Officer of the Fleet on the field."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

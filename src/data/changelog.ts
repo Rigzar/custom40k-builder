@@ -35,6 +35,8 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Harlequins — a Troupe is 5 Players minimum and Skyweavers come in 2s. The Harlequin Wraithlord\'s "2 Aeldari flamers" swap costs 1 point.',
       'Imperial Guard — a Heavy Weapon Squad can field up to 9 Heavy Weapons Teams, not 3.',
       'Genestealer Cults — Purestrain Genestealers are Initiative 5.',
+      'Imperial Guard — the Officer of the Fleet\'s Logistics Coordination now helps in the Initiative phase only, not the Reinforcement phase as well. The author changed it while we were auditing.',
+      'Necrons — the Canoptek Reanimator\'s claws are Strength U, matching the Canoptek Spyders.',
       'GENERAL — a squad no longer shows the weapons of a special model it has not bought. Corsair Voidscarred listed the Shade Runner\'s blades, the Soul Weaver\'s power sword and the Way Seeker\'s witch staff whether or not any were taken; Sisters Novitiate, Repentia, Atalan Jackals, Gretchins, Snotlings and three Tau battlesuits had the same gap.',
     ],
   },
