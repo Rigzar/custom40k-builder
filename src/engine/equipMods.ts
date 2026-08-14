@@ -166,7 +166,13 @@ export function parseEquipMods(
         ...Array.from(quotable.matchAll(/"([^"]+)"/g), m => m[1]),
         ...Array.from(quotable.matchAll(/(^|[^A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[2]),
       ];
-      for (const ab of quoted) {
+      for (const raw of quoted) {
+        // Some descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads
+        // `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the captured name
+        // arrives as `Shock Troops,` and was displayed with the comma. Trim trailing sentence
+        // punctuation only; a closing bracket is part of the name (Massive(1), Frenzy(1")).
+        const ab = raw.replace(/[,.;:]+$/, '').trim();
+        if (!ab) continue;
         // A quoted unit-type word is handled by the type system, not shown as an ability.
         if (UNIT_TYPE_WORDS.has(ab.toLowerCase().trim())) continue;
         // Only add what the model doesn't already have (don't re-grant a base ability).

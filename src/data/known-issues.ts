@@ -26,6 +26,24 @@ export const KNOWN_ISSUES: KnownIssue[] = [
     description: "BY DESIGN, GitHub #80, closed without a code change. Reported as \"Tau Commander does not have access to dawn blade or fusion blades … should have access to these items per the armoury\". Tau Empire ENG.ods, \"Commander\" sheet, OPTIONS, verbatim: \"• May pick up to two SUPPORT SYSTEMS from the armory.\" and \"• Has access to GEAR from the Armory.\" — gear, not weapons. Its weapons come from its own datasheet list (Flamer, Airbursting fragmentation projector, Burst cannon, Plasma rifle, High-output burst cannon, Missile pod, Fusion blaster, High-intensity plasma rifle, Cyclic ion blaster). Dawn blade and Fusion blade are Armory WEAPONS, so they are correctly out of reach, and the unit's `armory_gear_only: true` is right. Confirms the same for the Onager gauntlet and every other armoury weapon on that model.",
   },
   {
+    id: 'ki-requires-choice-stranded-selection-01',
+    status: 'fixed',
+    title: 'A gated weapon swap could strand a selection you had already paid for',
+    description: 'FIXED 2026-08-13, found by reviewing the day\'s own work rather than from a report — it had already shipped. `requires_choice` hides a swap group until you pick the option that grants the weapon, which is right when the group is empty and wrong when it is not. Pick the Dreadnought claw, buy the Storm bolter swap for a Heavy flamer, then deselect the claw: the requirement lapsed, the group vanished, and the Heavy flamer stayed on the bill at 2 points with no control left to remove it. The validator did flag it, which only told the player about a problem they could not fix. The group now stays visible whenever it holds a selection, so it can be cleared — the same visible-but-flagged treatment `available_if` already gives its unit-scope conditions. Verified on the reported path: 164 pts with claw and swap, 146 with the claw removed, and the swap row now still on screen to clear.',
+  },
+  {
+    id: 'ki-equipmods-quoted-punctuation-01',
+    status: 'fixed',
+    title: 'Granted rule names could carry the sentence\'s punctuation',
+    description: 'FIXED 2026-08-13. Some Armory descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the extracted rule name arrived as `Shock Troops,` and was displayed with the comma. Trailing `, . ; :` are now trimmed from a quoted name; a closing bracket is left alone because it is part of the name (Massive(1), Frenzy(1")). Eight names across four items: Inquisition and Space Marines Terminator armor, Votann Exo-armor, Space Marines Phobos armor. Display only — the dedupe against a unit\'s own abilities normalises punctuation away, so nothing was granted twice.',
+  },
+  {
+    id: 'ki-loadout-clause-regex-word-boundary-01',
+    status: 'fixed',
+    title: 'The loadout-clause matcher could match the tail of a preceding word',
+    description: 'FIXED 2026-08-13, caught reviewing the same day\'s change. Widening the clause matcher to accept "Every / Each / A / An / The" left the bare "A" alternative unanchored, so a lookup for the model "Ranger" was satisfied by "Every Alph**a** Ranger is equipped with" — the trailing letter of the previous word standing in for the article. No datasheet in the game currently trips it, but it would have attached one model\'s loadout to another the first time a name lined up. A word boundary now precedes the alternation, in both places that matcher is used.',
+  },
+  {
     id: 'ki-loadout-clauses-per-model-01',
     status: 'fixed',
     title: 'A squad showed the weapons of a special model it had not bought',

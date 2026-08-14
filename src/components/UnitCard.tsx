@@ -1212,9 +1212,19 @@ export function UnitCard({ item }: Props) {
 
             // A swap for a weapon the model does not start with: hidden until something you picked
             // actually gives you one (see OptionGroup.requires_choice).
-            if (g.requires_choice?.length && !u.option_groups.some((og, ogi) =>
-              og !== g && og.choices.some((c, ci) =>
-                g.requires_choice!.includes(c.name) && (item.optionQty?.[ogi]?.[ci] ?? 0) > 0))) return null;
+            //
+            // But NEVER hide it while it still holds a selection. Pick the Dreadnought claw, buy
+            // the Storm bolter swap, then deselect the claw: the requirement lapses, and hiding the
+            // group outright stranded a paid-for Heavy flamer that was still on the bill with no
+            // way to reach it. The group stays visible so it can be cleared, and the validator
+            // explains why it is wrong — the same visible-but-flagged treatment `available_if`
+            // gives its unit-scope conditions.
+            if (g.requires_choice?.length) {
+              const granted = u.option_groups.some((og, ogi) => og !== g && og.choices.some((c, ci) =>
+                g.requires_choice!.includes(c.name) && (item.optionQty?.[ogi]?.[ci] ?? 0) > 0));
+              const chosen = Object.values(item.optionQty?.[realGi] ?? {}).some(q => (q ?? 0) > 0);
+              if (!granted && !chosen) return null;
+            }
 
             // Required OG warning: show if nothing is selected
             const isRequired = g.constraint.required;

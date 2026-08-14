@@ -346,8 +346,10 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     // just "Every" — the Corsair Voidscarred specialists read "A Shade Runner is equipped with:".
     // Matching only "Every" meant those clauses were parsed by nothing and the specialists' weapons
     // showed on a squad that had taken none of them.
+    // \b matters: without it the bare "A" alternative matches the last letter of a preceding word,
+    // so "Every Alpha Ranger is equipped with" would satisfy a lookup for the model "Ranger".
     const equipMatch = unit.equipped_with.match(
-      new RegExp(`(?:Every|Each|An|A|The) ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
+      new RegExp(`\\b(?:Every|Each|An|A|The) ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
     const equipText = equipMatch?.[1];
     if (!equipText) continue;
     for (const name of equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
@@ -363,7 +365,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
       const present = (item.modelSizes?.[m.name] ?? m.min) > 0;
       if (!present) continue;
       const match = unit.equipped_with.match(
-        new RegExp(`(?:Every|Each|An|A|The) ${m.name}[^.]*? is equipped with:\\s*([^.]+)\\.`, 'i'));
+        new RegExp(`\\b(?:Every|Each|An|A|The) ${m.name}[^.]*? is equipped with:\\s*([^.]+)\\.`, 'i'));
       for (const name of (match?.[1] ?? '').split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
         zeroCountModelWeapons.delete(name);
       }
