@@ -99,7 +99,7 @@ export const indomitusCrusaderSquad: Unit = {
     }
   ],
   "variant_models": [],
-  "equipped_with": "Every Neophyte: Astartes chainsword; Frag grenades; Bolt pistol; Krak grenades. Every Initiate: Astartes chainsword; Frag grenades; Heavy bolt pistol; Krak grenades. Sword Brother: Frag grenades; Krak grenades.",
+  "equipped_with": "Every Neophyte is equipped with: Astartes chainsword; Frag grenades; Bolt pistol; Krak grenades. Every Initiate is equipped with: Astartes chainsword; Frag grenades; Heavy bolt pistol; Krak grenades. The Sword Brother is equipped with: Frag grenades; Krak grenades.",
   "weapons": [
     {
       "name": "Astartes chainsword",
@@ -229,7 +229,10 @@ export const indomitusCrusaderSquad: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Astartes chainsword"]
+      "replaces": [
+        "Astartes chainsword"
+      ],
+      "applies_to_model": "Neophyte"
     },
     {
       "header": "Each Initiate may swap their Astartes chainsword",
@@ -245,7 +248,10 @@ export const indomitusCrusaderSquad: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Astartes chainsword"]
+      "replaces": [
+        "Astartes chainsword"
+      ],
+      "applies_to_model": "Initiate"
     },
     {
       "header": "For every 10 models, two Initiates may swap their Astartes chainsword",
@@ -267,7 +273,10 @@ export const indomitusCrusaderSquad: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Astartes chainsword"]
+      "replaces": [
+        "Astartes chainsword"
+      ],
+      "applies_to_model": "Initiate"
     },
     {
       "header": "For every 10 models, two Initiates may swap their Heavy bolt pistols",
@@ -289,7 +298,10 @@ export const indomitusCrusaderSquad: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Heavy bolt pistol"]
+      "replaces": [
+        "Heavy bolt pistol"
+      ],
+      "applies_to_model": "Initiate"
     }
   ],
   "abilities": [

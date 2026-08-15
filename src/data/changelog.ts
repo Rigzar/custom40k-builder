@@ -29,6 +29,8 @@ export const CHANGELOG: ChangelogEntry[] = [
     date: '2026-08-13',
     title: 'A full audit of all 19 codices against the author\'s sheets',
     changes: [
+      'Eldar — a Guardian Defenders squad no longer piles the platform\'s heavy weapon onto the Defenders. Swapping a platform\'s Scatter laser put the new weapon on the Guardian Defender row, so a ten-model squad read as ten missile launchers, and the platform kept a Scatter laser it had traded away. The weapon now sits on the platform row at the quantity you bought (GitHub #89).',
+      'Space Marines — the Indomitus Crusader Squad shows Neophytes, Initiates and the Sword Brother as separate rows with their own gear, and an Initiate\'s swapped weapon counts once instead of once per Initiate. Its loadout text was written in a shorthand the app could not read.',
       'Chaos Space Marines — a Great Unclean One cannot fill your mandatory HQ, and the app now says why instead of just showing zero. The Summoning rule blocks Chaos Daemons from mandatory slots; the Daemonkin archetype ignores it (GitHub #88).',
       'Chaos Space Marines — new unit: the Greater Blight Drone (Fast Attack, 1-2 models, 231 pts, Mark of Nurgle). It has a full datasheet and an Index entry, and simply was not in the app.',
       'GENERAL — seven more "swap both" options were named in the singular, so you paid for a pair and received one weapon: the Seraphim Squad\'s hand flamers and inferno pistols, the Penitent Engines\' heavy bolters, the Forgefiend\'s ectoplasma guns, the Plagueburst Crawler\'s entropy cannons, the Monolith\'s death rays and the Canoptek Spyders\' particle beamers.',

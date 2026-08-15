@@ -441,6 +441,17 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
         replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
         if (g.constraint.type === 'one' && (variantOnlyWeapons.has(name) || !!g.applies_to_model)) {
           replacedWeaponThreshold.set(name, 1);
+        } else if (g.applies_to_model) {
+          // A swap scoped to one model group is finished once THAT group's models have all taken
+          // it — not once the whole squad has. Guardian Defenders field up to 2 Heavy weapon
+          // platforms in a squad of 10; the default threshold of item.size meant both platforms
+          // could swap their Scatter laser and the laser stayed on the profile anyway (GH#89).
+          const owners = Array.isArray(g.applies_to_model) ? g.applies_to_model : [g.applies_to_model];
+          const owned = owners.reduce((s, label) => {
+            const m = unit.models.find(x => x.name === label);
+            return s + (item.modelSizes?.[label] ?? m?.min ?? 0);
+          }, 0);
+          if (owned > 0) replacedWeaponThreshold.set(name, owned);
         } else if (!replacedWeaponThreshold.has(name)) {
           const copies = weaponCopiesPerModel(unit.equipped_with, name);
           // Either N independent per-copy groups (Talos/Carnifex), or a single group whose header
@@ -1157,10 +1168,33 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         }
       }
     }
+    // A weapon named in no loadout clause is normally squad-wide kit and belongs on the first
+    // group. But one that can ONLY arrive through an option group scoped with `applies_to_model`
+    // belongs to THAT model's group: swapping a Guardian Defenders platform's Scatter laser for an
+    // Aeldari missile launcher printed the launcher on the Guardian Defender row, so a ten-model
+    // squad read as ten missile launchers (GH#89).
+    const ownerOfWeapon = new Map<string, string>();
+    for (const g of unit.option_groups) {
+      if (!g.applies_to_model) continue;
+      const owner = Array.isArray(g.applies_to_model) ? g.applies_to_model[0] : g.applies_to_model;
+      for (const c of g.choices ?? []) {
+        for (const part of c.name.split(/\s*(?:&|\band\b)\s*/i).map(s => s.trim()).filter(Boolean)) {
+          ownerOfWeapon.set(part.toLowerCase(), owner);
+        }
+      }
+    }
+    // Multi-profile weapons come in two spellings — "Missile launcher - Krak" and "Bolt rifle
+    // (Bolt ammo)" — and the choice that grants them names neither. Strip both suffixes.
+    const bareWeapon = (n: string) => n.split(' - ')[0].replace(/\s*\([^)]*\)\s*$/, '').trim().toLowerCase();
     const unclaimed = remaining.filter(w => !used.has(w.name));
     if (unclaimed.length > 0 && groups.length > 0) {
-      groups[0].weapons.push(...unclaimed);
-      if (variantGroup && variantSplitFromFirstClause) variantGroup.weapons.push(...unclaimed);
+      for (const w of unclaimed) {
+        const owner = ownerOfWeapon.get(bareWeapon(w.name));
+        const target = owner ? groups.find(g => g.label === owner) : undefined;
+        if (target) { target.weapons.push(w); continue; }
+        groups[0].weapons.push(w);
+        if (variantGroup && variantSplitFromFirstClause) variantGroup.weapons.push(w);
+      }
     }
     if (championExtraWeapons.length > 0 && builtInChampion) {
       groups.push({ label: builtInChampion.name, count: null, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });
@@ -1260,9 +1294,13 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (!choice) continue;
         const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
         for (const part of (parts.length > 1 ? parts : [choice.name])) {
-          if (grp.weapons.some(w => baseName(w.name) === part)) {
-            grantedQty.set(part, (grantedQty.get(part) ?? 0) + n);
-          }
+          // Match the choice against the weapon with BOTH multi-profile spellings stripped —
+          // " - Krak" and "(Bolt ammo)". Comparing only the former meant an ammo-profile weapon
+          // never registered a granted quantity and fell back to the model count (GH#89).
+          const hit = grp.weapons.some(w =>
+            baseName(w.name) === part ||
+            baseName(w.name).replace(/\s*\([^)]*\)\s*$/, '').trim() === part);
+          if (hit) grantedQty.set(part, (grantedQty.get(part) ?? 0) + n);
         }
       }
       if (groupQty === 0) continue;
@@ -1277,7 +1315,17 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     // count on a row whose weapon matches the previous row.
     for (const w of grp.weapons) {
       const bn = baseName(w.name);
-      if (!replacedQty.has(bn) && !grantedQty.has(bn)) {
+      // A second spelling for multi-profile weapons: production writes ammo variants with
+      // parentheses ("Bolt rifle (Bolt ammo)") rather than " - ", and `baseName` only strips the
+      // latter, so an Indomitus Crusader Squad's bought Bolt rifle never matched the choice that
+      // granted it and printed the whole Initiate count instead of the one bought (GH#89).
+      // Looked up as a FALLBACK rather than normalised into the keys: `replaces` lists sometimes
+      // name profiles individually ("Kroot rifle - Melee", "Kroot rifle - Ranged"), and collapsing
+      // those into one key would double their quantity.
+      const bareN = bn.replace(/\s*\([^)]*\)\s*$/, '').trim();
+      const rKey = replacedQty.has(bn) ? bn : (replacedQty.has(bareN) ? bareN : bn);
+      const gKey = grantedQty.has(bn) ? bn : (grantedQty.has(bareN) ? bareN : bn);
+      if (!replacedQty.has(rKey) && !grantedQty.has(gKey)) {
         // Multi-copy base loadout: the datasheet says "…is equipped with: 2 Power scourges" but
         // nothing has swapped them, so no override was ever set and the profile printed a single
         // row with no count — the live profile must mirror the basic loadout ("x2"). Only kicks in
@@ -1287,7 +1335,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (baseCopies > 1) overrides.set(w.name, (grp.count ?? 1) * baseCopies);
         continue;
       }
-      if (replacedQty.has(bn)) {
+      if (replacedQty.has(rKey)) {
         // Same N-copies-per-model adjustment as computeWeaponsToShow's threshold — grp.count is
         // a MODEL count, but the base weapon's true starting quantity is copies × model count.
         // Only safe when the datasheet actually splits the swap into >=N independent per-copy
@@ -1304,9 +1352,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // this is keyed on the header wording instead of assuming one shape for both.
         const singleCopySwap = replaceGroups.some(g => /\b(one|the other|a)\b/i.test(g.header ?? ''));
         const effectiveCopies = copies > 1 && (replaceGroups.length >= copies || singleCopySwap) ? copies : 1;
-        overrides.set(w.name, Math.max(0, (grp.count ?? 1) * effectiveCopies - replacedQty.get(bn)!));
-      } else if (grantedQty.has(bn)) {
-        overrides.set(w.name, grantedQty.get(bn)!);
+        overrides.set(w.name, Math.max(0, (grp.count ?? 1) * effectiveCopies - replacedQty.get(rKey)!));
+      } else if (grantedQty.has(gKey)) {
+        overrides.set(w.name, grantedQty.get(gKey)!);
       }
     }
     if (overrides.size > 0) grp.countOverrides = overrides;
