@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.63',
+    date: '2026-08-16',
+    title: 'Weapons that vanished when you swapped one of them',
+    changes: [
+      'Eldar — swapping one Windrider\'s Twin shuriken catapult no longer takes the catapults off the rest of the squad. The count was worked out from one model instead of from the squad, so a single swap emptied the row (GitHub #90).',
+      'GENERAL — the same fault affected 93 datasheets: one Big choppa removed every Ork Boy\'s Choppa, one Adrathic destructor removed every Custodian Guard\'s Bolt caster, and so on across most factions.',
+      'GENERAL — a squad whose datasheet gives each model more than one of a weapon now shows the real total: six Kastelan Robots have 12 Power fists, not 2, and four Penitent Engines have 8 Heavy flamers. Swapping is counted properly too — "may swap BOTH Penitent flails" takes two away per model, "may replace ONE Macro-scalpel" takes one.',
+      'Chaos Space Marines, Eldar, Tau — Jakhals, Voidscarred and Kroot Farstalkers share one loadout line between two model rows ("Every Jakhal and Jakhal Pack Leader…"). Their weapon counts were computed from a single model, so swaps came out wrong.',
+      'Orks — a Burna Boyz or Lootas squad no longer shows a Spanna\'s Choppa and Slugga when you have not taken a Spanna, and shows them once you do. Dark Eldar — an Incubi squad now lists the Klaivex and its Demiklaives separately from the Incubi.',
+      'Tau, Adeptus Mechanicus, Chaos Space Marines — the Firesight Marksman\'s Sniper Drones, the Tech-Priest and the Daemon Prince have loadout lines whose spelling differs from the model row only in capitals, which the app was reading as a different model.',
+      'Imperial Guard, Adeptus Mechanicus — an archetype that grants a foreign Armory now grants it to your vehicles too. Traitor Guard vehicles can take the Chaos Space Marine upgrades (Blasphemous Rune, Daemonic possession, Dirge Caster, Living vehicle, Mutated Hull), and the same applies to Dark Mechanicum, Brood Brothers and Gue\'vesa. The foreign Armory sits on its own tab and the vehicle panel has no tabs, so it was unreachable (reported on Discord).',
+    ],
+  },
+  {
     version: '1.62',
     date: '2026-08-16',
     title: 'Armoury access, and the first audit of every Armory sheet',

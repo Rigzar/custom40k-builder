@@ -792,6 +792,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const equipItems = getItems('equipment');
   const { regular: regularEquip, veteran: veteranEquip, vehicle: vehicleEquip } = splitEquipment(equipItems);
 
+  // Imperial Guard "Traitor Guard": "Models with access to the Armory can also access the Chaos
+  // Space Marine Armory." A vehicle's access IS to vehicle equipment, so it must reach the CSM
+  // vehicle upgrades — and it could not: the foreign armoury lives on its own tab, and the tab bar
+  // is hidden in the vehicle panel (which opens with filterCategory="vehicle"). Reported on Discord
+  // by Stu, 2026-08-16; not a recent regression. The foreign items are appended to the vehicle list
+  // here rather than by opening the tab bar, because that panel is deliberately a single list.
+  const foreignVehicleEquip: ArmoryItem[] = (!isAllied && archetypeRuleForArmory?.armoryOnlyFaction && isVehicle
+    ? ((archetypeArmoryData?.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => a.category === 'vehicle')
+    : []
+  ).filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
+  const foreignVehicleNames = new Set(foreignVehicleEquip.map(a => a.name));
+  const foreignSourceLabel = `${archetype} — ${archetypeArmoryData?.faction ?? ''} Armoury`;
+  const vehicleEquipAll = foreignVehicleEquip.length
+    ? [...vehicleEquip, ...foreignVehicleEquip.filter(a => !vehicleEquip.some(v => v.name === a.name))]
+    : vehicleEquip;
+
   return (
     <div
       className="fixed inset-0 bg-black/80 flex items-start justify-center z-50 p-6 overflow-y-auto"
@@ -1186,7 +1202,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
             </div>
           ) : effectiveSection === 'equipment' ? (
             <EquipmentGroups
-              regular={regularEquip} veteran={veteranEquip} vehicle={vehicleEquip}
+              regular={regularEquip} veteran={veteranEquip} vehicle={vehicleEquipAll}
               isChar={isChar} isVehicle={isVehicle} isMonster={unit.is_monster}
               unitSize={item.size} unitWounds={woundCount}
               profileAbilityNames={profileAbilityNames}
@@ -1202,7 +1218,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 if (isAddBlocked(arm, 'equipment')) return;
                 const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
                 const cp = arm.name === 'Paragon of war' ? (eqExarchPower[arm.name] || undefined) : undefined;
-                add(arm, tab === 'mark' ? `${effectiveMark} Armoury` : 'General', effectiveSection, tw, cp);
+                // A CSM vehicle upgrade reached through Traitor Guard is credited to that armoury,
+                // not to the unit's own "General" — the source is what the roster shows and what
+                // the legacy-armoury lock reads.
+                const src = foreignVehicleNames.has(arm.name) ? foreignSourceLabel
+                  : tab === 'mark' ? `${effectiveMark} Armoury` : 'General';
+                add(arm, src, effectiveSection, tw, cp);
               }}
               availableWeapons={availableWeapons}
               eqTargetWeapon={eqTargetWeapon}

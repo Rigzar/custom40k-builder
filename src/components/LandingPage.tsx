@@ -11,41 +11,41 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v162_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v163_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.62: who can actually reach the Armory",
-    intro: "Two Discord reports about Armory gear landing where it should not, and the first pass over every Armory sheet in the game.",
-    install: "⚠ Removing a Veteran Sergeant upgrade now removes the weapons only he could buy. Before, they stayed on his profile and kept costing you points — 61 squads across nine factions. The app asks first, and a list you already saved that way is repaired when you load it.",
-    line1: "⚔ Space Marines — an Armory weapon for an Indomitus Crusader Squad goes to the Sword Brother, not the Initiates. Ten more squads were showing one model's gear on another, among them Repentia, Gretchins, Jakhals, Bike Squads and Outrider Bikes.",
-    line2: "⚖ Inquisition — seventeen Armory items were missing outright, from the Meltagun and Sniper rifle to the Ordo relics. The Combi-stake thrower and Psyoccolum now need Ordo Hereticus, and the Throne of Judgement is the real one: 143 points.",
-    line3: "🔩 Prices fixed against the sheets — Sororitas Eviscerator 13 and Power stake 2/3, Shamblerot 15, Techinfernal foci 7, Inquisition Additional armor 15. A Slaanesh vehicle taking a Doom Siren pays 10, not 5.",
+    title: "v1.63: weapons that vanished when you swapped one",
+    intro: "One report from GitHub that turned out to affect 93 datasheets. Worth re-checking any squad where you swapped a weapon.",
+    install: "⚠ Swapping one weapon no longer strips it from the whole squad. One Scatter laser on a Windrider squad removed every Twin shuriken catapult; the same fault hit 93 datasheets, including one Big choppa clearing every Ork Boy's Choppa (GitHub #90).",
+    line1: "⚔ A squad whose models each carry two of a weapon now shows the real total — six Kastelan Robots have 12 Power fists, not 2. Swaps count properly too: 'may swap BOTH Penitent flails' removes two, 'may replace ONE Macro-scalpel' removes one.",
+    line2: "⚖ Orks — a Burna Boyz or Lootas squad no longer shows a Spanna's Choppa and Slugga before you take a Spanna. Dark Eldar — Incubi list the Klaivex and its Demiklaives on their own row.",
+    line3: "🔩 Jakhals, Voidscarred and Kroot Farstalkers share one loadout line between two model rows, so their counts were worked out from a single model and every swap came out wrong.",
     line4: "",
     line5: "",
     line6: "",
     contrib: "👁️ If a unit of yours changed points, this is why. Anything still wrong: unit, engagement, archetype and a picture — and Review → ↓ JSON if the list itself misbehaves.",
   },
   de: {
-    title: "v1.62: wer die Armory wirklich erreicht",
-    intro: "Zwei Discord-Meldungen über Armory-Ausrüstung an der falschen Stelle, dazu der erste Durchgang über jede Armory-Tabelle im Spiel.",
-    install: "⚠ Wer die Veteran-Sergeant-Verbesserung entfernt, verliert jetzt auch die Waffen, die nur er kaufen konnte. Vorher blieben sie auf seinem Profil und kosteten weiter Punkte — 61 Trupps in neun Fraktionen. Die App fragt vorher nach, und eine bereits so gespeicherte Liste wird beim Laden repariert.",
-    line1: "⚔ Space Marines — eine Armory-Waffe für den Indomitus Crusader Squad geht an den Sword Brother, nicht an die Initiates. Zehn weitere Trupps zeigten die Ausrüstung eines Modells bei einem anderen, darunter Repentia, Gretchins, Jakhals, Bike Squads und Outrider Bikes.",
-    line2: "⚖ Inquisition — siebzehn Armory-Gegenstände fehlten komplett, von Meltagun und Sniper rifle bis zu den Ordo-Reliquien. Combi-stake thrower und Psyoccolum brauchen jetzt Ordo Hereticus, und der Throne of Judgement ist der echte: 143 Punkte.",
-    line3: "🔩 Punkte an den Tabellen korrigiert — Sororitas Eviscerator 13 und Power stake 2/3, Shamblerot 15, Techinfernal foci 7, Inquisition Additional armor 15. Ein Slaanesh-Fahrzeug zahlt für eine Doom Siren 10 statt 5.",
+    title: "v1.63: Waffen, die beim Tauschen verschwanden",
+    intro: "Eine GitHub-Meldung, die am Ende 93 Datenblätter betraf. Prüft Trupps, in denen ihr eine Waffe getauscht habt.",
+    install: "⚠ Eine Waffe zu tauschen nimmt sie nicht mehr dem ganzen Trupp weg. Ein Scatter Laser bei den Windriders entfernte alle Twin Shuriken-Katapulte; derselbe Fehler traf 93 Datenblätter, etwa eine Big Choppa, die jedem Ork Boy die Choppa nahm (GitHub #90).",
+    line1: "⚔ Trupps, deren Modelle je zwei Exemplare einer Waffe tragen, zeigen jetzt die echte Summe — sechs Kastelan Robots haben 12 Power Fists, nicht 2. Auch Tauschvorgänge zählen richtig: 'may swap BOTH Penitent flails' nimmt zwei, 'may replace ONE Macro-scalpel' nimmt eines.",
+    line2: "⚖ Orks — Burna Boyz und Lootas zeigen Choppa und Slugga eines Spanna nicht mehr, bevor ihr einen Spanna nehmt. Dark Eldar — Incubi führen den Klaivex und seine Demiklaives in einer eigenen Zeile.",
+    line3: "🔩 Jakhals, Voidscarred und Kroot Farstalkers teilen sich eine Ausrüstungszeile über zwei Modellreihen, daher wurden ihre Anzahlen aus einem einzigen Modell berechnet und jeder Tausch war falsch.",
     line4: "",
     line5: "",
     line6: "",
     contrib: "👁️ Wenn sich bei einer eurer Einheiten die Punkte geändert haben, liegt es daran. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild — und Prüfung → ↓ JSON, wenn die Liste selbst spinnt.",
   },
   es: {
-    title: "v1.62: quién llega de verdad a la armería",
-    intro: "Dos reportes de Discord sobre equipo de armería que acababa donde no debía, y la primera pasada por todas las hojas de armería del juego.",
-    install: "⚠ Quitar la mejora de Veteran Sergeant ahora quita también las armas que solo él podía comprar. Antes se quedaban en su perfil y te seguían costando puntos — 61 escuadras en nueve facciones. La app pregunta antes, y una lista ya guardada así se repara al cargarla.",
-    line1: "⚔ Space Marines — un arma de armería del Indomitus Crusader Squad va al Sword Brother, no a los Initiates. Otras diez escuadras enseñaban el equipo de un modelo en otro, entre ellas Repentia, Gretchins, Jakhals, Bike Squads y Outrider Bikes.",
-    line2: "⚖ Inquisición — faltaban diecisiete objetos de armería, desde el Meltagun y el Sniper rifle hasta las reliquias de Ordo. El Combi-stake thrower y el Psyoccolum ya exigen Ordo Hereticus, y el Throne of Judgement es el de verdad: 143 puntos.",
-    line3: "🔩 Puntos corregidos contra las hojas — Eviscerator 13 y Power stake 2/3 en Sororitas, Shamblerot 15, Techinfernal foci 7, Additional armor 15 en Inquisición. Un vehículo de Slaanesh con Doom Siren paga 10, no 5.",
+    title: "v1.63: armas que desaparecían al cambiar una",
+    intro: "Un reporte de GitHub que al final afectaba a 93 fichas. Conviene revisar las escuadras donde cambiasteis un arma.",
+    install: "⚠ Cambiar un arma ya no se la quita a toda la escuadra. Un Scatter laser en unos Windriders borraba todos los Twin shuriken catapult; el mismo fallo afectaba a 93 fichas, como una Big choppa dejando sin Choppa a todos los Ork Boyz (GitHub #90).",
+    line1: "⚔ Las escuadras cuyos modelos llevan dos copias de un arma ya muestran el total real: seis Kastelan Robots tienen 12 Power fists, no 2. Y los cambios cuentan bien: 'may swap BOTH Penitent flails' quita dos, 'may replace ONE Macro-scalpel' quita uno.",
+    line2: "⚖ Orkos — Burna Boyz y Lootas ya no enseñan el Choppa y el Slugga de un Spanna si no has cogido ninguno. Elfos Oscuros — los Incubi listan al Klaivex y sus Demiklaives en su propia fila.",
+    line3: "🔩 Jakhals, Voidscarred y Kroot Farstalkers comparten una línea de equipo entre dos filas de modelo, así que sus cantidades salían de un solo modelo y cualquier cambio salía mal.",
     line4: "",
     line5: "",
     line6: "",

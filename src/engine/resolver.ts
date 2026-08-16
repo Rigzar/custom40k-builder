@@ -27,6 +27,14 @@ export interface WeaponGroup {
    * profile's overall weaponTraitMap when absent (set when a group needs its own, e.g. a
    * Character-only daemon weapon trait that only modifies the Champion's copy). */
   traitMap?: Map<string, string[]>;
+  /**
+   * The model rows this group covers, set ONLY when one loadout clause spans several of them
+   * ("Every Jakhal and Jakhal Pack Leader is equipped with:" — also Voidscarred and Kroot
+   * Farstalkers, and nothing else in the game). A swap group scoped with `applies_to_model:
+   * "Jakhal"` has to recognise that this row contains Jakhals; matching on the label alone never
+   * did, so the swap was counted against nothing and the Chainblade total never dropped.
+   */
+  models?: string[];
   /** Per-weapon-name count override, keyed by exact weapon name — takes priority over `count`
    * for that one row. Set when independent option groups (e.g. "every model's Lasgun may be
    * replaced" + a separate "per 10 models, one Lasgun may become a Flamer") let only a SUBSET
@@ -1222,24 +1230,64 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     for (const [ci, c] of clauses.entries()) {
       const label = c[1].trim();
       const names = resolveClauseItems(c[2], unit.weapons).map(baseName);
-      const gWeapons = remaining.filter(w => names.includes(baseName(w.name)));
+      // Also matched against the PARENTHESISED spelling: production writes multi-profile rows as
+      // "Demiklaives (dual blades)" while the clause names the parent ("Demiklaives"), so on a
+      // multi-clause datasheet the group came out empty and was dropped — the Dark Eldar Klaivex's
+      // only weapon never appeared at all.
+      const bareWeaponName = (n: string) => baseName(n).replace(/\s*\([^)]*\)\s*$/, '').trim();
+      const gWeapons = remaining.filter(w =>
+        names.includes(baseName(w.name)) || names.includes(bareWeaponName(w.name)));
       gWeapons.forEach(w => used.add(w.name));
-      const idx = profile.modelsToShow.findIndex(m => m.name === label);
+      const modelCountOf = (i: number) => {
+        const mm = profile.modelsToShow[i];
+        return profile.modelCounts[i] ?? (item.modelSizes?.[mm.name] ?? (mm.min > 0 ? mm.min : mm.max));
+      };
+      // Matched case-insensitively: the author's own sheets write "Every Sniper drone is equipped
+      // with:" beside a model row named "Sniper Drone", and likewise for the Tech-Priest and the
+      // Daemon Prince. A case-sensitive lookup attached those clauses to nothing. Checked first:
+      // no datasheet has two model rows whose names differ only by case, so this cannot mis-match.
+      const eq = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
+      // A clause can also be addressed to a PROMOTED model rather than a model row — "The Klaivex
+      // is equipped with: Demiklaives", "Every Spanna is equipped with: Choppa; Slugga". There is
+      // exactly one of it, and only while the promotion is taken: the Lootas showed a Spanna row
+      // holding a Choppa with no Spanna in the squad, then showed it as "x0" once there was one.
+      const isVariantLabel = (unit.variant_models ?? []).some(v => eq(v.name, label));
+      const variantTaken = isVariantLabel && profile.variantActive && eq(profile.variant?.name ?? '', label);
+      const idx = profile.modelsToShow.findIndex(m => eq(m.name, label));
       const m = idx >= 0 ? profile.modelsToShow[idx] : null;
-      const count = m
-        ? profile.modelCounts[idx] ?? (item.modelSizes?.[m.name] ?? (m.min > 0 ? m.min : m.max))
-        : null;
+      // A clause can cover TWO model rows at once — "Every Jakhal and Jakhal Pack Leader is
+      // equipped with:", plus Voidscarred and Kroot Farstalkers. The label then matches no single
+      // row, the group's count stayed null, and the swap arithmetic below worked off one model:
+      // swapping a single Shuriken rifle emptied the whole squad's (GitHub #90, same shape).
+      // Only counts parts that are real model rows, so a label naming something else is untouched.
+      const parts = label.split(/\s*\band\b\s*/i).map(s => s.trim()).filter(Boolean);
+      const partIdxs = parts.length > 1
+        ? parts.map(p => profile.modelsToShow.findIndex(mm => eq(mm.name, p))).filter(i => i >= 0)
+        : [];
+      // A promotion is a single model, and `modelsToShow` carries it with no count of its own
+      // (its min/max are 0), so asking the model list gave "x0" for a Spanna that is present.
+      const count = variantTaken ? 1
+        : m
+        ? modelCountOf(idx)
+        : (isVariantLabel ? 1
+            : (partIdxs.length === parts.length && partIdxs.length > 1
+                ? partIdxs.reduce((sum, i) => sum + modelCountOf(i), 0)
+                : null));
       // A clause for an OPTIONAL model the player took none of gets no row. Its weapons are still
       // marked used above, so they are not treated as unattributed kit and dumped onto the first
       // row: an Armory purchase on an Indomitus Crusader Squad landed on a Neophyte line that only
       // existed because the clause did, even with zero Neophytes in the squad.
       // Looked up in unit.models, not modelsToShow — the latter has already dropped absent models,
       // so it can never tell us that this clause's model is one of them.
-      const clauseModel = unit.models.find(x => x.name === label);
+      const clauseModel = unit.models.find(x => eq(x.name, label));
       const optionalAndAbsent = !!item.modelSizes && !!clauseModel && clauseModel.min === 0 &&
         (item.modelSizes[clauseModel.name] ?? clauseModel.min) === 0;
+      if (isVariantLabel && !variantTaken) continue;      // promotion not taken: no such model
       if (!optionalAndAbsent) {
-        groups.push({ label, count, weapons: gWeapons, traitMap: profile.weaponTraitMap });
+        const spans = partIdxs.length === parts.length && partIdxs.length > 1
+          ? partIdxs.map(i => profile.modelsToShow[i].name) : undefined;
+        groups.push({ label, count, weapons: gWeapons, traitMap: profile.weaponTraitMap,
+          ...(spans ? { models: spans } : {}) });
       }
 
       // The promoted variant (e.g. Traitor Sergeant) shares this clause's base loadout. If
@@ -1384,9 +1432,25 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       // so the granted weapon fell back to the squad's model count and printed "10x Flamer"
       // instead of the quantity actually bought.
       if (g.applies_to_model) {
-        if (!(Array.isArray(g.applies_to_model) ? g.applies_to_model.includes(grp.label) : g.applies_to_model === grp.label)) continue;
+        const targets = Array.isArray(g.applies_to_model) ? g.applies_to_model : [g.applies_to_model];
+        // `grp.models` is only set for a clause spanning several model rows (3 datasheets), so
+        // every other group keeps matching on the label exactly as before.
+        const covers = grp.models
+          ? targets.some(t => grp.models!.includes(t))
+          : targets.includes(grp.label as string);
+        if (!covers) continue;
       } else if (builtInChampion && grp.label === builtInChampion.name) {
         continue;
+      } else {
+        // A swap that belongs to a PROMOTED model and says so only in its header ("The Klaivex
+        // replaces its Klaive with Demiklaives") must not be subtracted from the base squad's row:
+        // promoting one Incubus left the other four showing three Klaives instead of four. Scoped
+        // here rather than by setting `applies_to_model` in the data, because that field also
+        // drives which weapons are VISIBLE and using it hid the squad's Klaives entirely.
+        const header = (g.header ?? '').toLowerCase();
+        const headerVariant = (unit.variant_models ?? [])
+          .find(v => header.includes(v.name.toLowerCase()));
+        if (headerVariant && (grp.label ?? '').toLowerCase() !== headerVariant.name.toLowerCase()) continue;
       }
       const ch = item.optionQty[gi] ?? {};
       let groupQty = 0;
@@ -1413,6 +1477,14 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       }
     }
     const overrides = new Map<string, number>();
+    // How many models this group covers. `grp.count` is null for the single unlabelled group that
+    // covers a whole squad (the common shape — one model row, one loadout clause), and the
+    // arithmetic below then subtracted the swaps from ONE model instead of from the squad: picking
+    // a single Scatter laser on five Windriders left max(0, 1-1) = 0 Twin shuriken catapults and
+    // the weapon vanished for everyone (GitHub #90). 93 datasheets could be emptied this way —
+    // Ork Boyz lost every Choppa to one Big choppa. Labelled groups always carry a real count, so
+    // the fallback is scoped to the unlabelled whole-squad one and cannot inflate a champion's row.
+    const groupModels = grp.count ?? (grp.label === null ? Math.max(1, item.size ?? 1) : 1);
     // NOTE: a multi-profile weapon ("Knight melee weapon - Strike"/"- Sweep") keeps the SAME real
     // quantity on each of its mode rows here — the data stays truthful. Not repeating that number
     // visually is a rendering concern and is handled once in the weapon tables, which skip the
@@ -1427,8 +1499,16 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       // name profiles individually ("Kroot rifle - Melee", "Kroot rifle - Ranged"), and collapsing
       // those into one key would double their quantity.
       const bareN = bn.replace(/\s*\([^)]*\)\s*$/, '').trim();
-      const rKey = replacedQty.has(bn) ? bn : (replacedQty.has(bareN) ? bareN : bn);
-      const gKey = grantedQty.has(bn) ? bn : (grantedQty.has(bareN) ? bareN : bn);
+      // The EXACT name comes first: on 9 datasheets `replaces` names multi-profile rows one by one
+      // ("Kroot rifle - Melee", "Kroot rifle - Ranged"), so asking only for the base name found
+      // nothing and the swap was never subtracted — a Kroot Farstalker squad kept all five rifles
+      // however many it traded away. Each profile row keeps its own quantity, which is why these
+      // are not collapsed into one key (that would double them). Verified: every profile-named
+      // `replaces` in the game matches a real weapon row, so this can never key on a phantom.
+      const rKey = replacedQty.has(w.name) ? w.name
+        : (replacedQty.has(bn) ? bn : (replacedQty.has(bareN) ? bareN : bn));
+      const gKey = grantedQty.has(w.name) ? w.name
+        : (grantedQty.has(bn) ? bn : (grantedQty.has(bareN) ? bareN : bn));
       if (!replacedQty.has(rKey) && !grantedQty.has(gKey)) {
         // Multi-copy base loadout: the datasheet says "…is equipped with: 2 Power scourges" but
         // nothing has swapped them, so no override was ever set and the profile printed a single
@@ -1436,7 +1516,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // for weapons the equipped_with text really gives more than one copy of.
         const baseCopies = weaponCopiesPerModel(unit.equipped_with, bn);
         // grp.count is null for single-model groups (most vehicles) — treat that as one model.
-        if (baseCopies > 1) overrides.set(w.name, (grp.count ?? 1) * baseCopies);
+        if (baseCopies > 1) overrides.set(w.name, groupModels * baseCopies);
         continue;
       }
       if (replacedQty.has(rKey)) {
@@ -1454,9 +1534,19 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // base quantity must stay copies×models — unlike a bulk swap that trades all N at once
         // ("may swap their 2 Laser destroyers" -> one "2 Quad lascannons" choice), which is why
         // this is keyed on the header wording instead of assuming one shape for both.
-        const singleCopySwap = replaceGroups.some(g => /\b(one|the other|a)\b/i.test(g.header ?? ''));
-        const effectiveCopies = copies > 1 && (replaceGroups.length >= copies || singleCopySwap) ? copies : 1;
-        overrides.set(w.name, Math.max(0, (grp.count ?? 1) * effectiveCopies - replacedQty.get(rKey)!));
+        // The base quantity is ALWAYS copies × models — "Every model is equipped with: 2 Power
+        // fists" on six Kastelan Robots really is twelve fists. What varies is how much one
+        // selection takes away, and the datasheet says which:
+        //   "Any model may swap their TWO Power fists", "may swap BOTH Penitent flails" → the
+        //      selection trades every copy that model carries, so it removes `copies`.
+        //   "May replace ONE Siege claw", "the OTHER Power scourge" → it removes a single copy.
+        // Scaling the BASE by that distinction instead of the cost of a swap is what made four
+        // Penitent Engines read 3 flails after one swap instead of 6, and six Kastelan Robots
+        // read 5 Power fists instead of 10.
+        const swapsAllCopies = copies > 1 &&
+          replaceGroups.some(g => /\b(both|their two|two|all)\b/i.test(g.header ?? ''));
+        const perSwap = swapsAllCopies ? copies : 1;
+        overrides.set(w.name, Math.max(0, groupModels * copies - replacedQty.get(rKey)! * perSwap));
       } else if (grantedQty.has(gKey)) {
         overrides.set(w.name, grantedQty.get(gKey)!);
       }

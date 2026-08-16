@@ -50,7 +50,7 @@ export const burnaBoyz: Unit = {
       }
     }
   ],
-  "equipped_with": "Every Burna Boy is equipped with: Burna.\nEvery Mek is equipped with: Choppa; Slugga.",
+  "equipped_with": "Every Burna Boy is equipped with: Burna.\nEvery Spanna is equipped with: Choppa; Slugga.",
   "weapons": [
     {
       "name": "Big shoota",
@@ -170,7 +170,11 @@ export const burnaBoyz: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Choppa", "Slugga"]
+      "replaces": [
+        "Choppa",
+        "Slugga"
+      ],
+      "applies_to_model": "Spanna"
     },
     {
       "header": "Can get one Kustom job.",
