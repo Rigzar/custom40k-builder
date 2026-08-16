@@ -67,7 +67,7 @@ export const tauros: Unit = {
       }
     }
   ],
-  "equipped_with": "A Tauros is equipped with: Tauros grenade launcher.",
+  "equipped_with": "A Tauros is equipped with: Tauros grenade launcher. A Tauros Venator is equipped with: Twin heavy stubber.",
   "weapons": [
     {
       "name": "Tauros grenade launcher - Frag grenade",
@@ -149,7 +149,10 @@ export const tauros: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Tauros grenade launcher - Frag grenade", "Tauros grenade launcher - Krak grenade"]
+      "replaces": [
+        "Tauros grenade launcher - Frag grenade",
+        "Tauros grenade launcher - Krak grenade"
+      ]
     },
     {
       "header": "A Tauros Venator may swap its Twin-linked heavy stubber",
@@ -169,7 +172,9 @@ export const tauros: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Twin heavy stubber"]
+      "replaces": [
+        "Twin heavy stubber"
+      ]
     }
   ],
   "abilities": [

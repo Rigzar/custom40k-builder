@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-author-rulings-2026-08-16",
+    status: "fixed",
+    title: "Author rulings — Spannas, the Klaivex's Demiklaives and the Tauros Venator",
+    description: "FIXED 2026-08-16 (v1.63), answered directly by the author after we listed five sheet questions. (1) SPANNAS: \"up to three per unit\" — Burna Boyz and Lootas may promote up to three models, not one. The Lootas group was `{type:'one'}`; both are now `fixed_max: 3`, the promotion is a quantity control instead of a checkbox, and the points scale (five Lootas with three Spannas: 78 pts, down from 120, since a Spanna is -14 each). Only 2 of the 106 promotions in the game allow more than one, and `ActiveVariant.count` defaults to 1 so the other 104 are priced by identical arithmetic — verified by rendering all of them before and after: 3 rows changed, all intended, no points moved. (2) KLAIVEX: \"The Klaivex always carries the Demiklaives and, like a Missile Launcher or Plasma Gun, it simply has two attack modes that you can pick from each activation.\" It was modelled as an optional swap, so until the player picked a mode the Klaivex showed a Klaive it does not have; the option group is removed and both profiles now render on the Klaivex's own row. (3) TAUROS: the sheet does carry \"A Tauros Venator is equipped with: Twin-linked heavy stubber\" — our copy had dropped that clause. Added using the weapon table's own spelling (\"Twin heavy stubber\", which is what the weapon row is called). The author also corrected three sheets on his side: Burna Boyz \"Mek\" → \"Spanna\", Incubi \"Demiklaves\" → \"Demiklaives\", and the Votann \"Ancestor's jugdement warhead\" → \"judgement\". STILL OPEN: whether a Tauros Venator also keeps the Tauros grenade launcher — its loadout line names only the stubber, and with a single-model squadron promoted the base row renders with no count.",
+  },
+  {
     id: "ki-archetype-armory-vehicles-01",
     status: "fixed",
     title: "Traitor Guard — vehicles could not reach the Chaos Space Marine Armory",

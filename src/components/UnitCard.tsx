@@ -1239,6 +1239,8 @@ export function UnitCard({ item }: Props) {
 
             if (g.variant_link) {
               const active = !!(item.optionQty?.[realGi]?.['__inline']);
+              const promotionMax = g.constraint?.type === 'fixed_max' ? (g.constraint.max ?? 1) : 1;
+              const promotionQty = Math.min(Number(item.optionQty?.[realGi]?.['__inline'] ?? 0) || 0, promotionMax);
               const variantModel = u.variant_models.find(vm => vm.name === g.variant_link);
               // "Unique per army" variant promotions (datasheet-verbatim, e.g. Master of Sorcery):
               // once ANY other entry in the roster (primary or allied — Core L1837: allying with
@@ -1254,6 +1256,33 @@ export function UnitCard({ item }: Props) {
               return (
                 <details key={realGi} open className="text-[12px] border border-zinc-700 bg-zinc-900/40">
                   <summary className="cursor-pointer px-2 py-1.5 flex items-center gap-2 select-none bg-zinc-800/60 border-b border-zinc-700/60">
+                    {/* Almost every promotion is one model, but the Ork Burna Boyz and Lootas read
+                        "Up to three … may be upgraded to Spannas" (author, 2026-08-16: "up to three
+                        per unit"), so those get a quantity instead of a checkbox. Keyed on the
+                        group's own cap, which is 1 for the other 104 promotions in the game. */}
+                    {promotionMax > 1 ? (
+                      <div className="flex items-center shrink-0" onClick={e => e.stopPropagation()}>
+                        <button
+                          onClick={() => {
+                            const next = promotionQty - 1;
+                            if (next === 0) {
+                              const lost = armoryItemsLostByDeselecting(item, u, realGi);
+                              if (lost.length > 0 && !confirm(tpl(t('armoryLostOnDowngradeConfirm'), {
+                                count: lost.length, items: lost.map(a => a.itemName).join(', '),
+                              }))) return;
+                            }
+                            setQty(realGi, '__inline', Math.max(0, next));
+                          }}
+                          disabled={promotionQty <= 0}
+                          className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">−</button>
+                        <span className="w-6 text-center text-zinc-100 font-mono text-[11px]">{promotionQty}</span>
+                        <button
+                          onClick={() => setQty(realGi, '__inline', Math.min(promotionMax, promotionQty + 1))}
+                          disabled={promotionQty >= promotionMax || uniqueTakenElsewhere}
+                          className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none">+</button>
+                        <span className="text-zinc-500 text-[10px] ml-1">/{promotionMax}</span>
+                      </div>
+                    ) : (
                     <input
                       type="checkbox"
                       checked={active}
@@ -1272,6 +1301,7 @@ export function UnitCard({ item }: Props) {
                         setQty(realGi, '__inline', active ? 0 : 1);
                       }}
                     />
+                    )}
                     <span className={`font-cinzel text-[11px] uppercase tracking-wider flex-1 ${uniqueTakenElsewhere ? 'text-zinc-600' : 'text-zinc-100'}`}>{g.variant_link ?? g.header}</span>
                     {uniqueTakenElsewhere && (
                       <span className="font-cinzel text-[9px] uppercase tracking-widest px-1.5 py-0.5 border border-zinc-700 bg-zinc-900/60 text-zinc-500 shrink-0">{t('uniqueTakenBadge')}</span>

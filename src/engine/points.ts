@@ -69,7 +69,13 @@ function isMarkGroup(g: { constraint: { type: string } }) {
   return g.constraint.type === 'mark';
 }
 
-type ActiveVariant = { variant: Model; group: { header: string; inline_pts: number | null } };
+/**
+ * `count` is how many models were promoted. Almost every promotion in the game is a single model
+ * ("One model may be upgraded to a Klaivex"), but the Ork Burna Boyz and Lootas read "Up to three
+ * … may be upgraded to Spannas" — confirmed by the author 2026-08-16, "up to three per unit". It
+ * defaults to 1, so the 104 single-model promotions are priced by exactly the same arithmetic.
+ */
+type ActiveVariant = { variant: Model; group: { header: string; inline_pts: number | null }; count: number };
 
 function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
   for (const [gi, g] of unit.option_groups.entries()) {
@@ -77,7 +83,8 @@ function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
     if (g.variant_link && qty?.['__inline']) {
       const variant = unit.variant_models.find(v => v.name === g.variant_link) ?? null;
       if (!variant) return null;
-      return { variant, group: g };
+      const cap = g.constraint?.type === 'fixed_max' ? (g.constraint.max ?? 1) : 1;
+      return { variant, group: g, count: Math.max(1, Math.min(Number(qty['__inline']) || 1, cap)) };
     }
     // Per-choice variant_link: a multi-choice group (e.g. Necrons Cryptek's 5-way "one of the
     // following" specialisation pick) where only ONE named choice promotes the model to its
@@ -85,7 +92,7 @@ function getActiveVariant(item: RosterEntry, unit: Unit): ActiveVariant | null {
     for (const [ci, choice] of g.choices.entries()) {
       if (!choice.variant_link || !qty?.[ci]) continue;
       const variant = unit.variant_models.find(v => v.name === choice.variant_link) ?? null;
-      if (variant) return { variant, group: g };
+      if (variant) return { variant, group: g, count: 1 };
     }
   }
   return null;
@@ -120,19 +127,20 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
       // Multi-group unit: bill each group at its own price; the promoted model comes
       // out of its base group's count (one fewer at base price, plus the variant's price).
       const promoted = getPromotedModel(unit, active);
+      const promotedCount = active.count;
       for (const m of unit.models) {
         const count = item.modelSizes[m.name] ?? m.min;
         if (m === promoted) {
-          total += Math.max(0, count - 1) * m.points + variant.points;
+          total += Math.max(0, count - promotedCount) * m.points + variant.points * promotedCount;
         } else {
           total += count * m.points;
         }
       }
     } else {
       const grunt = unit.models.find(m => m.max > m.min && m.min === 0) ?? unit.models[0];
-      total += variant.points;
+      total += variant.points * active.count;
       const effectiveSize = Math.max(item.size, grunt.min);
-      const extra = Math.max(0, effectiveSize - 1);
+      const extra = Math.max(0, effectiveSize - active.count);
       total += extra * grunt.points;
     }
   } else if (item.modelSizes) {

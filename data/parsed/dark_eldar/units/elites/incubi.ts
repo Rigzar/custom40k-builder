@@ -90,26 +90,6 @@ export const incubi: Unit = {
       "inline_pts": 22,
       "variant_link": "Klaivex",
       "is_unique_per_army": false
-    },
-    {
-      "header": "The Klaivex replaces its Klaive with Demiklaives (choose one mode)",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [
-        {
-          "name": "Demiklaives (dual blades)",
-          "points": 0
-        },
-        {
-          "name": "Demiklaives (single blade)",
-          "points": 0
-        }
-      ],
-      "inline_pts": null,
-      "variant_link": null,
-      "replaces": ["Klaive"],
-      "is_unique_per_army": false
     }
   ],
   "abilities": [

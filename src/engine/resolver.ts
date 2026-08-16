@@ -682,7 +682,10 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     const promoted = getPromotedModel(unit, activeVariant);
     const idx = visibleModels.indexOf(promoted);
     const rawCount = item.modelSizes?.[promoted.name] ?? item.size;
-    const baseCount = Math.max(rawCount, promoted.min) - 1;
+    // Minus however many were promoted, not always one: the Ork Burna Boyz and Lootas may upgrade
+    // up to three models, and the base row kept reading "x4" while the points (correctly) charged
+    // for two or three Spannas.
+    const baseCount = Math.max(rawCount, promoted.min) - activeVariant.count;
     if (idx >= 0 && baseCount > 0) {
       modelsToShow = [
         ...visibleModels.slice(0, idx),
@@ -1253,6 +1256,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       // holding a Choppa with no Spanna in the squad, then showed it as "x0" once there was one.
       const isVariantLabel = (unit.variant_models ?? []).some(v => eq(v.name, label));
       const variantTaken = isVariantLabel && profile.variantActive && eq(profile.variant?.name ?? '', label);
+      // How many were promoted — 1 everywhere except the two Ork squads that read "Up to three …
+      // may be upgraded to Spannas" (author, 2026-08-16: "up to three per unit").
+      const variantCount = variantTaken ? (getActiveVariant(item, unit)?.count ?? 1) : 0;
       const idx = profile.modelsToShow.findIndex(m => eq(m.name, label));
       const m = idx >= 0 ? profile.modelsToShow[idx] : null;
       // A clause can cover TWO model rows at once — "Every Jakhal and Jakhal Pack Leader is
@@ -1266,7 +1272,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         : [];
       // A promotion is a single model, and `modelsToShow` carries it with no count of its own
       // (its min/max are 0), so asking the model list gave "x0" for a Spanna that is present.
-      const count = variantTaken ? 1
+      const count = variantTaken ? variantCount
         : m
         ? modelCountOf(idx)
         : (isVariantLabel ? 1

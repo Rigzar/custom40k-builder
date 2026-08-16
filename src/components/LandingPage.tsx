@@ -11,7 +11,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v163_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v163b_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
@@ -20,7 +20,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     intro: "One report from GitHub that turned out to affect 93 datasheets. Worth re-checking any squad where you swapped a weapon.",
     install: "⚠ Swapping one weapon no longer strips it from the whole squad. One Scatter laser on a Windrider squad removed every Twin shuriken catapult; the same fault hit 93 datasheets, including one Big choppa clearing every Ork Boy's Choppa (GitHub #90).",
     line1: "⚔ A squad whose models each carry two of a weapon now shows the real total — six Kastelan Robots have 12 Power fists, not 2. Swaps count properly too: 'may swap BOTH Penitent flails' removes two, 'may replace ONE Macro-scalpel' removes one.",
-    line2: "⚖ Orks — a Burna Boyz or Lootas squad no longer shows a Spanna's Choppa and Slugga before you take a Spanna. Dark Eldar — Incubi list the Klaivex and its Demiklaives on their own row.",
+    line2: "⚖ Orks — Burna Boyz and Lootas can take up to THREE Spannas, as the datasheet says. Five Lootas with three Spannas are 78 pts, down from 120. Dark Eldar — the Klaivex always carries its Demiklaives, both modes shown; it used to be an optional swap. Imperial Guard — a Tauros Venator now shows its Twin heavy stubber.",
     line3: "🔩 Jakhals, Voidscarred and Kroot Farstalkers share one loadout line between two model rows, so their counts were worked out from a single model and every swap came out wrong.",
     line4: "",
     line5: "",
@@ -32,7 +32,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     intro: "Eine GitHub-Meldung, die am Ende 93 Datenblätter betraf. Prüft Trupps, in denen ihr eine Waffe getauscht habt.",
     install: "⚠ Eine Waffe zu tauschen nimmt sie nicht mehr dem ganzen Trupp weg. Ein Scatter Laser bei den Windriders entfernte alle Twin Shuriken-Katapulte; derselbe Fehler traf 93 Datenblätter, etwa eine Big Choppa, die jedem Ork Boy die Choppa nahm (GitHub #90).",
     line1: "⚔ Trupps, deren Modelle je zwei Exemplare einer Waffe tragen, zeigen jetzt die echte Summe — sechs Kastelan Robots haben 12 Power Fists, nicht 2. Auch Tauschvorgänge zählen richtig: 'may swap BOTH Penitent flails' nimmt zwei, 'may replace ONE Macro-scalpel' nimmt eines.",
-    line2: "⚖ Orks — Burna Boyz und Lootas zeigen Choppa und Slugga eines Spanna nicht mehr, bevor ihr einen Spanna nehmt. Dark Eldar — Incubi führen den Klaivex und seine Demiklaives in einer eigenen Zeile.",
+    line2: "⚖ Orks — Burna Boyz und Lootas dürfen bis zu DREI Spannas nehmen, wie auf dem Datenblatt. Fünf Lootas mit drei Spannas kosten 78 statt 120 Punkte. Dark Eldar — der Klaivex trägt seine Demiklaives immer, beide Modi sichtbar; vorher war es ein optionaler Tausch. Imperial Guard — ein Tauros Venator zeigt jetzt seinen Twin heavy stubber.",
     line3: "🔩 Jakhals, Voidscarred und Kroot Farstalkers teilen sich eine Ausrüstungszeile über zwei Modellreihen, daher wurden ihre Anzahlen aus einem einzigen Modell berechnet und jeder Tausch war falsch.",
     line4: "",
     line5: "",
@@ -44,7 +44,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     intro: "Un reporte de GitHub que al final afectaba a 93 fichas. Conviene revisar las escuadras donde cambiasteis un arma.",
     install: "⚠ Cambiar un arma ya no se la quita a toda la escuadra. Un Scatter laser en unos Windriders borraba todos los Twin shuriken catapult; el mismo fallo afectaba a 93 fichas, como una Big choppa dejando sin Choppa a todos los Ork Boyz (GitHub #90).",
     line1: "⚔ Las escuadras cuyos modelos llevan dos copias de un arma ya muestran el total real: seis Kastelan Robots tienen 12 Power fists, no 2. Y los cambios cuentan bien: 'may swap BOTH Penitent flails' quita dos, 'may replace ONE Macro-scalpel' quita uno.",
-    line2: "⚖ Orkos — Burna Boyz y Lootas ya no enseñan el Choppa y el Slugga de un Spanna si no has cogido ninguno. Elfos Oscuros — los Incubi listan al Klaivex y sus Demiklaives en su propia fila.",
+    line2: "⚖ Orkos — Burna Boyz y Lootas pueden llevar hasta TRES Spannas, como dice la ficha. Cinco Lootas con tres Spannas son 78 pts, antes 120. Elfos Oscuros — el Klaivex lleva siempre sus Demiklaives, con los dos modos a la vista; antes era un cambio opcional. Guardia Imperial — un Tauros Venator ya muestra su Twin heavy stubber.",
     line3: "🔩 Jakhals, Voidscarred y Kroot Farstalkers comparten una línea de equipo entre dos filas de modelo, así que sus cantidades salían de un solo modelo y cualquier cambio salía mal.",
     line4: "",
     line5: "",

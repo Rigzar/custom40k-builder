@@ -140,7 +140,8 @@ export const lootas: Unit = {
     {
       "header": "Up to three Lootas may be upgraded to Spannas for -14 points each.",
       "constraint": {
-        "type": "one"
+        "type": "fixed_max",
+        "max": 3
       },
       "choices": [],
       "inline_pts": -14,
