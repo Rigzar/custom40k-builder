@@ -37,7 +37,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Tau, Adeptus Mechanicus, Chaos Space Marines — the Firesight Marksman\'s Sniper Drones, the Tech-Priest and the Daemon Prince have loadout lines whose spelling differs from the model row only in capitals, which the app was reading as a different model.',
       'Orks — a Burna Boyz or Lootas squad can take up to three Spannas, not one, as the datasheet says. The promotion is a quantity now, and the points follow: five Lootas with three Spannas are 78 points, down from 120.',
       'Dark Eldar — the Klaivex always carries its Demiklaives, with the two attack modes shown side by side like any other multi-profile weapon. It used to be an optional swap you had to pick, and until you did the Klaivex showed a Klaive it does not have.',
-      'Imperial Guard — a Tauros Venator now shows its Twin heavy stubber. Its loadout line was missing from our copy of the datasheet.',
+      'Imperial Guard — a Tauros Venator now shows its Twin heavy stubber, and no longer the Tauros grenade launcher. The Venator is a full replacement profile with its own loadout, its own points and its own swap options; our copy had dropped its loadout line.',
       'Imperial Guard, Adeptus Mechanicus — an archetype that grants a foreign Armory now grants it to your vehicles too. Traitor Guard vehicles can take the Chaos Space Marine upgrades (Blasphemous Rune, Daemonic possession, Dirge Caster, Living vehicle, Mutated Hull), and the same applies to Dark Mechanicum, Brood Brothers and Gue\'vesa. The foreign Armory sits on its own tab and the vehicle panel has no tabs, so it was unreachable (reported on Discord).',
     ],
   },

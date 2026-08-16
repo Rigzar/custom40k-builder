@@ -1289,6 +1289,16 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       const optionalAndAbsent = !!item.modelSizes && !!clauseModel && clauseModel.min === 0 &&
         (item.modelSizes[clauseModel.name] ?? clauseModel.min) === 0;
       if (isVariantLabel && !variantTaken) continue;      // promotion not taken: no such model
+      // The whole row was promoted away — a 1-model Tauros squadron upgraded to a Venator leaves no
+      // plain Tauros. Its clause row is dropped ONLY when the promoted model has a loadout line of
+      // its own: the Tauros Venator does ("A Tauros Venator is equipped with: Twin-linked heavy
+      // stubber"), so the grenade launcher goes with the Tauros. A Sororitas Veteran Superior has
+      // no line of her own and keeps the Sister Superior's Boltgun, so that row must stay.
+      const promotedAway = !!clauseModel && !m &&
+        !profile.modelsToShow.some(x => eq(x.name, label)) &&
+        profile.variantActive && !!profile.variant &&
+        clauses.some(c => eq(c[1].trim(), profile.variant!.name));
+      if (promotedAway) continue;
       if (!optionalAndAbsent) {
         const spans = partIdxs.length === parts.length && partIdxs.length > 1
           ? partIdxs.map(i => profile.modelsToShow[i].name) : undefined;
