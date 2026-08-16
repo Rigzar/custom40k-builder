@@ -86,7 +86,7 @@ export const bikeSquad: Unit = {
       }
     }
   ],
-  "equipped_with": "Every Attack Bike is equipped with: Heavy bolter; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun.",
+  "equipped_with": "Every Attack Bike is equipped with: Heavy bolter; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun. Every Space Marine Biker is equipped with: Astartes chainsword; Bolt pistol; Frag grenades; Krak grenades; Twin boltgun.",
   "weapons": [
     {
       "name": "Astartes chainsword",
@@ -212,7 +212,9 @@ export const bikeSquad: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Heavy bolter"]
+      "replaces": [
+        "Heavy bolter"
+      ]
     },
     {
       "header": "Two Bikers may be equipped with one each",

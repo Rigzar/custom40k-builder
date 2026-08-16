@@ -25,6 +25,22 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.62',
+    date: '2026-08-16',
+    title: 'Armoury access, and the first audit of every Armory sheet',
+    changes: [
+      'GENERAL — taking away a Veteran Sergeant upgrade now also takes away the weapons only he could buy. Promoting the Sergeant is what grants him the Armory, so demoting him left gear on his profile that nothing granted, still costing you points. This affects 61 squads across nine factions. The app asks before removing a purchase, and a list already saved in that state is repaired when you load it (reported on Discord).',
+      'Space Marines — a weapon bought from the Armory for an Indomitus Crusader Squad now lands on the Sword Brother, the only model on that datasheet with Armory access, instead of on the Initiates or the Neophytes (reported on Discord).',
+      'GENERAL — ten more squads were showing one model\'s gear on another. Repentia carried the Superior\'s grenades, the Gretchin carried the Runtherd\'s Slugga, the Snotlings carried a weapon they do not have, and the Voidscarred showed specialists you had not taken. Bike Squads and Outrider Bikes now list the Attack Bike, the squad and the Sergeant separately.',
+      'Inquisition — seventeen Armory items simply did not exist in the app: Eviscerator, Grenade launcher, Hot-shot volley gun, Meltagun, Psychotroke grenades, Sniper rifle, Archpriest, Carapace armour, Conversion field, Parry shield and Psychic beacon, plus the Ordo relics Brazier of Holy Fire, Incinerator, Nemesis daemon hammer, Scythian venom talon, Sling gun and Tome of Vethric.',
+      'Inquisition — the Combi-stake thrower and the Psyoccolum are Ordo Hereticus wargear and now require that Legacy; any army could take them before. The Throne of Judgement was still the old, much smaller version: it is 143 points and grants +3 Strength, +3 Toughness, +2 Wounds, the Monstrous Infantry type and a Triple multi-melta.',
+      'Points corrected against the sheets — Adepta Sororitas: Eviscerator 13 (was 11), Power stake 2/3 (was 4/5). Chaos: Shamblerot 15 (was 10), Techinfernal foci 7 (was 10). Inquisition: Additional armor 15 (was 5), and a Refractor field can be bought by a non-character for 5. A Slaanesh vehicle taking a Doom Siren now pays the vehicle price of 10 instead of the model price of 5.',
+      'Inquisition — a model in Terminator armour may take a Servo skull, and may no longer take Bionics or a Refractor field, matching the sheet.',
+      'Inquisition — Acolytes are limited to the nine weapons their sheet marks for specialists (Bolt pistol, Chainsword, Eviscerator, Frag grenade, Hot-shot laspistol, Krak grenades, Laspistol, Needle pistol, Power stake). They could be handed anything in the Armory. A weapon you already bought stays on the list.',
+      'Every Armory sheet in the game — 45 of them across 19 factions and 2 supplements — was compared with the app for the first time. The list above is what that turned up.',
+    ],
+  },
+  {
     version: '1.61',
     date: '2026-08-13',
     title: 'A full audit of all 19 codices against the author\'s sheets',

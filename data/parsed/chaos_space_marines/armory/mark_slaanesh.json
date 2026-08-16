@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "Armory of Slaanesh",
   "weapons": [
     {
@@ -242,6 +242,14 @@
       "category": "vehicle",
       "desc": "Enemy units within 12\" have -1 Ld and -2 Ld if within 6\". Cannot be taken if the model already has a Dirge Caster.",
       "p_unit": 10
+    },
+    {
+      "name": "Doom Siren",
+      "term_compat": false,
+      "category": "vehicle",
+      "desc": "Select one enemy unit within 9\" range during your activation that is currently not engaged in melee and roll 3D6. For each 4+ the target suffers one automatic wound with Strength: 4 AP: -1 D: 1; Sunder(2), Suppression.",
+      "p_unit": 10,
+      "p_char": null
     }
   ],
   "daemon_weapons": [

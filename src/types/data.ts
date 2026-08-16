@@ -329,6 +329,13 @@ export interface ArmoryItem {
   armourKeyword?: string;
   p_unit?: number | null;
   p_char?: number | null;
+  /**
+   * Inquisition ˢ-gate: "Acolyte Specialists can only receive weapons marked with ˢ" (Inquisition
+   * Armory, under the WEAPON table). Nine weapons carry the glyph. Held as a field rather than as
+   * a glyph left on the name — the Tau ᴵ approach — because a saved list stores the item's NAME,
+   * and renaming nine existing weapons would orphan every Inquisition list holding one.
+   */
+  specialist_compat?: boolean;
   /** veteran = counts toward veteran_max slot; vehicle = only for vehicle units; null = regular */
   category?: 'veteran' | 'vehicle' | null;
   /** Per-wound/HP cost for veteran abilities taken by vehicles or monsters (null = not available to them). */

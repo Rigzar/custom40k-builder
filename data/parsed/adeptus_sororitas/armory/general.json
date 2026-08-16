@@ -228,7 +228,7 @@
       "d": "2",
       "abilities": "AT(2), Slow(-2), Armorbane",
       "p_unit": null,
-      "p_char": 11
+      "p_char": 13
     },
     {
       "name": "Flamer",
@@ -447,8 +447,8 @@
       "ap": "-3",
       "d": "1",
       "abilities": "Psi-shock",
-      "p_unit": 4,
-      "p_char": 5
+      "p_unit": 2,
+      "p_char": 3
     },
     {
       "name": "Power sword",

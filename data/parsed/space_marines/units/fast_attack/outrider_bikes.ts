@@ -86,7 +86,7 @@ export const outriderBikes: Unit = {
       }
     }
   ],
-  "equipped_with": "Every Invader-Quad is equipped with: Onslaught gatling cannon, Twin bolt rifle.",
+  "equipped_with": "Every Invader-Quad is equipped with: Onslaught gatling cannon, Twin bolt rifle. Every Outrider Marine is equipped with: Astartes chainsword; Twin bolt rifle; Heavy bolt pistol; Frag grenades; Krak grenades.",
   "weapons": [
     {
       "name": "Astartes chainsword",
@@ -185,7 +185,9 @@ export const outriderBikes: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Onslaught gatling cannon"]
+      "replaces": [
+        "Onslaught gatling cannon"
+      ]
     },
     {
       "header": "The Outrider Sergeant may be upgraded to a Veteran Outrider Sergeant for +10 points and gains access to weapons and gear from the Armory.",

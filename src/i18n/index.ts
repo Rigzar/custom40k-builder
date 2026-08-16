@@ -61,6 +61,7 @@ export type TranslationKey =
   | 'continueLabel' | 'continueArmy' | 'reviewList' | 'detachmentPrimary' | 'changeLabel'
   | 'changeFactionConfirm' | 'backToConfig' | 'backToUnits' | 'saveAndExport' | 'alliedSeparateDetachment'
   | 'skirmishDropsAllyConfirm'
+  | 'armoryLostOnDowngradeConfirm'
   | 'reaverLordPickLabel' | 'reaverLordChosenLabel' | 'reaverLordSearch'
   | 'noCustomisationOptions' | 'battleSetup' | 'armyDoctrine' | 'notAvailableInSkirmish' | 'onlyForArmiesWithMarkOf'
   | 'legaciesNotAvailableWithArchetype' | 'secondLegacyNone' | 'secondLegacyUnlockedByTrait'
@@ -318,6 +319,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reaverLordChosenLabel: 'Reaver Lord — item taken',
     reaverLordSearch: 'Search the armouries…',
     skirmishDropsAllyConfirm: 'Skirmish allows no allies, so switching to it REMOVES your Allied Detachment and every unit in it. Going back to another engagement will not bring them back. Continue?',
+    armoryLostOnDowngradeConfirm: 'Only the upgraded model has access to the Armory, so removing the upgrade also REMOVES the {count} item(s) bought for it: {items}. Continue?',
     campaign: 'Campaign',
     campaignAlphaTooltip: 'Planetary Assault campaigns (ALPHA)',
     login: 'Log in',
@@ -906,6 +908,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reaverLordChosenLabel: 'Reaver Lord — gewählter Gegenstand',
     reaverLordSearch: 'Armories durchsuchen…',
     skirmishDropsAllyConfirm: 'Skirmish erlaubt keine Verbündeten. Der Wechsel dorthin ENTFERNT dein verbündetes Detachment und alle seine Einheiten. Ein Wechsel zurück bringt sie nicht wieder. Fortfahren?',
+    armoryLostOnDowngradeConfirm: 'Nur das verbesserte Modell hat Zugriff auf die Armory. Wird die Verbesserung entfernt, verschwinden auch die {count} dafür gekauften Gegenstände: {items}. Fortfahren?',
     campaign: 'Feldzug',
     campaignAlphaTooltip: 'Planetary-Assault-Feldzüge (ALPHA)',
     login: 'Anmelden',
@@ -1494,6 +1497,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     reaverLordChosenLabel: 'Reaver Lord — objeto tomado',
     reaverLordSearch: 'Buscar en las armerías…',
     skirmishDropsAllyConfirm: 'Skirmish no permite aliados, así que cambiar a él ELIMINA tu Destacamento Aliado y todas sus unidades. Volver a otro tipo de batalla no los recupera. ¿Continuar?',
+    armoryLostOnDowngradeConfirm: 'Solo el modelo mejorado tiene acceso a la armería, así que quitar la mejora ELIMINA también los {count} objeto(s) comprados para él: {items}. ¿Continuar?',
     campaign: 'Campaña',
     campaignAlphaTooltip: 'Campañas Planetary Assault (ALPHA)',
     login: 'Iniciar sesión',

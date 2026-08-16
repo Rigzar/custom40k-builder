@@ -8,6 +8,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { findArmoryItem } from '../engine/resolver';
 import { parseInvSaveFromAbilities } from '../engine/equipMods';
 import { effectiveSubfactions, traitRequiredSubfaction } from '../engine/codex_dark_eldar/subfaction';
+import { armoryItemsLostByDeselecting, repairOrphanedArmory } from '../utils/armoryGuard';
 // TRAIT_EFFECTS import removed — vehicle trait cost now uses canonical pts_veh/pts_monster directly
 
 // Collision-proof unique id. A plain incrementing counter resets to 1 on every page load while the
@@ -657,7 +658,15 @@ export const useArmyStore = create<ArmyStore>()(
           if (qty === 0) delete group[ci];
           else group[ci] = qty;
           oq[gi] = group;
-          return { ...e, optionQty: oq };
+          // Turning off the upgrade that grants Armory access takes the purchases with it. A
+          // Devastator Sergeant demoted from Veteran kept the weapons he could only buy as one
+          // (Discord 2026-08-16). Pruned here rather than in the component so no path — undo,
+          // load, duplicate — can leave gear behind that nothing grants; UnitCard asks first.
+          const unit = qty === 0 && s.data ? resolveUnit(e, s.data) : null;
+          const lost = unit ? armoryItemsLostByDeselecting(e, unit, gi) : [];
+          if (lost.length === 0) return { ...e, optionQty: oq };
+          const dropped = new Set(lost.map(a => a.id));
+          return { ...e, optionQty: oq, armory: e.armory.filter(a => !dropped.has(a.id)) };
         }),
       })),
 
@@ -809,9 +818,17 @@ export const useArmyStore = create<ArmyStore>()(
                 return e;
               })
             : newState.army;
-          const army = s.data
-            ? applyArmyTraits(migratedArmy, newState.traitPool, s.data, newState.archetype, newState.legacy, newState.alliedFaction, s.alliedData, newState.alliedTraitPool)
+          // Lists saved before the Armory prune existed can carry gear bought for an upgrade that
+          // is no longer selected — still charged for, still shown. Repair on load.
+          const repairedArmy = s.data
+            ? migratedArmy.map((e: RosterEntry) => {
+                const u = resolveUnit(e, s.data!);
+                return u ? repairOrphanedArmory(e, u) : e;
+              })
             : migratedArmy;
+          const army = s.data
+            ? applyArmyTraits(repairedArmy, newState.traitPool, s.data, newState.archetype, newState.legacy, newState.alliedFaction, s.alliedData, newState.alliedTraitPool)
+            : repairedArmy;
           set({ ...newState, army });
         } catch { /* ignore malformed */ }
       },

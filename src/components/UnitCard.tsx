@@ -7,7 +7,8 @@ import { useArmyStore } from '../store/army';
 import { resolveUnit, liveArmoryPoints, effectiveArchetypeFor } from '../engine/points';
 import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
-import { resolveUnitProfile, isOptionAvailable } from '../engine/resolver';
+import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
+import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -18,7 +19,7 @@ import { MarkBadge } from './MarkBadge';
 import { ArmoryModal } from './ArmoryModal';
 import { TraitsModal } from './TraitsModal';
 import { PsychicModal } from './PsychicModal';
-import { useT } from '../i18n';
+import { useT, tpl } from '../i18n';
 
 // NOTE: marks shown per unit come from the unit's mark option_group choices[], not this array.
 // This array is kept only for the Black Crusade champion display which needs all 4 god marks.
@@ -1027,9 +1028,11 @@ export function UnitCard({ item }: Props) {
           {item.modelSizes && u.models.filter(m => m.min === 0 && m.max > 0).map(m => {
             const count = item.modelSizes![m.name] ?? m.min;
             const max = effectiveModelMax(m);
-            const equipMatch = u.equipped_with.match(new RegExp(`Every ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
-            const equipText = equipMatch?.[1]?.trim();
-            const equipNames = equipText ? equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean) : [];
+            // Same matcher/splitter the engine uses, so this preview can't disagree with the weapon
+            // table it is previewing: matching only "Every" and splitting only on ";" showed no gear
+            // at all for models whose clause opens with "A"/"The" or separates with commas.
+            const equipText = u.equipped_with.match(loadoutClauseFor(m.name))?.[1]?.trim();
+            const equipNames = equipText ? resolveClauseItems(equipText, u.weapons) : [];
             const mWeapons = equipNames
               .map(n => u.weapons.find(w => w.name.toLowerCase() === n.toLowerCase()))
               .filter((w): w is Weapon => !!w);
@@ -1256,7 +1259,18 @@ export function UnitCard({ item }: Props) {
                       checked={active}
                       disabled={uniqueTakenElsewhere}
                       onClick={e => e.stopPropagation()}
-                      onChange={() => { if (!uniqueTakenElsewhere) setQty(realGi, '__inline', active ? 0 : 1); }}
+                      onChange={() => {
+                        if (uniqueTakenElsewhere) return;
+                        // Switching the upgrade off takes its Armory purchases with it (the store
+                        // prunes them). Never destroy something the player paid for without asking.
+                        if (active) {
+                          const lost = armoryItemsLostByDeselecting(item, u, realGi);
+                          if (lost.length > 0 && !confirm(tpl(t('armoryLostOnDowngradeConfirm'), {
+                            count: lost.length, items: lost.map(a => a.itemName).join(', '),
+                          }))) return;
+                        }
+                        setQty(realGi, '__inline', active ? 0 : 1);
+                      }}
                     />
                     <span className={`font-cinzel text-[11px] uppercase tracking-wider flex-1 ${uniqueTakenElsewhere ? 'text-zinc-600' : 'text-zinc-100'}`}>{g.variant_link ?? g.header}</span>
                     {uniqueTakenElsewhere && (

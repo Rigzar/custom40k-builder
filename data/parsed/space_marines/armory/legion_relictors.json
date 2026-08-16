@@ -50,7 +50,7 @@
       "p_char": 5
     },
     {
-      "name": "Grimoire Pandaeomonica",
+      "name": "Grimoire Pandaemonica",
       "term_compat": true,
       "gravis_compat": true,
       "armour_compat": [
@@ -72,13 +72,6 @@
       "desc": "The model gains +1 Strength and +1 Initiative. It may never use a \"Stand & Shoot\" order voluntarily and must always move closer to the nearest enemy unit, if possible.",
       "p_unit": 5,
       "p_char": 5
-    },
-    {
-      "name": "-",
-      "term_compat": false,
-      "desc": "-",
-      "p_unit": null,
-      "p_char": null
     }
   ],
   "daemon_weapons": []

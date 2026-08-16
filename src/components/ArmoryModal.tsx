@@ -511,6 +511,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const isTauPlainInfantry = activeData.faction === 'Tau Empire' &&
     unit.unit_type.split(',').map(s => s.trim()).includes('Infantry');
 
+  // Inquisition ("Armory" sheet, under the WEAPON table): "Acolyte Specialists can only receive
+  // weapons marked with ˢ." Nine weapons carry the glyph and are flagged `specialist_compat`.
+  // It bites on the Acolytes datasheet alone: a Henchman Warband is built from the 18 Elite
+  // specialist sheets and Acolytes is the ONLY one of them that grants Armory access at all
+  // ("All models got access to weapons and gear from the Armory"), so no other specialist has
+  // anything to restrict. Equipment is untouched — the rule names weapons.
+  const isInquisitionAcolytes = activeData.faction === 'Inquisition' && unit.name === 'Acolytes';
+
   // Filter items by unit type and category
   function filterByUnitType(armItems: ArmoryItem[]): ArmoryItem[] {
     return armItems.filter(arm => {
@@ -725,6 +733,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // hide the raw power rows from any Eldar character.
     if (sec === 'equipment' && activeData.faction === 'Eldar' && isChar) {
       list = list.filter(a => !ELDAR_EXARCH_POWERS.includes(a.name));
+    }
+    // Acolytes may only take the ˢ weapons (see isInquisitionAcolytes). An item already bought
+    // stays listed, as with every other gate here, so a saved list never loses gear silently.
+    if (sec === 'weapons' && isInquisitionAcolytes) {
+      list = list.filter(a => a.specialist_compat || boughtItemNames.has(a.name));
     }
     return list;
   }

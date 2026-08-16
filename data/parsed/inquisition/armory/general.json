@@ -11,7 +11,8 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 2,
-      "p_char": 2
+      "p_char": 2,
+      "specialist_compat": true
     },
     {
       "name": "Boltgun",
@@ -35,7 +36,8 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 2,
-      "p_char": 2
+      "p_char": 2,
+      "specialist_compat": true
     },
     {
       "name": "Combi-flamer",
@@ -172,7 +174,8 @@
           "d": "1",
           "abilities": "Always wounds psykers on 2+ and causes them to suffer a \"Peril of the Warp\" attack on a successful wounding roll."
         }
-      ]
+      ],
+      "requires_army_item": "Ordo Hereticus"
     },
     {
       "name": "Conversion beamer",
@@ -285,7 +288,8 @@
       "d": "1",
       "abilities": "Explosive",
       "p_unit": 1,
-      "p_char": 1
+      "p_char": 1,
+      "specialist_compat": true
     },
     {
       "name": "Hand flamer",
@@ -333,7 +337,8 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 2,
-      "p_char": 3
+      "p_char": 3,
+      "specialist_compat": true
     },
     {
       "name": "Hunter-killer missile",
@@ -382,7 +387,8 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 1,
-      "p_char": 1
+      "p_char": 1,
+      "specialist_compat": true
     },
     {
       "name": "Lasgun",
@@ -406,7 +412,8 @@
       "d": "1",
       "abilities": "-",
       "p_unit": 1,
-      "p_char": 1
+      "p_char": 1,
+      "specialist_compat": true
     },
     {
       "name": "Melta",
@@ -442,7 +449,8 @@
       "d": "1",
       "abilities": "Poison(2+)",
       "p_unit": 5,
-      "p_char": 7
+      "p_char": 7,
+      "specialist_compat": true
     },
     {
       "name": "Null rod",
@@ -579,7 +587,8 @@
       "d": "1",
       "abilities": "Always wounds psykers on 2+.",
       "p_unit": 3,
-      "p_char": 4
+      "p_char": 4,
+      "specialist_compat": true
     },
     {
       "name": "Power sword",
@@ -677,6 +686,184 @@
       "abilities": "AT(2), Melta",
       "p_unit": null,
       "p_char": null
+    },
+    {
+      "name": "Eviscerator",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "2",
+      "abilities": "AT(2), Slow(-2), Armorbane",
+      "p_unit": null,
+      "p_char": 11,
+      "specialist_compat": true
+    },
+    {
+      "name": "Grenade launcher",
+      "term_compat": false,
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "",
+      "p_unit": 7,
+      "p_char": null,
+      "profiles": [
+        {
+          "name": "Frag grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "4",
+          "ap": "0",
+          "d": "1",
+          "abilities": "Explosive"
+        },
+        {
+          "name": "Krak grenade",
+          "range": "24\"",
+          "type": "Assault 1",
+          "s": "6",
+          "ap": "-2",
+          "d": "1",
+          "abilities": "-"
+        }
+      ]
+    },
+    {
+      "name": "Hot-shot volley gun",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Rapid Fire 2",
+      "s": "3",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": 9,
+      "p_char": null
+    },
+    {
+      "name": "Meltagun",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Assault 1",
+      "s": "8",
+      "ap": "-5",
+      "d": "1",
+      "abilities": "AT(1), Melta",
+      "p_unit": 13,
+      "p_char": 17
+    },
+    {
+      "name": "Psychotroke grenades",
+      "term_compat": true,
+      "range": "6\"",
+      "type": "Grenade 1",
+      "s": "3",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Explosive, Suppression",
+      "p_unit": null,
+      "p_char": 5
+    },
+    {
+      "name": "Sniper rifle",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "5",
+      "ap": "-2",
+      "d": "2",
+      "abilities": "Armor piercing(5+), Suppression. Attacks with this weapon receive a +1 bonus to their BS value.",
+      "p_unit": 18,
+      "p_char": 23
+    },
+    {
+      "name": "Brazier of Holy Fire",
+      "term_compat": true,
+      "requires_army_item": "Ordo Hereticus",
+      "range": "",
+      "type": "",
+      "s": "",
+      "ap": "",
+      "d": "",
+      "abilities": "Unique.",
+      "p_unit": null,
+      "p_char": 14,
+      "profiles": [
+        {
+          "name": "Flail",
+          "range": "-",
+          "type": "Melee",
+          "s": "+1",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Shield breaker(-1), Soul burn(6+)"
+        },
+        {
+          "name": "Flame",
+          "range": "9\"",
+          "type": "Assault 4",
+          "s": "4",
+          "ap": "-1",
+          "d": "1",
+          "abilities": "Flames, Shield breaker(-1), Soul burn(6+)"
+        }
+      ]
+    },
+    {
+      "name": "Incinerator",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "range": "9\"",
+      "type": "Assault 4",
+      "s": "5",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "Flames, Shield breaker(-1)",
+      "p_unit": 23,
+      "p_char": 17
+    },
+    {
+      "name": "Nemesis daemon hammer",
+      "term_compat": true,
+      "requires_army_item": "Ordo Malleus",
+      "range": "-",
+      "type": "Melee",
+      "s": "x2",
+      "ap": "-3",
+      "d": "3",
+      "abilities": "AT(2), Force weapon, Shield breaker(-1), Slow(-3)",
+      "p_unit": null,
+      "p_char": 16
+    },
+    {
+      "name": "Scythian venom talon",
+      "term_compat": false,
+      "requires_army_item": "Ordo Xenos",
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Poison(2+)",
+      "p_unit": null,
+      "p_char": 7
+    },
+    {
+      "name": "Sling gun",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "range": "18\"",
+      "type": "Assault 3",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "To wound rolls of 5+ gain additional -2 AP.",
+      "p_unit": 11,
+      "p_char": 14
     }
   ],
   "equipment": [
@@ -809,7 +996,7 @@
     },
     {
       "name": "Bionics",
-      "term_compat": true,
+      "term_compat": false,
       "desc": "The model gains a 6+ ward save.",
       "p_unit": 1,
       "p_char": 5
@@ -945,7 +1132,8 @@
       "term_compat": true,
       "desc": "The model and its attached unit may reroll all to hit dice against a psyker and its attached unit.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "requires_army_item": "Ordo Hereticus"
     },
     {
       "name": "Psybolt ammunition",
@@ -979,9 +1167,9 @@
     },
     {
       "name": "Refractor field",
-      "term_compat": true,
+      "term_compat": false,
       "desc": "The model gains a 5+ ward save.",
-      "p_unit": null,
+      "p_unit": 5,
       "p_char": 10
     },
     {
@@ -993,7 +1181,7 @@
     },
     {
       "name": "Servo skull",
-      "term_compat": false,
+      "term_compat": true,
       "desc": "Place a \"Servo skull\" token during the Rally phase of the first battle round anywhere on the battlefield. A friendly unit arriving within 3\" of the token via Deep strike does not scatter. If an enemy unit moves within 12\" of the token, it is removed from the game. Can be taken up to three times.",
       "p_unit": null,
       "p_char": 5
@@ -1058,9 +1246,9 @@
     {
       "name": "Throne of Judgement",
       "term_compat": false,
-      "desc": "The model gains +2 Strength, +2 Toughness, +1 Wound and the ability \"Monstrous Infantry\". Unique.",
+      "desc": "The model gains +3 Strength, +3 Toughness, +2 Wounds, the \"Monstrous Infantry\" unit type and loses the \"Character model\" ability. Additionally, it gains a Triple multi-melta. Only for infantry. Unique.",
       "p_unit": null,
-      "p_char": 17
+      "p_char": 143
     },
     {
       "name": "Trophy",
@@ -1090,7 +1278,7 @@
       "term_compat": false,
       "category": "vehicle",
       "desc": "The model ignores the first \"Crew Shaken\" vehicle damage each round.",
-      "p_unit": 5,
+      "p_unit": 15,
       "p_char": null
     },
     {
@@ -1124,6 +1312,49 @@
       "desc": "The model can use its Smoke Launcher once per game:\n- During normal activation, instead of firing weapons.\n- If it has not yet carried out its order this round and is targeted by an enemy unit. The order is consumed by doing so.\nEnemy units can only deal glancing hits with ranged attacks until the next activation.",
       "p_unit": 15,
       "p_char": null
+    },
+    {
+      "name": "Archpriest",
+      "term_compat": true,
+      "desc": "This model knows all available hymns and may recite one additional hymn per turn. Priest only.",
+      "p_unit": null,
+      "p_char": 25
+    },
+    {
+      "name": "Carapace armour",
+      "term_compat": false,
+      "desc": "The model gains a 4+ save.",
+      "p_unit": 3,
+      "p_char": null
+    },
+    {
+      "name": "Conversion field",
+      "term_compat": true,
+      "desc": "The model gains a 4+ ward save.",
+      "p_unit": null,
+      "p_char": 20
+    },
+    {
+      "name": "Parry shield",
+      "term_compat": false,
+      "desc": "The model gains the ability \"Parry\".",
+      "p_unit": 2,
+      "p_char": 3
+    },
+    {
+      "name": "Psychic beacon",
+      "term_compat": false,
+      "desc": "A friendly unit arriving within 6\" of this model via Deep strike does not scatter. This model must be present on the table at the beginning of the battle round in order to be used. Psyker only.",
+      "p_unit": 15,
+      "p_char": null
+    },
+    {
+      "name": "Tome of Vethric",
+      "term_compat": true,
+      "requires_army_item": "Ordo Xenos",
+      "desc": "The bearer may pick one veteran ability to be in effect for themselves and their attached unit. Choose before starting deployment.",
+      "p_unit": null,
+      "p_char": 5
     }
   ],
   "daemon_weapons": []

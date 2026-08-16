@@ -172,8 +172,25 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
     const found = (armory[section] as ArmoryItem[]).find(a => a.name === sel.itemName);
     if (found) return found;
   }
+  // A saved list stores the item's NAME, so correcting a misspelling in the data orphans every
+  // list holding it: the points stay on the selection and are still charged, while the lookup
+  // fails and the item grants nothing. Same problem UNIT_RENAMES solves for units.
+  const renamed = ARMORY_ITEM_RENAMES[sel.itemName];
+  if (renamed) {
+    for (const armory of sources) {
+      const found = (armory[section] as ArmoryItem[]).find(a => a.name === renamed);
+      if (found) return found;
+    }
+  }
   return undefined;
 }
+
+/** Armoury items whose stored name changed, old → new. See findArmoryItem. */
+const ARMORY_ITEM_RENAMES: Record<string, string> = {
+  // Relictors relic, misspelled here since the armoury was first imported; the sheet reads
+  // "Grimoire Pandaemonica".
+  'Grimoire Pandaeomonica': 'Grimoire Pandaemonica',
+};
 
 /**
  * The squad's built-in Champion/Sergeant/etc. — the second model entry when it's a single
@@ -182,7 +199,25 @@ export function findArmoryItem(data: FactionData, sel: ArmorySelection): ArmoryI
  * scope to just this model.
  */
 function getBuiltInChampion(unit: Unit): Model | null {
-  return unit.models.length > 1 && unit.models[1].min === 1 && unit.models[1].max === 1 ? unit.models[1] : null;
+  if (unit.models.length < 2) return null;
+  // The usual shape is squad-then-champion, so models[1] stays the first thing checked and the
+  // 94 units that already resolve through it are untouched.
+  if (unit.models[1].min === 1 && unit.models[1].max === 1) return unit.models[1];
+  // But a datasheet may list an optional add-on model before its champion: the Indomitus Crusader
+  // Squad reads Neophyte 0-10, Initiate 4-9, Sword Brother 1-1, and the Space Marine Bike Squad and
+  // Outrider Bikes do the same with their Sergeant. Looking only at models[1] found no champion at
+  // all, so the Sword Brother — the ONLY model with Armory access on that datasheet — had no row of
+  // its own and its purchases were drawn on the Initiates or the Neophytes (Discord, 2026-08-15).
+  // Index 0 is deliberately excluded: a fixed model FIRST is a character with attendants (Company
+  // Hero and its Animal Companion, Engineseer and Servitors), which is a different shape and is
+  // grouped correctly already.
+  const hasVariableSquad = unit.models.some(m => m.max > m.min);
+  if (!hasVariableSquad) return null;
+  for (let i = unit.models.length - 1; i >= 2; i--) {
+    const m = unit.models[i];
+    if (m.min === 1 && m.max === 1) return m;
+  }
+  return null;
 }
 
 /** True when the unit carries the given keyword (its Chaos Mark or any datasheet keyword). */
@@ -220,6 +255,60 @@ export function isOptionAvailable(
     has = (hostFaction ?? '').toLowerCase() === cond.keyword.toLowerCase();
   }
   return cond.type === 'instanceOf' ? has : !has;
+}
+
+/**
+ * Split the item list of a loadout clause ("Bolt pistol; Frag grenades; Krak grenades") into names.
+ *
+ * The author separates them with ";", with "and", and on 13 datasheets with a plain comma — the
+ * Outrider Bikes sheet writes "Onslaught gatling cannon, Twin bolt rifle", which read as a single
+ * name matched no weapon at all, so the Invader-Quad's gear could never be attributed to it.
+ * Checked first: no weapon anywhere in the game has a comma in its name, so this cannot split one.
+ * Kept in one place because five call sites parse these clauses and drifted regexes here are silent
+ * — a name that fails to match simply attributes nothing.
+ */
+export function splitLoadoutClause(text: string): string[] {
+  return text.split(/;|,|\band\b/i).map(s => s.trim()).filter(Boolean);
+}
+
+/**
+ * Split a clause AND resolve each item to the weapon it names.
+ *
+ * The author writes loadouts in the plural — "Frag grenades" — while the weapon row is singular,
+ * so 160 clause items across the game matched no weapon at all and were swept up as unattributed
+ * kit onto the squad's first row. That is why an Indomitus Sword Brother, whose entire printed
+ * loadout is "Frag grenades; Krak grenades", got no row of its own.
+ *
+ * The singular is only tried when the exact name matches nothing; checked across every datasheet,
+ * no plural form is itself a real weapon, so this cannot turn one weapon into another. An item that
+ * still matches nothing (a multi-profile parent like "Twin bolt rifle", or kit such as "Bionics")
+ * comes back untouched, exactly as before.
+ */
+export function resolveClauseItems(text: string, weapons: { name: string }[]): string[] {
+  const byLower = new Map<string, string>();
+  for (const w of weapons) byLower.set(w.name.toLowerCase(), w.name);
+  return splitLoadoutClause(text).map(item => {
+    const exact = byLower.get(item.toLowerCase());
+    if (exact) return exact;
+    return byLower.get(item.replace(/s$/i, '').toLowerCase()) ?? item;
+  });
+}
+
+/**
+ * Matches "<article> <model> is equipped with: …" for one model, capturing the item list.
+ *
+ * `loose` also accepts trailing words before "is equipped with" ("Every Outrider Marine and
+ * Sergeant is equipped with:"). Only the shared-weapon rescue wants that: matching MORE clauses
+ * there can only put a weapon back on the profile, whereas using it to decide what to HIDE would
+ * let one model's clause silence another's gear.
+ */
+export function loadoutClauseFor(modelName: string, loose = false): RegExp {
+  // Datasheets introduce a loadout with any of "Every / Each / A / An / The". \b matters: without
+  // it the bare "A" alternative matches the last letter of a preceding word, so "Every Alpha Ranger
+  // is equipped with" would satisfy a lookup for the model "Ranger".
+  const esc = modelName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(
+    `\\b(?:Every|Each|An|A|The) ${esc}${loose ? '[^.]*?' : ''} is equipped with:\\s*([^.]+)\\.`, 'i');
 }
 
 /**
@@ -317,7 +406,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     for (const m of unit.equipped_with.matchAll(/\bAn?\s+([^.]+?)\s+is additionally equipped with:\s*([^.]+)\./gi)) {
       const who = m[1].trim();
       if (!allChoiceNames.has(who)) continue;
-      for (const wname of m[2].split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
+      for (const wname of resolveClauseItems(m[2], unit.weapons)) {
         const bn = baseName(wname);
         if (!unit.weapons.some(w => baseName(w.name) === bn)) continue;
         conditionalGrantWeapons.add(bn);
@@ -333,8 +422,13 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
 
   // Weapons exclusive to a secondary model that hasn't been bought yet (e.g. Chaos
   // Ogryn's Power maul before any Ogryn is added) aren't part of the starting loadout.
+  // Walks models[0] too: on four datasheets the OPTIONAL model is the first one (Indomitus
+  // Crusader Squad's Neophyte, both bike squads' Attack Bike / Invader-Quad, Court of the Archon),
+  // and skipping index 0 left an Attack Bike's Heavy bolter on a squad that had bought no Attack
+  // Bike. The `m.min > 0` guard below is what actually protects a mandatory base squad, so
+  // starting at 0 costs nothing.
   const zeroCountModelWeapons = new Set<string>();
-  for (const m of unit.models.slice(1)) {
+  for (const m of unit.models) {
     if (m.min > 0) continue;
     // Only applies to multi-group units with per-group size tracking (e.g. Traitor Guard's
     // Chaos Ogryn). Units without modelSizes aren't using this "buy extra models" pattern
@@ -342,17 +436,12 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (!item.modelSizes) continue;
     const count = item.modelSizes[m.name] ?? m.min;
     if (count > 0) continue;
-    // Datasheets introduce a model's own loadout with any of "Every / Each / A / An / The", not
-    // just "Every" — the Corsair Voidscarred specialists read "A Shade Runner is equipped with:".
-    // Matching only "Every" meant those clauses were parsed by nothing and the specialists' weapons
-    // showed on a squad that had taken none of them.
-    // \b matters: without it the bare "A" alternative matches the last letter of a preceding word,
-    // so "Every Alpha Ranger is equipped with" would satisfy a lookup for the model "Ranger".
-    const equipMatch = unit.equipped_with.match(
-      new RegExp(`\\b(?:Every|Each|An|A|The) ${m.name} is equipped with:\\s*([^.]+)\\.`, 'i'));
-    const equipText = equipMatch?.[1];
+    // The Corsair Voidscarred specialists read "A Shade Runner is equipped with:", so matching only
+    // "Every" left those clauses parsed by nothing and the specialists' weapons showed on a squad
+    // that had taken none of them — hence the shared matcher.
+    const equipText = unit.equipped_with.match(loadoutClauseFor(m.name))?.[1];
     if (!equipText) continue;
-    for (const name of equipText.split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
+    for (const name of resolveClauseItems(equipText, unit.weapons)) {
       zeroCountModelWeapons.add(name);
     }
   }
@@ -364,9 +453,8 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     for (const m of unit.models) {
       const present = (item.modelSizes?.[m.name] ?? m.min) > 0;
       if (!present) continue;
-      const match = unit.equipped_with.match(
-        new RegExp(`\\b(?:Every|Each|An|A|The) ${m.name}[^.]*? is equipped with:\\s*([^.]+)\\.`, 'i'));
-      for (const name of (match?.[1] ?? '').split(/;|\band\b/i).map(s => s.trim()).filter(Boolean)) {
+      const match = unit.equipped_with.match(loadoutClauseFor(m.name, true));
+      for (const name of resolveClauseItems(match?.[1] ?? '', unit.weapons)) {
         zeroCountModelWeapons.delete(name);
       }
     }
@@ -1133,7 +1221,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     let variantSplitFromFirstClause = false;
     for (const [ci, c] of clauses.entries()) {
       const label = c[1].trim();
-      const names = c[2].split(/;|\band\b/i).map(s => s.trim()).filter(Boolean).map(baseName);
+      const names = resolveClauseItems(c[2], unit.weapons).map(baseName);
       const gWeapons = remaining.filter(w => names.includes(baseName(w.name)));
       gWeapons.forEach(w => used.add(w.name));
       const idx = profile.modelsToShow.findIndex(m => m.name === label);
@@ -1141,7 +1229,18 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
       const count = m
         ? profile.modelCounts[idx] ?? (item.modelSizes?.[m.name] ?? (m.min > 0 ? m.min : m.max))
         : null;
-      groups.push({ label, count, weapons: gWeapons, traitMap: profile.weaponTraitMap });
+      // A clause for an OPTIONAL model the player took none of gets no row. Its weapons are still
+      // marked used above, so they are not treated as unattributed kit and dumped onto the first
+      // row: an Armory purchase on an Indomitus Crusader Squad landed on a Neophyte line that only
+      // existed because the clause did, even with zero Neophytes in the squad.
+      // Looked up in unit.models, not modelsToShow — the latter has already dropped absent models,
+      // so it can never tell us that this clause's model is one of them.
+      const clauseModel = unit.models.find(x => x.name === label);
+      const optionalAndAbsent = !!item.modelSizes && !!clauseModel && clauseModel.min === 0 &&
+        (item.modelSizes[clauseModel.name] ?? clauseModel.min) === 0;
+      if (!optionalAndAbsent) {
+        groups.push({ label, count, weapons: gWeapons, traitMap: profile.weaponTraitMap });
+      }
 
       // The promoted variant (e.g. Traitor Sergeant) shares this clause's base loadout. If
       // Character-only Armory purchases (Boltgun, "all ranged weapons gain X", etc.) make its
@@ -1196,7 +1295,12 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (variantGroup && variantSplitFromFirstClause) variantGroup.weapons.push(w);
       }
     }
-    if (championExtraWeapons.length > 0 && builtInChampion) {
+    // …unless the promoted variant above already took them. On the two bike squads the Armory is
+    // reached only by upgrading the Sergeant (`variant_link`), so the purchase belongs to the
+    // *Veteran* Sergeant's row; appending the base Sergeant's row too printed the same weapon
+    // twice. `variantGroup` is only ever set when that fold ran, so this can never swallow a
+    // weapon that has nowhere else to render.
+    if (championExtraWeapons.length > 0 && builtInChampion && !variantGroup) {
       groups.push({ label: builtInChampion.name, count: null, weapons: championExtraWeapons, traitMap: profile.weaponTraitMap });
     }
   } else if (builtInChampion && unit.models[0].max > 1) {
