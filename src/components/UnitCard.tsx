@@ -203,6 +203,13 @@ export function UnitCard({ item }: Props) {
 
   // Bug 1: vehicles with WS (e.g. Soul Grinder) need WS in the stat display
   const vehicleHasWS = u.is_vehicle && modelsToShow.some(m => m.stats?.WS && m.stats.WS !== '-');
+  // "Transport: This model has a transport capacity of 10 infantry models, excluding …" — the
+  // number is what a player checks while building, so it is surfaced on the profile header. The
+  // sentence itself stays in Abilities, since it carries the exclusions.
+  const transportAbility = (u.abilities ?? []).find(a => /transport capacity of\s*\d+/i.test(a)) ?? null;
+  const transportCapacity = transportAbility
+    ? Number(transportAbility.match(/transport capacity of\s*(\d+)/i)?.[1]) || null
+    : null;
   // InvSv stat: best of base-ability + equipment + ACTIVE TRAITS inv saves.
   // SOURCE (core_rules_text.txt): Ward Save is unaffected by AP, used after armor save fails.
   // Unconditional sources all update the stat column:
@@ -712,6 +719,19 @@ export function UnitCard({ item }: Props) {
               )}
               {hasEquipEffects && (
                 <span className="ml-2 text-violet-400 normal-case font-normal text-[10px]">{t('equipmentDiamondNote')}</span>
+              )}
+              {/* Transport capacity, in the profile rather than only in the rules list underneath —
+                  requested on Discord: it is what you check while building, not a rule you read
+                  once. 80 datasheets carry it, all worded "transport capacity of N infantry
+                  models"; the full sentence (with its exclusions) stays in Abilities and is on the
+                  chip's tooltip. */}
+              {transportCapacity !== null && (
+                <span
+                  title={transportAbility ?? undefined}
+                  className="ml-auto normal-case font-normal text-[10px] px-1.5 py-0.5 border border-sky-800/70 bg-sky-950/40 text-sky-300 shrink-0"
+                >
+                  {t('transportCapacityLabel')} {transportCapacity}
+                </span>
               )}
             </div>
             <div className="overflow-x-auto">

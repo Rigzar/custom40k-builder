@@ -1487,6 +1487,22 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
           if (hit) grantedQty.set(part, (grantedQty.get(part) ?? 0) + n);
         }
       }
+      // "Can be equipped with an additional Storm bolter for +11 points" — an INLINE option with
+      // no choices, so nothing was granting the weapon and only the points moved; the card kept
+      // saying one Storm bolter (Discord, MtoTheDonk). 22 datasheets are worded this way and every
+      // one of them names a weapon the unit already carries, so the header is a safe signal.
+      if ((g.choices ?? []).length === 0 && ch['__inline']) {
+        const header = g.header ?? '';
+        const isExtra = /\b(additional|second|extra)\b/i.test(header);
+        const extra = isExtra ? grp.weapons.find(w => {
+          const wb = baseName(w.name).replace(/\s*\([^)]*\)\s*$/, '').trim();
+          return header.toLowerCase().includes(wb.toLowerCase());
+        }) : undefined;
+        if (extra) {
+          const k = baseName(extra.name);
+          grantedQty.set(k, (grantedQty.get(k) ?? 0) + Number(ch['__inline']));
+        }
+      }
       if (groupQty === 0) continue;
       for (const replaced of (g.replaces ?? [])) {
         replacedQty.set(replaced, (replacedQty.get(replaced) ?? 0) + groupQty);
@@ -1564,7 +1580,48 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         const perSwap = swapsAllCopies ? copies : 1;
         overrides.set(w.name, Math.max(0, groupModels * copies - replacedQty.get(rKey)! * perSwap));
       } else if (grantedQty.has(gKey)) {
-        overrides.set(w.name, grantedQty.get(gKey)!);
+        // A granted weapon the model ALREADY carries adds to what it has rather than replacing it.
+        // Discord (Liquid Citrus): a Tyranid Prime is equipped with Scything talons AND Spinefists,
+        // and may swap the Spinefists for a second pair of Scything talons — it ends with two, and
+        // the card said one. Only counted when this group's own default loadout names the weapon:
+        // an Eldar Exarch trading its Diresword for an Avenger shuriken catapult gets ONE, because
+        // the squad's catapults belong to the Avengers' row, not to the Exarch's.
+        // The ITEM LIST, not the whole sentence: an unlabelled group covers the single clause, so
+        // take what follows "is equipped with:" — splitting the raw sentence left the first item
+        // glued to that prefix and it matched nothing.
+        const groupClause = grp.label
+          ? unit.equipped_with.match(loadoutClauseFor(grp.label))?.[1]
+          // Not "is equipped with" — the Rhino reads "A Rhino is a single model AND equipped
+          // with: Storm bolter", and anchoring on "is" missed it entirely.
+          : unit.equipped_with.match(/equipped with:\s*([^.]+)\./i)?.[1];
+        const inOwnDefault = !!groupClause &&
+          splitLoadoutClause(groupClause).some(x => baseName(x).toLowerCase().replace(/s$/, '')
+            === bn.toLowerCase().replace(/s$/, ''));
+        // Deliberately narrow: only for a single-row unit that has NO promotion mechanic at all.
+        // Champions, Exarchs and Sergeants are taken OUT of the squad's count, so adding the
+        // squad's copies to one they bought for themselves double-counts; and on a unit whose
+        // models have separate loadout lines the granted weapon can land on a row that already
+        // carries one of its own (a Voidscarred Shade Runner's Shuriken pistol). Between them
+        // those shapes reach 25 datasheets in 8 factions, none of them reported. The Tyranid Prime
+        // and Tyranid Warrior Brood — the reported case — have one row and no promotion.
+        // Widening this means reading those 25 one at a time first.
+        const hasPromotion = (unit.variant_models ?? []).length > 0;
+        // And the swap must genuinely trade away something the model HAS. The Custodes Sisters of
+        // Silence are "equipped with: Boltgun; Psyk-out grenades" yet the option offers to swap a
+        // Flamer they never had — counting that as an addition put 11 Boltguns on 10 models.
+        // Flagged for the author; until then this stays out.
+        const tradesSomethingReal = (g2 => g2 === undefined ? true : g2)(
+          (() => {
+            const src = unit.option_groups.filter(x => (x.choices ?? []).some(c =>
+              baseName(c.name).toLowerCase() === bn.toLowerCase()));
+            if (!src.length) return true;                     // inline grant, nothing traded away
+            return src.some(x => (x.replaces ?? []).every(r =>
+              (unit.equipped_with ?? '').toLowerCase().includes(baseName(r).toLowerCase())));
+          })());
+        const alreadyHas = inOwnDefault && !hasPromotion && grp.label === null && tradesSomethingReal
+          ? groupModels * weaponCopiesPerModel(unit.equipped_with, bn)
+          : 0;
+        overrides.set(w.name, alreadyHas + grantedQty.get(gKey)!);
       }
     }
     if (overrides.size > 0) grp.countOverrides = overrides;

@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-granted-weapon-adds-to-base-01",
+    status: "fixed",
+    title: "A weapon a model already carried was not counted when a second one was bought",
+    description: "FIXED 2026-08-16 (v1.63), two Discord reports with the same root. Liquid Citrus: \"If I swap a tyranid prime warrior's spinefists for scything talons, wouldn't that mean it has two?\" — yes; the sheet gives it Scything talons AND Spinefists and the option trades the Spinefists for another pair, and the card counted one. MtoTheDonk: buying the Rhino's additional Storm bolter showed only as a line of text, because that option is stored INLINE (no choices, just `inline_pts: 11`) so nothing granted a weapon and only the points moved. CAUSE: the count override treated \"replaced\" and \"granted\" as alternatives, so a granted weapon reported the quantity bought and forgot the copy the model already had; and inline options granted nothing at all. FIX: an inline option whose header says \"additional/second/extra <weapon the unit carries>\" now grants one (22 datasheets, all worded that way, and not one names a weapon the unit lacks), and a granted weapon adds to what the group already has. DELIBERATELY NARROW after measuring: the addition is skipped when the unit has any promotion mechanic, when the row is not the whole-squad one, and when the swap does not trade away something the model really has. Widening it reached 23 datasheets in 8 factions — champions, Exarchs and Sergeants come OUT of the squad's count, and on multi-row units a granted weapon can land on a row that already has its own — none of which was reported. Verified by rendering 2,348 states of every unit: 20 rows change, each checked against its sheet. A Rhino or Repressor now reads 2x Storm bolter (they carry one); a Land Raider, Predator, Vindicator, Whirlwind or Razorback reads 1x, because their loadout has none despite the option saying \"additional\" — flagged for the author.",
+  },
+  {
+    id: "ki-transport-capacity-on-profile-01",
+    status: "fixed",
+    title: "Transport capacity was only in the rules list, not on the profile",
+    description: "FIXED 2026-08-16 (v1.63), requested on Discord by MtoTheDonk: \"Is there a chance to show the Transport capacity of the Transport-vehicle in the Profile instead of the list below between the special rules?\" The capacity now appears as a chip on the profile header next to the stats. 79 datasheets carry one, all worded \"transport capacity of N infantry models\", and the parse was checked against every one of them; the Imperial Guard Mechanised Infantry correctly gets no chip, because its ability only MENTIONS transport capacity when describing which vehicle it must pick. The full sentence stays in Abilities and is on the chip's tooltip, since it carries the exclusions. SHEET NOTE for the author: the Adepta Sororitas Immolator and Rhino both read \"excluding excluding\" — the doubled word is in the source sheet, so it is reproduced faithfully rather than silently corrected.",
+  },
+  {
     id: "ki-login-needs-refresh-01",
     status: "fixed",
     title: "Signing in did not take effect until the page was refreshed",
