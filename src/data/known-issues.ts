@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-login-needs-refresh-01",
+    status: "fixed",
+    title: "Signing in did not take effect until the page was refreshed",
+    description: "FIXED 2026-08-16 (v1.63), reported on Discord: \"si me reconoce pero no entra de una a la cuenta, hay que refrescar la página para que se vea mi login\". The login itself always worked — the session cookie was set and the server knew — so this was purely a stale view. CAUSE: `useAuth` held plain `useState`, so every caller got its OWN copy of the session, and there are three: App.tsx, LandingPage.tsx and AdminPanel.tsx. `AuthModal.onLoggedIn` calls `refreshAuth()`, which refreshed only App's copy; the landing page — where the account button lives — kept its own \"logged out\" state until a reload remounted everything and each copy re-fetched. FIX: `useAuth` is now a module-level store read through `useSyncExternalStore`, so one refresh updates every consumer. The three call sites are unchanged (same returned shape). Two related bugs go with it: changing your avatar and logging out had the same staleness in the other direction. Also de-duplicated: three components mounting used to fire three `/api/auth/me` calls, now one — verified in the browser, each page load issues exactly one, and three simultaneous `refreshAuth()` calls collapse into a single request. NOT verified end to end with a real sign-in, which would need the user's own password.",
+  },
+  {
     id: "ki-author-rulings-2026-08-16",
     status: "fixed",
     title: "Author rulings — Spannas, the Klaivex's Demiklaives and the Tauros Venator",

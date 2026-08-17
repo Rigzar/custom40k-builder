@@ -11,15 +11,15 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v163b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v163c_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.63: weapons that vanished when you swapped one",
     intro: "One report from GitHub that turned out to affect 93 datasheets. Worth re-checking any squad where you swapped a weapon.",
-    install: "⚠ Swapping one weapon no longer strips it from the whole squad. One Scatter laser on a Windrider squad removed every Twin shuriken catapult; the same fault hit 93 datasheets, including one Big choppa clearing every Ork Boy's Choppa (GitHub #90).",
-    line1: "⚔ A squad whose models each carry two of a weapon now shows the real total — six Kastelan Robots have 12 Power fists, not 2. Swaps count properly too: 'may swap BOTH Penitent flails' removes two, 'may replace ONE Macro-scalpel' removes one.",
+    install: "🔑 Signing in works straight away now — no refreshing the page. The login always worked; the header was reading its own copy of the session and kept showing \"Log in\" until you reloaded. Avatar changes and logging out update everywhere immediately too.",
+    line1: "⚔ Swapping one weapon no longer strips it from the whole squad (93 datasheets, GitHub #90). And a squad whose models each carry two of a weapon now shows the real total — six Kastelan Robots have 12 Power fists, not 2. Swaps count properly too: 'may swap BOTH Penitent flails' removes two, 'may replace ONE Macro-scalpel' removes one.",
     line2: "⚖ Orks — Burna Boyz and Lootas can take up to THREE Spannas, as the datasheet says. Five Lootas with three Spannas are 78 pts, down from 120. Dark Eldar — the Klaivex always carries its Demiklaives, both modes shown; it used to be an optional swap. Imperial Guard — a Tauros Venator now shows its Twin heavy stubber.",
     line3: "🔩 Jakhals, Voidscarred and Kroot Farstalkers share one loadout line between two model rows, so their counts were worked out from a single model and every swap came out wrong.",
     line4: "",
@@ -30,8 +30,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   de: {
     title: "v1.63: Waffen, die beim Tauschen verschwanden",
     intro: "Eine GitHub-Meldung, die am Ende 93 Datenblätter betraf. Prüft Trupps, in denen ihr eine Waffe getauscht habt.",
-    install: "⚠ Eine Waffe zu tauschen nimmt sie nicht mehr dem ganzen Trupp weg. Ein Scatter Laser bei den Windriders entfernte alle Twin Shuriken-Katapulte; derselbe Fehler traf 93 Datenblätter, etwa eine Big Choppa, die jedem Ork Boy die Choppa nahm (GitHub #90).",
-    line1: "⚔ Trupps, deren Modelle je zwei Exemplare einer Waffe tragen, zeigen jetzt die echte Summe — sechs Kastelan Robots haben 12 Power Fists, nicht 2. Auch Tauschvorgänge zählen richtig: 'may swap BOTH Penitent flails' nimmt zwei, 'may replace ONE Macro-scalpel' nimmt eines.",
+    install: "🔑 Das Anmelden wirkt jetzt sofort — kein Neuladen mehr nötig. Der Login funktionierte immer; die Kopfzeile las ihre eigene Kopie der Sitzung und zeigte weiter \"Log in\". Avatar-Änderungen und das Abmelden greifen ebenfalls sofort überall.",
+    line1: "⚔ Eine Waffe zu tauschen nimmt sie nicht mehr dem ganzen Trupp weg (93 Datenblätter, GitHub #90). Und Trupps, deren Modelle je zwei Exemplare einer Waffe tragen, zeigen jetzt die echte Summe — sechs Kastelan Robots haben 12 Power Fists, nicht 2. Auch Tauschvorgänge zählen richtig: 'may swap BOTH Penitent flails' nimmt zwei, 'may replace ONE Macro-scalpel' nimmt eines.",
     line2: "⚖ Orks — Burna Boyz und Lootas dürfen bis zu DREI Spannas nehmen, wie auf dem Datenblatt. Fünf Lootas mit drei Spannas kosten 78 statt 120 Punkte. Dark Eldar — der Klaivex trägt seine Demiklaives immer, beide Modi sichtbar; vorher war es ein optionaler Tausch. Imperial Guard — ein Tauros Venator zeigt jetzt seinen Twin heavy stubber.",
     line3: "🔩 Jakhals, Voidscarred und Kroot Farstalkers teilen sich eine Ausrüstungszeile über zwei Modellreihen, daher wurden ihre Anzahlen aus einem einzigen Modell berechnet und jeder Tausch war falsch.",
     line4: "",
@@ -42,8 +42,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   es: {
     title: "v1.63: armas que desaparecían al cambiar una",
     intro: "Un reporte de GitHub que al final afectaba a 93 fichas. Conviene revisar las escuadras donde cambiasteis un arma.",
-    install: "⚠ Cambiar un arma ya no se la quita a toda la escuadra. Un Scatter laser en unos Windriders borraba todos los Twin shuriken catapult; el mismo fallo afectaba a 93 fichas, como una Big choppa dejando sin Choppa a todos los Ork Boyz (GitHub #90).",
-    line1: "⚔ Las escuadras cuyos modelos llevan dos copias de un arma ya muestran el total real: seis Kastelan Robots tienen 12 Power fists, no 2. Y los cambios cuentan bien: 'may swap BOTH Penitent flails' quita dos, 'may replace ONE Macro-scalpel' quita uno.",
+    install: "🔑 Iniciar sesión ya surte efecto al momento — sin recargar la página. El login siempre funcionó; la cabecera leía su propia copia de la sesión y seguía enseñando \"Log in\" hasta recargar. Cambiar el avatar y cerrar sesión también se reflejan al instante.",
+    line1: "⚔ Cambiar un arma ya no se la quita a toda la escuadra (93 fichas, GitHub #90). Y las escuadras cuyos modelos llevan dos copias de un arma ya muestran el total real: seis Kastelan Robots tienen 12 Power fists, no 2. Y los cambios cuentan bien: 'may swap BOTH Penitent flails' quita dos, 'may replace ONE Macro-scalpel' quita uno.",
     line2: "⚖ Orkos — Burna Boyz y Lootas pueden llevar hasta TRES Spannas, como dice la ficha. Cinco Lootas con tres Spannas son 78 pts, antes 120. Elfos Oscuros — el Klaivex lleva siempre sus Demiklaives, con los dos modos a la vista; antes era un cambio opcional. Guardia Imperial — un Tauros Venator ya muestra su Twin heavy stubber.",
     line3: "🔩 Jakhals, Voidscarred y Kroot Farstalkers comparten una línea de equipo entre dos filas de modelo, así que sus cantidades salían de un solo modelo y cualquier cambio salía mal.",
     line4: "",
