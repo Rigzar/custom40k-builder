@@ -11,7 +11,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v163d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v163e_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
@@ -20,7 +20,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     intro: "One report from GitHub that turned out to affect 93 datasheets. Worth re-checking any squad where you swapped a weapon.",
     install: "🔑 Signing in works straight away now — no refreshing the page. The login always worked; the header was reading its own copy of the session and kept showing \"Log in\" until you reloaded. Avatar changes and logging out update everywhere immediately too.",
     line1: "⚔ Swapping one weapon no longer strips it from the whole squad (93 datasheets, GitHub #90). And a squad whose models each carry two of a weapon now shows the real total — six Kastelan Robots have 12 Power fists, not 2. Swaps count properly too: 'may swap BOTH Penitent flails' removes two, 'may replace ONE Macro-scalpel' removes one.",
-    line2: "⚖ Orks — Burna Boyz and Lootas can take up to THREE Spannas, as the datasheet says. Five Lootas with three Spannas are 78 pts, down from 120. Dark Eldar — the Klaivex always carries its Demiklaives, both modes shown; it used to be an optional swap. Imperial Guard — a Tauros Venator now shows its Twin heavy stubber.",
+    line2: "⚖ Skirmish — a Squadron unit is now held to ONE model, as the Missions rules say. Two Killa Kanz were legal before. Also: Orks may take up to three Spannas in a Burna Boyz or Lootas squad, the Dark Eldar Klaivex always carries its Demiklaives, and a Tauros Venator shows its Twin heavy stubber.",
     line3: "🔩 Weapon counts: a Tyranid Prime that swaps its Spinefists for Scything talons now reads 2x, and buying \"an additional Storm bolter\" shows on the weapon table — a Rhino reads 2x, a Land Raider (which carries none to start) reads 1x. Transport vehicles now show their capacity on the profile.",
     line4: "",
     line5: "",
@@ -32,7 +32,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     intro: "Eine GitHub-Meldung, die am Ende 93 Datenblätter betraf. Prüft Trupps, in denen ihr eine Waffe getauscht habt.",
     install: "🔑 Das Anmelden wirkt jetzt sofort — kein Neuladen mehr nötig. Der Login funktionierte immer; die Kopfzeile las ihre eigene Kopie der Sitzung und zeigte weiter \"Log in\". Avatar-Änderungen und das Abmelden greifen ebenfalls sofort überall.",
     line1: "⚔ Eine Waffe zu tauschen nimmt sie nicht mehr dem ganzen Trupp weg (93 Datenblätter, GitHub #90). Und Trupps, deren Modelle je zwei Exemplare einer Waffe tragen, zeigen jetzt die echte Summe — sechs Kastelan Robots haben 12 Power Fists, nicht 2. Auch Tauschvorgänge zählen richtig: 'may swap BOTH Penitent flails' nimmt zwei, 'may replace ONE Macro-scalpel' nimmt eines.",
-    line2: "⚖ Orks — Burna Boyz und Lootas dürfen bis zu DREI Spannas nehmen, wie auf dem Datenblatt. Fünf Lootas mit drei Spannas kosten 78 statt 120 Punkte. Dark Eldar — der Klaivex trägt seine Demiklaives immer, beide Modi sichtbar; vorher war es ein optionaler Tausch. Imperial Guard — ein Tauros Venator zeigt jetzt seinen Twin heavy stubber.",
+    line2: "⚖ Skirmish — eine Squadron-Einheit ist jetzt auf EIN Modell begrenzt, wie es die Missions-Regeln sagen. Zwei Killa Kanz waren vorher erlaubt. Außerdem: bis zu drei Spannas bei Burna Boyz und Lootas, der Dark-Eldar-Klaivex trägt seine Demiklaives immer, und ein Tauros Venator zeigt seinen Twin heavy stubber.",
     line3: "🔩 Waffenanzahlen: Ein Tyranid Prime, der seine Spinefists gegen Scything talons tauscht, zeigt jetzt 2x, und ein gekaufter \"additional Storm bolter\" erscheint in der Waffentabelle — ein Rhino zeigt 2x, ein Land Raider (der keinen hat) 1x. Transportfahrzeuge zeigen ihre Kapazität jetzt im Profil.",
     line4: "",
     line5: "",
@@ -44,7 +44,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     intro: "Un reporte de GitHub que al final afectaba a 93 fichas. Conviene revisar las escuadras donde cambiasteis un arma.",
     install: "🔑 Iniciar sesión ya surte efecto al momento — sin recargar la página. El login siempre funcionó; la cabecera leía su propia copia de la sesión y seguía enseñando \"Log in\" hasta recargar. Cambiar el avatar y cerrar sesión también se reflejan al instante.",
     line1: "⚔ Cambiar un arma ya no se la quita a toda la escuadra (93 fichas, GitHub #90). Y las escuadras cuyos modelos llevan dos copias de un arma ya muestran el total real: seis Kastelan Robots tienen 12 Power fists, no 2. Y los cambios cuentan bien: 'may swap BOTH Penitent flails' quita dos, 'may replace ONE Macro-scalpel' quita uno.",
-    line2: "⚖ Orkos — Burna Boyz y Lootas pueden llevar hasta TRES Spannas, como dice la ficha. Cinco Lootas con tres Spannas son 78 pts, antes 120. Elfos Oscuros — el Klaivex lleva siempre sus Demiklaives, con los dos modos a la vista; antes era un cambio opcional. Guardia Imperial — un Tauros Venator ya muestra su Twin heavy stubber.",
+    line2: "⚖ Skirmish — una unidad con Squadron queda limitada a UN modelo, como dicen las reglas de Misiones. Antes se colaban dos Killa Kanz. Además: hasta tres Spannas en Burna Boyz y Lootas, el Klaivex lleva siempre sus Demiklaives, y un Tauros Venator ya muestra su Twin heavy stubber.",
     line3: "🔩 Cantidades de armas: un Tyranid Prime que cambia sus Spinefists por Scything talons ya marca 2x, y comprar \"an additional Storm bolter\" aparece en la tabla de armas — un Rhino marca 2x y un Land Raider (que no lleva ninguno) marca 1x. Los transportes ya muestran su capacidad en el perfil.",
     line4: "",
     line5: "",

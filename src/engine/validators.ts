@@ -2237,7 +2237,18 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           }
         });
       }
-      if (u.is_squadron && item.size > 1) {
+      // Missions, Skirmish / Unit Restrictions: "Units with the 'Squadron' rule may only field one
+      // model per slot." Read from the datasheet text, not from the `is_squadron` flag: the flag
+      // was set on 6 units while 101 carry the rule — two Killa Kanz were legal in Skirmish
+      // (Discord, JackdawJack). The rule is printed in one of two places depending on the sheet,
+      // the ABILITIES keyword line (97 units) or the UNIT TYPE line (4, e.g. the Destroyer Tank
+      // Hunter's "Squadron, Vehicle"), and no unit states it in both. The flag stays as a third
+      // source so nothing can lose the restriction.
+      const SQUADRON_RE = /\bsquadron\b/i;
+      const isSquadron = u.is_squadron === true
+        || (u.abilities ?? []).some(a => SQUADRON_RE.test(String(a)))
+        || SQUADRON_RE.test(u.unit_type ?? '');
+      if (isSquadron && item.size > 1) {
         items.push({ type: 'error', text: T('valSkirmishSquadronMax', { unit: item.unitName, size: item.size }) });
       }
 

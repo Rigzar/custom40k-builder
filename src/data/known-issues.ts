@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-skirmish-squadron-cap-01",
+    status: "fixed",
+    title: "Skirmish — Squadron units could field more than one model",
+    description: "FIXED 2026-08-16 (v1.63), reported on Discord by JackdawJack: two Killa Kanz were legal in a Skirmish game — \"it does show an error when a non-troop unit is over 300 points but doesn't check the squadron rule\". CANON (Missions, Skirmish / Unit Restrictions): \"Units with the 'Squadron' rule may only field one model per slot.\" The check was already written and correct — `u.is_squadron && item.size > 1` — but read a FLAG that is set on 6 datasheets while 101 carry the rule, so it almost never fired. It now reads the datasheet itself. WHERE THE RULE LIVES, which is why a single lookup was not enough: 97 datasheets print \"Squadron\" in the ABILITIES keyword line and 4 print it in the UNIT TYPE line instead (the Imperial Guard Destroyer Tank Hunter reads \"Squadron, Vehicle\", likewise the Necron Canoptek Doomstalker) — and no datasheet states it in both. Checked before changing: every unit carrying the old flag also states the rule in one of those two places, so nothing loses a restriction; 96 units that can field more than one model gain the correct one, across all 18 factions. The flag is kept as a third source. Verified: 2 Killa Kanz in Skirmish now error, 1 does not, and 4 in Pitched Battle stay legal.",
+  },
+  {
     id: "ki-granted-weapon-adds-to-base-01",
     status: "fixed",
     title: "A weapon a model already carried was not counted when a second one was bought",
