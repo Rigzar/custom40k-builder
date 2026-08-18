@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-allied-matrix-2026-08-17",
+    status: "fixed",
+    title: "Allied matrix — Grey Knights were reading the Space Marine row",
+    description: "UPDATED 2026-08-17 (v1.63), from a player question on Discord: why does the Inquisition show as a green ally to Grey Knights? Checked against the LIVE Core Rules document: at the time the matrix was 16x16 and did not list Grey Knights at all, so the app read them off the Space Marine row, where the Inquisition was Battle Brothers. Harlequins were read off Eldar and Assassins off Inquisition for the same reason. Reported to the author, who rewrote the table: it is now 17x17 with Grey Knights as their own row and every formerly blank cell filled in. Transcribed by parsing the live document table rather than typing it, and all 289 cells were validated as G, Y or R before the file was written. TEN relationships changed: the Inquisition is now Allies of Convenience with Adeptus Custodes, Adeptus Mechanicus, Adepta Sororitas, Imperial Guard and Space Marines, where it had been Battle Brothers both ways. Grey Knights and the Inquisition are Allies of Convenience, which answers the question that started this. STILL MAPPED, on the author's word: Harlequins keep reading the Eldar row until he writes them an Army Customisation setting their own ally level, and Assassins are deliberately absent from the chart because they can never be fielded without a parent army.",
+  },
+  {
     id: "ki-skirmish-squadron-cap-01",
     status: "fixed",
     title: "Skirmish — Squadron units could field more than one model",

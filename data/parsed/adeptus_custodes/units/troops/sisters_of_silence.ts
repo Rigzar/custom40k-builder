@@ -72,24 +72,26 @@ export const sistersOfSilence: Unit = {
   ],
   "option_groups": [
     {
-      "header": "Any model may swap its Flamer",
+      "header": "Any model may swap its Boltgun",
       "constraint": {
         "type": "every"
       },
       "choices": [
         {
-          "name": "Boltgun",
+          "name": "Executioner greatblade",
           "points": 0
         },
         {
-          "name": "Executioner greatblade",
+          "name": "Flamer",
           "points": 0
         }
       ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Flamer"]
+      "replaces": [
+        "Boltgun"
+      ]
     }
   ],
   "abilities": [
