@@ -140,7 +140,7 @@ export type TranslationKey =
   | 'chaosMarkLabel' | 'markForcedPrefix' | 'allChaosMarksLabel' | 'allMarksVehicleBonus'
   | 'allMarksCharacterBonus' | 'allMarksInfantryBonus' | 'vetSlotSuffix' | 'markOfChaosUndividedLabel'
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
-  | 'requiresMarkOfPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'uniqueTakenBadge' | 'unsavedChangesConfirm' | 'rangeFullLabel' | 'typeFullLabel'
+  | 'requiresMarkOfPrefix' | 'requiresKeywordPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'uniqueTakenBadge' | 'unsavedChangesConfirm' | 'rangeFullLabel' | 'typeFullLabel'
   | 'armyTraitsLabel' | 'clickToChooseSuffix' | 'cannotTakeAllTraits' | 'smiteAlwaysKnownSuffix' | 'allOfPrefix'
   | 'exarchPowerPrefix' | 'gainsSuffix' | 'traitBadge' | 'ruleBadge' | 'optionBadge' | 'equipBadge'
   | 'seeFactionRulesPlain' | 'ammoLabel' | 'veteranLabel' | 'vehicleEquipmentLabel' | 'traitsCountLabel'
@@ -172,7 +172,7 @@ export type TranslationKey =
   | 'valMixedWarbandMultiLegacy'
   | 'valChamberMilitantNoLegacy'
   | 'valOrdoMinorisExcess'
-  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord'
+  | 'valHenchmanWarbandCap' | 'valHenchmanWarbandCapLord' | 'valSectorProtectorWarbandMin'
   | 'valCsmLegacyKhorne' | 'valCsmLegacyUnitRestrict'
   | 'valSm1stCompanyForbidden' | 'valSmForlornBrothers' | 'valSmExpandedArmory'
   | 'valSmOneCaptain' | 'valSmOneMasterOfSanctity' | 'valSmOneChiefLibrarian'
@@ -624,6 +624,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     favoredOfSizePrefix: '(size',
     favoredOfSizeSuffix: '×): squad leader gains +1 Attack + Personal icon (Daemon units deep striking within 3″ of the bearer do not scatter).',
     requiresMarkOfPrefix: 'Requires Mark of',
+    requiresKeywordPrefix: 'Only available to units with the keyword:',
     notAvailableWithMarkPrefix: 'Not available with Mark of',
     championBadge: 'Champion',
     uniqueTakenBadge: 'Unique — already in army',
@@ -742,6 +743,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valChamberMilitantNoLegacy: 'Chamber Militant: must select "Legacy of the Alien Hunters" as Legacy.',
     valOrdoMinorisExcess: '{unit}: Ordo Minoris allows only 1 item from the Ordo Hereticus/Malleus/Xenos Armory (has {items}).',
     valHenchmanWarbandCap: 'Henchman Warband: up to {cap} specialist models (have {count}).',
+    valSectorProtectorWarbandMin: 'Sector Protector: a Henchman Warband is 5-10 specialist models (have {count}).',
     valHenchmanWarbandCapLord: 'Henchman Warband: up to {cap} specialist models (Inquisitor Lord) (have {count}).',
     valCsmLegacyKhorne: '{armory} armory — "{item}": only for models with the Mark of Khorne ({unit} has Mark of {mark}).',
     valCsmLegacyUnitRestrict: '{armory} armory — "{item}": {restriction} (cannot be equipped on {unit}).',
@@ -1214,6 +1216,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     favoredOfSizePrefix: '(Größe',
     favoredOfSizeSuffix: '×): Truppführer erhält +1 Angriff + Persönliches Banner (Daemoneneinheiten, die innerhalb von 3″ des Trägers per Deep Strike eintreffen, scattern nicht).',
     requiresMarkOfPrefix: 'Erfordert Mal von',
+    requiresKeywordPrefix: 'Nur für Einheiten mit dem Schlüsselwort:',
     notAvailableWithMarkPrefix: 'Nicht verfügbar mit Mal von',
     championBadge: 'Champion',
     uniqueTakenBadge: 'Einzigartig — bereits in der Armee',
@@ -1332,6 +1335,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valChamberMilitantNoLegacy: 'Streitende Kammer: „Erbe der Alienijäger" als Vermächtnis wählen.',
     valOrdoMinorisExcess: '{unit}: Ordo Minoris erlaubt nur 1 Gegenstand aus der Ordo-Hereticus/Malleus/Xenos-Rüstkammer (hat {items}).',
     valHenchmanWarbandCap: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (hat {count}).',
+    valSectorProtectorWarbandMin: 'Sector Protector: ein Gefolgsleute-Warband hat 5-10 Spezialistenmodelle (hat {count}).',
     valHenchmanWarbandCapLord: 'Gefolgsleute-Warband: bis zu {cap} Spezialistenmodelle (Inquisitor Lord) (hat {count}).',
     valCsmLegacyKhorne: '{armory}-Rüstkammer — „{item}": nur für Modelle mit der Mark des Khorne ({unit} hat Mark des {mark}).',
     valCsmLegacyUnitRestrict: '{armory}-Rüstkammer — „{item}": {restriction} (nicht ausrüstbar für {unit}).',
@@ -1804,6 +1808,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     favoredOfSizePrefix: '(tamaño',
     favoredOfSizeSuffix: '×): el líder de escuadra gana +1 Ataque + Icono Personal (las unidades Demonio que lleguen por asalto profundo a 3″ del portador no se dispersan).',
     requiresMarkOfPrefix: 'Requiere Marca de',
+    requiresKeywordPrefix: 'Solo disponible para unidades con la palabra clave:',
     notAvailableWithMarkPrefix: 'No disponible con Marca de',
     championBadge: 'Campeón',
     uniqueTakenBadge: 'Único — ya en el ejército',
@@ -1922,6 +1927,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     valChamberMilitantNoLegacy: 'Cámara Militante: debe seleccionarse "Legado de los Cazadores de Alienígenas" como Legado.',
     valOrdoMinorisExcess: '{unit}: Ordo Minoris permite solo 1 objeto de la Armería del Ordo Hereticus/Malleus/Xenos (tiene {items}).',
     valHenchmanWarbandCap: 'Séquito: hasta {cap} modelos especialistas (tiene {count}).',
+    valSectorProtectorWarbandMin: 'Sector Protector: un Henchman Warband son 5-10 modelos especialistas (tiene {count}).',
     valHenchmanWarbandCapLord: 'Séquito: hasta {cap} modelos especialistas (Inquisitor Lord) (tiene {count}).',
     valCsmLegacyKhorne: 'Armería {armory} — "{item}": solo para modelos con la Marca de Khorne ({unit} tiene Marca de {mark}).',
     valCsmLegacyUnitRestrict: 'Armería {armory} — "{item}": {restriction} (no se puede equipar en {unit}).',

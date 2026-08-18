@@ -66,6 +66,17 @@ export interface Choice {
    * within it. Checked by a validators.ts cross-army pass, keyed on (unitName, choice.name).
    */
   unique_per_army?: boolean;
+  /**
+   * Keyword the unit must carry for this choice to be selectable. Tyranids 1.02 split every
+   * datasheet into "Basic Bioform" / "Advanced Bioform" (a KEYWORDS line, per the author
+   * 2026-08-18) and five Advanced Biomorphs are priced "-" for Basic Bioforms, which the Armory
+   * preamble defines as "can not be selected".
+   *
+   * The blocked choices stay in the list rather than being filtered out of it: `optionQty` is
+   * keyed by choice INDEX, so dropping entries would silently repoint every saved list's
+   * selections at a different biomorph.
+   */
+  requires_keyword?: string;
 }
 
 /**

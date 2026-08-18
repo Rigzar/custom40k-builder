@@ -1515,31 +1515,51 @@ export function UnitCard({ item }: Props) {
               const choiceMarkReq = c.name.match(/\((\w+)\s+only\)/i)?.[1] ?? null;
               const choiceMarkBlocked = choiceMarkReq != null
                 && choiceMarkReq.toLowerCase() !== (effectiveMark ?? '').toLowerCase();
+              // Keyword gate (Tyranid bioforms): the choice stays in the list so saved lists keep
+              // their indices, but a unit without the keyword cannot buy it. Unlike the mark gate
+              // this leaves "−" live, so a selection made before the keyword existed can be
+              // cleared instead of stranding the player on an illegal list.
+              const choiceKeywordBlocked = c.requires_keyword != null
+                && !(u.keywords ?? []).includes(c.requires_keyword);
+              const addBlocked = choiceMarkBlocked || choiceKeywordBlocked;
+              const blockTitle = choiceMarkBlocked
+                ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}`
+                : choiceKeywordBlocked ? `${t('requiresKeywordPrefix')} ${c.requires_keyword}` : undefined;
               const control = canUseQty ? (
                 <div className="flex items-center shrink-0" onClick={e => e.stopPropagation()}>
                   <button
                     onClick={() => { if (!choiceMarkBlocked) setQty(realGi, ci, Math.max(0, qty - 1)); }}
                     disabled={choiceMarkBlocked || qty <= 0}
+                    title={blockTitle}
                     className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none"
                   >−</button>
                   <span className="w-6 text-center text-zinc-100 font-mono text-[11px]">{qty}</span>
                   <button
-                    onClick={() => { if (!choiceMarkBlocked) setQty(realGi, ci, inputMax !== undefined ? Math.min(inputMax, qty + 1) : qty + 1); }}
-                    disabled={choiceMarkBlocked || (inputMax !== undefined && qty >= inputMax)}
+                    onClick={() => { if (!addBlocked) setQty(realGi, ci, inputMax !== undefined ? Math.min(inputMax, qty + 1) : qty + 1); }}
+                    disabled={addBlocked || (inputMax !== undefined && qty >= inputMax)}
+                    title={blockTitle}
                     className="w-5 h-5 flex items-center justify-center bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-amber-400 disabled:opacity-30 disabled:cursor-not-allowed text-sm leading-none"
                   >+</button>
                 </div>
               ) : (
                 <div
-                  onClick={e => { e.stopPropagation(); if (!choiceMarkBlocked) setQty(realGi, ci, qty > 0 ? 0 : 1); }}
-                  className={`w-4 h-4 border flex-shrink-0 flex items-center justify-center cursor-pointer transition-colors
+                  title={blockTitle}
+                  onClick={e => {
+                    e.stopPropagation();
+                    if (choiceMarkBlocked) return;
+                    // A keyword-blocked choice can still be turned OFF (legacy selection).
+                    if (addBlocked && qty === 0) return;
+                    setQty(realGi, ci, qty > 0 ? 0 : 1);
+                  }}
+                  className={`w-4 h-4 border flex-shrink-0 flex items-center justify-center transition-colors
                     ${qty > 0 ? 'bg-amber-700 border-amber-600' : 'bg-zinc-900 border-zinc-600 hover:border-zinc-400'}
-                    ${choiceMarkBlocked ? 'opacity-40 cursor-not-allowed pointer-events-none' : ''}`}
+                    ${choiceMarkBlocked || (addBlocked && qty === 0) ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
+                    ${choiceMarkBlocked ? 'pointer-events-none' : ''}`}
                 >
                   {qty > 0 && <span className="text-[8px] text-white leading-none">✓</span>}
                 </div>
               );
-              return { control, choiceMarkBlocked, choiceMarkReq };
+              return { control, choiceMarkBlocked: addBlocked, choiceMarkReq, blockTitle };
             }
 
             const headerQty = singleChoiceEvery ? qtyControl(0, g.choices[0]) : null;
@@ -1583,13 +1603,13 @@ export function UnitCard({ item }: Props) {
                       <tbody>
                         {g.choices.map((c: Choice, ci: number) => {
                           const { weapons, compound } = choiceWeaponsList[ci];
-                          const { control, choiceMarkBlocked, choiceMarkReq } = qtyControl(ci, c);
+                          const { control, choiceMarkBlocked, blockTitle } = qtyControl(ci, c);
                           const ptsLabel = `${c.points >= 0 ? '+' : ''}${c.points}`;
                           const rowClass = `border-b border-zinc-700/40 ${choiceMarkBlocked ? 'opacity-50' : ''}`;
                           const showRowControl = !singleChoiceEvery;
                           if (weapons.length === 0) {
                             return (
-                              <tr key={ci} className={rowClass} title={choiceMarkBlocked ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}` : undefined}>
+                              <tr key={ci} className={rowClass} title={blockTitle}>
                                 <td colSpan={7} className="py-1.5 pl-2 pr-2 font-medium text-zinc-100">
                                   {showRowControl ? (
                                     <span className="inline-flex items-center gap-1.5">{control}<span>{c.name}</span></span>
@@ -1611,7 +1631,7 @@ export function UnitCard({ item }: Props) {
                               ? w.name.slice(resolvedBaseName.length + 3)
                               : w.name;
                           const rows = weapons.map((w, wi) => (
-                            <tr key={`${ci}-${wi}`} className={rowClass} title={choiceMarkBlocked ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}` : undefined}>
+                            <tr key={`${ci}-${wi}`} className={rowClass} title={blockTitle}>
                               <td className="py-1.5 pl-2 pr-2 font-medium text-zinc-100 whitespace-nowrap">
                                 {weapons.length > 1 ? <span className="text-zinc-400 pl-2">{profileName(w)}</span> : (
                                   <span className="inline-flex items-center gap-1.5">{showRowControl && control}<span>{profileName(w)}</span></span>
@@ -1659,7 +1679,7 @@ export function UnitCard({ item }: Props) {
                 ) : (
                   <div className="divide-y divide-zinc-800/60 -mx-2 -mb-2">
                     {g.choices.map((c: Choice, ci: number) => {
-                      const { control, choiceMarkBlocked, choiceMarkReq } = qtyControl(ci, c);
+                      const { control, choiceMarkBlocked, blockTitle } = qtyControl(ci, c);
                       const active = (item.optionQty?.[realGi]?.[ci] ?? 0) > 0;
                       return (
                         <div
@@ -1667,8 +1687,13 @@ export function UnitCard({ item }: Props) {
                           className={`flex items-center gap-2.5 px-2.5 py-1.5 transition-colors
                             ${choiceMarkBlocked ? 'opacity-40 cursor-not-allowed' : 'hover:bg-zinc-800/40 cursor-pointer'}
                             ${active ? 'bg-amber-900/10' : ''}`}
-                          title={choiceMarkBlocked ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}` : undefined}
-                          onClick={() => { if (!choiceMarkBlocked && !['per_n','fixed_max','every'].includes(g.constraint.type)) setQty(realGi, ci, active ? 0 : 1); }}
+                          title={blockTitle}
+                          onClick={() => {
+                            // Blocked choices stay clickable while active so an already-bought
+                            // one can be cleared; only adding is refused.
+                            if (choiceMarkBlocked && !active) return;
+                            if (!['per_n','fixed_max','every'].includes(g.constraint.type)) setQty(realGi, ci, active ? 0 : 1);
+                          }}
                         >
                           {control}
                           <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{c.name}</span>

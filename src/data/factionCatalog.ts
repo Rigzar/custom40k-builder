@@ -58,7 +58,7 @@ export const CATEGORIES: FactionCategory[] = [
     pillFg: '#c8b56a', dividerColor: '#3a3520',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.01' },
-      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.03' },
+      { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.04' },
       { key: 'adeptus_mechanicus', name: 'Adeptus Mechanicus', available: true, status: 'testing', version: '1.00' },
       { key: 'adeptus_custodes',   name: 'Adeptus Custodes',   available: true, status: 'testing', version: '1.00' },
       { key: 'adeptus_sororitas',  name: 'Adeptus Sororitas',  available: true, status: 'complete', version: '1.01' },
@@ -76,10 +76,10 @@ export const CATEGORIES: FactionCategory[] = [
       { key: 'orks',              name: 'Orks',              available: true, status: 'complete', version: '1.01' },
       { key: 'eldar',             name: 'Eldar',             available: true, status: 'complete', version: '1.01' },
       { key: 'dark_eldar',        name: 'Dark Eldar',        available: true, status: 'complete', version: '1.01' },
-      { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.01' },
+      { key: 'genestealer_cults', name: 'Genestealer Cults', available: true, status: 'complete', version: '1.02' },
       { key: 'harlequins',        name: 'Harlequins',        available: true, status: 'testing', version: '1.00' },
       { key: 'leagues_of_votann', name: 'Leagues of Votann', available: true, status: 'complete', version: '1.02' },
-      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.02' },
+      { key: 'tyranids',          name: 'Tyranids',          available: true, status: 'complete', version: '1.05' },
     ],
   },
 ];

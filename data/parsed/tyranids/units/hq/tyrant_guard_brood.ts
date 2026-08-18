@@ -112,6 +112,10 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Hardened Carapace",
           "points": 12
+        },
+        {
+          "name": "Resonator",
+          "points": 8
         }
       ],
       "inline_pts": null,
@@ -159,11 +163,12 @@ export const tyrantGuardBrood: Unit = {
         },
         {
           "name": "Extremely Volatile",
-          "points": 5
+          "points": 0
         },
         {
           "name": "Implant Attack",
-          "points": 5
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
         },
         {
           "name": "Infrasonic Roar",
@@ -171,22 +176,30 @@ export const tyrantGuardBrood: Unit = {
         },
         {
           "name": "Resonance Barb",
-          "points": 5
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
         },
         {
           "name": "Symbiote Rippers",
-          "points": 3
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
         },
         {
           "name": "Thornback",
-          "points": 5
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
         },
         {
           "name": "Tusked",
-          "points": 5
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
         },
         {
           "name": "Warped",
+          "points": 5
+        },
+        {
+          "name": "Camouflage",
           "points": 5
         }
       ],
@@ -202,7 +215,8 @@ export const tyrantGuardBrood: Unit = {
   ],
   "unit_type": "Monstrous Infantry",
   "keywords": [
-    "Tyranid"
+    "Tyranid",
+    "Advanced Bioform"
   ],
   "is_vehicle": false,
   "is_character": false,

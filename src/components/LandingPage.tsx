@@ -11,45 +11,45 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v163f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v164_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.63: weapons that vanished when you swapped one",
-    intro: "One report from GitHub that turned out to affect 93 datasheets. Worth re-checking any squad where you swapped a weapon.",
-    install: "🤝 The allied matrix now matches the author's rewrite: Grey Knights have their own row, and the Inquisition is Allies of Convenience with the Imperial factions where it used to be Battle Brothers. If your list showed the Inquisition as green, that is why it changed.",
-    line1: "⚔ Swapping one weapon no longer strips it from the whole squad (93 datasheets, GitHub #90). And a squad whose models each carry two of a weapon now shows the real total — six Kastelan Robots have 12 Power fists, not 2. Swaps count properly too: 'may swap BOTH Penitent flails' removes two, 'may replace ONE Macro-scalpel' removes one.",
-    line2: "⚖ Skirmish — a Squadron unit is now held to ONE model, as the Missions rules say. Two Killa Kanz were legal before. Also: Orks may take up to three Spannas in a Burna Boyz or Lootas squad, the Dark Eldar Klaivex always carries its Demiklaives, and a Tauros Venator shows its Twin heavy stubber.",
-    line3: "🔩 Weapon counts: a Tyranid Prime that swaps its Spinefists for Scything talons now reads 2x, and buying \"an additional Storm bolter\" shows on the weapon table — a Rhino reads 2x, a Land Raider (which carries none to start) reads 1x. Transport vehicles now show their capacity on the profile.",
-    line4: "",
+    title: "v1.64: Tyranids — Basic and Advanced Bioforms",
+    intro: "Tyranid codex 1.05. Every datasheet is now a Basic Bioform or an Advanced Bioform, and that decides which Biomorphs it can buy. Check any Tyranid list.",
+    install: "🧬 Nine datasheets are Basic Bioform: Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant and Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster and Spore Mine Cluster. Everything else is an Advanced Bioform.",
+    line1: "🔒 Five Advanced Biomorphs are Advanced Bioform only: Implant Attack, Resonance Barb, Symbiote Rippers, Thornback and Tusked. On a Basic Bioform unit they are still listed, but greyed out with the reason on hover. If a saved list already had one, the list will now tell you so and you can remove it.",
+    line2: "✨ Two new Biomorphs: Camouflage (Advanced, 5 pts — the benefit of light cover until the unit first activates) and Resonator (Special, a 6+ ward save within 6\" of a Synapse unit), available to 24 datasheets at their own price.",
+    line3: "💰 Extremely Volatile is now free and Symbiote Rippers costs 5 instead of 3. Basic AND Advanced Biomorphs are paid per unit — only Special Biomorphs are paid for every model. Hormagaunt, Termagant and Gargoyle Broods gained Combat Squads.",
+    line4: "📘 Version labels caught up: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. The rules in all three were already in the app — only the number on the faction button was behind.",
     line5: "",
     line6: "",
-    contrib: "👁️ If a unit of yours changed points, this is why. Anything still wrong: unit, engagement, archetype and a picture — and Review → ↓ JSON if the list itself misbehaves.",
+    contrib: "👁️ If a Tyranid unit of yours changed points, this is why. Anything still wrong: unit, engagement, archetype and a picture — and Review → ↓ JSON if the list itself misbehaves.",
   },
   de: {
-    title: "v1.63: Waffen, die beim Tauschen verschwanden",
-    intro: "Eine GitHub-Meldung, die am Ende 93 Datenblätter betraf. Prüft Trupps, in denen ihr eine Waffe getauscht habt.",
-    install: "🤝 Die Allianz-Matrix entspricht jetzt der Überarbeitung des Autors: Grey Knights haben eine eigene Zeile, und die Inquisition ist bei den imperialen Fraktionen Allies of Convenience statt Battle Brothers. Wenn eure Liste die Inquisition grün zeigte, liegt es daran.",
-    line1: "⚔ Eine Waffe zu tauschen nimmt sie nicht mehr dem ganzen Trupp weg (93 Datenblätter, GitHub #90). Und Trupps, deren Modelle je zwei Exemplare einer Waffe tragen, zeigen jetzt die echte Summe — sechs Kastelan Robots haben 12 Power Fists, nicht 2. Auch Tauschvorgänge zählen richtig: 'may swap BOTH Penitent flails' nimmt zwei, 'may replace ONE Macro-scalpel' nimmt eines.",
-    line2: "⚖ Skirmish — eine Squadron-Einheit ist jetzt auf EIN Modell begrenzt, wie es die Missions-Regeln sagen. Zwei Killa Kanz waren vorher erlaubt. Außerdem: bis zu drei Spannas bei Burna Boyz und Lootas, der Dark-Eldar-Klaivex trägt seine Demiklaives immer, und ein Tauros Venator zeigt seinen Twin heavy stubber.",
-    line3: "🔩 Waffenanzahlen: Ein Tyranid Prime, der seine Spinefists gegen Scything talons tauscht, zeigt jetzt 2x, und ein gekaufter \"additional Storm bolter\" erscheint in der Waffentabelle — ein Rhino zeigt 2x, ein Land Raider (der keinen hat) 1x. Transportfahrzeuge zeigen ihre Kapazität jetzt im Profil.",
-    line4: "",
+    title: "v1.64: Tyraniden — Basic und Advanced Bioforms",
+    intro: "Tyraniden-Codex 1.05. Jedes Datenblatt ist jetzt entweder Basic Bioform oder Advanced Bioform, und das entscheidet, welche Biomorphe es kaufen kann. Prüft eure Tyraniden-Listen.",
+    install: "🧬 Neun Datenblätter sind Basic Bioform: Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant und Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster und Spore Mine Cluster. Alles andere ist Advanced Bioform.",
+    line1: "🔒 Fünf Advanced Biomorphe gibt es nur für Advanced Bioforms: Implant Attack, Resonance Barb, Symbiote Rippers, Thornback und Tusked. Bei einer Basic-Bioform-Einheit stehen sie weiter in der Liste, aber ausgegraut und mit Begründung beim Darüberfahren. Hatte eine gespeicherte Liste bereits eines davon, sagt die Liste es euch jetzt und ihr könnt es entfernen.",
+    line2: "✨ Zwei neue Biomorphe: Camouflage (Advanced, 5 Pkt. — zählt bis zur ersten Aktivierung als in leichter Deckung) und Resonator (Special, 6+ Ward Save innerhalb von 6\" einer Synapse-Einheit), verfügbar für 24 Datenblätter zu ihrem jeweiligen Preis.",
+    line3: "💰 Extremely Volatile kostet jetzt nichts mehr, Symbiote Rippers kostet 5 statt 3. Basic UND Advanced Biomorphe werden pro Einheit bezahlt — nur Special Biomorphe pro Modell. Hormagaunt, Termagant und Gargoyle Broods haben Combat Squads erhalten.",
+    line4: "📘 Versionsnummern nachgezogen: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. Die Regeln waren in allen drei Fällen schon in der App — nur die Nummer auf dem Fraktionsknopf hinkte hinterher.",
     line5: "",
     line6: "",
-    contrib: "👁️ Wenn sich bei einer eurer Einheiten die Punkte geändert haben, liegt es daran. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild — und Prüfung → ↓ JSON, wenn die Liste selbst spinnt.",
+    contrib: "👁️ Wenn sich bei einer eurer Tyraniden-Einheiten die Punkte geändert haben, liegt es daran. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild — und Prüfung → ↓ JSON, wenn die Liste selbst spinnt.",
   },
   es: {
-    title: "v1.63: armas que desaparecían al cambiar una",
-    intro: "Un reporte de GitHub que al final afectaba a 93 fichas. Conviene revisar las escuadras donde cambiasteis un arma.",
-    install: "🤝 La matriz de aliados ya coincide con la reescritura del autor: Grey Knights tiene fila propia, y la Inquisición pasa a Allies of Convenience con las facciones imperiales, donde antes era Battle Brothers. Si tu lista mostraba la Inquisición en verde, por eso ha cambiado.",
-    line1: "⚔ Cambiar un arma ya no se la quita a toda la escuadra (93 fichas, GitHub #90). Y las escuadras cuyos modelos llevan dos copias de un arma ya muestran el total real: seis Kastelan Robots tienen 12 Power fists, no 2. Y los cambios cuentan bien: 'may swap BOTH Penitent flails' quita dos, 'may replace ONE Macro-scalpel' quita uno.",
-    line2: "⚖ Skirmish — una unidad con Squadron queda limitada a UN modelo, como dicen las reglas de Misiones. Antes se colaban dos Killa Kanz. Además: hasta tres Spannas en Burna Boyz y Lootas, el Klaivex lleva siempre sus Demiklaives, y un Tauros Venator ya muestra su Twin heavy stubber.",
-    line3: "🔩 Cantidades de armas: un Tyranid Prime que cambia sus Spinefists por Scything talons ya marca 2x, y comprar \"an additional Storm bolter\" aparece en la tabla de armas — un Rhino marca 2x y un Land Raider (que no lleva ninguno) marca 1x. Los transportes ya muestran su capacidad en el perfil.",
-    line4: "",
+    title: "v1.64: Tiránidos — Bioformas Básicas y Avanzadas",
+    intro: "Códex tiránido 1.05. Cada ficha es ahora Basic Bioform o Advanced Bioform, y eso decide qué Biomorfos puede comprar. Revisad vuestras listas tiránidas.",
+    install: "🧬 Nueve fichas son Basic Bioform: Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant y Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster y Spore Mine Cluster. Todo lo demás es Advanced Bioform.",
+    line1: "🔒 Cinco Biomorfos Avanzados son solo para Advanced Bioform: Implant Attack, Resonance Barb, Symbiote Rippers, Thornback y Tusked. En una unidad Basic Bioform siguen apareciendo, pero en gris y con el motivo al pasar el ratón. Si una lista guardada ya tenía uno, ahora la lista os avisa y podéis quitarlo.",
+    line2: "✨ Dos Biomorfos nuevos: Camouflage (Avanzado, 5 pts — cuenta como en cobertura ligera hasta su primera activación) y Resonator (Especial, salvación ward 6+ a 6\" de una unidad con Synapse), disponibles en 24 fichas a su propio precio.",
+    line3: "💰 Extremely Volatile pasa a ser gratis y Symbiote Rippers cuesta 5 en vez de 3. Los Biomorfos Básicos Y Avanzados se pagan por unidad — solo los Especiales se pagan por cada modelo. Hormagaunt, Termagant y Gargoyle Broods ganan Combat Squads.",
+    line4: "📘 Etiquetas de versión al día: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. Las reglas de las tres ya estaban en la app — solo el número del botón de facción iba por detrás.",
     line5: "",
     line6: "",
-    contrib: "👁️ Si a alguna unidad vuestra le han cambiado los puntos, es por esto. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen — y Revisión → ↓ JSON si lo que falla es la lista.",
+    contrib: "👁️ Si a alguna unidad tiránida vuestra le han cambiado los puntos, es por esto. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen — y Revisión → ↓ JSON si lo que falla es la lista.",
   },
 };
 

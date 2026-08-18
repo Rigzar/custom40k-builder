@@ -51,7 +51,8 @@ export const sporeMineCluster: Unit = {
   ],
   "unit_type": "Infantry",
   "keywords": [
-    "Tyranid"
+    "Tyranid",
+    "Basic Bioform"
   ],
   "is_vehicle": false,
   "is_character": false,

@@ -74,22 +74,79 @@ export const hormagauntBrood: Unit = {
         "type": "fixed_max"
       },
       "choices": [
-        { "name": "Acid Maw", "points": 5 },
-        { "name": "Adrenal Glands", "points": 5 },
-        { "name": "Enhanced Senses", "points": 5 },
-        { "name": "Heightened Reflexes", "points": 5 },
-        { "name": "Pathogenesis", "points": 5 },
-        { "name": "Relentless Hunger", "points": 5 },
-        { "name": "Toxin Sacs", "points": 5 },
-        { "name": "Acid Blood", "points": 5 },
-        { "name": "Extremely Volatile", "points": 5 },
-        { "name": "Implant Attack", "points": 5 },
-        { "name": "Infrasonic Roar", "points": 5 },
-        { "name": "Resonance Barb", "points": 5 },
-        { "name": "Symbiote Rippers", "points": 3 },
-        { "name": "Thornback", "points": 5 },
-        { "name": "Tusked", "points": 5 },
-        { "name": "Warped", "points": 5 }
+        {
+          "name": "Acid Maw",
+          "points": 5
+        },
+        {
+          "name": "Adrenal Glands",
+          "points": 5
+        },
+        {
+          "name": "Enhanced Senses",
+          "points": 5
+        },
+        {
+          "name": "Heightened Reflexes",
+          "points": 5
+        },
+        {
+          "name": "Pathogenesis",
+          "points": 5
+        },
+        {
+          "name": "Relentless Hunger",
+          "points": 5
+        },
+        {
+          "name": "Toxin Sacs",
+          "points": 5
+        },
+        {
+          "name": "Acid Blood",
+          "points": 5
+        },
+        {
+          "name": "Extremely Volatile",
+          "points": 0
+        },
+        {
+          "name": "Implant Attack",
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
+        },
+        {
+          "name": "Infrasonic Roar",
+          "points": 5
+        },
+        {
+          "name": "Resonance Barb",
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
+        },
+        {
+          "name": "Symbiote Rippers",
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
+        },
+        {
+          "name": "Thornback",
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
+        },
+        {
+          "name": "Tusked",
+          "points": 5,
+          "requires_keyword": "Advanced Bioform"
+        },
+        {
+          "name": "Warped",
+          "points": 5
+        },
+        {
+          "name": "Camouflage",
+          "points": 5
+        }
       ],
       "inline_pts": null,
       "variant_link": null,
@@ -98,11 +155,12 @@ export const hormagauntBrood: Unit = {
     }
   ],
   "abilities": [
-    "Frenzy(6\"), Instinctive Behaviour, Move Through Cover"
+    "Combat Squads, Frenzy(6\"), Instinctive Behaviour, Move Through Cover"
   ],
   "unit_type": "Infantry",
   "keywords": [
-    "Tyranid"
+    "Tyranid",
+    "Basic Bioform"
   ],
   "is_vehicle": false,
   "is_character": false,

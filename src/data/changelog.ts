@@ -25,6 +25,19 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.64',
+    date: '2026-08-18',
+    title: 'Tyranids: Basic and Advanced Bioforms',
+    changes: [
+      'Tyranids — codex 1.05. Every datasheet now carries a Basic Bioform or Advanced Bioform keyword, and it decides which Biomorphs the unit can buy. Five Advanced Biomorphs (Implant Attack, Resonance Barb, Symbiote Rippers, Thornback, Tusked) are Advanced Bioform only; they still appear on Basic Bioform units but greyed out, with the reason on hover. The nine Basic Bioform datasheets are Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant and Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster and Spore Mine Cluster.',
+      'Tyranids — two new Biomorphs: Camouflage (Advanced, 5 pts, the benefit of light cover until the unit first activates) and Resonator (Special, a 6+ ward save within 6" of a Synapse unit), which 24 datasheets can take at their own price.',
+      'Tyranids — points: Extremely Volatile is now free, and Symbiote Rippers costs 5 instead of 3. Both Basic and Advanced Biomorphs are paid per unit; only Special Biomorphs are paid for every model.',
+      'Tyranids — Hormagaunt, Termagant and Gargoyle Broods gained the Combat Squads ability.',
+      'Codex versions: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. The rules in all three were already applied — only the version shown on the faction button was behind.',
+      'If a saved list has a Basic Bioform unit holding one of the five Advanced-only Biomorphs, the list now says so instead of pricing it silently, and the Biomorph can still be removed.',
+    ],
+  },
+  {
     version: '1.63',
     date: '2026-08-16',
     title: 'Weapons that vanished when you swapped one of them',
@@ -35,6 +48,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Chaos Space Marines, Eldar, Tau — Jakhals, Voidscarred and Kroot Farstalkers share one loadout line between two model rows ("Every Jakhal and Jakhal Pack Leader…"). Their weapon counts were computed from a single model, so swaps came out wrong.',
       'Orks — a Burna Boyz or Lootas squad no longer shows a Spanna\'s Choppa and Slugga when you have not taken a Spanna, and shows them once you do. Dark Eldar — an Incubi squad now lists the Klaivex and its Demiklaives separately from the Incubi.',
       'Tau, Adeptus Mechanicus, Chaos Space Marines — the Firesight Marksman\'s Sniper Drones, the Tech-Priest and the Daemon Prince have loadout lines whose spelling differs from the model row only in capitals, which the app was reading as a different model.',
+      'Inquisition — new archetype: Sector Protector. A Henchman Warband can be taken without an Inquisitor, and is 5-10 specialists when it is.',
       'The allied matrix follows the rewrite the author published on 17 August. Grey Knights have a row of their own instead of borrowing the Space Marine one, and the cells that were blank are filled in. Ten relationships changed with it: the Inquisition is Allies of Convenience with Adeptus Custodes, Adeptus Mechanicus, Adepta Sororitas, Imperial Guard and Space Marines, where it used to be Battle Brothers. Grey Knights and the Inquisition are Allies of Convenience too — a player asked why they showed as green, and now they do not (reported on Discord).',
       'Adeptus Custodes — Sisters of Silence swap their Boltgun for a Flamer or an Executioner greatblade. The sheet used to offer a swap of a Flamer they never carried; the author corrected it.',
       'Skirmish — a Squadron unit is now held to one model, as the Missions rules say: "Units with the Squadron rule may only field one model per slot". Two Killa Kanz were legal before. The check existed but read a flag that was set on 6 datasheets while 101 carry the rule; it now reads the datasheet itself (reported on Discord).',

@@ -1760,9 +1760,17 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         g.variant_link === 'Inquisitor Lord' && !!(item.optionQty?.[gi]?.['__inline']),
       );
     });
-    const cap = hasInquisitorLord ? 12 : 6;
+    // Inquisition "Sector Protector" (Army Customisation, added by the author in the August 2026
+    // update): "Henchman Warbands can be taken without requiring an Inquisitor and when done so
+    // have a size of 5-10 specialists." That replaces the Inquisitor-derived cap outright — the
+    // Warband no longer hangs off an Inquisitor at all, so neither the 6 nor the Lord's 12 apply.
+    const sectorProtector = state.archetype === 'Sector Protector';
+    const cap = sectorProtector ? 10 : (hasInquisitorLord ? 12 : 6);
     for (const item of state.army) {
       if (item.unitName !== 'Henchman Warband') continue;
+      if (sectorProtector && item.size < 5) {
+        items.push({ type: 'error', text: T('valSectorProtectorWarbandMin', { count: item.size }) });
+      }
       if (item.size > cap) {
         items.push({
           type: 'error',
@@ -1801,6 +1809,26 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         }
       }
     }
+  }
+
+  // Keyword-gated option choices (Tyranid bioforms). The UI refuses to ADD these, but a list
+  // saved before the gate existed can still carry one — Tyranids 1.02 made five Advanced
+  // Biomorphs unavailable to Basic Bioform units. Say so instead of quietly pricing an illegal
+  // pick: the choice stays selectable-to-remove so the player can clear it themselves.
+  for (const item of state.army) {
+    const u = resolveUnit(item, data);
+    if (!u) continue;
+    u.option_groups.forEach((g, gi) => {
+      g.choices.forEach((c, ci) => {
+        if (!c.requires_keyword) return;
+        if ((item.optionQty?.[gi]?.[ci] ?? 0) <= 0) return;
+        if ((u.keywords ?? []).includes(c.requires_keyword)) return;
+        items.push({
+          type: 'error',
+          text: `${item.unitName}: "${c.name}" needs the ${c.requires_keyword} keyword — remove it.`,
+        });
+      });
+    });
   }
 
   // Units that are inherently unique (is_unique_per_army group with no variant_link) — e.g. Greater Daemons
