@@ -80,13 +80,17 @@ export const apothecary: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Chief Apothecary",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Chief Apothecary: A Chief Apothecary may use \"Narthecium\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
+        ]
+      }
     }
   ],
   "abilities": [
     "Command squad, They Shall Know No Fear",
     "Advisor: For every HQ selection, one Apothecarius may be selected without taking up an Elite slot.",
-    "Chief Apothecary: A Chief Apothecary may use \"Narthecium\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively.",
     "Narthecium: Once per turn, the damage of a wound against the model or attached unit can be reduced by 1. The ability must be declared after armor and ward saves. Does not work against weapons with a strength of 8 or above."
   ],
   "unit_type": "Character Model, Infantry",

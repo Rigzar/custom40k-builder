@@ -169,7 +169,7 @@ export const stormravenGunship: Unit = {
       },
       "choices": [
         {
-          "name": "Twin heavy psycannon",
+          "name": "Twin psycannon",
           "points": 21
         },
         {
@@ -207,6 +207,15 @@ export const stormravenGunship: Unit = {
   "is_vehicle": true,
   "is_character": false,
   "is_monster": false,
+    "fixed_power": {
+    "name": "Fortitude",
+    "range": "-",
+    "target": "Self",
+    "cast_value": "5",
+    "effect": "The target unit removes one \"Crew shaken\" vehicle damage result.",
+    "duration": "Instant",
+    "complexity": "Basic"
+  },
   "is_psyker": true,
   "has_armory_access": false,
   "champion_has_armory": false,

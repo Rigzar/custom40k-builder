@@ -665,7 +665,7 @@
       "name": "Mindscanner probe",
       "term_compat": false,
       "desc": "If a friendly unit within 6\" gets charged by an enemy, the enemy unit does not receive any bonus (f.e. bonus attacks) for charging.",
-      "p_unit": null,
+      "p_unit": 10,
       "p_char": null,
       "category": "vehicle"
     },

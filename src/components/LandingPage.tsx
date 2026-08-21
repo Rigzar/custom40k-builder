@@ -11,45 +11,45 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v164_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.64: Tyranids — Basic and Advanced Bioforms",
-    intro: "Tyranid codex 1.05. Every datasheet is now a Basic Bioform or an Advanced Bioform, and that decides which Biomorphs it can buy. Check any Tyranid list.",
-    install: "🧬 Nine datasheets are Basic Bioform: Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant and Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster and Spore Mine Cluster. Everything else is an Advanced Bioform.",
-    line1: "🔒 Five Advanced Biomorphs are Advanced Bioform only: Implant Attack, Resonance Barb, Symbiote Rippers, Thornback and Tusked. On a Basic Bioform unit they are still listed, but greyed out with the reason on hover. If a saved list already had one, the list will now tell you so and you can remove it.",
-    line2: "✨ Two new Biomorphs: Camouflage (Advanced, 5 pts — the benefit of light cover until the unit first activates) and Resonator (Special, a 6+ ward save within 6\" of a Synapse unit), available to 24 datasheets at their own price.",
-    line3: "💰 Extremely Volatile is now free and Symbiote Rippers costs 5 instead of 3. Basic AND Advanced Biomorphs are paid per unit — only Special Biomorphs are paid for every model. Hormagaunt, Termagant and Gargoyle Broods gained Combat Squads.",
-    line4: "📘 Version labels caught up: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. The rules in all three were already in the app — only the number on the faction button was behind.",
+    title: "v1.65: Grey Knights — the power you couldn't find",
+    intro: "The Dreadnought (and 6 other vehicles) \"know Smite and Fortitude\" — Fortitude just had nowhere to live. It does now.",
+    install: "🔮 Fortitude and Eldar's Craftsong are datasheet-only powers, printed on their own sheet instead of a shared discipline list. They now show as Always Known, exactly like Smite, and these units no longer offer a free pick from every other discipline they had no business seeing.",
+    line1: "🧬 Tyranids — every Biomorph now actually does something. Winged adds +6\" Movement, Anti-Grav and Deep Strike; Toxin Sacs adds +1 Strength; Hardened Carapace improves the armor save — and 24 more. Before, taking one only changed the points total.",
+    line2: "🔫 Psy-ammunition (and its Inquisition/Tau/Tyranid cousins) boosted the model's own Strength stat, invisible on any weapon with a flat printed Strength — buying it changed nothing. It now raises the qualifying weapons' own Strength instead.",
+    line3: "⚖️ 29 units across every faction — Chaplains, Librarians, Lords, Autarchs and more — showed their promoted-only bonus (a second use of a signature ability, an extra power) whether or not anyone paid for the promotion. Now tied to actually buying it.",
+    line4: "🔩 Rubric Marines' Sorcerer no longer counts toward the squad's own Warpflamer swap (8 max in a 9-model squad, not 9). Stormtroopers' special-weapon swaps now remove the old lasgun, and Deep Strike/Infiltrator cost their printed point per model and actually do something. A 2-Manticore squadron can now upgrade both Manticores, not just one.",
     line5: "",
     line6: "",
-    contrib: "👁️ If a Tyranid unit of yours changed points, this is why. Anything still wrong: unit, engagement, archetype and a picture — and Review → ↓ JSON if the list itself misbehaves.",
+    contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.64: Tyraniden — Basic und Advanced Bioforms",
-    intro: "Tyraniden-Codex 1.05. Jedes Datenblatt ist jetzt entweder Basic Bioform oder Advanced Bioform, und das entscheidet, welche Biomorphe es kaufen kann. Prüft eure Tyraniden-Listen.",
-    install: "🧬 Neun Datenblätter sind Basic Bioform: Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant und Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster und Spore Mine Cluster. Alles andere ist Advanced Bioform.",
-    line1: "🔒 Fünf Advanced Biomorphe gibt es nur für Advanced Bioforms: Implant Attack, Resonance Barb, Symbiote Rippers, Thornback und Tusked. Bei einer Basic-Bioform-Einheit stehen sie weiter in der Liste, aber ausgegraut und mit Begründung beim Darüberfahren. Hatte eine gespeicherte Liste bereits eines davon, sagt die Liste es euch jetzt und ihr könnt es entfernen.",
-    line2: "✨ Zwei neue Biomorphe: Camouflage (Advanced, 5 Pkt. — zählt bis zur ersten Aktivierung als in leichter Deckung) und Resonator (Special, 6+ Ward Save innerhalb von 6\" einer Synapse-Einheit), verfügbar für 24 Datenblätter zu ihrem jeweiligen Preis.",
-    line3: "💰 Extremely Volatile kostet jetzt nichts mehr, Symbiote Rippers kostet 5 statt 3. Basic UND Advanced Biomorphe werden pro Einheit bezahlt — nur Special Biomorphe pro Modell. Hormagaunt, Termagant und Gargoyle Broods haben Combat Squads erhalten.",
-    line4: "📘 Versionsnummern nachgezogen: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. Die Regeln waren in allen drei Fällen schon in der App — nur die Nummer auf dem Fraktionsknopf hinkte hinterher.",
+    title: "v1.65: Grey Knights — die Kraft, die ihr nicht finden konntet",
+    intro: "Der Dreadnought (und 6 weitere Fahrzeuge) \"kennt Smite und Fortitude\" — Fortitude hatte einfach keinen Platz. Jetzt hat es einen.",
+    install: "🔮 Fortitude und das Craftsong der Eldar sind reine Datenblatt-Kräfte, gedruckt auf dem eigenen Blatt statt in einer gemeinsamen Disziplinliste. Sie erscheinen jetzt als „Immer bekannt“, genau wie Smite, und diese Einheiten bieten nicht mehr die freie Wahl aus jeder anderen Disziplin an, die ihnen gar nicht zustand.",
+    line1: "🧬 Tyraniden — jeder Biomorph tut jetzt wirklich etwas. Winged bringt +6\" Bewegung, Anti-Grav und Deep Strike; Toxin Sacs +1 Stärke; Hardened Carapace verbessert den Rüstungswurf — und 24 weitere. Vorher änderte die Wahl nur die Punktzahl.",
+    line2: "🔫 Psy-Munition (und ihre Verwandten bei Inquisition/Tau/Tyraniden) erhöhte den eigenen Stärkewert des Modells — unsichtbar bei jeder Waffe mit fest gedruckter Stärke. Der Kauf änderte nichts. Jetzt erhöht sie die Stärke der betroffenen Waffen selbst.",
+    line3: "⚖️ 29 Einheiten aus jeder Fraktion — Kapläne, Bibliothekare, Lords, Autarchen und mehr — zeigten ihren Beförderungs-Bonus (zweite Nutzung einer Signaturfähigkeit, zusätzliche Kraft) unabhängig davon, ob die Beförderung bezahlt wurde. Jetzt an den tatsächlichen Kauf gebunden.",
+    line4: "🔩 Der Sorcerer der Rubric Marines zählt nicht mehr zum eigenen Warpflamer-Tausch des Trupps (max. 8 bei 9 Modellen, nicht 9). Sturmtruppen-Spezialwaffentausch entfernt jetzt das alte Lasgewehr, und Deep Strike/Infiltrator kosten den gedruckten Punkt pro Modell und tun tatsächlich etwas. Ein 2-Manticore-Geschwader kann jetzt beide Manticores aufrüsten, nicht nur eine.",
     line5: "",
     line6: "",
-    contrib: "👁️ Wenn sich bei einer eurer Tyraniden-Einheiten die Punkte geändert haben, liegt es daran. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild — und Prüfung → ↓ JSON, wenn die Liste selbst spinnt.",
+    contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.64: Tiránidos — Bioformas Básicas y Avanzadas",
-    intro: "Códex tiránido 1.05. Cada ficha es ahora Basic Bioform o Advanced Bioform, y eso decide qué Biomorfos puede comprar. Revisad vuestras listas tiránidas.",
-    install: "🧬 Nueve fichas son Basic Bioform: Barbgaunt, Genestealer, Hormagaunt, Neurogaunt, Termagant y Gargoyle Broods, Ripper Swarms, Mucolid Spore Cluster y Spore Mine Cluster. Todo lo demás es Advanced Bioform.",
-    line1: "🔒 Cinco Biomorfos Avanzados son solo para Advanced Bioform: Implant Attack, Resonance Barb, Symbiote Rippers, Thornback y Tusked. En una unidad Basic Bioform siguen apareciendo, pero en gris y con el motivo al pasar el ratón. Si una lista guardada ya tenía uno, ahora la lista os avisa y podéis quitarlo.",
-    line2: "✨ Dos Biomorfos nuevos: Camouflage (Avanzado, 5 pts — cuenta como en cobertura ligera hasta su primera activación) y Resonator (Especial, salvación ward 6+ a 6\" de una unidad con Synapse), disponibles en 24 fichas a su propio precio.",
-    line3: "💰 Extremely Volatile pasa a ser gratis y Symbiote Rippers cuesta 5 en vez de 3. Los Biomorfos Básicos Y Avanzados se pagan por unidad — solo los Especiales se pagan por cada modelo. Hormagaunt, Termagant y Gargoyle Broods ganan Combat Squads.",
-    line4: "📘 Etiquetas de versión al día: Imperial Guard 1.04, Genestealer Cults 1.02, Tyranids 1.05. Las reglas de las tres ya estaban en la app — solo el número del botón de facción iba por detrás.",
+    title: "v1.65: Grey Knights — el poder que no encontrabais",
+    intro: "El Dreadnought (y otros 6 vehículos) \"conoce Smite y Fortitude\" — Fortitude simplemente no tenía dónde vivir. Ahora sí.",
+    install: "🔮 Fortitude y el Craftsong de los Eldar son poderes exclusivos de su propia ficha, impresos ahí en vez de en una lista de disciplina compartida. Ahora aparecen como \"Siempre conocido\", igual que Smite, y estas unidades ya no ofrecen elegir libremente entre disciplinas que no les correspondían.",
+    line1: "🧬 Tiránidos — cada Biomorfo hace ahora algo de verdad. Winged suma +6\" de Movimiento, Anti-Grav y Deep Strike; Toxin Sacs suma +1 de Fuerza; Hardened Carapace mejora la salvación — y 24 más. Antes, elegir uno solo cambiaba los puntos.",
+    line2: "🔫 La munición psíquica (y sus primas de Inquisición/Tau/Tiránidos) subía la Fuerza propia del modelo, invisible en cualquier arma con Fuerza fija impresa — comprarla no cambiaba nada. Ahora sube la Fuerza de las armas que corresponde.",
+    line3: "⚖️ 29 unidades de todas las facciones — Capellanes, Bibliotecarios, Lores, Autarcas y más — mostraban su bonus de ascenso (un segundo uso de una habilidad de firma, un poder extra) se hubiera pagado o no el ascenso. Ahora depende de comprarlo de verdad.",
+    line4: "🔩 El Sorcerer de los Rubric Marines ya no cuenta para el propio cambio de Warpflamer de la escuadra (máximo 8 en una escuadra de 9, no 9). Los cambios de arma especial de los Stormtroopers ahora retiran el lasgun viejo, y Deep Strike/Infiltrator cuestan el punto impreso por modelo y hacen algo de verdad. Un escuadrón de 2 Manticores ya puede mejorar los dos, no solo uno.",
     line5: "",
     line6: "",
-    contrib: "👁️ Si a alguna unidad tiránida vuestra le han cambiado los puntos, es por esto. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen — y Revisión → ↓ JSON si lo que falla es la lista.",
+    contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
 

@@ -80,7 +80,12 @@ export const bigMek: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Mek Boss",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Mek Boss: A Mek Boss may use \"Mek tools\" two times per battle roand."
+        ]
+      }
     },
     {
       "header": "One Mek Boss per army may be equipped with a Shokk attack gun for +107 points.",
@@ -105,7 +110,6 @@ export const bigMek: Unit = {
   ],
   "abilities": [
     "Dakka Dakka Dakka, Mob, Furious charge, Waaagh!",
-    "Mek Boss: A Mek Boss may use \"Mek tools\" two times per battle roand.",
     "Mek weapon: Cannot be combined with any equipment that explicitly changes the stats of a weapon. For example, \"Precision Squig\" can be combined, but \"More Dakka\" cannot.",
     "Mek tools:  At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a woand or armor penetration roll.",
     "Shokk attack gun: Roll for the strength of the weapon after you have selected a target. If doubles are rolled, consult the following table — 1-1: Awups! The Mek and its unit gain a Battleshock token and suffer an automatic hit S:D AP:-4 D:3. 2-2: Grah! The new target is the nearest visible unit not in melee (including Orks!). 3-3: Oops! An opponent chooses a new target (including Orks!). 4-4: Splash! Profile changes to Assault 2, S:6 AP:-3 D:1, Barrage, Suppression. 5-5: Big wrong button! Remove the Mek from the field and redeploy via Deep Strike; it can no longer move. 6-6: Big red button! The weapon fires with Strength D and AT(3) and loses Barrage this activation."

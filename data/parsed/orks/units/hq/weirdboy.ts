@@ -75,7 +75,12 @@ export const weirdboy: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Warphead",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Warphead: The model can cast and deny 1 additional power per battle roand."
+        ]
+      }
     },
     {
       "header": "Can get one Kustom job.",
@@ -91,8 +96,7 @@ export const weirdboy: Unit = {
   "abilities": [
     "Dakka Dakka Dakka, Mob, Furious charge, Waaagh!",
     "Psyker: The model can cast 1 power and deny 1 power per battle roand. It knows Smite and all powers from a chosen discipline.",
-    "Waaagh! energy: The model gains a +1 bonus to manifest and deny psychic powers as long as there are 20 or more models with the \"Mob\" rule within 12\" of it.",
-    "Warphead: The model can cast and deny 1 additional power per battle roand."
+    "Waaagh! energy: The model gains a +1 bonus to manifest and deny psychic powers as long as there are 20 or more models with the \"Mob\" rule within 12\" of it."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

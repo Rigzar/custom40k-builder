@@ -252,6 +252,18 @@ export interface Unit {
   is_character: boolean;
   is_monster: boolean;
   is_psyker: boolean;
+  /**
+   * A single named power printed directly on THIS datasheet (its own Name/Range/Target/Cast
+   * value/Effect/Duration/Complexity block), not part of any shared discipline list — e.g. the
+   * Grey Knights Dreadnought/Land Raider/Razorback/Rhino/Stormraven's "It knows Smite and
+   * Fortitude", or the Eldar Spiritseer's "It knows Smite and Craftsong". Always known alongside
+   * Smite, same as Smite itself — never player-selected, so it needs no discipline entry.
+   * Reported (Discord, GK Dreadnought, 2026-08-19): the power existed on the sheet but nowhere
+   * in the app, because psykerAbilityText matched no known pattern and fell through to
+   * 'unlimited' mode, which let the model browse every faction discipline instead of granting
+   * exactly these two fixed powers.
+   */
+  fixed_power?: Power;
   is_priest?: boolean;
   is_cult_initiate?: boolean;
   uses_pacts?: boolean;

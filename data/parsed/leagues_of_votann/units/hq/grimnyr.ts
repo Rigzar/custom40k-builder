@@ -102,12 +102,16 @@ export const grimnyr: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Ancient Grimnyr",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Ancient Grimnyr: The model can cast and deny 1 additional power per battle round."
+        ]
+      }
     }
   ],
   "abilities": [
     "Eye of the Ancestors, Steady Advance, Void armor",
-    "Ancient Grimnyr: The model can cast and deny 1 additional power per battle round.",
     "Companions: CORVs do not prevent a Grimnyr from joining another unit and do not count towards passenger capacity in a transport.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
   ],

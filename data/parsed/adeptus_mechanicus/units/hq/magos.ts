@@ -206,7 +206,12 @@ export const magos: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Archmagos",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Archmagos: The range of this model's Canticles of the Omnissiah is extended by 3\"."
+        ]
+      }
     },
     {
       "header": "May be equipped with up to two different weapons",
@@ -316,7 +321,6 @@ export const magos: Unit = {
   ],
   "abilities": [
     "Canticles of the Omnissiah, Choir Master, Unyielding",
-    "Archmagos: The range of this model's Canticles of the Omnissiah is extended by 3\".",
     "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
     "Mechandrite Harness: This model may use up to three ranged weapons per activation, regardless of their type.",
     "Enhanced Bionics: This model receives a 5+ ward save.",

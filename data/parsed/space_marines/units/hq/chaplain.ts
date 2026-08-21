@@ -109,7 +109,12 @@ export const chaplain: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Master of Sanctity",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Master of Sanctity: A Master of Sanctity may recite 1 additional prayer per turn."
+        ]
+      }
     },
     {
       "header": "Only one Master of Sanctity or Chaplain Dreadnought per army.",
@@ -125,7 +130,6 @@ export const chaplain: Unit = {
   "abilities": [
     "They Shall Know No Fear",
     "Faithful: Can recite 1 prayer per round. A prayer is successfully recited on a roll of 3+. Knows all prayers of a selected list.",
-    "Master of Sanctity: A Master of Sanctity may recite 1 additional prayer per turn.",
     "Rosarius: The model receives a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",

@@ -94,7 +94,7 @@ export const immolator: Unit = {
   ],
   "abilities": [
     "Acts of Faith, Shield of Faith",
-    "Transport: This model has a transport capacity of 6 infantry models, excluding excluding \"Massive(x)\" models."
+    "Transport: This model has a transport capacity of 6 infantry models, excluding \"Massive(x)\" models."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

@@ -197,11 +197,13 @@ export const stormtrooperCommandSquad: Unit = {
       "choices": [
         {
           "name": "Deep strike",
-          "points": 1
+          "points": 1,
+          "abilities": ["Deep strike"]
         },
         {
           "name": "Infiltrator",
-          "points": 1
+          "points": 1,
+          "abilities": ["Infiltrator"]
         }
       ],
       "inline_pts": null,

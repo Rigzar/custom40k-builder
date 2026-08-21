@@ -25,6 +25,20 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.65',
+    date: '2026-08-21',
+    title: 'Grey Knights: the psychic power you could not find',
+    changes: [
+      'Grey Knights — the Dreadnought, Land Raider, Land Raider Crusader, Land Raider Redeemer, Razorback, Rhino and Stormraven Gunship all "know Smite and Fortitude", but Fortitude was not modelled anywhere, so it could not be picked (Discord: "I\'m sorry, I\'m still not seeing where it should be"). It now shows as an always-known power, same as Smite, and these vehicles no longer offer a free pick from every other discipline. Eldar\'s Spiritseer had the identical gap with its own "Craftsong" power — fixed the same way.',
+      'Tyranids — every Biomorph now actually does something: buying Winged adds +6" Movement and Anti-Grav/Deep Strike, Toxin Sacs adds +1 Strength, Hardened Carapace improves the armor save, and so on for the other 24. Before, a Biomorph only changed the points total (Discord, Liquid Citrus): "it doesn\'t seem to apply any changes to the unit except the points cost."',
+      'Grey Knights — Psy-ammunition (and its Inquisition twin "Psybolt ammunition", Tau\'s "Overdrive Power Systems" and Tyranids\' "Symbiostorm") boosted the model\'s own Strength stat, which does nothing when a weapon\'s printed Strength is a flat number rather than "User\'s Strength" — so buying it visibly changed nothing (GitHub #92). It now raises the Strength of the model\'s own qualifying ranged weapons instead, which is what the card always said it did.',
+      'GENERAL — 29 units across every faction (Chaplains, Librarians, Autarchs, Farseers, Lords, Big Meks, Warpsmiths and 22 others) showed their unique "may be upgraded to X" bonus ability whether or not the upgrade was bought — a Chaplain who never paid for Master of Sanctity still got its extra prayer (GitHub #91). The bonus is now tied to the upgrade itself.',
+      'Chaos Space Marines — swapping a Rubric Marine\'s Inferno bolter for a Warpflamer no longer counts the Aspiring Sorcerer, who never carried one; a 9-model squad now tops out at 8 Warpflamers, not 9 (GitHub #93).',
+      'Grey Knights\' Stormtrooper allies (via Inquisition, and the same fix applied to the Imperial Guard original) — swapping Hot-shot lasguns for Sniper rifles now removes the lasguns instead of adding the rifles alongside them, and Deep Strike/Infiltrator cost their printed 1 point PER MODEL, not once for the whole squad; both abilities are also granted for the first time, not just charged for (GitHub #94, #95).',
+      'Imperial Guard — a 2-Manticore squadron could only buy one set of Storm Eagle Rockets between them; each Manticore can now be upgraded independently (GitHub #96).',
+    ],
+  },
+  {
     version: '1.64',
     date: '2026-08-18',
     title: 'Tyranids: Basic and Advanced Bioforms',

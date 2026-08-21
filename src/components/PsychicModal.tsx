@@ -201,6 +201,16 @@ export function PsychicModal({ item, unit, onClose }: Props) {
   }
   const { mode: psykerMode, limit: powerLimit, knowsSmite } = parsePsykerMode();
 
+  // Datasheet-embedded fixed power (e.g. Grey Knights Dreadnought/Land Raider/Razorback/Rhino/
+  // Stormraven's "It knows Smite and Fortitude", Eldar Spiritseer's "It knows Smite and
+  // Craftsong"): named directly in the psyker line, with its own Name/Range/Target/Cast value/
+  // Effect/Duration/Complexity block printed on the SAME sheet — not a discipline pick. None of
+  // the patterns above match this wording, so it used to fall through to 'unlimited' mode: the
+  // named power was invisible (nothing in any discipline list is called "Fortitude") and the
+  // model could instead freely browse every other discipline it had no business seeing.
+  const fixedPowerNamed = !!unit.fixed_power && psykerAbilityText.includes(unit.fixed_power.name.toLowerCase());
+  if (fixedPowerNamed) allowedDiscs = [];
+
   // "Psychic training" equipment: each copy adds +1 power slot.
   // SOURCE: "The model knows one additional psychic power from one of their chosen disciplines.
   //          Can be taken multiple times."
@@ -344,6 +354,23 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                   <span className="text-amber-300 font-semibold text-sm">Smite</span>
                 </div>
                 <div className="text-[10px] text-zinc-500 mt-0.5">{t('smiteCastLine')}</div>
+              </div>
+            )}
+
+            {/* Datasheet-embedded fixed power (Fortitude, Craftsong, …) — always known, fixed,
+                not selectable. Same display pattern as Smite. */}
+            {fixedPowerNamed && unit.fixed_power && (
+              <div className="px-3 py-2 bg-amber-900/20 border border-amber-800/60 rounded-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] bg-amber-800 text-amber-200 px-1.5 py-px uppercase tracking-wide font-bold">{t('alwaysKnownBadge')}</span>
+                  <span className="text-amber-300 font-semibold text-sm">{unit.fixed_power.name}</span>
+                </div>
+                <div className="text-[10px] text-zinc-500 mt-0.5">
+                  {t('castLabel')} {unit.fixed_power.cast_value}
+                  {unit.fixed_power.range && unit.fixed_power.range !== '-' ? ` · ${unit.fixed_power.range}` : ''}
+                  {unit.fixed_power.duration ? ` · ${unit.fixed_power.duration}` : ''}
+                  {unit.fixed_power.effect ? ` — ${unit.fixed_power.effect}` : ''}
+                </div>
               </div>
             )}
 

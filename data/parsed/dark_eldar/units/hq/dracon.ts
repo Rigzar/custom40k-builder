@@ -71,13 +71,17 @@ export const dracon: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Archon",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Archon: Another two units may be redeployed."
+        ]
+      }
     }
   ],
   "abilities": [
     "Power through Pain",
-    "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy two of his units.",
-    "Archon: Another two units may be redeployed."
+    "Deception: After all units have been placed in the Deployment phase, the Dracon may remove and redeploy two of his units."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

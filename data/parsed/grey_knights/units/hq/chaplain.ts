@@ -102,13 +102,17 @@ export const chaplain: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Master of Sanctity",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Master of Sanctity: The model can recite 1 additional prayer per turn."
+        ]
+      }
     }
   ],
   "abilities": [
     "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
     "Faithful: The model can recite 1 prayer per turn. A prayer is successfully recited on a roll of 3+. If a prayer fails to be recited, it can not be attempted again by the same model in this battle round. The model knows all prayers from the Prayer list.",
-    "Master of Sanctity: The model can recite 1 additional prayer per turn.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and 1 power from a chosen discipline.",
     "Rosarius: The model gains a 4+ invulnverability save."
   ],

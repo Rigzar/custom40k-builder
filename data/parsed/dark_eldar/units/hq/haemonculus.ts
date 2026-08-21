@@ -71,12 +71,16 @@ export const haemonculus: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Master Haemonculus",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Master Haemonculus: A Master Haemonculus starts with an additional \"Power through Pain\" token."
+        ]
+      }
     }
   ],
   "abilities": [
     "Power through Pain",
-    "Master Haemonculus: A Master Haemonculus starts with an additional \"Power through Pain\" token.",
     "Transformed shape: The unit starts with a \"Power through Pain\" token."
   ],
   "unit_type": "Character Model, Infantry",

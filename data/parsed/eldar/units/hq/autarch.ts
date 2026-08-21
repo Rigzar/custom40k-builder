@@ -81,13 +81,17 @@ export const autarch: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Exalted Autarch",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Exalted Autarch: The Autarch may use Perfected warfare twice per game."
+        ]
+      }
     }
   ],
   "abilities": [
     "Battle Focus",
-    "Perfected warfare: An Autarch can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players.",
-    "Exalted Autarch: The Autarch may use Perfected warfare twice per game."
+    "Perfected warfare: An Autarch can decide once per game to get a +1/-1 modifier to rolls during the Reinforcement phase and/or a +1/-1 modifier during the Initiative phase. The ability may be used after rolls have been made by both players."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

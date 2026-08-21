@@ -27,7 +27,7 @@ const EQUIP_STAT_MAP: [RegExp, string][] = [
 // Descriptions that indicate the bonus applies to OTHER units/a WEAPON, not the bearer's stat block.
 // "one weapon of the model gains" → bonus goes to a single weapon (e.g. Artifact of Gork ... or Mork),
 // not to the model's base stats.
-const AURA_PHRASES = /attached unit|friendly unit|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|one (?:melee |ranged )?weapon of the model/i;
+const AURA_PHRASES = /attached unit|friendly unit|friendly model|enemy unit|enemy model|the target|all models of|models in the target|models from an|(?:one|all) (?:melee |ranged )?weapons? of (?:the|this) model/i;
 
 // Quoted words that name a UNIT TYPE, not an ability. When an item says "gains the unit type 'Bike'"
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a

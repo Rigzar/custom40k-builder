@@ -101,7 +101,12 @@ export const librarian: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Chief Librarian",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Chief Librarian: The model can cast and deny 1 additional power per battle round."
+        ]
+      }
     },
     {
       "header": "Only one Chief Librarian or Librarian Dreadnought per army.",
@@ -116,7 +121,6 @@ export const librarian: Unit = {
   ],
   "abilities": [
     "They Shall Know No Fear",
-    "Chief Librarian: The model can cast and deny 1 additional power per battle round.",
     "Psychic hood: Add +1 to rolls to deny enemy psychic powers.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
   ],

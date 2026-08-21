@@ -98,13 +98,17 @@ export const lieutenant: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Captain",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Captain: A Captain may use Combat Tactics a second time."
+        ]
+      }
     }
   ],
   "abilities": [
     "They Shall Know No Fear",
-    "Combat Tactics: The Lieutenant can assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit can have.",
-    "Captain: A Captain may use Combat Tactics a second time."
+    "Combat Tactics: The Lieutenant can assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the Veteran ability and it must be the same ability. It does not count against the limit on how many Veteran abilities a unit can have."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

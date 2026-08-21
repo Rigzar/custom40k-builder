@@ -145,12 +145,16 @@ export const infernalAcolyte: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Infernal Master",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Infernal Master: An Infernal Master may attempt to make one additional pact each activation."
+        ]
+      }
     }
   ],
   "abilities": [
-    "Infernal Pact: An Infernal Acolyte may attempt to make one pact per activation. A pact is successful on a 3+. An Infernal Acolyte knows all Infernal Pacts.",
-    "Infernal Master: An Infernal Master may attempt to make one additional pact each activation."
+    "Infernal Pact: An Infernal Acolyte may attempt to make one pact per activation. A pact is successful on a 3+. An Infernal Acolyte knows all Infernal Pacts."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

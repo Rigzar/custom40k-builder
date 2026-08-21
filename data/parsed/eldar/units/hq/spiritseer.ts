@@ -68,6 +68,15 @@ export const spiritseer: Unit = {
   "is_vehicle": false,
   "is_character": true,
   "is_monster": false,
+  "fixed_power": {
+    "name": "Craftsong",
+    "range": "12\"",
+    "target": "Friendly <Wraith> unit",
+    "cast_value": "6",
+    "effect": "The target unit regains 2 lost wounds. Dead models may be revived with this. Living models have to be healed completly first. Can only be successfully manifested once per round and per psyker.",
+    "duration": "Instant",
+    "complexity": "Complex"
+  },
   "is_psyker": true,
   "has_armory_access": true,
   "champion_has_armory": false,

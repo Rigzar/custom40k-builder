@@ -71,12 +71,16 @@ export const captain: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Colonel",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Colonel: A Colonel issues 1 additional order."
+        ]
+      }
     }
   ],
   "abilities": [
-    "Officer: A Captain issues 1 order.",
-    "Colonel: A Colonel issues 1 additional order."
+    "Officer: A Captain issues 1 order."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

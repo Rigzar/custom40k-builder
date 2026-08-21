@@ -98,13 +98,17 @@ export const brKhyrIronMaster: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Brôkhyr Forge-master",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Brôkhyr Forge-master: A Brôkhyr Forge-master may use Brôkhyr’s Guild twice."
+        ]
+      }
     }
   ],
   "abilities": [
     "Eye of the Ancestors, Steady Advance, Void armor",
     "Brôkhyr’s Guild: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
-    "Brôkhyr Forge-master: A Brôkhyr Forge-master may use Brôkhyr’s Guild twice.",
     "Companions: E-COGs do not prevent a Brôkhyr Iron-master from joining another unit and do not count towards passenger capacity in a transport.",
     "E-COG support: Add +1 to every Brôkhyr's Guild roll for each E-COG in the unit."
   ],

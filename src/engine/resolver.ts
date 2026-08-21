@@ -1043,12 +1043,24 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     for (const ab of eff.grants_abilities ?? [])
       if (!optionAbilities.includes(ab) && !_baseAbilNorm.includes(_norm(ab))) optionAbilities.push(ab);
   };
+  // A choice's own effect.grants_weapons (e.g. Tyranid Biomorphs "Implant Attack"/"Symbiote
+  // Rippers", which grant a weapon out of the faction's general Armory rather than a stat/
+  // ability) — applyEffect() above only forwards stat_mod/adds_unit_types/set_unit_type/
+  // grants_abilities, the same way the item.armory loop below needs its own separate
+  // grants_weapons pass alongside applyEffect(ai.effect).
+  const grantChoiceWeapons = (eff: OptionEffect | undefined) => {
+    for (const grantedName of eff?.grants_weapons ?? []) {
+      const granted = (data.armory_general.weapons as import('../types/data').ArmoryItem[])
+        .find(w => w.name.toLowerCase() === grantedName.toLowerCase());
+      if (granted) pushGrantedWeapon(granted);
+    }
+  };
   for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
     const g = unit.option_groups[Number(gi)];
     if (!g) continue;
     const hasAnySelection = Object.entries(ch).some(([ci, qty]) => (ci === '__inline' || !!qty) && !!qty);
     // Group-level effect applies whenever the group has a selection (covers inline toggles).
-    if (hasAnySelection) applyEffect(g.effect);
+    if (hasAnySelection) { applyEffect(g.effect); grantChoiceWeapons(g.effect); }
     for (const [ci, qty] of Object.entries(ch)) {
       if (ci === '__inline' || !qty) continue;
       const choice = g.choices[parseInt(ci)];
@@ -1058,6 +1070,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
         }
       }
       applyEffect(choice?.effect);
+      grantChoiceWeapons(choice?.effect);
     }
   }
   // Armory-item effects: a bought item may confer a UNIT-TYPE change ("Chaos Space Marine bike" →
@@ -1632,9 +1645,58 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }];
+    return applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]);
   }
-  return nonEmpty;
+  return applyRangedStrengthBoosts(unit, item, nonEmpty);
+}
+
+/**
+ * Armory items worded "All ranged weapon(s) of the model gain +1 Strength" (optionally capped
+ * "…4 or below") — Grey Knights/Inquisition "Psy-ammunition"/"Psybolt ammunition", Tau's
+ * "Overdrive Power Systems" (Bork'an Sept relic), Tyranids' "Symbiostorm" (Kronos legacy).
+ * Reported for Psy-ammunition (GitHub #92): buying it changed nothing, because the general
+ * equipMods stat-delta parser read "+1 Strength" as a bump to the model's own S CHARACTERISTIC —
+ * invisible on every weapon here, since none of these units' ranged weapons key their printed S
+ * off "U" (user's Strength). The bonus is per-WEAPON, not per-model, so it needs its own pass
+ * over the resolved weapon table rather than the shared characteristic-delta path (which now
+ * ignores this wording instead — see AURA_PHRASES in equipMods.ts).
+ * Melee weapons and non-numeric profiles ("U", "x2", "+2") are left untouched — the sheet says
+ * "ranged weapon" and a non-numeric S has nothing for a cap to compare against.
+ */
+const RANGED_STRENGTH_BOOST_ITEMS: Record<string, number | null> = {
+  'Psy-ammunition': 4,
+  'Psybolt ammunition': 4,
+  'Overdrive Power Systems': null,
+  'Symbiostorm': null,
+};
+function applyRangedStrengthBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const fromArmory = item.armory.reduce((best: number | null | undefined, a) => {
+    if (!(a.itemName in RANGED_STRENGTH_BOOST_ITEMS)) return best;
+    const c = RANGED_STRENGTH_BOOST_ITEMS[a.itemName];
+    if (best === undefined) return c;
+    return c === null || best === null ? null : Math.max(best, c);
+  }, undefined);
+  // Grey Knights' 7 Psy-ammunition-carrying squads (Strike/Terminator/Ghost Terminator/Paladin/
+  // Purifier/Interceptor/Purgator) grant it through the unit's OWN inline option group ("Each
+  // model may be equipped with Psy-ammunition for +1 point(s) per model"), not a general Armory
+  // purchase — item.armory never holds it for these, only item.optionQty does.
+  const fromInlineOption = unit.option_groups.reduce((best: number | null | undefined, g, gi) => {
+    const matched = Object.keys(RANGED_STRENGTH_BOOST_ITEMS).find(n => g.header.includes(n));
+    if (!matched || !item.optionQty?.[gi]?.['__inline']) return best;
+    const c = RANGED_STRENGTH_BOOST_ITEMS[matched];
+    if (best === undefined) return c;
+    return c === null || best === null ? null : Math.max(best, c);
+  }, undefined);
+  const cap = fromArmory !== undefined && fromInlineOption !== undefined
+    ? (fromArmory === null || fromInlineOption === null ? null : Math.max(fromArmory, fromInlineOption))
+    : fromArmory !== undefined ? fromArmory : fromInlineOption;
+  if (cap === undefined) return groups;
+  const boost = (w: Weapon): Weapon => {
+    const isMelee = w.range === '-' || /^melee/i.test(w.type ?? '');
+    if (isMelee || !/^\d+$/.test(w.s) || (cap !== null && parseInt(w.s, 10) > cap)) return w;
+    return { ...w, s: String(parseInt(w.s, 10) + 1) };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }
 
 // ── Faction resolver registry ─────────────────────────────────────────────────

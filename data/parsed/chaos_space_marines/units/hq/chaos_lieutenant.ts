@@ -145,12 +145,16 @@ export const chaosLieutenant: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Chaos Lord",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Chaos Lord: A Chaos Lord may use Veterans of the Long War a second time."
+        ]
+      }
     }
   ],
   "abilities": [
-    "Veterans of the Long War: The Chaos Lieutenant can assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the veteran ability and it must be the same ability. It does not count against the limit on how many veteran abilities a unit can have.",
-    "Chaos Lord: A Chaos Lord may use Veterans of the Long War a second time."
+    "Veterans of the Long War: The Chaos Lieutenant can assign a free Veteran ability to himself and a friendly unit at the start of the deployment. Both units must be able to gain the veteran ability and it must be the same ability. It does not count against the limit on how many veteran abilities a unit can have."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

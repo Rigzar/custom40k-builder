@@ -157,13 +157,17 @@ export const darkApostle: Unit = {
       "choices": [],
       "inline_pts": 20,
       "variant_link": "Sinister Bishop",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Sinister Bishop: A Sinister Bishop may pray one additional time per battle round."
+        ]
+      }
     }
   ],
   "abilities": [
     "Faithful: A Dark Apostle may pray once per turn. A prayer is successful at a roll of 3+. A Dark Apostle knows all prayers to the dark gods.",
-    "Seal of corruption: This model has a 4+ ward save.",
-    "Sinister Bishop: A Sinister Bishop may pray one additional time per battle round."
+    "Seal of corruption: This model has a 4+ ward save."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

@@ -116,14 +116,18 @@ export const techmarine: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Master of the Forge",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Master of the Forge: A Master of the Forge may use \"Blessing of the Omnissiah\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
+        ]
+      }
     }
   ],
   "abilities": [
     "Command squad, They Shall Know No Fear",
     "Advisor: For every HQ selection, one Techmarine may be selected without taking up an Elite slot.",
-    "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
-    "Master of the Forge: A Master of the Forge may use \"Blessing of the Omnissiah\" two times per battle round. Additionally, he counts as a HQ selections and fills up a slot, respectively."
+    "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

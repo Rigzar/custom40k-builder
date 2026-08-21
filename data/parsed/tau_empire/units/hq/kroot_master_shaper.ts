@@ -231,7 +231,12 @@ export const krootMasterShaper: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Shaper Chief",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Shaper Chief: A Shaper Chief may assign its Evolutionary Adaptation to an additional friendly Kroot unit."
+        ]
+      }
     },
     {
       "header": "One Kroot Master Shaper per army may be upgraded to a Shaman for +10 points. The Shaman is a Psyker who can cast 1 power and deny 1 power per battle round, and knows 2 powers from the Biomancy or Divination disciplines.",
@@ -242,7 +247,11 @@ export const krootMasterShaper: Unit = {
       "inline_pts": 10,
       "variant_link": null,
       "is_unique_per_army": true,
-      "available_if": { "type": "instanceOf", "scope": "archetype", "keyword": "Kroot Hunting Pack" }
+      "available_if": {
+        "type": "instanceOf",
+        "scope": "archetype",
+        "keyword": "Kroot Hunting Pack"
+      }
     },
     {
       "header": "May be upgraded to one of the following",
@@ -271,7 +280,6 @@ export const krootMasterShaper: Unit = {
   "abilities": [
     "Infiltrator, Supporting Fire, Use Cover",
     "Evolutionary Adaptation: A Master Shaper may assign a free Signature Evolutionary Adaptation trait to itself and one other friendly Kroot unit at the start of deployment. It may not assign a Signature Evolutionary Adaptation the army has already chosen.",
-    "Shaper Chief: A Shaper Chief may assign its Evolutionary Adaptation to an additional friendly Kroot unit.",
     "Upgrades",
     "Flesh Shaper: The model and its attached unit gain \"Deflagrate(6+)\" for all melee attacks.",
     "Trail Shaper: After all units have been placed in the Deployment phase, you may remove and redeploy this model and its attached unit.",

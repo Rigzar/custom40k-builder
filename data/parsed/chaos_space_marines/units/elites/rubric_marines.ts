@@ -152,7 +152,8 @@ export const rubricMarines: Unit = {
       "is_unique_per_army": false,
       "replaces": [
         "Inferno bolter"
-      ]
+      ],
+      "applies_to_model": "Rubric Marine"
     },
     {
       "header": "One Rubric Marine's Inferno bolter may be replaced with",

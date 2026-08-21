@@ -83,7 +83,7 @@ export const manticore: Unit = {
     {
       "header": "May swap the Sky eagle rockets",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -93,12 +93,13 @@ export const manticore: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Sky eagle rockets"]
     },
     {
       "header": "May swap the Heavy bolter",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -112,7 +113,8 @@ export const manticore: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolter"]
     }
   ],
   "abilities": [

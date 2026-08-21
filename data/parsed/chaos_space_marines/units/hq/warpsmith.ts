@@ -178,12 +178,16 @@ export const warpsmith: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Daemonforge Mastersmith",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Daemonforge Mastersmith: A Daemonforge Mastersmith may use the \"Blessing of the Omnissiah\" twice."
+        ]
+      }
     }
   ],
   "abilities": [
-    "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll.",
-    "Daemonforge Mastersmith: A Daemonforge Mastersmith may use the \"Blessing of the Omnissiah\" twice."
+    "Blessing of the Omnissiah: At the end of its move, the model may attempt to repair a vehicle within 6\". On a 4+, one \"Weapon destroyed\" or \"Engine damage\" result is removed from the vehicle, or 1 hull point is restored. Alternatively, a vehicle within 6\" can reroll a hit roll and a wound or armor penetration roll."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

@@ -80,13 +80,17 @@ export const companyChampion: Unit = {
       "choices": [],
       "inline_pts": 10,
       "variant_link": "Chapter Champion",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Chapter Champion: Additionally, the model may re-roll 1 to wound roll per activation."
+        ]
+      }
     }
   ],
   "abilities": [
     "Command squad, They Shall Know No Fear",
     "Advisor: For every HQ selection, one Company Champion may be selected without taking up an Elite slot.",
-    "Chapter Champion: Additionally, the model may re-roll 1 to wound roll per activation.",
     "Company Champion: The model may re-roll 1 to hit roll per activation.",
     "Honor or Death: At the start of the activation, if an enemy HQ or Character is within 12\", the placed Order is converted to Charge. The Company champion and an attached unit must use the Order to engage in close combat with the enemy HQ or character model."
   ],

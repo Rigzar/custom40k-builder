@@ -85,13 +85,17 @@ export const farseer: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Exalted Farseer",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Exalted Farseer: The model can cast and deny 1 additional power per battle round."
+        ]
+      }
     }
   ],
   "abilities": [
     "Battle Focus",
-    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline.",
-    "Exalted Farseer: The model can cast and deny 1 additional power per battle round."
+    "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and all powers from a chosen discipline."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

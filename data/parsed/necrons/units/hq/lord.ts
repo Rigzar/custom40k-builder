@@ -61,13 +61,17 @@ export const lord: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Overlord",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Overlord: An Overlord may use My Will Be Done a second time."
+        ]
+      }
     }
   ],
   "abilities": [
     "Regeneration(1)",
     "My Will Be Done: Select one <Necron> unit during your Reinforcement phase. The unit gains the \"Fearless\" ability until the end of the current battle round.",
-    "Overlord: An Overlord may use My Will Be Done a second time.",
     "Royal Court: If an Overlord is present, up to four Lords can be chosen that do not occupy an HQ slot.",
     "Royal Necrodermis: Reduces AP of enemy attacks by -1 (to a minimum of 0)."
   ],

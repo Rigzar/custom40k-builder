@@ -118,7 +118,12 @@ export const inquisitor: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Inquisitor Lord",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Inquisitor Lord: This model may choose a second quarry."
+        ]
+      }
     }
   ],
   "abilities": [
@@ -126,8 +131,7 @@ export const inquisitor: Unit = {
     "Command squad",
     "Priest: This model can recite 1 hymn per turn. A hymn is successfully recited on a roll of 3+. It knows one hymn from the Hymns of Battle.",
     "Psyker: This model can cast 1 psychic power and dispel 1 psychic power per round. It knows Smite, as well as one psychic power from a chosen psychic discipline.",
-    "Quarry: After units are deployed, you may secretly choose an enemy unit to be your quarry. At the start of any battle round, if your quarry is on the battlefield, you may reveal your choice. Friendly Inquisition units get +1 to hit your revealed quarry.",
-    "Inquisitor Lord: This model may choose a second quarry."
+    "Quarry: After units are deployed, you may secretly choose an enemy unit to be your quarry. At the start of any battle round, if your quarry is on the battlefield, you may reveal your choice. Friendly Inquisition units get +1 to hit your revealed quarry."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

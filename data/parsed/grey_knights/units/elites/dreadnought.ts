@@ -164,7 +164,7 @@ export const dreadnought: Unit = {
       },
       "choices": [
         {
-          "name": "Dreadnought close combat weapon and Storm bolter",
+          "name": "Dreadnought close combat weapon with Storm bolter",
           "points": 27
         },
         {
@@ -219,7 +219,7 @@ export const dreadnought: Unit = {
       "variant_link": null,
       "is_unique_per_army": false,
       "requires_choice": [
-        "Dreadnought close combat weapon and Storm bolter"
+        "Dreadnought close combat weapon with Storm bolter"
       ]
     }
   ],
@@ -233,6 +233,15 @@ export const dreadnought: Unit = {
   "is_vehicle": true,
   "is_character": false,
   "is_monster": false,
+    "fixed_power": {
+    "name": "Fortitude",
+    "range": "-",
+    "target": "Self",
+    "cast_value": "5",
+    "effect": "The target unit removes one \"Crew shaken\" vehicle damage result.",
+    "duration": "Instant",
+    "complexity": "Basic"
+  },
   "is_psyker": true,
   "has_armory_access": false,
   "champion_has_armory": false,

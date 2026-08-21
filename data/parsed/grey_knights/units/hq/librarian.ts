@@ -130,7 +130,9 @@ export const librarian: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Nemesis force weapon"]
+      "replaces": [
+        "Nemesis force weapon"
+      ]
     },
     {
       "header": "One Librarian per army can be upgraded to a Chief Librarian for +15 points.",
@@ -140,12 +142,16 @@ export const librarian: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Chief Librarian",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Chief Librarian: The model can manifest and deny 1 additional power per turn."
+        ]
+      }
     }
   ],
   "abilities": [
     "Aegis(5+), Brotherhood of Psykers, Deep Strike, Shrouding, They Shall Know No Fear, True Grit, Massive(1), Unyielding",
-    "Chief Librarian: The model can manifest and deny 1 additional power per turn.",
     "Psychic hood: The models gains a +1 bonus to deny psychic powers.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. He knows Smite and all powers from a chosen discipline.",
     "Terminator armor: The model gains a 5+ ward save."

@@ -187,7 +187,8 @@ export const stormtroopers: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Hot-shot lasgun"]
     },
     {
       "header": "The unit may get one of these abilities (points per model)",
@@ -197,11 +198,13 @@ export const stormtroopers: Unit = {
       "choices": [
         {
           "name": "Deep strike",
-          "points": 1
+          "points": 1,
+          "abilities": ["Deep strike"]
         },
         {
           "name": "Infiltrator",
-          "points": 1
+          "points": 1,
+          "abilities": ["Infiltrator"]
         }
       ],
       "inline_pts": null,

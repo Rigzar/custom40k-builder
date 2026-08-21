@@ -71,12 +71,16 @@ export const succubus: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Master Succubus",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Master Succubus: The model may select a second Combat drug."
+        ]
+      }
     }
   ],
   "abilities": [
-    "Combat drugs, Deflect, Power through Pain, Parry",
-    "Master Succubus: The model may select a second Combat drug."
+    "Combat drugs, Deflect, Power through Pain, Parry"
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [

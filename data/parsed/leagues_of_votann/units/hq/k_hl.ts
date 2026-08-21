@@ -71,13 +71,17 @@ export const kHl: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "High Kâhl",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "High Kâhl: The model can use \"Grim Efficiency\" twice per battle round."
+        ]
+      }
     }
   ],
   "abilities": [
     "Eye of the Ancestors, Steady Advance, Void armor",
-    "Grim Efficiency: When activating this unit, select one enemy unit on the battlefield. It gains a Judgement token.",
-    "High Kâhl: The model can use \"Grim Efficiency\" twice per battle round."
+    "Grim Efficiency: When activating this unit, select one enemy unit on the battlefield. It gains a Judgement token."
   ],
   "unit_type": "Character Model, Infantry",
   "keywords": [],

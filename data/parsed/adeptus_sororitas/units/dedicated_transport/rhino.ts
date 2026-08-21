@@ -57,7 +57,7 @@ export const rhino: Unit = {
   ],
   "abilities": [
     "Acts of Faith, Fire hatches(2), Shield of Faith",
-    "Transport: This model has a transport capacity of 10 infantry models, excluding excluding \"Massive(x)\" models."
+    "Transport: This model has a transport capacity of 10 infantry models, excluding \"Massive(x)\" models."
   ],
   "unit_type": "Vehicle",
   "keywords": [],

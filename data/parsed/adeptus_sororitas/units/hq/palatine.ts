@@ -90,12 +90,16 @@ export const palatine: Unit = {
       "choices": [],
       "inline_pts": 15,
       "variant_link": "Canoness",
-      "is_unique_per_army": true
+      "is_unique_per_army": true,
+      "effect": {
+        "grants_abilities": [
+          "Canoness: A Canoness may use Emperor's Grace a second time."
+        ]
+      }
     }
   ],
   "abilities": [
     "Acts of Faith, Shield of Faith",
-    "Canoness: A Canoness may use Emperor's Grace a second time.",
     "Emperor's Grace: Select one unit during your Reinforcement phase with the Shield of Faith ability. The unit gains the \"Warded\" ability until the end of the current battle round.",
     "Pious: A Palatine increases the Faith Points by +1, a Canoness by +2."
   ],
