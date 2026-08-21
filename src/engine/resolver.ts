@@ -1178,10 +1178,20 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // A promoted variant (e.g. Traitor Sergeant) with its own variant_link-gated Armory access
   // gets its Armory-bought weapons (e.g. Boltgun) extracted into its own group too, same as a
   // built-in Champion. `profile.modelsToShow` places the promoted base model immediately
-  // before the variant when both are shown (see resolveBase).
+  // before the variant when both are shown (see resolveBase) — but only when the base group had
+  // more than one model to split off (e.g. 9 Traitor Guardsmen keep their own row next to the
+  // promoted Sergeant). When the base group had exactly one model, resolveUnitProfile REPLACES
+  // its row with the variant instead of splitting it, so "the entry right before the variant" is
+  // whatever OTHER model group happens to sit there — for the Sororitas Sisters Novitiate
+  // (9 Sister Novitiate + 1 Sister Superior, promotable to Veteran Superior), that wrongly
+  // resolved to "Sister Novitiate", and the block below folded the Veteran Superior's weapon
+  // count into the Novitiates' row instead of the Superior's (10x Auto pistol for a 9-model
+  // squad). `getPromotedModel` derives the true base from the option group's own header text —
+  // the same helper points.ts already uses for pricing — so it can't be fooled by position.
   const variantIdx = profile.variantActive ? profile.modelsToShow.findIndex(m => m === profile.variant) : -1;
   const variantArmoryActive = variantIdx > 0 && armoryGatedByVariant;
-  const promotedModelName = variantArmoryActive ? profile.modelsToShow[variantIdx - 1].name : null;
+  const activeVariantForPromotion = variantArmoryActive ? getActiveVariant(item, unit) : null;
+  const promotedModelName = activeVariantForPromotion ? getPromotedModel(unit, activeVariantForPromotion).name : null;
 
   const grantedSet = new Set(profile.armoryGrantedWeapons);
   // Only weapons the Armory purchase actually ADDED belong exclusively to the Champion. When the
