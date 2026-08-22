@@ -118,6 +118,7 @@ export type TranslationKey =
   | 'vehicleWargearHintA' | 'vehicleWargearHintB' | 'applyToLabel' | 'selectWeaponOption'
   | 'exarchPowerLabel' | 'selectPowerOption' | 'daemonWeaponAbilitiesLabel' | 'noDaemonWeaponTraits'
   | 'uniqueBadge' | 'selectedBadge' | 'takenByAnotherUnit' | 'pickWeaponButton' | 'capReachedButton'
+  | 'traitSearchPlaceholder' | 'traitPickerClearSlot' | 'noResultsFound' | 'browseTraitsButton' | 'traitSlotLabel' | 'traitTakenByOtherSlot'
   | 'addButton' | 'appliedToPrefix' | 'addedBadge' | 'gravisBadge' | 'termBadge' | 'inProfileBadge'
   | 'freeSlotLabel' | 'addAnotherButton' | 'seeFactionRulesProfile' | 'perWoundSuffix'
   | 'copyCodeButton' | 'importCodeButton' | 'invalidJsonFileAlert' | 'clearArmyConfirm' | 'clearButton'
@@ -337,6 +338,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     chooseUpToTraitsSuffix: '. All main-faction units with veteran abilities receive the selected traits.',
     traitSlotPrefix: '— Trait',
     traitSlotSuffix: '(none) —',
+    traitSearchPlaceholder: 'Search traits by name or effect…',
+    traitPickerClearSlot: '— None (clear this slot) —',
+    noResultsFound: 'Nothing matches your search.',
+    browseTraitsButton: 'Browse',
+    traitSlotLabel: 'Trait',
+    traitTakenByOtherSlot: 'In another slot',
     blackCrusadeChampionRequired: 'Black Crusade — Champion required',
     championLabel: '⚜ Champion:',
     paysCombinedMarkCost: 'Pays the combined mark cost for all four gods.',
@@ -929,6 +936,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     chooseUpToTraitsSuffix: '. Alle Haupteinheiten mit Veteranenfähigkeiten erhalten die gewählten Eigenschaften.',
     traitSlotPrefix: '— Eigenschaft',
     traitSlotSuffix: '(keine) —',
+    traitSearchPlaceholder: 'Eigenschaften nach Name oder Effekt suchen…',
+    traitPickerClearSlot: '— Keine (Slot leeren) —',
+    noResultsFound: 'Nichts entspricht deiner Suche.',
+    browseTraitsButton: 'Durchsuchen',
+    traitSlotLabel: 'Eigenschaft',
+    traitTakenByOtherSlot: 'In einem anderen Slot',
     blackCrusadeChampionRequired: 'Schwarzer Kreuzzug — Champion erforderlich',
     championLabel: '⚜ Champion:',
     paysCombinedMarkCost: 'Zahlt die kombinierten Malkosten für alle vier Götter.',
@@ -1521,6 +1534,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     chooseUpToTraitsSuffix: '. Todas las unidades principales con habilidades veteranas reciben los rasgos seleccionados.',
     traitSlotPrefix: '— Rasgo',
     traitSlotSuffix: '(ninguno) —',
+    traitSearchPlaceholder: 'Buscar rasgos por nombre o efecto…',
+    traitPickerClearSlot: '— Ninguno (vaciar este hueco) —',
+    noResultsFound: 'Nada coincide con tu búsqueda.',
+    browseTraitsButton: 'Explorar',
+    traitSlotLabel: 'Rasgo',
+    traitTakenByOtherSlot: 'En otro hueco',
     blackCrusadeChampionRequired: 'Cruzada Negra — Campeón requerido',
     championLabel: '⚜ Campeón:',
     paysCombinedMarkCost: 'Paga el coste combinado de marca de los cuatro dioses.',

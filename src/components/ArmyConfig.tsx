@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useArmyStore } from '../store/army';
 import { ENGAGEMENTS } from '../engine/engagements';
 import { getArchetypeRule, getEffectiveSlot, cleanArchetypeName } from '../engine/archetypes';
 import { allowEngagementChange } from '../utils/engagementGuard';
 import { useT } from '../i18n';
+import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
 
 import type { EngagementType, Mark } from '../types/army';
 
@@ -31,6 +33,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const store = useArmyStore();
   const isAllied = scope === 'allied';
   const accent: 'amber' | 'emerald' = isAllied ? 'emerald' : 'amber';
+  const [openTraitSlot, setOpenTraitSlot] = useState<number | null>(null);
 
   const data = isAllied ? store.alliedData : store.data;
   const army = store.army;
@@ -311,26 +314,43 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                       {t('chooseUpToTraitsPrefix')} {traitSlots.length}{t('chooseUpToTraitsSuffix')}
                     </div>
 
-                    {traitSlots.map(slot => (
-                      <select
-                        key={slot}
-                        value={traitPool[slot] ?? ''}
-                        onChange={e => {
-                          const val = e.target.value;
+                    {traitSlots.map(slot => {
+                      const currentName = traitPool[slot] ?? '';
+                      return (
+                        <button
+                          key={slot}
+                          type="button"
+                          onClick={() => setOpenTraitSlot(slot)}
+                          className={`${selectClass} text-left flex items-center justify-between gap-2 cursor-pointer`}
+                        >
+                          <span className={currentName ? 'text-zinc-100' : 'text-zinc-500'}>
+                            {currentName || `${t('traitSlotPrefix')} ${slot + 1} ${t('traitSlotSuffix')}`}
+                          </span>
+                          <span className={`text-[10px] uppercase tracking-wide shrink-0 ${accentText}`}>
+                            {t('browseTraitsButton')}
+                          </span>
+                        </button>
+                      );
+                    })}
+
+                    {openTraitSlot !== null && (
+                      <TraitPickerModal
+                        traits={data.traits}
+                        excludedNames={traitSlots
+                          .filter(s => s !== openTraitSlot)
+                          .map(s => traitPool[s])
+                          .filter((n): n is string => !!n)}
+                        currentValue={traitPool[openTraitSlot] ?? ''}
+                        slotLabel={`${t('traitSlotLabel')} ${openTraitSlot + 1}`}
+                        accent={accent}
+                        onPick={val => {
+                          const slot = openTraitSlot;
                           const newPool = traitSlots.map(s => (s === slot ? val : (traitPool[s] ?? ''))).filter(Boolean) as string[];
                           setTraitPool(newPool);
                         }}
-                        className={selectClass}
-                      >
-                        <option value="">{t('traitSlotPrefix')} {slot + 1} {t('traitSlotSuffix')}</option>
-                        {data.traits
-                          .filter(t => !traitSlots.some(s => s !== slot && traitPool[s] === t.name))
-                          .map(t => (
-                            <option key={t.name} value={t.name}>{t.name}</option>
-                          ))
-                        }
-                      </select>
-                    ))}
+                        onClose={() => setOpenTraitSlot(null)}
+                      />
+                    )}
 
                     {/* Black Crusade champion (primary only — relies on the main army's HQ items) */}
                     {!isAllied && traitPool.includes('Black Crusade') && (
@@ -380,18 +400,7 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                         {traitPool.map(name => {
                           const tr = data.traits.find(t => t.name === name);
                           if (!tr) return null;
-                          const fmtCost = (raw: string | null | undefined, label: string) => {
-                            if (!raw || raw === '-' || raw.toLowerCase() === 'special') return null;
-                            const perW = raw.trim().endsWith('*');
-                            const num = raw.replaceAll('*', '').trim();
-                            if (num === '0') return `free (${label})`;
-                            return `+${num}${perW ? ' pts/W' : ' pts'} ${label}`;
-                          };
-                          const costParts = [
-                            fmtCost(tr.pts_unit, 'per unit'),
-                            fmtCost(tr.pts_monster, 'per monster'),
-                            fmtCost(tr.pts_char, 'per char'),
-                          ].filter(Boolean);
+                          const costParts = traitCostParts(tr);
                           return (
                             <div key={name} className="pl-3 border-l-2 border-amber-900 text-[10px]">
                               <span className="text-amber-400 font-semibold">{name}</span>

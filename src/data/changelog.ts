@@ -37,6 +37,7 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Grey Knights\' Stormtrooper allies (via Inquisition, and the same fix applied to the Imperial Guard original) — swapping Hot-shot lasguns for Sniper rifles now removes the lasguns instead of adding the rifles alongside them, and Deep Strike/Infiltrator cost their printed 1 point PER MODEL, not once for the whole squad; both abilities are also granted for the first time, not just charged for (GitHub #94, #95).',
       'Imperial Guard — a 2-Manticore squadron could only buy one set of Storm Eagle Rockets between them; each Manticore can now be upgraded independently (GitHub #96).',
       'Adepta Sororitas — promoting the Sister Superior to a Veteran Superior on a Sisters Novitiate squad showed 10 Sister Novitiate instead of 9.',
+      'Army Traits now open a browsable list — every trait\'s full rule text and cost, searchable by name or effect, right there before you pick one — instead of a plain dropdown you had to select blind to read.',
     ],
   },
   {
