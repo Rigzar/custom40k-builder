@@ -26,6 +26,7 @@
     "glossary": {
       "at": "Kann Volltreffer verursachen. Bei einem Volltreffer würfele {X} Würfel auf der Fahrzeugschadenstabelle und wende alle Ergebnisse an.",
       "mob": "Für je 5 Modelle in der Einheit erhält sie +1 Moralwert (kumulativ). Ab 20+ Modellen erhält sie „Furchtlos“. Eine Einheit, die unter die Hälfte ihrer Sollstärke reduziert wurde, kann sich während der Sammelphase mit einer anderen Einheit innerhalb von 2\" zusammenschließen, die diese Regel besitzt — ab diesem Zeitpunkt agieren sie als eine einzelne Einheit mit einem gemeinsamen Befehl.",
+      "rad": "Eine Einheit, die von dieser Waffe getroffen wurde, erleidet bis zum Ende ihrer nächsten Aktivierung einen Abzug von -1 auf ihren Widerstandswert.",
       "ammo": "Diese Waffe kann nur {X} Mal im pro Spiel genutzt werden.",
       "beam": "Führe wie gewohnt einen Trefferwurf durch. Bei Erfolg ziehe eine gerade Linie vom schießenden Modell zum Ziel. Führe einen Verwundungswurf gegen das Ziel und alle anderen Einheiten durch, über die die Linie verläuft.",
       "bomb": "Die Reichweite dieser Waffe wird von den Reichweitenreduzierungsregeln für Flieger nicht betroffen.",
@@ -49,6 +50,7 @@
       "swarm": "Jede Schadensinstanz kann immer nur 1 Lebenspunktverlust verursachen. Attacken mit Geschütz oder Explosiv verursachen einen Treffer für jeden verbleibenden Lebenspunkt des Modells.",
       "tesla": "Trefferwürfe von 5+ sind immer erfolgreich und das Ziel erleidet 2 zusätzliche automatische Treffer.",
       "ambush": "Für jede angefangenen 500 Punkte der Spielgröße darf nach der Aufstellung aller Infiltratoren, aber vor der ersten Kampfrunde, ein Hinterhaltsmarker platziert werden — mindestens 12\" von jeder feindlichen Einheit und mindestens 6\" von einem Missionsziel oder einem anderen Hinterhaltsmarker entfernt. Einheiten mit Hinterhalt, die aus der Reserve eintreffen, können mit einem beliebigen Befehl innerhalb von 3\" um einen Marker aufgestellt werden (diese zählen für das Reserve-Eintrefflimit). Einheiten mit Hinterhalt können auch wie in ein Transportfahrzeug in einen Marker einsteigen und in Reserve gehen, woraufhin sie in der nächsten Reservephase automatisch eintreffen. Befindet sich während der Reservephase eine feindliche Einheit innerhalb von 3\" um einen Hinterhaltsmarker, wird der Marker für den Rest des Spiels entfernt.",
+      "charge": "Ein Waffenprofil mit dieser Eigenschaft kann nur verwendet werden, wenn das Modell den Befehl „Angriff“ nutzt.",
       "cognis": "Die Waffe reduziert ihren Gesamtabzug auf Trefferwürfe im Fernkampf um -1, bis zu einem Minimum von 0.",
       "daemon": "Dieses Model hat einen 5+ Rettungswurf.",
       "deadly": "Verwundungswürfe von {X} erhöhen den Schadenswert des Angriffs um +1.",

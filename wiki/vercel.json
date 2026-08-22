@@ -1,0 +1,3 @@
+{
+  "ignoreCommand": "sh scripts/should-skip-build.sh"
+}
