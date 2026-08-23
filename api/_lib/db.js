@@ -60,6 +60,26 @@ export async function ensureSchema() {
     )
   `;
   await sql`CREATE INDEX IF NOT EXISTS friends_user_idx ON friends(user_id)`;
+  // Request/accept flow (added after friend-add had been instant + one-directional in
+  // production for a while — Discord: two players had no way to share an army without both
+  // making it fully public). 'accepted' is the column DEFAULT specifically so this ALTER
+  // back-fills every row that already existed as accepted — nobody who already had a friend
+  // loses them; only NEW requests go through pending -> accepted/deleted.
+  await sql`ALTER TABLE friends ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'accepted'`;
+  await sql`CREATE INDEX IF NOT EXISTS friends_friend_status_idx ON friends(friend_id, status)`;
+
+  // One roster shared with one specific other user, independent of is_public — the targeted
+  // "just let my friend see this one list" the public/private toggle alone couldn't do.
+  await sql`
+    CREATE TABLE IF NOT EXISTS roster_shares (
+      id SERIAL PRIMARY KEY,
+      roster_id INTEGER NOT NULL REFERENCES rosters(id) ON DELETE CASCADE,
+      shared_with_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      UNIQUE(roster_id, shared_with_user_id)
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS roster_shares_user_idx ON roster_shares(shared_with_user_id)`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS roster_votes (
@@ -128,6 +148,11 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS messages_to_idx ON messages(to_user_id)`;
   await sql`CREATE INDEX IF NOT EXISTS messages_pair_idx ON messages(from_user_id, to_user_id)`;
+  // 'text' = a normal DM, rendered as a plain bubble. 'friend_request' = an auto-sent message
+  // that the inbox/thread UI renders with Accept/Reject buttons instead of a text bubble — the
+  // request itself lives in `friends` (status='pending'); this row is only the notification the
+  // user actually asked for ("que le llegue una notificación a sus mensajes").
+  await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS kind TEXT NOT NULL DEFAULT 'text'`;
 
   // Planetary Assault campaign module (ALPHA). `factions` is a JSONB array of faction-name
   // strings the GM defines at creation (e.g. ["Chaos","Imperium"]) — players pick one when

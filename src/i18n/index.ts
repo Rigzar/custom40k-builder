@@ -188,11 +188,16 @@ export type TranslationKey =
   // Community tab
   | 'communityHeader' | 'filterAll' | 'noFriendArmies' | 'noPublicArmies'
   | 'viewButton' | 'viewOnlyHint' | 'copyButton' | 'loginToCopyHint'
+  | 'filterShared' | 'noSharedArmies' | 'sharedWithYouBadge'
   // Friends tab
   | 'searchPlayersPlaceholder' | 'searchingLabel'
   | 'publicArmySingular' | 'publicArmyPlural'
   | 'removeLabel' | 'addFriendButton' | 'noFriendsYet'
   | 'friendSingular' | 'friendPlural'
+  | 'requestPendingLabel' | 'acceptFriendButton' | 'declineFriendButton'
+  | 'incomingRequestsHeader' | 'cancelRequestHint'
+  // Roster sharing (Armies tab)
+  | 'shareButton' | 'shareWithUsernamePlaceholder' | 'notSharedYet' | 'sharedWithHeader'
   // Prefs tab
   | 'cloudAutosave' | 'autosaveDesc'
   | 'autosaveOff' | 'autosaveOnClose' | 'autosave30s' | 'autosave5min'
@@ -777,11 +782,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noFriendArmies: 'No public armies from your friends yet.', noPublicArmies: 'No public armies yet.',
     viewButton: 'View', viewOnlyHint: 'Load (view only — not saved to your account)',
     copyButton: 'Copy', loginToCopyHint: 'Log in to copy armies to your account.',
+    filterShared: 'Shared with me', noSharedArmies: 'Nobody has shared an army with you yet.',
+    sharedWithYouBadge: 'shared with you',
     searchPlayersPlaceholder: 'Search players by username…', searchingLabel: 'Searching…',
     publicArmySingular: 'public army', publicArmyPlural: 'public armies',
     removeLabel: 'Remove', addFriendButton: '+ Add',
     noFriendsYet: 'No friends yet — search above to add players',
     friendSingular: 'friend', friendPlural: 'friends',
+    requestPendingLabel: 'Pending…', acceptFriendButton: '✓ Accept', declineFriendButton: '✕ Decline',
+    incomingRequestsHeader: 'Friend requests', cancelRequestHint: 'Cancel request',
+    shareButton: 'Share', shareWithUsernamePlaceholder: 'Username or friend…',
+    notSharedYet: 'Not shared with anyone.', sharedWithHeader: 'Shared with',
     cloudAutosave: 'Cloud autosave', autosaveDesc: 'How often your army is saved automatically while building.',
     autosaveOff: 'Off', autosaveOnClose: 'On close', autosave30s: 'Every 30 s', autosave5min: 'Every 5 min',
     autosaveOffDesc: 'No automatic saving', autosaveOnCloseDesc: 'Only when you close the tab',
@@ -1375,11 +1386,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noFriendArmies: 'Noch keine öffentlichen Armeen deiner Freunde.', noPublicArmies: 'Noch keine öffentlichen Armeen.',
     viewButton: 'Ansehen', viewOnlyHint: 'Laden (nur ansehen — wird nicht in deinem Konto gespeichert)',
     copyButton: 'Kopieren', loginToCopyHint: 'Anmelden um Armeen in dein Konto zu kopieren.',
+    filterShared: 'Mit dir geteilt', noSharedArmies: 'Noch niemand hat eine Armee mit dir geteilt.',
+    sharedWithYouBadge: 'mit dir geteilt',
     searchPlayersPlaceholder: 'Spieler nach Benutzername suchen…', searchingLabel: 'Suchen…',
     publicArmySingular: 'öffentliche Armee', publicArmyPlural: 'öffentliche Armeen',
     removeLabel: 'Entfernen', addFriendButton: '+ Hinzufügen',
     noFriendsYet: 'Noch keine Freunde — oben suchen um Spieler hinzuzufügen',
     friendSingular: 'Freund', friendPlural: 'Freunde',
+    requestPendingLabel: 'Ausstehend…', acceptFriendButton: '✓ Annehmen', declineFriendButton: '✕ Ablehnen',
+    incomingRequestsHeader: 'Freundschaftsanfragen', cancelRequestHint: 'Anfrage zurückziehen',
+    shareButton: 'Teilen', shareWithUsernamePlaceholder: 'Benutzername oder Freund…',
+    notSharedYet: 'Mit niemandem geteilt.', sharedWithHeader: 'Geteilt mit',
     cloudAutosave: 'Cloud-Autospeicherung', autosaveDesc: 'Wie oft deine Armee beim Erstellen automatisch gespeichert wird.',
     autosaveOff: 'Aus', autosaveOnClose: 'Beim Schließen', autosave30s: 'Alle 30 s', autosave5min: 'Alle 5 min',
     autosaveOffDesc: 'Keine automatische Speicherung', autosaveOnCloseDesc: 'Nur beim Schließen des Tabs',
@@ -1973,11 +1990,17 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     noFriendArmies: 'Aún no hay ejércitos públicos de tus amigos.', noPublicArmies: 'Aún no hay ejércitos públicos.',
     viewButton: 'Ver', viewOnlyHint: 'Cargar (solo ver — no se guarda en tu cuenta)',
     copyButton: 'Copiar', loginToCopyHint: 'Inicia sesión para copiar ejércitos a tu cuenta.',
+    filterShared: 'Compartidos contigo', noSharedArmies: 'Nadie ha compartido un ejército contigo todavía.',
+    sharedWithYouBadge: 'compartido contigo',
     searchPlayersPlaceholder: 'Buscar jugadores por nombre de usuario…', searchingLabel: 'Buscando…',
     publicArmySingular: 'ejército público', publicArmyPlural: 'ejércitos públicos',
     removeLabel: 'Eliminar', addFriendButton: '+ Añadir',
     noFriendsYet: 'Aún no hay amigos — busca arriba para añadir jugadores',
     friendSingular: 'amigo', friendPlural: 'amigos',
+    requestPendingLabel: 'Pendiente…', acceptFriendButton: '✓ Aceptar', declineFriendButton: '✕ Rechazar',
+    incomingRequestsHeader: 'Solicitudes de amistad', cancelRequestHint: 'Cancelar solicitud',
+    shareButton: 'Compartir', shareWithUsernamePlaceholder: 'Usuario o amigo…',
+    notSharedYet: 'No compartido con nadie.', sharedWithHeader: 'Compartido con',
     cloudAutosave: 'Autoguardado en la nube', autosaveDesc: 'Con qué frecuencia se guarda automáticamente tu ejército mientras lo construyes.',
     autosaveOff: 'Desactivado', autosaveOnClose: 'Al cerrar', autosave30s: 'Cada 30 s', autosave5min: 'Cada 5 min',
     autosaveOffDesc: 'Sin guardado automático', autosaveOnCloseDesc: 'Solo al cerrar la pestaña',

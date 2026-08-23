@@ -38,6 +38,10 @@ export const CHANGELOG: ChangelogEntry[] = [
       'Imperial Guard — a 2-Manticore squadron could only buy one set of Storm Eagle Rockets between them; each Manticore can now be upgraded independently (GitHub #96).',
       'Adepta Sororitas — promoting the Sister Superior to a Veteran Superior on a Sisters Novitiate squad showed 10 Sister Novitiate instead of 9.',
       'Army Traits now open a browsable list — every trait\'s full rule text and cost, searchable by name or effect, right there before you pick one — instead of a plain dropdown you had to select blind to read.',
+      'Army Traits — on mobile, a trait with several point costs listed had its cost text overlapping the description below it (Discord: "Works perfectly on desktop, on mobile it looks like this"). Fixed.',
+      'Chaos Space Marines & Space Marines — picking the Legion archetype together with a Horus Heresy Legacy showed only that Legacy\'s own items in the Armory; the whole Horus Heresy supplement Armory was unreachable through any tab. It now gets its own Armory tab, same as every other archetype-granted armoury (Discord).',
+      'Sharing an army privately — "Share" on any of your armies now lets you pick a specific friend or any other player by username; only they can see and copy it, without making the whole army public (Discord: two players had to both make their armies public just to see each other\'s, since there was no way to share with just one person). A "Shared with me" list now sits next to your own armies and the public feed.',
+      'Friend requests — adding a friend now sends a request instead of adding both ways silently; it shows up as a message with Accept/Decline buttons, and there\'s a pending-requests list in the Friends tab too.',
     ],
   },
   {

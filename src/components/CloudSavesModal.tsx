@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as api from '../lib/api';
-import type { PublicArmySummary, FriendRow, UserSearchResult } from '../lib/api';
+import type { PublicArmySummary, FriendRow, UserSearchResult, FriendRequestRow, RosterShareUser, SharedArmySummary } from '../lib/api';
 import { useT } from '../i18n';
 import { useArmyStore } from '../store/army';
 import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine/points';
@@ -52,6 +52,8 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   const [error, setError]     = useState('');
   const [saving, setSaving]   = useState(false);
   const [newName, setNewName] = useState('');
+  const [friends, setFriends] = useState<FriendRow[]>([]);
+  const [openShareId, setOpenShareId] = useState<number | null>(null);
 
   const store = useArmyStore();
   const totalPts = store.data
@@ -74,6 +76,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   }
 
   useEffect(() => { refresh(); }, []);
+  useEffect(() => { api.listFriends().then(r => setFriends(r.friends)).catch(() => {}); }, []);
 
   async function handleSaveNew() {
     const name = newName.trim() || armyName.trim() || faction || 'Army';
@@ -177,7 +180,18 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                   >
                     {r.is_public ? t('publicLabel') : t('privateLabel')}
                   </button>
+                  <button
+                    onClick={() => setOpenShareId(cur => cur === r.id ? null : r.id)}
+                    className={`text-[10px] px-1.5 py-0.5 border uppercase tracking-wide transition-colors ${
+                      openShareId === r.id
+                        ? 'border-amber-600 bg-amber-900/30 text-amber-400'
+                        : 'border-amber-800/60 text-amber-600 hover:text-amber-400 hover:border-amber-600'
+                    }`}
+                  >
+                    👥 {t('shareButton')}
+                  </button>
                 </div>
+                {openShareId === r.id && <ShareRosterPanel rosterId={r.id} friends={friends} />}
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">{t('loadButton')}</button>
@@ -192,6 +206,89 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   );
 }
 
+/** Inline expandable panel on a roster row — share with a specific user (typed or picked from
+ * the friends datalist) and manage who it's currently shared with. Sharing doesn't require the
+ * roster to be public, and doesn't require friendship either (same trust level as making it
+ * public — the owner is explicitly choosing the recipient). */
+function ShareRosterPanel({ rosterId, friends }: { rosterId: number; friends: FriendRow[] }) {
+  const t = useT();
+  const [shared, setShared] = useState<RosterShareUser[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [input, setInput] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  async function load() {
+    setLoading(true);
+    try { const r = await api.getRosterShares(rosterId); setShared(r.sharedWith); }
+    catch (err) { setError((err as Error).message); }
+    finally { setLoading(false); }
+  }
+  useEffect(() => { load(); }, [rosterId]);
+
+  async function handleShare() {
+    if (!input.trim() || busy) return;
+    setBusy(true); setError('');
+    try { await api.shareRoster(rosterId, input.trim()); setInput(''); await load(); }
+    catch (err) { setError((err as Error).message); }
+    finally { setBusy(false); }
+  }
+
+  async function handleUnshare(username: string) {
+    setBusy(true); setError('');
+    try { await api.unshareRoster(rosterId, username); await load(); }
+    catch (err) { setError((err as Error).message); }
+    finally { setBusy(false); }
+  }
+
+  const listId = `share-friends-${rosterId}`;
+
+  return (
+    <div className="mt-2 pt-2 border-t border-zinc-700/60 space-y-2" onClick={e => e.stopPropagation()}>
+      <div className="flex gap-1.5">
+        <input
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Enter') handleShare(); }}
+          list={listId}
+          placeholder={t('shareWithUsernamePlaceholder')}
+          className="flex-1 bg-zinc-900 border border-zinc-700 focus:border-amber-700 text-zinc-200 text-[11px] px-2 py-1 outline-none"
+        />
+        <datalist id={listId}>
+          {friends.map(f => <option key={f.username} value={f.username} />)}
+        </datalist>
+        <button
+          disabled={busy || !input.trim()}
+          onClick={handleShare}
+          className="text-[10px] px-2 py-1 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 disabled:opacity-50 uppercase tracking-wide shrink-0"
+        >
+          {t('shareButton')}
+        </button>
+      </div>
+      {error && <p className="text-red-400 text-[10px]">{error}</p>}
+      {loading ? (
+        <p className="text-zinc-600 text-[10px]">{t('loadingEllipsis')}</p>
+      ) : (
+        <div>
+          <div className="text-[10px] text-zinc-600 uppercase tracking-wide mb-1">{t('sharedWithHeader')}</div>
+          {shared.length === 0 ? (
+            <p className="text-zinc-600 text-[10px] italic">{t('notSharedYet')}</p>
+          ) : (
+            <div className="flex flex-wrap gap-1.5">
+              {shared.map(u => (
+                <span key={u.username} className="flex items-center gap-1 text-[10px] bg-zinc-900 border border-zinc-700 text-zinc-300 px-1.5 py-0.5">
+                  {u.username}
+                  <button disabled={busy} onClick={() => handleUnshare(u.username)} className="text-zinc-600 hover:text-red-400 disabled:opacity-50">×</button>
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Community tab ────────────────────────────────────────────────────────────
 
 function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
@@ -200,17 +297,29 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
   onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
 }) {
   const t = useT();
-  const [filter, setFilter] = useState<'all' | 'friends'>('all');
-  const [armies, setArmies] = useState<PublicArmySummary[]>([]);
+  const [filter, setFilter] = useState<'all' | 'friends' | 'shared'>('all');
+  const [armies, setArmies] = useState<(PublicArmySummary & { shared?: boolean })[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [copying, setCopying] = useState<number | null>(null);
   const [copied, setCopied] = useState<number | null>(null);
   const [votingId, setVotingId] = useState<number | null>(null);
 
-  async function load(type: 'all' | 'friends') {
+  function toCard(s: SharedArmySummary): PublicArmySummary & { shared: boolean } {
+    return { ...s, upvotes: 0, downvotes: 0, user_vote: null, shared: true };
+  }
+
+  async function load(type: 'all' | 'friends' | 'shared') {
     setLoading(true); setError('');
-    try { const res = await api.getPublicArmies(type); setArmies(res.armies); }
+    try {
+      if (type === 'shared') {
+        const res = await api.getSharedWithMe();
+        setArmies(res.armies.map(toCard));
+      } else {
+        const res = await api.getPublicArmies(type);
+        setArmies(res.armies);
+      }
+    }
     catch (err) { setError((err as Error).message); }
     finally { setLoading(false); }
   }
@@ -277,7 +386,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
         <div className="text-[11px] text-zinc-500">{t('communityHeader')}</div>
         {loggedIn && (
           <div className="flex gap-1">
-            {(['all', 'friends'] as const).map(f => (
+            {(['all', 'friends', 'shared'] as const).map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -285,7 +394,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                   filter === f ? 'bg-amber-900/40 border-amber-700 text-amber-400' : 'border-zinc-700 text-zinc-500 hover:text-zinc-300'
                 }`}
               >
-                {f === 'all' ? t('filterAll') : t('tabFriends')}
+                {f === 'all' ? t('filterAll') : f === 'friends' ? t('tabFriends') : t('filterShared')}
               </button>
             ))}
           </div>
@@ -296,7 +405,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
         <p className="text-zinc-500 text-sm text-center py-6">{t('loadingEllipsis')}</p>
       ) : armies.length === 0 ? (
         <p className="text-zinc-500 italic text-sm text-center py-8">
-          {filter === 'friends' ? t('noFriendArmies') : t('noPublicArmies')}
+          {filter === 'friends' ? t('noFriendArmies') : filter === 'shared' ? t('noSharedArmies') : t('noPublicArmies')}
         </p>
       ) : (
         <div className="space-y-2">
@@ -310,10 +419,11 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                   {a.faction_label ? ` · ${a.faction_label}` : ''}
                   {a.total_pts != null ? ` · ${a.total_pts} pts` : ''}
                   <span className="ml-1">· {formatDate(a.updated_at)}</span>
+                  {a.shared && <span className="ml-1.5 text-[9px] text-amber-600 uppercase tracking-wide">👥 {t('sharedWithYouBadge')}</span>}
                 </div>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
-                {loggedIn && (
+                {loggedIn && !a.shared && (
                   <>
                     <button
                       onClick={() => handleVote(a, 1)}
@@ -377,6 +487,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
 function FriendsTab() {
   const t = useT();
   const [friends, setFriends] = useState<FriendRow[]>([]);
+  const [requests, setRequests] = useState<FriendRequestRow[]>([]);
   const [search, setSearch]   = useState('');
   const [results, setResults] = useState<UserSearchResult[]>([]);
   const [searching, setSearching] = useState(false);
@@ -387,7 +498,10 @@ function FriendsTab() {
 
   async function loadFriends() {
     setLoading(true);
-    try { const r = await api.listFriends(); setFriends(r.friends); }
+    try {
+      const [fr, rq] = await Promise.all([api.listFriends(), api.getFriendRequests()]);
+      setFriends(fr.friends); setRequests(rq.requests);
+    }
     catch (err) { setError((err as Error).message); }
     finally { setLoading(false); }
   }
@@ -408,14 +522,37 @@ function FriendsTab() {
 
   async function handleAdd(username: string) {
     setBusy(username); setError('');
-    try { await api.addFriend(username); await loadFriends(); setResults(r => r.map(u => u.username === username ? { ...u, isFriend: true } : u)); }
+    try {
+      const res = await api.addFriend(username);
+      await loadFriends();
+      setResults(r => r.map(u => u.username === username
+        ? { ...u, isFriend: res.status === 'accepted', requestPending: res.status === 'pending', theyRequestedMe: false }
+        : u));
+    }
     catch (err) { setError((err as Error).message); }
     finally { setBusy(''); }
   }
 
   async function handleRemove(username: string) {
     setBusy(username); setError('');
-    try { await api.removeFriend(username); await loadFriends(); setResults(r => r.map(u => u.username === username ? { ...u, isFriend: false } : u)); }
+    try {
+      await api.removeFriend(username);
+      await loadFriends();
+      setResults(r => r.map(u => u.username === username ? { ...u, isFriend: false, requestPending: false } : u));
+    }
+    catch (err) { setError((err as Error).message); }
+    finally { setBusy(''); }
+  }
+
+  async function handleRespond(username: string, accept: boolean) {
+    setBusy(username); setError('');
+    try {
+      await api.respondToFriendRequest(username, accept);
+      await loadFriends();
+      setResults(r => r.map(u => u.username === username
+        ? { ...u, isFriend: accept, theyRequestedMe: false }
+        : u));
+    }
     catch (err) { setError((err as Error).message); }
     finally { setBusy(''); }
   }
@@ -442,17 +579,49 @@ function FriendsTab() {
                     <div className="text-[10px] text-zinc-500">{u.publicArmyCount} {u.publicArmyCount === 1 ? t('publicArmySingular') : t('publicArmyPlural')}</div>
                   )}
                 </div>
-                <button
-                  disabled={busy === u.username}
-                  onClick={() => u.isFriend ? handleRemove(u.username) : handleAdd(u.username)}
-                  className={`text-[11px] px-2.5 py-1 border uppercase tracking-wide disabled:opacity-50 transition-colors ${
-                    u.isFriend
-                      ? 'border-red-900/50 text-red-600 hover:text-red-400 hover:border-red-700'
-                      : 'border-amber-800 text-amber-600 hover:text-amber-400 hover:border-amber-600'
-                  }`}
-                >
-                  {u.isFriend ? t('removeLabel') : t('addFriendButton')}
-                </button>
+                {u.isFriend ? (
+                  <button
+                    disabled={busy === u.username}
+                    onClick={() => handleRemove(u.username)}
+                    className="text-[11px] px-2.5 py-1 border border-red-900/50 text-red-600 hover:text-red-400 hover:border-red-700 uppercase tracking-wide disabled:opacity-50 transition-colors"
+                  >
+                    {t('removeLabel')}
+                  </button>
+                ) : u.theyRequestedMe ? (
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      disabled={busy === u.username}
+                      onClick={() => handleRespond(u.username, true)}
+                      className="text-[11px] px-2 py-1 border border-emerald-700 text-emerald-500 hover:text-emerald-400 hover:bg-emerald-900/20 uppercase tracking-wide disabled:opacity-50"
+                    >
+                      {t('acceptFriendButton')}
+                    </button>
+                    <button
+                      disabled={busy === u.username}
+                      onClick={() => handleRespond(u.username, false)}
+                      className="text-[11px] px-2 py-1 border border-red-900/50 text-red-600 hover:text-red-400 uppercase tracking-wide disabled:opacity-50"
+                    >
+                      {t('declineFriendButton')}
+                    </button>
+                  </div>
+                ) : u.requestPending ? (
+                  <button
+                    disabled={busy === u.username}
+                    onClick={() => handleRemove(u.username)}
+                    title={t('cancelRequestHint')}
+                    className="text-[11px] px-2.5 py-1 border border-zinc-700 text-zinc-500 hover:text-red-400 hover:border-red-700 uppercase tracking-wide disabled:opacity-50 transition-colors"
+                  >
+                    {t('requestPendingLabel')}
+                  </button>
+                ) : (
+                  <button
+                    disabled={busy === u.username}
+                    onClick={() => handleAdd(u.username)}
+                    className="text-[11px] px-2.5 py-1 border border-amber-800 text-amber-600 hover:text-amber-400 hover:border-amber-600 uppercase tracking-wide disabled:opacity-50 transition-colors"
+                  >
+                    {t('addFriendButton')}
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -460,6 +629,37 @@ function FriendsTab() {
       </div>
 
       {error && <p className="text-red-400 text-xs">{error}</p>}
+
+      {/* Incoming requests */}
+      {requests.length > 0 && (
+        <div>
+          <div className="text-[11px] uppercase tracking-widest text-amber-500 mb-2">{t('incomingRequestsHeader')}</div>
+          <div className="space-y-1.5">
+            {requests.map(r => (
+              <div key={r.username} className="flex items-center gap-3 bg-amber-950/20 border border-amber-800/50 px-3 py-2">
+                <Avatar username={r.username} avatar={r.avatar} size={28} />
+                <div className="flex-1 min-w-0 text-sm text-zinc-200">{r.username}</div>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    disabled={busy === r.username}
+                    onClick={() => handleRespond(r.username, true)}
+                    className="text-[11px] px-2 py-1 border border-emerald-700 text-emerald-500 hover:text-emerald-400 hover:bg-emerald-900/20 uppercase tracking-wide disabled:opacity-50"
+                  >
+                    {t('acceptFriendButton')}
+                  </button>
+                  <button
+                    disabled={busy === r.username}
+                    onClick={() => handleRespond(r.username, false)}
+                    className="text-[11px] px-2 py-1 border border-red-900/50 text-red-600 hover:text-red-400 uppercase tracking-wide disabled:opacity-50"
+                  >
+                    {t('declineFriendButton')}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Friends list */}
       <div>

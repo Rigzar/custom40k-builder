@@ -11,7 +11,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v165_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165b_dismissed';
 
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
@@ -24,7 +24,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: "⚖️ 29 units across every faction — Chaplains, Librarians, Lords, Autarchs and more — showed their promoted-only bonus (a second use of a signature ability, an extra power) whether or not anyone paid for the promotion. Now tied to actually buying it.",
     line4: "🔩 Rubric Marines' Sorcerer no longer counts toward the squad's own Warpflamer swap (8 max in a 9-model squad, not 9). Stormtroopers' special-weapon swaps now remove the old lasgun, and Deep Strike/Infiltrator cost their printed point per model and actually do something. A 2-Manticore squadron can now upgrade both Manticores, not just one.",
     line5: "⚪ Adepta Sororitas — promoting a Sisters Novitiate squad's Sister Superior to a Veteran Superior no longer shows 10 Sister Novitiate instead of 9.",
-    line6: "",
+    line6: "👥 Sharing an army privately is now possible — hit \"Share\" on any of your armies and pick a friend or any other player by username; only they can see and copy it, no need to make it fully public. Friend requests now go through Accept/Decline instead of adding both ways silently.",
     contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -36,7 +36,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: "⚖️ 29 Einheiten aus jeder Fraktion — Kapläne, Bibliothekare, Lords, Autarchen und mehr — zeigten ihren Beförderungs-Bonus (zweite Nutzung einer Signaturfähigkeit, zusätzliche Kraft) unabhängig davon, ob die Beförderung bezahlt wurde. Jetzt an den tatsächlichen Kauf gebunden.",
     line4: "🔩 Der Sorcerer der Rubric Marines zählt nicht mehr zum eigenen Warpflamer-Tausch des Trupps (max. 8 bei 9 Modellen, nicht 9). Sturmtruppen-Spezialwaffentausch entfernt jetzt das alte Lasgewehr, und Deep Strike/Infiltrator kosten den gedruckten Punkt pro Modell und tun tatsächlich etwas. Ein 2-Manticore-Geschwader kann jetzt beide Manticores aufrüsten, nicht nur eine.",
     line5: "⚪ Adepta Sororitas — wird die Sister Superior eines Sisters-Novitiate-Trupps zur Veteran Superior befördert, zeigt der Trupp nicht mehr 10 statt 9 Sister Novitiate.",
-    line6: "",
+    line6: "👥 Eine Armee privat teilen ist jetzt möglich — „Teilen“ bei einer eigenen Armee anklicken und einen Freund oder beliebigen Spieler per Benutzernamen wählen; nur diese Person kann sie sehen und kopieren, ohne sie komplett öffentlich zu machen. Freundschaftsanfragen laufen jetzt über Annehmen/Ablehnen statt beide Seiten stillschweigend hinzuzufügen.",
     contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -48,7 +48,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: "⚖️ 29 unidades de todas las facciones — Capellanes, Bibliotecarios, Lores, Autarcas y más — mostraban su bonus de ascenso (un segundo uso de una habilidad de firma, un poder extra) se hubiera pagado o no el ascenso. Ahora depende de comprarlo de verdad.",
     line4: "🔩 El Sorcerer de los Rubric Marines ya no cuenta para el propio cambio de Warpflamer de la escuadra (máximo 8 en una escuadra de 9, no 9). Los cambios de arma especial de los Stormtroopers ahora retiran el lasgun viejo, y Deep Strike/Infiltrator cuestan el punto impreso por modelo y hacen algo de verdad. Un escuadrón de 2 Manticores ya puede mejorar los dos, no solo uno.",
     line5: "⚪ Adepta Sororitas — ascender a la Sister Superior de una escuadra de Sisters Novitiate a Veteran Superior ya no muestra 10 Sister Novitiate en vez de 9.",
-    line6: "",
+    line6: "👥 Ahora se puede compartir un ejército en privado — pulsa \"Compartir\" en cualquiera de tus ejércitos y elige un amigo o cualquier jugador por su nombre de usuario; solo esa persona podrá verlo y copiarlo, sin necesidad de hacerlo público del todo. Las solicitudes de amistad ahora pasan por Aceptar/Rechazar en vez de añadirse en ambos sentidos en silencio.",
     contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };

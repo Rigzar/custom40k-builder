@@ -87,6 +87,11 @@ export const SM_ARCHETYPES: Record<string, ArchetypeRule> = {
     troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
     troopsCount: 'remap',
     alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',
+    // Gives the Horus Heresy supplement its own ArmoryModal tab (same alliedFaction key doubling
+    // as armoryOnlyFaction — see the identical fix + full explanation on codex_csm's 'Legion').
+    // This side never even had a sharedSupplementArmory attempt; the items were simply
+    // unreachable through any tab.
+    armoryOnlyFaction: 'horus_heresy',
     notes: [
       'Access to all Horus Heresy Legiones Astartes supplement units.',
       'Only HH supplement Troops count towards the 25%.',

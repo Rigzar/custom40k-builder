@@ -1,8 +1,8 @@
 /**
  * Direct messaging between users. Cookie-session authed (not admin-gated).
  *   GET  /api/messages/unread            -> { count }
- *   GET  /api/messages/inbox             -> { conversations: [{ username, is_admin, last, created_at, unread }] }
- *   GET  /api/messages/thread?with=NAME  -> { messages: [...] }  (also marks the thread read)
+ *   GET  /api/messages/inbox             -> { conversations: [{ username, is_admin, last, lastKind, created_at, unread }] }
+ *   GET  /api/messages/thread?with=NAME  -> { messages: [{ ..., kind }] }  (also marks the thread read)
  *   POST /api/messages/send { to, body } -> { ok }
  */
 import { sql, ensureSchema } from '../_lib/db.js';
@@ -40,7 +40,7 @@ async function inbox(req, res) {
   try {
     // all messages involving me, newest first; aggregate by counterpart in JS
     const r = await sql`
-      SELECT m.id, m.from_user_id, m.to_user_id, m.body, m.created_at, m.read_at,
+      SELECT m.id, m.from_user_id, m.to_user_id, m.body, m.kind, m.created_at, m.read_at,
              uf.username AS from_username, ut.username AS to_username,
              uf.is_admin AS from_admin, ut.is_admin AS to_admin
       FROM messages m
@@ -57,7 +57,7 @@ async function inbox(req, res) {
         ? { username: m.to_username, is_admin: m.to_admin }
         : { username: m.from_username, is_admin: m.from_admin };
       if (!convos.has(other.username)) {
-        convos.set(other.username, { username: other.username, is_admin: other.is_admin, last: m.body, created_at: m.created_at, unread: 0 });
+        convos.set(other.username, { username: other.username, is_admin: other.is_admin, last: m.body, lastKind: m.kind, created_at: m.created_at, unread: 0 });
       }
       if (!iAmSender && m.read_at == null) convos.get(other.username).unread += 1;
     }
@@ -75,7 +75,7 @@ async function thread(req, res) {
     if (!other.rows[0]) return res.status(404).json({ error: 'User not found' });
     const oid = other.rows[0].id;
     const r = await sql`
-      SELECT m.id, m.from_user_id, m.body, m.created_at, m.read_at,
+      SELECT m.id, m.from_user_id, m.body, m.kind, m.created_at, m.read_at,
              uf.username AS from_username, uf.is_admin AS from_admin
       FROM messages m JOIN users uf ON uf.id = m.from_user_id
       WHERE (m.from_user_id = ${me} AND m.to_user_id = ${oid})

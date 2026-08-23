@@ -109,24 +109,27 @@ export function TraitPickerModal({ traits, excludedNames, currentValue, slotLabe
                       : `bg-zinc-900 border-zinc-700 ${rowHoverBorder} cursor-pointer`
                 }`}
               >
-                <div className="flex justify-between items-start gap-3">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="text-[12px] font-semibold text-zinc-100">{tr.name}</span>
-                      {isCurrent && (
-                        <span className="text-[9px] bg-zinc-700 text-zinc-300 px-1 py-0.5 uppercase tracking-wide">{t('selectedBadge')}</span>
-                      )}
-                      {isExcluded && (
-                        <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase tracking-wide">{t('traitTakenByOtherSlot')}</span>
-                      )}
-                    </div>
-                    <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{tr.desc}</div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="text-[12px] font-semibold text-zinc-100">{tr.name}</span>
+                    {isCurrent && (
+                      <span className="text-[9px] bg-zinc-700 text-zinc-300 px-1 py-0.5 uppercase tracking-wide">{t('selectedBadge')}</span>
+                    )}
+                    {isExcluded && (
+                      <span className="text-[9px] bg-red-900/50 text-red-400 border border-red-800 px-1 py-0.5 uppercase tracking-wide">{t('traitTakenByOtherSlot')}</span>
+                    )}
                   </div>
+                  {/* Own line rather than floated beside the name — a trait's cost can be three
+                      joined segments ("+5 pts per unit · +5 pts per monster · free (per char)"),
+                      much longer than an Armory item's flat "+9 pts", and nowrap-beside-the-name
+                      overflowed off narrow screens and overlapped the row below it (reported on
+                      mobile, Discord). */}
                   {costParts.length > 0 && (
-                    <span className={`text-[10px] font-mono shrink-0 whitespace-nowrap ${accent === 'emerald' ? 'text-emerald-500' : 'text-amber-500'}`}>
+                    <div className={`text-[10px] font-mono mt-0.5 ${accent === 'emerald' ? 'text-emerald-500' : 'text-amber-500'}`}>
                       {costParts.join(' · ')}
-                    </span>
+                    </div>
                   )}
+                  <div className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed">{tr.desc}</div>
                 </div>
               </div>
             );

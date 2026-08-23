@@ -241,7 +241,15 @@ function _buildCSMArchetypes(): Record<string, ArchetypeRule> {
     troopsRemap: ['Legion Breacher Squad', 'Legion Tactical Squad', 'Legion Tactical Support Squad'],
     troopsCount: 'remap',
     alliedFaction: 'horus_heresy', alliedMarkFilter: 'all',
-    sharedSupplementArmory: 'Horus Heresy',
+    // "Access to the Horus Heresy Armory for the whole army" needs its own ArmoryModal tab, same
+    // mechanism as Dark Mechanicum -> chaos_space_marines (armoryOnlyFaction alongside the SAME
+    // alliedFaction key — combining both is an established pattern, not new here). The field this
+    // used to set instead, sharedSupplementArmory, only ever matched a key inside THIS faction's
+    // own armory_legions (Red Corsairs, Black Legion, ...) — Horus Heresy is a whole separate
+    // injected faction, never a key there, so the tab never rendered and the items were simply
+    // unreachable (Discord: "el de horus heresy sale mezclado dentro de tyrant no se por que" —
+    // it wasn't mixed in, it just never showed up anywhere).
+    armoryOnlyFaction: 'horus_heresy',
     notes: [
       'Access to all Horus Heresy Legiones Astartes supplement units.',
       'Access to the Horus Heresy Armory for the whole army.',

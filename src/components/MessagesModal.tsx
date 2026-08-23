@@ -9,22 +9,30 @@ interface MsgTx {
   title: string; inbox: string; noConversations: string; newMessage: string; back: string;
   to: string; recipientPlaceholder: string; bodyPlaceholder: string; send: string; sending: string;
   you: string; inquisitor: string; loading: string; emptyThread: string;
+  friendRequestBadge: string; acceptButton: string; declineButton: string;
+  requestAccepted: string; requestDeclined: string;
 }
 const MSG_I18N: Record<Language, MsgTx> = {
   en: {
     title: 'Messages', inbox: 'Inbox', noConversations: 'No conversations yet.', newMessage: '+ New message', back: '← Inbox',
     to: 'To', recipientPlaceholder: 'username', bodyPlaceholder: 'Write a message…', send: 'Send', sending: 'Sending…',
     you: 'You', inquisitor: 'Inquisitor', loading: 'Loading…', emptyThread: 'No messages yet — say hello.',
+    friendRequestBadge: '👥 Friend request', acceptButton: '✓ Accept', declineButton: '✕ Decline',
+    requestAccepted: 'Accepted', requestDeclined: 'Declined',
   },
   de: {
     title: 'Nachrichten', inbox: 'Posteingang', noConversations: 'Noch keine Unterhaltungen.', newMessage: '+ Neue Nachricht', back: '← Posteingang',
     to: 'An', recipientPlaceholder: 'Benutzername', bodyPlaceholder: 'Nachricht schreiben…', send: 'Senden', sending: 'Sende…',
     you: 'Du', inquisitor: 'Inquisitor', loading: 'Lädt…', emptyThread: 'Noch keine Nachrichten — sag Hallo.',
+    friendRequestBadge: '👥 Freundschaftsanfrage', acceptButton: '✓ Annehmen', declineButton: '✕ Ablehnen',
+    requestAccepted: 'Angenommen', requestDeclined: 'Abgelehnt',
   },
   es: {
     title: 'Mensajes', inbox: 'Bandeja', noConversations: 'Aún no hay conversaciones.', newMessage: '+ Nuevo mensaje', back: '← Bandeja',
     to: 'Para', recipientPlaceholder: 'usuario', bodyPlaceholder: 'Escribe un mensaje…', send: 'Enviar', sending: 'Enviando…',
     you: 'Tú', inquisitor: 'Inquisidor', loading: 'Cargando…', emptyThread: 'Aún no hay mensajes — saluda.',
+    friendRequestBadge: '👥 Solicitud de amistad', acceptButton: '✓ Aceptar', declineButton: '✕ Rechazar',
+    requestAccepted: 'Aceptada', requestDeclined: 'Rechazada',
   },
 };
 
@@ -56,6 +64,9 @@ export function MessagesModal({ onClose, initialTo }: Props) {
   const [composeTo, setComposeTo] = useState(initialTo ?? '');
   const [body, setBody] = useState('');
   const [sending, setSending] = useState(false);
+  const [pendingFrom, setPendingFrom] = useState(false);
+  const [respondBusy, setRespondBusy] = useState(false);
+  const [respondedAccept, setRespondedAccept] = useState<boolean | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   async function loadInbox() {
@@ -69,10 +80,23 @@ export function MessagesModal({ onClose, initialTo }: Props) {
 
   async function openThread(username: string) {
     setActiveUser(username); setView('thread'); setMessages([]);
+    setPendingFrom(false); setRespondedAccept(null);
     try {
       const r = await api.getThread(username);
       setMessages(r.messages); setOtherAdmin(r.other.is_admin);
+      const reqs = await api.getFriendRequests();
+      setPendingFrom(reqs.requests.some(req => req.username === username));
     } catch (e) { setErr(String(e)); }
+  }
+
+  async function handleRespond(accept: boolean) {
+    if (!activeUser || respondBusy) return;
+    setRespondBusy(true); setErr('');
+    try {
+      await api.respondToFriendRequest(activeUser, accept);
+      setPendingFrom(false); setRespondedAccept(accept);
+    } catch (e) { setErr(String(e)); }
+    finally { setRespondBusy(false); }
   }
 
   async function handleSend(to: string) {
@@ -125,7 +149,9 @@ export function MessagesModal({ onClose, initialTo }: Props) {
                         <span className={c.is_admin ? 'text-amber-400' : 'text-zinc-200'}>{c.username}</span>
                         {c.is_admin && <InquisitorBadge label={L.inquisitor} />}
                       </div>
-                      <p className="text-zinc-500 text-[11px] truncate">{c.last}</p>
+                      <p className="text-zinc-500 text-[11px] truncate">
+                        {c.lastKind === 'friend_request' ? <span className="text-amber-500">{L.friendRequestBadge}</span> : c.last}
+                      </p>
                     </div>
                     <span className="text-zinc-600 text-[9px] font-mono shrink-0">{fmt(c.created_at)}</span>
                     {c.unread > 0 && <span className="bg-amber-700 text-amber-100 text-[9px] rounded-full px-1.5 py-0.5 shrink-0">{c.unread}</span>}
@@ -144,11 +170,39 @@ export function MessagesModal({ onClose, initialTo }: Props) {
                 <p className="text-zinc-600 text-xs font-mono italic">{L.emptyThread}</p>
               ) : messages.map(m => {
                 const mine = m.from_username !== activeUser;
+                const isFriendReq = m.kind === 'friend_request';
                 return (
                   <div key={m.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[80%] px-3 py-1.5 text-[12px] border ${mine ? 'border-amber-900/50 bg-amber-950/20' : 'border-zinc-800 bg-zinc-900'}`}>
+                    <div className={`max-w-[80%] px-3 py-1.5 text-[12px] border ${
+                      isFriendReq ? 'border-amber-700/60 bg-amber-950/30' : mine ? 'border-amber-900/50 bg-amber-950/20' : 'border-zinc-800 bg-zinc-900'
+                    }`}>
                       {!mine && m.from_admin && <div className="mb-0.5"><InquisitorBadge label={L.inquisitor} /></div>}
+                      {isFriendReq && <div className="text-amber-500 text-[10px] uppercase tracking-wide mb-0.5">{L.friendRequestBadge}</div>}
                       <p className="whitespace-pre-wrap break-words text-zinc-200">{m.body}</p>
+                      {isFriendReq && !mine && (
+                        pendingFrom ? (
+                          <div className="flex items-center gap-1.5 mt-1.5">
+                            <button
+                              disabled={respondBusy}
+                              onClick={() => handleRespond(true)}
+                              className="text-[10px] px-2 py-0.5 border border-emerald-700 text-emerald-500 hover:text-emerald-400 hover:bg-emerald-900/20 uppercase tracking-wide disabled:opacity-50"
+                            >
+                              {L.acceptButton}
+                            </button>
+                            <button
+                              disabled={respondBusy}
+                              onClick={() => handleRespond(false)}
+                              className="text-[10px] px-2 py-0.5 border border-red-900/50 text-red-500 hover:text-red-400 uppercase tracking-wide disabled:opacity-50"
+                            >
+                              {L.declineButton}
+                            </button>
+                          </div>
+                        ) : respondedAccept !== null ? (
+                          <div className={`text-[10px] mt-1 uppercase tracking-wide ${respondedAccept ? 'text-emerald-500' : 'text-red-500'}`}>
+                            {respondedAccept ? L.requestAccepted : L.requestDeclined}
+                          </div>
+                        ) : null
+                      )}
                       <div className="text-[9px] text-zinc-600 mt-0.5 text-right">{fmt(m.created_at)}</div>
                     </div>
                   </div>

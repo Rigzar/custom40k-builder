@@ -25,7 +25,10 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const result = await sql`
         SELECT id, name, data, updated_at FROM rosters
-        WHERE id = ${id} AND (user_id = ${userId} OR is_public = true)
+        WHERE id = ${id} AND (
+          user_id = ${userId} OR is_public = true
+          OR EXISTS (SELECT 1 FROM roster_shares WHERE roster_id = rosters.id AND shared_with_user_id = ${userId})
+        )
       `;
       if (result.rows.length === 0) {
         res.status(404).json({ error: 'Not found' });

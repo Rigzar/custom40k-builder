@@ -104,8 +104,20 @@ export interface PublicArmySummary {
   username: string; avatar?: string | null;
   upvotes: number; downvotes: number; user_vote: 1 | -1 | null;
 }
-export interface UserSearchResult { username: string; avatar: string | null; isFriend: boolean; publicArmyCount: number; }
+export interface UserSearchResult {
+  username: string; avatar: string | null; isFriend: boolean; publicArmyCount: number;
+  /** I've sent them a request and they haven't answered yet. */
+  requestPending: boolean;
+  /** They've sent ME a request — adding them back accepts it immediately. */
+  theyRequestedMe: boolean;
+}
 export interface FriendRow { username: string; avatar: string | null; publicArmyCount: number; }
+export interface FriendRequestRow { username: string; avatar: string | null; createdAt: string; }
+export interface RosterShareUser { username: string; avatar: string | null; }
+export interface SharedArmySummary {
+  id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
+  username: string; avatar?: string | null;
+}
 export function listRosters() {
   return call<{ rosters: RosterSummary[] }>('/api/rosters');
 }
@@ -146,12 +158,27 @@ export function searchUsers(q: string) {
   return call<{ ok: true; users: UserSearchResult[] }>(`/api/profile/search?q=${encodeURIComponent(q)}`);
 }
 
+/** Sends a friend request, or immediately accepts if `username` already requested me. */
 export function addFriend(username: string) {
-  return call<{ ok: true }>('/api/profile/friend-add', { method: 'POST', body: JSON.stringify({ username }) });
+  return call<{ ok: true; status: 'accepted' | 'pending' }>('/api/profile/friend-add', {
+    method: 'POST', body: JSON.stringify({ username }),
+  });
 }
 
 export function removeFriend(username: string) {
   return call<{ ok: true }>('/api/profile/friend-remove', { method: 'POST', body: JSON.stringify({ username }) });
+}
+
+/** Accept or reject a friend request that's pending FROM `username` TO me. */
+export function respondToFriendRequest(username: string, accept: boolean) {
+  return call<{ ok: true; accepted: boolean }>('/api/profile/friend-respond', {
+    method: 'POST', body: JSON.stringify({ username, accept }),
+  });
+}
+
+/** Requests pending FROM other people TO me. */
+export function getFriendRequests() {
+  return call<{ ok: true; requests: FriendRequestRow[] }>('/api/profile/friend-requests');
 }
 
 export function listFriends() {
@@ -172,6 +199,29 @@ export function voteArmy(rosterId: number, vote: 1 | -1) {
   return call<{ ok: true; user_vote: 1 | -1 | null }>('/api/profile/vote-army', {
     method: 'POST', body: JSON.stringify({ rosterId, vote }),
   });
+}
+
+/** Share one of MY OWN rosters with a specific user — visible to them regardless of is_public. */
+export function shareRoster(rosterId: number, username: string) {
+  return call<{ ok: true }>('/api/profile/share-roster', {
+    method: 'POST', body: JSON.stringify({ rosterId, username }),
+  });
+}
+
+export function unshareRoster(rosterId: number, username: string) {
+  return call<{ ok: true }>('/api/profile/unshare-roster', {
+    method: 'POST', body: JSON.stringify({ rosterId, username }),
+  });
+}
+
+/** Who a roster I own is currently shared with. */
+export function getRosterShares(rosterId: number) {
+  return call<{ ok: true; sharedWith: RosterShareUser[] }>(`/api/profile/roster-shares?rosterId=${rosterId}`);
+}
+
+/** Other people's rosters shared with me. */
+export function getSharedWithMe() {
+  return call<{ ok: true; armies: SharedArmySummary[] }>('/api/profile/shared-with-me');
 }
 
 // ── Planetary Assault campaign module (ALPHA) ───────────────────────────────
@@ -460,11 +510,12 @@ export function adminTranslate(texts: string[], from: string, to: string) {
 }
 
 // ── Direct messages ────────────────────────────────────────────────────────────
+export type MessageKind = 'text' | 'friend_request';
 export interface Conversation {
-  username: string; is_admin: boolean; last: string; created_at: string; unread: number;
+  username: string; is_admin: boolean; last: string; lastKind: MessageKind; created_at: string; unread: number;
 }
 export interface Message {
-  id: number; from_user_id: number; body: string; created_at: string; read_at: string | null;
+  id: number; from_user_id: number; body: string; kind: MessageKind; created_at: string; read_at: string | null;
   from_username: string; from_admin: boolean;
 }
 export function getUnreadCount() {
