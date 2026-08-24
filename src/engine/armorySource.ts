@@ -23,10 +23,20 @@ import type { Armory, ArmoryItem, FactionData } from '../types/data';
  */
 function mergeArmory(own: Armory | undefined, parent: Armory): Armory {
   if (!own) return parent;
+  // Only pull in the specific categories a supplement datasheet actually references from the
+  // parent codex (see the file-level comment: "Veteran ability" / "vehicle equipment" are the
+  // ONLY things these datasheets lean on the parent for) — not the parent's entire general
+  // armory. Without this filter an HH/Legio Titanicus unit's "General" tab showed all 72 CSM (or
+  // 67 AdMech) general items, including host-specific gear (Kai gun, Daemonic weapons, Force
+  // weapons, ...) that has nothing to do with the "Veteran ability"/"vehicle equipment" grant and
+  // was never meant to be reachable from a supplement with its own, much smaller catalog
+  // (user report 2026-08-24: "no deberian tener acceso a la armeria de csm normal").
+  const NEEDED_CATEGORIES = new Set(['veteran', 'vehicle']);
+  const filterNeeded = (items: ArmoryItem[] = []) => items.filter(i => NEEDED_CATEGORIES.has(i.category ?? ''));
   // The supplement's own entry wins a name clash: it is the more specific book.
   const merge = (a: ArmoryItem[] = [], b: ArmoryItem[] = []) => {
     const seen = new Set(a.map(x => x.name.toLowerCase()));
-    return [...a, ...b.filter(x => !seen.has(x.name.toLowerCase()))];
+    return [...a, ...filterNeeded(b).filter(x => !seen.has(x.name.toLowerCase()))];
   };
   return {
     ...own,

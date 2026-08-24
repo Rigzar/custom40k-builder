@@ -46,6 +46,17 @@ const ELDAR_EXARCH_POWERS = [
   'Surprise assault',
 ];
 
+/** Horus Heresy "Crusade weapon" (ᵀ, +10 pts): the item's own desc names 5 mutually-exclusive
+ *  enhancements ("One melee weapon of the model gains one of the following: Chain / Charnabal /
+ *  Nocturne masterwork / Phoenix / Solarite...") but was previously just a flat +10 pt buy with no
+ *  way to say WHICH one — the model gained nothing (user report 2026-08-24: "no da opcion de
+ *  elegir el bono que quieres"). Reuses the same chosenPower picker mechanism as Eldar's "Paragon
+ *  of war" below — a fixed named pool is the same shape either way. The desc's own "Every
+ *  enhancement in the army must be the same" is not cross-checked (no other army-wide "all X must
+ *  match" purchase constraint is enforced anywhere else in this engine either); left as a manual
+ *  table-rule for the player, same treatment as every other such army-wide consistency clause. */
+const CRUSADE_WEAPON_ENHANCEMENTS = ['Chain', 'Charnabal', 'Nocturne masterwork', 'Phoenix', 'Solarite'];
+
 interface Props {
   item: RosterEntry;
   unit: Unit;
@@ -1231,7 +1242,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               onAdd={arm => {
                 if (isAddBlocked(arm, 'equipment')) return;
                 const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                const cp = arm.name === 'Paragon of war' ? (eqExarchPower[arm.name] || undefined) : undefined;
+                const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon') ? (eqExarchPower[arm.name] || undefined) : undefined;
                 // A CSM vehicle upgrade reached through Traitor Guard is credited to that armoury,
                 // not to the unit's own "General" — the source is what the roster shows and what
                 // the legacy-armoury lock reads.
@@ -1421,7 +1432,7 @@ function EquipmentGroups({
             const uniqueSel = isUniqueSelected ? isUniqueSelected(arm) : false;
             const needsTarget = requiresWeaponTarget(arm.desc) && availableWeapons.length > 0;
             const chosenTarget = eqTargetWeapon[arm.name] ?? '';
-            const needsPower = arm.name === 'Paragon of war';
+            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon';
             const chosenPower = eqExarchPower[arm.name] ?? '';
             const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
             return (
@@ -1451,17 +1462,20 @@ function EquipmentGroups({
                     </select>
                   </div>
                 )}
-                {/* Exarch Power picker — shown for Eldar's "Paragon of war" */}
+                {/* Named-choice picker — Eldar's "Paragon of war" (Exarch Power) or Horus Heresy's
+                    "Crusade weapon" (one of 5 named enhancements). Same mechanism, different pool. */}
                 {needsPower && !uniqueSel && !(getSelId?.(arm.name)) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
-                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('exarchPowerLabel')}</span>
+                    <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">
+                      {arm.name === 'Crusade weapon' ? t('enhancementLabel') : t('exarchPowerLabel')}
+                    </span>
                     <select
                       value={chosenPower}
                       onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
-                      <option value="">{t('selectPowerOption')}</option>
-                      {ELDAR_EXARCH_POWERS.map(pn => (
+                      <option value="">{arm.name === 'Crusade weapon' ? t('selectEnhancementOption') : t('selectPowerOption')}</option>
+                      {(arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS : ELDAR_EXARCH_POWERS).map(pn => (
                         <option key={pn} value={pn}>{pn}</option>
                       ))}
                     </select>

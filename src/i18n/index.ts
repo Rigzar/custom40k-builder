@@ -116,7 +116,7 @@ export type TranslationKey =
   | 'changeArmoryButton' | 'changeArmoryTooltip' | 'authorityIntro' | 'authorityCapNotice'
   | 'loadingPrefix' | 'chooseDifferentFaction' | 'archetypeArmoryIntroPart1' | 'slotsUsedLabel'
   | 'vehicleWargearHintA' | 'vehicleWargearHintB' | 'applyToLabel' | 'selectWeaponOption'
-  | 'exarchPowerLabel' | 'selectPowerOption' | 'daemonWeaponAbilitiesLabel' | 'noDaemonWeaponTraits'
+  | 'exarchPowerLabel' | 'selectPowerOption' | 'enhancementLabel' | 'selectEnhancementOption' | 'daemonWeaponAbilitiesLabel' | 'noDaemonWeaponTraits'
   | 'uniqueBadge' | 'selectedBadge' | 'takenByAnotherUnit' | 'pickWeaponButton' | 'capReachedButton'
   | 'traitSearchPlaceholder' | 'traitPickerClearSlot' | 'noResultsFound' | 'browseTraitsButton' | 'traitSlotLabel' | 'traitTakenByOtherSlot'
   | 'addButton' | 'appliedToPrefix' | 'addedBadge' | 'gravisBadge' | 'termBadge' | 'inProfileBadge'
@@ -144,7 +144,7 @@ export type TranslationKey =
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
   | 'requiresMarkOfPrefix' | 'requiresKeywordPrefix' | 'notAvailableWithMarkPrefix' | 'championBadge' | 'uniqueTakenBadge' | 'unsavedChangesConfirm' | 'rangeFullLabel' | 'typeFullLabel'
   | 'armyTraitsLabel' | 'clickToChooseSuffix' | 'cannotTakeAllTraits' | 'smiteAlwaysKnownSuffix' | 'allOfPrefix'
-  | 'exarchPowerPrefix' | 'gainsSuffix' | 'traitBadge' | 'ruleBadge' | 'optionBadge' | 'equipBadge'
+  | 'exarchPowerPrefix' | 'enhancementPrefix' | 'gainsSuffix' | 'traitBadge' | 'ruleBadge' | 'optionBadge' | 'equipBadge'
   | 'seeFactionRulesPlain' | 'ammoLabel' | 'veteranLabel' | 'vehicleEquipmentLabel' | 'traitsCountLabel'
   | 'powersPrayersLabel' | 'powersLabel' | 'pactsCountLabel'
   | 'valSkirmishRecommended' | 'valSkirmishCap' | 'valPitchedRecommended' | 'valPitchedCap' | 'valEpicRecommended'
@@ -525,6 +525,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     selectWeaponOption: '— select a weapon —',
     exarchPowerLabel: 'Exarch power:',
     selectPowerOption: '— select a power —',
+    enhancementLabel: 'Enhancement:',
+    selectEnhancementOption: '— select an enhancement —',
     daemonWeaponAbilitiesLabel: 'Daemon Weapon Abilities',
     noDaemonWeaponTraits: 'No daemon weapon traits available',
     uniqueBadge: 'Unique',
@@ -655,6 +657,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     smiteAlwaysKnownSuffix: '(always known)',
     allOfPrefix: 'All of:',
     exarchPowerPrefix: '→ Exarch power:',
+    enhancementPrefix: '→ Enhancement:',
     gainsSuffix: ': gains',
     traitBadge: 'Trait',
     ruleBadge: 'Rule',
@@ -1135,6 +1138,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     selectWeaponOption: '— Waffe wählen —',
     exarchPowerLabel: 'Exarchen-Kraft:',
     selectPowerOption: '— Kraft wählen —',
+    enhancementLabel: 'Verbesserung:',
+    selectEnhancementOption: '— Verbesserung wählen —',
     daemonWeaponAbilitiesLabel: 'Dämonenwaffen-Fähigkeiten',
     noDaemonWeaponTraits: 'Keine Dämonenwaffen-Eigenschaften verfügbar',
     uniqueBadge: 'Einzigartig',
@@ -1265,6 +1270,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     smiteAlwaysKnownSuffix: '(immer bekannt)',
     allOfPrefix: 'Alle von:',
     exarchPowerPrefix: '→ Exarch-Kraft:',
+    enhancementPrefix: '→ Verbesserung:',
     gainsSuffix: ': erhält',
     traitBadge: 'Eigenschaft',
     ruleBadge: 'Regel',
@@ -1745,6 +1751,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     selectWeaponOption: '— selecciona un arma —',
     exarchPowerLabel: 'Poder de Exarca:',
     selectPowerOption: '— selecciona un poder —',
+    enhancementLabel: 'Mejora:',
+    selectEnhancementOption: '— selecciona una mejora —',
     daemonWeaponAbilitiesLabel: 'Habilidades de Arma Demoníaca',
     noDaemonWeaponTraits: 'No hay habilidades de arma demoníaca disponibles',
     uniqueBadge: 'Único',
@@ -1875,6 +1883,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     smiteAlwaysKnownSuffix: '(siempre conocido)',
     allOfPrefix: 'Todos de:',
     exarchPowerPrefix: '→ Poder de Exarca:',
+    enhancementPrefix: '→ Mejora:',
     gainsSuffix: ': gana',
     traitBadge: 'Rasgo',
     ruleBadge: 'Regla',

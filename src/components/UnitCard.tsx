@@ -1919,6 +1919,12 @@ export function UnitCard({ item }: Props) {
                       {t('exarchPowerPrefix')} {a.chosenPower}
                     </div>
                   )}
+                  {/* Horus Heresy "Crusade weapon" — show the chosen enhancement */}
+                  {a.itemName === 'Crusade weapon' && a.chosenPower && (
+                    <div className="text-[10px] text-violet-400/80 mt-0.5 pl-1">
+                      {t('enhancementPrefix')} {a.chosenPower}
+                    </div>
+                  )}
                   <div className="text-[9px] text-zinc-600 mt-0.5">{a.source}</div>
                 </div>
               );

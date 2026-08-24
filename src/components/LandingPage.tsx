@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v165e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165f_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.65: Grey Knights — the power you couldn't find",
@@ -29,6 +29,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🧬🔮 Tyranids and Grey Knights codex sync: Squadron removed from 5 Tyranid units, Feeder Tendrils fixed to \"Favoured Enemy\", a Hive Fleet Legacy now grants only its own gear instead of all 5 at once; Grey Knights gained a third psychic discipline (\"Legacy\", 8 powers) and updated wording on Cleanse Soul, Refrain of Convergence and Force Field.",
     line9: "🛡️ Tyranids — a Tyrant Guard Brood next to a Hive Tyrant, Neurotyrant or Swarmlord was always exempted from an HQ slot with no way to turn it off. Each one now has its own toggle to decline the exemption instead.",
     line10: "⚔️ CSM/SM \"Legion\" and AdMech \"Taghmata\" — units from these supplement archetypes (Horus Heresy, Legio Titanicus) had zero access to the army's own Legacy armory, trait pool or forced mark; they were wrongly treated as a separate Allied Detachment. Fixed — a Legion Tactical Squad can now buy from e.g. the Black Legion Armoury like any other unit.",
+    line11: "🛠️ Horus Heresy/Legio Titanicus follow-up audit: their units could buy the ENTIRE host codex's General armory instead of just the Veteran/vehicle items they actually need, and \"Crusade weapon\" had no way to pick which of its 5 named bonuses applies — it just charged 10 points for nothing. Both fixed.",
     contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -45,6 +46,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🧬🔮 Codex-Abgleich Tyraniden & Grey Knights: Squadron bei 5 Tyraniden-Einheiten entfernt, Feeder Tendrils zu „Favoured Enemy“ korrigiert, eine Hive-Fleet-Legacy gewährt jetzt nur noch ihre eigene Ausrüstung statt aller 5 auf einmal; Grey Knights erhalten eine dritte Psi-Disziplin („Legacy“, 8 neue Kräfte) sowie aktualisierten Text bei Cleanse Soul, Refrain of Convergence und Force Field.",
     line9: "🛡️ Tyraniden — ein Tyrant Guard Brood neben einem Hive Tyrant, Neurotyrant oder Swarmlord war immer von einem HQ-Slot befreit, ohne Möglichkeit das abzuschalten. Jeder hat jetzt einen eigenen Umschalter, um auf die Befreiung zu verzichten.",
     line10: "⚔️ CSM/SM „Legion“ und AdMech „Taghmata“ — Einheiten aus diesen Supplement-Archetypen (Horus Heresy, Legio Titanicus) hatten keinerlei Zugriff auf die eigene Legacy-Armory, den Trait-Pool oder ein erzwungenes Mal; sie wurden fälschlich wie eine eigenständige verbündete Streitmacht behandelt. Behoben — ein Legion Tactical Squad kann jetzt z. B. aus der Black-Legion-Armory kaufen wie jede andere Einheit.",
+    line11: "🛠️ Horus Heresy/Legio Titanicus Nachaudit: ihre Einheiten konnten die GESAMTE General-Armory des Wirtscodex kaufen statt nur die Veteran-/Fahrzeug-Gegenstände, die sie tatsächlich brauchen, und „Crusade weapon“ ließ nicht wählen, welcher der 5 benannten Boni gilt — es kostete einfach 10 Punkte für nichts. Beides behoben.",
     contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -61,6 +63,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🧬🔮 Sincronización de códex Tiránidos y Grey Knights: Squadron quitado de 5 unidades Tiránidas, Feeder Tendrils corregido a \"Favoured Enemy\", una Legacy de Hive Fleet ahora solo da acceso a su propio equipo en vez de los 5 a la vez; Grey Knights gana una tercera disciplina psíquica (\"Legacy\", 8 poderes nuevos) y texto actualizado en Cleanse Soul, Refrain of Convergence y Force Field.",
     line9: "🛡️ Tiránidos — un Tyrant Guard Brood junto a un Hive Tyrant, Neurotyrant o Swarmlord siempre quedaba exento de ocupar un slot de HQ, sin forma de desactivarlo. Ahora cada uno tiene su propio interruptor para renunciar a la exención.",
     line10: "⚔️ CSM/SM \"Legion\" y AdMech \"Taghmata\" — las unidades de estos arquetipos de suplemento (Horus Heresy, Legio Titanicus) no tenían ningún acceso a la armería de Legacy del ejército, a su pool de rasgos ni a su marca forzada; se trataban por error como un Allied Detachment separado. Arreglado — un Legion Tactical Squad ya puede comprar de, por ejemplo, la Black Legion Armoury como cualquier otra unidad.",
+    line11: "🛠️ Auditoría de seguimiento de Horus Heresy/Legio Titanicus: sus unidades podían comprar TODA la armería general del códex anfitrión en vez de solo los ítems de Veterano/vehículo que realmente necesitan, y \"Crusade weapon\" no dejaba elegir cuál de sus 5 bonos con nombre aplica — solo cobraba 10 puntos por nada. Ambos arreglados.",
     contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -136,12 +139,13 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* line10/line9/line8/line7/line6/line5 are prepend slots: a follow-up batch of fixes
-              added after the original release leads with the newest slot, without renumbering
-              anything below it. 2026-08-24: line7 (Save-bonus engine fix), line8 (Tyranids/GK
-              codex sync), line9 (Tyrant Guard Brood HQ-slot toggle) and line10 (Legion/Taghmata
-              Legacy-armory access) added this way, keeping v1.65's own banner intact. */}
-          {[tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
+          {/* line11/line10/line9/line8/line7/line6/line5 are prepend slots: a follow-up batch of
+              fixes added after the original release leads with the newest slot, without
+              renumbering anything below it. 2026-08-24: line7 (Save-bonus engine fix), line8
+              (Tyranids/GK codex sync), line9 (Tyrant Guard Brood HQ-slot toggle), line10
+              (Legion/Taghmata Legacy-armory access) and line11 (HH/Legio Titanicus armory-scope +
+              Crusade weapon picker) added this way, keeping v1.65's own banner intact. */}
+          {[tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
