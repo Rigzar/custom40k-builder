@@ -100,6 +100,8 @@ export interface RosterSummary {
   is_public?: boolean; source_roster_id?: number | null; source_username?: string | null;
   /** View-only share link token, or null if none has been generated yet. See generateShareLink. */
   share_token?: string | null;
+  /** Set when this army was created from a Planetary Assault campaign's Roster tab. */
+  campaign_id?: number | null; campaign_faction?: string | null; campaign_visible?: boolean;
 }
 export interface PublicArmySummary {
   id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
@@ -124,9 +126,9 @@ export function listRosters() {
   return call<{ rosters: RosterSummary[] }>('/api/rosters');
 }
 
-export function saveRoster(name: string, data: unknown) {
+export function saveRoster(name: string, data: unknown, campaignId?: number | null, campaignFaction?: string | null) {
   return call<{ roster: RosterSummary }>('/api/rosters', {
-    method: 'POST', body: JSON.stringify({ name, data }),
+    method: 'POST', body: JSON.stringify({ name, data, campaignId: campaignId ?? undefined, campaignFaction: campaignFaction ?? undefined }),
   });
 }
 
@@ -137,7 +139,10 @@ export function updateRoster(id: number, fields: { name?: string; data?: unknown
 }
 
 export function loadRoster(id: number) {
-  return call<{ roster: { id: number; name: string; data: unknown; updated_at: string } }>(`/api/rosters/${id}`);
+  return call<{ roster: {
+    id: number; name: string; data: unknown; updated_at: string;
+    campaign_id: number | null; campaign_faction: string | null; campaign_visible: boolean;
+  } }>(`/api/rosters/${id}`);
 }
 
 export function deleteRoster(id: number) {
@@ -270,10 +275,57 @@ export function listCampaignPlayers(campaignId: number) {
   return call<{ players: CampaignPlayer[] }>(`/api/campaign/players?campaignId=${campaignId}`);
 }
 
+/** A saved army list created from a campaign's Roster tab — private to its owner and the GM
+ * until the GM marks it campaign_visible. */
+export interface CampaignArmy {
+  id: number; name: string; updated_at: string; campaignFaction: string | null; campaignVisible: boolean;
+  isOwn: boolean; username: string; total_pts?: number; faction_label?: string;
+}
+export function listCampaignArmies(campaignId: number) {
+  return call<{ armies: CampaignArmy[] }>(`/api/campaign/army-list?campaignId=${campaignId}`);
+}
+export function setCampaignArmyVisibility(campaignId: number, rosterId: number, visible: boolean) {
+  return call<{ ok: true }>('/api/campaign/army-visibility', {
+    method: 'POST', body: JSON.stringify({ campaignId, rosterId, visible }),
+  });
+}
+/** Fire an operational Deathstrike Silo at a target sector — 1D6, 5+ destroys a random building
+ * there (v1.11), unless the sector has Void Shields. Each silo can fire once per round. */
+export function fireDeathstrikeSilo(campaignId: number, buildingId: number, targetSectorId: number) {
+  return call<{ ok: true; roll: number; destroyedBuilding: string | null }>('/api/campaign/deathstrike-fire', {
+    method: 'POST', body: JSON.stringify({ campaignId, buildingId, targetSectorId }),
+  });
+}
+/** Tau'va Unification Center's extra positive weekly effect — separate from the normal draw. */
+export function drawTauvaBonus(campaignId: number, faction: string) {
+  return call<{ ok: true; event: { id: number; event_name: string; event_effect: string } }>('/api/campaign/tauva-bonus-draw', {
+    method: 'POST', body: JSON.stringify({ campaignId, faction }),
+  });
+}
+export function listTauvaBonus(campaignId: number) {
+  return call<{ ok: true; events: CampaignEvent[] }>(`/api/campaign/tauva-bonus-list?campaignId=${campaignId}`);
+}
+/** This round's Stratagem usage rows, for computing "X of Y uses left" against a building count.
+ * Assassin Temple fieldings are logged here too, with stratagem_key `assassin-<key>` — filter for
+ * that prefix rather than calling a separate endpoint. */
+export function listStratagemUses(campaignId: number) {
+  return call<{ ok: true; uses: { faction: string; stratagem_key: string }[] }>(`/api/campaign/stratagem-uses?campaignId=${campaignId}`);
+}
+/** Record an Assassin Temple fielding for the faction that controls it (v1.11: up to 4 per round,
+ * no repeats). Returns which faction it was attributed to. */
+export function useAssassin(campaignId: number, assassinKey: 'callidus' | 'culexus' | 'eversor' | 'vindicare') {
+  return call<{ ok: true; assassin: string; faction: string }>('/api/campaign/assassin-use', {
+    method: 'POST', body: JSON.stringify({ campaignId, assassinKey }),
+  });
+}
+
 export type SectorType = 'city' | 'industrial' | 'wasteland' | 'ruin';
 export interface CampaignSector {
   id: number; campaign_id: number; name: string; sector_type: SectorType;
   owner_faction: string | null; x: number; y: number;
+  /** Won by a Skirmish over an uncontested sector — ownership unchanged, but neither faction can
+   * use its Supply or buildings until someone wins a Skirmish/Pitched/Epic there (v1.11). */
+  contested?: boolean;
 }
 export function listCampaignSectors(campaignId: number) {
   return call<{ sectors: CampaignSector[] }>(`/api/campaign/sector-list?campaignId=${campaignId}`);
@@ -289,7 +341,7 @@ export function renameSector(campaignId: number, sectorId: number, name: string,
   });
 }
 export function claimSector(campaignId: number, sectorId: number, ownerFaction: string | null) {
-  return call<{ ok: true }>('/api/campaign/sector-claim', {
+  return call<{ ok: true; campaignEnded: boolean }>('/api/campaign/sector-claim', {
     method: 'POST', body: JSON.stringify({ campaignId, sectorId, ownerFaction }),
   });
 }
@@ -314,7 +366,7 @@ export function logBattle(
   sectorId: number | null, notes: string,
   engagementType: EngagementType = 'pitched',
 ) {
-  return call<{ ok: true; battleId: number; supplyCostDeducted: number }>('/api/campaign/battle-log', {
+  return call<{ ok: true; battleId: number; supplyCostDeducted: number; campaignEnded: boolean }>('/api/campaign/battle-log', {
     method: 'POST', body: JSON.stringify({ campaignId, attackerFaction, defenderFaction, winnerFaction, sectorId, notes, engagementType }),
   });
 }
@@ -342,6 +394,11 @@ export interface CampaignRosterEntry {
   status: 'active' | 'wounded' | 'dead';
   notes: string | null;
   trait: string | null;
+  /** Character models (HQ) only — starts at 25, +5 per engagement, -5 on a 1-3 roll if they die
+   * (v1.11 "Character models"). Manually tracked, same as XP. */
+  equipment_limit: number;
+  /** "After taking part in an Epic battle, a CM may use 'once per army' upgrades" — informational. */
+  epic_veteran: boolean;
   created_at?: string;
 }
 export function listRoster(campaignId: number) {
@@ -352,7 +409,7 @@ export function addRosterUnit(campaignId: number, faction: string, unitName: str
     method: 'POST', body: JSON.stringify({ campaignId, faction, unitName, unitSlot, notes }),
   });
 }
-export function updateRosterUnit(campaignId: number, unitId: number, patch: Partial<Pick<CampaignRosterEntry, 'xp' | 'wounds' | 'status' | 'notes' | 'trait'> & { unitName: string }>) {
+export function updateRosterUnit(campaignId: number, unitId: number, patch: Partial<Pick<CampaignRosterEntry, 'xp' | 'wounds' | 'status' | 'notes' | 'trait'> & { unitName: string; equipmentLimit: number; epicVeteran: boolean }>) {
   return call<{ ok: true; unit: CampaignRosterEntry }>('/api/campaign/roster-update', {
     method: 'POST', body: JSON.stringify({ campaignId, unitId, ...patch }),
   });
@@ -362,10 +419,15 @@ export function updateRosterUnit(campaignId: number, unitId: number, patch: Part
 export interface CampaignBuilding {
   id: number; campaign_id: number; sector_id: number;
   building_type: string; level: number; is_active: boolean;
+  /** The round it becomes operational — "constructions take one campaign round to finish" (v1.11). */
+  available_from_turn: number;
+  /** The round its level-2 benefit is recognised, separate from available_from_turn so an
+   * in-progress upgrade doesn't take the building's existing level-1 effect offline too. */
+  level2_from_turn: number;
   sector_name: string; owner_faction: string | null; created_at: string;
 }
 export function listBuildings(campaignId: number) {
-  return call<{ buildings: CampaignBuilding[] }>(`/api/campaign/building-list?campaignId=${campaignId}`);
+  return call<{ buildings: CampaignBuilding[]; currentTurn: number }>(`/api/campaign/building-list?campaignId=${campaignId}`);
 }
 export function addBuilding(campaignId: number, sectorId: number, buildingType: string) {
   return call<{ ok: true; building: CampaignBuilding }>('/api/campaign/building-add', {
@@ -524,6 +586,13 @@ export function adminSourceSheets(id: string, sheets: string[]) {
 /** Best-effort machine translation of short admin strings (announcement editor). */
 export function adminTranslate(texts: string[], from: string, to: string) {
   return call<{ ok: true; translations: string[] }>('/api/admin/translate', { method: 'POST', body: JSON.stringify({ texts, from, to }) });
+}
+/** Reads each faction's Google Sheet's own title ("Chaos Space Marines 1.03") and pulls the
+ * version number out, so the Factions tab can flag a version bump instead of it being typed by hand. */
+export function adminCheckCodexVersions(ids: Record<string, string>) {
+  return call<{ ok: true; results: Record<string, { title: string; version: string | null } | null> }>(
+    '/api/admin/codex-versions-check', { method: 'POST', body: JSON.stringify({ ids }) },
+  );
 }
 
 // ── Direct messages ────────────────────────────────────────────────────────────

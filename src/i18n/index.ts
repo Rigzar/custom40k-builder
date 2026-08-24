@@ -67,6 +67,7 @@ export type TranslationKey =
   | 'noCustomisationOptions' | 'battleSetup' | 'armyDoctrine' | 'notAvailableInSkirmish' | 'onlyForArmiesWithMarkOf'
   | 'legaciesNotAvailableWithArchetype' | 'secondLegacyNone' | 'secondLegacyUnlockedByTrait'
   | 'chooseUpToTraitsPrefix' | 'chooseUpToTraitsSuffix' | 'traitSlotPrefix' | 'traitSlotSuffix'
+  | 'campaignTraitBonusLabel'
   | 'blackCrusadeChampionRequired' | 'championLabel' | 'paysCombinedMarkCost'
   | 'noChampionPart1' | 'blackCrusadeChampionToggle' | 'noChampionPart2' | 'traitsNotAvailableWithArchetype'
   | 'noUnitsAvailable' | 'alliedBadge'
@@ -208,6 +209,7 @@ export type TranslationKey =
   | 'defaultEngagement' | 'noDefault' | 'defaultPointsLimit'
   // Account tab
   | 'avatarLabel' | 'removeImageButton' | 'colorLabel' | 'noneInitials'
+  | 'myCampaignsLabel' | 'campaignRoleGm' | 'campaignRolePlayer' | 'campaignFinishedBadge' | 'openButton'
   | 'socialLinksLabel' | 'visibleToOthers' | 'saveProfile' | 'savedMsg'
   | 'accountSecurity' | 'recoveryCodeLabel' | 'noRecoveryCode'
   | 'secretQuestionSectionLabel' | 'changeButton' | 'secretQuestionOptionalHint'
@@ -344,6 +346,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     secondLegacyUnlockedByTrait: '2nd Legacy unlocked by the second-legion trait.',
     chooseUpToTraitsPrefix: 'Choose up to',
     chooseUpToTraitsSuffix: '. All main-faction units with veteran abilities receive the selected traits.',
+    campaignTraitBonusLabel: 'Campaign bonus traits (Research Facility / Breakthrough!)',
     traitSlotPrefix: '— Trait',
     traitSlotSuffix: '(none) —',
     traitSearchPlaceholder: 'Search traits by name or effect…',
@@ -811,6 +814,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     autosave30sDesc: 'After 30 s of inactivity (recommended)', autosave5minDesc: 'After 5 min of inactivity',
     defaultEngagement: 'Default engagement', noDefault: 'No default', defaultPointsLimit: 'Default points limit',
     avatarLabel: 'Avatar', removeImageButton: 'Remove image', colorLabel: 'Color', noneInitials: 'None (initials)',
+    myCampaignsLabel: 'My Campaigns', campaignRoleGm: 'Game Master', campaignRolePlayer: 'Player',
+    campaignFinishedBadge: 'finished', openButton: 'Open',
     socialLinksLabel: 'Social links', visibleToOthers: 'Visible to others',
     saveProfile: 'Save profile', savedMsg: 'Saved!',
     accountSecurity: 'Account security', recoveryCodeLabel: 'Recovery code',
@@ -957,6 +962,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     secondLegacyUnlockedByTrait: '2. Vermächtnis wird durch die Zweite-Legion-Eigenschaft freigeschaltet.',
     chooseUpToTraitsPrefix: 'Wähle bis zu',
     chooseUpToTraitsSuffix: '. Alle Haupteinheiten mit Veteranenfähigkeiten erhalten die gewählten Eigenschaften.',
+    campaignTraitBonusLabel: 'Kampagnen-Bonuseigenschaften (Forschungsanlage / Durchbruch!)',
     traitSlotPrefix: '— Eigenschaft',
     traitSlotSuffix: '(keine) —',
     traitSearchPlaceholder: 'Eigenschaften nach Name oder Effekt suchen…',
@@ -1424,6 +1430,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     autosave30sDesc: 'Nach 30 s Inaktivität (empfohlen)', autosave5minDesc: 'Nach 5 min Inaktivität',
     defaultEngagement: 'Standard-Gefechtstyp', noDefault: 'Kein Standard', defaultPointsLimit: 'Standard-Punktelimit',
     avatarLabel: 'Avatar', removeImageButton: 'Bild entfernen', colorLabel: 'Farbe', noneInitials: 'Keines (Initialen)',
+    myCampaignsLabel: 'Meine Kampagnen', campaignRoleGm: 'Spielleiter', campaignRolePlayer: 'Spieler',
+    campaignFinishedBadge: 'beendet', openButton: 'Öffnen',
     socialLinksLabel: 'Social-Links', visibleToOthers: 'Für andere sichtbar',
     saveProfile: 'Profil speichern', savedMsg: 'Gespeichert!',
     accountSecurity: 'Kontosicherheit', recoveryCodeLabel: 'Wiederherstellungscode',
@@ -1570,6 +1578,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     secondLegacyUnlockedByTrait: '2º Legado desbloqueado por el rasgo de segunda legión.',
     chooseUpToTraitsPrefix: 'Elige hasta',
     chooseUpToTraitsSuffix: '. Todas las unidades principales con habilidades veteranas reciben los rasgos seleccionados.',
+    campaignTraitBonusLabel: 'Rasgos extra de campaña (Instalación de Investigación / ¡Avance!)',
     traitSlotPrefix: '— Rasgo',
     traitSlotSuffix: '(ninguno) —',
     traitSearchPlaceholder: 'Buscar rasgos por nombre o efecto…',
@@ -2037,6 +2046,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     autosave30sDesc: 'Tras 30 s de inactividad (recomendado)', autosave5minDesc: 'Tras 5 min de inactividad',
     defaultEngagement: 'Tipo de batalla predeterminado', noDefault: 'Sin predeterminado', defaultPointsLimit: 'Límite de puntos predeterminado',
     avatarLabel: 'Avatar', removeImageButton: 'Eliminar imagen', colorLabel: 'Color', noneInitials: 'Ninguno (iniciales)',
+    myCampaignsLabel: 'Mis Campañas', campaignRoleGm: 'Game Master', campaignRolePlayer: 'Jugador',
+    campaignFinishedBadge: 'terminada', openButton: 'Abrir',
     socialLinksLabel: 'Enlaces sociales', visibleToOthers: 'Visible para otros',
     saveProfile: 'Guardar perfil', savedMsg: '¡Guardado!',
     accountSecurity: 'Seguridad de la cuenta', recoveryCodeLabel: 'Código de recuperación',

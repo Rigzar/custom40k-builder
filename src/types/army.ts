@@ -164,6 +164,17 @@ export interface ArmyState {
   legacy: string;
   legacy2: string;
   traitPool: string[];
+  /**
+   * Extra Army Trait slots granted by a Planetary Assault campaign's "Features of.." bonus
+   * (Research Facility building, or the Breakthrough! weekly event) — manually entered by the
+   * player from what their GM reports, same trust level as the rest of the campaign module.
+   * Primary army only; an Allied Detachment's own trait pool doesn't receive it.
+   */
+  campaignTraitBonus?: number;
+  /** Links this army to a Planetary Assault campaign+faction it was created from (via the
+   * Campaign tab's "Create Army" flow). Null for a normal, campaign-independent army. */
+  campaignId?: number | null;
+  campaignFaction?: string | null;
   army: RosterEntry[];
   alliedFaction?: string;
   /**

@@ -13,7 +13,7 @@ const STEP_ORDER: Step[] = ['faction', 'config', 'units', 'review'];
 
 export function StepBar({
   step, unlocked, onGo, onHome,
-  loggedIn, username, onAccountClick, onCampaignClick,
+  loggedIn, username, onAccountClick,
 }: {
   step: Step;
   /** Steps 2-4 stay locked (and say why) until a faction's data has actually loaded. */
@@ -23,7 +23,6 @@ export function StepBar({
   loggedIn: boolean;
   username: string | null;
   onAccountClick: () => void;
-  onCampaignClick: () => void;
 }) {
   const t = useT();
 
@@ -100,15 +99,6 @@ export function StepBar({
         })}
       </div>
 
-      <button
-        onClick={onCampaignClick}
-        title={t('campaignAlphaTooltip')}
-        className="flex items-center shrink-0 gap-1 px-2 sm:px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-500 hover:text-red-400 transition-colors border-l border-zinc-800"
-      >
-        <span>⚔</span>
-        <span className="hidden md:inline">{t('campaign')}</span>
-        <span className="hidden md:inline text-[9px] text-red-500/70">ALPHA</span>
-      </button>
       <button
         onClick={onAccountClick}
         className="flex items-center shrink-0 gap-1.5 px-2 sm:px-3 text-[11px] uppercase tracking-wide font-cinzel text-zinc-400 hover:text-amber-400 transition-colors border-l border-zinc-800"

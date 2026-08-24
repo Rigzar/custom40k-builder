@@ -6,6 +6,9 @@ interface Props {
   campaign: api.CampaignSummary;
   isGm: boolean;
   onSectorChanged?: () => void;
+  /** Called when logging this battle's auto-claim also ended the campaign (losing an HQ's
+   * sector) — the parent owns campaign.status/winner_faction and needs to refetch. */
+  onCampaignEnded?: () => void;
 }
 
 const FACTION_PALETTE = ['#f59e0b','#38bdf8','#34d399','#fb7185','#a78bfa','#fb923c'];
@@ -30,7 +33,7 @@ const ENGAGEMENT_COLORS: Record<api.EngagementType, string> = {
   epic:        '#a78bfa',
 };
 
-export function CampaignBattleLog({ campaign, isGm, onSectorChanged }: Props) {
+export function CampaignBattleLog({ campaign, isGm, onSectorChanged, onCampaignEnded }: Props) {
   const t = useT();
   const [battles, setBattles] = useState<api.CampaignBattle[]>([]);
   const [sectors, setSectors] = useState<api.CampaignSector[]>([]);
@@ -74,6 +77,7 @@ export function CampaignBattleLog({ campaign, isGm, onSectorChanged }: Props) {
       setSectorId(null);
       setWinner('draw');
       if (winnerFaction && sectorId) onSectorChanged?.();
+      if (res.campaignEnded) onCampaignEnded?.();
       await load();
     } catch (err) { setError((err as Error).message); }
     finally { setLogging(false); }

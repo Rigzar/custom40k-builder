@@ -196,6 +196,9 @@ export default function App() {
   const [showCloudSaves, setShowCloudSaves]     = useState(false);
   const [cloudSavesDefaultTab, setCloudSavesDefaultTab] = useState<'armies' | 'community' | 'friends' | 'preferences' | 'account'>('armies');
   const [showCampaign, setShowCampaign]         = useState(false);
+  // Set when opened via the Account tab's "My Campaigns" quick-open, so CampaignModal expands
+  // straight to that campaign instead of the plain index.
+  const [campaignInitialOpenId, setCampaignInitialOpenId] = useState<number | undefined>(undefined);
   const { username, loggedIn, isAdmin, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
   const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
@@ -563,6 +566,7 @@ export default function App() {
     const baseName = armyName.trim() || `${FACTION_NAMES[selectedFaction] ?? selectedFaction} Army`;
     const stateSnapshot = {
       armyName: baseName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
+      campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction,
       alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
     };
 
@@ -574,7 +578,7 @@ export default function App() {
           const { rosters } = await api.listRosters();
           const name = uniqueName(baseName, rosters.map(r => r.name));
           if (name !== baseName) setArmyName(name);
-          const res = await api.saveRoster(name, { ...stateSnapshot, armyName: name });
+          const res = await api.saveRoster(name, { ...stateSnapshot, armyName: name }, store.campaignId, store.campaignFaction);
           setActiveCloudRosterId(res.roster.id);
         }
         setSavedMsg('Saved to cloud!');
@@ -604,7 +608,7 @@ export default function App() {
       savedAt: Date.now(),
       totalPts: total,
       unitCount: army.length,
-      state: getSerializableState({ armyName: name, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
+      state: getSerializableState({ armyName: name, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army, campaignTraitBonus: store.campaignTraitBonus, campaignId: store.campaignId, campaignFaction: store.campaignFaction, alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark }),
     };
 
     saveArmy(entry);
@@ -657,6 +661,25 @@ export default function App() {
     setSelectedFaction(fKey);
     enterFlow('units');
     setShowCloudSaves(false);
+  }
+
+  /** "Create Army" from a campaign's Roster tab — starts a fresh list tagged to that
+   *  campaign+faction, so saving it links the roster row instead of creating a plain army. */
+  function handleCreateCampaignArmy(campaignId: number, campaignFaction: string) {
+    store.clearArmy();
+    store.setCampaignLink(campaignId, campaignFaction);
+    setActiveCloudRosterId(null);
+    setActiveLocalSaveId(null);
+    setShowCampaign(false);
+    setScreen('flow');
+    setStep('faction');
+  }
+
+  /** Viewing a campaign-mate's army from the Roster tab — same non-owning "load a copy of the
+   *  state, don't bind to their roster id" semantics as viewing a Community army. */
+  function handleViewCampaignArmy(data: Record<string, unknown>) {
+    handleLoadCommunityArmy(data);
+    setShowCampaign(false);
   }
 
   function handleLoadCommunityArmy(data: Record<string, unknown>) {
@@ -721,7 +744,6 @@ export default function App() {
             loggedIn={loggedIn}
             username={username}
             onAccountClick={() => loggedIn ? setShowCloudSaves(true) : setShowAuth(true)}
-            onCampaignClick={() => loggedIn ? setShowCampaign(true) : setShowAuth(true)}
           />
 
           {/* Army bar — the same identity strip on every step past the faction grid, instead of
@@ -810,6 +832,7 @@ export default function App() {
             ? () => { setCloudSavesDefaultTab('community'); setShowCloudSaves(true); }
             : () => setShowAuth(true)
           }
+          onShowCampaign={loggedIn ? () => setShowCampaign(true) : () => setShowAuth(true)}
         />
       )}
 
@@ -1018,6 +1041,7 @@ export default function App() {
             onClose={() => setShowCloudSaves(false)}
             onLogout={async () => { await logout(); }}
             onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
+            onOpenCampaign={(id) => { setShowCloudSaves(false); setCampaignInitialOpenId(id); setShowCampaign(true); }}
             activeRosterId={activeCloudRosterId}
             onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
             onProfileUpdate={() => refreshAuth()}
@@ -1026,7 +1050,14 @@ export default function App() {
             defaultTab={cloudSavesDefaultTab}
           />
         )}
-        {showCampaign && <CampaignModal onClose={() => setShowCampaign(false)} />}
+        {showCampaign && (
+          <CampaignModal
+            onClose={() => { setShowCampaign(false); setCampaignInitialOpenId(undefined); }}
+            onCreateArmy={handleCreateCampaignArmy}
+            onViewArmy={handleViewCampaignArmy}
+            initialOpenId={campaignInitialOpenId}
+          />
+        )}
       </Suspense>
 
       <LegalFooter />

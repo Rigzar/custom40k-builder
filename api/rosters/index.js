@@ -41,6 +41,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const result = await sql`
         SELECT id, name, updated_at, is_public, share_token, source_username, source_roster_id,
+          campaign_id, campaign_faction, campaign_visible,
           CAST(NULLIF(data->>'totalPts', '') AS INTEGER) AS total_pts,
           data->>'faction' AS faction_label
         FROM rosters
@@ -52,7 +53,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { name, data } = req.body ?? {};
+      const { name, data, campaignId, campaignFaction } = req.body ?? {};
       if (typeof name !== 'string' || !name.trim()) {
         res.status(400).json({ error: 'Missing "name" field' });
         return;
@@ -61,10 +62,23 @@ export default async function handler(req, res) {
         res.status(400).json({ error: 'Missing "data" field' });
         return;
       }
+
+      let cId = null, cFaction = null;
+      if (Number.isInteger(campaignId)) {
+        // Must be a member of that campaign to tag a roster with it — anyone who's joined can
+        // build a list for the campaign, not just the faction they're formally registered as.
+        const membership = await sql`SELECT id FROM campaign_players WHERE campaign_id = ${campaignId} AND user_id = ${userId}`;
+        if (!membership.rows.length) { res.status(403).json({ error: 'Not a member of that campaign.' }); return; }
+        const camp = await sql`SELECT factions FROM campaigns WHERE id = ${campaignId}`;
+        if (!camp.rows.length) { res.status(404).json({ error: 'Campaign not found.' }); return; }
+        cId = campaignId;
+        cFaction = typeof campaignFaction === 'string' && camp.rows[0].factions.includes(campaignFaction) ? campaignFaction : null;
+      }
+
       const inserted = await sql`
-        INSERT INTO rosters (user_id, name, data)
-        VALUES (${userId}, ${name.trim()}, ${JSON.stringify(data)})
-        RETURNING id, name, updated_at
+        INSERT INTO rosters (user_id, name, data, campaign_id, campaign_faction)
+        VALUES (${userId}, ${name.trim()}, ${JSON.stringify(data)}, ${cId}, ${cFaction})
+        RETURNING id, name, updated_at, campaign_id, campaign_faction
       `;
       res.status(200).json({ ok: true, roster: inserted.rows[0] });
       return;

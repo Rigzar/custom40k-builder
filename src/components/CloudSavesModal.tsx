@@ -18,6 +18,8 @@ interface Props {
   activeRosterId: number | null;
   onActiveRosterIdChange: (id: number | null) => void;
   onOpenAdmin?: () => void;
+  /** Close this modal and open the Campaign modal, expanded straight to this campaign. */
+  onOpenCampaign?: (campaignId: number) => void;
   onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
   onLoadCommunityArmy?: (data: Record<string, unknown>) => void;
   onLoadCloudRoster?: (data: Record<string, unknown>, rosterId: number) => void;
@@ -41,7 +43,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   onLoadCloudRoster?: (data: Record<string, unknown>, rosterId: number) => void;
 }) {
   const {
-    army, engagement, hqMark, archetype, legacy, legacy2, traitPool,
+    army, engagement, hqMark, archetype, legacy, legacy2, traitPool, campaignTraitBonus,
     faction, pointLimit, armyName,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark,
   } = useArmyStore();
@@ -65,7 +67,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
     : 0;
 
   const stateSnapshot = {
-    armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, army,
+    armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, campaignTraitBonus, army,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, totalPts,
   };
 
@@ -994,7 +996,7 @@ const SOCIAL_PLATFORMS: { key: string; label: string; placeholder: string }[] = 
   { key: 'github',    label: 'GitHub',    placeholder: 'username' },
 ];
 
-function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, socialPublic: initPublic, onLogout, onClose, onProfileUpdate }: {
+function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, socialPublic: initPublic, onLogout, onClose, onProfileUpdate, onOpenCampaign }: {
   username: string;
   avatar?: string | null;
   socialLinks?: Record<string, string>;
@@ -1002,6 +1004,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   onLogout: () => void;
   onClose: () => void;
   onProfileUpdate?: (patch: { avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean }) => void;
+  onOpenCampaign?: (campaignId: number) => void;
 }) {
   // Avatar state: faction key + tint color, OR custom image, OR null (initials)
   const initParsed = (() => {
@@ -1033,6 +1036,14 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
   const t = useT();
   const [saving, setSaving]         = useState(false);
   const [msg, setMsg]               = useState('');
+
+  // My Campaigns — quick-open list, so a Planetary Assault campaign doesn't require remembering
+  // "hit the Campaign button on the home screen" every time.
+  const [campaigns, setCampaigns]   = useState<api.CampaignSummary[]>([]);
+  const [campaignsLoading, setCampaignsLoading] = useState(true);
+  useEffect(() => {
+    api.listCampaigns().then(r => setCampaigns(r.campaigns)).catch(() => {}).finally(() => setCampaignsLoading(false));
+  }, []);
 
   // Security
   const [showSecurity, setShowSecurity]   = useState(false);
@@ -1209,6 +1220,36 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
         <span className="text-[10px] text-zinc-600 ml-2">{t('imageUploadHint')}</span>
       </section>
 
+      {/* My Campaigns — only shown once there's something to jump to, keeps the tab lean for the
+          majority of accounts that never touch Campaign mode. */}
+      {!campaignsLoading && campaigns.length > 0 && (
+        <>
+          <div className="border-t border-zinc-800" />
+          <section>
+            <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-2">{t('myCampaignsLabel')}</div>
+            <div className="space-y-1.5">
+              {campaigns.map(c => (
+                <div key={c.id} className="flex items-center gap-3 bg-zinc-800/50 border border-zinc-700 px-3 py-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm text-zinc-200 truncate">{c.name}</div>
+                    <div className="text-[10px] text-zinc-500">
+                      {c.role === 'gm' ? t('campaignRoleGm') : (c.faction ?? t('campaignRolePlayer'))}
+                      {c.status === 'finished' && <span className="text-amber-600 ml-1">· {t('campaignFinishedBadge')}</span>}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onOpenCampaign?.(c.id)}
+                    className="text-[11px] px-2.5 py-1 border border-emerald-800 text-emerald-500 hover:text-emerald-400 hover:border-emerald-600 uppercase tracking-wide"
+                  >
+                    {t('openButton')}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        </>
+      )}
+
       <div className="border-t border-zinc-800" />
 
       {/* Social links */}
@@ -1305,7 +1346,7 @@ function AccountTab({ username, avatar: initAvatar, socialLinks: initLinks, soci
 
 export function CloudSavesModal({
   username, avatar, socialLinks, socialPublic,
-  onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin, onProfileUpdate,
+  onClose, onLogout, activeRosterId, onActiveRosterIdChange, onOpenAdmin, onOpenCampaign, onProfileUpdate,
   onLoadCommunityArmy, onLoadCloudRoster, defaultTab,
 }: Props) {
   const t = useT();
@@ -1381,7 +1422,7 @@ export function CloudSavesModal({
           {tab === 'account' && (
             <AccountTab
               username={username} avatar={avatar} socialLinks={socialLinks} socialPublic={socialPublic}
-              onLogout={onLogout} onClose={onClose} onProfileUpdate={onProfileUpdate}
+              onLogout={onLogout} onClose={onClose} onProfileUpdate={onProfileUpdate} onOpenCampaign={onOpenCampaign}
             />
           )}
         </div>

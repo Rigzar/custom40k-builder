@@ -18,9 +18,16 @@ const TABS: { key: TabId; label: string }[] = [
 
 interface Props {
   onClose: () => void;
+  /** Start a fresh army list tagged to this campaign+faction and jump into the builder. */
+  onCreateArmy: (campaignId: number, campaignFaction: string) => void;
+  /** Load a campaign-mate's army list into the builder, view-only (saving makes a copy). */
+  onViewArmy: (data: Record<string, unknown>) => void;
+  /** Jump straight to this campaign's card, expanded — used by the Account tab's "My Campaigns"
+   *  quick-open list, so it doesn't dump the player back at the plain campaign index. */
+  initialOpenId?: number;
 }
 
-export function CampaignModal({ onClose }: Props) {
+export function CampaignModal({ onClose, onCreateArmy, onViewArmy, initialOpenId }: Props) {
   const t = useT();
   const [campaigns, setCampaigns] = useState<api.CampaignSummary[]>([]);
   const [loading, setLoading]     = useState(true);
@@ -65,6 +72,14 @@ export function CampaignModal({ onClose }: Props) {
   }
 
   useEffect(() => { refresh(); }, []);
+
+  // Auto-expand the requested campaign once the list has loaded, exactly once.
+  useEffect(() => {
+    if (initialOpenId == null || openId != null || campaigns.length === 0) return;
+    const match = campaigns.find(c => c.id === initialOpenId);
+    if (match) toggleOpen(match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campaigns, initialOpenId]);
 
   async function handleAdvanceTurn(c: api.CampaignSummary) {
     setAdvancing(true); setError('');
@@ -372,14 +387,17 @@ export function CampaignModal({ onClose }: Props) {
                           )
                         )}
                         {openTab === 'map' && (
-                          <CampaignMapView campaign={c} isGm={c.role === 'gm'} refreshTick={mapRefreshTick} />
+                          <CampaignMapView campaign={c} isGm={c.role === 'gm'} refreshTick={mapRefreshTick}
+                            onCampaignEnded={refresh} />
                         )}
                         {openTab === 'battles' && (
                           <CampaignBattleLog campaign={c} isGm={c.role === 'gm'}
-                            onSectorChanged={() => setMapRefreshTick(tick => tick + 1)} />
+                            onSectorChanged={() => setMapRefreshTick(tick => tick + 1)}
+                            onCampaignEnded={refresh} />
                         )}
                         {openTab === 'roster' && (
-                          <CampaignRosterView campaign={c} isGm={c.role === 'gm'} myFaction={c.faction ?? null} />
+                          <CampaignRosterView campaign={c} isGm={c.role === 'gm'} myFaction={c.faction ?? null}
+                            onCreateArmy={onCreateArmy} onViewArmy={onViewArmy} />
                         )}
                         {openTab === 'buildings' && (
                           <CampaignBuildingsView campaign={c} sectors={sectors} isGm={c.role === 'gm'} />

@@ -260,6 +260,16 @@ export async function ensureSchema() {
   await sql`ALTER TABLE campaign_roster  ADD COLUMN IF NOT EXISTS trait TEXT`;
   await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS building_slots INTEGER NOT NULL DEFAULT 2`;
 
+  // Character models (HQ-slot roster units) don't pick an Infantry/MC/Vehicle Trait at all
+  // (v1.11) — instead each engagement they take part in raises their own equipment points limit
+  // by +5, from a base of 25; losing 5 back on a 1-3 if they die in a game. Tracked the same
+  // manual, GM/player-driven way XP already is (+/- buttons), not auto-derived from battle logs —
+  // campaign_battles has no per-unit participation record to derive it from.
+  await sql`ALTER TABLE campaign_roster ADD COLUMN IF NOT EXISTS equipment_limit INTEGER NOT NULL DEFAULT 25`;
+  // "After taking part in an Epic battle, a CM may use 'once per army' upgrades" — informational
+  // flag only; the once-per-army mechanic itself already lives in the army builder proper.
+  await sql`ALTER TABLE campaign_roster ADD COLUMN IF NOT EXISTS epic_veteran BOOLEAN NOT NULL DEFAULT false`;
+
   // Buildings: each sector can host buildings up to its building_slots limit.
   await sql`
     CREATE TABLE IF NOT EXISTS campaign_buildings (
@@ -274,6 +284,16 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_buildings_campaign_idx ON campaign_buildings(campaign_id)`;
   await sql`CREATE INDEX IF NOT EXISTS campaign_buildings_sector_idx   ON campaign_buildings(sector_id)`;
+
+  // "Constructions and upgrades take one campaign round to finish" (v1.11, Construction phase).
+  // Two SEPARATE gates, not one: `available_from_turn` says whether the building exists at all
+  // (a fresh construction isn't operational until next round); `level2_from_turn` says whether an
+  // in-progress upgrade's NEW level-2 benefit is recognised yet — the building's existing level-1
+  // effect must keep working while the upgrade is pending, so upgrading must never touch
+  // available_from_turn. Both default 0 so buildings that already existed before this migration
+  // stay operational (0 <= any current_turn), not retroactively "under construction".
+  await sql`ALTER TABLE campaign_buildings ADD COLUMN IF NOT EXISTS available_from_turn INTEGER NOT NULL DEFAULT 0`;
+  await sql`ALTER TABLE campaign_buildings ADD COLUMN IF NOT EXISTS level2_from_turn INTEGER NOT NULL DEFAULT 0`;
 
   // Weekly events: one row per faction per turn. GM draws; stays hidden from other factions.
   await sql`
@@ -291,6 +311,75 @@ export async function ensureSchema() {
     )
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_events_campaign_idx ON campaign_events(campaign_id)`;
+
+  // A roster can be created directly from a campaign's Roster tab, tagging it as that campaign's
+  // (faction's) army list. Private to its owner and the campaign's GM by default — the GM decides
+  // whether to reveal it to the rest of the campaign via campaign_visible, independent of the
+  // regular global is_public toggle.
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS campaign_id INTEGER REFERENCES campaigns(id) ON DELETE SET NULL`;
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS campaign_faction TEXT`;
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS campaign_visible BOOLEAN NOT NULL DEFAULT false`;
+  await sql`CREATE INDEX IF NOT EXISTS rosters_campaign_idx ON rosters(campaign_id)`;
+
+  // Tracks the "unique" buildings (PDC, Plasteel refinery, Space port — Planetary Assault
+  // rules v1.11) that were destroyed and, per the supplement, can never be rebuilt for the
+  // rest of the campaign. A row here is a permanent block on that (campaign, faction,
+  // building_type) triple, independent of whether the faction currently owns one.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_destroyed_uniques (
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      faction TEXT NOT NULL,
+      building_type TEXT NOT NULL,
+      destroyed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      PRIMARY KEY (campaign_id, faction, building_type)
+    )
+  `;
+
+  // Planetary Assault v1.11 — Skirmish result: "the sector is now contested... if one Attacker
+  // wins a Skirmish, Pitched or Epic battle in a contested sector, control switches over" (a
+  // separate state from plain unclaimed — a contested sector keeps its owner_faction on record
+  // but neither faction can use its resources/buildings until it's actually captured).
+  await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS contested BOOLEAN NOT NULL DEFAULT false`;
+  // Which campaign round a roster unit's upgrade Trait was first assigned, so the Barracks/AdMech
+  // Forge per-round upgrade caps can be counted correctly ("2 (additional) non-vehicle units per
+  // campaign round" etc — a cap that only makes sense against upgrades granted THIS round).
+  await sql`ALTER TABLE campaign_roster ADD COLUMN IF NOT EXISTS trait_assigned_turn INTEGER`;
+
+  // "Stratagems are available once per (controlled) related building per campaign round" (v1.11)
+  // — a faction with 2 Siege Camps gets to use Artillery Strike twice a round, not once total.
+  // One row per successful use, so the count is exact and survives re-reads (no in-memory cap).
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_stratagem_uses (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      faction TEXT NOT NULL,
+      turn INTEGER NOT NULL,
+      stratagem_key TEXT NOT NULL,
+      used_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_stratagem_uses_lookup_idx ON campaign_stratagem_uses(campaign_id, faction, turn, stratagem_key)`;
+
+  // Tau'va Unification Center: "The controlling faction gets an additional, positive weekly
+  // effect each campaign round" (v1.11, Tau only). A genuinely separate draw from the normal
+  // weekly event — deliberately its OWN table rather than a second row in campaign_events, which
+  // has a UNIQUE(campaign_id, faction, turn) constraint the normal draw/upsert flow depends on;
+  // altering that live constraint was a bigger risk than a small additional table. The "once per
+  // round" cap is enforced in application code (COUNT before INSERT), same pattern already used
+  // elsewhere in this file, not by a DB constraint.
+  await sql`
+    CREATE TABLE IF NOT EXISTS campaign_bonus_events (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+      faction TEXT NOT NULL,
+      turn INTEGER NOT NULL,
+      event_id INTEGER NOT NULL,
+      event_name TEXT NOT NULL,
+      event_effect TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  await sql`CREATE INDEX IF NOT EXISTS campaign_bonus_events_lookup_idx ON campaign_bonus_events(campaign_id, faction, turn)`;
 
   schemaReady = true;
 }

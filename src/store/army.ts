@@ -219,6 +219,10 @@ export interface ArmyStore extends ArmyState {
   setLegacy2: (l: string) => void;
   /** Set the full army trait pool (max 2). Automatically syncs traits to all units. */
   setTraitPool: (pool: string[]) => void;
+  /** Extra trait slots from a Planetary Assault campaign's "Features of.." bonus. */
+  setCampaignTraitBonus: (n: number) => void;
+  /** Tag this army as belonging to a specific campaign+faction (or clear the link with nulls). */
+  setCampaignLink: (campaignId: number | null, faction: string | null) => void;
   /** Allied Detachment's OWN Army Customisation (Core Rules: "Allies may select their own
    *  Army Customisation options") — independent of the primary faction's archetype/legacy/traits. */
   setAlliedArchetype: (a: string) => void;
@@ -305,6 +309,9 @@ const defaultState: ArmyState = {
   legacy: '',
   legacy2: '',
   traitPool: [],
+  campaignTraitBonus: 0,
+  campaignId: null,
+  campaignFaction: null,
   army: [],
   alliedFaction: undefined,
   alliedArchetype: '',
@@ -446,12 +453,17 @@ export const useArmyStore = create<ArmyStore>()(
       }),
       setLegacy2: (l: string) => set({ legacy2: l }),
 
+      setCampaignTraitBonus: (n: number) => set({ campaignTraitBonus: Math.max(0, Math.round(n)) }),
+      setCampaignLink: (campaignId: number | null, faction: string | null) => set({ campaignId, campaignFaction: faction }),
+
       setTraitPool: (pool: string[]) => set((s: S) => {
         // Default budget is 2; a Legacy can grant extra slots (e.g. IG's "Ministorum World":
         // "The army must select a third Trait" → trait_slot_bonus: 1). Archetypes can also add
-        // bonus slots (e.g. Dark Eldar Coordinated Raid → archetypeTraitBonus: 1).
+        // bonus slots (e.g. Dark Eldar Coordinated Raid → archetypeTraitBonus: 1). A Planetary
+        // Assault campaign's "Features of.." bonus (Research Facility / Breakthrough! event) adds
+        // more still — manually entered by the player, see campaignTraitBonus.
         const archetypeTraitBonus2 = getArchetypeRule(s.archetype)?.archetypeTraitBonus ?? 0;
-        const maxTraits = 2 + (s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0) + archetypeTraitBonus2;
+        const maxTraits = 2 + (s.data?.legacies.find(l => l.name === s.legacy)?.trait_slot_bonus ?? 0) + archetypeTraitBonus2 + (s.campaignTraitBonus ?? 0);
         const newPool = pool.slice(0, maxTraits);
         const hadBC = s.traitPool.includes('Black Crusade');
         const hasBC = newPool.includes('Black Crusade');
@@ -878,7 +890,8 @@ export const useArmyStore = create<ArmyStore>()(
       partialize: (s: ArmyStore) => ({
         armyName: s.armyName, faction: s.faction, engagement: s.engagement,
         pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype,
-        legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, army: s.army,
+        legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus,
+        campaignId: s.campaignId, campaignFaction: s.campaignFaction, army: s.army,
         // alliedData itself is NOT persisted (re-fetched via FACTION_LOADERS by App.tsx's
         // alliedFaction effect) but its own Army Customisation state must be, same as the
         // primary's — omitting these used to silently reset the ally's archetype/legacy/traits
@@ -895,14 +908,16 @@ export const useArmyStore = create<ArmyStore>()(
 export function getSerializableState(s: {
   armyName: string; faction: string; engagement: EngagementType;
   pointLimit: number; hqMark: Mark; archetype: string;
-  legacy: string; legacy2: string; traitPool: string[]; army: RosterEntry[];
+  legacy: string; legacy2: string; traitPool: string[]; campaignTraitBonus?: number;
+  campaignId?: number | null; campaignFaction?: string | null; army: RosterEntry[];
   alliedFaction?: string | null; alliedArchetype?: string;
   alliedLegacy?: string; alliedTraitPool?: string[]; alliedHqMark?: Mark;
 }): ArmyState {
   return {
     armyName: s.armyName, faction: s.faction, engagement: s.engagement,
     pointLimit: s.pointLimit, hqMark: s.hqMark, archetype: s.archetype ?? '',
-    legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, army: s.army,
+    legacy: s.legacy, legacy2: s.legacy2, traitPool: s.traitPool, campaignTraitBonus: s.campaignTraitBonus ?? 0,
+    campaignId: s.campaignId ?? null, campaignFaction: s.campaignFaction ?? null, army: s.army,
     alliedFaction: s.alliedFaction ?? undefined, alliedArchetype: s.alliedArchetype ?? '',
     alliedLegacy: s.alliedLegacy ?? '', alliedTraitPool: s.alliedTraitPool ?? [],
     alliedHqMark: s.alliedHqMark ?? ('' as Mark),

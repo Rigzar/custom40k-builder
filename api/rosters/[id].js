@@ -25,10 +25,15 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
       const result = await sql`
-        SELECT id, name, data, updated_at FROM rosters
+        SELECT id, name, data, updated_at, campaign_id, campaign_faction, campaign_visible FROM rosters
         WHERE id = ${id} AND (
           user_id = ${userId} OR is_public = true
           OR EXISTS (SELECT 1 FROM roster_shares WHERE roster_id = rosters.id AND shared_with_user_id = ${userId})
+          OR (campaign_id IS NOT NULL AND EXISTS (
+            SELECT 1 FROM campaign_players cp
+            WHERE cp.campaign_id = rosters.campaign_id AND cp.user_id = ${userId}
+              AND (cp.role = 'gm' OR rosters.campaign_visible = true)
+          ))
         )
       `;
       if (result.rows.length === 0) {

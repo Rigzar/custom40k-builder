@@ -112,7 +112,8 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
   const noLegacy = rule?.noLegacy ?? false;
   const noTraits = rule?.noTraits ?? false;
   const hasSecondLegacyTrait = !isAllied && traitPool.some(n => data.traits.find(t => t.name === n)?.enables_second_legacy);
-  const traitSlotBonus = (data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0) + (rule?.archetypeTraitBonus ?? 0);
+  const campaignTraitBonus = isAllied ? 0 : (store.campaignTraitBonus ?? 0);
+  const traitSlotBonus = (data.legacies.find(l => l.name === legacy)?.trait_slot_bonus ?? 0) + (rule?.archetypeTraitBonus ?? 0) + campaignTraitBonus;
   const traitSlots = [0, 1, ...Array.from({ length: traitSlotBonus }, (_, i) => i + 2)];
 
   const ARCHETYPE_MARK: Record<string, string> = {
@@ -313,6 +314,23 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     <div className="text-[10px] text-zinc-500 leading-relaxed">
                       {t('chooseUpToTraitsPrefix')} {traitSlots.length}{t('chooseUpToTraitsSuffix')}
                     </div>
+
+                    {!isAllied && (
+                      <div className="flex items-center gap-2 border border-zinc-800 bg-zinc-950/50 px-3 py-2">
+                        <span className="text-[10px] text-zinc-500 flex-1">{t('campaignTraitBonusLabel')}</span>
+                        <button type="button" disabled={campaignTraitBonus <= 0}
+                          onClick={() => store.setCampaignTraitBonus(campaignTraitBonus - 1)}
+                          className="w-6 h-6 flex items-center justify-center border border-zinc-700 text-zinc-400 hover:text-zinc-100 hover:border-zinc-500 disabled:opacity-30 disabled:hover:text-zinc-400">
+                          −
+                        </button>
+                        <span className={`w-4 text-center text-sm ${campaignTraitBonus > 0 ? accentText : 'text-zinc-600'}`}>{campaignTraitBonus}</span>
+                        <button type="button"
+                          onClick={() => store.setCampaignTraitBonus(campaignTraitBonus + 1)}
+                          className="w-6 h-6 flex items-center justify-center border border-zinc-700 text-zinc-400 hover:text-zinc-100 hover:border-zinc-500">
+                          +
+                        </button>
+                      </div>
+                    )}
 
                     {traitSlots.map(slot => {
                       const currentName = traitPool[slot] ?? '';

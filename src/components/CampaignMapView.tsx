@@ -6,6 +6,9 @@ interface Props {
   campaign: api.CampaignSummary;
   isGm: boolean;
   refreshTick?: number;
+  /** Called when a sector claim also ended the campaign (losing an HQ's sector) — the parent
+   * owns campaign.status/winner_faction and needs to refetch to show the victory banner. */
+  onCampaignEnded?: () => void;
 }
 
 const EDGES: [number, number][] = [
@@ -34,7 +37,7 @@ function factionColor(faction: string, factions: string[]): string {
   return idx >= 0 ? FACTION_PALETTE[idx % FACTION_PALETTE.length] : '#1a5c25';
 }
 
-export function CampaignMapView({ campaign, isGm, refreshTick }: Props) {
+export function CampaignMapView({ campaign, isGm, refreshTick, onCampaignEnded }: Props) {
   const t = useT();
   const [sectors, setSectors] = useState<api.CampaignSector[]>([]);
   const [loading, setLoading] = useState(true);
@@ -102,9 +105,10 @@ export function CampaignMapView({ campaign, isGm, refreshTick }: Props) {
     if (!selected) return;
     setSaving(true); setError('');
     try {
-      await api.claimSector(campaign.id, selected.id, ownerFaction);
+      const res = await api.claimSector(campaign.id, selected.id, ownerFaction);
       setSectors(prev => prev.map(s => s.id === selected.id ? { ...s, owner_faction: ownerFaction } : s));
       setSelected(null);
+      if (res.campaignEnded) onCampaignEnded?.();
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -216,6 +220,12 @@ export function CampaignMapView({ campaign, isGm, refreshTick }: Props) {
                 <circle cx={s.x} cy={s.y} r={22}
                   fill="#020702" stroke={typeCol} strokeWidth={isSelected ? 2 : 1.2} opacity={0.9} />
 
+                {/* Contested — dashed red ring, sector's resources/buildings are frozen (v1.11) */}
+                {s.contested && (
+                  <circle cx={s.x} cy={s.y} r={19}
+                    fill="none" stroke="#ff3030" strokeWidth={1.5} strokeDasharray="3 2" opacity={0.9} />
+                )}
+
                 {/* Owner fill */}
                 {s.owner_faction && (
                   <circle cx={s.x} cy={s.y} r={16} fill={ownerCol} opacity={0.35} />
@@ -238,9 +248,9 @@ export function CampaignMapView({ campaign, isGm, refreshTick }: Props) {
                   {s.name.toUpperCase()}
                 </text>
                 <text x={s.x} y={s.y + 45} textAnchor="middle"
-                  fontSize="7" fill="#1a5c25" fontFamily="'Courier New', monospace"
+                  fontSize="7" fill={s.contested ? '#ff3030' : '#1a5c25'} fontFamily="'Courier New', monospace"
                   className="select-none pointer-events-none">
-                  {SECTOR_TYPE_LABELS[s.sector_type]}
+                  {s.contested ? 'CONTESTED' : SECTOR_TYPE_LABELS[s.sector_type]}
                   {s.owner_faction ? ` · ${s.owner_faction.toUpperCase().slice(0, 6)}` : ''}
                 </text>
               </g>
