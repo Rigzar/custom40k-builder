@@ -98,6 +98,8 @@ export function adminResolveRecovery(requestId: number) {
 export interface RosterSummary {
   id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
   is_public?: boolean; source_roster_id?: number | null; source_username?: string | null;
+  /** View-only share link token, or null if none has been generated yet. See generateShareLink. */
+  share_token?: string | null;
 }
 export interface PublicArmySummary {
   id: number; name: string; updated_at: string; total_pts?: number; faction_label?: string;
@@ -144,6 +146,21 @@ export function deleteRoster(id: number) {
 
 export function toggleRosterPublic(id: number, isPublic: boolean) {
   return call<{ ok: true }>(`/api/rosters/${id}`, { method: 'PUT', body: JSON.stringify({ is_public: isPublic }) });
+}
+
+/** Generates (or returns the existing) view-only share link token for a roster — no account
+ * needed to view it. Separate from is_public: this doesn't list the army anywhere, it's only
+ * reachable by whoever has the exact link. */
+export function generateShareLink(id: number) {
+  return call<{ ok: true; shareToken: string }>(`/api/rosters/${id}`, { method: 'PUT', body: JSON.stringify({ shareToken: 'generate' }) });
+}
+/** Kills an existing share link — the only way to invalidate one that's been handed out. */
+export function revokeShareLink(id: number) {
+  return call<{ ok: true; shareToken: null }>(`/api/rosters/${id}`, { method: 'PUT', body: JSON.stringify({ shareToken: 'revoke' }) });
+}
+/** PUBLIC, no login required — resolves a share link token to its army data. */
+export function getSharedRoster(token: string) {
+  return call<{ roster: { name: string; data: Record<string, unknown>; updated_at: string } }>(`/api/rosters?token=${encodeURIComponent(token)}`);
 }
 
 // ── Profile / social / friends ───────────────────────────────────────────────

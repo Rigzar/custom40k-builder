@@ -1,3 +1,4 @@
+import { randomBytes } from 'crypto';
 import { sql, ensureSchema } from '../_lib/db.js';
 import { getSessionUserId } from '../_lib/auth.js';
 
@@ -39,7 +40,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'PUT') {
-      const { name, data, is_public } = req.body ?? {};
+      const { name, data, is_public, shareToken } = req.body ?? {};
       const existing = await sql`SELECT id FROM rosters WHERE id = ${id} AND user_id = ${userId}`;
       if (existing.rows.length === 0) {
         res.status(404).json({ error: 'Not found' });
@@ -48,6 +49,25 @@ export default async function handler(req, res) {
       if (typeof is_public === 'boolean') {
         await sql`UPDATE rosters SET is_public = ${is_public}, updated_at = now() WHERE id = ${id} AND user_id = ${userId}`;
         res.status(200).json({ ok: true });
+        return;
+      }
+      // View-only share link. 'generate' is idempotent — a roster that already has a token keeps
+      // it (re-clicking "get link" shouldn't invalidate a link someone already has); 'revoke'
+      // clears it, which is the only way to kill a leaked link since there's no expiry.
+      if (shareToken === 'generate' || shareToken === 'revoke') {
+        if (shareToken === 'revoke') {
+          await sql`UPDATE rosters SET share_token = NULL, updated_at = now() WHERE id = ${id} AND user_id = ${userId}`;
+          res.status(200).json({ ok: true, shareToken: null });
+          return;
+        }
+        const current = await sql`SELECT share_token FROM rosters WHERE id = ${id} AND user_id = ${userId}`;
+        if (current.rows[0].share_token) {
+          res.status(200).json({ ok: true, shareToken: current.rows[0].share_token });
+          return;
+        }
+        const token = randomBytes(16).toString('hex');
+        await sql`UPDATE rosters SET share_token = ${token}, updated_at = now() WHERE id = ${id} AND user_id = ${userId}`;
+        res.status(200).json({ ok: true, shareToken: token });
         return;
       }
       if (name !== undefined && (typeof name !== 'string' || !name.trim())) {

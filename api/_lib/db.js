@@ -50,6 +50,12 @@ export async function ensureSchema() {
   await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS is_public BOOLEAN NOT NULL DEFAULT false`;
   await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS source_roster_id INTEGER`;
   await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS source_username TEXT`;
+  // A view-only share link — deliberately separate from is_public (which lists the roster in the
+  // Community Armies feed). This is a capability URL: nobody can browse to it, but anyone holding
+  // the exact token can view a read-only copy without an account, same model as "anyone with the
+  // link" sharing. NULL until the owner explicitly generates one.
+  await sql`ALTER TABLE rosters ADD COLUMN IF NOT EXISTS share_token TEXT`;
+  await sql`CREATE UNIQUE INDEX IF NOT EXISTS rosters_share_token_idx ON rosters(share_token) WHERE share_token IS NOT NULL`;
   await sql`
     CREATE TABLE IF NOT EXISTS friends (
       id SERIAL PRIMARY KEY,

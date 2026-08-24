@@ -199,6 +199,8 @@ export type TranslationKey =
   | 'incomingRequestsHeader' | 'cancelRequestHint'
   // Roster sharing (Armies tab)
   | 'shareButton' | 'shareWithUsernamePlaceholder' | 'notSharedYet' | 'sharedWithHeader'
+  // Roster view-only share link (Armies tab)
+  | 'linkButton' | 'shareLinkHint' | 'generateLinkButton' | 'revokeLinkButton' | 'revokeLinkConfirm'
   // Prefs tab
   | 'cloudAutosave' | 'autosaveDesc'
   | 'autosaveOff' | 'autosaveOnClose' | 'autosave30s' | 'autosave5min'
@@ -797,6 +799,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     incomingRequestsHeader: 'Friend requests', cancelRequestHint: 'Cancel request',
     shareButton: 'Share', shareWithUsernamePlaceholder: 'Username or friend…',
     notSharedYet: 'Not shared with anyone.', sharedWithHeader: 'Shared with',
+    linkButton: 'Link', shareLinkHint: 'Generate a view-only link — anyone with it can see this army, no account needed.',
+    generateLinkButton: 'Get link', revokeLinkButton: 'Revoke',
+    revokeLinkConfirm: 'Revoke this link? Anyone who has it will no longer be able to view this army.',
     cloudAutosave: 'Cloud autosave', autosaveDesc: 'How often your army is saved automatically while building.',
     autosaveOff: 'Off', autosaveOnClose: 'On close', autosave30s: 'Every 30 s', autosave5min: 'Every 5 min',
     autosaveOffDesc: 'No automatic saving', autosaveOnCloseDesc: 'Only when you close the tab',
@@ -1404,6 +1409,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     incomingRequestsHeader: 'Freundschaftsanfragen', cancelRequestHint: 'Anfrage zurückziehen',
     shareButton: 'Teilen', shareWithUsernamePlaceholder: 'Benutzername oder Freund…',
     notSharedYet: 'Mit niemandem geteilt.', sharedWithHeader: 'Geteilt mit',
+    linkButton: 'Link', shareLinkHint: 'Erzeugt einen Link nur zum Ansehen — jeder mit diesem Link kann die Armee sehen, kein Konto nötig.',
+    generateLinkButton: 'Link erzeugen', revokeLinkButton: 'Widerrufen',
+    revokeLinkConfirm: 'Diesen Link widerrufen? Niemand kann die Armee dann noch darüber ansehen.',
     cloudAutosave: 'Cloud-Autospeicherung', autosaveDesc: 'Wie oft deine Armee beim Erstellen automatisch gespeichert wird.',
     autosaveOff: 'Aus', autosaveOnClose: 'Beim Schließen', autosave30s: 'Alle 30 s', autosave5min: 'Alle 5 min',
     autosaveOffDesc: 'Keine automatische Speicherung', autosaveOnCloseDesc: 'Nur beim Schließen des Tabs',
@@ -2011,6 +2019,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     incomingRequestsHeader: 'Solicitudes de amistad', cancelRequestHint: 'Cancelar solicitud',
     shareButton: 'Compartir', shareWithUsernamePlaceholder: 'Usuario o amigo…',
     notSharedYet: 'No compartido con nadie.', sharedWithHeader: 'Compartido con',
+    linkButton: 'Enlace', shareLinkHint: 'Genera un enlace de solo lectura — cualquiera que lo tenga puede ver este ejército, sin necesidad de cuenta.',
+    generateLinkButton: 'Obtener enlace', revokeLinkButton: 'Revocar',
+    revokeLinkConfirm: '¿Revocar este enlace? Quien lo tenga ya no podrá ver este ejército.',
     cloudAutosave: 'Autoguardado en la nube', autosaveDesc: 'Con qué frecuencia se guarda automáticamente tu ejército mientras lo construyes.',
     autosaveOff: 'Desactivado', autosaveOnClose: 'Al cerrar', autosave30s: 'Cada 30 s', autosave5min: 'Cada 5 min',
     autosaveOffDesc: 'Sin guardado automático', autosaveOnCloseDesc: 'Solo al cerrar la pestaña',

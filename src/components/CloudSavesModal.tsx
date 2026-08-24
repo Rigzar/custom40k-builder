@@ -54,6 +54,7 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
   const [newName, setNewName] = useState('');
   const [friends, setFriends] = useState<FriendRow[]>([]);
   const [openShareId, setOpenShareId] = useState<number | null>(null);
+  const [openLinkId, setOpenLinkId] = useState<number | null>(null);
 
   const store = useArmyStore();
   const totalPts = store.data
@@ -190,8 +191,22 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                   >
                     👥 {t('shareButton')}
                   </button>
+                  <button
+                    onClick={() => setOpenLinkId(cur => cur === r.id ? null : r.id)}
+                    className={`text-[10px] px-1.5 py-0.5 border uppercase tracking-wide transition-colors ${
+                      openLinkId === r.id
+                        ? 'border-sky-600 bg-sky-900/30 text-sky-400'
+                        : 'border-sky-800/60 text-sky-600 hover:text-sky-400 hover:border-sky-600'
+                    }`}
+                  >
+                    🔗 {t('linkButton')}
+                  </button>
                 </div>
                 {openShareId === r.id && <ShareRosterPanel rosterId={r.id} friends={friends} />}
+                {openLinkId === r.id && (
+                  <ShareLinkPanel rosterId={r.id} initialToken={r.share_token ?? null}
+                    onTokenChange={token => setRosters(prev => prev.map(x => x.id === r.id ? { ...x, share_token: token } : x))} />
+                )}
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 <button onClick={() => handleLoad(r.id)} className="text-[11px] px-2.5 py-1.5 bg-amber-900/40 border border-amber-700 text-amber-400 hover:bg-amber-800/50 uppercase tracking-wide">{t('loadButton')}</button>
@@ -283,6 +298,92 @@ function ShareRosterPanel({ rosterId, friends }: { rosterId: number; friends: Fr
               ))}
             </div>
           )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** Inline expandable panel — view-only link, no account needed. Separate concept from
+ * ShareRosterPanel above (a specific recipient) and the Public/Private toggle (the Community
+ * feed): this is a capability URL, only reachable by whoever holds it, never listed anywhere. */
+function ShareLinkPanel({ rosterId, initialToken, onTokenChange }: {
+  rosterId: number; initialToken: string | null; onTokenChange: (token: string | null) => void;
+}) {
+  const t = useT();
+  const [token, setToken] = useState(initialToken);
+  const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState('');
+
+  const url = token ? `${window.location.origin}/?share=${token}` : '';
+
+  async function handleGenerate() {
+    setBusy(true); setError('');
+    try {
+      const res = await api.generateShareLink(rosterId);
+      setToken(res.shareToken);
+      onTokenChange(res.shareToken);
+    } catch (err) { setError((err as Error).message); }
+    finally { setBusy(false); }
+  }
+
+  async function handleRevoke() {
+    if (!confirm(t('revokeLinkConfirm'))) return;
+    setBusy(true); setError('');
+    try {
+      await api.revokeShareLink(rosterId);
+      setToken(null);
+      onTokenChange(null);
+    } catch (err) { setError((err as Error).message); }
+    finally { setBusy(false); }
+  }
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard denied — the field below can still be selected manually */ }
+  }
+
+  return (
+    <div className="mt-2 pt-2 border-t border-zinc-700/60 space-y-2" onClick={e => e.stopPropagation()}>
+      {error && <p className="text-red-400 text-[10px]">{error}</p>}
+      {!token ? (
+        <div className="flex items-center gap-2">
+          <p className="text-zinc-500 text-[10px] flex-1">{t('shareLinkHint')}</p>
+          <button
+            disabled={busy}
+            onClick={handleGenerate}
+            className="text-[10px] px-2 py-1 bg-sky-900/40 border border-sky-700 text-sky-400 hover:bg-sky-800/50 disabled:opacity-50 uppercase tracking-wide shrink-0"
+          >
+            {busy ? t('loadingEllipsis') : t('generateLinkButton')}
+          </button>
+        </div>
+      ) : (
+        <div className="flex items-center gap-1.5">
+          <input
+            readOnly
+            value={url}
+            onClick={e => (e.target as HTMLInputElement).select()}
+            className="flex-1 min-w-0 bg-zinc-900 border border-zinc-700 text-zinc-300 text-[11px] px-2 py-1 outline-none font-mono"
+          />
+          <button
+            onClick={handleCopy}
+            className={`text-[10px] px-2 py-1 border uppercase tracking-wide shrink-0 transition-colors ${
+              copied ? 'bg-green-900/30 border-green-700 text-green-400' : 'bg-zinc-800 border-zinc-600 text-zinc-300 hover:bg-zinc-700'
+            }`}
+          >
+            {copied ? t('copiedLabel') : t('copyToClipboardButton')}
+          </button>
+          <button
+            disabled={busy}
+            onClick={handleRevoke}
+            className="text-[10px] px-2 py-1 bg-zinc-800 border border-red-800/60 text-red-400 hover:bg-red-900/30 disabled:opacity-50 uppercase tracking-wide shrink-0"
+          >
+            {t('revokeLinkButton')}
+          </button>
         </div>
       )}
     </div>

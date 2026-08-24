@@ -215,6 +215,26 @@ export default function App() {
       })
       .catch(() => { /* keep code defaults */ });
   }, []);
+  // Shared-army link (?share=TOKEN): loads a read-only copy of someone's list with no login
+  // needed, same "view a copy" semantics as Community Armies (handleLoadCommunityArmy, defined
+  // below — a hoisted function declaration, so it's callable from this earlier effect). A query
+  // param rather than a path segment on purpose: the app has no router and no SPA-fallback
+  // rewrite in vercel.json, but a query string on "/" always serves index.html regardless, so
+  // this needed zero deploy-config changes. Strips the param from the URL once consumed so a
+  // later refresh/Save doesn't keep reloading over the visitor's own edits.
+  const [shareLinkError, setShareLinkError] = useState('');
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('share');
+    if (!token) return;
+    params.delete('share');
+    const cleanUrl = window.location.pathname + (params.toString() ? `?${params}` : '') + window.location.hash;
+    window.history.replaceState(null, '', cleanUrl);
+    api.getSharedRoster(token)
+      .then(res => handleLoadCommunityArmy(res.roster.data))
+      .catch(() => setShareLinkError('This share link is invalid or has been revoked.'));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Tracks which save (cloud roster id, or local save id) the "Save" button currently updates
   // in place. Cleared whenever a genuinely new army is started, so the next quick-save creates
   // a fresh entry instead of silently overwriting whatever was last bound.
@@ -1010,6 +1030,13 @@ export default function App() {
       </Suspense>
 
       <LegalFooter />
+
+      {shareLinkError && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[70] bg-red-950/95 border border-red-700 text-red-300 text-xs px-4 py-2.5 shadow-lg flex items-center gap-3 print:hidden">
+          <span>⚠ {shareLinkError}</span>
+          <button onClick={() => setShareLinkError('')} className="text-red-400 hover:text-red-200 leading-none">✕</button>
+        </div>
+      )}
 
       {/* Service-worker update / offline-ready toast. Outside <Suspense> so it can surface even
           while a lazy modal is loading, and print:hidden so it never lands on a printed sheet. */}
