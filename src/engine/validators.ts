@@ -1,6 +1,6 @@
 import type { FactionData, Unit } from '../types/data';
 import type { ArmyState, RosterEntry } from '../types/army';
-import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveRuleFor } from './points';
+import { computeUnitPoints, resolveUnit, effectiveArchetypeFor, effectiveLegacyFor, effectiveRuleFor } from './points';
 import { t, tpl, type Language } from '../i18n';
 import { ENGAGEMENTS, SLOT_ORDER, ALLIED_AOP } from './engagements';
 import {
@@ -1436,12 +1436,20 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
 
     // Daemonkin: all units must share the same Chaos Mark
-    // Only check PRIMARY units — allied Daemon units can have different gods' marks
-    // (e.g. Bloodletters=Khorne alongside Plaguebearers=Nurgle is valid for the Daemon side).
+    // Only check PRIMARY units — the archetype-injected Daemon units (factionSource ===
+    // rule.alliedFaction, i.e. 'chaos_daemons') can have different gods' marks (e.g.
+    // Bloodletters=Khorne alongside Plaguebearers=Nurgle is valid for the Daemon side). A
+    // GENUINELY separate, user-picked Allied Detachment (factionSource === state.alliedFaction,
+    // a completely different mechanism — see the same isTrueAllyUnit/isTrueAllyEntry distinction
+    // used elsewhere for HH/Legio Titanicus) is neither side of this CSM/Daemon split and must
+    // stay out of both counts below, not get miscounted as "the Daemon side" just because it also
+    // carries a factionSource.
     if (state.archetype === 'Daemonkin') {
+      const isDaemonkinDaemon = (i: RosterEntry) => i.factionSource === rule.alliedFaction;
+      const isDaemonkinMain = (i: RosterEntry) => !i.factionSource;
       const marks = new Set<string>();
       for (const item of state.army) {
-        if (item.factionSource) continue;
+        if (!isDaemonkinMain(item)) continue;
         const u = resolveUnit(item, data);
         const m = u?.locked_mark ?? item.mark;
         if (m) marks.add(m);
@@ -1452,13 +1460,15 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           text: `Daemonkin: all units must share the same Chaos Mark (found: ${[...marks].join(', ')}).`,
         });
       }
-      // At least 1 HQ from each codex (CSM and allied Daemons)
+      // At least 1 HQ from each codex (CSM and allied Daemons). The Daemon side has no archetype
+      // selection of its own in this UI — state.alliedArchetype only reflects a genuinely separate
+      // Allied Detachment's archetype, which is '' (→ no slot remap) in the common Daemonkin case.
       const alliedRule = getArchetypeRule(state.alliedArchetype);
       const hasMainHq = state.army.some(i =>
-        !i.factionSource && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
+        isDaemonkinMain(i) && getEffectiveSlot(i.unitName, i.slot, rule) === 'HQ',
       );
       const hasAlliedHq = state.army.some(i =>
-        !!i.factionSource && getEffectiveSlot(i.unitName, i.slot, alliedRule) === 'HQ',
+        isDaemonkinDaemon(i) && getEffectiveSlot(i.unitName, i.slot, alliedRule) === 'HQ',
       );
       if (state.army.length > 0 && !(hasMainHq && hasAlliedHq)) {
         items.push({
@@ -1467,8 +1477,8 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
         });
       }
       // Codex balance: no more than +1 unit from one codex over the other
-      const mainCount = state.army.filter(i => !i.factionSource).length;
-      const alliedCount = state.army.filter(i => !!i.factionSource).length;
+      const mainCount = state.army.filter(isDaemonkinMain).length;
+      const alliedCount = state.army.filter(isDaemonkinDaemon).length;
       if (Math.abs(mainCount - alliedCount) > 1) {
         const more = mainCount > alliedCount ? 'CSM' : 'Daemons';
         const less = mainCount > alliedCount ? 'Daemons' : 'CSM';
@@ -2745,11 +2755,16 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
   // disciplines the unit cannot access (scope mirrors PsychicModal filtering).
   for (const entry of state.army) {
     if (!entry.powers.length) continue;
-    const isAlliedEntry = !!entry.factionSource;
-    const entryData = isAlliedEntry ? (alliedData ?? data) : data;
-    const entryArchetype = isAlliedEntry ? (state.alliedArchetype ?? '') : state.archetype;
-    const entryLegacy  = isAlliedEntry ? (state.alliedLegacy ?? '') : state.legacy;
-    const entryLegacy2 = isAlliedEntry ? '' : state.legacy2;
+    // A genuine, user-picked Allied Detachment only — NOT a same-army supplement injection
+    // (Horus Heresy, Legio Titanicus, Daemonkin, ...), which stays scoped to the primary's own
+    // data/archetype/legacy (its units already live in data.allied[factionSource], merged in by
+    // injectArchetypeFaction — see effectiveArchetypeFor/effectiveLegacyFor in points.ts for the
+    // same distinction, and ArmoryModal.tsx's isTrueAllyUnit for the identical fix there).
+    const isTrueAllyEntry = !!(state.alliedFaction && entry.factionSource === state.alliedFaction);
+    const entryData = isTrueAllyEntry ? (alliedData ?? data) : data;
+    const entryArchetype = effectiveArchetypeFor(entry, state);
+    const entryLegacy = effectiveLegacyFor(entry, state);
+    const entryLegacy2 = isTrueAllyEntry ? '' : state.legacy2;
 
     const u = resolveUnit(entry, entryData);
     if (!u) continue;

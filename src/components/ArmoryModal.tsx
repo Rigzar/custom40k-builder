@@ -164,6 +164,15 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // alliedData = user-selected allied detachment; supplementData = primary faction's
   // supplemental/native-ally factions (Assassins, Inquisition, HH, Daemonkin, etc.).
   const isAllied = !!item.factionSource;
+  // A genuine, user-picked Allied Detachment — NOT a same-army supplement injection (Horus
+  // Heresy via 'Legion'/'Legion (Space Marines)', Legio Titanicus via 'Taghmata', Daemonkin,
+  // cult archetypes, etc. all carry their own factionSource without being an "ally" in the
+  // rules sense; see resolver.ts's isAlliedDetachmentUnit for the same distinction). Anything
+  // that decides ally-DETACHMENT-scoped rules (trait pool, forced mark, mark-purchase/veteran-
+  // slot rule, Legacy armory access) must use this, not the bare isAllied above — isAllied
+  // itself stays correct for "which faction's raw armory/unit DATA to read" (armoryDataFor and
+  // the archetype-armory-tab gates below), since a supplement item still reads foreign data.
+  const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
   const activeData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
 
   // Always read armory from the live store so Unique checks stay current after additions
@@ -186,7 +195,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // "Waaagh! Coast Kustoms" Army Trait (ki-orks-waaaghcoastkustoms-unmodelled-01): "Each Kustom
   // job can be taken one additional time" — raises the per-vehicle cap on the 16 named Kustom Job
   // items by +1. Uses the allied trait pool when this item belongs to an allied Orks detachment.
-  const effectiveTraitPool = (isAllied && alliedData) ? alliedTraitPool : traitPool;
+  const effectiveTraitPool = (isTrueAllyUnit && alliedData) ? alliedTraitPool : traitPool;
   function oncePerModelBlocked(arm: ArmoryItem, sec: Section): boolean {
     if (isMultipleAllowed(arm.desc)) return false;
     const owned = currentArmory.filter(a => a.itemName === arm.name && a.section === sec).length;
@@ -315,7 +324,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   function removeItem(armId: string) { removeArmoryItem(item.id, armId); }
 
   const rule = getArchetypeRule(archetype);
-  const effectiveMark = unit.locked_mark ?? ((item.factionSource ? getArchetypeRule(alliedArchetype)?.forcedMark : rule?.forcedMark) ?? null) ?? item.mark;
+  const effectiveMark = unit.locked_mark ?? ((isTrueAllyUnit ? getArchetypeRule(alliedArchetype)?.forcedMark : rule?.forcedMark) ?? null) ?? item.mark;
   // "Has access to gear from the Armory like a Character model" (Sororitas Canoness in Paragon
   // Warsuit, Dogmata on Throne of Condemnation): grants Character-tier armory pricing/items
   // without making is_character true (that would wrongly add the "Character" keyword for
@@ -430,8 +439,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const armoryVetEnabled = effectiveHasVetAbilities ?? unit.has_veteran_abilities;
   // Marks count as 1 veteran ability for ALL units — locked-mark units use veteran_max:1 in data instead
   // grantsMarkPurchase is an archetype grant — read the archetype governing THIS item's own
-  // detachment (ally rule for allied-scope units), never the primary's unconditionally.
-  const itemRule = item.factionSource ? getArchetypeRule(alliedArchetype) : rule;
+  // detachment (ally rule for a genuine allied-detachment unit only; a same-army supplement
+  // item like Horus Heresy/Legio Titanicus stays governed by the primary archetype).
+  const itemRule = isTrueAllyUnit ? getArchetypeRule(alliedArchetype) : rule;
   const hasMarkGroup = unit.option_groups.some(g => g.constraint.type === 'mark') || !!itemRule?.grantsMarkPurchase;
   const markUsesVetSlot = !!(hasMarkGroup && !unit.locked_mark && effectiveMark);
   // Henchman Warband: every specialist sheet grants "one Veteran ability" PER SPECIALIST TYPE
@@ -557,14 +567,18 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   const grantedArchetypeKeys = archetypeArmoryKey && archetypeArmoryKey in data.armory_legions
     ? [archetypeArmoryKey] : [];
   // Allied units' OWN legacy armory (from the ally's selected alliedLegacy) — separate from the
-  // primary's legacyLegionKeys. Supplement units (not alliedFaction scope) get no legacy armory.
-  const allyLegacyLegionKeys = (isAllied && item.factionSource === alliedFaction && alliedData)
+  // primary's legacyLegionKeys. A same-army supplement unit (Horus Heresy, Legio Titanicus,
+  // Daemonkin, ...) is NOT in ally scope (isTrueAllyUnit false), so it falls through to the
+  // primary's own legacyLegionKeys/grantedArchetypeKeys below, same as any other primary unit
+  // (ki-hh-legacy-armory-ungated-01 — these units were previously always routed here and always
+  // got [], losing all Legacy armory access regardless of the primary army's own Legacy).
+  const allyLegacyLegionKeys = (isTrueAllyUnit && alliedData)
     ? [alliedLegacy ?? '']
         .filter(Boolean)
         .map(name => alliedData.legacies.find(l => l.name === name)?.armory_key)
         .filter((k): k is string => !!k && k in alliedData.armory_legions)
     : [];
-  const activeLegionKeys = isAllied ? allyLegacyLegionKeys : [...legacyLegionKeys, ...grantedArchetypeKeys];
+  const activeLegionKeys = isTrueAllyUnit ? allyLegacyLegionKeys : [...legacyLegionKeys, ...grantedArchetypeKeys];
   const hasLegion = activeLegionKeys.length > 0;
 
   // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE.

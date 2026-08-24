@@ -329,12 +329,15 @@ export function UnitCard({ item }: Props) {
 
   // For allied units, use their own faction's armory for capability checks.
   // alliedData = user-selected allied detachment; supplementData = primary faction supplementals.
-  const isAllied = !!item.factionSource;
+  // A genuine, user-picked Allied Detachment only — NOT a same-army supplement injection (Horus
+  // Heresy, Legio Titanicus, Daemonkin, ...), which stays scoped to the primary's own trait pool.
+  // Mirrors ArmoryModal.tsx's isTrueAllyUnit / resolver.ts's isAlliedDetachmentUnit.
+  const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
   const effectiveArmData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
   // "Swarm Controllers" Army Trait (ki-tau-swarmcontrollers-unmodelled-01): "Models with access to
   // drones may buy up to three drones in any combination instead of two" — raises the Drone
   // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.
-  const effectiveTraitPool = (isAllied && alliedData) ? alliedTraitPool : traitPool;
+  const effectiveTraitPool = (isTrueAllyUnit && alliedData) ? alliedTraitPool : traitPool;
   const allArmories = [effectiveArmData.armory_general, ...Object.values(effectiveArmData.armory_marks), ...Object.values(effectiveArmData.armory_legions)];
   const hasFactionVeteranItems = effectiveHasVetAbilities &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
