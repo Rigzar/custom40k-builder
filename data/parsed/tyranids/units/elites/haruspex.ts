@@ -276,7 +276,7 @@ export const haruspex: Unit = {
     }
   ],
   "abilities": [
-    "Instinctive Behaviour, Move Through Cover, Squadron",
+    "Instinctive Behaviour, Move Through Cover",
     "Voracious maw: All attacks of the model gain the \"Blood Drinker\" ability."
   ],
   "unit_type": "Monstrous Creature",

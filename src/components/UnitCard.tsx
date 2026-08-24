@@ -112,6 +112,13 @@ function applyDelta(value: string, delta: number): { display: string; modified: 
   if (/^\d+$/.test(value)) return { display: String(parseInt(value) + delta), modified: true };
   const inch = value.match(/^(\d+)"$/);
   if (inch) return { display: `${parseInt(inch[1]) + delta}"`, modified: true };
+  // A save/skill value ("3+"): stat_mod deltas for SV are already stored in save-number space
+  // (a "+1 to save" ability is delta: -1, since a LOWER printed number is the better save —
+  // verified across all 33 stat_mod:SV sources in the game, e.g. Tyranid "Hardened Carapace"),
+  // so the same plain addition as the numeric-stat case above applies. Floored at 2+, the best
+  // save the game prints anywhere.
+  const save = value.match(/^(\d+)\+$/);
+  if (save) return { display: `${Math.max(2, parseInt(save[1]) + delta)}+`, modified: true };
   return { display: value, modified: false };
 }
 const STAT_KEYS_INF = ['M','WS','BS','S','T','W','I','A','LD','SV'] as const;

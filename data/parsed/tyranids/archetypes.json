@@ -17,27 +17,27 @@
     {
       "name": "Adaptive Toxins",
       "desc": "The army has access to equipment from Hive Fleet Gorgon in the Hive Armory.",
-      "armory_key": "Hive Fleet"
+      "armory_key": "Hive Fleet Gorgon"
     },
     {
       "name": "Bio-Barrage",
       "desc": "The army has access to equipment from Hive Fleet Kronos in the Hive Armory.",
-      "armory_key": "Hive Fleet"
+      "armory_key": "Hive Fleet Kronos"
     },
     {
       "name": "Hyper-Aggression",
       "desc": "The army has access to equipment from Hive Fleet Behemoth in the Hive Armory.",
-      "armory_key": "Hive Fleet"
+      "armory_key": "Hive Fleet Behemoth"
     },
     {
       "name": "Questing Tendrils",
       "desc": "The army has access to equipment from Hive Fleet Kraken in the Hive Armory.",
-      "armory_key": "Hive Fleet"
+      "armory_key": "Hive Fleet Kraken"
     },
     {
       "name": "Synaptic Control",
       "desc": "The army has access to equipment from Hive Fleet Leviathan in the Hive Armory.",
-      "armory_key": "Hive Fleet"
+      "armory_key": "Hive Fleet Leviathan"
     }
   ],
   "traits": []

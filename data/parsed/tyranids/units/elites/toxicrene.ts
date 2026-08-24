@@ -64,7 +64,7 @@ export const toxicrene: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Feeder Tendrils: The unit gains the \"Prefered Enemy(everything)\" ability for itself and any friendly unit in the same melee combat."
+              "Feeder Tendrils: The unit gains the \"Favoured Enemy(everything)\" ability for itself and any friendly unit in the same melee combat."
             ]
           }
         },
@@ -300,7 +300,7 @@ export const toxicrene: Unit = {
     }
   ],
   "abilities": [
-    "Instinctive Behaviour, Move Through Cover, Parry, Retribution(3), Squadron",
+    "Instinctive Behaviour, Move Through Cover, Parry, Retribution(3)",
     "Grasping Tendrils: Enemy units that are fleeing from close combat and get caught receive double the amount of automatic hits from this model.",
     "Volatile: The model always explodes like a vehicle."
   ],

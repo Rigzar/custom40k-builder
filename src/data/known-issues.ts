@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-savevalue-optiondelta-no-op-01",
+    status: "fixed",
+    title: "Any bought option that improves a unit's Save silently did nothing (33 items, mainly Tyranid Biomorphs)",
+    description: "FIXED 2026-08-24, found via Discord (Dominic, tagged directly for me to look at): \"In the army builder, the Hardened Carapace option doesn't seem to increase the unit's Save by 1.\" CAUSE: option-choice stat bonuses (`Choice.effect.stat_mod`) are applied through a shared `applyDelta(currentValue, delta)` helper (duplicated in `UnitCard.tsx` and `PrintView.tsx`) that only knew how to add a delta to a plain number (\"12\" → \"13\") or an inch-suffixed movement value (\"6\\\"\" → \"7\\\"\") — a save string like \"3+\" matched neither pattern and fell through unchanged, silently. Grep found 33 files relying on a `stat_mod` targeting `SV`: every Tyranid unit with the Hardened Carapace Biomorph (near-universal) plus Chaos Space Marines' Mutants/Big Mutants \"Bloated\" option — all equally broken, not a Tyranids-only bug. FIX: both `applyDelta` copies gained a case for `/^(\\d+)\\+$/`, floored at 2+. Confirmed the delta SIGN convention first by checking multiple existing `stat_mod: SV` entries rather than assuming — every source stores delta already in save-number space (an \"improves by 1\" ability is `delta: -1`, since a lower printed number is the better save), so this is plain addition, the same as the numeric-stat case right above it. Verified live: a Toxicrene's Save went from 3+ to 2+ (with the boosted-stat marker) immediately after buying Hardened Carapace.",
+  },
+  {
+    id: "ki-tyranids-hivefleet-armory-ungated-01",
+    status: "fixed",
+    title: "A Tyranid Legacy's Hive Fleet armory showed all 5 fleets' unique items regardless of which Legacy was picked",
+    description: "FIXED 2026-08-24, found investigating a Discord report (\"I took Bio-Barrage and I don't see an option to add it on my Gargoyles\") — the specific complaint turned out correct-as-is (Gargoyles are not a Character, and every Hive Fleet item is Character-priced, so they were never meant to see any armory tab at all), but digging into where the item actually DOES live surfaced a real, separate bug. All 5 Hive Fleets' signature items (Hyper-Toxicity/Gorgon, Monstrous Hunger/Behemoth, One Step Ahead/Kraken, Perfectly Adapted/Leviathan, Symbiostorm/Kronos — each explicitly \"Unique, <Fleet> only\" per the sheet) were bundled into one shared `armory_legions['Hive Fleet']` entry, and all 5 Legacies' `archetypes.json` pointed at that same single `armory_key`. Since the existing legacy-armory filter (`activeLegionKeys`, the same mechanism every other faction's chapter/legion armory already relies on) only checks which KEYS are unlocked, not what's inside them, selecting ANY one of the 5 Hive Fleet Legacies unlocked the whole shared pool — a Bio-Barrage (Kronos) army could buy Hyper-Toxicity (Gorgon-only) just as easily as Symbiostorm. FIX: split `legion_hive_fleet.json` into 5 sub-armories, one per fleet, each holding only its own item; each Legacy's `armory_key` now names its specific fleet (`\"Hive Fleet Kronos\"` etc). No other code changed — the existing per-Legacy filter now does the right thing automatically, the same way it already did for every faction with more than one chapter/legion armory. Verified live: with \"Bio-Barrage\" selected, the Hive Tyrant's armory tab now reads \"Hive Fleet Kronos Armoury\" and lists only Symbiostorm.",
+  },
+  {
     id: "ki-gk-fortitude-fixed-power-01",
     status: "fixed",
     title: "Grey Knights — a psychic power printed on the datasheet itself had nowhere to live",
@@ -45,9 +57,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: "ki-orks-squig-launchas-strength-01",
-    status: "known",
+    status: "fixed",
     title: "Orks — a Warbuggy's Squig Launchas boost is silently ignored",
-    description: "FOUND 2026-08-21 while fixing GitHub #92 (Grey Knights Psy-ammunition). The Warbuggy item reads \"All of this model's Squig Launchas receive +1 Strength and -1 AP,\" the same false-characteristic-bump shape Psy-ammunition had — it currently does nothing visible, for the same reason. The generic fix built for #92 does not cover it: that fix keys off weapon RANGE TYPE and a Strength ceiling (\"all ranged weapons ≤4\"), but this item targets one NAMED weapon (Squig Launchas) with no ceiling, so it needs its own by-name matching rather than the threshold rule. Not fixed this pass — narrow, low-usage item, and worth its own small pass rather than bolting a third matching shape onto the shared function.",
+    description: "FIXED 2026-08-24. FOUND 2026-08-21 while fixing GitHub #92 (Grey Knights Psy-ammunition), assumed at the time to be the same false-characteristic-bump shape Psy-ammunition had. On investigation it turned out to be a different bug: \"Nitro Squigs\" (the Warbuggy Kustom Job, +11pts, \"All of this model's Squig Launchas receive +1 Strength and -1 AP\") is granted through the datasheet's own inline \"Can get one Kustom job\" option group, not a general Armory purchase — item.armory never held it, so the choice only ever charged points and never reached any stat-parsing path at all, correct or incorrect. New `applyNamedWeaponBoosts` in resolver.ts matches the selected choice by NAME against unit.option_groups + item.optionQty (not a hardcoded index) and boosts the one named weapon (\"Squig launcha\", singular/lowercase on the datasheet) by +1 S / -1 AP. Verified live: buying a Squig launcha + Nitro Squigs on a Warbuggy shows S:6 AP:-2 in the live profile, other weapon options (Kannon, Lobba, etc.) unaffected.",
   },
   {
     id: "ki-tyranids-bioform-split-01",
@@ -243,9 +255,9 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-eldar-missing-loadout-clauses-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Eldar — eleven datasheets are missing the second clause of their default loadout',
-    description: 'OPEN, found 2026-08-13 by ods_audit. Eleven Eldar units carry only the first sentence of their `equipped_with` and drop the rest, which on these datasheets is what arms the squad\'s special models. Guardian Defenders lose "Every Heavy weapon platform is equipped with: Scatter laser."; Storm Guardians lose "Every Serpent shield platform is equipped with: Serpent shield."; the Dire Avenger, Dark Reaper and Shining Spear Exarchs lose their own weapon lines; the Corsair Voidscarred lose all three specialist lines (Shade Runner, Soul Weaver, Way Seeker). Also affected: Autarch, Farseer, Spiritseer, Warlocks and Fire Dragons. The weapons themselves are present in `weapons[]`, so nothing has vanished from the card, but the resolver splits `equipped_with` into one clause per model group to decide which weapons belong to which model — with a single clause everything attaches to the whole unit. NOT fixed in this pass: adding the clauses changes how weapon groups are split and rendered on every one of the eleven, which needs verifying unit by unit rather than a bulk edit. Pre-existing and unrelated to any codex change; the Eldar sheet only changed its psychic discipline tab this round.',
+    description: 'RE-CHECKED 2026-08-24, found ALREADY RESOLVED — closing as stale rather than re-fixing. OPEN, found 2026-08-13 by ods_audit: eleven Eldar units carried only the first sentence of their `equipped_with`, dropping the rest, which on these datasheets is what arms the squad\'s special models. Re-auditing all eleven individually before touching anything (per the standing rule: verify each case, don\'t patch a batch by shape): Guardian Defenders, Storm Guardians and Voidscarred already carry the full multi-clause `equipped_with` text verbatim against the ods ("Every Heavy weapon platform is equipped with: Scatter laser.", "Every Serpent scale platform is equipped with: Serpent shield.", and all three Voidscarred specialist lines respectively) — some later session\'s general loadout-clause pass (candidate: the v1.61 GH#87 fix, "one sentence per model group... 21 datasheets carried only the first") must have swept these up without this entry being updated. Autarch/Farseer/Spiritseer/Warlocks were never actually missing a clause — the original 2026-08-13 finding mistook the ods\'s "Plasma grenades" (plural) vs production\'s "Plasma grenade" (singular) for a dropped sentence; production\'s singular is deliberate and consistent across every single-model Eldar unit in the game (matches the Armory item\'s own canonical name, "Plasma grenade" — pluralizing it would break the exact-name equipment matching used throughout the resolver, so left as-is). The remaining four (Dire Avenger, Fire Dragon, Shining Spear, Dark Reaper Exarchs) don\'t need their `equipped_with` touched at all: resolver.ts already has a dedicated `variantOnlyWeapons` mechanism (a weapon named in some OTHER option group\'s `replaces` but absent from the base unit\'s `equipped_with` is inferred to be a promoted variant\'s own default) that correctly shows the Exarch\'s default weapon once promoted — verified live in the browser for all four: Dire Avenger Exarch shows Diresword+Shuriken pistol, Fire Dragon Exarch shows Dragon\'s breath flamer, Dark Reaper Exarch shows Shuriken cannon, Shining Spear Exarch shows Paragon sabre. Adding the clause text would have actively BROKEN this working mechanism (the weapon would then be found IN equipped_with, disqualifying it from the variant-only inference). Nothing changed in code this pass — verification only.',
   },
   {
     id: 'ki-all-codex-sheets-resynced-2026-08-13',
@@ -393,15 +405,15 @@ export const KNOWN_ISSUES: KnownIssue[] = [
   },
   {
     id: 'ki-escalation-zzap-gun-cells-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Escalation — the Ork Battle Fortress Zzap gun has an unreadable AP and a Damage cell the spreadsheet turned into a date',
-    description: 'FOUND 2026-08-06 while re-auditing Escalation.ods. On the "Battle Fortress" tab the Zzap gun row reads AP "26-12" and Damage "2-1", and the Damage cell is stored as a DATE (office:date-value 1900-01-02) rather than text — the spreadsheet reinterpreted what was typed. Neither value is usable as a rule, and nothing in the sheet says what they should be, so the app keeps the previously printed AP -4 / Damage 3 until the author rules on it. Only the ability was updated (AT(2) to AT(3)), which that row states plainly. Asked on Discord.',
+    description: 'RE-CHECKED 2026-08-24: the creator fixed the sheet since this was found — Battle Fortress\'s Zzap gun now reads cleanly (36", Heavy 1, S:2D6 AP:-4 D:3, AT(3)), matching what production already carried as its fallback value. Nothing to change; closing. ORIGINAL (2026-08-06): the Damage cell was stored as a DATE (office:date-value 1900-01-02) and AP read "26-12" — both unusable, asked on Discord at the time.',
   },
   {
     id: 'ki-admech-volkite-serpenta-damage-01',
-    status: 'known',
+    status: 'fixed',
     title: 'Adeptus Mechanicus — the Volkite serpenta is printed with Damage -1',
-    description: 'FOUND 2026-08-06 re-auditing Adeptus Mechanicus ENG.ods. The Armory tab gives the Volkite serpenta Damage "-1"; damage cannot be negative, and every other Volkite weapon in the game does 1. Production carries the sheet\'s value verbatim rather than guessing. Same tab: "Mindscanner probe" has no price in either column, so it cannot be bought. Both asked on Discord.',
+    description: 'FIXED 2026-08-24: re-checked the sheet, the creator corrected it since this was found — the Armory tab now reads Damage 1 (S:5 AP:-1 D:1, Soul burn(6+)), matching every other Volkite weapon. Production still carried the old "-1" verbatim; corrected to 1. "Mindscanner probe" also already has its price now (10 pts) — no longer an issue. ORIGINAL (2026-08-06): found via re-audit, both asked on Discord at the time.',
   },
   {
     id: 'ki-ig-platoon-picker-hidden-01',

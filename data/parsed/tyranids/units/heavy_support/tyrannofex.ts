@@ -375,7 +375,7 @@ export const tyrannofex: Unit = {
     }
   ],
   "abilities": [
-    "Instinctive Behaviour, Move Through Cover, Squadron"
+    "Instinctive Behaviour, Move Through Cover"
   ],
   "unit_type": "Monstrous Creature",
   "keywords": [

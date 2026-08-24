@@ -140,7 +140,7 @@ export const GENERAL_DISCIPLINES: Record<string, Power[]> = {
       name: 'Force Field',
       type: 'Augmentation', range: '-', target: 'Self + attached unit',
       cast_value: '6', duration: 'Until the caster\'s next activation', complexity: 'Basic',
-      effect: 'The target gains the benefit of cover.',
+      effect: 'The target gains the benefit of light cover.',
     },
     {
       name: 'Levitation',

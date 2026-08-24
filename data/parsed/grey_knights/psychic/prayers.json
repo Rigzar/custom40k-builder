@@ -27,7 +27,7 @@
     "name": "Refrain of Convergence",
     "range": "-",
     "target": "Self + attached unit",
-    "effect": "The target is immune against Maledictions and Witchfires. Enemy psykers within 18\" range automatically suffer a \"Perils of the Warp\" attack each time they try to manifest a psychic power.",
+    "effect": "The target is immune against Maledictions and Witchfires. Enemy psykers within 12\" range suffer a -1 penalty to manifest psychic powers.",
     "duration": "Until the caster's next activation",
     "complexity": "Basic"
   },

@@ -161,7 +161,7 @@
     {
       "name": "Feeder Tendrils",
       "term_compat": false,
-      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The unit gains the \"Prefered Enemy(everything)\" ability for itself and any friendly unit in the same melee combat.",
+      "desc": "Special Biomorph. Point costs are paid for every model of the unit and vary per datasheet. The unit gains the \"Favoured Enemy(everything)\" ability for itself and any friendly unit in the same melee combat.",
       "p_unit": null,
       "p_char": null
     },

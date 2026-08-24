@@ -315,7 +315,7 @@ export const exocrine: Unit = {
     }
   ],
   "abilities": [
-    "Instinctive Behaviour, Move Through Cover, Squadron",
+    "Instinctive Behaviour, Move Through Cover",
     "Symbiotic targeting: The model gains a +1 bonus to ranged hit rolls with a \"Stand & Shoot\" order."
   ],
   "unit_type": "Monstrous Creature",

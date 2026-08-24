@@ -16,7 +16,7 @@
       "range": "18\"",
       "target": "Enemy unit",
       "cast_value": "6",
-      "effect": "The target must pass a Leadership test with a -1 penalty.",
+      "effect": "The target must pass a Leadership test with a -2 penalty or gain a Battleshock token.",
       "duration": "Until the caster's next activation",
       "complexity": "Normal"
     },

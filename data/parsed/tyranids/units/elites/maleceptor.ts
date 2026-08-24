@@ -268,7 +268,7 @@ export const maleceptor: Unit = {
     }
   ],
   "abilities": [
-    "Fearless, Move Through Cover, Squadron, Synapse",
+    "Fearless, Move Through Cover, Synapse",
     "Psychic Barrier: The model gains a 5+ ward save.",
     "Psyker: The model can cast 1 power and deny 1 power per battle round. It knows Smite and one power from a chosen discipline."
   ],

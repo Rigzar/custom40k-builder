@@ -59,7 +59,7 @@ export const neurotyrant: Unit = {
           "points": 5,
           "effect": {
             "grants_abilities": [
-              "Feeder Tendrils: The unit gains the \"Prefered Enemy(everything)\" ability for itself and any friendly unit in the same melee combat."
+              "Feeder Tendrils: The unit gains the \"Favoured Enemy(everything)\" ability for itself and any friendly unit in the same melee combat."
             ]
           }
         },

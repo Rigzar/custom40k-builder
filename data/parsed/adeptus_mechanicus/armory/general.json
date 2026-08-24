@@ -324,7 +324,7 @@
       "type": "Pistol 1",
       "s": "5",
       "ap": "-1",
-      "d": "-1",
+      "d": "1",
       "abilities": "Soul burn(6+)",
       "p_unit": 2,
       "p_char": 3

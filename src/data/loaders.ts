@@ -296,14 +296,24 @@ async function loadFaction(key: string): Promise<FactionData> {
     }
 
     case 'tyranids': {
-      const [u, g, arch, leg, discs] = await Promise.all([
+      const [u, g, arch, hiveFleets, discs] = await Promise.all([
         import('../../data/parsed/tyranids/units/index').then(m => ({ default: { faction: m.faction, slot_to_units: m.slot_to_units, units: m.units } })),
         import('../../data/parsed/tyranids/armory/general.json'),
         import('../../data/parsed/tyranids/archetypes.json'),
         import('../../data/parsed/tyranids/armory/legion_hive_fleet.json'),
         import('../../data/parsed/tyranids/psychic/disciplines.json'),
       ]);
-      return asm(u, g, arch, noRules, {}, { 'Hive Fleet': leg }, { disciplines: discs });
+      // legion_hive_fleet.json holds one sub-armory PER Hive Fleet ("Hive Fleet Kronos" etc, each
+      // with just that fleet's own "<Fleet> only" item) rather than one shared "Hive Fleet" armory
+      // with all 5 items pooled together — each Legacy's own `armory_key` in archetypes.json now
+      // names its exact fleet, so ArmoryModal's existing activeLegionKeys filter (which already
+      // shows only the armory_legions entries matching the selected Legacy, same as every other
+      // faction's legion/chapter armory) naturally shows just the one item that Legacy grants,
+      // instead of all 5 "Unique... X only" items regardless of which Legacy was picked.
+      const legions: Record<string, Mod> = Object.fromEntries(
+        Object.entries(d(hiveFleets)).map(([k, v]) => [k, { default: v }]),
+      );
+      return asm(u, g, arch, noRules, {}, legions, { disciplines: discs });
     }
 
     case 'horus_heresy':

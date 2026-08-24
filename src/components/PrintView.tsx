@@ -122,6 +122,11 @@ function applyDelta(val: string, delta: number): string {
   if (/^\d+$/.test(val)) return String(parseInt(val) + delta);
   const m = val.match(/^(\d+)"$/);
   if (m) return `${parseInt(m[1]) + delta}"`;
+  // A save/skill value ("3+") — see the matching fix in UnitCard.tsx's own applyDelta for why
+  // this is plain addition (stat_mod deltas for SV are already stored in save-number space, e.g.
+  // Tyranid "Hardened Carapace" is delta: -1). Floored at 2+.
+  const save = val.match(/^(\d+)\+$/);
+  if (save) return `${Math.max(2, parseInt(save[1]) + delta)}+`;
   return val;
 }
 

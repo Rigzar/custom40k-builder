@@ -1655,9 +1655,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]);
+    return applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]));
   }
-  return applyRangedStrengthBoosts(unit, item, nonEmpty);
+  return applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty));
 }
 
 /**
@@ -1705,6 +1705,42 @@ function applyRangedStrengthBoosts(unit: Unit, item: RosterEntry, groups: Weapon
     const isMelee = w.range === '-' || /^melee/i.test(w.type ?? '');
     if (isMelee || !/^\d+$/.test(w.s) || (cap !== null && parseInt(w.s, 10) > cap)) return w;
     return { ...w, s: String(parseInt(w.s, 10) + 1) };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
+/**
+ * Items/inline options that boost one specific NAMED weapon by text ("All of this model's Squig
+ * Launchas receive +1 Strength and -1 AP") rather than the generic "weapon(s) of the model"
+ * wording applyRangedStrengthBoosts covers — mirrors NAMED_WEAPON_BOOST_ITEMS in equipMods.ts,
+ * which excludes these from the generic model-characteristic stat-delta parse so the two don't
+ * double up. Ork "Nitro Squigs" (Warbuggy only): the datasheet's own weapon row is named
+ * "Squig launcha" (singular, lowercase) — the item text's plural/capitalized "Squig Launchas" is
+ * just descriptive, not a literal weapon name to match against. It's granted through the
+ * Warbuggy's own inline "Can get one Kustom job" option group, not a general Armory purchase —
+ * same shape as Psy-ammunition's fromInlineOption above, so item.armory never holds it either;
+ * checked against unit.option_groups + item.optionQty by matching the choice NAME rather than a
+ * hardcoded group/choice index, since those can shift as the sheet changes.
+ */
+const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta: number; apDelta: number }> = {
+  'Nitro Squigs': { weaponName: 'Squig launcha', sDelta: 1, apDelta: -1 },
+};
+function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const active = Object.keys(NAMED_WEAPON_BOOST_ITEMS).filter(name => {
+    if (item.armory.some(a => a.itemName === name)) return true;
+    return unit.option_groups.some((g, gi) => {
+      const ci = (g.choices ?? []).findIndex(c => c.name === name);
+      return ci >= 0 && (item.optionQty?.[gi]?.[ci] ?? 0) > 0;
+    });
+  });
+  if (!active.length) return groups;
+  const boosts = active.map(name => NAMED_WEAPON_BOOST_ITEMS[name]);
+  const boost = (w: Weapon): Weapon => {
+    const match = boosts.find(b => b.weaponName.toLowerCase() === w.name.toLowerCase());
+    if (!match) return w;
+    const s = /^\d+$/.test(w.s) ? String(parseInt(w.s, 10) + match.sDelta) : w.s;
+    const ap = /^-?\d+$/.test(w.ap) ? String(parseInt(w.ap, 10) + match.apDelta) : w.ap;
+    return { ...w, s, ap };
   };
   return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }
