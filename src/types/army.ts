@@ -88,6 +88,17 @@ export interface RosterEntry {
    * Only one HQ per army may be designated.
    */
   blackCrusadeHQ?: boolean;
+  /**
+   * Opts this specific unit OUT of a "does not take up a slot" exemption it would otherwise
+   * automatically receive (e.g. Tyranid Tyrant Guard Brood's "for every Hive Tyrant/Neurotyrant/
+   * Swarmlord, one Tyrant Guard Brood does not take up an HQ slot") — the canon wording is
+   * permissive ("the army MAY include"), not mandatory, so a player is free to decline the
+   * freebie and let this instance occupy a normal slot instead (Discord: wanted exactly one
+   * Tyrant Guard Brood to count as their HQ pick, but it kept getting auto-exempted). Currently
+   * only read by `computeTyrantGuardFreeSlots`, but deliberately generic in case another
+   * free-slot mechanism needs the same opt-out later.
+   */
+  declineFreeSlot?: boolean;
   /** User-defined display name for this unit (overrides the default unit name). */
   customName?: string;
   /** ID of the roster unit this character is pre-assigned to join at deployment. */

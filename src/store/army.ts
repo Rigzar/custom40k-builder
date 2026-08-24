@@ -232,6 +232,8 @@ export interface ArmyStore extends ArmyState {
    * Automatically clears the flag on any previously designated champion.
    */
   setBlackCrusadeHQ: (id: string, v: boolean) => void;
+  /** Opts this unit out of an automatic "does not take up a slot" exemption (see RosterEntry). */
+  setDeclineFreeSlot: (id: string, v: boolean) => void;
   /**
    * Mixed Warband: lock this unit to a specific legacy armory key (or clear the lock).
    * Passing null clears the lock and removes any armory items from legacy armories.
@@ -501,6 +503,10 @@ export const useArmyStore = create<ArmyStore>()(
           if (v) return { ...e, blackCrusadeHQ: undefined };
           return e;
         }),
+      })),
+
+      setDeclineFreeSlot: (id: string, v: boolean) => set((s: S) => ({
+        army: s.army.map(e => e.id === id ? { ...e, declineFreeSlot: v || undefined } : e),
       })),
 
       setLegacyArmoryLock: (id: string, key: string | null) => set((s: S) => ({

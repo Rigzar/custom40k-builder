@@ -540,6 +540,12 @@ export function computeEinhyrChampionFreeSlots(
  *
  * The Neurotyrant was missing from the anchor list, so a Guard bought alongside one took a normal
  * HQ slot (GitHub #79).
+ *
+ * The sheet's own wording is permissive ("the army MAY include one... that does not take up an
+ * HQ slot"), not mandatory — a player can decline the freebie on a specific Guard and let it
+ * occupy a normal HQ slot instead (Discord: wanted exactly one Guard to count as their HQ pick,
+ * but it kept getting auto-exempted with no way to turn that off). `declineFreeSlot` opts a unit
+ * OUT of the exemption pool entirely, so it's never eligible to be one of the `credited` units.
  */
 const TYRANT_GUARD_ANCHORS = ['Hive Tyrant', 'Neurotyrant', 'Swarmlord'];
 export function computeTyrantGuardFreeSlots(
@@ -547,7 +553,8 @@ export function computeTyrantGuardFreeSlots(
   data: FactionData,
 ): { hq: number; notes: string[] } {
   if (data.faction !== 'Tyranids') return { hq: 0, notes: [] };
-  const guardCount = army.filter(i => i.unitName === 'Tyrant Guard Brood').length;
+  const eligible = army.filter(i => i.unitName === 'Tyrant Guard Brood' && !i.declineFreeSlot);
+  const guardCount = eligible.length;
   const anchorCount = army.filter(i => TYRANT_GUARD_ANCHORS.includes(i.unitName)).length;
   if (guardCount === 0 || anchorCount === 0) return { hq: 0, notes: [] };
   const credited = Math.min(guardCount, anchorCount);

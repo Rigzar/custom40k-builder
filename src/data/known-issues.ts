@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tyranids-tyrant-guard-decline-free-slot-01",
+    status: "fixed",
+    title: "Tyranids — no way to make a Tyrant Guard Brood count as a normal HQ pick",
+    description: "FIXED 2026-08-24, Discord: \"Is it possible to put a toggle on tyrant brood guard to adjust whether or not they count for an hq slot? I'm trying to add just 1 to my army to fill out my hq slots, but since it doesn't count as an hq unit (it doesnt take up a slot due to my swarmlord) my army has a notification that it is invalid.\" Dominic: \"Yes!\" CAUSE: the sheet's own wording is permissive (\"the army MAY include one... that does not take up an HQ slot\"), not mandatory, but `computeTyrantGuardFreeSlots` always credited the exemption to every eligible Tyrant Guard Brood up to the Hive Tyrant/Neurotyrant/Swarmlord count, with no way to opt out. FIX: new `RosterEntry.declineFreeSlot` flag (deliberately generic, in case another \"does not take up a slot\" mechanism needs the same opt-out later — Royal Court, Entourage, Cultist Firebrand, Commissar, etc. all share the shape) + a per-unit toggle button on the Tyrant Guard Brood card (mirrors the existing Black Crusade Champion toggle's styling). `computeTyrantGuardFreeSlots` now excludes any Guard with the flag set from its exemption pool entirely, so it always occupies a normal HQ slot. Verified live: toggling it on a Tyrant Guard Brood fielded alongside a Swarmlord flips `declineFreeSlot` in the store and the button's own label/description swap correctly.",
+  },
+  {
     id: "ki-savevalue-optiondelta-no-op-01",
     status: "fixed",
     title: "Any bought option that improves a unit's Save silently did nothing (33 items, mainly Tyranid Biomorphs)",

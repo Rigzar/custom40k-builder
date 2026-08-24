@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v165c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165d_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.65: Grey Knights — the power you couldn't find",
@@ -27,6 +27,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "👥 Sharing an army privately is now possible — hit \"Share\" on any of your armies and pick a friend or any other player by username; only they can see and copy it, no need to make it fully public. Friend requests now go through Accept/Decline instead of adding both ways silently.",
     line7: "🛡️ Any bought option that improves a unit's Save (Tyranid Hardened Carapace being the most common one) silently did nothing — the code applying it had no case for a save value like \"3+\". Fixed for all 33 places that use it.",
     line8: "🧬🔮 Tyranids and Grey Knights codex sync: Squadron removed from 5 Tyranid units, Feeder Tendrils fixed to \"Favoured Enemy\", a Hive Fleet Legacy now grants only its own gear instead of all 5 at once; Grey Knights gained a third psychic discipline (\"Legacy\", 8 powers) and updated wording on Cleanse Soul, Refrain of Convergence and Force Field.",
+    line9: "🛡️ Tyranids — a Tyrant Guard Brood next to a Hive Tyrant, Neurotyrant or Swarmlord was always exempted from an HQ slot with no way to turn it off. Each one now has its own toggle to decline the exemption instead.",
     contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -41,6 +42,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "👥 Eine Armee privat teilen ist jetzt möglich — „Teilen“ bei einer eigenen Armee anklicken und einen Freund oder beliebigen Spieler per Benutzernamen wählen; nur diese Person kann sie sehen und kopieren, ohne sie komplett öffentlich zu machen. Freundschaftsanfragen laufen jetzt über Annehmen/Ablehnen statt beide Seiten stillschweigend hinzuzufügen.",
     line7: "🛡️ Optionen, die den Rettungswurf verbessern (meistens Tyraniden-Hardened-Carapace), taten stillschweigend nichts — der Code dafür kannte keinen Wert wie „3+“. Jetzt für alle 33 betroffenen Stellen behoben.",
     line8: "🧬🔮 Codex-Abgleich Tyraniden & Grey Knights: Squadron bei 5 Tyraniden-Einheiten entfernt, Feeder Tendrils zu „Favoured Enemy“ korrigiert, eine Hive-Fleet-Legacy gewährt jetzt nur noch ihre eigene Ausrüstung statt aller 5 auf einmal; Grey Knights erhalten eine dritte Psi-Disziplin („Legacy“, 8 neue Kräfte) sowie aktualisierten Text bei Cleanse Soul, Refrain of Convergence und Force Field.",
+    line9: "🛡️ Tyraniden — ein Tyrant Guard Brood neben einem Hive Tyrant, Neurotyrant oder Swarmlord war immer von einem HQ-Slot befreit, ohne Möglichkeit das abzuschalten. Jeder hat jetzt einen eigenen Umschalter, um auf die Befreiung zu verzichten.",
     contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -55,6 +57,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line6: "👥 Ahora se puede compartir un ejército en privado — pulsa \"Compartir\" en cualquiera de tus ejércitos y elige un amigo o cualquier jugador por su nombre de usuario; solo esa persona podrá verlo y copiarlo, sin necesidad de hacerlo público del todo. Las solicitudes de amistad ahora pasan por Aceptar/Rechazar en vez de añadirse en ambos sentidos en silencio.",
     line7: "🛡️ Cualquier opción comprada que mejora la Salvación (Hardened Carapace de Tiránidos, la más común) no hacía nada — el código que la aplica no sabía manejar un valor tipo \"3+\". Arreglado en los 33 sitios que lo usan.",
     line8: "🧬🔮 Sincronización de códex Tiránidos y Grey Knights: Squadron quitado de 5 unidades Tiránidas, Feeder Tendrils corregido a \"Favoured Enemy\", una Legacy de Hive Fleet ahora solo da acceso a su propio equipo en vez de los 5 a la vez; Grey Knights gana una tercera disciplina psíquica (\"Legacy\", 8 poderes nuevos) y texto actualizado en Cleanse Soul, Refrain of Convergence y Force Field.",
+    line9: "🛡️ Tiránidos — un Tyrant Guard Brood junto a un Hive Tyrant, Neurotyrant o Swarmlord siempre quedaba exento de ocupar un slot de HQ, sin forma de desactivarlo. Ahora cada uno tiene su propio interruptor para renunciar a la exención.",
     contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -130,11 +133,11 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* line8/line7/line6/line5 are prepend slots: a follow-up batch of fixes added after the
-              original release leads with the newest slot, without renumbering anything below it.
-              2026-08-24: line7 (Save-bonus engine fix) and line8 (Tyranids/GK codex sync) added
-              this way for the post-release bug-fix batch, keeping v1.65's own banner intact. */}
-          {[tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
+          {/* line9/line8/line7/line6/line5 are prepend slots: a follow-up batch of fixes added after
+              the original release leads with the newest slot, without renumbering anything below it.
+              2026-08-24: line7 (Save-bonus engine fix), line8 (Tyranids/GK codex sync) and line9
+              (Tyrant Guard Brood HQ-slot toggle) added this way, keeping v1.65's own banner intact. */}
+          {[tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

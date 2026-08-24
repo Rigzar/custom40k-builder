@@ -989,6 +989,29 @@ export function UnitCard({ item }: Props) {
             <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">{t('buildLabel')}</span>
           </div>
 
+          {/* Tyrant Guard Brood: "the army MAY include one... that does not take up an HQ slot"
+              is permissive, not mandatory — a player short on real HQ picks can decline the
+              freebie here and let this one occupy a normal HQ slot instead (Discord). */}
+          {item.unitName === 'Tyrant Guard Brood' && (
+            <div className="mb-2">
+              <button
+                onClick={() => store.setDeclineFreeSlot(item.id, !item.declineFreeSlot)}
+                className={`w-full text-left text-[11px] px-3 py-1.5 border transition-colors
+                  ${item.declineFreeSlot
+                    ? 'bg-amber-900/40 border-amber-600 text-amber-300 font-semibold'
+                    : 'bg-zinc-900 border-zinc-600 text-zinc-400 hover:border-amber-700 hover:text-amber-400'
+                  }`}
+              >
+                {item.declineFreeSlot
+                  ? t('tyrantGuardDeclineActiveLabel')
+                  : t('tyrantGuardDeclineToggleOff')}
+              </button>
+              <div className="text-[10px] text-zinc-500 mt-0.5 pl-2 border-l border-amber-900">
+                {t('tyrantGuardDeclineDesc')}
+              </div>
+            </div>
+          )}
+
           {/* Squad size — per-group when modelSizes is available, single slider otherwise */}
           {item.modelSizes ? (
             <div className="space-y-1">

@@ -138,6 +138,7 @@ export type TranslationKey =
   | 'fixedLabel' | 'totalLabel' | 'modelsWord' | 'theWord' | 'armoryAccessSuffix' | 'selectToEnableArmory'
   | 'addOnBadge' | 'everyWord' | 'isEquippedWithSuffix' | 'rangedWeaponsHeader' | 'meleeWeaponsHeader'
   | 'blackCrusadeChampionActiveLabel' | 'blackCrusadeChampionToggleOff' | 'blackCrusadeChampionDesc'
+  | 'tyrantGuardDeclineActiveLabel' | 'tyrantGuardDeclineToggleOff' | 'tyrantGuardDeclineDesc'
   | 'chaosMarkLabel' | 'markForcedPrefix' | 'allChaosMarksLabel' | 'allMarksVehicleBonus'
   | 'allMarksCharacterBonus' | 'allMarksInfantryBonus' | 'vetSlotSuffix' | 'markOfChaosUndividedLabel'
   | 'undividedKillProgressionText' | 'favoredOfPrefix' | 'favoredOfSizePrefix' | 'favoredOfSizeSuffix'
@@ -623,6 +624,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     blackCrusadeChampionActiveLabel: '⚜ Black Crusade Champion — carries all four Chaos god marks',
     blackCrusadeChampionToggleOff: '○ Designate as Black Crusade Champion (all four god marks)',
     blackCrusadeChampionDesc: 'This HQ simultaneously bears Khorne, Nurgle, Slaanesh and Tzeentch. Pays the combined mark cost for all four gods.',
+    tyrantGuardDeclineActiveLabel: '○ Counts as a normal HQ choice (not exempted)',
+    tyrantGuardDeclineToggleOff: '⚜ Exempted from the HQ slot — click to make it count instead',
+    tyrantGuardDeclineDesc: 'By default, one Tyrant Guard Brood per Hive Tyrant/Neurotyrant/Swarmlord does not take up an HQ slot. That\'s optional — turn it off here to let this one occupy a normal HQ slot instead.',
     chaosMarkLabel: 'Chaos Mark',
     markForcedPrefix: 'Mark forced by archetype:',
     allChaosMarksLabel: '⚜ All Chaos Marks:',
@@ -1227,6 +1231,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     blackCrusadeChampionActiveLabel: '⚜ Black-Crusade-Champion — trägt alle vier Chaosgötter-Male',
     blackCrusadeChampionToggleOff: '○ Als Black-Crusade-Champion bestimmen (alle vier Götter-Male)',
     blackCrusadeChampionDesc: 'Dieses HQ trägt gleichzeitig Khorne, Nurgle, Slaanesh und Tzeentch. Zahlt die kombinierten Mal-Kosten für alle vier Götter.',
+    tyrantGuardDeclineActiveLabel: '○ Zählt als normale HQ-Wahl (nicht befreit)',
+    tyrantGuardDeclineToggleOff: '⚜ Von HQ-Slot befreit — klicken, damit es stattdessen zählt',
+    tyrantGuardDeclineDesc: 'Standardmäßig belegt ein Tyrant-Guard-Trupp pro Hive Tyrant/Neurotyrant/Swarmlord keinen HQ-Slot. Das ist optional — hier ausschalten, damit dieser Trupp stattdessen einen normalen HQ-Slot belegt.',
     chaosMarkLabel: 'Chaos-Mal',
     markForcedPrefix: 'Mal durch Archetyp vorgegeben:',
     allChaosMarksLabel: '⚜ Alle Chaos-Male:',
@@ -1831,6 +1838,9 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     blackCrusadeChampionActiveLabel: '⚜ Campeón de la Cruzada Negra — porta las cuatro marcas de los dioses del Caos',
     blackCrusadeChampionToggleOff: '○ Designar como Campeón de la Cruzada Negra (las cuatro marcas)',
     blackCrusadeChampionDesc: 'Este HQ porta simultáneamente Khorne, Nurgle, Slaanesh y Tzeentch. Paga el coste combinado de marca de los cuatro dioses.',
+    tyrantGuardDeclineActiveLabel: '○ Cuenta como elección de HQ normal (no exento)',
+    tyrantGuardDeclineToggleOff: '⚜ Exento del slot de HQ — pulsa para que cuente en su lugar',
+    tyrantGuardDeclineDesc: 'Por defecto, un Tyrant Guard Brood por cada Hive Tyrant/Neurotyrant/Swarmlord no ocupa un slot de HQ. Eso es opcional — desactívalo aquí para que este ocupe un slot de HQ normal en su lugar.',
     chaosMarkLabel: 'Marca del Caos',
     markForcedPrefix: 'Marca impuesta por el arquetipo:',
     allChaosMarksLabel: '⚜ Todas las Marcas del Caos:',
