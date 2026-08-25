@@ -1123,7 +1123,12 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               ) : (() => {
                 const fd = authorityCache[authorityFaction];
                 const foreignWeapons = (fd.armory_general.weapons ?? []) as ArmoryItem[];
-                const foreignEquip = ((fd.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                const foreignEquipAll = ((fd.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                const foreignEq = splitEquipment(foreignEquipAll);
+                // Same fix as the archetypeArmory tab just above: respect the WEAPONS/EQUIPMENT
+                // sub-tab instead of always showing both, and route equipment through
+                // EquipmentGroups so a named-choice item picked up via Authority of the
+                // Inquisition also gets its picker (Crusade weapon, Paragon of war, etc).
                 return (
                   <div className="space-y-3">
                     <button
@@ -1132,29 +1137,51 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     >
                       {t('chooseDifferentFaction')}
                     </button>
-                    {([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
-                      <div key={sec}>
-                        <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? t('weaponsLabel') : t('equipment')}</div>
-                        {items.length === 0
-                          ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                          : items.map((arm, i) => {
-                            const pts = getItemPts(arm);
-                            const blocked = authorityCapReached || pts === null;
-                            return (
-                              <ArmoryItemRow
-                                key={i} arm={arm} isChar={isChar}
-                                justAdded={lastAdded === arm.name}
-                                disabled={blocked}
-                                selectedArmoryId={getSelId(arm.name, sec)}
-                                ptsOverride={pts}
-                                onRemove={removeItem}
-                                onAdd={() => !blocked && add(arm, AUTHORITY_SOURCE, sec)}
-                              />
-                            );
-                          })
-                        }
-                      </div>
-                    ))}
+                    {effectiveSection === 'equipment' ? (
+                      <EquipmentGroups
+                        regular={foreignEq.regular} veteran={foreignEq.veteran} vehicle={foreignEq.vehicle}
+                        isChar={isChar} isVehicle={isVehicle} isMonster={unit.is_monster}
+                        unitSize={item.size} unitWounds={woundCount}
+                        profileAbilityNames={profileAbilityNames}
+                        armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+                        filterCategory={filterCategory}
+                        lastAdded={lastAdded}
+                        markless
+                        getPts={getItemPts}
+                        isUniqueSelected={() => authorityCapReached}
+                        getSelId={name => getSelId(name, 'equipment')}
+                        onRemove={removeItem}
+                        onAdd={arm => {
+                          if (authorityCapReached) return;
+                          const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
+                          const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon') ? (eqExarchPower[arm.name] || undefined) : undefined;
+                          add(arm, AUTHORITY_SOURCE, 'equipment', tw, cp);
+                        }}
+                        availableWeapons={availableWeapons}
+                        eqTargetWeapon={eqTargetWeapon}
+                        onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                        eqExarchPower={eqExarchPower}
+                        onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
+                      />
+                    ) : (
+                      foreignWeapons.length === 0
+                        ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
+                        : foreignWeapons.map((arm, i) => {
+                          const pts = getItemPts(arm);
+                          const blocked = authorityCapReached || pts === null;
+                          return (
+                            <ArmoryItemRow
+                              key={i} arm={arm} isChar={isChar}
+                              justAdded={lastAdded === arm.name}
+                              disabled={blocked}
+                              selectedArmoryId={getSelId(arm.name, 'weapons')}
+                              ptsOverride={pts}
+                              onRemove={removeItem}
+                              onAdd={() => !blocked && add(arm, AUTHORITY_SOURCE, 'weapons')}
+                            />
+                          );
+                        })
+                    )}
                   </div>
                 );
               })()}
@@ -1170,7 +1197,8 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                 </div>
               ) : (() => {
                 const foreignWeapons = (archetypeArmoryData.armory_general.weapons ?? []) as ArmoryItem[];
-                const foreignEquip = ((archetypeArmoryData.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                const foreignEquipAll = ((archetypeArmoryData.armory_general.equipment ?? []) as ArmoryItem[]).filter(a => !a.category);
+                const foreignEq = splitEquipment(foreignEquipAll);
                 // Daemon-weapon ability pool from the FOREIGN armory. IG "Traitor Guard" / AdMech
                 // "Dark Mechanicum" buy the CSM "Daemon weapon" gateway on THIS tab, so the picker
                 // has to live here too — getDaemonWeaponPool() reads activeData, which is the
@@ -1183,46 +1211,76 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                     : []),
                 ].filter(arm => !isArmyItemGateBlocked(arm, rosterArmoryItemNames));
                 const foreignSrcLabel = `${archetype} — ${archetypeArmoryData.faction} Armoury`;
-                return ([['weapons', foreignWeapons], ['equipment', foreignEquip]] as [Section, ArmoryItem[]][]).map(([sec, items]) => (
-                  <div key={sec}>
-                    <div className="text-[11px] text-amber-700 uppercase tracking-widest mb-1">{sec === 'weapons' ? t('weaponsLabel') : t('equipment')}</div>
-                    {items.length === 0
-                      ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
-                      : items.map((arm, i) => {
-                        const pts = getItemPts(arm);
-                        const blocked = pts === null;
-                        const isDaemonGateway = arm.name === 'Daemon weapon' || arm.name === 'Greater Daemon weapon';
-                        return (
-                          <div key={i}>
-                            <ArmoryItemRow
-                              arm={arm} isChar={isChar}
-                              justAdded={lastAdded === arm.name}
-                              disabled={blocked}
-                              selectedArmoryId={getSelId(arm.name, sec)}
-                              ptsOverride={pts}
-                              onRemove={removeItem}
-                              onAdd={() => !blocked && add(arm, foreignSrcLabel, sec)}
-                            />
-                            {isDaemonGateway && getSelId(arm.name, sec) && (
-                              <DaemonWeaponPicker
-                                pool={foreignDaemonPool}
-                                cap={arm.name === 'Greater Daemon weapon' ? 2 : 1}
-                                selections={daemonWeaponSelections}
-                                lastAdded={lastAdded}
-                                availableWeapons={availableWeapons}
-                                dwTargetWeapon={dwTargetWeapon}
-                                onSetTargetWeapon={(n, w) => setDwTargetWeapon(prev => ({ ...prev, [n]: w }))}
-                                isTakenElsewhere={a => uniqueArmyBlocked(a, 'daemon_weapons')}
-                                onAdd={(a, tw) => add(a, foreignSrcLabel, 'daemon_weapons', tw)}
-                                onRemove={removeItem}
-                              />
-                            )}
-                          </div>
-                        );
-                      })
-                    }
-                  </div>
-                ));
+                // Respect the WEAPONS/EQUIPMENT sub-tab like every other armoury source does —
+                // this used to render both sections stacked regardless of which sub-tab was
+                // active (Discord: "en la app se ven todos los items da igual cual [tab]").
+                // Equipment routes through EquipmentGroups so named-choice items (e.g. "Crusade
+                // weapon") get their enhancement picker here too — previously only the native
+                // General/Mark/Legion tabs did, so a HH unit reached via the Legion archetype
+                // (i.e. through THIS tab) could never actually pick Crusade weapon's bonus.
+                if (effectiveSection === 'equipment') {
+                  return (
+                    <EquipmentGroups
+                      regular={foreignEq.regular} veteran={foreignEq.veteran} vehicle={foreignEq.vehicle}
+                      isChar={isChar} isVehicle={isVehicle} isMonster={unit.is_monster}
+                      unitSize={item.size} unitWounds={woundCount}
+                      profileAbilityNames={profileAbilityNames}
+                      armoryVetMax={armoryVetMax} veteranItemsUsed={veteranItemsUsed} veteranSlotsFull={veteranSlotsFull}
+                      filterCategory={filterCategory}
+                      lastAdded={lastAdded}
+                      markless
+                      getPts={getItemPts}
+                      isUniqueSelected={arm => isAddBlocked(arm, 'equipment')}
+                      getSelId={name => getSelId(name, 'equipment')}
+                      onRemove={removeItem}
+                      onAdd={arm => {
+                        if (isAddBlocked(arm, 'equipment')) return;
+                        const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
+                        const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon') ? (eqExarchPower[arm.name] || undefined) : undefined;
+                        add(arm, foreignSrcLabel, 'equipment', tw, cp);
+                      }}
+                      availableWeapons={availableWeapons}
+                      eqTargetWeapon={eqTargetWeapon}
+                      onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                      eqExarchPower={eqExarchPower}
+                      onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
+                    />
+                  );
+                }
+                return foreignWeapons.length === 0
+                  ? <div className="text-zinc-500 italic text-sm text-center py-2">{t('noItemsInSection')}</div>
+                  : foreignWeapons.map((arm, i) => {
+                    const pts = getItemPts(arm);
+                    const blocked = pts === null;
+                    const isDaemonGateway = arm.name === 'Daemon weapon' || arm.name === 'Greater Daemon weapon';
+                    return (
+                      <div key={i}>
+                        <ArmoryItemRow
+                          arm={arm} isChar={isChar}
+                          justAdded={lastAdded === arm.name}
+                          disabled={blocked}
+                          selectedArmoryId={getSelId(arm.name, 'weapons')}
+                          ptsOverride={pts}
+                          onRemove={removeItem}
+                          onAdd={() => !blocked && add(arm, foreignSrcLabel, 'weapons')}
+                        />
+                        {isDaemonGateway && getSelId(arm.name, 'weapons') && (
+                          <DaemonWeaponPicker
+                            pool={foreignDaemonPool}
+                            cap={arm.name === 'Greater Daemon weapon' ? 2 : 1}
+                            selections={daemonWeaponSelections}
+                            lastAdded={lastAdded}
+                            availableWeapons={availableWeapons}
+                            dwTargetWeapon={dwTargetWeapon}
+                            onSetTargetWeapon={(n, w) => setDwTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                            isTakenElsewhere={a => uniqueArmyBlocked(a, 'daemon_weapons')}
+                            onAdd={(a, tw) => add(a, foreignSrcLabel, 'daemon_weapons', tw)}
+                            onRemove={removeItem}
+                          />
+                        )}
+                      </div>
+                    );
+                  });
               })()}
             </div>
           ) : effectiveSection === 'equipment' ? (
