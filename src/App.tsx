@@ -199,7 +199,7 @@ export default function App() {
   // Set when opened via the Account tab's "My Campaigns" quick-open, so CampaignModal expands
   // straight to that campaign instead of the plain index.
   const [campaignInitialOpenId, setCampaignInitialOpenId] = useState<number | undefined>(undefined);
-  const { username, loggedIn, isAdmin, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
+  const { username, loggedIn, isAdmin, isInterrogator, avatar, socialLinks, socialPublic, refresh: refreshAuth, logout } = useAuth();
   const [showAdmin, setShowAdmin] = useState(false);
   const [savedMsg, setSavedMsg]                 = useState('');
   const pendingLoad                             = useRef<SavedArmy | null>(null);
@@ -1032,7 +1032,7 @@ export default function App() {
             onLoggedIn={async () => { await refreshAuth(); setShowAuth(false); }}
           />
         )}
-        {showAdmin     && <AdminPanel onClose={() => setShowAdmin(false)} />}
+        {showAdmin     && <AdminPanel isAdmin={isAdmin} isInterrogator={isInterrogator} onClose={() => setShowAdmin(false)} />}
         {/* onOpenCampaign intentionally not passed below — Campaign is alpha-gated (see
             LandingPage's disabled home button); this was the OLD entry point ("My Campaigns"
             quick-open in the Account tab) and must stay a no-op too, so there's exactly one gate
@@ -1045,7 +1045,7 @@ export default function App() {
             socialPublic={socialPublic}
             onClose={() => setShowCloudSaves(false)}
             onLogout={async () => { await logout(); }}
-            onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
+            onOpenAdmin={(isAdmin || isInterrogator) ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
             activeRosterId={activeCloudRosterId}
             onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
             onProfileUpdate={() => refreshAuth()}

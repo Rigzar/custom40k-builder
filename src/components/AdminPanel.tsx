@@ -133,7 +133,14 @@ function annFieldsFrom(ann: api.AnnouncementSetting, lang: Language): AnnFields 
   return { title: t.title ?? '', intro: t.intro ?? '', lines: (t.lines ?? []).join('\n'), contrib: t.contrib ?? '' };
 }
 
-interface Props { onClose: () => void }
+interface Props {
+  onClose: () => void;
+  isAdmin: boolean;
+  /** Limited admin rank ("Interrogator", one below Inquisitor): translations-only. When true and
+   *  `isAdmin` is false, the panel only shows the i18n and find tabs — enforced again server-side
+   *  in api/admin/[action].js, this is just what keeps the UI from offering doors that lead nowhere. */
+  isInterrogator: boolean;
+}
 
 function fmt(iso: string | null) {
   if (!iso) return '—';
@@ -177,9 +184,11 @@ interface AdminTx {
   exportCsv: string;
   colUser: string; colRegistered: string; colLastSeen: string; colArmies: string; colActions: string;
   resetPw: string; makeAdmin: string; revokeAdmin: string; del: string;
+  makeInterrogator: string; revokeInterrogator: string; interrogatorBadge: string;
   resetPwConfirm: (u: string) => string;
   deleteConfirm: (u: string) => string;
   promoteConfirm: (grant: boolean, u: string) => string;
+  interrogatorConfirm: (grant: boolean, u: string) => string;
   tempPw: string; recovery: string; hide: string;
   dataHealthTitle: string; dataHealthDesc: string; check: string; checking: string;
   noFindings: string; findings: (n: number) => string;
@@ -252,9 +261,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     exportCsv: 'export CSV',
     colUser: 'User', colRegistered: 'Registered', colLastSeen: 'Last seen', colArmies: 'Armies', colActions: 'Actions',
     resetPw: 'reset pw', makeAdmin: '+inqui', revokeAdmin: '−inqui', del: 'del',
+    makeInterrogator: '+interro', revokeInterrogator: '−interro', interrogatorBadge: 'interro',
     resetPwConfirm: u => `Reset password for "${u}"?`,
     deleteConfirm: u => `DELETE account "${u}" and all their saves? This cannot be undone.`,
     promoteConfirm: (grant, u) => `${grant ? 'Grant' : 'Revoke'} Inquisitor for "${u}"?`,
+    interrogatorConfirm: (grant, u) => `${grant ? 'Grant' : 'Revoke'} Interrogator (translations only) for "${u}"?`,
     tempPw: 'Temp pw: ', recovery: 'Recovery: ', hide: 'hide',
     dataHealthTitle: 'Data health',
     dataHealthDesc: 'Checks structural consistency across all factions (empty groups, ghost weapons, dangling references…). Read-only; does not validate rules.',
@@ -368,9 +379,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     exportCsv: 'CSV export',
     colUser: 'Nutzer', colRegistered: 'Registriert', colLastSeen: 'Zuletzt gesehen', colArmies: 'Armeen', colActions: 'Aktionen',
     resetPw: 'PW zurücks.', makeAdmin: '+inqui', revokeAdmin: '−inqui', del: 'lösch.',
+    makeInterrogator: '+interro', revokeInterrogator: '−interro', interrogatorBadge: 'interro',
     resetPwConfirm: u => `Passwort für "${u}" zurücksetzen?`,
     deleteConfirm: u => `Konto "${u}" und alle Speicherstände LÖSCHEN? Kann nicht rückgängig gemacht werden.`,
     promoteConfirm: (grant, u) => `Inquisitor für "${u}" ${grant ? 'gewähren' : 'entziehen'}?`,
+    interrogatorConfirm: (grant, u) => `Interrogator (nur Übersetzungen) für "${u}" ${grant ? 'gewähren' : 'entziehen'}?`,
     tempPw: 'Temp-PW: ', recovery: 'Wiederherst.: ', hide: 'verbergen',
     dataHealthTitle: 'Datenintegrität',
     dataHealthDesc: 'Prüft die strukturelle Konsistenz aller Fraktionen (leere Gruppen, Geisterwaffen, ungültige Referenzen…). Nur Lesen; prüft keine Regeln.',
@@ -484,9 +497,11 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     exportCsv: 'exportar CSV',
     colUser: 'Usuario', colRegistered: 'Registro', colLastSeen: 'Última vez', colArmies: 'Ejércitos', colActions: 'Acciones',
     resetPw: 'reset pw', makeAdmin: '+inqui', revokeAdmin: '−inqui', del: 'borrar',
+    makeInterrogator: '+interro', revokeInterrogator: '−interro', interrogatorBadge: 'interro',
     resetPwConfirm: u => `¿Resetear la contraseña de "${u}"?`,
     deleteConfirm: u => `¿BORRAR la cuenta "${u}" y todos sus guardados? No se puede deshacer.`,
     promoteConfirm: (grant, u) => `¿${grant ? 'Otorgar' : 'Retirar'} Inquisidor a "${u}"?`,
+    interrogatorConfirm: (grant, u) => `¿${grant ? 'Otorgar' : 'Retirar'} Interrogator (solo traducciones) a "${u}"?`,
     tempPw: 'Contraseña temp: ', recovery: 'Recuperación: ', hide: 'ocultar',
     dataHealthTitle: 'Integridad de datos',
     dataHealthDesc: 'Comprueba consistencia estructural de todas las facciones (grupos vacíos, armas fantasma, referencias colgantes…). Solo lectura; no valida reglas.',
@@ -586,10 +601,14 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
   },
 };
 
-export function AdminPanel({ onClose }: Props) {
+export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
   const { language } = useLanguage();
   const L = ADMIN_I18N[language] ?? ADMIN_I18N.en;
   const { username: adminUsername } = useAuth();
+  /** Interrogator without full admin: translations-only. Everything else in this file still
+   *  behaves as before — the tab list and default tab are the only things scoped here; every
+   *  backend call an Interrogator isn't allowed to make already fails closed server-side. */
+  const isTranslatorOnly = isInterrogator && !isAdmin;
 
   const [stats, setStats]     = useState<api.AdminStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -637,7 +656,7 @@ export function AdminPanel({ onClose }: Props) {
   const [settingsLoaded, setSettingsLoaded] = useState(false);
   const [transUntranslated, setTransUntranslated] = useState(false);
   const [translatingFrom, setTranslatingFrom] = useState<Language | null>(null);
-  const [tab, setTab] = useState<AdminTab>('overview');
+  const [tab, setTab] = useState<AdminTab>(isTranslatorOnly ? 'i18n' : 'overview');
   const [findQuery, setFindQuery] = useState('');
   const [findWhole, setFindWhole] = useState(false);
   const [findCase, setFindCase] = useState(false);
@@ -916,6 +935,14 @@ export function AdminPanel({ onClose }: Props) {
     if (!confirm(L.promoteConfirm(makeAdmin, username))) return;
     try {
       await api.adminPromote(userId, makeAdmin);
+      await load();
+    } catch (e) { setMsg(String(e)); }
+  }
+
+  async function handleSetInterrogator(userId: number, username: string, makeInterrogator: boolean) {
+    if (!confirm(L.interrogatorConfirm(makeInterrogator, username))) return;
+    try {
+      await api.adminSetInterrogator(userId, makeInterrogator);
       await load();
     } catch (e) { setMsg(String(e)); }
   }
@@ -1434,7 +1461,7 @@ export function AdminPanel({ onClose }: Props) {
   // Grouped by what kind of work the tab is for, not just listed flat — a dashboard/log reading,
   // user account management, content the author publishes himself, read-only data-correctness
   // audits, and reference-only tools are different jobs and used at different moments.
-  const TAB_DEFS: { id: AdminTab; label: string; help: string; category: string }[] = [
+  const ALL_TAB_DEFS: { id: AdminTab; label: string; help: string; category: string }[] = [
     { id: 'overview', label: L.tabOverview, help: L.helpTabOverview, category: L.catDashboard },
     { id: 'audit',    label: L.tabAudit,    help: L.helpTabAudit,    category: L.catDashboard },
     { id: 'users',    label: L.tabUsers,    help: L.helpTabUsers,    category: L.catUsers },
@@ -1447,6 +1474,12 @@ export function AdminPanel({ onClose }: Props) {
     { id: 'killteam', label: L.tabKillTeam, help: L.helpTabKillTeam, category: L.catTools },
     { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc,     category: L.catTools },
   ];
+  // An Interrogator only ever sees the tabs their backend calls can actually answer: the i18n
+  // editor, and 'find' (a client-side, read-only search over the same public faction data the
+  // army builder itself already loads — nothing it needs is admin-gated).
+  const TAB_DEFS = isTranslatorOnly
+    ? ALL_TAB_DEFS.filter(td => td.id === 'i18n' || td.id === 'find')
+    : ALL_TAB_DEFS;
   const TAB_GROUPS: { category: string; tabs: typeof TAB_DEFS }[] = [];
   for (const td of TAB_DEFS) {
     let g = TAB_GROUPS.find(g => g.category === td.category);
@@ -1617,6 +1650,7 @@ export function AdminPanel({ onClose }: Props) {
                       <td className="py-2 pr-3">
                         <span className={u.is_admin ? 'text-amber-400' : 'text-zinc-200'}>{u.username}</span>
                         {u.is_admin && <span className="ml-1 text-[10px] text-amber-600">inqui</span>}
+                        {!u.is_admin && u.is_interrogator && <span className="ml-1 text-[10px] text-amber-700">{L.interrogatorBadge}</span>}
                       </td>
                       <td className="py-2 pr-3 text-zinc-500">{fmt(u.created_at)}</td>
                       <td className="py-2 pr-3 text-zinc-400">{fmt(u.last_seen_at)}</td>
@@ -1636,6 +1670,12 @@ export function AdminPanel({ onClose }: Props) {
                             onClick={() => handlePromote(u.id, u.username, !u.is_admin)}
                             className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
                           >{u.is_admin ? L.revokeAdmin : L.makeAdmin}</button>
+                          {!u.is_admin && (
+                            <button
+                              onClick={() => handleSetInterrogator(u.id, u.username, !u.is_interrogator)}
+                              className="text-[11px] px-2 py-0.5 border border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-amber-800"
+                            >{u.is_interrogator ? L.revokeInterrogator : L.makeInterrogator}</button>
+                          )}
                           <button
                             onClick={() => handleDelete(u.id, u.username)}
                             className="text-[11px] px-2 py-0.5 border border-red-900/50 text-red-700 hover:text-red-400 hover:border-red-700"

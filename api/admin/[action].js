@@ -10,6 +10,20 @@ async function requireAdmin(req, res) {
   return userId;
 }
 
+/** "Interrogator" — a limited admin rank, translations-only. Used ONLY by the 3 actions that
+ *  power the i18n editor (getSettings/setSetting/translate); every other action still calls
+ *  requireAdmin and stays Inquisitor-only. Callers that allow both must still narrow what an
+ *  Interrogator (not a full admin) is allowed to see/change — see getSettings/setSetting below. */
+async function requireAdminOrInterrogator(req, res) {
+  const userId = getSessionUserId(req);
+  if (!userId) { res.status(401).json({ error: 'Not logged in' }); return null; }
+  await ensureSchema();
+  const r = await sql`SELECT is_admin, is_interrogator FROM users WHERE id = ${userId}`;
+  const row = r.rows[0];
+  if (!row?.is_admin && !row?.is_interrogator) { res.status(403).json({ error: 'Forbidden' }); return null; }
+  return { userId, isAdmin: row.is_admin === true };
+}
+
 /** Best-effort audit log — never throws into the caller's happy path. */
 async function logAction(adminId, action, targetUserId, targetUsername, detail) {
   try {
@@ -28,6 +42,7 @@ export default async function handler(req, res) {
     case 'pw':                return resetPw(req, res);
     case 'del':               return delUser(req, res);
     case 'promote':           return promote(req, res);
+    case 'set-interrogator':  return setInterrogator(req, res);
     case 'recovery-requests': return recoveryRequests(req, res);
     case 'resolve-recovery':  return resolveRecovery(req, res);
     case 'actions':           return actions(req, res);
@@ -51,7 +66,7 @@ async function stats(req, res) {
     const [uCount, rCount, rPerUser] = await Promise.all([
       sql`SELECT COUNT(*)::int AS n FROM users`,
       sql`SELECT COUNT(*)::int AS n FROM rosters`,
-      sql`SELECT u.id, u.username, u.created_at, u.last_seen_at, u.last_login_at, u.is_admin,
+      sql`SELECT u.id, u.username, u.created_at, u.last_seen_at, u.last_login_at, u.is_admin, u.is_interrogator,
                COUNT(r.id)::int AS roster_count
           FROM users u LEFT JOIN rosters r ON r.user_id = u.id
           GROUP BY u.id ORDER BY u.last_seen_at DESC NULLS LAST`,
@@ -182,6 +197,23 @@ async function promote(req, res) {
     const tgt = await sql`SELECT username FROM users WHERE id=${userId}`;
     await sql`UPDATE users SET is_admin = ${!!makeAdmin} WHERE id = ${userId}`;
     await logAction(adminId, makeAdmin ? 'grant_admin' : 'revoke_admin', userId, tgt.rows[0]?.username, null);
+    res.status(200).json({ ok: true });
+  } catch (err) {
+    res.status(500).json({ error: String(err) });
+  }
+}
+
+async function setInterrogator(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  const adminId = await requireAdmin(req, res);
+  if (!adminId) return;
+  const { userId, makeInterrogator } = req.body ?? {};
+  if (userId == null) return res.status(400).json({ error: 'Missing userId' });
+  if (Number(userId) === adminId) return res.status(400).json({ error: 'Cannot change own rank' });
+  try {
+    const tgt = await sql`SELECT username FROM users WHERE id=${userId}`;
+    await sql`UPDATE users SET is_interrogator = ${!!makeInterrogator} WHERE id = ${userId}`;
+    await logAction(adminId, makeInterrogator ? 'grant_interrogator' : 'revoke_interrogator', userId, tgt.rows[0]?.username, null);
     res.status(200).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: String(err) });
@@ -435,14 +467,20 @@ async function codexContentCheck(req, res) {
 // was rejected with "Unknown setting key" every time (found 2026-08-23, fixed same edit).
 const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides', 'source_ignores', 'codex_versions', 'codex_content_hashes', 'codex_content_alerts']);
 
-// GET — all editable app settings as a { key: value } map.
+// GET — all editable app settings as a { key: value } map. An Interrogator (translations-only
+// rank, not a full admin) only ever gets the 'translations' key back — the announcement draft,
+// faction flags, codex version/content-audit state etc. are none of their business.
 async function getSettings(req, res) {
   if (req.method !== 'GET') return res.status(405).end();
-  if (!await requireAdmin(req, res)) return;
+  const auth = await requireAdminOrInterrogator(req, res);
+  if (!auth) return;
   try {
     const r = await sql`SELECT key, value FROM app_settings`;
     const settings = {};
-    for (const row of r.rows) settings[row.key] = row.value;
+    for (const row of r.rows) {
+      if (!auth.isAdmin && row.key !== 'translations') continue;
+      settings[row.key] = row.value;
+    }
     res.status(200).json({ ok: true, settings });
   } catch (err) {
     res.status(500).json({ error: String(err) });
@@ -450,10 +488,11 @@ async function getSettings(req, res) {
 }
 
 // POST { texts:[], from, to } — machine-translate short admin strings (best-effort, keyless).
-// Used by the announcement editor's "auto-translate" button. Admin-only; low volume.
+// Used by the announcement editor's and the i18n editor's "auto-translate" buttons. Stateless
+// proxy, no data read or written — safe for an Interrogator same as a full admin.
 async function translate(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
-  if (!await requireAdmin(req, res)) return;
+  if (!await requireAdminOrInterrogator(req, res)) return;
   const { texts, from, to } = req.body ?? {};
   if (!Array.isArray(texts) || !to) return res.status(400).json({ error: 'Missing texts/to' });
   try {
@@ -471,13 +510,16 @@ async function translate(req, res) {
   }
 }
 
-// POST { key, value } — upsert one whitelisted setting.
+// POST { key, value } — upsert one whitelisted setting. An Interrogator may only ever write the
+// 'translations' key — every other key (announcement, faction_flags, codex_* audit state, …)
+// stays Inquisitor-only, enforced here rather than just left to the frontend hiding those tabs.
 async function setSetting(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
-  const adminId = await requireAdmin(req, res);
-  if (!adminId) return;
+  const auth = await requireAdminOrInterrogator(req, res);
+  if (!auth) return;
   const { key, value } = req.body ?? {};
   if (!SETTING_KEYS.has(key)) return res.status(400).json({ error: 'Unknown setting key' });
+  if (!auth.isAdmin && key !== 'translations') return res.status(403).json({ error: 'Forbidden' });
   if (value === undefined) return res.status(400).json({ error: 'Missing value' });
   try {
     const json = JSON.stringify(value);
@@ -485,7 +527,7 @@ async function setSetting(req, res) {
       INSERT INTO app_settings (key, value, updated_at) VALUES (${key}, ${json}::jsonb, now())
       ON CONFLICT (key) DO UPDATE SET value = ${json}::jsonb, updated_at = now()
     `;
-    await logAction(adminId, 'set_setting', null, null, key);
+    await logAction(auth.userId, 'set_setting', null, null, key);
     res.status(200).json({ ok: true });
   } catch (err) {
     res.status(500).json({ error: String(err) });

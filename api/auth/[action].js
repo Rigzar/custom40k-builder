@@ -78,7 +78,7 @@ async function me(req, res) {
 
   try {
     await ensureSchema();
-    const result = await sql`SELECT username, is_admin, avatar, social_links, social_public FROM users WHERE id = ${userId}`;
+    const result = await sql`SELECT username, is_admin, is_interrogator, avatar, social_links, social_public FROM users WHERE id = ${userId}`;
     const user = result.rows[0];
     if (!user) {
       res.status(200).json({ ok: true, loggedIn: false });
@@ -89,6 +89,7 @@ async function me(req, res) {
       ok: true, loggedIn: true,
       username: user.username,
       isAdmin: user.is_admin === true,
+      isInterrogator: user.is_interrogator === true,
       avatar: user.avatar ?? null,
       socialLinks: user.social_links ?? {},
       socialPublic: user.social_public === true,

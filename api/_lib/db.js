@@ -31,6 +31,10 @@ export async function ensureSchema() {
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS secret_question TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS secret_answer_hash TEXT`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN NOT NULL DEFAULT false`;
+  // Limited admin rank, one step below a full admin ("Inquisitor") — themed "Interrogator" in the
+  // Users tab. Scoped to translation work only: the i18n editor and the (client-side, read-only)
+  // faction-data search. Enforced server-side in api/admin/[action].js, not just hidden in the UI.
+  await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_interrogator BOOLEAN NOT NULL DEFAULT false`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_seen_at TIMESTAMPTZ`;
   await sql`UPDATE users SET is_admin = true WHERE LOWER(username) = 'rigzar' AND is_admin = false`;
   await sql`ALTER TABLE users ADD COLUMN IF NOT EXISTS avatar TEXT`;

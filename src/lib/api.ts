@@ -17,7 +17,7 @@ async function call<T>(url: string, options?: RequestInit): Promise<T> {
 }
 
 export interface MeResponse {
-  loggedIn: boolean; username?: string; isAdmin?: boolean;
+  loggedIn: boolean; username?: string; isAdmin?: boolean; isInterrogator?: boolean;
   avatar?: string | null; socialLinks?: Record<string, string>; socialPublic?: boolean;
 }
 export function getMe() {
@@ -494,7 +494,7 @@ export function deleteCampaign(campaignId: number, confirmName: string) {
 
 export interface AdminUserRow {
   id: number; username: string; created_at: string;
-  last_seen_at: string | null; last_login_at: string; is_admin: boolean; roster_count: number;
+  last_seen_at: string | null; last_login_at: string; is_admin: boolean; is_interrogator: boolean; roster_count: number;
 }
 export interface AdminStats { totalUsers: number; totalRosters: number; users: AdminUserRow[] }
 export function adminStats() { return call<{ ok: true } & AdminStats>('/api/admin/stats'); }
@@ -508,6 +508,10 @@ export function adminDelUser(userId: number) {
 }
 export function adminPromote(userId: number, makeAdmin: boolean) {
   return call<{ ok: true }>('/api/admin/promote', { method: 'POST', body: JSON.stringify({ userId, makeAdmin }) });
+}
+/** Grants/revokes "Interrogator" — the translations-only limited admin rank. */
+export function adminSetInterrogator(userId: number, makeInterrogator: boolean) {
+  return call<{ ok: true }>('/api/admin/set-interrogator', { method: 'POST', body: JSON.stringify({ userId, makeInterrogator }) });
 }
 
 export interface AdminAction {

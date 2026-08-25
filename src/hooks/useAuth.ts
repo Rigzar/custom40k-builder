@@ -16,6 +16,8 @@ import * as api from '../lib/api';
 interface AuthState {
   username: string | null;
   isAdmin: boolean;
+  /** Limited admin rank ("Interrogator"): translations only, enforced server-side too. */
+  isInterrogator: boolean;
   avatar: string | null;
   socialLinks: Record<string, string>;
   socialPublic: boolean;
@@ -23,7 +25,7 @@ interface AuthState {
 }
 
 let state: AuthState = {
-  username: null, isAdmin: false, avatar: null,
+  username: null, isAdmin: false, isInterrogator: false, avatar: null,
   socialLinks: {}, socialPublic: false, loading: true,
 };
 
@@ -51,12 +53,13 @@ export async function refreshAuth(): Promise<void> {
       setState({
         username: res.loggedIn ? res.username ?? null : null,
         isAdmin: res.loggedIn ? res.isAdmin === true : false,
+        isInterrogator: res.loggedIn ? res.isInterrogator === true : false,
         avatar: res.loggedIn ? res.avatar ?? null : null,
         socialLinks: res.loggedIn ? res.socialLinks ?? {} : {},
         socialPublic: res.loggedIn ? res.socialPublic === true : false,
       });
     } catch {
-      setState({ username: null, isAdmin: false, avatar: null });
+      setState({ username: null, isAdmin: false, isInterrogator: false, avatar: null });
     } finally {
       everFetched = true;
       setState({ loading: false });
@@ -69,7 +72,7 @@ export async function refreshAuth(): Promise<void> {
 export async function logoutAuth(): Promise<void> {
   await api.logout();
   setState({
-    username: null, isAdmin: false, avatar: null,
+    username: null, isAdmin: false, isInterrogator: false, avatar: null,
     socialLinks: {}, socialPublic: false,
   });
 }
