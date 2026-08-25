@@ -38,6 +38,8 @@ export default async function handler(req, res) {
     case 'set-setting':       return setSetting(req, res);
     case 'translate':         return translate(req, res);
     case 'source-sheets':     return sourceSheets(req, res);
+    case 'codex-versions-check': return codexVersionsCheck(req, res);
+    case 'codex-content-check': return codexContentCheck(req, res);
     default:                  res.status(404).json({ error: 'Unknown action' });
   }
 }
@@ -361,8 +363,77 @@ async function sourceSheets(req, res) {
   }
 }
 
+// POST { ids: { factionKey: sheetId } } — best-effort: fetch each Google Sheet's own title (the
+// creator names each workbook "<Faction> <version>", e.g. "Chaos Space Marines 1.03") and pull
+// the version number straight out of it, instead of an admin re-typing it by hand in the Factions
+// tab every time a codex ships. A sheet that fails, or whose title has no version-shaped number,
+// comes back null — never guessed.
+async function codexVersionsCheck(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  const { ids } = req.body ?? {};
+  if (!ids || typeof ids !== 'object') return res.status(400).json({ error: 'Missing ids' });
+  const entries = Object.entries(ids).filter(([, id]) => typeof id === 'string' && /^[A-Za-z0-9_-]+$/.test(id)).slice(0, 40);
+
+  async function fetchTitle(id) {
+    try {
+      const r = await fetch(`https://docs.google.com/spreadsheets/d/${id}/edit`, { headers: { 'User-Agent': 'Mozilla/5.0 custom40k-builder' } });
+      if (!r.ok) return null;
+      const html = await r.text();
+      const m = html.match(/<title>([^<]*)<\/title>/);
+      if (!m) return null;
+      // Google appends " - Google Sheets" (localised) to the doc's own title — strip everything
+      // from the last " - " on, rather than assuming the English suffix.
+      const title = m[1].replace(/\s*-\s*[^-]+$/, '').trim();
+      const version = title.match(/(\d+\.\d+)/)?.[1] ?? null;
+      return { title, version };
+    } catch { return null; }
+  }
+
+  const results = {};
+  let cursor = 0;
+  const worker = async () => {
+    while (cursor < entries.length) {
+      const [key, id] = entries[cursor++];
+      results[key] = await fetchTitle(id);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(4, entries.length) }, worker));
+  res.status(200).json({ ok: true, results });
+}
+
+/**
+ * POST { ids: { factionKey: sheetId } } — content-level change detection, one level deeper than
+ * codexVersionsCheck above (which only reads the sheet's TITLE). Downloads each live sheet as
+ * .ods, hashes every tab's own CSV content (SHA-256 — a single differing cell changes the hash,
+ * so nothing can silently slip through the way a human skim-reading a sheet might miss a row),
+ * and compares those hashes against the last-known baseline stored under the `codex_content_hashes`
+ * setting. Mirrors scripts/fetch_codex.cjs's own tab-by-tab CSV-row comparison, just runnable from
+ * the browser instead of a local terminal.
+ *
+ * Deliberately READ-ONLY: this never writes the baseline or touches production data itself — it
+ * only reports which tabs differ from what was last acknowledged. The actual interpretation of
+ * what a changed cell MEANS rules-wise, and updating data/parsed/*.json, stays a manual, audited
+ * pass (see CLAUDE.md's "REGLA DE ORO") — the frontend calls the existing generic set-setting
+ * action to accept a new baseline only after that review, never automatically.
+ */
+async function codexContentCheck(req, res) {
+  if (req.method !== 'POST') return res.status(405).end();
+  if (!await requireAdmin(req, res)) return;
+  const { ids } = req.body ?? {};
+  if (!ids || typeof ids !== 'object') return res.status(400).json({ error: 'Missing ids' });
+  const entries = Object.fromEntries(
+    Object.entries(ids).filter(([, id]) => typeof id === 'string' && /^[A-Za-z0-9_-]+$/.test(id)).slice(0, 40),
+  );
+  const { checkAllCodexContent } = await import('../_lib/codexContent.js');
+  const results = await checkAllCodexContent(sql, entries);
+  res.status(200).json({ ok: true, results });
+}
+
 // Only these keys can be read/written through the settings admin API.
-const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides', 'source_ignores']);
+// 'codex_versions' was missing here — the Factions tab's Save button for codex version/status
+// was rejected with "Unknown setting key" every time (found 2026-08-23, fixed same edit).
+const SETTING_KEYS = new Set(['announcement', 'faction_flags', 'translations', 'source_sheets', 'data_overrides', 'source_ignores', 'codex_versions', 'codex_content_hashes', 'codex_content_alerts']);
 
 // GET — all editable app settings as a { key: value } map.
 async function getSettings(req, res) {

@@ -37,9 +37,41 @@ function walkStrings(node: unknown, path: string[], emit: (path: string[], text:
   }
 }
 
-/** Default source spreadsheets by faction (creator's live Google Sheets). Admin can add/override. */
+/**
+ * Default source spreadsheets by faction (creator's live Google Sheets). Extracted straight from
+ * the hyperlinks embedded in the creator's own Custom40k Core Rules document (2026-08-23) —
+ * every faction/supplement it links to a sheet for, keyed to match FACTION_LOADERS. The admin
+ * can still add/override any of these from the Source tab; a value saved in source_sheets always
+ * wins over this default.
+ *
+ * RESOLVED 2026-08-24: the Core Rules doc links "Tyranids" to two different sheet ids
+ * (1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M and 1-oox_d8xDqNM7hlMKLey1779tDGhUPpPJ3KeHRusGqA).
+ * Fetched both live titles: the first is "Tyranids 1.05" (matches `Codex/Tyranids 1.05.ods`
+ * exactly), the second is "Tyranids Custom Edit" — clearly a personal scratch copy, not canon.
+ * The default below was already the correct one; no creator confirmation needed.
+ */
 const DEFAULT_SOURCE_IDS: Record<string, string> = {
   chaos_space_marines: '1Tj4zAtpprqI2W5VeIoV_HsuzhX_3XGhDMMgM2axOiBw',
+  chaos_daemons: '1t4UjzvS44a2h-x5KJGM-GyIou66yt0XfpOqqjAE1zl8',
+  space_marines: '16Ri3G9Jx1NAzguMbTKtxsL8uaOq6hik3h7NVuU85mZA',
+  imperial_guard: '1nii7VyPLnNHlRlpJTxsh79P7qo1WT3D-yJM0g88CbZM',
+  adeptus_mechanicus: '1uufTN0BOMRNtjSWfFJzEtfXUmpHdU8WTdKDUoXNLs8w',
+  adeptus_custodes: '1Ic420krL5mcf3_E_vwmwLnGoT1hZ9Qzl0IxWeJ79yoI',
+  adeptus_sororitas: '1t6sB5Ls5UdXu5LE61Ab_2OOgxD4m2TC6hFvsEy0bP3k',
+  grey_knights: '1XkDkdshwkySGDwBaF4sQblDcE4xITkm1iSSlZSUE_mk',
+  inquisition: '1krDncaF0CSf6bDIeA-j20dAo3tqkphkeDd2weq56MN4',
+  assassins: '1NZepq8IfXgWs9mmZMxg4emgOxTPP5VfVNfRZ3ryh5f4',
+  tau_empire: '1S1Uub6VvvlBuxlqh61S5DhZYIKtdRHvkRs1CsIRgu8s',
+  necrons: '1hkc7MKcM4NrWr3GWIKcF9lYBx55CfQ9pBI6srKuzwOA',
+  orks: '1gt2q98cnPczVyaujVWX56r2F_GJXBFp8IW9VpAWZ6qI',
+  eldar: '139EqmDtxDjDZ4t6tllqHKjATrTpKQgJks7UzmKkUSkw',
+  dark_eldar: '1SGc2WinOPa4gy66gICT4KiczzOgugDMe-v5JGz-bPQ8',
+  genestealer_cults: '1s0RwILJINi2QcCYnpjQ8und3QRoTDZWp83UJGlo8hqQ',
+  harlequins: '1E_9Vy6kWaAUXVBV-BiyJK4GD7_r72cYwEa115_G2Dec',
+  leagues_of_votann: '1lZ6MxdCM710N-d4ba9RUSdhmeN8iJjzM5hlpVf73iPY',
+  tyranids: '1Os-J6QK4quRtd0K6ocOsbaRMHd7PimPaQpRZw8kR_5M', // see KNOWN GAP above
+  horus_heresy: '1vRRoUGkH3HhzZYQk6_3Hp0pSlWGWb9BKaz3VrYfYmFU',
+  legio_titanicus: '1SrBhi_8b77QwqoI03xNDxgOwgt-ePmqRQvA5dyquYtM',
 };
 
 /**
@@ -171,6 +203,7 @@ interface AdminTx {
   backToApp: string;
   tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabKillTeam: string; tabCalc: string;
   helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabKillTeam: string; helpTabCalc: string;
+  catDashboard: string; catUsers: string; catContent: string; catDataAudit: string; catTools: string;
   codexVerTitle: string; codexVerHint: string;
   findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
   findNone: string; findCount: (hits: number, factions: number) => string; findExport: string; findScanning: (f: string) => string;
@@ -273,6 +306,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     codexVerHint: 'The version and readiness badge on each faction button. Saving publishes immediately \u2014 no deploy needed.',
     helpTabKillTeam: 'Alpha of the Kill Team mode \u2014 the draft rules and a team builder. Admin-only: it is not wired into the builder, so no player can reach it.',
     helpTabFind: 'Search every faction\'s data for a word or phrase and list every place it appears.',
+    catDashboard: 'Dashboard', catUsers: 'Users', catContent: 'Content', catDataAudit: 'Data Audit', catTools: 'Tools',
     findHint: 'Type any wording — an ability, a rules phrase, a weapon name — and this lists every place it appears across all factions: unit abilities, weapon abilities, option headers, armoury descriptions and the rules glossary. Useful before replacing a phrase with a new special rule. Read-only.',
     findPlaceholder: 'e.g. Can only be used with a Charge order',
     findRun: 'Search', findRunning: 'Searching…',
@@ -388,6 +422,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     codexVerHint: 'Version und Status auf jedem Fraktions-Button. Speichern ver\u00f6ffentlicht sofort \u2014 kein Deploy n\u00f6tig.',
     helpTabKillTeam: 'Alpha des Kill-Team-Modus \u2014 Regelentwurf und Team-Baukasten. Nur f\u00fcr Admins, nicht im Builder verdrahtet.',
     helpTabFind: 'Alle Fraktionsdaten nach einem Wort oder Satz durchsuchen und jede Fundstelle auflisten.',
+    catDashboard: 'Übersicht', catUsers: 'Nutzer', catContent: 'Inhalte', catDataAudit: 'Datenprüfung', catTools: 'Werkzeuge',
     findHint: 'Gib eine beliebige Formulierung ein — eine Fähigkeit, einen Regelsatz, einen Waffennamen — und hier erscheint jede Fundstelle über alle Fraktionen hinweg: Einheiten-Fähigkeiten, Waffen-Fähigkeiten, Options-Überschriften, Arsenal-Beschreibungen und das Regelglossar. Praktisch, bevor man eine Formulierung durch eine neue Spezialregel ersetzt. Nur Lesen.',
     findPlaceholder: 'z. B. Can only be used with a Charge order',
     findRun: 'Suchen', findRunning: 'Suche…',
@@ -503,6 +538,7 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     codexVerHint: 'La versi\u00f3n y el estado que salen en cada bot\u00f3n de facci\u00f3n. Guardar publica al momento \u2014 sin desplegar.',
     helpTabKillTeam: 'Alpha del modo Kill Team \u2014 el borrador de reglas y un montador de equipos. Solo admins: no est\u00e1 conectado al builder, ning\u00fan jugador puede llegar.',
     helpTabFind: 'Busca una palabra o frase en los datos de todas las facciones y lista dónde aparece.',
+    catDashboard: 'Resumen', catUsers: 'Usuarios', catContent: 'Contenido', catDataAudit: 'Auditoría de datos', catTools: 'Herramientas',
     findHint: 'Escribe cualquier texto — una habilidad, una frase de reglas, un nombre de arma — y aquí sale cada sitio donde aparece en todas las facciones: habilidades de unidad, habilidades de arma, cabeceras de opciones, descripciones de armería y el glosario de reglas. Útil antes de sustituir una frase por una regla especial nueva. Solo lectura.',
     findPlaceholder: 'p. ej. Can only be used with a Charge order',
     findRun: 'Buscar', findRunning: 'Buscando…',
@@ -640,8 +676,24 @@ export function AdminPanel({ onClose }: Props) {
   // Codex versions live beside the availability flags because they are the same decision seen
   // twice: which factions are open, and how finished each one is.
   const [codexVer, setCodexVer] = useState<api.CodexVersions>(DEFAULT_CODEX_VERSIONS);
-  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | null>(null);
-  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | null>(null);
+  const [savingKey, setSavingKey] = useState<'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | 'codex_content_hashes' | null>(null);
+  const [savedKey, setSavedKey] = useState<'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | 'codex_content_hashes' | null>(null);
+  // Reads each faction's own Google Sheet title ("Chaos Space Marines 1.03") instead of an admin
+  // re-typing the version by hand every time a codex ships — see codex-versions-check.
+  const [checkingVersions, setCheckingVersions] = useState(false);
+  const [versionCheck, setVersionCheck] = useState<Record<string, { title: string; version: string | null } | null> | null>(null);
+  // Content-level check (one level deeper than the title check above) — hashes every tab of the
+  // live sheet and compares against the last-accepted baseline, so a silent cell edit (no title
+  // bump) still gets flagged. Read-only until explicitly "accepted" per faction — see
+  // codex-content-check and the file-level comment there for why this never auto-applies.
+  const [contentBaseline, setContentBaseline] = useState<Record<string, Record<string, string>>>({});
+  const [checkingContent, setCheckingContent] = useState(false);
+  const [contentCheck, setContentCheck] = useState<Record<string, api.CodexContentCheckResult> | null>(null);
+  const [acceptingKey, setAcceptingKey] = useState<string | null>(null);
+  // Populated by the daily cron (api/cron/cleanup.js), independent of anyone clicking "CHECK
+  // CONTENT" by hand — this is what makes a codex change an actual proactive notification rather
+  // than something you only find by remembering to check.
+  const [contentAlerts, setContentAlerts] = useState<Record<string, { newTabs?: string[]; removedTabs?: string[]; changedTabs?: string[]; flaggedAt?: string }>>({});
 
   async function load() {
     setLoading(true);
@@ -680,6 +732,8 @@ export function AdminPanel({ onClose }: Props) {
       }
       // hydrate faction availability (default from code, overridden by stored flags)
       setCodexVer({ ...DEFAULT_CODEX_VERSIONS, ...(cfg.settings.codex_versions ?? {}) });
+      setContentBaseline(cfg.settings.codex_content_hashes ?? {});
+      setContentAlerts(cfg.settings.codex_content_alerts ?? {});
       const stored = cfg.settings.faction_flags ?? {};
       const merged: Record<string, boolean> = {};
       for (const f of ALL_FACTIONS) merged[f.key] = stored[f.key] ?? f.defaultAvailable;
@@ -866,7 +920,7 @@ export function AdminPanel({ onClose }: Props) {
     } catch (e) { setMsg(String(e)); }
   }
 
-  async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'codex_versions', value: unknown) {
+  async function saveSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'codex_versions' | 'codex_content_hashes', value: unknown) {
     // Every one of these four editors is hydrated from adminGetSettings. If that call failed the
     // editors hold code defaults, and writing them back replaces whatever is really stored —
     // silently, because a failed fetch produced an empty object that looked exactly like
@@ -915,6 +969,49 @@ export function AdminPanel({ onClose }: Props) {
 
   function handleSaveFlags() {
     saveSetting('faction_flags', flags);
+  }
+
+  async function handleCheckVersions() {
+    setCheckingVersions(true);
+    try {
+      const res = await api.adminCheckCodexVersions(sourceIds);
+      setVersionCheck(res.results);
+    } catch { /* best-effort — leave prior results in place */ }
+    finally { setCheckingVersions(false); }
+  }
+
+  async function handleCheckContent() {
+    setCheckingContent(true);
+    try {
+      const res = await api.adminCheckCodexContent(sourceIds);
+      setContentCheck(res.results);
+    } catch { /* best-effort — leave prior results in place */ }
+    finally { setCheckingContent(false); }
+  }
+
+  /** Accepts the just-fetched hashes for one faction as the new baseline — only ever called after
+   *  the admin/rules-expert has actually reviewed what changed, never automatically. */
+  async function handleAcceptBaseline(key: string) {
+    const hashes = contentCheck?.[key]?.hashes;
+    if (!hashes || !settingsLoaded) return;
+    setAcceptingKey(key);
+    try {
+      const merged = { ...contentBaseline, [key]: hashes };
+      await api.adminSetSetting('codex_content_hashes', merged);
+      setContentBaseline(merged);
+      setContentCheck(prev => prev && { ...prev, [key]: { status: 'unchanged', hashes } });
+      if (contentAlerts[key]) {
+        const { [key]: _dropped, ...rest } = contentAlerts;
+        await api.adminSetSetting('codex_content_alerts', rest);
+        setContentAlerts(rest);
+      }
+    } catch (e) { setMsg(String(e)); }
+    finally { setAcceptingKey(null); }
+  }
+
+  function applyDetectedVersion(key: string, version: string) {
+    const cur = codexVer[key] ?? DEFAULT_CODEX_VERSIONS[key] ?? { version: '1.00', status: 'testing' as const };
+    setCodexVer(p => ({ ...p, [key]: { ...cur, version } }));
   }
 
   /**
@@ -1056,6 +1153,7 @@ export function AdminPanel({ onClose }: Props) {
   const emptyCount = allUsers.filter(u => u.roster_count === 0).length;
   const arrow = (key: SortKey) => (key === sortKey ? (sortDir === 'asc' ? ' ▲' : ' ▼') : '');
   const pendingCount = requests.filter(r => r.status === 'pending').length;
+  const codexAlertCount = Object.keys(contentAlerts).length;
 
   // Translation editor: source strings + filtered key list (capped when unfiltered for perf)
   const SRC = { ...sourceStrings(), ...transAbilities };
@@ -1333,19 +1431,28 @@ export function AdminPanel({ onClose }: Props) {
     );
   }
 
-  const TAB_DEFS: { id: AdminTab; label: string; help: string }[] = [
-    { id: 'overview', label: L.tabOverview, help: L.helpTabOverview },
-    { id: 'users',    label: L.tabUsers,    help: L.helpTabUsers },
-    { id: 'health',   label: L.tabHealth,   help: L.helpTabHealth },
-    { id: 'audit',    label: L.tabAudit,    help: L.helpTabAudit },
-    { id: 'announce', label: L.tabAnnounce, help: L.helpTabAnnounce },
-    { id: 'factions', label: L.tabFactions, help: L.helpTabFactions },
-    { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n },
-    { id: 'source',   label: L.tabSource,   help: L.helpTabSource },
-    { id: 'find',     label: L.tabFind,     help: L.helpTabFind },
-    { id: 'killteam', label: L.tabKillTeam, help: L.helpTabKillTeam },
-    { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc },
+  // Grouped by what kind of work the tab is for, not just listed flat — a dashboard/log reading,
+  // user account management, content the author publishes himself, read-only data-correctness
+  // audits, and reference-only tools are different jobs and used at different moments.
+  const TAB_DEFS: { id: AdminTab; label: string; help: string; category: string }[] = [
+    { id: 'overview', label: L.tabOverview, help: L.helpTabOverview, category: L.catDashboard },
+    { id: 'audit',    label: L.tabAudit,    help: L.helpTabAudit,    category: L.catDashboard },
+    { id: 'users',    label: L.tabUsers,    help: L.helpTabUsers,    category: L.catUsers },
+    { id: 'announce', label: L.tabAnnounce, help: L.helpTabAnnounce, category: L.catContent },
+    { id: 'factions', label: L.tabFactions, help: L.helpTabFactions, category: L.catContent },
+    { id: 'i18n',     label: L.tabI18n,     help: L.helpTabI18n,     category: L.catContent },
+    { id: 'health',   label: L.tabHealth,   help: L.helpTabHealth,   category: L.catDataAudit },
+    { id: 'source',   label: L.tabSource,   help: L.helpTabSource,   category: L.catDataAudit },
+    { id: 'find',     label: L.tabFind,     help: L.helpTabFind,     category: L.catDataAudit },
+    { id: 'killteam', label: L.tabKillTeam, help: L.helpTabKillTeam, category: L.catTools },
+    { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc,     category: L.catTools },
   ];
+  const TAB_GROUPS: { category: string; tabs: typeof TAB_DEFS }[] = [];
+  for (const td of TAB_DEFS) {
+    let g = TAB_GROUPS.find(g => g.category === td.category);
+    if (!g) { g = { category: td.category, tabs: [] }; TAB_GROUPS.push(g); }
+    g.tabs.push(td);
+  }
 
   return (
     <div className="fixed inset-0 bg-zinc-950 z-[100] flex flex-col">
@@ -1362,16 +1469,23 @@ export function AdminPanel({ onClose }: Props) {
         </span>
       </div>
 
-      {/* Tab nav */}
-      <div className="flex flex-wrap gap-1 px-4 py-2 bg-zinc-900/60 border-b border-zinc-800 shrink-0">
-        {TAB_DEFS.map(td => (
-          <span key={td.id} className="inline-flex items-center">
-            <button
-              onClick={() => setTab(td.id)}
-              className={`text-[11px] px-3 py-1 border font-mono uppercase tracking-wider ${tab === td.id ? 'border-amber-700 text-amber-400 bg-amber-950/20' : 'border-zinc-800 text-zinc-400 hover:text-zinc-200'}`}
-            >{td.label}{td.id === 'overview' && pendingCount > 0 ? ` (${pendingCount})` : ''}</button>
-            <Help text={td.help} />
-          </span>
+      {/* Tab nav — grouped by what kind of work each tab is for */}
+      <div className="flex flex-wrap items-start gap-x-5 gap-y-2 px-4 py-2 bg-zinc-900/60 border-b border-zinc-800 shrink-0">
+        {TAB_GROUPS.map(g => (
+          <div key={g.category} className="flex flex-col gap-1">
+            <span className="text-[9px] uppercase tracking-widest text-zinc-600">{g.category}</span>
+            <div className="flex flex-wrap gap-1">
+              {g.tabs.map(td => (
+                <span key={td.id} className="inline-flex items-center">
+                  <button
+                    onClick={() => setTab(td.id)}
+                    className={`text-[11px] px-3 py-1 border font-mono uppercase tracking-wider ${tab === td.id ? 'border-amber-700 text-amber-400 bg-amber-950/20' : 'border-zinc-800 text-zinc-400 hover:text-zinc-200'}`}
+                  >{td.label}{td.id === 'overview' && (pendingCount + codexAlertCount) > 0 ? ` (${pendingCount + codexAlertCount})` : ''}</button>
+                  <Help text={td.help} />
+                </span>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
 
@@ -1382,6 +1496,34 @@ export function AdminPanel({ onClose }: Props) {
       ) : !stats ? null : (
         <div className="flex-1 overflow-y-auto p-4 space-y-6 w-full max-w-5xl mx-auto">
             {tab === 'overview' && (<>
+            {/* Codex content alerts — set by the daily cron (api/cron/cleanup.js), so a sheet
+                edit shows up here even on a day nobody remembered to click "CHECK CONTENT" by
+                hand. Purely a pointer to the Factions tab; review + Accept happens there. */}
+            {codexAlertCount > 0 && (
+              <div className="border border-amber-700 bg-amber-950/20 px-3 py-2">
+                <div className="text-[10px] uppercase tracking-widest text-amber-500 mb-1.5 flex items-center gap-2">
+                  ⚠ Codex sheets changed
+                  <span className="bg-amber-800 text-amber-200 px-1.5 py-0.5 text-[9px] rounded">{codexAlertCount}</span>
+                </div>
+                <div className="text-[11px] font-mono text-zinc-300 space-y-0.5">
+                  {Object.entries(contentAlerts).map(([key, a]) => {
+                    const f = ALL_FACTIONS.find(x => x.key === key);
+                    const tabs = [...(a.changedTabs ?? []), ...(a.newTabs ?? []).map(t => `${t} (new)`), ...(a.removedTabs ?? []).map(t => `${t} (removed)`)];
+                    return (
+                      <div key={key}>
+                        <span className="text-amber-400">{f?.name ?? key}</span>
+                        <span className="text-zinc-500"> — {tabs.join(', ')}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <button onClick={() => setTab('factions')}
+                  className="mt-2 text-[10px] text-amber-400 underline underline-offset-2 hover:text-amber-300">
+                  Go review in Factions →
+                </button>
+              </div>
+            )}
+
             {/* Recovery requests */}
             <div>
               <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2 flex items-center gap-2">
@@ -1669,13 +1811,23 @@ export function AdminPanel({ onClose }: Props) {
               {/* ── Codex version + readiness, editable without a deploy ──
                   The point of this block is that the game's author can ship a document and mark it
                   himself the same minute, instead of asking us to change a line of code. */}
-              <div className="text-[10px] uppercase tracking-widest text-amber-600 mt-5 mb-1">{L.codexVerTitle}</div>
-              <p className="text-zinc-600 text-[10px] font-mono mb-2">{L.codexVerHint}</p>
+              <div className="flex items-center justify-between mt-5 mb-1">
+                <div className="text-[10px] uppercase tracking-widest text-amber-600">{L.codexVerTitle}</div>
+                <button onClick={handleCheckVersions} disabled={checkingVersions} className={toolbarBtn}>
+                  {checkingVersions ? '⟳ CHECKING…' : '⟳ CHECK VERSIONS'}
+                </button>
+              </div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">
+                {L.codexVerHint} Reads each faction's own Google Sheet title (e.g. "Chaos Space Marines 1.03") and flags a mismatch below — never applied automatically.
+              </p>
               <div className="grid gap-x-4 gap-y-1" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
                 {ALL_FACTIONS.map(f => {
                   const cur = codexVer[f.key] ?? DEFAULT_CODEX_VERSIONS[f.key] ?? { version: '1.00', status: 'testing' as const };
+                  const detected = versionCheck?.[f.key];
+                  const mismatch = detected?.version && detected.version !== cur.version;
                   return (
-                    <div key={f.key} className="flex items-center gap-1.5 text-[11px] font-mono">
+                    <div key={f.key} className="text-[11px] font-mono">
+                    <div className="flex items-center gap-1.5">
                       <span className="flex-1 min-w-0 truncate text-zinc-300">{f.name}</span>
                       <input
                         value={cur.version}
@@ -1693,15 +1845,87 @@ export function AdminPanel({ onClose }: Props) {
                         <option value="unreviewed">not reviewed</option>
                       </select>
                     </div>
+                    {mismatch && (
+                      <div className="flex items-center gap-1.5 mt-0.5 pl-0">
+                        <span className="text-amber-500 text-[10px]">Sheet says {detected!.version} —</span>
+                        <button onClick={() => applyDetectedVersion(f.key, detected!.version!)}
+                          className="text-[10px] text-amber-400 underline underline-offset-2 hover:text-amber-300">
+                          apply
+                        </button>
+                      </div>
+                    )}
+                    </div>
                   );
                 })}
               </div>
+              {versionCheck && (
+                <p className="text-zinc-600 text-[10px] font-mono mt-1">
+                  {Object.values(versionCheck).filter(v => v?.version).length}/{Object.keys(versionCheck).length} sheet titles read.
+                  {' '}Remember to Save below after applying.
+                </p>
+              )}
               <div className="flex items-center gap-2 mt-2">
                 <button onClick={() => saveSetting('codex_versions', codexVer)} disabled={savingKey === 'codex_versions'} className={toolbarBtn}>
                   {savingKey === 'codex_versions' ? L.saving : L.save}
                 </button>
                 {savedKey === 'codex_versions' && <span className="text-green-500 text-[10px] font-mono">{L.saved}</span>}
               </div>
+
+              {/* ── Content-level change check — one step deeper than the title check above.
+                  Hashes every tab of each live sheet and compares against the last-accepted
+                  baseline, so a silent cell edit with no version bump still gets flagged. A
+                  changed tab here means: go run the full local audit (fetch_codex.cjs + a
+                  rules-expert pass) before anything in data/parsed/ changes — this never touches
+                  production itself, "Accept" below only moves the baseline forward. */}
+              <div className="flex items-center justify-between mt-5 mb-1">
+                <div className="text-[10px] uppercase tracking-widest text-amber-600">Content Change Check</div>
+                <button onClick={handleCheckContent} disabled={checkingContent} className={toolbarBtn}>
+                  {checkingContent ? '⟳ CHECKING…' : '⟳ CHECK CONTENT'}
+                </button>
+              </div>
+              <p className="text-zinc-600 text-[10px] font-mono mb-2">
+                Hashes every tab of each live sheet and flags any that differ from the last-accepted
+                baseline — catches a silent edit even when the version number didn't change. A flagged
+                faction needs a full local re-audit before "Accept" moves the baseline forward.
+              </p>
+              {!contentCheck ? (
+                <p className="text-zinc-600 text-[10px] font-mono">Not checked yet this session.</p>
+              ) : (
+                <div className="space-y-1">
+                  {ALL_FACTIONS.map(f => {
+                    const r = contentCheck[f.key];
+                    if (!r) return null;
+                    return (
+                      <div key={f.key} className="flex items-start gap-1.5 text-[11px] font-mono">
+                        <span className="w-40 shrink-0 truncate text-zinc-300">{f.name}</span>
+                        {r.status === 'unchanged' && <span className="text-zinc-600">unchanged</span>}
+                        {r.status === 'error' && <span className="text-red-400">error — {r.error}</span>}
+                        {r.status === 'no_baseline' && (
+                          <span className="text-zinc-500">
+                            no baseline yet ({r.tabCount} tabs) —{' '}
+                            <button onClick={() => handleAcceptBaseline(f.key)} disabled={acceptingKey === f.key}
+                              className="text-amber-400 underline underline-offset-2 hover:text-amber-300">
+                              {acceptingKey === f.key ? 'accepting…' : 'accept as baseline'}
+                            </button>
+                          </span>
+                        )}
+                        {r.status === 'changed' && (
+                          <div className="flex-1 min-w-0">
+                            <span className="text-amber-500">
+                              changed: {[...(r.changedTabs ?? []), ...(r.newTabs ?? []).map(t => `${t} (new)`), ...(r.removedTabs ?? []).map(t => `${t} (removed)`)].join(', ')}
+                            </span>
+                            {' — '}
+                            <button onClick={() => handleAcceptBaseline(f.key)} disabled={acceptingKey === f.key}
+                              className="text-amber-400 underline underline-offset-2 hover:text-amber-300">
+                              {acceptingKey === f.key ? 'accepting…' : 'accept as new baseline'}
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             )}

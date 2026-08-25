@@ -574,9 +574,9 @@ export function getPublicSettings() {
   return call<{ ok: true } & PublicSettings>('/api/settings');
 }
 export function adminGetSettings() {
-  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; source_ignores?: SourceIgnores; codex_versions?: CodexVersions } }>('/api/admin/get-settings');
+  return call<{ ok: true; settings: { announcement?: AnnouncementSetting; faction_flags?: FactionFlags; translations?: TranslationOverrides; source_sheets?: Record<string, string>; data_overrides?: DataOverrides; source_ignores?: SourceIgnores; codex_versions?: CodexVersions; codex_content_hashes?: Record<string, Record<string, string>>; codex_content_alerts?: Record<string, { newTabs?: string[]; removedTabs?: string[]; changedTabs?: string[]; flaggedAt?: string }> } }>('/api/admin/get-settings');
 }
-export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'source_ignores' | 'codex_versions', value: unknown) {
+export function adminSetSetting(key: 'announcement' | 'faction_flags' | 'translations' | 'source_sheets' | 'data_overrides' | 'source_ignores' | 'codex_versions' | 'codex_content_hashes' | 'codex_content_alerts', value: unknown) {
   return call<{ ok: true }>('/api/admin/set-setting', { method: 'POST', body: JSON.stringify({ key, value }) });
 }
 /** Batch-fetch tabs of a public Google Sheet (server proxy) for the source-compare tool. */
@@ -592,6 +592,27 @@ export function adminTranslate(texts: string[], from: string, to: string) {
 export function adminCheckCodexVersions(ids: Record<string, string>) {
   return call<{ ok: true; results: Record<string, { title: string; version: string | null } | null> }>(
     '/api/admin/codex-versions-check', { method: 'POST', body: JSON.stringify({ ids }) },
+  );
+}
+
+export interface CodexContentCheckResult {
+  status: 'no_baseline' | 'unchanged' | 'changed' | 'error';
+  tabCount?: number;
+  newTabs?: string[];
+  removedTabs?: string[];
+  changedTabs?: string[];
+  hashes?: Record<string, string>;
+  error?: string;
+}
+/** Content-level change detection (one level deeper than adminCheckCodexVersions, which only
+ * reads the sheet's title): downloads each live sheet, hashes every tab's own CSV content, and
+ * compares against the last-accepted baseline (the `codex_content_hashes` setting). A single
+ * differing cell changes the hash, so this can't silently miss a change the way skimming a sheet
+ * by eye might. Read-only — never writes the baseline itself; call `setSetting('codex_content_hashes', ...)`
+ * with the merged hashes only after reviewing what changed. */
+export function adminCheckCodexContent(ids: Record<string, string>) {
+  return call<{ ok: true; results: Record<string, CodexContentCheckResult> }>(
+    '/api/admin/codex-content-check', { method: 'POST', body: JSON.stringify({ ids }) },
   );
 }
 
