@@ -1664,6 +1664,46 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     if (overrides.size > 0) grp.countOverrides = overrides;
   }
 
+  // Henchman Warband: a heterogeneous 0-N-of-17 specialist squad. Its equipped_with uses a
+  // format the clause regex above doesn't recognise ("SpecialistA/SpecialistB: Weapon.", no
+  // "is equipped with"), so every specialist's weapon landed in ONE undifferentiated group
+  // regardless of whether that specialist was actually taken — a Warband with only an Acolyte
+  // and an Exorcist still showed the Jokaero's digital weapons, the Ranger's long rifle, the
+  // Arco-flagellant's flail, everything (Discord, rem/Dominic: "this section here should only
+  // show the upgrade that was actually taken, if any"). Parsed here from the same equipped_with
+  // string rather than hardcoded, so a future .ods update that adds/renames a specialist still
+  // resolves correctly, instead of silently going stale.
+  if (unit.name === 'Henchman Warband') {
+    const presentSpecialists = new Set(
+      unit.models.filter(m => (item.modelSizes?.[m.name] ?? 0) > 0).map(m => m.name));
+    const weaponOwners = new Map<string, string[]>(); // baseName(weapon) -> specialist names
+    for (const m of unit.equipped_with.matchAll(/([A-Za-z][A-Za-z '\-]*(?:\/[A-Za-z][A-Za-z '\-]*)*)\s*:\s*([^.]+)\./g)) {
+      const owners = m[1].split('/').map(s => s.trim());
+      for (const wName of m[2].split(',').map(s => s.trim())) {
+        weaponOwners.set(wName, [...(weaponOwners.get(wName) ?? []), ...owners]);
+      }
+    }
+    // The Servitor's swap group grants "Shock charger" automatically alongside whichever of its
+    // 3 heavy-weapon choices is bought ("swap their Paired shock chargers for a Shock charger
+    // AND one of the following") — "Shock charger" itself isn't one of the group's `choices`, so
+    // nothing tied it to the purchase and it showed even with the swap never taken (same "only
+    // show what was actually taken" gap, one weapon over).
+    const servitorSwapGi = unit.option_groups.findIndex(g => (g.header ?? '').includes('Shock charger'));
+    const servitorSwapBought = servitorSwapGi >= 0 &&
+      Object.values(item.optionQty[servitorSwapGi] ?? {}).some(q => Number(q) > 0);
+    for (const grp of groups) {
+      grp.weapons = grp.weapons.filter(w => {
+        if (baseName(w.name) === 'Shock charger') return servitorSwapBought;
+        const owners = weaponOwners.get(baseName(w.name));
+        // Not named in equipped_with at all: an option-group-bought weapon (the Servitor's Heavy
+        // bolter/Multi-melta/Plasma cannon swap, the Missionary's Eviscerator) already gated by
+        // its own purchase quantity — leave it alone.
+        if (!owners) return true;
+        return owners.some(o => presentSpecialists.has(o));
+      });
+    }
+  }
+
   // Drop groups with nothing to show (e.g. Chaos Ogryn before any are bought) — a group that
   // exists in the data but has no weapons yet shouldn't force the others into labeled tables.
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
