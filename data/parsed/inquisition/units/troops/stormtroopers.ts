@@ -195,7 +195,7 @@ export const stormtroopers: Unit = {
           "points": 11
         },
         {
-          "name": "plasma gun",
+          "name": "Plasma gun",
           "points": 16
         },
         {

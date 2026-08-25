@@ -1571,7 +1571,21 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         // for weapons the equipped_with text really gives more than one copy of.
         const baseCopies = weaponCopiesPerModel(unit.equipped_with, bn);
         // grp.count is null for single-model groups (most vehicles) — treat that as one model.
-        if (baseCopies > 1) overrides.set(w.name, groupModels * baseCopies);
+        if (baseCopies > 1) { overrides.set(w.name, groupModels * baseCopies); continue; }
+        // Armory-granted weapon with no squad option-group swap behind it (e.g. a Kill Team
+        // Veteran's individually-bought Plasma pistol/Thunder hammer) — each entry in
+        // item.armory is ONE model's purchase, not the whole squad's. Without this it fell
+        // back to groupModels and a single Plasma pistol bought for one of five models showed
+        // "5x Plasma pistol" (Discord, rem: "i only put 1 gravis selection, 1 plasma pistol,
+        // 1 thunder hammer... here it says there's x5 of everything"). Scoped to weapons not on
+        // the datasheet at all — one that's ALSO a squad swap option is handled by the branches
+        // below instead, off the option group's own quantity.
+        if (grantedSet.has(w.name) && !datasheetNames.has(w.name)) {
+          const purchases = item.armory.filter(sel => sel.section === 'weapons' &&
+            (sel.itemName === w.name || baseName(sel.itemName).replace(/\s*\([^)]*\)\s*$/, '').trim() === bareN)
+          ).length;
+          if (purchases > 0) overrides.set(w.name, purchases);
+        }
         continue;
       }
       if (replacedQty.has(rKey)) {
