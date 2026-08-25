@@ -1462,7 +1462,15 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     const unitHasMultiCopyWeapon = unit.weapons
       .some(w => weaponCopiesPerModel(unit.equipped_with, baseName(w.name)) > 1);
     const hasAnyOptionSelection = Object.keys(item.optionQty ?? {}).length > 0;
-    if (grp.count == null && !unitHasMultiCopyWeapon && !hasAnyOptionSelection) continue;
+    // An Armory-only weapon (no squad option-group swap behind it, e.g. Chosen buying a plain
+    // Boltgun) never sets hasAnyOptionSelection — its quantity comes from item.armory, not
+    // item.optionQty. Skipping the loop here skipped the armory-purchase-count branch below too,
+    // so buying the SAME weapon for 2+ different models silently rendered as an unprefixed single
+    // row no matter how many were bought (Discord, Rigzar: "no puedo elegir el mismo item para
+    // cada miembro... en los Chosen"). Scoped narrowly to groups that actually contain such a
+    // weapon so untouched groups keep taking the fast path.
+    const hasArmoryGrantedWeapon = grp.weapons.some(w => grantedSet.has(w.name) && !datasheetNames.has(w.name));
+    if (grp.count == null && !unitHasMultiCopyWeapon && !hasAnyOptionSelection && !hasArmoryGrantedWeapon) continue;
     const replacedQty = new Map<string, number>();
     const grantedQty  = new Map<string, number>();
     for (const [gi, g] of unit.option_groups.entries()) {
