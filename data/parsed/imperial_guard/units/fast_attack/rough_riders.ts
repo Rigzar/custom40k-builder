@@ -4,19 +4,24 @@
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
  *
- * The 4 per-model Rider upgrades (Attilan/Death/Chem/Mukaali) are mutually exclusive PER MODEL
- * (constraint "every" + per_model, not "one" for the whole squad) — a mixed unit can have some
- * models with one Rider type and some with another, or none at all. Their ability text used to
- * sit unconditionally in the unit's static `abilities` array, so all 4 always showed regardless
- * of what was actually bought (Discord, rem/Dominic: "all those 'xy Rider' are exclusive to each
- * other"). Fixed by moving each sentence into its own choice's `effect.grants_abilities`, the
- * same mechanism used for the 29-unit GH#91 promoted-ability sweep — it now only shows once a
- * model actually has that Rider bought.
- * KNOWN GAP, not fixed here: the stat changes each Rider names (+1S, +1A, +1T/+1W/-1I) were never
- * wired to `effect.stat_mod` and still aren't — `optionStatMods` applies as one flat delta to the
- * unit's single printed stat row, with no per-model split, so a mixed squad (some models with one
- * Rider, some with another, some with none) has no correct way to show it without splitting the
- * row per sub-build — a larger structural change than this fix. See ki-rough-riders-stat-split-01.
+ * The 4 Rider upgrades (Attilan/Death/Chem/Mukaali) are the WHOLE SQUAD's shared choice, priced
+ * per model — the .ods header reads "The entire squad may receive ONE of the following upgrades
+ * per model" (Rough Riders row 36), the exact same construction as e.g. this codex's Stormtroopers
+ * ("The unit may get one of these abilities (points per model)"), which is correctly modelled as
+ * `constraint: "one"` + `per_model: true`. This unit's own group had `constraint: "every"` instead
+ * — a data-entry mismatch, not a different rule — which (a) let the qty go above 1 and let more
+ * than one Rider type be bought at once, both wrong for a "the entire squad" choice, and (b) meant
+ * the group's ability text ("Attilan-Rider: The model gains +1 Strength." etc) sat unconditionally
+ * in the unit's static `abilities` array with no purchase gate at all, so all 4 always showed
+ * (Discord, rem/Dominic: "all those 'xy Rider' are exclusive to each other").
+ * FIX: `constraint` corrected to "one" (`setQty`'s "one" branch already makes picking a new choice
+ * clear any other in the group, and caps qty at 1 — see UnitCard.tsx), and each choice's sentence
+ * moved into its own `effect.grants_abilities`, the same mechanism the 29-unit GH#91 sweep uses.
+ * With the group now genuinely all-or-nothing for the WHOLE squad (never a per-model mix), the
+ * stat changes each Rider names are also safe to wire as flat `effect.stat_mod` — every model in
+ * the unit gets the identical bonus when one is bought, which is exactly what a flat delta means.
+ * (Originally logged as a separate open gap, ki-rough-riders-stat-split-01, on the mistaken
+ * assumption the group allowed a genuinely mixed squad; closed once the real cause was found.)
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -268,18 +273,18 @@ export const roughRiders: Unit = {
     {
       "header": "The entire squad may receive one of the following upgrades per model",
       "constraint": {
-        "type": "every"
+        "type": "one"
       },
       "choices": [
         {
           "name": "Attilan-Rider",
           "points": 2,
-          "effect": { "grants_abilities": ["Attilan-Rider: The model gains +1 Strength."] }
+          "effect": { "stat_mod": [{ "stat": "S", "delta": 1 }], "grants_abilities": ["Attilan-Rider: The model gains +1 Strength."] }
         },
         {
           "name": "Death-Rider",
           "points": 2,
-          "effect": { "grants_abilities": ["Death-Rider: The model gains +1 Attack."] }
+          "effect": { "stat_mod": [{ "stat": "A", "delta": 1 }], "grants_abilities": ["Death-Rider: The model gains +1 Attack."] }
         },
         {
           "name": "Chem-Rider",
@@ -289,7 +294,7 @@ export const roughRiders: Unit = {
         {
           "name": "Mukaali-Rider",
           "points": 9,
-          "effect": { "grants_abilities": ["Mukaali-Rider: The model gains +1 Toughness, +1 Wound and -1 Initiative."] }
+          "effect": { "stat_mod": [{ "stat": "T", "delta": 1 }, { "stat": "W", "delta": 1 }, { "stat": "I", "delta": -1 }], "grants_abilities": ["Mukaali-Rider: The model gains +1 Toughness, +1 Wound and -1 Initiative."] }
         }
       ],
       "inline_pts": null,
