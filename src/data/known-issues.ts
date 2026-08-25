@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-inquisitor-stale-mandatory-hq-text-01",
+    status: "fixed",
+    title: "Inquisitor card said it could not be the mandatory HQ choice — that restriction is gone from the codex",
+    description: "FIXED 2026-08-25, reported on Discord (screenshot from rem, confirmed by Dominic: \"yes, your Inquisitor can be the mandatory HQ selection... this is more an info for Rigzar to update the sheet\"). CAUSE: `data/parsed/inquisition/units/hq/inquisitor.ts` carried a purely informational option_group (empty `choices`, just a warning `header`) reading \"An Inquisitor cannot be the mandatory choice for the HQ slot.\" The current Inquisition.ods has no such line anywhere in the Inquisitor's OPTIONS block — the restriction was removed from the codex at some point and the sheet was never updated to match. It was never enforced in code (matched by `dataHealth.ts`'s `INFORMATIONAL_HEADER_RE` as display-only text), so this was purely a stale warning banner, not a mechanical bug. FIX: removed the option_group entirely. Verified against the current .ods (`node scripts/_tmp_ods_search.cjs \"Codex/Inquisition.ods\" \"mandatory\"` — zero matches).",
+  },
+  {
     id: "ki-hh-crusade-weapon-no-enhancement-picker-01",
     status: "fixed",
     title: "Horus Heresy — \"Crusade weapon\" gave no way to pick which of its 5 named bonuses applies",

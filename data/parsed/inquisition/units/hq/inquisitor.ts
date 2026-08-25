@@ -81,16 +81,6 @@ export const inquisitor: Unit = {
   ],
   "option_groups": [
     {
-      "header": "An Inquisitor cannot be the mandatory choice for the HQ slot.",
-      "constraint": {
-        "type": "one"
-      },
-      "choices": [],
-      "inline_pts": null,
-      "variant_link": null,
-      "is_unique_per_army": false
-    },
-    {
       "header": "Can be upgraded to a psyker for +5 points.",
       "constraint": {
         "type": "one"

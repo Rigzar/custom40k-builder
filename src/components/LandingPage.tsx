@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v165g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165h_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.65: Grey Knights — the power you couldn't find",
@@ -31,6 +31,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line10: "⚔️ CSM/SM \"Legion\" and AdMech \"Taghmata\" — units from these supplement archetypes (Horus Heresy, Legio Titanicus) had zero access to the army's own Legacy armory, trait pool or forced mark; they were wrongly treated as a separate Allied Detachment. Fixed — a Legion Tactical Squad can now buy from e.g. the Black Legion Armoury like any other unit.",
     line11: "🛠️ Horus Heresy/Legio Titanicus follow-up audit: their units could buy the ENTIRE host codex's General armory instead of just the Veteran/vehicle items they actually need, and \"Crusade weapon\" had no way to pick which of its 5 named bonuses applies — it just charged 10 points for nothing. Both fixed.",
     line12: "📜 Cheat Sheets re-checked line-by-line against the Core Rules: the Morale card was missing Explosive's -1 Suppression penalty, and the Melee card's Charge order skipped the normal move before the 6\" charge move. Both fixed — and Cheat Sheets now has its own button on the home screen, next to Wiki and Glossary.",
+    line13: "🕵️ Inquisitor — the card said it \"cannot be the mandatory choice for the HQ slot\". That restriction is gone from the codex (confirmed on Discord); the warning is gone too. An Inquisitor can be your mandatory HQ pick like any other HQ unit.",
     contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -49,6 +50,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line10: "⚔️ CSM/SM „Legion“ und AdMech „Taghmata“ — Einheiten aus diesen Supplement-Archetypen (Horus Heresy, Legio Titanicus) hatten keinerlei Zugriff auf die eigene Legacy-Armory, den Trait-Pool oder ein erzwungenes Mal; sie wurden fälschlich wie eine eigenständige verbündete Streitmacht behandelt. Behoben — ein Legion Tactical Squad kann jetzt z. B. aus der Black-Legion-Armory kaufen wie jede andere Einheit.",
     line11: "🛠️ Horus Heresy/Legio Titanicus Nachaudit: ihre Einheiten konnten die GESAMTE General-Armory des Wirtscodex kaufen statt nur die Veteran-/Fahrzeug-Gegenstände, die sie tatsächlich brauchen, und „Crusade weapon“ ließ nicht wählen, welcher der 5 benannten Boni gilt — es kostete einfach 10 Punkte für nichts. Beides behoben.",
     line12: "📜 Cheat Sheets Zeile für Zeile gegen die Core Rules geprüft: der Moral-Karte fehlte die -1-Suppression-Strafe von Explosive, und die Nahkampf-Karte übersprang bei „Charge“ die normale Bewegung vor der 6\"-Charge-Bewegung. Beides behoben — Cheat Sheets hat jetzt einen eigenen Button auf dem Startbildschirm, neben Wiki und Glossar.",
+    line13: "🕵️ Inquisitor — die Karte sagte, er könne „nicht die verpflichtende Wahl für den HQ-Slot sein“. Diese Einschränkung gibt es im Codex nicht mehr (auf Discord bestätigt); die Warnung ist jetzt auch weg. Ein Inquisitor kann eure verpflichtende HQ-Wahl sein wie jede andere HQ-Einheit.",
     contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -67,6 +69,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line10: "⚔️ CSM/SM \"Legion\" y AdMech \"Taghmata\" — las unidades de estos arquetipos de suplemento (Horus Heresy, Legio Titanicus) no tenían ningún acceso a la armería de Legacy del ejército, a su pool de rasgos ni a su marca forzada; se trataban por error como un Allied Detachment separado. Arreglado — un Legion Tactical Squad ya puede comprar de, por ejemplo, la Black Legion Armoury como cualquier otra unidad.",
     line11: "🛠️ Auditoría de seguimiento de Horus Heresy/Legio Titanicus: sus unidades podían comprar TODA la armería general del códex anfitrión en vez de solo los ítems de Veterano/vehículo que realmente necesitan, y \"Crusade weapon\" no dejaba elegir cuál de sus 5 bonos con nombre aplica — solo cobraba 10 puntos por nada. Ambos arreglados.",
     line12: "📜 Cheat Sheets revisadas línea por línea contra el Core Rules: a la ficha de Moral le faltaba la penalización -1 de Explosive en armas con Suppression, y la ficha de Combate Cuerpo a Cuerpo se saltaba el movimiento normal antes del movimiento de 6\" de Charge. Ambos arreglados — y Cheat Sheets ahora tiene su propio botón en la pantalla principal, junto a Wiki y Glosario.",
+    line13: "🕵️ Inquisitor — la ficha decía que \"no puede ser la elección obligatoria para el slot de HQ\". Esa restricción ya no existe en el códex (confirmado en Discord); el aviso también desaparece. Un Inquisitor puede ser tu elección obligatoria de HQ como cualquier otra unidad de HQ.",
     contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -142,14 +145,15 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* line12/line11/line10/line9/line8/line7/line6/line5 are prepend slots: a follow-up
-              batch of fixes added after the original release leads with the newest slot, without
-              renumbering anything below it. 2026-08-24: line7 (Save-bonus engine fix), line8
-              (Tyranids/GK codex sync), line9 (Tyrant Guard Brood HQ-slot toggle), line10
-              (Legion/Taghmata Legacy-armory access), line11 (HH/Legio Titanicus armory-scope +
-              Crusade weapon picker) and line12 (Cheat Sheets fixes + home-screen button) added
-              this way, keeping v1.65's own banner intact. */}
-          {[tx.line12, tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
+          {/* line13/line12/line11/line10/line9/line8/line7/line6/line5 are prepend slots: a
+              follow-up batch of fixes added after the original release leads with the newest
+              slot, without renumbering anything below it. 2026-08-24: line7 (Save-bonus engine
+              fix), line8 (Tyranids/GK codex sync), line9 (Tyrant Guard Brood HQ-slot toggle),
+              line10 (Legion/Taghmata Legacy-armory access), line11 (HH/Legio Titanicus
+              armory-scope + Crusade weapon picker) and line12 (Cheat Sheets fixes + home-screen
+              button) added this way. 2026-08-25: line13 (Inquisitor stale mandatory-HQ warning
+              removed) added the same way, keeping v1.65's own banner intact. */}
+          {[tx.line13, tx.line12, tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
