@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-rough-riders-stat-split-01",
+    status: "known",
+    title: "Rough Riders' Attilan/Death/Mukaali-Rider stat bonuses (+1S, +1A, +1T/+1W/-1I) aren't applied to the model's printed stats",
+    description: "Found 2026-08-25 while fixing ki-rough-riders-rider-ability-unconditional-01 (Discord, rem/Dominic). The 4 per-model Rider upgrades are mutually exclusive PER MODEL (constraint \"every\" + per_model — a squad can have some models with one Rider type, some with another, some with none), and 3 of the 4 name a real stat change. `effect.stat_mod` (the mechanism used everywhere else for this) applies as ONE FLAT DELTA to the unit's single printed stat row — it has no concept of \"only these 2 of 5 models\" — so wiring it here would apply the bonus to the WHOLE squad's stat line regardless of how many models actually bought it, which is wrong in the opposite direction from the current bug (currently: 0 effect for anyone; with stat_mod wired naively: full effect for everyone). Correctly representing a genuinely mixed squad would need to split the model row per distinct sub-build, the same way a promoted Champion gets split into its own row — a larger structural change, not attempted in the pass that fixed the ability-text gating. Chem-Rider (Berserk(5+), no stat change) is unaffected and already fully correct.",
+  },
+  {
+    id: "ki-rough-riders-rider-ability-unconditional-01",
+    status: "fixed",
+    title: "Rough Riders showed all 4 mutually-exclusive Rider upgrade descriptions regardless of which (if any) was bought",
+    description: "FIXED 2026-08-25, reported on Discord (screenshot; Dominic: \"all those 'xy Rider' are exclusive to each other\"). CAUSE: same construction as the 29-unit GH#91 sweep (ki-variant-promotion-ability-unconditional-01) — the 4 Rider descriptions (\"Attilan-Rider: The model gains +1 Strength.\" etc) sat straight in the unit's unconditional `abilities` array under an \"Upgrades:\" header, even though each is a real, separately-priced per-model option in `option_groups[0]` (constraint \"every\", `per_model: true`). Every Rough Riders unit showed all 4 whether or not anyone paid for any of them. FIX: moved each sentence into its own choice's `effect.grants_abilities` — the exact mechanism the GH#91 sweep established — so it only appears once a model actually has that Rider bought. Verified live: an unbought squad shows 3 abilities (Outflank, Charge, Sniper); buying 1 Attilan-Rider brings it to 4, with the new one being \"Attilan-Rider: The model gains +1 Strength.\" See ki-rough-riders-stat-split-01 for the separate, still-open gap about the stat changes these upgrades name.",
+  },
+  {
     id: "ki-henchman-warband-weapon-list-not-gated-01",
     status: "fixed",
     title: "Henchman Warband showed every specialist's weapon regardless of which specialists were actually in the unit",

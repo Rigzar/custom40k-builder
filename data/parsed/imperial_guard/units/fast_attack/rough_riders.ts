@@ -4,6 +4,19 @@
  * SOURCE: TODO — add canonical datasheet text here when auditing this unit.
  * (See chaos_sorcerer.ts for the full template with source text + engine status notes.)
  *
+ * The 4 per-model Rider upgrades (Attilan/Death/Chem/Mukaali) are mutually exclusive PER MODEL
+ * (constraint "every" + per_model, not "one" for the whole squad) — a mixed unit can have some
+ * models with one Rider type and some with another, or none at all. Their ability text used to
+ * sit unconditionally in the unit's static `abilities` array, so all 4 always showed regardless
+ * of what was actually bought (Discord, rem/Dominic: "all those 'xy Rider' are exclusive to each
+ * other"). Fixed by moving each sentence into its own choice's `effect.grants_abilities`, the
+ * same mechanism used for the 29-unit GH#91 promoted-ability sweep — it now only shows once a
+ * model actually has that Rider bought.
+ * KNOWN GAP, not fixed here: the stat changes each Rider names (+1S, +1A, +1T/+1W/-1I) were never
+ * wired to `effect.stat_mod` and still aren't — `optionStatMods` applies as one flat delta to the
+ * unit's single printed stat row, with no per-model split, so a mixed squad (some models with one
+ * Rider, some with another, some with none) has no correct way to show it without splitting the
+ * row per sub-build — a larger structural change than this fix. See ki-rough-riders-stat-split-01.
  */
 
 import type { Unit } from '../../../../../src/types/data';
@@ -260,19 +273,23 @@ export const roughRiders: Unit = {
       "choices": [
         {
           "name": "Attilan-Rider",
-          "points": 2
+          "points": 2,
+          "effect": { "grants_abilities": ["Attilan-Rider: The model gains +1 Strength."] }
         },
         {
           "name": "Death-Rider",
-          "points": 2
+          "points": 2,
+          "effect": { "grants_abilities": ["Death-Rider: The model gains +1 Attack."] }
         },
         {
           "name": "Chem-Rider",
-          "points": 4
+          "points": 4,
+          "effect": { "grants_abilities": ["Chem-Rider: The model gains \"Berserk(5+)\"."] }
         },
         {
           "name": "Mukaali-Rider",
-          "points": 9
+          "points": 9,
+          "effect": { "grants_abilities": ["Mukaali-Rider: The model gains +1 Toughness, +1 Wound and -1 Initiative."] }
         }
       ],
       "inline_pts": null,
@@ -400,12 +417,7 @@ export const roughRiders: Unit = {
   "abilities": [
     "Outflank",
     "Charge: The charge profile of each lance can only be used if the unit has executed a \"Charge\" command during its activation.",
-    "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value.",
-    "Upgrades:",
-    "Attilan-Rider: The model gains +1 Strength.",
-    "Chem-Rider: The model gains \"Berserk(5+)\".",
-    "Death-Rider: The model gains +1 Attack.",
-    "Mukaali-Rider: The model gains +1 Toughness, +1 Wound and -1 Initiative."
+    "Sniper: Models with a sniper rifle receive a +1 bonus to their BS value."
   ],
   "unit_type": "Bike",
   "keywords": [],

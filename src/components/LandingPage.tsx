@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v165k_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165l_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; line16: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; line16: string; line17: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.65: Grey Knights — the power you couldn't find",
@@ -35,6 +35,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line14: "⚙️ Supplement armories (Horus Heresy, Legio Titanicus) and Authority of the Inquisition always showed every weapon AND equipment item in one list, ignoring the Weapons/Equipment tabs — and Horus Heresy's \"Crusade weapon\" never let you pick which of its 5 bonuses applies on this path. Both fixed: these tabs now behave like every other armory tab, pickers included.",
     line15: "🔫 A weapon bought from the Armory for one specific model, on a squad where several ordinary models can each buy their own gear (no single Champion), always showed the whole squad's size instead of how many models actually have it — one Plasma pistol and one Thunder hammer on a 5-model Kill Team Veterans showed \"5x\" of each. Fixed. Separately, Inquisitorial Stormtroopers' plasma gun swap had a lowercase typo that broke the same count for that one item.",
     line16: "🩺 Inquisition — a Henchman Warband showed EVERY specialist's weapon (Jokaero digital weapons, Ranger long rifle, Arco flail…) whether or not that specialist was actually in the unit, since its equipment text doesn't use the format the engine expects everywhere else. A Warband with just an Acolyte and an Exorcist now correctly shows only their own gear.",
+    line17: "🐎 Imperial Guard — Rough Riders' 4 mount upgrades (Attilan/Death/Chem/Mukaali-Rider) are exclusive per model, but the card always showed all 4 descriptions regardless of what was bought. Fixed the same way as the earlier 29-unit promoted-ability sweep.",
     contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -57,6 +58,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line14: "⚙️ Supplement-Armories (Horus Heresy, Legio Titanicus) und „Authority of the Inquisition“ zeigten immer jede Waffe UND jede Ausrüstung in einer Liste, ohne die Waffen-/Ausrüstungs-Tabs zu beachten — und „Crusade weapon“ der Horus Heresy ließ auf diesem Weg nie wählen, welcher der 5 Boni gilt. Beides behoben: diese Tabs verhalten sich jetzt wie jeder andere Armory-Tab, inklusive Auswahlmenü.",
     line15: "🔫 Eine für ein bestimmtes Modell aus der Armory gekaufte Waffe zeigte bei einem Trupp, in dem mehrere gewöhnliche Modelle jeweils eigene Ausrüstung kaufen können (kein einzelner Champion), immer die Größe des ganzen Trupps statt der tatsächlichen Anzahl — eine Plasma-Pistole und ein Donnerhammer bei fünf Kill Team Veterans zeigten jeweils „5x\". Behoben. Separat hatte der Plasmagewehr-Tausch der Inquisitorial Stormtroopers einen Kleinschreibungs-Tippfehler, der dieselbe Zählung für genau dieses Item kaputt machte.",
     line16: "🩺 Inquisition — ein Henchman Warband zeigte IMMER die Waffe jedes Spezialisten (Jokaero-Digitalwaffen, Ranger-Scharfschützengewehr, Arco-Dreschflegel…), egal ob dieser Spezialist tatsächlich in der Einheit war, weil sein Ausrüstungstext nicht das Format nutzt, das die Engine sonst überall erwartet. Ein Warband mit nur einem Akolyth und einem Exorzisten zeigt jetzt korrekt nur deren eigene Ausrüstung.",
+    line17: "🐎 Imperial Guard — die 4 Reittier-Upgrades der Rough Riders (Attilan/Death/Chem/Mukaali-Rider) schließen sich pro Modell gegenseitig aus, aber die Karte zeigte immer alle 4 Beschreibungen, egal was gekauft wurde. Behoben, genau wie beim früheren 29-Einheiten-Sweep für beförderungsgebundene Fähigkeiten.",
     contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -79,6 +81,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line14: "⚙️ Las armerías de suplemento (Horus Heresy, Legio Titanicus) y \"Authority of the Inquisition\" mostraban siempre todas las armas Y todo el equipo juntos en una lista, ignorando las pestañas Weapons/Equipment — y \"Crusade weapon\" de Horus Heresy nunca dejaba elegir cuál de sus 5 bonos aplica por esta vía. Ambos arreglados: estas pestañas ahora se comportan como cualquier otra pestaña de armería, con su selector incluido.",
     line15: "🔫 Un arma comprada de la Armería para un modelo concreto, en una unidad donde varios modelos normales pueden comprar cada uno lo suyo (sin un Campeón único), siempre mostraba el tamaño de toda la escuadra en vez de cuántos modelos la tienen de verdad — una Plasma pistol y un Thunder hammer en 5 Kill Team Veterans mostraban \"5x\" de cada una. Arreglado. Aparte, el cambio de plasma gun de los Inquisitorial Stormtroopers tenía un typo en minúscula que rompía ese mismo conteo solo para ese ítem.",
     line16: "🩺 Inquisición — un Henchman Warband mostraba SIEMPRE el arma de cada especialista (armas digitales del Jokaero, rifle largo del Ranger, mayal del Arco-flagellant…) aunque ese especialista no estuviera en la unidad, porque su texto de equipo no usa el formato que el motor espera en el resto del juego. Un Warband con solo un Acolyte y un Exorcist ahora muestra correctamente solo lo suyo.",
+    line17: "🐎 Imperial Guard — las 4 mejoras de montura de los Rough Riders (Attilan/Death/Chem/Mukaali-Rider) son excluyentes entre sí por modelo, pero la ficha siempre mostraba las 4 descripciones sin importar qué se hubiera comprado. Arreglado igual que el barrido anterior de 29 unidades con habilidad ligada a un ascenso.",
     contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -154,18 +157,19 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* line16/line15/line14/line13/line12/line11/line10/line9/line8/line7/line6/line5 are
-              prepend slots: a follow-up batch of fixes added after the original release leads
-              with the newest slot, without renumbering anything below it. 2026-08-24: line7
-              (Save-bonus engine fix), line8 (Tyranids/GK codex sync), line9 (Tyrant Guard Brood
-              HQ-slot toggle), line10 (Legion/Taghmata Legacy-armory access), line11 (HH/Legio
-              Titanicus armory-scope + Crusade weapon picker) and line12 (Cheat Sheets fixes +
-              home-screen button) added this way. 2026-08-25: line13 (Inquisitor stale
-              mandatory-HQ warning removed), line14 (archetypeArmory/authority tabs now sectioned
-              + picker-aware), line15 (non-Champion Armory weapon purchase count + Stormtrooper
-              plasma gun typo) and line16 (Henchman Warband weapon list not gated by which
-              specialists are present) added the same way, keeping v1.65's own banner intact. */}
-          {[tx.line16, tx.line15, tx.line14, tx.line13, tx.line12, tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
+          {/* line17/line16/line15/line14/line13/line12/line11/line10/line9/line8/line7/line6/
+              line5 are prepend slots: a follow-up batch of fixes added after the original
+              release leads with the newest slot, without renumbering anything below it.
+              2026-08-24: line7 (Save-bonus engine fix), line8 (Tyranids/GK codex sync), line9
+              (Tyrant Guard Brood HQ-slot toggle), line10 (Legion/Taghmata Legacy-armory access),
+              line11 (HH/Legio Titanicus armory-scope + Crusade weapon picker) and line12 (Cheat
+              Sheets fixes + home-screen button) added this way. 2026-08-25: line13 (Inquisitor
+              stale mandatory-HQ warning removed), line14 (archetypeArmory/authority tabs now
+              sectioned + picker-aware), line15 (non-Champion Armory weapon purchase count +
+              Stormtrooper plasma gun typo), line16 (Henchman Warband weapon list not gated by
+              which specialists are present) and line17 (Rough Riders' 4 mount upgrades shown
+              unconditionally) added the same way, keeping v1.65's own banner intact. */}
+          {[tx.line17, tx.line16, tx.line15, tx.line14, tx.line13, tx.line12, tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
