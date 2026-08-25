@@ -833,6 +833,7 @@ export default function App() {
             : () => setShowAuth(true)
           }
           onShowCampaign={loggedIn ? () => setShowCampaign(true) : () => setShowAuth(true)}
+          onShowCheatSheets={() => setShowCheatSheets(true)}
         />
       )}
 
@@ -1032,6 +1033,10 @@ export default function App() {
           />
         )}
         {showAdmin     && <AdminPanel onClose={() => setShowAdmin(false)} />}
+        {/* onOpenCampaign intentionally not passed below — Campaign is alpha-gated (see
+            LandingPage's disabled home button); this was the OLD entry point ("My Campaigns"
+            quick-open in the Account tab) and must stay a no-op too, so there's exactly one gate
+            to lift later, not two. */}
         {showCloudSaves && username && (
           <CloudSavesModal
             username={username}
@@ -1041,7 +1046,6 @@ export default function App() {
             onClose={() => setShowCloudSaves(false)}
             onLogout={async () => { await logout(); }}
             onOpenAdmin={isAdmin ? () => { setShowCloudSaves(false); setShowAdmin(true); } : undefined}
-            onOpenCampaign={(id) => { setShowCloudSaves(false); setCampaignInitialOpenId(id); setShowCampaign(true); }}
             activeRosterId={activeCloudRosterId}
             onActiveRosterIdChange={id => { setActiveCloudRosterId(id); if (id != null) setActiveLocalSaveId(null); }}
             onProfileUpdate={() => refreshAuth()}

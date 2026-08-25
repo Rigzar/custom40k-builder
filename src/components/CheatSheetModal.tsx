@@ -9,10 +9,12 @@ import type { ReactNode } from 'react';
  * id="pv-root" and its printable area id="pv-printable", so the existing `@media print` block in
  * index.css (hide #root, flow #pv-root) prints ONLY the sheet — no new print CSS needed.
  *
- * Content is grounded in the canonical `Informacion/Custom40k Core Rules.txt` (Battleshock,
- * Suppressive Fire §336-340, Suppression weapon ability §1445-1452, Rally/test §82-105). NOT from
- * memory — the community's hand-made morale card had two rules errors (Suppression counts WEAPONS
- * not hits; there is no "-1 for explosive"), both corrected here.
+ * Content is grounded in the canonical `Codex/Custom40k Core Rules.docx` (Battleshock, Suppressive
+ * Fire, the Suppression weapon ability, Rally/test). NOT from memory — the community's hand-made
+ * morale card had a rules error (Suppression counts WEAPONS fired, not hits scored) fixed here.
+ * Re-verified 2026-08-24: the Suppression ability's own -1 (Explosive) / -2 (Barrage) modifiers and
+ * the Charge order's full sequence (normal move up to M, max 12", THEN a separate 6" charge move)
+ * were re-checked line-by-line against the current .docx and both cards updated to match exactly.
  *
  * Adding another sheet later = append one entry to SHEETS; the tab bar appears automatically.
  */
@@ -91,6 +93,7 @@ function MoraleSheet() {
             for every <strong>additional Suppression weapon</strong> fired at the same target that
             activation <em>(count weapons, not hits)</em>.
           </Line>
+          <Line lead="−1">extra <strong>per</strong> Suppression weapon that also has <strong>Explosive</strong>.</Line>
           <Line lead="−2">extra <strong>per</strong> Suppression weapon that also has <strong>Barrage</strong>.</Line>
           <Line lead="−1">permanent, while the squad is <strong>below half</strong> Starting Strength.</Line>
           <div style={{ fontSize: '0.78rem', color: MUTED, marginTop: 6, fontStyle: 'italic', paddingLeft: 14 }}>
@@ -210,7 +213,7 @@ function MeleeSheet() {
         {/* CHARGE */}
         <div>
           <SectionTitle>Charge order</SectionTitle>
-          <Line>Declare any enemy units you can see; make a up-to-<strong>6&quot; move</strong> into base contact.</Line>
+          <Line>First a <strong>normal move</strong> (up to Movement, max 12&quot;); then declare Charge targets you can see and make a further <strong>up-to-6&quot; move</strong> in a straight line into base contact.</Line>
           <Line>Pick one Charge bonus for all models: <strong>+1 Attack</strong> or <strong>+1 Initiative</strong>.</Line>
           <Line lead="Target may react —">Defensive Fire, Hold Your Ground (negates the charge bonus if ≥50% of charged units use it), or Counter-Attack.</Line>
         </div>
