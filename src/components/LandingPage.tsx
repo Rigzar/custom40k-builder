@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v166e_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v166g_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.66: Horus Heresy — the armory that looked missing",
@@ -28,6 +28,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🪐 Planetary Assault — first backend piece of the \"systems\" layer above sectors (map UI still to come): a GM can group sectors into a system with one capital, and victory can count controlled capitals instead of raw sectors. No existing campaign's win condition changes.",
     line8: "🔧 Correction to this same v1.66's Horus Heresy/Legio Titanicus armory-scope fix above: it was wrong. A Horus Heresy or Legio Titanicus unit DOES get full access to its host codex's basic Armory (confirmed by the ruleset's author) — restored, so a Legion Tactical Squad's Armoury shows the full Chaos Space Marines armory again alongside its own Horus Heresy items.",
     line9: "🔧 That restore only covered HH units granted by the Legion archetype. Horus Heresy can also be added as its own Allied Detachment, and that path still showed just its own 5 items with none of the host codex's — fixed the same way, so it now matches the archetype path.",
+    line10: "🗂️ Both fixes above merged the host codex's items straight into the Horus Heresy tab, mixing them with its own 5 items in one list. Now split into two clean tabs — its own Armoury and a separate \"General\" tab for the host codex — exactly like a native unit already shows its own Armoury plus an archetype-granted foreign one.",
+    line11: "🛡️ Taking Terminator armor (or Gravis armor) as a model's Veteran Ability made every OTHER Veteran Ability vanish from the picker. That restriction is only meant for weapons/equipment, never Veteran Abilities — fixed for every faction that has it, not just this case.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -43,6 +45,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🪐 Planetary Assault — erstes Backend-Stück der „Systems“-Ebene über den Sektoren (Karten-UI folgt noch): ein GM kann Sektoren zu einem System mit einer Hauptstadt gruppieren, und der Sieg kann kontrollierte Hauptstädte statt roher Sektoren zählen. Keine bestehende Kampagne ändert ihre Siegbedingung.",
     line8: "🔧 Korrektur zum eigenen Horus-Heresy/Legio-Titanicus-Armory-Umfang-Fix dieser v1.66 oben: er war falsch. Eine Horus-Heresy- oder Legio-Titanicus-Einheit HAT vollen Zugriff auf die Basis-Armory ihres Wirtscodex (vom Regelwerksautor bestätigt) — wiederhergestellt, ein Legion Tactical Squad zeigt in seiner Armory jetzt wieder die volle Chaos-Space-Marines-Armory neben den eigenen Horus-Heresy-Items.",
     line9: "🔧 Diese Wiederherstellung deckte nur HH-Einheiten ab, die vom Legion-Archetyp gewährt werden. Horus Heresy lässt sich auch als eigenes Allied Detachment hinzufügen, und dieser Weg zeigte weiterhin nur die eigenen 5 Items ohne alles aus dem Wirtscodex — jetzt genauso behoben, entspricht nun dem Archetyp-Weg.",
+    line10: "🗂️ Beide Fixes oben mischten die Items des Wirtscodex direkt in den Horus-Heresy-Tab, zusammen mit den eigenen 5 Items in einer Liste. Jetzt in zwei saubere Tabs aufgeteilt — die eigene Armory und ein separater „General\"-Tab für den Wirtscodex — genau wie eine native Einheit bereits ihre eigene Armory plus eine archetyp-gewährte fremde Armory zeigt.",
+    line11: "🛡️ Terminator-Rüstung (oder Gravis-Rüstung) als Veteranenfähigkeit zu wählen ließ jede ANDERE Veteranenfähigkeit aus der Auswahl verschwinden. Diese Einschränkung gilt nur für Waffen/Ausrüstung, nie für Veteranenfähigkeiten — behoben für jede Fraktion, die sie hat, nicht nur diesen Fall.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -58,6 +62,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🪐 Planetary Assault — primera pieza de backend de la capa \"systems\" sobre los sectores (falta la UI del mapa): un GM ya puede agrupar sectores en un system con una capital, y la victoria puede contar capitales controladas en vez de sectores sueltos. Ninguna campaña existente cambia su condición de victoria.",
     line8: "🔧 Corrección al propio fix de alcance de armería de Horus Heresy/Legio Titanicus de esta misma v1.66, arriba: estaba mal. Una unidad de Horus Heresy o Legio Titanicus SÍ tiene acceso completo a la armería básica de su códex anfitrión (confirmado por el autor del reglamento) — restaurado, así que un Legion Tactical Squad vuelve a mostrar la armería general completa de Chaos Space Marines junto a sus propios ítems de Horus Heresy.",
     line9: "🔧 Esa restauración solo cubría unidades de HH concedidas por el archetype Legion. Horus Heresy también se puede añadir como su propio Allied Detachment, y por ese camino seguía mostrando solo sus 5 ítems propios sin nada del códex anfitrión — arreglado igual, ahora coincide con el camino del archetype.",
+    line10: "🗂️ Los dos arreglos anteriores mezclaban los ítems del códex anfitrión directamente dentro de la pestaña de Horus Heresy, junto a sus propios 5 ítems en una sola lista. Ahora está dividido en dos pestañas limpias — su propia Armería y una pestaña \"General\" separada para el códex anfitrión — igual que una unidad nativa ya muestra su propia Armería más una archetype-otorgada por separado.",
+    line11: "🛡️ Elegir Terminator armor (o Gravis armor) como habilidad veterana de un modelo hacía desaparecer TODAS las demás habilidades veteranas del selector. Esa restricción es solo para armamento/equipo, nunca para habilidades veteranas — arreglado para cualquier facción que la tenga, no solo este caso.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -142,7 +148,7 @@ function CommunityAnnouncement() {
               Armoury pricing, HH Legion Tactical Squad bayonet swap; plus admin Campaign access
               and the Planetary Assault systems-layer backend) — same "append to the still-open
               release" pattern v1.65 used, just starting from empty since v1.66 is new. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

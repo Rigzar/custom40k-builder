@@ -1,4 +1,4 @@
-import type { Armory, ArmoryItem, FactionData } from '../types/data';
+import type { FactionData } from '../types/data';
 
 /**
  * Which faction's Armory a roster entry shops from.
@@ -11,40 +11,29 @@ import type { Armory, ArmoryItem, FactionData } from '../types/data';
  * catalog (confirmed by the ruleset's author, Dominic, on Discord 2026-08-26: "HH supplement when
  * u add to an army they got the basic army armory?? — Yes").
  *
- * Between 2026-08-13 and 2026-08-26 this instead merged ONLY the parent's `category: 'veteran'`/
- * `'vehicle'` items (fixing a real gap — a Secutarii Axiarch had no Veteran button, a Triaros was
- * offered infantry gear instead of vehicle equipment) plus a category FILTER on top of that, added
- * 2026-08-24 on a report that turned out to be a misunderstanding ("no deberian tener acceso a la
- * armeria de csm normal") — Dominic's answer above retracts it: the full host Armory, general
- * weapons and equipment included, is correct. The filter is gone; only the opt-in mechanism
- * (`inherits_parent_armory`) remains, doing what it always did — merging the WHOLE parent
- * `armory_general` in, with the supplement's own entries winning any name clash since it's the
- * more specific book.
+ * Between 2026-08-13 and 2026-08-26 this MERGED the parent's `armory_general` (weapons/equipment/
+ * daemon_weapons) directly into the supplement's own General tab, so a Legion Tactical Squad's one
+ * "General" list quietly contained both Horus Heresy's 5 items and every Chaos Space Marines item —
+ * mixed together with no way to tell which was which. Rigzar, live 2026-08-26 after both merge
+ * fixes had shipped: "se tiene que ver como se ve ahi [Scout Squad] no la armeria general mezclada
+ * con la de hh" — a NATIVE unit shows the host's basic Armory and an archetype-granted foreign
+ * armory as two clearly separate tabs (GENERAL / HORUS HERESY LEGIONES ASTARTES ARMOURY); an HH-
+ * sourced unit should look the same way, not have them flattened into one list. The merge is gone —
+ * `armory_general` here stays the supplement's own, untouched. `ArmoryModal.tsx` now renders the
+ * host's `armory_general` as its own extra tab (labelled plain "General") whenever `inherits_parent_
+ * armory` is set, mirroring the existing archetype-armory-tab mechanism instead of merging data.
+ *
+ * `armory_marks`/`armory_legions` still merge below — those already render as their OWN tabs (Mark,
+ * Legacy), so combining the two sources behind the scenes doesn't create the same mixed-list problem;
+ * only `armory_general` needed splitting apart.
  *
  * A supplement with a codex of its own — Assassins, Inquisition — keeps its Armory and only its
  * Armory; this merge never runs for them (`inherits_parent_armory` is unset).
  */
-function mergeArmory(own: Armory | undefined, parent: Armory): Armory {
-  if (!own) return parent;
-  const merge = (a: ArmoryItem[] = [], b: ArmoryItem[] = []) => {
-    const seen = new Set(a.map(x => x.name.toLowerCase()));
-    return [...a, ...(b ?? []).filter(x => !seen.has(x.name.toLowerCase()))];
-  };
-  return {
-    ...own,
-    weapons: merge(own.weapons as ArmoryItem[], parent.weapons as ArmoryItem[]),
-    equipment: merge(own.equipment as ArmoryItem[], parent.equipment as ArmoryItem[]),
-    daemon_weapons: merge(own.daemon_weapons as ArmoryItem[], parent.daemon_weapons as ArmoryItem[]),
-  };
-}
-
-/** Applies the host-codex merge above when `supp` opts in, otherwise returns it untouched — a
- *  normal Allied Detachment (Chaos Daemons, Inquisition, ...) is a separate codex and never merges. */
 function withParentArmory(supp: FactionData, data: FactionData): FactionData {
   if (!supp.inherits_parent_armory) return supp;
   return {
     ...supp,
-    armory_general: mergeArmory(supp.armory_general, data.armory_general),
     armory_marks: { ...data.armory_marks, ...supp.armory_marks },
     armory_legions: { ...data.armory_legions, ...supp.armory_legions },
   };
@@ -63,14 +52,11 @@ export function armoryDataFor(
 ): FactionData {
   if (!item.factionSource) return data;
   // The user-picked Allied Detachment is normally a separate army with its own codex — never
-  // merged. The one exception is Horus Heresy/Legio Titanicus picked directly as the Allied
+  // touched. The one exception is Horus Heresy/Legio Titanicus picked directly as the Allied
   // Detachment (rather than granted by the primary's own "Legion"/"Taghmata" archetype): its
-  // `inherits_parent_armory` flag means the same thing here as it does below — full access to a
-  // host codex's basic Armory, and that host is the PRIMARY faction, same as the archetype path.
-  // Found live 2026-08-26 right after the archetype path's own fix: "+ Add Allied Detachment ->
-  // Horus Heresy Legiones Astartes" on a Legion Tactical Squad only ever showed the 5 items native
-  // to Horus Heresy's own armory_general — no Boltgun, no Kai gun, no Combi-weapons — because this
-  // branch returned alliedData raw, the one path that never called mergeArmory.
+  // `inherits_parent_armory` flag means the same thing here as it does below — access to a host
+  // codex's basic Armory (shown as its own separate tab by ArmoryModal, see withParentArmory's
+  // doc comment), and that host is the PRIMARY faction, same as the archetype path.
   if (item.factionSource === alliedFaction && alliedData) return withParentArmory(alliedData, data);
 
   const supp = supplementData[item.factionSource];

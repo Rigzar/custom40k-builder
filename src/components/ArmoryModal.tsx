@@ -76,7 +76,7 @@ function selId() {
   return 'arm-' + (globalThis.crypto?.randomUUID?.() ?? (Date.now().toString(36) + '-' + Math.random().toString(36).slice(2)));
 }
 
-type ArmoryTab = 'general' | 'mark' | 'legion' | 'authority' | 'archetypeArmory';
+type ArmoryTab = 'general' | 'hostGeneral' | 'mark' | 'legion' | 'authority' | 'archetypeArmory';
 type Section = 'weapons' | 'equipment' | 'daemon_weapons';
 
 function parsePrice(v: number | null | undefined | string): number | null {
@@ -200,6 +200,23 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // the archetype-armory-tab gates below), since a supplement item still reads foreign data.
   const isTrueAllyUnit = !!(alliedFaction && item.factionSource === alliedFaction);
   const activeData = armoryDataFor(item, data, alliedFaction, alliedData, supplementData);
+  // Horus Heresy / Legio Titanicus only: the raw supplement/ally FactionData this item's own
+  // armory ultimately comes from, before armoryDataFor merges in marks/legions. Its own
+  // `armory_general` (HH's 5 items) stays separate from the host's (Chaos Space Marines'/Space
+  // Marines'/Adeptus Mechanicus') — each gets its own tab below (Rigzar, live 2026-08-26: "se
+  // tiene que ver como se ve ahi [Scout Squad] no la armeria general mezclada con la de hh" — a
+  // native unit already shows its host Armory and an archetype-granted foreign Armory as two
+  // clean separate tabs; an HH-sourced unit should look the same, not one flattened list).
+  const inheritsHostArmory = isAllied && !!(isTrueAllyUnit ? alliedData?.inherits_parent_armory
+    : supplementData[item.factionSource!]?.inherits_parent_armory);
+  // Every armory_general this unit can actually buy from, for LOOKUPS (Terminator-armour
+  // conflict, veteran-slot counting, Daemon-weapon gateway pool) — not for display, where the
+  // host's General stays its own separate "hostGeneral" tab (inheritsHostArmory above). Without
+  // both entries here, an item bought from that tab would be invisible to these checks even
+  // though it's genuinely in the unit's Armoury.
+  const ownArmoryGenerals = inheritsHostArmory
+    ? [activeData.armory_general, data.armory_general]
+    : [activeData.armory_general];
 
   // Always read armory from the live store so Unique checks stay current after additions
   const currentArmory = (army.find(e => e.id === item.id) ?? item).armory;
@@ -254,7 +271,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (!isUnwieldyItem(arm.desc)) return false;
     return currentArmory.some(a => {
       if (a.itemName === arm.name && a.section === sec) return false; // same item — oncePerModelBlocked already covers it
-      const found = findArmoryItem(activeData, a);
+      // Falls back to the host's own data when this item came from the "hostGeneral" tab
+      // (ownArmoryGenerals doc above) — activeData alone no longer carries the host's items.
+      const found = findArmoryItem(activeData, a) ?? (inheritsHostArmory ? findArmoryItem(data, a) : undefined);
       return !!found && isUnwieldyItem(found.desc);
     });
   }
@@ -289,7 +308,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
    *  must see the foreign sheets or a cross-faction purchase looks like an unknown item. */
   function allArmorySources() {
     return [
-      activeData.armory_general,
+      ...ownArmoryGenerals,
       ...Object.values(markArmories),
       ...Object.values(activeData.armory_legions),
       ...(archetypeArmoryData && !isAllied && archetypeRuleForArmory?.armoryOnlyFaction
@@ -370,7 +389,11 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Coven / ᶜᵘ Cult), so "Blasterᴷ" etc. were wrongly tagged/gated as Mark of Khorne. Horus Heresy
   // is likewise mark-less (a trailing ᵀ there is Terminator-compat, not Tzeentch — ki-hh-tcollision-01).
   const MARK_FACTIONS = new Set(['Chaos Space Marines', 'Chaos Daemons']);
-  const isMarklessFaction = !MARK_FACTIONS.has(activeData.faction);
+  // The "hostGeneral" tab (Horus Heresy/Legio Titanicus only — see inheritsHostArmory) shows the
+  // HOST's own items, not the supplement's, so its markless-ness is the host's too: a Legion
+  // Tactical Squad's General tab is genuinely Chaos Space Marines gear and must gate on Marks
+  // like any native CSM unit, not fall back to Horus Heresy's own mark-less ᵀ-only reading.
+  const isMarklessFaction = !MARK_FACTIONS.has(tab === 'hostGeneral' ? data.faction : activeData.faction);
   /** True when the given legion-armory key is the archetype-granted supplement (e.g. Horus Heresy). */
   const legMarkless = (legName: string): boolean =>
     isMarklessFaction || legName === rule?.sharedSupplementArmory;
@@ -446,7 +469,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // the player hunt across tabs for it.
   function getDaemonWeaponPool(): ArmoryItem[] {
     const sources = [
-      activeData.armory_general,
+      ...ownArmoryGenerals,
       ...(effectiveMark && markArmories[effectiveMark] ? [markArmories[effectiveMark]] : []),
     ];
     const pool = sources.flatMap(src => src.daemon_weapons as ArmoryItem[]);
@@ -490,7 +513,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         // Abilities already in the unit's profile don't count toward the slot limit
         if (profileAbilityNames.has(a.itemName.toLowerCase())) return false;
         const sources = [
-          activeData.armory_general,
+          ...ownArmoryGenerals,
           ...Object.values(markArmories),
           ...Object.values(activeData.armory_legions),
         ];
@@ -521,21 +544,31 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Keep already-bought items visible even when non-ᵀ/ᴳ, so they stay removable (the armour item
   // that triggers the gate is itself non-ᵀ/ᴳ and would otherwise vanish from the list).
   const boughtItemNames = new Set(currentArmory.map(a => a.itemName));
+  // Veteran Abilities are a wholly separate table on every canonical Armory sheet — laid out AFTER
+  // the ᵀ/ᴳ restriction notes, with its own header/columns, and none of its own items ever carry a
+  // ᵀ/ᴳ glyph (SM Armory.html: rows 102-103 "Models wearing Gravis/Terminator armor can only
+  // receive equipment with ᴳ/ᵀ" sit directly above the WEAPONS/EQUIPMENT tables they gate; row 104
+  // "VETERAN ABILITIES" starts a fresh, ungated table right after). The restriction is about
+  // wargear bulk/fit, not about tactical doctrines a model already knows — a model in Terminator
+  // armor still keeps access to every Veteran Ability. Reported live 2026-08-26: taking Terminator
+  // armor as a Lieutenant's veteran pick made the Veteran Abilities picker show "No items in this
+  // section" for every OTHER ability, since none of them carry ᵀ.
   function filterTermCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return termRestricted ? armItems.filter(a => isItemTermCompat(a) || boughtItemNames.has(a.name)) : armItems;
+    return termRestricted ? armItems.filter(a => a.category === 'veteran' || isItemTermCompat(a) || boughtItemNames.has(a.name)) : armItems;
   }
   function filterGravisCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return gravisRestricted ? armItems.filter(a => isItemGravisCompat(a) || boughtItemNames.has(a.name)) : armItems;
+    return gravisRestricted ? armItems.filter(a => a.category === 'veteran' || isItemGravisCompat(a) || boughtItemNames.has(a.name)) : armItems;
   }
 
   // Orks "Mega armor" (ᴹ) / Leagues of Votann "Exo-armor" (ᴱ): same shape as ᵀ/ᴳ above, but these
   // two factions never got a structured armour_compat/term_compat field for the glyph — the gate
   // is keyed off the bought item's literal name and a name-suffix glyph check on candidate items
   // (codex_orks/keywords.ts + codex_leagues_of_votann/keywords.ts CAVEAT). Found unenforced during
-  // the 2026-06-28 sweep, same family as the Tau ᴵ-glyph fix (GH#18).
+  // the 2026-06-28 sweep, same family as the Tau ᴵ-glyph fix (GH#18). Same Veteran-Abilities
+  // exemption as above applies here too.
   const glyphArmourGlyph = glyphArmourRestriction(activeData.faction, boughtArmourNames);
   function filterGlyphArmourCompat(armItems: ArmoryItem[]): ArmoryItem[] {
-    return glyphArmourGlyph ? armItems.filter(a => a.name.includes(glyphArmourGlyph) || boughtItemNames.has(a.name)) : armItems;
+    return glyphArmourGlyph ? armItems.filter(a => a.category === 'veteran' || a.name.includes(glyphArmourGlyph) || boughtItemNames.has(a.name)) : armItems;
   }
 
   // Tau Empire ("Armory" sheet): "Infantry models may only use equipment marked with ᴵ" — applies
@@ -631,6 +664,9 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
       if (effectiveMark) return markArmories[effectiveMark];
     }
     if (tab === 'legion') return null;
+    // See inheritsHostArmory: the host's own General armory, kept as its own tab rather than
+    // merged into the supplement's.
+    if (tab === 'hostGeneral') return data.armory_general;
     return activeData.armory_general;
   }
 
@@ -870,15 +906,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         {/* Armory tabs — hidden when opened via a category button (veteran/vehicle) */}
         {!filterCategory && <div className="flex border-b border-zinc-700">
           {/* General tab — always shown. For a same-army supplement injection (Legion → Horus
-              Heresy, Taghmata → Legio Titanicus, Daemonkin, ...) "General" IS that supplement's
-              own armory (armoryDataFor swaps activeData to it), so it must say so — a Legion
-              Breacher/Tactical Squad's own Armory showed a plain "GENERAL" tab with Horus Heresy
-              items silently inside it and no tab anywhere saying "Horus Heresy", while a native
-              CSM unit gets an explicit separate "Horus Heresy Legiones Astartes Armoury" tab for
-              the exact same content — the inconsistency read as "the Horus Heresy armory doesn't
-              show up" (Discord, Rigzar, tested on both Legion Breacher Squad and Legion Tactical
-              Squad). A genuine picked Allied Detachment keeps the plain "General" label — that
-              unit's own codex identity is already clear from the rest of the UI. */}
+              Heresy, Taghmata → Legio Titanicus, Daemonkin, ...) or a directly-added Horus Heresy/
+              Legio Titanicus Allied Detachment, "General" IS that supplement's own small armory
+              (armoryDataFor swaps activeData to it), so it must say so — a Legion Breacher/Tactical
+              Squad's own Armory showed a plain "GENERAL" tab with Horus Heresy items silently
+              inside it and no tab anywhere saying "Horus Heresy", while a native CSM unit gets an
+              explicit separate "Horus Heresy Legiones Astartes Armoury" tab for the exact same
+              content — the inconsistency read as "the Horus Heresy armory doesn't show up"
+              (Discord, Rigzar). A genuine full-codex Allied Detachment (Chaos Daemons, Inquisition,
+              ...) keeps the plain "General" label — that unit's own codex identity is already clear
+              from the rest of the UI. The host's OWN General armory (Chaos Space Marines' etc.) is
+              a separate "hostGeneral" tab below, not merged into this one — see inheritsHostArmory. */}
           {(['general'] as ArmoryTab[]).map(tabKey => (
             <button
               key={tabKey}
@@ -889,9 +927,25 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {isAllied && !isTrueAllyUnit ? `${activeData.faction} ${t('armourySuffix')}` : t('generalLabel')}
+              {isAllied && (!isTrueAllyUnit || inheritsHostArmory) ? `${activeData.faction} ${t('armourySuffix')}` : t('generalLabel')}
             </button>
           ))}
+          {/* Host General tab — Horus Heresy/Legio Titanicus units only. The host codex's own basic
+              Armory (Chaos Space Marines', Space Marines', Adeptus Mechanicus'), kept as its own
+              tab instead of merged into the supplement's General tab above (see armorySource.ts's
+              withParentArmory doc comment for the 2026-08-26 history). */}
+          {inheritsHostArmory && (
+            <button
+              onClick={() => setTab('hostGeneral')}
+              className={`px-4 py-2 text-[11px] uppercase tracking-wide border-b-2 transition-colors
+                ${tab === 'hostGeneral'
+                  ? 'border-amber-600 text-amber-400'
+                  : 'border-transparent text-zinc-500 hover:text-zinc-300'
+                }`}
+            >
+              {t('generalLabel')}
+            </button>
+          )}
           {/* Mark tab — shown when unit has a mark WITH data in armory_marks, OR when it's the BC champion */}
           {(isBlackCrusadeChampion || (hasMark && effectiveMark && markArmories[effectiveMark])) && (
             <button

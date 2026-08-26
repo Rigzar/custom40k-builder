@@ -154,24 +154,26 @@ const NON_RULE_TOKENS = new Set([
   'overcharged', 'standard', 'super-charged', 'supercharged',
 ]);
 
-function findArmoryItem(data: FactionData, name: string, factionSource?: string): ArmoryItem | undefined {
-  // For allied units, search in the allied faction's own armory, not the primary's. NOTE:
-  // `data.allied[factionSource]` is a STRIPPED AlliedFaction (units/slots only) — it has NO
-  // armory_general / armory_marks / armory_legions, so guard every field: reading
-  // Object.values(undefined) here used to throw and blank the whole Print View for any army with
-  // an allied unit that carried an armory item.
-  const src = (factionSource && (data.allied as Record<string, Partial<FactionData>>)?.[factionSource]) ?? data;
+/**
+ * `hostData`: a Horus Heresy/Legio Titanicus item's Armoury also includes the host codex's own
+ * General armory (Chaos Space Marines'/Space Marines'/Adeptus Mechanicus') — ArmoryModal shows it
+ * as its own separate "GENERAL" tab rather than merging it into the supplement's data (see
+ * armorySource.ts's withParentArmory doc comment, 2026-08-26), so an item bought from that tab is
+ * not in `data` at all when `data` is the supplement/ally's own FactionData. Callers pass the
+ * primary FactionData here as a fallback whenever `data` might be a supplement/ally's own.
+ */
+function findArmoryItem(data: FactionData, name: string, hostData?: FactionData): ArmoryItem | undefined {
   const sources = [
-    src.armory_general,
-    ...Object.values(src.armory_marks ?? {}),
-    ...Object.values(src.armory_legions ?? {}),
+    data.armory_general,
+    ...Object.values(data.armory_marks ?? {}),
+    ...Object.values(data.armory_legions ?? {}),
   ].filter((a): a is NonNullable<typeof a> => !!a);
   for (const arm of sources)
     for (const sec of ['weapons', 'equipment', 'daemon_weapons'] as const) {
       const found = ((arm[sec] as ArmoryItem[] | undefined) ?? []).find(a => a.name === name);
       if (found) return found;
     }
-  return undefined;
+  return hostData && hostData !== data ? findArmoryItem(hostData, name) : undefined;
 }
 
 // ── Design tokens (pure CSS — no external images) ─────────────────────────────
@@ -391,17 +393,17 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const armData = armoryData ?? data;
   for (const sel of item.armory) {
     if (sel.section === 'equipment') {
-      const arm = findArmoryItem(armData, sel.itemName);
+      const arm = findArmoryItem(armData, sel.itemName, data);
       if (!isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'daemon_weapons') {
-      const arm = findArmoryItem(armData, sel.itemName);
+      const arm = findArmoryItem(armData, sel.itemName, data);
       if (!isWeaponTrait(arm?.desc) && !isGrantWeapon(arm?.desc)) armEquip.push({ name: sel.itemName, desc: arm?.desc ?? '' });
       continue;
     }
     if (sel.section === 'weapons') continue;
-    const arm = findArmoryItem(armData, sel.itemName);
+    const arm = findArmoryItem(armData, sel.itemName, data);
     if (arm && !arm.range && !(arm.profiles && arm.profiles.length > 0)) {
       armEquip.push({ name: sel.itemName, desc: arm.desc ?? '' });
     }
@@ -1657,7 +1659,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
     }
 
     for (const sel of item.armory) {
-      const arm = findArmoryItem(armoryDataFor(item.factionSource), sel.itemName);
+      const arm = findArmoryItem(armoryDataFor(item.factionSource), sel.itemName, data);
       if (!arm) continue;
       if (sel.section === 'daemon_weapons') {
         if (isWeaponTrait(arm.desc)) {
