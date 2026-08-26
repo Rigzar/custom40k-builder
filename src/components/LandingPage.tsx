@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v166c_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v166d_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.66: Horus Heresy — the armory that looked missing",
@@ -26,6 +26,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "⚔️ Horus Heresy — Legion Tactical Squad's Bolt-gun bayonet swap could only ever be bought once for the WHOLE squad, when each Bolt-gun-armed model should get its own choice. Fixed to scale with squad size; its Astartes chainsword upgrade also now correctly charges per model instead of a flat 5 points.",
     line6: "🎖️ Admin — both admin ranks can now open Campaign (Planetary Assault) from the home screen while logged in, ahead of its wider release; every other player still sees the disabled \"Coming Soon\" button.",
     line7: "🪐 Planetary Assault — first backend piece of the \"systems\" layer above sectors (map UI still to come): a GM can group sectors into a system with one capital, and victory can count controlled capitals instead of raw sectors. No existing campaign's win condition changes.",
+    line8: "🔧 Correction to this same v1.66's Horus Heresy/Legio Titanicus armory-scope fix above: it was wrong. A Horus Heresy or Legio Titanicus unit DOES get full access to its host codex's basic Armory (confirmed by the ruleset's author) — restored, so a Legion Tactical Squad's Armoury shows the full Chaos Space Marines armory again alongside its own Horus Heresy items.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -39,6 +40,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "⚔️ Horus Heresy — der Bolter-Bajonett-Tausch des Legion Tactical Squad konnte für den GANZEN Trupp nur einmal gekauft werden, obwohl jedes mit Bolter bewaffnete Modell eine eigene Wahl haben sollte. Jetzt skaliert er mit der Truppgröße; das Astartes-Kettenschwert-Upgrade auf demselben Datenblatt berechnet jetzt ebenfalls korrekt pro Modell statt pauschal 5 Punkte.",
     line6: "🎖️ Admin — beide Admin-Ränge können jetzt Campaign (Planetary Assault) vom Startbildschirm aus öffnen, während sie eingeloggt sind, vor der breiteren Veröffentlichung; alle anderen Spieler sehen weiterhin den deaktivierten „Coming Soon“-Button.",
     line7: "🪐 Planetary Assault — erstes Backend-Stück der „Systems“-Ebene über den Sektoren (Karten-UI folgt noch): ein GM kann Sektoren zu einem System mit einer Hauptstadt gruppieren, und der Sieg kann kontrollierte Hauptstädte statt roher Sektoren zählen. Keine bestehende Kampagne ändert ihre Siegbedingung.",
+    line8: "🔧 Korrektur zum eigenen Horus-Heresy/Legio-Titanicus-Armory-Umfang-Fix dieser v1.66 oben: er war falsch. Eine Horus-Heresy- oder Legio-Titanicus-Einheit HAT vollen Zugriff auf die Basis-Armory ihres Wirtscodex (vom Regelwerksautor bestätigt) — wiederhergestellt, ein Legion Tactical Squad zeigt in seiner Armory jetzt wieder die volle Chaos-Space-Marines-Armory neben den eigenen Horus-Heresy-Items.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -52,6 +54,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "⚔️ Horus Heresy — el cambio de bayoneta de bólter del Legion Tactical Squad solo se podía comprar UNA vez para todo el escuadrón, cuando cada modelo armado con bólter debería elegir por su cuenta. Ahora escala con el tamaño del escuadrón; la mejora de espada sable Astartes de la misma ficha también cobra ya por modelo en vez de 5 puntos fijos.",
     line6: "🎖️ Admin — ambos rangos de admin ya pueden abrir Campaign (Planetary Assault) desde la pantalla principal estando logueados, antes de su lanzamiento general; el resto de jugadores sigue viendo el botón \"Coming Soon\" desactivado.",
     line7: "🪐 Planetary Assault — primera pieza de backend de la capa \"systems\" sobre los sectores (falta la UI del mapa): un GM ya puede agrupar sectores en un system con una capital, y la victoria puede contar capitales controladas en vez de sectores sueltos. Ninguna campaña existente cambia su condición de victoria.",
+    line8: "🔧 Corrección al propio fix de alcance de armería de Horus Heresy/Legio Titanicus de esta misma v1.66, arriba: estaba mal. Una unidad de Horus Heresy o Legio Titanicus SÍ tiene acceso completo a la armería básica de su códex anfitrión (confirmado por el autor del reglamento) — restaurado, así que un Legion Tactical Squad vuelve a mostrar la armería general completa de Chaos Space Marines junto a sus propios ítems de Horus Heresy.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -136,7 +139,7 @@ function CommunityAnnouncement() {
               Armoury pricing, HH Legion Tactical Squad bayonet swap; plus admin Campaign access
               and the Planetary Assault systems-layer backend) — same "append to the still-open
               release" pattern v1.65 used, just starting from empty since v1.66 is new. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

@@ -6,37 +6,29 @@ import type { Armory, ArmoryItem, FactionData } from '../types/data';
  * Normally that is simply the entry's own faction. The exception is a supplement whose front page
  * says it is not a codex in its own right — Forces of the Machine God opens with "The following
  * rules can only be used in conjunction with the Adeptus Mechanicus Codex", the Legiones Astartes
- * supplement with the same sentence about Space Marines or Chaos Space Marines — and whose
- * datasheets then lean on the parent codex for whole categories of gear it does not carry:
+ * supplement with the same sentence about Space Marines or Chaos Space Marines. A unit from one of
+ * these supplements has full access to the HOST codex's basic Armory, not just its own supplement
+ * catalog (confirmed by the ruleset's author, Dominic, on Discord 2026-08-26: "HH supplement when
+ * u add to an army they got the basic army armory?? — Yes").
  *
- *   • "The unit may gain one Veteran ability."          → parent `category: 'veteran'` items
- *   • "Has access to vehicle equipment from the Armory." → parent `category: 'vehicle'` items
- *   • "The unit may select one Doctrina Imperative."     → Adeptus Mechanicus veteran items
+ * Between 2026-08-13 and 2026-08-26 this instead merged ONLY the parent's `category: 'veteran'`/
+ * `'vehicle'` items (fixing a real gap — a Secutarii Axiarch had no Veteran button, a Triaros was
+ * offered infantry gear instead of vehicle equipment) plus a category FILTER on top of that, added
+ * 2026-08-24 on a report that turned out to be a misunderstanding ("no deberian tener acceso a la
+ * armeria de csm normal") — Dominic's answer above retracts it: the full host Armory, general
+ * weapons and equipment included, is correct. The filter is gone; only the opt-in mechanism
+ * (`inherits_parent_armory`) remains, doing what it always did — merging the WHOLE parent
+ * `armory_general` in, with the supplement's own entries winning any name clash since it's the
+ * more specific book.
  *
- * Neither supplement's own Armory holds a single item of either category, so a Secutarii Axiarch
- * had no Veteran button and a Triaros was offered an Arc lance and a Mag-inverter shield instead
- * of vehicle equipment (user report 2026-08-13). Eleven units across the two supplements were
- * affected, not just the two reported.
- *
- * Opt-in per supplement via `inherits_parent_armory`. A supplement with a codex of its own —
- * Assassins, Inquisition — keeps its Armory and only its Armory.
+ * A supplement with a codex of its own — Assassins, Inquisition — keeps its Armory and only its
+ * Armory; this merge never runs for them (`inherits_parent_armory` is unset).
  */
 function mergeArmory(own: Armory | undefined, parent: Armory): Armory {
   if (!own) return parent;
-  // Only pull in the specific categories a supplement datasheet actually references from the
-  // parent codex (see the file-level comment: "Veteran ability" / "vehicle equipment" are the
-  // ONLY things these datasheets lean on the parent for) — not the parent's entire general
-  // armory. Without this filter an HH/Legio Titanicus unit's "General" tab showed all 72 CSM (or
-  // 67 AdMech) general items, including host-specific gear (Kai gun, Daemonic weapons, Force
-  // weapons, ...) that has nothing to do with the "Veteran ability"/"vehicle equipment" grant and
-  // was never meant to be reachable from a supplement with its own, much smaller catalog
-  // (user report 2026-08-24: "no deberian tener acceso a la armeria de csm normal").
-  const NEEDED_CATEGORIES = new Set(['veteran', 'vehicle']);
-  const filterNeeded = (items: ArmoryItem[] = []) => items.filter(i => NEEDED_CATEGORIES.has(i.category ?? ''));
-  // The supplement's own entry wins a name clash: it is the more specific book.
   const merge = (a: ArmoryItem[] = [], b: ArmoryItem[] = []) => {
     const seen = new Set(a.map(x => x.name.toLowerCase()));
-    return [...a, ...filterNeeded(b).filter(x => !seen.has(x.name.toLowerCase()))];
+    return [...a, ...(b ?? []).filter(x => !seen.has(x.name.toLowerCase()))];
   };
   return {
     ...own,
