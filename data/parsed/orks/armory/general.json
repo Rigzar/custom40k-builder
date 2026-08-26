@@ -384,6 +384,18 @@
       "abilities": "Poison(4+). Painboy only.",
       "p_unit": null,
       "p_char": 3
+    },
+    {
+      "name": "Dakkagun",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 6",
+      "s": "5",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [
@@ -602,7 +614,11 @@
       "term_compat": false,
       "desc": "The model gets +6\" Movement, +1 Toughness, +1 Wound, a Dakkagun and the unit type \"Bike\". Infantry only.",
       "p_unit": 27,
-      "p_char": 45
+      "p_char": 45,
+      "effect": {
+        "adds_unit_types": ["Bike"],
+        "grants_weapons": ["Dakkagun"]
+      }
     },
     {
       "name": "Waaagh!-Trike",

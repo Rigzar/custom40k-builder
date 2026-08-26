@@ -425,7 +425,7 @@
         {
           "header": "Any model armed with a Bolt gun may be equipped with one of the following",
           "constraint": {
-            "type": "one"
+            "type": "every"
           },
           "choices": [
             {
@@ -448,6 +448,7 @@
           },
           "choices": [],
           "inline_pts": 5,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }

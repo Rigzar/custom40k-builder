@@ -50,7 +50,7 @@ export const ELDAR_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
       type: 'unit_ability',
       name: 'Children of Prophecy',
       desc: 'The unit may re-roll 1s and 2s for manifesting or denying psychic powers. Only for Psykers.',
-      applies_to: 'all',
+      applies_to: 'psyker',
     },
   ],
 

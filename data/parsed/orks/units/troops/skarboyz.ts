@@ -138,7 +138,11 @@ export const skarboyz: Unit = {
         },
         {
           "name": "'Eavy armour",
-          "points": 3
+          "points": 3,
+          "effect": {
+            "grants_abilities": ["'Eavy armour: The model gains a 4+ armor save."],
+            "stat_mod": [{ "stat": "SV", "delta": -1 }]
+          }
         }
       ],
       "inline_pts": null,

@@ -49,7 +49,7 @@ export const nobz: Unit = {
       "constraint": { "type": "one" },
       "choices": [
         { "name": "Wildork", "points": 5 },
-        { "name": "'Eavy armour", "points": 7 }
+        { "name": "'Eavy armour", "points": 7, "effect": { "grants_abilities": ["'Eavy armour: The model gains a 4+ armor save."], "stat_mod": [{ "stat": "SV", "delta": -1 }] } }
       ],
       "inline_pts": null,
       "variant_link": null,

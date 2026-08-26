@@ -11,26 +11,47 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v166b_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v166c_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.66: Horus Heresy — the armory that looked missing",
     intro: "CSM/SM \"Legion\" — a unit actually GRANTED by the Horus Heresy supplement (Legion Breacher/Tactical/Tactical Support Squad, etc) had its own Armory's General tab plainly labeled \"General\" with Horus Heresy items silently inside — looked like the Horus Heresy armory was missing entirely, since a normal unit gets an explicitly separate \"Horus Heresy Legiones Astartes Armoury\" tab for the same content. The tab now names itself after the supplement it actually is. Adeptus Mechanicus \"Taghmata\" had it worse: native AdMech units had NO tab at all for the Legio Titanicus armory this archetype's own rules promise — only Taghmata's own injected units could reach it. Both fixed.",
     install: "🔫 Buying the SAME Armory item for two different models (e.g. two Boltguns on two different Chosen) showed no count at all, on any unit/Champion with no other squad option touched — a deeper root cause behind the Kill Team Veterans fix in v1.65. Fixed at the engine level, so it covers every unit and every Champion/leader hitting the same pattern, not just one datasheet.",
+    line1: "🩻 Orks — 9 units' 'Eavy armour upgrade (Boyz, Skarboyz, Burna Boyz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas) charged points but never improved the Save at all. Each now correctly lands on the codex's stated 4+ from its own base Save.",
+    line2: "🏍️ Orks — a Warboss (or any character) buying \"Waaagh!-Bike\" got the points and the Bike unit type but never the promised Dakkagun. Fixed — the weapon now actually shows up.",
+    line3: "🔮 Eldar's \"Children of Prophecy\" and Space Marines' \"Knowledge is Power\" Traits (both \"Only for Psykers\") were being handed to every unit in the army, not just ones that could manifest a single power. Both fixed.",
+    line4: "🌌 Eldar — a Psyker character (Farseer, Spiritseer, Wraithseer) could not buy a single item from the Craftworld or Ynnari Armoury; everything showed unavailable. Fixed, without reopening anything that's genuinely Autarch-only.",
+    line5: "⚔️ Horus Heresy — Legion Tactical Squad's Bolt-gun bayonet swap could only ever be bought once for the WHOLE squad, when each Bolt-gun-armed model should get its own choice. Fixed to scale with squad size; its Astartes chainsword upgrade also now correctly charges per model instead of a flat 5 points.",
+    line6: "🎖️ Admin — both admin ranks can now open Campaign (Planetary Assault) from the home screen while logged in, ahead of its wider release; every other player still sees the disabled \"Coming Soon\" button.",
+    line7: "🪐 Planetary Assault — first backend piece of the \"systems\" layer above sectors (map UI still to come): a GM can group sectors into a system with one capital, and victory can count controlled capitals instead of raw sectors. No existing campaign's win condition changes.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
     title: "v1.66: Horus Heresy — die Armory, die zu fehlen schien",
     intro: "CSM/SM „Legion“ — eine Einheit, die tatsächlich vom Horus-Heresy-Supplement gewährt wird (Legion Breacher/Tactical/Tactical Support Squad usw.), zeigte in ihrer eigenen Armory einen schlicht „General\" genannten Tab mit still darin versteckten Horus-Heresy-Items — sah aus, als fehle die Horus-Heresy-Armory komplett, da eine normale Einheit dafür einen eigenen, klar benannten „Horus Heresy Legiones Astartes Armoury\"-Tab bekommt. Der Tab nennt sich jetzt nach dem Supplement, das er tatsächlich ist. Adeptus Mechanicus „Taghmata\" traf es schlimmer: normale AdMech-Einheiten hatten GAR KEINEN Tab für die Legio-Titanicus-Armory, die dieses Archetyp selbst verspricht — nur die vom Taghmata injizierten Einheiten konnten sie erreichen. Beides behoben.",
     install: "🔫 Den GLEICHEN Armory-Gegenstand für zwei verschiedene Modelle zu kaufen (z. B. zwei Boltguns auf zwei verschiedenen Chosen) zeigte gar keine Anzahl an, bei jeder Einheit/jedem Champion ohne sonstige Squad-Option. Eine tiefere Ursache hinter dem Kill-Team-Veterans-Fix in v1.65. Auf Engine-Ebene behoben — betrifft also jede Einheit und jeden Champion/Anführer mit demselben Muster, nicht nur ein Datenblatt.",
+    line1: "🩻 Orks — bei 9 Einheiten (Boyz, Skarboyz, Burna Boyz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas) kostete das 'Eavy-armour-Upgrade Punkte, verbesserte aber nie den Rettungswurf. Jede landet jetzt korrekt beim im Codex angegebenen 4+, ausgehend vom eigenen Basiswurf.",
+    line2: "🏍️ Orks — ein Warboss (oder jeder Charaktermodell), der „Waaagh!-Bike\" aus der Armory kaufte, bekam Punkte und den Bike-Einheitentyp, aber nie die versprochene Dakkagun. Behoben — die Waffe erscheint jetzt tatsächlich.",
+    line3: "🔮 Die Eldar-Eigenschaft „Children of Prophecy“ und die Space-Marines-Eigenschaft „Knowledge is Power“ (beide „Nur für Psioniker“) wurden jeder Einheit der Armee verliehen, nicht nur solchen, die überhaupt eine Kraft manifestieren können. Beides behoben.",
+    line4: "🌌 Eldar — ein psionisches Charaktermodell (Farseer, Spiritseer, Wraithseer) konnte keinen einzigen Gegenstand aus der Craftworld- oder Ynnari-Armory kaufen; alles zeigte sich als nicht verfügbar. Behoben, ohne echte Autarch-exklusive Gegenstände wieder zu öffnen.",
+    line5: "⚔️ Horus Heresy — der Bolter-Bajonett-Tausch des Legion Tactical Squad konnte für den GANZEN Trupp nur einmal gekauft werden, obwohl jedes mit Bolter bewaffnete Modell eine eigene Wahl haben sollte. Jetzt skaliert er mit der Truppgröße; das Astartes-Kettenschwert-Upgrade auf demselben Datenblatt berechnet jetzt ebenfalls korrekt pro Modell statt pauschal 5 Punkte.",
+    line6: "🎖️ Admin — beide Admin-Ränge können jetzt Campaign (Planetary Assault) vom Startbildschirm aus öffnen, während sie eingeloggt sind, vor der breiteren Veröffentlichung; alle anderen Spieler sehen weiterhin den deaktivierten „Coming Soon“-Button.",
+    line7: "🪐 Planetary Assault — erstes Backend-Stück der „Systems“-Ebene über den Sektoren (Karten-UI folgt noch): ein GM kann Sektoren zu einem System mit einer Hauptstadt gruppieren, und der Sieg kann kontrollierte Hauptstädte statt roher Sektoren zählen. Keine bestehende Kampagne ändert ihre Siegbedingung.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
     title: "v1.66: Horus Heresy — la armería que parecía no estar",
     intro: "CSM/SM \"Legion\" — una unidad realmente concedida por el suplemento Horus Heresy (Legion Breacher/Tactical/Tactical Support Squad, etc) tenía en su propia Armería una pestaña \"General\" a secas con los ítems de Horus Heresy escondidos dentro — parecía que la armería de Horus Heresy no estaba, ya que una unidad normal recibe una pestaña separada y explícita \"Horus Heresy Legiones Astartes Armoury\" para el mismo contenido. La pestaña ahora se llama como el suplemento que realmente es. Adeptus Mechanicus \"Taghmata\" lo tenía peor: las unidades nativas de AdMech no tenían NINGUNA pestaña para la armería de Legio Titanicus que el propio archetype promete — solo las unidades que Taghmata inyecta podían llegar a ella. Ambos arreglados.",
     install: "🔫 Comprar el MISMO ítem de la Armería para dos miembros distintos (p.ej. dos Boltguns en dos Chosen distintos) no mostraba ninguna cantidad, en cualquier unidad/Campeón sin ninguna otra opción de escuadrón tocada — una causa más profunda detrás del fix de Kill Team Veterans de v1.65. Arreglado a nivel de motor, así que cubre cualquier unidad y cualquier Campeón/líder con el mismo patrón, no solo una ficha.",
+    line1: "🩻 Orks — el upgrade 'Eavy armour en 9 unidades (Boyz, Skarboyz, Burna Boyz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas) cobraba puntos pero nunca mejoraba la Salvación de verdad. Cada una ahora llega correctamente al 4+ que dice el códex, partiendo de su propia Salvación base.",
+    line2: "🏍️ Orks — un Warboss (o cualquier personaje) que compraba \"Waaagh!-Bike\" de la Armería recibía los puntos y el tipo de unidad Bike, pero nunca la Dakkagun prometida. Arreglado — el arma ahora aparece de verdad.",
+    line3: "🔮 El Trait \"Children of Prophecy\" de Eldar y \"Knowledge is Power\" de Space Marines (ambos \"Solo para Psykers\") se aplicaban a todas las unidades del ejército, no solo a las que pueden manifestar un poder. Ambos arreglados.",
+    line4: "🌌 Eldar — un personaje Psyker (Farseer, Spiritseer, Wraithseer) no podía comprar ni un solo ítem de la Armería Craftworld o Ynnari; todo aparecía como no disponible. Arreglado, sin volver a abrir nada que sea genuinamente exclusivo de Autarch.",
+    line5: "⚔️ Horus Heresy — el cambio de bayoneta de bólter del Legion Tactical Squad solo se podía comprar UNA vez para todo el escuadrón, cuando cada modelo armado con bólter debería elegir por su cuenta. Ahora escala con el tamaño del escuadrón; la mejora de espada sable Astartes de la misma ficha también cobra ya por modelo en vez de 5 puntos fijos.",
+    line6: "🎖️ Admin — ambos rangos de admin ya pueden abrir Campaign (Planetary Assault) desde la pantalla principal estando logueados, antes de su lanzamiento general; el resto de jugadores sigue viendo el botón \"Coming Soon\" desactivado.",
+    line7: "🪐 Planetary Assault — primera pieza de backend de la capa \"systems\" sobre los sectores (falta la UI del mapa): un GM ya puede agrupar sectores en un system con una capital, y la victoria puede contar capitales controladas en vez de sectores sueltos. Ninguna campaña existente cambia su condición de victoria.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -109,10 +130,15 @@ function CommunityAnnouncement() {
           {/* v1.66 (2026-08-26) is a genuine version cut, not a prepend onto v1.65's banner — the
               old v1.65 lines (Tyranids, Rough Riders, Henchman Warband, etc, all already shown to
               players when v1.65 first shipped) are intentionally NOT repeated here; that history
-              lives in the Changelog modal, not the popup every player sees on load. If a future
-              release goes back to appending same-day follow-up fixes onto ITS OWN banner (as
-              v1.65 did for 5 days straight), reintroduce numbered line1/line2/... prepend slots
-              here — but each new version cut should start this list empty again. */}
+              lives in the Changelog modal, not the popup every player sees on load. line1-line7
+              are v1.66's OWN follow-up fixes, added the same day as the initial cut (GH#97-100:
+              Ork 'Eavy armour/Waaagh!-Bike, Eldar/SM Psyker-only Traits, Eldar Craftworld/Ynnari
+              Armoury pricing, HH Legion Tactical Squad bayonet swap; plus admin Campaign access
+              and the Planetary Assault systems-layer backend) — same "append to the still-open
+              release" pattern v1.65 used, just starting from empty since v1.66 is new. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
+            .filter(Boolean)
+            .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
         </div>
       </div>

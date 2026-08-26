@@ -13,7 +13,7 @@ import { TAU_TRAIT_EFFECTS } from './codex_tau_empire/traits';
 import { NECRONS_TRAIT_EFFECTS } from './codex_necrons/traits';
 import { DARK_ELDAR_TRAIT_EFFECTS } from './codex_dark_eldar/traits';
 
-export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster';
+export type AppliesTo = 'all' | 'creature' | 'vehicle' | 'character' | 'infantry' | 'monster' | 'psyker';
 
 export type TraitEffect =
   | { type: 'stat_mod';       stat: string; delta: number;                                applies_to: AppliesTo }
@@ -36,6 +36,7 @@ function effectApplies(effect: TraitEffect, unit: Unit): boolean {
     case 'character': return unit.is_character;
     case 'infantry':  return !unit.is_vehicle && !unit.is_monster && !unit.is_character;
     case 'monster':   return unit.is_monster;
+    case 'psyker':    return unit.is_psyker;
     default:          return false;
   }
 }

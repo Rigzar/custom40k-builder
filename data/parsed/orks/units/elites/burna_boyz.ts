@@ -129,7 +129,11 @@ export const burnaBoyz: Unit = {
         },
         {
           "name": "'Eavy armour",
-          "points": 6
+          "points": 6,
+          "effect": {
+            "grants_abilities": ["'Eavy armour: The model gains a 4+ armor save."],
+            "stat_mod": [{ "stat": "SV", "delta": -2 }]
+          }
         }
       ],
       "inline_pts": null,

@@ -93,7 +93,11 @@ export const stormboyz: Unit = {
         },
         {
           "name": "'Eavy armour",
-          "points": 8
+          "points": 8,
+          "effect": {
+            "grants_abilities": ["'Eavy armour: The model gains a 4+ armor save."],
+            "stat_mod": [{ "stat": "SV", "delta": -2 }]
+          }
         }
       ],
       "inline_pts": null,

@@ -114,11 +114,26 @@ function isWeaponCostSpecial(desc?: string): boolean {
  * accident — but a lone CHARACTER buyer (Autarch/Farseer/Spiritseer/Wraithseer) needs to pick
  * the column matching ITS OWN role, not always prefer p_char (`cp ?? up`) like every other
  * faction does. Scoped to Eldar only — every other faction's p_unit/p_char keep their normal
- * squad/character meaning. Exarch Powers and Vehicle Equipment (single "POINTS" column, p_char
- * always null) are unaffected either way since `cp` is null for them regardless of role.
+ * squad/character meaning.
+ *
+ * Craftworld/Ynnari sub-armories are a DIFFERENT sheet shape: a single "POINTS CHARACTER"
+ * column (parsed into `p_char`, `p_unit` never present at all — no key, not even null) meant
+ * for ANY character regardless of role. Blindly preferring `p_unit` for a psyker made every
+ * Craftworld/Ynnari item unbuyable to a Farseer/Spiritseer/Wraithseer (Discord: "Psyker
+ * characters cannot take Craftworld Armory items"). Distinguished from a genuine
+ * psyker-vs-autarch restriction (general Armory's own "-" cells, which the parser stores as an
+ * explicit `p_unit: null` / `p_char: null` — a real "not available to this role") by checking
+ * key PRESENCE, not just truthiness: `'p_unit' in arm` is false only when the sheet never had
+ * that column for this item at all, so falling back to whatever price DOES exist is safe there
+ * and only there. Exarch Powers (single "POINTS" column too, same shape) are unaffected either
+ * way — they're filtered out of every Eldar character's list entirely, further down.
  */
 function resolveEldarCharPrice(arm: ArmoryItem, unit: Unit): number | null {
-  return parsePrice(unit.is_psyker ? arm.p_unit : arm.p_char);
+  const preferred = unit.is_psyker ? arm.p_unit : arm.p_char;
+  const fallback = unit.is_psyker ? arm.p_char : arm.p_unit;
+  const preferredKey = unit.is_psyker ? 'p_unit' : 'p_char';
+  if (preferred == null && !(preferredKey in arm)) return parsePrice(fallback);
+  return parsePrice(preferred);
 }
 
 // ── Mark restriction helpers ──────────────────────────────────────────────────

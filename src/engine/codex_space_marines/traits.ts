@@ -103,7 +103,7 @@ export const SM_TRAIT_EFFECTS: Record<string, TraitEffect[]> = {
       type: 'unit_ability',
       name: 'Knowledge is Power',
       desc: 'The model can re-roll one psychic test per activation. Only for Psykers.',
-      applies_to: 'all',
+      applies_to: 'psyker',
     },
   ],
 
