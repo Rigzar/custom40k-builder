@@ -231,9 +231,7 @@ interface Props {
 export function LandingPage({
   saves, announcement, canResume,
   onStart, onResume, onLoadArmy, onShowAuth, onShowCloudSaves, onShowCommunity, onShowCheatSheets,
-  // onShowCampaign intentionally unused for now — the button below is disabled (alpha, not open
-  // to players yet); kept in Props so App.tsx's pass-through stays valid without an extra edit
-  // there when the button is re-enabled.
+  onShowCampaign,
 }: Props) {
   const [showChangelog, setShowChangelog] = useState(false);
   // The fog is now STATIC. Animating the feTurbulence baseFrequency re-rendered a full-screen
@@ -245,7 +243,7 @@ export function LandingPage({
   const [unread, setUnread] = useState(0);
   const latestVersion = CHANGELOG[0]?.version ?? '';
   const t = useT();
-  const { loggedIn, username, avatar } = useAuth();
+  const { loggedIn, username, avatar, isAdmin, isInterrogator } = useAuth();
   const refreshUnread = () => { api.getUnreadCount().then(r => setUnread(r.count)).catch(() => {}); };
   useEffect(() => { if (loggedIn) refreshUnread(); else setUnread(0); }, [loggedIn]);
 
@@ -409,16 +407,28 @@ export function LandingPage({
               Community Armies
             </button>
 
-            {/* Campaign (Planetary Assault) is built but not yet opened up to players — the
-                button stays visible so people know it's coming, but does nothing when clicked. */}
-            <button
-              disabled
-              title="Campaign mode is still in alpha testing"
-              className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
-            >
-              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
-              Campaign — Coming Soon (Alpha)
-            </button>
+            {/* Campaign (Planetary Assault) is built but not yet opened up to regular players —
+                admins (both Inquisitor and Interrogator) get early access to it while logged in,
+                everyone else still sees the disabled "Coming Soon" state. */}
+            {loggedIn && (isAdmin || isInterrogator) ? (
+              <button
+                onClick={onShowCampaign}
+                title="Campaign mode — alpha access (admin)"
+                className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
+              >
+                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
+                Campaign — Alpha (Admin)
+              </button>
+            ) : (
+              <button
+                disabled
+                title="Campaign mode is still in alpha testing"
+                className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
+              >
+                <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
+                Campaign — Coming Soon (Alpha)
+              </button>
+            )}
           </div>
 
           {/* Discord */}

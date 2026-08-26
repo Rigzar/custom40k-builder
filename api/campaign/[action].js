@@ -28,6 +28,7 @@ export default async function handler(req, res) {
       case 'supply-list':   return supplyList(req, res, userId);
       case 'supply-adjust': return supplyAdjust(req, res, userId);
       case 'sector-rename': return sectorRename(req, res, userId);
+      case 'sector-system': return sectorSetSystem(req, res, userId);
       case 'roster-list':   return rosterList(req, res, userId);
       case 'roster-add':    return rosterAdd(req, res, userId);
       case 'roster-update': return rosterUpdate(req, res, userId);
@@ -308,12 +309,18 @@ async function turnAdvance(req, res, userId) {
   let finished = false;
 
   // Contested sectors don't count toward anyone's total — same "can't make use of it" reasoning
-  // as the Supply exclusion above.
+  // as the Supply exclusion above. Systems layer: victory counts CAPITAL sectors, not raw ones —
+  // a sector with no system_name counts as its own singleton system (so `sectors_to_win`/tiebreak
+  // still read as a plain sector count for every campaign that has never assigned a system, which
+  // is all of them before this feature existed and any that never use it going forward). Inlined
+  // in both queries rather than a shared fragment — @vercel/postgres's `sql` tag doesn't support
+  // composing a sub-fragment into another tagged query.
   if (sectors_to_win > 0) {
     const leaders = await sql`
       SELECT owner_faction, COUNT(*)::int AS cnt
       FROM campaign_sectors
       WHERE campaign_id = ${campaignId} AND owner_faction IS NOT NULL AND contested = false
+        AND (is_capital = true OR system_name IS NULL OR system_name = '')
       GROUP BY owner_faction
       HAVING COUNT(*) >= ${sectors_to_win}
       ORDER BY cnt DESC LIMIT 1
@@ -326,6 +333,7 @@ async function turnAdvance(req, res, userId) {
       SELECT owner_faction, COUNT(*)::int AS cnt
       FROM campaign_sectors
       WHERE campaign_id = ${campaignId} AND owner_faction IS NOT NULL AND contested = false
+        AND (is_capital = true OR system_name IS NULL OR system_name = '')
       GROUP BY owner_faction
       ORDER BY cnt DESC LIMIT 2
     `;
@@ -355,6 +363,28 @@ async function sectorRename(req, res, userId) {
   if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can rename sectors.' }); return; }
   await sql`UPDATE campaign_sectors SET name = ${name.trim()}, sector_type = ${type} WHERE id = ${sectorId} AND campaign_id = ${campaignId}`;
   res.status(200).json({ ok: true });
+}
+
+/** POST /api/campaign/sector-system { campaignId, sectorId, systemName, isCapital } -> GM groups
+ *  a sector into a "system" and optionally flags it as that system's capital. System owner =
+ *  capital owner (turnAdvance's victory check reads is_capital, not raw sector ownership) — see
+ *  the systems-layer migration comment in _lib/db.js for the full design. */
+async function sectorSetSystem(req, res, userId) {
+  if (req.method !== 'POST') { res.status(405).json({ error: 'Method not allowed' }); return; }
+  const { campaignId, sectorId, systemName, isCapital } = req.body ?? {};
+  if (!Number.isInteger(campaignId) || !Number.isInteger(sectorId)) { res.status(400).json({ error: 'Missing campaignId or sectorId' }); return; }
+  const role = await requireMembership(campaignId, userId);
+  if (role !== 'gm') { res.status(403).json({ error: 'Only the GM can assign systems.' }); return; }
+  const name = typeof systemName === 'string' && systemName.trim() ? systemName.trim() : null;
+  const capital = !!isCapital;
+  // One capital per system: clear any other sector already flagged capital in the SAME system
+  // before setting this one, so the rule holds without a DB constraint (system_name isn't unique).
+  if (capital && name) {
+    await sql`UPDATE campaign_sectors SET is_capital = false WHERE campaign_id = ${campaignId} AND system_name = ${name} AND id != ${sectorId}`;
+  }
+  await sql`UPDATE campaign_sectors SET system_name = ${name}, is_capital = ${capital} WHERE id = ${sectorId} AND campaign_id = ${campaignId}`;
+  const result = await sql`SELECT * FROM campaign_sectors WHERE campaign_id = ${campaignId} ORDER BY id ASC`;
+  res.status(200).json({ ok: true, sectors: result.rows });
 }
 
 /** GET /api/campaign/supply-list?campaignId=N */

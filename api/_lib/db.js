@@ -385,6 +385,15 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS campaign_bonus_events_lookup_idx ON campaign_bonus_events(campaign_id, faction, turn)`;
 
+  // Systems layer (design locked 2026-07-11, built 2026-08-26): a sector optionally belongs to a
+  // GM-defined "system" grouping, with one sector per system flagged as its capital. System owner
+  // = capital owner (reuses sector ownership, no new capture mechanic) and campaign victory counts
+  // CAPITALS controlled instead of raw sectors. NULL system_name = the sector counts as its own
+  // singleton system for victory purposes, so every existing campaign (nothing has a system_name
+  // yet) keeps behaving exactly as before this migration — one sector, one vote, same as always.
+  await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS system_name TEXT`;
+  await sql`ALTER TABLE campaign_sectors ADD COLUMN IF NOT EXISTS is_capital BOOLEAN NOT NULL DEFAULT false`;
+
   schemaReady = true;
 }
 
