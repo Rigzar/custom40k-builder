@@ -683,6 +683,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     // See inheritsHostArmory: the host's own General armory, kept as its own tab rather than
     // merged into the supplement's.
     if (tab === 'hostGeneral') return data.armory_general;
+    // The Veteran Ability picker (filterCategory='veteran') has no tab bar of its own — the whole
+    // block above is hidden behind `!filterCategory` — so it can never reach the "hostGeneral" tab
+    // a Horus Heresy/Legio Titanicus unit would otherwise need. Its OWN armory_general never
+    // carries veteran items (armorySource.ts keeps it deliberately un-merged with the host's, so
+    // the two stay separate tabs instead of one mixed list) — only the host codex's General armory
+    // has them. Without this, the ★ Veteran button opened on nothing for every such unit (found
+    // 2026-08-26 testing Legion Terminator Cataphractii Squad). Safe to merge here specifically:
+    // this view already filters down to category 'veteran' rows only, so there is no "mixed list"
+    // to avoid the way there is when browsing the full armoury.
+    if (filterCategory === 'veteran' && inheritsHostArmory) {
+      return {
+        ...activeData.armory_general,
+        weapons: [...activeData.armory_general.weapons, ...data.armory_general.weapons],
+        equipment: [...activeData.armory_general.equipment, ...data.armory_general.equipment],
+      };
+    }
     return activeData.armory_general;
   }
 
@@ -1710,7 +1726,7 @@ function EquipmentGroups({
                   justAdded={lastAdded === arm.name}
                   priceLabel={vetPriceLabel(arm)}
                   inProfile={inProfile}
-                  selectedArmoryId={undefined}
+                  selectedArmoryId={getSelId ? getSelId(arm.name) : undefined}
                   onRemove={onRemove}
                   onAdd={() => !inProfile && !isSelected && onAdd(arm)}
                 />

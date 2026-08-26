@@ -338,7 +338,21 @@ export function UnitCard({ item }: Props) {
   // drones may buy up to three drones in any combination instead of two" — raises the Drone
   // controller option_group's fixed_max by +1. Uses the allied trait pool for an allied Tau unit.
   const effectiveTraitPool = (isTrueAllyUnit && alliedData) ? alliedTraitPool : traitPool;
-  const allArmories = [effectiveArmData.armory_general, ...Object.values(effectiveArmData.armory_marks), ...Object.values(effectiveArmData.armory_legions)];
+  // A Horus Heresy/Legio Titanicus-sourced unit's own `armory_general` never carries Veteran
+  // Ability items (armoryDataFor/armorySource.ts keeps it deliberately un-merged with the host's,
+  // so the two render as separate tabs instead of one mixed list) — only the HOST codex's General
+  // armory has them. Mirrors ArmoryModal.tsx's `inheritsHostArmory`/`ownArmoryGenerals`: without
+  // this, the ★ Veteran button never appeared for ANY HH/Legio unit with `veteran_max` set (found
+  // 2026-08-26 while testing the veteran-remove fix, on Legion Terminator Cataphractii Squad).
+  const inheritsHostArmory = !!item.factionSource && !!(isTrueAllyUnit
+    ? alliedData?.inherits_parent_armory
+    : supplementData[item.factionSource]?.inherits_parent_armory);
+  const allArmories = [
+    effectiveArmData.armory_general,
+    ...(inheritsHostArmory ? [data.armory_general] : []),
+    ...Object.values(effectiveArmData.armory_marks),
+    ...Object.values(effectiveArmData.armory_legions),
+  ];
   const hasFactionVeteranItems = effectiveHasVetAbilities &&
     allArmories.some(src => (src.equipment as ArmoryItem[]).some(a => a.category === 'veteran'));
   const hasFactionVehicleItems = u.is_vehicle &&

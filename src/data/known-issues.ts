@@ -2,6 +2,24 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-hh-terminator-cataphractii-phantom-thunder-hammer-01",
+    status: "fixed",
+    title: "Legion Terminator Cataphractii Squad showed a phantom \"Thunder hammer\" on every model regardless of what was actually bought",
+    description: "FIXED 2026-08-26, reported in chat (Rigzar: \"le puse a mi Legion Terminator Cataphractii Squad a todos 5 power axe y me aparecen las 5 y 5 power hammer\"). CAUSE: the unit's `weapons[]` array carried a \"Thunder hammer\" profile (present in the .ods's own weapon table, row 29) with no matching purchase option anywhere in the OPTIONS section — the Power sword swap group only ever offered Power axe/Lightning claw/Power fist/Chainfist, never Thunder hammer. A weapon-table entry with no linked choice renders as an always-on default regardless of selection — the same root mechanism already fixed on the Contemptor and Leviathan Dreadnoughts earlier this session, found here on a third HH unit. FIX: removed the orphaned \"Thunder hammer\" entry from `horus_heresy.json`. Verified live: buying 5x Power axe now shows only \"5x Power axe\" in Melee Weapons, no phantom Thunder hammer alongside it.",
+  },
+  {
+    id: "ki-hh-veteran-button-never-showed-01",
+    status: "fixed",
+    title: "The ★ Veteran Ability button never appeared on any Horus Heresy/Legio Titanicus unit, even ones with a Veteran slot on their own datasheet",
+    description: "FIXED 2026-08-26, found while testing the veteran-remove fix below. CAUSE: the 2026-08-26 \"separate armory tabs\" redesign (see the HH armory-scope entries above) deliberately stopped merging a Horus Heresy/Legio Titanicus unit's own `armory_general` with its host codex's — correct for the equipment browser, which now shows them as two clean tabs instead of one mixed list. But the button-visibility check that decides whether ★ Veteran shows at all (`hasFactionVeteranItems` in `UnitCard.tsx`) only ever looked at the unit's OWN `armory_general` — and HH's own armory has zero Veteran-category items; only the host codex's General armory does (Counter-attack, Furious charge, Outflank, ...). So the button silently never rendered for Justaerin, Contemptor, Palatine Blade, Saturnine, or any other HH/Taghmata unit with `veteran_max` set, on production as well as locally. A second, deeper layer of the same gap: even with the button fixed to show, the Veteran picker itself (`filterCategory=\"veteran\"`) has no tab bar of its own (it's suppressed for that filtered view), so it was still stuck reading only the unit's own empty armory_general. FIX: `hasFactionVeteranItems` now also checks the host's `armory_general` when the unit inherits it; the Veteran picker's own data source does the same, merging in the host's weapons/equipment specifically for that filtered view (safe there since it already shows category='veteran' rows only — no risk of the mixed-list problem the tab split was fixing). Verified live: Legion Terminator Cataphractii Squad's ★ Veteran button now opens a picker listing all 8 general Veteran Abilities (Counter-attack, Favoured enemy, Furious charge, Infiltrator, Outflank, Tank hunter, Terrain expert, Vanguard), correctly Terminator-armour-filtered.",
+  },
+  {
+    id: "ki-veteran-ability-no-remove-button-01",
+    status: "fixed",
+    title: "A selected Veteran Ability couldn't be removed from its own picker — no ✕/Remove control, only from the unit card outside the modal",
+    description: "FIXED 2026-08-26, requested in chat (Rigzar asked for the ability to \"quitar y poder remover desde donde se elige las habilidades veteranas\"). CAUSE: `ArmoryModal.tsx`'s veteran-item row hardcoded `selectedArmoryId={undefined}` when rendering, even though the same `ArmoryItemRow` component already supports a selected/removable state (with a Remove button) for every OTHER item category — the plumbing (`onRemove`) was passed through but never wired to the real selection id for veteran rows specifically. FIX: pass the real selected-item id through instead of `undefined`, matching every other category. Verified live: selecting \"Counter-attack\" shows a \"Selected\"/\"Remove\" row exactly like other armory picks; clicking Remove clears it and slot usage drops back to 0/1.",
+  },
+  {
     id: "ki-hh-legion-tactical-bolt-gun-bayonet-constraint-01",
     status: "fixed",
     title: "Horus Heresy Legion Tactical Squad's Bolt-gun bayonet swap could only ever be bought once for the whole squad, and the Astartes chainsword upgrade always charged a flat 5 points",
