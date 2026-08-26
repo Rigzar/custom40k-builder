@@ -281,6 +281,11 @@ export interface Unit {
   /** When true, the unit (or champion) may only access gear (equipment) from the Armory — the
    *  weapons section is hidden entirely. Symmetric counterpart to armory_weapons_only. */
   armory_gear_only?: boolean;
+  /** When true, the Armory's WEAPONS section (equipment untouched) is restricted to melee-type
+   *  profiles, and any weapon carrying "Slow" or "Unwieldy" in its ability text is excluded — e.g.
+   *  Horus Heresy Palatine Blade Squad: "Every model got access to melee weapons from the Armory.
+   *  May not select weapons with the 'Slow' or 'Unwieldy' rule." */
+  armory_melee_only?: boolean;
   has_veteran_abilities: boolean;
   veteran_required: boolean;
   /** Max veteran abilities this unit may have (default 2 if unspecified) */

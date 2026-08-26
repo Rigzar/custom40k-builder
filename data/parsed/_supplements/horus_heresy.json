@@ -169,7 +169,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -381,7 +382,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -624,7 +626,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -706,6 +709,7 @@
           },
           "choices": [],
           "inline_pts": 5,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false
         }
@@ -808,7 +812,7 @@
           "abilities": "AT(1), Anti-air"
         },
         {
-          "name": "Dreadnought close combat weapon",
+          "name": "Dreadnought claw",
           "range": "-",
           "type": "Melee",
           "s": "x2",
@@ -988,7 +992,9 @@
         {
           "header": "Must pick two weapons from this list",
           "constraint": {
-            "type": "one"
+            "type": "fixed_max",
+            "max": 2,
+            "required": true
           },
           "choices": [
             {
@@ -1330,7 +1336,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -1359,7 +1366,7 @@
             },
             {
               "name": "Tzeentch",
-              "points": 5
+              "points": 0
             }
           ],
           "inline_pts": null,
@@ -1579,7 +1586,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -1620,6 +1628,7 @@
       "is_psyker": false,
       "has_armory_access": true,
       "champion_has_armory": true,
+      "armory_melee_only": true,
       "has_veteran_abilities": true,
       "veteran_required": false,
       "veteran_max": 1,
@@ -1779,7 +1788,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -1974,7 +1984,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -2293,7 +2304,8 @@
             "type": "every"
           },
           "choices": [],
-          "inline_pts": null,
+          "inline_pts": 1,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
           "available_if": {
@@ -2457,7 +2469,7 @@
           "abilities": "Ammo(1), AT(2)"
         },
         {
-          "name": "Leviathan siege claws",
+          "name": "Leviathan siege claws with in-built Melta",
           "range": "-",
           "type": "Melee",
           "s": "x2",
@@ -2466,7 +2478,7 @@
           "abilities": "AT(2)"
         },
         {
-          "name": "Leviathan siege drill",
+          "name": "Leviathan siege drill with in-built Melta",
           "range": "-",
           "type": "Melee",
           "s": "x2",
@@ -2538,7 +2550,9 @@
         {
           "header": "Must pick two weapons from this list",
           "constraint": {
-            "type": "one"
+            "type": "fixed_max",
+            "max": 2,
+            "required": true
           },
           "choices": [
             {
@@ -2569,7 +2583,9 @@
         {
           "header": "Must pick two weapons from this list",
           "constraint": {
-            "type": "one"
+            "type": "fixed_max",
+            "max": 2,
+            "required": true
           },
           "choices": [
             {
@@ -2870,20 +2886,25 @@
       ],
       "option_groups": [
         {
-          "header": "If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model)",
+          "header": "If the squad is part of a Space Marine army, all models in the unit must receive the \"They Shall Know No Fear\" ability (points per model): +2 points.",
           "constraint": {
-            "type": "all"
+            "type": "every"
           },
           "choices": [],
           "inline_pts": 2,
+          "per_model": true,
           "variant_link": null,
           "is_unique_per_army": false,
-          "per_model": true
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Space Marines"
+          }
         },
         {
           "header": "If the squad is part of a Chaos Space Marine army, all models in the unit may receive a Mark of Chaos (points per model)",
           "constraint": {
-            "type": "one"
+            "type": "mark"
           },
           "choices": [
             {
@@ -2906,12 +2927,16 @@
           "inline_pts": null,
           "variant_link": null,
           "is_unique_per_army": false,
-          "per_model": true
+          "available_if": {
+            "type": "instanceOf",
+            "scope": "force",
+            "keyword": "Chaos Space Marines"
+          }
         },
         {
           "header": "Every model may swap their Power fist with",
           "constraint": {
-            "type": "all"
+            "type": "every"
           },
           "choices": [
             {
@@ -2928,13 +2953,12 @@
           "is_unique_per_army": false,
           "replaces": [
             "Power fist"
-          ],
-          "per_model": true
+          ]
         },
         {
           "header": "Every model may swap their Twin heavy disintegrator with",
           "constraint": {
-            "type": "all"
+            "type": "every"
           },
           "choices": [
             {
@@ -2947,13 +2971,12 @@
           "is_unique_per_army": false,
           "replaces": [
             "Twin heavy disintegrator"
-          ],
-          "per_model": true
+          ]
         },
         {
           "header": "Every model with a Power fist may get",
           "constraint": {
-            "type": "all"
+            "type": "every"
           },
           "choices": [
             {
@@ -2963,8 +2986,7 @@
           ],
           "inline_pts": null,
           "variant_link": null,
-          "is_unique_per_army": false,
-          "per_model": true
+          "is_unique_per_army": false
         }
       ],
       "abilities": [

@@ -588,6 +588,22 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // anything to restrict. Equipment is untouched — the rule names weapons.
   const isInquisitionAcolytes = activeData.faction === 'Inquisition' && unit.name === 'Acolytes';
 
+  // Horus Heresy Palatine Blade Squad ("Armory" sheet): "Every model got access to melee weapons
+  // from the Armory. May not select weapons with the 'Slow' or 'Unwieldy' rule." Scoped to the
+  // WEAPONS section only (equipment is untouched by this rule) — restricts to melee-type profiles
+  // and excludes anything carrying Slow/Unwieldy in its ability text, same "keep already-bought
+  // items visible" exception as every other armour/glyph gate above.
+  const meleeOnlyNoSlowUnwieldy = unit.armory_melee_only === true;
+  function isMeleeNoSlowUnwieldy(arm: ArmoryItem): boolean {
+    if (!(arm.type ?? '').toLowerCase().includes('melee')) return false;
+    return !/\b(slow|unwieldy)\b/i.test(arm.abilities ?? '');
+  }
+  function filterMeleeOnlyNoSlowUnwieldy(armItems: ArmoryItem[]): ArmoryItem[] {
+    return meleeOnlyNoSlowUnwieldy
+      ? armItems.filter(a => isMeleeNoSlowUnwieldy(a) || boughtItemNames.has(a.name))
+      : armItems;
+  }
+
   // Filter items by unit type and category
   function filterByUnitType(armItems: ArmoryItem[]): ArmoryItem[] {
     return armItems.filter(arm => {
@@ -815,6 +831,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     if (sec === 'weapons' && isInquisitionAcolytes) {
       list = list.filter(a => a.specialist_compat || boughtItemNames.has(a.name));
     }
+    if (sec === 'weapons') list = filterMeleeOnlyNoSlowUnwieldy(list);
     return list;
   }
 
@@ -840,14 +857,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
         .map(([, v]) => v)
     : [];
   function activeTabSectionItems(sec: Section): ArmoryItem[] {
-    if (tab === 'general') return filterArmoryList(activeData.armory_general[sec] as ArmoryItem[]);
-    if (tab === 'mark') {
-      if (isBlackCrusadeChampion) return BC_MARKS.flatMap(m => filterArmoryList(markArmories[m]?.[sec] as ArmoryItem[]));
-      return effectiveMark ? filterArmoryList(markArmories[effectiveMark]?.[sec] as ArmoryItem[]) : [];
+    let list: ArmoryItem[];
+    if (tab === 'general') list = filterArmoryList(activeData.armory_general[sec] as ArmoryItem[]);
+    else if (tab === 'mark') {
+      list = isBlackCrusadeChampion
+        ? BC_MARKS.flatMap(m => filterArmoryList(markArmories[m]?.[sec] as ArmoryItem[]))
+        : effectiveMark ? filterArmoryList(markArmories[effectiveMark]?.[sec] as ArmoryItem[]) : [];
     }
-    if (tab === 'legion') return legionSources.flatMap(s => filterArmoryList(s[sec] as ArmoryItem[]));
-    if (tab === 'archetypeArmory') return filterArmoryList(archetypeArmoryData?.armory_general?.[sec] as ArmoryItem[]);
-    return [];
+    else if (tab === 'legion') list = legionSources.flatMap(s => filterArmoryList(s[sec] as ArmoryItem[]));
+    else if (tab === 'archetypeArmory') list = filterArmoryList(archetypeArmoryData?.armory_general?.[sec] as ArmoryItem[]);
+    else return [];
+    return sec === 'weapons' ? filterMeleeOnlyNoSlowUnwieldy(list) : list;
   }
   // Only the section-tabbed armoury tabs participate (the 'authority' tab renders its own content).
   const sectionTabbed = tab === 'general' || tab === 'mark' || tab === 'legion' || tab === 'archetypeArmory';

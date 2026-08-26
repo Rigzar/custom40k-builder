@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v166g_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v166i_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.66: Horus Heresy — the armory that looked missing",
@@ -30,6 +30,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🔧 That restore only covered HH units granted by the Legion archetype. Horus Heresy can also be added as its own Allied Detachment, and that path still showed just its own 5 items with none of the host codex's — fixed the same way, so it now matches the archetype path.",
     line10: "🗂️ Both fixes above merged the host codex's items straight into the Horus Heresy tab, mixing them with its own 5 items in one list. Now split into two clean tabs — its own Armoury and a separate \"General\" tab for the host codex — exactly like a native unit already shows its own Armoury plus an archetype-granted foreign one.",
     line11: "🛡️ Taking Terminator armor (or Gravis armor) as a model's Veteran Ability made every OTHER Veteran Ability vanish from the picker. That restriction is only meant for weapons/equipment, never Veteran Abilities — fixed for every faction that has it, not just this case.",
+    line12: "🔧 Full re-audit of the whole Horus Heresy Legiones Astartes supplement against its rulebook, unit by unit. Found and fixed 7 bugs: both Dreadnoughts' \"must pick two weapons\" only let you pick one, and at least one weapon choice on each granted nothing visible when bought; a chainsword upgrade on Legion Tactical Support Squad wasn't scaling with squad size; a Mark of Chaos was overpriced on the Terminator Cataphractii Squad; and the Saturnine Terminator Squad's entire options section (including its own Mark of Chaos) simply didn't work.",
+    line13: "🎖️ Two more from that same audit: \"They Shall Know No Fear\" (+1 point per model, every HH unit under a Space Marines army) wasn't charging anything on any of the 9 units that have it — now scales correctly. Palatine Blade Squad's \"melee weapons only, no Slow or Unwieldy\" Armory restriction was completely unenforced — it's now a real capability, wired in.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -47,6 +49,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🔧 Diese Wiederherstellung deckte nur HH-Einheiten ab, die vom Legion-Archetyp gewährt werden. Horus Heresy lässt sich auch als eigenes Allied Detachment hinzufügen, und dieser Weg zeigte weiterhin nur die eigenen 5 Items ohne alles aus dem Wirtscodex — jetzt genauso behoben, entspricht nun dem Archetyp-Weg.",
     line10: "🗂️ Beide Fixes oben mischten die Items des Wirtscodex direkt in den Horus-Heresy-Tab, zusammen mit den eigenen 5 Items in einer Liste. Jetzt in zwei saubere Tabs aufgeteilt — die eigene Armory und ein separater „General\"-Tab für den Wirtscodex — genau wie eine native Einheit bereits ihre eigene Armory plus eine archetyp-gewährte fremde Armory zeigt.",
     line11: "🛡️ Terminator-Rüstung (oder Gravis-Rüstung) als Veteranenfähigkeit zu wählen ließ jede ANDERE Veteranenfähigkeit aus der Auswahl verschwinden. Diese Einschränkung gilt nur für Waffen/Ausrüstung, nie für Veteranenfähigkeiten — behoben für jede Fraktion, die sie hat, nicht nur diesen Fall.",
+    line12: "🔧 Komplette Neuprüfung des gesamten Horus-Heresy-Legiones-Astartes-Supplements gegen das Regelwerk, Einheit für Einheit. 7 Fehler gefunden und behoben: bei beiden Dreadnoughts ließ „muss zwei Waffen wählen\" nur eine Wahl zu, und mindestens eine Waffenoption bei jedem gewährte beim Kauf nichts Sichtbares; ein Kettenschwert-Upgrade beim Legion Tactical Support Squad skalierte nicht mit der Truppgröße; eine Chaosmarke war beim Terminator Cataphractii Squad überteuert; und der komplette Optionsbereich des Saturnine Terminator Squad (inklusive seiner eigenen Chaosmarke) funktionierte schlicht nicht.",
+    line13: "🎖️ Zwei weitere aus derselben Prüfung: „They Shall Know No Fear\" (+1 Punkt pro Modell, jede HH-Einheit unter einer Space-Marines-Armee) kostete bei keiner der 9 betroffenen Einheiten etwas — skaliert jetzt korrekt. Die Armory-Einschränkung des Palatine Blade Squad („nur Nahkampfwaffen, kein Slow oder Unwieldy\") war komplett unwirksam — jetzt eine echte, eingebaute Funktion.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -64,6 +68,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🔧 Esa restauración solo cubría unidades de HH concedidas por el archetype Legion. Horus Heresy también se puede añadir como su propio Allied Detachment, y por ese camino seguía mostrando solo sus 5 ítems propios sin nada del códex anfitrión — arreglado igual, ahora coincide con el camino del archetype.",
     line10: "🗂️ Los dos arreglos anteriores mezclaban los ítems del códex anfitrión directamente dentro de la pestaña de Horus Heresy, junto a sus propios 5 ítems en una sola lista. Ahora está dividido en dos pestañas limpias — su propia Armería y una pestaña \"General\" separada para el códex anfitrión — igual que una unidad nativa ya muestra su propia Armería más una archetype-otorgada por separado.",
     line11: "🛡️ Elegir Terminator armor (o Gravis armor) como habilidad veterana de un modelo hacía desaparecer TODAS las demás habilidades veteranas del selector. Esa restricción es solo para armamento/equipo, nunca para habilidades veteranas — arreglado para cualquier facción que la tenga, no solo este caso.",
+    line12: "🔧 Reauditoría completa de todo el suplemento Horus Heresy Legiones Astartes contra el reglamento, unidad por unidad. 7 bugs encontrados y arreglados: en ambos Dreadnoughts \"debe elegir dos armas\" solo dejaba elegir una, y al menos una opción de arma en cada uno no otorgaba nada visible al comprarla; una mejora de espada sable en Legion Tactical Support Squad no escalaba con el tamaño del escuadrón; una Marca de Caos estaba sobreprecio en el Terminator Cataphractii Squad; y toda la sección de opciones del Saturnine Terminator Squad (incluida su propia Marca de Caos) simplemente no funcionaba.",
+    line13: "🎖️ Dos más de esa misma auditoría: \"They Shall Know No Fear\" (+1 punto por modelo, toda unidad HH bajo un ejército Space Marines) no cobraba nada en ninguna de las 9 unidades que la tienen — ahora escala correctamente. La restricción de Armería del Palatine Blade Squad (\"solo armas cuerpo a cuerpo, sin Slow ni Unwieldy\") no estaba implementada en absoluto — ahora es una función real, ya conectada.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -148,7 +154,7 @@ function CommunityAnnouncement() {
               Armoury pricing, HH Legion Tactical Squad bayonet swap; plus admin Campaign access
               and the Planetary Assault systems-layer backend) — same "append to the still-open
               release" pattern v1.65 used, just starting from empty since v1.66 is new. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
