@@ -1526,7 +1526,7 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
 
       {loading ? (
         <div className="p-8 text-center text-zinc-600 text-sm">{L.loading}</div>
-      ) : !stats ? null : (
+      ) : (
         <div className="flex-1 overflow-y-auto p-4 space-y-6 w-full max-w-5xl mx-auto">
             {tab === 'overview' && (<>
             {/* Codex content alerts — set by the daily cron (api/cron/cleanup.js), so a sheet
