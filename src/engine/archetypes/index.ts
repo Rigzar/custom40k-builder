@@ -82,6 +82,13 @@ const ARCHETYPE_RULES: Record<string, ArchetypeRule> = {
   // that still carry the old name are mapped onto this rule by getArchetypeRule.
   'Taghmata': { ...BASE,
     alliedFaction: 'legio_titanicus', alliedMarkFilter: 'all',
+    // Same alliedFaction-key-doubling as CSM/SM's "Legion" -> horus_heresy (see that archetype's
+    // comment): without this, native Adeptus Mechanicus units under Taghmata had NO tab at all
+    // for the Legio Titanicus armory this archetype's own notes promise — only Taghmata-injected
+    // units (Secutarii Hoplites/Peltasts, Tech-thralls, ...) could reach it, via their own
+    // General tab resolving to the supplement's data. A Tech-Priest's Armory showed only
+    // General + Forge World, nothing from the supplement (Discord, Rigzar).
+    armoryOnlyFaction: 'legio_titanicus',
     notes: [
       'Access to everything in the Horus Heresy Forces of the Machine God supplement.',
       'Only Troops from that supplement count towards the 25% Troops requirement.',

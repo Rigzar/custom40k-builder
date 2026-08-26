@@ -854,7 +854,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
 
         {/* Armory tabs — hidden when opened via a category button (veteran/vehicle) */}
         {!filterCategory && <div className="flex border-b border-zinc-700">
-          {/* General tab — always shown */}
+          {/* General tab — always shown. For a same-army supplement injection (Legion → Horus
+              Heresy, Taghmata → Legio Titanicus, Daemonkin, ...) "General" IS that supplement's
+              own armory (armoryDataFor swaps activeData to it), so it must say so — a Legion
+              Breacher/Tactical Squad's own Armory showed a plain "GENERAL" tab with Horus Heresy
+              items silently inside it and no tab anywhere saying "Horus Heresy", while a native
+              CSM unit gets an explicit separate "Horus Heresy Legiones Astartes Armoury" tab for
+              the exact same content — the inconsistency read as "the Horus Heresy armory doesn't
+              show up" (Discord, Rigzar, tested on both Legion Breacher Squad and Legion Tactical
+              Squad). A genuine picked Allied Detachment keeps the plain "General" label — that
+              unit's own codex identity is already clear from the rest of the UI. */}
           {(['general'] as ArmoryTab[]).map(tabKey => (
             <button
               key={tabKey}
@@ -865,7 +874,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {t('generalLabel')}
+              {isAllied && !isTrueAllyUnit ? `${activeData.faction} ${t('armourySuffix')}` : t('generalLabel')}
             </button>
           ))}
           {/* Mark tab — shown when unit has a mark WITH data in armory_marks, OR when it's the BC champion */}

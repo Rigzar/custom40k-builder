@@ -11,9 +11,9 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v165m_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v165n_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; line16: string; line17: string; line18: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; line16: string; line17: string; line18: string; line19: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.65: Grey Knights — the power you couldn't find",
@@ -37,6 +37,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line16: "🩺 Inquisition — a Henchman Warband showed EVERY specialist's weapon (Jokaero digital weapons, Ranger long rifle, Arco flail…) whether or not that specialist was actually in the unit, since its equipment text doesn't use the format the engine expects everywhere else. A Warband with just an Acolyte and an Exorcist now correctly shows only their own gear.",
     line17: "🐎 Imperial Guard — Rough Riders' 4 mount upgrades (Attilan/Death/Chem/Mukaali-Rider) always showed all 4 descriptions regardless of what was bought, and their stat bonuses never actually applied even when bought — the codex says the whole squad picks ONE, but the option group let several be taken at once. Fixed at the source: it's now a genuine either/or choice, priced and applied correctly.",
     line18: "🔫 Buying the SAME Armory item for two different models (e.g. two Boltguns on two different Chosen) showed no count at all, on any unit/Champion with no other squad option touched — a deeper root cause behind the Kill Team Veterans fix above. Fixed at the engine level, so it covers every unit and every Champion/leader hitting the same pattern, not just one datasheet.",
+    line19: "⚔️ CSM/SM \"Legion\" — a unit actually GRANTED by the Horus Heresy supplement (Legion Breacher/Tactical/Tactical Support Squad, etc) had its own Armory's General tab plainly labeled \"General\" with Horus Heresy items silently inside — looked like the Horus Heresy armory was missing entirely, since a normal unit gets an explicitly separate \"Horus Heresy Legiones Astartes Armoury\" tab for the same content. The tab now names itself after the supplement it actually is. Adeptus Mechanicus \"Taghmata\" had it worse: native AdMech units had NO tab at all for the Legio Titanicus armory this archetype's own rules promise — only Taghmata's own injected units (Secutarii Hoplites/Peltasts, ...) could reach it. Fixed, same pattern as CSM/SM's Legion.",
     contrib: "👁️ Six of these came straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -61,6 +62,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line16: "🩺 Inquisition — ein Henchman Warband zeigte IMMER die Waffe jedes Spezialisten (Jokaero-Digitalwaffen, Ranger-Scharfschützengewehr, Arco-Dreschflegel…), egal ob dieser Spezialist tatsächlich in der Einheit war, weil sein Ausrüstungstext nicht das Format nutzt, das die Engine sonst überall erwartet. Ein Warband mit nur einem Akolyth und einem Exorzisten zeigt jetzt korrekt nur deren eigene Ausrüstung.",
     line17: "🐎 Imperial Guard — die 4 Reittier-Upgrades der Rough Riders (Attilan/Death/Chem/Mukaali-Rider) zeigten immer alle 4 Beschreibungen, egal was gekauft wurde, und ihre Statuswerte-Boni griffen selbst nach dem Kauf nie — der Codex sagt, der ganze Trupp wählt EINES, aber die Gruppe erlaubte mehrere gleichzeitig. An der Wurzel behoben: jetzt eine echte Entweder-oder-Wahl, korrekt bepreist und angewendet.",
     line18: "🔫 Den GLEICHEN Armory-Gegenstand für zwei verschiedene Modelle zu kaufen (z. B. zwei Boltguns auf zwei verschiedenen Chosen) zeigte gar keine Anzahl an, bei jeder Einheit/jedem Champion ohne sonstige Squad-Option. Eine tiefere Ursache hinter dem Kill-Team-Veterans-Fix oben. Auf Engine-Ebene behoben — betrifft also jede Einheit und jeden Champion/Anführer mit demselben Muster, nicht nur ein Datenblatt.",
+    line19: "⚔️ CSM/SM „Legion“ — eine Einheit, die tatsächlich vom Horus-Heresy-Supplement gewährt wird (Legion Breacher/Tactical/Tactical Support Squad usw.), zeigte in ihrer eigenen Armory einen schlicht „General\" genannten Tab mit still darin versteckten Horus-Heresy-Items — sah aus, als fehle die Horus-Heresy-Armory komplett, da eine normale Einheit dafür einen eigenen, klar benannten „Horus Heresy Legiones Astartes Armoury\"-Tab bekommt. Der Tab nennt sich jetzt nach dem Supplement, das er tatsächlich ist. Adeptus Mechanicus „Taghmata\" traf es schlimmer: normale AdMech-Einheiten hatten GAR KEINEN Tab für die Legio-Titanicus-Armory, die dieses Archetyp selbst verspricht — nur die vom Taghmata injizierten Einheiten (Secutarii Hoplites/Peltasts, ...) konnten sie erreichen. Behoben, gleiches Muster wie bei CSM/SM Legion.",
     contrib: "👁️ Sechs davon kamen direkt aus dem Bug-Report-Formular in der App — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -85,6 +87,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line16: "🩺 Inquisición — un Henchman Warband mostraba SIEMPRE el arma de cada especialista (armas digitales del Jokaero, rifle largo del Ranger, mayal del Arco-flagellant…) aunque ese especialista no estuviera en la unidad, porque su texto de equipo no usa el formato que el motor espera en el resto del juego. Un Warband con solo un Acolyte y un Exorcist ahora muestra correctamente solo lo suyo.",
     line17: "🐎 Imperial Guard — las 4 mejoras de montura de los Rough Riders (Attilan/Death/Chem/Mukaali-Rider) siempre mostraban las 4 descripciones sin importar qué se hubiera comprado, y sus bonos de característica nunca se aplicaban aunque se compraran — el códex dice que todo el escuadrón elige UNA, pero el grupo dejaba comprar varias a la vez. Arreglado de raíz: ahora es una elección real de una u otra, bien cobrada y aplicada.",
     line18: "🔫 Comprar el MISMO ítem de la Armería para dos miembros distintos (p.ej. dos Boltguns en dos Chosen distintos) no mostraba ninguna cantidad, en cualquier unidad/Campeón sin ninguna otra opción de escuadrón tocada — una causa más profunda detrás del fix de Kill Team Veterans de arriba. Arreglado a nivel de motor, así que cubre cualquier unidad y cualquier Campeón/líder con el mismo patrón, no solo una ficha.",
+    line19: "⚔️ CSM/SM \"Legion\" — una unidad realmente concedida por el suplemento Horus Heresy (Legion Breacher/Tactical/Tactical Support Squad, etc) tenía en su propia Armería una pestaña \"General\" a secas con los ítems de Horus Heresy escondidos dentro — parecía que la armería de Horus Heresy no estaba, ya que una unidad normal recibe una pestaña separada y explícita \"Horus Heresy Legiones Astartes Armoury\" para el mismo contenido. La pestaña ahora se llama como el suplemento que realmente es. Adeptus Mechanicus \"Taghmata\" lo tenía peor: las unidades nativas de AdMech no tenían NINGUNA pestaña para la armería de Legio Titanicus que el propio archetype promete — solo las unidades que Taghmata inyecta (Secutarii Hoplites/Peltasts, ...) podían llegar a ella. Arreglado, mismo patrón que en Legion de CSM/SM.",
     contrib: "👁️ Seis de estos llegaron directo del formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -160,7 +163,7 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* line18/line17/line16/line15/line14/line13/line12/line11/line10/line9/line8/line7/line6/
+          {/* line19/line18/line17/line16/line15/line14/line13/line12/line11/line10/line9/line8/line7/line6/
               line5 are prepend slots: a follow-up batch of fixes added after the original
               release leads with the newest slot, without renumbering anything below it.
               2026-08-24: line7 (Save-bonus engine fix), line8 (Tyranids/GK codex sync), line9
@@ -172,9 +175,11 @@ function CommunityAnnouncement() {
               Stormtrooper plasma gun typo), line16 (Henchman Warband weapon list not gated by
               which specialists are present) and line17 (Rough Riders' 4 mount upgrades shown
               unconditionally) added the same way. 2026-08-26: line18 (same-item-twice Armory
-              purchase count, the deeper root cause behind line15) added too, keeping v1.65's
-              own banner intact. */}
-          {[tx.line18, tx.line17, tx.line16, tx.line15, tx.line14, tx.line13, tx.line12, tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
+              purchase count, the deeper root cause behind line15) and line19 (supplement-injected
+              units' Armory General tab now names the supplement instead of saying plain
+              "General"; Taghmata's missing armoryOnlyFaction) added too, keeping v1.65's own
+              banner intact. */}
+          {[tx.line19, tx.line18, tx.line17, tx.line16, tx.line15, tx.line14, tx.line13, tx.line12, tx.line11, tx.line10, tx.line9, tx.line8, tx.line7, tx.line6, tx.line5, tx.line1, tx.line2, tx.line3, tx.line4]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
