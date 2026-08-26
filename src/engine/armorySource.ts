@@ -38,6 +38,18 @@ function mergeArmory(own: Armory | undefined, parent: Armory): Armory {
   };
 }
 
+/** Applies the host-codex merge above when `supp` opts in, otherwise returns it untouched — a
+ *  normal Allied Detachment (Chaos Daemons, Inquisition, ...) is a separate codex and never merges. */
+function withParentArmory(supp: FactionData, data: FactionData): FactionData {
+  if (!supp.inherits_parent_armory) return supp;
+  return {
+    ...supp,
+    armory_general: mergeArmory(supp.armory_general, data.armory_general),
+    armory_marks: { ...data.armory_marks, ...supp.armory_marks },
+    armory_legions: { ...data.armory_legions, ...supp.armory_legions },
+  };
+}
+
 /**
  * The FactionData an entry's Armory UI should read. Everything except the `armory_*` fields is
  * left exactly as it was — a supplement keeps its own units, disciplines and archetypes.
@@ -50,17 +62,18 @@ export function armoryDataFor(
   supplementData: Record<string, FactionData>,
 ): FactionData {
   if (!item.factionSource) return data;
-  // The user-picked Allied Detachment is a separate army with its own codex — never merged.
-  if (item.factionSource === alliedFaction && alliedData) return alliedData;
+  // The user-picked Allied Detachment is normally a separate army with its own codex — never
+  // merged. The one exception is Horus Heresy/Legio Titanicus picked directly as the Allied
+  // Detachment (rather than granted by the primary's own "Legion"/"Taghmata" archetype): its
+  // `inherits_parent_armory` flag means the same thing here as it does below — full access to a
+  // host codex's basic Armory, and that host is the PRIMARY faction, same as the archetype path.
+  // Found live 2026-08-26 right after the archetype path's own fix: "+ Add Allied Detachment ->
+  // Horus Heresy Legiones Astartes" on a Legion Tactical Squad only ever showed the 5 items native
+  // to Horus Heresy's own armory_general — no Boltgun, no Kai gun, no Combi-weapons — because this
+  // branch returned alliedData raw, the one path that never called mergeArmory.
+  if (item.factionSource === alliedFaction && alliedData) return withParentArmory(alliedData, data);
 
   const supp = supplementData[item.factionSource];
   if (!supp) return data;
-  if (!supp.inherits_parent_armory) return supp;
-
-  return {
-    ...supp,
-    armory_general: mergeArmory(supp.armory_general, data.armory_general),
-    armory_marks: { ...data.armory_marks, ...supp.armory_marks },
-    armory_legions: { ...data.armory_legions, ...supp.armory_legions },
-  };
+  return withParentArmory(supp, data);
 }
