@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-ig-heavy-infantry-trait-champion-only-01",
+    status: "fixed",
+    title: "The Heavy Infantry Army Trait only improved the Sergeant's/Champion's Save, not the whole unit",
+    description: "FIXED 2026-08-27, GitHub #103 (\"Heavy Infantry trait appears to only modify saves for infantry sergeants, and not the members of the squad\" — \"Heavy infantry should modify armor saves for the whole squad, similarly to Bionic improvement's modification of Ward saves\"). CAUSE: `resolver.ts` resolves a Trait's `grant_armory_item` effect (Heavy Infantry → Krak grenades + Plate armor, `codex_imperial_guard/traits.ts`) by feeding the granted \"Plate armor\" equipment through the exact same `parseEquipMods` pipeline as an item actually bought from the unit's Armory — and `UnitCard.tsx` deliberately gates a real Armory purchase's stat/save effects to only the Champion/promoted-variant row (`isEquipTarget`), since only that one model bought it (GH#6's own earlier fix). Heavy Infantry's own text (\"The unit gains... Plate armor\") means the whole unit, not just the Sergeant, but it inherited the same champion-only gate because both flowed through one shared `EquipMods` object. Bionic Improvement's Ward save bonus never had this problem because ward saves are applied at the unit level, not per model row. FIX: split the resolver's equipment-mod calculation in two — `equipMods` (real Armory purchases, still champion-gated) and a new `traitEquipMods` (Trait-granted equipment, applied to every model row unconditionally) — threaded through `UnitCard.tsx` and `PrintView.tsx`. Verified live: an Infantry Squad (Guardsman base Save 5+) with Heavy Infantry active shows `4+◆` on both the 9 Guardsmen and the Sergeant, not just the Sergeant.",
+  },
+  {
     id: "ki-inquisition-henchman-warband-squadron-false-positive-01",
     status: "fixed",
     title: "Henchman Warband with more than 1 model was wrongly flagged in Skirmish as a Squadron capped at 1 model",

@@ -112,6 +112,11 @@ export interface ResolvedProfile {
   /** Archetype / variant rule notes (e.g. Ascended DP, Goretide) — shown with "Rule" badge. */
   injectedRuleNotes: string[];
   equipMods: EquipMods;
+  /** Stat/save mods from a Trait's `grant_armory_item` effect (IG "Heavy Infantry" → Plate
+   *  armor), kept separate from `equipMods` so the UI can apply them to every model row instead
+   *  of gating them to the Champion/promoted-variant row the way a real per-model Armory
+   *  purchase is gated (ki-ig-heavy-infantry-trait-champion-only-01). */
+  traitEquipMods: EquipMods;
 
   // Trait effects
   traitStatMods: Array<{ stat: string; delta: number }>;
@@ -930,6 +935,12 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   }
 
   // Equipment mods
+  // `traitGrantedEquip` (IG "Heavy Infantry" → Plate armor) is parsed SEPARATELY from purchased
+  // Armory items into `traitEquipMods` below — a Trait's own text grants to the WHOLE unit, not
+  // just the Champion/promoted-variant row that a real per-model Armory purchase is scoped to
+  // (see equipModsScopedToChampion in UnitCard.tsx). Mixing them into one EquipMods object meant
+  // Heavy Infantry's save bonus only ever showed up on the unit's Sergeant row, same as if the
+  // Sergeant alone had bought Plate armor (ki-ig-heavy-infantry-trait-champion-only-01).
   const equipItems = item.armory
     .filter(a => {
       const ai = findArmoryItem(data, a);
@@ -940,9 +951,13 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     .map((a): EquipInput => {
       const found = findArmoryItem(data, a);
       return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
-    })
-    .concat(traitGrantedEquip);
+    });
   const equipMods: EquipMods = parseEquipMods(equipItems, unit.armourKeyword, unit.abilities);
+  const traitEquipMods: EquipMods = parseEquipMods(traitGrantedEquip, unit.armourKeyword, unit.abilities);
+  if (traitEquipMods.invulnSave !== null && (equipMods.invulnSave === null || traitEquipMods.invulnSave < equipMods.invulnSave)) {
+    equipMods.invulnSave = traitEquipMods.invulnSave;
+  }
+  equipMods.grantedAbilities.push(...traitEquipMods.grantedAbilities);
 
   // Default gear is parsed SEPARATELY and contributes only its rule text and its ward save.
   // A datasheet's printed statline is authored with the default loadout already on the model —
@@ -1136,6 +1151,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     injectedAbilities: choiceAbilities,
     injectedRuleNotes: ruleNotes,
     equipMods,
+    traitEquipMods,
     traitStatMods, traitAbilities, traitWeaponAbilities,
     blackCrusadeChampion,
     ctanYngirActive,

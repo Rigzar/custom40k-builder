@@ -197,7 +197,7 @@ export function UnitCard({ item }: Props) {
     variant, variantActive, modelsToShow, modelCounts, squadLeaderIdx,
     effectivePsyker, psykerGroupIdx,
     isFavored, effectiveHasVetAbilities, equippedWith, weaponsToShow, weaponGroups, weaponTraitMap,
-    injectedAbilities, injectedRuleNotes, equipMods,
+    injectedAbilities, injectedRuleNotes, equipMods, traitEquipMods,
     traitStatMods, traitAbilities,
     blackCrusadeChampion,
     ctanYngirActive,
@@ -365,7 +365,8 @@ export function UnitCard({ item }: Props) {
   const showTraits = isMainFaction && item.traits.length > 0;
   const hasTraitConflict = false;
 
-  const hasEquipEffects = Object.keys(equipMods.statDeltas).length > 0 || equipMods.armorSave !== null || equipMods.invulnSave !== null;
+  const hasEquipEffects = Object.keys(equipMods.statDeltas).length > 0 || equipMods.armorSave !== null || equipMods.invulnSave !== null
+    || Object.keys(traitEquipMods.statDeltas).length > 0 || traitEquipMods.armorSave !== null;
 
   function setQty(gi: number, ci: string | number, qty: number) {
     // "one" constraint = exclusive pick (radio), not independent checkboxes — selecting a new
@@ -871,6 +872,25 @@ export function UnitCard({ item }: Props) {
                             const existing = display.match(/(\d+)\+/);
                             if (!existing || equipMods.armorSave < parseInt(existing[1])) {
                               display = `${equipMods.armorSave}+`;
+                              equipBoosted = true;
+                            }
+                          }
+                        }
+
+                        // A Trait's own `grant_armory_item` effect (IG "Heavy Infantry" → Plate
+                        // armor) applies to every model in the unit, unlike a real per-model
+                        // Armory purchase — so this runs on every row, not gated by isEquipTarget
+                        // (ki-ig-heavy-infantry-trait-champion-only-01).
+                        if (!u.is_vehicle) {
+                          const traitEquipDelta = traitEquipMods.statDeltas[k] ?? 0;
+                          if (traitEquipDelta !== 0) {
+                            const r = applyDelta(display, traitEquipDelta);
+                            if (r.modified) { display = r.display; equipBoosted = true; }
+                          }
+                          if (k === 'SV' && traitEquipMods.armorSave !== null) {
+                            const existing = display.match(/(\d+)\+/);
+                            if (!existing || traitEquipMods.armorSave < parseInt(existing[1])) {
+                              display = `${traitEquipMods.armorSave}+`;
                               equipBoosted = true;
                             }
                           }

@@ -365,7 +365,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   const storeState = useArmyStore.getState();
   const { archetype, legacy, legacy2 } = storeState;
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, variant, effectiveMark, statModMark, equipMods, weaponTraitMap,
+  const { pts, variant, effectiveMark, statModMark, equipMods, traitEquipMods, weaponTraitMap,
           injectedAbilities, optionStatMods, optionAbilities,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const color = getThemeColor(data.faction, effectiveMark);
@@ -646,7 +646,7 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
               fits, so print and desktop are untouched. */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 3, marginTop: 5 }}>
             {modelsToShow.map((m, mi) => {
-              const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
+              const modStats = applyEquipDeltas(applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle), traitEquipMods, u.is_vehicle);
               for (const sm of optionStatMods) {
                 if (modStats[sm.stat] !== undefined) modStats[sm.stat] = applyDelta(modStats[sm.stat], sm.delta);
               }
@@ -829,7 +829,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
 
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, weaponTraitMap, injectedAbilities, optionAbilities, equipMods,
+  const { pts, weaponTraitMap, injectedAbilities, optionAbilities, equipMods, traitEquipMods,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
@@ -940,7 +940,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
         </thead>
         <tbody>
           {modelsToShow.map((m, mi) => {
-            const modStats = applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle);
+            const modStats = applyEquipDeltas(applyEquipDeltas(m.stats as Record<string, string>, equipMods, u.is_vehicle), traitEquipMods, u.is_vehicle);
             return (
               <tr key={mi}>
                 <td style={{ ...simpleTd, textAlign: 'left' }}>
