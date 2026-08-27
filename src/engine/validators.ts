@@ -2289,9 +2289,21 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
       // the ABILITIES keyword line (97 units) or the UNIT TYPE line (4, e.g. the Destroyer Tank
       // Hunter's "Squadron, Vehicle"), and no unit states it in both. The flag stays as a third
       // source so nothing can lose the restriction.
+      // Henchman Warband is excluded from the abilities-text scan below: its own Inquisition.ods
+      // sheet has NO "Squadron" text at all (just the recruitment rules, and "All models form a
+      // single unit together and can't detach individually" — the opposite premise of a vehicle
+      // squadron). The word only appears in henchman_warband.ts's `abilities` array because that
+      // list is a CONSTRUCTED summary of what each included specialist grants ("Command Squad,
+      // Squadron: granted by Penitent/Sage/..."), copied from those specialists' OWN standalone
+      // Elite sheets (which do genuinely print "Squadron"). Scanning that summary text caught the
+      // word out of context and capped the whole 6-12-model Warband at 1 model in Skirmish
+      // (Discord: Stu — "I believe that's an issue with the app as they shouldn't have squadron
+      // from what I can see on the excel sheet"). A standalone Penitents/Sages/Exorcists/Mystics/
+      // Alien World Scouts/Archaeotech Researchers/Crusaders squad keeps the restriction — their
+      // own sheets print "Squadron" directly, unlike the Warband's derived text.
       const SQUADRON_RE = /\bsquadron\b/i;
       const isSquadron = u.is_squadron === true
-        || (u.abilities ?? []).some(a => SQUADRON_RE.test(String(a)))
+        || (u.name !== 'Henchman Warband' && (u.abilities ?? []).some(a => SQUADRON_RE.test(String(a))))
         || SQUADRON_RE.test(u.unit_type ?? '');
       if (isSquadron && item.size > 1) {
         items.push({ type: 'error', text: T('valSkirmishSquadronMax', { unit: item.unitName, size: item.size }) });

@@ -659,9 +659,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
   // Mixed Warband: when 2 legacy armories are active, each unit may only use ONE.
   // Scoped to the item's OWN detachment — an allied unit reads its ally trait pool + faction data,
   // never the primary army's (a same-faction ally could otherwise inherit the primary's Mixed
-  // Warband state, or an allied CSM unit miss its own).
+  // Warband state, or an allied CSM unit miss its own). Deliberately NOT activeData: for a same-army
+  // supplement-injected unit (Legion → Horus Heresy, Taghmata → Legio Titanicus, ...), activeData is
+  // the supplement's OWN FactionData (armoryDataFor), which has no traits of its own (HH's `traits`
+  // is []) — "Mixed Warband" lives on the PRIMARY army's trait list, same list effectiveTraitPool's
+  // names were drawn from. Looking it up in activeData.traits always missed, so isMixedWarband was
+  // always false for these units: the "pick one Legacy armory" lock never appeared, and both active
+  // Legacies' items rendered together under a tab labelled with only the first Legacy's name — read
+  // as "the second Legacy never got added" (Rigzar, live: Legion archetype + Hydra + Warmaster).
+  const traitPoolData = (isTrueAllyUnit && alliedData) ? alliedData : data;
   const isMixedWarband = effectiveTraitPool.some(n =>
-    activeData!.traits.find(t => t.name === n)?.enables_second_legacy
+    traitPoolData.traits.find(t => t.name === n)?.enables_second_legacy
   );
   const hasTwoLegacies = activeLegionKeys.length >= 2;
   const mixedWarbandActive = isMixedWarband && hasTwoLegacies;
@@ -1005,7 +1013,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                   : 'border-transparent text-zinc-500 hover:text-zinc-300'
                 }`}
             >
-              {activeLegionKeys[0]} {t('armourySuffix')}
+              {activeLegionKeys.join(' / ')} {t('armourySuffix')}
             </button>
           )}
           {/* Authority of the Inquisition tab — Inquisition only */}
