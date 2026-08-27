@@ -2691,8 +2691,10 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
     }
   }
 
-  // Army trait limit (max 2)
-  if (state.traitPool.length > 2) {
+  // Army trait limit (base 2, plus Legacy/archetype/campaign bonus slots)
+  const maxTraits = 2 + (data.legacies.find(lg => lg.name === state.legacy)?.trait_slot_bonus ?? 0)
+    + (rule?.archetypeTraitBonus ?? 0) + (state.campaignTraitBonus ?? 0);
+  if (state.traitPool.length > maxTraits) {
     items.push({ type: 'error', text: T('valOnlyTwoTraits', { count: state.traitPool.length }) });
   }
 

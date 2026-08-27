@@ -217,7 +217,8 @@ export const lemanRussTankCommander: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Punisher gatling cannon"]
     },
     {
       "header": "May be equipped with sponsons",
@@ -263,7 +264,8 @@ export const lemanRussTankCommander: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     }
   ],
   "abilities": [

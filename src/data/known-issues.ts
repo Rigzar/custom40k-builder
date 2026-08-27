@@ -2,6 +2,18 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-ig-legacy-trait-count-hardcoded-01",
+    status: "fixed",
+    title: "The Ministorum World Legacy's mandatory third Army Trait was rejected as an error",
+    description: "FIXED 2026-08-27, GitHub #101 (\"I'm seeing a list error for having three traits while building a Ministorum World Legacy list\" — \"Since Ministorum World says that I must choose a third trait, I'd expect that to not cause an error\"). CAUSE: `validateArmy()` in `validators.ts` had a flat `state.traitPool.length > 2` check with no awareness of `trait_slot_bonus` (Ministorum World's own `.ods`-defined +1 slot), `archetypeTraitBonus`, or `campaignTraitBonus` — even though `store/army.ts` and `ArmyConfig.tsx` already compute the correct budget (`2 + trait_slot_bonus + archetypeTraitBonus + campaignTraitBonus`) and let the player add the 3rd trait to the pool without complaint. The validator was a separate, stale check nobody had updated when the bonus-slot mechanism was added. FIX: validator now uses the same formula as the rest of the app. Verified: Imperial Guard army with Ministorum World Legacy and 3 traits selected no longer shows the error; a non-Ministorum-World army with 3 traits still correctly errors.",
+  },
+  {
+    id: "ki-ig-leman-russ-weapon-swap-no-replace-01",
+    status: "fixed",
+    title: "Swapping a Leman Russ's main gun or secondary weapon added the new one without removing the old one",
+    description: "FIXED 2026-08-27, GitHub #102 (\"On a Leman Russ tank commander, selecting a different main weapon doesn't actually remove the Punisher Gatling Cannon from the unit\"). CAUSE: the engine only removes a swapped-out weapon when its option group carries an explicit `replaces: string[]` naming it (`resolver.ts`) — there is no fallback derived from the header text (\"May swap the X\"). All three Leman Russ variants (base, Commissar, Tank Commander) were missing the `replaces` key entirely on both their main-gun and secondary-weapon swap groups, unlike working siblings like the Manticore. FIX: added `replaces: [\"Punisher gatling cannon\"]` to the main-gun swap group on all three, and `replaces: [\"Heavy bolter\"]` / `replaces: [\"Heavy flamer\"]` to the secondary-weapon swap group matching each variant's actual base loadout (base Leman Russ carries a Heavy bolter; Commissar and Tank Commander both carry a Heavy flamer). Verified: swapping the Punisher gatling cannon for a Battle cannon on a Leman Russ now shows only the Battle cannon, not both.",
+  },
+  {
     id: "ki-hh-terminator-cataphractii-phantom-thunder-hammer-01",
     status: "fixed",
     title: "Legion Terminator Cataphractii Squad showed a phantom \"Thunder hammer\" on every model regardless of what was actually bought",

@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.67',
+    date: '2026-08-27',
+    title: 'Imperial Guard: two Leman Russ and a Legacy fix',
+    changes: [
+      'Imperial Guard — swapping the Leman Russ (base, Commissar, and Tank Commander variants)\'s main gun or secondary weapon added the new weapon without removing the one being replaced, so the tank ended up with both (GitHub #102: "selecting a different main weapon doesn\'t actually... remove the Punisher Gatling Cannon"). The swap option groups on all three variants were missing the link telling the engine which weapon each choice replaces. Fixed on all three.',
+      'Imperial Guard — the Ministorum World Legacy explicitly requires selecting a third Army Trait, but doing so was rejected as an error (GitHub #101). The trait-count validator had a flat cap of 2 that never accounted for a Legacy\'s (or archetype\'s, or campaign\'s) bonus trait slot, even though the rest of the app already computed the correct budget correctly elsewhere. Fixed to use the same formula everywhere.',
+    ],
+  },
+  {
     version: '1.66',
     date: '2026-08-26',
     title: 'Horus Heresy & Legio Titanicus: the armory that looked missing',
