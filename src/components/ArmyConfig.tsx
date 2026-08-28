@@ -314,6 +314,11 @@ export function ArmyConfig({ scope = 'primary', alliedFactionLabel, showBattleSe
                     <div className="text-[10px] text-zinc-500 leading-relaxed">
                       {t('chooseUpToTraitsPrefix')} {traitSlots.length}{t('chooseUpToTraitsSuffix')}
                     </div>
+                    {data.faction === 'Chaos Space Marines' && (
+                      <div className="text-[10px] text-zinc-500 leading-relaxed border-l-2 border-zinc-700 pl-2">
+                        {t('csmTraitsKeywordNote')}
+                      </div>
+                    )}
 
                     {!isAllied && (
                       <div className="flex items-center gap-2 border border-zinc-800 bg-zinc-950/50 px-3 py-2">

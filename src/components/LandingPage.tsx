@@ -23,8 +23,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line2: "⚔️ Chaos Space Marines/Space Marines — a Legion-archetype unit (Legion Tactical Squad, etc) let you shop BOTH active Legacy armouries at once instead of enforcing Mixed Warband's \"pick one per unit\" rule, under a tab labelled with only the first Legacy's name. Fixed — it now shows the same \"choose one\" screen a native unit does, and the tab names every active Legacy.",
     line3: "🕵️ Inquisition — a Henchman Warband of more than 1 model was wrongly flagged in Skirmish as \"a Squadron — maximum 1 model\", even at 6-12 models. Its own sheet never had that restriction (only an unrelated specialist's own ability text happened to mention the word); fixed, and a standalone Penitents/Sages/etc. squad keeps the real restriction.",
     line4: "🛡️ Imperial Guard — the \"Heavy Infantry\" Army Trait's Plate armor bonus only ever improved the Sergeant's Save, not the rest of the squad. It was riding the same rule that scopes a real Armory purchase to a single model — fixed to apply to the whole unit, the same way Bionic Improvement's Ward save already did.",
-    line5: "",
-    line6: "",
+    line5: "⚙️ Chaos Space Marines — confirmed as intended, not a bug: Army Traits skip Cultist-type units and subfaction-marked units (World Eaters, Death Guard, ...) by design. The app never explained this, and the one line it did show was itself wrong (\"units with veteran abilities\" isn't how it works for anyone). Fixed both.",
+    line6: "🔥 Tau Empire — a Ghostkeel Battlesuit started with 6 Flamers instead of 2. Its datasheet text reads \"is A SINGLE MODEL AND equipped with:\" instead of the plain wording the engine expected, so the match failed and the suit's 2 Flamers got multiplied by the WHOLE unit's model count (1 suit + 2 Stealth Drones = 3). Fixed the underlying pattern — also fixes the identical shape on the Y'vahra and R'varna Battlesuits, found during the same investigation.",
     line7: "",
     line8: "",
     line9: "",
@@ -42,8 +42,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line2: "⚔️ Chaos Space Marines/Space Marines — eine vom Legion-Archetyp gewährte Einheit (Legion Tactical Squad usw.) ließ dich in BEIDEN aktiven Legacy-Armories gleichzeitig einkaufen, statt Mixed Warbands Regel „nur eine pro Einheit\" durchzusetzen, unter einem Tab, der nur die erste Legacy nannte. Behoben — zeigt jetzt denselben „eine wählen\"-Bildschirm wie eine native Einheit, und der Tab nennt jede aktive Legacy.",
     line3: "🕵️ Inquisition — ein Henchman Warband mit mehr als 1 Modell wurde in Skirmish fälschlich als „Squadron — maximal 1 Modell\" markiert, sogar bei 6-12 Modellen. Das eigene Blatt hatte diese Einschränkung nie (nur der Fähigkeitstext eines unabhängigen Spezialisten erwähnte zufällig das Wort); behoben, eine eigenständige Penitents/Sages/usw.-Einheit behält die echte Einschränkung.",
     line4: "🛡️ Imperial Guard — der Rüstungsbonus der Army-Eigenschaft „Heavy Infantry\" verbesserte nur die Rettung des Sergeanten, nicht die des restlichen Trupps. Er lief über dieselbe Regel, die einen echten Armory-Kauf auf ein einzelnes Modell begrenzt — jetzt auf die ganze Einheit angewendet, genau wie es Bionic Improvements Rettungswurf-Bonus bereits tat.",
-    line5: "",
-    line6: "",
+    line5: "⚙️ Chaos Space Marines — bestätigt als beabsichtigt, kein Bug: Army Traits überspringen Cultist-Einheiten und Sub-Legion-Einheiten (World Eaters, Death Guard, ...) mit Absicht. Die App erklärte das nirgends, und die eine Zeile, die sie zeigte, war selbst falsch („Einheiten mit Veteranenfähigkeiten\" stimmt für niemanden). Beides behoben.",
+    line6: "🔥 Tau Empire — ein Ghostkeel Battlesuit begann mit 6 Flamern statt 2. Sein Datenblatt-Text lautet „is A SINGLE MODEL AND equipped with:\" statt der einfachen Formulierung, die die Engine erwartete — die Übereinstimmung schlug fehl, und die 2 Flamer des Suits wurden mit der GESAMTEN Modellzahl der Einheit multipliziert (1 Suit + 2 Stealth Drones = 3). Das zugrunde liegende Muster ist behoben — behebt auch dieselbe Form bei den Y'vahra- und R'varna-Battlesuits, die bei derselben Untersuchung gefunden wurde.",
     line7: "",
     line8: "",
     line9: "",
@@ -61,8 +61,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line2: "⚔️ Chaos Space Marines/Space Marines — una unidad otorgada por el archetype Legion (Legion Tactical Squad, etc) dejaba comprar de AMBAS armerías de Legacy activas a la vez en vez de aplicar la regla de Mixed Warband de \"solo una por unidad\", bajo una pestaña rotulada solo con el nombre de la primera Legacy. Arreglado — ahora muestra la misma pantalla de \"elige una\" que una unidad nativa, y la pestaña nombra todas las Legacies activas.",
     line3: "🕵️ Inquisition — un Henchman Warband de más de 1 modelo se marcaba mal en Skirmish como \"a Squadron — maximum 1 model\", incluso con 6-12 modelos. Su propia ficha nunca tuvo esa restricción (solo el texto de habilidad de un especialista independiente mencionaba la palabra de casualidad); arreglado, una unidad independiente de Penitents/Sages/etc. mantiene la restricción real.",
     line4: "🛡️ Imperial Guard — el bonus de armadura del Army Trait \"Heavy Infantry\" solo mejoraba la Salvación del Sargento, no la del resto del escuadrón. Iba por la misma regla que limita una compra real de Armería a un solo modelo — arreglado para aplicarse a toda la unidad, igual que ya hacía el bonus de Ward Save de Bionic Improvement.",
-    line5: "",
-    line6: "",
+    line5: "⚙️ Chaos Space Marines — confirmado como intencionado, no un bug: los Army Traits se saltan las unidades tipo Cultist y las de subfacción (World Eaters, Death Guard, ...) a propósito. La app nunca lo explicaba, y la única línea que sí mostraba estaba mal (\"unidades con habilidades veteranas\" no es como funciona para nadie). Arreglado ambos.",
+    line6: "🔥 Tau Empire — un Ghostkeel Battlesuit empezaba con 6 Flamers en vez de 2. Su ficha dice \"is A SINGLE MODEL AND equipped with:\" en vez de la redacción simple que esperaba el motor, así que la coincidencia fallaba y los 2 Flamers del traje se multiplicaban por el número de modelos de TODA la unidad (1 traje + 2 Stealth Drones = 3). Arreglado el patrón de base — también arregla la misma forma en los Battlesuits Y'vahra y R'varna, encontrada en la misma investigación.",
     line7: "",
     line8: "",
     line9: "",
@@ -145,11 +145,10 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.67 (2026-08-27) is a genuine version cut, not a prepend onto v1.66's banner — the
-              old v1.66 lines (Horus Heresy armory, Ork 'Eavy armour, etc) are intentionally NOT
-              repeated here; that history lives in the Changelog modal, not the popup every player
-              sees on load. Only 2 fixes this cut (GH#101, #102), so intro + line1 cover it and
-              line2-line13 stay empty (filtered out below) until something else lands the same day. */}
+          {/* v1.67 spans two calendar days (2026-08-27 into 2026-08-28) at Rigzar's explicit
+              request ("menten mism avesion 1.67") — normally a new day gets a fresh version cut,
+              but this session kept appending instead. line6 (Ghostkeel) was added the second day;
+              line7-line13 stay empty (filtered out below) until something else lands. */}
           {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}

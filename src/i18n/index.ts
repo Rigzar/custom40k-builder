@@ -66,7 +66,7 @@ export type TranslationKey =
   | 'reaverLordPickLabel' | 'reaverLordChosenLabel' | 'reaverLordSearch'
   | 'noCustomisationOptions' | 'battleSetup' | 'armyDoctrine' | 'notAvailableInSkirmish' | 'onlyForArmiesWithMarkOf'
   | 'legaciesNotAvailableWithArchetype' | 'secondLegacyNone' | 'secondLegacyUnlockedByTrait'
-  | 'chooseUpToTraitsPrefix' | 'chooseUpToTraitsSuffix' | 'traitSlotPrefix' | 'traitSlotSuffix'
+  | 'chooseUpToTraitsPrefix' | 'chooseUpToTraitsSuffix' | 'csmTraitsKeywordNote' | 'traitSlotPrefix' | 'traitSlotSuffix'
   | 'campaignTraitBonusLabel'
   | 'blackCrusadeChampionRequired' | 'championLabel' | 'paysCombinedMarkCost'
   | 'noChampionPart1' | 'blackCrusadeChampionToggle' | 'noChampionPart2' | 'traitsNotAvailableWithArchetype'
@@ -345,7 +345,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     secondLegacyNone: '— 2nd Legacy (none) —',
     secondLegacyUnlockedByTrait: '2nd Legacy unlocked by the second-legion trait.',
     chooseUpToTraitsPrefix: 'Choose up to',
-    chooseUpToTraitsSuffix: '. All main-faction units with veteran abilities receive the selected traits.',
+    chooseUpToTraitsSuffix: '. All main-faction units receive the selected traits.',
+    csmTraitsKeywordNote: 'Chaos Space Marines only: Army Traits need the "Chaos Space Marine" keyword — Cultist-type auxiliaries (Cultists, Traitor Guard, Mutants, ...) and subfaction-marked units (World Eaters, Death Guard, Emperor\'s Children, Thousand Sons) don\'t receive them.',
     campaignTraitBonusLabel: 'Campaign bonus traits (Research Facility / Breakthrough!)',
     traitSlotPrefix: '— Trait',
     traitSlotSuffix: '(none) —',
@@ -961,7 +962,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     secondLegacyNone: '— 2. Vermächtnis (keines) —',
     secondLegacyUnlockedByTrait: '2. Vermächtnis wird durch die Zweite-Legion-Eigenschaft freigeschaltet.',
     chooseUpToTraitsPrefix: 'Wähle bis zu',
-    chooseUpToTraitsSuffix: '. Alle Haupteinheiten mit Veteranenfähigkeiten erhalten die gewählten Eigenschaften.',
+    chooseUpToTraitsSuffix: '. Alle Haupteinheiten erhalten die gewählten Eigenschaften.',
+    csmTraitsKeywordNote: 'Nur Chaos Space Marines: Army Traits benötigen das Schlüsselwort „Chaos Space Marine" — Cultist-Hilfstruppen (Cultists, Traitor Guard, Mutants, ...) und Sub-Legion-Einheiten (World Eaters, Death Guard, Emperor\'s Children, Thousand Sons) erhalten sie nicht.',
     campaignTraitBonusLabel: 'Kampagnen-Bonuseigenschaften (Forschungsanlage / Durchbruch!)',
     traitSlotPrefix: '— Eigenschaft',
     traitSlotSuffix: '(keine) —',
@@ -1577,7 +1579,8 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     secondLegacyNone: '— 2º Legado (ninguno) —',
     secondLegacyUnlockedByTrait: '2º Legado desbloqueado por el rasgo de segunda legión.',
     chooseUpToTraitsPrefix: 'Elige hasta',
-    chooseUpToTraitsSuffix: '. Todas las unidades principales con habilidades veteranas reciben los rasgos seleccionados.',
+    chooseUpToTraitsSuffix: '. Todas las unidades principales reciben los rasgos seleccionados.',
+    csmTraitsKeywordNote: 'Solo Chaos Space Marines: los Army Traits necesitan la keyword "Chaos Space Marine" — las unidades auxiliares tipo Cultist (Cultists, Traitor Guard, Mutants, ...) y las unidades de subfacción (World Eaters, Death Guard, Emperor\'s Children, Thousand Sons) no los reciben.',
     campaignTraitBonusLabel: 'Rasgos extra de campaña (Instalación de Investigación / ¡Avance!)',
     traitSlotPrefix: '— Rasgo',
     traitSlotSuffix: '(ninguno) —',

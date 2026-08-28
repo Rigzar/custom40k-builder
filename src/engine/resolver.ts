@@ -1261,10 +1261,33 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   // 667 equipped_with strings in the game: this splits 5 units that were previously merged
   // (Terminator Squad, Rubric Marines, Dark Commune, Incubi, Dynasty Phaeron) and every clause
   // label in them resolves to a real model group, so no unit gains an orphan row.
-  const clauses = [...unit.equipped_with.matchAll(/(?:Every|The|An?) ([^.]+?) is equipped with:\s*([^.]+)\./g)];
+  // Single-model vehicles/monsters routinely word this "A Ghostkeel Shas'vre IS A SINGLE MODEL
+  // AND equipped with: …" (or "a single character model and", "a single model", "a character
+  // model and", ...) instead of the plain "is equipped with:" — 69 datasheets use some form of
+  // this aside. Tolerating it doesn't change anything for a unit with only ONE model row (the
+  // fallback below already uses item.size correctly for those), but it lets a unit that ALSO
+  // prints a real second clause for an attached companion (Y'vahra/R'varna Battlesuit: "Every
+  // Missile Drone is equipped with: Missile pod.") actually reach 2 matched clauses instead of 1,
+  // which is what routes it into the per-clause split below instead of the flattened fallback.
+  const clauses = [...unit.equipped_with.matchAll(
+    /(?:Every|The|An?) ([^.]+?) is (?:a single character model and |a single model and |a single model |a single character and |a character model and |a character and |)equipped with:\s*([^.]+)\./g
+  )];
+  // Ghostkeel Battlesuits has no second clause at all (its 2 Stealth Drones carry no weapons of
+  // their own) — it never reaches the >1 threshold above even with the tolerant regex. Its one
+  // clause DOES name a real model row ("Ghostkeel Shas'vre") distinct from the unit's other row
+  // ("Stealth Drone"), unlike the generic "Every model is equipped with: …" wording plenty of
+  // ordinary multi-row squads use (Rough Riders: Rough Rider + Sergeant rows, deliberately meant
+  // to cover BOTH). Routing every lone-but-model-named clause through the per-clause split — not
+  // just ones that clear >1 — fixes exactly this shape without touching "Every model" units: the
+  // literal word "model"/"models" is never itself a model row's name, so those still fall through
+  // to the flattened fallback unchanged. Previously the flattened fallback multiplied the suit's
+  // own weapons (2 Flamers) by the WHOLE unit's model count including its 2 non-weapon-bearing
+  // Stealth Drones (1 + 2 = 3), showing "6x Flamer" instead of "2x" (Discord, Rigzar).
+  const namedSingleClauseAmongMultipleRows = clauses.length === 1 && unit.models.length > 1 &&
+    unit.models.some(m => m.name.toLowerCase() === clauses[0][1].trim().toLowerCase());
 
   let groups: WeaponGroup[];
-  if (clauses.length > 1) {
+  if (clauses.length > 1 || namedSingleClauseAmongMultipleRows) {
     groups = [];
     const used = new Set<string>();
     let variantGroup: WeaponGroup | null = null;
