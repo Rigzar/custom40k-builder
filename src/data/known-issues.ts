@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-inquisition-henchman-warband-abilities-not-gated-01",
+    status: "fixed",
+    title: "Henchman Warband's Abilities list showed all 17 specialists' conditional rule text regardless of which specialists were actually in the unit",
+    description: "FIXED 2026-08-28, follow-up to the same Discord thread as GH#104's Squadron fix (Stu: \"the abilities page is just a bit of a mess due to the complexity of the warband... not sure if Rigzar would want to do something specific to make it a bit easier but it'd probably only be for that unit\"; Rigzar confirmed wanting it looked at: \"esto se resolvio a fondo?\"). Henchman Warband's `abilities` array has 24 entries, each conditional on one specific specialist type (\"While a Penitent is alive, the unit gains Aegis(5+)...\", \"Every Servitor has the Unyielding special ability\", ...) — every one of them printed regardless of which of the unit's 17 possible specialists the player actually took. This is NOT the same shape Stu compared it to (a CSM Sorcerer correctly shows both its base ability and its Master Sorcerer upgrade's ability, unconditionally, because that's ONE model's own upgrade path and both texts describe what taking it does) — Henchman Warband's 17 specialists are independent unit choices, so showing all their rule text regardless of composition is pure noise. FIX: `UnitCard.tsx`'s ability filter gained a Henchman-Warband-only check (matched by unit name, same scoping convention as its weapon-list gating, ki-henchman-warband-weapon-list-not-gated-01): a line is hidden only when it names one of the unit's own specialist model names (matched by regex against `u.models`) AND that specialist has zero models in the built unit (`item.modelSizes`); a line naming no specialist at all (\"Narthecium\") always shows, so nothing can be hidden without the code being sure it's actually irrelevant. Verified live: a Warband with 2 Acolytes + 1 Penitent now shows exactly 5 abilities (Bodyguard, Command Squad/Squadron, Pariah, Narthecium, Objective Secured!) instead of all 24.",
+  },
+  {
     id: "ki-tau-ghostkeel-flamer-multiplied-by-drones-01",
     status: "fixed",
     title: "Ghostkeel Battlesuit started with 6 Flamers instead of 2 (multiplied by its attached Stealth Drones)",

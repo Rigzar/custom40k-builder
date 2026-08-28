@@ -2124,6 +2124,31 @@ export function UnitCard({ item }: Props) {
             }
             const _selectedChoiceAbilityTexts = new Set(injectedAbilities.map(a => a.toLowerCase()));
             const _hasPsykerOption = psykerGroupIdx >= 0 && !effectivePsyker;
+            // Henchman Warband: its 24 abilities are each conditional on a SPECIFIC specialist
+            // type being present ("While a Penitent is alive...", "Every Servitor has...") — all
+            // 17 possible specialists' rule text prints regardless of which were actually taken.
+            // Discord (Stu, on the same "Squadron" report thread): "the abilities page is just a
+            // bit of a mess due to the complexity of the warband... probably only be for that
+            // unit" — Rigzar confirmed wanting it looked at ("esto se resolvio a fondo?"). This is
+            // NOT the same shape as Stu's own comparison (a CSM Sorcerer showing both its base and
+            // Master Sorcerer upgrade abilities correctly, unconditionally, to explain what ONE
+            // model's upgrade does) — Henchman Warband's 17 specialists are independent unit
+            // choices, not one model's upgrade tree, so showing all of them regardless of squad
+            // composition is genuinely just noise, not documentation of an available upgrade.
+            // Scoped to this one unit by name (same convention as its weapon-list gating,
+            // ki-henchman-warband-weapon-list-not-gated-01) — a line is hidden only when it names
+            // a specific specialist AND that specialist has zero models in the built unit; a line
+            // naming no specialist at all (e.g. "Narthecium") always shows, so this can never hide
+            // something it isn't sure about.
+            const _henchmanSpecialistNames = u.name === 'Henchman Warband' ? u.models.map(m => m.name) : [];
+            const _henchmanAbilityKeep = (ab: string) => {
+              if (_henchmanSpecialistNames.length === 0) return true;
+              const mentioned = _henchmanSpecialistNames.filter(name => {
+                const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                return new RegExp(`\\b${esc}s?\\b`, 'i').test(ab);
+              });
+              return mentioned.length === 0 || mentioned.some(name => (item.modelSizes?.[name] ?? 0) > 0);
+            };
             const filteredAbilities = u.abilities.filter(ab => {
               if (/^\d+$/.test(ab.trim())) return false;
               const ci = ab.indexOf(':');
@@ -2131,6 +2156,7 @@ export function UnitCard({ item }: Props) {
               if (_unselectedOptionalWeapons.has(label)) return false;
               if (_allChoiceAbilityTexts.has(ab.toLowerCase()) && !_selectedChoiceAbilityTexts.has(ab.toLowerCase())) return false;
               if (_hasPsykerOption && label === 'psyker') return false;
+              if (!_henchmanAbilityKeep(ab)) return false;
               return true;
             });
             const totalAbilityCount = filteredAbilities.length + traitAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length + equipAbilities.length;
