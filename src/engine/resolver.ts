@@ -1548,13 +1548,32 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         if (!choice) continue;
         const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
         for (const part of (parts.length > 1 ? parts : [choice.name])) {
+          // A choice can print its OWN multiplier in the name ("2 Heavy flamers", "4 Heavy
+          // bolters", "2 Lascannons and 2 Twin heavy bolter" split into two parts above) when one
+          // purchase grants several copies at once — the common "sponson"/multi-gun-bank shape
+          // across ~40 datasheets in nearly every faction (GitHub #105: a Predator's "2 Heavy
+          // flamers" sponson option showed only "1x Heavy flamer"). Strip that leading count the
+          // same way visibility-matching already does elsewhere in this file (`wkey`), so the
+          // weapon itself was never hidden — but nothing re-applied the count as a multiplier on
+          // the granted quantity, so it always landed at the group's plain model count (1, for a
+          // single-model vehicle) instead of model count × the choice's own multiplier.
+          const countMatch = part.match(/^(?:(\d+)|(two|three|four|five|six))\s+/i);
+          const wordCounts: Record<string, number> = { two: 2, three: 3, four: 4, five: 5, six: 6 };
+          const partCopies = countMatch ? (countMatch[1] ? parseInt(countMatch[1], 10) : wordCounts[countMatch[2].toLowerCase()]) : 1;
+          const partBare = part.replace(/^(?:a pair of|a|an|two|three|four|five|six|\d+)\s+/i, '').replace(/s$/, '').trim().toLowerCase();
           // Match the choice against the weapon with BOTH multi-profile spellings stripped —
           // " - Krak" and "(Bolt ammo)". Comparing only the former meant an ammo-profile weapon
           // never registered a granted quantity and fell back to the model count (GH#89).
-          const hit = grp.weapons.some(w =>
-            baseName(w.name) === part ||
-            baseName(w.name).replace(/\s*\([^)]*\)\s*$/, '').trim() === part);
-          if (hit) grantedQty.set(part, (grantedQty.get(part) ?? 0) + n);
+          const matched = grp.weapons.find(w => {
+            const wb = baseName(w.name);
+            const wbStripped = wb.replace(/\s*\([^)]*\)\s*$/, '').trim();
+            return wb === part || wbStripped === part
+              || wb.toLowerCase() === partBare || wbStripped.toLowerCase() === partBare;
+          });
+          if (matched) {
+            const key = baseName(matched.name);
+            grantedQty.set(key, (grantedQty.get(key) ?? 0) + n * partCopies);
+          }
         }
       }
       // "Can be equipped with an additional Storm bolter for +11 points" — an INLINE option with

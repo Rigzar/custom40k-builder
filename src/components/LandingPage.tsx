@@ -26,7 +26,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "⚙️ Chaos Space Marines — confirmed as intended, not a bug: Army Traits skip Cultist-type units and subfaction-marked units (World Eaters, Death Guard, ...) by design. The app never explained this, and the one line it did show was itself wrong (\"units with veteran abilities\" isn't how it works for anyone). Fixed both.",
     line6: "🔥 Tau Empire — a Ghostkeel Battlesuit started with 6 Flamers instead of 2. Its datasheet text reads \"is A SINGLE MODEL AND equipped with:\" instead of the plain wording the engine expected, so the match failed and the suit's 2 Flamers got multiplied by the WHOLE unit's model count (1 suit + 2 Stealth Drones = 3). Fixed the underlying pattern — also fixes the identical shape on the Y'vahra and R'varna Battlesuits, found during the same investigation.",
     line7: "📋 Inquisition — Henchman Warband's Abilities list showed all 17 possible specialists' rule text regardless of which ones were actually in the unit. Fixed — a specialist's own ability line now only shows while that specialist is present; a 2-Acolyte-1-Penitent Warband goes from 24 abilities shown down to 5.",
-    line8: "",
+    line8: "🔫 Space Marines — a Predator's sponson option (\"2 Heavy flamers\", etc) always granted only 1x of the weapon instead of the 2x its own name states (GitHub #105). Fixed the underlying matching — also fixes the identical shape on ~40 other datasheets across nearly every faction that use the same \"count baked into the choice name\" pattern.",
     line9: "",
     line10: "",
     line11: "",
@@ -45,7 +45,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "⚙️ Chaos Space Marines — bestätigt als beabsichtigt, kein Bug: Army Traits überspringen Cultist-Einheiten und Sub-Legion-Einheiten (World Eaters, Death Guard, ...) mit Absicht. Die App erklärte das nirgends, und die eine Zeile, die sie zeigte, war selbst falsch („Einheiten mit Veteranenfähigkeiten\" stimmt für niemanden). Beides behoben.",
     line6: "🔥 Tau Empire — ein Ghostkeel Battlesuit begann mit 6 Flamern statt 2. Sein Datenblatt-Text lautet „is A SINGLE MODEL AND equipped with:\" statt der einfachen Formulierung, die die Engine erwartete — die Übereinstimmung schlug fehl, und die 2 Flamer des Suits wurden mit der GESAMTEN Modellzahl der Einheit multipliziert (1 Suit + 2 Stealth Drones = 3). Das zugrunde liegende Muster ist behoben — behebt auch dieselbe Form bei den Y'vahra- und R'varna-Battlesuits, die bei derselben Untersuchung gefunden wurde.",
     line7: "📋 Inquisition — die Abilities-Liste des Henchman Warband zeigte den Regeltext aller 17 möglichen Spezialisten, egal welche wirklich in der Einheit waren. Behoben — die eigene Fähigkeitszeile eines Spezialisten erscheint jetzt nur, solange er tatsächlich vorhanden ist; ein Warband mit 2 Akolythen + 1 Büßer geht von 24 gezeigten Fähigkeiten auf 5.",
-    line8: "",
+    line8: "🔫 Space Marines — die Sponson-Option eines Predators („2 Heavy flamers\" usw.) gewährte immer nur 1x der Waffe statt der 2x, die ihr eigener Name angibt (GitHub #105). Der zugrunde liegende Abgleich ist behoben — behebt auch dieselbe Form bei ~40 weiteren Datenblättern in fast jeder Fraktion mit demselben „Anzahl steckt im Auswahlnamen\"-Muster.",
     line9: "",
     line10: "",
     line11: "",
@@ -64,7 +64,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "⚙️ Chaos Space Marines — confirmado como intencionado, no un bug: los Army Traits se saltan las unidades tipo Cultist y las de subfacción (World Eaters, Death Guard, ...) a propósito. La app nunca lo explicaba, y la única línea que sí mostraba estaba mal (\"unidades con habilidades veteranas\" no es como funciona para nadie). Arreglado ambos.",
     line6: "🔥 Tau Empire — un Ghostkeel Battlesuit empezaba con 6 Flamers en vez de 2. Su ficha dice \"is A SINGLE MODEL AND equipped with:\" en vez de la redacción simple que esperaba el motor, así que la coincidencia fallaba y los 2 Flamers del traje se multiplicaban por el número de modelos de TODA la unidad (1 traje + 2 Stealth Drones = 3). Arreglado el patrón de base — también arregla la misma forma en los Battlesuits Y'vahra y R'varna, encontrada en la misma investigación.",
     line7: "📋 Inquisition — la lista de Abilities del Henchman Warband mostraba el texto de reglas de los 17 especialistas posibles, sin importar cuáles estuvieran realmente en la unidad. Arreglado — la línea de habilidad de un especialista solo se muestra ahora mientras ese especialista esté presente; un Warband con 2 Acólitos + 1 Penitente pasa de 24 habilidades mostradas a 5.",
-    line8: "",
+    line8: "🔫 Space Marines — la opción de sponson de un Predator (\"2 Heavy flamers\", etc) siempre daba solo 1x del arma en vez de las 2x que su propio nombre indica (GitHub #105). Arreglada la comparación de fondo — también arregla la misma forma en ~40 fichas más en casi todas las facciones que usan el mismo patrón de \"cantidad metida en el nombre de la opción\".",
     line9: "",
     line10: "",
     line11: "",
@@ -147,8 +147,9 @@ function CommunityAnnouncement() {
           )}
           {/* v1.67 spans two calendar days (2026-08-27 into 2026-08-28) at Rigzar's explicit
               request ("menten mism avesion 1.67") — normally a new day gets a fresh version cut,
-              but this session kept appending instead. line6 (Ghostkeel) was added the second day;
-              line7-line13 stay empty (filtered out below) until something else lands. */}
+              but this session kept appending instead. line6-line8 (Ghostkeel, Henchman Warband
+              abilities, Predator sponsons) were added the second day; line9-line13 stay empty
+              (filtered out below) until something else lands. */}
           {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}

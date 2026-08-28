@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-sponson-weapon-choice-count-not-multiplied-01",
+    status: "fixed",
+    title: "A Predator's sponson option (\"2 Heavy flamers\", etc) always granted only 1x of the weapon instead of the 2x its own name states",
+    description: "FIXED 2026-08-28, GitHub #105. CAUSE: `resolver.ts`'s `computeWeaponGroups` computes a `grantedQty` override for an option choice by matching the choice's name against a weapon's `baseName` via EXACT equality — a choice literally named \"2 Heavy flamers\" never equals the weapon name \"Heavy flamer\", so no match was ever found and no override was ever registered. The weapon still appeared in the list at all only because a completely separate, more lenient `wkey()`-based check elsewhere in the same file already strips leading counts/plurals purely to decide visibility — so with no granted-quantity override in place, the weapon silently fell back to the vehicle's own single-model count (1), instead of the 2 the choice's own name grants. Grepped every faction's parsed data: roughly 40 datasheets use this exact \"count baked into the choice name\" shape for multi-gun sponsons/banks (Adeptus Mechanicus, Adeptus Sororitas, Chaos Space Marines, Eldar, Genestealer Cults, Harlequins, Imperial Guard, Inquisition, Orks, Space Marines, Tyranids) — all of them under-counting the same way, not just the reported Predator. FIX: the `grantedQty` computation now extracts a leading digit or number-word (\"2\", \"two\", ...) from each choice-name part, strips it (and a trailing \"s\") to match more leniently against `grp.weapons` (case-insensitive, with/without a multi-profile suffix like \"(Bolt ammo)\"), and multiplies the granted quantity by the extracted count, keyed by the matched weapon's own `baseName`. Verified live: a Predator with \"2 Heavy flamers\" selected now shows \"2x Heavy flamer\" in the Ranged Weapons table and the unit's total correctly updates to 234pts (208 base + 26 for the option).",
+  },
+  {
     id: "ki-inquisition-henchman-warband-abilities-not-gated-01",
     status: "fixed",
     title: "Henchman Warband's Abilities list showed all 17 specialists' conditional rule text regardless of which specialists were actually in the unit",
