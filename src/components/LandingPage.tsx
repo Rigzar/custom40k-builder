@@ -13,7 +13,7 @@ import { CHANGELOG } from '../data/changelog';
 
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v167_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.67: Leman Russ weapon swaps, Ministorum World's third Trait",
@@ -30,8 +30,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🎯 Buying \"Marksman honours\" or \"Swordsman honours\" from a character's Armory made their Ballistic/Weapon Skill WORSE instead of better. Both stats print as a save-style value where a lower number is better, and the +1 bonus was stored the wrong way round. Fixed — a Chaplain's BS now goes from 3+ to 2+ after buying it, as intended.",
     line10: "🦾 Adeptus Custodes — a Telemon Heavy Dreadnought could only swap ONE of its two arms for a ranged weapon (GitHub #106), even though its own datasheet says \"swap EACH\" arm. Fixed — each arm now swaps independently, and can go to a different weapon (e.g. Arachnus storm cannon on one, Iliastus accelerator culverin on the other).",
     line11: "⚔️ GENERAL — Armory items that apply to ONE weapon you pick (Obsidian blade, Master-crafted weapon, Relic blade, and ~30 more across every faction) took your points but the weapon never actually changed. Fixed for every item with a single well-defined effect.",
-    line12: "🎯 The rest of that fix: the ~18 relics that let you choose between +Range/+Strength/-AP/+AT now have a picker for WHICH one, Horus Heresy's \"Crusade weapon\" actually applies its 5 bonuses, and Adeptus Custodes' Galatus Contemptor Dreadnought got the same per-arm-swap fix as the Telemon above. Still open: Eldar's Exarch Powers turned out to have no defined effect anywhere — needs the canonical rules text before any code.",
-    line13: "",
+    line12: "🎯 The rest of that fix: the ~18 relics that let you choose between +Range/+Strength/-AP/+AT now have a picker for WHICH one, Horus Heresy's \"Crusade weapon\" actually applies its 5 bonuses, and Adeptus Custodes' Galatus Contemptor Dreadnought got the same per-arm-swap fix as the Telemon above.",
+    line13: "🌌 Eldar — Exarch Powers (Bladestorm, Heartstrike, ...) now actually do something, whether picked via \"Paragon of war\" or a native Exarch's own upgrade. Also fixed a related bug found along the way: Paragon of war/of fate's own stat bonus was being counted twice on Toughness/Wounds/Attacks.",
+    line14: "🦂 Tyranids — swapping BOTH of a Hive Tyrant's Monstrous scything talons for Lash whip and bonesword showed the weapon once instead of \"2x\" (GitHub #107) — the same wording glitch also affects Tyranid Warrior Brood/Tyrant Guard Brood. Fixed.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -49,8 +50,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🎯 Der Kauf von „Marksman honours\" oder „Swordsman honours\" aus der Armory eines Charakters verschlechterte dessen Ballistic/Weapon Skill statt sie zu verbessern. Beide Werte werden wie ein Rettungswurf gedruckt, bei dem eine niedrigere Zahl besser ist, und der +1-Bonus war falsch herum gespeichert. Behoben — der BS eines Chaplains geht jetzt beim Kauf von 3+ auf 2+, wie beabsichtigt.",
     line10: "🦾 Adeptus Custodes — ein Telemon Heavy Dreadnought konnte nur EINEN seiner beiden Arme gegen eine Fernkampfwaffe tauschen (GitHub #106), obwohl das eigene Datenblatt „swap EACH\" (jeden) Arm sagt. Behoben — jeder Arm tauscht jetzt unabhängig und kann zu einer anderen Waffe werden (z. B. Arachnus storm cannon am einen, Iliastus accelerator culverin am anderen).",
     line11: "⚔️ ALLGEMEIN — Armory-Gegenstände, die auf EINE gewählte Waffe wirken (Obsidian blade, Master-crafted weapon, Relic blade und ~30 weitere in jeder Fraktion), kosteten Punkte, aber die Waffe änderte sich nie. Behoben für jeden Gegenstand mit einem einzelnen, klar definierten Effekt.",
-    line12: "🎯 Der Rest dieses Fixes: die ~18 Relikte mit Wahl zwischen +Reichweite/+Stärke/-AP/+AT haben jetzt einen Picker für WELCHE, Horus Heresys „Crusade weapon\" wendet seine 5 Boni jetzt wirklich an, und Adeptus Custodes' Galatus Contemptor Dreadnought bekam denselben Pro-Arm-Tausch-Fix wie der Telemon oben. Noch offen: Eldars Exarch Powers hatten nirgends einen definierten Effekt — braucht erst den kanonischen Regeltext.",
-    line13: "",
+    line12: "🎯 Der Rest dieses Fixes: die ~18 Relikte mit Wahl zwischen +Reichweite/+Stärke/-AP/+AT haben jetzt einen Picker für WELCHE, Horus Heresys „Crusade weapon\" wendet seine 5 Boni jetzt wirklich an, und Adeptus Custodes' Galatus Contemptor Dreadnought bekam denselben Pro-Arm-Tausch-Fix wie der Telemon oben.",
+    line13: "🌌 Eldar — Exarch Powers (Bladestorm, Heartstrike, ...) tun jetzt tatsächlich etwas, egal ob über „Paragon of war\" oder das eigene Upgrade eines nativen Exarchen gewählt. Dabei auch einen verwandten Bug behoben: Paragon of war/of fate's eigener Stat-Bonus wurde bei Zähigkeit/Wunden/Attacken doppelt gezählt.",
+    line14: "🦂 Tyranids — wenn ein Hive Tyrant BEIDE Monstrous scything talons gegen Lash whip and bonesword tauschte, wurde die Waffe nur einmal statt „2x\" angezeigt (GitHub #107) — derselbe Namens-Bug betrifft auch Tyranid Warrior Brood/Tyrant Guard Brood. Behoben.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -68,8 +70,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line9: "🎯 Comprar \"Marksman honours\" o \"Swordsman honours\" en la Armory de un personaje empeoraba su Ballistic/Weapon Skill en vez de mejorarlo. Ambas stats se imprimen como un valor de salvación donde un número más bajo es mejor, y el bonus de +1 estaba guardado al revés. Arreglado — el BS de un Chaplain ahora pasa de 3+ a 2+ al comprarlo, como debe ser.",
     line10: "🦾 Adeptus Custodes — un Telemon Heavy Dreadnought solo podía cambiar UNO de sus dos brazos por un arma a distancia (GitHub #106), aunque su propia ficha dice \"swap EACH\" (cada) brazo. Arreglado — cada brazo se cambia ahora de forma independiente, y puede ir a un arma distinta (por ejemplo, Arachnus storm cannon en uno e Iliastus accelerator culverin en el otro).",
     line11: "⚔️ GENERAL — los ítems de Armory que se aplican a UN arma elegida (Obsidian blade, Master-crafted weapon, Relic blade y ~30 más en todas las facciones) cobraban los puntos pero el arma nunca cambiaba de verdad. Arreglado para todo ítem con un efecto único bien definido.",
-    line12: "🎯 El resto de ese arreglo: las ~18 reliquias que dejan elegir entre +Alcance/+Fuerza/-AP/+AT ya tienen un selector para decidir cuál, \"Crusade weapon\" de Horus Heresy ahora sí aplica sus 5 bonos, y el Galatus Contemptor Dreadnought de Adeptus Custodes recibió el mismo arreglo de cambio por brazo que el Telemon de arriba. Sigue pendiente: los Exarch Powers de Eldar resultaron no tener ningún efecto definido en ningún sitio — hace falta el texto de reglas canónico antes de tocar código.",
-    line13: "",
+    line12: "🎯 El resto de ese arreglo: las ~18 reliquias que dejan elegir entre +Alcance/+Fuerza/-AP/+AT ya tienen un selector para decidir cuál, \"Crusade weapon\" de Horus Heresy ahora sí aplica sus 5 bonos, y el Galatus Contemptor Dreadnought de Adeptus Custodes recibió el mismo arreglo de cambio por brazo que el Telemon de arriba.",
+    line13: "🌌 Eldar — los Exarch Powers (Bladestorm, Heartstrike, ...) ahora sí hacen algo, tanto elegidos vía \"Paragon of war\" como desde la mejora propia de un Exarch nativo. De paso se arregló un bug relacionado: el propio bono de stats de Paragon of war/of fate se contaba dos veces en Aguante/Heridas/Ataques.",
+    line14: "🦂 Tyranids — cambiar AMBAS Monstrous scything talons de un Hive Tyrant por Lash whip and bonesword mostraba el arma una sola vez en vez de \"2x\" (GitHub #107) — el mismo fallo de nombre también afecta a Tyranid Warrior Brood/Tyrant Guard Brood. Arreglado.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -148,11 +151,13 @@ function CommunityAnnouncement() {
           {/* v1.67 spans three calendar days (2026-08-27 through 2026-08-29) at Rigzar's explicit
               request ("menten mism avesion 1.67", reaffirmed "mantenemos version" on day 3) —
               normally a new day gets a fresh version cut, but this session kept appending instead.
-              line6-line12 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
-              Swordsman honours, Telemon Dreadnought arm swaps, chosen-weapon Armory grants, and
-              the enhancement-picker/Crusade weapon/Galatus follow-up) were added on days 2-3;
-              line13 stays empty (filtered out below) until something else lands. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13]
+              line6-line14 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
+              Swordsman honours, Telemon Dreadnought arm swaps, chosen-weapon Armory grants, the
+              enhancement-picker/Crusade weapon/Galatus follow-up, Eldar Exarch Powers, and the
+              Hive Tyrant "and"-named-weapon count bug) were added across days 2-3. A NEXT fix
+              under this same version needs a line15 added to AnnouncementLang and every language
+              block, not just appended text on line14. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

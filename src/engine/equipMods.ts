@@ -31,6 +31,20 @@ const EQUIP_STAT_MAP: [RegExp, string, number][] = [
   [/\+(\d+)\s+weapon\s+skill/i,    'WS', -1],
 ];
 
+/**
+ * NOTE: Eldar's "Paragon of war"/"Paragon of fate" have a shared-prefix stat grant ("+1 Strength,
+ * Toughness, Wounds and Attacks") that EQUIP_STAT_MAP's per-stat regexes can only catch the FIRST
+ * of. This is already handled WITHOUT a table here: both armory items carry their own
+ * `effect.stat_mod` in the production JSON (data/parsed/eldar/armory/general.json), which resolver.ts
+ * applies via the separate optionStatMods pipeline (item.armory loop → applyEffect(ai.effect)).
+ * A SHARED_PREFIX_STAT_ITEMS table used to live here to patch the same gap from this side — it
+ * double-applied T/W/A on top of that existing stat_mod (Autarch + Paragon of war + Heartstrike
+ * showed T5/W5/A6 instead of T4/W4/A5, S alone stayed correct at +1). Confirmed via a temporary
+ * debug log that equipMods.statDeltas itself was always {S:1,T:1,W:1,A:1} as intended — the extra
+ * +1 on T/W/A came from optionStatMods, not from here. Removed 2026-08-29; don't re-add without
+ * checking the item's own `effect.stat_mod` first.
+ */
+
 // Descriptions that indicate the bonus applies to OTHER units/a WEAPON, not the bearer's stat block.
 // "one weapon of the model gains" → bonus goes to a single weapon (e.g. Artifact of Gork ... or Mork),
 // not to the model's base stats.
@@ -312,11 +326,11 @@ export interface ChosenWeaponEffect {
 /** Horus Heresy "Crusade weapon" (ᵀ): the item's own desc names 5 mutually-exclusive named
  *  enhancements, each with its own effect stated in that same text — a fixed named-choice pool
  *  like Eldar's "Paragon of war" (see CRUSADE_WEAPON_ENHANCEMENTS/ELDAR_EXARCH_POWERS in
- *  ArmoryModal.tsx), but unlike Paragon of war's Exarch Powers (whose actual effects are defined
- *  per-Aspect-unit elsewhere and were never wired up anywhere, not even for a unit's own native
- *  purchase — a separate, much bigger, not-yet-researched gap, left alone here) every one of
- *  these 5 is fully self-contained in Crusade weapon's own description. Keyed by the CHOSEN
- *  enhancement name (`sel.chosenPower`), not the item name — the item itself is also in
+ *  ArmoryModal.tsx). Every one of these 5 is fully self-contained in Crusade weapon's own
+ *  description, unlike Paragon of war's Exarch Powers (see EXARCH_POWER_EFFECTS below — their
+ *  effects live in the Eldar .ods's own "EXARCH POWERS" armoury section, not in Paragon of war's
+ *  text, which just says "can choose a single Exarch power"). Keyed by the CHOSEN enhancement
+ *  name (`sel.chosenPower`), not the item name — the item itself is also in
  *  CHOSEN_WEAPON_GRANT_ITEMS-style lookup territory but needs its effect picked at purchase time. */
 export const CRUSADE_WEAPON_EFFECTS: Record<string, ChosenWeaponEffect> = {
   Chain: { abilities: ['Shred'] },
@@ -327,6 +341,95 @@ export const CRUSADE_WEAPON_EFFECTS: Record<string, ChosenWeaponEffect> = {
   'Nocturne masterwork': { abilities: ['Re-roll all hit rolls'] },
   Phoenix: { abilities: ['Armor piercing(5+)'] },
   Solarite: { solariteX2ToX3: true },
+};
+
+/**
+ * Eldar Exarch Powers, granted by "Paragon of war" (Armory) or natively by 10 Aspect Warrior
+ * units' own "The Exarch can gain one Exarch Power" option group. SOURCE: read directly from the
+ * canonical Eldar .ods's "Armory" sheet, rows 92-109 ("EXARCH POWERS" section) — these had NEVER
+ * been defined anywhere in the engine before, for ANY purchase path (confirmed by checking the 10
+ * native units' own option_groups: bare `{ name, points }` choices, no `effect` field at all) —
+ * not a targeting bug like the rest of this file, a genuinely unresearched rules area until now.
+ * Every power costs 5pts and is individually Unique (per the .ods's own "Every Exarch power is
+ * unique" note) — points/uniqueness are handled by the existing Armory purchase plumbing already,
+ * not modelled here.
+ * Three shapes:
+ *  - `unitAbility`: a plain named/procedural ability granted to the model (and often its unit),
+ *    not tied to any one weapon — shown as a granted ability, same treatment as e.g. Astartes
+ *    bionics' "Warded".
+ *  - `allWeapons`: "(Ranged|Melee) weapons of the model gain X" — a blanket grant across every
+ *    weapon of that type, reusing the SAME mechanism already wired for Armory items worded that
+ *    way (e.g. Plague ammunition), just triggered by the chosen power instead of item desc text.
+ *  - Six powers (Burning heat, Crack shot, Crushing blows, Defensive stance, Lightning attacks,
+ *    Surprise assault) are procedural/situational with no list-building stat to change (e.g.
+ *    "may re-roll one to wound roll in melee", "gets Seeking each round") — modelled as
+ *    `unitAbility` too (a descriptive reminder, matching how combat drugs' non-stat entries like
+ *    Hypex/Serpentin are shown: text only, no mechanical hook).
+ *  - Graceful avoidance ("4+ ward save against melee attacks") is genuinely conditional (melee
+ *    only) — deliberately NOT wired into the unconditional `invulnSave` field, which would grant
+ *    it against ranged attacks too; shown as descriptive text like the procedural six.
+ *  - Reaper's reach ("+6\" range... and its attached unit") only applies the model's OWN half —
+ *    extending it to the rest of the unit is out of scope here (no existing mechanism reaches
+ *    across models for a per-weapon numeric delta); noted in the known issue.
+ */
+export interface ExarchPowerEffect {
+  /** A granted ability shown on the model — a real named ability, OR a plain descriptive
+   *  reminder for a purely procedural/conditional power with nothing to persistently apply. */
+  unitAbility?: string;
+  /** "(Ranged|Melee) weapons of the model gain X" — applies to every weapon of that type. */
+  allWeapons?: {
+    type: 'melee' | 'ranged';
+    ability?: string;
+    rangeDelta?: number;
+    /** Dragon's bite: "+1 AT, cumulative" — incremented like Deadly-stacking, not a flat floor. */
+    atDelta?: number;
+    /** Heartstrike: Deadly(5+), or +1 level if the weapon already has Deadly. */
+    deadlyStack?: boolean;
+  };
+}
+export const EXARCH_POWER_EFFECTS: Record<string, ExarchPowerEffect> = {
+  // SOURCE: "The model and its unit trigger the 'Shuriken' special rule on each to wound roll."
+  Bladestorm: { unitAbility: 'Shuriken' },
+  // SOURCE: "Ranged weapons of the model gain an additional -1 AP against units in cover." —
+  // conditional (only vs. units in cover), so shown as text rather than a blanket AP delta that
+  // would apply even outside cover.
+  'Burning heat': { unitAbility: 'Ranged weapons gain -1 AP against units in cover' },
+  // SOURCE: "One ranged weapon of the model gets the 'Seeking' ability each round." — the
+  // player's own tactical pick each round, not a fixed weapon chosen at list-building time.
+  'Crack shot': { unitAbility: 'One ranged weapon gains Seeking each round (player\'s choice)' },
+  // SOURCE: "The model may re-roll one to wound or armor penetration roll in melee."
+  'Crushing blows': { unitAbility: 'Re-roll one to-wound/armor-penetration roll in melee' },
+  // SOURCE: "The model may use Defensive fire twice when getting charged."
+  'Defensive stance': { unitAbility: 'May use Defensive fire twice when charged' },
+  // SOURCE: "Ranged weapons of the model gain a cumulative AT(1)."
+  "Dragon's bite": { allWeapons: { type: 'ranged', atDelta: 1 } },
+  // SOURCE: "The model and its unit got a 4+ ward save against melee attacks." — conditional
+  // (melee only), so shown as text rather than the unconditional invulnSave field.
+  'Graceful avoidance': { unitAbility: '4+ ward save against melee attacks (model and unit)' },
+  // SOURCE: "Melee attacks of the model gain Deadly(5+). If the model already has the rule,
+  // increase Deadly(x+) by 1."
+  Heartstrike: { allWeapons: { type: 'melee', deadlyStack: true } },
+  // SOURCE: "The model and its unit may consolidate 6\" after winning a melee combat. If it
+  // consolidates into an enemy unit, that unit may not use Defensive Fire."
+  'Lightning attacks': { unitAbility: 'Consolidate 6" after winning melee; target loses Defensive Fire' },
+  // SOURCE: "Melee attacks of the model gain Armor piercing(5+)."
+  'Piercing strike': { allWeapons: { type: 'melee', ability: 'Armor piercing(5+)' } },
+  // SOURCE: "The model and its unit gain the 'Hit & Run' ability."
+  'Rapid redeployment': { unitAbility: 'Hit & Run' },
+  // SOURCE: "Ranged weapons of the model and its attached unit gain +6\" range." — only the
+  // model's own ranged weapons are modelled; the "and its attached unit" half has no existing
+  // mechanism to reach other models for a per-weapon numeric delta.
+  "Reaper's reach": { allWeapons: { type: 'ranged', rangeDelta: 6 } },
+  // SOURCE: "Melee attacks of the model gain Precision(5+)."
+  "Scorpion's sting": { allWeapons: { type: 'melee', ability: 'Precision(5+)' } },
+  // SOURCE: "All ranged weapons of the model gain Anti-Air."
+  Skyhunter: { allWeapons: { type: 'ranged', ability: 'Anti-Air' } },
+  // SOURCE: "The model and its unit gain the 'Objective secured!' ability."
+  'Stand firm': { unitAbility: 'Objective secured!' },
+  // SOURCE: "If the model used the 'Shunting' ability this round, it may shoot one additional
+  // time with each equipped Death spinner. If the model used the 'Sky dive' ability this round,
+  // it doubles their shots with a Hawk's talon or Lasblaster." — purely situational.
+  'Surprise assault': { unitAbility: 'Extra shots after Shunting (Death spinner) or Sky dive (Hawk\'s talon/Lasblaster)' },
 };
 
 /**

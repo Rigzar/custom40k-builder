@@ -4,7 +4,7 @@ import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS } from './equipMods';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
 import type { ChosenWeaponEffect } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
@@ -993,6 +993,40 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     equipMods.grantedAbilities.push(...dm.grantedAbilities);
   }
 
+  // Eldar Exarch Powers — see EXARCH_POWER_EFFECTS (equipMods.ts) for the canonical effect of
+  // each, sourced directly from the Eldar .ods's own "EXARCH POWERS" armoury section
+  // (ki-eldar-exarch-powers-no-effects-defined-01: these had no defined effect anywhere in the
+  // engine before, for ANY purchase path). See getActiveExarchPowers() for why two purchase paths
+  // both feed this one list.
+  const activeExarchPowers = getActiveExarchPowers(unit, item);
+  // Ability-text grants (unitAbility, and allWeapons' named ability/Deadly-stacking) are handled
+  // here via weaponTraitMap/grantedAbilities; the numeric rangeDelta half is applied separately in
+  // computeWeaponGroups via applyExarchAllWeaponsRangeBoost, same split as every other
+  // chosen-weapon effect in this file.
+  for (const powerName of activeExarchPowers) {
+    const ep = EXARCH_POWER_EFFECTS[powerName];
+    if (!ep) continue;
+    if (ep.unitAbility) equipMods.grantedAbilities.push(ep.unitAbility);
+    if (ep.allWeapons?.ability || ep.allWeapons?.deadlyStack || ep.allWeapons?.atDelta) {
+      for (const weapon of weapons) {
+        const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
+        const applies = (ep.allWeapons.type === 'melee' && isMelee) || (ep.allWeapons.type === 'ranged' && !isMelee);
+        if (!applies) continue;
+        const grants: string[] = [];
+        if (ep.allWeapons.ability) grants.push(ep.allWeapons.ability);
+        if (ep.allWeapons.deadlyStack) {
+          const currentDeadly = weapon.abilities?.match(/Deadly\((\d+)\+\)/i)?.[1];
+          grants.push(`Deadly(${currentDeadly ? parseInt(currentDeadly, 10) - 1 : 5}+)`);
+        }
+        if (ep.allWeapons.atDelta) {
+          const currentAt = weapon.abilities?.match(/AT\((\d+)\)/i)?.[1];
+          grants.push(`AT(${(currentAt ? parseInt(currentAt, 10) : 0) + ep.allWeapons.atDelta})`);
+        }
+        if (grants.length) weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), ...grants]);
+      }
+    }
+  }
+
   // Inject global trait weapon abilities into weaponTraitMap so the WeaponTable shows them
   // directly on each weapon row (e.g. Siege Experts → Sunder(1) on every ranged weapon).
   if (traitWeaponAbilities.length > 0) {
@@ -1623,7 +1657,17 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
         const choice = g.choices[parseInt(ci)];
         if (!choice) continue;
         const parts = choice.name.split(/\s*(?:&|\band\b)\s*/i).filter(Boolean);
-        for (const part of (parts.length > 1 ? parts : [choice.name])) {
+        // The FULL choice name must also be a candidate, same as the optionalWeapons visibility
+        // pass above (see its own comment) — a weapon whose OWN name contains "and" ("Lash whip
+        // and bonesword", "Shardnet and impaler") gets wrongly split into two non-existent halves
+        // ("Lash whip", "bonesword"), neither of which matches any real weapon row, so this loop
+        // never recorded a granted quantity for it at all. The weapon still SHOWED (the visibility
+        // pass already tries the full name), it just never got counted — a Hive Tyrant swapping
+        // BOTH Monstrous scything talons for Lash whip and bonesword showed the weapon once with
+        // no "2x", as if only one swap had happened (GitHub #107). A genuine combo choice
+        // ("Chainsword & Laspistol") has no single weapon row matching its own full name, so
+        // adding it as an extra candidate here is a harmless no-op for that case.
+        for (const part of (parts.length > 1 ? [choice.name, ...parts] : [choice.name])) {
           // A choice can print its OWN multiplier in the name ("2 Heavy flamers", "4 Heavy
           // bolters", "2 Lascannons and 2 Twin heavy bolter" split into two parts above) when one
           // purchase grants several copies at once — the common "sponson"/multi-gun-bank shape
@@ -1851,9 +1895,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])));
+    return applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]))));
   }
-  return applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)));
+  return applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty))));
 }
 
 /**
@@ -1992,6 +2036,54 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
       if (effect.solariteX2ToX3 && s === 'x2') s = 'x3';
     }
     return { ...w, s, ap, d, range };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
+/**
+ * Names of every Exarch Power currently active on this model, from BOTH purchase paths: Eldar
+ * "Paragon of war" (Armory, `chosenPower`) and the 10 Aspect Warrior units' own native "The
+ * Exarch can gain one Exarch Power" option group (Dire Avengers, Fire Dragons, Howling Banshees,
+ * Shadow Spectres, Striking Scorpions, Shining Spears, Swooping Hawks, Warp Spiders, Crimson
+ * Hunter, Dark Reapers). The native choices are bare {name, points} with no `effect` field, so
+ * the chosen choice's own NAME is the only signal; matching it against EXARCH_POWER_EFFECTS's
+ * keys is safe since no other option choice in the game happens to share one of these 16 names.
+ */
+function getActiveExarchPowers(unit: Unit, item: RosterEntry): string[] {
+  const powers: string[] = [];
+  for (const sel of item.armory) {
+    if (sel.itemName === 'Paragon of war' && sel.chosenPower) powers.push(sel.chosenPower);
+  }
+  for (const [gi, ch] of Object.entries(item.optionQty ?? {})) {
+    const g = unit.option_groups[Number(gi)];
+    if (!g) continue;
+    for (const [ci, qty] of Object.entries(ch)) {
+      if (ci === '__inline' || !qty) continue;
+      const choiceName = g.choices[parseInt(ci)]?.name;
+      if (choiceName && EXARCH_POWER_EFFECTS[choiceName]) powers.push(choiceName);
+    }
+  }
+  return powers;
+}
+
+/**
+ * Eldar Exarch Power "Reaper's reach": "+6\" range" to every ranged weapon of the model — the
+ * only Exarch Power with a numeric (non-ability-text) blanket effect, see EXARCH_POWER_EFFECTS.
+ * A separate small function rather than folding into applyChosenWeaponStatBoosts because that one
+ * is keyed by a player-CHOSEN single `targetWeapon`; this applies to every ranged weapon at once,
+ * with no weapon-target picker involved at all (neither purchase path needs one — Exarch Powers
+ * grant to the model, not to a per-weapon bonus).
+ */
+function applyExarchAllWeaponsRangeBoost(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const activePowers = getActiveExarchPowers(unit, item);
+  const delta = activePowers.reduce((sum, p) => sum + (EXARCH_POWER_EFFECTS[p]?.allWeapons?.rangeDelta ?? 0), 0);
+  if (!delta) return groups;
+  const boost = (w: Weapon): Weapon => {
+    const isMelee = w.range === '-' || /^melee/i.test(w.type ?? '');
+    if (isMelee) return w;
+    const m = w.range.match(/^(\d+)"$/);
+    if (!m) return w;
+    return { ...w, range: `${parseInt(m[1], 10) + delta}"` };
   };
   return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }
