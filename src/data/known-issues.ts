@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-marksman-swordsman-honours-inverted-bs-ws-delta-01",
+    status: "fixed",
+    title: "\"Marksman honours\" and \"Swordsman honours\" made a character's Ballistic/Weapon Skill WORSE instead of better",
+    description: "FIXED 2026-08-29, reported on Discord (Stu: \"is marksman honors supposed to increase the Ballistics skill? ... Should do, yeah\"; Woods: \"it just doesn't change the skill value\" — actually observed on a stale cached build; a fresh build showed it moving in the wrong direction). CAUSE: BS and WS print as a save-style \"X+\" value in this system (same as SV/armor save), where a LOWER printed number is better — the game's own convention, already followed everywhere else a stat bonus is stored (e.g. `stat_mod: [{ stat: 'SV', delta: -1 }]` on 33 sources including Tyranid Hardened Carapace: a real improvement is stored as a NEGATIVE delta, because `applyDelta()` in UnitCard/PrintView adds the delta directly to the printed number for any \"X+\"-format stat). `equipMods.ts`'s `EQUIP_STAT_MAP` regex table parses an item's own description text (\"The model gains +1 Ballistic skill.\") and, for every OTHER stat it handles (T/A/S/W/M/I/LD), those print as plain numbers where higher-is-better, so storing the parsed \"+1\" literally is correct for them — but the two entries added for Marksman/Swordsman honours (BS/WS) copied that same pattern without accounting for the inverted X+ convention, so \"+1 Ballistic Skill\" (an improvement) was stored as delta +1 and landed on the printed number as 3+ → 4+, a WORSE skill. FIX: `EQUIP_STAT_MAP` entries now each carry a sign multiplier (1 for the plain-number stats, -1 for BS/WS), applied when the parsed value is added to `statDeltas`. Verified live: a Chaplain (base BS 3+) buying Marksman honours now shows 2+ instead of 4+.",
+  },
+  {
     id: "ki-sponson-weapon-choice-count-not-multiplied-01",
     status: "fixed",
     title: "A Predator's sponson option (\"2 Heavy flamers\", etc) always granted only 1x of the weapon instead of the 2x its own name states",

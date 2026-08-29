@@ -10,18 +10,25 @@ export interface EquipMods {
   grantedAbilities: string[];
 }
 
-const EQUIP_STAT_MAP: [RegExp, string][] = [
-  [/\+(\d+)\s+toughness/i,       'T'],
-  [/\+(\d+)\s+attacks?/i,        'A'],
-  [/\+(\d+)\s+strength/i,        'S'],
-  [/\+(\d+)\s+wounds?/i,         'W'],
-  [/\+(\d+)"\s+movement/i,       'M'],
-  [/\+(\d+)\s+initiative/i,      'I'],
-  [/\+(\d+)\s+leadership/i,      'LD'],
+// Third element is the sign to apply to the parsed "+N" value once it reaches statDeltas.
+// Most stats here (T/A/S/W/M/I/LD) print as a plain number where a higher value is better, so
+// "+1 Strength" is stored as delta +1 and applyDelta() in UnitCard/PrintView adds it directly.
+// BS and WS print as a save-style "X+" value where a LOWER printed number is better (same
+// convention as SV — see the "stat_mod deltas are already stored in save-number space" comment
+// on applyDelta()), so "+1 Ballistic skill" (an improvement) must be stored as delta -1 or it
+// reads as +1 to the PRINTED number, i.e. a worse BS, not a better one.
+const EQUIP_STAT_MAP: [RegExp, string, number][] = [
+  [/\+(\d+)\s+toughness/i,       'T',  1],
+  [/\+(\d+)\s+attacks?/i,        'A',  1],
+  [/\+(\d+)\s+strength/i,        'S',  1],
+  [/\+(\d+)\s+wounds?/i,         'W',  1],
+  [/\+(\d+)"\s+movement/i,       'M',  1],
+  [/\+(\d+)\s+initiative/i,      'I',  1],
+  [/\+(\d+)\s+leadership/i,      'LD', 1],
   // SOURCE: Marksman honours "The model gains +1 Ballistic skill."
-  [/\+(\d+)\s+ballistic\s+skill/i, 'BS'],
+  [/\+(\d+)\s+ballistic\s+skill/i, 'BS', -1],
   // SOURCE: Swordsman honours "The model gains +1 Weapon skill."
-  [/\+(\d+)\s+weapon\s+skill/i,    'WS'],
+  [/\+(\d+)\s+weapon\s+skill/i,    'WS', -1],
 ];
 
 // Descriptions that indicate the bonus applies to OTHER units/a WEAPON, not the bearer's stat block.
@@ -104,9 +111,9 @@ export function parseEquipMods(
     // Only apply stat deltas when the bonus clearly applies to the bearer, not an aura for other units
     if (!isArmourSwap && !AURA_PHRASES.test(desc)) {
       // Positive stat deltas: "gains +N Stat"
-      for (const [re, key] of EQUIP_STAT_MAP) {
+      for (const [re, key, sign] of EQUIP_STAT_MAP) {
         const m = desc.match(re);
-        if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]);
+        if (m) mods.statDeltas[key] = (mods.statDeltas[key] ?? 0) + parseInt(m[1]) * sign;
       }
       // SET stat: "improves its X value to Y" / "improves its X to Y" (e.g. Living vehicle "WS to 4+")
       // Applied only when the new value is better (lower number for saves/skills).
