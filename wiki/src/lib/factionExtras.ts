@@ -259,10 +259,16 @@ const LOADERS: Record<string, () => Promise<FactionExtras>> = {
     const [g, arch, leg, discs] = await Promise.all([
       import('../vendor/data/parsed/tyranids/armory/general.json') as unknown as Promise<Mod<Armory>>,
       import('../vendor/data/parsed/tyranids/archetypes.json') as unknown as Promise<Mod<ArchData>>,
-      import('../vendor/data/parsed/tyranids/armory/legion_hive_fleet.json') as unknown as Promise<Mod<Armory>>,
+      // legion_hive_fleet.json is a MAP of 5 named Hive Fleet armories (same shape as CSM's
+      // armory_legions), not a single Armory — wrapping it as { 'Hive Fleet': d(leg) } produced
+      // one armoryFaction entry whose "armory" was the whole 5-key map, with no .weapons/.equipment
+      // of its own. The Armory page reads armory.weapons.length unconditionally, so it crashed the
+      // whole wiki build on /factions/tyranids/armory ("Cannot read properties of undefined
+      // (reading 'length')") — found while investigating a Vercel deploy failure Rigzar reported.
+      import('../vendor/data/parsed/tyranids/armory/legion_hive_fleet.json') as unknown as Promise<Mod<Record<string, Armory>>>,
       import('../vendor/data/parsed/tyranids/psychic/disciplines.json') as unknown as Promise<Mod<Record<string, Power[]>>>,
     ]);
-    return assemble(d(g), d(arch), { 'Hive Fleet': d(leg) }, d(discs));
+    return assemble(d(g), d(arch), d(leg), d(discs));
   },
   horus_heresy: async () => {
     const mod = await import('../vendor/data/parsed/_supplements/horus_heresy.json');
