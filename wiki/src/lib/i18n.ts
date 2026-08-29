@@ -55,6 +55,9 @@ export const WIKI_STRINGS = {
   headingAbilities: 'Abilities',
   headingPsychicPowers: 'Psychic Powers',
   colPower: 'Power', colTarget: 'Target', colCast: 'Cast',
+  // datasheet-embedded fixed power (e.g. Grey Knights Dreadnought's "Fortitude", Eldar
+  // Spiritseer's "Craftsong") — printed on the unit's own sheet, not part of a discipline list
+  alwaysKnownBadge: 'Always Known', castLabel: 'Cast:',
   // missions
   missionsEngagementTypes: 'Engagement Types',
   missionsScoring: 'Scoring',

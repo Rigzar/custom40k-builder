@@ -136,6 +136,27 @@ const costLabel = unit.models.length === 1
     </section>
   )}
 
+  <!-- Datasheet-embedded fixed power (Fortitude, Craftsong, …) — printed directly on the
+       unit's own sheet, not chosen from a discipline. Rendering nothing here (as the wiki
+       always did before) reproduced the exact app bug fixed in v1.65: the power was named
+       in the Psyker ability text but had no stat block anywhere to actually look it up. -->
+  {unit.fixed_power && (
+    <section class="reveal">
+      <div class="fixed-power-card">
+        <div class="fixed-power-head">
+          <span class="fp-badge">{wt('alwaysKnownBadge')}</span>
+          <span class="fp-name">{unit.fixed_power.name}</span>
+        </div>
+        <div class="fp-line">
+          {wt('castLabel')} {unit.fixed_power.cast_value ?? '-'}
+          {unit.fixed_power.range && unit.fixed_power.range !== '-' ? ` · ${unit.fixed_power.range}` : ''}
+          {unit.fixed_power.duration ? ` · ${unit.fixed_power.duration}` : ''}
+          {unit.fixed_power.effect ? ` — ${unit.fixed_power.effect}` : ''}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- Abilities -->
   {unit.abilities.length > 0 && (
     <section class="reveal">
@@ -146,6 +167,23 @@ const costLabel = unit.models.length === 1
 </Layout>
 
 <style>
+  /* ── Fixed power (Fortitude, Craftsong, …) ────── */
+  .fixed-power-card {
+    padding: 0.6rem 0.8rem;
+    background: rgba(180, 130, 20, 0.1);
+    border: 1px solid rgba(180, 130, 20, 0.45);
+    border-radius: 3px;
+  }
+  .fixed-power-head { display: flex; align-items: center; gap: 0.5rem; }
+  .fp-badge {
+    font-family: var(--font-ui, sans-serif); font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold;
+    padding: 0.1rem 0.4rem; border-radius: 2px;
+    background: rgba(180, 130, 20, 0.8); color: #2a2005;
+  }
+  .fp-name { font-weight: 600; }
+  .fp-line { font-size: 0.8rem; opacity: 0.75; margin-top: 0.25rem; }
+
   /* ── Header ─────────────────────────────────── */
   .unit-header {
     margin-bottom: 1.4rem;
