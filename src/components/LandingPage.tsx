@@ -29,7 +29,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🔫 Space Marines — a Predator's sponson option (\"2 Heavy flamers\", etc) always granted only 1x of the weapon instead of the 2x its own name states (GitHub #105). Fixed the underlying matching — also fixes the identical shape on ~40 other datasheets across nearly every faction that use the same \"count baked into the choice name\" pattern.",
     line9: "🎯 Buying \"Marksman honours\" or \"Swordsman honours\" from a character's Armory made their Ballistic/Weapon Skill WORSE instead of better. Both stats print as a save-style value where a lower number is better, and the +1 bonus was stored the wrong way round. Fixed — a Chaplain's BS now goes from 3+ to 2+ after buying it, as intended.",
     line10: "🦾 Adeptus Custodes — a Telemon Heavy Dreadnought could only swap ONE of its two arms for a ranged weapon (GitHub #106), even though its own datasheet says \"swap EACH\" arm. Fixed — each arm now swaps independently, and can go to a different weapon (e.g. Arachnus storm cannon on one, Iliastus accelerator culverin on the other).",
-    line11: "",
+    line11: "⚔️ GENERAL — Armory items that apply to ONE weapon you pick (Obsidian blade, Master-crafted weapon, Relic blade, and ~30 more across every faction) took your points but the weapon never actually changed. Fixed for every item with a single well-defined effect. Still open: ~18 relic items that let you choose between +Range/+Strength/-AP/+AT have no picker yet for WHICH one.",
     line12: "",
     line13: "",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
@@ -48,7 +48,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🔫 Space Marines — die Sponson-Option eines Predators („2 Heavy flamers\" usw.) gewährte immer nur 1x der Waffe statt der 2x, die ihr eigener Name angibt (GitHub #105). Der zugrunde liegende Abgleich ist behoben — behebt auch dieselbe Form bei ~40 weiteren Datenblättern in fast jeder Fraktion mit demselben „Anzahl steckt im Auswahlnamen\"-Muster.",
     line9: "🎯 Der Kauf von „Marksman honours\" oder „Swordsman honours\" aus der Armory eines Charakters verschlechterte dessen Ballistic/Weapon Skill statt sie zu verbessern. Beide Werte werden wie ein Rettungswurf gedruckt, bei dem eine niedrigere Zahl besser ist, und der +1-Bonus war falsch herum gespeichert. Behoben — der BS eines Chaplains geht jetzt beim Kauf von 3+ auf 2+, wie beabsichtigt.",
     line10: "🦾 Adeptus Custodes — ein Telemon Heavy Dreadnought konnte nur EINEN seiner beiden Arme gegen eine Fernkampfwaffe tauschen (GitHub #106), obwohl das eigene Datenblatt „swap EACH\" (jeden) Arm sagt. Behoben — jeder Arm tauscht jetzt unabhängig und kann zu einer anderen Waffe werden (z. B. Arachnus storm cannon am einen, Iliastus accelerator culverin am anderen).",
-    line11: "",
+    line11: "⚔️ ALLGEMEIN — Armory-Gegenstände, die auf EINE gewählte Waffe wirken (Obsidian blade, Master-crafted weapon, Relic blade und ~30 weitere in jeder Fraktion), kosteten Punkte, aber die Waffe änderte sich nie. Behoben für jeden Gegenstand mit einem einzelnen, klar definierten Effekt. Noch offen: ~18 Relikte mit Wahl zwischen +Reichweite/+Stärke/-AP/+AT haben noch keinen Auswahl-Picker.",
     line12: "",
     line13: "",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
@@ -67,7 +67,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🔫 Space Marines — la opción de sponson de un Predator (\"2 Heavy flamers\", etc) siempre daba solo 1x del arma en vez de las 2x que su propio nombre indica (GitHub #105). Arreglada la comparación de fondo — también arregla la misma forma en ~40 fichas más en casi todas las facciones que usan el mismo patrón de \"cantidad metida en el nombre de la opción\".",
     line9: "🎯 Comprar \"Marksman honours\" o \"Swordsman honours\" en la Armory de un personaje empeoraba su Ballistic/Weapon Skill en vez de mejorarlo. Ambas stats se imprimen como un valor de salvación donde un número más bajo es mejor, y el bonus de +1 estaba guardado al revés. Arreglado — el BS de un Chaplain ahora pasa de 3+ a 2+ al comprarlo, como debe ser.",
     line10: "🦾 Adeptus Custodes — un Telemon Heavy Dreadnought solo podía cambiar UNO de sus dos brazos por un arma a distancia (GitHub #106), aunque su propia ficha dice \"swap EACH\" (cada) brazo. Arreglado — cada brazo se cambia ahora de forma independiente, y puede ir a un arma distinta (por ejemplo, Arachnus storm cannon en uno e Iliastus accelerator culverin en el otro).",
-    line11: "",
+    line11: "⚔️ GENERAL — los ítems de Armory que se aplican a UN arma elegida (Obsidian blade, Master-crafted weapon, Relic blade y ~30 más en todas las facciones) cobraban los puntos pero el arma nunca cambiaba de verdad. Arreglado para todo ítem con un efecto único bien definido. Sigue pendiente: ~18 reliquias que dejan elegir entre +Alcance/+Fuerza/-AP/+AT todavía no tienen selector para decidir cuál.",
     line12: "",
     line13: "",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
@@ -148,9 +148,10 @@ function CommunityAnnouncement() {
           {/* v1.67 spans three calendar days (2026-08-27 through 2026-08-29) at Rigzar's explicit
               request ("menten mism avesion 1.67", reaffirmed "mantenemos version" on day 3) —
               normally a new day gets a fresh version cut, but this session kept appending instead.
-              line6-line10 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
-              Swordsman honours, Telemon Dreadnought arm swaps) were added on days 2-3;
-              line11-line13 stay empty (filtered out below) until something else lands. */}
+              line6-line11 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
+              Swordsman honours, Telemon Dreadnought arm swaps, chosen-weapon Armory grants) were
+              added on days 2-3; line12-line13 stay empty (filtered out below) until something
+              else lands. */}
           {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}

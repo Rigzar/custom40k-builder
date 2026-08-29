@@ -4,7 +4,7 @@ import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel } from './equipMods';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
 import { effectiveSubfactions, traitRequiredSubfaction } from './codex_dark_eldar/subfaction';
@@ -1042,6 +1042,43 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     }
   }
 
+  // Armory equipment items whose effect applies to a SINGLE weapon the player chose in the
+  // Armory's own "Apply to" picker (Obsidian blade, Master-crafted weapon, Relic blade,
+  // Foe-smiter, ...) — Discord (Rigzar): bought Obsidian blade, targeted a weapon, paid the
+  // points — Deadly(5+) never showed up anywhere. CAUSE: `sel.targetWeapon` was stored by the
+  // UI but never read by anything outside the daemon_weapons section below — every one of these
+  // ~35 items across every faction was silently a no-op past the points charge. Numeric stat
+  // deltas (dDelta/sDelta/apDelta) are applied separately in computeWeaponGroups via
+  // applyChosenWeaponStatBoosts; this loop only handles the ability-text half.
+  for (const sel of item.armory) {
+    if (sel.section !== 'equipment' || !sel.targetWeapon) continue;
+    const armItem = findArmoryItem(data, sel);
+    // ~18 items ("gains one of the following: +6\" Range / +1 Strength / -1 AP / +1 AT") need a
+    // SECOND picker (which enhancement) that doesn't exist yet — a bigger, separate gap. Left
+    // alone here rather than guessing which of the 4 the player meant.
+    if (!armItem?.desc || isEnumerableWeaponChoice(armItem.desc)) continue;
+    const fixed = CHOSEN_WEAPON_GRANT_ITEMS[sel.itemName];
+    let abilities: string[] = fixed?.abilities ? [...fixed.abilities] : [];
+    if (!fixed && requiresWeaponTarget(armItem.desc)) {
+      // No hardcoded entry — fall back to generic quoted-ability extraction (Foe-smiter
+      // "Shred", Banebolts "Deadly(5+)", Spirit-Sting/Soul-Seeker/Stormshroud/Noctilith weapon
+      // "Soul burn(5+)", Angelsteel weapon "Life curse", Space Marines' own quoted Master-crafted
+      // weapon — every one of these already names its ability in quotes).
+      abilities = extractWeaponGains(armItem.desc);
+    }
+    if (fixed?.deadlyStack) {
+      // SOURCE: "If the weapon already has the rule, increase Deadly(x+) by 1." — a step-up from
+      // whatever the weapon already has, not "grant 5+ and keep the better of the two".
+      const targetW = weapons.find(w => w.name === sel.targetWeapon);
+      const currentDeadly = targetW?.abilities?.match(/Deadly\((\d+)\+\)/i)?.[1];
+      abilities.push(`Deadly(${currentDeadly ? parseInt(currentDeadly, 10) - 1 : 5}+)`);
+    }
+    if (abilities.length === 0) continue;
+    const isCharacterScoped = (armItem.p_char != null && armItem.p_unit == null) || championOnlyArmory;
+    const target = (isCharacterScoped && hasCharacterScopedBuyer) ? championWeaponTraitMap : weaponTraitMap;
+    target.set(sel.targetWeapon, [...(target.get(sel.targetWeapon) ?? []), ...abilities]);
+  }
+
   const blackCrusadeChampion = !!(item.blackCrusadeHQ);
 
   // Collect abilities from selected choices that have their own abilities array
@@ -1790,9 +1827,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]));
+    return applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])));
   }
-  return applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty));
+  return applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)));
 }
 
 /**
@@ -1876,6 +1913,36 @@ function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGro
     const s = /^\d+$/.test(w.s) ? String(parseInt(w.s, 10) + match.sDelta) : w.s;
     const ap = /^-?\d+$/.test(w.ap) ? String(parseInt(w.ap, 10) + match.apDelta) : w.ap;
     return { ...w, s, ap };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
+/**
+ * Numeric stat deltas (Strength/AP/Damage) from a chosen-weapon Armory item — Relic blade, Holy
+ * weapon, Cursed blade (+1 Damage), Maelstrom/Reaver Weapon (+1 Strength), and the numeric half
+ * of Fire blade (-2 AP) and Sorrow blade (+1 Strength). See CHOSEN_WEAPON_GRANT_ITEMS for the
+ * full table. The ABILITY-text half of these same items (and the rest of the table) is applied
+ * earlier via weaponTraitMap in resolveUnitProfile — this only handles a weapon's own S/AP/D
+ * columns, which that map can't carry. Mirrors applyNamedWeaponBoosts's shape, driven by the
+ * player's own chosen `targetWeapon` instead of a single hardcoded weapon name.
+ */
+function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const boosts = item.armory
+    .filter(a => a.section === 'equipment' && a.targetWeapon)
+    .map(a => CHOSEN_WEAPON_GRANT_ITEMS[a.itemName] && { targetWeapon: a.targetWeapon!, effect: CHOSEN_WEAPON_GRANT_ITEMS[a.itemName] })
+    .filter((b): b is { targetWeapon: string; effect: NonNullable<typeof CHOSEN_WEAPON_GRANT_ITEMS[string]> } =>
+      !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta));
+  if (!boosts.length) return groups;
+  const boost = (w: Weapon): Weapon => {
+    const matches = boosts.filter(b => b.targetWeapon === w.name);
+    if (!matches.length) return w;
+    let s = w.s, ap = w.ap, d = w.d;
+    for (const { effect } of matches) {
+      if (effect.sDelta && /^\d+$/.test(s)) s = String(parseInt(s, 10) + effect.sDelta);
+      if (effect.apDelta && /^-?\d+$/.test(ap)) ap = String(parseInt(ap, 10) + effect.apDelta);
+      if (effect.dDelta && /^\d+$/.test(d)) d = String(parseInt(d, 10) + effect.dDelta);
+    }
+    return { ...w, s, ap, d };
   };
   return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }

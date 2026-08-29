@@ -245,6 +245,73 @@ export function requiresWeaponTarget(desc: string | undefined): boolean {
   return /\bone (?:melee |ranged )?weapon of the model gains|on one of its weapons|purchased for each weapon/i.test(desc ?? '');
 }
 
+/** Whether a weapon-target item's benefit is a PICK from an enumerated list ("gains one of the
+ *  following: Additional +6" Range / +1 Strength / -1 AP / +1 AT") rather than a fixed effect.
+ *  ~18 items across nearly every faction (Relic of the Chapter, Chaos artefact/artifact, Regimental
+ *  relic/artefact, Vault weapon, Sacred weapon, Cult relic, Shrine relic, Ancestor relic, Tomb
+ *  world relic, Relic of the Ordo, Relic of the Black Library, Artifact of Gork...Mork, Prototype
+ *  system, Relic of the Forgeworld, Relic of the order, Artefact of Commoragh, Heavenfall blade)
+ *  need a SECOND picker (which enhancement) that doesn't exist yet — a bigger, separate gap from
+ *  the "targetWeapon was never read" bug (see CHOSEN_WEAPON_GRANT_ITEMS). Not fixed here. */
+export function isEnumerableWeaponChoice(desc: string | undefined): boolean {
+  return /gains one of the following/i.test(desc ?? '');
+}
+
+export interface ChosenWeaponEffect {
+  /** Ability text to add to the chosen weapon (e.g. "Master-crafted", "Suppression"). */
+  abilities?: string[];
+  sDelta?: number;
+  apDelta?: number;
+  dDelta?: number;
+  /** Obsidian blade / Cegorach's Rose: grant Deadly(5+), or improve the weapon's EXISTING
+   *  Deadly(x+) by one level if it already has the rule (SOURCE: "If the weapon already has
+   *  the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+)."). This is
+   *  a step-up from whatever the weapon already has, not "grant 5+ and keep the better of the
+   *  two" (mergeWeaponAbilities' normal Deadly handling) — a weapon starting at Deadly(4+)
+   *  must become Deadly(3+), not stay at 4+. */
+  deadlyStack?: boolean;
+}
+
+/**
+ * Named armory items that grant a FIXED (non-enumerable) effect to a chosen weapon: a numeric
+ * stat delta, the Deadly-stacking rule, or an ability whose name isn't quoted in its own desc
+ * text (so the generic quoted-name extraction can't find it — see extractWeaponGains). Kept as
+ * an explicit table, the same pattern resolver.ts already uses for this class of problem
+ * (NAMED_WEAPON_BOOST_ITEMS, RANGED_STRENGTH_BOOST_ITEMS) — each of these 16 items reads its own
+ * desc text differently enough that one shared parser would be more fragile than listing them.
+ * SOURCE bug (Discord, Rigzar): bought Obsidian blade, targeted a weapon in the Armory's own
+ * "Apply to" picker, paid the points — no Deadly(5+) ever appeared anywhere on the weapon. Root
+ * cause: the whole "apply this item's effect to the chosen weapon" step was wired on the UI side
+ * (the dropdown, the stored targetWeapon) but the resolver never consumed it for anything outside
+ * the daemon_weapons section (see the chosen-weapon-grant pass in resolver.ts) — every item below
+ * was silently a no-op past the points charge, in every faction that has one.
+ * Verified every key here against production data by exact string equality — several carry
+ * combining/superscript glyphs (ᴵ, ᴱ, ʸ, the curly apostrophe in "Cegorach's Rose") that a
+ * retyped-by-hand string would be one keystroke away from silently failing to match.
+ */
+export const CHOSEN_WEAPON_GRANT_ITEMS: Record<string, ChosenWeaponEffect> = {
+  // Generic "may re-roll one to-hit roll per activation, purchased for each weapon separately"
+  // reroll items across the factions that describe it in plain prose rather than quoting the
+  // ability name — Space Marines' own entry already reads `gains the ability "Master-crafted"`
+  // and is picked up by the generic quoted path instead, not listed here.
+  'Master-crafted weapon': { abilities: ['Master-crafted'] },
+  'Master-crafted weaponᴵ': { abilities: ['Master-crafted'] },
+  'Forgewrought weaponᴱ': { abilities: ['Master-crafted'] },
+  'Obsidian blade': { deadlyStack: true },
+  'Cegorach’s Rose': { deadlyStack: true },
+  'Darkstar alloyᴱ': { abilities: ['Deadly(5+)'] },
+  'Quake Multigeneratorᴱ': { abilities: ['Suppression'] },
+  'Relic blade': { dDelta: 1 },
+  'Holy weapon': { dDelta: 1 },
+  'Cursed blade': { dDelta: 1 },
+  'Maelstrom Weapon': { sDelta: 1 },
+  'Reaver Weapon': { sDelta: 1 },
+  'Fire blade': { abilities: ['Precision(5+)'], apDelta: -2 },
+  'Hungering bladeʸ': { abilities: ['Flurry(4)'] },
+  'Silent bladeʸ': { abilities: ['Shield breaker(-2)'] },
+  'Sorrow bladeʸ': { abilities: ['Decimate'], sDelta: 1 },
+};
+
 /** Whether an equipment item explicitly allows multiple copies per unit.
  *  SOURCE patterns (Armory.html):
  *   "Can be taken multiple times."                        → Chaos artifact, Psychic training
