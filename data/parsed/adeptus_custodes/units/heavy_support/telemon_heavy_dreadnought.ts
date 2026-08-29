@@ -92,7 +92,7 @@ export const telemonHeavyDreadnought: Unit = {
     {
       "header": "Can swap each Telemon caestus with Twin plasma projector",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {

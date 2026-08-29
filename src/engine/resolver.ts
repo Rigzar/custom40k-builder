@@ -567,10 +567,25 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
           // vanished from the profile (GH#86). Kept separate from `singleCopySwap` because the
           // wordings mean different things — "each" is every copy individually, "one" is one of
           // them — but they need the same threshold.
-          const esc = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const perCopySwap = new RegExp(`\\beach\\s+${esc}`, 'i').test(g.header ?? '');
-          if (copies > 1 && ((replaceGroupCountByName.get(name) ?? 0) >= copies || singleCopySwap || perCopySwap)) {
-            replacedWeaponThreshold.set(name, item.size * copies);
+          // Checked at the GROUP level (any name in `replaces`, not just this one) because a
+          // combo swap like "swap each Telemon caestus with Twin plasma projector" replaces a
+          // WHOLE PAIR per action — "each" only sits next to the first name, "Twin plasma
+          // projector" has no "2 Twin plasma projector" text of its own to parse a copy count
+          // from (it's only implied by trailing "with Twin plasma projector" after "2 Telemon
+          // caestus"). Evaluating each name in isolation left the paired weapon on the default
+          // item.size threshold, hiding it after only ONE arm swap instead of two (GitHub #106)
+          // — UnitCard's own `_perCopyHeader`/`_headerCopies` already work this way for the same
+          // reason, this mirrors it so the hide-threshold agrees with what the UI actually let
+          // the player pick.
+          const perCopySwap = (g.replaces ?? []).some(n => {
+            const esc = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            return new RegExp(`\\beach\\s+${esc}`, 'i').test(g.header ?? '');
+          });
+          const groupCopies = perCopySwap
+            ? Math.max(...(g.replaces ?? []).map(n => weaponCopiesPerModel(unit.equipped_with, n)))
+            : copies;
+          if (groupCopies > 1 && ((replaceGroupCountByName.get(name) ?? 0) >= groupCopies || singleCopySwap || perCopySwap)) {
+            replacedWeaponThreshold.set(name, item.size * groupCopies);
           }
         }
       }

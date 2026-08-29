@@ -28,7 +28,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "📋 Inquisition — Henchman Warband's Abilities list showed all 17 possible specialists' rule text regardless of which ones were actually in the unit. Fixed — a specialist's own ability line now only shows while that specialist is present; a 2-Acolyte-1-Penitent Warband goes from 24 abilities shown down to 5.",
     line8: "🔫 Space Marines — a Predator's sponson option (\"2 Heavy flamers\", etc) always granted only 1x of the weapon instead of the 2x its own name states (GitHub #105). Fixed the underlying matching — also fixes the identical shape on ~40 other datasheets across nearly every faction that use the same \"count baked into the choice name\" pattern.",
     line9: "🎯 Buying \"Marksman honours\" or \"Swordsman honours\" from a character's Armory made their Ballistic/Weapon Skill WORSE instead of better. Both stats print as a save-style value where a lower number is better, and the +1 bonus was stored the wrong way round. Fixed — a Chaplain's BS now goes from 3+ to 2+ after buying it, as intended.",
-    line10: "",
+    line10: "🦾 Adeptus Custodes — a Telemon Heavy Dreadnought could only swap ONE of its two arms for a ranged weapon (GitHub #106), even though its own datasheet says \"swap EACH\" arm. Fixed — each arm now swaps independently, and can go to a different weapon (e.g. Arachnus storm cannon on one, Iliastus accelerator culverin on the other).",
     line11: "",
     line12: "",
     line13: "",
@@ -47,7 +47,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "📋 Inquisition — die Abilities-Liste des Henchman Warband zeigte den Regeltext aller 17 möglichen Spezialisten, egal welche wirklich in der Einheit waren. Behoben — die eigene Fähigkeitszeile eines Spezialisten erscheint jetzt nur, solange er tatsächlich vorhanden ist; ein Warband mit 2 Akolythen + 1 Büßer geht von 24 gezeigten Fähigkeiten auf 5.",
     line8: "🔫 Space Marines — die Sponson-Option eines Predators („2 Heavy flamers\" usw.) gewährte immer nur 1x der Waffe statt der 2x, die ihr eigener Name angibt (GitHub #105). Der zugrunde liegende Abgleich ist behoben — behebt auch dieselbe Form bei ~40 weiteren Datenblättern in fast jeder Fraktion mit demselben „Anzahl steckt im Auswahlnamen\"-Muster.",
     line9: "🎯 Der Kauf von „Marksman honours\" oder „Swordsman honours\" aus der Armory eines Charakters verschlechterte dessen Ballistic/Weapon Skill statt sie zu verbessern. Beide Werte werden wie ein Rettungswurf gedruckt, bei dem eine niedrigere Zahl besser ist, und der +1-Bonus war falsch herum gespeichert. Behoben — der BS eines Chaplains geht jetzt beim Kauf von 3+ auf 2+, wie beabsichtigt.",
-    line10: "",
+    line10: "🦾 Adeptus Custodes — ein Telemon Heavy Dreadnought konnte nur EINEN seiner beiden Arme gegen eine Fernkampfwaffe tauschen (GitHub #106), obwohl das eigene Datenblatt „swap EACH\" (jeden) Arm sagt. Behoben — jeder Arm tauscht jetzt unabhängig und kann zu einer anderen Waffe werden (z. B. Arachnus storm cannon am einen, Iliastus accelerator culverin am anderen).",
     line11: "",
     line12: "",
     line13: "",
@@ -66,7 +66,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "📋 Inquisition — la lista de Abilities del Henchman Warband mostraba el texto de reglas de los 17 especialistas posibles, sin importar cuáles estuvieran realmente en la unidad. Arreglado — la línea de habilidad de un especialista solo se muestra ahora mientras ese especialista esté presente; un Warband con 2 Acólitos + 1 Penitente pasa de 24 habilidades mostradas a 5.",
     line8: "🔫 Space Marines — la opción de sponson de un Predator (\"2 Heavy flamers\", etc) siempre daba solo 1x del arma en vez de las 2x que su propio nombre indica (GitHub #105). Arreglada la comparación de fondo — también arregla la misma forma en ~40 fichas más en casi todas las facciones que usan el mismo patrón de \"cantidad metida en el nombre de la opción\".",
     line9: "🎯 Comprar \"Marksman honours\" o \"Swordsman honours\" en la Armory de un personaje empeoraba su Ballistic/Weapon Skill en vez de mejorarlo. Ambas stats se imprimen como un valor de salvación donde un número más bajo es mejor, y el bonus de +1 estaba guardado al revés. Arreglado — el BS de un Chaplain ahora pasa de 3+ a 2+ al comprarlo, como debe ser.",
-    line10: "",
+    line10: "🦾 Adeptus Custodes — un Telemon Heavy Dreadnought solo podía cambiar UNO de sus dos brazos por un arma a distancia (GitHub #106), aunque su propia ficha dice \"swap EACH\" (cada) brazo. Arreglado — cada brazo se cambia ahora de forma independiente, y puede ir a un arma distinta (por ejemplo, Arachnus storm cannon en uno e Iliastus accelerator culverin en el otro).",
     line11: "",
     line12: "",
     line13: "",
@@ -148,9 +148,9 @@ function CommunityAnnouncement() {
           {/* v1.67 spans three calendar days (2026-08-27 through 2026-08-29) at Rigzar's explicit
               request ("menten mism avesion 1.67", reaffirmed "mantenemos version" on day 3) —
               normally a new day gets a fresh version cut, but this session kept appending instead.
-              line6-line9 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
-              Swordsman honours) were added on days 2-3; line10-line13 stay empty (filtered out
-              below) until something else lands. */}
+              line6-line10 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
+              Swordsman honours, Telemon Dreadnought arm swaps) were added on days 2-3;
+              line11-line13 stay empty (filtered out below) until something else lands. */}
           {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
