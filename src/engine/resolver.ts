@@ -4,7 +4,8 @@ import type { EquipMods } from './equipMods';
 import { computeUnitPoints, getActiveVariant, getPromotedModel, effectiveArchetypeFor } from './points';
 import { getArchetypeRule, getEffectiveSlot } from './archetypes';
 import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
-import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS } from './equipMods';
+import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS } from './equipMods';
+import type { ChosenWeaponEffect } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
 import { getTraitEffects } from './traitEffects';
 import { effectiveSubfactions, traitRequiredSubfaction } from './codex_dark_eldar/subfaction';
@@ -554,7 +555,11 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
           }, 0);
           if (owned > 0) replacedWeaponThreshold.set(name, owned);
         } else if (!replacedWeaponThreshold.has(name)) {
-          const copies = weaponCopiesPerModel(unit.equipped_with, name);
+          // A weapon gated by `requires_choice` (Galatus Contemptor Dreadnought's Infernus
+          // incinerators, only granted by a DIFFERENT group's "Achillus dreadspear & 2 Infernus
+          // incinerators" choice) never appears in `equipped_with` at all — the copy count only
+          // exists in that choice's own name text, so pass it as a fallback source.
+          const copies = weaponCopiesPerModel(unit.equipped_with, name, g.requires_choice);
           // Either N independent per-copy groups (Talos/Carnifex), or a single group whose header
           // explicitly swaps just ONE of the N copies ("May replace one Dreadnought close combat
           // weapon" on a model equipped with 2) — both leave the other copies on the datasheet,
@@ -582,7 +587,7 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
             return new RegExp(`\\beach\\s+${esc}`, 'i').test(g.header ?? '');
           });
           const groupCopies = perCopySwap
-            ? Math.max(...(g.replaces ?? []).map(n => weaponCopiesPerModel(unit.equipped_with, n)))
+            ? Math.max(...(g.replaces ?? []).map(n => weaponCopiesPerModel(unit.equipped_with, n, g.requires_choice)))
             : copies;
           if (groupCopies > 1 && ((replaceGroupCountByName.get(name) ?? 0) >= groupCopies || singleCopySwap || perCopySwap)) {
             replacedWeaponThreshold.set(name, item.size * groupCopies);
@@ -1053,13 +1058,33 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   for (const sel of item.armory) {
     if (sel.section !== 'equipment' || !sel.targetWeapon) continue;
     const armItem = findArmoryItem(data, sel);
-    // ~18 items ("gains one of the following: +6\" Range / +1 Strength / -1 AP / +1 AT") need a
-    // SECOND picker (which enhancement) that doesn't exist yet — a bigger, separate gap. Left
-    // alone here rather than guessing which of the 4 the player meant.
-    if (!armItem?.desc || isEnumerableWeaponChoice(armItem.desc)) continue;
+    if (!armItem?.desc) continue;
     const fixed = CHOSEN_WEAPON_GRANT_ITEMS[sel.itemName];
     let abilities: string[] = fixed?.abilities ? [...fixed.abilities] : [];
-    if (!fixed && requiresWeaponTarget(armItem.desc)) {
+    const targetW = weapons.find(w => w.name === sel.targetWeapon);
+    if (!fixed && sel.itemName === 'Crusade weapon' && sel.chosenPower) {
+      // 5 mutually-exclusive named enhancements, each self-contained in the item's own desc —
+      // see CRUSADE_WEAPON_EFFECTS for why Paragon of war's Exarch Powers are NOT handled the
+      // same way (their effects are defined per-Aspect-unit elsewhere and were never researched
+      // here — a separate, bigger gap). Solarite's Strength SET (x2→x3) isn't an ability string —
+      // it's applied directly to the weapon's own `s` field in computeWeaponGroups instead, via
+      // applyChosenWeaponStatBoosts.
+      const cw = CRUSADE_WEAPON_EFFECTS[sel.chosenPower];
+      if (cw?.abilities) abilities.push(...cw.abilities);
+    } else if (!fixed && isEnumerableWeaponChoice(armItem.desc) && sel.chosenPower) {
+      // ~18 relic items ("gains one of the following: +6\" Range / +1 Strength / -1 AP / +1 AT")
+      // — the enhancement the player chose at purchase time (see the "Apply to"-style picker in
+      // ArmoryModal.tsx, reusing the same named-choice mechanism Crusade weapon/Paragon of war
+      // already had). Range/Strength/AP deltas are numeric weapon-row edits, applied separately
+      // in computeWeaponGroups via applyChosenWeaponStatBoosts; AT lives inside the abilities
+      // text ("AT(2)") so it's handled here, incrementing whatever value is already there —
+      // like Deadly, "+1 AT" means a step up from the current value, not a flat AT(1) floor.
+      const { atDelta } = parseEnhancementDelta(sel.chosenPower);
+      if (atDelta) {
+        const currentAt = targetW?.abilities?.match(/AT\((\d+)\)/i)?.[1];
+        abilities.push(`AT(${(currentAt ? parseInt(currentAt, 10) : 0) + atDelta})`);
+      }
+    } else if (!fixed && requiresWeaponTarget(armItem.desc)) {
       // No hardcoded entry — fall back to generic quoted-ability extraction (Foe-smiter
       // "Shred", Banebolts "Deadly(5+)", Spirit-Sting/Soul-Seeker/Stormshroud/Noctilith weapon
       // "Soul burn(5+)", Angelsteel weapon "Life curse", Space Marines' own quoted Master-crafted
@@ -1069,7 +1094,6 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (fixed?.deadlyStack) {
       // SOURCE: "If the weapon already has the rule, increase Deadly(x+) by 1." — a step-up from
       // whatever the weapon already has, not "grant 5+ and keep the better of the two".
-      const targetW = weapons.find(w => w.name === sel.targetWeapon);
       const currentDeadly = targetW?.abilities?.match(/Deadly\((\d+)\+\)/i)?.[1];
       abilities.push(`Deadly(${currentDeadly ? parseInt(currentDeadly, 10) - 1 : 5}+)`);
     }
@@ -1918,31 +1942,56 @@ function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGro
 }
 
 /**
- * Numeric stat deltas (Strength/AP/Damage) from a chosen-weapon Armory item — Relic blade, Holy
- * weapon, Cursed blade (+1 Damage), Maelstrom/Reaver Weapon (+1 Strength), and the numeric half
- * of Fire blade (-2 AP) and Sorrow blade (+1 Strength). See CHOSEN_WEAPON_GRANT_ITEMS for the
- * full table. The ABILITY-text half of these same items (and the rest of the table) is applied
- * earlier via weaponTraitMap in resolveUnitProfile — this only handles a weapon's own S/AP/D
- * columns, which that map can't carry. Mirrors applyNamedWeaponBoosts's shape, driven by the
- * player's own chosen `targetWeapon` instead of a single hardcoded weapon name.
+ * Numeric stat deltas (Strength/AP/Damage/Range) from a chosen-weapon Armory item. Three sources:
+ * (1) CHOSEN_WEAPON_GRANT_ITEMS — Relic blade, Holy weapon, Cursed blade (+1 Damage), Maelstrom/
+ *     Reaver Weapon (+1 Strength), the numeric half of Fire blade (-2 AP) and Sorrow blade (+1
+ *     Strength).
+ * (2) The ~18 enumerable-choice relics (Relic of the Chapter, Chaos artefact, ...) — the player's
+ *     own `chosenPower` ("+6\" Range" / "+1 Strength" / "-1 AP" / "+1 AT") parsed via
+ *     parseEnhancementDelta. AT isn't handled here — it lives in the weapon's abilities text
+ *     ("AT(2)"), applied earlier in resolveUnitProfile via weaponTraitMap instead.
+ * (3) Crusade weapon's "Solarite" enhancement — sets Strength to x3, but only if the weapon's
+ *     CURRENT Strength is already "x2" (its own text: "Only for weapons that have a x2 for their
+ *     Strength value").
+ * The ABILITY-text half of all of these is applied earlier via weaponTraitMap in
+ * resolveUnitProfile — this only handles a weapon's own S/AP/D/Range columns, which that map
+ * can't carry. Mirrors applyNamedWeaponBoosts's shape, driven by the player's own chosen
+ * `targetWeapon` instead of a single hardcoded weapon name.
  */
 function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const effectFor = (a: (typeof item.armory)[number]): ChosenWeaponEffect | null => {
+    const fixed = CHOSEN_WEAPON_GRANT_ITEMS[a.itemName];
+    if (fixed) return fixed;
+    if (!a.chosenPower) return null;
+    if (a.itemName === 'Crusade weapon') return CRUSADE_WEAPON_EFFECTS[a.chosenPower] ?? null;
+    // Not "Crusade weapon" and not in the fixed table — the only OTHER thing `chosenPower` means
+    // is one of the 4 "+6\" Range / +1 Strength / -1 AP / +1 AT" enumerable enhancements (Eldar's
+    // "Paragon of war" also sets chosenPower, to an Exarch Power name, but none of those start
+    // with a digit, so parseEnhancementDelta's regexes simply find nothing and this safely no-ops).
+    const { rangeDelta, sDelta, apDelta } = parseEnhancementDelta(a.chosenPower);
+    return (rangeDelta || sDelta || apDelta) ? { rangeDelta, sDelta, apDelta } : null;
+  };
   const boosts = item.armory
     .filter(a => a.section === 'equipment' && a.targetWeapon)
-    .map(a => CHOSEN_WEAPON_GRANT_ITEMS[a.itemName] && { targetWeapon: a.targetWeapon!, effect: CHOSEN_WEAPON_GRANT_ITEMS[a.itemName] })
-    .filter((b): b is { targetWeapon: string; effect: NonNullable<typeof CHOSEN_WEAPON_GRANT_ITEMS[string]> } =>
-      !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta));
+    .map(a => { const effect = effectFor(a); return effect && { targetWeapon: a.targetWeapon!, effect }; })
+    .filter((b): b is { targetWeapon: string; effect: ChosenWeaponEffect } =>
+      !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta || !!b.effect.rangeDelta || !!b.effect.solariteX2ToX3));
   if (!boosts.length) return groups;
   const boost = (w: Weapon): Weapon => {
     const matches = boosts.filter(b => b.targetWeapon === w.name);
     if (!matches.length) return w;
-    let s = w.s, ap = w.ap, d = w.d;
+    let s = w.s, ap = w.ap, d = w.d, range = w.range;
     for (const { effect } of matches) {
       if (effect.sDelta && /^\d+$/.test(s)) s = String(parseInt(s, 10) + effect.sDelta);
       if (effect.apDelta && /^-?\d+$/.test(ap)) ap = String(parseInt(ap, 10) + effect.apDelta);
       if (effect.dDelta && /^\d+$/.test(d)) d = String(parseInt(d, 10) + effect.dDelta);
+      if (effect.rangeDelta) {
+        const m = range.match(/^(\d+)"$/);
+        if (m) range = `${parseInt(m[1], 10) + effect.rangeDelta}"`;
+      }
+      if (effect.solariteX2ToX3 && s === 'x2') s = 'x3';
     }
-    return { ...w, s, ap, d };
+    return { ...w, s, ap, d, range };
   };
   return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }

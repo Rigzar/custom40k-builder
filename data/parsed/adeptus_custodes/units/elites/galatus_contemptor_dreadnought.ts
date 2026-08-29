@@ -117,7 +117,7 @@ export const galatusContemptorDreadnought: Unit = {
     {
       "header": "Can swap each Infernus incinerator",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -132,7 +132,8 @@ export const galatusContemptorDreadnought: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "replaces": ["Infernus incinerator"]
+      "replaces": ["Infernus incinerator"],
+      "requires_choice": ["Achillus dreadspear & 2 Infernus incinerators"]
     }
   ],
   "abilities": [

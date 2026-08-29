@@ -1488,8 +1488,11 @@ export function UnitCard({ item }: Props) {
             // "each <weapon>", 54 cover all copies at once and are deliberately left alone.
             const _perCopyHeader = !!g.replaces?.length && g.replaces.some(w =>
               new RegExp(`\\beach\\s+${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(g.header));
+            // A weapon gated by `requires_choice` (Galatus Contemptor Dreadnought's Infernus
+            // incinerators) never appears in `equipped_with` — the copy count only exists in the
+            // granting choice's own name text, so pass it as a fallback source.
             const _headerCopies = _perCopyHeader
-              ? Math.max(...g.replaces!.map(w => weaponCopiesPerModel(u.equipped_with, w)))
+              ? Math.max(...g.replaces!.map(w => weaponCopiesPerModel(u.equipped_with, w, g.requires_choice)))
               : 1;
             const groupMax = perNRaw !== null
               ? (modelGroupCap !== null ? Math.min(perNRaw, modelGroupCap) : perNRaw)
@@ -1953,8 +1956,9 @@ export function UnitCard({ item }: Props) {
                       {t('exarchPowerPrefix')} {a.chosenPower}
                     </div>
                   )}
-                  {/* Horus Heresy "Crusade weapon" — show the chosen enhancement */}
-                  {a.itemName === 'Crusade weapon' && a.chosenPower && (
+                  {/* Horus Heresy "Crusade weapon", or one of the ~18 Range/Strength/AP/AT relics
+                      — show the chosen enhancement */}
+                  {a.itemName !== 'Paragon of war' && a.chosenPower && (
                     <div className="text-[10px] text-violet-400/80 mt-0.5 pl-1">
                       {t('enhancementPrefix')} {a.chosenPower}
                     </div>

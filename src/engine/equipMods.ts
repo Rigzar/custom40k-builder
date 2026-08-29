@@ -251,10 +251,37 @@ export function requiresWeaponTarget(desc: string | undefined): boolean {
  *  relic/artefact, Vault weapon, Sacred weapon, Cult relic, Shrine relic, Ancestor relic, Tomb
  *  world relic, Relic of the Ordo, Relic of the Black Library, Artifact of Gork...Mork, Prototype
  *  system, Relic of the Forgeworld, Relic of the order, Artefact of Commoragh, Heavenfall blade)
- *  need a SECOND picker (which enhancement) that doesn't exist yet — a bigger, separate gap from
- *  the "targetWeapon was never read" bug (see CHOSEN_WEAPON_GRANT_ITEMS). Not fixed here. */
+ *  need a SECOND picker (which enhancement) alongside the weapon-target one — see
+ *  parseEnumerableWeaponChoices/parseEnhancementDelta below and ArmoryModal.tsx's reuse of the
+ *  existing named-choice picker (already built for Eldar's Paragon of war / HH's Crusade weapon). */
 export function isEnumerableWeaponChoice(desc: string | undefined): boolean {
   return /gains one of the following/i.test(desc ?? '');
+}
+
+/** Extract the enhancement option strings from an enumerable-choice item's own desc text
+ *  ("- Additional +6\" Range (only for ranged weapons)" → "+6\" Range"). Read from each item's
+ *  OWN text rather than a single hardcoded 4-option pool because not every item offers all 4 —
+ *  Heavenfall blade (melee-only) lists just +1 Strength/-1 AP/+1 AT, no Range option. */
+export function parseEnumerableWeaponChoices(desc: string): string[] {
+  return Array.from(desc.matchAll(/-\s*Additional\s+([^\n(]+?)\s*(?:\(only for ranged weapons\))?\s*(?=\n|$)/gi))
+    .map(m => m[1].trim());
+}
+
+/** Parse one of the 4 enhancement strings parseEnumerableWeaponChoices produces into the stat
+ *  delta it means. AT is handled separately from sDelta/apDelta/rangeDelta (see atDelta on
+ *  ChosenWeaponEffect) because it lives inside the weapon's abilities text ("AT(2)"), not a
+ *  plain numeric column, and — like Deadly — a real improvement means incrementing whatever
+ *  value is already there, not overwriting it. */
+export function parseEnhancementDelta(choice: string): { rangeDelta?: number; sDelta?: number; apDelta?: number; atDelta?: number } {
+  const range = choice.match(/^\+?(\d+)"?\s*Range/i);
+  if (range) return { rangeDelta: parseInt(range[1], 10) };
+  const str = choice.match(/^\+?(\d+)\s*Strength/i);
+  if (str) return { sDelta: parseInt(str[1], 10) };
+  const ap = choice.match(/^(-?\d+)\s*AP/i);
+  if (ap) return { apDelta: parseInt(ap[1], 10) };
+  const at = choice.match(/^\+?(\d+)\s*AT/i);
+  if (at) return { atDelta: parseInt(at[1], 10) };
+  return {};
 }
 
 export interface ChosenWeaponEffect {
@@ -263,6 +290,11 @@ export interface ChosenWeaponEffect {
   sDelta?: number;
   apDelta?: number;
   dDelta?: number;
+  rangeDelta?: number;
+  /** +N to the weapon's existing AT(x) value — like deadlyStack, an increment on whatever is
+   *  already there (AT(2) + 1 → AT(3)), not a flat floor grant. Higher AT is always better, so
+   *  (unlike Deadly) this never needs to compare against mergeWeaponAbilities' own logic. */
+  atDelta?: number;
   /** Obsidian blade / Cegorach's Rose: grant Deadly(5+), or improve the weapon's EXISTING
    *  Deadly(x+) by one level if it already has the rule (SOURCE: "If the weapon already has
    *  the rule, increase Deadly(x+) by 1. For example Deadly(5+) becomes Deadly(4+)."). This is
@@ -270,7 +302,32 @@ export interface ChosenWeaponEffect {
    *  two" (mergeWeaponAbilities' normal Deadly handling) — a weapon starting at Deadly(4+)
    *  must become Deadly(3+), not stay at 4+. */
   deadlyStack?: boolean;
+  /** Crusade weapon's "Solarite" enhancement: set Strength to x3, but ONLY if the weapon's
+   *  current Strength is already "x2" (SOURCE: "Only for weapons that have a x2 for their
+   *  Strength value.") — narrow enough to model as its own flag rather than a generic set-value
+   *  field nothing else needs. */
+  solariteX2ToX3?: boolean;
 }
+
+/** Horus Heresy "Crusade weapon" (ᵀ): the item's own desc names 5 mutually-exclusive named
+ *  enhancements, each with its own effect stated in that same text — a fixed named-choice pool
+ *  like Eldar's "Paragon of war" (see CRUSADE_WEAPON_ENHANCEMENTS/ELDAR_EXARCH_POWERS in
+ *  ArmoryModal.tsx), but unlike Paragon of war's Exarch Powers (whose actual effects are defined
+ *  per-Aspect-unit elsewhere and were never wired up anywhere, not even for a unit's own native
+ *  purchase — a separate, much bigger, not-yet-researched gap, left alone here) every one of
+ *  these 5 is fully self-contained in Crusade weapon's own description. Keyed by the CHOSEN
+ *  enhancement name (`sel.chosenPower`), not the item name — the item itself is also in
+ *  CHOSEN_WEAPON_GRANT_ITEMS-style lookup territory but needs its effect picked at purchase time. */
+export const CRUSADE_WEAPON_EFFECTS: Record<string, ChosenWeaponEffect> = {
+  Chain: { abilities: ['Shred'] },
+  Charnabal: { abilities: ['Quick(+1)'] },
+  // SOURCE: "The weapon may re-roll all to hit rolls" — stronger than (and thus distinct from)
+  // the named "Master-crafted" ability's "a single hit roll can be re-rolled", so it gets its
+  // own plain-text tag rather than borrowing that name.
+  'Nocturne masterwork': { abilities: ['Re-roll all hit rolls'] },
+  Phoenix: { abilities: ['Armor piercing(5+)'] },
+  Solarite: { solariteX2ToX3: true },
+};
 
 /**
  * Named armory items that grant a FIXED (non-enumerable) effect to a chosen weapon: a numeric
@@ -351,16 +408,25 @@ export function isOrkKustomJob(name: string): boolean {
  *  displayed remaining-count both assume 1 copy/model unless told otherwise (ki-replaces-swap-
  *  manual-review-01's Talos/Carnifex Brood — each has 2 copies of the same melee weapon per
  *  model, with independent swap groups for each copy). */
-export function weaponCopiesPerModel(equippedWith: string | undefined, weaponName: string): number {
-  if (!equippedWith) return 1;
+export function weaponCopiesPerModel(equippedWith: string | undefined, weaponName: string, extraText?: string[]): number {
   const escaped = weaponName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   // Counts are written either as a digit ("2 Macro-scalpels", Talos) or as a word ("two Plague
   // spewers", Plagueburst Crawler) — both forms appear across the codices, so accept both or the
   // word-form datasheets silently fall back to 1 copy and lose their "2x" in the live profile.
-  const m = equippedWith.match(new RegExp(`\\b(\\d+|${Object.keys(NUMBER_WORDS).join('|')})\\s+${escaped}s?\\b`, 'i'));
-  if (!m) return 1;
-  const raw = m[1].toLowerCase();
-  return NUMBER_WORDS[raw] ?? parseInt(raw, 10) ?? 1;
+  const re = new RegExp(`\\b(\\d+|${Object.keys(NUMBER_WORDS).join('|')})\\s+${escaped}s?\\b`, 'i');
+  const fromText = (text: string | undefined): number | null => {
+    const m = text?.match(re);
+    if (!m) return null;
+    const raw = m[1].toLowerCase();
+    return NUMBER_WORDS[raw] ?? parseInt(raw, 10) ?? null;
+  };
+  // The weapon isn't always in the base loadout: a swap group gated by `requires_choice` (e.g.
+  // Galatus Contemptor Dreadnought's "Can swap each Infernus incinerator", only reachable after
+  // buying "Achillus dreadspear & 2 Infernus incinerators" from a DIFFERENT option group) grants
+  // weapons that never appear in `equipped_with` at all — the count only exists in the granting
+  // CHOICE's own name text. Callers pass `g.requires_choice` (the exact choice-name strings) as a
+  // fallback source to search when the base loadout has nothing.
+  return fromText(equippedWith) ?? (extraText ?? []).reduce<number | null>((found, t) => found ?? fromText(t), null) ?? 1;
 }
 
 /** Written-out counts used in `equipped_with` text. */

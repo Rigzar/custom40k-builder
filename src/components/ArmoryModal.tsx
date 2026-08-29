@@ -4,7 +4,7 @@ import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
-import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, requiresWeaponTarget, isOrkKustomJob } from '../engine/equipMods';
+import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices } from '../engine/equipMods';
 import { findArmoryItem } from '../engine/resolver';
 import { getActiveVariant } from '../engine/points';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -1103,11 +1103,14 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         onAdd={arm => {
                           if (isAddBlocked(arm, 'equipment')) return;
                           const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                          add(arm, `${markName} Armoury`, effectiveSection, tw);
+                          const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || isEnumerableWeaponChoice(arm.desc)) ? (eqExarchPower[arm.name] || undefined) : undefined;
+                          add(arm, `${markName} Armoury`, effectiveSection, tw, cp);
                         }}
                         availableWeapons={availableWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                        eqExarchPower={eqExarchPower}
+                        onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                       />
                     ) : (
                       markItems.length === 0
@@ -1191,11 +1194,17 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         onAdd={arm => {
                           if (isAddBlocked(arm, 'equipment')) return;
                           const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                          add(arm, legName, effectiveSection, tw);
+                          // Heavenfall blade (Dark Angels legion armoury) is an enumerable-choice
+                          // item like Relic of the Chapter, just living in a legion-specific file
+                          // instead of general.json — needs the same chosenPower plumbing.
+                          const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || isEnumerableWeaponChoice(arm.desc)) ? (eqExarchPower[arm.name] || undefined) : undefined;
+                          add(arm, legName, effectiveSection, tw, cp);
                         }}
                         availableWeapons={availableWeapons}
                         eqTargetWeapon={eqTargetWeapon}
                         onSetEqTargetWeapon={(n, w) => setEqTargetWeapon(prev => ({ ...prev, [n]: w }))}
+                        eqExarchPower={eqExarchPower}
+                        onSetEqExarchPower={(n, p) => setEqExarchPower(prev => ({ ...prev, [n]: p }))}
                         reaverLord={reaverLordCtx}
                       />
                     ) : (
@@ -1276,7 +1285,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                         onAdd={arm => {
                           if (authorityCapReached) return;
                           const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                          const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon') ? (eqExarchPower[arm.name] || undefined) : undefined;
+                          const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || isEnumerableWeaponChoice(arm.desc)) ? (eqExarchPower[arm.name] || undefined) : undefined;
                           add(arm, AUTHORITY_SOURCE, 'equipment', tw, cp);
                         }}
                         availableWeapons={availableWeapons}
@@ -1358,7 +1367,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
                       onAdd={arm => {
                         if (isAddBlocked(arm, 'equipment')) return;
                         const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                        const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon') ? (eqExarchPower[arm.name] || undefined) : undefined;
+                        const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || isEnumerableWeaponChoice(arm.desc)) ? (eqExarchPower[arm.name] || undefined) : undefined;
                         add(arm, foreignSrcLabel, 'equipment', tw, cp);
                       }}
                       availableWeapons={availableWeapons}
@@ -1422,7 +1431,7 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
               onAdd={arm => {
                 if (isAddBlocked(arm, 'equipment')) return;
                 const tw = requiresWeaponTarget(arm.desc) ? (eqTargetWeapon[arm.name] || undefined) : undefined;
-                const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon') ? (eqExarchPower[arm.name] || undefined) : undefined;
+                const cp = (arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || isEnumerableWeaponChoice(arm.desc)) ? (eqExarchPower[arm.name] || undefined) : undefined;
                 // A CSM vehicle upgrade reached through Traitor Guard is credited to that armoury,
                 // not to the unit's own "General" — the source is what the roster shows and what
                 // the legacy-armoury lock reads.
@@ -1612,7 +1621,13 @@ function EquipmentGroups({
             const uniqueSel = isUniqueSelected ? isUniqueSelected(arm) : false;
             const needsTarget = requiresWeaponTarget(arm.desc) && availableWeapons.length > 0;
             const chosenTarget = eqTargetWeapon[arm.name] ?? '';
-            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon';
+            // ~18 relics ("gains one of the following: +6" Range / +1 Strength / -1 AP / +1 AT")
+            // need a second picker alongside the weapon-target one — reuses the SAME named-choice
+            // mechanism already built for Crusade weapon/Paragon of war (a fixed pool, read from
+            // the item's own desc text via parseEnumerableWeaponChoices instead of a hardcoded
+            // list, since not every item offers all 4 — Heavenfall blade excludes Range).
+            const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
+            const needsPower = arm.name === 'Paragon of war' || arm.name === 'Crusade weapon' || enumOptions.length > 0;
             const chosenPower = eqExarchPower[arm.name] ?? '';
             const canAdd = !uniqueSel && (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
             return (
@@ -1642,20 +1657,24 @@ function EquipmentGroups({
                     </select>
                   </div>
                 )}
-                {/* Named-choice picker — Eldar's "Paragon of war" (Exarch Power) or Horus Heresy's
-                    "Crusade weapon" (one of 5 named enhancements). Same mechanism, different pool. */}
+                {/* Named-choice picker — Eldar's "Paragon of war" (Exarch Power), Horus Heresy's
+                    "Crusade weapon" (one of 5 named enhancements), or one of the ~18 relics whose
+                    own text enumerates 3-4 Range/Strength/AP/AT options. Same mechanism, pool
+                    read from the right source per item. */}
                 {needsPower && !uniqueSel && !(getSelId?.(arm.name)) && (
                   <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
                     <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">
-                      {arm.name === 'Crusade weapon' ? t('enhancementLabel') : t('exarchPowerLabel')}
+                      {arm.name === 'Paragon of war' ? t('exarchPowerLabel') : t('enhancementLabel')}
                     </span>
                     <select
                       value={chosenPower}
                       onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
                       className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
                     >
-                      <option value="">{arm.name === 'Crusade weapon' ? t('selectEnhancementOption') : t('selectPowerOption')}</option>
-                      {(arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS : ELDAR_EXARCH_POWERS).map(pn => (
+                      <option value="">{arm.name === 'Paragon of war' ? t('selectPowerOption') : t('selectEnhancementOption')}</option>
+                      {(arm.name === 'Paragon of war' ? ELDAR_EXARCH_POWERS
+                        : arm.name === 'Crusade weapon' ? CRUSADE_WEAPON_ENHANCEMENTS
+                        : enumOptions).map(pn => (
                         <option key={pn} value={pn}>{pn}</option>
                       ))}
                     </select>
