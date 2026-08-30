@@ -23,9 +23,9 @@ export const units: Record<string, import('../../../../src/types/data').Unit> = 
   "Cthonian Beserks": elites.cthonianBeserks,
   "Einhyr Champion": elites.einhyrChampion,
   "Einhyr Hearthguard": elites.einhyrHearthguard,
-  "Hearthkyn Skyriggers": elites.hearthkynSkyriggers,
   "Hernkyn Yaegirs": elites.hernkynYaegirs,
   "Memnyr Strategist": elites.memnyrStrategist,
+  "Hearthkyn Skyriggers": fastAttack.hearthkynSkyriggers,
   "Hernkyn Pioneers": fastAttack.hernkynPioneers,
   "Kapricus Defender": fastAttack.kapricusDefender,
   "Brôkhyr Thunderkyn": heavySupport.brKhyrThunderkyn,
@@ -51,11 +51,11 @@ export const slot_to_units: Record<string, string[]> = {
     "Cthonian Beserks",
     "Einhyr Champion",
     "Einhyr Hearthguard",
-    "Hearthkyn Skyriggers",
     "Hernkyn Yaegirs",
     "Memnyr Strategist"
   ],
   "Fast Attack": [
+    "Hearthkyn Skyriggers",
     "Hernkyn Pioneers",
     "Kapricus Defender"
   ],

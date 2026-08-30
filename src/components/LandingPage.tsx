@@ -13,7 +13,7 @@ import { CHANGELOG } from '../data/changelog';
 
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v167_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.67: Leman Russ weapon swaps, Ministorum World's third Trait",
@@ -33,6 +33,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line12: "🎯 The rest of that fix: the ~18 relics that let you choose between +Range/+Strength/-AP/+AT now have a picker for WHICH one, Horus Heresy's \"Crusade weapon\" actually applies its 5 bonuses, and Adeptus Custodes' Galatus Contemptor Dreadnought got the same per-arm-swap fix as the Telemon above.",
     line13: "🌌 Eldar — Exarch Powers (Bladestorm, Heartstrike, ...) now actually do something, whether picked via \"Paragon of war\" or a native Exarch's own upgrade. Also fixed a related bug found along the way: Paragon of war/of fate's own stat bonus was being counted twice on Toughness/Wounds/Attacks.",
     line14: "🦂 Tyranids — swapping BOTH of a Hive Tyrant's Monstrous scything talons for Lash whip and bonesword showed the weapon once instead of \"2x\" (GitHub #107) — the same wording glitch also affects Tyranid Warrior Brood/Tyrant Guard Brood. Fixed.",
+    line15: "⛏️ Leagues of Votann — Hearthkyn Skyriggers were filed under Elites instead of Fast Attack. Fixed, confirmed against the codex's own Index sheet.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -53,6 +54,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line12: "🎯 Der Rest dieses Fixes: die ~18 Relikte mit Wahl zwischen +Reichweite/+Stärke/-AP/+AT haben jetzt einen Picker für WELCHE, Horus Heresys „Crusade weapon\" wendet seine 5 Boni jetzt wirklich an, und Adeptus Custodes' Galatus Contemptor Dreadnought bekam denselben Pro-Arm-Tausch-Fix wie der Telemon oben.",
     line13: "🌌 Eldar — Exarch Powers (Bladestorm, Heartstrike, ...) tun jetzt tatsächlich etwas, egal ob über „Paragon of war\" oder das eigene Upgrade eines nativen Exarchen gewählt. Dabei auch einen verwandten Bug behoben: Paragon of war/of fate's eigener Stat-Bonus wurde bei Zähigkeit/Wunden/Attacken doppelt gezählt.",
     line14: "🦂 Tyranids — wenn ein Hive Tyrant BEIDE Monstrous scything talons gegen Lash whip and bonesword tauschte, wurde die Waffe nur einmal statt „2x\" angezeigt (GitHub #107) — derselbe Namens-Bug betrifft auch Tyranid Warrior Brood/Tyrant Guard Brood. Behoben.",
+    line15: "⛏️ Leagues of Votann — Hearthkyn Skyriggers waren unter Elites statt Fast Attack einsortiert. Behoben, gegen das eigene Index-Blatt des Codex bestätigt.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -73,6 +75,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line12: "🎯 El resto de ese arreglo: las ~18 reliquias que dejan elegir entre +Alcance/+Fuerza/-AP/+AT ya tienen un selector para decidir cuál, \"Crusade weapon\" de Horus Heresy ahora sí aplica sus 5 bonos, y el Galatus Contemptor Dreadnought de Adeptus Custodes recibió el mismo arreglo de cambio por brazo que el Telemon de arriba.",
     line13: "🌌 Eldar — los Exarch Powers (Bladestorm, Heartstrike, ...) ahora sí hacen algo, tanto elegidos vía \"Paragon of war\" como desde la mejora propia de un Exarch nativo. De paso se arregló un bug relacionado: el propio bono de stats de Paragon of war/of fate se contaba dos veces en Aguante/Heridas/Ataques.",
     line14: "🦂 Tyranids — cambiar AMBAS Monstrous scything talons de un Hive Tyrant por Lash whip and bonesword mostraba el arma una sola vez en vez de \"2x\" (GitHub #107) — el mismo fallo de nombre también afecta a Tyranid Warrior Brood/Tyrant Guard Brood. Arreglado.",
+    line15: "⛏️ Leagues of Votann — los Hearthkyn Skyriggers estaban en Elites en vez de Fast Attack. Arreglado, confirmado contra la propia hoja Index del códice.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -148,16 +151,17 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.67 spans three calendar days (2026-08-27 through 2026-08-29) at Rigzar's explicit
-              request ("menten mism avesion 1.67", reaffirmed "mantenemos version" on day 3) —
-              normally a new day gets a fresh version cut, but this session kept appending instead.
-              line6-line14 (Ghostkeel, Henchman Warband abilities, Predator sponsons, Marksman/
-              Swordsman honours, Telemon Dreadnought arm swaps, chosen-weapon Armory grants, the
-              enhancement-picker/Crusade weapon/Galatus follow-up, Eldar Exarch Powers, and the
-              Hive Tyrant "and"-named-weapon count bug) were added across days 2-3. A NEXT fix
-              under this same version needs a line15 added to AnnouncementLang and every language
-              block, not just appended text on line14. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14]
+          {/* v1.67 has now been kept across a 2nd, separate push too (Rigzar: "mantenemos version",
+              said again the day AFTER the v1.67→7ad0b52 push that closed out days 1-3) — so this
+              banner accumulates fixes from more than one commit under the same version number, not
+              just one long unpushed session. line6-line15 (Ghostkeel, Henchman Warband abilities,
+              Predator sponsons, Marksman/Swordsman honours, Telemon Dreadnought arm swaps,
+              chosen-weapon Armory grants, the enhancement-picker/Crusade weapon/Galatus follow-up,
+              Eldar Exarch Powers, the Hive Tyrant "and"-named-weapon count bug, and the Leagues of
+              Votann Skyriggers slot fix) were added across 4 pushes. A NEXT fix under this same
+              version needs a line16 added to AnnouncementLang and every language block, not just
+              appended text on line15. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14, tx.line15]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

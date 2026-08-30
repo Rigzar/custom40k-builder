@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-lov-hearthkyn-skyriggers-wrong-slot-01",
+    status: "fixed",
+    title: "Leagues of Votann — Hearthkyn Skyriggers were in the Elites slot instead of Fast Attack",
+    description: "FIXED 2026-08-29, reported on Discord (Alex: \"Just found a mistake in Votann, the Skyriggers are fast attack not elite\"). Confirmed against the canonical .ods's own Index sheet (`node scripts/_tmp_ods_search.cjs \"Codex/Leagues of Votann 1.02.ods\" \"Skyrigger\"`), which lists the unit under the Fast Attack column, not Elite — a plain data-entry mistake, not a rules-interpretation question. Fixed by moving the unit's file from `data/parsed/leagues_of_votann/units/elites/` to `units/fast_attack/` (matching the project's one-file-per-slot-folder convention), changing its own `slot` field from \"Elites\" to \"Fast Attack\", and updating both the elites/fast_attack `index.ts` re-exports and the faction's top-level `units/index.ts` (both the unit-name→object map and the `slot_to_units` list). Verified live: Hearthkyn Skyriggers no longer appears under the Elites catalogue tab and shows correctly under Fast Attack instead.",
+  },
+  {
     id: "ki-and-named-weapon-choice-quantity-not-counted-01",
     status: "fixed",
     title: "A weapon whose OWN name contains \"and\" (Lash whip and bonesword, Shardnet and impaler) never got a real quantity when chosen more than once — showed once instead of \"2x\"",

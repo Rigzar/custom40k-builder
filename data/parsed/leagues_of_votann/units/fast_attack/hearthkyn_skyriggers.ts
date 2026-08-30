@@ -13,7 +13,7 @@ import type { Unit } from '../../../../../src/types/data';
  */
 export const hearthkynSkyriggers: Unit = {
   "name": "Hearthkyn Skyriggers",
-  "slot": "Elites",
+  "slot": "Fast Attack",
   "models": [
     {
       "name": "Skyrigger",
