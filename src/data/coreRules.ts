@@ -656,6 +656,125 @@ export const RULES: Record<string, RuleEntry> = {
 };
 
 /**
+ * Command Phase Orders + Meta Orders — Custom40k Core Rules §3 ("3. Command Phase" → "Types of
+ * Orders" / "Meta Orders"), verbatim. Universal to every faction (the Order system, not a
+ * per-unit ability), so it never surfaces through the RULES glossary above — that only scans
+ * text that actually appears in a unit's own abilities/weapon text, and no datasheet restates
+ * "Advance: ..." in its own abilities. Added as its own Print View reference card 2026-08-29
+ * (player-survey request, phrased as "imperial guard officer orders" — the Orders system itself
+ * is faction-agnostic; an IG Officer/Colonel only grants EXTRA order tokens of these same 6
+ * types, it doesn't add new named orders of its own).
+ */
+export interface OrderEntry {
+  name: string;
+  prerequisite: string | null;
+  effect: string[];
+}
+
+export const COMMAND_ORDERS: OrderEntry[] = [
+  {
+    name: 'Advance',
+    prerequisite: 'The unit is not engaged in melee combat.',
+    effect: [
+      'It may move up to its Movement value.',
+      'It may make a further, up to 1D6" Advance move.',
+      'It must stay at least 1" from enemy models.',
+      'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'It may fire Assault, Pistol, or Grenade weapons with a –1 to hit penalty after moving.',
+      'It may cast basic psychic powers and similar effects (incantations, prayers, …) during activation.',
+    ],
+  },
+  {
+    name: 'Charge',
+    prerequisite: 'The unit is not engaged in melee combat.',
+    effect: [
+      'It may move up to its Movement value (but max 12").',
+      'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'It may fire Assault, Pistol, and Grenade weapons with a –1 to hit penalty after moving.',
+      'It may declare any number of enemy units it can see as targets for a Charge move.',
+      'It may make a further, up to 6" Charge move in a straight line, if it can get into direct base contact with any of these enemy units.',
+      'It must select either +1 Attack or +1 Initiative for all models as a Charge bonus.',
+      'It resolves the Fight order.',
+      'It may cast basic psychic powers and similar effects (incantations, prayers, …) during activation.',
+    ],
+  },
+  {
+    name: 'Escape',
+    prerequisite: 'The unit is already engaged in melee combat.',
+    effect: [
+      'It receives 1 automatic hit from each enemy model in attack range.',
+      'It gains two Battleshock tokens and flees.',
+    ],
+  },
+  {
+    name: 'Fight',
+    prerequisite: 'The unit is already engaged in melee combat.',
+    effect: [
+      'The melee is resolved as if all units involved had the Fight order.',
+      'It may cast basic psychic powers and similar effects (incantations, prayers, …) during activation.',
+      'It removes all orders from units participating in this melee.',
+    ],
+  },
+  {
+    name: 'Move & Shoot',
+    prerequisite: 'The unit is not engaged in melee combat.',
+    effect: [
+      'It may move up to its Movement value.',
+      'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'It may fire any ranged weapon except Heavy types after moving.',
+      'It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) during activation.',
+    ],
+  },
+  {
+    name: 'Stand & Shoot',
+    prerequisite: 'The unit is not engaged in melee combat.',
+    effect: [
+      'It may not move.',
+      'It may declare any number of enemy units it can see as targets for ranged attacks.',
+      'It may fire any ranged weapon, including Heavy types.',
+      'It reduces the total hit penalty for ranged attacks by 1.',
+      'It may cast all types of psychic powers and similar effects (incantations, prayers, …) during activation.',
+    ],
+  },
+];
+
+export const META_ORDERS: OrderEntry[] = [
+  {
+    name: 'Counter-Attack',
+    prerequisite: 'The unit has the Counter-Attack ability, is declared as a target for a charge move and after the charging unit has declared all charge targets.',
+    effect: [
+      'It is treated as having successfully executed a Charge order.',
+      'It must choose a Charge bonus before the attacker does so and additionally gains effects from equipment or special rules triggered by a Charge.',
+    ],
+  },
+  {
+    name: 'Defensive Fire',
+    prerequisite: 'The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.',
+    effect: [
+      'It may fire ranged weapons at the attacking unit with a –1 to hit penalty.',
+      'It may cast basic and normal psychic powers and similar effects (incantations, prayers, …) at the attacking unit or itself.',
+      'The attacker automatically passes any Leadership test during Defensive Fire.',
+    ],
+  },
+  {
+    name: 'Hold Your Ground',
+    prerequisite: 'The unit is declared as a target for a charge move and after the charging unit has declared all charge targets.',
+    effect: [
+      'It negates the attacker\'s Charge bonus.',
+      'If multiple units are charged at the same time, at least 50% of them have to use Hold Your Ground in order to negate the attacker\'s Charge bonus.',
+    ],
+  },
+  {
+    name: 'Take Cover',
+    prerequisite: 'The unit is selected as a target for a ranged attack, psychic power or similar effect (incantations, prayers, …) and after the shooting unit has declared all ranged targets.',
+    effect: [
+      'It gains a +1 bonus to Saving throws against ranged attacks until the enemy\'s activation ends.',
+      'Ranged attacks against it reduce their AT by 1 (to a minimum of 0).',
+    ],
+  },
+];
+
+/**
  * Normalise an ability token for glossary lookup — exported so the structured query layer
  * (engine/specialRules.ts) reuses the exact same "Name(param)" extraction (e.g.
  * "Rending(4+)" -> { key: 'rending', param: '4+' }) instead of re-implementing it.

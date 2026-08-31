@@ -11,71 +11,52 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v167_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
 
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; contrib: string; };
+// v1.68 — a fresh version cut (Rigzar: "pushea ya esto es nueva version"), split off from the
+// long v1.67 tail that had been accumulating under "mantenemos version" since 2026-08-27. The
+// banner resets to just THIS version's own content (title/intro/line1-7) rather than carrying
+// v1.67's line1-15 forward — see feedback_version_cut_banner_scope.md on why a real new version
+// starts clean instead of appending. Source bullets: changelog.ts's '1.68' entry.
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.67: Leman Russ weapon swaps, Ministorum World's third Trait",
-    intro: "Imperial Guard — swapping the Leman Russ (base, Commissar, and Tank Commander)'s main gun or secondary weapon added the new one without removing the one being replaced, so the tank ended up with both. Fixed on all three variants.",
+    title: "v1.68: Necron Cryptek fix, Print View cleanup",
+    intro: "Necrons — a Cryptek showed every possible specialisation's ability and weapon at once, no matter which one was actually taken (found from Print View survey feedback). Fixed — it now shows only the one you picked.",
     install: "",
-    line1: "📜 The Ministorum World Legacy's own rules require picking a third Army Trait, but doing so was rejected as a list error. Fixed — the validator now uses the same trait-slot budget the rest of the app already computes.",
-    line2: "⚔️ Chaos Space Marines/Space Marines — a Legion-archetype unit (Legion Tactical Squad, etc) let you shop BOTH active Legacy armouries at once instead of enforcing Mixed Warband's \"pick one per unit\" rule, under a tab labelled with only the first Legacy's name. Fixed — it now shows the same \"choose one\" screen a native unit does, and the tab names every active Legacy.",
-    line3: "🕵️ Inquisition — a Henchman Warband of more than 1 model was wrongly flagged in Skirmish as \"a Squadron — maximum 1 model\", even at 6-12 models. Its own sheet never had that restriction (only an unrelated specialist's own ability text happened to mention the word); fixed, and a standalone Penitents/Sages/etc. squad keeps the real restriction.",
-    line4: "🛡️ Imperial Guard — the \"Heavy Infantry\" Army Trait's Plate armor bonus only ever improved the Sergeant's Save, not the rest of the squad. It was riding the same rule that scopes a real Armory purchase to a single model — fixed to apply to the whole unit, the same way Bionic Improvement's Ward save already did.",
-    line5: "⚙️ Chaos Space Marines — confirmed as intended, not a bug: Army Traits skip Cultist-type units and subfaction-marked units (World Eaters, Death Guard, ...) by design. The app never explained this, and the one line it did show was itself wrong (\"units with veteran abilities\" isn't how it works for anyone). Fixed both.",
-    line6: "🔥 Tau Empire — a Ghostkeel Battlesuit started with 6 Flamers instead of 2. Its datasheet text reads \"is A SINGLE MODEL AND equipped with:\" instead of the plain wording the engine expected, so the match failed and the suit's 2 Flamers got multiplied by the WHOLE unit's model count (1 suit + 2 Stealth Drones = 3). Fixed the underlying pattern — also fixes the identical shape on the Y'vahra and R'varna Battlesuits, found during the same investigation.",
-    line7: "📋 Inquisition — Henchman Warband's Abilities list showed all 17 possible specialists' rule text regardless of which ones were actually in the unit. Fixed — a specialist's own ability line now only shows while that specialist is present; a 2-Acolyte-1-Penitent Warband goes from 24 abilities shown down to 5.",
-    line8: "🔫 Space Marines — a Predator's sponson option (\"2 Heavy flamers\", etc) always granted only 1x of the weapon instead of the 2x its own name states (GitHub #105). Fixed the underlying matching — also fixes the identical shape on ~40 other datasheets across nearly every faction that use the same \"count baked into the choice name\" pattern.",
-    line9: "🎯 Buying \"Marksman honours\" or \"Swordsman honours\" from a character's Armory made their Ballistic/Weapon Skill WORSE instead of better. Both stats print as a save-style value where a lower number is better, and the +1 bonus was stored the wrong way round. Fixed — a Chaplain's BS now goes from 3+ to 2+ after buying it, as intended.",
-    line10: "🦾 Adeptus Custodes — a Telemon Heavy Dreadnought could only swap ONE of its two arms for a ranged weapon (GitHub #106), even though its own datasheet says \"swap EACH\" arm. Fixed — each arm now swaps independently, and can go to a different weapon (e.g. Arachnus storm cannon on one, Iliastus accelerator culverin on the other).",
-    line11: "⚔️ GENERAL — Armory items that apply to ONE weapon you pick (Obsidian blade, Master-crafted weapon, Relic blade, and ~30 more across every faction) took your points but the weapon never actually changed. Fixed for every item with a single well-defined effect.",
-    line12: "🎯 The rest of that fix: the ~18 relics that let you choose between +Range/+Strength/-AP/+AT now have a picker for WHICH one, Horus Heresy's \"Crusade weapon\" actually applies its 5 bonuses, and Adeptus Custodes' Galatus Contemptor Dreadnought got the same per-arm-swap fix as the Telemon above.",
-    line13: "🌌 Eldar — Exarch Powers (Bladestorm, Heartstrike, ...) now actually do something, whether picked via \"Paragon of war\" or a native Exarch's own upgrade. Also fixed a related bug found along the way: Paragon of war/of fate's own stat bonus was being counted twice on Toughness/Wounds/Attacks.",
-    line14: "🦂 Tyranids — swapping BOTH of a Hive Tyrant's Monstrous scything talons for Lash whip and bonesword showed the weapon once instead of \"2x\" (GitHub #107) — the same wording glitch also affects Tyranid Warrior Brood/Tyrant Guard Brood. Fixed.",
-    line15: "⛏️ Leagues of Votann — Hearthkyn Skyriggers were filed under Elites instead of Fast Attack. Fixed, confirmed against the codex's own Index sheet.",
+    line1: "📄 Print View no longer repeats Engagement/Archetype/Legacy/Traits/Points a second time near the end of the sheet (it already shows once, on the Cover Page) — could waste a whole page doing it (survey feedback).",
+    line2: "🎖️ Imperial Guard — Print View now includes an \"Officer Orders\" cheat sheet: Fix bayonets!, Take cover!, Move! Move! Move!, and the rest of the 9 Infantry + 3 Vehicle orders, plus whichever Legacy Order your army's Legacy actually unlocks (survey request).",
+    line3: "📜 Cheat Sheets is now the Field Manual — Command Phase Orders (the 6 orders + 4 meta orders every faction assigns) lives there now instead of Print View, alongside links to @Grimdark Gamers' printable order-card decks.",
+    line4: "📜 Field Manual — added a \"Turn Sequence\" quick-reference (battle round phases, Reinforcement dice, Initiative, Movement) after finding a community \"Quick Rules\" PDF had drifted from the actual rules in several places; built our own instead.",
+    line5: "📜 Field Manual now follows your selected language — all 6 sheets have full German and Spanish text, not just English.",
+    line6: "🖨️ Print View and the Field Manual now have an A4/Letter toggle next to Print/PDF — iOS Safari's own print sheet doesn't offer a paper-size choice, so this one lives in the app instead.",
+    line7: "⚜️ Promoted units (Canoness, Spanna, Traitor Sergeant, ...) now show correctly in every Print View mode, including a partial squad promotion (e.g. 2 of 5 Lootas → Spanna) — Simple and List were still printing the plain base name and full squad size.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.67: Leman-Russ-Waffentausch, Ministorum Worlds dritte Eigenschaft",
-    intro: "Imperial Guard — beim Leman Russ (Basis, Commissar und Tank Commander) fügte der Tausch der Hauptwaffe oder Zweitwaffe die neue hinzu, ohne die ersetzte zu entfernen, sodass der Panzer beide behielt. Bei allen drei Varianten behoben.",
+    title: "v1.68: Necron-Cryptek-Fix, Print-View-Aufräumen",
+    intro: "Necrons — ein Cryptek zeigte jede mögliche Spezialisierung und Waffe gleichzeitig, egal welche tatsächlich gewählt wurde (gefunden durch Print-View-Umfrage-Feedback). Behoben — jetzt wird nur die gewählte angezeigt.",
     install: "",
-    line1: "📜 Die Legacy Ministorum World verlangt laut eigenem Regeltext die dritte Army-Eigenschaft, aber genau das wurde als Listenfehler abgelehnt. Behoben — der Validator nutzt jetzt dasselbe Eigenschafts-Slot-Budget, das der Rest der App bereits berechnet.",
-    line2: "⚔️ Chaos Space Marines/Space Marines — eine vom Legion-Archetyp gewährte Einheit (Legion Tactical Squad usw.) ließ dich in BEIDEN aktiven Legacy-Armories gleichzeitig einkaufen, statt Mixed Warbands Regel „nur eine pro Einheit\" durchzusetzen, unter einem Tab, der nur die erste Legacy nannte. Behoben — zeigt jetzt denselben „eine wählen\"-Bildschirm wie eine native Einheit, und der Tab nennt jede aktive Legacy.",
-    line3: "🕵️ Inquisition — ein Henchman Warband mit mehr als 1 Modell wurde in Skirmish fälschlich als „Squadron — maximal 1 Modell\" markiert, sogar bei 6-12 Modellen. Das eigene Blatt hatte diese Einschränkung nie (nur der Fähigkeitstext eines unabhängigen Spezialisten erwähnte zufällig das Wort); behoben, eine eigenständige Penitents/Sages/usw.-Einheit behält die echte Einschränkung.",
-    line4: "🛡️ Imperial Guard — der Rüstungsbonus der Army-Eigenschaft „Heavy Infantry\" verbesserte nur die Rettung des Sergeanten, nicht die des restlichen Trupps. Er lief über dieselbe Regel, die einen echten Armory-Kauf auf ein einzelnes Modell begrenzt — jetzt auf die ganze Einheit angewendet, genau wie es Bionic Improvements Rettungswurf-Bonus bereits tat.",
-    line5: "⚙️ Chaos Space Marines — bestätigt als beabsichtigt, kein Bug: Army Traits überspringen Cultist-Einheiten und Sub-Legion-Einheiten (World Eaters, Death Guard, ...) mit Absicht. Die App erklärte das nirgends, und die eine Zeile, die sie zeigte, war selbst falsch („Einheiten mit Veteranenfähigkeiten\" stimmt für niemanden). Beides behoben.",
-    line6: "🔥 Tau Empire — ein Ghostkeel Battlesuit begann mit 6 Flamern statt 2. Sein Datenblatt-Text lautet „is A SINGLE MODEL AND equipped with:\" statt der einfachen Formulierung, die die Engine erwartete — die Übereinstimmung schlug fehl, und die 2 Flamer des Suits wurden mit der GESAMTEN Modellzahl der Einheit multipliziert (1 Suit + 2 Stealth Drones = 3). Das zugrunde liegende Muster ist behoben — behebt auch dieselbe Form bei den Y'vahra- und R'varna-Battlesuits, die bei derselben Untersuchung gefunden wurde.",
-    line7: "📋 Inquisition — die Abilities-Liste des Henchman Warband zeigte den Regeltext aller 17 möglichen Spezialisten, egal welche wirklich in der Einheit waren. Behoben — die eigene Fähigkeitszeile eines Spezialisten erscheint jetzt nur, solange er tatsächlich vorhanden ist; ein Warband mit 2 Akolythen + 1 Büßer geht von 24 gezeigten Fähigkeiten auf 5.",
-    line8: "🔫 Space Marines — die Sponson-Option eines Predators („2 Heavy flamers\" usw.) gewährte immer nur 1x der Waffe statt der 2x, die ihr eigener Name angibt (GitHub #105). Der zugrunde liegende Abgleich ist behoben — behebt auch dieselbe Form bei ~40 weiteren Datenblättern in fast jeder Fraktion mit demselben „Anzahl steckt im Auswahlnamen\"-Muster.",
-    line9: "🎯 Der Kauf von „Marksman honours\" oder „Swordsman honours\" aus der Armory eines Charakters verschlechterte dessen Ballistic/Weapon Skill statt sie zu verbessern. Beide Werte werden wie ein Rettungswurf gedruckt, bei dem eine niedrigere Zahl besser ist, und der +1-Bonus war falsch herum gespeichert. Behoben — der BS eines Chaplains geht jetzt beim Kauf von 3+ auf 2+, wie beabsichtigt.",
-    line10: "🦾 Adeptus Custodes — ein Telemon Heavy Dreadnought konnte nur EINEN seiner beiden Arme gegen eine Fernkampfwaffe tauschen (GitHub #106), obwohl das eigene Datenblatt „swap EACH\" (jeden) Arm sagt. Behoben — jeder Arm tauscht jetzt unabhängig und kann zu einer anderen Waffe werden (z. B. Arachnus storm cannon am einen, Iliastus accelerator culverin am anderen).",
-    line11: "⚔️ ALLGEMEIN — Armory-Gegenstände, die auf EINE gewählte Waffe wirken (Obsidian blade, Master-crafted weapon, Relic blade und ~30 weitere in jeder Fraktion), kosteten Punkte, aber die Waffe änderte sich nie. Behoben für jeden Gegenstand mit einem einzelnen, klar definierten Effekt.",
-    line12: "🎯 Der Rest dieses Fixes: die ~18 Relikte mit Wahl zwischen +Reichweite/+Stärke/-AP/+AT haben jetzt einen Picker für WELCHE, Horus Heresys „Crusade weapon\" wendet seine 5 Boni jetzt wirklich an, und Adeptus Custodes' Galatus Contemptor Dreadnought bekam denselben Pro-Arm-Tausch-Fix wie der Telemon oben.",
-    line13: "🌌 Eldar — Exarch Powers (Bladestorm, Heartstrike, ...) tun jetzt tatsächlich etwas, egal ob über „Paragon of war\" oder das eigene Upgrade eines nativen Exarchen gewählt. Dabei auch einen verwandten Bug behoben: Paragon of war/of fate's eigener Stat-Bonus wurde bei Zähigkeit/Wunden/Attacken doppelt gezählt.",
-    line14: "🦂 Tyranids — wenn ein Hive Tyrant BEIDE Monstrous scything talons gegen Lash whip and bonesword tauschte, wurde die Waffe nur einmal statt „2x\" angezeigt (GitHub #107) — derselbe Namens-Bug betrifft auch Tyranid Warrior Brood/Tyrant Guard Brood. Behoben.",
-    line15: "⛏️ Leagues of Votann — Hearthkyn Skyriggers waren unter Elites statt Fast Attack einsortiert. Behoben, gegen das eigene Index-Blatt des Codex bestätigt.",
+    line1: "📄 Print View wiederholt Engagement/Archetype/Legacy/Traits/Punkte nicht mehr ein zweites Mal am Ende des Blatts (steht schon einmal auf der Titelseite) — konnte eine ganze Seite verschwenden (Umfrage-Feedback).",
+    line2: "🎖️ Imperial Guard — Print View enthält jetzt eine „Officer Orders\"-Chuleta: Fix bayonets!, Take cover!, Move! Move! Move! und den Rest der 9 Infanterie- + 3 Fahrzeug-Befehle, plus den einen Legacy-Befehl, den die Legacy der Armee tatsächlich freischaltet (Umfrage-Wunsch).",
+    line3: "📜 Cheat Sheets heißt jetzt Field Manual — Command Phase Orders (die 6 Befehle + 4 Meta-Befehle, die jede Fraktion vergibt) leben jetzt dort statt im Print View, zusammen mit Links zu @Grimdark Gamers' druckbaren Befehlskarten-Decks.",
+    line4: "📜 Field Manual — eine „Turn Sequence\"-Chuleta ist dazugekommen (Phasen der Kampfrunde, Reinforcement-Würfel, Initiative, Bewegung), nachdem wir festgestellt haben, dass ein Community-PDF mit „Quick Rules\" an mehreren Stellen von den echten Regeln abgewichen ist; stattdessen unsere eigene gebaut.",
+    line5: "📜 Das Field Manual folgt jetzt der gewählten Sprache — alle 6 Blätter gibt es vollständig auf Deutsch und Spanisch, nicht nur auf Englisch.",
+    line6: "🖨️ Print View und das Field Manual haben jetzt einen A4/Letter-Umschalter neben Print/PDF — Safari auf iOS bietet in seinem eigenen Druck-Dialog keine Papiergrößen-Auswahl, deshalb lebt sie jetzt in der App.",
+    line7: "⚜️ Beförderte Einheiten (Canoness, Spanna, Traitor Sergeant, ...) werden jetzt in jedem Print-View-Modus korrekt angezeigt, auch bei einer teilweisen Beförderung im Trupp (z. B. 2 von 5 Lootas → Spanna) — Simple und List druckten noch den reinen Basisnamen und die volle Truppgröße.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.67: cambio de armas del Leman Russ, tercer Trait de Ministorum World",
-    intro: "Imperial Guard — cambiar el arma principal o secundaria del Leman Russ (base, Commissar y Tank Commander) añadía la nueva sin quitar la que se reemplazaba, así que el tanque terminaba con ambas. Arreglado en las tres variantes.",
+    title: "v1.68: arreglo del Cryptek Necron, limpieza del Print View",
+    intro: "Necrons — un Cryptek mostraba todas las especializaciones posibles y todas las armas posibles a la vez, sin importar cuál se había elegido de verdad (encontrado por feedback de la encuesta sobre Print View). Arreglado — ahora muestra solo la elegida.",
     install: "",
-    line1: "📜 Las propias reglas de la Legacy Ministorum World obligan a elegir un tercer Army Trait, pero hacerlo se rechazaba como error de lista. Arreglado — el validador ahora usa el mismo cupo de traits que ya calcula el resto de la app.",
-    line2: "⚔️ Chaos Space Marines/Space Marines — una unidad otorgada por el archetype Legion (Legion Tactical Squad, etc) dejaba comprar de AMBAS armerías de Legacy activas a la vez en vez de aplicar la regla de Mixed Warband de \"solo una por unidad\", bajo una pestaña rotulada solo con el nombre de la primera Legacy. Arreglado — ahora muestra la misma pantalla de \"elige una\" que una unidad nativa, y la pestaña nombra todas las Legacies activas.",
-    line3: "🕵️ Inquisition — un Henchman Warband de más de 1 modelo se marcaba mal en Skirmish como \"a Squadron — maximum 1 model\", incluso con 6-12 modelos. Su propia ficha nunca tuvo esa restricción (solo el texto de habilidad de un especialista independiente mencionaba la palabra de casualidad); arreglado, una unidad independiente de Penitents/Sages/etc. mantiene la restricción real.",
-    line4: "🛡️ Imperial Guard — el bonus de armadura del Army Trait \"Heavy Infantry\" solo mejoraba la Salvación del Sargento, no la del resto del escuadrón. Iba por la misma regla que limita una compra real de Armería a un solo modelo — arreglado para aplicarse a toda la unidad, igual que ya hacía el bonus de Ward Save de Bionic Improvement.",
-    line5: "⚙️ Chaos Space Marines — confirmado como intencionado, no un bug: los Army Traits se saltan las unidades tipo Cultist y las de subfacción (World Eaters, Death Guard, ...) a propósito. La app nunca lo explicaba, y la única línea que sí mostraba estaba mal (\"unidades con habilidades veteranas\" no es como funciona para nadie). Arreglado ambos.",
-    line6: "🔥 Tau Empire — un Ghostkeel Battlesuit empezaba con 6 Flamers en vez de 2. Su ficha dice \"is A SINGLE MODEL AND equipped with:\" en vez de la redacción simple que esperaba el motor, así que la coincidencia fallaba y los 2 Flamers del traje se multiplicaban por el número de modelos de TODA la unidad (1 traje + 2 Stealth Drones = 3). Arreglado el patrón de base — también arregla la misma forma en los Battlesuits Y'vahra y R'varna, encontrada en la misma investigación.",
-    line7: "📋 Inquisition — la lista de Abilities del Henchman Warband mostraba el texto de reglas de los 17 especialistas posibles, sin importar cuáles estuvieran realmente en la unidad. Arreglado — la línea de habilidad de un especialista solo se muestra ahora mientras ese especialista esté presente; un Warband con 2 Acólitos + 1 Penitente pasa de 24 habilidades mostradas a 5.",
-    line8: "🔫 Space Marines — la opción de sponson de un Predator (\"2 Heavy flamers\", etc) siempre daba solo 1x del arma en vez de las 2x que su propio nombre indica (GitHub #105). Arreglada la comparación de fondo — también arregla la misma forma en ~40 fichas más en casi todas las facciones que usan el mismo patrón de \"cantidad metida en el nombre de la opción\".",
-    line9: "🎯 Comprar \"Marksman honours\" o \"Swordsman honours\" en la Armory de un personaje empeoraba su Ballistic/Weapon Skill en vez de mejorarlo. Ambas stats se imprimen como un valor de salvación donde un número más bajo es mejor, y el bonus de +1 estaba guardado al revés. Arreglado — el BS de un Chaplain ahora pasa de 3+ a 2+ al comprarlo, como debe ser.",
-    line10: "🦾 Adeptus Custodes — un Telemon Heavy Dreadnought solo podía cambiar UNO de sus dos brazos por un arma a distancia (GitHub #106), aunque su propia ficha dice \"swap EACH\" (cada) brazo. Arreglado — cada brazo se cambia ahora de forma independiente, y puede ir a un arma distinta (por ejemplo, Arachnus storm cannon en uno e Iliastus accelerator culverin en el otro).",
-    line11: "⚔️ GENERAL — los ítems de Armory que se aplican a UN arma elegida (Obsidian blade, Master-crafted weapon, Relic blade y ~30 más en todas las facciones) cobraban los puntos pero el arma nunca cambiaba de verdad. Arreglado para todo ítem con un efecto único bien definido.",
-    line12: "🎯 El resto de ese arreglo: las ~18 reliquias que dejan elegir entre +Alcance/+Fuerza/-AP/+AT ya tienen un selector para decidir cuál, \"Crusade weapon\" de Horus Heresy ahora sí aplica sus 5 bonos, y el Galatus Contemptor Dreadnought de Adeptus Custodes recibió el mismo arreglo de cambio por brazo que el Telemon de arriba.",
-    line13: "🌌 Eldar — los Exarch Powers (Bladestorm, Heartstrike, ...) ahora sí hacen algo, tanto elegidos vía \"Paragon of war\" como desde la mejora propia de un Exarch nativo. De paso se arregló un bug relacionado: el propio bono de stats de Paragon of war/of fate se contaba dos veces en Aguante/Heridas/Ataques.",
-    line14: "🦂 Tyranids — cambiar AMBAS Monstrous scything talons de un Hive Tyrant por Lash whip and bonesword mostraba el arma una sola vez en vez de \"2x\" (GitHub #107) — el mismo fallo de nombre también afecta a Tyranid Warrior Brood/Tyrant Guard Brood. Arreglado.",
-    line15: "⛏️ Leagues of Votann — los Hearthkyn Skyriggers estaban en Elites en vez de Fast Attack. Arreglado, confirmado contra la propia hoja Index del códice.",
+    line1: "📄 El Print View ya no repite Engagement/Archetype/Legacy/Traits/Puntos una segunda vez cerca del final de la hoja (ya sale una vez, en la Portada) — podía desperdiciar una página entera (feedback de la encuesta).",
+    line2: "🎖️ Imperial Guard — el Print View ahora incluye una chuleta de \"Officer Orders\": Fix bayonets!, Take cover!, Move! Move! Move! y el resto de las 9 órdenes de Infantería + 3 de Vehículos, más la única Legacy Order que de verdad desbloquea la Legacy del ejército (pedido de la encuesta).",
+    line3: "📜 Cheat Sheets ahora es el Field Manual — Command Phase Orders (las 6 órdenes + 4 meta-órdenes que usa cualquier facción) vive ahí ahora en vez de en el Print View, junto a los enlaces a los mazos de cartas de órdenes imprimibles de @Grimdark Gamers.",
+    line4: "📜 Field Manual — se sumó una chuleta de \"Turn Sequence\" (fases de la ronda de batalla, dados de Reinforcement, Initiative, Movimiento) después de encontrar que un PDF comunitario de \"Quick Rules\" se había desviado de las reglas reales en varios puntos; hicimos la nuestra propia.",
+    line5: "📜 El Field Manual ahora sigue el idioma elegido — las 6 hojas tienen texto completo en alemán y español, no solo en inglés.",
+    line6: "🖨️ Print View y el Field Manual ahora tienen un selector A4/Letter junto a Print/PDF — el propio diálogo de impresión de iOS Safari no deja elegir tamaño de papel, así que ahora vive dentro de la app.",
+    line7: "⚜️ Las unidades ascendidas (Canoness, Spanna, Traitor Sergeant, ...) ahora se muestran bien en todos los modos de Print View, incluso con un ascenso parcial dentro de una escuadra (p. ej. 2 de 5 Lootas → Spanna) — Simple y List seguían mostrando el nombre base y el tamaño completo de la escuadra.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -151,17 +132,20 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.67 has now been kept across a 2nd, separate push too (Rigzar: "mantenemos version",
-              said again the day AFTER the v1.67→7ad0b52 push that closed out days 1-3) — so this
-              banner accumulates fixes from more than one commit under the same version number, not
-              just one long unpushed session. line6-line15 (Ghostkeel, Henchman Warband abilities,
-              Predator sponsons, Marksman/Swordsman honours, Telemon Dreadnought arm swaps,
-              chosen-weapon Armory grants, the enhancement-picker/Crusade weapon/Galatus follow-up,
-              Eldar Exarch Powers, the Hive Tyrant "and"-named-weapon count bug, and the Leagues of
-              Votann Skyriggers slot fix) were added across 4 pushes. A NEXT fix under this same
-              version needs a line16 added to AnnouncementLang and every language block, not just
-              appended text on line15. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14, tx.line15]
+          {/* v1.68 — a fresh version cut (Rigzar: "pushea ya esto es nueva version"), split off
+              from the v1.67 tail that had been accumulating since 2026-08-27 under "mantenemos
+              version". This banner covers only v1.68's own bullets (line1-7): Print View's
+              redundant Army Configuration block removed, the new IG Officer Orders cheat sheet,
+              the Cheat Sheets→Field Manual rename/merge into one combined Quick Rules document
+              plus its new Turn Sequence section, the Field Manual's full DE/ES translation, an
+              A4/Letter paper-size toggle on both Print View and the Field Manual, and a
+              promoted-unit display fix covering both full (Palatine→Canoness) and partial squad
+              promotions (Lootas→Spanna) — mostly from a player survey about Print/export
+              improvements. (The order-card links' faction-tilt shine landed in the changelog but
+              was minor enough to skip its own banner line, same as before.)
+              A NEXT fix under a NEW v1.69 cut needs a fresh title/intro/line1 — do not just append
+              line8 here unless Rigzar says to keep this version instead of cutting a new one. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
@@ -428,7 +412,7 @@ export function LandingPage({
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
-              Cheat Sheets
+              Field Manual
             </button>
 
             <button

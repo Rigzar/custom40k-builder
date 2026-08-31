@@ -2108,6 +2108,17 @@ export function UnitCard({ item }: Props) {
             const equipAbilities = equipMods.grantedAbilities.filter(
               ab => !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
             );
+            // injectedAbilities (choice.abilities, e.g. Chaos Marks) is usually text that ISN'T
+            // already in the base datasheet abilities — but a choice whose OWN ability text is
+            // copied verbatim from a line already printed in u.abilities (Necron Cryptek: each
+            // specialisation's ability text lives in BOTH places, so the base-list filter below can
+            // hide the other 7 while keeping the selected one) would otherwise render TWICE: once
+            // kept in the base list, once again here with its own "Mark" badge. PrintView.tsx
+            // already guards against this (`injectedAbilities.filter(ab => !u.abilities.some(...))`)
+            // — mirror that same dedup here.
+            const dedupedInjectedAbilities = injectedAbilities.filter(
+              ab => !u.abilities.some(a => a.toLowerCase().includes(ab.toLowerCase()))
+            );
             // Filter base abilities: hide unselected-weapon abilities, choice-gated abilities not yet
             // purchased, and psyker ability when the optional psyker upgrade hasn't been bought.
             const _shownWeaponBaseNames = new Set(weaponsToShow.map(w => w.name.split(' - ')[0]));
@@ -2163,7 +2174,7 @@ export function UnitCard({ item }: Props) {
               if (!_henchmanAbilityKeep(ab)) return false;
               return true;
             });
-            const totalAbilityCount = filteredAbilities.length + traitAbilities.length + injectedAbilities.length + injectedRuleNotes.length + optionAbilities.length + equipAbilities.length;
+            const totalAbilityCount = filteredAbilities.length + traitAbilities.length + dedupedInjectedAbilities.length + injectedRuleNotes.length + optionAbilities.length + equipAbilities.length;
             if (totalAbilityCount === 0) return null;
             return (
             <details>
@@ -2216,7 +2227,7 @@ export function UnitCard({ item }: Props) {
                 ))}
                 {/* traitWeaponAbilities are now shown directly in the weapon table rows (◆ marker).
                     No separate Abilities section entry — avoids duplicate display. */}
-                {injectedAbilities.flatMap((a, i) =>
+                {dedupedInjectedAbilities.flatMap((a, i) =>
                   parseAbility(a).map((part, j) => (
                     <div key={`ma-${i}-${j}`} className="border-b border-zinc-700/40 pb-1.5">
                       <div className="text-[11px] text-zinc-200 font-medium flex items-center gap-1.5">

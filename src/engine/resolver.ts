@@ -406,6 +406,20 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
           break;
         }
       }
+      // A choice's effect can grant a weapon under a COMPLETELY DIFFERENT name than the choice
+      // itself (Necron Cryptek: choice "Astromancer" grants weapon "Staff of Time" via
+      // effect.grants_weapons — no textual relation at all, so the name-matching above can never
+      // link them). When the granted name matches one of the unit's OWN datasheet weapons (not a
+      // general-armoury lookup — that's the separate pushGrantedWeapon/armoryGrantedWeapons path
+      // below), tie it to this choice the same way, so an unselected specialisation's weapon is
+      // correctly hidden instead of falling through as a fixed default (all 7 of a Cryptek's
+      // possible weapons showed regardless of which specialisation was actually taken).
+      for (const grantedName of c.effect?.grants_weapons ?? []) {
+        const gk = wkey(grantedName);
+        if (!unit.weapons.some(w => wkey(w.name) === gk)) continue;
+        if (!optionalWeapons.has(gk)) optionalWeapons.set(gk, new Set());
+        optionalWeapons.get(gk)!.add(c.name);
+      }
     }
   }
 

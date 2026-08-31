@@ -121,3 +121,125 @@ export const IG_SPECIAL_ABILITIES: IgSpecialAbilityEntry[] = [
       'GK/Inquisition disciplines). Logged as `ki-ig-psychic-unwired-01`.',
   },
 ];
+
+/**
+ * Structured form of the "Orders" army rule above, for Print View's Officer Orders reference
+ * card (player-survey request, 2026-08-29 — "having a cheat sheet for all the imperial guard
+ * officer orders you have access to as a part of the print out would be nice"; the request was
+ * for THIS mechanic specifically, not the universal Command Phase order-token system every
+ * faction uses — see COMMAND_ORDERS/META_ORDERS in coreRules.ts for that one). Text is verbatim
+ * from the canonical .ods's own "Orders" sheet (`node scripts/_tmp_ods_dump.cjs "Codex/Imperial
+ * Guard 1.04.ods" "Orders"`), not paraphrased from the prose summary above.
+ */
+export interface OfficerOrderEntry {
+  name: string;
+  when: string;
+  effect: string;
+  /** Set only for the 6 Legacy Orders — the Legacy name that unlocks this specific order. */
+  legacyGrant?: string;
+}
+
+export const IG_INFANTRY_ORDERS: OfficerOrderEntry[] = [
+  {
+    name: 'Fix bayonets!',
+    when: 'When the unit fights in close combat.',
+    effect: 'The unit receives +1 Initiative and -1 AP for its melee attacks.',
+  },
+  {
+    name: 'Take cover!',
+    when: 'When the unit is selected as a target for a ranged weapon.',
+    effect: 'The unit receives a +1 bonus to its armor save. (Can be combined with actual cover)',
+  },
+  {
+    name: 'First rank, fire! Second rank, fire!',
+    when: 'When the unit is activated.',
+    effect: 'Hot-shot lasguns and lasguns change their type to "Rapid Fire 2".',
+  },
+  {
+    name: 'Overcharge batteries!',
+    when: 'When the unit is activated.',
+    effect: 'All laser weapons in the unit receive the "Decimate" ability.',
+  },
+  {
+    name: 'Move! Move! Move!',
+    when: 'When the unit is activated.',
+    effect: 'The unit swaps its command for "Advance" and rolls 2D6 for the additional movement, taking only the highest roll.',
+  },
+  {
+    name: 'Bring it down!',
+    when: 'When the unit is activated.',
+    effect: 'The unit can re-roll all wound and armor penetration rolls against Monstrous Infantry, Monstrous Creatures and Vehicles.',
+  },
+  {
+    name: 'Forwards, for the Emperor!',
+    when: 'When the unit is activated.',
+    effect: 'The unit can still fire all weapons after an "Advance" command as if it had used a "Move & Shoot" command.',
+  },
+  {
+    name: 'Get back in the fight!',
+    when: 'During the Rally phase. This order can be used by any unit, even if the order itself was not given during the prior Battle round, as long as there is at least one Officer on the table that is not fleeing. Reduce the amount of orders you may give in this round\'s Reinforcement phase by 1.',
+    effect: 'The unit loses all Battle shock tokens.',
+  },
+  {
+    name: 'Fall back!',
+    when: 'After the unit has used Defensive fire.',
+    effect: 'The unit moves up to D6".',
+  },
+];
+
+export const IG_VEHICLE_ORDERS: OfficerOrderEntry[] = [
+  {
+    name: 'Gunners, kill on sight!',
+    when: 'When the unit is activated.',
+    effect: 'The unit can re-roll a single hit, wound or armor penetration roll.',
+  },
+  {
+    name: 'Fire and fade!',
+    when: 'When the unit is activated.',
+    effect: 'The unit can use its smoke launcher even if it has fired its weapons this turn.',
+  },
+  {
+    name: 'Scorched earth!',
+    when: 'After the unit has used ranged weapons.',
+    effect: 'The unit can immediately shoot again with a Barrage, Explosive or Flames weapon. The target must be a mission objective marker. If the hit roll is successful, the opponent loses control of it if there are no more of his units on the mission objective.',
+  },
+];
+
+export const IG_LEGACY_ORDERS: OfficerOrderEntry[] = [
+  {
+    name: 'Burn them out!',
+    when: 'When the unit is activated.',
+    effect: 'The unit gains the "Decimate" ability with all weapons that have the "Flames" ability.',
+    legacyGrant: 'Death World',
+  },
+  {
+    name: 'Get around behind them!',
+    when: 'When the unit is activated.',
+    effect: 'The unit can move up to 6", afterwards its order is changed to "Stand & Shoot".',
+    legacyGrant: 'Desert World',
+  },
+  {
+    name: 'Suppressive fire!',
+    when: 'When the unit is activated.',
+    effect: 'If the unit uses a "Stand & Shoot" order and does not split fire its weapons, all ranged weapons in the unit gain the "Suppression" ability.',
+    legacyGrant: 'Fortress World',
+  },
+  {
+    name: 'Fire on my command!',
+    when: 'When the unit is activated.',
+    effect: 'The unit may target an enemy unit engaged in melee with a friendly unit. Any failed hit rolls are instead resolved as hits against the friendly unit. Weapons that have the "Barrage" or "Explosive" ability can\'t be used.',
+    legacyGrant: 'Frozen World',
+  },
+  {
+    name: 'Mount off! / Mount up!',
+    when: 'When the unit is activated.',
+    effect: 'The unit ignores the -1 to hit penalty when disembarking from a transport that moved 6"+. Alternatively, the unit may embark on a transport after using its ranged weapons. The alternative effect can only be used if the unit did not disembark during its activation.',
+    legacyGrant: 'Industrial World',
+  },
+  {
+    name: 'Form firing squad',
+    when: 'When the unit is activated.',
+    effect: 'When firing "Rapid Fire" weapons at a target within 12", the unit may choose which enemy model its ranged attacks are allocated to.',
+    legacyGrant: 'Macropol World',
+  },
+];

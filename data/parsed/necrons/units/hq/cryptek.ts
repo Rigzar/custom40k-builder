@@ -141,7 +141,10 @@ export const cryptek: Unit = {
           "name": "Dynasty Scion",
           "points": 14,
           "unique_per_army": true,
-          "variant_link": "Dynasty Scion"
+          "variant_link": "Dynasty Scion",
+          "abilities": [
+            "Dynasty Scion: The model gains an improved profile (see above) and has additionally access to Lord equipment in the Armory."
+          ]
         },
         {
           "name": "Astromancer",
@@ -151,7 +154,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Staff of Time"
             ]
-          }
+          },
+          "abilities": [
+            "Astromancer: Prescient strike grants this model 2 re-rolls each. Additionally, this model's rolls for \"The Stars Are Right\" are always reduced by 1 (to a minimum of 0)."
+          ]
         },
         {
           "name": "Chronomancer",
@@ -161,7 +167,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Aeonstave"
             ]
-          }
+          },
+          "abilities": [
+            "Chronomancer: A Chronometron's ability may be used for this model or its attached unit. Additionally, a Timesplinter mantle grants \"Deflect\" and \"Parry\" to this model and its attached unit."
+          ]
         },
         {
           "name": "Ethermancer",
@@ -171,7 +180,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Voltaic staff"
             ]
-          }
+          },
+          "abilities": [
+            "Ethermancer: An Ether crystal used by this model causes 2D3 hits. Additionally, this model's Lightning Field grants the \"Retribution(1)\" ability to its attached unit."
+          ]
         },
         {
           "name": "Technomancer",
@@ -181,7 +193,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Staff of Light"
             ]
-          }
+          },
+          "abilities": [
+            "Technomancer: A Canoptek Cloak used by this model may repair 2 Wounds or 2 vehicle damage results per turn. Additionally, it may use a Canoptek Control Node a second time each activation."
+          ]
         },
         {
           "name": "Geomancer",
@@ -191,7 +206,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Tremorstave"
             ]
-          }
+          },
+          "abilities": [
+            "Geomancer: A Harp of Dissonance used by this model has unlimited range. Additionally, a Seismic crucible grants its effect to this model and its attached unit."
+          ]
         },
         {
           "name": "Plasmancer",
@@ -201,7 +219,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Plasmic lance"
             ]
-          }
+          },
+          "abilities": [
+            "Plasmancer: A Gaze of Flame's effect may be used for this model and its attached unit. Additionally, this model and its attached unit are not affected by a Solar Pulse."
+          ]
         },
         {
           "name": "Psychomancer",
@@ -211,7 +232,10 @@ export const cryptek: Unit = {
             "grants_weapons": [
               "Abyssal lance"
             ]
-          }
+          },
+          "abilities": [
+            "Psychomancer: A Nightmare Shroud increases its radius to 18\" for this model. Additionally, a Veil of Darkness scatters 1D6 less (so normally only 1D6\") when used by this model."
+          ]
         }
       ],
       "inline_pts": null,

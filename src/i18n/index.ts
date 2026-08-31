@@ -51,7 +51,7 @@ export type TranslationKey =
   | 'unitName' | 'customNamePlaceholder'
   | 'weapon' | 'range' | 'strength' | 'ap' | 'damage'
   | 'ranged' | 'melee' | 'equipment' | 'abilities' | 'veteranAbilities' | 'psychicPowers' | 'keywords'
-  | 'armyConfiguration' | 'loadingFactionData' | 'engagement' | 'points' | 'specialRules'
+  | 'loadingFactionData' | 'engagement' | 'points' | 'specialRules'
   | 'models' | 'totalModels'
   | 'fullyReviewed' | 'needsTesting' | 'inReview' | 'notReviewed'
   | 'supplements' | 'supplementsDesc' | 'available' | 'comingSoon'
@@ -285,7 +285,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     veteranAbilities: 'Veteran Abilities',
     psychicPowers: 'Psychic Powers',
     keywords: 'Keywords',
-    armyConfiguration: 'Army Configuration',
     loadingFactionData: 'Loading faction data…',
     engagement: 'Engagement',
     points: 'Points',
@@ -902,7 +901,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     veteranAbilities: 'Veteranenfähigkeiten',
     psychicPowers: 'Psikräfte',
     keywords: 'Schlüsselwörter',
-    armyConfiguration: 'Armeekonfiguration',
     loadingFactionData: 'Fraktionsdaten werden geladen…',
     engagement: 'Gefechtstyp',
     points: 'Punkte',
@@ -1519,7 +1517,6 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     veteranAbilities: 'Habilidades veterano',
     psychicPowers: 'Poderes psíquicos',
     keywords: 'Palabras clave',
-    armyConfiguration: 'Configuración del ejército',
     loadingFactionData: 'Cargando datos de la facción…',
     engagement: 'Tipo de enfrentamiento',
     points: 'Puntos',

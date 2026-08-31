@@ -3,13 +3,16 @@ import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
 import type { Unit, Weapon, ArmoryItem, FactionData } from '../types/data';
+import { getActiveVariant, getPromotedModel } from '../engine/points';
 import { useLanguage, t as tFn } from '../i18n';
+import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
+import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import type { EquipMods } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
@@ -332,8 +335,27 @@ function WeaponRow({ weapon: w, shade, color }: { weapon: PrintWeapon; shade: bo
 }
 
 // ── Model count helper ────────────────────────────────────────────────────────
+// A promotion (variant_models, e.g. Palatine → Canoness, or Lootas → up to 3 Spannas) can consume
+// the WHOLE unit (single-model Characters) or only SOME of it (a squad where a handful of models
+// are promoted, the rest staying base) — computed the exact same way resolver.ts's own
+// `modelsToShow`/`modelCounts` does (via the same `getActiveVariant`/`getPromotedModel` helpers),
+// so this compact line never claims more models were promoted than actually were.
 function buildModelCountLabel(item: RosterEntry, u: Unit): string {
   const models = u.models.filter(m => m.max > 0);
+  const active = getActiveVariant(item, u);
+  if (active) {
+    const promoted = getPromotedModel(u, active);
+    const rawCount = item.modelSizes?.[promoted.name] ?? item.size;
+    const baseCount = Math.max(rawCount, promoted.min) - active.count;
+    const parts: string[] = [];
+    if (baseCount > 0) parts.push(`${baseCount} × ${promoted.name}`);
+    parts.push(`${active.count} × ${active.variant.name}`);
+    for (const m of models) {
+      if (m === promoted || m.min === 0) continue;
+      parts.push(`${m.min} × ${m.name}`);
+    }
+    return parts.join(' + ');
+  }
   if (models.length === 0) return '';
   if (models.length === 1) return `${item.size} × ${models[0].name}`;
   const fixed = models.slice(1);
@@ -829,7 +851,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
 
   const storeState = useArmyStore.getState();
   const rp = resolveUnitProfile(item, u, storeState, data);
-  const { pts, weaponTraitMap, injectedAbilities, optionAbilities, equipMods, traitEquipMods,
+  const { pts, variant, weaponTraitMap, injectedAbilities, optionAbilities, equipMods, traitEquipMods,
           effectivePsyker, psykerGroupIdx, attachedDrones } = rp;
   const statKeys = u.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const modelsToShow = rp.modelsToShow;
@@ -926,7 +948,9 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
   return (
     <div style={{ marginBottom: 14, pageBreakInside: 'avoid', breakInside: 'avoid', fontFamily: "'Trebuchet MS', sans-serif", color: '#111' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '2px solid #111', paddingBottom: 2, marginBottom: 4 }}>
-        <span style={{ fontWeight: 800, fontSize: '1em' }}>{item.customName || u.name}</span>
+        <span style={{ fontWeight: 800, fontSize: '1em' }}>
+          {item.customName || u.name}{variant ? ` › ${variant.name}` : ''}
+        </span>
         <span style={{ fontWeight: 700, fontSize: '.85em' }}>{pts} pts</span>
       </div>
 
@@ -1498,7 +1522,8 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
     const u = resolveUnit(item, data);
     if (!u) continue;
     const eff = effOf(item);
-    const pts = resolveUnitProfile(item, u, storeState, data).pts;
+    const rpRow = resolveUnitProfile(item, u, storeState, data);
+    const pts = rpRow.pts;
     grand += pts;
     const wargear = [
       ...item.armory.map(a => a.itemName),
@@ -1526,7 +1551,9 @@ function CompactList({ army, data, color }: { army: RosterEntry[]; data: Faction
         breakInside: 'avoid',
       }}>
         <div style={{ flex: 1 }}>
-          <span style={{ fontWeight: 700, fontSize: '.85em', color: '#111' }}>{item.customName || u.name}</span>
+          <span style={{ fontWeight: 700, fontSize: '.85em', color: '#111' }}>
+            {item.customName || u.name}{rpRow.variant ? ` › ${rpRow.variant.name}` : ''}
+          </span>
           <span style={{ fontSize: '.74em', color: '#888', marginLeft: 6 }}>{buildModelCountLabel(item, u)}</span>
           {wargear.length > 0 && (
             <div style={{ fontSize: '.72em', color: '#666', lineHeight: 1.4, marginTop: 1 }}>{wargear.join(', ')}</div>
@@ -1558,6 +1585,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           alliedFaction, alliedData, supplementData, traitPool } = useArmyStore();
   const { language: rootLang } = useLanguage();
   const [mode, setMode] = useState<'cards' | 'simple' | 'list'>('cards');
+  const [paperSize, setPaperSize] = usePaperSize();
   if (!data) return null;
 
   // The FULL FactionData (WITH armory) an item's armory items should be looked up in. `data.allied`
@@ -1712,6 +1740,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               </button>
             ))}
           </div>
+          <PaperSizeToggle size={paperSize} onChange={setPaperSize} />
           <button onClick={() => window.print()}
             className="px-3 sm:px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-xs sm:text-sm uppercase tracking-wide transition-colors">
             Print
@@ -1722,6 +1751,8 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           </button>
         </div>
       </div>
+
+      <PaperSizeCss size={paperSize} />
 
       {/* Printable area */}
       <div id="pv-printable" className="max-w-3xl mx-auto px-4 py-6"
@@ -1780,8 +1811,16 @@ export function PrintView({ onClose }: { onClose: () => void }) {
           );
         })()}
 
-        {/* Army configuration block */}
-        {(archetype || legacy || engagement) && (
+        {/* Archetype rules block. Used to always render (as "Army Configuration") whenever
+            engagement/archetype/legacy/traits existed — which is nearly always — repeating
+            Engagement/Archetype/Legacy/Traits/Points verbatim from the Cover Page's own
+            `configRows` a few pages earlier. Player-survey feedback (screenshot): "redundant and
+            can lead to a wasted page" — a small block landing at the bottom of a mostly-full page
+            gets pushed whole to a fresh page (pageBreakInside: avoid can't split it), leaving most
+            of that page blank. The one thing here that ISN'T shown anywhere else is `rule.notes`
+            (archetype-specific play notes) — kept, but the block now only exists when there's
+            actually a note to show, instead of unconditionally repeating the cover page. */}
+        {rule?.notes && rule.notes.length > 0 && (
           <div style={{
             marginBottom: 20, pageBreakInside: 'avoid', breakInside: 'avoid',
             border: `1px solid ${primaryColor}55`, overflow: 'hidden',
@@ -1794,39 +1833,74 @@ export function PrintView({ onClose }: { onClose: () => void }) {
               letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
             }}>
               <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
-              <span style={{ position: 'relative', zIndex: 1 }}>{tFn(rootLang, 'armyConfiguration')}</span>
+              <span style={{ position: 'relative', zIndex: 1 }}>Archetype Rules</span>
             </div>
-            <div style={{
-              background: PARCHMENT, padding: '10px 14px',
-              display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10,
-            }}>
-              {[
-                engagement && ['Engagement', ENGAGEMENTS[engagement]?.name ?? engagement],
-                archetype  && ['Archetype', archetype],
-                legacy     && ['Legacy', legacy + (legacy2 ? ` / ${legacy2}` : '')],
-                traitPool.length > 0 && ['Traits', traitPool.join(', ')],
-                ['Points', `${totalPts} / ${pointLimit} pts · ${army.length} units`],
-              ].filter(Boolean).map(([label, value]) => (
-                <div key={label as string}>
-                  <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.66em', textTransform: 'uppercase', color: '#777', letterSpacing: '.07em', marginBottom: 2 }}>
-                    {label}
-                  </div>
-                  <div style={{ fontWeight: 600, color: '#111', fontSize: '.86em' }}>{value}</div>
-                </div>
+            <div style={{ padding: '8px 14px', background: PARCHMENT }}>
+              {rule.notes.map((note, ni) => (
+                <div key={ni} style={{ fontSize: '.82em', color: '#111', lineHeight: 1.45, marginBottom: 3 }}>{note}</div>
               ))}
             </div>
-            {rule?.notes && rule.notes.length > 0 && (
-              <div style={{ padding: '8px 14px', borderTop: `1px solid ${primaryColor}33`, background: '#fff' }}>
-                <div style={{ fontFamily: CONDUIT, fontWeight: 800, fontSize: '.66em', textTransform: 'uppercase', color: '#777', letterSpacing: '.07em', marginBottom: 5 }}>
-                  Archetype Rules
-                </div>
-                {rule.notes.map((note, ni) => (
-                  <div key={ni} style={{ fontSize: '.82em', color: '#111', lineHeight: 1.45, marginBottom: 3 }}>{note}</div>
-                ))}
-              </div>
-            )}
           </div>
         )}
+
+        {/* Imperial Guard's own "Officer Orders" mechanic — the player-survey request this was
+            actually about ("having a cheat sheet for all the imperial guard officer orders you
+            have access to"). This is a DIFFERENT thing from the Command Phase Orders card below:
+            those are the universal order-TOKENS every faction assigns (Advance/Charge/etc); IG's
+            Officers additionally issue named ORDERS from this list (Rigzar: "el se refiere a la
+            habilidad de IG de ordenes, ellos tienen una" — correcting an initial build of only
+            the universal card). Verbatim from the canonical .ods's own "Orders" sheet
+            (`node scripts/_tmp_ods_dump.cjs "Codex/Imperial Guard 1.04.ods" "Orders"`), structured
+            in `codex_imperial_guard/special-abilities.ts`. The 9 Infantry + 3 Vehicle orders are
+            always available to any IG army; only 1 of the 6 Legacy Orders is ever actually
+            unlocked (whichever Legacy the army took), so — same lesson as the Cryptek fix earlier
+            this session — only THAT one is shown, not all 6. */}
+        {data.faction === 'Imperial Guard' && (() => {
+          const activeLegacyOrders = IG_LEGACY_ORDERS.filter(o => o.legacyGrant === legacy || o.legacyGrant === legacy2);
+          return (
+            <div style={{
+              marginBottom: 20, pageBreakInside: 'avoid', breakInside: 'avoid',
+              border: `1px solid ${primaryColor}55`, overflow: 'hidden',
+              ['--ac' as string]: primaryColor,
+            }}>
+              <div style={{
+                background: HDR_BG, color: '#fff',
+                padding: '6px 14px', borderTop: `3px solid ${primaryColor}`,
+                fontFamily: CONDUIT, fontWeight: 800, textTransform: 'uppercase',
+                letterSpacing: '.08em', fontSize: '.85em', position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(135deg, ${primaryColor}44 0%, transparent 55%)`, pointerEvents: 'none' }} />
+                <span style={{ position: 'relative', zIndex: 1 }}>Officer Orders</span>
+              </div>
+              <div style={{
+                padding: '6px 14px', background: PARCHMENT,
+                columnCount: 2, columnGap: 20,
+              }}>
+                {[...IG_INFANTRY_ORDERS, ...IG_VEHICLE_ORDERS, ...activeLegacyOrders].map((o: OfficerOrderEntry) => (
+                  <div key={o.name} style={{
+                    breakInside: 'avoid', fontSize: '.77em', lineHeight: 1.3,
+                    color: '#222', marginBottom: 7,
+                    paddingLeft: 6, borderLeft: `2px solid ${primaryColor}55`,
+                  }}>
+                    <div style={{ fontWeight: 700 }}>
+                      {o.name}
+                      {o.legacyGrant && <span style={{ fontWeight: 400, color: '#777' }}> ({o.legacyGrant})</span>}
+                    </div>
+                    <div style={{ color: '#777', fontStyle: 'italic', marginBottom: 1 }}>{o.when}</div>
+                    <div style={{ color: '#555' }}>{o.effect}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Note: the universal Command Phase Orders (Advance/Charge/etc) deliberately do NOT get
+            their own section here — Rigzar: "las command phase orders solo deben aparecer en la
+            cheat sheet" (only in the Field Manual's combined Quick Rules document, not repeated
+            per-army in this export). Imperial Guard's own named Officer Orders above are
+            army-specific (gated by faction + Legacy) and stay here; the universal token system is
+            Core Rules reference material that belongs in the standalone Field Manual instead. */}
 
         {/* Special rules reference */}
         {allSpecialRules.size > 0 && (
