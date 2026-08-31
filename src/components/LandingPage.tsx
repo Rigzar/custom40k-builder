@@ -11,36 +11,57 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
 
-// v1.69 — another fresh version cut, right after v1.68's own (same day: Rigzar wanted v1.68
-// pushed immediately, then reported the nav-bar/supplement i18n gap as a separate follow-up).
-// Fresh title/intro/line1-2 only — does not carry v1.68's line1-7 forward, same reasoning as
-// v1.68's own cut (feedback_version_cut_banner_scope.md). Source: changelog.ts's '1.69' entry.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; contrib: string; };
+// v1.68 stays v1.68 (Rigzar: "manten la misma version nadie te dijo que la cambiara") — a v1.69
+// cut was created by mistake right after this same day's v1.68 push and has been folded back in.
+// line8-9 below are the nav-row/supplement-drawer i18n fixes that were briefly their own v1.69
+// banner; they're just appended lines on the existing v1.68 announcement instead.
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.69: the front page now actually changes language",
-    intro: "The nav row (Wiki, Login/Sign in, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which language you picked, even though \"Build Army\" and \"Supplements\" right next to them already worked. Fixed — all of them now follow your selected language.",
+    title: "v1.68: Necron Cryptek fix, Print View cleanup",
+    intro: "Necrons — a Cryptek showed every possible specialisation's ability and weapon at once, no matter which one was actually taken (found from Print View survey feedback). Fixed — it now shows only the one you picked.",
     install: "",
-    line1: "🌐 The 4 supplement cards (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer — description, \"How to activate\" steps, Catalog, battlefield-role headers, Armory Weapons/Equipment — were entirely English too. Fixed, same as the nav row.",
-    line2: "🔎 Found by going through the front page hunting for anything that doesn't change language, after the first fix only covered part of it — thanks for pushing to get the whole thing instead of just the first bug found.",
+    line1: "📄 Print View no longer repeats Engagement/Archetype/Legacy/Traits/Points a second time near the end of the sheet (it already shows once, on the Cover Page) — could waste a whole page doing it (survey feedback).",
+    line2: "🎖️ Imperial Guard — Print View now includes an \"Officer Orders\" cheat sheet: Fix bayonets!, Take cover!, Move! Move! Move!, and the rest of the 9 Infantry + 3 Vehicle orders, plus whichever Legacy Order your army's Legacy actually unlocks (survey request).",
+    line3: "📜 Cheat Sheets is now the Field Manual — Command Phase Orders (the 6 orders + 4 meta orders every faction assigns) lives there now instead of Print View, alongside links to @Grimdark Gamers' printable order-card decks.",
+    line4: "📜 Field Manual — added a \"Turn Sequence\" quick-reference (battle round phases, Reinforcement dice, Initiative, Movement) after finding a community \"Quick Rules\" PDF had drifted from the actual rules in several places; built our own instead.",
+    line5: "📜 Field Manual now follows your selected language — all 6 sheets have full German and Spanish text, not just English.",
+    line6: "🖨️ Print View and the Field Manual now have an A4/Letter toggle next to Print/PDF — iOS Safari's own print sheet doesn't offer a paper-size choice, so this one lives in the app instead.",
+    line7: "⚜️ Promoted units (Canoness, Spanna, Traitor Sergeant, ...) now show correctly in every Print View mode, including a partial squad promotion (e.g. 2 of 5 Lootas → Spanna) — Simple and List were still printing the plain base name and full squad size.",
+    line8: "🌐 The front-page nav row (Wiki, Login/Sign in, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which language you picked, even though \"Build Army\" and \"Supplements\" right next to them already worked. Fixed — all of them now follow your selected language.",
+    line9: "🌐 The 4 supplement cards (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer — description, \"How to activate\" steps, Catalog, battlefield-role headers, Armory Weapons/Equipment — were entirely English too. Fixed, same as the nav row.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.69: die Startseite wechselt jetzt wirklich die Sprache",
-    intro: "Die Navigationsleiste (Wiki, Anmelden/Registrieren, Glossar, Feldhandbuch, Community-Armeen, Feldzug, Discord) blieb auf Englisch, egal welche Sprache gewählt war, obwohl „Armee bauen\" und „Erweiterungen\" direkt daneben schon funktionierten. Behoben — alle folgen jetzt der gewählten Sprache.",
+    title: "v1.68: Necron-Cryptek-Fix, Print-View-Aufräumen",
+    intro: "Necrons — ein Cryptek zeigte jede mögliche Spezialisierung und Waffe gleichzeitig, egal welche tatsächlich gewählt wurde (gefunden durch Print-View-Umfrage-Feedback). Behoben — jetzt wird nur die gewählte angezeigt.",
     install: "",
-    line1: "🌐 Auch die 4 Erweiterungskarten (Horus Heresy, Streitkräfte des Maschinengottes, Escalation, Assassins) und ihre Detailansicht — Beschreibung, „Aktivierung\"-Schritte, Katalog, Schlachtfeldrollen-Überschriften, Rüstkammer-Waffen/-Ausrüstung — waren komplett auf Englisch. Behoben, genau wie die Navigationsleiste.",
-    line2: "🔎 Gefunden durch systematisches Durchgehen der Startseite nach allem, was die Sprache nicht wechselt, nachdem der erste Fix nur einen Teil davon abgedeckt hatte — danke, dass darauf bestanden wurde, das Ganze statt nur des ersten gefundenen Bugs anzugehen.",
+    line1: "📄 Print View wiederholt Engagement/Archetype/Legacy/Traits/Punkte nicht mehr ein zweites Mal am Ende des Blatts (steht schon einmal auf der Titelseite) — konnte eine ganze Seite verschwenden (Umfrage-Feedback).",
+    line2: "🎖️ Imperial Guard — Print View enthält jetzt eine „Officer Orders\"-Chuleta: Fix bayonets!, Take cover!, Move! Move! Move! und den Rest der 9 Infanterie- + 3 Fahrzeug-Befehle, plus den einen Legacy-Befehl, den die Legacy der Armee tatsächlich freischaltet (Umfrage-Wunsch).",
+    line3: "📜 Cheat Sheets heißt jetzt Field Manual — Command Phase Orders (die 6 Befehle + 4 Meta-Befehle, die jede Fraktion vergibt) leben jetzt dort statt im Print View, zusammen mit Links zu @Grimdark Gamers' druckbaren Befehlskarten-Decks.",
+    line4: "📜 Field Manual — eine „Turn Sequence\"-Chuleta ist dazugekommen (Phasen der Kampfrunde, Reinforcement-Würfel, Initiative, Bewegung), nachdem wir festgestellt haben, dass ein Community-PDF mit „Quick Rules\" an mehreren Stellen von den echten Regeln abgewichen ist; stattdessen unsere eigene gebaut.",
+    line5: "📜 Das Field Manual folgt jetzt der gewählten Sprache — alle 6 Blätter gibt es vollständig auf Deutsch und Spanisch, nicht nur auf Englisch.",
+    line6: "🖨️ Print View und das Field Manual haben jetzt einen A4/Letter-Umschalter neben Print/PDF — Safari auf iOS bietet in seinem eigenen Druck-Dialog keine Papiergrößen-Auswahl, deshalb lebt sie jetzt in der App.",
+    line7: "⚜️ Beförderte Einheiten (Canoness, Spanna, Traitor Sergeant, ...) werden jetzt in jedem Print-View-Modus korrekt angezeigt, auch bei einer teilweisen Beförderung im Trupp (z. B. 2 von 5 Lootas → Spanna) — Simple und List druckten noch den reinen Basisnamen und die volle Truppgröße.",
+    line8: "🌐 Die Navigationsleiste (Wiki, Anmelden/Registrieren, Glossar, Feldhandbuch, Community-Armeen, Feldzug, Discord) blieb auf Englisch, egal welche Sprache gewählt war, obwohl „Armee bauen\" und „Erweiterungen\" direkt daneben schon funktionierten. Behoben — alle folgen jetzt der gewählten Sprache.",
+    line9: "🌐 Auch die 4 Erweiterungskarten (Horus Heresy, Streitkräfte des Maschinengottes, Escalation, Assassins) und ihre Detailansicht — Beschreibung, „Aktivierung\"-Schritte, Katalog, Schlachtfeldrollen-Überschriften, Rüstkammer-Waffen/-Ausrüstung — waren komplett auf Englisch. Behoben, genau wie die Navigationsleiste.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.69: la portada ahora sí cambia de idioma",
-    intro: "La barra de navegación (Wiki, Iniciar sesión/Registrarse, Glosario, Manual de Campo, Ejércitos de la Comunidad, Campaña, Discord) se quedaba en inglés sin importar el idioma elegido, aunque \"Construir Ejército\" y \"Suplementos\" justo al lado ya funcionaban bien. Arreglado — todos siguen ahora el idioma elegido.",
+    title: "v1.68: arreglo del Cryptek Necron, limpieza del Print View",
+    intro: "Necrons — un Cryptek mostraba todas las especializaciones posibles y todas las armas posibles a la vez, sin importar cuál se había elegido de verdad (encontrado por feedback de la encuesta sobre Print View). Arreglado — ahora muestra solo la elegida.",
     install: "",
-    line1: "🌐 Las 4 tarjetas de suplementos (Horus Heresy, Fuerzas del Dios Máquina, Escalation, Assassins) y su panel de detalle — descripción, pasos de \"Cómo activarlo\", Catálogo, encabezados de rol de batalla, Armería de Armas/Equipo — también estaban completamente en inglés. Arreglado, igual que la barra de navegación.",
-    line2: "🔎 Encontrado revisando la portada entera en busca de todo lo que no cambiara de idioma, después de que el primer arreglo solo cubriera una parte — gracias por insistir en arreglarlo todo en vez de solo el primer bug encontrado.",
+    line1: "📄 El Print View ya no repite Engagement/Archetype/Legacy/Traits/Puntos una segunda vez cerca del final de la hoja (ya sale una vez, en la Portada) — podía desperdiciar una página entera (feedback de la encuesta).",
+    line2: "🎖️ Imperial Guard — el Print View ahora incluye una chuleta de \"Officer Orders\": Fix bayonets!, Take cover!, Move! Move! Move! y el resto de las 9 órdenes de Infantería + 3 de Vehículos, más la única Legacy Order que de verdad desbloquea la Legacy del ejército (pedido de la encuesta).",
+    line3: "📜 Cheat Sheets ahora es el Field Manual — Command Phase Orders (las 6 órdenes + 4 meta-órdenes que usa cualquier facción) vive ahí ahora en vez de en el Print View, junto a los enlaces a los mazos de cartas de órdenes imprimibles de @Grimdark Gamers.",
+    line4: "📜 Field Manual — se sumó una chuleta de \"Turn Sequence\" (fases de la ronda de batalla, dados de Reinforcement, Initiative, Movimiento) después de encontrar que un PDF comunitario de \"Quick Rules\" se había desviado de las reglas reales en varios puntos; hicimos la nuestra propia.",
+    line5: "📜 El Field Manual ahora sigue el idioma elegido — las 6 hojas tienen texto completo en alemán y español, no solo en inglés.",
+    line6: "🖨️ Print View y el Field Manual ahora tienen un selector A4/Letter junto a Print/PDF — el propio diálogo de impresión de iOS Safari no deja elegir tamaño de papel, así que ahora vive dentro de la app.",
+    line7: "⚜️ Las unidades ascendidas (Canoness, Spanna, Traitor Sergeant, ...) ahora se muestran bien en todos los modos de Print View, incluso con un ascenso parcial dentro de una escuadra (p. ej. 2 de 5 Lootas → Spanna) — Simple y List seguían mostrando el nombre base y el tamaño completo de la escuadra.",
+    line8: "🌐 La barra de navegación (Wiki, Iniciar sesión/Registrarse, Glosario, Manual de Campo, Ejércitos de la Comunidad, Campaña, Discord) se quedaba en inglés sin importar el idioma elegido, aunque \"Construir Ejército\" y \"Suplementos\" justo al lado ya funcionaban bien. Arreglado — todos siguen ahora el idioma elegido.",
+    line9: "🌐 Las 4 tarjetas de suplementos (Horus Heresy, Fuerzas del Dios Máquina, Escalation, Assassins) y su panel de detalle — descripción, pasos de \"Cómo activarlo\", Catálogo, encabezados de rol de batalla, Armería de Armas/Equipo — también estaban completamente en inglés. Arreglado, igual que la barra de navegación.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -116,17 +137,17 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.69 — a second fresh version cut the same day as v1.68's own (Rigzar wanted v1.68
-              pushed right away, then reported this as a separate follow-up bug: "hay muchas cosas
-              en ingles que no se cambian al idioma que se elige... revisa todo lo que no se
-              cambia de idioma"). Covers only v1.69's own content (intro + line1-2): the front-page
-              nav row (Wiki/Login/Glossary/Field Manual/Community Armies/Campaign/Discord) and the
-              4 supplement teaser cards + their detail drawer were hardcoded English regardless of
-              language — both fixed via new `nav*`/`*Card*` translation keys and a `SUPPLEMENT_TEXT`
-              per-language table in SupplementModal.tsx.
-              A NEXT fix under a NEW v1.70 cut needs a fresh title/intro/line1 — do not just append
-              line3 here unless Rigzar says to keep this version instead of cutting a new one. */}
-          {[tx.line1, tx.line2]
+          {/* v1.68 stays v1.68 (Rigzar: "manten la misma version nadie te dijo que la cambiara") —
+              a v1.69 cut was made by mistake right after this same day's v1.68 push and has been
+              folded back in as line8-9 below: the front-page nav row (Wiki/Login/Glossary/Field
+              Manual/Community Armies/Campaign/Discord) and the 4 supplement teaser cards + their
+              detail drawer were hardcoded English regardless of language — fixed via new
+              `nav*`/`*Card*` translation keys and a `SUPPLEMENT_TEXT` per-language table in
+              SupplementModal.tsx.
+              A NEXT fix under this same version needs a line10 added to AnnouncementLang and every
+              language block — do NOT cut a new version number unless Rigzar explicitly asks for
+              one; the default is to keep appending to v1.68. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
