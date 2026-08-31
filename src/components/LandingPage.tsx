@@ -11,52 +11,36 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
 
-// v1.68 — a fresh version cut (Rigzar: "pushea ya esto es nueva version"), split off from the
-// long v1.67 tail that had been accumulating under "mantenemos version" since 2026-08-27. The
-// banner resets to just THIS version's own content (title/intro/line1-7) rather than carrying
-// v1.67's line1-15 forward — see feedback_version_cut_banner_scope.md on why a real new version
-// starts clean instead of appending. Source bullets: changelog.ts's '1.68' entry.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
+// v1.69 — another fresh version cut, right after v1.68's own (same day: Rigzar wanted v1.68
+// pushed immediately, then reported the nav-bar/supplement i18n gap as a separate follow-up).
+// Fresh title/intro/line1-2 only — does not carry v1.68's line1-7 forward, same reasoning as
+// v1.68's own cut (feedback_version_cut_banner_scope.md). Source: changelog.ts's '1.69' entry.
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.68: Necron Cryptek fix, Print View cleanup",
-    intro: "Necrons — a Cryptek showed every possible specialisation's ability and weapon at once, no matter which one was actually taken (found from Print View survey feedback). Fixed — it now shows only the one you picked.",
+    title: "v1.69: the front page now actually changes language",
+    intro: "The nav row (Wiki, Login/Sign in, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which language you picked, even though \"Build Army\" and \"Supplements\" right next to them already worked. Fixed — all of them now follow your selected language.",
     install: "",
-    line1: "📄 Print View no longer repeats Engagement/Archetype/Legacy/Traits/Points a second time near the end of the sheet (it already shows once, on the Cover Page) — could waste a whole page doing it (survey feedback).",
-    line2: "🎖️ Imperial Guard — Print View now includes an \"Officer Orders\" cheat sheet: Fix bayonets!, Take cover!, Move! Move! Move!, and the rest of the 9 Infantry + 3 Vehicle orders, plus whichever Legacy Order your army's Legacy actually unlocks (survey request).",
-    line3: "📜 Cheat Sheets is now the Field Manual — Command Phase Orders (the 6 orders + 4 meta orders every faction assigns) lives there now instead of Print View, alongside links to @Grimdark Gamers' printable order-card decks.",
-    line4: "📜 Field Manual — added a \"Turn Sequence\" quick-reference (battle round phases, Reinforcement dice, Initiative, Movement) after finding a community \"Quick Rules\" PDF had drifted from the actual rules in several places; built our own instead.",
-    line5: "📜 Field Manual now follows your selected language — all 6 sheets have full German and Spanish text, not just English.",
-    line6: "🖨️ Print View and the Field Manual now have an A4/Letter toggle next to Print/PDF — iOS Safari's own print sheet doesn't offer a paper-size choice, so this one lives in the app instead.",
-    line7: "⚜️ Promoted units (Canoness, Spanna, Traitor Sergeant, ...) now show correctly in every Print View mode, including a partial squad promotion (e.g. 2 of 5 Lootas → Spanna) — Simple and List were still printing the plain base name and full squad size.",
+    line1: "🌐 The 4 supplement cards (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer — description, \"How to activate\" steps, Catalog, battlefield-role headers, Armory Weapons/Equipment — were entirely English too. Fixed, same as the nav row.",
+    line2: "🔎 Found by going through the front page hunting for anything that doesn't change language, after the first fix only covered part of it — thanks for pushing to get the whole thing instead of just the first bug found.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.68: Necron-Cryptek-Fix, Print-View-Aufräumen",
-    intro: "Necrons — ein Cryptek zeigte jede mögliche Spezialisierung und Waffe gleichzeitig, egal welche tatsächlich gewählt wurde (gefunden durch Print-View-Umfrage-Feedback). Behoben — jetzt wird nur die gewählte angezeigt.",
+    title: "v1.69: die Startseite wechselt jetzt wirklich die Sprache",
+    intro: "Die Navigationsleiste (Wiki, Anmelden/Registrieren, Glossar, Feldhandbuch, Community-Armeen, Feldzug, Discord) blieb auf Englisch, egal welche Sprache gewählt war, obwohl „Armee bauen\" und „Erweiterungen\" direkt daneben schon funktionierten. Behoben — alle folgen jetzt der gewählten Sprache.",
     install: "",
-    line1: "📄 Print View wiederholt Engagement/Archetype/Legacy/Traits/Punkte nicht mehr ein zweites Mal am Ende des Blatts (steht schon einmal auf der Titelseite) — konnte eine ganze Seite verschwenden (Umfrage-Feedback).",
-    line2: "🎖️ Imperial Guard — Print View enthält jetzt eine „Officer Orders\"-Chuleta: Fix bayonets!, Take cover!, Move! Move! Move! und den Rest der 9 Infanterie- + 3 Fahrzeug-Befehle, plus den einen Legacy-Befehl, den die Legacy der Armee tatsächlich freischaltet (Umfrage-Wunsch).",
-    line3: "📜 Cheat Sheets heißt jetzt Field Manual — Command Phase Orders (die 6 Befehle + 4 Meta-Befehle, die jede Fraktion vergibt) leben jetzt dort statt im Print View, zusammen mit Links zu @Grimdark Gamers' druckbaren Befehlskarten-Decks.",
-    line4: "📜 Field Manual — eine „Turn Sequence\"-Chuleta ist dazugekommen (Phasen der Kampfrunde, Reinforcement-Würfel, Initiative, Bewegung), nachdem wir festgestellt haben, dass ein Community-PDF mit „Quick Rules\" an mehreren Stellen von den echten Regeln abgewichen ist; stattdessen unsere eigene gebaut.",
-    line5: "📜 Das Field Manual folgt jetzt der gewählten Sprache — alle 6 Blätter gibt es vollständig auf Deutsch und Spanisch, nicht nur auf Englisch.",
-    line6: "🖨️ Print View und das Field Manual haben jetzt einen A4/Letter-Umschalter neben Print/PDF — Safari auf iOS bietet in seinem eigenen Druck-Dialog keine Papiergrößen-Auswahl, deshalb lebt sie jetzt in der App.",
-    line7: "⚜️ Beförderte Einheiten (Canoness, Spanna, Traitor Sergeant, ...) werden jetzt in jedem Print-View-Modus korrekt angezeigt, auch bei einer teilweisen Beförderung im Trupp (z. B. 2 von 5 Lootas → Spanna) — Simple und List druckten noch den reinen Basisnamen und die volle Truppgröße.",
+    line1: "🌐 Auch die 4 Erweiterungskarten (Horus Heresy, Streitkräfte des Maschinengottes, Escalation, Assassins) und ihre Detailansicht — Beschreibung, „Aktivierung\"-Schritte, Katalog, Schlachtfeldrollen-Überschriften, Rüstkammer-Waffen/-Ausrüstung — waren komplett auf Englisch. Behoben, genau wie die Navigationsleiste.",
+    line2: "🔎 Gefunden durch systematisches Durchgehen der Startseite nach allem, was die Sprache nicht wechselt, nachdem der erste Fix nur einen Teil davon abgedeckt hatte — danke, dass darauf bestanden wurde, das Ganze statt nur des ersten gefundenen Bugs anzugehen.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.68: arreglo del Cryptek Necron, limpieza del Print View",
-    intro: "Necrons — un Cryptek mostraba todas las especializaciones posibles y todas las armas posibles a la vez, sin importar cuál se había elegido de verdad (encontrado por feedback de la encuesta sobre Print View). Arreglado — ahora muestra solo la elegida.",
+    title: "v1.69: la portada ahora sí cambia de idioma",
+    intro: "La barra de navegación (Wiki, Iniciar sesión/Registrarse, Glosario, Manual de Campo, Ejércitos de la Comunidad, Campaña, Discord) se quedaba en inglés sin importar el idioma elegido, aunque \"Construir Ejército\" y \"Suplementos\" justo al lado ya funcionaban bien. Arreglado — todos siguen ahora el idioma elegido.",
     install: "",
-    line1: "📄 El Print View ya no repite Engagement/Archetype/Legacy/Traits/Puntos una segunda vez cerca del final de la hoja (ya sale una vez, en la Portada) — podía desperdiciar una página entera (feedback de la encuesta).",
-    line2: "🎖️ Imperial Guard — el Print View ahora incluye una chuleta de \"Officer Orders\": Fix bayonets!, Take cover!, Move! Move! Move! y el resto de las 9 órdenes de Infantería + 3 de Vehículos, más la única Legacy Order que de verdad desbloquea la Legacy del ejército (pedido de la encuesta).",
-    line3: "📜 Cheat Sheets ahora es el Field Manual — Command Phase Orders (las 6 órdenes + 4 meta-órdenes que usa cualquier facción) vive ahí ahora en vez de en el Print View, junto a los enlaces a los mazos de cartas de órdenes imprimibles de @Grimdark Gamers.",
-    line4: "📜 Field Manual — se sumó una chuleta de \"Turn Sequence\" (fases de la ronda de batalla, dados de Reinforcement, Initiative, Movimiento) después de encontrar que un PDF comunitario de \"Quick Rules\" se había desviado de las reglas reales en varios puntos; hicimos la nuestra propia.",
-    line5: "📜 El Field Manual ahora sigue el idioma elegido — las 6 hojas tienen texto completo en alemán y español, no solo en inglés.",
-    line6: "🖨️ Print View y el Field Manual ahora tienen un selector A4/Letter junto a Print/PDF — el propio diálogo de impresión de iOS Safari no deja elegir tamaño de papel, así que ahora vive dentro de la app.",
-    line7: "⚜️ Las unidades ascendidas (Canoness, Spanna, Traitor Sergeant, ...) ahora se muestran bien en todos los modos de Print View, incluso con un ascenso parcial dentro de una escuadra (p. ej. 2 de 5 Lootas → Spanna) — Simple y List seguían mostrando el nombre base y el tamaño completo de la escuadra.",
+    line1: "🌐 Las 4 tarjetas de suplementos (Horus Heresy, Fuerzas del Dios Máquina, Escalation, Assassins) y su panel de detalle — descripción, pasos de \"Cómo activarlo\", Catálogo, encabezados de rol de batalla, Armería de Armas/Equipo — también estaban completamente en inglés. Arreglado, igual que la barra de navegación.",
+    line2: "🔎 Encontrado revisando la portada entera en busca de todo lo que no cambiara de idioma, después de que el primer arreglo solo cubriera una parte — gracias por insistir en arreglarlo todo en vez de solo el primer bug encontrado.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -132,20 +116,17 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.68 — a fresh version cut (Rigzar: "pushea ya esto es nueva version"), split off
-              from the v1.67 tail that had been accumulating since 2026-08-27 under "mantenemos
-              version". This banner covers only v1.68's own bullets (line1-7): Print View's
-              redundant Army Configuration block removed, the new IG Officer Orders cheat sheet,
-              the Cheat Sheets→Field Manual rename/merge into one combined Quick Rules document
-              plus its new Turn Sequence section, the Field Manual's full DE/ES translation, an
-              A4/Letter paper-size toggle on both Print View and the Field Manual, and a
-              promoted-unit display fix covering both full (Palatine→Canoness) and partial squad
-              promotions (Lootas→Spanna) — mostly from a player survey about Print/export
-              improvements. (The order-card links' faction-tilt shine landed in the changelog but
-              was minor enough to skip its own banner line, same as before.)
-              A NEXT fix under a NEW v1.69 cut needs a fresh title/intro/line1 — do not just append
-              line8 here unless Rigzar says to keep this version instead of cutting a new one. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
+          {/* v1.69 — a second fresh version cut the same day as v1.68's own (Rigzar wanted v1.68
+              pushed right away, then reported this as a separate follow-up bug: "hay muchas cosas
+              en ingles que no se cambian al idioma que se elige... revisa todo lo que no se
+              cambia de idioma"). Covers only v1.69's own content (intro + line1-2): the front-page
+              nav row (Wiki/Login/Glossary/Field Manual/Community Armies/Campaign/Discord) and the
+              4 supplement teaser cards + their detail drawer were hardcoded English regardless of
+              language — both fixed via new `nav*`/`*Card*` translation keys and a `SUPPLEMENT_TEXT`
+              per-language table in SupplementModal.tsx.
+              A NEXT fix under a NEW v1.70 cut needs a fresh title/intro/line1 — do not just append
+              line3 here unless Rigzar says to keep this version instead of cutting a new one. */}
+          {[tx.line1, tx.line2]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
@@ -370,7 +351,7 @@ export function LandingPage({
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-              Wiki
+              {t('navWiki')}
             </a>
 
             <button
@@ -381,7 +362,7 @@ export function LandingPage({
                 ? <Avatar username={username} avatar={avatar} size={18} />
                 : <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
               }
-              {loggedIn ? (username ?? 'Account') : 'Login / Sign in'}
+              {loggedIn ? (username ?? 'Account') : t('navLoginSignIn')}
             </button>
 
             {loggedIn && (
@@ -390,7 +371,7 @@ export function LandingPage({
                 className="btn-sweep relative flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-300 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                Messages
+                {t('navMessages')}
                 {unread > 0 && (
                   <span className="absolute -top-1.5 -right-1.5 bg-amber-700 text-amber-100 text-[9px] rounded-full px-1.5 py-0.5 leading-none">{unread}</span>
                 )}
@@ -404,7 +385,7 @@ export function LandingPage({
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-              Glossary
+              {t('navGlossary')}
             </a>
 
             <button
@@ -412,7 +393,7 @@ export function LandingPage({
               className="btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-zinc-500 text-zinc-300 hover:text-zinc-100 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
-              Field Manual
+              {t('navFieldManual')}
             </button>
 
             <button
@@ -439,7 +420,7 @@ export function LandingPage({
               className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
             >
               <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-              Community Armies
+              {t('navCommunityArmies')}
             </button>
 
             {/* Campaign (Planetary Assault) is built but not yet opened up to regular players —
@@ -452,7 +433,7 @@ export function LandingPage({
                 className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
-                Campaign — Alpha (Admin)
+                {t('navCampaignAlphaAdmin')}
               </button>
             ) : (
               <button
@@ -461,7 +442,7 @@ export function LandingPage({
                 className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v4.083M17.91 3.5A9 9 0 0121 12a9 9 0 01-9 9m0-18a9 9 0 00-9 9m9-9c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 18v-4a2 2 0 012-2h2.599" /></svg>
-                Campaign — Coming Soon (Alpha)
+                {t('navCampaignComingSoon')}
               </button>
             )}
           </div>
@@ -476,7 +457,7 @@ export function LandingPage({
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
             </svg>
-            Discord
+            {t('navDiscord')}
           </a>
 
         </div>
@@ -498,7 +479,7 @@ export function LandingPage({
               <img src="/faction-symbols/horus-heresy.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
                 <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Horus Heresy</div>
-                <div className="text-zinc-500 text-[10px] leading-relaxed">Space Marine legions of the Age of Darkness</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">{t('hhCardDesc')}</div>
                 <div className="text-red-900 group-hover:text-red-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Legiones Astartes</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-red-900 group-hover:text-red-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -513,8 +494,8 @@ export function LandingPage({
               <div className="absolute inset-0 bg-gradient-to-r from-orange-950/30 to-transparent pointer-events-none" />
               <img src="/faction-symbols/horus-heresy.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
-                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Forces of the Machine God</div>
-                <div className="text-zinc-500 text-[10px] leading-relaxed">Secutarii of the Collegia Titanica</div>
+                <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">{t('mgCardTitle')}</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">{t('mgCardDesc')}</div>
                 <div className="text-orange-900 group-hover:text-orange-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Taghmata</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-orange-900 group-hover:text-orange-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -530,8 +511,8 @@ export function LandingPage({
               <img src="/faction-symbols/escalation.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
                 <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Escalation</div>
-                <div className="text-zinc-500 text-[10px] leading-relaxed">Super-heavy vehicles and Gargantuan Creatures</div>
-                <div className="text-amber-800 group-hover:text-amber-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Lords of War</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">{t('escCardDesc')}</div>
+                <div className="text-amber-800 group-hover:text-amber-600 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">{t('lordsOfWar')}</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-amber-800 group-hover:text-amber-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -546,7 +527,7 @@ export function LandingPage({
               <img src="/faction-symbols/assassins.svg" alt="" className="relative z-10 shrink-0" style={{ width: 54, height: 54, filter: 'brightness(0) invert(1) opacity(0.75)' }} draggable={false} />
               <div className="relative z-10 flex-1 min-w-0">
                 <div className="text-zinc-100 text-[13px] font-bold uppercase tracking-wide mb-0.5">Assassins</div>
-                <div className="text-zinc-500 text-[10px] leading-relaxed">Operatives of the Officio Assassinorum</div>
+                <div className="text-zinc-500 text-[10px] leading-relaxed">{t('assCardDesc')}</div>
                 <div className="text-zinc-500 group-hover:text-zinc-300 text-[10px] uppercase tracking-widest mt-1.5 transition-colors">Execution Force</div>
               </div>
               <svg className="relative z-10 w-4 h-4 text-zinc-600 group-hover:text-zinc-300 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

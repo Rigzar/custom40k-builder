@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.69',
+    date: '2026-08-31',
+    title: 'Front-page translations: nav bar and supplement drawer',
+    changes: [
+      'GENERAL — the front-page nav row (Wiki, Login/Sign in, Messages, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which of the app\'s 3 languages was selected, even though "Build Army" and "Supplements" right next to them already translated correctly (Rigzar: "hay muchas cosas en ingles que no se cambian al idioma que se elige"). CAUSE: those specific buttons were written as plain hardcoded strings instead of going through the same `useT()` translation function the rest of the front page already uses. Fixed — all of them (plus the floating Field Manual button that appears on every other screen) now read from new `nav*` translation keys, with full German and Spanish text.',
+      'GENERAL — the 4 supplement teaser cards on the front page (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer (blurb, "How to activate" steps, Catalog section, battlefield-role headers, Armory Weapons/Equipment lists) were entirely hardcoded English, found in the same pass ("revisa todo lo que no se cambia de idioma"). Fixed: descriptions/steps/section headers now translate (unit and weapon names stay English, same as every other datasheet in the app); the drawer\'s battlefield-role headers (Troops, Elites, Fast Attack, ...) now reuse the exact same translation keys the main army builder already uses for consistency.',
+    ],
+  },
+  {
     version: '1.68',
     date: '2026-08-31',
     title: 'Print View feedback round: Field Manual, translations, promoted units',

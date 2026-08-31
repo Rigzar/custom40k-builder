@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { Unit, Weapon, Model, Armory } from '../types/data';
+import { useT, useLanguage, type Language } from '../i18n';
 
 // Read-only, store-free catalog of a supplement's contents. It NEVER mutates army
 // state — it only informs (what the supplement brings + how to activate it) and lets
@@ -159,6 +160,224 @@ const SUPPLEMENTS: Record<SupplementKey, SupplementDef> = {
   },
 };
 
+interface SupplementText {
+  title: string;
+  subtitle: string;
+  blurb: string;
+  activation: string[];
+  armoryNote?: string;
+}
+
+// Player-facing description of each supplement — translated per language, unlike `SUPPLEMENTS`
+// above (structural fields + the `load()` unit data, which stays English like every other
+// datasheet in the app). Fixes the same "stayed English regardless of language" gap Rigzar
+// flagged for the front-door nav ("hay muchas cosas en ingles que no se cambian al idioma...
+// revisa todo lo que no se cambia de idioma").
+const SUPPLEMENT_TEXT: Record<SupplementKey, Record<Language, SupplementText>> = {
+  horus_heresy: {
+    en: {
+      title: 'Horus Heresy',
+      subtitle: 'Space Marines supplement',
+      blurb:
+        'Legiones Astartes at the dawn of the Heresy — a full Legion roster, its own armory and ' +
+        'psychic disciplines. These are not an allied faction: when activated, the Legion units count ' +
+        'as your own, and their Troops count toward the 25% minimum.',
+      activation: [
+        'Pick a Chaos Space Marines (or Space Marines) army.',
+        'In Army Configuration, choose the **Legion** archetype.',
+        'The Horus Heresy units and armory are injected into your roster automatically.',
+      ],
+      armoryNote: 'Granted army-wide via the Legion archetype (shared Horus Heresy armory).',
+    },
+    de: {
+      title: 'Horus Heresy',
+      subtitle: 'Space-Marines-Erweiterung',
+      blurb:
+        'Legiones Astartes zu Beginn der Häresie — ein vollständiges Legions-Roster, eine eigene Armory und ' +
+        'psychische Disziplinen. Das ist keine verbündete Fraktion: bei Aktivierung zählen die Legions-Einheiten ' +
+        'als eigene, und ihre Troops zählen zum 25%-Mindestanteil.',
+      activation: [
+        'Wähle eine Chaos-Space-Marines- (oder Space-Marines-)Armee.',
+        'Wähle in der Armeekonfiguration den Archetyp **Legion**.',
+        'Die Horus-Heresy-Einheiten und die Armory werden automatisch in dein Roster eingefügt.',
+      ],
+      armoryNote: 'Wird armeeweit über den Legion-Archetyp gewährt (gemeinsame Horus-Heresy-Armory).',
+    },
+    es: {
+      title: 'Horus Heresy',
+      subtitle: 'Suplemento de Space Marines',
+      blurb:
+        'Legiones Astartes en los albores de la Herejía — un plantel completo de Legión, su propia armería y ' +
+        'disciplinas psíquicas. No es una facción aliada: al activarse, las unidades de la Legión cuentan ' +
+        'como propias, y sus Troops cuentan para el mínimo del 25%.',
+      activation: [
+        'Elige un ejército de Chaos Space Marines (o Space Marines).',
+        'En la Configuración del Ejército, elige el archetype **Legion**.',
+        'Las unidades y la armería de Horus Heresy se añaden automáticamente a tu lista.',
+      ],
+      armoryNote: 'Se concede a todo el ejército mediante el archetype Legion (armería compartida de Horus Heresy).',
+    },
+  },
+  legio_titanicus: {
+    en: {
+      title: 'Forces of the Machine God',
+      subtitle: 'Horus Heresy supplement',
+      blurb:
+        'The Secutarii who march beside the god-engines of the Collegia Titanica, their tech-thrall ' +
+        'levies and the heavy conveyors that carry them. Like the Legiones Astartes supplement, its ' +
+        'units count as your own rather than as allies.',
+      activation: [
+        'Pick an Adeptus Mechanicus army.',
+        'In Army Configuration, choose the **Taghmata** archetype.',
+        'The supplement\'s units and armory are injected into your roster automatically.',
+      ],
+      armoryNote: 'Granted army-wide via the Titan Legion archetype.',
+    },
+    de: {
+      title: 'Streitkräfte des Maschinengottes',
+      subtitle: 'Horus-Heresy-Erweiterung',
+      blurb:
+        'Die Secutarii, die neben den Gottmaschinen der Collegia Titanica marschieren, ihre Tech-Sklaven-' +
+        'Aufgebote und die schweren Transporter, die sie tragen. Wie die Legiones-Astartes-Erweiterung ' +
+        'zählen ihre Einheiten als eigene, nicht als Verbündete.',
+      activation: [
+        'Wähle eine Adeptus-Mechanicus-Armee.',
+        'Wähle in der Armeekonfiguration den Archetyp **Taghmata**.',
+        'Die Einheiten und die Armory der Erweiterung werden automatisch in dein Roster eingefügt.',
+      ],
+      armoryNote: 'Wird armeeweit über den Titan-Legion-Archetyp gewährt.',
+    },
+    es: {
+      title: 'Fuerzas del Dios Máquina',
+      subtitle: 'Suplemento de Horus Heresy',
+      blurb:
+        'Los Secutarii que marchan junto a las máquinas-dios de la Collegia Titanica, sus levas de ' +
+        'tecno-siervos y los transportes pesados que los llevan. Igual que el suplemento Legiones ' +
+        'Astartes, sus unidades cuentan como propias, no como aliadas.',
+      activation: [
+        'Elige un ejército de Adeptus Mechanicus.',
+        'En la Configuración del Ejército, elige el archetype **Taghmata**.',
+        'Las unidades y la armería del suplemento se añaden automáticamente a tu lista.',
+      ],
+      armoryNote: 'Se concede a todo el ejército mediante el archetype Titan Legion.',
+    },
+  },
+  assassins: {
+    en: {
+      title: 'Assassins',
+      subtitle: '"Cults Abominatioe" / "Execution Force"',
+      blurb:
+        'A 4-unit catalog (Callidus, Culexus, Eversor, Vindicare) — not a standalone playable ' +
+        'army. Their own datasheet carries two universal special rules: "Cults Abominatioe": ' +
+        '"Any Chaos army may select either a single Assassin or one of each for a single Elite ' +
+        'slot." / "Execution Force": "Any Imperial army may select either a single Assassin or ' +
+        'one of each for a single Elite slot." Whichever combination is taken — one Assassin of ' +
+        'any type, or one of each of the four — occupies a SINGLE Elite slot, not one each.',
+      activation: [
+        'Pick any Chaos army (Chaos Space Marines, Chaos Daemons) or any Imperial army (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — the Assassins\' own datasheet grants native access (no [Allied] badge, no separate selection step).',
+        'The 4 Assassin units appear directly in your Elites roster, grouped under a "Cults Abominatioe" (Chaos) or "Execution Force" (Imperial) header.',
+        'Take either a single Assassin (any one of the four types) or one of each — the engine enforces this and counts the whole selection as one Elite slot.',
+      ],
+    },
+    de: {
+      title: 'Assassins',
+      subtitle: '„Cults Abominatioe" / „Execution Force"',
+      blurb:
+        'Ein Katalog von 4 Einheiten (Callidus, Culexus, Eversor, Vindicare) — keine eigenständig ' +
+        'spielbare Armee. Ihr eigenes Datenblatt trägt zwei universelle Sonderregeln: „Cults ' +
+        'Abominatioe": „Jede Chaos-Armee darf entweder einen einzelnen Assassinen oder je einen ' +
+        'für einen einzelnen Elite-Slot wählen." / „Execution Force": „Jede Imperiale Armee darf ' +
+        'entweder einen einzelnen Assassinen oder je einen für einen einzelnen Elite-Slot wählen." ' +
+        'Egal welche Kombination gewählt wird — ein Assassine eines beliebigen Typs, oder je einer ' +
+        'aller vier — sie belegt EINEN einzigen Elite-Slot, nicht je einen.',
+      activation: [
+        'Wähle eine beliebige Chaos-Armee (Chaos Space Marines, Chaos Daemons) oder eine beliebige Imperiale Armee (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — das eigene Datenblatt der Assassinen gewährt nativen Zugriff (kein [Allied]-Abzeichen, kein separater Auswahlschritt).',
+        'Die 4 Assassinen-Einheiten erscheinen direkt in deinem Elite-Roster, gruppiert unter einer „Cults Abominatioe"- (Chaos) oder „Execution Force"- (Imperial) Überschrift.',
+        'Nimm entweder einen einzelnen Assassinen (einen beliebigen der vier Typen) oder je einen — die Engine erzwingt dies und zählt die gesamte Auswahl als einen Elite-Slot.',
+      ],
+    },
+    es: {
+      title: 'Assassins',
+      subtitle: '"Cults Abominatioe" / "Execution Force"',
+      blurb:
+        'Un catálogo de 4 unidades (Callidus, Culexus, Eversor, Vindicare) — no es un ejército ' +
+        'jugable por sí solo. Su propia ficha lleva dos reglas especiales universales: "Cults ' +
+        'Abominatioe": "Cualquier ejército Chaos puede elegir un único Assassin o uno de cada uno ' +
+        'para un solo slot de Elite." / "Execution Force": "Cualquier ejército Imperial puede ' +
+        'elegir un único Assassin o uno de cada uno para un solo slot de Elite." Sea cual sea la ' +
+        'combinación elegida — un Assassin de cualquier tipo, o uno de cada uno de los cuatro — ' +
+        'ocupa UN SOLO slot de Elite, no uno cada uno.',
+      activation: [
+        'Elige cualquier ejército Chaos (Chaos Space Marines, Chaos Daemons) o cualquier ejército Imperial (Space Marines, Imperial Guard, Adeptus Mechanicus, Adeptus Custodes, Adeptus Sororitas, Grey Knights, Inquisition) — la propia ficha de los Assassins concede acceso nativo (sin distintivo [Allied], sin paso de selección aparte).',
+        'Las 4 unidades Assassin aparecen directamente en tu plantel de Elites, agrupadas bajo un encabezado "Cults Abominatioe" (Chaos) o "Execution Force" (Imperial).',
+        'Elige un único Assassin (cualquiera de los cuatro tipos) o uno de cada uno — el motor lo obliga y cuenta toda la selección como un solo slot de Elite.',
+      ],
+    },
+  },
+  escalation: {
+    en: {
+      title: 'Escalation',
+      subtitle: 'Lords of War',
+      blurb:
+        'Super-heavy vehicles, Knights and Titans. Lords of War are unlocked by the largest ' +
+        'engagement and are capped at 33% of your total points. Available for Chaos Space Marines, ' +
+        'Space Marines, Imperial Guard, Adeptus Sororitas, Eldar, Orks, Necrons and Tau Empire.',
+      activation: [
+        'Select the **Epic Battle** engagement (4000+ pts) in Army Configuration.',
+        'The Lords of War slot unlocks — pick from your faction\'s super-heavy roster.',
+        'Total Lords of War spend may not exceed 33% of the army points.',
+      ],
+    },
+    de: {
+      title: 'Escalation',
+      subtitle: 'Lords of War',
+      blurb:
+        'Über-schwere Fahrzeuge, Knights und Titanen. Lords of War werden durch das größte ' +
+        'Engagement freigeschaltet und sind auf 33% deiner Gesamtpunkte begrenzt. Verfügbar für ' +
+        'Chaos Space Marines, Space Marines, Imperial Guard, Adeptus Sororitas, Eldar, Orks, Necrons ' +
+        'und Tau Empire.',
+      activation: [
+        'Wähle in der Armeekonfiguration das Engagement **Epic Battle** (4000+ Punkte).',
+        'Der Lords-of-War-Slot wird freigeschaltet — wähle aus dem über-schweren Roster deiner Fraktion.',
+        'Die Gesamtausgaben für Lords of War dürfen 33% der Armeepunkte nicht überschreiten.',
+      ],
+    },
+    es: {
+      title: 'Escalation',
+      subtitle: 'Lords of War',
+      blurb:
+        'Vehículos super pesados, Knights y Titanes. Los Lords of War se desbloquean con el ' +
+        'engagement más grande y están limitados al 33% de tus puntos totales. Disponible para ' +
+        'Chaos Space Marines, Space Marines, Imperial Guard, Adeptus Sororitas, Eldar, Orks, Necrons ' +
+        'y Tau Empire.',
+      activation: [
+        'Elige el engagement **Epic Battle** (4000+ pts) en la Configuración del Ejército.',
+        'El slot de Lords of War se desbloquea — elige del plantel super pesado de tu facción.',
+        'El gasto total en Lords of War no puede superar el 33% de los puntos del ejército.',
+      ],
+    },
+  },
+};
+
+const SLOT_KEY: Record<string, Parameters<ReturnType<typeof useT>>[0]> = {
+  'HQ': 'hq',
+  'Troops': 'troops',
+  'Elites': 'elites',
+  'Fast Attack': 'fastAttack',
+  'Heavy Support': 'heavySupport',
+  'Dedicated Transport': 'transport',
+  'Fortifications': 'fortifications',
+  'Flyers': 'flyers',
+  'Lords of War': 'lordsOfWar',
+};
+/** Slot names come back as raw English strings from the supplement's own unit data (same as
+ *  every other datasheet in the app) — translate the ones that match a known battlefield role,
+ *  and fall back to the raw string for anything unrecognised rather than hiding it. */
+function slotLabel(slot: string, t: ReturnType<typeof useT>): string {
+  const key = SLOT_KEY[slot];
+  return key ? t(key) : slot;
+}
+
 function renderActivation(step: string) {
   const parts = step.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((p, i) =>
@@ -169,6 +388,7 @@ function renderActivation(step: string) {
 }
 
 function StatTable({ unit }: { unit: Unit }) {
+  const t = useT();
   const keys = unit.is_vehicle ? STAT_KEYS_VEH : STAT_KEYS_INF;
   const models: Model[] = unit.models;
   if (!models.length) return null;
@@ -177,9 +397,9 @@ function StatTable({ unit }: { unit: Unit }) {
       <table className="w-full text-[11px] border-collapse">
         <thead>
           <tr className="text-zinc-500 uppercase tracking-wide">
-            <th className="text-left font-normal pr-2 pb-1">Model</th>
+            <th className="text-left font-normal pr-2 pb-1">{t('models')}</th>
             {keys.map(k => <th key={k} className="px-1 pb-1 font-normal text-center">{k}</th>)}
-            <th className="px-1 pb-1 font-normal text-right">Pts</th>
+            <th className="px-1 pb-1 font-normal text-right">{t('points')}</th>
           </tr>
         </thead>
         <tbody>
@@ -197,19 +417,20 @@ function StatTable({ unit }: { unit: Unit }) {
 }
 
 function WeaponTable({ weapons }: { weapons: Weapon[] }) {
+  const t = useT();
   if (!weapons.length) return null;
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-[11px] border-collapse">
         <thead>
           <tr className="text-zinc-500 uppercase tracking-wide">
-            <th className="text-left font-normal pr-2 pb-1">Weapon</th>
-            <th className="px-1 pb-1 font-normal text-center">Rng</th>
-            <th className="px-1 pb-1 font-normal text-center">Type</th>
-            <th className="px-1 pb-1 font-normal text-center">S</th>
-            <th className="px-1 pb-1 font-normal text-center">AP</th>
-            <th className="px-1 pb-1 font-normal text-center">D</th>
-            <th className="text-left px-1 pb-1 font-normal">Abilities</th>
+            <th className="text-left font-normal pr-2 pb-1">{t('weapon')}</th>
+            <th className="px-1 pb-1 font-normal text-center">{t('range')}</th>
+            <th className="px-1 pb-1 font-normal text-center">{t('weaponTypeLabel')}</th>
+            <th className="px-1 pb-1 font-normal text-center">{t('strength')}</th>
+            <th className="px-1 pb-1 font-normal text-center">{t('ap')}</th>
+            <th className="px-1 pb-1 font-normal text-center">{t('damage')}</th>
+            <th className="text-left px-1 pb-1 font-normal">{t('abilities')}</th>
           </tr>
         </thead>
         <tbody>
@@ -231,10 +452,11 @@ function WeaponTable({ weapons }: { weapons: Weapon[] }) {
 }
 
 function UnitFiche({ unit }: { unit: Unit }) {
+  const t = useT();
   return (
     <div className="bg-zinc-950/60 border-t border-zinc-800 px-3 py-3 space-y-3">
       <div className="flex flex-wrap gap-2 text-[10px] uppercase tracking-wide">
-        <span className="text-zinc-500">Type:</span>
+        <span className="text-zinc-500">{t('unitTypeLabel')}</span>
         <span className="text-violet-400">{unit.unit_type}</span>
       </div>
 
@@ -248,7 +470,7 @@ function UnitFiche({ unit }: { unit: Unit }) {
 
       {unit.abilities.length > 0 && (
         <div className="space-y-1">
-          <div className="text-[10px] uppercase tracking-wide text-zinc-500">Abilities</div>
+          <div className="text-[10px] uppercase tracking-wide text-zinc-500">{t('abilities')}</div>
           {unit.abilities.map((a, ai) => (
             <p key={ai} className="text-[11px] text-zinc-400 leading-snug">{a}</p>
           ))}
@@ -257,7 +479,7 @@ function UnitFiche({ unit }: { unit: Unit }) {
 
       {unit.option_groups.length > 0 && (
         <div className="space-y-2">
-          <div className="text-[10px] uppercase tracking-wide text-zinc-500">Options</div>
+          <div className="text-[10px] uppercase tracking-wide text-zinc-500">{t('options')}</div>
           {unit.option_groups.map((g, gi) => (
             <div key={gi} className="text-[11px]">
               <p className="text-zinc-300 leading-snug">{g.header}</p>
@@ -266,7 +488,7 @@ function UnitFiche({ unit }: { unit: Unit }) {
                   {g.choices.map((c, ci) => (
                     <li key={ci} className="text-zinc-500 flex justify-between gap-3">
                       <span>{c.name}</span>
-                      <span className="text-amber-700 shrink-0">{c.points >= 0 ? `+${c.points}` : c.points} pts</span>
+                      <span className="text-amber-700 shrink-0">{t('ptsSuffixLabel').replace('{pts}', c.points >= 0 ? `+${c.points}` : String(c.points))}</span>
                     </li>
                   ))}
                 </ul>
@@ -286,6 +508,9 @@ interface Props {
 
 export function SupplementModal({ supplement, onClose }: Props) {
   const def = SUPPLEMENTS[supplement];
+  const t = useT();
+  const { language } = useLanguage();
+  const text = SUPPLEMENT_TEXT[supplement][language];
   const [loading, setLoading] = useState(true);
   const [content, setContent] = useState<Awaited<ReturnType<SupplementDef['load']>> | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -337,8 +562,8 @@ export function SupplementModal({ supplement, onClose }: Props) {
         {/* Header — fixed at top of drawer */}
         <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-zinc-800 shrink-0">
           <div>
-            <div className="text-zinc-100 font-bold uppercase tracking-widest text-base">{def.title}</div>
-            <div className={`${def.accentText} text-[10px] uppercase tracking-widest mt-0.5`}>{def.subtitle}</div>
+            <div className="text-zinc-100 font-bold uppercase tracking-widest text-base">{text.title}</div>
+            <div className={`${def.accentText} text-[10px] uppercase tracking-widest mt-0.5`}>{text.subtitle}</div>
           </div>
           <button
             onClick={onClose}
@@ -355,13 +580,13 @@ export function SupplementModal({ supplement, onClose }: Props) {
         {/* Body — the only scrollable area */}
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
 
-          <p className="text-zinc-400 text-[12px] leading-relaxed">{def.blurb}</p>
+          <p className="text-zinc-400 text-[12px] leading-relaxed">{text.blurb}</p>
 
           {/* How to activate */}
           <div className="bg-zinc-950/60 border border-zinc-800 px-4 py-3">
-            <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2">How to activate</div>
+            <div className="text-[10px] uppercase tracking-widest text-amber-600 mb-2">{t('howToActivate')}</div>
             <ol className="space-y-1.5 list-decimal list-inside">
-              {def.activation.map((step, i) => (
+              {text.activation.map((step, i) => (
                 <li key={i} className="text-[12px] text-zinc-300 leading-snug">{renderActivation(step)}</li>
               ))}
             </ol>
@@ -369,11 +594,11 @@ export function SupplementModal({ supplement, onClose }: Props) {
 
           {/* Catalog */}
           <div>
-            <div className="text-[10px] uppercase tracking-widest text-amber-700 mb-2">Catalog</div>
+            <div className="text-[10px] uppercase tracking-widest text-amber-700 mb-2">{t('catalogLabel')}</div>
             {loading && (
               <div className="flex items-center gap-2 text-zinc-500 text-[12px] py-2">
                 <div className="w-3.5 h-3.5 border border-amber-700 border-t-transparent rounded-full animate-spin" />
-                Loading…
+                {t('loadingEllipsis')}
               </div>
             )}
             {!loading && content && (
@@ -383,7 +608,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
                   if (!present.length) return null;
                   return (
                     <div key={slot}>
-                      <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">{slot}</div>
+                      <div className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">{slotLabel(slot, t)}</div>
                       <div className="border border-zinc-800 divide-y divide-zinc-800">
                         {present.map(name => {
                           const unit = content.units[name];
@@ -401,7 +626,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
                                   <span className="text-zinc-100 text-[13px] truncate">{name}</span>
                                   <span className="text-zinc-600 text-[10px] uppercase tracking-wide shrink-0">{unit.unit_type}</span>
                                 </span>
-                                <span className="text-amber-700 text-[11px] shrink-0">from {minPts} pts</span>
+                                <span className="text-amber-700 text-[11px] shrink-0">{t('fromPtsLabel').replace('{pts}', String(minPts))}</span>
                               </button>
                               {isOpen && <UnitFiche unit={unit} />}
                             </div>
@@ -418,12 +643,12 @@ export function SupplementModal({ supplement, onClose }: Props) {
           {/* Armory */}
           {!loading && content?.armory && (
             <div>
-              <div className="text-[10px] uppercase tracking-widest text-amber-700 mb-1">Armory</div>
-              {content.armoryNote && <p className="text-zinc-500 text-[11px] mb-2">{content.armoryNote}</p>}
+              <div className="text-[10px] uppercase tracking-widest text-amber-700 mb-1">{t('armory')}</div>
+              {text.armoryNote && <p className="text-zinc-500 text-[11px] mb-2">{text.armoryNote}</p>}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {content.armory.weapons.length > 0 && (
                   <div>
-                    <div className="text-[10px] uppercase tracking-wide text-zinc-600 mb-1">Weapons</div>
+                    <div className="text-[10px] uppercase tracking-wide text-zinc-600 mb-1">{t('weapon')}</div>
                     <ul className="space-y-0.5">
                       {content.armory.weapons.map((it, i) => (
                         <li key={i} className="text-[11px] text-zinc-400">{it.name}</li>
@@ -433,7 +658,7 @@ export function SupplementModal({ supplement, onClose }: Props) {
                 )}
                 {content.armory.equipment.length > 0 && (
                   <div>
-                    <div className="text-[10px] uppercase tracking-wide text-zinc-600 mb-1">Equipment</div>
+                    <div className="text-[10px] uppercase tracking-wide text-zinc-600 mb-1">{t('equipment')}</div>
                     <ul className="space-y-0.5">
                       {content.armory.equipment.map((it, i) => (
                         <li key={i} className="text-[11px] text-zinc-400">{it.name}</li>
