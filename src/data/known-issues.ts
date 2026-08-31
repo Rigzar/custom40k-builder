@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-inquisition-taurox-autocannon-swap-01",
+    status: "fixed",
+    title: "Inquisition — replacing a Taurox's Hot-shot volley guns with Two autocannons left both on the profile",
+    description: "FIXED 2026-08-31, reported via the in-app bug form (GitHub #108: \"Tried to replace a taurox's hotshot volley guns with autocannons, but they both [show up]\"). CAUSE: the Taurox's \"Can replace both Hot-shot volley guns\" option group (choice: \"Two autocannons\") had no `replaces` field at all — the exact same shape as the Leman Russ weapon-swap bug fixed earlier this same version (GitHub #102): without it, the engine has no link telling it which weapon(s) the new choice replaces, so it just adds the new weapon alongside the old one instead of swapping. Fixed: added `replaces: [\"Hot-shot volley gun\"]` to the option group in `data/parsed/inquisition/units/dedicated_transport/taurox.ts`. Verified live: a Taurox with the swap taken now shows only \"2x Autocannon\" (149pts total — 120 base + 29 for the swap), no leftover Hot-shot volley guns.",
+  },
+  {
     id: "ki-frontpage-nav-supplements-not-translated-01",
     status: "fixed",
     title: "The front-page nav row and the 4 supplement teaser cards/detail drawer stayed English regardless of the selected language",

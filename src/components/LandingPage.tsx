@@ -17,7 +17,7 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
 // cut was created by mistake right after this same day's v1.68 push and has been folded back in.
 // line8-9 below are the nav-row/supplement-drawer i18n fixes that were briefly their own v1.69
 // banner; they're just appended lines on the existing v1.68 announcement instead.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.68: Necron Cryptek fix, Print View cleanup",
@@ -32,6 +32,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "⚜️ Promoted units (Canoness, Spanna, Traitor Sergeant, ...) now show correctly in every Print View mode, including a partial squad promotion (e.g. 2 of 5 Lootas → Spanna) — Simple and List were still printing the plain base name and full squad size.",
     line8: "🌐 The front-page nav row (Wiki, Login/Sign in, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which language you picked, even though \"Build Army\" and \"Supplements\" right next to them already worked. Fixed — all of them now follow your selected language.",
     line9: "🌐 The 4 supplement cards (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer — description, \"How to activate\" steps, Catalog, battlefield-role headers, Armory Weapons/Equipment — were entirely English too. Fixed, same as the nav row.",
+    line10: "🚚 Inquisition — a Taurox's Hot-shot volley guns stuck around after swapping them for Two autocannons, showing both at once (GH#108). Fixed — same missing-link bug as the Leman Russ fix earlier this version.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -47,6 +48,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "⚜️ Beförderte Einheiten (Canoness, Spanna, Traitor Sergeant, ...) werden jetzt in jedem Print-View-Modus korrekt angezeigt, auch bei einer teilweisen Beförderung im Trupp (z. B. 2 von 5 Lootas → Spanna) — Simple und List druckten noch den reinen Basisnamen und die volle Truppgröße.",
     line8: "🌐 Die Navigationsleiste (Wiki, Anmelden/Registrieren, Glossar, Feldhandbuch, Community-Armeen, Feldzug, Discord) blieb auf Englisch, egal welche Sprache gewählt war, obwohl „Armee bauen\" und „Erweiterungen\" direkt daneben schon funktionierten. Behoben — alle folgen jetzt der gewählten Sprache.",
     line9: "🌐 Auch die 4 Erweiterungskarten (Horus Heresy, Streitkräfte des Maschinengottes, Escalation, Assassins) und ihre Detailansicht — Beschreibung, „Aktivierung\"-Schritte, Katalog, Schlachtfeldrollen-Überschriften, Rüstkammer-Waffen/-Ausrüstung — waren komplett auf Englisch. Behoben, genau wie die Navigationsleiste.",
+    line10: "🚚 Inquisition — die Hot-shot volley guns eines Taurox blieben nach dem Tausch gegen Two autocannons bestehen und zeigten beide gleichzeitig (GH#108). Behoben — derselbe fehlende Link wie beim Leman-Russ-Fix zu Beginn dieser Version.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -62,6 +64,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "⚜️ Las unidades ascendidas (Canoness, Spanna, Traitor Sergeant, ...) ahora se muestran bien en todos los modos de Print View, incluso con un ascenso parcial dentro de una escuadra (p. ej. 2 de 5 Lootas → Spanna) — Simple y List seguían mostrando el nombre base y el tamaño completo de la escuadra.",
     line8: "🌐 La barra de navegación (Wiki, Iniciar sesión/Registrarse, Glosario, Manual de Campo, Ejércitos de la Comunidad, Campaña, Discord) se quedaba en inglés sin importar el idioma elegido, aunque \"Construir Ejército\" y \"Suplementos\" justo al lado ya funcionaban bien. Arreglado — todos siguen ahora el idioma elegido.",
     line9: "🌐 Las 4 tarjetas de suplementos (Horus Heresy, Fuerzas del Dios Máquina, Escalation, Assassins) y su panel de detalle — descripción, pasos de \"Cómo activarlo\", Catálogo, encabezados de rol de batalla, Armería de Armas/Equipo — también estaban completamente en inglés. Arreglado, igual que la barra de navegación.",
+    line10: "🚚 Inquisition — las Hot-shot volley guns de un Taurox se quedaban tras cambiarlas por Two autocannons, mostrando ambas a la vez (GH#108). Arreglado — el mismo enlace faltante que el arreglo del Leman Russ al principio de esta versión.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -139,15 +142,17 @@ function CommunityAnnouncement() {
           )}
           {/* v1.68 stays v1.68 (Rigzar: "manten la misma version nadie te dijo que la cambiara") —
               a v1.69 cut was made by mistake right after this same day's v1.68 push and has been
-              folded back in as line8-9 below: the front-page nav row (Wiki/Login/Glossary/Field
+              folded back in as line8-9: the front-page nav row (Wiki/Login/Glossary/Field
               Manual/Community Armies/Campaign/Discord) and the 4 supplement teaser cards + their
               detail drawer were hardcoded English regardless of language — fixed via new
               `nav*`/`*Card*` translation keys and a `SUPPLEMENT_TEXT` per-language table in
-              SupplementModal.tsx.
-              A NEXT fix under this same version needs a line10 added to AnnouncementLang and every
+              SupplementModal.tsx. line10 is GitHub #108: a Taurox's Hot-shot volley guns stuck
+              around after swapping for Two autocannons (missing `replaces` link, same shape as
+              this version's own Leman Russ fix).
+              A NEXT fix under this same version needs a line11 added to AnnouncementLang and every
               language block — do NOT cut a new version number unless Rigzar explicitly asks for
               one; the default is to keep appending to v1.68. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
