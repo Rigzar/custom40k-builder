@@ -151,6 +151,12 @@ export interface ResolvedProfile {
    * line item with a price tag.
    */
   attachedDrones: Array<{ drone: DroneType; count: number }>;
+  /** Resolved keys into FAMILY_BOOST_ITEMS (computeWeaponGroups.ts) for any bought Armory item
+   *  that boosts a whole named weapon family rather than one chosen weapon or all ranged/melee
+   *  weapons — resolved here (not in computeWeaponGroups) because disambiguating which of the
+   *  two same-named "Special energy cells" is active needs `data`/findArmoryItem, which
+   *  computeWeaponGroups doesn't receive. */
+  familyBoostKeys: string[];
 }
 
 // ── Shared utility ────────────────────────────────────────────────────────────
@@ -555,7 +561,14 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
     if (g.replaces?.length && groupQty > 0) {
       for (const name of g.replaces) {
         replacedWeaponQty.set(name, (replacedWeaponQty.get(name) ?? 0) + groupQty);
-        if (g.constraint.type === 'one' && (variantOnlyWeapons.has(name) || !!g.applies_to_model)) {
+        if (g.constraint.type === 'one' && (variantOnlyWeapons.has(name) || !!g.applies_to_model || !!g.per_model)) {
+          // `per_model` scales this "one"-constraint swap's POINTS cost by item.size (points.ts),
+          // but the choice itself is still a single yes/no toggle, not a per-model stepper (only
+          // per_n/fixed_max/every groups get one — see UnitCard's canUseQty). Its qty is therefore
+          // always 0 or 1 regardless of squad size, so the default item.size threshold could never
+          // be reached on a unit bigger than 1 (Tau Sub-Commander, min:1/max:2: toggling "May swap
+          // the Pulse rifle" priced and applied correctly for both models, but with item.size=2 the
+          // old Pulse rifle stayed on the profile forever, since qty=1 never reaches threshold=2).
           replacedWeaponThreshold.set(name, 1);
         } else if (g.applies_to_model) {
           // A swap scoped to one model group is finished once THAT group's models have all taken
@@ -596,9 +609,12 @@ export function computeWeaponsToShow(weapons: Weapon[], unit: Unit, item: Roster
           // — UnitCard's own `_perCopyHeader`/`_headerCopies` already work this way for the same
           // reason, this mirrors it so the hide-threshold agrees with what the UI actually let
           // the player pick.
+          // "any of the <weapon>" (Ork Mekboy Junka's own .ods wording for its 3 Big shootas) is
+          // the same per-copy shape as "each <weapon>" under a different name — the only unit in
+          // the game worded this way, added alongside "each" rather than replacing it.
           const perCopySwap = (g.replaces ?? []).some(n => {
             const esc = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-            return new RegExp(`\\beach\\s+${esc}`, 'i').test(g.header ?? '');
+            return new RegExp(`\\b(?:each|any of the)\\s+${esc}`, 'i').test(g.header ?? '');
           });
           const groupCopies = perCopySwap
             ? Math.max(...(g.replaces ?? []).map(n => weaponCopiesPerModel(unit.equipped_with, n, g.requires_choice)))
@@ -1151,6 +1167,22 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     target.set(sel.targetWeapon, [...(target.get(sel.targetWeapon) ?? []), ...abilities]);
   }
 
+  // Per-unit options (never Armory purchases, so `item.armory` never holds them and the "All
+  // weapons gain X" loop above can't see them) worded "the unit gains 'X' for all ranged/melee
+  // weapons/attacks" — Tyranid Biomorphs (Discord: "infrasonic roar should add suppression to
+  // all weapons" — the ability text was already stored and paid for, but nothing ever added
+  // "Suppression" to the actual weapon rows, same gap class as GH#92/Psy-ammunition) and Ork
+  // "Zzapkrumpaz" (a Kustom Job: "This unit's melee weapons gain 'Deadly(6+)'", found via an
+  // armory-wide modifier audit, same shape, opposite scope).
+  for (const [choiceName, grant] of Object.entries(PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS)) {
+    if (!isNamedChoiceActive(unit, item, choiceName)) continue;
+    for (const weapon of weapons) {
+      const isMelee = weapon.range === '-' || /^melee/i.test(weapon.type ?? '');
+      if ((grant.scope === 'ranged') === isMelee) continue;
+      weaponTraitMap.set(weapon.name, [...(weaponTraitMap.get(weapon.name) ?? []), grant.ability]);
+    }
+  }
+
   const blackCrusadeChampion = !!(item.blackCrusadeHQ);
 
   // Collect abilities from selected choices that have their own abilities array
@@ -1264,6 +1296,16 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     ruleNotes.push('Command squad');
   }
 
+  // Armory items whose effect targets a whole NAMED WEAPON FAMILY (see FAMILY_BOOST_ITEMS in
+  // computeWeaponGroups) rather than one chosen weapon or every ranged/melee weapon. Resolved
+  // here rather than in computeWeaponGroups because two factions each have their OWN "Special
+  // energy cells" with the same name but different effects, disambiguated only by the bought
+  // item's own desc text — which needs `data`/findArmoryItem, not available where the boost is
+  // actually applied.
+  const familyBoostKeys = item.armory
+    .map(a => { const ai = findArmoryItem(data, a); return ai ? familyBoostKeyFor(a.itemName, ai.desc) : null; })
+    .filter((k): k is string => !!k);
+
   return {
     pts, effectiveSlot,
     effectiveMark, markIsForced, markIsLocked, statModMark, markUsesVetSlot, vetMax,
@@ -1280,6 +1322,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     blackCrusadeChampion,
     ctanYngirActive,
     optionStatMods, optionAddedUnitTypes, optionSetUnitType, optionAbilities,
+    familyBoostKeys,
   };
 }
 
@@ -1909,9 +1952,9 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
   const nonEmpty = groups.filter(g => g.weapons.length > 0);
   if (nonEmpty.length <= 1) {
     const g = nonEmpty[0];
-    return applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }]))));
+    return applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, [{ label: null, count: g?.count ?? null, weapons: g?.weapons ?? [], traitMap: g?.traitMap ?? profile.weaponTraitMap, countOverrides: g?.countOverrides }])))))));
   }
-  return applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty))));
+  return applyDaBoomaBoost(unit, item, applyFamilyBoosts(profile.familyBoostKeys, applyBiomorphRangeBoosts(unit, item, applyExarchAllWeaponsRangeBoost(unit, item, applyChosenWeaponStatBoosts(item, applyNamedWeaponBoosts(unit, item, applyRangedStrengthBoosts(unit, item, nonEmpty)))))));
 }
 
 /**
@@ -1964,6 +2007,79 @@ function applyRangedStrengthBoosts(unit: Unit, item: RosterEntry, groups: Weapon
 }
 
 /**
+ * Armory items that boost every weapon in a NAMED FAMILY, rather than every ranged/melee weapon
+ * (which applyRangedStrengthBoosts already covers) or one player-chosen weapon (CHOSEN_WEAPON_
+ * GRANT_ITEMS). Found via an armory-wide modifier audit (2026-08-31): these were paid for and
+ * printed as ability text, but the actual family they modify never got any per-weapon treatment
+ * at all, so the bonus was a silent no-op past the points charge — same shape as GH#92.
+ * - Adeptus Mechanicus "Enriched rounds": "-1 AP" to weapons carrying the "Rad" ability keyword
+ *   (Radium pistol/serpenta/carbine/jezzail, Rad cleanser) — grounded in the .ods, where "Rad" is
+ *   a genuine ability tag in the Abilities column, not a name guess.
+ * - Imperial Guard / Inquisition "Special energy cells" (worded slightly differently in each
+ *   faction's own .ods, hence 2 separate keys): the "laser weapon" family means specifically
+ *   Lasgun/Las pistol/Hot-shot lasgun/Hot-shot las pistol/Lasgun array — matched by name PREFIX,
+ *   deliberately excluding Lascannon/Multilaser which share the "las" substring but are a
+ *   different weapon class entirely in both fluff and this .ods.
+ */
+const FAMILY_BOOST_ITEMS: Record<string, { match: (w: Weapon) => boolean; apDelta?: number; dDelta?: number; abilities?: string[] }> = {
+  'Enriched rounds': { match: w => /\bRad\b/.test(w.abilities ?? ''), apDelta: -1 },
+  'Special energy cells (Guard)': { match: w => /^(Lasgun|Las pistol|Hot-shot las)/i.test(w.name), apDelta: -1, dDelta: 1, abilities: ['Overheating'] },
+  'Special energy cells (Inquisition)': { match: w => /^(Lasgun|Las pistol|Hot-shot las)/i.test(w.name), dDelta: 1 },
+};
+// Both factions' "Special energy cells" share one printed name — resolved to the right key by
+// which one is actually in this army's own faction armory (findArmoryItem's own p_unit/p_char
+// disambiguates the buy, this just needs to know which effect text applies).
+function familyBoostKeyFor(itemName: string, factionArmoryDesc: string | undefined): string | null {
+  if (itemName === 'Enriched rounds') return 'Enriched rounds';
+  if (itemName !== 'Special energy cells') return null;
+  return /overheating/i.test(factionArmoryDesc ?? '') ? 'Special energy cells (Guard)' : 'Special energy cells (Inquisition)';
+}
+function applyFamilyBoosts(familyBoostKeys: string[], groups: WeaponGroup[]): WeaponGroup[] {
+  const active = familyBoostKeys.map(k => FAMILY_BOOST_ITEMS[k]);
+  if (!active.length) return groups;
+  const boost = (w: Weapon): Weapon => {
+    const matches = active.filter(e => e.match(w));
+    if (!matches.length) return w;
+    let ap = w.ap, d = w.d, abilities = w.abilities;
+    for (const e of matches) {
+      if (e.apDelta && /^-?\d+$/.test(ap)) ap = String(parseInt(ap, 10) + e.apDelta);
+      if (e.dDelta && /^\d+$/.test(d)) d = String(parseInt(d, 10) + e.dDelta);
+      if (e.abilities?.length) {
+        const merged = mergeWeaponAbilities(abilities === '-' ? '' : abilities, e.abilities);
+        abilities = merged.merged;
+      }
+    }
+    return { ...w, ap, d, abilities };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
+/**
+ * Ork Kustom Job "Da Booma": "One weapon of the vehicle gains +12\" range and +1 Strength.
+ * Vehicle only." The only Kustom Job that names no fixed weapon of its own (see
+ * RosterEntry.optionTargetWeapon's doc comment) — the player picks the target from a dropdown
+ * next to the choice (UnitCard.tsx), stored there rather than in item.armory since Da Booma is
+ * bought via unit.option_groups like every other Kustom Job.
+ */
+function applyDaBoomaBoost(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const gi = unit.option_groups.findIndex(g => (g.choices ?? []).some(c => c.name === 'Da Booma'));
+  if (gi < 0) return groups;
+  const ci = unit.option_groups[gi].choices.findIndex(c => c.name === 'Da Booma');
+  if (!((item.optionQty?.[gi]?.[ci] ?? 0) > 0)) return groups;
+  const targetName = item.optionTargetWeapon?.[`${gi}-${ci}`];
+  if (!targetName) return groups;
+  const boost = (w: Weapon): Weapon => {
+    if (w.name !== targetName) return w;
+    let s = w.s, range = w.range;
+    if (/^\d+$/.test(s)) s = String(parseInt(s, 10) + 1);
+    const m = range.match(/^(\d+)"$/);
+    if (m) range = `${parseInt(m[1], 10) + 12}"`;
+    return { ...w, s, range };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
+/**
  * Items/inline options that boost one specific NAMED weapon by text ("All of this model's Squig
  * Launchas receive +1 Strength and -1 AP") rather than the generic "weapon(s) of the model"
  * wording applyRangedStrengthBoosts covers — mirrors NAMED_WEAPON_BOOST_ITEMS in equipMods.ts,
@@ -1976,8 +2092,14 @@ function applyRangedStrengthBoosts(unit: Unit, item: RosterEntry, groups: Weapon
  * checked against unit.option_groups + item.optionQty by matching the choice NAME rather than a
  * hardcoded group/choice index, since those can shift as the sheet changes.
  */
-const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta: number; apDelta: number }> = {
+const NAMED_WEAPON_BOOST_ITEMS: Record<string, { weaponName: string; sDelta?: number; apDelta?: number; newType?: string }> = {
   'Nitro Squigs': { weaponName: 'Squig launcha', sDelta: 1, apDelta: -1 },
+  // Ork Kustom Jobs — found via an armory-wide modifier audit (2026-08-31): each names one FIXED
+  // weapon (no player choice) and rewrites its `type` field's shot count wholesale, e.g. "This
+  // model's Kustom mega-blasta changes its type to 'Assault 2'." A flat SET, not a delta — the
+  // weapon's base type is unrelated to the new one (Mek speshul: Assault 9 → 14).
+  'Enhanced Runt-Sucker': { weaponName: 'Junka Shokk Attack Gun', newType: 'Assault 2' },
+  'Souped-up Speshul': { weaponName: 'Mek speshul', newType: 'Assault 14' },
 };
 function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
   const active = Object.keys(NAMED_WEAPON_BOOST_ITEMS).filter(name => {
@@ -1992,9 +2114,63 @@ function applyNamedWeaponBoosts(unit: Unit, item: RosterEntry, groups: WeaponGro
   const boost = (w: Weapon): Weapon => {
     const match = boosts.find(b => b.weaponName.toLowerCase() === w.name.toLowerCase());
     if (!match) return w;
-    const s = /^\d+$/.test(w.s) ? String(parseInt(w.s, 10) + match.sDelta) : w.s;
-    const ap = /^-?\d+$/.test(w.ap) ? String(parseInt(w.ap, 10) + match.apDelta) : w.ap;
-    return { ...w, s, ap };
+    const s = match.sDelta && /^\d+$/.test(w.s) ? String(parseInt(w.s, 10) + match.sDelta) : w.s;
+    const ap = match.apDelta && /^-?\d+$/.test(w.ap) ? String(parseInt(w.ap, 10) + match.apDelta) : w.ap;
+    const type = match.newType ?? w.type;
+    return { ...w, s, ap, type };
+  };
+  return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
+}
+
+/**
+ * Is a named option-group choice currently selected on this unit — checked purely against
+ * `unit.option_groups` + `item.optionQty` by matching the choice NAME (not a hardcoded group/
+ * choice index, since those can shift as the sheet changes). Tyranid Biomorphs are bought this
+ * way, never through `item.armory` (mirrors the same detection NAMED_WEAPON_BOOST_ITEMS above
+ * uses for its inline-option half).
+ */
+function isNamedChoiceActive(unit: Unit, item: RosterEntry, choiceName: string): boolean {
+  return unit.option_groups.some((g, gi) => {
+    const ci = (g.choices ?? []).findIndex(c => c.name === choiceName);
+    return ci >= 0 && (item.optionQty?.[gi]?.[ci] ?? 0) > 0;
+  });
+}
+
+/**
+ * Per-unit options (Tyranid Biomorphs, Ork Kustom Jobs) worded "the unit gains 'X' for all
+ * ranged/melee attacks/weapons" — the ability-text half (injected into weaponTraitMap earlier in
+ * resolveUnitProfile, right after the per-target Armory-item ability loop). See
+ * BIOMORPH_ALL_RANGED_RANGE_BOOSTS below for the numeric-delta sibling (Pathogenesis's own
+ * "+3\" to all ranged weapons") — Zzapkrumpaz has no numeric equivalent, ability-only.
+ */
+const PER_UNIT_OPTION_ALL_WEAPONS_ABILITY_GRANTS: Record<string, { ability: string; scope: 'ranged' | 'melee' }> = {
+  'Infrasonic Roar': { ability: 'Suppression', scope: 'ranged' },
+  'Zzapkrumpaz': { ability: 'Deadly(6+)', scope: 'melee' },
+};
+
+/**
+ * Tyranid Biomorphs worded "the unit adds +N\" to all of its ranged weapons" — Pathogenesis is
+ * the only one with this exact numeric shape (Discord: "pathogenesis should add 3\" to all
+ * weapons" — the .ods itself says "ranged weapons" specifically, not literally all). Bought via
+ * the unit's own option_groups (never `item.armory`), same gap class as GH#92 (Psy-ammunition):
+ * the ability text was already stored and paid for, but the weapon's own Range column never
+ * reflected it. Mirrors applyExarchAllWeaponsRangeBoost's shape (a flat delta applied to every
+ * non-melee weapon with a numeric range), driven by a named biomorph choice instead of an Exarch
+ * Power.
+ */
+const BIOMORPH_ALL_RANGED_RANGE_BOOSTS: Record<string, number> = {
+  'Pathogenesis': 3,
+};
+function applyBiomorphRangeBoosts(unit: Unit, item: RosterEntry, groups: WeaponGroup[]): WeaponGroup[] {
+  const delta = Object.entries(BIOMORPH_ALL_RANGED_RANGE_BOOSTS)
+    .reduce((sum, [name, d]) => sum + (isNamedChoiceActive(unit, item, name) ? d : 0), 0);
+  if (!delta) return groups;
+  const boost = (w: Weapon): Weapon => {
+    const isMelee = w.range === '-' || /^melee/i.test(w.type ?? '');
+    if (isMelee) return w;
+    const m = w.range.match(/^(\d+)"$/);
+    if (!m) return w;
+    return { ...w, range: `${parseInt(m[1], 10) + delta}"` };
   };
   return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }
@@ -2030,15 +2206,20 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
     return (rangeDelta || sDelta || apDelta) ? { rangeDelta, sDelta, apDelta } : null;
   };
   const boosts = item.armory
-    .filter(a => a.section === 'equipment' && a.targetWeapon)
+    // CSM Daemon Weapons (Dark/Wrathful) are targeted+numeric exactly like an equipment item, just
+    // filed under `section: 'daemon_weapons'` instead — excluding that section here silently
+    // dropped their own +N Strength (found via an armory-wide modifier audit: the ability-text
+    // half of daemon weapons already applies via weaponTraitMap above, but numeric deltas never
+    // had anywhere to go).
+    .filter(a => (a.section === 'equipment' || a.section === 'daemon_weapons') && a.targetWeapon)
     .map(a => { const effect = effectFor(a); return effect && { targetWeapon: a.targetWeapon!, effect }; })
     .filter((b): b is { targetWeapon: string; effect: ChosenWeaponEffect } =>
-      !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta || !!b.effect.rangeDelta || !!b.effect.solariteX2ToX3));
+      !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta || !!b.effect.rangeDelta || !!b.effect.shotsDelta || !!b.effect.solariteX2ToX3));
   if (!boosts.length) return groups;
   const boost = (w: Weapon): Weapon => {
     const matches = boosts.filter(b => b.targetWeapon === w.name);
     if (!matches.length) return w;
-    let s = w.s, ap = w.ap, d = w.d, range = w.range;
+    let s = w.s, ap = w.ap, d = w.d, range = w.range, type = w.type;
     for (const { effect } of matches) {
       if (effect.sDelta && /^\d+$/.test(s)) s = String(parseInt(s, 10) + effect.sDelta);
       if (effect.apDelta && /^-?\d+$/.test(ap)) ap = String(parseInt(ap, 10) + effect.apDelta);
@@ -2047,9 +2228,13 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
         const m = range.match(/^(\d+)"$/);
         if (m) range = `${parseInt(m[1], 10) + effect.rangeDelta}"`;
       }
+      if (effect.shotsDelta) {
+        const m = type.match(/^(.+?)\s+(\d+)$/);
+        if (m) type = `${m[1]} ${parseInt(m[2], 10) + effect.shotsDelta}`;
+      }
       if (effect.solariteX2ToX3 && s === 'x2') s = 'x3';
     }
-    return { ...w, s, ap, d, range };
+    return { ...w, s, ap, d, range, type };
   };
   return groups.map(g => ({ ...g, weapons: g.weapons.map(boost) }));
 }

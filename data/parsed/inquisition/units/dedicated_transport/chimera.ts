@@ -114,7 +114,8 @@ export const chimera: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     },
     {
       "header": "Can replace the Heavy flamer",
@@ -129,7 +130,8 @@ export const chimera: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     }
   ],
   "abilities": [

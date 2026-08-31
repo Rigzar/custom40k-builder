@@ -120,7 +120,8 @@ export const corvusBlackstar: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin assault cannon"]
     },
     {
       "header": "Can replace the Twin Blackstar rocket launcher",
@@ -135,7 +136,8 @@ export const corvusBlackstar: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin Blackstar rocket launcher - Corvid", "Twin Blackstar rocket launcher - Dracos"]
     },
     {
       "header": "Can be equipped with one Hurricane bolt gun for +32 points.",

@@ -79,7 +79,8 @@ export const salamanderCommand: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     },
     {
       "header": "May swap the other Heavy flamer",
@@ -94,7 +95,8 @@ export const salamanderCommand: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy flamer"]
     }
   ],
   "abilities": [

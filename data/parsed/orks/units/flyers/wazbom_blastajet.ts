@@ -133,7 +133,8 @@ export const wazbomBlastajet: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Smasha gun"]
     },
     {
       "header": "May be equipped with one payload",

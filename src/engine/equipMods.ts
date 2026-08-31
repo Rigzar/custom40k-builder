@@ -254,9 +254,15 @@ export function isUnwieldyItem(desc: string | undefined): boolean {
  *   "One melee weapon of the model gains..."   → Cursed blade
  *   "The model may re-roll...Must be purchased for each weapon separately." → Master-crafted
  *   "The model gains Deadly(x+) on one of its weapons." → Obsidian blade
+ *   "A melee weapon of the model gains..."     → Frost weapon (Space Wolves) — same single-
+ *     target shape as "one weapon", just phrased with the indefinite article "a/an" instead of
+ *     "one". Found via an armory-wide modifier audit: these 2 items' numeric stat deltas
+ *     (+1 Strength, -1 AP/+1 Damage/Overheating) were silently never applied anywhere, because
+ *     this check — the gate that makes ArmoryModal show a target-weapon picker at all — never
+ *     recognized the wording as needing one in the first place.
  */
 export function requiresWeaponTarget(desc: string | undefined): boolean {
-  return /\bone (?:melee |ranged )?weapon of the model gains|on one of its weapons|purchased for each weapon/i.test(desc ?? '');
+  return /\b(?:one|a|an) (?:melee |ranged )?weapon of the model (?:gains|increases its)|on one of its weapons|purchased for each weapon/i.test(desc ?? '');
 }
 
 /** Whether a weapon-target item's benefit is a PICK from an enumerated list ("gains one of the
@@ -305,6 +311,10 @@ export interface ChosenWeaponEffect {
   apDelta?: number;
   dDelta?: number;
   rangeDelta?: number;
+  /** +N to the weapon's shot count — the trailing number in its `type` field ("Assault 3" → 5),
+   *  not a separate characteristic. Ork "More Dakka!" (SOURCE: "increases its number of shots
+   *  by 2"). */
+  shotsDelta?: number;
   /** +N to the weapon's existing AT(x) value — like deadlyStack, an increment on whatever is
    *  already there (AT(2) + 1 → AT(3)), not a flat floor grant. Higher AT is always better, so
    *  (unlike Deadly) this never needs to compare against mergeWeaponAbilities' own logic. */
@@ -470,6 +480,20 @@ export const CHOSEN_WEAPON_GRANT_ITEMS: Record<string, ChosenWeaponEffect> = {
   'Hungering bladeʸ': { abilities: ['Flurry(4)'] },
   'Silent bladeʸ': { abilities: ['Shield breaker(-2)'] },
   'Sorrow bladeʸ': { abilities: ['Decimate'], sDelta: 1 },
+  // Found via an armory-wide modifier audit (2026-08-31): both paid for and correctly targeted
+  // a weapon (once requiresWeaponTarget recognized their "a/an weapon" wording above), but their
+  // own numeric deltas were never registered here, so the purchase was a silent no-op past the
+  // points charge — same shape as the ~35-item bug fixed earlier this version for `targetWeapon`.
+  'Frost weapon': { sDelta: 1 },
+  'More Zzzap!ᴹ': { apDelta: -1, dDelta: 1, abilities: ['Overheating'] },
+  'More Boom!ᴹ': { sDelta: 2 },
+  'More Dakka!ᴹ': { shotsDelta: 2 },
+  // CSM Daemon Weapons (`section: 'daemon_weapons'`, not 'equipment') — the other quoted-ability
+  // ones in this same list (Bloodied/Entropic/Rotting/Sinful/Alacritous/etc.) already apply via
+  // the separate weaponTraitMap loop that extracts quoted ability text; these 2 are the only ones
+  // with a bare numeric delta instead.
+  'Dark': { sDelta: 1 },
+  'Wrathful': { sDelta: 2 },
 };
 
 /** Whether an equipment item explicitly allows multiple copies per unit.

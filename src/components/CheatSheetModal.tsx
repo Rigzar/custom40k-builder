@@ -1257,10 +1257,10 @@ const CREDIT_TEXT: Record<Language, string> = {
  * printed on card stock, not part of THIS sheet's own print/PDF output.
  */
 function OrderCardsCredit({ lang }: { lang: Language }) {
-  const decks: { key: string; label: string; icon: string; href: string }[] = [
-    { key: 'chaos',    label: 'Chaos',    icon: '/category-icons/chaos.svg',    href: '/downloads/chaos-orders.pdf' },
-    { key: 'imperium', label: 'Imperium', icon: '/category-icons/imperium.svg', href: '/downloads/imperial-orders.pdf' },
-    { key: 'xenos',    label: 'Xenos',    icon: '/category-icons/xenos.svg',    href: '/downloads/xenos-orders.pdf' },
+  const decks: { key: string; label: string; icon: string; href: string; file: string }[] = [
+    { key: 'chaos',    label: 'Chaos',    icon: '/category-icons/chaos.svg',    href: '/downloads/chaos-orders.pdf',    file: 'chaos-orders.pdf' },
+    { key: 'imperium', label: 'Imperium', icon: '/category-icons/imperium.svg', href: '/downloads/imperial-orders.pdf', file: 'imperial-orders.pdf' },
+    { key: 'xenos',    label: 'Xenos',    icon: '/category-icons/xenos.svg',    href: '/downloads/xenos-orders.pdf',    file: 'xenos-orders.pdf' },
   ];
   return (
     <div className="print:hidden" style={{ maxWidth: 760, margin: '14px auto 0', textAlign: 'center' }}>
@@ -1269,7 +1269,7 @@ function OrderCardsCredit({ lang }: { lang: Language }) {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
         {decks.map(d => (
-          <a key={d.key} href={d.href} target="_blank" rel="noopener noreferrer"
+          <a key={d.key} href={d.href} download={d.file}
             className="relative faction-tilt border border-zinc-700 hover:border-amber-600 bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-colors"
             onMouseMove={(e) => {
               const r = e.currentTarget.getBoundingClientRect();

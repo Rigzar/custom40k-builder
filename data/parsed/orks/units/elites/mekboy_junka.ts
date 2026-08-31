@@ -146,7 +146,7 @@ export const mekboyJunka: Unit = {
     {
       "header": "May swap any of the big shootas",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -172,7 +172,8 @@ export const mekboyJunka: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Big shoota"]
     },
     {
       "header": "May take one big gun",

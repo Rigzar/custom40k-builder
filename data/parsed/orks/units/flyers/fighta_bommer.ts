@@ -129,7 +129,8 @@ export const fightaBommer: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin-linked big shoota"]
     },
     {
       "header": "May be equipped with one payload",

@@ -150,7 +150,8 @@ export const subCommander: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "per_model": true
+      "per_model": true,
+      "replaces": ["Pulse rifle"]
     },
     {
       "header": "May take a Markerlight for +10 points.",

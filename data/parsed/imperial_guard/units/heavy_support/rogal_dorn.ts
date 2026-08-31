@@ -129,7 +129,8 @@ export const rogalDorn: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Oppressor cannon", "Co-axial Autocannon"]
     },
     {
       "header": "May swap the Castigator gatling cannon",
@@ -144,7 +145,8 @@ export const rogalDorn: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Castigator gatling cannon"]
     },
     {
       "header": "May be equipped with one of the following weapons",

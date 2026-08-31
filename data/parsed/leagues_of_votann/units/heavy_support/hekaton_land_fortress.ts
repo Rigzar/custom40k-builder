@@ -151,12 +151,13 @@ export const hekatonLandFortress: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["SP heavy conversion beamer - Short range", "SP heavy conversion beamer - Mid range", "SP heavy conversion beamer - Long range"]
     },
     {
       "header": "Can replace each Twin bolt cannon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -166,7 +167,8 @@ export const hekatonLandFortress: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin bolt cannon"]
     },
     {
       "header": "Can replace the Pan spectral scanner",

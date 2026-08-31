@@ -48,8 +48,16 @@ additionally select any number of Basic and Advanced Biomorphs").
 | Biomorph tier | Count | Cost basis | Examples |
 |---|---|---|---|
 | **Basic Biomorphs** | 7 | per UNIT (flat) | Acid Maw / Adrenal Glands / Enhanced Senses / Heightened Reflexes / Pathogenesis / Relentless Hunger / Toxin Sacs |
-| **Advanced Biomorphs** | 9 | per MODEL | Acid Blood / Extremely Volatile / Implant Attack / Infrasonic Roar / Resonance Barb / Symbiote Rippers / Thornback / Tusked / Warped |
-| **Special Biomorphs** | 9 | "See datasheet" (per-unit, datasheet-priced) | Endless / Feeder Tendrils / Hardened Carapace / Leaping / Norn Crown / Regeneration / Scuttlers / Synaptic Node (1 per army) / **Winged** (gates the Flying Death archetype, §5) |
+| **Advanced Biomorphs** | 9 | per UNIT (flat) | Acid Blood / Extremely Volatile / Implant Attack / Infrasonic Roar / Resonance Barb / Symbiote Rippers / Thornback / Tusked / Warped |
+| **Special Biomorphs** | 9 | per MODEL ("for every model of the unit") | Endless / Feeder Tendrils / Hardened Carapace / Leaping / Norn Crown / Regeneration / Scuttlers / Synaptic Node (1 per army) / **Winged** (gates the Flying Death archetype, §5) |
+
+> **Corrected 2026-08-31** (re-read the .ods Armory sheet verbatim after a player rules question):
+> this table previously had Advanced/Special backwards — the `.ods`'s own footnotes read
+> *"Point costs are paid per unit"* directly under BOTH the Basic and Advanced Biomorph lists, and
+> *"Point costs are paid for every model of the unit"* only under Special Biomorphs. Production
+> (`option_groups`/`points.ts`'s `per_model` flag) already had this right; only this digest was
+> stale. See `ki-tyranids-pathogenesis-infrasonic-roar-no-effect-01` in known-issues.ts for the
+> related (and separate) Pathogenesis/Infrasonic Roar fix from the same session.
 
 - **NO Vehicle Equipment section** (no vehicles) and **NO Veteran Abilities section** (0
   `has_veteran_abilities` units). So there is NO `category:'vehicle'`/`'veteran'` tagging work for

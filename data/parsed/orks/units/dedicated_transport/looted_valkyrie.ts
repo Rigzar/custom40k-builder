@@ -93,7 +93,8 @@ export const lootedValkyrie: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Multi-laser"]
     },
     {
       "header": "Can be equipped with one of the following",

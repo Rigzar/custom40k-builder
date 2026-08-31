@@ -1486,8 +1486,12 @@ export function UnitCard({ item }: Props) {
             // the allowance — the War Walkers carry 2 Scatter lasers each and could only ever
             // replace one per model (GitHub #81). Checked across the game: 6 groups are worded
             // "each <weapon>", 54 cover all copies at once and are deliberately left alone.
+            // "any of the <weapon>" (Ork Mekboy Junka's 3 Big shootas) is the same per-copy shape
+            // under different wording — the only unit worded this way, so it's matched alongside
+            // "each" rather than replacing it; mirrors resolver.ts's own perCopySwap check so the
+            // hide-threshold agrees with what this stepper actually lets the player pick.
             const _perCopyHeader = !!g.replaces?.length && g.replaces.some(w =>
-              new RegExp(`\\beach\\s+${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(g.header));
+              new RegExp(`\\b(?:each|any of the)\\s+${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(g.header));
             // A weapon gated by `requires_choice` (Galatus Contemptor Dreadnought's Infernus
             // incinerators) never appears in `equipped_with` — the copy count only exists in the
             // granting choice's own name text, so pass it as a fallback source.
@@ -1767,6 +1771,31 @@ export function UnitCard({ item }: Props) {
                         >
                           {control}
                           <span className={`flex-1 text-[12px] ${active ? 'text-zinc-100' : 'text-zinc-300'}`}>{c.name}</span>
+                          {/* Ork "Da Booma" ("One weapon of the vehicle gains +12\" range and
+                              +1 Strength") is the one Kustom Job that names no fixed weapon of
+                              its own — every other one either affects a single named weapon or
+                              the whole unit, so this stays a narrow, one-item picker rather than
+                              a speculative general mechanism. Found unfixable via a hardcoded
+                              target during an armory-wide modifier audit (2026-08-31): with no
+                              way to say WHICH weapon, the bonus had nowhere to go. */}
+                          {c.name === 'Da Booma' && active && (() => {
+                            const candidates = rp.weaponsToShow.filter(w => w.range !== '-' && !/^melee/i.test(w.type ?? ''));
+                            if (!candidates.length) return null;
+                            const targetKey = `${realGi}-${ci}`;
+                            return (
+                              <select
+                                value={item.optionTargetWeapon?.[targetKey] ?? ''}
+                                onClick={e => e.stopPropagation()}
+                                onChange={e => updateUnit(item.id, {
+                                  optionTargetWeapon: { ...item.optionTargetWeapon, [targetKey]: e.target.value },
+                                })}
+                                className="bg-zinc-800 border border-zinc-600 text-zinc-300 text-[11px] px-1.5 py-0.5 focus:outline-none focus:border-amber-700 shrink-0"
+                              >
+                                <option value="">{t('noneOption')}</option>
+                                {candidates.map(w => <option key={w.name} value={w.name}>{w.name}</option>)}
+                              </select>
+                            );
+                          })()}
                           {c.points !== 0 && (
                             <span className={`font-mono text-[11px] shrink-0 ${active ? 'text-amber-400' : 'text-zinc-500'}`}>
                               {c.points >= 0 ? '+' : ''}{c.points}

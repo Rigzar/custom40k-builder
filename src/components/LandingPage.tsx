@@ -17,7 +17,7 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
 // cut was created by mistake right after this same day's v1.68 push and has been folded back in.
 // line8-9 below are the nav-row/supplement-drawer i18n fixes that were briefly their own v1.69
 // banner; they're just appended lines on the existing v1.68 announcement instead.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.68: Necron Cryptek fix, Print View cleanup",
@@ -33,6 +33,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🌐 The front-page nav row (Wiki, Login/Sign in, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which language you picked, even though \"Build Army\" and \"Supplements\" right next to them already worked. Fixed — all of them now follow your selected language.",
     line9: "🌐 The 4 supplement cards (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer — description, \"How to activate\" steps, Catalog, battlefield-role headers, Armory Weapons/Equipment — were entirely English too. Fixed, same as the nav row.",
     line10: "🚚 Inquisition — a Taurox's Hot-shot volley guns stuck around after swapping them for Two autocannons, showing both at once (GH#108). Fixed — same missing-link bug as the Leman Russ fix earlier this version.",
+    line11: "🖨️ Field Manual — the Grimdark Gamers order-card download buttons (Chaos/Imperium/Xenos) silently did nothing for some players. They opened in a new tab that had nothing to show (a straight file download), which some browsers block as a pop-up without any error. Fixed — they now download in place, no new tab needed.",
+    line12: "🧬 Tyranids — the Pathogenesis (+3\" range) and Infrasonic Roar (Suppression) Biomorphs were paid for but never actually changed the weapon they affect. Fixed — both now show up correctly on the weapon's own Range/Abilities columns.",
+    line13: "🔧 Audited every faction for the same duplicate-weapon-after-swap bug as the Leman Russ/Taurox fixes — found and fixed 47 more datasheets across Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire and Tyranids.",
+    line14: "⚗️ Also audited every faction's Armory for items paid for but never actually applied to the weapon — fixed 11 more (Space Wolves' Frost weapon, Ork's More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma Kustom Jobs, CSM's Dark/Wrathful Daemon Weapons, AdMech's Enriched rounds, Guard/Inquisition's Special energy cells). Da Booma needed a brand-new weapon-target picker, since it's the only one where the player chooses which weapon it boosts.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -49,6 +53,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🌐 Die Navigationsleiste (Wiki, Anmelden/Registrieren, Glossar, Feldhandbuch, Community-Armeen, Feldzug, Discord) blieb auf Englisch, egal welche Sprache gewählt war, obwohl „Armee bauen\" und „Erweiterungen\" direkt daneben schon funktionierten. Behoben — alle folgen jetzt der gewählten Sprache.",
     line9: "🌐 Auch die 4 Erweiterungskarten (Horus Heresy, Streitkräfte des Maschinengottes, Escalation, Assassins) und ihre Detailansicht — Beschreibung, „Aktivierung\"-Schritte, Katalog, Schlachtfeldrollen-Überschriften, Rüstkammer-Waffen/-Ausrüstung — waren komplett auf Englisch. Behoben, genau wie die Navigationsleiste.",
     line10: "🚚 Inquisition — die Hot-shot volley guns eines Taurox blieben nach dem Tausch gegen Two autocannons bestehen und zeigten beide gleichzeitig (GH#108). Behoben — derselbe fehlende Link wie beim Leman-Russ-Fix zu Beginn dieser Version.",
+    line11: "🖨️ Field Manual — die Download-Buttons für die Grimdark-Gamers-Befehlskarten (Chaos/Imperium/Xenos) taten bei manchen Spielern einfach nichts. Sie öffneten einen neuen Tab, der nichts anzuzeigen hatte (ein reiner Datei-Download) — manche Browser blockieren das stillschweigend als Pop-up. Behoben — sie laden jetzt direkt herunter, ohne neuen Tab.",
+    line12: "🧬 Tyranids — die Biomorphe Pathogenesis (+3\" Reichweite) und Infrasonic Roar (Suppression) wurden bezahlt, änderten aber nie tatsächlich die betroffene Waffe. Behoben — beide zeigen sich jetzt korrekt in den Spalten Reichweite/Fähigkeiten der Waffe.",
+    line13: "🔧 Alle Fraktionen auf denselben Doppelwaffen-nach-Tausch-Bug wie bei Leman Russ/Taurox durchsucht — 47 weitere Datenblätter gefunden und behoben, in Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire und Tyranids.",
+    line14: "⚗️ Auch die Armory jeder Fraktion durchsucht nach Gegenständen, die bezahlt, aber nie tatsächlich auf die Waffe angewendet wurden — 11 weitere behoben (Space Wolves' Frost weapon, Orks' More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma Kustom-Jobs, CSMs Dark/Wrathful-Dämonenwaffen, AdMechs Enriched rounds, Guard/Inquisitions Special energy cells). Da Booma brauchte einen komplett neuen Waffenziel-Auswähler, da als einziger der Spieler wählt, welche Waffe profitiert.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -65,6 +73,10 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line8: "🌐 La barra de navegación (Wiki, Iniciar sesión/Registrarse, Glosario, Manual de Campo, Ejércitos de la Comunidad, Campaña, Discord) se quedaba en inglés sin importar el idioma elegido, aunque \"Construir Ejército\" y \"Suplementos\" justo al lado ya funcionaban bien. Arreglado — todos siguen ahora el idioma elegido.",
     line9: "🌐 Las 4 tarjetas de suplementos (Horus Heresy, Fuerzas del Dios Máquina, Escalation, Assassins) y su panel de detalle — descripción, pasos de \"Cómo activarlo\", Catálogo, encabezados de rol de batalla, Armería de Armas/Equipo — también estaban completamente en inglés. Arreglado, igual que la barra de navegación.",
     line10: "🚚 Inquisition — las Hot-shot volley guns de un Taurox se quedaban tras cambiarlas por Two autocannons, mostrando ambas a la vez (GH#108). Arreglado — el mismo enlace faltante que el arreglo del Leman Russ al principio de esta versión.",
+    line11: "🖨️ Field Manual — los botones de descarga de las cartas de órdenes de Grimdark Gamers (Chaos/Imperium/Xenos) no hacían nada para algunos jugadores. Abrían una pestaña nueva que no tenía nada que mostrar (una descarga de archivo directa), y algunos navegadores bloquean eso en silencio como si fuera un pop-up. Arreglado — ahora se descargan directamente, sin pestaña nueva.",
+    line12: "🧬 Tyranids — los Biomorfos Pathogenesis (+3\" de alcance) e Infrasonic Roar (Suppression) se cobraban pero nunca cambiaban de verdad el arma afectada. Arreglado — ahora se ven correctamente en las columnas de Alcance/Habilidades del arma.",
+    line13: "🔧 Auditamos todas las facciones buscando el mismo bug de arma duplicada tras un intercambio que los arreglos de Leman Russ/Taurox — encontramos y arreglamos 47 fichas más en Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire y Tyranids.",
+    line14: "⚗️ También auditamos la Armería de cada facción buscando ítems que se cobraban pero nunca se aplicaban de verdad al arma — arreglamos 11 más (Frost weapon de Space Wolves, More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma de Orks, las armas demoníacas Dark/Wrathful de CSM, Enriched rounds de AdMech, Special energy cells de Guard/Inquisition). Da Booma necesitó un selector de arma objetivo completamente nuevo, ya que es el único donde el jugador elige qué arma recibe el bono.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -148,11 +160,27 @@ function CommunityAnnouncement() {
               `nav*`/`*Card*` translation keys and a `SUPPLEMENT_TEXT` per-language table in
               SupplementModal.tsx. line10 is GitHub #108: a Taurox's Hot-shot volley guns stuck
               around after swapping for Two autocannons (missing `replaces` link, same shape as
-              this version's own Leman Russ fix).
-              A NEXT fix under this same version needs a line11 added to AnnouncementLang and every
+              this version's own Leman Russ fix). line11 is the Field Manual order-card download
+              buttons (Chaos/Imperium/Xenos) doing nothing for some players — `target="_blank"` on
+              a link whose destination is a direct file download gets silently blocked as a pop-up
+              by some browsers; switched to a plain `download` attribute instead. line12 is
+              Tyranids' Pathogenesis/Infrasonic Roar Biomorphs being paid for but never actually
+              applied to the weapon (both bought via option_groups, not item.armory, so the
+              existing "boost every ranged weapon" machinery never saw them — same gap class as
+              GH#92); fixed via a new isNamedChoiceActive()/applyBiomorphRangeBoosts() pair in
+              resolver.ts. line13 is the full codebase audit for the same missing-`replaces` bug
+              (47 more datasheets across 8 factions) — see ki-missing-replaces-codebase-audit-01
+              in known-issues.ts for the full breakdown, including the Ravager/Mekboy
+              Junka/Sub-Commander cases that needed more than just the field itself. line14 is a
+              follow-up armory-wide audit for the same "paid for, never applied" bug shape (11 items
+              across 5 factions, including Ork "Da Booma" — the only one needing a brand-new
+              weapon-target-picker UI for per-unit options, since it's the only Kustom Job where
+              the player chooses which weapon benefits) — see ki-armory-wide-modifier-audit-01 in
+              known-issues.ts for the full breakdown.
+              A NEXT fix under this same version needs a line15 added to AnnouncementLang and every
               language block — do NOT cut a new version number unless Rigzar explicitly asks for
               one; the default is to keep appending to v1.68. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

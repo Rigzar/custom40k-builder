@@ -97,7 +97,8 @@ export const hellhounds: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Inferno cannon"]
     },
     {
       "header": "May swap the Heavy bolter",
@@ -112,7 +113,8 @@ export const hellhounds: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolter"]
     }
   ],
   "abilities": [

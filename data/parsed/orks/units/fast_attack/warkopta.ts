@@ -111,7 +111,8 @@ export const warkopta: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin-linked Deffgun - Shooty", "Twin-linked Deffgun - Beamy"]
     },
     {
       "header": "May swap the big shoota with grot gunner",
@@ -134,7 +135,8 @@ export const warkopta: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Big shoota"]
     },
     {
       "header": "Can get one Kustom job.",

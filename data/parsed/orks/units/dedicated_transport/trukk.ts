@@ -66,7 +66,8 @@ export const trukk: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Big shoota"]
     },
     {
       "header": "Can get one Kustom job.",

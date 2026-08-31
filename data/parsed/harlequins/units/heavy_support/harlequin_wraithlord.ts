@@ -138,7 +138,8 @@ export const harlequinWraithlord: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Shuriken catapult"]
     },
     {
       "header": "Can be equipped with Ghostglaive for +11 points.",

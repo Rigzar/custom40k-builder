@@ -98,7 +98,8 @@ export const sporecyst: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Deathspitter"]
     },
     {
       "header": "May additionally select any number of Basic and Advanced Biomorphs (see Armory).",

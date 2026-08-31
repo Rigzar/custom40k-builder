@@ -152,6 +152,16 @@ export interface RosterEntry {
    * "Combat drugs" ability may hold any; base cap 1, +1 per "Stimulant supply" equipped.
    */
   combatDrugs?: string[];
+  /**
+   * Weapon target for a per-unit option_groups choice that names no FIXED weapon of its own
+   * (unlike most named-weapon Kustom Jobs/Biomorphs) — mirrors `ArmorySelection.targetWeapon`,
+   * which only covers general Armory purchases (`item.armory`), not per-unit options. Keyed by
+   * `"${groupIndex}-${choiceIndex}"`. Currently only Ork "Da Booma" ("One weapon of the vehicle
+   * gains +12\" range and +1 Strength") needs this — every other Kustom Job either names one
+   * fixed weapon or affects the whole unit, so this stays a narrow, single-purpose field rather
+   * than a speculative general mechanism.
+   */
+  optionTargetWeapon?: Record<string, string>;
 }
 
 export interface ArmyState {

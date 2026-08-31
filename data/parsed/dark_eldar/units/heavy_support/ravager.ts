@@ -56,7 +56,7 @@ export const ravager: Unit = {
     {
       "header": "Can replace each Disintegrator cannon",
       "constraint": {
-        "type": "one"
+        "type": "every"
       },
       "choices": [
         {
@@ -66,7 +66,8 @@ export const ravager: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Disintegrator cannon"]
     },
     {
       "header": "Can be equipped with a Flickerfield for +42 points.",

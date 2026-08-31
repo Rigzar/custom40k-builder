@@ -146,7 +146,8 @@ export const carnodon: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Twin multilaser"]
     },
     {
       "header": "May swap both Heavy bolters",
@@ -177,7 +178,8 @@ export const carnodon: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolter"]
     }
   ],
   "abilities": [],

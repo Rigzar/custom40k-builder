@@ -79,7 +79,8 @@ export const salamanderScout: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolter"]
     },
     {
       "header": "May swap the other Heavy bolter",
@@ -94,7 +95,8 @@ export const salamanderScout: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false
+      "is_unique_per_army": false,
+      "replaces": ["Heavy bolter"]
     }
   ],
   "abilities": [
