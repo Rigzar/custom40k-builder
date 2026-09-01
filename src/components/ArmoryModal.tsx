@@ -1772,9 +1772,57 @@ function EquipmentGroups({
             </div>
           )}
           <div className="space-y-1">
-            {vehicle.map((arm, i) => (
-              <ArmoryItemRow key={i} arm={arm} isChar={isChar} markless={markless} justAdded={lastAdded === arm.name} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => onAdd(arm)} />
-            ))}
+            {vehicle.map((arm, i) => {
+              // Vehicle-category items are almost all flat "click to buy" purchases, but IG's
+              // "Regimental artefact" is the one exception in the whole game: it needs the SAME
+              // weapon-target + enumerable-enhancement pickers as the "regular" equipment section
+              // above (GH#109: buying it on a Leman Russ Tank Commander/Baneblade never asked
+              // which weapon it applies to, so the bonus had nowhere to go — the flat button here
+              // called onAdd() straight away, with no chance to populate eqTargetWeapon/
+              // eqExarchPower first). Mirrors the regular section's needsTarget/enumOptions/
+              // canAdd logic exactly rather than inventing a second version of it.
+              const needsTarget = requiresWeaponTarget(arm.desc) && availableWeapons.length > 0;
+              const chosenTarget = eqTargetWeapon[arm.name] ?? '';
+              const enumOptions = isEnumerableWeaponChoice(arm.desc) ? parseEnumerableWeaponChoices(arm.desc) : [];
+              const needsPower = enumOptions.length > 0;
+              const chosenPower = eqExarchPower[arm.name] ?? '';
+              const canAdd = (!needsTarget || chosenTarget !== '') && (!needsPower || chosenPower !== '');
+              return (
+                <div key={i}>
+                  <ArmoryItemRow arm={arm} isChar={isChar} markless={markless} justAdded={lastAdded === arm.name} disabled={!canAdd} priceLabel={vehPriceLabel(arm)} selectedArmoryId={getSelId ? getSelId(arm.name) : undefined} onRemove={onRemove} onAdd={() => canAdd && onAdd(arm)} />
+                  {needsTarget && !(getSelId?.(arm.name)) && (
+                    <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
+                      <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('applyToLabel')}</span>
+                      <select
+                        value={chosenTarget}
+                        onChange={e => onSetEqTargetWeapon?.(arm.name, e.target.value)}
+                        className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                      >
+                        <option value="">{t('selectWeaponOption')}</option>
+                        {availableWeapons.map(wn => (
+                          <option key={wn} value={wn}>{wn}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  {needsPower && !(getSelId?.(arm.name)) && (
+                    <div className="px-3 pb-2 flex items-center gap-2 bg-zinc-800/40 border-l border-r border-b border-zinc-700">
+                      <span className="text-[10px] text-zinc-400 uppercase tracking-wide shrink-0">{t('enhancementLabel')}</span>
+                      <select
+                        value={chosenPower}
+                        onChange={e => onSetEqExarchPower?.(arm.name, e.target.value)}
+                        className="flex-1 bg-zinc-900 border border-zinc-600 text-zinc-200 text-[11px] px-2 py-0.5 focus:outline-none focus:border-amber-600"
+                      >
+                        <option value="">{t('selectEnhancementOption')}</option>
+                        {enumOptions.map(pn => (
+                          <option key={pn} value={pn}>{pn}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

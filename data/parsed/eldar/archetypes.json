@@ -2,7 +2,7 @@
   "archetypes": [
     {
       "name": "Aspect Focus",
-      "desc": "- <Aspect> units can be taken as Troops.\n- Non-<Aspect> Troops become Elite choices."
+      "desc": "- With the exception of Dark Reapers, <Aspect> units can be taken as Troops.\n- Non-<Aspect> Troops become Elite choices."
     },
     {
       "name": "Exemplars of the Shrines",

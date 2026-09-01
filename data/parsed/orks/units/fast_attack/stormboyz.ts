@@ -89,7 +89,10 @@ export const stormboyz: Unit = {
       "choices": [
         {
           "name": "Wildork",
-          "points": 3
+          "points": 3,
+          "effect": {
+            "grants_abilities": ["Wildork: The model receives the <Wildork> keyword and a 6+ ward save. Melee hit rolls against vehicles or monstrous creatures receive a +1 bonus and the \"Lance(1)\" ability."]
+          }
         },
         {
           "name": "'Eavy armour",

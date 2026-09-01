@@ -17,7 +17,7 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
 // cut was created by mistake right after this same day's v1.68 push and has been folded back in.
 // line8-9 below are the nav-row/supplement-drawer i18n fixes that were briefly their own v1.69
 // banner; they're just appended lines on the existing v1.68 announcement instead.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; line16: string; line17: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.68: Necron Cryptek fix, Print View cleanup",
@@ -37,6 +37,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line12: "🧬 Tyranids — the Pathogenesis (+3\" range) and Infrasonic Roar (Suppression) Biomorphs were paid for but never actually changed the weapon they affect. Fixed — both now show up correctly on the weapon's own Range/Abilities columns.",
     line13: "🔧 Audited every faction for the same duplicate-weapon-after-swap bug as the Leman Russ/Taurox fixes — found and fixed 47 more datasheets across Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire and Tyranids.",
     line14: "⚗️ Also audited every faction's Armory for items paid for but never actually applied to the weapon — fixed 11 more (Space Wolves' Frost weapon, Ork's More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma Kustom Jobs, CSM's Dark/Wrathful Daemon Weapons, AdMech's Enriched rounds, Guard/Inquisition's Special energy cells). Da Booma needed a brand-new weapon-target picker, since it's the only one where the player chooses which weapon it boosts.",
+    line15: "🐗 Orks — the \"Wildork\" upgrade did nothing on 9 units (Skarboyz, Burna Boyz, Cybork Slashaz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas). Fixed — it now correctly grants the Wildork keyword, a 6+ ward save, and a melee bonus vs vehicles/monstrous creatures.",
+    line16: "🎯 Imperial Guard — \"Regimental artefact\" never let you pick a weapon when bought through a vehicle's own equipment panel (only the general Armory tab had that picker). Fixed — the same weapon-target/enhancement pickers now work there too.",
+    line17: "📖 Eldar — Aspect Focus's own description never mentioned that Dark Reapers are the one exception (they correctly stay Heavy Support, per the .ods). Fixed the displayed text — the game behavior was already right.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -57,6 +60,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line12: "🧬 Tyranids — die Biomorphe Pathogenesis (+3\" Reichweite) und Infrasonic Roar (Suppression) wurden bezahlt, änderten aber nie tatsächlich die betroffene Waffe. Behoben — beide zeigen sich jetzt korrekt in den Spalten Reichweite/Fähigkeiten der Waffe.",
     line13: "🔧 Alle Fraktionen auf denselben Doppelwaffen-nach-Tausch-Bug wie bei Leman Russ/Taurox durchsucht — 47 weitere Datenblätter gefunden und behoben, in Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire und Tyranids.",
     line14: "⚗️ Auch die Armory jeder Fraktion durchsucht nach Gegenständen, die bezahlt, aber nie tatsächlich auf die Waffe angewendet wurden — 11 weitere behoben (Space Wolves' Frost weapon, Orks' More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma Kustom-Jobs, CSMs Dark/Wrathful-Dämonenwaffen, AdMechs Enriched rounds, Guard/Inquisitions Special energy cells). Da Booma brauchte einen komplett neuen Waffenziel-Auswähler, da als einziger der Spieler wählt, welche Waffe profitiert.",
+    line15: "🐗 Orks — das \"Wildork\"-Upgrade tat bei 9 Einheiten nichts (Skarboyz, Burna Boyz, Cybork Slashaz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas). Behoben — es gewährt jetzt korrekt das Wildork-Schlüsselwort, einen 6+ Ward Save und einen Nahkampfbonus gegen Fahrzeuge/monströse Kreaturen.",
+    line16: "🎯 Imperial Guard — \"Regimental artefact\" ließ einen beim Kauf über das eigene Fahrzeug-Ausrüstungspanel nie eine Waffe wählen (nur der allgemeine Armory-Tab hatte diesen Auswähler). Behoben — dieselben Waffenziel-/Verbesserungs-Auswähler funktionieren dort jetzt auch.",
+    line17: "📖 Eldar — die Beschreibung von Aspect Focus erwähnte nie, dass Dark Reapers die eine Ausnahme sind (sie bleiben laut .ods korrekt bei Heavy Support). Der angezeigte Text wurde korrigiert — das Spielverhalten war bereits richtig.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -77,6 +83,9 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line12: "🧬 Tyranids — los Biomorfos Pathogenesis (+3\" de alcance) e Infrasonic Roar (Suppression) se cobraban pero nunca cambiaban de verdad el arma afectada. Arreglado — ahora se ven correctamente en las columnas de Alcance/Habilidades del arma.",
     line13: "🔧 Auditamos todas las facciones buscando el mismo bug de arma duplicada tras un intercambio que los arreglos de Leman Russ/Taurox — encontramos y arreglamos 47 fichas más en Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire y Tyranids.",
     line14: "⚗️ También auditamos la Armería de cada facción buscando ítems que se cobraban pero nunca se aplicaban de verdad al arma — arreglamos 11 más (Frost weapon de Space Wolves, More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma de Orks, las armas demoníacas Dark/Wrathful de CSM, Enriched rounds de AdMech, Special energy cells de Guard/Inquisition). Da Booma necesitó un selector de arma objetivo completamente nuevo, ya que es el único donde el jugador elige qué arma recibe el bono.",
+    line15: "🐗 Orks — la mejora \"Wildork\" no hacía nada en 9 unidades (Skarboyz, Burna Boyz, Cybork Slashaz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas). Arreglado — ahora concede correctamente la palabra clave Wildork, un ward save de 6+ y un bono cuerpo a cuerpo contra vehículos/criaturas monstruosas.",
+    line16: "🎯 Imperial Guard — \"Regimental artefact\" nunca dejaba elegir un arma al comprarlo desde el propio panel de equipo del vehículo (solo la pestaña general de Armería tenía ese selector). Arreglado — los mismos selectores de arma objetivo/mejora ahora funcionan ahí también.",
+    line17: "📖 Eldar — la descripción de Aspect Focus nunca mencionaba que los Dark Reapers son la única excepción (según el .ods, correctamente se quedan en Heavy Support). Se corrigió el texto mostrado — el comportamiento del juego ya era correcto.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -176,11 +185,18 @@ function CommunityAnnouncement() {
               across 5 factions, including Ork "Da Booma" — the only one needing a brand-new
               weapon-target-picker UI for per-unit options, since it's the only Kustom Job where
               the player chooses which weapon benefits) — see ki-armory-wide-modifier-audit-01 in
-              known-issues.ts for the full breakdown.
-              A NEXT fix under this same version needs a line15 added to AnnouncementLang and every
+              known-issues.ts for the full breakdown. This entire batch (line1-14) was pushed as
+              `ba9eba4` (2026-09-01). line15-17 are 3 fresh GitHub bug reports checked in the SAME
+              sitting afterward: #110 (Ork "Wildork" — 9 units, bare choice with no `effect` at
+              all), #109 (IG "Regimental artefact" — the vehicle-equipment panel never had the
+              weapon-target/enhancement pickers the general Armory tab already had), and #111
+              (Eldar Aspect Focus — NOT a bug, the engine already correctly excludes Dark Reapers
+              per the .ods; only the archetype's own displayed description text was stale/missing
+              the exception).
+              A NEXT fix under this same version needs a line18 added to AnnouncementLang and every
               language block — do NOT cut a new version number unless Rigzar explicitly asks for
               one; the default is to keep appending to v1.68. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14, tx.line15, tx.line16, tx.line17]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
