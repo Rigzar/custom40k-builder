@@ -14,10 +14,11 @@ import { CHANGELOG } from '../data/changelog';
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
 
 // v1.69 (2026-09-02) stays v1.69 (Rigzar: "mantenemos version") — line1-2 were the original two
-// Discord reports; line3-6 are 4 more pricing bugs found the same day while building a player's
-// own army list, all still under this same version per the standing rule (append to the current
-// version's banner instead of cutting a new one, unless explicitly told to cut).
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
+// Discord reports; line3-7 are 5 more bugs found the same day while building player-style army
+// lists (a technique Rigzar explicitly asked to repeat), all still under this same version per the
+// standing rule (append to the current version's banner instead of cutting a new one, unless
+// explicitly told to cut).
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.69: pricing bugs fixed",
@@ -29,6 +30,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line4: "🎯 Imperial Guard — Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad's \"the unit may get ONE of these abilities\" pickers let you buy BOTH at once instead of picking one. Fixed — it's an exclusive pick again, still priced per model.",
     line5: "🛡️ 12 armor-upgrade items across 8 factions (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) were paid for but never actually improved the save — their plain \"gains a 2+ save\" wording wasn't recognized unless it repeated the word \"armor\" next to \"save\". Fixed.",
     line6: "⚔️ A Veteran Ability (Furious charge, Tank hunter, ...) bought for a unit with no general Armory access could silently vanish on save/reload if that unit's separate Champion-upgrade option wasn't also taken. Fixed — Veteran Abilities no longer depend on Armory access surviving a reload.",
+    line7: "🔧 Orks — most \"Kustom job\" vehicle upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) were paid for but did nothing at all — no ability text, no stat change. Fixed across all 13 vehicles/fortifications that offer them; Fortress on Wheels now grants its ward save and Stompamatic Pistons its +2\" Movement.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -41,6 +43,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line4: "🎯 Imperial Guard — bei Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad konnte man beide „eine von diesen Fähigkeiten\"-Optionen gleichzeitig kaufen statt nur eine. Behoben — wieder eine exklusive Wahl, weiterhin pro Modell bepreist.",
     line5: "🛡️ 12 Rüstungs-Upgrades in 8 Fraktionen (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) wurden bezahlt, verbesserten aber nie den Save — die schlichte Formulierung „gains a 2+ save\" wurde nur erkannt, wenn „armor\" direkt neben „save\" stand. Behoben.",
     line6: "⚔️ Eine Veteranenfähigkeit (Furious charge, Tank hunter, ...), die für eine Einheit ohne allgemeinen Armory-Zugang gekauft wurde, konnte beim Speichern/Neuladen verschwinden, wenn die separate Champion-Option der Einheit nicht auch gewählt war. Behoben.",
+    line7: "🔧 Orks — die meisten „Kustom job\"-Fahrzeug-Upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) wurden bezahlt, bewirkten aber gar nichts — kein Fähigkeitstext, keine Statänderung. Behoben bei allen 13 Fahrzeugen/Befestigungen, die sie anbieten; Fortress on Wheels gewährt jetzt seinen Ward-Save und Stompamatic Pistons sein +2\"-Movement.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -53,6 +56,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line4: "🎯 Imperial Guard — en Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad se podían comprar las dos habilidades \"la unidad puede obtener UNA de estas\" a la vez en vez de solo una. Arreglado — vuelve a ser una elección exclusiva, sigue costando por modelo.",
     line5: "🛡️ 12 items de armadura en 8 facciones (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) se cobraban pero nunca mejoraban la salvación — el texto llano \"gana una salvación de 2+\" solo se reconocía si repetía la palabra \"armor\" junto a \"save\". Arreglado.",
     line6: "⚔️ Una Habilidad de Veterano (Furious charge, Tank hunter, ...) comprada para una unidad sin acceso general a la Armería podía desaparecer sin aviso al guardar/recargar si la opción de Campeón de esa unidad no estaba también activada. Arreglado.",
+    line7: "🔧 Orks — la mayoría de mejoras de vehículo \"Kustom job\" (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) se cobraban pero no hacían absolutamente nada — sin texto de habilidad, sin cambio de estadística. Arreglado en los 13 vehículos/fortificaciones que las ofrecen; Fortress on Wheels ahora concede su salvación ward y Stompamatic Pistons su +2\" de Movimiento.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -137,9 +141,12 @@ function CommunityAnnouncement() {
               mutually-exclusive pick be bought at once, line5 = 12 armor-upgrade items across 8
               factions whose bare "gains a 2+ save" wording the equipMods parser never recognized,
               line6 = Veteran Abilities silently vanishing on reload for a unit with no Armory
-              access whose Champion-upgrade gate wasn't taken. Do NOT cut a new version for a
-              follow-up fix under this same effort — keep appending here unless told otherwise. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6]
+              access whose Champion-upgrade gate wasn't taken. line7 = found while building 3 more
+              4000pt bug-hunting army lists across different factions (Rigzar: "armate unas 3 listas
+              de diferentes ejercitos... para ver donde hay bugs") — Ork vehicle "Kustom job"
+              choices with no effect at all. Do NOT cut a new version for a follow-up fix under this
+              same effort — keep appending here unless told otherwise. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

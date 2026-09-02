@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-ork-kustomjob-choices-no-effect-01",
+    status: "fixed",
+    title: "Orks — most 'Kustom job' vehicle upgrades (More Dakka, Press the Button, Shokka Hull, etc.) did nothing once bought",
+    description: "FIXED 2026-09-02, found while building a 4000pt Ork army list as a deliberate bug-hunting exercise. Every vehicle/fortification's \"Can get one Kustom job\" picker lets the player pick one of several named upgrades, but only \"Da Booma\" (and a couple of named-weapon boosts fixed earlier this version) actually changed anything — More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, and Stompamatic Pistons were all paid for and showed no ability text and no stat change. CAUSE: unlike every other option group in the game, these choices were stored as bare `{name, points}` with no `effect` field at all — despite the general Armory (`data/parsed/orks/armory/general.json`) already carrying full, correct rule text for every one of them (confirmed verbatim against `Codex/Orks 1.01.ods`). Fixed across all 13 vehicles/fortifications that offer any of these choices (Trukk, Mekboy Junka, Grot Tanks, Warbuggy, Warkopta, Fighta-bommer, Wazbom Blastajet, Biged Bossbunka, Battlewagon, Deff Dreads, Hunta Rig, Killa Kans, Wagon — Big Mek's own Kustom Job group has an empty choice list and needed no change): added `effect.grants_abilities` with the .ods-verbatim reminder text to each occurrence of the 5 purely procedural/dice-roll choices, plus real mechanical effects for the 2 that are more than a reminder — Fortress on Wheels (Battlewagon only, per the .ods's own \"Battlewagon and Battle Fortress only\" restriction — no other unit offers it) now grants its 5+ ward save via the same generic ward-save-in-abilities parser (`parseInvSaveFromAbilities`) already used for e.g. the Wildork fix, no engine change needed; Stompamatic Pistons (Deff Dreads/Killa Kans, the game's two Walker-type Kustom-Job vehicles) now grants +2\" Movement via `effect.stat_mod`. Nitro Squigs/Enhanced Runt-Sucker/Souped-up Speshul in this same picker were already correctly wired via `FAMILY_BOOST_ITEMS` from an earlier audit and were left untouched.",
+  },
+  {
     id: "ki-inquisition-taurox-autocannon-swap-01",
     status: "fixed",
     title: "Inquisition — replacing a Taurox's Hot-shot volley guns with Two autocannons left both on the profile",

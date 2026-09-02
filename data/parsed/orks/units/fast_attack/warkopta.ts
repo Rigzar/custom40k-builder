@@ -145,11 +145,11 @@ export const warkopta: Unit = {
       },
       "choices": [
         { "name": "Da Booma", "points": 25 },
-        { "name": "More Dakka", "points": 15 },
-        { "name": "Press the Button", "points": 10 },
-        { "name": "Shokka Hull", "points": 5 },
-        { "name": "Eavy armour cabin", "points": 10 },
-        { "name": "Squig-hide Tyres", "points": 5 }
+        { "name": "More Dakka", "points": 15, "effect": { "grants_abilities": ["More Dakka: Roll 1D6 when the unit is activated. On a 4+, the unit may fire an additional shot with a single weapon. Vehicle only."] } },
+        { "name": "Press the Button", "points": 10, "effect": { "grants_abilities": ["Press the Button: Roll a die at the start of the model's activation. Vehicle only.\n1-2: The model suffers a glancing hit.\n3-4: The model receives the special rule \"Deflagrate(5+)\" for all weapons until the end of the battle round.\n5-6: The model receives the special rule \"Armor piercing(5+)\" for all weapons until the end of the battle round."] } },
+        { "name": "Shokka Hull", "points": 5, "effect": { "grants_abilities": ["Shokka Hull: Attackers receive an automatic hit with S:4 AP:0 D:1 for each hit in the melee. Vehicle only."] } },
+        { "name": "Eavy armour cabin", "points": 10, "effect": { "grants_abilities": ["Eavy armour cabin: Passengers receive the benefit of light cover. Transport vehicle only."] } },
+        { "name": "Squig-hide Tyres", "points": 5, "effect": { "grants_abilities": ["Squig-hide Tyres: The model ignores temporary engine damage. Non-walker or aircraft vehicle only."] } }
       ],
       "inline_pts": null,
       "variant_link": null,
