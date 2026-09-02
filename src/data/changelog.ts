@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.69',
+    date: '2026-09-02',
+    title: 'Two pricing bugs: Tyranid Biomorphs and Death Watch Special ammunition',
+    changes: [
+      'Tyranids — a Basic/Advanced Biomorph (Pathogenesis, Acid Maw, etc.) could be bought more than once on the same unit, letting its "+" stepper run all the way up to the unit\'s model count as if the 5pt cost applied per model instead of once for the whole unit (Discord: "Biomorphs should only let you buy once... 5 points for the entire unit, not 5 points per model"). Checked against the canonical .ods: "Point costs are paid per unit" is stated explicitly for both Basic and Advanced Biomorphs — the engine was already charging the flat rate correctly, but the quantity stepper\'s cap defaulted to the unit\'s model count instead of 1 for these "any number of DIFFERENT biomorphs" groups (all 29 Tyranid datasheets that offer them). Fixed: each Biomorph choice now caps at 1, both in the picker and in the army validator. (The neighbouring "Special Biomorph" picker was already correct — the .ods explicitly says that one\'s cost IS paid per model.)',
+      'Space Marines — "Special ammunition" (Legacy of the Alien Hunters/Death Watch) was a single flat +4pt toggle for the whole squad regardless of size, when the Legacy\'s own text is "each model may receive" it (Discord: "Special Ammunition is supposed to be 4 points per model, not per unit", making a Deathwatch army). Fixed: the toggle now scales with the unit\'s model count (a 5-model squad shows "Ammo +20"), same live-rescaling as Veteran abilities.',
+    ],
+  },
+  {
     version: '1.68',
     date: '2026-08-31',
     title: 'Print View feedback round: Field Manual, translations, promoted units',

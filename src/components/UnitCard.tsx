@@ -1579,10 +1579,11 @@ export function UnitCard({ item }: Props) {
             function qtyControl(ci: number, c: Choice) {
               const qty = item.optionQty?.[realGi]?.[ci] ?? 0;
               const canUseQty = ['per_n', 'fixed_max', 'every'].includes(g.constraint.type);
-              // Independent choices measure against their own quantity, so each one may run up to
-              // the group's max (the unit's model count for Biomorphs) without touching the others.
-              const remaining = g.independent_choices && groupMax !== null
-                ? groupMax - qty
+              // Independent choices measure against their own quantity, capped at 1 each — Tyranid
+              // Biomorphs are a one-time flat buy per unit ("Point costs are paid per unit," ods
+              // Armory sheet), not one copy per model, so a choice is either bought or not.
+              const remaining = g.independent_choices
+                ? 1 - qty
                 : groupRemaining;
               const inputMax = remaining !== null ? qty + remaining : undefined;
               // Detect "(X only)" mark restrictions embedded in choice names
@@ -1643,7 +1644,7 @@ export function UnitCard({ item }: Props) {
                 <summary className="cursor-pointer px-2.5 py-1.5 flex items-center gap-2 select-none hover:bg-zinc-800/50 transition-colors border-l-2 border-amber-800/50 group">
                   <span className="font-cinzel text-[10px] uppercase tracking-wide text-zinc-300 flex-1 group-open:text-amber-300/80 transition-colors">{g.header}</span>
                   {headerQty?.control}
-                  {(isPerN || isFixedMax) && groupMax !== null && (
+                  {(isPerN || isFixedMax) && groupMax !== null && !g.independent_choices && (
                     <span className={`font-mono text-[10px] px-1.5 py-0.5 border shrink-0 ${groupUsed! >= groupMax ? 'border-red-800 text-red-400 bg-red-900/20' : 'border-amber-900/60 text-amber-600 bg-amber-900/10'}`}>
                       {groupUsed}/{groupMax}
                     </span>
@@ -1831,6 +1832,11 @@ export function UnitCard({ item }: Props) {
             )}
             {specialAmmunition && !showArmory && (() => {
               const ammoPts = (u.is_character ? (specialAmmunition.p_char ?? specialAmmunition.p_unit) : specialAmmunition.p_unit) ?? 0;
+              // "Each model may receive the 'Special ammunition' equipment" — this toggle covers
+              // the whole unit at once, so its cost scales with the unit's model count (scaling:
+              // 'perModel', same live-recompute as veteran abilities) rather than a single flat
+              // charge regardless of squad size.
+              const ammoTotal = ammoPts * item.size;
               return (
                 <button
                   onClick={() => {
@@ -1843,6 +1849,7 @@ export function UnitCard({ item }: Props) {
                         source: 'Death Watch',
                         section: 'equipment',
                         points: ammoPts,
+                        scaling: 'perModel',
                         isCharacter: u.is_character,
                       });
                     }
@@ -1851,7 +1858,7 @@ export function UnitCard({ item }: Props) {
                     ${specialAmmoSelection ? 'border-amber-600 bg-amber-900/30 text-amber-300' : 'border-zinc-700 bg-zinc-900 text-amber-500/80 hover:border-amber-700 hover:text-amber-400'}`}
                 >
                   <span className="text-[11px] opacity-70">◎</span>
-                  {t('ammoLabel')} {specialAmmoSelection ? '✓' : `+${ammoPts}`}
+                  {t('ammoLabel')} {specialAmmoSelection ? '✓' : `+${ammoTotal}`}
                 </button>
               );
             })()}

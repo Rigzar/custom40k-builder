@@ -11,81 +11,35 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v168_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
 
-// v1.68 stays v1.68 (Rigzar: "manten la misma version nadie te dijo que la cambiara") — a v1.69
-// cut was created by mistake right after this same day's v1.68 push and has been folded back in.
-// line8-9 below are the nav-row/supplement-drawer i18n fixes that were briefly their own v1.69
-// banner; they're just appended lines on the existing v1.68 announcement instead.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; line11: string; line12: string; line13: string; line14: string; line15: string; line16: string; line17: string; contrib: string; };
+// v1.69 (2026-09-02) — a real version cut, so the banner shows ONLY this version's own fixes,
+// not the whole v1.68 history that lived here before (see feedback_version_cut_banner_scope in
+// project memory: a version cut strips the banner down to just its own content).
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.68: Necron Cryptek fix, Print View cleanup",
-    intro: "Necrons — a Cryptek showed every possible specialisation's ability and weapon at once, no matter which one was actually taken (found from Print View survey feedback). Fixed — it now shows only the one you picked.",
+    title: "v1.69: two pricing bugs fixed",
+    intro: "Two Discord bug reports, both about an option's cost applying to the wrong thing.",
     install: "",
-    line1: "📄 Print View no longer repeats Engagement/Archetype/Legacy/Traits/Points a second time near the end of the sheet (it already shows once, on the Cover Page) — could waste a whole page doing it (survey feedback).",
-    line2: "🎖️ Imperial Guard — Print View now includes an \"Officer Orders\" cheat sheet: Fix bayonets!, Take cover!, Move! Move! Move!, and the rest of the 9 Infantry + 3 Vehicle orders, plus whichever Legacy Order your army's Legacy actually unlocks (survey request).",
-    line3: "📜 Cheat Sheets is now the Field Manual — Command Phase Orders (the 6 orders + 4 meta orders every faction assigns) lives there now instead of Print View, alongside links to @Grimdark Gamers' printable order-card decks.",
-    line4: "📜 Field Manual — added a \"Turn Sequence\" quick-reference (battle round phases, Reinforcement dice, Initiative, Movement) after finding a community \"Quick Rules\" PDF had drifted from the actual rules in several places; built our own instead.",
-    line5: "📜 Field Manual now follows your selected language — all 6 sheets have full German and Spanish text, not just English.",
-    line6: "🖨️ Print View and the Field Manual now have an A4/Letter toggle next to Print/PDF — iOS Safari's own print sheet doesn't offer a paper-size choice, so this one lives in the app instead.",
-    line7: "⚜️ Promoted units (Canoness, Spanna, Traitor Sergeant, ...) now show correctly in every Print View mode, including a partial squad promotion (e.g. 2 of 5 Lootas → Spanna) — Simple and List were still printing the plain base name and full squad size.",
-    line8: "🌐 The front-page nav row (Wiki, Login/Sign in, Glossary, Field Manual, Community Armies, Campaign, Discord) stayed in English no matter which language you picked, even though \"Build Army\" and \"Supplements\" right next to them already worked. Fixed — all of them now follow your selected language.",
-    line9: "🌐 The 4 supplement cards (Horus Heresy, Forces of the Machine God, Escalation, Assassins) and their detail drawer — description, \"How to activate\" steps, Catalog, battlefield-role headers, Armory Weapons/Equipment — were entirely English too. Fixed, same as the nav row.",
-    line10: "🚚 Inquisition — a Taurox's Hot-shot volley guns stuck around after swapping them for Two autocannons, showing both at once (GH#108). Fixed — same missing-link bug as the Leman Russ fix earlier this version.",
-    line11: "🖨️ Field Manual — the Grimdark Gamers order-card download buttons (Chaos/Imperium/Xenos) silently did nothing for some players. They opened in a new tab that had nothing to show (a straight file download), which some browsers block as a pop-up without any error. Fixed — they now download in place, no new tab needed.",
-    line12: "🧬 Tyranids — the Pathogenesis (+3\" range) and Infrasonic Roar (Suppression) Biomorphs were paid for but never actually changed the weapon they affect. Fixed — both now show up correctly on the weapon's own Range/Abilities columns.",
-    line13: "🔧 Audited every faction for the same duplicate-weapon-after-swap bug as the Leman Russ/Taurox fixes — found and fixed 47 more datasheets across Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire and Tyranids.",
-    line14: "⚗️ Also audited every faction's Armory for items paid for but never actually applied to the weapon — fixed 11 more (Space Wolves' Frost weapon, Ork's More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma Kustom Jobs, CSM's Dark/Wrathful Daemon Weapons, AdMech's Enriched rounds, Guard/Inquisition's Special energy cells). Da Booma needed a brand-new weapon-target picker, since it's the only one where the player chooses which weapon it boosts.",
-    line15: "🐗 Orks — the \"Wildork\" upgrade did nothing on 9 units (Skarboyz, Burna Boyz, Cybork Slashaz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas). Fixed — it now correctly grants the Wildork keyword, a 6+ ward save, and a melee bonus vs vehicles/monstrous creatures.",
-    line16: "🎯 Imperial Guard — \"Regimental artefact\" never let you pick a weapon when bought through a vehicle's own equipment panel (only the general Armory tab had that picker). Fixed — the same weapon-target/enhancement pickers now work there too.",
-    line17: "📖 Eldar — Aspect Focus's own description never mentioned that Dark Reapers are the one exception (they correctly stay Heavy Support, per the .ods). Fixed the displayed text — the game behavior was already right.",
+    line1: "🧬 Tyranids — a Basic/Advanced Biomorph (Pathogenesis, Acid Maw, ...) could be bought more than once on the same unit, letting its \"+\" stepper run up to the unit's model count as if the 5pt cost applied per model instead of once for the whole unit. Checked the canonical .ods: \"Point costs are paid per unit\" for both tiers — fixed, each Biomorph now caps at 1.",
+    line2: "🔫 Space Marines — Death Watch's \"Special ammunition\" was a flat +4pt toggle for the whole squad regardless of size, when its own text says \"each model may receive\" it. Fixed — it now scales with the unit's model count (a 5-model squad shows \"Ammo +20\").",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.68: Necron-Cryptek-Fix, Print-View-Aufräumen",
-    intro: "Necrons — ein Cryptek zeigte jede mögliche Spezialisierung und Waffe gleichzeitig, egal welche tatsächlich gewählt wurde (gefunden durch Print-View-Umfrage-Feedback). Behoben — jetzt wird nur die gewählte angezeigt.",
+    title: "v1.69: zwei Preis-Bugs behoben",
+    intro: "Zwei Discord-Bug-Reports, beide darüber, dass sich die Kosten einer Option auf das Falsche bezogen.",
     install: "",
-    line1: "📄 Print View wiederholt Engagement/Archetype/Legacy/Traits/Punkte nicht mehr ein zweites Mal am Ende des Blatts (steht schon einmal auf der Titelseite) — konnte eine ganze Seite verschwenden (Umfrage-Feedback).",
-    line2: "🎖️ Imperial Guard — Print View enthält jetzt eine „Officer Orders\"-Chuleta: Fix bayonets!, Take cover!, Move! Move! Move! und den Rest der 9 Infanterie- + 3 Fahrzeug-Befehle, plus den einen Legacy-Befehl, den die Legacy der Armee tatsächlich freischaltet (Umfrage-Wunsch).",
-    line3: "📜 Cheat Sheets heißt jetzt Field Manual — Command Phase Orders (die 6 Befehle + 4 Meta-Befehle, die jede Fraktion vergibt) leben jetzt dort statt im Print View, zusammen mit Links zu @Grimdark Gamers' druckbaren Befehlskarten-Decks.",
-    line4: "📜 Field Manual — eine „Turn Sequence\"-Chuleta ist dazugekommen (Phasen der Kampfrunde, Reinforcement-Würfel, Initiative, Bewegung), nachdem wir festgestellt haben, dass ein Community-PDF mit „Quick Rules\" an mehreren Stellen von den echten Regeln abgewichen ist; stattdessen unsere eigene gebaut.",
-    line5: "📜 Das Field Manual folgt jetzt der gewählten Sprache — alle 6 Blätter gibt es vollständig auf Deutsch und Spanisch, nicht nur auf Englisch.",
-    line6: "🖨️ Print View und das Field Manual haben jetzt einen A4/Letter-Umschalter neben Print/PDF — Safari auf iOS bietet in seinem eigenen Druck-Dialog keine Papiergrößen-Auswahl, deshalb lebt sie jetzt in der App.",
-    line7: "⚜️ Beförderte Einheiten (Canoness, Spanna, Traitor Sergeant, ...) werden jetzt in jedem Print-View-Modus korrekt angezeigt, auch bei einer teilweisen Beförderung im Trupp (z. B. 2 von 5 Lootas → Spanna) — Simple und List druckten noch den reinen Basisnamen und die volle Truppgröße.",
-    line8: "🌐 Die Navigationsleiste (Wiki, Anmelden/Registrieren, Glossar, Feldhandbuch, Community-Armeen, Feldzug, Discord) blieb auf Englisch, egal welche Sprache gewählt war, obwohl „Armee bauen\" und „Erweiterungen\" direkt daneben schon funktionierten. Behoben — alle folgen jetzt der gewählten Sprache.",
-    line9: "🌐 Auch die 4 Erweiterungskarten (Horus Heresy, Streitkräfte des Maschinengottes, Escalation, Assassins) und ihre Detailansicht — Beschreibung, „Aktivierung\"-Schritte, Katalog, Schlachtfeldrollen-Überschriften, Rüstkammer-Waffen/-Ausrüstung — waren komplett auf Englisch. Behoben, genau wie die Navigationsleiste.",
-    line10: "🚚 Inquisition — die Hot-shot volley guns eines Taurox blieben nach dem Tausch gegen Two autocannons bestehen und zeigten beide gleichzeitig (GH#108). Behoben — derselbe fehlende Link wie beim Leman-Russ-Fix zu Beginn dieser Version.",
-    line11: "🖨️ Field Manual — die Download-Buttons für die Grimdark-Gamers-Befehlskarten (Chaos/Imperium/Xenos) taten bei manchen Spielern einfach nichts. Sie öffneten einen neuen Tab, der nichts anzuzeigen hatte (ein reiner Datei-Download) — manche Browser blockieren das stillschweigend als Pop-up. Behoben — sie laden jetzt direkt herunter, ohne neuen Tab.",
-    line12: "🧬 Tyranids — die Biomorphe Pathogenesis (+3\" Reichweite) und Infrasonic Roar (Suppression) wurden bezahlt, änderten aber nie tatsächlich die betroffene Waffe. Behoben — beide zeigen sich jetzt korrekt in den Spalten Reichweite/Fähigkeiten der Waffe.",
-    line13: "🔧 Alle Fraktionen auf denselben Doppelwaffen-nach-Tausch-Bug wie bei Leman Russ/Taurox durchsucht — 47 weitere Datenblätter gefunden und behoben, in Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire und Tyranids.",
-    line14: "⚗️ Auch die Armory jeder Fraktion durchsucht nach Gegenständen, die bezahlt, aber nie tatsächlich auf die Waffe angewendet wurden — 11 weitere behoben (Space Wolves' Frost weapon, Orks' More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma Kustom-Jobs, CSMs Dark/Wrathful-Dämonenwaffen, AdMechs Enriched rounds, Guard/Inquisitions Special energy cells). Da Booma brauchte einen komplett neuen Waffenziel-Auswähler, da als einziger der Spieler wählt, welche Waffe profitiert.",
-    line15: "🐗 Orks — das \"Wildork\"-Upgrade tat bei 9 Einheiten nichts (Skarboyz, Burna Boyz, Cybork Slashaz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas). Behoben — es gewährt jetzt korrekt das Wildork-Schlüsselwort, einen 6+ Ward Save und einen Nahkampfbonus gegen Fahrzeuge/monströse Kreaturen.",
-    line16: "🎯 Imperial Guard — \"Regimental artefact\" ließ einen beim Kauf über das eigene Fahrzeug-Ausrüstungspanel nie eine Waffe wählen (nur der allgemeine Armory-Tab hatte diesen Auswähler). Behoben — dieselben Waffenziel-/Verbesserungs-Auswähler funktionieren dort jetzt auch.",
-    line17: "📖 Eldar — die Beschreibung von Aspect Focus erwähnte nie, dass Dark Reapers die eine Ausnahme sind (sie bleiben laut .ods korrekt bei Heavy Support). Der angezeigte Text wurde korrigiert — das Spielverhalten war bereits richtig.",
+    line1: "🧬 Tyranids — ein Basis-/Advanced-Biomorph (Pathogenesis, Acid Maw, ...) ließ sich mehrfach auf derselben Einheit kaufen, wobei der „+\"-Regler bis zur Modellanzahl der Einheit hochging, als würden die 5 Punkte pro Modell statt einmal für die ganze Einheit gelten. Im kanonischen .ods geprüft: „Point costs are paid per unit\" steht bei beiden Stufen ausdrücklich — behoben, jedes Biomorph deckelt jetzt bei 1.",
+    line2: "🔫 Space Marines — Death Watchs „Special ammunition\" war ein fester +4-Punkte-Umschalter für den ganzen Trupp, egal wie groß, obwohl der eigene Text „each model may receive\" sagt. Behoben — es skaliert jetzt mit der Modellanzahl der Einheit (ein 5-Modell-Trupp zeigt „Ammo +20\").",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.68: arreglo del Cryptek Necron, limpieza del Print View",
-    intro: "Necrons — un Cryptek mostraba todas las especializaciones posibles y todas las armas posibles a la vez, sin importar cuál se había elegido de verdad (encontrado por feedback de la encuesta sobre Print View). Arreglado — ahora muestra solo la elegida.",
+    title: "v1.69: dos bugs de precio arreglados",
+    intro: "Dos reportes de Discord, ambos sobre el coste de una opción aplicándose a lo que no era.",
     install: "",
-    line1: "📄 El Print View ya no repite Engagement/Archetype/Legacy/Traits/Puntos una segunda vez cerca del final de la hoja (ya sale una vez, en la Portada) — podía desperdiciar una página entera (feedback de la encuesta).",
-    line2: "🎖️ Imperial Guard — el Print View ahora incluye una chuleta de \"Officer Orders\": Fix bayonets!, Take cover!, Move! Move! Move! y el resto de las 9 órdenes de Infantería + 3 de Vehículos, más la única Legacy Order que de verdad desbloquea la Legacy del ejército (pedido de la encuesta).",
-    line3: "📜 Cheat Sheets ahora es el Field Manual — Command Phase Orders (las 6 órdenes + 4 meta-órdenes que usa cualquier facción) vive ahí ahora en vez de en el Print View, junto a los enlaces a los mazos de cartas de órdenes imprimibles de @Grimdark Gamers.",
-    line4: "📜 Field Manual — se sumó una chuleta de \"Turn Sequence\" (fases de la ronda de batalla, dados de Reinforcement, Initiative, Movimiento) después de encontrar que un PDF comunitario de \"Quick Rules\" se había desviado de las reglas reales en varios puntos; hicimos la nuestra propia.",
-    line5: "📜 El Field Manual ahora sigue el idioma elegido — las 6 hojas tienen texto completo en alemán y español, no solo en inglés.",
-    line6: "🖨️ Print View y el Field Manual ahora tienen un selector A4/Letter junto a Print/PDF — el propio diálogo de impresión de iOS Safari no deja elegir tamaño de papel, así que ahora vive dentro de la app.",
-    line7: "⚜️ Las unidades ascendidas (Canoness, Spanna, Traitor Sergeant, ...) ahora se muestran bien en todos los modos de Print View, incluso con un ascenso parcial dentro de una escuadra (p. ej. 2 de 5 Lootas → Spanna) — Simple y List seguían mostrando el nombre base y el tamaño completo de la escuadra.",
-    line8: "🌐 La barra de navegación (Wiki, Iniciar sesión/Registrarse, Glosario, Manual de Campo, Ejércitos de la Comunidad, Campaña, Discord) se quedaba en inglés sin importar el idioma elegido, aunque \"Construir Ejército\" y \"Suplementos\" justo al lado ya funcionaban bien. Arreglado — todos siguen ahora el idioma elegido.",
-    line9: "🌐 Las 4 tarjetas de suplementos (Horus Heresy, Fuerzas del Dios Máquina, Escalation, Assassins) y su panel de detalle — descripción, pasos de \"Cómo activarlo\", Catálogo, encabezados de rol de batalla, Armería de Armas/Equipo — también estaban completamente en inglés. Arreglado, igual que la barra de navegación.",
-    line10: "🚚 Inquisition — las Hot-shot volley guns de un Taurox se quedaban tras cambiarlas por Two autocannons, mostrando ambas a la vez (GH#108). Arreglado — el mismo enlace faltante que el arreglo del Leman Russ al principio de esta versión.",
-    line11: "🖨️ Field Manual — los botones de descarga de las cartas de órdenes de Grimdark Gamers (Chaos/Imperium/Xenos) no hacían nada para algunos jugadores. Abrían una pestaña nueva que no tenía nada que mostrar (una descarga de archivo directa), y algunos navegadores bloquean eso en silencio como si fuera un pop-up. Arreglado — ahora se descargan directamente, sin pestaña nueva.",
-    line12: "🧬 Tyranids — los Biomorfos Pathogenesis (+3\" de alcance) e Infrasonic Roar (Suppression) se cobraban pero nunca cambiaban de verdad el arma afectada. Arreglado — ahora se ven correctamente en las columnas de Alcance/Habilidades del arma.",
-    line13: "🔧 Auditamos todas las facciones buscando el mismo bug de arma duplicada tras un intercambio que los arreglos de Leman Russ/Taurox — encontramos y arreglamos 47 fichas más en Dark Eldar, Harlequins, Imperial Guard, Inquisition, Leagues of Votann, Orks, Tau Empire y Tyranids.",
-    line14: "⚗️ También auditamos la Armería de cada facción buscando ítems que se cobraban pero nunca se aplicaban de verdad al arma — arreglamos 11 más (Frost weapon de Space Wolves, More Zzzap!/More Boom!/More Dakka!/Enhanced Runt-Sucker/Souped-up Speshul/Da Booma de Orks, las armas demoníacas Dark/Wrathful de CSM, Enriched rounds de AdMech, Special energy cells de Guard/Inquisition). Da Booma necesitó un selector de arma objetivo completamente nuevo, ya que es el único donde el jugador elige qué arma recibe el bono.",
-    line15: "🐗 Orks — la mejora \"Wildork\" no hacía nada en 9 unidades (Skarboyz, Burna Boyz, Cybork Slashaz, Kommandos, Nobz, Tankbustas, Deffkoptaz, Stormboyz, Lootas). Arreglado — ahora concede correctamente la palabra clave Wildork, un ward save de 6+ y un bono cuerpo a cuerpo contra vehículos/criaturas monstruosas.",
-    line16: "🎯 Imperial Guard — \"Regimental artefact\" nunca dejaba elegir un arma al comprarlo desde el propio panel de equipo del vehículo (solo la pestaña general de Armería tenía ese selector). Arreglado — los mismos selectores de arma objetivo/mejora ahora funcionan ahí también.",
-    line17: "📖 Eldar — la descripción de Aspect Focus nunca mencionaba que los Dark Reapers son la única excepción (según el .ods, correctamente se quedan en Heavy Support). Se corrigió el texto mostrado — el comportamiento del juego ya era correcto.",
+    line1: "🧬 Tyranids — un Biomorfo Básico/Avanzado (Pathogenesis, Acid Maw, ...) se podía comprar más de una vez en la misma unidad, dejando que el \"+\" subiera hasta el tamaño de la unidad como si el coste de 5pts fuera por modelo en vez de una sola vez para toda la unidad. Comprobado en el .ods canónico: \"Point costs are paid per unit\" para ambos niveles — arreglado, cada Biomorfo ahora topa en 1.",
+    line2: "🔫 Space Marines — \"Special ammunition\" de Death Watch era un cargo fijo de +4pts para toda la escuadra sin importar su tamaño, cuando su propio texto dice \"cada modelo puede recibirlo\". Arreglado — ahora escala con el tamaño de la unidad (una escuadra de 5 modelos muestra \"Ammo +20\").",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -161,42 +115,19 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.68 stays v1.68 (Rigzar: "manten la misma version nadie te dijo que la cambiara") —
-              a v1.69 cut was made by mistake right after this same day's v1.68 push and has been
-              folded back in as line8-9: the front-page nav row (Wiki/Login/Glossary/Field
-              Manual/Community Armies/Campaign/Discord) and the 4 supplement teaser cards + their
-              detail drawer were hardcoded English regardless of language — fixed via new
-              `nav*`/`*Card*` translation keys and a `SUPPLEMENT_TEXT` per-language table in
-              SupplementModal.tsx. line10 is GitHub #108: a Taurox's Hot-shot volley guns stuck
-              around after swapping for Two autocannons (missing `replaces` link, same shape as
-              this version's own Leman Russ fix). line11 is the Field Manual order-card download
-              buttons (Chaos/Imperium/Xenos) doing nothing for some players — `target="_blank"` on
-              a link whose destination is a direct file download gets silently blocked as a pop-up
-              by some browsers; switched to a plain `download` attribute instead. line12 is
-              Tyranids' Pathogenesis/Infrasonic Roar Biomorphs being paid for but never actually
-              applied to the weapon (both bought via option_groups, not item.armory, so the
-              existing "boost every ranged weapon" machinery never saw them — same gap class as
-              GH#92); fixed via a new isNamedChoiceActive()/applyBiomorphRangeBoosts() pair in
-              resolver.ts. line13 is the full codebase audit for the same missing-`replaces` bug
-              (47 more datasheets across 8 factions) — see ki-missing-replaces-codebase-audit-01
-              in known-issues.ts for the full breakdown, including the Ravager/Mekboy
-              Junka/Sub-Commander cases that needed more than just the field itself. line14 is a
-              follow-up armory-wide audit for the same "paid for, never applied" bug shape (11 items
-              across 5 factions, including Ork "Da Booma" — the only one needing a brand-new
-              weapon-target-picker UI for per-unit options, since it's the only Kustom Job where
-              the player chooses which weapon benefits) — see ki-armory-wide-modifier-audit-01 in
-              known-issues.ts for the full breakdown. This entire batch (line1-14) was pushed as
-              `ba9eba4` (2026-09-01). line15-17 are 3 fresh GitHub bug reports checked in the SAME
-              sitting afterward: #110 (Ork "Wildork" — 9 units, bare choice with no `effect` at
-              all), #109 (IG "Regimental artefact" — the vehicle-equipment panel never had the
-              weapon-target/enhancement pickers the general Armory tab already had), and #111
-              (Eldar Aspect Focus — NOT a bug, the engine already correctly excludes Dark Reapers
-              per the .ods; only the archetype's own displayed description text was stale/missing
-              the exception).
-              A NEXT fix under this same version needs a line18 added to AnnouncementLang and every
-              language block — do NOT cut a new version number unless Rigzar explicitly asks for
-              one; the default is to keep appending to v1.68. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10, tx.line11, tx.line12, tx.line13, tx.line14, tx.line15, tx.line16, tx.line17]
+          {/* v1.69 (2026-09-02) — Rigzar explicitly asked for a new version cut this time
+              ("si pushea nueva version"), so the banner is reset to just these 2 fixes, not
+              appended onto v1.68's long history (default behavior otherwise: keep appending to
+              the current version, per feedback_version_cut_banner_scope in project memory).
+              line1: Tyranid Basic/Advanced Biomorphs could be bought more than once on the same
+              unit (qty stepper capped at the unit's model count instead of 1) — the ods says
+              "Point costs are paid per unit" for both tiers, so each choice now caps at 1 in both
+              the picker and validators.ts. line2: Death Watch's "Special ammunition" toggle was a
+              flat +4pt charge regardless of squad size, when its own text says "each model may
+              receive" it — now scales via `scaling: 'perModel'`, same mechanism Veteran abilities
+              already use. Both from Discord reports (Unwise [USC]); both grounded in the
+              canonical .ods before fixing, per the project's own rule. */}
+          {[tx.line1, tx.line2]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
