@@ -83,7 +83,7 @@ export const penalLegionSquad: Unit = {
     {
       "header": "The entire squad may receive one of the following upgrades per model",
       "constraint": {
-        "type": "every"
+        "type": "one"
       },
       "choices": [
         {

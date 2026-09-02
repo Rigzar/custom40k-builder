@@ -156,8 +156,7 @@ export const bigMutants: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
+      "is_unique_per_army": false
     },
     {
       "header": "Up to two models may be equipped with",

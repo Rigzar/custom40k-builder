@@ -105,7 +105,6 @@ export const broadsideBattlesuits: Unit = {
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,
-      "per_model": true,
       "replaces": ["High-yield missile pod"]
     },
     {
@@ -125,8 +124,7 @@ export const broadsideBattlesuits: Unit = {
       ],
       "inline_pts": null,
       "variant_link": null,
-      "is_unique_per_army": false,
-      "per_model": true
+      "is_unique_per_army": false
     },
     {
       "header": "One Broadside Shas'ui may be upgraded to a Shas'vre for +5pts.",

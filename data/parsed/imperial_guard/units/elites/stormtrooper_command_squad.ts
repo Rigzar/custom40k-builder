@@ -192,7 +192,7 @@ export const stormtrooperCommandSquad: Unit = {
     {
       "header": "The unit may get one of these abilities (points per model)",
       "constraint": {
-        "type": "every"
+        "type": "one"
       },
       "choices": [
         {
