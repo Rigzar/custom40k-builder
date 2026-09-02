@@ -1353,7 +1353,7 @@ export function UnitCard({ item }: Props) {
                           onClick={() => {
                             const next = promotionQty - 1;
                             if (next === 0) {
-                              const lost = armoryItemsLostByDeselecting(item, u, realGi);
+                              const lost = armoryItemsLostByDeselecting(item, u, realGi, data);
                               if (lost.length > 0 && !confirm(tpl(t('armoryLostOnDowngradeConfirm'), {
                                 count: lost.length, items: lost.map(a => a.itemName).join(', '),
                               }))) return;

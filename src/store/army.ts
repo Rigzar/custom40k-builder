@@ -681,7 +681,7 @@ export const useArmyStore = create<ArmyStore>()(
           // (Discord 2026-08-16). Pruned here rather than in the component so no path — undo,
           // load, duplicate — can leave gear behind that nothing grants; UnitCard asks first.
           const unit = qty === 0 && s.data ? resolveUnit(e, s.data) : null;
-          const lost = unit ? armoryItemsLostByDeselecting(e, unit, gi) : [];
+          const lost = unit ? armoryItemsLostByDeselecting(e, unit, gi, s.data!) : [];
           if (lost.length === 0) return { ...e, optionQty: oq };
           const dropped = new Set(lost.map(a => a.id));
           return { ...e, optionQty: oq, armory: e.armory.filter(a => !dropped.has(a.id)) };
@@ -841,7 +841,7 @@ export const useArmyStore = create<ArmyStore>()(
           const repairedArmy = s.data
             ? migratedArmy.map((e: RosterEntry) => {
                 const u = resolveUnit(e, s.data!);
-                return u ? repairOrphanedArmory(e, u) : e;
+                return u ? repairOrphanedArmory(e, u, s.data!) : e;
               })
             : migratedArmy;
           const army = s.data

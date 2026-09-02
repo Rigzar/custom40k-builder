@@ -13,33 +13,46 @@ import { CHANGELOG } from '../data/changelog';
 
 const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
 
-// v1.69 (2026-09-02) — a real version cut, so the banner shows ONLY this version's own fixes,
-// not the whole v1.68 history that lived here before (see feedback_version_cut_banner_scope in
-// project memory: a version cut strips the banner down to just its own content).
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; contrib: string; };
+// v1.69 (2026-09-02) stays v1.69 (Rigzar: "mantenemos version") — line1-2 were the original two
+// Discord reports; line3-6 are 4 more pricing bugs found the same day while building a player's
+// own army list, all still under this same version per the standing rule (append to the current
+// version's banner instead of cutting a new one, unless explicitly told to cut).
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.69: two pricing bugs fixed",
-    intro: "Two Discord bug reports, both about an option's cost applying to the wrong thing.",
+    title: "v1.69: pricing bugs fixed",
+    intro: "Discord reports plus a same-day audit, all about an option's cost applying to the wrong thing.",
     install: "",
     line1: "🧬 Tyranids — a Basic/Advanced Biomorph (Pathogenesis, Acid Maw, ...) could be bought more than once on the same unit, letting its \"+\" stepper run up to the unit's model count as if the 5pt cost applied per model instead of once for the whole unit. Checked the canonical .ods: \"Point costs are paid per unit\" for both tiers — fixed, each Biomorph now caps at 1.",
     line2: "🔫 Space Marines — Death Watch's \"Special ammunition\" was a flat +4pt toggle for the whole squad regardless of size, when its own text says \"each model may receive\" it. Fixed — it now scales with the unit's model count (a 5-model squad shows \"Ammo +20\").",
+    line3: "🕸️ Chaos Space Marines/Necrons/Tau Empire — 5 \"any model may swap/equip X\" options (Possessed's Jump packs, Big Mutants, Tomb Blades, Hazard/Broadside Battlesuits) charged their per-model rate TWICE, once per model and again for the whole unit — 5 Possessed with Jump packs cost 275pts instead of 55. Fixed.",
+    line4: "🎯 Imperial Guard — Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad's \"the unit may get ONE of these abilities\" pickers let you buy BOTH at once instead of picking one. Fixed — it's an exclusive pick again, still priced per model.",
+    line5: "🛡️ 12 armor-upgrade items across 8 factions (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) were paid for but never actually improved the save — their plain \"gains a 2+ save\" wording wasn't recognized unless it repeated the word \"armor\" next to \"save\". Fixed.",
+    line6: "⚔️ A Veteran Ability (Furious charge, Tank hunter, ...) bought for a unit with no general Armory access could silently vanish on save/reload if that unit's separate Champion-upgrade option wasn't also taken. Fixed — Veteran Abilities no longer depend on Armory access surviving a reload.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.69: zwei Preis-Bugs behoben",
-    intro: "Zwei Discord-Bug-Reports, beide darüber, dass sich die Kosten einer Option auf das Falsche bezogen.",
+    title: "v1.69: Preis-Bugs behoben",
+    intro: "Discord-Reports plus ein Audit am selben Tag, alle darüber, dass sich die Kosten einer Option auf das Falsche bezogen.",
     install: "",
     line1: "🧬 Tyranids — ein Basis-/Advanced-Biomorph (Pathogenesis, Acid Maw, ...) ließ sich mehrfach auf derselben Einheit kaufen, wobei der „+\"-Regler bis zur Modellanzahl der Einheit hochging, als würden die 5 Punkte pro Modell statt einmal für die ganze Einheit gelten. Im kanonischen .ods geprüft: „Point costs are paid per unit\" steht bei beiden Stufen ausdrücklich — behoben, jedes Biomorph deckelt jetzt bei 1.",
     line2: "🔫 Space Marines — Death Watchs „Special ammunition\" war ein fester +4-Punkte-Umschalter für den ganzen Trupp, egal wie groß, obwohl der eigene Text „each model may receive\" sagt. Behoben — es skaliert jetzt mit der Modellanzahl der Einheit (ein 5-Modell-Trupp zeigt „Ammo +20\").",
+    line3: "🕸️ Chaos Space Marines/Necrons/Tau Empire — 5 „any model may swap/equip X\"-Optionen (Possessed, Big Mutants, Tomb Blades, Hazard/Broadside Battlesuits) berechneten ihren Pro-Modell-Preis ZWEIMAL — 5 Possessed mit Jump packs kosteten 275 statt 55 Punkte. Behoben.",
+    line4: "🎯 Imperial Guard — bei Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad konnte man beide „eine von diesen Fähigkeiten\"-Optionen gleichzeitig kaufen statt nur eine. Behoben — wieder eine exklusive Wahl, weiterhin pro Modell bepreist.",
+    line5: "🛡️ 12 Rüstungs-Upgrades in 8 Fraktionen (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) wurden bezahlt, verbesserten aber nie den Save — die schlichte Formulierung „gains a 2+ save\" wurde nur erkannt, wenn „armor\" direkt neben „save\" stand. Behoben.",
+    line6: "⚔️ Eine Veteranenfähigkeit (Furious charge, Tank hunter, ...), die für eine Einheit ohne allgemeinen Armory-Zugang gekauft wurde, konnte beim Speichern/Neuladen verschwinden, wenn die separate Champion-Option der Einheit nicht auch gewählt war. Behoben.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.69: dos bugs de precio arreglados",
-    intro: "Dos reportes de Discord, ambos sobre el coste de una opción aplicándose a lo que no era.",
+    title: "v1.69: bugs de precio arreglados",
+    intro: "Reportes de Discord más una auditoría el mismo día, todos sobre el coste de una opción aplicándose a lo que no era.",
     install: "",
     line1: "🧬 Tyranids — un Biomorfo Básico/Avanzado (Pathogenesis, Acid Maw, ...) se podía comprar más de una vez en la misma unidad, dejando que el \"+\" subiera hasta el tamaño de la unidad como si el coste de 5pts fuera por modelo en vez de una sola vez para toda la unidad. Comprobado en el .ods canónico: \"Point costs are paid per unit\" para ambos niveles — arreglado, cada Biomorfo ahora topa en 1.",
     line2: "🔫 Space Marines — \"Special ammunition\" de Death Watch era un cargo fijo de +4pts para toda la escuadra sin importar su tamaño, cuando su propio texto dice \"cada modelo puede recibirlo\". Arreglado — ahora escala con el tamaño de la unidad (una escuadra de 5 modelos muestra \"Ammo +20\").",
+    line3: "🕸️ Chaos Space Marines/Necrons/Tau Empire — 5 opciones \"cualquier modelo puede cambiar/equipar X\" (Poseídos, Big Mutants, Tomb Blades, Hazard/Broadside Battlesuits) cobraban su tarifa por modelo DOS VECES — 5 Poseídos con Jump packs costaban 275pts en vez de 55. Arreglado.",
+    line4: "🎯 Imperial Guard — en Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad se podían comprar las dos habilidades \"la unidad puede obtener UNA de estas\" a la vez en vez de solo una. Arreglado — vuelve a ser una elección exclusiva, sigue costando por modelo.",
+    line5: "🛡️ 12 items de armadura en 8 facciones (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) se cobraban pero nunca mejoraban la salvación — el texto llano \"gana una salvación de 2+\" solo se reconocía si repetía la palabra \"armor\" junto a \"save\". Arreglado.",
+    line6: "⚔️ Una Habilidad de Veterano (Furious charge, Tank hunter, ...) comprada para una unidad sin acceso general a la Armería podía desaparecer sin aviso al guardar/recargar si la opción de Campeón de esa unidad no estaba también activada. Arreglado.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -115,19 +128,18 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.69 (2026-09-02) — Rigzar explicitly asked for a new version cut this time
-              ("si pushea nueva version"), so the banner is reset to just these 2 fixes, not
-              appended onto v1.68's long history (default behavior otherwise: keep appending to
-              the current version, per feedback_version_cut_banner_scope in project memory).
-              line1: Tyranid Basic/Advanced Biomorphs could be bought more than once on the same
-              unit (qty stepper capped at the unit's model count instead of 1) — the ods says
-              "Point costs are paid per unit" for both tiers, so each choice now caps at 1 in both
-              the picker and validators.ts. line2: Death Watch's "Special ammunition" toggle was a
-              flat +4pt charge regardless of squad size, when its own text says "each model may
-              receive" it — now scales via `scaling: 'perModel'`, same mechanism Veteran abilities
-              already use. Both from Discord reports (Unwise [USC]); both grounded in the
-              canonical .ods before fixing, per the project's own rule. */}
-          {[tx.line1, tx.line2]
+          {/* v1.69 (2026-09-02) stays v1.69 — Rigzar: "mantenemos version". line1-2 were the
+              original 2 Discord reports (Tyranid Biomorphs qty-cap, Death Watch Special ammunition
+              flat-not-per-model). line3-6 are 4 more pricing bugs found the same day while building
+              a themed Chaos Space Marines army list (Argel Tal as a Chosen + daemonic upgrades):
+              line3 = 5 "any model may swap/equip X" options double-charging their per-model rate
+              (Possessed Jump packs et al.), line4 = 3 Imperial Guard units letting both halves of a
+              mutually-exclusive pick be bought at once, line5 = 12 armor-upgrade items across 8
+              factions whose bare "gains a 2+ save" wording the equipMods parser never recognized,
+              line6 = Veteran Abilities silently vanishing on reload for a unit with no Armory
+              access whose Champion-upgrade gate wasn't taken. Do NOT cut a new version for a
+              follow-up fix under this same effort — keep appending here unless told otherwise. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

@@ -156,7 +156,15 @@ export function parseEquipMods(
         }
       }
     }
-    const armor = desc.match(/(\d)\+\s+armou?r\s+save/i);
+    // "X+ armor/armour save" (explicit) OR the bare "gains a/an X+ save" phrasing used by armor-
+    // upgrade items across several factions' Armories (Daemonic armor, Hellfire armor, Executioner's
+    // armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) —
+    // none of those descriptions repeat the word "armor" next to "save", so they never matched the
+    // first pattern and were paid for but never actually improved the save (same bug shape as the
+    // session's earlier "paid for, never applied" armory audit). Excludes a save conditioned on
+    // something else ("...4+ save against losing a wound from Overheating", Tau's Earth caste pilot
+    // array) via the negative lookahead — that isn't a general armor-save upgrade.
+    const armor = desc.match(/(\d)\+\s+armou?r\s+save/i) ?? desc.match(/\bgains an? (\d)\+ save\b(?!\s+against)/i);
     if (armor) { const v = parseInt(armor[1]); if (mods.armorSave === null || v < mods.armorSave) mods.armorSave = v; }
     const invuln = desc.match(/(\d)\+\s+(?:ward|invulnerab(?:le|ility))\s+save/i);
     if (invuln) { const v = parseInt(invuln[1]); if (mods.invulnSave === null || v < mods.invulnSave) mods.invulnSave = v; }

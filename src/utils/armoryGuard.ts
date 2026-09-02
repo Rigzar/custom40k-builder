@@ -1,5 +1,6 @@
-import type { Unit, OptionGroup } from '../types/data';
+import type { Unit, OptionGroup, FactionData } from '../types/data';
 import type { RosterEntry, ArmorySelection } from '../types/army';
+import { findArmoryItem } from '../engine/resolver';
 
 /**
  * Gate for switching OFF an upgrade that is the only thing granting a unit Armory access.
@@ -40,16 +41,29 @@ export function isArmoryGateGroup(unit: Unit, group: OptionGroup | undefined): b
 const ACCESS_FREE_ITEMS = new Set(['Special ammunition']);
 
 /**
+ * True for a Veteran Ability selection (Furious charge, Tank hunter, ...). These are gated by
+ * `unit.has_veteran_abilities`/`veteran_max`, entirely independent of Armory access (confirmed in
+ * ArmoryModal.tsx's `filterByUnitType`: veteran items are shown whenever `armoryVetEnabled`, with
+ * no `has_armory_access` check at all) — a unit can have veteran abilities without ever having
+ * Armory access (Havocs, Chaos Space Marines squads, Warptalons, ...). Without `data` (e.g. a
+ * caller that doesn't have FactionData in scope), treat as NOT a veteran item — the pre-existing,
+ * more conservative behaviour — rather than guess.
+ */
+function isVeteranSelection(sel: ArmorySelection, data: FactionData | undefined): boolean {
+  return !!data && findArmoryItem(data, sel)?.category === 'veteran';
+}
+
+/**
  * The selections that stop being legal if `gi` is switched off. Empty when the unit keeps access
  * some other way (`has_armory_access` — a squad where every model can buy, e.g. Combat Engineers
  * or Rough Riders, which also happen to offer a Veteran upgrade).
  */
 export function armoryItemsLostByDeselecting(
-  entry: Pick<RosterEntry, 'armory'>, unit: Unit, gi: number,
+  entry: Pick<RosterEntry, 'armory'>, unit: Unit, gi: number, data?: FactionData,
 ): ArmorySelection[] {
   if (unit.has_armory_access) return [];
   if (!isArmoryGateGroup(unit, unit.option_groups[gi])) return [];
-  return (entry.armory ?? []).filter(a => !ACCESS_FREE_ITEMS.has(a.itemName));
+  return (entry.armory ?? []).filter(a => !ACCESS_FREE_ITEMS.has(a.itemName) && !isVeteranSelection(a, data));
 }
 
 /**
@@ -60,11 +74,11 @@ export function armoryItemsLostByDeselecting(
  * Returns the entry unchanged when there is nothing to repair, so loading a healthy list is a
  * no-op and object identity is preserved.
  */
-export function repairOrphanedArmory(entry: RosterEntry, unit: Unit): RosterEntry {
+export function repairOrphanedArmory(entry: RosterEntry, unit: Unit, data?: FactionData): RosterEntry {
   if (unit.has_armory_access || !(entry.armory?.length)) return entry;
   const gateGi = unit.option_groups.findIndex(g => isArmoryGateGroup(unit, g));
   if (gateGi < 0) return entry;
   if (entry.optionQty?.[gateGi]?.['__inline']) return entry;      // upgrade still selected
-  const kept = entry.armory.filter(a => ACCESS_FREE_ITEMS.has(a.itemName));
+  const kept = entry.armory.filter(a => ACCESS_FREE_ITEMS.has(a.itemName) || isVeteranSelection(a, data));
   return kept.length === entry.armory.length ? entry : { ...entry, armory: kept };
 }
