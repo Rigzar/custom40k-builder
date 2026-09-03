@@ -926,7 +926,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
   // Armory items handed over by an army Trait (IG "Heavy Infantry" → Krak grenades + Plate
   // armor). Weapons join the profile; equipment is collected here and fed to parseEquipMods
   // below alongside the bought items, so its desc text ("4+ armor save") moves the stat.
-  type EquipInput = { name: string; desc: string; armourKeyword?: string };
+  type EquipInput = { name: string; desc: string; armourKeyword?: string; typeEffect?: { adds_unit_types?: string[]; set_unit_type?: string } };
   const traitGrantedEquip: EquipInput[] = [];
   for (const itemName of traitGrantedItems) {
     const lc = itemName.toLowerCase();
@@ -1000,7 +1000,7 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     })
     .map((a): EquipInput => {
       const found = findArmoryItem(data, a);
-      return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
+      return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword, typeEffect: found?.effect };
     });
   const equipMods: EquipMods = parseEquipMods(equipItems, unit.armourKeyword, unit.abilities);
   const traitEquipMods: EquipMods = parseEquipMods(traitGrantedEquip, unit.armourKeyword, unit.abilities);

@@ -2335,7 +2335,7 @@ export function validateArmy(state: ArmyState, data: FactionData, alliedData?: F
           .filter(a => a.section === 'equipment')
           .map(a => {
             const found = findArmoryItem(data, a);
-            return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword };
+            return { name: a.itemName, desc: found?.desc ?? '', armourKeyword: found?.armourKeyword, typeEffect: found?.effect };
           });
         const mods = parseEquipMods(equipItems, u.armourKeyword);
 

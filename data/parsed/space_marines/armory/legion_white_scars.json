@@ -151,7 +151,10 @@
       "term_compat": false,
       "desc": "This model gains the \"Jetbike\" type. Bike only. Unique",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "effect": {
+        "adds_unit_types": ["Jetbike"]
+      }
     }
   ],
   "daemon_weapons": []

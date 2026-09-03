@@ -2,6 +2,18 @@
   "name": "Armory",
   "weapons": [
     {
+      "name": "Atalan small arms",
+      "term_compat": false,
+      "range": "12\"",
+      "type": "Pistol 2",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
       "name": "Autopistol",
       "term_compat": false,
       "range": "12\"",
@@ -202,7 +214,11 @@
       "term_compat": false,
       "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, Atalan small arms and the \"Bike\" type. Only for infantry.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 15,
+      "effect": {
+        "adds_unit_types": ["Bike"],
+        "grants_weapons": ["Atalan small arms"]
+      }
     },
     {
       "name": "Cranial inlay",

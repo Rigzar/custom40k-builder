@@ -331,14 +331,20 @@
       "term_compat": false,
       "desc": "The models gains +1 Wound, the \"Jetbike\" unit type and the \"Hit & Run\" ability. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 25
+      "p_char": 25,
+      "effect": {
+        "adds_unit_types": ["Jetbike"]
+      }
     },
     {
       "name": "XV86 Supernova battlesuit",
       "term_compat": false,
       "desc": "The model gains +1 Wound, +1 Attack, +1 Initiative and becomes a \"Monstrous Creature\". Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 26
+      "p_char": 26,
+      "effect": {
+        "set_unit_type": "Monstrous Creature"
+      }
     },
     {
       "name": "Blacksun filterᴵ",

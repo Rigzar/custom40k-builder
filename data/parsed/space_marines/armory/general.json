@@ -2,6 +2,42 @@
   "name": "Armory",
   "weapons": [
     {
+      "name": "Twin bolt rifle (Bolt ammo)",
+      "term_compat": false,
+      "range": "30\"",
+      "type": "Rapid Fire 2",
+      "s": "4",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Twin bolt rifle (Stalker ammo)",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 2",
+      "s": "4",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Twin bolt rifle (Assault ammo)",
+      "term_compat": false,
+      "range": "24\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
       "name": "Absolvor bolt pistol",
       "term_compat": false,
       "range": "12\"",
@@ -1099,7 +1135,11 @@
       "p_char": 47,
       "requires_keywords": [
         "Infantry"
-      ]
+      ],
+      "effect": {
+        "adds_unit_types": ["Bike"],
+        "grants_weapons": ["Twin bolt rifle (Bolt ammo)", "Twin bolt rifle (Stalker ammo)", "Twin bolt rifle (Assault ammo)"]
+      }
     },
     {
       "name": "Storm shield",

@@ -140,7 +140,10 @@
       "p_char": 34,
       "requires_keywords": [
         "Infantry"
-      ]
+      ],
+      "effect": {
+        "adds_unit_types": ["Bike"]
+      }
     },
     {
       "name": "Wolf companion",

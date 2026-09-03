@@ -551,7 +551,10 @@
       "term_compat": false,
       "desc": "The model becomes a \"Jump pack infantry\" unit and gains the \"Rocket pack\" trait (see Stormboyz). For Infantry only",
       "p_unit": null,
-      "p_char": 30
+      "p_char": 30,
+      "effect": {
+        "set_unit_type": "Jump Pack Infantry"
+      }
     },
     {
       "name": "Skorched git remainsᴹ",

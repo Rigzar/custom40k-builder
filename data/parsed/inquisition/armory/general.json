@@ -1248,7 +1248,11 @@
       "term_compat": false,
       "desc": "The model gains +3 Strength, +3 Toughness, +2 Wounds, the \"Monstrous Infantry\" unit type and loses the \"Character model\" ability. Additionally, it gains a Triple multi-melta. Only for infantry. Unique.",
       "p_unit": null,
-      "p_char": 143
+      "p_char": 143,
+      "effect": {
+        "set_unit_type": "Monstrous Infantry",
+        "grants_weapons": ["Triple multi-melta"]
+      }
     },
     {
       "name": "Trophy",

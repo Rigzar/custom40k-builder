@@ -563,7 +563,11 @@
       "term_compat": false,
       "desc": "The model gains +3 Strength, +3 Toughness, +2 Wounds, the \"Anti-Grav\" ability, the \"Monstrous Infantry\" unit type and loses the \"Character model\" ability. Additionally, it gains a Tempest heavy flamer. Only for infantry. Unique.",
       "p_unit": null,
-      "p_char": 89
+      "p_char": 89,
+      "effect": {
+        "set_unit_type": "Monstrous Infantry",
+        "grants_weapons": ["Tempest heavy flamer"]
+      }
     },
     {
       "name": "Holy weapon",

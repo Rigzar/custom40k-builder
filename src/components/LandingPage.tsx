@@ -18,7 +18,7 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
 // lists (a technique Rigzar explicitly asked to repeat), all still under this same version per the
 // standing rule (append to the current version's banner instead of cutting a new one, unless
 // explicitly told to cut).
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.69: pricing bugs fixed",
@@ -31,6 +31,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "🛡️ 12 armor-upgrade items across 8 factions (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) were paid for but never actually improved the save — their plain \"gains a 2+ save\" wording wasn't recognized unless it repeated the word \"armor\" next to \"save\". Fixed.",
     line6: "⚔️ A Veteran Ability (Furious charge, Tank hunter, ...) bought for a unit with no general Armory access could silently vanish on save/reload if that unit's separate Champion-upgrade option wasn't also taken. Fixed — Veteran Abilities no longer depend on Armory access surviving a reload.",
     line7: "🔧 Orks — most \"Kustom job\" vehicle upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) were paid for but did nothing at all — no ability text, no stat change. Fixed across all 13 vehicles/fortifications that offer them; Fortress on Wheels now grants its ward save and Stompamatic Pistons its +2\" Movement.",
+    line8: "🏍️ Space Marines — \"Space Marine bike\" added its Movement/Toughness/Wound bonus but never the Twin bolt rifle or the \"Bike\" unit type it grants (GitHub #112). Fixed.",
+    line9: "🔧 Same-day audit across 6 more factions found 8 more items with the identical gap (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisition, Tau Empire, Orks) — all fixed. Dark Eldar's Skybike was checked too and correctly left alone: its own rulebook genuinely calls \"Jetbike\" an ability there, not a type change.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -44,6 +46,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "🛡️ 12 Rüstungs-Upgrades in 8 Fraktionen (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) wurden bezahlt, verbesserten aber nie den Save — die schlichte Formulierung „gains a 2+ save\" wurde nur erkannt, wenn „armor\" direkt neben „save\" stand. Behoben.",
     line6: "⚔️ Eine Veteranenfähigkeit (Furious charge, Tank hunter, ...), die für eine Einheit ohne allgemeinen Armory-Zugang gekauft wurde, konnte beim Speichern/Neuladen verschwinden, wenn die separate Champion-Option der Einheit nicht auch gewählt war. Behoben.",
     line7: "🔧 Orks — die meisten „Kustom job\"-Fahrzeug-Upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) wurden bezahlt, bewirkten aber gar nichts — kein Fähigkeitstext, keine Statänderung. Behoben bei allen 13 Fahrzeugen/Befestigungen, die sie anbieten; Fortress on Wheels gewährt jetzt seinen Ward-Save und Stompamatic Pistons sein +2\"-Movement.",
+    line8: "🏍️ Space Marines — „Space Marine bike\" fügte Movement/Toughness/Wound hinzu, aber nie das Twin bolt rifle oder den „Bike\"-Einheitstyp (GitHub #112). Behoben.",
+    line9: "🔧 Ein Audit am selben Tag über 6 weitere Fraktionen fand 8 weitere Items mit derselben Lücke (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisition, Tau Empire, Orks) — alle behoben. Dark Eldars Skybike wurde ebenfalls geprüft und korrekt unverändert gelassen: dort heißt „Jetbike\" laut eigenem Regelwerk tatsächlich eine Fähigkeit, kein Typwechsel.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -57,6 +61,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line5: "🛡️ 12 items de armadura en 8 facciones (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) se cobraban pero nunca mejoraban la salvación — el texto llano \"gana una salvación de 2+\" solo se reconocía si repetía la palabra \"armor\" junto a \"save\". Arreglado.",
     line6: "⚔️ Una Habilidad de Veterano (Furious charge, Tank hunter, ...) comprada para una unidad sin acceso general a la Armería podía desaparecer sin aviso al guardar/recargar si la opción de Campeón de esa unidad no estaba también activada. Arreglado.",
     line7: "🔧 Orks — la mayoría de mejoras de vehículo \"Kustom job\" (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) se cobraban pero no hacían absolutamente nada — sin texto de habilidad, sin cambio de estadística. Arreglado en los 13 vehículos/fortificaciones que las ofrecen; Fortress on Wheels ahora concede su salvación ward y Stompamatic Pistons su +2\" de Movimiento.",
+    line8: "🏍️ Space Marines — \"Space Marine bike\" añadía Movimiento/Aguante/Heridas pero nunca el Twin bolt rifle ni el tipo de unidad \"Bike\" (GitHub #112). Arreglado.",
+    line9: "🔧 Una auditoría el mismo día en 6 facciones más encontró 8 ítems más con el mismo fallo (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisición, Tau Empire, Orks) — todos arreglados. El Skybike de Dark Eldar también se revisó y se dejó correctamente igual: su propio reglamento llama \"Jetbike\" a una habilidad ahí, no a un cambio de tipo.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -144,9 +150,13 @@ function CommunityAnnouncement() {
               access whose Champion-upgrade gate wasn't taken. line7 = found while building 3 more
               4000pt bug-hunting army lists across different factions (Rigzar: "armate unas 3 listas
               de diferentes ejercitos... para ver donde hay bugs") — Ork vehicle "Kustom job"
-              choices with no effect at all. Do NOT cut a new version for a follow-up fix under this
-              same effort — keep appending here unless told otherwise. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
+              choices with no effect at all. line8 = GitHub #112, Space Marine bike's missing
+              weapon/unit-type grant. line9 = Rigzar asked whether other factions had the same
+              gap — cross-faction audit found 8 more instances (6 factions) + a Tau Crisis Honor
+              Guard option; Dark Eldar's Skybike checked and correctly left alone (canon calls it
+              an ability there, not a type). Do NOT cut a new version for a follow-up fix under
+              this same effort — keep appending here unless told otherwise. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

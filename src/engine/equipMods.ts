@@ -54,7 +54,7 @@ const AURA_PHRASES = /attached unit|friendly unit|friendly model|enemy unit|enem
 // the type system (ArmoryItem.effect → adds_unit_types) owns it — it must NOT also be listed as a
 // granted ability, or it would show twice (once as a type, once as an ability).
 const UNIT_TYPE_WORDS = new Set([
-  'bike', 'jet bike', 'jump pack infantry', 'monstrous creature', 'monstrous infantry',
+  'bike', 'jet bike', 'jetbike', 'jump pack infantry', 'monstrous creature', 'monstrous infantry',
   'walker', 'character model',
 ]);
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -82,7 +82,7 @@ function parseSaveValue(v: string): number {
 }
 
 export function parseEquipMods(
-  items: { name: string; desc: string; armourKeyword?: string }[],
+  items: { name: string; desc: string; armourKeyword?: string; typeEffect?: { adds_unit_types?: string[]; set_unit_type?: string } }[],
   innateArmour?: string,
   baseAbilities: string[] = [],
 ): EquipMods {
@@ -195,6 +195,19 @@ export function parseEquipMods(
         ...Array.from(quotable.matchAll(/"([^"]+)"/g), m => m[1]),
         ...Array.from(quotable.matchAll(/(^|[^A-Za-z0-9])'([^']+?)'(?![A-Za-z0-9])/g), m => m[2]),
       ];
+      // A quoted type-word is excluded from the granted-abilities list ONLY when THIS item's own
+      // effect actually grants it as a type — not whenever the word merely LOOKS like a type name.
+      // Some factions' canon phrases the same word as a plain ability instead of a type change (Dark
+      // Eldar's Skybike: "...and the 'Jetbike' ability", no unit-type change at all, confirmed
+      // verbatim against the .ods) — excluding it unconditionally by string match would silently
+      // drop it from display with nothing granting it as a type either. Checked against the item's
+      // own `typeEffect` (adds_unit_types/set_unit_type) rather than the historical global
+      // UNIT_TYPE_WORDS list, which conflated "is a type-shaped word" with "this item grants it as
+      // a type" and both under- and over-matched across factions.
+      const itemGrantedTypeWords = new Set([
+        ...(it.typeEffect?.adds_unit_types ?? []),
+        ...(it.typeEffect?.set_unit_type ? [it.typeEffect.set_unit_type] : []),
+      ].map(t => t.toLowerCase().trim()));
       for (const raw of quoted) {
         // Some descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads
         // `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the captured name
@@ -202,8 +215,10 @@ export function parseEquipMods(
         // punctuation only; a closing bracket is part of the name (Massive(1), Frenzy(1")).
         const ab = raw.replace(/[,.;:]+$/, '').trim();
         if (!ab) continue;
-        // A quoted unit-type word is handled by the type system, not shown as an ability.
-        if (UNIT_TYPE_WORDS.has(ab.toLowerCase().trim())) continue;
+        // A quoted unit-type word THIS ITEM grants as a type is handled by the type system, not
+        // shown as an ability too. Still guarded by UNIT_TYPE_WORDS so an unrelated quoted phrase
+        // that happens to coincide with a real type name isn't swallowed by a data mistake.
+        if (UNIT_TYPE_WORDS.has(ab.toLowerCase().trim()) && itemGrantedTypeWords.has(ab.toLowerCase().trim())) continue;
         // Only add what the model doesn't already have (don't re-grant a base ability).
         if (baseSet.has(norm(ab))) continue;
         if (!mods.grantedAbilities.includes(ab)) mods.grantedAbilities.push(ab);

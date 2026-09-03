@@ -127,11 +127,18 @@ export const crisisHonorGuard: Unit = {
       "choices": [
         {
           "name": "XV86-3 Supernova",
-          "points": 3
+          "points": 3,
+          "effect": {
+            "stat_mod": [{ "stat": "A", "delta": 1 }, { "stat": "I", "delta": 1 }]
+          }
         },
         {
           "name": "XV86-2 Coldstar",
-          "points": 5
+          "points": 5,
+          "effect": {
+            "adds_unit_types": ["Jetbike"],
+            "grants_abilities": ["Hit & Run"]
+          }
         },
         {
           "name": "XV85-2 Enforcer",
@@ -139,7 +146,10 @@ export const crisisHonorGuard: Unit = {
         },
         {
           "name": "XV22-2 Stalker",
-          "points": 16
+          "points": 16,
+          "effect": {
+            "grants_abilities": ["Infiltrator", "Stealth"]
+          }
         }
       ],
       "inline_pts": null,
