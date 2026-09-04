@@ -18,7 +18,7 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
 // lists (a technique Rigzar explicitly asked to repeat), all still under this same version per the
 // standing rule (append to the current version's banner instead of cutting a new one, unless
 // explicitly told to cut).
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.69: pricing bugs fixed",
@@ -33,6 +33,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🔧 Orks — most \"Kustom job\" vehicle upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) were paid for but did nothing at all — no ability text, no stat change. Fixed across all 13 vehicles/fortifications that offer them; Fortress on Wheels now grants its ward save and Stompamatic Pistons its +2\" Movement.",
     line8: "🏍️ Space Marines — \"Space Marine bike\" added its Movement/Toughness/Wound bonus but never the Twin bolt rifle or the \"Bike\" unit type it grants (GitHub #112). Fixed.",
     line9: "🔧 Same-day audit across 6 more factions found 8 more items with the identical gap (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisition, Tau Empire, Orks) — all fixed. Dark Eldar's Skybike was checked too and correctly left alone: its own rulebook genuinely calls \"Jetbike\" an ability there, not a type change.",
+    line10: "🗡️ Chaos Space Marines — Alpha Legion's \"Blade of the Hydra\" listed Rending with no threshold (a Discord question confirmed by Dominic: 5+). Fixed — now reads Rending(5+), matching every other Rending weapon in the game.",
     contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
   },
   de: {
@@ -48,6 +49,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🔧 Orks — die meisten „Kustom job\"-Fahrzeug-Upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) wurden bezahlt, bewirkten aber gar nichts — kein Fähigkeitstext, keine Statänderung. Behoben bei allen 13 Fahrzeugen/Befestigungen, die sie anbieten; Fortress on Wheels gewährt jetzt seinen Ward-Save und Stompamatic Pistons sein +2\"-Movement.",
     line8: "🏍️ Space Marines — „Space Marine bike\" fügte Movement/Toughness/Wound hinzu, aber nie das Twin bolt rifle oder den „Bike\"-Einheitstyp (GitHub #112). Behoben.",
     line9: "🔧 Ein Audit am selben Tag über 6 weitere Fraktionen fand 8 weitere Items mit derselben Lücke (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisition, Tau Empire, Orks) — alle behoben. Dark Eldars Skybike wurde ebenfalls geprüft und korrekt unverändert gelassen: dort heißt „Jetbike\" laut eigenem Regelwerk tatsächlich eine Fähigkeit, kein Typwechsel.",
+    line10: "🗡️ Chaos Space Marines — Alpha Legions „Blade of the Hydra\" hatte Rending ohne Schwellenwert (eine Discord-Frage, von Dominic bestätigt: 5+). Behoben — steht jetzt als Rending(5+), wie jede andere Rending-Waffe im Spiel.",
     contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -63,6 +65,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line7: "🔧 Orks — la mayoría de mejoras de vehículo \"Kustom job\" (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) se cobraban pero no hacían absolutamente nada — sin texto de habilidad, sin cambio de estadística. Arreglado en los 13 vehículos/fortificaciones que las ofrecen; Fortress on Wheels ahora concede su salvación ward y Stompamatic Pistons su +2\" de Movimiento.",
     line8: "🏍️ Space Marines — \"Space Marine bike\" añadía Movimiento/Aguante/Heridas pero nunca el Twin bolt rifle ni el tipo de unidad \"Bike\" (GitHub #112). Arreglado.",
     line9: "🔧 Una auditoría el mismo día en 6 facciones más encontró 8 ítems más con el mismo fallo (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisición, Tau Empire, Orks) — todos arreglados. El Skybike de Dark Eldar también se revisó y se dejó correctamente igual: su propio reglamento llama \"Jetbike\" a una habilidad ahí, no a un cambio de tipo.",
+    line10: "🗡️ Chaos Space Marines — \"Blade of the Hydra\" (Alpha Legion) tenía Rending sin umbral (una duda de Discord confirmada por Dominic: 5+). Arreglado — ahora es Rending(5+), como cualquier otra arma con Rending del juego.",
     contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -154,9 +157,11 @@ function CommunityAnnouncement() {
               weapon/unit-type grant. line9 = Rigzar asked whether other factions had the same
               gap — cross-faction audit found 8 more instances (6 factions) + a Tau Crisis Honor
               Guard option; Dark Eldar's Skybike checked and correctly left alone (canon calls it
-              an ability there, not a type). Do NOT cut a new version for a follow-up fix under
-              this same effort — keep appending here unless told otherwise. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9]
+              an ability there, not a type). line10 = a Discord rules question (Blade of the
+              Hydra's Rending had no threshold in either production or the .ods; Dominic confirmed
+              5+). Do NOT cut a new version for a follow-up fix under this same effort — keep
+              appending here unless told otherwise. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

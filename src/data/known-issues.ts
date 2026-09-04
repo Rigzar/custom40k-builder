@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-alpha-legion-blade-of-the-hydra-rending-no-value-01",
+    status: "fixed",
+    title: "Chaos Space Marines — Alpha Legion's 'Blade of the Hydra' listed Rending with no threshold",
+    description: "FIXED 2026-09-03, from a Discord rules question relayed by Rigzar (UNIT 4545 [アクラス]: \"what's the rending on the blade of the hydra? is it supposed to be 6+?\" — Dominic, the rules author: \"5+\"). Checked the canonical .ods before touching anything: it carries the exact same bare \"Rending\" (no number) as production, so the gap originates in the source data itself, not a transcription slip. The Core Rules glossary defines the ability strictly as `Rending(x+)` (\"Wound rolls of x+ gain an additional bonus of -1 to their AP\") — a bare \"Rending\" isn't a valid form of the rule at all. Grepped every faction's weapon `abilities` field for the same bare word (excluding false positives like the WEAPON NAME \"Rending claws\") and confirmed this was the only instance in the entire game; every other Rending-carrying weapon already correctly specifies its threshold, and every other one that does is 5+, which lines up with Dominic's answer as the game's standard value for this rule. Fixed `data/parsed/chaos_space_marines/armory/legion_alpha_legion.json`: \"Blade of the Hydra\" now reads `Rending(5+)`.",
+  },
+  {
     id: "ki-crossfaction-bike-mount-effect-audit-01",
     status: "fixed",
     title: "8 more Armory items (6 factions) + a Tau Crisis Honor Guard option all had the same 'grants a type/weapon, no effect' gap as GitHub #112",

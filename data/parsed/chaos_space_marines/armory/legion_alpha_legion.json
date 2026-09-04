@@ -9,7 +9,7 @@
       "s": "U",
       "ap": "-2",
       "d": "1",
-      "abilities": "Deflagrate(5+), Flurry(3), Rending, Unique, Unwieldy",
+      "abilities": "Deflagrate(5+), Flurry(3), Rending(5+), Unique, Unwieldy",
       "p_unit": null,
       "p_char": 10,
       "armour_compat": [
