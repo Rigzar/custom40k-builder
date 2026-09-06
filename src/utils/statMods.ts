@@ -3,7 +3,7 @@ import type { EquipMods } from '../engine/equipMods';
 /**
  * Stat-block modifier maths, shared by Print View and the Tabletop Simulator export.
  *
- * MOVED here verbatim from PrintView.tsx (v1.71) rather than copied: `applyDelta` already existed
+ * MOVED here verbatim from PrintView.tsx rather than copied: `applyDelta` already existed
  * in two places (PrintView and UnitCard) and the TTS export needed the same maths, which would
  * have made three. UnitCard keeps its own variant because it returns `{ display, modified }` to
  * drive the "◆ = equipment" highlight in the live view; this pair is the plain-value version.

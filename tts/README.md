@@ -3,6 +3,10 @@
 Puts a Custom40k army on a TTS table: one card per unit with its final stats, weapons, wargear and
 abilities, plus the faction's prayers / infernal pacts / psychic disciplines in the notebook.
 
+> **Status: not on the Steam Workshop yet.** The mod is still being worked on. To try it now, paste
+> `Custom40k.lua` into any Tabletop Simulator object yourself — see *Using it* below. The Workshop
+> item comes once the in-game layout has been checked on a real table.
+
 ## The two halves
 
 | Half | File | Job |
@@ -39,7 +43,7 @@ There is no Lua toolchain in this repo, but the script **is** tested — headles
 [`fengari`](https://github.com/fengari-lua/fengari) with TTS's globals (`self`, `spawnObject`,
 `Notes`, `JSON`, `printToAll`) stubbed, fed a real export. That harness caught four bugs the first
 time it ran, including one that silently deleted every prayer's range/target/duration line — which
-is exactly the thing v1.70 existed to fix. Do not change this file without running it.
+is exactly the thing the same release existed to fix. Do not change this file without running it.
 
 The trap worth naming: **`ipairs` stops at the first `nil`.** A table literal like
 `{ a, b, maybeNil, d }` loses `d` entirely when `maybeNil` is nil. `joinParts` is variadic and uses

@@ -1444,7 +1444,7 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
   const pacts = data?.pacts ?? [];
   const disciplines = Object.entries(data?.disciplines ?? {}).filter(([, ps]) => ps.length > 0);
   // Core Rules: "Psykers have access to the list of General Psychic Disciplines as well as those
-  // listed in their respective Codex." These pages were missing until v1.71 -- the sheets only read
+  // listed in their respective Codex." These pages were missing at first -- the sheets only read
   // the faction's own disciplines, so the ~31 powers nearly every psyker shares had no page at all.
   // Necrons are the sole faction-wide exception (every psyker there is "knows all the powers from
   // the list of C'tan powers", with no generic-discipline wording anywhere) -- same rule the psychic
