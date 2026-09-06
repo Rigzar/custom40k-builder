@@ -11,11 +11,12 @@ import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
+import { applyDelta, applyEquipDeltas } from '../utils/statMods';
+import { downloadTtsExport } from '../utils/ttsExport';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
-import type { EquipMods } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 
@@ -121,18 +122,6 @@ const MARK_CHAR_MODS: Record<string, { stat: string; delta: number } | null> = {
   Khorne: { stat: 'S', delta: 1 }, Nurgle: { stat: 'W', delta: 1 },
   Slaanesh: { stat: 'M', delta: 2 }, Tzeentch: null, Undivided: null,
 };
-function applyDelta(val: string, delta: number): string {
-  if (!val || val === '-') return val;
-  if (/^\d+$/.test(val)) return String(parseInt(val) + delta);
-  const m = val.match(/^(\d+)"$/);
-  if (m) return `${parseInt(m[1]) + delta}"`;
-  // A save/skill value ("3+") — see the matching fix in UnitCard.tsx's own applyDelta for why
-  // this is plain addition (stat_mod deltas for SV are already stored in save-number space, e.g.
-  // Tyranid "Hardened Carapace" is delta: -1). Floored at 2+.
-  const save = val.match(/^(\d+)\+$/);
-  if (save) return `${Math.max(2, parseInt(save[1]) + delta)}+`;
-  return val;
-}
 
 const WEAPON_KEYWORDS_8TH = [
   'rapid fire', 'snap fire', 'entropic strike', 'instant death', 'soul blaze',
@@ -1177,17 +1166,6 @@ function unitStatValues(u: Unit): number[] {
 const POWER_MAX = [14, 6, 10, 16, 5, 5];
 
 // ── Equipment mod parsing ─────────────────────────────────────────────────────
-function applyEquipDeltas(stats: Record<string, string>, mods: EquipMods, isVehicle: boolean): Record<string, string> {
-  const result = { ...stats };
-  for (const [key, delta] of Object.entries(mods.statDeltas)) {
-    if (result[key] !== undefined) result[key] = applyDelta(result[key], delta);
-  }
-  if (!isVehicle && mods.armorSave !== null) {
-    const existing = result.SV?.match(/(\d+)\+/);
-    if (!existing || mods.armorSave < parseInt(existing[1])) result.SV = `${mods.armorSave}+`;
-  }
-  return result;
-}
 
 // ── Summary page ──────────────────────────────────────────────────────────────
 const COMP_SLOTS  = ['HQ', 'Troops', 'Elites', 'Fast Attack', 'Heavy Support', 'Transport', 'Flyers', 'Lords of War'] as const;
@@ -1753,6 +1731,13 @@ export function PrintView({ onClose }: { onClose: () => void }) {
             ))}
           </div>
           <PaperSizeToggle size={paperSize} onChange={setPaperSize} />
+          {/* Tabletop Simulator: downloads the army fully RESOLVED (final stats, weapons, rules)
+              so the TTS mod stays a dumb renderer and never needs a copy of the codex. */}
+          <button onClick={() => downloadTtsExport(storeState, data)}
+            title="Download a resolved JSON for the Tabletop Simulator mod"
+            className="px-3 sm:px-4 py-1.5 bg-zinc-700 hover:bg-zinc-600 border border-zinc-600 text-zinc-200 text-xs sm:text-sm uppercase tracking-wide transition-colors">
+            TTS
+          </button>
           <button onClick={() => window.print()}
             className="px-3 sm:px-4 py-1.5 bg-amber-800 hover:bg-amber-700 border border-amber-600 text-white text-xs sm:text-sm uppercase tracking-wide transition-colors">
             Print

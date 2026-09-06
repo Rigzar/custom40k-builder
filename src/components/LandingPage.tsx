@@ -11,37 +11,36 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v170_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v171_dismissed';
 
-// v1.70 (2026-09-06) is a REAL version cut (Rigzar: "todo sera nueva version"), so per
-// [[feedback_version_cut_banner_scope]] the banner is RESET to only this version's own content:
-// v1.69's ten lines are gone from here and live on in the changelog modal. Two items this time --
-// the prayer/pact/power rendering bug (name only, no range anywhere) and the new Field Manual
-// reference pages. Append follow-up fixes here only while v1.70 stays open.
+// v1.71 (2026-09-06) is a REAL version cut, so per [[feedback_version_cut_banner_scope]] the
+// banner is RESET to only this version's own content -- v1.70's two lines are gone from here and
+// live on in the changelog modal. One item this time: the Tabletop Simulator export. Append
+// follow-up fixes here only while v1.71 stays open.
 type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.70: prayers and powers show their full rules",
-    intro: "Reported right after a game — the app gave you a prayer's name and nothing else.",
+    title: "v1.71: take your army into Tabletop Simulator",
+    intro: "Asked for after the first real game — build the list here, play it on a TTS table with its rules in front of you.",
     install: "",
-    line1: "✨ Prayers, infernal pacts and psychic powers showed only their NAME once picked — no range, no target, no duration, anywhere. You could select \"Veil of Despair\" and never learn from the app that it is a 6\" radius effect. The rules text itself was fine (checked against the canonical .ods — all ten prayers match verbatim); the bug was purely in the display, and it was in three places at once: the selection modal, the unit card and the printed sheet. All three fixed, so a printed army list is finally usable at the table.",
-    line2: "📜 Field Manual — new reference pages: PRAYERS, INFERNAL PACTS and one page per PSYCHIC DISCIPLINE, each entry with its range, target, duration, cast value and complexity, printable with the rest of the document. They follow the army you have loaded, so you get YOUR faction's content and nothing you don't need.",
+    line1: "⚔️ Print View has a new TTS button. It downloads your army as a file the Custom40k Tabletop Simulator mod reads, and puts one card per unit on the table with the FINAL numbers on it — stats after wargear and army traits, the weapon profiles that unit actually ends up with, its abilities, what each piece of wargear does, and your prayers, pacts and psychic powers with their full range, target and duration. Your whole faction's prayers, pacts and psychic disciplines also go into the TTS notebook, so you can look anything up mid-game. The mod carries no codex: the app resolves everything before exporting, so a codex update never means re-downloading the mod.",
+    line2: "🔮 The Field Manual's psychic pages were missing the General Psychic Disciplines — Smite, Biomancy, Divination, Pyromancy, Telekinesis and Telepathy, the 31 powers the Core Rules give EVERY psyker on top of its own codex. The picker always offered them; only the printed sheets left them out. They now print ahead of your codex disciplines and are labelled apart, so you can see which list a power came from. (Necrons correctly still don't get them — their psykers only know C'tan powers.)",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.70: Gebete und Kräfte zeigen ihre vollen Regeln",
-    intro: "Direkt nach einer Partie gemeldet — die App zeigte nur den Namen eines Gebets, sonst nichts.",
+    title: "v1.71: nimm deine Armee mit in den Tabletop Simulator",
+    intro: "Nach der ersten echten Partie gewünscht — Liste hier bauen, am TTS-Tisch mit den Regeln vor dir spielen.",
     install: "",
-    line1: "✨ Gebete, infernalische Pakte und psionische Kräfte zeigten nach der Auswahl nur ihren NAMEN — keine Reichweite, kein Ziel, keine Dauer, nirgends. Bei \"Veil of Despair\" erfuhr man nie, dass es 6\" Radius hat. Der Regeltext selbst war korrekt (gegen das kanonische .ods geprüft, alle zehn Gebete stimmen wörtlich überein); der Fehler lag rein in der Darstellung, an drei Stellen gleichzeitig: Auswahlfenster, Einheitenkarte und Druckansicht. Alle drei behoben.",
-    line2: "📜 Field Manual — neue Referenzseiten: GEBETE, INFERNALISCHE PAKTE und je eine Seite pro PSIONISCHER DISZIPLIN, jeder Eintrag mit Reichweite, Ziel, Dauer, Cast-Wert und Komplexität, mitdruckbar. Sie richten sich nach der geladenen Armee, du bekommst also den Inhalt DEINER Fraktion.",
+    line1: "⚔️ Die Druckansicht hat einen neuen TTS-Knopf. Er lädt deine Armee als Datei herunter, die das Custom40k-Mod für Tabletop Simulator liest, und legt pro Einheit eine Karte mit den ENDGÜLTIGEN Werten auf den Tisch — Werte nach Ausrüstung und Armee-Traits, die Waffenprofile, die die Einheit tatsächlich hat, ihre Fähigkeiten, was jedes Ausrüstungsteil bewirkt, und deine Gebete, Pakte und psionischen Kräfte mit voller Reichweite, Ziel und Dauer. Die Gebete, Pakte und Disziplinen deiner Fraktion landen zusätzlich im TTS-Notizbuch. Das Mod trägt keinen Codex: die App löst alles vor dem Export auf, ein Codex-Update erfordert also nie ein neues Mod.",
+    line2: "🔮 Den psionischen Seiten des Field Manual fehlten die allgemeinen Disziplinen — Smite, Biomantie, Divination, Pyromantie, Telekinese und Telepathie, die 31 Kräfte, die die Core Rules JEDEM Psioniker zusätzlich zum eigenen Codex geben. Die Auswahl bot sie immer an; nur die gedruckten Blätter ließen sie weg. Sie stehen jetzt vor deinen Codex-Disziplinen und sind getrennt beschriftet. (Necrons bekommen sie zu Recht weiterhin nicht — ihre Psioniker kennen nur C'tan-Kräfte.)",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.70: los rezos y poderes ya muestran sus reglas completas",
-    intro: "Reportado justo después de una partida — la app te decía el nombre del rezo y nada más.",
+    title: "v1.71: llévate tu ejército a Tabletop Simulator",
+    intro: "Pedido tras la primera partida de verdad — montas la lista aquí y la juegas en mesa de TTS con sus reglas delante.",
     install: "",
-    line1: "✨ Los rezos, pactos infernales y poderes psíquicos solo mostraban su NOMBRE una vez elegidos — sin alcance, sin objetivo, sin duración, en ningún sitio. Podías elegir \"Veil of Despair\" y la app nunca te decía que es un radio de 6\". El texto de reglas estaba bien (comprobado contra el .ods canónico: los diez rezos coinciden verbatim); el fallo era puramente de visualización, y estaba en tres sitios a la vez: el modal de selección, la ficha de unidad y la hoja impresa. Los tres arreglados, así que por fin la lista impresa sirve en mesa.",
-    line2: "📜 Field Manual — hojas nuevas de referencia: REZOS, PACTOS INFERNALES y una hoja por cada DISCIPLINA PSÍQUICA, cada entrada con su alcance, objetivo, duración, valor de lanzamiento y complejidad, imprimibles con el resto del documento. Siguen al ejército que tengas cargado, así que ves el contenido de TU facción y nada más.",
+    line1: "⚔️ La vista de impresión tiene un botón nuevo, TTS. Descarga tu ejército como un archivo que lee el mod de Custom40k para Tabletop Simulator, y pone en mesa una carta por unidad con los números FINALES — stats tras equipo y army traits, los perfiles de arma que la unidad acaba teniendo, sus habilidades, lo que hace cada pieza de equipo, y tus rezos, pactos y poderes psíquicos con su alcance, objetivo y duración completos. Los rezos, pactos y disciplinas de toda tu facción van además al cuaderno de TTS, para consultar cualquier cosa a media partida. El mod no lleva codex: la app resuelve todo antes de exportar, así que actualizar un codex nunca obliga a volver a descargar el mod.",
+    line2: "🔮 A las hojas psíquicas del Field Manual les faltaban las disciplinas generales — Smite, Biomancia, Divinación, Piromancia, Telequinesis y Telepatía, los 31 poderes que las Core Rules dan a TODO psíquico además de su propio codex. El selector siempre los ofrecía; solo faltaban en las hojas impresas. Ahora se imprimen antes de las disciplinas de tu codex y van etiquetadas aparte, así ves de qué lista sale cada poder. (Los Necrons siguen sin tenerlas, y es correcto: sus psíquicos solo conocen poderes C'tan.)",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -116,12 +115,11 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.70 (2026-09-06) is a REAL version cut ("todo sera nueva version"), so this
-              banner carries ONLY v1.70's own two items and v1.69's ten lines were removed --
-              see [[feedback_version_cut_banner_scope]]. line1 = the prayer/pact/power display
-              bug (name only, no range/target/duration, in all three views at once); line2 = the
-              new faction reference pages in the Field Manual. Append here while v1.70 is open;
-              cut a fresh banner when a new version is cut. */}
+          {/* v1.71 (2026-09-06) is a REAL version cut, so this banner carries ONLY v1.71's own
+              item and v1.70's two lines were removed -- see [[feedback_version_cut_banner_scope]].
+              line1 = the Tabletop Simulator export; line2 = the General Psychic Disciplines
+              missing from the Field Manual. Append here while v1.71 is open; cut a fresh
+              banner when a new version is cut. */}
           {[tx.line1, tx.line2]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}

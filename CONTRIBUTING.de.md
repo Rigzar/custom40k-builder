@@ -262,6 +262,8 @@ src/store/      Zustand-Zustand – Armeelisten-CRUD und Auswahlen
 src/types/      TypeScript-Typen – Unit, Weapon, RosterEntry usw.
 src/data/       Statische Daten – Changelog, Fraktionsmetadaten
 src/i18n/       Übersetzungstexte (EN / DE / ES)
+src/utils/      Geteilte Helfer ohne eigenen Zustand — Werte-Mathematik, Kräfte-Lookup, Exporte
+tts/            Tabletop-Simulator-Mod (Lua) + sein Headless-Test
 ```
 
 ### Navigation — die vier Schritte
@@ -303,6 +305,38 @@ sichtbaren Ausgang, der seine Arbeit nicht zerstoert.
 | `codex_<fraktion>/` | Fraktionsspezifisches Engine-Modul (eines pro Fraktion) – hier lebt der gesamte Engine-Code dieser Fraktion: `legacies.ts`, `traits.ts`, `resolver.ts`, `validator.ts`, `archetypes/{index.ts,rules.ts}` (falls benötigt), plus die Referenzkataloge `keywords.ts`, `slots.ts`, `unit-types.ts`, `special-abilities.ts`, `weapon-abilities.ts` und eine `digest.md`-Audit-Referenz |
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
 | `keywords.ts` | Schlüsselwort-Ableitungsschicht für die Wargear-Freischaltung — leitet an einer Stelle die Chaos-Mal-Anforderungen (`itemRequiredMark`), die Terminator-Rüstungskompatibilität (`modelRestrictsToTermSubset`), die Gravis-Kompatibilität (`modelRestrictsToGravisSubset`) und die Inquisition-Ordo/Legacy-Freischalt-Helfer (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) ab. Hier bearbeiten (nicht in `ArmoryModal`), wenn sich ändert, wie die Rüstungs-/Mal-/Ordo-Freischaltung abgeleitet wird. **Glyphen-Konvention:** `ᵀ` = Terminator-kompatibel (NICHT Mal des Tzeentch); die Mal-Glyphen sind nur `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch ist sektionsbasiert (`armory_marks.Tzeentch`), und `ᶻ` ist reserviert, falls je ein Glyph nötig wird. **Wenn Arbeit die Tzeentch-vs-Terminator-Unterscheidung berührt, frage den Maintainer — nicht annehmen.** |
+
+### Export nach Tabletop Simulator
+
+Eine hier gebaute Armee lässt sich auf einen Tabletop-Simulator-Tisch exportieren. Es sind zwei
+Hälften, die zusammen geändert werden müssen:
+
+| Datei | Aufgabe |
+|---|---|
+| `src/utils/ttsExport.ts` | Baut die Nutzlast und lädt sie herunter (der **TTS**-Knopf in der Druckansicht) |
+| `tts/Custom40k.lua` | Das Mod: liest diese Nutzlast und erzeugt die Karten |
+
+**Das Mod trägt bewusst keinen Codex.** Die App löst die Armee vorher auf — mit demselben
+`resolveUnitProfile`, das Einheitenkarte und Druckansicht verwenden — exportiert werden also
+endgültige Werte, endgültige Waffenprofile und echter Regeltext. Das Lua muss nie eine
+Custom40k-Regel kennen, und ein Codex-Update erzwingt nie ein erneutes Hochladen des
+Workshop-Eintrags. Halte es so: wer Regel-Logik ins Lua schreiben will, gehört in den Export.
+
+`TTS_SCHEMA` (TypeScript) und `SCHEMA` (Lua) müssen übereinstimmen; erhöhe beide gemeinsam, wenn
+sich die Form der Nutzlast ändert.
+
+**Das Lua ist getestet — führe den Test aus, bevor du es anfasst.** TTS hat keinen Headless-Modus,
+also läuft das Skript in der Lua-VM `fengari` mit gestubbten TTS-Globals und einem echten Export:
+
+```
+npx jiti tts/test/makeExport.ts "Codex/<eine gespeicherte Armee>.json" army.json
+node tts/test/run.cjs army.json          # --dump zeigt die gerenderten Karten
+```
+
+Der erste Lauf fand vier Fehler, bevor die Datei je im Spiel war — der schlimmste: Luas `ipairs`
+bricht beim ersten `nil`-Loch in einem Tabellenliteral ab, wodurch jede Gebetszeile mit
+Reichweite/Ziel/Dauer stillschweigend verschwand und damit genau das wieder kaputt ging, was v1.70
+gerade repariert hatte. Siehe `tts/README.md`.
 
 ### Wann die Legacy-Dateien bearbeitet werden müssen
 

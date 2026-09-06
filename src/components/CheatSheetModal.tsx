@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { useLanguage, type Language } from '../i18n';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
 import { useArmyStore } from '../store/army';
+import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import type { Power } from '../types/data';
 
 /**
@@ -1326,6 +1327,7 @@ const FACTION_REF_TEXT: Record<Language, {
   prayersTitle: string; prayersSub: string;
   pactsTitle: string; pactsSub: string;
   discTitle: string; discSub: string;
+  genTitle: string; genSub: string;
   range: string; target: string; duration: string; cast: string; complexity: string;
   noArmy: string;
 }> = {
@@ -1333,6 +1335,7 @@ const FACTION_REF_TEXT: Record<Language, {
     prayersTitle: 'PRAYERS', prayersSub: 'PRAYERS TO THE DARK GODS · YOUR ARMY',
     pactsTitle: 'INFERNAL PACTS', pactsSub: 'PACTS · YOUR ARMY',
     discTitle: 'PSYCHIC DISCIPLINES', discSub: 'POWERS · YOUR ARMY',
+    genTitle: 'GENERAL PSYCHIC DISCIPLINES', genSub: 'CORE RULES · AVAILABLE TO EVERY PSYKER',
     range: 'Range', target: 'Target', duration: 'Duration', cast: 'Cast', complexity: 'Complexity',
     noArmy: 'Load an army to see its prayers, pacts and psychic powers here.',
   },
@@ -1340,6 +1343,7 @@ const FACTION_REF_TEXT: Record<Language, {
     prayersTitle: 'GEBETE', prayersSub: 'GEBETE AN DIE DUNKLEN GÖTTER · DEINE ARMEE',
     pactsTitle: 'INFERNALISCHE PAKTE', pactsSub: 'PAKTE · DEINE ARMEE',
     discTitle: 'PSIONISCHE DISZIPLINEN', discSub: 'KRÄFTE · DEINE ARMEE',
+    genTitle: 'ALLGEMEINE PSIONISCHE DISZIPLINEN', genSub: 'CORE RULES · FÜR JEDEN PSIONIKER',
     range: 'Reichweite', target: 'Ziel', duration: 'Dauer', cast: 'Cast', complexity: 'Komplexität',
     noArmy: 'Lade eine Armee, um hier ihre Gebete, Pakte und psionischen Kräfte zu sehen.',
   },
@@ -1347,6 +1351,7 @@ const FACTION_REF_TEXT: Record<Language, {
     prayersTitle: 'REZOS', prayersSub: 'REZOS A LOS DIOSES OSCUROS · TU EJÉRCITO',
     pactsTitle: 'PACTOS INFERNALES', pactsSub: 'PACTOS · TU EJÉRCITO',
     discTitle: 'DISCIPLINAS PSÍQUICAS', discSub: 'PODERES · TU EJÉRCITO',
+    genTitle: 'DISCIPLINAS PSÍQUICAS GENERALES', genSub: 'CORE RULES · DISPONIBLES PARA TODO PSÍQUICO',
     range: 'Alcance', target: 'Objetivo', duration: 'Duración', cast: 'Cast', complexity: 'Complejidad',
     noArmy: 'Carga un ejército para ver aquí sus rezos, pactos y poderes psíquicos.',
   },
@@ -1409,10 +1414,16 @@ function PactsSheet({ lang, pacts }: { lang: Language; pacts: Power[] }) {
   );
 }
 
-function DisciplineSheet({ lang, name, powers }: { lang: Language; name: string; powers: Power[] }) {
+/**
+ * One discipline page. `general` marks the Core Rules disciplines (Smite, Biomancy, Divination,
+ * Pyromancy, Telekinesis, Telepathy) that every psyker may draw on -- they are titled apart from
+ * the codex ones so a player can see at a glance which list a power came from.
+ */
+function DisciplineSheet({ lang, name, powers, general }:
+    { lang: Language; name: string; powers: Power[]; general?: boolean }) {
   const T = FACTION_REF_TEXT[lang];
   return (
-    <RefCard title={T.discTitle} sub={name}>
+    <RefCard title={general ? T.genTitle : T.discTitle} sub={name}>
       {powers.map(p => <PowerEntry key={p.name} p={p} T={T} />)}
     </RefCard>
   );
@@ -1432,6 +1443,15 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
   const prayers = data?.prayers ?? [];
   const pacts = data?.pacts ?? [];
   const disciplines = Object.entries(data?.disciplines ?? {}).filter(([, ps]) => ps.length > 0);
+  // Core Rules: "Psykers have access to the list of General Psychic Disciplines as well as those
+  // listed in their respective Codex." These pages were missing until v1.71 -- the sheets only read
+  // the faction's own disciplines, so the ~31 powers nearly every psyker shares had no page at all.
+  // Necrons are the sole faction-wide exception (every psyker there is "knows all the powers from
+  // the list of C'tan powers", with no generic-discipline wording anywhere) -- same rule the psychic
+  // picker enforces in PsychicModal.tsx.
+  const generalDisciplines = data && data.faction !== 'Necrons'
+    ? Object.entries(GENERAL_DISCIPLINES).filter(([, ps]) => ps.length > 0)
+    : [];
 
   return createPortal((
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#18171a' }}>
@@ -1475,6 +1495,11 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
           {pacts.length > 0 && (
             <PageSection><PactsSheet lang={language} pacts={pacts} /></PageSection>
           )}
+          {generalDisciplines.map(([name, powers]) => (
+            <PageSection key={`gen-${name}`}>
+              <DisciplineSheet lang={language} name={name} powers={powers} general />
+            </PageSection>
+          ))}
           {disciplines.map(([name, powers]) => (
             <PageSection key={name}><DisciplineSheet lang={language} name={name} powers={powers} /></PageSection>
           ))}

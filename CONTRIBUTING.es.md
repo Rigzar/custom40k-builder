@@ -260,6 +260,8 @@ src/store/      Estado Zustand — CRUD de lista de ejército y selecciones
 src/types/      Tipos TypeScript — Unit, Weapon, RosterEntry, etc.
 src/data/       Datos estáticos — changelog, metadatos de facciones
 src/i18n/       Textos de traducción (EN / DE / ES)
+src/utils/      Helpers compartidos sin estado propio — matemática de stats, búsqueda de poderes, exportaciones
+tts/            Mod de Tabletop Simulator (Lua) + su test headless
 ```
 
 ### Navegación — los cuatro pasos
@@ -299,6 +301,39 @@ que llegue un jugador tiene que tener una salida visible que no destruya su trab
 | `codex_<facción>/` | Módulo del motor por facción (uno por facción) — acá vive todo el código del motor de esa facción: `legacies.ts`, `traits.ts`, `resolver.ts`, `validator.ts`, `archetypes/{index.ts,rules.ts}` (cuando la facción los necesita), más los catálogos de referencia `keywords.ts`, `slots.ts`, `unit-types.ts`, `special-abilities.ts`, `weapon-abilities.ts` y un `digest.md` de referencia de auditoría |
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
 | `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`), la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`), la compatibilidad Gravis (`modelRestrictsToGravisSubset`) y los helpers de desbloqueo de Ordo/Legado de Inquisición (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca/Ordo. **Convención de glifos:** `ᵀ` = compatible con Terminator (NO Marca de Tzeentch); los glifos de marca son solo `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch va por sección (`armory_marks.Tzeentch`) y `ᶻ` queda reservado si alguna vez hace falta un glifo. **Cuando el trabajo toque la distinción Tzeentch-vs-Terminator, pregunta al mantenedor — no asumas.** |
+
+### Exportar a Tabletop Simulator
+
+Un ejército montado aquí se puede exportar a una mesa de Tabletop Simulator. Son dos mitades que
+hay que cambiar juntas:
+
+| Archivo | Función |
+|---|---|
+| `src/utils/ttsExport.ts` | Construye el payload y lo descarga (el botón **TTS** de la vista de impresión) |
+| `tts/Custom40k.lua` | El mod: lee ese payload y crea las cartas |
+
+**El mod no lleva codex, a propósito.** La app resuelve el ejército antes — con el mismo
+`resolveUnitProfile` que usan la ficha de unidad y la vista de impresión — así que lo que se
+exporta son stats finales, perfiles de arma finales y texto de reglas real. El Lua nunca necesita
+conocer una regla de Custom40k, y actualizar un codex nunca obliga a resubir el ítem del Workshop.
+Mantenelo así: si te encontrás metiendo lógica de reglas en el Lua, el arreglo va en la exportación.
+
+`TTS_SCHEMA` (TypeScript) y `SCHEMA` (Lua) tienen que coincidir; subí los dos juntos cuando cambie
+la forma del payload.
+
+**El Lua tiene test — ejecutalo antes de tocarlo.** TTS no tiene modo headless, así que el script
+corre bajo la VM de Lua `fengari` con los globales de TTS simulados, alimentado con una
+exportación real:
+
+```
+npx jiti tts/test/makeExport.ts "Codex/<un ejército guardado>.json" army.json
+node tts/test/run.cjs army.json          # agregá --dump para leer las cartas renderizadas
+```
+
+Su primera ejecución encontró cuatro bugs antes de que el archivo llegara al juego; el peor: en Lua
+`ipairs` se detiene en el primer hueco `nil` de una tabla literal, lo que borraba en silencio la
+línea de alcance/objetivo/duración de cada rezo — rompiendo justo lo que v1.70 acababa de arreglar.
+Ver `tts/README.md`.
 
 ### Cuándo editar los archivos de legado
 

@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.71',
+    date: '2026-09-06',
+    title: 'Export an army to Tabletop Simulator',
+    changes: [
+      'GENERAL — Print View gained a TTS button that downloads your army as a file the new Tabletop Simulator mod reads, so a list built here can be played on a TTS table with its rules in front of you. It spawns one card per unit carrying the FINAL numbers — stats after wargear and army traits, the weapon profiles that unit actually ends up with, its abilities, and what each piece of wargear does — plus your prayers, infernal pacts and psychic powers with their full range/target/duration on the card, and the whole faction’s prayers, pacts and psychic disciplines written into the TTS notebook for looking things up mid-game. The mod carries no codex at all: the app resolves everything before exporting, using the same engine the unit card and the printed sheet use, which means a codex update never requires re-downloading the mod. Requested after the first real game ("una manera de importar la lista al juego para tenerla en mesa de TTS"), and deliberately scoped to what is useful on the table — the list plus the rules reference, not the codex.',
+      'GENERAL — the Field Manual\'s psychic reference was missing the General Psychic Disciplines. The Core Rules say plainly that "Psykers have access to the list of General Psychic Disciplines as well as those listed in their respective Codex", but the reference pages added in v1.70 only read the faction\'s OWN disciplines — so Smite, Biomancy, Divination, Pyromancy, Telekinesis and Telepathy (31 powers that nearly every psyker in the game can draw on) had no page anywhere in the printed Field Manual. Reported by a player after using the sheets. They now print ahead of the codex disciplines and are titled apart from them, so it is obvious which list a power came from. Necrons are the one faction that correctly does NOT get these pages — every Necron psyker knows only C\'tan powers, the same restriction the power picker already enforces. The Tabletop Simulator export was fixed at the same time and for the same reason, so the table gets those disciplines in its notebook too.',
+    ],
+  },
+  {
     version: '1.70',
     date: '2026-09-06',
     title: 'Prayers, pacts and psychic powers now show their full rules — plus new Field Manual reference pages',
