@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
 import { useLanguage, type Language } from '../i18n';
 import { usePaperSize, PaperSizeCss, PaperSizeToggle } from './PaperSize';
+import { useArmyStore } from '../store/army';
+import type { Power } from '../types/data';
 
 /**
  * FIELD MANUAL — a single combined Quick Rules reference, viewable + printable/downloadable as
@@ -1307,6 +1309,115 @@ const TOOLBAR_TEXT: Record<Language, { title: string; print: string; close: stri
 };
 
 /** Every subsequent section starts on its own printed page, while still exporting as one file. */
+// ─────────────────────────────────────────────────────────────────────────
+// FACTION REFERENCE — Prayers / Infernal Pacts / Psychic Disciplines
+//
+// Unlike every sheet above, these are NOT core rules: they are the loaded army's OWN psychic
+// data, read live from the store (Rigzar, after a game: "hay que revisar bien las prayers...
+// creemos unas hojas nuevas donde esten por separado prayers, pactos, poderes psiquicos etc
+// para que haya facil acceso a ellas"). They render only when the army actually has that data,
+// so a faction with no priest simply gets no Prayers page.
+//
+// Headings are translated; the entries themselves are printed verbatim from the codex data and
+// stay in English, matching the convention used for every other datasheet in the app.
+// ─────────────────────────────────────────────────────────────────────────
+
+const FACTION_REF_TEXT: Record<Language, {
+  prayersTitle: string; prayersSub: string;
+  pactsTitle: string; pactsSub: string;
+  discTitle: string; discSub: string;
+  range: string; target: string; duration: string; cast: string; complexity: string;
+  noArmy: string;
+}> = {
+  en: {
+    prayersTitle: 'PRAYERS', prayersSub: 'PRAYERS TO THE DARK GODS · YOUR ARMY',
+    pactsTitle: 'INFERNAL PACTS', pactsSub: 'PACTS · YOUR ARMY',
+    discTitle: 'PSYCHIC DISCIPLINES', discSub: 'POWERS · YOUR ARMY',
+    range: 'Range', target: 'Target', duration: 'Duration', cast: 'Cast', complexity: 'Complexity',
+    noArmy: 'Load an army to see its prayers, pacts and psychic powers here.',
+  },
+  de: {
+    prayersTitle: 'GEBETE', prayersSub: 'GEBETE AN DIE DUNKLEN GÖTTER · DEINE ARMEE',
+    pactsTitle: 'INFERNALISCHE PAKTE', pactsSub: 'PAKTE · DEINE ARMEE',
+    discTitle: 'PSIONISCHE DISZIPLINEN', discSub: 'KRÄFTE · DEINE ARMEE',
+    range: 'Reichweite', target: 'Ziel', duration: 'Dauer', cast: 'Cast', complexity: 'Komplexität',
+    noArmy: 'Lade eine Armee, um hier ihre Gebete, Pakte und psionischen Kräfte zu sehen.',
+  },
+  es: {
+    prayersTitle: 'REZOS', prayersSub: 'REZOS A LOS DIOSES OSCUROS · TU EJÉRCITO',
+    pactsTitle: 'PACTOS INFERNALES', pactsSub: 'PACTOS · TU EJÉRCITO',
+    discTitle: 'DISCIPLINAS PSÍQUICAS', discSub: 'PODERES · TU EJÉRCITO',
+    range: 'Alcance', target: 'Objetivo', duration: 'Duración', cast: 'Cast', complexity: 'Complejidad',
+    noArmy: 'Carga un ejército para ver aquí sus rezos, pactos y poderes psíquicos.',
+  },
+};
+
+/** One prayer / pact / power, printed with every field the codex gives it. */
+function PowerEntry({ p, T }: { p: Power; T: typeof FACTION_REF_TEXT['en'] }) {
+  const meta = [
+    p.type,
+    p.range && p.range !== '-' ? `${T.range}: ${p.range}` : null,
+    p.cast_value ? `${T.cast}: ${p.cast_value}` : null,
+    p.target ? `${T.target}: ${p.target}` : null,
+    p.duration ? `${T.duration}: ${p.duration}` : null,
+    p.complexity ? `${T.complexity}: ${p.complexity}` : null,
+  ].filter(Boolean).join('  ·  ');
+  return (
+    <div style={{ marginBottom: 10, paddingLeft: 12, borderLeft: `3px solid ${ACCENT}44`, breakInside: 'avoid' }}>
+      <div style={{ fontWeight: 700, fontSize: '0.92rem', color: ACCENT }}>{p.name}</div>
+      {meta && (
+        <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.04em', color: MUTED, marginTop: 1 }}>
+          {meta}
+        </div>
+      )}
+      {p.effect && <div style={{ fontSize: '0.86rem', lineHeight: 1.4, marginTop: 3 }}>{p.effect}</div>}
+    </div>
+  );
+}
+
+function RefCard({ title, sub, children }: { title: string; sub: string; children: ReactNode }) {
+  return (
+    <Card>
+      <div style={{
+        textAlign: 'center', fontFamily: 'Cinzel, Georgia, serif', fontWeight: 700,
+        fontSize: '2rem', letterSpacing: '0.22em', color: ACCENT, marginBottom: 2,
+      }}>{title}</div>
+      <div style={{
+        textAlign: 'center', fontSize: '0.72rem', textTransform: 'uppercase',
+        letterSpacing: '0.18em', color: MUTED, marginBottom: 18,
+      }}>{sub}</div>
+      {children}
+    </Card>
+  );
+}
+
+function PrayersSheet({ lang, prayers }: { lang: Language; prayers: Power[] }) {
+  const T = FACTION_REF_TEXT[lang];
+  return (
+    <RefCard title={T.prayersTitle} sub={T.prayersSub}>
+      {prayers.map(p => <PowerEntry key={p.name} p={p} T={T} />)}
+    </RefCard>
+  );
+}
+
+function PactsSheet({ lang, pacts }: { lang: Language; pacts: Power[] }) {
+  const T = FACTION_REF_TEXT[lang];
+  return (
+    <RefCard title={T.pactsTitle} sub={T.pactsSub}>
+      {pacts.map(p => <PowerEntry key={p.name} p={p} T={T} />)}
+    </RefCard>
+  );
+}
+
+function DisciplineSheet({ lang, name, powers }: { lang: Language; name: string; powers: Power[] }) {
+  const T = FACTION_REF_TEXT[lang];
+  return (
+    <RefCard title={T.discTitle} sub={name}>
+      {powers.map(p => <PowerEntry key={p.name} p={p} T={T} />)}
+    </RefCard>
+  );
+}
+
 function PageSection({ children }: { children: ReactNode }) {
   return <div style={{ pageBreakBefore: 'always', breakBefore: 'page' }}>{children}</div>;
 }
@@ -1315,6 +1426,12 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
   const { language } = useLanguage();
   const T = TOOLBAR_TEXT[language];
   const [paperSize, setPaperSize] = usePaperSize();
+  // The faction reference pages below are driven by whatever army is currently loaded, so the
+  // Field Manual carries YOUR prayers/pacts/powers to the table alongside the core rules.
+  const data = useArmyStore(s => s.data);
+  const prayers = data?.prayers ?? [];
+  const pacts = data?.pacts ?? [];
+  const disciplines = Object.entries(data?.disciplines ?? {}).filter(([, ps]) => ps.length > 0);
 
   return createPortal((
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto" style={{ background: '#18171a' }}>
@@ -1351,6 +1468,16 @@ export function CheatSheetModal({ onClose }: { onClose: () => void }) {
           <PageSection><MeleeSheet lang={language} /></PageSection>
           <PageSection><PsychicSheet lang={language} /></PageSection>
           <PageSection><OrdersSheet lang={language} /></PageSection>
+          {/* Faction reference — only the pages the loaded army actually has. */}
+          {prayers.length > 0 && (
+            <PageSection><PrayersSheet lang={language} prayers={prayers} /></PageSection>
+          )}
+          {pacts.length > 0 && (
+            <PageSection><PactsSheet lang={language} pacts={pacts} /></PageSection>
+          )}
+          {disciplines.map(([name, powers]) => (
+            <PageSection key={name}><DisciplineSheet lang={language} name={name} powers={powers} /></PageSection>
+          ))}
         </div>
       </div>
     </div>

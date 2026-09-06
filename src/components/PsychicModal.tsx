@@ -6,6 +6,7 @@ import { getArchetypeRule } from '../engine/archetypes';
 import { GENERAL_DISCIPLINES } from '../data/generalDisciplines';
 import { SM_LEGACY_DISC_MAP, SM_CRUSADER_PRAYERS } from '../engine/codex_space_marines/legacies';
 import { getLegacyExtraPower } from '../engine/legacies';
+import { powerMetaLine } from '../utils/psychicFormat';
 import { useT } from '../i18n';
 
 interface Props { item: RosterEntry; unit: Unit; onClose: () => void; }
@@ -511,6 +512,11 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                       }`}
                   >
                     <div className="text-sm font-medium">{p.name}</div>
+                    {/* Range/target/duration used to be dropped here, so a prayer's own reach was
+                        invisible everywhere in the app (v1.70). Shown like psychic powers already do. */}
+                    {powerMetaLine(p) && (
+                      <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p)}</div>
+                    )}
                     {p.effect && (
                       <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
                     )}
@@ -536,6 +542,9 @@ export function PsychicModal({ item, unit, onClose }: Props) {
                       }`}
                   >
                     <div className="text-sm font-medium">{p.name}</div>
+                    {powerMetaLine(p) && (
+                      <div className="text-[10px] text-amber-600/90 uppercase tracking-wide mt-0.5">{powerMetaLine(p)}</div>
+                    )}
                     {p.effect && (
                       <div className="text-[11px] text-zinc-400 mt-1">{p.effect}</div>
                     )}

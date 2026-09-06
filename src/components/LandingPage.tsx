@@ -11,65 +11,40 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v169_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v170_dismissed';
 
-// v1.69 (2026-09-02) stays v1.69 (Rigzar: "mantenemos version") — line1-2 were the original two
-// Discord reports; line3-7 are 5 more bugs found the same day while building player-style army
-// lists (a technique Rigzar explicitly asked to repeat), all still under this same version per the
-// standing rule (append to the current version's banner instead of cutting a new one, unless
-// explicitly told to cut).
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; line9: string; line10: string; contrib: string; };
+// v1.70 (2026-09-06) is a REAL version cut (Rigzar: "todo sera nueva version"), so per
+// [[feedback_version_cut_banner_scope]] the banner is RESET to only this version's own content:
+// v1.69's ten lines are gone from here and live on in the changelog modal. Two items this time --
+// the prayer/pact/power rendering bug (name only, no range anywhere) and the new Field Manual
+// reference pages. Append follow-up fixes here only while v1.70 stays open.
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.69: pricing bugs fixed",
-    intro: "Discord reports plus a same-day audit, all about an option's cost applying to the wrong thing.",
+    title: "v1.70: prayers and powers show their full rules",
+    intro: "Reported right after a game — the app gave you a prayer's name and nothing else.",
     install: "",
-    line1: "🧬 Tyranids — a Basic/Advanced Biomorph (Pathogenesis, Acid Maw, ...) could be bought more than once on the same unit, letting its \"+\" stepper run up to the unit's model count as if the 5pt cost applied per model instead of once for the whole unit. Checked the canonical .ods: \"Point costs are paid per unit\" for both tiers — fixed, each Biomorph now caps at 1.",
-    line2: "🔫 Space Marines — Death Watch's \"Special ammunition\" was a flat +4pt toggle for the whole squad regardless of size, when its own text says \"each model may receive\" it. Fixed — it now scales with the unit's model count (a 5-model squad shows \"Ammo +20\").",
-    line3: "🕸️ Chaos Space Marines/Necrons/Tau Empire — 5 \"any model may swap/equip X\" options (Possessed's Jump packs, Big Mutants, Tomb Blades, Hazard/Broadside Battlesuits) charged their per-model rate TWICE, once per model and again for the whole unit — 5 Possessed with Jump packs cost 275pts instead of 55. Fixed.",
-    line4: "🎯 Imperial Guard — Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad's \"the unit may get ONE of these abilities\" pickers let you buy BOTH at once instead of picking one. Fixed — it's an exclusive pick again, still priced per model.",
-    line5: "🛡️ 12 armor-upgrade items across 8 factions (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) were paid for but never actually improved the save — their plain \"gains a 2+ save\" wording wasn't recognized unless it repeated the word \"armor\" next to \"save\". Fixed.",
-    line6: "⚔️ A Veteran Ability (Furious charge, Tank hunter, ...) bought for a unit with no general Armory access could silently vanish on save/reload if that unit's separate Champion-upgrade option wasn't also taken. Fixed — Veteran Abilities no longer depend on Armory access surviving a reload.",
-    line7: "🔧 Orks — most \"Kustom job\" vehicle upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) were paid for but did nothing at all — no ability text, no stat change. Fixed across all 13 vehicles/fortifications that offer them; Fortress on Wheels now grants its ward save and Stompamatic Pistons its +2\" Movement.",
-    line8: "🏍️ Space Marines — \"Space Marine bike\" added its Movement/Toughness/Wound bonus but never the Twin bolt rifle or the \"Bike\" unit type it grants (GitHub #112). Fixed.",
-    line9: "🔧 Same-day audit across 6 more factions found 8 more items with the identical gap (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisition, Tau Empire, Orks) — all fixed. Dark Eldar's Skybike was checked too and correctly left alone: its own rulebook genuinely calls \"Jetbike\" an ability there, not a type change.",
-    line10: "🗡️ Chaos Space Marines — Alpha Legion's \"Blade of the Hydra\" listed Rending with no threshold (a Discord question confirmed by Dominic: 5+). Fixed — now reads Rending(5+), matching every other Rending weapon in the game.",
-    contrib: "👁️ Reported straight from the in-app bug report form — keep using it. Anything still wrong: unit, engagement, archetype and a picture.",
+    line1: "✨ Prayers, infernal pacts and psychic powers showed only their NAME once picked — no range, no target, no duration, anywhere. You could select \"Veil of Despair\" and never learn from the app that it is a 6\" radius effect. The rules text itself was fine (checked against the canonical .ods — all ten prayers match verbatim); the bug was purely in the display, and it was in three places at once: the selection modal, the unit card and the printed sheet. All three fixed, so a printed army list is finally usable at the table.",
+    line2: "📜 Field Manual — new reference pages: PRAYERS, INFERNAL PACTS and one page per PSYCHIC DISCIPLINE, each entry with its range, target, duration, cast value and complexity, printable with the rest of the document. They follow the army you have loaded, so you get YOUR faction's content and nothing you don't need.",
+    contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.69: Preis-Bugs behoben",
-    intro: "Discord-Reports plus ein Audit am selben Tag, alle darüber, dass sich die Kosten einer Option auf das Falsche bezogen.",
+    title: "v1.70: Gebete und Kräfte zeigen ihre vollen Regeln",
+    intro: "Direkt nach einer Partie gemeldet — die App zeigte nur den Namen eines Gebets, sonst nichts.",
     install: "",
-    line1: "🧬 Tyranids — ein Basis-/Advanced-Biomorph (Pathogenesis, Acid Maw, ...) ließ sich mehrfach auf derselben Einheit kaufen, wobei der „+\"-Regler bis zur Modellanzahl der Einheit hochging, als würden die 5 Punkte pro Modell statt einmal für die ganze Einheit gelten. Im kanonischen .ods geprüft: „Point costs are paid per unit\" steht bei beiden Stufen ausdrücklich — behoben, jedes Biomorph deckelt jetzt bei 1.",
-    line2: "🔫 Space Marines — Death Watchs „Special ammunition\" war ein fester +4-Punkte-Umschalter für den ganzen Trupp, egal wie groß, obwohl der eigene Text „each model may receive\" sagt. Behoben — es skaliert jetzt mit der Modellanzahl der Einheit (ein 5-Modell-Trupp zeigt „Ammo +20\").",
-    line3: "🕸️ Chaos Space Marines/Necrons/Tau Empire — 5 „any model may swap/equip X\"-Optionen (Possessed, Big Mutants, Tomb Blades, Hazard/Broadside Battlesuits) berechneten ihren Pro-Modell-Preis ZWEIMAL — 5 Possessed mit Jump packs kosteten 275 statt 55 Punkte. Behoben.",
-    line4: "🎯 Imperial Guard — bei Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad konnte man beide „eine von diesen Fähigkeiten\"-Optionen gleichzeitig kaufen statt nur eine. Behoben — wieder eine exklusive Wahl, weiterhin pro Modell bepreist.",
-    line5: "🛡️ 12 Rüstungs-Upgrades in 8 Fraktionen (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) wurden bezahlt, verbesserten aber nie den Save — die schlichte Formulierung „gains a 2+ save\" wurde nur erkannt, wenn „armor\" direkt neben „save\" stand. Behoben.",
-    line6: "⚔️ Eine Veteranenfähigkeit (Furious charge, Tank hunter, ...), die für eine Einheit ohne allgemeinen Armory-Zugang gekauft wurde, konnte beim Speichern/Neuladen verschwinden, wenn die separate Champion-Option der Einheit nicht auch gewählt war. Behoben.",
-    line7: "🔧 Orks — die meisten „Kustom job\"-Fahrzeug-Upgrades (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) wurden bezahlt, bewirkten aber gar nichts — kein Fähigkeitstext, keine Statänderung. Behoben bei allen 13 Fahrzeugen/Befestigungen, die sie anbieten; Fortress on Wheels gewährt jetzt seinen Ward-Save und Stompamatic Pistons sein +2\"-Movement.",
-    line8: "🏍️ Space Marines — „Space Marine bike\" fügte Movement/Toughness/Wound hinzu, aber nie das Twin bolt rifle oder den „Bike\"-Einheitstyp (GitHub #112). Behoben.",
-    line9: "🔧 Ein Audit am selben Tag über 6 weitere Fraktionen fand 8 weitere Items mit derselben Lücke (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisition, Tau Empire, Orks) — alle behoben. Dark Eldars Skybike wurde ebenfalls geprüft und korrekt unverändert gelassen: dort heißt „Jetbike\" laut eigenem Regelwerk tatsächlich eine Fähigkeit, kein Typwechsel.",
-    line10: "🗡️ Chaos Space Marines — Alpha Legions „Blade of the Hydra\" hatte Rending ohne Schwellenwert (eine Discord-Frage, von Dominic bestätigt: 5+). Behoben — steht jetzt als Rending(5+), wie jede andere Rending-Waffe im Spiel.",
-    contrib: "👁️ Direkt aus dem Bug-Report-Formular in der App gemeldet — nutzt es weiter. Was noch falsch aussieht: Einheit, Engagement, Archetyp und ein Bild.",
+    line1: "✨ Gebete, infernalische Pakte und psionische Kräfte zeigten nach der Auswahl nur ihren NAMEN — keine Reichweite, kein Ziel, keine Dauer, nirgends. Bei \"Veil of Despair\" erfuhr man nie, dass es 6\" Radius hat. Der Regeltext selbst war korrekt (gegen das kanonische .ods geprüft, alle zehn Gebete stimmen wörtlich überein); der Fehler lag rein in der Darstellung, an drei Stellen gleichzeitig: Auswahlfenster, Einheitenkarte und Druckansicht. Alle drei behoben.",
+    line2: "📜 Field Manual — neue Referenzseiten: GEBETE, INFERNALISCHE PAKTE und je eine Seite pro PSIONISCHER DISZIPLIN, jeder Eintrag mit Reichweite, Ziel, Dauer, Cast-Wert und Komplexität, mitdruckbar. Sie richten sich nach der geladenen Armee, du bekommst also den Inhalt DEINER Fraktion.",
+    contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.69: bugs de precio arreglados",
-    intro: "Reportes de Discord más una auditoría el mismo día, todos sobre el coste de una opción aplicándose a lo que no era.",
+    title: "v1.70: los rezos y poderes ya muestran sus reglas completas",
+    intro: "Reportado justo después de una partida — la app te decía el nombre del rezo y nada más.",
     install: "",
-    line1: "🧬 Tyranids — un Biomorfo Básico/Avanzado (Pathogenesis, Acid Maw, ...) se podía comprar más de una vez en la misma unidad, dejando que el \"+\" subiera hasta el tamaño de la unidad como si el coste de 5pts fuera por modelo en vez de una sola vez para toda la unidad. Comprobado en el .ods canónico: \"Point costs are paid per unit\" para ambos niveles — arreglado, cada Biomorfo ahora topa en 1.",
-    line2: "🔫 Space Marines — \"Special ammunition\" de Death Watch era un cargo fijo de +4pts para toda la escuadra sin importar su tamaño, cuando su propio texto dice \"cada modelo puede recibirlo\". Arreglado — ahora escala con el tamaño de la unidad (una escuadra de 5 modelos muestra \"Ammo +20\").",
-    line3: "🕸️ Chaos Space Marines/Necrons/Tau Empire — 5 opciones \"cualquier modelo puede cambiar/equipar X\" (Poseídos, Big Mutants, Tomb Blades, Hazard/Broadside Battlesuits) cobraban su tarifa por modelo DOS VECES — 5 Poseídos con Jump packs costaban 275pts en vez de 55. Arreglado.",
-    line4: "🎯 Imperial Guard — en Stormtroopers/Stormtrooper Command Squad/Penal Legion Squad se podían comprar las dos habilidades \"la unidad puede obtener UNA de estas\" a la vez en vez de solo una. Arreglado — vuelve a ser una elección exclusiva, sigue costando por modelo.",
-    line5: "🛡️ 12 items de armadura en 8 facciones (Daemonic armor, Hellfire armor, Executioner's armour, Master-crafted armor/suit, Plate/Power/Carapace armour, Forgewrought armor, ...) se cobraban pero nunca mejoraban la salvación — el texto llano \"gana una salvación de 2+\" solo se reconocía si repetía la palabra \"armor\" junto a \"save\". Arreglado.",
-    line6: "⚔️ Una Habilidad de Veterano (Furious charge, Tank hunter, ...) comprada para una unidad sin acceso general a la Armería podía desaparecer sin aviso al guardar/recargar si la opción de Campeón de esa unidad no estaba también activada. Arreglado.",
-    line7: "🔧 Orks — la mayoría de mejoras de vehículo \"Kustom job\" (More Dakka, Press the Button, Shokka Hull, Squig-hide Tyres, Eavy armour cabin, Gyroscopic Whirlygig, Stompamatic Pistons) se cobraban pero no hacían absolutamente nada — sin texto de habilidad, sin cambio de estadística. Arreglado en los 13 vehículos/fortificaciones que las ofrecen; Fortress on Wheels ahora concede su salvación ward y Stompamatic Pistons su +2\" de Movimiento.",
-    line8: "🏍️ Space Marines — \"Space Marine bike\" añadía Movimiento/Aguante/Heridas pero nunca el Twin bolt rifle ni el tipo de unidad \"Bike\" (GitHub #112). Arreglado.",
-    line9: "🔧 Una auditoría el mismo día en 6 facciones más encontró 8 ítems más con el mismo fallo (Space Wolves, White Scars, Adeptus Mechanicus, Genestealer Cults, Adeptus Sororitas, Inquisición, Tau Empire, Orks) — todos arreglados. El Skybike de Dark Eldar también se revisó y se dejó correctamente igual: su propio reglamento llama \"Jetbike\" a una habilidad ahí, no a un cambio de tipo.",
-    line10: "🗡️ Chaos Space Marines — \"Blade of the Hydra\" (Alpha Legion) tenía Rending sin umbral (una duda de Discord confirmada por Dominic: 5+). Arreglado — ahora es Rending(5+), como cualquier otra arma con Rending del juego.",
-    contrib: "👁️ Reportado directo desde el formulario de reporte de bugs de la app — seguid usándolo. Lo que siga pareciendo mal: unidad, engagement, arquetipo y una imagen.",
+    line1: "✨ Los rezos, pactos infernales y poderes psíquicos solo mostraban su NOMBRE una vez elegidos — sin alcance, sin objetivo, sin duración, en ningún sitio. Podías elegir \"Veil of Despair\" y la app nunca te decía que es un radio de 6\". El texto de reglas estaba bien (comprobado contra el .ods canónico: los diez rezos coinciden verbatim); el fallo era puramente de visualización, y estaba en tres sitios a la vez: el modal de selección, la ficha de unidad y la hoja impresa. Los tres arreglados, así que por fin la lista impresa sirve en mesa.",
+    line2: "📜 Field Manual — hojas nuevas de referencia: REZOS, PACTOS INFERNALES y una hoja por cada DISCIPLINA PSÍQUICA, cada entrada con su alcance, objetivo, duración, valor de lanzamiento y complejidad, imprimibles con el resto del documento. Siguen al ejército que tengas cargado, así que ves el contenido de TU facción y nada más.",
+    contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
-
 /* canvas-smoke placeholder — wire up here when user provides the effect */
 
 function BoldSplitLine({ text }: { text: string }) {
@@ -141,27 +116,13 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.69 (2026-09-02) stays v1.69 — Rigzar: "mantenemos version". line1-2 were the
-              original 2 Discord reports (Tyranid Biomorphs qty-cap, Death Watch Special ammunition
-              flat-not-per-model). line3-6 are 4 more pricing bugs found the same day while building
-              a themed Chaos Space Marines army list (Argel Tal as a Chosen + daemonic upgrades):
-              line3 = 5 "any model may swap/equip X" options double-charging their per-model rate
-              (Possessed Jump packs et al.), line4 = 3 Imperial Guard units letting both halves of a
-              mutually-exclusive pick be bought at once, line5 = 12 armor-upgrade items across 8
-              factions whose bare "gains a 2+ save" wording the equipMods parser never recognized,
-              line6 = Veteran Abilities silently vanishing on reload for a unit with no Armory
-              access whose Champion-upgrade gate wasn't taken. line7 = found while building 3 more
-              4000pt bug-hunting army lists across different factions (Rigzar: "armate unas 3 listas
-              de diferentes ejercitos... para ver donde hay bugs") — Ork vehicle "Kustom job"
-              choices with no effect at all. line8 = GitHub #112, Space Marine bike's missing
-              weapon/unit-type grant. line9 = Rigzar asked whether other factions had the same
-              gap — cross-faction audit found 8 more instances (6 factions) + a Tau Crisis Honor
-              Guard option; Dark Eldar's Skybike checked and correctly left alone (canon calls it
-              an ability there, not a type). line10 = a Discord rules question (Blade of the
-              Hydra's Rending had no threshold in either production or the .ods; Dominic confirmed
-              5+). Do NOT cut a new version for a follow-up fix under this same effort — keep
-              appending here unless told otherwise. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8, tx.line9, tx.line10]
+          {/* v1.70 (2026-09-06) is a REAL version cut ("todo sera nueva version"), so this
+              banner carries ONLY v1.70's own two items and v1.69's ten lines were removed --
+              see [[feedback_version_cut_banner_scope]]. line1 = the prayer/pact/power display
+              bug (name only, no range/target/duration, in all three views at once); line2 = the
+              new faction reference pages in the Field Manual. Append here while v1.70 is open;
+              cut a fresh banner when a new version is cut. */}
+          {[tx.line1, tx.line2]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

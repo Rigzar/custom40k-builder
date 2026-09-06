@@ -9,6 +9,7 @@ import { parseAbility } from '../data/coreRules';
 import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCopiesPerModel, isOrkKustomJob } from '../engine/equipMods';
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
+import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -2106,17 +2107,28 @@ export function UnitCard({ item }: Props) {
           {item.prayers.length > 0 && (
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('prayers')}</div>
-              {item.prayers.map((prayer, i) => (
-                <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                  <span className="text-zinc-300">{prayer}</span>
-                  <button
-                    onClick={() => useArmyStore.getState().removePrayer(item.id, prayer)}
-                    className="text-red-500 hover:text-red-300"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
+              {/* Prayers used to render as a bare name, so the unit card never told you a prayer's
+                  range, target or duration — the reported v1.70 bug. Full line now, via the shared
+                  formatter so the modal and Print View can't drift from this. */}
+              {item.prayers.map((prayer, i) => {
+                const meta = powerMetaByName(prayer, data);
+                const eff = powerEffectByName(prayer, data);
+                return (
+                  <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                    <div className="min-w-0">
+                      <div className="text-zinc-300">{prayer}</div>
+                      {meta && <div className="text-[10px] text-amber-600/90 uppercase tracking-wide">{meta}</div>}
+                      {eff && <div className="text-[10px] text-zinc-500 leading-snug">{eff}</div>}
+                    </div>
+                    <button
+                      onClick={() => useArmyStore.getState().removePrayer(item.id, prayer)}
+                      className="text-red-500 hover:text-red-300 shrink-0"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           )}
 
@@ -2124,17 +2136,25 @@ export function UnitCard({ item }: Props) {
           {(item.pacts ?? []).length > 0 && (
             <div className="space-y-1">
               <div className="text-[10px] text-amber-700 uppercase tracking-widest">{t('infernalPactsLabel')}</div>
-              {(item.pacts ?? []).map((pact, i) => (
-                <div key={i} className="flex justify-between items-center bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
-                  <span className="text-zinc-300">{pact}</span>
-                  <button
-                    onClick={() => useArmyStore.getState().removePact(item.id, pact)}
-                    className="text-red-500 hover:text-red-300"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
+              {(item.pacts ?? []).map((pact, i) => {
+                const meta = powerMetaByName(pact, data);
+                const eff = powerEffectByName(pact, data);
+                return (
+                  <div key={i} className="flex justify-between items-start gap-2 bg-zinc-900 border border-zinc-700 px-2 py-1 text-[11px]">
+                    <div className="min-w-0">
+                      <div className="text-zinc-300">{pact}</div>
+                      {meta && <div className="text-[10px] text-amber-600/90 uppercase tracking-wide">{meta}</div>}
+                      {eff && <div className="text-[10px] text-zinc-500 leading-snug">{eff}</div>}
+                    </div>
+                    <button
+                      onClick={() => useArmyStore.getState().removePact(item.id, pact)}
+                      className="text-red-500 hover:text-red-300 shrink-0"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           )}
 

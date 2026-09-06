@@ -25,6 +25,15 @@ export interface KnownIssue {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.70',
+    date: '2026-09-06',
+    title: 'Prayers, pacts and psychic powers now show their full rules — plus new Field Manual reference pages',
+    changes: [
+      'GENERAL — a prayer, infernal pact or psychic power showed only its NAME once you had picked it, so the app never told you its range, target or duration anywhere (reported after a game: "hay que revisar bien las prayers, no dicen la distancia"). You could select "Veil of Despair" and never learn from the app that it is a 6" radius effect. CHECKED FIRST: the underlying data is correct — all ten Chaos Space Marines prayers match the canonical .ods (sheet "Prayers to the Dark Gods") verbatim, field for field, so nothing was wrong with the rules text itself. The bug was purely in the rendering, and it was in THREE places at once: the selection modal showed name + effect but dropped range/target/duration/complexity (psychic powers already showed theirs, prayers and pacts did not); the unit card printed the bare name; and Print View printed the bare name too, which made a printed army list useless at the table for looking anything up. Fixed all three through one shared formatter (`utils/psychicFormat.ts`) so the three views cannot drift apart again. Verified live: picking Veil of Despair now reads "6" RADIUS · SELF · UNTIL THE NEXT ACTIVATION OF THE CASTER" in the modal, on the unit card and on the printed sheet.',
+      'GENERAL — the Field Manual gained faction reference pages: a PRAYERS page, an INFERNAL PACTS page and one page per PSYCHIC DISCIPLINE, each listing every entry with its range, target, duration, cast value and complexity, printable with the rest of the document. These are driven by the army you currently have loaded rather than being hardcoded, so they show YOUR faction\'s content and simply do not appear for a faction that has none — a Chaos Space Marines army gets Prayers, Infernal Pacts and its six disciplines; an army with no priest gets no Prayers page at all. Requested after a match ("creemos unas hojas nuevas donde esten por separado prayers, pactos, poderes psiquicos etc para que haya facil acceso a ellas"). Headings are translated to all three languages; the rules entries themselves stay verbatim in English, matching the convention used for every other datasheet in the app.',
+    ],
+  },
+  {
     version: '1.69',
     date: '2026-09-02',
     title: 'Two pricing bugs: Tyranid Biomorphs and Death Watch Special ammunition',

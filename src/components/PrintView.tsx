@@ -10,6 +10,7 @@ import { useArmyStore } from '../store/army';
 import { resolveUnit } from '../engine/points';
 import { getArchetypeRule } from '../engine/archetypes';
 import { SLOT_ORDER, ENGAGEMENTS } from '../engine/engagements';
+import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
 import { SLOT_ICONS } from '../assets/slotIcons';
 import { lookupRuleGeneric, lookupWeaponType } from '../data/coreRules';
 import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOrderEntry } from '../engine/codex_imperial_guard/special-abilities';
@@ -805,9 +806,20 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
                   <div style={{ fontFamily: CONDUIT, fontSize: '.6em', fontWeight: 800, textTransform: 'uppercase', color, letterSpacing: '.08em', marginBottom: 3 }}>
                     {powerList.length > 0 ? 'Psychic Powers' : 'Prayers'}
                   </div>
-                  {[...powerList, ...prayerList].map((p, i) => (
-                    <div key={i} style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55` }}>{p}</div>
-                  ))}
+                  {/* Printed sheets used to carry the NAME only, which made them useless at the
+                      table — you could not look up a prayer's range or effect on your own list
+                      (v1.70). Full entry now, same formatter as the app views. */}
+                  {[...powerList, ...prayerList].map((p, i) => {
+                    const meta = powerMetaByName(p, data);
+                    const eff = powerEffectByName(p, data);
+                    return (
+                      <div key={i} style={{ fontSize: '.75em', color: '#333', paddingLeft: 7, borderLeft: `3px solid ${color}55`, marginBottom: 2 }}>
+                        <span style={{ fontWeight: 600 }}>{p}</span>
+                        {meta && <span style={{ color: '#777' }}> · {meta}</span>}
+                        {eff && <div style={{ fontSize: '.92em', color: '#555', lineHeight: 1.25 }}>{eff}</div>}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
