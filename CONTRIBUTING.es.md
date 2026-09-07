@@ -302,6 +302,26 @@ que llegue un jugador tiene que tener una salida visible que no destruya su trab
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
 | `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`), la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`), la compatibilidad Gravis (`modelRestrictsToGravisSubset`) y los helpers de desbloqueo de Ordo/Legado de Inquisición (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca/Ordo. **Convención de glifos:** `ᵀ` = compatible con Terminator (NO Marca de Tzeentch); los glifos de marca son solo `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch va por sección (`armory_marks.Tzeentch`) y `ᶻ` queda reservado si alguna vez hace falta un glifo. **Cuando el trabajo toque la distinción Tzeentch-vs-Terminator, pregunta al mantenedor — no asumas.** |
 
+### Formas de los datos de facción (`scripts/check_faction_shapes.ts`)
+
+`loaders.ts` arma cada facción a partir de unos 20 imports dinámicos de JSON y devuelve el
+resultado con `as unknown as FactionData`. Ese cast es necesario, pero significa que **un campo
+puede tener la forma equivocada en runtime y el compilador lo dará por bueno igual**.
+
+No es hipotético. `pacts` se inicializaba como `{}` en las 18 facciones sin `pacts.json` aunque su
+tipo prometía `Power[]`, así que `data.pacts.find(...)` lanzaba `find is not a function` y tumbaba
+la vista de impresión entera en cualquier ejército con un poder psíquico elegido — durante semanas,
+en silencio (GH#113).
+
+```
+npx jiti scripts/check_faction_shapes.ts
+```
+
+Recorre las 21 facciones con el loader real y comprueba que todo aquello sobre lo que el código
+llama `.find()` — `prayers`, `pacts`, cada disciplina, cada sección de armería — es realmente un
+array. **Ejecutalo tras tocar `loaders.ts`, cualquier fichero de `psychic/` o `armory/`, o el tipo
+`FactionData`.** Sale con código distinto de cero al primer problema.
+
 ### Exportar a Tabletop Simulator
 
 Un ejército montado aquí se puede exportar a una mesa de Tabletop Simulator. Son dos mitades que

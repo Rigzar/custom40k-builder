@@ -304,6 +304,25 @@ screen a player can reach must have a visible way out that does not destroy thei
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
 | `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`), Terminator-armour compatibility (`modelRestrictsToTermSubset`), Gravis compatibility (`modelRestrictsToGravisSubset`), and the Inquisition Ordo/Legacy unlock helpers (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark/Ordo gating is derived. **Glyph convention:** `ᵀ` = Terminator-compatible (NOT Mark of Tzeentch); the glyph marks are `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) only — Tzeentch is section-based (`armory_marks.Tzeentch`) and `ᶻ` is reserved if a glyph is ever needed. **When work touches the Tzeentch-vs-Terminator distinction, ask the maintainer — do not assume.** |
 
+### Faction data shapes (`scripts/check_faction_shapes.ts`)
+
+`loaders.ts` stitches each faction together from ~20 dynamic JSON imports and returns the result
+`as unknown as FactionData`. That cast is load-bearing, but it means **a field can have the wrong
+shape at runtime and the compiler will still call it valid**.
+
+That is not hypothetical. `pacts` defaulted to `{}` for the 18 factions with no `pacts.json` while
+its type promised `Power[]`, so `data.pacts.find(...)` threw `find is not a function` and took down
+the whole Print View for any army with a psychic power selected — for weeks, silently (GH#113).
+
+```
+npx jiti scripts/check_faction_shapes.ts
+```
+
+It walks all 21 factions through the real loader and asserts that everything the code calls
+`.find()` on — `prayers`, `pacts`, each discipline, every armory section — really is an array.
+**Run it after touching `loaders.ts`, any `psychic/` or `armory/` data file, or the `FactionData`
+type.** Exits non-zero on the first problem.
+
 ### Tabletop Simulator export
 
 An army built here can be exported to a Tabletop Simulator table. It is two halves that must be

@@ -306,6 +306,26 @@ sichtbaren Ausgang, der seine Arbeit nicht zerstoert.
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
 | `keywords.ts` | Schlüsselwort-Ableitungsschicht für die Wargear-Freischaltung — leitet an einer Stelle die Chaos-Mal-Anforderungen (`itemRequiredMark`), die Terminator-Rüstungskompatibilität (`modelRestrictsToTermSubset`), die Gravis-Kompatibilität (`modelRestrictsToGravisSubset`) und die Inquisition-Ordo/Legacy-Freischalt-Helfer (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) ab. Hier bearbeiten (nicht in `ArmoryModal`), wenn sich ändert, wie die Rüstungs-/Mal-/Ordo-Freischaltung abgeleitet wird. **Glyphen-Konvention:** `ᵀ` = Terminator-kompatibel (NICHT Mal des Tzeentch); die Mal-Glyphen sind nur `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch ist sektionsbasiert (`armory_marks.Tzeentch`), und `ᶻ` ist reserviert, falls je ein Glyph nötig wird. **Wenn Arbeit die Tzeentch-vs-Terminator-Unterscheidung berührt, frage den Maintainer — nicht annehmen.** |
 
+### Formen der Fraktionsdaten (`scripts/check_faction_shapes.ts`)
+
+`loaders.ts` setzt jede Fraktion aus rund 20 dynamischen JSON-Importen zusammen und gibt das
+Ergebnis als `as unknown as FactionData` zurück. Dieser Cast ist notwendig, bedeutet aber: **ein
+Feld kann zur Laufzeit die falsche Form haben, und der Compiler hält es trotzdem für gültig.**
+
+Das ist nicht theoretisch. `pacts` wurde für die 18 Fraktionen ohne `pacts.json` mit `{}` belegt,
+obwohl der Typ `Power[]` versprach — `data.pacts.find(...)` warf `find is not a function` und legte
+die gesamte Druckansicht lahm, sobald eine Armee eine psionische Kraft ausgewählt hatte; wochenlang,
+unbemerkt (GH#113).
+
+```
+npx jiti scripts/check_faction_shapes.ts
+```
+
+Es führt alle 21 Fraktionen durch den echten Loader und prüft, dass alles, worauf der Code
+`.find()` aufruft — `prayers`, `pacts`, jede Disziplin, jeder Armory-Abschnitt — wirklich ein Array
+ist. **Nach Änderungen an `loaders.ts`, an Dateien in `psychic/` oder `armory/` oder am Typ
+`FactionData` ausführen.** Beendet sich beim ersten Problem mit Fehlercode.
+
 ### Export nach Tabletop Simulator
 
 Eine hier gebaute Armee lässt sich auf einen Tabletop-Simulator-Tisch exportieren. Es sind zwei

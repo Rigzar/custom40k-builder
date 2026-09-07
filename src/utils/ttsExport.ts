@@ -69,8 +69,13 @@ function lookupAll(names: string[] | undefined, pools: Power[][]): Power[] {
 export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
   // Includes the Core Rules general disciplines: a psyker's picked power can come from there
   // (Smite most of all), and without them the lookup falls through to a bare name on the card.
-  const pools: Power[][] = [data.prayers ?? [], data.pacts ?? [], ...Object.values(data.disciplines ?? {}),
-                            ...Object.values(GENERAL_DISCIPLINES)];
+  // Non-arrays are filtered for the same reason as in psychicFormat.ts -- FactionData is built
+  // behind a cast, so a field can be the wrong shape at runtime (GH#113).
+  const pools: Power[][] = ([
+    data.prayers, data.pacts,
+    ...Object.values(data.disciplines ?? {}),
+    ...Object.values(GENERAL_DISCIPLINES),
+  ] as unknown[]).filter((p): p is Power[] => Array.isArray(p));
   const units: TtsUnit[] = [];
   let total = 0;
 

@@ -17,12 +17,18 @@ import type { FactionData, Power } from '../types/data';
 /** Look a prayer / pact / psychic power up by name across the whole faction's psychic data. */
 export function findPowerByName(name: string, data: FactionData | null | undefined): Power | undefined {
   if (!data) return undefined;
-  const pools: Power[][] = [
-    data.prayers ?? [],
-    data.pacts ?? [],
+  // `.filter(Array.isArray)` is not paranoia: FactionData is assembled with an
+  // `as unknown as FactionData` cast in loaders.ts, so a field can arrive the wrong SHAPE
+  // with the compiler none the wiser. `pacts` really did arrive as `{}` for 18 factions, and
+  // because this helper renders inside Print View and the unit card, one `.find` on a
+  // non-array took down the entire view rather than dropping one line (GH#113). A missing
+  // meta line is a far better failure than a blank page.
+  const pools: unknown[] = [
+    data.prayers,
+    data.pacts,
     ...Object.values(data.disciplines ?? {}),
   ];
-  for (const pool of pools) {
+  for (const pool of pools.filter((p): p is Power[] => Array.isArray(p))) {
     const hit = pool.find(p => p.name === name);
     if (hit) return hit;
   }

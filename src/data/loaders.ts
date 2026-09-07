@@ -49,8 +49,13 @@ async function asm(
     traits: a?.traits ?? [],
     animosity: r?.animosity ?? {},
     allied: r?.allied ?? {},
-    disciplines: d(psychic.disciplines ?? { default: [] }) ?? [],
-    pacts: d(psychic.pacts ?? { default: {} }) ?? {},
+    // Defaults must match the DECLARED type, not just be falsy-ish: `disciplines` is a
+    // Record and `pacts` is an array. `pacts` used to default to `{}` for the 18 factions
+    // with no pacts.json, and because the return is cast `as unknown as FactionData` the
+    // compiler never noticed -- `data.pacts.find(...)` then threw "find is not a function"
+    // and took down the whole Print View for any unit with a psychic power selected (GH#113).
+    disciplines: d(psychic.disciplines ?? { default: {} }) ?? {},
+    pacts: d(psychic.pacts ?? { default: [] }) ?? [],
     prayers: d(psychic.prayers ?? { default: [] }) ?? [],
     daemonkin: d(psychic.daemonkin ?? { default: {} }) ?? {},
   } as unknown as FactionData;

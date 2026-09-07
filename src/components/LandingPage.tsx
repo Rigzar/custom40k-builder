@@ -11,7 +11,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v170_tts_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v170_gh113_dismissed';
 
 // v1.70 (2026-09-06) was a REAL version cut (Rigzar: "todo sera nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner was RESET to v1.70's own content -- v1.69's
@@ -20,10 +20,11 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v170_tts_dismissed';
 // v1.70 IS STILL OPEN (Rigzar: "1.70 no cambie si no te digo"). Later work is APPENDED here,
 // never cut as a new version: line1 = the prayer/pact/power rendering bug, line2 = the Field
 // Manual reference pages, line3 = the Tabletop Simulator export, line4 = the General Psychic
-// Disciplines those reference pages were missing. Only ANNOUNCEMENT_KEY changed when lines 3-4
-// landed, so anyone who had dismissed the earlier banner still gets shown the added items.
+// Disciplines those reference pages were missing, line5 = the Print View crash line1's work
+// caused (GH#113). ANNOUNCEMENT_KEY moves with each batch, so anyone who had dismissed an
+// earlier banner still gets shown what was added since.
 // Keep appending until Rigzar says to cut a new version.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.70: full rules for prayers and powers, and your army in Tabletop Simulator",
@@ -33,6 +34,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line2: "📜 Field Manual — new reference pages: PRAYERS, INFERNAL PACTS and one page per PSYCHIC DISCIPLINE, each entry with its range, target, duration, cast value and complexity, printable with the rest of the document. They follow the army you have loaded, so you get YOUR faction's content and nothing you don't need.",
     line3: "⚔️ Print View has a new TTS button. It downloads your army as a file the Custom40k Tabletop Simulator mod reads, and puts one card per unit on the table with the FINAL numbers on it — stats after wargear and army traits, the weapon profiles that unit actually ends up with, its abilities, what each piece of wargear does, and your prayers, pacts and psychic powers with their full range, target and duration. Your whole faction's prayers, pacts and psychic disciplines also go into the TTS notebook. NOT ON THE STEAM WORKSHOP YET — the mod is still being worked on and has not been published; the button and the export work today, and the script ships in the repo if you want to try it early.",
     line4: "🔮 The Field Manual's psychic pages were missing the General Psychic Disciplines — Smite, Biomancy, Divination, Pyromancy, Telekinesis and Telepathy, the 31 powers the Core Rules give EVERY psyker on top of its own codex. The picker always offered them; only the printed sheets left them out. They now print ahead of your codex disciplines and are labelled apart. (Necrons correctly still don't get them — their psykers only know C'tan powers.)",
+    line5: "🚨 FIXED, and it was a bad one: Print View crashed outright for any army with a psychic power selected — in 18 of the 21 factions — with the error \"t.find is not a function\". It was collateral damage from the prayers/powers work above. Prayers were never affected, only psychic powers, which is why it went unnoticed. Reload the page and printing works again.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
@@ -43,6 +45,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line2: "📜 Field Manual — neue Referenzseiten: GEBETE, INFERNALISCHE PAKTE und je eine Seite pro PSIONISCHER DISZIPLIN, jeder Eintrag mit Reichweite, Ziel, Dauer, Cast-Wert und Komplexität, mitdruckbar. Sie richten sich nach der geladenen Armee, du bekommst also den Inhalt DEINER Fraktion.",
     line3: "⚔️ Die Druckansicht hat einen neuen TTS-Knopf. Er lädt deine Armee als Datei herunter, die das Custom40k-Mod für Tabletop Simulator liest, und legt pro Einheit eine Karte mit den ENDGÜLTIGEN Werten auf den Tisch — Werte nach Ausrüstung und Armee-Traits, die tatsächlichen Waffenprofile, Fähigkeiten, was jedes Ausrüstungsteil bewirkt, und deine Gebete, Pakte und psionischen Kräfte mit voller Reichweite, Ziel und Dauer. NOCH NICHT IM STEAM WORKSHOP — das Mod ist noch in Arbeit und nicht veröffentlicht; Knopf und Export funktionieren schon, und das Skript liegt im Repository.",
     line4: "🔮 Den psionischen Seiten des Field Manual fehlten die allgemeinen Disziplinen — Smite, Biomantie, Divination, Pyromantie, Telekinese und Telepathie, die 31 Kräfte, die die Core Rules JEDEM Psioniker zusätzlich zum eigenen Codex geben. Die Auswahl bot sie immer an; nur die gedruckten Blätter ließen sie weg. Sie stehen jetzt vor deinen Codex-Disziplinen und sind getrennt beschriftet. (Necrons bekommen sie zu Recht weiterhin nicht — ihre Psioniker kennen nur C'tan-Kräfte.)",
+    line5: "🚨 BEHOBEN, und zwar ein schlimmer Fehler: die Druckansicht stürzte für jede Armee mit ausgewählter psionischer Kraft komplett ab — in 18 von 21 Fraktionen — mit \"t.find is not a function\". Ein Kollateralschaden der Gebete/Kräfte-Arbeit oben. Gebete waren nie betroffen, nur psionische Kräfte. Seite neu laden, dann druckt es wieder.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -53,6 +56,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line2: "📜 Field Manual — hojas nuevas de referencia: REZOS, PACTOS INFERNALES y una hoja por cada DISCIPLINA PSÍQUICA, cada entrada con su alcance, objetivo, duración, valor de lanzamiento y complejidad, imprimibles con el resto del documento. Siguen al ejército que tengas cargado, así que ves el contenido de TU facción y nada más.",
     line3: "⚔️ La vista de impresión tiene un botón nuevo, TTS. Descarga tu ejército como un archivo que lee el mod de Custom40k para Tabletop Simulator, y pone en mesa una carta por unidad con los números FINALES — stats tras equipo y army traits, los perfiles de arma que la unidad acaba teniendo, sus habilidades, lo que hace cada pieza de equipo, y tus rezos, pactos y poderes psíquicos con su alcance, objetivo y duración completos. Los rezos, pactos y disciplinas de toda tu facción van además al cuaderno de TTS. AÚN NO ESTÁ EN EL STEAM WORKSHOP — el mod sigue en desarrollo y no está publicado; el botón y la exportación ya funcionan, y el script está en el repositorio por si quieres probarlo ya.",
     line4: "🔮 A las hojas psíquicas del Field Manual les faltaban las disciplinas generales — Smite, Biomancia, Divinación, Piromancia, Telequinesis y Telepatía, los 31 poderes que las Core Rules dan a TODO psíquico además de su propio codex. El selector siempre los ofrecía; solo faltaban en las hojas impresas. Ahora se imprimen antes de las disciplinas de tu codex y van etiquetadas aparte. (Los Necrons siguen sin tenerlas, y es correcto: sus psíquicos solo conocen poderes C'tan.)",
+    line5: "🚨 ARREGLADO, y era gordo: la vista de impresión se caía entera en cualquier ejército con un poder psíquico elegido — en 18 de las 21 facciones — con el error \"t.find is not a function\". Daño colateral del trabajo de rezos y poderes de arriba. Los rezos nunca se vieron afectados, solo los poderes psíquicos, por eso pasó desapercibido. Recarga la página y ya imprime.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -131,8 +135,9 @@ function CommunityAnnouncement() {
               work was APPENDED -- see [[feedback_version_cut_banner_scope]]. line1 = the
               prayer/pact/power display bug; line2 = the Field Manual reference pages;
               line3 = the Tabletop Simulator export; line4 = the General Psychic Disciplines
-              those reference pages were missing. Keep appending until a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4]
+              those reference pages were missing; line5 = the Print View crash line1's work
+              caused (GH#113). Keep appending until a new version is cut. */}
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
