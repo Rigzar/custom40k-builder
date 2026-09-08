@@ -535,7 +535,9 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
   }
 
   return (
-    <div style={{
+    // `pv-card`: see index.css's @media print block -- WebKit ignores break-inside: avoid on a
+    // plain block, so the print stylesheet re-boxes these as tables to keep them whole.
+    <div className="pv-card" style={{
       marginBottom: 7, pageBreakInside: 'avoid', breakInside: 'avoid',
       border: `1px solid ${color}55`,
       boxShadow: `0 2px 8px rgba(0,0,0,.22), inset 0 0 0 1px ${color}18`,
@@ -947,7 +949,7 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
   const ruleNames = abilitiesList.map(ab => { const ci = ab.indexOf(':'); return ci > 0 && ci < 52 ? ab.slice(0, ci) : ab; });
 
   return (
-    <div style={{ marginBottom: 14, pageBreakInside: 'avoid', breakInside: 'avoid', fontFamily: "'Trebuchet MS', sans-serif", color: '#111' }}>
+    <div className="pv-card" style={{ marginBottom: 14, pageBreakInside: 'avoid', breakInside: 'avoid', fontFamily: "'Trebuchet MS', sans-serif", color: '#111' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', borderBottom: '2px solid #111', paddingBottom: 2, marginBottom: 4 }}>
         <span style={{ fontWeight: 800, fontSize: '1em' }}>
           {item.customName || u.name}{variant ? ` › ${variant.name}` : ''}

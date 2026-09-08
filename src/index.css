@@ -380,4 +380,29 @@ body { margin: 0; font-family: 'Trebuchet MS', system-ui, sans-serif; }
     background: #fff !important;
   }
   .print\:hidden { display: none !important; }
+
+  /* Keep a unit's datasheet on ONE page.
+
+     Every card already carries `break-inside: avoid`, and Blink honours it -- verified in a
+     production build: a Tactical Squad card is ~360px against a ~1030px A4 content height, so
+     it comfortably fits and Chrome moves it whole. WebKit does not. Reported from iOS Safari
+     (Discord, 2026-09-08, with a 12-page A4 PDF): the header landed at the bottom of page 6
+     and the stat block and weapons on page 7. That is not an overflow -- the card fits with
+     room to spare -- it is Safari ignoring break-inside on an ordinary block box.
+
+     WebKit DOES honour it on a table box, which is the long-standing workaround. Re-boxing is
+     confined to @media print so the on-screen view is untouched, and `width:100%` +
+     `table-layout:fixed` keep the geometry identical to the block it replaces (checked against
+     a simulated print layout: same width, same height, no horizontal overflow).
+
+     If a card is ever genuinely taller than a page it still has to split -- no CSS can prevent
+     that -- but nothing in the game comes close at present. */
+  .pv-card {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+  }
 }
