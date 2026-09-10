@@ -306,6 +306,25 @@ sichtbaren Ausgang, der seine Arbeit nicht zerstoert.
 | `equipMods.ts` | Parst Ausrüstungsstatmodifikatoren (z. B. „+1 S") |
 | `keywords.ts` | Schlüsselwort-Ableitungsschicht für die Wargear-Freischaltung — leitet an einer Stelle die Chaos-Mal-Anforderungen (`itemRequiredMark`), die Terminator-Rüstungskompatibilität (`modelRestrictsToTermSubset`), die Gravis-Kompatibilität (`modelRestrictsToGravisSubset`) und die Inquisition-Ordo/Legacy-Freischalt-Helfer (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) ab. Hier bearbeiten (nicht in `ArmoryModal`), wenn sich ändert, wie die Rüstungs-/Mal-/Ordo-Freischaltung abgeleitet wird. **Glyphen-Konvention:** `ᵀ` = Terminator-kompatibel (NICHT Mal des Tzeentch); die Mal-Glyphen sind nur `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch ist sektionsbasiert (`armory_marks.Tzeentch`), und `ᶻ` ist reserviert, falls je ein Glyph nötig wird. **Wenn Arbeit die Tzeentch-vs-Terminator-Unterscheidung berührt, frage den Maintainer — nicht annehmen.** |
 
+### Waffennamen und Feuermodi (`src/utils/weaponName.ts`)
+
+Eine Waffe mit mehreren Profilen wird als ein Eintrag pro Modus gespeichert, und die Daten kennen
+**zwei Schreibweisen**:
+
+```
+Plasma pistol - Standard   /  Plasma pistol - Overcharged     (Bindestrich)
+Plasma gun (Standard)      /  Plasma gun (Overheating)        (Klammern)
+```
+
+`resolver.ts`, `PrintView.tsx` und `UnitCard.tsx` trennten nur an `' - '`, sodass jede
+Klammer-Waffe für die App mehrere verschiedene Waffen war: die Modi erschienen als eigene Zeilen,
+und nur einer trug die richtige Anzahl. Verwende immer `weaponBaseName` / `weaponMode` /
+`isModeRow` aus dieser Datei; implementiere die Trennung nicht erneut.
+
+**Nur für WAFFEN-Namen.** Ein abschließendes `(...)` dort zu entfernen ist sicher — keine Waffe im
+Spiel endet auf Klammern, ohne dass es ein Modus ist — bei Options-Namen dagegen nicht: Orks haben
+eine Auswahl, die auf `(counts as two arm weapons)` endet.
+
 ### Formen der Fraktionsdaten (`scripts/check_faction_shapes.ts`)
 
 `loaders.ts` setzt jede Fraktion aus rund 20 dynamischen JSON-Importen zusammen und gibt das

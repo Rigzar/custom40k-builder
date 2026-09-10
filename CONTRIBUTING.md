@@ -304,6 +304,24 @@ screen a player can reach must have a visible way out that does not destroy thei
 | `equipMods.ts` | Parses equipment stat modifiers (e.g., "+1 S") |
 | `keywords.ts` | Keyword-derivation seam for wargear gating — derives Chaos-Mark requirements (`itemRequiredMark`), Terminator-armour compatibility (`modelRestrictsToTermSubset`), Gravis compatibility (`modelRestrictsToGravisSubset`), and the Inquisition Ordo/Legacy unlock helpers (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`) in one place. Edit this (not `ArmoryModal`) when changing how armour/mark/Ordo gating is derived. **Glyph convention:** `ᵀ` = Terminator-compatible (NOT Mark of Tzeentch); the glyph marks are `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) only — Tzeentch is section-based (`armory_marks.Tzeentch`) and `ᶻ` is reserved if a glyph is ever needed. **When work touches the Tzeentch-vs-Terminator distinction, ask the maintainer — do not assume.** |
 
+### Weapon names and firing modes (`src/utils/weaponName.ts`)
+
+A multi-profile weapon is stored as one entry per mode, and the data uses **two spellings**:
+
+```
+Plasma pistol - Standard   /  Plasma pistol - Overcharged     (dash)
+Plasma gun (Standard)      /  Plasma gun (Overheating)        (brackets)
+```
+
+`resolver.ts`, `PrintView.tsx` and `UnitCard.tsx` each split on `' - '` only, so every
+bracket-spelled weapon was three different weapons as far as the app was concerned — the modes
+printed as separate rows, and only one of them got the right quantity. Always use
+`weaponBaseName` / `weaponMode` / `isModeRow` from this file; never re-implement the split.
+
+**These are for WEAPON names only.** Stripping a trailing `(...)` is safe there — no weapon in the
+game ends in brackets without it being a mode — but it is *not* safe on option-choice names, where
+Orks have a choice ending `(counts as two arm weapons)`.
+
 ### Faction data shapes (`scripts/check_faction_shapes.ts`)
 
 `loaders.ts` stitches each faction together from ~20 dynamic JSON imports and returns the result

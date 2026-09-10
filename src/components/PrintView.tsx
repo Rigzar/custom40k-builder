@@ -19,9 +19,8 @@ import { IG_INFANTRY_ORDERS, IG_VEHICLE_ORDERS, IG_LEGACY_ORDERS, type OfficerOr
 import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equipMods';
 import { resolveUnitProfile } from '../engine/resolver';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
+import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 
-/** Weapon name without its firing-mode suffix ("Plasma cannon - Standard" → "Plasma cannon"). */
-const weaponBaseName = (n: string) => n.split(' - ')[0];
 
 /**
  * A printed weapon row. `isProfileHeader` marks the name-only line that introduces a multi-profile
@@ -236,10 +235,17 @@ function StatRow({ keys, stats, mod, showLabels, modelLabel, color }: {
       {modelLabel && (
         <div style={{
           display: 'flex', alignItems: 'center',
-          minWidth: 54, paddingRight: 6, marginRight: 2,
+          // FIXED width, not a minimum. Each model row is its own flex row, so a label that grew
+          // to fit its text pushed that row's stat boxes right and they no longer lined up with
+          // the row above or with the M/WS/BS headers -- reported from a Tactical Squad whose
+          // 'Veteran Tactical Sergeant' row sat visibly offset from its 'Tactical Marine' row,
+          // making it hard to read which number belonged to which stat. 848 model names exist,
+          // 227 of them longer than 16 characters and the longest 31, so the label has to WRAP
+          // rather than stretch; `alignItems: flex-end` on the row keeps the boxes on one line.
+          width: 78, minWidth: 78, maxWidth: 78, paddingRight: 6, marginRight: 2,
           borderRight: '1px solid rgba(255,255,255,.18)',
           fontSize: '.58em', fontWeight: 700, color: 'rgba(255,255,255,.72)',
-          lineHeight: 1.2,
+          lineHeight: 1.2, overflowWrap: 'break-word',
         }}>
           {modelLabel}
         </div>
@@ -442,17 +448,21 @@ function UnitPrintCard({ item, data, armoryData }: { item: RosterEntry; data: Fa
     // A weapon with several firing modes is stored as one entry per mode. Print it the way the
     // codex does: the weapon named once (with its quantity), then its modes indented beneath —
     // never the full name and the quantity repeated on every mode.
+    // The quantity belongs to the WEAPON, not to one of its firing modes, so the header row
+    // takes it from whichever profile actually carries one instead of the first one blindly.
+    const groupPrefix = (list: Weapon[], base: string) => {
+      const owner = list.find(x => weaponBaseName(x.name) === base
+        && g.countOverrides?.get(x.name) !== undefined);
+      return prefixFor(owner ?? list.find(x => weaponBaseName(x.name) === base)!);
+    };
     const withCounts = (list: Weapon[]) => list.flatMap((w, i) => {
       const base = weaponBaseName(w.name);
-      const mode = w.name.slice(base.length).replace(/^\s*-\s*/, '');
+      if (!isModeRow(list, i)) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
+      const row = { ...mergeTraits(w, tm), name: `— ${weaponMode(w.name)}` };
       const prevSame = i > 0 && weaponBaseName(list[i - 1].name) === base;
-      const nextSame = i < list.length - 1 && weaponBaseName(list[i + 1].name) === base;
-      const isMode = !!mode && (prevSame || nextSame);
-      if (!isMode) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
-      const row = { ...mergeTraits(w, tm), name: `— ${mode}` };
       return prevSame
         ? [row]
-        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
+        : [{ ...mergeTraits(w, tm), name: groupPrefix(list, base) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));
@@ -877,17 +887,21 @@ function SimpleUnitCard({ item, data }: { item: RosterEntry; data: FactionData }
     // A weapon with several firing modes is stored as one entry per mode. Print it the way the
     // codex does: the weapon named once (with its quantity), then its modes indented beneath —
     // never the full name and the quantity repeated on every mode.
+    // The quantity belongs to the WEAPON, not to one of its firing modes, so the header row
+    // takes it from whichever profile actually carries one instead of the first one blindly.
+    const groupPrefix = (list: Weapon[], base: string) => {
+      const owner = list.find(x => weaponBaseName(x.name) === base
+        && g.countOverrides?.get(x.name) !== undefined);
+      return prefixFor(owner ?? list.find(x => weaponBaseName(x.name) === base)!);
+    };
     const withCounts = (list: Weapon[]) => list.flatMap((w, i) => {
       const base = weaponBaseName(w.name);
-      const mode = w.name.slice(base.length).replace(/^\s*-\s*/, '');
+      if (!isModeRow(list, i)) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
+      const row = { ...mergeTraits(w, tm), name: `— ${weaponMode(w.name)}` };
       const prevSame = i > 0 && weaponBaseName(list[i - 1].name) === base;
-      const nextSame = i < list.length - 1 && weaponBaseName(list[i + 1].name) === base;
-      const isMode = !!mode && (prevSame || nextSame);
-      if (!isMode) return [{ ...mergeTraits(w, tm), name: prefixFor(w) + w.name }];
-      const row = { ...mergeTraits(w, tm), name: `— ${mode}` };
       return prevSame
         ? [row]
-        : [{ ...mergeTraits(w, tm), name: prefixFor(w) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
+        : [{ ...mergeTraits(w, tm), name: groupPrefix(list, base) + base, range: '', type: '', s: '', ap: '', d: '', abilities: '', isProfileHeader: true }, row];
     });
     const ranged = withCounts(g.weapons
       .filter(w => w.range && w.range !== 'Melee' && w.range !== '-' && w.range !== '' && (g.countOverrides?.get(w.name) ?? g.count) !== 0));

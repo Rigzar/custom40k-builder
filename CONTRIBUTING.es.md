@@ -302,6 +302,24 @@ que llegue un jugador tiene que tener una salida visible que no destruya su trab
 | `equipMods.ts` | Parsea modificadores de estadísticas de equipo (p. ej., "+1 S") |
 | `keywords.ts` | Capa de derivación por keyword para el gating de wargear — deriva en un solo sitio los requisitos de Marca de Caos (`itemRequiredMark`), la compatibilidad con armadura Terminator (`modelRestrictsToTermSubset`), la compatibilidad Gravis (`modelRestrictsToGravisSubset`) y los helpers de desbloqueo de Ordo/Legado de Inquisición (`inquisitionLegacyOrdoUnlocks`, `chamberMilitantOrdo`). Edita aquí (no en `ArmoryModal`) cuando cambies cómo se deriva el gating de armadura/marca/Ordo. **Convención de glifos:** `ᵀ` = compatible con Terminator (NO Marca de Tzeentch); los glifos de marca son solo `ᴷ`/`ᴺ`/`ˢ` (Khorne/Nurgle/Slaanesh) — Tzeentch va por sección (`armory_marks.Tzeentch`) y `ᶻ` queda reservado si alguna vez hace falta un glifo. **Cuando el trabajo toque la distinción Tzeentch-vs-Terminator, pregunta al mantenedor — no asumas.** |
 
+### Nombres de arma y modos de disparo (`src/utils/weaponName.ts`)
+
+Un arma con varios perfiles se guarda como una entrada por modo, y los datos usan **dos grafías**:
+
+```
+Plasma pistol - Standard   /  Plasma pistol - Overcharged     (guion)
+Plasma gun (Standard)      /  Plasma gun (Overheating)        (paréntesis)
+```
+
+`resolver.ts`, `PrintView.tsx` y `UnitCard.tsx` partían solo por `' - '`, así que cada arma con
+paréntesis era, para la app, varias armas distintas: los modos salían como filas separadas y solo
+uno llevaba la cantidad correcta. Usá siempre `weaponBaseName` / `weaponMode` / `isModeRow` de este
+archivo; no reimplementes la separación.
+
+**Son solo para nombres de ARMA.** Quitar un `(...)` final ahí es seguro — ningún arma del juego
+termina en paréntesis sin que sea un modo — pero *no* lo es en nombres de opción, donde Orks tiene
+uno que acaba en `(counts as two arm weapons)`.
+
 ### Formas de los datos de facción (`scripts/check_faction_shapes.ts`)
 
 `loaders.ts` arma cada facción a partir de unos 20 imports dinámicos de JSON y devuelve el

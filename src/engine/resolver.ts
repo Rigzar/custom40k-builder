@@ -7,6 +7,7 @@ import { applyPlatoonSlotOverride } from './codex_imperial_guard/platoon';
 import { parseEquipMods, isWeaponTrait, extractWeaponGains, isGrantWeapon, extractGrantedWeaponName, weaponCopiesPerModel, requiresWeaponTarget, isEnumerableWeaponChoice, CHOSEN_WEAPON_GRANT_ITEMS, parseEnhancementDelta, CRUSADE_WEAPON_EFFECTS, EXARCH_POWER_EFFECTS } from './equipMods';
 import type { ChosenWeaponEffect } from './equipMods';
 import { mergeWeaponAbilities } from './abilityMerge';
+import { weaponBaseName } from '../utils/weaponName';
 import { getTraitEffects } from './traitEffects';
 import { effectiveSubfactions, traitRequiredSubfaction } from './codex_dark_eldar/subfaction';
 import { getCombatDrug } from './codex_dark_eldar/combatDrugs';
@@ -1164,7 +1165,14 @@ function resolveBase(item: RosterEntry, unit: Unit, state: ArmyState, data: Fact
     if (abilities.length === 0) continue;
     const isCharacterScoped = (armItem.p_char != null && armItem.p_unit == null) || championOnlyArmory;
     const target = (isCharacterScoped && hasCharacterScopedBuyer) ? championWeaponTraitMap : weaponTraitMap;
-    target.set(sel.targetWeapon, [...(target.get(sel.targetWeapon) ?? []), ...abilities]);
+    // Same reasoning as the numeric boosts below: register the granted ability against every
+    // profile of the targeted weapon, so "+1 AT" on a two-mode gun is not silently limited to
+    // whichever mode the player happened to pick in the dropdown.
+    const targetBase = weaponBaseName(sel.targetWeapon);
+    const profiles = weapons.filter(w => weaponBaseName(w.name) === targetBase).map(w => w.name);
+    for (const name of profiles.length ? profiles : [sel.targetWeapon]) {
+      target.set(name, [...(target.get(name) ?? []), ...abilities]);
+    }
   }
 
   // Per-unit options (never Armory purchases, so `item.armory` never holds them and the "All
@@ -1418,8 +1426,17 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     : [];
   // Of those, the ones the squad never bought for itself belong to the Champion alone and must be
   // kept off the squad's row.
-  const championOnlyWeapons = championBought.filter(w => !squadOnlyGrantedNames.has(baseName(w.name)));
+  const championOnlyWeapons = championBought.filter(w => !squadOnlyGrantedNames.has(weaponBaseName(w.name)));
   const squadWeapons = remaining.filter(w => !championOnlyWeapons.includes(w));
+  // AND THE MIRROR OF THAT, which was missing: a weapon the SQUAD bought through one of its own
+  // option groups belongs to the squad's row only. The Champion's row was built from the whole
+  // `remaining` list, so a Tactical Squad where one marine swapped his Boltgun for a Plasma gun
+  // printed that Plasma gun on the Sergeant's row too, and the player was told he had a weapon
+  // he never bought (Discord, 2026-09-10). Anything the Champion genuinely bought for itself is
+  // in `championBought` and stays.
+  const squadOnlyWeapons = remaining.filter(w =>
+    squadOnlyGrantedNames.has(weaponBaseName(w.name)) && !championBought.includes(w));
+  const championWeapons = remaining.filter(w => !squadOnlyWeapons.includes(w));
 
   // "Every Terminator is equipped with: …" AND "The Terminator Sergeant is equipped with: …" —
   // the article varies on the author's sheets, and matching only "Every" meant a squad whose
@@ -1617,7 +1634,7 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
     } else {
       groups = [
         { label: unit.models[0].name, count: squadCount, weapons: squadWeapons, traitMap: profile.weaponTraitMap },
-        { label: builtInChampion.name, count: championCount, weapons: [...remaining, ...championExtraWeapons], traitMap: champTraitMap },
+        { label: builtInChampion.name, count: championCount, weapons: [...championWeapons, ...championExtraWeapons], traitMap: champTraitMap },
       ];
     }
   } else {
@@ -1903,6 +1920,19 @@ export function computeWeaponGroups(unit: Unit, item: RosterEntry, profile: Reso
           : 0;
         overrides.set(w.name, alreadyHas + grantedQty.get(gKey)!);
       }
+    }
+    // One weapon, one quantity. A multi-profile weapon is stored as one entry per firing
+    // mode, and only the mode whose name happened to match the option choice got an
+    // override -- the rest fell through to the group's model count. Reported from a printed
+    // Space Marines sheet: one marine buys a plasma gun and the card reads "1x Plasma gun
+    // (Standard)" and "4x Plasma gun (Overheating)". Give every sibling profile the count
+    // its weapon actually has.
+    for (const w of grp.weapons) {
+      if (overrides.has(w.name)) continue;
+      const base = weaponBaseName(w.name);
+      const sibling = grp.weapons.find(x => x.name !== w.name
+        && weaponBaseName(x.name) === base && overrides.has(x.name));
+      if (sibling) overrides.set(w.name, overrides.get(sibling.name)!);
     }
     if (overrides.size > 0) grp.countOverrides = overrides;
   }
@@ -2217,7 +2247,12 @@ function applyChosenWeaponStatBoosts(item: RosterEntry, groups: WeaponGroup[]): 
       !!b && (!!b.effect.sDelta || !!b.effect.apDelta || !!b.effect.dDelta || !!b.effect.rangeDelta || !!b.effect.shotsDelta || !!b.effect.solariteX2ToX3));
   if (!boosts.length) return groups;
   const boost = (w: Weapon): Weapon => {
-    const matches = boosts.filter(b => b.targetWeapon === w.name);
+    // Match by BASE name. A weapon with several firing modes is stored as one entry per mode,
+    // and the picker lists each of them, so choosing "Plasma cannon (Standard)" used to boost
+    // that profile alone and leave "(Overheating)" -- the one you actually shoot with --
+    // untouched. It is one physical weapon: an enhancement applies to all of its profiles.
+    // (GH#115: a Leman Russ Tank Commander's Regimental artefact appeared to do nothing.)
+    const matches = boosts.filter(b => weaponBaseName(b.targetWeapon) === weaponBaseName(w.name));
     if (!matches.length) return w;
     let s = w.s, ap = w.ap, d = w.d, range = w.range, type = w.type;
     for (const { effect } of matches) {

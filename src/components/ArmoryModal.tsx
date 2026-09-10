@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { RosterEntry } from '../types/army';
 import type { Unit, ArmoryItem, FactionData } from '../types/data';
 import { useArmyStore } from '../store/army';
+import { weaponBaseName } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { armoryDataFor } from '../engine/armorySource';
 import { isWeaponTrait, isUniqueItem, isUnwieldyItem, isMultipleAllowed, multiplesPerModel, requiresWeaponTarget, isOrkKustomJob, isEnumerableWeaponChoice, parseEnumerableWeaponChoices } from '../engine/equipMods';
@@ -710,11 +711,16 @@ export function ArmoryModal({ item, unit, onClose, filterCategory, effectiveHasV
     return activeData.armory_general;
   }
 
-  // All weapons available to this unit (built-in + already-selected armory weapons)
-  const availableWeapons: string[] = [
-    ...unit.weapons.map(w => w.name),
-    ...item.armory.filter(a => a.section === 'weapons').map(a => a.itemName),
-  ];
+  // All weapons available to this unit (built-in + already-selected armory weapons),
+  // DEDUPED BY BASE NAME. A weapon with several firing modes is one entry per mode, so the
+  // "apply to" dropdown used to list "Plasma cannon (Standard)" and "(Overheating)" as if
+  // they were two guns; picking one applied the enhancement to that profile alone and the
+  // other stayed unchanged, which read as the item doing nothing (GH#115). The resolver now
+  // matches by base name, so storing the base name here is what the engine expects.
+  const availableWeapons: string[] = [...new Set([
+    ...unit.weapons.map(w => weaponBaseName(w.name)),
+    ...item.armory.filter(a => a.section === 'weapons').map(a => weaponBaseName(a.itemName)),
+  ])];
 
   function add(arm: ArmoryItem, src: string, sec: Section, targetWeapon?: string, chosenPower?: string) {
     let pts: number;

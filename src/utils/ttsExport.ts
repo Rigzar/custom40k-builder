@@ -115,9 +115,18 @@ export function buildTtsExport(state: ArmyState, data: FactionData): TtsExport {
       mark: rp.effectiveMark ?? null,
       models,
       equippedWith: rp.equippedWith ?? '',
-      weapons: rp.weaponsToShow.map(w => ({
-        name: w.name, range: w.range, type: w.type, s: w.s, ap: w.ap, d: w.d,
-        abilities: w.abilities ?? '-',
+      // From weaponGroups, NOT weaponsToShow. Targeted enhancements (a Regimental artefact's
+      // +1 Strength, a Daemon weapon's bonus) are applied when the groups are built, and
+      // granted abilities live in each group's traitMap -- neither reaches `weaponsToShow`,
+      // so a TTS card built from that list showed the unmodified profile while the app's own
+      // unit card showed the boosted one.
+      weapons: rp.weaponGroups.flatMap(g => g.weapons.map(w => {
+        const extra = (g.traitMap ?? rp.weaponTraitMap).get(w.name) ?? [];
+        const base = (w.abilities && w.abilities !== '-') ? w.abilities : '';
+        return {
+          name: w.name, range: w.range, type: w.type, s: w.s, ap: w.ap, d: w.d,
+          abilities: [base, ...extra].filter(Boolean).join(', ') || '-',
+        };
       })),
       abilities,
       // Carry each wargear item's own rules text, so the card explains what the item DOES rather

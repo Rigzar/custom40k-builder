@@ -10,6 +10,7 @@ import { isWeaponTrait, extractWeaponGains, parseInvSaveFromAbilities, weaponCop
 import { resolveUnitProfile, isOptionAvailable, loadoutClauseFor, resolveClauseItems } from '../engine/resolver';
 import { armoryItemsLostByDeselecting } from '../utils/armoryGuard';
 import { powerMetaByName, powerEffectByName } from '../utils/psychicFormat';
+import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
 import { getArchetypeRule } from '../engine/archetypes';
 import { isPlatoonMemberUnit, listPlatoonAnchors, PLATOON_ANCHOR_UNIT } from '../engine/codex_imperial_guard/platoon';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
@@ -2508,16 +2509,13 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
             // weapon - Strike"/"- Sweep", "Plasma cannon - Standard"/"- Overcharged"). Present it
             // the way the codex does — the weapon named once, with its modes listed beneath —
             // instead of repeating the full name and the quantity on every mode.
-            const wBase = (n: string) => n.split(' - ')[0];
-            const wMode = (n: string) => { const p = n.split(' - '); return p.length > 1 ? p.slice(1).join(' - ') : null; };
-            const base = wBase(w.name);
-            const isModeRow = wMode(w.name) != null && (
-              (i > 0 && wBase(weapons[i - 1].name) === base) ||
-              (i < weapons.length - 1 && wBase(weapons[i + 1].name) === base)
-            );
-            const startsModeGroup = isModeRow && !(i > 0 && wBase(weapons[i - 1].name) === base);
-            const rowCount = isModeRow ? null : rowCountRaw;
-            const displayName = isModeRow ? `— ${wMode(w.name)}` : w.name;
+            // Shared with Print View and the resolver so the two views cannot disagree about
+            // what counts as a firing mode -- they used to, for every "(Standard)"-style name.
+            const base = weaponBaseName(w.name);
+            const modeRow = isModeRow(weapons, i);
+            const startsModeGroup = modeRow && !(i > 0 && weaponBaseName(weapons[i - 1].name) === base);
+            const rowCount = modeRow ? null : rowCountRaw;
+            const displayName = modeRow ? `— ${weaponMode(w.name)}` : w.name;
             const extraTraits = traitMap?.get(w.name) ?? [];
             const baseAbilities = (w.abilities && w.abilities !== '-') ? w.abilities : '';
             // Merge: keeps best value per ability type. Returns improved (replaced) + added (new).
@@ -2542,7 +2540,7 @@ function WeaponTable({ weapons, traitMap, count, countOverrides }: { weapons: We
                 </tr>
               )}
               <tr className={`border-b border-zinc-700/40 ${i % 2 !== 0 ? 'bg-zinc-800/30' : ''}`}>
-                <td className={`py-1.5 pr-2 font-medium break-words ${isModeRow ? 'pl-3 text-zinc-400 text-[11px]' : 'text-zinc-100'}`}>{rowCount != null ? `${rowCount}x ` : ''}{displayName}</td>
+                <td className={`py-1.5 pr-2 font-medium break-words ${modeRow ? 'pl-3 text-zinc-400 text-[11px]' : 'text-zinc-100'}`}>{rowCount != null ? `${rowCount}x ` : ''}{displayName}</td>
                 <td className="py-1.5 px-1 font-mono text-center text-zinc-300">{w.range || '—'}</td>
                 <td className="py-1.5 px-1 text-zinc-400 text-[11px] break-words">
                   {(() => {

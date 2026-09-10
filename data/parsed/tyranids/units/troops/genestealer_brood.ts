@@ -37,7 +37,7 @@ export const genestealerBrood: Unit = {
   "variant_models": [
     {
       "name": "Broodlord",
-      "points": 10,
+      "points": 67,
       "min": 0,
       "max": 0,
       "stats": {
