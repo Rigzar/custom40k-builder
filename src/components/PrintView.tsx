@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, useRef, useLayoutEffect, Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import type { ReactElement } from 'react';
 import type { RosterEntry, Mark } from '../types/army';
@@ -20,6 +20,7 @@ import { isWeaponTrait, extractWeaponGains, isGrantWeapon } from '../engine/equi
 import { resolveUnitProfile } from '../engine/resolver';
 import { getArmySymbolUrl } from '../utils/getArmySymbolUrl';
 import { weaponBaseName, weaponMode, isModeRow } from '../utils/weaponName';
+import { paginate } from '../utils/printPagination';
 
 
 /**
@@ -1727,6 +1728,16 @@ export function PrintView({ onClose }: { onClose: () => void }) {
   // viewport width, which is why the card looked "cut off on the right" with the SV/invuln columns
   // unreachable (Discord 2026-07-18, Firefox/Android) — scrolling right only revealed empty
   // background. The toolbar now wraps, and this guards against any future wide child.
+  // Explicit pagination. Every card already carries `break-inside: avoid`, which Blink honours
+  // and WebKit ignores, so iPhone printouts split a datasheet down the middle (Discord report,
+  // and still broken after a `display: table` workaround). Rather than send another hint the
+  // engine may drop, measure the blocks and write a real `page-break-after` where a page fills
+  // up -- a CSS2 property every engine has honoured for decades, and one this file already uses
+  // for the cover page. Re-runs whenever the content or the paper size changes.
+  const printableRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (printableRef.current) paginate(printableRef.current, paperSize);
+  });
   return createPortal((
     <div id="pv-root" className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden" style={{ background: '#18171a' }}>
       {/* Toolbar — wraps on narrow screens so it can never force horizontal overflow */}
@@ -1768,7 +1779,7 @@ export function PrintView({ onClose }: { onClose: () => void }) {
       <PaperSizeCss size={paperSize} />
 
       {/* Printable area */}
-      <div id="pv-printable" className="max-w-3xl mx-auto px-4 py-6"
+      <div id="pv-printable" ref={printableRef} className="max-w-3xl mx-auto px-4 py-6"
         style={{ background: '#fff', minHeight: '100vh' }}>
 
         {army.length > 0 && (
