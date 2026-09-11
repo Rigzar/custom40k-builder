@@ -129,6 +129,9 @@ export const wyches: Unit = {
           "points": 1
         }
       ],
+      "replaces": [
+        "Hekatarii blade"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

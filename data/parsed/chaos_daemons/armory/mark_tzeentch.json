@@ -54,7 +54,12 @@
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, 2 Attacks with the \"Warp jaws\" weapon (see Screamers) and the \"Jet bike\" ability.",
       "p_unit": 35,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_weapons": [
+          "Warp jaws"
+        ]
+      }
     }
   ],
   "weapons": [],

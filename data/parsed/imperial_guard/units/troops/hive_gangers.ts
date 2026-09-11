@@ -358,6 +358,9 @@ export const hiveGangers: Unit = {
           "points": 18
         }
       ],
+      "replaces": [
+        "Gang firearm"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

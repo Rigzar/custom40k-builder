@@ -1,4 +1,4 @@
-﻿/**
+/**
  * RAVENER BROOD â€” Fast Attack
  *
  * SOURCE: TODO â€” add canonical datasheet text here when auditing this unit.
@@ -90,6 +90,9 @@ export const ravenerBrood: Unit = {
           "name": "Rending claws",
           "points": 0
         }
+      ],
+      "replaces": [
+        "Scything talons"
       ],
       "inline_pts": null,
       "variant_link": null,

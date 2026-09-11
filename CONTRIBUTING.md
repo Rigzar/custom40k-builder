@@ -322,6 +322,53 @@ printed as separate rows, and only one of them got the right quantity. Always us
 game ends in brackets without it being a mode — but it is *not* safe on option-choice names, where
 Orks have a choice ending `(counts as two arm weapons)`.
 
+### Weapon swaps (`scripts/check_weapon_swaps.ts`)
+
+An option group with `replaces: ["X"]` makes the engine take X away when the swap is bought.
+Without it the new weapon is simply **added**, so the card shows both and a squad ends up with more
+guns than models. Nothing errors and the points stay right — only the weapon list is wrong.
+
+```
+npx jiti scripts/check_weapon_swaps.ts
+```
+
+It flags any group whose header uses swap/replace/exchange wording, names a weapon the unit
+carries, offers choices, and has no `replaces`. **Exits non-zero**, so it is safe in a pre-push
+check. GH#116 was one of these and the sweep it prompted found 26 more across 9 factions.
+
+Two shapes to read the header for before acting:
+
+- **Only one weapon is given up even when two are named.** Inquisition Servitors: *"swap their
+  Paired shock chargers **for a** Shock charger and..."* — the Shock charger is what you receive.
+- **Chained swaps replace the PREVIOUS weapon, not the base loadout.** A Termagant is equipped with
+  Spinefists; group 1 swaps those for a Fleshborer; group 2 then swaps *the Fleshborer*.
+
+### Wargear that names a weapon (`scripts/check_weapon_grants.ts`)
+
+An armoury item hands a weapon over in one of two ways: a structured `effect.grants_weapons`, or a
+text parser that matches a few sentence shapes. The parser is easy to fall outside of, and when you
+do, the player silently gets nothing:
+
+```
+"...+1 Wound, a twin shuriken catapult and the ability "Jet bike"."   compound sentence
+"Additionally, it gains the "Cleansing flame" weapon."               not "the model gains"
+"The model gains a Twin heavy stubber."                              "stubber" is no known suffix
+```
+
+That was 13 items in 9 factions (GH#119). The checker works the other way round — it takes the
+faction's **real weapon names** and looks for them in item descriptions, which does not care how
+the sentence is phrased.
+
+```
+npx jiti scripts/check_weapon_grants.ts
+```
+
+**Two things to know before you act on a hit.** It is a review list, not a verdict: a description
+may legitimately mention a weapon in order to BOOST it ("the Immolator's Twin heavy flamer gains +1
+Strength"). And `effect.grants_weapons` is resolved **only** against `armory_general.weapons`, so
+naming a weapon that is not in that list grants nothing — add it there first as a granted-only
+entry (both prices `null`, the "Ossific Blades" convention). The checker flags that case too.
+
 ### Faction data shapes (`scripts/check_faction_shapes.ts`)
 
 `loaders.ts` stitches each faction together from ~20 dynamic JSON imports and returns the result

@@ -151,6 +151,9 @@ export const skitariiVanguard: Unit = {
           "points": 44
         }
       ],
+      "replaces": [
+        "Radium carbine"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

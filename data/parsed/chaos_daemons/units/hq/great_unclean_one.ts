@@ -104,6 +104,9 @@ export const greatUncleanOne: Unit = {
           "points": 0
         }
       ],
+      "replaces": [
+        "Bileblade"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
@@ -118,6 +121,9 @@ export const greatUncleanOne: Unit = {
           "name": "Bilesword",
           "points": 0
         }
+      ],
+      "replaces": [
+        "Doomsday bell"
       ],
       "inline_pts": null,
       "variant_link": null,

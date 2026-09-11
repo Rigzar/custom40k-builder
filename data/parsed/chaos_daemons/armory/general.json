@@ -1,6 +1,19 @@
 {
   "name": "Armory",
-  "weapons": [],
+  "weapons": [
+    {
+      "name": "Warp jaws",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+1",
+      "ap": "-4",
+      "d": "1",
+      "abilities": "Shred",
+      "p_unit": null,
+      "p_char": null
+    }
+  ],
   "equipment": [
     {
       "name": "Boon of Mutation",

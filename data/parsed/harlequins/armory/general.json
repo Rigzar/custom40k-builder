@@ -60,6 +60,18 @@
       "abilities": "Shuriken",
       "p_unit": null,
       "p_char": 3
+    },
+    {
+      "name": "Twin shuriken catapult",
+      "term_compat": false,
+      "range": "18\"",
+      "type": "Assault 4",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Shuriken",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [
@@ -96,7 +108,12 @@
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a twin shuriken catapult and the ability \"Jet bike\". Only for infantry.",
       "p_unit": null,
-      "p_char": 41
+      "p_char": 41,
+      "effect": {
+        "grants_weapons": [
+          "Twin shuriken catapult"
+        ]
+      }
     },
     {
       "name": "Marksman honours",

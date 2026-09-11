@@ -66,6 +66,9 @@ export const ogrynBrutes: Unit = {
           "points": 20
         }
       ],
+      "replaces": [
+        "Crude weapon"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

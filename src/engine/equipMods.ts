@@ -208,6 +208,19 @@ export function parseEquipMods(
         ...(it.typeEffect?.adds_unit_types ?? []),
         ...(it.typeEffect?.set_unit_type ? [it.typeEffect.set_unit_type] : []),
       ].map(t => t.toLowerCase().trim()));
+      // A quoted name the sentence NEGATES is not something the model gains -- it is something
+      // the item protects it from. Reported on Discord (2026-09-11) for a Leman Russ Tank
+      // Commander whose card listed "Crew Shaken" and "Engine damage" among its ABILITIES: it
+      // had bought Additional armor ("ignores the first 'Crew Shaken' vehicle damage each
+      // round") and a Chain guard ("ignores 'Engine damage' ... on a roll of 4+"), so the card
+      // advertised the two damage results the tank is RESISTANT to as though it suffered them.
+      // 19 items in 14 factions read this way -- every faction's Additional armor, plus Eldar and
+      // Harlequin Spirit stones and Tau Decoy launchers.
+      // Scoped to one clause (no '.' or ';' between the verb and the quote) so a later sentence
+      // that genuinely grants something is unaffected.
+      const negated = new Set(Array.from(
+        quotable.matchAll(/\b(?:ignores?|immune to|cannot suffer|does not suffer|is not affected by|never suffers?|prevents?)\b[^.;]*?"([^"]+)"/gi),
+        m => m[1].replace(/[,.;:]+$/, '').trim().toLowerCase()));
       for (const raw of quoted) {
         // Some descriptions put the sentence punctuation INSIDE the quotes — Exo-armor reads
         // `the abilities "Massive(1)," "Shock Troops," and "Unyielding."` — so the captured name
@@ -215,6 +228,9 @@ export function parseEquipMods(
         // punctuation only; a closing bracket is part of the name (Massive(1), Frenzy(1")).
         const ab = raw.replace(/[,.;:]+$/, '').trim();
         if (!ab) continue;
+        // …the item shields the model from this, it does not confer it. The full rule text is
+        // still shown under the wargear entry itself, so nothing is hidden from the player.
+        if (negated.has(ab.toLowerCase())) continue;
         // A quoted unit-type word THIS ITEM grants as a type is handled by the type system, not
         // shown as an ability too. Still guarded by UNIT_TYPE_WORDS so an unrelated quoted phrase
         // that happens to coincide with a real type name isn't swallowed by a data mistake.

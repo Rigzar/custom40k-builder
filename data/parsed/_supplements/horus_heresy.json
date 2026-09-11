@@ -3108,7 +3108,12 @@
         "term_compat": false,
         "desc": "The model gains +6\" movement, +1 Toughness, +1 Wound, a Heavy bolter and the \"Jet Bike\" type. Only for infantry.",
         "p_unit": 55,
-        "p_char": 60
+        "p_char": 60,
+        "effect": {
+          "grants_weapons": [
+            "Heavy bolter"
+          ]
+        }
       },
       {
         "name": "Legion vexilla",

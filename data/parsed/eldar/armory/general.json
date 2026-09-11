@@ -616,7 +616,12 @@
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +1 Toughness, +1 Wound, a twin shuriken catapult and the ability \"Jet bike\". Only for infantry.",
       "p_unit": 37,
-      "p_char": 41
+      "p_char": 41,
+      "effect": {
+        "grants_weapons": [
+          "Twin shuriken catapult"
+        ]
+      }
     },
     {
       "name": "Faolchu's wings",

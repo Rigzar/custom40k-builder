@@ -161,6 +161,10 @@ export const boyz: Unit = {
           "points": 13
         }
       ],
+      "replaces": [
+        "Choppa",
+        "Slugga"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

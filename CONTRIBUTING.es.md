@@ -320,6 +320,52 @@ archivo; no reimplementes la separación.
 termina en paréntesis sin que sea un modo — pero *no* lo es en nombres de opción, donde Orks tiene
 uno que acaba en `(counts as two arm weapons)`.
 
+### Cambios de arma (`scripts/check_weapon_swaps.ts`)
+
+Un grupo de opción con `replaces: ["X"]` hace que el motor quite X al comprar el cambio. Sin eso el
+arma nueva simplemente se **añade**, así que la ficha muestra las dos y la escuadra acaba con más
+armas que modelos. No falla nada y los puntos siguen bien — lo único mal es la lista de armas.
+
+```
+npx jiti scripts/check_weapon_swaps.ts
+```
+
+Marca cualquier grupo cuyo header use swap/replace/exchange, nombre un arma que la unidad lleva,
+ofrezca opciones y no tenga `replaces`. **Sale con código distinto de cero**, así que sirve para un
+check antes del push. El GH#116 era uno de estos y el barrido encontró 26 más en 9 facciones.
+
+Dos formas que hay que leer antes de actuar:
+
+- **A veces se nombran dos armas pero solo se entrega una.** Servitors de Inquisition: *"swap their
+  Paired shock chargers **for a** Shock charger and..."* — el Shock charger es lo que recibes.
+- **Los cambios encadenados reemplazan el arma ANTERIOR, no la del loadout base.** Un Termagant
+  lleva Spinefists; el grupo 1 los cambia por un Fleshborer; el grupo 2 cambia *ese Fleshborer*.
+
+### Equipo que nombra un arma (`scripts/check_weapon_grants.ts`)
+
+Un ítem de armería entrega un arma de dos maneras: un `effect.grants_weapons` estructurado, o un
+parser de texto que reconoce unas pocas formas de frase. Salirse del parser es fácil, y cuando pasa
+el jugador no recibe nada, en silencio:
+
+```
+"...+1 Wound, a twin shuriken catapult and the ability "Jet bike"."   frase compuesta
+"Additionally, it gains the "Cleansing flame" weapon."               no dice "the model gains"
+"The model gains a Twin heavy stubber."                              "stubber" no es sufijo conocido
+```
+
+Eran 13 ítems en 9 facciones (GH#119). El checker va al revés: coge los **nombres de arma reales**
+de la facción y los busca dentro de las descripciones, sin depender de cómo esté redactada la frase.
+
+```
+npx jiti scripts/check_weapon_grants.ts
+```
+
+**Dos cosas antes de actuar sobre un hit.** Es una lista para revisar, no un veredicto: una
+descripción puede mencionar un arma legítimamente para MEJORARLA. Y `effect.grants_weapons` se
+resuelve **solo** contra `armory_general.weapons`, así que nombrar un arma que no esté en esa lista
+no entrega nada — hay que añadirla ahí primero como entrada solo-concedida (ambos precios `null`,
+la convención "Ossific Blades"). El checker también avisa de ese caso.
+
 ### Formas de los datos de facción (`scripts/check_faction_shapes.ts`)
 
 `loaders.ts` arma cada facción a partir de unos 20 imports dinámicos de JSON y devuelve el

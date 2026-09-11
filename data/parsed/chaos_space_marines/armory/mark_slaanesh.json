@@ -216,6 +216,9 @@
       "effect": {
         "adds_unit_types": [
           "Bike"
+        ],
+        "grants_weapons": [
+          "Combi-bolter"
         ]
       }
     },

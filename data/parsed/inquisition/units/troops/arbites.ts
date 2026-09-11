@@ -174,6 +174,9 @@ export const arbites: Unit = {
           "points": 2
         }
       ],
+      "replaces": [
+        "Arbites combat shotgun"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

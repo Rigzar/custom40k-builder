@@ -420,7 +420,12 @@
       "term_compat": false,
       "desc": "The model gains the \"Searing beam\" weapon. Unique.",
       "p_unit": null,
-      "p_char": 5
+      "p_char": 5,
+      "effect": {
+        "grants_weapons": [
+          "Searing beam"
+        ]
+      }
     },
     {
       "name": "Teleport homing beacon",

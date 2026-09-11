@@ -480,7 +480,12 @@
       "armour_compat": [],
       "desc": "Increase the Ld of the model by 1. Additionally, it gains the \"Cleansing flame\" weapon. Unique. Only for Brotherhood-Champion.",
       "p_unit": null,
-      "p_char": 12
+      "p_char": 12,
+      "effect": {
+        "grants_weapons": [
+          "Cleansing flame"
+        ]
+      }
     },
     {
       "name": "Counter-attack",

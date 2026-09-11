@@ -116,6 +116,9 @@ export const kabaliteWarriors: Unit = {
           "points": 29
         }
       ],
+      "replaces": [
+        "Splinter rifle"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
@@ -136,6 +139,9 @@ export const kabaliteWarriors: Unit = {
           "name": "Dark lance",
           "points": 53
         }
+      ],
+      "replaces": [
+        "Splinter rifle"
       ],
       "inline_pts": null,
       "variant_link": null,

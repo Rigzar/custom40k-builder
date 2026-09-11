@@ -159,6 +159,9 @@ export const scourges: Unit = {
           "points": 42
         }
       ],
+      "replaces": [
+        "Shardcarbine"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

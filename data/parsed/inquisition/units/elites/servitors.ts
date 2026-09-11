@@ -100,6 +100,9 @@ export const servitors: Unit = {
           "points": 50
         }
       ],
+      "replaces": [
+        "Paired shock chargers"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

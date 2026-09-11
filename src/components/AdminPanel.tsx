@@ -5,7 +5,6 @@ import { runDataHealth, type HealthFinding } from '../engine/dataHealth';
 import { compareFaction, coverageGaps, ignoreKey, type SourceFinding, type SourceGap, type FixOwner } from '../engine/sourceCompare';
 import { overrideKey } from '../engine/dataOverrides';
 import { CHANGELOG } from '../data/changelog';
-import { KillTeamAlpha } from './KillTeamAlpha';
 import { abilityKey, ruleStrings } from '../data/coreRules';
 import { refreshDataOverrides } from '../data/loaders';
 import { FACTION_LOADERS } from '../data/loaders';
@@ -121,7 +120,7 @@ function toSheetId(input: string): string {
   return m ? m[1] : s;
 }
 
-type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'killteam' | 'calc';
+type AdminTab = 'overview' | 'users' | 'health' | 'audit' | 'announce' | 'factions' | 'i18n' | 'source' | 'find' | 'calc';
 
 const EDIT_LANGS: Language[] = ['en', 'de', 'es'];
 type AnnFields = { title: string; intro: string; lines: string; contrib: string };
@@ -210,8 +209,8 @@ interface AdminTx {
   transAbilitiesLoaded: (n: number) => string; transBoth: string;
   annTranslate: string; annTranslating: string;
   backToApp: string;
-  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabKillTeam: string; tabCalc: string;
-  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabKillTeam: string; helpTabCalc: string;
+  tabOverview: string; tabUsers: string; tabHealth: string; tabAudit: string; tabAnnounce: string; tabFactions: string; tabI18n: string; tabSource: string; tabFind: string; tabCalc: string;
+  helpTabOverview: string; helpTabUsers: string; helpTabHealth: string; helpTabAudit: string; helpTabAnnounce: string; helpTabFactions: string; helpTabI18n: string; helpTabSource: string; helpTabFind: string; helpTabCalc: string;
   catDashboard: string; catUsers: string; catContent: string; catDataAudit: string; catTools: string;
   codexVerTitle: string; codexVerHint: string;
   findHint: string; findPlaceholder: string; findRun: string; findRunning: string; findWhole: string; findCase: string;
@@ -310,12 +309,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Source check',
     helpTabSource: 'Compare unit points in the app against the creator\'s live Google Sheet and flag any differences.',
     tabFind: 'Find text',
-    tabKillTeam: 'Kill Team',
     tabCalc: 'Calculator',
     helpTabCalc: 'The game author\u2019s own points calculator, with his special-rule price list. Reference only \u2014 it changes nothing in the app.',
     codexVerTitle: 'Codex versions',
     codexVerHint: 'The version and readiness badge on each faction button. Saving publishes immediately \u2014 no deploy needed.',
-    helpTabKillTeam: 'Alpha of the Kill Team mode \u2014 the draft rules and a team builder. Admin-only: it is not wired into the builder, so no player can reach it.',
     helpTabFind: 'Search every faction\'s data for a word or phrase and list every place it appears.',
     catDashboard: 'Dashboard', catUsers: 'Users', catContent: 'Content', catDataAudit: 'Data Audit', catTools: 'Tools',
     findHint: 'Type any wording — an ability, a rules phrase, a weapon name — and this lists every place it appears across all factions: unit abilities, weapon abilities, option headers, armoury descriptions and the rules glossary. Useful before replacing a phrase with a new special rule. Read-only.',
@@ -428,12 +425,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Quellenabgleich',
     helpTabSource: 'Punkte der App gegen das Live-Google-Sheet des Erstellers vergleichen und Abweichungen anzeigen.',
     tabFind: 'Text suchen',
-    tabKillTeam: 'Kill Team',
     tabCalc: 'Rechner',
     helpTabCalc: 'Der Punkterechner des Autors, mit seiner Sonderregel-Preisliste. Nur Nachschlagewerk \u2014 \u00e4ndert nichts in der App.',
     codexVerTitle: 'Codex-Versionen',
     codexVerHint: 'Version und Status auf jedem Fraktions-Button. Speichern ver\u00f6ffentlicht sofort \u2014 kein Deploy n\u00f6tig.',
-    helpTabKillTeam: 'Alpha des Kill-Team-Modus \u2014 Regelentwurf und Team-Baukasten. Nur f\u00fcr Admins, nicht im Builder verdrahtet.',
     helpTabFind: 'Alle Fraktionsdaten nach einem Wort oder Satz durchsuchen und jede Fundstelle auflisten.',
     catDashboard: 'Übersicht', catUsers: 'Nutzer', catContent: 'Inhalte', catDataAudit: 'Datenprüfung', catTools: 'Werkzeuge',
     findHint: 'Gib eine beliebige Formulierung ein — eine Fähigkeit, einen Regelsatz, einen Waffennamen — und hier erscheint jede Fundstelle über alle Fraktionen hinweg: Einheiten-Fähigkeiten, Waffen-Fähigkeiten, Options-Überschriften, Arsenal-Beschreibungen und das Regelglossar. Praktisch, bevor man eine Formulierung durch eine neue Spezialregel ersetzt. Nur Lesen.',
@@ -546,12 +541,10 @@ const ADMIN_I18N: Record<Language, AdminTx> = {
     tabSource: 'Comparar fuente',
     helpTabSource: 'Compara los puntos de la app con la hoja de Google en vivo del creador y marca las diferencias.',
     tabFind: 'Buscar texto',
-    tabKillTeam: 'Kill Team',
     tabCalc: 'Calculadora',
     helpTabCalc: 'La calculadora de puntos del autor, con su lista de precios de reglas especiales. Solo consulta \u2014 no cambia nada en la app.',
     codexVerTitle: 'Versiones de codex',
     codexVerHint: 'La versi\u00f3n y el estado que salen en cada bot\u00f3n de facci\u00f3n. Guardar publica al momento \u2014 sin desplegar.',
-    helpTabKillTeam: 'Alpha del modo Kill Team \u2014 el borrador de reglas y un montador de equipos. Solo admins: no est\u00e1 conectado al builder, ning\u00fan jugador puede llegar.',
     helpTabFind: 'Busca una palabra o frase en los datos de todas las facciones y lista dónde aparece.',
     catDashboard: 'Resumen', catUsers: 'Usuarios', catContent: 'Contenido', catDataAudit: 'Auditoría de datos', catTools: 'Herramientas',
     findHint: 'Escribe cualquier texto — una habilidad, una frase de reglas, un nombre de arma — y aquí sale cada sitio donde aparece en todas las facciones: habilidades de unidad, habilidades de arma, cabeceras de opciones, descripciones de armería y el glosario de reglas. Útil antes de sustituir una frase por una regla especial nueva. Solo lectura.',
@@ -1471,7 +1464,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
     { id: 'health',   label: L.tabHealth,   help: L.helpTabHealth,   category: L.catDataAudit },
     { id: 'source',   label: L.tabSource,   help: L.helpTabSource,   category: L.catDataAudit },
     { id: 'find',     label: L.tabFind,     help: L.helpTabFind,     category: L.catDataAudit },
-    { id: 'killteam', label: L.tabKillTeam, help: L.helpTabKillTeam, category: L.catTools },
     { id: 'calc',     label: L.tabCalc,     help: L.helpTabCalc,     category: L.catTools },
   ];
   // An Interrogator only ever sees the tabs their backend calls can actually answer: the i18n
@@ -2264,7 +2256,6 @@ export function AdminPanel({ onClose, isAdmin, isInterrogator }: Props) {
             </div>
             )}
 
-            {tab === 'killteam' && <KillTeamAlpha lang={language} />}
 
             {tab === 'calc' && <PointsCalculator lang={language} />}
 

@@ -325,6 +325,55 @@ und nur einer trug die richtige Anzahl. Verwende immer `weaponBaseName` / `weapo
 Spiel endet auf Klammern, ohne dass es ein Modus ist — bei Options-Namen dagegen nicht: Orks haben
 eine Auswahl, die auf `(counts as two arm weapons)` endet.
 
+### Waffentausch (`scripts/check_weapon_swaps.ts`)
+
+Eine Optionsgruppe mit `replaces: ["X"]` sorgt dafür, dass die Engine X entfernt, wenn der Tausch
+gekauft wird. Ohne das wird die neue Waffe nur **hinzugefügt** — die Karte zeigt beide, und ein
+Trupp hat am Ende mehr Waffen als Modelle. Nichts schlägt fehl, die Punkte stimmen; falsch ist nur
+die Waffenliste.
+
+```
+npx jiti scripts/check_weapon_swaps.ts
+```
+
+Gemeldet wird jede Gruppe, deren Header swap/replace/exchange verwendet, eine Waffe der Einheit
+nennt, Auswahlmöglichkeiten hat und kein `replaces` trägt. **Beendet sich mit Fehlercode**, taugt
+also für eine Prüfung vor dem Push. GH#116 war so ein Fall; der Durchgang fand 26 weitere in 9
+Fraktionen.
+
+Zwei Formen, die man vorher lesen muss:
+
+- **Manchmal werden zwei Waffen genannt, aber nur eine abgegeben.** Inquisition Servitors: *"swap
+  their Paired shock chargers **for a** Shock charger and..."* — den Shock charger bekommt man.
+- **Verkettete Tausche ersetzen die VORHERIGE Waffe, nicht die Grundausrüstung.** Ein Termagant hat
+  Spinefists; Gruppe 1 tauscht sie gegen einen Fleshborer; Gruppe 2 tauscht *diesen Fleshborer*.
+
+### Ausrüstung, die eine Waffe nennt (`scripts/check_weapon_grants.ts`)
+
+Ein Armory-Gegenstand übergibt eine Waffe auf zwei Wegen: über ein strukturiertes
+`effect.grants_weapons` oder über einen Textparser, der nur wenige Satzformen erkennt. Aus diesem
+Parser fällt man leicht heraus — und dann bekommt der Spieler stillschweigend nichts:
+
+```
+"...+1 Wound, a twin shuriken catapult and the ability "Jet bike"."   zusammengesetzter Satz
+"Additionally, it gains the "Cleansing flame" weapon."               nicht "the model gains"
+"The model gains a Twin heavy stubber."                              "stubber" ist kein bekanntes Suffix
+```
+
+Betroffen waren 13 Gegenstände in 9 Fraktionen (GH#119). Der Checker geht den umgekehrten Weg: er
+nimmt die **echten Waffennamen** der Fraktion und sucht sie in den Beschreibungen, unabhängig von
+der Formulierung.
+
+```
+npx jiti scripts/check_weapon_grants.ts
+```
+
+**Zwei Hinweise, bevor du auf einen Treffer reagierst.** Es ist eine Prüfliste, kein Urteil: eine
+Beschreibung darf eine Waffe auch nennen, um sie zu VERBESSERN. Und `effect.grants_weapons` wird
+**nur** gegen `armory_general.weapons` aufgelöst — eine dort fehlende Waffe wird gar nicht
+übergeben; sie muss zuerst als Nur-Gewährt-Eintrag ergänzt werden (beide Preise `null`, die
+"Ossific Blades"-Konvention). Auch das meldet der Checker.
+
 ### Formen der Fraktionsdaten (`scripts/check_faction_shapes.ts`)
 
 `loaders.ts` setzt jede Fraktion aus rund 20 dynamischen JSON-Importen zusammen und gibt das

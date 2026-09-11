@@ -11,60 +11,43 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v170_cards_prices_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v171_dismissed';
 
-// v1.70 (2026-09-06) was a REAL version cut (Rigzar: "todo sera nueva version"), so per
-// [[feedback_version_cut_banner_scope]] this banner was RESET to v1.70's own content -- v1.69's
-// ten lines are gone from here and live on in the changelog modal.
-//
-// v1.70 IS STILL OPEN (Rigzar: "1.70 no cambie si no te digo"). Later work is APPENDED here,
-// never cut as a new version: line1 = the prayer/pact/power rendering bug, line2 = the Field
-// Manual reference pages, line3 = the Tabletop Simulator export, line4 = the General Psychic
-// Disciplines those reference pages were missing, line5 = the Print View crash line1's work
-// caused (GH#113), line6 = the printed-card weapon/stat fixes, line7 = the Tyranid promotion
-// prices (a POINTS change, so saved lists move -- that is why it says CHECK YOUR SAVED LISTS)
-// plus the IG artefact. ANNOUNCEMENT_KEY moves with each batch, so anyone who had dismissed an
-// earlier banner still gets shown what was added since.
-// Keep appending until Rigzar says to cut a new version.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; contrib: string; };
+// v1.71 (2026-09-11) is a REAL version cut (Rigzar: "todo lo que hagamos a partir de ahora es
+// nueva version"), so per [[feedback_version_cut_banner_scope]] this banner is RESET to only
+// v1.71's own content -- v1.70's seven lines are gone from here and live on in the changelog
+// modal. line1 = the 13 wargear items that never granted their weapon (GH#119), line2 = the
+// quoted damage results shown as abilities, line3 = the standing notice that the incoming
+// rules/codex updates are NOT in the app yet and should not be reported as bugs (Rigzar,
+// 2026-09-11: they are being finalised by Dominic and Unwise and need both sign-offs).
+// Append follow-ups here while v1.71 stays open.
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
-    title: "v1.70: full rules for prayers and powers, and your army in Tabletop Simulator",
-    intro: "Everything reported or asked for after the first real game — prayers that would not tell you their range, and a way to take the list into Tabletop Simulator.",
+    title: "v1.71: wargear that promised a weapon, and cards that listed the wrong abilities",
+    intro: "Two sweeps off the back of two reports — each one turned out to affect most of the game, not one unit.",
     install: "",
-    line1: "✨ Prayers, infernal pacts and psychic powers showed only their NAME once picked — no range, no target, no duration, anywhere. You could select \"Veil of Despair\" and never learn from the app that it is a 6\" radius effect. The rules text itself was fine (checked against the canonical .ods — all ten prayers match verbatim); the bug was purely in the display, and it was in three places at once: the selection modal, the unit card and the printed sheet. All three fixed, so a printed army list is finally usable at the table.",
-    line2: "📜 Field Manual — new reference pages: PRAYERS, INFERNAL PACTS and one page per PSYCHIC DISCIPLINE, each entry with its range, target, duration, cast value and complexity, printable with the rest of the document. They follow the army you have loaded, so you get YOUR faction's content and nothing you don't need.",
-    line3: "⚔️ Print View has a new TTS button. It downloads your army as a file the Custom40k Tabletop Simulator mod reads, and puts one card per unit on the table with the FINAL numbers on it — stats after wargear and army traits, the weapon profiles that unit actually ends up with, its abilities, what each piece of wargear does, and your prayers, pacts and psychic powers with their full range, target and duration. Your whole faction's prayers, pacts and psychic disciplines also go into the TTS notebook. NOT ON THE STEAM WORKSHOP YET — the mod is still being worked on and has not been published; the button and the export work today, and the script ships in the repo if you want to try it early.",
-    line4: "🔮 The Field Manual's psychic pages were missing the General Psychic Disciplines — Smite, Biomancy, Divination, Pyromancy, Telekinesis and Telepathy, the 31 powers the Core Rules give EVERY psyker on top of its own codex. The picker always offered them; only the printed sheets left them out. They now print ahead of your codex disciplines and are labelled apart. (Necrons correctly still don't get them — their psykers only know C'tan powers.)",
-    line5: "🚨 FIXED, and it was a bad one: Print View crashed outright for any army with a psychic power selected — in 18 of the 21 factions — with the error \"t.find is not a function\". It was collateral damage from the prayers/powers work above. Prayers were never affected, only psychic powers, which is why it went unnoticed. Reload the page and printing works again.",
-    line6: "🖨️ Printed cards: a weapon with two firing modes was listed as two weapons and only one of them showed the right quantity (a squad with one plasma gun read \"4x Plasma gun (Overheating)\"). It now prints once with its profiles beneath. Also fixed: a weapon bought for the squad no longer appears on the Sergeant's row, and long model names no longer push that row's stats out of line with the column headers.",
-    line7: "💰 TYRANIDS — CHECK YOUR SAVED LISTS. The Broodlord upgrade was charging MINUS 5 points, so taking it made the unit cheaper than leaving it at home; it now costs the +52 the codex states. The Neurothrope upgrade was free and now costs its +25. If you have a Genestealer Brood or a Zoanthrope Brood saved, its total will go up. Also fixed: an Imperial Guard Regimental artefact bought for a tank only boosted one firing mode of the chosen weapon — usually not the one you shoot with — so it looked like it did nothing.",
+    line1: "⚔️ 13 pieces of wargear across 9 factions promised a weapon and never gave it. Reported for the Eldar jetbike, which should come with its built-in twin shuriken catapult. The rest: Harlequin jetbikes, Votann Skimmer bike, Horus Heresy Scimitar Jetbike, Chaos Doombike, Screamer of Tzeentch, Grey Knights Warden of the Blade, Necron Staff of the Destroyer, Imperial Guard Twin heavy stubber, and Tau Knarloc steed, Markerlight and XV84. If you own one of those, the weapon is on your card now.",
+    line2: "🛡️ Vehicle cards listed the damage results their wargear PROTECTS them from as abilities they had. A Leman Russ with extra armour showed \"Crew Shaken\" and \"Engine damage\" under Abilities — exactly backwards. 19 items in 14 factions did this: every faction's Additional armor, plus Spirit stones, Decoy launchers and the Chain guard.",
+    line3: "⚠️ THE NEW RULES AND CODEX UPDATES ARE NOT IN THE APP YET. They are still being finalised by the two people working on them, Dominic and Unwise, and nothing goes in until they both sign it off. So if the app disagrees with a document you have seen recently — a points cost, a new option, a reworded rule — that is expected and it is NOT a bug. Please don't report those; we already know. Everything else is fair game and the report form is the fastest way to reach us.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
-    title: "v1.70: volle Regeln für Gebete und Kräfte, und deine Armee im Tabletop Simulator",
-    intro: "Alles, was nach der ersten echten Partie gemeldet oder gewünscht wurde — Gebete ohne Reichweitenangabe, und ein Weg, die Liste in den Tabletop Simulator zu bringen.",
+    title: "v1.71: Ausrüstung ohne ihre Waffe, und Karten mit den falschen Fähigkeiten",
+    intro: "Zwei Meldungen, zwei Durchgänge — beide betrafen fast das ganze Spiel, nicht eine Einheit.",
     install: "",
-    line1: "✨ Gebete, infernalische Pakte und psionische Kräfte zeigten nach der Auswahl nur ihren NAMEN — keine Reichweite, kein Ziel, keine Dauer, nirgends. Bei \"Veil of Despair\" erfuhr man nie, dass es 6\" Radius hat. Der Regeltext selbst war korrekt (gegen das kanonische .ods geprüft, alle zehn Gebete stimmen wörtlich überein); der Fehler lag rein in der Darstellung, an drei Stellen gleichzeitig: Auswahlfenster, Einheitenkarte und Druckansicht. Alle drei behoben.",
-    line2: "📜 Field Manual — neue Referenzseiten: GEBETE, INFERNALISCHE PAKTE und je eine Seite pro PSIONISCHER DISZIPLIN, jeder Eintrag mit Reichweite, Ziel, Dauer, Cast-Wert und Komplexität, mitdruckbar. Sie richten sich nach der geladenen Armee, du bekommst also den Inhalt DEINER Fraktion.",
-    line3: "⚔️ Die Druckansicht hat einen neuen TTS-Knopf. Er lädt deine Armee als Datei herunter, die das Custom40k-Mod für Tabletop Simulator liest, und legt pro Einheit eine Karte mit den ENDGÜLTIGEN Werten auf den Tisch — Werte nach Ausrüstung und Armee-Traits, die tatsächlichen Waffenprofile, Fähigkeiten, was jedes Ausrüstungsteil bewirkt, und deine Gebete, Pakte und psionischen Kräfte mit voller Reichweite, Ziel und Dauer. NOCH NICHT IM STEAM WORKSHOP — das Mod ist noch in Arbeit und nicht veröffentlicht; Knopf und Export funktionieren schon, und das Skript liegt im Repository.",
-    line4: "🔮 Den psionischen Seiten des Field Manual fehlten die allgemeinen Disziplinen — Smite, Biomantie, Divination, Pyromantie, Telekinese und Telepathie, die 31 Kräfte, die die Core Rules JEDEM Psioniker zusätzlich zum eigenen Codex geben. Die Auswahl bot sie immer an; nur die gedruckten Blätter ließen sie weg. Sie stehen jetzt vor deinen Codex-Disziplinen und sind getrennt beschriftet. (Necrons bekommen sie zu Recht weiterhin nicht — ihre Psioniker kennen nur C'tan-Kräfte.)",
-    line5: "🚨 BEHOBEN, und zwar ein schlimmer Fehler: die Druckansicht stürzte für jede Armee mit ausgewählter psionischer Kraft komplett ab — in 18 von 21 Fraktionen — mit \"t.find is not a function\". Ein Kollateralschaden der Gebete/Kräfte-Arbeit oben. Gebete waren nie betroffen, nur psionische Kräfte. Seite neu laden, dann druckt es wieder.",
-    line6: "🖨️ Gedruckte Karten: eine Waffe mit zwei Feuermodi wurde als zwei Waffen gelistet, und nur eine zeigte die richtige Anzahl (ein Trupp mit einer Plasmawaffe las \"4x Plasma gun (Overheating)\"). Sie steht jetzt einmal da, mit ihren Profilen darunter. Ebenfalls behoben: eine für den Trupp gekaufte Waffe erscheint nicht mehr in der Zeile des Sergeants, und lange Modellnamen verschieben die Werte dieser Zeile nicht mehr gegenüber den Spaltenüberschriften.",
-    line7: "💰 TYRANIDEN — PRÜFT EURE GESPEICHERTEN LISTEN. Das Broodlord-Upgrade kostete MINUS 5 Punkte, machte die Einheit also billiger als ohne; jetzt kostet es die im Codex genannten +52. Das Neurothrope-Upgrade war gratis und kostet nun seine +25. Wer eine Genestealer- oder Zoanthrope-Brut gespeichert hat, sieht die Summe steigen. Ebenfalls behoben: ein Regimentsartefakt der Imperialen Armee verbesserte nur einen Feuermodus der gewählten Waffe — meist nicht den, mit dem man schießt — und schien daher wirkungslos.",
+    line1: "⚔️ 13 Ausrüstungsteile in 9 Fraktionen versprachen eine Waffe und gaben sie nie. Gemeldet für das Eldar-Jetbike, das seinen eingebauten Twin shuriken catapult mitbringen soll. Ebenso: Harlekin-Jetbikes, Votann Skimmer bike, Horus-Heresy Scimitar Jetbike, Chaos Doombike, Screamer of Tzeentch, Grey Knights Warden of the Blade, Necron Staff of the Destroyer, Imperiale Armee Twin heavy stubber sowie Tau Knarloc steed, Markerlight und XV84.",
+    line2: "🛡️ Fahrzeugkarten führten die Schadensergebnisse, vor denen ihre Ausrüstung SCHÜTZT, als eigene Fähigkeiten auf. Ein Leman Russ mit Zusatzpanzerung zeigte \"Crew Shaken\" und \"Engine damage\" unter Fähigkeiten — genau verkehrt herum. 19 Teile in 14 Fraktionen.",
+    line3: "⚠️ DIE NEUEN REGEL- UND CODEX-UPDATES SIND NOCH NICHT IN DER APP. Sie werden gerade von den beiden Verantwortlichen fertiggestellt, Dominic und Unwise, und nichts wird übernommen, bevor beide es freigegeben haben. Wenn die App also von einem Dokument abweicht, das du kürzlich gesehen hast — Punktekosten, eine neue Option, eine umformulierte Regel — ist das so gewollt und KEIN Fehler. Bitte meldet das nicht; wir wissen davon. Alles andere gern über das Formular.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
-    title: "v1.70: reglas completas de rezos y poderes, y tu ejército en Tabletop Simulator",
-    intro: "Todo lo reportado o pedido tras la primera partida de verdad — rezos que no te decían su alcance, y una manera de llevarte la lista a Tabletop Simulator.",
+    title: "v1.71: equipo que prometía un arma, y fichas que listaban habilidades que no eran",
+    intro: "Dos reportes, dos barridos — los dos acabaron afectando a casi todo el juego, no a una unidad.",
     install: "",
-    line1: "✨ Los rezos, pactos infernales y poderes psíquicos solo mostraban su NOMBRE una vez elegidos — sin alcance, sin objetivo, sin duración, en ningún sitio. Podías elegir \"Veil of Despair\" y la app nunca te decía que es un radio de 6\". El texto de reglas estaba bien (comprobado contra el .ods canónico: los diez rezos coinciden verbatim); el fallo era puramente de visualización, y estaba en tres sitios a la vez: el modal de selección, la ficha de unidad y la hoja impresa. Los tres arreglados, así que por fin la lista impresa sirve en mesa.",
-    line2: "📜 Field Manual — hojas nuevas de referencia: REZOS, PACTOS INFERNALES y una hoja por cada DISCIPLINA PSÍQUICA, cada entrada con su alcance, objetivo, duración, valor de lanzamiento y complejidad, imprimibles con el resto del documento. Siguen al ejército que tengas cargado, así que ves el contenido de TU facción y nada más.",
-    line3: "⚔️ La vista de impresión tiene un botón nuevo, TTS. Descarga tu ejército como un archivo que lee el mod de Custom40k para Tabletop Simulator, y pone en mesa una carta por unidad con los números FINALES — stats tras equipo y army traits, los perfiles de arma que la unidad acaba teniendo, sus habilidades, lo que hace cada pieza de equipo, y tus rezos, pactos y poderes psíquicos con su alcance, objetivo y duración completos. Los rezos, pactos y disciplinas de toda tu facción van además al cuaderno de TTS. AÚN NO ESTÁ EN EL STEAM WORKSHOP — el mod sigue en desarrollo y no está publicado; el botón y la exportación ya funcionan, y el script está en el repositorio por si quieres probarlo ya.",
-    line4: "🔮 A las hojas psíquicas del Field Manual les faltaban las disciplinas generales — Smite, Biomancia, Divinación, Piromancia, Telequinesis y Telepatía, los 31 poderes que las Core Rules dan a TODO psíquico además de su propio codex. El selector siempre los ofrecía; solo faltaban en las hojas impresas. Ahora se imprimen antes de las disciplinas de tu codex y van etiquetadas aparte. (Los Necrons siguen sin tenerlas, y es correcto: sus psíquicos solo conocen poderes C'tan.)",
-    line5: "🚨 ARREGLADO, y era gordo: la vista de impresión se caía entera en cualquier ejército con un poder psíquico elegido — en 18 de las 21 facciones — con el error \"t.find is not a function\". Daño colateral del trabajo de rezos y poderes de arriba. Los rezos nunca se vieron afectados, solo los poderes psíquicos, por eso pasó desapercibido. Recarga la página y ya imprime.",
-    line6: "🖨️ Fichas impresas: un arma con dos modos de disparo se listaba como dos armas y solo una mostraba la cantidad correcta (una escuadra con un plasma gun ponía \"4x Plasma gun (Overheating)\"). Ahora sale una vez con sus perfiles debajo. También arreglado: un arma comprada para la escuadra ya no aparece en la fila del sargento, y los nombres largos de modelo ya no descuadran los stats de esa fila respecto a las cabeceras.",
-    line7: "💰 TIRÁNIDOS — REVISA TUS LISTAS GUARDADAS. La mejora del Broodlord cobraba MENOS 5 puntos, o sea que cogerlo salía más barato que dejarlo en casa; ahora cuesta los +52 que dice el codex. La del Neurothrope era gratis y ahora cuesta sus +25. Si tienes guardada una Genestealer Brood o una Zoanthrope Brood, el total te subirá. También arreglado: un artefacto Regimental de la Guardia Imperial comprado para un tanque solo mejoraba uno de los modos de disparo del arma elegida — normalmente no el que usas — así que parecía no hacer nada.",
+    line1: "⚔️ 13 piezas de equipo en 9 facciones prometían un arma y nunca la daban. Reportado por el jetbike de Eldar, que debe venir con su twin shuriken catapult integrado. Los demás: jetbikes de Harlequins, Skimmer bike de Votann, Scimitar Jetbike de Horus Heresy, Doombike del Caos, Screamer of Tzeentch, Warden of the Blade de Grey Knights, Staff of the Destroyer de Necrons, Twin heavy stubber de la Guardia, y Knarloc steed, Markerlight y XV84 de Tau. Si tienes alguno, el arma ya te sale en la ficha.",
+    line2: "🛡️ Las fichas de vehículo listaban como habilidades propias los daños de los que su equipo les PROTEGE. Un Leman Russ con blindaje adicional mostraba \"Crew Shaken\" y \"Engine damage\" en Habilidades — justo al revés. 19 ítems en 14 facciones lo hacían: el Additional armor de cada facción, más Spirit stones, Decoy launchers y el Chain guard.",
+    line3: "⚠️ LOS NUEVOS UPDATES DE REGLAS Y CODEX TODAVÍA NO ESTÁN EN LA APP. Los están rematando las dos personas que se encargan, Dominic y Unwise, y no entra nada hasta que ambos den el visto bueno. Así que si la app no coincide con un documento que hayas visto hace poco — un coste en puntos, una opción nueva, una regla reescrita — es lo esperado y NO es un bug. Por favor no lo reportéis; ya lo sabemos. Cualquier otra cosa sí, y el formulario es la vía más rápida.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -139,15 +122,10 @@ function CommunityAnnouncement() {
               {tx.install}
             </p>
           )}
-          {/* v1.70 is STILL OPEN, so this banner keeps its original two lines and the later
-              work was APPENDED -- see [[feedback_version_cut_banner_scope]]. line1 = the
-              prayer/pact/power display bug; line2 = the Field Manual reference pages;
-              line3 = the Tabletop Simulator export; line4 = the General Psychic Disciplines
-              those reference pages were missing; line6 = the printed-card weapon/stat fixes;
-              line7 = the Tyranid promotion prices (a POINTS change, so saved lists move) and
-              the IG artefact; line5 = the Print View crash line1's work
-              caused (GH#113). Keep appending until a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7]
+          {/* v1.71 is a REAL version cut, so this banner carries ONLY v1.71's own two items;
+              v1.70's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
+              here while v1.71 is open; cut a fresh banner when a new version is cut. */}
+          {[tx.line1, tx.line2, tx.line3]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>

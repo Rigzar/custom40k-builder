@@ -94,6 +94,10 @@ export const beastSnaggaBoyz: Unit = {
           "points": 2
         }
       ],
+      "replaces": [
+        "Choppa",
+        "Slugga"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

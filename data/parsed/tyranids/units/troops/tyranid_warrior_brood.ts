@@ -132,6 +132,9 @@ export const tyranidWarriorBrood: Unit = {
           "points": 19
         }
       ],
+      "replaces": [
+        "Spinefists"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

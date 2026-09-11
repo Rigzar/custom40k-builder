@@ -50,6 +50,9 @@ export const hekatrixBloodbrides: Unit = {
         { "name": "Razorflails", "points": 1 },
         { "name": "Shardnet and impaler", "points": 1 }
       ],
+      "replaces": [
+        "Hekatarii blade"
+      ],
       "inline_pts": null, "variant_link": null, "is_unique_per_army": false
     }
   ],

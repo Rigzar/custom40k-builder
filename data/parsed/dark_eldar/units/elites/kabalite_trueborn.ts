@@ -48,6 +48,9 @@ export const kabaliteTrueborn: Unit = {
         { "name": "Shredder", "points": 13 },
         { "name": "Blaster", "points": 29 }
       ],
+      "replaces": [
+        "Splinter rifle"
+      ],
       "inline_pts": null, "variant_link": null, "is_unique_per_army": false
     },
     {
@@ -56,6 +59,9 @@ export const kabaliteTrueborn: Unit = {
       "choices": [
         { "name": "Splinter cannon", "points": 18 },
         { "name": "Dark lance", "points": 53 }
+      ],
+      "replaces": [
+        "Splinter rifle"
       ],
       "inline_pts": null, "variant_link": null, "is_unique_per_army": false
     }

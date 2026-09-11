@@ -320,6 +320,18 @@
       "abilities": "-",
       "p_unit": 8,
       "p_char": 11
+    },
+    {
+      "name": "Twin heavy stubber",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 6",
+      "s": "4",
+      "ap": "0",
+      "d": "1",
+      "abilities": "Suppression",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [
@@ -736,7 +748,12 @@
       "desc": "The model gains a Twin heavy stubber.",
       "p_unit": 30,
       "p_char": null,
-      "category": "vehicle"
+      "category": "vehicle",
+      "effect": {
+        "grants_weapons": [
+          "Twin heavy stubber"
+        ]
+      }
     },
     {
       "name": "Vox",

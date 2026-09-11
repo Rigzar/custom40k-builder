@@ -215,6 +215,9 @@ export const dreadnought: Unit = {
           "points": 2
         }
       ],
+      "replaces": [
+        "Storm bolter"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false,

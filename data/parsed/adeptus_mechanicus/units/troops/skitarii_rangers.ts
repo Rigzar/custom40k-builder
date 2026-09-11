@@ -151,6 +151,9 @@ export const skitariiRangers: Unit = {
           "points": 44
         }
       ],
+      "replaces": [
+        "Galvanic rifle"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

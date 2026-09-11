@@ -190,6 +190,9 @@ export const hearthkynWarriors: Unit = {
           "points": 50
         }
       ],
+      "replaces": [
+        "Autoch-pattern bolter"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false
@@ -228,6 +231,9 @@ export const hearthkynWarriors: Unit = {
           "name": "Ion blaster",
           "points": 1
         }
+      ],
+      "replaces": [
+        "Autoch-pattern bolter"
       ],
       "inline_pts": null,
       "variant_link": null,

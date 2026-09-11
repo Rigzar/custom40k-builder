@@ -164,6 +164,9 @@ export const combatEngineers: Unit = {
           "points": 6
         }
       ],
+      "replaces": [
+        "Machine pistol"
+      ],
       "inline_pts": null,
       "variant_link": null,
       "is_unique_per_army": false

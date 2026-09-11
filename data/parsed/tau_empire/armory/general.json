@@ -92,6 +92,42 @@
       "abilities": "Flurry(1), Unwieldy",
       "p_unit": 10,
       "p_char": 15
+    },
+    {
+      "name": "Knarloc talons",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "+2",
+      "ap": "-1",
+      "d": "1",
+      "abilities": "Extra attack, Flurry(1)",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Krootox fist",
+      "term_compat": false,
+      "range": "-",
+      "type": "Melee",
+      "s": "U",
+      "ap": "-2",
+      "d": "1",
+      "abilities": "-",
+      "p_unit": null,
+      "p_char": null
+    },
+    {
+      "name": "Markerlight",
+      "term_compat": false,
+      "range": "36\"",
+      "type": "Heavy 1",
+      "s": "*",
+      "ap": "*",
+      "d": "*",
+      "abilities": "Markerlight",
+      "p_unit": null,
+      "p_char": null
     }
   ],
   "equipment": [
@@ -156,7 +192,12 @@
       "term_compat": false,
       "desc": "The model gains +6\" Movement, +2 Toughness, +1 Wound, a 5+ Save, a Knarloc talons, the \"Vanguard\" ability, and changes its unit type to \"Bike\". Kroot infantry only.",
       "p_unit": 25,
-      "p_char": 33
+      "p_char": 33,
+      "effect": {
+        "grants_weapons": [
+          "Knarloc talons"
+        ]
+      }
     },
     {
       "name": "Kroothawk Totemᴵ",
@@ -177,7 +218,12 @@
       "term_compat": false,
       "desc": "The model gains +2 Strength, +2 Toughness, +2 Wounds, a 5+ Save, a Krootox fist, and changes its unit type to \"Monstrous Infantry\". Kroot infantry only.",
       "p_unit": 31,
-      "p_char": 39
+      "p_char": 39,
+      "effect": {
+        "grants_weapons": [
+          "Krootox fist"
+        ]
+      }
     },
     {
       "name": "Mark of the Favored Childᴵ",
@@ -191,7 +237,12 @@
       "term_compat": false,
       "desc": "The model gains a Markerlight, see Index. Only for Infantry.",
       "p_unit": 10,
-      "p_char": null
+      "p_char": null,
+      "effect": {
+        "grants_weapons": [
+          "Markerlight"
+        ]
+      }
     },
     {
       "name": "Master-crafted suit",
@@ -317,7 +368,12 @@
       "term_compat": false,
       "desc": "The model gains a Markerlight and a Target Lock. Can't be combined with other battlesuits.",
       "p_unit": null,
-      "p_char": 15
+      "p_char": 15,
+      "effect": {
+        "grants_weapons": [
+          "Markerlight"
+        ]
+      }
     },
     {
       "name": "XV85 Enforcer battlesuit",
@@ -333,7 +389,9 @@
       "p_unit": null,
       "p_char": 25,
       "effect": {
-        "adds_unit_types": ["Jetbike"]
+        "adds_unit_types": [
+          "Jetbike"
+        ]
       }
     },
     {
