@@ -65,6 +65,22 @@ export function BugReportModal({ onClose, currentFaction }: Props) {
                 Fill in what you can — no technical knowledge needed. We'll get back to you as soon as possible.
               </p>
 
+              {/* Unwise's suggestion (2026-09-11): the landing banner already carries this, but a
+                  banner can be dismissed and only shows on the front page. THIS is the moment
+                  someone is about to report a rules mismatch, so the notice belongs here too. */}
+              <div className="border-l-2 border-amber-700 bg-amber-950/25 pl-3 py-2 space-y-1">
+                <p className="text-amber-500 text-[11px] uppercase tracking-widest font-semibold">
+                  Before you send
+                </p>
+                <p className="text-zinc-300 text-xs leading-relaxed">
+                  <strong>This month's rules and codex changes are not in the app yet.</strong>{' '}
+                  They are still being finalised by Dominic and Unwise, and nothing goes in until
+                  they both sign it off. If the app disagrees with a document you have seen recently
+                  {' '}— a points cost, a new option, a reworded rule — that is expected and
+                  {' '}<strong>not a bug</strong>. Everything else is very welcome.
+                </p>
+              </div>
+
               <div>
                 <label className="block text-[11px] uppercase tracking-widest text-amber-600 mb-1">
                   What happened? <span className="text-red-500">*</span>
