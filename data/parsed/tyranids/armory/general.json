@@ -71,9 +71,10 @@
     {
       "name": "Living Battering Ram",
       "term_compat": false,
-      "desc": "The model causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile.",
+      "desc": "Advanced Biomorph. Point costs are paid per unit. Only units with the \"Advanced Bioform\" keyword may take this Biomorph. The model causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile.",
       "p_unit": 15,
-      "p_char": null,
+      "p_char": 15,
+      "advanced_bioform_only": true,
       "effect": {
         "grants_weapons": [
           "Headlong charge"

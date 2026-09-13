@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-tyranids-living-battering-ram-missing-from-the-picker-01",
+    status: "fixed",
+    title: "Living Battering Ram was in the Armory data but offered on no datasheet (GH#118, GH#120)",
+    description: "FIXED 2026-09-13. Reported TWICE \u2014 GH#118 on 2026-09-11 and GH#120 today, the same biomorph in almost the same words. The first was closed on the belief that it was not in our codex; the second report is the only reason it was re-checked, and that belief was wrong. THE CANON, read before touching anything: `Tyranids 1.06.ods`, Armory sheet, row 23 \u2014 squarely inside the ADVANCED BIOMORPHS block between Infrasonic Roar and Resonance Barb, Basic Bioform column \"-\" and Advanced Bioform 15. So it is real, it is Advanced-only, and it costs 15. WHERE THE GAP ACTUALLY WAS, and it is why a search made it look present: the item was ALREADY in `data/parsed/tyranids/armory/general.json`. But a biomorph is bought from the per-unit picker built from each datasheet's own `option_groups`, not from the Armory file, and a grep found it on ZERO of the 39 datasheets that carry that group against 39/39 for every one of its siblings. Added to all 39 with `requires_keyword: \"Advanced Bioform\"`, 15 points, granting the `Headlong charge` weapon (S10, AP-2, D1, AT(2), Blast(4)) which already existed in the armory under the granted-only convention (both prices null). APPENDED, NOT INSERTED: `optionQty` stores the choice INDEX, so placing it alphabetically between Infrasonic Roar and Resonance Barb would have re-pointed every saved Tyranid list's biomorph selections by one. The Armory entry itself was also an outlier in three fields against its five Advanced-only siblings and now matches them: its `desc` lacked the \"Advanced Biomorph.\" prefix, it had no `advanced_bioform_only` flag, and it carried `p_char: null` where the convention is the advanced price in both columns. `sanity_sweep` holds at its 131 baseline and `check_weapon_grants` does not flag it, so the grant resolves."
+  },
+  {
     id: "ki-battle-reports-and-translating-what-players-write-01",
     status: "fixed",
     title: "Battle reports on a game — and why what a player writes will not be auto-translated",

@@ -282,6 +282,19 @@ export const psychophage: Unit = {
               "Camouflage: The unit gains the benefit of light cover until its first activation."
             ]
           }
+        },
+        {
+          "name": "Living Battering Ram",
+          "points": 15,
+          "requires_keyword": "Advanced Bioform",
+          "effect": {
+            "grants_abilities": [
+              "Living Battering Ram: The model causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile."
+            ],
+            "grants_weapons": [
+              "Headlong charge"
+            ]
+          }
         }
       ],
       "inline_pts": null,
