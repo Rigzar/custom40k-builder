@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-patch-notes-written-from-the-inside-01",
+    status: "fixed",
+    title: "Two banner lines described the repair instead of what the player sees",
+    description: "FIXED 2026-09-13. atypicalhero, about the wargear line: \"I have literally no idea what this is supposed to mean or what change it refers to\". He was right, and the line was mine. It opened with \"five more pieces of wargear named a weapon and handed over nothing\" ' which is an accurate description of the CODE (an item names a weapon, the lookup fails, nothing is granted) and tells a player nothing at all. What actually happened to them is that they paid for a Hunter-killer missile and no missile appeared on their printed card. THE SAME FAULT was in the Extra Attack line, which opened by explaining last month's mapping before ever saying that eight weapons had the wrong abilities printed on them, and used the phrase \"lose an Extra Attack they never had\", which reads as a contradiction. Both rewritten in all three languages to lead with what is different on YOUR card and what to do about it, with the mechanism kept only where it prevents a wrong conclusion ' the totals were always correct, so nobody needs to rebuild a list. THE RULE THIS SETTLES, and it is worth applying to every future note: a patch note is for the person opening the app, so it opens with what changed for them. The diagnosis belongs here in Known Issues, where anyone who wants the reasoning can find it. Announcement key bumped to v172f so the corrected card is shown again."
+  },
+  {
     id: "ki-light-mode-01",
     status: "fixed",
     title: "Light mode, done by inverting the palette rather than restyling the app",
