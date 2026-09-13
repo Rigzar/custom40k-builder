@@ -719,7 +719,9 @@ export default function App() {
       {screen === 'flow' && (
         <div
           className="sticky top-0 z-50"
-          style={{ paddingTop: 'env(safe-area-inset-top)', background: '#18171a' }}
+          /* The bar paints its own ground so the safe-area strip is filled on an installed PWA.
+             Through the token, or it would be the one thing left dark in light mode. */
+          style={{ paddingTop: 'env(safe-area-inset-top)', background: 'var(--color-zinc-950)' }}
         >
           <StepBar
             step={step}

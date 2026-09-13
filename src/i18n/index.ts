@@ -423,7 +423,13 @@ export type TranslationKey =
   | 'evWaitingToday'
   | 'evPendingForOrganiser'
   | 'evPendingOrganiserHint'
-  | 'evNoEndDateHint';
+  | 'evNoEndDateHint'
+  | 'themeLabel'
+  | 'themeDark'
+  | 'themeLight'
+  | 'themeToDark'
+  | 'themeToLight'
+  | 'themeHint';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1266,6 +1272,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evPendingForOrganiser: 'Reported, not yet confirmed',
     evPendingOrganiserHint: 'You can see these but not confirm them — only the opponent can. If one has been sitting a while, talk to the players.',
     evNoEndDateHint: 'Leave empty and the league runs until you close it.',
+    themeLabel: 'Appearance',
+    themeDark: 'Dark',
+    themeLight: 'Light',
+    themeToDark: 'Switch to dark',
+    themeToLight: 'Switch to light',
+    themeHint: 'Remembered on this device.',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -2107,6 +2119,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evPendingForOrganiser: 'Eingetragen, noch nicht bestätigt',
     evPendingOrganiserHint: 'Du siehst sie, kannst sie aber nicht bestätigen — das kann nur der Gegner. Liegt eine länger, sprich mit den Spielern.',
     evNoEndDateHint: 'Leer lassen: die Liga läuft, bis du sie schließt.',
+    themeLabel: 'Darstellung',
+    themeDark: 'Dunkel',
+    themeLight: 'Hell',
+    themeToDark: 'Auf dunkel umschalten',
+    themeToLight: 'Auf hell umschalten',
+    themeHint: 'Wird auf diesem Gerät gespeichert.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -2948,6 +2966,12 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     evPendingForOrganiser: 'Reportadas, aún sin confirmar',
     evPendingOrganiserHint: 'Las ves pero no puedes confirmarlas — solo el rival puede. Si alguna lleva tiempo parada, habla con los jugadores.',
     evNoEndDateHint: 'Déjala vacía y la liga dura hasta que tú la cierres.',
+    themeLabel: 'Apariencia',
+    themeDark: 'Oscuro',
+    themeLight: 'Claro',
+    themeToDark: 'Cambiar a oscuro',
+    themeToLight: 'Cambiar a claro',
+    themeHint: 'Se recuerda en este dispositivo.',
   },
 };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import * as api from '../lib/api';
 import { ChangelogModal } from './ChangelogModal';
 import { LanguageSelector } from './LanguageSelector';
+import { ThemeToggle } from './ThemeToggle';
 import { SupplementModal, type SupplementKey } from './SupplementModal';
 import { FactionSymbol } from './FactionSymbol';
 import { Avatar } from './Avatar';
@@ -11,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v172d_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v172e_dismissed';
 
 // v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
@@ -27,9 +28,11 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v172d_dismissed';
 //   line5 = the eight Extra Attack / Limit corrections found from one player report. It is
 //           here rather than in the changelog alone because it changes weapons people are
 //           already fielding, so they have to re-check a card — hence the bump to v172d.
+//   line6 = light mode. In the banner because it is for everyone rather than for whoever
+//           happens to open Preferences, which is why the key goes to v172e.
 // Append follow-ups here while v1.72 stays open. Bump ANNOUNCEMENT_KEY whenever these lines
 // change materially, or readers who dismissed the previous card never see the new one.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.72: the September rules and codex update",
@@ -40,6 +43,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: "⚔️ Five more pieces of wargear named a weapon and handed over nothing. The Tau XV81 Crisis battlesuit's Smart missile system, and the Hunter-killer missile sold on Space Marine, Imperial Guard, Adeptus Custodes and Adeptus Sororitas vehicles — 5 points for nothing on four factions' tanks. All five are on your card now.",
     line4: "🔄 THE WEAPON-ABILITY CLEAN-UP IS IN TOO — Unwise finished it, so your cards now speak Core Rules 1.262. Flames is now AUTO HIT plus SUNDER(1). Flurry is now EXTRA ATTACK. Explosive, Barrage and Colossal Blast are all BLAST(x) — 4, 6 and 8 respectively. And Suppression now carries a number per weapon, SUPPRESSION(x), where each of its hits counts as x toward Suppressive Fire. Suppressive Fire itself got simpler: 6+ ranged hits in one activation, −1 for every further 6, and no separate test just because a Suppression weapon hit you. 1331 weapon profiles changed, and the glossary, the cheat sheets and the wiki moved with them, so an ability on a card is always one you can look up. The Horus Heresy supplement is in as well — its sheet went readable again, and the last three weapons that still said Suppression with no number have one.",
     line5: "⚖️ CHECK THESE EIGHT WEAPONS IF YOU FIELD THEM — we got their abilities wrong, and one of you caught it. September’s clean-up turned every EXTRA ATTACK(x) into EXTRA ATTACK(x) plus LIMIT(x) across the whole game, but on some weapons the author dropped Extra Attack instead of keeping both. All 203 profiles carrying either ability have now been re-read against their own codex sheet. SEVEN LOSE AN EXTRA ATTACK they never had: the Adeptus Mechanicus Adamantine Arm, Omnissiah’s Hand, Chordclaw, Servo arm and Servo-arc claw, the Space Marine Furioso psy halberd, and the Tyranid Implant Attack. ONE GAINS A LIMIT: the Chaos Daemons Snapping claws. And a warning if you play more than one faction: the SERVO ARM is three different weapons — Adeptus Mechanicus prints Limit(1) alone, Space Marines and Imperial Guard print Extra Attack(1) too.",
+    line6: "☀ LIGHT MODE IS HERE — atypicalhero asked for it. The sun button next to the flags on this page switches it, and so does Appearance in Preferences; whichever you pick is remembered on this device. It is the whole app, not one screen: the builder, the printed cards, the league, every window. The dark theme is untouched and stays the default, so nothing changes unless you want it to.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
@@ -51,6 +55,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: "⚔️ Fünf weitere Ausrüstungsteile nannten eine Waffe und gaben sie nie: das Smart missile system des Tau XV81 sowie das Hunter-killer missile auf Fahrzeugen der Space Marines, der Imperialen Armee, der Custodes und der Sororitas — 5 Punkte für nichts auf den Panzern von vier Fraktionen. Alle fünf stehen jetzt auf der Karte.",
     line4: "🔄 AUCH DIE ÜBERARBEITUNG DER WAFFENFÄHIGKEITEN IST DRIN — Unwise ist fertig, eure Karten sprechen jetzt Core Rules 1.262. Aus Flames wird AUTO HIT plus SUNDER(1), aus Flurry wird EXTRA ATTACK, und Explosive, Barrage und Colossal Blast werden alle zu BLAST(x) — 4, 6 bzw. 8. Suppression hat jetzt einen Wert pro Waffe, SUPPRESSION(x): jeder ihrer Treffer zählt als x für Suppressive Fire. Suppressive Fire selbst wurde einfacher: 6+ Fernkampftreffer in einer Aktivierung, −1 für je weitere 6 — und kein eigener Test mehr, nur weil eine Suppression-Waffe getroffen hat. 1331 Waffenprofile geändert, und Glossar, Cheat Sheets und Wiki sind mitgezogen. Das Horus-Heresy-Supplement ist ebenfalls dabei — sein Tabellenblatt ist wieder lesbar, und die letzten drei Waffen, bei denen Suppression noch ohne Zahl stand, haben jetzt eine.",
     line5: "⚖️ PRÜFT DIESE ACHT WAFFEN, wenn ihr sie spielt — wir hatten ihre Fähigkeiten falsch, und einer von euch hat es bemerkt. Die September-Überarbeitung machte aus jedem EXTRA ATTACK(x) ein EXTRA ATTACK(x) plus LIMIT(x), aber bei manchen Waffen hat der Autor Extra Attack gestrichen statt beides zu behalten. Alle 203 Profile mit einer der beiden Fähigkeiten wurden jetzt gegen ihr eigenes Codex-Blatt neu gelesen. SIEBEN VERLIEREN EIN EXTRA ATTACK: Adamantine Arm, Omnissiah’s Hand, Chordclaw, Servo arm und Servo-arc claw des Adeptus Mechanicus, die Furioso psy halberd der Space Marines und der Implant Attack der Tyraniden. EINE BEKOMMT EIN LIMIT: die Snapping claws der Chaos Daemons. Und ein Hinweis, falls ihr mehrere Fraktionen spielt: der SERVO ARM sind drei verschiedene Waffen — beim Adeptus Mechanicus steht Limit(1) allein, bei Space Marines und Imperialer Armee zusätzlich Extra Attack(1).",
+    line6: "☀ DER HELLE MODUS IST DA — atypicalhero hat darum gebeten. Die Sonne neben den Flaggen auf dieser Seite schaltet um, ebenso „Darstellung“ in den Einstellungen; deine Wahl wird auf diesem Gerät gespeichert. Es gilt für die ganze App, nicht nur einen Bildschirm: Builder, gedruckte Karten, Liga, jedes Fenster. Das dunkle Design bleibt unverändert und bleibt Standard — es ändert sich also nichts, wenn du nicht willst.",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -62,6 +67,7 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line3: "⚔️ Cinco piezas de equipo más nombraban un arma y no daban nada: el Smart missile system del XV81 de Tau y el Hunter-killer missile de los vehículos de Space Marines, Guardia, Custodes y Sororitas — 5 puntos por nada en los tanques de cuatro facciones. Las cinco ya salen en la ficha.",
     line4: "🔄 LA LIMPIEZA DE HABILIDADES TAMBIÉN ESTÁ DENTRO — Unwise la terminó, así que tus fichas ya hablan Core Rules 1.262. Flames pasa a AUTO HIT más SUNDER(1), Flurry pasa a EXTRA ATTACK, y Explosive, Barrage y Colossal Blast se unifican en BLAST(x) — 4, 6 y 8 respectivamente. Suppression lleva ahora un número por arma, SUPPRESSION(x), y cada uno de sus impactos cuenta como x para Suppressive Fire. El propio Suppressive Fire se simplificó: 6+ impactos a distancia en una activación, −1 por cada 6 más, y ya no hay test aparte por que te impacte un arma con Suppression. 1331 perfiles de arma cambiados, y el glosario, las chuletas y el wiki han ido con ellos. El suplemento de Horus Heresy también entra — su hoja volvió a ser legible, y las tres últimas armas que seguían diciendo Suppression sin número ya tienen su valor.",
     line5: "⚖️ REVISA ESTAS OCHO ARMAS si las juegas — teníamos mal sus habilidades, y lo cazasteis vosotros. La limpieza de septiembre convirtió cada EXTRA ATTACK(x) en EXTRA ATTACK(x) más LIMIT(x) en todo el juego, pero en algunas armas el autor quitó Extra Attack en vez de dejar las dos. Los 203 perfiles que llevan cualquiera de las dos se han vuelto a leer contra su propia hoja de códex. SIETE PIERDEN UN EXTRA ATTACK que nunca tuvieron: el Adamantine Arm, la Omnissiah’s Hand, el Chordclaw, el Servo arm y el Servo-arc claw del Adeptus Mechanicus, la Furioso psy halberd de Space Marines y el Implant Attack tyránido. UNA GANA UN LIMIT: las Snapping claws de Demonios del Caos. Y un aviso si juegas varias facciones: el SERVO ARM son tres armas distintas — en Adeptus Mechanicus pone Limit(1) a secas, y en Space Marines y Guardia lleva además Extra Attack(1).",
+    line6: "☀ YA HAY MODO CLARO — lo pidió atypicalhero. El botón del sol junto a las banderas de esta página lo cambia, y también Apariencia en Preferencias; lo que elijas se recuerda en este dispositivo. Es la app entera, no una pantalla: el constructor, las fichas impresas, la liga, cada ventana. El tema oscuro sigue igual y sigue siendo el que viene por defecto, así que no cambia nada si no quieres.",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -139,7 +145,7 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.71's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.72 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
@@ -295,7 +301,10 @@ export function LandingPage({
 
         {/* Top bar */}
         <div className="relative z-10 flex justify-between items-center px-5 py-3 border-b border-zinc-900">
-          <LanguageSelector />
+          <div className="flex items-center gap-1">
+            <LanguageSelector />
+            <ThemeToggle />
+          </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowChangelog(true)}

@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-light-mode-01",
+    status: "fixed",
+    title: "Light mode, done by inverting the palette rather than restyling the app",
+    description: "ADDED 2026-09-13 (atypicalhero: \"I, too, would like a light mode\"). The app has roughly 2900 colour utilities across its components ' 1756 zinc alone ' so restyling them with `dark:` variants was never the move. It runs TAILWIND V4, which compiles every palette colour to `var(--color-<ramp>-<step>)`, so reassigning those variables under `[data-theme=\"light\"]` flips the entire app without a single component being touched. THE RULE IS A MIRROR, NOT A HAND-PICKED PALETTE: step 100 takes 900's value, 200 takes 800's, and so on. That is what makes it coherent rather than merely inverted ' the app is written \"light ink on a dark panel\" everywhere, and mirroring turns every one of those into \"dark ink on a light panel\" while preserving the exact contrast the design already had. Accents come along for free: amber-400, the brand colour on every card, becomes amber-600, which is the tone that actually reads on white. White and black are swapped for the same reason, which also turns the modal scrims from black to white. `scripts/gen_light_theme.cjs` generates the block from the BUILT css ' Tailwind's real values, not remembered ones ' and where Tailwind never emitted a mirror partner (the step 50s, which a dark app has no use for) the generator was fed them by a temporary `@source inline` probe rather than having values typed in from memory. VERIFIED IN THE BROWSER, not only by build: the landing page, the announcement banner and the army builder all render correctly, and the one control that looked washed out at screenshot scale measured as 44% lightness text on a 92% ground, which is fine. KNOWN LIMIT: the campaign Cogitator screens use hand-written CRT greens (`#020702` and friends) rather than palette tokens and stay dark on purpose ' that is a deliberate terminal look, not an oversight. Stored per device in `c40k_theme`, stamped on <html> before React mounts so there is no flash of the wrong theme."
+  },
+  {
     id: "ki-unconfirmed-game-left-hanging-for-ever-01",
     status: "fixed",
     title: "A game whose opponent never confirms used to freeze for ever",

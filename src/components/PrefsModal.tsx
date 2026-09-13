@@ -1,6 +1,7 @@
 import type { Prefs, AutosaveInterval } from '../hooks/usePrefs';
 import type { EngagementType } from '../types/army';
 import { useT, type TranslationKey } from '../i18n';
+import { useTheme } from '../theme';
 
 interface Props {
   prefs: Prefs;
@@ -36,6 +37,9 @@ const DEFAULT_POINTS_OPTIONS: { value: number | ''; label: string }[] = [
 
 export function PrefsModal({ prefs, loggedIn, onSave, onClose }: Props) {
   const t = useT();
+  // Kept in its own store rather than in `prefs`: the theme has to be applied to <html> before
+  // React renders anything, so it cannot wait for a hook to mount.
+  const { theme, setTheme } = useTheme();
   return (
     <div
       className="fixed inset-0 bg-black/80 flex items-start justify-center z-50 p-4 overflow-y-auto"
@@ -48,6 +52,24 @@ export function PrefsModal({ prefs, loggedIn, onSave, onClose }: Props) {
         </div>
 
         <div className="p-5 space-y-6">
+
+          {/* Appearance — above autosave on purpose: it is the only setting here that applies to
+              everyone, signed in or not, and it is the one people come looking for. */}
+          <section>
+            <div className="text-[11px] uppercase tracking-widest text-amber-600 mb-2">{t('themeLabel')}</div>
+            <div className="flex gap-2">
+              {(['dark', 'light'] as const).map(v => (
+                <button key={v} onClick={() => setTheme(v)}
+                        className={`flex-1 py-2 text-[11px] uppercase tracking-wide border transition-colors ${
+                          theme === v
+                            ? 'bg-amber-800 border-amber-600 text-white'
+                            : 'bg-zinc-800 border-zinc-700 text-zinc-400 hover:text-amber-400 hover:border-zinc-600'}`}>
+                  {v === 'dark' ? `☾ ${t('themeDark')}` : `☀ ${t('themeLight')}`}
+                </button>
+              ))}
+            </div>
+            <p className="text-zinc-500 text-[10px] mt-1.5">{t('themeHint')}</p>
+          </section>
 
           {/* Autosave interval — only for logged-in users */}
           {loggedIn && (
