@@ -468,7 +468,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
             return (
               <div className="border border-zinc-800 p-3 space-y-2">
                 <div className="text-[10px] uppercase tracking-widest text-amber-600">Your army list</div>
-                <select className={box} value={listDraft} disabled={busy}
+                <select className={box} value={listDraft} disabled={busy || data.listLock != null}
                         onChange={e => setListDraft(e.target.value ? Number(e.target.value) : '')}>
                   <option value="">— none chosen —</option>
                   {myRosters.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
@@ -477,7 +477,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
                 {/* Nothing is registered until this is pressed, and the button says which of the
                     three things pressing it will do. It disables itself once what you picked and
                     what is registered are the same, so it doubles as the state readout. */}
-                <button className={pending ? btnPrimary : btn} disabled={busy || !pending}
+                <button className={pending ? btnPrimary : btn} disabled={busy || !pending || data.listLock != null}
                         onClick={() => act(() => api.assignEventList(ev.id, listDraft === '' ? null : listDraft, as))}>
                   {!pending ? 'Army list confirmed'
                     : listDraft === '' ? 'Withdraw my army list'
@@ -485,7 +485,12 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
                     : 'Change to this army list'}
                 </button>
 
-                {pending ? (
+                {data.listLock ? (
+                  <p className="text-zinc-500 text-[11px] italic">
+                    {data.listLock}
+                    {registeredName && ` You are in with “${registeredName}”.`}
+                  </p>
+                ) : pending ? (
                   <p className="text-amber-500/80 text-[10px]">
                     Not registered yet — press the button to confirm.
                     {registeredName && ` You are still registered with “${registeredName}”.`}

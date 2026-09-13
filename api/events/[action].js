@@ -100,6 +100,26 @@ async function loadEvent(eventId, userId) {
 /** A date string the DB will accept, or null — so an empty form field does not become 'Invalid Date'. */
 const asDate = (v) => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null);
 
+/**
+ * Why a player may no longer swap the army list they registered with, or null if they still may.
+ *
+ * Two separate reasons, and the player is told which. ONCE YOU HAVE PLAYED, the list is fixed:
+ * every game row points at the roster, so swapping it afterwards silently rewrites what your
+ * recorded games were played with — the standings and the printable sheet would show an army you
+ * did not field. AND ONCE REGISTRATION CLOSES nobody changes their list, which is the point of a
+ * registration deadline. Before either, changing it freely is intended.
+ */
+async function listLockReason(ev, userId) {
+  const played = await sql`
+    SELECT 1 FROM event_games
+     WHERE event_id = ${ev.id} AND (reporter_user_id = ${userId} OR opponent_user_id = ${userId})
+     LIMIT 1`;
+  if (played.rows[0]) return 'You have already played a game in this event, so your army list is locked.';
+  if (!ev.published) return 'This league is closed.';
+  if (!regOpen(ev)) return 'Registration has closed, so army lists are locked.';
+  return null;
+}
+
 /** Is registration open right now? NULL dates mean "no limit on that side". */
 function regOpen(ev) {
   const today = new Date().toISOString().slice(0, 10);
@@ -165,6 +185,9 @@ async function get(req, res, userId) {
     open: ev.published,
     registrationOpen: ev.published && regOpen(ev),
     me: mine.rows[0] ?? null,
+    // So the picker can disable itself and say why, rather than letting someone choose a list and
+    // then be refused. Only meaningful for a registered player.
+    listLock: mine.rows[0] ? await listLockReason(ev, userId) : null,
   });
 }
 
@@ -286,6 +309,9 @@ async function assignList(req, res, userId) {
   const me = await sql`SELECT status FROM event_players WHERE event_id = ${ev.id} AND user_id = ${userId}`;
   if (!me.rows[0]) return bad(res, 'Register for the event first.');
   if (me.rows[0].status !== 'approved') return bad(res, 'Your registration has not been approved yet.', 403);
+  // Reported: a registered player could still swap army list at any point, including after playing.
+  const locked = await listLockReason(ev, userId);
+  if (locked) return bad(res, locked);
 
   if (rosterId === null) {
     await sql`UPDATE event_players SET roster_id = NULL WHERE event_id = ${ev.id} AND user_id = ${userId}`;

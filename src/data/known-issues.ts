@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-event-army-list-swappable-after-playing-01",
+    status: "fixed",
+    title: "A registered player could swap their army list at any time, including after playing games",
+    description: "FIXED 2026-09-13. Found while checking a report that turned out not to be one: Rigzar thought he could register for an event twice, then corrected himself (\"mentira no me deja, error mio\") ' and he was right, re-registering was never possible, since `register` upserts with ON CONFLICT DO UPDATE that keeps the existing row and the button hides once you are in. THE REAL HOLE WAS NEXT TO IT: `assign-list` had NO check of any kind beyond ownership of the roster and an approved registration. A player could therefore change which army they were registered with after registration had closed, after the league was under way, and after playing games ' and that last one quietly rewrites history, because every `event_games` row points at the roster rather than copying it. Swap the list and the participant table, the games rows, the standings and the printed sheet all start showing an army that was never fielded in those games. TWO LOCKS, and the player is told which one applies: once you have any game in the event (reported, confirmed or disputed, either side of it) the list is fixed; and once registration closes, or while the league is closed, nobody changes theirs. Before either, changing it freely is intended and still works ' that is what the registration window is for. The picker disables itself with the reason rather than letting someone choose a list and then be refused on submit, and the same rule is enforced server-side, where it actually counts. NOT DELIBERATED FURTHER, and worth a decision later: the organiser cannot override a lock either. That is the strict reading ' if a player genuinely has to change army mid-league, the organiser can currently only delete the games."
+  },
+  {
     id: "ki-saved-army-showing-the-raw-faction-key-01",
     status: "fixed",
     title: "One saved army listed its faction as `chaos_space_marines` instead of Chaos Space Marines",
