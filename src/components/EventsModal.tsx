@@ -76,7 +76,15 @@ export function EventsModal({ onClose, username, isAdmin }: Props) {
         </div>
 
         <div className="p-4 space-y-4">
-          {error && <p className="text-red-400 text-[11px] font-mono">{error}</p>}
+          {/* Sticky, and it scrolls itself into view. The whole modal scrolls inside the page, so a
+              plain line up here was invisible from the Games tab: pressing Send back on a game the
+              server then refused looked exactly like the button doing nothing at all. */}
+          {error && (
+            <p ref={el => el?.scrollIntoView({ block: 'nearest' })}
+               className="sticky top-0 z-10 bg-zinc-950 border border-red-900/60 px-2 py-1.5 text-red-400 text-[11px] font-mono">
+              {error}
+            </p>
+          )}
 
           {openId == null
             ? <EventIndex
@@ -575,7 +583,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
 
       {tab === 'games' && (
         <GamesTab
-          games={games} players={players} username={actingName} busy={busy}
+          games={games} players={players} username={actingName} realUsername={username} busy={busy}
           canReport={data.me?.status === 'approved' || asPlayer != null}
           onReport={g => act(() => api.reportEventGame(ev.id, g, as))}
           onConfirm={(gid, ok, note) => act(() => api.confirmEventGame(gid, ok, note, as))}
@@ -702,8 +710,16 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
   );
 }
 
-function GamesTab({ games, players, username, busy, canReport, canManage, onReport, onConfirm, onSettle }: {
+function GamesTab({ games, players, username, realUsername, busy, canReport, canManage, onReport, onConfirm, onSettle }: {
   games: api.EventGame[]; players: api.EventPlayer[]; username: string; busy: boolean; canReport: boolean;
+  /**
+   * The account actually signed in, which is NOT `username` while an admin drives a puppet.
+   * Reporting and confirming happen as the puppet; settling happens as the real admin, because
+   * `settle-game` takes no acting-as. So "did I play in this game?" has to be asked about the real
+   * account, or your own disputed game looks like someone else's and offers buttons the server
+   * then refuses.
+   */
+  realUsername: string;
   /** The organiser is the referee: only they can settle a game the players could not agree on. */
   canManage: boolean;
   onReport: (g: { opponentUserId: number; result: 'win' | 'draw' | 'loss'; mission?: string; playedOn?: string | null }) => void;
@@ -721,7 +737,7 @@ function GamesTab({ games, players, username, busy, canReport, canManage, onRepo
   /** Games the players could not settle between them. Nothing moves until a referee rules. */
   const disputed = games.filter(g => g.status === 'disputed');
   /** You never rule on a game you played in — organiser or admin, it makes no difference. */
-  const mine = (g: api.EventGame) => g.reporter === username || g.opponent === username;
+  const mine = (g: api.EventGame) => g.reporter === realUsername || g.opponent === realUsername;
 
   return (
     <div className="space-y-3">

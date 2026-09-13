@@ -2,6 +2,12 @@ import type { KnownIssue } from './changelog';
 
 export const KNOWN_ISSUES: KnownIssue[] = [
   {
+    id: "ki-event-action-refused-with-the-message-off-screen-01",
+    status: "fixed",
+    title: "A refused league action looked like the button doing nothing",
+    description: "FIXED 2026-09-13, reported as \"lo use y sigue apareciendo la disputa\" after pressing Send back on a disputed game. The action was not ignored, it was REFUSED, and the refusal was printed as a single line at the very top of the modal ' above the tab bar, above the whole event body. From the Games tab, scrolled down to the disputed section, that message is off-screen, so a rejected action and a dead button look identical. The banner is now sticky and scrolls itself into view. THE REFUSAL ITSELF WAS A SECOND BUG: `mine(g)` ' the check for \"did I play in this game?\" ' compared against the ACTING name, so while an admin drives a test puppet their own game reads as somebody else's and the settle buttons appear. `settle-game` takes no acting-as (settling is an admin power, not something a puppet does), so the server checked the real account, found the admin was the reporter, and refused. It now compares against the real signed-in account, which is the account the server judges. A CONSEQUENCE WORTH KNOWING rather than a bug: a game between two admins who both played ' exactly the Rigzar vs Dominic game that prompted this ' can be settled by NEITHER of them. A third organiser or admin has to, or the game gets deleted and re-reported. With three admins that works; it is worth revisiting if the group is ever two."
+  },
+  {
     id: "ki-event-army-rules-point-limit-engagement-allies-01",
     status: "fixed",
     title: "An event now sets its own army rules: point limit, engagement type and whether allies are allowed",
