@@ -673,6 +673,12 @@ export interface EventSummary {
   reg_opens_on: string | null;
   reg_closes_on: string | null;
   is_test: boolean;
+  /** Army-size CAP for the event. A list at or under it is legal; only over is refused. */
+  point_limit: number | null;
+  /** Which engagement every list must be built for, or null if the organiser pinned none. */
+  engagement: 'skirmish' | 'pitched' | 'epic' | null;
+  /** Whether a list may bring an allied detachment. */
+  allies_allowed: boolean;
   /**
    * Has the organiser actually OPENED this league to players? A closed one is still listed and
    * still readable — its standings and its whole game history stay open, which is the point of
@@ -735,6 +741,10 @@ export interface NewEvent {
   regOpensOn?: string | null;
   regClosesOn?: string | null;
   isTest?: boolean;
+  /** The three rules the organiser sets for everyone. 0 or null clears the cap. */
+  pointLimit?: number | null;
+  engagement?: 'skirmish' | 'pitched' | 'epic' | null;
+  alliesAllowed?: boolean;
 }
 
 export function listEvents() {
@@ -785,9 +795,22 @@ export function setEventPlayerStatus(id: number, playerUserId: number, status: E
 }
 
 /** Attach one of my own army lists to this event, or pass null to detach. */
-export function assignEventList(id: number, rosterId: number | null, asUserId?: number) {
+/** The armies a participant has saved — organiser only, so a wrong entry can be corrected. */
+export function eventPlayerLists(id: number, userId: number) {
+  return call<{ rosters: { id: number; name: string; faction: string | null; total_pts: number | null }[] }>(
+    `/api/events/player-lists?id=${id}&userId=${userId}`);
+}
+
+/**
+ * Set the army list registered for this event. `playerUserId` is the organiser correcting
+ * SOMEONE ELSE's entry, which is the only way to fix a wrong registration once the deadline has
+ * passed; `asUserId` is an admin driving a test puppet. They are different things.
+ */
+export function assignEventList(
+  id: number, rosterId: number | null, asUserId?: number, playerUserId?: number,
+) {
   return call<{ rosterId: number | null }>('/api/events/assign-list', {
-    method: 'POST', body: JSON.stringify({ id, rosterId, asUserId }),
+    method: 'POST', body: JSON.stringify({ id, rosterId, asUserId, playerUserId }),
   });
 }
 

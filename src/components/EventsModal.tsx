@@ -34,6 +34,10 @@ const btnPrimary = 'text-[11px] px-3 py-1 border border-amber-800 text-amber-300
 
 /** Postgres COUNT() arrives as a string; render it as a number without pretending it was one. */
 const n = (v: string | number | undefined) => Number(v ?? 0);
+/** The stored value is the key; a player thinks in the printed name. */
+const ENGAGEMENT_LABEL: Record<string, string> = {
+  skirmish: 'Skirmish', pitched: 'Pitched Battle', epic: 'Epic Battle',
+};
 
 const dateOnly = (v: string | null) => (v ? String(v).slice(0, 10) : '');
 
@@ -197,7 +201,29 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
               <input type="date" className={box} value={form.regClosesOn ?? ''}
                      onChange={e => setForm(f => ({ ...f, regClosesOn: e.target.value || null }))} /></label>
           </div>
+          {/* The three rules every list in this event has to obey. They are checked server-side
+              when a player attaches a list, which is what stops a 4000 point army meeting a 2500
+              point one. The cap is a CAP: under it is legal, only over is refused. */}
+          <div className="grid grid-cols-2 gap-2">
+            <label className="text-[10px] text-zinc-500">Point limit
+              <input type="number" min={0} step={50} className={box} placeholder="no limit"
+                     value={form.pointLimit ?? ''}
+                     onChange={e => setForm(f => ({ ...f, pointLimit: e.target.value ? Number(e.target.value) : null }))} /></label>
+            <label className="text-[10px] text-zinc-500">Engagement
+              <select className={box} value={form.engagement ?? ''}
+                      onChange={e => setForm(f => ({ ...f, engagement: (e.target.value || null) as api.NewEvent['engagement'] }))}>
+                <option value="">— any —</option>
+                <option value="skirmish">Skirmish</option>
+                <option value="pitched">Pitched Battle</option>
+                <option value="epic">Epic Battle</option>
+              </select></label>
+          </div>
           <div className="flex flex-wrap items-center gap-4 text-[11px] text-zinc-300">
+            <label className="flex items-center gap-1.5">
+              <input type="checkbox" checked={form.alliesAllowed !== false}
+                     onChange={e => setForm(f => ({ ...f, alliesAllowed: e.target.checked }))} />
+              Allies allowed
+            </label>
             <label className="flex items-center gap-1.5">
               <input type="checkbox" checked={form.visibility === 'private'}
                      onChange={e => setForm(f => ({ ...f, visibility: e.target.checked ? 'private' : 'public' }))} />
@@ -419,6 +445,25 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
       {tab === 'info' && (
         <div className="space-y-3">
           {ev.description && <p className="text-zinc-300 text-[12px] whitespace-pre-wrap">{ev.description}</p>}
+
+          {/* Stated up front rather than discovered by being refused. */}
+          {(ev.point_limit != null || ev.engagement || ev.allies_allowed === false) && (
+            <div className="border border-zinc-800 px-3 py-2 space-y-0.5">
+              <div className="text-[10px] uppercase tracking-widest text-amber-600">Army rules</div>
+              {ev.point_limit != null && (
+                <p className="text-zinc-300 text-[11px]">
+                  Up to <strong>{ev.point_limit} points</strong>
+                  <span className="text-zinc-600"> — under is fine, over is refused.</span>
+                </p>
+              )}
+              {ev.engagement && (
+                <p className="text-zinc-300 text-[11px]">
+                  Built for <strong>{ENGAGEMENT_LABEL[ev.engagement]}</strong>
+                </p>
+              )}
+              {ev.allies_allowed === false && <p className="text-zinc-300 text-[11px]">No allied detachments</p>}
+            </div>
+          )}
           <p className="text-[10px] text-zinc-500 font-mono">
             {!data.open ? 'League CLOSED' : `Registration ${data.registrationOpen ? 'OPEN' : 'CLOSED'}`}
             {ev.reg_opens_on && ` · from ${dateOnly(ev.reg_opens_on)}`}
@@ -523,6 +568,8 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
 
       {tab === 'players' && (
         <PlayersTab players={players} canManage={data.canManage} busy={busy}
+                    eventId={ev.id} username={username}
+                    onFixList={(pid, rid) => act(() => api.assignEventList(ev.id, rid, undefined, pid))}
                     onSet={(uid, st) => act(() => api.setEventPlayerStatus(ev.id, uid, st))} />
       )}
 
@@ -553,10 +600,28 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
 
 // ── tabs ─────────────────────────────────────────────────────────────────────────────────────────
 
-function PlayersTab({ players, canManage, busy, onSet }: {
-  players: api.EventPlayer[]; canManage: boolean; busy: boolean;
+function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixList }: {
+  players: api.EventPlayer[]; canManage: boolean; busy: boolean; eventId: number; username: string;
   onSet: (userId: number, status: api.EventPlayer['status']) => void;
+  /** An organiser or admin putting the right army on someone who registered the wrong one. */
+  onFixList: (playerUserId: number, rosterId: number | null) => void;
 }) {
+  // Which player's list is being corrected, and the armies they have to choose from. Fetched on
+  // demand rather than with the page: it is a privileged read, so it happens only when an organiser
+  // actually opens it for one player.
+  const [fixing, setFixing] = useState<number | null>(null);
+  const [theirLists, setTheirLists] = useState<{ id: number; name: string; faction: string | null; total_pts: number | null }[]>([]);
+  const [fixError, setFixError] = useState('');
+
+  async function openFix(userId: number) {
+    setFixing(userId); setTheirLists([]); setFixError('');
+    try {
+      setTheirLists((await api.eventPlayerLists(eventId, userId)).rosters);
+    } catch (err) {
+      setFixError((err as Error).message);
+    }
+  }
+
   if (players.length === 0) return <p className="text-zinc-600 text-[11px] italic">Nobody has registered yet.</p>;
   const pending = players.filter(p => p.status === 'pending');
   const approved = players.filter(p => p.status === 'approved');
@@ -573,10 +638,43 @@ function PlayersTab({ players, canManage, busy, onSet }: {
       </div>
       {canManage && (
         <div className="flex gap-1 shrink-0">
+          {/* Not on yourself: the referee powers exist to fix other people's problems, the same
+              reason you cannot settle a game you played in. Another organiser or admin can. */}
+          {p.status === 'approved' && p.username !== username && (
+            <button className={btn} disabled={busy} onClick={() => openFix(p.user_id)}
+                    title="Put a different army on this player's registration">
+              Fix list
+            </button>
+          )}
           {p.status !== 'approved' && <button className={btn} disabled={busy} onClick={() => onSet(p.user_id, 'approved')}>Approve</button>}
           {p.status !== 'rejected' && <button className={btn} disabled={busy} onClick={() => onSet(p.user_id, 'rejected')}>Reject</button>}
         </div>
       )}
+    </div>
+  );
+
+  const fixPanel = (p: api.EventPlayer) => (
+    <div key={`fix-${p.user_id}`} className="border border-amber-900/60 bg-amber-950/10 px-3 py-2 space-y-2">
+      <div className="text-[11px] text-zinc-200">
+        Change the army <strong>{p.username}</strong> is registered with
+      </div>
+      {fixError && <p className="text-red-400 text-[11px]">{fixError}</p>}
+      <select className={box} defaultValue={p.roster_id ?? ''} disabled={busy}
+              onChange={e => onFixList(p.user_id, e.target.value ? Number(e.target.value) : null)}>
+        <option value="">— none —</option>
+        {theirLists.map(r => (
+          <option key={r.id} value={r.id}>
+            {r.name}{r.faction ? ` — ${factionLabel(r.faction)}` : ''}{r.total_pts != null ? ` (${r.total_pts} pts)` : ''}
+          </option>
+        ))}
+      </select>
+      <div className="flex gap-1.5">
+        <button className={btn} disabled={busy} onClick={() => setFixing(null)}>Done</button>
+      </div>
+      <p className="text-zinc-600 text-[10px]">
+        The event's own rules still apply — an army over the point limit, or built for the wrong
+        engagement, is refused here too.
+      </p>
     </div>
   );
 
@@ -590,7 +688,9 @@ function PlayersTab({ players, canManage, busy, onSet }: {
       )}
       <div className="space-y-1.5">
         <div className="text-[10px] uppercase tracking-widest text-zinc-600">Participants</div>
-        {approved.length === 0 ? <p className="text-zinc-600 text-[11px] italic">None yet.</p> : approved.map(row)}
+        {approved.length === 0
+          ? <p className="text-zinc-600 text-[11px] italic">None yet.</p>
+          : approved.flatMap(p => (fixing === p.user_id ? [row(p), fixPanel(p)] : [row(p)]))}
       </div>
       {canManage && rejected.length > 0 && (
         <div className="space-y-1.5">
@@ -618,8 +718,10 @@ function GamesTab({ games, players, username, busy, canReport, canManage, onRepo
   const opponents = players.filter(p => p.status === 'approved' && p.username !== username);
   /** Games where THIS viewer is the one who has to act — shown first, because nothing else moves. */
   const waitingOnMe = games.filter(g => g.status === 'pending' && g.opponent === username);
-  /** Games the players could not settle between them. Nothing moves until the organiser rules. */
+  /** Games the players could not settle between them. Nothing moves until a referee rules. */
   const disputed = games.filter(g => g.status === 'disputed');
+  /** You never rule on a game you played in — organiser or admin, it makes no difference. */
+  const mine = (g: api.EventGame) => g.reporter === username || g.opponent === username;
 
   return (
     <div className="space-y-3">
@@ -696,10 +798,15 @@ function GamesTab({ games, players, username, busy, canReport, canManage, onRepo
                 {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
               </div>
               {g.dispute_note && <div className="text-[11px] text-red-300/90">“{g.dispute_note}”</div>}
+              {mine(g) && (
+                <p className="text-zinc-500 text-[11px] italic">
+                  You played in this game, so you cannot settle it — another organiser or admin has to.
+                </p>
+              )}
               {/* Three ways out, and the labels say which is which from the REPORTER's side, since
                   that is how the result is stored. Correcting it to the other way round is one
                   press rather than a delete and a re-report by the other player. */}
-              <div className="flex gap-1.5 flex-wrap">
+              <div className="flex gap-1.5 flex-wrap" hidden={mine(g)}>
                 <button className={btnPrimary} disabled={busy} onClick={() => onSettle(g.id, 'confirm')}>
                   Uphold as {g.result}
                 </button>
@@ -751,7 +858,7 @@ function GamesTab({ games, players, username, busy, canReport, canManage, onRepo
               <span className="flex items-center gap-1.5 shrink-0">
                 {/* An organiser also has to be able to undo a game both players confirmed and then
                     realised was wrong — otherwise the only fix is a second, opposite game. */}
-                {canManage && g.status === 'confirmed' && (
+                {canManage && g.status === 'confirmed' && !mine(g) && (
                   <button className={btn} disabled={busy} title="Send this back to the opponent as unconfirmed"
                           onClick={() => onSettle(g.id, 'reopen')}>
                     Undo

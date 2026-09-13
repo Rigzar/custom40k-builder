@@ -474,6 +474,18 @@ export async function ensureSchema() {
   // neither can the ones that already exist when this migration runs.
   await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS published BOOLEAN NOT NULL DEFAULT false`;
 
+  // The army-size cap for this event. A CAP, not a target: Rigzar's point is that a 2500 point
+  // league does not mean everyone lands on exactly 2500, so anything at or under it is legal and
+  // only going OVER is refused. NULL means the organiser set no limit.
+  await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS point_limit INTEGER`;
+
+  // The other two things an organiser sets for everyone, asked for together with the cap
+  // (atypicalhero: "yes, point limit, engagement type, allies"). NULL engagement means the
+  // organiser did not pin one and any is accepted; allies_allowed defaults to true, which is
+  // what every event created before this column did in practice.
+  await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS engagement TEXT`;
+  await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS allies_allowed BOOLEAN NOT NULL DEFAULT true`;
+
   schemaReady = true;
 }
 

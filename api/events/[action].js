@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       case 'delete':        return remove(req, res, userId);
       case 'register':      return register(req, res, await actingAs(req, userId));
       case 'set-status':    return setStatus(req, res, userId);
-      case 'assign-list':   return assignList(req, res, await actingAs(req, userId));
+      case 'assign-list':   return assignList(req, res, await actingAs(req, userId), userId);
       case 'players':       return players(req, res, userId);
       case 'report-game':   return reportGame(req, res, await actingAs(req, userId));
       case 'confirm-game':  return confirmGame(req, res, await actingAs(req, userId));
@@ -44,6 +44,7 @@ export default async function handler(req, res) {
       case 'export':        return exportEvent(req, res, userId);
       case 'publish':       return publish(req, res, userId);
       case 'settle-game':   return settleGame(req, res, userId);
+      case 'player-lists':  return playerLists(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown events action' });
     }
@@ -103,22 +104,63 @@ const asDate = (v) => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? 
 /**
  * Why a player may no longer swap the army list they registered with, or null if they still may.
  *
- * Two separate reasons, and the player is told which. ONCE YOU HAVE PLAYED, the list is fixed:
- * every game row points at the roster, so swapping it afterwards silently rewrites what your
- * recorded games were played with — the standings and the printable sheet would show an army you
- * did not field. AND ONCE REGISTRATION CLOSES nobody changes their list, which is the point of a
- * registration deadline. Before either, changing it freely is intended.
+ * THERE USED TO BE A SECOND REASON — "you have already played a game" — and Dominic removed it:
+ * *"actually a player is allowed to change their army after a loss"*. It was mine, not his, and it
+ * was argued from a premise that was also wrong (a swap does not rewrite past games: `event_games`
+ * stores the roster ids it was reported with). Changing army between games is part of how the
+ * league is meant to work.
+ *
+ * What is left is the deadline, which is what a registration window is for. The ORGANISER is not
+ * subject to it — see `assignList`, where fixing a player's entry is the whole point.
  */
-async function listLockReason(ev, userId) {
-  const played = await sql`
-    SELECT 1 FROM event_games
-     WHERE event_id = ${ev.id} AND (reporter_user_id = ${userId} OR opponent_user_id = ${userId})
-     LIMIT 1`;
-  if (played.rows[0]) return 'You have already played a game in this event, so your army list is locked.';
+function listLockReason(ev) {
   if (!ev.published) return 'This league is closed.';
   if (!regOpen(ev)) return 'Registration has closed, so army lists are locked.';
   return null;
 }
+
+/**
+ * Is this roster legal for this event? Returns a refusal, or null.
+ *
+ * A CAP, NOT A TARGET. Rigzar: *"que sea 2500 no quiere decir que todo el mundo llegue a 2500 …
+ * mientras no pase de eso el army es probada"*. So under is fine and only over is refused —
+ * which is also the only comparison that stops a 4000 point army meeting a 2500 point one.
+ *
+ * A roster whose stored total is missing is ALLOWED THROUGH rather than refused: the number comes
+ * from the save, and an old save may predate it. Blocking a player over a value we never wrote
+ * would be our bug charged to them.
+ */
+async function rosterRejection(ev, rosterId) {
+  const r = await sql`
+    SELECT CAST(NULLIF(data->>'totalPts', '') AS INTEGER) AS pts,
+           data->>'engagement'    AS engagement,
+           data->>'alliedFaction' AS allied
+      FROM rosters WHERE id = ${rosterId}`;
+  const row = r.rows[0];
+  if (!row) return 'That army list no longer exists.';
+
+  // A cap, not a target: under is fine, only over is refused. A missing total is let through
+  // rather than refused — the number comes from the save, and an old save may predate it, so
+  // blocking a player over a value we never wrote would be our bug charged to them.
+  if (ev.point_limit != null && row.pts != null && row.pts > ev.point_limit) {
+    return `That army is ${row.pts} points and this event is capped at ${ev.point_limit}.`;
+  }
+  // Engagement decides the whole army's legality — slots, trait count, stat caps — so a Skirmish
+  // league cannot accept a list built as Pitched Battle even if it happens to be under the cap.
+  if (ev.engagement && row.engagement && row.engagement !== ev.engagement) {
+    return `That army is built for ${ENGAGEMENT_LABELS[row.engagement] ?? row.engagement}`
+         + ` and this event is ${ENGAGEMENT_LABELS[ev.engagement] ?? ev.engagement}.`;
+  }
+  if (ev.allies_allowed === false && row.allied) {
+    return 'That army has an allied detachment and this event does not allow allies.';
+  }
+  return null;
+}
+
+/** Only for messages — the stored value is the key, and a player thinks in the printed name. */
+const ENGAGEMENT_LABELS = {
+  skirmish: 'Skirmish', pitched: 'Pitched Battle', epic: 'Epic Battle',
+};
 
 /** Is registration open right now? NULL dates mean "no limit on that side". */
 function regOpen(ev) {
@@ -189,14 +231,15 @@ async function get(req, res, userId, realUserId = userId) {
     me: mine.rows[0] ?? null,
     // So the picker can disable itself and say why, rather than letting someone choose a list and
     // then be refused. Only meaningful for a registered player.
-    listLock: mine.rows[0] ? await listLockReason(ev, userId) : null,
+    listLock: mine.rows[0] ? listLockReason(ev) : null,
   });
 }
 
 /** POST /api/events/create -> the caller becomes the organiser. */
 async function create(req, res, userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
-  const { name, description, visibility, isLeague, startsOn, endsOn, regOpensOn, regClosesOn, isTest } = req.body ?? {};
+  const { name, description, visibility, isLeague, startsOn, endsOn, regOpensOn, regClosesOn, isTest,
+          pointLimit, engagement, alliesAllowed } = req.body ?? {};
   if (typeof name !== 'string' || !name.trim()) return bad(res, 'Event name is required.');
   if (visibility !== undefined && visibility !== 'public' && visibility !== 'private') {
     return bad(res, 'Visibility must be "public" or "private".');
@@ -208,11 +251,15 @@ async function create(req, res, userId) {
   const published = isTest === true;
   const r = await sql`
     INSERT INTO events (name, description, organiser_user_id, visibility, is_league,
-                        starts_on, ends_on, reg_opens_on, reg_closes_on, is_test, published)
+                        starts_on, ends_on, reg_opens_on, reg_closes_on, is_test, published,
+                        point_limit, engagement, allies_allowed)
     VALUES (${name.trim()}, ${typeof description === 'string' ? description.trim() : ''}, ${userId},
             ${visibility ?? 'public'}, ${isLeague === true},
             ${asDate(startsOn)}, ${asDate(endsOn)}, ${asDate(regOpensOn)}, ${asDate(regClosesOn)},
-            ${isTest === true}, ${published})
+            ${isTest === true}, ${published},
+            ${Number.isFinite(Number(pointLimit)) && Number(pointLimit) > 0 ? Number(pointLimit) : null},
+            ${ENGAGEMENT_LABELS[engagement] ? engagement : null},
+            ${alliesAllowed !== false})
     RETURNING *
   `;
   res.status(200).json({ ok: true, event: r.rows[0] });
@@ -221,7 +268,8 @@ async function create(req, res, userId) {
 /** POST /api/events/update -> organiser (or admin) edits the event's own fields. */
 async function update(req, res, userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
-  const { id, name, description, visibility, isLeague, startsOn, endsOn, regOpensOn, regClosesOn } = req.body ?? {};
+  const { id, name, description, visibility, isLeague, startsOn, endsOn, regOpensOn, regClosesOn,
+          pointLimit, engagement, alliesAllowed } = req.body ?? {};
   const { ev, canManage } = await loadEvent(Number(id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
   if (!canManage) return bad(res, 'Only the organiser can edit this event.', 403);
@@ -235,7 +283,13 @@ async function update(req, res, userId) {
       starts_on     = ${asDate(startsOn)},
       ends_on       = ${asDate(endsOn)},
       reg_opens_on  = ${asDate(regOpensOn)},
-      reg_closes_on = ${asDate(regClosesOn)}
+      reg_closes_on = ${asDate(regClosesOn)},
+      -- The three event-wide rules. A caller that does not send one leaves it alone.
+      -- 0 or null clears the cap; anything else positive sets it; omitting the field leaves it.
+      point_limit    = CASE WHEN ${pointLimit === undefined} THEN point_limit
+                            ELSE ${Number(pointLimit) > 0 ? Number(pointLimit) : null} END,
+      engagement     = COALESCE(${ENGAGEMENT_LABELS[engagement] ? engagement : null}, engagement),
+      allies_allowed = COALESCE(${typeof alliesAllowed === 'boolean' ? alliesAllowed : null}, allies_allowed)
     WHERE id = ${ev.id}
     RETURNING *
   `;
@@ -302,29 +356,73 @@ async function setStatus(req, res, userId) {
  * anyone could attach someone else's list), and for a private event the caller is APPROVED — the
  * requirements say only approved players may assign a list.
  */
-async function assignList(req, res, userId) {
+async function assignList(req, res, userId, realUserId = userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
-  const { id, rosterId } = req.body ?? {};
-  const { ev } = await loadEvent(Number(id), userId);
+  const { id, rosterId, playerUserId } = req.body ?? {};
+  const { ev, canManage } = await loadEvent(Number(id), realUserId);
   if (!ev) return bad(res, 'Event not found.', 404);
 
-  const me = await sql`SELECT status FROM event_players WHERE event_id = ${ev.id} AND user_id = ${userId}`;
-  if (!me.rows[0]) return bad(res, 'Register for the event first.');
-  if (me.rows[0].status !== 'approved') return bad(res, 'Your registration has not been approved yet.', 403);
-  // Reported: a registered player could still swap army list at any point, including after playing.
-  const locked = await listLockReason(ev, userId);
-  if (locked) return bad(res, locked);
+  // THE ORGANISER MAY FIX SOMEONE ELSE'S ENTRY. Rigzar: *"deberia haber un metodo para que los
+  // admin puedan corregir si alguien se equivoca en una army"* — a player who registers the wrong
+  // list writes on Discord, and the fix has to be possible inside the app. Setting `playerUserId`
+  // is that, and it needs canManage; without it you are only ever editing your own entry.
+  const target = playerUserId != null && Number(playerUserId) !== userId ? Number(playerUserId) : userId;
+  if (target !== userId && !canManage) return bad(res, 'Only the organiser can change another player\'s list.', 403);
+
+  const me = await sql`SELECT status FROM event_players WHERE event_id = ${ev.id} AND user_id = ${target}`;
+  if (!me.rows[0]) return bad(res, target === userId ? 'Register for the event first.' : 'That player is not registered.');
+  if (me.rows[0].status !== 'approved') return bad(res, 'That registration has not been approved yet.', 403);
+
+  // The deadline binds players, not the referee — an entry that needs correcting is usually
+  // noticed AFTER registration has closed, which is exactly when a player can no longer self-serve.
+  // But it binds an organiser or admin on their OWN entry too, for the same reason they cannot
+  // settle their own game: the powers are there to fix other people's problems, not to give the
+  // referee a private exemption. Someone else with the powers can still correct them.
+  if (target === userId) {
+    const locked = listLockReason(ev);
+    if (locked) return bad(res, locked);
+  }
 
   if (rosterId === null) {
-    await sql`UPDATE event_players SET roster_id = NULL WHERE event_id = ${ev.id} AND user_id = ${userId}`;
+    await sql`UPDATE event_players SET roster_id = NULL WHERE event_id = ${ev.id} AND user_id = ${target}`;
     res.status(200).json({ ok: true, rosterId: null });
     return;
   }
-  const own = await sql`SELECT id FROM rosters WHERE id = ${Number(rosterId)} AND user_id = ${userId}`;
-  if (!own.rows[0]) return bad(res, 'That army list is not yours.', 403);
+  const own = await sql`SELECT id FROM rosters WHERE id = ${Number(rosterId)} AND user_id = ${target}`;
+  if (!own.rows[0]) {
+    return bad(res, target === userId ? 'That army list is not yours.' : 'That army list does not belong to that player.', 403);
+  }
+  // The cap applies to the organiser's corrections too, or the fix could create the problem.
+  const refused = await rosterRejection(ev, Number(rosterId));
+  if (refused) return bad(res, refused);
 
-  await sql`UPDATE event_players SET roster_id = ${Number(rosterId)} WHERE event_id = ${ev.id} AND user_id = ${userId}`;
+  await sql`UPDATE event_players SET roster_id = ${Number(rosterId)} WHERE event_id = ${ev.id} AND user_id = ${target}`;
   res.status(200).json({ ok: true, rosterId: Number(rosterId) });
+}
+
+/**
+ * GET /api/events/player-lists?id=&userId= -> that participant's saved armies, for the organiser.
+ *
+ * The other half of letting an organiser correct a wrong entry: to put the right list on someone
+ * you have to be able to see which lists they have. Deliberately narrow — organiser only, only
+ * for an APPROVED participant of an event they manage, and only name, faction and points. It never
+ * returns the army itself, so this is not a way to read someone's list contents.
+ */
+async function playerLists(req, res, userId) {
+  if (req.method !== 'GET') return bad(res, 'Method not allowed', 405);
+  const { ev, canManage } = await loadEvent(Number(req.query.id), userId);
+  if (!ev) return bad(res, 'Event not found.', 404);
+  if (!canManage) return bad(res, 'Only the organiser can see a player\'s lists.', 403);
+
+  const target = Number(req.query.userId);
+  const p = await sql`SELECT status FROM event_players WHERE event_id = ${ev.id} AND user_id = ${target}`;
+  if (p.rows[0]?.status !== 'approved') return bad(res, 'That player is not an approved participant.', 403);
+
+  const r = await sql`
+    SELECT id, name, data->>'faction' AS faction,
+           CAST(NULLIF(data->>'totalPts', '') AS INTEGER) AS total_pts
+      FROM rosters WHERE user_id = ${target} ORDER BY updated_at DESC`;
+  res.status(200).json({ ok: true, rosters: r.rows });
 }
 
 /** GET /api/events/players?id= -> the participant overview: name, list, faction. */
@@ -573,7 +671,16 @@ async function settleGame(req, res, userId) {
 
   const { ev, canManage } = await loadEvent(game.event_id, userId);
   if (!ev) return bad(res, 'Event not found.', 404);
-  if (!canManage) return bad(res, 'Only the organiser can settle a game.', 403);
+  if (!canManage) return bad(res, 'Only an organiser or admin can settle a game.', 403);
+  // NOBODY SETTLES THEIR OWN GAME. Rigzar: *"si un inquisidor que esté en la liga como jugador no
+  // puede auto arreglarse los juegos disputados"*. The referee powers belong to the organiser AND
+  // to the admins generally, which is exactly why this line has to exist — an admin who is also
+  // playing would otherwise be able to rule on the game they are arguing about. It applies to the
+  // organiser too: the principle is the conflict of interest, not the job title. Any OTHER
+  // organiser or admin can still settle it, so nothing is ever stuck.
+  if (game.reporter_user_id === userId || game.opponent_user_id === userId) {
+    return bad(res, 'You played in this game, so you cannot settle it. Another organiser or admin has to.', 403);
+  }
   if (what === 'confirm' && game.status === 'pending') {
     return bad(res, 'This game is still waiting on its opponent. Only they can confirm it.');
   }
