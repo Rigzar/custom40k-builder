@@ -16,10 +16,10 @@ const SLOT_LABEL_KEY: Record<string, TranslationKey> = {
   'Fortifications': 'fortifications', 'Flyers': 'flyers', 'Lords of War': 'lordsOfWar',
 };
 
-const SLOT_ICON_STYLE: React.CSSProperties = {
-  filter: 'brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(-10deg)',
-  opacity: 0.65,
-};
+// Gold-tinted slot icons. The filter moved to `.symbol-tint-gold` (index.css) so light mode can
+// use a dark gold instead of the bright one that disappears on white.
+const SLOT_ICON_STYLE: React.CSSProperties = { opacity: 0.65 };
+const SLOT_ICON_CLASS = 'symbol-tint-gold';
 
 /**
  * A roster entry whose datasheet the codex no longer has.
@@ -105,7 +105,7 @@ export function ArmyList({ scope = 'primary' }: { scope?: 'primary' | 'allied' }
           <div key={slot} className="mb-6">
             <div className="flex items-center gap-2 mb-2 pb-1.5 border-b border-amber-900/40">
               {SLOT_ICONS[slot] && (
-                <img src={SLOT_ICONS[slot]} alt="" className="w-4 h-4 shrink-0" style={SLOT_ICON_STYLE} />
+                <img src={SLOT_ICONS[slot]} alt="" className={`w-4 h-4 shrink-0 ${SLOT_ICON_CLASS}`} style={SLOT_ICON_STYLE} />
               )}
               <span className="font-cinzel text-amber-600/90 uppercase tracking-widest text-[11px] flex-1">
                 {t(SLOT_LABEL_KEY[slot] ?? 'hq')}

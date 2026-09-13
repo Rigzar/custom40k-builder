@@ -98,8 +98,8 @@ export function FactionSymbol({ factionKey, size = 40, className = '', naked = f
       <img
         src={svgSrc}
         alt={FACTION_ABBREV[factionKey] ?? factionKey}
-        className={`shrink-0 ${className}`}
-        style={{ width: size, height: size, objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.65)' }}
+        className={`shrink-0 symbol-tint ${className}`}
+        style={{ width: size, height: size, objectFit: 'contain', opacity: 0.65 }}
         draggable={false}
       />
     );
@@ -114,7 +114,8 @@ export function FactionSymbol({ factionKey, size = 40, className = '', naked = f
         <img
           src={svgSrc}
           alt={FACTION_ABBREV[factionKey] ?? factionKey}
-          style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1) opacity(0.85)' }}
+          className="symbol-tint"
+          style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 0.85 }}
           draggable={false}
         />
       </div>

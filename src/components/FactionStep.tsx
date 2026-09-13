@@ -183,8 +183,8 @@ export function FactionStep({
                 <img
                   src={cat.icon}
                   alt={cat.name}
-                  className="shrink-0"
-                  style={{ width: cat.name === 'Imperium' ? 68 : 52, height: cat.name === 'Imperium' ? 68 : 52, filter: 'brightness(0) invert(1)', opacity: 0.60 }}
+                  className="shrink-0 symbol-tint"
+                  style={{ width: cat.name === 'Imperium' ? 68 : 52, height: cat.name === 'Imperium' ? 68 : 52, opacity: 0.60 }}
                 />
                 <span className="font-cinzel text-[11px] uppercase tracking-widest shrink-0" style={{ color: cat.pillFg }}>
                   {cat.name}

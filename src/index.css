@@ -188,6 +188,89 @@
   --color-black: #fafafa;
 }
 
+/* ── LIGHT THEME, TUNED ──────────────────────────────────────────────────────────────────────
+   Hand-written, and it runs AFTER the generated mirror above on purpose. Re-running
+   scripts/gen_light_theme.cjs rewrites that block and leaves this one alone.
+
+   The pure mirror preserves the LIGHTNESS DISTANCE between text and its panel, which sounds
+   right and is not: dark ink on a light ground needs more separation than light ink on a dark
+   one at the same distance. Reported as "muchas letras se pierden ... las letras doradas cuesta
+   leerlas". So the steps the app uses as TEXT are pulled down into a legible band here, while the
+   steps it uses as panels and borders keep the mirror.
+
+   Which is which was measured, not guessed (counts across src/):
+     zinc-400   164 text,   0 bg  ·  zinc-500  270 text,  0 bg  ·  zinc-600  162 text, 17 bg
+     zinc-700    16 text,  59 bg  ·  zinc-800    0 text, 140 bg
+     amber-400  163 text,   3 bg  ·  amber-500  47 text,  1 bg  ·  amber-600  78 text, 2 bg
+   So 400/500/600 are text and move as variables; 700/800 are structure and are left alone, with
+   the few text uses handled one utility at a time below.
+   ──────────────────────────────────────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  /* body and muted text, in descending emphasis */
+  --color-zinc-400: oklch(38% .015 285.8);
+  --color-zinc-500: oklch(46% .015 285.9);
+  --color-zinc-600: oklch(54% .015 286);
+  --color-neutral-400: oklch(38% .005 0);
+  --color-neutral-500: oklch(46% .005 0);
+  --color-neutral-600: oklch(54% .005 0);
+
+  /* the brand gold: on a dark panel it glows, on white it has to be a dark gold to be read */
+  --color-amber-400: oklch(48% .12 62);
+  --color-amber-500: oklch(46% .12 60);
+  --color-amber-600: oklch(44% .115 58);
+}
+
+/* Panels need an edge you can actually see: a mirrored zinc-700 border is 87% lightness on a 98.5%
+   page, which is why the announcement card read as floating text with no card around it. Scoped to
+   the border utility so `bg-zinc-700`/`bg-zinc-800` panels stay light. */
+[data-theme="light"] .border-zinc-700 { border-color: oklch(80% .006 286.3); }
+[data-theme="light"] .border-zinc-800 { border-color: oklch(86% .004 286.3); }
+[data-theme="light"] .border-zinc-900 { border-color: oklch(90% .002 286.4); }
+
+/* The handful of places a structural step is used as TEXT. Too few to be worth moving a variable
+   that 200+ borders depend on. */
+[data-theme="light"] .text-zinc-700  { color: oklch(56% .013 285.8); }
+[data-theme="light"] .text-amber-700 { color: oklch(42% .11 56); }
+[data-theme="light"] .text-amber-800 { color: oklch(38% .10 54); }
+[data-theme="light"] .text-amber-900 { color: oklch(34% .09 52); }
+
+/* Gold FRAMES. The Preferences window is `border-2 border-amber-800`, which mirrored to 92%
+   lightness on a 97% panel — a two-pixel border nobody can see, which is why that window looked
+   like loose text. Borders go dark; `bg-amber-700/800` fills are left mirrored, because a light
+   gold button with dark label is the correct inversion of a dark gold button with a light one.
+   The /NN variants are listed because Tailwind compiles each into its own class, so a rule on the
+   bare name never reaches them. */
+[data-theme="light"] .border-amber-600 { border-color: oklch(44% .11 56); }
+[data-theme="light"] .border-amber-700 { border-color: oklch(42% .11 56); }
+[data-theme="light"] .border-amber-800 { border-color: oklch(40% .11 56); }
+[data-theme="light"] .border-amber-900 { border-color: oklch(36% .11 56); }
+[data-theme="light"] .border-amber-800\/60 { border-color: color-mix(in oklch, oklch(40% .11 56) 60%, transparent); }
+[data-theme="light"] .border-amber-800\/70 { border-color: color-mix(in oklch, oklch(40% .11 56) 70%, transparent); }
+[data-theme="light"] .border-amber-800\/50 { border-color: color-mix(in oklch, oklch(40% .11 56) 50%, transparent); }
+[data-theme="light"] .border-amber-900\/60 { border-color: color-mix(in oklch, oklch(36% .11 56) 60%, transparent); }
+[data-theme="light"] .border-amber-900\/50 { border-color: color-mix(in oklch, oklch(36% .11 56) 50%, transparent); }
+[data-theme="light"] .border-amber-900\/80 { border-color: color-mix(in oklch, oklch(36% .11 56) 80%, transparent); }
+[data-theme="light"] .border-amber-700\/60 { border-color: color-mix(in oklch, oklch(42% .11 56) 60%, transparent); }
+[data-theme="light"] .border-amber-700\/50 { border-color: color-mix(in oklch, oklch(42% .11 56) 50%, transparent); }
+
+/* Hover states carry the same reasoning and would otherwise jump back to the mirrored value. */
+[data-theme="light"] .hover\:text-amber-400:hover { color: oklch(44% .13 62); }
+[data-theme="light"] .hover\:text-amber-300:hover { color: oklch(40% .13 60); }
+[data-theme="light"] .hover\:text-zinc-300:hover  { color: oklch(30% .012 285.8); }
+[data-theme="light"] .hover\:text-zinc-200:hover  { color: oklch(25% .008 286); }
+[data-theme="light"] .hover\:text-white:hover     { color: oklch(20% 0 0); }
+
+/* Faction symbols and the eagle marks are single-colour art forced WHITE with a filter, so in
+   light mode they vanished completely. `brightness(0)` alone makes the same art black; the
+   opacity stays on the element so each use keeps the weight it chose. */
+.symbol-tint { filter: brightness(0) invert(1); }
+[data-theme="light"] .symbol-tint { filter: brightness(0); }
+
+/* The gold slot icons. Same problem, same fix: the bright gold that glows on a dark panel is
+   washed out on white, so light mode keeps the hue and drops the brightness. */
+.symbol-tint-gold { filter: brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(-10deg); }
+[data-theme="light"] .symbol-tint-gold { filter: brightness(0) sepia(1) saturate(3) hue-rotate(-18deg) brightness(0.75); }
+
 @theme {
   --font-cinzel: 'Cinzel', 'Trajan Pro', Georgia, serif;
   --font-bankgothic: 'BankGothic', 'Cinzel', Georgia, serif;

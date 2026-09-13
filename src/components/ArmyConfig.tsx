@@ -8,15 +8,15 @@ import { TraitPickerModal, traitCostParts } from './TraitPickerModal';
 
 import type { EngagementType, Mark } from '../types/army';
 
-const PHASE_ICON_STYLE: React.CSSProperties = {
-  filter: 'brightness(0) invert(1)',
-  opacity: 0.75,
-};
+// The tint lives in `.symbol-tint` (index.css) so it can follow the theme; white art on a white
+// page is invisible. Only the weight stays here.
+const PHASE_ICON_STYLE: React.CSSProperties = { opacity: 0.75 };
+const PHASE_ICON_CLASS = 'symbol-tint';
 
 function SectionHeader({ icon, label, accent = 'amber' }: { icon: string; label: string; accent?: 'amber' | 'emerald' }) {
   return (
     <div className="flex items-center gap-2.5 px-4 py-2.5 border-b border-zinc-800 bg-zinc-900">
-      <img src={icon} alt="" style={PHASE_ICON_STYLE} className="w-5 h-5 shrink-0" />
+      <img src={icon} alt="" style={PHASE_ICON_STYLE} className={`w-5 h-5 shrink-0 ${PHASE_ICON_CLASS}`} />
       <span className={`font-cinzel text-[11px] uppercase tracking-widest ${accent === 'emerald' ? 'text-emerald-400' : 'text-amber-400'}`}>{label}</span>
     </div>
   );
