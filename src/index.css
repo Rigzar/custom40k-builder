@@ -214,10 +214,15 @@
   --color-neutral-500: oklch(46% .005 0);
   --color-neutral-600: oklch(54% .005 0);
 
-  /* the brand gold: on a dark panel it glows, on white it has to be a dark gold to be read */
-  --color-amber-400: oklch(48% .12 62);
-  --color-amber-500: oklch(46% .12 60);
-  --color-amber-600: oklch(44% .115 58);
+  /* The brand gold. Darker than pure contrast maths asks for, and deliberately so: these headings
+     are small, uppercase and letter-spaced, and thin widely-tracked type reads far weaker than its
+     contrast ratio suggests. 48% measured about 7:1 on white and still looked washed out in use
+     ("el dorado con blanco casi no se ve"), so the whole gold range sits near 38-40%. */
+  --color-amber-200: oklch(34% .10 56);
+  --color-amber-300: oklch(37% .11 58);
+  --color-amber-400: oklch(40% .12 60);
+  --color-amber-500: oklch(39% .12 59);
+  --color-amber-600: oklch(38% .115 58);
 }
 
 /* Panels need an edge you can actually see: a mirrored zinc-700 border is 87% lightness on a 98.5%
@@ -230,9 +235,9 @@
 /* The handful of places a structural step is used as TEXT. Too few to be worth moving a variable
    that 200+ borders depend on. */
 [data-theme="light"] .text-zinc-700  { color: oklch(56% .013 285.8); }
-[data-theme="light"] .text-amber-700 { color: oklch(42% .11 56); }
-[data-theme="light"] .text-amber-800 { color: oklch(38% .10 54); }
-[data-theme="light"] .text-amber-900 { color: oklch(34% .09 52); }
+[data-theme="light"] .text-amber-700 { color: oklch(36% .105 55); }
+[data-theme="light"] .text-amber-800 { color: oklch(33% .095 53); }
+[data-theme="light"] .text-amber-900 { color: oklch(30% .085 51); }
 
 /* Gold FRAMES. The Preferences window is `border-2 border-amber-800`, which mirrored to 92%
    lightness on a 97% panel — a two-pixel border nobody can see, which is why that window looked
@@ -254,8 +259,8 @@
 [data-theme="light"] .border-amber-700\/50 { border-color: color-mix(in oklch, oklch(42% .11 56) 50%, transparent); }
 
 /* Hover states carry the same reasoning and would otherwise jump back to the mirrored value. */
-[data-theme="light"] .hover\:text-amber-400:hover { color: oklch(44% .13 62); }
-[data-theme="light"] .hover\:text-amber-300:hover { color: oklch(40% .13 60); }
+[data-theme="light"] .hover\:text-amber-400:hover { color: oklch(34% .13 62); }
+[data-theme="light"] .hover\:text-amber-300:hover { color: oklch(31% .13 60); }
 [data-theme="light"] .hover\:text-zinc-300:hover  { color: oklch(30% .012 285.8); }
 [data-theme="light"] .hover\:text-zinc-200:hover  { color: oklch(25% .008 286); }
 [data-theme="light"] .hover\:text-white:hover     { color: oklch(20% 0 0); }
@@ -265,6 +270,20 @@
    opacity stays on the element so each use keeps the weight it chose. */
 .symbol-tint { filter: brightness(0) invert(1); }
 [data-theme="light"] .symbol-tint { filter: brightness(0); }
+
+/* Art that sits on a plate of its own — the faction roundels carry a dark identity colour that
+   does not follow the theme, so their symbol has to stay white in light mode as well. Splitting
+   this out was the whole fix for "los logos de faccion ahora no se ven": tinting every symbol by
+   theme turned 18 of the 21 on the faction screen black on a dark roundel. */
+.symbol-tint-fixed { filter: brightness(0) invert(1); }
+
+/* Light mode needs more STROKE, not more contrast. The section headings are 11px Cinzel at
+   weight 400 with wide letter-spacing; measured they sit near 9:1 on white, which is plenty on
+   paper, yet they still read as faint. Light type on a dark ground blooms and looks heavier than
+   it is, so a face tuned in the dark theme comes out anaemic once the polarity flips. Cinzel 600
+   is already loaded (index.html), so this costs nothing to fetch. */
+[data-theme="light"] .font-cinzel { font-weight: 600; }
+[data-theme="light"] .tracking-widest { letter-spacing: .08em; }
 
 /* The gold slot icons. Same problem, same fix: the bright gold that glows on a dark panel is
    washed out on white, so light mode keeps the hue and drops the brightness. */

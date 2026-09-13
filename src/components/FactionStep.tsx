@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type * as api from '../lib/api';
 import { useArmyStore } from '../store/army';
 import { FactionSymbol } from './FactionSymbol';
+import { useTheme } from '../theme';
 import { useT } from '../i18n';
 import { CATEGORIES, STATUS_DOT, STATUS_I18N_KEY } from '../data/factionCatalog';
 import { ENGAGEMENTS } from '../engine/engagements';
@@ -36,6 +37,7 @@ export function FactionStep({
   onDeleteArmy: (id: string) => void;
   onContinue: () => void;
 }) {
+  const theme = useTheme(t => t.theme);
   const t = useT();
   const { engagement, pointLimit, setEngagement, setPointLimit, alliedFaction } = useArmyStore();
   // Raw text of the points-limit box while it is being edited (null = show the store value).
@@ -186,7 +188,7 @@ export function FactionStep({
                   className="shrink-0 symbol-tint"
                   style={{ width: cat.name === 'Imperium' ? 68 : 52, height: cat.name === 'Imperium' ? 68 : 52, opacity: 0.60 }}
                 />
-                <span className="font-cinzel text-[11px] uppercase tracking-widest shrink-0" style={{ color: cat.pillFg }}>
+                <span className="font-cinzel text-[11px] uppercase tracking-widest shrink-0" style={{ color: theme === 'light' ? cat.pillFgLight : cat.pillFg }}>
                   {cat.name}
                 </span>
                 <div className="flex-1 h-px" style={{ background: cat.dividerColor }} />

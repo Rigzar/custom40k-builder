@@ -23,7 +23,13 @@ export interface FactionDef {
 export interface FactionCategory {
   name: string;
   icon: string;
+  /** Category label colour on the DARK theme: a pale tint, made to sit on a near-black page. */
   pillFg: string;
+  /**
+   * The same label on the LIGHT theme. Not derivable from `pillFg` — those tints measure 2.0-2.8:1
+   * on white, which is why the category headings washed out there. Same hue, enough depth to read.
+   */
+  pillFgLight: string;
   dividerColor: string;
   factions: FactionDef[];
 }
@@ -46,7 +52,7 @@ export const CATEGORIES: FactionCategory[] = [
   {
     name: 'Chaos',
     icon: '/category-icons/chaos.svg',
-    pillFg: '#cc8888', dividerColor: '#3a1a1a',
+    pillFg: '#cc8888', pillFgLight: '#8a3236', dividerColor: '#3a1a1a',
     factions: [
       { key: 'chaos_space_marines', name: 'Chaos Space Marines', available: true, status: 'complete', version: '1.04' },
       { key: 'chaos_daemons',       name: 'Chaos Daemons',       available: true, status: 'complete', version: '1.01' },
@@ -55,7 +61,7 @@ export const CATEGORIES: FactionCategory[] = [
   {
     name: 'Imperium',
     icon: '/category-icons/imperium.svg',
-    pillFg: '#c8b56a', dividerColor: '#3a3520',
+    pillFg: '#c8b56a', pillFgLight: '#6b5a17', dividerColor: '#3a3520',
     factions: [
       { key: 'space_marines',      name: 'Space Marines',      available: true, status: 'complete', version: '1.05' },
       { key: 'imperial_guard',     name: 'Imperial Guard',     available: true, status: 'complete', version: '1.05' },
@@ -69,7 +75,7 @@ export const CATEGORIES: FactionCategory[] = [
   {
     name: 'Xenos',
     icon: '/category-icons/xenos.svg',
-    pillFg: '#6ab88a', dividerColor: '#1a3a28',
+    pillFg: '#6ab88a', pillFgLight: '#1d6944', dividerColor: '#1a3a28',
     factions: [
       { key: 'tau_empire',        name: 'Tau Empire',        available: true, status: 'testing', version: '1.01' },
       { key: 'necrons',           name: 'Necrons',           available: true, status: 'complete', version: '1.11' },

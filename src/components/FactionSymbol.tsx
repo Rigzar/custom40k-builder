@@ -114,7 +114,9 @@ export function FactionSymbol({ factionKey, size = 40, className = '', naked = f
         <img
           src={svgSrc}
           alt={FACTION_ABBREV[factionKey] ?? factionKey}
-          className="symbol-tint"
+          /* On the coloured plate, NOT on the page: that background is a faction identity colour
+             and stays dark in light mode too, so this symbol stays white in both themes. */
+          className="symbol-tint-fixed"
           style={{ width: '100%', height: '100%', objectFit: 'contain', opacity: 0.85 }}
           draggable={false}
         />
