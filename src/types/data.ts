@@ -77,6 +77,19 @@ export interface Choice {
    * selections at a different biomorph.
    */
   requires_keyword?: string;
+  /**
+   * This CHOICE is priced per model, while its siblings in the same group are not.
+   *
+   * `OptionGroup.per_model` cannot express it: the Tyranid Biomorph picker is one group holding
+   * both Basic Biomorphs ("Point costs are paid per unit") and Advanced ones, which the codex
+   * changed on 2026-09-13 to "Point costs are paid per model". One flag on the group would move
+   * both halves.
+   *
+   * It does NOT change how many times the choice can be bought — that stays one, as the Armory
+   * preamble says. It changes what that one purchase costs: `points × unit size`, the same shape
+   * as a Special Biomorph.
+   */
+  per_model?: boolean;
 }
 
 /**

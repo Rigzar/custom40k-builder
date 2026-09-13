@@ -1053,7 +1053,10 @@ export default function App() {
         {showEvents && username && (
           <EventsModal
             username={username}
-            isAdmin={isAdmin || isInterrogator}
+            /* Strict: the reset and puppet-seeding tools delete data, so they stay with real
+               admins. Creating a league is the looser permission and rides on canCreate. */
+            isAdmin={isAdmin}
+            canCreate={isAdmin || isInterrogator}
             onClose={() => setShowEvents(false)}
           />
         )}

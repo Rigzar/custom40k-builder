@@ -13,7 +13,8 @@ const fill = (t: (k: Parameters<ReturnType<typeof useT>>[0]) => string) =>
   (k: Parameters<ReturnType<typeof useT>>[0], vars: Record<string, string | number>) => tpl(t(k), vars);
 
 /**
- * Events & Leagues (ALPHA) — built to Dominic's requirements doc (2026-09-13).
+ * Events & Leagues — built to Dominic's requirements doc (2026-09-13), opened to players
+ * 2026-09-14 after Dominic, Unwise and atypicalhero ran a league end to end and signed it off.
  *
  * One modal covers the whole feature because the nine requirements are really two screens: an INDEX
  * of events, and one EVENT with four tabs. Splitting it further would mean threading the same
@@ -35,6 +36,12 @@ interface Props {
   /** Current user's name, so the UI can tell "you" from "them" without another round trip. */
   username: string;
   isAdmin: boolean;
+  /**
+   * May this viewer CREATE an event? The three senior admins only for now, so it is a separate
+   * question from `isAdmin` — an Interrogator can create one without having the rest of the
+   * admin powers. Enforced server-side too; this only decides whether the button is offered.
+   */
+  canCreate: boolean;
 }
 
 const box = 'w-full bg-zinc-900 border border-zinc-800 px-2 py-1 text-[12px] text-zinc-200 focus:outline-none focus:border-amber-800';
@@ -53,7 +60,7 @@ const ENGAGEMENT_KEY = {
 
 const dateOnly = (v: string | null) => (v ? String(v).slice(0, 10) : '');
 
-export function EventsModal({ onClose, username, isAdmin }: Props) {
+export function EventsModal({ onClose, username, isAdmin, canCreate }: Props) {
   const t = useT();
   const [events, setEvents] = useState<api.EventSummary[]>([]);
   const [loading, setLoading] = useState(true);
@@ -83,7 +90,6 @@ export function EventsModal({ onClose, username, isAdmin }: Props) {
         <div className="flex justify-between items-center px-4 py-3 border-b border-zinc-800">
           <div className="flex items-center gap-2">
             <span className="text-amber-500 text-sm tracking-widest uppercase">⚔ {t('evTitle')}</span>
-            <span className="text-[9px] px-1.5 py-0.5 border border-red-800 text-red-400 tracking-wide">ALPHA</span>
           </div>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-200 text-lg leading-none">✕</button>
         </div>
@@ -101,7 +107,7 @@ export function EventsModal({ onClose, username, isAdmin }: Props) {
 
           {openId == null
             ? <EventIndex
-                events={events} loading={loading} isAdmin={isAdmin}
+                events={events} loading={loading} isAdmin={isAdmin} canCreate={canCreate}
                 onOpen={setOpenId} onRefresh={refresh} onError={setError}
               />
             : <EventDetail
@@ -116,8 +122,8 @@ export function EventsModal({ onClose, username, isAdmin }: Props) {
 
 // ── index ────────────────────────────────────────────────────────────────────────────────────────
 
-function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
-  events: api.EventSummary[]; loading: boolean; isAdmin: boolean;
+function EventIndex({ events, loading, isAdmin, canCreate, onOpen, onRefresh, onError }: {
+  events: api.EventSummary[]; loading: boolean; isAdmin: boolean; canCreate: boolean;
   onOpen: (id: number) => void; onRefresh: () => Promise<void>; onError: (m: string) => void;
 }) {
   const t = useT();
@@ -127,7 +133,7 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
   /** 0 = idle · 1 = "really?" · 2 = "completely sure?" — see handleResetTest. */
   const [resetStep, setResetStep] = useState(0);
   const [form, setForm] = useState<api.NewEvent>({
-    name: '', description: '', visibility: 'public', isLeague: true, isTest: true,
+    name: '', description: '', visibility: 'public', isLeague: true, isTest: false,
   });
 
   async function handleCreate() {
@@ -135,7 +141,7 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
     setBusy(true); onError('');
     try {
       await api.createEvent(form);
-      setForm({ name: '', description: '', visibility: 'public', isLeague: true, isTest: true });
+      setForm({ name: '', description: '', visibility: 'public', isLeague: true, isTest: false });
       setCreating(false);
       await onRefresh();
     } catch (err) {
@@ -174,9 +180,12 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
           {t('evIntro')}
         </p>
         <div className="flex gap-2 shrink-0">
-          <button className={btnPrimary} onClick={() => setCreating(v => !v)}>
-            {creating ? t('evCancel') : t('evNew')}
-          </button>
+          {/* Only the organisers start a league for now; everyone else joins one. */}
+          {canCreate && (
+            <button className={btnPrimary} onClick={() => setCreating(v => !v)}>
+              {creating ? t('evCancel') : t('evNew')}
+            </button>
+          )}
           {isAdmin && resetStep === 0 && (
             <button className={btn} onClick={() => setResetStep(1)} disabled={busy}
                     title={t('evResetTestHint')}>
@@ -259,11 +268,16 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
                      onChange={e => setForm(f => ({ ...f, isLeague: e.target.checked }))} />
               {t('evLeague')} <span className="text-zinc-600">{t('evLeagueHint')}</span>
             </label>
-            <label className="flex items-center gap-1.5">
-              <input type="checkbox" checked={form.isTest === true}
-                     onChange={e => setForm(f => ({ ...f, isTest: e.target.checked }))} />
-              {t('evTestData')} <span className="text-zinc-600">{t('evTestDataHint')}</span>
-            </label>
+            {/* Admin tool, and OFF by default. It used to default ON, which was right while the
+                module was admin-only and wrong the moment players could reach it: the first league
+                anyone made would have been invisible to everyone but admins. */}
+            {isAdmin && (
+              <label className="flex items-center gap-1.5">
+                <input type="checkbox" checked={form.isTest === true}
+                       onChange={e => setForm(f => ({ ...f, isTest: e.target.checked }))} />
+                {t('evTestData')} <span className="text-zinc-600">{t('evTestDataHint')}</span>
+              </label>
+            )}
           </div>
           <button className={btnPrimary} onClick={handleCreate} disabled={busy}>
             {busy ? t('evCreating') : t('evCreate')}

@@ -1606,8 +1606,16 @@ export function UnitCard({ item }: Props) {
               // their indices, but a unit without the keyword cannot buy it. Unlike the mark gate
               // this leaves "−" live, so a selection made before the keyword existed can be
               // cleared instead of stranding the player on an illegal list.
+              // Matched against the unit's KEYWORDS and its UNIT TYPE, because the codex gates on
+              // both: "Advanced Bioform" is a keyword, while the Living Battering Ram's "Can only
+              // be taken by Monstrous Creatures" names a unit type. The type line can hold several
+              // ("Flyer, Monstrous Creature"), so it is split before matching.
+              const unitTraits = [
+                ...(u.keywords ?? []),
+                ...String(u.unit_type ?? '').split(',').map(x => x.trim()).filter(Boolean),
+              ];
               const choiceKeywordBlocked = c.requires_keyword != null
-                && !(u.keywords ?? []).includes(c.requires_keyword);
+                && !unitTraits.includes(c.requires_keyword);
               const addBlocked = choiceMarkBlocked || choiceKeywordBlocked;
               const blockTitle = choiceMarkBlocked
                 ? `${t('requiresMarkOfPrefix')} ${choiceMarkReq}`

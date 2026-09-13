@@ -70,6 +70,20 @@ const bad = (res, msg, code = 400, key = null, vars = null) => {
   return null;
 };
 
+/**
+ * May this user CREATE an event? The three senior admins only, for now.
+ *
+ * Rigzar, 2026-09-14: *"por ahora solo las ligas las crean los 3 admin principales, los que tienen
+ * el inquisidor"*. Everyone else joins, reports and confirms — opening the module to players was
+ * never the same thing as letting anyone start a league. Enforced here rather than only by hiding
+ * the button, because a hidden button is not a rule.
+ */
+async function canCreateEvent(userId) {
+  const r = await sql`SELECT is_admin, is_interrogator FROM users WHERE id = ${userId}`;
+  const u = r.rows[0];
+  return u?.is_admin === true || u?.is_interrogator === true;
+}
+
 async function isAdmin(userId) {
   const r = await sql`SELECT is_admin FROM users WHERE id = ${userId}`;
   return r.rows[0]?.is_admin === true;
@@ -124,6 +138,27 @@ function datesRefusal(startsOn, regClosesOn) {
     return { msg: 'Registration has to close before the event starts.', key: 'evErrRegAfterStart' };
   }
   return null;
+}
+
+/**
+ * May this user read this event's CONTENTS — its players, games, standings and backup?
+ *
+ * The rule used to live inside `get` and nowhere else, which meant `players`, `games`, `standings`
+ * and `export` answered for any event id a signed-in user cared to try: a PRIVATE league's
+ * participant list, army names and factions, and the whole `.json` backup, were readable by
+ * someone who was never in it. Test events leaked the same way, which is the one thing the module
+ * is most careful about everywhere else.
+ *
+ * Being LISTED is a different question and deliberately stays looser — a public league is meant
+ * to be found and read by anyone, open or closed. This gate is about a PRIVATE one, and about test
+ * data.
+ */
+async function canReadEvent(ev, userId, canManage) {
+  if (canManage) return true;
+  if (ev.is_test) return false;
+  if (ev.visibility === 'public') return true;
+  const mine = await sql`SELECT 1 FROM event_players WHERE event_id = ${ev.id} AND user_id = ${userId}`;
+  return mine.rows.length > 0;
 }
 
 /** A date string the DB will accept, or null — so an empty form field does not become 'Invalid Date'. */
@@ -254,9 +289,7 @@ async function get(req, res, userId, realUserId = userId) {
   if (!ev) return bad(res, 'Event not found.', 404);
 
   const mine = await sql`SELECT status, roster_id FROM event_players WHERE event_id = ${id} AND user_id = ${userId}`;
-  // Test events are puppets, not announcements, so they stay out of players' hands entirely.
-  const hidden = (ev.visibility !== 'public' && mine.rows.length === 0) || ev.is_test;
-  if (!canManage && hidden) return bad(res, 'Event not found.', 404);
+  if (!await canReadEvent(ev, userId, canManage)) return bad(res, 'Event not found.', 404);
   const organiser = await sql`SELECT username FROM users WHERE id = ${ev.organiser_user_id}`;
   res.status(200).json({
     ok: true,
@@ -281,6 +314,9 @@ async function create(req, res, userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
   const { name, description, visibility, isLeague, startsOn, endsOn, regOpensOn, regClosesOn, isTest,
           pointLimit, engagement, alliesAllowed } = req.body ?? {};
+  if (!await canCreateEvent(userId)) {
+    return bad(res, 'Only the organisers can create an event for now.', 403, 'evErrCreateNotAllowed');
+  }
   if (typeof name !== 'string' || !name.trim()) return bad(res, 'Event name is required.');
   if (visibility !== undefined && visibility !== 'public' && visibility !== 'private') {
     return bad(res, 'Visibility must be "public" or "private".');
@@ -483,6 +519,7 @@ async function players(req, res, userId) {
   if (req.method !== 'GET') return bad(res, 'Method not allowed', 405);
   const { ev, canManage } = await loadEvent(Number(req.query.id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
+  if (!await canReadEvent(ev, userId, canManage)) return bad(res, 'Event not found.', 404);
 
   // Pending and rejected requests are the organiser's business, not the other players'.
   const rows = canManage
@@ -514,7 +551,12 @@ async function players(req, res, userId) {
  */
 async function reportGame(req, res, userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
-  const { id, opponentUserId, opponentRosterId, mission, result, playedOn } = req.body ?? {};
+  // `opponentRosterId` is deliberately NOT read from the request. It used to be, and it was
+  // inserted unchecked: a reporter could name ANY roster id as their opponent's army, including a
+  // list belonging to a third party, which then showed on the game row, in the standings and on
+  // the printed sheet. Which army someone brought is their own registration's business, so it is
+  // read from `event_players` below and nowhere else.
+  const { id, opponentUserId, mission, result, playedOn } = req.body ?? {};
   if (!['win', 'draw', 'loss'].includes(result)) return bad(res, 'Result must be win, draw or loss.');
   const { ev } = await loadEvent(Number(id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
@@ -540,7 +582,7 @@ async function reportGame(req, res, userId) {
     INSERT INTO event_games (event_id, reporter_user_id, reporter_roster_id,
                              opponent_user_id, opponent_roster_id, mission, result, played_on)
     VALUES (${ev.id}, ${userId}, ${mine.roster_id},
-            ${Number(opponentUserId)}, ${opponentRosterId != null ? Number(opponentRosterId) : theirs.roster_id},
+            ${Number(opponentUserId)}, ${theirs.roster_id},
             ${typeof mission === 'string' ? mission.trim() : ''}, ${result}, ${asDate(playedOn)})
     RETURNING *
   `;
@@ -580,8 +622,9 @@ async function confirmGame(req, res, userId) {
 /** GET /api/events/games?id= -> every reported game, newest first. */
 async function games(req, res, userId) {
   if (req.method !== 'GET') return bad(res, 'Method not allowed', 405);
-  const { ev } = await loadEvent(Number(req.query.id), userId);
+  const { ev, canManage } = await loadEvent(Number(req.query.id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
+  if (!await canReadEvent(ev, userId, canManage)) return bad(res, 'Event not found.', 404);
   const rows = await sql`
     SELECT g.*, ru.username AS reporter, ou.username AS opponent,
            rr.name AS reporter_roster_name, orr.name AS opponent_roster_name,
@@ -607,8 +650,9 @@ async function games(req, res, userId) {
  */
 async function standings(req, res, userId) {
   if (req.method !== 'GET') return bad(res, 'Method not allowed', 405);
-  const { ev } = await loadEvent(Number(req.query.id), userId);
+  const { ev, canManage } = await loadEvent(Number(req.query.id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
+  if (!await canReadEvent(ev, userId, canManage)) return bad(res, 'Event not found.', 404);
 
   const rows = await sql`
     WITH results AS (
@@ -881,8 +925,9 @@ async function publish(req, res, userId) {
  */
 async function exportEvent(req, res, userId) {
   if (req.method !== 'GET') return bad(res, 'Method not allowed', 405);
-  const { ev } = await loadEvent(Number(req.query.id), userId);
+  const { ev, canManage } = await loadEvent(Number(req.query.id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
+  if (!await canReadEvent(ev, userId, canManage)) return bad(res, 'Event not found.', 404);
 
   const organiser = await sql`SELECT username FROM users WHERE id = ${ev.organiser_user_id}`;
   const pl = await sql`

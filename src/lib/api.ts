@@ -772,6 +772,11 @@ export interface NewEvent {
   alliesAllowed?: boolean;
 }
 
+/** Whether this viewer may create an event. Mirrors `canCreateEvent` on the server. */
+export function canCreateEvents(me: { isAdmin?: boolean; isInterrogator?: boolean } | null | undefined) {
+  return me?.isAdmin === true || me?.isInterrogator === true;
+}
+
 export function listEvents() {
   return call<{ events: EventSummary[] }>('/api/events/list');
 }

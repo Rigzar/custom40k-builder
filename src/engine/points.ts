@@ -225,7 +225,9 @@ export function computeUnitPoints(item: RosterEntry, unit: Unit, archetype = '')
       // priced by `variant.points` in the `active` branch above — adding its own choice.points
       // here would double-charge it.
       if (choice?.variant_link && active) continue;
-      if (choice) total += choice.points * qty * (g.per_model ? item.size : 1);
+      // `per_model` on the CHOICE as well as the group: a group can hold both kinds (Tyranid
+      // Biomorphs are per unit for Basic and per model for Advanced since the 2026-09-13 codex).
+      if (choice) total += choice.points * qty * (g.per_model || choice.per_model ? item.size : 1);
     }
   }
 

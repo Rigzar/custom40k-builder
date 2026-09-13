@@ -217,6 +217,7 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Acid Blood",
           "points": 5,
+          "per_model": true,
           "effect": {
             "grants_abilities": [
               "Acid Blood: The unit gains the \"Retribution(3)\" ability."
@@ -226,6 +227,7 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Extremely Volatile",
           "points": 0,
+          "per_model": true,
           "effect": {
             "grants_abilities": [
               "Extremely Volatile: The unit explodes like a vehicle upon losing their last Wound, resolved at Strength 7."
@@ -235,10 +237,11 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Implant Attack",
           "points": 5,
+          "per_model": true,
           "requires_keyword": "Advanced Bioform",
           "effect": {
             "grants_abilities": [
-              "Implant Attack: The unit gains the \"Implant Attack\" weapon."
+              "Implant Attack: The model gains the \"Implant Attack\" weapon."
             ],
             "grants_weapons": [
               "Implant Attack"
@@ -248,15 +251,17 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Infrasonic Roar",
           "points": 5,
+          "per_model": true,
           "effect": {
             "grants_abilities": [
-              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(3)\" ability against targets within 12\". Basic Bioforms only gain \"Suppression(2)\"."
+              "Infrasonic Roar: All ranged weapons in the unit gain the \"Suppression(2)\" ability against targets within 12\". Advanced Bioforms gain \"Suppression(3)\"."
             ]
           }
         },
         {
           "name": "Resonance Barb",
           "points": 5,
+          "per_model": true,
           "requires_keyword": "Advanced Bioform",
           "effect": {
             "grants_abilities": [
@@ -266,7 +271,8 @@ export const tyrantGuardBrood: Unit = {
         },
         {
           "name": "Symbiote Rippers",
-          "points": 5,
+          "points": 3,
+          "per_model": true,
           "requires_keyword": "Advanced Bioform",
           "effect": {
             "grants_abilities": [
@@ -280,6 +286,7 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Thornback",
           "points": 5,
+          "per_model": true,
           "requires_keyword": "Advanced Bioform",
           "effect": {
             "grants_abilities": [
@@ -290,6 +297,7 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Tusked",
           "points": 5,
+          "per_model": true,
           "requires_keyword": "Advanced Bioform",
           "effect": {
             "grants_abilities": [
@@ -300,6 +308,7 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Warped",
           "points": 5,
+          "per_model": true,
           "effect": {
             "grants_abilities": [
               "Warped: The unit gains the ability \"Terrifying(-1)\"."
@@ -308,7 +317,8 @@ export const tyrantGuardBrood: Unit = {
         },
         {
           "name": "Camouflage",
-          "points": 5,
+          "points": 3,
+          "per_model": true,
           "effect": {
             "grants_abilities": [
               "Camouflage: The unit gains the benefit of light cover until its first activation."
@@ -318,10 +328,11 @@ export const tyrantGuardBrood: Unit = {
         {
           "name": "Living Battering Ram",
           "points": 15,
-          "requires_keyword": "Advanced Bioform",
+          "per_model": true,
+          "requires_keyword": "Monstrous Creature",
           "effect": {
             "grants_abilities": [
-              "Living Battering Ram: The model causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile."
+              "Living Battering Ram: The unit causes one automatic hit against a unit that it successfully charged. The hit is resolved with the \"Headlong Charge\" profile. Can only be taken by Monstrous Creatures."
             ],
             "grants_weapons": [
               "Headlong charge"

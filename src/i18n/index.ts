@@ -429,7 +429,8 @@ export type TranslationKey =
   | 'themeLight'
   | 'themeToDark'
   | 'themeToLight'
-  | 'themeHint';
+  | 'themeHint'
+  | 'evErrCreateNotAllowed';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -1076,7 +1077,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
     prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
     evTitle: 'Events & Leagues',
-    evIntro: 'Early preview — organisers can run events and leagues, players register and report games.',
+    evIntro: 'Create an event or a league, register with one of your army lists, and report your games.',
     evNew: '+ New event',
     evCancel: 'Cancel',
     evNameRequired: 'Give the event a name.',
@@ -1278,6 +1279,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     themeToDark: 'Switch to dark',
     themeToLight: 'Switch to light',
     themeHint: 'Remembered on this device.',
+    evErrCreateNotAllowed: 'Only the organisers can create an event for now.',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -1923,7 +1925,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
     prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
     evTitle: 'Events & Ligen',
-    evIntro: 'Frühe Vorschau — Organisatoren können Events und Ligen leiten, Spieler melden sich an und tragen Partien ein.',
+    evIntro: 'Erstelle ein Event oder eine Liga, melde dich mit einer deiner Armeelisten an und trage deine Partien ein.',
     evNew: '+ Neues Event',
     evCancel: 'Abbrechen',
     evNameRequired: 'Gib dem Event einen Namen.',
@@ -2125,6 +2127,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     themeToDark: 'Auf dunkel umschalten',
     themeToLight: 'Auf hell umschalten',
     themeHint: 'Wird auf diesem Gerät gespeichert.',
+    evErrCreateNotAllowed: 'Vorerst können nur die Organisatoren ein Event erstellen.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -2770,7 +2773,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
     prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
     evTitle: 'Eventos y ligas',
-    evIntro: 'Vista previa — los organizadores llevan eventos y ligas, los jugadores se inscriben y reportan partidas.',
+    evIntro: 'Crea un evento o una liga, inscríbete con una de tus listas y reporta tus partidas.',
     evNew: '+ Nuevo evento',
     evCancel: 'Cancelar',
     evNameRequired: 'Pon un nombre al evento.',
@@ -2972,6 +2975,7 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     themeToDark: 'Cambiar a oscuro',
     themeToLight: 'Cambiar a claro',
     themeHint: 'Se recuerda en este dispositivo.',
+    evErrCreateNotAllowed: 'Por ahora solo los organizadores pueden crear un evento.',
   },
 };
 

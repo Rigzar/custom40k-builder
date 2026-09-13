@@ -12,7 +12,7 @@ import { useAuth } from '../hooks/useAuth';
 import type { SavedArmy } from '../hooks/useSavedArmies';
 import { CHANGELOG } from '../data/changelog';
 
-const ANNOUNCEMENT_KEY = 'c40k_announcement_v172f_dismissed';
+const ANNOUNCEMENT_KEY = 'c40k_announcement_v172g_dismissed';
 
 // v1.72 (2026-09-12) is a REAL version cut (Rigzar: "este update seria nueva version"), so per
 // [[feedback_version_cut_banner_scope]] this banner is RESET to ONLY v1.72's own content --
@@ -35,9 +35,12 @@ const ANNOUNCEMENT_KEY = 'c40k_announcement_v172f_dismissed';
 // old line3: "I have literally no idea what this is supposed to mean". Both described what
 // was repaired in the data rather than what a player sees when they open their list, which
 // is the only thing a patch note is for. Lead with what happened to YOUR card.
+//
+//   line7 = Events & Leagues is open to everyone (key -> v172g)
+//   line8 = Tyranid Advanced Biomorphs are paid per model, which moves list totals
 // Append follow-ups here while v1.72 stays open. Bump ANNOUNCEMENT_KEY whenever these lines
 // change materially, or readers who dismissed the previous card never see the new one.
-type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; contrib: string; };
+type AnnouncementLang = { title: string; intro: string; install: string; line1: string; line2: string; line3: string; line4: string; line5: string; line6: string; line7: string; line8: string; contrib: string; };
 const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
   en: {
     title: "v1.72: the September rules and codex update",
@@ -49,6 +52,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line4: "🔄 THE WEAPON-ABILITY CLEAN-UP IS IN TOO — Unwise finished it, so your cards now speak Core Rules 1.262. Flames is now AUTO HIT plus SUNDER(1). Flurry is now EXTRA ATTACK. Explosive, Barrage and Colossal Blast are all BLAST(x) — 4, 6 and 8 respectively. And Suppression now carries a number per weapon, SUPPRESSION(x), where each of its hits counts as x toward Suppressive Fire. Suppressive Fire itself got simpler: 6+ ranged hits in one activation, −1 for every further 6, and no separate test just because a Suppression weapon hit you. 1331 weapon profiles changed, and the glossary, the cheat sheets and the wiki moved with them, so an ability on a card is always one you can look up. The Horus Heresy supplement is in as well — its sheet went readable again, and the last three weapons that still said Suppression with no number have one.",
     line5: "⚖️ EIGHT WEAPONS HAD THE WRONG ABILITIES ON THEIR CARD, and one of you spotted it. When we renamed every weapon ability last month we added LIMIT alongside EXTRA ATTACK everywhere — but on some weapons the codex replaced Extra Attack rather than keeping both, and we could not tell those apart automatically. So every weapon in the game carrying either ability was read against its own codex sheet again. SEVEN NOW LOSE AN EXTRA ATTACK THEY SHOULD NEVER HAVE HAD: the Adeptus Mechanicus Adamantine Arm, Omnissiah’s Hand, Chordclaw, Servo arm and Servo-arc claw, the Space Marine Furioso psy halberd, and the Tyranid Implant Attack. ONE GAINS THE LIMIT IT WAS MISSING: the Chaos Daemons Snapping claws. If you field any of those, check the card. AND WATCH THIS ONE: the SERVO ARM is three different weapons with the same name — the Adeptus Mechanicus one has Limit(1) alone, the Space Marine and Imperial Guard ones also have Extra Attack(1).",
     line6: "☀ LIGHT MODE IS HERE — atypicalhero asked for it. The sun button next to the flags on this page switches it, and so does Appearance in Preferences; whichever you pick is remembered on this device. It is the whole app, not one screen: the builder, the printed cards, the league, every window. The dark theme is untouched and stays the default, so nothing changes unless you want it to.",
+    line7: "🏆 EVENTS & LEAGUES IS OPEN. Sign in and the button is on the front page. Browse any public league, join one, attach one of your saved army lists, report your games and confirm your opponent’s — a result only counts once the other player agrees to it. For now only the organisers create a league; everyone else joins one. A league you have not been let into yet still shows, marked CLOSED, and you can read its standings and its games whenever you like.",
+    line8: "🧬 TYRANID PLAYERS, CHECK YOUR TOTAL. Advanced Biomorphs are now paid PER MODEL instead of once for the whole unit, so a squad that takes one costs more than it did. Basic Biomorphs are unchanged, still one flat cost. Several got cheaper to go with it: on a Basic Bioform unit Acid Blood, Camouflage, Infrasonic Roar, Thornback and Warped are 1 point instead of 5, and on an Advanced Bioform Camouflage and Symbiote Rippers are 3 instead of 5. LIVING BATTERING RAM IS MONSTROUS CREATURES ONLY now — greyed out everywhere else, Monstrous Infantry included, which is a different unit type. And the Implant Attack weapon has Extra Attack(1) back on it.",
     contrib: "👁️ Found something wrong? The in-app bug report form works — unit, engagement, archetype and a picture.",
   },
   de: {
@@ -61,6 +66,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line4: "🔄 AUCH DIE ÜBERARBEITUNG DER WAFFENFÄHIGKEITEN IST DRIN — Unwise ist fertig, eure Karten sprechen jetzt Core Rules 1.262. Aus Flames wird AUTO HIT plus SUNDER(1), aus Flurry wird EXTRA ATTACK, und Explosive, Barrage und Colossal Blast werden alle zu BLAST(x) — 4, 6 bzw. 8. Suppression hat jetzt einen Wert pro Waffe, SUPPRESSION(x): jeder ihrer Treffer zählt als x für Suppressive Fire. Suppressive Fire selbst wurde einfacher: 6+ Fernkampftreffer in einer Aktivierung, −1 für je weitere 6 — und kein eigener Test mehr, nur weil eine Suppression-Waffe getroffen hat. 1331 Waffenprofile geändert, und Glossar, Cheat Sheets und Wiki sind mitgezogen. Das Horus-Heresy-Supplement ist ebenfalls dabei — sein Tabellenblatt ist wieder lesbar, und die letzten drei Waffen, bei denen Suppression noch ohne Zahl stand, haben jetzt eine.",
     line5: "⚖️ ACHT WAFFEN HATTEN DIE FALSCHEN FÄHIGKEITEN AUF DER KARTE, und einer von euch hat es bemerkt. Als wir letzten Monat alle Waffenfähigkeiten umbenannt haben, kam überall LIMIT zu EXTRA ATTACK dazu — aber bei manchen Waffen hat der Codex Extra Attack ERSETZT statt beides zu behalten, und das ließ sich nicht automatisch unterscheiden. Also wurde jede Waffe im Spiel mit einer der beiden Fähigkeiten erneut gegen ihr eigenes Codex-Blatt gelesen. SIEBEN VERLIEREN JETZT EIN EXTRA ATTACK, DAS SIE NIE HABEN SOLLTEN: Adamantine Arm, Omnissiah’s Hand, Chordclaw, Servo arm und Servo-arc claw des Adeptus Mechanicus, die Furioso psy halberd der Space Marines und der Implant Attack der Tyraniden. EINE BEKOMMT DAS FEHLENDE LIMIT: die Snapping claws der Chaos Daemons. Wenn ihr eine davon spielt, schaut auf die Karte. UND ACHTUNG: der SERVO ARM sind drei verschiedene Waffen mit demselben Namen — beim Adeptus Mechanicus nur Limit(1), bei Space Marines und Imperialer Armee zusätzlich Extra Attack(1).",
     line6: "☀ DER HELLE MODUS IST DA — atypicalhero hat darum gebeten. Die Sonne neben den Flaggen auf dieser Seite schaltet um, ebenso „Darstellung“ in den Einstellungen; deine Wahl wird auf diesem Gerät gespeichert. Es gilt für die ganze App, nicht nur einen Bildschirm: Builder, gedruckte Karten, Liga, jedes Fenster. Das dunkle Design bleibt unverändert und bleibt Standard — es ändert sich also nichts, wenn du nicht willst.",
+    line7: "🏆 EVENTS & LIGEN SIND OFFEN. Melde dich an, dann steht der Knopf auf der Startseite. Stöbere durch alle öffentlichen Ligen, tritt einer bei, hänge eine deiner gespeicherten Armeelisten an, trage deine Partien ein und bestätige die deines Gegners — ein Ergebnis zählt erst, wenn der andere zustimmt. Vorerst erstellen nur die Organisatoren eine Liga; alle anderen treten bei. Eine Liga, die noch nicht offen ist, siehst du trotzdem — als GESCHLOSSEN markiert — und kannst Tabelle und Partien jederzeit lesen.",
+    line8: "🧬 TYRANIDEN-SPIELER, PRÜFT EURE PUNKTE. Fortgeschrittene Biomorphe werden jetzt PRO MODELL bezahlt statt einmal für die ganze Einheit, eine Einheit mit einem davon kostet also mehr als vorher. Basis-Biomorphe bleiben unverändert. Dafür wurden mehrere billiger: bei einer Basis-Bioform kosten Acid Blood, Camouflage, Infrasonic Roar, Thornback und Warped 1 statt 5 Punkte, bei einer Fortgeschrittenen Bioform Camouflage und Symbiote Rippers 3 statt 5. LIVING BATTERING RAM GIBT ES NUR NOCH FÜR MONSTRÖSE KREATUREN — überall sonst ausgegraut, auch bei Monströser Infanterie, die ein anderer Einheitentyp ist. Und die Waffe Implant Attack hat wieder Extra Attack(1).",
     contrib: "👁️ Etwas falsch? Das Bug-Report-Formular in der App funktioniert — Einheit, Engagement, Archetyp und ein Bild.",
   },
   es: {
@@ -73,6 +80,8 @@ const ANNOUNCEMENT_TEXT: Record<Language, AnnouncementLang> = {
     line4: "🔄 LA LIMPIEZA DE HABILIDADES TAMBIÉN ESTÁ DENTRO — Unwise la terminó, así que tus fichas ya hablan Core Rules 1.262. Flames pasa a AUTO HIT más SUNDER(1), Flurry pasa a EXTRA ATTACK, y Explosive, Barrage y Colossal Blast se unifican en BLAST(x) — 4, 6 y 8 respectivamente. Suppression lleva ahora un número por arma, SUPPRESSION(x), y cada uno de sus impactos cuenta como x para Suppressive Fire. El propio Suppressive Fire se simplificó: 6+ impactos a distancia en una activación, −1 por cada 6 más, y ya no hay test aparte por que te impacte un arma con Suppression. 1331 perfiles de arma cambiados, y el glosario, las chuletas y el wiki han ido con ellos. El suplemento de Horus Heresy también entra — su hoja volvió a ser legible, y las tres últimas armas que seguían diciendo Suppression sin número ya tienen su valor.",
     line5: "⚖️ OCHO ARMAS TENÍAN LAS HABILIDADES MAL EN LA FICHA, y lo cazó uno de vosotros. Cuando el mes pasado renombramos todas las habilidades de arma, añadimos LIMIT junto a EXTRA ATTACK en todas partes — pero en algunas armas el códex SUSTITUYÓ Extra Attack en vez de dejar las dos, y eso no se podía distinguir automáticamente. Así que se releyeron contra su propia hoja de códex todas las armas del juego que llevan cualquiera de las dos. SIETE PIERDEN AHORA UN EXTRA ATTACK QUE NUNCA DEBIERON TENER: el Adamantine Arm, la Omnissiah’s Hand, el Chordclaw, el Servo arm y el Servo-arc claw del Adeptus Mechanicus, la Furioso psy halberd de Space Marines y el Implant Attack tyránido. UNA GANA EL LIMIT QUE LE FALTABA: las Snapping claws de Demonios del Caos. Si juegas alguna, revisa la ficha. Y OJO CON ESTA: el SERVO ARM son tres armas distintas con el mismo nombre — la del Adeptus Mechanicus lleva Limit(1) a secas, y las de Space Marines y Guardia llevan además Extra Attack(1).",
     line6: "☀ YA HAY MODO CLARO — lo pidió atypicalhero. El botón del sol junto a las banderas de esta página lo cambia, y también Apariencia en Preferencias; lo que elijas se recuerda en este dispositivo. Es la app entera, no una pantalla: el constructor, las fichas impresas, la liga, cada ventana. El tema oscuro sigue igual y sigue siendo el que viene por defecto, así que no cambia nada si no quieres.",
+    line7: "🏆 EVENTOS Y LIGAS YA ESTÁ ABIERTO. Inicia sesión y el botón está en la portada. Mira cualquier liga pública, apúntate a una, engancha una de tus listas guardadas, reporta tus partidas y confirma las de tu rival — un resultado no cuenta hasta que el otro lo acepta. Por ahora solo los organizadores crean liga; los demás se apuntan. Una liga que aún no esté abierta se ve igualmente, marcada como CERRADA, y puedes leer su clasificación y sus partidas cuando quieras.",
+    line8: "🧬 JUGADORES DE TYRANIDS, REVISAD EL TOTAL. Los Biomorfos Avanzados se pagan ahora POR MODELO en vez de una vez por toda la unidad, así que una escuadra que lleve uno cuesta más que antes. Los Biomorfos Básicos no cambian, siguen siendo un coste único. A cambio varios bajan de precio: en una unidad de Bioforma Básica, Acid Blood, Camouflage, Infrasonic Roar, Thornback y Warped cuestan 1 punto en vez de 5, y en Bioforma Avanzada, Camouflage y Symbiote Rippers cuestan 3 en vez de 5. LIVING BATTERING RAM ES SOLO PARA CRIATURAS MONSTRUOSAS — sale en gris en todo lo demás, incluida la Infantería Monstruosa, que es otro tipo de unidad. Y el arma Implant Attack vuelve a llevar Extra Attack(1).",
     contrib: "👁️ ¿Algo mal? El formulario de reporte de bugs de la app funciona — unidad, engagement, arquetipo y una imagen.",
   },
 };
@@ -150,7 +159,7 @@ function CommunityAnnouncement() {
           {/* v1.72 is a REAL version cut, so this banner carries ONLY v1.72's own content;
               v1.71's lines were removed -- see [[feedback_version_cut_banner_scope]]. Append
               here while v1.72 is open; cut a fresh banner when a new version is cut. */}
-          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6]
+          {[tx.line1, tx.line2, tx.line3, tx.line4, tx.line5, tx.line6, tx.line7, tx.line8]
             .filter(Boolean)
             .map((line, i) => <BoldSplitLine key={i} text={line} />)}
           <p className="text-zinc-400">{tx.contrib}</p>
@@ -475,25 +484,26 @@ export function LandingPage({
               </button>
             )}
 
-            {/* Events & Leagues, same alpha gate as Campaign: the module is built but stays
-                admin-only until it has been run end to end with test data and reset. */}
-            {loggedIn && (isAdmin || isInterrogator) ? (
+            {/* OPEN TO EVERYONE since 2026-09-14: the alpha gate came off once Dominic, Unwise and
+                atypicalhero had run a league end to end and signed it off. Signing in is still
+                required — an event needs an account to register, report and confirm against. */}
+            {loggedIn ? (
               <button
                 onClick={onShowEvents}
-                title="Events & Leagues — alpha access (admin)"
+                title="Events & Leagues"
                 className="col-span-2 btn-sweep flex items-center justify-center gap-2 py-3 px-4 border border-zinc-700 hover:border-amber-700 text-zinc-400 hover:text-amber-300 text-[12px] uppercase tracking-wider transition-colors"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
-                EVENTS &amp; LEAGUES (ALPHA)
+                EVENTS &amp; LEAGUES
               </button>
             ) : (
               <button
                 disabled
-                title="Events & Leagues is still in alpha testing"
+                title="Sign in to join an event or a league"
                 className="col-span-2 flex items-center justify-center gap-2 py-3 px-4 border border-zinc-800 text-zinc-600 text-[12px] uppercase tracking-wider cursor-not-allowed"
               >
                 <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 21h8m-4-4v4m-7-9a7 7 0 0014 0V4H5v8zm0 0H3a2 2 0 01-2-2V6h4m14 6h2a2 2 0 002-2V6h-4" /></svg>
-                EVENTS &amp; LEAGUES — COMING SOON
+                EVENTS &amp; LEAGUES — SIGN IN
               </button>
             )}
           </div>
