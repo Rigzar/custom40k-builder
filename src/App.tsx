@@ -50,29 +50,10 @@ type Screen = 'home' | 'flow';
 /** Which detachment the Units step is showing. The ally used to be a tab of its own. */
 type Detachment = 'primary' | 'allied';
 
-export const FACTION_NAMES: Record<string, string> = {
-  chaos_space_marines:  'Chaos Space Marines',
-  chaos_daemons:        'Chaos Daemons',
-  space_marines:        'Space Marines',
-  imperial_guard:       'Imperial Guard',
-  adeptus_mechanicus:   'Adeptus Mechanicus',
-  adeptus_custodes:     'Adeptus Custodes',
-  adeptus_sororitas:    'Adeptus Sororitas',
-  grey_knights:         'Grey Knights',
-  inquisition:          'Inquisition',
-  assassins:            'Assassins',
-  tau_empire:           'Tau Empire',
-  necrons:              'Necrons',
-  orks:                 'Orks',
-  eldar:                'Eldar',
-  dark_eldar:           'Dark Eldar',
-  genestealer_cults:    'Genestealer Cults',
-  harlequins:           'Harlequins',
-  leagues_of_votann:    'Leagues of Votann',
-  tyranids:             'Tyranids',
-  horus_heresy:         'Horus Heresy Legiones Astartes',
-  legio_titanicus:      'Horus Heresy Forces of the Machine God',
-};
+// Lives in utils/factionLabel.ts now, and is re-exported here because half the app already
+// imports it from App. See that file for why a raw loader key must never reach the screen.
+import { FACTION_NAMES } from './utils/factionLabel';
+export { FACTION_NAMES };
 
 // ── Inline army name editor ─────────────────────────────────────────────────
 function ArmyNameEditor() {

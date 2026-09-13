@@ -7,6 +7,7 @@ import { resolveUnit, computeUnitPoints, effectiveArchetypeFor } from '../engine
 import { usePrefs, type AutosaveInterval } from '../hooks/usePrefs';
 import { Avatar } from './Avatar';
 import type { EngagementType } from '../types/army';
+import { factionLabel } from '../utils/factionLabel';
 
 interface Props {
   username: string;
@@ -66,8 +67,12 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
       }, 0)
     : 0;
 
+  // Normalised on the way OUT, so a store that somehow holds the loader key cannot write another
+  // row whose faction reads `chaos_space_marines`. The display side already survives either,
+  // but a row saved right is a row nothing downstream has to repair.
   const stateSnapshot = {
-    armyName, faction, engagement, pointLimit, hqMark, archetype, legacy, legacy2, traitPool, campaignTraitBonus, army,
+    armyName, faction: factionLabel(faction) || faction, engagement, pointLimit, hqMark,
+    archetype, legacy, legacy2, traitPool, campaignTraitBonus, army,
     alliedFaction, alliedArchetype, alliedLegacy, alliedTraitPool, alliedHqMark, totalPts,
   };
 
@@ -167,8 +172,10 @@ function ArmiesTab({ onClose, activeRosterId, onActiveRosterIdChange, onLoadClou
                     <span className="text-[10px] text-zinc-600 shrink-0">{t('copyOfPrefix')} {r.source_username}</span>
                   )}
                 </div>
+                {/* Through factionLabel(): a row whose stored faction is the loader key would
+                    otherwise print `chaos_space_marines` here, underscores and all. */}
                 {r.faction_label && (
-                  <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{r.faction_label}</div>
+                  <div className="text-[10px] text-amber-700 uppercase tracking-wide mt-0.5">{factionLabel(r.faction_label)}</div>
                 )}
                 <div className="flex items-center gap-3 mt-1">
                   <span className="text-[11px] text-zinc-500">{r.total_pts != null ? `${r.total_pts} pts · ` : ''}{formatDate(r.updated_at)}</span>
@@ -519,7 +526,7 @@ function CommunityTab({ loggedIn, onClose, onLoadCommunityArmy }: {
                 <div className="text-sm text-zinc-100 font-semibold truncate">{a.name}</div>
                 <div className="text-[10px] text-zinc-500">
                   <span className="text-amber-700">{a.username}</span>
-                  {a.faction_label ? ` · ${a.faction_label}` : ''}
+                  {a.faction_label ? ` · ${factionLabel(a.faction_label)}` : ''}
                   {a.total_pts != null ? ` · ${a.total_pts} pts` : ''}
                   <span className="ml-1">· {formatDate(a.updated_at)}</span>
                   {a.shared && <span className="ml-1.5 text-[9px] text-amber-600 uppercase tracking-wide">👥 {t('sharedWithYouBadge')}</span>}

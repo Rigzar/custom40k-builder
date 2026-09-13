@@ -43,6 +43,7 @@ export default async function handler(req, res) {
       case 'seed-test':     return seedTest(req, res, userId);
       case 'export':        return exportEvent(req, res, userId);
       case 'publish':       return publish(req, res, userId);
+      case 'settle-game':   return settleGame(req, res, userId);
       default:
         res.status(404).json({ error: 'Unknown events action' });
     }
@@ -364,7 +365,9 @@ async function reportGame(req, res, userId) {
 /**
  * POST /api/events/confirm-game { gameId, confirm, note } -> the OPPONENT accepts or rejects it.
  * Only the opponent may do this: letting the organiser confirm on their behalf would defeat the
- * point of the confirmation. A rejection keeps the row as `disputed` so the organiser can see it.
+ * point of the confirmation. A rejection keeps the row as `disputed` so the organiser can see
+ * it — and the organiser is the one who then SETTLES it, with `settle-game` below. A dispute
+ * is a flag for the referee, not a verdict.
  */
 async function confirmGame(req, res, userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
@@ -508,6 +511,62 @@ async function seedTest(req, res, userId) {
     made.push({ user_id: uid, username, faction, roster_id: r.rows[0].id, points });
   }
   res.status(200).json({ ok: true, players: made });
+}
+
+/**
+ * POST /api/events/settle-game { gameId, action, result, note } -> the ORGANISER settles a game.
+ *
+ * Players confirm or dispute their own games; that is what makes a result trustworthy. But a
+ * dispute used to be the end of the road — `confirm-game` only accepts a row that is still
+ * `pending`, so a disputed game sat there for ever, counting for nothing and with nobody able to
+ * touch it. The organiser is the referee, so the referee gets the whistle:
+ *
+ *   · 'confirm' — settle it as it stands, or with a corrected `result` if the two players
+ *                 agreed on the wrong way round. Counts toward the standings from then on.
+ *   · 'reopen'  — put it back to `pending` so the opponent can look at it again. For the case
+ *                 where the dispute was a mistake or the players have since sorted it out.
+ *   · 'delete'  — it never happened. Removes the row.
+ *
+ * Deliberately NOT restricted to disputed games: an organiser also has to be able to undo a game
+ * that both players confirmed and then realised was wrong. The one thing the organiser still
+ * cannot do is confirm a PENDING game on the opponent's behalf — that would quietly hand the
+ * referee the power to enter results for people, which is the whole thing confirmation prevents.
+ * A pending game they think is wrong can be deleted or left alone, not silently approved.
+ */
+async function settleGame(req, res, userId) {
+  if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
+  const { gameId, action: what, result, note } = req.body ?? {};
+  if (!['confirm', 'reopen', 'delete'].includes(what)) {
+    return bad(res, 'Action must be confirm, reopen or delete.');
+  }
+  const g = await sql`SELECT * FROM event_games WHERE id = ${Number(gameId)}`;
+  const game = g.rows[0];
+  if (!game) return bad(res, 'Game not found.', 404);
+
+  const { ev, canManage } = await loadEvent(game.event_id, userId);
+  if (!ev) return bad(res, 'Event not found.', 404);
+  if (!canManage) return bad(res, 'Only the organiser can settle a game.', 403);
+  if (what === 'confirm' && game.status === 'pending') {
+    return bad(res, 'This game is still waiting on its opponent. Only they can confirm it.');
+  }
+
+  if (what === 'delete') {
+    await sql`DELETE FROM event_games WHERE id = ${game.id}`;
+    return res.status(200).json({ ok: true, deleted: game.id });
+  }
+
+  // A corrected result is only accepted alongside a settlement, never on its own.
+  const settled = what === 'confirm';
+  const finalResult = settled && ['win', 'draw', 'loss'].includes(result) ? result : game.result;
+  const r = settled
+    ? await sql`UPDATE event_games
+                   SET status = 'confirmed', result = ${finalResult}, confirmed_at = now(),
+                       dispute_note = ${typeof note === 'string' && note.trim() ? note.trim() : game.dispute_note}
+                 WHERE id = ${game.id} RETURNING *`
+    : await sql`UPDATE event_games
+                   SET status = 'pending', confirmed_at = NULL, dispute_note = NULL
+                 WHERE id = ${game.id} RETURNING *`;
+  res.status(200).json({ ok: true, game: r.rows[0] });
 }
 
 /**

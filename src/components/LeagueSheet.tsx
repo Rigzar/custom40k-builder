@@ -1,8 +1,15 @@
 import { createPortal } from 'react-dom';
 import type * as api from '../lib/api';
+import { factionLabel } from '../utils/factionLabel';
 
 /**
  * The printable league sheet — for paper, or for "save as PDF" and drop in Discord.
+ *
+ * It is a STANDINGS sheet, and that is deliberate. It used to list every confirmed game too, until
+ * Dominic said the section was unnecessary and that he would use the sheet to post the standings on
+ * Discord — a game-by-game log is a different document, and on a long league it pushes the table
+ * everyone actually wants onto page two. The games are not lost: they stay on the Games tab and in
+ * the .json backup, which is the thing meant to hold everything.
  *
  * Rendered into a portal as `#pv-root`, which is the id the print stylesheet in index.css already
  * keys on: it hides the whole app shell and flows this sheet through normal document flow so it
@@ -81,7 +88,7 @@ export function LeagueSheet({ event, standings, players, games, onClose }: Props
                   <tr key={s.user_id} className="border-b border-neutral-100">
                     <td className="py-1 text-neutral-500">{i + 1}</td>
                     <td className="font-semibold">{s.username}</td>
-                    <td className="text-neutral-600">{s.faction ?? '—'}</td>
+                    <td className="text-neutral-600">{factionLabel(s.faction) || '—'}</td>
                     <td className="text-right tabular-nums">{n(s.wins)}</td>
                     <td className="text-right tabular-nums">{n(s.draws)}</td>
                     <td className="text-right tabular-nums">{n(s.losses)}</td>
@@ -91,7 +98,7 @@ export function LeagueSheet({ event, standings, players, games, onClose }: Props
               </tbody>
             </table>
             <p className="text-[9px] text-neutral-500 mt-1">
-              3 points for a win, 1 for a draw. Only games both players confirmed are counted.
+              3 points for a win, 1 for a draw. Worked out from the {confirmed.length} game{confirmed.length === 1 ? '' : 's'} both players confirmed.
             </p>
           </section>
         )}
@@ -105,43 +112,11 @@ export function LeagueSheet({ event, standings, players, games, onClose }: Props
               <li key={p.user_id} className="mb-0.5 break-inside-avoid">
                 <span className="font-semibold">{p.username}</span>
                 <span className="text-neutral-600">
-                  {p.faction ? ` — ${p.faction}` : ''}{p.roster_name ? ` (${p.roster_name})` : ''}
+                  {p.faction ? ` — ${factionLabel(p.faction)}` : ''}{p.roster_name ? ` (${p.roster_name})` : ''}
                 </span>
               </li>
             ))}
           </ul>
-        </section>
-
-        <section>
-          <h2 className="text-[11px] uppercase tracking-widest mb-2" style={{ color: GOLD_DIM }}>
-            Confirmed games ({confirmed.length})
-          </h2>
-          {confirmed.length === 0
-            ? <p className="text-[12px] text-neutral-500 italic">None yet.</p>
-            : (
-              <table className="w-full text-[11px] border-collapse">
-                <tbody>
-                  {confirmed.map(g => (
-                    <tr key={g.id} className="border-b border-neutral-100 break-inside-avoid">
-                      <td className="py-1 w-20 text-neutral-500">{dateOnly(g.played_on) || '—'}</td>
-                      <td>
-                        <span className="font-semibold">{g.reporter}</span>
-                        <span className="text-neutral-500"> {g.result === 'draw' ? 'drew with' : g.result === 'win' ? 'beat' : 'lost to'} </span>
-                        <span className="font-semibold">{g.opponent}</span>
-                        {/* Both armies always: with two players on the same faction the line above
-                            is ambiguous on its own. */}
-                        <div className="text-[10px] text-neutral-500">
-                          {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${g.reporter_faction})` : ''}
-                          {' vs '}
-                          {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${g.opponent_faction})` : ''}
-                          {g.mission ? ` · ${g.mission}` : ''}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
         </section>
 
         <footer className="mt-8 pt-3 border-t text-[9px] text-neutral-500 text-center" style={{ borderColor: GOLD_DIM }}>

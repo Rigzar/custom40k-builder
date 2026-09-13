@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { LeagueSheet } from './LeagueSheet';
+import { factionLabel } from '../utils/factionLabel';
 
 /**
  * Events & Leagues (ALPHA) — built to Dominic's requirements doc (2026-09-13).
@@ -274,6 +275,11 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
   const [actingAs, setActingAs] = useState<number | ''>('');
   const [seedCount, setSeedCount] = useState(4);
   const [showSheet, setShowSheet] = useState(false);
+  // Reported by a player: picking a list in the dropdown used to save it on the spot, so there was
+  // nothing to press and no moment where you were told you had registered it. The dropdown is now
+  // only a DRAFT; `listDraft` is what you have picked, `data.me.roster_id` is what is registered,
+  // and the button between them is the confirmation.
+  const [listDraft, setListDraft] = useState<number | ''>('');
 
   const load = useCallback(async () => {
     onError('');
@@ -289,6 +295,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
   }, [eventId, onError]);
 
   useEffect(() => { void load(); }, [load]);
+  useEffect(() => { setListDraft(data?.me?.roster_id ?? ''); }, [data?.me?.roster_id, actingAs]);
   useEffect(() => {
     // Only needed for the list picker, and only once the player is actually approved.
     if (data?.me?.status !== 'approved') return;
@@ -378,7 +385,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
                   <option value="">{username} (you)</option>
                   {puppets.map(p => (
                     <option key={p.user_id} value={p.user_id}>
-                      {p.username}{p.faction ? ` — ${p.faction}` : ''}
+                      {p.username}{p.faction ? ` — ${factionLabel(p.faction)}` : ''}
                     </option>
                   ))}
                 </select>
@@ -454,17 +461,45 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
             </div>
           )}
 
-          {data.me?.status === 'approved' && (
-            <div className="border border-zinc-800 p-3 space-y-2">
-              <div className="text-[10px] uppercase tracking-widest text-amber-600">Your army list</div>
-              <select className={box} value={data.me.roster_id ?? ''} disabled={busy}
-                      onChange={e => act(() => api.assignEventList(ev.id, e.target.value ? Number(e.target.value) : null, as))}>
-                <option value="">— none chosen —</option>
-                {myRosters.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
-              </select>
-              <p className="text-zinc-600 text-[10px]">This is the list you are registering for this event.</p>
-            </div>
-          )}
+          {data.me?.status === 'approved' && (() => {
+            const registered = data.me.roster_id ?? '';
+            const pending = listDraft !== registered;
+            const registeredName = myRosters.find(r => r.id === registered)?.name ?? null;
+            return (
+              <div className="border border-zinc-800 p-3 space-y-2">
+                <div className="text-[10px] uppercase tracking-widest text-amber-600">Your army list</div>
+                <select className={box} value={listDraft} disabled={busy}
+                        onChange={e => setListDraft(e.target.value ? Number(e.target.value) : '')}>
+                  <option value="">— none chosen —</option>
+                  {myRosters.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+                </select>
+
+                {/* Nothing is registered until this is pressed, and the button says which of the
+                    three things pressing it will do. It disables itself once what you picked and
+                    what is registered are the same, so it doubles as the state readout. */}
+                <button className={pending ? btnPrimary : btn} disabled={busy || !pending}
+                        onClick={() => act(() => api.assignEventList(ev.id, listDraft === '' ? null : listDraft, as))}>
+                  {!pending ? 'Army list confirmed'
+                    : listDraft === '' ? 'Withdraw my army list'
+                    : registered === '' ? 'Confirm this army list'
+                    : 'Change to this army list'}
+                </button>
+
+                {pending ? (
+                  <p className="text-amber-500/80 text-[10px]">
+                    Not registered yet — press the button to confirm.
+                    {registeredName && ` You are still registered with “${registeredName}”.`}
+                  </p>
+                ) : registeredName ? (
+                  <p className="text-emerald-500/80 text-[10px]">
+                    ✓ Registered for this event with “{registeredName}”.
+                  </p>
+                ) : (
+                  <p className="text-zinc-600 text-[10px]">You have no army list registered for this event yet.</p>
+                )}
+              </div>
+            );
+          })()}
 
           {data.canManage && (
             <button className={btn} disabled={busy}
@@ -489,6 +524,8 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           canReport={data.me?.status === 'approved' || asPlayer != null}
           onReport={g => act(() => api.reportEventGame(ev.id, g, as))}
           onConfirm={(gid, ok, note) => act(() => api.confirmEventGame(gid, ok, note, as))}
+          canManage={data.canManage}
+          onSettle={(gid, what, result) => act(() => api.settleEventGame(gid, what, result ? { result } : {}))}
         />
       )}
 
@@ -522,7 +559,7 @@ function PlayersTab({ players, canManage, busy, onSet }: {
       <div className="min-w-0">
         <div className="text-zinc-200 text-[12px]">{p.username}</div>
         <div className="text-[10px] text-zinc-500 font-mono truncate">
-          {p.roster_name ?? 'no list assigned'}{p.faction ? ` · ${p.faction}` : ''}
+          {p.roster_name ?? 'no list assigned'}{p.faction ? ` · ${factionLabel(p.faction)}` : ''}
           {p.is_test && <span className="ml-1.5 text-[9px] text-red-500/80">TEST</span>}
         </div>
       </div>
@@ -557,10 +594,13 @@ function PlayersTab({ players, canManage, busy, onSet }: {
   );
 }
 
-function GamesTab({ games, players, username, busy, canReport, onReport, onConfirm }: {
+function GamesTab({ games, players, username, busy, canReport, canManage, onReport, onConfirm, onSettle }: {
   games: api.EventGame[]; players: api.EventPlayer[]; username: string; busy: boolean; canReport: boolean;
+  /** The organiser is the referee: only they can settle a game the players could not agree on. */
+  canManage: boolean;
   onReport: (g: { opponentUserId: number; result: 'win' | 'draw' | 'loss'; mission?: string; playedOn?: string | null }) => void;
   onConfirm: (gameId: number, confirm: boolean, note?: string) => void;
+  onSettle: (gameId: number, action: 'confirm' | 'reopen' | 'delete', result?: 'win' | 'draw' | 'loss') => void;
 }) {
   const [opponentUserId, setOpponent] = useState<number | ''>('');
   const [result, setResult] = useState<'win' | 'draw' | 'loss'>('win');
@@ -570,6 +610,8 @@ function GamesTab({ games, players, username, busy, canReport, onReport, onConfi
   const opponents = players.filter(p => p.status === 'approved' && p.username !== username);
   /** Games where THIS viewer is the one who has to act — shown first, because nothing else moves. */
   const waitingOnMe = games.filter(g => g.status === 'pending' && g.opponent === username);
+  /** Games the players could not settle between them. Nothing moves until the organiser rules. */
+  const disputed = games.filter(g => g.status === 'disputed');
 
   return (
     <div className="space-y-3">
@@ -581,7 +623,7 @@ function GamesTab({ games, players, username, busy, canReport, onReport, onConfi
               <option value="">— opponent —</option>
               {opponents.map(p => (
                 <option key={p.user_id} value={p.user_id}>
-                  {p.username}{p.faction ? ` — ${p.faction}` : ''}{p.roster_name ? ` (${p.roster_name})` : ''}
+                  {p.username}{p.faction ? ` — ${factionLabel(p.faction)}` : ''}{p.roster_name ? ` (${p.roster_name})` : ''}
                 </option>
               ))}
             </select>
@@ -615,15 +657,60 @@ function GamesTab({ games, players, username, busy, canReport, onReport, onConfi
                 {g.reporter} reported a <strong>{g.result}</strong> against you{g.mission ? ` · ${g.mission}` : ''}
               </div>
               <div className="text-[10px] text-zinc-400 font-mono">
-                {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${g.reporter_faction})` : ''}
+                {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
                 {' vs '}
-                {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${g.opponent_faction})` : ''}
+                {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
               </div>
               <div className="flex gap-1.5">
                 <button className={btnPrimary} disabled={busy} onClick={() => onConfirm(g.id, true)}>Confirm</button>
                 <button className={btn} disabled={busy}
                         onClick={() => onConfirm(g.id, false, window.prompt('Why is this wrong? (the organiser sees this)') ?? undefined)}>
                   Dispute
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {canManage && disputed.length > 0 && (
+        <div className="space-y-1.5">
+          <div className="text-[10px] uppercase tracking-widest text-red-400">Disputed — waiting on you</div>
+          {disputed.map(g => (
+            <div key={g.id} className="border border-red-900/60 bg-red-950/10 px-3 py-2 space-y-1.5">
+              <div className="text-[12px] text-zinc-200">
+                {g.reporter} reported a <strong>{g.result}</strong> against {g.opponent}
+                {g.mission ? ` · ${g.mission}` : ''}
+              </div>
+              <div className="text-[10px] text-zinc-400 font-mono">
+                {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
+                {' vs '}
+                {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
+              </div>
+              {g.dispute_note && <div className="text-[11px] text-red-300/90">“{g.dispute_note}”</div>}
+              {/* Three ways out, and the labels say which is which from the REPORTER's side, since
+                  that is how the result is stored. Correcting it to the other way round is one
+                  press rather than a delete and a re-report by the other player. */}
+              <div className="flex gap-1.5 flex-wrap">
+                <button className={btnPrimary} disabled={busy} onClick={() => onSettle(g.id, 'confirm')}>
+                  Uphold as {g.result}
+                </button>
+                {g.result !== 'draw' && (
+                  <button className={btn} disabled={busy}
+                          onClick={() => onSettle(g.id, 'confirm', g.result === 'win' ? 'loss' : 'win')}>
+                    Overturn to {g.result === 'win' ? 'loss' : 'win'}
+                  </button>
+                )}
+                <button className={btn} disabled={busy} onClick={() => onSettle(g.id, 'confirm', 'draw')}>
+                  Rule a draw
+                </button>
+                <button className={btn} disabled={busy} onClick={() => onSettle(g.id, 'reopen')}
+                        title="Clear the dispute and send it back to the opponent">
+                  Send back
+                </button>
+                <button className={btn} disabled={busy}
+                        onClick={() => { if (window.confirm('Delete this game? It is gone for good.')) onSettle(g.id, 'delete'); }}>
+                  Delete
                 </button>
               </div>
             </div>
@@ -644,21 +731,31 @@ function GamesTab({ games, players, username, busy, canReport, onReport, onConfi
                 {/* Both armies, always. With two players on the same faction a bare "X beat Y" is
                     the line most likely to be misread, and a draw reads the same either way round. */}
                 <div className="text-[10px] text-zinc-400 font-mono truncate">
-                  {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${g.reporter_faction})` : ''}
+                  {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
                   {' vs '}
-                  {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${g.opponent_faction})` : ''}
+                  {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
                 </div>
                 <div className="text-[10px] text-zinc-500 font-mono truncate">
                   {g.mission || 'no mission'}{g.played_on ? ` · ${dateOnly(g.played_on)}` : ''}
                   {g.dispute_note ? ` · “${g.dispute_note}”` : ''}
                 </div>
               </div>
-              <Tag className={
-                g.status === 'confirmed' ? 'border-emerald-900 text-emerald-500'
-                  : g.status === 'disputed' ? 'border-red-900 text-red-400'
-                    : 'border-zinc-700 text-zinc-500'}>
-                {g.status.toUpperCase()}
-              </Tag>
+              <span className="flex items-center gap-1.5 shrink-0">
+                {/* An organiser also has to be able to undo a game both players confirmed and then
+                    realised was wrong — otherwise the only fix is a second, opposite game. */}
+                {canManage && g.status === 'confirmed' && (
+                  <button className={btn} disabled={busy} title="Send this back to the opponent as unconfirmed"
+                          onClick={() => onSettle(g.id, 'reopen')}>
+                    Undo
+                  </button>
+                )}
+                <Tag className={
+                  g.status === 'confirmed' ? 'border-emerald-900 text-emerald-500'
+                    : g.status === 'disputed' ? 'border-red-900 text-red-400'
+                      : 'border-zinc-700 text-zinc-500'}>
+                  {g.status.toUpperCase()}
+                </Tag>
+              </span>
             </div>
           ))}
       </div>
@@ -686,7 +783,7 @@ function StandingsTab({ standings }: { standings: api.EventStanding[] }) {
           <tr key={s.user_id} className="border-t border-zinc-900">
             <td className="py-1 text-zinc-600">{i + 1}</td>
             <td className="text-zinc-200">{s.username}</td>
-            <td className="text-zinc-500 truncate">{s.faction ?? '—'}</td>
+            <td className="text-zinc-500 truncate">{factionLabel(s.faction) || '—'}</td>
             <td className="text-right text-zinc-500 tabular-nums">{n(s.played)}</td>
             <td className="text-right text-zinc-300 tabular-nums">{n(s.wins)}</td>
             <td className="text-right text-zinc-300 tabular-nums">{n(s.draws)}</td>

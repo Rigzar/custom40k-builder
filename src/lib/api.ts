@@ -860,6 +860,22 @@ export function publishEvent(id: number, published: boolean) {
   });
 }
 
+/**
+ * The organiser settling a game. 'confirm' counts it toward the standings (optionally fixing the
+ * result), 'reopen' sends it back to the opponent as pending, 'delete' removes it. Needed because
+ * a disputed game is otherwise stuck for ever: only the opponent can confirm, and only while it is
+ * still pending.
+ */
+export function settleEventGame(
+  gameId: number,
+  action: 'confirm' | 'reopen' | 'delete',
+  opts: { result?: 'win' | 'draw' | 'loss'; note?: string } = {},
+) {
+  return call<{ game?: EventGame; deleted?: number }>('/api/events/settle-game', {
+    method: 'POST', body: JSON.stringify({ gameId, action, ...opts }),
+  });
+}
+
 export function seedTestPlayers(id: number, players = 4) {
   return call<{ players: { user_id: number; username: string; faction: string; roster_id: number; points: number }[] }>(
     '/api/events/seed-test', { method: 'POST', body: JSON.stringify({ id, players }) });

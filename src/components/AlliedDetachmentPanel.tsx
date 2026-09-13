@@ -16,29 +16,7 @@ const REL_DESC_KEY: Record<Relationship, TranslationKey> = {
   G: 'relBattleBrothersDesc', Y: 'relAlliesOfConvenienceDesc', R: 'relDesperateAlliesDesc',
 };
 
-const FACTION_NAMES: Record<string, string> = {
-  chaos_space_marines:  'Chaos Space Marines',
-  chaos_daemons:        'Chaos Daemons',
-  space_marines:        'Space Marines',
-  imperial_guard:       'Imperial Guard',
-  adeptus_mechanicus:   'Adeptus Mechanicus',
-  adeptus_custodes:     'Adeptus Custodes',
-  adeptus_sororitas:    'Adeptus Sororitas',
-  grey_knights:         'Grey Knights',
-  inquisition:          'Inquisition',
-  assassins:            'Assassins',
-  tau_empire:           'Tau Empire',
-  necrons:              'Necrons',
-  orks:                 'Orks',
-  eldar:                'Eldar',
-  dark_eldar:           'Dark Eldar',
-  genestealer_cults:    'Genestealer Cults',
-  harlequins:           'Harlequins',
-  leagues_of_votann:    'Leagues of Votann',
-  tyranids:             'Tyranids',
-  horus_heresy:         'Horus Heresy Legiones Astartes',
-  legio_titanicus:      'Horus Heresy Forces of the Machine God',
-};
+import { FACTION_NAMES } from '../utils/factionLabel';
 
 function RelationshipBadge({ rel }: { rel: Relationship }) {
   const t = useT();
