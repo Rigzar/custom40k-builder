@@ -226,7 +226,175 @@ export type TranslationKey =
   | 'prefsTitle' | 'prefsAutosaveOff' | 'prefsAutosaveOffDesc' | 'prefsAutosaveClose' | 'prefsAutosaveCloseDesc'
   | 'prefsAutosave30' | 'prefsAutosave30Desc' | 'prefsAutosave5' | 'prefsAutosave5Desc'
   | 'prefsDefaultEngagementHint' | 'prefsEngNoDefault' | 'prefsEngSkirmish' | 'prefsEngPitched' | 'prefsEngEpic'
-  | 'prefsDefaultPoints' | 'prefsDefaultPointsHint' | 'prefsPointsNoDefault';
+  | 'prefsDefaultPoints' | 'prefsDefaultPointsHint' | 'prefsPointsNoDefault'
+  | 'evTitle'
+  | 'evIntro'
+  | 'evNew'
+  | 'evCancel'
+  | 'evNameRequired'
+  | 'evResetTest'
+  | 'evResetTestHint'
+  | 'evResetQ1'
+  | 'evResetQ2'
+  | 'evResetYes1'
+  | 'evResetYes2'
+  | 'evResetting'
+  | 'evResetNo'
+  | 'evEventName'
+  | 'evDescription'
+  | 'evStarts'
+  | 'evEnds'
+  | 'evRegOpens'
+  | 'evRegCloses'
+  | 'evPointLimit'
+  | 'evNoLimit'
+  | 'evEngagement'
+  | 'evAnyEngagement'
+  | 'evAlliesAllowed'
+  | 'evPrivate'
+  | 'evPrivateHint'
+  | 'evLeague'
+  | 'evLeagueHint'
+  | 'evTestData'
+  | 'evTestDataHint'
+  | 'evCreate'
+  | 'evCreating'
+  | 'evLoading'
+  | 'evNoEvents'
+  | 'evTagTest'
+  | 'evTagClosed'
+  | 'evTagPrivate'
+  | 'evTagLeague'
+  | 'evPlayerCount'
+  | 'evAllEvents'
+  | 'evBackup'
+  | 'evBackupHint'
+  | 'evSheet'
+  | 'evSheetHint'
+  | 'evOrganisedBy'
+  | 'evAlphaTesting'
+  | 'evSeedPrompt'
+  | 'evSeed'
+  | 'evSeedMore'
+  | 'evActingAs'
+  | 'evYou'
+  | 'evActingHint'
+  | 'evTestEventNote'
+  | 'evArmyRules'
+  | 'evUpTo'
+  | 'evCapHint'
+  | 'evBuiltFor'
+  | 'evNoAllies'
+  | 'evLeagueClosedLine'
+  | 'evRegistrationOpen'
+  | 'evRegistrationClosed'
+  | 'evFromDate'
+  | 'evUntilDate'
+  | 'evClosedOrganiser'
+  | 'evClosedTest'
+  | 'evClosedPlayer'
+  | 'evCloseLeague'
+  | 'evOpenForReporting'
+  | 'evOpenLeague'
+  | 'evRegister'
+  | 'evRequestJoin'
+  | 'evPendingApproval'
+  | 'evRejected'
+  | 'evAskAgain'
+  | 'evYourArmyList'
+  | 'evNoneChosen'
+  | 'evListConfirmed'
+  | 'evWithdrawList'
+  | 'evConfirmList'
+  | 'evChangeList'
+  | 'evNotRegisteredYet'
+  | 'evStillRegisteredWith'
+  | 'evRegisteredWith'
+  | 'evYouAreIn'
+  | 'evNoListYet'
+  | 'evDeleteEvent'
+  | 'evDeleteEventQ'
+  | 'evNobodyRegistered'
+  | 'evNoListAssigned'
+  | 'evWaitingApproval'
+  | 'evParticipants'
+  | 'evDeclined'
+  | 'evNoneYet'
+  | 'evApprove'
+  | 'evReject'
+  | 'evFixList'
+  | 'evFixListHint'
+  | 'evFixListTitle'
+  | 'evNone'
+  | 'evDone'
+  | 'evFixListRules'
+  | 'evReportGame'
+  | 'evOpponentPick'
+  | 'evIWon'
+  | 'evDraw'
+  | 'evILost'
+  | 'evMission'
+  | 'evSubmit'
+  | 'evReportHint'
+  | 'evWaitingOnYou'
+  | 'evReportedAgainstYou'
+  | 'evNoList'
+  | 'evConfirm'
+  | 'evDispute'
+  | 'evDisputePrompt'
+  | 'evDisputedWaiting'
+  | 'evReportedAgainst'
+  | 'evCannotSettleOwn'
+  | 'evUphold'
+  | 'evOverturn'
+  | 'evRuleDraw'
+  | 'evSendBack'
+  | 'evSendBackHint'
+  | 'evDelete'
+  | 'evDeleteGameQ'
+  | 'evAllGames'
+  | 'evNoGames'
+  | 'evBeat'
+  | 'evDrewWith'
+  | 'evLostTo'
+  | 'evNoMission'
+  | 'evUndo'
+  | 'evUndoHint'
+  | 'evStatusPending'
+  | 'evStatusConfirmed'
+  | 'evStatusDisputed'
+  | 'evStatusApproved'
+  | 'evStatusRejected'
+  | 'evStandings'
+  | 'evNotALeague'
+  | 'evColPlayer'
+  | 'evColFaction'
+  | 'evColPlayed'
+  | 'evColWins'
+  | 'evColDraws'
+  | 'evColLosses'
+  | 'evColPoints'
+  | 'evColWinPct'
+  | 'evScoringNote'
+  | 'evSheetPrint'
+  | 'evSheetClose'
+  | 'evSheetGenerated'
+  | 'evErrClosed'
+  | 'evErrClosedReport'
+  | 'evErrRegClosed'
+  | 'evErrListLockedClosed'
+  | 'evErrListLockedReg'
+  | 'evErrRegisterFirst'
+  | 'evErrNotApproved'
+  | 'evErrNotYourList'
+  | 'evErrSelfGame'
+  | 'evErrNotYourConfirm'
+  | 'evErrAlreadyResolved'
+  | 'evErrPlayedInIt'
+  | 'evErrStillPending'
+  | 'evErrOverLimit'
+  | 'evErrWrongEngagement'
+  | 'evErrNoAllies';
 
 const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -872,6 +1040,174 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prefsDefaultEngagementHint: 'Pre-selects the engagement type when you start a new army.',
     prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
     prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
+    evTitle: 'Events & Leagues',
+    evIntro: 'Early preview — organisers can run events and leagues, players register and report games.',
+    evNew: '+ New event',
+    evCancel: 'Cancel',
+    evNameRequired: 'Give the event a name.',
+    evResetTest: 'Reset test data',
+    evResetTestHint: 'Delete every event, player and army flagged as test data',
+    evResetQ1: 'Do you really want to reset the league? This deletes every test event, every test player and their armies.',
+    evResetQ2: 'Are you completely sure? This cannot be undone.',
+    evResetYes1: 'Yes, reset',
+    evResetYes2: 'Yes, delete everything',
+    evResetting: 'Resetting…',
+    evResetNo: 'No, cancel',
+    evEventName: 'Event name',
+    evDescription: 'Description',
+    evStarts: 'Starts',
+    evEnds: 'Ends',
+    evRegOpens: 'Registration opens',
+    evRegCloses: 'Registration closes',
+    evPointLimit: 'Point limit',
+    evNoLimit: 'no limit',
+    evEngagement: 'Engagement',
+    evAnyEngagement: '— any —',
+    evAlliesAllowed: 'Allies allowed',
+    evPrivate: 'Private',
+    evPrivateHint: '(you approve each player)',
+    evLeague: 'League',
+    evLeagueHint: '(keeps a leaderboard)',
+    evTestData: 'Test data',
+    evTestDataHint: '(wiped by Reset)',
+    evCreate: 'Create event',
+    evCreating: 'Creating…',
+    evLoading: 'Loading…',
+    evNoEvents: 'No events yet.',
+    evTagTest: 'TEST',
+    evTagClosed: 'CLOSED',
+    evTagPrivate: 'PRIVATE',
+    evTagLeague: 'LEAGUE',
+    evPlayerCount: '{n} player(s)',
+    evAllEvents: '← All events',
+    evBackup: '⤓ Backup',
+    evBackupHint: 'Download the whole league as a .json backup',
+    evSheet: '🖨 Sheet',
+    evSheetHint: 'Printable sheet — print or save as PDF',
+    evOrganisedBy: 'organised by {name}',
+    evAlphaTesting: 'Alpha testing',
+    evSeedPrompt: 'Fill this event with fake players and armies:',
+    evSeed: 'Seed players',
+    evSeedMore: '+ more',
+    evActingAs: 'Acting as:',
+    evYou: '{name} (you)',
+    evActingHint: 'Everything you do below happens as that player — report a game as one, then switch and confirm it as the other. Fake players and their armies are deleted by “Reset test data”.',
+    evTestEventNote: 'Test event — removed by “Reset test data” on the index.',
+    evArmyRules: 'Army rules',
+    evUpTo: 'Up to {n} points',
+    evCapHint: '— under is fine, over is refused.',
+    evBuiltFor: 'Built for {name}',
+    evNoAllies: 'No allied detachments',
+    evLeagueClosedLine: 'League CLOSED',
+    evRegistrationOpen: 'Registration OPEN',
+    evRegistrationClosed: 'Registration CLOSED',
+    evFromDate: 'from {date}',
+    evUntilDate: 'until {date}',
+    evClosedOrganiser: 'This league is closed — open it below when you are ready for players to join.',
+    evClosedTest: 'This league is closed — so no games can be reported into it yet. Open it below; a test event stays admin-only either way.',
+    evClosedPlayer: 'This league is closed — the organiser has not opened it yet. You can still read the standings and the games played.',
+    evCloseLeague: 'Close league',
+    evOpenForReporting: 'Open for reporting',
+    evOpenLeague: 'Open league to players',
+    evRegister: 'Register',
+    evRequestJoin: 'Request to join',
+    evPendingApproval: 'Your request is waiting for the organiser.',
+    evRejected: 'Your request was declined.',
+    evAskAgain: 'Ask again',
+    evYourArmyList: 'Your army list',
+    evNoneChosen: '— none chosen —',
+    evListConfirmed: 'Army list confirmed',
+    evWithdrawList: 'Withdraw my army list',
+    evConfirmList: 'Confirm this army list',
+    evChangeList: 'Change to this army list',
+    evNotRegisteredYet: 'Not registered yet — press the button to confirm.',
+    evStillRegisteredWith: 'You are still registered with “{name}”.',
+    evRegisteredWith: '✓ Registered for this event with “{name}”.',
+    evYouAreIn: 'You are in with “{name}”.',
+    evNoListYet: 'You have no army list registered for this event yet.',
+    evDeleteEvent: 'Delete event',
+    evDeleteEventQ: 'Delete “{name}”? Its players and reported games go with it.',
+    evNobodyRegistered: 'Nobody has registered yet.',
+    evNoListAssigned: 'no list assigned',
+    evWaitingApproval: 'Waiting for approval',
+    evParticipants: 'Participants',
+    evDeclined: 'Declined',
+    evNoneYet: 'None yet.',
+    evApprove: 'Approve',
+    evReject: 'Reject',
+    evFixList: 'Fix list',
+    evFixListHint: 'Put a different army on this player\'s registration',
+    evFixListTitle: 'Change the army {name} is registered with',
+    evNone: '— none —',
+    evDone: 'Done',
+    evFixListRules: 'The event\'s own rules still apply — an army over the point limit, or built for the wrong engagement, is refused here too.',
+    evReportGame: 'Report a game',
+    evOpponentPick: '— opponent —',
+    evIWon: 'I won',
+    evDraw: 'Draw',
+    evILost: 'I lost',
+    evMission: 'Mission',
+    evSubmit: 'Submit',
+    evReportHint: 'Your opponent has to confirm it before it counts toward the standings.',
+    evWaitingOnYou: 'Waiting for you to confirm',
+    evReportedAgainstYou: '{name} reported a {result} against you',
+    evNoList: 'no list',
+    evConfirm: 'Confirm',
+    evDispute: 'Dispute',
+    evDisputePrompt: 'Why is this wrong? (the organiser sees this)',
+    evDisputedWaiting: 'Disputed — waiting on you',
+    evReportedAgainst: '{a} reported a {result} against {b}',
+    evCannotSettleOwn: 'You played in this game, so you cannot settle it — another organiser or admin has to.',
+    evUphold: 'Uphold as {result}',
+    evOverturn: 'Overturn to {result}',
+    evRuleDraw: 'Rule a draw',
+    evSendBack: 'Send back',
+    evSendBackHint: 'Clear the dispute and send it back to the opponent',
+    evDelete: 'Delete',
+    evDeleteGameQ: 'Delete this game? It is gone for good.',
+    evAllGames: 'All reported games',
+    evNoGames: 'No games reported yet.',
+    evBeat: 'beat',
+    evDrewWith: 'drew with',
+    evLostTo: 'lost to',
+    evNoMission: 'no mission',
+    evUndo: 'Undo',
+    evUndoHint: 'Send this back to the opponent as unconfirmed',
+    evStatusPending: 'PENDING',
+    evStatusConfirmed: 'CONFIRMED',
+    evStatusDisputed: 'DISPUTED',
+    evStatusApproved: 'APPROVED',
+    evStatusRejected: 'REJECTED',
+    evStandings: 'Standings',
+    evNotALeague: 'This event is not a league, so it keeps no standings.',
+    evColPlayer: 'Player',
+    evColFaction: 'Faction',
+    evColPlayed: 'P',
+    evColWins: 'W',
+    evColDraws: 'D',
+    evColLosses: 'L',
+    evColPoints: 'Pts',
+    evColWinPct: 'Win%',
+    evScoringNote: '3 points for a win, 1 for a draw. Worked out from the {n} confirmed game(s).',
+    evSheetPrint: 'Print',
+    evSheetClose: 'Close',
+    evSheetGenerated: 'generated {date}',
+    evErrClosed: 'This league is closed — the organiser has not opened it yet.',
+    evErrClosedReport: 'This league is closed — no games can be reported yet.',
+    evErrRegClosed: 'Registration for this event is not open.',
+    evErrListLockedClosed: 'This league is closed.',
+    evErrListLockedReg: 'Registration has closed, so army lists are locked.',
+    evErrRegisterFirst: 'Register for the event first.',
+    evErrNotApproved: 'That registration has not been approved yet.',
+    evErrNotYourList: 'That army list is not yours.',
+    evErrSelfGame: 'You cannot report a game against yourself.',
+    evErrNotYourConfirm: 'Only your opponent can confirm this game.',
+    evErrAlreadyResolved: 'This game has already been resolved.',
+    evErrPlayedInIt: 'You played in this game, so you cannot settle it. Another organiser or admin has to.',
+    evErrStillPending: 'This game is still waiting on its opponent. Only they can confirm it.',
+    evErrOverLimit: 'That army is {pts} points and this event is capped at {cap}.',
+    evErrWrongEngagement: 'That army is built for {theirs} and this event is {ours}.',
+    evErrNoAllies: 'That army has an allied detachment and this event does not allow allies.',
   },
   de: {
     appTitle: 'Custom40k Armeelisten-Baukasten',
@@ -1516,6 +1852,174 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prefsDefaultEngagementHint: 'Pre-selects the engagement type when you start a new army.',
     prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
     prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
+    evTitle: 'Events & Ligen',
+    evIntro: 'Frühe Vorschau — Organisatoren können Events und Ligen leiten, Spieler melden sich an und tragen Partien ein.',
+    evNew: '+ Neues Event',
+    evCancel: 'Abbrechen',
+    evNameRequired: 'Gib dem Event einen Namen.',
+    evResetTest: 'Testdaten zurücksetzen',
+    evResetTestHint: 'Löscht jedes Event, jeden Spieler und jede Armee, die als Testdaten markiert sind',
+    evResetQ1: 'Willst du die Liga wirklich zurücksetzen? Das löscht jedes Test-Event, jeden Testspieler und deren Armeen.',
+    evResetQ2: 'Bist du ganz sicher? Das lässt sich nicht rückgängig machen.',
+    evResetYes1: 'Ja, zurücksetzen',
+    evResetYes2: 'Ja, alles löschen',
+    evResetting: 'Wird zurückgesetzt…',
+    evResetNo: 'Nein, abbrechen',
+    evEventName: 'Event-Name',
+    evDescription: 'Beschreibung',
+    evStarts: 'Beginnt',
+    evEnds: 'Endet',
+    evRegOpens: 'Anmeldung öffnet',
+    evRegCloses: 'Anmeldung schließt',
+    evPointLimit: 'Punktelimit',
+    evNoLimit: 'kein Limit',
+    evEngagement: 'Gefechtsart',
+    evAnyEngagement: '— beliebig —',
+    evAlliesAllowed: 'Verbündete erlaubt',
+    evPrivate: 'Privat',
+    evPrivateHint: '(du bestätigst jeden Spieler)',
+    evLeague: 'Liga',
+    evLeagueHint: '(führt eine Tabelle)',
+    evTestData: 'Testdaten',
+    evTestDataHint: '(vom Reset gelöscht)',
+    evCreate: 'Event erstellen',
+    evCreating: 'Wird erstellt…',
+    evLoading: 'Lädt…',
+    evNoEvents: 'Noch keine Events.',
+    evTagTest: 'TEST',
+    evTagClosed: 'GESCHLOSSEN',
+    evTagPrivate: 'PRIVAT',
+    evTagLeague: 'LIGA',
+    evPlayerCount: '{n} Spieler',
+    evAllEvents: '← Alle Events',
+    evBackup: '⤓ Sicherung',
+    evBackupHint: 'Die ganze Liga als .json-Sicherung herunterladen',
+    evSheet: '🖨 Blatt',
+    evSheetHint: 'Druckbares Blatt — drucken oder als PDF speichern',
+    evOrganisedBy: 'organisiert von {name}',
+    evAlphaTesting: 'Alpha-Test',
+    evSeedPrompt: 'Dieses Event mit gefakten Spielern und Armeen füllen:',
+    evSeed: 'Spieler anlegen',
+    evSeedMore: '+ mehr',
+    evActingAs: 'Handeln als:',
+    evYou: '{name} (du)',
+    evActingHint: 'Alles unten passiert als dieser Spieler — trage eine Partie als der eine ein, wechsle dann und bestätige sie als der andere. Gefakte Spieler und ihre Armeen löscht „Testdaten zurücksetzen“.',
+    evTestEventNote: 'Test-Event — wird von „Testdaten zurücksetzen“ in der Übersicht entfernt.',
+    evArmyRules: 'Armee-Regeln',
+    evUpTo: 'Bis zu {n} Punkte',
+    evCapHint: '— darunter ist erlaubt, darüber wird abgelehnt.',
+    evBuiltFor: 'Gebaut für {name}',
+    evNoAllies: 'Keine verbündeten Detachments',
+    evLeagueClosedLine: 'Liga GESCHLOSSEN',
+    evRegistrationOpen: 'Anmeldung OFFEN',
+    evRegistrationClosed: 'Anmeldung GESCHLOSSEN',
+    evFromDate: 'ab {date}',
+    evUntilDate: 'bis {date}',
+    evClosedOrganiser: 'Diese Liga ist geschlossen — öffne sie unten, wenn Spieler beitreten sollen.',
+    evClosedTest: 'Diese Liga ist geschlossen — es können noch keine Partien eingetragen werden. Öffne sie unten; ein Test-Event bleibt so oder so nur für Admins sichtbar.',
+    evClosedPlayer: 'Diese Liga ist geschlossen — der Organisator hat sie noch nicht geöffnet. Tabelle und gespielte Partien kannst du trotzdem lesen.',
+    evCloseLeague: 'Liga schließen',
+    evOpenForReporting: 'Für Einträge öffnen',
+    evOpenLeague: 'Liga für Spieler öffnen',
+    evRegister: 'Anmelden',
+    evRequestJoin: 'Teilnahme anfragen',
+    evPendingApproval: 'Deine Anfrage wartet auf den Organisator.',
+    evRejected: 'Deine Anfrage wurde abgelehnt.',
+    evAskAgain: 'Erneut anfragen',
+    evYourArmyList: 'Deine Armeeliste',
+    evNoneChosen: '— keine gewählt —',
+    evListConfirmed: 'Armeeliste bestätigt',
+    evWithdrawList: 'Meine Armeeliste zurückziehen',
+    evConfirmList: 'Diese Armeeliste bestätigen',
+    evChangeList: 'Auf diese Armeeliste wechseln',
+    evNotRegisteredYet: 'Noch nicht angemeldet — drücke den Knopf zum Bestätigen.',
+    evStillRegisteredWith: 'Du bist weiterhin mit „{name}“ angemeldet.',
+    evRegisteredWith: '✓ Für dieses Event mit „{name}“ angemeldet.',
+    evYouAreIn: 'Du bist mit „{name}“ dabei.',
+    evNoListYet: 'Du hast für dieses Event noch keine Armeeliste hinterlegt.',
+    evDeleteEvent: 'Event löschen',
+    evDeleteEventQ: '„{name}“ löschen? Spieler und eingetragene Partien verschwinden mit.',
+    evNobodyRegistered: 'Noch niemand angemeldet.',
+    evNoListAssigned: 'keine Liste hinterlegt',
+    evWaitingApproval: 'Wartet auf Bestätigung',
+    evParticipants: 'Teilnehmer',
+    evDeclined: 'Abgelehnt',
+    evNoneYet: 'Noch keine.',
+    evApprove: 'Bestätigen',
+    evReject: 'Ablehnen',
+    evFixList: 'Liste korrigieren',
+    evFixListHint: 'Eine andere Armee auf die Anmeldung dieses Spielers setzen',
+    evFixListTitle: 'Die Armee ändern, mit der {name} angemeldet ist',
+    evNone: '— keine —',
+    evDone: 'Fertig',
+    evFixListRules: 'Die Regeln des Events gelten weiter — eine Armee über dem Punktelimit oder für die falsche Gefechtsart wird auch hier abgelehnt.',
+    evReportGame: 'Partie eintragen',
+    evOpponentPick: '— Gegner —',
+    evIWon: 'Ich habe gewonnen',
+    evDraw: 'Unentschieden',
+    evILost: 'Ich habe verloren',
+    evMission: 'Mission',
+    evSubmit: 'Absenden',
+    evReportHint: 'Dein Gegner muss sie bestätigen, bevor sie für die Tabelle zählt.',
+    evWaitingOnYou: 'Wartet auf deine Bestätigung',
+    evReportedAgainstYou: '{name} hat ein {result} gegen dich eingetragen',
+    evNoList: 'keine Liste',
+    evConfirm: 'Bestätigen',
+    evDispute: 'Anfechten',
+    evDisputePrompt: 'Warum stimmt das nicht? (der Organisator sieht das)',
+    evDisputedWaiting: 'Angefochten — wartet auf dich',
+    evReportedAgainst: '{a} hat ein {result} gegen {b} eingetragen',
+    evCannotSettleOwn: 'Du hast in dieser Partie gespielt, also kannst du sie nicht entscheiden — das muss ein anderer Organisator oder Admin tun.',
+    evUphold: 'Als {result} bestätigen',
+    evOverturn: 'Auf {result} ändern',
+    evRuleDraw: 'Auf Unentschieden entscheiden',
+    evSendBack: 'Zurückgeben',
+    evSendBackHint: 'Die Anfechtung aufheben und die Partie an den Gegner zurückgeben',
+    evDelete: 'Löschen',
+    evDeleteGameQ: 'Diese Partie löschen? Sie ist endgültig weg.',
+    evAllGames: 'Alle eingetragenen Partien',
+    evNoGames: 'Noch keine Partien eingetragen.',
+    evBeat: 'besiegte',
+    evDrewWith: 'spielte unentschieden gegen',
+    evLostTo: 'verlor gegen',
+    evNoMission: 'keine Mission',
+    evUndo: 'Rückgängig',
+    evUndoHint: 'Diese Partie unbestätigt an den Gegner zurückgeben',
+    evStatusPending: 'OFFEN',
+    evStatusConfirmed: 'BESTÄTIGT',
+    evStatusDisputed: 'ANGEFOCHTEN',
+    evStatusApproved: 'BESTÄTIGT',
+    evStatusRejected: 'ABGELEHNT',
+    evStandings: 'Tabelle',
+    evNotALeague: 'Dieses Event ist keine Liga und führt daher keine Tabelle.',
+    evColPlayer: 'Spieler',
+    evColFaction: 'Fraktion',
+    evColPlayed: 'S',
+    evColWins: 'S',
+    evColDraws: 'U',
+    evColLosses: 'N',
+    evColPoints: 'Pkt',
+    evColWinPct: 'Sieg%',
+    evScoringNote: '3 Punkte für einen Sieg, 1 für ein Unentschieden. Errechnet aus {n} bestätigten Partien.',
+    evSheetPrint: 'Drucken',
+    evSheetClose: 'Schließen',
+    evSheetGenerated: 'erstellt am {date}',
+    evErrClosed: 'Diese Liga ist geschlossen — der Organisator hat sie noch nicht geöffnet.',
+    evErrClosedReport: 'Diese Liga ist geschlossen — es können noch keine Partien eingetragen werden.',
+    evErrRegClosed: 'Die Anmeldung für dieses Event ist nicht offen.',
+    evErrListLockedClosed: 'Diese Liga ist geschlossen.',
+    evErrListLockedReg: 'Die Anmeldung ist geschlossen, daher sind die Armeelisten fixiert.',
+    evErrRegisterFirst: 'Melde dich zuerst für das Event an.',
+    evErrNotApproved: 'Diese Anmeldung ist noch nicht bestätigt.',
+    evErrNotYourList: 'Diese Armeeliste gehört dir nicht.',
+    evErrSelfGame: 'Du kannst keine Partie gegen dich selbst eintragen.',
+    evErrNotYourConfirm: 'Nur dein Gegner kann diese Partie bestätigen.',
+    evErrAlreadyResolved: 'Diese Partie ist bereits entschieden.',
+    evErrPlayedInIt: 'Du hast in dieser Partie gespielt, also kannst du sie nicht entscheiden. Das muss ein anderer Organisator oder Admin tun.',
+    evErrStillPending: 'Diese Partie wartet noch auf den Gegner. Nur er kann sie bestätigen.',
+    evErrOverLimit: 'Diese Armee hat {pts} Punkte, dieses Event ist auf {cap} begrenzt.',
+    evErrWrongEngagement: 'Diese Armee ist für {theirs} gebaut, dieses Event ist {ours}.',
+    evErrNoAllies: 'Diese Armee hat ein verbündetes Detachment, und dieses Event erlaubt keine Verbündeten.',
   },
   es: {
     appTitle: 'Constructor de Ejércitos Custom40k',
@@ -2160,6 +2664,174 @@ const translations: Record<Language, Record<TranslationKey, string>> = {
     prefsDefaultEngagementHint: 'Pre-selects the engagement type when you start a new army.',
     prefsEngNoDefault: 'No default (ask each time)', prefsEngSkirmish: 'Skirmish', prefsEngPitched: 'Pitched Battle', prefsEngEpic: 'Epic Battle',
     prefsDefaultPoints: 'Default points limit', prefsDefaultPointsHint: 'Pre-fills the points limit when you start a new army.', prefsPointsNoDefault: 'No default',
+    evTitle: 'Eventos y ligas',
+    evIntro: 'Vista previa — los organizadores llevan eventos y ligas, los jugadores se inscriben y reportan partidas.',
+    evNew: '+ Nuevo evento',
+    evCancel: 'Cancelar',
+    evNameRequired: 'Pon un nombre al evento.',
+    evResetTest: 'Resetear datos de prueba',
+    evResetTestHint: 'Borra todo evento, jugador y ejército marcado como datos de prueba',
+    evResetQ1: '¿Seguro que quieres resetear la liga? Esto borra todo evento de prueba, todo jugador de prueba y sus ejércitos.',
+    evResetQ2: '¿Estás completamente seguro? Esto no se puede deshacer.',
+    evResetYes1: 'Sí, resetear',
+    evResetYes2: 'Sí, borrarlo todo',
+    evResetting: 'Reseteando…',
+    evResetNo: 'No, cancelar',
+    evEventName: 'Nombre del evento',
+    evDescription: 'Descripción',
+    evStarts: 'Empieza',
+    evEnds: 'Termina',
+    evRegOpens: 'Se abren inscripciones',
+    evRegCloses: 'Se cierran inscripciones',
+    evPointLimit: 'Límite de puntos',
+    evNoLimit: 'sin límite',
+    evEngagement: 'Tipo de batalla',
+    evAnyEngagement: '— cualquiera —',
+    evAlliesAllowed: 'Aliados permitidos',
+    evPrivate: 'Privado',
+    evPrivateHint: '(apruebas a cada jugador)',
+    evLeague: 'Liga',
+    evLeagueHint: '(lleva clasificación)',
+    evTestData: 'Datos de prueba',
+    evTestDataHint: '(los borra el Reset)',
+    evCreate: 'Crear evento',
+    evCreating: 'Creando…',
+    evLoading: 'Cargando…',
+    evNoEvents: 'Aún no hay eventos.',
+    evTagTest: 'PRUEBA',
+    evTagClosed: 'CERRADA',
+    evTagPrivate: 'PRIVADO',
+    evTagLeague: 'LIGA',
+    evPlayerCount: '{n} jugador(es)',
+    evAllEvents: '← Todos los eventos',
+    evBackup: '⤓ Copia',
+    evBackupHint: 'Descargar la liga entera como copia .json',
+    evSheet: '🖨 Hoja',
+    evSheetHint: 'Hoja imprimible — imprime o guarda como PDF',
+    evOrganisedBy: 'organiza {name}',
+    evAlphaTesting: 'Pruebas alpha',
+    evSeedPrompt: 'Llenar este evento con jugadores y ejércitos falsos:',
+    evSeed: 'Crear jugadores',
+    evSeedMore: '+ más',
+    evActingAs: 'Actuando como:',
+    evYou: '{name} (tú)',
+    evActingHint: 'Todo lo que hagas debajo pasa como ese jugador — reporta una partida como uno, cambia y confírmala como el otro. A los jugadores falsos y sus ejércitos los borra “Resetear datos de prueba”.',
+    evTestEventNote: 'Evento de prueba — lo elimina “Resetear datos de prueba” en el índice.',
+    evArmyRules: 'Reglas de ejército',
+    evUpTo: 'Hasta {n} puntos',
+    evCapHint: '— por debajo vale, por encima se rechaza.',
+    evBuiltFor: 'Hecho para {name}',
+    evNoAllies: 'Sin destacamentos aliados',
+    evLeagueClosedLine: 'Liga CERRADA',
+    evRegistrationOpen: 'Inscripciones ABIERTAS',
+    evRegistrationClosed: 'Inscripciones CERRADAS',
+    evFromDate: 'desde {date}',
+    evUntilDate: 'hasta {date}',
+    evClosedOrganiser: 'Esta liga está cerrada — ábrela abajo cuando quieras que entren jugadores.',
+    evClosedTest: 'Esta liga está cerrada — todavía no se pueden reportar partidas. Ábrela abajo; un evento de prueba sigue siendo solo para admins igualmente.',
+    evClosedPlayer: 'Esta liga está cerrada — el organizador aún no la ha abierto. Puedes leer igualmente la clasificación y las partidas jugadas.',
+    evCloseLeague: 'Cerrar liga',
+    evOpenForReporting: 'Abrir para reportar',
+    evOpenLeague: 'Abrir la liga a los jugadores',
+    evRegister: 'Inscribirme',
+    evRequestJoin: 'Pedir entrar',
+    evPendingApproval: 'Tu solicitud está esperando al organizador.',
+    evRejected: 'Tu solicitud fue rechazada.',
+    evAskAgain: 'Pedirlo otra vez',
+    evYourArmyList: 'Tu lista de ejército',
+    evNoneChosen: '— ninguna elegida —',
+    evListConfirmed: 'Lista confirmada',
+    evWithdrawList: 'Retirar mi lista',
+    evConfirmList: 'Confirmar esta lista',
+    evChangeList: 'Cambiar a esta lista',
+    evNotRegisteredYet: 'Aún no registrada — pulsa el botón para confirmar.',
+    evStillRegisteredWith: 'Sigues registrado con “{name}”.',
+    evRegisteredWith: '✓ Inscrito en este evento con “{name}”.',
+    evYouAreIn: 'Estás dentro con “{name}”.',
+    evNoListYet: 'Aún no tienes ninguna lista registrada en este evento.',
+    evDeleteEvent: 'Borrar evento',
+    evDeleteEventQ: '¿Borrar “{name}”? Se van con él sus jugadores y sus partidas.',
+    evNobodyRegistered: 'Aún no se ha inscrito nadie.',
+    evNoListAssigned: 'sin lista asignada',
+    evWaitingApproval: 'Esperando aprobación',
+    evParticipants: 'Participantes',
+    evDeclined: 'Rechazados',
+    evNoneYet: 'Aún ninguno.',
+    evApprove: 'Aprobar',
+    evReject: 'Rechazar',
+    evFixList: 'Corregir lista',
+    evFixListHint: 'Poner otro ejército en la inscripción de este jugador',
+    evFixListTitle: 'Cambiar el ejército con el que está inscrito {name}',
+    evNone: '— ninguno —',
+    evDone: 'Listo',
+    evFixListRules: 'Las reglas del evento siguen aplicando — un ejército por encima del límite, o hecho para otro tipo de batalla, también se rechaza aquí.',
+    evReportGame: 'Reportar partida',
+    evOpponentPick: '— rival —',
+    evIWon: 'Gané',
+    evDraw: 'Empate',
+    evILost: 'Perdí',
+    evMission: 'Misión',
+    evSubmit: 'Enviar',
+    evReportHint: 'Tu rival tiene que confirmarla antes de que cuente para la clasificación.',
+    evWaitingOnYou: 'Esperando que confirmes',
+    evReportedAgainstYou: '{name} reportó un {result} contra ti',
+    evNoList: 'sin lista',
+    evConfirm: 'Confirmar',
+    evDispute: 'Disputar',
+    evDisputePrompt: '¿Por qué está mal? (lo ve el organizador)',
+    evDisputedWaiting: 'Disputada — te toca a ti',
+    evReportedAgainst: '{a} reportó un {result} contra {b}',
+    evCannotSettleOwn: 'Jugaste esta partida, así que no puedes resolverla — tiene que hacerlo otro organizador o admin.',
+    evUphold: 'Mantener como {result}',
+    evOverturn: 'Cambiar a {result}',
+    evRuleDraw: 'Declarar empate',
+    evSendBack: 'Devolver',
+    evSendBackHint: 'Quitar la disputa y devolvérsela al rival',
+    evDelete: 'Borrar',
+    evDeleteGameQ: '¿Borrar esta partida? Desaparece para siempre.',
+    evAllGames: 'Todas las partidas reportadas',
+    evNoGames: 'Aún no hay partidas reportadas.',
+    evBeat: 'ganó a',
+    evDrewWith: 'empató con',
+    evLostTo: 'perdió contra',
+    evNoMission: 'sin misión',
+    evUndo: 'Deshacer',
+    evUndoHint: 'Devolver esta partida al rival como no confirmada',
+    evStatusPending: 'PENDIENTE',
+    evStatusConfirmed: 'CONFIRMADA',
+    evStatusDisputed: 'DISPUTADA',
+    evStatusApproved: 'APROBADO',
+    evStatusRejected: 'RECHAZADO',
+    evStandings: 'Clasificación',
+    evNotALeague: 'Este evento no es una liga, así que no lleva clasificación.',
+    evColPlayer: 'Jugador',
+    evColFaction: 'Facción',
+    evColPlayed: 'PJ',
+    evColWins: 'G',
+    evColDraws: 'E',
+    evColLosses: 'P',
+    evColPoints: 'Pts',
+    evColWinPct: '%Vic',
+    evScoringNote: '3 puntos por victoria, 1 por empate. Calculado sobre {n} partida(s) confirmada(s).',
+    evSheetPrint: 'Imprimir',
+    evSheetClose: 'Cerrar',
+    evSheetGenerated: 'generado el {date}',
+    evErrClosed: 'Esta liga está cerrada — el organizador aún no la ha abierto.',
+    evErrClosedReport: 'Esta liga está cerrada — todavía no se pueden reportar partidas.',
+    evErrRegClosed: 'Las inscripciones para este evento no están abiertas.',
+    evErrListLockedClosed: 'Esta liga está cerrada.',
+    evErrListLockedReg: 'Las inscripciones están cerradas, así que las listas quedan fijadas.',
+    evErrRegisterFirst: 'Inscríbete primero en el evento.',
+    evErrNotApproved: 'Esa inscripción aún no está aprobada.',
+    evErrNotYourList: 'Esa lista de ejército no es tuya.',
+    evErrSelfGame: 'No puedes reportar una partida contra ti mismo.',
+    evErrNotYourConfirm: 'Solo tu rival puede confirmar esta partida.',
+    evErrAlreadyResolved: 'Esta partida ya está resuelta.',
+    evErrPlayedInIt: 'Jugaste esta partida, así que no puedes resolverla. Tiene que hacerlo otro organizador o admin.',
+    evErrStillPending: 'Esta partida aún espera al rival. Solo él puede confirmarla.',
+    evErrOverLimit: 'Ese ejército tiene {pts} puntos y este evento está limitado a {cap}.',
+    evErrWrongEngagement: 'Ese ejército está hecho para {theirs} y este evento es {ours}.',
+    evErrNoAllies: 'Ese ejército lleva un destacamento aliado y este evento no permite aliados.',
   },
 };
 

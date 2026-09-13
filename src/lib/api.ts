@@ -2,6 +2,7 @@
  * every call sends credentials so the HttpOnly session cookie round-trips automatically. */
 import type { DataOverrides } from '../engine/dataOverrides';
 import type { SourceIgnores } from '../engine/sourceCompare';
+import { t, tpl, useLanguage } from '../i18n';
 export type { DataOverride, DataOverrides } from '../engine/dataOverrides';
 export type { SourceIgnore, SourceIgnores } from '../engine/sourceCompare';
 
@@ -12,8 +13,24 @@ async function call<T>(url: string, options?: RequestInit): Promise<T> {
     ...options,
   });
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(json.error || `Request failed (${res.status})`);
+  if (!res.ok) throw new Error(translateError(json));
   return json as T;
+}
+
+/**
+ * A refusal in the reader's language when the server named one, in English otherwise.
+ *
+ * The server sends `error` (always, in English) plus, for the refusals a player can actually hit,
+ * a `key` into the i18n table and the `vars` its template needs. Anything without a key — or with
+ * a key this build does not know, which is what a stale client looks like — falls back to the
+ * English text rather than to nothing.
+ */
+function translateError(json: { error?: string; key?: string; vars?: Record<string, string | number> }): string {
+  const fallback = json.error || 'Request failed';
+  if (!json.key) return fallback;
+  const translated = t(useLanguage.getState().language, json.key as Parameters<typeof t>[1]);
+  if (!translated || translated === json.key) return fallback;
+  return tpl(translated, json.vars ?? {});
 }
 
 export interface MeResponse {
@@ -758,8 +775,12 @@ export function getEvent(id: number, asUserId?: number) {
     /** The league is open at all. Separate from the registration window below. */
     open: boolean;
     registrationOpen: boolean;
-    /** Why this player may no longer change their army list, or null while they still may. */
-    listLock: string | null;
+    /**
+     * Why this player may no longer change their army list, or null while they still may.
+     * `msg` is the English text and `key` looks the reason up in the reader's own language — the
+     * same shape as a refusal, so the picker explains itself the way the server would have.
+     */
+    listLock: { msg: string; key?: string } | null;
     me: { status: EventPlayer['status']; roster_id: number | null } | null;
   }>(`/api/events/get?id=${id}${asUserId ? `&asUserId=${asUserId}` : ''}`);
 }

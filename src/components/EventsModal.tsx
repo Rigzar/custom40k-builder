@@ -2,6 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 import * as api from '../lib/api';
 import { LeagueSheet } from './LeagueSheet';
 import { factionLabel } from '../utils/factionLabel';
+import { useT, tpl } from '../i18n';
+
+/**
+ * A translated string with `{name}` placeholders filled in. Every component below takes its own
+ * `t` from `useT()` and wraps it in this, so word order can differ freely per language instead
+ * of being fixed by where we concatenate.
+ */
+const fill = (t: (k: Parameters<ReturnType<typeof useT>>[0]) => string) =>
+  (k: Parameters<ReturnType<typeof useT>>[0], vars: Record<string, string | number>) => tpl(t(k), vars);
 
 /**
  * Events & Leagues (ALPHA) — built to Dominic's requirements doc (2026-09-13).
@@ -34,14 +43,18 @@ const btnPrimary = 'text-[11px] px-3 py-1 border border-amber-800 text-amber-300
 
 /** Postgres COUNT() arrives as a string; render it as a number without pretending it was one. */
 const n = (v: string | number | undefined) => Number(v ?? 0);
+/** Result as stored -> the translation key for the word a player reads. */
+const RESULT_KEY = { win: 'evIWon', draw: 'evDraw', loss: 'evILost' } as const;
 /** The stored value is the key; a player thinks in the printed name. */
-const ENGAGEMENT_LABEL: Record<string, string> = {
-  skirmish: 'Skirmish', pitched: 'Pitched Battle', epic: 'Epic Battle',
-};
+/** Engagement key -> the translation key for its printed name, so the label follows the reader. */
+const ENGAGEMENT_KEY = {
+  skirmish: 'prefsEngSkirmish', pitched: 'prefsEngPitched', epic: 'prefsEngEpic',
+} as const;
 
 const dateOnly = (v: string | null) => (v ? String(v).slice(0, 10) : '');
 
 export function EventsModal({ onClose, username, isAdmin }: Props) {
+  const t = useT();
   const [events, setEvents] = useState<api.EventSummary[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -69,7 +82,7 @@ export function EventsModal({ onClose, username, isAdmin }: Props) {
       <div className="bg-zinc-950 border border-zinc-700 w-full max-w-3xl my-4">
         <div className="flex justify-between items-center px-4 py-3 border-b border-zinc-800">
           <div className="flex items-center gap-2">
-            <span className="text-amber-500 text-sm tracking-widest uppercase">⚔ Events &amp; Leagues</span>
+            <span className="text-amber-500 text-sm tracking-widest uppercase">⚔ {t('evTitle')}</span>
             <span className="text-[9px] px-1.5 py-0.5 border border-red-800 text-red-400 tracking-wide">ALPHA</span>
           </div>
           <button onClick={onClose} className="text-zinc-500 hover:text-zinc-200 text-lg leading-none">✕</button>
@@ -107,6 +120,8 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
   events: api.EventSummary[]; loading: boolean; isAdmin: boolean;
   onOpen: (id: number) => void; onRefresh: () => Promise<void>; onError: (m: string) => void;
 }) {
+  const t = useT();
+  const tf = fill(t);
   const [creating, setCreating] = useState(false);
   const [busy, setBusy] = useState(false);
   /** 0 = idle · 1 = "really?" · 2 = "completely sure?" — see handleResetTest. */
@@ -116,7 +131,7 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
   });
 
   async function handleCreate() {
-    if (!form.name.trim()) { onError('Give the event a name.'); return; }
+    if (!form.name.trim()) { onError(t('evNameRequired')); return; }
     setBusy(true); onError('');
     try {
       await api.createEvent(form);
@@ -156,16 +171,16 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
     <>
       <div className="flex items-center justify-between gap-2">
         <p className="text-zinc-500 text-[10px] italic">
-          Early preview — organisers can run events and leagues, players register and report games.
+          {t('evIntro')}
         </p>
         <div className="flex gap-2 shrink-0">
           <button className={btnPrimary} onClick={() => setCreating(v => !v)}>
-            {creating ? 'Cancel' : '+ New event'}
+            {creating ? t('evCancel') : t('evNew')}
           </button>
           {isAdmin && resetStep === 0 && (
             <button className={btn} onClick={() => setResetStep(1)} disabled={busy}
-                    title="Delete every event, player and army flagged as test data">
-              Reset test data
+                    title={t('evResetTestHint')}>
+              {t('evResetTest')}
             </button>
           )}
         </div>
@@ -175,37 +190,37 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
         <div className="border border-red-800 bg-red-950/20 p-3 space-y-2">
           <p className="text-red-300 text-[12px]">
             {resetStep === 1
-              ? 'Do you really want to reset the league? This deletes every test event, every test player and their armies.'
-              : 'Are you completely sure? This cannot be undone.'}
+              ? t('evResetQ1')
+              : t('evResetQ2')}
           </p>
           <div className="flex gap-2">
             <button className="text-[11px] px-3 py-1 border border-red-700 text-red-300 hover:bg-red-900/30 disabled:opacity-40"
                     disabled={busy}
                     onClick={() => (resetStep === 1 ? setResetStep(2) : handleResetTest())}>
-              {resetStep === 1 ? 'Yes, reset' : busy ? 'Resetting\u2026' : 'Yes, delete everything'}
+              {resetStep === 1 ? t('evResetYes1') : busy ? t('evResetting') : t('evResetYes2')}
             </button>
-            <button className={btn} disabled={busy} onClick={() => setResetStep(0)}>No, cancel</button>
+            <button className={btn} disabled={busy} onClick={() => setResetStep(0)}>{t('evResetNo')}</button>
           </div>
         </div>
       )}
 
       {creating && (
         <div className="border border-zinc-800 p-3 space-y-2">
-          <input className={box} placeholder="Event name" value={form.name}
+          <input className={box} placeholder={t('evEventName')} value={form.name}
                  onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-          <textarea className={`${box} h-16 resize-y`} placeholder="Description" value={form.description}
+          <textarea className={`${box} h-16 resize-y`} placeholder={t('evDescription')} value={form.description}
                     onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
           <div className="grid grid-cols-2 gap-2">
-            <label className="text-[10px] text-zinc-500">Starts
+            <label className="text-[10px] text-zinc-500">{t('evStarts')}
               <input type="date" className={box} value={form.startsOn ?? ''}
                      onChange={e => setForm(f => ({ ...f, startsOn: e.target.value || null }))} /></label>
-            <label className="text-[10px] text-zinc-500">Ends
+            <label className="text-[10px] text-zinc-500">{t('evEnds')}
               <input type="date" className={box} value={form.endsOn ?? ''}
                      onChange={e => setForm(f => ({ ...f, endsOn: e.target.value || null }))} /></label>
-            <label className="text-[10px] text-zinc-500">Registration opens
+            <label className="text-[10px] text-zinc-500">{t('evRegOpens')}
               <input type="date" className={box} value={form.regOpensOn ?? ''}
                      onChange={e => setForm(f => ({ ...f, regOpensOn: e.target.value || null }))} /></label>
-            <label className="text-[10px] text-zinc-500">Registration closes
+            <label className="text-[10px] text-zinc-500">{t('evRegCloses')}
               <input type="date" className={box} value={form.regClosesOn ?? ''}
                      onChange={e => setForm(f => ({ ...f, regClosesOn: e.target.value || null }))} /></label>
           </div>
@@ -213,51 +228,51 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
               when a player attaches a list, which is what stops a 4000 point army meeting a 2500
               point one. The cap is a CAP: under it is legal, only over is refused. */}
           <div className="grid grid-cols-2 gap-2">
-            <label className="text-[10px] text-zinc-500">Point limit
-              <input type="number" min={0} step={50} className={box} placeholder="no limit"
+            <label className="text-[10px] text-zinc-500">{t('evPointLimit')}
+              <input type="number" min={0} step={50} className={box} placeholder={t('evNoLimit')}
                      value={form.pointLimit ?? ''}
                      onChange={e => setForm(f => ({ ...f, pointLimit: e.target.value ? Number(e.target.value) : null }))} /></label>
-            <label className="text-[10px] text-zinc-500">Engagement
+            <label className="text-[10px] text-zinc-500">{t('evEngagement')}
               <select className={box} value={form.engagement ?? ''}
                       onChange={e => setForm(f => ({ ...f, engagement: (e.target.value || null) as api.NewEvent['engagement'] }))}>
-                <option value="">— any —</option>
-                <option value="skirmish">Skirmish</option>
-                <option value="pitched">Pitched Battle</option>
-                <option value="epic">Epic Battle</option>
+                <option value="">{t('evAnyEngagement')}</option>
+                <option value="skirmish">{t('prefsEngSkirmish')}</option>
+                <option value="pitched">{t('prefsEngPitched')}</option>
+                <option value="epic">{t('prefsEngEpic')}</option>
               </select></label>
           </div>
           <div className="flex flex-wrap items-center gap-4 text-[11px] text-zinc-300">
             <label className="flex items-center gap-1.5">
               <input type="checkbox" checked={form.alliesAllowed !== false}
                      onChange={e => setForm(f => ({ ...f, alliesAllowed: e.target.checked }))} />
-              Allies allowed
+              {t('evAlliesAllowed')}
             </label>
             <label className="flex items-center gap-1.5">
               <input type="checkbox" checked={form.visibility === 'private'}
                      onChange={e => setForm(f => ({ ...f, visibility: e.target.checked ? 'private' : 'public' }))} />
-              Private <span className="text-zinc-600">(you approve each player)</span>
+              {t('evPrivate')} <span className="text-zinc-600">{t('evPrivateHint')}</span>
             </label>
             <label className="flex items-center gap-1.5">
               <input type="checkbox" checked={form.isLeague === true}
                      onChange={e => setForm(f => ({ ...f, isLeague: e.target.checked }))} />
-              League <span className="text-zinc-600">(keeps a leaderboard)</span>
+              {t('evLeague')} <span className="text-zinc-600">{t('evLeagueHint')}</span>
             </label>
             <label className="flex items-center gap-1.5">
               <input type="checkbox" checked={form.isTest === true}
                      onChange={e => setForm(f => ({ ...f, isTest: e.target.checked }))} />
-              Test data <span className="text-zinc-600">(wiped by Reset)</span>
+              {t('evTestData')} <span className="text-zinc-600">{t('evTestDataHint')}</span>
             </label>
           </div>
           <button className={btnPrimary} onClick={handleCreate} disabled={busy}>
-            {busy ? 'Creating…' : 'Create event'}
+            {busy ? t('evCreating') : t('evCreate')}
           </button>
         </div>
       )}
 
       {loading
-        ? <p className="text-zinc-500 text-[11px]">Loading…</p>
+        ? <p className="text-zinc-500 text-[11px]">{t('evLoading')}</p>
         : events.length === 0
-          ? <p className="text-zinc-600 text-[11px] italic">No events yet.</p>
+          ? <p className="text-zinc-600 text-[11px] italic">{t('evNoEvents')}</p>
           : (
             <div className="space-y-1.5">
               {events.map(ev => (
@@ -266,17 +281,22 @@ function EventIndex({ events, loading, isAdmin, onOpen, onRefresh, onError }: {
                   <div className="flex items-center justify-between gap-2">
                     <span className="text-zinc-200 text-[13px]">{ev.name}</span>
                     <span className="flex items-center gap-1.5 shrink-0">
-                      {ev.is_test && <Tag className="border-zinc-700 text-zinc-500">TEST</Tag>}
+                      {ev.is_test && <Tag className="border-zinc-700 text-zinc-500">{t('evTagTest')}</Tag>}
                       {/* Closed is not hidden: the league is listed, and opening it still shows the
                           standings and every game. The tag says only that it cannot be joined. */}
-                      {!ev.published && <Tag className="border-zinc-700 text-zinc-500">CLOSED</Tag>}
-                      {ev.visibility === 'private' && <Tag className="border-zinc-700 text-zinc-400">PRIVATE</Tag>}
-                      {ev.is_league && <Tag className="border-amber-900 text-amber-500">LEAGUE</Tag>}
-                      {ev.my_status && <Tag className="border-emerald-900 text-emerald-500">{ev.my_status.toUpperCase()}</Tag>}
+                      {!ev.published && <Tag className="border-zinc-700 text-zinc-500">{t('evTagClosed')}</Tag>}
+                      {ev.visibility === 'private' && <Tag className="border-zinc-700 text-zinc-400">{t('evTagPrivate')}</Tag>}
+                      {ev.is_league && <Tag className="border-amber-900 text-amber-500">{t('evTagLeague')}</Tag>}
+                      {ev.my_status && (
+                        <Tag className="border-emerald-900 text-emerald-500">
+                          {ev.my_status === 'approved' ? t('evStatusApproved')
+                            : ev.my_status === 'rejected' ? t('evStatusRejected') : t('evStatusPending')}
+                        </Tag>
+                      )}
                     </span>
                   </div>
                   <div className="text-[10px] text-zinc-500 font-mono mt-0.5">
-                    {ev.organiser} · {n(ev.player_count)} player(s)
+                    {ev.organiser} · {tf('evPlayerCount', { n: n(ev.player_count) })}
                     {ev.starts_on && ` · ${dateOnly(ev.starts_on)}${ev.ends_on ? ` → ${dateOnly(ev.ends_on)}` : ''}`}
                   </div>
                 </button>
@@ -297,6 +317,8 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
   eventId: number; username: string; isAdmin: boolean;
   onBack: () => void; onError: (m: string) => void;
 }) {
+  const t = useT();
+  const tf = fill(t);
   const [tab, setTab] = useState<TabId>('info');
   const [data, setData] = useState<Awaited<ReturnType<typeof api.getEvent>> | null>(null);
   const [players, setPlayers] = useState<api.EventPlayer[]>([]);
@@ -364,11 +386,11 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
   return (
     <>
       <div className="flex items-center justify-between gap-2">
-        <button className={btn} onClick={onBack}>← All events</button>
+        <button className={btn} onClick={onBack}>{t('evAllEvents')}</button>
         <div className="flex items-center gap-1.5">
           {/* A league is months of other people's results living in one database, so it gets a copy
               that is not the database — and a sheet you can print or drop in Discord. */}
-          <button className={btn} disabled={busy} title="Download the whole league as a .json backup"
+          <button className={btn} disabled={busy} title={t('evBackupHint')}
                   onClick={() => act(async () => {
                     const data = await api.exportEvent(ev.id);
                     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -379,47 +401,47 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
                     a.click();
                     URL.revokeObjectURL(url);
                   })}>
-            ⤓ Backup
+            {t('evBackup')}
           </button>
-          <button className={btn} onClick={() => setShowSheet(true)} title="Printable sheet — print or save as PDF">
-            🖨 Sheet
+          <button className={btn} onClick={() => setShowSheet(true)} title={t('evSheetHint')}>
+            {t('evSheet')}
           </button>
-          {ev.is_test && <Tag className="border-zinc-700 text-zinc-500">TEST</Tag>}
-          {!data.open && <Tag className="border-zinc-700 text-zinc-500">CLOSED</Tag>}
-          {ev.visibility === 'private' && <Tag className="border-zinc-700 text-zinc-400">PRIVATE</Tag>}
-          {ev.is_league && <Tag className="border-amber-900 text-amber-500">LEAGUE</Tag>}
+          {ev.is_test && <Tag className="border-zinc-700 text-zinc-500">{t('evTagTest')}</Tag>}
+          {!data.open && <Tag className="border-zinc-700 text-zinc-500">{t('evTagClosed')}</Tag>}
+          {ev.visibility === 'private' && <Tag className="border-zinc-700 text-zinc-400">{t('evTagPrivate')}</Tag>}
+          {ev.is_league && <Tag className="border-amber-900 text-amber-500">{t('evTagLeague')}</Tag>}
         </div>
       </div>
 
       <div>
         <h3 className="text-amber-400 text-[15px]">{ev.name}</h3>
         <p className="text-[10px] text-zinc-500 font-mono">
-          organised by {ev.organiser}
+          {tf('evOrganisedBy', { name: ev.organiser ?? '' })}
           {ev.starts_on && ` · ${dateOnly(ev.starts_on)}${ev.ends_on ? ` → ${dateOnly(ev.ends_on)}` : ''}`}
         </p>
       </div>
 
       {isAdmin && (
         <div className="border border-red-900/50 bg-red-950/10 p-2 space-y-2">
-          <div className="text-[10px] uppercase tracking-widest text-red-400">Alpha testing</div>
+          <div className="text-[10px] uppercase tracking-widest text-red-400">{t('evAlphaTesting')}</div>
           {puppets.length === 0 ? (
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-zinc-400 text-[11px]">Fill this event with fake players and armies:</span>
+              <span className="text-zinc-400 text-[11px]">{t('evSeedPrompt')}</span>
               <input type="number" min={2} max={12} value={seedCount}
                      onChange={e => setSeedCount(Number(e.target.value))}
                      className="w-16 bg-zinc-900 border border-zinc-800 px-2 py-1 text-[12px] text-zinc-200" />
               <button className={btnPrimary} disabled={busy}
                       onClick={() => act(() => api.seedTestPlayers(ev.id, seedCount))}>
-                Seed players
+                {t('evSeed')}
               </button>
             </div>
           ) : (
             <div className="space-y-1.5">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-zinc-400 text-[11px]">Acting as:</span>
+                <span className="text-zinc-400 text-[11px]">{t('evActingAs')}</span>
                 <select className="bg-zinc-900 border border-zinc-800 px-2 py-1 text-[12px] text-zinc-200"
                         value={actingAs} onChange={e => setActingAs(e.target.value ? Number(e.target.value) : '')}>
-                  <option value="">{username} (you)</option>
+                  <option value="">{tf('evYou', { name: username })}</option>
                   {puppets.map(p => (
                     <option key={p.user_id} value={p.user_id}>
                       {p.username}{p.faction ? ` — ${factionLabel(p.faction)}` : ''}
@@ -428,12 +450,11 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
                 </select>
                 <button className={btn} disabled={busy}
                         onClick={() => act(() => api.seedTestPlayers(ev.id, seedCount))}>
-                  + more
+                  {t('evSeedMore')}
                 </button>
               </div>
               <p className="text-zinc-600 text-[10px]">
-                Everything you do below happens as that player — report a game as one, then switch and
-                confirm it as the other. Fake players and their armies are deleted by “Reset test data”.
+                {t('evActingHint')}
               </p>
             </div>
           )}
@@ -457,25 +478,26 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           {/* Stated up front rather than discovered by being refused. */}
           {(ev.point_limit != null || ev.engagement || ev.allies_allowed === false) && (
             <div className="border border-zinc-800 px-3 py-2 space-y-0.5">
-              <div className="text-[10px] uppercase tracking-widest text-amber-600">Army rules</div>
+              <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evArmyRules')}</div>
               {ev.point_limit != null && (
                 <p className="text-zinc-300 text-[11px]">
-                  Up to <strong>{ev.point_limit} points</strong>
-                  <span className="text-zinc-600"> — under is fine, over is refused.</span>
+                  <strong>{tf('evUpTo', { n: ev.point_limit })}</strong>
+                  <span className="text-zinc-600"> {t('evCapHint')}</span>
                 </p>
               )}
               {ev.engagement && (
                 <p className="text-zinc-300 text-[11px]">
-                  Built for <strong>{ENGAGEMENT_LABEL[ev.engagement]}</strong>
+                  <strong>{tf('evBuiltFor', { name: t(ENGAGEMENT_KEY[ev.engagement]) })}</strong>
                 </p>
               )}
-              {ev.allies_allowed === false && <p className="text-zinc-300 text-[11px]">No allied detachments</p>}
+              {ev.allies_allowed === false && <p className="text-zinc-300 text-[11px]">{t('evNoAllies')}</p>}
             </div>
           )}
           <p className="text-[10px] text-zinc-500 font-mono">
-            {!data.open ? 'League CLOSED' : `Registration ${data.registrationOpen ? 'OPEN' : 'CLOSED'}`}
-            {ev.reg_opens_on && ` · from ${dateOnly(ev.reg_opens_on)}`}
-            {ev.reg_closes_on && ` · until ${dateOnly(ev.reg_closes_on)}`}
+            {!data.open ? t('evLeagueClosedLine')
+              : data.registrationOpen ? t('evRegistrationOpen') : t('evRegistrationClosed')}
+            {ev.reg_opens_on && ` · ${tf('evFromDate', { date: dateOnly(ev.reg_opens_on) })}`}
+            {ev.reg_closes_on && ` · ${tf('evUntilDate', { date: dateOnly(ev.reg_closes_on) })}`}
           </p>
 
           {/* A closed league is still worth opening: whoever finds it can read the standings and
@@ -483,11 +505,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
               reporting are shut, so say which of the two reasons applies. */}
           {!data.open && (
             <p className="text-zinc-500 text-[11px] italic">
-              This league is closed — {!data.canManage
-                ? 'the organiser has not opened it yet. You can still read the standings and the games played.'
-                : ev.is_test
-                  ? 'so no games can be reported into it yet. Open it below — a test event stays admin-only either way.'
-                  : 'open it below when you are ready for players to join.'}
+              {!data.canManage ? t('evClosedPlayer') : ev.is_test ? t('evClosedTest') : t('evClosedOrganiser')}
             </p>
           )}
 
@@ -497,23 +515,23 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           {data.canManage && (
             <button className={data.open ? btn : btnPrimary} disabled={busy}
                     onClick={() => act(() => api.publishEvent(ev.id, !data.open))}>
-              {data.open ? 'Close league' : ev.is_test ? 'Open for reporting' : 'Open league to players'}
+              {data.open ? t('evCloseLeague') : ev.is_test ? t('evOpenForReporting') : t('evOpenLeague')}
             </button>
           )}
 
           {!data.me && data.open && (
             <button className={btnPrimary} disabled={busy || !data.registrationOpen}
                     onClick={() => act(() => api.registerForEvent(ev.id))}>
-              {ev.visibility === 'public' ? 'Register' : 'Request to join'}
+              {ev.visibility === 'public' ? t('evRegister') : t('evRequestJoin')}
             </button>
           )}
           {data.me?.status === 'pending' && (
-            <p className="text-amber-500/80 text-[11px]">Your request is waiting for the organiser.</p>
+            <p className="text-amber-500/80 text-[11px]">{t('evPendingApproval')}</p>
           )}
           {data.me?.status === 'rejected' && (
             <div className="space-y-2">
-              <p className="text-red-400 text-[11px]">Your request was declined.</p>
-              <button className={btn} disabled={busy} onClick={() => act(() => api.registerForEvent(ev.id))}>Ask again</button>
+              <p className="text-red-400 text-[11px]">{t('evRejected')}</p>
+              <button className={btn} disabled={busy} onClick={() => act(() => api.registerForEvent(ev.id))}>{t('evAskAgain')}</button>
             </div>
           )}
 
@@ -523,10 +541,10 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
             const registeredName = myRosters.find(r => r.id === registered)?.name ?? null;
             return (
               <div className="border border-zinc-800 p-3 space-y-2">
-                <div className="text-[10px] uppercase tracking-widest text-amber-600">Your army list</div>
+                <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evYourArmyList')}</div>
                 <select className={box} value={listDraft} disabled={busy || data.listLock != null}
                         onChange={e => setListDraft(e.target.value ? Number(e.target.value) : '')}>
-                  <option value="">— none chosen —</option>
+                  <option value="">{t('evNoneChosen')}</option>
                   {myRosters.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
                 </select>
 
@@ -535,28 +553,28 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
                     what is registered are the same, so it doubles as the state readout. */}
                 <button className={pending ? btnPrimary : btn} disabled={busy || !pending || data.listLock != null}
                         onClick={() => act(() => api.assignEventList(ev.id, listDraft === '' ? null : listDraft, as))}>
-                  {!pending ? 'Army list confirmed'
-                    : listDraft === '' ? 'Withdraw my army list'
-                    : registered === '' ? 'Confirm this army list'
-                    : 'Change to this army list'}
+                  {!pending ? t('evListConfirmed')
+                    : listDraft === '' ? t('evWithdrawList')
+                    : registered === '' ? t('evConfirmList')
+                    : t('evChangeList')}
                 </button>
 
                 {data.listLock ? (
                   <p className="text-zinc-500 text-[11px] italic">
-                    {data.listLock}
-                    {registeredName && ` You are in with “${registeredName}”.`}
+                    {data.listLock.key ? t(data.listLock.key as Parameters<typeof t>[0]) : data.listLock.msg}
+                    {registeredName && ` ${tf('evYouAreIn', { name: registeredName })}`}
                   </p>
                 ) : pending ? (
                   <p className="text-amber-500/80 text-[10px]">
-                    Not registered yet — press the button to confirm.
-                    {registeredName && ` You are still registered with “${registeredName}”.`}
+                    {t('evNotRegisteredYet')}
+                    {registeredName && ` ${tf('evStillRegisteredWith', { name: registeredName })}`}
                   </p>
                 ) : registeredName ? (
                   <p className="text-emerald-500/80 text-[10px]">
-                    ✓ Registered for this event with “{registeredName}”.
+                    {tf('evRegisteredWith', { name: registeredName })}
                   </p>
                 ) : (
-                  <p className="text-zinc-600 text-[10px]">You have no army list registered for this event yet.</p>
+                  <p className="text-zinc-600 text-[10px]">{t('evNoListYet')}</p>
                 )}
               </div>
             );
@@ -565,10 +583,10 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
           {data.canManage && (
             <button className={btn} disabled={busy}
                     onClick={() => {
-                      if (!window.confirm(`Delete "${ev.name}"? Its players and reported games go with it.`)) return;
+                      if (!window.confirm(tf('evDeleteEventQ', { name: ev.name }))) return;
                       void act(async () => { await api.deleteEvent(ev.id); onBack(); });
                     }}>
-              Delete event
+              {t('evDeleteEvent')}
             </button>
           )}
         </div>
@@ -595,7 +613,7 @@ function EventDetail({ eventId, username, isAdmin, onBack, onError }: {
       {tab === 'standings' && <StandingsTab standings={standings} />}
 
       {isAdmin && ev.is_test && (
-        <p className="text-zinc-600 text-[10px] italic">Test event — removed by “Reset test data” on the index.</p>
+        <p className="text-zinc-600 text-[10px] italic">{t('evTestEventNote')}</p>
       )}
 
       {showSheet && (
@@ -617,6 +635,8 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
   // Which player's list is being corrected, and the armies they have to choose from. Fetched on
   // demand rather than with the page: it is a privileged read, so it happens only when an organiser
   // actually opens it for one player.
+  const t = useT();
+  const tf = fill(t);
   const [fixing, setFixing] = useState<number | null>(null);
   const [theirLists, setTheirLists] = useState<{ id: number; name: string; faction: string | null; total_pts: number | null }[]>([]);
   const [fixError, setFixError] = useState('');
@@ -630,7 +650,7 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
     }
   }
 
-  if (players.length === 0) return <p className="text-zinc-600 text-[11px] italic">Nobody has registered yet.</p>;
+  if (players.length === 0) return <p className="text-zinc-600 text-[11px] italic">{t('evNobodyRegistered')}</p>;
   const pending = players.filter(p => p.status === 'pending');
   const approved = players.filter(p => p.status === 'approved');
   const rejected = players.filter(p => p.status === 'rejected');
@@ -640,7 +660,7 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
       <div className="min-w-0">
         <div className="text-zinc-200 text-[12px]">{p.username}</div>
         <div className="text-[10px] text-zinc-500 font-mono truncate">
-          {p.roster_name ?? 'no list assigned'}{p.faction ? ` · ${factionLabel(p.faction)}` : ''}
+          {p.roster_name ?? t('evNoListAssigned')}{p.faction ? ` · ${factionLabel(p.faction)}` : ''}
           {p.is_test && <span className="ml-1.5 text-[9px] text-red-500/80">TEST</span>}
         </div>
       </div>
@@ -650,12 +670,12 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
               reason you cannot settle a game you played in. Another organiser or admin can. */}
           {p.status === 'approved' && p.username !== username && (
             <button className={btn} disabled={busy} onClick={() => openFix(p.user_id)}
-                    title="Put a different army on this player's registration">
-              Fix list
+                    title={t('evFixListHint')}>
+              {t('evFixList')}
             </button>
           )}
-          {p.status !== 'approved' && <button className={btn} disabled={busy} onClick={() => onSet(p.user_id, 'approved')}>Approve</button>}
-          {p.status !== 'rejected' && <button className={btn} disabled={busy} onClick={() => onSet(p.user_id, 'rejected')}>Reject</button>}
+          {p.status !== 'approved' && <button className={btn} disabled={busy} onClick={() => onSet(p.user_id, 'approved')}>{t('evApprove')}</button>}
+          {p.status !== 'rejected' && <button className={btn} disabled={busy} onClick={() => onSet(p.user_id, 'rejected')}>{t('evReject')}</button>}
         </div>
       )}
     </div>
@@ -664,12 +684,12 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
   const fixPanel = (p: api.EventPlayer) => (
     <div key={`fix-${p.user_id}`} className="border border-amber-900/60 bg-amber-950/10 px-3 py-2 space-y-2">
       <div className="text-[11px] text-zinc-200">
-        Change the army <strong>{p.username}</strong> is registered with
+        {tf('evFixListTitle', { name: p.username })}
       </div>
       {fixError && <p className="text-red-400 text-[11px]">{fixError}</p>}
       <select className={box} defaultValue={p.roster_id ?? ''} disabled={busy}
               onChange={e => onFixList(p.user_id, e.target.value ? Number(e.target.value) : null)}>
-        <option value="">— none —</option>
+        <option value="">{t('evNone')}</option>
         {theirLists.map(r => (
           <option key={r.id} value={r.id}>
             {r.name}{r.faction ? ` — ${factionLabel(r.faction)}` : ''}{r.total_pts != null ? ` (${r.total_pts} pts)` : ''}
@@ -677,11 +697,10 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
         ))}
       </select>
       <div className="flex gap-1.5">
-        <button className={btn} disabled={busy} onClick={() => setFixing(null)}>Done</button>
+        <button className={btn} disabled={busy} onClick={() => setFixing(null)}>{t('evDone')}</button>
       </div>
       <p className="text-zinc-600 text-[10px]">
-        The event's own rules still apply — an army over the point limit, or built for the wrong
-        engagement, is refused here too.
+        {t('evFixListRules')}
       </p>
     </div>
   );
@@ -690,19 +709,19 @@ function PlayersTab({ players, canManage, busy, eventId, username, onSet, onFixL
     <div className="space-y-3">
       {canManage && pending.length > 0 && (
         <div className="space-y-1.5">
-          <div className="text-[10px] uppercase tracking-widest text-amber-600">Waiting for approval</div>
+          <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evWaitingApproval')}</div>
           {pending.map(row)}
         </div>
       )}
       <div className="space-y-1.5">
-        <div className="text-[10px] uppercase tracking-widest text-zinc-600">Participants</div>
+        <div className="text-[10px] uppercase tracking-widest text-zinc-600">{t('evParticipants')}</div>
         {approved.length === 0
-          ? <p className="text-zinc-600 text-[11px] italic">None yet.</p>
+          ? <p className="text-zinc-600 text-[11px] italic">{t('evNoneYet')}</p>
           : approved.flatMap(p => (fixing === p.user_id ? [row(p), fixPanel(p)] : [row(p)]))}
       </div>
       {canManage && rejected.length > 0 && (
         <div className="space-y-1.5">
-          <div className="text-[10px] uppercase tracking-widest text-zinc-700">Declined</div>
+          <div className="text-[10px] uppercase tracking-widest text-zinc-700">{t('evDeclined')}</div>
           {rejected.map(row)}
         </div>
       )}
@@ -726,6 +745,8 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
   onConfirm: (gameId: number, confirm: boolean, note?: string) => void;
   onSettle: (gameId: number, action: 'confirm' | 'reopen' | 'delete', result?: 'win' | 'draw' | 'loss') => void;
 }) {
+  const t = useT();
+  const tf = fill(t);
   const [opponentUserId, setOpponent] = useState<number | ''>('');
   const [result, setResult] = useState<'win' | 'draw' | 'loss'>('win');
   const [mission, setMission] = useState('');
@@ -743,10 +764,10 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
     <div className="space-y-3">
       {canReport && (
         <div className="border border-zinc-800 p-3 space-y-2">
-          <div className="text-[10px] uppercase tracking-widest text-amber-600">Report a game</div>
+          <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evReportGame')}</div>
           <div className="grid grid-cols-2 gap-2">
             <select className={box} value={opponentUserId} onChange={e => setOpponent(e.target.value ? Number(e.target.value) : '')}>
-              <option value="">— opponent —</option>
+              <option value="">{t('evOpponentPick')}</option>
               {opponents.map(p => (
                 <option key={p.user_id} value={p.user_id}>
                   {p.username}{p.faction ? ` — ${factionLabel(p.faction)}` : ''}{p.roster_name ? ` (${p.roster_name})` : ''}
@@ -754,11 +775,11 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
               ))}
             </select>
             <select className={box} value={result} onChange={e => setResult(e.target.value as typeof result)}>
-              <option value="win">I won</option>
-              <option value="draw">Draw</option>
-              <option value="loss">I lost</option>
+              <option value="win">{t('evIWon')}</option>
+              <option value="draw">{t('evDraw')}</option>
+              <option value="loss">{t('evILost')}</option>
             </select>
-            <input className={box} placeholder="Mission" value={mission} onChange={e => setMission(e.target.value)} />
+            <input className={box} placeholder={t('evMission')} value={mission} onChange={e => setMission(e.target.value)} />
             <input type="date" className={box} value={playedOn} onChange={e => setPlayedOn(e.target.value)} />
           </div>
           <button className={btnPrimary} disabled={busy || opponentUserId === ''}
@@ -766,32 +787,33 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
                     onReport({ opponentUserId: Number(opponentUserId), result, mission, playedOn: playedOn || null });
                     setOpponent(''); setMission(''); setPlayedOn('');
                   }}>
-            Submit
+            {t('evSubmit')}
           </button>
           <p className="text-zinc-600 text-[10px]">
-            Your opponent has to confirm it before it counts toward the standings.
+            {t('evReportHint')}
           </p>
         </div>
       )}
 
       {waitingOnMe.length > 0 && (
         <div className="space-y-1.5">
-          <div className="text-[10px] uppercase tracking-widest text-amber-600">Waiting for you to confirm</div>
+          <div className="text-[10px] uppercase tracking-widest text-amber-600">{t('evWaitingOnYou')}</div>
           {waitingOnMe.map(g => (
             <div key={g.id} className="border border-amber-900/60 bg-amber-950/10 px-3 py-2 space-y-1.5">
               <div className="text-[12px] text-zinc-200">
-                {g.reporter} reported a <strong>{g.result}</strong> against you{g.mission ? ` · ${g.mission}` : ''}
+                {tf('evReportedAgainstYou', { name: g.reporter, result: t(RESULT_KEY[g.result]) })}
+                {g.mission ? ` · ${g.mission}` : ''}
               </div>
               <div className="text-[10px] text-zinc-400 font-mono">
-                {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
+                {g.reporter_roster_name ?? t('evNoList')}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
                 {' vs '}
-                {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
+                {g.opponent_roster_name ?? t('evNoList')}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
               </div>
               <div className="flex gap-1.5">
-                <button className={btnPrimary} disabled={busy} onClick={() => onConfirm(g.id, true)}>Confirm</button>
+                <button className={btnPrimary} disabled={busy} onClick={() => onConfirm(g.id, true)}>{t('evConfirm')}</button>
                 <button className={btn} disabled={busy}
-                        onClick={() => onConfirm(g.id, false, window.prompt('Why is this wrong? (the organiser sees this)') ?? undefined)}>
-                  Dispute
+                        onClick={() => onConfirm(g.id, false, window.prompt(t('evDisputePrompt')) ?? undefined)}>
+                  {t('evDispute')}
                 </button>
               </div>
             </div>
@@ -801,22 +823,22 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
 
       {canManage && disputed.length > 0 && (
         <div className="space-y-1.5">
-          <div className="text-[10px] uppercase tracking-widest text-red-400">Disputed — waiting on you</div>
+          <div className="text-[10px] uppercase tracking-widest text-red-400">{t('evDisputedWaiting')}</div>
           {disputed.map(g => (
             <div key={g.id} className="border border-red-900/60 bg-red-950/10 px-3 py-2 space-y-1.5">
               <div className="text-[12px] text-zinc-200">
-                {g.reporter} reported a <strong>{g.result}</strong> against {g.opponent}
+                {tf('evReportedAgainst', { a: g.reporter, b: g.opponent, result: t(RESULT_KEY[g.result]) })}
                 {g.mission ? ` · ${g.mission}` : ''}
               </div>
               <div className="text-[10px] text-zinc-400 font-mono">
-                {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
+                {g.reporter_roster_name ?? t('evNoList')}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
                 {' vs '}
-                {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
+                {g.opponent_roster_name ?? t('evNoList')}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
               </div>
               {g.dispute_note && <div className="text-[11px] text-red-300/90">“{g.dispute_note}”</div>}
               {mine(g) && (
                 <p className="text-zinc-500 text-[11px] italic">
-                  You played in this game, so you cannot settle it — another organiser or admin has to.
+                  {t('evCannotSettleOwn')}
                 </p>
               )}
               {/* Three ways out, and the labels say which is which from the REPORTER's side, since
@@ -824,24 +846,24 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
                   press rather than a delete and a re-report by the other player. */}
               <div className="flex gap-1.5 flex-wrap" hidden={mine(g)}>
                 <button className={btnPrimary} disabled={busy} onClick={() => onSettle(g.id, 'confirm')}>
-                  Uphold as {g.result}
+                  {tf('evUphold', { result: t(RESULT_KEY[g.result]) })}
                 </button>
                 {g.result !== 'draw' && (
                   <button className={btn} disabled={busy}
                           onClick={() => onSettle(g.id, 'confirm', g.result === 'win' ? 'loss' : 'win')}>
-                    Overturn to {g.result === 'win' ? 'loss' : 'win'}
+                    {tf('evOverturn', { result: t(g.result === 'win' ? 'evILost' : 'evIWon') })}
                   </button>
                 )}
                 <button className={btn} disabled={busy} onClick={() => onSettle(g.id, 'confirm', 'draw')}>
-                  Rule a draw
+                  {t('evRuleDraw')}
                 </button>
                 <button className={btn} disabled={busy} onClick={() => onSettle(g.id, 'reopen')}
-                        title="Clear the dispute and send it back to the opponent">
-                  Send back
+                        title={t('evSendBackHint')}>
+                  {t('evSendBack')}
                 </button>
                 <button className={btn} disabled={busy}
-                        onClick={() => { if (window.confirm('Delete this game? It is gone for good.')) onSettle(g.id, 'delete'); }}>
-                  Delete
+                        onClick={() => { if (window.confirm(t('evDeleteGameQ'))) onSettle(g.id, 'delete'); }}>
+                  {t('evDelete')}
                 </button>
               </div>
             </div>
@@ -850,24 +872,24 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
       )}
 
       <div className="space-y-1.5">
-        <div className="text-[10px] uppercase tracking-widest text-zinc-600">All reported games</div>
+        <div className="text-[10px] uppercase tracking-widest text-zinc-600">{t('evAllGames')}</div>
         {games.length === 0
-          ? <p className="text-zinc-600 text-[11px] italic">No games reported yet.</p>
+          ? <p className="text-zinc-600 text-[11px] italic">{t('evNoGames')}</p>
           : games.map(g => (
             <div key={g.id} className="flex items-center justify-between gap-2 border border-zinc-800 px-3 py-1.5">
               <div className="min-w-0">
                 <div className="text-[12px] text-zinc-300">
-                  {g.reporter} <span className="text-zinc-600">{g.result === 'draw' ? 'drew with' : g.result === 'win' ? 'beat' : 'lost to'}</span> {g.opponent}
+                  {g.reporter} <span className="text-zinc-600">{g.result === 'draw' ? t('evDrewWith') : g.result === 'win' ? t('evBeat') : t('evLostTo')}</span> {g.opponent}
                 </div>
                 {/* Both armies, always. With two players on the same faction a bare "X beat Y" is
                     the line most likely to be misread, and a draw reads the same either way round. */}
                 <div className="text-[10px] text-zinc-400 font-mono truncate">
-                  {g.reporter_roster_name ?? 'no list'}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
+                  {g.reporter_roster_name ?? t('evNoList')}{g.reporter_faction ? ` (${factionLabel(g.reporter_faction)})` : ''}
                   {' vs '}
-                  {g.opponent_roster_name ?? 'no list'}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
+                  {g.opponent_roster_name ?? t('evNoList')}{g.opponent_faction ? ` (${factionLabel(g.opponent_faction)})` : ''}
                 </div>
                 <div className="text-[10px] text-zinc-500 font-mono truncate">
-                  {g.mission || 'no mission'}{g.played_on ? ` · ${dateOnly(g.played_on)}` : ''}
+                  {g.mission || t('evNoMission')}{g.played_on ? ` · ${dateOnly(g.played_on)}` : ''}
                   {g.dispute_note ? ` · “${g.dispute_note}”` : ''}
                 </div>
               </div>
@@ -875,16 +897,17 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
                 {/* An organiser also has to be able to undo a game both players confirmed and then
                     realised was wrong — otherwise the only fix is a second, opposite game. */}
                 {canManage && g.status === 'confirmed' && !mine(g) && (
-                  <button className={btn} disabled={busy} title="Send this back to the opponent as unconfirmed"
+                  <button className={btn} disabled={busy} title={t('evUndoHint')}
                           onClick={() => onSettle(g.id, 'reopen')}>
-                    Undo
+                    {t('evUndo')}
                   </button>
                 )}
                 <Tag className={
                   g.status === 'confirmed' ? 'border-emerald-900 text-emerald-500'
                     : g.status === 'disputed' ? 'border-red-900 text-red-400'
                       : 'border-zinc-700 text-zinc-500'}>
-                  {g.status.toUpperCase()}
+                  {g.status === 'confirmed' ? t('evStatusConfirmed')
+                    : g.status === 'disputed' ? t('evStatusDisputed') : t('evStatusPending')}
                 </Tag>
               </span>
             </div>
@@ -895,18 +918,20 @@ function GamesTab({ games, players, username, realUsername, busy, canReport, can
 }
 
 function StandingsTab({ standings }: { standings: api.EventStanding[] }) {
-  if (standings.length === 0) return <p className="text-zinc-600 text-[11px] italic">No approved players yet.</p>;
+  const t = useT();
+  if (standings.length === 0) return <p className="text-zinc-600 text-[11px] italic">{t('evNoneYet')}</p>;
   return (
     <table className="w-full text-[11px] font-mono">
       <thead>
         <tr className="text-zinc-600 text-[10px] uppercase tracking-widest">
           <th className="text-left py-1">#</th>
-          <th className="text-left">Player</th>
-          <th className="text-left">Faction</th>
-          <th className="text-right">P</th>
-          <th className="text-right">W</th><th className="text-right">D</th><th className="text-right">L</th>
-          <th className="text-right">Win%</th>
-          <th className="text-right">Pts</th>
+          <th className="text-left">{t('evColPlayer')}</th>
+          <th className="text-left">{t('evColFaction')}</th>
+          <th className="text-right">{t('evColPlayed')}</th>
+          <th className="text-right">{t('evColWins')}</th><th className="text-right">{t('evColDraws')}</th>
+          <th className="text-right">{t('evColLosses')}</th>
+          <th className="text-right">{t('evColWinPct')}</th>
+          <th className="text-right">{t('evColPoints')}</th>
         </tr>
       </thead>
       <tbody>

@@ -55,7 +55,19 @@ export default async function handler(req, res) {
 
 // ── helpers ──────────────────────────────────────────────────────────────────────────────────────
 
-const bad = (res, msg, code = 400) => { res.status(code).json({ error: msg }); return null; };
+/**
+ * A refusal. `msg` is the English text, and `key` — when the refusal is one a PLAYER can hit — is
+ * a translation key the client looks up so the message arrives in the reader's own language. The
+ * English text is always sent too, so an untranslated or unknown key degrades to readable English
+ * rather than to nothing. `vars` fills the placeholders in the translated template.
+ *
+ * Admin-only plumbing errors deliberately carry no key: they are read by three people who all read
+ * English, and a badly translated operational message is worse than an untranslated one.
+ */
+const bad = (res, msg, code = 400, key = null, vars = null) => {
+  res.status(code).json({ error: msg, key, vars });
+  return null;
+};
 
 async function isAdmin(userId) {
   const r = await sql`SELECT is_admin FROM users WHERE id = ${userId}`;
@@ -114,8 +126,8 @@ const asDate = (v) => (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) ? 
  * subject to it — see `assignList`, where fixing a player's entry is the whole point.
  */
 function listLockReason(ev) {
-  if (!ev.published) return 'This league is closed.';
-  if (!regOpen(ev)) return 'Registration has closed, so army lists are locked.';
+  if (!ev.published) return { msg: 'This league is closed.', key: 'evErrListLockedClosed' };
+  if (!regOpen(ev)) return { msg: 'Registration has closed, so army lists are locked.', key: 'evErrListLockedReg' };
   return null;
 }
 
@@ -137,22 +149,32 @@ async function rosterRejection(ev, rosterId) {
            data->>'alliedFaction' AS allied
       FROM rosters WHERE id = ${rosterId}`;
   const row = r.rows[0];
-  if (!row) return 'That army list no longer exists.';
+  if (!row) return { msg: 'That army list no longer exists.' };
 
   // A cap, not a target: under is fine, only over is refused. A missing total is let through
   // rather than refused — the number comes from the save, and an old save may predate it, so
   // blocking a player over a value we never wrote would be our bug charged to them.
   if (ev.point_limit != null && row.pts != null && row.pts > ev.point_limit) {
-    return `That army is ${row.pts} points and this event is capped at ${ev.point_limit}.`;
+    return {
+      msg: `That army is ${row.pts} points and this event is capped at ${ev.point_limit}.`,
+      key: 'evErrOverLimit', vars: { pts: row.pts, cap: ev.point_limit },
+    };
   }
   // Engagement decides the whole army's legality — slots, trait count, stat caps — so a Skirmish
   // league cannot accept a list built as Pitched Battle even if it happens to be under the cap.
   if (ev.engagement && row.engagement && row.engagement !== ev.engagement) {
-    return `That army is built for ${ENGAGEMENT_LABELS[row.engagement] ?? row.engagement}`
-         + ` and this event is ${ENGAGEMENT_LABELS[ev.engagement] ?? ev.engagement}.`;
+    const theirs = ENGAGEMENT_LABELS[row.engagement] ?? row.engagement;
+    const ours = ENGAGEMENT_LABELS[ev.engagement] ?? ev.engagement;
+    return {
+      msg: `That army is built for ${theirs} and this event is ${ours}.`,
+      key: 'evErrWrongEngagement', vars: { theirs, ours },
+    };
   }
   if (ev.allies_allowed === false && row.allied) {
-    return 'That army has an allied detachment and this event does not allow allies.';
+    return {
+      msg: 'That army has an allied detachment and this event does not allow allies.',
+      key: 'evErrNoAllies',
+    };
   }
   return null;
 }
@@ -231,6 +253,7 @@ async function get(req, res, userId, realUserId = userId) {
     me: mine.rows[0] ?? null,
     // So the picker can disable itself and say why, rather than letting someone choose a list and
     // then be refused. Only meaningful for a registered player.
+    // The key travels with it so the picker can explain itself in the reader's language.
     listLock: mine.rows[0] ? listLockReason(ev) : null,
   });
 }
@@ -317,8 +340,8 @@ async function register(req, res, userId) {
   if (req.method !== 'POST') return bad(res, 'Method not allowed', 405);
   const { ev } = await loadEvent(Number(req.body?.id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
-  if (!ev.published) return bad(res, 'This league is closed — the organiser has not opened it yet.');
-  if (!regOpen(ev)) return bad(res, 'Registration for this event is not open.');
+  if (!ev.published) return bad(res, 'This league is closed — the organiser has not opened it yet.', 400, 'evErrClosed');
+  if (!regOpen(ev)) return bad(res, 'Registration for this event is not open.', 400, 'evErrRegClosed');
 
   const status = ev.visibility === 'public' ? 'approved' : 'pending';
   const r = await sql`
@@ -370,8 +393,14 @@ async function assignList(req, res, userId, realUserId = userId) {
   if (target !== userId && !canManage) return bad(res, 'Only the organiser can change another player\'s list.', 403);
 
   const me = await sql`SELECT status FROM event_players WHERE event_id = ${ev.id} AND user_id = ${target}`;
-  if (!me.rows[0]) return bad(res, target === userId ? 'Register for the event first.' : 'That player is not registered.');
-  if (me.rows[0].status !== 'approved') return bad(res, 'That registration has not been approved yet.', 403);
+  if (!me.rows[0]) {
+    return target === userId
+      ? bad(res, 'Register for the event first.', 400, 'evErrRegisterFirst')
+      : bad(res, 'That player is not registered.');
+  }
+  if (me.rows[0].status !== 'approved') {
+    return bad(res, 'That registration has not been approved yet.', 403, 'evErrNotApproved');
+  }
 
   // The deadline binds players, not the referee — an entry that needs correcting is usually
   // noticed AFTER registration has closed, which is exactly when a player can no longer self-serve.
@@ -380,7 +409,7 @@ async function assignList(req, res, userId, realUserId = userId) {
   // referee a private exemption. Someone else with the powers can still correct them.
   if (target === userId) {
     const locked = listLockReason(ev);
-    if (locked) return bad(res, locked);
+    if (locked) return bad(res, locked.msg, 400, locked.key);
   }
 
   if (rosterId === null) {
@@ -390,11 +419,13 @@ async function assignList(req, res, userId, realUserId = userId) {
   }
   const own = await sql`SELECT id FROM rosters WHERE id = ${Number(rosterId)} AND user_id = ${target}`;
   if (!own.rows[0]) {
-    return bad(res, target === userId ? 'That army list is not yours.' : 'That army list does not belong to that player.', 403);
+    return target === userId
+      ? bad(res, 'That army list is not yours.', 403, 'evErrNotYourList')
+      : bad(res, 'That army list does not belong to that player.', 403);
   }
   // The cap applies to the organiser's corrections too, or the fix could create the problem.
   const refused = await rosterRejection(ev, Number(rosterId));
-  if (refused) return bad(res, refused);
+  if (refused) return bad(res, refused.msg, 400, refused.key ?? null, refused.vars ?? null);
 
   await sql`UPDATE event_players SET roster_id = ${Number(rosterId)} WHERE event_id = ${ev.id} AND user_id = ${target}`;
   res.status(200).json({ ok: true, rosterId: Number(rosterId) });
@@ -465,8 +496,8 @@ async function reportGame(req, res, userId) {
   if (!['win', 'draw', 'loss'].includes(result)) return bad(res, 'Result must be win, draw or loss.');
   const { ev } = await loadEvent(Number(id), userId);
   if (!ev) return bad(res, 'Event not found.', 404);
-  if (!ev.published) return bad(res, 'This league is closed — no games can be reported yet.');
-  if (Number(opponentUserId) === userId) return bad(res, 'You cannot report a game against yourself.');
+  if (!ev.published) return bad(res, 'This league is closed — no games can be reported yet.', 400, 'evErrClosedReport');
+  if (Number(opponentUserId) === userId) return bad(res, 'You cannot report a game against yourself.', 400, 'evErrSelfGame');
 
   const both = await sql`
     SELECT user_id, roster_id FROM event_players
@@ -501,8 +532,8 @@ async function confirmGame(req, res, userId) {
   const g = await sql`SELECT * FROM event_games WHERE id = ${Number(gameId)}`;
   const game = g.rows[0];
   if (!game) return bad(res, 'Game not found.', 404);
-  if (game.opponent_user_id !== userId) return bad(res, 'Only your opponent can confirm this game.', 403);
-  if (game.status !== 'pending') return bad(res, 'This game has already been resolved.');
+  if (game.opponent_user_id !== userId) return bad(res, 'Only your opponent can confirm this game.', 403, 'evErrNotYourConfirm');
+  if (game.status !== 'pending') return bad(res, 'This game has already been resolved.', 400, 'evErrAlreadyResolved');
 
   const r = confirm === true
     ? await sql`UPDATE event_games SET status = 'confirmed', confirmed_at = now() WHERE id = ${game.id} RETURNING *`
@@ -679,10 +710,10 @@ async function settleGame(req, res, userId) {
   // organiser too: the principle is the conflict of interest, not the job title. Any OTHER
   // organiser or admin can still settle it, so nothing is ever stuck.
   if (game.reporter_user_id === userId || game.opponent_user_id === userId) {
-    return bad(res, 'You played in this game, so you cannot settle it. Another organiser or admin has to.', 403);
+    return bad(res, 'You played in this game, so you cannot settle it. Another organiser or admin has to.', 403, 'evErrPlayedInIt');
   }
   if (what === 'confirm' && game.status === 'pending') {
-    return bad(res, 'This game is still waiting on its opponent. Only they can confirm it.');
+    return bad(res, 'This game is still waiting on its opponent. Only they can confirm it.', 400, 'evErrStillPending');
   }
 
   if (what === 'delete') {
